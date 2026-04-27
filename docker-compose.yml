@@ -132,18 +132,6 @@ services:
       - ./runs:/data/runs
     command: celery -A backend.app.workers.celery_app beat --loglevel=INFO
 
-  web:
-    build:
-      context: .
-      dockerfile: infra/docker/web.Dockerfile
-    env_file: .env
-    ports:
-      - "3003:3000"
-    volumes:
-      - ./apps/web:/app
-      - /app/node_modules
-    command: pnpm dev
-
 volumes:
   pg_data:
   redis_data:

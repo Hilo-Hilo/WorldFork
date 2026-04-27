@@ -765,7 +765,7 @@ async def get_universe_network(
     layer: str = "exposure",
     tick: int | None = None,
 ) -> dict:
-    """Return a lightweight multiplex network dataset for the frontend graph."""
+    """Return a lightweight multiplex network dataset for CLI/API consumers."""
     uni = await _get_universe_or_404(universe_id, session)
     target_tick = uni.current_tick if tick is None else min(max(tick, 0), uni.current_tick)
     latest_ticks = (

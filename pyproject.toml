@@ -8,6 +8,7 @@ version = "0.1.0"
 description = "WorldFork — recursively branching social simulation platform"
 requires-python = ">=3.11"
 dependencies = [
+    "click>=8.1",
     "fastapi>=0.115",
     "uvicorn[standard]>=0.30",
     "pydantic>=2.7",
@@ -54,8 +55,11 @@ zep = [
     "zep-cloud>=2.0",
 ]
 
+[project.scripts]
+worldfork = "worldfork_cli.main:cli"
+
 [tool.hatch.build.targets.wheel]
-packages = ["backend/app"]
+packages = ["backend/app", "cli/src/worldfork_cli"]
 
 [tool.ruff]
 line-length = 100
@@ -70,7 +74,7 @@ ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
-testpaths = ["backend/tests"]
+testpaths = ["backend/tests", "cli/tests"]
 # Marker definitions — keep alphabetised. CI hint: run unit + integration
 # first; then e2e (slower, exercises the full ASGI stack); then any live_*
 # tests opt-in via `-m live_openrouter` / `-m live_zep`.

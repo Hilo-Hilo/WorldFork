@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 2
 requires-python = ">=3.11"
 resolution-markers = [
     "python_full_version >= '3.15'",
@@ -2543,6 +2543,7 @@ dependencies = [
     { name = "anyio" },
     { name = "asyncpg" },
     { name = "celery", extra = ["redis"] },
+    { name = "click" },
     { name = "fastapi" },
     { name = "httpx" },
     { name = "jinja2" },
@@ -2591,6 +2592,7 @@ requires-dist = [
     { name = "anyio", specifier = ">=4.4" },
     { name = "asyncpg", specifier = ">=0.29" },
     { name = "celery", extras = ["redis"], specifier = ">=5.4" },
+    { name = "click", specifier = ">=8.1" },
     { name = "faker", marker = "extra == 'dev'" },
     { name = "fakeredis", extras = ["lua"], marker = "extra == 'dev'", specifier = ">=2.24" },
     { name = "fastapi", specifier = ">=0.115" },

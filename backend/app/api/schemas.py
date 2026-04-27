@@ -244,38 +244,6 @@ class WorkspaceState(BaseModel):
     activity: list[dict[str, Any]]
 
 
-class FrontendBootstrapOut(BaseModel):
-    settings: dict[str, Any]
-    defaults: dict[str, Any]
-    source_of_truth: dict[str, Any]
-    labels: dict[str, Any]
-    scenario_bank: dict[str, Any]
-    job_types: list[str]
-
-
-class FrontendWorkspaceOut(BaseModel):
-    big_bang: dict[str, Any] | None
-    multiverses: list[dict[str, Any]]
-    lineage_edges: list[dict[str, Any]]
-    ticks_by_multiverse: dict[str, list[dict[str, Any]]]
-    latest_ticks: list[dict[str, Any]]
-    actors: list[dict[str, Any]]
-    graphs: dict[str, Any]
-    emotion_observability: dict[str, Any]
-    sociology: dict[str, Any]
-    reports: list[dict[str, Any]]
-    jobs: list[dict[str, Any]]
-    activity: list[dict[str, Any]]
-    truncation: dict[str, Any]
-
-
-class FrontendInspectOut(BaseModel):
-    model_config = ConfigDict(extra="allow")
-
-    type: str
-    item: dict[str, Any] | None
-
-
 RAW_TEXT_KEYS = {"scenario_text", "prompt", "premise", "raw_text", "source_text", "plain_text"}
 RAW_CORPUS_ID_KEYS = {"raw_text_artifact_id", "simulation_brief_artifact_id"}
 

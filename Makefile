@@ -1,4 +1,4 @@
-.PHONY: up down build logs migrate revision seed test test-unit test-integration test-e2e test-all lint web web-build clean clean-data
+.PHONY: up down build logs migrate revision seed test test-unit test-integration test-e2e test-all lint clean clean-data
 
 up:
 	docker compose up -d
@@ -42,12 +42,6 @@ test-all: test-unit test-integration test-e2e
 
 lint:
 	ruff check . && mypy backend/app
-
-web:
-	cd apps/web && pnpm dev
-
-web-build:
-	cd apps/web && pnpm build
 
 clean:
 	docker compose down

@@ -18,7 +18,7 @@ def cookie_or_token_from_websocket(websocket: WebSocket) -> str | None:
     """Extract a credential from a WebSocket connection.
 
     Checks (in order):
-    1. ``wf_session`` cookie — set by the Next.js session mechanism.
+    1. ``wf_session`` cookie — set by a future first-party session layer.
     2. ``token`` query parameter — for dev/cross-origin WS handshakes where
        some browsers strip cookies.
 

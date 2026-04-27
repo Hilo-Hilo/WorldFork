@@ -16,15 +16,23 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     database_url: str = "postgresql+psycopg://worldfork:worldfork@localhost:5432/worldfork"
+    database_url_sync: str = "postgresql+psycopg://worldfork:worldfork@localhost:5432/worldfork"
     artifact_root: Path = _backend_relative("../artifacts")
     source_of_truth_dir: Path = _backend_relative("../source_of_truth")
+    environment: str = "development"
+    log_level: str = "INFO"
     auto_create_tables: bool = False
     default_llm_provider: str = "openrouter"
     openrouter_api_key: str | None = None
     openrouter_base_url: str = "https://openrouter.ai/api/v1"
     openrouter_chat_completions_url: str = "https://openrouter.ai/api/v1/chat/completions"
+    openrouter_http_referer: str = "https://worldfork.local"
+    openrouter_title: str = "WorldFork"
     redis_url: str = "redis://localhost:6379/0"
+    celery_broker_url: str = "redis://localhost:6379/1"
+    celery_result_backend: str = "redis://localhost:6379/2"
     default_model: str = "google/gemini-3.1-flash-lite-preview"
+    fallback_model: str = "google/gemini-3.1-flash-lite-preview"
     initializer_agent_model: str = "google/gemini-3.1-flash-lite-preview"
     god_agent_model: str = "google/gemini-3.1-flash-lite-preview"
     cohort_agent_model: str = "google/gemini-3.1-flash-lite-preview"
@@ -44,6 +52,8 @@ class Settings(BaseSettings):
     initializer_chunk_overlap_chars: int = 800
     llm_max_retries: int = 3
     llm_retry_backoff_seconds: float = 1.5
+    zep_enabled: bool = False
+    zep_api_key: str | None = None
     cors_origins: list[str] = Field(default_factory=list)
 
     @field_validator("artifact_root", "source_of_truth_dir", mode="after")
@@ -57,3 +67,6 @@ class Settings(BaseSettings):
 @lru_cache
 def get_settings() -> Settings:
     return Settings()
+
+
+settings = get_settings()

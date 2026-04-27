@@ -111,33 +111,20 @@ def test_actor_emotion_observability_route_registered_once():
     assert len(matches) == 1
 
 
-def test_frontend_openapi_has_response_models_and_workspace_truncation_shape():
+def test_agent_openapi_has_cli_first_routes():
     response = client.get("/openapi.json")
 
     assert response.status_code == 200
     openapi = response.json()
-    schemas = openapi["components"]["schemas"]
     paths = openapi["paths"]
 
-    assert (
-        paths["/api/frontend/bootstrap"]["get"]["responses"]["200"]["content"]["application/json"][
-            "schema"
-        ]["$ref"]
-        == "#/components/schemas/FrontendBootstrapOut"
-    )
-    assert (
-        paths["/api/frontend/workspace/{big_bang_id}"]["get"]["responses"]["200"]["content"][
-            "application/json"
-        ]["schema"]["$ref"]
-        == "#/components/schemas/FrontendWorkspaceOut"
-    )
-    assert (
-        paths["/api/frontend/inspect/{object_type}/{object_id}"]["get"]["responses"]["200"][
-            "content"
-        ]["application/json"]["schema"]["$ref"]
-        == "#/components/schemas/FrontendInspectOut"
-    )
-    assert "truncation" in schemas["FrontendWorkspaceOut"]["properties"]
+    assert "/api/agent/status" in paths
+    assert "/api/agent/discover" in paths
+    assert "/api/agent/runs" in paths
+    assert "/api/agent/runs/{run_id}/workspace" in paths
+    assert "/api/agent/universes/{multiverse_id}/trace" in paths
+    assert "/api/agent/jobs/{job_id}/wait" in paths
+    assert "/api/frontend/bootstrap" not in paths
 
 
 def test_mutation_routes_have_non_empty_response_contracts():

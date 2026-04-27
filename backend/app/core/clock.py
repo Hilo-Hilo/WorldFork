@@ -1,4 +1,9 @@
 from dataclasses import dataclass
+from datetime import UTC, datetime
+
+
+def now_utc() -> datetime:
+    return datetime.now(UTC)
 
 
 @dataclass(frozen=True)

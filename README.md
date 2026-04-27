@@ -1,12 +1,14 @@
 # WorldFork
 
-WorldFork is an explainable, recursively branching social-simulation platform. A user creates a root scenario called a **Big Bang**, and the system initializes a structured simulated society made of population archetypes, dynamic cohort states, hero agents, news/media channels, social-media feeds, event queues, and sociology rules. The simulation advances in configurable ticks. At each tick, cohort and hero agents see only the information visible to them, decide what to say or do through structured tool calls, and update the simulated social world. At meaningful decision points, a **God-agent** can create alternate timelines — every timeline can branch again, forming a recursive tree of possible futures. The full system includes a Python backend with async job queues, provider abstraction (OpenRouter default), rate-limit-aware branching scheduler, source-of-truth taxonomies, sociology update layer, recursive branch engine, optional Zep memory integration, and polished Next.js UI.
+WorldFork is a CLI-first, agent-operated backend for recursively branching social simulations. The primary interface is the `worldfork` command, which talks to the FastAPI backend over concise `/api/agent/*` contracts designed for AI agents and automation.
+
+There is no web frontend in this product shape. The backend, job workers, source-of-truth assets, and CLI live in this monorepo.
 
 ## Quickstart
 
 ```bash
 cp .env.example .env
-vim .env   # paste real OPENROUTER_API_KEY; leave ZEP_ENABLED=false
+vim .env   # set provider keys as needed
 
 make build
 make up
@@ -15,31 +17,37 @@ make seed
 ```
 
 | Service | URL |
-|---------|-----|
+| --- | --- |
 | API | http://localhost:8003 |
 | API docs | http://localhost:8003/docs |
-| Web | http://localhost:3003 |
+| Agent discovery | http://localhost:8003/api/agent/discover |
 
-## Frontend Dev Commands
+## CLI
 
 ```bash
-cd apps/web
+uv run worldfork agent discover
+uv run worldfork status
+uv run worldfork runs list
+uv run worldfork runs workspace <run-id>
+uv run worldfork jobs list --status failed
+uv run worldfork logs list --status failed
+```
 
-# Start the Next.js dev server (port 3003)
-pnpm dev --port 3003
+Large responses support `--verbosity summary|normal|full` and `--fields a,b,c` before the command:
 
-# Generate typed API client from the FastAPI OpenAPI schema
-# (requires the backend to be running at http://localhost:8003)
-pnpm codegen:api
+```bash
+uv run worldfork --verbosity summary runs list
+uv run worldfork --fields id,status,created_at jobs list
+```
 
-# Type check
-pnpm typecheck
+## Development
 
-# Lint
-pnpm lint
+```bash
+uv run pytest -q
+uv run ruff check .
 ```
 
 ## Reference
 
-- **Implementation plan**: `/home/hacktech-collab/.claude/plans/implement-this-plan-in-valiant-toast.md`
-- **PRD**: `prd-do-not-delete/prd.md`
+- Agent guide: `AGENTS.md`
+- PRD: `prd-do-not-delete/prd.md`
