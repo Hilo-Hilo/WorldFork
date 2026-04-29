@@ -11,6 +11,8 @@ class NodeKind(StrEnum):
     HERO_DECISION = "hero_decision"
     TOOL_CALL = "tool_call"
     VALIDATION = "validation"
+    BARRIER = "barrier"
+    INTERRUPT_CHECK = "interrupt_check"
     EVENT_GENERATION = "event_generation"
     SOCIOLOGY_UPDATE = "sociology_update"
     GRAPH_UPDATE = "graph_update"
