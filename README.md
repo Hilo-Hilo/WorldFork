@@ -9,6 +9,7 @@
 [![LangGraph](https://img.shields.io/badge/runtime-LangGraph-1F2937)](https://langchain-ai.github.io/langgraph/)
 [![OpenRouter](https://img.shields.io/badge/LLM-OpenRouter-7C3AED)](https://openrouter.ai/)
 [![Tests](https://img.shields.io/badge/tests-unit%20%7C%20integration%20%7C%20e2e-2563EB)](#testing)
+[![Docs](https://img.shields.io/badge/docs-Read%20the%20Docs-0A7B83)](https://worldfork.readthedocs.io/en/latest/)
 
 WorldFork runs recursive "what happens next?" simulations where cohorts,
 heroes, events, memory, graph pressure, God-agent review, manual intervention,
