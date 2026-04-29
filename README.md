@@ -4,6 +4,18 @@ WorldFork is a CLI-first, agent-operated backend for recursively branching socia
 
 There is no web frontend in this product shape. The backend, job workers, source-of-truth assets, and CLI live in this monorepo.
 
+## Runtime rewrite boundary
+
+On `revamp/langgraph-runtime-v2`, the canonical runtime surface is:
+
+- `backend/app/main.py`
+- the `app.*` package
+- `/api/agent/*`
+- `/api/jobs*`
+- queue-controlled tick execution paths mounted by the main FastAPI app
+
+Legacy or duplicate runtime surfaces such as `/api/runs` are transitional only during the rewrite. They are not equal peers of the canonical `app.*` + agent-control-plane path and may be removed or re-homed as the runtime converges.
+
 ## Quickstart
 
 ```bash

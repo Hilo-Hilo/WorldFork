@@ -1,6 +1,18 @@
 # WorldFork Backend
 
-Backend-only core V1 spine for WorldFork.
+Backend-only core runtime for WorldFork's CLI-first product shape.
+
+## Canonical runtime surface
+
+For `revamp/langgraph-runtime-v2`, treat the following as canonical:
+
+- `app.main:app`
+- the `app.*` package
+- `/api/agent/*`
+- `/api/jobs*`
+- queue-controlled tick execution paths mounted by the main FastAPI app
+
+Legacy or duplicate runtime surfaces such as `/api/runs`, older worker entrypoints, and mixed alternate runtime paths are transitional while the rewrite is in progress. They should not be treated as equal long-term control planes.
 
 ## Local setup
 

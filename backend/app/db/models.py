@@ -6,6 +6,7 @@ from uuid import UUID, uuid4
 from sqlalchemy import (
     JSON,
     Boolean,
+    CheckConstraint,
     DateTime,
     ForeignKey,
     Index,
@@ -204,6 +205,217 @@ class TickSnapshot(Base, TimestampMixin):
     summary: Mapped[str | None] = mapped_column(Text)
     artifact_id: Mapped[UUID | None] = mapped_column(GUID(), ForeignKey("artifacts.id"))
     idempotency_key: Mapped[str | None] = mapped_column(String(160), index=True)
+
+
+class TickExecution(Base, TimestampMixin):
+    __tablename__ = "tick_executions"
+    __table_args__ = (
+        CheckConstraint(
+            "active_slot IS NULL OR active_slot = 'active'",
+            name="ck_tick_execution_active_slot",
+        ),
+        UniqueConstraint(
+            "multiverse_id",
+            "tick_index",
+            "active_slot",
+            name="uq_tick_execution_active_slot",
+        ),
+        Index("ix_tick_executions_multiverse_tick", "multiverse_id", "tick_index"),
+    )
+
+    id: Mapped[UUID] = uuid_pk()
+    big_bang_id: Mapped[UUID] = mapped_column(GUID(), ForeignKey("big_bangs.id"), index=True)
+    multiverse_id: Mapped[UUID] = mapped_column(GUID(), ForeignKey("multiverses.id"), index=True)
+    tick_snapshot_id: Mapped[UUID | None] = mapped_column(
+        GUID(), ForeignKey("tick_snapshots.id"), index=True
+    )
+    queue_job_id: Mapped[UUID | None] = mapped_column(GUID(), ForeignKey("jobs.id"), index=True)
+    tick_index: Mapped[int] = mapped_column(Integer, index=True)
+    status: Mapped[str] = mapped_column(String(40), default="queued", index=True)
+    active_slot: Mapped[str | None] = mapped_column(String(20))
+    requested_by: Mapped[str | None] = mapped_column(String(120))
+    requested_reason: Mapped[str | None] = mapped_column(Text)
+    runtime_meta: Mapped[dict] = mapped_column(JSONValue(), default=dict)
+    started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    finished_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    interrupted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+    execution_nodes: Mapped[list[ExecutionNode]] = relationship(back_populates="tick_execution")
+    checkpoints: Mapped[list[TickCheckpoint]] = relationship(back_populates="tick_execution")
+
+
+class ExecutionNode(Base, TimestampMixin):
+    __tablename__ = "execution_nodes"
+    __table_args__ = (
+        UniqueConstraint("tick_execution_id", "node_key", name="uq_execution_node_key"),
+    )
+
+    id: Mapped[UUID] = uuid_pk()
+    tick_execution_id: Mapped[UUID] = mapped_column(
+        GUID(), ForeignKey("tick_executions.id"), index=True
+    )
+    parent_node_id: Mapped[UUID | None] = mapped_column(
+        GUID(), ForeignKey("execution_nodes.id"), index=True
+    )
+    node_key: Mapped[str] = mapped_column(String(160), index=True)
+    node_kind: Mapped[str] = mapped_column(String(80), index=True)
+    status: Mapped[str] = mapped_column(String(40), default="pending", index=True)
+    checkpoint_order: Mapped[int | None] = mapped_column(Integer)
+    input_payload: Mapped[dict] = mapped_column(JSONValue(), default=dict)
+    output_payload: Mapped[dict] = mapped_column(JSONValue(), default=dict)
+    started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    finished_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    interrupted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+    tick_execution: Mapped[TickExecution] = relationship(back_populates="execution_nodes")
+    node_attempts: Mapped[list[NodeAttempt]] = relationship(back_populates="execution_node")
+
+
+class TickCheckpoint(Base, TimestampMixin):
+    __tablename__ = "tick_checkpoints"
+    __table_args__ = (
+        UniqueConstraint(
+            "tick_execution_id", "checkpoint_key", name="uq_tick_checkpoint_key"
+        ),
+        UniqueConstraint(
+            "tick_execution_id", "checkpoint_order", name="uq_tick_checkpoint_order"
+        ),
+    )
+
+    id: Mapped[UUID] = uuid_pk()
+    tick_execution_id: Mapped[UUID] = mapped_column(
+        GUID(), ForeignKey("tick_executions.id"), index=True
+    )
+    execution_node_id: Mapped[UUID | None] = mapped_column(
+        GUID(), ForeignKey("execution_nodes.id"), index=True
+    )
+    checkpoint_key: Mapped[str] = mapped_column(String(160), index=True)
+    checkpoint_order: Mapped[int] = mapped_column(Integer)
+    status: Mapped[str] = mapped_column(String(40), default="pending", index=True)
+    payload: Mapped[dict] = mapped_column(JSONValue(), default=dict)
+    raw_artifact_id: Mapped[UUID | None] = mapped_column(GUID(), ForeignKey("artifacts.id"))
+    validated_artifact_id: Mapped[UUID | None] = mapped_column(
+        GUID(), ForeignKey("artifacts.id")
+    )
+    started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    finished_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    interrupted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+    tick_execution: Mapped[TickExecution] = relationship(back_populates="checkpoints")
+
+
+class NodeAttempt(Base, TimestampMixin):
+    __tablename__ = "node_attempts"
+    __table_args__ = (
+        UniqueConstraint("execution_node_id", "attempt_number", name="uq_node_attempt_number"),
+    )
+
+    id: Mapped[UUID] = uuid_pk()
+    execution_node_id: Mapped[UUID] = mapped_column(
+        GUID(), ForeignKey("execution_nodes.id"), index=True
+    )
+    attempt_number: Mapped[int] = mapped_column(Integer)
+    status: Mapped[str] = mapped_column(String(40), default="pending", index=True)
+    provider: Mapped[str | None] = mapped_column(String(80))
+    model: Mapped[str | None] = mapped_column(String(160))
+    request_artifact_id: Mapped[UUID | None] = mapped_column(GUID(), ForeignKey("artifacts.id"))
+    response_artifact_id: Mapped[UUID | None] = mapped_column(GUID(), ForeignKey("artifacts.id"))
+    validated_artifact_id: Mapped[UUID | None] = mapped_column(
+        GUID(), ForeignKey("artifacts.id")
+    )
+    error: Mapped[str | None] = mapped_column(Text)
+    meta: Mapped[dict] = mapped_column(JSONValue(), default=dict)
+    started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    finished_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    interrupted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+    execution_node: Mapped[ExecutionNode] = relationship(back_populates="node_attempts")
+
+
+class Intervention(Base, TimestampMixin):
+    __tablename__ = "interventions"
+
+    id: Mapped[UUID] = uuid_pk()
+    big_bang_id: Mapped[UUID] = mapped_column(GUID(), ForeignKey("big_bangs.id"), index=True)
+    multiverse_id: Mapped[UUID] = mapped_column(GUID(), ForeignKey("multiverses.id"), index=True)
+    tick_execution_id: Mapped[UUID | None] = mapped_column(
+        GUID(), ForeignKey("tick_executions.id"), index=True
+    )
+    tick_snapshot_id: Mapped[UUID | None] = mapped_column(
+        GUID(), ForeignKey("tick_snapshots.id"), index=True
+    )
+    checkpoint_id: Mapped[UUID | None] = mapped_column(
+        GUID(), ForeignKey("tick_checkpoints.id"), index=True
+    )
+    node_attempt_id: Mapped[UUID | None] = mapped_column(
+        GUID(), ForeignKey("node_attempts.id"), index=True
+    )
+    intervention_type: Mapped[str] = mapped_column(String(80), index=True)
+    actor: Mapped[str] = mapped_column(String(120))
+    reason: Mapped[str] = mapped_column(Text)
+    status: Mapped[str] = mapped_column(String(40), default="applied", index=True)
+    payload: Mapped[dict] = mapped_column(JSONValue(), default=dict)
+    provenance: Mapped[dict] = mapped_column(JSONValue(), default=dict)
+
+
+class ReplaySession(Base, TimestampMixin):
+    __tablename__ = "replay_sessions"
+
+    id: Mapped[UUID] = uuid_pk()
+    big_bang_id: Mapped[UUID] = mapped_column(GUID(), ForeignKey("big_bangs.id"), index=True)
+    multiverse_id: Mapped[UUID] = mapped_column(GUID(), ForeignKey("multiverses.id"), index=True)
+    tick_execution_id: Mapped[UUID | None] = mapped_column(
+        GUID(), ForeignKey("tick_executions.id"), index=True
+    )
+    tick_snapshot_id: Mapped[UUID | None] = mapped_column(
+        GUID(), ForeignKey("tick_snapshots.id"), index=True
+    )
+    checkpoint_id: Mapped[UUID | None] = mapped_column(
+        GUID(), ForeignKey("tick_checkpoints.id"), index=True
+    )
+    node_attempt_id: Mapped[UUID | None] = mapped_column(
+        GUID(), ForeignKey("node_attempts.id"), index=True
+    )
+    requested_by: Mapped[str] = mapped_column(String(120))
+    reason: Mapped[str | None] = mapped_column(Text)
+    status: Mapped[str] = mapped_column(String(40), default="requested", index=True)
+    replay_mode: Mapped[str] = mapped_column(String(80), default="resume")
+    payload: Mapped[dict] = mapped_column(JSONValue(), default=dict)
+
+
+class OperationLog(Base, TimestampMixin):
+    __tablename__ = "operation_logs"
+
+    id: Mapped[UUID] = uuid_pk()
+    big_bang_id: Mapped[UUID | None] = mapped_column(GUID(), ForeignKey("big_bangs.id"), index=True)
+    multiverse_id: Mapped[UUID | None] = mapped_column(
+        GUID(), ForeignKey("multiverses.id"), index=True
+    )
+    tick_execution_id: Mapped[UUID | None] = mapped_column(
+        GUID(), ForeignKey("tick_executions.id"), index=True
+    )
+    execution_node_id: Mapped[UUID | None] = mapped_column(
+        GUID(), ForeignKey("execution_nodes.id"), index=True
+    )
+    node_attempt_id: Mapped[UUID | None] = mapped_column(
+        GUID(), ForeignKey("node_attempts.id"), index=True
+    )
+    checkpoint_id: Mapped[UUID | None] = mapped_column(
+        GUID(), ForeignKey("tick_checkpoints.id"), index=True
+    )
+    intervention_id: Mapped[UUID | None] = mapped_column(
+        GUID(), ForeignKey("interventions.id"), index=True
+    )
+    replay_session_id: Mapped[UUID | None] = mapped_column(
+        GUID(), ForeignKey("replay_sessions.id"), index=True
+    )
+    event_type: Mapped[str] = mapped_column(String(120), index=True)
+    level: Mapped[str] = mapped_column(String(20), default="info", index=True)
+    body: Mapped[dict] = mapped_column(JSONValue(), default=dict)
+    artifact_id: Mapped[UUID | None] = mapped_column(GUID(), ForeignKey("artifacts.id"))
+    happened_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), index=True
+    )
 
 
 class TickLineageRef(Base, TimestampMixin):

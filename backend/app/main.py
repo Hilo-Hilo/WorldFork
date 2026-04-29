@@ -1,3 +1,13 @@
+"""Canonical ASGI surface for the LangGraph runtime rewrite.
+
+This module is the authoritative mounted API surface for the
+`revamp/langgraph-runtime-v2` branch. The canonical runtime family is the
+`app.*` package plus `/api/agent/*`, `/api/jobs*`, and the queue-controlled
+tick execution paths mounted below. Duplicate or older runtime surfaces such as
+`/api/runs` remain transitional until they are either explicitly re-homed here
+or deleted.
+"""
+
 from __future__ import annotations
 
 from fastapi import FastAPI
@@ -27,7 +37,14 @@ from app.db.models import Base
 from app.db.session import engine
 
 settings_obj = get_settings()
-app = FastAPI(title=settings_obj.app_name)
+app = FastAPI(
+    title=settings_obj.app_name,
+    description=(
+        "Canonical WorldFork runtime surface for the LangGraph rewrite. "
+        "Legacy duplicate routes such as /api/runs are transitional until "
+        "removed or re-homed behind the app.* control plane."
+    ),
+)
 
 if settings_obj.cors_origins:
     app.add_middleware(

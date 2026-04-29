@@ -129,6 +129,141 @@ def test_report_defaults_remain_orm_side_intentionally():
     assert table.c.current_version.server_default is None
 
 
+def test_tick_execution_allows_only_one_active_slot_per_multiverse_tick(db):
+    big_bang, multiverse = _seed_big_bang_and_multiverse(db)
+
+    db.add(
+        models.TickExecution(
+            big_bang_id=big_bang.id,
+            multiverse_id=multiverse.id,
+            tick_index=1,
+            status="running",
+            active_slot="active",
+        )
+    )
+    db.commit()
+
+    db.add(
+        models.TickExecution(
+            big_bang_id=big_bang.id,
+            multiverse_id=multiverse.id,
+            tick_index=1,
+            status="running",
+            active_slot="active",
+        )
+    )
+    with pytest.raises(IntegrityError):
+        db.commit()
+    db.rollback()
+
+    db.add(
+        models.TickExecution(
+            big_bang_id=big_bang.id,
+            multiverse_id=multiverse.id,
+            tick_index=1,
+            status="interrupted",
+            active_slot=None,
+        )
+    )
+    db.commit()
+
+
+def test_tick_checkpoint_order_is_unique_within_one_execution(db):
+    big_bang, multiverse = _seed_big_bang_and_multiverse(db)
+    execution = models.TickExecution(
+        big_bang_id=big_bang.id,
+        multiverse_id=multiverse.id,
+        tick_index=1,
+        status="running",
+        active_slot="active",
+    )
+    db.add(execution)
+    db.flush()
+
+    db.add(
+        models.TickCheckpoint(
+            tick_execution_id=execution.id,
+            checkpoint_key="cohort:1",
+            checkpoint_order=1,
+            status="complete",
+        )
+    )
+    db.commit()
+
+    db.add(
+        models.TickCheckpoint(
+            tick_execution_id=execution.id,
+            checkpoint_key="cohort:2",
+            checkpoint_order=1,
+            status="complete",
+        )
+    )
+    with pytest.raises(IntegrityError):
+        db.commit()
+
+
+
+def test_node_attempt_belongs_to_execution_node_and_intervention_can_anchor_to_runtime_artifacts(db):
+    big_bang, multiverse = _seed_big_bang_and_multiverse(db)
+    execution = models.TickExecution(
+        big_bang_id=big_bang.id,
+        multiverse_id=multiverse.id,
+        tick_index=2,
+        status="running",
+        active_slot="active",
+    )
+    db.add(execution)
+    db.flush()
+
+    node = models.ExecutionNode(
+        tick_execution_id=execution.id,
+        node_key="hero:1",
+        node_kind="hero_decision",
+        status="running",
+    )
+    db.add(node)
+    db.flush()
+
+    attempt = models.NodeAttempt(
+        execution_node_id=node.id,
+        attempt_number=1,
+        status="running",
+        provider="openrouter",
+        model="test-model",
+    )
+    db.add(attempt)
+    db.flush()
+
+    checkpoint = models.TickCheckpoint(
+        tick_execution_id=execution.id,
+        execution_node_id=node.id,
+        checkpoint_key="hero:1",
+        checkpoint_order=1,
+        status="complete",
+    )
+    db.add(checkpoint)
+    db.flush()
+
+    intervention = models.Intervention(
+        big_bang_id=big_bang.id,
+        multiverse_id=multiverse.id,
+        tick_execution_id=execution.id,
+        checkpoint_id=checkpoint.id,
+        node_attempt_id=attempt.id,
+        intervention_type="pause",
+        actor="operator",
+        reason="Need inspection",
+    )
+    db.add(intervention)
+    db.commit()
+
+    db.expire_all()
+    stored = db.get(models.Intervention, intervention.id)
+    assert stored.tick_execution_id == execution.id
+    assert stored.checkpoint_id == checkpoint.id
+    assert stored.node_attempt_id == attempt.id
+
+
 def test_offline_downgrade_does_not_inspect_mock_connection(monkeypatch):
     migration = importlib.import_module("app.db.migrations.versions.0001_initial")
     calls = []

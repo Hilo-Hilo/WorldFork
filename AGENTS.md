@@ -20,6 +20,8 @@ uv run worldfork logs list --status failed
 - Use `--fields a,b,c` on large rows when only specific top-level keys are needed.
 - Mutations are job-first; use `worldfork jobs wait <job-id> --timeout N` for bounded waits.
 - Do not assume a web frontend exists. This repo is backend + workers + CLI.
+- On `revamp/langgraph-runtime-v2`, treat `backend/app/main.py`, the `app.*` package, `/api/agent/*`, and `/api/jobs*` as the canonical runtime surface.
+- Treat `/api/runs` and other duplicate runtime families as transitional until they are explicitly re-homed or deleted.
 
 ## Development
 
