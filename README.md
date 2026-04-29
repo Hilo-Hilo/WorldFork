@@ -198,12 +198,32 @@ The smoke harness validates:
 - Markdown/PDF report artifacts
 - log endpoints and final readiness
 
+## Sample Big Bang
+
+The canonical long-form branching demo is:
+
+```text
+examples/test-big-bang.md
+```
+
+Run a cheap live demonstration against the local backend:
+
+```bash
+uv run python -m scripts.run_test_big_bang
+```
+
+The sample creates the Atlas Resilience Crisis Big Bang, runs a root tick,
+creates a manual transparency branch, runs a child branch tick, verifies runtime
+checkpoints and lineage, generates a final report, and audits that all LLM calls
+used `google/gemini-3.1-flash-lite-preview`.
+
 ## Project Layout
 
 ```text
 backend/app/          FastAPI app, runtime, jobs, simulation, storage
 backend/tests/        root regressions, unit, integration, e2e
 cli/src/worldfork_cli agent/operator CLI
+examples/             runnable sample Big Bang dossiers
 source_of_truth/      prompt, report, and policy templates
 scripts/              local test and smoke-test harnesses
 infra/                Docker and Alembic infrastructure
