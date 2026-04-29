@@ -768,13 +768,31 @@ class LLMCall(Base, TimestampMixin):
 
 class Job(Base, TimestampMixin):
     __tablename__ = "jobs"
-    __table_args__ = (UniqueConstraint("idempotency_key", name="uq_job_idempotency_key"),)
+    __table_args__ = (
+        UniqueConstraint("idempotency_key", name="uq_job_idempotency_key"),
+        Index("ix_jobs_queue_name_status", "queue_name", "status"),
+    )
 
     id: Mapped[UUID] = uuid_pk()
     job_type: Mapped[str] = mapped_column(String(120), index=True)
+    queue_name: Mapped[str] = mapped_column(String(80), default="default", index=True)
     status: Mapped[str] = mapped_column(String(40), default="queued", index=True)
     big_bang_id: Mapped[UUID | None] = mapped_column(GUID(), ForeignKey("big_bangs.id"), index=True)
     payload: Mapped[dict] = mapped_column(JSONValue(), default=dict)
     result: Mapped[dict] = mapped_column(JSONValue(), default=dict)
     error: Mapped[str | None] = mapped_column(Text)
     idempotency_key: Mapped[str] = mapped_column(String(180))
+    concurrency_key: Mapped[str | None] = mapped_column(String(180), index=True)
+    attempt_number: Mapped[int] = mapped_column(Integer, default=0)
+    max_attempts: Mapped[int] = mapped_column(Integer, default=3)
+    retryable: Mapped[bool] = mapped_column(Boolean, default=True)
+    available_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), index=True)
+    lease_owner: Mapped[str | None] = mapped_column(String(180))
+    lease_expires_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), index=True)
+    last_heartbeat_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    queued_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    paused_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    interrupt_requested_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    interrupted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    finished_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))

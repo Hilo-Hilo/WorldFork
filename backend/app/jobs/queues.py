@@ -13,6 +13,19 @@ JOB_TYPES = {
     "run_big_bang_until_complete",
 }
 
+QUEUE_NAMES = {
+    "initialize_big_bang": "big_bang_init",
+    "run_multiverse_tick": "multiverse_ticks",
+    "simulate_multiverse_ticks": "multiverse_ticks",
+    "generate_multiverse_report": "reports",
+    "generate_final_big_bang_report": "reports",
+    "run_big_bang_until_complete": "big_bang_control",
+}
+
+
+def queue_name_for_job(job_type: str) -> str:
+    return QUEUE_NAMES.get(job_type, "default")
+
 
 def canonical_json(value) -> str:
     return json.dumps(value, sort_keys=True, separators=(",", ":"), default=_json_default)

@@ -129,6 +129,19 @@ def test_report_defaults_remain_orm_side_intentionally():
     assert table.c.current_version.server_default is None
 
 
+def test_job_queue_control_defaults_remain_orm_side_intentionally():
+    table = models.Job.__table__
+
+    assert table.c.queue_name.default is not None
+    assert table.c.queue_name.server_default is None
+    assert table.c.attempt_number.default is not None
+    assert table.c.attempt_number.server_default is None
+    assert table.c.max_attempts.default is not None
+    assert table.c.max_attempts.server_default is None
+    assert table.c.retryable.default is not None
+    assert table.c.retryable.server_default is None
+
+
 def test_tick_execution_allows_only_one_active_slot_per_multiverse_tick(db):
     big_bang, multiverse = _seed_big_bang_and_multiverse(db)
 

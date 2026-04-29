@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import datetime, timezone
 from uuid import UUID
 
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
@@ -11,11 +12,17 @@ from app.api.schemas import JobCreate
 from app.api.utils import commit_or_500, require
 from app.db import models
 from app.db.session import SessionLocal, get_db
-from app.jobs.queues import JOB_TYPES, default_idempotency_key, enqueue_job
+from app.jobs.queues import JOB_TYPES, default_idempotency_key, enqueue_job, queue_name_for_job
 from app.jobs.tasks import (
     JobNotRunnableError,
+    claim_job_for_execution,
     execute_job,
+    interrupt_job,
     job_should_enqueue_for_retry,
+    pause_job,
+    queue_health_snapshot,
+    requeue_job,
+    resume_job,
     validate_job_payload,
     validate_job_type,
 )
@@ -56,10 +63,13 @@ def create_job_record(payload: JobCreate, db: Session, background_tasks: Backgro
         return existing
     job = models.Job(
         job_type=payload.job_type,
+        queue_name=queue_name_for_job(payload.job_type),
         status="queued",
         big_bang_id=payload.big_bang_id,
         payload=payload.payload,
         idempotency_key=key,
+        queued_at=datetime.now(timezone.utc),
+        available_at=datetime.now(timezone.utc),
     )
     db.add(job)
     try:
@@ -80,9 +90,80 @@ def create_job_record(payload: JobCreate, db: Session, background_tasks: Backgro
     return job
 
 
+@router.get("/queue-health")
+def get_queue_health(db: Session = Depends(get_db)):
+    return queue_health_snapshot(db)
+
+
 @router.get("/{job_id}")
 def get_job(job_id: UUID, db: Session = Depends(get_db)):
     return require(db, models.Job, job_id)
+
+
+@router.post("/{job_id}/claim")
+def claim_job(job_id: UUID, db: Session = Depends(get_db)):
+    job = require(db, models.Job, job_id)
+    try:
+        claimed = claim_job_for_execution(db, job)
+    except JobNotRunnableError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
+    if not claimed:
+        raise HTTPException(status_code=409, detail=f"job {job.id} is not claimable")
+    commit_or_500(db)
+    db.refresh(job)
+    return job
+
+
+@router.post("/{job_id}/pause")
+def pause_job_route(job_id: UUID, db: Session = Depends(get_db)):
+    job = require(db, models.Job, job_id)
+    try:
+        pause_job(db, job)
+    except JobNotRunnableError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
+    commit_or_500(db)
+    db.refresh(job)
+    return job
+
+
+@router.post("/{job_id}/resume")
+def resume_job_route(job_id: UUID, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
+    job = require(db, models.Job, job_id)
+    try:
+        resume_job(db, job)
+    except JobNotRunnableError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
+    commit_or_500(db)
+    if not enqueue_recoverable_job(db, job, force=True):
+        schedule_local_fallback(background_tasks, job.id)
+    db.refresh(job)
+    return job
+
+
+@router.post("/{job_id}/interrupt")
+def interrupt_job_route(job_id: UUID, db: Session = Depends(get_db)):
+    job = require(db, models.Job, job_id)
+    try:
+        interrupt_job(db, job)
+    except JobNotRunnableError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
+    commit_or_500(db)
+    db.refresh(job)
+    return job
+
+
+@router.post("/{job_id}/requeue")
+def requeue_job_route(job_id: UUID, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
+    job = require(db, models.Job, job_id)
+    try:
+        requeue_job(db, job)
+    except JobNotRunnableError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
+    commit_or_500(db)
+    if not enqueue_recoverable_job(db, job, force=True):
+        schedule_local_fallback(background_tasks, job.id)
+    db.refresh(job)
+    return job
 
 
 @router.post("/{job_id}/run")
@@ -105,7 +186,7 @@ def enqueue_recoverable_job(db: Session, job: models.Job, *, force: bool = False
         return True
     try:
         enqueue_job(job.id)
-    except Exception as exc:
+    except Exception:
         job.error = "enqueue failed; running with local worker fallback"
         commit_or_500(db)
         return False

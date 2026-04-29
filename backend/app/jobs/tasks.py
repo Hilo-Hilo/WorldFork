@@ -4,7 +4,7 @@ from datetime import datetime, timedelta, timezone
 from uuid import UUID
 
 from pydantic import ValidationError
-from sqlalchemy import and_, or_, select, update
+from sqlalchemy import and_, func, or_, select, update
 from sqlalchemy.orm import Session
 
 from app.api.schemas import BigBangCreate
@@ -16,6 +16,9 @@ from app.simulation.tick_runner import run_next_tick
 
 CLAIMABLE_STATUSES = {"queued"}
 JOB_LEASE_SECONDS = 15 * 60
+DEFAULT_MAX_CONCURRENT_JOBS = 4
+PAUSABLE_STATUSES = {"queued", "running"}
+REQUEUEABLE_STATUSES = {"failed", "interrupted"}
 
 
 class JobNotRunnableError(RuntimeError):
@@ -70,10 +73,18 @@ def execute_job(db: Session, job: models.Job, *, commit_running: bool = False) -
         job.result = result
         job.error = None
         job.status = "succeeded"
+        job.finished_at = datetime.now(timezone.utc)
+        job.lease_owner = None
+        job.lease_expires_at = None
+        job.last_heartbeat_at = None
     except Exception as exc:
         job.result = {}
         job.error = str(exc)
         job.status = "failed"
+        job.finished_at = datetime.now(timezone.utc)
+        job.lease_owner = None
+        job.lease_expires_at = None
+        job.last_heartbeat_at = None
     db.flush()
     return job
 
@@ -83,8 +94,11 @@ def claim_job_for_execution(
     job: models.Job,
     *,
     now: datetime | None = None,
+    lease_owner: str = "local-worker",
 ) -> bool:
-    lease_cutoff = running_job_lease_cutoff(now)
+    current = now or datetime.now(timezone.utc)
+    lease_cutoff = running_job_lease_cutoff(current)
+    lease_expires_at = current + timedelta(seconds=JOB_LEASE_SECONDS)
     result = db.execute(
         update(models.Job)
         .where(
@@ -94,7 +108,17 @@ def claim_job_for_execution(
                 and_(models.Job.status == "running", models.Job.updated_at <= lease_cutoff),
             ),
         )
-        .values(status="running", error=None)
+        .values(
+            status="running",
+            error=None,
+            lease_owner=lease_owner,
+            lease_expires_at=lease_expires_at,
+            last_heartbeat_at=current,
+            started_at=func.coalesce(models.Job.started_at, current),
+            paused_at=None,
+            interrupt_requested_at=None,
+            interrupted_at=None,
+        )
         .execution_options(synchronize_session=False)
     )
     db.flush()
@@ -103,6 +127,13 @@ def claim_job_for_execution(
         return False
     job.status = "running"
     job.error = None
+    job.lease_owner = lease_owner
+    job.lease_expires_at = lease_expires_at
+    job.last_heartbeat_at = current
+    job.started_at = getattr(job, "started_at", None) or current
+    job.paused_at = None
+    job.interrupt_requested_at = None
+    job.interrupted_at = None
     return True
 
 
@@ -114,6 +145,8 @@ def running_job_lease_cutoff(now: datetime | None = None) -> datetime:
 def job_should_enqueue_for_retry(job: models.Job, *, now: datetime | None = None) -> bool:
     if job.status == "queued":
         return True
+    if job.status in {"paused", "interrupt_requested"}:
+        return False
     if job.status != "running":
         return False
     updated_at = getattr(job, "updated_at", None)
@@ -122,6 +155,112 @@ def job_should_enqueue_for_retry(job: models.Job, *, now: datetime | None = None
     if updated_at.tzinfo is None:
         updated_at = updated_at.replace(tzinfo=timezone.utc)
     return updated_at <= running_job_lease_cutoff(now)
+
+
+def pause_job(db: Session, job: models.Job, *, now: datetime | None = None) -> models.Job:
+    current = now or datetime.now(timezone.utc)
+    if job.status == "queued":
+        job.status = "paused"
+        job.paused_at = current
+        job.lease_owner = None
+        job.lease_expires_at = None
+        job.last_heartbeat_at = None
+        db.add(job)
+        db.flush()
+        return job
+    if job.status == "running":
+        job.status = "interrupt_requested"
+        job.paused_at = current
+        job.interrupt_requested_at = current
+        db.add(job)
+        db.flush()
+        return job
+    raise JobNotRunnableError(f"job {job.id} is {job.status}; only queued or running jobs can pause")
+
+
+def resume_job(db: Session, job: models.Job, *, now: datetime | None = None) -> models.Job:
+    current = now or datetime.now(timezone.utc)
+    if job.status != "paused":
+        raise JobNotRunnableError(f"job {job.id} is {job.status}; only paused jobs can resume")
+    job.status = "queued"
+    job.available_at = current
+    job.queued_at = current
+    job.paused_at = None
+    job.interrupt_requested_at = None
+    job.lease_owner = None
+    job.lease_expires_at = None
+    job.last_heartbeat_at = None
+    db.add(job)
+    db.flush()
+    return job
+
+
+def interrupt_job(db: Session, job: models.Job, *, now: datetime | None = None) -> models.Job:
+    current = now or datetime.now(timezone.utc)
+    if job.status == "running":
+        job.status = "interrupt_requested"
+        job.interrupt_requested_at = current
+        db.add(job)
+        db.flush()
+        return job
+    if job.status in {"queued", "paused"}:
+        job.status = "interrupted"
+        job.interrupted_at = current
+        job.interrupt_requested_at = current
+        job.lease_owner = None
+        job.lease_expires_at = None
+        db.add(job)
+        db.flush()
+        return job
+    raise JobNotRunnableError(
+        f"job {job.id} is {job.status}; only queued, paused, or running jobs can interrupt"
+    )
+
+
+def requeue_job(db: Session, job: models.Job, *, now: datetime | None = None) -> models.Job:
+    current = now or datetime.now(timezone.utc)
+    if job.status not in REQUEUEABLE_STATUSES:
+        raise JobNotRunnableError(
+            f"job {job.id} is {job.status}; only failed or interrupted jobs can requeue"
+        )
+    if not job.retryable:
+        raise JobNotRunnableError(f"job {job.id} is not retryable")
+    if job.attempt_number + 1 > job.max_attempts:
+        raise JobNotRunnableError(
+            f"job {job.id} exceeded max attempts ({job.attempt_number}/{job.max_attempts})"
+        )
+    job.status = "queued"
+    job.attempt_number += 1
+    job.available_at = current
+    job.queued_at = current
+    job.error = None
+    job.finished_at = None
+    job.interrupt_requested_at = None
+    job.interrupted_at = None
+    job.paused_at = None
+    job.lease_owner = None
+    job.lease_expires_at = None
+    job.last_heartbeat_at = None
+    db.add(job)
+    db.flush()
+    return job
+
+
+def queue_health_snapshot(db: Session) -> dict:
+    counts_by_status: dict[str, int] = {}
+    for status, count in db.execute(
+        select(models.Job.status, func.count(models.Job.id)).group_by(models.Job.status)
+    ):
+        counts_by_status[str(status)] = int(count)
+    running = counts_by_status.get("running", 0)
+    return {
+        "counts_by_status": counts_by_status,
+        "capacity": {
+            "max_concurrent_jobs": DEFAULT_MAX_CONCURRENT_JOBS,
+            "running_jobs": running,
+            "available_slots": max(0, DEFAULT_MAX_CONCURRENT_JOBS - running),
+        },
+    }
 
 
 def _execute_job(db: Session, job: models.Job) -> dict:
