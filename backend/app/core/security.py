@@ -1,17 +1,41 @@
 """Security utilities — token verification and WebSocket credential extraction."""
 from __future__ import annotations
 
+import os
+import secrets
+
 from fastapi import WebSocket
+
+
+def _configured_tokens() -> list[str]:
+    tokens: list[str] = []
+    for name in (
+        "WORLDFORK_SESSION_TOKEN",
+        "WORLDFORK_API_TOKEN",
+        "WF_SESSION_TOKEN",
+        "WF_API_TOKEN",
+    ):
+        value = os.getenv(name)
+        if value and value.strip():
+            tokens.append(value.strip())
+    return tokens
 
 
 def verify_token(token: str) -> bool:
     """Verify a session/bearer token.
 
-    TODO: Replace with real JWT/session check.
-    Currently accepts any non-empty token string so development works
-    without a full auth stack.  Never log the token value.
+    When an API/session token is configured, require an exact constant-time
+    match.  Local development and tests without configured auth keep the
+    previous explicit compatibility mode of accepting any non-empty token.
+    Never log the token value.
     """
-    return bool(token and token.strip())
+    candidate = token.strip() if token else ""
+    if not candidate:
+        return False
+    configured = _configured_tokens()
+    if not configured:
+        return True
+    return any(secrets.compare_digest(candidate, expected) for expected in configured)
 
 
 def cookie_or_token_from_websocket(websocket: WebSocket) -> str | None:

@@ -2,9 +2,11 @@
 from __future__ import annotations
 
 from datetime import UTC, datetime
+from types import SimpleNamespace
 
 import fakeredis.aioredis
 import pytest
+import pytest_asyncio
 
 from backend.app.providers import (
     BudgetExceededError,
@@ -23,11 +25,13 @@ from backend.app.providers.base import BaseProvider
 from backend.app.schemas.common import Clock
 from backend.app.schemas.llm import LLMResult, PromptPacket
 
+pytestmark = pytest.mark.asyncio
+
 # ---------------------------------------------------------------------------
 # Fixtures
 # ---------------------------------------------------------------------------
 
-@pytest.fixture
+@pytest_asyncio.fixture
 async def redis_client():
     client = fakeredis.aioredis.FakeRedis(decode_responses=True)
     try:
@@ -156,6 +160,30 @@ async def test_happy_path(routing, limiter, prompt) -> None:
     )
     assert result.parsed_json == {"social_actions": [{"tool_id": "stay_silent", "args": {}}]}
     assert provider.calls == 1
+
+
+async def test_sync_actor_decision_model_uses_agent_deliberation_routing(monkeypatch) -> None:
+    from backend.app.simulation import agent_engine
+
+    class _Result:
+        def mappings(self):
+            return self
+
+        def first(self):
+            return {"preferred_model": "db/agent-model"}
+
+    class _Db:
+        def execute(self, statement, params):
+            assert params == {"job_type": "agent_deliberation_batch"}
+            return _Result()
+
+    monkeypatch.setattr(
+        agent_engine,
+        "get_settings",
+        lambda: SimpleNamespace(default_model="settings/default-model"),
+    )
+
+    assert agent_engine._agent_deliberation_model(_Db()) == "db/agent-model"
 
 
 async def test_429_then_success(routing, limiter, prompt) -> None:

@@ -31,7 +31,6 @@ def _patch_sqlite_types() -> None:
     We monkey-patch the ORM model classes so that SQLite can create the tables.
     In real Postgres mode the original types are still used.
     """
-    import sqlalchemy as sa
 
     # Replace JSONB with JSON in all mapped columns.
     for table in Base.metadata.tables.values():
@@ -58,9 +57,13 @@ def anyio_backend():
     return "asyncio"
 
 
-@pytest_asyncio.fixture(scope="session")
+@pytest_asyncio.fixture
 async def test_engine():
-    """Session-scoped async SQLite engine with all tables created."""
+    """Function-scoped async SQLite engine with all tables created.
+
+    Several integration routes intentionally commit. A fresh in-memory engine
+    per test keeps those commits from leaking into later tests.
+    """
     engine = create_async_engine(
         TEST_DATABASE_URL,
         connect_args={"check_same_thread": False},

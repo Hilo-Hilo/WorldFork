@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# WorldFork test runner — unit, integration, e2e in CI order.
+# WorldFork test runner - unit, integration, e2e in CI order.
 #
 # Usage:
 #   ./scripts/run_tests.sh             # full sweep (unit + integration + e2e)
-#   ./scripts/run_tests.sh unit        # just unit
+#   ./scripts/run_tests.sh unit        # root regression + unit tests
 #   ./scripts/run_tests.sh integration # just integration
 #   ./scripts/run_tests.sh e2e         # just e2e
 #
@@ -17,8 +17,8 @@ PYTEST="${PYTEST:-.venv/bin/python -m pytest}"
 LAYER="${1:-all}"
 
 run_unit() {
-  echo "==> unit"
-  $PYTEST backend/tests/unit -n auto -q
+  echo "==> unit + root regression"
+  $PYTEST -c pyproject.toml backend/tests/*.py backend/tests/unit -n auto -q
 }
 
 run_integration() {
@@ -26,14 +26,14 @@ run_integration() {
   # Note: integration tests boot the full ASGI app per test and are slow
   # serially. -n auto parallelises across cores. (Install pytest-timeout
   # to add --timeout=60 if you want a per-test deadline.)
-  $PYTEST backend/tests/integration -q -n auto
+  $PYTEST -c pyproject.toml backend/tests/integration -q -n auto
 }
 
 run_e2e() {
   echo "==> e2e"
   # E2E tests exercise the full app + real ledger I/O; keep serial so SQLite
   # in-memory state is isolated per test.
-  $PYTEST backend/tests/e2e -q -m "not requires_broker and not live_openrouter and not live_zep"
+  $PYTEST -c pyproject.toml backend/tests/e2e -q -m "not requires_broker and not live_openrouter and not live_zep"
 }
 
 case "$LAYER" in

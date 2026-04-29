@@ -21,8 +21,8 @@ async def test_openrouter_healthcheck_live() -> None:
     provider = OpenRouterProvider(
         api_key=api_key,
         base_url=os.environ.get("OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1"),
-        default_model=os.environ.get("DEFAULT_MODEL", "deepseek/deepseek-v3.2"),
-        fallback_model=os.environ.get("FALLBACK_MODEL", "openai/gpt-4o-mini"),
+        default_model=os.environ.get("DEFAULT_MODEL", "google/gemini-3.1-flash-lite-preview"),
+        fallback_model=os.environ.get("FALLBACK_MODEL", "google/gemini-3.1-flash-lite-preview"),
         http_referer="http://localhost:3003",
         x_title="WorldFork-tests",
     )

@@ -302,8 +302,12 @@ def hash_directory(path: Path) -> str:
         if not candidate.is_file():
             continue
         file_path = candidate
-        digest.update(str(file_path.relative_to(path)).encode("utf-8"))
-        digest.update(file_path.read_bytes())
+        relative_path = file_path.relative_to(path).as_posix().encode("utf-8")
+        content = file_path.read_bytes()
+        digest.update(len(relative_path).to_bytes(8, "big"))
+        digest.update(relative_path)
+        digest.update(len(content).to_bytes(8, "big"))
+        digest.update(content)
     return digest.hexdigest()
 
 

@@ -31,3 +31,8 @@ def interrupt_node_key(after_key: str) -> str:
         return f"{INTERRUPT_CHECK_PREFIX}actor_barrier"
     suffix = after_key.removeprefix("barrier:")
     return f"{INTERRUPT_CHECK_PREFIX}{suffix}"
+
+
+def tool_call_node_key(index: int, tool_name: str) -> str:
+    safe_name = "".join(ch if ch.isalnum() or ch in {"_", "-"} else "_" for ch in tool_name)
+    return f"tool_call:{index}:{safe_name[:120]}"

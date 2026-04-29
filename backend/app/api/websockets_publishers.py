@@ -267,6 +267,26 @@ async def publish_job_failed(
     await publish(jobs_channel(), "job.failed", payload)
 
 
+async def publish_job_status_changed(
+    *,
+    job_id: str,
+    job_type: str,
+    status: str,
+    queue: str = "",
+    error: str | None = None,
+) -> None:
+    """Publish a generic job status change to jobs:global."""
+    payload = {
+        "job_id": job_id,
+        "job_type": job_type,
+        "status": status,
+        "queue": queue,
+    }
+    if error:
+        payload["error"] = error
+    await publish(jobs_channel(), "job.status_changed", payload)
+
+
 async def publish_queue_depth(*, queue: str, depth: int) -> None:
     """Publish a queue depth snapshot to jobs:global."""
     payload = {"queue": queue, "depth": depth}

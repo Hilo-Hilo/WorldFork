@@ -1,6 +1,7 @@
 # AGENTS.md
 
-WorldFork is now a CLI-first backend product. The primary interface for coding agents is the `worldfork` command, backed by `/api/agent/*`.
+WorldFork is a CLI-first backend product. The primary interface for coding
+agents is the `worldfork` command, backed by `/api/agent/*`.
 
 ## Canonical Flow
 
@@ -20,12 +21,13 @@ uv run worldfork logs list --status failed
 - Use `--fields a,b,c` on large rows when only specific top-level keys are needed.
 - Mutations are job-first; use `worldfork jobs wait <job-id> --timeout N` for bounded waits.
 - Do not assume a web frontend exists. This repo is backend + workers + CLI.
-- On `revamp/langgraph-runtime-v2`, treat `backend/app/main.py`, the `app.*` package, `/api/agent/*`, and `/api/jobs*` as the canonical runtime surface.
-- Treat `/api/runs` and other duplicate runtime families as transitional until they are explicitly re-homed or deleted.
+- Treat `backend/app/main.py`, the `app.*` package, `/api/agent/*`, `/api/big-bangs`, `/api/multiverses`, `/api/ticks`, `/api/jobs`, and `/api/logs` as the canonical runtime surface.
+- Compatibility routes may exist for older API contracts, but new agent work should target the canonical surface.
 
 ## Development
 
 ```bash
-uv run pytest -q
+./scripts/run_tests.sh all
 uv run ruff check .
+uv run python -m scripts.full_runtime_smoke
 ```

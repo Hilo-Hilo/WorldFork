@@ -1,11 +1,19 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.db import models
-from app.storage.artifact_store import ArtifactStore
+from app.storage.artifact_store import ArtifactStore, _cleanup_artifact_path
 from app.storage.pdf_store import render_markdown_pdf
+
+
+def _cleanup_report_artifacts(*artifacts: models.Artifact | None) -> None:
+    for artifact in artifacts:
+        if artifact is not None:
+            _cleanup_artifact_path(Path(artifact.path))
 
 
 def generate_multiverse_report(db: Session, *, multiverse: models.Multiverse, title: str | None = None, summary: str | None = None) -> models.ReportVersion:
@@ -59,24 +67,30 @@ def generate_multiverse_report(db: Session, *, multiverse: models.Multiverse, ti
     )
     db.add(report_version)
     db.flush()
-    artifact = ArtifactStore().write_text(
-        db,
-        big_bang_id=multiverse.big_bang_id,
-        relative_path=f"big_bang_{multiverse.big_bang_id}/multiverses/{multiverse.ui_label}/reports/{report_version.id}/report_v{version}.md",
-        body=body,
-        kind="report_markdown",
-        content_type="text/markdown",
-    )
-    pdf_artifact = render_markdown_pdf(
-        db,
-        big_bang_id=multiverse.big_bang_id,
-        relative_path=f"big_bang_{multiverse.big_bang_id}/multiverses/{multiverse.ui_label}/reports/{report_version.id}/report_v{version}.pdf",
-        title=title_text,
-        markdown=body,
-    )
-    report_version.markdown_artifact_id = artifact.id
-    report_version.pdf_artifact_id = pdf_artifact.id
-    db.flush()
+    artifact: models.Artifact | None = None
+    pdf_artifact: models.Artifact | None = None
+    try:
+        artifact = ArtifactStore().write_text(
+            db,
+            big_bang_id=multiverse.big_bang_id,
+            relative_path=f"big_bang_{multiverse.big_bang_id}/multiverses/{multiverse.ui_label}/reports/{report_version.id}/report_v{version}.md",
+            body=body,
+            kind="report_markdown",
+            content_type="text/markdown",
+        )
+        pdf_artifact = render_markdown_pdf(
+            db,
+            big_bang_id=multiverse.big_bang_id,
+            relative_path=f"big_bang_{multiverse.big_bang_id}/multiverses/{multiverse.ui_label}/reports/{report_version.id}/report_v{version}.pdf",
+            title=title_text,
+            markdown=body,
+        )
+        report_version.markdown_artifact_id = artifact.id
+        report_version.pdf_artifact_id = pdf_artifact.id
+        db.flush()
+    except Exception:
+        _cleanup_report_artifacts(artifact, pdf_artifact)
+        raise
     return report_version
 
 
@@ -101,6 +115,8 @@ def generate_final_big_bang_report(db: Session, *, big_bang: models.BigBang, tit
         .where(models.Multiverse.big_bang_id == big_bang.id)
         .order_by(models.Multiverse.ui_label)
     ).all()
+    report.current_version = version
+    report.status = "completed"
     reports = db.scalars(select(models.Report).where(models.Report.big_bang_id == big_bang.id)).all()
     title_text = title or f"{big_bang.name} Final Big Bang Report"
     body = "\n".join(
@@ -119,8 +135,6 @@ def generate_final_big_bang_report(db: Session, *, big_bang: models.BigBang, tit
             f"- Big Bang ID: {big_bang.id}",
         ]
     )
-    report.current_version = version
-    report.status = "completed"
     report_version = models.ReportVersion(
         report_id=report.id,
         version=version,
@@ -129,22 +143,28 @@ def generate_final_big_bang_report(db: Session, *, big_bang: models.BigBang, tit
     )
     db.add(report_version)
     db.flush()
-    artifact = ArtifactStore().write_text(
-        db,
-        big_bang_id=big_bang.id,
-        relative_path=f"big_bang_{big_bang.id}/reports/{report_version.id}/final_big_bang_report_v{version}.md",
-        body=body,
-        kind="report_markdown",
-        content_type="text/markdown",
-    )
-    pdf_artifact = render_markdown_pdf(
-        db,
-        big_bang_id=big_bang.id,
-        relative_path=f"big_bang_{big_bang.id}/reports/{report_version.id}/final_big_bang_report_v{version}.pdf",
-        title=title_text,
-        markdown=body,
-    )
-    report_version.markdown_artifact_id = artifact.id
-    report_version.pdf_artifact_id = pdf_artifact.id
-    db.flush()
+    artifact: models.Artifact | None = None
+    pdf_artifact: models.Artifact | None = None
+    try:
+        artifact = ArtifactStore().write_text(
+            db,
+            big_bang_id=big_bang.id,
+            relative_path=f"big_bang_{big_bang.id}/reports/{report_version.id}/final_big_bang_report_v{version}.md",
+            body=body,
+            kind="report_markdown",
+            content_type="text/markdown",
+        )
+        pdf_artifact = render_markdown_pdf(
+            db,
+            big_bang_id=big_bang.id,
+            relative_path=f"big_bang_{big_bang.id}/reports/{report_version.id}/final_big_bang_report_v{version}.pdf",
+            title=title_text,
+            markdown=body,
+        )
+        report_version.markdown_artifact_id = artifact.id
+        report_version.pdf_artifact_id = pdf_artifact.id
+        db.flush()
+    except Exception:
+        _cleanup_report_artifacts(artifact, pdf_artifact)
+        raise
     return report_version

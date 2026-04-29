@@ -5,7 +5,6 @@ Happy paths, idempotency dedup, PATCH forbidden-field 422, and 404 checks.
 from __future__ import annotations
 
 import pytest
-import pytest_asyncio
 from httpx import AsyncClient
 
 pytestmark = [pytest.mark.asyncio]

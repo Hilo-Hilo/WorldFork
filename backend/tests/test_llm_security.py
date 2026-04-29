@@ -20,6 +20,7 @@ from app.llm.provider import DeterministicLLMProvider
 from app.llm.redaction import redact_payload
 from app.llm.schemas import LLMRequest, LLMResponse
 from app.simulation import god_agent
+from backend.app.api.logs import sanitize_public_job_payload
 
 
 class FakeDB:
@@ -370,6 +371,42 @@ def test_public_response_models_sanitize_raw_scenario_and_corpus_content():
     assert "text" not in big_bang.scenario_input["plain_text_corpus"]["simulation_brief"]
     assert "raw_text_artifact_id" not in multiverse.state["plain_text_corpus"]
     assert "text" not in tick.final_bundle["simulation_brief"]
+
+
+def test_public_job_payload_sanitizer_redacts_initializer_payloads_without_mutation():
+    payload = {
+        "run_id": "run-1",
+        "universe_id": "u-1",
+        "tick": 0,
+        "prompt_tokens": 123,
+        "scenario_text": "raw private scenario",
+        "initializer_prompt": "raw initializer prompt",
+        "scenario_input": {
+            "plain_text_corpus": {
+                "simulation_brief": {"mode": "direct", "text": "raw brief"},
+                "raw_text_artifact_id": "raw-id",
+            }
+        },
+        "model_config": {"api_key": "secret-key", "model": "openai/gpt-4o"},
+    }
+
+    sanitized = sanitize_public_job_payload(payload)
+
+    assert sanitized["run_id"] == "run-1"
+    assert sanitized["universe_id"] == "u-1"
+    assert sanitized["tick"] == 0
+    assert sanitized["prompt_tokens"] == 123
+    assert "scenario_text" not in sanitized
+    assert sanitized["scenario_text_present"] is True
+    assert "initializer_prompt" not in sanitized
+    assert sanitized["initializer_prompt_present"] is True
+    corpus = sanitized["scenario_input"]["plain_text_corpus"]
+    assert "raw_text_artifact_id" not in corpus
+    assert "text" not in corpus["simulation_brief"]
+    assert corpus["simulation_brief"]["text_present"] is True
+    assert sanitized["model_config"] == "[REDACTED]"
+    assert payload["scenario_text"] == "raw private scenario"
+    assert payload["model_config"]["api_key"] == "secret-key"
 
 
 def test_sociology_prompt_influences_drop_emotion_and_steering_content():

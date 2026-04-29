@@ -1,7 +1,6 @@
 """Unit tests for backend.app.simulation.active_selection."""
 from __future__ import annotations
 
-import pytest
 
 from backend.app.schemas.actors import CohortState, HeroState
 from backend.app.schemas.events import Event

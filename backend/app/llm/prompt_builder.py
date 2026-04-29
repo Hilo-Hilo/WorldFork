@@ -22,7 +22,6 @@ def build_agent_prompt_context(*, clock_context: ClockContext, current_state: di
 def compact_simulation_state(state: dict) -> dict:
     scenario = state.get("scenario_input", {}) if isinstance(state, dict) else {}
     initializer = state.get("initializer_output", {}) if isinstance(state, dict) else {}
-    corpus = state.get("plain_text_corpus", {}) if isinstance(state, dict) else {}
     return {
         "scenario_summary": {
             "premise": scenario.get("premise"),

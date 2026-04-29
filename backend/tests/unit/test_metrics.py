@@ -1,7 +1,6 @@
 """Unit tests for backend.app.observability.metrics and the /metrics endpoint."""
 from __future__ import annotations
 
-import pytest
 from fastapi.testclient import TestClient
 
 from backend.app.observability.metrics import (

@@ -7,8 +7,12 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
+import posixpath
+import tempfile
 import zipfile
 from pathlib import Path
+from stat import S_ISLNK
 from typing import Any
 
 import orjson
@@ -47,6 +51,136 @@ def _read_run_manifest_sha(run_folder: Path) -> str:
     if not manifest_path.exists():
         return "0" * 64
     return _sha256_file(manifest_path)
+
+
+def _iter_export_files(run_folder: Path, dest: Path) -> list[Path]:
+    """Return run files that should be included in an export archive."""
+    run_folder = run_folder.resolve()
+    dest = dest.resolve()
+    exports_dir = run_folder / "exports"
+
+    files: list[Path] = []
+    for path in sorted(p for p in run_folder.rglob("*") if p.is_file()):
+        resolved = path.resolve()
+        if resolved == dest:
+            continue
+        if resolved == exports_dir or exports_dir in resolved.parents:
+            continue
+        files.append(path)
+    return files
+
+
+def _safe_zip_member_path(extract_dir: Path, member_name: str) -> Path:
+    """Return a safe extraction target for a zip member.
+
+    Zip names are POSIX-style regardless of host OS. Reject absolute paths,
+    parent traversal, and platform path separators before joining with the
+    extraction root.
+    """
+    normalized = posixpath.normpath(member_name)
+    if (
+        not member_name
+        or member_name.startswith("/")
+        or os.path.isabs(member_name)
+        or normalized in ("", ".")
+        or normalized.startswith("../")
+        or normalized == ".."
+        or "\\" in member_name
+    ):
+        raise ExportError(f"Unsafe zip member path: {member_name}")
+
+    parts = Path(normalized).parts
+    if any(part in ("", ".", "..") for part in parts):
+        raise ExportError(f"Unsafe zip member path: {member_name}")
+
+    target = (extract_dir / normalized).resolve()
+    extract_root = extract_dir.resolve()
+    if target != extract_root and extract_root not in target.parents:
+        raise ExportError(f"Unsafe zip member path: {member_name}")
+    return target
+
+
+def _read_export_manifest(zf: zipfile.ZipFile) -> dict[str, Any]:
+    try:
+        manifest = json.loads(zf.read("EXPORT_MANIFEST.json"))
+    except KeyError as exc:
+        raise ExportError("Zip is missing EXPORT_MANIFEST.json; not a valid WorldFork export.") from exc
+    except Exception as exc:
+        raise ExportError(f"Cannot read EXPORT_MANIFEST.json: {exc}") from exc
+
+    if not isinstance(manifest, dict):
+        raise ExportError("EXPORT_MANIFEST.json must contain a JSON object.")
+    return manifest
+
+
+def _verify_export_manifest(zf: zipfile.ZipFile, manifest: dict[str, Any]) -> None:
+    """Verify archive contents against the top-level export manifest."""
+    files = [
+        item
+        for item in zf.infolist()
+        if not item.is_dir() and item.filename != "EXPORT_MANIFEST.json"
+    ]
+
+    expected_file_count = manifest.get("file_count")
+    if expected_file_count != len(files):
+        raise ExportError(
+            f"EXPORT_MANIFEST.json file_count mismatch: "
+            f"expected={expected_file_count} actual={len(files)}"
+        )
+
+    total_bytes = sum(item.file_size for item in files)
+    expected_total_bytes = manifest.get("total_bytes")
+    if expected_total_bytes != total_bytes:
+        raise ExportError(
+            f"EXPORT_MANIFEST.json total_bytes mismatch: "
+            f"expected={expected_total_bytes} actual={total_bytes}"
+        )
+
+    expected_run_manifest_sha = manifest.get("run_manifest_sha256")
+    if not isinstance(expected_run_manifest_sha, str) or len(expected_run_manifest_sha) != 64:
+        raise ExportError("EXPORT_MANIFEST.json has invalid run_manifest_sha256.")
+
+    run_manifest_members = [
+        item for item in files if Path(item.filename).parts[-1:] == ("manifest.json",)
+    ]
+    top_level_run_manifest = [
+        item for item in run_manifest_members if len(Path(item.filename).parts) == 1
+    ]
+    if top_level_run_manifest:
+        run_manifest_member = top_level_run_manifest[0]
+    elif len(run_manifest_members) == 1:
+        run_manifest_member = run_manifest_members[0]
+    else:
+        raise ExportError("Archive does not contain an unambiguous run manifest.json.")
+
+    actual_run_manifest_sha = hashlib.sha256(zf.read(run_manifest_member.filename)).hexdigest()
+    if actual_run_manifest_sha != expected_run_manifest_sha:
+        raise ExportError(
+            f"EXPORT_MANIFEST.json run_manifest_sha256 mismatch: "
+            f"expected={expected_run_manifest_sha} actual={actual_run_manifest_sha}"
+        )
+
+    expected_file_hashes = manifest.get("files_sha256")
+    if expected_file_hashes is not None:
+        if not isinstance(expected_file_hashes, dict):
+            raise ExportError("EXPORT_MANIFEST.json has invalid files_sha256.")
+        actual_file_names = {item.filename for item in files}
+        expected_file_names = set(expected_file_hashes)
+        if expected_file_names != actual_file_names:
+            raise ExportError(
+                "EXPORT_MANIFEST.json files_sha256 member mismatch: "
+                f"expected={sorted(expected_file_names)} actual={sorted(actual_file_names)}"
+            )
+        for item in files:
+            expected_sha = expected_file_hashes.get(item.filename)
+            if not isinstance(expected_sha, str) or len(expected_sha) != 64:
+                raise ExportError(f"EXPORT_MANIFEST.json has invalid SHA for {item.filename}.")
+            actual_sha = hashlib.sha256(zf.read(item.filename)).hexdigest()
+            if actual_sha != expected_sha:
+                raise ExportError(
+                    f"EXPORT_MANIFEST.json file SHA mismatch for {item.filename}: "
+                    f"expected={expected_sha} actual={actual_sha}"
+                )
 
 
 # ---------------------------------------------------------------------------
@@ -109,28 +243,45 @@ def export_run_to_zip(
 
     dest.parent.mkdir(parents=True, exist_ok=True)
 
-    # Gather all files
-    all_files = sorted(p for p in run_folder.rglob("*") if p.is_file())
+    # Gather all files. Exclude archive outputs so repeated exports do not
+    # include or truncate a previous zip as an input member.
+    all_files = _iter_export_files(run_folder, dest)
     total_bytes = sum(p.stat().st_size for p in all_files)
+    files_sha256 = {
+        file_path.relative_to(run_folder).as_posix(): _sha256_file(file_path)
+        for file_path in all_files
+    }
 
     run_manifest_sha256 = _read_run_manifest_sha(run_folder)
 
     # Build the archive
-    with zipfile.ZipFile(dest, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=6) as zf:
-        for file_path in all_files:
-            arcname = str(file_path.relative_to(run_folder))
-            zf.write(file_path, arcname)
+    fd, temp_name = tempfile.mkstemp(
+        prefix=f".{dest.name}.",
+        suffix=".tmp",
+        dir=dest.parent,
+    )
+    os.close(fd)
+    temp_dest = Path(temp_name)
+    try:
+        with zipfile.ZipFile(temp_dest, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=6) as zf:
+            for file_path in all_files:
+                arcname = file_path.relative_to(run_folder).as_posix()
+                zf.write(file_path, arcname)
 
-        # Write top-level EXPORT_MANIFEST.json
-        export_manifest: dict[str, Any] = {
-            "exported_at": now_utc().isoformat(),
-            "file_count": len(all_files),
-            "total_bytes": total_bytes,
-            "run_manifest_sha256": run_manifest_sha256,
-            "exporter_version": EXPORTER_VERSION,
-        }
-        manifest_bytes = orjson.dumps(export_manifest, option=orjson.OPT_INDENT_2 | orjson.OPT_SORT_KEYS)
-        zf.writestr("EXPORT_MANIFEST.json", manifest_bytes)
+            # Write top-level EXPORT_MANIFEST.json
+            export_manifest: dict[str, Any] = {
+                "exported_at": now_utc().isoformat(),
+                "file_count": len(all_files),
+                "total_bytes": total_bytes,
+                "run_manifest_sha256": run_manifest_sha256,
+                "files_sha256": files_sha256,
+                "exporter_version": EXPORTER_VERSION,
+            }
+            manifest_bytes = orjson.dumps(export_manifest, option=orjson.OPT_INDENT_2 | orjson.OPT_SORT_KEYS)
+            zf.writestr("EXPORT_MANIFEST.json", manifest_bytes)
+        os.replace(temp_dest, dest)
+    finally:
+        temp_dest.unlink(missing_ok=True)
 
     return dest
 
@@ -170,6 +321,17 @@ def import_run_from_zip(
         # Validate EXPORT_MANIFEST.json is present
         if "EXPORT_MANIFEST.json" not in names:
             raise ExportError("Zip is missing EXPORT_MANIFEST.json; not a valid WorldFork export.")
+        export_manifest = _read_export_manifest(zf)
+
+        for member in zf.infolist():
+            if member.filename == "EXPORT_MANIFEST.json" or member.is_dir():
+                continue
+            if S_ISLNK(member.external_attr >> 16):
+                raise ExportError(f"Unsafe zip member type: {member.filename}")
+            _safe_zip_member_path(Path("/tmp/worldfork-import-check"), member.filename)
+
+        if verify:
+            _verify_export_manifest(zf, export_manifest)
 
         # Find the run folder name by locating manifest.json at the top level
         run_folder_name: str | None = None
@@ -209,9 +371,9 @@ def import_run_from_zip(
 
         # Extract all files except EXPORT_MANIFEST.json
         for member in zf.infolist():
-            if member.filename == "EXPORT_MANIFEST.json":
+            if member.filename == "EXPORT_MANIFEST.json" or member.is_dir():
                 continue
-            target = extract_dir / member.filename
+            target = _safe_zip_member_path(extract_dir, member.filename)
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_bytes(zf.read(member.filename))
 
@@ -228,12 +390,52 @@ def _verify_imported_run(run_folder: Path) -> None:
     """
     from backend.app.storage.checksums import merkle_root, sha256_file
 
+    errors: list[str] = []
+    run_manifest_path = run_folder / "manifest.json"
+    try:
+        run_manifest = json.loads(run_manifest_path.read_bytes())
+    except Exception as exc:
+        raise ExportError(f"Import verification failed: cannot read manifest.json: {exc}") from exc
+
+    expected_config_sha = run_manifest.get("config_sha256")
+    config_snapshot = run_folder / "config" / "config_snapshot.json"
+    if isinstance(expected_config_sha, str):
+        if not config_snapshot.exists():
+            errors.append("Missing config/config_snapshot.json")
+        else:
+            actual_config_sha = sha256_file(config_snapshot)
+            if actual_config_sha != expected_config_sha:
+                errors.append(
+                    f"Config snapshot SHA mismatch: expected={expected_config_sha} actual={actual_config_sha}"
+                )
+
+    source_of_truth = run_manifest.get("source_of_truth")
+    if isinstance(source_of_truth, dict):
+        expected_sot_sha = source_of_truth.get("snapshot_sha256")
+        snapshot_path = source_of_truth.get("snapshot_path", "source_of_truth_snapshot")
+        if isinstance(expected_sot_sha, str):
+            sot_snapshot = run_folder / str(snapshot_path)
+            if not sot_snapshot.exists():
+                errors.append(f"Missing source-of-truth snapshot: {snapshot_path}")
+            elif not sot_snapshot.is_dir():
+                errors.append(f"Source-of-truth snapshot is not a directory: {snapshot_path}")
+            else:
+                from backend.app.storage.sot_loader import _compute_snapshot_merkle
+
+                actual_sot_sha = _compute_snapshot_merkle(sot_snapshot)
+                if actual_sot_sha != expected_sot_sha:
+                    errors.append(
+                        f"Source-of-truth snapshot SHA mismatch: "
+                        f"expected={expected_sot_sha} actual={actual_sot_sha}"
+                    )
+
     universes_dir = run_folder / "universes"
     if not universes_dir.exists():
-        # No universes yet — nothing to verify
+        if errors:
+            raise ExportError(
+                f"Import verification failed ({len(errors)} error(s)): " + "; ".join(errors)
+            )
         return
-
-    errors: list[str] = []
 
     for universe_dir in sorted(universes_dir.iterdir()):
         if not universe_dir.is_dir():

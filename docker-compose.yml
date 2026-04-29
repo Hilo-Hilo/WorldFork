@@ -33,6 +33,14 @@ services:
       context: .
       dockerfile: infra/docker/api.Dockerfile
     env_file: .env
+    environment:
+      PYTHONPATH: /app/backend
+      DATABASE_URL: postgresql+asyncpg://worldfork:worldfork@postgres:5432/worldfork
+      DATABASE_URL_SYNC: postgresql+psycopg://worldfork:worldfork@postgres:5432/worldfork
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/1
+      CELERY_RESULT_BACKEND: redis://redis:6379/2
+      RUN_ROOT: /data/runs
     depends_on:
       postgres:
         condition: service_healthy
@@ -52,6 +60,14 @@ services:
       context: .
       dockerfile: infra/docker/worker.Dockerfile
     env_file: .env
+    environment:
+      PYTHONPATH: /app/backend
+      DATABASE_URL: postgresql+asyncpg://worldfork:worldfork@postgres:5432/worldfork
+      DATABASE_URL_SYNC: postgresql+psycopg://worldfork:worldfork@postgres:5432/worldfork
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/1
+      CELERY_RESULT_BACKEND: redis://redis:6379/2
+      RUN_ROOT: /data/runs
     depends_on:
       postgres:
         condition: service_healthy
@@ -69,6 +85,14 @@ services:
       context: .
       dockerfile: infra/docker/worker.Dockerfile
     env_file: .env
+    environment:
+      PYTHONPATH: /app/backend
+      DATABASE_URL: postgresql+asyncpg://worldfork:worldfork@postgres:5432/worldfork
+      DATABASE_URL_SYNC: postgresql+psycopg://worldfork:worldfork@postgres:5432/worldfork
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/1
+      CELERY_RESULT_BACKEND: redis://redis:6379/2
+      RUN_ROOT: /data/runs
     depends_on:
       postgres:
         condition: service_healthy
@@ -86,6 +110,14 @@ services:
       context: .
       dockerfile: infra/docker/worker.Dockerfile
     env_file: .env
+    environment:
+      PYTHONPATH: /app/backend
+      DATABASE_URL: postgresql+asyncpg://worldfork:worldfork@postgres:5432/worldfork
+      DATABASE_URL_SYNC: postgresql+psycopg://worldfork:worldfork@postgres:5432/worldfork
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/1
+      CELERY_RESULT_BACKEND: redis://redis:6379/2
+      RUN_ROOT: /data/runs
     depends_on:
       postgres:
         condition: service_healthy
@@ -103,6 +135,14 @@ services:
       context: .
       dockerfile: infra/docker/worker.Dockerfile
     env_file: .env
+    environment:
+      PYTHONPATH: /app/backend
+      DATABASE_URL: postgresql+asyncpg://worldfork:worldfork@postgres:5432/worldfork
+      DATABASE_URL_SYNC: postgresql+psycopg://worldfork:worldfork@postgres:5432/worldfork
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/1
+      CELERY_RESULT_BACKEND: redis://redis:6379/2
+      RUN_ROOT: /data/runs
     depends_on:
       postgres:
         condition: service_healthy
@@ -120,6 +160,14 @@ services:
       context: .
       dockerfile: infra/docker/worker.Dockerfile
     env_file: .env
+    environment:
+      PYTHONPATH: /app/backend
+      DATABASE_URL: postgresql+asyncpg://worldfork:worldfork@postgres:5432/worldfork
+      DATABASE_URL_SYNC: postgresql+psycopg://worldfork:worldfork@postgres:5432/worldfork
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/1
+      CELERY_RESULT_BACKEND: redis://redis:6379/2
+      RUN_ROOT: /data/runs
     depends_on:
       postgres:
         condition: service_healthy

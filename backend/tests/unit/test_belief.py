@@ -67,7 +67,6 @@ def test_stubborn_cohort_moves_less():
     b = _cohort("b", 0.5)
     cohorts = [a, b]
 
-    n = 2
     T = np.array([[0.0, 1.0], [1.0, 0.0]])
     E = np.array([[0.0, 1.0], [1.0, 0.0]])
 
@@ -125,7 +124,6 @@ def test_bounded_kernel_dampens_distant_pairs():
     near_b = _cohort("b", 0.05)
     far_b = _cohort("b", 1.5)
 
-    n = 2
     T = np.array([[0.0, 1.0], [1.0, 0.0]])
     E = np.array([[0.0, 1.0], [1.0, 0.0]])
 
@@ -149,6 +147,7 @@ def test_bounded_kernel_dampens_distant_pairs():
     # delta is also driven by (b - a). With a near pair (b=0.05) the delta
     # is small. Use kernel attenuation directly: far pair kernel exp(-1.5^2/(2*0.5^2))
     # is tiny so far_delta should be small even if (b-a) is huge.
+    assert near_delta > 0.0
     assert far_delta < 0.5  # bounded kernel keeps the step modest
 
 

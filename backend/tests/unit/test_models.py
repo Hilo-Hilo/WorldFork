@@ -13,7 +13,7 @@ import os
 from datetime import datetime, timezone
 
 import pytest
-from sqlalchemy import Boolean, DateTime, Float, Integer, String, Text, event
+from sqlalchemy import Boolean, DateTime, Float, Integer, String, Text
 from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, sessionmaker
 
@@ -125,7 +125,6 @@ def test_models_importable():
         ProviderSettingModel,
         RateLimitSettingModel,
         SocialPostModel,
-        TimestampMixin,
         UniverseModel,
         ZepSettingModel,
     )
@@ -152,7 +151,6 @@ def test_models_importable():
 
 def test_schemas_do_not_import_models():
     """Confirm the schemas package does not import from models (one-way dep)."""
-    import importlib
     import sys
 
     # Remove any cached modules to get a clean import

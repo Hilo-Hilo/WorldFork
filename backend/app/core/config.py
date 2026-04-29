@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     database_url_sync: str = "postgresql+psycopg://worldfork:worldfork@localhost:5432/worldfork"
     artifact_root: Path = _backend_relative("../artifacts")
     source_of_truth_dir: Path = _backend_relative("../source_of_truth")
+    run_root: Path = _backend_relative("../runs")
     environment: str = "development"
     log_level: str = "INFO"
     auto_create_tables: bool = False
@@ -56,7 +57,7 @@ class Settings(BaseSettings):
     zep_api_key: str | None = None
     cors_origins: list[str] = Field(default_factory=list)
 
-    @field_validator("artifact_root", "source_of_truth_dir", mode="after")
+    @field_validator("artifact_root", "source_of_truth_dir", "run_root", mode="after")
     @classmethod
     def resolve_backend_relative_path(cls, value: Path) -> Path:
         if value.is_absolute():

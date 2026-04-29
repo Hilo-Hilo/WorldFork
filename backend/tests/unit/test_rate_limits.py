@@ -6,12 +6,16 @@ import time
 
 import fakeredis.aioredis
 import pytest
+import pytest_asyncio
 
 from backend.app.providers.errors import BudgetExceededError, RateLimitError
 from backend.app.providers.rate_limits import ProviderRateLimiter, RedisTokenBucket
+from backend.app.providers.routing import build_provider_rate_limiter
+
+pytestmark = pytest.mark.asyncio
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 async def redis_client():
     """Yield a fresh fakeredis async client per test."""
     client = fakeredis.aioredis.FakeRedis(decode_responses=True)
@@ -99,6 +103,59 @@ async def test_provider_rate_limiter_gate_acquires_and_releases(redis_client) ->
     # After exit, decremented.
     value = await redis_client.get("rl:conc:testprov")
     assert int(value) == 0
+
+
+async def test_build_provider_rate_limiter_uses_enabled_db_row(redis_client) -> None:
+    class _Row:
+        enabled = True
+        rpm_limit = 17
+        tpm_limit = 1800
+        max_concurrency = 3
+        burst_multiplier = 1.5
+        retry_policy = "exponential_backoff"
+        jitter = True
+        daily_budget_usd = 0.25
+        branch_reserved_capacity_pct = 15.0
+
+    class _Session:
+        async def get(self, _model, provider):
+            assert provider == "openrouter"
+            return _Row()
+
+    limiter = await build_provider_rate_limiter(_Session(), redis_client, provider="openrouter")
+
+    assert limiter.rpm_limit == 17
+    assert limiter.tpm_limit == 1800
+    assert limiter.max_concurrency == 3
+    assert limiter.burst_multiplier == 1.5
+    assert limiter.daily_budget_usd == 0.25
+    assert limiter.branch_reserved_pct == 15.0
+    assert limiter.jitter is True
+
+
+async def test_provider_rate_limiter_does_not_refill_fixed_minute(redis_client) -> None:
+    limiter = ProviderRateLimiter(
+        redis_client,
+        provider="fixedminute",
+        rpm_limit=2,
+        tpm_limit=1_000_000,
+        max_concurrency=4,
+        burst_multiplier=1.0,
+        jitter=False,
+    )
+
+    async with limiter.gate(estimated_tokens=10, timeout=0.1):
+        pass
+    async with limiter.gate(estimated_tokens=10, timeout=0.1):
+        pass
+    await asyncio.sleep(0.05)
+
+    with pytest.raises(RateLimitError) as exc_info:
+        async with limiter.gate(estimated_tokens=10, timeout=0.1):
+            pass
+
+    assert exc_info.value.retry_after is not None
+    assert exc_info.value.retry_after > 0
 
 
 async def test_provider_rate_limiter_concurrency_caps(redis_client) -> None:

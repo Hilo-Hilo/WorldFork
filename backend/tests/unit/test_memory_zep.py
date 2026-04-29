@@ -11,7 +11,6 @@ from __future__ import annotations
 import time
 from unittest.mock import AsyncMock, MagicMock, patch
 
-import pytest
 
 from backend.app.memory.local import LocalMemoryProvider
 from backend.app.memory.zep_adapter import (
@@ -199,6 +198,28 @@ class TestAddEpisode:
         )
         assert len(provider._failure_times) == 1
 
+    async def test_successful_write_through_survives_degradation(self) -> None:
+        provider, mock_client = _make_provider()
+        mock_client.thread.create = AsyncMock(return_value=MagicMock())
+        mock_client.thread.add_messages = AsyncMock(return_value=MagicMock())
+        sid = await provider.ensure_session(
+            actor_id="a1", universe_id="U001", metadata={"actor_kind": "cohort"}
+        )
+
+        await provider.add_episode(
+            session_id=sid,
+            role="cohort_X",
+            role_type="user",
+            content="workers remember the bridge meeting",
+        )
+        provider.degraded = True
+
+        ctx = await provider.get_context(session_id=sid)
+        results = await provider.search_graph(actor_id="a1", query="bridge", top_k=5)
+
+        assert "bridge meeting" in ctx
+        assert any(result["session_id"] == sid for result in results)
+
 
 # ---------------------------------------------------------------------------
 # get_context SDK call
@@ -245,7 +266,7 @@ class TestSearchGraph:
         mock_results.episodes = []
         mock_results.context = "some context"
         mock_client.graph.search = AsyncMock(return_value=mock_results)
-        results = await provider.search_graph(actor_id="a1", query="workers", top_k=3)
+        await provider.search_graph(actor_id="a1", query="workers", top_k=3)
         mock_client.graph.search.assert_awaited_once()
         call_kwargs = mock_client.graph.search.call_args.kwargs
         assert call_kwargs["query"] == "workers"

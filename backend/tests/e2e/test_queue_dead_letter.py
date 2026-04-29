@@ -12,11 +12,16 @@ is the integration point the on_failure hook calls in production.
 from __future__ import annotations
 
 import json
+from datetime import UTC, datetime
+from types import SimpleNamespace
 from unittest.mock import MagicMock, patch
 
 import fakeredis
 import pytest
 
+from backend.app.schemas.jobs import JobEnvelope
+from backend.app.workers import jobs as worker_jobs
+from backend.app.workers.celery_app import celery_app
 from backend.app.workers.retries import FatalError, route_dead_letter
 
 pytestmark = [pytest.mark.e2e]
@@ -92,3 +97,76 @@ def test_fatal_error_is_a_known_taxonomy_class():
     assert issubclass(FatalError, Exception)
     err = FatalError("permanent")
     assert str(err) == "permanent"
+
+
+def test_celery_routes_only_registered_task_names():
+    routes = celery_app.conf.task_routes
+    registered = set(celery_app.tasks)
+
+    assert set(routes).issubset(registered)
+
+
+def test_celery_beat_schedule_is_registered_by_app_import():
+    assert celery_app.conf.beat_schedule["heartbeat"]["task"] == "worldfork.heartbeat"
+
+
+@pytest.mark.asyncio
+async def test_run_tracked_can_defer_terminal_failed_status_until_retries_exhaust(monkeypatch):
+    calls: list[tuple[str, str]] = []
+
+    async def fake_mark_started(job_id: str) -> None:
+        calls.append(("started", job_id))
+
+    async def fake_mark_failed(job_id: str, error: str) -> None:
+        calls.append(("failed", error))
+
+    monkeypatch.setattr("backend.app.workers.scheduler.mark_started", fake_mark_started)
+    monkeypatch.setattr("backend.app.workers.scheduler.mark_failed", fake_mark_failed)
+
+    env = JobEnvelope(
+        job_id="retry-job",
+        job_type="simulate_universe_tick",
+        priority="p0",
+        run_id="run-1",
+        universe_id="u-1",
+        tick=1,
+        attempt_number=0,
+        idempotency_key="retry-key",
+        payload={},
+        created_at=datetime.now(UTC),
+    )
+
+    async def boom(_env: JobEnvelope) -> dict:
+        raise RuntimeError("temporary")
+
+    with pytest.raises(RuntimeError):
+        await worker_jobs._run_tracked(env, boom, mark_failed_on_error=False)
+
+    assert calls == [("started", "retry-job")]
+
+
+@pytest.mark.asyncio
+async def test_retrying_worker_state_is_explicit_until_max_retries(monkeypatch):
+    calls: list[tuple[str, str]] = []
+
+    async def fake_patch_job(job_id: str, **fields) -> None:
+        calls.append(("patch", fields["status"]))
+
+    async def fake_mark_failed(job_id: str, error: str) -> None:
+        calls.append(("failed", error))
+
+    monkeypatch.setattr("backend.app.workers.scheduler._patch_job", fake_patch_job)
+    monkeypatch.setattr("backend.app.workers.scheduler.mark_failed", fake_mark_failed)
+
+    await worker_jobs._mark_retry_or_failed_best_effort(
+        SimpleNamespace(request=SimpleNamespace(retries=1), max_retries=3),
+        "retry-job",
+        RuntimeError("temporary"),
+    )
+    await worker_jobs._mark_retry_or_failed_best_effort(
+        SimpleNamespace(request=SimpleNamespace(retries=3), max_retries=3),
+        "retry-job",
+        RuntimeError("terminal"),
+    )
+
+    assert calls == [("patch", "retried"), ("failed", "terminal")]

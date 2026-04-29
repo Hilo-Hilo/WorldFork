@@ -241,6 +241,29 @@ class TestSearchGraph:
         results = await provider.search_graph(actor_id="a1", query="strike", top_k=3)
         assert len(results) <= 3
 
+    async def test_search_only_scans_requested_actor_sessions(
+        self, provider: LocalMemoryProvider
+    ) -> None:
+        a1_sid = await provider.ensure_session(actor_id="a1", universe_id="U000", metadata={})
+        a2_sid = await provider.ensure_session(actor_id="a2", universe_id="U000", metadata={})
+        await provider.add_episode(
+            session_id=a1_sid,
+            role="user",
+            role_type="user",
+            content="private strike plan for actor one",
+        )
+        await provider.add_episode(
+            session_id=a2_sid,
+            role="user",
+            role_type="user",
+            content="private strike plan for actor two",
+        )
+
+        results = await provider.search_graph(actor_id="a1", query="strike", top_k=10)
+
+        assert {result["session_id"] for result in results} == {a1_sid}
+        assert all("actor two" not in result["content"] for result in results)
+
 
 # ---------------------------------------------------------------------------
 # healthcheck

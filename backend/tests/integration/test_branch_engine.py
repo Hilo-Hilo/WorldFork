@@ -34,6 +34,8 @@ from backend.app.schemas.branching import (
     ParameterShiftDelta,
 )
 
+pytestmark = pytest.mark.asyncio
+
 
 # ---------------------------------------------------------------------------
 # Shadow tables (SQLite-friendly subset of production schema)
@@ -511,6 +513,38 @@ async def test_commit_branch_actor_state_override_sets_attention(db_session):
     assert child_cohort.attention == 0.95
     assert result.delta_apply_summary["applied"] is True
     assert result.delta_apply_summary["new_value"] == 0.95
+
+
+async def test_commit_branch_rolls_back_when_delta_not_applied(db_session):
+    parent = await _make_root_universe(db_session, universe_id="U_root_noop00")
+    parent_id = parent.universe_id
+    await _make_seed_cohorts(db_session, parent.universe_id, tick=3)
+
+    delta = ActorStateOverrideDelta(
+        type="actor_state_override",
+        actor_id="missing-cohort",
+        field="attention",
+        new_value=0.95,
+    )
+
+    with pytest.raises(ValueError, match="refusing to commit no-op branch"):
+        await commit_branch(
+            session=db_session,
+            parent_universe=parent,
+            branch_from_tick=3,
+            delta=delta,
+            branch_reason="missing actor",
+            policy_result=_approve(),
+        )
+
+    from sqlalchemy import select
+
+    children = (
+        await db_session.execute(
+            select(_UniverseShadow).where(_UniverseShadow.parent_universe_id == parent_id)
+        )
+    ).scalars().all()
+    assert children == []
 
 
 async def test_commit_branch_depth_2_has_lineage_length_3(db_session):

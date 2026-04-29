@@ -23,6 +23,8 @@ from backend.tests.integration.test_branch_engine import (
     _UniverseShadow,
 )
 
+pytestmark = pytest.mark.asyncio
+
 
 # ---------------------------------------------------------------------------
 # Fixtures

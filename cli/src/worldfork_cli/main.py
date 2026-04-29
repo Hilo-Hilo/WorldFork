@@ -5,8 +5,16 @@ from typing import Any
 import click
 
 from worldfork_cli import __version__
-from worldfork_cli.client import DEFAULT_API_PREFIX, DEFAULT_BASE_URL, CliError, WorldForkClient
+from worldfork_cli.client import (
+    DEFAULT_API_PREFIX,
+    DEFAULT_BASE_URL,
+    CliError,
+    WorldForkClient,
+)
 from worldfork_cli.output import emit, unwrap
+
+WAIT_SUCCESS_STATUSES = {"succeeded"}
+WAIT_ACCEPTABLE_TERMINAL_STATUSES = {"interrupted"}
 
 
 class Context:
@@ -150,7 +158,7 @@ def transcript(ctx: Context, cohort_id: str, universe_id: str, from_tick: int, t
 
 @main.group()
 def jobs() -> None:
-    """Inspect and wait on background jobs."""
+    """Inspect and control background jobs."""
 
 
 @jobs.command("list")
@@ -183,10 +191,68 @@ def wait(ctx: Context, job_id: str, timeout_seconds: float, poll_interval: float
     )
     data, meta = unwrap(payload)
     emit(payload, as_json=ctx.as_json)
-    if not ctx.as_json and meta.get("timed_out"):
+    if meta.get("timed_out"):
         raise click.exceptions.Exit(124)
-    if isinstance(data, dict) and data.get("status") == "failed":
+    status = data.get("status") if isinstance(data, dict) else None
+    if status == "failed":
         raise click.exceptions.Exit(2)
+    if meta.get("terminal") and status not in WAIT_SUCCESS_STATUSES | WAIT_ACCEPTABLE_TERMINAL_STATUSES:
+        raise click.exceptions.Exit(2)
+
+
+def _job_mutation(ctx: Context, job_id: str, action: str) -> None:
+    emit(
+        ctx.client.request("POST", f"/jobs/{job_id}/{action}"),
+        as_json=ctx.as_json,
+    )
+
+
+@jobs.command()
+@click.argument("job_id")
+@click.pass_obj
+def pause(ctx: Context, job_id: str) -> None:
+    """Pause a queued job or request interrupt for a running job."""
+    _job_mutation(ctx, job_id, "pause")
+
+
+@jobs.command()
+@click.argument("job_id")
+@click.pass_obj
+def resume(ctx: Context, job_id: str) -> None:
+    """Resume a paused job."""
+    _job_mutation(ctx, job_id, "resume")
+
+
+@jobs.command()
+@click.argument("job_id")
+@click.pass_obj
+def interrupt(ctx: Context, job_id: str) -> None:
+    """Request interruption for a running job."""
+    _job_mutation(ctx, job_id, "interrupt")
+
+
+@jobs.command()
+@click.argument("job_id")
+@click.pass_obj
+def requeue(ctx: Context, job_id: str) -> None:
+    """Requeue an eligible failed or interrupted job."""
+    _job_mutation(ctx, job_id, "requeue")
+
+
+@jobs.command()
+@click.argument("job_id")
+@click.pass_obj
+def claim(ctx: Context, job_id: str) -> None:
+    """Claim a queued job for manual execution diagnostics."""
+    _job_mutation(ctx, job_id, "claim")
+
+
+@jobs.command("run")
+@click.argument("job_id")
+@click.pass_obj
+def run_job_command(ctx: Context, job_id: str) -> None:
+    """Run a job synchronously through the backend debug endpoint."""
+    _job_mutation(ctx, job_id, "run")
 
 
 @main.group()

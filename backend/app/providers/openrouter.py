@@ -52,8 +52,8 @@ class OpenRouterProvider(BaseProvider):
         *,
         api_key: str,
         base_url: str = "https://openrouter.ai/api/v1",
-        default_model: str = "deepseek/deepseek-v3.2",
-        fallback_model: str | None = "openai/gpt-4o-mini",
+        default_model: str = "google/gemini-3.1-flash-lite-preview",
+        fallback_model: str | None = "google/gemini-3.1-flash-lite-preview",
         http_referer: str = "http://localhost:3003",
         x_title: str = "WorldFork",
         request_timeout: float = 120.0,
@@ -109,6 +109,17 @@ class OpenRouterProvider(BaseProvider):
         if config.response_format:
             return config.response_format
         return {"type": "json_object"}
+
+    @staticmethod
+    def _parse_json_object(content: str) -> dict[str, Any]:
+        if not content:
+            raise ValueError("response was empty")
+        parsed = json.loads(content)
+        if not isinstance(parsed, dict):
+            raise ValueError(
+                f"response JSON root must be an object, got {type(parsed).__name__}"
+            )
+        return parsed
 
     @staticmethod
     def _extract_usage(response: Any) -> tuple[int, int, int, float | None]:
@@ -227,18 +238,22 @@ class OpenRouterProvider(BaseProvider):
         content = message.content or ""
 
         repaired = False
-        parsed: dict | None = None
+        parsed: dict[str, Any] | None = None
         try:
-            parsed = json.loads(content) if content else None
-        except json.JSONDecodeError as parse_err:
+            parsed = self._parse_json_object(content)
+        except (json.JSONDecodeError, ValueError) as parse_err:
             # One repair attempt — only when caller wanted structured output.
+            validator_message = (
+                parse_err.msg if isinstance(parse_err, json.JSONDecodeError) else str(parse_err)
+            )
             repair_messages = list(messages) + [
                 {"role": "assistant", "content": content},
                 {
                     "role": "system",
                     "content": (
                         "Your prior response failed JSON validation: "
-                        f"{parse_err.msg}. Re-emit valid JSON only, no commentary."
+                        f"{validator_message}. Re-emit a single valid JSON object only, "
+                        "no commentary."
                     ),
                 },
             ]
@@ -258,8 +273,8 @@ class OpenRouterProvider(BaseProvider):
             message = choice.message
             content = message.content or ""
             try:
-                parsed = json.loads(content) if content else None
-            except json.JSONDecodeError as final_err:
+                parsed = self._parse_json_object(content)
+            except (json.JSONDecodeError, ValueError) as final_err:
                 raise InvalidJSONError(
                     "OpenRouter response failed JSON parse after one repair attempt",
                     raw_text=content,

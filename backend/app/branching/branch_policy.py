@@ -44,6 +44,7 @@ class MultiverseSnapshot:
     max_depth_reached: int
     branches_this_tick: int
     last_branch_tick_per_universe: dict[str, int] = field(default_factory=dict)
+    parent_depth_by_universe: dict[str, int] = field(default_factory=dict)
     parent_metrics_history: dict[str, list[dict[str, Any]]] = field(default_factory=dict)
     budget_pct_used: float = 0.0
     capacity_p0_pct_used: float = 0.0
@@ -83,7 +84,7 @@ def _cost_estimate(remaining_ticks: int = 5) -> dict[str, Any]:
 # ---------------------------------------------------------------------------
 
 # Decisions that don't consume any new universe-level capacity.
-_NON_BRANCH_DECISIONS = {"continue", "freeze", "kill"}
+_NON_BRANCH_DECISIONS = {"continue", "freeze", "kill", "complete_universe"}
 
 
 def evaluate_branch_policy(
@@ -127,9 +128,15 @@ def evaluate_branch_policy(
     # spawn_active — run the full §13.5 ladder.
     # ------------------------------------------------------------------
 
-    # 1. Depth — the only hard-reject path.  We're about to add a *child*
-    #    universe whose depth will be ``max_depth_reached + 1`` at minimum.
-    projected_depth = multiverse.max_depth_reached + 1
+    # 1. Depth — the only hard-reject path.  Prefer the requested parent's
+    #    depth when the snapshot carries it; global max depth can reject valid
+    #    branches from shallower siblings.
+    parent_depth = multiverse.parent_depth_by_universe.get(parent_universe_id)
+    projected_depth = (
+        parent_depth + 1
+        if parent_depth is not None
+        else multiverse.max_depth_reached + 1
+    )
     if projected_depth > policy.max_depth:
         return BranchPolicyResult(
             decision="reject",

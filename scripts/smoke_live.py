@@ -3,18 +3,13 @@
 Run: .venv/bin/python -m scripts.smoke_live
 Requires OPENROUTER_API_KEY in .env. Zep is intentionally disabled by default.
 """
-import asyncio, os, sys
-from pathlib import Path
+import asyncio
 
 from backend.app.core.config import settings
-from backend.app.providers.openrouter import OpenRouterProvider
-from backend.app.providers.errors import ProviderError
-from backend.app.providers import register_provider
-from backend.app.providers import call_with_policy
-from backend.app.providers.routing import RoutingTable
-from backend.app.providers.rate_limits import ProviderRateLimiter
-from backend.app.schemas.llm import PromptPacket, ModelConfig, Clock
 from backend.app.memory.local import LocalMemoryProvider
+from backend.app.providers.openrouter import OpenRouterProvider
+from backend.app.schemas.llm import Clock, ModelConfig, PromptPacket
+
 
 async def main():
     print("== WorldFork Live Smoke ==")
@@ -77,6 +72,7 @@ async def main():
     if settings.zep_enabled and settings.zep_api_key and settings.zep_api_key != "z_REPLACE_ME":
         print("\n[3] Zep memory roundtrip")
         import uuid
+
         from backend.app.memory.zep_adapter import ZepMemoryProvider
         local_fb = LocalMemoryProvider()
         zep = ZepMemoryProvider(api_key=settings.zep_api_key, mode="cohort_memory", local_fallback=local_fb)

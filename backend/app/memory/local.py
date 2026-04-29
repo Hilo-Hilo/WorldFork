@@ -43,6 +43,12 @@ class LocalMemoryProvider:
             self._episodes[session_id] = deque(maxlen=self._MAX_EPISODE_DEQUE)
         return self._episodes[session_id]
 
+    def register_session(self, *, actor_id: str, session_id: str) -> None:
+        """Associate an externally-created session id with an actor."""
+        self._get_deque(session_id)
+        actor_sessions = self._actor_sessions.setdefault(actor_id, set())
+        actor_sessions.add(session_id)
+
     # ------------------------------------------------------------------
     # Protocol implementation
     # ------------------------------------------------------------------
@@ -66,9 +72,7 @@ class LocalMemoryProvider:
     ) -> str:
         """Return a deterministic session_id and create the deque if absent."""
         session_id = f"local:{universe_id}:{actor_id}"
-        self._get_deque(session_id)  # initialise if needed
-        actor_sessions = self._actor_sessions.setdefault(actor_id, set())
-        actor_sessions.add(session_id)
+        self.register_session(actor_id=actor_id, session_id=session_id)
         return session_id
 
     async def add_episode(
@@ -121,7 +125,11 @@ class LocalMemoryProvider:
         query_tokens = [t for t in query.lower().split() if t]
         if not query_tokens:
             return results
-        for session_id, dq in self._episodes.items():
+        actor_session_ids = self._actor_sessions.get(actor_id, set())
+        for session_id in actor_session_ids:
+            dq = self._episodes.get(session_id)
+            if dq is None:
+                continue
             for entry in dq:
                 content_lower = entry["content"].lower()
                 if any(token in content_lower for token in query_tokens):

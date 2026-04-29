@@ -76,6 +76,30 @@ def build_tick_graph(
 
     previous_key = barrier_key
     for phase_kind in DOWNSTREAM_PHASE_KINDS:
+        if phase_kind is NodeKind.TICK_SUMMARY:
+            for tool_key in runtime_state.tool_call_keys:
+                interrupt_key = interrupt_node_key(previous_key)
+                interrupt_nodes.append(interrupt_key)
+                node_specs[interrupt_key] = TickNodeSpec(
+                    key=interrupt_key,
+                    kind=NodeKind.INTERRUPT_CHECK,
+                    checkpoint=False,
+                    upstream=(previous_key,),
+                )
+                edges.append((previous_key, interrupt_key))
+                node_order.append(interrupt_key)
+
+                node_specs[tool_key] = TickNodeSpec(
+                    key=tool_key,
+                    kind=NodeKind.TOOL_CALL,
+                    checkpoint=True,
+                    upstream=(interrupt_key,),
+                )
+                edges.append((interrupt_key, tool_key))
+                checkpoint_order.append(tool_key)
+                node_order.append(tool_key)
+                previous_key = tool_key
+
         interrupt_key = interrupt_node_key(previous_key)
         interrupt_nodes.append(interrupt_key)
         node_specs[interrupt_key] = TickNodeSpec(

@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN pip install uv
 
 WORKDIR /app
+ENV PYTHONPATH=/app/backend
 
 # Copy project metadata and source before installing the editable local package.
 # Hatchling needs backend/app to exist when resolving ".[dev]".

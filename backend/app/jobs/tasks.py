@@ -19,6 +19,8 @@ JOB_LEASE_SECONDS = 15 * 60
 DEFAULT_MAX_CONCURRENT_JOBS = 4
 PAUSABLE_STATUSES = {"queued", "running"}
 REQUEUEABLE_STATUSES = {"failed", "interrupted"}
+CHECKPOINTED_JOB_TYPES = {"run_multiverse_tick", "simulate_multiverse_ticks"}
+INTERRUPT_TERMINAL_STATUSES = {"interrupt_requested", "interrupted", "cancelled"}
 
 
 class JobNotRunnableError(RuntimeError):
@@ -67,12 +69,25 @@ def execute_job(db: Session, job: models.Job, *, commit_running: bool = False) -
         validate_job_payload(job.job_type, job.payload, big_bang_id=job.big_bang_id)
         if job.job_type == "run_big_bang_until_complete":
             result = _execute_run_big_bang_until_complete_job(db, job)
+        elif job.job_type in CHECKPOINTED_JOB_TYPES:
+            result = _execute_job(db, job)
         else:
             with db.begin_nested():
                 result = _execute_job(db, job)
-        job.result = result
         job.error = None
-        job.status = "succeeded"
+        terminal_status = _job_interrupt_status(db, job)
+        if terminal_status == "cancelled":
+            job.result = _terminal_result(result, "cancelled")
+            job.status = "cancelled"
+        elif terminal_status in {"interrupt_requested", "interrupted"} or (
+            isinstance(result, dict) and result.get("status") == "interrupted"
+        ):
+            job.result = _terminal_result(result, "interrupted")
+            job.status = "interrupted"
+            job.interrupted_at = datetime.now(timezone.utc)
+        else:
+            job.result = result
+            job.status = "succeeded"
         job.finished_at = datetime.now(timezone.utc)
         job.lease_owner = None
         job.lease_expires_at = None
@@ -180,13 +195,14 @@ def pause_job(db: Session, job: models.Job, *, now: datetime | None = None) -> m
 
 def resume_job(db: Session, job: models.Job, *, now: datetime | None = None) -> models.Job:
     current = now or datetime.now(timezone.utc)
-    if job.status != "paused":
-        raise JobNotRunnableError(f"job {job.id} is {job.status}; only paused jobs can resume")
+    if job.status not in {"paused", "interrupted"}:
+        raise JobNotRunnableError(f"job {job.id} is {job.status}; only paused or interrupted jobs can resume")
     job.status = "queued"
     job.available_at = current
     job.queued_at = current
     job.paused_at = None
     job.interrupt_requested_at = None
+    job.interrupted_at = None
     job.lease_owner = None
     job.lease_expires_at = None
     job.last_heartbeat_at = None
@@ -263,6 +279,55 @@ def queue_health_snapshot(db: Session) -> dict:
     }
 
 
+def _job_interrupt_requested(db: Session, job: models.Job) -> bool:
+    return _job_interrupt_status(db, job) is not None
+
+
+def _job_interrupt_status(db: Session, job: models.Job) -> str | None:
+    db.flush()
+    status = db.scalar(select(models.Job.status).where(models.Job.id == job.id))
+    if status in INTERRUPT_TERMINAL_STATUSES:
+        return str(status)
+    local_status = getattr(job, "status", None)
+    if local_status in INTERRUPT_TERMINAL_STATUSES:
+        return str(local_status)
+    return None
+
+
+def _terminal_result(result: dict | None, status: str) -> dict:
+    if isinstance(result, dict):
+        return {**result, "status": status}
+    return {"status": status}
+
+
+def _mark_job_interrupted(db: Session, job: models.Job, *, result: dict | None = None) -> dict:
+    current = datetime.now(timezone.utc)
+    job.status = "interrupted"
+    job.interrupted_at = current
+    job.finished_at = current
+    job.lease_owner = None
+    job.lease_expires_at = None
+    job.last_heartbeat_at = None
+    if result is not None:
+        job.result = result
+    db.add(job)
+    db.flush()
+    return job.result or {"status": "interrupted"}
+
+
+def _mark_job_cancelled(db: Session, job: models.Job, *, result: dict | None = None) -> dict:
+    current = datetime.now(timezone.utc)
+    job.status = "cancelled"
+    job.finished_at = current
+    job.lease_owner = None
+    job.lease_expires_at = None
+    job.last_heartbeat_at = None
+    job.result = _terminal_result(result, "cancelled")
+    db.add(job)
+    db.flush()
+    return job.result or {"status": "cancelled"}
+
+
 def _execute_job(db: Session, job: models.Job) -> dict:
     payload = job.payload or {}
     if job.job_type == "initialize_big_bang":
@@ -279,7 +344,14 @@ def _execute_job(db: Session, job: models.Job) -> dict:
             db,
             multiverse=multiverse,
             idempotency_key=payload.get("idempotency_key"),
+            queue_job=job,
         )
+        if job.status == "interrupted" or tick.status in {"running", "provisional"}:
+            return {
+                "status": "interrupted" if job.status == "interrupted" else tick.status,
+                "tick_snapshot_id": str(tick.id),
+                "ui_label": tick.ui_label,
+            }
         return {"tick_snapshot_id": str(tick.id), "ui_label": tick.ui_label}
     if job.job_type == "simulate_multiverse_ticks":
         from app.simulation.run_orchestrator import simulate_ticks
@@ -287,7 +359,7 @@ def _execute_job(db: Session, job: models.Job) -> dict:
         multiverse = db.get(models.Multiverse, payload["multiverse_id"])
         if not multiverse:
             raise ValueError("multiverse not found")
-        ticks = simulate_ticks(db, multiverse=multiverse, count=int(payload.get("count", 1)))
+        ticks = simulate_ticks(db, multiverse=multiverse, count=int(payload.get("count", 1)), queue_job=job)
         return {"tick_snapshot_ids": [str(tick.id) for tick in ticks]}
     if job.job_type == "generate_multiverse_report":
         from app.simulation.report_engine import generate_multiverse_report
@@ -370,6 +442,11 @@ def _execute_run_big_bang_until_complete_job(db: Session, job: models.Job) -> di
         }
 
     for _ in range(max_total_ticks):
+        interrupt_status = _job_interrupt_status(db, job)
+        if interrupt_status == "cancelled":
+            return _mark_job_cancelled(db, job, result=make_progress("cancelled"))
+        if interrupt_status:
+            return _mark_job_interrupted(db, job, result={**make_progress("interrupted"), "status": "interrupted"})
         active_multiverses = db.scalars(
             select(models.Multiverse)
             .where(
@@ -384,7 +461,18 @@ def _execute_run_big_bang_until_complete_job(db: Session, job: models.Job) -> di
 
         made_progress = False
         for multiverse in active_multiverses:
-            tick = run_next_tick(db, multiverse=multiverse)
+            interrupt_status = _job_interrupt_status(db, job)
+            if interrupt_status == "cancelled":
+                return _mark_job_cancelled(db, job, result=make_progress("cancelled"))
+            if interrupt_status:
+                return _mark_job_interrupted(db, job, result={**make_progress("interrupted"), "status": "interrupted"})
+            tick = run_next_tick(db, multiverse=multiverse, queue_job=job)
+            if job.status in {"interrupted", "cancelled"}:
+                return {
+                    **make_progress(job.status),
+                    "status": job.status,
+                    "latest_tick_id": str(tick.id),
+                }
             if tick.status in UNFINISHED_TICK_STATUSES:
                 continue
             tick_id = str(tick.id)
@@ -392,7 +480,7 @@ def _execute_run_big_bang_until_complete_job(db: Session, job: models.Job) -> di
                 continue
             tick_ids.append(tick_id)
             latest_tick_id = tick_id
-            latest_tick_label = tick.label
+            latest_tick_label = tick.ui_label
             made_progress = True
             job.result = make_progress()
             db.add(job)

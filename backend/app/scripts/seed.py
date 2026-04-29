@@ -119,13 +119,15 @@ def _seed_provider(session) -> None:
 
 
 # PRD §16.4 model routing defaults
+_OPENROUTER_MODEL = "google/gemini-3.1-flash-lite-preview"
+
 _ROUTING_DEFAULTS = [
     {
         "job_type": "initialize_big_bang",
         "preferred_provider": "openrouter",
-        "preferred_model": "deepseek/deepseek-v3.2",
+        "preferred_model": _OPENROUTER_MODEL,
         "fallback_provider": "openrouter",
-        "fallback_model": "openai/gpt-4o-mini",
+        "fallback_model": _OPENROUTER_MODEL,
         "temperature": 0.3,
         "top_p": 1.0,
         "max_tokens": 4096,
@@ -139,9 +141,9 @@ _ROUTING_DEFAULTS = [
     {
         "job_type": "simulate_universe_tick",
         "preferred_provider": "openrouter",
-        "preferred_model": "deepseek/deepseek-v3.2",
+        "preferred_model": _OPENROUTER_MODEL,
         "fallback_provider": "openrouter",
-        "fallback_model": "openai/gpt-4o-mini",
+        "fallback_model": _OPENROUTER_MODEL,
         "temperature": 0.7,
         "top_p": 1.0,
         "max_tokens": 8192,
@@ -155,9 +157,9 @@ _ROUTING_DEFAULTS = [
     {
         "job_type": "agent_deliberation_batch",
         "preferred_provider": "openrouter",
-        "preferred_model": "deepseek/deepseek-v3.2",
+        "preferred_model": _OPENROUTER_MODEL,
         "fallback_provider": "openrouter",
-        "fallback_model": "openai/gpt-4o-mini",
+        "fallback_model": _OPENROUTER_MODEL,
         "temperature": 0.8,
         "top_p": 1.0,
         "max_tokens": 4096,
@@ -171,9 +173,9 @@ _ROUTING_DEFAULTS = [
     {
         "job_type": "execute_due_events",
         "preferred_provider": "openrouter",
-        "preferred_model": "deepseek/deepseek-v3.2",
+        "preferred_model": _OPENROUTER_MODEL,
         "fallback_provider": "openrouter",
-        "fallback_model": "openai/gpt-4o-mini",
+        "fallback_model": _OPENROUTER_MODEL,
         "temperature": 0.5,
         "top_p": 1.0,
         "max_tokens": 4096,
@@ -187,9 +189,9 @@ _ROUTING_DEFAULTS = [
     {
         "job_type": "social_propagation",
         "preferred_provider": "openrouter",
-        "preferred_model": "deepseek/deepseek-v3.2",
+        "preferred_model": _OPENROUTER_MODEL,
         "fallback_provider": "openrouter",
-        "fallback_model": "openai/gpt-4o-mini",
+        "fallback_model": _OPENROUTER_MODEL,
         "temperature": 0.6,
         "top_p": 1.0,
         "max_tokens": 2048,
@@ -203,9 +205,9 @@ _ROUTING_DEFAULTS = [
     {
         "job_type": "sociology_update",
         "preferred_provider": "openrouter",
-        "preferred_model": "deepseek/deepseek-v3.2",
+        "preferred_model": _OPENROUTER_MODEL,
         "fallback_provider": "openrouter",
-        "fallback_model": "openai/gpt-4o-mini",
+        "fallback_model": _OPENROUTER_MODEL,
         "temperature": 0.4,
         "top_p": 1.0,
         "max_tokens": 4096,
@@ -219,9 +221,9 @@ _ROUTING_DEFAULTS = [
     {
         "job_type": "god_agent_review",
         "preferred_provider": "openrouter",
-        "preferred_model": "openai/gpt-5.5",
+        "preferred_model": _OPENROUTER_MODEL,
         "fallback_provider": "openrouter",
-        "fallback_model": "openai/gpt-5.4",
+        "fallback_model": _OPENROUTER_MODEL,
         "temperature": 0.2,
         "top_p": 1.0,
         "max_tokens": 8192,
@@ -235,9 +237,9 @@ _ROUTING_DEFAULTS = [
     {
         "job_type": "force_deviation",
         "preferred_provider": "openrouter",
-        "preferred_model": "openai/gpt-5.5",
+        "preferred_model": _OPENROUTER_MODEL,
         "fallback_provider": "openrouter",
-        "fallback_model": "openai/gpt-5.4",
+        "fallback_model": _OPENROUTER_MODEL,
         "temperature": 0.2,
         "top_p": 1.0,
         "max_tokens": 4096,
@@ -251,9 +253,9 @@ _ROUTING_DEFAULTS = [
     {
         "job_type": "aggregate_run_results",
         "preferred_provider": "openrouter",
-        "preferred_model": "openai/gpt-5.5",
+        "preferred_model": _OPENROUTER_MODEL,
         "fallback_provider": "openrouter",
-        "fallback_model": "openai/gpt-5.4",
+        "fallback_model": _OPENROUTER_MODEL,
         "temperature": 0.25,
         "top_p": 1.0,
         "max_tokens": 8192,
@@ -267,9 +269,9 @@ _ROUTING_DEFAULTS = [
     {
         "job_type": "branch_universe",
         "preferred_provider": "openrouter",
-        "preferred_model": "deepseek/deepseek-v3.2",
+        "preferred_model": _OPENROUTER_MODEL,
         "fallback_provider": "openrouter",
-        "fallback_model": "openai/gpt-4o-mini",
+        "fallback_model": _OPENROUTER_MODEL,
         "temperature": 0.3,
         "top_p": 1.0,
         "max_tokens": 4096,
@@ -283,9 +285,9 @@ _ROUTING_DEFAULTS = [
     {
         "job_type": "sync_zep_memory",
         "preferred_provider": "openrouter",
-        "preferred_model": "deepseek/deepseek-v3.2",
+        "preferred_model": _OPENROUTER_MODEL,
         "fallback_provider": "openrouter",
-        "fallback_model": "openai/gpt-4o-mini",
+        "fallback_model": _OPENROUTER_MODEL,
         "temperature": 0.1,
         "top_p": 1.0,
         "max_tokens": 2048,
@@ -299,9 +301,9 @@ _ROUTING_DEFAULTS = [
     {
         "job_type": "build_review_index",
         "preferred_provider": "openrouter",
-        "preferred_model": "deepseek/deepseek-v3.2",
+        "preferred_model": _OPENROUTER_MODEL,
         "fallback_provider": "openrouter",
-        "fallback_model": "openai/gpt-4o-mini",
+        "fallback_model": _OPENROUTER_MODEL,
         "temperature": 0.1,
         "top_p": 1.0,
         "max_tokens": 2048,
@@ -315,9 +317,9 @@ _ROUTING_DEFAULTS = [
     {
         "job_type": "export_run",
         "preferred_provider": "openrouter",
-        "preferred_model": "deepseek/deepseek-v3.2",
+        "preferred_model": _OPENROUTER_MODEL,
         "fallback_provider": "openrouter",
-        "fallback_model": "openai/gpt-4o-mini",
+        "fallback_model": _OPENROUTER_MODEL,
         "temperature": 0.0,
         "top_p": 1.0,
         "max_tokens": 2048,
@@ -331,9 +333,9 @@ _ROUTING_DEFAULTS = [
     {
         "job_type": "apply_tick_results",
         "preferred_provider": "openrouter",
-        "preferred_model": "deepseek/deepseek-v3.2",
+        "preferred_model": _OPENROUTER_MODEL,
         "fallback_provider": "openrouter",
-        "fallback_model": "openai/gpt-4o-mini",
+        "fallback_model": _OPENROUTER_MODEL,
         "temperature": 0.0,
         "top_p": 1.0,
         "max_tokens": 2048,

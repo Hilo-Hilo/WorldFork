@@ -1,6 +1,10 @@
 from __future__ import annotations
 
+from dataclasses import dataclass, field
+from datetime import UTC, datetime
+from pathlib import Path
 import re
+from typing import Any
 
 from sqlalchemy.orm import Session
 
@@ -16,13 +20,49 @@ from app.source_of_truth.snapshotter import snapshot_source_of_truth
 from app.storage.artifact_store import ArtifactStore
 
 
+@dataclass(slots=True)
+class InitializerInput:
+    """Compatibility input for the legacy async initializer entrypoint."""
+
+    scenario_text: str
+    display_name: str
+    uploaded_docs: list[dict[str, Any]] = field(default_factory=list)
+    time_horizon_label: str = "1 month"
+    tick_duration_minutes: int = 60
+    max_ticks: int = 30
+    max_schedule_horizon_ticks: int = 5
+    provider_snapshot_id: str | None = None
+    created_by_user_id: str | None = None
+    big_bang_id: str | None = None
+    root_universe_id: str | None = None
+
+
+@dataclass(slots=True)
+class InitializerResult:
+    """Compatibility result shape consumed by worker and live smoke script."""
+
+    big_bang_run: Any
+    root_universe: Any
+    run_folder: Path
+    scenario_summary: str
+    archetypes: list[Any] = field(default_factory=list)
+    initial_cohort_states: list[Any] = field(default_factory=list)
+    heroes: list[Any] = field(default_factory=list)
+    initial_hero_states: list[Any] = field(default_factory=list)
+    channels: list[Any] = field(default_factory=list)
+    initial_events: list[Any] = field(default_factory=list)
+
+
 def default_simulation_config(overrides: dict) -> dict:
     settings = get_settings()
     base = {
         "tick_duration": settings.default_tick_duration,
         "max_ticks": settings.default_max_ticks,
     }
-    base.update(overrides or {})
+    normalized = dict(overrides or {})
+    if "tick_duration" not in normalized and "tick_duration_minutes" in normalized:
+        normalized["tick_duration"] = _minutes_to_tick_duration(normalized["tick_duration_minutes"])
+    base.update(normalized)
     return base
 
 
@@ -276,6 +316,135 @@ def create_big_bang(db: Session, payload: BigBangCreate) -> models.BigBang:
     return big_bang
 
 
+async def initialize_big_bang(
+    initializer_input: InitializerInput,
+    *,
+    session,
+    sot=None,
+    provider_rate_limiter=None,
+    run_root: Path | str | None = None,
+    routing=None,
+) -> InitializerResult:
+    """Compatibility wrapper for callers that still import initialize_big_bang.
+
+    The canonical first-wave initializer is :func:`create_big_bang`.  This
+    wrapper only maintains the async run/worker contract without changing that
+    canonical path.
+    """
+    del provider_rate_limiter, routing
+
+    from sqlalchemy import select
+
+    from backend.app.core.config import settings as backend_settings
+    from backend.app.core.ids import new_id
+    from backend.app.models.runs import BigBangRunModel
+    from backend.app.models.universes import UniverseModel
+    from backend.app.storage.ledger import Ledger
+    from backend.app.storage.sot_loader import load_sot, snapshot_sot_to
+
+    run_id = initializer_input.big_bang_id or new_id("run")
+    root_universe_id = initializer_input.root_universe_id or new_id("uni")
+    current = datetime.now(UTC)
+    bundle = sot or load_sot()
+    resolved_run_root = Path(run_root or backend_settings.run_root)
+    if resolved_run_root.name == "runs":
+        resolved_run_root = resolved_run_root.parent
+
+    ledger = Ledger.begin_run(
+        resolved_run_root,
+        run_id,
+        scenario_text=initializer_input.scenario_text,
+        sot_snapshot_sha=bundle.snapshot_sha256,
+        config_snapshot={
+            "display_name": initializer_input.display_name,
+            "time_horizon_label": initializer_input.time_horizon_label,
+            "tick_duration_minutes": initializer_input.tick_duration_minutes,
+            "max_ticks": initializer_input.max_ticks,
+            "max_schedule_horizon_ticks": initializer_input.max_schedule_horizon_ticks,
+        },
+    )
+    snapshot_path = snapshot_sot_to(bundle, ledger.run_folder)
+    ledger.write_artifact("input/original_prompt.md", initializer_input.scenario_text, immutable=False)
+    ledger.write_artifact(
+        "input/scenario_material.json",
+        {
+            "scenario_text": initializer_input.scenario_text,
+            "uploaded_docs": initializer_input.uploaded_docs,
+        },
+        immutable=False,
+    )
+    ledger.begin_universe(
+        root_universe_id,
+        parent=None,
+        branch_from_tick=0,
+        branch_delta=None,
+    )
+    ledger.flush()
+
+    result = await session.execute(
+        select(BigBangRunModel).where(BigBangRunModel.big_bang_id == run_id)
+    )
+    run = result.scalar_one_or_none()
+    if run is None:
+        run = BigBangRunModel(
+            big_bang_id=run_id,
+            display_name=initializer_input.display_name,
+            scenario_text=initializer_input.scenario_text,
+            input_file_ids=[],
+            status="running",
+            time_horizon_label=initializer_input.time_horizon_label,
+            tick_duration_minutes=initializer_input.tick_duration_minutes,
+            max_ticks=initializer_input.max_ticks,
+            max_schedule_horizon_ticks=initializer_input.max_schedule_horizon_ticks,
+            source_of_truth_version=bundle.version,
+            source_of_truth_snapshot_path=str(snapshot_path),
+            provider_snapshot_id=initializer_input.provider_snapshot_id or "",
+            root_universe_id=root_universe_id,
+            run_folder_path=str(ledger.run_folder),
+            safe_edit_metadata={},
+            created_by_user_id=initializer_input.created_by_user_id,
+        )
+        session.add(run)
+    else:
+        run.status = "running"
+        run.source_of_truth_version = bundle.version
+        run.source_of_truth_snapshot_path = str(snapshot_path)
+        run.provider_snapshot_id = initializer_input.provider_snapshot_id or run.provider_snapshot_id or ""
+        run.root_universe_id = run.root_universe_id or root_universe_id
+        run.run_folder_path = str(ledger.run_folder)
+        root_universe_id = run.root_universe_id
+
+    root = await session.get(UniverseModel, root_universe_id)
+    if root is None:
+        root = UniverseModel(
+            universe_id=root_universe_id,
+            big_bang_id=run_id,
+            parent_universe_id=None,
+            lineage_path=[root_universe_id],
+            branch_from_tick=0,
+            branch_depth=0,
+            status="active",
+            branch_reason="Root timeline",
+            branch_delta=None,
+            current_tick=0,
+            latest_metrics={},
+            created_at=current,
+        )
+        session.add(root)
+    else:
+        root.status = "active"
+        root.current_tick = max(root.current_tick or 0, 0)
+
+    await session.flush()
+    await session.commit()
+    return InitializerResult(
+        big_bang_run=run.to_schema(),
+        root_universe=root.to_schema(),
+        run_folder=ledger.run_folder,
+        scenario_summary=initializer_input.scenario_text,
+    )
+
+
 def persist_initializer_graphs_and_observability(
     db: Session,
     *,
@@ -404,6 +573,11 @@ def _dict_items(value) -> list[dict]:
         return []
     items = value if isinstance(value, list) else [value]
     return [item for item in items if isinstance(item, dict)]
+
+
+def _minutes_to_tick_duration(value) -> str:
+    minutes = _safe_int(value, 0, low=1)
+    return f"{minutes} minute" if minutes == 1 else f"{minutes} minutes"
 
 
 def _safe_int(value, default: int, *, low: int | None = None, high: int | None = None) -> int:

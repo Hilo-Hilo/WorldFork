@@ -18,6 +18,7 @@ from fastapi import APIRouter, Depends, Header, HTTPException, Query
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from backend.app.api.compat_db import table_has_columns
 from backend.app.core.db import get_session
 from backend.app.core.ids import new_id
 from backend.app.models.runs import BigBangRunModel
@@ -87,6 +88,71 @@ async def _find_run_by_idempotency_key(
     return existing_result.scalar_one_or_none()
 
 
+async def _legacy_universe_table_available(session: AsyncSession) -> bool:
+    return await table_has_columns(
+        session,
+        "universes",
+        ["universe_id", "big_bang_id", "status", "latest_metrics"],
+    )
+
+
+async def _universe_counts_for_runs(
+    session: AsyncSession,
+    run_ids: list[str],
+) -> tuple[dict[str, int], dict[str, int]]:
+    if not run_ids or not await _legacy_universe_table_available(session):
+        return {}, {}
+
+    total_rows = (
+        await session.execute(
+            select(UniverseModel.big_bang_id, func.count(UniverseModel.universe_id))
+            .where(UniverseModel.big_bang_id.in_(run_ids))
+            .group_by(UniverseModel.big_bang_id)
+        )
+    ).all()
+    total_counts = {run_id: int(count) for run_id, count in total_rows}
+
+    active_rows = (
+        await session.execute(
+            select(UniverseModel.big_bang_id, func.count(UniverseModel.universe_id))
+            .where(
+                UniverseModel.big_bang_id.in_(run_ids),
+                UniverseModel.status == "active",
+            )
+            .group_by(UniverseModel.big_bang_id)
+        )
+    ).all()
+    active_counts = {run_id: int(count) for run_id, count in active_rows}
+    return total_counts, active_counts
+
+
+async def _run_universe_counts(
+    session: AsyncSession,
+    run_id: str,
+    root_universe_id: str,
+) -> tuple[int, int, dict]:
+    if not await _legacy_universe_table_available(session):
+        return 0, 0, {}
+
+    total_stmt = select(func.count(UniverseModel.universe_id)).where(
+        UniverseModel.big_bang_id == run_id
+    )
+    active_stmt = select(func.count(UniverseModel.universe_id)).where(
+        UniverseModel.big_bang_id == run_id,
+        UniverseModel.status == "active",
+    )
+    total_count = int((await session.execute(total_stmt)).scalar_one())
+    active_count = int((await session.execute(active_stmt)).scalar_one())
+
+    root_metrics: dict = {}
+    root_stmt = select(UniverseModel).where(UniverseModel.universe_id == root_universe_id)
+    root_result = await session.execute(root_stmt)
+    root_uni = root_result.scalar_one_or_none()
+    if root_uni is not None:
+        root_metrics = dict(root_uni.latest_metrics or {})
+    return total_count, active_count, root_metrics
+
+
 # ---------------------------------------------------------------------------
 # POST /api/runs
 # ---------------------------------------------------------------------------
@@ -140,6 +206,26 @@ async def create_run(
     )
     session.add(run)
     await session.commit()
+
+    if not await _legacy_universe_table_available(session):
+        enqueue_error = (
+            "legacy /api/runs initializer is unavailable on the canonical runtime schema; "
+            "use /api/big-bangs or /api/agent surfaces"
+        )
+        run.status = "failed"
+        run.safe_edit_metadata = {
+            **safe_meta,
+            "failure_reason": enqueue_error,
+        }
+        await session.commit()
+        return CreateRunResponse(
+            run_id=big_bang_id,
+            root_universe_id=root_universe_id,
+            status="failed",
+            enqueued=False,
+            degraded=True,
+            error=enqueue_error,
+        )
 
     # Enqueue initialize_big_bang via Celery.
     envelope = make_envelope(
@@ -224,30 +310,7 @@ async def list_runs(
     rows_result = await session.execute(stmt)
     rows = rows_result.scalars().all()
     run_ids = [r.big_bang_id for r in rows]
-
-    total_counts: dict[str, int] = {}
-    active_counts: dict[str, int] = {}
-    if run_ids:
-        total_rows = (
-            await session.execute(
-                select(UniverseModel.big_bang_id, func.count(UniverseModel.universe_id))
-                .where(UniverseModel.big_bang_id.in_(run_ids))
-                .group_by(UniverseModel.big_bang_id)
-            )
-        ).all()
-        total_counts = {run_id: int(count) for run_id, count in total_rows}
-
-        active_rows = (
-            await session.execute(
-                select(UniverseModel.big_bang_id, func.count(UniverseModel.universe_id))
-                .where(
-                    UniverseModel.big_bang_id.in_(run_ids),
-                    UniverseModel.status == "active",
-                )
-                .group_by(UniverseModel.big_bang_id)
-            )
-        ).all()
-        active_counts = {run_id: int(count) for run_id, count in active_rows}
+    total_counts, active_counts = await _universe_counts_for_runs(session, run_ids)
 
     items = [
         RunListItem(
@@ -281,28 +344,11 @@ async def list_runs(
 async def get_run(run_id: str, session: DbSession) -> RunDetail:
     """Return detailed information about a single run."""
     run = await _get_run_or_404(run_id, session)
-
-    # Cross-DB approach: two separate counts.
-    total_stmt = select(func.count(UniverseModel.universe_id)).where(
-        UniverseModel.big_bang_id == run_id
+    total_count, active_count, root_metrics = await _run_universe_counts(
+        session,
+        run_id,
+        run.root_universe_id,
     )
-    active_stmt = select(func.count(UniverseModel.universe_id)).where(
-        UniverseModel.big_bang_id == run_id,
-        UniverseModel.status == "active",
-    )
-
-    total_count = (await session.execute(total_stmt)).scalar_one()
-    active_count = (await session.execute(active_stmt)).scalar_one()
-
-    # Latest metrics: pull from root universe.
-    root_metrics: dict = {}
-    root_stmt = select(UniverseModel).where(
-        UniverseModel.universe_id == run.root_universe_id
-    )
-    root_result = await session.execute(root_stmt)
-    root_uni = root_result.scalar_one_or_none()
-    if root_uni is not None:
-        root_metrics = dict(root_uni.latest_metrics or {})
 
     meta = dict(run.safe_edit_metadata or {})
 

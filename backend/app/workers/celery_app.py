@@ -68,3 +68,7 @@ def setup_logging(sender, **kwargs):
 # "Future attached to a different loop". Each task body calls
 # `await ensure_providers_in_loop()` from backend.app.providers instead, which
 # (re-)builds per-loop adapters as needed.
+try:
+    from backend.app.workers import beat_schedule as _beat_schedule  # noqa: F401
+except Exception:
+    pass

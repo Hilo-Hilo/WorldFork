@@ -6,12 +6,10 @@ from unittest.mock import AsyncMock, patch
 import pytest
 from sqlalchemy import select
 
+import backend.app.providers as providers
 from backend.app.models.settings import (
     BranchPolicySettingModel,
     GlobalSettingModel,
-    ModelRoutingEntryModel,
-    ProviderSettingModel,
-    RateLimitSettingModel,
 )
 
 
@@ -186,6 +184,45 @@ async def test_patch_providers_upsert(client, db_session):
     data = resp.json()
     assert len(data["providers"]) == 1
     assert data["providers"][0]["default_model"] == "openai/gpt-4o-mini"
+
+
+@pytest.mark.asyncio
+async def test_patch_providers_rebuilds_active_registry(client, db_session):
+    providers.clear_registry()
+    stale_provider = AsyncMock()
+    rebuilt_provider = AsyncMock()
+    providers.register_provider("stale", stale_provider)
+
+    async def _fake_initialize(settings):
+        providers.register_provider("rebuilt", rebuilt_provider)
+
+    payload = {
+        "providers": [
+            {
+                "provider": "openrouter",
+                "base_url": "https://openrouter.ai/api/v1",
+                "api_key_env": "OPENROUTER_API_KEY",
+                "default_model": "openai/gpt-4o-mini",
+                "fallback_model": "openai/gpt-4o-mini",
+                "json_mode_required": True,
+                "tool_calling_enabled": True,
+                "enabled": True,
+                "extra_headers": {},
+                "payload": {},
+            }
+        ]
+    }
+
+    with patch(
+        "backend.app.providers.initialize_providers_from_settings",
+        new=AsyncMock(side_effect=_fake_initialize),
+    ):
+        resp = await client.patch("/api/settings/providers", json=payload)
+
+    assert resp.status_code == 200
+    with pytest.raises(KeyError):
+        providers.get_provider("stale")
+    assert providers.get_provider("rebuilt") is rebuilt_provider
 
 
 # ---------------------------------------------------------------------------

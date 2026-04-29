@@ -32,10 +32,15 @@ class ValidationContext:
         sot: SoTBundle,
         cohort_or_hero: CohortState | HeroState | None,
         allowed_tool_ids: set[str],
+        *,
+        current_tick: int | None = None,
+        max_schedule_horizon_ticks: int | None = None,
     ) -> None:
         self.sot = sot
         self.actor = cohort_or_hero
         self.allowed_tool_ids = set(allowed_tool_ids)
+        self.current_tick = current_tick
+        self.max_schedule_horizon_ticks = max_schedule_horizon_ticks
 
         # Index tool registry by id so we can validate args quickly.
         self._tools_by_id: dict[str, dict] = {}
@@ -53,7 +58,11 @@ class ValidationContext:
 
         # Pre-build emotion / stance / event-type key sets for cheap lookups.
         self._known_emotions = self._collect_keys(sot.emotions, "items", "emotions")
-        self._known_event_types = self._collect_keys(sot.event_types, "items")
+        self._known_event_types = self._collect_keys(
+            sot.event_types,
+            "items",
+            "event_types",
+        )
         self._known_stance_axes = self._collect_stance_keys(sot.issue_stance_axes)
 
     # ------------------------------------------------------------------
@@ -100,6 +109,15 @@ class ValidationContext:
             etype = args.get("event_type")
             if etype not in self._known_event_types:
                 return False, f"unknown event_type: {etype!r}"
+            horizon_error = self._validate_schedule_horizon(args.get("scheduled_tick"))
+            if horizon_error:
+                return False, horizon_error
+
+        emotion_signal = args.get("emotion_signal")
+        if isinstance(emotion_signal, dict):
+            for key in emotion_signal:
+                if key not in self._known_emotions:
+                    return False, f"unknown emotion key in emotion_signal: {key!r}"
 
         # 5. self-rate emotions/stance keys must be in SoT
         if tool_id == "self_rate_emotions":
@@ -119,6 +137,19 @@ class ValidationContext:
                     return False, f"unknown stance axis in perceived_majority: {key!r}"
 
         return True, None
+
+    def _validate_schedule_horizon(self, scheduled_tick: Any) -> str | None:
+        if self.max_schedule_horizon_ticks is None or self.current_tick is None:
+            return None
+        if not isinstance(scheduled_tick, int):
+            return None
+        max_tick = self.current_tick + self.max_schedule_horizon_ticks
+        if scheduled_tick > max_tick:
+            return (
+                f"scheduled_tick {scheduled_tick} exceeds max_schedule_horizon_ticks "
+                f"({self.max_schedule_horizon_ticks}; max_tick={max_tick})"
+            )
+        return None
 
     def validate_decision(
         self, decision: CohortDecisionOutput | HeroDecisionOutput
@@ -185,7 +216,7 @@ class ValidationContext:
 
     @staticmethod
     def _collect_keys(obj: Any, *candidates: str) -> set[str]:
-        """Pull the ``key`` field out of a wrapped SoT items list."""
+        """Collect taxonomy keys from list, wrapped-list, or mapping-shaped SoT blobs."""
         if isinstance(obj, list):
             items = obj
         elif isinstance(obj, dict):
@@ -195,11 +226,25 @@ class ValidationContext:
                 if isinstance(v, list):
                     items = v
                     break
+                if isinstance(v, dict):
+                    items = list(v.values())
+                    break
             if items is None:
-                items = []
+                items = [
+                    value
+                    for key, value in obj.items()
+                    if key not in {"version", "scale", "note", "notes", "metadata"}
+                ]
         else:
             items = []
-        return {it["key"] for it in items if isinstance(it, dict) and "key" in it}
+
+        keys: set[str] = set()
+        for item in items:
+            if isinstance(item, str):
+                keys.add(item)
+            elif isinstance(item, dict) and "key" in item and isinstance(item["key"], str):
+                keys.add(item["key"])
+        return keys
 
     @staticmethod
     def _collect_stance_keys(obj: Any) -> set[str]:
@@ -211,6 +256,8 @@ class ValidationContext:
             arr = obj.get(arr_key)
             if isinstance(arr, list):
                 for it in arr:
-                    if isinstance(it, dict) and "key" in it:
+                    if isinstance(it, str):
+                        keys.add(it)
+                    elif isinstance(it, dict) and "key" in it and isinstance(it["key"], str):
                         keys.add(it["key"])
         return keys

@@ -196,10 +196,32 @@ class RunUntilCompleteOut(BaseModel):
     final_report_version_id: str
 
 
+class MultiverseLineageEdgeOut(ORMModel):
+    id: UUID
+    big_bang_id: UUID
+    parent_multiverse_id: UUID
+    child_multiverse_id: UUID
+    fork_tick_index: int
+    reason: str | None
+    created_at: datetime
+    updated_at: datetime
+
+
+class TickLineageRefOut(ORMModel):
+    id: UUID
+    child_multiverse_id: UUID
+    source_multiverse_id: UUID
+    source_tick_snapshot_id: UUID
+    inherited_tick_index: int
+    inherited_ui_label: str
+    created_at: datetime
+    updated_at: datetime
+
+
 class MultiverseLineageOut(BaseModel):
     multiverse: MultiverseOut
-    edges: list[Any]
-    inherited_ticks: list[Any]
+    edges: list[MultiverseLineageEdgeOut]
+    inherited_ticks: list[TickLineageRefOut]
 
 
 class SimulateTickRequest(BaseModel):

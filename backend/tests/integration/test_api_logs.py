@@ -1,10 +1,16 @@
 """Integration tests for /api/logs endpoints (B5-B)."""
 from __future__ import annotations
 
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
+import logging
+from uuid import uuid4
 
 import pytest
+import pytest_asyncio
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
+from app.db import models as current_models
+from backend.app.api.logs import get_request_logs, get_trace
 from backend.app.models.jobs import JobModel
 from backend.app.models.llm_calls import LLMCallModel
 
@@ -13,7 +19,16 @@ from backend.app.models.llm_calls import LLMCallModel
 # Helper — seed rows
 # ---------------------------------------------------------------------------
 
-async def _seed_llm_call(db_session, *, call_id="call-001", provider="openrouter", status="succeeded", error=None, run_id="run-123"):
+async def _seed_llm_call(
+    db_session,
+    *,
+    call_id="call-001",
+    provider="openrouter",
+    status="succeeded",
+    error=None,
+    run_id="run-123",
+    created_at=None,
+):
     row = LLMCallModel(
         call_id=call_id,
         provider=provider,
@@ -30,7 +45,7 @@ async def _seed_llm_call(db_session, *, call_id="call-001", provider="openrouter
         repaired_once=False,
         status=status,
         error=error,
-        created_at=datetime.now(UTC),
+        created_at=created_at or datetime.now(UTC),
         run_id=run_id,
     )
     db_session.add(row)
@@ -38,7 +53,8 @@ async def _seed_llm_call(db_session, *, call_id="call-001", provider="openrouter
     return row
 
 
-async def _seed_failed_job(db_session, *, job_id="fail-job-001", run_id="run-123"):
+async def _seed_failed_job(db_session, *, job_id="fail-job-001", run_id="run-123", created_at=None):
+    timestamp = created_at or datetime.now(UTC)
     row = JobModel(
         job_id=job_id,
         idempotency_key=f"key:{job_id}",
@@ -51,12 +67,24 @@ async def _seed_failed_job(db_session, *, job_id="fail-job-001", run_id="run-123
         payload={},
         status="failed",
         error="Something went wrong",
-        created_at=datetime.now(UTC),
-        enqueued_at=datetime.now(UTC),
+        created_at=timestamp,
+        enqueued_at=timestamp,
     )
     db_session.add(row)
     await db_session.commit()
     return row
+
+
+@pytest_asyncio.fixture
+async def current_schema_session():
+    engine = create_async_engine("sqlite+aiosqlite:///:memory:", connect_args={"check_same_thread": False})
+    async with engine.begin() as conn:
+        await conn.run_sync(current_models.LLMCall.__table__.create)
+        await conn.run_sync(current_models.Job.__table__.create)
+    factory = async_sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
+    async with factory() as session:
+        yield session
+    await engine.dispose()
 
 
 # ---------------------------------------------------------------------------
@@ -121,17 +149,105 @@ async def test_get_request_logs_pagination(client, db_session):
     assert len(data) <= 2
 
 
+@pytest.mark.asyncio
+async def test_current_schema_request_logs_filter_universe_and_preserve_tick_zero(current_schema_session):
+    matching = current_models.LLMCall(
+        id=uuid4(),
+        big_bang_id=None,
+        provider="openrouter",
+        model="openai/gpt-4o",
+        purpose="god_agent_review",
+        status="succeeded",
+        meta={"universe_id": "u-keep", "tick": 0},
+        created_at=datetime.now(UTC),
+    )
+    other = current_models.LLMCall(
+        id=uuid4(),
+        big_bang_id=None,
+        provider="openrouter",
+        model="openai/gpt-4o",
+        purpose="god_agent_review",
+        status="succeeded",
+        meta={"universe_id": "u-drop", "tick": 9},
+        created_at=datetime.now(UTC),
+    )
+    current_schema_session.add_all([matching, other])
+    await current_schema_session.commit()
+
+    data = await get_request_logs(
+        current_schema_session,
+        provider=None,
+        status=None,
+        run_id=None,
+        universe_id="u-keep",
+        limit=100,
+        offset=0,
+    )
+
+    assert [item.call_id for item in data] == [str(matching.id)]
+    assert data[0].tick == 0
+
+
+@pytest.mark.asyncio
+async def test_current_schema_trace_matches_universe_in_meta_and_payload(current_schema_session):
+    universe_id = str(uuid4())
+    llm = current_models.LLMCall(
+        id=uuid4(),
+        big_bang_id=None,
+        provider="openrouter",
+        model="openai/gpt-4o",
+        purpose="god_agent_review",
+        status="failed",
+        meta={"universe_id": universe_id, "tick_index": 0, "error": "bad"},
+        created_at=datetime.now(UTC),
+    )
+    job = current_models.Job(
+        id=uuid4(),
+        job_type="run_multiverse_tick",
+        queue_name="p1",
+        status="failed",
+        big_bang_id=None,
+        payload={
+            "multiverse_id": universe_id,
+            "tick": 0,
+            "scenario_text": "raw private scenario",
+            "model_config": {"api_key": "secret"},
+        },
+        result={},
+        error="boom",
+        idempotency_key="trace-job-key",
+        attempt_number=0,
+        max_attempts=3,
+        retryable=True,
+        created_at=datetime.now(UTC),
+    )
+    current_schema_session.add_all([llm, job])
+    await current_schema_session.commit()
+
+    data = await get_trace(universe_id, current_schema_session)
+
+    assert [item.call_id for item in data.llm_calls] == [str(llm.id)]
+    assert data.llm_calls[0].tick == 0
+    assert [item.job_id for item in data.jobs] == [str(job.id)]
+    assert data.jobs[0].tick == 0
+    assert "scenario_text" not in data.jobs[0].payload
+    assert data.jobs[0].payload["scenario_text_present"] is True
+    assert data.jobs[0].payload["model_config"] == "[REDACTED]"
+
+
 # ---------------------------------------------------------------------------
 # GET /api/logs/webhooks
 # ---------------------------------------------------------------------------
 
 
 @pytest.mark.asyncio
-async def test_get_webhook_logs_returns_list(client):
+async def test_get_webhook_logs_returns_list(client, caplog):
     """Should return empty list (or real data if table exists)."""
-    resp = await client.get("/api/logs/webhooks")
+    with caplog.at_level(logging.WARNING):
+        resp = await client.get("/api/logs/webhooks")
     assert resp.status_code == 200
     assert isinstance(resp.json(), list)
+    assert "webhook_events table not available" not in caplog.text
 
 
 # ---------------------------------------------------------------------------
@@ -171,6 +287,34 @@ async def test_get_error_logs_filter_run_id(client, db_session):
     assert resp.status_code == 200
     data = resp.json()
     assert all(e["run_id"] == "filter-run" for e in data)
+
+
+@pytest.mark.asyncio
+async def test_get_error_logs_applies_pagination_after_merge(client, db_session):
+    base = datetime(2026, 1, 1, tzinfo=UTC)
+    for i in range(3):
+        await _seed_failed_job(
+            db_session,
+            job_id=f"merge-job-{i}",
+            run_id="merge-run",
+            created_at=base + timedelta(minutes=10 - i),
+        )
+    for i in range(3):
+        await _seed_llm_call(
+            db_session,
+            call_id=f"merge-call-{i}",
+            status="failed",
+            error="provider failed",
+            run_id="merge-run",
+            created_at=base + timedelta(minutes=i),
+        )
+
+    resp = await client.get("/api/logs/errors", params={"run_id": "merge-run", "limit": 1, "offset": 2})
+
+    assert resp.status_code == 200
+    data = resp.json()
+    assert len(data) == 1
+    assert data[0]["id"] == "merge-job-2"
 
 
 # ---------------------------------------------------------------------------

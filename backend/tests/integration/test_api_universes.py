@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+from types import SimpleNamespace
 
 import pytest
 from httpx import AsyncClient
@@ -388,3 +389,21 @@ async def test_descendants_depth_2_lineage(client: AsyncClient, db_session: Asyn
 async def test_descendants_nonexistent_404(client: AsyncClient):
     resp = await client.get("/api/universes/no_such/descendants")
     assert resp.status_code == 404
+
+
+async def test_agent_trace_state_reads_final_bundle_sociology_result():
+    from app.api.agent import _actor_rows_from_state, _state_at_tick
+
+    tick = SimpleNamespace(
+        final_bundle={
+            "sociology_result": {
+                "cohort_state_updates": [{"cohort_id": "coh-1", "name": "Cohort One"}],
+                "hero_state_updates": [{"hero_id": "hero-1", "name": "Hero One"}],
+            }
+        },
+        provisional_bundle={},
+    )
+
+    state = _state_at_tick(tick)
+    actors = _actor_rows_from_state(state)
+    assert {actor["actor_id"] for actor in actors} == {"coh-1", "hero-1"}

@@ -36,6 +36,17 @@ from backend.app.schemas.branching import (
 
 _log = logging.getLogger(__name__)
 
+_PROTECTED_ACTOR_OVERRIDE_FIELDS = {
+    "actor_id",
+    "archetype_id",
+    "cohort_id",
+    "hero_id",
+    "population_share_of_archetype",
+    "represented_population",
+    "tick",
+    "universe_id",
+}
+
 
 # ---------------------------------------------------------------------------
 # Public dispatcher
@@ -207,6 +218,16 @@ async def _apply_actor_state_override(
     """
     from backend.app.models.cohorts import CohortStateModel
     from backend.app.models.heroes import HeroStateModel
+
+    root_field = delta.field.split(".", 1)[0]
+    if root_field in _PROTECTED_ACTOR_OVERRIDE_FIELDS:
+        return {
+            "delta_type": "actor_state_override",
+            "applied": False,
+            "reason": "conservation_critical_field",
+            "actor_id": delta.actor_id,
+            "field": delta.field,
+        }
 
     suffix = suffix_for(child_universe_id)
     namespaced = namespace_id(delta.actor_id, suffix)

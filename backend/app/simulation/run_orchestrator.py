@@ -14,23 +14,43 @@ def simulate_ticks(
     multiverse: models.Multiverse,
     count: int,
     raise_on_domain_error: bool = False,
+    queue_job: models.Job | None = None,
 ) -> list[models.TickSnapshot]:
     ticks = []
+    seen_tick_ids = {
+        tick_id
+        for tick_id, in db.execute(
+            select(models.TickSnapshot.id).where(models.TickSnapshot.multiverse_id == multiverse.id)
+        )
+    }
     for _ in range(max(0, count)):
         if multiverse.status not in {"active", "candidate"}:
             break
+        if _job_interrupt_requested(db, queue_job):
+            break
         try:
-            tick = run_next_tick(db, multiverse=multiverse)
+            tick = run_next_tick(db, multiverse=multiverse, queue_job=queue_job)
         except ValueError:
             if raise_on_domain_error:
                 raise
             break
         if tick.status in UNFINISHED_TICK_STATUSES:
             break
-        if ticks and ticks[-1].id == tick.id:
+        if tick.id in seen_tick_ids:
             break
         ticks.append(tick)
+        seen_tick_ids.add(tick.id)
     return ticks
+
+
+def _job_interrupt_requested(db: Session, queue_job: models.Job | None) -> bool:
+    if queue_job is None:
+        return False
+    db.flush()
+    status = db.scalar(select(models.Job.status).where(models.Job.id == queue_job.id))
+    if status == "interrupt_requested":
+        return True
+    return getattr(queue_job, "status", None) == "interrupt_requested"
 
 
 def run_big_bang_until_complete(db: Session, *, big_bang: models.BigBang, max_total_ticks: int = 24) -> dict:

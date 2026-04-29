@@ -1,7 +1,6 @@
 """Unit tests for backend.app.simulation.prompt_builder."""
 from __future__ import annotations
 
-import json
 
 import pytest
 

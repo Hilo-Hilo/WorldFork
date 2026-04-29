@@ -6,17 +6,13 @@ mirror the production schema (JSON in place of JSONB, no ARRAY columns).
 """
 from __future__ import annotations
 
-from datetime import datetime, timezone
-from typing import Any
 
 import pytest
 import pytest_asyncio
 from sqlalchemy import (
     JSON,
     Boolean,
-    CheckConstraint,
     Float,
-    ForeignKey,
     Integer,
     String,
 )
@@ -504,7 +500,6 @@ async def test_audit_population_conservation_balanced(db_session):
     await db_session.flush()
 
     # Patch the loader inside split_merge to use shadow archetype too.
-    import backend.app.sociology.split_merge as sm
     import backend.app.models.cohorts as cm
     orig = cm.PopulationArchetypeModel
     cm.PopulationArchetypeModel = _ArchetypeShadow

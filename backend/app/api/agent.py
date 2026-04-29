@@ -167,6 +167,17 @@ def _state_at_tick(tick: models.TickSnapshot | None) -> dict[str, Any]:
             value = bundle.get(key)
             if isinstance(value, dict):
                 return value
+        sociology_result = bundle.get("sociology_result")
+        if isinstance(sociology_result, dict):
+            cohorts = sociology_result.get("cohort_state_updates")
+            heroes = sociology_result.get("hero_state_updates")
+            state: dict[str, Any] = {}
+            if isinstance(cohorts, list):
+                state["cohorts"] = cohorts
+            if isinstance(heroes, list):
+                state["heroes"] = heroes
+            if state:
+                return state
     return {}
 
 
@@ -392,7 +403,7 @@ def jobs(
 @router.post("/jobs/{job_id}/wait")
 def wait_for_job(job_id: UUID, body: AgentWaitRequest, db: Session = Depends(get_db)):
     deadline = time.monotonic() + body.timeout_seconds
-    terminal = {"succeeded", "completed", "failed", "cancelled", "dead_lettered"}
+    terminal = {"succeeded", "completed", "failed", "cancelled", "dead_lettered", "interrupted"}
     while True:
         job = db.get(models.Job, job_id)
         if job is None:
@@ -418,13 +429,14 @@ def logs(
 ):
     verbosity = _require_verbosity(verbosity)
     rows: list[dict[str, Any]] = []
+    per_source_limit = offset + limit
     if source in (None, "job"):
         stmt = select(models.Job)
         if run_id is not None:
             stmt = stmt.where(models.Job.big_bang_id == run_id)
         if status:
             stmt = stmt.where(models.Job.status == status)
-        for job in db.scalars(stmt.order_by(models.Job.created_at.desc()).limit(limit).offset(offset)).all():
+        for job in db.scalars(stmt.order_by(models.Job.created_at.desc()).limit(per_source_limit)).all():
             rows.append(
                 {
                     "id": str(job.id),
@@ -441,7 +453,7 @@ def logs(
             stmt = stmt.where(models.LLMCall.big_bang_id == run_id)
         if status:
             stmt = stmt.where(models.LLMCall.status == status)
-        for call in db.scalars(stmt.order_by(models.LLMCall.created_at.desc()).limit(limit).offset(offset)).all():
+        for call in db.scalars(stmt.order_by(models.LLMCall.created_at.desc()).limit(per_source_limit)).all():
             rows.append(
                 {
                     "id": str(call.id),
@@ -455,7 +467,8 @@ def logs(
                 }
             )
     rows.sort(key=lambda item: str(item.get("created_at") or ""), reverse=True)
-    return _ok(_project_rows(rows[:limit], "log", verbosity, fields), limit=limit, offset=offset, verbosity=verbosity)
+    page = rows[offset : offset + limit]
+    return _ok(_project_rows(page, "log", verbosity, fields), limit=limit, offset=offset, verbosity=verbosity)
 
 
 @router.get("/models")

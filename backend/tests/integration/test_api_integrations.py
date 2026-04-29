@@ -6,8 +6,12 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
 import respx
 import httpx
+from sqlalchemy import JSON, select
 
 from backend.app.models.settings import ZepSettingModel
+from backend.app.models.webhooks import WebhookEventModel
+
+WebhookEventModel.__table__.c.payload.type = JSON()
 
 
 # ---------------------------------------------------------------------------
@@ -51,9 +55,24 @@ async def test_get_zep_ok(client, db_session):
     assert resp.status_code == 200
     data = resp.json()
     assert data["setting_id"] == "default"
-    assert data["enabled"] is False
-    assert data["mode"] == "local"
+    assert data["enabled"] is True
+    assert data["mode"] == "cohort_memory"
+    assert data["payload"]["runtime_enabled"] is False
     assert data["payload"]["active_memory"] == "local"
+
+
+@pytest.mark.asyncio
+async def test_get_zep_runtime_enabled_uses_db_api_key_env(client, db_session, monkeypatch):
+    await _seed_zep(db_session)
+    monkeypatch.setenv("ZEP_API_KEY", "test-zep-key")
+
+    resp = await client.get("/api/integrations/zep")
+
+    assert resp.status_code == 200
+    data = resp.json()
+    assert data["enabled"] is True
+    assert data["payload"]["runtime_enabled"] is True
+    assert data["payload"]["active_memory"] == "cohort_memory"
 
 
 # ---------------------------------------------------------------------------
@@ -72,7 +91,58 @@ async def test_patch_zep_ok(client, db_session):
     assert resp.status_code == 200
     data = resp.json()
     assert data["enabled"] is False
-    assert data["mode"] == "local"
+    assert data["mode"] == "hybrid"
+
+
+@pytest.mark.asyncio
+async def test_patch_zep_preserves_desired_enabled_without_runtime_env(client, db_session):
+    await _seed_zep(db_session)
+    resp = await client.patch("/api/integrations/zep", json={"enabled": True, "mode": "hybrid"})
+
+    assert resp.status_code == 200
+    data = resp.json()
+    assert data["enabled"] is True
+    assert data["mode"] == "hybrid"
+    assert data["payload"]["runtime_enabled"] is False
+    assert data["payload"]["active_memory"] == "local"
+
+    row = (
+        await db_session.execute(
+            select(ZepSettingModel).where(ZepSettingModel.setting_id == "default")
+        )
+    ).scalar_one()
+    assert row.enabled is True
+    assert row.mode == "hybrid"
+
+
+def test_memory_factory_loads_zep_config_from_db_row():
+    from backend.app.memory import factory
+
+    class _Session:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, tb):
+            return False
+
+        def get(self, _model, _key):
+            return ZepSettingModel(
+                setting_id="default",
+                enabled=True,
+                mode="hybrid",
+                api_key_env="CUSTOM_ZEP_KEY",
+                cache_ttl_seconds=123,
+                degraded=False,
+                payload={},
+            )
+
+    cfg = factory._load_zep_config(session_factory=lambda: _Session())
+
+    assert cfg is not None
+    assert cfg.enabled is True
+    assert cfg.mode == "hybrid"
+    assert cfg.api_key_env == "CUSTOM_ZEP_KEY"
+    assert cfg.cache_ttl_seconds == 123
 
 
 @pytest.mark.asyncio
@@ -264,6 +334,14 @@ async def test_webhooks_test_delivery_failure(client, db_session):
     data = resp.json()
     # 5xx from target → ok=False after max_attempts=1
     assert data["ok"] is False
+
+    event = (
+        await db_session.execute(
+            select(WebhookEventModel).where(WebhookEventModel.target_url == target_url)
+        )
+    ).scalar_one()
+    assert event.status == "failed"
+    assert event.attempts == 1
 
 
 # ---------------------------------------------------------------------------

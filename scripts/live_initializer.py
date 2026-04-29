@@ -16,6 +16,8 @@ import os
 import sys
 from pathlib import Path
 
+GEMINI_MODEL = "google/gemini-3.1-flash-lite-preview"
+
 # ---------------------------------------------------------------------------
 # Bootstrap .env before importing anything that reads settings
 # ---------------------------------------------------------------------------
@@ -41,10 +43,12 @@ for _noisy in ("httpx", "openai", "httpcore"):
 # ---------------------------------------------------------------------------
 # SQLite shim — must run before any ORM model is imported
 # ---------------------------------------------------------------------------
-from sqlalchemy import JSON
-from sqlalchemy.dialects.postgresql import ARRAY, JSONB
-from backend.app.models.base import Base  # registers all models via __init__
-import backend.app.models  # noqa: F401 — trigger all submodule imports
+from sqlalchemy import JSON  # noqa: E402
+from sqlalchemy.dialects.postgresql import ARRAY, JSONB  # noqa: E402
+
+import backend.app.models  # noqa: E402,F401 — trigger all submodule imports
+from backend.app.models.base import Base  # noqa: E402 registers all models via __init__
+
 
 def _patch_sqlite_types() -> None:
     for table in Base.metadata.tables.values():
@@ -60,16 +64,16 @@ _patch_sqlite_types()
 # ---------------------------------------------------------------------------
 
 async def main() -> None:
-    from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
     import fakeredis.aioredis
+    from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
+    from backend.app.providers import clear_registry, register_provider
     from backend.app.providers.openrouter import OpenRouterProvider
-    from backend.app.providers import register_provider, clear_registry
     from backend.app.providers.rate_limits import ProviderRateLimiter
     from backend.app.providers.routing import RoutingTable
     from backend.app.schemas.settings import ModelRoutingEntry
-    from backend.app.storage.sot_loader import load_sot
     from backend.app.simulation.initializer import InitializerInput, initialize_big_bang
+    from backend.app.storage.sot_loader import load_sot
 
     print("=" * 60)
     print("WorldFork Big Bang — live end-to-end test")
@@ -105,8 +109,8 @@ async def main() -> None:
     provider = OpenRouterProvider(
         api_key=api_key,
         base_url=os.environ.get("OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1"),
-        default_model="openai/gpt-4o-mini",
-        fallback_model="openai/gpt-4o-mini",
+        default_model=GEMINI_MODEL,
+        fallback_model=GEMINI_MODEL,
         http_referer=os.environ.get("OPENROUTER_HTTP_REFERER", "http://localhost:3003"),
         x_title=os.environ.get("OPENROUTER_TITLE", "WorldFork"),
     )
@@ -126,15 +130,15 @@ async def main() -> None:
     )
     print("    Rate limiter ready")
 
-    # ---- 5. Routing table — override initialize_big_bang to gpt-4o-mini ---
-    print("\n[5] Building RoutingTable with gpt-4o-mini for initialize_big_bang ...")
+    # ---- 5. Routing table — pin initialize_big_bang to the approved live model ---
+    print(f"\n[5] Building RoutingTable with {GEMINI_MODEL} for initialize_big_bang ...")
     routing = RoutingTable.defaults()
     routing._entries["initialize_big_bang"] = ModelRoutingEntry(
         job_type="initialize_big_bang",
         preferred_provider="openrouter",
-        preferred_model="openai/gpt-4o-mini",
+        preferred_model=GEMINI_MODEL,
         fallback_provider="openrouter",
-        fallback_model="openai/gpt-4o-mini",
+        fallback_model=GEMINI_MODEL,
         temperature=0.6,
         top_p=0.95,
         max_tokens=16384,  # big bang output is large; 4096 causes truncation

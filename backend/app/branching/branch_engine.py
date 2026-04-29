@@ -131,7 +131,7 @@ async def commit_branch(
     status = "active" if decision == "approve" else "candidate"
 
     # --- Allocate IDs and lineage ----------------------------------------
-    child_universe_id = new_id("U")
+    child_universe_id = new_id("uni")
     parent_lineage = list(parent_universe.lineage_path or [parent_universe.universe_id])
     lineage_path = parent_lineage + [child_universe_id]
     depth = len(lineage_path) - 1
@@ -305,6 +305,11 @@ async def commit_branch(
             branch_from_tick=branch_from_tick,
             delta=delta,
         )
+        if delta_summary.get("applied") is False:
+            raise ValueError(
+                "Branch delta did not apply; refusing to commit no-op branch "
+                f"({delta_summary.get('reason') or 'unknown_reason'})"
+            )
 
         # 9. Run-ledger record (best-effort) -------------------------------
         if ledger is not None:

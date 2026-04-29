@@ -24,7 +24,6 @@ from __future__ import annotations
 from collections.abc import AsyncGenerator
 from datetime import UTC, datetime
 from typing import Any
-from unittest.mock import AsyncMock
 
 import fakeredis.aioredis
 import pytest

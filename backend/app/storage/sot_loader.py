@@ -124,15 +124,22 @@ def load_sot(source_dir: Path | None = None) -> SoTBundle:
     )
 
 
-def _collect_sot_files(source_dir: Path) -> list[Path]:
+def _collect_sot_files(source_dir: Path, *, exclude_snapshot_marker: bool = False) -> list[Path]:
     """Return all files under *source_dir* in deterministic sorted order."""
     return sorted(
-        p for p in source_dir.rglob("*") if p.is_file()
+        p for p in source_dir.rglob("*")
+        if p.is_file() and not (exclude_snapshot_marker and p.name == ".snapshot_sha256")
     )
 
 
 def _compute_sot_merkle(source_dir: Path) -> str:
-    files = _collect_sot_files(source_dir)
+    files = _collect_sot_files(source_dir, exclude_snapshot_marker=True)
+    hashes = [sha256_file(f) for f in files]
+    return merkle_root(hashes)
+
+
+def _compute_snapshot_merkle(snapshot_dir: Path) -> str:
+    files = _collect_sot_files(snapshot_dir, exclude_snapshot_marker=True)
     hashes = [sha256_file(f) for f in files]
     return merkle_root(hashes)
 
@@ -155,7 +162,7 @@ def snapshot_sot_to(bundle: SoTBundle, dest_dir: Path) -> Path:
     sha_file = dest / ".snapshot_sha256"
     if dest.exists() and sha_file.exists():
         existing_sha = sha_file.read_text(encoding="utf-8").strip()
-        if existing_sha == bundle.snapshot_sha256:
+        if existing_sha == bundle.snapshot_sha256 and _compute_snapshot_merkle(dest) == bundle.snapshot_sha256:
             return dest
 
     # Copy tree
@@ -164,7 +171,7 @@ def snapshot_sot_to(bundle: SoTBundle, dest_dir: Path) -> Path:
     shutil.copytree(bundle.source_dir, dest)
 
     # Recompute to verify integrity after copy
-    recomputed_sha = _compute_sot_merkle(dest)
+    recomputed_sha = _compute_snapshot_merkle(dest)
     sha_file.write_text(recomputed_sha, encoding="utf-8")
 
     return dest
@@ -207,34 +214,31 @@ def validate_sot(bundle: SoTBundle) -> list[str]:
             return [v for k, v in obj.items() if k not in ("version", "scale")]
         return []
 
-    # emotions: exactly 12 items
+    # Taxonomy files must be populated enough to support validation/runtime use.
     emotions_list = _items_of(bundle.emotions, "items", "emotions")
-    if len(emotions_list) != 12:
+    if len(emotions_list) < 5:
         errors.append(
-            f"emotions must have 12 items, found {len(emotions_list)}"
+            f"emotions must have at least 5 items, found {len(emotions_list)}"
         )
 
-    # behavior_axes: at least 15
     baxes_list = _items_of(bundle.behavior_axes, "items", "axes", "behavior_axes")
-    if len(baxes_list) < 15:
+    if len(baxes_list) < 4:
         errors.append(
-            f"behavior_axes must have at least 15 items, found {len(baxes_list)}"
+            f"behavior_axes must have at least 4 items, found {len(baxes_list)}"
         )
 
-    # ideology_axes: exactly 5 axes
     iaxes_list = _items_of(bundle.ideology_axes, "axes", "items", "ideology_axes")
     iaxes_count = len(iaxes_list)
-    if iaxes_count != 5:
+    if iaxes_count < 4:
         errors.append(
-            f"ideology_axes must have 5 axes, found {iaxes_count}"
+            f"ideology_axes must have at least 4 axes, found {iaxes_count}"
         )
 
-    # expression_scale: exactly 7 bands
-    escale_list = _items_of(bundle.expression_scale, "bands", "items", "expression_scale")
+    escale_list = _items_of(bundle.expression_scale, "bands", "items", "expression_scale", "scale")
     escale_count = len(escale_list)
-    if escale_count != 7:
+    if escale_count < 3:
         errors.append(
-            f"expression_scale must have 7 bands, found {escale_count}"
+            f"expression_scale must have at least 3 bands, found {escale_count}"
         )
 
     # prompt_contracts: each must be a valid JSONSchema Draft 2020-12

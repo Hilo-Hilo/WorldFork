@@ -51,6 +51,98 @@ def tool_calls(tick_snapshot_id: UUID, db: Session = Depends(get_db)):
     return db.scalars(select(models.ToolCall).where(models.ToolCall.tick_snapshot_id == tick_snapshot_id)).all()
 
 
+@router.get("/{tick_snapshot_id}/runtime")
+def runtime(tick_snapshot_id: UUID, db: Session = Depends(get_db)):
+    require(db, models.TickSnapshot, tick_snapshot_id)
+    executions = db.scalars(
+        select(models.TickExecution)
+        .where(models.TickExecution.tick_snapshot_id == tick_snapshot_id)
+        .order_by(models.TickExecution.created_at.asc())
+    ).all()
+    payload = []
+    for execution in executions:
+        nodes = db.scalars(
+            select(models.ExecutionNode)
+            .where(models.ExecutionNode.tick_execution_id == execution.id)
+            .order_by(
+                models.ExecutionNode.checkpoint_order.is_(None),
+                models.ExecutionNode.checkpoint_order.asc(),
+                models.ExecutionNode.created_at.asc(),
+            )
+        ).all()
+        checkpoints = db.scalars(
+            select(models.TickCheckpoint)
+            .where(models.TickCheckpoint.tick_execution_id == execution.id)
+            .order_by(models.TickCheckpoint.checkpoint_order.asc())
+        ).all()
+        attempts = db.scalars(
+            select(models.NodeAttempt)
+            .where(models.NodeAttempt.execution_node_id.in_([node.id for node in nodes]))
+            .order_by(models.NodeAttempt.created_at.asc())
+        ).all() if nodes else []
+        payload.append(
+            {
+                "id": execution.id,
+                "status": execution.status,
+                "tick_index": execution.tick_index,
+                "queue_job_id": execution.queue_job_id,
+                "runtime_meta": execution.runtime_meta,
+                "started_at": execution.started_at,
+                "finished_at": execution.finished_at,
+                "interrupted_at": execution.interrupted_at,
+                "nodes": [_node_payload(node) for node in nodes],
+                "checkpoints": [_checkpoint_payload(checkpoint) for checkpoint in checkpoints],
+                "attempts": [_attempt_payload(attempt) for attempt in attempts],
+            }
+        )
+    return {"tick_snapshot_id": tick_snapshot_id, "executions": payload}
+
+
+def _node_payload(node: models.ExecutionNode) -> dict:
+    return {
+        "id": node.id,
+        "node_key": node.node_key,
+        "node_kind": node.node_kind,
+        "status": node.status,
+        "checkpoint_order": node.checkpoint_order,
+        "input_payload": node.input_payload,
+        "output_payload": node.output_payload,
+        "started_at": node.started_at,
+        "finished_at": node.finished_at,
+        "interrupted_at": node.interrupted_at,
+    }
+
+
+def _checkpoint_payload(checkpoint: models.TickCheckpoint) -> dict:
+    return {
+        "id": checkpoint.id,
+        "execution_node_id": checkpoint.execution_node_id,
+        "checkpoint_key": checkpoint.checkpoint_key,
+        "checkpoint_order": checkpoint.checkpoint_order,
+        "status": checkpoint.status,
+        "payload": checkpoint.payload,
+        "started_at": checkpoint.started_at,
+        "finished_at": checkpoint.finished_at,
+        "interrupted_at": checkpoint.interrupted_at,
+    }
+
+
+def _attempt_payload(attempt: models.NodeAttempt) -> dict:
+    return {
+        "id": attempt.id,
+        "execution_node_id": attempt.execution_node_id,
+        "attempt_number": attempt.attempt_number,
+        "status": attempt.status,
+        "provider": attempt.provider,
+        "model": attempt.model,
+        "error": attempt.error,
+        "meta": attempt.meta,
+        "started_at": attempt.started_at,
+        "finished_at": attempt.finished_at,
+        "interrupted_at": attempt.interrupted_at,
+    }
+
+
 @router.get("/{tick_snapshot_id}/emotion-observability")
 def emotion(tick_snapshot_id: UUID, db: Session = Depends(get_db)):
     require(db, models.TickSnapshot, tick_snapshot_id)

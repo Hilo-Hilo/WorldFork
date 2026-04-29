@@ -25,6 +25,7 @@ from unittest import mock
 
 import orjson
 import pytest
+from fastapi.testclient import TestClient
 
 # ---------------------------------------------------------------------------
 # Guard: skip the whole module if fakeredis isn't available
@@ -106,14 +107,22 @@ def _publish_after(
 def fast_heartbeat(monkeypatch: pytest.MonkeyPatch) -> None:
     """Speed up heartbeat to 1 second for all tests in this module."""
     monkeypatch.setenv("WF_WS_HEARTBEAT_SECS", "1")
+    for name in (
+        "WORLDFORK_SESSION_TOKEN",
+        "WORLDFORK_API_TOKEN",
+        "WF_SESSION_TOKEN",
+        "WF_API_TOKEN",
+    ):
+        monkeypatch.delenv(name, raising=False)
     import backend.app.api.websockets as _ws
 
     monkeypatch.setattr(_ws, "_HEARTBEAT_SECS", 1.0)
 
 
 @pytest.fixture()
-def client():
+def client(monkeypatch: pytest.MonkeyPatch):
     """FastAPI TestClient with the Redis layer replaced by fakeredis."""
+    monkeypatch.setenv("AUTO_CREATE_TABLES", "false")
     fake_redis_instance = _new_fake_redis()
 
     # Patch get_redis_client at the module level used by websockets.py and pubsub.py.
@@ -133,7 +142,9 @@ def client():
         ),
     ):
         from backend.app.main import create_app
-        from fastapi.testclient import TestClient
+        import backend.app.main as main_module
+
+        main_module.settings_obj.auto_create_tables = False
 
         _app = create_app()
         with TestClient(_app, raise_server_exceptions=False) as tc:
@@ -225,6 +236,21 @@ class TestJobsWebSocket:
         with pytest.raises(Exception):
             with client.websocket_connect("/ws/jobs") as ws:
                 ws.receive_json()
+
+    def test_invalid_non_empty_token_rejected_when_token_configured(
+        self,
+        client: "TestClient",
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        monkeypatch.setenv("WORLDFORK_API_TOKEN", "configured-token")
+
+        with pytest.raises(Exception):
+            with client.websocket_connect("/ws/jobs?token=not-the-token") as ws:
+                ws.receive_json()
+
+        with client.websocket_connect("/ws/jobs?token=configured-token") as ws:
+            ping = ws.receive_json()
+            assert ping.get("type") == "ping"
 
     def test_heartbeat_ping_arrives(self, client: "TestClient") -> None:
         with client.websocket_connect("/ws/jobs?token=ok") as ws:

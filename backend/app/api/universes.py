@@ -895,8 +895,7 @@ async def _run_tick_locally_for_step(
     """
     from backend.app.core.config import settings as _cfg
     from backend.app.core.redis_client import get_redis_client
-    from backend.app.providers.rate_limits import ProviderRateLimiter
-    from backend.app.providers.routing import RoutingTable
+    from backend.app.providers.routing import RoutingTable, build_provider_rate_limiter
     from backend.app.simulation.local_runner import run_tick_locally
     from backend.app.simulation.tick_runner import TickContext
     from backend.app.storage.ledger import Ledger
@@ -906,16 +905,7 @@ async def _run_tick_locally_for_step(
     except Exception:
         routing = RoutingTable.defaults()
 
-    redis = get_redis_client()
-    limiter = ProviderRateLimiter(
-        redis,
-        provider="openrouter",
-        rpm_limit=600,
-        tpm_limit=1_000_000,
-        max_concurrency=8,
-        daily_budget_usd=None,
-        jitter=False,
-    )
+    limiter = await build_provider_rate_limiter(session, get_redis_client(), provider="openrouter")
 
     run_root = _cfg.run_root
     if run_root.name == "runs":
@@ -1275,22 +1265,13 @@ async def _force_delta_from_prompt(
     from backend.app.core.config import settings as _settings
     from backend.app.core.redis_client import get_redis_client
     from backend.app.providers import call_with_policy, ensure_providers_in_loop
-    from backend.app.providers.rate_limits import ProviderRateLimiter
-    from backend.app.providers.routing import RoutingTable
+    from backend.app.providers.routing import RoutingTable, build_provider_rate_limiter
     from backend.app.schemas.llm import PromptPacket
     from backend.app.schemas.common import Clock
 
     await ensure_providers_in_loop(_settings)
     routing = await RoutingTable.from_db(session)
-    limiter = ProviderRateLimiter(
-        get_redis_client(),
-        provider="openrouter",
-        rpm_limit=600,
-        tpm_limit=1_000_000,
-        max_concurrency=8,
-        daily_budget_usd=None,
-        jitter=False,
-    )
+    limiter = await build_provider_rate_limiter(session, get_redis_client(), provider="openrouter")
     packet = PromptPacket(
         system=(
             "Convert the operator request into one valid WorldFork BranchDelta. "

@@ -1,8 +1,17 @@
 """Unit tests for backend.app.simulation.validators."""
 from __future__ import annotations
 
+from types import SimpleNamespace
+
 import pytest
 
+from backend.app.simulation import agent_engine
+from backend.app.simulation.agent_engine import (
+    _normalize_event_actions,
+    _normalize_self_ratings,
+    _normalize_social_actions,
+    run_actor_decision,
+)
 from backend.app.simulation.validators import ValidationContext
 from backend.app.storage.sot_loader import load_sot
 
@@ -29,6 +38,13 @@ def ctx(sot):
     )
 
 
+@pytest.fixture
+def known_event_type(sot):
+    event_types = sot.event_types.get("event_types") or []
+    assert event_types, "expected source_of_truth event_types to be populated"
+    return event_types[0]
+
+
 # ---------------------------------------------------------------------------
 
 
@@ -40,10 +56,10 @@ class TestValidateToolCall:
         assert not ok
         assert "unknown tool_id" in reason
 
-    def test_rejects_disallowed_tool(self, sot):
+    def test_rejects_disallowed_tool(self, sot, known_event_type):
         ctx = ValidationContext(sot, None, allowed_tool_ids={"stay_silent"})
         ok, reason = ctx.validate_tool_call(
-            {"tool_id": "queue_event", "args": {"event_type": "protest", "title": "x", "scheduled_tick": 5}}
+            {"tool_id": "queue_event", "args": {"event_type": known_event_type, "title": "x", "scheduled_tick": 5}}
         )
         assert not ok
         assert "not in actor's allowed_tools" in reason
@@ -57,13 +73,29 @@ class TestValidateToolCall:
         assert not ok
         assert "unknown event_type" in reason
 
-    def test_accepts_known_event_type(self, ctx):
+    def test_accepts_known_event_type(self, ctx, known_event_type):
         ok, _ = ctx.validate_tool_call(
             {"tool_id": "queue_event", "args": {
-                "event_type": "protest", "title": "March", "scheduled_tick": 5
+                "event_type": known_event_type, "title": "March", "scheduled_tick": 5
             }}
         )
         assert ok
+
+    def test_rejects_queue_event_beyond_configured_horizon(self, sot, known_event_type):
+        ctx = ValidationContext(
+            sot,
+            None,
+            allowed_tool_ids={"queue_event"},
+            current_tick=10,
+            max_schedule_horizon_ticks=3,
+        )
+        ok, reason = ctx.validate_tool_call(
+            {"tool_id": "queue_event", "args": {
+                "event_type": known_event_type, "title": "Too late", "scheduled_tick": 14
+            }}
+        )
+        assert not ok
+        assert "max_schedule_horizon_ticks" in reason
 
     def test_rejects_unknown_emotion_key(self, ctx):
         ok, reason = ctx.validate_tool_call(
@@ -72,6 +104,14 @@ class TestValidateToolCall:
         )
         assert not ok
         assert "schadenfreude" in reason
+
+    def test_rejects_unknown_emotion_signal_key(self, ctx):
+        ok, reason = ctx.validate_tool_call(
+            {"tool_id": "create_social_post",
+             "args": {"platform": "twitter_like", "content": "ok", "emotion_signal": {"schadenfreude": 1.0}}}
+        )
+        assert not ok
+        assert "emotion_signal" in reason
 
     def test_rejects_overlong_post_content(self, ctx):
         ok, reason = ctx.validate_tool_call(
@@ -87,7 +127,7 @@ class TestValidateToolCall:
 
 
 class TestSanitizeDecision:
-    def test_drops_invalid_keeps_valid(self, ctx):
+    def test_drops_invalid_keeps_valid(self, ctx, known_event_type):
         decision = {
             "social_actions": [
                 {"tool_id": "stay_silent", "args": {"reason": "fatigue"}},
@@ -96,7 +136,7 @@ class TestSanitizeDecision:
             ],
             "event_actions": [
                 {"tool_id": "queue_event", "args": {
-                    "event_type": "protest", "title": "March", "scheduled_tick": 5
+                    "event_type": known_event_type, "title": "March", "scheduled_tick": 5
                 }},
                 {"tool_id": "queue_event", "args": {
                     "event_type": "fictitious_type", "title": "x", "scheduled_tick": 5
@@ -112,3 +152,63 @@ class TestSanitizeDecision:
         assert "comment_on_post" in social_ids
         assert len(event_ids) == 1
         assert event_ids[0] == "queue_event"
+
+
+class TestAgentDecisionDialectNormalization:
+    def test_accepts_schema_valid_event_actions_and_self_ratings(self, known_event_type):
+        parsed = {
+            "event_actions": [
+                {"tool_id": "queue_event", "args": {
+                    "event_type": known_event_type,
+                    "title": "March",
+                    "scheduled_tick": 5,
+                }}
+            ],
+            "self_ratings": {"emotions": {"anger": 6, "hope": 2}},
+        }
+
+        assert _normalize_event_actions(parsed) == [{
+            "event_type": known_event_type,
+            "title": "March",
+            "scheduled_tick": 5,
+        }]
+        assert _normalize_self_ratings(parsed) == [
+            {"emotion": "anger", "value": 6.0},
+            {"emotion": "hope", "value": 2.0},
+        ]
+
+    def test_create_social_post_preserves_content_from_args(self):
+        parsed = {
+            "social_actions": [
+                {"tool_id": "create_social_post", "args": {
+                    "platform": "oasis",
+                    "content": "Specific schema-valid post body.",
+                }}
+            ]
+        }
+
+        actions = _normalize_social_actions(parsed)
+        assert actions[0]["body"] == "Specific schema-valid post body."
+        assert actions[0]["content"] == "Specific schema-valid post body."
+        assert actions[0]["channel"] == "oasis"
+
+    def test_authoritative_actor_id_overrides_llm_actor_id(self, monkeypatch):
+        actor = SimpleNamespace(id="actor-real", actor_type="cohort", name="Actor", archetype="test")
+        response = SimpleNamespace(parsed={
+            "social_actions": [{"action_type": "post", "body": "hello", "actor_id": "actor-fake"}],
+            "emotion_self_ratings": [{"emotion": "anger", "value": 4, "actor_id": "actor-fake"}],
+        })
+        call = SimpleNamespace(id="call-1")
+
+        monkeypatch.setattr(agent_engine, "complete_with_audit", lambda *a, **kw: (response, call))
+        result = run_actor_decision(
+            SimpleNamespace(),
+            big_bang=SimpleNamespace(id="bb"),
+            multiverse=SimpleNamespace(id="mv"),
+            actor=actor,
+            tick_index=1,
+            prompt_context={},
+        )
+
+        assert result["parsed_actions"][0]["actor_id"] == "actor-real"
+        assert result["emotion_self_ratings"][0]["actor_id"] == "actor-real"

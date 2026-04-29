@@ -96,6 +96,25 @@ class ActorStateOverrideDelta(BaseModel):
             data["new_value"] = data["value"]
         return data
 
+    @model_validator(mode="after")
+    def _reject_conservation_critical_fields(self) -> ActorStateOverrideDelta:
+        protected = {
+            "actor_id",
+            "archetype_id",
+            "cohort_id",
+            "hero_id",
+            "population_share_of_archetype",
+            "represented_population",
+            "tick",
+            "universe_id",
+        }
+        root_field = self.field.split(".", 1)[0]
+        if root_field in protected:
+            raise ValueError(
+                f"actor_state_override cannot mutate conservation-critical field {self.field!r}"
+            )
+        return self
+
 
 class HeroDecisionOverrideDelta(BaseModel):
     """Override a hero's decision at a given tick in the child universe."""

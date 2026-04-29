@@ -1,4 +1,51 @@
+import warnings
+from types import SimpleNamespace
+
+import pytest
+from sqlalchemy import create_engine
+from sqlalchemy.exc import SAWarning
+from sqlalchemy.orm import Session
+from sqlalchemy.pool import StaticPool
+
+from app.db import models
 from app.runtime import NodeKind, TickRuntimeState, build_tick_graph
+from app.simulation import tick_runner
+from app.simulation.graph_engine import build_graph_prompt_summary
+
+
+@pytest.fixture()
+def db() -> Session:
+    engine = create_engine(
+        "sqlite:///:memory:",
+        connect_args={"check_same_thread": False},
+        poolclass=StaticPool,
+    )
+    models.Base.metadata.create_all(engine)
+    session = Session(engine)
+    try:
+        yield session
+    finally:
+        session.close()
+        with warnings.catch_warnings():
+            warnings.filterwarnings("ignore", message="Can't sort tables for DROP", category=SAWarning)
+            models.Base.metadata.drop_all(engine)
+
+
+class _FakeArtifactStore:
+    def write_json(self, db, *, big_bang_id, relative_path, payload, kind):
+        artifact = models.Artifact(
+            big_bang_id=big_bang_id,
+            kind=kind,
+            path=relative_path,
+            content_type="application/json",
+            content_hash="test",
+            size_bytes=2,
+            debug_only=False,
+            meta={},
+        )
+        db.add(artifact)
+        db.flush()
+        return artifact
 
 
 def _state() -> TickRuntimeState:
@@ -63,3 +110,168 @@ def test_build_tick_graph_preserves_deterministic_checkpoint_order():
     assert plan.node_specs["hero:hero-a"].kind is NodeKind.HERO_DECISION
     assert plan.node_specs["event_generation"].kind is NodeKind.EVENT_GENERATION
     assert plan.node_specs["state_commit"].checkpoint is False
+
+
+def test_build_tick_graph_inserts_dynamic_tool_call_checkpoints_after_god_review():
+    state = _state()
+    state.tool_call_keys = ["tool_call:0:continue_timeline", "tool_call:1:create_branch"]
+
+    plan = build_tick_graph(state)
+
+    assert plan.checkpoint_order == (
+        "cohort:cohort-a",
+        "cohort:cohort-b",
+        "hero:hero-a",
+        "event_generation",
+        "sociology_update",
+        "graph_update",
+        "god_review",
+        "tool_call:0:continue_timeline",
+        "tool_call:1:create_branch",
+        "tick_summary",
+    )
+    assert plan.node_specs["tool_call:0:continue_timeline"].kind is NodeKind.TOOL_CALL
+    assert ("interrupt_check:after_god_review", "tool_call:0:continue_timeline") in plan.edges
+    assert ("tool_call:0:continue_timeline", "interrupt_check:after_tool_call:0:continue_timeline") in plan.edges
+
+
+@pytest.mark.asyncio
+async def test_run_tick_fails_when_canonical_runner_returns_different_tick(monkeypatch):
+    from app.db import session as db_session
+    from app.simulation import tick_runner
+
+    class FakeDB:
+        committed = False
+        rolled_back = False
+
+        def get(self, model, object_id):
+            return SimpleNamespace(id=object_id)
+
+        def commit(self):
+            self.committed = True
+
+        def rollback(self):
+            self.rolled_back = True
+
+        def close(self):
+            return None
+
+    fake_db = FakeDB()
+
+    monkeypatch.setattr(db_session, "SessionLocal", lambda: fake_db)
+    monkeypatch.setattr(
+        tick_runner,
+        "run_next_tick",
+        lambda *args, **kwargs: SimpleNamespace(tick_index=8),
+    )
+
+    ctx = tick_runner.TickContext(
+        run_id="run-1",
+        universe_id="00000000-0000-0000-0000-000000000001",
+        tick=7,
+    )
+
+    with pytest.raises(ValueError, match="requested tick 7 but canonical runner returned tick 8"):
+        await tick_runner.run_tick(ctx)
+
+    assert fake_db.rolled_back is True
+    assert fake_db.committed is False
+
+
+def test_committed_sociology_graph_summary_reflects_current_tick_graph(db, monkeypatch):
+    big_bang = models.BigBang(
+        name="Runtime graph summary",
+        description=None,
+        scenario_input={},
+        status="active",
+        current_config_version=1,
+    )
+    db.add(big_bang)
+    db.flush()
+    db.add(
+        models.BigBangConfig(
+            big_bang_id=big_bang.id,
+            version=1,
+            simulation_config={"max_ticks": 2},
+            model_config={},
+            branch_policy={},
+        )
+    )
+    root = models.Multiverse(
+        big_bang_id=big_bang.id,
+        parent_multiverse_id=None,
+        fork_tick_index=None,
+        ui_label="M1",
+        depth=0,
+        status="active",
+        branch_reason="Root timeline",
+        state={},
+    )
+    alpha = models.Actor(
+        big_bang_id=big_bang.id,
+        actor_type="cohort",
+        name="Alpha",
+        description=None,
+        archetype={},
+        created_tick_index=0,
+        status="active",
+    )
+    beta = models.Actor(
+        big_bang_id=big_bang.id,
+        actor_type="cohort",
+        name="Beta",
+        description=None,
+        archetype={},
+        created_tick_index=0,
+        status="active",
+    )
+    db.add_all([root, alpha, beta])
+    db.flush()
+
+    def fake_actor_decision(db, *, big_bang, multiverse, actor, tick_index, prompt_context):
+        return {
+            "actor_output": {"actor_id": str(actor.id), "llm_call_id": None, "parsed": {}},
+            "parsed_actions": [
+                {
+                    "actor_id": actor.id,
+                    "action_type": "post",
+                    "channel": "oasis",
+                    "body": "anger blame conflict protest over unequal enforcement",
+                }
+            ],
+            "emotion_self_ratings": [],
+            "llm_call_id": None,
+            "parsed": {},
+        }
+
+    monkeypatch.setattr(tick_runner, "run_actor_decision", fake_actor_decision)
+    monkeypatch.setattr(tick_runner, "load_due_events", lambda *args, **kwargs: [])
+    monkeypatch.setattr(tick_runner, "execute_due_events", lambda *args, **kwargs: [])
+    monkeypatch.setattr(tick_runner, "summarize_executed_events", lambda *args, **kwargs: [])
+    monkeypatch.setattr(tick_runner, "update_emotion_observability_graphs", lambda *args, **kwargs: {})
+    monkeypatch.setattr(
+        tick_runner,
+        "review_provisional_tick",
+        lambda *args, **kwargs: (
+            {
+                "decision": "continue",
+                "rationale": "test",
+                "confidence": 1,
+                "input_summary": {},
+                "tool_calls": [],
+            },
+            None,
+        ),
+    )
+    monkeypatch.setattr(tick_runner, "ArtifactStore", lambda: _FakeArtifactStore())
+
+    tick = tick_runner.run_next_tick(db, multiverse=root)
+    db.flush()
+
+    latest_graph_summary = build_graph_prompt_summary(db, multiverse_id=root.id)
+    committed_graph_summary = tick.final_bundle["sociology_result"]["graph_summary"]
+
+    assert tick.status == "final"
+    assert committed_graph_summary == latest_graph_summary
+    assert committed_graph_summary["pressure"]["conflict_max"] > 0
+    assert committed_graph_summary["layers"]["conflict"]["edge_count"] > 0

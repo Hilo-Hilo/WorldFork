@@ -14,6 +14,7 @@ Provides:
 from __future__ import annotations
 
 import logging
+import os
 import time
 from datetime import UTC, datetime
 from typing import Annotated
@@ -59,25 +60,29 @@ except ImportError:  # pragma: no cover
         return {"enabled": False, "mode": "unknown", "degraded": True}
 
 
-def _zep_runtime_enabled() -> bool:
+def _zep_runtime_enabled(*, api_key_env: str = "ZEP_API_KEY", desired_enabled: bool | None = None) -> bool:
     from backend.app.core.config import settings
 
-    return bool(settings.zep_enabled and settings.zep_api_key)
+    enabled = settings.zep_enabled if desired_enabled is None else desired_enabled
+    return bool(enabled and (settings.zep_api_key or os.environ.get(api_key_env)))
 
 
 def _zep_row_to_response(row: ZepSettingModel) -> ZepSettingResponse:
-    enabled = bool(row.enabled and _zep_runtime_enabled())
-    mode = row.mode if enabled else "local"
+    runtime_enabled = _zep_runtime_enabled(
+        api_key_env=row.api_key_env,
+        desired_enabled=bool(row.enabled),
+    )
+    active_memory = row.mode if runtime_enabled else "local"
     payload = dict(row.payload or {})
-    payload["runtime_enabled"] = enabled
-    payload["active_memory"] = mode
+    payload["runtime_enabled"] = runtime_enabled
+    payload["active_memory"] = active_memory
     return ZepSettingResponse(
         setting_id=row.setting_id,
-        enabled=enabled,
-        mode=mode,
+        enabled=bool(row.enabled),
+        mode=row.mode,
         api_key_env=row.api_key_env,
         cache_ttl_seconds=row.cache_ttl_seconds,
-        degraded=False if not enabled else row.degraded,
+        degraded=bool(row.degraded),
         payload=payload,
         created_at=row.created_at,
         updated_at=row.updated_at,
@@ -112,9 +117,6 @@ async def patch_zep(
     updates = payload.model_dump(exclude_none=True)
     for key, val in updates.items():
         setattr(row, key, val)
-    if not _zep_runtime_enabled():
-        row.enabled = False
-        row.degraded = False
     await session.commit()
     await session.refresh(row)
 
@@ -296,10 +298,11 @@ async def webhooks_test(
             try:
                 event_record.status = "failed"
                 event_record.error = str(exc)[:500]
+                event_record.attempts = max(int(event_record.attempts or 0), 0) + 1
                 await session.commit()
             except Exception:
                 pass
-        return WebhookTestResponse(ok=False, error=str(exc))
+        return WebhookTestResponse(ok=False, attempts=1, error=str(exc))
 
 
 @webhooks_router.post("/replay", response_model=WebhookTestResponse, summary="Replay a stored webhook event")

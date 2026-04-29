@@ -1,37 +1,70 @@
 # WorldFork Backend
 
-Backend-only core runtime for WorldFork's CLI-first product shape.
+This directory contains the canonical WorldFork runtime:
 
-## Canonical runtime surface
+- FastAPI app mounted from `backend.app.main:app`
+- `app.*` package imports via `PYTHONPATH=/app/backend`
+- LangGraph-backed tick runtime
+- SQLAlchemy models for Big Bangs, multiverses, ticks, jobs, reports, and logs
+- Celery queue integration
+- report/artifact storage
 
-For `revamp/langgraph-runtime-v2`, treat the following as canonical:
+The root `pyproject.toml` is authoritative. There is no separate backend
+package file.
 
-- `app.main:app`
-- the `app.*` package
-- `/api/agent/*`
-- `/api/jobs*`
-- queue-controlled tick execution paths mounted by the main FastAPI app
+## Local Backend Setup
 
-Legacy or duplicate runtime surfaces such as `/api/runs`, older worker entrypoints, and mixed alternate runtime paths are transitional while the rewrite is in progress. They should not be treated as equal long-term control planes.
-
-## Local setup
-
-1. Create PostgreSQL database and set `DATABASE_URL`.
-2. Install dependencies from `backend/pyproject.toml`.
-3. Run Alembic migrations from `backend/`.
-4. Start the API with `uvicorn app.main:app --reload`.
-5. Optional worker: `dramatiq app.jobs.workers`.
-
-The service stores canonical platform state in PostgreSQL and large/raw payloads in the artifact store configured by `ARTIFACT_ROOT`.
-
-## Sample run
-
-After migrations, start the API and call:
+The recommended path is the root Docker Compose stack:
 
 ```bash
-curl -X POST http://localhost:8000/api/sample-runs
+cp .env.example .env
+make build
+make up
+make migrate
+make seed
 ```
 
-This creates a Big Bang, runs several backend ticks, creates multiverse/final reports, and writes artifacts under `ARTIFACT_ROOT`.
+The API listens on `http://127.0.0.1:8003`.
 
-Big Bang creation is prose-first. Send `scenario_text` as one plain-text string; if a PDF is involved, convert it to text before calling the API. The backend preserves the full text, chunks long text into artifacts when needed, and initializes `M1:T0` from that corpus.
+For direct local commands:
+
+```bash
+uv run ruff check backend/app backend/tests
+uv run pytest -c pyproject.toml backend/tests/*.py backend/tests/unit -q
+uv run python -m scripts.full_runtime_smoke
+```
+
+## Runtime Surface
+
+Canonical:
+
+- `/readyz`
+- `/api/agent/*`
+- `/api/big-bangs`
+- `/api/multiverses`
+- `/api/ticks`
+- `/api/jobs`
+- `/api/logs`
+
+Compatibility routes remain mounted where needed for older CLI/API contracts,
+but they are transitional and new code should target the canonical routes above.
+
+Mounted compatibility routes include `/api/runs`, `/api/universes`,
+`/api/multiverse`, selected legacy `/api/jobs` shapes, and selected legacy
+settings/logs integrations.
+
+## Reports
+
+Report generation writes both Markdown and PDF artifacts. `reportlab` is a
+runtime dependency and is installed through the root project metadata.
+
+## Testing Notes
+
+The maintained suite is driven from the repo root:
+
+```bash
+./scripts/run_tests.sh all
+```
+
+Use `backend/tests/COVERAGE.md` for the active test inventory. Disabled
+pre-revamp suites have been removed rather than ignored.

@@ -1,4 +1,5 @@
 from contextlib import contextmanager
+from datetime import datetime, timezone
 from types import SimpleNamespace
 from uuid import uuid4
 
@@ -7,7 +8,9 @@ from fastapi import HTTPException
 from fastapi.testclient import TestClient
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 
+from app.api import agent as agent_api
 from app.api import big_bangs as big_bangs_api
+from app.api import jobs as jobs_api
 from app.api import multiverses as multiverses_api
 from app.api import scenario_bank as scenario_bank_api
 from app.api.utils import commit_or_500
@@ -66,6 +69,7 @@ def test_child_resource_routes_404_for_missing_parents():
         f"/api/actors/{MISSING_ID}/emotion-observability",
         f"/api/ticks/{MISSING_ID}/reasoning-traces",
         f"/api/ticks/{MISSING_ID}/tool-calls",
+        f"/api/ticks/{MISSING_ID}/runtime",
         f"/api/ticks/{MISSING_ID}/emotion-observability",
         f"/api/ticks/{MISSING_ID}/god-review",
         f"/api/god-reviews/{MISSING_ID}/tool-calls",
@@ -142,6 +146,132 @@ def test_mutation_routes_have_non_empty_response_contracts():
         schema = paths[path][method]["responses"]["200"]["content"]["application/json"]["schema"]
         assert schema
         assert schema != {}
+
+
+def test_canonical_job_routes_have_public_response_contracts():
+    response = client.get("/openapi.json")
+
+    assert response.status_code == 200
+    paths = response.json()["paths"]
+    route_methods = [
+        ("/api/jobs", "get"),
+        ("/api/jobs", "post"),
+        ("/api/jobs/{job_id}", "get"),
+        ("/api/jobs/{job_id}/claim", "post"),
+        ("/api/jobs/{job_id}/pause", "post"),
+        ("/api/jobs/{job_id}/resume", "post"),
+        ("/api/jobs/{job_id}/interrupt", "post"),
+        ("/api/jobs/{job_id}/requeue", "post"),
+        ("/api/jobs/{job_id}/run", "post"),
+    ]
+    for path, method in route_methods:
+        schema = paths[path][method]["responses"]["200"]["content"]["application/json"]["schema"]
+        assert schema
+        assert schema != {}
+
+
+def test_agent_logs_paginates_after_global_merge():
+    class Rows:
+        def __init__(self, rows):
+            self.rows = rows
+
+        def all(self):
+            return self.rows
+
+    class LogDb:
+        def __init__(self):
+            self.calls = 0
+
+        def scalars(self, statement):
+            self.calls += 1
+            if self.calls == 1:
+                return Rows([
+                    SimpleNamespace(
+                        id="job-newest",
+                        status="failed",
+                        error="newest job",
+                        job_type="initialize_big_bang",
+                        big_bang_id=None,
+                        created_at=datetime(2026, 1, 4, tzinfo=timezone.utc),
+                    ),
+                    SimpleNamespace(
+                        id="job-oldest",
+                        status="failed",
+                        error="oldest job",
+                        job_type="initialize_big_bang",
+                        big_bang_id=None,
+                        created_at=datetime(2026, 1, 1, tzinfo=timezone.utc),
+                    ),
+                ])
+            return Rows([
+                SimpleNamespace(
+                    id="llm-second",
+                    status="failed",
+                    purpose="second",
+                    big_bang_id=None,
+                    provider="openrouter",
+                    model="model-a",
+                    created_at=datetime(2026, 1, 3, tzinfo=timezone.utc),
+                ),
+                SimpleNamespace(
+                    id="llm-third",
+                    status="failed",
+                    purpose="third",
+                    big_bang_id=None,
+                    provider="openrouter",
+                    model="model-b",
+                    created_at=datetime(2026, 1, 2, tzinfo=timezone.utc),
+                ),
+            ])
+
+    response = agent_api.logs(db=LogDb(), status="failed", limit=2, offset=1)
+
+    assert [row["id"] for row in response["data"]] == ["llm-second", "llm-third"]
+
+
+def test_create_job_publishes_status_change(monkeypatch):
+    published = []
+
+    async def publish(**payload):
+        published.append(payload)
+
+    class CreateDb:
+        def __init__(self):
+            self.added = None
+
+        def scalar(self, statement):
+            return None
+
+        def add(self, job):
+            self.added = job
+
+        def commit(self):
+            if self.added is not None and self.added.id is None:
+                self.added.id = uuid4()
+
+        def rollback(self):
+            return None
+
+    monkeypatch.setattr(jobs_api, "enqueue_job", lambda job_id: None)
+    monkeypatch.setattr(jobs_api, "publish_job_status_changed", publish)
+
+    job = jobs_api.create_job_record(
+        jobs_api.JobCreate(
+            job_type="initialize_big_bang",
+            payload={"name": "Published job", "scenario_text": "x"},
+        ),
+        db=CreateDb(),
+    )
+
+    assert published == [
+        {
+            "job_id": str(job.id),
+            "job_type": "initialize_big_bang",
+            "status": "queued",
+            "queue": job.queue_name,
+            "error": None,
+        }
+    ]
 
 
 def test_big_bang_create_maps_llm_unavailable_to_sanitized_503(monkeypatch):

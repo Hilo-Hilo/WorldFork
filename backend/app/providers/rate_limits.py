@@ -96,6 +96,40 @@ redis.call('EXPIRE', key, ttl)
 return tostring(tokens)
 """
 
+_FIXED_WINDOW_CONSUME_LUA = """
+local key = KEYS[1]
+local capacity = tonumber(ARGV[1])
+local cost = tonumber(ARGV[2])
+local ttl = tonumber(ARGV[3])
+local wait = tonumber(ARGV[4])
+
+local used = tonumber(redis.call('GET', key))
+if used == nil then used = 0 end
+
+if used + cost <= capacity then
+  local new_used = redis.call('INCRBY', key, cost)
+  redis.call('EXPIRE', key, ttl)
+  return {1, tostring(capacity - new_used)}
+end
+
+redis.call('EXPIRE', key, ttl)
+return {-1, tostring(wait)}
+"""
+
+_FIXED_WINDOW_REFUND_LUA = """
+local key = KEYS[1]
+local credit = tonumber(ARGV[1])
+local ttl = tonumber(ARGV[2])
+
+local used = tonumber(redis.call('GET', key))
+if used == nil then return "0" end
+
+used = used - credit
+if used < 0 then used = 0 end
+redis.call('SET', key, used, 'EX', ttl)
+return tostring(used)
+"""
+
 
 # ---------------------------------------------------------------------------
 # RedisTokenBucket
@@ -276,6 +310,8 @@ class ProviderRateLimiter:
         self.burst_multiplier = max(1.0, burst_multiplier)
         self.jitter = jitter
         self._bucket = RedisTokenBucket(redis)
+        self._fixed_consume_sha: str | None = None
+        self._fixed_refund_sha: str | None = None
 
     # ------------------------------------------------------------------
     # Key helpers
@@ -298,6 +334,93 @@ class ProviderRateLimiter:
 
     def _budget_key(self) -> str:
         return f"rl:budget:{self.provider}:{self._day_bucket()}"
+
+    def _seconds_until_next_minute(self) -> float:
+        return max(0.001, 60.0 - (time.time() % 60.0))
+
+    def _fixed_window_ttl(self) -> int:
+        return max(2, int(self._seconds_until_next_minute()) + 2)
+
+    async def _ensure_fixed_window_loaded(self) -> tuple[str, str]:
+        if self._fixed_consume_sha is None:
+            self._fixed_consume_sha = await self._redis.script_load(_FIXED_WINDOW_CONSUME_LUA)
+        if self._fixed_refund_sha is None:
+            self._fixed_refund_sha = await self._redis.script_load(_FIXED_WINDOW_REFUND_LUA)
+        return self._fixed_consume_sha, self._fixed_refund_sha
+
+    async def _try_consume_fixed_window(
+        self,
+        key: str,
+        cost: int,
+        capacity: int,
+    ) -> tuple[bool, float]:
+        consume_sha, _ = await self._ensure_fixed_window_loaded()
+        wait = self._seconds_until_next_minute()
+        ttl = self._fixed_window_ttl()
+        try:
+            res = await self._redis.evalsha(
+                consume_sha,
+                1,
+                key,
+                str(capacity),
+                str(cost),
+                str(ttl),
+                str(wait),
+            )
+        except Exception:
+            res = await self._redis.eval(
+                _FIXED_WINDOW_CONSUME_LUA,
+                1,
+                key,
+                str(capacity),
+                str(cost),
+                str(ttl),
+                str(wait),
+            )
+        status = int(res[0])
+        payload = float(res[1])
+        return (status == 1), (0.0 if status == 1 else payload)
+
+    async def _acquire_fixed_window(
+        self,
+        key_for_minute,
+        cost: int,
+        capacity: int,
+        timeout: float,
+    ) -> int:
+        deadline = time.monotonic() + timeout
+        while True:
+            minute = self._minute_bucket()
+            key = key_for_minute(minute)
+            ok, wait = await self._try_consume_fixed_window(key, cost, capacity)
+            if ok:
+                return minute
+            sleep_for = wait
+            if self.jitter:
+                sleep_for += random.uniform(0.0, max(0.05, wait * 0.1))
+            remaining = deadline - time.monotonic()
+            if sleep_for >= remaining:
+                raise RateLimitError(
+                    f"rate-limit acquire timeout on {key} after {timeout:.1f}s",
+                    retry_after=wait,
+                )
+            await asyncio.sleep(max(0.001, sleep_for))
+
+    async def _refund_fixed_window(self, key: str, credit: int) -> None:
+        if credit <= 0:
+            return
+        _, refund_sha = await self._ensure_fixed_window_loaded()
+        ttl = self._fixed_window_ttl()
+        try:
+            await self._redis.evalsha(refund_sha, 1, key, str(credit), str(ttl))
+        except Exception:
+            await self._redis.eval(
+                _FIXED_WINDOW_REFUND_LUA,
+                1,
+                key,
+                str(credit),
+                str(ttl),
+            )
 
     # ------------------------------------------------------------------
     # Concurrency gate via Redis INCR (cluster-safe distributed semaphore)
@@ -383,40 +506,30 @@ class ProviderRateLimiter:
 
         Yields a :class:`GateTicket` callers can pass to ``record_actual_usage``.
         """
-        minute = self._minute_bucket()
         rpm_cap = max(1, int(self.rpm_limit * self.burst_multiplier))
         tpm_cap = max(1, int(self.tpm_limit * self.burst_multiplier))
-        rpm_refill = self.rpm_limit / 60.0
-        tpm_refill = self.tpm_limit / 60.0
 
-        rpm_key = self._rpm_key(minute)
-        tpm_key = self._tpm_key(minute)
         cost_tokens = max(1, int(estimated_tokens))
 
         # 1. RPM (one request).
-        await self._bucket.acquire(
-            rpm_key, 1, rpm_cap, rpm_refill, timeout=timeout, jitter=self.jitter
+        rpm_minute = await self._acquire_fixed_window(
+            self._rpm_key, 1, rpm_cap, timeout=timeout
         )
         # 2. TPM (estimated tokens).
         try:
-            await self._bucket.acquire(
-                tpm_key,
-                cost_tokens,
-                tpm_cap,
-                tpm_refill,
-                timeout=timeout,
-                jitter=self.jitter,
+            minute = await self._acquire_fixed_window(
+                self._tpm_key, cost_tokens, tpm_cap, timeout=timeout
             )
         except RateLimitError:
             # Refund the RPM token; we never made the request.
-            await self._bucket.refund(rpm_key, 1, rpm_cap)
+            await self._refund_fixed_window(self._rpm_key(rpm_minute), 1)
             raise
         # 3. Concurrency.
         try:
             await self._acquire_concurrency(is_branch_job=is_branch_job, is_p0=is_p0)
         except Exception:
-            await self._bucket.refund(rpm_key, 1, rpm_cap)
-            await self._bucket.refund(tpm_key, cost_tokens, tpm_cap)
+            await self._refund_fixed_window(self._rpm_key(rpm_minute), 1)
+            await self._refund_fixed_window(self._tpm_key(minute), cost_tokens)
             raise
 
         ticket = GateTicket(
@@ -453,6 +566,6 @@ class ProviderRateLimiter:
             unused = ticket.estimated_tokens - max(0, actual_tokens)
             if unused > 0:
                 tpm_key = self._tpm_key(ticket.minute_bucket)
-                await self._bucket.refund(tpm_key, unused, ticket.tpm_capacity)
+                await self._refund_fixed_window(tpm_key, unused)
         if cost_usd > 0:
             await self._record_spend(cost_usd)

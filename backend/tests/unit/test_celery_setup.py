@@ -5,12 +5,10 @@ All assertions run without a live Redis / broker connection.
 from __future__ import annotations
 
 import pytest
-from datetime import datetime, timezone
 
 from backend.app.workers.celery_app import celery_app
-from backend.app.workers.queues import QUEUE_FOR_JOB, Queues, queue_for_job
+from backend.app.workers.queues import Queues, queue_for_job
 from backend.app.workers.scheduler import make_envelope
-from backend.app.schemas.jobs import JobType
 
 
 # ---------------------------------------------------------------------------
@@ -183,7 +181,6 @@ class TestQueueForJob:
 
 class TestMakeEnvelope:
     def _make(self, idem_key: str | None = None, attempt: int = 1) -> "JobEnvelope":  # noqa: F821
-        from backend.app.workers.scheduler import make_envelope
 
         return make_envelope(
             job_type="export_run",
@@ -219,7 +216,6 @@ class TestMakeEnvelope:
         assert env.priority == "p3"
 
     def test_envelope_priority_override(self):
-        from backend.app.workers.scheduler import make_envelope
 
         env = make_envelope(
             job_type="export_run",

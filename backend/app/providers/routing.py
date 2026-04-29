@@ -13,17 +13,21 @@ from backend.app.schemas.llm import ModelConfig
 from backend.app.schemas.settings import ModelRoutingEntry
 
 if TYPE_CHECKING:
+    import redis.asyncio as aioredis
+
     from sqlalchemy.ext.asyncio import AsyncSession
+    from backend.app.providers.rate_limits import ProviderRateLimiter
 
 
 # ---------------------------------------------------------------------------
 # Defaults — derived from PRD §16.4 example, generalised across job types.
 # ---------------------------------------------------------------------------
 
-_AGENT_MODEL = "deepseek/deepseek-v3.2"
-_AGENT_FALLBACK_MODEL = "openai/gpt-4o-mini"
-_GOD_MODEL = "openai/gpt-5.5"
-_GOD_FALLBACK_MODEL = "openai/gpt-5.4"
+_OPENROUTER_MODEL = "google/gemini-3.1-flash-lite-preview"
+_AGENT_MODEL = _OPENROUTER_MODEL
+_AGENT_FALLBACK_MODEL = _OPENROUTER_MODEL
+_GOD_MODEL = _OPENROUTER_MODEL
+_GOD_FALLBACK_MODEL = _OPENROUTER_MODEL
 
 
 def _default_entry(job_type: JobType) -> ModelRoutingEntry:
@@ -90,10 +94,15 @@ class RoutingTable:
         if entry is None:
             entry = _default_entry(job_type)
 
+        native_fallback_model = (
+            entry.fallback_model
+            if entry.fallback_model and entry.fallback_provider == entry.preferred_provider
+            else None
+        )
         preferred = ModelConfig(
             provider=entry.preferred_provider,
             model=entry.preferred_model,
-            fallback_model=None,
+            fallback_model=native_fallback_model,
             temperature=entry.temperature,
             top_p=entry.top_p,
             max_tokens=entry.max_tokens,
@@ -169,3 +178,43 @@ class RoutingTable:
         for jt in _ALL_JOB_TYPES:
             entries.setdefault(jt, _default_entry(jt))
         return cls(entries)
+
+
+async def build_provider_rate_limiter(
+    session: AsyncSession,
+    redis: aioredis.Redis,
+    *,
+    provider: str = "openrouter",
+) -> ProviderRateLimiter:
+    """Build a provider limiter, preferring enabled settings_rate_limit rows."""
+    from backend.app.providers.rate_limits import ProviderRateLimiter
+
+    defaults = {
+        "rpm_limit": 600,
+        "tpm_limit": 1_000_000,
+        "max_concurrency": 8,
+        "daily_budget_usd": None,
+        "burst_multiplier": 1.0,
+        "branch_reserved_capacity_pct": 20.0,
+        "jitter": False,
+    }
+    try:
+        from backend.app.models.settings import RateLimitSettingModel
+
+        row = await session.get(RateLimitSettingModel, provider)
+    except Exception:
+        row = None
+
+    if row is not None and bool(row.enabled):
+        return ProviderRateLimiter(
+            redis,
+            provider=provider,
+            rpm_limit=row.rpm_limit,
+            tpm_limit=row.tpm_limit,
+            max_concurrency=row.max_concurrency,
+            daily_budget_usd=row.daily_budget_usd,
+            burst_multiplier=row.burst_multiplier,
+            branch_reserved_capacity_pct=row.branch_reserved_capacity_pct,
+            jitter=row.jitter,
+        )
+    return ProviderRateLimiter(redis, provider=provider, **defaults)

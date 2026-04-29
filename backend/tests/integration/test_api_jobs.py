@@ -2,10 +2,16 @@
 from __future__ import annotations
 
 from datetime import UTC, datetime
+from uuid import uuid4
 from unittest.mock import MagicMock, patch
 
 import pytest
+from httpx import ASGITransport, AsyncClient
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
+from app.db import models as current_models
+from backend.app.core.db import get_session
+from backend.app.main import app
 from backend.app.models.jobs import JobModel
 
 
@@ -191,6 +197,107 @@ async def test_retry_job_increments_attempt(client, db_session):
     assert data["attempt_number"] == 1
     assert data["job_id"] == "retry-job-001"
     assert "new_task_id" in data
+
+
+@pytest.mark.asyncio
+async def test_retry_job_rejects_non_terminal_legacy_job(client, db_session):
+    await _seed_job(db_session, job_id="retry-job-queued", status="queued")
+    resp = await client.post("/api/jobs/retry-job-queued/retry")
+    assert resp.status_code == 409
+
+
+@pytest.mark.asyncio
+async def test_retry_job_current_schema_uses_requeue_semantics_and_enqueues(monkeypatch):
+    enqueued: list[str] = []
+    monkeypatch.setattr("backend.app.api.jobs.enqueue_job", lambda job_id: enqueued.append(str(job_id)))
+
+    engine = create_async_engine("sqlite+aiosqlite:///:memory:", connect_args={"check_same_thread": False})
+    async with engine.begin() as conn:
+        await conn.run_sync(current_models.Job.__table__.create)
+    factory = async_sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
+
+    async with factory() as session:
+        job = current_models.Job(
+            id=uuid4(),
+            job_type="run_multiverse_tick",
+            queue_name="p1",
+            status="failed",
+            payload={"multiverse_id": str(uuid4())},
+            result={},
+            error="boom",
+            idempotency_key="current-retry-job",
+            attempt_number=0,
+            max_attempts=1,
+            retryable=True,
+            created_at=datetime.now(UTC),
+            finished_at=datetime.now(UTC),
+        )
+        session.add(job)
+        await session.commit()
+
+        async def _override_get_session():
+            yield session
+
+        app.dependency_overrides[get_session] = _override_get_session
+        try:
+            async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
+                resp = await ac.post(f"/api/jobs/{job.id}/retry")
+        finally:
+            app.dependency_overrides.pop(get_session, None)
+
+        assert resp.status_code == 200
+        data = resp.json()
+        assert data["status"] == "queued"
+        assert data["attempt_number"] == 1
+        assert data["finished_at"] is None
+        assert enqueued == [str(job.id)]
+
+    await engine.dispose()
+
+
+@pytest.mark.asyncio
+async def test_retry_job_current_schema_rejects_max_attempts(monkeypatch):
+    enqueued: list[str] = []
+    monkeypatch.setattr("backend.app.api.jobs.enqueue_job", lambda job_id: enqueued.append(str(job_id)))
+
+    engine = create_async_engine("sqlite+aiosqlite:///:memory:", connect_args={"check_same_thread": False})
+    async with engine.begin() as conn:
+        await conn.run_sync(current_models.Job.__table__.create)
+    factory = async_sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
+
+    async with factory() as session:
+        job = current_models.Job(
+            id=uuid4(),
+            job_type="run_multiverse_tick",
+            queue_name="p1",
+            status="failed",
+            payload={"multiverse_id": str(uuid4())},
+            result={},
+            error="boom",
+            idempotency_key="current-retry-limit",
+            attempt_number=1,
+            max_attempts=1,
+            retryable=True,
+            created_at=datetime.now(UTC),
+            finished_at=datetime.now(UTC),
+        )
+        session.add(job)
+        await session.commit()
+
+        async def _override_get_session():
+            yield session
+
+        app.dependency_overrides[get_session] = _override_get_session
+        try:
+            async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
+                resp = await ac.post(f"/api/jobs/{job.id}/retry")
+        finally:
+            app.dependency_overrides.pop(get_session, None)
+
+        assert resp.status_code == 409
+        assert enqueued == []
+
+    await engine.dispose()
 
 
 # ---------------------------------------------------------------------------

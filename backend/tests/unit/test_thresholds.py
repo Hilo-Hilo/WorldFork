@@ -1,7 +1,6 @@
 """Unit tests for backend.app.sociology.thresholds."""
 from __future__ import annotations
 
-import pytest
 
 from backend.app.schemas.actors import CohortState
 from backend.app.schemas.sociology import SociologyParams

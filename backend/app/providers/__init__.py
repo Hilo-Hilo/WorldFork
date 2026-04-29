@@ -52,6 +52,7 @@ __all__ = [
     "register_provider",
     "get_provider",
     "clear_registry",
+    "rebuild_registry_from_settings",
     "call_with_policy",
     "initialize_providers_from_settings",
     "prompt_token_estimate",
@@ -97,6 +98,21 @@ def clear_registry() -> None:
     _REGISTRY_LOOP_ID = None
 
 
+async def rebuild_registry_from_settings(settings) -> None:  # type: ignore[no-untyped-def]
+    """Drop cached providers and rebuild them from the latest settings."""
+    _PROVIDER_REGISTRY.clear()
+    global _REGISTRY_LOOP_ID
+    _REGISTRY_LOOP_ID = None
+    from backend.app.core.redis_client import reset_redis_pool
+    reset_redis_pool()
+    await initialize_providers_from_settings(settings)
+    try:
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        return
+    _REGISTRY_LOOP_ID = id(loop)
+
+
 async def ensure_providers_in_loop(settings) -> None:  # type: ignore[no-untyped-def]
     """Rebuild the provider registry if the running loop has changed.
 
@@ -128,6 +144,7 @@ async def ensure_providers_in_loop(settings) -> None:  # type: ignore[no-untyped
 # Coarse $/1K-token table for the OpenRouter-routed defaults. When unknown we
 # return 0.0 — fail-open so a missing entry never blocks a call.
 _PRICE_PER_1K: dict[str, float] = {
+    "google/gemini-3.1-flash-lite-preview": 0.00001,
     "deepseek/deepseek-v3.2": 0.00026,
     "deepseek/deepseek-v4-pro": 0.00174,
     "deepseek/deepseek-v4-flash": 0.0,
@@ -361,7 +378,7 @@ async def call_with_policy(
                     logger.warning("provider call persistence skipped: %s", exc)
                 return result
 
-            except asyncio.TimeoutError as exc:
+            except asyncio.TimeoutError:
                 last_exc = ProviderTimeoutError(
                     f"provider call exceeded {cfg.timeout_seconds}s timeout"
                 )

@@ -102,7 +102,6 @@ class TestValidateSot:
 
     def test_validate_no_version_error(self, tmp_path: Path) -> None:
         """A bundle with empty version should report an error."""
-        import dataclasses
         from backend.app.storage.sot_loader import SoTBundle
         # Build a bundle with empty version by monkeypatching
         _create_minimal_sot(tmp_path)
@@ -178,6 +177,33 @@ class TestSnapshotSotTo:
         assert dest.is_dir()
         sha_file = dest / ".snapshot_sha256"
         assert sha_file.exists()
+
+    def test_snapshot_replaces_stale_snapshot_sha(self, tmp_path: Path) -> None:
+        """A matching marker alone is not enough to skip a stale snapshot."""
+        sot_dir = tmp_path / "source_of_truth"
+        _create_minimal_sot(sot_dir)
+        bundle = load_sot(source_dir=sot_dir)
+
+        dest = snapshot_sot_to(bundle, tmp_path / "run_folder")
+        target = dest / "VERSION"
+        target.write_text("stale", encoding="utf-8")
+        (dest / ".snapshot_sha256").write_text(bundle.snapshot_sha256, encoding="utf-8")
+
+        dest2 = snapshot_sot_to(bundle, tmp_path / "run_folder")
+
+        assert dest2 == dest
+        assert target.read_text(encoding="utf-8") == "0.0.1-test"
+
+    def test_loading_snapshot_ignores_snapshot_sha_marker(self, tmp_path: Path) -> None:
+        """Reloading a copied snapshot should not hash its marker file."""
+        sot_dir = tmp_path / "source_of_truth"
+        _create_minimal_sot(sot_dir)
+        bundle = load_sot(source_dir=sot_dir)
+        dest = snapshot_sot_to(bundle, tmp_path / "run_folder")
+
+        reloaded = load_sot(source_dir=dest)
+
+        assert reloaded.snapshot_sha256 == bundle.snapshot_sha256
 
 
 # ---------------------------------------------------------------------------

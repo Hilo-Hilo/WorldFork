@@ -484,6 +484,15 @@ class TestBranchDelta:
         assert isinstance(obj, ActorStateOverrideDelta)
         assert obj.field == "expression_level"
 
+    def test_actor_state_override_rejects_population_override(self):
+        with pytest.raises(ValidationError):
+            ActorStateOverrideDelta(
+                type="actor_state_override",
+                actor_id="c_001",
+                field="represented_population",
+                new_value=999,
+            )
+
     def test_hero_decision_override(self):
         obj = self._parse(
             dict(

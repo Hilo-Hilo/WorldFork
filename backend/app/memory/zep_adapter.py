@@ -188,6 +188,7 @@ class ZepMemoryProvider:
                     return await self.local_fallback.ensure_session(
                         actor_id=actor_id, universe_id=universe_id, metadata=metadata
                     )
+        self.local_fallback.register_session(actor_id=actor_id, session_id=session_id)
 
         # Hybrid mode: also write to universe-scoped session
         if self.mode == "hybrid":
@@ -233,6 +234,13 @@ class ZepMemoryProvider:
         )
         try:
             await self.client.thread.add_messages(session_id, messages=[msg])
+            await self.local_fallback.add_episode(
+                session_id=session_id,
+                role=role,
+                role_type=role_type,
+                content=content,
+                metadata=metadata,
+            )
         except Exception as exc:
             self._record_failure(exc)
             if self.degraded:

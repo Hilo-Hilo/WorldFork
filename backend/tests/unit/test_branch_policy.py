@@ -113,6 +113,17 @@ class TestApproveTrivial:
         )
         assert out.decision == "approve"
 
+    def test_complete_universe_is_not_a_branch(self, policy):
+        out = evaluate_branch_policy(
+            parent_universe_id="U001",
+            parent_current_tick=5,
+            proposed_decision=_decision("complete_universe"),
+            multiverse=_snap(max_depth_reached=99, active_universe_count=999),
+            policy=policy,
+        )
+        assert out.decision == "approve"
+        assert out.reason == "not a branch"
+
     def test_spawn_candidate_approved_even_at_capacity(self, policy):
         out = evaluate_branch_policy(
             parent_universe_id="U001",
@@ -179,6 +190,19 @@ class TestSpawnActiveLadder:
         )
         assert out.decision == "reject"
         assert "max_depth" in out.reason
+
+    def test_depth_uses_parent_depth_when_available(self, policy):
+        out = evaluate_branch_policy(
+            parent_universe_id="U_shallow",
+            parent_current_tick=5,
+            proposed_decision=_decision("spawn_active", _high_div_delta()),
+            multiverse=_snap(
+                max_depth_reached=3,
+                parent_depth_by_universe={"U_shallow": 1},
+            ),
+            policy=policy,
+        )
+        assert out.decision == "approve"
 
     def test_max_branches_per_tick_downgrades(self, policy):
         out = evaluate_branch_policy(

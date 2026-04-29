@@ -92,8 +92,7 @@ def _open_ledger(run_id: str):
 async def _build_routing_and_limiter(session):
     """Build a RoutingTable + ProviderRateLimiter for one task lifecycle."""
     from backend.app.core.redis_client import get_redis_client
-    from backend.app.providers.rate_limits import ProviderRateLimiter
-    from backend.app.providers.routing import RoutingTable
+    from backend.app.providers.routing import RoutingTable, build_provider_rate_limiter
 
     try:
         routing = await RoutingTable.from_db(session)
@@ -101,21 +100,15 @@ async def _build_routing_and_limiter(session):
         routing = RoutingTable.defaults()
 
     redis = get_redis_client()
-    limiter = ProviderRateLimiter(
-        redis,
-        provider="openrouter",
-        rpm_limit=600,
-        tpm_limit=1_000_000,
-        max_concurrency=8,
-        daily_budget_usd=None,
-        jitter=False,
-    )
+    limiter = await build_provider_rate_limiter(session, redis, provider="openrouter")
     return routing, limiter
 
 
 async def _run_tracked(
     env: JobEnvelope,
     impl: Callable[[JobEnvelope], Awaitable[dict]],
+    *,
+    mark_failed_on_error: bool = True,
 ) -> dict:
     """Run one envelope and mirror lifecycle state into the jobs table."""
     from backend.app.workers import scheduler
@@ -131,7 +124,8 @@ async def _run_tracked(
                 )
             except Exception:
                 pass
-        await scheduler.mark_failed(env.job_id, str(exc))
+        if mark_failed_on_error:
+            await scheduler.mark_failed(env.job_id, str(exc))
         raise
 
     if isinstance(result, dict):
@@ -179,8 +173,9 @@ def initialize_big_bang_task(self, envelope_json: str):  # type: ignore[no-untyp
     """
     env = JobEnvelope.model_validate_json(envelope_json)
     try:
-        return asyncio.run(_run_tracked(env, _initialize_big_bang_impl))
+        return asyncio.run(_run_tracked(env, _initialize_big_bang_impl, mark_failed_on_error=False))
     except Exception as exc:  # noqa: BLE001
+        asyncio.run(_mark_retry_or_failed_best_effort(self, env.job_id, exc))
         raise self.retry(exc=exc, countdown=30)  # noqa: B904
 
 
@@ -274,8 +269,9 @@ def simulate_universe_tick_task(self, envelope_json: str):  # type: ignore[no-un
     """Run the §11.1 tick loop for one (universe, tick) pair."""
     env = JobEnvelope.model_validate_json(envelope_json)
     try:
-        return asyncio.run(_run_tracked(env, _simulate_universe_tick_impl))
+        return asyncio.run(_run_tracked(env, _simulate_universe_tick_impl, mark_failed_on_error=False))
     except Exception as exc:  # noqa: BLE001
+        asyncio.run(_mark_retry_or_failed_best_effort(self, env.job_id, exc))
         raise self.retry(exc=exc, countdown=10)  # noqa: B904
 
 
@@ -380,8 +376,9 @@ def agent_deliberation_batch_task(self, envelope_json: str):  # type: ignore[no-
     """
     env = JobEnvelope.model_validate_json(envelope_json)
     try:
-        return asyncio.run(_run_tracked(env, _agent_deliberation_batch_impl))
+        return asyncio.run(_run_tracked(env, _agent_deliberation_batch_impl, mark_failed_on_error=False))
     except Exception as exc:  # noqa: BLE001
+        asyncio.run(_mark_retry_or_failed_best_effort(self, env.job_id, exc))
         raise self.retry(exc=exc, countdown=5)  # noqa: B904
 
 
@@ -425,6 +422,51 @@ async def _agent_deliberation_batch_impl(env: JobEnvelope) -> dict:
 
 
 # ---------------------------------------------------------------------------
+# Registered phase placeholders
+# ---------------------------------------------------------------------------
+
+async def _unsupported_phase_impl(env: JobEnvelope) -> dict:
+    """Fail registered-but-unimplemented split-phase jobs as normal job errors."""
+    raise NotImplementedError(
+        f"{env.job_type} is not implemented as a standalone Celery task"
+    )
+
+
+def _run_unsupported_phase(envelope_json: str) -> dict:
+    env = JobEnvelope.model_validate_json(envelope_json)
+    try:
+        return asyncio.run(_run_tracked(env, _unsupported_phase_impl))
+    except Exception as exc:  # noqa: BLE001
+        asyncio.run(_mark_failed_best_effort(env.job_id, exc))
+        return {"status": "failed", "error": str(exc)}
+
+
+@celery_app.task(bind=True, name="social_propagation", queue="p1")
+def social_propagation_task(self, envelope_json: str):  # type: ignore[no-untyped-def]
+    return _run_unsupported_phase(envelope_json)
+
+
+@celery_app.task(bind=True, name="execute_due_events", queue="p1")
+def execute_due_events_task(self, envelope_json: str):  # type: ignore[no-untyped-def]
+    return _run_unsupported_phase(envelope_json)
+
+
+@celery_app.task(bind=True, name="sociology_update", queue="p1")
+def sociology_update_task(self, envelope_json: str):  # type: ignore[no-untyped-def]
+    return _run_unsupported_phase(envelope_json)
+
+
+@celery_app.task(bind=True, name="god_agent_review", queue="p1")
+def god_agent_review_task(self, envelope_json: str):  # type: ignore[no-untyped-def]
+    return _run_unsupported_phase(envelope_json)
+
+
+@celery_app.task(bind=True, name="build_review_index", queue="p2")
+def build_review_index_task(self, envelope_json: str):  # type: ignore[no-untyped-def]
+    return _run_unsupported_phase(envelope_json)
+
+
+# ---------------------------------------------------------------------------
 # branch_universe
 # ---------------------------------------------------------------------------
 
@@ -440,8 +482,9 @@ def branch_universe_task(self, envelope_json: str):  # type: ignore[no-untyped-d
     """Commit a child universe via :func:`commit_branch`."""
     env = JobEnvelope.model_validate_json(envelope_json)
     try:
-        return asyncio.run(_run_tracked(env, _branch_universe_impl))
+        return asyncio.run(_run_tracked(env, _branch_universe_impl, mark_failed_on_error=False))
     except Exception as exc:  # noqa: BLE001
+        asyncio.run(_mark_retry_or_failed_best_effort(self, env.job_id, exc))
         raise self.retry(exc=exc, countdown=15)  # noqa: B904
 
 
@@ -644,6 +687,17 @@ async def _mark_failed_best_effort(job_id: str, exc: Exception) -> None:
     await scheduler.mark_failed(job_id, str(exc))
 
 
+async def _mark_retry_or_failed_best_effort(task, job_id: str, exc: Exception) -> None:
+    from backend.app.workers import scheduler
+
+    retries = int(getattr(getattr(task, "request", None), "retries", 0) or 0)
+    max_retries = getattr(task, "max_retries", 0)
+    if max_retries is None or retries < int(max_retries):
+        await scheduler._patch_job(job_id, status="retried", error=str(exc)[:4000], finished_at=None)
+        return
+    await scheduler.mark_failed(job_id, str(exc))
+
+
 async def _export_run_impl(env: JobEnvelope) -> dict:
     from pathlib import Path
 
@@ -681,6 +735,11 @@ __all__ = [
     "simulate_universe_tick_task",
     "apply_tick_results_task",
     "agent_deliberation_batch_task",
+    "social_propagation_task",
+    "execute_due_events_task",
+    "sociology_update_task",
+    "god_agent_review_task",
+    "build_review_index_task",
     "branch_universe_task",
     "sync_zep_memory_task",
     "aggregate_run_results_task",

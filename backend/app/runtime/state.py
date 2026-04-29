@@ -18,5 +18,6 @@ class TickRuntimeState(BaseModel):
     pending_checkpoints: list[str] = Field(default_factory=list)
     cohort_ids: list[str] = Field(default_factory=list)
     hero_ids: list[str] = Field(default_factory=list)
+    tool_call_keys: list[str] = Field(default_factory=list)
     interrupt_requested: bool = False
     staged_artifacts: dict[str, dict] = Field(default_factory=dict)
