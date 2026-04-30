@@ -45,7 +45,49 @@ class Context:
 CONTEXT_SETTINGS = {"help_option_names": ["-h", "--help"], "max_content_width": 120}
 
 
-@click.group(context_settings=CONTEXT_SETTINGS)
+class _GlobalFlagFloatingGroup(click.Group):
+    """Click group that lifts global flags to the front before parsing.
+
+    Click's default parser binds options to the most-recently-seen subcommand,
+    so ``worldfork init --json`` errors with "No such option: --json" because
+    ``--json`` is declared on the parent group. This subclass scans the raw
+    argv and floats known global flags ahead of any subcommand, preserving
+    order otherwise, so users can place global flags either before or after
+    the subcommand.
+    """
+
+    _GLOBAL_FLAGS_NO_VALUE = {"--json"}
+    _GLOBAL_FLAGS_WITH_VALUE = {"--base-url", "--api-prefix", "--timeout", "--verbosity", "--fields"}
+
+    def parse_args(self, ctx: click.Context, args: list[str]) -> list[str]:
+        front: list[str] = []
+        rest: list[str] = []
+        i = 0
+        while i < len(args):
+            arg = args[i]
+            if arg == "--":
+                rest.extend(args[i:])
+                break
+            if arg in self._GLOBAL_FLAGS_NO_VALUE:
+                front.append(arg)
+                i += 1
+                continue
+            if arg in self._GLOBAL_FLAGS_WITH_VALUE and i + 1 < len(args):
+                front.extend([arg, args[i + 1]])
+                i += 2
+                continue
+            if "=" in arg:
+                head, _, _ = arg.partition("=")
+                if head in self._GLOBAL_FLAGS_NO_VALUE | self._GLOBAL_FLAGS_WITH_VALUE:
+                    front.append(arg)
+                    i += 1
+                    continue
+            rest.append(arg)
+            i += 1
+        return super().parse_args(ctx, front + rest)
+
+
+@click.group(cls=_GlobalFlagFloatingGroup, context_settings=CONTEXT_SETTINGS)
 @click.version_option(__version__)
 @click.option("--base-url", default=DEFAULT_BASE_URL, show_default=True, help="Backend root URL.")
 @click.option("--api-prefix", default=DEFAULT_API_PREFIX, show_default=True, help="Backend API prefix.")
@@ -83,9 +125,10 @@ def main(
       worldfork smoke live
       worldfork demo atlas
 
-    Global options must appear before the command. Use --json for scripts,
-    --verbosity summary for compact agent output, and --fields a,b,c when a
-    large list should be projected to a few top-level fields.
+    Global options (--json, --verbosity, --fields, --base-url, --api-prefix,
+    --timeout) may appear before or after the subcommand. Use --json for
+    scripts, --verbosity summary for compact agent output, and --fields a,b,c
+    when a large list should be projected to a few top-level fields.
     """
     ctx.obj = Context(WorldForkClient(base_url, api_prefix, timeout), as_json, verbosity, fields)
 
