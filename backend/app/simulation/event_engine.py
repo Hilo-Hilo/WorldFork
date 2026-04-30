@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Any
+
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
@@ -17,6 +19,94 @@ def load_due_events(db: Session, multiverse_id, tick_index: int) -> list[models.
             models.Event.status == "queued",
         )
     ).all()
+
+
+def build_event_queue_prompt_context(
+    db: Session,
+    *,
+    multiverse_id,
+    tick_index: int,
+    actor_id=None,
+    history_limit: int = 24,
+    future_limit: int = 24,
+) -> dict[str, Any]:
+    """Return compact event history/queue context for actor prompts.
+
+    Initializer events live in the same ``events`` table as later agent-created
+    events. This view makes those seed events visible to the first actor tick
+    before the event-generation phase executes due events.
+    """
+
+    visible_rows = db.scalars(
+        select(models.Event)
+        .where(
+            models.Event.multiverse_id == multiverse_id,
+            models.Event.scheduled_tick <= tick_index,
+            models.Event.status.notin_(("cancelled", "failed", "invalidated")),
+        )
+        .order_by(models.Event.scheduled_tick.desc(), models.Event.created_at.desc())
+        .limit(history_limit)
+    ).all()
+    visible_rows = list(reversed(visible_rows))
+
+    upcoming_rows = db.scalars(
+        select(models.Event)
+        .where(
+            models.Event.multiverse_id == multiverse_id,
+            models.Event.scheduled_tick > tick_index,
+            models.Event.status == "queued",
+        )
+        .order_by(models.Event.scheduled_tick.asc(), models.Event.created_at.asc())
+        .limit(future_limit)
+    ).all()
+
+    own_rows: list[models.Event] = []
+    if actor_id is not None:
+        own_rows = db.scalars(
+            select(models.Event)
+            .where(
+                models.Event.multiverse_id == multiverse_id,
+                models.Event.creator_actor_id == actor_id,
+                models.Event.status == "queued",
+            )
+            .order_by(models.Event.scheduled_tick.asc(), models.Event.created_at.asc())
+            .limit(future_limit)
+        ).all()
+
+    return {
+        "current_tick": tick_index,
+        "visible_events": [event_prompt_row(event) for event in visible_rows],
+        "past_events": [
+            event_prompt_row(event)
+            for event in visible_rows
+            if event.status == "executed" or event.scheduled_tick < tick_index
+        ],
+        "due_events": [
+            event_prompt_row(event)
+            for event in visible_rows
+            if event.status == "queued" and event.scheduled_tick <= tick_index
+        ],
+        "upcoming_events": [event_prompt_row(event) for event in upcoming_rows],
+        "own_queued_events": [event_prompt_row(event) for event in own_rows],
+    }
+
+
+def event_prompt_row(event: models.Event) -> dict[str, Any]:
+    meta = event.meta or {}
+    return {
+        "event_id": str(event.id),
+        "event_type": event.event_type,
+        "title": event.title,
+        "description": event.description,
+        "created_tick": event.created_tick,
+        "scheduled_tick": event.scheduled_tick,
+        "status": event.status,
+        "creator_actor_id": str(event.creator_actor_id) if event.creator_actor_id else None,
+        "expected_impact": event.expected_impact or {},
+        "actual_impact": event.actual_impact or {},
+        "source": meta.get("source"),
+        "inherited_from_event_id": meta.get("inherited_from_event_id"),
+    }
 
 
 def execute_due_events(db: Session, events: list[models.Event], tick_snapshot_id=None) -> list[dict]:

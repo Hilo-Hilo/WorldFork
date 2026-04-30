@@ -24,6 +24,7 @@ from app.db.session import get_db
 from app.llm.audit import LLMCallError
 from app.simulation.report_engine import generate_multiverse_report
 from app.simulation.run_orchestrator import simulate_ticks
+from app.simulation.tick_bundles import hydrate_tick_snapshot_for_read, hydrate_tick_snapshots_for_read
 from app.simulation.tick_runner import TERMINAL_MULTIVERSE_STATUSES, run_next_tick
 from app.storage.artifact_store import ArtifactStore
 
@@ -86,7 +87,12 @@ def _visible_lineage_ids(universe_rows: list[Any], requested_id: UUID) -> set[UU
 @router.get("/multiverses/{multiverse_id}/ticks", response_model=list[TickSnapshotOut])
 def ticks(multiverse_id: UUID, db: Session = Depends(get_db)):
     require(db, models.Multiverse, multiverse_id)
-    return db.scalars(select(models.TickSnapshot).where(models.TickSnapshot.multiverse_id == multiverse_id).order_by(models.TickSnapshot.tick_index)).all()
+    rows = db.scalars(
+        select(models.TickSnapshot)
+        .where(models.TickSnapshot.multiverse_id == multiverse_id)
+        .order_by(models.TickSnapshot.tick_index)
+    ).all()
+    return hydrate_tick_snapshots_for_read(db, rows)
 
 
 @router.post("/multiverses/{multiverse_id}/simulate-next-tick", response_model=TickSnapshotOut)
@@ -109,7 +115,7 @@ def simulate(
         db.rollback()
         raise_simulation_value_error(exc)
     commit_or_500(db)
-    return tick
+    return hydrate_tick_snapshot_for_read(db, tick)
 
 
 @router.post("/multiverses/{multiverse_id}/simulate-ticks", response_model=list[TickSnapshotOut])
@@ -125,7 +131,7 @@ def simulate_many(multiverse_id: UUID, payload: SimulateTicksRequest | None = No
         db.rollback()
         raise_simulation_value_error(exc)
     commit_or_500(db)
-    return ticks
+    return hydrate_tick_snapshots_for_read(db, ticks)
 
 
 @router.post("/multiverses/{multiverse_id}/terminate", response_model=MultiverseOut)

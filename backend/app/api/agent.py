@@ -15,11 +15,16 @@ from app.db import models
 from app.db.session import get_db
 from app.jobs.queues import JOB_TYPES
 from app.simulation.scenario_bank import COVERAGE_MATRIX, list_scenarios
+from app.simulation.tick_bundles import (
+    TickBundleHydrationContext,
+    hydrate_tick_snapshot_for_read,
+)
 
 router = APIRouter(prefix="/agent", tags=["agent"])
 
 VERBOSITY_TIERS = ("summary", "normal", "full")
 DEFAULT_VERBOSITY = "summary"
+_TICK_ARG_MISSING = object()
 
 PROJECTION_SCHEMAS: dict[str, dict[str, list[str] | None]] = {
     "run": {
@@ -116,6 +121,15 @@ def _row(model: Any) -> dict[str, Any]:
     return jsonable_encoder(model)
 
 
+def _tick_row(
+    db: Session,
+    tick: models.TickSnapshot,
+    *,
+    context: TickBundleHydrationContext | None = None,
+) -> dict[str, Any]:
+    return _row(hydrate_tick_snapshot_for_read(db, tick, context=context))
+
+
 def _require_verbosity(value: str) -> str:
     if value not in VERBOSITY_TIERS:
         raise HTTPException(status_code=422, detail=f"verbosity must be one of {', '.join(VERBOSITY_TIERS)}")
@@ -158,10 +172,23 @@ def _latest_tick(db: Session, multiverse_id: UUID) -> models.TickSnapshot | None
     )
 
 
-def _state_at_tick(tick: models.TickSnapshot | None) -> dict[str, Any]:
-    if tick is None:
+def _state_at_tick(
+    db_or_tick: Session | models.TickSnapshot | None,
+    tick: models.TickSnapshot | None | object = _TICK_ARG_MISSING,
+) -> dict[str, Any]:
+    if tick is _TICK_ARG_MISSING:
+        db = None
+        tick_row = db_or_tick
+    else:
+        db = db_or_tick
+        tick_row = tick
+    if tick_row is None:
         return {}
-    bundle = tick.final_bundle or tick.provisional_bundle or {}
+    if isinstance(db, Session):
+        hydrated = hydrate_tick_snapshot_for_read(db, tick_row)
+        bundle = hydrated.final_bundle or hydrated.provisional_bundle or {}
+    else:
+        bundle = tick_row.final_bundle or tick_row.provisional_bundle or {}
     if isinstance(bundle, dict):
         for key in ("state_after", "state", "universe_state_after"):
             value = bundle.get(key)
@@ -299,10 +326,17 @@ def workspace(
         select(models.Job).where(models.Job.big_bang_id == run_id).order_by(models.Job.created_at.desc()).limit(25)
     ).all()
     total_counts, active_counts = _run_counts(db, [run.id])
+    tick_keys = _projection_keys("tick", verbosity, None)
+    needs_tick_hydration = tick_keys is None or bool({"provisional_bundle", "final_bundle"} & set(tick_keys))
+    tick_context = TickBundleHydrationContext()
+    latest_tick_rows = [
+        _tick_row(db, item, context=tick_context) if needs_tick_hydration else _row(item)
+        for item in ticks
+    ]
     data = {
         "run": _project(_run_row(run, total_counts, active_counts), _projection_keys("run", verbosity, fields)),
         "multiverses": _project_rows([_row(item) for item in multiverses], "multiverse", verbosity, None),
-        "latest_ticks": _project_rows([_row(item) for item in ticks], "tick", verbosity, None),
+        "latest_ticks": _project_rows(latest_tick_rows, "tick", verbosity, None),
         "recent_jobs": _project_rows([_row(item) for item in jobs], "job", verbosity, None),
     }
     return _ok(data, verbosity=verbosity)
@@ -326,7 +360,7 @@ def trace(
     if tick is not None:
         stmt = stmt.where(models.TickSnapshot.tick_index == tick)
     tick_row = db.scalar(stmt.order_by(models.TickSnapshot.tick_index.desc()).limit(1))
-    state = _state_at_tick(tick_row)
+    state = _state_at_tick(db, tick_row)
     actors = _actor_rows_from_state(state)
     if actor_id:
         actors = [row for row in actors if row["actor_id"] == actor_id]
@@ -340,7 +374,7 @@ def trace(
     }
     if verbosity == "full":
         data["state"] = state
-        data["tick_snapshot"] = _row(tick_row) if tick_row else None
+        data["tick_snapshot"] = _tick_row(db, tick_row) if tick_row else None
     return _ok(data, verbosity=verbosity)
 
 
@@ -369,7 +403,11 @@ def cohort_transcript(
     transcript: list[dict[str, Any]] = []
     for tick_row in rows:
         match = next(
-            (row for row in _actor_rows_from_state(_state_at_tick(tick_row)) if row["actor_id"] == cohort_id),
+            (
+                row
+                for row in _actor_rows_from_state(_state_at_tick(db, tick_row))
+                if row["actor_id"] == cohort_id
+            ),
             None,
         )
         transcript.append({"tick": tick_row.tick_index, **(match or {"missing": True})})

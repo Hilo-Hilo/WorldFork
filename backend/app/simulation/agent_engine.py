@@ -10,6 +10,7 @@ from app.core.config import get_settings
 from app.db import models
 from app.llm.audit import complete_with_audit
 from app.llm.prompt_templates import ACTOR_SYSTEM_PROMPT
+from app.simulation.event_engine import build_event_queue_prompt_context
 
 
 def run_agent_decisions(
@@ -61,6 +62,13 @@ def run_actor_decision(
     prompt_context: dict,
 ) -> dict:
     model = _agent_deliberation_model(db)
+    actor_prompt_context = _with_actor_event_queue(
+        db,
+        multiverse=multiverse,
+        actor=actor,
+        tick_index=tick_index,
+        prompt_context=prompt_context,
+    )
     response, call = complete_with_audit(
         db,
         big_bang_id=big_bang.id,
@@ -73,7 +81,7 @@ def run_actor_decision(
             },
             {
                 "role": "user",
-                "content": f"Actor: {actor.name}\nArchetype: {actor.archetype}\nContext: {prompt_context}",
+                "content": f"Actor: {actor.name}\nArchetype: {actor.archetype}\nContext: {actor_prompt_context}",
             },
         ],
         metadata={"max_tokens": 700, "temperature": 0.4, "agent_type": actor.actor_type},
@@ -101,6 +109,26 @@ def run_actor_decision(
         "llm_call_id": str(call.id),
         "parsed": parsed,
     }
+
+
+def _with_actor_event_queue(
+    db: Session,
+    *,
+    multiverse: models.Multiverse,
+    actor: models.Actor,
+    tick_index: int,
+    prompt_context: dict,
+) -> dict:
+    actor_context = dict(prompt_context or {})
+    if not hasattr(db, "scalars"):
+        return actor_context
+    actor_context["event_queue"] = build_event_queue_prompt_context(
+        db,
+        multiverse_id=multiverse.id,
+        tick_index=tick_index,
+        actor_id=actor.id,
+    )
+    return actor_context
 
 
 def _agent_deliberation_model(db: Session) -> str:
