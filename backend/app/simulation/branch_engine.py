@@ -156,7 +156,7 @@ def _child_state(
     source_tick: models.TickSnapshot,
 ) -> dict:
     final_bundle = hydrate_tick_bundle(db, source_tick, "final_bundle")
-    if not final_bundle:
+    if not _bundle_has_payload(final_bundle):
         final_bundle = hydrate_tick_bundle(db, source_tick, "provisional_bundle")
     sociology_result = final_bundle.get("sociology_result") or {}
     idle_assessment = final_bundle.get("idle_assessment") or {}
@@ -176,6 +176,10 @@ def _child_state(
         "reason": reason,
     }
     return state
+
+
+def _bundle_has_payload(bundle: dict) -> bool:
+    return any(key not in {"multiverse_id", "inherited_from"} for key in bundle)
 
 
 def _inherit_executable_state(
