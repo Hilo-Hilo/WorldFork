@@ -43,10 +43,7 @@ cp .env.example .env
 
 Set `OPENROUTER_API_KEY` in `.env`.
 
-WorldFork defaults to `google/gemini-3.1-flash-lite-preview` for the default,
-fallback, initializer, God-agent, cohort, hero, event-summary, and report-agent
-model slots. Keep that model for cheap onboarding and validation runs unless
-you intentionally change the environment.
+WorldFork defaults to `google/gemini-3.1-flash-lite-preview` for the default, fallback, initializer, God-agent, cohort, hero, event-summary, and report-agent model slots. Keep that model for cheap onboarding and validation runs unless you intentionally change the environment.
 
 ### Install The CLI
 
@@ -82,8 +79,7 @@ worldfork status
 worldfork query GET /readyz --no-api-prefix
 ```
 
-Readiness should show the database and Redis checks as healthy. OpenRouter is
-healthy when `OPENROUTER_API_KEY` is set and reachable.
+Readiness should show the database and Redis checks as healthy. OpenRouter is healthy when `OPENROUTER_API_KEY` is set and reachable.
 
 ### First Big Bang
 
@@ -95,9 +91,7 @@ worldfork init \
   --tick-duration-minutes 720
 ```
 
-The command waits for backend initialization to return and then prints the
-initialized workspace, actors, traits, graph baseline, sociology baseline, and
-emotion baseline.
+The command waits for backend initialization to return and then prints the initialized workspace, actors, traits, graph baseline, sociology baseline, and emotion baseline.
 
 ### Stop Or Reset
 

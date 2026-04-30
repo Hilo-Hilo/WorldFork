@@ -1,20 +1,17 @@
 # Agent Interface
 
-Agents operate WorldFork through the `worldfork` CLI. The CLI is backed by
-`/api/agent/*` and the canonical runtime APIs.
+Agents operate WorldFork through the `worldfork` CLI. The CLI is backed by `/api/agent/*` and the canonical runtime APIs.
 
 ## Rules
 
 - Start with `worldfork agent discover` and `worldfork status`.
-- Do not hardcode backend host URLs. Use the CLI default, `--base-url`,
-  `WORLD_FORK_API_BASE`, or `BACKEND_API_BASE`.
+- Do not hardcode backend host URLs. Use the CLI default, `--base-url`, `WORLD_FORK_API_BASE`, or `BACKEND_API_BASE`.
 - Put global flags before the command.
 - Use `--verbosity summary` first.
 - Use `--fields a,b,c` when only selected top-level fields are needed.
 - Use bounded waits for jobs.
 - Prefer `watch` for live run state instead of repeated ad hoc queries.
-- Treat reports as structured database records; Markdown/PDF outputs are
-  artifacts for a report version.
+- Treat reports as structured database records; Markdown/PDF outputs are artifacts for a report version.
 
 ## Discovery
 
@@ -23,9 +20,7 @@ worldfork agent discover
 worldfork status
 ```
 
-`agent discover` returns the schema version, supported verbosity tiers,
-recommended command flow, known job types, scenario metadata, and service
-metadata.
+`agent discover` returns the schema version, supported verbosity tiers, recommended command flow, known job types, scenario metadata, and service metadata.
 
 ## Context Control
 
@@ -57,9 +52,7 @@ worldfork watch big-bang <big-bang-id>
 worldfork watch multiverse <multiverse-id>
 ```
 
-`init` waits for initialization to complete, then returns the initialized
-workspace plus initialization artifacts and state. `watch` streams workspace,
-tick, tool-call, and log updates until the selected target is terminal.
+`init` waits for initialization to complete, then returns the initialized workspace plus initialization artifacts and state. `watch` streams workspace, tick, tool-call, and log updates until the selected target is terminal.
 
 Use machine-readable event streams when an agent needs to consume watch output:
 
@@ -79,8 +72,7 @@ worldfork jobs requeue <job-id>
 worldfork jobs run <job-id>
 ```
 
-If a command enqueues long work, capture the job ID and use a bounded wait.
-Do not spin forever.
+If a command enqueues long work, capture the job ID and use a bounded wait. Do not spin forever.
 
 ## Runtime Inspection
 
@@ -104,8 +96,7 @@ worldfork reports view <report-version-id> --format json
 worldfork reports render <report-version-id> --format pdf
 ```
 
-Use `reports view` before rendering a PDF. Rendering is an artifact operation;
-it does not change the canonical report version.
+Use `reports view` before rendering a PDF. Rendering is an artifact operation; it does not change the canonical report version.
 
 ## Direct API Escape Hatch
 
@@ -136,6 +127,4 @@ Atlas onboarding:
 worldfork demo atlas
 ```
 
-Atlas is a demonstration, not a minimal smoke test. It runs a larger branching
-simulation, drains terminal timelines, generates per-multiverse reports, and
-generates a final cross-multiverse report-agent summary.
+Atlas is a demonstration, not a minimal smoke test. It runs a larger branching simulation, drains terminal timelines, generates per-multiverse reports, and generates a final cross-multiverse report-agent summary.

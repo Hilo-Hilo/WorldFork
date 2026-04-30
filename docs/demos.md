@@ -1,7 +1,6 @@
 # Demos
 
-WorldFork has two first-class live workflows: the full runtime smoke and the
-Atlas onboarding demo.
+WorldFork has two first-class live workflows: the full runtime smoke and the Atlas onboarding demo.
 
 ## Full Runtime Smoke
 
@@ -9,8 +8,7 @@ Atlas onboarding demo.
 worldfork smoke live
 ```
 
-This is the end-to-end health check for a configured local backend. It uses
-real OpenRouter credits and verifies that audited LLM calls use:
+This is the end-to-end health check for a configured local backend. It uses real OpenRouter credits and verifies that audited LLM calls use:
 
 ```text
 google/gemini-3.1-flash-lite-preview
@@ -35,23 +33,19 @@ The smoke validates:
 worldfork demo atlas
 ```
 
-Atlas reads `examples/test-big-bang.md`, creates the Atlas Resilience Crisis
-Big Bang, runs a root timeline, creates a manual transparency branch, allows
-God-agent-created branches under generous caps, drains every discovered
-timeline to terminal state, generates per-multiverse reports, generates a final
-cross-multiverse report, renders a PDF artifact, and audits Gemini model use.
+Atlas reads `examples/test-big-bang.md`, creates the Atlas Resilience Crisis Big Bang, runs a root timeline, creates a manual transparency branch, allows God-agent-created branches under generous caps, drains every discovered timeline to terminal state, generates per-multiverse reports, generates a final cross-multiverse report, renders a PDF artifact, and audits Gemini model use.
 
 Default Atlas sizing:
 
-| Setting | Default |
-| --- | --- |
-| Tick duration | 720 minutes |
-| Horizon | 30 simulated days |
-| Derived terminal tick index | 60 |
-| Active multiverse cap | 64 |
-| Branch depth cap | 8 |
-| Branches per tick cap | 8 |
-| Completion request cap | 1000 |
+| Setting                     | Default           |
+| --------------------------- | ----------------- |
+| Tick duration               | 720 minutes       |
+| Horizon                     | 30 simulated days |
+| Derived terminal tick index | 60                |
+| Active multiverse cap       | 64                |
+| Branch depth cap            | 8                 |
+| Branches per tick cap       | 8                 |
+| Completion request cap      | 1000              |
 
 Override defaults when you need a shorter or larger demonstration:
 

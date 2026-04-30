@@ -6,7 +6,7 @@
 **Primary database:** PostgreSQL  
 **Canonical source of truth:** PostgreSQL for durable simulation state and execution metadata  
 **Primary runtime orchestration layer:** LangGraph for in-tick agent/LLM workflow only  
-**Primary control plane:** API first, CLI as power-tool operator surface  
+**Primary control plane:** API first, CLI as power-tool operator surface
 
 This document intentionally removes superseded legacy V1 product/UI specification content. The revamp requirements and architecture below are the only authoritative scope for `revamp/langgraph-runtime-v2`.
 
@@ -100,204 +100,229 @@ This section captures current user-stated preferences for the next backend revam
      - manually edit world state.
 
 10. **Rewrite appetite**
-   - Current preference: **keep concepts, rewrite most implementation**.
+
+- Current preference: **keep concepts, rewrite most implementation**.
 
 11. **Compatibility constraints**
-   - Current preference: **everything can be changed** if needed for the better architecture. There are no hard backward-compatibility constraints currently stated for CLI, API, schema, jobs, or traces.
+
+- Current preference: **everything can be changed** if needed for the better architecture. There are no hard backward-compatibility constraints currently stated for CLI, API, schema, jobs, or traces.
 
 12. **Success criteria / target end-state**
-   - The desired backend should have all wanted features **maximally integrated**.
-   - It should exhibit:
-     - high logical order;
-     - maximum observability;
-     - a **super powerful** CLI and API surface;
-     - runs that are maximally recoverable and intervention-friendly;
-     - human changes that are fully recoverable unless explicitly deleted;
-     - maximal logs with time traces showing what happened, when, at what stage, including human interventions, in realtime;
-     - logs that are fully accessible via API;
-     - very strong, fail-safe, easily recoverable, easily navigable multiverse timeline version control;
-     - reversible human interventions that do not require simulating another universe just to undo a change;
-     - logical file hierarchy, conceptual hierarchy, and visualization.
+
+- The desired backend should have all wanted features **maximally integrated**.
+- It should exhibit:
+  - high logical order;
+  - maximum observability;
+  - a **super powerful** CLI and API surface;
+  - runs that are maximally recoverable and intervention-friendly;
+  - human changes that are fully recoverable unless explicitly deleted;
+  - maximal logs with time traces showing what happened, when, at what stage, including human interventions, in realtime;
+  - logs that are fully accessible via API;
+  - very strong, fail-safe, easily recoverable, easily navigable multiverse timeline version control;
+  - reversible human interventions that do not require simulating another universe just to undo a change;
+  - logical file hierarchy, conceptual hierarchy, and visualization.
 
 13. **Proposed LangGraph ownership boundary (assistant proposal)**
 
-   **LangGraph should own:**
-   - cohort decision execution;
-   - hero decision execution;
-   - LLM/tool-call wrappers and validation nodes;
-   - per-tick agentic substep orchestration;
-   - checkpoint metadata for resumability inside a tick;
-   - retry / repair / model-escalation policy for node-level LLM execution;
-   - prompt-cache integration in the agentic execution sublayer.
+    **LangGraph should own:**
 
-   **Why:**
-   - These are the parts that are currently monolithic and hardest to resume cleanly. In the current backend, `run_next_tick(...)` orchestrates most of the tick in one transactional function, and `run_agent_decisions(...)` iterates through actors inline. That is exactly the surface where LangGraph adds the most value: node-level checkpointing, observable substeps, resumability, retries, and richer control flow.
-   - These parts are naturally graph-shaped because they involve dependent LLM decisions, validation, tool execution, and recovery policies.
+- cohort decision execution;
+- hero decision execution;
+- LLM/tool-call wrappers and validation nodes;
+- per-tick agentic substep orchestration;
+- checkpoint metadata for resumability inside a tick;
+- retry / repair / model-escalation policy for node-level LLM execution;
+- prompt-cache integration in the agentic execution sublayer.
 
-   **LangGraph should NOT own:**
-   - the canonical PostgreSQL data model;
-   - the authoritative world-state mutation engine;
-   - the event ledger as a persistence system;
-   - multiverse lineage / branch metadata persistence;
-   - the public API layer;
-   - the CLI layer;
-   - source-of-truth taxonomy loading/versioning;
-   - job-queue capacity management and worker scheduling;
-   - report storage as a persistence concern;
-   - workspace / product-level CRUD unrelated to agentic execution.
+**Why:**
 
-   **Why:**
-   - The user wants process-termination durability and recoverability first. Keeping PostgreSQL canonical is the cleanest way to guarantee persistence across worker death or process termination.
-   - CLI/API should remain stable product surfaces, not indirect reflections of an orchestration library's internals.
-   - Branch/version-control semantics and ledger semantics are domain concepts broader than LLM orchestration; they should not be trapped inside a graph runtime.
-   - Queueing, concurrency ceilings, pause/resume dispatch, and retry leasing are infrastructure concerns. They need to remain controllable by the API and job system even if LangGraph internals change later.
-   - Source-of-truth files and domain schemas are product invariants, not execution-graph concerns.
+- These are the parts that are currently monolithic and hardest to resume cleanly. In the current backend, `run_next_tick(...)` orchestrates most of the tick in one transactional function, and `run_agent_decisions(...)` iterates through actors inline. That is exactly the surface where LangGraph adds the most value: node-level checkpointing, observable substeps, resumability, retries, and richer control flow.
+- These parts are naturally graph-shaped because they involve dependent LLM decisions, validation, tool execution, and recovery policies.
+
+**LangGraph should NOT own:**
+
+- the canonical PostgreSQL data model;
+- the authoritative world-state mutation engine;
+- the event ledger as a persistence system;
+- multiverse lineage / branch metadata persistence;
+- the public API layer;
+- the CLI layer;
+- source-of-truth taxonomy loading/versioning;
+- job-queue capacity management and worker scheduling;
+- report storage as a persistence concern;
+- workspace / product-level CRUD unrelated to agentic execution.
+
+**Why:**
+
+- The user wants process-termination durability and recoverability first. Keeping PostgreSQL canonical is the cleanest way to guarantee persistence across worker death or process termination.
+- CLI/API should remain stable product surfaces, not indirect reflections of an orchestration library's internals.
+- Branch/version-control semantics and ledger semantics are domain concepts broader than LLM orchestration; they should not be trapped inside a graph runtime.
+- Queueing, concurrency ceilings, pause/resume dispatch, and retry leasing are infrastructure concerns. They need to remain controllable by the API and job system even if LangGraph internals change later.
+- Source-of-truth files and domain schemas are product invariants, not execution-graph concerns.
 
 14. **Canonical state model**
-   - Preferred model: **A — PostgreSQL is canonical; LangGraph checkpoints are resumability metadata.**
-   - Reason for selection:
-     - the highest-priority requirement is persistence and recoverability after process termination;
-     - DB-canonical state provides the strongest durability boundary;
-     - LangGraph can then be treated as an execution engine whose checkpoints augment, rather than replace, domain persistence.
+
+- Preferred model: **A — PostgreSQL is canonical; LangGraph checkpoints are resumability metadata.**
+- Reason for selection:
+  - the highest-priority requirement is persistence and recoverability after process termination;
+  - DB-canonical state provides the strongest durability boundary;
+  - LangGraph can then be treated as an execution engine whose checkpoints augment, rather than replace, domain persistence.
 
 15. **Versioning / what should be versioned**
-   - Canonical world state snapshots: **yes**.
-   - Event ledger: **yes, combined with canonical world-state snapshots**.
-   - Prompt packets: **yes, associated with world state**.
-   - Raw LLM outputs: **yes, associated with world state**.
-   - Validated structured outputs: **yes, associated with world state**.
-   - Tool call inputs/outputs: **yes, associated with world state**.
-   - Human interventions: **yes**.
-   - Branch / fork metadata: **yes**.
-   - Diff views between checkpoints: **no as a separately versioned source; generate from underlying versioned data**.
-   - Undo history for human edits: **yes**.
+
+- Canonical world state snapshots: **yes**.
+- Event ledger: **yes, combined with canonical world-state snapshots**.
+- Prompt packets: **yes, associated with world state**.
+- Raw LLM outputs: **yes, associated with world state**.
+- Validated structured outputs: **yes, associated with world state**.
+- Tool call inputs/outputs: **yes, associated with world state**.
+- Human interventions: **yes**.
+- Branch / fork metadata: **yes**.
+- Diff views between checkpoints: **no as a separately versioned source; generate from underlying versioned data**.
+- Undo history for human edits: **yes**.
 
 16. **Reversibility model for human interventions**
-   - Preferred model:
-     - a human edit should **by default create a branched multiverse**;
-     - undo should usually mean reverting the operator viewport to the original pre-intervention multiverse rather than mutating history in place.
-   - If direct CLI history editing exists, it may edit multiverse history in place, but it must run **coherence checks** to ensure upstream/downstream edit consistency.
-   - Architectural implication:
-     - branch-first intervention is preferred over destructive mutation;
-     - direct mutation remains possible but should be treated as an advanced, coherence-checked operation.
+
+- Preferred model:
+  - a human edit should **by default create a branched multiverse**;
+  - undo should usually mean reverting the operator viewport to the original pre-intervention multiverse rather than mutating history in place.
+- If direct CLI history editing exists, it may edit multiverse history in place, but it must run **coherence checks** to ensure upstream/downstream edit consistency.
+- Architectural implication:
+  - branch-first intervention is preferred over destructive mutation;
+  - direct mutation remains possible but should be treated as an advanced, coherence-checked operation.
 
 17. **Operator surface priority**
-   - Highest-priority operator surface: **API first**.
-   - CLI should still be extremely powerful, but API is the first-class control plane.
+
+- Highest-priority operator surface: **API first**.
+- CLI should still be extremely powerful, but API is the first-class control plane.
 
 18. **CLI philosophy**
-   - Preferred model: **hybrid B/C** — a fully featured control surface and a local power tool.
-   - Essential commands requested so far:
-     - pause;
-     - resume;
-     - interrupt;
-     - inspect;
-     - diff;
-     - fork;
-     - inject;
-     - stream logs;
-     - export run graph.
+
+- Preferred model: **hybrid B/C** — a fully featured control surface and a local power tool.
+- Essential commands requested so far:
+  - pause;
+  - resume;
+  - interrupt;
+  - inspect;
+  - diff;
+  - fork;
+  - inject;
+  - stream logs;
+  - export run graph.
 
 19. **API resource philosophy**
-   - The API should expose the following as first-class resources:
-     - runs;
-     - multiverses;
-     - ticks;
-     - logs;
-     - replays;
-     - branch operations.
-   - Additional likely implied resources from other requirements, even if not yet explicitly confirmed:
-     - checkpoints;
-     - interventions;
-     - execution nodes / node attempts.
+
+- The API should expose the following as first-class resources:
+  - runs;
+  - multiverses;
+  - ticks;
+  - logs;
+  - replays;
+  - branch operations.
+- Additional likely implied resources from other requirements, even if not yet explicitly confirmed:
+  - checkpoints;
+  - interventions;
+  - execution nodes / node attempts.
 
 20. **Concurrency model**
-   - Preferred model: **parallel by default with deterministic commit barriers**.
-   - Desired information boundary:
-     - each cohort/hero should operate on information from the **last tick**, not on partially updated peer outputs from the current tick unless a later phase explicitly consumes them.
-   - Architectural implication:
-     - fan out cohort/hero decisions in parallel;
-     - apply accepted state transitions only at deterministic synchronization barriers.
+
+- Preferred model: **parallel by default with deterministic commit barriers**.
+- Desired information boundary:
+  - each cohort/hero should operate on information from the **last tick**, not on partially updated peer outputs from the current tick unless a later phase explicitly consumes them.
+- Architectural implication:
+  - fan out cohort/hero decisions in parallel;
+  - apply accepted state transitions only at deterministic synchronization barriers.
 
 21. **Caching philosophy**
-   - The requested cache priority is specifically **prompt/LLM caching to reduce API cost**.
-   - This should live in the LangGraph-adjacent execution sublayer and is **not the primary architecture decision right now**.
-   - Current interpretation: treat caching as an execution optimization, not the core product abstraction.
+
+- The requested cache priority is specifically **prompt/LLM caching to reduce API cost**.
+- This should live in the LangGraph-adjacent execution sublayer and is **not the primary architecture decision right now**.
+- Current interpretation: treat caching as an execution optimization, not the core product abstraction.
 
 22. **Retry / failure policy**
-   - Default requested behavior:
-     1. auto-retry with the same prompt;
-     2. after some threshold, auto-retry with a repair prompt;
-     3. after additional failures, escalate to a more powerful model;
-     4. if still failing after configured attempts, require human intervention.
-   - Desired intervention mechanism:
-     - health-check / CLI-visible reminder so the operator is prompted to inspect and fix the failure.
+
+- Default requested behavior:
+  1.  auto-retry with the same prompt;
+  2.  after some threshold, auto-retry with a repair prompt;
+  3.  after additional failures, escalate to a more powerful model;
+  4.  if still failing after configured attempts, require human intervention.
+- Desired intervention mechanism:
+  - health-check / CLI-visible reminder so the operator is prompted to inspect and fix the failure.
 
 23. **Branching authority**
-   - God-agent: **core**.
-   - Human operator from any checkpoint: **core**.
-   - Automatic failure-recovery branch: **no**.
-   - Experimental “what-if” branch without touching canonical timeline: **no** as a separate core requirement right now.
-   - Branch from human-intervention undo point: **no** as a separate core requirement right now.
+
+- God-agent: **core**.
+- Human operator from any checkpoint: **core**.
+- Automatic failure-recovery branch: **no**.
+- Experimental “what-if” branch without touching canonical timeline: **no** as a separate core requirement right now.
+- Branch from human-intervention undo point: **no** as a separate core requirement right now.
 
 24. **Migration strategy appetite**
-   - Preferred strategy: **C — big rewrite branch, break aggressively, then stabilize**.
+
+- Preferred strategy: **C — big rewrite branch, break aggressively, then stabilize**.
 
 25. **Data migration tolerance**
-   - Current preference: **preserve nothing**.
-   - Priority is future architecture correctness, not backward compatibility with old run data.
+
+- Current preference: **preserve nothing**.
+- Priority is future architecture correctness, not backward compatibility with old run data.
 
 26. **Visualization priorities**
-   - Visualization is important across the board, but it is **later** relative to the backend revamp itself.
-   - Current interpretation:
-     - preserve/log the underlying data needed for full visualization now;
-     - build the visualization surfaces later.
+
+- Visualization is important across the board, but it is **later** relative to the backend revamp itself.
+- Current interpretation:
+  - preserve/log the underlying data needed for full visualization now;
+  - build the visualization surfaces later.
 
 27. **Job-queue requirements**
-   - The revamp should include a job-queue layer where each multiverse is added to a queue.
-   - The queue layer should support settings for **max concurrent jobs**.
-   - The queue layer should manage:
-     - retries;
-     - retry logic coordination;
-     - pause/resume logic;
-     - API-exposed queue management.
-   - The queue layer should **not** manage:
-     - model selection;
-     - token cap;
-     - temperature;
-     - other LLM-behavior policy knobs.
-   - If a job fails:
-     - the job manager should surface the failure;
-     - the job implementation / execution layer should own recovery logic and re-queue itself appropriately.
-   - The queue should be exposed and controllable via API.
+
+- The revamp should include a job-queue layer where each multiverse is added to a queue.
+- The queue layer should support settings for **max concurrent jobs**.
+- The queue layer should manage:
+  - retries;
+  - retry logic coordination;
+  - pause/resume logic;
+  - API-exposed queue management.
+- The queue layer should **not** manage:
+  - model selection;
+  - token cap;
+  - temperature;
+  - other LLM-behavior policy knobs.
+- If a job fails:
+  - the job manager should surface the failure;
+  - the job implementation / execution layer should own recovery logic and re-queue itself appropriately.
+- The queue should be exposed and controllable via API.
 
 28. **First-class API resources**
-   - The following should all be explicit first-class API resources:
-     - checkpoints;
-     - interventions;
-     - node attempts.
+
+- The following should all be explicit first-class API resources:
+  - checkpoints;
+  - interventions;
+  - node attempts.
 
 29. **Queue implementation choice**
-   - Preferred model: **C — DB-canonical job records plus an external worker queue**.
-   - Interpretation:
-     - durable truth about jobs lives in PostgreSQL;
-     - queue delivery/execution may use an external worker system;
-     - this preserves process-termination durability while still allowing a real execution queue.
+
+- Preferred model: **C — DB-canonical job records plus an external worker queue**.
+- Interpretation:
+  - durable truth about jobs lives in PostgreSQL;
+  - queue delivery/execution may use an external worker system;
+  - this preserves process-termination durability while still allowing a real execution queue.
 
 30. **Direct history edits**
-   - Preferred model: **A — yes, but heavily guarded**.
-   - Interpretation:
-     - direct in-place history edit commands may exist;
-     - they should be advanced operations with strong coherence validation and safety checks;
-     - branch-first remains the default intervention model.
+
+- Preferred model: **A — yes, but heavily guarded**.
+- Interpretation:
+  - direct in-place history edit commands may exist;
+  - they should be advanced operations with strong coherence validation and safety checks;
+  - branch-first remains the default intervention model.
 
 31. **Concepts to preserve through the rewrite**
-   - Preserve all of the following conceptually, even if implementations are heavily rewritten:
-     - source_of_truth system;
-     - graph / sociology domain concepts;
-     - report / version objects;
-     - multiverse lineage model;
-     - existing CLI mental model.
+
+- Preserve all of the following conceptually, even if implementations are heavily rewritten:
+  - source_of_truth system;
+  - graph / sociology domain concepts;
+  - report / version objects;
+  - multiverse lineage model;
+  - existing CLI mental model.
 
 ### Remaining design work after branching
 

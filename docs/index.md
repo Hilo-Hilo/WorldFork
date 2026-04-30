@@ -1,9 +1,6 @@
 # WorldFork Documentation
 
-WorldFork is agent-operated social simulation infrastructure for branching
-timelines. It exposes a FastAPI backend, Celery workers, durable Postgres and
-Redis state, an artifact store, and the `worldfork` CLI for agent and operator
-workflows.
+WorldFork is agent-operated social simulation infrastructure for branching timelines. It exposes a FastAPI backend, Celery workers, durable Postgres and Redis state, an artifact store, and the `worldfork` CLI for agent and operator workflows.
 
 The documentation is organized around the jobs people actually need to do:
 

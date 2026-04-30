@@ -1,7 +1,6 @@
 # Reporting
 
-WorldFork reports are structured database records first. Rendered Markdown and
-PDF files are artifacts generated from those records.
+WorldFork reports are structured database records first. Rendered Markdown and PDF files are artifacts generated from those records.
 
 ## Layers
 
@@ -11,8 +10,7 @@ PDF files are artifacts generated from those records.
 | `report_versions` | Generated revisions with parsable content and source metadata |
 | Artifacts | Cached Markdown/PDF render outputs for a specific report version |
 
-Artifacts are not canonical. If a rendered Markdown or PDF artifact is removed,
-the report version remains reconstructable from `report_versions.content`.
+Artifacts are not canonical. If a rendered Markdown or PDF artifact is removed, the report version remains reconstructable from `report_versions.content`.
 
 ## Report Version Metadata
 
@@ -41,9 +39,7 @@ worldfork reports view <report-version-id> --format json
 worldfork reports render <report-version-id> --format pdf
 ```
 
-The Markdown view can include the outcome summary, outcome distribution,
-multiverse comparison, report inventory, and evidence appendix when those
-sections are present in the structured content.
+The Markdown view can include the outcome summary, outcome distribution, multiverse comparison, report inventory, and evidence appendix when those sections are present in the structured content.
 
 ## Multiverse Reports
 
@@ -69,32 +65,23 @@ worldfork query POST /api/big-bangs/<big-bang-id>/reports/final \
   --data '{"title":"Final report","summary":"Cross-multiverse outcome review."}'
 ```
 
-The final report should be generated after the relevant multiverses have
-reached terminal states.
+The final report should be generated after the relevant multiverses have reached terminal states.
 
 ## Continuing A Multiverse
 
-When a multiverse reaches `max_ticks`, it becomes terminal and reportable. To
-continue it, set a larger tick limit:
+When a multiverse reaches `max_ticks`, it becomes terminal and reportable. To continue it, set a larger tick limit:
 
 ```bash
 worldfork query POST /api/multiverses/<multiverse-id>/continue \
   --data '{"max_ticks":120,"reason":"Extend after report review."}'
 ```
 
-Continuation increments `multiverse.version`, stores a per-multiverse runtime
-override, and preserves sibling timelines at their original limits.
+Continuation increments `multiverse.version`, stores a per-multiverse runtime override, and preserves sibling timelines at their original limits.
 
-Reports generated before continuation stay bound to the old multiverse version.
-Reports generated after continuation point to the newer multiverse version and
-latest tick snapshot.
+Reports generated before continuation stay bound to the old multiverse version. Reports generated after continuation point to the newer multiverse version and latest tick snapshot.
 
 ## Storage And Deletion
 
-Report versions point at the source multiverse IDs, source multiverse version,
-source config version, and source tick snapshot available when the report was
-created. Storage cleanup should preserve those references.
+Report versions point at the source multiverse IDs, source multiverse version, source config version, and source tick snapshot available when the report was created. Storage cleanup should preserve those references.
 
-If deletion support is added for Big Bangs, multiverses, or artifacts, it
-should either block while referenced reports exist or tombstone source rows
-instead of silently orphaning historical report versions.
+If deletion support is added for Big Bangs, multiverses, or artifacts, it should either block while referenced reports exist or tombstone source rows instead of silently orphaning historical report versions.

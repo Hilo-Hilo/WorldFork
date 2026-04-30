@@ -2,13 +2,9 @@
 
 ## Purpose
 
-This is the canonical long-form WorldFork demonstration scenario. It is
-designed to show branching, multiverse divergence, manual intervention,
-institutional trust shifts, public narrative feedback, cohort splits, reports,
-and long-horizon simulation pressure.
+This is the canonical long-form WorldFork demonstration scenario. It is designed to show branching, multiverse divergence, manual intervention, institutional trust shifts, public narrative feedback, cohort splits, reports, and long-horizon simulation pressure.
 
-The scenario is fictional. It does not represent a real city, real agency, real
-company, real person, or real emergency.
+The scenario is fictional. It does not represent a real city, real agency, real company, real person, or real emergency.
 
 ## Recommended Use
 
@@ -16,9 +12,7 @@ Use this dossier as the scenario text for a Big Bang named:
 
 `Atlas Resilience Crisis`
 
-For a cheap smoke run, execute one root tick, manually branch from the first
-tick, then execute one child tick. For a full demonstration, run 90 to 180 ticks
-with branch depth 3 to 5 and compare the terminal multiverses.
+For a cheap smoke run, execute one root tick, manually branch from the first tick, then execute one child tick. For a full demonstration, run 90 to 180 ticks with branch depth 3 to 5 and compare the terminal multiverses.
 
 Recommended cheap model:
 
@@ -35,28 +29,17 @@ Recommended long-run settings:
 
 ## One Sentence Premise
 
-A 40-million-person coastal megaregion enters a 180-day emergency after a heat
-wave, water pressure failures, rolling blackouts, supply bottlenecks, and a
-climate migration surge collide with fragile public trust and a newly deployed
-AI-assisted civic coordination system.
+A 40-million-person coastal megaregion enters a 180-day emergency after a heat wave, water pressure failures, rolling blackouts, supply bottlenecks, and a climate migration surge collide with fragile public trust and a newly deployed AI-assisted civic coordination system.
 
 ## Primary Simulation Question
 
-Which governance choices preserve legitimacy, reduce harm, and prevent social
-fragmentation when resource scarcity, institutional overload, misinformation,
-and emergency technology all interact at once?
+Which governance choices preserve legitimacy, reduce harm, and prevent social fragmentation when resource scarcity, institutional overload, misinformation, and emergency technology all interact at once?
 
 ## Why This Scenario Demonstrates WorldFork
 
-Atlas contains many natural branch points. A transparent dashboard can build
-trust or trigger panic. A central command can coordinate resources or become
-authoritarian. AI triage can reduce delays or deepen legitimacy collapse.
-Migration welcome policies can stabilize labor and housing or overload civic
-systems. Neighborhood mutual aid can become a resilience layer or a parallel
-authority. Platform moderation can contain rumors or produce backlash.
+Atlas contains many natural branch points. A transparent dashboard can build trust or trigger panic. A central command can coordinate resources or become authoritarian. AI triage can reduce delays or deepen legitimacy collapse. Migration welcome policies can stabilize labor and housing or overload civic systems. Neighborhood mutual aid can become a resilience layer or a parallel authority. Platform moderation can contain rumors or produce backlash.
 
-The scenario works as a long multiverse because each choice has second-order
-effects. The same initial crisis can plausibly become:
+The scenario works as a long multiverse because each choice has second-order effects. The same initial crisis can plausibly become:
 
 - A cooperative resilience success.
 - An opaque emergency regime.
@@ -69,31 +52,15 @@ effects. The same initial crisis can plausibly become:
 
 ## Fictional World
 
-Atlas is a coastal megaregion made of eight dense cities, four port districts,
-two agricultural belts, a mountain reservoir system, and a fast-growing inland
-arrival corridor. Atlas has 40 million residents and depends on tightly coupled
-systems: imported energy, pumped water, port logistics, hospital networks,
-school meal distribution, commuter rail, and a shared digital civic portal.
+Atlas is a coastal megaregion made of eight dense cities, four port districts, two agricultural belts, a mountain reservoir system, and a fast-growing inland arrival corridor. Atlas has 40 million residents and depends on tightly coupled systems: imported energy, pumped water, port logistics, hospital networks, school meal distribution, commuter rail, and a shared digital civic portal.
 
-Atlas has been proud of its technical capacity. Its officials describe the
-region as "complex but governable." Residents are less sure. They remember prior
-blackouts, delayed relief payments, uneven policing, rent spikes, and emergency
-procurement scandals. Trust is available, but conditional.
+Atlas has been proud of its technical capacity. Its officials describe the region as "complex but governable." Residents are less sure. They remember prior blackouts, delayed relief payments, uneven policing, rent spikes, and emergency procurement scandals. Trust is available, but conditional.
 
-Six months before the crisis, the regional government launched the Atlas Civic
-Coordination System, abbreviated ACCS. ACCS is an AI-assisted planning layer
-that prioritizes repair crews, suggests water allocation, routes emergency
-messages, estimates hospital load, and recommends where supplies should move.
-Officials say ACCS is only advisory. Many residents believe it is already making
-real decisions.
+Six months before the crisis, the regional government launched the Atlas Civic Coordination System, abbreviated ACCS. ACCS is an AI-assisted planning layer that prioritizes repair crews, suggests water allocation, routes emergency messages, estimates hospital load, and recommends where supplies should move. Officials say ACCS is only advisory. Many residents believe it is already making real decisions.
 
 ## Initial Shock
 
-Day 0 begins during the third week of an extreme heat wave. Reservoir levels are
-lower than expected, two gas peaker plants trip offline, a desalination plant
-enters emergency maintenance, and a main water pressure tunnel under the East
-Spine corridor fails inspection. The official statement says the region faces a
-"temporary pressure management event." Residents call it rationing.
+Day 0 begins during the third week of an extreme heat wave. Reservoir levels are lower than expected, two gas peaker plants trip offline, a desalination plant enters emergency maintenance, and a main water pressure tunnel under the East Spine corridor fails inspection. The official statement says the region faces a "temporary pressure management event." Residents call it rationing.
 
 Within 12 hours:
 
@@ -102,15 +69,11 @@ Within 12 hours:
 - A port refrigeration yard loses power and spoils food shipments.
 - A viral post claims ACCS prioritized government offices and elite districts.
 - Migrant families arriving from inland wildfire zones are moved into schools.
-- The Teachers Federation says schools cannot also function as emergency
-  shelters without staffing guarantees.
-- The Utility Workers Union says crews are being assigned by a system they do
-  not understand.
+- The Teachers Federation says schools cannot also function as emergency shelters without staffing guarantees.
+- The Utility Workers Union says crews are being assigned by a system they do not understand.
 - A court clinic prepares emergency complaints about opaque allocation.
 
-The government must choose whether to publish a live rationing dashboard,
-whether to expand ACCS emergency authority, whether to invite community groups
-into decision loops, and whether to impose temporary labor orders.
+The government must choose whether to publish a live rationing dashboard, whether to expand ACCS emergency authority, whether to invite community groups into decision loops, and whether to impose temporary labor orders.
 
 ## Core Resources
 
@@ -141,189 +104,141 @@ Track these resources as explicit simulation pressure:
 
 ### Atlas Regional Council
 
-The formal emergency authority. It wants system stability, compliance, and a
-credible public narrative. It is internally split between transparency advocates
-and command-first operators.
+The formal emergency authority. It wants system stability, compliance, and a credible public narrative. It is internally split between transparency advocates and command-first operators.
 
 ### Water Authority
 
-Controls reservoir scheduling, water pressure districts, and repair priorities.
-It has deep technical knowledge but poor public communication. It fears that
-publishing detailed pressure maps will trigger hoarding and sabotage.
+Controls reservoir scheduling, water pressure districts, and repair priorities. It has deep technical knowledge but poor public communication. It fears that publishing detailed pressure maps will trigger hoarding and sabotage.
 
 ### Grid Operations Desk
 
-Coordinates rolling blackouts, hospital priority circuits, and industrial load
-shedding. It is technically competent but politically isolated.
+Coordinates rolling blackouts, hospital priority circuits, and industrial load shedding. It is technically competent but politically isolated.
 
 ### Public Health Network
 
-Hospital and clinic coalition. It is trusted by many residents but strained by
-heat illness, dialysis needs, cooling shelters, and staffing shortages.
+Hospital and clinic coalition. It is trusted by many residents but strained by heat illness, dialysis needs, cooling shelters, and staffing shortages.
 
 ### School Shelter Office
 
-Repurposes schools as daytime cooling centers and night shelters. It is caught
-between families, teachers, migrants, and city officials.
+Repurposes schools as daytime cooling centers and night shelters. It is caught between families, teachers, migrants, and city officials.
 
 ### Port Logistics Board
 
-Manages food, medicine, fuel, and imported materials. It wants exemptions from
-energy restrictions and water limits.
+Manages food, medicine, fuel, and imported materials. It wants exemptions from energy restrictions and water limits.
 
 ### Civic Data Office
 
-Maintains ACCS and the public portal. It believes algorithmic coordination can
-reduce harm if the public sees enough evidence, but it resists full disclosure
-of model limitations.
+Maintains ACCS and the public portal. It believes algorithmic coordination can reduce harm if the public sees enough evidence, but it resists full disclosure of model limitations.
 
 ### Emergency Court Panel
 
-Handles emergency claims, injunctions, appeals, and transparency demands. It can
-stabilize legitimacy or paralyze response.
+Handles emergency claims, injunctions, appeals, and transparency demands. It can stabilize legitimacy or paralyze response.
 
 ## Hero Actors
 
 ### Dr. Ilya Sato, Clinic Coordinator
 
-Runs a network of neighborhood clinics. Wants health protection, honest
-communication, and direct support for vulnerable residents. High trust, limited
-time, vulnerable to burnout.
+Runs a network of neighborhood clinics. Wants health protection, honest communication, and direct support for vulnerable residents. High trust, limited time, vulnerable to burnout.
 
 ### Mira Venn, Mutual Aid Organizer
 
-Coordinates water drop-offs, cooling rides, and neighborhood translation groups.
-Can convert distrust into constructive local action, but may also become a
-competing authority if officials ignore her network.
+Coordinates water drop-offs, cooling rides, and neighborhood translation groups. Can convert distrust into constructive local action, but may also become a competing authority if officials ignore her network.
 
 ### Lena Ortiz, Civic Data Auditor
 
-Former ACCS contractor. Understands the system and suspects the public version
-of its role is incomplete. Can become a whistleblower, reform partner, or rumor
-accelerant depending on treatment.
+Former ACCS contractor. Understands the system and suspects the public version of its role is incomplete. Can become a whistleblower, reform partner, or rumor accelerant depending on treatment.
 
 ### Tomas Reed, Utility Crew Steward
 
-Represents repair crews. Wants safety, schedule transparency, and respect for
-field judgment. Can keep crews aligned or trigger work slowdowns.
+Represents repair crews. Wants safety, schedule transparency, and respect for field judgment. Can keep crews aligned or trigger work slowdowns.
 
 ### Arun Bell, Local Reporter
 
-Investigates allocation decisions. Can clarify facts, expose real misconduct,
-or amplify premature claims under deadline pressure.
+Investigates allocation decisions. Can clarify facts, expose real misconduct, or amplify premature claims under deadline pressure.
 
 ### Nia Ko, School Principal
 
-Runs a school converted into a cooling shelter. Balances students, migrant
-families, teachers, safety rules, and neighborhood anger.
+Runs a school converted into a cooling shelter. Balances students, migrant families, teachers, safety rules, and neighborhood anger.
 
 ## Initial Cohorts
 
 ### Low Pressure District Residents
 
-Residents in districts with early water pressure failures. Initial trust is low,
-anger is high, and rumor susceptibility is high if official communication is
-slow. They are not monolithic: some want protest, some want repair updates, some
-want material aid.
+Residents in districts with early water pressure failures. Initial trust is low, anger is high, and rumor susceptibility is high if official communication is slow. They are not monolithic: some want protest, some want repair updates, some want material aid.
 
 ### Hill Zone Households
 
-Affluent and politically connected residents whose water pressure initially
-remains stable. They fear crime, property loss, and forced sharing. They are
-sensitive to fairness claims and public shaming.
+Affluent and politically connected residents whose water pressure initially remains stable. They fear crime, property loss, and forced sharing. They are sensitive to fairness claims and public shaming.
 
 ### Clinic-Dependent Patients
 
-Residents who require dialysis, refrigerated medication, powered medical
-devices, or frequent care. They are highly sensitive to grid and water failures.
-They trust clinics more than regional officials.
+Residents who require dialysis, refrigerated medication, powered medical devices, or frequent care. They are highly sensitive to grid and water failures. They trust clinics more than regional officials.
 
 ### Utility Workers
 
-Repair crews, dispatchers, and field engineers. They know the infrastructure
-better than ACCS but feel watched and overridden. They can become a stabilizing
-force if trusted or a bottleneck if alienated.
+Repair crews, dispatchers, and field engineers. They know the infrastructure better than ACCS but feel watched and overridden. They can become a stabilizing force if trusted or a bottleneck if alienated.
 
 ### Teachers and Shelter Staff
 
-Teachers, janitors, nurses, cafeteria workers, and school administrators
-running emergency shelters. Their support depends on staffing, safety, pay, and
-clear mission boundaries.
+Teachers, janitors, nurses, cafeteria workers, and school administrators running emergency shelters. Their support depends on staffing, safety, pay, and clear mission boundaries.
 
 ### Migrant Families
 
-Families displaced by inland wildfire and heat events. They need shelter,
-documentation, healthcare, schooling, and protection from scapegoating.
+Families displaced by inland wildfire and heat events. They need shelter, documentation, healthcare, schooling, and protection from scapegoating.
 
 ### Small Businesses
 
-Restaurants, groceries, pharmacies, repair shops, and neighborhood services.
-They fear spoilage, closure, theft, and unclear rules. Their mood can shift
-public perception quickly.
+Restaurants, groceries, pharmacies, repair shops, and neighborhood services. They fear spoilage, closure, theft, and unclear rules. Their mood can shift public perception quickly.
 
 ### Port and Warehouse Workers
 
-Workers moving food, water equipment, medicine, and fuel. They are central to
-logistics but vulnerable to heat, scheduling pressure, and industrial exemptions.
+Workers moving food, water equipment, medicine, and fuel. They are central to logistics but vulnerable to heat, scheduling pressure, and industrial exemptions.
 
 ### Civic Tech Optimists
 
-Residents and professionals who believe ACCS can make the emergency fairer if
-used properly. They value dashboards, evidence, and coordination.
+Residents and professionals who believe ACCS can make the emergency fairer if used properly. They value dashboards, evidence, and coordination.
 
 ### Civic Tech Skeptics
 
-Residents who believe ACCS hides political choices behind math. They demand
-human accountability, appeal rights, and public logs.
+Residents who believe ACCS hides political choices behind math. They demand human accountability, appeal rights, and public logs.
 
 ### Youth Climate Network
 
-Students and young organizers connecting the crisis to long-term adaptation,
-housing, and migration justice. They can mobilize quickly but may alienate
-moderates if framed as opportunistic.
+Students and young organizers connecting the crisis to long-term adaptation, housing, and migration justice. They can mobilize quickly but may alienate moderates if framed as opportunistic.
 
 ### Regional Stability Voters
 
-Residents who mostly want order, predictable services, and lower conflict. They
-are swing actors in legitimacy. They may support transparency, central command,
-or crackdown depending on perceived competence.
+Residents who mostly want order, predictable services, and lower conflict. They are swing actors in legitimacy. They may support transparency, central command, or crackdown depending on perceived competence.
 
 ## Public Channels
 
 ### OASIS
 
-The dominant social platform. Fast, visual, and prone to rumor cascades. It can
-spread mutual-aid coordination or false allocation maps.
+The dominant social platform. Fast, visual, and prone to rumor cascades. It can spread mutual-aid coordination or false allocation maps.
 
 ### Atlas Public Portal
 
-Official updates, shelter maps, water schedules, appeals, and ACCS summaries.
-Trust depends on timeliness and whether reality matches posted information.
+Official updates, shelter maps, water schedules, appeals, and ACCS summaries. Trust depends on timeliness and whether reality matches posted information.
 
 ### Neighborhood Radio
 
-Trusted by older residents and some low-connectivity districts. Slower but less
-chaotic than OASIS.
+Trusted by older residents and some low-connectivity districts. Slower but less chaotic than OASIS.
 
 ### Clinic Briefings
 
-High-trust health communication from Dr. Sato's network. Limited bandwidth but
-strong correction power.
+High-trust health communication from Dr. Sato's network. Limited bandwidth but strong correction power.
 
 ### School Parent Chats
 
-Rapid local coordination and rumor spread. Important for shelter safety,
-student attendance, teacher morale, and migrant integration.
+Rapid local coordination and rumor spread. Important for shelter safety, student attendance, teacher morale, and migrant integration.
 
 ### Court Filings
 
-Low volume but high legitimacy impact. Can turn policy disputes into formal
-constraints.
+Low volume but high legitimacy impact. Can turn policy disputes into formal constraints.
 
 ### Worker Dispatch Channels
 
-Semi-private channels among utility crews, port workers, teachers, and clinic
-staff. Leaks from these channels can change public narrative.
+Semi-private channels among utility crews, port workers, teachers, and clinic staff. Leaks from these channels can change public narrative.
 
 ## Key Axes To Track
 
@@ -361,121 +276,85 @@ Use these as qualitative anchors, not fixed numbers:
 
 ### Dashboard Branch
 
-The council can publish a live rationing and repair dashboard, publish a delayed
-summary dashboard, or keep details internal. A live dashboard can build trust
-if accurate. It can also reveal inequity and trigger protest.
+The council can publish a live rationing and repair dashboard, publish a delayed summary dashboard, or keep details internal. A live dashboard can build trust if accurate. It can also reveal inequity and trigger protest.
 
 ### ACCS Authority Branch
 
-Officials can freeze ACCS authority pending audit, expand ACCS emergency
-recommendations, or keep its role ambiguous. Ambiguity is dangerous because it
-lets every faction project blame onto the system.
+Officials can freeze ACCS authority pending audit, expand ACCS emergency recommendations, or keep its role ambiguous. Ambiguity is dangerous because it lets every faction project blame onto the system.
 
 ### Utility Labor Branch
 
-Repair crews can be treated as field partners, placed under emergency order, or
-blamed for delay. The branch affects repair velocity, sabotage rumors, and
-worker solidarity with residents.
+Repair crews can be treated as field partners, placed under emergency order, or blamed for delay. The branch affects repair velocity, sabotage rumors, and worker solidarity with residents.
 
 ### Shelter Mission Branch
 
-Schools can remain limited cooling shelters, become migrant family shelters, or
-be converted into full emergency service hubs. Each choice affects teachers,
-families, migrants, and safety narratives.
+Schools can remain limited cooling shelters, become migrant family shelters, or be converted into full emergency service hubs. Each choice affects teachers, families, migrants, and safety narratives.
 
 ### Port Exemption Branch
 
-The port can receive energy and water exemptions, be forced into equal
-rationing, or negotiate public commitments in exchange for priority. This
-affects food supply and fairness politics.
+The port can receive energy and water exemptions, be forced into equal rationing, or negotiate public commitments in exchange for priority. This affects food supply and fairness politics.
 
 ### Clinic Trust Branch
 
-Clinics can become official communication partners, stay independent, or clash
-with the council over health-risk disclosures. This changes correction capacity
-and vulnerable resident outcomes.
+Clinics can become official communication partners, stay independent, or clash with the council over health-risk disclosures. This changes correction capacity and vulnerable resident outcomes.
 
 ### Whistleblower Branch
 
-Lena Ortiz can reveal ACCS logs, privately brief auditors, be discredited, or be
-invited into a public review panel. This branch determines whether the AI issue
-becomes reform, scandal, or conspiracy.
+Lena Ortiz can reveal ACCS logs, privately brief auditors, be discredited, or be invited into a public review panel. This branch determines whether the AI issue becomes reform, scandal, or conspiracy.
 
 ### Platform Rumor Branch
 
-OASIS can suppress false maps, label them, leave them alone, or over-moderate
-community reports. Each path has different trust and backlash effects.
+OASIS can suppress false maps, label them, leave them alone, or over-moderate community reports. Each path has different trust and backlash effects.
 
 ### Court Legitimacy Branch
 
-The emergency court can order disclosure, defer to executives, block a policy,
-or mandate appeals. This can restore due process or slow response.
+The emergency court can order disclosure, defer to executives, block a policy, or mandate appeals. This can restore due process or slow response.
 
 ### Migration Covenant Branch
 
-The region can adopt a welcome-and-work policy, restrict arrivals, move migrant
-families through schools, or create a neighborhood sponsorship program.
+The region can adopt a welcome-and-work policy, restrict arrivals, move migrant families through schools, or create a neighborhood sponsorship program.
 
 ### Mutual Aid Branch
 
-Mira's network can be integrated into official logistics, stay independent, be
-ignored, or be treated as disorder. Integration can build resilience but creates
-accountability and favoritism questions.
+Mira's network can be integrated into official logistics, stay independent, be ignored, or be treated as disorder. Integration can build resilience but creates accountability and favoritism questions.
 
 ### Public Apology Branch
 
-The council can apologize for unequal early pressure loss, deny inequity,
-attribute differences to hydraulic mechanics, or promise an investigation.
-Apology timing affects trust recovery and lawsuit pressure.
+The council can apologize for unequal early pressure loss, deny inequity, attribute differences to hydraulic mechanics, or promise an investigation. Apology timing affects trust recovery and lawsuit pressure.
 
 ## Expected Multiverse Archetypes
 
 ### M1: Transparent Resilience
 
-Officials publish enough data, admit uncertainty, partner with clinics and
-mutual aid, protect workers, and create clear appeals. Trust recovers slowly.
-Rumors persist but are answerable. Scarcity remains severe, but legitimacy
-survives.
+Officials publish enough data, admit uncertainty, partner with clinics and mutual aid, protect workers, and create clear appeals. Trust recovers slowly. Rumors persist but are answerable. Scarcity remains severe, but legitimacy survives.
 
 ### M2: Command Stability
 
-Officials centralize authority, expand ACCS, limit disclosure, and use emergency
-orders. Services may improve faster in some areas, but legitimacy drops and
-opposition networks become durable.
+Officials centralize authority, expand ACCS, limit disclosure, and use emergency orders. Services may improve faster in some areas, but legitimacy drops and opposition networks become durable.
 
 ### M3: Rumor Cascade
 
-Opaque allocation, visible inequity, and weak correction allow false maps,
-blame frames, and sabotage rumors to dominate. Mutual aid fragments into
-identity-aligned networks.
+Opaque allocation, visible inequity, and weak correction allow false maps, blame frames, and sabotage rumors to dominate. Mutual aid fragments into identity-aligned networks.
 
 ### M4: Audit Reform
 
-The ACCS controversy becomes a structured audit and public oversight process.
-Technology remains in use but under constraints. The court panel and Lena Ortiz
-become central actors.
+The ACCS controversy becomes a structured audit and public oversight process. Technology remains in use but under constraints. The court panel and Lena Ortiz become central actors.
 
 ### M5: Labor Bottleneck
 
-Utility, port, teacher, and clinic workers coordinate around safety and
-transparency. This can produce constructive bargaining or a general slowdown
-that worsens public services.
+Utility, port, teacher, and clinic workers coordinate around safety and transparency. This can produce constructive bargaining or a general slowdown that worsens public services.
 
 ### M6: Neighborhood Federation
 
-Mira's mutual-aid network becomes a parallel resilience system. It may reduce
-harm where institutions are slow, but it can also expose uneven local capacity
-and create new legitimacy disputes.
+Mira's mutual-aid network becomes a parallel resilience system. It may reduce harm where institutions are slow, but it can also expose uneven local capacity and create new legitimacy disputes.
 
 ### M7: Migration Fracture
 
-School shelters and housing pressure make migration the dominant conflict.
-Solidarity networks and resentment coalitions compete for narrative control.
+School shelters and housing pressure make migration the dominant conflict. Solidarity networks and resentment coalitions compete for narrative control.
 
 ### M8: Court-Governed Emergency
 
-Emergency policy becomes constrained by injunctions, appeals, and disclosure
-orders. Legitimacy may improve, but response speed may drop.
+Emergency policy becomes constrained by injunctions, appeals, and disclosure orders. Legitimacy may improve, but response speed may drop.
 
 ## Events For Long Runs
 
@@ -507,9 +386,7 @@ Use these events as optional shocks across a 180-day simulation:
 
 ### Manual Branch A: Full Transparency
 
-At tick 1 or 2, branch into a world where the council publishes the live
-rationing dashboard, acknowledges early inequity, and invites clinics plus
-mutual-aid coordinators into daily briefings.
+At tick 1 or 2, branch into a world where the council publishes the live rationing dashboard, acknowledges early inequity, and invites clinics plus mutual-aid coordinators into daily briefings.
 
 Expected divergence:
 
@@ -521,8 +398,7 @@ Expected divergence:
 
 ### Manual Branch B: Command Override
 
-At tick 1 or 2, branch into a world where the council expands ACCS authority,
-delays disclosure, and issues temporary labor orders.
+At tick 1 or 2, branch into a world where the council expands ACCS authority, delays disclosure, and issues temporary labor orders.
 
 Expected divergence:
 
@@ -534,9 +410,7 @@ Expected divergence:
 
 ### Manual Branch C: Community Logistics Compact
 
-At tick 1 or 2, branch into a world where Mira's mutual-aid network receives
-official logistics support and the clinic network becomes the trusted health
-communications layer.
+At tick 1 or 2, branch into a world where Mira's mutual-aid network receives official logistics support and the clinic network becomes the trusted health communications layer.
 
 Expected divergence:
 
@@ -547,8 +421,7 @@ Expected divergence:
 
 ### Manual Branch D: AI Audit Freeze
 
-At tick 1 or 2, branch into a world where ACCS is frozen for allocation
-decisions pending public audit, but remains available for non-binding forecasts.
+At tick 1 or 2, branch into a world where ACCS is frozen for allocation decisions pending public audit, but remains available for non-binding forecasts.
 
 Expected divergence:
 

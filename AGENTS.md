@@ -1,12 +1,8 @@
 # AGENTS.md
 
-WorldFork is a CLI-first backend product. The primary interface for coding
-agents is the `worldfork` command, backed by `/api/agent/*` and the canonical
-runtime API families.
+WorldFork is a CLI-first backend product. The primary interface for coding agents is the `worldfork` command, backed by `/api/agent/*` and the canonical runtime API families.
 
-In this monorepo, the backend service package lives at the root and the CLI
-package lives in `cli/`. Install the local CLI once before using the runtime;
-normal operational workflows should go through the `worldfork` command.
+In this monorepo, the backend service package lives at the root and the CLI package lives in `cli/`. Install the local CLI once before using the runtime; normal operational workflows should go through the `worldfork` command.
 
 ## Canonical Flow
 
@@ -44,14 +40,9 @@ worldfork reports render <report-version-id> --format pdf
 
 ## Runtime Surface
 
-Treat `backend/app/main.py`, the `app.*` package, `/api/agent/*`,
-`/api/big-bangs`, `/api/multiverses`, `/api/ticks`, `/api/jobs`, `/api/logs`,
-and `/api/reports` as the canonical runtime surface.
+Treat `backend/app/main.py`, the `app.*` package, `/api/agent/*`, `/api/big-bangs`, `/api/multiverses`, `/api/ticks`, `/api/jobs`, `/api/logs`, and `/api/reports` as the canonical runtime surface.
 
-`/api/runs` is a transitional compatibility and compact-inspection surface.
-It remains documented for current agent workflows, but new feature work should
-prefer the canonical Big Bang, multiverse, job, log, report, and agent routes
-unless the CLI discovery contract says otherwise.
+`/api/runs` is a transitional compatibility and compact-inspection surface. It remains documented for current agent workflows, but new feature work should prefer the canonical Big Bang, multiverse, job, log, report, and agent routes unless the CLI discovery contract says otherwise.
 
 ## Setup
 
@@ -62,8 +53,7 @@ npx skills add Hilo-Hilo/WorldFork/skills/worldfork-setup --all
 npx skills add Hilo-Hilo/WorldFork/skills/worldfork --all
 ```
 
-Use `worldfork-setup` for onboarding, then remove that temporary bootstrap
-skill when setup is complete:
+Use `worldfork-setup` for onboarding, then remove that temporary bootstrap skill when setup is complete:
 
 ```bash
 npx skills remove worldfork-setup -y

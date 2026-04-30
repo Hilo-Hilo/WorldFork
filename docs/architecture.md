@@ -1,7 +1,6 @@
 # Architecture
 
-WorldFork is backend-first and CLI-first. The backend owns simulation state and
-the CLI provides the stable control surface for operators and agents.
+WorldFork is backend-first and CLI-first. The backend owns simulation state and the CLI provides the stable control surface for operators and agents.
 
 ## Runtime Stack
 
@@ -20,26 +19,19 @@ the CLI provides the stable control surface for operators and agents.
 
 ### Big Bang
 
-A Big Bang is the root scenario. It stores scenario input, simulation config,
-model config, branch policy, initialization output, and the root multiverse.
+A Big Bang is the root scenario. It stores scenario input, simulation config, model config, branch policy, initialization output, and the root multiverse.
 
 ### Multiverse
 
-A multiverse is one timeline in the Big Bang tree. It can inherit ticks from a
-parent, execute new ticks, branch into children, terminate, report, and later
-continue with a higher tick limit.
+A multiverse is one timeline in the Big Bang tree. It can inherit ticks from a parent, execute new ticks, branch into children, terminate, report, and later continue with a higher tick limit.
 
 ### Tick
 
-A tick is one simulation step. Tick execution records node attempts,
-checkpoints, tool calls, graph updates, sociology signals, God-agent review,
-and the final tick snapshot.
+A tick is one simulation step. Tick execution records node attempts, checkpoints, tool calls, graph updates, sociology signals, God-agent review, and the final tick snapshot.
 
 ### Report
 
-A report is a logical slot. A report version is a generated revision containing
-structured content and metadata. Markdown and PDF outputs are cached artifacts
-rendered from that version.
+A report is a logical slot. A report version is a generated revision containing structured content and metadata. Markdown and PDF outputs are cached artifacts rendered from that version.
 
 ## Data Flow
 
@@ -78,20 +70,15 @@ Branches are constrained by branch policy:
 - branch score threshold
 - idle termination behavior
 
-Child multiverses inherit parent ticks through lineage references and receive
-their own executable state after the fork point.
+Child multiverses inherit parent ticks through lineage references and receive their own executable state after the fork point.
 
 ## Jobs And Control
 
-The backend models queued work as jobs. Operators can pause, resume, interrupt,
-requeue, claim, or synchronously run jobs through the API and CLI. Agent code
-should use `worldfork jobs wait` with a bounded timeout.
+The backend models queued work as jobs. Operators can pause, resume, interrupt, requeue, claim, or synchronously run jobs through the API and CLI. Agent code should use `worldfork jobs wait` with a bounded timeout.
 
 ## Storage Boundaries
 
-Postgres is canonical for domain state. Artifacts are cached files used for
-rendering and audit payloads. A missing rendered artifact should be treated as
-regenerable when the corresponding database report version still exists.
+Postgres is canonical for domain state. Artifacts are cached files used for rendering and audit payloads. A missing rendered artifact should be treated as regenerable when the corresponding database report version still exists.
 
 ## Agent Surface
 
@@ -102,5 +89,4 @@ worldfork agent discover
 worldfork status
 ```
 
-The discovery route is the contract for supported commands, verbosity tiers,
-known job types, and recommended flows.
+The discovery route is the contract for supported commands, verbosity tiers, known job types, and recommended flows.
