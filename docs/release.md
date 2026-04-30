@@ -9,14 +9,23 @@ publishes packages.
 
 ## Skill Package
 
-The generic agent skill lives in `skills/worldfork/` and publishes as
-`@worldfork/skill`.
+The generic agent skill lives in `skills/worldfork/`. The supported user-facing
+install source is the repository path, because `npx skills add` resolves git,
+URL, and local-path sources:
 
-The dev branch validates the skill package without publishing on pushes to
-`dev` and pull requests targeting `main`. The publish workflow runs only after
-changes land on `main` and only when files under `skills/worldfork/` change.
+```bash
+npx skills add https://github.com/Hilo-Hilo/WorldFork/tree/main/skills/worldfork --all
+```
 
-Preferred setup is npm trusted publishing for `@worldfork/skill` with:
+The `worldfork-skill` npm package is an optional standalone distribution
+artifact for release tracking. It is not the primary `skills add` source.
+
+The dev branch validates the skill folder and npm package contents without
+publishing on pushes to `dev` and pull requests targeting `main`. The publish
+workflow runs only after changes land on `main` and only when files under
+`skills/worldfork/` change.
+
+Preferred setup is npm trusted publishing for `worldfork-skill` with:
 
 ```text
 GitHub owner: Hilo-Hilo
@@ -25,7 +34,7 @@ Workflow filename: publish-skill.yml
 ```
 
 As a fallback, add a repository secret named `NPM_TOKEN` containing an npm
-automation or granular publish token for `@worldfork/skill`, then set the
+automation or granular publish token for `worldfork-skill`, then set the
 repository Actions variable `NPM_USE_TOKEN=true`. The workflow ignores
 `NPM_TOKEN` by default so an older OTP-bound token cannot override trusted
 publishing.

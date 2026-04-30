@@ -25,7 +25,7 @@ env:
 
 jobs:
   validate:
-    name: Validate @worldfork/skill package
+    name: Validate worldfork-skill package
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -53,7 +53,7 @@ jobs:
             process.exit(1);
           }
 
-          if (pkg.name !== "@worldfork/skill") fail("package name must be @worldfork/skill");
+          if (pkg.name !== "worldfork-skill") fail("package name must be worldfork-skill");
           if (pkg.private !== false) fail("package must be publishable with private=false");
           if (!pkg.publishConfig || pkg.publishConfig.access !== "public") {
             fail("publishConfig.access must be public");
