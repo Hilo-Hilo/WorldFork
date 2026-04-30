@@ -98,29 +98,40 @@ worldfork --help
 
 ### Optional: install the agent skill
 
-Install the generic operator skill directly from the repository skill folder:
+The generic WorldFork operator skill teaches agent runtimes to use the
+WorldFork CLI, initialization, watch, report, job, and Atlas onboarding flows
+without hardcoded backend URLs.
+
+Install it directly from the repository skill folder:
 
 ```bash
-npx skills add Hilo-Hilo/WorldFork/skills/worldfork --all
+npx --yes skills add Hilo-Hilo/WorldFork/skills/worldfork --all
 ```
 
 The full GitHub URL works too:
 
 ```bash
-npx skills add https://github.com/Hilo-Hilo/WorldFork/tree/main/skills/worldfork --all
+npx --yes skills add https://github.com/Hilo-Hilo/WorldFork/tree/main/skills/worldfork --all
 ```
 
-From a local checkout, point at the directory containing `SKILL.md`:
+For local development from this checkout, install from a temporary copy of the
+skill package. This avoids the `skills` installer replacing `./skills/worldfork`
+with an installed-agent symlink when `--all` targets this repository:
 
 ```bash
-npx skills add ./skills/worldfork --all
+tmpdir="$(mktemp -d)"
+cp -R ./skills/worldfork "$tmpdir/worldfork"
+npx --yes skills add "$tmpdir/worldfork" --all
 ```
 
-To refresh an installed skill, run `npx skills update worldfork -y` or rerun
-the GitHub install command.
+The installer creates local agent configuration output such as `.agents/`,
+agent-specific skill symlinks, and `skills-lock.json`. Treat those as local
+runtime setup files unless you intentionally want to version agent install
+state.
 
-This skill teaches agent runtimes to use the WorldFork CLI, initialization,
-watch, report, job, and Atlas onboarding flows without hardcoded backend URLs.
+To refresh an installed skill, run `npx skills update worldfork -y` or rerun
+one of the install commands above. Restart Codex or your agent runtime after
+installing or updating the skill.
 
 ### 3. Configure environment
 
