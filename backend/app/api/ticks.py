@@ -10,18 +10,19 @@ from app.api.schemas import TickSnapshotOut
 from app.api.utils import require
 from app.db import models
 from app.db.session import get_db
+from app.simulation.tick_bundles import hydrate_tick_snapshot_for_read
 
 router = APIRouter(prefix="/ticks", tags=["ticks"])
 
 
 @router.get("/{tick_snapshot_id}", response_model=TickSnapshotOut)
 def get(tick_snapshot_id: UUID, db: Session = Depends(get_db)):
-    return require(db, models.TickSnapshot, tick_snapshot_id)
+    return hydrate_tick_snapshot_for_read(db, require(db, models.TickSnapshot, tick_snapshot_id))
 
 
 @router.get("/{tick_snapshot_id}/details")
 def details(tick_snapshot_id: UUID, db: Session = Depends(get_db)):
-    tick = require(db, models.TickSnapshot, tick_snapshot_id)
+    tick = hydrate_tick_snapshot_for_read(db, require(db, models.TickSnapshot, tick_snapshot_id))
     return {"tick": tick, "final_bundle": tick.final_bundle}
 
 
