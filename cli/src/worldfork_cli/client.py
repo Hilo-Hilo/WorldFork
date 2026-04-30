@@ -30,11 +30,13 @@ class WorldForkClient:
         self.api_prefix = api_prefix.strip("/")
         self._http = httpx.Client(base_url=self.base_url, timeout=timeout)
 
-    def normalize_path(self, path: str) -> str:
+    def normalize_path(self, path: str, *, use_api_prefix: bool = True) -> str:
         raw = path.strip()
         if raw.startswith(("http://", "https://")):
             return raw
         trimmed = raw.lstrip("/")
+        if not use_api_prefix:
+            return trimmed
         if self.api_prefix and not trimmed.startswith(f"{self.api_prefix}/") and trimmed != self.api_prefix:
             return f"{self.api_prefix}/{trimmed}"
         return trimmed
@@ -46,10 +48,12 @@ class WorldForkClient:
         *,
         params: dict[str, Any] | None = None,
         json_body: Any = None,
+        use_api_prefix: bool = True,
+        timeout: float | None = None,
     ) -> Any:
-        url = self.normalize_path(path)
+        url = self.normalize_path(path, use_api_prefix=use_api_prefix)
         try:
-            response = self._http.request(method, url, params=params, json=json_body)
+            response = self._http.request(method, url, params=params, json=json_body, timeout=timeout)
         except httpx.TimeoutException as exc:
             raise CliError(f"request timed out for {url}", exit_code=124) from exc
         except httpx.RequestError as exc:
