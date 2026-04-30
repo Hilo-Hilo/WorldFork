@@ -220,3 +220,7 @@ This file is the single running reference for the study. Every command, runtime 
 - Pushed branch `research/overnight-accuracy-2026-04-30` to `origin` without pushing directly to `dev`.
 - Opened PR against `dev`: `https://github.com/Hilo-Hilo/WorldFork/pull/14`.
 - PR body documents scope, accuracy results, failure mechanics, retryability, validation commands, and caveats around local-only raw `runs/` artifacts.
+- Added follow-up commit `499f73e` to include this PR URL in the trace document.
+- CI `Backend and CLI` initially failed on Ruff lint in the new harness: unsorted imports, unused `os`/`sys`, and the `timezone.utc` style rule.
+- Patched the harness lint findings while preserving the existing `timezone.utc` runtime behavior with an explicit `# noqa: UP017`.
+- Verified locally after the lint patch: `uv run --with ruff ruff check .`, `python3 -m py_compile agent-testing/accuracy-overnight/harness/accuracy_harness.py`, and `git diff --check`.

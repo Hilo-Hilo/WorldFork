@@ -11,11 +11,9 @@ from __future__ import annotations
 import argparse
 import json
 import math
-import os
 import re
 import shutil
 import subprocess
-import sys
 import textwrap
 import time
 import urllib.error
@@ -25,7 +23,6 @@ from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-
 
 ROOT = Path(__file__).resolve().parents[3]
 STUDY = ROOT / "agent-testing" / "accuracy-overnight"
@@ -1795,7 +1792,7 @@ def resume_failed_runs(args: argparse.Namespace) -> None:
         event = event_by_id(event_id)
         big_bang_id = str(record.get("big_bang_id"))
         run_dir = record_path.parent
-        prefix = f"resume_{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}"
+        prefix = f"resume_{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}"  # noqa: UP017
         sequence = 1
         requests_used = 0
         successful_ticks = 0
