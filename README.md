@@ -49,15 +49,9 @@ WorldFork has two supported setup paths. The recommended path is agent-guided: p
 Paste this prompt into your agent:
 
 ```text
-Run this command to install the WorldFork setup skill, then use it to set up
-WorldFork on this computer:
+Install and run the WorldFork setup skill:
 
 npx skills add Hilo-Hilo/WorldFork/skills/worldfork-setup --all
-
-After installing it, use the setup skill to guide me through prerequisites,
-.env configuration with OPENROUTER_API_KEY, CLI installation, Docker Compose
-startup, migrations, seeding, readiness verification, and the onboarding demo.
-Use google/gemini-3.1-flash-lite-preview for live API-credit runs.
 ```
 
 ### Complete Manual Setup
