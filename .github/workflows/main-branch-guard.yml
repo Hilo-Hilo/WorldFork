@@ -1,0 +1,28 @@
+name: Main Branch Guard
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  no-dev-container-artifacts:
+    name: No dev container artifacts
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Reject dev-only container files on main
+        run: ./scripts/check_main_branch_artifacts.sh
