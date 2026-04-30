@@ -32,24 +32,45 @@ jobs:
     if: ${{ github.event_name == 'pull_request' && !github.event.pull_request.draft }}
 
     steps:
-      - name: Validate trusted review context
+      - name: Prepare Codex review
+        id: preflight
         env:
           HEAD_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name }}
           REPOSITORY: ${{ github.repository }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          CODEX_REVIEW_REQUIRED: ${{ vars.CODEX_REVIEW_REQUIRED || 'false' }}
         run: |
           set -euo pipefail
+          run_codex=true
+          reason=""
           if [ "$HEAD_REPOSITORY" != "$REPOSITORY" ]; then
-            echo "Codex auto-review is restricted to in-repository PR branches."
-            echo "Fork PRs need a maintainer to create a trusted branch before auto-merge can run."
-            exit 1
+            run_codex=false
+            reason="Codex auto-review is restricted to in-repository PR branches. Fork PRs need a maintainer to create a trusted branch before auto-merge can run."
           fi
           if [ -z "${OPENAI_API_KEY:-}" ]; then
-            echo "Repository secret OPENAI_API_KEY is required for Codex PR review."
-            exit 1
+            run_codex=false
+            reason="Repository secret OPENAI_API_KEY is required before Codex PR review can run."
           fi
 
+          if [ "$run_codex" = false ]; then
+            {
+              echo "## Codex Review Gate: Not Configured"
+              echo
+              echo "$reason"
+              echo
+              echo "Set repository secret \`OPENAI_API_KEY\`, set repository variable \`CODEX_REVIEW_REQUIRED=true\`, then add \`Codex Review Gate\` to required branch checks."
+            } > codex-review.md
+            echo "run_codex=false" >> "$GITHUB_OUTPUT"
+            if [ "$CODEX_REVIEW_REQUIRED" = "true" ]; then
+              echo "$reason"
+              exit 1
+            fi
+            exit 0
+          fi
+          echo "run_codex=true" >> "$GITHUB_OUTPUT"
+
       - name: Checkout pull request merge commit
+        if: ${{ steps.preflight.outputs.run_codex == 'true' }}
         uses: actions/checkout@v5
         with:
           ref: refs/pull/${{ github.event.pull_request.number }}/merge
@@ -57,6 +78,7 @@ jobs:
           persist-credentials: false
 
       - name: Fetch base and head refs
+        if: ${{ steps.preflight.outputs.run_codex == 'true' }}
         env:
           PR_BASE_REF: ${{ github.event.pull_request.base.ref }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
@@ -67,6 +89,7 @@ jobs:
             "+refs/pull/$PR_NUMBER/head:refs/remotes/pull/$PR_NUMBER/head"
 
       - name: Run Codex review
+        if: ${{ steps.preflight.outputs.run_codex == 'true' }}
         id: run_codex
         uses: openai/codex-action@v1
         continue-on-error: true
@@ -147,6 +170,7 @@ jobs:
             Return only JSON that satisfies the supplied schema.
 
       - name: Normalize Codex verdict
+        if: ${{ steps.preflight.outputs.run_codex == 'true' }}
         id: verdict
         env:
           BASE_REF: ${{ github.event.pull_request.base.ref }}
@@ -265,7 +289,7 @@ jobs:
             }
 
       - name: Enforce Codex approval
-        if: ${{ steps.verdict.outputs.approved != 'true' }}
+        if: ${{ steps.preflight.outputs.run_codex == 'true' && steps.verdict.outputs.approved != 'true' }}
         run: |
           echo "Codex did not approve this pull request under the target branch policy."
           exit 1
