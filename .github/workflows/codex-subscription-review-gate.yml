@@ -1,0 +1,110 @@
+name: Codex Subscription Review Gate
+
+on:
+  pull_request:
+    branches:
+      - dev
+      - main
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - ready_for_review
+      - edited
+  pull_request_review:
+    types:
+      - submitted
+      - edited
+      - dismissed
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+concurrency:
+  group: codex-subscription-review-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  codex-subscription-review-gate:
+    name: Codex Subscription Review Gate
+    runs-on: ubuntu-24.04
+    if: >-
+      ${{
+        (github.event_name == 'pull_request' || github.event_name == 'pull_request_review') &&
+        !github.event.pull_request.draft &&
+        (github.event.pull_request.base.ref == 'dev' || github.event.pull_request.base.ref == 'main')
+      }}
+
+    steps:
+      - name: Inspect Codex subscription reviews
+        uses: actions/github-script@v7
+        env:
+          CODEX_SUBSCRIPTION_REVIEW_REQUIRED: ${{ vars.CODEX_SUBSCRIPTION_REVIEW_REQUIRED || 'false' }}
+          CODEX_SUBSCRIPTION_REVIEW_ACTORS: >-
+            ${{
+              vars.CODEX_SUBSCRIPTION_REVIEW_ACTORS ||
+              'chatgpt-codex-connector[bot],codex[bot],openai[bot],github-copilot[bot]'
+            }}
+          CODEX_SUBSCRIPTION_COMMENT_COUNTS_AS_REVIEW: ${{ vars.CODEX_SUBSCRIPTION_COMMENT_COUNTS_AS_REVIEW || 'false' }}
+        with:
+          github-token: ${{ github.token }}
+          script: |
+            const required = process.env.CODEX_SUBSCRIPTION_REVIEW_REQUIRED === "true";
+            const commentCounts = process.env.CODEX_SUBSCRIPTION_COMMENT_COUNTS_AS_REVIEW === "true";
+            const trustedActors = new Set(
+              process.env.CODEX_SUBSCRIPTION_REVIEW_ACTORS
+                .split(",")
+                .map((actor) => actor.trim().toLowerCase())
+                .filter(Boolean)
+            );
+            const pr = context.payload.pull_request;
+            const reviews = await github.paginate(github.rest.pulls.listReviews, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number,
+              per_page: 100,
+            });
+            const trustedReviews = reviews
+              .filter((review) => trustedActors.has(String(review.user?.login || "").toLowerCase()))
+              .filter((review) => review.commit_id === pr.head.sha)
+              .sort((a, b) => new Date(a.submitted_at || 0) - new Date(b.submitted_at || 0));
+            const latest = trustedReviews.at(-1);
+
+            core.info(`trusted actors: ${[...trustedActors].join(", ")}`);
+            core.info(`current PR head: ${pr.head.sha}`);
+            core.info(`current trusted Codex subscription reviews: ${trustedReviews.length}`);
+
+            if (!latest) {
+              const message = "No current-head Codex subscription review was found.";
+              if (required) {
+                core.setFailed(`${message} Expected one of: ${[...trustedActors].join(", ")}`);
+              } else {
+                core.notice(`${message} Gate is advisory because CODEX_SUBSCRIPTION_REVIEW_REQUIRED is not true.`);
+              }
+              return;
+            }
+
+            core.info(`latest trusted review: ${latest.user.login} ${latest.state} ${latest.submitted_at}`);
+            if (latest.state === "CHANGES_REQUESTED") {
+              core.setFailed(`Codex subscription review requested changes on the current head: ${latest.html_url}`);
+              return;
+            }
+            if (latest.state === "APPROVED") {
+              core.notice(`Codex subscription review approved current head: ${latest.html_url}`);
+              return;
+            }
+            if (commentCounts && latest.state === "COMMENTED") {
+              core.notice(`Codex subscription review commented on current head and comments are accepted by policy: ${latest.html_url}`);
+              return;
+            }
+            const message = `Latest Codex subscription review state is ${latest.state}; approval is required by policy.`;
+            if (required) {
+              core.setFailed(message);
+            } else {
+              core.notice(`${message} Gate is advisory because CODEX_SUBSCRIPTION_REVIEW_REQUIRED is not true.`);
+            }
