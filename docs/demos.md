@@ -1,0 +1,92 @@
+# Demos
+
+WorldFork has two first-class live workflows: the full runtime smoke and the
+Atlas onboarding demo.
+
+## Full Runtime Smoke
+
+```bash
+worldfork smoke live
+```
+
+This is the end-to-end health check for a configured local backend. It uses
+real OpenRouter credits and verifies that audited LLM calls use:
+
+```text
+google/gemini-3.1-flash-lite-preview
+```
+
+The smoke validates:
+
+- readiness checks
+- model configuration
+- settings patch, reread, and restoration
+- Big Bang pause/resume behavior
+- root and branch tick execution
+- manual branch intervention
+- runtime checkpoints and node attempts
+- job pause and synchronous run
+- multiverse reports, final reports, Markdown render, and PDF render
+- logs and final readiness
+
+## Atlas Onboarding
+
+```bash
+worldfork demo atlas
+```
+
+Atlas reads `examples/test-big-bang.md`, creates the Atlas Resilience Crisis
+Big Bang, runs a root timeline, creates a manual transparency branch, allows
+God-agent-created branches under generous caps, drains every discovered
+timeline to terminal state, generates per-multiverse reports, generates a final
+cross-multiverse report, renders a PDF artifact, and audits Gemini model use.
+
+Default Atlas sizing:
+
+| Setting | Default |
+| --- | --- |
+| Tick duration | 720 minutes |
+| Horizon | 30 simulated days |
+| Derived terminal tick index | 60 |
+| Active multiverse cap | 64 |
+| Branch depth cap | 8 |
+| Branches per tick cap | 8 |
+| Completion request cap | 1000 |
+
+Override defaults when you need a shorter or larger demonstration:
+
+```bash
+worldfork demo atlas \
+  --tick-duration-minutes 720 \
+  --horizon-days 7 \
+  --max-active-multiverses 16 \
+  --max-branch-depth 4 \
+  --max-branches-per-tick 3 \
+  --completion-max-requests 300
+```
+
+## Reading Demo Output
+
+At completion, Atlas prints:
+
+- `big_bang_id`
+- `root_multiverse_id`
+- `child_multiverse_id`
+- terminal multiverse count
+- final report version ID
+- audited LLM call count
+- follow-up `worldfork reports view` command
+- follow-up `worldfork reports render` command
+- follow-up `worldfork watch` command
+
+Use the final report command first:
+
+```bash
+worldfork reports view <report-version-id>
+```
+
+Then render PDF only when you need a file artifact:
+
+```bash
+worldfork reports render <report-version-id> --format pdf
+```

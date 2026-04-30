@@ -21,8 +21,35 @@ worldfork status
 Do not hardcode backend URLs. Use `WORLD_FORK_API_BASE`, `BACKEND_API_BASE`, or
 the CLI `--base-url` flag when a non-default backend target is required.
 
-If the `worldfork` command is missing, stop and ask the operator to install the
-WorldFork CLI. Do not bypass the CLI with Python module entrypoints.
+If the user asks to set up WorldFork and the `worldfork` command is missing,
+guide the operator through CLI installation from the repo root:
+
+```bash
+python3.11 -m pip install -e ./cli
+worldfork --help
+```
+
+Then continue onboarding through environment setup, Docker Compose startup,
+migrations, seeding, readiness checks, and a first Big Bang. Do not bypass the
+CLI with Python module entrypoints for normal operation.
+
+## Setup Onboarding
+
+For a fresh local setup, guide the user through:
+
+```bash
+cp .env.example .env
+python3.11 -m pip install -e ./cli
+make build
+make up
+make migrate
+make seed
+worldfork status
+worldfork query GET /readyz --no-api-prefix
+```
+
+Ask the operator to put `OPENROUTER_API_KEY` in `.env`. Live onboarding and
+validation runs must use `google/gemini-3.1-flash-lite-preview`.
 
 ## Core Commands
 

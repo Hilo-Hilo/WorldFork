@@ -1,14 +1,20 @@
-# WorldFork Agent Interface
+# Agent Interface
 
-The supported AI-agent interface is the `worldfork` CLI backed by
-`/api/agent/*`. Agents should start with summary output, project fields when
-possible, and use bounded waits for asynchronous jobs.
+Agents operate WorldFork through the `worldfork` CLI. The CLI is backed by
+`/api/agent/*` and the canonical runtime APIs.
 
-Agents should not hardcode backend host URLs. Use the CLI's configured base URL
-or pass `--base-url` when the environment requires a specific target.
+## Rules
 
-Agents should assume the `worldfork` command is installed. In a source checkout
-the CLI package lives in `cli/`; install it once before starting agent work.
+- Start with `worldfork agent discover` and `worldfork status`.
+- Do not hardcode backend host URLs. Use the CLI default, `--base-url`,
+  `WORLD_FORK_API_BASE`, or `BACKEND_API_BASE`.
+- Put global flags before the command.
+- Use `--verbosity summary` first.
+- Use `--fields a,b,c` when only selected top-level fields are needed.
+- Use bounded waits for jobs.
+- Prefer `watch` for live run state instead of repeated ad hoc queries.
+- Treat reports as structured database records; Markdown/PDF outputs are
+  artifacts for a report version.
 
 ## Discovery
 
@@ -18,7 +24,8 @@ worldfork status
 ```
 
 `agent discover` returns the schema version, supported verbosity tiers,
-recommended command flow, known job types, and service metadata.
+recommended command flow, known job types, scenario metadata, and service
+metadata.
 
 ## Context Control
 
@@ -29,31 +36,42 @@ worldfork --verbosity summary runs list
 worldfork --verbosity summary runs workspace <big-bang-id>
 ```
 
-Use field projection when only a few top-level keys are needed:
+Project large rows when a task only needs a few fields:
 
 ```bash
 worldfork --fields id,status,created_at jobs list
 worldfork --fields id,status,name runs list
 ```
 
-Emit JSON when another tool will parse the output:
+Emit JSON when another tool will parse output:
 
 ```bash
 worldfork --json status
 ```
 
-## Async Work
-
-The backend is job-first. Commands that enqueue long work should return a job
-id. Use bounded waits:
+## Create And Watch
 
 ```bash
-worldfork jobs wait <job-id> --timeout 300 --poll-interval 2
+worldfork init --name "<name>" --scenario-file <scenario.md>
+worldfork watch big-bang <big-bang-id>
+worldfork watch multiverse <multiverse-id>
 ```
 
-Job control commands:
+`init` waits for initialization to complete, then returns the initialized
+workspace plus initialization artifacts and state. `watch` streams workspace,
+tick, tool-call, and log updates until the selected target is terminal.
+
+Use machine-readable event streams when an agent needs to consume watch output:
 
 ```bash
+worldfork watch big-bang <big-bang-id> --json-lines
+```
+
+## Jobs
+
+```bash
+worldfork jobs list --status failed
+worldfork jobs wait <job-id> --timeout 300 --poll-interval 2
 worldfork jobs pause <job-id>
 worldfork jobs resume <job-id>
 worldfork jobs interrupt <job-id>
@@ -61,60 +79,63 @@ worldfork jobs requeue <job-id>
 worldfork jobs run <job-id>
 ```
 
-## Runtime Inspection
+If a command enqueues long work, capture the job ID and use a bounded wait.
+Do not spin forever.
 
-Useful agent commands:
+## Runtime Inspection
 
 ```bash
 worldfork runs list
 worldfork runs workspace <big-bang-id>
-worldfork init --name "<name>" --scenario-file <scenario.md>
-worldfork watch big-bang <big-bang-id>
-worldfork watch multiverse <multiverse-id>
-worldfork jobs list --status failed
+worldfork universes trace <multiverse-id>
+worldfork cohorts transcript <cohort-id> --universe-id <multiverse-id>
 worldfork logs list --status failed
 worldfork models defaults
 worldfork settings show
 ```
 
-`init` waits for initialization to complete, then returns the initialized
-workspace plus initialization artifacts/state. `watch` streams near-real-time
-state/log updates from the API; use `--json-lines` when another agent should
-consume the output.
+## Reports
 
-Direct API query escape hatch:
+```bash
+worldfork reports list <big-bang-id>
+worldfork reports versions <report-id>
+worldfork reports view <report-version-id>
+worldfork reports view <report-version-id> --format json
+worldfork reports render <report-version-id> --format pdf
+```
+
+Use `reports view` before rendering a PDF. Rendering is an artifact operation;
+it does not change the canonical report version.
+
+## Direct API Escape Hatch
+
+Use `query` only when a first-class CLI command does not exist:
 
 ```bash
 worldfork query GET /api/agent/discover
 worldfork query GET /readyz --no-api-prefix
 ```
 
-## Live Smoke
+## Live Runs
 
-For full-system validation with real OpenRouter credits:
+Use only Gemini 3.1 Flash Lite for live OpenRouter validation:
+
+```text
+google/gemini-3.1-flash-lite-preview
+```
+
+Full live smoke:
 
 ```bash
 worldfork smoke live
 ```
 
-The harness verifies Gemini 3.1 Flash Lite model use, settings mutation,
-runtime checkpoints, manual intervention, queue control, reports, logs, and
-final readiness.
-
-## Atlas Onboarding
-
-Atlas is the onboarding demo, not the smoke test. It runs a larger multiverse
-simulation with generous branch safety caps, terminal timeline draining,
-per-multiverse reports, and a final report-agent summary across all terminal
-multiverses.
+Atlas onboarding:
 
 ```bash
 worldfork demo atlas
 ```
 
-Atlas defaults to 720 minutes per tick, or 12 simulated hours, and derives
-`max_tick_index` from the target horizon when it is not supplied explicitly.
-The default 30-day horizon therefore runs to tick index 60.
-
-The command prints the final report version ID and follow-up `worldfork`
-commands for viewing the report, rendering the PDF, and watching the run.
+Atlas is a demonstration, not a minimal smoke test. It runs a larger branching
+simulation, drains terminal timelines, generates per-multiverse reports, and
+generates a final cross-multiverse report-agent summary.

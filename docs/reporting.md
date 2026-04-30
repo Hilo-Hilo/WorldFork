@@ -1,21 +1,35 @@
 # Reporting
 
-WorldFork reports are structured database records with optional rendered
-artifacts.
+WorldFork reports are structured database records first. Rendered Markdown and
+PDF files are artifacts generated from those records.
 
-## Report Layers
+## Layers
 
-- `reports` are logical report slots, scoped to either one multiverse or the
-  final Big Bang.
-- `report_versions` are generated revisions. Each version stores parsable
-  content, source metadata, report-agent model metadata, source multiverse IDs,
-  source multiverse version, source config version, and latest tick binding.
-- Artifacts are rendered files, such as Markdown or PDF outputs. They are
-  cached from `report_versions.content` and can be regenerated.
+| Layer | Meaning |
+| --- | --- |
+| `reports` | Logical report slots, scoped to one multiverse or the final Big Bang |
+| `report_versions` | Generated revisions with parsable content and source metadata |
+| Artifacts | Cached Markdown/PDF render outputs for a specific report version |
 
-Artifacts are not the canonical report. If a rendered Markdown/PDF artifact is
-removed or regenerated, the report version remains reconstructable from the
-database content.
+Artifacts are not canonical. If a rendered Markdown or PDF artifact is removed,
+the report version remains reconstructable from `report_versions.content`.
+
+## Report Version Metadata
+
+A report version can store:
+
+- title and summary
+- structured report content
+- generation metadata
+- report-agent model
+- source multiverse IDs
+- source multiverse version
+- source Big Bang config version
+- latest source tick snapshot and tick index
+- Markdown artifact ID
+- PDF artifact ID
+
+This makes a report auditable even if a multiverse continues later.
 
 ## Viewing Outcomes
 
@@ -27,16 +41,49 @@ worldfork reports view <report-version-id> --format json
 worldfork reports render <report-version-id> --format pdf
 ```
 
-The Markdown view includes the outcome summary, outcome distribution,
+The Markdown view can include the outcome summary, outcome distribution,
 multiverse comparison, report inventory, and evidence appendix when those
-sections are present in the structured report content.
+sections are present in the structured content.
+
+## Multiverse Reports
+
+Generate a report for one terminal multiverse:
+
+```bash
+worldfork query POST /api/multiverses/<multiverse-id>/report \
+  --data '{"title":"M1 report","summary":"Terminal timeline report."}'
+```
+
+Then inspect the returned report version:
+
+```bash
+worldfork reports view <report-version-id>
+```
+
+## Final Big Bang Reports
+
+The final report compares terminal multiverses for a Big Bang:
+
+```bash
+worldfork query POST /api/big-bangs/<big-bang-id>/reports/final \
+  --data '{"title":"Final report","summary":"Cross-multiverse outcome review."}'
+```
+
+The final report should be generated after the relevant multiverses have
+reached terminal states.
 
 ## Continuing A Multiverse
 
-When a multiverse reaches `max_ticks`, it becomes terminal and ready for a
-report. A continuation increments that multiverse's version and stores a
-per-multiverse runtime override with the new `max_ticks`. Sibling timelines keep
-their original runtime config.
+When a multiverse reaches `max_ticks`, it becomes terminal and reportable. To
+continue it, set a larger tick limit:
+
+```bash
+worldfork query POST /api/multiverses/<multiverse-id>/continue \
+  --data '{"max_ticks":120,"reason":"Extend after report review."}'
+```
+
+Continuation increments `multiverse.version`, stores a per-multiverse runtime
+override, and preserves sibling timelines at their original limits.
 
 Reports generated before continuation stay bound to the old multiverse version.
 Reports generated after continuation point to the newer multiverse version and
@@ -46,7 +93,8 @@ latest tick snapshot.
 
 Report versions point at the source multiverse IDs, source multiverse version,
 source config version, and source tick snapshot available when the report was
-created. Storage cleanup should preserve those references. If deletion support
-is added for Big Bangs, multiverses, or artifacts, it should either block while
-referenced reports exist or tombstone the source rows instead of silently
-orphaning historical report versions.
+created. Storage cleanup should preserve those references.
+
+If deletion support is added for Big Bangs, multiverses, or artifacts, it
+should either block while referenced reports exist or tombstone source rows
+instead of silently orphaning historical report versions.
