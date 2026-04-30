@@ -9,8 +9,9 @@ This directory contains the canonical WorldFork runtime:
 - Celery queue integration
 - report/artifact storage
 
-The root `pyproject.toml` is authoritative. There is no separate backend
-package file.
+The root `pyproject.toml` is the backend service package. The installable CLI
+is intentionally packaged separately in `../cli`, and the generic agent skill
+is packaged in `../skills/worldfork`.
 
 ## Local Backend Setup
 
@@ -24,14 +25,23 @@ make migrate
 make seed
 ```
 
-The API listens on `http://127.0.0.1:8003`.
+The CLI selects the API base from `WORLD_FORK_API_BASE`, `BACKEND_API_BASE`, or
+the `--base-url` flag. Agent-facing instructions should use root-relative paths
+through `worldfork query` instead of hardcoding a host URL.
+
+Install the local CLI before using operator commands:
+
+```bash
+python3.11 -m pip install -e ./cli
+```
 
 For direct local commands:
 
 ```bash
-uv run ruff check backend/app backend/tests
-uv run pytest -c pyproject.toml backend/tests/*.py backend/tests/unit -q
-uv run python -m scripts.full_runtime_smoke
+make lint
+./scripts/run_tests.sh unit
+./scripts/run_tests.sh cli
+worldfork smoke live
 ```
 
 ## Runtime Surface
@@ -55,8 +65,20 @@ settings/logs integrations.
 
 ## Reports
 
-Report generation writes both Markdown and PDF artifacts. `reportlab` is a
-runtime dependency and is installed through the root project metadata.
+Report generation writes canonical structured content to `report_versions`.
+Markdown and PDF files are cached artifacts rendered from that structured
+content on demand. `reportlab` is a runtime dependency for PDF rendering and is
+installed through the root project metadata.
+
+Useful report endpoints:
+
+```bash
+GET  /api/big-bangs/{big_bang_id}/reports
+GET  /api/reports/{report_id}/versions
+GET  /api/report-versions/{report_version_id}
+GET  /api/report-versions/{report_version_id}/markdown
+POST /api/report-versions/{report_version_id}/render
+```
 
 ## Testing Notes
 

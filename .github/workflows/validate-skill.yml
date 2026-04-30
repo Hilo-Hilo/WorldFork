@@ -1,0 +1,84 @@
+name: Validate Skill
+
+on:
+  push:
+    branches:
+      - dev
+    paths:
+      - "skills/worldfork/**"
+      - ".github/workflows/validate-skill.yml"
+      - ".github/workflows/publish-skill.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "skills/worldfork/**"
+      - ".github/workflows/validate-skill.yml"
+      - ".github/workflows/publish-skill.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate @worldfork/skill package
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: skills/worldfork
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Validate package metadata
+        run: |
+          node <<'NODE'
+          const fs = require("node:fs");
+          const pkg = JSON.parse(fs.readFileSync("package.json", "utf8"));
+          const requiredFiles = ["SKILL.md"];
+
+          function fail(message) {
+            console.error(message);
+            process.exit(1);
+          }
+
+          if (pkg.name !== "@worldfork/skill") fail("package name must be @worldfork/skill");
+          if (pkg.private !== false) fail("package must be publishable with private=false");
+          if (!pkg.publishConfig || pkg.publishConfig.access !== "public") {
+            fail("publishConfig.access must be public");
+          }
+          if (JSON.stringify(pkg.files || []) !== JSON.stringify(requiredFiles)) {
+            fail("package files must include only SKILL.md");
+          }
+          if (!fs.existsSync("SKILL.md")) fail("SKILL.md is missing");
+
+          const skill = fs.readFileSync("SKILL.md", "utf8");
+          if (!skill.startsWith("---\nname: worldfork\n")) {
+            fail("SKILL.md must keep the skill name as worldfork");
+          }
+          NODE
+
+      - name: Validate packed contents
+        run: |
+          npm pack --dry-run --json > /tmp/worldfork-skill-pack.json
+          node <<'NODE'
+          const fs = require("node:fs");
+          const pack = JSON.parse(fs.readFileSync("/tmp/worldfork-skill-pack.json", "utf8"))[0];
+          const files = pack.files.map((file) => file.path).sort();
+          const expected = ["SKILL.md", "package.json"];
+          if (JSON.stringify(files) !== JSON.stringify(expected)) {
+            console.error(`unexpected package files: ${files.join(", ")}`);
+            process.exit(1);
+          }
+          NODE
+
+      - name: Validate skills discovery
+        run: npx --yes skills add . --list -y

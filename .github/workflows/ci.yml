@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - dev
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  backend-cli:
+    name: Backend and CLI
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Verify Docker Compose
+        run: docker compose config --quiet
+
+      - name: Install backend dependencies
+        run: uv sync --extra dev
+
+      - name: Lint backend workspace
+        run: uv run ruff check .
+
+      - name: Run backend and CLI tests
+        run: ./scripts/run_tests.sh all
+
+      - name: Build backend wheel
+        run: uv build --wheel --out-dir /tmp/worldfork-backend-dist
+
+      - name: Build CLI wheel
+        working-directory: cli
+        run: |
+          uv sync --extra dev
+          uv build --wheel --out-dir /tmp/worldfork-cli-dist
