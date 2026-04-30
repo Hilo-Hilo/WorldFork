@@ -15,6 +15,7 @@ from app.db import models
 from app.llm.prompt_builder import sanitize_sociology_prompt_influences
 from app.simulation.initialization_corpus import build_plain_text_corpus
 from app.simulation.initializer_agent import merge_initializer_lists, run_initializer_agent
+from app.simulation.event_engine import event_prompt_row
 from app.simulation.source_truth_validation import normalize_initializer_against_source_of_truth
 from app.source_of_truth.snapshotter import snapshot_source_of_truth
 from app.storage.artifact_store import ArtifactStore
@@ -253,6 +254,7 @@ def create_big_bang(db: Session, payload: BigBangCreate) -> models.BigBang:
         initializer_output=initializer_output,
     )
 
+    initial_event_rows = []
     for item in _dict_items(initializer_output.get("initial_events", [])):
         if not isinstance(item, dict):
             continue
@@ -285,6 +287,23 @@ def create_big_bang(db: Session, payload: BigBangCreate) -> models.BigBang:
         db.add(revision)
         db.flush()
         event.current_revision_id = revision.id
+        initial_event_rows.append(event_prompt_row(event))
+
+    if initial_event_rows:
+        root.state = {
+            **(root.state or {}),
+            "event_queue": {
+                "source": "initializer_agent",
+                "seed_events": initial_event_rows,
+                "past_events": [
+                    event for event in initial_event_rows if int(event.get("scheduled_tick") or 0) <= 0
+                ],
+                "upcoming_events": [
+                    event for event in initial_event_rows if int(event.get("scheduled_tick") or 0) > 0
+                ],
+            },
+        }
+        db.flush()
 
     initial_tick = models.TickSnapshot(
         big_bang_id=big_bang.id,

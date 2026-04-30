@@ -275,3 +275,107 @@ def test_committed_sociology_graph_summary_reflects_current_tick_graph(db, monke
     assert committed_graph_summary == latest_graph_summary
     assert committed_graph_summary["pressure"]["conflict_max"] > 0
     assert committed_graph_summary["layers"]["conflict"]["edge_count"] > 0
+
+
+def test_runtime_actor_prompt_context_includes_due_seed_events(db, monkeypatch):
+    big_bang = models.BigBang(
+        name="Runtime seed events",
+        description=None,
+        scenario_input={},
+        status="active",
+        current_config_version=1,
+    )
+    db.add(big_bang)
+    db.flush()
+    db.add(
+        models.BigBangConfig(
+            big_bang_id=big_bang.id,
+            version=1,
+            simulation_config={"max_ticks": 2},
+            model_config={},
+            branch_policy={},
+        )
+    )
+    root = models.Multiverse(
+        big_bang_id=big_bang.id,
+        parent_multiverse_id=None,
+        fork_tick_index=None,
+        ui_label="M1",
+        depth=0,
+        status="active",
+        branch_reason="Root timeline",
+        state={},
+    )
+    alpha = models.Actor(
+        big_bang_id=big_bang.id,
+        actor_type="cohort",
+        name="Alpha",
+        description=None,
+        archetype={},
+        created_tick_index=0,
+        status="active",
+    )
+    db.add_all([root, alpha])
+    db.flush()
+    db.add_all(
+        [
+            models.TickSnapshot(
+                big_bang_id=big_bang.id,
+                multiverse_id=root.id,
+                tick_index=0,
+                ui_label="M1 T0",
+                status="final",
+                final_bundle={"state": {}},
+                idempotency_key=f"{root.id}:tick:0",
+            ),
+            models.Event(
+                big_bang_id=big_bang.id,
+                multiverse_id=root.id,
+                event_type="announcement",
+                created_tick=0,
+                scheduled_tick=0,
+                status="queued",
+                title="Initializer seeded outage",
+                description="The outage is known before the first actor decision.",
+                expected_impact={},
+                actual_impact={},
+                meta={"source": "initializer_agent"},
+            ),
+        ]
+    )
+    db.flush()
+    captured_event_queues = []
+
+    def fake_actor_decision(db, *, big_bang, multiverse, actor, tick_index, prompt_context):
+        captured_event_queues.append(prompt_context.get("event_queue"))
+        return {
+            "actor_output": {"actor_id": str(actor.id), "llm_call_id": None, "parsed": {}},
+            "parsed_actions": [],
+            "emotion_self_ratings": [],
+            "llm_call_id": None,
+            "parsed": {},
+        }
+
+    monkeypatch.setattr(tick_runner, "run_actor_decision", fake_actor_decision)
+    monkeypatch.setattr(tick_runner, "summarize_executed_events", lambda *args, **kwargs: [])
+    monkeypatch.setattr(tick_runner, "update_emotion_observability_graphs", lambda *args, **kwargs: {})
+    monkeypatch.setattr(
+        tick_runner,
+        "review_provisional_tick",
+        lambda *args, **kwargs: (
+            {
+                "decision": "continue",
+                "rationale": "test",
+                "confidence": 1,
+                "input_summary": {},
+                "tool_calls": [],
+            },
+            None,
+        ),
+    )
+    monkeypatch.setattr(tick_runner, "ArtifactStore", lambda: _FakeArtifactStore())
+
+    tick_runner.run_next_tick(db, multiverse=root)
+
+    assert captured_event_queues
+    assert captured_event_queues[0]["due_events"][0]["title"] == "Initializer seeded outage"
