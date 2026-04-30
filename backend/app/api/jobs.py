@@ -78,8 +78,8 @@ def list_jobs(db: Session = Depends(get_db)):
 
 
 @router.post("", response_model=JobResponse)
-def create_job(payload: JobCreate, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
-    return create_job_record(payload, db=db, background_tasks=background_tasks)
+def create_job(payload: JobCreate, db: Session = Depends(get_db)):
+    return create_job_record(payload, db=db)
 
 
 def create_job_record(payload: JobCreate, db: Session, background_tasks: BackgroundTasks | None = None):
@@ -95,8 +95,7 @@ def create_job_record(payload: JobCreate, db: Session, background_tasks: Backgro
     )
     existing = db.scalar(select(models.Job).where(models.Job.idempotency_key == key))
     if existing:
-        if not enqueue_recoverable_job(db, existing):
-            schedule_local_fallback(background_tasks, existing.id)
+        enqueue_recoverable_job(db, existing)
         return existing
     job = models.Job(
         job_type=payload.job_type,
@@ -115,16 +114,14 @@ def create_job_record(payload: JobCreate, db: Session, background_tasks: Backgro
         db.rollback()
         existing = db.scalar(select(models.Job).where(models.Job.idempotency_key == key))
         if existing:
-            if not enqueue_recoverable_job(db, existing):
-                schedule_local_fallback(background_tasks, existing.id)
+            enqueue_recoverable_job(db, existing)
             return existing
         raise HTTPException(status_code=409, detail="job idempotency key conflict") from None
     except Exception as exc:
         db.rollback()
         raise HTTPException(status_code=500, detail="could not create job") from exc
     publish_job_status_best_effort(job)
-    if not enqueue_recoverable_job(db, job, force=True):
-        schedule_local_fallback(background_tasks, job.id)
+    enqueue_recoverable_job(db, job, force=True)
     return job
 
 
@@ -167,15 +164,14 @@ def pause_job_route(job_id: UUID, db: Session = Depends(get_db)):
 
 
 @router.post("/{job_id}/resume", response_model=JobResponse)
-def resume_job_route(job_id: UUID, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
+def resume_job_route(job_id: UUID, db: Session = Depends(get_db)):
     job = require(db, models.Job, job_id)
     try:
         resume_job(db, job)
     except JobNotRunnableError as exc:
         raise HTTPException(status_code=409, detail=str(exc)) from exc
     commit_or_500(db)
-    if not enqueue_recoverable_job(db, job, force=True):
-        schedule_local_fallback(background_tasks, job.id)
+    enqueue_recoverable_job(db, job, force=True)
     db.refresh(job)
     publish_job_status_best_effort(job)
     return job
@@ -195,15 +191,14 @@ def interrupt_job_route(job_id: UUID, db: Session = Depends(get_db)):
 
 
 @router.post("/{job_id}/requeue", response_model=JobResponse)
-def requeue_job_route(job_id: UUID, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
+def requeue_job_route(job_id: UUID, db: Session = Depends(get_db)):
     job = require(db, models.Job, job_id)
     try:
         requeue_job(db, job)
     except JobNotRunnableError as exc:
         raise HTTPException(status_code=409, detail=str(exc)) from exc
     commit_or_500(db)
-    if not enqueue_recoverable_job(db, job, force=True):
-        schedule_local_fallback(background_tasks, job.id)
+    enqueue_recoverable_job(db, job, force=True)
     db.refresh(job)
     publish_job_status_best_effort(job)
     return job
@@ -231,7 +226,7 @@ def enqueue_recoverable_job(db: Session, job: models.Job, *, force: bool = False
     try:
         enqueue_job(job.id)
     except Exception:
-        job.error = "enqueue failed; running with local worker fallback"
+        job.error = "enqueue failed; job remains queued; fix the queue or run it explicitly"
         commit_or_500(db)
         return False
     if job.error:

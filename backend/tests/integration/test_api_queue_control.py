@@ -127,6 +127,39 @@ def test_pause_running_job_requests_interrupt_without_allowing_immediate_resume(
         assert resume_response.status_code == 409
 
 
+def test_resume_enqueue_failure_keeps_job_queued_without_local_claim(monkeypatch):
+    def fail_enqueue(job_id):
+        raise RuntimeError("broker unavailable")
+
+    monkeypatch.setattr("app.api.jobs.enqueue_job", fail_enqueue)
+
+    with override_db() as db:
+        job = models.Job(
+            job_type="run_multiverse_tick",
+            queue_name="multiverse_ticks",
+            status="paused",
+            payload=_job_payload(),
+            idempotency_key="resume-enqueue-failure",
+            paused_at=datetime.now(timezone.utc),
+        )
+        db.add(job)
+        db.commit()
+        db.refresh(job)
+
+        response = client.post(f"/api/jobs/{job.id}/resume")
+        assert response.status_code == 200
+        resumed = response.json()
+        assert resumed["status"] == "queued"
+        assert resumed["error"] == "enqueue failed; job remains queued; fix the queue or run it explicitly"
+        assert resumed["started_at"] is None
+        assert resumed["lease_owner"] is None
+
+        stored = db.get(models.Job, job.id)
+        assert stored.status == "queued"
+        assert stored.started_at is None
+        assert stored.lease_owner is None
+
+
 def test_requeue_enforces_max_attempts_and_clears_finished_at(monkeypatch):
     monkeypatch.setattr("app.api.jobs.enqueue_job", lambda job_id: None)
 
@@ -160,3 +193,38 @@ def test_requeue_enforces_max_attempts_and_clears_finished_at(monkeypatch):
 
         second_response = client.post(f"/api/jobs/{job.id}/requeue")
         assert second_response.status_code == 409
+
+
+def test_requeue_enqueue_failure_keeps_job_queued_without_local_claim(monkeypatch):
+    def fail_enqueue(job_id):
+        raise RuntimeError("broker unavailable")
+
+    monkeypatch.setattr("app.api.jobs.enqueue_job", fail_enqueue)
+
+    with override_db() as db:
+        job = models.Job(
+            job_type="run_multiverse_tick",
+            queue_name="multiverse_ticks",
+            status="failed",
+            payload=_job_payload(),
+            idempotency_key="requeue-enqueue-failure",
+            attempt_number=0,
+            max_attempts=2,
+            finished_at=datetime.now(timezone.utc),
+        )
+        db.add(job)
+        db.commit()
+        db.refresh(job)
+
+        response = client.post(f"/api/jobs/{job.id}/requeue")
+        assert response.status_code == 200
+        requeued = response.json()
+        assert requeued["status"] == "queued"
+        assert requeued["error"] == "enqueue failed; job remains queued; fix the queue or run it explicitly"
+        assert requeued["started_at"] is None
+        assert requeued["lease_owner"] is None
+
+        stored = db.get(models.Job, job.id)
+        assert stored.status == "queued"
+        assert stored.started_at is None
+        assert stored.lease_owner is None
