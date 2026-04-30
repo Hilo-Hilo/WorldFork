@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 from app.core.labels import next_child_label, tick_label
 from app.db import models
 from app.simulation.runtime_config import branch_policy_for_multiverse
+from app.simulation.tick_bundles import hydrate_tick_bundle, inherited_tick_bundle_ref
 
 
 def create_branch(
@@ -79,7 +80,13 @@ def create_branch(
         depth=parent.depth + 1,
         status="active",
         branch_reason=reason,
-        state=_child_state(parent=parent, fork_tick_index=fork_tick_index, reason=reason, source_tick=source_tick),
+        state=_child_state(
+            db,
+            parent=parent,
+            fork_tick_index=fork_tick_index,
+            reason=reason,
+            source_tick=source_tick,
+        ),
     )
     db.add(child)
     db.flush()
@@ -118,17 +125,17 @@ def create_branch(
                     tick_index=tick.tick_index,
                     ui_label=tick_label(child.ui_label, tick.tick_index),
                     status=tick.status,
-                    provisional_bundle=_inherited_tick_bundle(
-                        tick.provisional_bundle,
+                    provisional_bundle=inherited_tick_bundle_ref(
                         parent=parent,
                         child=child,
                         source_tick=tick,
+                        bundle_field="provisional_bundle",
                     ),
-                    final_bundle=_inherited_tick_bundle(
-                        tick.final_bundle,
+                    final_bundle=inherited_tick_bundle_ref(
                         parent=parent,
                         child=child,
                         source_tick=tick,
+                        bundle_field="final_bundle",
                     ),
                     summary=tick.summary,
                     artifact_id=None,
@@ -141,13 +148,16 @@ def create_branch(
 
 
 def _child_state(
+    db: Session,
     *,
     parent: models.Multiverse,
     fork_tick_index: int,
     reason: str,
     source_tick: models.TickSnapshot,
 ) -> dict:
-    final_bundle = deepcopy(source_tick.final_bundle or source_tick.provisional_bundle or {})
+    final_bundle = hydrate_tick_bundle(db, source_tick, "final_bundle")
+    if not _bundle_has_payload(final_bundle):
+        final_bundle = hydrate_tick_bundle(db, source_tick, "provisional_bundle")
     sociology_result = final_bundle.get("sociology_result") or {}
     idle_assessment = final_bundle.get("idle_assessment") or {}
     state = {
@@ -168,21 +178,8 @@ def _child_state(
     return state
 
 
-def _inherited_tick_bundle(
-    bundle: dict | None,
-    *,
-    parent: models.Multiverse,
-    child: models.Multiverse,
-    source_tick: models.TickSnapshot,
-) -> dict:
-    inherited = deepcopy(bundle or {})
-    inherited["multiverse_id"] = str(child.id)
-    inherited["inherited_from"] = {
-        "source_multiverse_id": str(parent.id),
-        "source_tick_snapshot_id": str(source_tick.id),
-        "source_ui_label": source_tick.ui_label,
-    }
-    return inherited
+def _bundle_has_payload(bundle: dict) -> bool:
+    return any(key not in {"multiverse_id", "inherited_from"} for key in bundle)
 
 
 def _inherit_executable_state(

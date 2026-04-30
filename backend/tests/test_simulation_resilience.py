@@ -12,7 +12,8 @@ from sqlalchemy.pool import StaticPool
 
 from app.db import models
 from app.llm.schemas import LLMResponse
-from app.simulation import agent_engine, event_engine
+from app.api.schemas import BigBangCreate
+from app.simulation import agent_engine, event_engine, initializer
 from app.simulation.graph_engine import update_graph_layers
 from app.simulation.initializer import persist_initializer_graphs_and_observability
 from app.storage.artifact_store import ArtifactStore
@@ -142,6 +143,121 @@ def test_agent_decision_payloads_skip_bad_list_items_and_default_casts(db, monke
         parsed_actions=[*result["parsed_actions"], {"proposed_event": "not a dict"}],
     )
     assert [item["scheduled_tick"] for item in queued] == [7, 4, 7, 4]
+
+
+def test_actor_prompt_context_includes_global_and_owned_event_queue(db, monkeypatch):
+    big_bang, root, alpha, _beta = _seed_world(db)
+    db.add_all(
+        [
+            models.Event(
+                big_bang_id=big_bang.id,
+                multiverse_id=root.id,
+                event_type="announcement",
+                created_tick=0,
+                scheduled_tick=0,
+                status="executed",
+                title="Past water pressure loss",
+                description="Residents already saw water pressure drop.",
+                expected_impact={"trust": "down"},
+                actual_impact={"trust": "lower"},
+                meta={"source": "initializer_agent"},
+            ),
+            models.Event(
+                big_bang_id=big_bang.id,
+                multiverse_id=root.id,
+                creator_actor_id=alpha.id,
+                event_type="announcement",
+                created_tick=1,
+                scheduled_tick=3,
+                status="queued",
+                title="Alpha schedules clinic briefing",
+                description="Alpha will brief residents later.",
+                expected_impact={},
+                actual_impact={},
+                meta={"source": "agent_proposal"},
+            ),
+        ]
+    )
+    db.flush()
+    captured_contexts = []
+
+    def fake_complete(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None):
+        captured_contexts.append(messages[-1]["content"])
+        call = _fake_llm_call(db, big_bang_id=big_bang_id, purpose=purpose, model=model)
+        return LLMResponse(content="{}", parsed={"social_actions": [], "proposed_events": []}), call
+
+    monkeypatch.setattr(agent_engine, "complete_with_audit", fake_complete)
+
+    agent_engine.run_actor_decision(
+        db,
+        big_bang=big_bang,
+        multiverse=root,
+        actor=alpha,
+        tick_index=1,
+        prompt_context={},
+    )
+
+    assert "Past water pressure loss" in captured_contexts[0]
+    assert "Alpha schedules clinic briefing" in captured_contexts[0]
+    assert "own_queued_events" in captured_contexts[0]
+
+
+def test_initializer_seed_events_become_root_event_queue(db, monkeypatch, tmp_path):
+    def fake_snapshot(db, big_bang_id):
+        snapshot = models.SourceOfTruthSnapshot(
+            big_bang_id=big_bang_id,
+            version="test",
+            content_hash="hash",
+            artifact_path="source-of-truth",
+        )
+        db.add(snapshot)
+        db.flush()
+        return snapshot
+
+    monkeypatch.setattr(initializer, "snapshot_source_of_truth", fake_snapshot)
+    monkeypatch.setattr(initializer, "ArtifactStore", lambda: ArtifactStore(root=tmp_path))
+    monkeypatch.setattr(
+        initializer,
+        "run_initializer_agent",
+        lambda *args, **kwargs: {
+            "actors": [{"name": "Atlas Council", "actor_type": "institution"}],
+            "initial_events": [
+                {
+                    "event_type": "announcement",
+                    "title": "Pressure failure already visible",
+                    "description": "Residents saw a water-pressure failure before the first agent tick.",
+                    "scheduled_tick": 0,
+                    "expected_impact": {"rumor_velocity": "rising"},
+                },
+                {
+                    "event_type": "announcement",
+                    "title": "Court hearing scheduled",
+                    "description": "A court hearing is scheduled for the next tick.",
+                    "scheduled_tick": 2,
+                    "expected_impact": {"legal_pressure": "rising"},
+                },
+            ],
+        },
+    )
+
+    big_bang = initializer.create_big_bang(
+        db,
+        BigBangCreate(
+            name="Atlas",
+            scenario_text="Atlas has a pressure failure and a pending court hearing.",
+            use_initializer_agent=True,
+        ),
+    )
+
+    root = db.query(models.Multiverse).filter_by(big_bang_id=big_bang.id).one()
+    event_queue = root.state["event_queue"]
+
+    assert [event["title"] for event in event_queue["seed_events"]] == [
+        "Pressure failure already visible",
+        "Court hearing scheduled",
+    ]
+    assert [event["title"] for event in event_queue["past_events"]] == ["Pressure failure already visible"]
+    assert [event["title"] for event in event_queue["upcoming_events"]] == ["Court hearing scheduled"]
 
 
 def test_initializer_graph_and_emotion_casts_tolerate_bad_model_strings(db):

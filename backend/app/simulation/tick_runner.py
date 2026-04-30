@@ -26,12 +26,18 @@ from app.simulation.cohort_engine import (
     generate_split_candidates,
 )
 from app.simulation.emotion_observability_engine import update_emotion_observability_graphs
-from app.simulation.event_engine import execute_due_events, load_due_events, summarize_executed_events
+from app.simulation.event_engine import (
+    build_event_queue_prompt_context,
+    execute_due_events,
+    load_due_events,
+    summarize_executed_events,
+)
 from app.simulation.god_agent import review_provisional_tick
 from app.simulation.god_tools import execute_tool_call
 from app.simulation.graph_engine import build_graph_prompt_summary, update_graph_layers
 from app.simulation.runtime_config import branch_policy_for_multiverse, simulation_config_for_multiverse
 from app.simulation.sociology_engine import run_sociology_update
+from app.simulation.tick_bundles import inherited_tick_bundle_ref
 from app.storage.artifact_store import ArtifactStore
 
 
@@ -195,6 +201,11 @@ def run_next_tick(
         clock_context=clock,
         current_state=multiverse.state or {},
         sociology_prompt_influences=[item.influence for item in prior_influences],
+        event_queue=build_event_queue_prompt_context(
+            db,
+            multiverse_id=multiverse.id,
+            tick_index=next_index,
+        ),
     )
 
     tool_call_keys = _tool_call_keys_from_outputs(outputs)
@@ -1033,13 +1044,26 @@ def _sync_forked_children_after_tick(
                 idempotency_key=f"{child.id}:tick:{tick.tick_index}:inherited",
             )
             db.add(child_tick)
+        _ensure_tick_lineage_ref(db, parent=parent, child=child, tick=tick)
         child_tick.status = tick.status
-        child_tick.provisional_bundle = _inherited_tick_bundle(
-            tick.provisional_bundle, parent=parent, child=child, tick=tick
+        child_tick.provisional_bundle = inherited_tick_bundle_ref(
+            parent=parent,
+            child=child,
+            source_tick=tick,
+            bundle_field="provisional_bundle",
         )
-        child_tick.final_bundle = _inherited_tick_bundle(tick.final_bundle, parent=parent, child=child, tick=tick)
+        child_tick.final_bundle = inherited_tick_bundle_ref(
+            parent=parent,
+            child=child,
+            source_tick=tick,
+            bundle_field="final_bundle",
+        )
         child_tick.summary = tick.summary
         child_tick.artifact_id = None
+        # Descendant lineage refs point at this synthesized tick, so it must
+        # have a materialized id before recursion.
+        db.flush()
+        _sync_forked_children_after_tick(db, parent=child, tick=child_tick)
 
 
 def _force_idempotency_key(
@@ -1066,21 +1090,33 @@ def _force_idempotency_key(
     raise ValueError("unable to allocate unique forced tick idempotency key")
 
 
-def _inherited_tick_bundle(
-    bundle: dict | None,
+def _ensure_tick_lineage_ref(
+    db: Session,
     *,
     parent: models.Multiverse,
     child: models.Multiverse,
     tick: models.TickSnapshot,
-) -> dict:
-    inherited = deepcopy(bundle or {})
-    inherited["multiverse_id"] = str(child.id)
-    inherited["inherited_from"] = {
-        "source_multiverse_id": str(parent.id),
-        "source_tick_snapshot_id": str(tick.id),
-        "source_ui_label": tick.ui_label,
-    }
-    return inherited
+) -> None:
+    ref = db.scalar(
+        select(models.TickLineageRef).where(
+            models.TickLineageRef.child_multiverse_id == child.id,
+            models.TickLineageRef.inherited_tick_index == tick.tick_index,
+        )
+    )
+    if ref is None:
+        db.add(
+            models.TickLineageRef(
+                child_multiverse_id=child.id,
+                source_multiverse_id=parent.id,
+                source_tick_snapshot_id=tick.id,
+                inherited_tick_index=tick.tick_index,
+                inherited_ui_label=tick_label(child.ui_label, tick.tick_index),
+            )
+        )
+        return
+    ref.source_multiverse_id = parent.id
+    ref.source_tick_snapshot_id = tick.id
+    ref.inherited_ui_label = tick_label(child.ui_label, tick.tick_index)
 
 
 def _assess_idle_state(
