@@ -25,7 +25,10 @@ Workflow filename: publish-skill.yml
 ```
 
 As a fallback, add a repository secret named `NPM_TOKEN` containing an npm
-automation or granular publish token for `@worldfork/skill`.
+automation or granular publish token for `@worldfork/skill`, then set the
+repository Actions variable `NPM_USE_TOKEN=true`. The workflow ignores
+`NPM_TOKEN` by default so an older OTP-bound token cannot override trusted
+publishing.
 
 For subsequent releases, bump `skills/worldfork/package.json`; if the current
 version is already on npm, the workflow skips publishing.
