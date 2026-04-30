@@ -7,37 +7,28 @@ manual dispatch. It validates Docker Compose config, backend lint, the full
 maintained backend/CLI test sweep, and backend/CLI wheel builds. It never
 publishes packages.
 
-## Skill Package
+## Agent Skill
 
-The generic agent skill lives in `skills/worldfork/`. The supported user-facing
-install source is the repository path, because `npx skills add` resolves git,
-URL, and local-path sources:
+The generic agent skill lives in `skills/worldfork/SKILL.md`. The supported
+user-facing install source is the repository path, because `npx skills add`
+resolves GitHub shorthand, Git URLs, and local paths:
+
+```bash
+npx skills add Hilo-Hilo/WorldFork/skills/worldfork --all
+```
+
+The equivalent full URL is:
 
 ```bash
 npx skills add https://github.com/Hilo-Hilo/WorldFork/tree/main/skills/worldfork --all
 ```
 
-The `worldfork-skill` npm package is an optional standalone distribution
-artifact for release tracking. It is not the primary `skills add` source.
+For local development:
 
-The dev branch validates the skill folder and npm package contents without
-publishing on pushes to `dev` and pull requests targeting `main`. The publish
-workflow runs only after changes land on `main` and only when files under
-`skills/worldfork/` change.
-
-Preferred setup is npm trusted publishing for `worldfork-skill` with:
-
-```text
-GitHub owner: Hilo-Hilo
-Repository: WorldFork
-Workflow filename: publish-skill.yml
+```bash
+npx skills add ./skills/worldfork --all
 ```
 
-As a fallback, add a repository secret named `NPM_TOKEN` containing an npm
-automation or granular publish token for `worldfork-skill`, then set the
-repository Actions variable `NPM_USE_TOKEN=true`. The workflow ignores
-`NPM_TOKEN` by default so an older OTP-bound token cannot override trusted
-publishing.
-
-For subsequent releases, bump `skills/worldfork/package.json`; if the current
-version is already on npm, the workflow skips publishing.
+No npm scope, npm organization, or standalone npm package is required for the
+skill install path. The dev/main validation workflow checks that the skill is
+discoverable through the same `npx skills add` mechanism users run.

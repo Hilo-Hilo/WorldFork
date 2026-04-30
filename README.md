@@ -101,10 +101,16 @@ worldfork --help
 Install the generic operator skill directly from the repository skill folder:
 
 ```bash
+npx skills add Hilo-Hilo/WorldFork/skills/worldfork --all
+```
+
+The full GitHub URL works too:
+
+```bash
 npx skills add https://github.com/Hilo-Hilo/WorldFork/tree/main/skills/worldfork --all
 ```
 
-From a local checkout:
+From a local checkout, point at the directory containing `SKILL.md`:
 
 ```bash
 npx skills add ./skills/worldfork --all
