@@ -6,7 +6,7 @@ push events without shared in-process state.
 """
 from __future__ import annotations
 
-import datetime
+from datetime import UTC, datetime
 
 import orjson
 
@@ -50,7 +50,7 @@ async def publish(channel: str, event_type: str, payload: dict) -> None:
     redis = get_redis_client()
     envelope = {
         "type": event_type,
-        "ts": datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.%f") + "Z",
+        "ts": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
         "payload": payload,
     }
     await redis.publish(channel, orjson.dumps(envelope))

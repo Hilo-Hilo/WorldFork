@@ -30,6 +30,7 @@ from app.simulation.event_engine import execute_due_events, load_due_events, sum
 from app.simulation.god_agent import review_provisional_tick
 from app.simulation.god_tools import execute_tool_call
 from app.simulation.graph_engine import build_graph_prompt_summary, update_graph_layers
+from app.simulation.runtime_config import branch_policy_for_multiverse, simulation_config_for_multiverse
 from app.simulation.sociology_engine import run_sociology_update
 from app.storage.artifact_store import ArtifactStore
 
@@ -137,14 +138,8 @@ def run_next_tick(
         .order_by(models.TickSnapshot.tick_index.desc())
         .limit(1)
     )
-    config = db.scalar(
-        select(models.BigBangConfig)
-        .where(models.BigBangConfig.big_bang_id == multiverse.big_bang_id)
-        .order_by(models.BigBangConfig.version.desc())
-        .limit(1)
-    )
-    simulation_config = (config.simulation_config or {}) if config else {}
-    branch_policy = (config.branch_policy or {}) if config else {}
+    simulation_config = simulation_config_for_multiverse(db, multiverse)
+    branch_policy = branch_policy_for_multiverse(db, multiverse)
     max_ticks = simulation_config.get("max_ticks", 12)
 
     if latest_tick and latest_tick.status in UNFINISHED_TICK_STATUSES:
@@ -155,6 +150,7 @@ def run_next_tick(
         if next_index > max_ticks:
             multiverse.status = "completed"
             multiverse.report_status = "ready"
+            multiverse.ended_at = multiverse.ended_at or datetime.now(timezone.utc)
             db.flush()
             if latest_tick is not None:
                 return latest_tick

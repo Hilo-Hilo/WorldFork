@@ -57,11 +57,14 @@ class MultiverseOut(ORMModel):
     parent_multiverse_id: UUID | None
     fork_tick_index: int | None
     ui_label: str
+    version: int = 1
     depth: int
     status: str
     branch_reason: str | None
     state: dict[str, Any]
     report_status: str
+    ended_at: datetime | None = None
+    continued_from_report_version_id: UUID | None = None
     created_at: datetime
     updated_at: datetime
 
@@ -177,16 +180,55 @@ class GodRegenerateSummaryOut(BaseModel):
     message: str
 
 
+class ReportOut(ORMModel):
+    id: UUID
+    big_bang_id: UUID
+    multiverse_id: UUID | None
+    report_type: str
+    status: str
+    current_version: int
+    created_at: datetime
+    updated_at: datetime
+
+
 class ReportVersionOut(ORMModel):
     id: UUID
     report_id: UUID
     version: int
     title: str
     summary: str | None
+    source_multiverse_version: int | None = None
+    source_big_bang_config_version: int | None = None
+    source_tick_snapshot_id: UUID | None = None
+    source_tick_index: int | None = None
+    source_multiverse_ids: list[Any] | None = None
+    content: dict[str, Any] | None = None
+    generation_metadata: dict[str, Any] | None = None
+    model: str | None = None
     markdown_artifact_id: UUID | None
     pdf_artifact_id: UUID | None
     created_at: datetime
     updated_at: datetime
+
+
+class ReportVersionPatch(BaseModel):
+    title: str | None = Field(default=None, max_length=300)
+    summary: str | None = None
+    content: dict[str, Any] | None = None
+    generation_metadata: dict[str, Any] | None = None
+
+
+class ReportRenderRequest(BaseModel):
+    format: str = Field(default="markdown", pattern="^(markdown|pdf)$")
+    force: bool = False
+
+
+class ReportRenderOut(BaseModel):
+    report_version_id: UUID
+    format: str
+    artifact_id: UUID
+    content_type: str | None
+    path: str | None = None
 
 
 class RunUntilCompleteOut(BaseModel):
@@ -227,6 +269,12 @@ class MultiverseLineageOut(BaseModel):
 class SimulateTickRequest(BaseModel):
     idempotency_key: str | None = None
     force: bool = False
+
+
+class MultiverseContinueRequest(BaseModel):
+    max_ticks: int = Field(gt=0)
+    reason: str | None = None
+    continued_from_report_version_id: UUID | None = None
 
 
 class SimulateTicksRequest(BaseModel):

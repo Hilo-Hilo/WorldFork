@@ -83,7 +83,7 @@ def _publish_after(
             "payload": payload,
         }
         await r.publish(channel, orjson.dumps(envelope))
-        await r.aclose()
+        await r.aclose(close_connection_pool=True)
 
     def _worker() -> None:
         loop = asyncio.new_event_loop()
@@ -149,6 +149,7 @@ def client(monkeypatch: pytest.MonkeyPatch):
         _app = create_app()
         with TestClient(_app, raise_server_exceptions=False) as tc:
             yield tc
+        asyncio.run(fake_redis_instance.aclose(close_connection_pool=True))
 
 
 # ---------------------------------------------------------------------------
@@ -269,11 +270,12 @@ class TestCookieAuth:
         uid = "u-cookie"
         channel = f"universe:{uid}"
         _publish_after(channel, "tick.started", {"tick": 5})
+        client.cookies.set("wf_session", "my-session-token")
 
-        with client.websocket_connect(
-            f"/ws/universes/{uid}",
-            cookies={"wf_session": "my-session-token"},
-        ) as ws:
-            msg = ws.receive_json()
-            assert msg["type"] == "tick.started"
-            assert msg["payload"]["tick"] == 5
+        try:
+            with client.websocket_connect(f"/ws/universes/{uid}") as ws:
+                msg = ws.receive_json()
+                assert msg["type"] == "tick.started"
+                assert msg["payload"]["tick"] == 5
+        finally:
+            client.cookies.clear()

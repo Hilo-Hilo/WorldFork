@@ -72,7 +72,7 @@ def types():
     return sorted(JOB_TYPES)
 
 
-@router.get("", response_model=list[JobResponse])
+@router.get("", response_model=list[JobResponse], operation_id="canonical_list_jobs")
 def list_jobs(db: Session = Depends(get_db)):
     return db.scalars(select(models.Job).order_by(models.Job.created_at.desc()).limit(100)).all()
 
@@ -133,7 +133,7 @@ def get_queue_health(db: Session = Depends(get_db)):
     return queue_health_snapshot(db)
 
 
-@router.get("/{job_id}", response_model=JobResponse)
+@router.get("/{job_id}", response_model=JobResponse, operation_id="canonical_get_job")
 def get_job(job_id: UUID, db: Session = Depends(get_db)):
     return require(db, models.Job, job_id)
 

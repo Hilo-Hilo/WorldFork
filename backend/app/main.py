@@ -11,6 +11,8 @@ or deleted.
 from __future__ import annotations
 
 import asyncio
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -29,6 +31,7 @@ from app.api import (
     initialization,
     jobs,
     multiverses,
+    reports,
     sample,
     scenario_bank,
     settings,
@@ -53,6 +56,16 @@ from backend.app.integrations.zep import zep_status_summary
 from backend.app.observability.router import router as observability_router
 
 settings_obj = get_settings()
+
+
+@asynccontextmanager
+async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
+    if settings_obj.auto_create_tables:
+        Base.metadata.create_all(bind=engine)
+        _create_legacy_compat_tables()
+    yield
+
+
 app = FastAPI(
     title=settings_obj.app_name,
     description=(
@@ -60,6 +73,7 @@ app = FastAPI(
         "Legacy duplicate routes such as /api/runs are transitional until "
         "removed or re-homed behind the app.* control plane."
     ),
+    lifespan=lifespan,
 )
 
 if settings_obj.cors_origins:
@@ -70,13 +84,6 @@ if settings_obj.cors_origins:
         allow_methods=["*"],
         allow_headers=["*"],
     )
-
-
-@app.on_event("startup")
-def startup() -> None:
-    if settings_obj.auto_create_tables:
-        Base.metadata.create_all(bind=engine)
-        _create_legacy_compat_tables()
 
 
 def _create_legacy_compat_tables() -> None:
@@ -164,6 +171,7 @@ app.include_router(agent.router, prefix=prefix)
 app.include_router(big_bangs.router, prefix=prefix)
 app.include_router(workspace.router, prefix=prefix)
 app.include_router(multiverses.router, prefix=prefix)
+app.include_router(reports.router, prefix=prefix)
 app.include_router(ticks.router, prefix=prefix)
 app.include_router(actors.router, prefix=prefix)
 app.include_router(graphs.router, prefix=prefix)

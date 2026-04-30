@@ -99,8 +99,8 @@ def run_big_bang_until_complete(db: Session, *, big_bang: models.BigBang, max_to
     for multiverse in multiverses:
         if multiverse.report_status in {"ready", "not_ready"}:
             report_versions.append(generate_multiverse_report(db, multiverse=multiverse))
-    final_report = generate_final_big_bang_report(db, big_bang=big_bang)
     big_bang.status = "completed"
+    final_report = generate_final_big_bang_report(db, big_bang=big_bang)
     return {
         "ticks_run": len(ticks_run),
         "multiverse_count": len(multiverses),

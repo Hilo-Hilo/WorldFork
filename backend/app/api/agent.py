@@ -241,6 +241,8 @@ def discover():
             "recommended_flow": [
                 "worldfork agent discover",
                 "worldfork status",
+                "worldfork init --name <name> --scenario-file <path>",
+                "worldfork watch big-bang <big-bang-id>",
                 "worldfork runs list",
                 "worldfork runs workspace <run-id>",
                 "worldfork jobs list --status failed",

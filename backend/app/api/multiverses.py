@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import datetime, timezone
 from typing import Any
 from uuid import UUID
 
@@ -7,14 +8,24 @@ from fastapi import APIRouter, Depends, Header, HTTPException
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.api.schemas import MultiverseLineageOut, MultiverseOut, ReportRequest, ReportVersionOut, SimulateTickRequest, SimulateTicksRequest, TickSnapshotOut
+from app.api.schemas import (
+    MultiverseContinueRequest,
+    MultiverseLineageOut,
+    MultiverseOut,
+    ReportRequest,
+    ReportVersionOut,
+    SimulateTickRequest,
+    SimulateTicksRequest,
+    TickSnapshotOut,
+)
 from app.api.utils import commit_or_500, raise_llm_unavailable, require
 from app.db import models
 from app.db.session import get_db
 from app.llm.audit import LLMCallError
 from app.simulation.report_engine import generate_multiverse_report
 from app.simulation.run_orchestrator import simulate_ticks
-from app.simulation.tick_runner import run_next_tick
+from app.simulation.tick_runner import TERMINAL_MULTIVERSE_STATUSES, run_next_tick
+from app.storage.artifact_store import ArtifactStore
 
 router = APIRouter(tags=["multiverses"])
 
@@ -122,8 +133,195 @@ def terminate(multiverse_id: UUID, db: Session = Depends(get_db)):
     multiverse = require(db, models.Multiverse, multiverse_id)
     multiverse.status = "terminated"
     multiverse.report_status = "ready"
+    multiverse.ended_at = datetime.now(timezone.utc)
     commit_or_500(db)
     return multiverse
+
+
+@router.post("/multiverses/{multiverse_id}/continue", response_model=MultiverseOut)
+def continue_multiverse(
+    multiverse_id: UUID,
+    payload: MultiverseContinueRequest,
+    db: Session = Depends(get_db),
+):
+    multiverse = require(db, models.Multiverse, multiverse_id)
+    if multiverse.status not in TERMINAL_MULTIVERSE_STATUSES:
+        raise HTTPException(status_code=409, detail="only terminal multiverses can be continued")
+
+    latest_tick = db.scalar(
+        select(models.TickSnapshot)
+        .where(models.TickSnapshot.multiverse_id == multiverse.id)
+        .order_by(models.TickSnapshot.tick_index.desc())
+        .limit(1)
+    )
+    latest_tick_index = int(latest_tick.tick_index) if latest_tick else 0
+    if payload.max_ticks <= latest_tick_index:
+        raise HTTPException(
+            status_code=422,
+            detail=f"max_ticks must be greater than latest tick index {latest_tick_index}",
+        )
+
+    big_bang = require(db, models.BigBang, multiverse.big_bang_id)
+    latest_config = db.scalar(
+        select(models.BigBangConfig)
+        .where(models.BigBangConfig.big_bang_id == big_bang.id)
+        .order_by(models.BigBangConfig.version.desc())
+        .limit(1)
+    )
+    if latest_config is None:
+        raise HTTPException(status_code=409, detail="big bang has no simulation config")
+
+    previous_version = int(multiverse.version or 1)
+    source_report_version_id = _resolve_continuation_report_version_id(
+        db,
+        multiverse=multiverse,
+        requested_report_version_id=payload.continued_from_report_version_id,
+        expected_multiverse_version=previous_version,
+    )
+
+    next_config_version = max(int(big_bang.current_config_version or 0), int(latest_config.version or 0)) + 1
+    simulation_config = {**(latest_config.simulation_config or {}), "max_ticks": payload.max_ticks}
+    config_artifact = ArtifactStore().write_json(
+        db,
+        big_bang_id=big_bang.id,
+        relative_path=f"big_bang_{big_bang.id}/configs/simulation_config_v{next_config_version}.json",
+        payload={
+            "simulation_config": simulation_config,
+            "model_config": latest_config.model_config or {},
+            "branch_policy": latest_config.branch_policy or {},
+            "continued_multiverse_id": str(multiverse.id),
+            "continued_from_report_version_id": str(source_report_version_id) if source_report_version_id else None,
+            "reason": payload.reason,
+            "scope": "multiverse_continuation",
+        },
+        kind="big_bang_config",
+    )
+    db.add(
+        models.BigBangConfig(
+            big_bang_id=big_bang.id,
+            version=next_config_version,
+            simulation_config=simulation_config,
+            model_config=latest_config.model_config or {},
+            branch_policy=latest_config.branch_policy or {},
+            artifact_id=config_artifact.id,
+        )
+    )
+    db.add(
+        models.BigBangConfigVersion(
+            big_bang_id=big_bang.id,
+            version=next_config_version,
+            simulation_config=simulation_config,
+            model_config=latest_config.model_config or {},
+            branch_policy=latest_config.branch_policy or {},
+            artifact_id=config_artifact.id,
+        )
+    )
+
+    multiverse.version = previous_version + 1
+    multiverse.status = "active"
+    multiverse.report_status = "not_ready"
+    multiverse.ended_at = None
+    multiverse.continued_from_report_version_id = source_report_version_id
+    previous_state = multiverse.state or {}
+    multiverse.state = {
+        **previous_state,
+        "runtime_config_version": next_config_version,
+        "runtime_overrides": {
+            **(previous_state.get("runtime_overrides") or {}),
+            "config_version": next_config_version,
+            "max_ticks": payload.max_ticks,
+            "simulation_config": {
+                **((previous_state.get("runtime_overrides") or {}).get("simulation_config") or {}),
+                "max_ticks": payload.max_ticks,
+            },
+        },
+        "continued_from": {
+            "multiverse_version": previous_version,
+            "report_version_id": str(source_report_version_id) if source_report_version_id else None,
+            "config_version": next_config_version,
+            "latest_tick_index": latest_tick_index,
+            "reason": payload.reason,
+            "new_max_ticks": payload.max_ticks,
+        },
+    }
+    if big_bang.status == "completed":
+        big_bang.status = "running"
+    db.add(
+        models.OperationLog(
+            big_bang_id=big_bang.id,
+            multiverse_id=multiverse.id,
+            event_type="multiverse_continued",
+            level="info",
+            body={
+                "from_version": previous_version,
+                "to_version": multiverse.version,
+                "latest_tick_index": latest_tick_index,
+                "max_ticks": payload.max_ticks,
+                "continued_from_report_version_id": str(source_report_version_id) if source_report_version_id else None,
+                "reason": payload.reason,
+            },
+        )
+    )
+    commit_or_500(db)
+    return multiverse
+
+
+def _resolve_continuation_report_version_id(
+    db: Session,
+    *,
+    multiverse: models.Multiverse,
+    requested_report_version_id: UUID | None,
+    expected_multiverse_version: int,
+):
+    report_version_id = requested_report_version_id or _latest_multiverse_report_version_id(db, multiverse)
+    if report_version_id is None:
+        return None
+    report_version = db.scalar(
+        select(models.ReportVersion)
+        .join(models.Report, models.Report.id == models.ReportVersion.report_id)
+        .where(
+            models.ReportVersion.id == report_version_id,
+            models.Report.big_bang_id == multiverse.big_bang_id,
+            models.Report.multiverse_id == multiverse.id,
+            models.Report.report_type == "multiverse",
+        )
+        .limit(1)
+    )
+    if report_version is None:
+        raise HTTPException(
+            status_code=422,
+            detail="continued_from_report_version_id must belong to this multiverse report",
+        )
+    if (
+        report_version.source_multiverse_version is not None
+        and report_version.source_multiverse_version != expected_multiverse_version
+    ):
+        raise HTTPException(
+            status_code=422,
+            detail=(
+                "continued_from_report_version_id must point to a report generated "
+                f"for multiverse version {expected_multiverse_version}"
+            ),
+        )
+    return report_version.id
+
+
+def _latest_multiverse_report_version_id(db: Session, multiverse: models.Multiverse):
+    report = db.scalar(
+        select(models.Report)
+        .where(models.Report.multiverse_id == multiverse.id, models.Report.report_type == "multiverse")
+        .order_by(models.Report.updated_at.desc())
+        .limit(1)
+    )
+    if report is None:
+        return None
+    version = db.scalar(
+        select(models.ReportVersion)
+        .where(models.ReportVersion.report_id == report.id)
+        .order_by(models.ReportVersion.version.desc())
+        .limit(1)
+    )
+    return version.id if version else None
 
 
 @router.post("/multiverses/{multiverse_id}/report", response_model=ReportVersionOut)

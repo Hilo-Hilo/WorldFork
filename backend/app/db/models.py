@@ -170,11 +170,16 @@ class Multiverse(Base, TimestampMixin):
     parent_multiverse_id: Mapped[UUID | None] = mapped_column(GUID(), ForeignKey("multiverses.id"), index=True)
     fork_tick_index: Mapped[int | None] = mapped_column(Integer)
     ui_label: Mapped[str] = mapped_column(String(80), index=True)
+    version: Mapped[int] = mapped_column(Integer, default=1)
     depth: Mapped[int] = mapped_column(Integer, default=0)
     status: Mapped[str] = mapped_column(String(40), default="active", index=True)
     branch_reason: Mapped[str | None] = mapped_column(Text)
     state: Mapped[dict] = mapped_column(JSONValue(), default=dict)
     report_status: Mapped[str] = mapped_column(String(40), default="not_ready")
+    ended_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    continued_from_report_version_id: Mapped[UUID | None] = mapped_column(
+        GUID(), ForeignKey("report_versions.id")
+    )
 
     big_bang: Mapped[BigBang] = relationship(back_populates="multiverses")
 
@@ -747,6 +752,16 @@ class ReportVersion(Base, TimestampMixin):
     version: Mapped[int] = mapped_column(Integer)
     title: Mapped[str] = mapped_column(String(300))
     summary: Mapped[str | None] = mapped_column(Text)
+    source_multiverse_version: Mapped[int | None] = mapped_column(Integer)
+    source_big_bang_config_version: Mapped[int | None] = mapped_column(Integer)
+    source_tick_snapshot_id: Mapped[UUID | None] = mapped_column(
+        GUID(), ForeignKey("tick_snapshots.id")
+    )
+    source_tick_index: Mapped[int | None] = mapped_column(Integer)
+    source_multiverse_ids: Mapped[list | None] = mapped_column(JSONValue(), default=list)
+    content: Mapped[dict | None] = mapped_column(JSONValue(), default=dict)
+    generation_metadata: Mapped[dict | None] = mapped_column(JSONValue(), default=dict)
+    model: Mapped[str | None] = mapped_column(String(160))
     markdown_artifact_id: Mapped[UUID | None] = mapped_column(GUID(), ForeignKey("artifacts.id"))
     pdf_artifact_id: Mapped[UUID | None] = mapped_column(GUID(), ForeignKey("artifacts.id"))
     supersedes_report_version_id: Mapped[UUID | None] = mapped_column(GUID(), ForeignKey("report_versions.id"))

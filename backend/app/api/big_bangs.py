@@ -6,7 +6,16 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.api.schemas import BigBangCreate, BigBangOut, BigBangPatch, ReportRequest, ReportVersionOut, RunUntilCompleteOut, RunUntilCompleteRequest
+from app.api.schemas import (
+    BigBangCreate,
+    BigBangOut,
+    BigBangPatch,
+    ReportOut,
+    ReportRequest,
+    ReportVersionOut,
+    RunUntilCompleteOut,
+    RunUntilCompleteRequest,
+)
 from app.api.utils import commit_or_500, raise_llm_unavailable, require
 from app.db import models
 from app.db.session import get_db
@@ -73,10 +82,12 @@ def resume(big_bang_id: UUID, db: Session = Depends(get_db)):
     return big_bang
 
 
-@router.get("/{big_bang_id}/reports")
+@router.get("/{big_bang_id}/reports", response_model=list[ReportOut])
 def reports(big_bang_id: UUID, db: Session = Depends(get_db)):
     require(db, models.BigBang, big_bang_id)
-    return db.scalars(select(models.Report).where(models.Report.big_bang_id == big_bang_id)).all()
+    return db.scalars(
+        select(models.Report).where(models.Report.big_bang_id == big_bang_id).order_by(models.Report.created_at)
+    ).all()
 
 
 @router.post("/{big_bang_id}/reports/final", response_model=ReportVersionOut)
@@ -84,6 +95,7 @@ def final_report(big_bang_id: UUID, payload: ReportRequest | None = None, db: Se
     request = payload or ReportRequest()
     big_bang = require(db, models.BigBang, big_bang_id)
     reject_non_terminal_multiverses(db, big_bang)
+    big_bang.status = "completed"
     version = generate_final_big_bang_report(db, big_bang=big_bang, title=request.title, summary=request.summary)
     commit_or_500(db)
     return version

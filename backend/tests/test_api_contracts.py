@@ -73,6 +73,9 @@ def test_child_resource_routes_404_for_missing_parents():
         f"/api/ticks/{MISSING_ID}/emotion-observability",
         f"/api/ticks/{MISSING_ID}/god-review",
         f"/api/god-reviews/{MISSING_ID}/tool-calls",
+        f"/api/reports/{MISSING_ID}/versions",
+        f"/api/report-versions/{MISSING_ID}",
+        f"/api/report-versions/{MISSING_ID}/markdown",
     ]
 
     with missing_object_db():
@@ -88,6 +91,7 @@ def test_default_body_routes_accept_omitted_body_before_parent_lookup():
         f"/api/multiverses/{MISSING_ID}/simulate-next-tick",
         f"/api/multiverses/{MISSING_ID}/simulate-ticks",
         f"/api/multiverses/{MISSING_ID}/report",
+        f"/api/report-versions/{MISSING_ID}/render",
     ]
 
     with missing_object_db():
@@ -139,7 +143,9 @@ def test_mutation_routes_have_non_empty_response_contracts():
     route_methods = [
         ("/api/big-bangs/{big_bang_id}/reports/final", "post"),
         ("/api/big-bangs/{big_bang_id}/run-until-complete", "post"),
+        ("/api/multiverses/{multiverse_id}/continue", "post"),
         ("/api/multiverses/{multiverse_id}/report", "post"),
+        ("/api/report-versions/{report_version_id}/render", "post"),
         ("/api/god-reviews/{god_review_id}/regenerate-summary", "post"),
     ]
     for path, method in route_methods:

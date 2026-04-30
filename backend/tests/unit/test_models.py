@@ -15,6 +15,7 @@ from datetime import datetime, timezone
 import pytest
 from sqlalchemy import Boolean, DateTime, Float, Integer, String, Text
 from sqlalchemy import create_engine
+from sqlalchemy.exc import SAWarning
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, sessionmaker
 
 # ---------------------------------------------------------------------------
@@ -567,5 +568,6 @@ def test_cohort_state_unique_composite_pk_conflict(sqlite_session):
     sqlite_session.add(obj1)
     sqlite_session.flush()
     sqlite_session.add(obj2)
-    with pytest.raises(IntegrityError):
-        sqlite_session.flush()
+    with pytest.warns(SAWarning, match="conflicts with persistent instance"):
+        with pytest.raises(IntegrityError):
+            sqlite_session.flush()

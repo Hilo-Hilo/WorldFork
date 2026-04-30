@@ -37,7 +37,7 @@ async def redis_client():
     try:
         yield client
     finally:
-        await client.aclose()
+        await client.aclose(close_connection_pool=True)
 
 
 @pytest.fixture
