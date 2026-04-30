@@ -63,13 +63,12 @@ want to run every command yourself.
 Paste this prompt into your agent:
 
 ```text
-Run these two commands to install the WorldFork skills, then use the
-worldfork-setup skill to set up WorldFork on this computer:
+Run this command to install the WorldFork setup skill, then use it to set up
+WorldFork on this computer:
 
 npx skills add Hilo-Hilo/WorldFork/skills/worldfork-setup --all
-npx skills add Hilo-Hilo/WorldFork/skills/worldfork --all
 
-After installing them, use the setup skill to guide me through prerequisites,
+After installing it, use the setup skill to guide me through prerequisites,
 .env configuration with OPENROUTER_API_KEY, CLI installation, Docker Compose
 startup, migrations, seeding, readiness verification, and the onboarding demo.
 Use google/gemini-3.1-flash-lite-preview for live API-credit runs.
