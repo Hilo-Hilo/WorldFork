@@ -117,7 +117,7 @@ def create_big_bang(db: Session, payload: BigBangCreate) -> models.BigBang:
     big_bang.source_snapshot_id = snapshot.id
     initializer_output = {}
     plain_text_corpus = {}
-    if scenario_text:
+    if scenario_text and payload.use_initializer_agent:
         plain_text_corpus = build_plain_text_corpus(db, big_bang=big_bang, scenario_text=scenario_text)
     if payload.use_initializer_agent and scenario_text:
         initializer_output = run_initializer_agent(
