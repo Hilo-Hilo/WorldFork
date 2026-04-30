@@ -12,6 +12,9 @@ permissions:
   contents: read
   id-token: write
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 concurrency:
   group: publish-skill
   cancel-in-progress: false
@@ -41,15 +44,16 @@ jobs:
           npm --version
           npm pkg get name version
 
-      - name: Configure npm token fallback
+      - name: Configure optional npm token fallback
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_USE_TOKEN: ${{ vars.NPM_USE_TOKEN }}
         run: |
-          if [ -n "${NPM_TOKEN:-}" ]; then
+          if [ "${NPM_USE_TOKEN:-}" = "true" ] && [ -n "${NPM_TOKEN:-}" ]; then
             npm config set //registry.npmjs.org/:_authToken "${NPM_TOKEN}"
-            echo "Using NPM_TOKEN fallback authentication."
+            echo "Using NPM_TOKEN fallback authentication because NPM_USE_TOKEN=true."
           else
-            echo "No NPM_TOKEN secret configured; relying on npm trusted publishing via OIDC."
+            echo "Using npm trusted publishing via GitHub OIDC. NPM_TOKEN is ignored unless NPM_USE_TOKEN=true."
           fi
 
       - name: Check published version
