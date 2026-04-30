@@ -28,7 +28,8 @@ Run the full maintained sweep:
 | `test_jobs.py` | job type validation and task dispatch |
 | `test_labels.py` | stable labels for multiverses and ticks |
 | `test_llm_security.py` | public response sanitization and LLM safety boundaries |
-| `test_report_artifact_consistency.py` | report rollback and artifact cleanup |
+| `test_multiverse_continuation.py` | continuation versioning and per-multiverse runtime overrides |
+| `test_report_artifact_consistency.py` | structured report versions, on-demand PDF rendering, and artifact cleanup |
 | `test_simulation_resilience.py` | initializer/runtime tolerance for malformed model data |
 | `test_smoke.py` | import and scaffold smoke |
 | `test_storage_config.py` | storage paths, PDF path traversal, artifact config |
@@ -104,7 +105,7 @@ Run the full maintained sweep:
 ## Live Full Runtime Smoke
 
 ```bash
-uv run python -m scripts.full_runtime_smoke
+worldfork smoke live
 ```
 
 This intentionally uses real OpenRouter credits and asserts that every audited
@@ -115,8 +116,8 @@ google/gemini-3.1-flash-lite-preview
 ```
 
 It covers settings mutation/restoration, live ticks, runtime checkpoints,
-manual intervention, job control, reports, PDFs, log endpoints, and final
-readiness.
+manual intervention, job control, structured reports, on-demand PDFs, log
+endpoints, and final readiness.
 
 ## Markers
 

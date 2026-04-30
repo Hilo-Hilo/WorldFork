@@ -4,6 +4,8 @@
 
 **Agent-operated social simulation infrastructure for branching timelines.**
 
+![WorldFork](docs/images/readme.png)
+
 [![Python](https://img.shields.io/badge/python-3.11%2B-3776AB)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/api-FastAPI-009688)](https://fastapi.tiangolo.com/)
 [![LangGraph](https://img.shields.io/badge/runtime-LangGraph-1F2937)](https://langchain-ai.github.io/langgraph/)
@@ -35,7 +37,7 @@ The current product shape is intentionally backend-first:
 | FastAPI backend | canonical API, agent discovery, runtime control |
 | Celery workers | queue-backed execution for long-running jobs |
 | Postgres + Redis | durable state, jobs, queues, rate limits |
-| Artifact store | Markdown/PDF reports and structured payloads |
+| Artifact store | Cached Markdown/PDF renders and audit payloads |
 | `worldfork` CLI | primary interface for agents and operators |
 
 There is no web frontend in this repo.
@@ -71,7 +73,8 @@ Key properties:
 - Resume-safe tool calls after interruption.
 - Manual intervention support through auditable branch creation.
 - Queue control for pause, resume, interrupt, requeue, and synchronous debug run.
-- Markdown and PDF report artifacts for multiverse and final Big Bang reports.
+- Structured, versioned report records for multiverse and final Big Bang outcomes.
+- Markdown and PDF report artifacts rendered on demand from structured report content.
 - OpenRouter model routing, defaulting to `google/gemini-3.1-flash-lite-preview`.
 
 ## Quickstart
@@ -81,10 +84,38 @@ Key properties:
 You need:
 
 - Docker Desktop or compatible Docker Compose
-- `uv`
+- Python 3.11+
 - an OpenRouter API key
 
-### 2. Configure environment
+### 2. Install the CLI
+
+Install the CLI from this monorepo:
+
+```bash
+python3.11 -m pip install -e ./cli
+worldfork --help
+```
+
+### Optional: install the agent skill
+
+Install the generic operator skill from npm when the package is available in
+your registry:
+
+```bash
+npx skills add @worldfork/skill
+npx skills update @worldfork/skill
+```
+
+Before npm publication, install from the repository checkout:
+
+```bash
+npx skills add ./skills/worldfork --all
+```
+
+This skill teaches agent runtimes to use the WorldFork CLI, initialization,
+watch, report, job, and Atlas onboarding flows without hardcoded backend URLs.
+
+### 3. Configure environment
 
 ```bash
 cp .env.example .env
@@ -96,7 +127,7 @@ Set `OPENROUTER_API_KEY` in `.env`. The default model settings already point at:
 google/gemini-3.1-flash-lite-preview
 ```
 
-### 3. Start the stack
+### 4. Start the stack
 
 ```bash
 make build
@@ -105,11 +136,11 @@ make migrate
 make seed
 ```
 
-### 4. Verify readiness
+### 5. Verify readiness
 
 ```bash
-curl http://127.0.0.1:8003/readyz
-uv run worldfork status
+worldfork status
+worldfork query GET /readyz --no-api-prefix
 ```
 
 Expected readiness checks:
@@ -118,42 +149,69 @@ Expected readiness checks:
 {"ok":true,"checks":{"database":true,"redis":true,"openrouter":true,"zep":true}}
 ```
 
-## Service URLs
+## Service Endpoints
 
-| Service | URL |
+The CLI uses `WORLD_FORK_API_BASE`, `BACKEND_API_BASE`, or `--base-url` to
+choose the backend. Agent instructions should pass paths through the CLI rather
+than hardcoding a host URL.
+
+| Service | Path |
 | --- | --- |
-| API | http://127.0.0.1:8003 |
-| OpenAPI docs | http://127.0.0.1:8003/docs |
-| Agent discovery | http://127.0.0.1:8003/api/agent/discover |
-| Postgres | localhost:5433 |
-| Redis | localhost:6379 |
+| Readiness | `/readyz` |
+| OpenAPI docs | `/docs` |
+| Agent discovery | `/api/agent/discover` |
+| Postgres | Docker Compose service `db` |
+| Redis | Docker Compose service `redis` |
 
 ## CLI
 
 Use global options before the command.
 
 ```bash
-uv run worldfork agent discover
-uv run worldfork status
-uv run worldfork runs list
-uv run worldfork runs workspace <big-bang-id>
-uv run worldfork jobs list --status failed
-uv run worldfork logs list --status failed
+worldfork agent discover
+worldfork status
+worldfork init --name "Atlas onboarding" --scenario-file examples/test-big-bang.md
+worldfork watch big-bang <big-bang-id>
+worldfork watch multiverse <multiverse-id>
+worldfork runs list
+worldfork runs workspace <big-bang-id>
+worldfork jobs list --status failed
+worldfork logs list --status failed
+worldfork models defaults
+worldfork settings show
+worldfork settings patch --data '{"default_tick_duration_minutes":90}'
+worldfork reports list <big-bang-id>
+worldfork reports versions <report-id>
+worldfork reports view <report-version-id>
+worldfork reports render <report-version-id> --format pdf
+worldfork smoke live
+worldfork demo atlas
 ```
 
 For agent workflows, keep responses small by default:
 
 ```bash
-uv run worldfork --verbosity summary runs list
-uv run worldfork --fields id,status,created_at jobs list
-uv run worldfork --json status
+worldfork --verbosity summary runs list
+worldfork --fields id,status,created_at jobs list
+worldfork --json status
 ```
+
+`worldfork init` blocks until the backend initialization request has returned.
+The command then fetches and returns the initialized workspace, initializer
+state, actors, traits, graph baseline, sociology baseline, and emotion
+baseline. Use `--wait-timeout` for long live initializer calls.
+
+`worldfork watch big-bang <id>` and `worldfork watch multiverse <id>` stream
+near-real-time activity from the API by polling workspace, tick, tool-call, and
+agent log surfaces. Use `--json-lines` for machine-readable event streams,
+`--once` for a single snapshot, or `--no-stop` to keep watching after a terminal
+state.
 
 Direct API escape hatch:
 
 ```bash
-uv run worldfork query GET /api/agent/discover
-uv run worldfork query GET /readyz --no-api-prefix
+worldfork query GET /api/agent/discover
+worldfork query GET /readyz --no-api-prefix
 ```
 
 ## Testing
@@ -167,23 +225,25 @@ The maintained test sweep is:
 That runs:
 
 1. root regression tests + unit tests
-2. integration tests
-3. e2e tests
+2. CLI package tests
+3. integration tests
+4. e2e tests
 
 Useful focused commands:
 
 ```bash
 ./scripts/run_tests.sh unit
+./scripts/run_tests.sh cli
 ./scripts/run_tests.sh integration
 ./scripts/run_tests.sh e2e
-uv run ruff check .
+make lint
 docker compose config --quiet
 ```
 
 Live full-runtime smoke, using real OpenRouter credits:
 
 ```bash
-uv run python -m scripts.full_runtime_smoke
+worldfork smoke live
 ```
 
 The smoke harness validates:
@@ -195,40 +255,86 @@ The smoke harness validates:
 - runtime checkpoints and node attempts
 - manual branch intervention plus operation log
 - job pause and synchronous run
-- Markdown/PDF report artifacts
+- structured report versions and on-demand Markdown/PDF renders
 - log endpoints and final readiness
 
-## Sample Big Bang
+## Atlas Onboarding Demo
 
-The canonical long-form branching demo is:
+The canonical long-form onboarding demo is:
 
 ```text
 examples/test-big-bang.md
 ```
 
-Run a cheap live demonstration against the local backend:
+Run the full Atlas multiverse demonstration against the local backend:
 
 ```bash
-uv run python -m scripts.run_test_big_bang
+worldfork demo atlas
 ```
 
-The sample creates the Atlas Resilience Crisis Big Bang, runs a root tick,
-creates a manual transparency branch, runs a child branch tick, verifies runtime
-checkpoints and lineage, generates a final report, and audits that all LLM calls
-used `google/gemini-3.1-flash-lite-preview`.
+Atlas is not the smoke test and is not intended to be artificially tiny. It is
+the onboarding run that demonstrates what WorldFork can do: it creates the
+Atlas Resilience Crisis Big Bang, runs a root timeline, creates a manual
+transparency branch, allows God-agent-spawned branches under generous safety
+caps, drains every discovered timeline to terminal state, generates structured
+per-multiverse reports, generates the final report-agent summary across all
+terminal multiverses, renders the final PDF artifact on demand, and audits that
+all LLM calls used `google/gemini-3.1-flash-lite-preview`.
+
+The defaults are intentionally much larger than smoke-test defaults:
+
+```bash
+worldfork demo atlas \
+  --tick-duration-minutes 720 \
+  --horizon-days 30 \
+  --max-active-multiverses 64 \
+  --max-branch-depth 8 \
+  --max-branches-per-tick 8 \
+  --completion-max-requests 1000
+```
+
+Atlas defaults to 720 minutes per tick, or 12 simulated hours. Unless
+`--max-tick-index` is supplied explicitly, the command derives it from the
+target horizon: `ceil(horizon_days * 1440 / tick_duration_minutes)`. With the
+default 30-day horizon and 12-hour ticks, Atlas runs to tick index 60.
+
+At completion the command prints the Big Bang ID, terminal multiverse count,
+final report version ID, and ready-to-run `worldfork reports view`,
+`worldfork reports render`, and `worldfork watch` commands.
+
+## Reports And Artifacts
+
+Reports are database records first. A `report` is the logical slot, such as
+"M1 multiverse report" or "final Big Bang report." Each generated revision is a
+`report_version`, and that version stores parsable JSON content, source
+metadata, the report-agent model, source multiverse IDs, source multiverse
+version, source config version, and latest tick binding.
+
+Markdown and PDF files are artifacts. They are cached render outputs generated
+from `report_versions.content`; deleting or regenerating a render does not
+change the canonical report version. Use `worldfork reports view` for the
+current Markdown render and `worldfork reports render --format pdf` when a PDF
+artifact is needed.
+
+To continue a completed multiverse after it reaches `max_ticks`, create a new
+continuation with a larger `max_ticks`, then run or queue ticks for that same
+multiverse. The continuation increments `multiverse.version`, links back to the
+source report version when available, and stores a per-multiverse runtime
+override so sibling timelines keep their original tick limits.
 
 ## Project Layout
 
 ```text
-backend/app/          FastAPI app, runtime, jobs, simulation, storage
-backend/tests/        root regressions, unit, integration, e2e
-cli/src/worldfork_cli agent/operator CLI
-examples/             runnable sample Big Bang dossiers
-source_of_truth/      prompt, report, and policy templates
-scripts/              local test and smoke-test harnesses
-infra/                Docker and Alembic infrastructure
-docs/                 operator and agent documentation
-prd-do-not-delete/    protected product requirements source
+backend/app/           FastAPI app, runtime, jobs, simulation, storage
+backend/tests/         root regressions, unit, integration, e2e
+cli/                   standalone Python CLI package
+skills/worldfork/      generic installable agent skill package
+examples/              runnable sample Big Bang dossiers
+source_of_truth/       prompt, report, and policy templates
+scripts/               local test and smoke-test harnesses
+infra/                 Docker and Alembic infrastructure
+docs/                  operator and agent documentation
+prd.md                 product requirements source
 ```
 
 ## Development Loop
@@ -236,8 +342,8 @@ prd-do-not-delete/    protected product requirements source
 ```bash
 make up
 ./scripts/run_tests.sh all
-uv run ruff check .
-uv run python -m scripts.full_runtime_smoke
+make lint
+worldfork smoke live
 ```
 
 When a local test run touches Redis queues, clear them before a live smoke:
@@ -251,7 +357,8 @@ docker compose exec -T redis redis-cli FLUSHALL
 - [Agent interface](docs/agent.md)
 - [Backend notes](backend/README.md)
 - [Test coverage](backend/tests/COVERAGE.md)
-- [Protected PRD](prd-do-not-delete/prd.md)
+- [Reporting guide](docs/reporting.md)
+- [Product requirements](prd.md)
 
 ## Status
 
