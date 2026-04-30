@@ -11,6 +11,7 @@ from sqlalchemy.orm import Session
 from app.core.config import get_settings
 from app.db import models
 from app.llm.audit import LLMCallError, complete_with_audit
+from app.llm.prompt_templates import REPORT_AGENT_SYSTEM_PROMPT
 from app.simulation.runtime_config import multiverse_runtime_config_version
 from app.storage.artifact_store import ArtifactStore, _cleanup_artifact_path
 from app.storage.pdf_store import render_markdown_pdf
@@ -268,6 +269,26 @@ def render_structured_report_markdown(content: dict[str, Any]) -> str:
             value = ai_summary.get(key)
             if value:
                 lines.extend([f"### {key.replace('_', ' ').title()}", "", _markdown_value(value), ""])
+    if content.get("outcome_conclusions"):
+        lines.extend(["## Outcome Conclusions", ""])
+        conclusions = content["outcome_conclusions"]
+        likely_endpoint = conclusions.get("likely_endpoint") or {}
+        if likely_endpoint:
+            lines.extend(["### Likely Endpoint", ""])
+            lines.extend(_markdown_block(likely_endpoint))
+            lines.append("")
+        if conclusions.get("causal_mechanisms"):
+            lines.extend(["### Causal Mechanisms", ""])
+            lines.extend(_markdown_list(conclusions["causal_mechanisms"]))
+            lines.append("")
+        if conclusions.get("key_event_traces"):
+            lines.extend(["### Key Event Traces", ""])
+            lines.extend(_markdown_list(conclusions["key_event_traces"]))
+            lines.append("")
+        if conclusions.get("god_review_trace"):
+            lines.extend(["### God Review Trace", ""])
+            lines.extend(_markdown_list(conclusions["god_review_trace"]))
+            lines.append("")
     for section in content.get("sections", []):
         heading = section.get("heading")
         if heading:
@@ -473,6 +494,13 @@ def _build_final_report_content(
     god_decisions = Counter()
     for item in comparison:
         god_decisions.update(item.get("god_decisions", {}))
+    outcome_conclusions = _final_outcome_conclusions(
+        db,
+        big_bang=big_bang,
+        multiverses=multiverses,
+        comparison=comparison,
+        lineage_edges=lineage_edges,
+    )
     return {
         "schema_version": REPORT_SCHEMA_VERSION,
         "report_type": "final_big_bang",
@@ -495,6 +523,7 @@ def _build_final_report_content(
             "total_llm_calls": _count(db, models.LLMCall, big_bang_id=big_bang.id),
             "total_artifacts": _count(db, models.Artifact, big_bang_id=big_bang.id),
         },
+        "outcome_conclusions": outcome_conclusions,
         "sections": [
             {
                 "heading": "Condensed Outcome",
@@ -523,6 +552,200 @@ def _build_final_report_content(
             "artifact_counts": _artifact_counts(db, big_bang.id),
         },
     }
+
+
+def _final_outcome_conclusions(
+    db: Session,
+    *,
+    big_bang: models.BigBang,
+    multiverses: list[models.Multiverse],
+    comparison: list[dict[str, Any]],
+    lineage_edges: list[models.MultiverseLineageEdge],
+) -> dict[str, Any]:
+    if not multiverses:
+        return {
+            "likely_endpoint": {
+                "status": big_bang.status,
+                "interpretation": "No multiverse timelines exist yet, so no simulated endpoint can be derived.",
+            },
+            "causal_mechanisms": ["No event, review, or lineage data is available yet."],
+            "key_event_traces": [],
+            "god_review_trace": [],
+        }
+
+    endpoint_source = _select_endpoint_source(comparison)
+    endpoint_multiverse = next(
+        (item for item in multiverses if str(item.id) == endpoint_source.get("multiverse_id")),
+        None,
+    )
+    latest_tick = _latest_tick(db, endpoint_multiverse.id) if endpoint_multiverse is not None else None
+    latest_review = _latest_god_review(db, endpoint_multiverse.id) if endpoint_multiverse is not None else None
+    event_traces = _final_event_traces(db, big_bang_id=big_bang.id)
+    review_trace = _final_god_review_trace(db, big_bang_id=big_bang.id)
+    endpoint = {
+        "multiverse_label": endpoint_source.get("ui_label"),
+        "multiverse_status": endpoint_source.get("status"),
+        "latest_tick_index": endpoint_source.get("latest_tick_index"),
+        "latest_tick_status": latest_tick.status if latest_tick else None,
+        "latest_tick_summary": latest_tick.summary if latest_tick else None,
+        "branch_score": endpoint_source.get("latest_branch_score"),
+        "god_decision": latest_review.decision if latest_review else None,
+        "god_rationale": latest_review.rationale if latest_review else None,
+        "interpretation": _endpoint_interpretation(endpoint_source, latest_tick, latest_review),
+    }
+    return {
+        "likely_endpoint": endpoint,
+        "causal_mechanisms": _final_causal_mechanisms(
+            endpoint_source,
+            event_traces=event_traces,
+            review_trace=review_trace,
+            lineage_edges=lineage_edges,
+        ),
+        "key_event_traces": event_traces,
+        "god_review_trace": review_trace,
+    }
+
+
+def _select_endpoint_source(comparison: list[dict[str, Any]]) -> dict[str, Any]:
+    terminal_statuses = {"completed", "complete", "terminal", "ended", "final"}
+
+    def key(item: dict[str, Any]) -> tuple[int, float, int, str]:
+        status_rank = 1 if str(item.get("status") or "").lower() in terminal_statuses else 0
+        score = item.get("latest_branch_score")
+        branch_score = float(score) if isinstance(score, (int, float)) else 0.0
+        tick_index = int(item.get("latest_tick_index") or 0)
+        return (status_rank, branch_score, tick_index, str(item.get("ui_label") or ""))
+
+    return max(comparison, key=key) if comparison else {}
+
+
+def _endpoint_interpretation(
+    endpoint_source: dict[str, Any],
+    latest_tick: models.TickSnapshot | None,
+    latest_review: models.GodAgentReview | None,
+) -> str:
+    label = endpoint_source.get("ui_label") or "The selected timeline"
+    status = endpoint_source.get("status") or "unknown"
+    tick_index = endpoint_source.get("latest_tick_index")
+    if latest_review is not None:
+        return (
+            f"{label} is the likely endpoint because it ended status={status} at tick {tick_index} "
+            f"and the latest God-agent review decided {latest_review.decision}: {latest_review.rationale}"
+        )
+    if latest_tick is not None and latest_tick.summary:
+        return f"{label} is the likely endpoint because it ended status={status} at tick {tick_index}: {latest_tick.summary}"
+    return f"{label} is the likely endpoint by terminal status, branch score, and latest tick position."
+
+
+def _final_event_traces(db: Session, *, big_bang_id) -> list[dict[str, Any]]:
+    rows = db.execute(
+        select(models.Event, models.EventSummary, models.TickSnapshot)
+        .join(models.EventSummary, models.EventSummary.event_id == models.Event.id)
+        .outerjoin(models.TickSnapshot, models.TickSnapshot.id == models.EventSummary.tick_snapshot_id)
+        .where(models.Event.big_bang_id == big_bang_id)
+        .order_by(models.Event.scheduled_tick.desc(), models.EventSummary.version.desc(), models.Event.created_at.desc())
+        .limit(8)
+    ).all()
+    traces = []
+    seen_events = set()
+    for event, summary, tick in rows:
+        if event.id in seen_events:
+            continue
+        seen_events.add(event.id)
+        traces.append(
+            {
+                "multiverse_id": str(event.multiverse_id),
+                "tick_index": tick.tick_index if tick else event.scheduled_tick,
+                "event_title": event.title,
+                "event_status": event.status,
+                "event_type": event.event_type,
+                "summary": summary.summary,
+                "expected_impact": event.expected_impact or {},
+                "actual_impact": event.actual_impact or {},
+            }
+        )
+    if traces:
+        return traces
+    fallback_events = db.scalars(
+        select(models.Event)
+        .where(models.Event.big_bang_id == big_bang_id)
+        .order_by(models.Event.scheduled_tick.desc(), models.Event.created_at.desc())
+        .limit(5)
+    ).all()
+    return [
+        {
+            "multiverse_id": str(event.multiverse_id),
+            "tick_index": event.scheduled_tick,
+            "event_title": event.title,
+            "event_status": event.status,
+            "event_type": event.event_type,
+            "summary": event.description,
+            "expected_impact": event.expected_impact or {},
+            "actual_impact": event.actual_impact or {},
+        }
+        for event in fallback_events
+    ]
+
+
+def _latest_god_review(db: Session, multiverse_id) -> models.GodAgentReview | None:
+    return db.scalar(
+        select(models.GodAgentReview)
+        .where(models.GodAgentReview.multiverse_id == multiverse_id)
+        .order_by(models.GodAgentReview.created_at.desc(), models.GodAgentReview.id.desc())
+        .limit(1)
+    )
+
+
+def _final_god_review_trace(db: Session, *, big_bang_id) -> list[dict[str, Any]]:
+    rows = db.execute(
+        select(models.GodAgentReview, models.TickSnapshot)
+        .outerjoin(models.TickSnapshot, models.TickSnapshot.id == models.GodAgentReview.tick_snapshot_id)
+        .where(models.GodAgentReview.big_bang_id == big_bang_id)
+        .order_by(models.GodAgentReview.created_at.desc(), models.GodAgentReview.id.desc())
+        .limit(8)
+    ).all()
+    return [
+        {
+            "multiverse_id": str(review.multiverse_id),
+            "tick_index": tick.tick_index if tick else None,
+            "decision": review.decision,
+            "confidence": review.confidence,
+            "rationale": review.rationale,
+        }
+        for review, tick in rows
+    ]
+
+
+def _final_causal_mechanisms(
+    endpoint_source: dict[str, Any],
+    *,
+    event_traces: list[dict[str, Any]],
+    review_trace: list[dict[str, Any]],
+    lineage_edges: list[models.MultiverseLineageEdge],
+) -> list[str]:
+    mechanisms: list[str] = []
+    if event_traces:
+        event = event_traces[0]
+        mechanisms.append(
+            f"Latest summarized event pressure: {event.get('event_title')} at tick {event.get('tick_index')} "
+            f"ended {event.get('event_status')} and was summarized as: {event.get('summary')}"
+        )
+    if review_trace:
+        review = review_trace[0]
+        mechanisms.append(
+            f"God-agent gate: decision={review.get('decision')} at tick {review.get('tick_index')} "
+            f"because {review.get('rationale')}"
+        )
+    if lineage_edges:
+        edge = lineage_edges[-1]
+        mechanisms.append(
+            f"Lineage divergence: fork at tick {edge.fork_tick_index} carried reason: {edge.reason or 'unspecified'}"
+        )
+    mechanisms.append(
+        f"Endpoint selection favored {endpoint_source.get('ui_label')} by status={endpoint_source.get('status')}, "
+        f"latest tick={endpoint_source.get('latest_tick_index')}, and branch score={endpoint_source.get('latest_branch_score')}."
+    )
+    return mechanisms
 
 
 def _multiverse_metrics(
@@ -635,10 +858,18 @@ def _condensed_final_outcome(comparison: list[dict[str, Any]]) -> str:
     if not comparison:
         return "No multiverses were available for comparison."
     highest = max(comparison, key=lambda item: item.get("latest_branch_score") or 0)
+    if len(comparison) == 1:
+        return (
+            "The Big Bang currently has one multiverse timeline. "
+            f"{highest.get('ui_label')} ended status={highest.get('status')} at tick "
+            f"{highest.get('latest_tick_index')} with latest branch score "
+            f"{highest.get('latest_branch_score')}; use Outcome Conclusions for the endpoint trace."
+        )
     return (
         f"The Big Bang currently compares {len(comparison)} multiverse timelines. "
         f"{highest.get('ui_label')} has the highest latest branch score "
-        f"({highest.get('latest_branch_score')}) and represents the clearest divergence point."
+        f"({highest.get('latest_branch_score')}) among compared timelines; use Outcome Conclusions "
+        "to distinguish terminal endpoints from process states."
     )
 
 
@@ -675,15 +906,7 @@ def _run_report_agent(
             messages=[
                 {
                     "role": "system",
-                    "content": (
-                        "You are the WorldFork report agent. Return exactly one JSON object with keys "
-                        "executive_summary, outcome_interpretation, management_notes, risk_notes. "
-                        "Use only the supplied structured report content and metrics. Do not invent "
-                        "real-world facts, do not cite hidden state, and do not restate raw IDs unless "
-                        "they are needed for traceability. Explain outcome distribution, branch "
-                        "divergence, report/version bindings, and evidence gaps in reviewer-friendly "
-                        "language. If a metric is absent or zero, say so plainly instead of guessing."
-                    ),
+                    "content": REPORT_AGENT_SYSTEM_PROMPT,
                 },
                 {"role": "user", "content": f"Structured report metrics: {content}"},
             ],
@@ -705,12 +928,16 @@ def _run_report_agent(
 def _deterministic_ai_summary(content: dict[str, Any]) -> dict[str, Any]:
     if content.get("report_type") == "final_big_bang":
         distribution = content.get("outcome_distribution") or {}
+        outcome_conclusions = content.get("outcome_conclusions") or {}
+        endpoint = outcome_conclusions.get("likely_endpoint") or {}
+        endpoint_text = endpoint.get("interpretation") or "No likely endpoint trace was available."
         return {
             "executive_summary": content.get("summary") or "Final Big Bang report generated.",
             "outcome_interpretation": (
                 f"Compared timelines: {len(content.get('multiverse_comparison') or [])}. "
                 f"Total social posts: {distribution.get('total_social_posts', 0)}. "
-                f"Total sociology signals: {distribution.get('total_sociology_signals', 0)}."
+                f"Total sociology signals: {distribution.get('total_sociology_signals', 0)}. "
+                f"{endpoint_text}"
             ),
             "management_notes": "Review divergence drivers and per-multiverse reports before continuing any terminal timeline.",
             "risk_notes": "Deterministic fallback summary used when the report agent is unavailable.",

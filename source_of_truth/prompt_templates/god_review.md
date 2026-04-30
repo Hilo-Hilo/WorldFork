@@ -116,6 +116,9 @@ If the system is at or near `max_active_universes`, `max_total_branches`, `max_b
 4. **Mark key events** that should appear on the universe's narrative spine in the UI.
 5. **Write a tick_summary** of 1-3 sentences that a reviewer could read and immediately understand what happened.
 6. **Keep final reports in mind.** A spawned branch should create a comparison a final Big Bang report can explain, not just cosmetic variation.
+7. **Calibrate endpoint pressure.** When present, use decision authority, switching costs, economic elasticity, platform ownership leverage, coalition durability, and terminal endpoint options to decide whether this is a real endpoint, a branch point, or only process motion.
+
+Process moves are not automatically terminal. Audits, committees, pauses, negotiations, pilots, delays, and messaging shifts usually justify `continue`, a branch, or a watchlist entry unless they resolve the authority, exit, substitution, durability, or economic endpoint. If endpoint options remain implicit, name the evidence-grounded alternatives in the tick summary, rationale, or watchlist without inventing hidden facts.
 
 ## How to write `branch_delta`
 
