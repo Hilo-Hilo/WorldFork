@@ -13,7 +13,7 @@ from app.db import models
 from app.llm.audit import LLMCallError, complete_with_audit
 from app.llm.prompt_templates import REPORT_AGENT_SYSTEM_PROMPT
 from app.simulation.runtime_config import multiverse_runtime_config_version
-from app.simulation.tick_bundles import hydrate_tick_bundle
+from app.simulation.tick_bundles import TickBundleHydrationContext, hydrate_tick_bundle
 from app.storage.artifact_store import ArtifactStore, _cleanup_artifact_path
 from app.storage.pdf_store import render_markdown_pdf
 
@@ -410,10 +410,21 @@ def _build_multiverse_report_content(
         .where(models.GodAgentReview.multiverse_id == multiverse.id)
         .order_by(models.GodAgentReview.created_at)
     ).all()
-    metrics = _multiverse_metrics(db, multiverse, latest_tick=latest_tick)
+    hydration_context = TickBundleHydrationContext()
+    metrics = _multiverse_metrics(
+        db,
+        multiverse,
+        latest_tick=latest_tick,
+        hydration_context=hydration_context,
+    )
     timeline = []
     for tick in ticks:
-        final_bundle = hydrate_tick_bundle(db, tick, "final_bundle")
+        final_bundle = hydrate_tick_bundle(
+            db,
+            tick,
+            "final_bundle",
+            context=hydration_context,
+        )
         timeline.append(
             {
                 "tick_id": str(tick.id),
@@ -465,7 +476,7 @@ def _build_multiverse_report_content(
             },
             {
                 "heading": "Cohort and Hero Changes",
-                "items": _state_change_items(db, latest_tick),
+                "items": _state_change_items(db, latest_tick, hydration_context=hydration_context),
             },
         ],
         "evidence_appendix": {
@@ -756,8 +767,13 @@ def _multiverse_metrics(
     multiverse: models.Multiverse,
     *,
     latest_tick: models.TickSnapshot | None,
+    hydration_context: TickBundleHydrationContext | None = None,
 ) -> dict[str, Any]:
-    latest_final = hydrate_tick_bundle(db, latest_tick, "final_bundle") if latest_tick else {}
+    latest_final = (
+        hydrate_tick_bundle(db, latest_tick, "final_bundle", context=hydration_context)
+        if latest_tick
+        else {}
+    )
     god_decisions = Counter(
         db.scalars(
             select(models.GodAgentReview.decision).where(models.GodAgentReview.multiverse_id == multiverse.id)
@@ -829,10 +845,15 @@ def _report_inventory_line(item: dict[str, Any]) -> str:
     return f"{item['report_type']}{label}: {item['status']} v{item['current_version']}"
 
 
-def _state_change_items(db: Session, latest_tick: models.TickSnapshot | None) -> list[dict[str, Any]]:
+def _state_change_items(
+    db: Session,
+    latest_tick: models.TickSnapshot | None,
+    *,
+    hydration_context: TickBundleHydrationContext | None = None,
+) -> list[dict[str, Any]]:
     if latest_tick is None:
         return []
-    final = hydrate_tick_bundle(db, latest_tick, "final_bundle")
+    final = hydrate_tick_bundle(db, latest_tick, "final_bundle", context=hydration_context)
     sociology = final.get("sociology_result") or {}
     return [
         {

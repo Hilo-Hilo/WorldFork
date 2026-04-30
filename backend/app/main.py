@@ -50,6 +50,7 @@ from backend.app.api import websockets as legacy_websockets
 from app.core.config import get_settings
 from app.db.models import Base
 from app.db.session import engine
+from app.simulation.tick_bundles import TickBundleHydrationError
 from backend.app.core.db import sync_engine
 from backend.app.core.redis_client import get_redis_client
 from backend.app.integrations.zep import zep_status_summary
@@ -109,6 +110,14 @@ def _create_legacy_compat_tables() -> None:
 @app.get("/health")
 def health():
     return {"status": "ok"}
+
+
+@app.exception_handler(TickBundleHydrationError)
+def tick_bundle_hydration_error(_request, exc: TickBundleHydrationError) -> JSONResponse:
+    return JSONResponse(
+        status_code=500,
+        content={"detail": f"tick bundle hydration failed: {exc}"},
+    )
 
 
 @app.get("/healthz")

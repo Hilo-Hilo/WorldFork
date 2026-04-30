@@ -16,10 +16,13 @@ from app.api import multiverses as multiverses_api
 from app.api import ticks as ticks_api
 from app.db import models
 from app.main import app
-from app.simulation import report_engine
+from app.simulation import report_engine, tick_runner
 from app.simulation.branch_engine import create_branch
+from app.api.schemas import SimulateTickRequest
+from app.db.session import get_db
 from app.simulation.tick_bundles import (
     TICK_BUNDLE_REF_KEY,
+    TICK_BUNDLE_REF_KIND,
     TickBundleHydrationError,
     hydrate_tick_bundle,
     hydrate_tick_snapshot_for_read,
@@ -83,6 +86,40 @@ def test_branch_stores_compact_refs_and_api_reads_hydrated_shape(db: Session):
     assert lineage_payload["inherited_ticks"][0].source_tick_snapshot_id == root_tick.id
 
 
+def test_http_tick_readers_return_hydrated_shape(db: Session):
+    big_bang, root, _root_tick = _seed_root_tick(db)
+    child = create_branch(
+        db,
+        parent=root,
+        fork_tick_index=0,
+        reason="http reader branch",
+        idempotency_key="branch:http-reader",
+    )
+    child_tick = _tick(db, child, 0)
+    app.dependency_overrides[get_db] = lambda: db
+    client = TestClient(app)
+    try:
+        tick_response = client.get(f"/api/ticks/{child_tick.id}")
+        list_response = client.get(f"/api/multiverses/{child.id}/ticks")
+        workspace_response = client.get(f"/api/workspace/{big_bang.id}/state")
+        trace_response = client.get(f"/api/agent/universes/{child.id}/trace?tick=0&verbosity=full")
+    finally:
+        app.dependency_overrides.pop(get_db, None)
+
+    assert tick_response.status_code == 200, tick_response.text
+    assert list_response.status_code == 200, list_response.text
+    assert workspace_response.status_code == 200, workspace_response.text
+    assert trace_response.status_code == 200, trace_response.text
+
+    tick_payload = tick_response.json()
+    assert TICK_BUNDLE_REF_KEY not in json.dumps(tick_payload)
+    assert tick_payload["final_bundle"]["branch_score"] == 0.91
+    assert list_response.json()[0]["final_bundle"]["multiverse_id"] == str(child.id)
+    assert workspace_response.json()["latest_ticks"][0]["final_bundle"]["branch_score"] == 0.91
+    trace_payload = trace_response.json()["data"]
+    assert trace_payload["tick_snapshot"]["final_bundle"]["branch_score"] == 0.91
+
+
 def test_nested_inherited_ticks_hydrate_through_multiple_lineage_levels(db: Session):
     _big_bang, root, root_tick = _seed_root_tick(db)
     child = create_branch(
@@ -116,6 +153,50 @@ def test_nested_inherited_ticks_hydrate_through_multiple_lineage_levels(db: Sess
     assert grandchild.state["last_sociology"]["cohort_state_updates"][0]["cohort_id"] == "cohort-a"
 
 
+def test_nested_provisional_branch_falls_back_and_final_sync_recurses(db: Session):
+    _big_bang, root, root_tick = _seed_root_tick(db)
+    root_tick.status = "provisional"
+    root_tick.final_bundle = {}
+    db.flush()
+
+    child = create_branch(
+        db,
+        parent=root,
+        fork_tick_index=0,
+        reason="branch while parent provisional",
+        idempotency_key="branch:provisional-child",
+    )
+    grandchild = create_branch(
+        db,
+        parent=child,
+        fork_tick_index=0,
+        reason="nested provisional branch",
+        idempotency_key="branch:provisional-grandchild",
+    )
+
+    assert grandchild.state["last_sociology"]["cohort_state_updates"][0]["cohort_id"] == "cohort-a"
+
+    root.state = {
+        **(root.state or {}),
+        "last_tick_index": 0,
+        "graph_summary": {"pressure": {"conflict_max": 0.9}},
+    }
+    root_tick.status = "final"
+    root_tick.final_bundle = {
+        **root_tick.provisional_bundle,
+        "branch_score": 0.99,
+        "god_review": {"decision": "continue"},
+    }
+    tick_runner._sync_forked_children_after_tick(db, parent=root, tick=root_tick)
+    db.flush()
+
+    child_tick = _tick(db, child, 0)
+    grandchild_tick = _tick(db, grandchild, 0)
+    assert child_tick.status == "final"
+    assert grandchild_tick.status == "final"
+    assert hydrate_tick_snapshot_for_read(db, grandchild_tick).final_bundle["branch_score"] == 0.99
+
+
 def test_agent_trace_transcript_and_report_content_read_hydrated_inherited_ticks(db: Session):
     _big_bang, root, _root_tick = _seed_root_tick(db)
     child = create_branch(
@@ -146,6 +227,80 @@ def test_agent_trace_transcript_and_report_content_read_hydrated_inherited_ticks
     assert content["sections"][3]["items"][0]["count"] == 1
 
 
+def test_agent_trace_missing_tick_preserves_empty_trace_response(db: Session):
+    _big_bang, root, _root_tick = _seed_root_tick(db)
+
+    trace = agent_api.trace(root.id, db=db, tick=999, verbosity="full")
+
+    assert trace["data"]["tick"] == 999
+    assert trace["data"]["actor_count"] == 0
+    assert trace["data"]["state"] == {}
+    assert trace["data"]["tick_snapshot"] is None
+
+
+def test_simulate_next_returns_hydrated_existing_inherited_tick_at_max_ticks(db: Session):
+    big_bang, root, _root_tick = _seed_root_tick(db)
+    child = create_branch(
+        db,
+        parent=root,
+        fork_tick_index=0,
+        reason="already complete child",
+        idempotency_key="branch:max",
+    )
+    db.add(
+        models.BigBangConfig(
+            big_bang_id=big_bang.id,
+            version=2,
+            simulation_config={"max_ticks": 0},
+            model_config={},
+            branch_policy={},
+        )
+    )
+    child.state = {**(child.state or {}), "runtime_config_version": 2}
+    db.flush()
+
+    payload = multiverses_api.simulate(
+        child.id,
+        SimulateTickRequest(idempotency_key="return-existing"),
+        db=db,
+    )
+
+    assert payload.tick_index == 0
+    assert TICK_BUNDLE_REF_KEY not in payload.final_bundle
+    assert payload.final_bundle["multiverse_id"] == str(child.id)
+    assert payload.final_bundle["branch_score"] == 0.91
+
+
+def test_public_hydration_errors_return_actionable_json(db: Session):
+    _big_bang, root, root_tick = _seed_root_tick(db)
+    child = _add_child_multiverse(db, root, ui_label="M1.error")
+    child_tick = models.TickSnapshot(
+        big_bang_id=root.big_bang_id,
+        multiverse_id=child.id,
+        tick_index=0,
+        ui_label="M1.error.T0",
+        status="final",
+        provisional_bundle={},
+        final_bundle=inherited_tick_bundle_ref(
+            parent=root,
+            child=child,
+            source_tick=root_tick,
+            bundle_field="final_bundle",
+        ),
+    )
+    db.add(child_tick)
+    db.flush()
+
+    app.dependency_overrides[get_db] = lambda: db
+    try:
+        response = TestClient(app).get(f"/api/ticks/{child_tick.id}")
+    finally:
+        app.dependency_overrides.pop(get_db, None)
+
+    assert response.status_code == 500
+    assert response.json()["detail"].startswith("tick bundle hydration failed: missing lineage ref")
+
+
 def test_corrupt_inherited_tick_refs_fail_clearly(db: Session):
     _big_bang, root, root_tick = _seed_root_tick(db)
     child = _add_child_multiverse(db, root, ui_label="M1.a")
@@ -172,6 +327,7 @@ def test_corrupt_inherited_tick_refs_fail_clearly(db: Session):
     missing_source_id = uuid4()
     child_tick.final_bundle = {
         TICK_BUNDLE_REF_KEY: {
+            "kind": TICK_BUNDLE_REF_KIND,
             "version": 1,
             "bundle_field": "final_bundle",
             "source_tick_snapshot_id": str(missing_source_id),
@@ -192,6 +348,36 @@ def test_corrupt_inherited_tick_refs_fail_clearly(db: Session):
     with pytest.raises(TickBundleHydrationError, match="missing source tick"):
         hydrate_tick_bundle(db, child_tick, "final_bundle")
 
+    stale_metadata_tick = models.TickSnapshot(
+        big_bang_id=root.big_bang_id,
+        multiverse_id=child.id,
+        tick_index=2,
+        ui_label="M1.a.T2",
+        status="final",
+        provisional_bundle={},
+        final_bundle=inherited_tick_bundle_ref(
+            parent=root,
+            child=child,
+            source_tick=root_tick,
+            bundle_field="final_bundle",
+        ),
+    )
+    stale_metadata_tick.final_bundle["inherited_from"]["source_tick_snapshot_id"] = str(uuid4())
+    db.add(stale_metadata_tick)
+    db.add(
+        models.TickLineageRef(
+            child_multiverse_id=child.id,
+            source_multiverse_id=root.id,
+            source_tick_snapshot_id=root_tick.id,
+            inherited_tick_index=2,
+            inherited_ui_label=stale_metadata_tick.ui_label,
+        )
+    )
+    db.flush()
+
+    with pytest.raises(TickBundleHydrationError, match="inherited_from source_tick_snapshot_id mismatch"):
+        hydrate_tick_bundle(db, stale_metadata_tick, "final_bundle")
+
     cycle_tick = models.TickSnapshot(
         big_bang_id=root.big_bang_id,
         multiverse_id=child.id,
@@ -205,6 +391,7 @@ def test_corrupt_inherited_tick_refs_fail_clearly(db: Session):
     db.flush()
     cycle_tick.final_bundle = {
         TICK_BUNDLE_REF_KEY: {
+            "kind": TICK_BUNDLE_REF_KIND,
             "version": 1,
             "bundle_field": "final_bundle",
             "source_tick_snapshot_id": str(cycle_tick.id),
