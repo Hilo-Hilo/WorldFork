@@ -56,19 +56,28 @@ WorldFork has two supported setup paths. The recommended path is agent-guided: p
 Paste this prompt into your agent:
 
 ```text
-Run this command to install the WorldFork setup skill, then use the installed skill to set up WorldFork on this computer:
+Install and run the WorldFork setup skill:
 
 npx skills add Hilo-Hilo/WorldFork/skills/worldfork-setup --all
+```
+
+`worldfork-setup` is a temporary bootstrap skill — once onboarding is done, remove it and install the persistent operator skill:
+
+```bash
+npx skills remove worldfork-setup -y
+npx skills add Hilo-Hilo/WorldFork/skills/worldfork --all
 ```
 
 ### Complete Manual Setup
 
 Prerequisites:
 
-- Docker Desktop or another Docker Compose runtime
+- Docker Desktop or another Docker Compose runtime (Compose v2)
 - Python 3.11 or newer
+- One of `uv`, `pipx`, or a Python venv (modern Debian/Ubuntu blocks plain `pip install` via PEP 668)
 - Node.js 20 or newer for `npx skills`
 - An OpenRouter API key
+- `make` is optional. The Make targets below all wrap `docker compose ...`; if `make` is unavailable, run the equivalent `docker compose` commands directly (shown as fallbacks).
 
 Configure the environment:
 
@@ -82,20 +91,37 @@ Set `OPENROUTER_API_KEY` in `.env`. Keep the default cheap onboarding model:
 google/gemini-3.1-flash-lite-preview
 ```
 
-Install the CLI:
+The `NEXT_PUBLIC_*` and `OPENROUTER_HTTP_REFERER` entries in `.env.example` are scaffolding for a future frontend and can be left at their defaults.
+
+Install the CLI. Recommended (works on PEP 668 systems out of the box):
 
 ```bash
-python3.11 -m pip install -e ./cli
+uv tool install ./cli                      # or: pipx install ./cli
 worldfork --help
+```
+
+Plain `pip` still works inside a virtualenv:
+
+```bash
+python3 -m venv .venv && . .venv/bin/activate
+pip install -e ./cli
 ```
 
 Start the backend:
 
 ```bash
-make build
-make up
-make migrate
-make seed
+make build && make up && make migrate && make seed
+```
+
+Without `make`, the equivalents are:
+
+```bash
+docker compose build
+docker compose up -d
+# alembic head + bootstrap legacy tables (what `make migrate` runs):
+docker compose exec -T -w /app/backend api alembic -c alembic.ini upgrade head
+docker compose exec -T api python -c "import backend.app.models; from app.db.session import engine; from backend.app.models.base import Base as LegacyBase; names={'big_bang_runs','run_results','settings_branch_policy','settings_global','settings_model_routing','settings_provider','settings_rate_limit','settings_zep'}; LegacyBase.metadata.create_all(bind=engine, tables=[LegacyBase.metadata.tables[n] for n in names if n in LegacyBase.metadata.tables])"
+docker compose exec -T api python -m backend.app.scripts.seed
 ```
 
 Verify readiness:
@@ -105,7 +131,15 @@ worldfork status
 worldfork query GET /readyz --no-api-prefix
 ```
 
-A healthy local stack returns readiness checks for the database, Redis, OpenRouter, and optional Zep integration.
+A healthy stack returns:
+
+```json
+{ "ok": true, "checks": { "database": true, "redis": true, "openrouter": true, "zep": true } }
+```
+
+If `openrouter` reports `false`, your key is missing or invalid. If `database` or `redis` flip false, check `docker compose ps` — every service except `api`/`worker_*`/`beat` should be `healthy`.
+
+Use `worldfork --base-url http://host:port ...` when targeting a non-default deployment.
 
 Create and initialize a first Big Bang:
 
@@ -130,6 +164,23 @@ Run the full onboarding demo when you want the larger branch-and-report showcase
 
 ```bash
 worldfork demo atlas
+```
+
+> **Cost note.** `worldfork demo atlas` defaults to a 30-day horizon at 12-hour ticks (~60 ticks per timeline), up to 64 active multiverses, and branch depth 8. Even on `gemini-3.1-flash-lite-preview` that is many thousands of LLM calls. For a tight first run, scope it down:
+>
+> ```bash
+> worldfork demo atlas \
+>   --horizon-days 4 \
+>   --max-active-multiverses 6 \
+>   --max-branch-depth 2 \
+>   --max-branches-per-tick 2
+> ```
+
+Tear down when you are done:
+
+```bash
+make down              # or: docker compose down
+make clean-data        # also removes volumes and ./runs/*
 ```
 
 ## Core Commands
@@ -194,6 +245,8 @@ Reports are database records first. Markdown and PDF files are render artifacts 
 | [Agent Interface](docs/agent.md) | Rules and examples for AI agents operating WorldFork |
 | [Testing](docs/testing.md) | Maintained validation commands and live smoke scope |
 | [Backend Notes](backend/README.md) | Backend package and API details |
+| [Contributing](CONTRIBUTING.md) | Branch policy, PR workflow, review expectations |
+| [Agents Guide](AGENTS.md) | Conventions for AI agents committing to this repo |
 
 ## Project Layout
 
