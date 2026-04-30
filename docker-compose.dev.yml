@@ -1,0 +1,99 @@
+# Dev-only Compose overlay.
+#
+# This file intentionally lives on the dev branch only. Main has a GitHub
+# Actions guard that rejects this file and other dev-only container artifacts.
+#
+# Usage:
+#   docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+#
+# Optional dev tools shell:
+#   docker compose -f docker-compose.yml -f docker-compose.dev.yml --profile tools run --rm devtools
+
+x-dev-env: &dev_env
+  WORLD_FORK_ENV: development
+  LOG_LEVEL: DEBUG
+  PYTHONASYNCIODEBUG: "1"
+
+services:
+  api:
+    environment:
+      <<: *dev_env
+    volumes:
+      - ./cli:/workspace/cli
+      - ./docs:/workspace/docs
+      - ./examples:/workspace/examples
+      - ./scripts:/workspace/scripts
+    command: >
+      uvicorn backend.app.main:app
+      --host 0.0.0.0
+      --port 8000
+      --reload
+      --reload-dir /app/backend
+      --reload-dir /app/source_of_truth
+      --reload-dir /app/infra
+
+  worker_p0: &dev_worker
+    environment:
+      <<: *dev_env
+    command: celery -A backend.app.workers.celery_app worker -Q p0 -c 4 -n p0@%h --loglevel=DEBUG
+
+  worker_p1:
+    <<: *dev_worker
+    command: celery -A backend.app.workers.celery_app worker -Q p1 -c 8 -n p1@%h --loglevel=DEBUG
+
+  worker_p2:
+    <<: *dev_worker
+    command: celery -A backend.app.workers.celery_app worker -Q p2 -c 4 -n p2@%h --loglevel=DEBUG
+
+  worker_p3:
+    <<: *dev_worker
+    command: celery -A backend.app.workers.celery_app worker -Q p3 -c 2 -n p3@%h --loglevel=DEBUG
+
+  beat:
+    environment:
+      <<: *dev_env
+    command: celery -A backend.app.workers.celery_app beat --loglevel=DEBUG
+
+  devtools:
+    profiles:
+      - tools
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM python:3.11-slim
+        ENV VIRTUAL_ENV=/opt/venv \
+            PATH="/opt/venv/bin:$PATH" \
+            PYTHONDONTWRITEBYTECODE=1 \
+            PYTHONUNBUFFERED=1 \
+            UV_LINK_MODE=copy
+        RUN apt-get update && apt-get install -y --no-install-recommends \
+            gcc \
+            libpq-dev \
+            && rm -rf /var/lib/apt/lists/*
+        RUN python -m venv "$$VIRTUAL_ENV" \
+            && pip install --no-cache-dir uv
+        WORKDIR /workspace
+    env_file: .env
+    environment:
+      <<: *dev_env
+      PYTHONPATH: /workspace/backend
+      DATABASE_URL: postgresql+asyncpg://worldfork:worldfork@postgres:5432/worldfork
+      DATABASE_URL_SYNC: postgresql+psycopg://worldfork:worldfork@postgres:5432/worldfork
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/1
+      CELERY_RESULT_BACKEND: redis://redis:6379/2
+      RUN_ROOT: /workspace/runs
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - .:/workspace
+      - devtools_venv:/opt/venv
+      - devtools_uv_cache:/root/.cache/uv
+    command: sh -lc 'uv pip install ".[dev]" && exec bash'
+
+volumes:
+  devtools_venv:
+  devtools_uv_cache:
