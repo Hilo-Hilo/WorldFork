@@ -2,37 +2,43 @@
 
 WorldFork is a CLI-first backend project. Most development work should be validated through the `worldfork` command, the FastAPI backend, workers, and the maintained test sweep. Do not assume a web frontend exists.
 
-## Branch Flow
+## Branch Model
 
-Always do your work on your own branch. A topic branch keeps the shared branches reviewable and gives the `dev` branch a clean integration point.
+WorldFork uses two long-lived branches:
 
-Use this flow for every change:
+| Branch | Role                                     | Rules                                                                           |
+| ------ | ---------------------------------------- | ------------------------------------------------------------------------------- |
+| `main` | Production and stable user-facing branch | Protected, PR-only, required checks, no dev-only artifacts                      |
+| `dev`  | Flexible integration branch              | Fast iteration branch for agents and maintainers, checks enabled, no publishing |
 
-1. Start from the current integration branch.
+Use short-lived topic branches for normal work:
 
-   ```bash
-   git fetch origin
-   git switch dev
-   git pull --ff-only origin dev
-   git switch -c <your-branch-name>
-   ```
+```bash
+git fetch origin
+git switch dev
+git pull --ff-only origin dev
+git switch -c <your-branch-name>
+```
 
-2. Make and commit focused changes on your branch.
+Prefer this promotion path:
 
-3. Run the appropriate local checks before integration.
+```text
+topic branch -> dev -> main
+```
 
-   ```bash
-   ./scripts/run_tests.sh all
-   make lint
-   ```
+`dev` is intentionally flexible right now. Maintainers and agents may push directly to `dev` for fast integration, but topic branches are still preferred when a change needs review, has risk, or spans multiple files. `main` is different: do not push directly to `main`. Promote production-ready work through a pull request with passing checks.
 
-4. When the branch is ready for `main`, merge it into `dev` first. The `dev` branch is the integration gate for WorldFork. It has workflow checks set up to catch breakage before anything reaches `main`.
+Do not assume every commit on `dev` belongs on `main`. `dev` can contain integration-only files such as local container overlays. When promoting to `main`, merge or cherry-pick only the production-safe changes and leave dev-only files behind.
 
-5. Let the `dev` workflows finish. If they fail, fix the issue on your branch or on a follow-up branch and merge that fix into `dev`.
+## Required Gates
 
-6. After `dev` is green and the runtime smoke/functionality checks pass on `dev`, merge the validated work into `main`.
+Before a change reaches `main`, these checks must be green:
 
-Do not bypass `dev` for normal feature, bugfix, documentation, or agent-surface changes.
+- CI backend and CLI test/build workflow
+- WorldFork skill validation workflow
+- main-branch guard that rejects dev-only container artifacts
+
+The `dev` branch also runs CI and skill validation, but it does not publish packages, release artifacts, or represent the stable install surface.
 
 ## Local Setup
 
@@ -142,12 +148,13 @@ Run the live smoke only when the backend is configured and API-credit use is int
 worldfork smoke live
 ```
 
-Before merging `dev` into `main`, confirm that:
+Before promoting changes from `dev` into `main`, confirm that:
 
 - the `dev` workflow checks passed
 - the relevant local or live smoke checks passed on `dev`
 - runtime behavior was verified through `worldfork`, not through assumptions about internal APIs
 - failures in jobs, logs, or reports were inspected through the CLI
+- no dev-only files are included in the `main` promotion
 
 ## Scope And Review Expectations
 
@@ -167,3 +174,9 @@ New agent work should target the canonical runtime surface:
 - the `worldfork` CLI
 
 Compatibility routes can remain for older contracts, but new contributor and agent workflows should use the canonical surface.
+
+## Release And Publishing
+
+`main` is the only branch that may publish installable packages, public release artifacts, or stable user-facing installation surfaces. `dev` is for validation and integration only.
+
+Do not add publishing credentials or release jobs to `dev` workflows. If a release workflow is introduced later, it should run from `main` or tags created from `main`, and it should use GitHub Actions secrets with the minimum required permissions.
