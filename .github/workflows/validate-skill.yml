@@ -6,13 +6,13 @@ on:
       - dev
       - main
     paths:
-      - "skills/worldfork/**"
+      - "skills/**"
       - ".github/workflows/validate-skill.yml"
   pull_request:
     branches:
       - main
     paths:
-      - "skills/worldfork/**"
+      - "skills/**"
       - ".github/workflows/validate-skill.yml"
   workflow_dispatch:
 
@@ -24,7 +24,7 @@ env:
 
 jobs:
   validate:
-    name: Validate worldfork skill
+    name: Validate WorldFork skills
     runs-on: ubuntu-latest
 
     steps:
@@ -40,21 +40,29 @@ jobs:
         run: |
           node <<'NODE'
           const fs = require("node:fs");
-          const skillPath = "skills/worldfork/SKILL.md";
+          const skills = [
+            { name: "worldfork", path: "skills/worldfork/SKILL.md" },
+            { name: "worldfork-setup", path: "skills/worldfork-setup/SKILL.md" },
+          ];
 
           function fail(message) {
             console.error(message);
             process.exit(1);
           }
 
-          if (!fs.existsSync(skillPath)) fail("skills/worldfork/SKILL.md is missing");
+          for (const expected of skills) {
+            if (!fs.existsSync(expected.path)) fail(`${expected.path} is missing`);
 
-          const skill = fs.readFileSync(skillPath, "utf8");
-          if (!skill.startsWith("---\nname: worldfork\n")) {
-            fail("SKILL.md must keep the skill name as worldfork");
-          }
-          if (!/^description: .+/m.test(skill)) {
-            fail("SKILL.md must include a description");
+            const skill = fs.readFileSync(expected.path, "utf8");
+            if (!skill.startsWith(`---\nname: ${expected.name}\n`)) {
+              fail(`${expected.path} must keep the skill name as ${expected.name}`);
+            }
+            if (!/^description: .+/m.test(skill)) {
+              fail(`${expected.path} must include a description`);
+            }
+            if (!/^---\nname: .+\ndescription: .+\n---\n/.test(skill)) {
+              fail(`${expected.path} must use only name and description in frontmatter`);
+            }
           }
           NODE
 
@@ -63,3 +71,6 @@ jobs:
 
       - name: Validate local discovery
         run: npx --yes skills add ./skills/worldfork --list -y
+
+      - name: Validate setup skill discovery
+        run: npx --yes skills add ./skills/worldfork-setup --list -y
