@@ -432,7 +432,7 @@ async def get_error_logs(
             ))
 
     # Sort combined by created_at desc and paginate
-    items.sort(key=lambda x: (x.created_at or __import__("datetime").datetime.min), reverse=True)
+    items.sort(key=lambda x: (x.created_at or datetime.min), reverse=True)
     return items[offset : offset + limit]
 
 

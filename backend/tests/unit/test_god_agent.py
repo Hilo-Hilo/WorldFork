@@ -8,6 +8,7 @@ from unittest.mock import AsyncMock, patch
 
 import fakeredis.aioredis
 import pytest
+import pytest_asyncio
 
 from backend.app.branching.god_agent import (
     GodReviewInput,
@@ -35,13 +36,13 @@ def sot():
     return load_sot()
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 async def redis_client():
     client = fakeredis.aioredis.FakeRedis(decode_responses=True)
     try:
         yield client
     finally:
-        await client.aclose()
+        await client.aclose(close_connection_pool=True)
 
 
 @pytest.fixture
@@ -234,6 +235,8 @@ def _mock_llm_result(parsed: dict) -> LLMResult:
 
 
 class TestGodReviewIntegration:
+    pytestmark = pytest.mark.asyncio
+
     async def test_canned_continue_returns_parsed_object_and_persists(
         self, god_input, sot, routing, limiter, ledger
     ):

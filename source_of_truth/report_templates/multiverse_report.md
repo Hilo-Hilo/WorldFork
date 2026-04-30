@@ -2,6 +2,8 @@
 
 ## Executive Summary
 
+## Source Version Binding
+
 ## Timeline
 
 ## Key Events
@@ -10,4 +12,8 @@
 
 ## Sociology Evidence
 
+## Outcome Distribution
+
 ## God Agent Decisions
+
+## Evidence Appendix

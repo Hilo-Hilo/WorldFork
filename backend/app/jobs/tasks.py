@@ -497,9 +497,9 @@ def _execute_run_big_bang_until_complete_job(db: Session, job: models.Job) -> di
         .order_by(models.Multiverse.created_at.asc())
     ).all()
     unfinished_ticks = db.scalar(
-        select(func.count(models.Tick.id)).where(
-            models.Tick.big_bang_id == big_bang.id,
-            models.Tick.status.in_(UNFINISHED_TICK_STATUSES),
+        select(func.count(models.TickSnapshot.id)).where(
+            models.TickSnapshot.big_bang_id == big_bang.id,
+            models.TickSnapshot.status.in_(UNFINISHED_TICK_STATUSES),
         )
     )
     non_terminal = [mv for mv in multiverses if mv.status not in TERMINAL_MULTIVERSE_STATUSES]
@@ -510,9 +510,9 @@ def _execute_run_big_bang_until_complete_job(db: Session, job: models.Job) -> di
         for multiverse in multiverses:
             report_version = generate_multiverse_report(db, multiverse=multiverse)
             report_version_ids.append(str(report_version.id))
+        big_bang.status = "completed"
         final_report_version = generate_final_big_bang_report(db, big_bang=big_bang)
         final_report_version_id = str(final_report_version.id)
-        big_bang.status = "completed"
         stopped_reason = "completed"
     elif stopped_reason is None:
         stopped_reason = "max_total_ticks_reached"

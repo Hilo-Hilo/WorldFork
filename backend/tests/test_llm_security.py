@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import asyncio
-from datetime import datetime
+from datetime import UTC, datetime
 from pathlib import Path
 from types import SimpleNamespace
 from uuid import uuid4
@@ -317,7 +317,7 @@ def test_audit_hides_raw_artifact_ids_without_debug_gate():
 
 
 def test_public_response_models_sanitize_raw_scenario_and_corpus_content():
-    now = datetime.utcnow()
+    now = datetime.now(UTC)
     common_times = {"created_at": now, "updated_at": now}
 
     big_bang = BigBangOut.model_validate(

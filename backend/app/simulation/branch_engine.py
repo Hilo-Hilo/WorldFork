@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 
 from app.core.labels import next_child_label, tick_label
 from app.db import models
+from app.simulation.runtime_config import branch_policy_for_multiverse
 
 
 def create_branch(
@@ -41,12 +42,7 @@ def create_branch(
     if existing_tool and (existing_tool.result or {}).get("child_multiverse_id"):
         return db.get(models.Multiverse, existing_tool.result["child_multiverse_id"])
 
-    config = db.scalar(
-        select(models.BigBangConfig)
-        .where(models.BigBangConfig.big_bang_id == parent.big_bang_id)
-        .order_by(models.BigBangConfig.version.desc())
-    )
-    branch_policy = (config.branch_policy or {}) if config else {}
+    branch_policy = branch_policy_for_multiverse(db, parent)
     max_depth = branch_policy.get("max_branch_depth", 3)
     max_active = branch_policy.get("max_active_multiverses", 12)
     max_per_tick = branch_policy.get("max_branches_per_tick", 2)

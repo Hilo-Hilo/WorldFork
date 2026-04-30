@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.core.config import get_settings
@@ -8,6 +7,7 @@ from app.db import models
 from app.llm.audit import complete_with_audit
 from app.llm.prompt_templates import GOD_AGENT_SYSTEM_PROMPT
 from app.simulation.god_tools import VALID_TOOLS
+from app.simulation.runtime_config import branch_policy_for_multiverse
 
 
 def review_provisional_tick(
@@ -88,13 +88,7 @@ def review_provisional_tick(
 
 def _branch_score_threshold(db: Session, multiverse: models.Multiverse) -> float:
     settings = get_settings()
-    config = db.scalar(
-        select(models.BigBangConfig)
-        .where(models.BigBangConfig.big_bang_id == multiverse.big_bang_id)
-        .order_by(models.BigBangConfig.version.desc())
-        .limit(1)
-    )
-    branch_policy = (config.branch_policy or {}) if config else {}
+    branch_policy = branch_policy_for_multiverse(db, multiverse)
     threshold = branch_policy.get("branch_score_threshold", settings.branch_score_threshold)
     return float(threshold if threshold is not None else settings.branch_score_threshold)
 
