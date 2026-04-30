@@ -1,10 +1,14 @@
 from __future__ import annotations
 
+import logging
+
 from fastapi import HTTPException
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from sqlalchemy.orm import Session
 
 from app.llm.provider import LLMProviderUnavailable
+
+logger = logging.getLogger(__name__)
 
 
 def require(db: Session, model, object_id):
@@ -30,9 +34,11 @@ def commit_or_500(db: Session):
 
 def raise_llm_unavailable(exc: Exception):
     if isinstance(exc, LLMProviderUnavailable):
+        logger.exception("LLM provider unavailable", exc_info=exc)
         raise HTTPException(status_code=503, detail="LLM unavailable") from exc
     message = str(exc).lower()
     if "openrouter" in message or "llm" in message or "provider" in message:
+        logger.exception("LLM call failed and is being surfaced as 503", exc_info=exc)
         raise HTTPException(status_code=503, detail="LLM unavailable") from exc
     raise exc
 
