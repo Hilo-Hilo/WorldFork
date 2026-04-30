@@ -213,3 +213,10 @@ This file is the single running reference for the study. Every command, runtime 
 - Ran a secret-pattern scan across the committed experiment artifacts; matches were documentation/source-link false positives and the log statement that an existing local secret was copied without printing it.
 - Confirmed `agent-testing/accuracy-overnight/runs/` is still saved locally at approximately 1.4 GB but is ignored by the repository-wide `runs/` rule and is not staged for the PR commit.
 - Staged 509 non-ignored experiment files: benchmark dossiers, hidden source/outcome notes, local harness, analysis summaries, Markdown reports, LaTeX source, and finalized PDF.
+
+## 2026-04-30 13:20 PDT - Branch Push And PR
+
+- Created commit `2548053` (`Add overnight WorldFork accuracy evaluation`) on `research/overnight-accuracy-2026-04-30`.
+- Pushed branch `research/overnight-accuracy-2026-04-30` to `origin` without pushing directly to `dev`.
+- Opened PR against `dev`: `https://github.com/Hilo-Hilo/WorldFork/pull/14`.
+- PR body documents scope, accuracy results, failure mechanics, retryability, validation commands, and caveats around local-only raw `runs/` artifacts.
