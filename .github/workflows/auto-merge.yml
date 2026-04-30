@@ -13,6 +13,11 @@ on:
       - edited
       - labeled
       - unlabeled
+  pull_request_review:
+    types:
+      - submitted
+      - edited
+      - dismissed
   workflow_dispatch:
 
 permissions:
@@ -32,7 +37,8 @@ jobs:
     runs-on: ubuntu-24.04
     if: >-
       ${{
-        github.event_name == 'pull_request' &&
+        (github.event_name == 'pull_request' || github.event_name == 'pull_request_review') &&
+        (github.event.pull_request.base.ref == 'dev' || contains(github.event.pull_request.labels.*.name, 'automerge-main')) &&
         !github.event.pull_request.draft &&
         github.event.pull_request.head.repo.full_name == github.repository &&
         !contains(github.event.pull_request.labels.*.name, 'hold') &&
@@ -56,8 +62,9 @@ jobs:
     runs-on: ubuntu-24.04
     if: >-
       ${{
-        github.event_name == 'pull_request' &&
+        (github.event_name == 'pull_request' || github.event_name == 'pull_request_review') &&
         (
+          (github.event.pull_request.base.ref != 'dev' && !contains(github.event.pull_request.labels.*.name, 'automerge-main')) ||
           github.event.pull_request.draft ||
           github.event.pull_request.head.repo.full_name != github.repository ||
           contains(github.event.pull_request.labels.*.name, 'hold') ||
@@ -69,12 +76,14 @@ jobs:
       - name: Explain skip
         env:
           IS_DRAFT: ${{ github.event.pull_request.draft }}
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
           HEAD_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name }}
           REPOSITORY: ${{ github.repository }}
           LABELS: ${{ join(github.event.pull_request.labels.*.name, ',') }}
         run: |
           set -euo pipefail
           echo "Auto-merge was not enabled."
+          echo "base_ref=$BASE_REF"
           echo "draft=$IS_DRAFT"
           echo "head_repository=$HEAD_REPOSITORY"
           echo "repository=$REPOSITORY"
