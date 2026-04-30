@@ -1,8 +1,6 @@
 # WorldFork CLI
 
-`worldfork` is the command-line interface for a running WorldFork backend. It
-is designed for both humans and AI agents: compact output by default, JSON when
-needed, bounded job waits, watch streams, and direct access to reports.
+`worldfork` is the command-line interface for a running WorldFork backend. It is designed for both humans and AI agents: compact output by default, JSON when needed, bounded job waits, watch streams, and direct access to reports.
 
 ## Install From The Monorepo
 

@@ -1,13 +1,10 @@
 # Contributing to WorldFork
 
-WorldFork is a CLI-first backend project. Most development work should be
-validated through the `worldfork` command, the FastAPI backend, workers, and the
-maintained test sweep. Do not assume a web frontend exists.
+WorldFork is a CLI-first backend project. Most development work should be validated through the `worldfork` command, the FastAPI backend, workers, and the maintained test sweep. Do not assume a web frontend exists.
 
 ## Branch Flow
 
-Always do your work on your own branch. A topic branch keeps the shared branches
-reviewable and gives the `dev` branch a clean integration point.
+Always do your work on your own branch. A topic branch keeps the shared branches reviewable and gives the `dev` branch a clean integration point.
 
 Use this flow for every change:
 
@@ -29,18 +26,13 @@ Use this flow for every change:
    make lint
    ```
 
-4. When the branch is ready for `main`, merge it into `dev` first. The `dev`
-   branch is the integration gate for WorldFork. It has workflow checks set up
-   to catch breakage before anything reaches `main`.
+4. When the branch is ready for `main`, merge it into `dev` first. The `dev` branch is the integration gate for WorldFork. It has workflow checks set up to catch breakage before anything reaches `main`.
 
-5. Let the `dev` workflows finish. If they fail, fix the issue on your branch
-   or on a follow-up branch and merge that fix into `dev`.
+5. Let the `dev` workflows finish. If they fail, fix the issue on your branch or on a follow-up branch and merge that fix into `dev`.
 
-6. After `dev` is green and the runtime smoke/functionality checks pass on
-   `dev`, merge the validated work into `main`.
+6. After `dev` is green and the runtime smoke/functionality checks pass on `dev`, merge the validated work into `main`.
 
-Do not bypass `dev` for normal feature, bugfix, documentation, or agent-surface
-changes.
+Do not bypass `dev` for normal feature, bugfix, documentation, or agent-surface changes.
 
 ## Local Setup
 
@@ -57,8 +49,7 @@ Configure the backend:
 cp .env.example .env
 ```
 
-Set `OPENROUTER_API_KEY` in `.env` when you need live LLM-backed workflows.
-Live API-credit runs must use:
+Set `OPENROUTER_API_KEY` in `.env` when you need live LLM-backed workflows. Live API-credit runs must use:
 
 ```text
 google/gemini-3.1-flash-lite-preview
@@ -82,8 +73,7 @@ worldfork query GET /readyz --no-api-prefix
 
 ## Working With WorldFork
 
-The `worldfork` command is the primary operator and agent interface. Start
-exploration with summary output and put global flags before the command:
+The `worldfork` command is the primary operator and agent interface. Start exploration with summary output and put global flags before the command:
 
 ```bash
 worldfork --verbosity summary runs list
@@ -114,8 +104,7 @@ Long-running mutations are job-first. Use bounded waits:
 worldfork jobs wait <job-id> --timeout 300
 ```
 
-Reports are structured database records first. Markdown and PDF outputs are
-render artifacts for a specific report version:
+Reports are structured database records first. Markdown and PDF outputs are render artifacts for a specific report version:
 
 ```bash
 worldfork reports list <big-bang-id>
@@ -147,8 +136,7 @@ Check Docker Compose configuration when touching runtime wiring:
 docker compose config --quiet
 ```
 
-Run the live smoke only when the backend is configured and API-credit use is
-intended:
+Run the live smoke only when the backend is configured and API-credit use is intended:
 
 ```bash
 worldfork smoke live
@@ -158,15 +146,12 @@ Before merging `dev` into `main`, confirm that:
 
 - the `dev` workflow checks passed
 - the relevant local or live smoke checks passed on `dev`
-- runtime behavior was verified through `worldfork`, not through assumptions
-  about internal APIs
+- runtime behavior was verified through `worldfork`, not through assumptions about internal APIs
 - failures in jobs, logs, or reports were inspected through the CLI
 
 ## Scope And Review Expectations
 
-Keep contributions focused. Include tests with behavior changes, update
-documentation when commands or workflows change, and avoid unrelated refactors
-inside feature branches.
+Keep contributions focused. Include tests with behavior changes, update documentation when commands or workflows change, and avoid unrelated refactors inside feature branches.
 
 New agent work should target the canonical runtime surface:
 
@@ -181,5 +166,4 @@ New agent work should target the canonical runtime surface:
 - `/api/reports`
 - the `worldfork` CLI
 
-Compatibility routes can remain for older contracts, but new contributor and
-agent workflows should use the canonical surface.
+Compatibility routes can remain for older contracts, but new contributor and agent workflows should use the canonical surface.

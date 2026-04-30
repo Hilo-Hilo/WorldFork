@@ -6,15 +6,9 @@
 
 ![WorldFork](docs/images/readme.png)
 
-[![Python](https://img.shields.io/badge/python-3.11%2B-3776AB)](https://www.python.org/)
-[![FastAPI](https://img.shields.io/badge/api-FastAPI-009688)](https://fastapi.tiangolo.com/)
-[![LangGraph](https://img.shields.io/badge/runtime-LangGraph-1F2937)](https://langchain-ai.github.io/langgraph/)
-[![OpenRouter](https://img.shields.io/badge/LLM-OpenRouter-7C3AED)](https://openrouter.ai/)
-[![Docs](https://img.shields.io/badge/docs-Read%20the%20Docs-0A7B83)](https://worldfork.readthedocs.io/en/latest/)
+[![Python](https://img.shields.io/badge/python-3.11%2B-3776AB)](https://www.python.org/) [![FastAPI](https://img.shields.io/badge/api-FastAPI-009688)](https://fastapi.tiangolo.com/) [![LangGraph](https://img.shields.io/badge/runtime-LangGraph-1F2937)](https://langchain-ai.github.io/langgraph/) [![OpenRouter](https://img.shields.io/badge/LLM-OpenRouter-7C3AED)](https://openrouter.ai/) [![Docs](https://img.shields.io/badge/docs-Read%20the%20Docs-0A7B83)](https://worldfork.readthedocs.io/en/latest/)
 
-WorldFork turns one scenario into many inspectable timelines. Each run keeps
-the ticks, branches, agent reviews, manual interventions, logs, and final
-reports tied back to durable state.
+WorldFork turns one scenario into many inspectable timelines. Each run keeps the ticks, branches, agent reviews, manual interventions, logs, and final reports tied back to durable state.
 
 </div>
 
@@ -22,13 +16,9 @@ reports tied back to durable state.
 
 ## Why WorldFork
 
-Most simulations answer "what happens next?" once. WorldFork keeps asking that
-question across forks.
+Most simulations answer "what happens next?" once. WorldFork keeps asking that question across forks.
 
-Start with a **Big Bang** scenario, run it through checkpointed ticks, let the
-God agent and operators create meaningful branches, then compare the terminal
-multiverses through structured reports. The result is a backend-first control
-plane for exploring how social systems diverge under pressure.
+Start with a **Big Bang** scenario, run it through checkpointed ticks, let the God agent and operators create meaningful branches, then compare the terminal multiverses through structured reports. The result is a backend-first control plane for exploring how social systems diverge under pressure.
 
 | You need to | WorldFork gives you |
 | --- | --- |
@@ -48,15 +38,11 @@ WorldFork is a monorepo with three installable surfaces:
 | CLI package | `cli/` | `worldfork` command for operators and agents |
 | Agent skill | `skills/worldfork/` | Generic skill that teaches agents how to use WorldFork |
 
-The runtime stack is Docker Compose, FastAPI, Celery, Postgres, Redis,
-LangGraph, and OpenRouter. There is no web frontend in this repository yet.
+The runtime stack is Docker Compose, FastAPI, Celery, Postgres, Redis, LangGraph, and OpenRouter. There is no web frontend in this repository yet.
 
 ## Setup
 
-WorldFork has two supported setup paths. The recommended path is agent-guided:
-paste one prompt into your agent and let it install the skills, guide setup,
-verify the stack, and run onboarding. Use the complete manual path when you
-want to run every command yourself.
+WorldFork has two supported setup paths. The recommended path is agent-guided: paste one prompt into your agent and let it install the skills, guide setup, verify the stack, and run onboarding. Use the complete manual path when you want to run every command yourself.
 
 ### Agent-Guided Setup (Recommended)
 
@@ -118,8 +104,7 @@ worldfork status
 worldfork query GET /readyz --no-api-prefix
 ```
 
-A healthy local stack returns readiness checks for the database, Redis,
-OpenRouter, and optional Zep integration.
+A healthy local stack returns readiness checks for the database, Redis, OpenRouter, and optional Zep integration.
 
 Create and initialize a first Big Bang:
 
@@ -140,8 +125,7 @@ worldfork reports view <report-version-id>
 worldfork reports render <report-version-id> --format pdf
 ```
 
-Run the full onboarding demo when you want the larger branch-and-report
-showcase:
+Run the full onboarding demo when you want the larger branch-and-report showcase:
 
 ```bash
 worldfork demo atlas
@@ -195,9 +179,7 @@ Tick runtime graph
 Reports, artifacts, logs, and lineage
 ```
 
-Reports are database records first. Markdown and PDF files are render artifacts
-compiled from structured `report_versions.content`, so they can be regenerated
-without changing the canonical report version.
+Reports are database records first. Markdown and PDF files are render artifacts compiled from structured `report_versions.content`, so they can be regenerated without changing the canonical report version.
 
 ## Documentation
 
@@ -228,6 +210,4 @@ prd.md                 product requirements source
 
 ## Status
 
-WorldFork is backend-first and CLI-first. The current system is Dockerized,
-tested across unit/integration/e2e layers, and live-smoke validated against
-OpenRouter using `google/gemini-3.1-flash-lite-preview`.
+WorldFork is backend-first and CLI-first. The current system is Dockerized, tested across unit/integration/e2e layers, and live-smoke validated against OpenRouter using `google/gemini-3.1-flash-lite-preview`.

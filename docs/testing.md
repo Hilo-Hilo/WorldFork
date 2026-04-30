@@ -37,8 +37,7 @@ docker compose config --quiet
 worldfork smoke live
 ```
 
-This command uses real OpenRouter credits. It should use only
-`google/gemini-3.1-flash-lite-preview` for audited LLM calls.
+This command uses real OpenRouter credits. It should use only `google/gemini-3.1-flash-lite-preview` for audited LLM calls.
 
 ## Redis Cleanup
 

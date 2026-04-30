@@ -1,8 +1,6 @@
 # WorldFork Test Coverage
 
-The active suite tracks the current backend + workers + CLI product shape. The
-old pre-revamp initializer/tick-runner e2e files were removed, so collected
-tests now reflect maintained behavior.
+The active suite tracks the current backend + workers + CLI product shape. The old pre-revamp initializer/tick-runner e2e files were removed, so collected tests now reflect maintained behavior.
 
 Run the full maintained sweep:
 
@@ -37,42 +35,42 @@ Run the full maintained sweep:
 
 ## Unit Tests
 
-| File | Coverage |
-| --- | --- |
-| `test_active_selection.py` | actor activity scoring |
-| `test_attention.py` | attention math |
-| `test_belief.py` | belief drift and bounded-confidence kernel |
-| `test_branch_policy.py` | branch budget and cooldown policy |
-| `test_celery_setup.py` | Celery serializer, broker, queues |
-| `test_divergence.py` | divergence scoring |
-| `test_export.py` | run-folder zip and import verification |
-| `test_expression.py` | expression and spiral-of-silence gates |
-| `test_god_agent.py` | God-agent payload invariants |
-| `test_graphs.py` | graph persistence and multiplex layers |
-| `test_ledger.py` | ledger writes and Merkle chain |
-| `test_memory_local.py` | local memory provider |
-| `test_memory_zep.py` | Zep degraded-mode behavior |
-| `test_metrics.py` | metrics endpoint |
-| `test_models.py` | SQLAlchemy model constraints |
-| `test_openrouter_provider.py` | OpenRouter parsing and JSON repair |
-| `test_prompt_builder.py` | prompt packet assembly |
-| `test_provider_policy.py` | provider routing and fallback policy |
-| `test_rate_limits.py` | provider rate limiting |
-| `test_runtime_imports.py` | runtime import surface |
-| `test_runtime_models.py` | runtime ORM models |
-| `test_schemas.py` | Pydantic schema invariants |
-| `test_simulation_metrics.py` | simulation metric helpers |
-| `test_smoke_celery.py` | eager Celery smoke |
-| `test_sot_loader.py` | source-of-truth loader |
-| `test_split_merge.py` | split/merge conservation |
-| `test_thresholds.py` | mobilization thresholds |
-| `test_tick_runtime_graph.py` | dynamic runtime graph nodes |
-| `test_tool_parser.py` | structured tool-output parsing |
-| `test_trust.py` | trust graph helpers |
-| `test_validators.py` | simulation validators |
-| `test_webhooks.py` | webhook signing and retry |
-| `test_openrouter_live.py` | opt-in live OpenRouter check |
-| `test_memory_zep_live.py` | opt-in live Zep check |
+| File                          | Coverage                                   |
+| ----------------------------- | ------------------------------------------ |
+| `test_active_selection.py`    | actor activity scoring                     |
+| `test_attention.py`           | attention math                             |
+| `test_belief.py`              | belief drift and bounded-confidence kernel |
+| `test_branch_policy.py`       | branch budget and cooldown policy          |
+| `test_celery_setup.py`        | Celery serializer, broker, queues          |
+| `test_divergence.py`          | divergence scoring                         |
+| `test_export.py`              | run-folder zip and import verification     |
+| `test_expression.py`          | expression and spiral-of-silence gates     |
+| `test_god_agent.py`           | God-agent payload invariants               |
+| `test_graphs.py`              | graph persistence and multiplex layers     |
+| `test_ledger.py`              | ledger writes and Merkle chain             |
+| `test_memory_local.py`        | local memory provider                      |
+| `test_memory_zep.py`          | Zep degraded-mode behavior                 |
+| `test_metrics.py`             | metrics endpoint                           |
+| `test_models.py`              | SQLAlchemy model constraints               |
+| `test_openrouter_provider.py` | OpenRouter parsing and JSON repair         |
+| `test_prompt_builder.py`      | prompt packet assembly                     |
+| `test_provider_policy.py`     | provider routing and fallback policy       |
+| `test_rate_limits.py`         | provider rate limiting                     |
+| `test_runtime_imports.py`     | runtime import surface                     |
+| `test_runtime_models.py`      | runtime ORM models                         |
+| `test_schemas.py`             | Pydantic schema invariants                 |
+| `test_simulation_metrics.py`  | simulation metric helpers                  |
+| `test_smoke_celery.py`        | eager Celery smoke                         |
+| `test_sot_loader.py`          | source-of-truth loader                     |
+| `test_split_merge.py`         | split/merge conservation                   |
+| `test_thresholds.py`          | mobilization thresholds                    |
+| `test_tick_runtime_graph.py`  | dynamic runtime graph nodes                |
+| `test_tool_parser.py`         | structured tool-output parsing             |
+| `test_trust.py`               | trust graph helpers                        |
+| `test_validators.py`          | simulation validators                      |
+| `test_webhooks.py`            | webhook signing and retry                  |
+| `test_openrouter_live.py`     | opt-in live OpenRouter check               |
+| `test_memory_zep_live.py`     | opt-in live Zep check                      |
 
 ## Integration Tests
 
@@ -93,14 +91,14 @@ Run the full maintained sweep:
 
 ## E2E Tests
 
-| File | Coverage |
-| --- | --- |
-| `test_idempotency_e2e.py` | idempotency key dedupe |
-| `test_multiverse_queue_lifecycle.py` | queued multiverse tick lifecycle |
-| `test_provider_fallback_e2e.py` | provider fallback on failures |
-| `test_provider_rate_limit_fallback.py` | rate-limit fallback behavior |
-| `test_queue_dead_letter.py` | dead-letter queue routing |
-| `test_zep_outage_fallback.py` | Zep outage degradation |
+| File                                   | Coverage                         |
+| -------------------------------------- | -------------------------------- |
+| `test_idempotency_e2e.py`              | idempotency key dedupe           |
+| `test_multiverse_queue_lifecycle.py`   | queued multiverse tick lifecycle |
+| `test_provider_fallback_e2e.py`        | provider fallback on failures    |
+| `test_provider_rate_limit_fallback.py` | rate-limit fallback behavior     |
+| `test_queue_dead_letter.py`            | dead-letter queue routing        |
+| `test_zep_outage_fallback.py`          | Zep outage degradation           |
 
 ## Live Full Runtime Smoke
 
@@ -108,27 +106,23 @@ Run the full maintained sweep:
 worldfork smoke live
 ```
 
-This intentionally uses real OpenRouter credits and asserts that every audited
-LLM call uses:
+This intentionally uses real OpenRouter credits and asserts that every audited LLM call uses:
 
 ```text
 google/gemini-3.1-flash-lite-preview
 ```
 
-It covers settings mutation/restoration, live ticks, runtime checkpoints,
-manual intervention, job control, structured reports, on-demand PDFs, log
-endpoints, and final readiness.
+It covers settings mutation/restoration, live ticks, runtime checkpoints, manual intervention, job control, structured reports, on-demand PDFs, log endpoints, and final readiness.
 
 ## Markers
 
-| Marker | Meaning |
-| --- | --- |
-| `e2e` | end-to-end suite |
-| `slow` | slower tests, usually filterable locally |
+| Marker            | Meaning                                        |
+| ----------------- | ---------------------------------------------- |
+| `e2e`             | end-to-end suite                               |
+| `slow`            | slower tests, usually filterable locally       |
 | `requires_broker` | needs a real broker and skips when unavailable |
-| `requires_redis` | needs Redis |
-| `live_openrouter` | hits OpenRouter |
-| `live_zep` | hits Zep Cloud |
+| `requires_redis`  | needs Redis                                    |
+| `live_openrouter` | hits OpenRouter                                |
+| `live_zep`        | hits Zep Cloud                                 |
 
-Live markers are opt-in. The default `run_tests.sh all` sweep excludes live
-upstream calls.
+Live markers are opt-in. The default `run_tests.sh all` sweep excludes live upstream calls.
