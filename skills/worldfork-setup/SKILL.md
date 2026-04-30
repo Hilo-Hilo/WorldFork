@@ -35,8 +35,9 @@ cp .env.example .env
 ```
 
 Ask the user for their OpenRouter API key if it is not already configured, then
-set `OPENROUTER_API_KEY` in `.env`. Keep the default model on Gemini 3.1 Flash
-Lite unless the user asks otherwise.
+set `OPENROUTER_API_KEY` in `.env`. Tell the user to keep the default model,
+`google/gemini-3.1-flash-lite-preview`, for cheap onboarding and validation
+runs unless they explicitly want to change providers.
 
 Start and prepare the stack:
 
@@ -47,6 +48,14 @@ make migrate
 make seed
 ```
 
+If this is a reused local checkout and stale queue/cache state might affect the
+first run, ask before clearing local Redis. Only run this against disposable
+local Docker Compose Redis:
+
+```bash
+docker compose exec -T redis redis-cli FLUSHALL
+```
+
 Verify readiness:
 
 ```bash
@@ -55,7 +64,8 @@ worldfork query GET /readyz --no-api-prefix
 worldfork agent discover
 ```
 
-If setup succeeds, install the regular operator skill:
+If setup succeeds, install the regular operator skill. Read that skill if you
+need the ongoing operator workflow:
 
 ```bash
 npx skills add Hilo-Hilo/WorldFork/skills/worldfork --all
@@ -63,13 +73,13 @@ npx skills add Hilo-Hilo/WorldFork/skills/worldfork --all
 
 ## Onboard The User
 
-After the stack is healthy, give the user a short onboarding explanation of the
-core ideas:
+After the stack is healthy, run discovery to see what commands are available
+and what they do. Then give the user a short onboarding explanation of the core
+ideas:
 
 - Big Bang: the initial scenario seed and workspace that defines the world.
 - Run: a tracked execution of work against a Big Bang or multiverse.
-- Multiverse: one timeline branch with its own state, ticks, events, and
-  reports.
+- Multiverse: one timeline branch with its own state, ticks, events, and reports.
 - Branching: creating alternate timelines from a decision point, agent review,
   or human intervention.
 - Human intervention: an operator action that pauses, changes, branches, or
