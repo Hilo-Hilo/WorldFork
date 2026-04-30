@@ -4,6 +4,7 @@
 # Usage:
 #   ./scripts/run_tests.sh             # full sweep (unit + integration + e2e)
 #   ./scripts/run_tests.sh unit        # root regression + unit tests
+#   ./scripts/run_tests.sh cli         # CLI package tests
 #   ./scripts/run_tests.sh integration # just integration
 #   ./scripts/run_tests.sh e2e         # just e2e
 #
@@ -19,6 +20,11 @@ LAYER="${1:-all}"
 run_unit() {
   echo "==> unit + root regression"
   $PYTEST -c pyproject.toml backend/tests/*.py backend/tests/unit -n auto -q
+}
+
+run_cli() {
+  echo "==> CLI package"
+  (cd cli && uv run --extra dev python -m pytest -q)
 }
 
 run_integration() {
@@ -38,11 +44,12 @@ run_e2e() {
 
 case "$LAYER" in
   unit)        run_unit ;;
+  cli)         run_cli ;;
   integration) run_integration ;;
   e2e)         run_e2e ;;
-  all)         run_unit && run_integration && run_e2e ;;
+  all)         run_unit && run_cli && run_integration && run_e2e ;;
   *)
-    echo "Unknown layer: $LAYER (expected: unit | integration | e2e | all)" >&2
+    echo "Unknown layer: $LAYER (expected: unit | cli | integration | e2e | all)" >&2
     exit 2
     ;;
 esac

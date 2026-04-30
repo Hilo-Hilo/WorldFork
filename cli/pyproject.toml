@@ -1,0 +1,41 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "worldfork-cli"
+version = "0.1.0"
+description = "Command-line client for the WorldFork backend API"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "click>=8.1",
+    "httpx>=0.27",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3",
+    "ruff>=0.6",
+]
+
+[project.scripts]
+worldfork = "worldfork_cli.main:cli"
+
+[project.urls]
+Homepage = "https://worldfork.readthedocs.io/en/latest/"
+Repository = "https://github.com/Hilo-Hilo/WorldFork"
+Issues = "https://github.com/Hilo-Hilo/WorldFork/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/worldfork_cli"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

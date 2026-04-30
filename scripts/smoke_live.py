@@ -1,6 +1,6 @@
 """Live smoke test against real OpenRouter.
 
-Run: .venv/bin/python -m scripts.smoke_live
+Prefer the maintained CLI smoke: worldfork smoke live
 Requires OPENROUTER_API_KEY in .env. Zep is intentionally disabled by default.
 """
 import asyncio

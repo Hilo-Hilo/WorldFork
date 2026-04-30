@@ -1,7 +1,7 @@
 """Live end-to-end test of initialize_big_bang against real OpenRouter.
 
-Run:
-    .venv/bin/python -m scripts.live_initializer
+Prefer the CLI initialization path:
+    worldfork init --name "Live initializer" --scenario "<scenario text>"
 
 Requires:
     - OPENROUTER_API_KEY in .env
