@@ -40,6 +40,26 @@ Before a change reaches `main`, these checks must be green:
 
 The `dev` branch also runs CI and skill validation, but it does not publish packages, release artifacts, or represent the stable install surface.
 
+## Dev Compose Overlay
+
+The default Docker path on `main` must stay production/runtime-oriented. It should build the slim runtime images from `docker-compose.yml` and must not install Python dev extras such as `.[dev]`, `pytest`, `ruff`, or `mypy` into the normal API or worker images.
+
+Development-only Docker behavior belongs on `dev` in `docker-compose.dev.yml`. Use it explicitly:
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+```
+
+Use the optional devtools shell only when you need an isolated container with development dependencies:
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.dev.yml --profile tools run --rm devtools
+```
+
+Do not copy `docker-compose.dev.yml`, `.devcontainer`, `docker-compose.local.yml`, or dev Dockerfiles into `main`. The main-branch guard rejects those paths, rejects runtime Dockerfiles that install `.[dev]`, and rejects `docker-compose.yml` entries that target dev images.
+
+When promoting work from `dev` to `main`, avoid a blind full-branch merge if `dev` contains integration-only files. Use a pull request, cherry-pick, or a selective merge that includes production-safe commits and leaves dev-only container artifacts on `dev`.
+
 ## Local Setup
 
 Install the local CLI before using the runtime:
