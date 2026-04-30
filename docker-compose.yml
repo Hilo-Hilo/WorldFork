@@ -32,6 +32,7 @@ services:
     build:
       context: .
       dockerfile: infra/docker/api.Dockerfile
+      target: runtime
     env_file: .env
     environment:
       PYTHONPATH: /app/backend
@@ -59,6 +60,7 @@ services:
     build:
       context: .
       dockerfile: infra/docker/worker.Dockerfile
+      target: runtime
     env_file: .env
     environment:
       PYTHONPATH: /app/backend
@@ -84,6 +86,7 @@ services:
     build:
       context: .
       dockerfile: infra/docker/worker.Dockerfile
+      target: runtime
     env_file: .env
     environment:
       PYTHONPATH: /app/backend
@@ -109,6 +112,7 @@ services:
     build:
       context: .
       dockerfile: infra/docker/worker.Dockerfile
+      target: runtime
     env_file: .env
     environment:
       PYTHONPATH: /app/backend
@@ -134,6 +138,7 @@ services:
     build:
       context: .
       dockerfile: infra/docker/worker.Dockerfile
+      target: runtime
     env_file: .env
     environment:
       PYTHONPATH: /app/backend
@@ -159,6 +164,7 @@ services:
     build:
       context: .
       dockerfile: infra/docker/worker.Dockerfile
+      target: runtime
     env_file: .env
     environment:
       PYTHONPATH: /app/backend

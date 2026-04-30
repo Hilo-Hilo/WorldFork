@@ -26,7 +26,7 @@ seed:
 	docker compose exec api python -m backend.app.scripts.seed
 
 test:
-	docker compose exec api pytest -n auto
+	./scripts/run_tests.sh all
 
 # ---------------------------------------------------------------------------
 # Local pytest entry points (no docker required) - match scripts/run_tests.sh.
