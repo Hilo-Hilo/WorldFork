@@ -197,6 +197,29 @@ def test_nested_provisional_branch_falls_back_and_final_sync_recurses(db: Sessio
     assert hydrate_tick_snapshot_for_read(db, grandchild_tick).final_bundle["branch_score"] == 0.99
 
 
+def test_recursive_sync_materializes_synthesized_parent_tick_before_descendant_lineage(db: Session):
+    _big_bang, root, root_tick = _seed_root_tick(db)
+    child = _add_child_multiverse(db, root, ui_label="M1.recovery")
+    grandchild = _add_child_multiverse(db, child, ui_label="M1.recovery.nested")
+
+    tick_runner._sync_forked_children_after_tick(db, parent=root, tick=root_tick)
+    db.flush()
+
+    child_tick = _tick(db, child, 0)
+    grandchild_tick = _tick(db, grandchild, 0)
+    descendant_ref = db.scalar(
+        select(models.TickLineageRef).where(
+            models.TickLineageRef.child_multiverse_id == grandchild.id,
+            models.TickLineageRef.inherited_tick_index == 0,
+        )
+    )
+
+    assert child_tick is not None
+    assert grandchild_tick is not None
+    assert descendant_ref.source_tick_snapshot_id == child_tick.id
+    assert grandchild_tick.final_bundle[TICK_BUNDLE_REF_KEY]["source_tick_snapshot_id"] == str(child_tick.id)
+
+
 def test_agent_trace_transcript_and_report_content_read_hydrated_inherited_ticks(db: Session):
     _big_bang, root, _root_tick = _seed_root_tick(db)
     child = create_branch(

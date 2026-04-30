@@ -1060,6 +1060,9 @@ def _sync_forked_children_after_tick(
         )
         child_tick.summary = tick.summary
         child_tick.artifact_id = None
+        # Descendant lineage refs point at this synthesized tick, so it must
+        # have a materialized id before recursion.
+        db.flush()
         _sync_forked_children_after_tick(db, parent=child, tick=child_tick)
 
 
