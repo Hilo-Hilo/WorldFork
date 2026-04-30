@@ -8,6 +8,13 @@
 
 [![Python](https://img.shields.io/badge/python-3.11%2B-3776AB)](https://www.python.org/) [![FastAPI](https://img.shields.io/badge/api-FastAPI-009688)](https://fastapi.tiangolo.com/) [![LangGraph](https://img.shields.io/badge/runtime-LangGraph-1F2937)](https://langchain-ai.github.io/langgraph/) [![OpenRouter](https://img.shields.io/badge/LLM-OpenRouter-7C3AED)](https://openrouter.ai/) [![Docs](https://img.shields.io/badge/docs-Read%20the%20Docs-0A7B83)](https://worldfork.readthedocs.io/en/latest/)
 
+<p>
+  <strong>Documentation:</strong>
+  <a href="https://worldfork.readthedocs.io/en/latest/">Read the Docs</a>
+  ·
+  <a href="https://deepwiki.com/Hilo-Hilo/WorldFork">Deep Wiki</a>
+</p>
+
 WorldFork turns one scenario into many inspectable timelines. Each run keeps the ticks, branches, agent reviews, manual interventions, logs, and final reports tied back to durable state.
 
 </div>

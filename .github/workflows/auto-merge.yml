@@ -1,0 +1,81 @@
+name: Auto Merge
+
+on:
+  pull_request:
+    branches:
+      - dev
+      - main
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - ready_for_review
+      - edited
+      - labeled
+      - unlabeled
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+concurrency:
+  group: auto-merge-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  enable-auto-merge:
+    name: Enable auto-merge
+    runs-on: ubuntu-24.04
+    if: >-
+      ${{
+        github.event_name == 'pull_request' &&
+        !github.event.pull_request.draft &&
+        github.event.pull_request.head.repo.full_name == github.repository &&
+        !contains(github.event.pull_request.labels.*.name, 'hold') &&
+        !contains(github.event.pull_request.labels.*.name, 'do-not-merge')
+      }}
+
+    steps:
+      - name: Enable squash auto-merge
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+        run: |
+          set -euo pipefail
+          echo "Enabling squash auto-merge for $PR_URL into $BASE_REF."
+          echo "Branch protection controls when the pull request is actually merged."
+          gh pr merge "$PR_URL" --auto --squash --delete-branch
+
+  explain-skipped-auto-merge:
+    name: Explain skipped auto-merge
+    runs-on: ubuntu-24.04
+    if: >-
+      ${{
+        github.event_name == 'pull_request' &&
+        (
+          github.event.pull_request.draft ||
+          github.event.pull_request.head.repo.full_name != github.repository ||
+          contains(github.event.pull_request.labels.*.name, 'hold') ||
+          contains(github.event.pull_request.labels.*.name, 'do-not-merge')
+        )
+      }}
+
+    steps:
+      - name: Explain skip
+        env:
+          IS_DRAFT: ${{ github.event.pull_request.draft }}
+          HEAD_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name }}
+          REPOSITORY: ${{ github.repository }}
+          LABELS: ${{ join(github.event.pull_request.labels.*.name, ',') }}
+        run: |
+          set -euo pipefail
+          echo "Auto-merge was not enabled."
+          echo "draft=$IS_DRAFT"
+          echo "head_repository=$HEAD_REPOSITORY"
+          echo "repository=$REPOSITORY"
+          echo "labels=$LABELS"
