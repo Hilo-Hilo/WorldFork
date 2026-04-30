@@ -21,7 +21,7 @@ concurrency:
 
 jobs:
   publish:
-    name: Publish @worldfork/skill
+    name: Publish worldfork-skill
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     defaults:

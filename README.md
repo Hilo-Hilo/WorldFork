@@ -98,19 +98,20 @@ worldfork --help
 
 ### Optional: install the agent skill
 
-Install the generic operator skill from npm when the package is available in
-your registry:
+Install the generic operator skill directly from the repository skill folder:
 
 ```bash
-npx skills add @worldfork/skill
-npx skills update @worldfork/skill
+npx skills add https://github.com/Hilo-Hilo/WorldFork/tree/main/skills/worldfork --all
 ```
 
-Before npm publication, install from the repository checkout:
+From a local checkout:
 
 ```bash
 npx skills add ./skills/worldfork --all
 ```
+
+To refresh an installed skill, run `npx skills update worldfork -y` or rerun
+the GitHub install command.
 
 This skill teaches agent runtimes to use the WorldFork CLI, initialization,
 watch, report, job, and Atlas onboarding flows without hardcoded backend URLs.
