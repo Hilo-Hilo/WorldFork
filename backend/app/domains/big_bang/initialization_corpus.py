@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 from app.core.config import get_settings
 from app.db import models
 from app.llm.audit import complete_with_audit
+from app.llm.routing import AuditedLLMRoute
 from app.storage.artifact_store import ArtifactStore
 
 
@@ -90,6 +91,7 @@ def build_plain_text_corpus(
             big_bang_id=big_bang.id,
             purpose=f"initializer_extract_chunk_{big_bang.id}_{chunk.index:04d}",
             model=settings.initializer_agent_model,
+            route=AuditedLLMRoute.INITIALIZER_CHUNK_EXTRACTOR,
             messages=[
                 {
                     "role": "system",

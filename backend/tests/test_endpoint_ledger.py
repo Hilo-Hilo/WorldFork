@@ -172,7 +172,7 @@ def test_llm_endpoint_evaluation_preserves_existing_entries(db: Session, monkeyp
         ),
     )
 
-    def fake_ledger_agent(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None):
+    def fake_ledger_agent(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
         call = models.LLMCall(
             big_bang_id=big_bang_id,
             provider="test",
@@ -223,7 +223,7 @@ def test_llm_endpoint_evaluation_accepts_endpoint_ledger_alias(db: Session, monk
         ),
     )
 
-    def fake_ledger_agent(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None):
+    def fake_ledger_agent(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
         call = models.LLMCall(
             big_bang_id=big_bang_id,
             provider="test",
@@ -320,7 +320,7 @@ def test_report_generation_includes_endpoint_ledger_payload(db: Session, monkeyp
         ),
     )
 
-    def fake_report_agent(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None):
+    def fake_report_agent(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
         call = models.LLMCall(
             big_bang_id=big_bang_id,
             provider="test",

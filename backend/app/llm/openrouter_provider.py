@@ -36,7 +36,11 @@ class OpenRouterProvider(LLMProvider):
             "HTTP-Referer": "https://worldfork.local",
             "X-Title": "WorldFork",
         }
-        async with httpx.AsyncClient(timeout=60) as client:
+        try:
+            timeout = float(request.metadata.get("timeout_seconds") or 60.0)
+        except (TypeError, ValueError):
+            timeout = 60.0
+        async with httpx.AsyncClient(timeout=max(1.0, min(timeout, 1800.0))) as client:
             response = await client.post(
                 settings.openrouter_chat_completions_url,
                 headers=headers,

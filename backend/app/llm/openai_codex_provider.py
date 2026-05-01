@@ -38,10 +38,14 @@ class OpenAICodexProvider(LLMProvider):
         if AsyncOpenAI is None:  # pragma: no cover
             raise LLMProviderUnavailable("openai>=1.51 is required for OpenAI Codex.")
 
+        try:
+            timeout_seconds = float(request.metadata.get("timeout_seconds") or 120.0)
+        except (TypeError, ValueError):
+            timeout_seconds = 120.0
         client = AsyncOpenAI(
             base_url=settings.openai_codex_base_url or OPENAI_CODEX_RESPONSES_BASE_URL,
             api_key=token,
-            timeout=httpx.Timeout(120.0),
+            timeout=httpx.Timeout(max(1.0, min(timeout_seconds, 1800.0))),
         )
         kwargs: dict[str, Any] = {
             "model": request.model or settings.openai_codex_default_model,

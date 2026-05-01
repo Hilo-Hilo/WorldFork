@@ -16,6 +16,7 @@ from backend.app.models.settings import (
     ProviderSettingModel,
     RateLimitSettingModel,
 )
+from app.domains.settings.routes import _model_routing_payload, _runtime_settings_payload
 import backend.app.providers as providers
 
 router = APIRouter(prefix="/api/settings", tags=["settings-legacy"])
@@ -53,7 +54,7 @@ def _apply_patch(row: Any, patch: dict[str, Any]) -> Any:
 async def get_settings(session: DbSession):
     row = await _singleton_or_none(session, GlobalSettingModel, "setting_id")
     if row is None:
-        raise HTTPException(status_code=404, detail="settings not found")
+        return _runtime_settings_payload()
     return _row_dict(row)
 
 
@@ -106,7 +107,7 @@ async def test_provider(payload: dict[str, Any]):
 
 @router.get("/model-routing")
 async def get_model_routing(session: DbSession):
-    return {"entries": await _list_rows(session, ModelRoutingEntryModel)}
+    return await _model_routing_payload(session)
 
 
 @router.patch("/model-routing")
@@ -118,7 +119,7 @@ async def patch_model_routing(payload: dict[str, Any], session: DbSession):
             session.add(row)
         _apply_patch(row, item)
     await session.commit()
-    return {"entries": await _list_rows(session, ModelRoutingEntryModel)}
+    return await _model_routing_payload(session)
 
 
 @router.get("/rate-limits")

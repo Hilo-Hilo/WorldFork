@@ -4,7 +4,6 @@ import json
 import re
 from collections import defaultdict
 
-from sqlalchemy import text
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -12,6 +11,7 @@ from app.core.config import get_settings
 from app.db import models
 from app.llm.audit import complete_with_audit
 from app.llm.prompt_templates import ACTOR_SYSTEM_PROMPT
+from app.llm.routing import AuditedLLMRoute, resolve_audited_llm_route, route_for_actor_type
 from app.domains.event.event_engine import build_event_queue_prompt_context
 
 
@@ -70,7 +70,8 @@ def run_actor_decision(
     tick_index: int,
     prompt_context: dict,
 ) -> dict:
-    model = _agent_deliberation_model(db)
+    route = route_for_actor_type(actor.actor_type)
+    model = _actor_fallback_model(actor.actor_type)
     actor_prompt_context = _with_actor_event_queue(
         db,
         multiverse=multiverse,
@@ -83,6 +84,7 @@ def run_actor_decision(
         big_bang_id=big_bang.id,
         purpose=f"agent_{actor.actor_type}_{actor.id}_tick_{tick_index}",
         model=model,
+        route=route,
         messages=[
             {
                 "role": "system",
@@ -485,19 +487,21 @@ def _log_rejected_event_attempts(
 
 def _agent_deliberation_model(db: Session) -> str:
     settings = get_settings()
-    try:
-        row = db.execute(
-            text(
-                "SELECT preferred_model FROM settings_model_routing "
-                "WHERE job_type = :job_type"
-            ),
-            {"job_type": "agent_deliberation_batch"},
-        ).mappings().first()
-    except Exception:
-        row = None
-    if row is not None and row.get("preferred_model"):
-        return str(row["preferred_model"])
-    return settings.default_model
+    route = resolve_audited_llm_route(
+        db,
+        route="agent_deliberation_batch",
+        fallback_provider=getattr(settings, "default_llm_provider", "openrouter"),
+        fallback_model=settings.default_model,
+    )
+    return route.primary.model
+
+
+def _actor_fallback_model(actor_type: str | None) -> str:
+    settings = get_settings()
+    route = route_for_actor_type(actor_type)
+    if route == AuditedLLMRoute.HERO_AGENT:
+        return settings.hero_agent_model
+    return settings.cohort_agent_model
 
 
 def apply_social_actions(db: Session, *, big_bang_id, multiverse_id, tick_index: int, parsed_actions: list[dict]) -> list[dict]:

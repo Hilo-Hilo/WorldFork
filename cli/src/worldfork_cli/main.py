@@ -984,6 +984,13 @@ def settings_patch(ctx: Context, data: str) -> None:
     )
 
 
+@settings.command("llm")
+@click.pass_obj
+def settings_llm(ctx: Context) -> None:
+    """Show LLM providers, routing, route catalog, and rate limits."""
+    emit(ctx.client.request("GET", "/settings/llm"), as_json=ctx.as_json)
+
+
 @settings.command("branch-policy")
 @click.option("--data", help="JSON object or @file to PATCH. Omit to read the branch policy.")
 @click.pass_obj

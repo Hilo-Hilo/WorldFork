@@ -77,9 +77,14 @@ async def _seed_branch_policy(db_session):
 
 
 @pytest.mark.asyncio
-async def test_get_settings_404_when_not_seeded(client):
+async def test_get_settings_uses_runtime_defaults_when_not_seeded(client):
     resp = await client.get("/api/settings")
-    assert resp.status_code == 404
+    assert resp.status_code == 200
+    data = resp.json()
+    assert data["setting_id"] == "default"
+    assert data["default_tick_duration_minutes"] == 1440
+    assert data["default_max_ticks"] == 12
+    assert data["payload"] == {"source": "runtime_defaults"}
 
 
 @pytest.mark.asyncio
@@ -188,6 +193,64 @@ async def test_patch_providers_upsert(client, db_session):
 
 
 @pytest.mark.asyncio
+async def test_get_llm_config_exposes_provider_routing_and_route_catalog(client, db_session):
+    provider_payload = {
+        "providers": [
+            {
+                "provider": "openrouter",
+                "base_url": "https://openrouter.ai/api/v1",
+                "api_key_env": "OPENROUTER_API_KEY",
+                "default_model": "openai/gpt-4o",
+                "fallback_model": "openai/gpt-4o-mini",
+                "json_mode_required": True,
+                "tool_calling_enabled": True,
+                "enabled": True,
+                "extra_headers": {},
+                "payload": {},
+            }
+        ]
+    }
+    routing_payload = {
+        "entries": [
+            {
+                "job_type": "report_agent",
+                "preferred_provider": "openai-codex",
+                "preferred_model": "gpt-5.5",
+                "fallback_provider": "openrouter",
+                "fallback_model": "openai/gpt-4o-mini",
+                "temperature": 0.2,
+                "top_p": 1.0,
+                "max_tokens": 8192,
+                "max_concurrency": 2,
+                "requests_per_minute": 20,
+                "tokens_per_minute": 200000,
+                "timeout_seconds": 300,
+                "retry_policy": "exponential_backoff",
+                "payload": {},
+            }
+        ]
+    }
+    await client.patch("/api/settings/providers", json=provider_payload)
+    await client.patch("/api/settings/model-routing", json=routing_payload)
+
+    resp = await client.get("/api/settings/llm")
+
+    assert resp.status_code == 200
+    data = resp.json()
+    assert data["runtime_defaults"]["default_provider"]
+    assert data["provider_catalog"][0]["provider"] == "openrouter"
+    assert data["providers"][0]["provider"] == "openrouter"
+    assert data["model_routing"][0]["job_type"] == "report_agent"
+    report_effective = next(
+        entry for entry in data["effective_model_routing"] if entry["route"] == "report_agent"
+    )
+    assert report_effective["preferred_provider"] == "openai-codex"
+    assert report_effective["matched_route"] == "report_agent"
+    assert any(route["route"] == "cohort_agent" for route in data["known_routes"])
+    assert data["api"]["model_routing"] == "/api/settings/model-routing"
+
+
+@pytest.mark.asyncio
 async def test_patch_providers_rebuilds_active_registry(client, db_session):
     providers.clear_registry()
     stale_provider = AsyncMock()
@@ -235,7 +298,17 @@ async def test_patch_providers_rebuilds_active_registry(client, db_session):
 async def test_get_model_routing_empty(client):
     resp = await client.get("/api/settings/model-routing")
     assert resp.status_code == 200
-    assert resp.json()["entries"] == []
+    data = resp.json()
+    assert data["entries"] == []
+    assert any(entry["route"] == "report_agent" for entry in data["effective_entries"])
+    assert {route["route"] for route in data["known_routes"]} >= {
+        "initializer_agent",
+        "god_agent",
+        "cohort_agent",
+        "hero_agent",
+        "event_summary",
+        "report_agent",
+    }
 
 
 @pytest.mark.asyncio
@@ -263,6 +336,9 @@ async def test_patch_model_routing(client, db_session):
     data = resp.json()
     assert len(data["entries"]) == 1
     assert data["entries"][0]["job_type"] == "god_agent_review"
+    god_effective = next(entry for entry in data["effective_entries"] if entry["route"] == "god_agent")
+    assert god_effective["matched_route"] == "god_agent_review"
+    assert any(route["route"] == "report_agent" for route in data["known_routes"])
 
 
 # ---------------------------------------------------------------------------

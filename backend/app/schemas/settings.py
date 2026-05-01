@@ -10,7 +10,7 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from backend.app.schemas.jobs import JobType
+from backend.app.schemas.jobs import ModelRoutingJobType
 
 # ---------------------------------------------------------------------------
 # ProviderConfig  §16.2
@@ -41,7 +41,7 @@ class ModelRoutingEntry(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    job_type: JobType
+    job_type: ModelRoutingJobType
     preferred_provider: str
     preferred_model: str
     fallback_provider: str | None = None

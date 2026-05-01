@@ -19,6 +19,8 @@ from backend.app.providers import (
     RoutingTable,
     call_with_policy,
     clear_registry,
+    get_provider,
+    initialize_providers_from_settings,
     register_provider,
 )
 from backend.app.providers.base import BaseProvider
@@ -145,6 +147,49 @@ class MockProvider(BaseProvider):
 # Tests
 # ---------------------------------------------------------------------------
 
+async def test_codex_env_enablement_survives_seeded_disabled_provider_row(monkeypatch) -> None:
+    class FakeSession:
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, *_args):
+            return None
+
+        async def get(self, _model, key):
+            if key == "openai-codex":
+                return SimpleNamespace(
+                    base_url="https://chatgpt.com/backend-api/codex",
+                    api_key_env="OPENAI_CODEX_OAUTH_TOKEN",
+                    default_model="gpt-5.5",
+                    fallback_model=None,
+                    enabled=False,
+                )
+            return None
+
+    from backend.app.core import db as core_db
+
+    monkeypatch.setattr(core_db, "SessionLocal", lambda: FakeSession())
+    monkeypatch.setenv("OPENAI_CODEX_OAUTH_TOKEN", "codex-oauth-token")
+
+    settings = SimpleNamespace(
+        openrouter_base_url="https://openrouter.ai/api/v1",
+        default_model="google/gemini-3.1-flash-lite-preview",
+        fallback_model="google/gemini-3.1-flash-lite-preview",
+        openrouter_http_referer="https://worldfork.local",
+        openrouter_title="WorldFork",
+        openai_codex_base_url="https://chatgpt.com/backend-api/codex",
+        openai_codex_default_model="gpt-5.5",
+        openai_codex_fallback_model=None,
+        openai_codex_enabled=True,
+        openai_codex_oauth_token=None,
+        openai_codex_auth_file=None,
+    )
+
+    await initialize_providers_from_settings(settings)
+
+    assert get_provider("openai-codex").name == "openai-codex"
+
+
 async def test_happy_path(routing, limiter, prompt) -> None:
     provider = MockProvider()
     register_provider("openrouter", provider)
@@ -170,7 +215,17 @@ async def test_sync_actor_decision_model_uses_agent_deliberation_routing(monkeyp
             return self
 
         def first(self):
-            return {"preferred_model": "db/agent-model"}
+            return {
+                "preferred_provider": "openrouter",
+                "preferred_model": "db/agent-model",
+                "fallback_provider": None,
+                "fallback_model": None,
+                "temperature": 0.4,
+                "top_p": 1.0,
+                "max_tokens": 4096,
+                "timeout_seconds": 120,
+                "retry_policy": "exponential_backoff",
+            }
 
     class _Db:
         def execute(self, statement, params):

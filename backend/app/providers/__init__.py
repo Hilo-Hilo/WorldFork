@@ -499,7 +499,8 @@ async def initialize_providers_from_settings(settings) -> None:  # type: ignore[
     codex_api_key_env = OPENAI_CODEX_OAUTH_ENV
     codex_default_model = getattr(settings, "openai_codex_default_model", "gpt-5.5")
     codex_fallback_model = getattr(settings, "openai_codex_fallback_model", None)
-    codex_enabled = bool(getattr(settings, "openai_codex_enabled", False))
+    codex_env_enabled = bool(getattr(settings, "openai_codex_enabled", False))
+    codex_enabled = codex_env_enabled
 
     try:
         from backend.app.core.db import SessionLocal
@@ -519,7 +520,7 @@ async def initialize_providers_from_settings(settings) -> None:  # type: ignore[
                 codex_api_key_env = row.api_key_env or codex_api_key_env
                 codex_default_model = row.default_model or codex_default_model
                 codex_fallback_model = row.fallback_model or codex_fallback_model
-                codex_enabled = bool(row.enabled)
+                codex_enabled = bool(row.enabled) or codex_env_enabled
     except Exception:
         # DB settings are optional at boot; migrations may not have run yet.
         pass
