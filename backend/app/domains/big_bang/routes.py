@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import datetime, timezone
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -47,6 +48,36 @@ def create(payload: BigBangCreate, db: Session = Depends(get_db)):
 @router.get("/{big_bang_id}", response_model=BigBangOut)
 def get(big_bang_id: UUID, db: Session = Depends(get_db)):
     return require(db, models.BigBang, big_bang_id)
+
+
+@router.delete("/{big_bang_id}", response_model=BigBangOut)
+def archive(big_bang_id: UUID, db: Session = Depends(get_db)):
+    big_bang = require(db, models.BigBang, big_bang_id)
+    big_bang.status = "archived"
+    now = datetime.now(timezone.utc)
+    multiverses = db.scalars(
+        select(models.Multiverse).where(models.Multiverse.big_bang_id == big_bang_id)
+    ).all()
+    terminated_ids: list[str] = []
+    for multiverse in multiverses:
+        if multiverse.status not in TERMINAL_MULTIVERSE_STATUSES:
+            multiverse.status = "terminated"
+            multiverse.report_status = "ready"
+            multiverse.ended_at = now
+            terminated_ids.append(str(multiverse.id))
+    db.add(
+        models.OperationLog(
+            big_bang_id=big_bang.id,
+            event_type="big_bang_archived",
+            level="info",
+            body={
+                "archived_multiverses": len(multiverses),
+                "terminated_non_terminal_multiverses": terminated_ids,
+            },
+        )
+    )
+    commit_or_500(db)
+    return big_bang
 
 
 @router.patch("/{big_bang_id}", response_model=BigBangOut)

@@ -143,6 +143,25 @@ def test_models_defaults_alias_calls_agent_models(monkeypatch) -> None:
     assert calls == [("GET", "/agent/models", None, None)]
 
 
+def test_runs_delete_calls_canonical_big_bang_delete(monkeypatch) -> None:
+    calls = []
+
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None):
+            calls.append((method, path, params, json_body))
+            return {"id": "bb-123", "status": "archived"}
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    result = CliRunner().invoke(main, ["runs", "delete", "bb-123"])
+
+    assert result.exit_code == 0
+    assert calls == [("DELETE", "/big-bangs/bb-123", None, None)]
+
+
 def test_settings_patch_calls_settings_endpoint(monkeypatch) -> None:
     calls = []
 
@@ -247,8 +266,24 @@ def test_demo_atlas_invokes_source_harness(monkeypatch, tmp_path) -> None:
     assert result.exit_code == 0
     assert calls
     assert calls[0][:2] == ["--base-url", "http://worldfork.test"]
-    assert ["--scenario-file", str(scenario_file)] == calls[0][-4:-2]
+    assert ["--scenario-file", str(scenario_file.resolve())] == calls[0][-4:-2]
     assert calls[0][-2:] == ["--max-tick-index", "4"]
+
+
+def test_demo_atlas_surfaces_source_harness_failure(monkeypatch, tmp_path) -> None:
+    scenario_file = tmp_path / "atlas.md"
+    scenario_file.write_text("Atlas scenario", encoding="utf-8")
+
+    scripts_pkg = types.ModuleType("scripts")
+    harness = types.ModuleType("scripts.run_test_big_bang")
+    harness.main = lambda argv: 1
+    monkeypatch.setitem(sys.modules, "scripts", scripts_pkg)
+    monkeypatch.setitem(sys.modules, "scripts.run_test_big_bang", harness)
+
+    result = CliRunner().invoke(main, ["demo", "atlas", "--scenario-file", str(scenario_file)])
+
+    assert result.exit_code == 1
+    assert "scripts.run_test_big_bang exited with status 1" in result.output
 
 
 def test_smoke_live_invokes_source_harness_with_base_url(monkeypatch) -> None:

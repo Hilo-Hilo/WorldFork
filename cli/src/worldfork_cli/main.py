@@ -359,6 +359,14 @@ def workspace(ctx: Context, run_id: str) -> None:
     )
 
 
+@runs.command("delete")
+@click.argument("run_id")
+@click.pass_obj
+def runs_delete(ctx: Context, run_id: str) -> None:
+    """Soft-delete a run by archiving the canonical Big Bang."""
+    emit(ctx.client.request("DELETE", f"/big-bangs/{run_id}"), as_json=ctx.as_json)
+
+
 @main.group()
 def universes() -> None:
     """Inspect universes and per-tick traces."""
@@ -1120,7 +1128,7 @@ def demo_atlas(
         str(completion_max_requests),
     ]
     if scenario_file is not None:
-        argv.extend(["--scenario-file", str(scenario_file)])
+        argv.extend(["--scenario-file", str(scenario_file.resolve())])
     if max_tick_index is not None:
         argv.extend(["--max-tick-index", str(max_tick_index)])
     _run_source_harness("scripts.run_test_big_bang", argv=argv)
@@ -1169,7 +1177,7 @@ def _run_source_harness(module_name: str, argv: list[str] | None = None) -> None
         raise click.ClickException(f"{module_name} does not expose a callable main()")
     result = entrypoint(argv) if argv is not None else entrypoint()
     if isinstance(result, int) and result != 0:
-        raise click.exceptions.Exit(result)
+        raise click.ClickException(f"{module_name} exited with status {result}")
 
 
 def _find_source_checkout(module_name: str) -> Path | None:
@@ -1200,7 +1208,7 @@ def _run_source_harness_subprocess(
     command.extend(argv or [])
     result = subprocess.run(command, cwd=source_root)
     if result.returncode != 0:
-        raise click.exceptions.Exit(result.returncode)
+        raise click.ClickException(f"{module_name} exited with status {result.returncode}")
 
 
 @main.command()

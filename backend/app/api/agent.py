@@ -272,6 +272,7 @@ def discover():
                 "worldfork watch big-bang <big-bang-id>",
                 "worldfork runs list",
                 "worldfork runs workspace <run-id>",
+                "worldfork runs delete <run-id>",
                 "worldfork jobs list --status failed",
                 "worldfork logs list --status failed",
             ],

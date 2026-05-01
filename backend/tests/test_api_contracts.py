@@ -135,6 +135,50 @@ def test_agent_openapi_has_cli_first_routes():
     assert "/api/frontend/bootstrap" not in paths
 
 
+def test_big_bang_delete_soft_archives_and_terminates_active_multiverses():
+    big_bang_id = uuid4()
+    big_bang = SimpleNamespace(id=big_bang_id, status="running")
+    active = SimpleNamespace(id=uuid4(), status="active", report_status="not_ready", ended_at=None)
+    completed = SimpleNamespace(id=uuid4(), status="completed", report_status="ready", ended_at=None)
+
+    class Rows:
+        def all(self):
+            return [active, completed]
+
+    class ArchiveDb:
+        def __init__(self):
+            self.added = []
+            self.committed = False
+
+        def get(self, model, object_id):
+            return big_bang if object_id == big_bang_id else None
+
+        def scalars(self, statement):
+            return Rows()
+
+        def add(self, item):
+            self.added.append(item)
+
+        def commit(self):
+            self.committed = True
+
+        def rollback(self):
+            return None
+
+    db = ArchiveDb()
+
+    result = big_bangs_api.archive(big_bang_id, db=db)
+
+    assert result is big_bang
+    assert big_bang.status == "archived"
+    assert active.status == "terminated"
+    assert active.report_status == "ready"
+    assert active.ended_at is not None
+    assert completed.status == "completed"
+    assert db.committed is True
+    assert db.added[-1].event_type == "big_bang_archived"
+
+
 def test_mutation_routes_have_non_empty_response_contracts():
     response = client.get("/openapi.json")
 
@@ -143,6 +187,7 @@ def test_mutation_routes_have_non_empty_response_contracts():
     route_methods = [
         ("/api/big-bangs/{big_bang_id}/reports/final", "post"),
         ("/api/big-bangs/{big_bang_id}/run-until-complete", "post"),
+        ("/api/big-bangs/{big_bang_id}", "delete"),
         ("/api/multiverses/{multiverse_id}/continue", "post"),
         ("/api/multiverses/{multiverse_id}/report", "post"),
         ("/api/report-versions/{report_version_id}/render", "post"),

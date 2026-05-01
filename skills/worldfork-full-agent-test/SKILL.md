@@ -86,12 +86,14 @@ cd "$run_root/WorldFork"
 Install skills and CLI:
 
 ```bash
-npx skills add Hilo-Hilo/WorldFork/skills/worldfork-setup --all
-npx skills add Hilo-Hilo/WorldFork/skills/worldfork --all
-npx skills add Hilo-Hilo/WorldFork/skills/worldfork-full-agent-test --all
+npx skills add ./skills/worldfork-setup --all
+npx skills add ./skills/worldfork --all
+npx skills add ./skills/worldfork-full-agent-test --all
 python3.11 -m pip install -e ./cli
 worldfork --help
 ```
+
+Use local `./skills/...` paths after cloning `dev`; GitHub skill installs can resolve the default branch and miss dev-only skill changes.
 
 If `worldfork` resolves to a stale global shim, reinstall the CLI. While repairing that, use this source-checkout fallback only to keep the test moving:
 
