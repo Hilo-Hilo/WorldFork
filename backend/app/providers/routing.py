@@ -70,6 +70,7 @@ _ALL_JOB_TYPES: tuple[JobType, ...] = (
     "export_run",
     "apply_tick_results",
     "aggregate_run_results",
+    "evaluate_endpoint_ledger",
     "force_deviation",
 )
 

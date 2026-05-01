@@ -132,22 +132,25 @@ def test_create_job_returns_existing_job_on_duplicate_key_race(monkeypatch):
     assert db.rollbacks == 1
 
 
-def test_create_job_enqueue_failure_is_retryable_and_sanitized(monkeypatch):
+def test_create_job_enqueue_failure_leaves_job_queued_without_fallback(monkeypatch):
     def fail_enqueue(job_id):
         raise RuntimeError("redis://internal-host:6379 refused connection")
 
     monkeypatch.setattr(jobs_api, "enqueue_job", fail_enqueue)
     db = _CreateDb()
+    background_tasks = _BackgroundTasks()
 
     result = jobs_api.create_job_record(
         JobCreate(job_type="run_big_bang_until_complete", big_bang_id=uuid4()),
         db=db,
+        background_tasks=background_tasks,
     )
 
     assert result is db.added
     assert db.added.status == "queued"
-    assert db.added.error == "enqueue failed; running with local worker fallback"
+    assert db.added.error == "enqueue failed; job remains queued; fix the queue or run it explicitly"
     assert "internal-host" not in db.added.error
+    assert background_tasks.tasks == []
 
 
 def test_create_job_idempotent_retry_reenqueues_existing_queued_job(monkeypatch):
@@ -348,6 +351,14 @@ class _RunJobDb:
 
     def rollback(self):
         return None
+
+
+class _BackgroundTasks:
+    def __init__(self):
+        self.tasks = []
+
+    def add_task(self, func, *args, **kwargs):
+        self.tasks.append((func, args, kwargs))
 
 
 class _NoopTransaction:

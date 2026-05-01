@@ -20,6 +20,11 @@ import httpx
 from sqlalchemy import select
 
 GEMINI_MODEL = "google/gemini-3.1-flash-lite-preview"
+EXPECTED_MODELS: set[str] = {
+    m.strip()
+    for m in os.environ.get("WORLDFORK_SMOKE_EXPECTED_MODELS", GEMINI_MODEL).split(",")
+    if m.strip()
+}
 BASE_URL = os.environ.get("WORLDFORK_API_URL", "http://127.0.0.1:8003")
 
 
@@ -85,7 +90,7 @@ def wait_for_ready(client: httpx.Client) -> dict[str, Any]:
     raise SmokeFailure(f"API did not become ready: {last_error}")
 
 
-def assert_gemini_only(big_bang_id: str) -> None:
+def assert_expected_models(big_bang_id: str) -> None:
     db = SessionLocal()
     try:
         calls = db.scalars(
@@ -94,12 +99,26 @@ def assert_gemini_only(big_bang_id: str) -> None:
             .order_by(models.LLMCall.created_at.asc())
         ).all()
         check(bool(calls), "live simulation produced audited LLM calls")
-        non_gemini = [call.model for call in calls if GEMINI_MODEL not in str(call.model)]
-        if non_gemini:
-            raise SmokeFailure(f"non-Gemini models were used: {non_gemini}")
-        print(f"[pass] all {len(calls)} audited LLM calls used {GEMINI_MODEL}")
+        unexpected = [
+            call.model
+            for call in calls
+            if not any(expected in str(call.model) for expected in EXPECTED_MODELS)
+        ]
+        if unexpected:
+            raise SmokeFailure(
+                f"unexpected models were used: {unexpected} "
+                f"(expected one of: {sorted(EXPECTED_MODELS)})"
+            )
+        print(
+            f"[pass] all {len(calls)} audited LLM calls used an expected model "
+            f"({sorted(EXPECTED_MODELS)})"
+        )
     finally:
         db.close()
+
+
+# Backwards-compatible alias for any external caller importing the old name.
+assert_gemini_only = assert_expected_models
 
 
 def delete_smoke_settings_row() -> None:
@@ -319,7 +338,10 @@ def main() -> None:
         "event_summary": settings.event_summary_model,
         "report": settings.report_agent_model,
     }.items():
-        check(model == GEMINI_MODEL, f"{label} model is Gemini 3.1 Flash Lite")
+        check(
+            any(expected in model for expected in EXPECTED_MODELS),
+            f"{label} model ({model}) matches one of {sorted(EXPECTED_MODELS)}",
+        )
 
     original_settings: dict[str, Any] | None = None
     cleanup_settings_row = False

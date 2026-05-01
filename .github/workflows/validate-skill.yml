@@ -38,6 +38,8 @@ jobs:
           const skills = [
             { name: "worldfork", path: "skills/worldfork/SKILL.md" },
             { name: "worldfork-setup", path: "skills/worldfork-setup/SKILL.md" },
+            { name: "worldfork-report", path: "skills/worldfork-report/SKILL.md" },
+            { name: "worldfork-full-agent-test", path: "skills/worldfork-full-agent-test/SKILL.md" },
           ];
 
           function fail(message) {
@@ -69,3 +71,9 @@ jobs:
 
       - name: Validate setup skill discovery
         run: npx --yes skills add ./skills/worldfork-setup --list -y
+
+      - name: Validate report skill discovery
+        run: npx --yes skills add ./skills/worldfork-report --list -y
+
+      - name: Validate full agent test skill discovery
+        run: npx --yes skills add ./skills/worldfork-full-agent-test --list -y

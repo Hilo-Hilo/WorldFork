@@ -74,14 +74,10 @@ ignore_missing_imports = true
 asyncio_mode = "auto"
 testpaths = ["backend/tests"]
 # Marker definitions — keep alphabetised. CI hint: run unit + integration
-# first; then e2e (slower, exercises the full ASGI stack); then any live_*
-# tests opt-in via `-m live_openrouter` / `-m live_zep`.
+# first; then e2e (slower, exercises the full ASGI stack).
 markers = [
     "e2e: marks end-to-end tests that exercise the full ASGI app (deselect with '-m \"not e2e\"')",
-    "live_openrouter: marks tests that hit live OpenRouter API (deselect with '-m \"not live_openrouter\"')",
-    "live_zep: marks tests that hit live Zep Cloud API (deselect with '-m \"not live_zep\"')",
     "requires_broker: marks tests that need a running Celery broker (skip cleanly if absent)",
-    "requires_redis: marks tests that need a reachable Redis (skip cleanly if absent)",
     "slow: marks tests that take >5s (deselect with '-m \"not slow\"')",
 ]
 filterwarnings = [

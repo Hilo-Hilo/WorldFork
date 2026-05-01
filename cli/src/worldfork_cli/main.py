@@ -45,7 +45,49 @@ class Context:
 CONTEXT_SETTINGS = {"help_option_names": ["-h", "--help"], "max_content_width": 120}
 
 
-@click.group(context_settings=CONTEXT_SETTINGS)
+class _GlobalFlagFloatingGroup(click.Group):
+    """Click group that lifts global flags to the front before parsing.
+
+    Click's default parser binds options to the most-recently-seen subcommand,
+    so ``worldfork init --json`` errors with "No such option: --json" because
+    ``--json`` is declared on the parent group. This subclass scans the raw
+    argv and floats known global flags ahead of any subcommand, preserving
+    order otherwise, so users can place global flags either before or after
+    the subcommand.
+    """
+
+    _GLOBAL_FLAGS_NO_VALUE = {"--json"}
+    _GLOBAL_FLAGS_WITH_VALUE = {"--base-url", "--api-prefix", "--timeout", "--verbosity", "--fields"}
+
+    def parse_args(self, ctx: click.Context, args: list[str]) -> list[str]:
+        front: list[str] = []
+        rest: list[str] = []
+        i = 0
+        while i < len(args):
+            arg = args[i]
+            if arg == "--":
+                rest.extend(args[i:])
+                break
+            if arg in self._GLOBAL_FLAGS_NO_VALUE:
+                front.append(arg)
+                i += 1
+                continue
+            if arg in self._GLOBAL_FLAGS_WITH_VALUE and i + 1 < len(args):
+                front.extend([arg, args[i + 1]])
+                i += 2
+                continue
+            if "=" in arg:
+                head, _, _ = arg.partition("=")
+                if head in self._GLOBAL_FLAGS_NO_VALUE | self._GLOBAL_FLAGS_WITH_VALUE:
+                    front.append(arg)
+                    i += 1
+                    continue
+            rest.append(arg)
+            i += 1
+        return super().parse_args(ctx, front + rest)
+
+
+@click.group(cls=_GlobalFlagFloatingGroup, context_settings=CONTEXT_SETTINGS)
 @click.version_option(__version__)
 @click.option("--base-url", default=DEFAULT_BASE_URL, show_default=True, help="Backend root URL.")
 @click.option("--api-prefix", default=DEFAULT_API_PREFIX, show_default=True, help="Backend API prefix.")
@@ -83,9 +125,10 @@ def main(
       worldfork smoke live
       worldfork demo atlas
 
-    Global options must appear before the command. Use --json for scripts,
-    --verbosity summary for compact agent output, and --fields a,b,c when a
-    large list should be projected to a few top-level fields.
+    Global options (--json, --verbosity, --fields, --base-url, --api-prefix,
+    --timeout) may appear before or after the subcommand. Use --json for
+    scripts, --verbosity summary for compact agent output, and --fields a,b,c
+    when a large list should be projected to a few top-level fields.
     """
     ctx.obj = Context(WorldForkClient(base_url, api_prefix, timeout), as_json, verbosity, fields)
 
@@ -148,9 +191,14 @@ def _parse_json_list(value: str | None, label: str) -> list[dict[str, Any]]:
 def _read_json_text(value: str) -> str:
     if value.startswith("@"):
         return Path(value[1:]).read_text(encoding="utf-8")
+    if value.lstrip().startswith(("{", "[")):
+        return value
     path = Path(value)
-    if path.exists() and path.is_file():
-        return path.read_text(encoding="utf-8")
+    try:
+        if path.exists() and path.is_file():
+            return path.read_text(encoding="utf-8")
+    except OSError:
+        return value
     return value
 
 
@@ -309,6 +357,14 @@ def workspace(ctx: Context, run_id: str) -> None:
         ctx.client.request("GET", f"/agent/runs/{run_id}/workspace", params=ctx.params()),
         as_json=ctx.as_json,
     )
+
+
+@runs.command("delete")
+@click.argument("run_id")
+@click.pass_obj
+def runs_delete(ctx: Context, run_id: str) -> None:
+    """Soft-delete a run by archiving the canonical Big Bang."""
+    emit(ctx.client.request("DELETE", f"/big-bangs/{run_id}"), as_json=ctx.as_json)
 
 
 @main.group()
@@ -796,6 +852,95 @@ def reports_render(ctx: Context, report_version_id: str, output_format: str, for
 
 
 @main.group()
+def ledgers() -> None:
+    """Inspect and evaluate endpoint ledgers."""
+
+
+@ledgers.command("list")
+@click.argument("big_bang_id")
+@click.option("--multiverse-id")
+@click.pass_obj
+def ledgers_list(ctx: Context, big_bang_id: str, multiverse_id: str | None) -> None:
+    """List endpoint ledger versions for a Big Bang or multiverse."""
+    path = (
+        f"/multiverses/{multiverse_id}/endpoint-ledgers"
+        if multiverse_id
+        else f"/big-bangs/{big_bang_id}/endpoint-ledgers"
+    )
+    emit(ctx.client.request("GET", path, params=ctx.params()), as_json=ctx.as_json)
+
+
+@ledgers.command("view")
+@click.argument("ledger_version_id")
+@click.pass_obj
+def ledgers_view(ctx: Context, ledger_version_id: str) -> None:
+    """View one endpoint ledger version with entries."""
+    emit(ctx.client.request("GET", f"/endpoint-ledgers/{ledger_version_id}"), as_json=ctx.as_json)
+
+
+@ledgers.command("evaluate")
+@click.argument("big_bang_id")
+@click.option("--multiverse-id")
+@click.option("--wait", "wait_for_job", is_flag=True, help="Wait for the evaluation job and emit the ledger.")
+@click.option("--timeout", "timeout_seconds", type=float, default=120, show_default=True)
+@click.option("--idempotency-key")
+@click.option("--endpoint", help="JSON object or @file describing a candidate endpoint to add/evaluate.")
+@click.pass_obj
+def ledgers_evaluate(
+    ctx: Context,
+    big_bang_id: str,
+    multiverse_id: str | None,
+    wait_for_job: bool,
+    timeout_seconds: float,
+    idempotency_key: str | None,
+    endpoint: str | None,
+) -> None:
+    """Create a post-simulation endpoint ledger evaluation job."""
+    path = (
+        f"/multiverses/{multiverse_id}/endpoint-ledgers/evaluate"
+        if multiverse_id
+        else f"/big-bangs/{big_bang_id}/endpoint-ledgers/evaluate"
+    )
+    payload = ctx.client.request(
+        "POST",
+        path,
+        json_body={
+            "idempotency_key": idempotency_key,
+            "run_inline": False,
+            "candidate_endpoint": _parse_json_object(endpoint, "--endpoint") if endpoint else None,
+        },
+    )
+    if not wait_for_job:
+        emit(payload, as_json=ctx.as_json)
+        return
+    job_id = payload.get("job_id") or payload.get("id")
+    if not job_id:
+        emit(payload, as_json=ctx.as_json)
+        return
+    waited = ctx.client.request(
+        "POST",
+        f"/agent/jobs/{job_id}/wait",
+        json_body={"timeout_seconds": timeout_seconds, "poll_interval_seconds": 1},
+    )
+    data, meta = unwrap(waited)
+    if meta.get("timed_out"):
+        emit(waited, as_json=ctx.as_json)
+        raise click.exceptions.Exit(124)
+    status = data.get("status") if isinstance(data, dict) else None
+    if status == "failed":
+        emit(waited, as_json=ctx.as_json)
+        raise click.exceptions.Exit(2)
+    if meta.get("terminal") and status != "succeeded":
+        emit(waited, as_json=ctx.as_json)
+        raise click.exceptions.Exit(2)
+    ledger_id = ((data or {}).get("result") or {}).get("ledger_version_id") if isinstance(data, dict) else None
+    emit(
+        ctx.client.request("GET", f"/endpoint-ledgers/{ledger_id}") if ledger_id else waited,
+        as_json=ctx.as_json,
+    )
+
+
+@main.group()
 def models() -> None:
     """Inspect model routing and defaults."""
 
@@ -983,7 +1128,7 @@ def demo_atlas(
         str(completion_max_requests),
     ]
     if scenario_file is not None:
-        argv.extend(["--scenario-file", str(scenario_file)])
+        argv.extend(["--scenario-file", str(scenario_file.resolve())])
     if max_tick_index is not None:
         argv.extend(["--max-tick-index", str(max_tick_index)])
     _run_source_harness("scripts.run_test_big_bang", argv=argv)
@@ -1032,7 +1177,7 @@ def _run_source_harness(module_name: str, argv: list[str] | None = None) -> None
         raise click.ClickException(f"{module_name} does not expose a callable main()")
     result = entrypoint(argv) if argv is not None else entrypoint()
     if isinstance(result, int) and result != 0:
-        raise click.exceptions.Exit(result)
+        raise click.ClickException(f"{module_name} exited with status {result}")
 
 
 def _find_source_checkout(module_name: str) -> Path | None:
@@ -1063,7 +1208,7 @@ def _run_source_harness_subprocess(
     command.extend(argv or [])
     result = subprocess.run(command, cwd=source_root)
     if result.returncode != 0:
-        raise click.exceptions.Exit(result.returncode)
+        raise click.ClickException(f"{module_name} exited with status {result.returncode}")
 
 
 @main.command()

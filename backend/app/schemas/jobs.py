@@ -24,6 +24,7 @@ JobType = Literal[
     "export_run",
     "apply_tick_results",
     "aggregate_run_results",
+    "evaluate_endpoint_ledger",
     "force_deviation",
 ]
 

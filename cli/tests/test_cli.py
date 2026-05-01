@@ -72,6 +72,58 @@ def test_reports_render_calls_report_version_endpoint(monkeypatch) -> None:
     ]
 
 
+def test_ledgers_evaluate_calls_endpoint_ledger_job(monkeypatch) -> None:
+    calls = []
+
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None):
+            calls.append((method, path, params, json_body))
+            return {"job_id": "job-123", "status": "queued"}
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    result = CliRunner().invoke(main, ["ledgers", "evaluate", "bb-123", "--multiverse-id", "mv-123"])
+
+    assert result.exit_code == 0
+    assert calls == [
+        (
+            "POST",
+            "/multiverses/mv-123/endpoint-ledgers/evaluate",
+            None,
+            {"idempotency_key": None, "run_inline": False, "candidate_endpoint": None},
+        )
+    ]
+
+
+def test_ledgers_evaluate_wait_exits_nonzero_for_unsuccessful_terminal(monkeypatch) -> None:
+    calls = []
+
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None):
+            calls.append((method, path, params, json_body))
+            if path.endswith("/endpoint-ledgers/evaluate"):
+                return {"job_id": "job-123", "status": "queued"}
+            return {
+                "ok": True,
+                "data": {"id": "job-123", "status": "cancelled", "result": {}},
+                "meta": {"terminal": True, "timed_out": False},
+            }
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    result = CliRunner().invoke(main, ["ledgers", "evaluate", "bb-123", "--wait", "--timeout", "0"])
+
+    assert result.exit_code == 2
+    assert calls[0][0:2] == ("POST", "/big-bangs/bb-123/endpoint-ledgers/evaluate")
+    assert calls[1][0:2] == ("POST", "/agent/jobs/job-123/wait")
+
+
 def test_models_defaults_alias_calls_agent_models(monkeypatch) -> None:
     calls = []
 
@@ -89,6 +141,25 @@ def test_models_defaults_alias_calls_agent_models(monkeypatch) -> None:
 
     assert result.exit_code == 0
     assert calls == [("GET", "/agent/models", None, None)]
+
+
+def test_runs_delete_calls_canonical_big_bang_delete(monkeypatch) -> None:
+    calls = []
+
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None):
+            calls.append((method, path, params, json_body))
+            return {"id": "bb-123", "status": "archived"}
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    result = CliRunner().invoke(main, ["runs", "delete", "bb-123"])
+
+    assert result.exit_code == 0
+    assert calls == [("DELETE", "/big-bangs/bb-123", None, None)]
 
 
 def test_settings_patch_calls_settings_endpoint(monkeypatch) -> None:
@@ -118,6 +189,46 @@ def test_settings_patch_calls_settings_endpoint(monkeypatch) -> None:
             {"default_tick_duration_minutes": 90, "payload": {"demo": True}},
         )
     ]
+
+
+def test_init_accepts_long_inline_json_without_path_probe(monkeypatch) -> None:
+    calls = []
+
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None, timeout=None):
+            calls.append((method, path, params, json_body, timeout))
+            if method == "POST":
+                return {"id": "bb-123", "name": "Runtime check"}
+            return {"ok": True, "path": path}
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+    actors = (
+        '[{"name":"Transit Riders","actor_type":"cohort","description":"'
+        + ("residents affected by fare changes " * 20)
+        + '"}]'
+    )
+
+    result = CliRunner().invoke(
+        main,
+        [
+            "init",
+            "--name",
+            "Runtime check",
+            "--scenario",
+            "Transit fare increase",
+            "--no-initializer-agent",
+            "--actors",
+            actors,
+        ],
+    )
+
+    assert result.exit_code == 0
+    post = calls[0]
+    assert post[0:2] == ("POST", "/big-bangs")
+    assert post[3]["actors"][0]["name"] == "Transit Riders"
 
 
 def test_demo_atlas_invokes_source_harness(monkeypatch, tmp_path) -> None:
@@ -155,8 +266,24 @@ def test_demo_atlas_invokes_source_harness(monkeypatch, tmp_path) -> None:
     assert result.exit_code == 0
     assert calls
     assert calls[0][:2] == ["--base-url", "http://worldfork.test"]
-    assert ["--scenario-file", str(scenario_file)] == calls[0][-4:-2]
+    assert ["--scenario-file", str(scenario_file.resolve())] == calls[0][-4:-2]
     assert calls[0][-2:] == ["--max-tick-index", "4"]
+
+
+def test_demo_atlas_surfaces_source_harness_failure(monkeypatch, tmp_path) -> None:
+    scenario_file = tmp_path / "atlas.md"
+    scenario_file.write_text("Atlas scenario", encoding="utf-8")
+
+    scripts_pkg = types.ModuleType("scripts")
+    harness = types.ModuleType("scripts.run_test_big_bang")
+    harness.main = lambda argv: 1
+    monkeypatch.setitem(sys.modules, "scripts", scripts_pkg)
+    monkeypatch.setitem(sys.modules, "scripts.run_test_big_bang", harness)
+
+    result = CliRunner().invoke(main, ["demo", "atlas", "--scenario-file", str(scenario_file)])
+
+    assert result.exit_code == 1
+    assert "scripts.run_test_big_bang exited with status 1" in result.output
 
 
 def test_smoke_live_invokes_source_harness_with_base_url(monkeypatch) -> None:

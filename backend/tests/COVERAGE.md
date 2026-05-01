@@ -29,7 +29,6 @@ Run the full maintained sweep:
 | `test_multiverse_continuation.py` | continuation versioning and per-multiverse runtime overrides |
 | `test_report_artifact_consistency.py` | structured report versions, on-demand PDF rendering, and artifact cleanup |
 | `test_simulation_resilience.py` | initializer/runtime tolerance for malformed model data |
-| `test_smoke.py` | import and scaffold smoke |
 | `test_storage_config.py` | storage paths, PDF path traversal, artifact config |
 | `test_timeline_safety.py` | checkpoint resume, branch inheritance, manual/runtime safety |
 
@@ -60,7 +59,6 @@ Run the full maintained sweep:
 | `test_runtime_models.py`      | runtime ORM models                         |
 | `test_schemas.py`             | Pydantic schema invariants                 |
 | `test_simulation_metrics.py`  | simulation metric helpers                  |
-| `test_smoke_celery.py`        | eager Celery smoke                         |
 | `test_sot_loader.py`          | source-of-truth loader                     |
 | `test_split_merge.py`         | split/merge conservation                   |
 | `test_thresholds.py`          | mobilization thresholds                    |
@@ -69,8 +67,6 @@ Run the full maintained sweep:
 | `test_trust.py`               | trust graph helpers                        |
 | `test_validators.py`          | simulation validators                      |
 | `test_webhooks.py`            | webhook signing and retry                  |
-| `test_openrouter_live.py`     | opt-in live OpenRouter check               |
-| `test_memory_zep_live.py`     | opt-in live Zep check                      |
 
 ## Integration Tests
 
@@ -98,7 +94,6 @@ Run the full maintained sweep:
 | `test_provider_fallback_e2e.py`        | provider fallback on failures    |
 | `test_provider_rate_limit_fallback.py` | rate-limit fallback behavior     |
 | `test_queue_dead_letter.py`            | dead-letter queue routing        |
-| `test_zep_outage_fallback.py`          | Zep outage degradation           |
 
 ## Live Full Runtime Smoke
 
@@ -121,8 +116,5 @@ It covers settings mutation/restoration, live ticks, runtime checkpoints, manual
 | `e2e`             | end-to-end suite                               |
 | `slow`            | slower tests, usually filterable locally       |
 | `requires_broker` | needs a real broker and skips when unavailable |
-| `requires_redis`  | needs Redis                                    |
-| `live_openrouter` | hits OpenRouter                                |
-| `live_zep`        | hits Zep Cloud                                 |
 
-Live markers are opt-in. The default `run_tests.sh all` sweep excludes live upstream calls.
+The default `run_tests.sh all` sweep is offline except for any explicitly requested runtime smoke outside pytest.

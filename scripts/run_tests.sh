@@ -39,7 +39,7 @@ run_e2e() {
   echo "==> e2e"
   # E2E tests exercise the full app + real ledger I/O; keep serial so SQLite
   # in-memory state is isolated per test.
-  $PYTEST -c pyproject.toml backend/tests/e2e -q -m "not requires_broker and not live_openrouter and not live_zep"
+  $PYTEST -c pyproject.toml backend/tests/e2e -q -m "not requires_broker"
 }
 
 case "$LAYER" in

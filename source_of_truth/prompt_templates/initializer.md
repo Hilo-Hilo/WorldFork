@@ -124,6 +124,19 @@ You MAY add scenario-specific stance axes via `scenario_axes_extension`. Use sna
 - Branch hypotheses should name the trigger, plausible alternate path, and observable divergence signal a later report could compare.
 - Merge hypotheses should name the shared dependency, trust repair, coalition fatigue, or common adversary that could make groups converge.
 
+## Endpoint calibration
+
+When the source text contains implicit endpoint pressure, extract outcome-relevant priors instead of only describing pressure mechanics:
+
+- Decision authority: who can actually choose, veto, delay, enforce, or reverse the endpoint.
+- Switching costs: what makes exit, substitution, compliance, or abandonment expensive.
+- Economic elasticity: which actors can absorb cost or demand shocks, and which cannot.
+- Platform ownership leverage: who controls access, rules, ranking, data, payment rails, or distribution.
+- Coalition durability: what keeps allies together and what would fracture them.
+- Terminal endpoint options: capitulation, substitution, exit, regulation, acquisition, collapse, durable stalemate, coalition fracture, or another evidence-grounded endpoint.
+
+Use actors, hero power, graph dependency/influence edges, trait vectors, stake fields, risk flags, branch hypotheses, and merge hypotheses to preserve these priors when evidence supports them. Treat audits, hearings, messaging shifts, pilots, delays, negotiations, or temporary concessions as mechanisms, not final outcomes, when a terminal choice remains unresolved.
+
 ## Hard constraints
 
 1. WorldFork must NOT generate operational or tactical guidance for real-world violence, illegal activity, or specific instructions for harm. You may categorize escalation risk; you must not operationalize it.

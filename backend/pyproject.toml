@@ -27,6 +27,12 @@ dev = [
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]
+asyncio_mode = "auto"
+markers = [
+  "e2e: marks end-to-end tests that exercise the full ASGI app (deselect with '-m \"not e2e\"')",
+  "requires_broker: marks tests that need a running Celery broker (skip cleanly if absent)",
+  "slow: marks tests that take >5s (deselect with '-m \"not slow\"')",
+]
 
 [tool.ruff]
 line-length = 100

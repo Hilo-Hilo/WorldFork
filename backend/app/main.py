@@ -26,6 +26,7 @@ from app.api import (
     big_bangs,
     case_studies,
     emotion_observability,
+    endpoint_ledgers,
     god_agent,
     graphs,
     initialization,
@@ -50,7 +51,7 @@ from backend.app.api import websockets as legacy_websockets
 from app.core.config import get_settings
 from app.db.models import Base
 from app.db.session import engine
-from app.simulation.tick_bundles import TickBundleHydrationError
+from app.domains.tick.tick_bundles import TickBundleHydrationError
 from backend.app.core.db import sync_engine
 from backend.app.core.redis_client import get_redis_client
 from backend.app.integrations.zep import zep_status_summary
@@ -184,6 +185,7 @@ app.include_router(reports.router, prefix=prefix)
 app.include_router(ticks.router, prefix=prefix)
 app.include_router(actors.router, prefix=prefix)
 app.include_router(graphs.router, prefix=prefix)
+app.include_router(endpoint_ledgers.router, prefix=prefix)
 app.include_router(emotion_observability.router, prefix=prefix)
 app.include_router(sociology.router, prefix=prefix)
 app.include_router(god_agent.router, prefix=prefix)
