@@ -440,6 +440,21 @@ def test_agent_prompt_context_sanitizes_sociology_influences_and_omits_raw_corpu
     assert "raw_text_artifact_id" not in context["current_state"]["scenario_summary"]
 
 
+def test_agent_prompt_context_uses_only_live_event_queue_payload():
+    context = build_agent_prompt_context(
+        clock_context=SimpleNamespace(as_prompt_text=lambda: "T2"),
+        current_state={
+            "event_queue": {"due_events": [{"title": "stale initializer snapshot"}]},
+            "cohorts": [],
+        },
+        sociology_prompt_influences=[],
+        event_queue={"due_events": [{"title": "live event table view"}]},
+    )
+
+    assert "event_queue" not in context["current_state"]
+    assert context["event_queue"] == {"due_events": [{"title": "live event table view"}]}
+
+
 def test_forbidden_god_tool_aliases_are_rejected():
     calls = god_agent._normalize_tool_calls(
         [
