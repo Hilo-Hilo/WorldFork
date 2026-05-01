@@ -45,7 +45,6 @@ def compact_simulation_state(state: dict) -> dict:
         "channels": state.get("channels", []),
         "trait_vectors": state.get("trait_vectors", []),
         "graph_summary": state.get("graph_summary", {}),
-        "event_queue": state.get("event_queue", {}),
         "branch_hypotheses": state.get("branch_hypotheses", []),
         "merge_hypotheses": state.get("merge_hypotheses", []),
         "last_tick_index": state.get("last_tick_index"),
