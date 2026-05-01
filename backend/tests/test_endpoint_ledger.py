@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import warnings
-from pathlib import Path
 from types import SimpleNamespace
 from uuid import uuid4
 
@@ -23,7 +22,6 @@ from app.simulation.endpoint_ledger import (
     evaluate_endpoint_ledger,
     seed_endpoint_ledger,
 )
-from app.storage.artifact_store import ArtifactStore
 
 
 @pytest.fixture()
@@ -271,6 +269,34 @@ def test_endpoint_probabilities_are_normalized_when_llm_overstates(db: Session):
     assert sum(float(item["probability"]) for item in entries) <= 1.0
 
 
+def test_endpoint_normalization_downgrades_unsupported_terminal_claims():
+    entries = endpoint_ledger._assign_probabilities(
+        [
+            {
+                "endpoint_key": "law_changed",
+                "label": "Law changed",
+                "status": "realized",
+                "probability": 0.9,
+                "evidence_refs": [{"source": "cohort_claim"}],
+                "authority_refs": [],
+            },
+            {
+                "endpoint_key": "organizing_continues",
+                "label": "Organizing continues",
+                "status": "active",
+                "probability": 0.7,
+            },
+        ]
+    )
+    by_key = {entry["endpoint_key"]: entry for entry in entries}
+
+    assert by_key["law_changed"]["status"] == "active"
+    assert "authority evidence missing for realized endpoint" in by_key["law_changed"]["blockers"]
+    assert by_key["organizing_continues"]["status"] == "process_only"
+    assert by_key["organizing_continues"]["probability"] <= 0.1
+    assert by_key["organizing_continues"]["status_basis"] == "downgraded_missing_supporting_evidence"
+
+
 def test_report_patch_does_not_replace_terminal_outcome_with_unresolved_endpoint():
     content = {
         "outcome_conclusions": {
@@ -294,7 +320,7 @@ def test_report_patch_does_not_replace_terminal_outcome_with_unresolved_endpoint
     assert content["outcome_conclusions"]["likely_endpoint"]["endpoint_key"] == "accept_terminal"
 
 
-def test_report_generation_includes_endpoint_ledger_payload(db: Session, monkeypatch, tmp_path):
+def test_report_generation_includes_endpoint_ledger_payload(db: Session, monkeypatch):
     big_bang, multiverse, _actor = _world(db)
     tick = models.TickSnapshot(
         big_bang_id=big_bang.id,
@@ -309,7 +335,6 @@ def test_report_generation_includes_endpoint_ledger_payload(db: Session, monkeyp
     db.add(tick)
     db.flush()
 
-    monkeypatch.setattr(report_engine, "ArtifactStore", lambda: ArtifactStore(root=tmp_path / "artifacts"))
     monkeypatch.setattr(
         report_engine,
         "get_settings",
@@ -351,12 +376,12 @@ def test_report_generation_includes_endpoint_ledger_payload(db: Session, monkeyp
     monkeypatch.setattr(report_engine, "complete_with_audit", fake_report_agent)
 
     version = report_engine.generate_multiverse_report(db, multiverse=multiverse)
-    markdown = db.get(models.Artifact, version.markdown_artifact_id)
-    body = Path(markdown.path).read_text(encoding="utf-8")
+    body = report_engine.render_report_version_to_markdown(version)
 
     assert version.content["endpoint_ledger"]["entries"]
     assert version.content["endpoint_histogram"]
     assert version.content["llm_report"]["endpoint_histogram"]
+    assert version.markdown_artifact_id is None
     assert "## Structured Evidence Appendix" in body
 
 

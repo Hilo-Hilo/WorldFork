@@ -1,12 +1,4 @@
-"""Canonical ASGI surface for the LangGraph runtime rewrite.
-
-This module is the authoritative mounted API surface for the
-`revamp/langgraph-runtime-v2` branch. The canonical runtime family is the
-`app.*` package plus `/api/agent/*`, `/api/jobs*`, and the queue-controlled
-tick execution paths mounted below. Duplicate or older runtime surfaces such as
-`/api/runs` remain transitional until they are either explicitly re-homed here
-or deleted.
-"""
+"""Canonical ASGI surface for WorldFork's CLI-first runtime."""
 
 from __future__ import annotations
 
@@ -32,6 +24,7 @@ from app.api import (
     graphs,
     initialization,
     jobs,
+    logs,
     multiverses,
     reports,
     sample,
@@ -41,17 +34,10 @@ from app.api import (
     ticks,
     workspace,
 )
-from backend.app.api import integrations as legacy_integrations
-from backend.app.api import jobs_legacy
-from backend.app.api import logs as legacy_logs
-from backend.app.api import multiverse as legacy_multiverse
-from backend.app.api import runs as legacy_runs
-from backend.app.api import settings_legacy
-from backend.app.api import universes as legacy_universes
-from backend.app.api import websockets as legacy_websockets
 from app.core.config import get_settings
 from app.db.models import Base
 from app.db.session import engine
+from app.domains.integrations import routes as integrations
 from app.domains.tick.tick_bundles import TickBundleHydrationError
 from backend.app.core.db import sync_engine
 from backend.app.core.redis_client import get_redis_client
@@ -66,17 +52,13 @@ settings_obj = get_settings()
 async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     if settings_obj.auto_create_tables:
         Base.metadata.create_all(bind=engine)
-        _create_legacy_compat_tables()
+        _create_runtime_control_tables()
     yield
 
 
 app = FastAPI(
     title=settings_obj.app_name,
-    description=(
-        "Canonical WorldFork runtime surface for the LangGraph rewrite. "
-        "Legacy duplicate routes such as /api/runs are transitional until "
-        "removed or re-homed behind the app.* control plane."
-    ),
+    description="Canonical WorldFork runtime surface for the CLI-first control plane.",
     lifespan=lifespan,
 )
 
@@ -90,15 +72,13 @@ if settings_obj.cors_origins:
     )
 
 
-def _create_legacy_compat_tables() -> None:
-    """Create non-conflicting transitional tables used by mounted legacy routes."""
+def _create_runtime_control_tables() -> None:
+    """Create mutable runtime control tables that are not part of app.db yet."""
 
-    import backend.app.models  # noqa: F401 - populate legacy model metadata
-    from backend.app.models.base import Base as LegacyBase
+    import backend.app.models  # noqa: F401 - populate runtime control metadata
+    from backend.app.models.base import Base as RuntimeControlBase
 
     table_names = {
-        "big_bang_runs",
-        "run_results",
         "settings_branch_policy",
         "settings_global",
         "settings_model_routing",
@@ -106,8 +86,12 @@ def _create_legacy_compat_tables() -> None:
         "settings_rate_limit",
         "settings_zep",
     }
-    tables = [LegacyBase.metadata.tables[name] for name in table_names if name in LegacyBase.metadata.tables]
-    LegacyBase.metadata.create_all(bind=engine, tables=tables)
+    tables = [
+        RuntimeControlBase.metadata.tables[name]
+        for name in table_names
+        if name in RuntimeControlBase.metadata.tables
+    ]
+    RuntimeControlBase.metadata.create_all(bind=engine, tables=tables)
 
 
 @app.get("/health")
@@ -206,33 +190,20 @@ app.include_router(endpoint_ledgers.router, prefix=prefix)
 app.include_router(emotion_observability.router, prefix=prefix)
 app.include_router(sociology.router, prefix=prefix)
 app.include_router(god_agent.router, prefix=prefix)
-# Legacy /api/settings and /api/jobs compatibility surfaces need to win route
-# precedence during the runtime rewrite because large parts of the backend test
-# suite still exercise the async DB-backed control-plane contracts.
-app.include_router(settings_legacy.router)
-app.include_router(jobs_legacy.router)
 app.include_router(settings.router, prefix=prefix)
 app.include_router(jobs.router, prefix=prefix)
+app.include_router(logs.router, prefix=prefix)
 app.include_router(artifacts.router, prefix=prefix)
 app.include_router(sample.router, prefix=prefix)
 app.include_router(initialization.router, prefix=prefix)
 app.include_router(case_studies.router, prefix=prefix)
 app.include_router(scenario_bank.router, prefix=prefix)
 app.include_router(observability_router)
-
-# Transitional compatibility routers retained while the runtime rewrite
-# converges. These paths are exercised by the current backend test suite and
-# remain intentionally mounted until their replacements are fully re-homed.
-app.include_router(legacy_runs.router)
-app.include_router(legacy_universes.router)
-app.include_router(legacy_multiverse.router)
-app.include_router(legacy_logs.router)
-app.include_router(legacy_integrations.router)
-app.include_router(legacy_integrations.webhooks_router)
-app.include_router(legacy_websockets.router)
+app.include_router(integrations.router)
+app.include_router(integrations.webhooks_router)
 
 
 def create_app() -> FastAPI:
-    """Return the canonical ASGI app, including transitional compatibility routes."""
+    """Return the canonical ASGI app."""
 
     return app

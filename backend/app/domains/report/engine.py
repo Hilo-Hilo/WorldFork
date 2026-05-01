@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 from collections import Counter
-from pathlib import Path
+from dataclasses import dataclass
 from typing import Any
 
 from sqlalchemy import func, select
@@ -19,9 +19,12 @@ from app.domains.endpoint_ledger.service import (
     latest_endpoint_ledger,
 )
 from app.domains.multiverse.runtime_config import multiverse_runtime_config_version
+from app.domains.report.adjudication import (
+    evaluate_timeline_adjudication,
+    timeline_adjudication_entries,
+)
 from app.domains.tick.tick_bundles import TickBundleHydrationContext, hydrate_tick_bundle
-from app.storage.artifact_store import ArtifactStore, _cleanup_artifact_path
-from app.storage.pdf_store import render_markdown_pdf
+from app.storage.pdf_store import render_markdown_pdf_bytes
 
 REPORT_SCHEMA_VERSION = "worldfork.report.v2"
 REPORT_AGENT_TEXT_KEYS = (
@@ -59,10 +62,11 @@ REPORT_AGENT_STANDARD_MAX_TOKENS = 2400
 REPORT_AGENT_RESCUE_MAX_TOKENS = 1600
 
 
-def _cleanup_report_artifacts(*artifacts: models.Artifact | None) -> None:
-    for artifact in artifacts:
-        if artifact is not None:
-            _cleanup_artifact_path(Path(artifact.path))
+@dataclass(frozen=True)
+class RenderedReport:
+    body: bytes
+    content_type: str
+    filename: str
 
 
 def generate_multiverse_report(
@@ -140,21 +144,6 @@ def generate_multiverse_report(
     db.add(report_version)
     db.flush()
     attach_report_version_to_ledger(db, ledger=endpoint_ledger, report_version_id=report_version.id)
-    artifact = None
-    try:
-        artifact = _write_markdown_artifact(
-            db,
-            report_version=report_version,
-            relative_path=(
-                f"big_bang_{multiverse.big_bang_id}/multiverses/{multiverse.ui_label}/"
-                f"reports/{report_version.id}/report_v{version}.md"
-            ),
-        )
-        report_version.markdown_artifact_id = artifact.id
-        db.flush()
-    except Exception:
-        _cleanup_report_artifacts(artifact)
-        raise
     return report_version
 
 
@@ -174,11 +163,13 @@ def generate_final_big_bang_report(
     )
     previous_version = _latest_report_version(db, report.id)
     version = report.current_version + 1
-    multiverses = db.scalars(
-        select(models.Multiverse)
-        .where(models.Multiverse.big_bang_id == big_bang.id)
-        .order_by(models.Multiverse.ui_label)
-    ).all()
+    multiverses = list(
+        db.scalars(
+            select(models.Multiverse)
+            .where(models.Multiverse.big_bang_id == big_bang.id)
+            .order_by(models.Multiverse.ui_label)
+        ).all()
+    )
     title_text = title or f"{big_bang.name} Final Big Bang Report"
     content = _build_final_report_content(
         db,
@@ -188,6 +179,14 @@ def generate_final_big_bang_report(
         summary=summary,
         report_version_number=version,
     )
+    _ensure_multiverse_endpoint_ledgers(db, big_bang=big_bang, multiverses=multiverses)
+    adjudication = evaluate_timeline_adjudication(
+        db,
+        big_bang=big_bang,
+        source_type="report_time",
+        created_by="report_agent",
+    )
+    _attach_timeline_adjudication_content(db, content, adjudication)
     endpoint_ledger = evaluate_endpoint_ledger(
         db,
         big_bang=big_bang,
@@ -197,7 +196,7 @@ def generate_final_big_bang_report(
     )
     _attach_endpoint_ledger_content(db, content, endpoint_ledger)
     label_by_multiverse_id = {str(item.id): item.ui_label for item in multiverses}
-    reports = db.scalars(select(models.Report).where(models.Report.big_bang_id == big_bang.id)).all()
+    reports = list(db.scalars(select(models.Report).where(models.Report.big_bang_id == big_bang.id)).all())
     content["report_inventory"] = _report_inventory_items(
         reports,
         label_by_multiverse_id=label_by_multiverse_id,
@@ -247,19 +246,33 @@ def generate_final_big_bang_report(
     db.add(report_version)
     db.flush()
     attach_report_version_to_ledger(db, ledger=endpoint_ledger, report_version_id=report_version.id)
-    artifact = None
-    try:
-        artifact = _write_markdown_artifact(
-            db,
-            report_version=report_version,
-            relative_path=f"big_bang_{big_bang.id}/reports/{report_version.id}/final_big_bang_report_v{version}.md",
-        )
-        report_version.markdown_artifact_id = artifact.id
-        db.flush()
-    except Exception:
-        _cleanup_report_artifacts(artifact)
-        raise
+    adjudication.source_report_version_id = report_version.id
     return report_version
+
+
+def _ensure_multiverse_endpoint_ledgers(
+    db: Session,
+    *,
+    big_bang: models.BigBang,
+    multiverses: list[models.Multiverse],
+) -> None:
+    for multiverse in multiverses:
+        existing = latest_endpoint_ledger(
+            db,
+            big_bang_id=big_bang.id,
+            multiverse_id=multiverse.id,
+            scope="multiverse",
+        )
+        if existing is not None:
+            continue
+        evaluate_endpoint_ledger(
+            db,
+            big_bang=big_bang,
+            multiverse=multiverse,
+            source_type="timeline_adjudication_seed",
+            created_by="timeline_adjudicator",
+            use_llm=False,
+        )
 
 
 def render_report_version_to_markdown(report_version: models.ReportVersion) -> str:
@@ -287,7 +300,49 @@ def _attach_endpoint_ledger_content(
     content["endpoint_histogram"] = payload.get("histogram", [])
     content["terminality_assessment"] = payload.get("terminality_assessment", {})
     content["contradiction_check"] = payload.get("contradiction_check", {})
+    aggregation_payload = payload.get("payload") if isinstance(payload.get("payload"), dict) else {}
+    if aggregation_payload.get("aggregation") == "path_probability_weighted":
+        content["path_probability_distribution"] = aggregation_payload.get("path_probability_distribution", [])
+        outcome_distribution = content.get("outcome_distribution")
+        if isinstance(outcome_distribution, dict):
+            outcome_distribution["endpoint_probability_method"] = "path_probability_weighted"
+            outcome_distribution["path_probability_mass"] = aggregation_payload.get("path_probability_mass")
+            outcome_distribution["weighted_endpoint_histogram"] = payload.get("histogram", [])
     _patch_outcome_conclusions_from_endpoint_ledger(content)
+
+
+def _attach_timeline_adjudication_content(
+    db: Session,
+    content: dict[str, Any],
+    adjudication: models.TimelineAdjudicationVersion | None,
+) -> None:
+    if adjudication is None:
+        return
+    entries = timeline_adjudication_entries(db, adjudication.id)
+    content["timeline_adjudication"] = {
+        "adjudication_version_id": str(adjudication.id),
+        "version": adjudication.version,
+        "status": adjudication.status,
+        "source_type": adjudication.source_type,
+        "summary": adjudication.summary,
+        "payload": adjudication.payload or {},
+        "entries": [
+            {
+                "multiverse_id": str(entry.multiverse_id),
+                "ui_label": entry.ui_label,
+                "viability_status": entry.viability_status,
+                "include_in_final": entry.include_in_final,
+                "prune_reason": entry.prune_reason,
+                "original_path_probability": entry.original_path_probability,
+                "effective_path_probability": entry.effective_path_probability,
+                "mass_disposition": entry.mass_disposition,
+                "endpoint_key": entry.endpoint_key,
+                "endpoint_status": entry.endpoint_status,
+                "evidence_summary": entry.evidence_summary or {},
+            }
+            for entry in entries
+        ],
+    }
 
 
 def _patch_outcome_conclusions_from_endpoint_ledger(content: dict[str, Any]) -> None:
@@ -314,61 +369,45 @@ def _patch_outcome_conclusions_from_endpoint_ledger(content: dict[str, Any]) -> 
     conclusions["likely_endpoint"] = likely
 
 
-def render_report_version_artifact(
+def render_report_version_ephemeral(
     db: Session,
     *,
     report_version: models.ReportVersion,
     output_format: str,
     force: bool = False,
-) -> models.Artifact:
+) -> RenderedReport:
+    del force
     output_format = output_format.lower()
     if output_format not in {"markdown", "pdf"}:
         raise ValueError("output_format must be markdown or pdf")
-    if output_format == "markdown" and report_version.markdown_artifact_id and not force:
-        artifact = db.get(models.Artifact, report_version.markdown_artifact_id)
-        if artifact is not None:
-            return artifact
-    if output_format == "pdf" and report_version.pdf_artifact_id and not force:
-        artifact = db.get(models.Artifact, report_version.pdf_artifact_id)
-        if artifact is not None:
-            return artifact
 
     markdown = render_report_version_to_markdown(report_version)
-    report = db.get(models.Report, report_version.report_id)
-    if report is None:
+    if db.get(models.Report, report_version.report_id) is None:
         raise ValueError("report not found")
     if output_format == "markdown":
-        artifact = ArtifactStore().write_text(
-            db,
-            big_bang_id=report.big_bang_id,
-            relative_path=f"big_bang_{report.big_bang_id}/reports/{report_version.id}/rendered_report_v{report_version.version}.md",
-            body=markdown,
-            kind="report_markdown",
-            content_type="text/markdown",
+        return RenderedReport(
+            body=markdown.encode("utf-8"),
+            content_type="text/markdown; charset=utf-8",
+            filename=f"report_v{report_version.version}_{report_version.id}.md",
         )
-        report_version.markdown_artifact_id = artifact.id
-        db.flush()
-        return artifact
 
-    artifact = render_markdown_pdf(
-        db,
-        big_bang_id=report.big_bang_id,
-        relative_path=f"big_bang_{report.big_bang_id}/reports/{report_version.id}/rendered_report_v{report_version.version}.pdf",
-        title=report_version.title,
-        markdown=markdown,
+    return RenderedReport(
+        body=render_markdown_pdf_bytes(
+            title=report_version.title,
+            markdown=markdown,
+        ),
+        content_type="application/pdf",
+        filename=f"report_v{report_version.version}_{report_version.id}.pdf",
     )
-    report_version.pdf_artifact_id = artifact.id
-    db.flush()
-    return artifact
 
 
 def render_structured_report_markdown(content: dict[str, Any]) -> str:
     llm_report = content.get("llm_report") or {}
     llm_markdown = llm_report.get("report_markdown") if isinstance(llm_report, dict) else None
     if isinstance(llm_markdown, str) and llm_markdown.strip():
-        lines = [llm_markdown.strip(), "", "---", "", "## Structured Evidence Appendix", ""]
-        lines.extend(_structured_report_detail_lines(content, heading_level=3))
-        return "\n".join(lines).rstrip() + "\n"
+        llm_lines = [llm_markdown.strip(), "", "---", "", "## Structured Evidence Appendix", ""]
+        llm_lines.extend(_structured_report_detail_lines(content, heading_level=3))
+        return "\n".join(llm_lines).rstrip() + "\n"
 
     lines: list[str] = [f"# {content.get('title') or 'WorldFork Report'}", ""]
     if content.get("summary"):
@@ -445,12 +484,44 @@ def _structured_report_detail_lines(content: dict[str, Any], *, heading_level: i
                         "version": item.get("version"),
                         "status": item.get("status"),
                         "ticks": item.get("tick_count"),
+                        "branch_probability": item.get("branch_probability"),
+                        "path_probability": item.get("path_probability"),
                         "branch_score": item.get("latest_branch_score"),
                         "social_posts": item.get("social_posts"),
                         "graph_edges": item.get("graph_edges"),
                         "sociology_signals": item.get("sociology_signals"),
                     }
                     for item in content["multiverse_comparison"]
+                ]
+            )
+        )
+        lines.append("")
+    if content.get("timeline_adjudication"):
+        adjudication = content["timeline_adjudication"]
+        lines.extend([f"{marker} Timeline Adjudication", ""])
+        lines.extend(
+            _markdown_block(
+                {
+                    "version": adjudication.get("version"),
+                    "summary": adjudication.get("summary"),
+                    **(adjudication.get("payload") or {}),
+                }
+            )
+        )
+        lines.append("")
+        lines.extend(
+            _markdown_table(
+                [
+                    {
+                        "label": item.get("ui_label"),
+                        "viability": item.get("viability_status"),
+                        "include": item.get("include_in_final"),
+                        "original_path": item.get("original_path_probability"),
+                        "effective_path": item.get("effective_path_probability"),
+                        "endpoint": item.get("endpoint_key"),
+                        "reason": item.get("prune_reason"),
+                    }
+                    for item in adjudication.get("entries", [])
                 ]
             )
         )
@@ -630,12 +701,14 @@ def _build_final_report_content(
         for multiverse in multiverses
     ]
     _apply_multiverse_report_snapshots(db, big_bang_id=big_bang.id, comparison=comparison)
-    lineage_edges = db.scalars(
-        select(models.MultiverseLineageEdge)
-        .where(models.MultiverseLineageEdge.big_bang_id == big_bang.id)
-        .order_by(models.MultiverseLineageEdge.created_at)
-    ).all()
-    god_decisions = Counter()
+    lineage_edges = list(
+        db.scalars(
+            select(models.MultiverseLineageEdge)
+            .where(models.MultiverseLineageEdge.big_bang_id == big_bang.id)
+            .order_by(models.MultiverseLineageEdge.created_at)
+        ).all()
+    )
+    god_decisions: Counter[str] = Counter()
     for item in comparison:
         god_decisions.update(item.get("god_decisions", {}))
     outcome_conclusions = _final_outcome_conclusions(
@@ -681,6 +754,10 @@ def _build_final_report_content(
                         "child_multiverse_id": str(edge.child_multiverse_id),
                         "fork_tick_index": edge.fork_tick_index,
                         "reason": edge.reason,
+                        "branch_probability": edge.branch_probability,
+                        "parent_path_probability": edge.parent_path_probability,
+                        "child_path_probability": edge.child_path_probability,
+                        "probability_basis": edge.probability_basis or {},
                     }
                     for edge in lineage_edges
                 ],
@@ -887,7 +964,8 @@ def _final_causal_mechanisms(
         )
     mechanisms.append(
         f"Endpoint selection favored {endpoint_source.get('ui_label')} by status={endpoint_source.get('status')}, "
-        f"latest tick={endpoint_source.get('latest_tick_index')}, and branch score={endpoint_source.get('latest_branch_score')}."
+        f"latest tick={endpoint_source.get('latest_tick_index')}, branch score={endpoint_source.get('latest_branch_score')}, "
+        f"and path probability={endpoint_source.get('path_probability')}."
     )
     return mechanisms
 
@@ -981,6 +1059,8 @@ def _multiverse_metrics(
         "depth": multiverse.depth,
         "parent_multiverse_id": str(multiverse.parent_multiverse_id) if multiverse.parent_multiverse_id else None,
         "fork_tick_index": multiverse.fork_tick_index,
+        "branch_probability": _float_or_default(getattr(multiverse, "branch_probability", None), 1.0),
+        "path_probability": _float_or_default(getattr(multiverse, "path_probability", None), 1.0),
         "config_version": multiverse_runtime_config_version(db, multiverse),
         "latest_tick_id": str(latest_tick.id) if latest_tick else None,
         "latest_tick_index": latest_tick.tick_index if latest_tick else None,
@@ -1001,6 +1081,16 @@ def _multiverse_metrics(
         "hero_state_highlights": _compact_actor_state_list(hero_states),
         "recent_event_highlights": _event_highlights(db, multiverse_id=multiverse.id),
     }
+
+
+def _float_or_default(value: Any, default: float) -> float:
+    try:
+        parsed = float(value if value is not None else default)
+    except (TypeError, ValueError):
+        return default
+    if parsed != parsed:
+        return default
+    return parsed
 
 
 def _event_highlights(db: Session, *, multiverse_id, limit: int = REPORT_AGENT_STATE_SAMPLE_LIMIT) -> list[dict[str, Any]]:
@@ -1058,12 +1148,13 @@ def _compact_actor_state_list(states: list[Any], limit: int = REPORT_AGENT_STATE
 def _compact_actor_state(state: Any) -> dict[str, Any]:
     if not isinstance(state, dict):
         return {"value": _truncate_text(str(state), 240)}
-    compact = {
+    compact: dict[str, Any] = {
         key: _compact_report_value(state[key], max_items=4)
         for key in STATE_HIGHLIGHT_KEYS
         if state.get(key) not in (None, "", {}, [])
     }
-    nested_state = state.get("state") if isinstance(state.get("state"), dict) else {}
+    raw_nested_state = state.get("state")
+    nested_state: dict[str, Any] = raw_nested_state if isinstance(raw_nested_state, dict) else {}
     for key in STATE_HIGHLIGHT_KEYS:
         if len(compact) >= 10:
             break
@@ -1214,15 +1305,21 @@ def _report_agent_prompt_content(content: dict[str, Any], *, mode: str) -> dict[
             "summary": content.get("summary"),
             "source": _compact_source(content.get("source") or {}),
             "outcome_distribution": _compact_distribution(content.get("outcome_distribution") or {}),
+            "probability_context": _probability_context(content),
             "endpoint_ledger": _compact_endpoint_ledger(content),
             "endpoint_histogram": _compact_report_value(content.get("endpoint_histogram") or [], max_items=limit),
+            "path_probability_distribution": _compact_path_probability_distribution(
+                content.get("path_probability_distribution") or [],
+                limit=limit,
+            ),
+            "timeline_adjudication": _compact_timeline_adjudication(content.get("timeline_adjudication") or {}, limit=limit),
             "terminality_assessment": _compact_report_value(content.get("terminality_assessment") or {}, max_items=6),
             "contradiction_check": _compact_report_value(content.get("contradiction_check") or {}, max_items=6),
             "selected_timelines": [_compact_timeline_metric(item) for item in selected],
             "timeline_selection": {
                 "selected_count": len(selected),
                 "total_count": len(comparison),
-                "policy": "highest branch score, deepest branches, and longest tick history",
+                "policy": "highest path probability, then branch score, deepest branches, and longest tick history",
             },
             "divergence_drivers": _compact_divergence_drivers(content, limit=limit),
             "recurring_patterns": _section_items(content, "Recurring Patterns")[:limit],
@@ -1238,6 +1335,7 @@ def _report_agent_prompt_content(content: dict[str, Any], *, mode: str) -> dict[
         "summary": content.get("summary"),
         "source": _compact_source(content.get("source") or {}),
         "outcome_distribution": _compact_timeline_metric(content.get("outcome_distribution") or {}),
+        "probability_context": _probability_context(content),
         "endpoint_ledger": _compact_endpoint_ledger(content),
         "endpoint_histogram": _compact_report_value(content.get("endpoint_histogram") or [], max_items=limit),
         "terminality_assessment": _compact_report_value(content.get("terminality_assessment") or {}, max_items=6),
@@ -1257,13 +1355,18 @@ def _report_agent_prompt_content(content: dict[str, Any], *, mode: str) -> dict[
 
 
 def _compact_endpoint_ledger(content: dict[str, Any]) -> dict[str, Any]:
-    ledger = content.get("endpoint_ledger") if isinstance(content.get("endpoint_ledger"), dict) else {}
+    raw_ledger = content.get("endpoint_ledger")
+    ledger: dict[str, Any] = raw_ledger if isinstance(raw_ledger, dict) else {}
+    raw_payload = ledger.get("payload")
+    payload: dict[str, Any] = raw_payload if isinstance(raw_payload, dict) else {}
     return {
         "ledger_version_id": ledger.get("ledger_version_id"),
         "scope": ledger.get("scope"),
         "version": ledger.get("version"),
         "summary": _truncate_text(str(ledger.get("summary") or ""), 360),
         "entries": _compact_report_value((ledger.get("entries") or [])[:8], max_items=6),
+        "aggregation": payload.get("aggregation"),
+        "path_probability_mass": payload.get("path_probability_mass"),
     }
 
 
@@ -1289,11 +1392,77 @@ def _compact_distribution(distribution: dict[str, Any]) -> dict[str, Any]:
         "timeline_statuses",
         "report_statuses",
         "god_decisions",
+        "endpoint_probability_method",
+        "path_probability_mass",
+        "weighted_endpoint_histogram",
         "total_social_posts",
         "total_graph_edges",
         "total_sociology_signals",
     }
-    return {key: distribution.get(key) for key in keys if key in distribution}
+    compact = {key: distribution.get(key) for key in keys if key in distribution}
+    if "weighted_endpoint_histogram" in compact:
+        compact["weighted_endpoint_histogram"] = _compact_report_value(
+            compact["weighted_endpoint_histogram"],
+            max_items=8,
+        )
+    return compact
+
+
+def _probability_context(content: dict[str, Any]) -> dict[str, Any]:
+    if content.get("report_type") == "final_big_bang":
+        raw_distribution = content.get("outcome_distribution")
+        distribution: dict[str, Any] = raw_distribution if isinstance(raw_distribution, dict) else {}
+        method = distribution.get("endpoint_probability_method") or "endpoint_ledger"
+        return {
+            "scope": "final_big_bang",
+            "endpoint_probability_method": method,
+            "path_probability_mass": distribution.get("path_probability_mass"),
+            "semantics": (
+                "When endpoint_probability_method=path_probability_weighted, endpoint histogram probabilities "
+                "are final cross-timeline path-mass-weighted probabilities. Otherwise they are ledger probabilities "
+                "from the available endpoint ledger evidence."
+            ),
+        }
+
+    raw_metrics = content.get("outcome_distribution")
+    metrics: dict[str, Any] = raw_metrics if isinstance(raw_metrics, dict) else {}
+    return {
+        "scope": "single_multiverse",
+        "branch_probability": metrics.get("branch_probability"),
+        "path_probability": metrics.get("path_probability"),
+        "semantics": (
+            "This is a single timeline report. branch_probability is the conditional probability assigned at "
+            "this timeline's fork, and path_probability is the cumulative probability mass of this timeline. "
+            "Endpoint ledger probabilities are conditional endpoint probabilities inside this timeline; do not "
+            "describe them as cross-timeline path mass."
+        ),
+    }
+
+
+def _compact_path_probability_distribution(rows: list[Any], *, limit: int) -> list[dict[str, Any]]:
+    compact = []
+    for row in rows[:limit]:
+        if not isinstance(row, dict):
+            continue
+        item = {
+            "ui_label": row.get("ui_label"),
+            "status": row.get("status"),
+            "path_probability": row.get("path_probability"),
+            "normalized_weight": row.get("normalized_weight"),
+        }
+        compact.append({key: value for key, value in item.items() if value not in (None, "")})
+    return compact
+
+
+def _compact_timeline_adjudication(adjudication: dict[str, Any], *, limit: int) -> dict[str, Any]:
+    if not isinstance(adjudication, dict) or not adjudication:
+        return {}
+    return {
+        "version": adjudication.get("version"),
+        "summary": _truncate_text(str(adjudication.get("summary") or ""), 360),
+        "payload": _compact_report_value(adjudication.get("payload") or {}, max_items=8),
+        "entries": _compact_report_value((adjudication.get("entries") or [])[:limit], max_items=8),
+    }
 
 
 def _compact_divergence_drivers(content: dict[str, Any], *, limit: int) -> list[dict[str, Any]]:
@@ -1312,6 +1481,10 @@ def _compact_divergence_drivers(content: dict[str, Any], *, limit: int) -> list[
             "child_label": label_by_id.get(str(item.get("child_multiverse_id"))),
             "fork_tick_index": item.get("fork_tick_index"),
             "reason": _truncate_text(str(item.get("reason") or ""), 360),
+            "branch_probability": item.get("branch_probability"),
+            "parent_path_probability": item.get("parent_path_probability"),
+            "child_path_probability": item.get("child_path_probability"),
+            "probability_basis": _compact_report_value(item.get("probability_basis") or {}, max_items=4),
         }
         drivers.append({key: value for key, value in driver.items() if value not in (None, "")})
     return drivers
@@ -1336,6 +1509,10 @@ def _report_quality_controls() -> list[str]:
         "Tick indexes are zero-based; describe latest_tick_index=2 as tick index 2, not tick 3.",
         "Do not infer executed events from queued events; queued means scheduled but not executed.",
         "Do not discuss LLM-call or artifact audit totals unless they are explicitly present in this digest.",
+        "If endpoint_probability_method is path_probability_weighted, explain endpoint probabilities as path-mass-weighted outcomes derived from branch probabilities, not equal counts of timelines.",
+        "For a single_multiverse probability_context, state branch_probability and path_probability when present, and keep endpoint ledger probabilities separate from timeline path probability.",
+        "Use branch_probability and path_probability when explaining branch divergence; do not treat branch_score as probability.",
+        "For final reports with timeline_adjudication, describe which timelines were retained or pruned and use effective_path_probability for final endpoint probability claims.",
     ]
 
 
@@ -1344,6 +1521,7 @@ def _select_report_timelines(comparison: list[dict[str, Any]], *, limit: int) ->
         comparison,
         key=lambda item: (
             item.get("latest_branch_score") is not None,
+            item.get("path_probability") or 0,
             item.get("latest_branch_score") or 0,
             item.get("depth") or 0,
             item.get("tick_count") or 0,
@@ -1386,6 +1564,8 @@ def _compact_timeline_metric(item: dict[str, Any]) -> dict[str, Any]:
         "report_current_version",
         "depth",
         "fork_tick_index",
+        "branch_probability",
+        "path_probability",
         "latest_tick_index",
         "latest_branch_score",
         "tick_count",
@@ -1517,11 +1697,19 @@ def _report_agent_messages(prompt_content: dict[str, Any], *, mode: str) -> list
                 "endpoint_histogram, terminality_assessment, contradiction_check. "
                 "Use only the supplied structured report digest. Do not invent real-world facts. "
                 "The report_markdown field must be a complete long-form Markdown report, not a short summary. "
+                "Always include a Probability Accounting section. For single-multiverse reports, that section "
+                "must state branch_probability and path_probability when present and explicitly separate those "
+                "timeline probabilities from endpoint-ledger probabilities. For final Big Bang reports, that "
+                "section must state whether endpoint probabilities are path_probability_weighted. "
                 f"Target {target_length}. Prefer decision-useful interpretation over raw row restatement. Explain "
                 "outcome distribution, branch divergence, cohort/hero state movement, report/version "
-                "bindings, and evidence gaps. Prune unneeded raw IDs and low-signal rows; refer to labels, "
-                "versions, ticks, and branch scores when they help a reviewer. If evidence is absent or zero, "
-                "say so plainly. Treat digest quality_controls as binding instructions, especially exact "
+                "bindings, and evidence gaps. When the digest includes path-probability weighting, describe "
+                "endpoint probabilities as branch-path mass rather than equal timeline counts. Treat "
+                "probability_context as binding: in single-multiverse reports, separate timeline path "
+                "probability from endpoint-ledger probability; in final Big Bang reports, use the stated "
+                "endpoint probability method and the timeline_adjudication pruning ledger. Prune unneeded raw IDs and low-signal rows; refer to labels, "
+                "versions, ticks, branch scores, and path probabilities when they help a reviewer. If evidence "
+                "is absent or zero, say so plainly. Treat digest quality_controls as binding instructions, especially exact "
                 "numeric totals, report completion claims, zero-based tick indexes, and queued-versus-executed "
                 "events. Do not emit Markdown outside the JSON object."
             ),
@@ -1538,7 +1726,7 @@ def _coerce_report_agent_output(parsed: dict[str, Any]) -> dict[str, Any]:
     report_markdown = parsed.get("report_markdown")
     if not isinstance(report_markdown, str) or not report_markdown.strip():
         raise ValueError("report agent response did not include report_markdown")
-    output = {"report_markdown": report_markdown.strip()}
+    output: dict[str, Any] = {"report_markdown": report_markdown.strip()}
     for key in REPORT_AGENT_TEXT_KEYS:
         if key == "report_markdown":
             continue
@@ -1584,8 +1772,8 @@ def _base_generation_metadata(*, report_type: str, big_bang_id, model: str, sour
         "source": source,
         "storage": {
             "canonical": "report_versions.content",
-            "artifacts": "cached render outputs",
-            "pdf": "compiled from LLM report markdown and structured evidence appendix on request",
+            "artifacts": "report renders are ephemeral and are not stored by default",
+            "pdf": "compiled from LLM report markdown and structured evidence appendix only on request",
         },
     }
 
@@ -1598,25 +1786,6 @@ def _attach_report_agent_call_metadata(metadata: dict[str, Any], llm_call: Any) 
     model = str(getattr(llm_call, "model", None) or metadata.get("model") or get_settings().report_agent_model)
     metadata["model"] = model
     return model
-
-
-def _write_markdown_artifact(
-    db: Session,
-    *,
-    report_version: models.ReportVersion,
-    relative_path: str,
-) -> models.Artifact:
-    report = db.get(models.Report, report_version.report_id)
-    if report is None:
-        raise ValueError("report not found")
-    return ArtifactStore().write_text(
-        db,
-        big_bang_id=report.big_bang_id,
-        relative_path=relative_path,
-        body=render_report_version_to_markdown(report_version),
-        kind="report_markdown",
-        content_type="text/markdown",
-    )
 
 
 def _markdown_list(items: list[Any]) -> list[str]:

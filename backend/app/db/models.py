@@ -175,6 +175,8 @@ class Multiverse(Base, TimestampMixin):
     depth: Mapped[int] = mapped_column(Integer, default=0)
     status: Mapped[str] = mapped_column(String(40), default="active", index=True)
     branch_reason: Mapped[str | None] = mapped_column(Text)
+    branch_probability: Mapped[float] = mapped_column(Numeric(12, 10, asdecimal=False), default=1.0)
+    path_probability: Mapped[float] = mapped_column(Numeric(12, 10, asdecimal=False), default=1.0)
     state: Mapped[dict] = mapped_column(JSONValue(), default=dict)
     report_status: Mapped[str] = mapped_column(String(40), default="not_ready")
     ended_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
@@ -194,6 +196,10 @@ class MultiverseLineageEdge(Base, TimestampMixin):
     child_multiverse_id: Mapped[UUID] = mapped_column(GUID(), ForeignKey("multiverses.id"), index=True)
     fork_tick_index: Mapped[int] = mapped_column(Integer)
     reason: Mapped[str | None] = mapped_column(Text)
+    branch_probability: Mapped[float] = mapped_column(Numeric(12, 10, asdecimal=False), default=1.0)
+    parent_path_probability: Mapped[float] = mapped_column(Numeric(12, 10, asdecimal=False), default=1.0)
+    child_path_probability: Mapped[float] = mapped_column(Numeric(12, 10, asdecimal=False), default=1.0)
+    probability_basis: Mapped[dict] = mapped_column(JSONValue(), default=dict)
 
 
 class TickSnapshot(Base, TimestampMixin):
@@ -823,13 +829,64 @@ class EndpointLedgerEntry(Base, TimestampMixin):
     description: Mapped[str | None] = mapped_column(Text)
     status: Mapped[str] = mapped_column(String(40), default="active", index=True)
     probability: Mapped[float | None] = mapped_column(Numeric(6, 5, asdecimal=False))
+    realization_criteria: Mapped[list] = mapped_column(JSONValue(), default=list)
     authority_refs: Mapped[list] = mapped_column(JSONValue(), default=list)
     evidence_refs: Mapped[list] = mapped_column(JSONValue(), default=list)
+    negative_evidence_refs: Mapped[list] = mapped_column(JSONValue(), default=list)
     blockers: Mapped[list] = mapped_column(JSONValue(), default=list)
+    status_basis: Mapped[str | None] = mapped_column(Text)
     contradiction_notes: Mapped[str | None] = mapped_column(Text)
     rationale: Mapped[str | None] = mapped_column(Text)
     last_observed_tick_index: Mapped[int | None] = mapped_column(Integer)
     meta: Mapped[dict] = mapped_column(JSONValue(), default=dict)
+
+
+class TimelineAdjudicationVersion(Base, TimestampMixin):
+    __tablename__ = "timeline_adjudication_versions"
+    __table_args__ = (
+        UniqueConstraint("big_bang_id", "version", name="uq_timeline_adjudication_version"),
+    )
+
+    id: Mapped[UUID] = uuid_pk()
+    big_bang_id: Mapped[UUID] = mapped_column(GUID(), ForeignKey("big_bangs.id"), index=True)
+    version: Mapped[int] = mapped_column(Integer)
+    status: Mapped[str] = mapped_column(String(40), default="completed", index=True)
+    source_type: Mapped[str] = mapped_column(String(80), index=True)
+    source_report_version_id: Mapped[UUID | None] = mapped_column(GUID(), ForeignKey("report_versions.id"))
+    parent_adjudication_version_id: Mapped[UUID | None] = mapped_column(
+        GUID(), ForeignKey("timeline_adjudication_versions.id")
+    )
+    created_by: Mapped[str] = mapped_column(String(120), default="timeline_adjudicator")
+    summary: Mapped[str | None] = mapped_column(Text)
+    payload: Mapped[dict] = mapped_column(JSONValue(), default=dict)
+
+
+class TimelineAdjudicationEntry(Base, TimestampMixin):
+    __tablename__ = "timeline_adjudication_entries"
+    __table_args__ = (
+        UniqueConstraint(
+            "adjudication_version_id",
+            "multiverse_id",
+            name="uq_timeline_adjudication_entry_multiverse",
+        ),
+    )
+
+    id: Mapped[UUID] = uuid_pk()
+    adjudication_version_id: Mapped[UUID] = mapped_column(
+        GUID(), ForeignKey("timeline_adjudication_versions.id"), index=True
+    )
+    big_bang_id: Mapped[UUID] = mapped_column(GUID(), ForeignKey("big_bangs.id"), index=True)
+    multiverse_id: Mapped[UUID] = mapped_column(GUID(), ForeignKey("multiverses.id"), index=True)
+    ui_label: Mapped[str | None] = mapped_column(String(80))
+    viability_status: Mapped[str] = mapped_column(String(40), index=True)
+    include_in_final: Mapped[bool] = mapped_column(Boolean, default=True, index=True)
+    prune_reason: Mapped[str | None] = mapped_column(Text)
+    original_path_probability: Mapped[float] = mapped_column(Numeric(12, 10, asdecimal=False), default=1.0)
+    effective_path_probability: Mapped[float] = mapped_column(Numeric(12, 10, asdecimal=False), default=1.0)
+    mass_disposition: Mapped[str] = mapped_column(String(80), default="retained")
+    endpoint_key: Mapped[str | None] = mapped_column(String(160), index=True)
+    endpoint_status: Mapped[str | None] = mapped_column(String(40), index=True)
+    evidence_summary: Mapped[dict] = mapped_column(JSONValue(), default=dict)
 
 
 class LLMCall(Base, TimestampMixin):

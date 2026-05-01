@@ -12,7 +12,7 @@ Use this skill when acting as an external report author for WorldFork. The job i
 - Use the `worldfork` CLI as the control surface. Do not hardcode backend URLs; use the CLI default, `--base-url`, `WORLD_FORK_API_BASE`, or `BACKEND_API_BASE`.
 - Put global flags before the command: `worldfork --verbosity summary runs workspace <big-bang-id>`.
 - Start with `--verbosity summary`; switch to `normal`, `full`, or direct JSON only when a specific evidence gap needs it.
-- Treat reports as structured database records first. Markdown/PDF files are render artifacts for a report version.
+- Treat reports as structured database records first. Markdown/PDF outputs are ephemeral renders for a report version.
 - Prefer read-only inspection. Generate missing reports only when the user asked for a report or the target timelines are terminal and report generation is the natural next step.
 - Use bounded waits for jobs. Do not run unbounded polling loops.
 - Do not run new ticks, continue timelines, or change runtime settings unless the user explicitly asks.
@@ -43,12 +43,14 @@ Use `--fields` on large rows when only IDs, labels, statuses, report states, or 
 
 ```bash
 worldfork reports list <big-bang-id>
+worldfork reports pack <big-bang-id> --mode summary
+worldfork reports adjudication <big-bang-id>
 worldfork reports versions <report-id>
 worldfork reports view <report-version-id> --format json
 worldfork reports view <report-version-id>
 ```
 
-Select the latest version for each logical multiverse report and the latest `final_big_bang` report unless the user asks for a specific historical version.
+Start from `reports pack --mode summary`; it is the canonical compact evidence pack for cross-timeline report writing. If no adjudication exists yet and the timelines are terminal, run `worldfork reports adjudicate <big-bang-id>` once, then inspect `worldfork reports adjudication <big-bang-id>`. Select the latest version for each logical multiverse report and the latest `final_big_bang` report unless the user asks for a specific historical version.
 
 ## Report Model Routing
 
@@ -93,10 +95,8 @@ After report generation, verify the stored report metadata and LLM audit logs sh
 4. Generate missing backend reports when appropriate:
 
 ```bash
-worldfork query POST /api/multiverses/<multiverse-id>/report \
-  --data '{"title":"<title>","summary":"<summary>"}'
-worldfork query POST /api/big-bangs/<big-bang-id>/reports/final \
-  --data '{"title":"<title>","summary":"<summary>"}'
+worldfork reports generate multiverse <multiverse-id> --title "<title>" --summary "<summary>"
+worldfork reports generate final <big-bang-id> --title "<title>" --summary "<summary>"
 ```
 
 Only generate the final Big Bang report after relevant multiverses are terminal. If a mutation returns a job ID, run `worldfork jobs wait <job-id> --timeout 300 --poll-interval 2`.
@@ -127,7 +127,7 @@ reports/worldfork-report-<big-bang-id>/
   metrics.csv
 ```
 
-Use Markdown as the default authoring format. Add LaTeX only when the user asks for it or the final deliverable benefits from print-quality formatting. Render PDF through `worldfork reports render` when using a backend report version; use a local Markdown/LaTeX toolchain only for the external synthesized report.
+Use Markdown as the default authoring format. Add LaTeX only when the user asks for it or the final deliverable benefits from print-quality formatting. Render PDF through `worldfork reports render --output <file>` when using a backend report version; use a local Markdown/LaTeX toolchain only for the external synthesized report.
 
 ## What To Extract
 
@@ -143,19 +143,25 @@ For each multiverse, capture:
 For the Big Bang comparison, capture:
 
 - Lineage tree and fork reasons.
-- Outcome distribution across terminal timelines.
+- Endpoint ledger histogram, terminality assessment, contradiction check, and status basis.
+- Timeline adjudication: retained/pruned timelines, original path probability, effective path probability, excluded mass, and prune reason.
+- Outcome distribution across terminal timelines using effective path mass when adjudication exists.
 - Recurring causal mechanisms and divergence drivers.
 - Which branch looks like the likely endpoint, and why.
 - Evidence gaps, failed jobs, missing reports, or non-terminal timelines.
 
 ## Pruning Rules
 
+- Treat timeline adjudication as the first pruning ledger. It changes report inclusion/effective path mass, not the underlying simulation data.
+- Retain timelines marked `include_in_final=true`; summarize pruned timelines only when their prune reason affects confidence, quality, or user decisions.
+- Do not multiply or invent endpoint probabilities yourself when an endpoint ledger exists. Use the ledger histogram and path-probability distribution, and explain that effective path probabilities are renormalized across retained timelines.
 - Keep causal evidence; drop repeated raw bundles, full transcript dumps, duplicated inherited ticks, and rows that do not change the conclusion.
 - Summarize per-tick detail into phases unless a specific tick caused a branch, state transition, terminal decision, or report conclusion.
 - Prefer tables for multiverse comparisons and bullet lists for evidence gaps.
 - Quote sparingly. Use IDs and command outputs as traceability instead of pasting entire JSON payloads.
 - If evidence conflicts, name the conflict and preserve both source IDs.
 - If data is missing, say what is missing and which command or endpoint was checked.
+- Escalate from `reports pack --mode summary` to `standard`, then `full`, only for missing causal detail. Avoid dumping raw ticks or transcripts into the prompt.
 
 ## Visuals
 
@@ -183,8 +189,9 @@ A strong report has:
 2. Big Bang context: scenario, horizon, tick limits, model/routing if relevant.
 3. Multiverse comparison table.
 4. Lineage and divergence analysis.
-5. Timeline summaries for each important branch.
-6. Outcome distribution and charts when useful.
-7. Evidence appendix with report/tick/job/log/artifact IDs.
+5. Timeline adjudication and pruning ledger.
+6. Timeline summaries for each important retained branch, with pruned branches summarized separately.
+7. Endpoint distribution and charts when useful.
+8. Evidence appendix with report/tick/job/log/artifact IDs.
 
 When answering in chat, compress this structure to the user’s requested level of detail and include only the highest-signal evidence.

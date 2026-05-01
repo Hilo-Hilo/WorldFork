@@ -416,7 +416,7 @@ class CompareResponse(BaseModel):
 
 
 class SoTBundleResponse(BaseModel):
-    """Response shape for GET /api/runs/{run_id}/source-of-truth."""
+    """Source-of-truth bundle response shape."""
 
     model_config = ConfigDict(extra="forbid")
 

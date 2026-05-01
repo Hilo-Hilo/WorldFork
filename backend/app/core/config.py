@@ -57,7 +57,7 @@ class Settings(BaseSettings):
     initializer_direct_context_char_budget: int = 18000
     initializer_chunk_chars: int = 12000
     initializer_chunk_overlap_chars: int = 800
-    llm_max_retries: int = 3
+    llm_max_retries: int = 10
     llm_retry_backoff_seconds: float = 1.5
     zep_enabled: bool = False
     zep_api_key: str | None = None

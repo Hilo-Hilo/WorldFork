@@ -1,8 +1,8 @@
 """Local single-process tick runner.
 
 This module wraps :func:`tick_runner.run_tick` for callers that don't have
-a Celery broker available — integration tests, the FastAPI fallback path
-for ``POST /api/universes/{id}/step``, and CLI dev tooling.
+a Celery broker available — integration tests, canonical tick execution
+fallbacks, and CLI dev tooling.
 
 Everything runs inline on the caller's event loop using the local
 ``asyncio.gather`` deliberation dispatcher.  No Redis SETNX guard is

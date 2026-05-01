@@ -48,8 +48,16 @@ class OpenRouterProvider(LLMProvider):
             )
             try:
                 response.raise_for_status()
+            except httpx.HTTPStatusError as exc:
+                status = exc.response.status_code
+                reason = exc.response.reason_phrase
+                body = exc.response.text.strip().replace("\n", " ")[:500]
+                detail = f"LLM unavailable: HTTP {status} {reason}"
+                if body:
+                    detail = f"{detail}: {body}"
+                raise LLMProviderUnavailable(detail) from exc
             except httpx.HTTPError as exc:
-                raise LLMProviderUnavailable("LLM unavailable") from exc
+                raise LLMProviderUnavailable(f"LLM unavailable: {exc}") from exc
             data = response.json()
 
         content = data.get("choices", [{}])[0].get("message", {}).get("content", "")

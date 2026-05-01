@@ -32,9 +32,12 @@ ENDPOINT_LEDGER_JSON_SCHEMA = {
                     "description": {"type": "string"},
                     "status": {"type": "string"},
                     "probability": {"type": "number"},
+                    "realization_criteria": {"type": "array"},
                     "authority_refs": {"type": "array"},
                     "evidence_refs": {"type": "array"},
+                    "negative_evidence_refs": {"type": "array"},
                     "blockers": {"type": "array"},
+                    "status_basis": {"type": "string"},
                     "contradiction_notes": {"type": "string"},
                     "rationale": {"type": "string"},
                     "last_observed_tick_index": {"type": "integer"},
@@ -73,11 +76,13 @@ def latest_endpoint_ledger(
 
 
 def endpoint_ledger_entries(db: Session, ledger_version_id) -> list[models.EndpointLedgerEntry]:
-    return db.scalars(
-        select(models.EndpointLedgerEntry)
-        .where(models.EndpointLedgerEntry.ledger_version_id == ledger_version_id)
-        .order_by(models.EndpointLedgerEntry.probability.desc().nullslast(), models.EndpointLedgerEntry.endpoint_key)
-    ).all()
+    return list(
+        db.scalars(
+            select(models.EndpointLedgerEntry)
+            .where(models.EndpointLedgerEntry.ledger_version_id == ledger_version_id)
+            .order_by(models.EndpointLedgerEntry.probability.desc().nullslast(), models.EndpointLedgerEntry.endpoint_key)
+        ).all()
+    )
 
 
 def endpoint_ledger_detail(db: Session, ledger: models.EndpointLedgerVersion) -> dict[str, Any]:
@@ -100,9 +105,12 @@ def endpoint_ledger_report_payload(
             "description": entry.description,
             "status": entry.status,
             "probability": entry.probability,
+            "realization_criteria": entry.realization_criteria or [],
             "authority_refs": entry.authority_refs or [],
             "evidence_refs": entry.evidence_refs or [],
+            "negative_evidence_refs": entry.negative_evidence_refs or [],
             "blockers": entry.blockers or [],
+            "status_basis": entry.status_basis,
             "contradiction_notes": entry.contradiction_notes,
             "rationale": entry.rationale,
             "last_observed_tick_index": entry.last_observed_tick_index,
@@ -116,6 +124,7 @@ def endpoint_ledger_report_payload(
         "status": ledger.status,
         "source_type": ledger.source_type,
         "summary": ledger.summary,
+        "payload": ledger.payload or {},
         "entries": entries,
         "histogram": _endpoint_histogram(entries),
         "terminality_assessment": _terminality_assessment(entries),
@@ -232,6 +241,21 @@ def evaluate_endpoint_ledger(
         multiverse_id=multiverse.id if multiverse else None,
         scope=scope,
     )
+    if multiverse is None:
+        weighted = _weighted_entries_from_multiverse_ledgers(db, big_bang=big_bang)
+        if weighted is not None:
+            return _create_ledger_version(
+                db,
+                big_bang_id=big_bang.id,
+                scope=scope,
+                source_type=source_type,
+                source_report_version_id=source_report_version_id,
+                parent_ledger_version_id=latest.id if latest else None,
+                created_by=created_by,
+                summary="Weighted endpoint ledger aggregated from multiverse path probabilities.",
+                entries=weighted["entries"],
+                payload=weighted["payload"],
+            )
     evidence = _collect_evidence(db, big_bang=big_bang, multiverse=multiverse)
     if candidate_endpoint:
         evidence["candidate_endpoint"] = candidate_endpoint
@@ -343,9 +367,12 @@ def _entry_payloads(db: Session, ledger: models.EndpointLedgerVersion | None) ->
             "description": entry.description,
             "status": entry.status,
             "probability": entry.probability,
+            "realization_criteria": entry.realization_criteria or [],
             "authority_refs": entry.authority_refs or [],
             "evidence_refs": entry.evidence_refs or [],
+            "negative_evidence_refs": entry.negative_evidence_refs or [],
             "blockers": entry.blockers or [],
+            "status_basis": entry.status_basis,
             "contradiction_notes": entry.contradiction_notes,
             "rationale": entry.rationale,
             "last_observed_tick_index": entry.last_observed_tick_index,
@@ -429,7 +456,8 @@ def _collect_evidence(
         for review in db.scalars(review_query).all()
     ]
     scenario = big_bang.scenario_input or {}
-    initializer = scenario.get("initializer_output") if isinstance(scenario.get("initializer_output"), dict) else {}
+    raw_initializer = scenario.get("initializer_output")
+    initializer: dict[str, Any] = raw_initializer if isinstance(raw_initializer, dict) else {}
     multiverse_state = multiverse.state if multiverse is not None and isinstance(multiverse.state, dict) else {}
     return {
         "big_bang": {
@@ -479,9 +507,13 @@ def _entries_from_evidence(
                 "label": _label_from_text(text),
                 "description": item.get("trigger") or item.get("observable_divergence_signal") or str(text),
                 "status": "active",
+                "realization_criteria": _list_value(item.get("realization_criteria"))
+                or [f"Observable evidence confirms {text}."],
                 "authority_refs": _refs_from_value(item, keys=("authority", "decision_authority", "actor")),
                 "evidence_refs": [{"source": "initializer", "kind": "branch_hypothesis"}],
+                "negative_evidence_refs": [],
                 "blockers": [],
+                "status_basis": "initializer_branch_hypothesis",
                 "contradiction_notes": "No contradiction pass has eliminated this endpoint.",
                 "rationale": "Preserved from initialization branch hypothesis.",
                 "last_observed_tick_index": None,
@@ -498,9 +530,12 @@ def _entries_from_evidence(
                 "label": _label_from_text(text),
                 "description": text,
                 "status": "active",
+                "realization_criteria": [f"Later evidence resolves uncertainty: {text}"],
                 "authority_refs": [],
                 "evidence_refs": [{"source": "initializer", "kind": "known_uncertainty"}],
+                "negative_evidence_refs": [],
                 "blockers": ["uncertainty unresolved"],
+                "status_basis": "known_uncertainty",
                 "contradiction_notes": "Track whether later evidence resolves this uncertainty.",
                 "rationale": "Scenario identified this as an endpoint-relevant uncertainty.",
                 "last_observed_tick_index": None,
@@ -518,9 +553,12 @@ def _entries_from_evidence(
                 "description": str(endpoint),
                 "status": "realized" if event.get("status") == "executed" else "active",
                 "probability": 0.75 if event.get("status") == "executed" else None,
+                "realization_criteria": [f"Executed event '{event.get('title')}' produced endpoint evidence."],
                 "authority_refs": [],
                 "evidence_refs": [{"source": "event", "event_id": event.get("event_id"), "title": event.get("title")}],
+                "negative_evidence_refs": [],
                 "blockers": [],
+                "status_basis": "event_actual_impact",
                 "contradiction_notes": "Verify no later event reverses this endpoint evidence.",
                 "rationale": f"Event actual_impact named endpoint after status={event.get('status')}.",
                 "last_observed_tick_index": event.get("scheduled_tick"),
@@ -536,12 +574,15 @@ def _entries_from_evidence(
             "description": candidate.get("description") or candidate.get("rationale"),
             "status": str(candidate.get("status") or "active").lower(),
             "probability": candidate.get("probability"),
+            "realization_criteria": _list_value(candidate.get("realization_criteria")),
             "authority_refs": _list_value(candidate.get("authority_refs")),
             "evidence_refs": [
                 {"source": "posthoc_candidate", "label": candidate.get("label") or key},
                 *_list_value(candidate.get("evidence_refs")),
             ],
+            "negative_evidence_refs": _list_value(candidate.get("negative_evidence_refs")),
             "blockers": _list_value(candidate.get("blockers")),
+            "status_basis": candidate.get("status_basis") or "posthoc_candidate",
             "contradiction_notes": candidate.get("contradiction_notes")
             or "Posthoc candidate requires comparison against existing timeline evidence.",
             "rationale": candidate.get("rationale") or "Added through post-simulation endpoint evaluation.",
@@ -555,15 +596,277 @@ def _entries_from_evidence(
             "label": "Endpoint unresolved",
             "description": "No explicit terminal endpoint has been realized in the available evidence.",
             "status": "unresolved",
+            "realization_criteria": ["A later authority decision or executed terminal event names a terminal endpoint."],
             "authority_refs": [],
             "evidence_refs": [{"source": "timeline", "kind": "absence_of_terminal_endpoint"}],
+            "negative_evidence_refs": [],
             "blockers": ["No realized endpoint evidence"],
+            "status_basis": "absence_of_terminal_endpoint",
             "contradiction_notes": "A later authority decision or executed terminal event could resolve this.",
             "rationale": "Fallback ledger entry because the evidence contains process movement but no explicit endpoint.",
             "last_observed_tick_index": latest_tick_index,
             "meta": {"source": "fallback"},
         }
     return _assign_probabilities(list(entries.values()))
+
+
+def _weighted_entries_from_multiverse_ledgers(
+    db: Session,
+    *,
+    big_bang: models.BigBang,
+) -> dict[str, Any] | None:
+    multiverses = db.scalars(
+        select(models.Multiverse)
+        .where(models.Multiverse.big_bang_id == big_bang.id)
+        .order_by(models.Multiverse.ui_label)
+    ).all()
+    if not multiverses:
+        return None
+
+    ledger_rows: list[tuple[models.Multiverse, models.EndpointLedgerVersion, list[models.EndpointLedgerEntry]]] = []
+    for multiverse in multiverses:
+        ledger = latest_endpoint_ledger(
+            db,
+            big_bang_id=big_bang.id,
+            multiverse_id=multiverse.id,
+            scope="multiverse",
+        )
+        if ledger is None:
+            ledger = evaluate_endpoint_ledger(
+                db,
+                big_bang=big_bang,
+                multiverse=multiverse,
+                source_type="weighted_big_bang_seed",
+                created_by="endpoint_weight_aggregator",
+                use_llm=False,
+            )
+        entries = endpoint_ledger_entries(db, ledger.id)
+        if entries:
+            ledger_rows.append((multiverse, ledger, entries))
+    if not ledger_rows:
+        return None
+
+    from app.domains.report.adjudication import latest_timeline_adjudication_map
+
+    adjudication_by_multiverse_id = latest_timeline_adjudication_map(db, big_bang_id=big_bang.id)
+    raw_weights = [
+        _effective_multiverse_path_probability(multiverse, adjudication_by_multiverse_id)
+        for multiverse, _ledger, _entries in ledger_rows
+    ]
+    weight_total = sum(raw_weights)
+    excluded_mass = sum(
+        float(entry.original_path_probability or 0.0)
+        for entry in adjudication_by_multiverse_id.values()
+        if not entry.include_in_final
+    )
+    if weight_total <= 0 and adjudication_by_multiverse_id:
+        return {
+            "entries": [
+                {
+                    "endpoint_key": "endpoint_pruned",
+                    "label": "Endpoint pruned",
+                    "description": "All timeline path mass was excluded by timeline adjudication.",
+                    "status": "unresolved",
+                    "probability": 1.0,
+                    "realization_criteria": ["At least one usable timeline survives adjudication."],
+                    "authority_refs": [],
+                    "evidence_refs": [
+                        {
+                            "source": "timeline_adjudication",
+                            "excluded_path_probability_mass": round(excluded_mass, 10),
+                        }
+                    ],
+                    "negative_evidence_refs": [],
+                    "blockers": ["All timelines pruned from final aggregation"],
+                    "status_basis": "timeline_adjudication_all_pruned",
+                    "contradiction_notes": None,
+                    "rationale": "No usable effective path mass remained after timeline adjudication.",
+                    "last_observed_tick_index": None,
+                    "meta": {"source": "timeline_adjudication"},
+                }
+            ],
+            "payload": {
+                "aggregation": "path_probability_weighted",
+                "path_probability_mass": 0.0,
+                "excluded_path_probability_mass": round(excluded_mass, 10),
+                "path_probability_distribution": [],
+                "source_multiverse_count": len(ledger_rows),
+                "adjudication_applied": True,
+            },
+        }
+    if weight_total <= 0:
+        normalized_weights = [1.0 / len(raw_weights)] * len(raw_weights)
+    else:
+        normalized_weights = [weight / weight_total for weight in raw_weights]
+
+    aggregated: dict[str, dict[str, Any]] = {}
+    path_distribution = []
+    for (multiverse, ledger, entries), timeline_weight, raw_weight in zip(ledger_rows, normalized_weights, raw_weights, strict=True):
+        adjudication = adjudication_by_multiverse_id.get(str(multiverse.id))
+        path_distribution.append(
+            {
+                "multiverse_id": str(multiverse.id),
+                "ui_label": multiverse.ui_label,
+                "status": multiverse.status,
+                "path_probability": round(raw_weight, 10),
+                "original_path_probability": round(_multiverse_path_probability(multiverse), 10),
+                "normalized_weight": round(timeline_weight, 10),
+                "ledger_version_id": str(ledger.id),
+                "viability_status": adjudication.viability_status if adjudication else "unadjudicated",
+                "include_in_final": adjudication.include_in_final if adjudication else True,
+                "prune_reason": adjudication.prune_reason if adjudication else None,
+            }
+        )
+        entry_probability_total = 0.0
+        for entry in entries:
+            probability = float(entry.probability or 0.0)
+            if entry.status != "eliminated":
+                entry_probability_total += probability
+            contribution = timeline_weight * probability
+            if contribution <= 0:
+                continue
+            target = aggregated.setdefault(
+                entry.endpoint_key,
+                {
+                    "endpoint_key": entry.endpoint_key,
+                    "label": entry.label,
+                    "description": entry.description,
+                    "status_weights": Counter(),
+                    "probability": 0.0,
+                    "realization_criteria": [],
+                    "authority_refs": [],
+                    "evidence_refs": [],
+                    "negative_evidence_refs": [],
+                    "blockers": set(),
+                    "status_basis": [],
+                    "contradiction_notes": [],
+                    "rationale": [],
+                    "last_observed_tick_index": entry.last_observed_tick_index,
+                },
+            )
+            target["probability"] += contribution
+            target["status_weights"][entry.status] += contribution
+            target["evidence_refs"].append(
+                {
+                    "source": "multiverse_ledger",
+                    "multiverse_id": str(multiverse.id),
+                    "ui_label": multiverse.ui_label,
+                    "ledger_version_id": str(ledger.id),
+                    "path_weight": round(timeline_weight, 10),
+                    "endpoint_probability": probability,
+                }
+            )
+            target["authority_refs"].extend(entry.authority_refs or [])
+            target["realization_criteria"].extend(entry.realization_criteria or [])
+            target["negative_evidence_refs"].extend(entry.negative_evidence_refs or [])
+            target["blockers"].update(str(item) for item in (entry.blockers or []))
+            if entry.status_basis:
+                target["status_basis"].append(f"{multiverse.ui_label}: {entry.status_basis}")
+            if entry.contradiction_notes:
+                target["contradiction_notes"].append(f"{multiverse.ui_label}: {entry.contradiction_notes}")
+            if entry.rationale:
+                target["rationale"].append(f"{multiverse.ui_label}: {entry.rationale}")
+            if entry.last_observed_tick_index is not None:
+                current = target.get("last_observed_tick_index")
+                target["last_observed_tick_index"] = max(current or 0, int(entry.last_observed_tick_index))
+
+        unresolved_probability = max(0.0, 1.0 - entry_probability_total)
+        if unresolved_probability > 0.0001:
+            contribution = timeline_weight * unresolved_probability
+            target = aggregated.setdefault(
+                "endpoint_unresolved",
+                {
+                    "endpoint_key": "endpoint_unresolved",
+                    "label": "Endpoint unresolved",
+                    "description": "Residual probability mass where no terminal endpoint is resolved in a source timeline.",
+                    "status_weights": Counter(),
+                    "probability": 0.0,
+                    "realization_criteria": ["A retained source timeline resolves its terminal endpoint."],
+                    "authority_refs": [],
+                    "evidence_refs": [],
+                    "negative_evidence_refs": [],
+                    "blockers": set(),
+                    "status_basis": ["Residual path probability from retained unresolved timeline."],
+                    "contradiction_notes": [],
+                    "rationale": [],
+                    "last_observed_tick_index": None,
+                },
+            )
+            target["probability"] += contribution
+            target["status_weights"]["unresolved"] += contribution
+            target["evidence_refs"].append(
+                {
+                    "source": "path_probability_residual",
+                    "multiverse_id": str(multiverse.id),
+                    "ui_label": multiverse.ui_label,
+                    "ledger_version_id": str(ledger.id),
+                    "path_weight": round(timeline_weight, 10),
+                    "residual_probability": round(unresolved_probability, 10),
+                }
+            )
+
+    entries = [_weighted_entry_payload(item) for item in aggregated.values()]
+    return {
+        "entries": entries,
+        "payload": {
+            "aggregation": "path_probability_weighted",
+            "path_probability_mass": round(weight_total, 10),
+            "excluded_path_probability_mass": round(excluded_mass, 10),
+            "path_probability_distribution": path_distribution,
+            "source_multiverse_count": len(ledger_rows),
+            "adjudication_applied": bool(adjudication_by_multiverse_id),
+        },
+    }
+
+
+def _weighted_entry_payload(item: dict[str, Any]) -> dict[str, Any]:
+    status_weights: Counter = item.pop("status_weights")
+    status = status_weights.most_common(1)[0][0] if status_weights else "active"
+    blockers = sorted(item.pop("blockers"))
+    status_basis = " | ".join(item.pop("status_basis")[:6]) or "path_probability_weighted"
+    contradiction_notes = " | ".join(item.pop("contradiction_notes")[:6]) or None
+    rationale = " | ".join(item.pop("rationale")[:6]) or "Weighted from multiverse path probabilities."
+    return {
+        "endpoint_key": item["endpoint_key"],
+        "label": item["label"],
+        "description": item.get("description"),
+        "status": status,
+        "probability": round(float(item.get("probability") or 0.0), 4),
+        "realization_criteria": item.get("realization_criteria") or [],
+        "authority_refs": item.get("authority_refs") or [],
+        "evidence_refs": item.get("evidence_refs") or [],
+        "negative_evidence_refs": item.get("negative_evidence_refs") or [],
+        "blockers": blockers,
+        "status_basis": status_basis,
+        "contradiction_notes": contradiction_notes,
+        "rationale": rationale,
+        "last_observed_tick_index": item.get("last_observed_tick_index"),
+        "meta": {"source": "path_probability_weighted"},
+    }
+
+
+def _multiverse_path_probability(multiverse: models.Multiverse) -> float:
+    value = getattr(multiverse, "path_probability", None)
+    try:
+        parsed = float(value if value is not None else 1.0)
+    except (TypeError, ValueError):
+        parsed = 1.0
+    if parsed != parsed:
+        return 1.0
+    return max(0.0, min(1.0, parsed))
+
+
+def _effective_multiverse_path_probability(
+    multiverse: models.Multiverse,
+    adjudication_by_multiverse_id: dict[str, Any],
+) -> float:
+    adjudication = adjudication_by_multiverse_id.get(str(multiverse.id))
+    if adjudication is None:
+        return _multiverse_path_probability(multiverse)
+    try:
+        return max(0.0, min(1.0, float(adjudication.effective_path_probability or 0.0)))
+    except (TypeError, ValueError):
+        return 0.0
 
 
 def _try_llm_endpoint_evaluation(
@@ -586,6 +889,8 @@ def _try_llm_endpoint_evaluation(
             "Use statuses active, weakened, eliminated, realized, unresolved, or process_only.",
             "Weight authority decisions over social noise.",
             "Return stable endpoint keys and calibrated probabilities when evidence supports them.",
+            "For every endpoint, include realization_criteria, authority_refs, evidence_refs, negative_evidence_refs, and status_basis.",
+            "Downgrade unsupported or process-only entries instead of leaving them as active terminal endpoints.",
         ],
     }
     try:
@@ -648,7 +953,7 @@ def _merge_entry_updates(base_entries: list[dict[str, Any]], updates: list[Any])
 
 
 def _normalize_entries(entries: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    normalized = []
+    normalized: list[dict[str, Any]] = []
     seen = set()
     for item in entries:
         if not isinstance(item, dict):
@@ -660,12 +965,30 @@ def _normalize_entries(entries: list[dict[str, Any]]) -> list[dict[str, Any]]:
         status = str(item.get("status") or "active").lower()
         if status not in ENDPOINT_STATUSES:
             status = "active"
+        realization_criteria = _list_value(item.get("realization_criteria"))
+        if not realization_criteria:
+            realization_criteria = [f"Observable evidence confirms {item.get('label') or key}."]
+        authority_refs = _list_value(item.get("authority_refs"))
+        evidence_refs = _list_value(item.get("evidence_refs"))
+        negative_evidence_refs = _list_value(item.get("negative_evidence_refs"))
+        blockers = _list_value(item.get("blockers"))
+        status_basis = _truncate(str(item.get("status_basis") or ""), 2000) or None
+        if not evidence_refs and status not in {"eliminated", "unresolved"}:
+            status = "process_only"
+            blockers = [*blockers, "supporting evidence missing"]
+            status_basis = status_basis or "downgraded_missing_supporting_evidence"
+        if status == "realized" and not authority_refs:
+            status = "active"
+            blockers = [*blockers, "authority evidence missing for realized endpoint"]
+            status_basis = status_basis or "downgraded_realized_without_authority_evidence"
         probability = item.get("probability")
         if probability is not None:
             try:
                 probability = max(0.0, min(1.0, float(probability)))
             except (TypeError, ValueError):
                 probability = None
+        if status == "process_only" and probability is not None:
+            probability = min(probability, 0.1)
         normalized.append(
             {
                 "endpoint_key": key,
@@ -673,9 +996,12 @@ def _normalize_entries(entries: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 "description": _truncate(str(item.get("description") or ""), 2000) or None,
                 "status": status,
                 "probability": probability,
-                "authority_refs": _list_value(item.get("authority_refs")),
-                "evidence_refs": _list_value(item.get("evidence_refs")),
-                "blockers": _list_value(item.get("blockers")),
+                "realization_criteria": realization_criteria,
+                "authority_refs": authority_refs,
+                "evidence_refs": evidence_refs,
+                "negative_evidence_refs": negative_evidence_refs,
+                "blockers": blockers,
+                "status_basis": status_basis,
                 "contradiction_notes": _truncate(str(item.get("contradiction_notes") or ""), 2000) or None,
                 "rationale": _truncate(str(item.get("rationale") or ""), 2000) or None,
                 "last_observed_tick_index": _optional_int(item.get("last_observed_tick_index")),
@@ -829,7 +1155,7 @@ def _list_value(value: Any) -> list[Any]:
 
 def _compact_value(value: Any, *, max_items: int = 6) -> Any:
     if isinstance(value, dict):
-        compact = {}
+        compact: dict[str, Any] = {}
         for index, (key, item) in enumerate(value.items()):
             if index >= max_items:
                 compact["_truncated"] = True
