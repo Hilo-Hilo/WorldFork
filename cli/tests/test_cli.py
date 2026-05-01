@@ -191,6 +191,26 @@ def test_settings_patch_calls_settings_endpoint(monkeypatch) -> None:
     ]
 
 
+def test_settings_llm_calls_llm_config_endpoint(monkeypatch) -> None:
+    calls = []
+
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None):
+            calls.append((method, path, params, json_body))
+            return {"known_routes": [{"route": "report_agent"}]}
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    result = CliRunner().invoke(main, ["settings", "llm"])
+
+    assert result.exit_code == 0
+    assert calls == [("GET", "/settings/llm", None, None)]
+    assert "report_agent" in result.output
+
+
 def test_init_accepts_long_inline_json_without_path_probe(monkeypatch) -> None:
     calls = []
 

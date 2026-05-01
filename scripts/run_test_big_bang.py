@@ -172,9 +172,12 @@ def sample_payload(
     }
 
 
-def assert_config_uses_gemini() -> None:
+def assert_config_uses_model(expected_provider: str, expected_model: str) -> None:
     settings = get_settings()
-    check(settings.default_llm_provider == "openrouter", "default provider is OpenRouter")
+    check(
+        settings.default_llm_provider == expected_provider,
+        f"default provider is {expected_provider}",
+    )
     model_slots = {
         "default": settings.default_model,
         "fallback": settings.fallback_model,
@@ -186,10 +189,10 @@ def assert_config_uses_gemini() -> None:
         "report": settings.report_agent_model,
     }
     for label, model in model_slots.items():
-        check(model == GEMINI_MODEL, f"{label} model is Gemini 3.1 Flash Lite")
+        check(model == expected_model, f"{label} model is {expected_model}")
 
 
-def assert_gemini_only(big_bang_id: str) -> int:
+def assert_expected_llm_only(big_bang_id: str, expected_provider: str, expected_model: str) -> int:
     db = SessionLocal()
     try:
         calls = db.scalars(
@@ -198,10 +201,14 @@ def assert_gemini_only(big_bang_id: str) -> int:
             .order_by(models.LLMCall.created_at.asc())
         ).all()
         check(bool(calls), "Atlas onboarding demo produced audited LLM calls")
-        non_gemini = [call.model for call in calls if GEMINI_MODEL not in str(call.model)]
-        if non_gemini:
-            raise SampleFailure(f"non-Gemini models were used: {non_gemini}")
-        print(f"[pass] all {len(calls)} audited LLM calls used {GEMINI_MODEL}")
+        mismatches = [
+            {"provider": call.provider, "model": call.model, "purpose": call.purpose}
+            for call in calls
+            if call.provider != expected_provider or expected_model not in str(call.model)
+        ]
+        if mismatches:
+            raise SampleFailure(f"unexpected LLM providers/models were used: {mismatches[:10]}")
+        print(f"[pass] all {len(calls)} audited LLM calls used {expected_provider}/{expected_model}")
         return len(calls)
     finally:
         db.close()
@@ -240,8 +247,29 @@ def render_pdf(client: httpx.Client, base_url: str, report_version_id: str) -> d
         f"/api/report-versions/{report_version_id}/render",
         json={"format": "pdf"},
     )
-    check(rendered.get("artifact_id"), "report PDF artifact rendered on demand")
-    return rendered
+    if isinstance(rendered, dict):
+        check(
+            bool(rendered.get("artifact_id") or rendered.get("bytes") or rendered.get("path")),
+            "report PDF rendered on demand",
+        )
+        return rendered
+    check(bool(rendered), "report PDF rendered on demand")
+    return {"content": rendered}
+
+
+def validate_markdown_render(client: httpx.Client, base_url: str, report_version_id: str, message: str) -> None:
+    rendered = request(
+        client,
+        base_url,
+        "POST",
+        f"/api/report-versions/{report_version_id}/render",
+        json={"format": "markdown"},
+    )
+    if isinstance(rendered, dict):
+        content = rendered.get("content") or rendered.get("markdown") or rendered.get("text")
+    else:
+        content = rendered
+    check(bool(content), message)
 
 
 def run_all_multiverses_to_terminal(
@@ -322,7 +350,12 @@ def generate_multiverse_reports(
                 ),
             },
         )
-        check(report["markdown_artifact_id"], f"{multiverse['ui_label']} markdown report generated")
+        validate_markdown_render(
+            client,
+            base_url,
+            report["id"],
+            f"{multiverse['ui_label']} markdown report rendered on demand",
+        )
         check(
             report["content"]["source"]["multiverse_version"] == multiverse["version"],
             f"{multiverse['ui_label']} report is bound to its multiverse version",
@@ -340,7 +373,6 @@ def validate_final_report(report: dict[str, Any], *, expected_multiverse_count: 
     metadata = report.get("generation_metadata") or {}
     comparison = content.get("multiverse_comparison") or []
     ai_summary = content.get("ai_summary") or {}
-    check(report["markdown_artifact_id"], "final Atlas onboarding markdown report generated")
     check(content.get("outcome_distribution"), "final Atlas onboarding structured outcome distribution generated")
     check(
         len(comparison) == expected_multiverse_count,
@@ -437,12 +469,15 @@ def run_sample(args: argparse.Namespace) -> None:
     scenario_path = Path(args.scenario_file).resolve()
     scenario_text = scenario_path.read_text()
     check(len(scenario_text) > 10_000, "test-big-bang.md is a long-form scenario dossier")
-    assert_config_uses_gemini()
+    assert_config_uses_model(args.expected_provider, args.expected_model)
 
     base_url = str(args.base_url).rstrip("/")
     with httpx.Client(timeout=args.timeout) as client:
         ready = wait_for_ready(client, base_url)
-        check(ready["checks"]["openrouter"], "readyz reports OpenRouter configured")
+        check(
+            ready["checks"][args.expected_provider],
+            f"readyz reports {args.expected_provider} configured",
+        )
 
         big_bang = request(
             client,
@@ -486,7 +521,7 @@ def run_sample(args: argparse.Namespace) -> None:
         check(len(request(client, base_url, "GET", f"/api/ticks/{root_tick['id']}/social")["posts"]) >= 1, "root social posts exist")
         check(len(request(client, base_url, "GET", f"/api/ticks/{root_tick['id']}/graph-deltas")) >= 1, "root graph deltas exist")
         check(len(request(client, base_url, "GET", f"/api/ticks/{root_tick['id']}/sociology-signals")) >= 1, "root sociology signals exist")
-        assert_gemini_only(big_bang_id)
+        assert_expected_llm_only(big_bang_id, args.expected_provider, args.expected_model)
 
         child_multiverse_id = record_manual_transparency_branch(root_multiverse_id, root_tick["id"])
         lineage = request(client, base_url, "GET", f"/api/multiverses/{child_multiverse_id}/lineage")
@@ -525,7 +560,7 @@ def run_sample(args: argparse.Namespace) -> None:
         markdown = request(client, base_url, "GET", f"/api/report-versions/{report['id']}/markdown")
         check("Outcome Distribution" in markdown, "final Atlas onboarding markdown renders outcome distribution")
         render_pdf(client, base_url, report["id"])
-        call_count = assert_gemini_only(big_bang_id)
+        call_count = assert_expected_llm_only(big_bang_id, args.expected_provider, args.expected_model)
 
     print("\n== ATLAS ONBOARDING DEMO COMPLETE ==")
     print(f"big_bang_id={big_bang_id}")
@@ -536,7 +571,8 @@ def run_sample(args: argparse.Namespace) -> None:
     print(f"final_report_version_id={report['id']}")
     print(f"completion_requests={completion_requests}")
     print(f"audited_llm_calls={call_count}")
-    print(f"model={GEMINI_MODEL}")
+    print(f"provider={args.expected_provider}")
+    print(f"model={args.expected_model}")
     print(f"tick_duration_minutes={args.tick_duration_minutes}")
     print(f"max_tick_index={args.max_tick_index}")
     print(f"derived_horizon_days={round((args.max_tick_index * args.tick_duration_minutes) / 1440, 2)}")
@@ -606,6 +642,16 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
         type=int,
         default=1000,
         help="Safety cap for simulate-next-tick requests while draining discovered branches.",
+    )
+    parser.add_argument(
+        "--expected-provider",
+        default=os.environ.get("WORLDFORK_DEMO_EXPECTED_PROVIDER", "openrouter"),
+        help="Provider expected in readiness and audited LLM-call checks.",
+    )
+    parser.add_argument(
+        "--expected-model",
+        default=os.environ.get("WORLDFORK_DEMO_EXPECTED_MODEL", GEMINI_MODEL),
+        help="Model expected in settings and audited LLM-call checks.",
     )
     args = parser.parse_args(argv)
     if args.tick_duration_minutes <= 0:

@@ -18,8 +18,10 @@ from app.llm import openrouter_provider
 from app.llm.prompt_builder import build_agent_prompt_context, sanitize_sociology_prompt_influences
 from app.llm.provider import DeterministicLLMProvider
 from app.llm.redaction import redact_payload
+from app.llm.routing import resolve_audited_llm_route
 from app.llm.schemas import LLMRequest, LLMResponse
 from app.simulation import god_agent
+from backend.app.models.settings import ProviderSettingModel
 from backend.app.api.logs import sanitize_public_job_payload
 
 
@@ -36,8 +38,14 @@ class FakeDB:
         pass
 
     def get(self, model, object_id):
+        lookup_fields = ("id", "provider", "job_type", "setting_id", "policy_id")
         return next(
-            (obj for obj in self.objects if isinstance(obj, model) and obj.id == object_id),
+            (
+                obj
+                for obj in self.objects
+                if isinstance(obj, model)
+                and any(getattr(obj, field, None) == object_id for field in lookup_fields)
+            ),
             None,
         )
 
@@ -57,6 +65,29 @@ class FakeArtifactStore:
         )
         db.add(artifact)
         return artifact
+
+
+class FakeRouteResult:
+    def __init__(self, row):
+        self.row = row
+
+    def mappings(self):
+        return self
+
+    def first(self):
+        return self.row
+
+
+class FakeRoutingDB(FakeDB):
+    def __init__(self, routes: dict[str, dict], *objects):
+        super().__init__(*objects)
+        self.routes = routes
+        self.queries: list[str] = []
+
+    def execute(self, statement, params):
+        route = params["job_type"]
+        self.queries.append(route)
+        return FakeRouteResult(self.routes.get(route))
 
 
 def test_redaction_catches_common_secret_keys_and_inline_prompt_secrets():
@@ -200,6 +231,235 @@ def test_complete_with_audit_retries_invalid_json_response(monkeypatch):
     assert call.status == "succeeded"
     assert provider.calls == 2
     assert "previous response was invalid" in provider.messages[1][-1]["content"]
+    assert '["not", "an", "object"]' in provider.messages[1][-1]["content"]
+
+
+def test_complete_with_audit_uses_provider_model_from_route(monkeypatch):
+    captured = {}
+
+    class RoutedProvider:
+        async def complete(self, request):
+            captured["request"] = request
+            return LLMResponse(content='{"decision": "continue"}', raw={"ok": True})
+
+    settings = SimpleNamespace(
+        default_llm_provider="openrouter",
+        llm_max_retries=1,
+        llm_retry_backoff_seconds=0,
+    )
+    route_row = {
+        "preferred_provider": "route-provider",
+        "preferred_model": "route/model",
+        "fallback_provider": None,
+        "fallback_model": None,
+        "temperature": 0.12,
+        "top_p": 0.9,
+        "max_tokens": 1234,
+        "timeout_seconds": 77,
+        "retry_policy": "linear",
+    }
+    db = FakeRoutingDB({"god_agent": route_row})
+    provider = RoutedProvider()
+    monkeypatch.setattr(llm_audit, "get_settings", lambda: settings)
+    monkeypatch.setitem(llm_audit._AUDITED_PROVIDER_FACTORIES, "route-provider", lambda: provider)
+    monkeypatch.setattr(llm_audit, "ArtifactStore", lambda: FakeArtifactStore())
+
+    response, call = llm_audit.complete_with_audit(
+        db,
+        big_bang_id=uuid4(),
+        purpose="god_review_test",
+        model="legacy/model",
+        route="god_agent",
+        messages=[{"role": "user", "content": "Return JSON."}],
+        metadata={
+            "agent_type": "god_agent",
+            "max_tokens": 9999,
+            "raw_request_artifact_id": "spoofed",
+            "llm_route": {"spoofed": True},
+        },
+    )
+
+    assert response.parsed == {"decision": "continue"}
+    assert captured["request"].model == "route/model"
+    assert captured["request"].metadata["temperature"] == 0.12
+    assert captured["request"].metadata["max_tokens"] == 1234
+    assert call.provider == "route-provider"
+    assert call.model == "route/model"
+    assert call.meta["llm_route"]["matched_route"] == "god_agent"
+    assert call.meta["raw_request_artifact_id"] != "spoofed"
+    assert call.meta["request_metadata"]["raw_request_artifact_id"] == "spoofed"
+
+
+def test_complete_with_audit_falls_back_across_route_providers(monkeypatch):
+    class FailingProvider:
+        async def complete(self, request):
+            raise RuntimeError("primary unavailable")
+
+    class FallbackProvider:
+        async def complete(self, request):
+            return LLMResponse(content='{"ok": true}', raw={"provider": "fallback"})
+
+    settings = SimpleNamespace(
+        default_llm_provider="openrouter",
+        llm_max_retries=1,
+        llm_retry_backoff_seconds=0,
+    )
+    route_row = {
+        "preferred_provider": "primary-provider",
+        "preferred_model": "primary/model",
+        "fallback_provider": "fallback-provider",
+        "fallback_model": "fallback/model",
+        "temperature": 0.2,
+        "top_p": 1.0,
+        "max_tokens": 500,
+        "timeout_seconds": 60,
+        "retry_policy": "exponential_backoff",
+    }
+    db = FakeRoutingDB({"report_agent": route_row})
+    monkeypatch.setattr(llm_audit, "get_settings", lambda: settings)
+    monkeypatch.setitem(llm_audit._AUDITED_PROVIDER_FACTORIES, "primary-provider", FailingProvider)
+    monkeypatch.setitem(llm_audit._AUDITED_PROVIDER_FACTORIES, "fallback-provider", FallbackProvider)
+    monkeypatch.setattr(llm_audit, "ArtifactStore", lambda: FakeArtifactStore())
+
+    response, call = llm_audit.complete_with_audit(
+        db,
+        big_bang_id=uuid4(),
+        purpose="report_agent_test",
+        model="legacy/model",
+        route="report_agent",
+        messages=[{"role": "user", "content": "Return JSON."}],
+    )
+
+    assert response.parsed == {"ok": True}
+    assert call.provider == "fallback-provider"
+    assert call.model == "fallback/model"
+    assert [attempt["status"] for attempt in call.meta["attempts"]] == ["failed", "succeeded"]
+
+
+def test_route_fallback_dedupes_identical_provider_model():
+    route_row = {
+        "preferred_provider": "openrouter",
+        "preferred_model": "same/model",
+        "fallback_provider": "openrouter",
+        "fallback_model": "same/model",
+        "temperature": 0.2,
+        "top_p": 1.0,
+        "max_tokens": 500,
+        "timeout_seconds": 60,
+        "retry_policy": "exponential_backoff",
+        "payload": {},
+    }
+
+    resolved = resolve_audited_llm_route(
+        FakeRoutingDB({"report_agent": route_row}),
+        route="report_agent",
+        fallback_provider="openrouter",
+        fallback_model="legacy/model",
+    )
+
+    assert len(resolved.candidates()) == 1
+
+
+def test_seed_default_direct_route_defers_to_legacy_alias():
+    seed_default = {
+        "preferred_provider": "openrouter",
+        "preferred_model": "seed/model",
+        "fallback_provider": None,
+        "fallback_model": None,
+        "temperature": 0.25,
+        "top_p": 1.0,
+        "max_tokens": 500,
+        "timeout_seconds": 60,
+        "retry_policy": "exponential_backoff",
+        "payload": {"source": "seed_default"},
+    }
+    legacy_alias = {
+        "preferred_provider": "openai-codex",
+        "preferred_model": "gpt-5.5",
+        "fallback_provider": None,
+        "fallback_model": None,
+        "temperature": 0.1,
+        "top_p": 1.0,
+        "max_tokens": 8192,
+        "timeout_seconds": 240,
+        "retry_policy": "linear",
+        "payload": {},
+    }
+
+    resolved = resolve_audited_llm_route(
+        FakeRoutingDB({"report_agent": seed_default, "aggregate_run_results": legacy_alias}),
+        route="report_agent",
+        fallback_provider="openrouter",
+        fallback_model="legacy/model",
+    )
+
+    assert resolved.matched_route == "aggregate_run_results"
+    assert resolved.primary.provider == "openai-codex"
+    assert resolved.primary.model == "gpt-5.5"
+
+
+def test_route_retry_policy_none_disables_json_repair_retry(monkeypatch):
+    class InvalidJSONProvider:
+        async def complete(self, request):
+            return LLMResponse(content='["not", "object"]', raw={"ok": True})
+
+    settings = SimpleNamespace(
+        default_llm_provider="openrouter",
+        llm_max_retries=3,
+        llm_retry_backoff_seconds=0,
+    )
+    route_row = {
+        "preferred_provider": "route-provider",
+        "preferred_model": "route/model",
+        "fallback_provider": None,
+        "fallback_model": None,
+        "temperature": 0.2,
+        "top_p": 1.0,
+        "max_tokens": 500,
+        "timeout_seconds": 60,
+        "retry_policy": "none",
+        "payload": {},
+    }
+    db = FakeRoutingDB({"report_agent": route_row})
+    monkeypatch.setattr(llm_audit, "get_settings", lambda: settings)
+    monkeypatch.setitem(llm_audit._AUDITED_PROVIDER_FACTORIES, "route-provider", InvalidJSONProvider)
+    monkeypatch.setattr(llm_audit, "ArtifactStore", lambda: FakeArtifactStore())
+
+    with pytest.raises(llm_audit.LLMCallError):
+        llm_audit.complete_with_audit(
+            db,
+            big_bang_id=uuid4(),
+            purpose="report_agent_test",
+            model="legacy/model",
+            route="report_agent",
+            messages=[{"role": "user", "content": "Return JSON."}],
+        )
+
+    call = next(obj for obj in db.objects if isinstance(obj, models.LLMCall))
+    assert len(call.meta["attempts"]) == 1
+
+
+def test_unknown_provider_uses_openai_compatible_settings_row(monkeypatch):
+    row = ProviderSettingModel(
+        provider="kimi",
+        base_url="https://kimi.example/v1",
+        api_key_env="KIMI_API_KEY",
+        default_model="kimi/k2",
+        fallback_model=None,
+        json_mode_required=True,
+        tool_calling_enabled=True,
+        enabled=True,
+        extra_headers={"X-Provider": "WorldFork"},
+        payload={"api": "openai-compatible"},
+    )
+    db = FakeDB(row)
+    monkeypatch.setenv("KIMI_API_KEY", "test-token")
+
+    provider = llm_audit.provider_for_name("kimi", db=db)
+
+    assert provider.provider == "kimi"
+    assert provider.default_model == "kimi/k2"
+    assert provider.extra_headers == {"X-Provider": "WorldFork"}
 
 
 def test_openrouter_without_api_key_returns_controlled_unavailable(monkeypatch):
@@ -228,6 +488,7 @@ def test_openrouter_requests_json_object_when_schema_is_absent(monkeypatch):
     class FakeClient:
         def __init__(self, timeout):
             self.timeout = timeout
+            captured["timeout"] = timeout
 
         async def __aenter__(self):
             return self
@@ -253,12 +514,14 @@ def test_openrouter_requests_json_object_when_schema_is_absent(monkeypatch):
                 purpose="test",
                 model="",
                 messages=[{"role": "user", "content": "Return JSON."}],
+                metadata={"timeout_seconds": 7},
             )
         )
     )
 
     assert response.content == '{"decision": "continue"}'
     assert captured["payload"]["response_format"] == {"type": "json_object"}
+    assert captured["timeout"] == 7
 
 
 def test_debug_artifact_download_requires_secure_gate(monkeypatch, tmp_path: Path):

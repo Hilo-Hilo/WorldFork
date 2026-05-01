@@ -1,6 +1,6 @@
 ---
 name: worldfork-report
-description: "Use when a coding agent must generate, audit, or improve a WorldFork Big Bang outcome report by driving the `worldfork` CLI: collecting per-multiverse reports, timelines, lineage, logs, ticks, agent traces, cohort transcripts, evidence, and optional charts into Markdown, LaTeX, PDF, or chat-ready summaries without changing the public runtime API."
+description: "Use when a coding agent must generate, audit, configure report-agent model routing for, or improve a WorldFork Big Bang outcome report by driving the `worldfork` CLI: collecting per-multiverse reports, timelines, lineage, logs, ticks, agent traces, cohort transcripts, evidence, and optional charts into Markdown, LaTeX, PDF, or chat-ready summaries without changing the public runtime API."
 ---
 
 # WorldFork Report
@@ -16,7 +16,7 @@ Use this skill when acting as an external report author for WorldFork. The job i
 - Prefer read-only inspection. Generate missing reports only when the user asked for a report or the target timelines are terminal and report generation is the natural next step.
 - Use bounded waits for jobs. Do not run unbounded polling loops.
 - Do not run new ticks, continue timelines, or change runtime settings unless the user explicitly asks.
-- For live API-credit work, use `google/gemini-3.1-flash-lite-preview` unless the user explicitly authorizes another model.
+- For live API-credit work, use the current effective route policy. For cheap report inspection, keep `google/gemini-3.1-flash-lite-preview` unless the user explicitly authorizes another model. For serious final reports or adjudication, prefer a stronger `report_agent` route such as `openai-codex` or a strong OpenRouter model.
 
 ## Workflow
 
@@ -26,6 +26,7 @@ Use this skill when acting as an external report author for WorldFork. The job i
 worldfork agent discover
 worldfork status
 worldfork models defaults
+worldfork settings llm
 ```
 
 2. Identify the Big Bang and workspace:
@@ -48,6 +49,46 @@ worldfork reports view <report-version-id>
 ```
 
 Select the latest version for each logical multiverse report and the latest `final_big_bang` report unless the user asks for a specific historical version.
+
+## Report Model Routing
+
+Before generating or regenerating reports, inspect effective routing:
+
+```bash
+worldfork settings llm
+worldfork settings model-routing
+worldfork --verbosity normal --fields id,source,status,message,provider,model,big_bang_id logs list --source llm
+```
+
+If the user asks for a higher-quality report, configure only the report-related routes unless they ask for broader simulation changes. `report_agent`, `endpoint_ledger`, and `god_agent` are the routes most relevant to report quality and outcome review. `cohort_agent` can stay on a cheaper model because report generation should not normally create new cohort decisions.
+
+Example route patch for a Codex-backed report agent with OpenRouter fallback:
+
+```bash
+worldfork settings model-routing --data '{
+  "entries": [
+    {
+      "job_type": "report_agent",
+      "preferred_provider": "openai-codex",
+      "preferred_model": "gpt-5.5",
+      "fallback_provider": "openrouter",
+      "fallback_model": "google/gemini-3.1-flash-lite-preview",
+      "temperature": 0.25,
+      "top_p": 1.0,
+      "max_tokens": 8192,
+      "max_concurrency": 2,
+      "requests_per_minute": 20,
+      "tokens_per_minute": 200000,
+      "timeout_seconds": 300,
+      "retry_policy": "exponential_backoff",
+      "payload": {}
+    }
+  ]
+}'
+worldfork settings llm
+```
+
+After report generation, verify the stored report metadata and LLM audit logs show the expected provider/model. Restore previous route rows if the model change was only for a temporary report pass.
 
 4. Generate missing backend reports when appropriate:
 

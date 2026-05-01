@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 from app.core.config import get_settings
 from app.db import models
 from app.llm.audit import complete_with_audit
+from app.llm.routing import AuditedLLMRoute
 from app.storage.artifact_store import ArtifactStore
 
 
@@ -162,6 +163,7 @@ def summarize_executed_events(
             big_bang_id=big_bang_id or event.big_bang_id,
             purpose=f"event_summary_{event.id}_v{version}",
             model=get_settings().event_summary_model,
+            route=AuditedLLMRoute.EVENT_SUMMARY,
             messages=[
                 {
                     "role": "system",

@@ -86,20 +86,8 @@ def _seed_global(session, sot: dict) -> None:
 
 
 def _seed_provider(session) -> None:
-    row = {
-        "provider": "openrouter",
-        "base_url": settings.openrouter_base_url,
-        "api_key_env": "OPENROUTER_API_KEY",
-        "default_model": settings.default_model,
-        "fallback_model": settings.fallback_model,
-        "json_mode_required": True,
-        "tool_calling_enabled": True,
-        "enabled": True,
-        "extra_headers": {
-            "HTTP-Referer": settings.openrouter_http_referer,
-            "X-Title": settings.openrouter_title,
-        },
-        "payload": {
+    rows = [
+        {
             "provider": "openrouter",
             "base_url": settings.openrouter_base_url,
             "api_key_env": "OPENROUTER_API_KEY",
@@ -112,10 +100,49 @@ def _seed_provider(session) -> None:
                 "HTTP-Referer": settings.openrouter_http_referer,
                 "X-Title": settings.openrouter_title,
             },
+            "payload": {
+                "provider": "openrouter",
+                "base_url": settings.openrouter_base_url,
+                "api_key_env": "OPENROUTER_API_KEY",
+                "default_model": settings.default_model,
+                "fallback_model": settings.fallback_model,
+                "json_mode_required": True,
+                "tool_calling_enabled": True,
+                "enabled": True,
+                "extra_headers": {
+                    "HTTP-Referer": settings.openrouter_http_referer,
+                    "X-Title": settings.openrouter_title,
+                },
+            },
         },
-    }
-    _upsert(session, ProviderSettingModel, "provider", [row])
-    print("  [provider] seeded 1 row")
+        {
+            "provider": "openai-codex",
+            "base_url": settings.openai_codex_base_url,
+            "api_key_env": "OPENAI_CODEX_OAUTH_TOKEN",
+            "default_model": settings.openai_codex_default_model,
+            "fallback_model": settings.openai_codex_fallback_model,
+            "json_mode_required": True,
+            "tool_calling_enabled": False,
+            "enabled": False,
+            "extra_headers": {},
+            "payload": {
+                "provider": "openai-codex",
+                "api": "openai-codex-responses",
+                "auth_mode": "oauth",
+                "base_url": settings.openai_codex_base_url,
+                "api_key_env": "OPENAI_CODEX_OAUTH_TOKEN",
+                "auth_file": "~/.worldfork/openai-codex-auth.json",
+                "codex_cli_auth_fallback": "~/.codex/auth.json",
+                "default_model": settings.openai_codex_default_model,
+                "fallback_model": settings.openai_codex_fallback_model,
+                "json_mode_required": True,
+                "tool_calling_enabled": False,
+                "enabled": False,
+            },
+        },
+    ]
+    _upsert(session, ProviderSettingModel, "provider", rows)
+    print(f"  [provider] seeded {len(rows)} rows")
 
 
 # PRD §16.4 model routing defaults

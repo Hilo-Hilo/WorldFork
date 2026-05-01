@@ -343,7 +343,7 @@ def test_report_agent_retries_with_smaller_rescue_digest(db: Session, monkeypatc
     )
     calls = []
 
-    def fake_complete_with_audit(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None):
+    def fake_complete_with_audit(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
         calls.append(
             {
                 "purpose": purpose,
@@ -424,7 +424,7 @@ def test_report_agent_failure_raises_instead_of_storing_deterministic_report(db:
     )
     calls = []
 
-    def fake_complete_with_audit(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None):
+    def fake_complete_with_audit(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
         calls.append(metadata["prompt_mode"])
         raise LLMCallError("report model unavailable")
 
@@ -476,7 +476,7 @@ def test_report_agent_rejects_non_llm_report_payload(db: Session, monkeypatch):
         ),
     )
 
-    def fake_complete_with_audit(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None):
+    def fake_complete_with_audit(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
         return (
             LLMResponse(
                 content="{}",

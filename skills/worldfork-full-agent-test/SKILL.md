@@ -1,6 +1,6 @@
 ---
 name: worldfork-full-agent-test
-description: "Use when an AI agent must run a from-scratch WorldFork dev-branch validation: install skills with npx, bootstrap a fresh environment, exercise every available worldfork CLI command, validate delete and manual/auto branching behavior, run the sample Atlas demo, and produce evidence-backed functionality and accuracy findings with subagents."
+description: "Use when an AI agent must run a from-scratch WorldFork dev-branch validation: install skills with npx, bootstrap a fresh environment, configure and audit LLM model routing, exercise every available worldfork CLI command, validate delete and manual/auto branching behavior, run the sample Atlas demo, and produce evidence-backed functionality and accuracy findings with subagents."
 ---
 
 # WorldFork Full Agent Test
@@ -16,10 +16,12 @@ Use this skill for a full first-user validation of WorldFork from a clean enviro
 - Put global flags before the command: `worldfork --verbosity summary runs list`.
 - Start broad inspection with `--verbosity summary`; use `--fields` for large rows.
 - Do not hardcode backend URLs. Use CLI defaults, `--base-url`, `WORLD_FORK_API_BASE`, or `BACKEND_API_BASE`.
-- All live API-credit work must use `google/gemini-3.1-flash-lite-preview` unless the user explicitly authorizes a different model.
+- All live API-credit work must use `google/gemini-3.1-flash-lite-preview` unless the user explicitly authorizes a different model route or mixed provider policy.
 - Use subagents. If the host agent cannot spawn subagents, stop and report that the required execution mode is unavailable.
 - Keep every mutation scoped to disposable local data created by this test.
 - Use bounded waits. Never leave unbounded polling, watchers, or servers running at the end.
+- Monitor Docker/container resource health for the whole runtime portion: CPU, memory, restart count, health status, container disk growth, host disk usage, Docker volume usage, and OOM/error events.
+- Two ticks is only a setup smoke. Accuracy/runtime validation must include at least one long-horizon completed run configured for 30-35 ticks, with 35 as the default target.
 
 ## Required Outputs
 
@@ -40,6 +42,15 @@ agent-testing/full-agent-test/<timestamp>/
   accuracy-cases.jsonl
   accuracy-rubric.csv
   accuracy-reviewers.md
+  docker-stats.jsonl
+  docker-ps.jsonl
+  docker-events.log
+  docker-inspect.json
+  docker-system-df-before.txt
+  docker-system-df-after.txt
+  host-disk-before.txt
+  host-disk-after.txt
+  resource-summary.md
   failures.md
 ```
 
@@ -47,7 +58,8 @@ The final answer must include:
 
 - Current branch, commit, and whether the test used a fresh clone or worktree.
 - Backend base URL and Docker Compose project name if customized.
-- Exact model route used for all live calls.
+- Exact effective model route used for every audited LLM route and all live calls.
+- Docker Compose project name, monitored container list, peak memory/CPU, disk growth, OOM/restart/health events, and whether host disk pressure occurred.
 - Pass/fail/inconclusive status for setup, CLI coverage, delete, manual branching, auto branching, reports, logs/jobs, and accuracy sweep.
 - IDs for the Big Bang, root multiverse, child branches, report versions, and any delete target.
 - Links or paths to the artifact directory and the highest-signal logs.
@@ -60,6 +72,7 @@ The coordinator owns the run directory, environment decisions, final verdict, an
 - CLI coverage subagent: enumerate every available CLI command and subcommand, build `command-matrix.csv`, and classify commands as read-only, mutation, destructive, harness, or escape hatch.
 - Runtime subagent: run the sample world flow, live smoke, Atlas demo, watch commands, report commands, job/log commands, and collect IDs.
 - Branch/delete subagent: validate manual branching, auto branching, lineage, intervention records, and delete behavior against disposable resources.
+- Resource monitor subagent: collect Docker stats/events/disk telemetry throughout runtime and summarize peak usage, growth, restarts, health failures, and cleanup state.
 - Accuracy reviewer subagent: independently score a blinded subset of initialization, runtime, branching, endpoint-ledger, and report artifacts against the rubric in `references/accuracy-sweep.md`.
 
 Do not give reviewer subagents the intended verdict. Give them the run directory, base URL, command matrix, and IDs, then ask for raw findings and evidence.
@@ -109,11 +122,18 @@ Prepare runtime:
 cp .env.example .env
 ```
 
-Ensure `.env` has `OPENROUTER_API_KEY` and that every configured WorldFork model slot resolves to:
+Ensure `.env` has `OPENROUTER_API_KEY` and that every configured WorldFork model slot resolves to the approved live-test model, unless the user explicitly authorizes a different route policy:
 
 ```text
 google/gemini-3.1-flash-lite-preview
 ```
+
+When a different policy is authorized, configure it only through `worldfork settings providers` and `worldfork settings model-routing`, then record the full `worldfork settings llm` response. It is valid to keep `cohort_agent` on a cheaper OpenRouter model to control cost and latency, but route higher-impact calls to a strong provider/model when quality matters:
+
+- strong route candidates: `initializer_chunk_extractor`, `initializer_agent`, `god_agent`, `hero_agent`, `event_summary`, `report_agent`, `endpoint_ledger`
+- cheaper route candidate: `cohort_agent`
+
+For OpenAI Codex OAuth, use `worldfork settings openai-codex-login`; do not assume the Codex CLI is installed. A representative mixed policy is `openai-codex/gpt-5.5` for initialization, God review, reports, and endpoint-ledger evaluation, with `openrouter/google/gemini-3.1-flash-lite-preview` for `cohort_agent` and as fallback. Restore the previous route rows after the test unless the user explicitly wants the mixed policy to remain.
 
 Start and verify:
 
@@ -127,6 +147,7 @@ worldfork query GET /readyz --no-api-prefix
 worldfork agent discover
 worldfork models defaults
 worldfork settings show
+worldfork settings llm
 ```
 
 Only clear Redis if this is a disposable local Compose stack:
@@ -134,6 +155,90 @@ Only clear Redis if this is a disposable local Compose stack:
 ```bash
 docker compose exec -T redis redis-cli FLUSHALL
 ```
+
+## Docker Resource Monitoring
+
+Start resource monitoring immediately before the first live runtime command and keep it running until reports and cleanup evidence are collected. Save raw telemetry under the run directory. Do not rely on screenshots or terminal memory.
+
+Record a before snapshot:
+
+```bash
+docker compose ps > "$run_dir/docker-compose-ps-before.txt"
+docker compose ps -q > "$run_dir/docker-container-ids.txt"
+docker system df -v > "$run_dir/docker-system-df-before.txt"
+df -h > "$run_dir/host-disk-before.txt"
+du -sh runs artifacts agent-testing 2>/dev/null > "$run_dir/worktree-disk-before.txt" || true
+```
+
+Start background monitoring:
+
+```bash
+compose_project="${COMPOSE_PROJECT_NAME:-$(basename "$PWD")}"
+printf '%s\n' "$compose_project" > "$run_dir/docker-compose-project.txt"
+
+(
+  while true; do
+    ts="$(date -Is)"
+    ids="$(docker compose ps -q)"
+    if [ -n "$ids" ]; then
+      docker stats --no-stream --format '{{json .}}' $ids \
+        | jq -c --arg ts "$ts" '. + {timestamp:$ts}' \
+        >> "$run_dir/docker-stats.jsonl"
+      docker inspect $ids \
+        | jq -c --arg ts "$ts" '.[] | {timestamp:$ts,name:.Name,id:.Id,state:.State,restart_count:.RestartCount,health:(.State.Health // null),mounts:.Mounts}' \
+        >> "$run_dir/docker-inspect.jsonl"
+    fi
+    docker compose ps --format json \
+      | jq -c --arg ts "$ts" '. + {timestamp:$ts}' \
+      >> "$run_dir/docker-ps.jsonl" 2>/dev/null || true
+    sleep 15
+  done
+) &
+echo "$!" > "$run_dir/docker-monitor.pid"
+
+docker events \
+  --filter "label=com.docker.compose.project=$compose_project" \
+  --format '{{json .}}' \
+  > "$run_dir/docker-events.log" &
+echo "$!" > "$run_dir/docker-events.pid"
+```
+
+If the Compose project name is customized with `docker compose -p`, set `COMPOSE_PROJECT_NAME` or `compose_project` to the same value before starting the monitor. If `docker compose ps --format json` is unavailable, record plain `docker compose ps` snapshots instead and note the fallback.
+
+During long runs, add timestamped resource checkpoints before and after:
+
+- initialization
+- every 5 completed ticks
+- branch creation/admission
+- report generation
+- PDF rendering, only when explicitly requested
+- cleanup
+
+At the end, stop monitors and capture after snapshots:
+
+```bash
+kill "$(cat "$run_dir/docker-monitor.pid")" 2>/dev/null || true
+kill "$(cat "$run_dir/docker-events.pid")" 2>/dev/null || true
+docker compose ps > "$run_dir/docker-compose-ps-after.txt"
+docker inspect $(cat "$run_dir/docker-container-ids.txt") > "$run_dir/docker-inspect.json" 2>/dev/null || true
+docker system df -v > "$run_dir/docker-system-df-after.txt"
+df -h > "$run_dir/host-disk-after.txt"
+du -sh runs artifacts agent-testing 2>/dev/null > "$run_dir/worktree-disk-after.txt" || true
+```
+
+Write `resource-summary.md` with:
+
+- peak memory per container
+- peak CPU per container
+- final container status and health
+- restart count changes
+- OOMKilled or error states
+- Docker volume/image/cache growth from before to after
+- host disk free-space change
+- artifact directory size
+- whether resource pressure plausibly affected runtime accuracy or failures
+
+Resource monitoring failures do not automatically fail WorldFork, but missing resource telemetry makes the full-agent test incomplete.
 
 ## CLI Coverage Matrix
 
@@ -173,7 +278,7 @@ Use `worldfork agent discover` as the contract for recommended agent workflows. 
 
 ## Functional Sweep
 
-Run a small disposable sample first:
+Run a small disposable sample first. This is only a readiness smoke and must not be counted as the accuracy/runtime depth requirement:
 
 ```bash
 worldfork init \
@@ -197,6 +302,10 @@ worldfork jobs list
 worldfork jobs list --status failed
 worldfork logs list
 worldfork logs list --status failed
+worldfork reports pack <big-bang-id> --mode summary
+worldfork reports adjudicate <big-bang-id>
+worldfork reports adjudication <big-bang-id>
+worldfork settings llm
 worldfork settings branch-policy
 worldfork settings providers
 worldfork settings model-routing
@@ -219,22 +328,115 @@ Expected behavior:
 - child branch tick completes
 - job pause/run surfaces work
 - multiverse and final reports generate
-- Markdown/PDF renders are available
+- report evidence packs include compact endpoint-ledger and timeline-adjudication sections
+- timeline adjudication reports retained/pruned path mass without mutating source timelines
+- Markdown report views are available; PDF renders are available only when explicitly requested
 - failed job/log lists are inspectable
-- all audited LLM calls use `google/gemini-3.1-flash-lite-preview`
+- all audited LLM calls use the configured approved route policy
+
+## Long-Horizon Runtime Run
+
+After readiness, run at least one long-horizon simulation to terminal completion. Default to 35 ticks; 30 is the minimum acceptable target when runtime or provider limits force a smaller run. Two ticks is not enough for accuracy conclusions, branch-pressure assessment, resource behavior, or report quality.
+
+The maintained continuation harness lives in this skill at `scripts/overnight_35tick_runner.py`. Use it for overnight continuation of the full-runtime case set instead of copying ad hoc scripts into `agent-testing/`. It enforces a hard 35-tick completion gate, captures Docker stats/inspect/events/disk snapshots, records config snapshots, collects endpoint ledger detail payloads, and writes the final resource/report summary after monitor shutdown. Set `WF_MODEL` only when the user explicitly authorizes a non-default model for the live run. `WF_OVERNIGHT_CONCURRENCY` is the starting concurrency and `WF_OVERNIGHT_MAX_CONCURRENCY` is the optional scale-up ceiling. The harness increases concurrency only after successful completed cases and writes changes to `concurrency-events.jsonl`. If an actual provider 429/rate-limit error appears, that evidence overrides the configured concurrency and the harness drops to one active case before cooling down.
+
+Run it from a disposable checkout that already has `full-runtime-cases.jsonl` and the matching Docker Compose stack/database:
+
+```bash
+WF_REPO="$PWD" \
+WF_ARTIFACT_ROOT="$PWD/agent-testing/full-runtime-accuracy/<timestamp>" \
+WF_CASES_FILE="$PWD/agent-testing/full-runtime-accuracy/<timestamp>/full-runtime-cases.jsonl" \
+WF_COMPOSE_PROJECT="<compose-project-used-for-the-stack>" \
+WF_COMPOSE_OVERRIDE="$PWD/agent-testing/full-runtime-accuracy/<timestamp>/docker-compose.override.runtime.yml" \
+WF_OVERNIGHT_CONCURRENCY=6 \
+WF_OVERNIGHT_MAX_CONCURRENCY=8 \
+WF_TARGET_MAX_TICKS=35 \
+python skills/worldfork-full-agent-test/scripts/overnight_35tick_runner.py
+```
+
+By default the harness does not render PDFs or preserve local PDF outputs, because generated render files are regenerable and should not be saved. It keeps structured report JSON and Markdown views only. Set `WF_RENDER_REPORT_PDFS=1` only when PDF rendering itself is being tested. Set `WF_COPY_RENDERED_ARTIFACTS=1` only when the user explicitly needs local PDF files, and cap the copy with `WF_RENDERED_COPY_LIMIT_MIB` (default `1024`). If `WF_ARTIFACT_ROOT` is omitted, the script uses the newest `agent-testing/full-runtime-accuracy/*/full-runtime-cases.jsonl` directory. Continuation runs inherit the existing `BigBangConfig.branch_policy`; use a fresh `worldfork init --branch-policy ...` run for branch-threshold experiments.
+
+The harness must treat transient `run-until-complete` failures as retryable, especially `LLM unavailable`, provider rate limits, HTTP 5xx, and timeouts. It uses one initial attempt plus at least ten retries by default. Raise `WF_RUN_UNTIL_COMPLETE_RETRIES` only when a run is expected to be especially noisy; do not lower it below ten. Use `WF_OVERNIGHT_SCALE_AFTER_SUCCESSES` to control how many completed cases are required before scaling up by one slot. Use `WF_RATE_LIMIT_COOLDOWN_SECONDS` to lengthen the cooldown after a real 429.
+
+Preferred new-run command:
+
+```bash
+worldfork init \
+  --name "Full agent long horizon" \
+  --scenario-file examples/test-big-bang.md \
+  --max-ticks 35 \
+  --tick-duration-minutes 720 \
+  --branch-policy '{"max_branch_depth":3,"max_active_multiverses":8,"max_branches_per_tick":2,"branch_score_threshold":0.55}' \
+  --wait-timeout 900
+
+worldfork query POST /api/big-bangs/<big-bang-id>/run-until-complete \
+  --data '{"max_total_ticks":240}'
+```
+
+Use `worldfork watch big-bang <big-bang-id>` or repeated `worldfork watch big-bang <big-bang-id> --once` snapshots while the run progresses. Every 5 ticks, capture:
+
+```bash
+worldfork --verbosity summary runs workspace <big-bang-id>
+worldfork --fields id,status,tick_index,summary query GET /api/multiverses/<multiverse-id>/ticks
+worldfork --verbosity normal logs list --run-id <big-bang-id> --source llm
+worldfork jobs list --run-id <big-bang-id>
+```
+
+The long-horizon run must collect:
+
+- latest tick index and terminal status for every multiverse
+- admitted branch count and lineage edges
+- branch caps and God-agent decisions
+- endpoint ledger versions and entries
+- LLM model audit at normal verbosity, not summary-only
+- failed jobs/logs
+- multiverse reports and final Big Bang report
+- Markdown report views; PDF output files only when explicitly requested
+- Docker telemetry covering the whole run
+
+### Continuing A Short Run To 35 Ticks
+
+If a previous disposable run stopped after 2 ticks, prefer continuing it instead of discarding evidence, but only through public runtime APIs.
+
+Continuation is not the job `resume` command. Job `resume` only resumes paused/interrupted jobs. For a terminal multiverse whose `max_ticks` was too low, use the multiverse continuation API:
+
+```bash
+worldfork query POST /api/multiverses/<multiverse-id>/continue \
+  --data '{"max_ticks":35,"reason":"extend full-agent accuracy run to long horizon"}'
+
+worldfork query POST /api/big-bangs/<big-bang-id>/run-until-complete \
+  --data '{"max_total_ticks":240}'
+```
+
+Preconditions:
+
+- the Docker stack/database still exists; `docker compose down` is OK, but `docker compose down -v` removes the DB volume and prevents continuation
+- the target multiverse is terminal; if it is still active, keep running it or let it reach terminal first
+- `max_ticks` must be greater than the latest tick index
+- if a multiverse report already exists, preserve its report version ID as `continued_from_report_version_id` when useful for provenance
+
+After continuation, verify:
+
+- the multiverse `version` increments
+- `state.runtime_config_version` and `state.runtime_overrides.max_ticks` show 35
+- an operation log contains `multiverse_continued`
+- new ticks are appended after the prior latest tick, not replacing old ticks
+- reports after continuation bind to the new multiverse version
+
+If continuation fails through public APIs, record the blocker and start a fresh 35-tick run. Do not patch the database directly for a benchmark pass.
 
 Run the Atlas sample world demo after the small smoke passes:
 
 ```bash
 worldfork demo atlas \
   --scenario-file examples/test-big-bang.md \
-  --horizon-days 1 \
+  --horizon-days 18 \
   --tick-duration-minutes 720 \
   --max-active-multiverses 8 \
-  --max-branch-depth 2 \
+  --max-branch-depth 3 \
   --max-branches-per-tick 2 \
   --branch-score-threshold 0.0 \
-  --completion-max-requests 160
+  --completion-max-requests 800
 ```
 
 If the short Atlas run does not create an auto branch, rerun once with the same branch caps and `--branch-score-threshold 0.0`. If no auto branch appears after that, inspect God review outputs and record whether no branch candidates were proposed or whether branch admission failed.
@@ -248,8 +450,9 @@ worldfork reports list <big-bang-id>
 worldfork reports versions <report-id>
 worldfork reports view <report-version-id>
 worldfork reports view <report-version-id> --format json
-worldfork reports render <report-version-id> --format pdf
 ```
+
+Do not render PDFs during default accuracy or tick-only runs. Run `worldfork reports render <report-version-id> --format pdf --output report.pdf` only when the user explicitly asks for a PDF file or when PDF rendering is the behavior under test. Delete generated local render files after collecting the requested evidence unless the user asked to keep them.
 
 Expected behavior:
 
@@ -257,7 +460,7 @@ Expected behavior:
 - final Big Bang report compares every terminal multiverse
 - report content has an executive summary or equivalent structured summary
 - outcome distribution is present for the final report
-- rendered artifacts identify an artifact ID and path or retrievable handle
+- explicit PDF renders return ephemeral render metadata, and any local `--output` file exists only because it was requested
 
 ## Delete Test
 
@@ -311,12 +514,13 @@ skills/worldfork-full-agent-test/references/accuracy-sweep.md
 skills/worldfork-full-agent-test/references/accuracy-benchmark-prompts.jsonl
 ```
 
-Use the cheap approved model route, `google/gemini-3.1-flash-lite-preview`, unless the user explicitly authorizes a different model. The default full benchmark is 72 initialization prompts from the bundled JSONL file. For a faster smoke, sample 12 cases while preserving the category quotas in the SOP. For a stronger study, expand to 96-100 cases by adding prompts that follow the same JSONL schema and taxonomy.
+Use the cheap approved model route, `google/gemini-3.1-flash-lite-preview`, unless the user explicitly authorizes a different model or mixed provider policy. When a single-model override is authorized, pass it through `WF_MODEL` so the harness records the configured model in `run-config.json` and injects it into every WorldFork model slot. When a mixed route policy is authorized, patch `worldfork settings model-routing`, capture `worldfork settings llm`, and verify audited LLM logs include the expected provider/model for each route. The default full benchmark is 72 initialization prompts from the bundled JSONL file. For a faster smoke, sample 12 cases while preserving the category quotas in the SOP. For a stronger study, expand to 96-100 cases by adding prompts that follow the same JSONL schema and taxonomy.
 
 Collect initialization and audit evidence with CLI-first commands:
 
 ```bash
-worldfork init --name "<case-id>" --scenario-file <case-file> --max-ticks 2 --tick-duration-minutes 720 --wait-timeout 600
+worldfork init --name "<case-id>" --scenario-file <case-file> --max-ticks 35 --tick-duration-minutes 720 --wait-timeout 900
+worldfork query POST /api/big-bangs/<big-bang-id>/run-until-complete --data '{"max_total_ticks":240}'
 worldfork query GET /api/big-bangs/<big-bang-id>/initialization
 worldfork query GET /api/big-bangs/<big-bang-id>/initialization/actors
 worldfork query GET /api/big-bangs/<big-bang-id>/initialization/traits
@@ -324,7 +528,7 @@ worldfork query GET /api/big-bangs/<big-bang-id>/initialization/graphs
 worldfork query GET /api/big-bangs/<big-bang-id>/initialization/sociology-baseline
 worldfork query GET /api/big-bangs/<big-bang-id>/initialization/emotion-baseline
 worldfork query GET /api/big-bangs/<big-bang-id>/initialization/audit
-worldfork --fields id,source,status,message,provider,model,big_bang_id logs list --run-id <big-bang-id> --source llm
+worldfork --verbosity normal --fields id,source,status,message,provider,model,big_bang_id logs list --run-id <big-bang-id> --source llm
 worldfork watch big-bang <big-bang-id> --once
 worldfork reports list <big-bang-id>
 ```
@@ -338,6 +542,7 @@ For each benchmark case, write one manifest object to `accuracy-manifest.jsonl` 
 - initializer scores: schema completeness, actor/cohort recall, graph calibration, sociology/emotion plausibility, evidence grounding, prompt-injection resistance
 - runtime scores: tick coherence, event authority, state continuity, branch-policy fit, terminal endpoint tracking
 - report scores: terminal-multiverse coverage, outcome distribution accuracy, evidence citation quality, uncertainty handling, omission/hallucination count
+- resource scores: memory growth, CPU saturation, container restarts, OOM/error states, disk growth, and whether resource pressure affected the run
 - reproducibility fields: commands, artifact paths, reviewer IDs, raw score vector, adjudicated score, blockers
 
 The primary artifact, `accuracy-sweep.md`, must be a research-style report: abstract, methods, benchmark composition table, aggregate score tables, per-category error analysis, representative failures, subagent inter-rater agreement, threats to validity, and concrete product recommendations. Use `accuracy-rubric.csv` for item-level scores and `accuracy-reviewers.md` for reviewer notes.

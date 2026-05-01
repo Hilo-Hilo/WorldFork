@@ -268,6 +268,7 @@ def discover():
             "recommended_flow": [
                 "worldfork agent discover",
                 "worldfork status",
+                "worldfork settings llm",
                 "worldfork init --name <name> --scenario-file <path>",
                 "worldfork watch big-bang <big-bang-id>",
                 "worldfork runs list",
@@ -276,6 +277,13 @@ def discover():
                 "worldfork jobs list --status failed",
                 "worldfork logs list --status failed",
             ],
+            "llm_config": {
+                "endpoint": f"{settings.api_prefix}/settings/llm",
+                "providers_endpoint": f"{settings.api_prefix}/settings/providers",
+                "model_routing_endpoint": f"{settings.api_prefix}/settings/model-routing",
+                "rate_limits_endpoint": f"{settings.api_prefix}/settings/rate-limits",
+                "cli": "worldfork settings llm",
+            },
         }
     )
 
@@ -518,6 +526,7 @@ def models_route():
     return _ok(
         {
             "default_model": settings.default_model,
+            "default_provider": settings.default_llm_provider,
             "agent_models": {
                 "initializer_agent": settings.initializer_agent_model,
                 "god_agent": settings.god_agent_model,
@@ -526,8 +535,10 @@ def models_route():
                 "event_summary": settings.event_summary_model,
                 "report_agent": settings.report_agent_model,
             },
-            "mutable": False,
-            "note": "This backend uses environment-backed model defaults; update env/config and restart to change them.",
+            "mutable": True,
+            "settings_endpoint": f"{settings.api_prefix}/settings/llm",
+            "model_routing_endpoint": f"{settings.api_prefix}/settings/model-routing",
+            "note": "Mutable provider/model routing is available through /api/settings/model-routing.",
         }
     )
 
@@ -536,5 +547,5 @@ def models_route():
 def patch_models(_body: AgentModelPatch):
     raise HTTPException(
         status_code=409,
-        detail="model routing is environment-backed in this backend; live mutation is not available",
+        detail="patch /api/settings/model-routing to update mutable provider/model routing",
     )

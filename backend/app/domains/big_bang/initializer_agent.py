@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 from app.core.config import get_settings
 from app.llm.audit import complete_with_audit
 from app.llm.prompt_templates import INITIALIZER_SYSTEM_PROMPT
+from app.llm.routing import AuditedLLMRoute
 
 
 def run_initializer_agent(
@@ -27,6 +28,7 @@ def run_initializer_agent(
         big_bang_id=big_bang_id,
         purpose=f"initializer_agent_{big_bang_id}",
         model=settings.initializer_agent_model,
+        route=AuditedLLMRoute.INITIALIZER_AGENT,
         messages=[
             {
                 "role": "system",
@@ -46,7 +48,7 @@ def run_initializer_agent(
     normalized = normalize_initializer_output(parsed, scenario_input)
     normalized["plain_text_corpus"] = corpus
     normalized["llm_call_id"] = str(call.id)
-    normalized["model"] = settings.initializer_agent_model
+    normalized["model"] = call.model
     return normalized
 
 
