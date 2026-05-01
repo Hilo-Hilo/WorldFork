@@ -16,7 +16,7 @@ async def table_has_columns(
 
     wanted = set(columns)
 
-    def _check(sync_session):  # noqa: ANN001
+    def _check(sync_session) -> bool:  # noqa: ANN001
         inspector = inspect(sync_session.connection())
         try:
             available = {column["name"] for column in inspector.get_columns(table_name)}

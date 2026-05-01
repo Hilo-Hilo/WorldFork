@@ -13,7 +13,7 @@ Run the full maintained sweep:
 | Layer | Paths | Purpose |
 | --- | --- | --- |
 | Root regression + unit | `backend/tests/*.py`, `backend/tests/unit/` | invariants, storage, runtime safety, unit logic |
-| Integration | `backend/tests/integration/` | ASGI routes, ORM behavior, legacy compatibility shims |
+| Integration | `backend/tests/integration/` | ASGI routes, ORM behavior, and canonical control-plane contracts |
 | E2E | `backend/tests/e2e/` | full-app behavior with mocked external providers |
 | Live smoke | `scripts/full_runtime_smoke.py` | Docker stack + real OpenRouter Gemini calls |
 
@@ -73,23 +73,20 @@ Run the full maintained sweep:
 | File | Coverage |
 | --- | --- |
 | `test_api_integrations.py` | Zep and webhook integration routes |
-| `test_api_jobs.py` | legacy jobs monitor compatibility |
-| `test_api_logs.py` | logs API across current and legacy table shapes |
-| `test_api_multiverse.py` | legacy multiverse tree/dag/metrics routes |
+| `test_api_jobs.py` | canonical jobs monitor and queue control routes |
+| `test_api_logs.py` | logs API across current and historical table shapes |
+| `test_api_multiverse.py` | canonical multiverse tick route guards |
 | `test_api_queue_control.py` | canonical queue control routes |
-| `test_api_runs.py` | legacy runs compatibility routes |
 | `test_api_settings.py` | settings GET/PATCH and provider routing config |
-| `test_api_universes.py` | legacy universe lifecycle routes |
-| `test_branch_engine.py` | legacy branch-engine copy-on-write behavior |
+| `test_branch_engine.py` | branch-engine copy-on-write behavior |
 | `test_lineage.py` | lineage cache, descendants, pruning |
-| `test_runtime_surface_selection.py` | canonical/compatibility route contract |
-| `test_websockets.py` | websocket connection and auth behavior |
+| `test_runtime_surface_selection.py` | canonical route contract |
 
 ## E2E Tests
 
 | File                                   | Coverage                         |
 | -------------------------------------- | -------------------------------- |
-| `test_idempotency_e2e.py`              | idempotency key dedupe           |
+| `test_idempotency_e2e.py`              | worker idempotency key dedupe    |
 | `test_multiverse_queue_lifecycle.py`   | queued multiverse tick lifecycle |
 | `test_provider_fallback_e2e.py`        | provider fallback on failures    |
 | `test_provider_rate_limit_fallback.py` | rate-limit fallback behavior     |

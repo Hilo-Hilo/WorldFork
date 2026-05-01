@@ -4,6 +4,9 @@ import re
 
 from app.core.clock import ClockContext
 
+MAX_PROMPT_LIST_ITEMS = 12
+MAX_PROMPT_STRING_CHARS = 1200
+
 
 def build_agent_prompt_context(
     *,
@@ -38,18 +41,18 @@ def compact_simulation_state(state: dict) -> dict:
             "scenario_text_excerpt": _excerpt(scenario.get("scenario_text", "")),
             "simulation_brief": initializer.get("simulation_brief"),
         },
-        "cohorts": state.get("cohorts", []),
-        "cohort_current_states": state.get("cohort_current_states", []),
-        "heroes": state.get("heroes", []),
-        "hero_current_states": state.get("hero_current_states", []),
-        "channels": state.get("channels", []),
-        "trait_vectors": state.get("trait_vectors", []),
-        "graph_summary": state.get("graph_summary", {}),
-        "branch_hypotheses": state.get("branch_hypotheses", []),
-        "merge_hypotheses": state.get("merge_hypotheses", []),
+        "cohorts": _compact_list(state.get("cohorts", [])),
+        "cohort_current_states": _compact_actor_states(state.get("cohort_current_states", [])),
+        "heroes": _compact_list(state.get("heroes", [])),
+        "hero_current_states": _compact_actor_states(state.get("hero_current_states", [])),
+        "channels": _compact_list(state.get("channels", [])),
+        "trait_vectors": _compact_list(state.get("trait_vectors", [])),
+        "graph_summary": _compact_value(state.get("graph_summary", {})),
+        "branch_hypotheses": _compact_list(state.get("branch_hypotheses", [])),
+        "merge_hypotheses": _compact_list(state.get("merge_hypotheses", [])),
         "last_tick_index": state.get("last_tick_index"),
-        "last_executed_events": state.get("last_executed_events", []),
-        "last_sociology": state.get("last_sociology", {}),
+        "last_executed_events": _compact_events(state.get("last_executed_events", [])),
+        "last_sociology": _compact_sociology(state.get("last_sociology", {})),
     }
 
 
@@ -57,6 +60,111 @@ def _excerpt(text: str, limit: int = 1200) -> str:
     if not isinstance(text, str):
         return ""
     return text if len(text) <= limit else text[:limit] + "..."
+
+
+def _compact_list(value, *, limit: int = MAX_PROMPT_LIST_ITEMS):
+    if not isinstance(value, list):
+        return []
+    return [_compact_value(item) for item in value[:limit]]
+
+
+def _compact_actor_states(value) -> list[dict]:
+    if not isinstance(value, list):
+        return []
+    latest_by_key: dict[str, dict] = {}
+    for index, item in enumerate(value):
+        if not isinstance(item, dict):
+            continue
+        state = item.get("state") if isinstance(item.get("state"), dict) else {}
+        key = str(
+            item.get("actor_id")
+            or state.get("actor_id")
+            or state.get("actor_name")
+            or state.get("name")
+            or state.get("cohort_name")
+            or state.get("label")
+            or f"anonymous:{index % MAX_PROMPT_LIST_ITEMS}"
+        )
+        latest_by_key[key] = {
+            "actor_id": item.get("actor_id") or state.get("actor_id"),
+            "state": _compact_state_fields(state),
+        }
+    return list(latest_by_key.values())[:MAX_PROMPT_LIST_ITEMS]
+
+
+def _compact_state_fields(state: dict) -> dict:
+    allowed = {
+        "name",
+        "actor_name",
+        "stance",
+        "stance_axes",
+        "attention",
+        "attention_level",
+        "expression",
+        "expression_level",
+        "fatigue",
+        "fear_of_isolation",
+        "mobilization_readiness",
+        "trust_summary",
+        "dependency_summary",
+        "perceived_majority",
+        "current_strategy",
+        "bounded_confidence",
+        "cumulative_structural_pressure",
+        "reconciliation_pressure",
+        "last_sociology_tick",
+    }
+    return {key: _compact_value(value) for key, value in state.items() if key in allowed}
+
+
+def _compact_sociology(value) -> dict:
+    if not isinstance(value, dict):
+        return {}
+    return {
+        "metrics": _compact_value(value.get("metrics", {})),
+        "signals": _compact_list(value.get("signals", []), limit=8),
+        "graph_summary": _compact_value(value.get("graph_summary", {})),
+        "cohort_state_updates": _compact_actor_states(value.get("cohort_state_updates", [])),
+        "hero_state_updates": _compact_actor_states(value.get("hero_state_updates", [])),
+    }
+
+
+def _compact_events(value) -> list[dict]:
+    if not isinstance(value, list):
+        return []
+    compact = []
+    for item in value[:8]:
+        if not isinstance(item, dict):
+            continue
+        compact.append(
+            {
+                key: _compact_value(item.get(key))
+                for key in ("event_id", "title", "event_type", "scheduled_tick", "summary", "actual_impact")
+                if item.get(key) not in (None, {}, [])
+            }
+        )
+    return compact
+
+
+def _compact_value(value, *, depth: int = 0):
+    if depth > 4:
+        return _excerpt(str(value), 300)
+    if isinstance(value, dict):
+        compact = {}
+        for index, (key, item) in enumerate(value.items()):
+            if index >= MAX_PROMPT_LIST_ITEMS:
+                compact["_truncated_keys"] = len(value) - MAX_PROMPT_LIST_ITEMS
+                break
+            compact[str(key)] = _compact_value(item, depth=depth + 1)
+        return compact
+    if isinstance(value, list):
+        items = [_compact_value(item, depth=depth + 1) for item in value[:MAX_PROMPT_LIST_ITEMS]]
+        if len(value) > MAX_PROMPT_LIST_ITEMS:
+            items.append({"_truncated_items": len(value) - MAX_PROMPT_LIST_ITEMS})
+        return items
+    if isinstance(value, str):
+        return _excerpt(value, MAX_PROMPT_STRING_CHARS)
+    return value
 
 
 BLOCKED_INFLUENCE_KEY_PARTS = {

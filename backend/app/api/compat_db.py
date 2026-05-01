@@ -1,5 +1,5 @@
-"""Compatibility wrapper for legacy DB helpers."""
+"""Compatibility wrapper for runtime DB introspection helpers."""
 
 from app.domains._compat import alias_module
 
-alias_module(__name__, "app.domains.legacy.compat_db")
+alias_module(__name__, "app.db.introspection")

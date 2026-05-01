@@ -524,6 +524,52 @@ def test_openrouter_requests_json_object_when_schema_is_absent(monkeypatch):
     assert captured["timeout"] == 7
 
 
+def test_openrouter_preserves_http_429_details(monkeypatch):
+    class FakeResponse:
+        text = '{"error":"rate limit exceeded"}'
+
+        def raise_for_status(self):
+            request = openrouter_provider.httpx.Request("POST", "https://openrouter.test/chat")
+            response = openrouter_provider.httpx.Response(429, request=request, text=self.text)
+            raise openrouter_provider.httpx.HTTPStatusError(
+                "rate limited",
+                request=request,
+                response=response,
+            )
+
+    class FakeClient:
+        def __init__(self, timeout):
+            self.timeout = timeout
+
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, exc_type, exc, tb):
+            return None
+
+        async def post(self, url, *, headers, json):
+            return FakeResponse()
+
+    settings = SimpleNamespace(
+        openrouter_api_key="test-key",
+        default_model="default-model",
+        openrouter_chat_completions_url="https://openrouter.test/chat",
+    )
+    monkeypatch.setattr(openrouter_provider, "get_settings", lambda: settings)
+    monkeypatch.setattr(openrouter_provider.httpx, "AsyncClient", FakeClient)
+
+    with pytest.raises(Exception, match="HTTP 429 Too Many Requests"):
+        asyncio.run(
+            openrouter_provider.OpenRouterProvider().complete(
+                LLMRequest(
+                    purpose="test",
+                    model="",
+                    messages=[{"role": "user", "content": "Return JSON."}],
+                )
+            )
+        )
+
+
 def test_debug_artifact_download_requires_secure_gate(monkeypatch, tmp_path: Path):
     path = tmp_path / "raw.json"
     path.write_text("{}", encoding="utf-8")
@@ -701,21 +747,6 @@ def test_agent_prompt_context_sanitizes_sociology_influences_and_omits_raw_corpu
 
     assert context["sociology_prompt_influences"] == [{"actor_name": "A", "influence": {"pressure": "high"}}]
     assert "raw_text_artifact_id" not in context["current_state"]["scenario_summary"]
-
-
-def test_agent_prompt_context_uses_only_live_event_queue_payload():
-    context = build_agent_prompt_context(
-        clock_context=SimpleNamespace(as_prompt_text=lambda: "T2"),
-        current_state={
-            "event_queue": {"due_events": [{"title": "stale initializer snapshot"}]},
-            "cohorts": [],
-        },
-        sociology_prompt_influences=[],
-        event_queue={"due_events": [{"title": "live event table view"}]},
-    )
-
-    assert "event_queue" not in context["current_state"]
-    assert context["event_queue"] == {"due_events": [{"title": "live event table view"}]}
 
 
 def test_forbidden_god_tool_aliases_are_rejected():

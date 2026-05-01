@@ -22,7 +22,7 @@ worldfork smoke live
 worldfork demo atlas
 worldfork reports list <big-bang-id>
 worldfork reports view <report-version-id>
-worldfork reports render <report-version-id> --format pdf
+worldfork reports render <report-version-id> --format pdf --output report.pdf
 ```
 
 ## Hard Rules
@@ -33,7 +33,7 @@ worldfork reports render <report-version-id> --format pdf
 - Mutations are job-first; use `worldfork jobs wait <job-id> --timeout N` for bounded waits.
 - `worldfork init` must wait for backend initialization to finish and return the initialized state.
 - Use `worldfork watch big-bang <id>` or `worldfork watch multiverse <id>` to stream event logs, ticks, tool calls, and agent logs.
-- Reports are structured database records first; Markdown/PDF files are render artifacts for a specific report version.
+- Reports are structured database records first; Markdown/PDF renders are generated on request and are not backend-cached.
 - Do not assume a web frontend exists. This repo is backend + workers + CLI.
 - Do not hardcode backend URLs. Use the CLI default, `--base-url`, `WORLD_FORK_API_BASE`, or `BACKEND_API_BASE`.
 - Live API-credit runs must use `google/gemini-3.1-flash-lite-preview` unless the user explicitly authorizes a different model.
@@ -42,7 +42,7 @@ worldfork reports render <report-version-id> --format pdf
 
 Treat `backend/app/main.py`, the `app.*` package, `/api/agent/*`, `/api/big-bangs`, `/api/multiverses`, `/api/ticks`, `/api/jobs`, `/api/logs`, and `/api/reports` as the canonical runtime surface.
 
-`/api/runs` is a transitional compatibility and compact-inspection surface. It remains documented for current agent workflows, but new feature work should prefer the canonical Big Bang, multiverse, job, log, report, and agent routes unless the CLI discovery contract says otherwise.
+Do not add new `/api/runs`, `/api/universes`, or singular `/api/multiverse` routes. Those compatibility surfaces have been removed; use the canonical Big Bang, multiverse, job, log, report, and agent routes instead.
 
 ## Setup
 

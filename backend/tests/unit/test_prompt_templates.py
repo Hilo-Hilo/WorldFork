@@ -34,6 +34,12 @@ def test_god_prompt_does_not_treat_process_moves_as_terminal_endpoints() -> None
     assert "authority, exit, substitution, durability, or economic endpoint" in GOD_AGENT_SYSTEM_PROMPT
 
 
+def test_god_prompt_requires_branch_probability() -> None:
+    assert "branch_probability" in GOD_AGENT_SYSTEM_PROMPT
+    assert "P(child branch occurs | this parent timeline at the fork tick)" in GOD_AGENT_SYSTEM_PROMPT
+    assert "This is not your confidence score" in GOD_AGENT_SYSTEM_PROMPT
+
+
 def test_report_agent_prompt_distinguishes_terminal_endpoints_from_process_states() -> None:
     assert "Report endpoint requirements" in REPORT_AGENT_SYSTEM_PROMPT
     assert "terminal endpoint or only a process state" in REPORT_AGENT_SYSTEM_PROMPT

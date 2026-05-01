@@ -31,7 +31,7 @@ A tick is one simulation step. Tick execution records node attempts, checkpoints
 
 ### Report
 
-A report is a logical slot. A report version is a generated revision containing structured content and metadata. Markdown and PDF outputs are cached artifacts rendered from that version.
+A report is a logical slot. A report version is a generated revision containing structured content and metadata. Markdown and PDF outputs are ephemeral renders generated from that version on request.
 
 ## Data Flow
 
@@ -57,7 +57,7 @@ Tick runtime graph
 Branch decisions and terminal outcomes
       |
       v
-Structured reports and render artifacts
+Structured reports and ephemeral renders
 ```
 
 ## Branching
@@ -78,7 +78,7 @@ The backend models queued work as jobs. Operators can pause, resume, interrupt, 
 
 ## Storage Boundaries
 
-Postgres is canonical for domain state. Artifacts are cached files used for rendering and audit payloads. A missing rendered artifact should be treated as regenerable when the corresponding database report version still exists.
+Postgres is canonical for domain state. Artifacts store non-regenerable evidence and audit payloads. Report renders are regenerable from the corresponding database report version and should be generated only on request.
 
 ## Agent Surface
 

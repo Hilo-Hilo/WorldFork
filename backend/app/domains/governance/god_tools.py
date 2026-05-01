@@ -109,8 +109,22 @@ def _execute(
             fork_tick_index=int(arguments["fork_tick_index"]),
             reason=arguments.get("reason", "God Agent branch."),
             idempotency_key=idempotency_key,
+            branch_probability=arguments.get("branch_probability"),
+            parent_continuation_probability=arguments.get("parent_continuation_probability"),
+            probability_basis={
+                "source": arguments.get("probability_source") or "god_agent",
+                "basis": arguments.get("probability_basis") or arguments.get("reason"),
+                "branch_probability": arguments.get("branch_probability"),
+                "parent_continuation_probability": arguments.get("parent_continuation_probability"),
+            },
         )
-        return {"status": "created", "child_multiverse_id": str(child.id), "child_label": child.ui_label}
+        return {
+            "status": "created",
+            "child_multiverse_id": str(child.id),
+            "child_label": child.ui_label,
+            "branch_probability": child.branch_probability,
+            "child_path_probability": child.path_probability,
+        }
     if tool_name == "register_key_event":
         event = db.get(models.Event, arguments.get("event_id")) if arguments.get("event_id") else None
         if event:

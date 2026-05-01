@@ -15,6 +15,7 @@ from app.db import models
 from app.jobs.tasks import execute_job
 from app.llm.audit import LLMCallError
 from app.llm.schemas import LLMResponse
+from app.domains.report.evidence_pack import build_report_evidence_pack
 from app.simulation import report_engine
 from app.storage.artifact_store import ArtifactStore, hash_directory
 
@@ -41,7 +42,7 @@ def db() -> Session:
             models.Base.metadata.drop_all(engine)
 
 
-def test_failed_report_job_rolls_back_completed_report_state(db: Session, monkeypatch, tmp_path):
+def test_failed_report_job_rolls_back_completed_report_state(db: Session, monkeypatch):
     big_bang = models.BigBang(
         name="Report consistency",
         description=None,
@@ -82,17 +83,10 @@ def test_failed_report_job_rolls_back_completed_report_state(db: Session, monkey
     db.add_all([report, job])
     db.commit()
 
-    monkeypatch.setattr(
-        report_engine,
-        "ArtifactStore",
-        lambda: ArtifactStore(root=tmp_path / "artifacts"),
-    )
-    _install_fake_report_agent(monkeypatch)
+    def fail_report_agent(*args, **kwargs):
+        raise LLMCallError("report agent failed")
 
-    def fail_markdown(*args, **kwargs):
-        raise RuntimeError("markdown writer failed")
-
-    monkeypatch.setattr(report_engine, "_write_markdown_artifact", fail_markdown)
+    monkeypatch.setattr(report_engine, "_run_report_agent", fail_report_agent)
 
     execute_job(db, job)
     db.commit()
@@ -102,15 +96,14 @@ def test_failed_report_job_rolls_back_completed_report_state(db: Session, monkey
     persisted_multiverse = db.get(models.Multiverse, multiverse.id)
 
     assert job.status == "failed"
-    assert "markdown writer failed" in job.error
+    assert "report agent failed" in job.error
     assert persisted_report.status == "draft"
     assert persisted_report.current_version == 0
     assert persisted_multiverse.report_status == "not_ready"
     assert db.scalars(select(models.ReportVersion)).all() == []
-    assert not list((tmp_path / "artifacts").rglob("*.md"))
 
 
-def test_final_report_inventory_uses_committed_status_and_version(db: Session, monkeypatch, tmp_path):
+def test_final_report_inventory_uses_committed_status_and_version(db: Session, monkeypatch):
     big_bang = models.BigBang(
         name="Final inventory",
         description=None,
@@ -144,18 +137,12 @@ def test_final_report_inventory_uses_committed_status_and_version(db: Session, m
     )
     db.flush()
 
-    artifact_root = tmp_path / "artifacts"
-    monkeypatch.setattr(
-        report_engine,
-        "ArtifactStore",
-        lambda: ArtifactStore(root=artifact_root),
-    )
     _install_fake_report_agent(monkeypatch)
 
     report_version = report_engine.generate_final_big_bang_report(db, big_bang=big_bang)
-    markdown = db.get(models.Artifact, report_version.markdown_artifact_id)
 
-    body = Path(markdown.path).read_text(encoding="utf-8")
+    body = report_engine.render_report_version_to_markdown(report_version)
+    assert report_version.markdown_artifact_id is None
     assert body.startswith("# LLM Report")
     assert "## Structured Evidence Appendix" in body
     assert "- final_big_bang: completed v1" in body
@@ -165,7 +152,7 @@ def test_final_report_inventory_uses_committed_status_and_version(db: Session, m
     assert report_version.content["outcome_distribution"]["report_statuses"] == {"completed": 1}
 
 
-def test_final_report_includes_deterministic_outcome_conclusions(db: Session, monkeypatch, tmp_path):
+def test_final_report_includes_structured_outcome_conclusions(db: Session, monkeypatch):
     big_bang = models.BigBang(
         name="Outcome clarity",
         description=None,
@@ -237,17 +224,15 @@ def test_final_report_includes_deterministic_outcome_conclusions(db: Session, mo
     )
     db.flush()
 
-    artifact_root = tmp_path / "artifacts"
-    monkeypatch.setattr(report_engine, "ArtifactStore", lambda: ArtifactStore(root=artifact_root))
     _install_fake_report_agent(
         monkeypatch,
-        outcome_interpretation="The report interprets the likely endpoint from deterministic evidence traces.",
+        outcome_interpretation="The report interprets the likely endpoint from structured evidence traces.",
     )
 
     report_version = report_engine.generate_final_big_bang_report(db, big_bang=big_bang)
     conclusions = report_version.content["outcome_conclusions"]
-    markdown = db.get(models.Artifact, report_version.markdown_artifact_id)
-    body = Path(markdown.path).read_text(encoding="utf-8")
+    body = report_engine.render_report_version_to_markdown(report_version)
+    assert report_version.markdown_artifact_id is None
 
     assert conclusions["likely_endpoint"]["latest_tick_summary"] == tick.summary
     assert conclusions["likely_endpoint"]["god_decision"] == "accept_terminal"
@@ -261,7 +246,292 @@ def test_final_report_includes_deterministic_outcome_conclusions(db: Session, mo
     assert "The population has reached a stable evacuated endpoint." in body
 
 
-def test_report_version_stores_structured_content_and_renders_pdf_on_demand(db: Session, monkeypatch, tmp_path):
+def test_final_report_weights_endpoints_by_multiverse_path_probability(db: Session, monkeypatch):
+    big_bang = models.BigBang(
+        name="Weighted endpoints",
+        description=None,
+        scenario_input={},
+        status="completed",
+        current_config_version=1,
+    )
+    db.add(big_bang)
+    db.flush()
+    root = models.Multiverse(
+        big_bang_id=big_bang.id,
+        parent_multiverse_id=None,
+        fork_tick_index=None,
+        ui_label="M1",
+        depth=0,
+        status="completed",
+        branch_reason="Root",
+        branch_probability=1.0,
+        path_probability=0.7,
+        state={},
+        report_status="completed",
+    )
+    db.add(root)
+    db.flush()
+    child = models.Multiverse(
+        big_bang_id=big_bang.id,
+        parent_multiverse_id=root.id,
+        fork_tick_index=4,
+        ui_label="M1.1",
+        depth=1,
+        status="completed",
+        branch_reason="Alternative",
+        branch_probability=0.3,
+        path_probability=0.3,
+        state={},
+        report_status="completed",
+    )
+    db.add(child)
+    db.flush()
+    db.add(
+        models.MultiverseLineageEdge(
+            big_bang_id=big_bang.id,
+            parent_multiverse_id=root.id,
+            child_multiverse_id=child.id,
+            fork_tick_index=4,
+            reason="Weighted branch",
+            branch_probability=0.3,
+            parent_path_probability=1.0,
+            child_path_probability=0.3,
+            probability_basis={"source": "test"},
+        )
+    )
+    for multiverse, endpoint_key, label in (
+        (root, "settlement", "Settlement"),
+        (child, "collapse", "Collapse"),
+    ):
+        ledger = models.EndpointLedgerVersion(
+            big_bang_id=big_bang.id,
+            multiverse_id=multiverse.id,
+            scope="multiverse",
+            version=1,
+            status="completed",
+            source_type="test",
+            created_by="test",
+            summary="Test ledger.",
+            payload={},
+        )
+        db.add(ledger)
+        db.flush()
+        db.add(
+            models.EndpointLedgerEntry(
+                ledger_version_id=ledger.id,
+                endpoint_key=endpoint_key,
+                label=label,
+                description=None,
+                status="active",
+                probability=1.0,
+                authority_refs=[],
+                evidence_refs=[{"source": "test"}],
+                blockers=[],
+                contradiction_notes=None,
+                rationale="Test endpoint.",
+                last_observed_tick_index=None,
+                meta={},
+            )
+        )
+    db.flush()
+    _install_fake_report_agent(monkeypatch)
+
+    report_version = report_engine.generate_final_big_bang_report(db, big_bang=big_bang)
+    histogram = {
+        item["endpoint_key"]: item
+        for item in report_version.content["endpoint_histogram"]
+    }
+
+    assert report_version.content["outcome_distribution"]["endpoint_probability_method"] == "path_probability_weighted"
+    assert histogram["settlement"]["probability"] == 0.7
+    assert histogram["collapse"]["probability"] == 0.3
+    assert report_version.content["outcome_conclusions"]["likely_endpoint"]["endpoint_key"] == "settlement"
+    root_path, child_path = report_version.content["path_probability_distribution"]
+    assert root_path | {
+        "multiverse_id": str(root.id),
+        "ui_label": "M1",
+        "status": "completed",
+        "path_probability": 0.7,
+        "normalized_weight": 0.7,
+        "ledger_version_id": str(
+            db.scalar(
+                select(models.EndpointLedgerVersion).where(
+                    models.EndpointLedgerVersion.multiverse_id == root.id,
+                    models.EndpointLedgerVersion.scope == "multiverse",
+                )
+            ).id
+        ),
+    } == root_path
+    assert child_path | {
+        "multiverse_id": str(child.id),
+        "ui_label": "M1.1",
+        "status": "completed",
+        "path_probability": 0.3,
+        "normalized_weight": 0.3,
+        "ledger_version_id": str(
+            db.scalar(
+                select(models.EndpointLedgerVersion).where(
+                    models.EndpointLedgerVersion.multiverse_id == child.id,
+                    models.EndpointLedgerVersion.scope == "multiverse",
+                )
+            ).id
+        ),
+    } == child_path
+    assert root_path["viability_status"] == "valid"
+    assert child_path["viability_status"] == "valid"
+
+
+def test_final_report_prunes_process_only_timelines_from_effective_path_mass(db: Session, monkeypatch):
+    big_bang = models.BigBang(
+        name="Adjudicated endpoints",
+        description=None,
+        scenario_input={},
+        status="completed",
+        current_config_version=1,
+    )
+    db.add(big_bang)
+    db.flush()
+    root = models.Multiverse(
+        big_bang_id=big_bang.id,
+        parent_multiverse_id=None,
+        fork_tick_index=None,
+        ui_label="M1",
+        depth=0,
+        status="completed",
+        branch_reason="Root",
+        branch_probability=1.0,
+        path_probability=0.6,
+        state={},
+        report_status="completed",
+    )
+    child = models.Multiverse(
+        big_bang_id=big_bang.id,
+        parent_multiverse_id=root.id,
+        fork_tick_index=2,
+        ui_label="M1.1",
+        depth=1,
+        status="completed",
+        branch_reason="Audit-only branch",
+        branch_probability=0.4,
+        path_probability=0.4,
+        state={},
+        report_status="completed",
+    )
+    db.add_all([root, child])
+    db.flush()
+    _add_endpoint_ledger(
+        db,
+        big_bang=big_bang,
+        multiverse=root,
+        endpoint_key="settlement",
+        label="Settlement",
+        status="active",
+        probability=1.0,
+        evidence_refs=[{"source": "event", "event_id": "terminal"}],
+        status_basis="terminal_event",
+    )
+    _add_endpoint_ledger(
+        db,
+        big_bang=big_bang,
+        multiverse=child,
+        endpoint_key="audit_continues",
+        label="Audit continues",
+        status="process_only",
+        probability=1.0,
+        evidence_refs=[{"source": "log", "kind": "process"}],
+        status_basis="process_only",
+    )
+    _install_fake_report_agent(monkeypatch)
+
+    report_version = report_engine.generate_final_big_bang_report(db, big_bang=big_bang)
+    histogram = {item["endpoint_key"]: item for item in report_version.content["endpoint_histogram"]}
+    paths = {
+        item["ui_label"]: item
+        for item in report_version.content["endpoint_ledger"]["payload"]["path_probability_distribution"]
+    }
+
+    assert histogram["settlement"]["probability"] == 1.0
+    assert "audit_continues" not in histogram
+    assert paths["M1"]["path_probability"] == 0.6
+    assert paths["M1"]["normalized_weight"] == 1.0
+    assert paths["M1.1"]["path_probability"] == 0.0
+    assert paths["M1.1"]["original_path_probability"] == 0.4
+    assert paths["M1.1"]["viability_status"] == "process_only"
+    assert paths["M1.1"]["include_in_final"] is False
+    adjudication = report_version.content["timeline_adjudication"]
+    assert adjudication["payload"]["included_path_probability_mass"] == 0.6
+    assert adjudication["payload"]["excluded_path_probability_mass"] == 0.4
+
+
+def test_report_evidence_pack_is_compact_and_includes_adjudication(db: Session):
+    big_bang = models.BigBang(
+        name="Evidence pack",
+        description=None,
+        scenario_input={},
+        status="completed",
+        current_config_version=1,
+    )
+    db.add(big_bang)
+    db.flush()
+    multiverse = models.Multiverse(
+        big_bang_id=big_bang.id,
+        parent_multiverse_id=None,
+        fork_tick_index=None,
+        ui_label="M1",
+        depth=0,
+        status="completed",
+        branch_reason="Root",
+        path_probability=1.0,
+        state={"cohort_current_states": [{}], "hero_current_states": [{}]},
+        report_status="completed",
+    )
+    db.add(multiverse)
+    db.flush()
+    db.add(
+        models.TickSnapshot(
+            big_bang_id=big_bang.id,
+            multiverse_id=multiverse.id,
+            tick_index=1,
+            ui_label="M1",
+            status="final",
+            provisional_bundle={"large": "x" * 1000},
+            final_bundle={"branch_score": 0.5, "large": "y" * 1000},
+            summary="Terminal evidence exists.",
+        )
+    )
+    db.flush()
+    _add_endpoint_ledger(
+        db,
+        big_bang=big_bang,
+        multiverse=multiverse,
+        endpoint_key="settlement",
+        label="Settlement",
+        status="active",
+        probability=1.0,
+        evidence_refs=[{"source": "event"}],
+        status_basis="terminal_event",
+    )
+    report_engine.evaluate_timeline_adjudication(
+        db,
+        big_bang=big_bang,
+        source_type="test",
+        created_by="test",
+    )
+
+    pack = build_report_evidence_pack(db, big_bang=big_bang, mode="summary")
+    serialized = str(pack)
+
+    assert pack["schema_version"] == "worldfork.report_evidence_pack.v1"
+    assert pack["timeline_adjudication"]["entries"][0]["viability_status"] == "valid"
+    assert pack["timelines"][0]["endpoint_ledger"]["entries"][0]["endpoint_key"] == "settlement"
+    assert pack["timelines"][0]["latest_ticks"][0]["summary"] == "Terminal evidence exists."
+    assert pack["timelines"][0]["actor_state_counts"] == {"cohort_current_states": 1, "hero_current_states": 1}
+    assert "provisional_bundle" not in serialized
+    assert "final_bundle" not in serialized
+    assert "xxxxxxxxxx" not in serialized
+
+
+def test_report_version_stores_structured_content_and_renders_pdf_ephemerally_on_demand(db: Session, monkeypatch):
     big_bang = models.BigBang(
         name="Structured reports",
         description=None,
@@ -294,21 +564,14 @@ def test_report_version_stores_structured_content_and_renders_pdf_on_demand(db: 
     )
     db.add(multiverse)
     db.flush()
-    artifact_root = tmp_path / "artifacts"
-    monkeypatch.setattr(report_engine, "ArtifactStore", lambda: ArtifactStore(root=artifact_root))
     _install_fake_report_agent(monkeypatch)
 
-    def fake_pdf(db, *, big_bang_id, relative_path, title, markdown):
-        return ArtifactStore(root=artifact_root).write_bytes(
-            db,
-            big_bang_id=big_bang_id,
-            relative_path=relative_path,
-            body=b"%PDF-1.4\n",
-            kind="report_pdf",
-            content_type="application/pdf",
-        )
+    def fake_pdf(*, title, markdown):
+        assert title == report_version.title
+        assert "# LLM Report" in markdown
+        return b"%PDF-1.4\n"
 
-    monkeypatch.setattr(report_engine, "render_markdown_pdf", fake_pdf)
+    monkeypatch.setattr(report_engine, "render_markdown_pdf_bytes", fake_pdf)
 
     report_version = report_engine.generate_multiverse_report(db, multiverse=multiverse)
 
@@ -318,16 +581,24 @@ def test_report_version_stores_structured_content_and_renders_pdf_on_demand(db: 
     assert report_version.content["source"]["multiverse_version"] == 2
     assert report_version.content["llm_report"]["report_markdown"].startswith("# LLM Report")
     assert report_version.generation_metadata["storage"]["canonical"] == "report_versions.content"
+    assert "ephemeral" in report_version.generation_metadata["storage"]["artifacts"]
+    assert report_version.markdown_artifact_id is None
     assert report_version.pdf_artifact_id is None
 
-    pdf_artifact = report_engine.render_report_version_artifact(
+    pdf_render = report_engine.render_report_version_ephemeral(
         db,
         report_version=report_version,
         output_format="pdf",
     )
 
-    assert pdf_artifact.content_type == "application/pdf"
-    assert report_version.pdf_artifact_id == pdf_artifact.id
+    assert pdf_render.content_type == "application/pdf"
+    assert pdf_render.body == b"%PDF-1.4\n"
+    assert pdf_render.filename.endswith(".pdf")
+    assert report_version.pdf_artifact_id is None
+    report_artifacts = db.scalars(
+        select(models.Artifact).where(models.Artifact.kind.in_(("report_markdown", "report_pdf")))
+    ).all()
+    assert report_artifacts == []
 
 
 def test_report_agent_retries_with_smaller_rescue_digest(db: Session, monkeypatch):
@@ -377,22 +648,52 @@ def test_report_agent_retries_with_smaller_rescue_digest(db: Session, monkeypatc
         "source": {"big_bang_id": str(uuid4()), "report_version": 1},
         "outcome_distribution": {
             "timeline_statuses": {"completed": 20},
+            "endpoint_probability_method": "path_probability_weighted",
+            "path_probability_mass": 1.0,
+            "weighted_endpoint_histogram": [
+                {"endpoint_key": "settlement", "label": "Settlement", "probability": 0.7}
+            ],
             "total_artifacts": 200,
             "total_llm_calls": 30,
         },
+        "endpoint_ledger": {
+            "payload": {
+                "aggregation": "path_probability_weighted",
+                "path_probability_mass": 1.0,
+            }
+        },
+        "path_probability_distribution": [
+            {"multiverse_id": "root", "ui_label": "M1", "path_probability": 0.7},
+            {"multiverse_id": "branch", "ui_label": "M1.1", "path_probability": 0.3},
+        ],
         "multiverse_comparison": [
             {
                 "multiverse_id": str(uuid4()),
                 "ui_label": f"M{index}",
                 "status": "completed",
                 "report_status": "completed",
+                "branch_probability": index / 100,
+                "path_probability": index / 100,
                 "latest_branch_score": index / 100,
                 "tick_count": index,
                 "cohort_state_highlights": [{"cohort_id": f"c{index}", "mood": "watchful"}],
             }
             for index in range(20)
         ],
-        "sections": [{"heading": "Divergence Drivers", "items": [{"reason": "forked"}]}],
+        "sections": [
+            {
+                "heading": "Divergence Drivers",
+                "items": [
+                    {
+                        "reason": "forked",
+                        "branch_probability": 0.3,
+                        "parent_path_probability": 1.0,
+                        "child_path_probability": 0.3,
+                        "probability_basis": {"source": "god_agent"},
+                    }
+                ],
+            }
+        ],
     }
 
     llm_report, llm_call = report_engine._run_report_agent(db, big_bang_id=uuid4(), content=content)
@@ -405,10 +706,66 @@ def test_report_agent_retries_with_smaller_rescue_digest(db: Session, monkeypatc
     rescue_payload = _report_agent_prompt_payload(calls[1])
     assert len(standard_payload["selected_timelines"]) == report_engine.REPORT_AGENT_STANDARD_TIMELINE_LIMIT
     assert len(rescue_payload["selected_timelines"]) == report_engine.REPORT_AGENT_RESCUE_TIMELINE_LIMIT
+    assert standard_payload["selected_timelines"][0]["path_probability"] == 0.19
+    assert standard_payload["outcome_distribution"]["endpoint_probability_method"] == "path_probability_weighted"
+    assert standard_payload["probability_context"]["scope"] == "final_big_bang"
+    assert standard_payload["probability_context"]["endpoint_probability_method"] == "path_probability_weighted"
+    assert standard_payload["outcome_distribution"]["weighted_endpoint_histogram"][0]["probability"] == 0.7
+    assert standard_payload["endpoint_ledger"]["aggregation"] == "path_probability_weighted"
+    assert standard_payload["path_probability_distribution"][0]["path_probability"] == 0.7
+    assert standard_payload["divergence_drivers"][0]["branch_probability"] == 0.3
+    assert any("path-mass-weighted" in item for item in standard_payload["quality_controls"])
     assert "total_artifacts" not in rescue_payload["outcome_distribution"]
     assert "total_llm_calls" not in rescue_payload["outcome_distribution"]
     assert "multiverse_id" not in calls[1]["messages"][1]["content"]
+    assert "Probability Accounting" in calls[1]["messages"][0]["content"]
     assert calls[1]["json_schema"] == report_engine.REPORT_AGENT_JSON_SCHEMA
+
+
+def test_single_multiverse_report_prompt_separates_path_and_endpoint_probability():
+    content = {
+        "report_type": "multiverse",
+        "title": "Single timeline",
+        "summary": "One timeline report.",
+        "source": {"multiverse_id": str(uuid4()), "ui_label": "M1", "report_version": 1},
+        "outcome_distribution": {
+            "ui_label": "M1",
+            "status": "completed",
+            "branch_probability": 0.4,
+            "path_probability": 0.18,
+            "latest_branch_score": 0.77,
+            "cohort_state_highlights": [{"cohort_id": "public", "trust": 0.3}],
+        },
+        "endpoint_ledger": {
+            "entries": [
+                {
+                    "endpoint_key": "settlement",
+                    "label": "Settlement",
+                    "probability": 0.8,
+                    "status": "active",
+                }
+            ]
+        },
+        "endpoint_histogram": [
+            {
+                "endpoint_key": "settlement",
+                "label": "Settlement",
+                "probability": 0.8,
+                "status": "active",
+            }
+        ],
+        "sections": [],
+    }
+
+    payload = report_engine._report_agent_prompt_content(content, mode="standard")
+
+    assert payload["outcome_distribution"]["branch_probability"] == 0.4
+    assert payload["outcome_distribution"]["path_probability"] == 0.18
+    assert payload["probability_context"]["scope"] == "single_multiverse"
+    assert payload["probability_context"]["branch_probability"] == 0.4
+    assert payload["probability_context"]["path_probability"] == 0.18
+    assert "do not describe them as cross-timeline path mass" in payload["probability_context"]["semantics"]
+    assert any("single_multiverse" in item for item in payload["quality_controls"])
 
 
 def test_report_agent_failure_raises_instead_of_storing_deterministic_report(db: Session, monkeypatch):
@@ -480,7 +837,7 @@ def test_report_agent_rejects_non_llm_report_payload(db: Session, monkeypatch):
         return (
             LLMResponse(
                 content="{}",
-                parsed={"executive_summary": "fallback without report markdown"},
+                parsed={"executive_summary": "invalid payload without report markdown"},
                 raw={},
             ),
             SimpleNamespace(id=uuid4(), meta=metadata),
@@ -644,6 +1001,55 @@ def json_loads_from_digest_message(message: str):
     return json.loads(message.split("\n", 1)[1])
 
 
+def _add_endpoint_ledger(
+    db: Session,
+    *,
+    big_bang: models.BigBang,
+    multiverse: models.Multiverse,
+    endpoint_key: str,
+    label: str,
+    status: str,
+    probability: float,
+    evidence_refs: list[dict],
+    status_basis: str,
+) -> models.EndpointLedgerVersion:
+    ledger = models.EndpointLedgerVersion(
+        big_bang_id=big_bang.id,
+        multiverse_id=multiverse.id,
+        scope="multiverse",
+        version=1,
+        status="completed",
+        source_type="test",
+        created_by="test",
+        summary="Test ledger.",
+        payload={},
+    )
+    db.add(ledger)
+    db.flush()
+    db.add(
+        models.EndpointLedgerEntry(
+            ledger_version_id=ledger.id,
+            endpoint_key=endpoint_key,
+            label=label,
+            description=None,
+            status=status,
+            probability=probability,
+            realization_criteria=[f"{label} is observed."],
+            authority_refs=[],
+            evidence_refs=evidence_refs,
+            negative_evidence_refs=[],
+            blockers=[],
+            status_basis=status_basis,
+            contradiction_notes=None,
+            rationale="Test endpoint.",
+            last_observed_tick_index=None,
+            meta={},
+        )
+    )
+    db.flush()
+    return ledger
+
+
 def _install_fake_report_agent(monkeypatch, *, outcome_interpretation: str = "Interprets structured metrics."):
     def fake_report_agent(db, *, big_bang_id, content):
         return (
@@ -653,7 +1059,7 @@ def _install_fake_report_agent(monkeypatch, *, outcome_interpretation: str = "In
                     "## Executive Summary\n\n"
                     "This is a generated long-form report body supplied by the test LLM agent.\n\n"
                     "## Outcome Interpretation\n\n"
-                    "The report interprets the structured WorldFork metrics without using a deterministic fallback."
+                    "The report interprets the structured WorldFork metrics without using a non-LLM fallback."
                 ),
                 "executive_summary": "Generated by test LLM agent.",
                 "outcome_interpretation": outcome_interpretation,

@@ -86,6 +86,34 @@ def test_branch_stores_compact_refs_and_api_reads_hydrated_shape(db: Session):
     assert lineage_payload["inherited_ticks"][0].source_tick_snapshot_id == root_tick.id
 
 
+def test_branch_creation_assigns_path_probability(db: Session):
+    _big_bang, root, _root_tick = _seed_root_tick(db)
+
+    child = create_branch(
+        db,
+        parent=root,
+        fork_tick_index=0,
+        reason="probabilistic branch",
+        idempotency_key="branch:probability",
+        branch_probability=0.25,
+        parent_continuation_probability=0.75,
+        probability_basis={"source": "test", "basis": "explicit conditional probability"},
+    )
+    edge = db.scalar(
+        select(models.MultiverseLineageEdge).where(models.MultiverseLineageEdge.child_multiverse_id == child.id)
+    )
+
+    assert float(root.path_probability) == 0.75
+    assert float(child.branch_probability) == 0.25
+    assert float(child.path_probability) == 0.25
+    assert edge is not None
+    assert float(edge.branch_probability) == 0.25
+    assert float(edge.parent_path_probability) == 1.0
+    assert float(edge.child_path_probability) == 0.25
+    assert edge.probability_basis["source"] == "test"
+    assert child.state["branch"]["path_probability"] == 0.25
+
+
 def test_http_tick_readers_return_hydrated_shape(db: Session):
     big_bang, root, _root_tick = _seed_root_tick(db)
     child = create_branch(

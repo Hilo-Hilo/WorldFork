@@ -51,6 +51,31 @@ class WorldForkClient:
         use_api_prefix: bool = True,
         timeout: float | None = None,
     ) -> Any:
+        response = self.response(
+            method,
+            path,
+            params=params,
+            json_body=json_body,
+            use_api_prefix=use_api_prefix,
+            timeout=timeout,
+        )
+        if not response.content:
+            return None
+        content_type = response.headers.get("content-type", "")
+        if "application/json" in content_type:
+            return response.json()
+        return response.text
+
+    def response(
+        self,
+        method: str,
+        path: str,
+        *,
+        params: dict[str, Any] | None = None,
+        json_body: Any = None,
+        use_api_prefix: bool = True,
+        timeout: float | None = None,
+    ) -> httpx.Response:
         url = self.normalize_path(path, use_api_prefix=use_api_prefix)
         try:
             response = self._http.request(method, url, params=params, json=json_body, timeout=timeout)
@@ -62,12 +87,7 @@ class WorldForkClient:
         if response.status_code >= 400:
             detail = _error_detail(response)
             raise CliError(f"HTTP {response.status_code} {method.upper()} {url}: {detail}")
-        if not response.content:
-            return None
-        content_type = response.headers.get("content-type", "")
-        if "application/json" in content_type:
-            return response.json()
-        return response.text
+        return response
 
 
 def _error_detail(response: httpx.Response) -> str:

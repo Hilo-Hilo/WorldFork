@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from copy import deepcopy
+from typing import Any
 
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
@@ -18,6 +19,9 @@ def create_branch(
     fork_tick_index: int,
     reason: str,
     idempotency_key: str,
+    branch_probability: float | None = None,
+    parent_continuation_probability: float | None = None,
+    probability_basis: dict[str, Any] | None = None,
 ) -> models.Multiverse:
     if fork_tick_index < 0:
         raise ValueError("fork_tick_index must be non-negative")
@@ -71,6 +75,13 @@ def create_branch(
     child_count = db.scalar(
         select(func.count()).select_from(models.Multiverse).where(models.Multiverse.parent_multiverse_id == parent.id)
     )
+    probability = _resolve_branch_probability(branch_probability)
+    split = _split_parent_path_probability(
+        parent=parent,
+        branch_probability=probability,
+        parent_continuation_probability=parent_continuation_probability,
+    )
+    parent.path_probability = split["parent_path_probability_after"]
     child_label = next_child_label(parent.ui_label, child_count)
     child = models.Multiverse(
         big_bang_id=parent.big_bang_id,
@@ -80,12 +91,16 @@ def create_branch(
         depth=parent.depth + 1,
         status="active",
         branch_reason=reason,
+        branch_probability=split["branch_probability"],
+        path_probability=split["child_path_probability"],
         state=_child_state(
             db,
             parent=parent,
             fork_tick_index=fork_tick_index,
             reason=reason,
             source_tick=source_tick,
+            probability_split=split,
+            probability_basis=probability_basis,
         ),
     )
     db.add(child)
@@ -96,6 +111,13 @@ def create_branch(
         child_multiverse_id=child.id,
         fork_tick_index=fork_tick_index,
         reason=reason,
+        branch_probability=split["branch_probability"],
+        parent_path_probability=split["parent_path_probability_before"],
+        child_path_probability=split["child_path_probability"],
+        probability_basis=probability_basis or {
+            "source": "default_branch_probability",
+            "reason": "No explicit God-agent branch probability was supplied.",
+        },
     ))
 
     inherited_ticks = db.scalars(
@@ -154,6 +176,8 @@ def _child_state(
     fork_tick_index: int,
     reason: str,
     source_tick: models.TickSnapshot,
+    probability_split: dict[str, float],
+    probability_basis: dict[str, Any] | None,
 ) -> dict:
     final_bundle = hydrate_tick_bundle(db, source_tick, "final_bundle")
     if not _bundle_has_payload(final_bundle):
@@ -174,8 +198,68 @@ def _child_state(
         "parent_multiverse_id": str(parent.id),
         "fork_tick_index": fork_tick_index,
         "reason": reason,
+        "branch_probability": probability_split["branch_probability"],
+        "path_probability": probability_split["child_path_probability"],
+        "parent_path_probability_before": probability_split["parent_path_probability_before"],
+        "parent_path_probability_after": probability_split["parent_path_probability_after"],
+        "probability_basis": probability_basis or {},
     }
     return state
+
+
+def _resolve_branch_probability(value: float | None) -> float:
+    return _clamp_probability(value, default=0.5, minimum=0.01, maximum=0.99)
+
+
+def _split_parent_path_probability(
+    *,
+    parent: models.Multiverse,
+    branch_probability: float,
+    parent_continuation_probability: float | None,
+) -> dict[str, float]:
+    parent_before = _clamp_probability(getattr(parent, "path_probability", None), default=1.0, minimum=0.0, maximum=1.0)
+    branch_probability = _resolve_branch_probability(branch_probability)
+    continuation = (
+        _clamp_probability(parent_continuation_probability, default=1.0 - branch_probability, minimum=0.0, maximum=1.0)
+        if parent_continuation_probability is not None
+        else 1.0 - branch_probability
+    )
+    total = branch_probability + continuation
+    if total <= 0:
+        branch_probability = 0.5
+        continuation = 0.5
+    elif total < 1.0:
+        continuation += 1.0 - total
+    elif total > 1.0:
+        branch_probability /= total
+        continuation /= total
+    child_path = parent_before * branch_probability
+    parent_after = parent_before * continuation
+    return {
+        "branch_probability": round(branch_probability, 10),
+        "parent_continuation_probability": round(continuation, 10),
+        "parent_path_probability_before": round(parent_before, 10),
+        "parent_path_probability_after": round(parent_after, 10),
+        "child_path_probability": round(child_path, 10),
+    }
+
+
+def _clamp_probability(
+    value: float | int | str | None,
+    *,
+    default: float,
+    minimum: float,
+    maximum: float,
+) -> float:
+    if value is None:
+        return default
+    try:
+        parsed = float(value)
+    except (TypeError, ValueError):
+        return default
+    if parsed != parsed:
+        return default
+    return max(minimum, min(maximum, parsed))
 
 
 def _bundle_has_payload(bundle: dict) -> bool:

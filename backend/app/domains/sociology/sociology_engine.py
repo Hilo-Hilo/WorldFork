@@ -315,10 +315,21 @@ def _latest_state_rows(db: Session, model, multiverse_id) -> list:
     ).all()
     latest = {}
     for row in rows:
-        key = row.actor_id or row.id
+        key = row.actor_id or _anonymous_state_key(model, row.state or {})
         if key not in latest:
             latest[key] = row
     return list(latest.values())
+
+
+def _anonymous_state_key(model, state: dict) -> str:
+    for field in ("actor_name", "name", "cohort_name", "hero_name", "label", "archetype_name"):
+        value = state.get(field)
+        if value:
+            return f"{model.__tablename__}:{field}:{value}"
+    represented = state.get("represented_population")
+    if represented is not None:
+        return f"{model.__tablename__}:population:{represented}"
+    return f"{model.__tablename__}:anonymous"
 
 
 def _compact_layer_readout(graph_summary: dict) -> dict:

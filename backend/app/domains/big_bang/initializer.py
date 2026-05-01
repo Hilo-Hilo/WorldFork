@@ -203,6 +203,8 @@ def create_big_bang(db: Session, payload: BigBangCreate) -> models.BigBang:
         depth=0,
         status="active",
         branch_reason="Root timeline",
+        branch_probability=1.0,
+        path_probability=1.0,
         state={
             "scenario_input": big_bang.scenario_input,
             "cohorts": cohorts,

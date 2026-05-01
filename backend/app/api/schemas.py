@@ -61,6 +61,8 @@ class MultiverseOut(ORMModel):
     depth: int
     status: str
     branch_reason: str | None
+    branch_probability: float = 1.0
+    path_probability: float = 1.0
     state: dict[str, Any]
     report_status: str
     ended_at: datetime | None = None
@@ -226,9 +228,12 @@ class EndpointLedgerEntryOut(ORMModel):
     description: str | None
     status: str
     probability: float | None
+    realization_criteria: list[Any] = Field(default_factory=list)
     authority_refs: list[Any]
     evidence_refs: list[Any]
+    negative_evidence_refs: list[Any] = Field(default_factory=list)
     blockers: list[Any]
+    status_basis: str | None = None
     contradiction_notes: str | None
     rationale: str | None
     last_observed_tick_index: int | None
@@ -274,6 +279,50 @@ class EndpointLedgerEvaluateOut(BaseModel):
     ledger_version_id: UUID | None = None
 
 
+class TimelineAdjudicationEntryOut(ORMModel):
+    id: UUID
+    adjudication_version_id: UUID
+    big_bang_id: UUID
+    multiverse_id: UUID
+    ui_label: str | None = None
+    viability_status: str
+    include_in_final: bool
+    prune_reason: str | None = None
+    original_path_probability: float
+    effective_path_probability: float
+    mass_disposition: str
+    endpoint_key: str | None = None
+    endpoint_status: str | None = None
+    evidence_summary: dict[str, Any]
+    created_at: datetime
+    updated_at: datetime
+
+
+class TimelineAdjudicationVersionOut(ORMModel):
+    id: UUID
+    big_bang_id: UUID
+    version: int
+    status: str
+    source_type: str
+    source_report_version_id: UUID | None = None
+    parent_adjudication_version_id: UUID | None = None
+    created_by: str
+    summary: str | None = None
+    payload: dict[str, Any]
+    created_at: datetime
+    updated_at: datetime
+
+
+class TimelineAdjudicationDetailOut(BaseModel):
+    adjudication: TimelineAdjudicationVersionOut
+    entries: list[TimelineAdjudicationEntryOut]
+
+
+class TimelineAdjudicationRequest(BaseModel):
+    source_type: str = "posthoc_adjudication"
+    summary: str | None = None
+
+
 class ReportRenderRequest(BaseModel):
     format: str = Field(default="markdown", pattern="^(markdown|pdf)$")
     force: bool = False
@@ -282,9 +331,11 @@ class ReportRenderRequest(BaseModel):
 class ReportRenderOut(BaseModel):
     report_version_id: UUID
     format: str
-    artifact_id: UUID
+    artifact_id: UUID | None = None
     content_type: str | None
     path: str | None = None
+    persisted: bool = False
+    render_mode: str = "ephemeral"
 
 
 class RunUntilCompleteOut(BaseModel):
@@ -301,6 +352,10 @@ class MultiverseLineageEdgeOut(ORMModel):
     child_multiverse_id: UUID
     fork_tick_index: int
     reason: str | None
+    branch_probability: float = 1.0
+    parent_path_probability: float = 1.0
+    child_path_probability: float = 1.0
+    probability_basis: dict[str, Any] = Field(default_factory=dict)
     created_at: datetime
     updated_at: datetime
 

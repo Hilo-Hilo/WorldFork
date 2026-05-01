@@ -1,4 +1,4 @@
-"""Logs API — PRD §20.6.
+"""Canonical logs API.
 
 Endpoints:
   GET /api/logs/requests
@@ -14,12 +14,12 @@ from datetime import UTC, datetime
 from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends, Query
+from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import or_, select
 from sqlalchemy.sql.elements import ColumnElement
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db import models as current_models
-from app.domains.legacy.compat_db import table_has_columns
+from app.db.introspection import table_has_columns
 from backend.app.core.db import get_session
 from backend.app.models.jobs import JobModel
 from backend.app.models.llm_calls import LLMCallModel
@@ -32,7 +32,7 @@ from backend.app.schemas.api import (
     WebhookLogItem,
 )
 
-router = APIRouter(prefix="/api/logs", tags=["logs"])
+router = APIRouter(prefix="/logs", tags=["logs"])
 
 _SESSION = Annotated[AsyncSession, Depends(get_session)]
 logger = logging.getLogger(__name__)
