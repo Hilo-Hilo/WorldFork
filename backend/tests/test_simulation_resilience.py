@@ -95,7 +95,7 @@ def _fake_llm_call(db: Session, *, big_bang_id, purpose: str, model: str) -> mod
 def test_agent_decision_payloads_skip_bad_list_items_and_default_casts(db, monkeypatch):
     big_bang, root, _alpha, _beta = _seed_world(db)
 
-    def fake_complete(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None):
+    def fake_complete(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
         call = _fake_llm_call(db, big_bang_id=big_bang_id, purpose=purpose, model=model)
         return (
             LLMResponse(
@@ -181,7 +181,7 @@ def test_actor_prompt_context_includes_global_and_owned_event_queue(db, monkeypa
     db.flush()
     captured_contexts = []
 
-    def fake_complete(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None):
+    def fake_complete(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
         captured_contexts.append(messages[-1]["content"])
         call = _fake_llm_call(db, big_bang_id=big_bang_id, purpose=purpose, model=model)
         return LLMResponse(content="{}", parsed={"social_actions": [], "proposed_events": []}), call
@@ -319,7 +319,7 @@ def test_event_summary_ids_are_flushed_before_return(db, monkeypatch, tmp_path):
     db.add(event)
     db.flush()
 
-    def fake_complete(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None):
+    def fake_complete(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
         call = _fake_llm_call(db, big_bang_id=big_bang_id, purpose=purpose, model=model)
         return LLMResponse(content="summary", parsed={"what_happened": "summary"}), call
 

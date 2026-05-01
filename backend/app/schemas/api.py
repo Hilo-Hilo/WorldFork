@@ -505,6 +505,30 @@ class PatchProvidersRequest(BaseModel):
     providers: list[ProviderSettingIn]
 
 
+class ProviderCatalogEntry(BaseModel):
+    provider: str
+    api_shape: str
+    source: str
+    supported: bool = True
+    enabled: bool
+    configured: bool = False
+    base_url: str | None = None
+    api_key_env: str | None = None
+    default_model: str | None = None
+    fallback_model: str | None = None
+    payload: dict[str, Any] = Field(default_factory=dict)
+
+
+class RouteCatalogEntry(BaseModel):
+    route: str
+    route_kind: str = "audited_llm"
+    label: str
+    description: str
+    aliases: list[str] = Field(default_factory=list)
+    fallback_model_setting: str
+    direct_override: bool = True
+
+
 class RoutingEntryResponse(BaseModel):
     job_type: str
     preferred_provider: str
@@ -525,8 +549,32 @@ class RoutingEntryResponse(BaseModel):
     updated_at: datetime | None = None
 
 
+class EffectiveRoutingEntry(BaseModel):
+    route: str
+    route_kind: str = "audited_llm"
+    job_type: str
+    matched_route: str | None = None
+    preferred_provider: str
+    preferred_model: str
+    fallback_provider: str | None = None
+    fallback_model: str | None = None
+    temperature: float | None = None
+    top_p: float | None = None
+    max_tokens: int | None = None
+    max_concurrency: int | None = None
+    requests_per_minute: int | None = None
+    tokens_per_minute: int | None = None
+    timeout_seconds: int | None = None
+    retry_policy: str | None = None
+    daily_budget_usd: float | None = None
+    source: str
+    payload: dict[str, Any] = Field(default_factory=dict)
+
+
 class RoutingResponse(BaseModel):
     entries: list[RoutingEntryResponse]
+    effective_entries: list[EffectiveRoutingEntry] = Field(default_factory=list)
+    known_routes: list[RouteCatalogEntry] = Field(default_factory=list)
 
 
 class RoutingEntryIn(BaseModel):
@@ -572,6 +620,18 @@ class RateLimitResponse(BaseModel):
 
 class RateLimitsResponse(BaseModel):
     rate_limits: list[RateLimitResponse]
+
+
+class LLMConfigResponse(BaseModel):
+    runtime_defaults: dict[str, Any]
+    provider_catalog: list[ProviderCatalogEntry]
+    providers: list[ProviderSettingResponse]
+    model_routing: list[RoutingEntryResponse]
+    effective_model_routing: list[EffectiveRoutingEntry]
+    known_routes: list[RouteCatalogEntry]
+    rate_limits: list[RateLimitResponse]
+    effective_rate_limits: list[dict[str, Any]]
+    api: dict[str, str]
 
 
 class RateLimitIn(BaseModel):
@@ -633,6 +693,7 @@ class TestProviderResponse(BaseModel):
     provider: str
     model: str | None = None
     error: str | None = None
+    details: dict[str, Any] | None = None
 
 
 # ---------------------------------------------------------------------------

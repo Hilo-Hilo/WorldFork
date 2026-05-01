@@ -29,6 +29,12 @@ class Settings(BaseSettings):
     openrouter_chat_completions_url: str = "https://openrouter.ai/api/v1/chat/completions"
     openrouter_http_referer: str = "https://worldfork.local"
     openrouter_title: str = "WorldFork"
+    openai_codex_enabled: bool = False
+    openai_codex_oauth_token: str | None = None
+    openai_codex_auth_file: str | None = None
+    openai_codex_base_url: str = "https://chatgpt.com/backend-api/codex"
+    openai_codex_default_model: str = "gpt-5.5"
+    openai_codex_fallback_model: str | None = None
     redis_url: str = "redis://localhost:6379/0"
     celery_broker_url: str = "redis://localhost:6379/1"
     celery_result_backend: str = "redis://localhost:6379/2"

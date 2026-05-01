@@ -6,13 +6,14 @@ from collections import Counter
 from typing import Any
 from uuid import UUID
 
-from sqlalchemy import func, select, text
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from app.core.config import get_settings
 from app.db import models
 from app.domains.tick.tick_bundles import TickBundleHydrationContext, hydrate_tick_bundle
 from app.llm.audit import LLMCallError, complete_with_audit
+from app.llm.routing import AuditedLLMRoute, ResolvedLLMRoute, resolve_audited_llm_route
 
 
 ENDPOINT_STATUSES = {"active", "weakened", "eliminated", "realized", "unresolved", "process_only"}
@@ -573,10 +574,8 @@ def _try_llm_endpoint_evaluation(
     evidence: dict[str, Any],
     base_entries: list[dict[str, Any]],
 ) -> tuple[dict[str, Any] | None, models.LLMCall | None]:
-    settings = get_settings()
-    if settings.default_llm_provider == "deterministic":
-        return None, None
-    if settings.default_llm_provider == "openrouter" and not settings.openrouter_api_key:
+    route = _endpoint_ledger_route(db)
+    if route.primary.provider == "deterministic":
         return None, None
     prompt = {
         "scope": scope,
@@ -594,7 +593,8 @@ def _try_llm_endpoint_evaluation(
             db,
             big_bang_id=big_bang_id,
             purpose=f"endpoint_ledger_evaluation_{scope}",
-            model=_endpoint_ledger_model(db),
+            model=route.primary.model,
+            route=AuditedLLMRoute.ENDPOINT_LEDGER,
             messages=[
                 {
                     "role": "system",
@@ -706,19 +706,17 @@ def _assign_probabilities(entries: list[dict[str, Any]]) -> list[dict[str, Any]]
 
 def _endpoint_ledger_model(db: Session) -> str:
     settings = get_settings()
-    try:
-        row = db.execute(
-            text(
-                "SELECT preferred_model FROM settings_model_routing "
-                "WHERE job_type = :job_type"
-            ),
-            {"job_type": "evaluate_endpoint_ledger"},
-        ).mappings().first()
-    except Exception:
-        row = None
-    if row is not None and row.get("preferred_model"):
-        return str(row["preferred_model"])
-    return settings.god_agent_model
+    return _endpoint_ledger_route(db, fallback_model=settings.god_agent_model).primary.model
+
+
+def _endpoint_ledger_route(db: Session, *, fallback_model: str | None = None) -> ResolvedLLMRoute:
+    settings = get_settings()
+    return resolve_audited_llm_route(
+        db,
+        route=AuditedLLMRoute.ENDPOINT_LEDGER,
+        fallback_provider=settings.default_llm_provider,
+        fallback_model=fallback_model or settings.god_agent_model,
+    )
 
 
 def _endpoint_histogram(entries: list[dict[str, Any]]) -> list[dict[str, Any]]:

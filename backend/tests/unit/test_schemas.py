@@ -5,10 +5,13 @@ Covers all validator cases specified in the B1-C deliverables.
 
 from __future__ import annotations
 
-import pytest
 from datetime import datetime, timezone
+from typing import get_args
+
+import pytest
 from pydantic import ValidationError
 
+from app.llm.routing import AUDITED_LLM_ROUTES
 from backend.app.schemas import (
     BigBangRun,
     BranchDelta,
@@ -19,6 +22,7 @@ from backend.app.schemas import (
     SplitProposal,
     Universe,
 )
+from backend.app.schemas.jobs import AuditedLLMRouteType
 from backend.app.schemas.branching import (
     ActorStateOverrideDelta,
     CounterfactualEventRewriteDelta,
@@ -566,6 +570,33 @@ class TestModelRoutingEntry:
             )
         )
         assert entry.job_type == "simulate_universe_tick"
+
+    def test_valid_audited_llm_route_type(self):
+        entry = ModelRoutingEntry.model_validate(
+            dict(
+                job_type="report_agent",
+                preferred_provider="openai-codex",
+                preferred_model="gpt-5.5",
+                fallback_provider="openrouter",
+                fallback_model="google/gemini-3.1-flash-lite-preview",
+                temperature=0.2,
+                top_p=1.0,
+                max_tokens=8192,
+                max_concurrency=2,
+                requests_per_minute=20,
+                tokens_per_minute=200000,
+                timeout_seconds=300,
+                retry_policy="exponential_backoff",
+                daily_budget_usd=None,
+            )
+        )
+        assert entry.job_type == "report_agent"
+
+    def test_audited_llm_route_type_matches_runtime_catalog(self):
+        schema_routes = set(get_args(AuditedLLMRouteType))
+        runtime_routes = {str(route.route) for route in AUDITED_LLM_ROUTES}
+
+        assert runtime_routes <= schema_routes
 
     def test_unknown_job_type_rejected(self):
         with pytest.raises(ValidationError):

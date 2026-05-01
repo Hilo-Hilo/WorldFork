@@ -28,6 +28,19 @@ JobType = Literal[
     "force_deviation",
 ]
 
+AuditedLLMRouteType = Literal[
+    "initializer_chunk_extractor",
+    "initializer_agent",
+    "god_agent",
+    "cohort_agent",
+    "hero_agent",
+    "event_summary",
+    "report_agent",
+    "endpoint_ledger",
+]
+
+ModelRoutingJobType = JobType | AuditedLLMRouteType
+
 JobPriority = Literal["p0", "p1", "p2", "p3", "dead_letter"]
 
 

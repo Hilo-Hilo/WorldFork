@@ -16,6 +16,7 @@ from backend.app.models.settings import (
     ProviderSettingModel,
     RateLimitSettingModel,
 )
+from app.domains.settings.routes import _model_routing_payload, _runtime_settings_payload
 import backend.app.providers as providers
 
 router = APIRouter(prefix="/api/settings", tags=["settings-legacy"])
@@ -53,7 +54,7 @@ def _apply_patch(row: Any, patch: dict[str, Any]) -> Any:
 async def get_settings(session: DbSession):
     row = await _singleton_or_none(session, GlobalSettingModel, "setting_id")
     if row is None:
-        raise HTTPException(status_code=404, detail="settings not found")
+        return _runtime_settings_payload()
     return _row_dict(row)
 
 
@@ -94,14 +95,19 @@ async def test_provider(payload: dict[str, Any]):
     if provider is None:
         return {"ok": False, "provider": name, "error": f"provider {name!r} not registered"}
     result = await provider.healthcheck()
-    data = dict(result) if isinstance(result, dict) else {"ok": bool(getattr(result, "ok", False))}
+    if isinstance(result, dict):
+        data = result
+    elif hasattr(result, "model_dump"):
+        data = result.model_dump(mode="json")
+    else:
+        data = {"ok": bool(getattr(result, "ok", False))}
     data.setdefault("provider", name)
     return data
 
 
 @router.get("/model-routing")
 async def get_model_routing(session: DbSession):
-    return {"entries": await _list_rows(session, ModelRoutingEntryModel)}
+    return await _model_routing_payload(session)
 
 
 @router.patch("/model-routing")
@@ -113,7 +119,7 @@ async def patch_model_routing(payload: dict[str, Any], session: DbSession):
             session.add(row)
         _apply_patch(row, item)
     await session.commit()
-    return {"entries": await _list_rows(session, ModelRoutingEntryModel)}
+    return await _model_routing_payload(session)
 
 
 @router.get("/rate-limits")

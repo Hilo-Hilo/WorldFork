@@ -6,6 +6,7 @@ from app.core.config import get_settings
 from app.db import models
 from app.llm.audit import complete_with_audit
 from app.llm.prompt_templates import GOD_AGENT_SYSTEM_PROMPT
+from app.llm.routing import AuditedLLMRoute
 from app.domains.governance.god_tools import VALID_TOOLS
 from app.domains.multiverse.runtime_config import branch_policy_for_multiverse
 
@@ -22,6 +23,7 @@ def review_provisional_tick(
         big_bang_id=multiverse.big_bang_id,
         purpose=f"god_review_{multiverse.id}_tick_{tick_index}",
         model=settings.god_agent_model,
+        route=AuditedLLMRoute.GOD_AGENT,
         messages=[
             {
                 "role": "system",

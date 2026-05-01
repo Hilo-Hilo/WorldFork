@@ -11,6 +11,7 @@ from sqlalchemy.orm import Session
 from app.core.config import get_settings
 from app.db import models
 from app.llm.audit import LLMCallError, complete_with_audit
+from app.llm.routing import AuditedLLMRoute, resolve_audited_llm_route
 from app.domains.endpoint_ledger.service import (
     attach_report_version_to_ledger,
     endpoint_ledger_report_payload,
@@ -112,7 +113,7 @@ def generate_multiverse_report(
     _complete_report_agent_structured_fields(llm_report, content)
     content["llm_report"] = llm_report
     content["ai_summary"] = _summary_fields(llm_report)
-    metadata["llm_call_id"] = str(llm_call.id)
+    report_agent_model = _attach_report_agent_call_metadata(metadata, llm_call)
     metadata["report_agent_status"] = "succeeded"
     metadata["report_agent_prompt_mode"] = (llm_call.meta or {}).get("prompt_mode")
     metadata["report_agent_attempt"] = (llm_call.meta or {}).get("report_agent_attempt")
@@ -133,7 +134,7 @@ def generate_multiverse_report(
         source_multiverse_ids=[str(multiverse.id)],
         content=content,
         generation_metadata=metadata,
-        model=get_settings().report_agent_model,
+        model=report_agent_model,
         supersedes_report_version_id=previous_version.id if previous_version else None,
     )
     db.add(report_version)
@@ -218,7 +219,7 @@ def generate_final_big_bang_report(
     _complete_report_agent_structured_fields(llm_report, content)
     content["llm_report"] = llm_report
     content["ai_summary"] = _summary_fields(llm_report)
-    metadata["llm_call_id"] = str(llm_call.id)
+    report_agent_model = _attach_report_agent_call_metadata(metadata, llm_call)
     metadata["report_agent_status"] = "succeeded"
     metadata["report_agent_prompt_mode"] = (llm_call.meta or {}).get("prompt_mode")
     metadata["report_agent_attempt"] = (llm_call.meta or {}).get("report_agent_attempt")
@@ -240,7 +241,7 @@ def generate_final_big_bang_report(
         source_multiverse_ids=[str(item.id) for item in multiverses],
         content=content,
         generation_metadata=metadata,
-        model=get_settings().report_agent_model,
+        model=report_agent_model,
         supersedes_report_version_id=previous_version.id if previous_version else None,
     )
     db.add(report_version)
@@ -1461,10 +1462,14 @@ def _run_report_agent(
     content: dict[str, Any],
 ) -> tuple[dict[str, Any], models.LLMCall]:
     settings = get_settings()
-    if settings.default_llm_provider == "deterministic":
+    route = resolve_audited_llm_route(
+        db,
+        route=AuditedLLMRoute.REPORT_AGENT,
+        fallback_provider=settings.default_llm_provider,
+        fallback_model=settings.report_agent_model,
+    )
+    if route.primary.provider == "deterministic":
         raise LLMCallError("Report generation requires a live LLM provider; configured provider is deterministic.")
-    if settings.default_llm_provider == "openrouter" and not settings.openrouter_api_key:
-        raise LLMCallError("Report generation requires OPENROUTER_API_KEY for the configured OpenRouter provider.")
     source = content.get("source") or {}
     source_id = source.get("multiverse_id") or source.get("big_bang_id") or str(big_bang_id)
     failures: list[str] = []
@@ -1479,7 +1484,8 @@ def _run_report_agent(
                     f"report_agent_{content['report_type']}_{source_id}_"
                     f"{source.get('report_version')}_{prompt_mode}_attempt_{attempt}"
                 ),
-                model=settings.report_agent_model,
+                model=route.primary.model,
+                route=AuditedLLMRoute.REPORT_AGENT,
                 messages=_report_agent_messages(prompt_content, mode=prompt_mode),
                 json_schema=REPORT_AGENT_JSON_SCHEMA,
                 metadata={
@@ -1582,6 +1588,16 @@ def _base_generation_metadata(*, report_type: str, big_bang_id, model: str, sour
             "pdf": "compiled from LLM report markdown and structured evidence appendix on request",
         },
     }
+
+
+def _attach_report_agent_call_metadata(metadata: dict[str, Any], llm_call: Any) -> str:
+    metadata["llm_call_id"] = str(llm_call.id)
+    provider = getattr(llm_call, "provider", None)
+    if provider:
+        metadata["provider"] = provider
+    model = str(getattr(llm_call, "model", None) or metadata.get("model") or get_settings().report_agent_model)
+    metadata["model"] = model
+    return model
 
 
 def _write_markdown_artifact(

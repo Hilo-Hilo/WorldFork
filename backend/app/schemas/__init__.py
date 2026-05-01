@@ -33,7 +33,9 @@ from backend.app.schemas.common import (
 )
 from backend.app.schemas.events import Event
 from backend.app.schemas.jobs import (
+    AuditedLLMRouteType,
     JobEnvelope,
+    ModelRoutingJobType,
     JobPriority,
     JobStatus,
     JobType,
@@ -112,7 +114,9 @@ __all__ = [
     "HeroDecisionOutput",
     "GodReviewOutput",
     # jobs
+    "AuditedLLMRouteType",
     "JobType",
+    "ModelRoutingJobType",
     "JobPriority",
     "JobEnvelope",
     "JobStatus",

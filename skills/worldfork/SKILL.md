@@ -1,6 +1,6 @@
 ---
 name: worldfork
-description: Use when operating, validating, onboarding, or debugging the WorldFork branching simulation backend through its CLI/API, including initialization, watch streams, Atlas demos, reports, jobs, settings, and runtime health.
+description: Use when operating, validating, onboarding, configuring LLM providers/model routing, or debugging the WorldFork branching simulation backend through its CLI/API, including initialization, watch streams, Atlas demos, reports, jobs, settings, and runtime health.
 ---
 
 # WorldFork
@@ -42,7 +42,100 @@ worldfork status
 worldfork query GET /readyz --no-api-prefix
 ```
 
-Ask the operator to put `OPENROUTER_API_KEY` in `.env`. Live onboarding and validation runs must use `google/gemini-3.1-flash-lite-preview`.
+Ask the operator to put `OPENROUTER_API_KEY` in `.env`. Live onboarding and validation runs should use `google/gemini-3.1-flash-lite-preview` unless the user explicitly authorizes a different route policy.
+
+## LLM Providers And Routing
+
+Inspect the effective provider, route catalog, persisted rows, and rate limits before changing models:
+
+```bash
+worldfork settings llm
+worldfork settings providers
+worldfork settings model-routing
+worldfork settings rate-limits
+```
+
+WorldFork routes audited LLM calls by stable route names. Configure routes through `worldfork settings model-routing`; do not bypass this layer in LangGraph/domain code. The important audited routes are:
+
+- `initializer_chunk_extractor`
+- `initializer_agent`
+- `god_agent`
+- `cohort_agent`
+- `hero_agent`
+- `event_summary`
+- `report_agent`
+- `endpoint_ledger`
+
+For cheap onboarding and live smoke tests, keep every route on `openrouter` with `google/gemini-3.1-flash-lite-preview` unless the user explicitly authorizes another model. For higher-quality simulation work, it is acceptable to use a cheaper model for `cohort_agent`, but prefer a strong model/provider for `initializer_chunk_extractor`, `initializer_agent`, `god_agent`, `hero_agent`, `event_summary`, `report_agent`, and `endpoint_ledger`. A typical high-quality mix is strong OpenRouter or `openai-codex` for initialization, governance, report, and endpoint evaluation routes, with a cheaper OpenRouter model for cohort calls.
+
+To use OpenAI Codex OAuth, run the headless login flow and then enable/configure the provider. This does not require the Codex CLI to be installed:
+
+```bash
+worldfork settings openai-codex-login
+worldfork settings providers --data '{
+  "providers": [
+    {
+      "provider": "openai-codex",
+      "base_url": "https://chatgpt.com/backend-api/codex",
+      "api_key_env": "OPENAI_CODEX_OAUTH_TOKEN",
+      "default_model": "gpt-5.5",
+      "fallback_model": null,
+      "json_mode_required": true,
+      "tool_calling_enabled": false,
+      "enabled": true,
+      "extra_headers": {},
+      "payload": {"api": "openai-codex-responses", "auth_mode": "oauth"}
+    }
+  ]
+}'
+```
+
+Patch route rows with the provider/model mix the user wants:
+
+```bash
+worldfork settings model-routing --data '{
+  "entries": [
+    {
+      "job_type": "initializer_agent",
+      "preferred_provider": "openai-codex",
+      "preferred_model": "gpt-5.5",
+      "fallback_provider": "openrouter",
+      "fallback_model": "google/gemini-3.1-flash-lite-preview",
+      "temperature": 0.3,
+      "top_p": 1.0,
+      "max_tokens": 8192,
+      "max_concurrency": 2,
+      "requests_per_minute": 20,
+      "tokens_per_minute": 200000,
+      "timeout_seconds": 300,
+      "retry_policy": "exponential_backoff",
+      "payload": {}
+    },
+    {
+      "job_type": "cohort_agent",
+      "preferred_provider": "openrouter",
+      "preferred_model": "google/gemini-3.1-flash-lite-preview",
+      "temperature": 0.8,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "max_concurrency": 16,
+      "requests_per_minute": 120,
+      "tokens_per_minute": 400000,
+      "timeout_seconds": 90,
+      "retry_policy": "exponential_backoff",
+      "payload": {}
+    }
+  ]
+}'
+```
+
+Re-run `worldfork settings llm` after any change and verify `effective_model_routing`. When validating a run, inspect LLM audit logs with provider/model fields:
+
+```bash
+worldfork --verbosity normal --fields id,source,status,message,provider,model,big_bang_id logs list --source llm
+```
+
+For Kimi or other OpenAI-compatible providers, add a `settings providers` row with a new provider name, `api_key_env`, base URL, and `payload.api` set to `openai-compatible`, then route individual jobs to it. For Claude or other non-OpenAI-compatible APIs, wait for or implement a provider adapter and keep the rest of the system pointed at the audited LLM routing layer.
 
 ## Core Commands
 
@@ -53,11 +146,12 @@ worldfork watch multiverse <multiverse-id>
 worldfork reports list <big-bang-id>
 worldfork reports versions <report-id>
 worldfork reports view <report-version-id>
-worldfork reports render <report-version-id> --format pdf
+worldfork reports render <report-version-id> --format pdf --output report.pdf
 worldfork jobs list --status failed
 worldfork logs list --status failed
 worldfork models defaults
 worldfork settings show
+worldfork settings llm
 ```
 
 `worldfork init` waits for backend initialization to complete and returns the initialized workspace, initializer state, actors, traits, graph baseline, sociology baseline, and emotion baseline. Use `--wait-timeout` for live initializer calls.
@@ -72,7 +166,7 @@ Atlas is the full onboarding simulation:
 worldfork demo atlas
 ```
 
-It creates the Atlas Resilience Crisis Big Bang, runs root and branch timelines, permits God-agent-created branches under generous caps, generates structured per-multiverse reports, generates the final cross-multiverse report, renders a PDF artifact on demand, and audits that live LLM calls use `google/gemini-3.1-flash-lite-preview`.
+It creates the Atlas Resilience Crisis Big Bang, runs root and branch timelines, permits God-agent-created branches under generous caps, generates structured per-multiverse reports, generates the final cross-multiverse report, can render a PDF on demand, and audits that live LLM calls use the configured approved route policy.
 
 The default Atlas tick duration is 720 simulated minutes. If `--max-tick-index` is omitted, Atlas derives it from `--horizon-days` and `--tick-duration-minutes`.
 
@@ -80,7 +174,7 @@ The default Atlas tick duration is 720 simulated minutes. If `--max-tick-index` 
 
 Treat reports as database records first. A report is a logical slot, and each generated revision is a `report_version` containing parsable JSON content, source metadata, model metadata, source multiverse IDs, source config version, and latest tick bindings.
 
-Markdown and PDF files are artifacts: cached renders compiled from `report_versions.content`. Regenerating or deleting a render must not mutate the canonical report version.
+Markdown and PDF outputs are ephemeral renders compiled from `report_versions.content` only when requested. Rendering or deleting local output must not mutate the canonical report version.
 
 ## Validation
 
