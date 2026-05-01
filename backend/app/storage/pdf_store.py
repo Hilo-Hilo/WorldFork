@@ -23,6 +23,19 @@ def render_markdown_pdf(
     title: str,
     markdown: str,
 ) -> models.Artifact:
+    encoded = render_markdown_pdf_bytes(title=title, markdown=markdown)
+    return ArtifactStore().write_bytes(
+        db,
+        big_bang_id=big_bang_id,
+        relative_path=relative_path,
+        body=encoded,
+        kind="report_pdf",
+        content_type="application/pdf",
+        debug_only=False,
+    )
+
+
+def render_markdown_pdf_bytes(*, title: str, markdown: str) -> bytes:
     if canvas is None or letter is None:
         raise RuntimeError("PDF rendering dependency reportlab is not installed")
     buffer = BytesIO()
@@ -41,13 +54,4 @@ def render_markdown_pdf(
         page.drawString(72, y, line[:110])
         y -= 14
     page.save()
-    encoded = buffer.getvalue()
-    return ArtifactStore().write_bytes(
-        db,
-        big_bang_id=big_bang_id,
-        relative_path=relative_path,
-        body=encoded,
-        kind="report_pdf",
-        content_type="application/pdf",
-        debug_only=False,
-    )
+    return buffer.getvalue()

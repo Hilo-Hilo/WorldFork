@@ -151,7 +151,7 @@ After the stack is healthy, run discovery to see what commands are available and
 - Human intervention: an operator action that pauses, changes, branches, or reviews the simulation while keeping an audit trail.
 - God agents: governance agents that inspect the world state, critique a timeline, and may propose or create additional branches.
 - Review agent: the summarization/review layer that compares outcomes and produces structured reports across multiverses.
-- Reports: versioned, structured records of what happened, with Markdown/PDF artifacts rendered from the stored report content.
+- Reports: versioned, structured records of what happened, with Markdown/PDF outputs rendered from the stored report content only on request.
 
 Keep the onboarding practical. Show the user the commands they will actually use:
 
@@ -162,7 +162,7 @@ worldfork watch multiverse <multiverse-id>
 worldfork reports list <big-bang-id>
 worldfork reports versions <report-id>
 worldfork reports view <report-version-id>
-worldfork reports render <report-version-id> --format pdf
+worldfork reports render <report-version-id> --format pdf --output report.pdf
 ```
 
 ## Offer The Atlas Demo

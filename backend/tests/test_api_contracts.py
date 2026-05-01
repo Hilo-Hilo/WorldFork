@@ -76,6 +76,8 @@ def test_child_resource_routes_404_for_missing_parents():
         f"/api/reports/{MISSING_ID}/versions",
         f"/api/report-versions/{MISSING_ID}",
         f"/api/report-versions/{MISSING_ID}/markdown",
+        f"/api/big-bangs/{MISSING_ID}/report-evidence-pack",
+        f"/api/big-bangs/{MISSING_ID}/timeline-adjudications/latest",
     ]
 
     with missing_object_db():
@@ -88,6 +90,7 @@ def test_default_body_routes_accept_omitted_body_before_parent_lookup():
     paths = [
         f"/api/big-bangs/{MISSING_ID}/reports/final",
         f"/api/big-bangs/{MISSING_ID}/run-until-complete",
+        f"/api/big-bangs/{MISSING_ID}/timeline-adjudications/evaluate",
         f"/api/multiverses/{MISSING_ID}/simulate-next-tick",
         f"/api/multiverses/{MISSING_ID}/simulate-ticks",
         f"/api/multiverses/{MISSING_ID}/report",
@@ -186,17 +189,20 @@ def test_mutation_routes_have_non_empty_response_contracts():
     paths = response.json()["paths"]
     route_methods = [
         ("/api/big-bangs/{big_bang_id}/reports/final", "post"),
+        ("/api/big-bangs/{big_bang_id}/timeline-adjudications/evaluate", "post"),
         ("/api/big-bangs/{big_bang_id}/run-until-complete", "post"),
         ("/api/big-bangs/{big_bang_id}", "delete"),
         ("/api/multiverses/{multiverse_id}/continue", "post"),
         ("/api/multiverses/{multiverse_id}/report", "post"),
-        ("/api/report-versions/{report_version_id}/render", "post"),
         ("/api/god-reviews/{god_review_id}/regenerate-summary", "post"),
     ]
     for path, method in route_methods:
         schema = paths[path][method]["responses"]["200"]["content"]["application/json"]["schema"]
         assert schema
         assert schema != {}
+    render_content = paths["/api/report-versions/{report_version_id}/render"]["post"]["responses"]["200"]["content"]
+    assert render_content["application/pdf"]["schema"] == {"type": "string", "format": "binary"}
+    assert render_content["text/markdown"]["schema"] == {"type": "string"}
 
 
 def test_canonical_job_routes_have_public_response_contracts():

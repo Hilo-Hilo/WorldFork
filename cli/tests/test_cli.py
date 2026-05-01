@@ -53,15 +53,21 @@ def test_reports_render_calls_report_version_endpoint(monkeypatch) -> None:
         def __init__(self, *_args, **_kwargs) -> None:
             pass
 
-        def request(self, method, path, *, params=None, json_body=None):
+        def response(self, method, path, *, params=None, json_body=None):
             calls.append((method, path, params, json_body))
-            return {"report_version_id": "rv-123", "format": "pdf", "artifact_id": "artifact-123"}
+            return types.SimpleNamespace(
+                content=b"%PDF-1.4\n",
+                headers={"content-type": "application/pdf", "x-worldfork-render-mode": "ephemeral"},
+                encoding=None,
+            )
 
     monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
 
     result = CliRunner().invoke(main, ["reports", "render", "rv-123", "--format", "pdf"])
 
     assert result.exit_code == 0
+    assert '"persisted": false' in result.output
+    assert '"artifact_id": null' in result.output
     assert calls == [
         (
             "POST",
@@ -69,6 +75,64 @@ def test_reports_render_calls_report_version_endpoint(monkeypatch) -> None:
             None,
             {"format": "pdf", "force": False},
         )
+    ]
+
+
+def test_reports_pack_and_adjudication_commands_call_canonical_endpoints(monkeypatch) -> None:
+    calls = []
+
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None):
+            calls.append((method, path, params, json_body))
+            return {"ok": True}
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    runner = CliRunner()
+    pack = runner.invoke(main, ["reports", "pack", "bb-123", "--mode", "summary"])
+    adjudicate = runner.invoke(main, ["reports", "adjudicate", "bb-123", "--summary", "posthoc"])
+    adjudication = runner.invoke(main, ["reports", "adjudication", "bb-123"])
+
+    assert pack.exit_code == 0
+    assert adjudicate.exit_code == 0
+    assert adjudication.exit_code == 0
+    assert calls == [
+        ("GET", "/big-bangs/bb-123/report-evidence-pack", {"mode": "summary"}, None),
+        (
+            "POST",
+            "/big-bangs/bb-123/timeline-adjudications/evaluate",
+            None,
+            {"source_type": "posthoc_cli", "summary": "posthoc"},
+        ),
+        ("GET", "/big-bangs/bb-123/timeline-adjudications/latest", None, None),
+    ]
+
+
+def test_reports_generate_commands_call_backend_report_endpoints(monkeypatch) -> None:
+    calls = []
+
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None):
+            calls.append((method, path, params, json_body))
+            return {"ok": True}
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    runner = CliRunner()
+    multiverse = runner.invoke(main, ["reports", "generate", "multiverse", "mv-123", "--title", "M report"])
+    final = runner.invoke(main, ["reports", "generate", "final", "bb-123", "--summary", "done"])
+
+    assert multiverse.exit_code == 0
+    assert final.exit_code == 0
+    assert calls == [
+        ("POST", "/multiverses/mv-123/report", None, {"title": "M report", "summary": None}),
+        ("POST", "/big-bangs/bb-123/reports/final", None, {"title": None, "summary": "done"}),
     ]
 
 

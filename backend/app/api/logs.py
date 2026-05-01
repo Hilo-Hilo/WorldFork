@@ -1,5 +1,5 @@
-"""Compatibility wrapper for legacy /api/logs routes."""
+"""Compatibility wrapper for canonical logs API routes."""
 
 from app.domains._compat import alias_module
 
-alias_module(__name__, "app.domains.legacy.logs")
+alias_module(__name__, "app.domains.logs.routes")

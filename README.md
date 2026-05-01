@@ -128,13 +128,13 @@ The **`worldfork` CLI** is the stable control surface for operators and agents, 
 | Redis | Broker, result backend, and coordination |
 | LangGraph | Checkpointed tick graph execution |
 | OpenRouter | LLM provider surface (defaulting to Gemini 3.1 Flash Lite) |
-| Artifact store | Cached JSON, Markdown, PDF, and audit payload files |
+| Artifact store | Durable JSON and audit payload files for non-regenerable evidence |
 | `worldfork` CLI | Operator and AI-agent command surface |
 
 Storage boundaries:
 - **Postgres is canonical** for durable domain state.
-- **Artifacts are cached render outputs**, not the canonical source of truth.
-- **Reports are structured database records first**, then Markdown/PDF renderings.
+- **Regenerable report renders are ephemeral**, generated only on request.
+- **Reports are structured database records first**, then Markdown/PDF renderings when requested.
 - Jobs can be **paused, resumed, interrupted, requeued, or run synchronously**.
 
 ---
@@ -238,7 +238,7 @@ worldfork init \
 worldfork watch big-bang <big-bang-id>
 worldfork reports list <big-bang-id>
 worldfork reports view <report-version-id>
-worldfork reports render <report-version-id> --format pdf
+worldfork reports render <report-version-id> --format pdf --output report.pdf
 ```
 
 Run the larger onboarding demo when you want the full branch-and-report showcase:

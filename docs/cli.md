@@ -97,7 +97,7 @@ worldfork reports list <big-bang-id>
 worldfork reports versions <report-id>
 worldfork reports view <report-version-id>
 worldfork reports view <report-version-id> --format json
-worldfork reports render <report-version-id> --format pdf
+worldfork reports render <report-version-id> --format pdf --output report.pdf
 ```
 
 Report IDs refer to logical report slots. Report version IDs refer to a specific generated revision.

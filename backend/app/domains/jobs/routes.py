@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from typing import Any
 from uuid import UUID
 
-from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query
 from pydantic import BaseModel, ConfigDict
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
@@ -30,11 +30,13 @@ from app.domains.jobs.executor import (
     validate_job_payload,
     validate_job_type,
 )
+from backend.app.workers import celery_app as celery_app_module
 
 # Re-exported for compatibility: legacy /api/jobs tests patch this symbol.
 from backend.app.core.redis_client import get_redis_client  # noqa: F401
 
 router = APIRouter(prefix="/jobs", tags=["jobs"])
+KNOWN_QUEUES = ["multiverse_ticks", "reports", "maintenance", "dead_letter"]
 
 
 class JobResponse(BaseModel):
@@ -73,8 +75,19 @@ def types():
 
 
 @router.get("", response_model=list[JobResponse], operation_id="canonical_list_jobs")
-def list_jobs(db: Session = Depends(get_db)):
-    return db.scalars(select(models.Job).order_by(models.Job.created_at.desc()).limit(100)).all()
+def list_jobs(
+    status: str | None = None,
+    big_bang_id: UUID | None = None,
+    limit: int = Query(default=100, ge=1, le=500),
+    offset: int = Query(default=0, ge=0),
+    db: Session = Depends(get_db),
+):
+    stmt = select(models.Job)
+    if status:
+        stmt = stmt.where(models.Job.status == status)
+    if big_bang_id:
+        stmt = stmt.where(models.Job.big_bang_id == big_bang_id)
+    return db.scalars(stmt.order_by(models.Job.created_at.desc()).limit(limit).offset(offset)).all()
 
 
 @router.post("", response_model=JobResponse)
@@ -128,6 +141,48 @@ def create_job_record(payload: JobCreate, db: Session, background_tasks: Backgro
 @router.get("/queue-health", response_model=dict[str, Any])
 def get_queue_health(db: Session = Depends(get_db)):
     return queue_health_snapshot(db)
+
+
+@router.get("/queues", response_model=dict[str, Any])
+def get_queues() -> dict[str, Any]:
+    try:
+        inspect = celery_app_module.celery_app.control.inspect()
+        active = inspect.active() or {}
+        reserved = inspect.reserved() or {}
+        scheduled = inspect.scheduled() or {}
+        stats = {queue: {"active": 0, "reserved": 0, "scheduled": 0} for queue in KNOWN_QUEUES}
+        for task_sets, key in ((active, "active"), (reserved, "reserved"), (scheduled, "scheduled")):
+            for tasks in task_sets.values():
+                for task in tasks or []:
+                    queue = ((task.get("delivery_info") or {}).get("routing_key")) or "multiverse_ticks"
+                    stats.setdefault(queue, {"active": 0, "reserved": 0, "scheduled": 0})
+                    stats[queue][key] += 1
+        return {
+            "degraded": False,
+            "queues": [{"queue": queue, **stats[queue]} for queue in sorted(stats)],
+        }
+    except Exception as exc:
+        return {
+            "degraded": True,
+            "error": str(exc),
+            "queues": [
+                {"queue": queue, "active": 0, "reserved": 0, "scheduled": 0}
+                for queue in KNOWN_QUEUES
+            ],
+        }
+
+
+@router.get("/workers", response_model=dict[str, Any])
+def get_workers() -> dict[str, Any]:
+    try:
+        inspect = celery_app_module.celery_app.control.inspect()
+        stats = inspect.stats() or {}
+        return {
+            "degraded": False,
+            "workers": [{"worker": name, "stats": payload} for name, payload in stats.items()],
+        }
+    except Exception as exc:
+        return {"degraded": True, "error": str(exc), "workers": []}
 
 
 @router.get("/{job_id}", response_model=JobResponse, operation_id="canonical_get_job")
@@ -204,6 +259,36 @@ def requeue_job_route(job_id: UUID, db: Session = Depends(get_db)):
     return job
 
 
+@router.post("/{job_id}/retry", response_model=JobResponse)
+def retry_job_route(
+    job_id: UUID,
+    background_tasks: BackgroundTasks,
+    db: Session = Depends(get_db),
+):
+    job = require(db, models.Job, job_id)
+    try:
+        requeue_job(db, job)
+    except JobNotRunnableError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
+    commit_or_500(db)
+    if not enqueue_recoverable_job(db, job, force=True):
+        schedule_local_fallback(background_tasks, job.id)
+    db.refresh(job)
+    publish_job_status_best_effort(job)
+    return job
+
+
+@router.post("/{job_id}/cancel", response_model=JobResponse)
+def cancel_job_route(job_id: UUID, db: Session = Depends(get_db)):
+    job = require(db, models.Job, job_id)
+    job.status = "cancelled"
+    job.finished_at = datetime.now(timezone.utc)
+    commit_or_500(db)
+    db.refresh(job)
+    publish_job_status_best_effort(job)
+    return job
+
+
 @router.post("/{job_id}/run", response_model=JobResponse)
 def run_job(job_id: UUID, db: Session = Depends(get_db)):
     job = require(db, models.Job, job_id)
@@ -218,6 +303,20 @@ def run_job(job_id: UUID, db: Session = Depends(get_db)):
     if job.status == "failed":
         raise HTTPException(status_code=500, detail="job execution failed")
     return job
+
+
+@router.post("/queues/{queue}/pause", response_model=dict[str, Any])
+async def pause_queue(queue: str) -> dict[str, Any]:
+    redis = get_redis_client()
+    await redis.set(f"jobs:queue:{queue}:paused", "1")
+    return {"queue": queue, "paused": True}
+
+
+@router.post("/queues/{queue}/resume", response_model=dict[str, Any])
+async def resume_queue(queue: str) -> dict[str, Any]:
+    redis = get_redis_client()
+    await redis.delete(f"jobs:queue:{queue}:paused")
+    return {"queue": queue, "paused": False}
 
 
 def enqueue_recoverable_job(db: Session, job: models.Job, *, force: bool = False) -> bool:

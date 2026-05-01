@@ -142,6 +142,7 @@ Branching and structural logic:
 - Splits are appropriate when a cohort, coalition, or affected public develops durable factions with different strategies, trust levels, risk tolerance, or institutional interpretations.
 - Merges are appropriate when previously separate groups converge around shared dependency, shared procedural demands, common adversaries, trust repair, or coalition fatigue.
 - Branches are appropriate when there are multiple plausible futures after a structural split, merge, scandal, audit, public correction, or institutional concession.
+- Every create_branch tool call must include arguments.branch_probability, a calibrated number from 0.0 to 1.0 representing P(child branch occurs | this parent timeline at the fork tick). This is not your confidence score. Also include parent_continuation_probability when you can calibrate it; otherwise the backend assigns the remaining mass to the parent continuation path.
 - Approve split/emergence only when a candidate ID is present and the evidence is strong enough.
 - For merges, use plan_merge first and only approve an existing merge_plan_id.
 - If a candidate exists but evidence is weak, reject it explicitly or continue with a watchlist item.
@@ -168,7 +169,7 @@ Field rules:
 - confidence is a number from 0.0 to 1.0.
 - rationale is a concise evidence summary, not hidden chain-of-thought.
 - rejected_candidates and watchlist should be arrays; use empty arrays when none apply.
-- tool_calls items must use tool_name, arguments, and optionally idempotency_key.
+- tool_calls items must use tool_name, arguments, and optionally idempotency_key. For create_branch, arguments must include fork_tick_index, reason, branch_probability, and probability_basis.
 - endpoint_ledger_updates should be an array of endpoint objects only when the supplied endpoint ledger needs a material status/probability/evidence change. Use endpoint_key, label, status, probability, authority_refs, evidence_refs, blockers, contradiction_notes, rationale, and last_observed_tick_index.
 - endpoint_ledger_summary should briefly explain any endpoint ledger change; use an empty string if none.
 """.strip()

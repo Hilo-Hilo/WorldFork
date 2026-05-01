@@ -42,7 +42,7 @@ PROJECTION_SCHEMAS: dict[str, dict[str, list[str] | None]] = {
         "full": None,
     },
     "multiverse": {
-        "summary": ["id", "ui_label", "status", "depth", "fork_tick_index"],
+        "summary": ["id", "ui_label", "status", "depth", "fork_tick_index", "path_probability"],
         "normal": [
             "id",
             "ui_label",
@@ -51,6 +51,8 @@ PROJECTION_SCHEMAS: dict[str, dict[str, list[str] | None]] = {
             "fork_tick_index",
             "parent_multiverse_id",
             "branch_reason",
+            "branch_probability",
+            "path_probability",
             "report_status",
         ],
         "full": None,

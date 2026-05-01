@@ -1112,6 +1112,8 @@ def _sync_forked_children_after_tick(
             "parent_multiverse_id": str(parent.id),
             "fork_tick_index": tick.tick_index,
             "reason": child.branch_reason,
+            "branch_probability": child.branch_probability,
+            "path_probability": child.path_probability,
         }
         child_tick = db.scalar(
             select(models.TickSnapshot).where(

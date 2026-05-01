@@ -93,10 +93,10 @@ worldfork reports list <big-bang-id>
 worldfork reports versions <report-id>
 worldfork reports view <report-version-id>
 worldfork reports view <report-version-id> --format json
-worldfork reports render <report-version-id> --format pdf
+worldfork reports render <report-version-id> --format pdf --output report.pdf
 ```
 
-Use `reports view` before rendering a PDF. Rendering is an artifact operation; it does not change the canonical report version.
+Use `reports view` before rendering a PDF. Rendering is ephemeral and does not change the canonical report version.
 
 ## Direct API Escape Hatch
 

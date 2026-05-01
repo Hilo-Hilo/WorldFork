@@ -62,6 +62,16 @@ def review_provisional_tick(
             "arguments": {
                 "fork_tick_index": tick_index,
                 "reason": "Branch threshold crossed from graph/sociology candidate evidence.",
+                "branch_probability": _heuristic_branch_probability(
+                    parsed=parsed,
+                    branch_score=branch_score,
+                    branch_threshold=branch_threshold,
+                ),
+                "probability_source": "heuristic_branch_score",
+                "probability_basis": (
+                    "Auto-created because branch_score crossed threshold and the God output did not include "
+                    "an explicit create_branch tool call."
+                ),
             },
             "idempotency_key": f"god:{multiverse.id}:tick:{tick_index}:create_branch:0",
         })
@@ -72,6 +82,12 @@ def review_provisional_tick(
             "idempotency_key": f"god:{multiverse.id}:tick:{tick_index}:continue",
         })
     decision = parsed.get("decision") or ("branch" if branch_score >= branch_threshold else "continue")
+    tool_calls = _attach_branch_probabilities(
+        tool_calls,
+        parsed=parsed,
+        branch_score=branch_score,
+        branch_threshold=branch_threshold,
+    )
     review = {
         "decision": decision,
         "rationale": parsed.get("rationale") or "God Agent reviewed the provisional tick bundle.",
@@ -128,6 +144,85 @@ def _normalize_tool_calls(raw_tool_calls, multiverse_id, tick_index: int) -> lis
             }
         )
     return normalized
+
+
+def _attach_branch_probabilities(
+    tool_calls: list[dict],
+    *,
+    parsed: dict,
+    branch_score: float,
+    branch_threshold: float,
+) -> list[dict]:
+    for call in tool_calls:
+        if call.get("tool_name") != "create_branch":
+            continue
+        arguments = call.setdefault("arguments", {})
+        explicit = _coerce_probability(
+            _first_present(
+                arguments.get("branch_probability"),
+                arguments.get("probability"),
+                arguments.get("conditional_probability"),
+                parsed.get("branch_probability"),
+            )
+        )
+        if explicit is None:
+            explicit = _heuristic_branch_probability(
+                parsed=parsed,
+                branch_score=branch_score,
+                branch_threshold=branch_threshold,
+            )
+            arguments.setdefault("probability_source", "heuristic_branch_score")
+            arguments.setdefault(
+                "probability_basis",
+                "Estimated from branch_score and God-agent confidence because no explicit branch_probability was supplied.",
+            )
+        else:
+            arguments.setdefault("probability_source", "god_agent")
+            arguments.setdefault(
+                "probability_basis",
+                "God-agent supplied conditional branch probability for this fork.",
+            )
+        arguments["branch_probability"] = explicit
+        parent_continuation = _coerce_probability(
+            _first_present(
+                arguments.get("parent_continuation_probability"),
+                parsed.get("parent_continuation_probability"),
+            )
+        )
+        if parent_continuation is not None:
+            arguments["parent_continuation_probability"] = parent_continuation
+    return tool_calls
+
+
+def _heuristic_branch_probability(*, parsed: dict, branch_score: float, branch_threshold: float) -> float:
+    confidence = _coerce_probability(parsed.get("confidence")) or 0.8
+    if branch_threshold >= 1.0:
+        pressure = 0.0
+    else:
+        pressure = max(0.0, min(1.0, (float(branch_score or 0.0) - branch_threshold) / (1.0 - branch_threshold)))
+    # Conservative fallback: crossing a branch threshold means the branch is plausible,
+    # not dominant. Confidence increases trust in the fork signal without turning it
+    # into a path probability by itself.
+    return round(max(0.05, min(0.85, 0.2 + 0.35 * pressure + 0.2 * confidence)), 4)
+
+
+def _coerce_probability(value) -> float | None:  # noqa: ANN001
+    if value is None or value == "":
+        return None
+    try:
+        parsed = float(value)
+    except (TypeError, ValueError):
+        return None
+    if parsed != parsed:
+        return None
+    return round(max(0.0, min(1.0, parsed)), 4)
+
+
+def _first_present(*values):  # noqa: ANN001
+    for value in values:
+        if value is not None and value != "":
+            return value
+    return None
 
 
 def _canonical_tool_name(tool_name: str) -> str:

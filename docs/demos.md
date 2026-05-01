@@ -33,7 +33,7 @@ The smoke validates:
 worldfork demo atlas
 ```
 
-Atlas reads `examples/test-big-bang.md`, creates the Atlas Resilience Crisis Big Bang, runs a root timeline, creates a manual transparency branch, allows God-agent-created branches under generous caps, drains every discovered timeline to terminal state, generates per-multiverse reports, generates a final cross-multiverse report, renders a PDF artifact, and audits Gemini model use.
+Atlas reads `examples/test-big-bang.md`, creates the Atlas Resilience Crisis Big Bang, runs a root timeline, creates a manual transparency branch, allows God-agent-created branches under generous caps, drains every discovered timeline to terminal state, generates per-multiverse reports, generates a final cross-multiverse report, can render a PDF on request, and audits Gemini model use.
 
 Default Atlas sizing:
 
@@ -70,7 +70,7 @@ At completion, Atlas prints:
 - final report version ID
 - audited LLM call count
 - follow-up `worldfork reports view` command
-- follow-up `worldfork reports render` command
+- follow-up `worldfork reports render --output` command
 - follow-up `worldfork watch` command
 
 Use the final report command first:
@@ -82,5 +82,5 @@ worldfork reports view <report-version-id>
 Then render PDF only when you need a file artifact:
 
 ```bash
-worldfork reports render <report-version-id> --format pdf
+worldfork reports render <report-version-id> --format pdf --output report.pdf
 ```

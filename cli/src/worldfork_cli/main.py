@@ -824,6 +824,85 @@ def reports_versions(ctx: Context, report_id: str) -> None:
     emit(ctx.client.request("GET", f"/reports/{report_id}/versions"), as_json=ctx.as_json)
 
 
+@reports.group("generate")
+def reports_generate() -> None:
+    """Generate backend report versions."""
+
+
+@reports_generate.command("multiverse")
+@click.argument("multiverse_id")
+@click.option("--title")
+@click.option("--summary")
+@click.pass_obj
+def reports_generate_multiverse(ctx: Context, multiverse_id: str, title: str | None, summary: str | None) -> None:
+    """Generate a report version for one multiverse."""
+    emit(
+        ctx.client.request(
+            "POST",
+            f"/multiverses/{multiverse_id}/report",
+            json_body={"title": title, "summary": summary},
+        ),
+        as_json=ctx.as_json,
+    )
+
+
+@reports_generate.command("final")
+@click.argument("big_bang_id")
+@click.option("--title")
+@click.option("--summary")
+@click.pass_obj
+def reports_generate_final(ctx: Context, big_bang_id: str, title: str | None, summary: str | None) -> None:
+    """Generate the final Big Bang report version."""
+    emit(
+        ctx.client.request(
+            "POST",
+            f"/big-bangs/{big_bang_id}/reports/final",
+            json_body={"title": title, "summary": summary},
+        ),
+        as_json=ctx.as_json,
+    )
+
+
+@reports.command("pack")
+@click.argument("big_bang_id")
+@click.option("--mode", type=click.Choice(["summary", "standard", "rescue", "full"]), default="standard", show_default=True)
+@click.pass_obj
+def reports_pack(ctx: Context, big_bang_id: str, mode: str) -> None:
+    """Emit a compact canonical evidence pack for reporting."""
+    emit(
+        ctx.client.request("GET", f"/big-bangs/{big_bang_id}/report-evidence-pack", params={"mode": mode}),
+        as_json=ctx.as_json,
+    )
+
+
+@reports.command("adjudicate")
+@click.argument("big_bang_id")
+@click.option("--summary")
+@click.option("--source-type", default="posthoc_cli", show_default=True)
+@click.pass_obj
+def reports_adjudicate(ctx: Context, big_bang_id: str, summary: str | None, source_type: str) -> None:
+    """Evaluate timeline pruning/effective path probabilities for final reports."""
+    emit(
+        ctx.client.request(
+            "POST",
+            f"/big-bangs/{big_bang_id}/timeline-adjudications/evaluate",
+            json_body={"source_type": source_type, "summary": summary},
+        ),
+        as_json=ctx.as_json,
+    )
+
+
+@reports.command("adjudication")
+@click.argument("big_bang_id")
+@click.pass_obj
+def reports_adjudication(ctx: Context, big_bang_id: str) -> None:
+    """View the latest timeline adjudication ledger for a Big Bang."""
+    emit(
+        ctx.client.request("GET", f"/big-bangs/{big_bang_id}/timeline-adjudications/latest"),
+        as_json=ctx.as_json,
+    )
+
+
 @reports.command("view")
 @click.argument("report_version_id")
 @click.option("--format", "output_format", type=click.Choice(["markdown", "json"]), default="markdown", show_default=True)
@@ -843,16 +922,39 @@ def reports_view(ctx: Context, report_version_id: str, output_format: str) -> No
 @reports.command("render")
 @click.argument("report_version_id")
 @click.option("--format", "output_format", type=click.Choice(["markdown", "pdf"]), default="pdf", show_default=True)
-@click.option("--force", is_flag=True, help="Regenerate even when a cached render artifact exists.")
+@click.option("--force", is_flag=True, help="Accepted for compatibility; renders are always regenerated ephemerally.")
+@click.option(
+    "--output",
+    type=click.Path(dir_okay=False, path_type=Path),
+    help="Write the requested render to this local file.",
+)
 @click.pass_obj
-def reports_render(ctx: Context, report_version_id: str, output_format: str, force: bool) -> None:
-    """Render a report version to a cached artifact."""
+def reports_render(ctx: Context, report_version_id: str, output_format: str, force: bool, output: Path | None) -> None:
+    """Render a report version on demand without backend artifact caching."""
+    response = ctx.client.response(
+        "POST",
+        f"/report-versions/{report_version_id}/render",
+        json_body={"format": output_format, "force": force},
+    )
+    body = response.content
+    if output is not None:
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_bytes(body)
+    elif output_format == "markdown" and not ctx.as_json:
+        click.echo(body.decode(response.encoding or "utf-8", errors="replace"))
+        return
+
     emit(
-        ctx.client.request(
-            "POST",
-            f"/report-versions/{report_version_id}/render",
-            json_body={"format": output_format, "force": force},
-        ),
+        {
+            "report_version_id": report_version_id,
+            "format": output_format,
+            "content_type": response.headers.get("content-type"),
+            "bytes": len(body),
+            "persisted": False,
+            "artifact_id": None,
+            "path": str(output) if output is not None else None,
+            "render_mode": response.headers.get("x-worldfork-render-mode", "ephemeral"),
+        },
         as_json=ctx.as_json,
     )
 

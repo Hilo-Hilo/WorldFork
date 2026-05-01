@@ -21,15 +21,10 @@ def test_runtime_surface_contract_is_documented_and_not_split_brain():
     paths = response.json()["paths"]
     assert "/api/agent/discover" in paths
     assert any(path.startswith("/api/jobs") for path in paths)
+    assert not any(path.startswith("/api/runs") for path in paths)
+    assert not any(path.startswith("/api/universes") for path in paths)
+    assert not any(path.startswith("/api/multiverse/") for path in paths)
 
-    runs_paths = [path for path in paths if path.startswith("/api/runs")]
     docs_text = "\n".join(path.read_text() for path in DOC_PATHS)
-
-    if runs_paths:
-        assert "/api/runs" in docs_text
-        assert "transitional" in docs_text.lower()
-        assert "canonical" in docs_text.lower()
-    else:
-        assert "/api/runs" in docs_text
-        assert "transitional" in docs_text.lower()
-        assert "canonical" in docs_text.lower()
+    assert "transitional compatibility" not in docs_text.lower()
+    assert "remains documented" not in docs_text.lower()
