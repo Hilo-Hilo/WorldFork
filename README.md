@@ -324,3 +324,7 @@ If you want to understand the project quickly, start with the diagrams above, th
 worldfork agent discover
 worldfork status
 ```
+
+## License
+
+WorldFork is licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
