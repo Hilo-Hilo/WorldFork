@@ -19,6 +19,12 @@ from worldfork_cli.client import (
     CliError,
     WorldForkClient,
 )
+from worldfork_cli.openai_codex_auth import (
+    DEFAULT_TIMEOUT_SECONDS,
+    OpenAICodexDevicePrompt,
+    default_worldfork_codex_auth_file,
+    login_openai_codex_device_code,
+)
 from worldfork_cli.output import emit, unwrap
 
 WAIT_SUCCESS_STATUSES = {"succeeded"}
@@ -1026,6 +1032,57 @@ def settings_providers(ctx: Context, data: str | None) -> None:
     emit(payload, as_json=ctx.as_json)
 
 
+@settings.command("provider-test")
+@click.argument("provider")
+@click.pass_obj
+def settings_provider_test(ctx: Context, provider: str) -> None:
+    """Run the configured provider healthcheck."""
+    emit(
+        ctx.client.request("POST", "/settings/providers/test", json_body={"provider": provider}),
+        as_json=ctx.as_json,
+    )
+
+
+@settings.command("openai-codex-login")
+@click.option(
+    "--auth-file",
+    type=click.Path(dir_okay=False, path_type=Path),
+    default=None,
+    help="Where to write OAuth tokens. Defaults to ~/.worldfork/openai-codex-auth.json.",
+)
+@click.option("--timeout", type=int, default=DEFAULT_TIMEOUT_SECONDS, show_default=True)
+@click.pass_obj
+def settings_openai_codex_login(ctx: Context, auth_file: Path | None, timeout: int) -> None:
+    """Log in to OpenAI Codex with a headless device-code flow."""
+
+    def show_prompt(prompt: OpenAICodexDevicePrompt) -> None:
+        message = "\n".join(
+            [
+                "Open this URL in a browser and enter the code:",
+                prompt.verification_url,
+                f"Code: {prompt.user_code}",
+                f"Expires in: {max(1, round(prompt.expires_in_seconds / 60))} minutes",
+            ]
+        )
+        click.echo(message, err=ctx.as_json)
+
+    target = auth_file or default_worldfork_codex_auth_file()
+    result = login_openai_codex_device_code(
+        auth_file=target,
+        timeout_seconds=timeout,
+        on_verification=show_prompt,
+    )
+    emit(
+        {
+            "provider": "openai-codex",
+            "auth_file": str(result.auth_file),
+            "token_present": True,
+            "expires_at": result.expires_at,
+        },
+        as_json=ctx.as_json,
+    )
+
+
 @settings.command("rate-limits")
 @click.option("--data", help="JSON object or @file to PATCH. Omit to read provider rate limits.")
 @click.pass_obj
@@ -1082,6 +1139,8 @@ def demo() -> None:
 )
 @click.option("--idle-termination-ticks", type=int, default=6, show_default=True)
 @click.option("--completion-max-requests", type=int, default=1000, show_default=True)
+@click.option("--expected-provider", default="openrouter", show_default=True)
+@click.option("--expected-model", default="google/gemini-3.1-flash-lite-preview", show_default=True)
 @click.pass_obj
 def demo_atlas(
     ctx: Context,
@@ -1096,14 +1155,16 @@ def demo_atlas(
     branch_score_threshold: float,
     idle_termination_ticks: int,
     completion_max_requests: int,
+    expected_provider: str,
+    expected_model: str,
 ) -> None:
     """Run the full Atlas onboarding multiverse demo.
 
     The demo creates a Big Bang, runs root and branch timelines, permits
     God-agent-created branches within the supplied caps, drains all timelines
     to terminal state, generates per-multiverse reports, creates the final
-    report-agent summary, renders a PDF artifact, and audits Gemini 3.1 Flash
-    Lite model use.
+    report-agent summary, can render a PDF on request, and audits expected
+    provider/model use.
     """
     argv = [
         "--base-url",
@@ -1126,6 +1187,10 @@ def demo_atlas(
         str(idle_termination_ticks),
         "--completion-max-requests",
         str(completion_max_requests),
+        "--expected-provider",
+        expected_provider,
+        "--expected-model",
+        expected_model,
     ]
     if scenario_file is not None:
         argv.extend(["--scenario-file", str(scenario_file.resolve())])

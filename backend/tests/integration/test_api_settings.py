@@ -11,6 +11,7 @@ from backend.app.models.settings import (
     BranchPolicySettingModel,
     GlobalSettingModel,
 )
+from backend.app.schemas.llm import ProviderHealth
 
 
 # ---------------------------------------------------------------------------
@@ -362,3 +363,25 @@ async def test_test_provider_registered(client):
     data = resp.json()
     assert data["ok"] is True
     assert data["provider"] == "mock_provider"
+
+
+@pytest.mark.asyncio
+async def test_test_provider_returns_pydantic_health_details(client):
+    mock_provider = AsyncMock()
+    mock_provider.healthcheck = AsyncMock(
+        return_value=ProviderHealth(
+            provider="openai-codex",
+            ok=True,
+            latency_ms=0,
+            details={"auth_source": "~/.worldfork/openai-codex-auth.json"},
+        )
+    )
+
+    with patch("backend.app.providers._PROVIDER_REGISTRY", {"openai-codex": mock_provider}):
+        resp = await client.post("/api/settings/providers/test", json={"provider": "openai-codex"})
+
+    assert resp.status_code == 200
+    data = resp.json()
+    assert data["ok"] is True
+    assert data["provider"] == "openai-codex"
+    assert data["details"]["auth_source"] == "~/.worldfork/openai-codex-auth.json"

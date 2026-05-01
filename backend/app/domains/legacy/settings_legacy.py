@@ -94,7 +94,12 @@ async def test_provider(payload: dict[str, Any]):
     if provider is None:
         return {"ok": False, "provider": name, "error": f"provider {name!r} not registered"}
     result = await provider.healthcheck()
-    data = dict(result) if isinstance(result, dict) else {"ok": bool(getattr(result, "ok", False))}
+    if isinstance(result, dict):
+        data = result
+    elif hasattr(result, "model_dump"):
+        data = result.model_dump(mode="json")
+    else:
+        data = {"ok": bool(getattr(result, "ok", False))}
     data.setdefault("provider", name)
     return data
 

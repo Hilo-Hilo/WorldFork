@@ -9,6 +9,7 @@ from sqlalchemy.orm import Session
 
 from app.core.config import get_settings
 from app.db import models
+from app.llm.openai_codex_provider import OpenAICodexProvider
 from app.llm.openrouter_provider import OpenRouterProvider
 from app.llm.provider import DeterministicLLMProvider, LLMProvider, LLMProviderUnavailable
 from app.llm.redaction import redact_payload
@@ -31,6 +32,8 @@ def provider_for_settings() -> LLMProvider:
     provider_name = settings.default_llm_provider.strip().lower()
     if provider_name == "openrouter":
         return OpenRouterProvider()
+    if provider_name == "openai-codex":
+        return OpenAICodexProvider()
     if provider_name == "deterministic":
         return DeterministicLLMProvider()
     raise RuntimeError(f"Unsupported LLM provider: {settings.default_llm_provider}")

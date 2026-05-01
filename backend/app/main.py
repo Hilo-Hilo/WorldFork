@@ -11,6 +11,7 @@ or deleted.
 from __future__ import annotations
 
 import asyncio
+import os
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
@@ -56,6 +57,7 @@ from backend.app.core.db import sync_engine
 from backend.app.core.redis_client import get_redis_client
 from backend.app.integrations.zep import zep_status_summary
 from backend.app.observability.router import router as observability_router
+from backend.app.providers.openai_codex import read_codex_oauth_token
 
 settings_obj = get_settings()
 
@@ -126,6 +128,21 @@ def healthz() -> dict[str, bool]:
     return {"ok": True}
 
 
+def _llm_ready_checks() -> dict[str, bool]:
+    provider = settings_obj.default_llm_provider
+    if provider == "openai-codex":
+        token_present = bool(
+            settings_obj.openai_codex_oauth_token
+            or os.environ.get("OPENAI_CODEX_OAUTH_TOKEN")
+            or os.environ.get("OPENAI_CODEX_ACCESS_TOKEN")
+            or read_codex_oauth_token(settings_obj.openai_codex_auth_file)
+        )
+        return {"openai-codex": token_present}
+    if provider == "openrouter":
+        return {"openrouter": bool(settings_obj.openrouter_api_key)}
+    return {provider: True}
+
+
 @app.get("/readyz")
 async def readyz() -> JSONResponse:
     async def check_database() -> bool:
@@ -157,8 +174,8 @@ async def readyz() -> JSONResponse:
     checks = {
         "database": database_ok,
         "redis": redis_ok,
-        "openrouter": bool(settings_obj.openrouter_api_key),
         "zep": not bool(zep_status.get("degraded", False)),
+        **_llm_ready_checks(),
     }
     ok = all(checks.values())
     status_code = 200 if ok else 503

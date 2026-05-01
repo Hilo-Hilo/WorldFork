@@ -478,10 +478,14 @@ async def call_with_policy(
 async def initialize_providers_from_settings(settings) -> None:  # type: ignore[no-untyped-def]
     """Register provider instances based on environment configuration.
 
-    Called from FastAPI lifespan startup. Always registers OpenRouter when an
-    API key is present; OpenAI / Anthropic / Ollama are wired only if their
-    env-variable counterparts are set.
+    Called from FastAPI lifespan startup. Provider adapters own their upstream
+    call shape and auth token resolution; orchestration only sees the registry.
     """
+    from backend.app.providers.openai_codex import (
+        OPENAI_CODEX_OAUTH_ENV,
+        OPENAI_CODEX_RESPONSES_BASE_URL,
+        OpenAICodexProvider,
+    )
     from backend.app.providers.openrouter import OpenRouterProvider
 
     openrouter_base_url = settings.openrouter_base_url
@@ -489,6 +493,13 @@ async def initialize_providers_from_settings(settings) -> None:  # type: ignore[
     openrouter_default_model = settings.default_model
     openrouter_fallback_model = settings.fallback_model
     openrouter_enabled = True
+    codex_base_url = getattr(
+        settings, "openai_codex_base_url", OPENAI_CODEX_RESPONSES_BASE_URL
+    )
+    codex_api_key_env = OPENAI_CODEX_OAUTH_ENV
+    codex_default_model = getattr(settings, "openai_codex_default_model", "gpt-5.5")
+    codex_fallback_model = getattr(settings, "openai_codex_fallback_model", None)
+    codex_enabled = bool(getattr(settings, "openai_codex_enabled", False))
 
     try:
         from backend.app.core.db import SessionLocal
@@ -502,6 +513,13 @@ async def initialize_providers_from_settings(settings) -> None:  # type: ignore[
                 openrouter_default_model = row.default_model or openrouter_default_model
                 openrouter_fallback_model = row.fallback_model or openrouter_fallback_model
                 openrouter_enabled = bool(row.enabled)
+            row = await session.get(ProviderSettingModel, "openai-codex")
+            if row is not None:
+                codex_base_url = row.base_url or codex_base_url
+                codex_api_key_env = row.api_key_env or codex_api_key_env
+                codex_default_model = row.default_model or codex_default_model
+                codex_fallback_model = row.fallback_model or codex_fallback_model
+                codex_enabled = bool(row.enabled)
     except Exception:
         # DB settings are optional at boot; migrations may not have run yet.
         pass
@@ -523,6 +541,21 @@ async def initialize_providers_from_settings(settings) -> None:  # type: ignore[
         register_provider("openrouter", provider)
         logger.info("registered OpenRouter provider (model=%s)", openrouter_default_model)
 
-    # This deployment is OpenRouter-only. Direct provider adapters stay in the
-    # codebase for future optional use but are intentionally not auto-registered
-    # from ambient environment variables.
+    if codex_enabled:
+        provider = OpenAICodexProvider(
+            oauth_token=getattr(settings, "openai_codex_oauth_token", None),
+            oauth_token_env=codex_api_key_env,
+            codex_auth_file=getattr(settings, "openai_codex_auth_file", None),
+            base_url=codex_base_url,
+            default_model=codex_default_model,
+            fallback_model=codex_fallback_model,
+        )
+        if provider.has_oauth_token():
+            register_provider("openai-codex", provider)
+            logger.info("registered OpenAI Codex provider (model=%s)", codex_default_model)
+        else:
+            logger.warning(
+                "OpenAI Codex provider enabled but no OAuth token was found "
+                "(env=%s or Codex CLI auth file)",
+                codex_api_key_env,
+            )
