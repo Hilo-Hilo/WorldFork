@@ -111,7 +111,7 @@ Behavior model:
 
 Output details:
 - social_actions should be realistic OASIS posts/actions and include action_type, body, channel.
-- proposed_events should include title, event_type, description, scheduled_tick, expected_impact, and why this actor would plausibly cause or anticipate it.
+- proposed_events should include title, event_type, description, scheduled_tick, expected_impact, and why this actor can plausibly cause it directly, or why it is an indirect pressure/request aimed at the actor with authority.
 - emotion_self_ratings must use 0-10 explicit values for observability only and should use known emotion keys such as anger, fear, distrust, trust, hope, calm, confusion, urgency, sympathy, resentment.
 - state_delta should describe stance, expression_level, attention, fatigue, perceived pressure, strategy changes, and any internal split pressure.
 - Keep post bodies concise, situated, and actor-specific. Do not write generic narrator summaries.
@@ -161,13 +161,16 @@ Expected consistency:
 - If you terminate or mark ready for report, explain why the timeline has no meaningful unresolved motion left.
 
 Return strict JSON with keys:
-decision, rationale, confidence, tool_calls, rejected_candidates, watchlist.
+decision, rationale, confidence, tool_calls, rejected_candidates, watchlist,
+endpoint_ledger_updates, endpoint_ledger_summary.
 
 Field rules:
 - confidence is a number from 0.0 to 1.0.
 - rationale is a concise evidence summary, not hidden chain-of-thought.
 - rejected_candidates and watchlist should be arrays; use empty arrays when none apply.
 - tool_calls items must use tool_name, arguments, and optionally idempotency_key.
+- endpoint_ledger_updates should be an array of endpoint objects only when the supplied endpoint ledger needs a material status/probability/evidence change. Use endpoint_key, label, status, probability, authority_refs, evidence_refs, blockers, contradiction_notes, rationale, and last_observed_tick_index.
+- endpoint_ledger_summary should briefly explain any endpoint ledger change; use an empty string if none.
 """.strip()
 
 REPORT_AGENT_SYSTEM_PROMPT = f"""

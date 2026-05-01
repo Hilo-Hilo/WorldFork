@@ -13,9 +13,9 @@ from sqlalchemy.orm import Session
 from app.core.config import get_settings
 from app.db import models
 from app.db.session import get_db
-from app.jobs.queues import JOB_TYPES
-from app.simulation.scenario_bank import COVERAGE_MATRIX, list_scenarios
-from app.simulation.tick_bundles import (
+from app.domains.jobs.queues import JOB_TYPES
+from app.domains.big_bang.scenario_bank import COVERAGE_MATRIX, list_scenarios
+from app.domains.tick.tick_bundles import (
     TickBundleHydrationContext,
     hydrate_tick_snapshot_for_read,
 )

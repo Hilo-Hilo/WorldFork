@@ -147,7 +147,7 @@ WorldFork is a monorepo with installable and runnable surfaces around one core r
 | --- | --- | --- |
 | Backend service | `backend/app` | FastAPI API, simulation runtime, jobs, storage, reports |
 | CLI package | `cli/` | `worldfork` command for operators and agents |
-| Agent skill | `skills/worldfork/` | Generic skill that teaches agents how to use WorldFork |
+| Agent skills | `skills/` | Setup, operator, report, and full-agent validation skills |
 | Docs | `docs/` | Setup, architecture, demos, reporting, testing, and agent-facing guides |
 | Examples | `examples/` | Runnable scenario dossiers and demos |
 | Source of truth | `source_of_truth/` | Prompt, report, and policy templates |
@@ -298,7 +298,7 @@ worldfork --json status
 backend/app/          FastAPI app, runtime, jobs, storage, reports
 backend/tests/        root regressions, unit, integration, and e2e tests
 cli/                  standalone Python CLI package
-skills/worldfork/     installable generic agent skill
+skills/               installable agent skills
 examples/             runnable scenario dossiers
 source_of_truth/      prompt, report, and policy templates
 scripts/              local validation and demo harnesses

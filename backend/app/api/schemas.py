@@ -218,6 +218,62 @@ class ReportVersionPatch(BaseModel):
     generation_metadata: dict[str, Any] | None = None
 
 
+class EndpointLedgerEntryOut(ORMModel):
+    id: UUID
+    ledger_version_id: UUID
+    endpoint_key: str
+    label: str
+    description: str | None
+    status: str
+    probability: float | None
+    authority_refs: list[Any]
+    evidence_refs: list[Any]
+    blockers: list[Any]
+    contradiction_notes: str | None
+    rationale: str | None
+    last_observed_tick_index: int | None
+    meta: dict[str, Any]
+    created_at: datetime
+    updated_at: datetime
+
+
+class EndpointLedgerVersionOut(ORMModel):
+    id: UUID
+    big_bang_id: UUID
+    multiverse_id: UUID | None
+    scope: str
+    version: int
+    status: str
+    source_type: str
+    source_tick_snapshot_id: UUID | None
+    source_report_version_id: UUID | None
+    parent_ledger_version_id: UUID | None
+    created_by: str
+    summary: str | None
+    model: str | None
+    llm_call_id: UUID | None
+    payload: dict[str, Any]
+    created_at: datetime
+    updated_at: datetime
+
+
+class EndpointLedgerDetailOut(BaseModel):
+    ledger: EndpointLedgerVersionOut
+    entries: list[EndpointLedgerEntryOut]
+
+
+class EndpointLedgerEvaluateRequest(BaseModel):
+    idempotency_key: str | None = None
+    run_inline: bool = False
+    candidate_endpoint: dict[str, Any] | None = None
+
+
+class EndpointLedgerEvaluateOut(BaseModel):
+    job_id: UUID | None = None
+    status: str
+    ledger_version_id: UUID | None = None
+
+
 class ReportRenderRequest(BaseModel):
     format: str = Field(default="markdown", pattern="^(markdown|pdf)$")
     force: bool = False

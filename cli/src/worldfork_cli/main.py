@@ -191,9 +191,14 @@ def _parse_json_list(value: str | None, label: str) -> list[dict[str, Any]]:
 def _read_json_text(value: str) -> str:
     if value.startswith("@"):
         return Path(value[1:]).read_text(encoding="utf-8")
+    if value.lstrip().startswith(("{", "[")):
+        return value
     path = Path(value)
-    if path.exists() and path.is_file():
-        return path.read_text(encoding="utf-8")
+    try:
+        if path.exists() and path.is_file():
+            return path.read_text(encoding="utf-8")
+    except OSError:
+        return value
     return value
 
 
@@ -834,6 +839,95 @@ def reports_render(ctx: Context, report_version_id: str, output_format: str, for
             f"/report-versions/{report_version_id}/render",
             json_body={"format": output_format, "force": force},
         ),
+        as_json=ctx.as_json,
+    )
+
+
+@main.group()
+def ledgers() -> None:
+    """Inspect and evaluate endpoint ledgers."""
+
+
+@ledgers.command("list")
+@click.argument("big_bang_id")
+@click.option("--multiverse-id")
+@click.pass_obj
+def ledgers_list(ctx: Context, big_bang_id: str, multiverse_id: str | None) -> None:
+    """List endpoint ledger versions for a Big Bang or multiverse."""
+    path = (
+        f"/multiverses/{multiverse_id}/endpoint-ledgers"
+        if multiverse_id
+        else f"/big-bangs/{big_bang_id}/endpoint-ledgers"
+    )
+    emit(ctx.client.request("GET", path, params=ctx.params()), as_json=ctx.as_json)
+
+
+@ledgers.command("view")
+@click.argument("ledger_version_id")
+@click.pass_obj
+def ledgers_view(ctx: Context, ledger_version_id: str) -> None:
+    """View one endpoint ledger version with entries."""
+    emit(ctx.client.request("GET", f"/endpoint-ledgers/{ledger_version_id}"), as_json=ctx.as_json)
+
+
+@ledgers.command("evaluate")
+@click.argument("big_bang_id")
+@click.option("--multiverse-id")
+@click.option("--wait", "wait_for_job", is_flag=True, help="Wait for the evaluation job and emit the ledger.")
+@click.option("--timeout", "timeout_seconds", type=float, default=120, show_default=True)
+@click.option("--idempotency-key")
+@click.option("--endpoint", help="JSON object or @file describing a candidate endpoint to add/evaluate.")
+@click.pass_obj
+def ledgers_evaluate(
+    ctx: Context,
+    big_bang_id: str,
+    multiverse_id: str | None,
+    wait_for_job: bool,
+    timeout_seconds: float,
+    idempotency_key: str | None,
+    endpoint: str | None,
+) -> None:
+    """Create a post-simulation endpoint ledger evaluation job."""
+    path = (
+        f"/multiverses/{multiverse_id}/endpoint-ledgers/evaluate"
+        if multiverse_id
+        else f"/big-bangs/{big_bang_id}/endpoint-ledgers/evaluate"
+    )
+    payload = ctx.client.request(
+        "POST",
+        path,
+        json_body={
+            "idempotency_key": idempotency_key,
+            "run_inline": False,
+            "candidate_endpoint": _parse_json_object(endpoint, "--endpoint") if endpoint else None,
+        },
+    )
+    if not wait_for_job:
+        emit(payload, as_json=ctx.as_json)
+        return
+    job_id = payload.get("job_id") or payload.get("id")
+    if not job_id:
+        emit(payload, as_json=ctx.as_json)
+        return
+    waited = ctx.client.request(
+        "POST",
+        f"/agent/jobs/{job_id}/wait",
+        json_body={"timeout_seconds": timeout_seconds, "poll_interval_seconds": 1},
+    )
+    data, meta = unwrap(waited)
+    if meta.get("timed_out"):
+        emit(waited, as_json=ctx.as_json)
+        raise click.exceptions.Exit(124)
+    status = data.get("status") if isinstance(data, dict) else None
+    if status == "failed":
+        emit(waited, as_json=ctx.as_json)
+        raise click.exceptions.Exit(2)
+    if meta.get("terminal") and status != "succeeded":
+        emit(waited, as_json=ctx.as_json)
+        raise click.exceptions.Exit(2)
+    ledger_id = ((data or {}).get("result") or {}).get("ledger_version_id") if isinstance(data, dict) else None
+    emit(
+        ctx.client.request("GET", f"/endpoint-ledgers/{ledger_id}") if ledger_id else waited,
         as_json=ctx.as_json,
     )
 

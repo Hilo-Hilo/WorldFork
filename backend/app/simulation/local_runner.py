@@ -21,7 +21,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.app.providers.rate_limits import ProviderRateLimiter
 from backend.app.providers.routing import RoutingTable
-from backend.app.simulation.tick_runner import TickContext, run_tick
+from backend.app.domains.tick.tick_runner import TickContext, run_tick
 from backend.app.storage.ledger import Ledger
 
 if TYPE_CHECKING:
@@ -43,7 +43,7 @@ async def run_tick_locally(
 
     This is the harness used by the integration tests and by the FastAPI
     step endpoint when the broker is unreachable.  It is a thin pass-through
-    to :func:`backend.app.simulation.tick_runner.run_tick` with the local
+    to :func:`backend.app.domains.tick.tick_runner.run_tick` with the local
     asyncio.gather deliberation dispatcher.
     """
     _log.info(

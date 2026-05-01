@@ -55,8 +55,7 @@ def heartbeat(self):  # type: ignore[no-untyped-def]
 def echo_envelope(self, envelope_json: str) -> dict:  # type: ignore[no-untyped-def]
     """Deserialize a JobEnvelope and echo key fields.
 
-    Used by test_smoke_celery.py to verify the JSON serialization pipeline
-    without spinning up a real broker.
+    Useful for manual serialization diagnostics without spinning up a real broker.
     """
     env = JobEnvelope.model_validate_json(envelope_json)
     logger.info("echo", job_id=env.job_id, job_type=env.job_type)
@@ -184,7 +183,7 @@ async def _initialize_big_bang_impl(env: JobEnvelope) -> dict:
     from backend.app.providers import ensure_providers_in_loop
     from backend.app.core.config import settings as _settings
     await ensure_providers_in_loop(_settings)
-    from backend.app.simulation.initializer import (
+    from backend.app.domains.big_bang.initializer import (
         InitializerInput,
         initialize_big_bang,
     )
@@ -280,7 +279,7 @@ async def _simulate_universe_tick_impl(env: JobEnvelope) -> dict:
     from backend.app.providers import ensure_providers_in_loop
     from backend.app.core.config import settings as _settings
     await ensure_providers_in_loop(_settings)
-    from backend.app.simulation.tick_runner import TickContext, run_tick
+    from backend.app.domains.tick.tick_runner import TickContext, run_tick
 
     if env.universe_id is None or env.tick is None:
         raise ValueError("simulate_universe_tick envelope requires universe_id + tick")

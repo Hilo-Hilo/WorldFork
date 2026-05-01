@@ -2,7 +2,7 @@
 
 These helpers take a :class:`PopulationArchetype` (already validated against
 PRD §9.3) and produce the *initial* emotion / issue-stance / expression-band
-slice used by :func:`backend.app.simulation.initializer.initialize_big_bang`
+slice used by :func:`backend.app.domains.big_bang.initializer.initialize_big_bang`
 when it instantiates the seed cohort for each archetype at tick 0.
 
 All functions are pure / deterministic given the inputs — no I/O, no LLM —

@@ -5,7 +5,7 @@ from dramatiq.brokers.redis import RedisBroker
 
 from app.core.config import get_settings
 from app.db.session import SessionLocal
-from app.jobs.tasks import JobNotRunnableError, execute_job
+from app.domains.jobs.executor import JobNotRunnableError, execute_job
 from app.db import models
 
 
