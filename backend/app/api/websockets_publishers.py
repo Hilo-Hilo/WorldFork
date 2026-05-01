@@ -7,7 +7,7 @@ Celery tasks (sync) must wrap these with ``asyncio.run(publish_*(...))``.
 """
 from __future__ import annotations
 
-from backend.app.api.pubsub import (
+from app.domains.legacy.pubsub import (
     jobs_channel,
     publish,
     run_channel,

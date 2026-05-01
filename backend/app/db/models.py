@@ -16,6 +16,7 @@ from sqlalchemy import (
     Text,
     UniqueConstraint,
     func,
+    text as sql_text,
 )
 from sqlalchemy.dialects.postgresql import JSONB as PG_JSONB, UUID as PG_UUID
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
@@ -765,6 +766,70 @@ class ReportVersion(Base, TimestampMixin):
     markdown_artifact_id: Mapped[UUID | None] = mapped_column(GUID(), ForeignKey("artifacts.id"))
     pdf_artifact_id: Mapped[UUID | None] = mapped_column(GUID(), ForeignKey("artifacts.id"))
     supersedes_report_version_id: Mapped[UUID | None] = mapped_column(GUID(), ForeignKey("report_versions.id"))
+
+
+class EndpointLedgerVersion(Base, TimestampMixin):
+    __tablename__ = "endpoint_ledger_versions"
+
+    id: Mapped[UUID] = uuid_pk()
+    big_bang_id: Mapped[UUID] = mapped_column(GUID(), ForeignKey("big_bangs.id"), index=True)
+    multiverse_id: Mapped[UUID | None] = mapped_column(GUID(), ForeignKey("multiverses.id"), index=True)
+    scope: Mapped[str] = mapped_column(String(40), index=True)
+    version: Mapped[int] = mapped_column(Integer)
+    status: Mapped[str] = mapped_column(String(40), default="completed", index=True)
+    source_type: Mapped[str] = mapped_column(String(80), index=True)
+    source_tick_snapshot_id: Mapped[UUID | None] = mapped_column(GUID(), ForeignKey("tick_snapshots.id"))
+    source_report_version_id: Mapped[UUID | None] = mapped_column(GUID(), ForeignKey("report_versions.id"))
+    parent_ledger_version_id: Mapped[UUID | None] = mapped_column(GUID(), ForeignKey("endpoint_ledger_versions.id"))
+    created_by: Mapped[str] = mapped_column(String(120), default="endpoint_evaluator")
+    summary: Mapped[str | None] = mapped_column(Text)
+    model: Mapped[str | None] = mapped_column(String(160))
+    llm_call_id: Mapped[UUID | None] = mapped_column(GUID(), ForeignKey("llm_calls.id"))
+    payload: Mapped[dict] = mapped_column(JSONValue(), default=dict)
+
+    __table_args__ = (
+        Index(
+            "uq_endpoint_ledger_big_bang_scope_version",
+            "big_bang_id",
+            "scope",
+            "version",
+            unique=True,
+            sqlite_where=sql_text("multiverse_id IS NULL"),
+            postgresql_where=sql_text("multiverse_id IS NULL"),
+        ),
+        Index(
+            "uq_endpoint_ledger_multiverse_scope_version",
+            "big_bang_id",
+            "multiverse_id",
+            "scope",
+            "version",
+            unique=True,
+            sqlite_where=sql_text("multiverse_id IS NOT NULL"),
+            postgresql_where=sql_text("multiverse_id IS NOT NULL"),
+        ),
+    )
+
+
+class EndpointLedgerEntry(Base, TimestampMixin):
+    __tablename__ = "endpoint_ledger_entries"
+    __table_args__ = (
+        UniqueConstraint("ledger_version_id", "endpoint_key", name="uq_endpoint_ledger_entry_key"),
+    )
+
+    id: Mapped[UUID] = uuid_pk()
+    ledger_version_id: Mapped[UUID] = mapped_column(GUID(), ForeignKey("endpoint_ledger_versions.id"), index=True)
+    endpoint_key: Mapped[str] = mapped_column(String(160), index=True)
+    label: Mapped[str] = mapped_column(String(240))
+    description: Mapped[str | None] = mapped_column(Text)
+    status: Mapped[str] = mapped_column(String(40), default="active", index=True)
+    probability: Mapped[float | None] = mapped_column(Numeric(6, 5, asdecimal=False))
+    authority_refs: Mapped[list] = mapped_column(JSONValue(), default=list)
+    evidence_refs: Mapped[list] = mapped_column(JSONValue(), default=list)
+    blockers: Mapped[list] = mapped_column(JSONValue(), default=list)
+    contradiction_notes: Mapped[str | None] = mapped_column(Text)
+    rationale: Mapped[str | None] = mapped_column(Text)
+    last_observed_tick_index: Mapped[int | None] = mapped_column(Integer)
+    meta: Mapped[dict] = mapped_column(JSONValue(), default=dict)
 
 
 class LLMCall(Base, TimestampMixin):
