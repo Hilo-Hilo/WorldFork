@@ -84,6 +84,7 @@ worldfork cohorts transcript <cohort-id> --universe-id <multiverse-id>
 worldfork logs list --status failed
 worldfork models defaults
 worldfork settings show
+worldfork update --dry-run
 ```
 
 ## Reports

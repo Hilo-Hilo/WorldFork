@@ -267,6 +267,7 @@ worldfork demo atlas
 | `worldfork jobs list --status failed` | Inspect queue failures |
 | `worldfork logs list --status failed` | Inspect failed logs |
 | `worldfork settings show` | Read mutable runtime settings |
+| `worldfork update` | Pull latest code without touching local config/data |
 | `worldfork reports view <report-version-id>` | View a report version as Markdown |
 | `worldfork smoke live` | Run the full live runtime smoke test |
 | `worldfork demo atlas` | Run the full Atlas onboarding demo |

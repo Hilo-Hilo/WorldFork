@@ -15,9 +15,133 @@ def test_help_lists_agent_commands() -> None:
     assert "runs" in result.output
     assert "jobs" in result.output
     assert "settings" in result.output
+    assert "update" in result.output
     assert "demo" in result.output
     assert "smoke" in result.output
     assert "demo atlas" in result.output
+
+
+def _make_source_checkout(path) -> None:
+    (path / ".git").mkdir()
+    (path / "backend" / "app").mkdir(parents=True)
+    (path / "cli" / "src" / "worldfork_cli").mkdir(parents=True)
+
+
+def test_update_dry_run_fetches_without_merging(monkeypatch, tmp_path) -> None:
+    _make_source_checkout(tmp_path)
+    calls = []
+
+    def fake_run_git(repo, args):
+        calls.append(args)
+        if args == ["rev-parse", "--abbrev-ref", "HEAD"]:
+            return types.SimpleNamespace(stdout="dev\n")
+        if args == ["status", "--porcelain", "--untracked-files=no"]:
+            return types.SimpleNamespace(stdout="")
+        if args == ["rev-parse", "HEAD"]:
+            return types.SimpleNamespace(stdout="abc123\n")
+        if args == ["fetch", "--prune", "origin", "+refs/heads/dev:refs/remotes/origin/dev"]:
+            return types.SimpleNamespace(stdout="")
+        if args[:2] == ["diff", "--name-only"]:
+            return types.SimpleNamespace(stdout="")
+        if args[:3] == ["rev-list", "--left-right", "--count"]:
+            return types.SimpleNamespace(stdout="0\t2\n")
+        raise AssertionError(args)
+
+    monkeypatch.setattr(cli_main, "_run_git", fake_run_git)
+
+    result = CliRunner().invoke(main, ["--json", "update", "--repo", str(tmp_path), "--dry-run"])
+
+    assert result.exit_code == 0
+    assert '"status": "would_update"' in result.output
+    assert ["merge", "--ff-only", "refs/remotes/origin/dev"] not in calls
+
+
+def test_update_merges_fast_forward_and_can_reinstall_cli(monkeypatch, tmp_path) -> None:
+    _make_source_checkout(tmp_path)
+    git_calls = []
+    command_calls = []
+    rev_parse_heads = iter(["abc123\n", "def456\n"])
+
+    def fake_run_git(repo, args):
+        git_calls.append(args)
+        if args == ["rev-parse", "--abbrev-ref", "HEAD"]:
+            return types.SimpleNamespace(stdout="dev\n")
+        if args == ["status", "--porcelain", "--untracked-files=no"]:
+            return types.SimpleNamespace(stdout="")
+        if args == ["rev-parse", "HEAD"]:
+            return types.SimpleNamespace(stdout=next(rev_parse_heads))
+        if args == ["fetch", "--prune", "origin", "+refs/heads/dev:refs/remotes/origin/dev"]:
+            return types.SimpleNamespace(stdout="")
+        if args[:2] == ["diff", "--name-only"]:
+            return types.SimpleNamespace(stdout="")
+        if args[:3] == ["rev-list", "--left-right", "--count"]:
+            return types.SimpleNamespace(stdout="0\t1\n")
+        if args == ["merge", "--ff-only", "refs/remotes/origin/dev"]:
+            return types.SimpleNamespace(stdout="")
+        raise AssertionError(args)
+
+    def fake_run_command(repo, command):
+        command_calls.append(command)
+        return types.SimpleNamespace(stdout="")
+
+    monkeypatch.setattr(cli_main, "_run_git", fake_run_git)
+    monkeypatch.setattr(cli_main, "_run_command", fake_run_command)
+
+    result = CliRunner().invoke(
+        main,
+        ["--json", "update", "--repo", str(tmp_path), "--yes", "--install-cli"],
+    )
+
+    assert result.exit_code == 0
+    assert '"status": "updated"' in result.output
+    assert ["merge", "--ff-only", "refs/remotes/origin/dev"] in git_calls
+    assert command_calls == [[sys.executable, "-m", "pip", "install", "-e", "./cli"]]
+
+
+def test_update_refuses_dirty_tracked_files(monkeypatch, tmp_path) -> None:
+    _make_source_checkout(tmp_path)
+    calls = []
+
+    def fake_run_git(repo, args):
+        calls.append(args)
+        if args == ["rev-parse", "--abbrev-ref", "HEAD"]:
+            return types.SimpleNamespace(stdout="dev\n")
+        if args == ["status", "--porcelain", "--untracked-files=no"]:
+            return types.SimpleNamespace(stdout=" M cli/src/worldfork_cli/main.py\n")
+        raise AssertionError(args)
+
+    monkeypatch.setattr(cli_main, "_run_git", fake_run_git)
+
+    result = CliRunner().invoke(main, ["update", "--repo", str(tmp_path)])
+
+    assert result.exit_code == 1
+    assert "dirty tracked files" in result.output
+    assert ["fetch", "--prune", "origin", "+refs/heads/dev:refs/remotes/origin/dev"] not in calls
+
+
+def test_update_refuses_remote_changes_to_protected_paths(monkeypatch, tmp_path) -> None:
+    _make_source_checkout(tmp_path)
+
+    def fake_run_git(repo, args):
+        if args == ["rev-parse", "--abbrev-ref", "HEAD"]:
+            return types.SimpleNamespace(stdout="dev\n")
+        if args == ["status", "--porcelain", "--untracked-files=no"]:
+            return types.SimpleNamespace(stdout="")
+        if args == ["rev-parse", "HEAD"]:
+            return types.SimpleNamespace(stdout="abc123\n")
+        if args == ["fetch", "--prune", "origin", "+refs/heads/dev:refs/remotes/origin/dev"]:
+            return types.SimpleNamespace(stdout="")
+        if args[:2] == ["diff", "--name-only"]:
+            return types.SimpleNamespace(stdout=".env\n")
+        raise AssertionError(args)
+
+    monkeypatch.setattr(cli_main, "_run_git", fake_run_git)
+
+    result = CliRunner().invoke(main, ["update", "--repo", str(tmp_path)])
+
+    assert result.exit_code == 1
+    assert "protected local config/data paths" in result.output
+    assert ".env" in result.output
 
 
 def test_global_verbosity_parses_before_command() -> None:
