@@ -27,6 +27,15 @@ worldfork --help
 
 Then continue onboarding through environment setup, Docker Compose startup, migrations, seeding, readiness checks, and a first Big Bang. Do not bypass the CLI with Python module entrypoints for normal operation.
 
+For normal repo updates, use the CLI updater instead of ad hoc destructive Git commands:
+
+```bash
+worldfork update --dry-run
+worldfork update --yes
+```
+
+The updater fast-forwards code only. It refuses dirty tracked files, diverged branches, and remote edits to protected local config/data paths such as `.env`, Docker override files, `runs/`, and `artifacts/`.
+
 ## Setup Onboarding
 
 For a fresh local setup, guide the user through:
@@ -152,6 +161,7 @@ worldfork logs list --status failed
 worldfork models defaults
 worldfork settings show
 worldfork settings llm
+worldfork update --dry-run
 ```
 
 `worldfork init` waits for backend initialization to complete and returns the initialized workspace, initializer state, actors, traits, graph baseline, sociology baseline, and emotion baseline. Use `--wait-timeout` for live initializer calls.

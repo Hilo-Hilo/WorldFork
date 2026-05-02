@@ -74,6 +74,17 @@ make seed
 
 Use `make logs` if the API or worker fails to start.
 
+### Update Later
+
+Use the CLI updater for normal code refreshes:
+
+```bash
+worldfork update --dry-run
+worldfork update --yes
+```
+
+The updater only fast-forwards the source checkout. It does not overwrite `.env`, local Docker overrides, run folders, artifacts, or database state, and it does not run migrations unless a future command explicitly adds that behavior.
+
 ### Verify Readiness
 
 ```bash

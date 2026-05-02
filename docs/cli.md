@@ -102,6 +102,15 @@ worldfork reports render <report-version-id> --format pdf --output report.pdf
 
 Report IDs refer to logical report slots. Report version IDs refer to a specific generated revision.
 
+## Update A Checkout
+
+```bash
+worldfork update --dry-run
+worldfork update --yes
+```
+
+`update` fetches the current branch from the selected remote and fast-forwards the local checkout only when it is safe. It refuses dirty tracked files, diverged history, and remote changes to protected local config/data paths such as `.env`, `runs/`, `artifacts/`, and Docker override files. It does not run migrations, seed the database, delete files, or overwrite local runtime data.
+
 ## Built-In Validation And Demo Commands
 
 ```bash
@@ -109,4 +118,4 @@ worldfork smoke live
 worldfork demo atlas
 ```
 
-`smoke live` validates a running backend using real OpenRouter calls. `demo atlas` runs the larger onboarding simulation and emits follow-up commands for watching and viewing reports.
+`smoke live` validates a running backend using the configured live model split. `demo atlas` runs the larger onboarding simulation and emits follow-up commands for watching and viewing reports.
