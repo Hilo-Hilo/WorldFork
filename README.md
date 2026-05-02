@@ -127,7 +127,7 @@ The **`worldfork` CLI** is the stable control surface for operators and agents, 
 | Postgres | Durable Big Bang, multiverse, tick, job, report, and log state |
 | Redis | Broker, result backend, and coordination |
 | LangGraph | Checkpointed tick graph execution |
-| OpenRouter | LLM provider surface (defaulting to Gemini 3.1 Flash Lite) |
+| OpenRouter | LLM provider surface for the default low-cost cohort/hero/action routes |
 | Artifact store | Durable JSON and audit payload files for non-regenerable evidence |
 | `worldfork` CLI | Operator and AI-agent command surface |
 
@@ -171,6 +171,10 @@ Paste this prompt into your agent:
 Run this command to install the WorldFork setup skill, then use it to set up WorldFork:
 
 npx skills add Hilo-Hilo/WorldFork/skills/worldfork-setup --all
+
+Use the setup skill to preflight the machine, configure providers, verify the
+stack, explain the core WorldFork concepts, and ask before running live
+API-credit demos.
 ```
 
 ### Manual setup
@@ -189,9 +193,7 @@ npx skills add Hilo-Hilo/WorldFork/skills/worldfork-setup --all
 cp .env.example .env
 ```
 
-Set `OPENROUTER_API_KEY` in `.env`, then run `worldfork settings openai-codex-login`
-or `codex login --device-auth` so initializer, God-review, endpoint-ledger, and
-report routes can use `openai-codex`.
+Set `OPENROUTER_API_KEY` in `.env`.
 
 Keep the default low-cost cohort/hero/action/event-summary model:
 
@@ -207,6 +209,17 @@ Install the CLI:
 python3.11 -m pip install -e ./cli
 worldfork --help
 ```
+
+Then configure OpenAI Codex OAuth so initializer, God-review, endpoint-ledger,
+and report routes can use `openai-codex`:
+
+```bash
+worldfork settings openai-codex-login
+```
+
+The command writes the default auth file under `~/.worldfork/`; the backend also
+accepts `OPENAI_CODEX_OAUTH_TOKEN` or `OPENAI_CODEX_AUTH_FILE` when an operator
+needs a different auth location.
 
 #### Start the stack
 
@@ -225,6 +238,7 @@ worldfork query GET /readyz --no-api-prefix
 ```
 
 A healthy local stack returns readiness checks for the database, Redis, OpenRouter, and optional Zep integration.
+If readiness fails, first check Docker Desktop, port conflicts on `8003`, `5433`, or `6379`, and the effective LLM settings with `worldfork settings llm`.
 
 #### Create and initialize a first Big Bang
 
@@ -236,19 +250,30 @@ worldfork init \
   --tick-duration-minutes 720
 ```
 
-#### Watch the run and inspect outcomes
+This is a setup smoke for the initializer and workspace. Run the Atlas demo when
+you want ticks, branching, reports, and endpoint-ledger behavior.
+
+#### Inspect the initialized workspace
 
 ```bash
-worldfork watch big-bang <big-bang-id>
-worldfork reports list <big-bang-id>
-worldfork reports view <report-version-id>
-worldfork reports render <report-version-id> --format pdf --output report.pdf
+worldfork watch big-bang <big-bang-id> --once
+worldfork runs workspace <big-bang-id>
+worldfork logs list --status failed
 ```
 
 Run the larger onboarding demo when you want the full branch-and-report showcase:
 
 ```bash
 worldfork demo atlas
+```
+
+After a demo or completed simulation, inspect structured reports before
+rendering files:
+
+```bash
+worldfork reports list <big-bang-id>
+worldfork reports view <report-version-id>
+worldfork reports render <report-version-id> --format pdf --output report.pdf
 ```
 
 ---
