@@ -11,8 +11,9 @@ WorldFork is backend-first and CLI-first. The backend owns simulation state and 
 | Postgres | Durable Big Bang, multiverse, tick, job, report, and log state |
 | Redis | Broker, result backend, and runtime coordination |
 | LangGraph | Checkpointed tick graph execution |
-| OpenRouter | LLM provider surface, defaulting to Gemini 3.1 Flash Lite |
-| Artifact store | Cached JSON, Markdown, PDF, and audit payload files |
+| OpenRouter | LLM provider surface for the default low-cost cohort/hero/action routes |
+| OpenAI Codex | LLM provider surface for initializer, God-review, endpoint-ledger, and report routes |
+| Artifact store | Non-regenerable evidence and audit payload files |
 | `worldfork` CLI | Operator and AI-agent command surface |
 
 ## Core Concepts

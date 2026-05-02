@@ -16,6 +16,12 @@ worldfork agent discover
 worldfork status
 ```
 
+Use this project model when explaining WorldFork to a user: a Big Bang is the
+root scenario, each multiverse is one timeline, ticks are checkpointed runtime
+steps, branches create alternate timelines from decision points, endpoint
+ledgers track terminal outcomes and path mass, and reports are structured
+database versions that can be rendered on request.
+
 Do not hardcode backend URLs. Use `WORLD_FORK_API_BASE`, `BACKEND_API_BASE`, or the CLI `--base-url` flag when a non-default backend target is required.
 
 If the user asks to set up WorldFork and the `worldfork` command is missing, guide the operator through CLI installation from the repo root:
@@ -196,8 +202,13 @@ make lint
 docker compose config --quiet
 ```
 
-For a real runtime smoke test with API credits, use only Gemini 3.1 Flash Lite:
+For a real runtime smoke test with API credits, use the configured default
+split unless the user explicitly authorizes another policy:
 
 ```bash
 worldfork smoke live
 ```
+
+The default split is OpenRouter `deepseek/deepseek-v4-flash` for cohort, hero,
+action, and event-summary routes, and OpenAI Codex `gpt-5.4` for initializer,
+God review, endpoint-ledger, and report routes.

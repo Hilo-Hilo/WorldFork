@@ -40,11 +40,14 @@ Canonical API families:
 | `/api/logs`        | Audit, request, error, and webhook logs            |
 | `/api/reports`     | Report versions and rendered artifacts             |
 
-Compatibility routes remain mounted where older API contracts need them, but new code should target the canonical surface above.
+New code and agent workflows should target the canonical surface above. Do not
+add new compatibility API families for run, universe, or singular multiverse
+aliases; keep compatibility at the CLI alias layer when an operator shortcut is
+still useful.
 
 ## Runtime State
 
-Postgres is the source of truth for Big Bangs, multiverses, ticks, jobs, reports, LLM calls, operation logs, and lineage. Artifacts are cached files for JSON payloads, Markdown renders, PDF renders, and audit evidence.
+Postgres is the source of truth for Big Bangs, multiverses, ticks, jobs, reports, LLM calls, operation logs, and lineage. Artifacts are for non-regenerable JSON evidence and audit payloads, not durable copies of report renders.
 
 Report generation writes structured content to `report_versions`. Markdown and PDF files are regenerated from that structured content on demand.
 
