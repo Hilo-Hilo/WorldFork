@@ -28,9 +28,13 @@ worldfork --base-url http://127.0.0.1:8003 status
 worldfork status
 worldfork agent discover
 worldfork query GET /readyz --no-api-prefix
+worldfork setup
 ```
 
 `agent discover` returns the schema version, verbosity tiers, known job types, scenario-bank metadata, and a recommended command flow for agents.
+`setup` returns a first-run provider map, current provider status when the
+backend is reachable, and the recommended Atlas model-routing profile. Add
+`--include-patch` only when you need the full Atlas routing PATCH payload.
 
 ## Create And Watch Runs
 
@@ -89,6 +93,9 @@ worldfork settings rate-limits
 ```
 
 Settings commands wrap the mutable settings API. They are useful for validating that configuration changes persist and can be reread.
+For first-run onboarding, start with `worldfork setup` so the agent can explain
+OpenRouter, OpenAI Codex OAuth, OpenAI API, Anthropic-through-OpenRouter, and
+local/Ollama tradeoffs before asking the user which providers to configure.
 
 ## Reports
 

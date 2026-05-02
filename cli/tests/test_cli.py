@@ -16,6 +16,7 @@ def test_help_lists_agent_commands() -> None:
     assert "jobs" in result.output
     assert "settings" in result.output
     assert "update" in result.output
+    assert "setup" in result.output
     assert "demo" in result.output
     assert "smoke" in result.output
     assert "demo atlas" in result.output
@@ -397,6 +398,93 @@ def test_settings_llm_calls_llm_config_endpoint(monkeypatch) -> None:
     assert result.exit_code == 0
     assert calls == [("GET", "/settings/llm", None, None)]
     assert "report_agent" in result.output
+
+
+def test_setup_reads_llm_config_and_emits_provider_options(monkeypatch) -> None:
+    calls = []
+
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None):
+            calls.append((method, path, params, json_body))
+            return {
+                "provider_catalog": [
+                    {
+                        "provider": "openrouter",
+                        "enabled": True,
+                        "configured": True,
+                        "default_model": "deepseek/deepseek-v4-flash",
+                        "source": "runtime_defaults",
+                    }
+                ],
+                "effective_model_routing": [{"route": "cohort_agent"}],
+            }
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    result = CliRunner().invoke(main, ["setup"])
+
+    assert result.exit_code == 0
+    assert calls == [("GET", "/settings/llm", None, None)]
+    assert "atlas-fast-governed" in result.output
+    assert "OPENROUTER_API_KEY" in result.output
+    assert "openai-codex" in result.output
+    assert "model_routing_patch" not in result.output
+
+
+def test_setup_include_patch_emits_atlas_routing_payload(monkeypatch) -> None:
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None):
+            return {"provider_catalog": [], "effective_model_routing": []}
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    result = CliRunner().invoke(main, ["setup", "--include-patch"])
+
+    assert result.exit_code == 0
+    assert "model_routing_patch" in result.output
+    assert "cohort_agent" in result.output
+    assert "report_agent" in result.output
+
+
+def test_setup_offline_does_not_contact_backend(monkeypatch) -> None:
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None):
+            raise AssertionError("backend should not be contacted")
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    result = CliRunner().invoke(main, ["setup", "--offline"])
+
+    assert result.exit_code == 0
+    assert '"backend_reachable": false' in result.output
+    assert "offline mode" in result.output
+    assert "ollama" in result.output
+
+
+def test_setup_keeps_working_when_backend_unreachable(monkeypatch) -> None:
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None):
+            raise cli_main.CliError("request failed for api/settings/llm")
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    result = CliRunner().invoke(main, ["setup"])
+
+    assert result.exit_code == 0
+    assert '"backend_reachable": false' in result.output
+    assert "request failed for api/settings/llm" in result.output
 
 
 def test_init_accepts_long_inline_json_without_path_probe(monkeypatch) -> None:

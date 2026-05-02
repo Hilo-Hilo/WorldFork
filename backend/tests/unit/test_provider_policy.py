@@ -148,6 +148,22 @@ class MockProvider(BaseProvider):
 # ---------------------------------------------------------------------------
 
 async def test_codex_env_enablement_survives_seeded_disabled_provider_row(monkeypatch) -> None:
+    codex_row = SimpleNamespace(
+        provider="openai-codex",
+        base_url="https://chatgpt.com/backend-api/codex",
+        api_key_env="OPENAI_CODEX_OAUTH_TOKEN",
+        default_model="gpt-5.4",
+        fallback_model=None,
+        enabled=False,
+    )
+
+    class FakeResult:
+        def scalars(self):
+            return self
+
+        def all(self):
+            return [codex_row]
+
     class FakeSession:
         async def __aenter__(self):
             return self
@@ -155,16 +171,8 @@ async def test_codex_env_enablement_survives_seeded_disabled_provider_row(monkey
         async def __aexit__(self, *_args):
             return None
 
-        async def get(self, _model, key):
-            if key == "openai-codex":
-                return SimpleNamespace(
-                    base_url="https://chatgpt.com/backend-api/codex",
-                    api_key_env="OPENAI_CODEX_OAUTH_TOKEN",
-                    default_model="gpt-5.4",
-                    fallback_model=None,
-                    enabled=False,
-                )
-            return None
+        async def execute(self, _statement):
+            return FakeResult()
 
     from backend.app.core import db as core_db
 
@@ -188,6 +196,58 @@ async def test_codex_env_enablement_survives_seeded_disabled_provider_row(monkey
     await initialize_providers_from_settings(settings)
 
     assert get_provider("openai-codex").name == "openai-codex"
+
+
+async def test_initialize_registers_openai_compatible_provider_rows(monkeypatch) -> None:
+    openai_row = SimpleNamespace(
+        provider="openai",
+        base_url="https://api.openai.com/v1",
+        api_key_env="OPENAI_API_KEY",
+        default_model="gpt-4o-mini",
+        fallback_model=None,
+        enabled=True,
+        payload={"api": "openai-compatible"},
+    )
+
+    class FakeResult:
+        def scalars(self):
+            return self
+
+        def all(self):
+            return [openai_row]
+
+    class FakeSession:
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, *_args):
+            return None
+
+        async def execute(self, _statement):
+            return FakeResult()
+
+    from backend.app.core import db as core_db
+
+    monkeypatch.setattr(core_db, "SessionLocal", lambda: FakeSession())
+    monkeypatch.setenv("OPENAI_API_KEY", "openai-api-key")
+
+    settings = SimpleNamespace(
+        openrouter_base_url="https://openrouter.ai/api/v1",
+        default_model="deepseek/deepseek-v4-flash",
+        fallback_model="deepseek/deepseek-v4-flash",
+        openrouter_http_referer="https://worldfork.local",
+        openrouter_title="WorldFork",
+        openai_codex_base_url="https://chatgpt.com/backend-api/codex",
+        openai_codex_default_model="gpt-5.4",
+        openai_codex_fallback_model=None,
+        openai_codex_enabled=False,
+        openai_codex_oauth_token=None,
+        openai_codex_auth_file=None,
+    )
+
+    await initialize_providers_from_settings(settings)
+
+    assert get_provider("openai").name == "openai"
 
 
 async def test_happy_path(routing, limiter, prompt) -> None:
