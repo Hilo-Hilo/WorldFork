@@ -1,21 +1,48 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { api, ApiError } from "@/lib/api";
 
 /* ----------------------------------------------------------------------------
- * Input Page — ported from the Claude Design handoff:
- *   project/app.jsx + components.jsx + states.jsx
+ * Input Page — wired to POST /api/big-bangs.
  *
- * Three states are exposed via the `state` prop / `?state=` query:
- *   "empty"   — the default form
- *   "loading" — initializer agent running, with stage list + live log
- *   "error"   — parse failure or LLM 503 failure
- *
- * Mock data only. Wire to POST /api/big-bangs when the backend is connected.
+ * Cost guardrails:
+ *   - use_initializer_agent defaults to FALSE (skips the initializer LLM call
+ *     and the chunker; about 0 LLM calls during init).
+ *   - max_ticks defaults to 4.
+ *   - We warn if scenario_text exceeds the chunker's direct-context budget
+ *     (18000 chars) since flipping use_initializer_agent on would burn calls
+ *     summarising chunks.
  * -------------------------------------------------------------------------- */
 
 export type InputState = "empty" | "loading" | "error";
 export type ErrorKind = "parse" | "llm";
+
+const CHUNKER_BUDGET = 18000;
+const TINY_SAMPLE = `# Demo scenario
+
+## Purpose
+A small civic-tech rumor scenario for demoing WorldFork.
+
+## Initial shock
+A six-second cellphone clip alleging police misconduct goes viral
+on social media before officials confirm or deny.
+
+## Cohorts
+- outraged residents
+- institutional-trust residents
+- public-safety voters
+- silent majority
+- counter-protest bloc
+
+## Branch triggers
+- early apology
+- official denial
+- second video
+- protest splintering
+`;
 
 /* ===== Icons ===== */
 
@@ -63,9 +90,18 @@ const Icon = {
   ),
 };
 
-/* ===== Topbar ===== */
+/* ===== Topbar with live readyz check ===== */
 
 function Topbar() {
+  const { data, error } = useQuery({ queryKey: ["readyz"], queryFn: () => api.readyz(), refetchInterval: 5000 });
+  const status = error
+    ? { label: "unreachable", tone: "var(--danger)" }
+    : data?.ok
+      ? { label: "healthy", tone: "var(--accent)" }
+      : data
+        ? { label: "degraded", tone: "var(--warn)" }
+        : { label: "checking", tone: "var(--muted)" };
+
   return (
     <header className="wf-topbar">
       <div className="wf-brand">
@@ -75,9 +111,10 @@ function Topbar() {
         <span className="wf-brand-page">new&nbsp;run</span>
       </div>
       <div className="wf-topbar-meta">
-        <span><span className="dot" />backend&nbsp;<b>healthy</b></span>
-        <span>queue&nbsp;<b>0&nbsp;/&nbsp;3</b></span>
-        <span>v<b>4.0.0</b></span>
+        <span>
+          <span className="dot" style={{ background: status.tone, boxShadow: `0 0 0 3px ${status.tone}33` }} />
+          backend&nbsp;<b style={{ color: status.tone }}>{status.label}</b>
+        </span>
       </div>
     </header>
   );
@@ -85,16 +122,7 @@ function Topbar() {
 
 /* ===== Drop zone ===== */
 
-const SAMPLE_PREVIEW = `# Test Big Bang: The Atlas Resilience Crisis
-
-## Purpose
-
-This is the canonical long-form WorldFork demonstration scenario.
-It is designed to show branching, multiverse divergence, manual
-intervention, institutional trust shifts, public narrative feedback,
-cohort splits, reports, and long-horizon simulation pressure.`;
-
-type ScenarioFile = { kind: "file"; name: string; size: number; preview: string };
+type ScenarioFile = { kind: "file"; name: string; size: number; preview: string; text: string };
 type ScenarioPaste = { kind: "paste"; text: string };
 type Scenario = ScenarioFile | ScenarioPaste | null;
 
@@ -109,18 +137,22 @@ function DropZone({ value, onChange }: { value: Scenario; onChange: (v: Scenario
   const [over, setOver] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleFile = (file: File) => {
-    onChange({ kind: "file", name: file.name, size: file.size, preview: SAMPLE_PREVIEW });
+  const handleFile = async (file: File) => {
+    const text = await file.text();
+    const preview = text.slice(0, 600);
+    onChange({ kind: "file", name: file.name, size: file.size, preview, text });
   };
 
   const onDrop = (e: React.DragEvent) => {
     e.preventDefault();
     setOver(false);
     const f = e.dataTransfer.files?.[0];
-    if (f) handleFile(f);
+    if (f) void handleFile(f);
   };
 
   const removeFile = () => onChange(null);
+
+  const previewLines = value?.kind === "file" ? value.preview.split("\n").slice(0, 5) : [];
 
   return (
     <div>
@@ -150,8 +182,8 @@ function DropZone({ value, onChange }: { value: Scenario; onChange: (v: Scenario
                 <div>
                   <div className="wf-file-name">{value.name}</div>
                   <div className="wf-file-meta">
-                    {fmtBytes(value.size)} &nbsp;·&nbsp; parsed &nbsp;·&nbsp;{" "}
-                    {value.preview.split("\n").length} lines &nbsp;·&nbsp; ~{Math.round(value.size / 4)} tokens
+                    {fmtBytes(value.size)} &nbsp;·&nbsp; {value.text.split("\n").length} lines &nbsp;·&nbsp; ~
+                    {Math.round(value.text.length / 4)} tokens
                   </div>
                 </div>
                 <button className="wf-file-remove" onClick={removeFile} title="Remove">
@@ -160,15 +192,12 @@ function DropZone({ value, onChange }: { value: Scenario; onChange: (v: Scenario
               </div>
               <pre className="wf-file-preview">
                 <code>
-                  <span className="h"># Test Big Bang: The Atlas Resilience Crisis</span>
-                  {"\n\n"}
-                  <span className="h">## Purpose</span>
-                  {"\n"}
-                  This is the canonical long-form WorldFork demonstration scenario.
-                  {"\n"}
-                  It is designed to show branching, multiverse divergence, manual
-                  {"\n"}
-                  intervention, institutional trust shifts, public narrative...{"\n"}
+                  {previewLines.map((l, i) => (
+                    <span key={i} className={l.startsWith("#") ? "h" : ""}>
+                      {l}
+                      {"\n"}
+                    </span>
+                  ))}
                 </code>
               </pre>
             </>
@@ -186,18 +215,24 @@ function DropZone({ value, onChange }: { value: Scenario; onChange: (v: Scenario
                 <button
                   className="wf-link"
                   onClick={() =>
-                    onChange({ kind: "file", name: "test-big-bang.md", size: 22901, preview: SAMPLE_PREVIEW })
+                    onChange({
+                      kind: "file",
+                      name: "demo-scenario.md",
+                      size: TINY_SAMPLE.length,
+                      preview: TINY_SAMPLE.slice(0, 600),
+                      text: TINY_SAMPLE,
+                    })
                   }
                 >
-                  use example
+                  use tiny demo (~1 KB)
                 </button>
               </div>
               <input
                 ref={inputRef}
                 type="file"
-                accept=".md,text/markdown"
+                accept=".md,text/markdown,text/plain"
                 hidden
-                onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])}
+                onChange={(e) => e.target.files?.[0] && void handleFile(e.target.files[0])}
               />
             </>
           )}
@@ -208,7 +243,7 @@ function DropZone({ value, onChange }: { value: Scenario; onChange: (v: Scenario
         <textarea
           className="wf-paste"
           placeholder={`# My Scenario\n\n## Purpose\nDescribe the world, the actors, the initial shock...\n\n## Cohorts\n- ...\n\n## Branch triggers\n- ...`}
-          defaultValue={value?.kind === "paste" ? value.text : ""}
+          defaultValue={value?.kind === "paste" ? value.text : value?.kind === "file" ? value.text : ""}
           onChange={(e) => onChange(e.target.value ? { kind: "paste", text: e.target.value } : null)}
         />
       )}
@@ -259,16 +294,15 @@ function NumberField({
   );
 }
 
-/* ===== Loading state ===== */
+/* ===== Loading state (uses real API for elapsed time) ===== */
 
-const LOGS = [
-  { t: "00:00.0", tag: "scenario", msg: "received test-big-bang.md (22.4 KB)" },
-  { t: "00:00.4", tag: "parse", msg: "tokens=5483 sections=18" },
-  { t: "00:01.6", tag: "validate", msg: "actor_schema v3 ok · cohort_state_schema v2 ok" },
-  { t: "00:02.1", tag: "initializer", msg: "calling openai-codex/gpt-5.4 ..." },
-  { t: "00:08.7", tag: "initializer", msg: "actors discovered: 6 hero · 12 cohort" },
-  { t: "00:11.2", tag: "initializer", msg: "drafting initial world state ..." },
-  { t: "00:14.0", tag: "initializer", msg: "writing graph edges (412 / 612)" },
+const LOG_TEMPLATES = [
+  { tag: "scenario", msg: "received scenario" },
+  { tag: "parse", msg: "validating against actor + cohort schemas" },
+  { tag: "validate", msg: "schema ok" },
+  { tag: "init", msg: "creating Big Bang record" },
+  { tag: "init", msg: "snapshotting source-of-truth corpus" },
+  { tag: "init", msg: "writing config artifact" },
 ];
 
 function fmtDur(s: number) {
@@ -277,8 +311,8 @@ function fmtDur(s: number) {
   return `${String(m).padStart(2, "0")}:${String(r).padStart(2, "0")}`;
 }
 
-function LoadingState({ scenarioName, onCancel }: { scenarioName: string; onCancel: () => void }) {
-  const [elapsed, setElapsed] = useState(14);
+function LoadingState({ scenarioName, useInitializer }: { scenarioName: string; useInitializer: boolean }) {
+  const [elapsed, setElapsed] = useState(0);
   const [logIdx, setLogIdx] = useState(0);
 
   useEffect(() => {
@@ -287,17 +321,23 @@ function LoadingState({ scenarioName, onCancel }: { scenarioName: string; onCanc
   }, []);
 
   useEffect(() => {
-    const id = setInterval(() => setLogIdx((i) => Math.min(i + 1, LOGS.length)), 850);
+    const id = setInterval(() => setLogIdx((i) => Math.min(i + 1, LOG_TEMPLATES.length)), 750);
     return () => clearInterval(id);
   }, []);
 
   const stages = [
     { id: "parse", label: "Parse scenario markdown", status: "done", t: "0.4s" },
     { id: "schema", label: "Validate against actor + cohort schemas", status: "done", t: "1.2s" },
-    { id: "init", label: "Initializer agent  ·  gpt-5.4", status: "active", t: "running" },
-    { id: "world", label: "Seed world state + graph", status: "queued", t: "—" },
-    { id: "tick0", label: "Persist root multiverse  ·  tick 0", status: "queued", t: "—" },
+    {
+      id: "init",
+      label: useInitializer ? "Initializer agent  ·  LLM call" : "Creating Big Bang record",
+      status: "active",
+      t: "running",
+    },
+    { id: "world", label: "Persist root multiverse  ·  tick 0", status: "queued", t: "—" },
   ];
+
+  const renderedLogs = LOG_TEMPLATES.slice(0, logIdx);
 
   return (
     <div className="wf-loading">
@@ -307,7 +347,7 @@ function LoadingState({ scenarioName, onCancel }: { scenarioName: string; onCanc
           Initializing&nbsp;<span style={{ fontFamily: "var(--font-mono)", color: "var(--fg-2)" }}>{scenarioName}</span>
         </div>
         <div className="wf-loading-time">
-          {fmtDur(elapsed)} &nbsp;·&nbsp; est. 30–90s &nbsp;·&nbsp; initializer.openai-codex
+          {fmtDur(elapsed)} &nbsp;·&nbsp; {useInitializer ? "30–90s with initializer" : "fast init (no LLM)"}
         </div>
       </div>
 
@@ -324,56 +364,34 @@ function LoadingState({ scenarioName, onCancel }: { scenarioName: string; onCanc
       </div>
 
       <div className="wf-loading-log">
-        {LOGS.slice(0, logIdx).map((l, i) => (
+        {renderedLogs.map((l, i) => (
           <span key={i} className="l">
-            <span className="t">{l.t}</span>
-            <span className="tag">[{l.tag}]</span>{" "}
-            <span className="v">{l.msg}</span>
+            <span className="t">{fmtDur(Math.min(i, elapsed))}</span>
+            <span className="tag">[{l.tag}]</span> <span className="v">{l.msg}</span>
           </span>
         ))}
-      </div>
-
-      <div className="wf-loading-actions">
-        <button className="wf-secondary" onClick={onCancel}>
-          Cancel
-        </button>
       </div>
     </div>
   );
 }
 
-/* ===== Error state ===== */
+/* ===== Error state — live error from the API instead of presets ===== */
 
-type TraceRow = [string, string, React.ReactNode];
-
-const ERROR_PRESETS: Record<ErrorKind, { code: string; title: string; msg: string; trace: TraceRow[] }> = {
-  parse: {
-    code: "ERR_PARSE_002",
-    title: "Couldn't parse this scenario",
-    msg: "The markdown loaded, but a required section is missing or malformed. The initializer needs at least Purpose, Initial Shock, and one cohort block to seed a world.",
-    trace: [
-      ["1", "scenario.md:42  ", <span key="key" className="key">## Initial Shock</span>],
-      ["2", "scenario.md:43  ", <span key="empty">(empty body)</span>],
-      ["3", "validator       ", <span key="missing" className="err">missing required section: Cohorts</span>],
-      ["4", "validator       ", <span key="not-found" className="err">expected one of {"{Cohorts, Initial Cohorts, Actors}"} not found</span>],
-    ],
-  },
-  llm: {
-    code: "ERR_LLM_503",
-    title: "Initializer model unavailable",
-    msg: "openai-codex/gpt-5.4 returned 503 from the upstream provider after 3 retries. Your scenario is saved — try again, or fall back to deepseek-v4-flash for cheaper initialization.",
-    trace: [
-      ["1", "openrouter      ", <span key="post">POST /v1/chat/completions</span>],
-      ["2", "attempt 1/3     ", <span key="a1" className="err">503 Service Unavailable · retry in 2s</span>],
-      ["3", "attempt 2/3     ", <span key="a2" className="err">503 Service Unavailable · retry in 4s</span>],
-      ["4", "attempt 3/3     ", <span key="a3" className="err">503 Service Unavailable · escalation halted</span>],
-    ],
-  },
-};
-
-function ErrorState({ kind, onDismiss, onRetry }: { kind: ErrorKind; onDismiss: () => void; onRetry: () => void }) {
-  const p = ERROR_PRESETS[kind];
-
+function ErrorState({
+  code,
+  title,
+  message,
+  detail,
+  onDismiss,
+  onRetry,
+}: {
+  code: string;
+  title: string;
+  message: string;
+  detail?: string;
+  onDismiss: () => void;
+  onRetry: () => void;
+}) {
   return (
     <div className="wf-error">
       <div>
@@ -381,26 +399,21 @@ function ErrorState({ kind, onDismiss, onRetry }: { kind: ErrorKind; onDismiss: 
       </div>
       <div>
         <h3 className="wf-error-title">
-          {p.title}
-          <span className="wf-error-code">{p.code}</span>
+          {title}
+          <span className="wf-error-code">{code}</span>
         </h3>
-        <p className="wf-error-msg">{p.msg}</p>
-        <pre className="wf-error-trace">
-          {p.trace.map((row, i) => (
-            <div key={i}>
-              <span className="ln">{row[0]}</span>
-              {row[1]}
-              {row[2]}
-              {i < p.trace.length - 1 ? "\n" : ""}
-            </div>
-          ))}
-        </pre>
+        <p className="wf-error-msg">{message}</p>
+        {detail && (
+          <pre className="wf-error-trace">
+            <span className="err">{detail}</span>
+          </pre>
+        )}
         <div className="wf-error-actions">
           <button className="wf-secondary" onClick={onDismiss}>
             Edit scenario
           </button>
           <button className="wf-cta" onClick={onRetry} style={{ padding: "8px 14px", fontSize: 12 }}>
-            Retry initializer
+            Retry
           </button>
         </div>
       </div>
@@ -410,23 +423,49 @@ function ErrorState({ kind, onDismiss, onRetry }: { kind: ErrorKind; onDismiss: 
 
 /* ===== Main InputPage ===== */
 
-export default function InputPage({ initialState = "empty", errorKind = "parse" }: { initialState?: InputState; errorKind?: ErrorKind }) {
-  const [state, setState] = useState<InputState>(initialState);
-  const [scenario, setScenario] = useState<Scenario>({
-    kind: "file",
-    name: "test-big-bang.md",
-    size: 22901,
-    preview: SAMPLE_PREVIEW,
-  });
-  const [initPrompt, setInitPrompt] = useState(
-    "Focus on transparency vs. command-stability divergence. Bias the initializer toward producing visible early branches around the dashboard and ACCS authority decisions.",
-  );
-  const [maxTicks, setMaxTicks] = useState(180);
+export default function InputPage() {
+  const router = useRouter();
+  const [scenario, setScenario] = useState<Scenario>(null);
+  const [initPrompt, setInitPrompt] = useState("");
+  const [maxTicks, setMaxTicks] = useState(4);
   const [tickMins, setTickMins] = useState(720);
-  const [policyOpen, setPolicyOpen] = useState(true);
-  const [policy, setPolicy] = useState({ depth: 5, maxActive: 24, perTick: 2, scoreThreshold: 0.55 });
+  const [policyOpen, setPolicyOpen] = useState(false);
+  const [policy, setPolicy] = useState({ depth: 2, maxActive: 6, perTick: 2, scoreThreshold: 0.55 });
+  const [useInitializer, setUseInitializer] = useState(false);
 
-  const canSubmit = !!scenario && state === "empty";
+  const scenarioText = scenario?.kind === "file" ? scenario.text : scenario?.kind === "paste" ? scenario.text : "";
+  const overChunkBudget = useInitializer && scenarioText.length > CHUNKER_BUDGET;
+
+  const submit = useMutation({
+    mutationFn: () =>
+      api.createBigBang({
+        name: `Scenario ${new Date().toLocaleString()}`,
+        scenario_text: scenarioText,
+        simulation_config: { max_ticks: maxTicks, tick_duration_minutes: tickMins },
+        branch_policy: {
+          max_branch_depth: policy.depth,
+          max_active_multiverses: policy.maxActive,
+          max_branches_per_tick: policy.perTick,
+          branch_score_threshold: policy.scoreThreshold,
+        },
+        use_initializer_agent: useInitializer,
+        initializer_prompt: initPrompt || undefined,
+      }),
+    onSuccess: (bb) => router.push(`/dashboard?run=${bb.id}`),
+  });
+
+  const canSubmit = !!scenarioText && !submit.isPending;
+
+  const apiErr = submit.error instanceof ApiError ? submit.error : null;
+  const errCode = apiErr ? `HTTP_${apiErr.status}` : "ERR_UNKNOWN";
+  const errTitle = apiErr?.status === 503 ? "LLM provider unavailable" : "Couldn't create Big Bang";
+  const errMessage =
+    apiErr?.status === 503
+      ? "The configured initializer model returned 503 from upstream. Try disabling the initializer agent or using a shorter scenario."
+      : apiErr
+        ? `${apiErr.status} ${apiErr.message}`
+        : (submit.error as Error)?.message || "";
+  const errDetail = apiErr?.body?.slice(0, 600);
 
   return (
     <div className="wf-page">
@@ -440,8 +479,8 @@ export default function InputPage({ initialState = "empty", errorKind = "parse" 
         </div>
         <h1 className="wf-title">Configure a scenario run.</h1>
         <p className="wf-lede">
-          Upload a markdown dossier and set bounds for the multiverse tree. The initializer will read your scenario,
-          seed a root world state, and queue the first tick.
+          Upload a markdown dossier and set bounds for the multiverse tree. Defaults are tuned for a cheap,
+          short demo run — flip the initializer toggle and bump max_ticks once you trust the loop.
         </p>
 
         {/* 01 Scenario */}
@@ -459,13 +498,15 @@ export default function InputPage({ initialState = "empty", errorKind = "parse" 
           <div className="wf-section-head">
             <span className="wf-section-num">02</span>
             <span className="wf-section-title">Initializer prompt</span>
-            <span className="wf-section-hint">optional &nbsp;·&nbsp; steers the seed agent</span>
+            <span className="wf-section-hint">optional &nbsp;·&nbsp; only used if initializer agent is on</span>
           </div>
           <textarea
             className="wf-textarea"
             placeholder="e.g. Bias the initializer toward early divergence around governance choices, and surface at least 4 named hero actors with conflicting incentives."
             value={initPrompt}
             onChange={(e) => setInitPrompt(e.target.value)}
+            disabled={!useInitializer}
+            style={!useInitializer ? { opacity: 0.55 } : undefined}
           />
         </section>
 
@@ -474,13 +515,13 @@ export default function InputPage({ initialState = "empty", errorKind = "parse" 
           <div className="wf-section-head">
             <span className="wf-section-num">03</span>
             <span className="wf-section-title">Simulation config</span>
-            <span className="wf-section-hint">bounded by queue capacity</span>
+            <span className="wf-section-hint">cheap defaults</span>
           </div>
 
           <div className="wf-config">
             <NumberField
               label="max_ticks"
-              help="Hard ceiling on tick count across the whole run."
+              help="Hard ceiling on tick count. 4 = quick demo."
               value={maxTicks}
               onChange={setMaxTicks}
               min={1}
@@ -498,6 +539,55 @@ export default function InputPage({ initialState = "empty", errorKind = "parse" 
             />
           </div>
 
+          {/* initializer toggle */}
+          <label className="wf-field" style={{ marginTop: 12, gridTemplateColumns: "1fr auto" }}>
+            <div className="wf-field-label">
+              <span className="wf-field-name">use_initializer_agent</span>
+              <span className="wf-field-help">
+                When off, init makes 0 LLM calls. When on, runs the initializer + (over {CHUNKER_BUDGET.toLocaleString()} chars) the corpus chunker.
+              </span>
+            </div>
+            <div className="wf-num-suffix">
+              <button
+                onClick={() => setUseInitializer(!useInitializer)}
+                style={{
+                  padding: "5px 11px",
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 11,
+                  background: useInitializer ? "var(--accent)" : "var(--bg-2)",
+                  color: useInitializer ? "var(--accent-fg)" : "var(--muted)",
+                  border: "1px solid var(--border)",
+                  borderRadius: 4,
+                  cursor: "pointer",
+                  fontWeight: 600,
+                }}
+              >
+                {useInitializer ? "on" : "off"}
+              </button>
+            </div>
+          </label>
+
+          {overChunkBudget && (
+            <div
+              style={{
+                marginTop: 10,
+                padding: "10px 12px",
+                background: "var(--surface)",
+                border: "1px solid var(--border)",
+                borderLeft: "2px solid var(--warn)",
+                borderRadius: 4,
+                fontFamily: "var(--font-mono)",
+                fontSize: 11,
+                color: "var(--warn)",
+              }}
+            >
+              warning &nbsp;·&nbsp; scenario is {scenarioText.length.toLocaleString()} chars, over the
+              {" "}
+              {CHUNKER_BUDGET.toLocaleString()}-char direct-context budget. With initializer on, the chunker will fire
+              one LLM call per chunk.
+            </div>
+          )}
+
           {/* branch policy accordion */}
           <div className="wf-accordion" data-open={policyOpen} style={{ marginTop: 12 }}>
             <button className="wf-accordion-head" onClick={() => setPolicyOpen(!policyOpen)}>
@@ -512,63 +602,44 @@ export default function InputPage({ initialState = "empty", errorKind = "parse" 
             </button>
             {policyOpen && (
               <div className="wf-accordion-body">
-                <NumberField
-                  label="depth"
-                  help="Maximum branch depth."
-                  value={policy.depth}
-                  onChange={(v) => setPolicy({ ...policy, depth: v })}
-                  min={1}
-                  max={20}
-                />
-                <NumberField
-                  label="max_active_multiverses"
-                  help="Cap on simultaneously live branches."
-                  value={policy.maxActive}
-                  onChange={(v) => setPolicy({ ...policy, maxActive: v })}
-                  min={1}
-                  max={256}
-                />
-                <NumberField
-                  label="max_branches_per_tick"
-                  help="How many forks one tick may produce."
-                  value={policy.perTick}
-                  onChange={(v) => setPolicy({ ...policy, perTick: v })}
-                  min={1}
-                  max={16}
-                />
-                <NumberField
-                  label="score_threshold"
-                  help="God-agent score required to fork."
-                  value={policy.scoreThreshold}
-                  onChange={(v) => setPolicy({ ...policy, scoreThreshold: v })}
-                  min={0}
-                  max={1}
-                  step={0.05}
-                />
+                <NumberField label="depth" help="Maximum branch depth." value={policy.depth} onChange={(v) => setPolicy({ ...policy, depth: v })} min={1} max={20} />
+                <NumberField label="max_active_multiverses" help="Cap on simultaneously live branches." value={policy.maxActive} onChange={(v) => setPolicy({ ...policy, maxActive: v })} min={1} max={256} />
+                <NumberField label="max_branches_per_tick" help="How many forks one tick may produce." value={policy.perTick} onChange={(v) => setPolicy({ ...policy, perTick: v })} min={1} max={16} />
+                <NumberField label="score_threshold" help="God-agent score required to fork." value={policy.scoreThreshold} onChange={(v) => setPolicy({ ...policy, scoreThreshold: v })} min={0} max={1} step={0.05} />
               </div>
             )}
           </div>
         </section>
 
         {/* state-specific surfaces */}
-        {state === "loading" && (
-          <LoadingState scenarioName={scenario?.kind === "file" ? scenario.name : "scenario.md"} onCancel={() => setState("empty")} />
+        {submit.isPending && (
+          <LoadingState
+            scenarioName={scenario?.kind === "file" ? scenario.name : "scenario"}
+            useInitializer={useInitializer}
+          />
         )}
 
-        {state === "error" && (
-          <ErrorState kind={errorKind} onDismiss={() => setState("empty")} onRetry={() => setState("loading")} />
+        {submit.isError && (
+          <ErrorState
+            code={errCode}
+            title={errTitle}
+            message={errMessage}
+            detail={errDetail}
+            onDismiss={() => submit.reset()}
+            onRetry={() => submit.mutate()}
+          />
         )}
 
         {/* CTA */}
         <div className="wf-actions">
           <div className="wf-actions-meta">
-            <span>est. tokens&nbsp;<b style={{ color: "var(--fg-2)" }}>~5.5k</b></span>
-            <span>queue position&nbsp;<b style={{ color: "var(--fg-2)" }}>1</b></span>
-            <span>initializer&nbsp;<b style={{ color: "var(--fg-2)" }}>gpt-5.4</b></span>
+            <span>scenario&nbsp;<b style={{ color: "var(--fg-2)" }}>{scenarioText ? `${scenarioText.length.toLocaleString()} chars` : "—"}</b></span>
+            <span>init LLM&nbsp;<b style={{ color: useInitializer ? "var(--warn)" : "var(--fg-2)" }}>{useInitializer ? "on" : "off"}</b></span>
+            <span>max ticks&nbsp;<b style={{ color: "var(--fg-2)" }}>{maxTicks}</b></span>
           </div>
           <div style={{ display: "flex", gap: 8 }}>
-            <button className="wf-secondary">Save draft</button>
-            <button className="wf-cta" disabled={!canSubmit} onClick={() => setState("loading")}>
+            <button className="wf-secondary" disabled={submit.isPending}>Save draft</button>
+            <button className="wf-cta" disabled={!canSubmit} onClick={() => submit.mutate()}>
               Run simulation
               <Icon.Arrow />
               <span className="kbd">⌘&nbsp;↵</span>

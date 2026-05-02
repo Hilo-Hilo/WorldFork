@@ -1,63 +1,85 @@
 # WorldFork frontend
 
-Next.js 15 app implementing all three pages from the Claude Design handoff bundle.
+Next.js 15 app — three pages from the Claude Design handoff, **wired to the live backend** with polling-based "live" updates.
 
 ## Pages
 
-| Route | What it is | Source in handoff |
-|---|---|---|
-| `/` | Index — links the three surfaces | (new) |
-| `/input` | Configure a scenario run. Drop-zone for `.md`, initializer prompt, simulation config, branch policy accordion. | `Input Page.html`, `app.jsx`, `components.jsx`, `states.jsx` |
-| `/input?state=loading` | Initializer agent running with stage list + live log | same |
-| `/input?state=error&error=parse` | Parse failure | same |
-| `/input?state=error&error=llm` | OpenRouter 503 | same |
-| `/dashboard` | Run dashboard with multiverse tree (SVG), multiverse rail, tick progress, recent events, log strip | `Run Dashboard.html`, `dashboard.jsx`, `tree.jsx` |
-| `/dashboard?orientation=vertical` | Tree pivots to vertical | same |
-| `/dashboard?scores=off` | Hide tick + score chips on tree nodes | same |
-| `/report` | Final Big Bang report viewer (versions nav, TOC, read column with sparklines + comparison table, right rail with metrics + actions) | `Report Viewer.html`, `report.jsx` |
+| Route | Backend wiring |
+|---|---|
+| `/` | Polls `GET /api/agent/runs` every 3s, lists existing Big Bangs, click → dashboard |
+| `/input` | `POST /api/big-bangs` on submit, redirects to `/dashboard?run=<id>` on success. Real file upload reads markdown content. Live `GET /readyz` indicator in the topbar. |
+| `/dashboard?run=<id>` | Polls `GET /api/big-bangs/<id>`, `GET /api/big-bangs/<id>/multiverses`, `GET /api/agent/logs` every 2–2.5s. Builds the multiverse tree from `parent_multiverse_id` + `fork_tick_index`. Pause/Resume/Run-to-completion buttons hit the corresponding POST endpoints. |
+| `/report?run=<id>` | Fetches reports + versions, renders markdown via `react-markdown`. Export .pdf / .md hit `POST /api/report-versions/<id>/render` and trigger a browser download. |
 
-## What's intentionally not here yet
+## Live updates
 
-- **No backend wiring.** Every value on every page is mock data. When the API is connected, swap component-local state for `useQuery` against the relevant endpoints (`POST /api/big-bangs`, `GET /api/big-bangs/<id>/multiverses`, `GET /api/ticks/<id>/runtime`, `GET /api/big-bangs/<id>/reports`).
-- **No live updates.** The plan from earlier conversation is to add 1s polling via TanStack Query when wiring goes in. WebSocket bridge is a separate backend PR.
-- **No tests.**
+No WebSockets — the backend has Redis pub/sub publishers but no WebSocket route handler at the API edge. Polling intervals are tuned for "feels live" without burning bandwidth:
 
-## Stack
+- Run dashboard: 2 s (status + multiverses + logs)
+- Runs list / readyz: 3 s
+- Report markdown: never (only fetched on selection change)
 
-- Next.js 15.1 + React 18 + TypeScript
-- No Tailwind, no UI library — the design ships its own oklch palette + hairline-border CSS
-- Inter Tight (UI) + JetBrains Mono (numerics, IDs, log lines), pulled from Google Fonts in `app/layout.tsx`
-- All design tokens + page styles live in a single `app/globals.css` (concatenated from `styles.css` + `dashboard.css` + `report.css`)
+To swap to WebSockets later, replace the `refetchInterval` queries with WebSocket subscribers — the React Query keys are already structured around (`bigBang`, `multiverses`, `reports`) so the cache layer doesn't change.
+
+## Cost guardrails
+
+The input form defaults to:
+
+- `use_initializer_agent: false` — zero LLM calls during init
+- `max_ticks: 4`
+- `max_active_multiverses: 6`, `max_branch_depth: 2`, `max_branches_per_tick: 2`
+
+A "use tiny demo (~1 KB)" button loads a built-in scenario well under the 18 000-char chunker budget. A warning banner appears if you flip the initializer on with a scenario over the budget.
+
+## Architecture
+
+- **Server-side fetch** uses `API_BASE_URL` (defaults `http://127.0.0.1:8003`) — talks to the backend directly.
+- **Client-side fetch** goes through a Next.js rewrite at `/backend/*` → backend, sidestepping CORS and WSL/Windows host quirks. See `next.config.mjs`.
+- **TanStack Query** is the data layer. Defaults: `refetchInterval: 2 s`, `staleTime: 1 s`, `retry: 1`.
+- **No Tailwind, no UI library.** The design's oklch palette and hairline-border CSS lives in `app/globals.css`.
+
+## Run locally
+
+```bash
+cd frontend
+npm install
+npm run dev      # http://localhost:3003
+```
+
+Backend must be reachable at `http://127.0.0.1:8003` (override via `API_BASE_URL=...`).
+
+## E2E tests
+
+Smoke suite in `tests/e2e/smoke.spec.ts` covers home, input form, dashboard with a real run, report viewer with a real markdown render. **Zero LLM calls** — only reads existing data.
+
+```bash
+npm run test:e2e:install   # one-time: download chromium
+npm run test:e2e
+```
+
+Set `WORLDFORK_FE_URL` if your frontend isn't on `:3003` (the WSL→Windows interop case wants the Windows IP).
 
 ## Files
 
 ```
 frontend/
   app/
-    layout.tsx            root layout, fonts, global css
-    page.tsx              index linking the three pages
-    globals.css           design tokens + all three page stylesheets, ported verbatim
-    input/page.tsx        thin route wrapper (reads ?state= and ?error=)
-    dashboard/page.tsx    thin route wrapper (reads ?orientation= and ?scores=)
-    report/page.tsx       thin route wrapper
+    layout.tsx              fonts + global css + QueryClientProvider
+    page.tsx                runs list (live polled)
+    globals.css             design tokens + all three page stylesheets
+    input/page.tsx          thin route wrapper
+    dashboard/page.tsx      thin route wrapper, reads ?run=
+    report/page.tsx         thin route wrapper, reads ?run=
   components/
-    InputPage.tsx         page 1 component (Topbar, DropZone, NumberField, accordion, LoadingState, ErrorState)
-    DashboardPage.tsx     page 2 component (top bar, multiverse rail, MultiverseTree SVG, detail panel, log strip)
-    ReportPage.tsx        page 3 component (versions nav, TOC, read column with Spark, compare metrics)
+    Providers.tsx           TanStack Query provider
+    InputPage.tsx           wired to POST /api/big-bangs
+    DashboardPage.tsx       wired to multiverses + tree layout + log strip
+    ReportPage.tsx          wired to report list + markdown + render endpoint
+  lib/
+    api.ts                  typed fetch wrappers, server vs client base URL
+    types.ts                response shapes
+  tests/e2e/
+    smoke.spec.ts           Playwright walk-through (zero-LLM)
+  next.config.mjs           /backend/* rewrite → backend
+  playwright.config.ts
 ```
-
-## Running
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Dev server runs on `:3003` (matches the backend's CORS configuration).
-
-## Design source
-
-Pulled from `https://api.anthropic.com/v1/design/h/xL3KwvfafVb69hZHcvUXBw`. The handoff bundle was HTML/CSS/JSX prototypes; this implementation matches the visual output but uses Next.js + TypeScript instead of in-browser Babel.
-
-The chat transcript (`worldfork-ui/chats/chat1.md` in the bundle) records the design intent: minimal + tech-focused, dark-mode default, oklch palette, single restrained teal accent, Inter Tight + JetBrains Mono, hairline borders. None of that drifted in the port.
