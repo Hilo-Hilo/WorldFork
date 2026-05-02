@@ -11,7 +11,7 @@ This is a temporary bootstrap skill for getting WorldFork installed, verified, a
 
 - Do not hardcode backend URLs. Use `WORLD_FORK_API_BASE`, `BACKEND_API_BASE`, or the `worldfork --base-url` option when the user targets a non-default API.
 - Prefer the documented CLI and Make targets. Do not bypass the CLI with Python module entrypoints unless the user explicitly asks for low-level debugging.
-- Before using real API credits for onboarding/smoke validation, confirm the effective routes use `google/gemini-3.1-flash-lite-preview` unless the user explicitly authorizes another model mix.
+- Before using real API credits for onboarding/smoke validation, confirm the effective routes use the default split unless the user explicitly authorizes another model mix: `openrouter/deepseek/deepseek-v4-flash` for cohort, hero, action, and event-summary work and `openai-codex/gpt-5.4` for initialization, God review, endpoint-ledger evaluation, and reports.
 - If the repository is already checked out, use it. Do not clone another copy unless the current checkout is missing or unusable.
 
 ## Install WorldFork
@@ -26,7 +26,7 @@ worldfork --help
 cp .env.example .env
 ```
 
-Ask the user for their OpenRouter API key if it is not already configured, then set `OPENROUTER_API_KEY` in `.env`. Tell the user to keep the default model, `google/gemini-3.1-flash-lite-preview`, for cheap onboarding and validation runs unless they explicitly want to change providers or route different agents to different models.
+Ask the user for their OpenRouter API key if it is not already configured, then set `OPENROUTER_API_KEY` in `.env`. Configure OpenAI Codex OAuth with `worldfork settings openai-codex-login` or `codex login --device-auth`. Tell the user to keep the default model split for onboarding and validation unless they explicitly want to change providers or route different agents to different models.
 
 Start and prepare the stack:
 
@@ -66,9 +66,8 @@ worldfork settings model-routing
 
 Default first-run policy:
 
-- Cheap onboarding/smoke runs: keep all routes on `openrouter` with `google/gemini-3.1-flash-lite-preview`.
-- Higher-quality runs: `cohort_agent` can use a cheaper OpenRouter model because it is called often; prefer a stronger provider/model for `initializer_chunk_extractor`, `initializer_agent`, `god_agent`, `hero_agent`, `event_summary`, `report_agent`, and `endpoint_ledger`.
-- Serious review/reporting work should usually route `report_agent`, `god_agent`, initialization, and endpoint-ledger evaluation to a strong model such as `openai-codex` or a strong OpenRouter model, with an OpenRouter fallback.
+- Onboarding/smoke runs: keep `cohort_agent`, `hero_agent`, action execution, and `event_summary` on `openrouter/deepseek/deepseek-v4-flash`, and keep initialization, God review, endpoint-ledger evaluation, and reports on `openai-codex/gpt-5.4`.
+- Higher-quality runs can override the same routes through `worldfork settings model-routing`, but should preserve the distinction between frequent cohort calls and high-impact governance/report calls.
 
 To configure OpenAI Codex OAuth, use the headless login command. This path works on machines without the Codex CLI installed:
 
@@ -80,7 +79,7 @@ worldfork settings providers --data '{
       "provider": "openai-codex",
       "base_url": "https://chatgpt.com/backend-api/codex",
       "api_key_env": "OPENAI_CODEX_OAUTH_TOKEN",
-      "default_model": "gpt-5.5",
+      "default_model": "gpt-5.4",
       "fallback_model": null,
       "json_mode_required": true,
       "tool_calling_enabled": false,
@@ -100,9 +99,9 @@ worldfork settings model-routing --data '{
     {
       "job_type": "god_agent",
       "preferred_provider": "openai-codex",
-      "preferred_model": "gpt-5.5",
-      "fallback_provider": "openrouter",
-      "fallback_model": "google/gemini-3.1-flash-lite-preview",
+      "preferred_model": "gpt-5.4",
+      "fallback_provider": "openai-codex",
+      "fallback_model": "gpt-5.4",
       "temperature": 0.2,
       "top_p": 1.0,
       "max_tokens": 8192,
@@ -116,7 +115,7 @@ worldfork settings model-routing --data '{
     {
       "job_type": "cohort_agent",
       "preferred_provider": "openrouter",
-      "preferred_model": "google/gemini-3.1-flash-lite-preview",
+      "preferred_model": "deepseek/deepseek-v4-flash",
       "temperature": 0.8,
       "top_p": 1.0,
       "max_tokens": 4096,

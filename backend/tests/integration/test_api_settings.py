@@ -215,7 +215,7 @@ async def test_get_llm_config_exposes_provider_routing_and_route_catalog(client,
             {
                 "job_type": "report_agent",
                 "preferred_provider": "openai-codex",
-                "preferred_model": "gpt-5.5",
+                "preferred_model": "gpt-5.4",
                 "fallback_provider": "openrouter",
                 "fallback_model": "openai/gpt-4o-mini",
                 "temperature": 0.2,
@@ -301,6 +301,14 @@ async def test_get_model_routing_empty(client):
     data = resp.json()
     assert data["entries"] == []
     assert any(entry["route"] == "report_agent" for entry in data["effective_entries"])
+    effective = {entry["route"]: entry for entry in data["effective_entries"]}
+    assert effective["cohort_agent"]["preferred_provider"] == "openrouter"
+    assert effective["cohort_agent"]["preferred_model"] == "deepseek/deepseek-v4-flash"
+    assert effective["hero_agent"]["preferred_model"] == "deepseek/deepseek-v4-flash"
+    assert effective["event_summary"]["preferred_model"] == "deepseek/deepseek-v4-flash"
+    for route in ("initializer_agent", "god_agent", "endpoint_ledger", "report_agent"):
+        assert effective[route]["preferred_provider"] == "openai-codex"
+        assert effective[route]["preferred_model"] == "gpt-5.4"
     assert {route["route"] for route in data["known_routes"]} >= {
         "initializer_agent",
         "god_agent",

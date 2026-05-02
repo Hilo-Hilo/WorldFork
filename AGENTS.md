@@ -18,6 +18,7 @@ worldfork jobs list --status failed
 worldfork logs list --status failed
 worldfork models defaults
 worldfork settings show
+worldfork update --dry-run
 worldfork smoke live
 worldfork demo atlas
 worldfork reports list <big-bang-id>
@@ -34,9 +35,10 @@ worldfork reports render <report-version-id> --format pdf --output report.pdf
 - `worldfork init` must wait for backend initialization to finish and return the initialized state.
 - Use `worldfork watch big-bang <id>` or `worldfork watch multiverse <id>` to stream event logs, ticks, tool calls, and agent logs.
 - Reports are structured database records first; Markdown/PDF renders are generated on request and are not backend-cached.
+- Use `worldfork update` to pull code updates. It must preserve local `.env`, run data, artifacts, and Docker override files; do not use destructive Git commands for normal updates.
 - Do not assume a web frontend exists. This repo is backend + workers + CLI.
 - Do not hardcode backend URLs. Use the CLI default, `--base-url`, `WORLD_FORK_API_BASE`, or `BACKEND_API_BASE`.
-- Live API-credit runs must use `google/gemini-3.1-flash-lite-preview` unless the user explicitly authorizes a different model.
+- Live API-credit runs must use the configured default split unless the user explicitly authorizes a different model: OpenRouter `deepseek/deepseek-v4-flash` for cohort, hero, action, and event-summary work, and OpenAI Codex `gpt-5.4` for initializer, God-review, endpoint-ledger, and report work.
 
 ## Runtime Surface
 

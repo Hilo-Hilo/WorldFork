@@ -75,10 +75,11 @@ Configure the backend:
 cp .env.example .env
 ```
 
-Set `OPENROUTER_API_KEY` in `.env` when you need live LLM-backed workflows. Live API-credit runs must use:
+Set `OPENROUTER_API_KEY` in `.env` and configure OpenAI Codex OAuth when you need live LLM-backed workflows. Live API-credit runs must use:
 
 ```text
-google/gemini-3.1-flash-lite-preview
+openrouter/deepseek/deepseek-v4-flash
+openai-codex/gpt-5.4
 ```
 
 Start the local stack:

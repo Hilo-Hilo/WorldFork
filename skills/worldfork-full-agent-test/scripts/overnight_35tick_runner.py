@@ -65,7 +65,20 @@ RATE_LIMIT_COOLDOWN_SECONDS = float(
         str(max(RUN_UNTIL_COMPLETE_RETRY_DELAY_SECONDS, 60.0)),
     )
 )
-MODEL = os.environ.get("WF_MODEL", "google/gemini-3.1-flash-lite-preview")
+SINGLE_MODEL_OVERRIDE = os.environ.get("WF_MODEL", "").strip()
+OPENROUTER_MODEL = os.environ.get("WF_OPENROUTER_MODEL", "deepseek/deepseek-v4-flash")
+OPENAI_CODEX_MODEL = os.environ.get("WF_OPENAI_CODEX_MODEL", "gpt-5.4")
+DEFAULT_MODEL = SINGLE_MODEL_OVERRIDE or OPENROUTER_MODEL
+FALLBACK_MODEL = SINGLE_MODEL_OVERRIDE or OPENROUTER_MODEL
+INITIALIZER_AGENT_MODEL = SINGLE_MODEL_OVERRIDE or OPENAI_CODEX_MODEL
+GOD_AGENT_MODEL = SINGLE_MODEL_OVERRIDE or OPENAI_CODEX_MODEL
+COHORT_AGENT_MODEL = SINGLE_MODEL_OVERRIDE or OPENROUTER_MODEL
+HERO_AGENT_MODEL = SINGLE_MODEL_OVERRIDE or OPENROUTER_MODEL
+EVENT_SUMMARY_MODEL = SINGLE_MODEL_OVERRIDE or OPENROUTER_MODEL
+REPORT_AGENT_MODEL = SINGLE_MODEL_OVERRIDE or OPENAI_CODEX_MODEL
+MODEL = SINGLE_MODEL_OVERRIDE or (
+    f"openrouter/{OPENROUTER_MODEL} + openai-codex/{OPENAI_CODEX_MODEL}"
+)
 BRANCH_POLICY = _json_env("WF_BRANCH_POLICY", {})
 CASES_FILE = Path(os.environ.get("WF_CASES_FILE", str(ART / "full-runtime-cases.jsonl"))).resolve()
 RENDER_REPORT_PDFS = os.environ.get("WF_RENDER_REPORT_PDFS", "0") == "1"
@@ -120,14 +133,14 @@ def run(
         {
             "WORLD_FORK_API_BASE": BASE_URL,
             "BACKEND_API_BASE": BASE_URL,
-            "DEFAULT_MODEL": MODEL,
-            "FALLBACK_MODEL": MODEL,
-            "INITIALIZER_AGENT_MODEL": MODEL,
-            "GOD_AGENT_MODEL": MODEL,
-            "COHORT_AGENT_MODEL": MODEL,
-            "HERO_AGENT_MODEL": MODEL,
-            "EVENT_SUMMARY_MODEL": MODEL,
-            "REPORT_AGENT_MODEL": MODEL,
+            "DEFAULT_MODEL": DEFAULT_MODEL,
+            "FALLBACK_MODEL": FALLBACK_MODEL,
+            "INITIALIZER_AGENT_MODEL": INITIALIZER_AGENT_MODEL,
+            "GOD_AGENT_MODEL": GOD_AGENT_MODEL,
+            "COHORT_AGENT_MODEL": COHORT_AGENT_MODEL,
+            "HERO_AGENT_MODEL": HERO_AGENT_MODEL,
+            "EVENT_SUMMARY_MODEL": EVENT_SUMMARY_MODEL,
+            "REPORT_AGENT_MODEL": REPORT_AGENT_MODEL,
             "PATH": (
                 f"{REPO / '.agent-venv/bin'}:"
                 "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:"
@@ -266,6 +279,8 @@ def record_before() -> None:
             "run_until_complete_retry_delay_seconds": RUN_UNTIL_COMPLETE_RETRY_DELAY_SECONDS,
             "rate_limit_cooldown_seconds": RATE_LIMIT_COOLDOWN_SECONDS,
             "model": MODEL,
+            "openrouter_model": OPENROUTER_MODEL,
+            "openai_codex_model": OPENAI_CODEX_MODEL,
             "render_report_pdfs": RENDER_REPORT_PDFS,
             "copy_rendered_artifacts": COPY_RENDERED_ARTIFACTS,
             "rendered_copy_limit_mib": RENDERED_COPY_LIMIT_MIB,
@@ -1021,7 +1036,7 @@ def write_improvement_report(results: list[dict[str, Any]], resource_summary: di
         f"Compose project: `{PROJECT}`",
         f"Initial concurrency: `{INITIAL_CONCURRENCY}`",
         f"Max concurrency: `{MAX_CONCURRENCY}`",
-        f"Model: `{MODEL}`",
+        f"Models: `{MODEL}`",
         "",
         "## Executive Summary",
         "",

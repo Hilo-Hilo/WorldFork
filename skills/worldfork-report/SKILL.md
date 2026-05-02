@@ -16,7 +16,7 @@ Use this skill when acting as an external report author for WorldFork. The job i
 - Prefer read-only inspection. Generate missing reports only when the user asked for a report or the target timelines are terminal and report generation is the natural next step.
 - Use bounded waits for jobs. Do not run unbounded polling loops.
 - Do not run new ticks, continue timelines, or change runtime settings unless the user explicitly asks.
-- For live API-credit work, use the current effective route policy. For cheap report inspection, keep `google/gemini-3.1-flash-lite-preview` unless the user explicitly authorizes another model. For serious final reports or adjudication, prefer a stronger `report_agent` route such as `openai-codex` or a strong OpenRouter model.
+- For live API-credit work, use the current effective route policy. The default is `openrouter/deepseek/deepseek-v4-flash` for cohort, hero, action, and event-summary work and `openai-codex/gpt-5.4` for initialization, God review, endpoint-ledger evaluation, and reports unless the user explicitly authorizes another model.
 
 ## Workflow
 
@@ -64,7 +64,7 @@ worldfork --verbosity normal --fields id,source,status,message,provider,model,bi
 
 If the user asks for a higher-quality report, configure only the report-related routes unless they ask for broader simulation changes. `report_agent`, `endpoint_ledger`, and `god_agent` are the routes most relevant to report quality and outcome review. `cohort_agent` can stay on a cheaper model because report generation should not normally create new cohort decisions.
 
-Example route patch for a Codex-backed report agent with OpenRouter fallback:
+Example route patch for a Codex-backed report agent:
 
 ```bash
 worldfork settings model-routing --data '{
@@ -72,9 +72,9 @@ worldfork settings model-routing --data '{
     {
       "job_type": "report_agent",
       "preferred_provider": "openai-codex",
-      "preferred_model": "gpt-5.5",
-      "fallback_provider": "openrouter",
-      "fallback_model": "google/gemini-3.1-flash-lite-preview",
+      "preferred_model": "gpt-5.4",
+      "fallback_provider": "openai-codex",
+      "fallback_model": "gpt-5.4",
       "temperature": 0.25,
       "top_p": 1.0,
       "max_tokens": 8192,
