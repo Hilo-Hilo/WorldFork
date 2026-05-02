@@ -31,6 +31,19 @@ WAIT_SUCCESS_STATUSES = {"succeeded"}
 WAIT_ACCEPTABLE_TERMINAL_STATUSES = {"interrupted"}
 RUN_TERMINAL_STATUSES = {"completed", "failed", "cancelled", "terminated"}
 MULTIVERSE_TERMINAL_STATUSES = {"completed", "terminated", "frozen", "killed"}
+UPDATE_PROTECTED_PATHS = (
+    ".env",
+    ".env.local",
+    "backend/.env",
+    "backend/.env.local",
+    "docker-compose.override.yml",
+    "docker-compose.override.yaml",
+    "runs",
+    "artifacts",
+    "backend/artifacts",
+    "data",
+    ".worldfork",
+)
 
 
 class Context:
@@ -128,6 +141,7 @@ def main(
       worldfork watch big-bang <big-bang-id>
       worldfork reports view <report-version-id>
       worldfork settings patch --data '{"default_tick_duration_minutes":90}'
+      worldfork update
       worldfork smoke live
       worldfork demo atlas
 
@@ -144,6 +158,105 @@ def main(
 def status(ctx: Context) -> None:
     """Show backend and queue status."""
     emit(ctx.client.request("GET", "/agent/status"), as_json=ctx.as_json)
+
+
+@main.command("update")
+@click.option(
+    "--repo",
+    type=click.Path(file_okay=False, path_type=Path),
+    help="WorldFork source checkout to update. Defaults to the nearest checkout above the current directory.",
+)
+@click.option("--remote", default="origin", show_default=True, help="Git remote to fetch from.")
+@click.option("--branch", help="Remote branch to update from. Defaults to the current local branch.")
+@click.option("--dry-run", is_flag=True, help="Fetch and report what would change without merging.")
+@click.option(
+    "--install-cli",
+    is_flag=True,
+    help="After a successful update, reinstall the local CLI with `python -m pip install -e ./cli`.",
+)
+@click.option(
+    "--yes",
+    "-y",
+    is_flag=True,
+    help="Skip the confirmation prompt before merging fetched code.",
+)
+@click.pass_obj
+def update(
+    ctx: Context,
+    repo: Path | None,
+    remote: str,
+    branch: str | None,
+    dry_run: bool,
+    install_cli: bool,
+    yes: bool,
+) -> None:
+    """Safely pull the latest WorldFork code without touching local config/data.
+
+    This command updates the Git checkout only. It refuses dirty tracked files,
+    refuses non-fast-forward history, and refuses remote changes to operator-owned
+    config/data paths such as `.env`, `runs/`, and `artifacts/`.
+    """
+    repo_root = _resolve_update_repo(repo)
+    current_branch = _git_stdout(repo_root, ["rev-parse", "--abbrev-ref", "HEAD"]).strip()
+    if current_branch == "HEAD" and not branch:
+        raise click.ClickException("checkout is detached; pass --branch explicitly")
+    target_branch = branch or current_branch
+    remote_ref = f"refs/remotes/{remote}/{target_branch}"
+    display_remote_ref = f"{remote}/{target_branch}"
+
+    dirty = _git_stdout(repo_root, ["status", "--porcelain", "--untracked-files=no"]).strip()
+    if dirty:
+        raise click.ClickException(
+            "refusing to update with dirty tracked files. Commit or stash local code changes first. "
+            "Ignored config/data files such as .env, runs/, and artifacts/ are not part of this check."
+        )
+
+    before = _git_stdout(repo_root, ["rev-parse", "HEAD"]).strip()
+    fetch_refspec = f"+refs/heads/{target_branch}:refs/remotes/{remote}/{target_branch}"
+    _run_git(repo_root, ["fetch", "--prune", remote, fetch_refspec])
+    protected_remote_changes = _remote_changed_protected_paths(repo_root, remote_ref)
+    if protected_remote_changes:
+        joined = ", ".join(protected_remote_changes)
+        raise click.ClickException(
+            "refusing update because the remote branch changes protected local config/data paths: "
+            f"{joined}"
+        )
+
+    ahead, behind = _ahead_behind(repo_root, "HEAD", remote_ref)
+    result: dict[str, Any] = {
+        "repo": str(repo_root),
+        "remote": remote,
+        "branch": target_branch,
+        "before": before,
+        "remote_ref": display_remote_ref,
+        "ahead": ahead,
+        "behind": behind,
+        "dry_run": dry_run,
+        "protected_paths": list(UPDATE_PROTECTED_PATHS),
+    }
+    if ahead and behind:
+        raise click.ClickException(
+            f"local branch and {display_remote_ref} have diverged "
+            f"(ahead={ahead}, behind={behind}); resolve manually"
+        )
+    if behind == 0:
+        result.update({"status": "up_to_date" if ahead == 0 else "local_ahead", "after": before})
+        emit(result, as_json=ctx.as_json)
+        return
+    if dry_run:
+        result.update({"status": "would_update", "after": before})
+        emit(result, as_json=ctx.as_json)
+        return
+    if not yes and not click.confirm(f"Fast-forward {repo_root} from {before[:12]} to {display_remote_ref}?"):
+        raise click.ClickException("update cancelled")
+
+    _run_git(repo_root, ["merge", "--ff-only", remote_ref])
+    after = _git_stdout(repo_root, ["rev-parse", "HEAD"]).strip()
+    result.update({"status": "updated", "after": after})
+    if install_cli:
+        _run_command(repo_root, [sys.executable, "-m", "pip", "install", "-e", "./cli"])
+        result["cli_reinstalled"] = True
+    emit(result, as_json=ctx.as_json)
 
 
 @main.group()
@@ -1249,7 +1362,7 @@ def demo() -> None:
 @click.option("--idle-termination-ticks", type=int, default=6, show_default=True)
 @click.option("--completion-max-requests", type=int, default=1000, show_default=True)
 @click.option("--expected-provider", default="openrouter", show_default=True)
-@click.option("--expected-model", default="google/gemini-3.1-flash-lite-preview", show_default=True)
+@click.option("--expected-model", default="deepseek/deepseek-v4-flash", show_default=True)
 @click.pass_obj
 def demo_atlas(
     ctx: Context,
@@ -1320,7 +1433,7 @@ def smoke_live(ctx: Context) -> None:
 
     This validates readiness, settings mutation/restoration, manual branch
     intervention, runtime checkpoints, job control, reports, PDF rendering,
-    logs, and Gemini 3.1 Flash Lite audited LLM usage.
+    logs, and default audited LLM route usage.
     """
     previous = os.environ.get("WORLDFORK_API_URL")
     os.environ["WORLDFORK_API_URL"] = ctx.client.base_url
@@ -1352,6 +1465,61 @@ def _run_source_harness(module_name: str, argv: list[str] | None = None) -> None
     result = entrypoint(argv) if argv is not None else entrypoint()
     if isinstance(result, int) and result != 0:
         raise click.ClickException(f"{module_name} exited with status {result}")
+
+
+def _resolve_update_repo(repo: Path | None) -> Path:
+    if repo is not None:
+        root = repo.expanduser().resolve()
+        if not _looks_like_source_checkout(root):
+            raise click.ClickException(f"{root} is not a WorldFork source checkout")
+        return root
+    for root in (Path.cwd().resolve(), *Path.cwd().resolve().parents):
+        if _looks_like_source_checkout(root):
+            return root
+    raise click.ClickException(
+        "could not find a WorldFork source checkout. Run from the repo or pass --repo."
+    )
+
+
+def _looks_like_source_checkout(root: Path) -> bool:
+    return (
+        (root / ".git").exists()
+        and (root / "backend" / "app").is_dir()
+        and (root / "cli" / "src" / "worldfork_cli").is_dir()
+    )
+
+
+def _run_git(repo: Path, args: list[str]) -> subprocess.CompletedProcess[str]:
+    return _run_command(repo, ["git", *args])
+
+
+def _run_command(repo: Path, command: list[str]) -> subprocess.CompletedProcess[str]:
+    result = subprocess.run(command, cwd=repo, text=True, capture_output=True)
+    if result.returncode != 0:
+        detail = (result.stderr or result.stdout or "").strip()
+        command_text = " ".join(command)
+        if detail:
+            raise click.ClickException(f"{command_text} failed: {detail}")
+        raise click.ClickException(f"{command_text} failed with exit code {result.returncode}")
+    return result
+
+
+def _git_stdout(repo: Path, args: list[str]) -> str:
+    return _run_git(repo, args).stdout
+
+
+def _ahead_behind(repo: Path, left: str, right: str) -> tuple[int, int]:
+    raw = _git_stdout(repo, ["rev-list", "--left-right", "--count", f"{left}...{right}"]).strip()
+    left_count, right_count = raw.split()
+    return int(left_count), int(right_count)
+
+
+def _remote_changed_protected_paths(repo: Path, remote_ref: str) -> list[str]:
+    changed = _git_stdout(
+        repo,
+        ["diff", "--name-only", f"HEAD..{remote_ref}", "--", *UPDATE_PROTECTED_PATHS],
+    )
+    return [line.strip() for line in changed.splitlines() if line.strip()]
 
 
 def _find_source_checkout(module_name: str) -> Path | None:

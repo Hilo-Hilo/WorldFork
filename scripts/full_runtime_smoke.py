@@ -19,11 +19,11 @@ from typing import Any
 import httpx
 from sqlalchemy import select
 
-GEMINI_MODEL = "google/gemini-3.1-flash-lite-preview"
-EXPECTED_MODELS: set[str] = {
-    m.strip()
-    for m in os.environ.get("WORLDFORK_SMOKE_EXPECTED_MODELS", GEMINI_MODEL).split(",")
-    if m.strip()
+OPENROUTER_MODEL = "deepseek/deepseek-v4-flash"
+OPENAI_CODEX_MODEL = "gpt-5.4"
+DEFAULT_EXPECTED_PROVIDER_MODELS = {
+    ("openrouter", OPENROUTER_MODEL),
+    ("openai-codex", OPENAI_CODEX_MODEL),
 }
 BASE_URL = os.environ.get("WORLDFORK_API_URL", "http://127.0.0.1:8003")
 
@@ -90,6 +90,21 @@ def wait_for_ready(client: httpx.Client) -> dict[str, Any]:
     raise SmokeFailure(f"API did not become ready: {last_error}")
 
 
+def expected_provider_models() -> set[tuple[str, str]]:
+    configured = os.environ.get("WORLDFORK_SMOKE_EXPECTED_PROVIDER_MODELS")
+    if not configured:
+        return set(DEFAULT_EXPECTED_PROVIDER_MODELS)
+    pairs: set[tuple[str, str]] = set()
+    for item in configured.split(","):
+        provider, separator, model = item.partition(":")
+        if separator and provider.strip() and model.strip():
+            pairs.add((provider.strip(), model.strip()))
+    return pairs or set(DEFAULT_EXPECTED_PROVIDER_MODELS)
+
+
+EXPECTED_PROVIDER_MODELS = expected_provider_models()
+
+
 def assert_expected_models(big_bang_id: str) -> None:
     db = SessionLocal()
     try:
@@ -100,25 +115,28 @@ def assert_expected_models(big_bang_id: str) -> None:
         ).all()
         check(bool(calls), "live simulation produced audited LLM calls")
         unexpected = [
-            call.model
+            {"provider": call.provider, "model": call.model, "purpose": call.purpose}
             for call in calls
-            if not any(expected in str(call.model) for expected in EXPECTED_MODELS)
+            if not any(
+                call.provider == provider and model in str(call.model)
+                for provider, model in EXPECTED_PROVIDER_MODELS
+            )
         ]
         if unexpected:
             raise SmokeFailure(
-                f"unexpected models were used: {unexpected} "
-                f"(expected one of: {sorted(EXPECTED_MODELS)})"
+                f"unexpected providers/models were used: {unexpected} "
+                f"(expected one of: {sorted(EXPECTED_PROVIDER_MODELS)})"
             )
         print(
-            f"[pass] all {len(calls)} audited LLM calls used an expected model "
-            f"({sorted(EXPECTED_MODELS)})"
+            f"[pass] all {len(calls)} audited LLM calls used an expected provider/model "
+            f"({sorted(EXPECTED_PROVIDER_MODELS)})"
         )
     finally:
         db.close()
 
 
 # Backwards-compatible alias for any external caller importing the old name.
-assert_gemini_only = assert_expected_models
+assert_expected_llm_provider_models = assert_expected_models
 
 
 def delete_smoke_settings_row() -> None:
@@ -331,17 +349,17 @@ def main() -> None:
     for label, model in {
         "default": settings.default_model,
         "fallback": settings.fallback_model,
-        "initializer": settings.initializer_agent_model,
-        "god": settings.god_agent_model,
         "cohort": settings.cohort_agent_model,
         "hero": settings.hero_agent_model,
         "event_summary": settings.event_summary_model,
+    }.items():
+        check(model == OPENROUTER_MODEL, f"{label} model is {OPENROUTER_MODEL}")
+    for label, model in {
+        "initializer": settings.initializer_agent_model,
+        "god": settings.god_agent_model,
         "report": settings.report_agent_model,
     }.items():
-        check(
-            any(expected in model for expected in EXPECTED_MODELS),
-            f"{label} model ({model}) matches one of {sorted(EXPECTED_MODELS)}",
-        )
+        check(model == OPENAI_CODEX_MODEL, f"{label} model is {OPENAI_CODEX_MODEL}")
 
     original_settings: dict[str, Any] | None = None
     cleanup_settings_row = False
@@ -352,6 +370,7 @@ def main() -> None:
     with httpx.Client(timeout=180) as client:
         ready = wait_for_ready(client)
         check(ready["checks"]["openrouter"], "readyz reports OpenRouter configured")
+        check(ready["checks"].get("openai-codex") is True, "readyz reports OpenAI Codex configured")
         status = request(client, "GET", "/api/agent/status")
         check(status["ok"] and status["data"]["status"] == "ok", "agent status is ok")
 
@@ -437,7 +456,7 @@ def main() -> None:
         check(len(request(client, "GET", f"/api/ticks/{root_tick_id}/graph-deltas")) >= 1, "graph deltas exist")
         check(len(request(client, "GET", f"/api/ticks/{root_tick_id}/sociology-signals")) >= 1, "sociology signals exist")
         check(len(request(client, "GET", f"/api/ticks/{root_tick_id}/emotion-observability")) >= 1, "emotion observability exists")
-        assert_gemini_only(big_bang_id)
+        assert_expected_models(big_bang_id)
 
         child_multiverse_id = record_manual_branch_intervention(
             parent_multiverse_id=root_multiverse_id,
@@ -454,7 +473,7 @@ def main() -> None:
         )
         check(child_tick["status"] == "final", "child branch tick simulation completed")
         validate_runtime(request(client, "GET", f"/api/ticks/{child_tick['id']}/runtime"))
-        assert_gemini_only(big_bang_id)
+        assert_expected_models(big_bang_id)
 
         control_job_id = create_synthetic_job(child_multiverse_id, big_bang_id)
         control_job = request(client, "GET", f"/api/jobs/{control_job_id}")
@@ -468,7 +487,7 @@ def main() -> None:
         check(job["status"] == "succeeded", "job run endpoint completed tick")
         check(job["result"].get("tick_snapshot_id"), "job result contains tick snapshot id")
         assert_job_runtime_link(job_id)
-        assert_gemini_only(big_bang_id)
+        assert_expected_models(big_bang_id)
 
         root_report = request(
             client,
@@ -525,7 +544,7 @@ def main() -> None:
             "big_bang_id": big_bang_id,
             "root_multiverse_id": root_multiverse_id,
             "child_multiverse_id": child_multiverse_id,
-            "model": GEMINI_MODEL,
+            "provider_models": sorted(EXPECTED_PROVIDER_MODELS),
             "base_url": BASE_URL,
         }
     )

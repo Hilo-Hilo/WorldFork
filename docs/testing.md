@@ -37,7 +37,7 @@ docker compose config --quiet
 worldfork smoke live
 ```
 
-This command uses real OpenRouter credits. It should use only `google/gemini-3.1-flash-lite-preview` for audited LLM calls.
+This command uses real API credits. It should use the default audited model split: OpenRouter `deepseek/deepseek-v4-flash` for cohort, hero, action, and event-summary work and OpenAI Codex `gpt-5.4` for initializer, God-review, endpoint-ledger, and report work.
 
 ## Redis Cleanup
 

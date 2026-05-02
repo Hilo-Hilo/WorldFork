@@ -113,17 +113,20 @@ def healthz() -> dict[str, bool]:
 
 
 def _llm_ready_checks() -> dict[str, bool]:
+    openrouter_ready = bool(settings_obj.openrouter_api_key)
+    codex_ready = bool(
+        settings_obj.openai_codex_oauth_token
+        or os.environ.get("OPENAI_CODEX_OAUTH_TOKEN")
+        or os.environ.get("OPENAI_CODEX_ACCESS_TOKEN")
+        or read_codex_oauth_token(settings_obj.openai_codex_auth_file)
+    )
     provider = settings_obj.default_llm_provider
+    if provider == "openrouter" and settings_obj.openai_codex_enabled:
+        return {"openrouter": openrouter_ready, "openai-codex": codex_ready}
     if provider == "openai-codex":
-        token_present = bool(
-            settings_obj.openai_codex_oauth_token
-            or os.environ.get("OPENAI_CODEX_OAUTH_TOKEN")
-            or os.environ.get("OPENAI_CODEX_ACCESS_TOKEN")
-            or read_codex_oauth_token(settings_obj.openai_codex_auth_file)
-        )
-        return {"openai-codex": token_present}
+        return {"openai-codex": codex_ready}
     if provider == "openrouter":
-        return {"openrouter": bool(settings_obj.openrouter_api_key)}
+        return {"openrouter": openrouter_ready}
     return {provider: True}
 
 

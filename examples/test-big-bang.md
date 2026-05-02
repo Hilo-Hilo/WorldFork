@@ -16,7 +16,7 @@ For a cheap smoke run, execute one root tick, manually branch from the first tic
 
 Recommended cheap model:
 
-`google/gemini-3.1-flash-lite-preview`
+`openrouter/deepseek/deepseek-v4-flash` plus `openai-codex/gpt-5.4`
 
 Recommended long-run settings:
 

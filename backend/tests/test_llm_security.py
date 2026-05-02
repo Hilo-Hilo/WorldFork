@@ -375,7 +375,7 @@ def test_seed_default_direct_route_defers_to_legacy_alias():
     }
     legacy_alias = {
         "preferred_provider": "openai-codex",
-        "preferred_model": "gpt-5.5",
+        "preferred_model": "gpt-5.4",
         "fallback_provider": None,
         "fallback_model": None,
         "temperature": 0.1,
@@ -395,7 +395,57 @@ def test_seed_default_direct_route_defers_to_legacy_alias():
 
     assert resolved.matched_route == "aggregate_run_results"
     assert resolved.primary.provider == "openai-codex"
-    assert resolved.primary.model == "gpt-5.5"
+    assert resolved.primary.model == "gpt-5.4"
+
+
+def test_legacy_gemini_seed_route_uses_current_runtime_defaults(monkeypatch):
+    from app.llm import routing as llm_routing
+
+    legacy_seed = {
+        "preferred_provider": "openrouter",
+        "preferred_model": "google/gemini-3.1-flash-lite-preview",
+        "fallback_provider": "openrouter",
+        "fallback_model": "google/gemini-3.1-flash-lite-preview",
+        "temperature": 0.25,
+        "top_p": 1.0,
+        "max_tokens": 8192,
+        "timeout_seconds": 180,
+        "retry_policy": "exponential_backoff",
+        "payload": {
+            "preferred_provider": "openrouter",
+            "preferred_model": "google/gemini-3.1-flash-lite-preview",
+            "fallback_provider": "openrouter",
+            "fallback_model": "google/gemini-3.1-flash-lite-preview",
+        },
+    }
+    settings = SimpleNamespace(
+        default_llm_provider="openrouter",
+        default_model="deepseek/deepseek-v4-flash",
+        fallback_model="deepseek/deepseek-v4-flash",
+        initializer_agent_model="gpt-5.4",
+        god_agent_model="gpt-5.4",
+        cohort_agent_model="deepseek/deepseek-v4-flash",
+        hero_agent_model="deepseek/deepseek-v4-flash",
+        event_summary_model="deepseek/deepseek-v4-flash",
+        report_agent_model="gpt-5.4",
+    )
+    monkeypatch.setattr(llm_routing, "get_settings", lambda: settings)
+
+    report_route = llm_routing.resolve_audited_llm_route(
+        FakeRoutingDB({"report_agent": legacy_seed, "aggregate_run_results": legacy_seed}),
+        route="report_agent",
+    )
+    cohort_route = llm_routing.resolve_audited_llm_route(
+        FakeRoutingDB({"cohort_agent": legacy_seed, "agent_deliberation_batch": legacy_seed}),
+        route="cohort_agent",
+    )
+
+    assert report_route.matched_route is None
+    assert report_route.primary.provider == "openai-codex"
+    assert report_route.primary.model == "gpt-5.4"
+    assert cohort_route.matched_route is None
+    assert cohort_route.primary.provider == "openrouter"
+    assert cohort_route.primary.model == "deepseek/deepseek-v4-flash"
 
 
 def test_route_retry_policy_none_disables_json_repair_retry(monkeypatch):

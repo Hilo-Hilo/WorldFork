@@ -84,6 +84,7 @@ worldfork cohorts transcript <cohort-id> --universe-id <multiverse-id>
 worldfork logs list --status failed
 worldfork models defaults
 worldfork settings show
+worldfork update --dry-run
 ```
 
 ## Reports
@@ -109,10 +110,11 @@ worldfork query GET /readyz --no-api-prefix
 
 ## Live Runs
 
-Use only Gemini 3.1 Flash Lite for live OpenRouter validation:
+Use the configured default split for live validation:
 
 ```text
-google/gemini-3.1-flash-lite-preview
+openrouter/deepseek/deepseek-v4-flash
+openai-codex/gpt-5.4
 ```
 
 Full live smoke:
