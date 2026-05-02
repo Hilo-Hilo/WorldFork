@@ -5,9 +5,9 @@ easier if the agent first explains the product.
 
 ## One-Sentence Model
 
-WorldFork is a backend-first, CLI-first system for turning one scenario into a
-tree of auditable simulated timelines, then comparing those timelines through
-structured reports.
+WorldFork is a Monte Carlo tree search of the real world: a backend-first,
+CLI-first system for turning one scenario into a tree of auditable simulated
+timelines, then comparing those timelines through structured reports.
 
 ## Core Terms
 

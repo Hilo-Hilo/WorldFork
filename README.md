@@ -2,7 +2,7 @@
 
 # WorldFork
 
-**Branching social simulation infrastructure for agents, operators, and auditable multiverse runs.**
+**Monte Carlo tree search of the real world: branching social simulation infrastructure for agents, operators, and auditable multiverse runs.**
 
 ![WorldFork](docs/images/readme.png)
 
@@ -29,6 +29,7 @@ Each run keeps the ticks, branches, agent reviews, manual interventions, logs, a
 </p>
 
 WorldFork is a **backend-first** and **CLI-first** system for exploring branching futures.
+At the product level, it is a Monte Carlo tree search of the real world: start from a scenario, run simulated rollouts, branch when decisions matter, score terminal outcomes, and report the resulting distribution.
 Start with a **Big Bang** scenario, execute a checkpointed tick runtime, allow both autonomous and human-created forks, then compare the resulting multiverses through structured reports.
 
 ### Why WorldFork?
