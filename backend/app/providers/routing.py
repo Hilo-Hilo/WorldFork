@@ -6,7 +6,7 @@ which returns ``(preferred ModelConfig, fallback ModelConfig | None)``.
 """
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, cast
 
 from backend.app.schemas.jobs import JobType
 from backend.app.schemas.llm import ModelConfig
@@ -23,26 +23,39 @@ if TYPE_CHECKING:
 # Defaults — derived from PRD §16.4 example, generalised across job types.
 # ---------------------------------------------------------------------------
 
-_OPENROUTER_MODEL = "google/gemini-3.1-flash-lite-preview"
+_OPENROUTER_MODEL = "deepseek/deepseek-v4-flash"
+_OPENAI_CODEX_MODEL = "gpt-5.4"
 _AGENT_MODEL = _OPENROUTER_MODEL
 _AGENT_FALLBACK_MODEL = _OPENROUTER_MODEL
-_GOD_MODEL = _OPENROUTER_MODEL
-_GOD_FALLBACK_MODEL = _OPENROUTER_MODEL
+_GOD_MODEL = _OPENAI_CODEX_MODEL
+_GOD_FALLBACK_MODEL = _OPENAI_CODEX_MODEL
+_LEGACY_GEMINI_SEED_MODEL = "google/gemini-3.1-flash-lite-preview"
+_OPENAI_CODEX_JOB_TYPES = {
+    "initialize_big_bang",
+    "god_agent_review",
+    "aggregate_run_results",
+    "evaluate_endpoint_ledger",
+    "force_deviation",
+}
 
 
 def _default_entry(job_type: JobType) -> ModelRoutingEntry:
     """Return a sane default :class:`ModelRoutingEntry` for *job_type*."""
-    if job_type in {"god_agent_review", "aggregate_run_results", "force_deviation"}:
+    if job_type in _OPENAI_CODEX_JOB_TYPES:
+        preferred_provider = "openai-codex"
         preferred = _GOD_MODEL
+        fallback_provider = "openai-codex"
         fallback = _GOD_FALLBACK_MODEL
     else:
+        preferred_provider = "openrouter"
         preferred = _AGENT_MODEL
+        fallback_provider = "openrouter"
         fallback = _AGENT_FALLBACK_MODEL
     return ModelRoutingEntry(
         job_type=job_type,
-        preferred_provider="openrouter",
+        preferred_provider=preferred_provider,
         preferred_model=preferred,
-        fallback_provider="openrouter" if fallback else None,
+        fallback_provider=fallback_provider if fallback else None,
         fallback_model=fallback,
         temperature=0.6,
         top_p=0.95,
@@ -158,7 +171,7 @@ class RoutingTable:
                     "fallback_provider, fallback_model, temperature, top_p, "
                     "max_tokens, max_concurrency, requests_per_minute, "
                     "tokens_per_minute, timeout_seconds, retry_policy, "
-                    "daily_budget_usd FROM settings_model_routing"
+                    "daily_budget_usd, payload FROM settings_model_routing"
                 )
             )
             rows = result.mappings().all()
@@ -170,15 +183,33 @@ class RoutingTable:
 
         entries: dict[JobType, ModelRoutingEntry] = {}
         for row in rows:
+            row_dict = dict(row)
+            if _is_legacy_seed_default_row(row_dict):
+                continue
+            row_dict.pop("payload", None)
             try:
-                entry = ModelRoutingEntry(**dict(row))
+                entry = ModelRoutingEntry(**row_dict)
             except Exception:
                 continue
-            entries[entry.job_type] = entry
+            if entry.job_type not in _ALL_JOB_TYPES:
+                continue
+            entries[cast(JobType, entry.job_type)] = entry
         # Backfill missing job types with defaults so route() never returns None for known jobs.
         for jt in _ALL_JOB_TYPES:
             entries.setdefault(jt, _default_entry(jt))
         return cls(entries)
+
+
+def _is_legacy_seed_default_row(row: dict[str, object]) -> bool:
+    payload = row.get("payload")
+    if not isinstance(payload, dict):
+        return False
+    return (
+        row.get("preferred_provider") == "openrouter"
+        and row.get("preferred_model") == _LEGACY_GEMINI_SEED_MODEL
+        and payload.get("preferred_provider") == "openrouter"
+        and payload.get("preferred_model") == _LEGACY_GEMINI_SEED_MODEL
+    )
 
 
 async def build_provider_rate_limiter(

@@ -58,7 +58,7 @@ make lint
 worldfork smoke live
 ```
 
-`worldfork smoke live` uses real OpenRouter credits and should use only `google/gemini-3.1-flash-lite-preview` for audited LLM calls.
+`worldfork smoke live` uses real API credits and should use the default split: OpenRouter `deepseek/deepseek-v4-flash` plus OpenAI Codex `gpt-5.4`.
 
 ## More Documentation
 

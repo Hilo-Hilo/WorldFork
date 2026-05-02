@@ -86,7 +86,7 @@ def _seed_global(session, sot: dict) -> None:
 
 
 def _seed_provider(session) -> None:
-    rows = [
+    rows: list[dict] = [
         {
             "provider": "openrouter",
             "base_url": settings.openrouter_base_url,
@@ -123,7 +123,7 @@ def _seed_provider(session) -> None:
             "fallback_model": settings.openai_codex_fallback_model,
             "json_mode_required": True,
             "tool_calling_enabled": False,
-            "enabled": False,
+            "enabled": settings.openai_codex_enabled,
             "extra_headers": {},
             "payload": {
                 "provider": "openai-codex",
@@ -137,7 +137,7 @@ def _seed_provider(session) -> None:
                 "fallback_model": settings.openai_codex_fallback_model,
                 "json_mode_required": True,
                 "tool_calling_enabled": False,
-                "enabled": False,
+                "enabled": settings.openai_codex_enabled,
             },
         },
     ]
@@ -146,7 +146,20 @@ def _seed_provider(session) -> None:
 
 
 # PRD §16.4 model routing defaults
-_OPENROUTER_MODEL = "google/gemini-3.1-flash-lite-preview"
+_OPENROUTER_MODEL = settings.default_model
+_OPENAI_CODEX_MODEL = settings.openai_codex_default_model
+_OPENAI_CODEX_JOB_TYPES = {
+    "initialize_big_bang",
+    "initializer_chunk_extractor",
+    "initializer_agent",
+    "god_agent_review",
+    "god_agent",
+    "endpoint_ledger",
+    "evaluate_endpoint_ledger",
+    "aggregate_run_results",
+    "report_agent",
+    "force_deviation",
+}
 
 _ROUTING_DEFAULTS = [
     {
@@ -310,6 +323,22 @@ _ROUTING_DEFAULTS = [
         "daily_budget_usd": None,
     },
     {
+        "job_type": "evaluate_endpoint_ledger",
+        "preferred_provider": "openrouter",
+        "preferred_model": _OPENROUTER_MODEL,
+        "fallback_provider": "openrouter",
+        "fallback_model": _OPENROUTER_MODEL,
+        "temperature": 0.15,
+        "top_p": 1.0,
+        "max_tokens": 4096,
+        "max_concurrency": 2,
+        "requests_per_minute": 20,
+        "tokens_per_minute": 200000,
+        "timeout_seconds": 180,
+        "retry_policy": "exponential_backoff",
+        "daily_budget_usd": None,
+    },
+    {
         "job_type": "sync_zep_memory",
         "preferred_provider": "openrouter",
         "preferred_model": _OPENROUTER_MODEL,
@@ -373,11 +402,157 @@ _ROUTING_DEFAULTS = [
         "retry_policy": "exponential_backoff",
         "daily_budget_usd": None,
     },
+    {
+        "job_type": "initializer_agent",
+        "preferred_provider": "openrouter",
+        "preferred_model": _OPENROUTER_MODEL,
+        "fallback_provider": "openrouter",
+        "fallback_model": _OPENROUTER_MODEL,
+        "temperature": 0.25,
+        "top_p": 1.0,
+        "max_tokens": 4096,
+        "max_concurrency": 4,
+        "requests_per_minute": 60,
+        "tokens_per_minute": 200000,
+        "timeout_seconds": 120,
+        "retry_policy": "exponential_backoff",
+        "daily_budget_usd": None,
+    },
+    {
+        "job_type": "initializer_chunk_extractor",
+        "preferred_provider": "openrouter",
+        "preferred_model": _OPENROUTER_MODEL,
+        "fallback_provider": "openrouter",
+        "fallback_model": _OPENROUTER_MODEL,
+        "temperature": 0.15,
+        "top_p": 1.0,
+        "max_tokens": 4096,
+        "max_concurrency": 4,
+        "requests_per_minute": 60,
+        "tokens_per_minute": 200000,
+        "timeout_seconds": 120,
+        "retry_policy": "exponential_backoff",
+        "daily_budget_usd": None,
+    },
+    {
+        "job_type": "god_agent",
+        "preferred_provider": "openrouter",
+        "preferred_model": _OPENROUTER_MODEL,
+        "fallback_provider": "openrouter",
+        "fallback_model": _OPENROUTER_MODEL,
+        "temperature": 0.2,
+        "top_p": 1.0,
+        "max_tokens": 8192,
+        "max_concurrency": 2,
+        "requests_per_minute": 20,
+        "tokens_per_minute": 200000,
+        "timeout_seconds": 180,
+        "retry_policy": "exponential_backoff",
+        "daily_budget_usd": None,
+    },
+    {
+        "job_type": "cohort_agent",
+        "preferred_provider": "openrouter",
+        "preferred_model": _OPENROUTER_MODEL,
+        "fallback_provider": "openrouter",
+        "fallback_model": _OPENROUTER_MODEL,
+        "temperature": 0.8,
+        "top_p": 1.0,
+        "max_tokens": 4096,
+        "max_concurrency": 16,
+        "requests_per_minute": 120,
+        "tokens_per_minute": 400000,
+        "timeout_seconds": 90,
+        "retry_policy": "exponential_backoff",
+        "daily_budget_usd": None,
+    },
+    {
+        "job_type": "hero_agent",
+        "preferred_provider": "openrouter",
+        "preferred_model": _OPENROUTER_MODEL,
+        "fallback_provider": "openrouter",
+        "fallback_model": _OPENROUTER_MODEL,
+        "temperature": 0.8,
+        "top_p": 1.0,
+        "max_tokens": 4096,
+        "max_concurrency": 16,
+        "requests_per_minute": 120,
+        "tokens_per_minute": 400000,
+        "timeout_seconds": 90,
+        "retry_policy": "exponential_backoff",
+        "daily_budget_usd": None,
+    },
+    {
+        "job_type": "event_summary",
+        "preferred_provider": "openrouter",
+        "preferred_model": _OPENROUTER_MODEL,
+        "fallback_provider": "openrouter",
+        "fallback_model": _OPENROUTER_MODEL,
+        "temperature": 0.5,
+        "top_p": 1.0,
+        "max_tokens": 4096,
+        "max_concurrency": 8,
+        "requests_per_minute": 60,
+        "tokens_per_minute": 200000,
+        "timeout_seconds": 60,
+        "retry_policy": "exponential_backoff",
+        "daily_budget_usd": None,
+    },
+    {
+        "job_type": "endpoint_ledger",
+        "preferred_provider": "openrouter",
+        "preferred_model": _OPENROUTER_MODEL,
+        "fallback_provider": "openrouter",
+        "fallback_model": _OPENROUTER_MODEL,
+        "temperature": 0.15,
+        "top_p": 1.0,
+        "max_tokens": 4096,
+        "max_concurrency": 2,
+        "requests_per_minute": 20,
+        "tokens_per_minute": 200000,
+        "timeout_seconds": 180,
+        "retry_policy": "exponential_backoff",
+        "daily_budget_usd": None,
+    },
+    {
+        "job_type": "report_agent",
+        "preferred_provider": "openrouter",
+        "preferred_model": _OPENROUTER_MODEL,
+        "fallback_provider": "openrouter",
+        "fallback_model": _OPENROUTER_MODEL,
+        "temperature": 0.25,
+        "top_p": 1.0,
+        "max_tokens": 8192,
+        "max_concurrency": 2,
+        "requests_per_minute": 20,
+        "tokens_per_minute": 200000,
+        "timeout_seconds": 300,
+        "retry_policy": "exponential_backoff",
+        "daily_budget_usd": None,
+    },
 ]
 
 
+def _routing_model_defaults(row: dict) -> dict:
+    row = dict(row)
+    if row["job_type"] in _OPENAI_CODEX_JOB_TYPES:
+        row["preferred_provider"] = "openai-codex"
+        row["preferred_model"] = _OPENAI_CODEX_MODEL
+        row["fallback_provider"] = "openai-codex"
+        row["fallback_model"] = _OPENAI_CODEX_MODEL
+    else:
+        row["preferred_provider"] = "openrouter"
+        row["preferred_model"] = _OPENROUTER_MODEL
+        row["fallback_provider"] = "openrouter"
+        row["fallback_model"] = _OPENROUTER_MODEL
+    return row
+
+
 def _seed_routing(session) -> None:
-    rows = [dict(r, payload=r) for r in _ROUTING_DEFAULTS]
+    rows = [
+        dict(row, payload={**row, "source": "seed_default"})
+        for row in (_routing_model_defaults(r) for r in _ROUTING_DEFAULTS)
+    ]
     _upsert(session, ModelRoutingEntryModel, "job_type", rows)
     print(f"  [model_routing] seeded {len(rows)} rows")
 

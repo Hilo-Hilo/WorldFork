@@ -37,6 +37,12 @@ import backend.app.providers as providers
 
 router = APIRouter(prefix="/settings", tags=["settings"])
 DbSession = Annotated[AsyncSession, Depends(get_session)]
+_OPENAI_CODEX_MODEL_SETTINGS = {
+    "initializer_agent_model",
+    "god_agent_model",
+    "report_agent_model",
+}
+_LEGACY_GEMINI_SEED_MODEL = "google/gemini-3.1-flash-lite-preview"
 
 
 def _row_dict(row: Any) -> dict[str, Any]:
@@ -146,7 +152,24 @@ def _row_source(row: dict[str, Any]) -> str:
 
 def _is_seed_default_row(row: dict[str, Any] | None) -> bool:
     payload = row.get("payload") if row else None
-    return isinstance(payload, dict) and payload.get("source") == "seed_default"
+    return (
+        (isinstance(payload, dict) and payload.get("source") == "seed_default")
+        or _is_legacy_seed_default_row(row)
+    )
+
+
+def _is_legacy_seed_default_row(row: dict[str, Any] | None) -> bool:
+    payload = row.get("payload") if row else None
+    if not isinstance(payload, dict):
+        return False
+    if row is None:
+        return False
+    return (
+        row.get("preferred_provider") == "openrouter"
+        and row.get("preferred_model") == _LEGACY_GEMINI_SEED_MODEL
+        and payload.get("preferred_provider") == "openrouter"
+        and payload.get("preferred_model") == _LEGACY_GEMINI_SEED_MODEL
+    )
 
 
 def _default_model_for_route(route_info: dict[str, Any]) -> str:
@@ -155,20 +178,35 @@ def _default_model_for_route(route_info: dict[str, Any]) -> str:
     return str(value or settings.default_model)
 
 
+def _default_provider_for_route(route_info: dict[str, Any]) -> str:
+    if route_info.get("fallback_model_setting") in _OPENAI_CODEX_MODEL_SETTINGS:
+        return "openai-codex"
+    return settings.default_llm_provider
+
+
 def _effective_routing_entries(entries: list[dict[str, Any]]) -> list[dict[str, Any]]:
     rows_by_job_type = {str(row["job_type"]): row for row in entries}
     effective: list[dict[str, Any]] = []
     for route_info in audited_route_catalog():
         route = str(route_info["route"])
         row = rows_by_job_type.get(route)
+        if _is_legacy_seed_default_row(row):
+            row = None
         matched_route = route if row is not None else None
         for alias in route_info.get("aliases", []):
             alias_row = rows_by_job_type.get(str(alias))
+            if _is_legacy_seed_default_row(alias_row):
+                continue
             if row is None and alias_row is not None:
                 row = alias_row
                 matched_route = str(alias)
                 break
-            if row is not None and alias_row is not None and _is_seed_default_row(row):
+            if (
+                row is not None
+                and alias_row is not None
+                and _is_seed_default_row(row)
+                and not _is_seed_default_row(alias_row)
+            ):
                 row = alias_row
                 matched_route = str(alias)
                 break
@@ -179,7 +217,7 @@ def _effective_routing_entries(entries: list[dict[str, Any]]) -> list[dict[str, 
                     "route_kind": route_info["route_kind"],
                     "job_type": route,
                     "matched_route": None,
-                    "preferred_provider": settings.default_llm_provider,
+                    "preferred_provider": _default_provider_for_route(route_info),
                     "preferred_model": _default_model_for_route(route_info),
                     "fallback_provider": settings.default_llm_provider,
                     "fallback_model": settings.fallback_model,
@@ -256,13 +294,16 @@ def _provider_catalog(providers_rows: list[dict[str, Any]]) -> list[dict[str, An
     codex_key_env = (
         str(codex_row.get("api_key_env")) if codex_row is not None else "OPENAI_CODEX_OAUTH_TOKEN"
     )
+    codex_enabled = bool(settings.openai_codex_enabled) or (
+        bool(codex_row["enabled"]) if codex_row else False
+    )
     catalog.append(
         {
             "provider": "openai-codex",
             "api_shape": _provider_api_shape(codex_row, "openai-codex-responses"),
             "source": "settings_provider" if codex_row else "runtime_defaults",
             "supported": True,
-            "enabled": bool(codex_row["enabled"]) if codex_row else bool(settings.openai_codex_enabled),
+            "enabled": codex_enabled,
             "configured": bool(
                 settings.openai_codex_oauth_token
                 or os.environ.get(codex_key_env)

@@ -147,8 +147,8 @@ _PRICE_PER_1K: dict[str, float] = {
     "google/gemini-3.1-flash-lite-preview": 0.00001,
     "deepseek/deepseek-v3.2": 0.00026,
     "deepseek/deepseek-v4-pro": 0.00174,
-    "deepseek/deepseek-v4-flash": 0.0,
-    "openai/gpt-5.5": 0.0,
+    "deepseek/deepseek-v4-flash": 0.00001,
+    "gpt-5.4": 0.0,
     "openai/gpt-5.4": 0.0,
     "openai/gpt-4o-mini": 0.00015,
     "anthropic/claude-3-5-sonnet": 0.003,
@@ -497,7 +497,7 @@ async def initialize_providers_from_settings(settings) -> None:  # type: ignore[
         settings, "openai_codex_base_url", OPENAI_CODEX_RESPONSES_BASE_URL
     )
     codex_api_key_env = OPENAI_CODEX_OAUTH_ENV
-    codex_default_model = getattr(settings, "openai_codex_default_model", "gpt-5.5")
+    codex_default_model = getattr(settings, "openai_codex_default_model", "gpt-5.4")
     codex_fallback_model = getattr(settings, "openai_codex_fallback_model", None)
     codex_env_enabled = bool(getattr(settings, "openai_codex_enabled", False))
     codex_enabled = codex_env_enabled
@@ -531,7 +531,7 @@ async def initialize_providers_from_settings(settings) -> None:  # type: ignore[
     )
 
     if openrouter_enabled and openrouter_api_key:
-        provider = OpenRouterProvider(
+        openrouter_provider = OpenRouterProvider(
             api_key=openrouter_api_key,
             base_url=openrouter_base_url,
             default_model=openrouter_default_model,
@@ -539,11 +539,11 @@ async def initialize_providers_from_settings(settings) -> None:  # type: ignore[
             http_referer=settings.openrouter_http_referer,
             x_title=settings.openrouter_title,
         )
-        register_provider("openrouter", provider)
+        register_provider("openrouter", openrouter_provider)
         logger.info("registered OpenRouter provider (model=%s)", openrouter_default_model)
 
     if codex_enabled:
-        provider = OpenAICodexProvider(
+        codex_provider = OpenAICodexProvider(
             oauth_token=getattr(settings, "openai_codex_oauth_token", None),
             oauth_token_env=codex_api_key_env,
             codex_auth_file=getattr(settings, "openai_codex_auth_file", None),
@@ -551,8 +551,8 @@ async def initialize_providers_from_settings(settings) -> None:  # type: ignore[
             default_model=codex_default_model,
             fallback_model=codex_fallback_model,
         )
-        if provider.has_oauth_token():
-            register_provider("openai-codex", provider)
+        if codex_provider.has_oauth_token():
+            register_provider("openai-codex", codex_provider)
             logger.info("registered OpenAI Codex provider (model=%s)", codex_default_model)
         else:
             logger.warning(
