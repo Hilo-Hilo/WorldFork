@@ -5,7 +5,7 @@ description: Use when operating, validating, onboarding, configuring LLM provide
 
 # WorldFork
 
-WorldFork is a backend + worker + CLI product for branching social simulations. The primary operator interface is the `worldfork` CLI, backed by the FastAPI agent and runtime APIs.
+WorldFork is a backend + worker + CLI product for branching social simulations. Its core framing is a Monte Carlo tree search of the real world. The primary operator interface is the `worldfork` CLI, backed by the FastAPI agent and runtime APIs.
 
 ## Start Here
 

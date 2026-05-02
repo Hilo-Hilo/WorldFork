@@ -1,6 +1,6 @@
 # Reporting
 
-WorldFork reports are structured database records first. Rendered Markdown and PDF outputs are generated from those records only on request.
+WorldFork reports are structured database records first. They summarize the Monte Carlo tree search of the real world by comparing retained timelines, endpoint evidence, branch/path mass, and terminal outcomes. Rendered Markdown and PDF outputs are generated from those records only on request.
 
 ## Layers
 
