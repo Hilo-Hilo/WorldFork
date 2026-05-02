@@ -197,7 +197,7 @@ def test_models_defaults_alias_calls_agent_models(monkeypatch) -> None:
 
         def request(self, method, path, *, params=None, json_body=None):
             calls.append((method, path, params, json_body))
-            return {"default_model": "google/gemini-3.1-flash-lite-preview"}
+            return {"default_model": "deepseek/deepseek-v4-flash"}
 
     monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
 

@@ -1249,7 +1249,7 @@ def demo() -> None:
 @click.option("--idle-termination-ticks", type=int, default=6, show_default=True)
 @click.option("--completion-max-requests", type=int, default=1000, show_default=True)
 @click.option("--expected-provider", default="openrouter", show_default=True)
-@click.option("--expected-model", default="google/gemini-3.1-flash-lite-preview", show_default=True)
+@click.option("--expected-model", default="deepseek/deepseek-v4-flash", show_default=True)
 @click.pass_obj
 def demo_atlas(
     ctx: Context,

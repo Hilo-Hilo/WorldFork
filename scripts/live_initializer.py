@@ -1,10 +1,11 @@
-"""Live end-to-end test of initialize_big_bang against real OpenRouter.
+"""Live end-to-end test of initialize_big_bang against real OpenAI Codex.
 
 Prefer the CLI initialization path:
     worldfork init --name "Live initializer" --scenario "<scenario text>"
 
 Requires:
-    - OPENROUTER_API_KEY in .env
+    - OpenAI Codex OAuth via `worldfork settings openai-codex-login`,
+      `codex login --device-auth`, or OPENAI_CODEX_OAUTH_TOKEN
     - fakeredis installed (for fake Redis-backed ProviderRateLimiter)
     - aiosqlite installed (for in-memory SQLite async engine)
 """
@@ -16,7 +17,7 @@ import os
 import sys
 from pathlib import Path
 
-GEMINI_MODEL = "google/gemini-3.1-flash-lite-preview"
+CODEX_MODEL = "gpt-5.4"
 
 # ---------------------------------------------------------------------------
 # Bootstrap .env before importing anything that reads settings
@@ -68,7 +69,7 @@ async def main() -> None:
     from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
     from backend.app.providers import clear_registry, register_provider
-    from backend.app.providers.openrouter import OpenRouterProvider
+    from backend.app.providers.openai_codex import OpenAICodexProvider
     from backend.app.providers.rate_limits import ProviderRateLimiter
     from backend.app.providers.routing import RoutingTable
     from backend.app.schemas.settings import ModelRoutingEntry
@@ -100,21 +101,23 @@ async def main() -> None:
     print(f"    SoT version={sot.version!r} sha256={sot.snapshot_sha256[:16]}...")
 
     # ---- 3. Provider -------------------------------------------------------
-    print("\n[3] Constructing OpenRouterProvider ...")
-    api_key = os.environ.get("OPENROUTER_API_KEY", "")
-    if not api_key or not api_key.startswith("sk-or-"):
-        print("ERROR: OPENROUTER_API_KEY not found or invalid. Set it in .env.")
-        sys.exit(1)
+    print("\n[3] Constructing OpenAICodexProvider ...")
     clear_registry()
-    provider = OpenRouterProvider(
-        api_key=api_key,
-        base_url=os.environ.get("OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1"),
-        default_model=GEMINI_MODEL,
-        fallback_model=GEMINI_MODEL,
-        http_referer=os.environ.get("OPENROUTER_HTTP_REFERER", "http://localhost:3003"),
-        x_title=os.environ.get("OPENROUTER_TITLE", "WorldFork"),
+    provider = OpenAICodexProvider(
+        oauth_token=os.environ.get("OPENAI_CODEX_OAUTH_TOKEN"),
+        codex_auth_file=os.environ.get("OPENAI_CODEX_AUTH_FILE"),
+        base_url=os.environ.get("OPENAI_CODEX_BASE_URL", "https://chatgpt.com/backend-api/codex"),
+        default_model=CODEX_MODEL,
+        fallback_model=CODEX_MODEL,
     )
-    register_provider("openrouter", provider)
+    if not provider.has_oauth_token():
+        print(
+            "ERROR: OpenAI Codex OAuth token not found. Run "
+            "`worldfork settings openai-codex-login`, run `codex login --device-auth`, "
+            "or set OPENAI_CODEX_OAUTH_TOKEN."
+        )
+        sys.exit(1)
+    register_provider("openai-codex", provider)
     print("    Provider registered")
 
     # ---- 4. Rate limiter (fakeredis) ---------------------------------------
@@ -122,7 +125,7 @@ async def main() -> None:
     fake_redis = fakeredis.aioredis.FakeRedis()
     limiter = ProviderRateLimiter(
         fake_redis,
-        provider="openrouter",
+        provider="openai-codex",
         rpm_limit=60,
         tpm_limit=150_000,
         max_concurrency=4,
@@ -131,14 +134,14 @@ async def main() -> None:
     print("    Rate limiter ready")
 
     # ---- 5. Routing table — pin initialize_big_bang to the approved live model ---
-    print(f"\n[5] Building RoutingTable with {GEMINI_MODEL} for initialize_big_bang ...")
+    print(f"\n[5] Building RoutingTable with {CODEX_MODEL} for initialize_big_bang ...")
     routing = RoutingTable.defaults()
     routing._entries["initialize_big_bang"] = ModelRoutingEntry(
         job_type="initialize_big_bang",
-        preferred_provider="openrouter",
-        preferred_model=GEMINI_MODEL,
-        fallback_provider="openrouter",
-        fallback_model=GEMINI_MODEL,
+        preferred_provider="openai-codex",
+        preferred_model=CODEX_MODEL,
+        fallback_provider="openai-codex",
+        fallback_model=CODEX_MODEL,
         temperature=0.6,
         top_p=0.95,
         max_tokens=16384,  # big bang output is large; 4096 causes truncation

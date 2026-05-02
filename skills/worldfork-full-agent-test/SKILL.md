@@ -16,7 +16,7 @@ Use this skill for a full first-user validation of WorldFork from a clean enviro
 - Put global flags before the command: `worldfork --verbosity summary runs list`.
 - Start broad inspection with `--verbosity summary`; use `--fields` for large rows.
 - Do not hardcode backend URLs. Use CLI defaults, `--base-url`, `WORLD_FORK_API_BASE`, or `BACKEND_API_BASE`.
-- All live API-credit work must use `google/gemini-3.1-flash-lite-preview` unless the user explicitly authorizes a different model route or mixed provider policy.
+- All live API-credit work must use the default route split unless the user explicitly authorizes a different model route or mixed provider policy: `openrouter/deepseek/deepseek-v4-flash` for cohort, hero, action, and event-summary work and `openai-codex/gpt-5.4` for initialization, God review, endpoint-ledger evaluation, and reports.
 - Use subagents. If the host agent cannot spawn subagents, stop and report that the required execution mode is unavailable.
 - Keep every mutation scoped to disposable local data created by this test.
 - Use bounded waits. Never leave unbounded polling, watchers, or servers running at the end.
@@ -122,18 +122,19 @@ Prepare runtime:
 cp .env.example .env
 ```
 
-Ensure `.env` has `OPENROUTER_API_KEY` and that every configured WorldFork model slot resolves to the approved live-test model, unless the user explicitly authorizes a different route policy:
+Ensure `.env` has `OPENROUTER_API_KEY`, OpenAI Codex OAuth is configured, and every configured WorldFork model slot resolves to the approved live-test split unless the user explicitly authorizes a different route policy:
 
 ```text
-google/gemini-3.1-flash-lite-preview
+openrouter/deepseek/deepseek-v4-flash
+openai-codex/gpt-5.4
 ```
 
-When a different policy is authorized, configure it only through `worldfork settings providers` and `worldfork settings model-routing`, then record the full `worldfork settings llm` response. It is valid to keep `cohort_agent` on a cheaper OpenRouter model to control cost and latency, but route higher-impact calls to a strong provider/model when quality matters:
+When a different policy is authorized, configure it only through `worldfork settings providers` and `worldfork settings model-routing`, then record the full `worldfork settings llm` response. It is valid to keep frequent cohort, hero, action, and event-summary calls on a cheaper OpenRouter model to control cost and latency, but route higher-impact calls to a strong provider/model when quality matters:
 
-- strong route candidates: `initializer_chunk_extractor`, `initializer_agent`, `god_agent`, `hero_agent`, `event_summary`, `report_agent`, `endpoint_ledger`
-- cheaper route candidate: `cohort_agent`
+- strong route candidates: `initializer_chunk_extractor`, `initializer_agent`, `god_agent`, `report_agent`, `endpoint_ledger`
+- cheaper route candidates: `cohort_agent`, `hero_agent`, `event_summary`
 
-For OpenAI Codex OAuth, use `worldfork settings openai-codex-login`; do not assume the Codex CLI is installed. A representative mixed policy is `openai-codex/gpt-5.5` for initialization, God review, reports, and endpoint-ledger evaluation, with `openrouter/google/gemini-3.1-flash-lite-preview` for `cohort_agent` and as fallback. Restore the previous route rows after the test unless the user explicitly wants the mixed policy to remain.
+For OpenAI Codex OAuth, use `worldfork settings openai-codex-login`; do not assume the Codex CLI is installed. The standard policy is `openai-codex/gpt-5.4` for initialization, God review, reports, and endpoint-ledger evaluation, with `openrouter/deepseek/deepseek-v4-flash` for `cohort_agent`, `hero_agent`, action execution, and event summaries. Restore previous route rows after a temporary experiment unless the user explicitly wants the mixed policy to remain.
 
 Start and verify:
 
@@ -514,7 +515,7 @@ skills/worldfork-full-agent-test/references/accuracy-sweep.md
 skills/worldfork-full-agent-test/references/accuracy-benchmark-prompts.jsonl
 ```
 
-Use the cheap approved model route, `google/gemini-3.1-flash-lite-preview`, unless the user explicitly authorizes a different model or mixed provider policy. When a single-model override is authorized, pass it through `WF_MODEL` so the harness records the configured model in `run-config.json` and injects it into every WorldFork model slot. When a mixed route policy is authorized, patch `worldfork settings model-routing`, capture `worldfork settings llm`, and verify audited LLM logs include the expected provider/model for each route. The default full benchmark is 72 initialization prompts from the bundled JSONL file. For a faster smoke, sample 12 cases while preserving the category quotas in the SOP. For a stronger study, expand to 96-100 cases by adding prompts that follow the same JSONL schema and taxonomy.
+Use the approved default split unless the user explicitly authorizes a different model or mixed provider policy: `openrouter/deepseek/deepseek-v4-flash` for cohort, hero, action, and event-summary work and `openai-codex/gpt-5.4` for initialization, God review, endpoint-ledger evaluation, and reports. When a single-model override is authorized, pass it through `WF_MODEL` so the harness records the configured model in `run-config.json` and injects it into every WorldFork model slot. When a mixed route policy is authorized, patch `worldfork settings model-routing`, capture `worldfork settings llm`, and verify audited LLM logs include the expected provider/model for each route. The default full benchmark is 72 initialization prompts from the bundled JSONL file. For a faster smoke, sample 12 cases while preserving the category quotas in the SOP. For a stronger study, expand to 96-100 cases by adding prompts that follow the same JSONL schema and taxonomy.
 
 Collect initialization and audit evidence with CLI-first commands:
 

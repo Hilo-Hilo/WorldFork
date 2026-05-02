@@ -12,9 +12,9 @@ case_id + model + max_ticks + branch_policy + initialization mode + run_id
 
 Score only from persisted artifacts: scenario prompt, initialization outputs, LLM audit records, tick bundles, event logs, tool calls, job/log records, endpoint ledgers, lineage, report records, and rendered report artifacts. Do not score from memory of watching the run.
 
-Use `google/gemini-3.1-flash-lite-preview` for live calls unless the user explicitly authorizes a different model or mixed route policy. For authorized single-model overrides, set `WF_MODEL` before launching the maintained overnight harness. For authorized mixed policies, patch `worldfork settings model-routing`, capture `worldfork settings llm`, and verify every audited LLM call has the expected provider/model. Record every configured route, provider, model, and audited LLM call model.
+Use the default split for live calls unless the user explicitly authorizes a different model or mixed route policy: `openrouter/deepseek/deepseek-v4-flash` for cohort, hero, action, and event-summary work and `openai-codex/gpt-5.4` for initialization, God review, endpoint-ledger evaluation, and reports. For authorized single-model overrides, set `WF_MODEL` before launching the maintained overnight harness. For authorized split overrides, set `WF_OPENROUTER_MODEL` and `WF_OPENAI_CODEX_MODEL` or patch `worldfork settings model-routing`, capture `worldfork settings llm`, and verify every audited LLM call has the expected provider/model. Record every configured route, provider, model, and audited LLM call model.
 
-For quality-focused studies, `cohort_agent` may stay on a cheaper OpenRouter model because it is called frequently. Prefer a strong provider/model, such as OpenAI Codex OAuth or a strong OpenRouter model, for `initializer_chunk_extractor`, `initializer_agent`, `god_agent`, `hero_agent`, `event_summary`, `report_agent`, and `endpoint_ledger`.
+For quality-focused studies, `cohort_agent`, `hero_agent`, and `event_summary` may stay on a cheaper OpenRouter model because they are frequent. Prefer a strong provider/model, such as OpenAI Codex OAuth or a strong OpenRouter model, for `initializer_chunk_extractor`, `initializer_agent`, `god_agent`, `report_agent`, and `endpoint_ledger`.
 
 ## Source Locations
 
@@ -261,7 +261,7 @@ Example `case_result`:
   "difficulty": "medium",
   "scenario_hash": "sha256:...",
   "config": {
-    "model": "google/gemini-3.1-flash-lite-preview",
+    "model": "openrouter/deepseek/deepseek-v4-flash + openai-codex/gpt-5.4",
     "max_ticks": 35,
     "tick_duration_minutes": 720,
     "branch_score_threshold": 0.7

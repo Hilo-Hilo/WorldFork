@@ -25,7 +25,12 @@ from sqlalchemy import select
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SCENARIO = ROOT / "examples" / "test-big-bang.md"
 DEFAULT_BASE_URL = os.environ.get("WORLDFORK_API_URL", "http://127.0.0.1:8003")
-GEMINI_MODEL = "google/gemini-3.1-flash-lite-preview"
+OPENROUTER_MODEL = "deepseek/deepseek-v4-flash"
+OPENAI_CODEX_MODEL = "gpt-5.4"
+DEFAULT_EXPECTED_PAIRS = {
+    ("openrouter", OPENROUTER_MODEL),
+    ("openai-codex", OPENAI_CODEX_MODEL),
+}
 DEFAULT_ATLAS_TICK_DURATION_MINUTES = 720
 DEFAULT_ATLAS_HORIZON_DAYS = 30
 RUNNABLE_MULTIVERSE_STATUSES = {"active", "candidate"}
@@ -172,27 +177,62 @@ def sample_payload(
     }
 
 
-def assert_config_uses_model(expected_provider: str, expected_model: str) -> None:
+def assert_config_uses_default_split(expected_provider: str, expected_model: str) -> None:
     settings = get_settings()
     check(
         settings.default_llm_provider == expected_provider,
         f"default provider is {expected_provider}",
     )
     model_slots = {
-        "default": settings.default_model,
-        "fallback": settings.fallback_model,
-        "initializer": settings.initializer_agent_model,
-        "god": settings.god_agent_model,
-        "cohort": settings.cohort_agent_model,
-        "hero": settings.hero_agent_model,
-        "event_summary": settings.event_summary_model,
-        "report": settings.report_agent_model,
+        "default": (settings.default_model, expected_model),
+        "fallback": (settings.fallback_model, expected_model),
+        "initializer": (settings.initializer_agent_model, OPENAI_CODEX_MODEL),
+        "god": (settings.god_agent_model, OPENAI_CODEX_MODEL),
+        "cohort": (settings.cohort_agent_model, expected_model),
+        "hero": (settings.hero_agent_model, expected_model),
+        "event_summary": (settings.event_summary_model, expected_model),
+        "report": (settings.report_agent_model, OPENAI_CODEX_MODEL),
     }
-    for label, model in model_slots.items():
-        check(model == expected_model, f"{label} model is {expected_model}")
+    for label, (model, expected) in model_slots.items():
+        check(model == expected, f"{label} model is {expected}")
+    check(
+        settings.openai_codex_default_model == OPENAI_CODEX_MODEL,
+        f"OpenAI Codex default model is {OPENAI_CODEX_MODEL}",
+    )
 
 
-def assert_expected_llm_only(big_bang_id: str, expected_provider: str, expected_model: str) -> int:
+def _expected_pairs(args: argparse.Namespace) -> set[tuple[str, str]]:
+    configured = os.environ.get("WORLDFORK_DEMO_EXPECTED_PAIRS")
+    if configured:
+        pairs: set[tuple[str, str]] = set()
+        for item in configured.split(","):
+            provider, separator, model = item.partition(":")
+            if separator and provider.strip() and model.strip():
+                pairs.add((provider.strip(), model.strip()))
+        if pairs:
+            return pairs
+    pairs = set(DEFAULT_EXPECTED_PAIRS)
+    if args.expected_provider and args.expected_model:
+        pairs.add((args.expected_provider, args.expected_model))
+    return pairs
+
+
+def _call_matches_expected_pair(call: Any, expected_pairs: set[tuple[str, str]]) -> bool:
+    return any(
+        call.provider == provider and model in str(call.model)
+        for provider, model in expected_pairs
+    )
+
+
+def assert_expected_llm_only(
+    big_bang_id: str,
+    expected_pairs: set[tuple[str, str]] | str,
+    expected_model: str | None = None,
+) -> int:
+    if isinstance(expected_pairs, str):
+        if expected_model is None:
+            raise TypeError("expected_model is required when expected_pairs is a provider string")
+        expected_pairs = {(expected_pairs, expected_model)}
     db = SessionLocal()
     try:
         calls = db.scalars(
@@ -204,14 +244,30 @@ def assert_expected_llm_only(big_bang_id: str, expected_provider: str, expected_
         mismatches = [
             {"provider": call.provider, "model": call.model, "purpose": call.purpose}
             for call in calls
-            if call.provider != expected_provider or expected_model not in str(call.model)
+            if not _call_matches_expected_pair(call, expected_pairs)
         ]
         if mismatches:
             raise SampleFailure(f"unexpected LLM providers/models were used: {mismatches[:10]}")
-        print(f"[pass] all {len(calls)} audited LLM calls used {expected_provider}/{expected_model}")
+        print(f"[pass] all {len(calls)} audited LLM calls used {sorted(expected_pairs)}")
         return len(calls)
     finally:
         db.close()
+
+
+def _legacy_assert_config_uses_model(expected_provider: str, expected_model: str) -> None:
+    settings = get_settings()
+    check(settings.default_llm_provider == expected_provider, f"default provider is {expected_provider}")
+    for label, model in {
+        "default": settings.default_model,
+        "fallback": settings.fallback_model,
+        "cohort": settings.cohort_agent_model,
+        "hero": settings.hero_agent_model,
+        "event_summary": settings.event_summary_model,
+    }.items():
+        check(model == expected_model, f"{label} model is {expected_model}")
+
+
+assert_config_uses_model = _legacy_assert_config_uses_model
 
 
 def validate_runtime(runtime: dict[str, Any]) -> None:
@@ -469,15 +525,17 @@ def run_sample(args: argparse.Namespace) -> None:
     scenario_path = Path(args.scenario_file).resolve()
     scenario_text = scenario_path.read_text()
     check(len(scenario_text) > 10_000, "test-big-bang.md is a long-form scenario dossier")
-    assert_config_uses_model(args.expected_provider, args.expected_model)
+    assert_config_uses_default_split(args.expected_provider, args.expected_model)
+    expected_pairs = _expected_pairs(args)
 
     base_url = str(args.base_url).rstrip("/")
     with httpx.Client(timeout=args.timeout) as client:
         ready = wait_for_ready(client, base_url)
-        check(
-            ready["checks"][args.expected_provider],
-            f"readyz reports {args.expected_provider} configured",
-        )
+        for provider in sorted({provider for provider, _model in expected_pairs}):
+            check(
+                ready["checks"].get(provider) is True,
+                f"readyz reports {provider} configured",
+            )
 
         big_bang = request(
             client,
@@ -521,7 +579,7 @@ def run_sample(args: argparse.Namespace) -> None:
         check(len(request(client, base_url, "GET", f"/api/ticks/{root_tick['id']}/social")["posts"]) >= 1, "root social posts exist")
         check(len(request(client, base_url, "GET", f"/api/ticks/{root_tick['id']}/graph-deltas")) >= 1, "root graph deltas exist")
         check(len(request(client, base_url, "GET", f"/api/ticks/{root_tick['id']}/sociology-signals")) >= 1, "root sociology signals exist")
-        assert_expected_llm_only(big_bang_id, args.expected_provider, args.expected_model)
+        assert_expected_llm_only(big_bang_id, expected_pairs)
 
         child_multiverse_id = record_manual_transparency_branch(root_multiverse_id, root_tick["id"])
         lineage = request(client, base_url, "GET", f"/api/multiverses/{child_multiverse_id}/lineage")
@@ -560,7 +618,7 @@ def run_sample(args: argparse.Namespace) -> None:
         markdown = request(client, base_url, "GET", f"/api/report-versions/{report['id']}/markdown")
         check("Outcome Distribution" in markdown, "final Atlas onboarding markdown renders outcome distribution")
         render_pdf(client, base_url, report["id"])
-        call_count = assert_expected_llm_only(big_bang_id, args.expected_provider, args.expected_model)
+        call_count = assert_expected_llm_only(big_bang_id, expected_pairs)
 
     print("\n== ATLAS ONBOARDING DEMO COMPLETE ==")
     print(f"big_bang_id={big_bang_id}")
@@ -571,8 +629,7 @@ def run_sample(args: argparse.Namespace) -> None:
     print(f"final_report_version_id={report['id']}")
     print(f"completion_requests={completion_requests}")
     print(f"audited_llm_calls={call_count}")
-    print(f"provider={args.expected_provider}")
-    print(f"model={args.expected_model}")
+    print(f"expected_provider_models={sorted(expected_pairs)}")
     print(f"tick_duration_minutes={args.tick_duration_minutes}")
     print(f"max_tick_index={args.max_tick_index}")
     print(f"derived_horizon_days={round((args.max_tick_index * args.tick_duration_minutes) / 1440, 2)}")
@@ -650,7 +707,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     )
     parser.add_argument(
         "--expected-model",
-        default=os.environ.get("WORLDFORK_DEMO_EXPECTED_MODEL", GEMINI_MODEL),
+        default=os.environ.get("WORLDFORK_DEMO_EXPECTED_MODEL", OPENROUTER_MODEL),
         help="Model expected in settings and audited LLM-call checks.",
     )
     args = parser.parse_args(argv)

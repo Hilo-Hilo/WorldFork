@@ -42,7 +42,7 @@ worldfork status
 worldfork query GET /readyz --no-api-prefix
 ```
 
-Ask the operator to put `OPENROUTER_API_KEY` in `.env`. Live onboarding and validation runs should use `google/gemini-3.1-flash-lite-preview` unless the user explicitly authorizes a different route policy.
+Ask the operator to put `OPENROUTER_API_KEY` in `.env` and configure OpenAI Codex OAuth with `worldfork settings openai-codex-login` or `codex login --device-auth`. Live onboarding and validation runs should use the default split unless the user explicitly authorizes another route policy: `openrouter/deepseek/deepseek-v4-flash` for cohort, hero, action, and event-summary work and `openai-codex/gpt-5.4` for initialization, God review, endpoint-ledger evaluation, and reports.
 
 ## LLM Providers And Routing
 
@@ -66,7 +66,7 @@ WorldFork routes audited LLM calls by stable route names. Configure routes throu
 - `report_agent`
 - `endpoint_ledger`
 
-For cheap onboarding and live smoke tests, keep every route on `openrouter` with `google/gemini-3.1-flash-lite-preview` unless the user explicitly authorizes another model. For higher-quality simulation work, it is acceptable to use a cheaper model for `cohort_agent`, but prefer a strong model/provider for `initializer_chunk_extractor`, `initializer_agent`, `god_agent`, `hero_agent`, `event_summary`, `report_agent`, and `endpoint_ledger`. A typical high-quality mix is strong OpenRouter or `openai-codex` for initialization, governance, report, and endpoint evaluation routes, with a cheaper OpenRouter model for cohort calls.
+For onboarding and live smoke tests, keep the default split unless the user explicitly authorizes another model: `cohort_agent`, `hero_agent`, action execution, and `event_summary` on `openrouter/deepseek/deepseek-v4-flash`; `initializer_chunk_extractor`, `initializer_agent`, `god_agent`, `report_agent`, and `endpoint_ledger` on `openai-codex/gpt-5.4`.
 
 To use OpenAI Codex OAuth, run the headless login flow and then enable/configure the provider. This does not require the Codex CLI to be installed:
 
@@ -78,7 +78,7 @@ worldfork settings providers --data '{
       "provider": "openai-codex",
       "base_url": "https://chatgpt.com/backend-api/codex",
       "api_key_env": "OPENAI_CODEX_OAUTH_TOKEN",
-      "default_model": "gpt-5.5",
+      "default_model": "gpt-5.4",
       "fallback_model": null,
       "json_mode_required": true,
       "tool_calling_enabled": false,
@@ -98,9 +98,9 @@ worldfork settings model-routing --data '{
     {
       "job_type": "initializer_agent",
       "preferred_provider": "openai-codex",
-      "preferred_model": "gpt-5.5",
-      "fallback_provider": "openrouter",
-      "fallback_model": "google/gemini-3.1-flash-lite-preview",
+      "preferred_model": "gpt-5.4",
+      "fallback_provider": "openai-codex",
+      "fallback_model": "gpt-5.4",
       "temperature": 0.3,
       "top_p": 1.0,
       "max_tokens": 8192,
@@ -114,7 +114,7 @@ worldfork settings model-routing --data '{
     {
       "job_type": "cohort_agent",
       "preferred_provider": "openrouter",
-      "preferred_model": "google/gemini-3.1-flash-lite-preview",
+      "preferred_model": "deepseek/deepseek-v4-flash",
       "temperature": 0.8,
       "top_p": 1.0,
       "max_tokens": 4096,

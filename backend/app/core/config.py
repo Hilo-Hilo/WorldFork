@@ -6,6 +6,8 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 BACKEND_DIR = Path(__file__).resolve().parents[2]
+OPENROUTER_DEFAULT_MODEL = "deepseek/deepseek-v4-flash"
+OPENAI_CODEX_DEFAULT_MODEL = "gpt-5.4"
 
 
 def _backend_relative(path: str) -> Path:
@@ -29,23 +31,23 @@ class Settings(BaseSettings):
     openrouter_chat_completions_url: str = "https://openrouter.ai/api/v1/chat/completions"
     openrouter_http_referer: str = "https://worldfork.local"
     openrouter_title: str = "WorldFork"
-    openai_codex_enabled: bool = False
+    openai_codex_enabled: bool = True
     openai_codex_oauth_token: str | None = None
     openai_codex_auth_file: str | None = None
     openai_codex_base_url: str = "https://chatgpt.com/backend-api/codex"
-    openai_codex_default_model: str = "gpt-5.5"
+    openai_codex_default_model: str = OPENAI_CODEX_DEFAULT_MODEL
     openai_codex_fallback_model: str | None = None
     redis_url: str = "redis://localhost:6379/0"
     celery_broker_url: str = "redis://localhost:6379/1"
     celery_result_backend: str = "redis://localhost:6379/2"
-    default_model: str = "google/gemini-3.1-flash-lite-preview"
-    fallback_model: str = "google/gemini-3.1-flash-lite-preview"
-    initializer_agent_model: str = "google/gemini-3.1-flash-lite-preview"
-    god_agent_model: str = "google/gemini-3.1-flash-lite-preview"
-    cohort_agent_model: str = "google/gemini-3.1-flash-lite-preview"
-    hero_agent_model: str = "google/gemini-3.1-flash-lite-preview"
-    event_summary_model: str = "google/gemini-3.1-flash-lite-preview"
-    report_agent_model: str = "google/gemini-3.1-flash-lite-preview"
+    default_model: str = OPENROUTER_DEFAULT_MODEL
+    fallback_model: str = OPENROUTER_DEFAULT_MODEL
+    initializer_agent_model: str = OPENAI_CODEX_DEFAULT_MODEL
+    god_agent_model: str = OPENAI_CODEX_DEFAULT_MODEL
+    cohort_agent_model: str = OPENROUTER_DEFAULT_MODEL
+    hero_agent_model: str = OPENROUTER_DEFAULT_MODEL
+    event_summary_model: str = OPENROUTER_DEFAULT_MODEL
+    report_agent_model: str = OPENAI_CODEX_DEFAULT_MODEL
     app_name: str = "WorldFork Backend"
     api_prefix: str = "/api"
     default_tick_duration: str = "1 day"

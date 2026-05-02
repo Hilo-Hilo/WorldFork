@@ -576,9 +576,9 @@ class TestModelRoutingEntry:
             dict(
                 job_type="report_agent",
                 preferred_provider="openai-codex",
-                preferred_model="gpt-5.5",
+                preferred_model="gpt-5.4",
                 fallback_provider="openrouter",
-                fallback_model="google/gemini-3.1-flash-lite-preview",
+                fallback_model="deepseek/deepseek-v4-flash",
                 temperature=0.2,
                 top_p=1.0,
                 max_tokens=8192,
