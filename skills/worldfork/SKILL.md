@@ -14,6 +14,7 @@ Run discovery before making assumptions about the live API surface:
 ```bash
 worldfork agent discover
 worldfork status
+worldfork setup
 ```
 
 Use this project model when explaining WorldFork to a user: a Big Bang is the
@@ -21,6 +22,11 @@ root scenario, each multiverse is one timeline, ticks are checkpointed runtime
 steps, branches create alternate timelines from decision points, endpoint
 ledgers track terminal outcomes and path mass, and reports are structured
 database versions that can be rendered on request.
+
+When onboarding a new user, keep the tone warm, proactive, and practical. Tell
+them what each command is proving, translate important output into plain
+language, and use `worldfork setup` to show provider options before asking which
+LLM providers they want to configure.
 
 Do not hardcode backend URLs. Use `WORLD_FORK_API_BASE`, `BACKEND_API_BASE`, or the CLI `--base-url` flag when a non-default backend target is required.
 
@@ -58,6 +64,10 @@ worldfork query GET /readyz --no-api-prefix
 ```
 
 Ask the operator to put `OPENROUTER_API_KEY` in `.env` and configure OpenAI Codex OAuth with `worldfork settings openai-codex-login` or `codex login --device-auth`. Live onboarding and validation runs should use the default split unless the user explicitly authorizes another route policy: `openrouter/deepseek/deepseek-v4-flash` for cohort, hero, action, and event-summary work and `openai-codex/gpt-5.4` for initialization, God review, endpoint-ledger evaluation, and reports.
+
+Use `worldfork setup` after the backend is reachable, or `worldfork setup
+--offline` after only the CLI is installed, to show provider choices and the
+recommended Atlas routing profile.
 
 ## LLM Providers And Routing
 
@@ -185,6 +195,13 @@ worldfork demo atlas
 It creates the Atlas Resilience Crisis Big Bang, runs root and branch timelines, permits God-agent-created branches under generous caps, generates structured per-multiverse reports, generates the final cross-multiverse report, can render a PDF on demand, and audits that live LLM calls use the configured approved route policy.
 
 The default Atlas tick duration is 720 simulated minutes. If `--max-tick-index` is omitted, Atlas derives it from `--horizon-days` and `--tick-duration-minutes`.
+
+When running Atlas for onboarding, narrate the phases in short progress updates:
+initialization turns the scenario into actors and state, ticks advance decisions
+and events, God review decides whether branches are worth exploring, endpoint
+ledgers track terminal hypotheses/path mass, and reports compare the resulting
+timelines. Explain any printed Big Bang, multiverse, job, log, or report IDs and
+the command that inspects each one.
 
 ## Reports
 

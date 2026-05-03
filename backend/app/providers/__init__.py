@@ -501,20 +501,24 @@ async def initialize_providers_from_settings(settings) -> None:  # type: ignore[
     codex_fallback_model = getattr(settings, "openai_codex_fallback_model", None)
     codex_env_enabled = bool(getattr(settings, "openai_codex_enabled", False))
     codex_enabled = codex_env_enabled
+    provider_rows_by_name = {}
 
     try:
         from backend.app.core.db import SessionLocal
         from backend.app.models.settings import ProviderSettingModel
+        from sqlalchemy import select
 
         async with SessionLocal() as session:
-            row = await session.get(ProviderSettingModel, "openrouter")
+            result = await session.execute(select(ProviderSettingModel))
+            provider_rows_by_name = {row.provider: row for row in result.scalars().all()}
+            row = provider_rows_by_name.pop("openrouter", None)
             if row is not None:
                 openrouter_base_url = row.base_url or openrouter_base_url
                 openrouter_api_key_env = row.api_key_env or openrouter_api_key_env
                 openrouter_default_model = row.default_model or openrouter_default_model
                 openrouter_fallback_model = row.fallback_model or openrouter_fallback_model
                 openrouter_enabled = bool(row.enabled)
-            row = await session.get(ProviderSettingModel, "openai-codex")
+            row = provider_rows_by_name.pop("openai-codex", None)
             if row is not None:
                 codex_base_url = row.base_url or codex_base_url
                 codex_api_key_env = row.api_key_env or codex_api_key_env
@@ -560,3 +564,78 @@ async def initialize_providers_from_settings(settings) -> None:  # type: ignore[
                 "(env=%s or Codex CLI auth file)",
                 codex_api_key_env,
             )
+
+    for row in provider_rows_by_name.values():
+        _register_generic_provider_row(row, settings)
+
+
+def _register_generic_provider_row(row, settings) -> None:  # type: ignore[no-untyped-def]
+    if not bool(row.enabled):
+        return
+    payload = row.payload if isinstance(row.payload, dict) else {}
+    api_shape = str(
+        payload.get("provider_api")
+        or payload.get("api_shape")
+        or payload.get("api")
+        or "openai-compatible"
+    )
+    if row.provider == "anthropic" or api_shape in {"anthropic", "anthropic-direct"}:
+        logger.warning(
+            "direct Anthropic provider rows are not registered in this build; "
+            "route Anthropic models through OpenRouter instead"
+        )
+        return
+    if row.provider == "ollama" or api_shape in {"ollama", "ollama-openai"}:
+        from backend.app.providers.ollama import OllamaProvider
+
+        provider = OllamaProvider(
+            base_url=row.base_url,
+            default_model=row.default_model,
+            fallback_model=row.fallback_model,
+        )
+        provider.name = row.provider
+        register_provider(row.provider, provider)
+        logger.info("registered Ollama-compatible provider %s", row.provider)
+        return
+    if api_shape not in {"openai-compatible", "openai-chat-completions", "chat-completions"}:
+        logger.warning(
+            "unsupported provider api_shape=%s for provider %s; not registering",
+            api_shape,
+            row.provider,
+        )
+        return
+    import os
+
+    api_key = os.environ.get(row.api_key_env)
+    if not api_key:
+        logger.warning(
+            "provider %s enabled but missing API key env %s",
+            row.provider,
+            row.api_key_env,
+        )
+        return
+    if row.provider == "openai":
+        from backend.app.providers.openai import OpenAIProvider
+
+        provider = OpenAIProvider(
+            api_key=api_key,
+            base_url=row.base_url,
+            default_model=row.default_model,
+            fallback_model=row.fallback_model,
+            http_referer=settings.openrouter_http_referer,
+            x_title=settings.openrouter_title,
+        )
+    else:
+        from backend.app.providers.openrouter import OpenRouterProvider
+
+        provider = OpenRouterProvider(
+            api_key=api_key,
+            base_url=row.base_url,
+            default_model=row.default_model,
+            fallback_model=row.fallback_model,
+            http_referer=settings.openrouter_http_referer,
+            x_title=settings.openrouter_title,
+        )
+        provider.name = row.provider
+    register_provider(row.provider, provider)
+    logger.info("registered OpenAI-compatible provider %s", row.provider)

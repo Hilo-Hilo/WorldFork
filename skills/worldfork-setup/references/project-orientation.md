@@ -54,6 +54,13 @@ Keep the user-facing explanation concrete:
 6. Reports compare what happened across timelines without requiring local
    Markdown or PDF files to be stored permanently.
 
+During setup, keep the user oriented and welcome. Explain each phase before
+running it, interpret the output afterwards, and use `worldfork setup` as the
+provider-choice map before asking which LLM providers they want to configure.
+For Atlas, explain that the recommended pattern is cheap/fast models for
+high-volume cohort and timeline work plus stronger models for initialization,
+God review, endpoint ledgers, and reports.
+
 ## What Setup Should Prove
 
 A successful first setup proves:
@@ -62,6 +69,7 @@ A successful first setup proves:
 - the CLI can reach the intended backend;
 - the OpenRouter and OpenAI Codex routes are configured as intended;
 - `worldfork agent discover` describes the live API surface;
+- `worldfork setup` exposes provider options and the recommended Atlas routing profile;
 - a Big Bang can initialize from `examples/test-big-bang.md`;
 - the user knows the difference between a setup smoke and the full Atlas demo.
 

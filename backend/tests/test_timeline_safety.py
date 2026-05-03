@@ -189,6 +189,46 @@ def test_unfinished_tick_resumes_from_runtime_checkpoints(db, monkeypatch):
     assert len(db.scalars(select(models.TickSnapshot).where(models.TickSnapshot.multiverse_id == root.id)).all()) == 1
 
 
+def test_direct_retry_returns_running_tick_when_active_execution_exists(db, monkeypatch):
+    big_bang, root = _seed_world(db)
+    running = models.TickSnapshot(
+        big_bang_id=big_bang.id,
+        multiverse_id=root.id,
+        tick_index=0,
+        ui_label="M1-T0",
+        status="running",
+        provisional_bundle={},
+        final_bundle={},
+        summary="in flight",
+        idempotency_key="tick-0",
+    )
+    db.add(running)
+    db.flush()
+    execution = models.TickExecution(
+        big_bang_id=big_bang.id,
+        multiverse_id=root.id,
+        tick_snapshot_id=running.id,
+        tick_index=0,
+        status="running",
+        active_slot="active",
+        runtime_meta={},
+        started_at=datetime.now(timezone.utc),
+    )
+    db.add(execution)
+    db.commit()
+    monkeypatch.setattr(
+        tick_runner,
+        "_build_runtime_plan",
+        lambda *args, **kwargs: pytest.fail("direct retry should not execute a concurrent tick"),
+    )
+
+    returned = tick_runner.run_next_tick(db, multiverse=root, idempotency_key="retry")
+
+    assert returned.id == running.id
+    assert returned.status == "running"
+    assert db.scalars(select(models.ExecutionNode)).all() == []
+
+
 def test_paused_big_bang_blocks_step_tick_and_run_until_complete(db):
     big_bang, root = _seed_world(db)
     big_bang.status = "paused"
@@ -262,6 +302,17 @@ def test_failed_tick_execution_preserves_completed_checkpoint_boundary(db, monke
     failed = db.scalar(select(models.TickCheckpoint).where(models.TickCheckpoint.checkpoint_key == "god_review"))
     assert failed is not None
     assert failed.status == "failed"
+    execution = db.scalar(select(models.TickExecution))
+    assert execution is not None
+    assert execution.status == "failed"
+    assert execution.active_slot is None
+    failed_attempt = db.scalar(
+        select(models.NodeAttempt)
+        .join(models.ExecutionNode)
+        .where(models.ExecutionNode.node_key == "god_review")
+    )
+    assert failed_attempt is not None
+    assert failed_attempt.status == "failed"
 
 
 def test_execute_job_preserves_tick_checkpoint_failure_marker(db, monkeypatch):

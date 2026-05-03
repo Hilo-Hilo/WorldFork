@@ -135,13 +135,9 @@ def run_next_tick(
     force: bool = False,
     queue_job: models.Job | None = None,
 ) -> models.TickSnapshot:
-    locked_multiverse = db.scalar(
-        select(models.Multiverse)
-        .where(models.Multiverse.id == multiverse.id)
-        .with_for_update()
-    )
-    if locked_multiverse:
-        multiverse = locked_multiverse
+    current_multiverse = db.get(models.Multiverse, multiverse.id)
+    if current_multiverse:
+        multiverse = current_multiverse
 
     big_bang = db.get(models.BigBang, multiverse.big_bang_id)
     if big_bang and big_bang.status == "paused":
@@ -164,6 +160,10 @@ def run_next_tick(
     if latest_tick and latest_tick.status in UNFINISHED_TICK_STATUSES:
         tick = latest_tick
         next_index = tick.tick_index
+        active_execution = _active_tick_execution(db, tick=tick, multiverse=multiverse)
+        if active_execution is not None and queue_job is None and not force:
+            _commit_progress(db)
+            return tick
     else:
         next_index = 0 if latest_tick is None else latest_tick.tick_index + 1
         if next_index > max_ticks:
@@ -241,10 +241,13 @@ def run_next_tick(
                         checkpoints=checkpoints,
                         queue_job=queue_job,
                     )
+                    _commit_progress(db)
                     return tick
+                _commit_progress(db)
                 continue
             if spec.kind is NodeKind.BARRIER:
                 _complete_observable_node(db, node, input_payload={"actor_nodes": list(plan.actor_nodes)})
+                _commit_progress(db)
                 continue
             if spec.kind is NodeKind.STATE_COMMIT:
                 _commit_runtime_state(
@@ -255,6 +258,7 @@ def run_next_tick(
                     multiverse=multiverse,
                     outputs=outputs,
                 )
+                _commit_progress(db)
                 return tick
 
             checkpoint = checkpoints[node_key]
@@ -262,52 +266,52 @@ def run_next_tick(
                 outputs[node_key] = checkpoint.payload or {}
                 continue
 
+            node_id = node.id
+            checkpoint_id = checkpoint.id
+            execution_id = execution.id
             try:
-                with db.begin_nested():
-                    payload, attempt = _run_checkpoint_node(
-                        db,
-                        spec=spec,
-                        node=node,
-                        checkpoint=checkpoint,
-                        big_bang=big_bang,
-                        multiverse=multiverse,
-                        tick=tick,
-                        tick_index=next_index,
-                        clock_text=clock.as_prompt_text(),
-                        prompt_context=prompt_context,
-                        branch_policy=branch_policy,
-                        outputs=outputs,
+                payload, attempt = _run_checkpoint_node(
+                    db,
+                    spec=spec,
+                    node=node,
+                    checkpoint=checkpoint,
+                    big_bang=big_bang,
+                    multiverse=multiverse,
+                    tick=tick,
+                    tick_index=next_index,
+                    clock_text=clock.as_prompt_text(),
+                    prompt_context=prompt_context,
+                    branch_policy=branch_policy,
+                    outputs=outputs,
+                )
+                validation = validate_node_output(spec.kind.value, payload)
+                if not validation.ok:
+                    raise ValueError(
+                        f"runtime node {node_key} failed validation: {', '.join(validation.errors)}"
                     )
-                    validation = validate_node_output(spec.kind.value, payload)
-                    if not validation.ok:
-                        raise ValueError(
-                            f"runtime node {node_key} failed validation: {', '.join(validation.errors)}"
-                        )
-                    payload = {
-                        **_runtime_jsonable(payload),
-                        "validation": validation.model_dump(exclude={"payload"}),
-                    }
-                    _complete_checkpoint(db, node=node, checkpoint=checkpoint, attempt=attempt, payload=payload)
-                    outputs[node_key] = payload
-                    execution.runtime_meta = {
-                        **(execution.runtime_meta or {}),
-                        "completed_checkpoints": sorted(outputs),
-                        "current_node": node_key,
-                    }
-                    db.flush()
+                payload = {
+                    **_runtime_jsonable(payload),
+                    "validation": validation.model_dump(exclude={"payload"}),
+                }
+                _complete_checkpoint(db, node=node, checkpoint=checkpoint, attempt=attempt, payload=payload)
+                outputs[node_key] = payload
+                execution.runtime_meta = {
+                    **(execution.runtime_meta or {}),
+                    "completed_checkpoints": sorted(outputs),
+                    "current_node": node_key,
+                }
+                db.flush()
+                _commit_progress(db)
             except Exception as exc:
-                if isinstance(exc, EventValidationError):
-                    _log_final_event_validation_failure(
-                        db,
-                        execution=execution,
-                        node=node,
-                        checkpoint=checkpoint,
-                        tick_index=next_index,
-                        error=str(exc),
-                        invalid_events=exc.invalid_events,
-                        attempts=exc.attempts,
-                    )
-                _fail_checkpoint(db, node=node, checkpoint=checkpoint, error=str(exc))
+                _record_checkpoint_failure(
+                    db,
+                    execution_id=execution_id,
+                    node_id=node_id,
+                    checkpoint_id=checkpoint_id,
+                    tick_index=next_index,
+                    error=str(exc),
+                    event_validation_error=exc if isinstance(exc, EventValidationError) else None,
+                )
                 raise
 
             if spec.kind is NodeKind.GOD_REVIEW:
@@ -402,6 +406,27 @@ def _get_or_create_tick_execution(
         execution.runtime_meta = {**(execution.runtime_meta or {}), "resumed": True}
     db.flush()
     return execution
+
+
+def _active_tick_execution(
+    db: Session,
+    *,
+    tick: models.TickSnapshot,
+    multiverse: models.Multiverse,
+) -> models.TickExecution | None:
+    return db.scalar(
+        select(models.TickExecution)
+        .where(
+            models.TickExecution.big_bang_id == multiverse.big_bang_id,
+            models.TickExecution.multiverse_id == multiverse.id,
+            models.TickExecution.tick_index == tick.tick_index,
+            models.TickExecution.tick_snapshot_id == tick.id,
+            models.TickExecution.status == "running",
+            models.TickExecution.active_slot == "active",
+        )
+        .order_by(models.TickExecution.updated_at.desc())
+        .limit(1)
+    )
 
 
 def _build_runtime_plan(
@@ -530,6 +555,7 @@ def _run_checkpoint_node(
     )
     db.add(attempt)
     db.flush()
+    _commit_progress(db)
     payload = _execute_checkpoint_payload(
         db,
         spec=spec,
@@ -553,6 +579,54 @@ def _run_checkpoint_node(
         attempt.provider = "tool"
         attempt.model = payload.get("tool_name")
     return payload, attempt
+
+
+def _record_checkpoint_failure(
+    db: Session,
+    *,
+    execution_id: UUID,
+    node_id: UUID,
+    checkpoint_id: UUID,
+    tick_index: int,
+    error: str,
+    event_validation_error: EventValidationError | None,
+) -> None:
+    db.rollback()
+    execution = db.get(models.TickExecution, execution_id)
+    node = db.get(models.ExecutionNode, node_id)
+    checkpoint = db.get(models.TickCheckpoint, checkpoint_id)
+    if execution is None or node is None or checkpoint is None:
+        return
+    now = datetime.now(timezone.utc)
+    attempt = db.scalar(
+        select(models.NodeAttempt)
+        .where(
+            models.NodeAttempt.execution_node_id == node.id,
+            models.NodeAttempt.status == "running",
+        )
+        .order_by(models.NodeAttempt.created_at.desc())
+        .limit(1)
+    )
+    if attempt is not None:
+        attempt.status = "failed"
+        attempt.error = error
+        attempt.finished_at = now
+    if event_validation_error is not None:
+        _log_final_event_validation_failure(
+            db,
+            execution=execution,
+            node=node,
+            checkpoint=checkpoint,
+            tick_index=tick_index,
+            error=error,
+            invalid_events=event_validation_error.invalid_events,
+            attempts=event_validation_error.attempts,
+        )
+    _fail_checkpoint(db, node=node, checkpoint=checkpoint, error=error)
+    execution.status = "failed"
+    execution.active_slot = None
+    execution.finished_at = now
+    _commit_progress(db)
 
 
 def _execute_checkpoint_payload(
@@ -866,6 +940,16 @@ def _commit_runtime_state(
     execution.finished_at = now
     execution.runtime_meta = {**(execution.runtime_meta or {}), "final_tick_snapshot_id": str(tick.id)}
     db.flush()
+
+
+def _commit_progress(db: Session) -> None:
+    """Persist checkpoint progress before any long external wait.
+
+    Tick execution is intentionally resumable. Committing between checkpoints
+    prevents request-scoped transactions from holding multiverse/tick locks
+    while provider calls are in flight.
+    """
+    db.commit()
 
 
 def _next_attempt_number(db: Session, node: models.ExecutionNode) -> int:

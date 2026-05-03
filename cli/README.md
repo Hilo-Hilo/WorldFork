@@ -31,6 +31,7 @@ worldfork --base-url http://127.0.0.1:8003 status
 ```bash
 worldfork status
 worldfork agent discover
+worldfork setup
 worldfork init --name "Atlas onboarding" --scenario-file examples/test-big-bang.md
 worldfork watch big-bang <big-bang-id>
 worldfork reports view <report-version-id>

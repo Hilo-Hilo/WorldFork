@@ -270,6 +270,7 @@ def discover():
             "recommended_flow": [
                 "worldfork agent discover",
                 "worldfork status",
+                "worldfork setup",
                 "worldfork settings llm",
                 "worldfork init --name <name> --scenario-file <path>",
                 "worldfork watch big-bang <big-bang-id>",
@@ -285,6 +286,7 @@ def discover():
                 "model_routing_endpoint": f"{settings.api_prefix}/settings/model-routing",
                 "rate_limits_endpoint": f"{settings.api_prefix}/settings/rate-limits",
                 "cli": "worldfork settings llm",
+                "setup_cli": "worldfork setup",
             },
         }
     )

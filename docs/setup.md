@@ -20,7 +20,11 @@ After installing them, use the setup skill to guide me through prerequisites,
 .env configuration with OPENROUTER_API_KEY, CLI installation, Docker Compose
 startup, migrations, seeding, readiness verification, a short explanation of
 Big Bangs, multiverses, ticks, branches, endpoint ledgers, and reports, and the
-onboarding demo if I confirm I want to spend live API credits.
+onboarding demo if I confirm I want to spend live API credits. Be welcoming and
+proactive: explain what each setup phase proves, use `worldfork setup` to show
+provider options, ask which providers I want to configure, recommend the
+fast-cheap cohort plus stronger governance/report split for Atlas, and narrate
+what Atlas is doing while it runs.
 Use the default OpenRouter `deepseek/deepseek-v4-flash` plus OpenAI Codex `gpt-5.4` split for live API-credit runs.
 ```
 
@@ -118,8 +122,15 @@ Readiness should show the database and Redis checks as healthy. OpenRouter is he
 Confirm the effective model and provider routes before spending live API credits:
 
 ```bash
+worldfork setup
 worldfork settings llm
 ```
+
+`worldfork setup` is the compact provider-choice helper for agents and first-time
+operators. It lists available provider options, shows the recommended Atlas
+profile, and tells the agent what to ask before configuring API keys or model
+routes. Use `worldfork setup --include-patch` only when the agent needs the full
+Atlas routing PATCH payload.
 
 ### First Big Bang
 
