@@ -1,20 +1,13 @@
 from __future__ import annotations
 
-import dramatiq
-from dramatiq.brokers.redis import RedisBroker
-
-from app.core.config import get_settings
+from app.db import models
 from app.db.session import SessionLocal
 from app.domains.jobs.executor import JobNotRunnableError, execute_job
-from app.db import models
+from backend.app.workers.celery_app import celery_app
 
 
-redis_broker = RedisBroker(url=getattr(get_settings(), "redis_url", "redis://localhost:6379/0"))
-dramatiq.set_broker(redis_broker)
-
-
-@dramatiq.actor
-def run_job(job_id: str) -> None:
+@celery_app.task(name="worldfork.execute_job", bind=True, acks_late=True, max_retries=0)
+def run_job(self, job_id: str) -> None:  # type: ignore[no-untyped-def]
     db = SessionLocal()
     try:
         job = db.get(models.Job, job_id)

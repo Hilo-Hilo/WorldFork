@@ -16,7 +16,7 @@ from app.api import jobs as jobs_api
 from app.api.schemas import JobCreate
 from app.db import models
 from app.domains.jobs import executor as jobs_executor
-from app.jobs.queues import JOB_TYPES, default_idempotency_key
+from app.jobs.queues import JOB_TYPES, default_idempotency_key, queue_name_for_job
 from app.jobs.tasks import (
     JOB_LEASE_SECONDS,
     JobNotRunnableError,
@@ -56,6 +56,22 @@ def test_advertised_job_types_are_executable_and_payload_validated():
 
     with pytest.raises(ValueError, match="big_bang_id is required"):
         validate_job_payload("run_big_bang_until_complete", {})
+
+
+def test_advertised_job_queues_are_runtime_celery_queues():
+    from backend.app.workers.celery_app import celery_app
+
+    configured_queues = {queue.name for queue in celery_app.conf.task_queues}
+
+    assert {queue_name_for_job(job_type) for job_type in JOB_TYPES}.issubset(configured_queues)
+
+
+def test_job_worker_imports_without_undeclared_queue_dependency():
+    import importlib
+
+    workers = importlib.import_module("app.jobs.workers")
+
+    assert workers.run_job.name == "worldfork.execute_job"
 
 
 def test_execute_job_claims_before_validating_and_marks_bad_payload_failed():
@@ -242,6 +258,104 @@ def test_run_job_returns_error_when_execution_marks_failed(monkeypatch):
     assert exc.value.status_code == 500
     assert exc.value.detail == "job execution failed"
     assert db.commits == 1
+
+
+def test_final_report_job_rejects_active_multiverse_before_generating(monkeypatch):
+    from app.domains.report import engine as report_engine
+
+    engine = create_engine(
+        "sqlite:///:memory:",
+        connect_args={"check_same_thread": False},
+        poolclass=StaticPool,
+    )
+    models.Base.metadata.create_all(engine)
+    db = Session(engine)
+    try:
+        big_bang = models.BigBang(name="Active final report", scenario_input={}, status="running")
+        db.add(big_bang)
+        db.flush()
+        db.add(
+            models.Multiverse(
+                big_bang_id=big_bang.id,
+                parent_multiverse_id=None,
+                fork_tick_index=None,
+                ui_label="M1",
+                depth=0,
+                status="active",
+                branch_reason="Root",
+                state={},
+                report_status="not_ready",
+            )
+        )
+        job = models.Job(
+            job_type="generate_final_big_bang_report",
+            status="queued",
+            big_bang_id=big_bang.id,
+            payload={},
+            result={},
+            idempotency_key=f"final-report:{uuid4()}",
+        )
+        db.add(job)
+        db.commit()
+
+        monkeypatch.setattr(
+            report_engine,
+            "generate_final_big_bang_report",
+            lambda *args, **kwargs: pytest.fail("final report should not generate"),
+        )
+
+        execute_job(db, job)
+
+        assert job.status == "failed"
+        assert "final report requires terminal multiverses" in job.error
+    finally:
+        db.close()
+        with warnings.catch_warnings():
+            warnings.filterwarnings(
+                "ignore",
+                message="Can't sort tables for DROP",
+                category=SAWarning,
+            )
+            models.Base.metadata.drop_all(engine)
+
+
+def test_run_until_complete_job_rejects_archived_big_bang():
+    engine = create_engine(
+        "sqlite:///:memory:",
+        connect_args={"check_same_thread": False},
+        poolclass=StaticPool,
+    )
+    models.Base.metadata.create_all(engine)
+    db = Session(engine)
+    try:
+        big_bang = models.BigBang(name="Archived control", scenario_input={}, status="archived")
+        db.add(big_bang)
+        db.flush()
+        job = models.Job(
+            job_type="run_big_bang_until_complete",
+            status="queued",
+            big_bang_id=big_bang.id,
+            payload={},
+            result={},
+            idempotency_key=f"run-complete:{uuid4()}",
+        )
+        db.add(job)
+        db.commit()
+
+        execute_job(db, job)
+
+        assert job.status == "failed"
+        assert "archived" in job.error
+        assert big_bang.status == "archived"
+    finally:
+        db.close()
+        with warnings.catch_warnings():
+            warnings.filterwarnings(
+                "ignore",
+                message="Can't sort tables for DROP",
+                category=SAWarning,
+            )
+            models.Base.metadata.drop_all(engine)
 
 
 def test_claim_job_for_execution_reclaims_expired_running_job():
