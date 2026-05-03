@@ -468,6 +468,8 @@ def test_setup_offline_does_not_contact_backend(monkeypatch) -> None:
     assert '"backend_reachable": false' in result.output
     assert "offline mode" in result.output
     assert "ollama" in result.output
+    assert "vllm" in result.output
+    assert "lmstudio" in result.output
 
 
 def test_setup_keeps_working_when_backend_unreachable(monkeypatch) -> None:

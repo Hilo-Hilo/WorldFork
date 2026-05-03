@@ -130,7 +130,11 @@ worldfork settings llm
 operators. It lists available provider options, shows the recommended Atlas
 profile, and tells the agent what to ask before configuring API keys or model
 routes. Use `worldfork setup --include-patch` only when the agent needs the full
-Atlas routing PATCH payload.
+Atlas routing PATCH payload. Local OpenAI-compatible providers such as Ollama,
+vLLM, LM Studio, and LocalAI are supported through provider rows with
+`api_key_env: "none"` and can be routed to any audited agent type; use
+`host.docker.internal` in the base URL when the backend runs inside Docker on
+macOS.
 
 ### First Big Bang
 

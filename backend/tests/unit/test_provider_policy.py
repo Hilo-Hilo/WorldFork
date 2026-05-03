@@ -250,6 +250,58 @@ async def test_initialize_registers_openai_compatible_provider_rows(monkeypatch)
     assert get_provider("openai").name == "openai"
 
 
+async def test_initialize_registers_local_openai_provider_without_api_key(monkeypatch) -> None:
+    vllm_row = SimpleNamespace(
+        provider="vllm",
+        base_url="http://host.docker.internal:8000/v1",
+        api_key_env="none",
+        default_model="local-model",
+        fallback_model=None,
+        enabled=True,
+        payload={"api": "vllm-openai"},
+    )
+
+    class FakeResult:
+        def scalars(self):
+            return self
+
+        def all(self):
+            return [vllm_row]
+
+    class FakeSession:
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, *_args):
+            return None
+
+        async def execute(self, _statement):
+            return FakeResult()
+
+    from backend.app.core import db as core_db
+
+    monkeypatch.setattr(core_db, "SessionLocal", lambda: FakeSession())
+    monkeypatch.delenv("none", raising=False)
+
+    settings = SimpleNamespace(
+        openrouter_base_url="https://openrouter.ai/api/v1",
+        default_model="deepseek/deepseek-v4-flash",
+        fallback_model="deepseek/deepseek-v4-flash",
+        openrouter_http_referer="https://worldfork.local",
+        openrouter_title="WorldFork",
+        openai_codex_base_url="https://chatgpt.com/backend-api/codex",
+        openai_codex_default_model="gpt-5.4",
+        openai_codex_fallback_model=None,
+        openai_codex_enabled=False,
+        openai_codex_oauth_token=None,
+        openai_codex_auth_file=None,
+    )
+
+    await initialize_providers_from_settings(settings)
+
+    assert get_provider("vllm").name == "vllm"
+
+
 async def test_happy_path(routing, limiter, prompt) -> None:
     provider = MockProvider()
     register_provider("openrouter", provider)

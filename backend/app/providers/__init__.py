@@ -585,6 +585,21 @@ def _register_generic_provider_row(row, settings) -> None:  # type: ignore[no-un
             "route Anthropic models through OpenRouter instead"
         )
         return
+    local_openai_shapes = {
+        "ollama",
+        "ollama-openai",
+        "vllm",
+        "vllm-openai",
+        "lmstudio",
+        "lmstudio-openai",
+        "lm-studio",
+        "lm-studio-openai",
+        "localai",
+        "localai-openai",
+        "local-openai-compatible",
+        "no-auth-openai-compatible",
+    }
+    local_openai_providers = {"ollama", "vllm", "lmstudio", "lm-studio", "localai"}
     if row.provider == "ollama" or api_shape in {"ollama", "ollama-openai"}:
         from backend.app.providers.ollama import OllamaProvider
 
@@ -597,7 +612,12 @@ def _register_generic_provider_row(row, settings) -> None:  # type: ignore[no-un
         register_provider(row.provider, provider)
         logger.info("registered Ollama-compatible provider %s", row.provider)
         return
-    if api_shape not in {"openai-compatible", "openai-chat-completions", "chat-completions"}:
+    if api_shape not in {
+        "openai-compatible",
+        "openai-chat-completions",
+        "chat-completions",
+        *local_openai_shapes,
+    }:
         logger.warning(
             "unsupported provider api_shape=%s for provider %s; not registering",
             api_shape,
@@ -607,6 +627,13 @@ def _register_generic_provider_row(row, settings) -> None:  # type: ignore[no-un
     import os
 
     api_key = os.environ.get(row.api_key_env)
+    env_name = str(row.api_key_env or "").strip().lower()
+    if not api_key and (
+        row.provider in local_openai_providers
+        or api_shape in local_openai_shapes
+        or env_name in {"", "none", "local", "dummy", "not_required", "not-required"}
+    ):
+        api_key = str(payload.get("api_key") or payload.get("dummy_api_key") or "local")
     if not api_key:
         logger.warning(
             "provider %s enabled but missing API key env %s",

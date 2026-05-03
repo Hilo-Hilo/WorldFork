@@ -123,7 +123,7 @@ Explain the available choices and ask the user which ones they want to configure
 - OpenAI Codex OAuth: best default for stronger initialization, God review, endpoint-ledger evaluation, and report routes.
 - OpenAI API: optional OpenAI-compatible direct API route if the user prefers `OPENAI_API_KEY` over Codex OAuth.
 - Anthropic models: route through OpenRouter with `anthropic/*` model IDs in this build; do not promise a direct Anthropic adapter unless the runtime has gained one.
-- Ollama/local: only use after testing structured JSON quality; it can reduce cost but may lower Atlas accuracy.
+- Local OpenAI-compatible runtimes: Ollama, vLLM, LM Studio, and LocalAI can be routed to any agent type by model-routing rows. Use them after testing structured JSON quality; they can reduce cost but may lower Atlas accuracy.
 
 Use these provider configuration patterns after the user chooses:
 
@@ -149,13 +149,14 @@ worldfork settings providers --data '{
   ]
 }'
 
-# Ollama local OpenAI-compatible endpoint
+# Ollama local OpenAI-compatible endpoint.
+# Use http://localhost:11434/v1 only when the backend itself is not in Docker.
 worldfork settings providers --data '{
   "providers": [
     {
       "provider": "ollama",
-      "base_url": "http://localhost:11434/v1",
-      "api_key_env": "OLLAMA_API_KEY",
+      "base_url": "http://host.docker.internal:11434/v1",
+      "api_key_env": "none",
       "default_model": "llama3.1:8b",
       "fallback_model": null,
       "json_mode_required": true,
@@ -166,13 +167,32 @@ worldfork settings providers --data '{
     }
   ]
 }'
+
+# vLLM OpenAI-compatible endpoint. Replace base_url/model with the served values.
+worldfork settings providers --data '{
+  "providers": [
+    {
+      "provider": "vllm",
+      "base_url": "http://host.docker.internal:8000/v1",
+      "api_key_env": "none",
+      "default_model": "local-model",
+      "fallback_model": null,
+      "json_mode_required": true,
+      "tool_calling_enabled": false,
+      "enabled": true,
+      "extra_headers": {},
+      "payload": {"api": "vllm-openai"}
+    }
+  ]
+}'
 ```
 
 For OpenRouter, set `OPENROUTER_API_KEY` in `.env`; the seeded provider row
 already points at OpenRouter. For Anthropic-family models, keep the provider as
 OpenRouter and use model IDs such as `anthropic/claude-3-5-sonnet` in
-`worldfork settings model-routing`. Ollama ignores the API key, but the settings
-schema still needs an `api_key_env` name.
+`worldfork settings model-routing`. Local OpenAI-compatible providers can use
+`api_key_env: "none"`; the audited runtime will send a harmless dummy bearer
+token for servers that ignore auth.
 
 For the Atlas demo, recommend the `atlas-fast-governed` split emitted by
 `worldfork setup`: OpenRouter `deepseek/deepseek-v4-flash` for frequent
