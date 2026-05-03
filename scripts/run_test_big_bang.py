@@ -150,8 +150,10 @@ def simulate_next_tick_job(
     job_id = job["id"]
     print(f"[info] {label} tick job: {job_id}")
     if job.get("error"):
-        print(f"[info] {label} job enqueue warning: {job['error']}")
-        job = request(client, base_url, "POST", f"/api/jobs/{job_id}/run")
+        raise SampleFailure(
+            f"{label} job {job_id} could not be enqueued: {job['error']}. "
+            "Start the worker queue instead of running Atlas ticks inline."
+        )
     elif job.get("status") not in {"succeeded", "completed"}:
         job = wait_for_job(
             client,

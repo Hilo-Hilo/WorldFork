@@ -37,6 +37,12 @@ from app.domains.tick.tick_runner import run_next_tick
 
 
 CHECKPOINTED_JOB_TYPES = {"run_multiverse_tick", "simulate_multiverse_ticks"}
+AUDITED_LONG_RUNNING_JOB_TYPES = {
+    "initialize_big_bang",
+    "generate_multiverse_report",
+    "generate_final_big_bang_report",
+    "evaluate_endpoint_ledger",
+}
 
 __all__ = [
     "CLAIMABLE_STATUSES",
@@ -45,6 +51,7 @@ __all__ = [
     "PAUSABLE_STATUSES",
     "REQUEUEABLE_STATUSES",
     "CHECKPOINTED_JOB_TYPES",
+    "AUDITED_LONG_RUNNING_JOB_TYPES",
     "INTERRUPT_TERMINAL_STATUSES",
     "JobNotRunnableError",
     "validate_job_type",
@@ -116,7 +123,7 @@ def execute_job(db: Session, job: models.Job, *, commit_running: bool = False) -
         validate_job_payload(job.job_type, job.payload, big_bang_id=job.big_bang_id)
         if job.job_type == "run_big_bang_until_complete":
             result = _execute_run_big_bang_until_complete_job(db, job)
-        elif job.job_type in CHECKPOINTED_JOB_TYPES:
+        elif job.job_type in CHECKPOINTED_JOB_TYPES or job.job_type in AUDITED_LONG_RUNNING_JOB_TYPES:
             result = _execute_job(db, job)
         else:
             with db.begin_nested():

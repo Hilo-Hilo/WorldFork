@@ -326,7 +326,11 @@ async def webhooks_replay(
             detail=f"Webhook event {body.event_id!r} not found",
         )
 
+    event_id = event_record.id
     target_url = body.target_url or event_record.target_url
+    event_payload = event_record.payload
+    previous_attempts = int(event_record.attempts or 0)
+    await session.rollback()
 
     # Re-deliver using a generic secret from config (signing is advisory on replay)
     from backend.app.core.config import settings as app_settings
@@ -337,12 +341,14 @@ async def webhooks_replay(
     deliverer = WebhookDeliverer(signer, timeout=10.0, max_attempts=1)
 
     try:
-        result_data = await deliverer.deliver(url=target_url, event=event_record.payload)
+        result_data = await deliverer.deliver(url=target_url, event=event_payload)
         delivered_ok = result_data["status_code"] < 400
-        event_record.attempts = event_record.attempts + 1
-        event_record.status = "delivered" if delivered_ok else "failed"
-        event_record.last_delivered_at = datetime.now(UTC)
-        await session.commit()
+        event_record = await session.get(WebhookEventModel, event_id)
+        if event_record is not None:
+            event_record.attempts = previous_attempts + 1
+            event_record.status = "delivered" if delivered_ok else "failed"
+            event_record.last_delivered_at = datetime.now(UTC)
+            await session.commit()
         return WebhookTestResponse(
             ok=delivered_ok,
             status_code=result_data.get("status_code"),
@@ -351,8 +357,10 @@ async def webhooks_replay(
             delivered_at=result_data.get("delivered_at"),
         )
     except Exception as exc:
-        event_record.status = "failed"
-        event_record.error = str(exc)[:500]
-        event_record.attempts = event_record.attempts + 1
-        await session.commit()
+        event_record = await session.get(WebhookEventModel, event_id)
+        if event_record is not None:
+            event_record.status = "failed"
+            event_record.error = str(exc)[:500]
+            event_record.attempts = previous_attempts + 1
+            await session.commit()
         return WebhookTestResponse(ok=False, error=str(exc))
