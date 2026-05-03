@@ -13,6 +13,7 @@ celery_app = Celery(
     backend=settings.celery_result_backend,
     include=[
         "backend.app.workers.jobs",  # populated by B3-C/B4-*
+        "app.domains.jobs.workers",
     ],
 )
 
@@ -39,7 +40,7 @@ celery_app.conf.update(
         "simulate_universe_tick": {"queue": "p0"},
         "branch_universe": {"queue": "p0"},
         "apply_tick_results": {"queue": "p0"},
-        "agent_deliberation_batch": {"queue": "p1"},
+        "actor_deliberation_call": {"queue": "p1"},
         "social_propagation": {"queue": "p1"},
         "execute_due_events": {"queue": "p1"},
         "sociology_update": {"queue": "p1"},
@@ -51,6 +52,7 @@ celery_app.conf.update(
         "export_run": {"queue": "p3"},
         "initialize_big_bang": {"queue": "p1"},
         "run_canonical_job": {"queue": "p1"},
+        "worldfork.execute_job": {"queue": "p1"},
     },
     task_default_retry_delay=10,
     task_time_limit=600,
@@ -73,3 +75,5 @@ try:
     from backend.app.workers import beat_schedule as _beat_schedule  # noqa: F401
 except Exception:
     pass
+
+import app.domains.jobs.workers as _db_job_workers  # noqa: E402,F401

@@ -45,12 +45,12 @@ class OpenRouterProvider(LLMProvider):
         except (TypeError, ValueError):
             timeout = 60.0
         async with httpx.AsyncClient(timeout=max(1.0, min(timeout, 1800.0))) as client:
-            response = await client.post(
-                settings.openrouter_chat_completions_url,
-                headers=headers,
-                json=payload,
-            )
             try:
+                response = await client.post(
+                    settings.openrouter_chat_completions_url,
+                    headers=headers,
+                    json=payload,
+                )
                 response.raise_for_status()
             except httpx.HTTPStatusError as exc:
                 status = exc.response.status_code
@@ -60,6 +60,8 @@ class OpenRouterProvider(LLMProvider):
                 if body:
                     detail = f"{detail}: {body}"
                 raise LLMProviderUnavailable(detail) from exc
+            except httpx.TimeoutException as exc:
+                raise LLMProviderUnavailable(f"LLM unavailable: request timed out: {exc}") from exc
             except httpx.HTTPError as exc:
                 raise LLMProviderUnavailable(f"LLM unavailable: {exc}") from exc
             data = response.json()

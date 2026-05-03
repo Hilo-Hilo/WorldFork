@@ -10,13 +10,15 @@ from sqlalchemy.exc import SAWarning
 from sqlalchemy.orm import Session
 from sqlalchemy.pool import StaticPool
 
-from app.api import endpoint_ledgers as endpoint_ledgers_api
+from app.domains.endpoint_ledger import routes as endpoint_ledgers_api
 from app.api.schemas import EndpointLedgerEvaluateRequest
 from app.db import models
-from app.jobs import tasks as job_tasks
+from app.domains.jobs import executor as job_tasks
 from app.llm.schemas import LLMResponse
-from app.simulation import agent_engine, endpoint_ledger, report_engine
-from app.simulation.endpoint_ledger import (
+from app.domains.actor import agent_engine
+from app.domains.endpoint_ledger import service as endpoint_ledger
+from app.domains.report import engine as report_engine
+from app.domains.endpoint_ledger.service import (
     endpoint_ledger_entries,
     endpoint_ledger_report_payload,
     evaluate_endpoint_ledger,

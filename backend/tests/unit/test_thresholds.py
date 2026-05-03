@@ -68,7 +68,7 @@ def test_complex_contagion_k_threshold():
     """Adoption requires at least k mobilized trusted neighbors."""
     params = SociologyParams()
     # Force k=2 via the mobilization params we control here.
-    params.mobilization.k_threshold_complex_contagion = 2
+    params.mobilization.complex_contagion_k = 2
 
     g = TrustGraph()
     g.add_or_update_edge(
@@ -106,7 +106,7 @@ def test_complex_contagion_k_threshold():
 
 def test_complex_contagion_ignores_non_neighbors():
     params = SociologyParams()
-    params.mobilization.k_threshold_complex_contagion = 1
+    params.mobilization.complex_contagion_k = 1
     g = TrustGraph()
     g.add_or_update_edge(
         "ego", "n1", ingroup_affinity=0.9, recent_alignment=0.9, exposure_count=0

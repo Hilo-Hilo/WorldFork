@@ -1,10 +1,7 @@
 from __future__ import annotations
 
-import asyncio
 from copy import deepcopy
-from dataclasses import dataclass
-from datetime import datetime, timezone
-from typing import Any
+from datetime import datetime, timedelta, timezone
 from uuid import UUID
 
 from sqlalchemy import func, select
@@ -14,6 +11,7 @@ from sqlalchemy.orm import Session
 from app.core.clock import build_clock_context
 from app.core.labels import tick_label
 from app.db import models
+from app.llm.audit import mark_stale_running_llm_calls_failed
 from app.llm.prompt_builder import build_agent_prompt_context
 from app.runtime import NodeKind, TickRuntimeState, build_tick_graph
 from app.runtime.control import tool_call_node_key
@@ -55,76 +53,7 @@ from app.storage.artifact_store import ArtifactStore
 UNFINISHED_TICK_STATUSES = {"running", "provisional"}
 RUNNABLE_MULTIVERSE_STATUSES = {"active", "candidate"}
 TERMINAL_MULTIVERSE_STATUSES = {"completed", "terminated"}
-
-
-@dataclass(frozen=True)
-class TickContext:
-    run_id: str
-    universe_id: str
-    tick: int
-    attempt_number: int = 1
-
-
-async def run_tick(
-    ctx: TickContext,
-    *,
-    session: Any = None,
-    ledger: Any = None,
-    routing: Any = None,
-    limiter: Any = None,
-    memory: Any = None,
-    dispatcher: Any = None,
-) -> dict:
-    """Compatibility async wrapper for legacy Celery/local-runner callers.
-
-    The rewrite's canonical tick runner is synchronous and DB-canonical. Legacy
-    task envelopes still call ``run_tick(ctx, ...)``; route them into the
-    canonical runner when they carry UUID multiverse ids instead of crashing on
-    the removed V1 ``TickContext`` contract.
-    """
-
-    del session, ledger, routing, limiter, memory, dispatcher
-
-    def _run() -> dict:
-        from app.db import models as current_models
-        from app.db.session import SessionLocal
-
-        try:
-            multiverse_id = UUID(str(ctx.universe_id))
-        except ValueError:
-            return {
-                "status": "failed",
-                "error": f"multiverse {ctx.universe_id!r} is not a canonical UUID",
-            }
-
-        db = SessionLocal()
-        try:
-            multiverse = db.get(current_models.Multiverse, multiverse_id)
-            if multiverse is None:
-                return {"status": "failed", "error": f"multiverse {ctx.universe_id!r} not found"}
-            tick = run_next_tick(
-                db,
-                multiverse=multiverse,
-                idempotency_key=f"{ctx.universe_id}:tick:{ctx.tick}:attempt:{ctx.attempt_number}",
-            )
-            if tick.tick_index != ctx.tick:
-                raise ValueError(
-                    f"requested tick {ctx.tick} but canonical runner returned tick {tick.tick_index}"
-                )
-            db.commit()
-            return {
-                "status": "completed" if tick.status == "final" else tick.status,
-                "tick_snapshot_id": str(tick.id),
-                "tick": tick.tick_index,
-                "ui_label": tick.ui_label,
-            }
-        except Exception:
-            db.rollback()
-            raise
-        finally:
-            db.close()
-
-    return await asyncio.to_thread(_run)
+TICK_EXECUTION_STALE_AFTER_SECONDS = 15 * 60
 
 
 def run_next_tick(
@@ -135,13 +64,9 @@ def run_next_tick(
     force: bool = False,
     queue_job: models.Job | None = None,
 ) -> models.TickSnapshot:
-    locked_multiverse = db.scalar(
-        select(models.Multiverse)
-        .where(models.Multiverse.id == multiverse.id)
-        .with_for_update()
-    )
-    if locked_multiverse:
-        multiverse = locked_multiverse
+    current_multiverse = db.get(models.Multiverse, multiverse.id)
+    if current_multiverse:
+        multiverse = current_multiverse
 
     big_bang = db.get(models.BigBang, multiverse.big_bang_id)
     if big_bang and big_bang.status == "paused":
@@ -164,6 +89,14 @@ def run_next_tick(
     if latest_tick and latest_tick.status in UNFINISHED_TICK_STATUSES:
         tick = latest_tick
         next_index = tick.tick_index
+        active_execution = _active_tick_execution(db, tick=tick, multiverse=multiverse)
+        if active_execution is not None:
+            if _tick_execution_is_stale(active_execution):
+                _mark_tick_execution_stale(db, execution=active_execution)
+                _commit_progress(db, queue_job=queue_job)
+            elif queue_job is None and not force:
+                _commit_progress(db)
+                return tick
     else:
         next_index = 0 if latest_tick is None else latest_tick.tick_index + 1
         if next_index > max_ticks:
@@ -241,10 +174,13 @@ def run_next_tick(
                         checkpoints=checkpoints,
                         queue_job=queue_job,
                     )
+                    _commit_progress(db, queue_job=queue_job)
                     return tick
+                _commit_progress(db, queue_job=queue_job)
                 continue
             if spec.kind is NodeKind.BARRIER:
                 _complete_observable_node(db, node, input_payload={"actor_nodes": list(plan.actor_nodes)})
+                _commit_progress(db, queue_job=queue_job)
                 continue
             if spec.kind is NodeKind.STATE_COMMIT:
                 _commit_runtime_state(
@@ -255,6 +191,7 @@ def run_next_tick(
                     multiverse=multiverse,
                     outputs=outputs,
                 )
+                _commit_progress(db, queue_job=queue_job)
                 return tick
 
             checkpoint = checkpoints[node_key]
@@ -262,52 +199,53 @@ def run_next_tick(
                 outputs[node_key] = checkpoint.payload or {}
                 continue
 
+            node_id = node.id
+            checkpoint_id = checkpoint.id
+            execution_id = execution.id
             try:
-                with db.begin_nested():
-                    payload, attempt = _run_checkpoint_node(
-                        db,
-                        spec=spec,
-                        node=node,
-                        checkpoint=checkpoint,
-                        big_bang=big_bang,
-                        multiverse=multiverse,
-                        tick=tick,
-                        tick_index=next_index,
-                        clock_text=clock.as_prompt_text(),
-                        prompt_context=prompt_context,
-                        branch_policy=branch_policy,
-                        outputs=outputs,
+                payload, attempt = _run_checkpoint_node(
+                    db,
+                    spec=spec,
+                    node=node,
+                    checkpoint=checkpoint,
+                    big_bang=big_bang,
+                    multiverse=multiverse,
+                    tick=tick,
+                    tick_index=next_index,
+                    clock_text=clock.as_prompt_text(),
+                    prompt_context=prompt_context,
+                    branch_policy=branch_policy,
+                    outputs=outputs,
+                    queue_job=queue_job,
+                )
+                validation = validate_node_output(spec.kind.value, payload)
+                if not validation.ok:
+                    raise ValueError(
+                        f"runtime node {node_key} failed validation: {', '.join(validation.errors)}"
                     )
-                    validation = validate_node_output(spec.kind.value, payload)
-                    if not validation.ok:
-                        raise ValueError(
-                            f"runtime node {node_key} failed validation: {', '.join(validation.errors)}"
-                        )
-                    payload = {
-                        **_runtime_jsonable(payload),
-                        "validation": validation.model_dump(exclude={"payload"}),
-                    }
-                    _complete_checkpoint(db, node=node, checkpoint=checkpoint, attempt=attempt, payload=payload)
-                    outputs[node_key] = payload
-                    execution.runtime_meta = {
-                        **(execution.runtime_meta or {}),
-                        "completed_checkpoints": sorted(outputs),
-                        "current_node": node_key,
-                    }
-                    db.flush()
+                payload = {
+                    **_runtime_jsonable(payload),
+                    "validation": validation.model_dump(exclude={"payload"}),
+                }
+                _complete_checkpoint(db, node=node, checkpoint=checkpoint, attempt=attempt, payload=payload)
+                outputs[node_key] = payload
+                execution.runtime_meta = {
+                    **(execution.runtime_meta or {}),
+                    "completed_checkpoints": sorted(outputs),
+                    "current_node": node_key,
+                }
+                db.flush()
+                _commit_progress(db, queue_job=queue_job)
             except Exception as exc:
-                if isinstance(exc, EventValidationError):
-                    _log_final_event_validation_failure(
-                        db,
-                        execution=execution,
-                        node=node,
-                        checkpoint=checkpoint,
-                        tick_index=next_index,
-                        error=str(exc),
-                        invalid_events=exc.invalid_events,
-                        attempts=exc.attempts,
-                    )
-                _fail_checkpoint(db, node=node, checkpoint=checkpoint, error=str(exc))
+                _record_checkpoint_failure(
+                    db,
+                    execution_id=execution_id,
+                    node_id=node_id,
+                    checkpoint_id=checkpoint_id,
+                    tick_index=next_index,
+                    error=str(exc),
+                    event_validation_error=exc if isinstance(exc, EventValidationError) else None,
+                )
                 raise
 
             if spec.kind is NodeKind.GOD_REVIEW:
@@ -402,6 +340,99 @@ def _get_or_create_tick_execution(
         execution.runtime_meta = {**(execution.runtime_meta or {}), "resumed": True}
     db.flush()
     return execution
+
+
+def _active_tick_execution(
+    db: Session,
+    *,
+    tick: models.TickSnapshot,
+    multiverse: models.Multiverse,
+) -> models.TickExecution | None:
+    return db.scalar(
+        select(models.TickExecution)
+        .where(
+            models.TickExecution.big_bang_id == multiverse.big_bang_id,
+            models.TickExecution.multiverse_id == multiverse.id,
+            models.TickExecution.tick_index == tick.tick_index,
+            models.TickExecution.tick_snapshot_id == tick.id,
+            models.TickExecution.status == "running",
+            models.TickExecution.active_slot == "active",
+        )
+        .order_by(models.TickExecution.updated_at.desc())
+        .limit(1)
+    )
+
+
+def _tick_execution_is_stale(execution: models.TickExecution) -> bool:
+    reference = execution.updated_at or execution.started_at or execution.created_at
+    if reference is None:
+        return False
+    if reference.tzinfo is None:
+        reference = reference.replace(tzinfo=timezone.utc)
+    return reference <= datetime.now(timezone.utc) - timedelta(seconds=TICK_EXECUTION_STALE_AFTER_SECONDS)
+
+
+def _mark_tick_execution_stale(db: Session, *, execution: models.TickExecution) -> None:
+    now = datetime.now(timezone.utc)
+    stale_llm_calls = mark_stale_running_llm_calls_failed(
+        db,
+        big_bang_id=execution.big_bang_id,
+        stale_after_seconds=TICK_EXECUTION_STALE_AFTER_SECONDS,
+        now=now,
+        reason="stale tick execution reclaimed",
+    )
+    execution.status = "failed"
+    execution.active_slot = None
+    execution.finished_at = now
+    execution.runtime_meta = {
+        **(execution.runtime_meta or {}),
+        "stale_reclaimed_at": now.isoformat(),
+        "stale_reclaim_reason": "active execution exceeded stale cutoff",
+    }
+    nodes = db.scalars(
+        select(models.ExecutionNode).where(
+            models.ExecutionNode.tick_execution_id == execution.id,
+            models.ExecutionNode.status == "running",
+        )
+    ).all()
+    checkpoints = db.scalars(
+        select(models.TickCheckpoint).where(
+            models.TickCheckpoint.tick_execution_id == execution.id,
+            models.TickCheckpoint.status == "running",
+        )
+    ).all()
+    attempts = db.scalars(
+        select(models.NodeAttempt)
+        .join(models.ExecutionNode)
+        .where(
+            models.ExecutionNode.tick_execution_id == execution.id,
+            models.NodeAttempt.status == "running",
+        )
+    ).all()
+    for node in nodes:
+        node.status = "failed"
+        node.finished_at = now
+    for checkpoint in checkpoints:
+        checkpoint.status = "failed"
+        checkpoint.finished_at = now
+    for attempt in attempts:
+        attempt.status = "failed"
+        attempt.error = "stale tick execution reclaimed"
+        attempt.finished_at = now
+    db.add(
+        models.OperationLog(
+            big_bang_id=execution.big_bang_id,
+            multiverse_id=execution.multiverse_id,
+            tick_execution_id=execution.id,
+            event_type="runtime_execution_stale_reclaimed",
+            level="warning",
+            body={
+                "stale_after_seconds": TICK_EXECUTION_STALE_AFTER_SECONDS,
+                "stale_llm_calls_reclaimed": stale_llm_calls,
+            },
+        )
+    )
+    db.flush()
 
 
 def _build_runtime_plan(
@@ -515,6 +546,7 @@ def _run_checkpoint_node(
     prompt_context: dict,
     branch_policy: dict,
     outputs: dict[str, dict],
+    queue_job: models.Job | None,
 ) -> tuple[dict, models.NodeAttempt]:
     now = datetime.now(timezone.utc)
     node.status = "running"
@@ -530,6 +562,7 @@ def _run_checkpoint_node(
     )
     db.add(attempt)
     db.flush()
+    _commit_progress(db, queue_job=queue_job)
     payload = _execute_checkpoint_payload(
         db,
         spec=spec,
@@ -553,6 +586,54 @@ def _run_checkpoint_node(
         attempt.provider = "tool"
         attempt.model = payload.get("tool_name")
     return payload, attempt
+
+
+def _record_checkpoint_failure(
+    db: Session,
+    *,
+    execution_id: UUID,
+    node_id: UUID,
+    checkpoint_id: UUID,
+    tick_index: int,
+    error: str,
+    event_validation_error: EventValidationError | None,
+) -> None:
+    db.rollback()
+    execution = db.get(models.TickExecution, execution_id)
+    node = db.get(models.ExecutionNode, node_id)
+    checkpoint = db.get(models.TickCheckpoint, checkpoint_id)
+    if execution is None or node is None or checkpoint is None:
+        return
+    now = datetime.now(timezone.utc)
+    attempt = db.scalar(
+        select(models.NodeAttempt)
+        .where(
+            models.NodeAttempt.execution_node_id == node.id,
+            models.NodeAttempt.status == "running",
+        )
+        .order_by(models.NodeAttempt.created_at.desc())
+        .limit(1)
+    )
+    if attempt is not None:
+        attempt.status = "failed"
+        attempt.error = error
+        attempt.finished_at = now
+    if event_validation_error is not None:
+        _log_final_event_validation_failure(
+            db,
+            execution=execution,
+            node=node,
+            checkpoint=checkpoint,
+            tick_index=tick_index,
+            error=error,
+            invalid_events=event_validation_error.invalid_events,
+            attempts=event_validation_error.attempts,
+        )
+    _fail_checkpoint(db, node=node, checkpoint=checkpoint, error=error)
+    execution.status = "failed"
+    execution.active_slot = None
+    execution.finished_at = now
+    _commit_progress(db)
 
 
 def _execute_checkpoint_payload(
@@ -866,6 +947,20 @@ def _commit_runtime_state(
     execution.finished_at = now
     execution.runtime_meta = {**(execution.runtime_meta or {}), "final_tick_snapshot_id": str(tick.id)}
     db.flush()
+
+
+def _commit_progress(db: Session, *, queue_job: models.Job | None = None) -> None:
+    """Persist checkpoint progress before any long external wait.
+
+    Tick execution is intentionally resumable. Committing between checkpoints
+    prevents request-scoped transactions from holding multiverse/tick locks
+    while provider calls are in flight.
+    """
+    if queue_job is not None and queue_job.status == "running":
+        now = datetime.now(timezone.utc)
+        queue_job.last_heartbeat_at = now
+        queue_job.lease_expires_at = now + timedelta(seconds=TICK_EXECUTION_STALE_AFTER_SECONDS)
+    db.commit()
 
 
 def _next_attempt_number(db: Session, node: models.ExecutionNode) -> int:

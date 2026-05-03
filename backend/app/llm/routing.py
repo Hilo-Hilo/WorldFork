@@ -28,7 +28,6 @@ class AuditedLLMRouteInfo:
     route: str
     label: str
     description: str
-    aliases: tuple[str, ...]
     fallback_model_setting: str
 
 
@@ -37,56 +36,48 @@ AUDITED_LLM_ROUTES: tuple[AuditedLLMRouteInfo, ...] = (
         route=AuditedLLMRoute.INITIALIZER_CHUNK_EXTRACTOR,
         label="Initializer chunk extractor",
         description="Extracts structured facts from long scenario text chunks before initialization.",
-        aliases=("initialize_big_bang",),
         fallback_model_setting="initializer_agent_model",
     ),
     AuditedLLMRouteInfo(
         route=AuditedLLMRoute.INITIALIZER_AGENT,
         label="Initializer agent",
         description="Builds the initial actors, cohorts, heroes, graph state, and baseline events.",
-        aliases=("initialize_big_bang",),
         fallback_model_setting="initializer_agent_model",
     ),
     AuditedLLMRouteInfo(
         route=AuditedLLMRoute.GOD_AGENT,
         label="God review agent",
         description="Reviews provisional ticks and decides whether to continue, branch, merge, or terminate.",
-        aliases=("god_agent_review",),
         fallback_model_setting="god_agent_model",
     ),
     AuditedLLMRouteInfo(
         route=AuditedLLMRoute.COHORT_AGENT,
         label="Cohort agent",
         description="Generates cohort social actions, proposed events, and self-ratings for each tick.",
-        aliases=("agent_deliberation_batch",),
         fallback_model_setting="cohort_agent_model",
     ),
     AuditedLLMRouteInfo(
         route=AuditedLLMRoute.HERO_AGENT,
         label="Hero agent",
         description="Generates hero social actions, proposed events, and self-ratings for each tick.",
-        aliases=("agent_deliberation_batch",),
         fallback_model_setting="hero_agent_model",
     ),
     AuditedLLMRouteInfo(
         route=AuditedLLMRoute.EVENT_SUMMARY,
         label="Event summary agent",
         description="Summarizes executed simulation events into structured event summary records.",
-        aliases=("execute_due_events",),
         fallback_model_setting="event_summary_model",
     ),
     AuditedLLMRouteInfo(
         route=AuditedLLMRoute.REPORT_AGENT,
         label="Report agent",
         description="Writes structured multiverse and final Big Bang report summaries.",
-        aliases=("aggregate_run_results",),
         fallback_model_setting="report_agent_model",
     ),
     AuditedLLMRouteInfo(
         route=AuditedLLMRoute.ENDPOINT_LEDGER,
         label="Endpoint ledger evaluator",
         description="Evaluates endpoint ledger probabilities from simulation evidence.",
-        aliases=("evaluate_endpoint_ledger", "god_agent_review"),
         fallback_model_setting="god_agent_model",
     ),
 )
@@ -167,7 +158,6 @@ def audited_route_catalog() -> list[dict[str, Any]]:
             "route_kind": "audited_llm",
             "label": item.label,
             "description": item.description,
-            "aliases": list(item.aliases),
             "fallback_model_setting": item.fallback_model_setting,
             "direct_override": True,
         }
@@ -188,18 +178,6 @@ def resolve_audited_llm_route(
     if _is_stale_seed_default_row(row):
         row = None
     matched_route = route_name if row is not None else None
-    alias_row, alias_name = _first_alias_row(db, route_name)
-    if row is None and alias_row is not None:
-        row = alias_row
-        matched_route = alias_name
-    elif (
-        row is not None
-        and alias_row is not None
-        and _is_seed_default_row(row)
-        and not _is_seed_default_row(alias_row)
-    ):
-        row = alias_row
-        matched_route = alias_name
 
     if row is not None:
         primary = LLMRouteCandidate(
@@ -248,24 +226,6 @@ def _route_name(route: AuditedLLMRoute | str | None) -> str | None:
     value = str(route).strip()
     return value or None
 
-
-def _aliases_for_route(route_name: str | None) -> tuple[str, ...]:
-    if route_name is None:
-        return ()
-    info = _ROUTE_INFO_BY_NAME.get(route_name)
-    if info is None:
-        return ()
-    return info.aliases
-
-
-def _first_alias_row(db: Session, route_name: str | None) -> tuple[dict[str, Any] | None, str | None]:
-    for alias in _aliases_for_route(route_name):
-        row = _route_row(db, alias)
-        if row is not None and not _is_stale_seed_default_row(row):
-            return row, alias
-    return None, None
-
-
 def _route_row(db: Session, route_name: str | None) -> dict[str, Any] | None:
     if not route_name:
         return None
@@ -284,7 +244,6 @@ def _route_row(db: Session, route_name: str | None) -> dict[str, Any] | None:
         return None
     return dict(row) if row is not None else None
 
-
 def _is_seed_default_row(row: dict[str, Any]) -> bool:
     payload = row.get("payload")
     return (
@@ -300,7 +259,8 @@ def _is_legacy_seed_default_row(row: dict[str, Any] | None) -> bool:
     if not isinstance(payload, dict):
         return False
     return (
-        row.get("preferred_provider") == _OPENROUTER_PROVIDER
+        payload.get("source") == "seed_default"
+        and row.get("preferred_provider") == _OPENROUTER_PROVIDER
         and row.get("preferred_model") == _LEGACY_GEMINI_SEED_MODEL
         and payload.get("preferred_provider") == _OPENROUTER_PROVIDER
         and payload.get("preferred_model") == _LEGACY_GEMINI_SEED_MODEL

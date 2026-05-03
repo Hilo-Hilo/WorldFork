@@ -5,7 +5,7 @@ description: Use when operating, validating, onboarding, configuring LLM provide
 
 # WorldFork
 
-WorldFork is a backend + worker + CLI product for branching social simulations. The primary operator interface is the `worldfork` CLI, backed by the FastAPI agent and runtime APIs.
+WorldFork is a backend + worker + CLI product for branching social simulations. Its core framing is a Monte Carlo tree search of the real world. The primary operator interface is the `worldfork` CLI, backed by the FastAPI agent and runtime APIs.
 
 ## Start Here
 
@@ -14,7 +14,19 @@ Run discovery before making assumptions about the live API surface:
 ```bash
 worldfork agent discover
 worldfork status
+worldfork setup
 ```
+
+Use this project model when explaining WorldFork to a user: a Big Bang is the
+root scenario, each multiverse is one timeline, ticks are checkpointed runtime
+steps, branches create alternate timelines from decision points, endpoint
+ledgers track terminal outcomes and path mass, and reports are structured
+database versions that can be rendered on request.
+
+When onboarding a new user, keep the tone warm, proactive, and practical. Tell
+them what each command is proving, translate important output into plain
+language, and use `worldfork setup` to show provider options before asking which
+LLM providers they want to configure.
 
 Do not hardcode backend URLs. Use `WORLD_FORK_API_BASE`, `BACKEND_API_BASE`, or the CLI `--base-url` flag when a non-default backend target is required.
 
@@ -53,6 +65,10 @@ worldfork query GET /readyz --no-api-prefix
 
 Ask the operator to put `OPENROUTER_API_KEY` in `.env` and configure OpenAI Codex OAuth with `worldfork settings openai-codex-login` or `codex login --device-auth`. Live onboarding and validation runs should use the default split unless the user explicitly authorizes another route policy: `openrouter/deepseek/deepseek-v4-flash` for cohort, hero, action, and event-summary work and `openai-codex/gpt-5.4` for initialization, God review, endpoint-ledger evaluation, and reports.
 
+Use `worldfork setup` after the backend is reachable, or `worldfork setup
+--offline` after only the CLI is installed, to show provider choices and the
+recommended Atlas routing profile.
+
 ## LLM Providers And Routing
 
 Inspect the effective provider, route catalog, persisted rows, and rate limits before changing models:
@@ -74,6 +90,8 @@ WorldFork routes audited LLM calls by stable route names. Configure routes throu
 - `event_summary`
 - `report_agent`
 - `endpoint_ledger`
+
+For actor deliberation, use `cohort_agent` and `hero_agent` as the operator-facing audited routes. The internal worker job for one actor decision is `actor_deliberation_call`.
 
 For onboarding and live smoke tests, keep the default split unless the user explicitly authorizes another model: `cohort_agent`, `hero_agent`, action execution, and `event_summary` on `openrouter/deepseek/deepseek-v4-flash`; `initializer_chunk_extractor`, `initializer_agent`, `god_agent`, `report_agent`, and `endpoint_ledger` on `openai-codex/gpt-5.4`.
 
@@ -144,7 +162,7 @@ Re-run `worldfork settings llm` after any change and verify `effective_model_rou
 worldfork --verbosity normal --fields id,source,status,message,provider,model,big_bang_id logs list --source llm
 ```
 
-For Kimi or other OpenAI-compatible providers, add a `settings providers` row with a new provider name, `api_key_env`, base URL, and `payload.api` set to `openai-compatible`, then route individual jobs to it. For Claude or other non-OpenAI-compatible APIs, wait for or implement a provider adapter and keep the rest of the system pointed at the audited LLM routing layer.
+For Kimi or other hosted OpenAI-compatible providers, add a `settings providers` row with a new provider name, `api_key_env`, base URL, and `payload.api` set to `openai-compatible`, then route individual jobs to it. For local OpenAI-compatible runtimes such as Ollama, vLLM, LM Studio, and LocalAI, use `api_key_env: "none"` and payload APIs such as `ollama-openai`, `vllm-openai`, `lmstudio-openai`, or `localai-openai`; these can be routed to any audited agent type after a JSON-quality smoke test. Add `payload.omit_auth_header: true` only for strict local proxies that reject bearer headers. For Claude, use OpenRouter model IDs with provider `openrouter` or an OpenRouter-backed name such as `openrouter-claude`; direct Anthropic API support requires a separate provider adapter.
 
 ## Core Commands
 
@@ -180,6 +198,13 @@ It creates the Atlas Resilience Crisis Big Bang, runs root and branch timelines,
 
 The default Atlas tick duration is 720 simulated minutes. If `--max-tick-index` is omitted, Atlas derives it from `--horizon-days` and `--tick-duration-minutes`.
 
+When running Atlas for onboarding, narrate the phases in short progress updates:
+initialization turns the scenario into actors and state, ticks advance decisions
+and events, God review decides whether branches are worth exploring, endpoint
+ledgers track terminal hypotheses/path mass, and reports compare the resulting
+timelines. Explain any printed Big Bang, multiverse, job, log, or report IDs and
+the command that inspects each one.
+
 ## Reports
 
 Treat reports as database records first. A report is a logical slot, and each generated revision is a `report_version` containing parsable JSON content, source metadata, model metadata, source multiverse IDs, source config version, and latest tick bindings.
@@ -196,8 +221,13 @@ make lint
 docker compose config --quiet
 ```
 
-For a real runtime smoke test with API credits, use only Gemini 3.1 Flash Lite:
+For a real runtime smoke test with API credits, use the configured default
+split unless the user explicitly authorizes another policy:
 
 ```bash
 worldfork smoke live
 ```
+
+The default split is OpenRouter `deepseek/deepseek-v4-flash` for cohort, hero,
+action, and event-summary routes, and OpenAI Codex `gpt-5.4` for initializer,
+God review, endpoint-ledger, and report routes.

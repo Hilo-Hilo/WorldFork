@@ -11,6 +11,7 @@ from app.api.schemas import (
     BigBangCreate,
     BigBangOut,
     BigBangPatch,
+    JobCreate,
     ReportOut,
     ReportRequest,
     ReportVersionOut,
@@ -22,6 +23,7 @@ from app.db import models
 from app.db.session import get_db
 from app.llm.audit import LLMCallError
 from app.domains.big_bang.initializer import create_big_bang
+from app.domains.jobs.routes import JobResponse, create_job_record
 from app.domains.report.engine import generate_final_big_bang_report
 from app.domains.big_bang.run_orchestrator import run_big_bang_until_complete
 from app.domains.tick.tick_runner import TERMINAL_MULTIVERSE_STATUSES
@@ -125,17 +127,38 @@ def reports(big_bang_id: UUID, db: Session = Depends(get_db)):
 def final_report(big_bang_id: UUID, payload: ReportRequest | None = None, db: Session = Depends(get_db)):
     request = payload or ReportRequest()
     big_bang = require(db, models.BigBang, big_bang_id)
+    reject_archived_big_bang(big_bang)
     reject_non_terminal_multiverses(db, big_bang)
+    try:
+        version = generate_final_big_bang_report(db, big_bang=big_bang, title=request.title, summary=request.summary)
+    except LLMCallError as exc:
+        db.rollback()
+        raise_llm_unavailable(exc)
     big_bang.status = "completed"
-    version = generate_final_big_bang_report(db, big_bang=big_bang, title=request.title, summary=request.summary)
     commit_or_500(db)
     return version
+
+
+@router.post("/{big_bang_id}/reports/final/jobs", response_model=JobResponse)
+def final_report_job(big_bang_id: UUID, payload: ReportRequest | None = None, db: Session = Depends(get_db)):
+    request = payload or ReportRequest()
+    big_bang = require(db, models.BigBang, big_bang_id)
+    reject_archived_big_bang(big_bang)
+    return create_job_record(
+        JobCreate(
+            job_type="generate_final_big_bang_report",
+            big_bang_id=big_bang.id,
+            payload={"title": request.title, "summary": request.summary},
+        ),
+        db=db,
+    )
 
 
 @router.post("/{big_bang_id}/run-until-complete", response_model=RunUntilCompleteOut)
 def run_until_complete(big_bang_id: UUID, payload: RunUntilCompleteRequest | None = None, db: Session = Depends(get_db)):
     request = payload or RunUntilCompleteRequest()
     big_bang = require(db, models.BigBang, big_bang_id)
+    reject_archived_big_bang(big_bang)
     try:
         result = run_big_bang_until_complete(db, big_bang=big_bang, max_total_ticks=request.max_total_ticks)
     except LLMCallError as exc:
@@ -146,6 +169,25 @@ def run_until_complete(big_bang_id: UUID, payload: RunUntilCompleteRequest | Non
         raise_domain_conflict(exc)
     commit_or_500(db)
     return result
+
+
+@router.post("/{big_bang_id}/run-until-complete/jobs", response_model=JobResponse)
+def run_until_complete_job(
+    big_bang_id: UUID,
+    payload: RunUntilCompleteRequest | None = None,
+    db: Session = Depends(get_db),
+):
+    request = payload or RunUntilCompleteRequest()
+    big_bang = require(db, models.BigBang, big_bang_id)
+    reject_archived_big_bang(big_bang)
+    return create_job_record(
+        JobCreate(
+            job_type="run_big_bang_until_complete",
+            big_bang_id=big_bang.id,
+            payload={"max_total_ticks": request.max_total_ticks},
+        ),
+        db=db,
+    )
 
 
 def reject_non_terminal_multiverses(db: Session, big_bang: models.BigBang) -> None:
@@ -161,6 +203,11 @@ def reject_non_terminal_multiverses(db: Session, big_bang: models.BigBang) -> No
         labels = ", ".join(item.ui_label for item in non_terminal[:5])
         suffix = f": {labels}" if labels else ""
         raise_domain_conflict(ValueError(f"final report requires terminal multiverses{suffix}"))
+
+
+def reject_archived_big_bang(big_bang: models.BigBang) -> None:
+    if getattr(big_bang, "status", None) == "archived":
+        raise_domain_conflict(ValueError("big bang is archived"))
 
 
 def raise_domain_conflict(exc: ValueError):

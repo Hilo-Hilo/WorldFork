@@ -198,7 +198,7 @@ _ROUTING_DEFAULTS = [
         "daily_budget_usd": None,
     },
     {
-        "job_type": "agent_deliberation_batch",
+        "job_type": "actor_deliberation_call",
         "preferred_provider": "openrouter",
         "preferred_model": _OPENROUTER_MODEL,
         "fallback_provider": "openrouter",

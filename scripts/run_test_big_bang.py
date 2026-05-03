@@ -25,6 +25,8 @@ from sqlalchemy import select
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SCENARIO = ROOT / "examples" / "test-big-bang.md"
 DEFAULT_BASE_URL = os.environ.get("WORLDFORK_API_URL", "http://127.0.0.1:8003")
+DEFAULT_API_PREFIX = os.environ.get("WORLDFORK_API_PREFIX", "/api")
+ACTIVE_API_PREFIX = DEFAULT_API_PREFIX
 OPENROUTER_MODEL = "deepseek/deepseek-v4-flash"
 OPENAI_CODEX_MODEL = "gpt-5.4"
 DEFAULT_EXPECTED_PAIRS = {
@@ -54,7 +56,7 @@ _load_env()
 from app.core.config import get_settings  # noqa: E402
 from app.db import models  # noqa: E402
 from app.db.session import SessionLocal  # noqa: E402
-from app.simulation.branch_engine import create_branch  # noqa: E402
+from app.domains.multiverse.branch_engine import create_branch  # noqa: E402
 
 
 class SampleFailure(AssertionError):
@@ -77,14 +79,107 @@ def request(
     json: dict[str, Any] | None = None,
 ) -> Any:
     expected_set = expected if isinstance(expected, set) else {expected}
-    response = client.request(method, f"{base_url}{path}", json=json)
+    request_path = _api_path(path)
+    response = client.request(method, f"{base_url}{request_path}", json=json)
     if response.status_code not in expected_set:
-        raise SampleFailure(f"{method} {path} -> {response.status_code}: {response.text[:1200]}")
+        raise SampleFailure(f"{method} {request_path} -> {response.status_code}: {response.text[:1200]}")
     if response.content:
         if "application/json" not in response.headers.get("content-type", ""):
             return response.text
         return response.json()
     return None
+
+
+def _api_path(path: str) -> str:
+    prefix = str(ACTIVE_API_PREFIX or "").strip("/")
+    if not path.startswith("/api"):
+        return path
+    suffix = path[4:]
+    if not prefix:
+        return suffix or "/"
+    return f"/{prefix}{suffix}"
+
+
+def wait_for_job(
+    client: httpx.Client,
+    base_url: str,
+    job_id: str,
+    *,
+    timeout_seconds: int,
+    label: str,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout_seconds
+    while True:
+        remaining = max(1, int(deadline - time.monotonic()))
+        if remaining <= 1:
+            raise SampleFailure(f"{label} job {job_id} did not finish within {timeout_seconds}s")
+        waited = request(
+            client,
+            base_url,
+            "POST",
+            f"/api/agent/jobs/{job_id}/wait",
+            json={
+                "timeout_seconds": min(30, remaining),
+                "poll_interval_seconds": 2,
+            },
+        )
+        job = waited.get("data") if isinstance(waited, dict) and "data" in waited else waited
+        meta = waited.get("meta") if isinstance(waited, dict) else {}
+        status = job.get("status") if isinstance(job, dict) else None
+        if status in {"succeeded", "completed"}:
+            return job
+        if status in {"failed", "cancelled", "dead_lettered", "interrupted"}:
+            raise SampleFailure(f"{label} job {job_id} ended as {status}: {job.get('error')}")
+        if not meta.get("timed_out"):
+            time.sleep(2)
+        print(f"[info] waiting for {label} job {job_id}; status={status or 'unknown'}")
+
+
+def simulate_next_tick_job(
+    client: httpx.Client,
+    base_url: str,
+    *,
+    big_bang_id: str,
+    multiverse_id: str,
+    idempotency_key: str,
+    label: str,
+    timeout_seconds: int,
+) -> dict[str, Any]:
+    job = request(
+        client,
+        base_url,
+        "POST",
+        "/api/jobs",
+        json={
+            "job_type": "run_multiverse_tick",
+            "big_bang_id": big_bang_id,
+            "payload": {
+                "multiverse_id": multiverse_id,
+                "idempotency_key": idempotency_key,
+            },
+            "idempotency_key": f"atlas-job:{idempotency_key}",
+        },
+    )
+    job_id = job["id"]
+    print(f"[info] {label} tick job: {job_id}")
+    if job.get("error"):
+        raise SampleFailure(
+            f"{label} job {job_id} could not be enqueued: {job['error']}. "
+            "Start the worker queue instead of running Atlas ticks inline."
+        )
+    elif job.get("status") not in {"succeeded", "completed"}:
+        job = wait_for_job(
+            client,
+            base_url,
+            job_id,
+            timeout_seconds=timeout_seconds,
+            label=label,
+        )
+    result = job.get("result") or {}
+    tick_snapshot_id = result.get("tick_snapshot_id")
+    if not tick_snapshot_id:
+        raise SampleFailure(f"{label} job {job_id} did not return a tick_snapshot_id: {job}")
+    return request(client, base_url, "GET", f"/api/ticks/{tick_snapshot_id}")
 
 
 def wait_for_ready(client: httpx.Client, base_url: str) -> dict[str, Any]:
@@ -254,7 +349,7 @@ def assert_expected_llm_only(
         db.close()
 
 
-def _legacy_assert_config_uses_model(expected_provider: str, expected_model: str) -> None:
+def assert_config_uses_model(expected_provider: str, expected_model: str) -> None:
     settings = get_settings()
     check(settings.default_llm_provider == expected_provider, f"default provider is {expected_provider}")
     for label, model in {
@@ -265,10 +360,6 @@ def _legacy_assert_config_uses_model(expected_provider: str, expected_model: str
         "event_summary": settings.event_summary_model,
     }.items():
         check(model == expected_model, f"{label} model is {expected_model}")
-
-
-assert_config_uses_model = _legacy_assert_config_uses_model
-
 
 def validate_runtime(runtime: dict[str, Any]) -> None:
     executions = runtime.get("executions") or []
@@ -334,6 +425,7 @@ def run_all_multiverses_to_terminal(
     big_bang_id: str,
     *,
     max_requests: int,
+    tick_timeout_seconds: int,
 ) -> tuple[list[dict[str, Any]], int]:
     requests_used = 0
     seen_tick_ids: set[str] = set()
@@ -354,16 +446,16 @@ def run_all_multiverses_to_terminal(
             if requests_used >= max_requests:
                 break
             before_status = multiverse["status"]
-            tick = request(
+            tick = simulate_next_tick_job(
                 client,
                 base_url,
-                "POST",
-                f"/api/multiverses/{multiverse['id']}/simulate-next-tick",
-                json={
-                    "idempotency_key": (
-                        f"atlas-complete-{multiverse['id']}-{requests_used}-{uuid.uuid4().hex[:8]}"
-                    )
-                },
+                big_bang_id=big_bang_id,
+                multiverse_id=multiverse["id"],
+                idempotency_key=(
+                    f"atlas-complete-{multiverse['id']}-{requests_used}-{uuid.uuid4().hex[:8]}"
+                ),
+                label=f"{multiverse['ui_label']} completion",
+                timeout_seconds=tick_timeout_seconds,
             )
             requests_used += 1
             if tick["id"] not in seen_tick_ids:
@@ -566,12 +658,15 @@ def run_sample(args: argparse.Namespace) -> None:
         resumed = request(client, base_url, "POST", f"/api/big-bangs/{big_bang_id}/resume")
         check(resumed["status"] == "running", "Atlas onboarding Big Bang resumed")
 
-        root_tick = request(
+        tick_timeout_seconds = max(1800, int(args.timeout))
+        root_tick = simulate_next_tick_job(
             client,
             base_url,
-            "POST",
-            f"/api/multiverses/{root_multiverse_id}/simulate-next-tick",
-            json={"idempotency_key": f"atlas-root-{root_multiverse_id}-t1"},
+            big_bang_id=big_bang_id,
+            multiverse_id=root_multiverse_id,
+            idempotency_key=f"atlas-root-{root_multiverse_id}-t1",
+            label="root Atlas",
+            timeout_seconds=tick_timeout_seconds,
         )
         check(root_tick["status"] == "final", "root Atlas tick completed")
         validate_runtime(request(client, base_url, "GET", f"/api/ticks/{root_tick['id']}/runtime"))
@@ -585,12 +680,14 @@ def run_sample(args: argparse.Namespace) -> None:
         lineage = request(client, base_url, "GET", f"/api/multiverses/{child_multiverse_id}/lineage")
         check(len(lineage["edges"]) >= 1, "manual branch lineage edge is visible")
 
-        child_tick = request(
+        child_tick = simulate_next_tick_job(
             client,
             base_url,
-            "POST",
-            f"/api/multiverses/{child_multiverse_id}/simulate-next-tick",
-            json={"idempotency_key": f"atlas-child-{child_multiverse_id}-t1"},
+            big_bang_id=big_bang_id,
+            multiverse_id=child_multiverse_id,
+            idempotency_key=f"atlas-child-{child_multiverse_id}-t1",
+            label="child Atlas",
+            timeout_seconds=tick_timeout_seconds,
         )
         check(child_tick["status"] == "final", "child Atlas branch tick completed")
         validate_runtime_or_inheritance(client, base_url, child_tick)
@@ -599,6 +696,7 @@ def run_sample(args: argparse.Namespace) -> None:
             base_url,
             big_bang_id,
             max_requests=args.completion_max_requests,
+            tick_timeout_seconds=tick_timeout_seconds,
         )
         multiverse_reports = generate_multiverse_reports(client, base_url, terminal_multiverses)
         report = request(
@@ -642,6 +740,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run the full Atlas onboarding multiverse demo.")
     parser.add_argument("--scenario-file", default=str(DEFAULT_SCENARIO), help="Markdown scenario dossier.")
     parser.add_argument("--base-url", default=DEFAULT_BASE_URL, help="WorldFork backend base URL.")
+    parser.add_argument("--api-prefix", default=DEFAULT_API_PREFIX, help="Backend API prefix.")
     parser.add_argument("--timeout", type=float, default=240.0, help="HTTP timeout in seconds.")
     parser.add_argument(
         "--tick-duration-minutes",
@@ -698,7 +797,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
         "--completion-max-requests",
         type=int,
         default=1000,
-        help="Safety cap for simulate-next-tick requests while draining discovered branches.",
+        help="Safety cap for tick jobs while draining discovered branches.",
     )
     parser.add_argument(
         "--expected-provider",
@@ -721,7 +820,9 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
 
 
 def main(argv: list[str] | None = None) -> int:
+    global ACTIVE_API_PREFIX
     args = parse_args(sys.argv[1:] if argv is None else argv)
+    ACTIVE_API_PREFIX = args.api_prefix
     try:
         run_sample(args)
     except Exception as exc:

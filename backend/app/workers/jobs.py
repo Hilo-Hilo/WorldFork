@@ -15,8 +15,8 @@ Tasks
 -----
 - ``initialize_big_bang`` (P1)
 - ``simulate_universe_tick`` (P0)  — the §11.1 loop entry
-  - ``apply_tick_results`` (P0)      — compatibility callback
-- ``agent_deliberation_batch`` (P1) — one packet → one parsed dict
+  - ``apply_tick_results`` (P0)      — split-task callback
+- ``actor_deliberation_call`` (P1) — one actor packet → one parsed dict
 - ``branch_universe`` (P0)
 - ``sync_zep_memory`` (P2)
 - ``aggregate_run_results`` (P2)
@@ -28,6 +28,7 @@ import asyncio
 import logging
 from collections.abc import Awaitable, Callable
 from typing import Any
+from uuid import UUID
 
 from backend.app.core.logging import get_logger
 from backend.app.schemas.jobs import JobEnvelope
@@ -323,39 +324,50 @@ async def _simulate_universe_tick_impl(env: JobEnvelope) -> dict:
     from backend.app.providers import ensure_providers_in_loop
     from backend.app.core.config import settings as _settings
     await ensure_providers_in_loop(_settings)
-    from backend.app.domains.tick.tick_runner import TickContext, run_tick
+    from app.db import models as current_models
+    from app.db.session import SessionLocal
+    from backend.app.domains.tick.tick_runner import run_next_tick
 
     if env.universe_id is None or env.tick is None:
         raise ValueError("simulate_universe_tick envelope requires universe_id + tick")
 
-    ctx = TickContext(
-        run_id=env.run_id,
-        universe_id=env.universe_id,
-        tick=int(env.tick),
-        attempt_number=int(env.attempt_number or 1),
-    )
+    requested_tick = int(env.tick)
+    attempt_number = int(env.attempt_number or 1)
 
-    session_cm = await _open_session()
-    async with session_cm as session:
-        routing, limiter = await _build_routing_and_limiter(session)
-        ledger = _open_ledger(env.run_id)
-
-        # Memory provider — fall back to None on any error.
-        memory = None
+    def _run() -> dict:
         try:
-            from backend.app.memory.factory import get_memory
-            memory = get_memory()
-        except Exception:
-            memory = None
+            multiverse_id = UUID(str(env.universe_id))
+        except ValueError as exc:
+            raise ValueError(f"multiverse {env.universe_id!r} is not a canonical UUID") from exc
 
-        return await run_tick(
-            ctx,
-            session=session,
-            ledger=ledger,
-            routing=routing,
-            limiter=limiter,
-            memory=memory,
-        )
+        db = SessionLocal()
+        try:
+            multiverse = db.get(current_models.Multiverse, multiverse_id)
+            if multiverse is None:
+                raise ValueError(f"multiverse {env.universe_id!r} not found")
+            tick = run_next_tick(
+                db,
+                multiverse=multiverse,
+                idempotency_key=f"{env.universe_id}:tick:{requested_tick}:attempt:{attempt_number}",
+            )
+            if tick.tick_index != requested_tick:
+                raise ValueError(
+                    f"requested tick {requested_tick} but canonical runner returned tick {tick.tick_index}"
+                )
+            db.commit()
+            return {
+                "status": "completed" if tick.status == "final" else tick.status,
+                "tick_snapshot_id": str(tick.id),
+                "tick": tick.tick_index,
+                "ui_label": tick.ui_label,
+            }
+        except Exception:
+            db.rollback()
+            raise
+        finally:
+            db.close()
+
+    return await asyncio.to_thread(_run)
 
 
 # ---------------------------------------------------------------------------
@@ -377,11 +389,11 @@ def apply_tick_results_task(  # type: ignore[no-untyped-def]
     universe_id: str,
     tick: int,
 ):
-    """Chord callback — receives the parsed dicts from N agent_deliberation_batch
+    """Chord callback — receives parsed dicts from N actor deliberation children
     children and resumes the §11.1 apply phase.
 
-    The apply phase currently happens inline in :func:`run_tick`; this callback
-    preserves compatibility with split-task deployments.
+    The canonical runtime applies tick results inside the main tick runner; this
+    callback keeps split-task deployments observable without mutating state.
     """
     logger.info(
         "apply_tick_results",
@@ -399,33 +411,37 @@ def apply_tick_results_task(  # type: ignore[no-untyped-def]
 
 
 # ---------------------------------------------------------------------------
-# agent_deliberation_batch
+# actor_deliberation_call
 # ---------------------------------------------------------------------------
 
 
 @celery_app.task(
     bind=True,
-    name="agent_deliberation_batch",
+    name="actor_deliberation_call",
     queue="p1",
     acks_late=True,
     max_retries=3,
 )
-def agent_deliberation_batch_task(self, envelope_json: str):  # type: ignore[no-untyped-def]
+def actor_deliberation_call_task(self, envelope_json: str):  # type: ignore[no-untyped-def]
     """Run one cohort/hero deliberation through the provider policy.
 
     The envelope payload carries ``actor_id``, ``actor_kind``, and the
     pre-built ``prompt_packet`` JSON.  Returns the parsed decision dict
     so the chord callback can fan it back into the apply phase.
     """
+    return _run_actor_deliberation_task(self, envelope_json)
+
+
+def _run_actor_deliberation_task(task_self, envelope_json: str):  # type: ignore[no-untyped-def]
     env = JobEnvelope.model_validate_json(envelope_json)
     try:
-        return asyncio.run(_run_tracked(env, _agent_deliberation_batch_impl, mark_failed_on_error=False))
+        return asyncio.run(_run_tracked(env, _actor_deliberation_call_impl, mark_failed_on_error=False))
     except Exception as exc:  # noqa: BLE001
-        asyncio.run(_mark_retry_or_failed_best_effort(self, env.job_id, exc))
-        raise self.retry(exc=exc, countdown=5)  # noqa: B904
+        asyncio.run(_mark_retry_or_failed_best_effort(task_self, env.job_id, exc))
+        raise task_self.retry(exc=exc, countdown=5)  # noqa: B904
 
 
-async def _agent_deliberation_batch_impl(env: JobEnvelope) -> dict:
+async def _actor_deliberation_call_impl(env: JobEnvelope) -> dict:
     from backend.app.providers import call_with_policy, ensure_providers_in_loop
     from backend.app.core.config import settings as _settings
     await ensure_providers_in_loop(_settings)
@@ -446,7 +462,7 @@ async def _agent_deliberation_batch_impl(env: JobEnvelope) -> dict:
         routing, limiter = await _build_routing_and_limiter(session)
 
         result = await call_with_policy(
-            job_type="agent_deliberation_batch",
+            job_type="actor_deliberation_call",
             prompt=packet,
             routing=routing,
             limiter=limiter,
@@ -535,7 +551,7 @@ async def _branch_universe_impl(env: JobEnvelope) -> dict:
     from backend.app.providers import ensure_providers_in_loop
     from backend.app.core.config import settings as _settings
     await ensure_providers_in_loop(_settings)
-    from backend.app.simulation.branch_universe_task import run_branch_universe
+    from backend.app.branching.branch_universe_task import run_branch_universe
 
     payload = env.payload or {}
     parent_universe_id = str(
@@ -687,11 +703,11 @@ async def _aggregate_run_results_impl(env: JobEnvelope) -> dict:
 
 @celery_app.task(bind=True, name="force_deviation", queue="p0")
 def force_deviation_task(self, envelope_json: str):  # type: ignore[no-untyped-def]
-    """Compatibility task name for queued forced-deviation jobs.
+    """Queued forced-deviation task.
 
-    The API currently commits forced deviations inline so users get the child id
-    immediately. This task remains routed for retry/replay tooling and returns
-    the payload when a caller deliberately enqueues it.
+    The API commits forced deviations inline so users get the child id
+    immediately. Deliberately enqueued force-deviation jobs return the payload
+    and let the API remain the single state-mutating path.
     """
     env = JobEnvelope.model_validate_json(envelope_json)
     try:
@@ -778,7 +794,7 @@ __all__ = [
     "initialize_big_bang_task",
     "simulate_universe_tick_task",
     "apply_tick_results_task",
-    "agent_deliberation_batch_task",
+    "actor_deliberation_call_task",
     "social_propagation_task",
     "execute_due_events_task",
     "sociology_update_task",

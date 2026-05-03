@@ -12,32 +12,32 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from sqlalchemy import text
 
-from app.api import (
-    actors,
-    agent,
-    artifacts,
-    big_bangs,
-    case_studies,
-    emotion_observability,
-    endpoint_ledgers,
-    god_agent,
-    graphs,
-    initialization,
-    jobs,
-    logs,
-    multiverses,
-    reports,
-    sample,
-    scenario_bank,
-    settings,
-    sociology,
-    ticks,
-    workspace,
-)
+from app.api import agent
 from app.core.config import get_settings
 from app.db.models import Base
 from app.db.session import engine
+from app.domains.actor import routes as actors
+from app.domains.artifacts import routes as artifacts
+from app.domains.big_bang import (
+    case_studies_routes as case_studies,
+    initialization_routes as initialization,
+    routes as big_bangs,
+    sample_routes as sample,
+    scenario_bank_routes as scenario_bank,
+)
+from app.domains.endpoint_ledger import routes as endpoint_ledgers
+from app.domains.governance import routes as god_agent
 from app.domains.integrations import routes as integrations
+from app.domains.jobs import routes as jobs
+from app.domains.logs import routes as logs
+from app.domains.multiverse import routes as multiverses
+from app.domains.multiverse import workspace_routes as workspace
+from app.domains.report import routes as reports
+from app.domains.settings import routes as settings
+from app.domains.sociology import emotion_routes as emotion_observability
+from app.domains.sociology import graph_routes as graphs
+from app.domains.sociology import routes as sociology
+from app.domains.tick import routes as ticks
 from app.domains.tick.tick_bundles import TickBundleHydrationError
 from backend.app.core.db import sync_engine
 from backend.app.core.redis_client import get_redis_client

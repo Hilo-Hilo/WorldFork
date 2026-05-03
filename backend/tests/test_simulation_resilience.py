@@ -14,12 +14,15 @@ from app.db import models
 from app.llm.audit import LLMCallError
 from app.llm.schemas import LLMResponse
 from app.api.schemas import BigBangCreate
-from app.domains.big_bang import initializer_agent as initializer_agent_module
+from app.domains.actor import agent_engine
+from app.domains.event import event_engine
+from app.domains.big_bang import initializer, initializer_agent as initializer_agent_module
 from app.domains.big_bang.initializer_agent import normalize_initializer_output
-from app.simulation import agent_engine, event_engine, initializer
-from app.simulation.graph_engine import update_graph_layers
-from app.simulation.initializer import persist_initializer_graphs_and_observability
+from app.domains.sociology.graph_engine import update_graph_layers
+from app.domains.big_bang.initializer import persist_initializer_graphs_and_observability
 from app.storage.artifact_store import ArtifactStore
+from backend.app.models.base import Base as RuntimeControlBase
+from backend.app.models.settings import GlobalSettingModel
 
 
 @pytest.fixture()
@@ -205,6 +208,36 @@ def test_actor_prompt_context_includes_global_and_owned_event_queue(db, monkeypa
     assert "own_queued_events" in captured_contexts[0]
 
 
+def test_actor_llm_call_metadata_records_canonical_source(db, monkeypatch):
+    big_bang, root, alpha, _beta = _seed_world(db)
+    captured_metadata = []
+
+    def fake_complete(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
+        captured_metadata.append({"metadata": metadata, "route": route})
+        call = _fake_llm_call(db, big_bang_id=big_bang_id, purpose=purpose, model=model)
+        return LLMResponse(content="{}", parsed={"social_actions": [], "proposed_events": []}), call
+
+    monkeypatch.setattr(agent_engine, "complete_with_audit", fake_complete)
+
+    agent_engine.run_actor_decision(
+        db,
+        big_bang=big_bang,
+        multiverse=root,
+        actor=alpha,
+        tick_index=2,
+        prompt_context={},
+    )
+
+    assert captured_metadata[0]["route"] == "cohort_agent"
+    metadata = captured_metadata[0]["metadata"]
+    assert metadata["agent_source"] == "cohort_agent"
+    assert metadata["canonical_job_type"] == "actor_deliberation_call"
+    assert metadata["actor_id"] == str(alpha.id)
+    assert metadata["actor_type"] == "cohort"
+    assert metadata["multiverse_id"] == str(root.id)
+    assert metadata["tick_index"] == 2
+
+
 def test_initializer_seed_events_become_root_event_queue(db, monkeypatch, tmp_path):
     def fake_snapshot(db, big_bang_id):
         snapshot = models.SourceOfTruthSnapshot(
@@ -322,6 +355,7 @@ def test_initializer_agent_uses_bounded_structured_parse_repair(monkeypatch):
 
 
 def test_initializer_llm_failure_uses_deterministic_fallback(db, monkeypatch, tmp_path):
+
     def fake_snapshot(db, big_bang_id):
         snapshot = models.SourceOfTruthSnapshot(
             big_bang_id=big_bang_id,
@@ -360,6 +394,66 @@ def test_initializer_llm_failure_uses_deterministic_fallback(db, monkeypatch, tm
     assert root.state["initializer_output"]["model"] == "deterministic_initializer_fallback"
     assert db.query(models.Actor).filter_by(big_bang_id=big_bang.id).count() > 0
     assert fallback_event.level == "warning"
+
+
+def test_big_bang_defaults_use_persisted_global_settings(db, monkeypatch, tmp_path):
+    RuntimeControlBase.metadata.create_all(
+        bind=db.get_bind(),
+        tables=[RuntimeControlBase.metadata.tables["settings_global"]],
+    )
+    db.add(
+        GlobalSettingModel(
+            setting_id="default",
+            default_tick_duration_minutes=90,
+            default_max_ticks=33,
+            default_max_schedule_horizon_ticks=7,
+            log_level="INFO",
+            display_timezone="UTC",
+            theme="system",
+            enable_oasis_adapter=False,
+            branching_defaults={
+                "max_branch_depth": 9,
+                "max_active_multiverses": 77,
+                "max_branches_per_tick": 6,
+                "branch_score_threshold": 0.12,
+            },
+            payload={},
+        )
+    )
+    db.commit()
+
+    def fake_snapshot(db, big_bang_id):
+        snapshot = models.SourceOfTruthSnapshot(
+            big_bang_id=big_bang_id,
+            version="test",
+            content_hash="hash",
+            artifact_path="source-of-truth",
+        )
+        db.add(snapshot)
+        db.flush()
+        return snapshot
+
+    monkeypatch.setattr(initializer, "snapshot_source_of_truth", fake_snapshot)
+    monkeypatch.setattr(initializer, "ArtifactStore", lambda: ArtifactStore(root=tmp_path))
+
+    big_bang = initializer.create_big_bang(
+        db,
+        BigBangCreate(
+            name="Settings defaults",
+            scenario_text="A town prepares a heat response plan.",
+            use_initializer_agent=False,
+        ),
+    )
+
+    config = db.query(models.BigBangConfig).filter_by(big_bang_id=big_bang.id).one()
+    assert config.simulation_config["tick_duration"] == "90 minutes"
+    assert config.simulation_config["tick_duration_minutes"] == 90
+    assert config.simulation_config["max_ticks"] == 33
+    assert config.simulation_config["max_schedule_horizon_ticks"] == 7
+    assert config.branch_policy["max_branch_depth"] == 9
+    assert config.branch_policy["max_active_multiverses"] == 77
+    assert config.branch_policy["max_branches_per_tick"] == 6
+    assert config.branch_policy["branch_score_threshold"] == 0.12
 
 
 def test_initializer_chunker_failure_uses_deterministic_fallback(db, monkeypatch, tmp_path):
@@ -406,6 +500,51 @@ def test_initializer_chunker_failure_uses_deterministic_fallback(db, monkeypatch
     assert root.state["initializer_output"]["model"] == "deterministic_initializer_fallback"
     assert "initializer_chunker_fallback_used" in event_types
     assert "initializer_fallback_used" in event_types
+
+
+def test_unexpected_initializer_agent_error_does_not_leave_draft_big_bang(db, monkeypatch, tmp_path):
+    def fake_snapshot(db, big_bang_id):
+        snapshot = models.SourceOfTruthSnapshot(
+            big_bang_id=big_bang_id,
+            version="test",
+            content_hash="hash",
+            artifact_path="source-of-truth",
+        )
+        db.add(snapshot)
+        db.flush()
+        return snapshot
+
+    def fail_after_audit_commit(db, *args, **kwargs):
+        db.add(
+            models.LLMCall(
+                big_bang_id=kwargs["big_bang_id"],
+                provider="openrouter",
+                model="google/gemini-3.1-flash-lite",
+                purpose="initializer_agent",
+                status="failed",
+                meta={"error": "provider unavailable"},
+            )
+        )
+        db.commit()
+        raise RuntimeError("unexpected initializer crash")
+
+    monkeypatch.setattr(initializer, "snapshot_source_of_truth", fake_snapshot)
+    monkeypatch.setattr(initializer, "ArtifactStore", lambda: ArtifactStore(root=tmp_path))
+    monkeypatch.setattr(initializer, "run_initializer_agent", fail_after_audit_commit)
+
+    with pytest.raises(RuntimeError):
+        initializer.create_big_bang(
+            db,
+            BigBangCreate(
+                name="Failed init",
+                scenario_text="A river town faces a flood warning.",
+                use_initializer_agent=True,
+            ),
+        )
+
+    assert db.query(models.BigBang).count() == 0
+    assert db.query(models.SourceOfTruthSnapshot).count() == 0
+    assert db.query(models.LLMCall).count() == 0
 
 
 def test_initializer_graph_and_emotion_casts_tolerate_bad_model_strings(db):

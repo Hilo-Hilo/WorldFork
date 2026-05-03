@@ -250,7 +250,96 @@ async def test_get_llm_config_exposes_provider_routing_and_route_catalog(client,
     assert report_effective["preferred_model"] == "deepseek/deepseek-v4-flash"
     assert report_effective["matched_route"] == "report_agent"
     assert any(route["route"] == "cohort_agent" for route in data["known_routes"])
+    assert all("aliases" not in route for route in data["known_routes"])
     assert data["api"]["model_routing"] == "/api/settings/model-routing"
+
+
+@pytest.mark.asyncio
+async def test_local_provider_catalog_is_configured_without_api_key_env(client):
+    provider_payload = {
+        "providers": [
+            {
+                "provider": "vllm",
+                "base_url": "http://host.docker.internal:8000/v1",
+                "api_key_env": "none",
+                "default_model": "local-model",
+                "fallback_model": None,
+                "json_mode_required": True,
+                "tool_calling_enabled": False,
+                "enabled": True,
+                "extra_headers": {},
+                "payload": {"api": "vllm-openai"},
+            }
+        ]
+    }
+    await client.patch("/api/settings/providers", json=provider_payload)
+
+    resp = await client.get("/api/settings/llm")
+
+    assert resp.status_code == 200
+    data = resp.json()
+    vllm = next(row for row in data["provider_catalog"] if row["provider"] == "vllm")
+    assert vllm["api_shape"] == "vllm-openai"
+    assert vllm["configured"] is True
+
+
+@pytest.mark.asyncio
+async def test_hosted_provider_catalog_is_not_configured_by_none_key_env(client):
+    provider_payload = {
+        "providers": [
+            {
+                "provider": "hosted-compatible",
+                "base_url": "https://hosted.example/v1",
+                "api_key_env": "none",
+                "default_model": "hosted-model",
+                "fallback_model": None,
+                "json_mode_required": True,
+                "tool_calling_enabled": False,
+                "enabled": True,
+                "extra_headers": {},
+                "payload": {"api": "openai-compatible"},
+            }
+        ]
+    }
+    await client.patch("/api/settings/providers", json=provider_payload)
+
+    resp = await client.get("/api/settings/llm")
+
+    assert resp.status_code == 200
+    data = resp.json()
+    provider = next(row for row in data["provider_catalog"] if row["provider"] == "hosted-compatible")
+    assert provider["api_shape"] == "openai-compatible"
+    assert provider["configured"] is False
+
+
+@pytest.mark.asyncio
+async def test_provider_catalog_marks_unsupported_api_shape(client):
+    provider_payload = {
+        "providers": [
+            {
+                "provider": "anthropic-direct",
+                "base_url": "https://api.anthropic.com",
+                "api_key_env": "ANTHROPIC_API_KEY",
+                "default_model": "claude-3-5-sonnet-latest",
+                "fallback_model": None,
+                "json_mode_required": True,
+                "tool_calling_enabled": False,
+                "enabled": True,
+                "extra_headers": {},
+                "payload": {"api": "anthropic-direct"},
+            }
+        ]
+    }
+    await client.patch("/api/settings/providers", json=provider_payload)
+
+    resp = await client.get("/api/settings/llm")
+
+    assert resp.status_code == 200
+    data = resp.json()
+    provider = next(row for row in data["provider_catalog"] if row["provider"] == "anthropic-direct")
+    assert provider["api_shape"] == "anthropic-direct"
+    assert provider["supported"] is False
+    assert provider["configured"] is False
 
 
 @pytest.mark.asyncio
@@ -327,7 +416,7 @@ async def test_patch_model_routing(client, db_session):
     payload = {
         "entries": [
             {
-                "job_type": "god_agent_review",
+                "job_type": "god_agent",
                 "preferred_provider": "openrouter",
                 "preferred_model": "openai/gpt-4o",
                 "temperature": 0.7,
@@ -346,10 +435,37 @@ async def test_patch_model_routing(client, db_session):
     assert resp.status_code == 200
     data = resp.json()
     assert len(data["entries"]) == 1
-    assert data["entries"][0]["job_type"] == "god_agent_review"
+    assert data["entries"][0]["job_type"] == "god_agent"
     god_effective = next(entry for entry in data["effective_entries"] if entry["route"] == "god_agent")
-    assert god_effective["matched_route"] == "god_agent_review"
+    assert god_effective["matched_route"] == "god_agent"
     assert any(route["route"] == "report_agent" for route in data["known_routes"])
+
+
+@pytest.mark.asyncio
+async def test_patch_model_routing_rejects_removed_job_type(client):
+    payload = {
+        "entries": [
+            {
+                "job_type": "agent_deliberation_batch",
+                "preferred_provider": "openrouter",
+                "preferred_model": "deepseek/deepseek-v4-flash",
+                "temperature": 0.7,
+                "top_p": 1.0,
+                "max_tokens": 4096,
+                "max_concurrency": 4,
+                "requests_per_minute": 60,
+                "tokens_per_minute": 150000,
+                "timeout_seconds": 120,
+                "retry_policy": "exponential_backoff",
+                "payload": {},
+            }
+        ]
+    }
+
+    resp = await client.patch("/api/settings/model-routing", json=payload)
+
+    assert resp.status_code == 400
+    assert "invalid model-routing entry" in resp.json()["detail"]
 
 
 # ---------------------------------------------------------------------------

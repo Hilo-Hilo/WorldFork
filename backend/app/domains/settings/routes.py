@@ -4,10 +4,17 @@ import os
 from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends, HTTPException
+from pydantic import ValidationError
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db.introspection import table_has_columns
+from app.llm.local_provider_policy import (
+    OPENAI_COMPATIBLE_API_SHAPES,
+    normalize_api_shape,
+    should_allow_no_auth_openai_provider,
+)
+from app.schemas.settings import ModelRoutingEntry
 from backend.app.core.config import FAST_MODEL_DEFAULT, SMART_MODEL_DEFAULT, settings
 from backend.app.core.db import get_session
 from backend.app.models.settings import (
@@ -179,7 +186,8 @@ def _is_legacy_seed_default_row(row: dict[str, Any] | None) -> bool:
     if row is None:
         return False
     return (
-        row.get("preferred_provider") == _OPENROUTER_PROVIDER
+        payload.get("source") == "seed_default"
+        and row.get("preferred_provider") == _OPENROUTER_PROVIDER
         and row.get("preferred_model") == _LEGACY_GEMINI_SEED_MODEL
         and payload.get("preferred_provider") == _OPENROUTER_PROVIDER
         and payload.get("preferred_model") == _LEGACY_GEMINI_SEED_MODEL
@@ -227,23 +235,6 @@ def _effective_routing_entries(entries: list[dict[str, Any]]) -> list[dict[str, 
         if _is_stale_seed_default_row(row):
             row = None
         matched_route = route if row is not None else None
-        for alias in route_info.get("aliases", []):
-            alias_row = rows_by_job_type.get(str(alias))
-            if _is_stale_seed_default_row(alias_row):
-                continue
-            if row is None and alias_row is not None:
-                row = alias_row
-                matched_route = str(alias)
-                break
-            if (
-                row is not None
-                and alias_row is not None
-                and _is_seed_default_row(row)
-                and not _is_seed_default_row(alias_row)
-            ):
-                row = alias_row
-                matched_route = str(alias)
-                break
         if row is None:
             effective.append(
                 {
@@ -293,7 +284,24 @@ def _provider_payload(row: dict[str, Any] | None) -> dict[str, Any]:
 
 def _provider_api_shape(row: dict[str, Any] | None, default: str) -> str:
     payload = _provider_payload(row)
-    return str(payload.get("provider_api") or payload.get("api_shape") or payload.get("api") or default)
+    return normalize_api_shape(
+        str(payload.get("provider_api") or payload.get("api_shape") or payload.get("api") or default)
+    )
+
+
+def _provider_configured(row: dict[str, Any] | None, *, api_shape: str, key_env: str) -> bool:
+    if row is None:
+        return False
+    if api_shape not in OPENAI_COMPATIBLE_API_SHAPES:
+        return False
+    if should_allow_no_auth_openai_provider(
+        provider=str(row.get("provider")),
+        api_key_env=key_env,
+        api_shape=api_shape,
+        base_url=str(row.get("base_url") or ""),
+    ):
+        return bool(row.get("enabled"))
+    return bool(os.environ.get(str(key_env)))
 
 
 def _provider_catalog(providers_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -357,16 +365,19 @@ def _provider_catalog(providers_rows: list[dict[str, Any]]) -> list[dict[str, An
         }
     )
     for row in rows_by_provider.values():
+        api_shape = _provider_api_shape(row, "openai-compatible")
+        key_env = str(row["api_key_env"])
+        supported = api_shape in OPENAI_COMPATIBLE_API_SHAPES
         catalog.append(
             {
                 "provider": row["provider"],
-                "api_shape": _provider_api_shape(row, "openai-compatible"),
+                "api_shape": api_shape,
                 "source": "settings_provider",
-                "supported": True,
+                "supported": supported,
                 "enabled": bool(row["enabled"]),
-                "configured": bool(os.environ.get(str(row["api_key_env"]))),
+                "configured": _provider_configured(row, api_shape=api_shape, key_env=key_env),
                 "base_url": row["base_url"],
-                "api_key_env": row["api_key_env"],
+                "api_key_env": key_env,
                 "default_model": row["default_model"],
                 "fallback_model": row.get("fallback_model"),
                 "payload": _provider_payload(row),
@@ -498,6 +509,12 @@ async def get_model_routing(session: DbSession):
 async def patch_model_routing(payload: PatchRoutingRequest, session: DbSession):
     for item_model in payload.entries:
         item = item_model.model_dump()
+        validation_item = dict(item)
+        validation_item.pop("payload", None)
+        try:
+            ModelRoutingEntry(**validation_item)
+        except ValidationError as exc:
+            raise HTTPException(status_code=400, detail=f"invalid model-routing entry: {exc}") from exc
         row = await session.get(ModelRoutingEntryModel, item["job_type"])
         if row is None:
             row = ModelRoutingEntryModel(job_type=item["job_type"], payload={})

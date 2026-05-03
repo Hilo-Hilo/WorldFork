@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
+from typing import Any, cast
 
 from sqlalchemy import and_, func, or_, select, update
 from sqlalchemy.orm import Session
 
 from app.db import models
+from app.llm.audit import mark_stale_running_llm_calls_failed
 
 
 CLAIMABLE_STATUSES = {"queued"}
@@ -36,7 +38,16 @@ def claim_job_for_execution(
             models.Job.id == job.id,
             or_(
                 models.Job.status.in_(CLAIMABLE_STATUSES),
-                and_(models.Job.status == "running", models.Job.updated_at <= lease_cutoff),
+                and_(
+                    models.Job.status == "running",
+                    or_(
+                        models.Job.lease_expires_at <= current,
+                        and_(
+                            models.Job.lease_expires_at.is_(None),
+                            models.Job.updated_at <= lease_cutoff,
+                        ),
+                    ),
+                ),
             ),
         )
         .values(
@@ -53,9 +64,21 @@ def claim_job_for_execution(
         .execution_options(synchronize_session=False)
     )
     db.flush()
-    if result.rowcount != 1:
+    if cast(Any, result).rowcount != 1:
         db.refresh(job)
         return False
+    if (
+        job.status == "running"
+        and job.big_bang_id is not None
+        and getattr(job, "lease_expires_at", None) is not None
+    ):
+        mark_stale_running_llm_calls_failed(
+            db,
+            big_bang_id=job.big_bang_id,
+            stale_after_seconds=JOB_LEASE_SECONDS,
+            now=current,
+            reason=f"expired job lease reclaimed for job {job.id}",
+        )
     job.status = "running"
     job.error = None
     job.lease_owner = lease_owner
@@ -80,6 +103,11 @@ def job_should_enqueue_for_retry(job: models.Job, *, now: datetime | None = None
         return False
     if job.status != "running":
         return False
+    lease_expires_at = getattr(job, "lease_expires_at", None)
+    if lease_expires_at is not None:
+        if lease_expires_at.tzinfo is None:
+            lease_expires_at = lease_expires_at.replace(tzinfo=timezone.utc)
+        return lease_expires_at <= (now or datetime.now(timezone.utc))
     updated_at = getattr(job, "updated_at", None)
     if updated_at is None:
         return False

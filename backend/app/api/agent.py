@@ -270,6 +270,7 @@ def discover():
             "recommended_flow": [
                 "worldfork agent discover",
                 "worldfork status",
+                "worldfork setup",
                 "worldfork settings llm",
                 "worldfork init --name <name> --scenario-file <path>",
                 "worldfork watch big-bang <big-bang-id>",
@@ -285,6 +286,7 @@ def discover():
                 "model_routing_endpoint": f"{settings.api_prefix}/settings/model-routing",
                 "rate_limits_endpoint": f"{settings.api_prefix}/settings/rate-limits",
                 "cli": "worldfork settings llm",
+                "setup_cli": "worldfork setup",
             },
         }
     )
@@ -463,6 +465,7 @@ def wait_for_job(job_id: UUID, body: AgentWaitRequest, db: Session = Depends(get
             return _ok(_row(job), terminal=True, timed_out=False)
         if time.monotonic() >= deadline:
             return _ok(_row(job), terminal=False, timed_out=True)
+        db.rollback()
         time.sleep(body.poll_interval_seconds)
         db.expire_all()
 

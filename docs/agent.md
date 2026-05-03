@@ -5,6 +5,7 @@ Agents operate WorldFork through the `worldfork` CLI. The CLI is backed by `/api
 ## Rules
 
 - Start with `worldfork agent discover` and `worldfork status`.
+- For first-time setup or Atlas onboarding, run `worldfork setup` and use it to explain provider/model options before asking the user which providers to configure.
 - Do not hardcode backend host URLs. Use the CLI default, `--base-url`, `WORLD_FORK_API_BASE`, or `BACKEND_API_BASE`.
 - Put global flags before the command.
 - Use `--verbosity summary` first.
@@ -18,9 +19,13 @@ Agents operate WorldFork through the `worldfork` CLI. The CLI is backed by `/api
 ```bash
 worldfork agent discover
 worldfork status
+worldfork setup
 ```
 
 `agent discover` returns the schema version, supported verbosity tiers, recommended command flow, known job types, scenario metadata, and service metadata.
+`setup` returns the provider-choice map and the recommended Atlas split: cheap,
+fast models for high-volume cohort/timeline work and stronger models for
+initialization, God review, endpoint-ledger evaluation, and reports.
 
 ## Context Control
 
@@ -130,3 +135,5 @@ worldfork demo atlas
 ```
 
 Atlas is a demonstration, not a minimal smoke test. It runs a larger branching simulation, drains terminal timelines, generates per-multiverse reports, and generates a final cross-multiverse report-agent summary.
+When running it for a new user, narrate the phases and explain how to inspect
+any printed Big Bang, multiverse, job, log, or report IDs.

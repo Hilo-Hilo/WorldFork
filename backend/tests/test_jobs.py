@@ -6,21 +6,28 @@ from types import SimpleNamespace
 from uuid import uuid4
 
 import pytest
-from fastapi import HTTPException
+from fastapi import BackgroundTasks, HTTPException
 from sqlalchemy import create_engine
 from sqlalchemy.exc import IntegrityError, SAWarning
 from sqlalchemy.orm import Session
 from sqlalchemy.pool import StaticPool
 
-from app.api import jobs as jobs_api
+from app.domains.jobs import routes as jobs_api
 from app.api.schemas import JobCreate
 from app.db import models
-from app.jobs.queues import JOB_TYPES, celery_queue_for_job_queue, default_idempotency_key
-from app.jobs.tasks import (
+from app.domains.jobs import executor as jobs_executor
+from app.domains.jobs.queues import (
+    JOB_TYPES,
+    celery_queue_for_job_queue,
+    default_idempotency_key,
+    queue_name_for_job,
+)
+from app.domains.jobs.executor import (
     JOB_LEASE_SECONDS,
     JobNotRunnableError,
     claim_job_for_execution,
     execute_job,
+    job_should_enqueue_for_retry,
     validate_job_payload,
 )
 
@@ -63,6 +70,22 @@ def test_advertised_job_types_are_executable_and_payload_validated():
         validate_job_payload("run_big_bang_until_complete", {})
 
 
+def test_advertised_job_queues_are_runtime_celery_queues():
+    from backend.app.workers.celery_app import celery_app
+
+    configured_queues = {queue.name for queue in celery_app.conf.task_queues}
+
+    assert {queue_name_for_job(job_type) for job_type in JOB_TYPES}.issubset(configured_queues)
+
+
+def test_job_worker_imports_without_undeclared_queue_dependency():
+    import importlib
+
+    workers = importlib.import_module("app.domains.jobs.workers")
+
+    assert workers.run_job.name == "worldfork.execute_job"
+
+
 def test_execute_job_claims_before_validating_and_marks_bad_payload_failed():
     job = SimpleNamespace(
         id=uuid4(),
@@ -100,6 +123,30 @@ def test_execute_job_refuses_non_queued_rerun_or_concurrent_claim():
         execute_job(db, job)
 
     assert job.status == "running"
+
+
+def test_audited_long_running_jobs_skip_nested_transaction(monkeypatch):
+    job = SimpleNamespace(
+        id=uuid4(),
+        job_type="generate_multiverse_report",
+        status="queued",
+        big_bang_id=uuid4(),
+        payload={"multiverse_id": str(uuid4())},
+        result=None,
+        error=None,
+    )
+
+    class NoNestedDb(_ExecutionDb):
+        def begin_nested(self):
+            pytest.fail("audited long-running jobs must not run inside a nested transaction")
+
+    monkeypatch.setattr(jobs_executor, "_execute_job", lambda _db, _job: {"report_version_id": str(uuid4())})
+    monkeypatch.setattr(jobs_executor, "_job_interrupt_status", lambda _db, _job: None)
+
+    returned = jobs_executor.execute_job(NoNestedDb(rowcount=1), job)
+
+    assert returned.status == "succeeded"
+    assert returned.error is None
 
 
 def test_create_job_enqueues_new_job(monkeypatch):
@@ -218,11 +265,129 @@ def test_run_job_returns_error_when_execution_marks_failed(monkeypatch):
     monkeypatch.setattr(jobs_api, "execute_job", fail_execution)
 
     with pytest.raises(HTTPException) as exc:
-        jobs_api.run_job(job.id, db=db)
+        jobs_api.run_job(job.id, BackgroundTasks(), inline=True, db=db)
 
     assert exc.value.status_code == 500
     assert exc.value.detail == "job execution failed"
     assert db.commits == 1
+
+
+def test_run_job_dispatches_background_when_requested(monkeypatch):
+    job = SimpleNamespace(id=uuid4(), status="queued", error=None)
+    db = _RunJobDb(job)
+    scheduled = {}
+
+    def fail_if_inline(*args, **kwargs):
+        raise AssertionError("run_job should not execute inline when inline is false")
+
+    def fake_schedule(background_tasks, job_id):
+        scheduled["job_id"] = job_id
+
+    monkeypatch.setattr(jobs_api, "execute_job", fail_if_inline)
+    monkeypatch.setattr(jobs_api, "schedule_local_fallback", fake_schedule)
+
+    returned = jobs_api.run_job(job.id, BackgroundTasks(), inline=False, db=db)
+
+    assert returned is job
+    assert scheduled == {"job_id": job.id}
+
+
+def test_final_report_job_rejects_active_multiverse_before_generating(monkeypatch):
+    from app.domains.report import engine as report_engine
+
+    engine = create_engine(
+        "sqlite:///:memory:",
+        connect_args={"check_same_thread": False},
+        poolclass=StaticPool,
+    )
+    models.Base.metadata.create_all(engine)
+    db = Session(engine)
+    try:
+        big_bang = models.BigBang(name="Active final report", scenario_input={}, status="running")
+        db.add(big_bang)
+        db.flush()
+        db.add(
+            models.Multiverse(
+                big_bang_id=big_bang.id,
+                parent_multiverse_id=None,
+                fork_tick_index=None,
+                ui_label="M1",
+                depth=0,
+                status="active",
+                branch_reason="Root",
+                state={},
+                report_status="not_ready",
+            )
+        )
+        job = models.Job(
+            job_type="generate_final_big_bang_report",
+            status="queued",
+            big_bang_id=big_bang.id,
+            payload={},
+            result={},
+            idempotency_key=f"final-report:{uuid4()}",
+        )
+        db.add(job)
+        db.commit()
+
+        monkeypatch.setattr(
+            report_engine,
+            "generate_final_big_bang_report",
+            lambda *args, **kwargs: pytest.fail("final report should not generate"),
+        )
+
+        execute_job(db, job)
+
+        assert job.status == "failed"
+        assert "final report requires terminal multiverses" in job.error
+    finally:
+        db.close()
+        with warnings.catch_warnings():
+            warnings.filterwarnings(
+                "ignore",
+                message="Can't sort tables for DROP",
+                category=SAWarning,
+            )
+            models.Base.metadata.drop_all(engine)
+
+
+def test_run_until_complete_job_rejects_archived_big_bang():
+    engine = create_engine(
+        "sqlite:///:memory:",
+        connect_args={"check_same_thread": False},
+        poolclass=StaticPool,
+    )
+    models.Base.metadata.create_all(engine)
+    db = Session(engine)
+    try:
+        big_bang = models.BigBang(name="Archived control", scenario_input={}, status="archived")
+        db.add(big_bang)
+        db.flush()
+        job = models.Job(
+            job_type="run_big_bang_until_complete",
+            status="queued",
+            big_bang_id=big_bang.id,
+            payload={},
+            result={},
+            idempotency_key=f"run-complete:{uuid4()}",
+        )
+        db.add(job)
+        db.commit()
+
+        execute_job(db, job)
+
+        assert job.status == "failed"
+        assert "archived" in job.error
+        assert big_bang.status == "archived"
+    finally:
+        db.close()
+        with warnings.catch_warnings():
+            warnings.filterwarnings(
+                "ignore",
+                message="Can't sort tables for DROP",
+                category=SAWarning,
+            )
+            models.Base.metadata.drop_all(engine)
 
 
 def test_claim_job_for_execution_reclaims_expired_running_job():
@@ -243,6 +408,7 @@ def test_claim_job_for_execution_reclaims_expired_running_job():
             result={},
             error="worker exited",
             idempotency_key="expired",
+            lease_expires_at=now - timedelta(seconds=5),
             updated_at=now - timedelta(seconds=JOB_LEASE_SECONDS + 5),
         )
         fresh = models.Job(
@@ -253,15 +419,53 @@ def test_claim_job_for_execution_reclaims_expired_running_job():
             result={},
             error="still leased",
             idempotency_key="fresh",
-            updated_at=now,
+            lease_expires_at=now + timedelta(seconds=JOB_LEASE_SECONDS),
+            updated_at=now - timedelta(seconds=JOB_LEASE_SECONDS + 5),
         )
-        db.add_all([expired, fresh])
+        legacy_expired = models.Job(
+            job_type="run_big_bang_until_complete",
+            status="running",
+            big_bang_id=uuid4(),
+            payload={},
+            result={},
+            error="legacy worker exited",
+            idempotency_key="legacy-expired",
+            lease_expires_at=None,
+            updated_at=now - timedelta(seconds=JOB_LEASE_SECONDS + 5),
+        )
+        stale_call = models.LLMCall(
+            big_bang_id=expired.big_bang_id,
+            provider="openrouter",
+            model="stale-model",
+            purpose="expired job call",
+            status="running",
+            meta={},
+            created_at=now - timedelta(seconds=JOB_LEASE_SECONDS + 5),
+            updated_at=now - timedelta(seconds=JOB_LEASE_SECONDS + 5),
+        )
+        fresh_call = models.LLMCall(
+            big_bang_id=fresh.big_bang_id,
+            provider="openrouter",
+            model="fresh-model",
+            purpose="fresh job call",
+            status="running",
+            meta={},
+            created_at=now - timedelta(seconds=JOB_LEASE_SECONDS + 5),
+            updated_at=now - timedelta(seconds=JOB_LEASE_SECONDS + 5),
+        )
+        db.add_all([expired, fresh, legacy_expired, stale_call, fresh_call])
         db.commit()
 
         assert claim_job_for_execution(db, expired, now=now) is True
         assert expired.status == "running"
         assert expired.error is None
+        db.refresh(stale_call)
+        assert stale_call.status == "failed"
+        assert "expired job lease reclaimed" in stale_call.meta["stale_reclaim_reason"]
         assert claim_job_for_execution(db, fresh, now=now) is False
+        db.refresh(fresh_call)
+        assert fresh_call.status == "running"
+        assert claim_job_for_execution(db, legacy_expired, now=now) is True
     finally:
         db.close()
         with warnings.catch_warnings():
@@ -271,6 +475,23 @@ def test_claim_job_for_execution_reclaims_expired_running_job():
                 category=SAWarning,
             )
             models.Base.metadata.drop_all(engine)
+
+
+def test_running_job_retry_respects_live_lease_even_with_stale_updated_at():
+    now = datetime.now(timezone.utc)
+    live = SimpleNamespace(
+        status="running",
+        lease_expires_at=now + timedelta(minutes=10),
+        updated_at=now - timedelta(hours=1),
+    )
+    expired = SimpleNamespace(
+        status="running",
+        lease_expires_at=now - timedelta(seconds=1),
+        updated_at=now,
+    )
+
+    assert job_should_enqueue_for_retry(live, now=now) is False
+    assert job_should_enqueue_for_retry(expired, now=now) is True
 
 
 class _ExecutionDb:

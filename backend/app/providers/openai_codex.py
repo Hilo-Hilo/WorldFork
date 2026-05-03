@@ -107,11 +107,6 @@ def read_codex_oauth_token(auth_file: str | Path | None = None) -> str | None:
     return None
 
 
-def read_codex_cli_oauth_token(auth_file: str | Path | None = None) -> str | None:
-    """Backward-compatible alias for Codex OAuth auth-file reads."""
-    return read_codex_oauth_token(auth_file)
-
-
 def _read_oauth_token_from_file(path: Path) -> str | None:
     try:
         data = json.loads(path.read_text())

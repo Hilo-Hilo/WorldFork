@@ -42,8 +42,8 @@ def update_expression(
         cohort.expression_level * e.base_expression_weight
         + (anger / 10.0) * e.anger_weight
         + (urgency / 10.0) * e.urgency_weight
-        + cohort.perceived_efficacy * e.perceived_efficacy_weight
-        - cohort.fear_of_isolation * e.fear_of_isolation_weight
+        + cohort.perceived_efficacy * e.efficacy_weight
+        - cohort.fear_of_isolation * e.fear_isolation_weight
         - cohort.fatigue * e.fatigue_weight
     )
     lo, hi = e.clamp

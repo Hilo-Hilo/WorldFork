@@ -15,13 +15,13 @@ JOB_TYPES = {
 }
 
 QUEUE_NAMES = {
-    "initialize_big_bang": "big_bang_init",
-    "run_multiverse_tick": "multiverse_ticks",
-    "simulate_multiverse_ticks": "multiverse_ticks",
-    "generate_multiverse_report": "reports",
-    "generate_final_big_bang_report": "reports",
-    "evaluate_endpoint_ledger": "reports",
-    "run_big_bang_until_complete": "big_bang_control",
+    "initialize_big_bang": "p1",
+    "run_multiverse_tick": "p0",
+    "simulate_multiverse_ticks": "p0",
+    "generate_multiverse_report": "p2",
+    "generate_final_big_bang_report": "p2",
+    "evaluate_endpoint_ledger": "p2",
+    "run_big_bang_until_complete": "p1",
 }
 
 CELERY_QUEUE_BY_CANONICAL_QUEUE = {
@@ -63,19 +63,25 @@ def default_idempotency_key(
 
 
 def enqueue_job(job_id: UUID | str) -> None:
-    from app.db import models
-    from app.db.session import SessionLocal
     from backend.app.workers.celery_app import celery_app
 
-    celery_queue = "p1"
+    queue_name = _queue_name_for_persisted_job(job_id) or "p1"
+    celery_app.send_task("worldfork.execute_job", args=[str(job_id)], queue=queue_name)
+
+
+def _queue_name_for_persisted_job(job_id: UUID | str) -> str | None:
+    from app.db import models
+    from app.db.session import SessionLocal
+
     db = SessionLocal()
     try:
         job = db.get(models.Job, job_id)
-        if job is not None:
-            celery_queue = celery_queue_for_job_queue(job.queue_name or queue_name_for_job(job.job_type))
+        if job is None:
+            return None
+        canonical_queue = job.queue_name or queue_name_for_job(job.job_type)
+        return celery_queue_for_job_queue(canonical_queue)
     finally:
         db.close()
-    celery_app.send_task("run_canonical_job", args=[str(job_id)], queue=celery_queue)
 
 
 def _json_default(value):

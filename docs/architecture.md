@@ -1,6 +1,6 @@
 # Architecture
 
-WorldFork is backend-first and CLI-first. The backend owns simulation state and the CLI provides the stable control surface for operators and agents.
+WorldFork is backend-first and CLI-first. Conceptually, it is a Monte Carlo tree search of the real world: the backend owns the branching search tree, simulated rollouts, terminal outcome evidence, and reports, while the CLI provides the stable control surface for operators and agents.
 
 ## Runtime Stack
 
@@ -11,19 +11,20 @@ WorldFork is backend-first and CLI-first. The backend owns simulation state and 
 | Postgres | Durable Big Bang, multiverse, tick, job, report, and log state |
 | Redis | Broker, result backend, and runtime coordination |
 | LangGraph | Checkpointed tick graph execution |
-| OpenRouter | LLM provider surface, defaulting to Gemini 3.1 Flash Lite |
-| Artifact store | Cached JSON, Markdown, PDF, and audit payload files |
+| OpenRouter | LLM provider surface for the default low-cost cohort/hero/action routes |
+| OpenAI Codex | LLM provider surface for initializer, God-review, endpoint-ledger, and report routes |
+| Artifact store | Non-regenerable evidence and audit payload files |
 | `worldfork` CLI | Operator and AI-agent command surface |
 
 ## Core Concepts
 
 ### Big Bang
 
-A Big Bang is the root scenario. It stores scenario input, simulation config, model config, branch policy, initialization output, and the root multiverse.
+A Big Bang is the root scenario and the root node of the search tree. It stores scenario input, simulation config, model config, branch policy, initialization output, and the root multiverse.
 
 ### Multiverse
 
-A multiverse is one timeline in the Big Bang tree. It can inherit ticks from a parent, execute new ticks, branch into children, terminate, report, and later continue with a higher tick limit.
+A multiverse is one timeline node in the Big Bang tree. It can inherit ticks from a parent, execute new ticks, branch into children, terminate, report, and later continue with a higher tick limit.
 
 ### Tick
 
@@ -54,7 +55,7 @@ Tick runtime graph
       +-- tool-call checkpoints
       |
       v
-Branch decisions and terminal outcomes
+Branch decisions, endpoint ledgers, and terminal outcomes
       |
       v
 Structured reports and ephemeral renders

@@ -198,8 +198,7 @@ def validate_sot(bundle: SoTBundle) -> list[str]:
             errors.append(f"{name}.json did not parse to dict or list")
 
     def _items_of(obj, *candidate_keys):
-        """Pull a list of items from a wrapped SoT file, falling back to
-        flat list/dict shapes for backward compatibility."""
+        """Pull a list of items from a wrapped SoT file."""
         if isinstance(obj, list):
             return obj
         if isinstance(obj, dict):
@@ -209,9 +208,6 @@ def validate_sot(bundle: SoTBundle) -> list[str]:
                     return v
                 if isinstance(v, dict):
                     return list(v.values())
-            # No wrapper key found — treat the dict itself as the item map
-            # (filtering out non-item metadata like 'version').
-            return [v for k, v in obj.items() if k not in ("version", "scale")]
         return []
 
     # Taxonomy files must be populated enough to support validation/runtime use.

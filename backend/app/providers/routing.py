@@ -37,8 +37,6 @@ _SMART_MODEL_JOB_TYPES = frozenset(
         "evaluate_endpoint_ledger",
     }
 )
-
-
 def _default_entry(job_type: JobType) -> ModelRoutingEntry:
     """Return a sane default :class:`ModelRoutingEntry` for *job_type*."""
     preferred_provider = _OPENROUTER_PROVIDER
@@ -70,7 +68,7 @@ def _model_for_job_type(job_type: JobType | str) -> str:
 _ALL_JOB_TYPES: tuple[JobType, ...] = (
     "initialize_big_bang",
     "simulate_universe_tick",
-    "agent_deliberation_batch",
+    "actor_deliberation_call",
     "execute_due_events",
     "social_propagation",
     "sociology_update",
@@ -203,7 +201,8 @@ def _is_legacy_seed_default_row(row: dict[str, object]) -> bool:
     if not isinstance(payload, dict):
         return False
     return (
-        row.get("preferred_provider") == _OPENROUTER_PROVIDER
+        payload.get("source") == "seed_default"
+        and row.get("preferred_provider") == _OPENROUTER_PROVIDER
         and row.get("preferred_model") == _LEGACY_GEMINI_SEED_MODEL
         and payload.get("preferred_provider") == _OPENROUTER_PROVIDER
         and payload.get("preferred_model") == _LEGACY_GEMINI_SEED_MODEL

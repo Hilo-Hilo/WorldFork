@@ -5,7 +5,7 @@ description: "Use when a coding agent must generate, audit, configure report-age
 
 # WorldFork Report
 
-Use this skill when acting as an external report author for WorldFork. The job is to operate the real `worldfork` CLI, gather evidence across timelines, prune low-value detail, and produce a cited cross-multiverse report. This is separate from the backend report agent, which generates structured report versions inside the service.
+Use this skill when acting as an external report author for WorldFork. The job is to operate the real `worldfork` CLI, gather evidence across the simulated search tree, prune low-value detail, and produce a cited cross-multiverse report. This is separate from the backend report agent, which generates structured report versions inside the service.
 
 ## Ground Rules
 

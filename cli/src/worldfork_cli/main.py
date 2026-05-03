@@ -45,6 +45,125 @@ UPDATE_PROTECTED_PATHS = (
     ".worldfork",
 )
 
+ATLAS_FAST_MODEL = "deepseek/deepseek-v4-flash"
+ATLAS_GOVERNANCE_MODEL = "gpt-5.4"
+
+ATLAS_FAST_ROUTES = (
+    "cohort_agent",
+    "hero_agent",
+    "event_summary",
+    "execute_due_events",
+    "social_propagation",
+    "sociology_update",
+    "simulate_universe_tick",
+    "apply_tick_results",
+    "branch_universe",
+)
+ATLAS_GOVERNANCE_ROUTES = (
+    "initialize_big_bang",
+    "initializer_chunk_extractor",
+    "initializer_agent",
+    "god_agent_review",
+    "god_agent",
+    "endpoint_ledger",
+    "evaluate_endpoint_ledger",
+    "aggregate_run_results",
+    "report_agent",
+    "force_deviation",
+)
+ALL_AGENT_ROUTES = tuple(dict.fromkeys((*ATLAS_FAST_ROUTES, *ATLAS_GOVERNANCE_ROUTES)))
+
+SETUP_PROVIDER_OPTIONS = (
+    {
+        "provider": "openrouter",
+        "display_name": "OpenRouter",
+        "api_key_env": "OPENROUTER_API_KEY",
+        "base_url": "https://openrouter.ai/api/v1",
+        "default_model": ATLAS_FAST_MODEL,
+        "supported": True,
+        "best_for": list(ATLAS_FAST_ROUTES),
+        "setup": "Set OPENROUTER_API_KEY in .env; use cheap/fast models for high-volume cohort, hero, action, and event-summary routes.",
+        "atlas_recommendation": "Use for high-volume timeline work during Atlas.",
+    },
+    {
+        "provider": "openai-codex",
+        "display_name": "OpenAI Codex OAuth",
+        "api_key_env": "OPENAI_CODEX_OAUTH_TOKEN",
+        "base_url": "https://chatgpt.com/backend-api/codex",
+        "default_model": ATLAS_GOVERNANCE_MODEL,
+        "supported": True,
+        "best_for": list(ATLAS_GOVERNANCE_ROUTES),
+        "setup": "Run worldfork settings openai-codex-login; use stronger models for initialization, God review, endpoint-ledger evaluation, and reports.",
+        "atlas_recommendation": "Use for high-leverage governance and report work during Atlas.",
+    },
+    {
+        "provider": "openai",
+        "display_name": "OpenAI API",
+        "api_key_env": "OPENAI_API_KEY",
+        "base_url": "https://api.openai.com/v1",
+        "default_model": "gpt-4o-mini",
+        "supported": True,
+        "best_for": ["initializer_agent", "god_agent", "report_agent"],
+        "setup": "Add an OpenAI-compatible provider row with provider=openai and set OPENAI_API_KEY in .env.",
+        "atlas_recommendation": "Optional substitute for openai-codex on governance/report routes when OAuth is not desired.",
+    },
+    {
+        "provider": "openrouter-claude",
+        "display_name": "Claude models through OpenRouter",
+        "api_key_env": "OPENROUTER_API_KEY",
+        "base_url": "https://openrouter.ai/api/v1",
+        "default_model": "anthropic/claude-3-5-sonnet",
+        "supported": True,
+        "best_for": ["god_agent", "report_agent"],
+        "setup": "Add an OpenAI-compatible provider row such as provider=openrouter-claude and use OpenRouter anthropic/* model IDs. Direct Anthropic API calls are not the recommended path in this build.",
+        "atlas_recommendation": "Optional high-quality governance/report model if the user authorizes higher cost.",
+    },
+    {
+        "provider": "ollama",
+        "display_name": "Ollama local OpenAI-compatible endpoint",
+        "api_key_env": "none",
+        "base_url": "http://host.docker.internal:11434/v1",
+        "default_model": "llama3.1:8b",
+        "supported": True,
+        "best_for": list(ALL_AGENT_ROUTES),
+        "setup": "Run Ollama locally, pull a model, then add a provider row with provider=ollama and api_key_env=none. Use http://localhost:11434/v1 only when the backend is not running in Docker. Add payload.omit_auth_header=true only if the local server rejects bearer headers.",
+        "atlas_recommendation": "Available for every agent route. Prove strict JSON quality before using it for God/report/initializer routes.",
+    },
+    {
+        "provider": "vllm",
+        "display_name": "vLLM local/OpenAI-compatible endpoint",
+        "api_key_env": "none",
+        "base_url": "http://host.docker.internal:8000/v1",
+        "default_model": "local-model",
+        "supported": True,
+        "best_for": list(ALL_AGENT_ROUTES),
+        "setup": "Start vLLM with its OpenAI-compatible server, then add provider=vllm with payload.api=vllm-openai and api_key_env=none. Add payload.omit_auth_header=true only if the server rejects bearer headers.",
+        "atlas_recommendation": "Available for every agent route when the served model can produce strict JSON.",
+    },
+    {
+        "provider": "lmstudio",
+        "display_name": "LM Studio local OpenAI-compatible endpoint",
+        "api_key_env": "none",
+        "base_url": "http://host.docker.internal:1234/v1",
+        "default_model": "local-model",
+        "supported": True,
+        "best_for": list(ALL_AGENT_ROUTES),
+        "setup": "Start LM Studio's local server, then add provider=lmstudio with payload.api=lmstudio-openai and api_key_env=none. Add payload.omit_auth_header=true only if the server rejects bearer headers.",
+        "atlas_recommendation": "Available for every agent route after a JSON-output smoke test.",
+    },
+    {
+        "provider": "localai",
+        "display_name": "LocalAI OpenAI-compatible endpoint",
+        "api_key_env": "none",
+        "base_url": "http://host.docker.internal:8080/v1",
+        "default_model": "local-model",
+        "supported": True,
+        "best_for": list(ALL_AGENT_ROUTES),
+        "setup": "Start LocalAI, then add provider=localai with payload.api=localai-openai and api_key_env=none. Add payload.omit_auth_header=true only if the server rejects bearer headers.",
+        "atlas_recommendation": "Available for every agent route when model quality is acceptable.",
+    },
+)
+
 
 class Context:
     def __init__(self, client: WorldForkClient, as_json: bool, verbosity: str, fields: str | None) -> None:
@@ -81,6 +200,7 @@ class _GlobalFlagFloatingGroup(click.Group):
     def parse_args(self, ctx: click.Context, args: list[str]) -> list[str]:
         front: list[str] = []
         rest: list[str] = []
+        current_command: click.Command = self
         i = 0
         while i < len(args):
             arg = args[i]
@@ -88,22 +208,45 @@ class _GlobalFlagFloatingGroup(click.Group):
                 rest.extend(args[i:])
                 break
             if arg in self._GLOBAL_FLAGS_NO_VALUE:
+                if current_command is not self and self._command_accepts_option(current_command, arg):
+                    rest.append(arg)
+                    i += 1
+                    continue
                 front.append(arg)
                 i += 1
                 continue
             if arg in self._GLOBAL_FLAGS_WITH_VALUE and i + 1 < len(args):
+                if current_command is not self and self._command_accepts_option(current_command, arg):
+                    rest.extend([arg, args[i + 1]])
+                    i += 2
+                    continue
                 front.extend([arg, args[i + 1]])
                 i += 2
                 continue
             if "=" in arg:
                 head, _, _ = arg.partition("=")
                 if head in self._GLOBAL_FLAGS_NO_VALUE | self._GLOBAL_FLAGS_WITH_VALUE:
+                    if current_command is not self and self._command_accepts_option(current_command, head):
+                        rest.append(arg)
+                        i += 1
+                        continue
                     front.append(arg)
                     i += 1
                     continue
             rest.append(arg)
+            if isinstance(current_command, click.Group):
+                command = current_command.commands.get(arg)
+                if command is not None:
+                    current_command = command
             i += 1
         return super().parse_args(ctx, front + rest)
+
+    @staticmethod
+    def _command_accepts_option(command: click.Command, flag: str) -> bool:
+        for param in command.params:
+            if isinstance(param, click.Option) and flag in {*param.opts, *param.secondary_opts}:
+                return True
+        return False
 
 
 @click.group(cls=_GlobalFlagFloatingGroup, context_settings=CONTEXT_SETTINGS)
@@ -158,6 +301,45 @@ def main(
 def status(ctx: Context) -> None:
     """Show backend and queue status."""
     emit(ctx.client.request("GET", "/agent/status"), as_json=ctx.as_json)
+
+
+@main.command("setup")
+@click.option("--offline", is_flag=True, help="Do not contact the backend; print static setup guidance.")
+@click.option(
+    "--include-patch",
+    is_flag=True,
+    help="Include the full recommended Atlas model-routing PATCH payload.",
+)
+@click.option(
+    "--include-current-routing",
+    is_flag=True,
+    help="Include the current effective model-routing table from /settings/llm.",
+)
+@click.pass_obj
+def setup(ctx: Context, offline: bool, include_patch: bool, include_current_routing: bool) -> None:
+    """Show first-run provider options and the recommended Atlas routing profile.
+
+    This command is intended for setup agents. It gives them one compact place to
+    inspect supported provider choices, explain the tradeoffs to the user, and
+    collect confirmation before mutating provider or model-routing settings.
+    """
+    llm_payload: dict[str, Any] | None = None
+    backend_error: str | None = "offline mode; backend not contacted" if offline else None
+    if not offline:
+        try:
+            llm_response = ctx.client.request("GET", "/settings/llm")
+            llm_payload = llm_response if isinstance(llm_response, dict) else None
+        except CliError as exc:
+            backend_error = str(exc)
+    emit(
+        _setup_payload(
+            llm_payload=llm_payload,
+            backend_error=backend_error,
+            include_patch=include_patch,
+            include_current_routing=include_current_routing,
+        ),
+        as_json=ctx.as_json,
+    )
 
 
 @main.command("update")
@@ -446,10 +628,6 @@ def init_command(
         as_json=ctx.as_json,
     )
 
-
-main.add_command(init_command, "initialize")
-
-
 @runs.command("list")
 @click.option("--status")
 @click.option("--q")
@@ -626,7 +804,7 @@ def claim(ctx: Context, job_id: str) -> None:
 @click.pass_obj
 def run_job_command(ctx: Context, job_id: str) -> None:
     """Run a job synchronously through the backend debug endpoint."""
-    _job_mutation(ctx, job_id, "run")
+    emit(ctx.client.request("POST", f"/jobs/{job_id}/run", params={"inline": True}), as_json=ctx.as_json)
 
 
 @main.group()
@@ -1035,19 +1213,18 @@ def reports_view(ctx: Context, report_version_id: str, output_format: str) -> No
 @reports.command("render")
 @click.argument("report_version_id")
 @click.option("--format", "output_format", type=click.Choice(["markdown", "pdf"]), default="pdf", show_default=True)
-@click.option("--force", is_flag=True, help="Accepted for compatibility; renders are always regenerated ephemerally.")
 @click.option(
     "--output",
     type=click.Path(dir_okay=False, path_type=Path),
     help="Write the requested render to this local file.",
 )
 @click.pass_obj
-def reports_render(ctx: Context, report_version_id: str, output_format: str, force: bool, output: Path | None) -> None:
+def reports_render(ctx: Context, report_version_id: str, output_format: str, output: Path | None) -> None:
     """Render a report version on demand without backend artifact caching."""
     response = ctx.client.response(
         "POST",
         f"/report-versions/{report_version_id}/render",
-        json_body={"format": output_format, "force": force},
+        json_body={"format": output_format},
     )
     body = response.content
     if output is not None:
@@ -1166,14 +1343,11 @@ def models() -> None:
     """Inspect model routing and defaults."""
 
 
-@models.command("list")
+@models.command("defaults")
 @click.pass_obj
-def models_list(ctx: Context) -> None:
+def models_defaults(ctx: Context) -> None:
     """Show the default model and per-agent model routing."""
     emit(ctx.client.request("GET", "/agent/models"), as_json=ctx.as_json)
-
-
-models.add_command(models_list, "defaults")
 
 
 @main.group()
@@ -1391,6 +1565,8 @@ def demo_atlas(
     argv = [
         "--base-url",
         ctx.client.base_url,
+        "--api-prefix",
+        ctx.client.api_prefix,
         "--timeout",
         str(timeout),
         "--tick-duration-minutes",
@@ -1436,7 +1612,9 @@ def smoke_live(ctx: Context) -> None:
     logs, and default audited LLM route usage.
     """
     previous = os.environ.get("WORLDFORK_API_URL")
+    previous_prefix = os.environ.get("WORLDFORK_API_PREFIX")
     os.environ["WORLDFORK_API_URL"] = ctx.client.base_url
+    os.environ["WORLDFORK_API_PREFIX"] = ctx.client.api_prefix
     try:
         _run_source_harness("scripts.full_runtime_smoke")
     finally:
@@ -1444,6 +1622,10 @@ def smoke_live(ctx: Context) -> None:
             os.environ.pop("WORLDFORK_API_URL", None)
         else:
             os.environ["WORLDFORK_API_URL"] = previous
+        if previous_prefix is None:
+            os.environ.pop("WORLDFORK_API_PREFIX", None)
+        else:
+            os.environ["WORLDFORK_API_PREFIX"] = previous_prefix
 
 
 def _run_source_harness(module_name: str, argv: list[str] | None = None) -> None:
@@ -1465,6 +1647,149 @@ def _run_source_harness(module_name: str, argv: list[str] | None = None) -> None
     result = entrypoint(argv) if argv is not None else entrypoint()
     if isinstance(result, int) and result != 0:
         raise click.ClickException(f"{module_name} exited with status {result}")
+
+
+def _setup_payload(
+    *,
+    llm_payload: dict[str, Any] | None,
+    backend_error: str | None,
+    include_patch: bool,
+    include_current_routing: bool,
+) -> dict[str, Any]:
+    live_catalog = []
+    live_routing = []
+    if isinstance(llm_payload, dict):
+        live_catalog = llm_payload.get("provider_catalog") or []
+        live_routing = llm_payload.get("effective_model_routing") or []
+
+    live_by_provider = {
+        str(row.get("provider")): row
+        for row in live_catalog
+        if isinstance(row, dict) and row.get("provider")
+    }
+    provider_options = []
+    for option in SETUP_PROVIDER_OPTIONS:
+        row = dict(option)
+        live = live_by_provider.get(str(option["provider"]))
+        if live is not None:
+            row["current"] = {
+                "enabled": live.get("enabled"),
+                "configured": live.get("configured"),
+                "default_model": live.get("default_model"),
+                "source": live.get("source"),
+            }
+        provider_options.append(row)
+
+    atlas_profile = {
+        "name": "atlas-fast-governed",
+        "summary": (
+            "Fast/cheap models handle high-volume cohort and timeline calls; "
+            "stronger models handle initialization, God review, endpoint-ledger, and reports."
+        ),
+        "fast_routes": {
+            "provider": "openrouter",
+            "model": ATLAS_FAST_MODEL,
+            "routes": list(ATLAS_FAST_ROUTES),
+        },
+        "governance_routes": {
+            "provider": "openai-codex",
+            "model": ATLAS_GOVERNANCE_MODEL,
+            "routes": list(ATLAS_GOVERNANCE_ROUTES),
+        },
+        "patch_command": "worldfork setup --include-patch",
+    }
+    if include_patch:
+        atlas_profile["model_routing_patch"] = _atlas_model_routing_patch()
+
+    payload = {
+        "purpose": "Guide a first-run WorldFork setup and Atlas demo model-routing choice.",
+        "backend_reachable": backend_error is None,
+        "backend_error": backend_error,
+        "provider_options": provider_options,
+        "recommended_atlas_profile": atlas_profile,
+        "agent_next_steps": [
+            "Explain these options in plain language and ask which providers the user wants to configure.",
+            "Collect only the API keys needed for the chosen providers and tell the user where they will be stored.",
+            "Run worldfork settings llm after provider setup to verify configured/enabled status.",
+            "Ask before applying the Atlas routing patch or spending live API credits.",
+            "Run provider healthchecks before starting the Atlas demo.",
+        ],
+        "useful_commands": {
+            "inspect_setup_options": "worldfork setup",
+            "inspect_llm_settings": "worldfork settings llm",
+            "configure_codex_oauth": "worldfork settings openai-codex-login",
+            "test_openrouter": "worldfork settings provider-test openrouter",
+            "test_openai_codex": "worldfork settings provider-test openai-codex",
+            "apply_atlas_routing": "worldfork settings model-routing --data @atlas-routing.json",
+        },
+        "current_provider_catalog": live_catalog,
+    }
+    if include_current_routing:
+        payload["current_effective_model_routing"] = live_routing
+    return payload
+
+
+def _atlas_model_routing_patch() -> dict[str, Any]:
+    entries: list[dict[str, Any]] = []
+    for route in ATLAS_FAST_ROUTES:
+        entries.append(
+            _routing_entry(
+                route,
+                provider="openrouter",
+                model=ATLAS_FAST_MODEL,
+                temperature=0.8 if route in {"cohort_agent", "hero_agent"} else 0.5,
+                max_tokens=4096,
+                max_concurrency=16 if route in {"cohort_agent", "hero_agent"} else 8,
+                requests_per_minute=120 if route in {"cohort_agent", "hero_agent"} else 60,
+                tokens_per_minute=400000 if route in {"cohort_agent", "hero_agent"} else 200000,
+                timeout_seconds=90,
+            )
+        )
+    for route in ATLAS_GOVERNANCE_ROUTES:
+        entries.append(
+            _routing_entry(
+                route,
+                provider="openai-codex",
+                model=ATLAS_GOVERNANCE_MODEL,
+                temperature=0.25 if route == "report_agent" else 0.2,
+                max_tokens=8192,
+                max_concurrency=2,
+                requests_per_minute=20,
+                tokens_per_minute=200000,
+                timeout_seconds=300,
+            )
+        )
+    return {"entries": entries}
+
+
+def _routing_entry(
+    job_type: str,
+    *,
+    provider: str,
+    model: str,
+    temperature: float,
+    max_tokens: int,
+    max_concurrency: int,
+    requests_per_minute: int,
+    tokens_per_minute: int,
+    timeout_seconds: int,
+) -> dict[str, Any]:
+    return {
+        "job_type": job_type,
+        "preferred_provider": provider,
+        "preferred_model": model,
+        "fallback_provider": provider,
+        "fallback_model": model,
+        "temperature": temperature,
+        "top_p": 1.0,
+        "max_tokens": max_tokens,
+        "max_concurrency": max_concurrency,
+        "requests_per_minute": requests_per_minute,
+        "tokens_per_minute": tokens_per_minute,
+        "timeout_seconds": timeout_seconds,
+        "retry_policy": "exponential_backoff",
+        "payload": {"source": "worldfork setup atlas-fast-governed"},
+    }
 
 
 def _resolve_update_repo(repo: Path | None) -> Path:

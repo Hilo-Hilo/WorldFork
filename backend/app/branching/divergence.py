@@ -8,7 +8,7 @@ low-value branches without spinning up a child sim.
 
 This is intentionally a coarse heuristic — the goal is "enough signal to prune
 the obvious nothing-burgers."  Real divergence is measured after a few ticks
-of the child run by ``backend.app.simulation.metrics`` (the multiverse
+of the child run by ``backend.app.runtime.metrics`` (the multiverse
 divergence metrics live there).
 """
 from __future__ import annotations

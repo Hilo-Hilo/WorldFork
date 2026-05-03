@@ -88,14 +88,6 @@ class ActorStateOverrideDelta(BaseModel):
     field: str
     new_value: float | int | str | dict[str, Any]
 
-    @model_validator(mode="before")
-    @classmethod
-    def _accept_legacy_value(cls, data: Any) -> Any:
-        if isinstance(data, dict) and "new_value" not in data and "value" in data:
-            data = dict(data)
-            data["new_value"] = data["value"]
-        return data
-
     @model_validator(mode="after")
     def _reject_conservation_critical_fields(self) -> ActorStateOverrideDelta:
         protected = {
@@ -125,14 +117,6 @@ class HeroDecisionOverrideDelta(BaseModel):
     hero_id: str
     tick: int = Field(..., ge=0)
     new_decision: dict[str, Any]
-
-    @model_validator(mode="before")
-    @classmethod
-    def _accept_legacy_decision_override(cls, data: Any) -> Any:
-        if isinstance(data, dict) and "new_decision" not in data and "decision_override" in data:
-            data = dict(data)
-            data["new_decision"] = data["decision_override"]
-        return data
 
 
 # Annotated discriminated union — dispatch on the "type" field

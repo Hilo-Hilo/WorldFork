@@ -1,11 +1,8 @@
 from __future__ import annotations
 
-import importlib.util
-import sys
 import types
 import warnings
-from datetime import datetime, timezone
-from pathlib import Path
+from datetime import datetime, timedelta, timezone
 from uuid import uuid4
 
 import pytest
@@ -16,8 +13,10 @@ from sqlalchemy.pool import StaticPool
 
 from app.api.schemas import MultiverseLineageOut
 from app.db import models
-from app.jobs import tasks as job_tasks
-from app.simulation import branch_engine, god_tools, tick_runner
+from app.domains.jobs import executor as job_tasks
+from app.domains.multiverse import branch_engine
+from app.domains.governance import god_tools
+from app.domains.tick import tick_runner
 
 
 @pytest.fixture()
@@ -140,23 +139,11 @@ def _patch_successful_tick(monkeypatch):
 
 
 def _load_run_orchestrator_with_report_stub():
-    report_engine_stub = types.ModuleType("app.simulation.report_engine")
-    report_engine_stub.generate_final_big_bang_report = lambda *args, **kwargs: types.SimpleNamespace(id="final")
-    report_engine_stub.generate_multiverse_report = lambda *args, **kwargs: types.SimpleNamespace(id="multiverse")
-    original = sys.modules.get("app.simulation.report_engine")
-    sys.modules["app.simulation.report_engine"] = report_engine_stub
-    try:
-        path = Path(__file__).parents[1] / "app" / "simulation" / "run_orchestrator.py"
-        spec = importlib.util.spec_from_file_location("_timeline_safety_run_orchestrator", path)
-        module = importlib.util.module_from_spec(spec)
-        assert spec and spec.loader
-        spec.loader.exec_module(module)
-        return module
-    finally:
-        if original is None:
-            sys.modules.pop("app.simulation.report_engine", None)
-        else:
-            sys.modules["app.simulation.report_engine"] = original
+    from app.domains.big_bang import run_orchestrator
+
+    run_orchestrator.generate_final_big_bang_report = lambda *args, **kwargs: types.SimpleNamespace(id="final")
+    run_orchestrator.generate_multiverse_report = lambda *args, **kwargs: types.SimpleNamespace(id="multiverse")
+    return run_orchestrator
 
 
 def test_unfinished_tick_resumes_from_runtime_checkpoints(db, monkeypatch):
@@ -187,6 +174,144 @@ def test_unfinished_tick_resumes_from_runtime_checkpoints(db, monkeypatch):
     assert checkpoints
     assert all(item.status == "complete" for item in checkpoints)
     assert len(db.scalars(select(models.TickSnapshot).where(models.TickSnapshot.multiverse_id == root.id)).all()) == 1
+
+
+def test_direct_retry_returns_running_tick_when_active_execution_exists(db, monkeypatch):
+    big_bang, root = _seed_world(db)
+    running = models.TickSnapshot(
+        big_bang_id=big_bang.id,
+        multiverse_id=root.id,
+        tick_index=0,
+        ui_label="M1-T0",
+        status="running",
+        provisional_bundle={},
+        final_bundle={},
+        summary="in flight",
+        idempotency_key="tick-0",
+    )
+    db.add(running)
+    db.flush()
+    execution = models.TickExecution(
+        big_bang_id=big_bang.id,
+        multiverse_id=root.id,
+        tick_snapshot_id=running.id,
+        tick_index=0,
+        status="running",
+        active_slot="active",
+        runtime_meta={},
+        started_at=datetime.now(timezone.utc),
+    )
+    db.add(execution)
+    db.commit()
+    monkeypatch.setattr(
+        tick_runner,
+        "_build_runtime_plan",
+        lambda *args, **kwargs: pytest.fail("direct retry should not execute a concurrent tick"),
+    )
+
+    returned = tick_runner.run_next_tick(db, multiverse=root, idempotency_key="retry")
+
+    assert returned.id == running.id
+    assert returned.status == "running"
+    assert db.scalars(select(models.ExecutionNode)).all() == []
+
+
+def test_direct_retry_reclaims_stale_active_execution(db, monkeypatch):
+    big_bang, root = _seed_world(db)
+    stale_at = datetime.now(timezone.utc) - timedelta(hours=1)
+    running = models.TickSnapshot(
+        big_bang_id=big_bang.id,
+        multiverse_id=root.id,
+        tick_index=0,
+        ui_label="M1-T0",
+        status="running",
+        provisional_bundle={},
+        final_bundle={},
+        summary="stale in flight",
+        idempotency_key="tick-0",
+    )
+    db.add(running)
+    db.flush()
+    execution = models.TickExecution(
+        big_bang_id=big_bang.id,
+        multiverse_id=root.id,
+        tick_snapshot_id=running.id,
+        tick_index=0,
+        status="running",
+        active_slot="active",
+        runtime_meta={},
+        started_at=stale_at,
+        updated_at=stale_at,
+    )
+    db.add(execution)
+    stale_call = models.LLMCall(
+        big_bang_id=big_bang.id,
+        provider="openrouter",
+        model="stale-model",
+        purpose="stale tick call",
+        status="running",
+        meta={"existing": True},
+        created_at=stale_at,
+        updated_at=stale_at,
+    )
+    fresh_call = models.LLMCall(
+        big_bang_id=big_bang.id,
+        provider="openrouter",
+        model="fresh-model",
+        purpose="fresh tick call",
+        status="running",
+        meta={},
+        created_at=datetime.now(timezone.utc),
+        updated_at=datetime.now(timezone.utc),
+    )
+    db.add_all([stale_call, fresh_call])
+    db.commit()
+    _patch_successful_tick(monkeypatch)
+
+    returned = tick_runner.run_next_tick(db, multiverse=root, idempotency_key="retry")
+
+    assert returned.id == running.id
+    assert returned.status == "final"
+    db.refresh(execution)
+    assert execution.status == "succeeded"
+    assert execution.active_slot is None
+    db.refresh(stale_call)
+    db.refresh(fresh_call)
+    assert stale_call.status == "failed"
+    assert stale_call.meta["stale_reclaim_reason"] == "stale tick execution reclaimed"
+    assert fresh_call.status == "running"
+    log = db.scalar(select(models.OperationLog).where(models.OperationLog.event_type == "runtime_execution_stale_reclaimed"))
+    assert log
+    assert log.body["stale_llm_calls_reclaimed"] == 1
+
+
+def test_queue_job_heartbeat_extends_lease_at_checkpoint_boundaries(db, monkeypatch):
+    big_bang, root = _seed_world(db)
+    old_lease = datetime.now(timezone.utc) - timedelta(minutes=5)
+    job = models.Job(
+        job_type="run_multiverse_tick",
+        queue_name="multiverse_ticks",
+        status="running",
+        big_bang_id=big_bang.id,
+        payload={"multiverse_id": str(root.id)},
+        result={},
+        idempotency_key="heartbeat-job",
+        lease_expires_at=old_lease,
+        last_heartbeat_at=old_lease,
+    )
+    db.add(job)
+    db.commit()
+    _patch_successful_tick(monkeypatch)
+
+    tick = tick_runner.run_next_tick(db, multiverse=root, queue_job=job)
+
+    assert tick.status == "final"
+    assert job.last_heartbeat_at is not None
+    assert job.lease_expires_at is not None
+    lease_expires_at = job.lease_expires_at
+    if lease_expires_at.tzinfo is None:
+        lease_expires_at = lease_expires_at.replace(tzinfo=timezone.utc)
+    assert lease_expires_at > old_lease
 
 
 def test_paused_big_bang_blocks_step_tick_and_run_until_complete(db):
@@ -262,6 +387,17 @@ def test_failed_tick_execution_preserves_completed_checkpoint_boundary(db, monke
     failed = db.scalar(select(models.TickCheckpoint).where(models.TickCheckpoint.checkpoint_key == "god_review"))
     assert failed is not None
     assert failed.status == "failed"
+    execution = db.scalar(select(models.TickExecution))
+    assert execution is not None
+    assert execution.status == "failed"
+    assert execution.active_slot is None
+    failed_attempt = db.scalar(
+        select(models.NodeAttempt)
+        .join(models.ExecutionNode)
+        .where(models.ExecutionNode.node_key == "god_review")
+    )
+    assert failed_attempt is not None
+    assert failed_attempt.status == "failed"
 
 
 def test_execute_job_preserves_tick_checkpoint_failure_marker(db, monkeypatch):

@@ -22,6 +22,12 @@ SCENARIO = "Export test scenario"
 CONFIG_SNAPSHOT = {"provider": "openrouter", "model": "openai/gpt-4o"}
 
 
+def _assert_import_cleanup(dst_root: Path, run_folder_name: str = BIG_BANG_ID) -> None:
+    runs_dir = dst_root / "runs"
+    assert not (runs_dir / run_folder_name).exists()
+    assert list(runs_dir.glob(".*.import-*")) == []
+
+
 def _make_ledger(tmp_path: Path, big_bang_id: str = BIG_BANG_ID) -> Ledger:
     """Create a minimal ledger with one universe and one sealed tick."""
     sot_source = tmp_path / "sot_source"
@@ -288,6 +294,7 @@ class TestTamperDetection:
         dst_root.mkdir()
         with pytest.raises(ExportError, match="Config snapshot SHA mismatch"):
             import_run_from_zip(zip_path=tampered_zip, dest_root=dst_root, verify=True)
+        _assert_import_cleanup(dst_root)
 
     def test_tampered_source_of_truth_snapshot_raises_export_error(self, tmp_path: Path) -> None:
         src_root = tmp_path / "src"
@@ -310,6 +317,30 @@ class TestTamperDetection:
         dst_root.mkdir()
         with pytest.raises(ExportError, match="Source-of-truth snapshot SHA mismatch"):
             import_run_from_zip(zip_path=tampered_zip, dest_root=dst_root, verify=True)
+        _assert_import_cleanup(dst_root)
+
+    def test_tampered_tick_merkle_raises_export_error_and_cleans_import(self, tmp_path: Path) -> None:
+        src_root = tmp_path / "src"
+        src_root.mkdir()
+        ledger = _make_ledger(src_root)
+
+        zip_dest = tmp_path / "tick.zip"
+        export_run_to_zip(run_folder=ledger.run_folder, dest=zip_dest, verify=False)
+
+        tampered_zip = tmp_path / "tampered_tick.zip"
+        _rewrite_zip_with_member(
+            zip_dest,
+            tampered_zip,
+            "universes/U000/ticks/tick_000/universe_state_before.json",
+            b'{"tick":0,"state":"tampered-after-export"}',
+            refresh_export_manifest_hashes=True,
+        )
+
+        dst_root = tmp_path / "dst"
+        dst_root.mkdir()
+        with pytest.raises(ExportError, match="Merkle mismatch"):
+            import_run_from_zip(zip_path=tampered_zip, dest_root=dst_root, verify=True)
+        _assert_import_cleanup(dst_root)
 
 
 class TestZipSafety:
@@ -338,6 +369,39 @@ class TestZipSafety:
             import_run_from_zip(zip_path=zip_path, dest_root=dst_root, verify=False)
 
         assert not (tmp_path / "evil.txt").exists()
+
+    def test_import_refuses_existing_run_folder_without_overwriting(self, tmp_path: Path) -> None:
+        src_root = tmp_path / "src"
+        src_root.mkdir()
+        ledger = _make_ledger(src_root)
+        zip_dest = tmp_path / "existing.zip"
+        export_run_to_zip(run_folder=ledger.run_folder, dest=zip_dest, verify=False)
+
+        dst_root = tmp_path / "dst"
+        final_dir = dst_root / "runs" / BIG_BANG_ID
+        final_dir.mkdir(parents=True)
+        sentinel = final_dir / "sentinel.txt"
+        sentinel.write_text("keep me", encoding="utf-8")
+
+        with pytest.raises(ExportError, match="Destination run already exists"):
+            import_run_from_zip(zip_path=zip_dest, dest_root=dst_root, verify=True)
+
+        assert sentinel.read_text(encoding="utf-8") == "keep me"
+        assert list((dst_root / "runs").glob(".*.import-*")) == []
+
+    def test_import_rejects_manifest_big_bang_id_path_traversal(self, tmp_path: Path) -> None:
+        zip_path = tmp_path / "unsafe_run_folder.zip"
+        with zipfile.ZipFile(zip_path, "w", compression=zipfile.ZIP_DEFLATED) as zf:
+            zf.writestr("EXPORT_MANIFEST.json", "{}")
+            zf.writestr("manifest.json", json.dumps({"big_bang_id": "../escape"}))
+
+        dst_root = tmp_path / "dst"
+        dst_root.mkdir()
+        with pytest.raises(ExportError, match="Unsafe run folder name"):
+            import_run_from_zip(zip_path=zip_path, dest_root=dst_root, verify=False)
+
+        assert not (dst_root / "escape").exists()
+        assert not (tmp_path / "escape").exists()
 
 
 # ---------------------------------------------------------------------------

@@ -14,11 +14,7 @@ from backend.app.storage.sot_loader import SoTBundle
 
 
 def load_sociology_params(sot: SoTBundle) -> SociologyParams:
-    """Convert the SoT bundle's sociology_parameters dict into SociologyParams.
-
-    Uses Pydantic's field aliasing (populate_by_name=True) so both legacy
-    and SoT-JSON field names resolve correctly.
-    """
+    """Convert the SoT bundle's sociology_parameters dict into SociologyParams."""
     raw: dict[str, Any] = dict(sot.sociology_parameters or {})
     # Strip metadata-only top-level keys.
     raw.pop("version", None)

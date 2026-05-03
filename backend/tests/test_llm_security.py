@@ -8,26 +8,31 @@ from uuid import uuid4
 
 import pytest
 from fastapi import HTTPException
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session, sessionmaker
 
-from app.api.artifacts import get_artifact
-from app.api.initialization import audit_llm_call
+from app.domains.artifacts.routes import get_artifact
+from app.domains.big_bang.initialization_routes import audit_llm_call
 from app.api.schemas import BigBangOut, MultiverseOut, TickSnapshotOut
+from app.domains.artifacts import routes as artifact_routes
 from app.db import models
 from app.llm import audit as llm_audit
+from app.llm import openai_compatible_provider
 from app.llm import openrouter_provider
 from app.llm.prompt_builder import build_agent_prompt_context, sanitize_sociology_prompt_influences
-from app.llm.provider import DeterministicLLMProvider
+from app.llm.provider import DeterministicLLMProvider, LLMProviderUnavailable
 from app.llm.redaction import redact_payload
 from app.llm.routing import LLMRouteCandidate, ResolvedLLMRoute, resolve_audited_llm_route
 from app.llm.schemas import LLMRequest, LLMResponse
-from app.simulation import god_agent
+from app.domains.governance import god_agent
 from backend.app.models.settings import ProviderSettingModel
-from backend.app.api.logs import sanitize_public_job_payload
+from backend.app.domains.logs.routes import sanitize_public_job_payload
 
 
 class FakeDB:
     def __init__(self, *objects):
         self.objects = list(objects)
+        self.commit_count = 0
 
     def add(self, obj):
         if getattr(obj, "id", None) is None:
@@ -36,6 +41,9 @@ class FakeDB:
 
     def flush(self):
         pass
+
+    def commit(self):
+        self.commit_count += 1
 
     def get(self, model, object_id):
         lookup_fields = ("id", "provider", "job_type", "setting_id", "policy_id")
@@ -246,6 +254,7 @@ def test_complete_with_audit_can_bound_json_repair_metadata(monkeypatch):
             return LLMResponse(content='{"decision": "continue"}', raw={"attempt": 2})
 
     provider = RepairableJSONProvider()
+
     settings = SimpleNamespace(
         default_llm_provider="openrouter",
         llm_max_retries=1,
@@ -315,6 +324,117 @@ def test_complete_with_audit_does_not_retry_timeout_when_disabled(monkeypatch):
     call = next(obj for obj in db.objects if isinstance(obj, models.LLMCall))
     assert provider.calls == 1
     assert len(call.meta["attempts"]) == 1
+
+
+def test_complete_with_audit_commits_running_call_before_provider_wait(monkeypatch):
+    db = FakeDB()
+    observed: dict[str, object] = {}
+
+    class InspectingProvider:
+        async def complete(self, request):
+            observed["commit_count_at_provider"] = db.commit_count
+            call = next(obj for obj in db.objects if isinstance(obj, models.LLMCall))
+            observed["call_status_at_provider"] = call.status
+            return LLMResponse(content='{"decision": "continue"}', raw={"ok": True})
+
+    settings = SimpleNamespace(
+        default_llm_provider="openrouter",
+        llm_max_retries=1,
+        llm_retry_backoff_seconds=0,
+    )
+    monkeypatch.setattr(llm_audit, "get_settings", lambda: settings)
+    monkeypatch.setattr(llm_audit, "provider_for_settings", lambda: InspectingProvider())
+    monkeypatch.setattr(llm_audit, "ArtifactStore", lambda: FakeArtifactStore())
+
+    response, call = llm_audit.complete_with_audit(
+        db,
+        big_bang_id=uuid4(),
+        purpose="agent_commit_boundary_test",
+        model="test-model",
+        messages=[{"role": "user", "content": "Return JSON."}],
+    )
+
+    assert response.parsed == {"decision": "continue"}
+    assert call.status == "succeeded"
+    assert observed == {"commit_count_at_provider": 1, "call_status_at_provider": "running"}
+    assert db.commit_count >= 2
+
+
+def test_complete_with_audit_does_not_commit_caller_transaction(monkeypatch, tmp_path):
+    engine = create_engine(f"sqlite:///{tmp_path / 'audit.sqlite'}")
+    models.Base.metadata.create_all(engine)
+    SessionLocal = sessionmaker(bind=engine, autoflush=False, expire_on_commit=False)
+    setup_db: Session = SessionLocal()
+    try:
+        big_bang = models.BigBang(
+            name="Committed",
+            description=None,
+            scenario_input={},
+            status="active",
+            current_config_version=1,
+        )
+        setup_db.add(big_bang)
+        setup_db.commit()
+        big_bang_id = big_bang.id
+    finally:
+        setup_db.close()
+
+    caller_db: Session = SessionLocal()
+    observed: dict[str, object] = {}
+
+    class InspectingProvider:
+        async def complete(self, request):
+            inspect_db: Session = SessionLocal()
+            try:
+                observed["big_bang_name_seen_by_other_session"] = inspect_db.get(
+                    models.BigBang,
+                    big_bang_id,
+                ).name
+                observed["running_call_count"] = inspect_db.query(models.LLMCall).filter_by(
+                    big_bang_id=big_bang_id,
+                    status="running",
+                ).count()
+            finally:
+                inspect_db.close()
+            return LLMResponse(content='{"decision": "continue"}', raw={"ok": True})
+
+    try:
+        dirty_big_bang = caller_db.get(models.BigBang, big_bang_id)
+        dirty_big_bang.name = "Uncommitted caller mutation"
+        settings = SimpleNamespace(
+            default_llm_provider="openrouter",
+            llm_max_retries=1,
+            llm_retry_backoff_seconds=0,
+        )
+        monkeypatch.setattr(llm_audit, "get_settings", lambda: settings)
+        monkeypatch.setattr(llm_audit, "provider_for_settings", lambda: InspectingProvider())
+        monkeypatch.setattr(llm_audit, "ArtifactStore", lambda: FakeArtifactStore())
+
+        response, call = llm_audit.complete_with_audit(
+            caller_db,
+            big_bang_id=big_bang_id,
+            purpose="agent_commit_boundary_real_db_test",
+            model="test-model",
+            messages=[{"role": "user", "content": "Return JSON."}],
+        )
+
+        assert response.parsed == {"decision": "continue"}
+        assert call.status == "succeeded"
+        assert observed == {
+            "big_bang_name_seen_by_other_session": "Committed",
+            "running_call_count": 1,
+        }
+        caller_db.rollback()
+    finally:
+        caller_db.close()
+
+    verify_db: Session = SessionLocal()
+    try:
+        assert verify_db.get(models.BigBang, big_bang_id).name == "Committed"
+        persisted_call = verify_db.get(models.LLMCall, call.id)
+        assert persisted_call.status == "succeeded"
+    finally:
+        verify_db.close()
 
 
 def test_complete_with_audit_uses_provider_model_from_route(monkeypatch):
@@ -443,7 +563,7 @@ def test_route_fallback_dedupes_identical_provider_model():
     assert len(resolved.candidates()) == 1
 
 
-def test_seed_default_direct_route_defers_to_legacy_alias():
+def test_stale_seed_direct_route_uses_runtime_default():
     seed_default = {
         "preferred_provider": "openrouter",
         "preferred_model": "seed/model",
@@ -456,9 +576,9 @@ def test_seed_default_direct_route_defers_to_legacy_alias():
         "retry_policy": "exponential_backoff",
         "payload": {"source": "seed_default"},
     }
-    legacy_alias = {
-        "preferred_provider": "openrouter",
-        "preferred_model": "deepseek/deepseek-v4-flash",
+    unrelated_job_route = {
+        "preferred_provider": "openai-codex",
+        "preferred_model": "gpt-5.4",
         "fallback_provider": None,
         "fallback_model": None,
         "temperature": 0.1,
@@ -470,21 +590,19 @@ def test_seed_default_direct_route_defers_to_legacy_alias():
     }
 
     resolved = resolve_audited_llm_route(
-        FakeRoutingDB({"report_agent": seed_default, "aggregate_run_results": legacy_alias}),
+        FakeRoutingDB({"report_agent": seed_default, "aggregate_run_results": unrelated_job_route}),
         route="report_agent",
-        fallback_provider="openrouter",
-        fallback_model="legacy/model",
     )
 
-    assert resolved.matched_route == "aggregate_run_results"
+    assert resolved.matched_route is None
     assert resolved.primary.provider == "openrouter"
-    assert resolved.primary.model == "deepseek/deepseek-v4-flash"
+    assert resolved.primary.model == "moonshotai/kimi-k2.6"
 
 
-def test_legacy_gemini_seed_route_uses_current_runtime_defaults(monkeypatch):
+def test_gemini_seed_route_is_treated_as_explicit_configuration(monkeypatch):
     from app.llm import routing as llm_routing
 
-    legacy_seed = {
+    explicit_row = {
         "preferred_provider": "openrouter",
         "preferred_model": "google/gemini-3.1-flash-lite-preview",
         "fallback_provider": "openrouter",
@@ -517,20 +635,56 @@ def test_legacy_gemini_seed_route_uses_current_runtime_defaults(monkeypatch):
     monkeypatch.setattr(llm_routing, "get_settings", lambda: settings)
 
     report_route = llm_routing.resolve_audited_llm_route(
-        FakeRoutingDB({"report_agent": legacy_seed, "aggregate_run_results": legacy_seed}),
+        FakeRoutingDB({"report_agent": explicit_row, "aggregate_run_results": explicit_row}),
         route="report_agent",
     )
     cohort_route = llm_routing.resolve_audited_llm_route(
-        FakeRoutingDB({"cohort_agent": legacy_seed, "agent_deliberation_batch": legacy_seed}),
+        FakeRoutingDB({"cohort_agent": explicit_row}),
         route="cohort_agent",
     )
 
-    assert report_route.matched_route is None
+    assert report_route.matched_route == "report_agent"
     assert report_route.primary.provider == "openrouter"
-    assert report_route.primary.model == "moonshotai/kimi-k2.6"
-    assert cohort_route.matched_route is None
+    assert report_route.primary.model == "google/gemini-3.1-flash-lite-preview"
+    assert cohort_route.matched_route == "cohort_agent"
     assert cohort_route.primary.provider == "openrouter"
-    assert cohort_route.primary.model == "deepseek/deepseek-v4-flash"
+    assert cohort_route.primary.model == "google/gemini-3.1-flash-lite-preview"
+
+
+def test_actor_route_ignores_removed_legacy_batch_name(monkeypatch):
+    from app.llm import routing as llm_routing
+
+    legacy_row = {
+        "preferred_provider": "openrouter",
+        "preferred_model": "legacy/agent-deliberation-batch",
+        "fallback_provider": None,
+        "fallback_model": None,
+        "temperature": 0.4,
+        "top_p": 1.0,
+        "max_tokens": 2048,
+        "timeout_seconds": 120,
+        "retry_policy": "exponential_backoff",
+        "payload": {},
+    }
+    settings = SimpleNamespace(
+        default_llm_provider="openrouter",
+        default_model="deepseek/deepseek-v4-flash",
+        cohort_agent_model="deepseek/deepseek-v4-flash",
+        hero_agent_model="deepseek/deepseek-v4-flash",
+    )
+    monkeypatch.setattr(llm_routing, "get_settings", lambda: settings)
+
+    route = llm_routing.resolve_audited_llm_route(
+        FakeRoutingDB(
+            {
+                "agent_deliberation_batch": legacy_row,
+            }
+        ),
+        route="cohort_agent",
+    )
+
+    assert route.matched_route is None
+    assert route.primary.model == "deepseek/deepseek-v4-flash"
 
 
 def test_stale_seed_route_uses_current_runtime_defaults(monkeypatch):
@@ -660,7 +814,7 @@ def test_unknown_provider_uses_openai_compatible_settings_row(monkeypatch):
         tool_calling_enabled=True,
         enabled=True,
         extra_headers={"X-Provider": "WorldFork"},
-        payload={"api": "openai-compatible"},
+        payload={"api": "openai-compatible", "omit_auth_header": True},
     )
     db = FakeDB(row)
     monkeypatch.setenv("KIMI_API_KEY", "test-token")
@@ -670,6 +824,93 @@ def test_unknown_provider_uses_openai_compatible_settings_row(monkeypatch):
     assert provider.provider == "kimi"
     assert provider.default_model == "kimi/k2"
     assert provider.extra_headers == {"X-Provider": "WorldFork"}
+
+
+def test_local_openai_compatible_provider_row_does_not_require_api_key(monkeypatch):
+    row = ProviderSettingModel(
+        provider="vllm",
+        base_url="http://host.docker.internal:8000/v1",
+        api_key_env="none",
+        default_model="local-model",
+        fallback_model=None,
+        json_mode_required=True,
+        tool_calling_enabled=False,
+        enabled=True,
+        extra_headers={},
+        payload={"api": "vllm-openai"},
+    )
+    db = FakeDB(row)
+    monkeypatch.delenv("none", raising=False)
+
+    provider = llm_audit.provider_for_name("vllm", db=db)
+
+    assert provider.provider == "vllm"
+    assert provider.base_url == "http://host.docker.internal:8000/v1"
+    assert provider.api_key == "local"
+
+
+def test_local_base_url_provider_row_with_none_key_env_does_not_require_api_key(monkeypatch):
+    row = ProviderSettingModel(
+        provider="custom-local",
+        base_url="http://vllm:8000/v1",
+        api_key_env="none",
+        default_model="local-model",
+        fallback_model=None,
+        json_mode_required=True,
+        tool_calling_enabled=False,
+        enabled=True,
+        extra_headers={},
+        payload={"api": "openai-compatible", "omit_auth_header": True},
+    )
+    db = FakeDB(row)
+    monkeypatch.delenv("none", raising=False)
+
+    provider = llm_audit.provider_for_name("custom-local", db=db)
+
+    assert provider.provider == "custom-local"
+    assert provider.base_url == "http://vllm:8000/v1"
+    assert provider.api_key == "local"
+    assert provider.omit_auth_header is True
+
+
+def test_hosted_openai_compatible_provider_row_with_none_key_env_requires_key(monkeypatch):
+    row = ProviderSettingModel(
+        provider="hosted-compatible",
+        base_url="https://hosted.example/v1",
+        api_key_env="none",
+        default_model="hosted-model",
+        fallback_model=None,
+        json_mode_required=True,
+        tool_calling_enabled=False,
+        enabled=True,
+        extra_headers={},
+        payload={"api": "openai-compatible"},
+    )
+    db = FakeDB(row)
+    monkeypatch.delenv("none", raising=False)
+
+    with pytest.raises(LLMProviderUnavailable, match="missing API key env 'none'"):
+        llm_audit.provider_for_name("hosted-compatible", db=db)
+
+
+def test_named_local_provider_row_with_remote_base_url_requires_key(monkeypatch):
+    row = ProviderSettingModel(
+        provider="vllm",
+        base_url="https://hosted-vllm.example/v1",
+        api_key_env="none",
+        default_model="hosted-vllm-model",
+        fallback_model=None,
+        json_mode_required=True,
+        tool_calling_enabled=False,
+        enabled=True,
+        extra_headers={},
+        payload={"api": "vllm-openai"},
+    )
+    db = FakeDB(row)
+    monkeypatch.delenv("none", raising=False)
+
+    with pytest.raises(LLMProviderUnavailable, match="missing API key env 'none'"):
+        llm_audit.provider_for_name("vllm", db=db)
 
 
 def test_openrouter_without_api_key_returns_controlled_unavailable(monkeypatch):
@@ -841,9 +1082,175 @@ def test_openrouter_preserves_http_429_details(monkeypatch):
         )
 
 
+def test_openrouter_post_timeout_is_controlled_unavailable(monkeypatch):
+    class FakeClient:
+        def __init__(self, timeout):
+            self.timeout = timeout
+
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, exc_type, exc, tb):
+            return None
+
+        async def post(self, url, *, headers, json):
+            raise openrouter_provider.httpx.ReadTimeout("read timed out")
+
+    settings = SimpleNamespace(
+        openrouter_api_key="test-key",
+        default_model="default-model",
+        openrouter_chat_completions_url="https://openrouter.test/chat",
+    )
+    monkeypatch.setattr(openrouter_provider, "get_settings", lambda: settings)
+    monkeypatch.setattr(openrouter_provider.httpx, "AsyncClient", FakeClient)
+
+    with pytest.raises(LLMProviderUnavailable, match="request timed out"):
+        asyncio.run(
+            openrouter_provider.OpenRouterProvider().complete(
+                LLMRequest(
+                    purpose="test",
+                    model="",
+                    messages=[{"role": "user", "content": "Return JSON."}],
+                )
+            )
+        )
+
+
+def test_openai_compatible_post_timeout_is_controlled_unavailable(monkeypatch):
+    class FakeClient:
+        def __init__(self, timeout):
+            self.timeout = timeout
+
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, exc_type, exc, tb):
+            return None
+
+        async def post(self, url, *, headers, json):
+            raise openai_compatible_provider.httpx.ReadTimeout("read timed out")
+
+    monkeypatch.setattr(openai_compatible_provider.httpx, "AsyncClient", FakeClient)
+    provider = openai_compatible_provider.OpenAICompatibleProvider(
+        provider="compatible-test",
+        api_key="test-key",
+        base_url="https://compatible.test/v1",
+        default_model="test-model",
+    )
+
+    with pytest.raises(LLMProviderUnavailable, match="compatible-test unavailable: request timed out"):
+        asyncio.run(
+            provider.complete(
+                LLMRequest(
+                    purpose="test",
+                    model="",
+                    messages=[{"role": "user", "content": "Return JSON."}],
+                )
+            )
+        )
+
+
+def test_openai_compatible_can_omit_auth_header(monkeypatch):
+    captured = {}
+
+    class FakeResponse:
+        def raise_for_status(self):
+            pass
+
+        def json(self):
+            return {"choices": [{"message": {"content": '{"ok": true}'}}]}
+
+    class FakeClient:
+        def __init__(self, timeout):
+            self.timeout = timeout
+
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, exc_type, exc, tb):
+            return None
+
+        async def post(self, url, *, headers, json):
+            captured["headers"] = headers
+            captured["payload"] = json
+            return FakeResponse()
+
+    monkeypatch.setattr(openai_compatible_provider.httpx, "AsyncClient", FakeClient)
+    provider = openai_compatible_provider.OpenAICompatibleProvider(
+        provider="local-compatible",
+        api_key="local",
+        base_url="http://vllm:8000/v1",
+        default_model="test-model",
+        omit_auth_header=True,
+    )
+
+    response = asyncio.run(
+        provider.complete(
+            LLMRequest(
+                purpose="test",
+                model="",
+                messages=[{"role": "user", "content": "Return JSON."}],
+            )
+        )
+    )
+
+    assert response.content == '{"ok": true}'
+    assert captured["headers"] == {"Content-Type": "application/json"}
+
+
+def test_mark_stale_running_llm_calls_failed(tmp_path):
+    engine = create_engine(f"sqlite:///{tmp_path / 'stale-llm.sqlite'}")
+    models.Base.metadata.create_all(engine)
+    SessionLocal = sessionmaker(bind=engine, expire_on_commit=False)
+    db: Session = SessionLocal()
+    try:
+        big_bang_id = uuid4()
+        old_call = models.LLMCall(
+            big_bang_id=big_bang_id,
+            provider="openrouter",
+            model="test-model",
+            purpose="stale",
+            status="running",
+            meta={},
+        )
+        fresh_call = models.LLMCall(
+            big_bang_id=big_bang_id,
+            provider="openrouter",
+            model="test-model",
+            purpose="fresh",
+            status="running",
+            meta={},
+        )
+        db.add_all([old_call, fresh_call])
+        db.flush()
+        old_call.updated_at = datetime(2026, 1, 1, tzinfo=UTC)
+        fresh_call.updated_at = datetime(2026, 1, 1, 0, 9, 30, tzinfo=UTC)
+        db.commit()
+
+        count = llm_audit.mark_stale_running_llm_calls_failed(
+            db,
+            big_bang_id=big_bang_id,
+            stale_after_seconds=600,
+            now=datetime(2026, 1, 1, 0, 10, 1, tzinfo=UTC),
+            reason="test stale sweep",
+        )
+
+        assert count == 1
+        assert old_call.status == "failed"
+        assert old_call.meta["error"] == "test stale sweep"
+        assert fresh_call.status == "running"
+    finally:
+        db.close()
+
+
 def test_debug_artifact_download_requires_secure_gate(monkeypatch, tmp_path: Path):
     path = tmp_path / "raw.json"
     path.write_text("{}", encoding="utf-8")
+    monkeypatch.setattr(
+        artifact_routes,
+        "get_settings",
+        lambda: SimpleNamespace(artifact_root=tmp_path),
+    )
     artifact = models.Artifact(
         id=uuid4(),
         big_bang_id=uuid4(),
@@ -869,6 +1276,96 @@ def test_debug_artifact_download_requires_secure_gate(monkeypatch, tmp_path: Pat
         db=db,
     )
     assert response.status_code == 200
+
+
+def test_artifact_download_rejects_paths_outside_artifact_root(monkeypatch, tmp_path: Path):
+    artifact_root = tmp_path / "artifacts"
+    artifact_root.mkdir()
+    outside = tmp_path / "outside.json"
+    outside.write_text("{}", encoding="utf-8")
+    monkeypatch.setattr(
+        artifact_routes,
+        "get_settings",
+        lambda: SimpleNamespace(artifact_root=artifact_root),
+    )
+    artifact = models.Artifact(
+        id=uuid4(),
+        big_bang_id=uuid4(),
+        kind="llm_request_raw",
+        path=str(outside),
+        content_type="application/json",
+        content_hash="fake",
+        size_bytes=2,
+        debug_only=False,
+        meta={},
+    )
+    db = FakeDB(artifact)
+
+    with pytest.raises(HTTPException) as exc:
+        get_artifact(artifact.id, db=db)
+
+    assert exc.value.status_code == 404
+    assert str(outside) not in str(exc.value.detail)
+
+
+def test_artifact_download_rejects_symlink_paths(monkeypatch, tmp_path: Path):
+    artifact_root = tmp_path / "artifacts"
+    artifact_root.mkdir()
+    target = artifact_root / "raw.json"
+    target.write_text("{}", encoding="utf-8")
+    symlink = artifact_root / "raw-link.json"
+    symlink.symlink_to(target)
+    monkeypatch.setattr(
+        artifact_routes,
+        "get_settings",
+        lambda: SimpleNamespace(artifact_root=artifact_root),
+    )
+    artifact = models.Artifact(
+        id=uuid4(),
+        big_bang_id=uuid4(),
+        kind="llm_request_raw",
+        path=str(symlink),
+        content_type="application/json",
+        content_hash="fake",
+        size_bytes=2,
+        debug_only=False,
+        meta={},
+    )
+    db = FakeDB(artifact)
+
+    with pytest.raises(HTTPException) as exc:
+        get_artifact(artifact.id, db=db)
+
+    assert exc.value.status_code == 404
+
+
+def test_artifact_download_missing_file_does_not_return_artifact_row(monkeypatch, tmp_path: Path):
+    artifact_root = tmp_path / "artifacts"
+    artifact_root.mkdir()
+    missing = artifact_root / "missing.json"
+    monkeypatch.setattr(
+        artifact_routes,
+        "get_settings",
+        lambda: SimpleNamespace(artifact_root=artifact_root),
+    )
+    artifact = models.Artifact(
+        id=uuid4(),
+        big_bang_id=uuid4(),
+        kind="llm_request_raw",
+        path=str(missing),
+        content_type="application/json",
+        content_hash="fake",
+        size_bytes=2,
+        debug_only=False,
+        meta={},
+    )
+    db = FakeDB(artifact)
+
+    with pytest.raises(HTTPException) as exc:
+        get_artifact(artifact.id, db=db)
+
+    assert exc.value.status_code == 404
+    assert str(missing) not in str(exc.value.detail)
 
 
 def test_audit_hides_raw_artifact_ids_without_debug_gate():

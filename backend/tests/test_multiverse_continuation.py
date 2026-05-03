@@ -8,10 +8,10 @@ from sqlalchemy import create_engine, func, select
 from sqlalchemy.orm import Session
 from sqlalchemy.pool import StaticPool
 
-from app.api import multiverses as multiverses_api
+from app.domains.multiverse import routes as multiverses_api
 from app.api.schemas import MultiverseContinueRequest
 from app.db import models
-from app.simulation.tick_runner import run_next_tick
+from app.domains.tick.tick_runner import run_next_tick
 
 
 @pytest.fixture()
@@ -65,6 +65,23 @@ def test_continue_multiverse_versions_runtime_override_without_global_config_swi
     assert continued.state["runtime_overrides"]["max_ticks"] == 4
     assert continued.state["runtime_config_version"] == 2
     assert db.get(models.BigBang, big_bang.id).current_config_version == 1
+
+
+def test_continue_multiverse_rejects_archived_big_bang(db: Session):
+    big_bang, multiverse = _seed_completed_multiverse(db)
+    big_bang.status = "archived"
+    db.commit()
+
+    with pytest.raises(HTTPException) as exc:
+        multiverses_api.continue_multiverse(
+            multiverse.id,
+            MultiverseContinueRequest(max_ticks=4, reason="archived runs stay immutable"),
+            db=db,
+        )
+
+    assert exc.value.status_code == 409
+    assert "archived" in exc.value.detail
+    assert db.get(models.Multiverse, multiverse.id).status == "completed"
 
 
 def test_continue_rejects_report_version_from_another_multiverse(db: Session):

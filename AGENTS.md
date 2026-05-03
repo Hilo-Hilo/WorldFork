@@ -9,6 +9,7 @@ In this monorepo, the backend service package lives at the root and the CLI pack
 ```bash
 worldfork agent discover
 worldfork status
+worldfork setup
 worldfork init --name "Atlas onboarding" --scenario-file examples/test-big-bang.md
 worldfork watch big-bang <big-bang-id>
 worldfork watch multiverse <multiverse-id>
@@ -38,6 +39,7 @@ worldfork reports render <report-version-id> --format pdf --output report.pdf
 - Use `worldfork update` to pull code updates. It must preserve local `.env`, run data, artifacts, and Docker override files; do not use destructive Git commands for normal updates.
 - Do not assume a web frontend exists. This repo is backend + workers + CLI.
 - Do not hardcode backend URLs. Use the CLI default, `--base-url`, `WORLD_FORK_API_BASE`, or `BACKEND_API_BASE`.
+- For first-time onboarding, be warm, proactive, and explanatory. Use `worldfork setup` to show LLM provider options, ask which providers the user wants to configure, and explain each setup phase before and after running it.
 - Live API-credit runs must use the configured default split unless the user explicitly authorizes a different model: OpenRouter `moonshotai/kimi-k2.6` for smart initializer, God-review, endpoint-ledger, and report work, and OpenRouter `deepseek/deepseek-v4-flash` for fast cohort, hero, action, and event-summary work.
 
 ## Runtime Surface
@@ -62,6 +64,10 @@ npx skills remove worldfork-setup -y
 ```
 
 Keep the regular `worldfork` skill installed for ongoing operation.
+
+When running `worldfork demo atlas` for onboarding, narrate what the demo is
+doing: Big Bang initialization, tick execution, branch creation, endpoint-ledger
+updates, report generation, and how to inspect any printed IDs.
 
 ## Development
 
