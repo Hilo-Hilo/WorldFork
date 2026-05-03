@@ -15,12 +15,14 @@ from sqlalchemy.pool import StaticPool
 from app.api import jobs as jobs_api
 from app.api.schemas import JobCreate
 from app.db import models
+from app.domains.jobs import executor as jobs_executor
 from app.jobs.queues import JOB_TYPES, default_idempotency_key
 from app.jobs.tasks import (
     JOB_LEASE_SECONDS,
     JobNotRunnableError,
     claim_job_for_execution,
     execute_job,
+    job_should_enqueue_for_retry,
     validate_job_payload,
 )
 
@@ -93,6 +95,30 @@ def test_execute_job_refuses_non_queued_rerun_or_concurrent_claim():
         execute_job(db, job)
 
     assert job.status == "running"
+
+
+def test_audited_long_running_jobs_skip_nested_transaction(monkeypatch):
+    job = SimpleNamespace(
+        id=uuid4(),
+        job_type="generate_multiverse_report",
+        status="queued",
+        big_bang_id=uuid4(),
+        payload={"multiverse_id": str(uuid4())},
+        result=None,
+        error=None,
+    )
+
+    class NoNestedDb(_ExecutionDb):
+        def begin_nested(self):
+            pytest.fail("audited long-running jobs must not run inside a nested transaction")
+
+    monkeypatch.setattr(jobs_executor, "_execute_job", lambda _db, _job: {"report_version_id": str(uuid4())})
+    monkeypatch.setattr(jobs_executor, "_job_interrupt_status", lambda _db, _job: None)
+
+    returned = jobs_executor.execute_job(NoNestedDb(rowcount=1), job)
+
+    assert returned.status == "succeeded"
+    assert returned.error is None
 
 
 def test_create_job_enqueues_new_job(monkeypatch):
@@ -236,6 +262,7 @@ def test_claim_job_for_execution_reclaims_expired_running_job():
             result={},
             error="worker exited",
             idempotency_key="expired",
+            lease_expires_at=now - timedelta(seconds=5),
             updated_at=now - timedelta(seconds=JOB_LEASE_SECONDS + 5),
         )
         fresh = models.Job(
@@ -246,15 +273,28 @@ def test_claim_job_for_execution_reclaims_expired_running_job():
             result={},
             error="still leased",
             idempotency_key="fresh",
-            updated_at=now,
+            lease_expires_at=now + timedelta(seconds=JOB_LEASE_SECONDS),
+            updated_at=now - timedelta(seconds=JOB_LEASE_SECONDS + 5),
         )
-        db.add_all([expired, fresh])
+        legacy_expired = models.Job(
+            job_type="run_big_bang_until_complete",
+            status="running",
+            big_bang_id=uuid4(),
+            payload={},
+            result={},
+            error="legacy worker exited",
+            idempotency_key="legacy-expired",
+            lease_expires_at=None,
+            updated_at=now - timedelta(seconds=JOB_LEASE_SECONDS + 5),
+        )
+        db.add_all([expired, fresh, legacy_expired])
         db.commit()
 
         assert claim_job_for_execution(db, expired, now=now) is True
         assert expired.status == "running"
         assert expired.error is None
         assert claim_job_for_execution(db, fresh, now=now) is False
+        assert claim_job_for_execution(db, legacy_expired, now=now) is True
     finally:
         db.close()
         with warnings.catch_warnings():
@@ -264,6 +304,23 @@ def test_claim_job_for_execution_reclaims_expired_running_job():
                 category=SAWarning,
             )
             models.Base.metadata.drop_all(engine)
+
+
+def test_running_job_retry_respects_live_lease_even_with_stale_updated_at():
+    now = datetime.now(timezone.utc)
+    live = SimpleNamespace(
+        status="running",
+        lease_expires_at=now + timedelta(minutes=10),
+        updated_at=now - timedelta(hours=1),
+    )
+    expired = SimpleNamespace(
+        status="running",
+        lease_expires_at=now - timedelta(seconds=1),
+        updated_at=now,
+    )
+
+    assert job_should_enqueue_for_retry(live, now=now) is False
+    assert job_should_enqueue_for_retry(expired, now=now) is True
 
 
 class _ExecutionDb:

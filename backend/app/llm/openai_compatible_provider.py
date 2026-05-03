@@ -57,8 +57,8 @@ class OpenAICompatibleProvider(LLMProvider):
             timeout = self.request_timeout
         timeout = max(1.0, min(timeout, 1800.0))
         async with httpx.AsyncClient(timeout=timeout) as client:
-            response = await client.post(self.chat_completions_url, headers=headers, json=payload)
             try:
+                response = await client.post(self.chat_completions_url, headers=headers, json=payload)
                 response.raise_for_status()
             except httpx.HTTPStatusError as exc:
                 status = exc.response.status_code
@@ -68,6 +68,8 @@ class OpenAICompatibleProvider(LLMProvider):
                 if body:
                     detail = f"{detail}: {body}"
                 raise LLMProviderUnavailable(detail) from exc
+            except httpx.TimeoutException as exc:
+                raise LLMProviderUnavailable(f"{self.provider} unavailable: request timed out: {exc}") from exc
             except httpx.HTTPError as exc:
                 raise LLMProviderUnavailable(f"{self.provider} unavailable: {exc}") from exc
             data = response.json()

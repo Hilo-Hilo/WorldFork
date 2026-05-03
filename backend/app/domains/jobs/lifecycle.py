@@ -36,7 +36,16 @@ def claim_job_for_execution(
             models.Job.id == job.id,
             or_(
                 models.Job.status.in_(CLAIMABLE_STATUSES),
-                and_(models.Job.status == "running", models.Job.updated_at <= lease_cutoff),
+                and_(
+                    models.Job.status == "running",
+                    or_(
+                        models.Job.lease_expires_at <= current,
+                        and_(
+                            models.Job.lease_expires_at.is_(None),
+                            models.Job.updated_at <= lease_cutoff,
+                        ),
+                    ),
+                ),
             ),
         )
         .values(
@@ -80,6 +89,11 @@ def job_should_enqueue_for_retry(job: models.Job, *, now: datetime | None = None
         return False
     if job.status != "running":
         return False
+    lease_expires_at = getattr(job, "lease_expires_at", None)
+    if lease_expires_at is not None:
+        if lease_expires_at.tzinfo is None:
+            lease_expires_at = lease_expires_at.replace(tzinfo=timezone.utc)
+        return lease_expires_at <= (now or datetime.now(timezone.utc))
     updated_at = getattr(job, "updated_at", None)
     if updated_at is None:
         return False

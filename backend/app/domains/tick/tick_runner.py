@@ -3,7 +3,7 @@ from __future__ import annotations
 import asyncio
 from copy import deepcopy
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Any
 from uuid import UUID
 
@@ -55,6 +55,7 @@ from app.storage.artifact_store import ArtifactStore
 UNFINISHED_TICK_STATUSES = {"running", "provisional"}
 RUNNABLE_MULTIVERSE_STATUSES = {"active", "candidate"}
 TERMINAL_MULTIVERSE_STATUSES = {"completed", "terminated"}
+TICK_EXECUTION_STALE_AFTER_SECONDS = 15 * 60
 
 
 @dataclass(frozen=True)
@@ -161,9 +162,13 @@ def run_next_tick(
         tick = latest_tick
         next_index = tick.tick_index
         active_execution = _active_tick_execution(db, tick=tick, multiverse=multiverse)
-        if active_execution is not None and queue_job is None and not force:
-            _commit_progress(db)
-            return tick
+        if active_execution is not None:
+            if _tick_execution_is_stale(active_execution):
+                _mark_tick_execution_stale(db, execution=active_execution)
+                _commit_progress(db, queue_job=queue_job)
+            elif queue_job is None and not force:
+                _commit_progress(db)
+                return tick
     else:
         next_index = 0 if latest_tick is None else latest_tick.tick_index + 1
         if next_index > max_ticks:
@@ -241,13 +246,13 @@ def run_next_tick(
                         checkpoints=checkpoints,
                         queue_job=queue_job,
                     )
-                    _commit_progress(db)
+                    _commit_progress(db, queue_job=queue_job)
                     return tick
-                _commit_progress(db)
+                _commit_progress(db, queue_job=queue_job)
                 continue
             if spec.kind is NodeKind.BARRIER:
                 _complete_observable_node(db, node, input_payload={"actor_nodes": list(plan.actor_nodes)})
-                _commit_progress(db)
+                _commit_progress(db, queue_job=queue_job)
                 continue
             if spec.kind is NodeKind.STATE_COMMIT:
                 _commit_runtime_state(
@@ -258,7 +263,7 @@ def run_next_tick(
                     multiverse=multiverse,
                     outputs=outputs,
                 )
-                _commit_progress(db)
+                _commit_progress(db, queue_job=queue_job)
                 return tick
 
             checkpoint = checkpoints[node_key]
@@ -283,6 +288,7 @@ def run_next_tick(
                     prompt_context=prompt_context,
                     branch_policy=branch_policy,
                     outputs=outputs,
+                    queue_job=queue_job,
                 )
                 validation = validate_node_output(spec.kind.value, payload)
                 if not validation.ok:
@@ -301,7 +307,7 @@ def run_next_tick(
                     "current_node": node_key,
                 }
                 db.flush()
-                _commit_progress(db)
+                _commit_progress(db, queue_job=queue_job)
             except Exception as exc:
                 _record_checkpoint_failure(
                     db,
@@ -429,6 +435,68 @@ def _active_tick_execution(
     )
 
 
+def _tick_execution_is_stale(execution: models.TickExecution) -> bool:
+    reference = execution.updated_at or execution.started_at or execution.created_at
+    if reference is None:
+        return False
+    if reference.tzinfo is None:
+        reference = reference.replace(tzinfo=timezone.utc)
+    return reference <= datetime.now(timezone.utc) - timedelta(seconds=TICK_EXECUTION_STALE_AFTER_SECONDS)
+
+
+def _mark_tick_execution_stale(db: Session, *, execution: models.TickExecution) -> None:
+    now = datetime.now(timezone.utc)
+    execution.status = "failed"
+    execution.active_slot = None
+    execution.finished_at = now
+    execution.runtime_meta = {
+        **(execution.runtime_meta or {}),
+        "stale_reclaimed_at": now.isoformat(),
+        "stale_reclaim_reason": "active execution exceeded stale cutoff",
+    }
+    nodes = db.scalars(
+        select(models.ExecutionNode).where(
+            models.ExecutionNode.tick_execution_id == execution.id,
+            models.ExecutionNode.status == "running",
+        )
+    ).all()
+    checkpoints = db.scalars(
+        select(models.TickCheckpoint).where(
+            models.TickCheckpoint.tick_execution_id == execution.id,
+            models.TickCheckpoint.status == "running",
+        )
+    ).all()
+    attempts = db.scalars(
+        select(models.NodeAttempt)
+        .join(models.ExecutionNode)
+        .where(
+            models.ExecutionNode.tick_execution_id == execution.id,
+            models.NodeAttempt.status == "running",
+        )
+    ).all()
+    for node in nodes:
+        node.status = "failed"
+        node.finished_at = now
+    for checkpoint in checkpoints:
+        checkpoint.status = "failed"
+        checkpoint.finished_at = now
+    for attempt in attempts:
+        attempt.status = "failed"
+        attempt.error = "stale tick execution reclaimed"
+        attempt.finished_at = now
+    db.add(
+        models.OperationLog(
+            big_bang_id=execution.big_bang_id,
+            multiverse_id=execution.multiverse_id,
+            tick_execution_id=execution.id,
+            event_type="runtime_execution_stale_reclaimed",
+            level="warning",
+            body={"stale_after_seconds": TICK_EXECUTION_STALE_AFTER_SECONDS},
+        )
+    )
+    db.flush()
+
+
 def _build_runtime_plan(
     db: Session,
     *,
@@ -540,6 +608,7 @@ def _run_checkpoint_node(
     prompt_context: dict,
     branch_policy: dict,
     outputs: dict[str, dict],
+    queue_job: models.Job | None,
 ) -> tuple[dict, models.NodeAttempt]:
     now = datetime.now(timezone.utc)
     node.status = "running"
@@ -555,7 +624,7 @@ def _run_checkpoint_node(
     )
     db.add(attempt)
     db.flush()
-    _commit_progress(db)
+    _commit_progress(db, queue_job=queue_job)
     payload = _execute_checkpoint_payload(
         db,
         spec=spec,
@@ -942,13 +1011,17 @@ def _commit_runtime_state(
     db.flush()
 
 
-def _commit_progress(db: Session) -> None:
+def _commit_progress(db: Session, *, queue_job: models.Job | None = None) -> None:
     """Persist checkpoint progress before any long external wait.
 
     Tick execution is intentionally resumable. Committing between checkpoints
     prevents request-scoped transactions from holding multiverse/tick locks
     while provider calls are in flight.
     """
+    if queue_job is not None and queue_job.status == "running":
+        now = datetime.now(timezone.utc)
+        queue_job.last_heartbeat_at = now
+        queue_job.lease_expires_at = now + timedelta(seconds=TICK_EXECUTION_STALE_AFTER_SECONDS)
     db.commit()
 
 

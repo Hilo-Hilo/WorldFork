@@ -14,9 +14,10 @@ from app.api.initialization import audit_llm_call
 from app.api.schemas import BigBangOut, MultiverseOut, TickSnapshotOut
 from app.db import models
 from app.llm import audit as llm_audit
+from app.llm import openai_compatible_provider
 from app.llm import openrouter_provider
 from app.llm.prompt_builder import build_agent_prompt_context, sanitize_sociology_prompt_influences
-from app.llm.provider import DeterministicLLMProvider
+from app.llm.provider import DeterministicLLMProvider, LLMProviderUnavailable
 from app.llm.redaction import redact_payload
 from app.llm.routing import resolve_audited_llm_route
 from app.llm.schemas import LLMRequest, LLMResponse
@@ -649,6 +650,74 @@ def test_openrouter_preserves_http_429_details(monkeypatch):
     with pytest.raises(Exception, match="HTTP 429 Too Many Requests"):
         asyncio.run(
             openrouter_provider.OpenRouterProvider().complete(
+                LLMRequest(
+                    purpose="test",
+                    model="",
+                    messages=[{"role": "user", "content": "Return JSON."}],
+                )
+            )
+        )
+
+
+def test_openrouter_post_timeout_is_controlled_unavailable(monkeypatch):
+    class FakeClient:
+        def __init__(self, timeout):
+            self.timeout = timeout
+
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, exc_type, exc, tb):
+            return None
+
+        async def post(self, url, *, headers, json):
+            raise openrouter_provider.httpx.ReadTimeout("read timed out")
+
+    settings = SimpleNamespace(
+        openrouter_api_key="test-key",
+        default_model="default-model",
+        openrouter_chat_completions_url="https://openrouter.test/chat",
+    )
+    monkeypatch.setattr(openrouter_provider, "get_settings", lambda: settings)
+    monkeypatch.setattr(openrouter_provider.httpx, "AsyncClient", FakeClient)
+
+    with pytest.raises(LLMProviderUnavailable, match="request timed out"):
+        asyncio.run(
+            openrouter_provider.OpenRouterProvider().complete(
+                LLMRequest(
+                    purpose="test",
+                    model="",
+                    messages=[{"role": "user", "content": "Return JSON."}],
+                )
+            )
+        )
+
+
+def test_openai_compatible_post_timeout_is_controlled_unavailable(monkeypatch):
+    class FakeClient:
+        def __init__(self, timeout):
+            self.timeout = timeout
+
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, exc_type, exc, tb):
+            return None
+
+        async def post(self, url, *, headers, json):
+            raise openai_compatible_provider.httpx.ReadTimeout("read timed out")
+
+    monkeypatch.setattr(openai_compatible_provider.httpx, "AsyncClient", FakeClient)
+    provider = openai_compatible_provider.OpenAICompatibleProvider(
+        provider="compatible-test",
+        api_key="test-key",
+        base_url="https://compatible.test/v1",
+        default_model="test-model",
+    )
+
+    with pytest.raises(LLMProviderUnavailable, match="compatible-test unavailable: request timed out"):
+        asyncio.run(
+            provider.complete(
                 LLMRequest(
                     purpose="test",
                     model="",
