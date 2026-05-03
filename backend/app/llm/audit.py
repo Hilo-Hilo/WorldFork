@@ -34,6 +34,33 @@ class LLMJSONParseError(ValueError):
 
 ProviderFactory = Callable[[], LLMProvider]
 _AUDITED_PROVIDER_FACTORIES: dict[str, ProviderFactory] = {}
+LOCAL_OPENAI_COMPATIBLE_PROVIDERS = {
+    "ollama",
+    "vllm",
+    "lmstudio",
+    "lm-studio",
+    "localai",
+}
+LOCAL_OPENAI_COMPATIBLE_API_SHAPES = {
+    "ollama",
+    "ollama-openai",
+    "vllm",
+    "vllm-openai",
+    "lmstudio",
+    "lmstudio-openai",
+    "lm-studio",
+    "lm-studio-openai",
+    "localai",
+    "localai-openai",
+    "local-openai-compatible",
+    "no-auth-openai-compatible",
+}
+OPENAI_COMPATIBLE_API_SHAPES = {
+    "openai-compatible",
+    "openai-chat-completions",
+    "chat-completions",
+    *LOCAL_OPENAI_COMPATIBLE_API_SHAPES,
+}
 
 
 def register_audited_llm_provider(name: str, factory: ProviderFactory) -> None:
@@ -86,15 +113,14 @@ def _provider_from_settings_row(provider_name: str, db: Session) -> LLMProvider 
         or payload.get("api")
         or "openai-compatible"
     )
-    if str(api_shape) not in {
-        "openai-compatible",
-        "openai-chat-completions",
-        "chat-completions",
-    }:
+    api_shape = str(api_shape)
+    if api_shape not in OPENAI_COMPATIBLE_API_SHAPES:
         raise RuntimeError(
             f"Unsupported audited provider API for {provider_name!r}: {api_shape!r}"
         )
     api_key = os.environ.get(row.api_key_env)
+    if not api_key and _local_provider_without_api_key(row.provider, row.api_key_env, api_shape):
+        api_key = str(payload.get("api_key") or payload.get("dummy_api_key") or "local")
     if not api_key:
         raise LLMProviderUnavailable(
             f"LLM provider {provider_name!r} missing API key env {row.api_key_env!r}"
@@ -112,6 +138,16 @@ def _provider_from_settings_row(provider_name: str, db: Session) -> LLMProvider 
         extra_headers=extra_headers,
         chat_completions_url=payload.get("chat_completions_url"),
         request_timeout=float(payload.get("request_timeout_seconds") or 120.0),
+    )
+
+
+def _local_provider_without_api_key(provider: str, api_key_env: str, api_shape: str) -> bool:
+    provider_name = _normalize_provider_name(provider)
+    env_name = str(api_key_env or "").strip().lower()
+    return (
+        provider_name in LOCAL_OPENAI_COMPATIBLE_PROVIDERS
+        or api_shape in LOCAL_OPENAI_COMPATIBLE_API_SHAPES
+        or env_name in {"", "none", "local", "dummy", "not_required", "not-required"}
     )
 
 

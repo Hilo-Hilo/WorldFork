@@ -72,6 +72,7 @@ ATLAS_GOVERNANCE_ROUTES = (
     "report_agent",
     "force_deviation",
 )
+ALL_AGENT_ROUTES = tuple(dict.fromkeys((*ATLAS_FAST_ROUTES, *ATLAS_GOVERNANCE_ROUTES)))
 
 SETUP_PROVIDER_OPTIONS = (
     {
@@ -122,12 +123,45 @@ SETUP_PROVIDER_OPTIONS = (
         "provider": "ollama",
         "display_name": "Ollama local OpenAI-compatible endpoint",
         "api_key_env": "none",
-        "base_url": "http://localhost:11434/v1",
+        "base_url": "http://host.docker.internal:11434/v1",
         "default_model": "llama3.1:8b",
         "supported": True,
-        "best_for": ["cohort_agent", "hero_agent"],
-        "setup": "Run Ollama locally, pull a model, then add a provider row with provider=ollama.",
-        "atlas_recommendation": "Only use for Atlas after proving structured JSON quality; local models can reduce API cost but may hurt accuracy.",
+        "best_for": list(ALL_AGENT_ROUTES),
+        "setup": "Run Ollama locally, pull a model, then add a provider row with provider=ollama and api_key_env=none. Use http://localhost:11434/v1 only when the backend is not running in Docker.",
+        "atlas_recommendation": "Available for every agent route. Prove strict JSON quality before using it for God/report/initializer routes.",
+    },
+    {
+        "provider": "vllm",
+        "display_name": "vLLM local/OpenAI-compatible endpoint",
+        "api_key_env": "none",
+        "base_url": "http://host.docker.internal:8000/v1",
+        "default_model": "local-model",
+        "supported": True,
+        "best_for": list(ALL_AGENT_ROUTES),
+        "setup": "Start vLLM with its OpenAI-compatible server, then add provider=vllm with payload.api=vllm-openai and api_key_env=none.",
+        "atlas_recommendation": "Available for every agent route when the served model can produce strict JSON.",
+    },
+    {
+        "provider": "lmstudio",
+        "display_name": "LM Studio local OpenAI-compatible endpoint",
+        "api_key_env": "none",
+        "base_url": "http://host.docker.internal:1234/v1",
+        "default_model": "local-model",
+        "supported": True,
+        "best_for": list(ALL_AGENT_ROUTES),
+        "setup": "Start LM Studio's local server, then add provider=lmstudio with payload.api=lmstudio-openai and api_key_env=none.",
+        "atlas_recommendation": "Available for every agent route after a JSON-output smoke test.",
+    },
+    {
+        "provider": "localai",
+        "display_name": "LocalAI OpenAI-compatible endpoint",
+        "api_key_env": "none",
+        "base_url": "http://host.docker.internal:8080/v1",
+        "default_model": "local-model",
+        "supported": True,
+        "best_for": list(ALL_AGENT_ROUTES),
+        "setup": "Start LocalAI, then add provider=localai with payload.api=localai-openai and api_key_env=none.",
+        "atlas_recommendation": "Available for every agent route when model quality is acceptable.",
     },
 )
 

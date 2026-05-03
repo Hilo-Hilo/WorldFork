@@ -262,6 +262,36 @@ def _provider_api_shape(row: dict[str, Any] | None, default: str) -> str:
     return str(payload.get("provider_api") or payload.get("api_shape") or payload.get("api") or default)
 
 
+LOCAL_OPENAI_COMPATIBLE_API_SHAPES = {
+    "ollama",
+    "ollama-openai",
+    "vllm",
+    "vllm-openai",
+    "lmstudio",
+    "lmstudio-openai",
+    "lm-studio",
+    "lm-studio-openai",
+    "localai",
+    "localai-openai",
+    "local-openai-compatible",
+    "no-auth-openai-compatible",
+}
+LOCAL_OPENAI_COMPATIBLE_PROVIDERS = {"ollama", "vllm", "lmstudio", "lm-studio", "localai"}
+
+
+def _provider_configured(row: dict[str, Any] | None, *, api_shape: str, key_env: str) -> bool:
+    if row is None:
+        return False
+    env_name = str(key_env or "").strip().lower()
+    if (
+        str(row.get("provider")) in LOCAL_OPENAI_COMPATIBLE_PROVIDERS
+        or api_shape in LOCAL_OPENAI_COMPATIBLE_API_SHAPES
+        or env_name in {"", "none", "local", "dummy", "not_required", "not-required"}
+    ):
+        return bool(row.get("enabled"))
+    return bool(os.environ.get(str(key_env)))
+
+
 def _provider_catalog(providers_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     rows_by_provider = {str(row["provider"]): row for row in providers_rows}
     catalog: list[dict[str, Any]] = []
@@ -323,16 +353,18 @@ def _provider_catalog(providers_rows: list[dict[str, Any]]) -> list[dict[str, An
         }
     )
     for row in rows_by_provider.values():
+        api_shape = _provider_api_shape(row, "openai-compatible")
+        key_env = str(row["api_key_env"])
         catalog.append(
             {
                 "provider": row["provider"],
-                "api_shape": _provider_api_shape(row, "openai-compatible"),
+                "api_shape": api_shape,
                 "source": "settings_provider",
                 "supported": True,
                 "enabled": bool(row["enabled"]),
-                "configured": bool(os.environ.get(str(row["api_key_env"]))),
+                "configured": _provider_configured(row, api_shape=api_shape, key_env=key_env),
                 "base_url": row["base_url"],
-                "api_key_env": row["api_key_env"],
+                "api_key_env": key_env,
                 "default_model": row["default_model"],
                 "fallback_model": row.get("fallback_model"),
                 "payload": _provider_payload(row),

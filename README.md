@@ -246,6 +246,9 @@ If readiness fails, first check Docker Desktop, port conflicts on `8003`, `5433`
 `worldfork setup` gives agents a compact provider map and the recommended Atlas
 routing profile: cheap/fast models for high-volume cohort/timeline work, and
 stronger models for initialization, God review, endpoint-ledger, and reports.
+It also shows local OpenAI-compatible options such as Ollama, vLLM, LM Studio,
+and LocalAI, which can be routed to any audited agent type after a JSON-quality
+smoke test.
 
 #### Create and initialize a first Big Bang
 
