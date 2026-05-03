@@ -138,6 +138,53 @@ def test_agent_openapi_has_cli_first_routes():
     assert "/api/frontend/bootstrap" not in paths
 
 
+def test_agent_job_wait_releases_read_transaction_between_polls(monkeypatch):
+    job_id = uuid4()
+    now = datetime.now(timezone.utc)
+
+    class WaitDb:
+        def __init__(self):
+            self.calls = 0
+            self.rollbacks = 0
+            self.expires = 0
+
+        def get(self, model, object_id):
+            self.calls += 1
+            status = "queued" if self.calls == 1 else "succeeded"
+            return SimpleNamespace(
+                id=object_id,
+                job_type="run_multiverse_tick",
+                queue_name="multiverse_ticks",
+                status=status,
+                big_bang_id=None,
+                payload={},
+                result={},
+                error=None,
+                idempotency_key="job-wait-test",
+                created_at=now,
+                updated_at=now,
+            )
+
+        def rollback(self):
+            self.rollbacks += 1
+
+        def expire_all(self):
+            self.expires += 1
+
+    db = WaitDb()
+    monkeypatch.setattr(agent_api.time, "sleep", lambda _seconds: None)
+
+    result = agent_api.wait_for_job(
+        job_id,
+        agent_api.AgentWaitRequest(timeout_seconds=30, poll_interval_seconds=1),
+        db=db,
+    )
+
+    assert result["meta"]["terminal"] is True
+    assert db.rollbacks == 1
+    assert db.expires == 1
+
+
 def test_big_bang_delete_soft_archives_and_terminates_active_multiverses():
     big_bang_id = uuid4()
     big_bang = SimpleNamespace(id=big_bang_id, status="running")
@@ -430,6 +477,41 @@ def test_final_report_rejects_non_terminal_multiverse(monkeypatch):
 
     assert exc.value.status_code == 409
     assert "final report requires terminal multiverses" in exc.value.detail
+
+
+def test_final_report_llm_failure_does_not_mark_big_bang_completed(monkeypatch):
+    big_bang = SimpleNamespace(id=uuid4(), status="running")
+
+    class ScalarResult:
+        def all(self):
+            return []
+
+    class FinalReportDB:
+        def __init__(self):
+            self.rolled_back = False
+
+        def get(self, model, object_id):
+            return big_bang
+
+        def scalars(self, statement):
+            return ScalarResult()
+
+        def rollback(self):
+            self.rolled_back = True
+
+    db = FinalReportDB()
+    monkeypatch.setattr(
+        big_bangs_api,
+        "generate_final_big_bang_report",
+        lambda *args, **kwargs: (_ for _ in ()).throw(LLMCallError("report LLM timeout")),
+    )
+
+    with pytest.raises(HTTPException) as exc:
+        big_bangs_api.final_report(big_bang.id, db=db)
+
+    assert exc.value.status_code == 503
+    assert big_bang.status == "running"
+    assert db.rolled_back is True
 
 
 def test_commit_or_500_sanitizes_database_errors():

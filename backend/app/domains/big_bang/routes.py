@@ -126,8 +126,12 @@ def final_report(big_bang_id: UUID, payload: ReportRequest | None = None, db: Se
     request = payload or ReportRequest()
     big_bang = require(db, models.BigBang, big_bang_id)
     reject_non_terminal_multiverses(db, big_bang)
+    try:
+        version = generate_final_big_bang_report(db, big_bang=big_bang, title=request.title, summary=request.summary)
+    except LLMCallError as exc:
+        db.rollback()
+        raise_llm_unavailable(exc)
     big_bang.status = "completed"
-    version = generate_final_big_bang_report(db, big_bang=big_bang, title=request.title, summary=request.summary)
     commit_or_500(db)
     return version
 

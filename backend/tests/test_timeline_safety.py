@@ -4,7 +4,7 @@ import importlib.util
 import sys
 import types
 import warnings
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from uuid import uuid4
 
@@ -227,6 +227,76 @@ def test_direct_retry_returns_running_tick_when_active_execution_exists(db, monk
     assert returned.id == running.id
     assert returned.status == "running"
     assert db.scalars(select(models.ExecutionNode)).all() == []
+
+
+def test_direct_retry_reclaims_stale_active_execution(db, monkeypatch):
+    big_bang, root = _seed_world(db)
+    stale_at = datetime.now(timezone.utc) - timedelta(hours=1)
+    running = models.TickSnapshot(
+        big_bang_id=big_bang.id,
+        multiverse_id=root.id,
+        tick_index=0,
+        ui_label="M1-T0",
+        status="running",
+        provisional_bundle={},
+        final_bundle={},
+        summary="stale in flight",
+        idempotency_key="tick-0",
+    )
+    db.add(running)
+    db.flush()
+    execution = models.TickExecution(
+        big_bang_id=big_bang.id,
+        multiverse_id=root.id,
+        tick_snapshot_id=running.id,
+        tick_index=0,
+        status="running",
+        active_slot="active",
+        runtime_meta={},
+        started_at=stale_at,
+        updated_at=stale_at,
+    )
+    db.add(execution)
+    db.commit()
+    _patch_successful_tick(monkeypatch)
+
+    returned = tick_runner.run_next_tick(db, multiverse=root, idempotency_key="retry")
+
+    assert returned.id == running.id
+    assert returned.status == "final"
+    db.refresh(execution)
+    assert execution.status == "succeeded"
+    assert execution.active_slot is None
+    assert db.scalar(select(models.OperationLog).where(models.OperationLog.event_type == "runtime_execution_stale_reclaimed"))
+
+
+def test_queue_job_heartbeat_extends_lease_at_checkpoint_boundaries(db, monkeypatch):
+    big_bang, root = _seed_world(db)
+    old_lease = datetime.now(timezone.utc) - timedelta(minutes=5)
+    job = models.Job(
+        job_type="run_multiverse_tick",
+        queue_name="multiverse_ticks",
+        status="running",
+        big_bang_id=big_bang.id,
+        payload={"multiverse_id": str(root.id)},
+        result={},
+        idempotency_key="heartbeat-job",
+        lease_expires_at=old_lease,
+        last_heartbeat_at=old_lease,
+    )
+    db.add(job)
+    db.commit()
+    _patch_successful_tick(monkeypatch)
+
+    tick = tick_runner.run_next_tick(db, multiverse=root, queue_job=job)
+
+    assert tick.status == "final"
+    assert job.last_heartbeat_at is not None
+    assert job.lease_expires_at is not None
+    lease_expires_at = job.lease_expires_at
+    if lease_expires_at.tzinfo is None:
+        lease_expires_at = lease_expires_at.replace(tzinfo=timezone.utc)
+    assert lease_expires_at > old_lease
 
 
 def test_paused_big_bang_blocks_step_tick_and_run_until_complete(db):
