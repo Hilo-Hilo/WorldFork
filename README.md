@@ -142,7 +142,7 @@ Storage boundaries:
 
 ## What Is In This Repo
 
-WorldFork is a monorepo with installable and runnable surfaces around one core runtime:
+WorldFork is a monorepo with installable and runnable surfaces around one core runtime. The layout is kept explicit so operators, agents, and maintainers can find the runtime, CLI, docs, examples, and infrastructure without hunting through generated artifacts:
 
 | Surface | Location | Purpose |
 | --- | --- | --- |
