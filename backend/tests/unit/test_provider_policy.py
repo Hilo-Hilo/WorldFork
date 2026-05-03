@@ -302,12 +302,65 @@ async def test_initialize_registers_local_openai_provider_without_api_key(monkey
     assert get_provider("vllm").name == "vllm"
 
 
+async def test_initialize_rejects_hosted_openai_provider_without_api_key(monkeypatch) -> None:
+    hosted_row = SimpleNamespace(
+        provider="hosted-compatible",
+        base_url="https://hosted.example/v1",
+        api_key_env="none",
+        default_model="hosted-model",
+        fallback_model=None,
+        enabled=True,
+        payload={"api": "openai-compatible"},
+    )
+
+    class FakeResult:
+        def scalars(self):
+            return self
+
+        def all(self):
+            return [hosted_row]
+
+    class FakeSession:
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, *_args):
+            return None
+
+        async def execute(self, _statement):
+            return FakeResult()
+
+    from backend.app.core import db as core_db
+
+    monkeypatch.setattr(core_db, "SessionLocal", lambda: FakeSession())
+    monkeypatch.delenv("none", raising=False)
+
+    settings = SimpleNamespace(
+        openrouter_base_url="https://openrouter.ai/api/v1",
+        default_model="deepseek/deepseek-v4-flash",
+        fallback_model="deepseek/deepseek-v4-flash",
+        openrouter_http_referer="https://worldfork.local",
+        openrouter_title="WorldFork",
+        openai_codex_base_url="https://chatgpt.com/backend-api/codex",
+        openai_codex_default_model="gpt-5.4",
+        openai_codex_fallback_model=None,
+        openai_codex_enabled=False,
+        openai_codex_oauth_token=None,
+        openai_codex_auth_file=None,
+    )
+
+    await initialize_providers_from_settings(settings)
+
+    with pytest.raises(KeyError):
+        get_provider("hosted-compatible")
+
+
 async def test_happy_path(routing, limiter, prompt) -> None:
     provider = MockProvider()
     register_provider("openrouter", provider)
 
     result = await call_with_policy(
-        job_type="agent_deliberation_batch",
+        job_type="actor_deliberation_call",
         prompt=prompt,
         routing=routing,
         limiter=limiter,
@@ -319,38 +372,32 @@ async def test_happy_path(routing, limiter, prompt) -> None:
     assert provider.calls == 1
 
 
-async def test_sync_actor_decision_model_uses_agent_deliberation_routing(monkeypatch) -> None:
-    from backend.app.simulation import agent_engine
+async def test_actor_deliberation_ignores_legacy_batch_key() -> None:
+    from backend.app.schemas.settings import ModelRoutingEntry
 
-    class _Result:
-        def mappings(self):
-            return self
-
-        def first(self):
-            return {
-                "preferred_provider": "openrouter",
-                "preferred_model": "db/agent-model",
-                "fallback_provider": None,
-                "fallback_model": None,
-                "temperature": 0.4,
-                "top_p": 1.0,
-                "max_tokens": 4096,
-                "timeout_seconds": 120,
-                "retry_policy": "exponential_backoff",
-            }
-
-    class _Db:
-        def execute(self, statement, params):
-            assert params == {"job_type": "agent_deliberation_batch"}
-            return _Result()
-
-    monkeypatch.setattr(
-        agent_engine,
-        "get_settings",
-        lambda: SimpleNamespace(default_model="settings/default-model"),
+    stale_entry = ModelRoutingEntry(
+        job_type="actor_deliberation_call",
+        preferred_provider="openrouter",
+        preferred_model="stale/model",
+        fallback_provider="openrouter",
+        fallback_model="stale/fallback",
+        temperature=0.5,
+        top_p=0.95,
+        max_tokens=512,
+        max_concurrency=4,
+        requests_per_minute=60,
+        tokens_per_minute=150_000,
+        timeout_seconds=120,
+        retry_policy="exponential_backoff",
+        daily_budget_usd=None,
     )
+    routing_custom = RoutingTable({"agent_deliberation_batch": stale_entry})  # type: ignore[arg-type]
 
-    assert agent_engine._agent_deliberation_model(_Db()) == "db/agent-model"
+    preferred, fallback = routing_custom.route("actor_deliberation_call")
+
+    assert preferred.model == "deepseek/deepseek-v4-flash"
+    assert fallback is not None
+    assert fallback.model == "deepseek/deepseek-v4-flash"
 
 
 async def test_429_then_success(routing, limiter, prompt) -> None:
@@ -359,7 +406,7 @@ async def test_429_then_success(routing, limiter, prompt) -> None:
     register_provider("openrouter", provider)
 
     result = await call_with_policy(
-        job_type="agent_deliberation_batch",
+        job_type="actor_deliberation_call",
         prompt=prompt,
         routing=routing,
         limiter=limiter,
@@ -382,7 +429,7 @@ async def test_5xx_triggers_fallback(routing, limiter, prompt) -> None:
     from backend.app.schemas.settings import ModelRoutingEntry
 
     entry = ModelRoutingEntry(
-        job_type="agent_deliberation_batch",
+        job_type="actor_deliberation_call",
         preferred_provider="openrouter",
         preferred_model="primary-model",
         fallback_provider="fbprovider",
@@ -397,13 +444,13 @@ async def test_5xx_triggers_fallback(routing, limiter, prompt) -> None:
         retry_policy="exponential_backoff",
         daily_budget_usd=None,
     )
-    routing_custom = RoutingTable({"agent_deliberation_batch": entry})  # type: ignore[arg-type]
+    routing_custom = RoutingTable({"actor_deliberation_call": entry})  # type: ignore[arg-type]
 
     fallback = MockProvider(name="fbprovider")
     register_provider("fbprovider", fallback)
 
     result = await call_with_policy(
-        job_type="agent_deliberation_batch",
+        job_type="actor_deliberation_call",
         prompt=prompt,
         routing=routing_custom,
         limiter=limiter,
@@ -421,7 +468,7 @@ async def test_invalid_json_returns_safe_noop(routing, limiter, prompt) -> None:
     register_provider("openrouter", provider)
 
     result = await call_with_policy(
-        job_type="agent_deliberation_batch",
+        job_type="actor_deliberation_call",
         prompt=prompt,
         routing=routing,
         limiter=limiter,
@@ -450,7 +497,7 @@ async def test_budget_exceeded_propagates(redis_client, routing, prompt) -> None
 
     with pytest.raises(BudgetExceededError):
         await call_with_policy(
-            job_type="agent_deliberation_batch",
+            job_type="actor_deliberation_call",
             prompt=prompt,
             routing=routing,
             limiter=limiter,
@@ -468,7 +515,7 @@ async def test_fallback_exhausted_raises(routing, limiter, prompt) -> None:
 
     with pytest.raises(FallbackExhaustedError):
         await call_with_policy(
-            job_type="agent_deliberation_batch",
+            job_type="actor_deliberation_call",
             prompt=prompt,
             routing=routing,
             limiter=limiter,
@@ -481,7 +528,7 @@ async def test_timeout_then_fallback(routing, limiter, prompt) -> None:
     # Custom routing so we can distinguish primary vs fallback providers.
     from backend.app.schemas.settings import ModelRoutingEntry
     entry = ModelRoutingEntry(
-        job_type="agent_deliberation_batch",
+        job_type="actor_deliberation_call",
         preferred_provider="primary",
         preferred_model="m1",
         fallback_provider="fbprovider",
@@ -496,7 +543,7 @@ async def test_timeout_then_fallback(routing, limiter, prompt) -> None:
         retry_policy="exponential_backoff",
         daily_budget_usd=None,
     )
-    routing_custom = RoutingTable({"agent_deliberation_batch": entry})  # type: ignore[arg-type]
+    routing_custom = RoutingTable({"actor_deliberation_call": entry})  # type: ignore[arg-type]
 
     primary = MockProvider(name="primary")
     primary.script = [ProviderTimeoutError("t/o"), ProviderTimeoutError("t/o")]
@@ -506,7 +553,7 @@ async def test_timeout_then_fallback(routing, limiter, prompt) -> None:
     register_provider("fbprovider", fb)
 
     result = await call_with_policy(
-        job_type="agent_deliberation_batch",
+        job_type="actor_deliberation_call",
         prompt=prompt,
         routing=routing_custom,
         limiter=limiter,

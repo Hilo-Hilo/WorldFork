@@ -32,7 +32,6 @@ from app.domains.jobs.executor import (
 )
 from backend.app.workers import celery_app as celery_app_module
 
-# Re-exported for compatibility: legacy /api/jobs tests patch this symbol.
 from backend.app.core.redis_client import get_redis_client  # noqa: F401
 
 router = APIRouter(prefix="/jobs", tags=["jobs"])
@@ -292,8 +291,25 @@ def cancel_job_route(job_id: UUID, db: Session = Depends(get_db)):
 
 
 @router.post("/{job_id}/run", response_model=JobResponse)
-def run_job(job_id: UUID, db: Session = Depends(get_db)):
+def run_job(
+    job_id: UUID,
+    background_tasks: BackgroundTasks,
+    inline: bool = True,
+    db: Session = Depends(get_db),
+):
     job = require(db, models.Job, job_id)
+    if not inline:
+        if job.status in {"failed", "interrupted"}:
+            try:
+                requeue_job(db, job)
+            except JobNotRunnableError as exc:
+                raise HTTPException(status_code=409, detail=str(exc)) from exc
+            commit_or_500(db)
+            publish_job_status_best_effort(job)
+        if job.status not in {"queued", "running"}:
+            raise HTTPException(status_code=409, detail=f"job {job.id} is {job.status}; cannot dispatch")
+        schedule_local_fallback(background_tasks, job.id)
+        return job
     try:
         execute_job(db, job, commit_running=True)
     except JobNotRunnableError as exc:

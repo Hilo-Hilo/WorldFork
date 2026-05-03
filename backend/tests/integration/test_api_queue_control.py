@@ -41,7 +41,7 @@ def _job_payload() -> dict:
 
 def test_queue_control_lifecycle(monkeypatch):
     enqueued: list[str] = []
-    monkeypatch.setattr("app.api.jobs.enqueue_job", lambda job_id: enqueued.append(str(job_id)))
+    monkeypatch.setattr("app.domains.jobs.routes.enqueue_job", lambda job_id: enqueued.append(str(job_id)))
 
     with override_db() as db:
         create_response = client.post(
@@ -105,7 +105,7 @@ def test_queue_control_lifecycle(monkeypatch):
 
 
 def test_pause_running_job_requests_interrupt_without_allowing_immediate_resume(monkeypatch):
-    monkeypatch.setattr("app.api.jobs.enqueue_job", lambda job_id: None)
+    monkeypatch.setattr("app.domains.jobs.routes.enqueue_job", lambda job_id: None)
 
     with override_db():
         create_response = client.post(
@@ -131,7 +131,7 @@ def test_resume_enqueue_failure_keeps_job_queued_without_local_claim(monkeypatch
     def fail_enqueue(job_id):
         raise RuntimeError("broker unavailable")
 
-    monkeypatch.setattr("app.api.jobs.enqueue_job", fail_enqueue)
+    monkeypatch.setattr("app.domains.jobs.routes.enqueue_job", fail_enqueue)
 
     with override_db() as db:
         job = models.Job(
@@ -161,7 +161,7 @@ def test_resume_enqueue_failure_keeps_job_queued_without_local_claim(monkeypatch
 
 
 def test_requeue_enforces_max_attempts_and_clears_finished_at(monkeypatch):
-    monkeypatch.setattr("app.api.jobs.enqueue_job", lambda job_id: None)
+    monkeypatch.setattr("app.domains.jobs.routes.enqueue_job", lambda job_id: None)
 
     with override_db() as db:
         job = models.Job(
@@ -199,7 +199,7 @@ def test_requeue_enqueue_failure_keeps_job_queued_without_local_claim(monkeypatc
     def fail_enqueue(job_id):
         raise RuntimeError("broker unavailable")
 
-    monkeypatch.setattr("app.api.jobs.enqueue_job", fail_enqueue)
+    monkeypatch.setattr("app.domains.jobs.routes.enqueue_job", fail_enqueue)
 
     with override_db() as db:
         job = models.Job(

@@ -12,24 +12,13 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 # ---------------------------------------------------------------------------
 
 class BeliefDriftParams(BaseModel):
-    model_config = ConfigDict(extra="ignore", populate_by_name=True)
+    model_config = ConfigDict(extra="ignore")
 
     eta: float = Field(default=0.05, ge=0.0, le=1.0)
-    # Accept both `bounded_kernel_width` (legacy) and `kernel_bandwidth` (SoT JSON).
-    bounded_kernel_width: float = Field(
-        default=0.5, ge=0.0, le=2.0, alias="kernel_bandwidth"
-    )
-    stubbornness_weight: float = Field(
-        default=0.3, ge=0.0, le=1.0, alias="stubbornness_anchor_weight"
-    )
-    event_shock_scale: float = Field(
-        default=0.2, ge=0.0, le=1.0, alias="event_shock_weight"
-    )
+    kernel_bandwidth: float = Field(default=0.5, ge=0.0, le=2.0)
+    stubbornness_anchor_weight: float = Field(default=0.3, ge=0.0, le=1.0)
+    event_shock_weight: float = Field(default=0.2, ge=0.0, le=1.0)
     max_step_per_tick: float = Field(default=0.20, ge=0.0, le=1.0)
-
-    @property
-    def kernel_bandwidth(self) -> float:
-        return self.bounded_kernel_width
 
 
 class AttentionParams(BaseModel):
@@ -44,29 +33,15 @@ class AttentionParams(BaseModel):
 
 
 class ExpressionParams(BaseModel):
-    model_config = ConfigDict(extra="ignore", populate_by_name=True)
+    model_config = ConfigDict(extra="ignore")
 
     anger_weight: float = Field(default=0.25, ge=0.0, le=1.0)
     urgency_weight: float = Field(default=0.20, ge=0.0, le=1.0)
-    # Accept both `perceived_efficacy_weight` (legacy) and `efficacy_weight` (SoT JSON).
-    perceived_efficacy_weight: float = Field(
-        default=0.15, ge=0.0, le=1.0, alias="efficacy_weight"
-    )
-    # Accept both `fear_of_isolation_weight` (legacy) and `fear_isolation_weight` (SoT JSON).
-    fear_of_isolation_weight: float = Field(
-        default=0.25, ge=0.0, le=1.0, alias="fear_isolation_weight"
-    )
+    efficacy_weight: float = Field(default=0.15, ge=0.0, le=1.0)
+    fear_isolation_weight: float = Field(default=0.25, ge=0.0, le=1.0)
     fatigue_weight: float = Field(default=0.10, ge=0.0, le=1.0)
     base_expression_weight: float = Field(default=1.0, ge=0.0, le=2.0)
     clamp: tuple[float, float] = Field(default=(0.0, 1.0))
-
-    @property
-    def efficacy_weight(self) -> float:
-        return self.perceived_efficacy_weight
-
-    @property
-    def fear_isolation_weight(self) -> float:
-        return self.fear_of_isolation_weight
 
 
 class SpiralOfSilenceParams(BaseModel):
@@ -81,7 +56,7 @@ class SpiralOfSilenceParams(BaseModel):
 
 
 class MobilizationParams(BaseModel):
-    model_config = ConfigDict(extra="ignore", populate_by_name=True)
+    model_config = ConfigDict(extra="ignore")
 
     default_threshold: float = Field(default=0.55, ge=0.0, le=1.0)
     grievance_weight: float = Field(default=0.3, ge=0.0, le=2.0)
@@ -89,30 +64,17 @@ class MobilizationParams(BaseModel):
     peer_participation_weight: float = Field(default=0.25, ge=0.0, le=2.0)
     efficacy_weight: float = Field(default=0.20, ge=0.0, le=2.0)
     cost_fear_weight: float = Field(default=0.30, ge=0.0, le=2.0)
-    # Accept both `k_threshold_complex_contagion` (legacy) and `complex_contagion_k`.
-    k_threshold_complex_contagion: int = Field(
-        default=3, ge=1, alias="complex_contagion_k"
-    )
-
-    @property
-    def complex_contagion_k(self) -> int:
-        return self.k_threshold_complex_contagion
+    complex_contagion_k: int = Field(default=3, ge=1)
 
 
 class HomophilyParams(BaseModel):
-    model_config = ConfigDict(extra="ignore", populate_by_name=True)
+    model_config = ConfigDict(extra="ignore")
 
-    rewire_probability: float = Field(
-        default=0.05, ge=0.0, le=1.0, alias="rewiring_rate"
-    )
+    rewiring_rate: float = Field(default=0.05, ge=0.0, le=1.0)
     similarity_threshold: float = Field(default=0.7, ge=0.0, le=1.0)
     max_rewires_per_tick: int = Field(default=5, ge=0)
     tie_decay_rate: float = Field(default=0.02, ge=0.0, le=1.0)
     ingroup_bias: float = Field(default=0.6, ge=0.0, le=1.0)
-
-    @property
-    def rewiring_rate(self) -> float:
-        return self.rewire_probability
 
 
 class TrustParams(BaseModel):
@@ -132,15 +94,13 @@ class IdentitySalienceParams(BaseModel):
 
 
 class SplitMergeParams(BaseModel):
-    model_config = ConfigDict(extra="ignore", populate_by_name=True)
+    model_config = ConfigDict(extra="ignore")
 
     split_distance_threshold: float = Field(default=0.35, ge=0.0, le=1.0)
     merge_distance_threshold: float = Field(default=0.15, ge=0.0, le=1.0)
     min_split_share: float = Field(default=0.10, ge=0.0, le=1.0)
     min_split_population: int = Field(default=50, ge=1)
-    low_divergence_ticks_for_merge: int = Field(
-        default=3, ge=1, alias="merge_low_divergence_ticks"
-    )
+    merge_low_divergence_ticks: int = Field(default=3, ge=1)
     merge_similarity_threshold: float = Field(default=0.85, ge=0.0, le=1.0)
     max_child_cohorts: int = Field(default=4, ge=2)
 

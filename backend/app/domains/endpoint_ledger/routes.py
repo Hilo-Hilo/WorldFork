@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.api.jobs import create_job_record
+from app.domains.jobs.routes import create_job_record
 from app.api.schemas import (
     EndpointLedgerDetailOut,
     EndpointLedgerEvaluateOut,

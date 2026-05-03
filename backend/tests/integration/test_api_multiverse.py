@@ -12,7 +12,7 @@ pytestmark = [pytest.mark.asyncio]
 
 
 async def test_lineage_visible_ids_excludes_sibling_branches():
-    from app.api.multiverses import _visible_lineage_ids
+    from app.domains.multiverse.routes import _visible_lineage_ids
 
     root = uuid4()
     child = uuid4()
@@ -55,7 +55,7 @@ async def test_simulate_next_tick_accepts_header_idempotency_key(
     client: AsyncClient,
     monkeypatch: pytest.MonkeyPatch,
 ):
-    from app.api import multiverses as multiverses_api
+    from app.domains.multiverse import routes as multiverses_api
     from app.db import models
     from app.db.session import get_db
     from backend.app.main import app

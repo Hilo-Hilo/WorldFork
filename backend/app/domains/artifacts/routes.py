@@ -10,6 +10,7 @@ from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
 from app.api.utils import require
+from app.core.config import get_settings
 from app.db import models
 from app.db.session import get_db
 
@@ -28,6 +29,22 @@ def require_secure_debug_artifact_gate(debug: bool, token: str | None) -> None:
     raise HTTPException(status_code=403, detail="debug artifact requires secure debug gate")
 
 
+def _artifact_file_path(path_value: str) -> Path:
+    artifact_root = get_settings().artifact_root.resolve()
+    candidate = Path(path_value)
+    if not candidate.is_absolute():
+        candidate = artifact_root / candidate
+    try:
+        resolved = candidate.resolve(strict=True)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail="artifact file not found") from exc
+    if candidate.is_symlink() or not resolved.is_relative_to(artifact_root):
+        raise HTTPException(status_code=404, detail="artifact file not found")
+    if not resolved.is_file():
+        raise HTTPException(status_code=404, detail="artifact file not found")
+    return resolved
+
+
 @router.get("/{artifact_id}")
 def get_artifact(
     artifact_id: UUID,
@@ -38,7 +55,5 @@ def get_artifact(
     artifact = require(db, models.Artifact, artifact_id)
     if artifact.debug_only:
         require_secure_debug_artifact_gate(debug, x_worldfork_debug_token)
-    path = Path(artifact.path)
-    if not path.exists() or not path.is_file():
-        return artifact
+    path = _artifact_file_path(artifact.path)
     return FileResponse(path, media_type=artifact.content_type, filename=path.name)

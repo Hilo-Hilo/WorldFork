@@ -52,7 +52,7 @@ def update_beliefs(
         cohort's current value (no anchoring).
     stubbornness:
         Optional ``{cohort_id: weight}``. Defaults to
-        ``params.belief_drift.stubbornness_weight`` for every cohort.
+        ``params.belief_drift.stubbornness_anchor_weight`` for every cohort.
 
     Returns
     -------
@@ -62,7 +62,7 @@ def update_beliefs(
     n = len(cohorts)
     bd = params.belief_drift
     eta = bd.eta
-    h = max(bd.bounded_kernel_width, 1e-6)
+    h = max(bd.kernel_bandwidth, 1e-6)
     h_sq2 = 2.0 * h * h
     max_step = bd.max_step_per_tick
 
@@ -116,7 +116,7 @@ def update_beliefs(
             stub = (
                 stubbornness[c.cohort_id]
                 if stubbornness and c.cohort_id in stubbornness
-                else bd.stubbornness_weight
+                else bd.stubbornness_anchor_weight
             )
             new_b[i] = new_b[i] + shock - stub * (b[i] - float(base))
 

@@ -150,7 +150,7 @@ async def test_patch_zep_calls_reload(client, db_session):
     """PATCH should call reload_memory_provider after updating."""
     await _seed_zep(db_session)
 
-    import backend.app.api.integrations as _intg_mod
+    import app.domains.integrations.routes as _intg_mod
     with patch.object(_intg_mod, "reload_memory_provider", new=AsyncMock()):
         resp = await client.patch("/api/integrations/zep", json={"enabled": False})
 
@@ -167,7 +167,7 @@ async def test_zep_test_ok(client):
     mock_provider = AsyncMock()
     mock_provider.healthcheck = AsyncMock(return_value={"ok": True, "latency_ms": 30})
 
-    import backend.app.api.integrations as _intg_mod
+    import app.domains.integrations.routes as _intg_mod
     with (
         patch.object(_intg_mod, "_zep_runtime_enabled", return_value=True),
         patch.object(_intg_mod, "get_memory", return_value=mock_provider),
@@ -184,7 +184,7 @@ async def test_zep_test_degraded(client):
     mock_provider = AsyncMock()
     mock_provider.healthcheck = AsyncMock(side_effect=Exception("Zep unavailable"))
 
-    import backend.app.api.integrations as _intg_mod
+    import app.domains.integrations.routes as _intg_mod
     with (
         patch.object(_intg_mod, "_zep_runtime_enabled", return_value=True),
         patch.object(_intg_mod, "get_memory", return_value=mock_provider),
@@ -209,7 +209,7 @@ async def test_zep_sync_enqueues(client):
     mock_celery = MagicMock()
     mock_celery.send_task.return_value = mock_result
 
-    with patch("backend.app.api.integrations.celery_app", mock_celery, create=True):
+    with patch("backend.app.domains.integrations.routes.celery_app", mock_celery, create=True):
         resp = await client.post("/api/integrations/zep/sync", params={"run_id": "run-abc"})
 
     assert resp.status_code == 200
@@ -262,7 +262,7 @@ async def test_patch_zep_mappings(client):
 
 @pytest.mark.asyncio
 async def test_zep_status(client):
-    import backend.app.api.integrations as _intg_mod
+    import app.domains.integrations.routes as _intg_mod
     with patch.object(
         _intg_mod,
         "zep_status_summary",

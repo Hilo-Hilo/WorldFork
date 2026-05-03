@@ -13,7 +13,7 @@ from pydantic import BaseModel, ConfigDict, Field
 JobType = Literal[
     "initialize_big_bang",
     "simulate_universe_tick",
-    "agent_deliberation_batch",
+    "actor_deliberation_call",
     "execute_due_events",
     "social_propagation",
     "sociology_update",

@@ -5,12 +5,21 @@ import json
 import os
 import time
 from collections.abc import Callable
+from contextlib import contextmanager
+from datetime import datetime, timedelta, timezone
 from typing import Any
 
+from sqlalchemy import select
 from sqlalchemy.orm import Session
+from sqlalchemy.orm import sessionmaker
 
 from app.core.config import get_settings
 from app.db import models
+from app.llm.local_provider_policy import (
+    OPENAI_COMPATIBLE_API_SHAPES,
+    normalize_provider_name,
+    should_allow_no_auth_openai_provider,
+)
 from app.llm.openai_compatible_provider import OpenAICompatibleProvider
 from app.llm.openai_codex_provider import OpenAICodexProvider
 from app.llm.openrouter_provider import OpenRouterProvider
@@ -34,35 +43,6 @@ class LLMJSONParseError(ValueError):
 
 ProviderFactory = Callable[[], LLMProvider]
 _AUDITED_PROVIDER_FACTORIES: dict[str, ProviderFactory] = {}
-LOCAL_OPENAI_COMPATIBLE_PROVIDERS = {
-    "ollama",
-    "vllm",
-    "lmstudio",
-    "lm-studio",
-    "localai",
-}
-LOCAL_OPENAI_COMPATIBLE_API_SHAPES = {
-    "ollama",
-    "ollama-openai",
-    "vllm",
-    "vllm-openai",
-    "lmstudio",
-    "lmstudio-openai",
-    "lm-studio",
-    "lm-studio-openai",
-    "localai",
-    "localai-openai",
-    "local-openai-compatible",
-    "no-auth-openai-compatible",
-}
-OPENAI_COMPATIBLE_API_SHAPES = {
-    "openai-compatible",
-    "openai-chat-completions",
-    "chat-completions",
-    *LOCAL_OPENAI_COMPATIBLE_API_SHAPES,
-}
-
-
 def register_audited_llm_provider(name: str, factory: ProviderFactory) -> None:
     """Register a provider factory for the direct audited LLM runtime."""
     _AUDITED_PROVIDER_FACTORIES[_normalize_provider_name(name)] = factory
@@ -75,7 +55,7 @@ def _register_builtin_provider_factories() -> None:
 
 
 def _normalize_provider_name(name: str) -> str:
-    return name.strip().lower()
+    return normalize_provider_name(name)
 
 
 def provider_for_name(provider_name: str, db: Session | None = None) -> LLMProvider:
@@ -113,13 +93,18 @@ def _provider_from_settings_row(provider_name: str, db: Session) -> LLMProvider 
         or payload.get("api")
         or "openai-compatible"
     )
-    api_shape = str(api_shape)
+    api_shape = str(api_shape).strip().lower()
     if api_shape not in OPENAI_COMPATIBLE_API_SHAPES:
         raise RuntimeError(
             f"Unsupported audited provider API for {provider_name!r}: {api_shape!r}"
         )
     api_key = os.environ.get(row.api_key_env)
-    if not api_key and _local_provider_without_api_key(row.provider, row.api_key_env, api_shape):
+    if not api_key and _local_provider_without_api_key(
+        row.provider,
+        row.api_key_env,
+        api_shape,
+        row.base_url,
+    ):
         api_key = str(payload.get("api_key") or payload.get("dummy_api_key") or "local")
     if not api_key:
         raise LLMProviderUnavailable(
@@ -138,17 +123,30 @@ def _provider_from_settings_row(provider_name: str, db: Session) -> LLMProvider 
         extra_headers=extra_headers,
         chat_completions_url=payload.get("chat_completions_url"),
         request_timeout=float(payload.get("request_timeout_seconds") or 120.0),
+        omit_auth_header=_truthy_payload_flag(payload.get("omit_auth_header")),
     )
 
 
-def _local_provider_without_api_key(provider: str, api_key_env: str, api_shape: str) -> bool:
-    provider_name = _normalize_provider_name(provider)
-    env_name = str(api_key_env or "").strip().lower()
-    return (
-        provider_name in LOCAL_OPENAI_COMPATIBLE_PROVIDERS
-        or api_shape in LOCAL_OPENAI_COMPATIBLE_API_SHAPES
-        or env_name in {"", "none", "local", "dummy", "not_required", "not-required"}
+def _local_provider_without_api_key(
+    provider: str,
+    api_key_env: str,
+    api_shape: str,
+    base_url: str,
+) -> bool:
+    return should_allow_no_auth_openai_provider(
+        provider=provider,
+        api_key_env=api_key_env,
+        api_shape=api_shape,
+        base_url=base_url,
     )
+
+
+def _truthy_payload_flag(value: Any) -> bool:
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        return value.strip().lower() in {"1", "true", "yes", "on"}
+    return bool(value)
 
 
 def parse_json_object(content: str) -> dict[str, Any]:
@@ -268,7 +266,6 @@ def complete_with_audit(
     json_schema: dict[str, Any] | None = None,
     route: AuditedLLMRoute | str | None = None,
 ) -> tuple[LLMResponse, models.LLMCall]:
-    store = ArtifactStore()
     metadata = metadata or {}
     settings = get_settings()
     resolved_route = resolve_audited_llm_route(
@@ -288,38 +285,16 @@ def complete_with_audit(
         "metadata": metadata,
     }
     sanitized_request = redact_payload(request_payload)
-    request_artifact = store.write_json(
-        db,
-        big_bang_id=big_bang_id,
-        relative_path=f"big_bang_{big_bang_id}/sanitized_llm_calls/{purpose}_request.json",
-        payload=sanitized_request,
-        kind="llm_request_sanitized",
-    )
-    raw_request_artifact = store.write_json(
-        db,
-        big_bang_id=big_bang_id,
-        relative_path=f"big_bang_{big_bang_id}/raw_llm_calls/{purpose}_request.json",
-        payload=request_payload,
-        kind="llm_request_raw",
-        debug_only=True,
-    )
-    call = models.LLMCall(
-        big_bang_id=big_bang_id,
+    audit_store = LLMCallAuditStore(db, big_bang_id=big_bang_id)
+    call = audit_store.create_running_call(
         provider=initial_candidate.provider,
         model=initial_candidate.model,
         purpose=purpose,
-        status="running",
-        request_artifact_id=request_artifact.id,
-        meta={
-            **metadata,
-            "request_metadata": metadata,
-            "raw_request_artifact_id": str(raw_request_artifact.id),
-            "llm_route": resolved_route.audit_meta(),
-        },
+        request_payload=request_payload,
+        sanitized_request=sanitized_request,
+        metadata=metadata,
+        route_meta=resolved_route.audit_meta(),
     )
-    db.add(call)
-    db.flush()
-    _commit_audit_progress(db)
     attempts: list[dict[str, Any]] = []
     response: LLMResponse | None = None
     last_error: Exception | None = None
@@ -424,58 +399,278 @@ def complete_with_audit(
             "provider": successful_candidate.provider,
             "model": successful_candidate.model,
         }
-        response_artifact = store.write_json(
-            db,
-            big_bang_id=big_bang_id,
-            relative_path=f"big_bang_{big_bang_id}/sanitized_llm_calls/{purpose}_response.json",
-            payload=redact_payload(response_payload),
-            kind="llm_response_sanitized",
+        call = audit_store.mark_succeeded(
+            call_id=call.id,
+            provider=successful_candidate.provider,
+            model=successful_candidate.model,
+            purpose=purpose,
+            response_payload=response_payload,
+            attempts=attempts,
         )
-        raw_response_artifact = store.write_json(
-            db,
-            big_bang_id=big_bang_id,
-            relative_path=f"big_bang_{big_bang_id}/raw_llm_calls/{purpose}_response.json",
-            payload=response_payload,
-            kind="llm_response_raw",
-            debug_only=True,
-        )
-        call.status = "succeeded"
-        call.response_artifact_id = response_artifact.id
-        call.meta = {
-            **call.meta,
-            "raw_response_artifact_id": str(raw_response_artifact.id),
-            "attempts": attempts,
-            "effective_provider": successful_candidate.provider,
-            "effective_model": successful_candidate.model,
-        }
-        db.flush()
-        _commit_audit_progress(db)
         return response, call
     except Exception as exc:
         error_message = _llm_error_message(exc)
         fallback = _failure_response(error_message)
-        response_artifact = store.write_json(
-            db,
-            big_bang_id=big_bang_id,
-            relative_path=f"big_bang_{big_bang_id}/sanitized_llm_calls/{purpose}_error.json",
-            payload=redact_payload(fallback.model_dump()),
-            kind="llm_response_sanitized",
+        call = audit_store.mark_failed(
+            call_id=call.id,
+            purpose=purpose,
+            error_message=error_message,
+            attempts=attempts,
+            fallback=fallback,
         )
-        call.status = "failed"
-        call.response_artifact_id = response_artifact.id
-        call.meta = {**call.meta, "error": error_message, "attempts": attempts}
-        db.flush()
-        _commit_audit_progress(db)
         raise LLMCallError(error_message, call_id=call.id) from exc
 
 
-def _commit_audit_progress(db: Session) -> None:
-    """Commit LLM audit state before/after long provider waits.
+class LLMCallAuditStore:
+    """Persist audit rows without committing the caller's business transaction."""
 
-    The tick runtime calls audited providers from inside request and job flows.
-    Committing the running LLM call before the provider request prevents an
-    open database transaction from sitting idle while the network call runs.
-    """
+    def __init__(self, db: Session, *, big_bang_id: Any) -> None:
+        self._caller_db = db
+        self._big_bang_id = big_bang_id
+        self._use_independent_session = _can_use_independent_audit_session(db, big_bang_id)
+
+    def create_running_call(
+        self,
+        *,
+        provider: str,
+        model: str,
+        purpose: str,
+        request_payload: dict[str, Any],
+        sanitized_request: dict[str, Any],
+        metadata: dict[str, Any],
+        route_meta: dict[str, Any],
+    ) -> models.LLMCall:
+        def write(audit_db: Session) -> models.LLMCall:
+            store = ArtifactStore()
+            request_artifact = store.write_json(
+                audit_db,
+                big_bang_id=self._big_bang_id,
+                relative_path=f"big_bang_{self._big_bang_id}/sanitized_llm_calls/{purpose}_request.json",
+                payload=sanitized_request,
+                kind="llm_request_sanitized",
+            )
+            raw_request_artifact = store.write_json(
+                audit_db,
+                big_bang_id=self._big_bang_id,
+                relative_path=f"big_bang_{self._big_bang_id}/raw_llm_calls/{purpose}_request.json",
+                payload=request_payload,
+                kind="llm_request_raw",
+                debug_only=True,
+            )
+            call = models.LLMCall(
+                big_bang_id=self._big_bang_id,
+                provider=provider,
+                model=model,
+                purpose=purpose,
+                status="running",
+                request_artifact_id=request_artifact.id,
+                meta={
+                    **metadata,
+                    "request_metadata": metadata,
+                    "raw_request_artifact_id": str(raw_request_artifact.id),
+                    "llm_route": route_meta,
+                    "audit_commit_mode": (
+                        "independent_session" if self._use_independent_session else "caller_session"
+                    ),
+                },
+            )
+            audit_db.add(call)
+            audit_db.flush()
+            return call
+
+        return self._write(write)
+
+    def mark_succeeded(
+        self,
+        *,
+        call_id: Any,
+        provider: str,
+        model: str,
+        purpose: str,
+        response_payload: dict[str, Any],
+        attempts: list[dict[str, Any]],
+    ) -> models.LLMCall:
+        def write(audit_db: Session) -> models.LLMCall:
+            call = audit_db.get(models.LLMCall, call_id)
+            if call is None:
+                raise RuntimeError(f"LLM call {call_id} missing during audit success update")
+            store = ArtifactStore()
+            response_artifact = store.write_json(
+                audit_db,
+                big_bang_id=self._big_bang_id,
+                relative_path=f"big_bang_{self._big_bang_id}/sanitized_llm_calls/{purpose}_response.json",
+                payload=redact_payload(response_payload),
+                kind="llm_response_sanitized",
+            )
+            raw_response_artifact = store.write_json(
+                audit_db,
+                big_bang_id=self._big_bang_id,
+                relative_path=f"big_bang_{self._big_bang_id}/raw_llm_calls/{purpose}_response.json",
+                payload=response_payload,
+                kind="llm_response_raw",
+                debug_only=True,
+            )
+            call.provider = provider
+            call.model = model
+            call.status = "succeeded"
+            call.response_artifact_id = response_artifact.id
+            call.meta = {
+                **(call.meta or {}),
+                "raw_response_artifact_id": str(raw_response_artifact.id),
+                "attempts": attempts,
+                "effective_provider": provider,
+                "effective_model": model,
+            }
+            audit_db.flush()
+            return call
+
+        return self._write(write)
+
+    def mark_failed(
+        self,
+        *,
+        call_id: Any,
+        purpose: str,
+        error_message: str,
+        attempts: list[dict[str, Any]],
+        fallback: LLMResponse,
+    ) -> models.LLMCall:
+        call = self._write(
+            lambda audit_db: self._mark_failed_without_artifact(
+                audit_db,
+                call_id=call_id,
+                error_message=error_message,
+                attempts=attempts,
+            )
+        )
+        try:
+            call = self._write(
+                lambda audit_db: self._attach_failure_artifact(
+                    audit_db,
+                    call_id=call_id,
+                    purpose=purpose,
+                    fallback=fallback,
+                )
+            )
+        except Exception:
+            # Preserve the failed status even if error-artifact persistence itself breaks.
+            return call
+        return call
+
+    def _mark_failed_without_artifact(
+        self,
+        audit_db: Session,
+        *,
+        call_id: Any,
+        error_message: str,
+        attempts: list[dict[str, Any]],
+    ) -> models.LLMCall:
+        call = audit_db.get(models.LLMCall, call_id)
+        if call is None:
+            raise RuntimeError(f"LLM call {call_id} missing during audit failure update")
+        call.status = "failed"
+        call.meta = {**(call.meta or {}), "error": error_message, "attempts": attempts}
+        audit_db.flush()
+        return call
+
+    def _attach_failure_artifact(
+        self,
+        audit_db: Session,
+        *,
+        call_id: Any,
+        purpose: str,
+        fallback: LLMResponse,
+    ) -> models.LLMCall:
+        call = audit_db.get(models.LLMCall, call_id)
+        if call is None:
+            raise RuntimeError(f"LLM call {call_id} missing during audit artifact update")
+        store = ArtifactStore()
+        response_artifact = store.write_json(
+            audit_db,
+            big_bang_id=self._big_bang_id,
+            relative_path=f"big_bang_{self._big_bang_id}/sanitized_llm_calls/{purpose}_error.json",
+            payload=redact_payload(fallback.model_dump()),
+            kind="llm_response_sanitized",
+        )
+        call.response_artifact_id = response_artifact.id
+        audit_db.flush()
+        return call
+
+    def _write(self, writer: Callable[[Session], models.LLMCall]) -> models.LLMCall:
+        if not self._use_independent_session:
+            call = writer(self._caller_db)
+            _commit_audit_progress(self._caller_db)
+            return call
+        with _independent_session_for(self._caller_db) as audit_db:
+            call = writer(audit_db)
+            audit_db.commit()
+            audit_db.refresh(call)
+            audit_db.expunge(call)
+            return call
+
+
+def _can_use_independent_audit_session(db: Session, big_bang_id: Any) -> bool:
+    if not isinstance(db, Session):
+        return False
+    try:
+        with _independent_session_for(db) as audit_db:
+            return audit_db.get(models.BigBang, big_bang_id) is not None
+    except Exception:
+        return False
+
+
+@contextmanager
+def _independent_session_for(db: Session):
+    factory = sessionmaker(bind=db.get_bind(), autoflush=False, expire_on_commit=False)
+    audit_db = factory()
+    try:
+        yield audit_db
+    except Exception:
+        audit_db.rollback()
+        raise
+    finally:
+        audit_db.close()
+
+
+def _commit_audit_progress(db: Session) -> None:
+    """Persist audit rows when independent audit persistence is unavailable."""
     commit = getattr(db, "commit", None)
     if callable(commit):
         commit()
+
+
+def mark_stale_running_llm_calls_failed(
+    db: Session,
+    *,
+    stale_after_seconds: int,
+    now: datetime | None = None,
+    big_bang_id: Any | None = None,
+    reason: str = "running LLM call exceeded stale cutoff",
+) -> int:
+    current = now or datetime.now(timezone.utc)
+    cutoff = current - timedelta(seconds=stale_after_seconds)
+    stmt = select(models.LLMCall).where(models.LLMCall.status == "running")
+    if big_bang_id is not None:
+        stmt = stmt.where(models.LLMCall.big_bang_id == big_bang_id)
+    calls = db.scalars(stmt).all()
+    reclaimed = 0
+    for call in calls:
+        reference = call.updated_at or call.created_at
+        if reference is None:
+            continue
+        if reference.tzinfo is None:
+            reference = reference.replace(tzinfo=timezone.utc)
+        if reference > cutoff:
+            continue
+        call.status = "failed"
+        call.meta = {
+            **(call.meta or {}),
+            "error": reason,
+            "stale_reclaimed_at": current.isoformat(),
+            "stale_reclaim_reason": reason,
+            "stale_after_seconds": stale_after_seconds,
+        }
+        reclaimed += 1
+    if reclaimed:
+        db.flush()
+    return reclaimed

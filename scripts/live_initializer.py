@@ -68,12 +68,12 @@ async def main() -> None:
     import fakeredis.aioredis
     from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
+    from backend.app.domains.big_bang.initializer import InitializerInput, initialize_big_bang
     from backend.app.providers import clear_registry, register_provider
     from backend.app.providers.openai_codex import OpenAICodexProvider
     from backend.app.providers.rate_limits import ProviderRateLimiter
     from backend.app.providers.routing import RoutingTable
     from backend.app.schemas.settings import ModelRoutingEntry
-    from backend.app.simulation.initializer import InitializerInput, initialize_big_bang
     from backend.app.storage.sot_loader import load_sot
 
     print("=" * 60)

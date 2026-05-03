@@ -28,8 +28,8 @@ from backend.app.providers.routing import RoutingTable
 from backend.app.schemas.events import Event
 from backend.app.schemas.llm import GodReviewOutput
 from backend.app.schemas.posts import SocialPost
-from backend.app.simulation.prompt_builder import PromptBuilder
-from backend.app.simulation.tool_parser import ToolParseError, ToolParser
+from backend.app.llm.sot_prompt_builder import PromptBuilder
+from backend.app.llm.tool_parser import ToolParseError, ToolParser
 from backend.app.storage import artifacts
 from backend.app.storage.sot_loader import SoTBundle
 

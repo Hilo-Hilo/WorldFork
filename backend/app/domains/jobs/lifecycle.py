@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
+from typing import Any, cast
 
 from sqlalchemy import and_, func, or_, select, update
 from sqlalchemy.orm import Session
 
 from app.db import models
+from app.llm.audit import mark_stale_running_llm_calls_failed
 
 
 CLAIMABLE_STATUSES = {"queued"}
@@ -62,9 +64,21 @@ def claim_job_for_execution(
         .execution_options(synchronize_session=False)
     )
     db.flush()
-    if result.rowcount != 1:
+    if cast(Any, result).rowcount != 1:
         db.refresh(job)
         return False
+    if (
+        job.status == "running"
+        and job.big_bang_id is not None
+        and getattr(job, "lease_expires_at", None) is not None
+    ):
+        mark_stale_running_llm_calls_failed(
+            db,
+            big_bang_id=job.big_bang_id,
+            stale_after_seconds=JOB_LEASE_SECONDS,
+            now=current,
+            reason=f"expired job lease reclaimed for job {job.id}",
+        )
     job.status = "running"
     job.error = None
     job.lease_owner = lease_owner

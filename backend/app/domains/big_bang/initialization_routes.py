@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, Header, HTTPException
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.api.artifacts import has_secure_debug_artifact_gate
+from app.domains.artifacts.routes import has_secure_debug_artifact_gate
 from app.api.utils import require
 from app.db import models
 from app.db.session import get_db

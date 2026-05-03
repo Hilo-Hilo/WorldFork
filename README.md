@@ -248,7 +248,8 @@ routing profile: cheap/fast models for high-volume cohort/timeline work, and
 stronger models for initialization, God review, endpoint-ledger, and reports.
 It also shows local OpenAI-compatible options such as Ollama, vLLM, LM Studio,
 and LocalAI, which can be routed to any audited agent type after a JSON-quality
-smoke test.
+smoke test. Strict local proxies can opt out of bearer headers with
+`payload.omit_auth_header: true`.
 
 #### Create and initialize a first Big Bang
 

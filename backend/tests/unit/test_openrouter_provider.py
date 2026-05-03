@@ -110,7 +110,7 @@ def test_default_routes_use_provider_model_split() -> None:
 
     for job_type in (
         "simulate_universe_tick",
-        "agent_deliberation_batch",
+        "actor_deliberation_call",
         "execute_due_events",
         "social_propagation",
         "sociology_update",
@@ -147,8 +147,8 @@ def test_default_routes_use_provider_model_split() -> None:
 def test_same_provider_fallback_is_openrouter_native_model_hint() -> None:
     routing = RoutingTable(
         {
-            "agent_deliberation_batch": ModelRoutingEntry(
-                job_type="agent_deliberation_batch",
+            "actor_deliberation_call": ModelRoutingEntry(
+                job_type="actor_deliberation_call",
                 preferred_provider="openrouter",
                 preferred_model="primary/model",
                 fallback_provider="openrouter",
@@ -166,7 +166,7 @@ def test_same_provider_fallback_is_openrouter_native_model_hint() -> None:
         }
     )
 
-    preferred, fallback = routing.route("agent_deliberation_batch")
+    preferred, fallback = routing.route("actor_deliberation_call")
 
     assert preferred.model == "primary/model"
     assert preferred.fallback_model == "fallback/model"

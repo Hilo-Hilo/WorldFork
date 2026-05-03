@@ -6,18 +6,18 @@ from types import SimpleNamespace
 from uuid import uuid4
 
 import pytest
-from fastapi import HTTPException
+from fastapi import BackgroundTasks, HTTPException
 from sqlalchemy import create_engine
 from sqlalchemy.exc import IntegrityError, SAWarning
 from sqlalchemy.orm import Session
 from sqlalchemy.pool import StaticPool
 
-from app.api import jobs as jobs_api
+from app.domains.jobs import routes as jobs_api
 from app.api.schemas import JobCreate
 from app.db import models
 from app.domains.jobs import executor as jobs_executor
-from app.jobs.queues import JOB_TYPES, default_idempotency_key, queue_name_for_job
-from app.jobs.tasks import (
+from app.domains.jobs.queues import JOB_TYPES, default_idempotency_key, queue_name_for_job
+from app.domains.jobs.executor import (
     JOB_LEASE_SECONDS,
     JobNotRunnableError,
     claim_job_for_execution,
@@ -69,7 +69,7 @@ def test_advertised_job_queues_are_runtime_celery_queues():
 def test_job_worker_imports_without_undeclared_queue_dependency():
     import importlib
 
-    workers = importlib.import_module("app.jobs.workers")
+    workers = importlib.import_module("app.domains.jobs.workers")
 
     assert workers.run_job.name == "worldfork.execute_job"
 
@@ -253,11 +253,31 @@ def test_run_job_returns_error_when_execution_marks_failed(monkeypatch):
     monkeypatch.setattr(jobs_api, "execute_job", fail_execution)
 
     with pytest.raises(HTTPException) as exc:
-        jobs_api.run_job(job.id, db=db)
+        jobs_api.run_job(job.id, BackgroundTasks(), inline=True, db=db)
 
     assert exc.value.status_code == 500
     assert exc.value.detail == "job execution failed"
     assert db.commits == 1
+
+
+def test_run_job_dispatches_background_when_requested(monkeypatch):
+    job = SimpleNamespace(id=uuid4(), status="queued", error=None)
+    db = _RunJobDb(job)
+    scheduled = {}
+
+    def fail_if_inline(*args, **kwargs):
+        raise AssertionError("run_job should not execute inline when inline is false")
+
+    def fake_schedule(background_tasks, job_id):
+        scheduled["job_id"] = job_id
+
+    monkeypatch.setattr(jobs_api, "execute_job", fail_if_inline)
+    monkeypatch.setattr(jobs_api, "schedule_local_fallback", fake_schedule)
+
+    returned = jobs_api.run_job(job.id, BackgroundTasks(), inline=False, db=db)
+
+    assert returned is job
+    assert scheduled == {"job_id": job.id}
 
 
 def test_final_report_job_rejects_active_multiverse_before_generating(monkeypatch):
@@ -401,13 +421,38 @@ def test_claim_job_for_execution_reclaims_expired_running_job():
             lease_expires_at=None,
             updated_at=now - timedelta(seconds=JOB_LEASE_SECONDS + 5),
         )
-        db.add_all([expired, fresh, legacy_expired])
+        stale_call = models.LLMCall(
+            big_bang_id=expired.big_bang_id,
+            provider="openrouter",
+            model="stale-model",
+            purpose="expired job call",
+            status="running",
+            meta={},
+            created_at=now - timedelta(seconds=JOB_LEASE_SECONDS + 5),
+            updated_at=now - timedelta(seconds=JOB_LEASE_SECONDS + 5),
+        )
+        fresh_call = models.LLMCall(
+            big_bang_id=fresh.big_bang_id,
+            provider="openrouter",
+            model="fresh-model",
+            purpose="fresh job call",
+            status="running",
+            meta={},
+            created_at=now - timedelta(seconds=JOB_LEASE_SECONDS + 5),
+            updated_at=now - timedelta(seconds=JOB_LEASE_SECONDS + 5),
+        )
+        db.add_all([expired, fresh, legacy_expired, stale_call, fresh_call])
         db.commit()
 
         assert claim_job_for_execution(db, expired, now=now) is True
         assert expired.status == "running"
         assert expired.error is None
+        db.refresh(stale_call)
+        assert stale_call.status == "failed"
+        assert "expired job lease reclaimed" in stale_call.meta["stale_reclaim_reason"]
         assert claim_job_for_execution(db, fresh, now=now) is False
+        db.refresh(fresh_call)
+        assert fresh_call.status == "running"
         assert claim_job_for_execution(db, legacy_expired, now=now) is True
     finally:
         db.close()
