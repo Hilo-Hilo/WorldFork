@@ -307,7 +307,7 @@ def evaluate_merge_validity(
         return (
             False,
             f"merge requires low divergence for "
-            f"{params.split_merge.low_divergence_ticks_for_merge} ticks",
+            f"{params.split_merge.merge_low_divergence_ticks} ticks",
         )
 
     return True, None

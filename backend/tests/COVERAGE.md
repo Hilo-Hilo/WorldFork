@@ -58,14 +58,14 @@ Run the full maintained sweep:
 | `test_runtime_imports.py`     | runtime import surface                     |
 | `test_runtime_models.py`      | runtime ORM models                         |
 | `test_schemas.py`             | Pydantic schema invariants                 |
-| `test_simulation_metrics.py`  | simulation metric helpers                  |
+| `test_runtime_metrics.py`     | runtime metric helpers                     |
 | `test_sot_loader.py`          | source-of-truth loader                     |
 | `test_split_merge.py`         | split/merge conservation                   |
 | `test_thresholds.py`          | mobilization thresholds                    |
 | `test_tick_runtime_graph.py`  | dynamic runtime graph nodes                |
 | `test_tool_parser.py`         | structured tool-output parsing             |
 | `test_trust.py`               | trust graph helpers                        |
-| `test_validators.py`          | simulation validators                      |
+| `test_validators.py`          | LLM tool validators                        |
 | `test_webhooks.py`            | webhook signing and retry                  |
 
 ## Integration Tests

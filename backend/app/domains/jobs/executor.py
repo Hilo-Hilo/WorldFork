@@ -196,6 +196,7 @@ def _execute_job(db: Session, job: models.Job) -> dict:
             db,
             multiverse=multiverse,
             idempotency_key=payload.get("idempotency_key"),
+            force=bool(payload.get("force", False)),
             queue_job=job,
         )
         if job.status == "interrupted" or tick.status in {"running", "provisional"}:

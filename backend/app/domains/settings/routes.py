@@ -4,10 +4,17 @@ import os
 from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends, HTTPException
+from pydantic import ValidationError
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db.introspection import table_has_columns
+from app.llm.local_provider_policy import (
+    OPENAI_COMPATIBLE_API_SHAPES,
+    normalize_api_shape,
+    should_allow_no_auth_openai_provider,
+)
+from app.schemas.settings import ModelRoutingEntry
 from backend.app.core.config import settings
 from backend.app.core.db import get_session
 from backend.app.models.settings import (
@@ -42,7 +49,6 @@ _OPENAI_CODEX_MODEL_SETTINGS = {
     "god_agent_model",
     "report_agent_model",
 }
-_LEGACY_GEMINI_SEED_MODEL = "google/gemini-3.1-flash-lite-preview"
 
 
 def _row_dict(row: Any) -> dict[str, Any]:
@@ -150,28 +156,6 @@ def _row_source(row: dict[str, Any]) -> str:
     return "settings_model_routing"
 
 
-def _is_seed_default_row(row: dict[str, Any] | None) -> bool:
-    payload = row.get("payload") if row else None
-    return (
-        (isinstance(payload, dict) and payload.get("source") == "seed_default")
-        or _is_legacy_seed_default_row(row)
-    )
-
-
-def _is_legacy_seed_default_row(row: dict[str, Any] | None) -> bool:
-    payload = row.get("payload") if row else None
-    if not isinstance(payload, dict):
-        return False
-    if row is None:
-        return False
-    return (
-        row.get("preferred_provider") == "openrouter"
-        and row.get("preferred_model") == _LEGACY_GEMINI_SEED_MODEL
-        and payload.get("preferred_provider") == "openrouter"
-        and payload.get("preferred_model") == _LEGACY_GEMINI_SEED_MODEL
-    )
-
-
 def _default_model_for_route(route_info: dict[str, Any]) -> str:
     setting_name = route_info.get("fallback_model_setting") or "default_model"
     value = getattr(settings, str(setting_name), None)
@@ -190,26 +174,7 @@ def _effective_routing_entries(entries: list[dict[str, Any]]) -> list[dict[str, 
     for route_info in audited_route_catalog():
         route = str(route_info["route"])
         row = rows_by_job_type.get(route)
-        if _is_legacy_seed_default_row(row):
-            row = None
         matched_route = route if row is not None else None
-        for alias in route_info.get("aliases", []):
-            alias_row = rows_by_job_type.get(str(alias))
-            if _is_legacy_seed_default_row(alias_row):
-                continue
-            if row is None and alias_row is not None:
-                row = alias_row
-                matched_route = str(alias)
-                break
-            if (
-                row is not None
-                and alias_row is not None
-                and _is_seed_default_row(row)
-                and not _is_seed_default_row(alias_row)
-            ):
-                row = alias_row
-                matched_route = str(alias)
-                break
         if row is None:
             effective.append(
                 {
@@ -259,34 +224,21 @@ def _provider_payload(row: dict[str, Any] | None) -> dict[str, Any]:
 
 def _provider_api_shape(row: dict[str, Any] | None, default: str) -> str:
     payload = _provider_payload(row)
-    return str(payload.get("provider_api") or payload.get("api_shape") or payload.get("api") or default)
-
-
-LOCAL_OPENAI_COMPATIBLE_API_SHAPES = {
-    "ollama",
-    "ollama-openai",
-    "vllm",
-    "vllm-openai",
-    "lmstudio",
-    "lmstudio-openai",
-    "lm-studio",
-    "lm-studio-openai",
-    "localai",
-    "localai-openai",
-    "local-openai-compatible",
-    "no-auth-openai-compatible",
-}
-LOCAL_OPENAI_COMPATIBLE_PROVIDERS = {"ollama", "vllm", "lmstudio", "lm-studio", "localai"}
+    return normalize_api_shape(
+        str(payload.get("provider_api") or payload.get("api_shape") or payload.get("api") or default)
+    )
 
 
 def _provider_configured(row: dict[str, Any] | None, *, api_shape: str, key_env: str) -> bool:
     if row is None:
         return False
-    env_name = str(key_env or "").strip().lower()
-    if (
-        str(row.get("provider")) in LOCAL_OPENAI_COMPATIBLE_PROVIDERS
-        or api_shape in LOCAL_OPENAI_COMPATIBLE_API_SHAPES
-        or env_name in {"", "none", "local", "dummy", "not_required", "not-required"}
+    if api_shape not in OPENAI_COMPATIBLE_API_SHAPES:
+        return False
+    if should_allow_no_auth_openai_provider(
+        provider=str(row.get("provider")),
+        api_key_env=key_env,
+        api_shape=api_shape,
+        base_url=str(row.get("base_url") or ""),
     ):
         return bool(row.get("enabled"))
     return bool(os.environ.get(str(key_env)))
@@ -355,12 +307,13 @@ def _provider_catalog(providers_rows: list[dict[str, Any]]) -> list[dict[str, An
     for row in rows_by_provider.values():
         api_shape = _provider_api_shape(row, "openai-compatible")
         key_env = str(row["api_key_env"])
+        supported = api_shape in OPENAI_COMPATIBLE_API_SHAPES
         catalog.append(
             {
                 "provider": row["provider"],
                 "api_shape": api_shape,
                 "source": "settings_provider",
-                "supported": True,
+                "supported": supported,
                 "enabled": bool(row["enabled"]),
                 "configured": _provider_configured(row, api_shape=api_shape, key_env=key_env),
                 "base_url": row["base_url"],
@@ -496,6 +449,12 @@ async def get_model_routing(session: DbSession):
 async def patch_model_routing(payload: PatchRoutingRequest, session: DbSession):
     for item_model in payload.entries:
         item = item_model.model_dump()
+        validation_item = dict(item)
+        validation_item.pop("payload", None)
+        try:
+            ModelRoutingEntry(**validation_item)
+        except ValidationError as exc:
+            raise HTTPException(status_code=400, detail=f"invalid model-routing entry: {exc}") from exc
         row = await session.get(ModelRoutingEntryModel, item["job_type"])
         if row is None:
             row = ModelRoutingEntryModel(job_type=item["job_type"], payload={})

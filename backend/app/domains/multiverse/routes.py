@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections.abc import Sequence
 from datetime import datetime, timezone
 from typing import Any
 from uuid import UUID
@@ -9,6 +10,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.api.schemas import (
+    JobCreate,
     MultiverseContinueRequest,
     MultiverseLineageOut,
     MultiverseOut,
@@ -22,6 +24,7 @@ from app.api.utils import commit_or_500, raise_llm_unavailable, require
 from app.db import models
 from app.db.session import get_db
 from app.llm.audit import LLMCallError
+from app.domains.jobs.routes import JobResponse, create_job_record
 from app.domains.report.engine import generate_multiverse_report
 from app.domains.big_bang.run_orchestrator import simulate_ticks
 from app.domains.tick.tick_bundles import hydrate_tick_snapshot_for_read, hydrate_tick_snapshots_for_read
@@ -61,7 +64,7 @@ def lineage(multiverse_id: UUID, db: Session = Depends(get_db)):
     return {"multiverse": multiverse, "edges": edges, "inherited_ticks": refs}
 
 
-def _visible_lineage_ids(universe_rows: list[Any], requested_id: UUID) -> set[UUID]:
+def _visible_lineage_ids(universe_rows: Sequence[Any], requested_id: UUID) -> set[UUID]:
     by_id = {row.id: row for row in universe_rows}
     children_by_parent: dict[UUID, list[UUID]] = {}
     for row in universe_rows:
@@ -118,6 +121,31 @@ def simulate(
     return hydrate_tick_snapshot_for_read(db, tick)
 
 
+@router.post("/multiverses/{multiverse_id}/simulate-next-tick/jobs", response_model=JobResponse)
+def simulate_job(
+    multiverse_id: UUID,
+    payload: SimulateTickRequest | None = None,
+    idempotency_key_header: str | None = Header(default=None, alias="Idempotency-Key"),
+    db: Session = Depends(get_db),
+):
+    multiverse = require(db, models.Multiverse, multiverse_id)
+    idempotency_key = (payload.idempotency_key if payload else None) or idempotency_key_header
+    if not idempotency_key:
+        raise HTTPException(status_code=400, detail="Idempotency-Key header or payload idempotency_key is required")
+    return create_job_record(
+        JobCreate(
+            job_type="run_multiverse_tick",
+            big_bang_id=multiverse.big_bang_id,
+            payload={
+                "multiverse_id": str(multiverse.id),
+                "idempotency_key": idempotency_key,
+                "force": bool(payload.force if payload else False),
+            },
+        ),
+        db=db,
+    )
+
+
 @router.post("/multiverses/{multiverse_id}/simulate-ticks", response_model=list[TickSnapshotOut])
 def simulate_many(multiverse_id: UUID, payload: SimulateTicksRequest | None = None, db: Session = Depends(get_db)):
     request = payload or SimulateTicksRequest()
@@ -132,6 +160,20 @@ def simulate_many(multiverse_id: UUID, payload: SimulateTicksRequest | None = No
         raise_simulation_value_error(exc)
     commit_or_500(db)
     return hydrate_tick_snapshots_for_read(db, ticks)
+
+
+@router.post("/multiverses/{multiverse_id}/simulate-ticks/jobs", response_model=JobResponse)
+def simulate_many_job(multiverse_id: UUID, payload: SimulateTicksRequest | None = None, db: Session = Depends(get_db)):
+    request = payload or SimulateTicksRequest()
+    multiverse = require(db, models.Multiverse, multiverse_id)
+    return create_job_record(
+        JobCreate(
+            job_type="simulate_multiverse_ticks",
+            big_bang_id=multiverse.big_bang_id,
+            payload={"multiverse_id": str(multiverse.id), "count": request.count},
+        ),
+        db=db,
+    )
 
 
 @router.post("/multiverses/{multiverse_id}/terminate", response_model=MultiverseOut)
@@ -339,6 +381,24 @@ def report(multiverse_id: UUID, payload: ReportRequest | None = None, db: Sessio
     version = generate_multiverse_report(db, multiverse=multiverse, title=request.title, summary=request.summary)
     commit_or_500(db)
     return version
+
+
+@router.post("/multiverses/{multiverse_id}/report/jobs", response_model=JobResponse)
+def report_job(multiverse_id: UUID, payload: ReportRequest | None = None, db: Session = Depends(get_db)):
+    request = payload or ReportRequest()
+    multiverse = require(db, models.Multiverse, multiverse_id)
+    return create_job_record(
+        JobCreate(
+            job_type="generate_multiverse_report",
+            big_bang_id=multiverse.big_bang_id,
+            payload={
+                "multiverse_id": str(multiverse.id),
+                "title": request.title,
+                "summary": request.summary,
+            },
+        ),
+        db=db,
+    )
 
 
 def raise_simulation_value_error(exc: ValueError):

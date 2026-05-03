@@ -91,6 +91,8 @@ WorldFork routes audited LLM calls by stable route names. Configure routes throu
 - `report_agent`
 - `endpoint_ledger`
 
+For actor deliberation, use `cohort_agent` and `hero_agent` as the operator-facing audited routes. The internal worker job for one actor decision is `actor_deliberation_call`.
+
 For onboarding and live smoke tests, keep the default split unless the user explicitly authorizes another model: `cohort_agent`, `hero_agent`, action execution, and `event_summary` on `openrouter/deepseek/deepseek-v4-flash`; `initializer_chunk_extractor`, `initializer_agent`, `god_agent`, `report_agent`, and `endpoint_ledger` on `openai-codex/gpt-5.4`.
 
 To use OpenAI Codex OAuth, run the headless login flow and then enable/configure the provider. This does not require the Codex CLI to be installed:
@@ -160,7 +162,7 @@ Re-run `worldfork settings llm` after any change and verify `effective_model_rou
 worldfork --verbosity normal --fields id,source,status,message,provider,model,big_bang_id logs list --source llm
 ```
 
-For Kimi or other hosted OpenAI-compatible providers, add a `settings providers` row with a new provider name, `api_key_env`, base URL, and `payload.api` set to `openai-compatible`, then route individual jobs to it. For local OpenAI-compatible runtimes such as Ollama, vLLM, LM Studio, and LocalAI, use `api_key_env: "none"` and payload APIs such as `ollama-openai`, `vllm-openai`, `lmstudio-openai`, or `localai-openai`; these can be routed to any audited agent type after a JSON-quality smoke test. For Claude or other non-OpenAI-compatible APIs, use OpenRouter model IDs or wait for a direct provider adapter, and keep the rest of the system pointed at the audited LLM routing layer.
+For Kimi or other hosted OpenAI-compatible providers, add a `settings providers` row with a new provider name, `api_key_env`, base URL, and `payload.api` set to `openai-compatible`, then route individual jobs to it. For local OpenAI-compatible runtimes such as Ollama, vLLM, LM Studio, and LocalAI, use `api_key_env: "none"` and payload APIs such as `ollama-openai`, `vllm-openai`, `lmstudio-openai`, or `localai-openai`; these can be routed to any audited agent type after a JSON-quality smoke test. Add `payload.omit_auth_header: true` only for strict local proxies that reject bearer headers. For Claude, use OpenRouter model IDs with provider `openrouter` or an OpenRouter-backed name such as `openrouter-claude`; direct Anthropic API support requires a separate provider adapter.
 
 ## Core Commands
 

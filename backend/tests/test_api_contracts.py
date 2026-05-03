@@ -9,10 +9,10 @@ from fastapi.testclient import TestClient
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 
 from app.api import agent as agent_api
-from app.api import big_bangs as big_bangs_api
-from app.api import jobs as jobs_api
-from app.api import multiverses as multiverses_api
-from app.api import scenario_bank as scenario_bank_api
+from app.domains.big_bang import routes as big_bangs_api
+from app.domains.jobs import routes as jobs_api
+from app.domains.multiverse import routes as multiverses_api
+from app.domains.big_bang import scenario_bank_routes as scenario_bank_api
 from app.api.utils import commit_or_500
 from app.db.session import get_db
 from app.llm.audit import LLMCallError

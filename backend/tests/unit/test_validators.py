@@ -1,18 +1,18 @@
-"""Unit tests for backend.app.simulation.validators."""
+"""Unit tests for backend.app.llm.tool_validators."""
 from __future__ import annotations
 
 from types import SimpleNamespace
 
 import pytest
 
-from backend.app.simulation import agent_engine
-from backend.app.simulation.agent_engine import (
+from backend.app.domains.actor import agent_engine
+from backend.app.domains.actor.agent_engine import (
     _normalize_event_actions,
     _normalize_self_ratings,
     _normalize_social_actions,
     run_actor_decision,
 )
-from backend.app.simulation.validators import ValidationContext
+from backend.app.llm.tool_validators import ValidationContext
 from backend.app.storage.sot_loader import load_sot
 
 

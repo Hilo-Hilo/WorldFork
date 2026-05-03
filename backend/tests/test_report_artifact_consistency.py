@@ -12,11 +12,11 @@ from sqlalchemy.orm import Session
 from sqlalchemy.pool import StaticPool
 
 from app.db import models
-from app.jobs.tasks import execute_job
+from app.domains.jobs.executor import execute_job
 from app.llm.audit import LLMCallError
 from app.llm.schemas import LLMResponse
 from app.domains.report.evidence_pack import build_report_evidence_pack
-from app.simulation import report_engine
+from app.domains.report import engine as report_engine
 from app.storage.artifact_store import ArtifactStore, hash_directory
 
 
@@ -821,6 +821,78 @@ def test_report_agent_failure_raises_instead_of_storing_deterministic_report(db:
     assert calls == ["standard", "rescue"]
 
 
+def test_report_agent_rejects_deterministic_fallback(db: Session, monkeypatch):
+    monkeypatch.setattr(
+        report_engine,
+        "get_settings",
+        lambda: SimpleNamespace(
+            default_llm_provider="openrouter",
+            openrouter_api_key="test-key",
+            report_agent_model="test-report-model",
+        ),
+    )
+    primary = SimpleNamespace(provider="openrouter", model="test-report-model")
+    fallback = SimpleNamespace(provider="deterministic", model="deterministic")
+    monkeypatch.setattr(
+        report_engine,
+        "resolve_audited_llm_route",
+        lambda *args, **kwargs: SimpleNamespace(
+            primary=primary,
+            fallback=fallback,
+            candidates=lambda: [primary, fallback],
+        ),
+    )
+
+    with pytest.raises(LLMCallError, match="deterministic report providers are not allowed"):
+        report_engine._run_report_agent(
+            db,
+            big_bang_id=uuid4(),
+            content={
+                "report_type": "final_big_bang",
+                "source": {"big_bang_id": str(uuid4()), "report_version": 1},
+                "summary": "Structured final report.",
+            },
+        )
+
+
+def test_allocate_report_version_uses_latest_persisted_version(db: Session):
+    big_bang = models.BigBang(
+        name="Version race",
+        description=None,
+        scenario_input={},
+        status="completed",
+        current_config_version=1,
+    )
+    db.add(big_bang)
+    db.flush()
+    report = models.Report(
+        big_bang_id=big_bang.id,
+        multiverse_id=None,
+        report_type="final_big_bang",
+        status="completed",
+        current_version=2,
+    )
+    db.add(report)
+    db.flush()
+    db.add(
+        models.ReportVersion(
+            report_id=report.id,
+            version=5,
+            title="Existing",
+            summary=None,
+            content={},
+            generation_metadata={},
+        )
+    )
+    db.flush()
+
+    locked_report, previous, version = report_engine._allocate_report_version(db, report_id=report.id)
+
+    assert previous.version == 5
+    assert version == 6
+    assert locked_report.current_version == 6
+
+
 def test_report_agent_rejects_non_llm_report_payload(db: Session, monkeypatch):
     monkeypatch.delenv("PYTEST_CURRENT_TEST", raising=False)
     monkeypatch.setattr(
@@ -855,6 +927,58 @@ def test_report_agent_rejects_non_llm_report_payload(db: Session, monkeypatch):
                 "outcome_distribution": {},
                 "sections": [],
             },
+        )
+
+
+def test_report_agent_rejects_fallback_payload_even_with_markdown(db: Session, monkeypatch):
+    monkeypatch.delenv("PYTEST_CURRENT_TEST", raising=False)
+    monkeypatch.setattr(
+        report_engine,
+        "get_settings",
+        lambda: SimpleNamespace(
+            default_llm_provider="openrouter",
+            openrouter_api_key="test-key",
+            report_agent_model="test-report-model",
+        ),
+    )
+
+    def fake_complete_with_audit(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
+        return (
+            LLMResponse(
+                content="{}",
+                parsed={
+                    "fallback": True,
+                    "provider": "openrouter",
+                    "report_markdown": "# Fallback\n\nThis should not be accepted.",
+                    "executive_summary": "Fallback payload",
+                },
+                raw={},
+            ),
+            SimpleNamespace(id=uuid4(), meta=metadata),
+        )
+
+    monkeypatch.setattr(report_engine, "complete_with_audit", fake_complete_with_audit)
+
+    with pytest.raises(LLMCallError, match="fallback payload"):
+        report_engine._run_report_agent(
+            db,
+            big_bang_id=uuid4(),
+            content={
+                "report_type": "multiverse",
+                "source": {"multiverse_id": str(uuid4()), "report_version": 1},
+                "outcome_distribution": {},
+                "sections": [],
+            },
+        )
+
+
+def test_report_agent_rejects_deterministic_payload_even_with_markdown():
+    with pytest.raises(ValueError, match="deterministic provider"):
+        report_engine._coerce_report_agent_output(
+            {
+                "provider": "deterministic",
+                "report_markdown": "# Deterministic\n\nThis should not be accepted.",
+            }
         )
 
 

@@ -8,10 +8,10 @@ from sqlalchemy import create_engine, func, select
 from sqlalchemy.orm import Session
 from sqlalchemy.pool import StaticPool
 
-from app.api import multiverses as multiverses_api
+from app.domains.multiverse import routes as multiverses_api
 from app.api.schemas import MultiverseContinueRequest
 from app.db import models
-from app.simulation.tick_runner import run_next_tick
+from app.domains.tick.tick_runner import run_next_tick
 
 
 @pytest.fixture()

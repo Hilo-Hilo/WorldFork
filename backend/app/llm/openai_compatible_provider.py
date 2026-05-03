@@ -21,6 +21,7 @@ class OpenAICompatibleProvider(LLMProvider):
         extra_headers: dict[str, str] | None = None,
         chat_completions_url: str | None = None,
         request_timeout: float = 120.0,
+        omit_auth_header: bool = False,
     ) -> None:
         self.provider = provider
         self.api_key = api_key
@@ -29,6 +30,7 @@ class OpenAICompatibleProvider(LLMProvider):
         self.extra_headers = extra_headers or {}
         self.chat_completions_url = chat_completions_url or f"{base_url.rstrip('/')}/chat/completions"
         self.request_timeout = request_timeout
+        self.omit_auth_header = omit_auth_header
 
     async def complete(self, request: LLMRequest) -> LLMResponse:
         payload: dict[str, Any] = {
@@ -46,11 +48,9 @@ class OpenAICompatibleProvider(LLMProvider):
             if key in request.metadata:
                 payload[key] = request.metadata[key]
 
-        headers = {
-            "Authorization": f"Bearer {self.api_key}",
-            "Content-Type": "application/json",
-            **self.extra_headers,
-        }
+        headers = {"Content-Type": "application/json", **self.extra_headers}
+        if not self.omit_auth_header:
+            headers["Authorization"] = f"Bearer {self.api_key}"
         try:
             timeout = float(request.metadata.get("timeout_seconds") or self.request_timeout)
         except (TypeError, ValueError):

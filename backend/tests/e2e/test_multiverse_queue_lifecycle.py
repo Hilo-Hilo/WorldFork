@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy.pool import StaticPool
 
 from app.db import models
-from app.jobs.tasks import claim_job_for_execution, pause_job, queue_health_snapshot, requeue_job, resume_job
+from app.domains.jobs.executor import claim_job_for_execution, pause_job, queue_health_snapshot, requeue_job, resume_job
 
 
 def test_multiverse_queue_lifecycle_round_trip():

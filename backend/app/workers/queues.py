@@ -20,7 +20,7 @@ QUEUE_FOR_JOB: dict[str, Queues] = {
     "simulate_universe_tick": Queues.P0,
     "branch_universe": Queues.P0,
     "apply_tick_results": Queues.P0,
-    "agent_deliberation_batch": Queues.P1,
+    "actor_deliberation_call": Queues.P1,
     "social_propagation": Queues.P1,
     "execute_due_events": Queues.P1,
     "sociology_update": Queues.P1,

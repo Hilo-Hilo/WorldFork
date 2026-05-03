@@ -3,7 +3,7 @@
 Parses raw LLM responses into the typed Pydantic decision models defined in
 ``backend.app.schemas.llm``.  Validates the *outer* JSON shape against the
 matching prompt-contract JSONSchema in the SoT bundle.  Per-tool ``args``
-validation lives in :mod:`backend.app.simulation.validators`.
+validation lives in :mod:`backend.app.llm.tool_validators`.
 """
 from __future__ import annotations
 

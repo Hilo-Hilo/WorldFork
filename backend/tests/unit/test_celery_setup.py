@@ -4,8 +4,12 @@ All assertions run without a live Redis / broker connection.
 """
 from __future__ import annotations
 
-import pytest
+from datetime import UTC, datetime
 
+import pytest
+from pydantic import ValidationError
+
+from backend.app.schemas.jobs import JobEnvelope
 from backend.app.workers.celery_app import celery_app
 from backend.app.workers.queues import Queues, queue_for_job
 from backend.app.workers.scheduler import make_envelope
@@ -70,8 +74,11 @@ class TestTaskRoutes:
     def test_apply_tick_results_routes_to_p0(self):
         assert celery_app.conf.task_routes["apply_tick_results"]["queue"] == "p0"
 
-    def test_agent_deliberation_batch_routes_to_p1(self):
-        assert celery_app.conf.task_routes["agent_deliberation_batch"]["queue"] == "p1"
+    def test_actor_deliberation_call_routes_to_p1(self):
+        assert celery_app.conf.task_routes["actor_deliberation_call"]["queue"] == "p1"
+
+    def test_legacy_agent_deliberation_batch_route_is_removed(self):
+        assert "agent_deliberation_batch" not in celery_app.conf.task_routes
 
     def test_social_propagation_routes_to_p1(self):
         assert celery_app.conf.task_routes["social_propagation"]["queue"] == "p1"
@@ -151,7 +158,7 @@ _EXPECTED_MAPPING: dict[str, Queues] = {
     "simulate_universe_tick": Queues.P0,
     "branch_universe": Queues.P0,
     "apply_tick_results": Queues.P0,
-    "agent_deliberation_batch": Queues.P1,
+    "actor_deliberation_call": Queues.P1,
     "social_propagation": Queues.P1,
     "execute_due_events": Queues.P1,
     "sociology_update": Queues.P1,
@@ -173,6 +180,21 @@ class TestQueueForJob:
     def test_queue_for_job_returns_queues_instance(self):
         result = queue_for_job("simulate_universe_tick")
         assert isinstance(result, Queues)
+
+    def test_legacy_agent_deliberation_batch_rejected_by_envelope_contract(self):
+        with pytest.raises(ValidationError):
+            JobEnvelope.model_validate(
+                {
+                    "job_id": "job_legacy",
+                    "job_type": "agent_deliberation_batch",
+                    "priority": "p1",
+                    "run_id": "run_test",
+                    "attempt_number": 1,
+                    "idempotency_key": "legacy",
+                    "payload": {},
+                    "created_at": datetime.now(UTC),
+                }
+            )
 
 
 # ---------------------------------------------------------------------------

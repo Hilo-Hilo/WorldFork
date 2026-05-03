@@ -20,6 +20,12 @@ from time import perf_counter
 from typing import TYPE_CHECKING
 
 from backend.app.core.ids import new_id
+from backend.app.llm.local_provider_policy import (
+    OPENAI_COMPATIBLE_API_SHAPES,
+    normalize_api_shape,
+    normalize_provider_name,
+    should_allow_no_auth_openai_provider,
+)
 from backend.app.providers.base import BaseProvider, LLMProvider
 from backend.app.providers.errors import (
     BudgetExceededError,
@@ -573,51 +579,29 @@ def _register_generic_provider_row(row, settings) -> None:  # type: ignore[no-un
     if not bool(row.enabled):
         return
     payload = row.payload if isinstance(row.payload, dict) else {}
-    api_shape = str(
-        payload.get("provider_api")
-        or payload.get("api_shape")
-        or payload.get("api")
-        or "openai-compatible"
+    api_shape = normalize_api_shape(
+        str(payload.get("provider_api") or payload.get("api_shape") or payload.get("api") or "openai-compatible")
     )
-    if row.provider == "anthropic" or api_shape in {"anthropic", "anthropic-direct"}:
+    provider_name = normalize_provider_name(row.provider)
+    if provider_name == "anthropic" or api_shape in {"anthropic", "anthropic-direct"}:
         logger.warning(
             "direct Anthropic provider rows are not registered in this build; "
             "route Anthropic models through OpenRouter instead"
         )
         return
-    local_openai_shapes = {
-        "ollama",
-        "ollama-openai",
-        "vllm",
-        "vllm-openai",
-        "lmstudio",
-        "lmstudio-openai",
-        "lm-studio",
-        "lm-studio-openai",
-        "localai",
-        "localai-openai",
-        "local-openai-compatible",
-        "no-auth-openai-compatible",
-    }
-    local_openai_providers = {"ollama", "vllm", "lmstudio", "lm-studio", "localai"}
-    if row.provider == "ollama" or api_shape in {"ollama", "ollama-openai"}:
+    if provider_name == "ollama" or api_shape in {"ollama", "ollama-openai"}:
         from backend.app.providers.ollama import OllamaProvider
 
-        provider = OllamaProvider(
+        ollama_provider = OllamaProvider(
             base_url=row.base_url,
             default_model=row.default_model,
             fallback_model=row.fallback_model,
         )
-        provider.name = row.provider
-        register_provider(row.provider, provider)
+        ollama_provider.name = row.provider
+        register_provider(row.provider, ollama_provider)
         logger.info("registered Ollama-compatible provider %s", row.provider)
         return
-    if api_shape not in {
-        "openai-compatible",
-        "openai-chat-completions",
-        "chat-completions",
-        *local_openai_shapes,
-    }:
+    if api_shape not in OPENAI_COMPATIBLE_API_SHAPES:
         logger.warning(
             "unsupported provider api_shape=%s for provider %s; not registering",
             api_shape,
@@ -627,11 +611,13 @@ def _register_generic_provider_row(row, settings) -> None:  # type: ignore[no-un
     import os
 
     api_key = os.environ.get(row.api_key_env)
-    env_name = str(row.api_key_env or "").strip().lower()
     if not api_key and (
-        row.provider in local_openai_providers
-        or api_shape in local_openai_shapes
-        or env_name in {"", "none", "local", "dummy", "not_required", "not-required"}
+        should_allow_no_auth_openai_provider(
+            provider=row.provider,
+            api_key_env=row.api_key_env,
+            api_shape=api_shape,
+            base_url=row.base_url,
+        )
     ):
         api_key = str(payload.get("api_key") or payload.get("dummy_api_key") or "local")
     if not api_key:
@@ -641,6 +627,7 @@ def _register_generic_provider_row(row, settings) -> None:  # type: ignore[no-un
             row.api_key_env,
         )
         return
+    provider: LLMProvider
     if row.provider == "openai":
         from backend.app.providers.openai import OpenAIProvider
 

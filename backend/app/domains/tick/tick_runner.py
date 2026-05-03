@@ -1,10 +1,7 @@
 from __future__ import annotations
 
-import asyncio
 from copy import deepcopy
-from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
-from typing import Any
 from uuid import UUID
 
 from sqlalchemy import func, select
@@ -14,6 +11,7 @@ from sqlalchemy.orm import Session
 from app.core.clock import build_clock_context
 from app.core.labels import tick_label
 from app.db import models
+from app.llm.audit import mark_stale_running_llm_calls_failed
 from app.llm.prompt_builder import build_agent_prompt_context
 from app.runtime import NodeKind, TickRuntimeState, build_tick_graph
 from app.runtime.control import tool_call_node_key
@@ -56,76 +54,6 @@ UNFINISHED_TICK_STATUSES = {"running", "provisional"}
 RUNNABLE_MULTIVERSE_STATUSES = {"active", "candidate"}
 TERMINAL_MULTIVERSE_STATUSES = {"completed", "terminated"}
 TICK_EXECUTION_STALE_AFTER_SECONDS = 15 * 60
-
-
-@dataclass(frozen=True)
-class TickContext:
-    run_id: str
-    universe_id: str
-    tick: int
-    attempt_number: int = 1
-
-
-async def run_tick(
-    ctx: TickContext,
-    *,
-    session: Any = None,
-    ledger: Any = None,
-    routing: Any = None,
-    limiter: Any = None,
-    memory: Any = None,
-    dispatcher: Any = None,
-) -> dict:
-    """Compatibility async wrapper for legacy Celery/local-runner callers.
-
-    The rewrite's canonical tick runner is synchronous and DB-canonical. Legacy
-    task envelopes still call ``run_tick(ctx, ...)``; route them into the
-    canonical runner when they carry UUID multiverse ids instead of crashing on
-    the removed V1 ``TickContext`` contract.
-    """
-
-    del session, ledger, routing, limiter, memory, dispatcher
-
-    def _run() -> dict:
-        from app.db import models as current_models
-        from app.db.session import SessionLocal
-
-        try:
-            multiverse_id = UUID(str(ctx.universe_id))
-        except ValueError:
-            return {
-                "status": "failed",
-                "error": f"multiverse {ctx.universe_id!r} is not a canonical UUID",
-            }
-
-        db = SessionLocal()
-        try:
-            multiverse = db.get(current_models.Multiverse, multiverse_id)
-            if multiverse is None:
-                return {"status": "failed", "error": f"multiverse {ctx.universe_id!r} not found"}
-            tick = run_next_tick(
-                db,
-                multiverse=multiverse,
-                idempotency_key=f"{ctx.universe_id}:tick:{ctx.tick}:attempt:{ctx.attempt_number}",
-            )
-            if tick.tick_index != ctx.tick:
-                raise ValueError(
-                    f"requested tick {ctx.tick} but canonical runner returned tick {tick.tick_index}"
-                )
-            db.commit()
-            return {
-                "status": "completed" if tick.status == "final" else tick.status,
-                "tick_snapshot_id": str(tick.id),
-                "tick": tick.tick_index,
-                "ui_label": tick.ui_label,
-            }
-        except Exception:
-            db.rollback()
-            raise
-        finally:
-            db.close()
-
-    return await asyncio.to_thread(_run)
 
 
 def run_next_tick(
@@ -446,6 +374,13 @@ def _tick_execution_is_stale(execution: models.TickExecution) -> bool:
 
 def _mark_tick_execution_stale(db: Session, *, execution: models.TickExecution) -> None:
     now = datetime.now(timezone.utc)
+    stale_llm_calls = mark_stale_running_llm_calls_failed(
+        db,
+        big_bang_id=execution.big_bang_id,
+        stale_after_seconds=TICK_EXECUTION_STALE_AFTER_SECONDS,
+        now=now,
+        reason="stale tick execution reclaimed",
+    )
     execution.status = "failed"
     execution.active_slot = None
     execution.finished_at = now
@@ -491,7 +426,10 @@ def _mark_tick_execution_stale(db: Session, *, execution: models.TickExecution) 
             tick_execution_id=execution.id,
             event_type="runtime_execution_stale_reclaimed",
             level="warning",
-            body={"stale_after_seconds": TICK_EXECUTION_STALE_AFTER_SECONDS},
+            body={
+                "stale_after_seconds": TICK_EXECUTION_STALE_AFTER_SECONDS,
+                "stale_llm_calls_reclaimed": stale_llm_calls,
+            },
         )
     )
     db.flush()
