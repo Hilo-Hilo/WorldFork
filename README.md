@@ -339,7 +339,7 @@ worldfork --json status
 backend/app/          FastAPI app, runtime, jobs, storage, reports
 backend/tests/        root regressions, unit, integration, and e2e tests
 cli/                  standalone Python CLI package
-skills/               installable agent skills
+skills/               installable operator and agent skills
 examples/             runnable scenario dossiers
 source_of_truth/      prompt, report, and policy templates
 scripts/              local validation and demo harnesses
