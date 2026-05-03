@@ -344,7 +344,7 @@ examples/             runnable scenario dossiers
 source_of_truth/      prompt, report, and policy templates
 scripts/              local validation and demo harnesses
 infra/                Docker and Alembic infrastructure
-docs/                 operator and agent documentation
+docs/                 operator, developer, and agent documentation
 prd.md                product requirements source
 ```
 
