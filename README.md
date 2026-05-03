@@ -174,8 +174,9 @@ Run this command to install the WorldFork setup skill, then use it to set up Wor
 npx skills add Hilo-Hilo/WorldFork/skills/worldfork-setup --all
 
 Use the setup skill to preflight the machine, configure providers, verify the
-stack, explain the core WorldFork concepts, and ask before running live
-API-credit demos.
+stack, explain the core WorldFork concepts, use `worldfork setup` to compare
+provider options, recommend the Atlas model split, and narrate live demos after
+asking before API-credit use.
 ```
 
 ### Manual setup
@@ -236,10 +237,15 @@ make seed
 ```bash
 worldfork status
 worldfork query GET /readyz --no-api-prefix
+worldfork setup
 ```
 
 A healthy local stack returns readiness checks for the database, Redis, OpenRouter, and optional Zep integration.
 If readiness fails, first check Docker Desktop, port conflicts on `8003`, `5433`, or `6379`, and the effective LLM settings with `worldfork settings llm`.
+
+`worldfork setup` gives agents a compact provider map and the recommended Atlas
+routing profile: cheap/fast models for high-volume cohort/timeline work, and
+stronger models for initialization, God review, endpoint-ledger, and reports.
 
 #### Create and initialize a first Big Bang
 

@@ -15,6 +15,10 @@ This is a temporary bootstrap skill for getting WorldFork installed, verified, a
 - If the repository is already checked out, use it. Do not clone another copy unless the current checkout is missing or unusable.
 - If the user is new to the project or asks what WorldFork is, read `references/project-orientation.md` and explain the project before running demos.
 - If setup fails, a command resolves strangely, Docker does not become ready, or provider auth is unclear, read `references/setup-troubleshooting.md` before guessing.
+- Treat setup as a guided onboarding session, not just an installation checklist. Welcome the user to WorldFork, keep the tone upbeat and practical, and explain what each phase proves before and after you run it.
+- Be proactive with commentary. Before long commands, say what you are about to verify; after output returns, translate it into a plain-language status. During long-running commands, give a short progress update about every 30 seconds.
+- Teach concepts at the moment they become relevant. Keep explanations short, but make sure the user understands Big Bangs, multiverses, ticks, branches, endpoint ledgers, God agents, and reports before asking them to run Atlas.
+- Always ask before spending live API credits, changing provider/model routes, clearing local data, or starting the Atlas demo.
 
 ## Preflight
 
@@ -91,12 +95,101 @@ Verify readiness:
 worldfork status
 worldfork query GET /readyz --no-api-prefix
 worldfork agent discover
+worldfork setup
 worldfork settings llm
 ```
 
 OpenRouter should show configured when `OPENROUTER_API_KEY` is present. OpenAI
 Codex should show configured when OAuth is present through the default auth file,
 `OPENAI_CODEX_OAUTH_TOKEN`, or `OPENAI_CODEX_AUTH_FILE`.
+
+## Choose LLM Providers For Onboarding
+
+Use the setup helper as the agent-facing provider map:
+
+```bash
+worldfork setup
+```
+
+If the backend is not up yet, use the offline form after the CLI is installed:
+
+```bash
+worldfork setup --offline
+```
+
+Explain the available choices and ask the user which ones they want to configure:
+
+- OpenRouter: best default for cheap, fast, high-volume cohort, hero, action, and event-summary routes.
+- OpenAI Codex OAuth: best default for stronger initialization, God review, endpoint-ledger evaluation, and report routes.
+- OpenAI API: optional OpenAI-compatible direct API route if the user prefers `OPENAI_API_KEY` over Codex OAuth.
+- Anthropic models: route through OpenRouter with `anthropic/*` model IDs in this build; do not promise a direct Anthropic adapter unless the runtime has gained one.
+- Ollama/local: only use after testing structured JSON quality; it can reduce cost but may lower Atlas accuracy.
+
+Use these provider configuration patterns after the user chooses:
+
+```bash
+# OpenAI Codex OAuth
+worldfork settings openai-codex-login
+
+# OpenAI API direct
+worldfork settings providers --data '{
+  "providers": [
+    {
+      "provider": "openai",
+      "base_url": "https://api.openai.com/v1",
+      "api_key_env": "OPENAI_API_KEY",
+      "default_model": "gpt-4o-mini",
+      "fallback_model": null,
+      "json_mode_required": true,
+      "tool_calling_enabled": true,
+      "enabled": true,
+      "extra_headers": {},
+      "payload": {"api": "openai-compatible"}
+    }
+  ]
+}'
+
+# Ollama local OpenAI-compatible endpoint
+worldfork settings providers --data '{
+  "providers": [
+    {
+      "provider": "ollama",
+      "base_url": "http://localhost:11434/v1",
+      "api_key_env": "OLLAMA_API_KEY",
+      "default_model": "llama3.1:8b",
+      "fallback_model": null,
+      "json_mode_required": true,
+      "tool_calling_enabled": false,
+      "enabled": true,
+      "extra_headers": {},
+      "payload": {"api": "ollama-openai"}
+    }
+  ]
+}'
+```
+
+For OpenRouter, set `OPENROUTER_API_KEY` in `.env`; the seeded provider row
+already points at OpenRouter. For Anthropic-family models, keep the provider as
+OpenRouter and use model IDs such as `anthropic/claude-3-5-sonnet` in
+`worldfork settings model-routing`. Ollama ignores the API key, but the settings
+schema still needs an `api_key_env` name.
+
+For the Atlas demo, recommend the `atlas-fast-governed` split emitted by
+`worldfork setup`: OpenRouter `deepseek/deepseek-v4-flash` for frequent
+cohort/hero/timeline calls and OpenAI Codex `gpt-5.4` for initialization, God
+review, endpoint-ledger, and report calls. If the user chooses different
+providers, keep the same principle: cheap/fast for high-volume simulation work,
+stronger/slower for governance and summaries.
+
+After configuration, verify the live provider state:
+
+```bash
+worldfork settings llm
+worldfork settings provider-test openrouter
+worldfork settings provider-test openai-codex
+```
+
+Only test providers the user actually configured.
 
 ## Configure LLM Providers And Routes
 
@@ -109,6 +202,12 @@ worldfork settings llm
 worldfork settings providers
 worldfork settings model-routing
 ```
+
+Also run `worldfork setup` when deciding first-run provider/model choices. If
+the user approves applying the standard Atlas route policy, rerun
+`worldfork setup --include-patch` and use
+`recommended_atlas_profile.model_routing_patch` as the starting point unless
+the user explicitly chooses another cost/quality profile.
 
 Default first-run policy:
 
@@ -187,7 +286,10 @@ npx skills add Hilo-Hilo/WorldFork/skills/worldfork --all
 
 ## Onboard The User
 
-After the stack is healthy, run discovery to see what commands are available and what they do. If you have not already done so, read `references/project-orientation.md`. Then give the user a short onboarding explanation of the core ideas:
+After the stack is healthy, warmly welcome the user into WorldFork as an
+operator. Run discovery to see what commands are available and what they do. If
+you have not already done so, read `references/project-orientation.md`. Then
+give the user a short onboarding explanation of the core ideas:
 
 - Big Bang: the initial scenario seed and workspace that defines the world.
 - Run: a tracked execution of work against a Big Bang or multiverse.
@@ -215,6 +317,14 @@ Clarify that `worldfork init` proves initialization and workspace creation. It
 does not by itself prove the full tick/branch/report loop; use Atlas or a live
 smoke for that.
 
+As you show these commands, explain what the user should expect to see:
+
+- `worldfork init` creates a Big Bang and waits for initialized actors and world state.
+- `worldfork watch big-bang` shows the live event/tick/log stream for the whole run.
+- `worldfork watch multiverse` focuses on one timeline branch.
+- `worldfork reports list/view` reads structured report records; Markdown/PDF renders are generated only on request.
+- `worldfork setup` helps choose and verify the provider/model split before live demos.
+
 ## Offer The Atlas Demo
 
 Ask the user whether they want to run the Atlas demo simulation before starting it. Briefly describe Atlas as a larger onboarding world: an Atlas Resilience Crisis scenario that creates a Big Bang, runs root and branch timelines, allows God-agent branching, generates per-multiverse reports, and finishes with a cross-multiverse outcome review.
@@ -224,6 +334,17 @@ If the user agrees, run:
 ```bash
 worldfork demo atlas
 ```
+
+Narrate the demo while it runs. Keep commentary short, but explain the current
+phase and why it matters:
+
+- Before starting: confirm the provider/model split, the expected live API-credit use, and that Atlas is the full tick/branch/report demonstration.
+- During Big Bang creation: explain that the initializer is turning a scenario dossier into actors, cohorts, baseline state, and the root timeline.
+- During ticks: explain that each tick advances actor decisions, events, sociology/graph updates, God-agent review, endpoint-ledger updates, and snapshots.
+- During branching: explain that child multiverses are alternate timelines from meaningful decision points, with lineage preserved.
+- During reports: explain that reports are structured database versions first; Markdown/PDF are optional renders generated later.
+- If the command runs for more than about 30 seconds without finishing, give a brief update on what long-running LLM/worker phase is likely active and how you will inspect it.
+- When the CLI prints Big Bang, multiverse, report, job, or log IDs, tell the user what each ID is for and which command can inspect it.
 
 Then show how to inspect the result:
 
