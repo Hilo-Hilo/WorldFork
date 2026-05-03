@@ -125,6 +125,7 @@ def reports(big_bang_id: UUID, db: Session = Depends(get_db)):
 def final_report(big_bang_id: UUID, payload: ReportRequest | None = None, db: Session = Depends(get_db)):
     request = payload or ReportRequest()
     big_bang = require(db, models.BigBang, big_bang_id)
+    reject_archived_big_bang(big_bang)
     reject_non_terminal_multiverses(db, big_bang)
     try:
         version = generate_final_big_bang_report(db, big_bang=big_bang, title=request.title, summary=request.summary)
@@ -140,6 +141,7 @@ def final_report(big_bang_id: UUID, payload: ReportRequest | None = None, db: Se
 def run_until_complete(big_bang_id: UUID, payload: RunUntilCompleteRequest | None = None, db: Session = Depends(get_db)):
     request = payload or RunUntilCompleteRequest()
     big_bang = require(db, models.BigBang, big_bang_id)
+    reject_archived_big_bang(big_bang)
     try:
         result = run_big_bang_until_complete(db, big_bang=big_bang, max_total_ticks=request.max_total_ticks)
     except LLMCallError as exc:
@@ -165,6 +167,11 @@ def reject_non_terminal_multiverses(db: Session, big_bang: models.BigBang) -> No
         labels = ", ".join(item.ui_label for item in non_terminal[:5])
         suffix = f": {labels}" if labels else ""
         raise_domain_conflict(ValueError(f"final report requires terminal multiverses{suffix}"))
+
+
+def reject_archived_big_bang(big_bang: models.BigBang) -> None:
+    if getattr(big_bang, "status", None) == "archived":
+        raise_domain_conflict(ValueError("big bang is archived"))
 
 
 def raise_domain_conflict(exc: ValueError):

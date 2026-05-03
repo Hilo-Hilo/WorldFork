@@ -25,6 +25,8 @@ from sqlalchemy import select
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SCENARIO = ROOT / "examples" / "test-big-bang.md"
 DEFAULT_BASE_URL = os.environ.get("WORLDFORK_API_URL", "http://127.0.0.1:8003")
+DEFAULT_API_PREFIX = os.environ.get("WORLDFORK_API_PREFIX", "/api")
+ACTIVE_API_PREFIX = DEFAULT_API_PREFIX
 OPENROUTER_MODEL = "deepseek/deepseek-v4-flash"
 OPENAI_CODEX_MODEL = "gpt-5.4"
 DEFAULT_EXPECTED_PAIRS = {
@@ -77,14 +79,25 @@ def request(
     json: dict[str, Any] | None = None,
 ) -> Any:
     expected_set = expected if isinstance(expected, set) else {expected}
-    response = client.request(method, f"{base_url}{path}", json=json)
+    request_path = _api_path(path)
+    response = client.request(method, f"{base_url}{request_path}", json=json)
     if response.status_code not in expected_set:
-        raise SampleFailure(f"{method} {path} -> {response.status_code}: {response.text[:1200]}")
+        raise SampleFailure(f"{method} {request_path} -> {response.status_code}: {response.text[:1200]}")
     if response.content:
         if "application/json" not in response.headers.get("content-type", ""):
             return response.text
         return response.json()
     return None
+
+
+def _api_path(path: str) -> str:
+    prefix = str(ACTIVE_API_PREFIX or "").strip("/")
+    if not path.startswith("/api"):
+        return path
+    suffix = path[4:]
+    if not prefix:
+        return suffix or "/"
+    return f"/{prefix}{suffix}"
 
 
 def wait_for_job(
@@ -731,6 +744,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run the full Atlas onboarding multiverse demo.")
     parser.add_argument("--scenario-file", default=str(DEFAULT_SCENARIO), help="Markdown scenario dossier.")
     parser.add_argument("--base-url", default=DEFAULT_BASE_URL, help="WorldFork backend base URL.")
+    parser.add_argument("--api-prefix", default=DEFAULT_API_PREFIX, help="Backend API prefix.")
     parser.add_argument("--timeout", type=float, default=240.0, help="HTTP timeout in seconds.")
     parser.add_argument(
         "--tick-duration-minutes",
@@ -810,7 +824,9 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
 
 
 def main(argv: list[str] | None = None) -> int:
+    global ACTIVE_API_PREFIX
     args = parse_args(sys.argv[1:] if argv is None else argv)
+    ACTIVE_API_PREFIX = args.api_prefix
     try:
         run_sample(args)
     except Exception as exc:

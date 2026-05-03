@@ -26,6 +26,7 @@ DEFAULT_EXPECTED_PROVIDER_MODELS = {
     ("openai-codex", OPENAI_CODEX_MODEL),
 }
 BASE_URL = os.environ.get("WORLDFORK_API_URL", "http://127.0.0.1:8003")
+API_PREFIX = os.environ.get("WORLDFORK_API_PREFIX", "/api")
 
 
 def _load_env() -> None:
@@ -69,12 +70,23 @@ def request(
     json: dict[str, Any] | None = None,
 ) -> Any:
     expected_set = expected if isinstance(expected, set) else {expected}
-    response = client.request(method, f"{BASE_URL}{path}", json=json)
+    request_path = _api_path(path)
+    response = client.request(method, f"{BASE_URL}{request_path}", json=json)
     if response.status_code not in expected_set:
-        raise SmokeFailure(f"{method} {path} -> {response.status_code}: {response.text[:1000]}")
+        raise SmokeFailure(f"{method} {request_path} -> {response.status_code}: {response.text[:1000]}")
     if response.content:
         return response.json()
     return None
+
+
+def _api_path(path: str) -> str:
+    prefix = str(API_PREFIX or "").strip("/")
+    if not path.startswith("/api"):
+        return path
+    suffix = path[4:]
+    if not prefix:
+        return suffix or "/"
+    return f"/{prefix}{suffix}"
 
 
 def wait_for_ready(client: httpx.Client) -> dict[str, Any]:

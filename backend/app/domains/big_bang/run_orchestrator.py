@@ -54,6 +54,8 @@ def _job_interrupt_requested(db: Session, queue_job: models.Job | None) -> bool:
 
 
 def run_big_bang_until_complete(db: Session, *, big_bang: models.BigBang, max_total_ticks: int = 24) -> dict:
+    if big_bang.status == "archived":
+        raise ValueError("big bang is archived")
     if big_bang.status == "paused":
         raise ValueError("big bang is paused")
 

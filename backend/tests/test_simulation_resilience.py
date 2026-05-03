@@ -11,12 +11,15 @@ from sqlalchemy.orm import Session
 from sqlalchemy.pool import StaticPool
 
 from app.db import models
+from app.llm.audit import LLMCallError
 from app.llm.schemas import LLMResponse
 from app.api.schemas import BigBangCreate
 from app.simulation import agent_engine, event_engine, initializer
 from app.simulation.graph_engine import update_graph_layers
 from app.simulation.initializer import persist_initializer_graphs_and_observability
 from app.storage.artifact_store import ArtifactStore
+from backend.app.models.base import Base as RuntimeControlBase
+from backend.app.models.settings import GlobalSettingModel
 
 
 @pytest.fixture()
@@ -258,6 +261,111 @@ def test_initializer_seed_events_become_root_event_queue(db, monkeypatch, tmp_pa
     ]
     assert [event["title"] for event in event_queue["past_events"]] == ["Pressure failure already visible"]
     assert [event["title"] for event in event_queue["upcoming_events"]] == ["Court hearing scheduled"]
+
+
+def test_big_bang_defaults_use_persisted_global_settings(db, monkeypatch, tmp_path):
+    RuntimeControlBase.metadata.create_all(
+        bind=db.get_bind(),
+        tables=[RuntimeControlBase.metadata.tables["settings_global"]],
+    )
+    db.add(
+        GlobalSettingModel(
+            setting_id="default",
+            default_tick_duration_minutes=90,
+            default_max_ticks=33,
+            default_max_schedule_horizon_ticks=7,
+            log_level="INFO",
+            display_timezone="UTC",
+            theme="system",
+            enable_oasis_adapter=False,
+            branching_defaults={
+                "max_branch_depth": 9,
+                "max_active_multiverses": 77,
+                "max_branches_per_tick": 6,
+                "branch_score_threshold": 0.12,
+            },
+            payload={},
+        )
+    )
+    db.commit()
+
+    def fake_snapshot(db, big_bang_id):
+        snapshot = models.SourceOfTruthSnapshot(
+            big_bang_id=big_bang_id,
+            version="test",
+            content_hash="hash",
+            artifact_path="source-of-truth",
+        )
+        db.add(snapshot)
+        db.flush()
+        return snapshot
+
+    monkeypatch.setattr(initializer, "snapshot_source_of_truth", fake_snapshot)
+    monkeypatch.setattr(initializer, "ArtifactStore", lambda: ArtifactStore(root=tmp_path))
+
+    big_bang = initializer.create_big_bang(
+        db,
+        BigBangCreate(
+            name="Settings defaults",
+            scenario_text="A town prepares a heat response plan.",
+            use_initializer_agent=False,
+        ),
+    )
+
+    config = db.query(models.BigBangConfig).filter_by(big_bang_id=big_bang.id).one()
+    assert config.simulation_config["tick_duration"] == "90 minutes"
+    assert config.simulation_config["tick_duration_minutes"] == 90
+    assert config.simulation_config["max_ticks"] == 33
+    assert config.simulation_config["max_schedule_horizon_ticks"] == 7
+    assert config.branch_policy["max_branch_depth"] == 9
+    assert config.branch_policy["max_active_multiverses"] == 77
+    assert config.branch_policy["max_branches_per_tick"] == 6
+    assert config.branch_policy["branch_score_threshold"] == 0.12
+
+
+def test_failed_initializer_agent_does_not_leave_draft_big_bang(db, monkeypatch, tmp_path):
+    def fake_snapshot(db, big_bang_id):
+        snapshot = models.SourceOfTruthSnapshot(
+            big_bang_id=big_bang_id,
+            version="test",
+            content_hash="hash",
+            artifact_path="source-of-truth",
+        )
+        db.add(snapshot)
+        db.flush()
+        return snapshot
+
+    def fail_after_audit_commit(db, *args, **kwargs):
+        db.add(
+            models.LLMCall(
+                big_bang_id=kwargs["big_bang_id"],
+                provider="openrouter",
+                model="google/gemini-3.1-flash-lite",
+                purpose="initializer_agent",
+                status="failed",
+                meta={"error": "provider unavailable"},
+            )
+        )
+        db.commit()
+        raise LLMCallError("provider unavailable")
+
+    monkeypatch.setattr(initializer, "snapshot_source_of_truth", fake_snapshot)
+    monkeypatch.setattr(initializer, "ArtifactStore", lambda: ArtifactStore(root=tmp_path))
+    monkeypatch.setattr(initializer, "run_initializer_agent", fail_after_audit_commit)
+
+    with pytest.raises(LLMCallError):
+        initializer.create_big_bang(
+            db,
+            BigBangCreate(
+                name="Failed init",
+                scenario_text="A river town faces a flood warning.",
+                use_initializer_agent=True,
+            ),
+        )
+
+    assert db.query(models.BigBang).count() == 0
+    assert db.query(models.SourceOfTruthSnapshot).count() == 0
+    assert db.query(models.LLMCall).count() == 0
 
 
 def test_initializer_graph_and_emotion_casts_tolerate_bad_model_strings(db):

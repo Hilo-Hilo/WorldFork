@@ -13,6 +13,7 @@ celery_app = Celery(
     backend=settings.celery_result_backend,
     include=[
         "backend.app.workers.jobs",  # populated by B3-C/B4-*
+        "app.jobs.workers",
     ],
 )
 
@@ -50,6 +51,7 @@ celery_app.conf.update(
         "aggregate_run_results": {"queue": "p2"},
         "export_run": {"queue": "p3"},
         "initialize_big_bang": {"queue": "p1"},
+        "worldfork.execute_job": {"queue": "p1"},
     },
     task_default_retry_delay=10,
     task_time_limit=600,
@@ -72,3 +74,5 @@ try:
     from backend.app.workers import beat_schedule as _beat_schedule  # noqa: F401
 except Exception:
     pass
+
+import app.jobs.workers as _db_job_workers  # noqa: E402,F401

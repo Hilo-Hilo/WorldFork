@@ -136,6 +136,17 @@ def test_cancel_marks_job_terminal():
     assert data["finished_at"] is not None
 
 
+def test_cancel_refuses_to_rewrite_terminal_job():
+    with override_db() as db:
+        job = _seed_job(db, status="succeeded")
+        response = client.post(f"/api/jobs/{job.id}/cancel")
+        db.expire_all()
+        persisted = db.get(models.Job, job.id)
+
+    assert response.status_code == 409, response.text
+    assert persisted.status == "succeeded"
+
+
 def test_pause_resume_queue_sets_redis_control_key():
     mock_redis = AsyncMock()
     mock_redis.set = AsyncMock()

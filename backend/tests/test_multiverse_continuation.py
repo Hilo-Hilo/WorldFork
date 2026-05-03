@@ -67,6 +67,23 @@ def test_continue_multiverse_versions_runtime_override_without_global_config_swi
     assert db.get(models.BigBang, big_bang.id).current_config_version == 1
 
 
+def test_continue_multiverse_rejects_archived_big_bang(db: Session):
+    big_bang, multiverse = _seed_completed_multiverse(db)
+    big_bang.status = "archived"
+    db.commit()
+
+    with pytest.raises(HTTPException) as exc:
+        multiverses_api.continue_multiverse(
+            multiverse.id,
+            MultiverseContinueRequest(max_ticks=4, reason="archived runs stay immutable"),
+            db=db,
+        )
+
+    assert exc.value.status_code == 409
+    assert "archived" in exc.value.detail
+    assert db.get(models.Multiverse, multiverse.id).status == "completed"
+
+
 def test_continue_rejects_report_version_from_another_multiverse(db: Session):
     big_bang, multiverse = _seed_completed_multiverse(db)
     other = models.Multiverse(
