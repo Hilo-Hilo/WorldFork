@@ -251,6 +251,35 @@ async def test_get_llm_config_exposes_provider_routing_and_route_catalog(client,
 
 
 @pytest.mark.asyncio
+async def test_local_provider_catalog_is_configured_without_api_key_env(client):
+    provider_payload = {
+        "providers": [
+            {
+                "provider": "vllm",
+                "base_url": "http://host.docker.internal:8000/v1",
+                "api_key_env": "none",
+                "default_model": "local-model",
+                "fallback_model": None,
+                "json_mode_required": True,
+                "tool_calling_enabled": False,
+                "enabled": True,
+                "extra_headers": {},
+                "payload": {"api": "vllm-openai"},
+            }
+        ]
+    }
+    await client.patch("/api/settings/providers", json=provider_payload)
+
+    resp = await client.get("/api/settings/llm")
+
+    assert resp.status_code == 200
+    data = resp.json()
+    vllm = next(row for row in data["provider_catalog"] if row["provider"] == "vllm")
+    assert vllm["api_shape"] == "vllm-openai"
+    assert vllm["configured"] is True
+
+
+@pytest.mark.asyncio
 async def test_patch_providers_rebuilds_active_registry(client, db_session):
     providers.clear_registry()
     stale_provider = AsyncMock()

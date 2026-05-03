@@ -160,7 +160,7 @@ Re-run `worldfork settings llm` after any change and verify `effective_model_rou
 worldfork --verbosity normal --fields id,source,status,message,provider,model,big_bang_id logs list --source llm
 ```
 
-For Kimi or other OpenAI-compatible providers, add a `settings providers` row with a new provider name, `api_key_env`, base URL, and `payload.api` set to `openai-compatible`, then route individual jobs to it. For Claude or other non-OpenAI-compatible APIs, wait for or implement a provider adapter and keep the rest of the system pointed at the audited LLM routing layer.
+For Kimi or other hosted OpenAI-compatible providers, add a `settings providers` row with a new provider name, `api_key_env`, base URL, and `payload.api` set to `openai-compatible`, then route individual jobs to it. For local OpenAI-compatible runtimes such as Ollama, vLLM, LM Studio, and LocalAI, use `api_key_env: "none"` and payload APIs such as `ollama-openai`, `vllm-openai`, `lmstudio-openai`, or `localai-openai`; these can be routed to any audited agent type after a JSON-quality smoke test. For Claude or other non-OpenAI-compatible APIs, use OpenRouter model IDs or wait for a direct provider adapter, and keep the rest of the system pointed at the audited LLM routing layer.
 
 ## Core Commands
 

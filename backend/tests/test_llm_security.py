@@ -551,6 +551,29 @@ def test_unknown_provider_uses_openai_compatible_settings_row(monkeypatch):
     assert provider.extra_headers == {"X-Provider": "WorldFork"}
 
 
+def test_local_openai_compatible_provider_row_does_not_require_api_key(monkeypatch):
+    row = ProviderSettingModel(
+        provider="vllm",
+        base_url="http://host.docker.internal:8000/v1",
+        api_key_env="none",
+        default_model="local-model",
+        fallback_model=None,
+        json_mode_required=True,
+        tool_calling_enabled=False,
+        enabled=True,
+        extra_headers={},
+        payload={"api": "vllm-openai"},
+    )
+    db = FakeDB(row)
+    monkeypatch.delenv("none", raising=False)
+
+    provider = llm_audit.provider_for_name("vllm", db=db)
+
+    assert provider.provider == "vllm"
+    assert provider.base_url == "http://host.docker.internal:8000/v1"
+    assert provider.api_key == "local"
+
+
 def test_openrouter_without_api_key_returns_controlled_unavailable(monkeypatch):
     settings = SimpleNamespace(default_llm_provider="openrouter", openrouter_api_key=None)
     monkeypatch.setattr(llm_audit, "get_settings", lambda: settings)
