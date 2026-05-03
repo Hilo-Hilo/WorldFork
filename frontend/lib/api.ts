@@ -11,6 +11,7 @@ import type {
   AgentLog,
   BigBang,
   CreateBigBangPayload,
+  Job,
   Multiverse,
   ReadyzResult,
   Report,
@@ -66,7 +67,20 @@ async function http<T>(path: string, init?: RequestInit): Promise<T> {
 /* ===== endpoints ===== */
 
 export const api = {
-  readyz: () => http<ReadyzResult>("/readyz"),
+  // /readyz returns 503 on degraded state with a meaningful JSON body
+  // ({ok:false, checks:{...}}). Parse it instead of throwing so the UI
+  // can render "degraded" rather than a hard "unreachable" error.
+  readyz: async (): Promise<ReadyzResult> => {
+    const res = await fetch(base() + "/readyz", { cache: "no-store" });
+    const ct = res.headers.get("content-type") || "";
+    if (ct.includes("application/json")) {
+      return (await res.json()) as ReadyzResult;
+    }
+    if (!res.ok) {
+      throw new ApiError(`${res.status} ${res.statusText} /readyz`, res.status, await res.text());
+    }
+    return { ok: true, checks: {} } as ReadyzResult;
+  },
 
   listRuns: (limit = 20) =>
     http<AgentEnvelope<RunSummary[]>>(
@@ -87,14 +101,19 @@ export const api = {
   resumeBigBang: (id: string) =>
     http<BigBang>(`/api/big-bangs/${id}/resume`, { method: "POST" }),
 
-  runUntilComplete: (id: string, maxTotalTicks?: number) =>
-    http<{ ticks_run: number; multiverse_count: number; report_versions: string[]; final_report_version_id: string | null }>(
-      `/api/big-bangs/${id}/run-until-complete`,
-      {
-        method: "POST",
-        body: JSON.stringify(maxTotalTicks ? { max_total_ticks: maxTotalTicks } : {}),
-      },
-    ),
+  createRunUntilCompleteJob: (id: string, maxTotalTicks = 32) =>
+    http<Job>("/api/jobs", {
+      method: "POST",
+      body: JSON.stringify({
+        job_type: "run_big_bang_until_complete",
+        big_bang_id: id,
+        payload: { big_bang_id: id, max_total_ticks: maxTotalTicks },
+        idempotency_key: `run-complete:${id}:${Date.now()}`,
+      }),
+    }),
+
+  listJobs: (bigBangId: string, limit = 20) =>
+    http<Job[]>(`/api/jobs?big_bang_id=${encodeURIComponent(bigBangId)}&limit=${limit}`),
 
   listMultiverses: (bigBangId: string) =>
     http<Multiverse[]>(`/api/big-bangs/${bigBangId}/multiverses`),
@@ -114,10 +133,11 @@ export const api = {
     http<string>(`/api/report-versions/${versionId}/markdown`),
 
   renderReport: async (versionId: string, format: "pdf" | "md" = "pdf"): Promise<{ blob: Blob; filename: string }> => {
+    const apiFormat = format === "md" ? "markdown" : "pdf";
     const res = await fetch(`${base()}/api/report-versions/${versionId}/render`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ format }),
+      body: JSON.stringify({ format: apiFormat }),
       cache: "no-store",
     });
     if (!res.ok) {

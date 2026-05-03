@@ -24,9 +24,23 @@ QUEUE_NAMES = {
     "run_big_bang_until_complete": "big_bang_control",
 }
 
+CELERY_QUEUE_BY_CANONICAL_QUEUE = {
+    "big_bang_control": "p0",
+    "multiverse_ticks": "p0",
+    "big_bang_init": "p1",
+    "reports": "p2",
+    "maintenance": "p3",
+    "dead_letter": "dead_letter",
+    "default": "p1",
+}
+
 
 def queue_name_for_job(job_type: str) -> str:
     return QUEUE_NAMES.get(job_type, "default")
+
+
+def celery_queue_for_job_queue(queue_name: str | None) -> str:
+    return CELERY_QUEUE_BY_CANONICAL_QUEUE.get(queue_name or "default", "p1")
 
 
 def canonical_json(value) -> str:
@@ -49,9 +63,19 @@ def default_idempotency_key(
 
 
 def enqueue_job(job_id: UUID | str) -> None:
-    from app.jobs.workers import run_job as run_job_actor
+    from app.db import models
+    from app.db.session import SessionLocal
+    from backend.app.workers.celery_app import celery_app
 
-    run_job_actor.send(str(job_id))
+    celery_queue = "p1"
+    db = SessionLocal()
+    try:
+        job = db.get(models.Job, job_id)
+        if job is not None:
+            celery_queue = celery_queue_for_job_queue(job.queue_name or queue_name_for_job(job.job_type))
+    finally:
+        db.close()
+    celery_app.send_task("run_canonical_job", args=[str(job_id)], queue=celery_queue)
 
 
 def _json_default(value):

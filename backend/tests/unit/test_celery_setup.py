@@ -97,6 +97,15 @@ class TestTaskRoutes:
     def test_initialize_big_bang_routes_to_p1(self):
         assert celery_app.conf.task_routes["initialize_big_bang"]["queue"] == "p1"
 
+    def test_run_canonical_job_routes_to_p1_by_default(self):
+        assert celery_app.conf.task_routes["run_canonical_job"]["queue"] == "p1"
+
+    def test_run_canonical_job_has_long_control_plane_time_limit(self):
+        from backend.app.workers import jobs as worker_jobs
+
+        assert worker_jobs.run_canonical_job_task.soft_time_limit == 3300
+        assert worker_jobs.run_canonical_job_task.time_limit == 3600
+
 
 # ---------------------------------------------------------------------------
 # task_queues — all priority queues declared

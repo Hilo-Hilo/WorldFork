@@ -12,11 +12,16 @@ from app.api.schemas import BigBangCreate
 from app.core.config import get_settings
 from app.core.labels import tick_label
 from app.db import models
+from app.llm.audit import LLMCallError
 from app.llm.prompt_builder import sanitize_sociology_prompt_influences
 from app.domains.endpoint_ledger.service import seed_endpoint_ledger
 from app.domains.event.event_engine import event_prompt_row
 from app.domains.big_bang.initialization_corpus import build_plain_text_corpus
-from app.domains.big_bang.initializer_agent import merge_initializer_lists, run_initializer_agent
+from app.domains.big_bang.initializer_agent import (
+    fallback_initializer_output,
+    merge_initializer_lists,
+    run_initializer_agent,
+)
 from app.domains.big_bang.source_truth_validation import normalize_initializer_against_source_of_truth
 from app.source_of_truth.snapshotter import snapshot_source_of_truth
 from app.storage.artifact_store import ArtifactStore
@@ -119,16 +124,51 @@ def create_big_bang(db: Session, payload: BigBangCreate) -> models.BigBang:
     big_bang.source_snapshot_id = snapshot.id
     initializer_output = {}
     plain_text_corpus = {}
+    initializer_failure: LLMCallError | None = None
     if scenario_text and payload.use_initializer_agent:
-        plain_text_corpus = build_plain_text_corpus(db, big_bang=big_bang, scenario_text=scenario_text)
+        try:
+            plain_text_corpus = build_plain_text_corpus(db, big_bang=big_bang, scenario_text=scenario_text)
+        except LLMCallError as exc:
+            initializer_failure = exc
+            plain_text_corpus = _fallback_plain_text_corpus(scenario_text)
+            db.add(
+                models.OperationLog(
+                    big_bang_id=big_bang.id,
+                    event_type="initializer_chunker_fallback_used",
+                    level="warning",
+                    body={"reason": str(exc) or "LLM unavailable"},
+                )
+            )
     if payload.use_initializer_agent and scenario_text:
-        initializer_output = run_initializer_agent(
-            db,
-            big_bang_id=big_bang.id,
-            scenario_input=scenario_input,
-            plain_text_corpus=plain_text_corpus,
-            initializer_prompt=payload.initializer_prompt,
-        )
+        if initializer_failure is None:
+            try:
+                initializer_output = run_initializer_agent(
+                    db,
+                    big_bang_id=big_bang.id,
+                    scenario_input=scenario_input,
+                    plain_text_corpus=plain_text_corpus,
+                    initializer_prompt=payload.initializer_prompt,
+                )
+            except LLMCallError as exc:
+                initializer_failure = exc
+        if initializer_failure is not None:
+            initializer_output = fallback_initializer_output(scenario_input)
+            initializer_output["plain_text_corpus"] = plain_text_corpus
+            initializer_output["model"] = "deterministic_initializer_fallback"
+            initializer_output.setdefault("risk_flags", []).append(
+                {
+                    "code": "initializer_llm_unavailable",
+                    "message": "Initializer LLM failed; deterministic fallback state was used.",
+                }
+            )
+            db.add(
+                models.OperationLog(
+                    big_bang_id=big_bang.id,
+                    event_type="initializer_fallback_used",
+                    level="warning",
+                    body={"reason": str(initializer_failure) or "LLM unavailable"},
+                )
+            )
         initializer_output = normalize_initializer_against_source_of_truth(initializer_output)
         big_bang.scenario_input = {
             **scenario_input,
@@ -337,6 +377,20 @@ def create_big_bang(db: Session, payload: BigBangCreate) -> models.BigBang:
     seed_endpoint_ledger(db, big_bang=big_bang, multiverse=root)
     db.flush()
     return big_bang
+
+
+def _fallback_plain_text_corpus(scenario_text: str) -> dict[str, Any]:
+    return {
+        "raw_char_count": len(scenario_text),
+        "chunk_artifacts": [],
+        "chunk_summaries": [],
+        "simulation_brief": {
+            "mode": "fallback",
+            "text_present": bool(scenario_text),
+            "text_char_count": len(scenario_text),
+            "chunk_summaries": [],
+        },
+    }
 
 
 async def initialize_big_bang(

@@ -121,8 +121,6 @@ def _llm_ready_checks() -> dict[str, bool]:
         or read_codex_oauth_token(settings_obj.openai_codex_auth_file)
     )
     provider = settings_obj.default_llm_provider
-    if provider == "openrouter" and settings_obj.openai_codex_enabled:
-        return {"openrouter": openrouter_ready, "openai-codex": codex_ready}
     if provider == "openai-codex":
         return {"openai-codex": codex_ready}
     if provider == "openrouter":

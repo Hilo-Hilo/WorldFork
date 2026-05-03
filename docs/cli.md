@@ -118,4 +118,4 @@ worldfork smoke live
 worldfork demo atlas
 ```
 
-`smoke live` validates a running backend using the configured live model split. `demo atlas` runs the larger onboarding simulation and emits follow-up commands for watching and viewing reports.
+`smoke live` validates a running backend using the configured live model. `demo atlas` runs the larger onboarding simulation and emits follow-up commands for watching and viewing reports.

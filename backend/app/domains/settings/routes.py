@@ -37,11 +37,8 @@ import backend.app.providers as providers
 
 router = APIRouter(prefix="/settings", tags=["settings"])
 DbSession = Annotated[AsyncSession, Depends(get_session)]
-_OPENAI_CODEX_MODEL_SETTINGS = {
-    "initializer_agent_model",
-    "god_agent_model",
-    "report_agent_model",
-}
+_OPENROUTER_PROVIDER = "openrouter"
+_OPENROUTER_MODEL = "deepseek/deepseek-v4-flash"
 _LEGACY_GEMINI_SEED_MODEL = "google/gemini-3.1-flash-lite-preview"
 
 
@@ -154,7 +151,7 @@ def _is_seed_default_row(row: dict[str, Any] | None) -> bool:
     payload = row.get("payload") if row else None
     return (
         (isinstance(payload, dict) and payload.get("source") == "seed_default")
-        or _is_legacy_seed_default_row(row)
+        or _is_stale_seed_default_row(row)
     )
 
 
@@ -165,10 +162,26 @@ def _is_legacy_seed_default_row(row: dict[str, Any] | None) -> bool:
     if row is None:
         return False
     return (
-        row.get("preferred_provider") == "openrouter"
+        row.get("preferred_provider") == _OPENROUTER_PROVIDER
         and row.get("preferred_model") == _LEGACY_GEMINI_SEED_MODEL
-        and payload.get("preferred_provider") == "openrouter"
+        and payload.get("preferred_provider") == _OPENROUTER_PROVIDER
         and payload.get("preferred_model") == _LEGACY_GEMINI_SEED_MODEL
+    )
+
+
+def _is_stale_seed_default_row(row: dict[str, Any] | None) -> bool:
+    if row is None:
+        return False
+    if _is_legacy_seed_default_row(row):
+        return True
+    payload = row.get("payload")
+    if not isinstance(payload, dict) or payload.get("source") != "seed_default":
+        return False
+    return not (
+        row.get("preferred_provider") == _OPENROUTER_PROVIDER
+        and row.get("preferred_model") == _OPENROUTER_MODEL
+        and row.get("fallback_provider") == _OPENROUTER_PROVIDER
+        and row.get("fallback_model") == _OPENROUTER_MODEL
     )
 
 
@@ -179,8 +192,6 @@ def _default_model_for_route(route_info: dict[str, Any]) -> str:
 
 
 def _default_provider_for_route(route_info: dict[str, Any]) -> str:
-    if route_info.get("fallback_model_setting") in _OPENAI_CODEX_MODEL_SETTINGS:
-        return "openai-codex"
     return settings.default_llm_provider
 
 
@@ -190,12 +201,12 @@ def _effective_routing_entries(entries: list[dict[str, Any]]) -> list[dict[str, 
     for route_info in audited_route_catalog():
         route = str(route_info["route"])
         row = rows_by_job_type.get(route)
-        if _is_legacy_seed_default_row(row):
+        if _is_stale_seed_default_row(row):
             row = None
         matched_route = route if row is not None else None
         for alias in route_info.get("aliases", []):
             alias_row = rows_by_job_type.get(str(alias))
-            if _is_legacy_seed_default_row(alias_row):
+            if _is_stale_seed_default_row(alias_row):
                 continue
             if row is None and alias_row is not None:
                 row = alias_row

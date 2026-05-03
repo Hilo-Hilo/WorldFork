@@ -105,20 +105,25 @@ async def test_generate_structured_raises_invalid_json_for_final_non_object_json
     assert "root must be an object" in (exc_info.value.validator_message or "")
 
 
-def test_default_routes_use_provider_model_split() -> None:
+def test_default_routes_use_openrouter_deepseek_for_all_jobs() -> None:
     routing = RoutingTable.defaults()
 
     for job_type in (
+        "initialize_big_bang",
         "simulate_universe_tick",
         "agent_deliberation_batch",
         "execute_due_events",
         "social_propagation",
         "sociology_update",
+        "god_agent_review",
         "branch_universe",
         "sync_zep_memory",
         "build_review_index",
         "export_run",
         "apply_tick_results",
+        "aggregate_run_results",
+        "evaluate_endpoint_ledger",
+        "force_deviation",
     ):
         preferred, fallback = routing.route(job_type)
         assert preferred.provider == "openrouter"
@@ -127,21 +132,6 @@ def test_default_routes_use_provider_model_split() -> None:
         assert fallback.provider == "openrouter"
         assert fallback.model == OPENROUTER_MODEL
         assert preferred.fallback_model == OPENROUTER_MODEL
-
-    for job_type in (
-        "initialize_big_bang",
-        "god_agent_review",
-        "aggregate_run_results",
-        "evaluate_endpoint_ledger",
-        "force_deviation",
-    ):
-        preferred, fallback = routing.route(job_type)
-        assert preferred.provider == "openai-codex"
-        assert preferred.model == "gpt-5.4"
-        assert fallback is not None
-        assert fallback.provider == "openai-codex"
-        assert fallback.model == "gpt-5.4"
-        assert preferred.fallback_model == "gpt-5.4"
 
 
 def test_same_provider_fallback_is_openrouter_native_model_hint() -> None:
@@ -196,7 +186,7 @@ def test_openrouter_extra_body_uses_native_fallback_model(prompt: PromptPacket) 
     assert kwargs["extra_body"] == {"models": ["primary/model", "fallback/model"]}
 
 
-def test_seeded_routes_use_openrouter_gemini_model() -> None:
+def test_seeded_routes_use_openrouter_deepseek_model() -> None:
     from backend.app.scripts.seed import _ROUTING_DEFAULTS
 
     assert _ROUTING_DEFAULTS

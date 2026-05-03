@@ -18,7 +18,7 @@ from app.llm import openrouter_provider
 from app.llm.prompt_builder import build_agent_prompt_context, sanitize_sociology_prompt_influences
 from app.llm.provider import DeterministicLLMProvider
 from app.llm.redaction import redact_payload
-from app.llm.routing import resolve_audited_llm_route
+from app.llm.routing import LLMRouteCandidate, ResolvedLLMRoute, resolve_audited_llm_route
 from app.llm.schemas import LLMRequest, LLMResponse
 from app.simulation import god_agent
 from backend.app.models.settings import ProviderSettingModel
@@ -234,6 +234,89 @@ def test_complete_with_audit_retries_invalid_json_response(monkeypatch):
     assert '["not", "an", "object"]' in provider.messages[1][-1]["content"]
 
 
+def test_complete_with_audit_can_bound_json_repair_metadata(monkeypatch):
+    class RepairableJSONProvider:
+        def __init__(self):
+            self.requests: list[LLMRequest] = []
+
+        async def complete(self, request):
+            self.requests.append(request)
+            if len(self.requests) == 1:
+                return LLMResponse(content='{"truncated": "', raw={"attempt": 1})
+            return LLMResponse(content='{"decision": "continue"}', raw={"attempt": 2})
+
+    provider = RepairableJSONProvider()
+    settings = SimpleNamespace(
+        default_llm_provider="openrouter",
+        llm_max_retries=1,
+        llm_retry_backoff_seconds=0,
+    )
+    monkeypatch.setattr(llm_audit, "get_settings", lambda: settings)
+    monkeypatch.setattr(llm_audit, "provider_for_settings", lambda: provider)
+    monkeypatch.setattr(llm_audit, "ArtifactStore", lambda: FakeArtifactStore())
+    db = FakeDB()
+
+    response, call = llm_audit.complete_with_audit(
+        db,
+        big_bang_id=uuid4(),
+        purpose="agent_parse_retry_budget_test",
+        model="test-model",
+        messages=[{"role": "user", "content": "Return JSON."}],
+        metadata={
+            "max_attempts": 2,
+            "request_timeout_seconds": 210,
+            "max_tokens": 4096,
+            "json_repair_timeout_seconds": 60,
+            "json_repair_max_tokens": 8192,
+        },
+    )
+
+    assert response.parsed == {"decision": "continue"}
+    assert call.status == "succeeded"
+    assert provider.requests[0].metadata["request_timeout_seconds"] == 210
+    assert provider.requests[0].metadata["max_tokens"] == 4096
+    assert provider.requests[1].metadata["request_timeout_seconds"] == 60
+    assert provider.requests[1].metadata["max_tokens"] == 8192
+
+
+def test_complete_with_audit_does_not_retry_timeout_when_disabled(monkeypatch):
+    class TimeoutProvider:
+        def __init__(self):
+            self.calls = 0
+
+        async def complete(self, request):
+            self.calls += 1
+            raise TimeoutError()
+
+    provider = TimeoutProvider()
+    settings = SimpleNamespace(
+        default_llm_provider="openrouter",
+        llm_max_retries=1,
+        llm_retry_backoff_seconds=0,
+    )
+    monkeypatch.setattr(llm_audit, "get_settings", lambda: settings)
+    monkeypatch.setattr(llm_audit, "provider_for_settings", lambda: provider)
+    monkeypatch.setattr(llm_audit, "ArtifactStore", lambda: FakeArtifactStore())
+    db = FakeDB()
+
+    with pytest.raises(llm_audit.LLMCallError, match="timed out"):
+        llm_audit.complete_with_audit(
+            db,
+            big_bang_id=uuid4(),
+            purpose="agent_timeout_no_retry_test",
+            model="test-model",
+            messages=[{"role": "user", "content": "Return JSON."}],
+            metadata={
+                "max_attempts": 2,
+                "retry_timeout_errors": False,
+            },
+        )
+
+    call = next(obj for obj in db.objects if isinstance(obj, models.LLMCall))
+    assert provider.calls == 1
+    assert len(call.meta["attempts"]) == 1
+
+
 def test_complete_with_audit_uses_provider_model_from_route(monkeypatch):
     captured = {}
 
@@ -282,7 +365,7 @@ def test_complete_with_audit_uses_provider_model_from_route(monkeypatch):
     assert response.parsed == {"decision": "continue"}
     assert captured["request"].model == "route/model"
     assert captured["request"].metadata["temperature"] == 0.12
-    assert captured["request"].metadata["max_tokens"] == 1234
+    assert captured["request"].metadata["max_tokens"] == 9999
     assert call.provider == "route-provider"
     assert call.model == "route/model"
     assert call.meta["llm_route"]["matched_route"] == "god_agent"
@@ -374,8 +457,8 @@ def test_seed_default_direct_route_defers_to_legacy_alias():
         "payload": {"source": "seed_default"},
     }
     legacy_alias = {
-        "preferred_provider": "openai-codex",
-        "preferred_model": "gpt-5.4",
+        "preferred_provider": "openrouter",
+        "preferred_model": "deepseek/deepseek-v4-flash",
         "fallback_provider": None,
         "fallback_model": None,
         "temperature": 0.1,
@@ -394,8 +477,8 @@ def test_seed_default_direct_route_defers_to_legacy_alias():
     )
 
     assert resolved.matched_route == "aggregate_run_results"
-    assert resolved.primary.provider == "openai-codex"
-    assert resolved.primary.model == "gpt-5.4"
+    assert resolved.primary.provider == "openrouter"
+    assert resolved.primary.model == "deepseek/deepseek-v4-flash"
 
 
 def test_legacy_gemini_seed_route_uses_current_runtime_defaults(monkeypatch):
@@ -422,12 +505,12 @@ def test_legacy_gemini_seed_route_uses_current_runtime_defaults(monkeypatch):
         default_llm_provider="openrouter",
         default_model="deepseek/deepseek-v4-flash",
         fallback_model="deepseek/deepseek-v4-flash",
-        initializer_agent_model="gpt-5.4",
-        god_agent_model="gpt-5.4",
+        initializer_agent_model="deepseek/deepseek-v4-flash",
+        god_agent_model="deepseek/deepseek-v4-flash",
         cohort_agent_model="deepseek/deepseek-v4-flash",
         hero_agent_model="deepseek/deepseek-v4-flash",
         event_summary_model="deepseek/deepseek-v4-flash",
-        report_agent_model="gpt-5.4",
+        report_agent_model="deepseek/deepseek-v4-flash",
     )
     monkeypatch.setattr(llm_routing, "get_settings", lambda: settings)
 
@@ -441,11 +524,44 @@ def test_legacy_gemini_seed_route_uses_current_runtime_defaults(monkeypatch):
     )
 
     assert report_route.matched_route is None
-    assert report_route.primary.provider == "openai-codex"
-    assert report_route.primary.model == "gpt-5.4"
+    assert report_route.primary.provider == "openrouter"
+    assert report_route.primary.model == "deepseek/deepseek-v4-flash"
     assert cohort_route.matched_route is None
     assert cohort_route.primary.provider == "openrouter"
     assert cohort_route.primary.model == "deepseek/deepseek-v4-flash"
+
+
+def test_stale_seed_route_uses_current_runtime_defaults(monkeypatch):
+    from app.llm import routing as llm_routing
+
+    stale_seed = {
+        "preferred_provider": "openai-codex",
+        "preferred_model": "deepseek/deepseek-v4-flash",
+        "fallback_provider": "openai-codex",
+        "fallback_model": "deepseek/deepseek-v4-flash",
+        "temperature": 0.25,
+        "top_p": 1.0,
+        "max_tokens": 8192,
+        "timeout_seconds": 180,
+        "retry_policy": "exponential_backoff",
+        "payload": {"source": "seed_default"},
+    }
+    settings = SimpleNamespace(
+        default_llm_provider="openrouter",
+        default_model="deepseek/deepseek-v4-flash",
+        fallback_model="deepseek/deepseek-v4-flash",
+        report_agent_model="deepseek/deepseek-v4-flash",
+    )
+    monkeypatch.setattr(llm_routing, "get_settings", lambda: settings)
+
+    report_route = llm_routing.resolve_audited_llm_route(
+        FakeRoutingDB({"report_agent": stale_seed}),
+        route="report_agent",
+    )
+
+    assert report_route.matched_route is None
+    assert report_route.primary.provider == "openrouter"
+    assert report_route.primary.model == "deepseek/deepseek-v4-flash"
 
 
 def test_route_retry_policy_none_disables_json_repair_retry(monkeypatch):
@@ -487,6 +603,46 @@ def test_route_retry_policy_none_disables_json_repair_retry(monkeypatch):
 
     call = next(obj for obj in db.objects if isinstance(obj, models.LLMCall))
     assert len(call.meta["attempts"]) == 1
+
+
+def test_initializer_metadata_can_cap_retries_and_timeout():
+    settings = SimpleNamespace(llm_max_retries=10)
+
+    assert llm_audit._route_retry_attempts(  # noqa: SLF001 - focused regression test
+        settings,
+        {"retry_policy": "exponential_backoff", "max_attempts": 1},
+    ) == 1
+    assert llm_audit._timeout_seconds(  # noqa: SLF001 - focused regression test
+        {"timeout_seconds": 120, "request_timeout_seconds": 7},
+    ) == 7
+
+
+def test_blank_llm_runtime_error_gets_sanitized_message():
+    assert llm_audit._llm_error_message(RuntimeError()) == "LLM unavailable"  # noqa: SLF001
+
+
+def test_request_metadata_overrides_route_defaults():
+    candidate = LLMRouteCandidate(
+        provider="openrouter",
+        model="deepseek/deepseek-v4-flash",
+        source="settings_model_routing",
+        metadata_defaults={"max_tokens": 4096, "timeout_seconds": 120, "temperature": 0.8},
+    )
+    route = ResolvedLLMRoute(
+        requested_route="initializer_agent",
+        matched_route="initializer_agent",
+        primary=candidate,
+    )
+
+    metadata = route.metadata_for(
+        candidate,
+        {"max_tokens": 3400, "request_timeout_seconds": 60, "temperature": 0.25},
+    )
+
+    assert metadata["max_tokens"] == 3400
+    assert metadata["request_timeout_seconds"] == 60
+    assert metadata["timeout_seconds"] == 120
+    assert metadata["temperature"] == 0.25
 
 
 def test_unknown_provider_uses_openai_compatible_settings_row(monkeypatch):
@@ -572,6 +728,67 @@ def test_openrouter_requests_json_object_when_schema_is_absent(monkeypatch):
     assert response.content == '{"decision": "continue"}'
     assert captured["payload"]["response_format"] == {"type": "json_object"}
     assert captured["timeout"] == 7
+
+
+def test_openrouter_uses_json_object_and_prompt_schema_contract(monkeypatch):
+    captured = {}
+
+    class FakeResponse:
+        def raise_for_status(self):
+            pass
+
+        def json(self):
+            return {"choices": [{"message": {"content": '{"entries": []}'}}]}
+
+    class FakeClient:
+        def __init__(self, timeout):
+            self.timeout = timeout
+            captured["timeout"] = timeout
+
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, exc_type, exc, tb):
+            return None
+
+        async def post(self, url, *, headers, json):
+            captured["payload"] = json
+            captured["headers"] = headers
+            return FakeResponse()
+
+    settings = SimpleNamespace(
+        openrouter_api_key="test-key",
+        default_model="default-model",
+        openrouter_chat_completions_url="https://openrouter.test/chat",
+        openrouter_http_referer="https://worldfork.test",
+        openrouter_title="WorldFork Test",
+    )
+    monkeypatch.setattr(openrouter_provider, "get_settings", lambda: settings)
+    monkeypatch.setattr(openrouter_provider.httpx, "AsyncClient", FakeClient)
+
+    response = asyncio.run(
+        openrouter_provider.OpenRouterProvider().complete(
+            LLMRequest(
+                purpose="test",
+                model="",
+                messages=[{"role": "user", "content": "Return JSON."}],
+                json_schema={
+                    "type": "object",
+                    "properties": {"entries": {"type": "array"}},
+                    "required": ["entries"],
+                },
+                metadata={"request_timeout_seconds": 11},
+            )
+        )
+    )
+
+    assert response.content == '{"entries": []}'
+    assert captured["payload"]["response_format"] == {"type": "json_object"}
+    assert captured["payload"]["messages"][-1]["role"] == "user"
+    assert "JSON Schema contract" in captured["payload"]["messages"][-1]["content"]
+    assert '"required": ["entries"]' in captured["payload"]["messages"][-1]["content"]
+    assert captured["headers"]["X-OpenRouter-Title"] == "WorldFork Test"
+    assert captured["timeout"] == 11
 
 
 def test_openrouter_preserves_http_429_details(monkeypatch):

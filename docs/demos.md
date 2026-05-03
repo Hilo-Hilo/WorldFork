@@ -12,7 +12,6 @@ This is the end-to-end health check for a configured local backend. It uses real
 
 ```text
 openrouter/deepseek/deepseek-v4-flash
-openai-codex/gpt-5.4
 ```
 
 The smoke validates:
@@ -34,7 +33,7 @@ The smoke validates:
 worldfork demo atlas
 ```
 
-Atlas reads `examples/test-big-bang.md`, creates the Atlas Resilience Crisis Big Bang, runs a root timeline, creates a manual transparency branch, allows God-agent-created branches under generous caps, drains every discovered timeline to terminal state, generates per-multiverse reports, generates a final cross-multiverse report, can render a PDF on request, and audits the default OpenRouter/DeepSeek plus OpenAI Codex/GPT-5.4 model split.
+Atlas reads `examples/test-big-bang.md`, creates the Atlas Resilience Crisis Big Bang, runs a root timeline, creates a manual transparency branch, allows God-agent-created branches under generous caps, drains every discovered timeline to terminal state, generates per-multiverse reports, generates a final cross-multiverse report, can render a PDF on request, and audits the default OpenRouter/DeepSeek model configuration.
 
 Default Atlas sizing:
 

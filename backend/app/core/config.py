@@ -7,7 +7,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 BACKEND_DIR = Path(__file__).resolve().parents[2]
 OPENROUTER_DEFAULT_MODEL = "deepseek/deepseek-v4-flash"
-OPENAI_CODEX_DEFAULT_MODEL = "gpt-5.4"
+OPENAI_CODEX_DEFAULT_MODEL = OPENROUTER_DEFAULT_MODEL
 
 
 def _backend_relative(path: str) -> Path:
@@ -31,7 +31,7 @@ class Settings(BaseSettings):
     openrouter_chat_completions_url: str = "https://openrouter.ai/api/v1/chat/completions"
     openrouter_http_referer: str = "https://worldfork.local"
     openrouter_title: str = "WorldFork"
-    openai_codex_enabled: bool = True
+    openai_codex_enabled: bool = False
     openai_codex_oauth_token: str | None = None
     openai_codex_auth_file: str | None = None
     openai_codex_base_url: str = "https://chatgpt.com/backend-api/codex"

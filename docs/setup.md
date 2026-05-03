@@ -19,7 +19,7 @@ npx skills add Hilo-Hilo/WorldFork/skills/worldfork --all
 After installing them, use the setup skill to guide me through prerequisites,
 .env configuration with OPENROUTER_API_KEY, CLI installation, Docker Compose
 startup, migrations, seeding, readiness verification, and the onboarding demo.
-Use the default OpenRouter `deepseek/deepseek-v4-flash` plus OpenAI Codex `gpt-5.4` split for live API-credit runs.
+Use the default OpenRouter `deepseek/deepseek-v4-flash` model for all live API-credit runs.
 ```
 
 ## Complete Manual Setup
@@ -41,11 +41,9 @@ Copy the example environment:
 cp .env.example .env
 ```
 
-Set `OPENROUTER_API_KEY` in `.env`, then run `worldfork settings openai-codex-login`
-or `codex login --device-auth` so initializer, God-review, endpoint-ledger, and
-report routes can use `openai-codex`.
+Set `OPENROUTER_API_KEY` in `.env`.
 
-WorldFork defaults cohort, hero, action, and event-summary work to `deepseek/deepseek-v4-flash` through OpenRouter. Initializer, God-review, endpoint-ledger, and report routes default to `gpt-5.4` through `openai-codex`.
+WorldFork defaults initializer, God-review, endpoint-ledger, report, cohort, hero, action, and event-summary work to `deepseek/deepseek-v4-flash` through OpenRouter.
 
 ### Install The CLI
 
@@ -92,7 +90,7 @@ worldfork status
 worldfork query GET /readyz --no-api-prefix
 ```
 
-Readiness should show the database and Redis checks as healthy. OpenRouter is healthy when `OPENROUTER_API_KEY` is set, and OpenAI Codex is healthy when OAuth auth is present.
+Readiness should show the database, Redis, and OpenRouter checks as healthy. OpenRouter is healthy when `OPENROUTER_API_KEY` is set.
 
 ### First Big Bang
 

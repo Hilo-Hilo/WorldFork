@@ -50,6 +50,7 @@ celery_app.conf.update(
         "aggregate_run_results": {"queue": "p2"},
         "export_run": {"queue": "p3"},
         "initialize_big_bang": {"queue": "p1"},
+        "run_canonical_job": {"queue": "p1"},
     },
     task_default_retry_delay=10,
     task_time_limit=600,

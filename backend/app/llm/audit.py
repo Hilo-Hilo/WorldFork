@@ -195,10 +195,15 @@ def _llm_error_message(exc: Exception) -> str:
         return "LLM call timed out"
     if isinstance(exc, LLMProviderUnavailable):
         return str(exc) or "LLM unavailable"
-    return str(exc)
+    return str(exc) or "LLM unavailable"
 
 
 def _route_retry_attempts(settings: Any, metadata: dict[str, Any]) -> int:
+    if "max_attempts" in metadata:
+        try:
+            return max(1, int(metadata["max_attempts"]))
+        except (TypeError, ValueError):
+            return 1
     retry_policy = str(metadata.get("retry_policy") or "exponential_backoff")
     if retry_policy == "none":
         return 1
@@ -215,7 +220,11 @@ def _retry_delay(base_seconds: float, attempt: int, retry_policy: str) -> float:
 
 def _timeout_seconds(metadata: dict[str, Any]) -> float:
     try:
-        value = float(metadata.get("timeout_seconds") or 120.0)
+        value = float(
+            metadata.get("request_timeout_seconds")
+            or metadata.get("timeout_seconds")
+            or 120.0
+        )
     except (TypeError, ValueError):
         value = 120.0
     return max(1.0, min(value, 1800.0))
@@ -290,6 +299,7 @@ def complete_with_audit(
     for candidate in resolved_route.candidates():
         attempt_messages = messages
         request_metadata = resolved_route.metadata_for(candidate, metadata)
+        attempt_metadata = dict(request_metadata)
         retry_policy = str(request_metadata.get("retry_policy") or "exponential_backoff")
         max_attempts = _route_retry_attempts(settings, request_metadata)
         try:
@@ -320,10 +330,10 @@ def complete_with_audit(
                                 model=candidate.model,
                                 messages=attempt_messages,
                                 json_schema=json_schema,
-                                metadata=request_metadata,
+                                metadata=attempt_metadata,
                             )
                         ),
-                        timeout=_timeout_seconds(request_metadata),
+                        timeout=_timeout_seconds(attempt_metadata),
                     )
                 )
                 if not response.content and not response.parsed:
@@ -353,30 +363,46 @@ def complete_with_audit(
                         "error": error_message,
                     }
                 )
-                if attempt < max_attempts:
-                    if isinstance(exc, LLMJSONParseError):
-                        invalid_content = (
-                            failed_response.content if failed_response is not None else None
-                        )
-                        attempt_messages = _json_repair_messages(
-                            messages,
-                            error_message,
-                            invalid_content,
-                        )
-                    delay = _retry_delay(
-                        float(getattr(settings, "llm_retry_backoff_seconds", 0)),
-                        attempt,
-                        retry_policy,
+                should_retry = attempt < max_attempts
+                if isinstance(exc, TimeoutError) and request_metadata.get("retry_timeout_errors") is False:
+                    should_retry = False
+                if not should_retry:
+                    break
+                if isinstance(exc, LLMJSONParseError):
+                    invalid_content = (
+                        failed_response.content if failed_response is not None else None
                     )
-                    if delay > 0:
-                        time.sleep(delay)
+                    attempt_messages = _json_repair_messages(
+                        messages,
+                        error_message,
+                        invalid_content,
+                    )
+                    attempt_metadata = dict(request_metadata)
+                    if request_metadata.get("json_repair_timeout_seconds") is not None:
+                        attempt_metadata["request_timeout_seconds"] = request_metadata[
+                            "json_repair_timeout_seconds"
+                        ]
+                    if request_metadata.get("json_repair_max_tokens") is not None:
+                        try:
+                            repair_tokens = int(request_metadata["json_repair_max_tokens"])
+                            current_tokens = int(attempt_metadata.get("max_tokens") or 0)
+                            attempt_metadata["max_tokens"] = max(current_tokens, repair_tokens)
+                        except (TypeError, ValueError):
+                            pass
+                delay = _retry_delay(
+                    float(getattr(settings, "llm_retry_backoff_seconds", 0)),
+                    attempt,
+                    retry_policy,
+                )
+                if delay > 0:
+                    time.sleep(delay)
         if successful_candidate is not None:
             break
     try:
         if response is None or successful_candidate is None:
             if isinstance(last_error, LLMProviderUnavailable):
                 raise last_error
-            raise RuntimeError(str(last_error) if last_error else "LLM call failed")
+            raise RuntimeError(_llm_error_message(last_error) if last_error else "LLM call failed")
         call.provider = successful_candidate.provider
         call.model = successful_candidate.model
         response.parsed = ensure_response_json_object(response)

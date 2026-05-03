@@ -575,8 +575,8 @@ class TestModelRoutingEntry:
         entry = ModelRoutingEntry.model_validate(
             dict(
                 job_type="report_agent",
-                preferred_provider="openai-codex",
-                preferred_model="gpt-5.4",
+                preferred_provider="openrouter",
+                preferred_model="deepseek/deepseek-v4-flash",
                 fallback_provider="openrouter",
                 fallback_model="deepseek/deepseek-v4-flash",
                 temperature=0.2,

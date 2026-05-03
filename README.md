@@ -181,7 +181,7 @@ npx skills add Hilo-Hilo/WorldFork/skills/worldfork-setup --all
 - Python 3.11+
 - `uv`
 - Node.js 20+ (for `npx skills`, if using skills)
-- An OpenRouter API key and OpenAI Codex OAuth auth
+- An OpenRouter API key
 
 #### Configure the environment
 
@@ -189,17 +189,15 @@ npx skills add Hilo-Hilo/WorldFork/skills/worldfork-setup --all
 cp .env.example .env
 ```
 
-Set `OPENROUTER_API_KEY` in `.env`, then run `worldfork settings openai-codex-login`
-or `codex login --device-auth` so initializer, God-review, endpoint-ledger, and
-report routes can use `openai-codex`.
+Set `OPENROUTER_API_KEY` in `.env`.
 
-Keep the default low-cost cohort/hero/action/event-summary model:
+Keep the default model for all audited runtime routes:
 
 ```text
 deepseek/deepseek-v4-flash
 ```
 
-Initializer, God-review, endpoint-ledger, and report routes default to `gpt-5.4` through the `openai-codex` provider.
+Initializer, God-review, endpoint-ledger, report, cohort, hero, action, and event-summary routes all default to `deepseek/deepseek-v4-flash` through OpenRouter.
 
 Install the CLI:
 
@@ -317,11 +315,10 @@ prd.md                product requirements source
 ## Status
 
 WorldFork is **backend-first** and **CLI-first**.
-The current system is Dockerized, tested across unit/integration/e2e layers, and live-smoke validated against the default model split:
+The current system is Dockerized, tested across unit/integration/e2e layers, and live-smoke validated against the default OpenRouter model:
 
 ```text
 openrouter/deepseek/deepseek-v4-flash
-openai-codex/gpt-5.4
 ```
 
 If you want to understand the project quickly, start with the diagrams above, then run:

@@ -11,8 +11,11 @@ from sqlalchemy.orm import Session
 from sqlalchemy.pool import StaticPool
 
 from app.db import models
+from app.llm.audit import LLMCallError
 from app.llm.schemas import LLMResponse
 from app.api.schemas import BigBangCreate
+from app.domains.big_bang import initializer_agent as initializer_agent_module
+from app.domains.big_bang.initializer_agent import normalize_initializer_output
 from app.simulation import agent_engine, event_engine, initializer
 from app.simulation.graph_engine import update_graph_layers
 from app.simulation.initializer import persist_initializer_graphs_and_observability
@@ -258,6 +261,151 @@ def test_initializer_seed_events_become_root_event_queue(db, monkeypatch, tmp_pa
     ]
     assert [event["title"] for event in event_queue["past_events"]] == ["Pressure failure already visible"]
     assert [event["title"] for event in event_queue["upcoming_events"]] == ["Court hearing scheduled"]
+
+
+def test_initializer_normalizes_deepseek_type_aliases():
+    normalized = normalize_initializer_output(
+        {
+            "actors": [
+                {"name": "school_board", "type": "institution"},
+                {"name": "parents", "type": "group"},
+                {"name": "student_organizer", "type": "individual"},
+                {"name": "drivers_union", "type": "organization"},
+            ],
+            "cohort_states": [{"name": "parents", "state": {"attention_level": 0.6}}],
+            "hero_archetypes": [{"name": "student_organizer", "definition": {"role": "speaker"}}],
+            "graph_edges": [],
+        },
+        {"premise": "A school board changes bus routes."},
+    )
+
+    actor_types = {item["name"]: item["actor_type"] for item in normalized["actors"]}
+    assert actor_types == {
+        "school_board": "institution",
+        "parents": "cohort",
+        "student_organizer": "hero",
+        "drivers_union": "organization",
+    }
+    assert normalized["cohort_states"][0]["actor_name"] == "parents"
+    assert normalized["hero_archetypes"][0]["actor_type"] == "hero"
+    assert normalized["hero_archetypes"][0]["actor_name"] == "student_organizer"
+
+
+def test_initializer_agent_uses_bounded_deepseek_parse_repair(monkeypatch):
+    captured: dict = {}
+
+    class FakeCall:
+        id = UUID("11111111-1111-1111-1111-111111111111")
+        model = "deepseek/deepseek-v4-flash"
+
+    def fake_complete_with_audit(*args, **kwargs):
+        del args
+        captured.update(kwargs)
+        return LLMResponse(content="{}", parsed={}, raw={}), FakeCall()
+
+    monkeypatch.setattr(initializer_agent_module, "complete_with_audit", fake_complete_with_audit)
+
+    result = initializer_agent_module.run_initializer_agent(
+        object(),
+        big_bang_id=UUID("22222222-2222-2222-2222-222222222222"),
+        scenario_input={"premise": "A hospital board vote creates public concern."},
+        plain_text_corpus={"simulation_brief": {"mode": "direct"}},
+    )
+
+    assert captured["metadata"]["max_attempts"] == 2
+    assert captured["metadata"]["request_timeout_seconds"] == 210
+    assert captured["metadata"]["retry_timeout_errors"] is False
+    assert captured["metadata"]["json_repair_timeout_seconds"] == 60
+    assert captured["metadata"]["max_tokens"] == 8192
+    assert result["model"] == "deepseek/deepseek-v4-flash"
+    assert result["fallback"] is False
+
+
+def test_initializer_llm_failure_uses_deterministic_fallback(db, monkeypatch, tmp_path):
+    def fake_snapshot(db, big_bang_id):
+        snapshot = models.SourceOfTruthSnapshot(
+            big_bang_id=big_bang_id,
+            version="test",
+            content_hash="hash",
+            artifact_path="source-of-truth",
+        )
+        db.add(snapshot)
+        db.flush()
+        return snapshot
+
+    monkeypatch.setattr(initializer, "snapshot_source_of_truth", fake_snapshot)
+    monkeypatch.setattr(initializer, "ArtifactStore", lambda: ArtifactStore(root=tmp_path))
+    monkeypatch.setattr(
+        initializer,
+        "run_initializer_agent",
+        lambda *args, **kwargs: (_ for _ in ()).throw(LLMCallError("LLM unavailable")),
+    )
+
+    big_bang = initializer.create_big_bang(
+        db,
+        BigBangCreate(
+            name="Fallback",
+            scenario_text="A small scenario whose live initializer times out.",
+            use_initializer_agent=True,
+        ),
+    )
+
+    root = db.query(models.Multiverse).filter_by(big_bang_id=big_bang.id).one()
+    fallback_event = (
+        db.query(models.OperationLog)
+        .filter_by(big_bang_id=big_bang.id, event_type="initializer_fallback_used")
+        .one()
+    )
+
+    assert root.state["initializer_output"]["model"] == "deterministic_initializer_fallback"
+    assert db.query(models.Actor).filter_by(big_bang_id=big_bang.id).count() > 0
+    assert fallback_event.level == "warning"
+
+
+def test_initializer_chunker_failure_uses_deterministic_fallback(db, monkeypatch, tmp_path):
+    def fake_snapshot(db, big_bang_id):
+        snapshot = models.SourceOfTruthSnapshot(
+            big_bang_id=big_bang_id,
+            version="test",
+            content_hash="hash",
+            artifact_path="source-of-truth",
+        )
+        db.add(snapshot)
+        db.flush()
+        return snapshot
+
+    monkeypatch.setattr(initializer, "snapshot_source_of_truth", fake_snapshot)
+    monkeypatch.setattr(initializer, "ArtifactStore", lambda: ArtifactStore(root=tmp_path))
+    monkeypatch.setattr(
+        initializer,
+        "build_plain_text_corpus",
+        lambda *args, **kwargs: (_ for _ in ()).throw(LLMCallError("chunker unavailable")),
+    )
+    monkeypatch.setattr(
+        initializer,
+        "run_initializer_agent",
+        lambda *args, **kwargs: pytest.fail("initializer should not run after chunker failure"),
+    )
+
+    big_bang = initializer.create_big_bang(
+        db,
+        BigBangCreate(
+            name="Chunker fallback",
+            scenario_text="A long scenario whose chunk extractor fails.",
+            use_initializer_agent=True,
+        ),
+    )
+
+    root = db.query(models.Multiverse).filter_by(big_bang_id=big_bang.id).one()
+    event_types = [
+        row.event_type
+        for row in db.query(models.OperationLog).filter_by(big_bang_id=big_bang.id).all()
+    ]
+
+    assert root.state["plain_text_corpus"]["simulation_brief"]["mode"] == "fallback"
+    assert root.state["initializer_output"]["model"] == "deterministic_initializer_fallback"
+    assert "initializer_chunker_fallback_used" in event_types
+    assert "initializer_fallback_used" in event_types
 
 
 def test_initializer_graph_and_emotion_casts_tolerate_bad_model_strings(db):

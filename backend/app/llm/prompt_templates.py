@@ -76,8 +76,11 @@ Emotion and sociology policy:
 
 Output quality:
 - Return one JSON object only. No markdown, no comments, no code fences, no explanatory prose outside JSON.
+- Return minified JSON. Do not pretty-print, indent, or include redundant whitespace.
 - Prefer useful empty arrays over omitted keys when a category has no evidence.
 - Keep every value evidence-grounded and simulation-facing.
+- Keep output compact enough for a single machine parse: at most 6 actors, 5 cohort_states, 4 hero_states, 12 graph_edges, 8 trait_vectors, 8 emotion_observations, 6 initial_events, 5 branch_hypotheses, and 3 merge_hypotheses.
+- Keep descriptions, reasons, evidence, and expected_impact fields to one short sentence each. Use names, numeric fields, and compact arrays instead of long prose.
 """.strip()
 
 ACTOR_SYSTEM_PROMPT = """

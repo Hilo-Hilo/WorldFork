@@ -160,7 +160,7 @@ async def test_codex_env_enablement_survives_seeded_disabled_provider_row(monkey
                 return SimpleNamespace(
                     base_url="https://chatgpt.com/backend-api/codex",
                     api_key_env="OPENAI_CODEX_OAUTH_TOKEN",
-                    default_model="gpt-5.4",
+                    default_model="deepseek/deepseek-v4-flash",
                     fallback_model=None,
                     enabled=False,
                 )
@@ -178,7 +178,7 @@ async def test_codex_env_enablement_survives_seeded_disabled_provider_row(monkey
         openrouter_http_referer="https://worldfork.local",
         openrouter_title="WorldFork",
         openai_codex_base_url="https://chatgpt.com/backend-api/codex",
-        openai_codex_default_model="gpt-5.4",
+        openai_codex_default_model="deepseek/deepseek-v4-flash",
         openai_codex_fallback_model=None,
         openai_codex_enabled=True,
         openai_codex_oauth_token=None,

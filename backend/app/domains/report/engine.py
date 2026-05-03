@@ -113,14 +113,19 @@ def generate_multiverse_report(
         model=get_settings().report_agent_model,
         source={"multiverse_id": str(multiverse.id), "multiverse_version": multiverse.version},
     )
-    llm_report, llm_call = _run_report_agent(db, big_bang_id=multiverse.big_bang_id, content=content)
+    llm_report, llm_call, report_agent_error = _run_report_agent_with_fallback(
+        db,
+        big_bang_id=multiverse.big_bang_id,
+        content=content,
+    )
     _complete_report_agent_structured_fields(llm_report, content)
     content["llm_report"] = llm_report
     content["ai_summary"] = _summary_fields(llm_report)
-    report_agent_model = _attach_report_agent_call_metadata(metadata, llm_call)
-    metadata["report_agent_status"] = "succeeded"
-    metadata["report_agent_prompt_mode"] = (llm_call.meta or {}).get("prompt_mode")
-    metadata["report_agent_attempt"] = (llm_call.meta or {}).get("report_agent_attempt")
+    report_agent_model = _attach_report_agent_result_metadata(
+        metadata,
+        llm_call=llm_call,
+        fallback_error=report_agent_error,
+    )
     _refresh_report_counts(db, big_bang_id=multiverse.big_bang_id, content=content)
 
     report.current_version = version
@@ -214,14 +219,19 @@ def generate_final_big_bang_report(
             }
         },
     )
-    llm_report, llm_call = _run_report_agent(db, big_bang_id=big_bang.id, content=content)
+    llm_report, llm_call, report_agent_error = _run_report_agent_with_fallback(
+        db,
+        big_bang_id=big_bang.id,
+        content=content,
+    )
     _complete_report_agent_structured_fields(llm_report, content)
     content["llm_report"] = llm_report
     content["ai_summary"] = _summary_fields(llm_report)
-    report_agent_model = _attach_report_agent_call_metadata(metadata, llm_call)
-    metadata["report_agent_status"] = "succeeded"
-    metadata["report_agent_prompt_mode"] = (llm_call.meta or {}).get("prompt_mode")
-    metadata["report_agent_attempt"] = (llm_call.meta or {}).get("report_agent_attempt")
+    report_agent_model = _attach_report_agent_result_metadata(
+        metadata,
+        llm_call=llm_call,
+        fallback_error=report_agent_error,
+    )
     _refresh_report_counts(db, big_bang_id=big_bang.id, content=content)
 
     report.current_version = version
@@ -1675,6 +1685,8 @@ def _run_report_agent(
                     "prompt_mode": prompt_mode,
                     "report_agent_attempt": attempt,
                     "prompt_payload_char_count": len(json.dumps(prompt_content, default=str)),
+                    "max_attempts": 2,
+                    "request_timeout_seconds": 90,
                 },
             )
             parsed = response.parsed if isinstance(response.parsed, dict) else {}
@@ -1684,6 +1696,67 @@ def _run_report_agent(
             continue
 
     raise LLMCallError(f"Report agent failed after standard and rescue attempts: {'; '.join(failures)}")
+
+
+def _run_report_agent_with_fallback(
+    db: Session,
+    *,
+    big_bang_id,
+    content: dict[str, Any],
+) -> tuple[dict[str, Any], models.LLMCall | None, str | None]:
+    try:
+        llm_report, llm_call = _run_report_agent(db, big_bang_id=big_bang_id, content=content)
+        return llm_report, llm_call, None
+    except (LLMCallError, ValueError) as exc:
+        db.add(
+            models.OperationLog(
+                big_bang_id=big_bang_id,
+                event_type="report_agent_fallback_used",
+                level="warning",
+                body={
+                    "report_type": content.get("report_type"),
+                    "title": content.get("title"),
+                    "error": str(exc)[:4000],
+                },
+            )
+        )
+        db.flush()
+        return _fallback_report_agent_output(content, reason=str(exc)), None, str(exc)
+
+
+def _fallback_report_agent_output(content: dict[str, Any], *, reason: str) -> dict[str, Any]:
+    report_type = str(content.get("report_type") or "report").replace("_", " ")
+    title = str(content.get("title") or "WorldFork Report")
+    distribution = content.get("outcome_distribution") if isinstance(content.get("outcome_distribution"), dict) else {}
+    conclusions = content.get("outcome_conclusions") if isinstance(content.get("outcome_conclusions"), dict) else {}
+    likely = conclusions.get("likely_endpoint") if isinstance(conclusions.get("likely_endpoint"), dict) else {}
+    tick_count = distribution.get("tick_count") or distribution.get("total_ticks") or distribution.get("max_tick_index")
+    terminal = content.get("terminality_assessment") if isinstance(content.get("terminality_assessment"), dict) else {}
+    endpoint = likely.get("endpoint_label") or likely.get("endpoint_key") or "No selected endpoint"
+    executive_summary = (
+        f"{title} is available as a deterministic structured {report_type} because the report LLM "
+        "was unavailable during generation."
+    )
+    if tick_count is not None:
+        executive_summary += f" The structured evidence covers tick scope {tick_count}."
+    outcome = (
+        f"Likely endpoint: {endpoint}. Terminality assessment: "
+        f"{_truncate_text(json.dumps(terminal, sort_keys=True, default=str), 900)}"
+    )
+    return {
+        "report_markdown": "",
+        "executive_summary": executive_summary,
+        "outcome_interpretation": outcome,
+        "management_notes": (
+            "This report was produced from canonical database records without report-agent prose. "
+            "The structured evidence appendix remains authoritative for ticks, endpoints, timelines, "
+            "probabilities, and report inventory."
+        ),
+        "risk_notes": f"Report agent fallback reason: {_truncate_text(reason, 1200)}",
+        "endpoint_histogram": content.get("endpoint_histogram") or [],
+        "terminality_assessment": content.get("terminality_assessment") or {},
+        "contradiction_check": content.get("contradiction_check") or {},
+    }
 
 
 def _report_agent_messages(prompt_content: dict[str, Any], *, mode: str) -> list[dict[str, str]]:
@@ -1785,6 +1858,25 @@ def _attach_report_agent_call_metadata(metadata: dict[str, Any], llm_call: Any) 
         metadata["provider"] = provider
     model = str(getattr(llm_call, "model", None) or metadata.get("model") or get_settings().report_agent_model)
     metadata["model"] = model
+    return model
+
+
+def _attach_report_agent_result_metadata(
+    metadata: dict[str, Any],
+    *,
+    llm_call: Any | None,
+    fallback_error: str | None,
+) -> str:
+    if llm_call is not None:
+        model = _attach_report_agent_call_metadata(metadata, llm_call)
+        metadata["report_agent_status"] = "succeeded"
+        metadata["report_agent_prompt_mode"] = (llm_call.meta or {}).get("prompt_mode")
+        metadata["report_agent_attempt"] = (llm_call.meta or {}).get("report_agent_attempt")
+        return model
+    model = str(metadata.get("model") or get_settings().report_agent_model)
+    metadata["model"] = model
+    metadata["report_agent_status"] = "fallback"
+    metadata["report_agent_fallback_reason"] = _truncate_text(fallback_error or "report agent unavailable", 4000)
     return model
 
 

@@ -110,11 +110,10 @@ worldfork query GET /readyz --no-api-prefix
 
 ## Live Runs
 
-Use the configured default split for live validation:
+Use the configured default model for live validation:
 
 ```text
 openrouter/deepseek/deepseek-v4-flash
-openai-codex/gpt-5.4
 ```
 
 Full live smoke:

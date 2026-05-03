@@ -1,12 +1,32 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { useMutation, useQueries, useQuery } from "@tanstack/react-query";
-import { api, CLIENT_BASE } from "@/lib/api";
+import { api, ApiError, CLIENT_BASE } from "@/lib/api";
 import type { Report, ReportVersion } from "@/lib/types";
+
+function explainExportError(err: unknown, format: "md" | "pdf"): { title: string; detail: string } {
+  if (err instanceof ApiError) {
+    let parsed: { detail?: string; error?: { message?: string } } | null = null;
+    try {
+      parsed = JSON.parse(err.body);
+    } catch {
+      /* not JSON */
+    }
+    const inner = parsed?.detail || parsed?.error?.message || err.body || "";
+    if (err.status === 402 || inner.toLowerCase().includes("more credits")) {
+      return {
+        title: "LLM provider out of credits",
+        detail: `Rendering .${format} hit OpenRouter HTTP 402. Add credits at https://openrouter.ai/settings/credits and retry.`,
+      };
+    }
+    return { title: `Export .${format} failed (HTTP ${err.status})`, detail: inner.slice(0, 600) || err.message };
+  }
+  return { title: `Export .${format} failed`, detail: (err as Error)?.message || String(err) };
+}
 
 /* ----------------------------------------------------------------------------
  * Report Viewer — wired to the backend.
@@ -93,14 +113,30 @@ type FlatVersion = {
   version: ReportVersion;
 };
 
-export default function ReportPage({ runId }: { runId?: string }) {
+export default function ReportPage({
+  runId,
+  initialVersionId,
+}: {
+  runId?: string;
+  initialVersionId?: string;
+}) {
   if (!runId) return <EmptyState message="No run selected. Open this page from a dashboard or runs list." />;
 
-  return <ReportPageWired runId={runId} />;
+  return <ReportPageWired runId={runId} initialVersionId={initialVersionId} />;
 }
 
-function ReportPageWired({ runId }: { runId: string }) {
-  const [activeVersionId, setActiveVersionId] = useState<string | null>(null);
+function ReportPageWired({
+  runId,
+  initialVersionId,
+}: {
+  runId: string;
+  initialVersionId?: string;
+}) {
+  const [activeVersionId, setActiveVersionId] = useState<string | null>(initialVersionId ?? null);
+
+  useEffect(() => {
+    setActiveVersionId(initialVersionId ?? null);
+  }, [initialVersionId, runId]);
 
   const reportsQ = useQuery({
     queryKey: ["reports", runId],
@@ -135,8 +171,12 @@ function ReportPageWired({ runId }: { runId: string }) {
     return out;
   }, [reports, versionQueries]);
 
-  // Auto-select the first (most relevant) version
-  const activeId = activeVersionId ?? flatVersions[0]?.version.id;
+  // Auto-select the first (most relevant) version, but do not hold on to a stale
+  // query-param or user selection after the available version set changes.
+  const activeId =
+    activeVersionId && flatVersions.some((v) => v.version.id === activeVersionId)
+      ? activeVersionId
+      : flatVersions[0]?.version.id;
   const active = flatVersions.find((v) => v.version.id === activeId) || null;
 
   const markdownQ = useQuery({
@@ -168,6 +208,21 @@ function ReportPageWired({ runId }: { runId: string }) {
     onSuccess: ({ blob, filename }) => triggerDownload(blob, filename),
   });
 
+  // Build TOC by parsing markdown headings — must be called before any early returns
+  const md = (markdownQ.data as string) || "";
+  const tocItems = useMemo(() => {
+    const items: { id: string; label: string }[] = [];
+    md.split("\n").forEach((line) => {
+      const m = /^##\s+(.+)/.exec(line);
+      if (m) {
+        const label = m[1].trim();
+        const id = label.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+        items.push({ id, label });
+      }
+    });
+    return items;
+  }, [md]);
+
   if (reportsQ.isLoading) {
     return (
       <EmptyState runId={runId} message="Loading reports…" />
@@ -183,20 +238,11 @@ function ReportPageWired({ runId }: { runId: string }) {
     );
   }
 
-  // Build TOC by parsing markdown headings
-  const md = (markdownQ.data as string) || "";
-  const tocItems = useMemo(() => {
-    const items: { id: string; label: string }[] = [];
-    md.split("\n").forEach((line) => {
-      const m = /^##\s+(.+)/.exec(line);
-      if (m) {
-        const label = m[1].trim();
-        const id = label.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-        items.push({ id, label });
-      }
-    });
-    return items;
-  }, [md]);
+  const exportErr = exportPdf.error
+    ? { e: exportPdf.error, fmt: "pdf" as const, reset: () => exportPdf.reset() }
+    : exportMd.error
+      ? { e: exportMd.error, fmt: "md" as const, reset: () => exportMd.reset() }
+      : null;
 
   return (
     <div className="rpt" data-screen-label="03 Report viewer">
@@ -240,6 +286,49 @@ function ReportPageWired({ runId }: { runId: string }) {
           </button>
         </div>
       </header>
+
+      {exportErr && (() => {
+        const { title, detail } = explainExportError(exportErr.e, exportErr.fmt);
+        return (
+          <div
+            data-testid="rpt-error-banner"
+            style={{
+              margin: "10px 14px 0",
+              padding: "10px 14px",
+              background: "var(--surface)",
+              border: "1px solid var(--border)",
+              borderLeft: "2px solid var(--danger)",
+              borderRadius: 4,
+              display: "flex",
+              gap: 12,
+              alignItems: "flex-start",
+              fontFamily: "var(--font-mono)",
+              fontSize: 11,
+              color: "var(--danger)",
+            }}
+          >
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontWeight: 700, marginBottom: 3 }}>{title}</div>
+              <div style={{ color: "var(--fg-2)", whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{detail}</div>
+            </div>
+            <button
+              onClick={exportErr.reset}
+              style={{
+                background: "transparent",
+                border: "1px solid var(--border)",
+                color: "var(--muted)",
+                padding: "2px 8px",
+                borderRadius: 3,
+                cursor: "pointer",
+                fontSize: 11,
+                fontFamily: "var(--font-mono)",
+              }}
+            >
+              dismiss
+            </button>
+          </div>
+        );
+      })()}
 
       {/* BODY */}
       <div className="rpt-body">

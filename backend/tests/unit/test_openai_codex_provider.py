@@ -9,7 +9,7 @@ from backend.app.providers.openai_codex import OpenAICodexProvider, read_codex_o
 from backend.app.schemas.llm import ModelConfig, PromptPacket
 
 
-CODEX_MODEL = "gpt-5.4"
+CODEX_MODEL = "deepseek/deepseek-v4-flash"
 
 
 class _Responses:

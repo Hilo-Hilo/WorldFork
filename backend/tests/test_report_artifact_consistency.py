@@ -42,7 +42,7 @@ def db() -> Session:
             models.Base.metadata.drop_all(engine)
 
 
-def test_failed_report_job_rolls_back_completed_report_state(db: Session, monkeypatch):
+def test_failed_report_agent_uses_structured_fallback_report(db: Session, monkeypatch):
     big_bang = models.BigBang(
         name="Report consistency",
         description=None,
@@ -94,13 +94,19 @@ def test_failed_report_job_rolls_back_completed_report_state(db: Session, monkey
 
     persisted_report = db.scalar(select(models.Report).where(models.Report.id == report.id))
     persisted_multiverse = db.get(models.Multiverse, multiverse.id)
+    report_version = db.scalar(select(models.ReportVersion))
+    body = report_engine.render_report_version_to_markdown(report_version)
 
-    assert job.status == "failed"
-    assert "report agent failed" in job.error
-    assert persisted_report.status == "draft"
-    assert persisted_report.current_version == 0
-    assert persisted_multiverse.report_status == "not_ready"
-    assert db.scalars(select(models.ReportVersion)).all() == []
+    assert job.status == "succeeded"
+    assert job.error is None
+    assert persisted_report.status == "completed"
+    assert persisted_report.current_version == 1
+    assert persisted_multiverse.report_status == "completed"
+    assert report_version is not None
+    assert report_version.generation_metadata["report_agent_status"] == "fallback"
+    assert "report agent failed" in report_version.generation_metadata["report_agent_fallback_reason"]
+    assert "## AI Outcome Summary" in body
+    assert "structured evidence appendix remains authoritative" in body
 
 
 def test_final_report_inventory_uses_committed_status_and_version(db: Session, monkeypatch):

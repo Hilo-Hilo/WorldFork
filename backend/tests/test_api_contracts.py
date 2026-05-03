@@ -355,6 +355,30 @@ def test_big_bang_create_maps_llm_unavailable_to_sanitized_503(monkeypatch):
     assert db.rolled_back is True
 
 
+def test_big_bang_create_maps_empty_llm_call_error_to_sanitized_503(monkeypatch):
+    class RollbackDB:
+        rolled_back = False
+
+        def rollback(self):
+            self.rolled_back = True
+
+    db = RollbackDB()
+    app.dependency_overrides[get_db] = lambda: db
+    monkeypatch.setattr(
+        big_bangs_api,
+        "create_big_bang",
+        lambda _db, _payload: (_ for _ in ()).throw(LLMCallError("")),
+    )
+    try:
+        response = client.post("/api/big-bangs", json={"name": "Blank LLM error", "scenario_text": "x"})
+    finally:
+        app.dependency_overrides.pop(get_db, None)
+
+    assert response.status_code == 503
+    assert response.json() == {"detail": "LLM unavailable"}
+    assert db.rolled_back is True
+
+
 def test_scenario_bank_create_maps_llm_unavailable_to_sanitized_503(monkeypatch):
     class RollbackDB:
         rolled_back = False

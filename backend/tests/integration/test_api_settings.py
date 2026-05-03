@@ -214,10 +214,10 @@ async def test_get_llm_config_exposes_provider_routing_and_route_catalog(client,
         "entries": [
             {
                 "job_type": "report_agent",
-                "preferred_provider": "openai-codex",
-                "preferred_model": "gpt-5.4",
+                "preferred_provider": "openrouter",
+                "preferred_model": "deepseek/deepseek-v4-flash",
                 "fallback_provider": "openrouter",
-                "fallback_model": "openai/gpt-4o-mini",
+                "fallback_model": "deepseek/deepseek-v4-flash",
                 "temperature": 0.2,
                 "top_p": 1.0,
                 "max_tokens": 8192,
@@ -244,7 +244,8 @@ async def test_get_llm_config_exposes_provider_routing_and_route_catalog(client,
     report_effective = next(
         entry for entry in data["effective_model_routing"] if entry["route"] == "report_agent"
     )
-    assert report_effective["preferred_provider"] == "openai-codex"
+    assert report_effective["preferred_provider"] == "openrouter"
+    assert report_effective["preferred_model"] == "deepseek/deepseek-v4-flash"
     assert report_effective["matched_route"] == "report_agent"
     assert any(route["route"] == "cohort_agent" for route in data["known_routes"])
     assert data["api"]["model_routing"] == "/api/settings/model-routing"
@@ -307,8 +308,8 @@ async def test_get_model_routing_empty(client):
     assert effective["hero_agent"]["preferred_model"] == "deepseek/deepseek-v4-flash"
     assert effective["event_summary"]["preferred_model"] == "deepseek/deepseek-v4-flash"
     for route in ("initializer_agent", "god_agent", "endpoint_ledger", "report_agent"):
-        assert effective[route]["preferred_provider"] == "openai-codex"
-        assert effective[route]["preferred_model"] == "gpt-5.4"
+        assert effective[route]["preferred_provider"] == "openrouter"
+        assert effective[route]["preferred_model"] == "deepseek/deepseek-v4-flash"
     assert {route["route"] for route in data["known_routes"]} >= {
         "initializer_agent",
         "god_agent",

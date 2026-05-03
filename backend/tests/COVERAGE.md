@@ -98,11 +98,10 @@ Run the full maintained sweep:
 worldfork smoke live
 ```
 
-This intentionally uses real API credits and asserts that audited LLM calls use the default split:
+This intentionally uses real API credits and asserts that audited LLM calls use the default OpenRouter model:
 
 ```text
 openrouter/deepseek/deepseek-v4-flash
-openai-codex/gpt-5.4
 ```
 
 It covers settings mutation/restoration, live ticks, runtime checkpoints, manual intervention, job control, structured reports, on-demand PDFs, log endpoints, and final readiness.

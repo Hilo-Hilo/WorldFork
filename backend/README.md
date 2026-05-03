@@ -58,7 +58,7 @@ make lint
 worldfork smoke live
 ```
 
-`worldfork smoke live` uses real API credits and should use the default split: OpenRouter `deepseek/deepseek-v4-flash` plus OpenAI Codex `gpt-5.4`.
+`worldfork smoke live` uses real API credits and should use OpenRouter `deepseek/deepseek-v4-flash` for all audited runtime routes.
 
 ## More Documentation
 

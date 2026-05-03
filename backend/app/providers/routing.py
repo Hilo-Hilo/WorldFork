@@ -24,33 +24,18 @@ if TYPE_CHECKING:
 # ---------------------------------------------------------------------------
 
 _OPENROUTER_MODEL = "deepseek/deepseek-v4-flash"
-_OPENAI_CODEX_MODEL = "gpt-5.4"
+_OPENROUTER_PROVIDER = "openrouter"
 _AGENT_MODEL = _OPENROUTER_MODEL
 _AGENT_FALLBACK_MODEL = _OPENROUTER_MODEL
-_GOD_MODEL = _OPENAI_CODEX_MODEL
-_GOD_FALLBACK_MODEL = _OPENAI_CODEX_MODEL
 _LEGACY_GEMINI_SEED_MODEL = "google/gemini-3.1-flash-lite-preview"
-_OPENAI_CODEX_JOB_TYPES = {
-    "initialize_big_bang",
-    "god_agent_review",
-    "aggregate_run_results",
-    "evaluate_endpoint_ledger",
-    "force_deviation",
-}
 
 
 def _default_entry(job_type: JobType) -> ModelRoutingEntry:
     """Return a sane default :class:`ModelRoutingEntry` for *job_type*."""
-    if job_type in _OPENAI_CODEX_JOB_TYPES:
-        preferred_provider = "openai-codex"
-        preferred = _GOD_MODEL
-        fallback_provider = "openai-codex"
-        fallback = _GOD_FALLBACK_MODEL
-    else:
-        preferred_provider = "openrouter"
-        preferred = _AGENT_MODEL
-        fallback_provider = "openrouter"
-        fallback = _AGENT_FALLBACK_MODEL
+    preferred_provider = _OPENROUTER_PROVIDER
+    preferred = _AGENT_MODEL
+    fallback_provider = _OPENROUTER_PROVIDER
+    fallback = _AGENT_FALLBACK_MODEL
     return ModelRoutingEntry(
         job_type=job_type,
         preferred_provider=preferred_provider,
@@ -184,7 +169,7 @@ class RoutingTable:
         entries: dict[JobType, ModelRoutingEntry] = {}
         for row in rows:
             row_dict = dict(row)
-            if _is_legacy_seed_default_row(row_dict):
+            if _is_stale_seed_default_row(row_dict):
                 continue
             row_dict.pop("payload", None)
             try:
@@ -205,10 +190,24 @@ def _is_legacy_seed_default_row(row: dict[str, object]) -> bool:
     if not isinstance(payload, dict):
         return False
     return (
-        row.get("preferred_provider") == "openrouter"
+        row.get("preferred_provider") == _OPENROUTER_PROVIDER
         and row.get("preferred_model") == _LEGACY_GEMINI_SEED_MODEL
-        and payload.get("preferred_provider") == "openrouter"
+        and payload.get("preferred_provider") == _OPENROUTER_PROVIDER
         and payload.get("preferred_model") == _LEGACY_GEMINI_SEED_MODEL
+    )
+
+
+def _is_stale_seed_default_row(row: dict[str, object]) -> bool:
+    if _is_legacy_seed_default_row(row):
+        return True
+    payload = row.get("payload")
+    if not isinstance(payload, dict) or payload.get("source") != "seed_default":
+        return False
+    return not (
+        row.get("preferred_provider") == _OPENROUTER_PROVIDER
+        and row.get("preferred_model") == _OPENROUTER_MODEL
+        and row.get("fallback_provider") == _OPENROUTER_PROVIDER
+        and row.get("fallback_model") == _OPENROUTER_MODEL
     )
 
 

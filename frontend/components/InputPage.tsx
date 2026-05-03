@@ -314,6 +314,7 @@ function fmtDur(s: number) {
 function LoadingState({ scenarioName, useInitializer }: { scenarioName: string; useInitializer: boolean }) {
   const [elapsed, setElapsed] = useState(0);
   const [logIdx, setLogIdx] = useState(0);
+  const initializerWaitWindow = 300;
 
   useEffect(() => {
     const id = setInterval(() => setElapsed((e) => e + 1), 1000);
@@ -332,12 +333,22 @@ function LoadingState({ scenarioName, useInitializer }: { scenarioName: string; 
       id: "init",
       label: useInitializer ? "Initializer agent  ·  LLM call" : "Creating Big Bang record",
       status: "active",
-      t: "running",
+      t: useInitializer ? (elapsed < initializerWaitWindow ? `${initializerWaitWindow - elapsed}s backend window` : "awaiting backend") : "running",
     },
     { id: "world", label: "Persist root multiverse  ·  tick 0", status: "queued", t: "—" },
   ];
 
   const renderedLogs = LOG_TEMPLATES.slice(0, logIdx);
+  const initializerWaitLog =
+    useInitializer && elapsed >= 6
+      ? {
+          tag: "llm",
+          msg:
+            elapsed < initializerWaitWindow
+              ? "waiting on OpenRouter initializer response"
+              : "still waiting for the backend response",
+        }
+      : null;
 
   return (
     <div className="wf-loading">
@@ -347,7 +358,7 @@ function LoadingState({ scenarioName, useInitializer }: { scenarioName: string; 
           Initializing&nbsp;<span style={{ fontFamily: "var(--font-mono)", color: "var(--fg-2)" }}>{scenarioName}</span>
         </div>
         <div className="wf-loading-time">
-          {fmtDur(elapsed)} &nbsp;·&nbsp; {useInitializer ? "30–90s with initializer" : "fast init (no LLM)"}
+          {fmtDur(elapsed)} &nbsp;·&nbsp; {useInitializer ? "initializer LLM can take several minutes" : "fast init (no LLM)"}
         </div>
       </div>
 
@@ -370,6 +381,13 @@ function LoadingState({ scenarioName, useInitializer }: { scenarioName: string; 
             <span className="tag">[{l.tag}]</span> <span className="v">{l.msg}</span>
           </span>
         ))}
+        {initializerWaitLog && (
+          <span className="l">
+            <span className="t">{fmtDur(elapsed)}</span>
+            <span className="tag">[{initializerWaitLog.tag}]</span>{" "}
+            <span className="v">{initializerWaitLog.msg}</span>
+          </span>
+        )}
       </div>
     </div>
   );
@@ -458,13 +476,33 @@ export default function InputPage() {
 
   const apiErr = submit.error instanceof ApiError ? submit.error : null;
   const errCode = apiErr ? `HTTP_${apiErr.status}` : "ERR_UNKNOWN";
-  const errTitle = apiErr?.status === 503 ? "LLM provider unavailable" : "Couldn't create Big Bang";
-  const errMessage =
-    apiErr?.status === 503
-      ? "The configured initializer model returned 503 from upstream. Try disabling the initializer agent or using a shorter scenario."
-      : apiErr
-        ? `${apiErr.status} ${apiErr.message}`
-        : (submit.error as Error)?.message || "";
+
+  let errTitle = "Couldn't create Big Bang";
+  let errMessage = (submit.error as Error)?.message || "";
+  if (apiErr) {
+    let parsedBody: { detail?: string; error?: { message?: string } } | null = null;
+    try {
+      parsedBody = JSON.parse(apiErr.body);
+    } catch {
+      /* not JSON */
+    }
+    const inner = parsedBody?.detail || parsedBody?.error?.message || apiErr.body || "";
+    const innerLc = inner.toLowerCase();
+    if (apiErr.status === 402 || innerLc.includes("payment required") || innerLc.includes("more credits")) {
+      errTitle = "LLM provider out of credits";
+      errMessage =
+        "Submission hit OpenRouter HTTP 402 Payment Required. Add credits at https://openrouter.ai/settings/credits, then retry. The simulation cannot run without LLM credits.";
+    } else if (apiErr.status === 503) {
+      errTitle = "LLM provider unavailable";
+      errMessage =
+        innerLc === "llm unavailable"
+          ? "The initializer LLM did not complete through OpenRouter before the backend timeout. Disable the initializer for a fast local setup, or retry after provider latency or credits are resolved."
+          : inner ||
+            "The configured initializer model returned 503 from upstream. Try disabling the initializer agent or using a shorter scenario.";
+    } else {
+      errMessage = `${apiErr.status} ${apiErr.message}`;
+    }
+  }
   const errDetail = apiErr?.body?.slice(0, 600);
 
   return (

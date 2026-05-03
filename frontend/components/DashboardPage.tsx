@@ -3,8 +3,105 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { api } from "@/lib/api";
-import type { Multiverse } from "@/lib/types";
+import { api, ApiError } from "@/lib/api";
+import type { AgentLog, Multiverse } from "@/lib/types";
+
+/* ----------------------------------------------------------------------------
+ * Translate a thrown error into a user-friendly { title, detail } pair.
+ * Detects common backend cases (402 out-of-credits, 503 LLM unavailable,
+ * 409 paused, 500 generic) so the dashboard banner is actionable instead of
+ * surfacing raw HTTP status codes the user can't act on.
+ * -------------------------------------------------------------------------- */
+function explainError(err: unknown, action: string): { title: string; detail: string } {
+  if (err instanceof ApiError) {
+    let parsed: { detail?: string; error?: { message?: string } } | null = null;
+    try {
+      parsed = JSON.parse(err.body);
+    } catch {
+      /* not JSON */
+    }
+    const inner = parsed?.detail || parsed?.error?.message || err.body || "";
+    const innerLc = inner.toLowerCase();
+
+    if (err.status === 402 || innerLc.includes("payment required") || innerLc.includes("more credits")) {
+      return {
+        title: "LLM provider out of credits",
+        detail: `${action} hit OpenRouter HTTP 402. Add credits at https://openrouter.ai/settings/credits and retry.`,
+      };
+    }
+    if (err.status === 409) {
+      return { title: "Conflict", detail: inner || "The big bang is in a state that doesn't accept this action right now." };
+    }
+    if (err.status === 503 || innerLc.includes("llm unavailable")) {
+      return {
+        title: "LLM provider unavailable",
+        detail: inner || "The configured model returned 503. Check provider routing or try again later.",
+      };
+    }
+    if (err.status === 500) {
+      return {
+        title: `${action} failed (HTTP 500)`,
+        detail: inner.slice(0, 600) || "Backend raised an unhandled exception. Check api logs for the traceback.",
+      };
+    }
+    return { title: `${action} failed (HTTP ${err.status})`, detail: inner.slice(0, 600) || err.message };
+  }
+  return { title: `${action} failed`, detail: (err as Error)?.message || String(err) };
+}
+
+function ErrorBanner({
+  title,
+  detail,
+  onDismiss,
+  testId,
+}: {
+  title: string;
+  detail: string;
+  onDismiss?: () => void;
+  testId?: string;
+}) {
+  return (
+    <div
+      data-testid={testId}
+      style={{
+        margin: "10px 14px 0",
+        padding: "10px 14px",
+        background: "var(--surface)",
+        border: "1px solid var(--border)",
+        borderLeft: "2px solid var(--danger)",
+        borderRadius: 4,
+        display: "flex",
+        gap: 12,
+        alignItems: "flex-start",
+        fontFamily: "var(--font-mono)",
+        fontSize: 11,
+        color: "var(--danger)",
+      }}
+    >
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ fontWeight: 700, marginBottom: 3 }}>{title}</div>
+        <div style={{ color: "var(--fg-2)", whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{detail}</div>
+      </div>
+      {onDismiss && (
+        <button
+          onClick={onDismiss}
+          style={{
+            background: "transparent",
+            border: "1px solid var(--border)",
+            color: "var(--muted)",
+            padding: "2px 8px",
+            borderRadius: 3,
+            cursor: "pointer",
+            fontSize: 11,
+            fontFamily: "var(--font-mono)",
+          }}
+        >
+          dismiss
+        </button>
+      )}
+    </div>
+  );
+}
 
 /* ----------------------------------------------------------------------------
  * Run Dashboard — wired to the backend.
@@ -353,21 +450,53 @@ function DashboardWired({
     refetchInterval: 2500,
   });
 
+  const jobs = useQuery({
+    queryKey: ["jobs", runId],
+    queryFn: () => api.listJobs(runId, 20),
+    refetchInterval: 2000,
+  });
+
+  const [dismissedErr, setDismissedErr] = useState<string | null>(null);
+
   const pause = useMutation({
     mutationFn: () => api.pauseBigBang(runId),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ["bigBang", runId] }),
+    onSuccess: () => {
+      setDismissedErr(null);
+      qc.invalidateQueries({ queryKey: ["bigBang", runId] });
+    },
   });
   const resume = useMutation({
     mutationFn: () => api.resumeBigBang(runId),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ["bigBang", runId] }),
-  });
-  const runAll = useMutation({
-    mutationFn: () => api.runUntilComplete(runId, 32),
     onSuccess: () => {
+      setDismissedErr(null);
       qc.invalidateQueries({ queryKey: ["bigBang", runId] });
-      qc.invalidateQueries({ queryKey: ["multiverses", runId] });
     },
   });
+  const runAll = useMutation({
+    mutationFn: () => api.createRunUntilCompleteJob(runId, 32),
+    onSuccess: () => {
+      setDismissedErr(null);
+      qc.invalidateQueries({ queryKey: ["jobs", runId] });
+      qc.invalidateQueries({ queryKey: ["bigBang", runId] });
+      qc.invalidateQueries({ queryKey: ["multiverses", runId] });
+      qc.invalidateQueries({ queryKey: ["agentLogs"] });
+    },
+  });
+
+  // Resolve the most relevant active error to surface in the banner.
+  // Mutation errors take priority over query polling errors so the user sees
+  // feedback for the action they just took. Query errors only show if no
+  // mutation has failed and the cached data is stale (i.e. data is empty).
+  const activeErr = (() => {
+    if (runAll.error) return { err: runAll.error, action: "Run to completion", reset: () => runAll.reset() };
+    if (pause.error) return { err: pause.error, action: "Pause", reset: () => pause.reset() };
+    if (resume.error) return { err: resume.error, action: "Resume", reset: () => resume.reset() };
+    if (bigBang.error && !bigBang.data) return { err: bigBang.error, action: "Loading run", reset: null };
+    if (multiverses.error && !multiverses.data) return { err: multiverses.error, action: "Loading multiverses", reset: null };
+    return null;
+  })();
+  const errKey = activeErr ? `${activeErr.action}:${(activeErr.err as Error)?.message}` : null;
+  const showErr = activeErr && errKey !== dismissedErr;
 
   const root = useMemo(
     () => buildTree(bigBang.data?.name || "Run", multiverses.data || []),
@@ -388,6 +517,18 @@ function DashboardWired({
   const allTerminal =
     multiverses.data && multiverses.data.length > 0 &&
     multiverses.data.every((m) => ["completed", "terminated", "frozen", "failed"].includes(m.status));
+  const activeRunJob = (jobs.data || []).find(
+    (job) =>
+      job.job_type === "run_big_bang_until_complete" &&
+      ["queued", "running", "paused", "interrupt_requested"].includes(job.status),
+  );
+  const runButtonLabel = (() => {
+    if (runAll.isPending) return "Starting...";
+    if (activeRunJob?.status === "queued") return "Queued...";
+    if (activeRunJob?.status === "running" || activeRunJob?.status === "interrupt_requested") return "Running...";
+    if (activeRunJob?.status === "paused") return "Paused";
+    return "Run to completion";
+  })();
 
   // logs scoped to this big bang (api/agent/logs returns global; filter by message)
   const runLogs = (logs.data?.data || []).filter(
@@ -396,6 +537,19 @@ function DashboardWired({
       l.message.includes(runId.slice(0, 8)) ||
       (multiverses.data || []).some((m) => l.message.includes(m.id.slice(0, 8))),
   );
+  const initializerOutput = bigBang.data?.scenario_input?.initializer_output as Record<string, unknown> | undefined;
+  const initializerFallbackUsed = Boolean(initializerOutput?.fallback);
+  const displayLog = (log: AgentLog): AgentLog =>
+    initializerFallbackUsed &&
+    log.source === "llm" &&
+    log.status === "failed" &&
+    log.message === `initializer_agent_${runId}`
+      ? {
+          ...log,
+          status: "fallback used",
+          message: "initializer LLM output was invalid; deterministic seed used",
+      }
+      : log;
 
   return (
     <div className="dash" data-screen-label="02 Run dashboard">
@@ -438,14 +592,26 @@ function DashboardWired({
               Resume
             </button>
           )}
-          <button className="dash-btn" onClick={() => runAll.mutate()} disabled={runAll.isPending || allTerminal}>
-            {runAll.isPending ? "Running…" : "Run to completion"}
+          <button className="dash-btn" onClick={() => runAll.mutate()} disabled={runAll.isPending || Boolean(activeRunJob) || allTerminal}>
+            {runButtonLabel}
           </button>
           <Link href={`/report?run=${runId}`} className="dash-btn is-primary" style={{ textDecoration: "none" }}>
             Open report
           </Link>
         </div>
       </header>
+
+      {showErr && activeErr && (() => {
+        const { title, detail } = explainError(activeErr.err, activeErr.action);
+        return (
+          <ErrorBanner
+            testId="dash-error-banner"
+            title={title}
+            detail={detail}
+            onDismiss={activeErr.reset ? () => { activeErr.reset!(); setDismissedErr(null); } : () => setDismissedErr(errKey!)}
+          />
+        );
+      })()}
 
       {/* BODY */}
       <div className="dash-body">
@@ -604,8 +770,10 @@ function DashboardWired({
                       no recent log entries reference this run
                     </div>
                   )}
-                  {runLogs.slice(0, 8).map((l) => (
-                    <div key={l.id} className="event">
+                  {runLogs.slice(0, 8).map((rawLog) => {
+                    const l = displayLog(rawLog);
+                    return (
+                    <div key={rawLog.id} className="event">
                       <span className="t">{new Date(l.created_at).toLocaleTimeString().slice(0, 5)}</span>
                       <div className="b">
                         <div className="h">
@@ -617,7 +785,8 @@ function DashboardWired({
                         <div className="s">{l.status}</div>
                       </div>
                     </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             </>
@@ -635,13 +804,16 @@ function DashboardWired({
       <footer className="dash-bottom">
         <span className="label">live log</span>
         <span className="stream">
-          {(logs.data?.data || []).slice(0, 8).map((l) => (
-            <span key={l.id} className="l">
+          {(logs.data?.data || []).slice(0, 8).map((rawLog) => {
+            const l = displayLog(rawLog);
+            return (
+            <span key={rawLog.id} className="l">
               <span className="t">{new Date(l.created_at).toLocaleTimeString().slice(0, 8)}</span>
               <span className="tag">[{l.source}]</span>
               <span className="v">{l.message.slice(0, 80)}</span>
             </span>
-          ))}
+            );
+          })}
           {(!logs.data || logs.data.data.length === 0) && (
             <span className="l">
               <span className="v">no logs yet</span>

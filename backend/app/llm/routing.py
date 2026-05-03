@@ -92,11 +92,8 @@ AUDITED_LLM_ROUTES: tuple[AuditedLLMRouteInfo, ...] = (
 )
 
 _ROUTE_INFO_BY_NAME = {str(item.route): item for item in AUDITED_LLM_ROUTES}
-_OPENAI_CODEX_MODEL_SETTINGS = {
-    "initializer_agent_model",
-    "god_agent_model",
-    "report_agent_model",
-}
+_OPENROUTER_PROVIDER = "openrouter"
+_OPENROUTER_MODEL = "deepseek/deepseek-v4-flash"
 _LEGACY_GEMINI_SEED_MODEL = "google/gemini-3.1-flash-lite-preview"
 
 
@@ -121,7 +118,7 @@ class ResolvedLLMRoute:
         return (self.primary, self.fallback)
 
     def metadata_for(self, candidate: LLMRouteCandidate, metadata: dict[str, Any]) -> dict[str, Any]:
-        return {**metadata, **candidate.metadata_defaults}
+        return {**candidate.metadata_defaults, **metadata}
 
     def audit_meta(self) -> dict[str, Any]:
         payload: dict[str, Any] = {
@@ -173,7 +170,7 @@ def resolve_audited_llm_route(
     settings = get_settings()
     route_name = _route_name(route)
     row = _route_row(db, route_name)
-    if _is_legacy_seed_default_row(row):
+    if _is_stale_seed_default_row(row):
         row = None
     matched_route = route_name if row is not None else None
     alias_row, alias_name = _first_alias_row(db, route_name)
@@ -249,7 +246,7 @@ def _aliases_for_route(route_name: str | None) -> tuple[str, ...]:
 def _first_alias_row(db: Session, route_name: str | None) -> tuple[dict[str, Any] | None, str | None]:
     for alias in _aliases_for_route(route_name):
         row = _route_row(db, alias)
-        if row is not None and not _is_legacy_seed_default_row(row):
+        if row is not None and not _is_stale_seed_default_row(row):
             return row, alias
     return None, None
 
@@ -277,7 +274,7 @@ def _is_seed_default_row(row: dict[str, Any]) -> bool:
     payload = row.get("payload")
     return (
         (isinstance(payload, dict) and payload.get("source") == "seed_default")
-        or _is_legacy_seed_default_row(row)
+        or _is_stale_seed_default_row(row)
     )
 
 
@@ -288,10 +285,26 @@ def _is_legacy_seed_default_row(row: dict[str, Any] | None) -> bool:
     if not isinstance(payload, dict):
         return False
     return (
-        row.get("preferred_provider") == "openrouter"
+        row.get("preferred_provider") == _OPENROUTER_PROVIDER
         and row.get("preferred_model") == _LEGACY_GEMINI_SEED_MODEL
-        and payload.get("preferred_provider") == "openrouter"
+        and payload.get("preferred_provider") == _OPENROUTER_PROVIDER
         and payload.get("preferred_model") == _LEGACY_GEMINI_SEED_MODEL
+    )
+
+
+def _is_stale_seed_default_row(row: dict[str, Any] | None) -> bool:
+    if not row:
+        return False
+    if _is_legacy_seed_default_row(row):
+        return True
+    payload = row.get("payload")
+    if not isinstance(payload, dict) or payload.get("source") != "seed_default":
+        return False
+    return not (
+        row.get("preferred_provider") == _OPENROUTER_PROVIDER
+        and row.get("preferred_model") == _OPENROUTER_MODEL
+        and row.get("fallback_provider") == _OPENROUTER_PROVIDER
+        and row.get("fallback_model") == _OPENROUTER_MODEL
     )
 
 
@@ -321,8 +334,4 @@ def _settings_provider_for_route(
     route_name: str | None,
     fallback_provider: str | None,
 ) -> str:
-    if route_name:
-        info = _ROUTE_INFO_BY_NAME.get(route_name)
-        if info is not None and info.fallback_model_setting in _OPENAI_CODEX_MODEL_SETTINGS:
-            return "openai-codex"
     return str(fallback_provider or getattr(settings, "default_llm_provider", "openrouter"))

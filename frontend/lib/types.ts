@@ -80,6 +80,29 @@ export type ReportVersion = {
   updated_at: string;
 };
 
+export type Job = {
+  id: string;
+  job_type: string;
+  queue_name: string;
+  status: string;
+  big_bang_id: string | null;
+  payload: Record<string, unknown>;
+  result: Record<string, unknown>;
+  error: string | null;
+  idempotency_key: string;
+  attempt_number: number;
+  max_attempts: number;
+  retryable: boolean;
+  queued_at: string | null;
+  started_at: string | null;
+  paused_at: string | null;
+  interrupt_requested_at: string | null;
+  interrupted_at: string | null;
+  finished_at: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
 export type AgentLog = {
   id: string;
   source: string;

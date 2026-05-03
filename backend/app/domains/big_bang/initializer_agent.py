@@ -42,7 +42,16 @@ def run_initializer_agent(
                 ),
             },
         ],
-        metadata={"max_tokens": 3400, "temperature": 0.25, "agent_type": "initializer_agent"},
+        metadata={
+            "max_tokens": 8192,
+            "temperature": 0.25,
+            "agent_type": "initializer_agent",
+            "max_attempts": 2,
+            "request_timeout_seconds": 210,
+            "retry_timeout_errors": False,
+            "json_repair_timeout_seconds": 60,
+            "json_repair_max_tokens": 8192,
+        },
     )
     parsed = response.parsed or {}
     normalized = normalize_initializer_output(parsed, scenario_input)
@@ -146,17 +155,17 @@ def normalize_initializer_output(parsed: dict[str, Any], scenario_input: dict[st
     fallback = fallback_initializer_output(scenario_input)
     output = parsed if isinstance(parsed, dict) else {}
     normalized = {
-        "actors": _list_or_default(output.get("actors"), fallback["actors"]),
+        "actors": _canonicalize_actors(_list_or_default(output.get("actors"), fallback["actors"])),
         "simulation_brief": output.get("simulation_brief") or output.get("simulationBrief") or {"summary": scenario_input},
         "population_archetypes": _list_or_default(
             output.get("population_archetypes") or output.get("populationArchetypes"),
             fallback["population_archetypes"],
         ),
-        "cohorts": _list_or_default(output.get("cohorts") or output.get("cohort_states"), fallback["cohorts"]),
-        "cohort_states": _list_or_default(output.get("cohort_states") or output.get("cohorts"), fallback["cohorts"]),
-        "heroes": _list_or_default(output.get("heroes") or output.get("hero_archetypes"), fallback["heroes"]),
-        "hero_archetypes": _list_or_default(output.get("hero_archetypes") or output.get("heroes"), fallback["heroes"]),
-        "hero_states": _list_or_default(output.get("hero_states"), fallback["heroes"]),
+        "cohorts": _canonicalize_cohorts(_list_or_default(output.get("cohorts") or output.get("cohort_states"), fallback["cohorts"])),
+        "cohort_states": _canonicalize_cohorts(_list_or_default(output.get("cohort_states") or output.get("cohorts"), fallback["cohorts"])),
+        "heroes": _canonicalize_heroes(_list_or_default(output.get("heroes") or output.get("hero_archetypes"), fallback["heroes"])),
+        "hero_archetypes": _canonicalize_heroes(_list_or_default(output.get("hero_archetypes") or output.get("heroes"), fallback["heroes"])),
+        "hero_states": _canonicalize_heroes(_list_or_default(output.get("hero_states"), fallback["heroes"])),
         "trait_vectors": _list_or_default(output.get("trait_vectors") or output.get("traits"), fallback["trait_vectors"]),
         "graph_edges": _list_or_default(output.get("graph_edges") or output.get("graphEdges"), fallback["graph_edges"]),
         "emotion_observations": _list_or_default(
@@ -177,6 +186,55 @@ def normalize_initializer_output(parsed: dict[str, Any], scenario_input: dict[st
     normalized["fallback"] = bool(output.get("fallback")) or parsed.get("error") is not None if isinstance(parsed, dict) else True
     normalized["graph_edges"] = ensure_required_graph_layers(normalized["graph_edges"])
     return normalized
+
+
+def _canonicalize_actors(items: list[dict]) -> list[dict]:
+    canonical: list[dict] = []
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+        actor = dict(item)
+        actor["actor_type"] = _canonical_actor_type(
+            actor.get("actor_type") or actor.get("type") or actor.get("kind") or actor.get("role")
+        )
+        canonical.append(actor)
+    return canonical
+
+
+def _canonicalize_cohorts(items: list[dict]) -> list[dict]:
+    canonical: list[dict] = []
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+        cohort = dict(item)
+        cohort.setdefault("actor_name", cohort.get("name") or cohort.get("actor") or cohort.get("id"))
+        canonical.append(cohort)
+    return canonical
+
+
+def _canonicalize_heroes(items: list[dict]) -> list[dict]:
+    canonical: list[dict] = []
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+        hero = dict(item)
+        hero.setdefault("actor_type", "hero")
+        hero.setdefault("actor_name", hero.get("name") or hero.get("actor") or hero.get("id"))
+        canonical.append(hero)
+    return canonical
+
+
+def _canonical_actor_type(value: Any) -> str:
+    raw = str(value or "entity").strip().lower().replace("-", "_").replace(" ", "_")
+    if raw in {"cohort", "group", "population", "public", "community", "audience"}:
+        return "cohort"
+    if raw in {"hero", "individual", "person", "leader", "influencer", "catalyst"}:
+        return "hero"
+    if raw in {"institution", "agency", "board", "government", "regulator", "authority"}:
+        return "institution"
+    if raw in {"organization", "organisation", "union", "business", "company", "media"}:
+        return "organization"
+    return raw or "entity"
 
 
 def merge_initializer_lists(generated: list[dict], manual: list[dict]) -> list[dict]:
