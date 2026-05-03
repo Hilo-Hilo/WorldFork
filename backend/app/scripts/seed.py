@@ -11,7 +11,7 @@ from pathlib import Path
 
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 
-from backend.app.core.config import OPENROUTER_DEFAULT_MODEL, settings
+from backend.app.core.config import FAST_MODEL_DEFAULT, SMART_MODEL_DEFAULT, settings
 from backend.app.core.db import SyncSessionLocal
 from backend.app.models.settings import (
     BranchPolicySettingModel,
@@ -146,8 +146,23 @@ def _seed_provider(session) -> None:
 
 
 # PRD §16.4 model routing defaults. Keep seed rows on the canonical OpenRouter
-# model so local .env experiments do not silently persist as cluster-wide defaults.
-_OPENROUTER_MODEL = OPENROUTER_DEFAULT_MODEL
+# smart/fast OpenRouter split used by live runtime defaults.
+_FAST_MODEL = FAST_MODEL_DEFAULT
+_SMART_MODEL = SMART_MODEL_DEFAULT
+_OPENROUTER_MODEL = _FAST_MODEL
+_SMART_MODEL_JOB_TYPES = frozenset(
+    {
+        "initialize_big_bang",
+        "initializer_agent",
+        "initializer_chunk_extractor",
+        "god_agent_review",
+        "god_agent",
+        "evaluate_endpoint_ledger",
+        "endpoint_ledger",
+        "aggregate_run_results",
+        "report_agent",
+    }
+)
 
 _ROUTING_DEFAULTS = [
     {
@@ -523,10 +538,11 @@ _ROUTING_DEFAULTS = [
 
 def _routing_model_defaults(row: dict) -> dict:
     row = dict(row)
+    model = _SMART_MODEL if row.get("job_type") in _SMART_MODEL_JOB_TYPES else _FAST_MODEL
     row["preferred_provider"] = "openrouter"
-    row["preferred_model"] = _OPENROUTER_MODEL
+    row["preferred_model"] = model
     row["fallback_provider"] = "openrouter"
-    row["fallback_model"] = _OPENROUTER_MODEL
+    row["fallback_model"] = model
     return row
 
 

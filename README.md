@@ -191,13 +191,14 @@ cp .env.example .env
 
 Set `OPENROUTER_API_KEY` in `.env`.
 
-Keep the default model for all audited runtime routes:
+Keep the default smart/fast split for audited runtime routes:
 
 ```text
-deepseek/deepseek-v4-flash
+SMART_MODEL=moonshotai/kimi-k2.6
+FAST_MODEL=deepseek/deepseek-v4-flash
 ```
 
-Initializer, God-review, endpoint-ledger, report, cohort, hero, action, and event-summary routes all default to `deepseek/deepseek-v4-flash` through OpenRouter.
+Initializer, God-review, endpoint-ledger, and report routes default to Kimi K2.6 through OpenRouter. Cohort, hero, action, and event-summary routes default to DeepSeek V4 Flash through OpenRouter.
 
 Install the CLI:
 
@@ -315,9 +316,10 @@ prd.md                product requirements source
 ## Status
 
 WorldFork is **backend-first** and **CLI-first**.
-The current system is Dockerized, tested across unit/integration/e2e layers, and live-smoke validated against the default OpenRouter model:
+The current system is Dockerized, tested across unit/integration/e2e layers, and live-smoke validated against the default OpenRouter smart/fast split:
 
 ```text
+openrouter/moonshotai/kimi-k2.6
 openrouter/deepseek/deepseek-v4-flash
 ```
 

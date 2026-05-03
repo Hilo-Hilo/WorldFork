@@ -19,7 +19,7 @@ npx skills add Hilo-Hilo/WorldFork/skills/worldfork --all
 After installing them, use the setup skill to guide me through prerequisites,
 .env configuration with OPENROUTER_API_KEY, CLI installation, Docker Compose
 startup, migrations, seeding, readiness verification, and the onboarding demo.
-Use the default OpenRouter `deepseek/deepseek-v4-flash` model for all live API-credit runs.
+Use the default OpenRouter smart/fast split for live API-credit runs: `moonshotai/kimi-k2.6` for initializer, God-review, endpoint-ledger, and report work, and `deepseek/deepseek-v4-flash` for cohort, hero, action, and event-summary work.
 ```
 
 ## Complete Manual Setup
@@ -43,7 +43,7 @@ cp .env.example .env
 
 Set `OPENROUTER_API_KEY` in `.env`.
 
-WorldFork defaults initializer, God-review, endpoint-ledger, report, cohort, hero, action, and event-summary work to `deepseek/deepseek-v4-flash` through OpenRouter.
+WorldFork defaults initializer, God-review, endpoint-ledger, and report work to `moonshotai/kimi-k2.6` through OpenRouter. Cohort, hero, action, and event-summary work defaults to `deepseek/deepseek-v4-flash` through OpenRouter.
 
 ### Install The CLI
 

@@ -7,7 +7,7 @@ from typing import Any
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
-from app.core.config import get_settings
+from app.core.config import FAST_MODEL_DEFAULT, SMART_MODEL_DEFAULT, get_settings
 
 
 class AuditedLLMRoute(StrEnum):
@@ -93,8 +93,23 @@ AUDITED_LLM_ROUTES: tuple[AuditedLLMRouteInfo, ...] = (
 
 _ROUTE_INFO_BY_NAME = {str(item.route): item for item in AUDITED_LLM_ROUTES}
 _OPENROUTER_PROVIDER = "openrouter"
-_OPENROUTER_MODEL = "deepseek/deepseek-v4-flash"
+_FAST_MODEL = FAST_MODEL_DEFAULT
+_SMART_MODEL = SMART_MODEL_DEFAULT
+_OPENROUTER_MODEL = _FAST_MODEL
 _LEGACY_GEMINI_SEED_MODEL = "google/gemini-3.1-flash-lite-preview"
+_SMART_MODEL_ROUTES = frozenset(
+    {
+        str(AuditedLLMRoute.INITIALIZER_CHUNK_EXTRACTOR),
+        str(AuditedLLMRoute.INITIALIZER_AGENT),
+        str(AuditedLLMRoute.GOD_AGENT),
+        str(AuditedLLMRoute.REPORT_AGENT),
+        str(AuditedLLMRoute.ENDPOINT_LEDGER),
+        "initialize_big_bang",
+        "god_agent_review",
+        "aggregate_run_results",
+        "evaluate_endpoint_ledger",
+    }
+)
 
 
 @dataclass(frozen=True)
@@ -300,12 +315,18 @@ def _is_stale_seed_default_row(row: dict[str, Any] | None) -> bool:
     payload = row.get("payload")
     if not isinstance(payload, dict) or payload.get("source") != "seed_default":
         return False
+    expected_model = _seed_default_model_for_row(row)
     return not (
         row.get("preferred_provider") == _OPENROUTER_PROVIDER
-        and row.get("preferred_model") == _OPENROUTER_MODEL
+        and row.get("preferred_model") == expected_model
         and row.get("fallback_provider") == _OPENROUTER_PROVIDER
-        and row.get("fallback_model") == _OPENROUTER_MODEL
+        and row.get("fallback_model") == expected_model
     )
+
+
+def _seed_default_model_for_row(row: dict[str, Any]) -> str:
+    job_type = str(row.get("job_type") or "")
+    return _SMART_MODEL if job_type in _SMART_MODEL_ROUTES else _FAST_MODEL
 
 
 def _metadata_defaults(row: dict[str, Any]) -> dict[str, Any]:

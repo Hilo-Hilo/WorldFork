@@ -503,14 +503,16 @@ def test_legacy_gemini_seed_route_uses_current_runtime_defaults(monkeypatch):
     }
     settings = SimpleNamespace(
         default_llm_provider="openrouter",
+        smart_model="moonshotai/kimi-k2.6",
+        fast_model="deepseek/deepseek-v4-flash",
         default_model="deepseek/deepseek-v4-flash",
         fallback_model="deepseek/deepseek-v4-flash",
-        initializer_agent_model="deepseek/deepseek-v4-flash",
-        god_agent_model="deepseek/deepseek-v4-flash",
+        initializer_agent_model="moonshotai/kimi-k2.6",
+        god_agent_model="moonshotai/kimi-k2.6",
         cohort_agent_model="deepseek/deepseek-v4-flash",
         hero_agent_model="deepseek/deepseek-v4-flash",
         event_summary_model="deepseek/deepseek-v4-flash",
-        report_agent_model="deepseek/deepseek-v4-flash",
+        report_agent_model="moonshotai/kimi-k2.6",
     )
     monkeypatch.setattr(llm_routing, "get_settings", lambda: settings)
 
@@ -525,7 +527,7 @@ def test_legacy_gemini_seed_route_uses_current_runtime_defaults(monkeypatch):
 
     assert report_route.matched_route is None
     assert report_route.primary.provider == "openrouter"
-    assert report_route.primary.model == "deepseek/deepseek-v4-flash"
+    assert report_route.primary.model == "moonshotai/kimi-k2.6"
     assert cohort_route.matched_route is None
     assert cohort_route.primary.provider == "openrouter"
     assert cohort_route.primary.model == "deepseek/deepseek-v4-flash"
@@ -548,9 +550,11 @@ def test_stale_seed_route_uses_current_runtime_defaults(monkeypatch):
     }
     settings = SimpleNamespace(
         default_llm_provider="openrouter",
+        smart_model="moonshotai/kimi-k2.6",
+        fast_model="deepseek/deepseek-v4-flash",
         default_model="deepseek/deepseek-v4-flash",
         fallback_model="deepseek/deepseek-v4-flash",
-        report_agent_model="deepseek/deepseek-v4-flash",
+        report_agent_model="moonshotai/kimi-k2.6",
     )
     monkeypatch.setattr(llm_routing, "get_settings", lambda: settings)
 
@@ -561,7 +565,7 @@ def test_stale_seed_route_uses_current_runtime_defaults(monkeypatch):
 
     assert report_route.matched_route is None
     assert report_route.primary.provider == "openrouter"
-    assert report_route.primary.model == "deepseek/deepseek-v4-flash"
+    assert report_route.primary.model == "moonshotai/kimi-k2.6"
 
 
 def test_route_retry_policy_none_disables_json_repair_retry(monkeypatch):

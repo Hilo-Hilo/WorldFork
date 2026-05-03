@@ -78,6 +78,8 @@ def default_model_config(overrides: dict) -> dict:
     base = {
         "provider": settings.default_llm_provider,
         "default_model": settings.default_model,
+        "smart_model": settings.smart_model,
+        "fast_model": settings.fast_model,
         "initializer_agent_model": settings.initializer_agent_model,
         "god_agent_model": settings.god_agent_model,
         "cohort_agent_model": settings.cohort_agent_model,

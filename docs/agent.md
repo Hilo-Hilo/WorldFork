@@ -110,9 +110,10 @@ worldfork query GET /readyz --no-api-prefix
 
 ## Live Runs
 
-Use the configured default model for live validation:
+Use the configured default smart/fast split for live validation:
 
 ```text
+openrouter/moonshotai/kimi-k2.6
 openrouter/deepseek/deepseek-v4-flash
 ```
 

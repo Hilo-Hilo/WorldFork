@@ -291,12 +291,12 @@ def test_initializer_normalizes_deepseek_type_aliases():
     assert normalized["hero_archetypes"][0]["actor_name"] == "student_organizer"
 
 
-def test_initializer_agent_uses_bounded_deepseek_parse_repair(monkeypatch):
+def test_initializer_agent_uses_bounded_structured_parse_repair(monkeypatch):
     captured: dict = {}
 
     class FakeCall:
         id = UUID("11111111-1111-1111-1111-111111111111")
-        model = "deepseek/deepseek-v4-flash"
+        model = "moonshotai/kimi-k2.6"
 
     def fake_complete_with_audit(*args, **kwargs):
         del args
@@ -317,7 +317,7 @@ def test_initializer_agent_uses_bounded_deepseek_parse_repair(monkeypatch):
     assert captured["metadata"]["retry_timeout_errors"] is False
     assert captured["metadata"]["json_repair_timeout_seconds"] == 60
     assert captured["metadata"]["max_tokens"] == 8192
-    assert result["model"] == "deepseek/deepseek-v4-flash"
+    assert result["model"] == "moonshotai/kimi-k2.6"
     assert result["fallback"] is False
 
 

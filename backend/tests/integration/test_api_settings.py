@@ -238,6 +238,8 @@ async def test_get_llm_config_exposes_provider_routing_and_route_catalog(client,
     assert resp.status_code == 200
     data = resp.json()
     assert data["runtime_defaults"]["default_provider"]
+    assert data["runtime_defaults"]["smart_model"] == "moonshotai/kimi-k2.6"
+    assert data["runtime_defaults"]["fast_model"] == "deepseek/deepseek-v4-flash"
     assert data["provider_catalog"][0]["provider"] == "openrouter"
     assert data["providers"][0]["provider"] == "openrouter"
     assert data["model_routing"][0]["job_type"] == "report_agent"
@@ -309,7 +311,7 @@ async def test_get_model_routing_empty(client):
     assert effective["event_summary"]["preferred_model"] == "deepseek/deepseek-v4-flash"
     for route in ("initializer_agent", "god_agent", "endpoint_ledger", "report_agent"):
         assert effective[route]["preferred_provider"] == "openrouter"
-        assert effective[route]["preferred_model"] == "deepseek/deepseek-v4-flash"
+        assert effective[route]["preferred_model"] == "moonshotai/kimi-k2.6"
     assert {route["route"] for route in data["known_routes"]} >= {
         "initializer_agent",
         "god_agent",

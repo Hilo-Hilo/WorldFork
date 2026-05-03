@@ -527,6 +527,8 @@ def models_route():
     settings = get_settings()
     return _ok(
         {
+            "smart_model": settings.smart_model,
+            "fast_model": settings.fast_model,
             "default_model": settings.default_model,
             "default_provider": settings.default_llm_provider,
             "agent_models": {

@@ -186,12 +186,29 @@ def test_openrouter_extra_body_uses_native_fallback_model(prompt: PromptPacket) 
     assert kwargs["extra_body"] == {"models": ["primary/model", "fallback/model"]}
 
 
-def test_seeded_routes_use_openrouter_deepseek_model() -> None:
-    from backend.app.scripts.seed import _ROUTING_DEFAULTS
+def test_seeded_routes_use_openrouter_smart_fast_models() -> None:
+    from backend.app.scripts.seed import _ROUTING_DEFAULTS, _routing_model_defaults
 
     assert _ROUTING_DEFAULTS
-    for row in _ROUTING_DEFAULTS:
+    smart_job_types = {
+        "initialize_big_bang",
+        "initializer_agent",
+        "initializer_chunk_extractor",
+        "god_agent_review",
+        "god_agent",
+        "evaluate_endpoint_ledger",
+        "endpoint_ledger",
+        "aggregate_run_results",
+        "report_agent",
+    }
+    for raw_row in _ROUTING_DEFAULTS:
+        row = _routing_model_defaults(raw_row)
+        expected_model = (
+            "moonshotai/kimi-k2.6"
+            if row["job_type"] in smart_job_types
+            else OPENROUTER_MODEL
+        )
         assert row["preferred_provider"] == "openrouter"
-        assert row["preferred_model"] == OPENROUTER_MODEL
+        assert row["preferred_model"] == expected_model
         assert row["fallback_provider"] == "openrouter"
-        assert row["fallback_model"] == OPENROUTER_MODEL
+        assert row["fallback_model"] == expected_model

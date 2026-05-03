@@ -6,7 +6,9 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 BACKEND_DIR = Path(__file__).resolve().parents[2]
-OPENROUTER_DEFAULT_MODEL = "deepseek/deepseek-v4-flash"
+FAST_MODEL_DEFAULT = "deepseek/deepseek-v4-flash"
+SMART_MODEL_DEFAULT = "moonshotai/kimi-k2.6"
+OPENROUTER_DEFAULT_MODEL = FAST_MODEL_DEFAULT
 OPENAI_CODEX_DEFAULT_MODEL = OPENROUTER_DEFAULT_MODEL
 
 
@@ -40,14 +42,16 @@ class Settings(BaseSettings):
     redis_url: str = "redis://localhost:6379/0"
     celery_broker_url: str = "redis://localhost:6379/1"
     celery_result_backend: str = "redis://localhost:6379/2"
-    default_model: str = OPENROUTER_DEFAULT_MODEL
-    fallback_model: str = OPENROUTER_DEFAULT_MODEL
-    initializer_agent_model: str = OPENAI_CODEX_DEFAULT_MODEL
-    god_agent_model: str = OPENAI_CODEX_DEFAULT_MODEL
-    cohort_agent_model: str = OPENROUTER_DEFAULT_MODEL
-    hero_agent_model: str = OPENROUTER_DEFAULT_MODEL
-    event_summary_model: str = OPENROUTER_DEFAULT_MODEL
-    report_agent_model: str = OPENAI_CODEX_DEFAULT_MODEL
+    smart_model: str = SMART_MODEL_DEFAULT
+    fast_model: str = FAST_MODEL_DEFAULT
+    default_model: str = FAST_MODEL_DEFAULT
+    fallback_model: str = FAST_MODEL_DEFAULT
+    initializer_agent_model: str = SMART_MODEL_DEFAULT
+    god_agent_model: str = SMART_MODEL_DEFAULT
+    cohort_agent_model: str = FAST_MODEL_DEFAULT
+    hero_agent_model: str = FAST_MODEL_DEFAULT
+    event_summary_model: str = FAST_MODEL_DEFAULT
+    report_agent_model: str = SMART_MODEL_DEFAULT
     app_name: str = "WorldFork Backend"
     api_prefix: str = "/api"
     default_tick_duration: str = "1 day"

@@ -11,6 +11,7 @@ worldfork smoke live
 This is the end-to-end health check for a configured local backend. It uses real API credits and verifies that audited LLM calls use:
 
 ```text
+openrouter/moonshotai/kimi-k2.6
 openrouter/deepseek/deepseek-v4-flash
 ```
 

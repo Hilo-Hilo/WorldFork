@@ -8,7 +8,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db.introspection import table_has_columns
-from backend.app.core.config import settings
+from backend.app.core.config import FAST_MODEL_DEFAULT, SMART_MODEL_DEFAULT, settings
 from backend.app.core.db import get_session
 from backend.app.models.settings import (
     BranchPolicySettingModel,
@@ -38,8 +38,23 @@ import backend.app.providers as providers
 router = APIRouter(prefix="/settings", tags=["settings"])
 DbSession = Annotated[AsyncSession, Depends(get_session)]
 _OPENROUTER_PROVIDER = "openrouter"
-_OPENROUTER_MODEL = "deepseek/deepseek-v4-flash"
+_FAST_MODEL = FAST_MODEL_DEFAULT
+_SMART_MODEL = SMART_MODEL_DEFAULT
+_OPENROUTER_MODEL = _FAST_MODEL
 _LEGACY_GEMINI_SEED_MODEL = "google/gemini-3.1-flash-lite-preview"
+_SMART_MODEL_ROUTES = frozenset(
+    {
+        "initializer_chunk_extractor",
+        "initializer_agent",
+        "god_agent",
+        "report_agent",
+        "endpoint_ledger",
+        "initialize_big_bang",
+        "god_agent_review",
+        "aggregate_run_results",
+        "evaluate_endpoint_ledger",
+    }
+)
 
 
 def _row_dict(row: Any) -> dict[str, Any]:
@@ -77,6 +92,8 @@ def _apply_patch(row: Any, patch: dict[str, Any]) -> Any:
 def _runtime_llm_defaults() -> dict[str, Any]:
     return {
         "default_provider": settings.default_llm_provider,
+        "smart_model": settings.smart_model,
+        "fast_model": settings.fast_model,
         "default_model": settings.default_model,
         "fallback_model": settings.fallback_model,
         "agent_models": {
@@ -177,12 +194,18 @@ def _is_stale_seed_default_row(row: dict[str, Any] | None) -> bool:
     payload = row.get("payload")
     if not isinstance(payload, dict) or payload.get("source") != "seed_default":
         return False
+    expected_model = _seed_default_model_for_row(row)
     return not (
         row.get("preferred_provider") == _OPENROUTER_PROVIDER
-        and row.get("preferred_model") == _OPENROUTER_MODEL
+        and row.get("preferred_model") == expected_model
         and row.get("fallback_provider") == _OPENROUTER_PROVIDER
-        and row.get("fallback_model") == _OPENROUTER_MODEL
+        and row.get("fallback_model") == expected_model
     )
+
+
+def _seed_default_model_for_row(row: dict[str, Any]) -> str:
+    job_type = str(row.get("job_type") or "")
+    return _SMART_MODEL if job_type in _SMART_MODEL_ROUTES else _FAST_MODEL
 
 
 def _default_model_for_route(route_info: dict[str, Any]) -> str:
