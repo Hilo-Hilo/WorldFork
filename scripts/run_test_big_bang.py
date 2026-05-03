@@ -87,6 +87,86 @@ def request(
     return None
 
 
+def wait_for_job(
+    client: httpx.Client,
+    base_url: str,
+    job_id: str,
+    *,
+    timeout_seconds: int,
+    label: str,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + timeout_seconds
+    while True:
+        remaining = max(1, int(deadline - time.monotonic()))
+        if remaining <= 1:
+            raise SampleFailure(f"{label} job {job_id} did not finish within {timeout_seconds}s")
+        waited = request(
+            client,
+            base_url,
+            "POST",
+            f"/api/agent/jobs/{job_id}/wait",
+            json={
+                "timeout_seconds": min(30, remaining),
+                "poll_interval_seconds": 2,
+            },
+        )
+        job = waited.get("data") if isinstance(waited, dict) and "data" in waited else waited
+        meta = waited.get("meta") if isinstance(waited, dict) else {}
+        status = job.get("status") if isinstance(job, dict) else None
+        if status in {"succeeded", "completed"}:
+            return job
+        if status in {"failed", "cancelled", "dead_lettered", "interrupted"}:
+            raise SampleFailure(f"{label} job {job_id} ended as {status}: {job.get('error')}")
+        if not meta.get("timed_out"):
+            time.sleep(2)
+        print(f"[info] waiting for {label} job {job_id}; status={status or 'unknown'}")
+
+
+def simulate_next_tick_job(
+    client: httpx.Client,
+    base_url: str,
+    *,
+    big_bang_id: str,
+    multiverse_id: str,
+    idempotency_key: str,
+    label: str,
+    timeout_seconds: int,
+) -> dict[str, Any]:
+    job = request(
+        client,
+        base_url,
+        "POST",
+        "/api/jobs",
+        json={
+            "job_type": "run_multiverse_tick",
+            "big_bang_id": big_bang_id,
+            "payload": {
+                "multiverse_id": multiverse_id,
+                "idempotency_key": idempotency_key,
+            },
+            "idempotency_key": f"atlas-job:{idempotency_key}",
+        },
+    )
+    job_id = job["id"]
+    print(f"[info] {label} tick job: {job_id}")
+    if job.get("error"):
+        print(f"[info] {label} job enqueue warning: {job['error']}")
+        job = request(client, base_url, "POST", f"/api/jobs/{job_id}/run")
+    elif job.get("status") not in {"succeeded", "completed"}:
+        job = wait_for_job(
+            client,
+            base_url,
+            job_id,
+            timeout_seconds=timeout_seconds,
+            label=label,
+        )
+    result = job.get("result") or {}
+    tick_snapshot_id = result.get("tick_snapshot_id")
+    if not tick_snapshot_id:
+        raise SampleFailure(f"{label} job {job_id} did not return a tick_snapshot_id: {job}")
+    return request(client, base_url, "GET", f"/api/ticks/{tick_snapshot_id}")
+
+
 def wait_for_ready(client: httpx.Client, base_url: str) -> dict[str, Any]:
     last_error: Exception | None = None
     for _ in range(60):
@@ -334,6 +414,7 @@ def run_all_multiverses_to_terminal(
     big_bang_id: str,
     *,
     max_requests: int,
+    tick_timeout_seconds: int,
 ) -> tuple[list[dict[str, Any]], int]:
     requests_used = 0
     seen_tick_ids: set[str] = set()
@@ -354,16 +435,16 @@ def run_all_multiverses_to_terminal(
             if requests_used >= max_requests:
                 break
             before_status = multiverse["status"]
-            tick = request(
+            tick = simulate_next_tick_job(
                 client,
                 base_url,
-                "POST",
-                f"/api/multiverses/{multiverse['id']}/simulate-next-tick",
-                json={
-                    "idempotency_key": (
-                        f"atlas-complete-{multiverse['id']}-{requests_used}-{uuid.uuid4().hex[:8]}"
-                    )
-                },
+                big_bang_id=big_bang_id,
+                multiverse_id=multiverse["id"],
+                idempotency_key=(
+                    f"atlas-complete-{multiverse['id']}-{requests_used}-{uuid.uuid4().hex[:8]}"
+                ),
+                label=f"{multiverse['ui_label']} completion",
+                timeout_seconds=tick_timeout_seconds,
             )
             requests_used += 1
             if tick["id"] not in seen_tick_ids:
@@ -566,12 +647,15 @@ def run_sample(args: argparse.Namespace) -> None:
         resumed = request(client, base_url, "POST", f"/api/big-bangs/{big_bang_id}/resume")
         check(resumed["status"] == "running", "Atlas onboarding Big Bang resumed")
 
-        root_tick = request(
+        tick_timeout_seconds = max(1800, int(args.timeout))
+        root_tick = simulate_next_tick_job(
             client,
             base_url,
-            "POST",
-            f"/api/multiverses/{root_multiverse_id}/simulate-next-tick",
-            json={"idempotency_key": f"atlas-root-{root_multiverse_id}-t1"},
+            big_bang_id=big_bang_id,
+            multiverse_id=root_multiverse_id,
+            idempotency_key=f"atlas-root-{root_multiverse_id}-t1",
+            label="root Atlas",
+            timeout_seconds=tick_timeout_seconds,
         )
         check(root_tick["status"] == "final", "root Atlas tick completed")
         validate_runtime(request(client, base_url, "GET", f"/api/ticks/{root_tick['id']}/runtime"))
@@ -585,12 +669,14 @@ def run_sample(args: argparse.Namespace) -> None:
         lineage = request(client, base_url, "GET", f"/api/multiverses/{child_multiverse_id}/lineage")
         check(len(lineage["edges"]) >= 1, "manual branch lineage edge is visible")
 
-        child_tick = request(
+        child_tick = simulate_next_tick_job(
             client,
             base_url,
-            "POST",
-            f"/api/multiverses/{child_multiverse_id}/simulate-next-tick",
-            json={"idempotency_key": f"atlas-child-{child_multiverse_id}-t1"},
+            big_bang_id=big_bang_id,
+            multiverse_id=child_multiverse_id,
+            idempotency_key=f"atlas-child-{child_multiverse_id}-t1",
+            label="child Atlas",
+            timeout_seconds=tick_timeout_seconds,
         )
         check(child_tick["status"] == "final", "child Atlas branch tick completed")
         validate_runtime_or_inheritance(client, base_url, child_tick)
@@ -599,6 +685,7 @@ def run_sample(args: argparse.Namespace) -> None:
             base_url,
             big_bang_id,
             max_requests=args.completion_max_requests,
+            tick_timeout_seconds=tick_timeout_seconds,
         )
         multiverse_reports = generate_multiverse_reports(client, base_url, terminal_multiverses)
         report = request(
@@ -698,7 +785,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
         "--completion-max-requests",
         type=int,
         default=1000,
-        help="Safety cap for simulate-next-tick requests while draining discovered branches.",
+        help="Safety cap for tick jobs while draining discovered branches.",
     )
     parser.add_argument(
         "--expected-provider",

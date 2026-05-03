@@ -283,6 +283,7 @@ def complete_with_audit(
     )
     db.add(call)
     db.flush()
+    _commit_audit_progress(db)
     attempts: list[dict[str, Any]] = []
     response: LLMResponse | None = None
     last_error: Exception | None = None
@@ -412,6 +413,7 @@ def complete_with_audit(
             "effective_model": successful_candidate.model,
         }
         db.flush()
+        _commit_audit_progress(db)
         return response, call
     except Exception as exc:
         error_message = _llm_error_message(exc)
@@ -427,4 +429,17 @@ def complete_with_audit(
         call.response_artifact_id = response_artifact.id
         call.meta = {**call.meta, "error": error_message, "attempts": attempts}
         db.flush()
+        _commit_audit_progress(db)
         raise LLMCallError(error_message, call_id=call.id) from exc
+
+
+def _commit_audit_progress(db: Session) -> None:
+    """Commit LLM audit state before/after long provider waits.
+
+    The tick runtime calls audited providers from inside request and job flows.
+    Committing the running LLM call before the provider request prevents an
+    open database transaction from sitting idle while the network call runs.
+    """
+    commit = getattr(db, "commit", None)
+    if callable(commit):
+        commit()

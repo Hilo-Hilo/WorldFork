@@ -28,6 +28,7 @@ from backend.app.api.logs import sanitize_public_job_payload
 class FakeDB:
     def __init__(self, *objects):
         self.objects = list(objects)
+        self.commit_count = 0
 
     def add(self, obj):
         if getattr(obj, "id", None) is None:
@@ -36,6 +37,9 @@ class FakeDB:
 
     def flush(self):
         pass
+
+    def commit(self):
+        self.commit_count += 1
 
     def get(self, model, object_id):
         lookup_fields = ("id", "provider", "job_type", "setting_id", "policy_id")
@@ -232,6 +236,40 @@ def test_complete_with_audit_retries_invalid_json_response(monkeypatch):
     assert provider.calls == 2
     assert "previous response was invalid" in provider.messages[1][-1]["content"]
     assert '["not", "an", "object"]' in provider.messages[1][-1]["content"]
+
+
+def test_complete_with_audit_commits_running_call_before_provider_wait(monkeypatch):
+    db = FakeDB()
+    observed: dict[str, object] = {}
+
+    class InspectingProvider:
+        async def complete(self, request):
+            observed["commit_count_at_provider"] = db.commit_count
+            call = next(obj for obj in db.objects if isinstance(obj, models.LLMCall))
+            observed["call_status_at_provider"] = call.status
+            return LLMResponse(content='{"decision": "continue"}', raw={"ok": True})
+
+    settings = SimpleNamespace(
+        default_llm_provider="openrouter",
+        llm_max_retries=1,
+        llm_retry_backoff_seconds=0,
+    )
+    monkeypatch.setattr(llm_audit, "get_settings", lambda: settings)
+    monkeypatch.setattr(llm_audit, "provider_for_settings", lambda: InspectingProvider())
+    monkeypatch.setattr(llm_audit, "ArtifactStore", lambda: FakeArtifactStore())
+
+    response, call = llm_audit.complete_with_audit(
+        db,
+        big_bang_id=uuid4(),
+        purpose="agent_commit_boundary_test",
+        model="test-model",
+        messages=[{"role": "user", "content": "Return JSON."}],
+    )
+
+    assert response.parsed == {"decision": "continue"}
+    assert call.status == "succeeded"
+    assert observed == {"commit_count_at_provider": 1, "call_status_at_provider": "running"}
+    assert db.commit_count >= 2
 
 
 def test_complete_with_audit_uses_provider_model_from_route(monkeypatch):
