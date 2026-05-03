@@ -110,6 +110,28 @@ def validate_job_payload(job_type: str, payload: dict | None, *, big_bang_id=Non
         _require_positive_int(payload["max_total_ticks"], "max_total_ticks")
 
 
+def reject_archived_big_bang(big_bang: models.BigBang) -> None:
+    if big_bang.status == "archived":
+        raise ValueError("big bang is archived")
+
+
+def reject_non_terminal_multiverses(db: Session, big_bang: models.BigBang) -> None:
+    from app.domains.tick.tick_runner import TERMINAL_MULTIVERSE_STATUSES
+
+    non_terminal = db.scalars(
+        select(models.Multiverse)
+        .where(
+            models.Multiverse.big_bang_id == big_bang.id,
+            models.Multiverse.status.notin_(TERMINAL_MULTIVERSE_STATUSES),
+        )
+        .order_by(models.Multiverse.ui_label)
+    ).all()
+    if non_terminal:
+        labels = ", ".join(item.ui_label for item in non_terminal[:5])
+        suffix = f": {labels}" if labels else ""
+        raise ValueError(f"final report requires terminal multiverses{suffix}")
+
+
 def execute_job(db: Session, job: models.Job, *, commit_running: bool = False) -> models.Job:
     validate_job_type(job.job_type)
     if not claim_job_for_execution(db, job):
@@ -210,6 +232,8 @@ def _execute_job(db: Session, job: models.Job) -> dict:
         big_bang = db.get(models.BigBang, job.big_bang_id or payload.get("big_bang_id"))
         if not big_bang:
             raise ValueError("big bang not found")
+        reject_archived_big_bang(big_bang)
+        reject_non_terminal_multiverses(db, big_bang)
         report = generate_final_big_bang_report(
             db,
             big_bang=big_bang,
@@ -267,6 +291,7 @@ def _execute_run_big_bang_until_complete_job(db: Session, job: models.Job) -> di
     big_bang = db.get(models.BigBang, job.big_bang_id or payload.get("big_bang_id"))
     if not big_bang:
         raise ValueError("big bang not found")
+    reject_archived_big_bang(big_bang)
     if big_bang.status == "paused":
         raise ValueError("big bang is paused")
 

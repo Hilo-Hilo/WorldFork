@@ -152,6 +152,27 @@ def test_global_verbosity_parses_before_command() -> None:
     assert "discover" in result.output
 
 
+def test_subcommand_timeout_is_not_stolen_by_global_parser(monkeypatch) -> None:
+    client_timeouts: list[float] = []
+    watch_args: list[tuple[float, float]] = []
+
+    class FakeClient:
+        def __init__(self, _base_url, _api_prefix, timeout) -> None:
+            client_timeouts.append(timeout)
+
+    def fake_watch(ctx, big_bang_id, poll_interval, timeout_seconds, limit, once, json_lines, stop):
+        watch_args.append((poll_interval, timeout_seconds))
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+    monkeypatch.setattr(cli_main, "_watch_big_bang", fake_watch)
+
+    result = CliRunner().invoke(main, ["watch", "big-bang", "bb-123", "--timeout", "7", "--once"])
+
+    assert result.exit_code == 0
+    assert client_timeouts == [30]
+    assert watch_args == [(1, 7)]
+
+
 def test_jobs_pause_calls_canonical_job_control_endpoint(monkeypatch) -> None:
     calls = []
 
@@ -550,6 +571,8 @@ def test_demo_atlas_invokes_source_harness(monkeypatch, tmp_path) -> None:
         [
             "--base-url",
             "http://worldfork.test",
+            "--api-prefix",
+            "/custom-api",
             "demo",
             "atlas",
             "--scenario-file",
@@ -563,7 +586,7 @@ def test_demo_atlas_invokes_source_harness(monkeypatch, tmp_path) -> None:
 
     assert result.exit_code == 0
     assert calls
-    assert calls[0][:2] == ["--base-url", "http://worldfork.test"]
+    assert calls[0][:4] == ["--base-url", "http://worldfork.test", "--api-prefix", "custom-api"]
     assert ["--scenario-file", str(scenario_file.resolve())] == calls[0][-4:-2]
     assert calls[0][-2:] == ["--max-tick-index", "4"]
 
@@ -591,18 +614,27 @@ def test_smoke_live_invokes_source_harness_with_base_url(monkeypatch) -> None:
     harness = types.ModuleType("scripts.full_runtime_smoke")
 
     def fake_main():
-        calls.append({"base_url": cli_main.os.environ.get("WORLDFORK_API_URL")})
+        calls.append(
+            {
+                "base_url": cli_main.os.environ.get("WORLDFORK_API_URL"),
+                "api_prefix": cli_main.os.environ.get("WORLDFORK_API_PREFIX"),
+            }
+        )
 
     harness.main = fake_main
     monkeypatch.setitem(sys.modules, "scripts", scripts_pkg)
     monkeypatch.setitem(sys.modules, "scripts.full_runtime_smoke", harness)
     monkeypatch.delenv("WORLDFORK_API_URL", raising=False)
 
-    result = CliRunner().invoke(main, ["--base-url", "http://worldfork.test", "smoke", "live"])
+    result = CliRunner().invoke(
+        main,
+        ["--base-url", "http://worldfork.test", "--api-prefix", "/custom-api", "smoke", "live"],
+    )
 
     assert result.exit_code == 0
-    assert calls == [{"base_url": "http://worldfork.test"}]
+    assert calls == [{"base_url": "http://worldfork.test", "api_prefix": "custom-api"}]
     assert "WORLDFORK_API_URL" not in cli_main.os.environ
+    assert "WORLDFORK_API_PREFIX" not in cli_main.os.environ
 
 
 def test_source_harness_falls_back_to_checkout_subprocess(monkeypatch, tmp_path) -> None:

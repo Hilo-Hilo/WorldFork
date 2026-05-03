@@ -168,6 +168,8 @@ def continue_multiverse(
         )
 
     big_bang = require(db, models.BigBang, multiverse.big_bang_id)
+    if big_bang.status == "archived":
+        raise HTTPException(status_code=409, detail="archived big bang cannot be continued")
     latest_config = db.scalar(
         select(models.BigBangConfig)
         .where(models.BigBangConfig.big_bang_id == big_bang.id)

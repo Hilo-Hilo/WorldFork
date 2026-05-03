@@ -201,6 +201,7 @@ class _GlobalFlagFloatingGroup(click.Group):
     def parse_args(self, ctx: click.Context, args: list[str]) -> list[str]:
         front: list[str] = []
         rest: list[str] = []
+        current_command: click.Command = self
         i = 0
         while i < len(args):
             arg = args[i]
@@ -208,22 +209,45 @@ class _GlobalFlagFloatingGroup(click.Group):
                 rest.extend(args[i:])
                 break
             if arg in self._GLOBAL_FLAGS_NO_VALUE:
+                if current_command is not self and self._command_accepts_option(current_command, arg):
+                    rest.append(arg)
+                    i += 1
+                    continue
                 front.append(arg)
                 i += 1
                 continue
             if arg in self._GLOBAL_FLAGS_WITH_VALUE and i + 1 < len(args):
+                if current_command is not self and self._command_accepts_option(current_command, arg):
+                    rest.extend([arg, args[i + 1]])
+                    i += 2
+                    continue
                 front.extend([arg, args[i + 1]])
                 i += 2
                 continue
             if "=" in arg:
                 head, _, _ = arg.partition("=")
                 if head in self._GLOBAL_FLAGS_NO_VALUE | self._GLOBAL_FLAGS_WITH_VALUE:
+                    if current_command is not self and self._command_accepts_option(current_command, head):
+                        rest.append(arg)
+                        i += 1
+                        continue
                     front.append(arg)
                     i += 1
                     continue
             rest.append(arg)
+            if isinstance(current_command, click.Group):
+                command = current_command.commands.get(arg)
+                if command is not None:
+                    current_command = command
             i += 1
         return super().parse_args(ctx, front + rest)
+
+    @staticmethod
+    def _command_accepts_option(command: click.Command, flag: str) -> bool:
+        for param in command.params:
+            if isinstance(param, click.Option) and flag in {*param.opts, *param.secondary_opts}:
+                return True
+        return False
 
 
 @click.group(cls=_GlobalFlagFloatingGroup, context_settings=CONTEXT_SETTINGS)
@@ -1550,6 +1574,8 @@ def demo_atlas(
     argv = [
         "--base-url",
         ctx.client.base_url,
+        "--api-prefix",
+        ctx.client.api_prefix,
         "--timeout",
         str(timeout),
         "--tick-duration-minutes",
@@ -1595,7 +1621,9 @@ def smoke_live(ctx: Context) -> None:
     logs, and default audited LLM route usage.
     """
     previous = os.environ.get("WORLDFORK_API_URL")
+    previous_prefix = os.environ.get("WORLDFORK_API_PREFIX")
     os.environ["WORLDFORK_API_URL"] = ctx.client.base_url
+    os.environ["WORLDFORK_API_PREFIX"] = ctx.client.api_prefix
     try:
         _run_source_harness("scripts.full_runtime_smoke")
     finally:
@@ -1603,6 +1631,10 @@ def smoke_live(ctx: Context) -> None:
             os.environ.pop("WORLDFORK_API_URL", None)
         else:
             os.environ["WORLDFORK_API_URL"] = previous
+        if previous_prefix is None:
+            os.environ.pop("WORLDFORK_API_PREFIX", None)
+        else:
+            os.environ["WORLDFORK_API_PREFIX"] = previous_prefix
 
 
 def _run_source_harness(module_name: str, argv: list[str] | None = None) -> None:

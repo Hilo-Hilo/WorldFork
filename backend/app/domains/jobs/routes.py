@@ -36,7 +36,7 @@ from backend.app.workers import celery_app as celery_app_module
 from backend.app.core.redis_client import get_redis_client  # noqa: F401
 
 router = APIRouter(prefix="/jobs", tags=["jobs"])
-KNOWN_QUEUES = ["multiverse_ticks", "reports", "maintenance", "dead_letter"]
+KNOWN_QUEUES = ["p0", "p1", "p2", "p3", "dead_letter"]
 
 
 class JobResponse(BaseModel):
@@ -281,6 +281,8 @@ def retry_job_route(
 @router.post("/{job_id}/cancel", response_model=JobResponse)
 def cancel_job_route(job_id: UUID, db: Session = Depends(get_db)):
     job = require(db, models.Job, job_id)
+    if job.status in {"succeeded", "failed", "cancelled", "interrupted"}:
+        raise HTTPException(status_code=409, detail=f"job {job.id} is already terminal")
     job.status = "cancelled"
     job.finished_at = datetime.now(timezone.utc)
     commit_or_500(db)

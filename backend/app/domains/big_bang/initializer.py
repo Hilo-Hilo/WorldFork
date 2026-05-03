@@ -6,6 +6,7 @@ from pathlib import Path
 import re
 from typing import Any
 
+from sqlalchemy import inspect, select
 from sqlalchemy.orm import Session
 
 from app.api.schemas import BigBangCreate
@@ -55,12 +56,14 @@ class InitializerResult:
     initial_events: list[Any] = field(default_factory=list)
 
 
-def default_simulation_config(overrides: dict) -> dict:
+def default_simulation_config(overrides: dict, db: Session | None = None) -> dict:
     settings = get_settings()
     base = {
         "tick_duration": settings.default_tick_duration,
         "max_ticks": settings.default_max_ticks,
     }
+    persisted = _persisted_simulation_defaults(db)
+    base.update(persisted)
     normalized = dict(overrides or {})
     if "tick_duration" not in normalized and "tick_duration_minutes" in normalized:
         normalized["tick_duration"] = _minutes_to_tick_duration(normalized["tick_duration_minutes"])
@@ -84,7 +87,7 @@ def default_model_config(overrides: dict) -> dict:
     return base
 
 
-def default_branch_policy(overrides: dict) -> dict:
+def default_branch_policy(overrides: dict, db: Session | None = None) -> dict:
     settings = get_settings()
     base = {
         "max_branch_depth": settings.default_max_branch_depth,
@@ -92,14 +95,15 @@ def default_branch_policy(overrides: dict) -> dict:
         "max_branches_per_tick": settings.default_max_branches_per_tick,
         "branch_score_threshold": settings.branch_score_threshold,
     }
+    base.update(_persisted_branch_defaults(db))
     base.update(overrides or {})
     return base
 
 
 def create_big_bang(db: Session, payload: BigBangCreate) -> models.BigBang:
-    simulation_config = default_simulation_config(payload.simulation_config)
+    simulation_config = default_simulation_config(payload.simulation_config, db=db)
     model_config = default_model_config(payload.llm_model_config)
-    branch_policy = default_branch_policy(payload.branch_policy)
+    branch_policy = default_branch_policy(payload.branch_policy, db=db)
     scenario_text = payload.scenario_text or payload.scenario_input.get("prompt") or payload.scenario_input.get("premise") or ""
     scenario_input = {
         **payload.scenario_input,
@@ -122,13 +126,17 @@ def create_big_bang(db: Session, payload: BigBangCreate) -> models.BigBang:
     if scenario_text and payload.use_initializer_agent:
         plain_text_corpus = build_plain_text_corpus(db, big_bang=big_bang, scenario_text=scenario_text)
     if payload.use_initializer_agent and scenario_text:
-        initializer_output = run_initializer_agent(
-            db,
-            big_bang_id=big_bang.id,
-            scenario_input=scenario_input,
-            plain_text_corpus=plain_text_corpus,
-            initializer_prompt=payload.initializer_prompt,
-        )
+        try:
+            initializer_output = run_initializer_agent(
+                db,
+                big_bang_id=big_bang.id,
+                scenario_input=scenario_input,
+                plain_text_corpus=plain_text_corpus,
+                initializer_prompt=payload.initializer_prompt,
+            )
+        except Exception:
+            cleanup_failed_big_bang_initialization(db, big_bang.id)
+            raise
         initializer_output = normalize_initializer_against_source_of_truth(initializer_output)
         big_bang.scenario_input = {
             **scenario_input,
@@ -337,6 +345,23 @@ def create_big_bang(db: Session, payload: BigBangCreate) -> models.BigBang:
     seed_endpoint_ledger(db, big_bang=big_bang, multiverse=root)
     db.flush()
     return big_bang
+
+
+def cleanup_failed_big_bang_initialization(db: Session, big_bang_id) -> None:
+    db.rollback()
+    big_bang = db.get(models.BigBang, big_bang_id)
+    if big_bang is not None:
+        big_bang.source_snapshot_id = None
+        db.flush()
+    for model in (models.LLMCall, models.SourceOfTruthSnapshot, models.Artifact):
+        rows = db.scalars(select(model).where(model.big_bang_id == big_bang_id)).all()
+        for row in rows:
+            db.delete(row)
+        db.flush()
+    if big_bang is not None:
+        db.delete(big_bang)
+        db.flush()
+    db.commit()
 
 
 async def initialize_big_bang(
@@ -601,6 +626,89 @@ def _dict_items(value) -> list[dict]:
 def _minutes_to_tick_duration(value) -> str:
     minutes = _safe_int(value, 0, low=1)
     return f"{minutes} minute" if minutes == 1 else f"{minutes} minutes"
+
+
+def _persisted_simulation_defaults(db: Session | None) -> dict:
+    if db is None:
+        return {}
+    try:
+        from backend.app.models.settings import GlobalSettingModel
+
+        bind = db.get_bind()
+        if not inspect(bind).has_table(GlobalSettingModel.__tablename__):
+            return {}
+        row = db.get(GlobalSettingModel, "default")
+    except Exception:
+        return {}
+    if row is None:
+        return {}
+    tick_minutes = _safe_int(row.default_tick_duration_minutes, 0, low=1)
+    return {
+        "tick_duration": _minutes_to_tick_duration(tick_minutes),
+        "tick_duration_minutes": tick_minutes,
+        "max_ticks": _safe_int(row.default_max_ticks, 0, low=1),
+        "max_schedule_horizon_ticks": _safe_int(
+            row.default_max_schedule_horizon_ticks,
+            0,
+            low=1,
+        ),
+    }
+
+
+def _persisted_branch_defaults(db: Session | None) -> dict:
+    if db is None:
+        return {}
+    defaults: dict[str, Any] = {}
+    try:
+        from backend.app.models.settings import BranchPolicySettingModel, GlobalSettingModel
+
+        bind = db.get_bind()
+        inspector = inspect(bind)
+        if inspector.has_table(BranchPolicySettingModel.__tablename__):
+            branch_row = db.get(BranchPolicySettingModel, "default")
+            if branch_row is not None:
+                defaults.update(
+                    {
+                        "max_branch_depth": _safe_int(branch_row.max_depth, 0, low=1),
+                        "max_active_multiverses": _safe_int(branch_row.max_active_universes, 0, low=1),
+                        "max_branches_per_tick": _safe_int(branch_row.max_branches_per_tick, 0, low=1),
+                        "branch_score_threshold": _safe_float(
+                            branch_row.min_divergence_score,
+                            0.0,
+                            low=0.0,
+                            high=1.0,
+                        ),
+                    }
+                )
+        if inspector.has_table(GlobalSettingModel.__tablename__):
+            global_row = db.get(GlobalSettingModel, "default")
+            if global_row is not None and isinstance(global_row.branching_defaults, dict):
+                defaults.update(_normalize_branch_defaults(global_row.branching_defaults))
+    except Exception:
+        return defaults
+    return defaults
+
+
+def _normalize_branch_defaults(values: dict[str, Any]) -> dict[str, Any]:
+    normalized: dict[str, Any] = {}
+    int_keys = {
+        "max_branch_depth",
+        "max_active_multiverses",
+        "max_branches_per_tick",
+        "idle_termination_ticks",
+        "idle_social_observation_limit",
+    }
+    for key in int_keys:
+        if key in values and values[key] is not None:
+            normalized[key] = _safe_int(values[key], 0, low=1)
+    if "branch_score_threshold" in values and values["branch_score_threshold"] is not None:
+        normalized["branch_score_threshold"] = _safe_float(
+            values["branch_score_threshold"],
+            0.0,
+            low=0.0,
+            high=1.0,
+        )
+    return normalized
 
 
 def _safe_int(value, default: int, *, low: int | None = None, high: int | None = None) -> int:
