@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from typing import Any
 
 from sqlalchemy.orm import Session
@@ -23,6 +24,11 @@ def run_initializer_agent(
         "Build the complete WorldFork initialization state from the user's full plain-text corpus."
     )
     corpus = plain_text_corpus or {}
+    prompt_corpus = initializer_prompt_corpus(corpus)
+    prompt_scenario_context = initializer_prompt_scenario_context(
+        scenario_input,
+        has_prompt_corpus=_has_prompt_source_material(prompt_corpus),
+    )
     response, call = complete_with_audit(
         db,
         big_bang_id=big_bang_id,
@@ -37,8 +43,8 @@ def run_initializer_agent(
             {
                 "role": "user",
                 "content": (
-                    f"{prompt}\nScenario input/config-adjacent context: {scenario_input}\n"
-                    f"UNTRUSTED plain text corpus and derived summaries: {corpus}"
+                    f"{prompt}\nScenario metadata/config context: {_prompt_json(prompt_scenario_context)}\n"
+                    f"UNTRUSTED plain text corpus and derived summaries: {_prompt_json(prompt_corpus)}"
                 ),
             },
         ],
@@ -50,6 +56,57 @@ def run_initializer_agent(
     normalized["llm_call_id"] = str(call.id)
     normalized["model"] = call.model
     return normalized
+
+
+def initializer_prompt_scenario_context(
+    scenario_input: dict[str, Any],
+    *,
+    has_prompt_corpus: bool,
+) -> dict[str, Any]:
+    if not isinstance(scenario_input, dict):
+        return {}
+    context: dict[str, Any] = {}
+    raw_scenario = _raw_scenario_text(scenario_input)
+    for key, value in scenario_input.items():
+        if has_prompt_corpus and key in {"scenario_text", "prompt", "premise"}:
+            if not raw_scenario or str(value) == raw_scenario:
+                continue
+        context[key] = value
+    return context
+
+
+def initializer_prompt_corpus(corpus: dict[str, Any] | None) -> dict[str, Any]:
+    if not isinstance(corpus, dict) or not corpus:
+        return {}
+    brief = corpus.get("simulation_brief") if isinstance(corpus.get("simulation_brief"), dict) else {}
+    mode = brief.get("mode") or corpus.get("mode")
+    compact: dict[str, Any] = {
+        "raw_char_count": corpus.get("raw_char_count") or brief.get("raw_char_count"),
+    }
+    if mode == "direct":
+        compact["simulation_brief"] = {
+            "mode": "direct",
+            "text": brief.get("text") or corpus.get("text") or "",
+        }
+        return _drop_empty_values(compact)
+    if mode == "chunked":
+        compact["simulation_brief"] = {
+            "mode": "chunked",
+            "raw_char_count": brief.get("raw_char_count") or corpus.get("raw_char_count"),
+            "chunk_count": brief.get("chunk_count") or corpus.get("chunk_count"),
+            "chunk_summaries": _compact_chunk_summaries(
+                [
+                    *_list_value(corpus.get("chunk_summaries")),
+                    *_list_value(brief.get("chunk_summaries")),
+                ]
+            ),
+        }
+        return _drop_empty_values(compact)
+    stripped = _strip_prompt_bookkeeping(corpus)
+    if isinstance(stripped, dict):
+        stripped.pop("chunk_artifacts", None)
+        return _drop_empty_values(stripped)
+    return {}
 
 
 def fallback_initializer_output(scenario_input: dict[str, Any]) -> dict[str, Any]:
@@ -271,3 +328,72 @@ def _fallback_graph_edges() -> list[dict]:
             "reason": "OASIS is the initial public interaction surface.",
         },
     ]
+
+
+def _compact_chunk_summaries(items: list[Any]) -> list[dict[str, Any]]:
+    summaries: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+        summary = _strip_prompt_bookkeeping(item.get("summary", item))
+        record = _drop_empty_values(
+            {
+                "chunk_index": item.get("chunk_index"),
+                "summary": summary,
+            }
+        )
+        key = _prompt_json(record)
+        if key in seen:
+            continue
+        seen.add(key)
+        summaries.append(record)
+    return summaries
+
+
+def _strip_prompt_bookkeeping(value: Any) -> Any:
+    if isinstance(value, list):
+        return [_strip_prompt_bookkeeping(item) for item in value]
+    if not isinstance(value, dict):
+        return value
+    stripped: dict[str, Any] = {}
+    for key, item in value.items():
+        if _is_prompt_bookkeeping_key(str(key)):
+            continue
+        stripped[key] = _strip_prompt_bookkeeping(item)
+    return stripped
+
+
+def _is_prompt_bookkeeping_key(key: str) -> bool:
+    return (
+        key in {"artifact_id", "llm_call_id"}
+        or key.endswith("_artifact_id")
+        or key.endswith("_llm_call_id")
+    )
+
+
+def _drop_empty_values(value: dict[str, Any]) -> dict[str, Any]:
+    return {key: item for key, item in value.items() if item not in (None, [], {})}
+
+
+def _list_value(value: Any) -> list[Any]:
+    return value if isinstance(value, list) else []
+
+
+def _has_prompt_source_material(corpus: dict[str, Any]) -> bool:
+    brief = corpus.get("simulation_brief") if isinstance(corpus.get("simulation_brief"), dict) else {}
+    if isinstance(brief, dict):
+        return bool(brief.get("text") or brief.get("chunk_summaries"))
+    return bool(corpus)
+
+
+def _raw_scenario_text(scenario_input: dict[str, Any]) -> str:
+    for key in ("scenario_text", "prompt", "premise"):
+        value = scenario_input.get(key)
+        if isinstance(value, str) and value.strip():
+            return value
+    return ""
+
+
+def _prompt_json(value: Any) -> str:
+    return json.dumps(value, ensure_ascii=True, sort_keys=True, separators=(",", ":"), default=str)
