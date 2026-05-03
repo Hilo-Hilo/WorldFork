@@ -1,11 +1,8 @@
 from __future__ import annotations
 
-import importlib.util
-import sys
 import types
 import warnings
 from datetime import datetime, timedelta, timezone
-from pathlib import Path
 from uuid import uuid4
 
 import pytest
@@ -16,8 +13,10 @@ from sqlalchemy.pool import StaticPool
 
 from app.api.schemas import MultiverseLineageOut
 from app.db import models
-from app.jobs import tasks as job_tasks
-from app.simulation import branch_engine, god_tools, tick_runner
+from app.domains.jobs import executor as job_tasks
+from app.domains.multiverse import branch_engine
+from app.domains.governance import god_tools
+from app.domains.tick import tick_runner
 
 
 @pytest.fixture()
@@ -140,23 +139,11 @@ def _patch_successful_tick(monkeypatch):
 
 
 def _load_run_orchestrator_with_report_stub():
-    report_engine_stub = types.ModuleType("app.simulation.report_engine")
-    report_engine_stub.generate_final_big_bang_report = lambda *args, **kwargs: types.SimpleNamespace(id="final")
-    report_engine_stub.generate_multiverse_report = lambda *args, **kwargs: types.SimpleNamespace(id="multiverse")
-    original = sys.modules.get("app.simulation.report_engine")
-    sys.modules["app.simulation.report_engine"] = report_engine_stub
-    try:
-        path = Path(__file__).parents[1] / "app" / "simulation" / "run_orchestrator.py"
-        spec = importlib.util.spec_from_file_location("_timeline_safety_run_orchestrator", path)
-        module = importlib.util.module_from_spec(spec)
-        assert spec and spec.loader
-        spec.loader.exec_module(module)
-        return module
-    finally:
-        if original is None:
-            sys.modules.pop("app.simulation.report_engine", None)
-        else:
-            sys.modules["app.simulation.report_engine"] = original
+    from app.domains.big_bang import run_orchestrator
+
+    run_orchestrator.generate_final_big_bang_report = lambda *args, **kwargs: types.SimpleNamespace(id="final")
+    run_orchestrator.generate_multiverse_report = lambda *args, **kwargs: types.SimpleNamespace(id="multiverse")
+    return run_orchestrator
 
 
 def test_unfinished_tick_resumes_from_runtime_checkpoints(db, monkeypatch):
@@ -257,6 +244,27 @@ def test_direct_retry_reclaims_stale_active_execution(db, monkeypatch):
         updated_at=stale_at,
     )
     db.add(execution)
+    stale_call = models.LLMCall(
+        big_bang_id=big_bang.id,
+        provider="openrouter",
+        model="stale-model",
+        purpose="stale tick call",
+        status="running",
+        meta={"existing": True},
+        created_at=stale_at,
+        updated_at=stale_at,
+    )
+    fresh_call = models.LLMCall(
+        big_bang_id=big_bang.id,
+        provider="openrouter",
+        model="fresh-model",
+        purpose="fresh tick call",
+        status="running",
+        meta={},
+        created_at=datetime.now(timezone.utc),
+        updated_at=datetime.now(timezone.utc),
+    )
+    db.add_all([stale_call, fresh_call])
     db.commit()
     _patch_successful_tick(monkeypatch)
 
@@ -267,7 +275,14 @@ def test_direct_retry_reclaims_stale_active_execution(db, monkeypatch):
     db.refresh(execution)
     assert execution.status == "succeeded"
     assert execution.active_slot is None
-    assert db.scalar(select(models.OperationLog).where(models.OperationLog.event_type == "runtime_execution_stale_reclaimed"))
+    db.refresh(stale_call)
+    db.refresh(fresh_call)
+    assert stale_call.status == "failed"
+    assert stale_call.meta["stale_reclaim_reason"] == "stale tick execution reclaimed"
+    assert fresh_call.status == "running"
+    log = db.scalar(select(models.OperationLog).where(models.OperationLog.event_type == "runtime_execution_stale_reclaimed"))
+    assert log
+    assert log.body["stale_llm_calls_reclaimed"] == 1
 
 
 def test_queue_job_heartbeat_extends_lease_at_checkpoint_boundaries(db, monkeypatch):

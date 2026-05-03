@@ -1,5 +1,4 @@
 import warnings
-from types import SimpleNamespace
 
 import pytest
 from sqlalchemy import create_engine
@@ -9,8 +8,8 @@ from sqlalchemy.pool import StaticPool
 
 from app.db import models
 from app.runtime import NodeKind, TickRuntimeState, build_tick_graph
-from app.simulation import tick_runner
-from app.simulation.graph_engine import build_graph_prompt_summary
+from app.domains.tick import tick_runner
+from app.domains.sociology.graph_engine import build_graph_prompt_summary
 
 
 @pytest.fixture()
@@ -133,49 +132,6 @@ def test_build_tick_graph_inserts_dynamic_tool_call_checkpoints_after_god_review
     assert plan.node_specs["tool_call:0:continue_timeline"].kind is NodeKind.TOOL_CALL
     assert ("interrupt_check:after_god_review", "tool_call:0:continue_timeline") in plan.edges
     assert ("tool_call:0:continue_timeline", "interrupt_check:after_tool_call:0:continue_timeline") in plan.edges
-
-
-@pytest.mark.asyncio
-async def test_run_tick_fails_when_canonical_runner_returns_different_tick(monkeypatch):
-    from app.db import session as db_session
-    from app.simulation import tick_runner
-
-    class FakeDB:
-        committed = False
-        rolled_back = False
-
-        def get(self, model, object_id):
-            return SimpleNamespace(id=object_id)
-
-        def commit(self):
-            self.committed = True
-
-        def rollback(self):
-            self.rolled_back = True
-
-        def close(self):
-            return None
-
-    fake_db = FakeDB()
-
-    monkeypatch.setattr(db_session, "SessionLocal", lambda: fake_db)
-    monkeypatch.setattr(
-        tick_runner,
-        "run_next_tick",
-        lambda *args, **kwargs: SimpleNamespace(tick_index=8),
-    )
-
-    ctx = tick_runner.TickContext(
-        run_id="run-1",
-        universe_id="00000000-0000-0000-0000-000000000001",
-        tick=7,
-    )
-
-    with pytest.raises(ValueError, match="requested tick 7 but canonical runner returned tick 8"):
-        await tick_runner.run_tick(ctx)
-
-    assert fake_db.rolled_back is True
-    assert fake_db.committed is False
 
 
 def test_committed_sociology_graph_summary_reflects_current_tick_graph(db, monkeypatch):

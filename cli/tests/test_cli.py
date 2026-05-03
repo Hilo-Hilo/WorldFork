@@ -219,7 +219,7 @@ def test_reports_render_calls_report_version_endpoint(monkeypatch) -> None:
             "POST",
             "/report-versions/rv-123/render",
             None,
-            {"format": "pdf", "force": False},
+            {"format": "pdf"},
         )
     ]
 
@@ -334,7 +334,7 @@ def test_ledgers_evaluate_wait_exits_nonzero_for_unsuccessful_terminal(monkeypat
     assert calls[1][0:2] == ("POST", "/agent/jobs/job-123/wait")
 
 
-def test_models_defaults_alias_calls_agent_models(monkeypatch) -> None:
+def test_models_defaults_calls_agent_models(monkeypatch) -> None:
     calls = []
 
     class FakeClient:
@@ -471,6 +471,7 @@ def test_setup_include_patch_emits_atlas_routing_payload(monkeypatch) -> None:
     assert "model_routing_patch" in result.output
     assert "cohort_agent" in result.output
     assert "report_agent" in result.output
+    assert "actor_deliberation_call" not in result.output
 
 
 def test_setup_offline_does_not_contact_backend(monkeypatch) -> None:
@@ -842,41 +843,6 @@ def test_init_blocks_and_returns_initialized_state(monkeypatch, tmp_path) -> Non
         "/big-bangs/bb-123/initialization/sociology-baseline",
         "/big-bangs/bb-123/initialization/emotion-baseline",
     ]
-
-
-def test_initialize_alias_uses_init_command(monkeypatch) -> None:
-    calls = []
-
-    class FakeClient:
-        def __init__(self, *_args, **_kwargs) -> None:
-            pass
-
-        def request(self, method, path, *, params=None, json_body=None, use_api_prefix=True, timeout=None):
-            calls.append((method, path))
-            if path == "/big-bangs":
-                return {"id": "bb-123", "name": "Alias", "status": "running"}
-            if path == "/workspace/bb-123/state":
-                return {"big_bang": {"id": "bb-123"}, "multiverses": [], "latest_ticks": []}
-            if path == "/big-bangs/bb-123/initialization":
-                return {}
-            if path.endswith("/actors"):
-                return []
-            if path.endswith("/traits"):
-                return []
-            if path.endswith("/graphs"):
-                return {"edges": [], "snapshots": []}
-            if path.endswith("/sociology-baseline"):
-                return {"signals": [], "prompt_influences": []}
-            if path.endswith("/emotion-baseline"):
-                return {"observations": [], "snapshots": []}
-            raise AssertionError(path)
-
-    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
-
-    result = CliRunner().invoke(main, ["initialize", "--name", "Alias", "--scenario", "hello"])
-
-    assert result.exit_code == 0
-    assert calls[0] == ("POST", "/big-bangs")
 
 
 def test_watch_big_bang_once_streams_activity_and_logs(monkeypatch) -> None:

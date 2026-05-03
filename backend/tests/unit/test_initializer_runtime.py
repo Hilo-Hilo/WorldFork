@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 
-def test_initializer_compat_exports_importable():
-    from backend.app.simulation.initializer import (
+def test_initializer_runtime_exports_importable():
+    from backend.app.domains.big_bang.initializer import (
         InitializerInput,
         default_simulation_config,
         initialize_big_bang,
@@ -20,7 +20,7 @@ def test_initializer_compat_exports_importable():
 
 
 def test_default_simulation_config_normalizes_tick_duration_minutes():
-    from backend.app.simulation.initializer import default_simulation_config
+    from backend.app.domains.big_bang.initializer import default_simulation_config
 
     config = default_simulation_config({"tick_duration_minutes": 60})
 
@@ -29,7 +29,7 @@ def test_default_simulation_config_normalizes_tick_duration_minutes():
 
 
 def test_default_simulation_config_preserves_explicit_tick_duration():
-    from backend.app.simulation.initializer import default_simulation_config
+    from backend.app.domains.big_bang.initializer import default_simulation_config
 
     config = default_simulation_config(
         {

@@ -14,9 +14,11 @@ from app.db import models
 from app.llm.audit import LLMCallError
 from app.llm.schemas import LLMResponse
 from app.api.schemas import BigBangCreate
-from app.simulation import agent_engine, event_engine, initializer
-from app.simulation.graph_engine import update_graph_layers
-from app.simulation.initializer import persist_initializer_graphs_and_observability
+from app.domains.actor import agent_engine
+from app.domains.event import event_engine
+from app.domains.big_bang import initializer
+from app.domains.sociology.graph_engine import update_graph_layers
+from app.domains.big_bang.initializer import persist_initializer_graphs_and_observability
 from app.storage.artifact_store import ArtifactStore
 from backend.app.models.base import Base as RuntimeControlBase
 from backend.app.models.settings import GlobalSettingModel
@@ -203,6 +205,36 @@ def test_actor_prompt_context_includes_global_and_owned_event_queue(db, monkeypa
     assert "Past water pressure loss" in captured_contexts[0]
     assert "Alpha schedules clinic briefing" in captured_contexts[0]
     assert "own_queued_events" in captured_contexts[0]
+
+
+def test_actor_llm_call_metadata_records_canonical_source(db, monkeypatch):
+    big_bang, root, alpha, _beta = _seed_world(db)
+    captured_metadata = []
+
+    def fake_complete(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
+        captured_metadata.append({"metadata": metadata, "route": route})
+        call = _fake_llm_call(db, big_bang_id=big_bang_id, purpose=purpose, model=model)
+        return LLMResponse(content="{}", parsed={"social_actions": [], "proposed_events": []}), call
+
+    monkeypatch.setattr(agent_engine, "complete_with_audit", fake_complete)
+
+    agent_engine.run_actor_decision(
+        db,
+        big_bang=big_bang,
+        multiverse=root,
+        actor=alpha,
+        tick_index=2,
+        prompt_context={},
+    )
+
+    assert captured_metadata[0]["route"] == "cohort_agent"
+    metadata = captured_metadata[0]["metadata"]
+    assert metadata["agent_source"] == "cohort_agent"
+    assert metadata["canonical_job_type"] == "actor_deliberation_call"
+    assert metadata["actor_id"] == str(alpha.id)
+    assert metadata["actor_type"] == "cohort"
+    assert metadata["multiverse_id"] == str(root.id)
+    assert metadata["tick_index"] == 2
 
 
 def test_initializer_seed_events_become_root_event_queue(db, monkeypatch, tmp_path):

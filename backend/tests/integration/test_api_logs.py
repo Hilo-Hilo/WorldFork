@@ -10,7 +10,7 @@ import pytest_asyncio
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
 from app.db import models as current_models
-from backend.app.api.logs import get_request_logs, get_trace
+from backend.app.domains.logs.routes import get_request_logs, get_trace
 from backend.app.models.jobs import JobModel
 from backend.app.models.llm_calls import LLMCallModel
 

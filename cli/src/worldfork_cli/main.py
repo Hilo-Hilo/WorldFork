@@ -52,7 +52,6 @@ ATLAS_FAST_ROUTES = (
     "cohort_agent",
     "hero_agent",
     "event_summary",
-    "agent_deliberation_batch",
     "execute_due_events",
     "social_propagation",
     "sociology_update",
@@ -109,14 +108,14 @@ SETUP_PROVIDER_OPTIONS = (
         "atlas_recommendation": "Optional substitute for openai-codex on governance/report routes when OAuth is not desired.",
     },
     {
-        "provider": "anthropic",
-        "display_name": "Anthropic models through OpenRouter",
+        "provider": "openrouter-claude",
+        "display_name": "Claude models through OpenRouter",
         "api_key_env": "OPENROUTER_API_KEY",
         "base_url": "https://openrouter.ai/api/v1",
         "default_model": "anthropic/claude-3-5-sonnet",
         "supported": True,
         "best_for": ["god_agent", "report_agent"],
-        "setup": "Use OpenRouter with anthropic/* model IDs. Direct Anthropic API calls are not the recommended path in this build.",
+        "setup": "Add an OpenAI-compatible provider row such as provider=openrouter-claude and use OpenRouter anthropic/* model IDs. Direct Anthropic API calls are not the recommended path in this build.",
         "atlas_recommendation": "Optional high-quality governance/report model if the user authorizes higher cost.",
     },
     {
@@ -127,7 +126,7 @@ SETUP_PROVIDER_OPTIONS = (
         "default_model": "llama3.1:8b",
         "supported": True,
         "best_for": list(ALL_AGENT_ROUTES),
-        "setup": "Run Ollama locally, pull a model, then add a provider row with provider=ollama and api_key_env=none. Use http://localhost:11434/v1 only when the backend is not running in Docker.",
+        "setup": "Run Ollama locally, pull a model, then add a provider row with provider=ollama and api_key_env=none. Use http://localhost:11434/v1 only when the backend is not running in Docker. Add payload.omit_auth_header=true only if the local server rejects bearer headers.",
         "atlas_recommendation": "Available for every agent route. Prove strict JSON quality before using it for God/report/initializer routes.",
     },
     {
@@ -138,7 +137,7 @@ SETUP_PROVIDER_OPTIONS = (
         "default_model": "local-model",
         "supported": True,
         "best_for": list(ALL_AGENT_ROUTES),
-        "setup": "Start vLLM with its OpenAI-compatible server, then add provider=vllm with payload.api=vllm-openai and api_key_env=none.",
+        "setup": "Start vLLM with its OpenAI-compatible server, then add provider=vllm with payload.api=vllm-openai and api_key_env=none. Add payload.omit_auth_header=true only if the server rejects bearer headers.",
         "atlas_recommendation": "Available for every agent route when the served model can produce strict JSON.",
     },
     {
@@ -149,7 +148,7 @@ SETUP_PROVIDER_OPTIONS = (
         "default_model": "local-model",
         "supported": True,
         "best_for": list(ALL_AGENT_ROUTES),
-        "setup": "Start LM Studio's local server, then add provider=lmstudio with payload.api=lmstudio-openai and api_key_env=none.",
+        "setup": "Start LM Studio's local server, then add provider=lmstudio with payload.api=lmstudio-openai and api_key_env=none. Add payload.omit_auth_header=true only if the server rejects bearer headers.",
         "atlas_recommendation": "Available for every agent route after a JSON-output smoke test.",
     },
     {
@@ -160,7 +159,7 @@ SETUP_PROVIDER_OPTIONS = (
         "default_model": "local-model",
         "supported": True,
         "best_for": list(ALL_AGENT_ROUTES),
-        "setup": "Start LocalAI, then add provider=localai with payload.api=localai-openai and api_key_env=none.",
+        "setup": "Start LocalAI, then add provider=localai with payload.api=localai-openai and api_key_env=none. Add payload.omit_auth_header=true only if the server rejects bearer headers.",
         "atlas_recommendation": "Available for every agent route when model quality is acceptable.",
     },
 )
@@ -629,10 +628,6 @@ def init_command(
         as_json=ctx.as_json,
     )
 
-
-main.add_command(init_command, "initialize")
-
-
 @runs.command("list")
 @click.option("--status")
 @click.option("--q")
@@ -809,7 +804,7 @@ def claim(ctx: Context, job_id: str) -> None:
 @click.pass_obj
 def run_job_command(ctx: Context, job_id: str) -> None:
     """Run a job synchronously through the backend debug endpoint."""
-    _job_mutation(ctx, job_id, "run")
+    emit(ctx.client.request("POST", f"/jobs/{job_id}/run", params={"inline": True}), as_json=ctx.as_json)
 
 
 @main.group()
@@ -1218,19 +1213,18 @@ def reports_view(ctx: Context, report_version_id: str, output_format: str) -> No
 @reports.command("render")
 @click.argument("report_version_id")
 @click.option("--format", "output_format", type=click.Choice(["markdown", "pdf"]), default="pdf", show_default=True)
-@click.option("--force", is_flag=True, help="Accepted for compatibility; renders are always regenerated ephemerally.")
 @click.option(
     "--output",
     type=click.Path(dir_okay=False, path_type=Path),
     help="Write the requested render to this local file.",
 )
 @click.pass_obj
-def reports_render(ctx: Context, report_version_id: str, output_format: str, force: bool, output: Path | None) -> None:
+def reports_render(ctx: Context, report_version_id: str, output_format: str, output: Path | None) -> None:
     """Render a report version on demand without backend artifact caching."""
     response = ctx.client.response(
         "POST",
         f"/report-versions/{report_version_id}/render",
-        json_body={"format": output_format, "force": force},
+        json_body={"format": output_format},
     )
     body = response.content
     if output is not None:
@@ -1349,14 +1343,11 @@ def models() -> None:
     """Inspect model routing and defaults."""
 
 
-@models.command("list")
+@models.command("defaults")
 @click.pass_obj
-def models_list(ctx: Context) -> None:
+def models_defaults(ctx: Context) -> None:
     """Show the default model and per-agent model routing."""
     emit(ctx.client.request("GET", "/agent/models"), as_json=ctx.as_json)
-
-
-models.add_command(models_list, "defaults")
 
 
 @main.group()

@@ -134,7 +134,11 @@ Atlas routing PATCH payload. Local OpenAI-compatible providers such as Ollama,
 vLLM, LM Studio, and LocalAI are supported through provider rows with
 `api_key_env: "none"` and can be routed to any audited agent type; use
 `host.docker.internal` in the base URL when the backend runs inside Docker on
-macOS.
+macOS. If a strict local proxy rejects bearer headers, set
+`payload.omit_auth_header: true` on that provider row.
+
+For actor calls, prefer the audited route names `cohort_agent` and `hero_agent`.
+The internal worker job for one actor decision is `actor_deliberation_call`.
 
 ### First Big Bang
 

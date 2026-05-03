@@ -76,15 +76,13 @@ def generate_multiverse_report(
     title: str | None = None,
     summary: str | None = None,
 ) -> models.ReportVersion:
-    db.execute(select(models.Multiverse).where(models.Multiverse.id == multiverse.id).with_for_update()).scalar_one()
     report = _get_or_create_report(
         db,
         big_bang_id=multiverse.big_bang_id,
         multiverse_id=multiverse.id,
         report_type="multiverse",
     )
-    previous_version = _latest_report_version(db, report.id)
-    version = report.current_version + 1
+    planned_version = report.current_version + 1
     latest_tick = _latest_tick(db, multiverse.id)
     title_text = title or f"Multiverse {multiverse.ui_label} Report"
     content = _build_multiverse_report_content(
@@ -92,7 +90,7 @@ def generate_multiverse_report(
         multiverse=multiverse,
         title=title_text,
         summary=summary,
-        report_version_number=version,
+        report_version_number=planned_version,
         latest_tick=latest_tick,
     )
     big_bang = db.get(models.BigBang, multiverse.big_bang_id)
@@ -113,6 +111,7 @@ def generate_multiverse_report(
         model=get_settings().report_agent_model,
         source={"multiverse_id": str(multiverse.id), "multiverse_version": multiverse.version},
     )
+    _commit_report_inputs_before_llm(db)
     llm_report, llm_call = _run_report_agent(db, big_bang_id=multiverse.big_bang_id, content=content)
     _complete_report_agent_structured_fields(llm_report, content)
     content["llm_report"] = llm_report
@@ -123,7 +122,8 @@ def generate_multiverse_report(
     metadata["report_agent_attempt"] = (llm_call.meta or {}).get("report_agent_attempt")
     _refresh_report_counts(db, big_bang_id=multiverse.big_bang_id, content=content)
 
-    report.current_version = version
+    report, previous_version, version = _allocate_report_version(db, report_id=report.id)
+    _set_content_report_version(content, version)
     report.status = "completed"
     multiverse.report_status = "completed"
     report_version = models.ReportVersion(
@@ -154,15 +154,13 @@ def generate_final_big_bang_report(
     title: str | None = None,
     summary: str | None = None,
 ) -> models.ReportVersion:
-    db.execute(select(models.BigBang).where(models.BigBang.id == big_bang.id).with_for_update()).scalar_one()
     report = _get_or_create_report(
         db,
         big_bang_id=big_bang.id,
         multiverse_id=None,
         report_type="final_big_bang",
     )
-    previous_version = _latest_report_version(db, report.id)
-    version = report.current_version + 1
+    planned_version = report.current_version + 1
     multiverses = list(
         db.scalars(
             select(models.Multiverse)
@@ -177,7 +175,7 @@ def generate_final_big_bang_report(
         multiverses=multiverses,
         title=title_text,
         summary=summary,
-        report_version_number=version,
+        report_version_number=planned_version,
     )
     _ensure_multiverse_endpoint_ledgers(db, big_bang=big_bang, multiverses=multiverses)
     adjudication = evaluate_timeline_adjudication(
@@ -201,7 +199,7 @@ def generate_final_big_bang_report(
         reports,
         label_by_multiverse_id=label_by_multiverse_id,
         planned_final_report_id=report.id,
-        planned_final_version=version,
+        planned_final_version=planned_version,
     )
     metadata = _base_generation_metadata(
         report_type="final_big_bang",
@@ -214,6 +212,7 @@ def generate_final_big_bang_report(
             }
         },
     )
+    _commit_report_inputs_before_llm(db)
     llm_report, llm_call = _run_report_agent(db, big_bang_id=big_bang.id, content=content)
     _complete_report_agent_structured_fields(llm_report, content)
     content["llm_report"] = llm_report
@@ -224,7 +223,14 @@ def generate_final_big_bang_report(
     metadata["report_agent_attempt"] = (llm_call.meta or {}).get("report_agent_attempt")
     _refresh_report_counts(db, big_bang_id=big_bang.id, content=content)
 
-    report.current_version = version
+    report, previous_version, version = _allocate_report_version(db, report_id=report.id)
+    _set_content_report_version(content, version)
+    content["report_inventory"] = _report_inventory_items(
+        reports,
+        label_by_multiverse_id=label_by_multiverse_id,
+        planned_final_report_id=report.id,
+        planned_final_version=version,
+    )
     report.status = "completed"
     report_version = models.ReportVersion(
         report_id=report.id,
@@ -248,6 +254,30 @@ def generate_final_big_bang_report(
     attach_report_version_to_ledger(db, ledger=endpoint_ledger, report_version_id=report_version.id)
     adjudication.source_report_version_id = report_version.id
     return report_version
+
+
+def _allocate_report_version(
+    db: Session,
+    *,
+    report_id,
+) -> tuple[models.Report, models.ReportVersion | None, int]:
+    report = db.execute(
+        select(models.Report)
+        .where(models.Report.id == report_id)
+        .with_for_update()
+    ).scalar_one()
+    previous_version = _latest_report_version(db, report.id)
+    latest_number = previous_version.version if previous_version else 0
+    version = max(int(report.current_version or 0), int(latest_number or 0)) + 1
+    report.current_version = version
+    db.flush()
+    return report, previous_version, version
+
+
+def _set_content_report_version(content: dict[str, Any], version: int) -> None:
+    source = content.get("source")
+    if isinstance(source, dict):
+        source["report_version"] = version
 
 
 def _ensure_multiverse_endpoint_ledgers(
@@ -552,7 +582,7 @@ def _get_or_create_report(
         query = query.where(models.Report.multiverse_id.is_(None))
     else:
         query = query.where(models.Report.multiverse_id == multiverse_id)
-    report = db.scalar(query.with_for_update())
+    report = db.scalar(query)
     if report is None:
         report = models.Report(
             big_bang_id=big_bang_id,
@@ -564,6 +594,11 @@ def _get_or_create_report(
         db.add(report)
         db.flush()
     return report
+
+
+def _commit_report_inputs_before_llm(db: Session) -> None:
+    """Persist report prep rows before the live report-agent call starts."""
+    db.commit()
 
 
 def _latest_report_version(db: Session, report_id) -> models.ReportVersion | None:
@@ -1648,8 +1683,13 @@ def _run_report_agent(
         fallback_provider=settings.default_llm_provider,
         fallback_model=settings.report_agent_model,
     )
-    if route.primary.provider == "deterministic":
-        raise LLMCallError("Report generation requires a live LLM provider; configured provider is deterministic.")
+    deterministic_candidates = [
+        candidate.provider for candidate in route.candidates() if candidate.provider == "deterministic"
+    ]
+    if deterministic_candidates:
+        raise LLMCallError(
+            "Report generation requires live LLM providers; deterministic report providers are not allowed."
+        )
     source = content.get("source") or {}
     source_id = source.get("multiverse_id") or source.get("big_bang_id") or str(big_bang_id)
     failures: list[str] = []
@@ -1678,6 +1718,8 @@ def _run_report_agent(
                 },
             )
             parsed = response.parsed if isinstance(response.parsed, dict) else {}
+            if parsed.get("fallback") is True:
+                raise ValueError("report agent response came from a fallback payload")
             return _coerce_report_agent_output(parsed), call
         except (LLMCallError, ValueError) as exc:
             failures.append(f"{prompt_mode}: {exc}")
@@ -1723,6 +1765,8 @@ def _report_agent_messages(prompt_content: dict[str, Any], *, mode: str) -> list
 
 
 def _coerce_report_agent_output(parsed: dict[str, Any]) -> dict[str, Any]:
+    if parsed.get("provider") == "deterministic":
+        raise ValueError("report agent response came from deterministic provider")
     report_markdown = parsed.get("report_markdown")
     if not isinstance(report_markdown, str) or not report_markdown.strip():
         raise ValueError("report agent response did not include report_markdown")

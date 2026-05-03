@@ -13,7 +13,7 @@ celery_app = Celery(
     backend=settings.celery_result_backend,
     include=[
         "backend.app.workers.jobs",  # populated by B3-C/B4-*
-        "app.jobs.workers",
+        "app.domains.jobs.workers",
     ],
 )
 
@@ -40,7 +40,7 @@ celery_app.conf.update(
         "simulate_universe_tick": {"queue": "p0"},
         "branch_universe": {"queue": "p0"},
         "apply_tick_results": {"queue": "p0"},
-        "agent_deliberation_batch": {"queue": "p1"},
+        "actor_deliberation_call": {"queue": "p1"},
         "social_propagation": {"queue": "p1"},
         "execute_due_events": {"queue": "p1"},
         "sociology_update": {"queue": "p1"},
@@ -75,4 +75,4 @@ try:
 except Exception:
     pass
 
-import app.jobs.workers as _db_job_workers  # noqa: E402,F401
+import app.domains.jobs.workers as _db_job_workers  # noqa: E402,F401

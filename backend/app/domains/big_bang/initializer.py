@@ -25,7 +25,7 @@ from app.storage.artifact_store import ArtifactStore
 
 @dataclass(slots=True)
 class InitializerInput:
-    """Compatibility input for the legacy async initializer entrypoint."""
+    """Input for the async Big Bang initialization worker path."""
 
     scenario_text: str
     display_name: str
@@ -42,7 +42,7 @@ class InitializerInput:
 
 @dataclass(slots=True)
 class InitializerResult:
-    """Compatibility result shape consumed by worker and live smoke script."""
+    """Result shape produced by the async Big Bang initialization worker path."""
 
     big_bang_run: Any
     root_universe: Any
@@ -373,12 +373,7 @@ async def initialize_big_bang(
     run_root: Path | str | None = None,
     routing=None,
 ) -> InitializerResult:
-    """Compatibility wrapper for callers that still import initialize_big_bang.
-
-    The canonical first-wave initializer is :func:`create_big_bang`.  This
-    wrapper only maintains the async run/worker contract without changing that
-    canonical path.
-    """
+    """Initialize a Big Bang through the async worker/run contract."""
     del provider_rate_limiter, routing
 
     from sqlalchemy import select

@@ -1,4 +1,4 @@
-"""Unit tests for backend.app.simulation.prompt_builder."""
+"""Unit tests for backend.app.llm.sot_prompt_builder."""
 from __future__ import annotations
 
 
@@ -11,7 +11,7 @@ from backend.app.schemas.actors import (
     PopulationArchetype,
 )
 from backend.app.schemas.common import Clock
-from backend.app.simulation.prompt_builder import PromptBuilder
+from backend.app.llm.sot_prompt_builder import PromptBuilder
 from backend.app.storage.sot_loader import load_sot
 
 

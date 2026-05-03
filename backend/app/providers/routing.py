@@ -29,7 +29,6 @@ _AGENT_MODEL = _OPENROUTER_MODEL
 _AGENT_FALLBACK_MODEL = _OPENROUTER_MODEL
 _GOD_MODEL = _OPENAI_CODEX_MODEL
 _GOD_FALLBACK_MODEL = _OPENAI_CODEX_MODEL
-_LEGACY_GEMINI_SEED_MODEL = "google/gemini-3.1-flash-lite-preview"
 _OPENAI_CODEX_JOB_TYPES = {
     "initialize_big_bang",
     "god_agent_review",
@@ -37,8 +36,6 @@ _OPENAI_CODEX_JOB_TYPES = {
     "evaluate_endpoint_ledger",
     "force_deviation",
 }
-
-
 def _default_entry(job_type: JobType) -> ModelRoutingEntry:
     """Return a sane default :class:`ModelRoutingEntry` for *job_type*."""
     if job_type in _OPENAI_CODEX_JOB_TYPES:
@@ -72,7 +69,7 @@ def _default_entry(job_type: JobType) -> ModelRoutingEntry:
 _ALL_JOB_TYPES: tuple[JobType, ...] = (
     "initialize_big_bang",
     "simulate_universe_tick",
-    "agent_deliberation_batch",
+    "actor_deliberation_call",
     "execute_due_events",
     "social_propagation",
     "sociology_update",
@@ -184,8 +181,6 @@ class RoutingTable:
         entries: dict[JobType, ModelRoutingEntry] = {}
         for row in rows:
             row_dict = dict(row)
-            if _is_legacy_seed_default_row(row_dict):
-                continue
             row_dict.pop("payload", None)
             try:
                 entry = ModelRoutingEntry(**row_dict)
@@ -198,18 +193,6 @@ class RoutingTable:
         for jt in _ALL_JOB_TYPES:
             entries.setdefault(jt, _default_entry(jt))
         return cls(entries)
-
-
-def _is_legacy_seed_default_row(row: dict[str, object]) -> bool:
-    payload = row.get("payload")
-    if not isinstance(payload, dict):
-        return False
-    return (
-        row.get("preferred_provider") == "openrouter"
-        and row.get("preferred_model") == _LEGACY_GEMINI_SEED_MODEL
-        and payload.get("preferred_provider") == "openrouter"
-        and payload.get("preferred_model") == _LEGACY_GEMINI_SEED_MODEL
-    )
 
 
 async def build_provider_rate_limiter(

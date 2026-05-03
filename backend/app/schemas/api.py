@@ -524,7 +524,6 @@ class RouteCatalogEntry(BaseModel):
     route_kind: str = "audited_llm"
     label: str
     description: str
-    aliases: list[str] = Field(default_factory=list)
     fallback_model_setting: str
     direct_override: bool = True
 

@@ -223,16 +223,16 @@ class CannedProvider(BaseProvider):
             schema_to_job = {
                 "initializer_schema": "initialize_big_bang",
                 "god_review_schema": "god_agent_review",
-                "cohort_decision_schema": "agent_deliberation_batch",
-                "hero_decision_schema": "agent_deliberation_batch",
+                "cohort_decision_schema": "actor_deliberation_call",
+                "hero_decision_schema": "actor_deliberation_call",
             }
             job_type = schema_to_job.get(schema_id, "")
         if not job_type:
             actor_kind = getattr(prompt, "actor_kind", "")
             job_type = {
                 "god": "god_agent_review",
-                "cohort": "agent_deliberation_batch",
-                "hero": "agent_deliberation_batch",
+                "cohort": "actor_deliberation_call",
+                "hero": "actor_deliberation_call",
             }.get(actor_kind, "")
         payload = self._next(job_type)
         self.calls.append({"job_type": job_type, "model": config.model})
@@ -518,7 +518,7 @@ def installed_openrouter(mock_provider_response):
 
 @pytest.fixture
 def initializer_input():
-    from backend.app.simulation.initializer import InitializerInput
+    from backend.app.domains.big_bang.initializer import InitializerInput
 
     return InitializerInput(
         scenario_text=(

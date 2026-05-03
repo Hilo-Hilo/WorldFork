@@ -50,7 +50,7 @@ def rewire(
 
     # Lowest-trust edges first.
     edges.sort(key=lambda e: float(e[2].get("trust", 0.0)))
-    n_candidates = max(1, int(len(edges) * h.rewire_probability))
+    n_candidates = max(1, int(len(edges) * h.rewiring_rate))
     candidates = edges[:n_candidates]
 
     rewires = 0
@@ -62,7 +62,7 @@ def rewire(
         if rewires >= h.max_rewires_per_tick:
             break
         # Probability gate
-        if rng.random() > h.rewire_probability:
+        if rng.random() > h.rewiring_rate:
             continue
         if u not in cohort_states:
             continue

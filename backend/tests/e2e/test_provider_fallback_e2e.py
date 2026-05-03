@@ -110,9 +110,9 @@ class _GoodFallback(BaseProvider):
 
 
 def _make_routing_with_fallback() -> RoutingTable:
-    """Routing table whose agent_deliberation_batch entry has a fallback."""
+    """Routing table whose actor_deliberation_call entry has a fallback."""
     entry = ModelRoutingEntry(
-        job_type="agent_deliberation_batch",
+        job_type="actor_deliberation_call",
         preferred_provider="openrouter",
         preferred_model="openai/gpt-4o",
         fallback_provider="fallback_provider",
@@ -127,11 +127,11 @@ def _make_routing_with_fallback() -> RoutingTable:
         retry_policy="exponential_backoff",
         daily_budget_usd=None,
     )
-    return RoutingTable({"agent_deliberation_batch": entry})
+    return RoutingTable({"actor_deliberation_call": entry})
 
 
 def _make_packet() -> PromptPacket:
-    """Minimal prompt packet for `agent_deliberation_batch`."""
+    """Minimal prompt packet for `actor_deliberation_call`."""
     return PromptPacket(
         system="You are a brief test cohort.",
         clock=Clock(
@@ -154,7 +154,7 @@ def _make_packet() -> PromptPacket:
         allowed_tools=[],
         output_schema_id="cohort_decision_schema",
         temperature=0.5,
-        metadata={"job_type": "agent_deliberation_batch"},
+        metadata={"job_type": "actor_deliberation_call"},
     )
 
 
@@ -183,7 +183,7 @@ async def test_primary_recovers_after_one_5xx(
     )
 
     result = await call_with_policy(
-        job_type="agent_deliberation_batch",
+        job_type="actor_deliberation_call",
         prompt=_make_packet(),
         routing=routing,
         limiter=limiter,
@@ -226,7 +226,7 @@ async def test_primary_exhausts_then_fallback_takes_over(
     # max_attempts=3 keeps the test fast; backoff doubles 1→2→4→8→16 seconds
     # but we replaced asyncio.sleep with a no-op so it's instant.
     result = await call_with_policy(
-        job_type="agent_deliberation_batch",
+        job_type="actor_deliberation_call",
         prompt=_make_packet(),
         routing=routing,
         limiter=limiter,

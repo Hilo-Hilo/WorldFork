@@ -11,6 +11,7 @@ from app.api.schemas import (
     BigBangCreate,
     BigBangOut,
     BigBangPatch,
+    JobCreate,
     ReportOut,
     ReportRequest,
     ReportVersionOut,
@@ -22,6 +23,7 @@ from app.db import models
 from app.db.session import get_db
 from app.llm.audit import LLMCallError
 from app.domains.big_bang.initializer import create_big_bang
+from app.domains.jobs.routes import JobResponse, create_job_record
 from app.domains.report.engine import generate_final_big_bang_report
 from app.domains.big_bang.run_orchestrator import run_big_bang_until_complete
 from app.domains.tick.tick_runner import TERMINAL_MULTIVERSE_STATUSES
@@ -137,6 +139,21 @@ def final_report(big_bang_id: UUID, payload: ReportRequest | None = None, db: Se
     return version
 
 
+@router.post("/{big_bang_id}/reports/final/jobs", response_model=JobResponse)
+def final_report_job(big_bang_id: UUID, payload: ReportRequest | None = None, db: Session = Depends(get_db)):
+    request = payload or ReportRequest()
+    big_bang = require(db, models.BigBang, big_bang_id)
+    reject_archived_big_bang(big_bang)
+    return create_job_record(
+        JobCreate(
+            job_type="generate_final_big_bang_report",
+            big_bang_id=big_bang.id,
+            payload={"title": request.title, "summary": request.summary},
+        ),
+        db=db,
+    )
+
+
 @router.post("/{big_bang_id}/run-until-complete", response_model=RunUntilCompleteOut)
 def run_until_complete(big_bang_id: UUID, payload: RunUntilCompleteRequest | None = None, db: Session = Depends(get_db)):
     request = payload or RunUntilCompleteRequest()
@@ -152,6 +169,25 @@ def run_until_complete(big_bang_id: UUID, payload: RunUntilCompleteRequest | Non
         raise_domain_conflict(exc)
     commit_or_500(db)
     return result
+
+
+@router.post("/{big_bang_id}/run-until-complete/jobs", response_model=JobResponse)
+def run_until_complete_job(
+    big_bang_id: UUID,
+    payload: RunUntilCompleteRequest | None = None,
+    db: Session = Depends(get_db),
+):
+    request = payload or RunUntilCompleteRequest()
+    big_bang = require(db, models.BigBang, big_bang_id)
+    reject_archived_big_bang(big_bang)
+    return create_job_record(
+        JobCreate(
+            job_type="run_big_bang_until_complete",
+            big_bang_id=big_bang.id,
+            payload={"max_total_ticks": request.max_total_ticks},
+        ),
+        db=db,
+    )
 
 
 def reject_non_terminal_multiverses(db: Session, big_bang: models.BigBang) -> None:

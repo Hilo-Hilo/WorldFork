@@ -9,6 +9,7 @@ import hashlib
 import json
 import os
 import posixpath
+import shutil
 import tempfile
 import zipfile
 from pathlib import Path
@@ -98,6 +99,30 @@ def _safe_zip_member_path(extract_dir: Path, member_name: str) -> Path:
     if target != extract_root and extract_root not in target.parents:
         raise ExportError(f"Unsafe zip member path: {member_name}")
     return target
+
+
+def _safe_run_folder_name(run_folder_name: str, *, dest_runs: Path) -> str:
+    """Validate a run folder name before using it under dest_root/runs."""
+    if not isinstance(run_folder_name, str):
+        raise ExportError("Run folder name must be a string.")
+    normalized = posixpath.normpath(run_folder_name)
+    if (
+        not run_folder_name
+        or run_folder_name.startswith("/")
+        or os.path.isabs(run_folder_name)
+        or normalized in ("", ".")
+        or normalized.startswith("../")
+        or normalized == ".."
+        or "/" in run_folder_name
+        or "\\" in run_folder_name
+    ):
+        raise ExportError(f"Unsafe run folder name: {run_folder_name}")
+
+    target = (dest_runs / normalized).resolve()
+    dest_root = dest_runs.resolve()
+    if target == dest_root or dest_root not in target.parents:
+        raise ExportError(f"Unsafe run folder name: {run_folder_name}")
+    return normalized
 
 
 def _read_export_manifest(zf: zipfile.ZipFile) -> dict[str, Any]:
@@ -337,9 +362,6 @@ def import_run_from_zip(
         run_folder_name: str | None = None
         for name in names:
             parts = Path(name).parts
-            if len(parts) == 1 and parts[0] == "manifest.json":
-                run_folder_name = zip_path.stem  # use zip stem as fallback
-                break
             if len(parts) >= 1 and parts[-1] == "manifest.json":
                 # Try reading the manifest to get a meaningful folder name
                 try:
@@ -347,38 +369,43 @@ def import_run_from_zip(
                     bb_id = data.get("big_bang_id", "")
                     if bb_id:
                         run_folder_name = bb_id
+                    elif len(parts) > 1:
+                        run_folder_name = parts[0]
                     else:
                         run_folder_name = zip_path.stem
                 except Exception:
-                    run_folder_name = zip_path.stem
+                    run_folder_name = parts[0] if len(parts) > 1 else zip_path.stem
                 break
 
         if run_folder_name is None:
             run_folder_name = zip_path.stem
+        run_folder_name = _safe_run_folder_name(run_folder_name, dest_runs=dest_runs)
 
-        # Read the run manifest from archive to determine canonical folder name
-        # Try to use the folder structure that was in the zip
-        top_level_dirs: set[str] = set()
-        for name in names:
-            parts = Path(name).parts
-            if parts and parts[0] not in ("EXPORT_MANIFEST.json",):
-                top_level_dirs.add(parts[0])
-
-        # If the zip was created with run_folder relative paths, use the zip stem
-        # as the run folder name (this matches the export convention)
+        # Extract into a sibling temp directory first. Verification happens before
+        # the final rename so failed imports never leave partial or merged run data.
         extract_dir = dest_runs / run_folder_name
-        extract_dir.mkdir(parents=True, exist_ok=True)
+        if extract_dir.exists():
+            raise ExportError(f"Destination run already exists: {extract_dir.name}")
+        temp_extract_dir = Path(
+            tempfile.mkdtemp(prefix=f".{run_folder_name}.import-", dir=dest_runs)
+        )
 
-        # Extract all files except EXPORT_MANIFEST.json
-        for member in zf.infolist():
-            if member.filename == "EXPORT_MANIFEST.json" or member.is_dir():
-                continue
-            target = _safe_zip_member_path(extract_dir, member.filename)
-            target.parent.mkdir(parents=True, exist_ok=True)
-            target.write_bytes(zf.read(member.filename))
+        try:
+            # Extract all files except EXPORT_MANIFEST.json
+            for member in zf.infolist():
+                if member.filename == "EXPORT_MANIFEST.json" or member.is_dir():
+                    continue
+                target = _safe_zip_member_path(temp_extract_dir, member.filename)
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_bytes(zf.read(member.filename))
 
-    if verify:
-        _verify_imported_run(extract_dir)
+            if verify:
+                _verify_imported_run(temp_extract_dir)
+
+            temp_extract_dir.rename(extract_dir)
+        except Exception:
+            shutil.rmtree(temp_extract_dir, ignore_errors=True)
+            raise
 
     return extract_dir
 

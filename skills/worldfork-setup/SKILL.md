@@ -189,10 +189,12 @@ worldfork settings providers --data '{
 
 For OpenRouter, set `OPENROUTER_API_KEY` in `.env`; the seeded provider row
 already points at OpenRouter. For Anthropic-family models, keep the provider as
-OpenRouter and use model IDs such as `anthropic/claude-3-5-sonnet` in
-`worldfork settings model-routing`. Local OpenAI-compatible providers can use
-`api_key_env: "none"`; the audited runtime will send a harmless dummy bearer
-token for servers that ignore auth.
+OpenRouter or a clearly named OpenRouter-backed provider such as
+`openrouter-claude`, then use model IDs such as
+`anthropic/claude-3-5-sonnet` in `worldfork settings model-routing`. Local
+OpenAI-compatible providers can use `api_key_env: "none"`; if a strict local
+proxy rejects bearer headers, add `"omit_auth_header": true` to that provider
+row payload.
 
 For the Atlas demo, recommend the `atlas-fast-governed` split emitted by
 `worldfork setup`: OpenRouter `deepseek/deepseek-v4-flash` for frequent
@@ -233,6 +235,8 @@ Default first-run policy:
 
 - Onboarding/smoke runs: keep `cohort_agent`, `hero_agent`, action execution, and `event_summary` on `openrouter/deepseek/deepseek-v4-flash`, and keep initialization, God review, endpoint-ledger evaluation, and reports on `openai-codex/gpt-5.4`.
 - Higher-quality runs can override the same routes through `worldfork settings model-routing`, but should preserve the distinction between frequent cohort calls and high-impact governance/report calls.
+
+Use `cohort_agent` and `hero_agent` when explaining or editing audited actor routes. The canonical internal worker job for a single actor decision is `actor_deliberation_call`.
 
 To configure OpenAI Codex OAuth, use the headless login command. This path works on machines without the Codex CLI installed:
 

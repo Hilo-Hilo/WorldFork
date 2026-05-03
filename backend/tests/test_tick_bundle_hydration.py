@@ -12,15 +12,16 @@ from sqlalchemy.orm import Session
 from sqlalchemy.pool import StaticPool
 
 from app.api import agent as agent_api
-from app.api import multiverses as multiverses_api
-from app.api import ticks as ticks_api
+from app.domains.multiverse import routes as multiverses_api
+from app.domains.tick import routes as ticks_api
 from app.db import models
 from app.main import app
-from app.simulation import report_engine, tick_runner
-from app.simulation.branch_engine import create_branch
+from app.domains.report import engine as report_engine
+from app.domains.tick import tick_runner
+from app.domains.multiverse.branch_engine import create_branch
 from app.api.schemas import SimulateTickRequest
 from app.db.session import get_db
-from app.simulation.tick_bundles import (
+from app.domains.tick.tick_bundles import (
     TICK_BUNDLE_REF_KEY,
     TICK_BUNDLE_REF_KIND,
     TickBundleHydrationError,

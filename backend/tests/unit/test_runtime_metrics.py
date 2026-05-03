@@ -1,8 +1,8 @@
-"""Unit tests for backend.app.simulation.metrics."""
+"""Unit tests for backend.app.runtime.metrics."""
 from __future__ import annotations
 
 from backend.app.schemas.actors import CohortState
-from backend.app.simulation.metrics import (
+from backend.app.runtime.metrics import (
     compute_divergence,
     compute_universe_metrics,
     emotional_volatility,

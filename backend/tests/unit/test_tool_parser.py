@@ -1,9 +1,9 @@
-"""Unit tests for backend.app.simulation.tool_parser."""
+"""Unit tests for backend.app.llm.tool_parser."""
 from __future__ import annotations
 
 import pytest
 
-from backend.app.simulation.tool_parser import (
+from backend.app.llm.tool_parser import (
     ToolParseError,
     ToolParser,
     parse_json_loosely,

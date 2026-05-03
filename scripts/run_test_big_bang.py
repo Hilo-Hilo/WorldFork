@@ -56,7 +56,7 @@ _load_env()
 from app.core.config import get_settings  # noqa: E402
 from app.db import models  # noqa: E402
 from app.db.session import SessionLocal  # noqa: E402
-from app.simulation.branch_engine import create_branch  # noqa: E402
+from app.domains.multiverse.branch_engine import create_branch  # noqa: E402
 
 
 class SampleFailure(AssertionError):
@@ -349,7 +349,7 @@ def assert_expected_llm_only(
         db.close()
 
 
-def _legacy_assert_config_uses_model(expected_provider: str, expected_model: str) -> None:
+def assert_config_uses_model(expected_provider: str, expected_model: str) -> None:
     settings = get_settings()
     check(settings.default_llm_provider == expected_provider, f"default provider is {expected_provider}")
     for label, model in {
@@ -360,10 +360,6 @@ def _legacy_assert_config_uses_model(expected_provider: str, expected_model: str
         "event_summary": settings.event_summary_model,
     }.items():
         check(model == expected_model, f"{label} model is {expected_model}")
-
-
-assert_config_uses_model = _legacy_assert_config_uses_model
-
 
 def validate_runtime(runtime: dict[str, Any]) -> None:
     executions = runtime.get("executions") or []

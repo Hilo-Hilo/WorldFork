@@ -11,8 +11,11 @@ from app.core.config import get_settings
 from app.db import models
 from app.llm.audit import complete_with_audit
 from app.llm.prompt_templates import ACTOR_SYSTEM_PROMPT
-from app.llm.routing import AuditedLLMRoute, resolve_audited_llm_route, route_for_actor_type
+from app.llm.routing import AuditedLLMRoute, route_for_actor_type
 from app.domains.event.event_engine import build_event_queue_prompt_context
+
+
+ACTOR_DELIBERATION_JOB_TYPE = "actor_deliberation_call"
 
 
 class EventValidationError(ValueError):
@@ -95,7 +98,18 @@ def run_actor_decision(
                 "content": f"Actor: {actor.name}\nArchetype: {actor.archetype}\nContext: {actor_prompt_context}",
             },
         ],
-        metadata={"max_tokens": 700, "temperature": 0.4, "agent_type": actor.actor_type},
+        metadata={
+            "max_tokens": 700,
+            "temperature": 0.4,
+            "agent_type": actor.actor_type,
+            "actor_type": actor.actor_type,
+            "agent_source": str(route),
+            "canonical_job_type": ACTOR_DELIBERATION_JOB_TYPE,
+            "actor_id": str(actor.id),
+            "actor_name": actor.name,
+            "multiverse_id": str(multiverse.id),
+            "tick_index": tick_index,
+        },
     )
     parsed = response.parsed if isinstance(response.parsed, dict) else {}
     social_actions = _normalize_social_actions(parsed)
@@ -483,17 +497,6 @@ def _log_rejected_event_attempts(
             )
         )
     db.flush()
-
-
-def _agent_deliberation_model(db: Session) -> str:
-    settings = get_settings()
-    route = resolve_audited_llm_route(
-        db,
-        route="agent_deliberation_batch",
-        fallback_provider=getattr(settings, "default_llm_provider", "openrouter"),
-        fallback_model=settings.default_model,
-    )
-    return route.primary.model
 
 
 def _actor_fallback_model(actor_type: str | None) -> str:
