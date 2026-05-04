@@ -103,6 +103,20 @@ export type Job = {
   updated_at: string;
 };
 
+export type Tick = {
+  id: string;
+  big_bang_id: string;
+  multiverse_id: string;
+  tick_index: number;
+  ui_label: string;
+  status: "running" | "final" | "failed" | string;
+  summary: string | null;
+  artifact_id: string | null;
+  idempotency_key: string;
+  created_at: string;
+  updated_at: string;
+};
+
 export type AgentLog = {
   id: string;
   source: string;

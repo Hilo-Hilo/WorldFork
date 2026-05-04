@@ -6,7 +6,7 @@ export default async function Page({
   searchParams: Promise<{ run?: string; orientation?: string; scores?: string }>;
 }) {
   const { run, orientation, scores } = await searchParams;
-  const o: "horizontal" | "vertical" = orientation === "vertical" ? "vertical" : "horizontal";
+  const o: "horizontal" | "vertical" = orientation === "horizontal" ? "horizontal" : "vertical";
   const showScores = scores !== "off";
   return <DashboardPage runId={run} orientation={o} showScores={showScores} />;
 }

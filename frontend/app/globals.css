@@ -736,43 +736,103 @@ input, textarea { font-family: inherit; color: inherit; }
 
 .tree-svg { flex: 1; width: 100%; height: 100%; display: block; }
 
-/* tree elements */
-.edge { stroke: var(--border-strong); stroke-width: 1; fill: none; }
-.edge.is-active   { stroke: var(--accent); stroke-width: 1.6; }
-.edge.is-lineage  { stroke: var(--fg-2);   stroke-width: 1.4; stroke-opacity: 0.7; }
-
-.node { cursor: pointer; }
-.node-bg { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1; }
-.node[data-status="running"] .node-bg { stroke: var(--accent); }
-.node[data-status="paused"]  .node-bg { stroke: var(--warn); }
-.node[data-status="failed"]  .node-bg { stroke: var(--danger); }
-.node.is-selected .node-bg {
-  fill: var(--surface-2); stroke: var(--fg-2); stroke-width: 1.5;
+/* tidy-tree elements */
+.node-group {
+  /* Slide between centroid positions when the layout shifts (a new branch
+   * arriving moves all existing nodes). Path links re-render at new
+   * endpoints — they snap, but the moving nodes carry the eye. */
+  transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
 }
-.node.is-root .node-bg { fill: var(--surface-2); }
+.node-circle,
+.node-leaf {
+  transition: r 0.2s ease, stroke-width 0.2s ease;
+}
+.node-link {
+  fill: none;
+  stroke-linecap: round;
+  /* Draw-in on mount: a long dasharray + animated dashoffset reveals the
+   * curve from parent → child. Length is generous so any path renders. */
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  animation: linkDraw 0.55s ease-out forwards;
+}
+.node-link.is-lineage { stroke-width: 2.4; opacity: 1; }
+
+.node-circle.root {
+  fill: var(--surface-2);
+  stroke: var(--fg-2);
+  stroke-width: 1.4;
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: nodeAppear 0.4s ease-out;
+}
+.node-circle.root.is-selected {
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+.node-circle.fork {
+  fill: var(--surface);
+  stroke-width: 1.5;
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: nodeAppear 0.4s ease-out;
+}
+.node-circle.fork.is-selected { stroke-width: 2.4; }
+
+.node-leaf {
+  stroke: var(--bg);
+  stroke-width: 1.5;
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: nodeAppear 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.node-leaf.is-selected {
+  stroke: var(--fg);
+  stroke-width: 2;
+}
+
+.node-label,
+.node-leaf-label,
+.node-leaf-value {
+  text-anchor: middle;
+  animation: labelFade 0.5s ease-out 0.2s both;
+}
 .node-label {
   fill: var(--fg-2);
   font-family: var(--font-mono); font-size: 10px;
-  text-anchor: middle; dominant-baseline: middle;
 }
-.node-tag, .node-score {
+.node-leaf-label {
   fill: var(--muted);
-  font-family: var(--font-mono); font-size: 9px;
-  text-anchor: middle;
+  font-family: var(--font-mono); font-size: 11px;
 }
-.node[data-status="running"] .node-pulse {
+.node-leaf-value {
+  fill: var(--muted-2);
+  font-family: var(--font-mono); font-size: 10px;
+}
+
+.node-pulse {
   fill: var(--accent); fill-opacity: 0.3;
   animation: nodepulse 1.6s ease-out infinite;
+}
+
+/* Animations apply only on first mount; React leaves elements alone on
+ * re-render, so existing nodes don't re-trigger when new siblings appear. */
+@keyframes nodeAppear {
+  0%   { transform: scale(0); opacity: 0; }
+  60%  { opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes linkDraw {
+  from { stroke-dashoffset: 600; }
+  to   { stroke-dashoffset: 0; }
+}
+@keyframes labelFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 @keyframes nodepulse {
   0%   { r: 0;  opacity: 0.4; }
   100% { r: 22; opacity: 0; }
-}
-
-.branch-tick-axis {
-  fill: var(--muted-2);
-  font-family: var(--font-mono);
-  font-size: 9.5px;
 }
 
 /* dashboard right rail: details */

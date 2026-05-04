@@ -17,7 +17,18 @@ import type {
   Report,
   ReportVersion,
   RunSummary,
+  Tick,
 } from "./types";
+import {
+  DEMO_RUN_ID,
+  demoAgentLogsEnvelope,
+  demoBigBang,
+  demoJobs,
+  demoMultiverses,
+  demoMultiverseTicks,
+  demoRunsListEnvelope,
+  isDemoRun,
+} from "./demo";
 
 const SERVER_BASE =
   process.env.NEXT_PUBLIC_API_URL ||
@@ -82,12 +93,21 @@ export const api = {
     return { ok: true, checks: {} } as ReadyzResult;
   },
 
-  listRuns: (limit = 20) =>
-    http<AgentEnvelope<RunSummary[]>>(
+  listRuns: async (limit = 20) => {
+    // The runs page shows the demo run alongside any real runs. We always merge,
+    // so it's discoverable even after the user has created real scenarios.
+    const real = await http<AgentEnvelope<RunSummary[]>>(
       `/api/agent/runs?verbosity=summary&limit=${limit}`,
-    ),
+    ).catch(() => ({ ok: true, data: [], meta: {} }) as AgentEnvelope<RunSummary[]>);
+    const demo = demoRunsListEnvelope(limit);
+    return {
+      ...real,
+      data: [...demo.data, ...real.data],
+    };
+  },
 
-  getBigBang: (id: string) => http<BigBang>(`/api/big-bangs/${id}`),
+  getBigBang: (id: string) =>
+    isDemoRun(id) ? Promise.resolve(demoBigBang()) : http<BigBang>(`/api/big-bangs/${id}`),
 
   createBigBang: (payload: CreateBigBangPayload) =>
     http<BigBang>("/api/big-bangs", {
@@ -96,29 +116,45 @@ export const api = {
     }),
 
   pauseBigBang: (id: string) =>
-    http<BigBang>(`/api/big-bangs/${id}/pause`, { method: "POST" }),
+    isDemoRun(id) ? Promise.resolve(demoBigBang()) : http<BigBang>(`/api/big-bangs/${id}/pause`, { method: "POST" }),
 
   resumeBigBang: (id: string) =>
-    http<BigBang>(`/api/big-bangs/${id}/resume`, { method: "POST" }),
+    isDemoRun(id) ? Promise.resolve(demoBigBang()) : http<BigBang>(`/api/big-bangs/${id}/resume`, { method: "POST" }),
 
   createRunUntilCompleteJob: (id: string, maxTotalTicks = 32) =>
-    http<Job>("/api/jobs", {
-      method: "POST",
-      body: JSON.stringify({
-        job_type: "run_big_bang_until_complete",
-        big_bang_id: id,
-        payload: { big_bang_id: id, max_total_ticks: maxTotalTicks },
-        idempotency_key: `run-complete:${id}:${Date.now()}`,
-      }),
-    }),
+    isDemoRun(id)
+      ? Promise.resolve(demoJobs()[0])
+      : http<Job>("/api/jobs", {
+          method: "POST",
+          body: JSON.stringify({
+            job_type: "run_big_bang_until_complete",
+            big_bang_id: id,
+            payload: { big_bang_id: id, max_total_ticks: maxTotalTicks },
+            idempotency_key: `run-complete:${id}:${Date.now()}`,
+          }),
+        }),
 
   listJobs: (bigBangId: string, limit = 20) =>
-    http<Job[]>(`/api/jobs?big_bang_id=${encodeURIComponent(bigBangId)}&limit=${limit}`),
+    isDemoRun(bigBangId)
+      ? Promise.resolve(demoJobs())
+      : http<Job[]>(`/api/jobs?big_bang_id=${encodeURIComponent(bigBangId)}&limit=${limit}`),
 
   listMultiverses: (bigBangId: string) =>
-    http<Multiverse[]>(`/api/big-bangs/${bigBangId}/multiverses`),
+    isDemoRun(bigBangId)
+      ? Promise.resolve(demoMultiverses())
+      : http<Multiverse[]>(`/api/big-bangs/${bigBangId}/multiverses`),
 
-  getMultiverse: (id: string) => http<Multiverse>(`/api/multiverses/${id}`),
+  getMultiverse: (id: string) =>
+    id.startsWith("demo-")
+      ? Promise.resolve(demoMultiverses().find((m) => m.id === id) as Multiverse)
+      : http<Multiverse>(`/api/multiverses/${id}`),
+
+  listMultiverseTicks: (id: string) =>
+    id.startsWith("demo-")
+      ? Promise.resolve(demoMultiverseTicks(id))
+      : http<{ ticks: Tick[] } | Tick[]>(`/api/multiverses/${id}/ticks`).then((r) =>
+          Array.isArray(r) ? r : r.ticks,
+        ),
 
   listReports: (bigBangId: string) =>
     http<Report[]>(`/api/big-bangs/${bigBangId}/reports`),
@@ -151,10 +187,20 @@ export const api = {
     return { blob, filename };
   },
 
-  agentLogs: (limit = 30) =>
-    http<AgentEnvelope<AgentLog[]>>(
+  // agentLogs is global (not run-scoped). When the dashboard is showing the
+  // demo run it should see only demo log entries; otherwise it gets the real
+  // global feed merged with the demo entries (so the demo always has signal in
+  // the live-log strip). Detection uses the URL since this is client-side.
+  agentLogs: async (limit = 30): Promise<AgentEnvelope<AgentLog[]>> => {
+    const onDemoDashboard =
+      typeof window !== "undefined" &&
+      new URLSearchParams(window.location.search).get("run") === DEMO_RUN_ID;
+    if (onDemoDashboard) return demoAgentLogsEnvelope(limit);
+    const real = await http<AgentEnvelope<AgentLog[]>>(
       `/api/agent/logs?verbosity=summary&limit=${limit}`,
-    ),
+    ).catch(() => ({ ok: true, data: [], meta: {} }) as AgentEnvelope<AgentLog[]>);
+    return real;
+  },
 };
 
 export { ApiError };

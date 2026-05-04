@@ -60,24 +60,60 @@ export default function Home() {
         </p>
       </div>
 
-      <Link
-        href="/input"
-        style={{
-          display: "inline-flex",
-          alignItems: "center",
-          gap: 10,
-          background: "var(--accent)",
-          color: "var(--accent-fg)",
-          padding: "11px 18px 11px 20px",
-          borderRadius: 6,
-          fontSize: 13.5,
-          fontWeight: 600,
-          textDecoration: "none",
-        }}
-      >
-        New scenario
-        <span style={{ fontFamily: "var(--font-mono)", fontSize: 11 }}>→</span>
-      </Link>
+      <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+        <Link
+          href="/input"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 10,
+            background: "var(--accent)",
+            color: "var(--accent-fg)",
+            padding: "11px 18px 11px 20px",
+            borderRadius: 6,
+            fontSize: 13.5,
+            fontWeight: 600,
+            textDecoration: "none",
+          }}
+        >
+          New scenario
+          <span style={{ fontFamily: "var(--font-mono)", fontSize: 11 }}>→</span>
+        </Link>
+        <Link
+          href="/dashboard?run=demo"
+          title="Render the dashboard against an animated synthetic run — no backend or LLM calls."
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 8,
+            background: "transparent",
+            color: "var(--fg-2)",
+            border: "1px solid var(--border)",
+            padding: "10px 14px",
+            borderRadius: 6,
+            fontSize: 13,
+            fontWeight: 500,
+            textDecoration: "none",
+            fontFamily: "var(--font-sans)",
+          }}
+        >
+          <span
+            aria-hidden
+            style={{
+              display: "inline-block",
+              width: 6,
+              height: 6,
+              borderRadius: "50%",
+              background: "var(--accent)",
+              boxShadow: "0 0 0 3px color-mix(in oklch, var(--accent) 25%, transparent)",
+            }}
+          />
+          Demo run
+          <span style={{ fontFamily: "var(--font-mono)", fontSize: 10, color: "var(--muted)" }}>
+            no llm
+          </span>
+        </Link>
+      </div>
 
       <div style={{ display: "grid", gap: 8, width: "100%", maxWidth: 720 }}>
         {error && (

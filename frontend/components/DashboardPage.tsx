@@ -2,9 +2,13 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueries, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api, ApiError } from "@/lib/api";
-import type { AgentLog, Multiverse } from "@/lib/types";
+import type { AgentLog, Multiverse, Tick } from "@/lib/types";
+
+/** Per-multiverse tick progress derived from /api/multiverses/{id}/ticks. */
+type TickProgress = { current: number; running: boolean };
+type TickByMv = Map<string, TickProgress>;
 
 /* ----------------------------------------------------------------------------
  * Translate a thrown error into a user-friendly { title, detail } pair.
@@ -114,20 +118,14 @@ function ErrorBanner({
  * Renders the multiverse tree via SVG with parent_multiverse_id + fork_tick_index.
  * -------------------------------------------------------------------------- */
 
-type TreeNode = {
-  id: string;
-  label: string;
-  kind?: "bigbang";
-  tick: number;
-  status: "running" | "paused" | "completed" | "terminal" | "failed" | string;
-  score?: number;
-  depth: number;
-  fork_tick_index: number | null;
-  children: TreeNode[];
-};
+function deriveTick(mv: Multiverse, tickByMv?: TickByMv): number {
+  // Prefer the live tick progress sourced from /api/multiverses/{id}/ticks —
+  // the Multiverse payload itself does not expose a current-tick counter, so
+  // without this the node would pin at t0 even while the worker is mid-run.
+  const live = tickByMv?.get(mv.id);
+  if (live) return live.current;
 
-function deriveTick(mv: Multiverse): number {
-  // Try a few likely fields the backend exposes; fall back to fork_tick_index.
+  // Fallback: probe a few legacy `mv.state.*` fields, then fork_tick_index.
   const s = mv.state || {};
   const candidates = [
     (s as any).tick_index,
@@ -142,99 +140,167 @@ function deriveTick(mv: Multiverse): number {
   return 0;
 }
 
-function buildTree(bigBangName: string, multiverses: Multiverse[]): TreeNode {
-  const byId = new Map<string, TreeNode>();
-  for (const mv of multiverses) {
-    byId.set(mv.id, {
-      id: mv.id,
-      label: mv.branch_reason || mv.ui_label,
-      tick: deriveTick(mv),
-      status: mv.status,
-      score: mv.branch_probability,
-      depth: mv.depth,
-      fork_tick_index: mv.fork_tick_index,
-      children: [],
+function effectiveStatus(mv: Multiverse, tickByMv?: TickByMv): string {
+  // If the multiverse has a tick in flight, surface "running" to the tree so
+  // the node pulses — `mv.status === "active"` is treated as running too, but
+  // some flows leave the multiverse in a non-active state between ticks.
+  if (tickByMv?.get(mv.id)?.running) return "running";
+  return mv.status;
+}
+
+/* ===== Tidy-tree layout =====
+ * Reingold-Tilford-ish: Y by depth, X via recursive leaf count so the parent
+ * sits at the centroid of its children. Forking parents get a "continuation"
+ * leaf injected as their leftmost child so the parent's own ongoing trajectory
+ * is visible alongside the diverged branches.
+ */
+
+type TidyKind = "root" | "fork" | "leaf";
+
+type TidyNode = {
+  id: string;
+  mvId: string | null;
+  label: string;
+  kind: TidyKind;
+  status: string;
+  value: number | null; // path_probability ∈ [0,1] — drives color ramp
+  isContinuation?: boolean;
+  forkTickIndex: number | null;
+  children: TidyNode[];
+  _x: number;
+  _y: number;
+};
+
+const NODE_GAP_X = 110;
+const ROW_GAP_Y = 92;
+const TOP_PAD = 60;
+const LEFT_PAD = 60;
+
+function buildTidyTree(bigBangName: string, multiverses: Multiverse[]): {
+  root: TidyNode;
+  links: { from: TidyNode; to: TidyNode }[];
+  nodes: TidyNode[];
+  width: number;
+  height: number;
+} {
+  // Index multiverses + group by parent so we can walk the lineage.
+  const byParent = new Map<string | null, Multiverse[]>();
+  for (const m of multiverses) {
+    const key = m.parent_multiverse_id ?? null;
+    if (!byParent.has(key)) byParent.set(key, []);
+    byParent.get(key)!.push(m);
+  }
+  // Stable, deterministic order: by fork_tick_index, then created_at.
+  for (const list of byParent.values()) {
+    list.sort((a, b) => {
+      const at = a.fork_tick_index ?? -1;
+      const bt = b.fork_tick_index ?? -1;
+      if (at !== bt) return at - bt;
+      return a.created_at.localeCompare(b.created_at);
     });
   }
-  const roots: TreeNode[] = [];
-  for (const mv of multiverses) {
-    const node = byId.get(mv.id)!;
-    if (mv.parent_multiverse_id && byId.has(mv.parent_multiverse_id)) {
-      byId.get(mv.parent_multiverse_id)!.children.push(node);
-    } else {
-      roots.push(node);
+
+  const tidyFor = (mv: Multiverse): TidyNode => {
+    const childMvs = byParent.get(mv.id) ?? [];
+    const node: TidyNode = {
+      id: `mv-${mv.id}`,
+      mvId: mv.id,
+      label: mv.ui_label,
+      kind: childMvs.length > 0 ? "fork" : "leaf",
+      status: mv.status,
+      value: typeof mv.path_probability === "number" ? mv.path_probability : null,
+      forkTickIndex: mv.fork_tick_index,
+      children: [],
+    } as TidyNode;
+    if (childMvs.length > 0) {
+      // Continuation leaf — represents the parent's own continued trajectory
+      // alongside its diverged children. Anchored leftmost so the eye reads
+      // it as the original timeline.
+      node.children.push({
+        id: `mv-${mv.id}__cont`,
+        mvId: mv.id,
+        label: `${mv.ui_label} cont.`,
+        kind: "leaf",
+        status: mv.status,
+        value: typeof mv.path_probability === "number" ? mv.path_probability : null,
+        isContinuation: true,
+        forkTickIndex: mv.fork_tick_index,
+        children: [],
+      } as TidyNode);
+      for (const c of childMvs) node.children.push(tidyFor(c));
     }
-  }
-  return {
-    id: "BB",
+    return node;
+  };
+
+  const roots = byParent.get(null) ?? [];
+  const root: TidyNode = {
+    id: "bigbang",
+    mvId: null,
     label: bigBangName,
-    kind: "bigbang",
-    tick: 0,
-    status: "completed",
-    depth: -1,
-    fork_tick_index: null,
-    children: roots,
-  };
-}
+    kind: "root",
+    status: "running",
+    value: null,
+    forkTickIndex: null,
+    children: roots.map(tidyFor),
+  } as TidyNode;
 
-/* ===== Tree layout ===== */
-
-type LaidOutNode = TreeNode & { _x: number; _y: number; _lane: number };
-
-function layoutTree(root: TreeNode, orientation: "horizontal" | "vertical" = "horizontal") {
-  let lane = 0;
-  const laneCache = new WeakMap<TreeNode, number>();
-  const assignLane = (n: TreeNode): number => {
+  // Tidy layout: x by leaf-count walk, y by depth. Leaves get a leftmost
+  // anchor for now; we re-center the whole layout horizontally below so the
+  // tree stays centered in the SVG regardless of how many branches exist.
+  let cursor = 0;
+  const place = (n: TidyNode, depth: number): void => {
+    n._y = TOP_PAD + depth * ROW_GAP_Y;
     if (n.children.length === 0) {
-      const l = lane++;
-      laneCache.set(n, l);
-      return l;
+      n._x = cursor * NODE_GAP_X;
+      cursor += 1;
+      return;
     }
-    const childLanes = n.children.map(assignLane);
-    const l = (Math.min(...childLanes) + Math.max(...childLanes)) / 2;
-    laneCache.set(n, l);
-    return l;
+    for (const c of n.children) place(c, depth + 1);
+    const xs = n.children.map((c) => c._x);
+    n._x = (Math.min(...xs) + Math.max(...xs)) / 2;
   };
-  assignLane(root);
+  place(root, 0);
 
-  const lanePx = 70;
-  const tickPx = 11;
-  const padX = 80;
-  const padY = 50;
-
-  const nodes: LaidOutNode[] = [];
-  const edges: { from: LaidOutNode; to: LaidOutNode }[] = [];
-
-  const walk = (n: TreeNode, parent: LaidOutNode | null) => {
-    const ln = laneCache.get(n) ?? 0;
-    const node: LaidOutNode = {
-      ...n,
-      _lane: ln,
-      _x: orientation === "horizontal" ? padX + n.tick * tickPx : padX + ln * lanePx,
-      _y: orientation === "horizontal" ? padY + ln * lanePx : padY + n.tick * tickPx,
-    };
-    nodes.push(node);
-    if (parent) edges.push({ from: parent, to: node });
-    n.children.forEach((c) => walk(c, node));
+  const nodes: TidyNode[] = [];
+  const links: { from: TidyNode; to: TidyNode }[] = [];
+  const walk = (n: TidyNode) => {
+    nodes.push(n);
+    for (const c of n.children) {
+      links.push({ from: n, to: c });
+      walk(c);
+    }
   };
-  walk(root, null);
+  walk(root);
 
-  const maxTick = Math.max(...nodes.map((n) => n.tick), 1);
-  const maxLane = Math.max(...nodes.map((n) => n._lane), 0);
+  // Choose an SVG width that fits the layout with breathing room, but never
+  // smaller than the min so the panel doesn't collapse. Then shift every node
+  // so the layout's horizontal centroid lands on width / 2 — this is what
+  // makes the tree appear stable + centered as branches grow in.
+  const minX = Math.min(...nodes.map((n) => n._x), 0);
+  const maxX = Math.max(...nodes.map((n) => n._x), 0);
+  const maxY = Math.max(...nodes.map((n) => n._y), TOP_PAD);
+  const layoutWidth = maxX - minX;
+  const width = Math.max(layoutWidth + LEFT_PAD * 2, 720);
+  const dx = width / 2 - (minX + maxX) / 2;
+  for (const n of nodes) n._x += dx;
 
-  return {
-    nodes,
-    edges,
-    maxTick,
-    maxLane,
-    width: padX * 2 + (orientation === "horizontal" ? maxTick * tickPx : maxLane * lanePx),
-    height: padY * 2 + (orientation === "horizontal" ? maxLane * lanePx : maxTick * tickPx),
-  };
+  const height = Math.max(maxY + 80, 420);
+  return { root, links, nodes, width, height };
 }
 
-function lineageOf(root: TreeNode, id: string): Set<string> {
-  const path: TreeNode[] = [];
-  const find = (n: TreeNode, acc: TreeNode[]): boolean => {
+/** Map value v∈[0,1] to a mint→indigo→magenta ramp (oklch). */
+function rampColor(v: number | null): string {
+  if (v == null || Number.isNaN(v)) return "oklch(0.85 0.008 240)";
+  const t = Math.max(0, Math.min(1, v));
+  const hue = 175 + t * 155;
+  const chroma = 0.13 + t * 0.05;
+  const lightness = 0.7 - t * 0.1;
+  return `oklch(${lightness} ${chroma} ${hue})`;
+}
+
+function lineageOfTidy(root: TidyNode, id: string): Set<string> {
+  const path: TidyNode[] = [];
+  const find = (n: TidyNode, acc: TidyNode[]): boolean => {
     if (n.id === id) {
       path.push(...acc, n);
       return true;
@@ -249,85 +315,134 @@ function lineageOf(root: TreeNode, id: string): Set<string> {
 }
 
 function MultiverseTree({
-  root,
+  bigBangName,
+  multiverses,
   selectedId,
   onSelect,
-  orientation = "horizontal",
-  showScores = true,
 }: {
-  root: TreeNode;
+  bigBangName: string;
+  multiverses: Multiverse[];
   selectedId: string | null;
-  onSelect: (id: string) => void;
-  orientation?: "horizontal" | "vertical";
-  showScores?: boolean;
+  onSelect: (mvId: string) => void;
 }) {
-  const { nodes, edges, width, height, maxTick } = useMemo(() => layoutTree(root, orientation), [root, orientation]);
-  const lineageIds = useMemo(() => (selectedId ? lineageOf(root, selectedId) : new Set<string>()), [root, selectedId]);
-
-  const tickMarks: number[] = [];
-  const step = maxTick > 90 ? 30 : maxTick > 30 ? 10 : maxTick > 8 ? 2 : 1;
-  for (let t = 0; t <= maxTick; t += step) tickMarks.push(t);
+  const { root, nodes, links, width, height } = useMemo(
+    () => buildTidyTree(bigBangName, multiverses),
+    [bigBangName, multiverses],
+  );
+  // selectedId is a multiverse id from the rail; resolve to the matching
+  // tree-node id (the non-continuation entry takes precedence on highlight).
+  const selectedTidyId = useMemo(() => {
+    if (!selectedId) return null;
+    const direct = nodes.find((n) => n.mvId === selectedId && !n.isContinuation);
+    return direct?.id ?? null;
+  }, [selectedId, nodes]);
+  const lineageIds = useMemo(
+    () => (selectedTidyId ? lineageOfTidy(root, selectedTidyId) : new Set<string>()),
+    [root, selectedTidyId],
+  );
+  const hasSelection = Boolean(selectedTidyId);
 
   return (
     <svg className="tree-svg" viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="xMidYMid meet">
-      {orientation === "horizontal" &&
-        tickMarks.map((t) => (
-          <g key={t}>
-            <line
-              x1={80 + t * 11}
-              y1={20}
-              x2={80 + t * 11}
-              y2={height - 20}
-              stroke="var(--border)"
-              strokeDasharray="2 4"
-              strokeWidth="1"
-            />
-            <text className="branch-tick-axis" x={80 + t * 11} y={16} textAnchor="middle">
-              t{t}
-            </text>
-          </g>
-        ))}
-
-      {edges.map((e, i) => {
-        const inLineage = lineageIds.has(e.from.id) && lineageIds.has(e.to.id);
-        const isActive = e.to.status === "running" || e.to.status === "active";
-        const cls = `edge ${inLineage ? "is-lineage" : ""} ${isActive ? "is-active" : ""}`;
-        const dx = e.to._x - e.from._x;
-        const c1x = e.from._x + dx * 0.5;
-        const c1y = e.from._y;
-        const c2x = e.from._x + dx * 0.5;
-        const c2y = e.to._y;
-        const d = `M ${e.from._x} ${e.from._y} C ${c1x} ${c1y}, ${c2x} ${c2y}, ${e.to._x} ${e.to._y}`;
-        return <path key={i} className={cls} d={d} />;
+      {/* Links: hairline cubic S-curves, colored by destination value */}
+      {links.map((l, i) => {
+        const x1 = l.from._x;
+        const y1 = l.from._y;
+        const x2 = l.to._x;
+        const y2 = l.to._y;
+        const midY = (y1 + y2) / 2;
+        const d = `M ${x1} ${y1} C ${x1} ${midY}, ${x2} ${midY}, ${x2} ${y2}`;
+        const inLineage = lineageIds.has(l.from.id) && lineageIds.has(l.to.id);
+        const isTrunk = l.from.kind === "root";
+        const isLeafLink = l.to.kind === "leaf";
+        const dim = hasSelection && !inLineage && isLeafLink;
+        const color = isTrunk && l.to.value == null ? "var(--border-strong)" : rampColor(l.to.value);
+        return (
+          <path
+            key={i}
+            className={`node-link ${inLineage ? "is-lineage" : ""}`}
+            d={d}
+            fill="none"
+            stroke={color}
+            strokeWidth={inLineage ? 2.4 : 1.4}
+            opacity={dim ? 0.22 : 0.9}
+            style={{ transition: "all 200ms ease" }}
+          />
+        );
       })}
 
+      {/* Nodes */}
       {nodes.map((n) => {
-        const isRoot = n.kind === "bigbang";
-        const isSelected = n.id === selectedId;
-        const r = isRoot ? 9 : 7;
+        const isSelected = n.id === selectedTidyId;
+        const isActive = n.status === "running" || n.status === "active";
+        // CSS transforms (rather than SVG transform="…") so layout shifts
+        // animate via the .node-group transition. Existing nodes slide to
+        // their new centroid positions when a new branch appears.
+        const groupStyle = {
+          transform: `translate(${n._x}px, ${n._y}px)`,
+        } as const;
+        if (n.kind === "root") {
+          return (
+            <g key={n.id} className="node-group" style={groupStyle}>
+              <circle
+                className={`node-circle root ${isSelected ? "is-selected" : ""}`}
+                cx="0"
+                cy="0"
+                r={isSelected ? 8 : 6}
+              />
+              <text className="node-label" x="0" y="-14" textAnchor="middle">
+                Big Bang · {n.label.length > 28 ? n.label.slice(0, 27) + "…" : n.label}
+              </text>
+            </g>
+          );
+        }
+        if (n.kind === "fork") {
+          const stroke = rampColor(n.value);
+          return (
+            <g
+              key={n.id}
+              className="node-group"
+              style={{ ...groupStyle, cursor: "pointer" }}
+              onClick={() => n.mvId && onSelect(n.mvId)}
+            >
+              {isActive && <circle className="node-pulse" cx="0" cy="0" r="0" />}
+              <circle
+                className={`node-circle fork ${isSelected ? "is-selected" : ""}`}
+                cx="0"
+                cy="0"
+                r={isSelected ? 7.5 : 6}
+                style={{ stroke }}
+              />
+              <text className="node-leaf-label" x="0" y="-14" textAnchor="middle">
+                fork @ t{n.forkTickIndex ?? 0}
+              </text>
+            </g>
+          );
+        }
+        // Leaf
+        const fill = rampColor(n.value);
+        const labelText = n.isContinuation ? `${n.label}` : n.label;
         return (
           <g
             key={n.id}
-            className={`node ${isSelected ? "is-selected" : ""} ${isRoot ? "is-root" : ""}`}
-            data-status={n.status}
-            transform={`translate(${n._x}, ${n._y})`}
-            onClick={() => onSelect(n.id)}
+            className="node-group"
+            style={{ ...groupStyle, cursor: "pointer" }}
+            onClick={() => n.mvId && onSelect(n.mvId)}
           >
-            {(n.status === "running" || n.status === "active") && <circle className="node-pulse" cx="0" cy="0" r="0" />}
-            <circle className="node-bg" cx="0" cy="0" r={r} />
-            {isRoot && <circle cx="0" cy="0" r="3" fill="var(--accent)" />}
-            {!isRoot && (
-              <text className="node-label" x="0" y="0">
-                {n.id.slice(0, 4)}
-              </text>
-            )}
-            <text className="node-tag" x="0" y={r + 12} style={isRoot ? { fill: "var(--fg-2)" } : undefined}>
-              {isRoot ? "Big Bang" : n.label.slice(0, 22)}
+            {isActive && <circle className="node-pulse" cx="0" cy="0" r="0" />}
+            <circle
+              className={`node-leaf ${isSelected ? "is-selected" : ""}`}
+              cx="0"
+              cy="0"
+              r={isSelected ? 7.5 : 5.5}
+              style={{ fill }}
+            />
+            <text className="node-leaf-label" x="0" y="22" textAnchor="middle">
+              {labelText.length > 18 ? labelText.slice(0, 17) + "…" : labelText}
             </text>
-            {showScores && !isRoot && (
-              <text className="node-score" x="0" y={r + 23}>
-                t{n.tick}
-                {n.score ? `  ·  ${n.score.toFixed(2)}` : ""}
+            {n.value != null && (
+              <text className="node-leaf-value" x="0" y="36" textAnchor="middle">
+                {(n.value * 100).toFixed(0)}%
               </text>
             )}
           </g>
@@ -456,6 +571,36 @@ function DashboardWired({
     refetchInterval: 2000,
   });
 
+  // Per-multiverse tick progress. The Multiverse payload itself has no current-tick
+  // field, so the dashboard tree pins every node at t0 without this. Fan out one
+  // query per multiverse — typically a handful, so the request cost is fine.
+  const mvList = multiverses.data || [];
+  const tickQueries = useQueries({
+    queries: mvList.map((m) => ({
+      queryKey: ["multiverseTicks", m.id],
+      queryFn: () => api.listMultiverseTicks(m.id),
+      refetchInterval: 2000,
+    })),
+  });
+  const tickByMv: TickByMv = useMemo(() => {
+    const map = new Map<string, TickProgress>();
+    mvList.forEach((m, i) => {
+      const ticks = (tickQueries[i]?.data as Tick[] | undefined) || [];
+      if (ticks.length === 0) return;
+      const finals = ticks.filter((t) => t.status === "final").map((t) => t.tick_index);
+      const running = ticks.find((t) => t.status === "running");
+      const current = running
+        ? running.tick_index
+        : finals.length
+          ? Math.max(...finals)
+          : 0;
+      map.set(m.id, { current, running: Boolean(running) });
+    });
+    return map;
+  // Dependency intentionally serializes the per-mv tick fingerprints so the map
+  // recomputes when any tick transitions running→final.
+  }, [mvList, tickQueries.map((q) => (q.data as Tick[] | undefined)?.map((t) => `${t.tick_index}:${t.status}`).join(",")).join("|")]);
+
   const [dismissedErr, setDismissedErr] = useState<string | null>(null);
 
   const pause = useMutation({
@@ -497,11 +642,6 @@ function DashboardWired({
   })();
   const errKey = activeErr ? `${activeErr.action}:${(activeErr.err as Error)?.message}` : null;
   const showErr = activeErr && errKey !== dismissedErr;
-
-  const root = useMemo(
-    () => buildTree(bigBang.data?.name || "Run", multiverses.data || []),
-    [bigBang.data, multiverses.data],
-  );
 
   // auto-select the deepest leaf with status running, else the deepest, else first
   const selId = selected ?? (() => {
@@ -645,9 +785,9 @@ function DashboardWired({
                     {m.ui_label}&nbsp;·&nbsp;{m.branch_reason || (m.parent_multiverse_id ? "Branch" : "Root")}
                   </div>
                   <div className="mv-meta">
-                    <span>tick {deriveTick(m)}</span>
+                    <span>tick {deriveTick(m, tickByMv)}{tickByMv.get(m.id)?.running ? " (running)" : ""}</span>
                     <span className="sep">·</span>
-                    <span>{m.status}</span>
+                    <span>{effectiveStatus(m, tickByMv)}</span>
                     {m.branch_probability != null && (
                       <>
                         <span className="sep">·</span>
@@ -701,7 +841,12 @@ function DashboardWired({
           )}
 
           {(multiverses.data || []).length > 0 && (
-            <MultiverseTree root={root} selectedId={selId} onSelect={setSelected} orientation={orientation} showScores={showScores} />
+            <MultiverseTree
+              bigBangName={bigBang.data?.name || "Run"}
+              multiverses={mvList}
+              selectedId={selId}
+              onSelect={setSelected}
+            />
           )}
 
           <div className="center-legend">
@@ -736,7 +881,7 @@ function DashboardWired({
                   </div>
                   <div>
                     <span className="k">last tick</span>
-                    <span className="v">{deriveTick(sel)}</span>
+                    <span className="v">{deriveTick(sel, tickByMv)}{tickByMv.get(sel.id)?.running ? " (running)" : ""}</span>
                   </div>
                   <div>
                     <span className="k">branch p</span>
