@@ -123,6 +123,39 @@ def test_endpoint_ledger_seed_and_posthoc_evaluation_versions(db: Session):
     assert endpoint_ledger_report_payload(db, posthoc)["histogram"]
 
 
+def test_endpoint_ledger_seed_uses_initializer_endpoint_ledger_entries(db: Session):
+    big_bang, multiverse, _actor = _world(db)
+    initializer_output = dict(big_bang.scenario_input["initializer_output"])
+    initializer_output["endpoint_ledger"] = [
+        {
+            "endpoint_key": "institutional_repair",
+            "label": "Institutional repair",
+            "description": "Formal institutions restore legitimacy through auditable allocation.",
+            "status": "active",
+            "realization_criteria": [
+                "ACCS decisions are publicly auditable.",
+                "Clinics and mutual-aid actors accept the allocation process.",
+            ],
+            "authority_refs": ["Atlas Regional Council", "Emergency Court Panel"],
+            "evidence_refs": ["scenario:ACCS", "scenario:trust"],
+            "blockers": ["data-smoothing scandal"],
+        }
+    ]
+    big_bang.scenario_input = {"initializer_output": initializer_output}
+    db.flush()
+
+    seed = seed_endpoint_ledger(db, big_bang=big_bang, multiverse=multiverse)
+
+    entries = {entry.endpoint_key: entry for entry in endpoint_ledger_entries(db, seed.id)}
+    assert "institutional_repair" in entries
+    assert entries["institutional_repair"].status_basis == "initializer_endpoint_ledger"
+    assert entries["institutional_repair"].realization_criteria == [
+        "ACCS decisions are publicly auditable.",
+        "Clinics and mutual-aid actors accept the allocation process.",
+    ]
+    assert entries["institutional_repair"].meta["source"] == "initializer_endpoint_ledger"
+
+
 def test_multiverse_ledger_evidence_excludes_sibling_events(db: Session):
     big_bang, multiverse, _actor = _world(db)
     sibling = models.Multiverse(

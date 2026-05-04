@@ -21,7 +21,7 @@ Core role:
 Return strict compact JSON with these top-level keys:
 simulation_brief, actors, population_archetypes, cohort_states, hero_archetypes, hero_states, trait_vectors, graph_edges,
 emotion_observations, sociology_baseline, sociology_prompt_influences, channels, initial_events, branch_hypotheses,
-merge_hypotheses, risk_flags.
+merge_hypotheses, important_questions, endpoint_ledger, risk_flags.
 
 Simulation construction requirements:
 - Create a full T0 picture from the ground up. Do not wait for later agents to infer obvious actor/cohort relationships.
@@ -36,6 +36,10 @@ Simulation construction requirements:
 {ENDPOINT_CALIBRATION_GUIDANCE}
 
 Initializer endpoint requirements:
+- Determine 1-5 important endpoint questions implied by the scenario context and put them in important_questions. Each question should be answerable by later timeline evidence, not a generic report prompt.
+- Return endpoint_ledger as 1-5 parseable endpoint objects aligned to important_questions. Each object must include endpoint_key, label, description, status, realization_criteria, authority_refs, evidence_refs, blockers, status_basis, contradiction_notes, rationale, and optional probability.
+- Use stable snake_case endpoint_key values. Use status "active" at initialization unless the scenario text explicitly eliminates or realizes an endpoint at T0.
+- Realization criteria must be observable terminal predicates. Do not use vague criteria such as "trust improves" unless the predicate names what evidence would show improvement.
 - Encode decision authority as actors, hero power, graph influence, scheduling permissions, or risk_flags when the text implies who can actually choose the endpoint.
 - Represent switching costs, platform ownership leverage, and economic elasticity through dependency/influence graph edges, trait vectors, stake fields, and branch_hypotheses when evidence supports them.
 - Use branch_hypotheses and merge_hypotheses to preserve terminal endpoint options such as capitulation, substitution, exit, regulation, acquisition, collapse, durable stalemate, or coalition fracture when those options are plausible.
