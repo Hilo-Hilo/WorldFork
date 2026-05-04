@@ -13,6 +13,7 @@ from sqlalchemy.orm import Session
 from app.core.config import get_settings
 from app.db import models
 from app.db.session import get_db
+from app.domains.costs.service import CostEstimateRequest, estimate_big_bang_cost, summarize_big_bang_cost
 from app.domains.jobs.queues import JOB_TYPES
 from app.domains.tick.timing import run_timing_payload
 from app.domains.big_bang.scenario_bank import COVERAGE_MATRIX, list_scenarios
@@ -362,6 +363,38 @@ def run_timing(run_id: UUID, db: Session = Depends(get_db)):
     if run is None:
         raise HTTPException(status_code=404, detail=f"run {run_id} not found")
     return _ok(run_timing_payload(db, run))
+
+
+@router.get("/runs/{run_id}/cost")
+def run_cost(
+    run_id: UUID,
+    include_calls: bool = False,
+    include_non_openrouter: bool = True,
+    db: Session = Depends(get_db),
+):
+    run = db.get(models.BigBang, run_id)
+    if run is None:
+        raise HTTPException(status_code=404, detail=f"run {run_id} not found")
+    return _ok(
+        summarize_big_bang_cost(
+            db,
+            big_bang=run,
+            include_calls=include_calls,
+            include_non_openrouter=include_non_openrouter,
+        )
+    )
+
+
+@router.post("/runs/{run_id}/cost-estimate")
+def run_cost_estimate(
+    run_id: UUID,
+    payload: CostEstimateRequest | None = None,
+    db: Session = Depends(get_db),
+):
+    run = db.get(models.BigBang, run_id)
+    if run is None:
+        raise HTTPException(status_code=404, detail=f"run {run_id} not found")
+    return _ok(estimate_big_bang_cost(db, big_bang=run, request=payload or CostEstimateRequest()))
 
 
 @router.get("/universes/{multiverse_id}/trace")

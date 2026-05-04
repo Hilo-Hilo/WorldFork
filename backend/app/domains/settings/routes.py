@@ -47,6 +47,7 @@ DbSession = Annotated[AsyncSession, Depends(get_session)]
 _OPENAI_CODEX_MODEL_SETTINGS = {
     "initializer_agent_model",
     "god_agent_model",
+    "event_summary_model",
     "report_agent_model",
 }
 
