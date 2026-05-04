@@ -1,4 +1,4 @@
-"""WorldFork recursive multiverse branching engine (PRD §13).
+"""WorldFork recursive multiverse branching engine (branching runtime).
 
 Public API (B4-A — God-agent reviewer + branch-policy gate):
 

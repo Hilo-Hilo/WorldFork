@@ -54,7 +54,7 @@ Stake in the issue:
 
 You speak for this cohort:
 - represented_population: **{{ represented_population }} people**
-- representation_mode: **{{ representation_mode }}** (PRD §11.3)
+- representation_mode: **{{ representation_mode }}**
 - expression_level (current band): **{{ cohort_state.expression_level }}**
 - mobilization_mode: **{{ cohort_state.mobilization_mode }}**
 
@@ -154,7 +154,7 @@ You may only call tools listed above. Each call's `args` must validate against t
 
 ## Sampling guidance
 
-This call is run at temperature ~ **{{ temperature_hint }}** (PRD §11.3 for `{{ representation_mode }}` cohorts). Larger populations should be more modal and less stochastic; smaller cohorts may take more variance.
+This call is run at temperature ~ **{{ temperature_hint }}** for `{{ representation_mode }}` cohorts. Larger populations should be more modal and less stochastic; smaller cohorts may take more variance.
 
 ## Hard constraints
 

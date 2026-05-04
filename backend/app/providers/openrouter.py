@@ -1,7 +1,7 @@
 """OpenRouter provider — primary LLM adapter for WorldFork.
 
 Wraps the OpenAI-compatible AsyncOpenAI client pointed at
-``https://openrouter.ai/api/v1`` per PRD §16.1 / Plan Appendix A.1.
+``https://openrouter.ai/api/v1`` per default provider configuration.
 """
 from __future__ import annotations
 

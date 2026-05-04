@@ -3,10 +3,10 @@
 This module is the single entrypoint every LLM call in WorldFork goes
 through. It enforces:
 
-* per-provider rate limits / budget / concurrency  (PRD §16.5–16.6)
-* retry + fallback policy                          (PRD §16.7)
+* per-provider rate limits / budget / concurrency
+* retry + fallback policy
 * call persistence to the ledger + (later) DB
-* invalid-JSON safe no-op output                   (PRD §16.7 / §26)
+* invalid-JSON safe no-op output
 """
 from __future__ import annotations
 
@@ -459,7 +459,7 @@ async def call_with_policy(
 
     # Both primary + fallback exhausted.
     if isinstance(last_exc, InvalidJSONError):
-        # Build a safe no-op LLMResult per PRD §26 so the engine carries on.
+        # Build a safe no-op LLMResult so the engine carries on.
         result = safe_noop_result(
             provider=primary.provider,
             model=primary.model,

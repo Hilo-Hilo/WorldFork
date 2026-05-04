@@ -1,4 +1,4 @@
-"""Active-agent selection for a tick (PRD §11.2).
+"""Active-agent selection for a tick.
 
 Computes per-actor activity scores, selects which cohorts/heroes get LLM
 calls this tick, and provides salience helpers used to feed those scores.

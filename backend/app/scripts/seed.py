@@ -145,7 +145,7 @@ def _seed_provider(session) -> None:
     print(f"  [provider] seeded {len(rows)} rows")
 
 
-# PRD §16.4 model routing defaults
+# runtime model routing model routing defaults
 _OPENROUTER_MODEL = settings.default_model
 _OPENAI_CODEX_MODEL = settings.openai_codex_default_model
 _OPENAI_CODEX_JOB_TYPES = {

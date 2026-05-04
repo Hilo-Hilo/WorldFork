@@ -24,12 +24,12 @@ if TYPE_CHECKING:
 
 
 # ---------------------------------------------------------------------------
-# Protocol — PRD §16.3
+# Protocol — provider protocol
 # ---------------------------------------------------------------------------
 
 @runtime_checkable
 class LLMProvider(Protocol):
-    """Protocol every concrete provider must satisfy (PRD §16.3)."""
+    """Protocol every concrete provider must satisfy (provider protocol)."""
 
     name: str
 
