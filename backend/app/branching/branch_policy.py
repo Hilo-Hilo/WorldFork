@@ -95,7 +95,7 @@ def evaluate_branch_policy(
     multiverse: MultiverseSnapshot,
     policy: BranchPolicy,
 ) -> BranchPolicyResult:
-    """Apply §13.5 explosion controls to a God-agent decision.
+    """Apply explosion controls to a God-agent decision.
 
     Logic summary:
 
@@ -125,7 +125,7 @@ def evaluate_branch_policy(
         )
 
     # ------------------------------------------------------------------
-    # spawn_active — run the full §13.5 ladder.
+    # spawn_active — run the full ladder.
     # ------------------------------------------------------------------
 
     # 1. Depth — the only hard-reject path.  Prefer the requested parent's

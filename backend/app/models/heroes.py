@@ -1,5 +1,5 @@
 """
-HeroArchetypeModel (§9.5) and HeroStateModel (§9.6).
+HeroArchetypeModel and HeroStateModel.
 Tables: hero_archetypes, hero_states
 """
 from __future__ import annotations
@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 
 
 # ---------------------------------------------------------------------------
-# HeroArchetypeModel  §9.5
+# HeroArchetypeModel
 # ---------------------------------------------------------------------------
 
 class HeroArchetypeModel(Base, TimestampMixin):
@@ -117,7 +117,7 @@ class HeroArchetypeModel(Base, TimestampMixin):
 
 
 # ---------------------------------------------------------------------------
-# HeroStateModel  §9.6
+# HeroStateModel
 # ---------------------------------------------------------------------------
 
 class HeroStateModel(Base):

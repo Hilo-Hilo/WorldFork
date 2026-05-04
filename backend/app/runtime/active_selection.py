@@ -36,7 +36,7 @@ def activity_score(
     queued_event_pressure: float,
     social_pressure: float,
 ) -> float:
-    """§11.2 cohort activity score, clipped to [0, 5]."""
+    """Cohort activity score, clipped to [0, 5]."""
     raw = (
         _BASE_ACTIVITY
         + float(event_salience)
@@ -56,7 +56,7 @@ def hero_activity_score(
     queued_event_pressure: float,
     social_pressure: float,
 ) -> float:
-    """Hero analog of §11.2 score.  Heroes don't have an `expression_level`
+    """Hero analog of score.  Heroes don't have an `expression_level`
     field; we substitute ``perceived_pressure`` which captures comparable
     drive to act."""
     raw = (

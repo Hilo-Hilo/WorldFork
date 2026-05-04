@@ -1,5 +1,5 @@
 """
-Universe-level schemas: BigBangRun (§9.1) and Universe (§9.2).
+Universe-level schemas: BigBangRun and Universe.
 Import-free of backend.app.models.
 """
 
@@ -13,7 +13,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 from backend.app.schemas.common import RunStatus, UniverseStatus
 
 # ---------------------------------------------------------------------------
-# BigBangRun  §9.1
+# BigBangRun
 # ---------------------------------------------------------------------------
 
 class BigBangRun(BaseModel):
@@ -42,7 +42,7 @@ class BigBangRun(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# Universe  §9.2
+# Universe
 # ---------------------------------------------------------------------------
 
 class Universe(BaseModel):
@@ -106,6 +106,6 @@ class Universe(BaseModel):
         if status == "completed" and self.completed_at is None:
             raise ValueError("completed_at must be set when status is 'completed'")
         # 'candidate' — timestamp fields may all be None (branch not yet promoted)
-        # 'merged' — no specific timestamp field in §9.2 schema; allow None
+        # 'merged' — no specific timestamp field in schema; allow None
 
         return self

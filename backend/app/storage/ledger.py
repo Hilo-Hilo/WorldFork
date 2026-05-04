@@ -229,7 +229,7 @@ class Ledger:
         tick_dir = self.run_folder / "universes" / universe_id / "ticks" / f"tick_{tick:03d}"
         tick_dir.mkdir(parents=True, exist_ok=True)
 
-        # Sub-directories expected by §19
+        # Sub-directories expected by
         for sub in ("llm_calls", "visible_packets", "events", "social_posts", "sociology", "memory", "god"):
             (tick_dir / sub).mkdir(exist_ok=True)
 
