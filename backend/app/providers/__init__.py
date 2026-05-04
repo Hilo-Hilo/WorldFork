@@ -326,8 +326,8 @@ async def call_with_policy(
     4. record actuals + persist to ledger
     5. on RateLimitError: backoff (Retry-After or exponential) + jitter; retry
     6. on ProviderTimeoutError: one retry, then fallback model
-    7. on InvalidJSONError: provider has already done one repair; return a
-       safe no-op so the simulation can proceed
+    7. on InvalidJSONError: provider has already tried local JSON repair and
+       one model regeneration; return a safe no-op so the simulation can proceed
     8. on any other ProviderError: bounded backoff, then fallback
     9. once both primary and fallback exhaust ``max_attempts``, raise
        :class:`FallbackExhaustedError`
@@ -419,8 +419,9 @@ async def call_with_policy(
                 continue
 
             except InvalidJSONError as exc:
-                # The provider already attempted one repair internally; emit a
-                # safe no-op so the simulation continues.
+                # The provider already attempted local JSON repair and one
+                # model regeneration internally; emit a safe no-op so the
+                # simulation continues.
                 last_exc = exc
                 logger.warning(
                     "invalid JSON after one repair on %s; emitting safe no-op",

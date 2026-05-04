@@ -2,7 +2,8 @@
 Database seed script.
 
 Inserts default rows for all settings tables.
-Idempotent: uses INSERT ... ON CONFLICT DO UPDATE (upsert).
+Idempotent: uses upserts for managed singleton tables and insert-missing
+behavior for user-editable routing rows.
 """
 from __future__ import annotations
 
@@ -42,6 +43,17 @@ def _upsert(session, model, pk_col: str, rows: list[dict]) -> int:
     stmt = pg_insert(table).values(rows)
     update_cols = {c.name: stmt.excluded[c.name] for c in table.c if c.name != pk_col}
     stmt = stmt.on_conflict_do_update(index_elements=[pk_col], set_=update_cols)
+    session.execute(stmt)
+    return len(rows)
+
+
+def _insert_missing(session, model, pk_col: str, rows: list[dict]) -> int:
+    """Insert rows keyed by pk_col without changing existing user-edited rows."""
+    if not rows:
+        return 0
+    table = model.__table__
+    stmt = pg_insert(table).values(rows)
+    stmt = stmt.on_conflict_do_nothing(index_elements=[pk_col])
     session.execute(stmt)
     return len(rows)
 
@@ -144,20 +156,20 @@ def _seed_provider(session) -> None:
     print(f"  [provider] seeded {len(rows)} rows")
 
 
-# runtime model routing model routing defaults
+# Runtime model routing defaults.
 _OPENROUTER_MODEL = settings.default_model
-_OPENAI_CODEX_MODEL = settings.openai_codex_default_model
-_OPENAI_CODEX_JOB_TYPES = {
-    "initialize_big_bang",
-    "initializer_chunk_extractor",
-    "initializer_agent",
-    "god_agent_review",
-    "god_agent",
-    "endpoint_ledger",
-    "evaluate_endpoint_ledger",
-    "aggregate_run_results",
-    "report_agent",
-    "force_deviation",
+_MODEL_SETTING_BY_JOB_TYPE = {
+    "initialize_big_bang": "initializer_agent_model",
+    "initializer_chunk_extractor": "initializer_agent_model",
+    "initializer_agent": "initializer_agent_model",
+    "god_agent_review": "god_agent_model",
+    "god_agent": "god_agent_model",
+    "endpoint_ledger": "god_agent_model",
+    "evaluate_endpoint_ledger": "god_agent_model",
+    "aggregate_run_results": "report_agent_model",
+    "report_agent": "report_agent_model",
+    "event_summary": "event_summary_model",
+    "force_deviation": "god_agent_model",
 }
 
 _ROUTING_DEFAULTS = [
@@ -393,13 +405,14 @@ _ROUTING_DEFAULTS = [
         "fallback_model": _OPENROUTER_MODEL,
         "temperature": 0.25,
         "top_p": 1.0,
-        "max_tokens": 4096,
-        "max_concurrency": 4,
-        "requests_per_minute": 60,
-        "tokens_per_minute": 200000,
-        "timeout_seconds": 120,
+        "max_tokens": 131072,
+        "max_concurrency": 2,
+        "requests_per_minute": 20,
+        "tokens_per_minute": 1000000,
+        "timeout_seconds": 1200,
         "retry_policy": "exponential_backoff",
         "daily_budget_usd": None,
+        "payload": {"reasoning": {"effort": "low", "exclude": True}},
     },
     {
         "job_type": "initializer_chunk_extractor",
@@ -409,13 +422,14 @@ _ROUTING_DEFAULTS = [
         "fallback_model": _OPENROUTER_MODEL,
         "temperature": 0.15,
         "top_p": 1.0,
-        "max_tokens": 4096,
+        "max_tokens": 32768,
         "max_concurrency": 4,
         "requests_per_minute": 60,
-        "tokens_per_minute": 200000,
-        "timeout_seconds": 120,
+        "tokens_per_minute": 800000,
+        "timeout_seconds": 600,
         "retry_policy": "exponential_backoff",
         "daily_budget_usd": None,
+        "payload": {"reasoning": {"effort": "low", "exclude": True}},
     },
     {
         "job_type": "god_agent",
@@ -518,25 +532,25 @@ _ROUTING_DEFAULTS = [
 
 def _routing_model_defaults(row: dict) -> dict:
     row = dict(row)
-    if row["job_type"] in _OPENAI_CODEX_JOB_TYPES:
-        row["preferred_provider"] = "openai-codex"
-        row["preferred_model"] = _OPENAI_CODEX_MODEL
-        row["fallback_provider"] = "openai-codex"
-        row["fallback_model"] = _OPENAI_CODEX_MODEL
-    else:
-        row["preferred_provider"] = "openrouter"
-        row["preferred_model"] = _OPENROUTER_MODEL
-        row["fallback_provider"] = "openrouter"
-        row["fallback_model"] = _OPENROUTER_MODEL
+    model_setting = _MODEL_SETTING_BY_JOB_TYPE.get(row["job_type"])
+    model = str(
+        getattr(settings, model_setting, None) if model_setting is not None else settings.default_model
+    )
+    model = model or settings.default_model
+    provider = str(settings.default_llm_provider)
+    row["preferred_provider"] = provider
+    row["preferred_model"] = model
+    row["fallback_provider"] = provider
+    row["fallback_model"] = model
     return row
 
 
 def _seed_routing(session) -> None:
-    rows = [
-        dict(row, payload={**row, "source": "seed_default"})
-        for row in (_routing_model_defaults(r) for r in _ROUTING_DEFAULTS)
-    ]
-    _upsert(session, ModelRoutingEntryModel, "job_type", rows)
+    rows = []
+    for row in (_routing_model_defaults(r) for r in _ROUTING_DEFAULTS):
+        payload = row.get("payload") if isinstance(row.get("payload"), dict) else {}
+        rows.append(dict(row, payload={**payload, "source": "seed_default"}))
+    _insert_missing(session, ModelRoutingEntryModel, "job_type", rows)
     print(f"  [model_routing] seeded {len(rows)} rows")
 
 

@@ -83,12 +83,6 @@ AUDITED_LLM_ROUTES: tuple[AuditedLLMRouteInfo, ...] = (
 )
 
 _ROUTE_INFO_BY_NAME = {str(item.route): item for item in AUDITED_LLM_ROUTES}
-_OPENAI_CODEX_MODEL_SETTINGS = {
-    "initializer_agent_model",
-    "god_agent_model",
-    "event_summary_model",
-    "report_agent_model",
-}
 
 
 @dataclass(frozen=True)
@@ -233,13 +227,15 @@ def _route_row(db: Session, route_name: str | None) -> dict[str, Any] | None:
 
 
 def _metadata_defaults(row: dict[str, Any]) -> dict[str, Any]:
-    defaults = {
+    payload = row.get("payload")
+    defaults = dict(payload) if isinstance(payload, dict) else {}
+    defaults.update({
         "temperature": row.get("temperature"),
         "top_p": row.get("top_p"),
         "max_tokens": row.get("max_tokens"),
         "timeout_seconds": row.get("timeout_seconds"),
         "retry_policy": row.get("retry_policy"),
-    }
+    })
     return {key: value for key, value in defaults.items() if value is not None}
 
 
@@ -258,8 +254,4 @@ def _settings_provider_for_route(
     route_name: str | None,
     fallback_provider: str | None,
 ) -> str:
-    if route_name:
-        info = _ROUTE_INFO_BY_NAME.get(route_name)
-        if info is not None and info.fallback_model_setting in _OPENAI_CODEX_MODEL_SETTINGS:
-            return "openai-codex"
     return str(fallback_provider or getattr(settings, "default_llm_provider", "openrouter"))

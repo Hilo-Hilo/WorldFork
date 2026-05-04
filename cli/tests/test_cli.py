@@ -656,6 +656,8 @@ def test_setup_reads_llm_config_and_emits_provider_options(monkeypatch) -> None:
     assert "atlas-fast-governed" in result.output
     assert "OPENROUTER_API_KEY" in result.output
     assert "openai-codex" in result.output
+    assert "moonshotai/kimi-k2" in result.output
+    assert "OpenRouter-hosted Claude/OpenAI-compatible substitutes" in result.output
     assert "model_routing_patch" not in result.output
 
 
@@ -675,6 +677,7 @@ def test_setup_include_patch_emits_atlas_routing_payload(monkeypatch) -> None:
     assert "model_routing_patch" in result.output
     assert "cohort_agent" in result.output
     assert "report_agent" in result.output
+    assert "governance_substitutes" in result.output
     assert "actor_deliberation_call" not in result.output
 
 
@@ -792,8 +795,41 @@ def test_demo_atlas_invokes_source_harness(monkeypatch, tmp_path) -> None:
     assert result.exit_code == 0
     assert calls
     assert calls[0][:4] == ["--base-url", "http://worldfork.test", "--api-prefix", "custom-api"]
+    assert "--expected-provider" not in calls[0]
+    assert "--expected-model" not in calls[0]
     assert ["--scenario-file", str(scenario_file.resolve())] == calls[0][-4:-2]
     assert calls[0][-2:] == ["--max-tick-index", "4"]
+
+
+def test_demo_atlas_passes_explicit_expected_pair(monkeypatch, tmp_path) -> None:
+    calls = []
+    scenario_file = tmp_path / "atlas.md"
+    scenario_file.write_text("Atlas scenario", encoding="utf-8")
+
+    scripts_pkg = types.ModuleType("scripts")
+    harness = types.ModuleType("scripts.run_test_big_bang")
+    harness.main = lambda argv: calls.append(argv) or 0
+    monkeypatch.setitem(sys.modules, "scripts", scripts_pkg)
+    monkeypatch.setitem(sys.modules, "scripts.run_test_big_bang", harness)
+
+    result = CliRunner().invoke(
+        main,
+        [
+            "demo",
+            "atlas",
+            "--scenario-file",
+            str(scenario_file),
+            "--expected-provider",
+            "openrouter-claude",
+            "--expected-model",
+            "anthropic/claude-sonnet-4.5",
+        ],
+    )
+
+    assert result.exit_code == 0
+    assert "--expected-provider" in calls[0]
+    assert calls[0][calls[0].index("--expected-provider") + 1] == "openrouter-claude"
+    assert calls[0][calls[0].index("--expected-model") + 1] == "anthropic/claude-sonnet-4.5"
 
 
 def test_demo_atlas_surfaces_source_harness_failure(monkeypatch, tmp_path) -> None:

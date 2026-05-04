@@ -48,7 +48,7 @@ Use this path when you want to run each command yourself.
 - `uv`
 - Node.js 20+ if you want to install agent skills with `npx skills`
 - An OpenRouter API key
-- OpenAI Codex OAuth auth for the default initializer, God-review, endpoint-ledger, event-summary, and report routes
+- A configured strong governance/report model route for initializer, God-review, endpoint-ledger, event-summary, and report work. Supported examples include OpenAI Codex OAuth and OpenRouter-hosted Kimi or Claude models.
 
 #### 1. Clone and install the CLI
 
@@ -73,18 +73,18 @@ cd ..
 cp .env.example .env
 ```
 
-Set `OPENROUTER_API_KEY` in `.env`. Then configure OpenAI Codex OAuth:
+Set `OPENROUTER_API_KEY` in `.env`. Then configure a strong governance/report route. For OpenAI Codex OAuth:
 
 ```bash
 worldfork settings openai-codex-login
 ```
 
-The default live split is:
+The recommended live split is:
 
-| Work type | Default route |
+| Work type | Recommended route |
 | --- | --- |
 | Cohort, hero, action, high-volume simulation | OpenRouter `deepseek/deepseek-v4-flash` |
-| Initializer, God review, endpoint ledger, event summary, reports | OpenAI Codex `gpt-5.4` |
+| Initializer, God review, endpoint ledger, event summary, reports | Strong governance/report model route, such as OpenAI Codex `gpt-5.4` or OpenRouter-hosted Kimi/Claude |
 
 Inspect provider options and effective routing before spending live API credits:
 
@@ -349,7 +349,7 @@ docs/                 operator, developer, and agent documentation
 ## Status
 
 WorldFork is **backend-first** and **CLI-first**.
-The current system is Dockerized, tested across unit/integration/e2e layers, and live-smoke validated against the default model split:
+The current system is Dockerized, tested across unit/integration/e2e layers, and live-smoke validated against configured effective LLM routes. A common route policy is:
 
 ```text
 openrouter/deepseek/deepseek-v4-flash

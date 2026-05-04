@@ -44,12 +44,6 @@ import backend.app.providers as providers
 
 router = APIRouter(prefix="/settings", tags=["settings"])
 DbSession = Annotated[AsyncSession, Depends(get_session)]
-_OPENAI_CODEX_MODEL_SETTINGS = {
-    "initializer_agent_model",
-    "god_agent_model",
-    "event_summary_model",
-    "report_agent_model",
-}
 
 
 def _row_dict(row: Any) -> dict[str, Any]:
@@ -164,8 +158,6 @@ def _default_model_for_route(route_info: dict[str, Any]) -> str:
 
 
 def _default_provider_for_route(route_info: dict[str, Any]) -> str:
-    if route_info.get("fallback_model_setting") in _OPENAI_CODEX_MODEL_SETTINGS:
-        return "openai-codex"
     return settings.default_llm_provider
 
 

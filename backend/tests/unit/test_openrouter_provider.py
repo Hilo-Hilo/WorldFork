@@ -7,6 +7,7 @@ import pytest
 from backend.app.providers.errors import InvalidJSONError
 from backend.app.providers.openrouter import OpenRouterProvider
 from backend.app.providers.routing import RoutingTable
+from backend.app.core.config import settings
 from backend.app.schemas.settings import ModelRoutingEntry
 from backend.app.schemas.llm import ModelConfig, PromptPacket
 
@@ -91,6 +92,46 @@ async def test_generate_structured_repairs_non_object_json(
     assert "single valid JSON object" in completions.calls[1]["messages"][-1]["content"]
 
 
+@pytest.mark.asyncio
+async def test_generate_structured_repairs_malformed_json_locally_before_llm_retry(
+    prompt: PromptPacket, config: ModelConfig
+) -> None:
+    provider, completions = _provider_with_responses('{"ok": true, "note": "unterminated')
+
+    result = await provider.generate_structured(prompt, config)
+
+    assert result.parsed_json == {"ok": True, "note": "unterminated"}
+    assert result.repaired_once is True
+    assert len(completions.calls) == 1
+
+
+@pytest.mark.asyncio
+async def test_generate_structured_regenerates_when_local_repair_fails_schema(
+    prompt: PromptPacket, config: ModelConfig
+) -> None:
+    config.response_format = {
+        "type": "json_schema",
+        "json_schema": {
+            "name": "test_response",
+            "schema": {
+                "type": "object",
+                "properties": {"ok": {"type": "boolean"}},
+                "required": ["ok"],
+            },
+        },
+    }
+    provider, completions = _provider_with_responses(
+        '{"note": "unterminated',
+        '{"ok": true}',
+    )
+
+    result = await provider.generate_structured(prompt, config)
+
+    assert result.parsed_json == {"ok": True}
+    assert result.repaired_once is True
+    assert len(completions.calls) == 2
+
+
 @pytest.mark.parametrize("final_content", ["[]", '"text"', "123"])
 @pytest.mark.asyncio
 async def test_generate_structured_raises_invalid_json_for_final_non_object_json(
@@ -108,39 +149,37 @@ async def test_generate_structured_raises_invalid_json_for_final_non_object_json
 def test_default_routes_use_provider_model_split() -> None:
     routing = RoutingTable.defaults()
 
+    expected_model_by_job_type = {
+        "initialize_big_bang": settings.initializer_agent_model,
+        "god_agent_review": settings.god_agent_model,
+        "aggregate_run_results": settings.report_agent_model,
+        "evaluate_endpoint_ledger": settings.god_agent_model,
+        "force_deviation": settings.god_agent_model,
+    }
     for job_type in (
+        "initialize_big_bang",
         "simulate_universe_tick",
         "actor_deliberation_call",
         "execute_due_events",
         "social_propagation",
         "sociology_update",
+        "god_agent_review",
         "branch_universe",
         "build_review_index",
         "export_run",
         "apply_tick_results",
-    ):
-        preferred, fallback = routing.route(job_type)
-        assert preferred.provider == "openrouter"
-        assert preferred.model == OPENROUTER_MODEL
-        assert fallback is not None
-        assert fallback.provider == "openrouter"
-        assert fallback.model == OPENROUTER_MODEL
-        assert preferred.fallback_model == OPENROUTER_MODEL
-
-    for job_type in (
-        "initialize_big_bang",
-        "god_agent_review",
         "aggregate_run_results",
         "evaluate_endpoint_ledger",
         "force_deviation",
     ):
+        expected_model = expected_model_by_job_type.get(job_type, OPENROUTER_MODEL)
         preferred, fallback = routing.route(job_type)
-        assert preferred.provider == "openai-codex"
-        assert preferred.model == "gpt-5.4"
+        assert preferred.provider == "openrouter"
+        assert preferred.model == expected_model
         assert fallback is not None
-        assert fallback.provider == "openai-codex"
-        assert fallback.model == "gpt-5.4"
-        assert preferred.fallback_model == "gpt-5.4"
+        assert fallback.provider == "openrouter"
+        assert fallback.model == expected_model
+        assert preferred.fallback_model == expected_model
 
 
 def test_same_provider_fallback_is_openrouter_native_model_hint() -> None:
@@ -195,19 +234,50 @@ def test_openrouter_extra_body_uses_native_fallback_model(prompt: PromptPacket) 
     assert kwargs["extra_body"] == {"models": ["primary/model", "fallback/model"]}
 
 
-def test_seeded_routes_apply_default_governance_split() -> None:
-    from backend.app.scripts.seed import _OPENAI_CODEX_JOB_TYPES, _ROUTING_DEFAULTS, _routing_model_defaults
+def test_seeded_routes_derive_from_settings_provider_defaults() -> None:
+    from backend.app.scripts.seed import _ROUTING_DEFAULTS, _routing_model_defaults
 
     assert _ROUTING_DEFAULTS
+    expected_model_by_job_type = {
+        "initialize_big_bang": settings.initializer_agent_model,
+        "initializer_chunk_extractor": settings.initializer_agent_model,
+        "initializer_agent": settings.initializer_agent_model,
+        "god_agent_review": settings.god_agent_model,
+        "god_agent": settings.god_agent_model,
+        "endpoint_ledger": settings.god_agent_model,
+        "evaluate_endpoint_ledger": settings.god_agent_model,
+        "aggregate_run_results": settings.report_agent_model,
+        "report_agent": settings.report_agent_model,
+        "event_summary": settings.event_summary_model,
+        "force_deviation": settings.god_agent_model,
+    }
     for row in _ROUTING_DEFAULTS:
         routed = _routing_model_defaults(row)
-        if row["job_type"] in _OPENAI_CODEX_JOB_TYPES:
-            assert routed["preferred_provider"] == "openai-codex"
-            assert routed["preferred_model"] == "gpt-5.4"
-            assert routed["fallback_provider"] == "openai-codex"
-            assert routed["fallback_model"] == "gpt-5.4"
-        else:
-            assert routed["preferred_provider"] == "openrouter"
-            assert routed["preferred_model"] == OPENROUTER_MODEL
-            assert routed["fallback_provider"] == "openrouter"
-            assert routed["fallback_model"] == OPENROUTER_MODEL
+        expected_model = expected_model_by_job_type.get(row["job_type"], OPENROUTER_MODEL)
+        assert routed["preferred_provider"] == "openrouter"
+        assert routed["preferred_model"] == expected_model
+        assert routed["fallback_provider"] == "openrouter"
+        assert routed["fallback_model"] == expected_model
+
+
+def test_seed_routing_preserves_existing_rows(monkeypatch) -> None:
+    from backend.app.scripts import seed
+
+    calls = []
+
+    def insert_missing(session, model, pk_col, rows):
+        calls.append((session, model, pk_col, rows))
+        return len(rows)
+
+    def fail_upsert(*_args, **_kwargs):
+        pytest.fail("_seed_routing should not overwrite existing model-routing rows")
+
+    monkeypatch.setattr(seed, "_insert_missing", insert_missing, raising=False)
+    monkeypatch.setattr(seed, "_upsert", fail_upsert)
+
+    session = object()
+    seed._seed_routing(session)
+
+    assert calls
+    assert calls[0][0] is session
+    assert calls[0][2] == "job_type"

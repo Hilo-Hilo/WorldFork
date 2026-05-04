@@ -201,6 +201,13 @@ def test_complete_with_audit_surfaces_parse_failures(monkeypatch):
 
     call = next(obj for obj in db.objects if isinstance(obj, models.LLMCall))
     assert call.status == "failed"
+    raw_artifacts = [
+        obj
+        for obj in db.objects
+        if isinstance(obj, models.Artifact) and obj.kind == "llm_response_raw"
+    ]
+    assert raw_artifacts
+    assert raw_artifacts[-1].meta["payload"]["content"] == "plain text, not json"
 
 
 def test_complete_with_audit_retries_invalid_json_response(monkeypatch):
@@ -376,6 +383,7 @@ def test_complete_with_audit_uses_provider_model_from_route(monkeypatch):
         "max_tokens": 1234,
         "timeout_seconds": 77,
         "retry_policy": "linear",
+        "payload": {"reasoning": {"effort": "low", "exclude": True}, "source": "test"},
     }
     db = FakeRoutingDB({"god_agent": route_row})
     provider = RoutedProvider()
@@ -402,11 +410,13 @@ def test_complete_with_audit_uses_provider_model_from_route(monkeypatch):
     assert captured["request"].model == "route/model"
     assert captured["request"].metadata["temperature"] == 0.12
     assert captured["request"].metadata["max_tokens"] == 1234
+    assert captured["request"].metadata["reasoning"] == {"effort": "low", "exclude": True}
     assert call.provider == "route-provider"
     assert call.model == "route/model"
     assert call.meta["llm_route"]["matched_route"] == "god_agent"
     assert call.meta["raw_request_artifact_id"] != "spoofed"
-    assert call.meta["request_metadata"]["raw_request_artifact_id"] == "spoofed"
+    assert call.meta["request_metadata"]["max_tokens"] == 1234
+    assert call.meta["caller_request_metadata"]["raw_request_artifact_id"] == "spoofed"
 
 
 def test_complete_with_audit_falls_back_across_route_providers(monkeypatch):
@@ -567,6 +577,73 @@ def test_gemini_seed_route_is_treated_as_explicit_configuration(monkeypatch):
     assert cohort_route.primary.model == "google/gemini-3.1-flash-lite-preview"
 
 
+def test_missing_audited_governance_routes_use_default_provider_with_route_model(monkeypatch):
+    from app.llm import routing as llm_routing
+
+    settings = SimpleNamespace(
+        default_llm_provider="openrouter",
+        default_model="default/model",
+        fallback_model="fallback/model",
+        initializer_agent_model="initializer/slot",
+        god_agent_model="god/slot",
+        cohort_agent_model="cohort/slot",
+        hero_agent_model="hero/slot",
+        event_summary_model="summary/slot",
+        report_agent_model="report/slot",
+    )
+    monkeypatch.setattr(llm_routing, "get_settings", lambda: settings)
+
+    expected_models = {
+        "initializer_chunk_extractor": "initializer/slot",
+        "initializer_agent": "initializer/slot",
+        "god_agent": "god/slot",
+        "event_summary": "summary/slot",
+        "report_agent": "report/slot",
+        "endpoint_ledger": "god/slot",
+    }
+
+    for route, expected_model in expected_models.items():
+        resolved = llm_routing.resolve_audited_llm_route(FakeRoutingDB({}), route=route)
+
+        assert resolved.matched_route is None
+        assert resolved.primary.provider == "openrouter"
+        assert resolved.primary.model == expected_model
+        assert resolved.primary.source == "settings"
+
+
+def test_explicit_openrouter_kimi_route_overrides_default_provider(monkeypatch):
+    from app.llm import routing as llm_routing
+
+    settings = SimpleNamespace(
+        default_llm_provider="openai-codex",
+        default_model="default/model",
+        fallback_model="fallback/model",
+        report_agent_model="gpt-5.4",
+    )
+    explicit_row = {
+        "preferred_provider": "openrouter",
+        "preferred_model": "moonshotai/kimi-k2",
+        "fallback_provider": "openrouter",
+        "fallback_model": "moonshotai/kimi-k2",
+        "temperature": 0.25,
+        "top_p": 1.0,
+        "max_tokens": 8192,
+        "timeout_seconds": 180,
+        "retry_policy": "exponential_backoff",
+        "payload": {"source": "user_patch"},
+    }
+    monkeypatch.setattr(llm_routing, "get_settings", lambda: settings)
+
+    resolved = llm_routing.resolve_audited_llm_route(
+        FakeRoutingDB({"report_agent": explicit_row}),
+        route="report_agent",
+    )
+
+    assert resolved.matched_route == "report_agent"
+    assert resolved.primary.provider == "openrouter"
+    assert resolved.primary.model == "moonshotai/kimi-k2"
+
+
 def test_actor_route_ignores_removed_legacy_batch_name(monkeypatch):
     from app.llm import routing as llm_routing
 
@@ -603,10 +680,18 @@ def test_actor_route_ignores_removed_legacy_batch_name(monkeypatch):
     assert route.primary.model == "deepseek/deepseek-v4-flash"
 
 
-def test_route_retry_policy_none_disables_json_repair_retry(monkeypatch):
-    class InvalidJSONProvider:
+def test_route_retry_policy_none_still_allows_one_json_schema_regeneration(monkeypatch):
+    class SchemaRepairProvider:
+        def __init__(self):
+            self.calls = 0
+            self.messages = []
+
         async def complete(self, request):
-            return LLMResponse(content='["not", "object"]', raw={"ok": True})
+            self.calls += 1
+            self.messages.append(request.messages)
+            if self.calls == 1:
+                return LLMResponse(content='{"note": "schema mismatch"}', raw={"attempt": 1})
+            return LLMResponse(content='{"ok": true}', raw={"attempt": 2})
 
     settings = SimpleNamespace(
         default_llm_provider="openrouter",
@@ -625,23 +710,91 @@ def test_route_retry_policy_none_disables_json_repair_retry(monkeypatch):
         "retry_policy": "none",
         "payload": {},
     }
+    provider = SchemaRepairProvider()
     db = FakeRoutingDB({"report_agent": route_row})
     monkeypatch.setattr(llm_audit, "get_settings", lambda: settings)
-    monkeypatch.setitem(llm_audit._AUDITED_PROVIDER_FACTORIES, "route-provider", InvalidJSONProvider)
+    monkeypatch.setitem(llm_audit._AUDITED_PROVIDER_FACTORIES, "route-provider", lambda: provider)
     monkeypatch.setattr(llm_audit, "ArtifactStore", lambda: FakeArtifactStore())
 
-    with pytest.raises(llm_audit.LLMCallError):
-        llm_audit.complete_with_audit(
-            db,
-            big_bang_id=uuid4(),
-            purpose="report_agent_test",
-            model="legacy/model",
-            route="report_agent",
-            messages=[{"role": "user", "content": "Return JSON."}],
-        )
+    response, call = llm_audit.complete_with_audit(
+        db,
+        big_bang_id=uuid4(),
+        purpose="report_agent_test",
+        model="legacy/model",
+        route="report_agent",
+        messages=[{"role": "user", "content": "Return JSON."}],
+        json_schema={
+            "type": "object",
+            "properties": {"ok": {"type": "boolean"}},
+            "required": ["ok"],
+        },
+    )
 
-    call = next(obj for obj in db.objects if isinstance(obj, models.LLMCall))
+    assert response.parsed == {"ok": True}
+    assert call.status == "succeeded"
+    assert provider.calls == 2
+    assert len(call.meta["attempts"]) == 2
+    assert "schema validation" in call.meta["attempts"][0]["error"]
+    assert "previous response was invalid" in provider.messages[1][-1]["content"]
+
+
+def test_complete_with_audit_applies_local_transform_before_schema_retry(monkeypatch):
+    class PartialJSONProvider:
+        def __init__(self):
+            self.calls = 0
+
+        async def complete(self, request):
+            self.calls += 1
+            return LLMResponse(content='{"note": "schema mismatch"}', raw={"attempt": self.calls})
+
+    provider = PartialJSONProvider()
+    settings = SimpleNamespace(
+        default_llm_provider="openrouter",
+        llm_max_retries=3,
+        llm_retry_backoff_seconds=0,
+    )
+    monkeypatch.setattr(llm_audit, "get_settings", lambda: settings)
+    monkeypatch.setattr(llm_audit, "provider_for_settings", lambda: provider)
+    monkeypatch.setattr(llm_audit, "ArtifactStore", lambda: FakeArtifactStore())
+
+    response, call = llm_audit.complete_with_audit(
+        FakeDB(),
+        big_bang_id=uuid4(),
+        purpose="agent_schema_transform_test",
+        model="test-model",
+        messages=[{"role": "user", "content": "Return JSON."}],
+        json_schema={
+            "type": "object",
+            "properties": {"ok": {"type": "boolean"}},
+            "required": ["ok"],
+        },
+        json_response_transform=lambda parsed: {**parsed, "ok": True},
+    )
+
+    assert response.parsed == {"note": "schema mismatch", "ok": True}
+    assert call.status == "succeeded"
+    assert provider.calls == 1
     assert len(call.meta["attempts"]) == 1
+
+
+def test_parse_json_object_repairs_llm_style_truncated_string():
+    parsed = llm_audit.parse_json_object('{"actors": [{"name": "Atlas cohort", "description": "unterminated')
+
+    assert parsed == {"actors": [{"name": "Atlas cohort", "description": "unterminated"}]}
+
+
+def test_ensure_response_json_object_rejects_repaired_payload_that_fails_schema():
+    response = LLMResponse(content='{"note": "unterminated')
+
+    with pytest.raises(llm_audit.LLMJSONParseError, match="schema validation"):
+        llm_audit.ensure_response_json_object(
+            response,
+            {
+                "type": "object",
+                "properties": {"ok": {"type": "boolean"}},
+                "required": ["ok"],
+            },
+        )
 
 
 def test_unknown_provider_uses_openai_compatible_settings_row(monkeypatch):
@@ -816,6 +969,53 @@ def test_openrouter_requests_json_object_when_schema_is_absent(monkeypatch):
     assert captured["timeout"] == 7
 
 
+def test_openrouter_preserves_null_content_as_empty_response(monkeypatch):
+    class FakeResponse:
+        def raise_for_status(self):
+            pass
+
+        def json(self):
+            return {
+                "choices": [{"message": {"content": None}}],
+                "error": {"code": 400, "message": "Provider returned error"},
+            }
+
+    class FakeClient:
+        def __init__(self, timeout):
+            self.timeout = timeout
+
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, exc_type, exc, tb):
+            return None
+
+        async def post(self, url, *, headers, json):
+            return FakeResponse()
+
+    settings = SimpleNamespace(
+        openrouter_api_key="test-key",
+        default_model="default-model",
+        openrouter_chat_completions_url="https://openrouter.test/chat",
+    )
+    monkeypatch.setattr(openrouter_provider, "get_settings", lambda: settings)
+    monkeypatch.setattr(openrouter_provider.httpx, "AsyncClient", FakeClient)
+
+    response = asyncio.run(
+        openrouter_provider.OpenRouterProvider().complete(
+            LLMRequest(
+                purpose="test",
+                model="moonshotai/kimi-k2.6",
+                messages=[{"role": "user", "content": "Return JSON."}],
+            )
+        )
+    )
+
+    assert response.content == ""
+    assert response.raw["error"]["message"] == "Provider returned error"
+    assert "provider error 400" in llm_audit._empty_response_error(response)
+
+
 def test_openrouter_sends_prompt_cache_control_when_requested(monkeypatch):
     captured = {}
 
@@ -868,6 +1068,57 @@ def test_openrouter_sends_prompt_cache_control_when_requested(monkeypatch):
 
     assert response.raw["usage"]["prompt_tokens_details"]["cached_tokens"] == 1024
     assert captured["payload"]["cache_control"] == {"type": "ephemeral", "ttl": "1h"}
+
+
+def test_openrouter_sends_reasoning_controls_when_requested(monkeypatch):
+    captured = {}
+
+    class FakeResponse:
+        def raise_for_status(self):
+            pass
+
+        def json(self):
+            return {"choices": [{"message": {"content": '{"decision": "continue"}'}}]}
+
+    class FakeClient:
+        def __init__(self, timeout):
+            self.timeout = timeout
+
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, exc_type, exc, tb):
+            return None
+
+        async def post(self, url, *, headers, json):
+            captured["payload"] = json
+            return FakeResponse()
+
+    settings = SimpleNamespace(
+        openrouter_api_key="test-key",
+        default_model="default-model",
+        openrouter_chat_completions_url="https://openrouter.test/chat",
+        openrouter_prompt_caching_enabled=True,
+    )
+    monkeypatch.setattr(openrouter_provider, "get_settings", lambda: settings)
+    monkeypatch.setattr(openrouter_provider.httpx, "AsyncClient", FakeClient)
+
+    asyncio.run(
+        openrouter_provider.OpenRouterProvider().complete(
+            LLMRequest(
+                purpose="test",
+                model="moonshotai/kimi-k2.6",
+                messages=[{"role": "user", "content": "Return JSON."}],
+                metadata={
+                    "max_tokens": 131072,
+                    "reasoning": {"effort": "low", "exclude": True},
+                },
+            )
+        )
+    )
+
+    assert captured["payload"]["max_tokens"] == 131072
+    assert captured["payload"]["reasoning"] == {"effort": "low", "exclude": True}
 
 
 def test_openrouter_preserves_http_429_details(monkeypatch):

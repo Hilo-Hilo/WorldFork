@@ -19,12 +19,6 @@ from typing import Any
 import httpx
 from sqlalchemy import select
 
-OPENROUTER_MODEL = "deepseek/deepseek-v4-flash"
-OPENAI_CODEX_MODEL = "gpt-5.4"
-DEFAULT_EXPECTED_PROVIDER_MODELS = {
-    ("openrouter", OPENROUTER_MODEL),
-    ("openai-codex", OPENAI_CODEX_MODEL),
-}
 BASE_URL = os.environ.get("WORLDFORK_API_URL", "http://127.0.0.1:8003")
 API_PREFIX = os.environ.get("WORLDFORK_API_PREFIX", "/api")
 
@@ -43,7 +37,6 @@ def _load_env() -> None:
 
 _load_env()
 
-from app.core.config import get_settings  # noqa: E402
 from app.db import models  # noqa: E402
 from app.db.session import SessionLocal  # noqa: E402
 from app.domains.multiverse.branch_engine import create_branch  # noqa: E402
@@ -102,22 +95,73 @@ def wait_for_ready(client: httpx.Client) -> dict[str, Any]:
     raise SmokeFailure(f"API did not become ready: {last_error}")
 
 
-def expected_provider_models() -> set[tuple[str, str]]:
-    configured = os.environ.get("WORLDFORK_SMOKE_EXPECTED_PROVIDER_MODELS")
+def _parse_provider_model_pairs(configured: str | None) -> set[tuple[str, str]]:
     if not configured:
-        return set(DEFAULT_EXPECTED_PROVIDER_MODELS)
+        return set()
     pairs: set[tuple[str, str]] = set()
     for item in configured.split(","):
         provider, separator, model = item.partition(":")
         if separator and provider.strip() and model.strip():
             pairs.add((provider.strip(), model.strip()))
-    return pairs or set(DEFAULT_EXPECTED_PROVIDER_MODELS)
+    return pairs
 
 
-EXPECTED_PROVIDER_MODELS = expected_provider_models()
+def _effective_pairs_from_llm_config(llm_config: dict[str, Any] | None) -> set[tuple[str, str]]:
+    if not isinstance(llm_config, dict):
+        return set()
+    pairs: set[tuple[str, str]] = set()
+    for entry in llm_config.get("effective_model_routing") or []:
+        if not isinstance(entry, dict):
+            continue
+        for provider_key, model_key in (
+            ("preferred_provider", "preferred_model"),
+            ("fallback_provider", "fallback_model"),
+        ):
+            provider = entry.get(provider_key)
+            model = entry.get(model_key)
+            if provider and model:
+                pairs.add((str(provider), str(model)))
+    return pairs
 
 
-def assert_expected_models(big_bang_id: str) -> None:
+def expected_provider_models(llm_config: dict[str, Any] | None = None) -> set[tuple[str, str]]:
+    configured = _parse_provider_model_pairs(os.environ.get("WORLDFORK_SMOKE_EXPECTED_PROVIDER_MODELS"))
+    if configured:
+        return configured
+    pairs = _effective_pairs_from_llm_config(llm_config)
+    if not pairs:
+        raise SmokeFailure(
+            "could not determine expected LLM provider/model pairs from /settings/llm; "
+            "set WORLDFORK_SMOKE_EXPECTED_PROVIDER_MODELS"
+        )
+    return pairs
+
+
+def assert_expected_providers_available(
+    llm_config: dict[str, Any],
+    expected_pairs: set[tuple[str, str]],
+    *,
+    ready: dict[str, Any],
+) -> None:
+    ready_checks = ready.get("checks") if isinstance(ready, dict) else {}
+    ready_checks = ready_checks if isinstance(ready_checks, dict) else {}
+    catalog = {
+        str(row.get("provider")): row
+        for row in (llm_config.get("provider_catalog") or [])
+        if isinstance(row, dict) and row.get("provider")
+    }
+    for provider in sorted({provider for provider, _model in expected_pairs}):
+        if provider in ready_checks:
+            check(ready_checks.get(provider) is True, f"readyz reports {provider} configured")
+            continue
+        row = catalog.get(provider)
+        check(row is not None, f"{provider} appears in LLM provider catalog")
+        check(row.get("supported", True) is True, f"{provider} provider is supported")
+        check(row.get("enabled") is True, f"{provider} provider is enabled")
+        check(row.get("configured") is True, f"{provider} provider is configured")
+
+
+def assert_expected_models(big_bang_id: str, expected_pairs: set[tuple[str, str]]) -> None:
     db = SessionLocal()
     try:
         calls = db.scalars(
@@ -131,17 +175,17 @@ def assert_expected_models(big_bang_id: str) -> None:
             for call in calls
             if not any(
                 call.provider == provider and model in str(call.model)
-                for provider, model in EXPECTED_PROVIDER_MODELS
+                for provider, model in expected_pairs
             )
         ]
         if unexpected:
             raise SmokeFailure(
                 f"unexpected providers/models were used: {unexpected} "
-                f"(expected one of: {sorted(EXPECTED_PROVIDER_MODELS)})"
+                f"(expected one of: {sorted(expected_pairs)})"
             )
         print(
             f"[pass] all {len(calls)} audited LLM calls used an expected provider/model "
-            f"({sorted(EXPECTED_PROVIDER_MODELS)})"
+            f"({sorted(expected_pairs)})"
         )
     finally:
         db.close()
@@ -355,23 +399,6 @@ def terminate_all_multiverses(client: httpx.Client, big_bang_id: str) -> list[di
 
 
 def main() -> None:
-    settings = get_settings()
-    check(settings.default_llm_provider == "openrouter", "default provider is OpenRouter")
-    for label, model in {
-        "default": settings.default_model,
-        "fallback": settings.fallback_model,
-        "cohort": settings.cohort_agent_model,
-        "hero": settings.hero_agent_model,
-        "event_summary": settings.event_summary_model,
-    }.items():
-        check(model == OPENROUTER_MODEL, f"{label} model is {OPENROUTER_MODEL}")
-    for label, model in {
-        "initializer": settings.initializer_agent_model,
-        "god": settings.god_agent_model,
-        "report": settings.report_agent_model,
-    }.items():
-        check(model == OPENAI_CODEX_MODEL, f"{label} model is {OPENAI_CODEX_MODEL}")
-
     original_settings: dict[str, Any] | None = None
     cleanup_settings_row = False
     big_bang_id: str | None = None
@@ -380,8 +407,10 @@ def main() -> None:
 
     with httpx.Client(timeout=180) as client:
         ready = wait_for_ready(client)
-        check(ready["checks"]["openrouter"], "readyz reports OpenRouter configured")
-        check(ready["checks"].get("openai-codex") is True, "readyz reports OpenAI Codex configured")
+        llm_config = request(client, "GET", "/api/settings/llm")
+        expected_pairs = expected_provider_models(llm_config)
+        check(bool(expected_pairs), "expected provider/model pairs resolved from LLM settings")
+        assert_expected_providers_available(llm_config, expected_pairs, ready=ready)
         status = request(client, "GET", "/api/agent/status")
         check(status["ok"] and status["data"]["status"] == "ok", "agent status is ok")
 
@@ -467,7 +496,7 @@ def main() -> None:
         check(len(request(client, "GET", f"/api/ticks/{root_tick_id}/graph-deltas")) >= 1, "graph deltas exist")
         check(len(request(client, "GET", f"/api/ticks/{root_tick_id}/sociology-signals")) >= 1, "sociology signals exist")
         check(len(request(client, "GET", f"/api/ticks/{root_tick_id}/emotion-observability")) >= 1, "emotion observability exists")
-        assert_expected_models(big_bang_id)
+        assert_expected_models(big_bang_id, expected_pairs)
 
         child_multiverse_id = record_manual_branch_intervention(
             parent_multiverse_id=root_multiverse_id,
@@ -484,7 +513,7 @@ def main() -> None:
         )
         check(child_tick["status"] == "final", "child branch tick simulation completed")
         validate_runtime(request(client, "GET", f"/api/ticks/{child_tick['id']}/runtime"))
-        assert_expected_models(big_bang_id)
+        assert_expected_models(big_bang_id, expected_pairs)
 
         control_job_id = create_synthetic_job(child_multiverse_id, big_bang_id)
         control_job = request(client, "GET", f"/api/jobs/{control_job_id}")
@@ -498,7 +527,7 @@ def main() -> None:
         check(job["status"] == "succeeded", "job run endpoint completed tick")
         check(job["result"].get("tick_snapshot_id"), "job result contains tick snapshot id")
         assert_job_runtime_link(job_id)
-        assert_expected_models(big_bang_id)
+        assert_expected_models(big_bang_id, expected_pairs)
 
         root_report = request(
             client,
@@ -558,7 +587,7 @@ def main() -> None:
             "big_bang_id": big_bang_id,
             "root_multiverse_id": root_multiverse_id,
             "child_multiverse_id": child_multiverse_id,
-            "provider_models": sorted(EXPECTED_PROVIDER_MODELS),
+            "provider_models": sorted(expected_pairs),
             "base_url": BASE_URL,
         }
     )
