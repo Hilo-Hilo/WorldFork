@@ -169,5 +169,6 @@ def test_reads_worldfork_auth_without_codex_cli(monkeypatch: pytest.MonkeyPatch,
     )
     monkeypatch.setenv("WORLDFORK_HOME", str(worldfork_home))
     monkeypatch.setenv("CODEX_HOME", str(tmp_path / "missing-codex-home"))
+    monkeypatch.delenv(openai_codex.OPENAI_CODEX_AUTH_FILE_ENV, raising=False)
 
     assert read_codex_oauth_token() == "worldfork-access"

@@ -20,6 +20,7 @@ def _capture_initializer_user_message(monkeypatch, *, scenario_input: dict, plai
         messages,
         metadata,
         json_schema=None,
+        json_response_transform=None,
         route=None,
     ):
         captured["messages"] = messages
@@ -49,6 +50,7 @@ def _capture_initializer_json_schema(monkeypatch) -> dict:
         messages,
         metadata,
         json_schema=None,
+        json_response_transform=None,
         route=None,
     ):
         captured["json_schema"] = json_schema
