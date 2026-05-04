@@ -156,10 +156,10 @@ def run_initializer_agent(
             },
         ],
         json_schema=INITIALIZER_JSON_SCHEMA,
-        metadata={"max_tokens": 3400, "temperature": 0.25, "agent_type": "initializer_agent"},
+        json_response_transform=lambda parsed: normalize_initializer_output(parsed, scenario_input),
+        metadata={"temperature": 0.25, "agent_type": "initializer_agent"},
     )
-    parsed = response.parsed or {}
-    normalized = normalize_initializer_output(parsed, scenario_input)
+    normalized = response.parsed or {}
     normalized["plain_text_corpus"] = corpus
     normalized["llm_call_id"] = str(call.id)
     normalized["model"] = call.model

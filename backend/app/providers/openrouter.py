@@ -112,13 +112,7 @@ class OpenRouterProvider(BaseProvider):
 
     @staticmethod
     def _parse_json_object(content: str) -> dict[str, Any]:
-        if not content:
-            raise ValueError("response was empty")
-        parsed = json.loads(content)
-        if not isinstance(parsed, dict):
-            raise ValueError(
-                f"response JSON root must be an object, got {type(parsed).__name__}"
-            )
+        parsed, _repaired = BaseProvider._parse_json_object_with_repair(content)
         return parsed
 
     @staticmethod
@@ -240,9 +234,9 @@ class OpenRouterProvider(BaseProvider):
         repaired = False
         parsed: dict[str, Any] | None = None
         try:
-            parsed = self._parse_json_object(content)
+            parsed, repaired = self._parse_structured_json(content, response_format)
         except (json.JSONDecodeError, ValueError) as parse_err:
-            # One repair attempt — only when caller wanted structured output.
+            # Local repair failed; only now ask the model to regenerate.
             validator_message = (
                 parse_err.msg if isinstance(parse_err, json.JSONDecodeError) else str(parse_err)
             )
@@ -273,10 +267,11 @@ class OpenRouterProvider(BaseProvider):
             message = choice.message
             content = message.content or ""
             try:
-                parsed = self._parse_json_object(content)
+                parsed, repaired_again = self._parse_structured_json(content, response_format)
+                repaired = repaired or repaired_again
             except (json.JSONDecodeError, ValueError) as final_err:
                 raise InvalidJSONError(
-                    "OpenRouter response failed JSON parse after one repair attempt",
+                    "OpenRouter response failed JSON parse or schema validation after local repair and one regeneration attempt",
                     raw_text=content,
                     validator_message=str(final_err),
                 ) from final_err

@@ -318,13 +318,7 @@ class OpenAICodexProvider(BaseProvider):
 
     @staticmethod
     def _parse_json_object(content: str) -> dict[str, Any]:
-        if not content:
-            raise ValueError("response was empty")
-        parsed = json.loads(content)
-        if not isinstance(parsed, dict):
-            raise ValueError(
-                f"response JSON root must be an object, got {type(parsed).__name__}"
-            )
+        parsed, _repaired = BaseProvider._parse_json_object_with_repair(content)
         return parsed
 
     @staticmethod
@@ -488,7 +482,7 @@ class OpenAICodexProvider(BaseProvider):
 
         repaired = False
         try:
-            parsed = self._parse_json_object(content)
+            parsed, repaired = self._parse_structured_json(content, config.response_format)
         except (json.JSONDecodeError, ValueError) as parse_err:
             validator_message = (
                 parse_err.msg if isinstance(parse_err, json.JSONDecodeError) else str(parse_err)
@@ -505,10 +499,11 @@ class OpenAICodexProvider(BaseProvider):
             repaired = True
             content = self._extract_output_text(response)
             try:
-                parsed = self._parse_json_object(content)
+                parsed, repaired_again = self._parse_structured_json(content, config.response_format)
+                repaired = repaired or repaired_again
             except (json.JSONDecodeError, ValueError) as final_err:
                 raise InvalidJSONError(
-                    "OpenAI Codex response failed JSON parse after one repair attempt",
+                    "OpenAI Codex response failed JSON parse or schema validation after local repair and one regeneration attempt",
                     raw_text=content,
                     validator_message=str(final_err),
                 ) from final_err

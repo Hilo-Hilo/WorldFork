@@ -16,7 +16,7 @@ Use this skill for a full first-user validation of WorldFork from a clean enviro
 - Put global flags before the command: `worldfork --verbosity summary runs list`.
 - Start broad inspection with `--verbosity summary`; use `--fields` for large rows.
 - Do not hardcode backend URLs. Use CLI defaults, `--base-url`, `WORLD_FORK_API_BASE`, or `BACKEND_API_BASE`.
-- All live API-credit work must use the default route split unless the user explicitly authorizes a different model route or mixed provider policy: `openrouter/deepseek/deepseek-v4-flash` for cohort, hero, action, and event-summary work and `openai-codex/gpt-5.4` for initialization, God review, endpoint-ledger evaluation, and reports.
+- All live API-credit work must use the configured route policy unless the user explicitly authorizes a different model route or mixed provider policy: keep cohort, hero, action, and event-summary work on a fast/cheap route such as `openrouter/deepseek/deepseek-v4-flash`, and keep initialization, God review, endpoint-ledger evaluation, and reports on a strong governance/report model route such as `openai-codex/gpt-5.4` or OpenRouter-hosted Kimi/Claude.
 - Use subagents. If the host agent cannot spawn subagents, stop and report that the required execution mode is unavailable.
 - Keep every mutation scoped to disposable local data created by this test.
 - Use bounded waits. Never leave unbounded polling, watchers, or servers running at the end.
@@ -121,11 +121,11 @@ Prepare runtime:
 cp .env.example .env
 ```
 
-Ensure `.env` has `OPENROUTER_API_KEY`, OpenAI Codex OAuth is configured, and every configured WorldFork model slot resolves to the approved live-test split unless the user explicitly authorizes a different route policy:
+Ensure `.env` has `OPENROUTER_API_KEY`, any required auth for the selected strong governance/report route is configured, and every configured WorldFork model slot resolves to the approved live-test split unless the user explicitly authorizes a different route policy:
 
 ```text
 openrouter/deepseek/deepseek-v4-flash
-openai-codex/gpt-5.4
+strong governance/report route, such as openai-codex/gpt-5.4 or OpenRouter-hosted Kimi/Claude
 ```
 
 When a different policy is authorized, configure it only through `worldfork settings providers` and `worldfork settings model-routing`, then record the full `worldfork settings llm` response. It is valid to keep frequent cohort, hero, action, and event-summary calls on a cheaper OpenRouter model to control cost and latency, but route higher-impact calls to a strong provider/model when quality matters:
@@ -133,7 +133,7 @@ When a different policy is authorized, configure it only through `worldfork sett
 - strong route candidates: `initializer_chunk_extractor`, `initializer_agent`, `god_agent`, `report_agent`, `endpoint_ledger`
 - cheaper route candidates: `cohort_agent`, `hero_agent`, `event_summary`
 
-For OpenAI Codex OAuth, use `worldfork settings openai-codex-login`; do not assume the Codex CLI is installed. The standard policy is `openai-codex/gpt-5.4` for initialization, God review, reports, and endpoint-ledger evaluation, with `openrouter/deepseek/deepseek-v4-flash` for `cohort_agent`, `hero_agent`, action execution, and event summaries. Restore previous route rows after a temporary experiment unless the user explicitly wants the mixed policy to remain.
+For OpenAI Codex OAuth, use `worldfork settings openai-codex-login`; do not assume the Codex CLI is installed. The standard governance/report policy is a strong model route for initialization, God review, reports, and endpoint-ledger evaluation, with supported examples including `openai-codex/gpt-5.4` and OpenRouter-hosted Kimi/Claude. Use `openrouter/deepseek/deepseek-v4-flash` for `cohort_agent`, `hero_agent`, action execution, and event summaries when cost and latency matter. Restore previous route rows after a temporary experiment unless the user explicitly wants the mixed policy to remain.
 
 Start and verify:
 
@@ -514,7 +514,7 @@ skills/worldfork-full-agent-test/references/accuracy-sweep.md
 skills/worldfork-full-agent-test/references/accuracy-benchmark-prompts.jsonl
 ```
 
-Use the approved default split unless the user explicitly authorizes a different model or mixed provider policy: `openrouter/deepseek/deepseek-v4-flash` for cohort, hero, action, and event-summary work and `openai-codex/gpt-5.4` for initialization, God review, endpoint-ledger evaluation, and reports. When a single-model override is authorized, pass it through `WF_MODEL` so the harness records the configured model in `run-config.json` and injects it into every WorldFork model slot. When a mixed route policy is authorized, patch `worldfork settings model-routing`, capture `worldfork settings llm`, and verify audited LLM logs include the expected provider/model for each route. The default full benchmark is 72 initialization prompts from the bundled JSONL file. For a faster smoke, sample 12 cases while preserving the category quotas in the SOP. For a stronger study, expand to 96-100 cases by adding prompts that follow the same JSONL schema and taxonomy.
+Use the approved configured split unless the user explicitly authorizes a different model or mixed provider policy: `openrouter/deepseek/deepseek-v4-flash` is a supported fast/cheap route for cohort, hero, action, and event-summary work, while initialization, God review, endpoint-ledger evaluation, and reports should use a strong governance/report model route such as `openai-codex/gpt-5.4` or OpenRouter-hosted Kimi/Claude. When a single-model override is authorized, pass it through `WF_MODEL` so the harness records the configured model in `run-config.json` and injects it into every WorldFork model slot. When a mixed route policy is authorized, patch `worldfork settings model-routing`, capture `worldfork settings llm`, and verify audited LLM logs include the expected provider/model for each route. The default full benchmark is 72 initialization prompts from the bundled JSONL file. For a faster smoke, sample 12 cases while preserving the category quotas in the SOP. For a stronger study, expand to 96-100 cases by adding prompts that follow the same JSONL schema and taxonomy.
 
 Collect initialization and audit evidence with CLI-first commands:
 

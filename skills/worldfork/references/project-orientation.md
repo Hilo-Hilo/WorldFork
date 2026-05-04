@@ -67,7 +67,7 @@ A successful first setup proves:
 
 - the local Docker stack is healthy;
 - the CLI can reach the intended backend;
-- the OpenRouter and OpenAI Codex routes are configured as intended;
+- the OpenRouter routes and strong governance/report model routes are configured as intended;
 - `worldfork agent discover` describes the live API surface;
 - `worldfork setup` exposes provider options and the recommended Atlas routing profile;
 - a Big Bang can initialize from `examples/test-big-bang.md`;

@@ -9,6 +9,9 @@ from contextlib import contextmanager
 from datetime import datetime, timedelta, timezone
 from typing import Any
 
+import json_repair
+from jsonschema import Draft202012Validator
+from jsonschema.exceptions import ValidationError as JSONSchemaValidationError
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 from sqlalchemy.orm import sessionmaker
@@ -150,6 +153,7 @@ def _truthy_payload_flag(value: Any) -> bool:
 
 
 def parse_json_object(content: str) -> dict[str, Any]:
+    first_error: json.JSONDecodeError | None = None
     try:
         parsed = json.loads(content)
     except json.JSONDecodeError as exc:
@@ -172,17 +176,65 @@ def parse_json_object(content: str) -> dict[str, Any]:
             if isinstance(parsed, dict):
                 return parsed
             raise LLMJSONParseError("LLM response JSON was not an object")
+    repaired = _repair_json_object(stripped or content)
+    if repaired is not None:
+        return repaired
     raise LLMJSONParseError(
         f"LLM response did not contain a valid JSON object: {first_error}"
     ) from first_error
 
 
-def ensure_response_json_object(response: LLMResponse) -> dict[str, Any]:
+def _repair_json_object(content: str) -> dict[str, Any] | None:
+    stripped = content.lstrip()
+    if not stripped.startswith("{") and not stripped.startswith("```"):
+        return None
+    try:
+        repaired = json_repair.repair_json(
+            content,
+            return_objects=True,
+            skip_json_loads=True,
+            ensure_ascii=False,
+        )
+    except Exception:
+        return None
+    return repaired if isinstance(repaired, dict) else None
+
+
+def ensure_response_json_object(
+    response: LLMResponse,
+    json_schema: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     if isinstance(response.parsed, dict):
-        return response.parsed
-    if response.parsed is not None:
+        parsed = response.parsed
+    elif response.parsed is not None:
         raise LLMJSONParseError("LLM response JSON was not an object")
-    return parse_json_object(response.content)
+    else:
+        parsed = parse_json_object(response.content)
+    _validate_json_schema(parsed, json_schema)
+    return parsed
+
+
+def _validate_json_schema(payload: dict[str, Any], json_schema: dict[str, Any] | None) -> None:
+    if not isinstance(json_schema, dict):
+        return
+    try:
+        Draft202012Validator(json_schema).validate(payload)
+    except JSONSchemaValidationError as exc:
+        raise LLMJSONParseError(f"LLM response JSON failed schema validation: {exc.message}") from exc
+
+
+def _prepare_response_json(
+    response: LLMResponse,
+    json_schema: dict[str, Any] | None,
+    transform: Callable[[dict[str, Any]], dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    parsed = ensure_response_json_object(response)
+    if transform is not None:
+        parsed = transform(parsed)
+        if not isinstance(parsed, dict):
+            raise LLMJSONParseError("LLM response JSON transform did not return an object")
+    _validate_json_schema(parsed, json_schema)
+    return parsed
 
 
 def _json_repair_messages(
@@ -193,7 +245,10 @@ def _json_repair_messages(
     content = (
         "Your previous response was invalid for WorldFork's machine parser: "
         f"{error_message}. Return exactly one JSON object and nothing else. "
-        "Do not return a JSON array, markdown, prose, comments, or multiple objects."
+        "Do not return a JSON array, markdown, prose, comments, or multiple objects. "
+        "If schema validation says a required property is missing, add that property "
+        "using an evidence-grounded value, an empty array, or an empty object as allowed "
+        "by the schema. Do not omit required top-level keys."
     )
     if invalid_content:
         content = (
@@ -232,6 +287,17 @@ def _llm_error_message(exc: Exception) -> str:
     return str(exc)
 
 
+def _empty_response_error(response: LLMResponse) -> str:
+    raw = response.raw if isinstance(response.raw, dict) else {}
+    raw_error = raw.get("error")
+    if isinstance(raw_error, dict):
+        code = raw_error.get("code")
+        message = raw_error.get("message")
+        if code or message:
+            return f"LLM response was empty: provider error {code}: {message}"
+    return "LLM response was empty"
+
+
 def _route_retry_attempts(settings: Any, metadata: dict[str, Any]) -> int:
     retry_policy = str(metadata.get("retry_policy") or "exponential_backoff")
     if retry_policy == "none":
@@ -264,6 +330,7 @@ def complete_with_audit(
     messages: list[dict[str, str]],
     metadata: dict[str, Any] | None = None,
     json_schema: dict[str, Any] | None = None,
+    json_response_transform: Callable[[dict[str, Any]], dict[str, Any]] | None = None,
     route: AuditedLLMRoute | str | None = None,
 ) -> tuple[LLMResponse, models.LLMCall]:
     metadata = metadata or {}
@@ -275,6 +342,7 @@ def complete_with_audit(
         fallback_model=model,
     )
     initial_candidate = resolved_route.primary
+    initial_request_metadata = resolved_route.metadata_for(initial_candidate, metadata)
     request_payload = {
         "purpose": purpose,
         "route": resolved_route.audit_meta(),
@@ -282,7 +350,8 @@ def complete_with_audit(
         "model": initial_candidate.model,
         "messages": messages,
         "json_schema": json_schema,
-        "metadata": metadata,
+        "metadata": initial_request_metadata,
+        "caller_metadata": metadata,
     }
     sanitized_request = redact_payload(request_payload)
     audit_store = LLMCallAuditStore(db, big_bang_id=big_bang_id)
@@ -292,11 +361,13 @@ def complete_with_audit(
         purpose=purpose,
         request_payload=request_payload,
         sanitized_request=sanitized_request,
-        metadata=metadata,
+        metadata=initial_request_metadata,
+        caller_metadata=metadata,
         route_meta=resolved_route.audit_meta(),
     )
     attempts: list[dict[str, Any]] = []
     response: LLMResponse | None = None
+    failed_response: LLMResponse | None = None
     last_error: Exception | None = None
     successful_candidate: LLMRouteCandidate | None = None
     for candidate in resolved_route.candidates():
@@ -322,7 +393,10 @@ def complete_with_audit(
                 }
             )
             continue
-        for attempt in range(1, max_attempts + 1):
+        attempt = 0
+        json_regeneration_used = False
+        while attempt < max_attempts:
+            attempt += 1
             try:
                 response = asyncio.run(
                     asyncio.wait_for(
@@ -339,8 +413,12 @@ def complete_with_audit(
                     )
                 )
                 if not response.content and not response.parsed:
-                    raise RuntimeError("LLM response was empty")
-                response.parsed = ensure_response_json_object(response)
+                    raise RuntimeError(_empty_response_error(response))
+                response.parsed = _prepare_response_json(
+                    response,
+                    json_schema,
+                    json_response_transform,
+                )
                 attempts.append(
                     {
                         "attempt": attempt,
@@ -365,16 +443,17 @@ def complete_with_audit(
                         "error": error_message,
                     }
                 )
-                if attempt < max_attempts:
-                    if isinstance(exc, LLMJSONParseError):
-                        invalid_content = (
-                            failed_response.content if failed_response is not None else None
-                        )
-                        attempt_messages = _json_repair_messages(
-                            messages,
-                            error_message,
-                            invalid_content,
-                        )
+                is_json_error = isinstance(exc, LLMJSONParseError)
+                has_configured_retry = attempt < max_attempts
+                needs_json_regeneration = is_json_error and not json_regeneration_used
+                if has_configured_retry or needs_json_regeneration:
+                    if is_json_error:
+                        json_regeneration_used = True
+                        if not has_configured_retry:
+                            max_attempts += 1
+                        invalid_content = failed_response.content if failed_response is not None else None
+                        attempt_messages = _json_repair_messages(messages, error_message, invalid_content)
+                        continue
                     delay = _retry_delay(
                         float(getattr(settings, "llm_retry_backoff_seconds", 0)),
                         attempt,
@@ -391,7 +470,11 @@ def complete_with_audit(
             raise RuntimeError(str(last_error) if last_error else "LLM call failed")
         call.provider = successful_candidate.provider
         call.model = successful_candidate.model
-        response.parsed = ensure_response_json_object(response)
+        response.parsed = _prepare_response_json(
+            response,
+            json_schema,
+            json_response_transform,
+        )
         response_payload = {
             "content": response.content,
             "parsed": response.parsed,
@@ -419,6 +502,7 @@ def complete_with_audit(
             error_message=error_message,
             attempts=attempts,
             fallback=fallback,
+            failed_response=failed_response,
         )
         raise LLMCallError(error_message, call_id=call.id) from exc
 
@@ -440,6 +524,7 @@ class LLMCallAuditStore:
         request_payload: dict[str, Any],
         sanitized_request: dict[str, Any],
         metadata: dict[str, Any],
+        caller_metadata: dict[str, Any],
         route_meta: dict[str, Any],
     ) -> models.LLMCall:
         def write(audit_db: Session) -> models.LLMCall:
@@ -469,6 +554,7 @@ class LLMCallAuditStore:
                 meta={
                     **metadata,
                     "request_metadata": metadata,
+                    "caller_request_metadata": caller_metadata,
                     "raw_request_artifact_id": str(raw_request_artifact.id),
                     "llm_route": route_meta,
                     "audit_commit_mode": (
@@ -538,6 +624,7 @@ class LLMCallAuditStore:
         error_message: str,
         attempts: list[dict[str, Any]],
         fallback: LLMResponse,
+        failed_response: LLMResponse | None = None,
     ) -> models.LLMCall:
         call = self._write(
             lambda audit_db: self._mark_failed_without_artifact(
@@ -554,6 +641,7 @@ class LLMCallAuditStore:
                     call_id=call_id,
                     purpose=purpose,
                     fallback=fallback,
+                    failed_response=failed_response,
                 )
             )
         except Exception:
@@ -584,6 +672,7 @@ class LLMCallAuditStore:
         call_id: Any,
         purpose: str,
         fallback: LLMResponse,
+        failed_response: LLMResponse | None,
     ) -> models.LLMCall:
         call = audit_db.get(models.LLMCall, call_id)
         if call is None:
@@ -596,7 +685,32 @@ class LLMCallAuditStore:
             payload=redact_payload(fallback.model_dump()),
             kind="llm_response_sanitized",
         )
+        meta = dict(call.meta or {})
+        if failed_response is not None:
+            failed_payload = failed_response.model_dump()
+            raw_response_artifact = store.write_json(
+                audit_db,
+                big_bang_id=self._big_bang_id,
+                relative_path=f"big_bang_{self._big_bang_id}/raw_llm_calls/{purpose}_failed_response.json",
+                payload=failed_payload,
+                kind="llm_response_raw",
+                debug_only=True,
+            )
+            sanitized_failed_artifact = store.write_json(
+                audit_db,
+                big_bang_id=self._big_bang_id,
+                relative_path=f"big_bang_{self._big_bang_id}/sanitized_llm_calls/{purpose}_failed_response.json",
+                payload=redact_payload(failed_payload),
+                kind="llm_response_sanitized",
+            )
+            meta.update(
+                {
+                    "raw_failed_response_artifact_id": str(raw_response_artifact.id),
+                    "sanitized_failed_response_artifact_id": str(sanitized_failed_artifact.id),
+                }
+            )
         call.response_artifact_id = response_artifact.id
+        call.meta = meta
         audit_db.flush()
         return call
 

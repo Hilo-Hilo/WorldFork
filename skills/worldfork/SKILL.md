@@ -29,13 +29,13 @@ worldfork setup
 
 ## Model, Cost, And Time Defaults
 
-For onboarding, smoke, and Atlas, use the configured default split unless the user explicitly authorizes another policy:
+For onboarding, smoke, and Atlas, use the configured route policy unless the user explicitly authorizes another policy:
 
-| Route class | Default provider/model | Rationale |
+| Route class | Supported provider/model examples | Rationale |
 | --- | --- | --- |
 | Cohort, hero, action, high-volume simulation | OpenRouter `deepseek/deepseek-v4-flash` | Cheap and fast for many actor calls |
-| Initializer, God review, endpoint ledger, report | OpenAI Codex `gpt-5.4` | Stronger reasoning for governance and summaries |
-| Event summary | OpenAI Codex `gpt-5.4` unless route config says otherwise | Aggregate tick-level reasoning over executed events |
+| Initializer, God review, endpoint ledger, report | Strong governance/report model route, such as OpenAI Codex `gpt-5.4` or OpenRouter-hosted Kimi/Claude | Stronger reasoning for governance and summaries |
+| Event summary | Strong governance/report model route unless route config says otherwise | Aggregate tick-level reasoning over executed events |
 
 Before starting a substantial Big Bang or Atlas run:
 
