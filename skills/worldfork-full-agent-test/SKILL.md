@@ -11,7 +11,7 @@ Use this skill for a full first-user validation of WorldFork from a clean enviro
 
 - Use a fresh disposable clone or worktree. Do not use a dirty development checkout as the test target.
 - Test the `dev` branch unless the user explicitly requests another branch.
-- Install the WorldFork skills with `npx skills add` as part of the fresh setup.
+- Install the single public WorldFork skill with `npx skills add` as part of the fresh setup.
 - Use the `worldfork` CLI as the primary control surface. Use `worldfork query` only when command discovery shows no first-class CLI verb for an API operation.
 - Put global flags before the command: `worldfork --verbosity summary runs list`.
 - Start broad inspection with `--verbosity summary`; use `--fields` for large rows.
@@ -99,7 +99,6 @@ cd "$run_root/WorldFork"
 Install skills and CLI:
 
 ```bash
-npx skills add ./skills/worldfork-setup --all
 npx skills add ./skills/worldfork --all
 npx skills add ./skills/worldfork-full-agent-test --all
 python3.11 -m pip install -e ./cli

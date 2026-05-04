@@ -655,8 +655,11 @@ def _run_pending_cohort_decisions(
     if not pending_keys:
         return
 
-    max_workers = max(1, int(settings.max_parallel_cohort_decisions))
     bind = db.get_bind()
+    worker_func = _execute_actor_decision_payload_in_worker
+    max_workers = max(1, int(settings.max_parallel_cohort_decisions))
+    if bind.dialect.name == "sqlite" and getattr(worker_func, "__module__", None) == __name__:
+        max_workers = 1
     for batch_start in range(0, len(pending_keys), max_workers):
         batch_keys = pending_keys[batch_start : batch_start + max_workers]
         attempts: dict[str, models.NodeAttempt] = {}
@@ -674,7 +677,7 @@ def _run_pending_cohort_decisions(
                 spec = plan.node_specs[node_key]
                 futures[
                     pool.submit(
-                        _execute_actor_decision_payload_in_worker,
+                        worker_func,
                         bind,
                         big_bang_id=big_bang.id,
                         multiverse_id=multiverse.id,

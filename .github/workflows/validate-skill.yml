@@ -37,8 +37,6 @@ jobs:
           const fs = require("node:fs");
           const skills = [
             { name: "worldfork", path: "skills/worldfork/SKILL.md" },
-            { name: "worldfork-setup", path: "skills/worldfork-setup/SKILL.md" },
-            { name: "worldfork-report", path: "skills/worldfork-report/SKILL.md" },
             { name: "worldfork-full-agent-test", path: "skills/worldfork-full-agent-test/SKILL.md" },
           ];
 
@@ -66,14 +64,8 @@ jobs:
       - name: Validate repository discovery
         run: npx --yes skills add . --full-depth --list -y
 
-      - name: Validate local discovery
+      - name: Validate public WorldFork skill discovery
         run: npx --yes skills add ./skills/worldfork --list -y
-
-      - name: Validate setup skill discovery
-        run: npx --yes skills add ./skills/worldfork-setup --list -y
-
-      - name: Validate report skill discovery
-        run: npx --yes skills add ./skills/worldfork-report --list -y
 
       - name: Validate full agent test skill discovery
         run: npx --yes skills add ./skills/worldfork-full-agent-test --list -y

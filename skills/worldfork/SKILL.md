@@ -1,15 +1,13 @@
 ---
 name: worldfork
-description: Use when operating, validating, onboarding, configuring LLM providers/model routing, or debugging the WorldFork branching simulation backend through its CLI/API, including initialization, watch streams, Atlas demos, reports, jobs, settings, and runtime health.
+description: Use when operating, setting up, onboarding, configuring, estimating cost/time for, debugging, documenting, reporting on, or validating the WorldFork branching simulation backend through its CLI/API, including Big Bang initialization, Atlas demos, ticks, jobs, ledgers, reports, runtime health, and model routing.
 ---
 
 # WorldFork
 
-WorldFork is a backend + worker + CLI product for branching social simulations. Its core framing is a Monte Carlo tree search of the real world. The primary operator interface is the `worldfork` CLI, backed by the FastAPI agent and runtime APIs.
+WorldFork is a backend + worker + CLI product for branching social simulations. Its core framing is a Monte Carlo tree search of the real world: initialize a Big Bang, advance timeline ticks, branch when decisions matter, track endpoint ledgers/path mass, and compare outcomes through structured reports.
 
-## Start Here
-
-Run discovery before making assumptions about the live API surface:
+The primary interface is the `worldfork` CLI. Start by discovering the live surface instead of guessing:
 
 ```bash
 worldfork agent discover
@@ -17,219 +15,69 @@ worldfork status
 worldfork setup
 ```
 
-Use this project model when explaining WorldFork to a user: a Big Bang is the
-root scenario, each multiverse is one timeline, ticks are checkpointed runtime
-steps, branches create alternate timelines from decision points, endpoint
-ledgers track terminal outcomes and path mass, and reports are structured
-database versions that can be rendered on request.
+## Standard Operating Practice
 
-When onboarding a new user, keep the tone warm, proactive, and practical. Tell
-them what each command is proving, translate important output into plain
-language, and use `worldfork setup` to show provider options before asking which
-LLM providers they want to configure.
+- Use the CLI first. Use `worldfork query` only when command discovery shows no first-class command for the API operation.
+- Put global flags before the command: `worldfork --verbosity summary runs list`.
+- Start with `--verbosity summary`; move to `normal`, `full`, or `--json` only for a specific evidence gap.
+- Use `--fields a,b,c` for large rows when only a few top-level keys matter.
+- Do not hardcode backend URLs. Use the CLI default, `--base-url`, `WORLD_FORK_API_BASE`, or `BACKEND_API_BASE`.
+- Use bounded waits for jobs: `worldfork jobs wait <job-id> --timeout 300 --poll-interval 2`.
+- Treat reports as structured database records first. Markdown/PDF are renders generated from report versions on request.
+- Before live API-credit work, state the likely time/cost uncertainty and inspect estimates when possible.
+- Do not clear Redis, delete data, change model routes, start Atlas, or spend live API credits without user approval.
 
-Do not hardcode backend URLs. Use `WORLD_FORK_API_BASE`, `BACKEND_API_BASE`, or the CLI `--base-url` flag when a non-default backend target is required.
+## Model, Cost, And Time Defaults
 
-If the user asks to set up WorldFork and the `worldfork` command is missing, guide the operator through CLI installation from the repo root:
+For onboarding, smoke, and Atlas, use the configured default split unless the user explicitly authorizes another policy:
 
-```bash
-python3.11 -m pip install -e ./cli
-worldfork --help
-```
+| Route class | Default provider/model | Rationale |
+| --- | --- | --- |
+| Cohort, hero, action, high-volume simulation | OpenRouter `deepseek/deepseek-v4-flash` | Cheap and fast for many actor calls |
+| Initializer, God review, endpoint ledger, report | OpenAI Codex `gpt-5.4` | Stronger reasoning for governance and summaries |
+| Event summary | OpenAI Codex `gpt-5.4` unless route config says otherwise | Aggregate tick-level reasoning over executed events |
 
-Then continue onboarding through environment setup, Docker Compose startup, migrations, seeding, readiness checks, and a first Big Bang. Do not bypass the CLI with Python module entrypoints for normal operation.
-
-For normal repo updates, use the CLI updater instead of ad hoc destructive Git commands:
-
-```bash
-worldfork update --dry-run
-worldfork update --yes
-```
-
-The updater fast-forwards code only. It refuses dirty tracked files, diverged branches, and remote edits to protected local config/data paths such as `.env`, Docker override files, `runs/`, and `artifacts/`.
-
-## Setup Onboarding
-
-For a fresh local setup, guide the user through:
-
-```bash
-cp .env.example .env
-python3.11 -m pip install -e ./cli
-make build
-make up
-make migrate
-make seed
-worldfork status
-worldfork query GET /readyz --no-api-prefix
-```
-
-Ask the operator to put `OPENROUTER_API_KEY` in `.env` and configure OpenAI Codex OAuth with `worldfork settings openai-codex-login` or `codex login --device-auth`. Live onboarding and validation runs should use the default split unless the user explicitly authorizes another route policy: `openrouter/deepseek/deepseek-v4-flash` for cohort, hero, action, and event-summary work and `openai-codex/gpt-5.4` for initialization, God review, endpoint-ledger evaluation, and reports.
-
-Use `worldfork setup` after the backend is reachable, or `worldfork setup
---offline` after only the CLI is installed, to show provider choices and the
-recommended Atlas routing profile.
-
-## LLM Providers And Routing
-
-Inspect the effective provider, route catalog, persisted rows, and rate limits before changing models:
+Before starting a substantial Big Bang or Atlas run:
 
 ```bash
 worldfork settings llm
-worldfork settings providers
-worldfork settings model-routing
-worldfork settings rate-limits
+worldfork costs estimate
+worldfork runs estimate <big-bang-id>
 ```
 
-WorldFork routes audited LLM calls by stable route names. Configure routes through `worldfork settings model-routing`; do not bypass this layer in LangGraph/domain code. The important audited routes are:
-
-- `initializer_chunk_extractor`
-- `initializer_agent`
-- `god_agent`
-- `cohort_agent`
-- `hero_agent`
-- `event_summary`
-- `report_agent`
-- `endpoint_ledger`
-
-For actor deliberation, use `cohort_agent` and `hero_agent` as the operator-facing audited routes. The internal worker job for one actor decision is `actor_deliberation_call`.
-
-For onboarding and live smoke tests, keep the default split unless the user explicitly authorizes another model: `cohort_agent`, `hero_agent`, action execution, and `event_summary` on `openrouter/deepseek/deepseek-v4-flash`; `initializer_chunk_extractor`, `initializer_agent`, `god_agent`, `report_agent`, and `endpoint_ledger` on `openai-codex/gpt-5.4`.
-
-To use OpenAI Codex OAuth, run the headless login flow and then enable/configure the provider. This does not require the Codex CLI to be installed:
+After or during a run:
 
 ```bash
-worldfork settings openai-codex-login
-worldfork settings providers --data '{
-  "providers": [
-    {
-      "provider": "openai-codex",
-      "base_url": "https://chatgpt.com/backend-api/codex",
-      "api_key_env": "OPENAI_CODEX_OAUTH_TOKEN",
-      "default_model": "gpt-5.4",
-      "fallback_model": null,
-      "json_mode_required": true,
-      "tool_calling_enabled": false,
-      "enabled": true,
-      "extra_headers": {},
-      "payload": {"api": "openai-codex-responses", "auth_mode": "oauth"}
-    }
-  ]
-}'
+worldfork runs cost <big-bang-id> --include-calls
+worldfork ticks timing <tick-snapshot-id>
+worldfork ticks cost <tick-snapshot-id> --include-calls
 ```
 
-Patch route rows with the provider/model mix the user wants:
+Explain to the user that estimates are model- and branch-policy-dependent. Runtime can grow with cohort count, max ticks, branch caps, report generation, and context growth. Cohort calls may run in parallel, but downstream God review, ledger, summary, and report stages still take serial time.
 
-```bash
-worldfork settings model-routing --data '{
-  "entries": [
-    {
-      "job_type": "initializer_agent",
-      "preferred_provider": "openai-codex",
-      "preferred_model": "gpt-5.4",
-      "fallback_provider": "openai-codex",
-      "fallback_model": "gpt-5.4",
-      "temperature": 0.3,
-      "top_p": 1.0,
-      "max_tokens": 8192,
-      "max_concurrency": 2,
-      "requests_per_minute": 20,
-      "tokens_per_minute": 200000,
-      "timeout_seconds": 300,
-      "retry_policy": "exponential_backoff",
-      "payload": {}
-    },
-    {
-      "job_type": "cohort_agent",
-      "preferred_provider": "openrouter",
-      "preferred_model": "deepseek/deepseek-v4-flash",
-      "temperature": 0.8,
-      "top_p": 1.0,
-      "max_tokens": 4096,
-      "max_concurrency": 16,
-      "requests_per_minute": 120,
-      "tokens_per_minute": 400000,
-      "timeout_seconds": 90,
-      "retry_policy": "exponential_backoff",
-      "payload": {}
-    }
-  ]
-}'
-```
+## Starting A Big Bang Well
 
-Re-run `worldfork settings llm` after any change and verify `effective_model_routing`. When validating a run, inspect LLM audit logs with provider/model fields:
+For a startup Big Bang, help the user make the scenario operational before running it:
 
-```bash
-worldfork --verbosity normal --fields id,source,status,message,provider,model,big_bang_id logs list --source llm
-```
+- Define the decision question and endpoint conditions clearly.
+- Choose tick duration and horizon deliberately; for Atlas-style crisis demos, 720 simulated minutes per tick is common.
+- Ask whether they want a cheap exploratory run, a stronger governance/report run, or a high-quality expensive run.
+- Warn that initialization can be slow because it turns the scenario into actors, cohorts, population state, graphs, initial events, branch hypotheses, and endpoint ledgers.
+- Check cost/time estimates before long runs.
+- Use `worldfork init` for initialization proof; use `worldfork demo atlas` or live smoke for full tick/branch/report proof.
 
-For Kimi or other hosted OpenAI-compatible providers, add a `settings providers` row with a new provider name, `api_key_env`, base URL, and `payload.api` set to `openai-compatible`, then route individual jobs to it. For local OpenAI-compatible runtimes such as Ollama, vLLM, LM Studio, and LocalAI, use `api_key_env: "none"` and payload APIs such as `ollama-openai`, `vllm-openai`, `lmstudio-openai`, or `localai-openai`; these can be routed to any audited agent type after a JSON-quality smoke test. Add `payload.omit_auth_header: true` only for strict local proxies that reject bearer headers. For Claude, use OpenRouter model IDs with provider `openrouter` or an OpenRouter-backed name such as `openrouter-claude`; direct Anthropic API support requires a separate provider adapter.
+## Progressive Skill Modules
 
-## Core Commands
+Read only the module that matches the current task:
 
-```bash
-worldfork init --name "Atlas onboarding" --scenario-file examples/test-big-bang.md
-worldfork watch big-bang <big-bang-id>
-worldfork watch multiverse <multiverse-id>
-worldfork reports list <big-bang-id>
-worldfork reports versions <report-id>
-worldfork reports view <report-version-id>
-worldfork reports render <report-version-id> --format pdf --output report.pdf
-worldfork jobs list --status failed
-worldfork logs list --status failed
-worldfork models defaults
-worldfork settings show
-worldfork settings llm
-worldfork update --dry-run
-```
+| Task | Read this file |
+| --- | --- |
+| First-time setup, provider configuration, Atlas onboarding | `skills/setup.md` |
+| Report generation, endpoint ledgers, path mass, final reports | `skills/report.md` |
+| Runtime failures, stuck ticks, jobs, queues, LLM audit, observability | `skills/debug.md` |
+| CLI command patterns and canonical operator workflow | `skills/worldfork-cli.md` |
+| Safe update, reinstall, uninstall, data preservation | `skills/update-uninstall.md` |
+| ReadTheDocs, website, docs publishing, public documentation map | `skills/documentation.md` |
+| Runtime mental model and component relationships | `skills/worldfork.md` |
 
-`worldfork init` waits for backend initialization to complete and returns the initialized workspace, initializer state, actors, traits, graph baseline, sociology baseline, and emotion baseline. Use `--wait-timeout` for live initializer calls.
-
-`worldfork watch` streams workspace, tick, tool-call, and agent log state until the selected Big Bang or multiverse reaches a terminal state. Use `--json-lines` for machine-readable streams, `--once` for a snapshot, or `--no-stop` when a long-lived watcher should continue after terminal state.
-
-## Atlas Demo (Only run for onboarding, per user confirmation)
-
-Atlas is the full onboarding simulation:
-
-```bash
-worldfork demo atlas
-```
-
-It creates the Atlas Resilience Crisis Big Bang, runs root and branch timelines, permits God-agent-created branches under generous caps, generates structured per-multiverse reports, generates the final cross-multiverse report, can render a PDF on demand, and audits that live LLM calls use the configured approved route policy.
-
-The default Atlas tick duration is 720 simulated minutes. If `--max-tick-index` is omitted, Atlas derives it from `--horizon-days` and `--tick-duration-minutes`.
-
-Atlas cohort seeds must include population scale. The Atlas scenario and harness should preserve `represented_population`, `population_share_of_archetype`, and `representation_mode` for every initial cohort so sociology, split/merge review, and God-agent population tools can reason about aggregate social weight.
-
-When running Atlas for onboarding, narrate the phases in short progress updates:
-initialization turns the scenario into actors and state, ticks advance decisions
-and events, God review decides whether branches are worth exploring, endpoint
-ledgers track terminal hypotheses/path mass, and reports compare the resulting
-timelines. Explain any printed Big Bang, multiverse, job, log, or report IDs and
-the command that inspects each one.
-
-## Reports
-
-Treat reports as database records first. A report is a logical slot, and each generated revision is a `report_version` containing parsable JSON content, source metadata, model metadata, source multiverse IDs, source config version, and latest tick bindings.
-
-Markdown and PDF outputs are ephemeral renders compiled from `report_versions.content` only when requested. Rendering or deleting local output must not mutate the canonical report version.
-
-## Validation
-
-Use the maintained sweep before declaring the repo healthy:
-
-```bash
-./scripts/run_tests.sh all
-make lint
-docker compose config --quiet
-```
-
-For a real runtime smoke test with API credits, use the configured default
-split unless the user explicitly authorizes another policy:
-
-```bash
-worldfork smoke live
-```
-
-The default split is OpenRouter `deepseek/deepseek-v4-flash` for cohort, hero,
-action, and event-summary routes, and OpenAI Codex `gpt-5.4` for initializer,
-God review, endpoint-ledger, and report routes.
+Use `references/project-orientation.md` when the user is new to WorldFork. Use `references/setup-troubleshooting.md` when setup fails or provider/CLI/Docker behavior is unclear.
