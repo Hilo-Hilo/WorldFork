@@ -192,7 +192,7 @@ def _safe_noop_payload(actor_kind: str) -> dict:
             "tick_summary": "[safe no-op: invalid JSON from provider]",
             "rationale": {"reason": "invalid_json_safe_noop"},
         }
-    # cohort / hero share the §10.5 shape — emit a single stay_silent action.
+    # cohort / hero share the shape — emit a single stay_silent action.
     base: dict = {
         "public_actions": [],
         "event_actions": [],
@@ -299,7 +299,7 @@ async def _persist_call(
 
 
 # ---------------------------------------------------------------------------
-# call_with_policy — the §16.7 backoff/fallback orchestrator
+# call_with_policy — the backoff/fallback orchestrator
 # ---------------------------------------------------------------------------
 
 async def call_with_policy(
@@ -316,7 +316,7 @@ async def call_with_policy(
     is_p0: bool = False,
     max_attempts: int = 5,
 ) -> LLMResult:
-    """Execute a structured LLM call with full §16.7 backoff/fallback policy.
+    """Execute a structured LLM call with full backoff/fallback policy.
 
     Order of operations per attempt:
 
@@ -409,7 +409,7 @@ async def call_with_policy(
 
             except ProviderTimeoutError as exc:
                 last_exc = exc
-                # Per §16.7: timeout → retry once, then fallback.
+                # Timeout: retry once, then fallback.
                 if attempts >= 2:
                     logger.warning(
                         "provider %s timed out twice on %s; trying fallback",
@@ -419,8 +419,8 @@ async def call_with_policy(
                 continue
 
             except InvalidJSONError as exc:
-                # The provider already attempted one repair internally; per §16.7
-                # we now emit a safe no-op so the simulation continues.
+                # The provider already attempted one repair internally; emit a
+                # safe no-op so the simulation continues.
                 last_exc = exc
                 logger.warning(
                     "invalid JSON after one repair on %s; emitting safe no-op",

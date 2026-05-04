@@ -5,7 +5,7 @@ Wraps the per-tick God review into a single ``await god_review(...)`` call:
 1. Build a :class:`PromptPacket` via :class:`PromptBuilder.build_god_packet`.
 2. Dispatch through :func:`call_with_policy` with ``job_type="god_agent_review"``.
 3. Parse the JSON output via :meth:`ToolParser.parse_god_output`.
-4. Apply the §26 invariants (spawn_active without delta -> spawn_candidate;
+4. Apply the invariants (spawn_active without delta -> spawn_candidate;
    kill without rationale -> safe explanatory rationale; marked_key_events filtered to
    known IDs).
 5. Persist the decision to the ledger via
@@ -142,7 +142,7 @@ def _is_safe_noop_decision(decision: GodReviewOutput) -> bool:
 def _coerce_spawn_active_without_delta(payload: dict[str, Any]) -> dict[str, Any]:
     """If decision==spawn_active and branch_delta missing, coerce to spawn_candidate.
 
-    The §13 contract requires a non-null ``branch_delta`` for ``spawn_active``;
+    The contract requires a non-null ``branch_delta`` for ``spawn_active``;
     without one we can't construct a child universe.  Downgrading to
     ``spawn_candidate`` preserves the God-agent's intent for the branch-policy
     gate to revisit later.

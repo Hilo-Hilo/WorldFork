@@ -2,8 +2,8 @@
 
 Builds :class:`PromptPacket` instances for cohort/hero/god/initializer LLM
 calls.  The builder is the single funnel through which the rest of the engine
-constructs prompts so that the §10.2 packet structure, §10.3 clock format,
-§11.3 temperature table, and §11.2 active-agent rules are applied uniformly.
+constructs prompts so that the packet structure, clock format,
+temperature table, and active-agent rules are applied uniformly.
 
 The builder is **deterministic** modulo the `_select_temperature` jitter which
 uses ``random.Random(seed)`` keyed on ``actor_id+tick`` for reproducibility.
@@ -34,7 +34,7 @@ _log = logging.getLogger(__name__)
 
 
 # ---------------------------------------------------------------------------
-# §11.3 temperature table — (lower, upper) inclusive range per representation.
+# temperature table — (lower, upper) inclusive range per representation.
 # ---------------------------------------------------------------------------
 
 _TEMP_BANDS: dict[str, tuple[float, float]] = {
@@ -49,7 +49,7 @@ _TEMP_BANDS: dict[str, tuple[float, float]] = {
 
 
 def _temp_band_for_population(pop: int) -> tuple[float, float]:
-    """§11.3 lookup based on represented_population."""
+    """Representation-mode lookup based on represented_population."""
     if pop <= 1:
         return _TEMP_BANDS["hero"]
     if pop <= 25:
@@ -405,7 +405,7 @@ class PromptBuilder:
     # ------------------------------------------------------------------
 
     def _select_temperature(self, cohort: CohortState) -> float:
-        """§11.3 lookup with deterministic jitter inside the band."""
+        """Representation-mode lookup with deterministic jitter inside the band."""
         # Heroes (population==1) handled by _temp_band_for_population.
         band_lo, band_hi = _temp_band_for_population(cohort.represented_population)
         rng = random.Random(hash(f"{cohort.cohort_id}:{cohort.tick}"))
@@ -427,7 +427,7 @@ class PromptBuilder:
         return template.render(**ctx)
 
     def _wrap_system(self, rendered: str, schema: dict) -> str:
-        """Append the §10.5 strict JSON-only instruction to the rendered text.
+        """Append the strict JSON-only instruction to the rendered text.
 
         The cohort/hero/god templates already include the schema, but we still
         append a final "Return JSON only" sentinel so even a stripped or

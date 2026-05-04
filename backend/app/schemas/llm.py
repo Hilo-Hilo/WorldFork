@@ -138,7 +138,7 @@ class ProviderHealth(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# CohortDecisionOutput  §10.5
+# CohortDecisionOutput
 # ---------------------------------------------------------------------------
 
 class _DecisionRationale(BaseModel):
@@ -152,7 +152,7 @@ class _DecisionRationale(BaseModel):
 
 class CohortDecisionOutput(BaseModel):
     """
-    Parsed output contract for cohort agent decisions — §10.5 verbatim.
+    Parsed output contract for cohort agent decisions.
     Uses extra="ignore" to tolerate minor schema drift between prompt versions.
     """
 
@@ -173,7 +173,7 @@ class CohortDecisionOutput(BaseModel):
 class HeroDecisionOutput(BaseModel):
     """
     Parsed output contract for hero agent decisions.
-    Mirrors §10.5 structure with extra="ignore" for version tolerance.
+    Mirrors structure with extra="ignore" for version tolerance.
     """
 
     model_config = ConfigDict(extra="ignore")
@@ -191,7 +191,7 @@ class HeroDecisionOutput(BaseModel):
 
 class GodReviewOutput(BaseModel):
     """
-    Parsed output contract for God-agent review — §13.6 decisions.
+    Parsed output contract for God-agent review decisions.
     Uses extra="ignore" to tolerate evolving prompt contract versions.
     """
 
