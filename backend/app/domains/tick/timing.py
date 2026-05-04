@@ -6,6 +6,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.db import models
+from app.domains.costs.service import summarize_calls
 
 
 def duration_seconds(start: datetime | None, end: datetime | None) -> float | None:
@@ -41,6 +42,7 @@ def tick_timing_payload(db: Session, tick: models.TickSnapshot) -> dict[str, Any
         "executions": [_execution_timing_payload(db, execution) for execution in executions],
         "llm_calls": [_llm_call_timing_payload(call) for call in llm_calls],
         "llm_summary": _llm_summary(llm_calls),
+        "cost_summary": summarize_calls(llm_calls),
     }
 
 
@@ -79,9 +81,13 @@ def run_timing_payload(db: Session, big_bang: models.BigBang) -> dict[str, Any]:
             ),
             "llm_calls": [_llm_call_timing_payload(call) for call in initializer_calls],
             "llm_summary": _llm_summary(initializer_calls),
+            "cost_summary": summarize_calls(initializer_calls),
         },
         "jobs": [_job_timing_payload(job) for job in jobs],
         "ticks": [tick_timing_payload(db, tick) for tick in ticks],
+        "cost_summary": summarize_calls(
+            db.scalars(select(models.LLMCall).where(models.LLMCall.big_bang_id == big_bang.id)).all()
+        ),
     }
 
 
@@ -168,12 +174,18 @@ def _attempt_timing_payload(attempt: models.NodeAttempt) -> dict[str, Any]:
 
 
 def _llm_call_timing_payload(call: models.LLMCall) -> dict[str, Any]:
+    meta = call.meta if isinstance(call.meta, dict) else {}
+    usage = meta.get("usage") if isinstance(meta.get("usage"), dict) else {}
     return {
         "id": str(call.id),
         "purpose": call.purpose,
         "provider": call.provider,
         "model": call.model,
         "status": call.status,
+        "prompt_tokens": int(usage.get("prompt_tokens") or 0),
+        "completion_tokens": int(usage.get("completion_tokens") or 0),
+        "total_tokens": int(usage.get("total_tokens") or 0),
+        "cost_usd": usage.get("cost") or usage.get("total_cost") or usage.get("cost_usd"),
         "created_at": call.created_at,
         "updated_at": call.updated_at,
         "duration_seconds": duration_seconds(call.created_at, call.updated_at),

@@ -394,8 +394,7 @@ async def test_get_model_routing_empty(client):
     assert effective["cohort_agent"]["preferred_provider"] == "openrouter"
     assert effective["cohort_agent"]["preferred_model"] == "deepseek/deepseek-v4-flash"
     assert effective["hero_agent"]["preferred_model"] == "deepseek/deepseek-v4-flash"
-    assert effective["event_summary"]["preferred_model"] == "deepseek/deepseek-v4-flash"
-    for route in ("initializer_agent", "god_agent", "endpoint_ledger", "report_agent"):
+    for route in ("initializer_agent", "god_agent", "event_summary", "endpoint_ledger", "report_agent"):
         assert effective[route]["preferred_provider"] == "openai-codex"
         assert effective[route]["preferred_model"] == "gpt-5.4"
     assert {route["route"] for route in data["known_routes"]} >= {
