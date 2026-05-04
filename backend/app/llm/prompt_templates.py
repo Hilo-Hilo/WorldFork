@@ -23,6 +23,30 @@ simulation_brief, actors, population_archetypes, cohort_states, hero_archetypes,
 emotion_observations, sociology_baseline, sociology_prompt_influences, channels, initial_events, branch_hypotheses,
 merge_hypotheses, important_questions, endpoint_ledger, risk_flags.
 
+Do not omit any required top-level key. If a section has weak evidence, return a
+useful empty array or a compact evidence-grounded default. The final JSON object
+must have this complete shape:
+{{
+  "simulation_brief": {{}},
+  "actors": [],
+  "population_archetypes": [],
+  "cohort_states": [],
+  "hero_archetypes": [],
+  "hero_states": [],
+  "trait_vectors": [],
+  "graph_edges": [],
+  "emotion_observations": [],
+  "sociology_baseline": [],
+  "sociology_prompt_influences": [],
+  "channels": [],
+  "initial_events": [],
+  "branch_hypotheses": [],
+  "merge_hypotheses": [],
+  "important_questions": [],
+  "endpoint_ledger": [],
+  "risk_flags": []
+}}
+
 Simulation construction requirements:
 - Create a full T0 picture from the ground up. Do not wait for later agents to infer obvious actor/cohort relationships.
 - Prefer explicit actor names that can be referenced by graph_edges and observations.

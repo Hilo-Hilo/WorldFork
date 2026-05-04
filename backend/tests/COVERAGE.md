@@ -97,7 +97,7 @@ Run the full maintained sweep:
 worldfork smoke live
 ```
 
-This intentionally uses real API credits and asserts that audited LLM calls use the default split:
+This intentionally uses real API credits and asserts that audited LLM calls match the effective provider/model routes exposed by `worldfork settings llm`. A common route policy is:
 
 ```text
 openrouter/deepseek/deepseek-v4-flash

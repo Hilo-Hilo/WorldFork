@@ -35,6 +35,11 @@ class OpenRouterProvider(LLMProvider):
         for key in ("temperature", "max_tokens", "top_p"):
             if key in request.metadata:
                 payload[key] = request.metadata[key]
+        reasoning = request.metadata.get("reasoning")
+        if isinstance(reasoning, dict):
+            payload["reasoning"] = reasoning
+        elif "include_reasoning" in request.metadata:
+            payload["include_reasoning"] = bool(request.metadata["include_reasoning"])
 
         headers = {
             "Authorization": f"Bearer {settings.openrouter_api_key}",
@@ -68,7 +73,7 @@ class OpenRouterProvider(LLMProvider):
                 raise LLMProviderUnavailable(f"LLM unavailable: {exc}") from exc
             data = response.json()
 
-        content = data.get("choices", [{}])[0].get("message", {}).get("content", "")
+        content = data.get("choices", [{}])[0].get("message", {}).get("content") or ""
         return LLMResponse(content=content, raw=data)
 
 

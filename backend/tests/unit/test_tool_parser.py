@@ -137,6 +137,11 @@ class TestParseJsonLoosely:
         parsed = parse_json_loosely(text)
         assert parsed["decision"] == "continue"
 
+    def test_repairs_malformed_json_object(self):
+        parsed = parse_json_loosely('{"decision": "continue", "tick_summary": "unterminated')
+
+        assert parsed == {"decision": "continue", "tick_summary": "unterminated"}
+
     def test_raises_on_unrecoverable(self):
         with pytest.raises(ToolParseError):
             parse_json_loosely("totally not json {{{")

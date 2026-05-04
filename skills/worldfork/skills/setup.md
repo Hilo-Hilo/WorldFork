@@ -46,7 +46,7 @@ worldfork --help
 cp .env.example .env
 ```
 
-Set `OPENROUTER_API_KEY` in `.env`. Configure OpenAI Codex OAuth after the CLI is installed:
+Set `OPENROUTER_API_KEY` in `.env`. Configure a strong governance/report route after the CLI is installed. For OpenAI Codex OAuth:
 
 ```bash
 worldfork settings openai-codex-login
@@ -76,14 +76,14 @@ worldfork settings llm
 Use `worldfork setup` as the provider-choice map. Explain the tradeoff:
 
 - OpenRouter: cheap/fast high-volume cohort, hero, action, and simulation routes.
-- OpenAI Codex OAuth: stronger initialization, God review, endpoint-ledger, event-summary, and report routes.
+- Strong governance/report route: stronger initialization, God review, endpoint-ledger, event-summary, and report routes. Supported examples include OpenAI Codex OAuth and OpenRouter-hosted Kimi/Claude models.
 - Local OpenAI-compatible runtimes: lower cost, but only use after JSON-quality testing.
 
 Recommended Atlas policy:
 
 ```text
 openrouter/deepseek/deepseek-v4-flash for cohort/hero/action work
-openai-codex/gpt-5.4 for initializer/God/endpoint-ledger/event-summary/report work
+strong governance/report model route, such as openai-codex/gpt-5.4 or OpenRouter-hosted Kimi/Claude, for initializer/God/endpoint-ledger/event-summary/report work
 ```
 
 Inspect before changes:

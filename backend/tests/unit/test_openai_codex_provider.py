@@ -112,6 +112,46 @@ async def test_generate_structured_retries_without_text_format_when_rejected(
     assert "text" not in responses.calls[1]
 
 
+@pytest.mark.asyncio
+async def test_generate_structured_repairs_malformed_json_locally_before_llm_retry(
+    prompt: PromptPacket, config: ModelConfig
+) -> None:
+    provider, responses = _provider_with_responses('{"ok": true, "note": "unterminated')
+
+    result = await provider.generate_structured(prompt, config)
+
+    assert result.parsed_json == {"ok": True, "note": "unterminated"}
+    assert result.repaired_once is True
+    assert len(responses.calls) == 1
+
+
+@pytest.mark.asyncio
+async def test_generate_structured_regenerates_when_local_repair_fails_schema(
+    prompt: PromptPacket, config: ModelConfig
+) -> None:
+    config.response_format = {
+        "type": "json_schema",
+        "json_schema": {
+            "name": "test_response",
+            "schema": {
+                "type": "object",
+                "properties": {"ok": {"type": "boolean"}},
+                "required": ["ok"],
+            },
+        },
+    }
+    provider, responses = _provider_with_responses(
+        '{"note": "unterminated',
+        '{"ok": true}',
+    )
+
+    result = await provider.generate_structured(prompt, config)
+
+    assert result.parsed_json == {"ok": True}
+    assert result.repaired_once is True
+    assert len(responses.calls) == 2
+
+
 def test_reads_codex_oauth_token(tmp_path) -> None:
     auth_file = tmp_path / "auth.json"
     auth_file.write_text(

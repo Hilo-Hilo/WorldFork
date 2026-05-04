@@ -65,9 +65,10 @@ The backend route calls the canonical initializer synchronously. The initializer
 10. Seeds the endpoint ledger.
 11. Returns the initialized Big Bang; the route commits after success.
 
-The initializer agent uses the audited LLM route `initializer_agent`. The default
-Atlas routing profile sends initializer work to OpenAI Codex `gpt-5.4`, while
-high-volume cohort and hero work uses OpenRouter
+The initializer agent uses the audited LLM route `initializer_agent`. The Atlas
+routing profile should send initializer work through a strong governance/report
+model route, such as OpenAI Codex `gpt-5.4` or an OpenRouter-hosted Kimi/Claude
+model, while high-volume cohort and hero work can use OpenRouter
 `deepseek/deepseek-v4-flash`.
 
 Large scenario text may be chunked before the initializer agent runs. Chunk

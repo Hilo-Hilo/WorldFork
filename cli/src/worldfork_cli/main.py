@@ -47,6 +47,28 @@ UPDATE_PROTECTED_PATHS = (
 
 ATLAS_FAST_MODEL = "deepseek/deepseek-v4-flash"
 ATLAS_GOVERNANCE_MODEL = "gpt-5.4"
+ATLAS_GOVERNANCE_SUBSTITUTES = (
+    {
+        "provider": "openai-codex",
+        "model": ATLAS_GOVERNANCE_MODEL,
+        "note": "Strong-provider option when Codex OAuth is available.",
+    },
+    {
+        "provider": "openrouter",
+        "model": "moonshotai/kimi-k2",
+        "note": "OpenRouter-hosted Kimi option for governance and report routes.",
+    },
+    {
+        "provider": "openrouter-claude",
+        "model": "anthropic/claude-sonnet-4.5",
+        "note": "OpenRouter-hosted Claude option for governance and report routes.",
+    },
+    {
+        "provider": "openai",
+        "model": "gpt-5.4",
+        "note": "OpenAI-compatible substitute when direct API credentials are preferred.",
+    },
+)
 
 ATLAS_FAST_ROUTES = (
     "cohort_agent",
@@ -93,8 +115,8 @@ SETUP_PROVIDER_OPTIONS = (
         "default_model": ATLAS_GOVERNANCE_MODEL,
         "supported": True,
         "best_for": list(ATLAS_GOVERNANCE_ROUTES),
-        "setup": "Run worldfork settings openai-codex-login; use stronger models for initialization, God review, endpoint-ledger evaluation, and reports.",
-        "atlas_recommendation": "Use for high-leverage governance and report work during Atlas.",
+        "setup": "Run worldfork settings openai-codex-login if the user chooses Codex; use it as one strong-provider option for initialization, God review, endpoint-ledger evaluation, and reports.",
+        "atlas_recommendation": "Valid high-leverage governance/report option during Atlas; OpenRouter-hosted Kimi/Claude and OpenAI-compatible providers can substitute.",
     },
     {
         "provider": "openai",
@@ -112,7 +134,7 @@ SETUP_PROVIDER_OPTIONS = (
         "display_name": "Claude models through OpenRouter",
         "api_key_env": "OPENROUTER_API_KEY",
         "base_url": "https://openrouter.ai/api/v1",
-        "default_model": "anthropic/claude-3-5-sonnet",
+        "default_model": "anthropic/claude-sonnet-4.5",
         "supported": True,
         "best_for": ["god_agent", "report_agent"],
         "setup": "Add an OpenAI-compatible provider row such as provider=openrouter-claude and use OpenRouter anthropic/* model IDs. Direct Anthropic API calls are not the recommended path in this build.",
@@ -1723,8 +1745,8 @@ def demo() -> None:
 )
 @click.option("--idle-termination-ticks", type=int, default=6, show_default=True)
 @click.option("--completion-max-requests", type=int, default=1000, show_default=True)
-@click.option("--expected-provider", default="openrouter", show_default=True)
-@click.option("--expected-model", default="deepseek/deepseek-v4-flash", show_default=True)
+@click.option("--expected-provider", default=None, help="Explicit provider expected in audited LLM-call checks.")
+@click.option("--expected-model", default=None, help="Explicit model expected in audited LLM-call checks.")
 @click.pass_obj
 def demo_atlas(
     ctx: Context,
@@ -1739,8 +1761,8 @@ def demo_atlas(
     branch_score_threshold: float,
     idle_termination_ticks: int,
     completion_max_requests: int,
-    expected_provider: str,
-    expected_model: str,
+    expected_provider: str | None,
+    expected_model: str | None,
 ) -> None:
     """Run the full Atlas onboarding multiverse demo.
 
@@ -1750,6 +1772,9 @@ def demo_atlas(
     report-agent summary, can render a PDF on request, and audits expected
     provider/model use.
     """
+    if bool(expected_provider) != bool(expected_model):
+        raise click.UsageError("--expected-provider and --expected-model must be supplied together")
+
     argv = [
         "--base-url",
         ctx.client.base_url,
@@ -1773,11 +1798,9 @@ def demo_atlas(
         str(idle_termination_ticks),
         "--completion-max-requests",
         str(completion_max_requests),
-        "--expected-provider",
-        expected_provider,
-        "--expected-model",
-        expected_model,
     ]
+    if expected_provider and expected_model:
+        argv.extend(["--expected-provider", expected_provider, "--expected-model", expected_model])
     if scenario_file is not None:
         argv.extend(["--scenario-file", str(scenario_file.resolve())])
     if max_tick_index is not None:
@@ -1883,7 +1906,17 @@ def _setup_payload(
             "provider": "openai-codex",
             "model": ATLAS_GOVERNANCE_MODEL,
             "routes": list(ATLAS_GOVERNANCE_ROUTES),
+            "status": "one strong-provider option, not a requirement",
         },
+        "governance_substitutes": list(ATLAS_GOVERNANCE_SUBSTITUTES),
+        "validation": (
+            "Atlas demo and smoke checks validate the effective provider/model pairs exposed by "
+            "worldfork settings llm, unless explicit expected pairs are supplied."
+        ),
+        "governance_substitute_summary": (
+            "OpenRouter-hosted Claude/OpenAI-compatible substitutes, including Kimi, are valid "
+            "governance/report choices when routing points there."
+        ),
         "patch_command": "worldfork setup --include-patch",
     }
     if include_patch:
@@ -1940,11 +1973,11 @@ def _atlas_model_routing_patch() -> dict[str, Any]:
                 provider="openai-codex",
                 model=ATLAS_GOVERNANCE_MODEL,
                 temperature=0.25 if route == "report_agent" else 0.2,
-                max_tokens=8192,
+                max_tokens=131072 if route == "initializer_agent" else 8192,
                 max_concurrency=2,
                 requests_per_minute=20,
-                tokens_per_minute=200000,
-                timeout_seconds=300,
+                tokens_per_minute=1000000 if route == "initializer_agent" else 200000,
+                timeout_seconds=1200 if route == "initializer_agent" else 300,
             )
         )
     return {"entries": entries}
