@@ -16,7 +16,7 @@ from backend.app.storage.checksums import merkle_root, sha256_file
 # ---------------------------------------------------------------------------
 
 BIG_BANG_ID = "BB_test_001"
-SCENARIO = "Bay Area gig-worker labor dispute"
+SCENARIO = "Metro Region gig-worker labor dispute"
 
 CONFIG_SNAPSHOT = {"provider": "openrouter", "model": "openai/gpt-4o"}
 

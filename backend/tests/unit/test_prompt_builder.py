@@ -29,10 +29,10 @@ def builder(sot):
 def archetype():
     return PopulationArchetype(
         archetype_id="arch_couriers",
-        label="Bay Area gig couriers",
+        label="Metro Region gig couriers",
         description="Couriers reliant on platform algorithms.",
         population_total=15000,
-        geography={"region_label": "Bay Area", "scope": "metro"},
+        geography={"region_label": "Metro Region", "scope": "metro"},
         issue_exposure=0.8,
         material_stake=0.85,
         symbolic_stake=0.4,
@@ -214,7 +214,7 @@ class TestCohortPacket:
 class TestHeroPacket:
     def test_hero_temperature_in_band(self, builder, clock):
         hero_arch = HeroArchetype(
-            hero_id="h_mayor", label="Mayor Nguyen",
+            hero_id="h_mayor", label="Mayor A",
             description="Mayor of metro city", role="mayor",
             institution="City Hall", location_scope="metro",
             public_reach=0.8, institutional_power=0.85, financial_power=0.5,
@@ -287,7 +287,7 @@ class TestGodPacket:
 
 class TestInitializerPacket:
     def test_initializer_packet_includes_scenario_text(self, builder):
-        scenario = "Bay Area gig couriers organize against algorithmic deactivations."
+        scenario = "Metro Region gig couriers organize against algorithmic deactivations."
         pkt = builder.build_initializer_packet(
             scenario_text=scenario,
             uploaded_docs=[],
