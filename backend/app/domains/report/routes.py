@@ -17,6 +17,7 @@ from app.api.schemas import (
 from app.api.utils import commit_or_500, require
 from app.db import models
 from app.db.session import get_db
+from app.domains.costs.service import summarize_report_version_cost
 from app.domains.report.adjudication import (
     evaluate_timeline_adjudication,
     latest_timeline_adjudication,
@@ -74,16 +75,33 @@ def evaluate_adjudication(
 @router.get("/reports/{report_id}/versions", response_model=list[ReportVersionOut])
 def list_versions(report_id: UUID, db: Session = Depends(get_db)):
     require(db, models.Report, report_id)
-    return db.scalars(
+    versions = db.scalars(
         select(models.ReportVersion)
         .where(models.ReportVersion.report_id == report_id)
         .order_by(models.ReportVersion.version.desc())
     ).all()
+    return [_report_version_payload(db, item) for item in versions]
 
 
 @router.get("/report-versions/{report_version_id}", response_model=ReportVersionOut)
 def get_version(report_version_id: UUID, db: Session = Depends(get_db)):
-    return require(db, models.ReportVersion, report_version_id)
+    return _report_version_payload(db, require(db, models.ReportVersion, report_version_id))
+
+
+@router.get("/report-versions/{report_version_id}/cost")
+def get_version_cost(
+    report_version_id: UUID,
+    include_calls: bool = False,
+    include_non_openrouter: bool = True,
+    db: Session = Depends(get_db),
+):
+    report_version = require(db, models.ReportVersion, report_version_id)
+    return summarize_report_version_cost(
+        db,
+        report_version=report_version,
+        include_calls=include_calls,
+        include_non_openrouter=include_non_openrouter,
+    )
 
 
 @router.patch("/report-versions/{report_version_id}", response_model=ReportVersionOut)
@@ -133,6 +151,12 @@ def patch_version(
 def markdown(report_version_id: UUID, db: Session = Depends(get_db)):
     report_version = require(db, models.ReportVersion, report_version_id)
     return PlainTextResponse(render_report_version_to_markdown(report_version), media_type="text/markdown")
+
+
+def _report_version_payload(db: Session, report_version: models.ReportVersion) -> dict:
+    payload = ReportVersionOut.model_validate(report_version).model_dump(mode="python")
+    payload["cost_summary"] = summarize_report_version_cost(db, report_version=report_version)
+    return payload
 
 
 @router.post(

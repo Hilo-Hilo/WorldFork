@@ -526,7 +526,13 @@ def test_event_summary_ids_are_flushed_before_return(db, monkeypatch, tmp_path):
 
     def fake_complete(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
         call = _fake_llm_call(db, big_bang_id=big_bang_id, purpose=purpose, model=model)
-        return LLMResponse(content="summary", parsed={"what_happened": "summary"}), call
+        return LLMResponse(
+            content="summary",
+            parsed={
+                "what_happened": "summary",
+                "per_event_digests": [{"event_id": str(event.id), "summary": "event summary"}],
+            },
+        ), call
 
     monkeypatch.setattr(event_engine, "complete_with_audit", fake_complete)
     monkeypatch.setattr(event_engine, "ArtifactStore", lambda: ArtifactStore(root=tmp_path))
@@ -535,6 +541,64 @@ def test_event_summary_ids_are_flushed_before_return(db, monkeypatch, tmp_path):
 
     assert summaries[0]["summary_id"] != "None"
     assert UUID(summaries[0]["summary_id"])
+
+
+def test_executed_event_summary_uses_one_aggregate_llm_call_for_multiple_events(db, monkeypatch, tmp_path):
+    big_bang, root, _alpha, _beta = _seed_world(db)
+    events = []
+    for title in ("First pressure shock", "Second coalition response"):
+        event = models.Event(
+            big_bang_id=big_bang.id,
+            multiverse_id=root.id,
+            event_type="announcement",
+            created_tick=0,
+            scheduled_tick=1,
+            status="executed",
+            title=title,
+            description=f"{title} description",
+            expected_impact={},
+            actual_impact={},
+            meta={},
+        )
+        db.add(event)
+        events.append(event)
+    db.flush()
+    calls = []
+
+    def fake_complete(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
+        calls.append({"purpose": purpose, "model": model, "messages": messages})
+        call = _fake_llm_call(db, big_bang_id=big_bang_id, purpose=purpose, model=model)
+        return (
+            LLMResponse(
+                content="aggregate",
+                parsed={
+                    "what_happened": "Both events interacted.",
+                    "outcome": "Coalition pressure intensified.",
+                    "causal_links": ["First shock made the response more salient."],
+                    "per_event_digests": [
+                        {"event_id": str(events[0].id), "summary": "First event moved attention."},
+                        {"event_id": str(events[1].id), "summary": "Second event organized reaction."},
+                    ],
+                },
+            ),
+            call,
+        )
+
+    monkeypatch.setattr(event_engine, "complete_with_audit", fake_complete)
+    monkeypatch.setattr(event_engine, "ArtifactStore", lambda: ArtifactStore(root=tmp_path))
+
+    summaries = event_engine.summarize_executed_events(db, events)
+
+    assert len(calls) == 1
+    assert calls[0]["purpose"].startswith("event_summary_tick_")
+    assert "all executed simulation events" in calls[0]["messages"][0]["content"]
+    assert "First pressure shock" in calls[0]["messages"][1]["content"]
+    assert "Second coalition response" in calls[0]["messages"][1]["content"]
+    assert len(summaries) == 2
+    assert {item["summary"] for item in summaries} == {
+        "First event moved attention.",
+        "Second event organized reaction.",
+    }
 
 
 def test_evolved_graph_edge_ids_are_flushed_before_return(db):

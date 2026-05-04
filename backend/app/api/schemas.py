@@ -86,6 +86,7 @@ class TickSnapshotOut(ORMModel):
     provisional_bundle: dict[str, Any]
     final_bundle: dict[str, Any]
     summary: str | None
+    cost_summary: dict[str, Any] | None = None
     artifact_id: UUID | None
     created_at: datetime
     updated_at: datetime
@@ -189,6 +190,7 @@ class ReportOut(ORMModel):
     report_type: str
     status: str
     current_version: int
+    cost_summary: dict[str, Any] | None = None
     created_at: datetime
     updated_at: datetime
 
@@ -206,6 +208,7 @@ class ReportVersionOut(ORMModel):
     source_multiverse_ids: list[Any] | None = None
     content: dict[str, Any] | None = None
     generation_metadata: dict[str, Any] | None = None
+    cost_summary: dict[str, Any] | None = None
     model: str | None = None
     markdown_artifact_id: UUID | None
     pdf_artifact_id: UUID | None

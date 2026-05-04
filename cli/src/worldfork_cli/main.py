@@ -51,7 +51,6 @@ ATLAS_GOVERNANCE_MODEL = "gpt-5.4"
 ATLAS_FAST_ROUTES = (
     "cohort_agent",
     "hero_agent",
-    "event_summary",
     "execute_due_events",
     "social_propagation",
     "sociology_update",
@@ -65,6 +64,7 @@ ATLAS_GOVERNANCE_ROUTES = (
     "initializer_agent",
     "god_agent_review",
     "god_agent",
+    "event_summary",
     "endpoint_ledger",
     "evaluate_endpoint_ledger",
     "aggregate_run_results",
@@ -667,6 +667,75 @@ def runs_timing(ctx: Context, run_id: str) -> None:
     )
 
 
+@runs.command("cost")
+@click.argument("run_id")
+@click.option("--include-calls", is_flag=True, help="Include per-call cost rows.")
+@click.option("--include-non-openrouter/--openrouter-only", default=True, show_default=True)
+@click.pass_obj
+def runs_cost(ctx: Context, run_id: str, include_calls: bool, include_non_openrouter: bool) -> None:
+    """Show observed token cost and token totals for a run."""
+    emit(
+        ctx.client.request(
+            "GET",
+            f"/agent/runs/{run_id}/cost",
+            params=ctx.params(
+                include_calls=include_calls or None,
+                include_non_openrouter=None if include_non_openrouter else False,
+            ),
+        ),
+        as_json=ctx.as_json,
+    )
+
+
+@runs.command("estimate")
+@click.argument("run_id")
+@click.option("--remaining-ticks", type=int)
+@click.option("--max-ticks", type=int)
+@click.option("--branch-threshold", type=float)
+@click.option("--max-parallel-cohort-decisions", type=int)
+@click.option("--model-config")
+@click.option("--simulation-config")
+@click.option("--include-agent-type", "include_agent_types", multiple=True)
+@click.option("--exclude-agent-type", "exclude_agent_types", multiple=True)
+@click.option("--include-non-openrouter/--openrouter-only", default=True, show_default=True)
+@click.option("--include-reports/--exclude-reports", default=True, show_default=True)
+@click.pass_obj
+def runs_estimate(
+    ctx: Context,
+    run_id: str,
+    remaining_ticks: int | None,
+    max_ticks: int | None,
+    branch_threshold: float | None,
+    max_parallel_cohort_decisions: int | None,
+    model_config: str | None,
+    simulation_config: str | None,
+    include_agent_types: tuple[str, ...],
+    exclude_agent_types: tuple[str, ...],
+    include_non_openrouter: bool,
+    include_reports: bool,
+) -> None:
+    """Estimate future token cost and wall-clock time for a run."""
+    emit(
+        ctx.client.request(
+            "POST",
+            f"/agent/runs/{run_id}/cost-estimate",
+            json_body={
+                "remaining_ticks": remaining_ticks,
+                "max_ticks": max_ticks,
+                "branch_threshold": branch_threshold,
+                "max_parallel_cohort_decisions": max_parallel_cohort_decisions,
+                "model_config": _parse_json_object(model_config, "--model-config"),
+                "simulation_config": _parse_json_object(simulation_config, "--simulation-config"),
+                "include_agent_types": list(include_agent_types),
+                "exclude_agent_types": list(exclude_agent_types),
+                "include_non_openrouter": include_non_openrouter,
+                "include_reports": include_reports,
+            },
+        ),
+        as_json=ctx.as_json,
+    )
+
+
 @runs.command("delete")
 @click.argument("run_id")
 @click.pass_obj
@@ -731,6 +800,90 @@ def ticks_timing(ctx: Context, tick_snapshot_id: str) -> None:
     """Show stage, checkpoint, attempt, and LLM timing for one tick."""
     emit(
         ctx.client.request("GET", f"/ticks/{tick_snapshot_id}/timing", params=ctx.params()),
+        as_json=ctx.as_json,
+    )
+
+
+@ticks.command("cost")
+@click.argument("tick_snapshot_id")
+@click.option("--include-calls", is_flag=True, help="Include per-call cost rows.")
+@click.option("--include-non-openrouter/--openrouter-only", default=True, show_default=True)
+@click.pass_obj
+def ticks_cost(ctx: Context, tick_snapshot_id: str, include_calls: bool, include_non_openrouter: bool) -> None:
+    """Show observed token cost and token totals for one tick."""
+    emit(
+        ctx.client.request(
+            "GET",
+            f"/ticks/{tick_snapshot_id}/cost",
+            params=ctx.params(
+                include_calls=include_calls or None,
+                include_non_openrouter=None if include_non_openrouter else False,
+            ),
+        ),
+        as_json=ctx.as_json,
+    )
+
+
+@main.group()
+def costs() -> None:
+    """Estimate token cost and wall-clock runtime."""
+
+
+@costs.command("estimate")
+@click.option("--remaining-ticks", type=int)
+@click.option("--max-ticks", type=int)
+@click.option("--branch-threshold", type=float)
+@click.option("--max-parallel-cohort-decisions", type=int)
+@click.option("--assumed-cohorts", type=int)
+@click.option("--assumed-heroes", type=int)
+@click.option("--assumed-multiverses", type=int)
+@click.option("--scenario-tokens", type=int)
+@click.option("--model-config")
+@click.option("--simulation-config")
+@click.option("--include-agent-type", "include_agent_types", multiple=True)
+@click.option("--exclude-agent-type", "exclude_agent_types", multiple=True)
+@click.option("--include-non-openrouter/--openrouter-only", default=True, show_default=True)
+@click.option("--include-reports/--exclude-reports", default=True, show_default=True)
+@click.pass_obj
+def costs_estimate(
+    ctx: Context,
+    remaining_ticks: int | None,
+    max_ticks: int | None,
+    branch_threshold: float | None,
+    max_parallel_cohort_decisions: int | None,
+    assumed_cohorts: int | None,
+    assumed_heroes: int | None,
+    assumed_multiverses: int | None,
+    scenario_tokens: int | None,
+    model_config: str | None,
+    simulation_config: str | None,
+    include_agent_types: tuple[str, ...],
+    exclude_agent_types: tuple[str, ...],
+    include_non_openrouter: bool,
+    include_reports: bool,
+) -> None:
+    """Estimate cost and time before a Big Bang is initialized."""
+    emit(
+        ctx.client.request(
+            "POST",
+            "/costs/estimate",
+            json_body={
+                "remaining_ticks": remaining_ticks,
+                "max_ticks": max_ticks,
+                "branch_threshold": branch_threshold,
+                "max_parallel_cohort_decisions": max_parallel_cohort_decisions,
+                "assumed_cohorts": assumed_cohorts,
+                "assumed_heroes": assumed_heroes,
+                "assumed_multiverses": assumed_multiverses,
+                "scenario_tokens": scenario_tokens,
+                "model_config": _parse_json_object(model_config, "--model-config"),
+                "simulation_config": _parse_json_object(simulation_config, "--simulation-config"),
+                "include_agent_types": list(include_agent_types),
+                "exclude_agent_types": list(exclude_agent_types),
+                "include_non_openrouter": include_non_openrouter,
+                "include_reports": include_reports,
+            },
+        ),
         as_json=ctx.as_json,
     )
 

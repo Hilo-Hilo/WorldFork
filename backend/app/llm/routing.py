@@ -86,6 +86,7 @@ _ROUTE_INFO_BY_NAME = {str(item.route): item for item in AUDITED_LLM_ROUTES}
 _OPENAI_CODEX_MODEL_SETTINGS = {
     "initializer_agent_model",
     "god_agent_model",
+    "event_summary_model",
     "report_agent_model",
 }
 
