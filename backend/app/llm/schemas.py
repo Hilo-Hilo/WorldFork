@@ -8,7 +8,7 @@ from pydantic import BaseModel, Field
 class LLMRequest(BaseModel):
     purpose: str
     model: str
-    messages: list[dict[str, str]]
+    messages: list[dict[str, Any]]
     json_schema: dict[str, Any] | None = None
     metadata: dict[str, Any] = Field(default_factory=dict)
 

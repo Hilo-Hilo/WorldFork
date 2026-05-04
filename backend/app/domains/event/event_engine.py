@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 from app.core.config import get_settings
 from app.db import models
 from app.llm.audit import complete_with_audit
+from app.llm.prompt_budget import budget_event_queue_context
 from app.llm.routing import AuditedLLMRoute
 from app.storage.artifact_store import ArtifactStore
 
@@ -74,22 +75,25 @@ def build_event_queue_prompt_context(
             .limit(future_limit)
         ).all()
 
-    return {
-        "current_tick": tick_index,
-        "visible_events": [event_prompt_row(event) for event in visible_rows],
-        "past_events": [
-            event_prompt_row(event)
-            for event in visible_rows
-            if event.status == "executed" or event.scheduled_tick < tick_index
-        ],
-        "due_events": [
-            event_prompt_row(event)
-            for event in visible_rows
-            if event.status == "queued" and event.scheduled_tick <= tick_index
-        ],
-        "upcoming_events": [event_prompt_row(event) for event in upcoming_rows],
-        "own_queued_events": [event_prompt_row(event) for event in own_rows],
-    }
+    return budget_event_queue_context(
+        {
+            "current_tick": tick_index,
+            "visible_events": [event_prompt_row(event) for event in visible_rows],
+            "past_events": [
+                event_prompt_row(event)
+                for event in visible_rows
+                if event.status == "executed" or event.scheduled_tick < tick_index
+            ],
+            "due_events": [
+                event_prompt_row(event)
+                for event in visible_rows
+                if event.status == "queued" and event.scheduled_tick <= tick_index
+            ],
+            "upcoming_events": [event_prompt_row(event) for event in upcoming_rows],
+            "own_queued_events": [event_prompt_row(event) for event in own_rows],
+        },
+        max_chars=get_settings().prompt_event_queue_max_chars,
+    )
 
 
 def event_prompt_row(event: models.Event) -> dict[str, Any]:

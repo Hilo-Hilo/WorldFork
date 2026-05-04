@@ -656,6 +656,17 @@ def workspace(ctx: Context, run_id: str) -> None:
     )
 
 
+@runs.command("timing")
+@click.argument("run_id")
+@click.pass_obj
+def runs_timing(ctx: Context, run_id: str) -> None:
+    """Show initialization, tick, stage, job, and LLM timing for a run."""
+    emit(
+        ctx.client.request("GET", f"/agent/runs/{run_id}/timing", params=ctx.params()),
+        as_json=ctx.as_json,
+    )
+
+
 @runs.command("delete")
 @click.argument("run_id")
 @click.pass_obj
@@ -704,6 +715,22 @@ def transcript(ctx: Context, cohort_id: str, universe_id: str, from_tick: int, t
             f"/agent/cohorts/{cohort_id}/transcript",
             params=ctx.params(multiverse_id=universe_id, from_tick=from_tick, to_tick=to_tick),
         ),
+        as_json=ctx.as_json,
+    )
+
+
+@main.group()
+def ticks() -> None:
+    """Inspect tick runtime and timing details."""
+
+
+@ticks.command("timing")
+@click.argument("tick_snapshot_id")
+@click.pass_obj
+def ticks_timing(ctx: Context, tick_snapshot_id: str) -> None:
+    """Show stage, checkpoint, attempt, and LLM timing for one tick."""
+    emit(
+        ctx.client.request("GET", f"/ticks/{tick_snapshot_id}/timing", params=ctx.params()),
         as_json=ctx.as_json,
     )
 
@@ -1274,6 +1301,14 @@ def ledgers_list(ctx: Context, big_bang_id: str, multiverse_id: str | None) -> N
 def ledgers_view(ctx: Context, ledger_version_id: str) -> None:
     """View one endpoint ledger version with entries."""
     emit(ctx.client.request("GET", f"/endpoint-ledgers/{ledger_version_id}"), as_json=ctx.as_json)
+
+
+@ledgers.command("path-mass")
+@click.argument("big_bang_id")
+@click.pass_obj
+def ledgers_path_mass(ctx: Context, big_bang_id: str) -> None:
+    """View deterministic endpoint path-mass plot data for a Big Bang."""
+    emit(ctx.client.request("GET", f"/big-bangs/{big_bang_id}/endpoint-ledgers/path-mass"), as_json=ctx.as_json)
 
 
 @ledgers.command("evaluate")

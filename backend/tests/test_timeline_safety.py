@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import types
 import warnings
+import threading
+import time
 from datetime import datetime, timedelta, timezone
 from uuid import uuid4
 
@@ -15,8 +17,10 @@ from app.api.schemas import MultiverseLineageOut
 from app.db import models
 from app.domains.jobs import executor as job_tasks
 from app.domains.multiverse import branch_engine
-from app.domains.governance import god_tools
+from app.domains.governance import god_agent, god_tools
+from app.domains.tick.timing import run_timing_payload, tick_timing_payload
 from app.domains.tick import tick_runner
+from app.llm.schemas import LLMResponse
 
 
 @pytest.fixture()
@@ -312,6 +316,64 @@ def test_queue_job_heartbeat_extends_lease_at_checkpoint_boundaries(db, monkeypa
     if lease_expires_at.tzinfo is None:
         lease_expires_at = lease_expires_at.replace(tzinfo=timezone.utc)
     assert lease_expires_at > old_lease
+
+
+def test_cohort_decisions_run_with_bounded_parallelism(db, monkeypatch):
+    big_bang, root = _seed_world(db)
+    actors = []
+    for index in range(3):
+        actor = models.Actor(
+            big_bang_id=big_bang.id,
+            actor_type="cohort",
+            name=f"Cohort {index}",
+            description=None,
+            archetype={},
+            created_tick_index=0,
+            status="active",
+        )
+        db.add(actor)
+        actors.append(actor)
+    db.commit()
+    _patch_successful_tick(monkeypatch)
+    monkeypatch.setattr(tick_runner.settings, "max_parallel_cohort_decisions", 2)
+
+    lock = threading.Lock()
+    active = 0
+    max_active = 0
+
+    def fake_worker(*args, actor_id, **kwargs):
+        nonlocal active, max_active
+        with lock:
+            active += 1
+            max_active = max(max_active, active)
+        time.sleep(0.05)
+        with lock:
+            active -= 1
+        return {
+            "actor_output": {"actor_id": str(actor_id), "llm_call_id": None, "parsed": {}},
+            "parsed_actions": [],
+            "emotion_self_ratings": [],
+            "llm_call_id": None,
+            "parsed": {},
+        }
+
+    monkeypatch.setattr(tick_runner, "_execute_actor_decision_payload_in_worker", fake_worker)
+
+    tick = tick_runner.run_next_tick(db, multiverse=root)
+
+    assert tick.status == "final"
+    assert max_active == 2
+    cohort_nodes = db.scalars(
+        select(models.ExecutionNode).where(models.ExecutionNode.node_kind == "cohort_decision")
+    ).all()
+    assert len(cohort_nodes) == len(actors)
+    assert all(node.status == "complete" for node in cohort_nodes)
+
+
+def test_default_cohort_decision_parallelism_is_sixteen():
+    from app.core.config import Settings
+
+    assert Settings().max_parallel_cohort_decisions == 16
 
 
 def test_paused_big_bang_blocks_step_tick_and_run_until_complete(db):
@@ -870,3 +932,325 @@ def test_god_tools_reject_out_of_scope_mutations(db):
     assert plan.status == "planned"
     assert db.scalars(select(models.CohortSplit)).all() == []
     assert db.scalars(select(models.CohortMerge)).all() == []
+
+
+def test_god_tool_split_cohort_conserves_population_and_creates_children(db):
+    big_bang, root = _seed_world(db)
+    actor = models.Actor(
+        big_bang_id=big_bang.id,
+        actor_type="cohort",
+        name="Regional Stability Voters",
+        description=None,
+        archetype={},
+        created_tick_index=0,
+        status="active",
+    )
+    db.add(actor)
+    db.flush()
+    db.add(
+        models.CohortState(
+            big_bang_id=big_bang.id,
+            multiverse_id=root.id,
+            actor_id=actor.id,
+            tick_index=0,
+            state={
+                "represented_population": 300,
+                "population_share_of_archetype": 1.0,
+                "representation_mode": "population",
+                "attention_level": 0.4,
+                "expression_level": 0.3,
+            },
+            queued_event_ids=["evt-parent"],
+        )
+    )
+    db.flush()
+
+    call = god_tools.execute_tool_call(
+        db,
+        big_bang_id=big_bang.id,
+        multiverse=root,
+        tick_snapshot_id=None,
+        god_review_id=None,
+        tool_name="split_cohort",
+        arguments={
+            "parent_cohort_id": str(actor.id),
+            "tick_index": 1,
+            "split_axis": "transparency versus control",
+            "reason": "Durable factional disagreement.",
+            "children": [
+                {
+                    "name": "Transparency stability voters",
+                    "represented_population": 50,
+                    "initial_state": {"expression_level": 0.55, "mobilization_readiness": 0.45},
+                },
+                {
+                    "name": "Control stability voters",
+                    "represented_population": 25,
+                    "initial_state": {"expression_level": 0.25, "mobilization_readiness": 0.2},
+                },
+                {
+                    "name": "Undecided stability voters",
+                    "represented_population": 225,
+                    "initial_state": {"expression_level": 0.18, "mobilization_readiness": 0.12},
+                },
+            ],
+        },
+        idempotency_key="split-stability-voters",
+    )
+
+    assert call.status == "succeeded"
+    assert call.result["parent_population"] == 300
+    assert [item["represented_population"] for item in call.result["children"]] == [50, 25, 225]
+    assert actor.status == "split"
+    child_ids = [item["actor_id"] for item in call.result["children"]]
+    child_rows = db.scalars(
+        select(models.CohortState).where(models.CohortState.actor_id.in_(child_ids))
+    ).all()
+    assert sum(row.state["represented_population"] for row in child_rows) == 300
+    assert all(row.queued_event_ids == ["evt-parent"] for row in child_rows)
+
+
+def test_god_tool_split_cohort_rejects_population_nonconservation(db):
+    big_bang, root = _seed_world(db)
+    actor = models.Actor(
+        big_bang_id=big_bang.id,
+        actor_type="cohort",
+        name="Low Pressure District Residents",
+        description=None,
+        archetype={},
+        created_tick_index=0,
+        status="active",
+    )
+    db.add(actor)
+    db.flush()
+    db.add(
+        models.CohortState(
+            big_bang_id=big_bang.id,
+            multiverse_id=root.id,
+            actor_id=actor.id,
+            tick_index=0,
+            state={"represented_population": 100},
+            queued_event_ids=[],
+        )
+    )
+    db.flush()
+
+    call = god_tools.execute_tool_call(
+        db,
+        big_bang_id=big_bang.id,
+        multiverse=root,
+        tick_snapshot_id=None,
+        god_review_id=None,
+        tool_name="split_cohort",
+        arguments={
+            "parent_cohort_id": str(actor.id),
+            "children": [
+                {"name": "A", "represented_population": 40, "initial_state": {}},
+                {"name": "B", "represented_population": 40, "initial_state": {}},
+            ],
+        },
+        idempotency_key="bad-split",
+    )
+
+    assert call.status == "failed"
+    assert "conserve parent population" in call.error
+    assert actor.status == "active"
+
+
+def test_god_agent_langgraph_loop_repairs_failed_population_tool(db, monkeypatch):
+    big_bang, root = _seed_world(db)
+    actor = models.Actor(
+        big_bang_id=big_bang.id,
+        actor_type="cohort",
+        name="Regional Stability Voters",
+        description=None,
+        archetype={},
+        created_tick_index=0,
+        status="active",
+    )
+    db.add(actor)
+    db.flush()
+    db.add(
+        models.CohortState(
+            big_bang_id=big_bang.id,
+            multiverse_id=root.id,
+            actor_id=actor.id,
+            tick_index=0,
+            state={"represented_population": 100, "expression_level": 0.2},
+            queued_event_ids=[],
+        )
+    )
+    db.flush()
+    calls = []
+
+    def fake_complete_with_audit(*args, **kwargs):
+        calls.append(kwargs["messages"])
+        if len(calls) == 1:
+            parsed = {
+                "decision": "split",
+                "rationale": "First split attempt underallocates population.",
+                "confidence": 0.8,
+                "tool_calls": [
+                    {
+                        "tool_name": "split_cohort",
+                        "arguments": {
+                            "parent_cohort_id": str(actor.id),
+                            "reason": "test",
+                            "children": [
+                                {"name": "A", "represented_population": 40, "initial_state": {}},
+                                {"name": "B", "represented_population": 40, "initial_state": {}},
+                            ],
+                        },
+                        "idempotency_key": "loop-bad-split",
+                    }
+                ],
+            }
+        else:
+            parsed = {
+                "decision": "split",
+                "rationale": "Repair conserves population.",
+                "confidence": 0.9,
+                "tool_calls": [
+                    {
+                        "tool_name": "split_cohort",
+                        "arguments": {
+                            "parent_cohort_id": str(actor.id),
+                            "reason": "test repair",
+                            "children": [
+                                {"name": "A", "represented_population": 50, "initial_state": {}},
+                                {"name": "B", "represented_population": 50, "initial_state": {}},
+                            ],
+                        },
+                        "idempotency_key": "loop-good-split",
+                    }
+                ],
+            }
+        return LLMResponse(content="", parsed=parsed, raw={}), types.SimpleNamespace(id=uuid4(), model="gpt-5.4")
+
+    monkeypatch.setattr(god_agent, "complete_with_audit", fake_complete_with_audit)
+
+    review, _ = god_agent.review_provisional_tick(
+        db,
+        root,
+        {"tick_index": 1, "branch_score": 0.0, "executed_events": []},
+    )
+
+    assert len(calls) == 2
+    assert len(review["god_agent_iterations"]) == 2
+    assert review["god_agent_iterations"][0]["tool_results"][0]["status"] == "failed"
+    assert review["god_agent_iterations"][1]["tool_results"][0]["status"] == "succeeded"
+    assert actor.status == "split"
+
+
+def test_god_agent_review_budgets_large_provisional_bundle(db, monkeypatch):
+    _big_bang, root = _seed_world(db)
+    captured_messages = []
+
+    def fake_complete_with_audit(db, *, big_bang_id, purpose, model, route, messages, metadata):
+        captured_messages.append(messages)
+        return (
+            LLMResponse(content="", parsed={"decision": "continue", "confidence": 0.8, "tool_calls": []}, raw={}),
+            types.SimpleNamespace(id=uuid4(), model="gpt-5.4"),
+        )
+
+    monkeypatch.setattr(god_agent, "complete_with_audit", fake_complete_with_audit)
+    provisional_bundle = {
+        "tick_index": 1,
+        "branch_score": 0.0,
+        "executed_events": [],
+        "queued_events": [
+            {
+                "title": f"Queued event {index}",
+                "description": f"GOD_RAW_EVENT_DESCRIPTION_{index} " + ("detail " * 500),
+                "scheduled_tick": index,
+            }
+            for index in range(40)
+        ],
+        "social_observations": [{"body": f"post {index}"} for index in range(35)],
+        "event_summaries": [],
+    }
+
+    review, _ = god_agent.review_provisional_tick(db, root, provisional_bundle)
+
+    prompt_text = captured_messages[0][1]["content"]
+    assert "Queued event 0" in prompt_text
+    assert "GOD_RAW_EVENT_DESCRIPTION_39" not in prompt_text
+    assert review["input_summary"]["prompt_budget"]["omitted_total"] >= 39
+    assert review["input_summary"]["prompt_budget"]["sections"]["queued_events"]["omitted_count"] == 24
+
+
+def test_tick_and_run_timing_payloads_include_stage_and_llm_durations(db):
+    big_bang, root = _seed_world(db)
+    start = datetime(2026, 1, 1, 0, 0, tzinfo=timezone.utc)
+    tick = models.TickSnapshot(
+        big_bang_id=big_bang.id,
+        multiverse_id=root.id,
+        tick_index=1,
+        ui_label="M1:T1",
+        status="final",
+        provisional_bundle={},
+        final_bundle={},
+        summary="timed",
+        idempotency_key="timed-tick",
+        created_at=start,
+        updated_at=start + timedelta(seconds=30),
+    )
+    db.add(tick)
+    db.flush()
+    execution = models.TickExecution(
+        big_bang_id=big_bang.id,
+        multiverse_id=root.id,
+        tick_snapshot_id=tick.id,
+        tick_index=1,
+        status="succeeded",
+        active_slot=None,
+        started_at=start + timedelta(seconds=1),
+        finished_at=start + timedelta(seconds=29),
+    )
+    db.add(execution)
+    db.flush()
+    node = models.ExecutionNode(
+        tick_execution_id=execution.id,
+        node_key="god_review",
+        node_kind="god_review",
+        status="complete",
+        checkpoint_order=1,
+        started_at=start + timedelta(seconds=10),
+        finished_at=start + timedelta(seconds=18),
+    )
+    db.add(node)
+    db.flush()
+    db.add(
+        models.NodeAttempt(
+            execution_node_id=node.id,
+            attempt_number=1,
+            status="complete",
+            provider="openai-codex",
+            model="gpt-5.4",
+            started_at=start + timedelta(seconds=10),
+            finished_at=start + timedelta(seconds=18),
+        )
+    )
+    db.add(
+        models.LLMCall(
+            big_bang_id=big_bang.id,
+            provider="openai-codex",
+            model="gpt-5.4",
+            purpose=f"god_review_{root.id}_tick_1_iter_1",
+            status="succeeded",
+            created_at=start + timedelta(seconds=10),
+            updated_at=start + timedelta(seconds=18),
+            meta={"attempts": [{"attempt": 1, "status": "succeeded"}]},
+        )
+    )
+    db.flush()
+
+    tick_payload = tick_timing_payload(db, tick)
+    run_payload = run_timing_payload(db, big_bang)
+
+    assert tick_payload["duration_seconds"] == 28.0
+    assert tick_payload["executions"][0]["stage_timings"][0]["node_kind"] == "god_review"
+    assert tick_payload["executions"][0]["stage_timings"][0]["duration_seconds"] == 8.0
+    assert tick_payload["llm_calls"][0]["duration_seconds"] == 8.0
+    assert tick_payload["llm_summary"]["total_calls"] == 1
+    assert run_payload["ticks"][0]["tick_snapshot_id"] == str(tick.id)

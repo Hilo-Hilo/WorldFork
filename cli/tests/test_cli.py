@@ -192,6 +192,46 @@ def test_jobs_pause_calls_canonical_job_control_endpoint(monkeypatch) -> None:
     assert calls == [("POST", "/jobs/job-123/pause", None, None)]
 
 
+def test_runs_timing_calls_agent_timing_endpoint(monkeypatch) -> None:
+    calls = []
+
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None, use_api_prefix=True, timeout=None):
+            calls.append((method, path, params, json_body))
+            return {"ok": True, "data": {"big_bang_id": "bb-123", "ticks": []}, "meta": {}}
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    result = CliRunner().invoke(main, ["runs", "timing", "bb-123"])
+
+    assert result.exit_code == 0
+    assert calls == [("GET", "/agent/runs/bb-123/timing", {"verbosity": "summary"}, None)]
+    assert "big_bang_id" in result.output
+
+
+def test_ticks_timing_calls_tick_timing_endpoint(monkeypatch) -> None:
+    calls = []
+
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None, use_api_prefix=True, timeout=None):
+            calls.append((method, path, params, json_body))
+            return {"tick_snapshot_id": "tick-123", "duration_seconds": 12.5}
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    result = CliRunner().invoke(main, ["ticks", "timing", "tick-123"])
+
+    assert result.exit_code == 0
+    assert calls == [("GET", "/ticks/tick-123/timing", {"verbosity": "summary"}, None)]
+    assert "duration_seconds" in result.output
+
+
 def test_reports_render_calls_report_version_endpoint(monkeypatch) -> None:
     calls = []
 
@@ -306,6 +346,25 @@ def test_ledgers_evaluate_calls_endpoint_ledger_job(monkeypatch) -> None:
             {"idempotency_key": None, "run_inline": False, "candidate_endpoint": None},
         )
     ]
+
+
+def test_ledgers_path_mass_calls_plot_data_endpoint(monkeypatch) -> None:
+    calls = []
+
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None):
+            calls.append((method, path, params, json_body))
+            return {"endpoint_path_mass_distribution": []}
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    result = CliRunner().invoke(main, ["ledgers", "path-mass", "bb-123"])
+
+    assert result.exit_code == 0
+    assert calls == [("GET", "/big-bangs/bb-123/endpoint-ledgers/path-mass", None, None)]
 
 
 def test_ledgers_evaluate_wait_exits_nonzero_for_unsuccessful_terminal(monkeypatch) -> None:

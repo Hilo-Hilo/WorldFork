@@ -840,6 +840,14 @@ class EndpointLedgerEntry(Base, TimestampMixin):
     last_observed_tick_index: Mapped[int | None] = mapped_column(Integer)
     meta: Mapped[dict] = mapped_column(JSONValue(), default=dict)
 
+    @property
+    def realized(self) -> bool | None:
+        if self.status == "realized":
+            return True
+        if self.status == "eliminated":
+            return False
+        return None
+
 
 class TimelineAdjudicationVersion(Base, TimestampMixin):
     __tablename__ = "timeline_adjudication_versions"

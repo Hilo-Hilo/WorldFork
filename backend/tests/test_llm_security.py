@@ -816,6 +816,60 @@ def test_openrouter_requests_json_object_when_schema_is_absent(monkeypatch):
     assert captured["timeout"] == 7
 
 
+def test_openrouter_sends_prompt_cache_control_when_requested(monkeypatch):
+    captured = {}
+
+    class FakeResponse:
+        def raise_for_status(self):
+            pass
+
+        def json(self):
+            return {
+                "choices": [{"message": {"content": '{"decision": "continue"}'}}],
+                "usage": {
+                    "prompt_tokens": 2000,
+                    "prompt_tokens_details": {"cached_tokens": 1024, "cache_write_tokens": 0},
+                },
+            }
+
+    class FakeClient:
+        def __init__(self, timeout):
+            self.timeout = timeout
+
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, exc_type, exc, tb):
+            return None
+
+        async def post(self, url, *, headers, json):
+            captured["payload"] = json
+            return FakeResponse()
+
+    settings = SimpleNamespace(
+        openrouter_api_key="test-key",
+        default_model="default-model",
+        openrouter_chat_completions_url="https://openrouter.test/chat",
+        openrouter_prompt_caching_enabled=True,
+    )
+    monkeypatch.setattr(openrouter_provider, "get_settings", lambda: settings)
+    monkeypatch.setattr(openrouter_provider.httpx, "AsyncClient", FakeClient)
+
+    response = asyncio.run(
+        openrouter_provider.OpenRouterProvider().complete(
+            LLMRequest(
+                purpose="test",
+                model="anthropic/claude-sonnet-4.6",
+                messages=[{"role": "user", "content": "Return JSON."}],
+                metadata={"cache_control": {"type": "ephemeral", "ttl": "1h"}},
+            )
+        )
+    )
+
+    assert response.raw["usage"]["prompt_tokens_details"]["cached_tokens"] == 1024
+    assert captured["payload"]["cache_control"] == {"type": "ephemeral", "ttl": "1h"}
+
+
 def test_openrouter_preserves_http_429_details(monkeypatch):
     class FakeResponse:
         text = '{"error":"rate limit exceeded"}'

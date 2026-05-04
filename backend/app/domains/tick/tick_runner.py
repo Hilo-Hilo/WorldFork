@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 from uuid import UUID
@@ -9,6 +10,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.core.clock import build_clock_context
+from app.core.config import settings
 from app.core.labels import tick_label
 from app.db import models
 from app.llm.audit import mark_stale_running_llm_calls_failed
@@ -195,6 +197,25 @@ def run_next_tick(
                 return tick
 
             checkpoint = checkpoints[node_key]
+            if spec.kind is NodeKind.COHORT_DECISION:
+                if checkpoint.status == "complete":
+                    outputs[node_key] = checkpoint.payload or {}
+                    continue
+                _run_pending_cohort_decisions(
+                    db,
+                    execution=execution,
+                    nodes=nodes,
+                    checkpoints=checkpoints,
+                    plan=plan,
+                    big_bang=big_bang,
+                    multiverse=multiverse,
+                    tick=tick,
+                    tick_index=next_index,
+                    prompt_context=prompt_context,
+                    outputs=outputs,
+                    queue_job=queue_job,
+                )
+                continue
             if checkpoint.status == "complete":
                 outputs[node_key] = checkpoint.payload or {}
                 continue
@@ -548,6 +569,30 @@ def _run_checkpoint_node(
     outputs: dict[str, dict],
     queue_job: models.Job | None,
 ) -> tuple[dict, models.NodeAttempt]:
+    attempt = _start_checkpoint_attempt(db, node=node, checkpoint=checkpoint, queue_job=queue_job)
+    payload = _execute_checkpoint_payload(
+        db,
+        spec=spec,
+        big_bang=big_bang,
+        multiverse=multiverse,
+        tick=tick,
+        tick_index=tick_index,
+        clock_text=clock_text,
+        prompt_context=prompt_context,
+        branch_policy=branch_policy,
+        outputs=outputs,
+    )
+    _attach_attempt_provider_metadata(db, attempt=attempt, spec=spec, payload=payload)
+    return payload, attempt
+
+
+def _start_checkpoint_attempt(
+    db: Session,
+    *,
+    node: models.ExecutionNode,
+    checkpoint: models.TickCheckpoint,
+    queue_job: models.Job | None,
+) -> models.NodeAttempt:
     now = datetime.now(timezone.utc)
     node.status = "running"
     node.started_at = node.started_at or now
@@ -563,18 +608,16 @@ def _run_checkpoint_node(
     db.add(attempt)
     db.flush()
     _commit_progress(db, queue_job=queue_job)
-    payload = _execute_checkpoint_payload(
-        db,
-        spec=spec,
-        big_bang=big_bang,
-        multiverse=multiverse,
-        tick=tick,
-        tick_index=tick_index,
-        clock_text=clock_text,
-        prompt_context=prompt_context,
-        branch_policy=branch_policy,
-        outputs=outputs,
-    )
+    return attempt
+
+
+def _attach_attempt_provider_metadata(
+    db: Session,
+    *,
+    attempt: models.NodeAttempt,
+    spec: TickNodeSpec,
+    payload: dict,
+) -> None:
     if llm_call_id := payload.get("llm_call_id"):
         llm_call = db.get(models.LLMCall, llm_call_id)
         if llm_call:
@@ -585,7 +628,159 @@ def _run_checkpoint_node(
     if spec.kind is NodeKind.TOOL_CALL:
         attempt.provider = "tool"
         attempt.model = payload.get("tool_name")
-    return payload, attempt
+
+
+def _run_pending_cohort_decisions(
+    db: Session,
+    *,
+    execution: models.TickExecution,
+    nodes: dict[str, models.ExecutionNode],
+    checkpoints: dict[str, models.TickCheckpoint],
+    plan,
+    big_bang: models.BigBang | None,
+    multiverse: models.Multiverse,
+    tick: models.TickSnapshot,
+    tick_index: int,
+    prompt_context: dict,
+    outputs: dict[str, dict],
+    queue_job: models.Job | None,
+) -> None:
+    if big_bang is None:
+        raise ValueError("big bang not found")
+    pending_keys = [
+        node_key
+        for node_key in plan.cohort_nodes
+        if checkpoints[node_key].status != "complete"
+    ]
+    if not pending_keys:
+        return
+
+    max_workers = max(1, int(settings.max_parallel_cohort_decisions))
+    bind = db.get_bind()
+    for batch_start in range(0, len(pending_keys), max_workers):
+        batch_keys = pending_keys[batch_start : batch_start + max_workers]
+        attempts: dict[str, models.NodeAttempt] = {}
+        for node_key in batch_keys:
+            attempts[node_key] = _start_checkpoint_attempt(
+                db,
+                node=nodes[node_key],
+                checkpoint=checkpoints[node_key],
+                queue_job=queue_job,
+            )
+
+        futures = {}
+        with ThreadPoolExecutor(max_workers=len(batch_keys), thread_name_prefix="cohort-decision") as pool:
+            for node_key in batch_keys:
+                spec = plan.node_specs[node_key]
+                futures[
+                    pool.submit(
+                        _execute_actor_decision_payload_in_worker,
+                        bind,
+                        big_bang_id=big_bang.id,
+                        multiverse_id=multiverse.id,
+                        actor_id=UUID(str(spec.actor_id)),
+                        tick_index=tick_index,
+                        prompt_context=deepcopy(prompt_context),
+                    )
+                ] = node_key
+
+            failures: list[tuple[str, Exception]] = []
+            completed_payloads: dict[str, dict] = {}
+            for future in as_completed(futures):
+                node_key = futures[future]
+                try:
+                    completed_payloads[node_key] = future.result()
+                except Exception as exc:
+                    failures.append((node_key, exc))
+
+        for node_key in batch_keys:
+            if node_key not in completed_payloads:
+                continue
+            spec = plan.node_specs[node_key]
+            payload = completed_payloads[node_key]
+            validation = validate_node_output(spec.kind.value, payload)
+            if not validation.ok:
+                failures.append(
+                    (
+                        node_key,
+                        ValueError(
+                            f"runtime node {node_key} failed validation: {', '.join(validation.errors)}"
+                        ),
+                    )
+                )
+                continue
+            payload = {
+                **_runtime_jsonable(payload),
+                "validation": validation.model_dump(exclude={"payload"}),
+            }
+            _attach_attempt_provider_metadata(db, attempt=attempts[node_key], spec=spec, payload=payload)
+            _complete_checkpoint(
+                db,
+                node=nodes[node_key],
+                checkpoint=checkpoints[node_key],
+                attempt=attempts[node_key],
+                payload=payload,
+            )
+            outputs[node_key] = payload
+            execution.runtime_meta = {
+                **(execution.runtime_meta or {}),
+                "completed_checkpoints": sorted(outputs),
+                "current_node": node_key,
+                "max_parallel_cohort_decisions": max_workers,
+            }
+            db.flush()
+
+        _commit_progress(db, queue_job=queue_job)
+        if failures:
+            node_key, exc = failures[0]
+            _record_checkpoint_failure(
+                db,
+                execution_id=execution.id,
+                node_id=nodes[node_key].id,
+                checkpoint_id=checkpoints[node_key].id,
+                tick_index=tick_index,
+                error=str(exc),
+                event_validation_error=exc if isinstance(exc, EventValidationError) else None,
+            )
+            raise exc
+
+
+def _execute_actor_decision_payload_in_worker(
+    bind,
+    *,
+    big_bang_id: UUID,
+    multiverse_id: UUID,
+    actor_id: UUID,
+    tick_index: int,
+    prompt_context: dict,
+) -> dict:
+    worker_db = Session(bind=bind, expire_on_commit=False)
+    try:
+        big_bang = worker_db.get(models.BigBang, big_bang_id)
+        multiverse = worker_db.get(models.Multiverse, multiverse_id)
+        actor = worker_db.get(models.Actor, actor_id)
+        if big_bang is None:
+            raise ValueError("big bang not found")
+        if multiverse is None:
+            raise ValueError(f"multiverse {multiverse_id} not found")
+        if actor is None:
+            raise ValueError(f"actor {actor_id} not found")
+        payload = run_actor_decision(
+            worker_db,
+            big_bang=big_bang,
+            multiverse=multiverse,
+            actor=actor,
+            tick_index=tick_index,
+            prompt_context=prompt_context,
+            release_db_connection_before_llm=True,
+        )
+        worker_db.commit()
+        return payload
+    except Exception:
+        worker_db.rollback()
+        raise
+    finally:
+        worker_db.close()
 
 
 def _record_checkpoint_failure(
@@ -789,6 +984,8 @@ def _execute_checkpoint_payload(
             emergence_candidates=emergence_candidates,
             sociology_result=sociology_result,
         )
+        simulation_config = simulation_config_for_multiverse(db, multiverse)
+        max_ticks = int(simulation_config.get("max_ticks") or 0)
         provisional = {
             "multiverse_id": str(multiverse.id),
             "tick_index": tick_index,
@@ -812,6 +1009,15 @@ def _execute_checkpoint_payload(
             "emergence_candidates": emergence_candidates,
             "branch_score": branch_score,
             "idle_assessment": idle_assessment,
+            "final_tick_context": {
+                "is_final_allowed_tick": bool(max_ticks and tick_index >= max_ticks),
+                "max_ticks": max_ticks or None,
+                "current_tick_index": tick_index,
+                "ledger_instruction": (
+                    "At the final allowed tick, mark unresolved endpoints insufficient_ticks unless hard evidence "
+                    "makes the endpoint eliminated. insufficient_ticks is reversible if the timeline later resumes."
+                ),
+            },
         }
         return {"provisional_bundle": provisional}
 
@@ -821,7 +1027,12 @@ def _execute_checkpoint_payload(
         tick.provisional_bundle = provisional
         tick.summary = f"Tick {tick_index} simulated for {multiverse.ui_label}."
         db.flush()
-        review_payload, review_call = review_provisional_tick(db, multiverse, provisional)
+        review_payload, review_call = review_provisional_tick(
+            db,
+            multiverse,
+            provisional,
+            tick_snapshot_id=tick.id,
+        )
         ledger = apply_god_endpoint_updates(
             db,
             big_bang_id=multiverse.big_bang_id,

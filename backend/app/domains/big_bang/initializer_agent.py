@@ -15,8 +15,39 @@ INITIALIZER_JSON_SCHEMA = {
     "properties": {
         "simulation_brief": {"type": ["object", "string"]},
         "actors": {"type": "array", "items": {"type": "object"}},
-        "population_archetypes": {"type": "array", "items": {"type": "object"}},
-        "cohort_states": {"type": "array", "items": {"type": "object"}},
+        "population_archetypes": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {"type": "string"},
+                    "archetype_id": {"type": "string"},
+                    "label": {"type": "string"},
+                    "description": {"type": "string"},
+                    "population_total": {"type": "integer", "minimum": 1},
+                    "definition": {"type": "object"},
+                },
+                "required": ["population_total"],
+                "additionalProperties": True,
+            },
+        },
+        "cohort_states": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {"type": "string"},
+                    "actor_name": {"type": "string"},
+                    "archetype_id": {"type": "string"},
+                    "represented_population": {"type": "integer", "minimum": 0},
+                    "population_share_of_archetype": {"type": "number", "minimum": 0, "maximum": 1},
+                    "representation_mode": {"type": "string"},
+                    "state": {"type": "object"},
+                },
+                "required": ["represented_population", "population_share_of_archetype", "representation_mode"],
+                "additionalProperties": True,
+            },
+        },
         "hero_archetypes": {"type": "array", "items": {"type": "object"}},
         "hero_states": {"type": "array", "items": {"type": "object"}},
         "trait_vectors": {"type": "array", "items": {"type": "object"}},
@@ -202,14 +233,23 @@ def fallback_initializer_output(scenario_input: dict[str, Any]) -> dict[str, Any
             },
         ],
         "population_archetypes": [
-            {"name": "affected_public", "definition": {"premise": premise}},
+            {
+                "name": "affected_public",
+                "population_total": 1000,
+                "definition": {"premise": premise, "population_total": 1000},
+            },
         ],
         "cohorts": [
             {
                 "name": "affected public",
                 "actor_name": "Public Cohort",
+                "represented_population": 1000,
+                "population_share_of_archetype": 1.0,
+                "representation_mode": "population",
                 "state": {
                     "represented_population": 1000,
+                    "population_share_of_archetype": 1.0,
+                    "representation_mode": "population",
                     "stance_axes": {"support": 0.0, "oppose": 0.0, "uncertain": 1.0},
                     "expression_level": 0.25,
                     "attention_level": 0.5,
