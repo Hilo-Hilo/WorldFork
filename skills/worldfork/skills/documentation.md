@@ -7,7 +7,7 @@ Use this module when updating or explaining WorldFork documentation, README cont
 - ReadTheDocs source: `docs/`
 - Sphinx config: `docs/conf.py`
 - Main README: `README.md`
-- Public site checkout, when present on this machine: `/Users/hansonwen/worldfork-site`
+- Public site checkout, when present on this machine: `<workspace>/worldfork-site`
 - Public docs URL: `https://worldfork.readthedocs.io/en/latest/`
 - Site URL: `https://worldfork.tech`
 

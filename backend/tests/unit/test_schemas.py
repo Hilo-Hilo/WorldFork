@@ -45,7 +45,7 @@ def _make_big_bang(**overrides) -> dict:
         created_at=_NOW,
         updated_at=_NOW,
         created_by_user_id=None,
-        scenario_text="Bay Area gig worker dispute",
+        scenario_text="Metro Region gig worker dispute",
         input_file_ids=[],
         status="draft",
         time_horizon_label="6 months",
