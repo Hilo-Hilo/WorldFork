@@ -17,6 +17,7 @@ The documentation is organized around the jobs people actually need to do:
 | [CLI](cli.md) | You need command examples or agent-safe operating patterns |
 | [Demos](demos.md) | You want to run Atlas or the live runtime smoke |
 | [Architecture](architecture.md) | You need the runtime model and storage layers |
+| [Runtime Walkthrough](runtime.md) | You need the exact initializer, tick, queue, and observability flow |
 | [Reporting](reporting.md) | You need report versioning, artifacts, and continuations |
 | [Agent Interface](agent.md) | You are writing or operating an AI agent against WorldFork |
 
@@ -28,6 +29,7 @@ setup
 cli
 demos
 architecture
+runtime
 reporting
 agent
 testing

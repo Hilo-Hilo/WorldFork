@@ -65,6 +65,12 @@ Use machine-readable event streams when an agent needs to consume watch output:
 worldfork watch big-bang <big-bang-id> --json-lines
 ```
 
+Initialization is blocking for the standard CLI path. It returns after the
+backend has created the root multiverse, T0 state, initializer artifacts,
+population-aware cohorts, graphs, initial events, and endpoint ledger seed. See
+[Runtime Walkthrough](runtime.md) when you need the exact initializer output
+contract.
+
 ## Jobs
 
 ```bash
@@ -86,11 +92,19 @@ worldfork runs list
 worldfork runs workspace <big-bang-id>
 worldfork universes trace <multiverse-id>
 worldfork cohorts transcript <cohort-id> --universe-id <multiverse-id>
+worldfork ticks timing <tick-snapshot-id>
+worldfork ticks cost <tick-snapshot-id> --include-calls
+worldfork runs cost <big-bang-id> --include-calls
+worldfork runs estimate <big-bang-id>
 worldfork logs list --status failed
 worldfork models defaults
 worldfork settings show
 worldfork update --dry-run
 ```
+
+Use `ticks timing` to answer “what stage is the tick at?” and “what was the
+blocker?” It exposes runtime executions, checkpoint timings, attempt timings,
+LLM timing, and cost summaries.
 
 ## Reports
 
@@ -100,9 +114,18 @@ worldfork reports versions <report-id>
 worldfork reports view <report-version-id>
 worldfork reports view <report-version-id> --format json
 worldfork reports render <report-version-id> --format pdf --output report.pdf
+worldfork reports pack <big-bang-id> --mode summary
+worldfork reports adjudicate <big-bang-id>
+worldfork reports adjudication <big-bang-id>
+worldfork ledgers list <big-bang-id>
+worldfork ledgers path-mass <big-bang-id>
 ```
 
 Use `reports view` before rendering a PDF. Rendering is ephemeral and does not change the canonical report version.
+
+Endpoint ledgers answer endpoint status questions. Path mass answers how much
+retained branch probability sits behind those endpoint statuses. Do not treat an
+endpoint ledger entry as the same thing as branch probability.
 
 ## Direct API Escape Hatch
 
