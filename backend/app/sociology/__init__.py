@@ -1,7 +1,7 @@
 """
 backend.app.sociology — sociology engine.
 
-Implements PRD §12 transitions and the transactional split/merge layer that
+Implements the sociology model transitions and the transactional split/merge layer that
 ENFORCES population conservation. Public re-exports below are the stable
 API; internal helpers (numpy code, kernel math) live in the submodules.
 """

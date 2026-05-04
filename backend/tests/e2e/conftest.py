@@ -5,7 +5,7 @@ Most fixtures are reused or duplicated from `tests/integration/conftest.py`
 (SQLite shadow engine, ASGI client) so the suite runs without Postgres or a
 live Redis broker.
 
-External services that the PRD requires in production (OpenRouter, Zep,
+External services used in production (OpenRouter, Zep,
 Celery broker) are stubbed:
 
 * OpenRouter        -> `_CannedProvider` registered via

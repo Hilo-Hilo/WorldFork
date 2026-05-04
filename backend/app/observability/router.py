@@ -1,4 +1,4 @@
-"""FastAPI router for the Prometheus /metrics endpoint (PRD §24)."""
+"""FastAPI router for the Prometheus /metrics endpoint."""
 from __future__ import annotations
 
 from fastapi import APIRouter

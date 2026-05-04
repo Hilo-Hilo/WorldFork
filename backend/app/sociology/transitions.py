@@ -5,7 +5,7 @@ Loads the current state slice for one universe at one tick, runs each
 transition (attention, expression, belief, identity, mobilization),
 persists the post-state as the next tick's row.
 
-The transition order follows PRD §11.1 / §12: attention → belief → expression
+The transition order follows the runtime sociology pipeline: attention → belief → expression
 → trust update → mobilization → identity. Splits/merges are NOT performed
 here — they're triggered by LLM proposals and committed via
 `commit_split` / `commit_merge`.

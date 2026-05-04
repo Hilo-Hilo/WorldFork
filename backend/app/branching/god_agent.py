@@ -1,4 +1,4 @@
-"""God-agent reviewer (PRD §13.6).
+"""God-agent reviewer for the branching runtime.
 
 Wraps the per-tick God review into a single ``await god_review(...)`` call:
 
@@ -46,7 +46,7 @@ _log = logging.getLogger(__name__)
 
 @dataclass
 class GodReviewInput:
-    """All state the God-agent needs to decide a tick (PRD §13.6 inputs)."""
+    """All state the God-agent needs to decide a tick."""
 
     universe_id: str
     run_id: str
@@ -122,7 +122,7 @@ def _known_event_ids(
 
 
 def _is_safe_noop_decision(decision: GodReviewOutput) -> bool:
-    """Detect a safe-noop fallback (PRD §16.7 / §26)."""
+    """Detect a safe-noop fallback from provider error handling."""
     if decision.decision != "continue":
         return False
     if decision.branch_delta is not None:
@@ -240,7 +240,7 @@ async def god_review(
 
     * builds the PromptPacket
     * calls the LLM via :func:`call_with_policy` (which handles backoff and
-      fallback per PRD §16.7)
+      fallback through the provider error-handling policy)
     * parses + repairs the JSON output via :class:`ToolParser`
     * persists the decision artifact to the ledger
     * returns the typed :class:`GodReviewOutput`

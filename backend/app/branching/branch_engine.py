@@ -1,4 +1,4 @@
-"""Recursive copy-on-write branch engine — PRD §13.2.
+"""Recursive copy-on-write branch engine.
 
 ``commit_branch`` is the single entry point used by the tick runner / API
 to spawn a new universe.  It:

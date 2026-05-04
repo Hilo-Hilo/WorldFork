@@ -281,7 +281,6 @@ WorldFork is a monorepo with installable and runnable surfaces around one core r
 | Source of truth | `source_of_truth/` | Prompt, report, and policy templates |
 | Scripts | `scripts/` | Local validation and demo harnesses |
 | Infra | `infra/` | Docker and migration infrastructure |
-| PRD | `prd.md` | Product requirements and architecture direction |
 
 There is **no web frontend** in this repository.
 
@@ -343,7 +342,6 @@ source_of_truth/      prompt, report, and policy templates
 scripts/              local validation and demo harnesses
 infra/                Docker and Alembic infrastructure
 docs/                 operator, developer, and agent documentation
-prd.md                product requirements source
 ```
 
 ---

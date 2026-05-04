@@ -17,7 +17,7 @@ from backend.app.schemas.common import RunStatus, UniverseStatus
 # ---------------------------------------------------------------------------
 
 class BigBangRun(BaseModel):
-    """Root run manifest — verbatim from PRD §9.1."""
+    """Root run manifest — verbatim from the current schema."""
 
     model_config = ConfigDict(extra="forbid")
 
@@ -46,7 +46,7 @@ class BigBangRun(BaseModel):
 # ---------------------------------------------------------------------------
 
 class Universe(BaseModel):
-    """A single timeline branch — verbatim from PRD §9.2 with added validators."""
+    """A single timeline branch — verbatim from the current schema with added validators."""
 
     model_config = ConfigDict(extra="forbid")
 

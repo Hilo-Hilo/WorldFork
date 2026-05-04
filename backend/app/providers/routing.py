@@ -1,7 +1,7 @@
-"""Per-job-type routing table — PRD §16.4.
+"""Per-job-type routing table — runtime model routing.
 
 Loads :class:`ModelRoutingEntry` rows from the database (or falls back to
-hardcoded defaults derived from the PRD example) and exposes ``route(job_type)``
+hardcoded runtime defaults) and exposes ``route(job_type)``
 which returns ``(preferred ModelConfig, fallback ModelConfig | None)``.
 """
 from __future__ import annotations
@@ -20,7 +20,7 @@ if TYPE_CHECKING:
 
 
 # ---------------------------------------------------------------------------
-# Defaults — derived from PRD §16.4 example, generalised across job types.
+# Defaults — generalized across job types.
 # ---------------------------------------------------------------------------
 
 _OPENROUTER_MODEL = "deepseek/deepseek-v4-flash"
@@ -146,7 +146,7 @@ class RoutingTable:
 
     @classmethod
     def defaults(cls) -> RoutingTable:
-        """Return a routing table populated with PRD-derived defaults for every job type."""
+        """Return a routing table populated with default runtime routing for every job type."""
         entries = {jt: _default_entry(jt) for jt in _ALL_JOB_TYPES}
         return cls(entries)
 

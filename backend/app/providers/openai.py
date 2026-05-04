@@ -2,7 +2,7 @@
 
 Nearly all of the actual logic lives in :mod:`backend.app.providers.openrouter`;
 this class subclasses it so we get identical generate_structured / generate_text
-behaviour with just a different base_url. PRD §16 requires that all enabled
+behaviour with just a different base_url. the provider interface requires that all enabled
 providers expose the LLMProvider Protocol; this satisfies that.
 
 TODO B5+: split out OpenAI-specific quirks (e.g. `o3` reasoning param) once

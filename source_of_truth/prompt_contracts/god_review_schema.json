@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://worldfork.ai/schemas/god_review.json",
   "title": "GodReviewOutput",
-  "description": "Strict JSON contract returned by the god-agent after each universe tick (PRD §13.6). The god-agent must NOT rewrite parent history; any divergence is expressed as a branch_delta on a new child universe.",
+  "description": "Strict JSON contract returned by the god-agent after each universe tick. The god-agent must NOT rewrite parent history; any divergence is expressed as a branch_delta on a new child universe.",
   "type": "object",
   "additionalProperties": false,
   "required": ["decision", "marked_key_events", "tick_summary", "rationale"],
