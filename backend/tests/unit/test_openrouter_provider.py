@@ -196,12 +196,19 @@ def test_openrouter_extra_body_uses_native_fallback_model(prompt: PromptPacket) 
     assert kwargs["extra_body"] == {"models": ["primary/model", "fallback/model"]}
 
 
-def test_seeded_routes_use_openrouter_gemini_model() -> None:
-    from backend.app.scripts.seed import _ROUTING_DEFAULTS
+def test_seeded_routes_apply_default_governance_split() -> None:
+    from backend.app.scripts.seed import _OPENAI_CODEX_JOB_TYPES, _ROUTING_DEFAULTS, _routing_model_defaults
 
     assert _ROUTING_DEFAULTS
     for row in _ROUTING_DEFAULTS:
-        assert row["preferred_provider"] == "openrouter"
-        assert row["preferred_model"] == OPENROUTER_MODEL
-        assert row["fallback_provider"] == "openrouter"
-        assert row["fallback_model"] == OPENROUTER_MODEL
+        routed = _routing_model_defaults(row)
+        if row["job_type"] in _OPENAI_CODEX_JOB_TYPES:
+            assert routed["preferred_provider"] == "openai-codex"
+            assert routed["preferred_model"] == "gpt-5.4"
+            assert routed["fallback_provider"] == "openai-codex"
+            assert routed["fallback_model"] == "gpt-5.4"
+        else:
+            assert routed["preferred_provider"] == "openrouter"
+            assert routed["preferred_model"] == OPENROUTER_MODEL
+            assert routed["fallback_provider"] == "openrouter"
+            assert routed["fallback_model"] == OPENROUTER_MODEL

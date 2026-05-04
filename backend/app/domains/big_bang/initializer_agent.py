@@ -10,6 +10,82 @@ from app.llm.audit import complete_with_audit
 from app.llm.prompt_templates import INITIALIZER_SYSTEM_PROMPT
 from app.llm.routing import AuditedLLMRoute
 
+INITIALIZER_JSON_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "simulation_brief": {"type": ["object", "string"]},
+        "actors": {"type": "array", "items": {"type": "object"}},
+        "population_archetypes": {"type": "array", "items": {"type": "object"}},
+        "cohort_states": {"type": "array", "items": {"type": "object"}},
+        "hero_archetypes": {"type": "array", "items": {"type": "object"}},
+        "hero_states": {"type": "array", "items": {"type": "object"}},
+        "trait_vectors": {"type": "array", "items": {"type": "object"}},
+        "graph_edges": {"type": "array", "items": {"type": "object"}},
+        "emotion_observations": {"type": "array", "items": {"type": "object"}},
+        "sociology_baseline": {"type": "array", "items": {"type": "object"}},
+        "sociology_prompt_influences": {"type": "array", "items": {"type": "object"}},
+        "channels": {"type": "array", "items": {"type": "object"}},
+        "initial_events": {"type": "array", "items": {"type": "object"}},
+        "branch_hypotheses": {"type": "array", "items": {"type": "object"}},
+        "merge_hypotheses": {"type": "array", "items": {"type": "object"}},
+        "important_questions": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 5,
+            "items": {"type": "string"},
+        },
+        "endpoint_ledger": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 5,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "endpoint_key": {"type": "string"},
+                    "label": {"type": "string"},
+                    "description": {"type": "string"},
+                    "status": {"type": "string"},
+                    "probability": {"type": ["number", "null"]},
+                    "realization_criteria": {"type": "array", "items": {"type": "string"}},
+                    "authority_refs": {"type": "array"},
+                    "evidence_refs": {"type": "array"},
+                    "negative_evidence_refs": {"type": "array"},
+                    "blockers": {"type": "array"},
+                    "status_basis": {"type": "string"},
+                    "contradiction_notes": {"type": "string"},
+                    "rationale": {"type": "string"},
+                    "last_observed_tick_index": {"type": ["integer", "null"]},
+                    "meta": {"type": "object"},
+                },
+                "required": ["endpoint_key", "label", "status", "realization_criteria"],
+                "additionalProperties": True,
+            },
+        },
+        "risk_flags": {"type": "array", "items": {"type": "object"}},
+    },
+    "required": [
+        "simulation_brief",
+        "actors",
+        "population_archetypes",
+        "cohort_states",
+        "hero_archetypes",
+        "hero_states",
+        "trait_vectors",
+        "graph_edges",
+        "emotion_observations",
+        "sociology_baseline",
+        "sociology_prompt_influences",
+        "channels",
+        "initial_events",
+        "branch_hypotheses",
+        "merge_hypotheses",
+        "important_questions",
+        "endpoint_ledger",
+        "risk_flags",
+    ],
+    "additionalProperties": True,
+}
+
 
 def run_initializer_agent(
     db: Session,
@@ -48,6 +124,7 @@ def run_initializer_agent(
                 ),
             },
         ],
+        json_schema=INITIALIZER_JSON_SCHEMA,
         metadata={"max_tokens": 3400, "temperature": 0.25, "agent_type": "initializer_agent"},
     )
     parsed = response.parsed or {}
@@ -194,6 +271,33 @@ def fallback_initializer_output(scenario_input: dict[str, Any]) -> dict[str, Any
         "merge_hypotheses": [
             {"trigger": "shared dependency", "expected_convergence": "moderate public groups coordinate"},
         ],
+        "important_questions": [
+            "Which endpoint best explains how this scenario resolves?",
+        ],
+        "endpoint_ledger": [
+            {
+                "endpoint_key": "scenario_resolution",
+                "label": "Scenario resolution",
+                "description": "The scenario reaches a stable, evidence-backed terminal interpretation.",
+                "status": "active",
+                "probability": None,
+                "realization_criteria": [
+                    "A later authority decision or executed terminal event names the resolved endpoint.",
+                ],
+                "authority_refs": ["Institutional Actor"],
+                "evidence_refs": ["scenario:premise"],
+                "negative_evidence_refs": [],
+                "blockers": ["No terminal evidence yet"],
+                "status_basis": "initializer_endpoint_ledger",
+                "contradiction_notes": "Track later evidence that supports, weakens, eliminates, or realizes this endpoint.",
+                "rationale": "Fallback initializer endpoint for a scenario without explicit endpoint options.",
+                "last_observed_tick_index": None,
+                "meta": {
+                    "source": "initializer_endpoint_ledger",
+                    "important_question": "Which endpoint best explains how this scenario resolves?",
+                },
+            }
+        ],
         "risk_flags": [],
         "fallback": True,
     }
@@ -231,6 +335,19 @@ def normalize_initializer_output(parsed: dict[str, Any], scenario_input: dict[st
         "merge_hypotheses": _list_or_default(output.get("merge_hypotheses"), fallback["merge_hypotheses"]),
         "risk_flags": _list_or_default(output.get("risk_flags"), fallback["risk_flags"]),
     }
+    normalized["important_questions"] = _normalize_important_questions(
+        output.get("important_questions")
+        or output.get("importantQuestions")
+        or output.get("endpoint_questions")
+        or output.get("endpointQuestions"),
+        fallback["important_questions"],
+    )
+    normalized["endpoint_ledger"] = _normalize_initializer_endpoint_ledger(
+        output.get("endpoint_ledger") or output.get("endpointLedger") or output.get("endpoints"),
+        important_questions=normalized["important_questions"],
+        branch_hypotheses=normalized["branch_hypotheses"],
+        default=fallback["endpoint_ledger"],
+    )
     normalized["fallback"] = bool(output.get("fallback")) or parsed.get("error") is not None if isinstance(parsed, dict) else True
     normalized["graph_edges"] = ensure_required_graph_layers(normalized["graph_edges"])
     return normalized
@@ -252,6 +369,146 @@ def _list_or_default(value, default: list[dict]) -> list[dict]:
         objects = [item for item in value if isinstance(item, dict)]
         return objects or default
     return default
+
+
+def _normalize_important_questions(value: Any, default: list[str]) -> list[str]:
+    questions: list[str] = []
+    for item in _list_value(value):
+        if isinstance(item, str):
+            text = item
+        elif isinstance(item, dict):
+            text = str(item.get("question") or item.get("prompt") or item.get("text") or "")
+        else:
+            text = ""
+        text = " ".join(text.strip().split())
+        if text and text not in questions:
+            questions.append(text)
+        if len(questions) == 5:
+            break
+    if questions:
+        return questions
+    return [str(item).strip() for item in default[:5] if str(item).strip()]
+
+
+def _normalize_initializer_endpoint_ledger(
+    value: Any,
+    *,
+    important_questions: list[str],
+    branch_hypotheses: list[dict],
+    default: list[dict],
+) -> list[dict[str, Any]]:
+    raw_entries = [item for item in _list_value(value) if isinstance(item, dict)]
+    if not raw_entries:
+        raw_entries = _endpoint_entries_from_branch_hypotheses(branch_hypotheses)
+    if not raw_entries:
+        raw_entries = default
+
+    normalized: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for index, item in enumerate(raw_entries):
+        question = _entry_question(item, important_questions, index)
+        label = str(item.get("label") or item.get("name") or item.get("endpoint_key") or question or "Endpoint").strip()
+        key = _endpoint_key(item.get("endpoint_key") or item.get("key") or label)
+        if not key or key in seen:
+            continue
+        seen.add(key)
+        status = str(item.get("status") or "active").lower()
+        if status not in {"active", "weakened", "eliminated", "realized", "unresolved", "process_only"}:
+            status = "active"
+        probability = _optional_probability(item.get("probability"))
+        meta = dict(item.get("meta")) if isinstance(item.get("meta"), dict) else {}
+        meta.setdefault("source", "initializer_endpoint_ledger")
+        if question:
+            meta.setdefault("important_question", question)
+        normalized.append(
+            {
+                "endpoint_key": key,
+                "label": label,
+                "description": str(item.get("description") or item.get("rationale") or label).strip() or None,
+                "status": status,
+                "probability": probability,
+                "realization_criteria": _string_list(item.get("realization_criteria"))
+                or _string_list(item.get("criteria"))
+                or [f"Observable evidence answers: {question or label}"],
+                "authority_refs": _list_value(item.get("authority_refs") or item.get("authority") or item.get("decision_authority")),
+                "evidence_refs": _list_value(item.get("evidence_refs")) or [{"source": "initializer", "kind": "endpoint_seed"}],
+                "negative_evidence_refs": _list_value(item.get("negative_evidence_refs")),
+                "blockers": _string_list(item.get("blockers")),
+                "status_basis": str(item.get("status_basis") or "initializer_endpoint_ledger"),
+                "contradiction_notes": str(
+                    item.get("contradiction_notes")
+                    or "Track later evidence that supports, weakens, eliminates, or realizes this endpoint."
+                ),
+                "rationale": str(item.get("rationale") or "Seeded by the initializer as an endpoint option."),
+                "last_observed_tick_index": _optional_int(item.get("last_observed_tick_index")),
+                "meta": meta,
+            }
+        )
+        if len(normalized) == 5:
+            break
+    return normalized or list(default)
+
+
+def _endpoint_entries_from_branch_hypotheses(items: list[dict]) -> list[dict[str, Any]]:
+    entries: list[dict[str, Any]] = []
+    for item in items[:5]:
+        text = item.get("alternate_path") or item.get("plausible_alternate_path") or item.get("trigger") or item.get("label")
+        if not text:
+            continue
+        entries.append(
+            {
+                "endpoint_key": _endpoint_key(text),
+                "label": str(text),
+                "description": item.get("observable_divergence_signal") or item.get("expected_divergence") or str(text),
+                "status": "active",
+                "realization_criteria": _string_list(item.get("realization_criteria"))
+                or [f"Observable evidence confirms {text}."],
+                "authority_refs": _list_value(item.get("authority") or item.get("decision_authority") or item.get("actor")),
+                "evidence_refs": [{"source": "initializer", "kind": "branch_hypothesis"}],
+                "blockers": [],
+                "rationale": "Converted from initializer branch hypothesis because no explicit endpoint ledger was returned.",
+            }
+        )
+    return entries
+
+
+def _entry_question(item: dict[str, Any], questions: list[str], index: int) -> str | None:
+    raw = item.get("important_question") or item.get("question") or item.get("evaluation_question")
+    if raw:
+        return str(raw).strip()
+    if questions:
+        return questions[min(index, len(questions) - 1)]
+    return None
+
+
+def _endpoint_key(value: Any) -> str:
+    text = str(value or "endpoint").strip().lower()
+    chars = [char if char.isalnum() else "_" for char in text]
+    key = "_".join("".join(chars).split("_"))
+    return key[:120] or "endpoint"
+
+
+def _optional_probability(value: Any) -> float | None:
+    if value is None:
+        return None
+    try:
+        return max(0.0, min(1.0, float(value)))
+    except (TypeError, ValueError):
+        return None
+
+
+def _optional_int(value: Any) -> int | None:
+    if value is None:
+        return None
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def _string_list(value: Any) -> list[str]:
+    items = _list_value(value)
+    return [" ".join(str(item).strip().split()) for item in items if str(item).strip()]
 
 
 def _item_name(item: dict) -> str:

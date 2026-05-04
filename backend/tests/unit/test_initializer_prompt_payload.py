@@ -36,6 +36,35 @@ def _capture_initializer_user_message(monkeypatch, *, scenario_input: dict, plai
     return captured["messages"][1]["content"]
 
 
+def _capture_initializer_json_schema(monkeypatch) -> dict:
+    captured: dict[str, dict] = {}
+
+    def fake_complete_with_audit(
+        db,
+        *,
+        big_bang_id,
+        purpose,
+        model,
+        messages,
+        metadata,
+        json_schema=None,
+        route=None,
+    ):
+        captured["json_schema"] = json_schema
+        return LLMResponse(content="{}", parsed={}, raw={}), SimpleNamespace(id=uuid4(), model=model or "test-model")
+
+    monkeypatch.setattr(initializer_agent, "complete_with_audit", fake_complete_with_audit)
+
+    initializer_agent.run_initializer_agent(
+        object(),
+        big_bang_id=uuid4(),
+        scenario_input={"premise": "A public crisis forces institutional decisions."},
+        plain_text_corpus={},
+    )
+
+    return captured["json_schema"]
+
+
 def test_initializer_prompt_does_not_duplicate_direct_scenario_text(monkeypatch):
     scenario_text = "Harbor operators, nurses, and freight dispatchers dispute a new evacuation protocol."
 
@@ -103,3 +132,80 @@ def test_initializer_prompt_omits_storage_and_audit_bookkeeping(monkeypatch):
     assert "chunk-artifact-id" not in user_message
     assert "chunk-llm-call-id" not in user_message
     assert "summary-artifact-id" not in user_message
+
+
+def test_initializer_call_requires_endpoint_questions_and_ledger_schema(monkeypatch):
+    schema = _capture_initializer_json_schema(monkeypatch)
+
+    assert "important_questions" in schema["required"]
+    assert "endpoint_ledger" in schema["required"]
+    assert schema["properties"]["important_questions"]["maxItems"] == 5
+    assert schema["properties"]["endpoint_ledger"]["maxItems"] == 5
+    assert {"endpoint_key", "label", "status", "realization_criteria"} <= set(
+        schema["properties"]["endpoint_ledger"]["items"]["required"]
+    )
+
+
+def test_initializer_output_preserves_endpoint_questions_and_parseable_ledger():
+    normalized = initializer_agent.normalize_initializer_output(
+        {
+            "important_questions": [
+                "Does institutional transparency restore public trust?",
+                "Do community clinics accept ACCS allocation decisions?",
+                "Does mutual aid complement or replace formal authority?",
+                "Do courts constrain emergency command powers?",
+                "Does rumor correction prevent mobilization?",
+                "This sixth question should be dropped.",
+            ],
+            "endpoint_ledger": [
+                {
+                    "endpoint_key": "institutional_repair",
+                    "label": "Institutional repair",
+                    "description": "Formal institutions restore legitimacy through auditable allocation.",
+                    "status": "active",
+                    "realization_criteria": [
+                        "ACCS decisions are publicly auditable.",
+                        "Clinics and mutual-aid actors accept the allocation process.",
+                    ],
+                    "authority_refs": ["Atlas Regional Council", "Emergency Court Panel"],
+                    "evidence_refs": ["scenario:ACCS", "scenario:trust"],
+                    "blockers": ["data-smoothing scandal"],
+                    "rationale": "This endpoint answers the primary trust-repair question.",
+                }
+            ],
+        },
+        {"premise": "Atlas crisis"},
+    )
+
+    assert normalized["important_questions"] == [
+        "Does institutional transparency restore public trust?",
+        "Do community clinics accept ACCS allocation decisions?",
+        "Does mutual aid complement or replace formal authority?",
+        "Do courts constrain emergency command powers?",
+        "Does rumor correction prevent mobilization?",
+    ]
+    assert normalized["endpoint_ledger"] == [
+        {
+            "endpoint_key": "institutional_repair",
+            "label": "Institutional repair",
+            "description": "Formal institutions restore legitimacy through auditable allocation.",
+            "status": "active",
+            "probability": None,
+            "realization_criteria": [
+                "ACCS decisions are publicly auditable.",
+                "Clinics and mutual-aid actors accept the allocation process.",
+            ],
+            "authority_refs": ["Atlas Regional Council", "Emergency Court Panel"],
+            "evidence_refs": ["scenario:ACCS", "scenario:trust"],
+            "negative_evidence_refs": [],
+            "blockers": ["data-smoothing scandal"],
+            "status_basis": "initializer_endpoint_ledger",
+            "contradiction_notes": "Track later evidence that supports, weakens, eliminates, or realizes this endpoint.",
+            "rationale": "This endpoint answers the primary trust-repair question.",
+            "last_observed_tick_index": None,
+            "meta": {
+                "source": "initializer_endpoint_ledger",
+                "important_question": "Does institutional transparency restore public trust?",
+            },
+        }
+    ]

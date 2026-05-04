@@ -193,6 +193,7 @@ def generate_final_big_bang_report(
         use_llm=False,
     )
     _attach_endpoint_ledger_content(db, content, endpoint_ledger)
+    _patch_outcome_conclusions_from_timeline_adjudication(db, content)
     label_by_multiverse_id = {str(item.id): item.ui_label for item in multiverses}
     reports = list(db.scalars(select(models.Report).where(models.Report.big_bang_id == big_bang.id)).all())
     content["report_inventory"] = _report_inventory_items(
@@ -397,6 +398,90 @@ def _patch_outcome_conclusions_from_endpoint_ledger(content: dict[str, Any]) -> 
         f"and status={top.get('status')}. {previous}"
     ).strip()
     conclusions["likely_endpoint"] = likely
+
+
+def _patch_outcome_conclusions_from_timeline_adjudication(db: Session, content: dict[str, Any]) -> None:
+    conclusions = content.get("outcome_conclusions")
+    adjudication = content.get("timeline_adjudication")
+    if not isinstance(conclusions, dict) or not isinstance(adjudication, dict):
+        return
+    entries = adjudication.get("entries")
+    if not isinstance(entries, list):
+        return
+    included_entries = [item for item in entries if isinstance(item, dict) and item.get("include_in_final")]
+    if not included_entries:
+        return
+    comparison = content.get("multiverse_comparison")
+    comparison_items = comparison if isinstance(comparison, list) else []
+    comparison_by_id = {
+        str(item.get("multiverse_id")): item
+        for item in comparison_items
+        if isinstance(item, dict) and item.get("multiverse_id")
+    }
+
+    def key(entry: dict[str, Any]) -> tuple[float, float, int, str]:
+        row = comparison_by_id.get(str(entry.get("multiverse_id"))) or {}
+        return (
+            _float_or_default(entry.get("effective_path_probability"), 0.0),
+            _float_or_default(row.get("latest_branch_score"), 0.0),
+            int(row.get("latest_tick_index") or 0),
+            str(entry.get("ui_label") or row.get("ui_label") or ""),
+        )
+
+    selected_entry = max(included_entries, key=key)
+    selected_id = str(selected_entry.get("multiverse_id") or "")
+    row = comparison_by_id.get(selected_id) or {}
+    multiverse = db.scalar(select(models.Multiverse).where(models.Multiverse.id == selected_id))
+    latest_tick = _latest_tick(db, multiverse.id) if multiverse is not None else None
+    latest_review = _latest_god_review(db, multiverse.id) if multiverse is not None else None
+
+    likely = dict(conclusions.get("likely_endpoint") or {})
+    endpoint_source = {
+        **row,
+        "multiverse_id": selected_id,
+        "ui_label": selected_entry.get("ui_label") or row.get("ui_label"),
+        "status": row.get("status"),
+        "latest_tick_index": row.get("latest_tick_index"),
+        "latest_branch_score": row.get("latest_branch_score"),
+        "path_probability": row.get("path_probability"),
+    }
+    likely.update(
+        {
+            "multiverse_id": selected_id,
+            "multiverse_label": endpoint_source.get("ui_label"),
+            "multiverse_status": endpoint_source.get("status"),
+            "latest_tick_index": endpoint_source.get("latest_tick_index"),
+            "latest_tick_status": latest_tick.status if latest_tick else None,
+            "latest_tick_summary": latest_tick.summary if latest_tick else None,
+            "branch_score": endpoint_source.get("latest_branch_score"),
+            "god_decision": latest_review.decision if latest_review else None,
+            "god_rationale": latest_review.rationale if latest_review else None,
+            "endpoint_key": selected_entry.get("endpoint_key") or likely.get("endpoint_key"),
+            "endpoint_status": selected_entry.get("endpoint_status") or likely.get("endpoint_status"),
+            "endpoint_selection_basis": "timeline_adjudication",
+            "effective_path_probability": selected_entry.get("effective_path_probability"),
+            "interpretation": _timeline_adjudication_interpretation(
+                endpoint_source,
+                selected_entry,
+                latest_tick,
+                latest_review,
+            ),
+        }
+    )
+    conclusions["likely_endpoint"] = likely
+    mechanisms = conclusions.get("causal_mechanisms")
+    if isinstance(mechanisms, list):
+        replacement = (
+            f"Timeline adjudication selected {endpoint_source.get('ui_label')} from retained timelines "
+            f"with effective path probability={selected_entry.get('effective_path_probability')}, "
+            f"status={endpoint_source.get('status')}, latest tick={endpoint_source.get('latest_tick_index')}, "
+            f"and branch score={endpoint_source.get('latest_branch_score')}."
+        )
+        conclusions["causal_mechanisms"] = [
+            item
+            for item in mechanisms
+            if not (isinstance(item, str) and item.startswith("Endpoint selection favored "))
+        ] + [replacement]
 
 
 def render_report_version_ephemeral(
@@ -893,6 +978,31 @@ def _endpoint_interpretation(
     return f"{label} is the likely endpoint by terminal status, branch score, and latest tick position."
 
 
+def _timeline_adjudication_interpretation(
+    endpoint_source: dict[str, Any],
+    adjudication_entry: dict[str, Any],
+    latest_tick: models.TickSnapshot | None,
+    latest_review: models.GodAgentReview | None,
+) -> str:
+    label = endpoint_source.get("ui_label") or "The selected timeline"
+    endpoint_key = adjudication_entry.get("endpoint_key") or "unknown"
+    endpoint_status = adjudication_entry.get("endpoint_status") or "unknown"
+    effective_path = adjudication_entry.get("effective_path_probability")
+    tick_index = endpoint_source.get("latest_tick_index")
+    base = (
+        f"Timeline adjudication retained {label} as the representative timeline for endpoint "
+        f"{endpoint_key} with endpoint_status={endpoint_status}, effective path probability={effective_path}, "
+        f"timeline status={endpoint_source.get('status')}, and latest tick index={tick_index}."
+    )
+    if str(endpoint_status).lower() in {"unresolved", "process_only", "active", "pending"}:
+        base += " This is not a resolved terminal endpoint claim."
+    if latest_review is not None:
+        return f"{base} The latest God-agent review decided {latest_review.decision}: {latest_review.rationale}"
+    if latest_tick is not None and latest_tick.summary:
+        return f"{base} Latest tick summary: {latest_tick.summary}"
+    return base
+
+
 def _final_event_traces(db: Session, *, big_bang_id) -> list[dict[str, Any]]:
     rows = db.execute(
         select(models.Event, models.EventSummary, models.TickSnapshot)
@@ -1333,12 +1443,14 @@ def _report_agent_prompt_content(content: dict[str, Any], *, mode: str) -> dict[
     limit = REPORT_AGENT_RESCUE_TIMELINE_LIMIT if mode == "rescue" else REPORT_AGENT_STANDARD_TIMELINE_LIMIT
     if content.get("report_type") == "final_big_bang":
         comparison = content.get("multiverse_comparison") or []
-        selected = _select_report_timelines(comparison, limit=limit)
+        selected = _select_report_timelines_for_final_report(content, comparison, limit=limit)
+        adjudication = content.get("timeline_adjudication") or {}
         return {
             "report_type": "final_big_bang",
             "title": content.get("title"),
             "summary": content.get("summary"),
             "source": _compact_source(content.get("source") or {}),
+            "outcome_conclusions": _compact_outcome_conclusions(content.get("outcome_conclusions") or {}),
             "outcome_distribution": _compact_distribution(content.get("outcome_distribution") or {}),
             "probability_context": _probability_context(content),
             "endpoint_ledger": _compact_endpoint_ledger(content),
@@ -1347,14 +1459,14 @@ def _report_agent_prompt_content(content: dict[str, Any], *, mode: str) -> dict[
                 content.get("path_probability_distribution") or [],
                 limit=limit,
             ),
-            "timeline_adjudication": _compact_timeline_adjudication(content.get("timeline_adjudication") or {}, limit=limit),
+            "timeline_adjudication": _compact_timeline_adjudication(adjudication, limit=limit),
             "terminality_assessment": _compact_report_value(content.get("terminality_assessment") or {}, max_items=6),
             "contradiction_check": _compact_report_value(content.get("contradiction_check") or {}, max_items=6),
             "selected_timelines": [_compact_timeline_metric(item) for item in selected],
             "timeline_selection": {
                 "selected_count": len(selected),
                 "total_count": len(comparison),
-                "policy": "highest path probability, then branch score, deepest branches, and longest tick history",
+                "policy": _timeline_selection_policy(adjudication),
             },
             "divergence_drivers": _compact_divergence_drivers(content, limit=limit),
             "recurring_patterns": _section_items(content, "Recurring Patterns")[:limit],
@@ -1402,6 +1514,17 @@ def _compact_endpoint_ledger(content: dict[str, Any]) -> dict[str, Any]:
         "entries": _compact_report_value((ledger.get("entries") or [])[:8], max_items=6),
         "aggregation": payload.get("aggregation"),
         "path_probability_mass": payload.get("path_probability_mass"),
+    }
+
+
+def _compact_outcome_conclusions(conclusions: dict[str, Any]) -> dict[str, Any]:
+    if not isinstance(conclusions, dict):
+        return {}
+    likely = conclusions.get("likely_endpoint")
+    compact_likely = _compact_report_value(likely or {}, max_items=12) if isinstance(likely, dict) else {}
+    return {
+        "likely_endpoint": compact_likely,
+        "causal_mechanisms": _compact_report_value(conclusions.get("causal_mechanisms") or [], max_items=6),
     }
 
 
@@ -1483,7 +1606,11 @@ def _compact_path_probability_distribution(rows: list[Any], *, limit: int) -> li
             "ui_label": row.get("ui_label"),
             "status": row.get("status"),
             "path_probability": row.get("path_probability"),
+            "original_path_probability": row.get("original_path_probability"),
             "normalized_weight": row.get("normalized_weight"),
+            "viability_status": row.get("viability_status"),
+            "include_in_final": row.get("include_in_final"),
+            "prune_reason": row.get("prune_reason"),
         }
         compact.append({key: value for key, value in item.items() if value not in (None, "")})
     return compact
@@ -1497,6 +1624,16 @@ def _compact_timeline_adjudication(adjudication: dict[str, Any], *, limit: int) 
         "summary": _truncate_text(str(adjudication.get("summary") or ""), 360),
         "payload": _compact_report_value(adjudication.get("payload") or {}, max_items=8),
         "entries": _compact_report_value((adjudication.get("entries") or [])[:limit], max_items=8),
+        "retained_labels": [
+            item.get("ui_label")
+            for item in adjudication.get("entries", [])
+            if isinstance(item, dict) and item.get("include_in_final") and item.get("ui_label")
+        ][:limit],
+        "pruned_labels": [
+            item.get("ui_label")
+            for item in adjudication.get("entries", [])
+            if isinstance(item, dict) and item.get("include_in_final") is False and item.get("ui_label")
+        ][:limit],
     }
 
 
@@ -1548,7 +1685,53 @@ def _report_quality_controls() -> list[str]:
         "For a single_multiverse probability_context, state branch_probability and path_probability when present, and keep endpoint ledger probabilities separate from timeline path probability.",
         "Use branch_probability and path_probability when explaining branch divergence; do not treat branch_score as probability.",
         "For final reports with timeline_adjudication, describe which timelines were retained or pruned and use effective_path_probability for final endpoint probability claims.",
+        "When timeline_adjudication is present, base outcome interpretation, management notes, and risk notes on include_in_final=true retained timelines.",
+        "Do not name a pruned timeline as a final endpoint comparator or decision target unless explicitly labeling it as pruned/non-retained evidence.",
+        "If endpoint_status is unresolved, describe the chosen item as a retained representative timeline for an unresolved endpoint, not as a resolved terminal endpoint.",
     ]
+
+
+def _timeline_selection_policy(adjudication: Any) -> str:
+    if isinstance(adjudication, dict) and adjudication.get("entries"):
+        return (
+            "timeline_adjudication include_in_final=true retained timelines only; pruned timelines are "
+            "non-retained evidence and must not be final endpoint comparators"
+        )
+    return "highest path probability, then branch score, deepest branches, and longest tick history"
+
+
+def _select_report_timelines_for_final_report(
+    content: dict[str, Any],
+    comparison: list[dict[str, Any]],
+    *,
+    limit: int,
+) -> list[dict[str, Any]]:
+    adjudication = content.get("timeline_adjudication")
+    if isinstance(adjudication, dict):
+        retained_ids = {
+            str(item.get("multiverse_id"))
+            for item in adjudication.get("entries", [])
+            if isinstance(item, dict) and item.get("include_in_final") and item.get("multiverse_id")
+        }
+        if retained_ids:
+            retained = [item for item in comparison if str(item.get("multiverse_id")) in retained_ids]
+            retained_effective_path = {
+                str(item.get("multiverse_id")): _float_or_default(item.get("effective_path_probability"), 0.0)
+                for item in adjudication.get("entries", [])
+                if isinstance(item, dict) and item.get("include_in_final") and item.get("multiverse_id")
+            }
+            return sorted(
+                retained,
+                key=lambda item: (
+                    retained_effective_path.get(str(item.get("multiverse_id")), 0.0),
+                    item.get("latest_branch_score") or 0,
+                    item.get("depth") or 0,
+                    item.get("tick_count") or 0,
+                    item.get("ui_label") or "",
+                ),
+                reverse=True,
+            )[:limit]
+    return _select_report_timelines(comparison, limit=limit)
 
 
 def _select_report_timelines(comparison: list[dict[str, Any]], *, limit: int) -> list[dict[str, Any]]:
@@ -1749,7 +1932,13 @@ def _report_agent_messages(prompt_content: dict[str, Any], *, mode: str) -> list
                 "endpoint probabilities as branch-path mass rather than equal timeline counts. Treat "
                 "probability_context as binding: in single-multiverse reports, separate timeline path "
                 "probability from endpoint-ledger probability; in final Big Bang reports, use the stated "
-                "endpoint probability method and the timeline_adjudication pruning ledger. Prune unneeded raw IDs and low-signal rows; refer to labels, "
+                "endpoint probability method and the timeline_adjudication pruning ledger. When "
+                "timeline_adjudication exists, selected_timelines contains the retained final-analysis "
+                "timelines; do not treat pruned timelines as final endpoint comparators, live decision "
+                "targets, or management targets unless you explicitly label them as pruned/non-retained "
+                "evidence. If likely_endpoint.endpoint_status is unresolved, call it a retained "
+                "representative timeline for an unresolved endpoint, not a resolved terminal endpoint. "
+                "Prune unneeded raw IDs and low-signal rows; refer to labels, "
                 "versions, ticks, branch scores, and path probabilities when they help a reviewer. If evidence "
                 "is absent or zero, say so plainly. Treat digest quality_controls as binding instructions, especially exact "
                 "numeric totals, report completion claims, zero-based tick indexes, and queued-versus-executed "

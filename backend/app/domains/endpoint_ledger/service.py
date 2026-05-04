@@ -476,6 +476,8 @@ def _collect_evidence(
         if multiverse is not None
         else None,
         "initializer": {
+            "important_questions": initializer.get("important_questions") or multiverse_state.get("important_questions") or [],
+            "endpoint_ledger": initializer.get("endpoint_ledger") or multiverse_state.get("endpoint_ledger") or [],
             "branch_hypotheses": initializer.get("branch_hypotheses") or multiverse_state.get("branch_hypotheses") or [],
             "risk_flags": initializer.get("risk_flags") or [],
             "known_uncertainty": _extract_known_uncertainties(scenario, initializer, multiverse_state),
@@ -493,6 +495,25 @@ def _entries_from_evidence(
     base_entries: list[dict[str, Any]] | None = None,
 ) -> list[dict[str, Any]]:
     entries = {entry["endpoint_key"]: dict(entry) for entry in base_entries or [] if entry.get("endpoint_key")}
+    for item in evidence.get("initializer", {}).get("endpoint_ledger") or []:
+        if not isinstance(item, dict):
+            continue
+        key = item.get("endpoint_key") or item.get("key") or item.get("label")
+        if not key:
+            continue
+        endpoint_key = _endpoint_key(key)
+        payload = dict(item)
+        payload["endpoint_key"] = endpoint_key
+        payload.setdefault("label", _label_from_text(key))
+        payload.setdefault("status", "active")
+        payload.setdefault("realization_criteria", [f"Observable evidence confirms {payload.get('label')}."])
+        payload.setdefault("evidence_refs", [{"source": "initializer", "kind": "endpoint_ledger"}])
+        payload.setdefault("status_basis", "initializer_endpoint_ledger")
+        payload.setdefault("contradiction_notes", "Track later evidence that supports, weakens, eliminates, or realizes this endpoint.")
+        payload.setdefault("rationale", "Preserved from initializer endpoint ledger.")
+        meta = payload.get("meta") if isinstance(payload.get("meta"), dict) else {}
+        payload["meta"] = {"source": "initializer_endpoint_ledger", **meta}
+        entries.setdefault(endpoint_key, payload)
     for item in evidence.get("initializer", {}).get("branch_hypotheses") or []:
         if not isinstance(item, dict):
             continue
