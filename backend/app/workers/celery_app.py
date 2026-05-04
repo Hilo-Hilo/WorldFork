@@ -54,8 +54,13 @@ celery_app.conf.update(
         "worldfork.execute_job": {"queue": "p1"},
     },
     task_default_retry_delay=10,
-    task_time_limit=600,
-    task_soft_time_limit=540,
+    # Long enough for the full per-tick LLM chain (cohort + hero + institution +
+    # event summaries + god review) on the smart model, which is currently
+    # serialized and routinely runs 6–10 minutes per tick. The per-task
+    # `time_limit=3600` decorator on worldfork.execute_job does not override this
+    # global in the way the docs suggest, so this value is the effective ceiling.
+    task_time_limit=3600,
+    task_soft_time_limit=3300,
 )
 
 
