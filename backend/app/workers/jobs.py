@@ -1,6 +1,6 @@
 """Celery task definitions for WorldFork workers.
 
-All tasks follow the §A.5 pattern:
+All tasks follow the tracked job pattern:
 
 * sync Celery wrapper that decodes the :class:`JobEnvelope`
 * delegates to an async ``_async_*`` helper via ``asyncio.run``
@@ -14,7 +14,7 @@ exactly so :data:`celery_app.conf.task_routes` can route by name.
 Tasks
 -----
 - ``initialize_big_bang`` (P1)
-- ``simulate_universe_tick`` (P0)  — the §11.1 loop entry
+- ``simulate_universe_tick`` (P0)  — the loop entry
   - ``apply_tick_results`` (P0)      — split-task callback
 - ``actor_deliberation_call`` (P1) — one actor packet → one parsed dict
 - ``branch_universe`` (P0)
@@ -266,7 +266,7 @@ async def _initialize_big_bang_impl(env: JobEnvelope) -> dict:
     max_retries=3,
 )
 def simulate_universe_tick_task(self, envelope_json: str):  # type: ignore[no-untyped-def]
-    """Run the §11.1 tick loop for one (universe, tick) pair."""
+    """Run the tick loop for one (universe, tick) pair."""
     env = JobEnvelope.model_validate_json(envelope_json)
     try:
         return asyncio.run(_run_tracked(env, _simulate_universe_tick_impl, mark_failed_on_error=False))
@@ -346,7 +346,7 @@ def apply_tick_results_task(  # type: ignore[no-untyped-def]
     tick: int,
 ):
     """Chord callback — receives parsed dicts from N actor deliberation children
-    children and resumes the §11.1 apply phase.
+    children and resumes the apply phase.
 
     The canonical runtime applies tick results inside the main tick runner; this
     callback keeps split-task deployments observable without mutating state.

@@ -100,7 +100,7 @@ class FakeRoutingDB(FakeDB):
 
 def test_redaction_catches_common_secret_keys_and_inline_prompt_secrets():
     payload = {
-        "OPENROUTER_API_KEY": "sk-or-v1-supersecretvalue",
+        "OPENROUTER_API_KEY": "test-openrouter-secret-value",
         "messages": [
             {
                 "role": "user",

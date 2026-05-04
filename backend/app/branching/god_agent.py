@@ -1,11 +1,11 @@
-"""God-agent reviewer (PRD §13.6).
+"""God-agent reviewer for the branching runtime.
 
 Wraps the per-tick God review into a single ``await god_review(...)`` call:
 
 1. Build a :class:`PromptPacket` via :class:`PromptBuilder.build_god_packet`.
 2. Dispatch through :func:`call_with_policy` with ``job_type="god_agent_review"``.
 3. Parse the JSON output via :meth:`ToolParser.parse_god_output`.
-4. Apply the §26 invariants (spawn_active without delta -> spawn_candidate;
+4. Apply the invariants (spawn_active without delta -> spawn_candidate;
    kill without rationale -> safe explanatory rationale; marked_key_events filtered to
    known IDs).
 5. Persist the decision to the ledger via
@@ -46,7 +46,7 @@ _log = logging.getLogger(__name__)
 
 @dataclass
 class GodReviewInput:
-    """All state the God-agent needs to decide a tick (PRD §13.6 inputs)."""
+    """All state the God-agent needs to decide a tick."""
 
     universe_id: str
     run_id: str
@@ -122,7 +122,7 @@ def _known_event_ids(
 
 
 def _is_safe_noop_decision(decision: GodReviewOutput) -> bool:
-    """Detect a safe-noop fallback (PRD §16.7 / §26)."""
+    """Detect a safe-noop fallback from provider error handling."""
     if decision.decision != "continue":
         return False
     if decision.branch_delta is not None:
@@ -142,7 +142,7 @@ def _is_safe_noop_decision(decision: GodReviewOutput) -> bool:
 def _coerce_spawn_active_without_delta(payload: dict[str, Any]) -> dict[str, Any]:
     """If decision==spawn_active and branch_delta missing, coerce to spawn_candidate.
 
-    The §13 contract requires a non-null ``branch_delta`` for ``spawn_active``;
+    The contract requires a non-null ``branch_delta`` for ``spawn_active``;
     without one we can't construct a child universe.  Downgrading to
     ``spawn_candidate`` preserves the God-agent's intent for the branch-policy
     gate to revisit later.
@@ -240,7 +240,7 @@ async def god_review(
 
     * builds the PromptPacket
     * calls the LLM via :func:`call_with_policy` (which handles backoff and
-      fallback per PRD §16.7)
+      fallback through the provider error-handling policy)
     * parses + repairs the JSON output via :class:`ToolParser`
     * persists the decision artifact to the ledger
     * returns the typed :class:`GodReviewOutput`

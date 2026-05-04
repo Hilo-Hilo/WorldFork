@@ -1,10 +1,10 @@
-"""WorldFork recursive multiverse branching engine (PRD §13).
+"""WorldFork recursive multiverse branching engine (branching runtime).
 
 Public API (B4-A — God-agent reviewer + branch-policy gate):
 
 * :func:`god_review` — async entrypoint that runs one God-agent review for a
   universe at a tick.  Returns the parsed :class:`GodReviewOutput`.
-* :func:`evaluate_branch_policy` — pure function that applies the §13.5
+* :func:`evaluate_branch_policy` — pure function that applies the
   explosion controls to a proposed God decision.
 * :class:`BranchPolicy` — re-export from :mod:`backend.app.schemas.branching`.
 * :class:`BranchPolicyResult` — re-export from

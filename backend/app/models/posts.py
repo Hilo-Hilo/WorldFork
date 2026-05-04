@@ -1,5 +1,5 @@
 """
-SocialPostModel — mirrors SocialPost (§9.8).
+SocialPostModel — mirrors SocialPost.
 Table: social_posts
 """
 from __future__ import annotations

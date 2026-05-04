@@ -1,5 +1,5 @@
 """
-Event schema — §9.7 verbatim.
+Event schema.
 Import-free of backend.app.models.
 """
 
@@ -15,7 +15,7 @@ _VALID_VISIBILITY = {"public", "private", "institution", "cohort", "invite"}
 
 
 class Event(BaseModel):
-    """A scheduled or realized world action — §9.7 verbatim."""
+    """A scheduled or realized world action."""
 
     model_config = ConfigDict(extra="forbid")
 

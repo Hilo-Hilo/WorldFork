@@ -1,5 +1,5 @@
 """
-UniverseModel — mirrors Universe (§9.2).
+UniverseModel — mirrors Universe.
 Table: universes
 """
 from __future__ import annotations

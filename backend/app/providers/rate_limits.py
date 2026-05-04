@@ -1,6 +1,6 @@
 """Redis-Lua token-bucket rate limiter and per-provider gate.
 
-Implements PRD §16.5 / §16.6 — RPM, TPM, max_concurrency, daily budget cap,
+Implements provider rate-limit policy — RPM, TPM, max_concurrency, daily budget cap,
 branch-reserved capacity slice. Token bucket is enforced in a single atomic
 Lua script so concurrent workers cannot over-spend a quota.
 """

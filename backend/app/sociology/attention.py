@@ -1,5 +1,5 @@
 """
-PRD §12.2 — Attention update.
+the sociology model.2 — Attention update.
 
 attention_next =
   attention * (1 - attention_decay_rate)

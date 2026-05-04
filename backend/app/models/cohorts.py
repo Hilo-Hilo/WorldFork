@@ -1,5 +1,5 @@
 """
-PopulationArchetypeModel (§9.3) and CohortStateModel (§9.4).
+PopulationArchetypeModel and CohortStateModel.
 Tables: population_archetypes, cohort_states
 """
 from __future__ import annotations
@@ -26,7 +26,7 @@ if TYPE_CHECKING:
 
 
 # ---------------------------------------------------------------------------
-# PopulationArchetypeModel  §9.3
+# PopulationArchetypeModel
 # ---------------------------------------------------------------------------
 
 class PopulationArchetypeModel(Base, TimestampMixin):
@@ -175,7 +175,7 @@ class PopulationArchetypeModel(Base, TimestampMixin):
 
 
 # ---------------------------------------------------------------------------
-# CohortStateModel  §9.4
+# CohortStateModel
 # ---------------------------------------------------------------------------
 
 class CohortStateModel(Base):

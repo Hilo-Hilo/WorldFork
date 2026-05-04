@@ -6,7 +6,7 @@ parent :class:`UniverseModel`, builds the policy result and delta from
 the envelope payload, and invokes ``commit_branch`` inside the caller's
 session.
 
-Per PRD §15.5 the task is idempotent at the message-key level; the
+The branch-universe task is idempotent at the message-key level; the
 underlying ledger is the ultimate dedupe (a child universe with the
 same lineage_path will already have a row).
 """

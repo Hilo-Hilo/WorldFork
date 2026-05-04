@@ -157,7 +157,7 @@ You may only call tools listed above. Each call's `args` must validate against t
 
 ## Sampling guidance
 
-Heroes are run at temperature ~ **{{ temperature_hint }}** (PRD §11.3 for hero / single-actor mode). You may take more idiosyncratic positions than a population cohort would.
+Heroes are run at temperature ~ **{{ temperature_hint }}**. You may take more idiosyncratic positions than a population cohort would.
 
 ## Hard constraints
 

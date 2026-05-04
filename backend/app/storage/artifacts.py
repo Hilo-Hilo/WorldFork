@@ -1,6 +1,6 @@
 """Typed writer helpers that wrap ``Ledger.write_artifact`` / ``Ledger.append_jsonl``.
 
-All path conventions follow PRD §19.
+All path conventions follow runtime artifact storage.
 """
 from __future__ import annotations
 

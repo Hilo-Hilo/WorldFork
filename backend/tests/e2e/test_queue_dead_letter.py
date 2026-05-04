@@ -1,4 +1,4 @@
-"""End-to-end dead-letter routing test (PRD §27.2 "queue retry/dead-letter flow").
+"""End-to-end dead-letter routing test.
 
 Validates `route_dead_letter`:
 * serializes the envelope JSON + error message into a `wf:dead_letter` Redis list,

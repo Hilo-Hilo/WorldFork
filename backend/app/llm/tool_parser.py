@@ -47,7 +47,7 @@ class ToolParseError(Exception):
 
 
 # ---------------------------------------------------------------------------
-# Loose JSON parsing (final-mile safety net per PRD §16.7 / §26)
+# Loose JSON parsing (final-mile safety net per the provider fallback policy /)
 # ---------------------------------------------------------------------------
 
 _FENCE_RE = re.compile(r"```(?:json)?\s*(.*?)```", re.DOTALL | re.IGNORECASE)

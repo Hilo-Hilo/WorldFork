@@ -13,7 +13,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from backend.app.schemas.jobs import ModelRoutingJobType
 
 # ---------------------------------------------------------------------------
-# ProviderConfig  §16.2
+# ProviderConfig
 # ---------------------------------------------------------------------------
 
 class ProviderConfig(BaseModel):
@@ -33,7 +33,7 @@ class ProviderConfig(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# ModelRoutingEntry  §16.4
+# ModelRoutingEntry
 # ---------------------------------------------------------------------------
 
 class ModelRoutingEntry(BaseModel):
@@ -58,11 +58,11 @@ class ModelRoutingEntry(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# RateLimitConfig  §16.5
+# RateLimitConfig
 # ---------------------------------------------------------------------------
 
 class RateLimitConfig(BaseModel):
-    """Per-provider rate limit configuration — §16.5 verbatim keys."""
+    """Per-provider rate limit configuration."""
 
     model_config = ConfigDict(extra="forbid")
 
