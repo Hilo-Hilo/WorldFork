@@ -48,7 +48,6 @@ Run the full maintained sweep:
 | `test_graphs.py`              | graph persistence and multiplex layers     |
 | `test_ledger.py`              | ledger writes and Merkle chain             |
 | `test_memory_local.py`        | local memory provider                      |
-| `test_memory_zep.py`          | Zep degraded-mode behavior                 |
 | `test_metrics.py`             | metrics endpoint                           |
 | `test_models.py`              | SQLAlchemy model constraints               |
 | `test_openrouter_provider.py` | OpenRouter parsing and JSON repair         |
@@ -72,7 +71,7 @@ Run the full maintained sweep:
 
 | File | Coverage |
 | --- | --- |
-| `test_api_integrations.py` | Zep and webhook integration routes |
+| `test_api_integrations.py` | webhook integration routes |
 | `test_api_jobs.py` | canonical jobs monitor and queue control routes |
 | `test_api_logs.py` | logs API across current and historical table shapes |
 | `test_api_multiverse.py` | canonical multiverse tick route guards |

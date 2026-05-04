@@ -26,7 +26,6 @@ QUEUE_FOR_JOB: dict[str, Queues] = {
     "sociology_update": Queues.P1,
     "god_agent_review": Queues.P1,
     "initialize_big_bang": Queues.P1,
-    "sync_zep_memory": Queues.P2,
     "build_review_index": Queues.P2,
     "aggregate_run_results": Queues.P2,
     "force_deviation": Queues.P0,

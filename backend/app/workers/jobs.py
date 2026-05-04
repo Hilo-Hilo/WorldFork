@@ -18,7 +18,6 @@ Tasks
   - ``apply_tick_results`` (P0)      — split-task callback
 - ``actor_deliberation_call`` (P1) — one actor packet → one parsed dict
 - ``branch_universe`` (P0)
-- ``sync_zep_memory`` (P2)
 - ``aggregate_run_results`` (P2)
 - ``export_run`` (P3)
 """
@@ -557,50 +556,6 @@ async def _branch_universe_impl(env: JobEnvelope) -> dict:
 
 
 # ---------------------------------------------------------------------------
-# sync_zep_memory (P2)
-# ---------------------------------------------------------------------------
-
-
-@celery_app.task(bind=True, name="sync_zep_memory", queue="p2")
-def sync_zep_memory_task(self, envelope_json: str):  # type: ignore[no-untyped-def]
-    """Sync recent memory writes to Zep (best-effort)."""
-    env = JobEnvelope.model_validate_json(envelope_json)
-    try:
-        return asyncio.run(_run_tracked(env, _sync_zep_memory_impl))
-    except Exception as exc:  # noqa: BLE001
-        asyncio.run(_mark_failed_best_effort(env.job_id, exc))
-        _log.warning("sync_zep_memory failed: %s", exc)
-        return {"status": "failed", "error": str(exc)}
-
-
-async def _sync_zep_memory_impl(env: JobEnvelope) -> dict:
-    from backend.app.memory.factory import get_memory
-
-    payload = env.payload or {}
-    actor_id = str(payload.get("actor_id") or "")
-    universe_id = str(payload.get("universe_id") or env.universe_id or "")
-    tick = int(payload.get("tick") or env.tick or 0)
-    summary_text = str(payload.get("summary_text") or f"Tick {tick} sync.")
-
-    try:
-        memory = get_memory()
-    except Exception as exc:
-        return {"status": "no_memory_provider", "error": str(exc)}
-
-    try:
-        await memory.end_of_tick_summary(
-            actor_id=actor_id,
-            universe_id=universe_id,
-            tick=tick,
-            summary_text=summary_text,
-        )
-    except Exception as exc:
-        return {"status": "memory_failure", "error": str(exc)}
-
-    return {"status": "synced", "actor_id": actor_id, "tick": tick}
-
-
-# ---------------------------------------------------------------------------
 # aggregate_run_results (P2)
 # ---------------------------------------------------------------------------
 
@@ -756,7 +711,6 @@ __all__ = [
     "god_agent_review_task",
     "build_review_index_task",
     "branch_universe_task",
-    "sync_zep_memory_task",
     "aggregate_run_results_task",
     "force_deviation_task",
     "export_run_task",

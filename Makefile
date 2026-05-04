@@ -14,7 +14,7 @@ logs:
 
 migrate:
 	docker compose exec -w /app/backend api alembic -c alembic.ini upgrade head
-	docker compose exec api python -c "import backend.app.models; from app.db.session import engine; from backend.app.models.base import Base as LegacyBase; names={'big_bang_runs','run_results','settings_branch_policy','settings_global','settings_model_routing','settings_provider','settings_rate_limit','settings_zep'}; LegacyBase.metadata.create_all(bind=engine, tables=[LegacyBase.metadata.tables[n] for n in names if n in LegacyBase.metadata.tables])"
+	docker compose exec api python -c "import backend.app.models; from app.db.session import engine; from backend.app.models.base import Base as LegacyBase; names={'big_bang_runs','run_results','settings_branch_policy','settings_global','settings_model_routing','settings_provider','settings_rate_limit'}; LegacyBase.metadata.create_all(bind=engine, tables=[LegacyBase.metadata.tables[n] for n in names if n in LegacyBase.metadata.tables])"
 
 migrate-legacy:
 	docker compose exec api alembic -c infra/alembic.ini upgrade head
@@ -43,7 +43,7 @@ test-integration:
 	.venv/bin/python -m pytest -c pyproject.toml backend/tests/integration -q -n auto
 
 test-e2e:
-	.venv/bin/python -m pytest -c pyproject.toml backend/tests/e2e -q -m "not requires_broker and not live_openrouter and not live_zep"
+	.venv/bin/python -m pytest -c pyproject.toml backend/tests/e2e -q -m "not requires_broker and not live_openrouter"
 
 test-all: test-unit test-cli test-integration test-e2e
 
