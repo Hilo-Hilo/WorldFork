@@ -86,15 +86,6 @@ wf_candidate_branches = Gauge(
     "Candidate branches",
 )
 
-# ---------------------------------------------------------------------------
-# Integration status
-# ---------------------------------------------------------------------------
-
-wf_zep_status = Gauge(
-    "wf_zep_status",
-    "Zep status (1=ok, 0=degraded)",
-)
-
 wf_webhook_delivery_total = Counter(
     "wf_webhook_delivery_total",
     "Webhook delivery",

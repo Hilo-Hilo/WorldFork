@@ -3,7 +3,7 @@ LocalMemoryProvider — in-process, dict-backed memory fallback.
 
 Keeps per-session deques of messages (max 200 entries) and a per-actor
 summary blob.  All state is in-memory for the lifetime of the process;
-it degrades gracefully when Zep is unavailable.
+the run ledger is the authoritative cross-process source.
 
 No external dependencies beyond stdlib.
 """

@@ -46,7 +46,6 @@ celery_app.conf.update(
         "sociology_update": {"queue": "p1"},
         "god_agent_review": {"queue": "p1"},
         "force_deviation": {"queue": "p0"},
-        "sync_zep_memory": {"queue": "p2"},
         "build_review_index": {"queue": "p2"},
         "aggregate_run_results": {"queue": "p2"},
         "export_run": {"queue": "p3"},

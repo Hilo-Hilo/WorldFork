@@ -65,8 +65,6 @@ class Settings(BaseSettings):
     initializer_chunk_overlap_chars: int = 2_048 * 4
     llm_max_retries: int = 10
     llm_retry_backoff_seconds: float = 1.5
-    zep_enabled: bool = False
-    zep_api_key: str | None = None
     cors_origins: list[str] = Field(default_factory=list)
 
     @field_validator("artifact_root", "source_of_truth_dir", "run_root", mode="after")

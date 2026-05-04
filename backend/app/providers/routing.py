@@ -75,7 +75,6 @@ _ALL_JOB_TYPES: tuple[JobType, ...] = (
     "sociology_update",
     "god_agent_review",
     "branch_universe",
-    "sync_zep_memory",
     "build_review_index",
     "export_run",
     "apply_tick_results",

@@ -7,7 +7,6 @@ Covers:
   - Settings — B5-B
   - Jobs — B5-B
   - Logs — B5-B
-  - Integrations/Zep — B5-B
 
 Import-free of backend.app.models (models import schemas; never the reverse).
 """
@@ -834,74 +833,6 @@ class TraceResponse(BaseModel):
     trace_id: str
     llm_calls: list[RequestLogItem]
     jobs: list[JobInfo]
-
-
-# ---------------------------------------------------------------------------
-# ── Integrations / Zep (B5-B) ────────────────────────────────────────
-# ---------------------------------------------------------------------------
-
-
-class ZepSettingResponse(BaseModel):
-    setting_id: str
-    enabled: bool
-    mode: str
-    api_key_env: str
-    cache_ttl_seconds: int
-    degraded: bool
-    payload: dict[str, Any]
-    created_at: datetime | None = None
-    updated_at: datetime | None = None
-
-
-class PatchZepRequest(BaseModel):
-    model_config = ConfigDict(extra="ignore")
-
-    enabled: bool | None = None
-    mode: str | None = None
-    api_key_env: str | None = None
-    cache_ttl_seconds: int | None = None
-    payload: dict[str, Any] | None = None
-
-
-class ZepTestResponse(BaseModel):
-    ok: bool
-    latency_ms: int | None = None
-    error: str | None = None
-
-
-class ZepSyncResponse(BaseModel):
-    enqueued: bool
-    task_id: str | None = None
-    run_id: str
-
-
-class ZepMappingItem(BaseModel):
-    actor_id: str
-    actor_kind: str
-    zep_user_id: str
-    universe_id: str | None = None
-
-
-class ZepMappingsResponse(BaseModel):
-    mappings: list[ZepMappingItem]
-
-
-class PatchZepMappingItem(BaseModel):
-    actor_id: str
-    zep_user_id: str
-
-
-class PatchZepMappingsRequest(BaseModel):
-    mappings: list[PatchZepMappingItem]
-
-
-class ZepStatusResponse(BaseModel):
-    enabled: bool
-    mode: str
-    degraded: bool
-    last_healthcheck_at: str | None = None
-    last_latency_ms: int | None = None
-    error: str | None = None
 
 
 # ---------------------------------------------------------------------------

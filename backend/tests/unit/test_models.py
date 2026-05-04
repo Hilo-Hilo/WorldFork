@@ -127,7 +127,6 @@ def test_models_importable():
         RateLimitSettingModel,
         SocialPostModel,
         UniverseModel,
-        ZepSettingModel,
     )
     assert Base is not None
     # 16 model classes + Base + TimestampMixin = 18
@@ -146,7 +145,6 @@ def test_models_importable():
     assert ModelRoutingEntryModel.__tablename__ == "settings_model_routing"
     assert RateLimitSettingModel.__tablename__ == "settings_rate_limit"
     assert BranchPolicySettingModel.__tablename__ == "settings_branch_policy"
-    assert ZepSettingModel.__tablename__ == "settings_zep"
     assert GlobalSettingModel.__tablename__ == "settings_global"
 
 

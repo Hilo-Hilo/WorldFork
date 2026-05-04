@@ -94,7 +94,6 @@ with `OPENAI_CODEX_OAUTH_TOKEN` or `OPENAI_CODEX_AUTH_FILE`.
 Symptoms:
 
 - Settings endpoints report missing rows.
-- Zep settings report that they are not seeded.
 - Model-routing output lacks persisted rows after startup.
 
 Run:
@@ -104,9 +103,6 @@ make migrate
 make seed
 worldfork settings llm
 ```
-
-`ZEP_ENABLED=false` is normal for local onboarding unless the user explicitly
-wants Zep memory integration.
 
 ## Queue State
 

@@ -19,7 +19,7 @@ class MemoryFailure(Exception):
 
 @runtime_checkable
 class MemoryProvider(Protocol):
-    """Structural protocol for all memory backends (local and Zep)."""
+    """Structural protocol for memory backends."""
 
     async def ensure_user(
         self,

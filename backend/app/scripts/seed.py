@@ -19,7 +19,6 @@ from backend.app.models.settings import (
     ModelRoutingEntryModel,
     ProviderSettingModel,
     RateLimitSettingModel,
-    ZepSettingModel,
 )
 
 # ---------------------------------------------------------------------------
@@ -339,22 +338,6 @@ _ROUTING_DEFAULTS = [
         "daily_budget_usd": None,
     },
     {
-        "job_type": "sync_zep_memory",
-        "preferred_provider": "openrouter",
-        "preferred_model": _OPENROUTER_MODEL,
-        "fallback_provider": "openrouter",
-        "fallback_model": _OPENROUTER_MODEL,
-        "temperature": 0.1,
-        "top_p": 1.0,
-        "max_tokens": 2048,
-        "max_concurrency": 8,
-        "requests_per_minute": 60,
-        "tokens_per_minute": 150000,
-        "timeout_seconds": 30,
-        "retry_policy": "linear",
-        "daily_budget_usd": None,
-    },
-    {
         "job_type": "build_review_index",
         "preferred_provider": "openrouter",
         "preferred_model": _OPENROUTER_MODEL,
@@ -593,26 +576,6 @@ def _seed_branch_policy(session, sot: dict) -> None:
     print("  [branch_policy] seeded 1 row")
 
 
-def _seed_zep(session) -> None:
-    row = {
-        "setting_id": "default",
-        "enabled": False,
-        "mode": "local",
-        "api_key_env": "ZEP_API_KEY",
-        "cache_ttl_seconds": 300,
-        "degraded": False,
-        "payload": {
-            "enabled": False,
-            "mode": "local",
-            "api_key_env": "ZEP_API_KEY",
-            "cache_ttl_seconds": 300,
-            "degraded": False,
-        },
-    }
-    _upsert(session, ZepSettingModel, "setting_id", [row])
-    print("  [zep] seeded 1 row")
-
-
 # ---------------------------------------------------------------------------
 # Entry point
 # ---------------------------------------------------------------------------
@@ -627,7 +590,6 @@ def main() -> None:
         _seed_routing(session)
         _seed_rate_limit(session)
         _seed_branch_policy(session, sot)
-        _seed_zep(session)
         session.commit()
 
     print("seed: done — all defaults inserted/updated.")

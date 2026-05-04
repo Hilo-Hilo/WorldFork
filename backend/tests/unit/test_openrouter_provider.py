@@ -115,7 +115,6 @@ def test_default_routes_use_provider_model_split() -> None:
         "social_propagation",
         "sociology_update",
         "branch_universe",
-        "sync_zep_memory",
         "build_review_index",
         "export_run",
         "apply_tick_results",
