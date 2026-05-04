@@ -419,6 +419,52 @@ def test_final_report_prunes_process_only_timelines_from_effective_path_mass(db:
     )
     db.add_all([root, child])
     db.flush()
+    root_tick = models.TickSnapshot(
+        big_bang_id=big_bang.id,
+        multiverse_id=root.id,
+        tick_index=3,
+        ui_label="M1",
+        status="final",
+        provisional_bundle={},
+        final_bundle={"branch_score": 0.1},
+        summary="Settlement reached.",
+    )
+    child_tick = models.TickSnapshot(
+        big_bang_id=big_bang.id,
+        multiverse_id=child.id,
+        tick_index=3,
+        ui_label="M1.1",
+        status="final",
+        provisional_bundle={},
+        final_bundle={"branch_score": 0.9},
+        summary="Audit process remains unresolved.",
+    )
+    db.add_all([root_tick, child_tick])
+    db.add(
+        models.GodAgentReview(
+            big_bang_id=big_bang.id,
+            multiverse_id=root.id,
+            tick_snapshot_id=root_tick.id,
+            decision="accept_terminal",
+            rationale="The settlement endpoint is retained.",
+            confidence=0.8,
+            input_summary={},
+            output={},
+        )
+    )
+    db.add(
+        models.GodAgentReview(
+            big_bang_id=big_bang.id,
+            multiverse_id=child.id,
+            tick_snapshot_id=child_tick.id,
+            decision="continue_timeline",
+            rationale="The audit branch is process-only.",
+            confidence=0.8,
+            input_summary={},
+            output={},
+        )
+    )
+    db.flush()
     _add_endpoint_ledger(
         db,
         big_bang=big_bang,
@@ -461,6 +507,30 @@ def test_final_report_prunes_process_only_timelines_from_effective_path_mass(db:
     adjudication = report_version.content["timeline_adjudication"]
     assert adjudication["payload"]["included_path_probability_mass"] == 0.6
     assert adjudication["payload"]["excluded_path_probability_mass"] == 0.4
+    assert report_version.content["outcome_conclusions"]["likely_endpoint"]["multiverse_label"] == "M1"
+    assert (
+        report_version.content["outcome_conclusions"]["likely_endpoint"]["endpoint_selection_basis"]
+        == "timeline_adjudication"
+    )
+    assert "retained M1 as the representative timeline" in (
+        report_version.content["outcome_conclusions"]["likely_endpoint"]["interpretation"]
+    )
+    assert "is the likely endpoint because it ended status=completed" not in (
+        report_version.content["outcome_conclusions"]["likely_endpoint"]["interpretation"]
+    )
+    assert any(
+        item.startswith("Timeline adjudication selected M1 ")
+        for item in report_version.content["outcome_conclusions"]["causal_mechanisms"]
+    )
+    assert not any(
+        item.startswith("Endpoint selection favored M1.1 ")
+        for item in report_version.content["outcome_conclusions"]["causal_mechanisms"]
+    )
+    prompt_content = report_engine._report_agent_prompt_content(report_version.content, mode="standard")
+    assert [item["ui_label"] for item in prompt_content["selected_timelines"]] == ["M1"]
+    assert prompt_content["timeline_selection"]["policy"].startswith("timeline_adjudication include_in_final=true")
+    assert prompt_content["timeline_adjudication"]["retained_labels"] == ["M1"]
+    assert prompt_content["timeline_adjudication"]["pruned_labels"] == ["M1.1"]
 
 
 def test_report_evidence_pack_is_compact_and_includes_adjudication(db: Session):
