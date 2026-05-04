@@ -332,13 +332,15 @@ def _attach_endpoint_ledger_content(
     content["terminality_assessment"] = payload.get("terminality_assessment", {})
     content["contradiction_check"] = payload.get("contradiction_check", {})
     aggregation_payload = payload.get("payload") if isinstance(payload.get("payload"), dict) else {}
-    if aggregation_payload.get("aggregation") == "path_probability_weighted":
+    if aggregation_payload.get("aggregation") in {"path_probability_weighted", "path_mass_by_endpoint_status"}:
         content["path_probability_distribution"] = aggregation_payload.get("path_probability_distribution", [])
+        content["endpoint_path_mass_distribution"] = aggregation_payload.get("endpoint_path_mass_distribution", [])
+        content["plot_distribution"] = aggregation_payload.get("plot_distribution", {})
         outcome_distribution = content.get("outcome_distribution")
         if isinstance(outcome_distribution, dict):
-            outcome_distribution["endpoint_probability_method"] = "path_probability_weighted"
+            outcome_distribution["endpoint_path_mass_method"] = "path_mass_by_endpoint_status"
             outcome_distribution["path_probability_mass"] = aggregation_payload.get("path_probability_mass")
-            outcome_distribution["weighted_endpoint_histogram"] = payload.get("histogram", [])
+            outcome_distribution["endpoint_path_mass_distribution"] = aggregation_payload.get("endpoint_path_mass_distribution", [])
     _patch_outcome_conclusions_from_endpoint_ledger(content)
 
 
@@ -384,17 +386,21 @@ def _patch_outcome_conclusions_from_endpoint_ledger(content: dict[str, Any]) -> 
     if not histogram:
         return
     top = max(histogram, key=lambda item: float(item.get("probability") or 0))
-    if top.get("endpoint_key") == "endpoint_unresolved" or top.get("status") in {"unresolved", "process_only"}:
+    if top.get("endpoint_key") in {"endpoint_unresolved", "endpoint_insufficient_ticks"} or top.get("status") in {
+        "unresolved",
+        "process_only",
+        "insufficient_ticks",
+    }:
         return
     likely = dict(conclusions.get("likely_endpoint") or {})
     likely["endpoint_key"] = top.get("endpoint_key")
     likely["endpoint_label"] = top.get("label")
-    likely["endpoint_probability"] = top.get("probability")
+    likely["endpoint_path_mass"] = top.get("path_mass")
     likely["endpoint_status"] = top.get("status")
     likely["endpoint_selection_basis"] = "endpoint_ledger"
     previous = likely.get("interpretation") or ""
     likely["interpretation"] = (
-        f"Endpoint ledger favors {top.get('label')} with probability {top.get('probability')} "
+        f"Endpoint ledger favors {top.get('label')} with path_mass={top.get('path_mass')} "
         f"and status={top.get('status')}. {previous}"
     ).strip()
     conclusions["likely_endpoint"] = likely
@@ -1455,6 +1461,11 @@ def _report_agent_prompt_content(content: dict[str, Any], *, mode: str) -> dict[
             "probability_context": _probability_context(content),
             "endpoint_ledger": _compact_endpoint_ledger(content),
             "endpoint_histogram": _compact_report_value(content.get("endpoint_histogram") or [], max_items=limit),
+            "endpoint_path_mass_distribution": _compact_report_value(
+                content.get("endpoint_path_mass_distribution") or [],
+                max_items=limit,
+            ),
+            "plot_distribution": _compact_report_value(content.get("plot_distribution") or {}, max_items=8),
             "path_probability_distribution": _compact_path_probability_distribution(
                 content.get("path_probability_distribution") or [],
                 limit=limit,
@@ -1482,9 +1493,9 @@ def _report_agent_prompt_content(content: dict[str, Any], *, mode: str) -> dict[
         "summary": content.get("summary"),
         "source": _compact_source(content.get("source") or {}),
         "outcome_distribution": _compact_timeline_metric(content.get("outcome_distribution") or {}),
-        "probability_context": _probability_context(content),
-        "endpoint_ledger": _compact_endpoint_ledger(content),
-        "endpoint_histogram": _compact_report_value(content.get("endpoint_histogram") or [], max_items=limit),
+            "probability_context": _probability_context(content),
+            "endpoint_ledger": _compact_endpoint_ledger(content),
+            "endpoint_histogram": _compact_report_value(content.get("endpoint_histogram") or [], max_items=limit),
         "terminality_assessment": _compact_report_value(content.get("terminality_assessment") or {}, max_items=6),
         "contradiction_check": _compact_report_value(content.get("contradiction_check") or {}, max_items=6),
         "timeline": _select_report_ticks(timeline_rows, limit=limit),
@@ -1514,6 +1525,11 @@ def _compact_endpoint_ledger(content: dict[str, Any]) -> dict[str, Any]:
         "entries": _compact_report_value((ledger.get("entries") or [])[:8], max_items=6),
         "aggregation": payload.get("aggregation"),
         "path_probability_mass": payload.get("path_probability_mass"),
+        "endpoint_path_mass_distribution": _compact_report_value(
+            payload.get("endpoint_path_mass_distribution") or [],
+            max_items=8,
+        ),
+        "plot_distribution": _compact_report_value(payload.get("plot_distribution") or {}, max_items=8),
     }
 
 
@@ -1550,8 +1566,10 @@ def _compact_distribution(distribution: dict[str, Any]) -> dict[str, Any]:
         "timeline_statuses",
         "report_statuses",
         "god_decisions",
+        "endpoint_path_mass_method",
         "endpoint_probability_method",
         "path_probability_mass",
+        "endpoint_path_mass_distribution",
         "weighted_endpoint_histogram",
         "total_social_posts",
         "total_graph_edges",
@@ -1563,6 +1581,11 @@ def _compact_distribution(distribution: dict[str, Any]) -> dict[str, Any]:
             compact["weighted_endpoint_histogram"],
             max_items=8,
         )
+    if "endpoint_path_mass_distribution" in compact:
+        compact["endpoint_path_mass_distribution"] = _compact_report_value(
+            compact["endpoint_path_mass_distribution"],
+            max_items=8,
+        )
     return compact
 
 
@@ -1570,15 +1593,14 @@ def _probability_context(content: dict[str, Any]) -> dict[str, Any]:
     if content.get("report_type") == "final_big_bang":
         raw_distribution = content.get("outcome_distribution")
         distribution: dict[str, Any] = raw_distribution if isinstance(raw_distribution, dict) else {}
-        method = distribution.get("endpoint_probability_method") or "endpoint_ledger"
+        method = distribution.get("endpoint_path_mass_method") or distribution.get("endpoint_probability_method") or "endpoint_ledger"
         return {
             "scope": "final_big_bang",
-            "endpoint_probability_method": method,
+            "endpoint_path_mass_method": method,
             "path_probability_mass": distribution.get("path_probability_mass"),
             "semantics": (
-                "When endpoint_probability_method=path_probability_weighted, endpoint histogram probabilities "
-                "are final cross-timeline path-mass-weighted probabilities. Otherwise they are ledger probabilities "
-                "from the available endpoint ledger evidence."
+                "Endpoint ledger entries are yes/no/unresolved states. Final quantitative claims are path-mass "
+                "aggregations across retained timelines, not per-endpoint ledger probabilities."
             ),
         }
 
@@ -1591,8 +1613,7 @@ def _probability_context(content: dict[str, Any]) -> dict[str, Any]:
         "semantics": (
             "This is a single timeline report. branch_probability is the conditional probability assigned at "
             "this timeline's fork, and path_probability is the cumulative probability mass of this timeline. "
-            "Endpoint ledger probabilities are conditional endpoint probabilities inside this timeline; do not "
-            "describe them as cross-timeline path mass."
+            "Endpoint ledger entries are terminal-state predicates, not probability estimates."
         ),
     }
 
@@ -1681,8 +1702,8 @@ def _report_quality_controls() -> list[str]:
         "Tick indexes are zero-based; describe latest_tick_index=2 as tick index 2, not tick 3.",
         "Do not infer executed events from queued events; queued means scheduled but not executed.",
         "Do not discuss LLM-call or artifact audit totals unless they are explicitly present in this digest.",
-        "If endpoint_probability_method is path_probability_weighted, explain endpoint probabilities as path-mass-weighted outcomes derived from branch probabilities, not equal counts of timelines.",
-        "For a single_multiverse probability_context, state branch_probability and path_probability when present, and keep endpoint ledger probabilities separate from timeline path probability.",
+        "For final reports, explain endpoint_path_mass_distribution as path-mass-weighted outcomes derived from branch probabilities, not equal counts of timelines.",
+        "For a single_multiverse probability_context, state branch_probability and path_probability when present, and describe endpoint ledger entries as terminal-state predicates.",
         "Use branch_probability and path_probability when explaining branch divergence; do not treat branch_score as probability.",
         "For final reports with timeline_adjudication, describe which timelines were retained or pruned and use effective_path_probability for final endpoint probability claims.",
         "When timeline_adjudication is present, base outcome interpretation, management notes, and risk notes on include_in_final=true retained timelines.",
@@ -1922,17 +1943,17 @@ def _report_agent_messages(prompt_content: dict[str, Any], *, mode: str) -> list
                 "endpoint_histogram, terminality_assessment, contradiction_check. "
                 "Use only the supplied structured report digest. Do not invent real-world facts. "
                 "The report_markdown field must be a complete long-form Markdown report, not a short summary. "
-                "Always include a Probability Accounting section. For single-multiverse reports, that section "
-                "must state branch_probability and path_probability when present and explicitly separate those "
-                "timeline probabilities from endpoint-ledger probabilities. For final Big Bang reports, that "
-                "section must state whether endpoint probabilities are path_probability_weighted. "
+                "Always include a Path-Mass Accounting section. For single-multiverse reports, that section "
+                "must state branch_probability and path_probability when present and explicitly say endpoint "
+                "ledger entries are terminal-state predicates, not probabilities. For final Big Bang reports, "
+                "that section must state endpoint path mass by endpoint/status. "
                 f"Target {target_length}. Prefer decision-useful interpretation over raw row restatement. Explain "
                 "outcome distribution, branch divergence, cohort/hero state movement, report/version "
                 "bindings, and evidence gaps. When the digest includes path-probability weighting, describe "
-                "endpoint probabilities as branch-path mass rather than equal timeline counts. Treat "
+                "endpoint path mass as branch-path mass rather than equal timeline counts. Treat "
                 "probability_context as binding: in single-multiverse reports, separate timeline path "
-                "probability from endpoint-ledger probability; in final Big Bang reports, use the stated "
-                "endpoint probability method and the timeline_adjudication pruning ledger. When "
+                "probability from endpoint-ledger status; in final Big Bang reports, use the stated "
+                "endpoint path-mass method and the timeline_adjudication pruning ledger. When "
                 "timeline_adjudication exists, selected_timelines contains the retained final-analysis "
                 "timelines; do not treat pruned timelines as final endpoint comparators, live decision "
                 "targets, or management targets unless you explicitly label them as pruned/non-retained "

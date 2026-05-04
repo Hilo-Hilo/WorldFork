@@ -14,6 +14,7 @@ from app.core.config import get_settings
 from app.db import models
 from app.db.session import get_db
 from app.domains.jobs.queues import JOB_TYPES
+from app.domains.tick.timing import run_timing_payload
 from app.domains.big_bang.scenario_bank import COVERAGE_MATRIX, list_scenarios
 from app.domains.tick.tick_bundles import (
     TickBundleHydrationContext,
@@ -353,6 +354,14 @@ def workspace(
         "recent_jobs": _project_rows([_row(item) for item in jobs], "job", verbosity, None),
     }
     return _ok(data, verbosity=verbosity)
+
+
+@router.get("/runs/{run_id}/timing")
+def run_timing(run_id: UUID, db: Session = Depends(get_db)):
+    run = db.get(models.BigBang, run_id)
+    if run is None:
+        raise HTTPException(status_code=404, detail=f"run {run_id} not found")
+    return _ok(run_timing_payload(db, run))
 
 
 @router.get("/universes/{multiverse_id}/trace")

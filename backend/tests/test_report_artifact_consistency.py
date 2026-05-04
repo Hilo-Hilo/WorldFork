@@ -322,8 +322,7 @@ def test_final_report_weights_endpoints_by_multiverse_path_probability(db: Sessi
                 endpoint_key=endpoint_key,
                 label=label,
                 description=None,
-                status="active",
-                probability=1.0,
+                status="realized",
                 authority_refs=[],
                 evidence_refs=[{"source": "test"}],
                 blockers=[],
@@ -342,9 +341,15 @@ def test_final_report_weights_endpoints_by_multiverse_path_probability(db: Sessi
         for item in report_version.content["endpoint_histogram"]
     }
 
-    assert report_version.content["outcome_distribution"]["endpoint_probability_method"] == "path_probability_weighted"
-    assert histogram["settlement"]["probability"] == 0.7
-    assert histogram["collapse"]["probability"] == 0.3
+    assert report_version.content["outcome_distribution"]["endpoint_path_mass_method"] == "path_mass_by_endpoint_status"
+    assert histogram["settlement"]["path_mass"] == 0.7
+    assert histogram["collapse"]["path_mass"] == 0.3
+    plot_rows = {
+        item["endpoint_key"]: item
+        for item in report_version.content["endpoint_path_mass_distribution"]
+    }
+    assert plot_rows["settlement"]["status_path_masses"]["realized"] == 0.7
+    assert plot_rows["collapse"]["status_path_masses"]["realized"] == 0.3
     assert report_version.content["outcome_conclusions"]["likely_endpoint"]["endpoint_key"] == "settlement"
     root_path, child_path = report_version.content["path_probability_distribution"]
     assert root_path | {
@@ -471,8 +476,8 @@ def test_final_report_prunes_process_only_timelines_from_effective_path_mass(db:
         multiverse=root,
         endpoint_key="settlement",
         label="Settlement",
-        status="active",
-        probability=1.0,
+        status="realized",
+        probability=None,
         evidence_refs=[{"source": "event", "event_id": "terminal"}],
         status_basis="terminal_event",
     )
@@ -483,7 +488,7 @@ def test_final_report_prunes_process_only_timelines_from_effective_path_mass(db:
         endpoint_key="audit_continues",
         label="Audit continues",
         status="process_only",
-        probability=1.0,
+        probability=None,
         evidence_refs=[{"source": "log", "kind": "process"}],
         status_basis="process_only",
     )
@@ -496,8 +501,8 @@ def test_final_report_prunes_process_only_timelines_from_effective_path_mass(db:
         for item in report_version.content["endpoint_ledger"]["payload"]["path_probability_distribution"]
     }
 
-    assert histogram["settlement"]["probability"] == 1.0
-    assert "audit_continues" not in histogram
+    assert histogram["settlement"]["path_mass"] == 1.0
+    assert histogram["audit_continues"]["path_mass"] == 0.0
     assert paths["M1"]["path_probability"] == 0.6
     assert paths["M1"]["normalized_weight"] == 1.0
     assert paths["M1.1"]["path_probability"] == 0.0
@@ -718,18 +723,21 @@ def test_report_agent_retries_with_smaller_rescue_digest(db: Session, monkeypatc
         "source": {"big_bang_id": str(uuid4()), "report_version": 1},
         "outcome_distribution": {
             "timeline_statuses": {"completed": 20},
-            "endpoint_probability_method": "path_probability_weighted",
+            "endpoint_path_mass_method": "path_mass_by_endpoint_status",
             "path_probability_mass": 1.0,
-            "weighted_endpoint_histogram": [
-                {"endpoint_key": "settlement", "label": "Settlement", "probability": 0.7}
+            "endpoint_path_mass_distribution": [
+                {"endpoint_key": "settlement", "label": "Settlement", "path_mass": 0.7, "status": "realized"}
             ],
             "total_artifacts": 200,
             "total_llm_calls": 30,
         },
         "endpoint_ledger": {
             "payload": {
-                "aggregation": "path_probability_weighted",
+                "aggregation": "path_mass_by_endpoint_status",
                 "path_probability_mass": 1.0,
+                "endpoint_path_mass_distribution": [
+                    {"endpoint_key": "settlement", "label": "Settlement", "path_mass": 0.7, "status": "realized"}
+                ],
             }
         },
         "path_probability_distribution": [
@@ -777,18 +785,18 @@ def test_report_agent_retries_with_smaller_rescue_digest(db: Session, monkeypatc
     assert len(standard_payload["selected_timelines"]) == report_engine.REPORT_AGENT_STANDARD_TIMELINE_LIMIT
     assert len(rescue_payload["selected_timelines"]) == report_engine.REPORT_AGENT_RESCUE_TIMELINE_LIMIT
     assert standard_payload["selected_timelines"][0]["path_probability"] == 0.19
-    assert standard_payload["outcome_distribution"]["endpoint_probability_method"] == "path_probability_weighted"
+    assert standard_payload["outcome_distribution"]["endpoint_path_mass_method"] == "path_mass_by_endpoint_status"
     assert standard_payload["probability_context"]["scope"] == "final_big_bang"
-    assert standard_payload["probability_context"]["endpoint_probability_method"] == "path_probability_weighted"
-    assert standard_payload["outcome_distribution"]["weighted_endpoint_histogram"][0]["probability"] == 0.7
-    assert standard_payload["endpoint_ledger"]["aggregation"] == "path_probability_weighted"
+    assert standard_payload["probability_context"]["endpoint_path_mass_method"] == "path_mass_by_endpoint_status"
+    assert standard_payload["outcome_distribution"]["endpoint_path_mass_distribution"][0]["path_mass"] == 0.7
+    assert standard_payload["endpoint_ledger"]["aggregation"] == "path_mass_by_endpoint_status"
     assert standard_payload["path_probability_distribution"][0]["path_probability"] == 0.7
     assert standard_payload["divergence_drivers"][0]["branch_probability"] == 0.3
     assert any("path-mass-weighted" in item for item in standard_payload["quality_controls"])
     assert "total_artifacts" not in rescue_payload["outcome_distribution"]
     assert "total_llm_calls" not in rescue_payload["outcome_distribution"]
     assert "multiverse_id" not in calls[1]["messages"][1]["content"]
-    assert "Probability Accounting" in calls[1]["messages"][0]["content"]
+    assert "Path-Mass Accounting" in calls[1]["messages"][0]["content"]
     assert calls[1]["json_schema"] == report_engine.REPORT_AGENT_JSON_SCHEMA
 
 
@@ -811,7 +819,6 @@ def test_single_multiverse_report_prompt_separates_path_and_endpoint_probability
                 {
                     "endpoint_key": "settlement",
                     "label": "Settlement",
-                    "probability": 0.8,
                     "status": "active",
                 }
             ]
@@ -820,7 +827,6 @@ def test_single_multiverse_report_prompt_separates_path_and_endpoint_probability
             {
                 "endpoint_key": "settlement",
                 "label": "Settlement",
-                "probability": 0.8,
                 "status": "active",
             }
         ],
@@ -834,7 +840,7 @@ def test_single_multiverse_report_prompt_separates_path_and_endpoint_probability
     assert payload["probability_context"]["scope"] == "single_multiverse"
     assert payload["probability_context"]["branch_probability"] == 0.4
     assert payload["probability_context"]["path_probability"] == 0.18
-    assert "do not describe them as cross-timeline path mass" in payload["probability_context"]["semantics"]
+    assert "terminal-state predicates" in payload["probability_context"]["semantics"]
     assert any("single_multiverse" in item for item in payload["quality_controls"])
 
 
@@ -1203,7 +1209,7 @@ def _add_endpoint_ledger(
     endpoint_key: str,
     label: str,
     status: str,
-    probability: float,
+    probability: float | None,
     evidence_refs: list[dict],
     status_basis: str,
 ) -> models.EndpointLedgerVersion:
