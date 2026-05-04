@@ -30,6 +30,25 @@ A multiverse is one timeline node in the Big Bang tree. It can inherit ticks fro
 
 A tick is one simulation step. Tick execution records node attempts, checkpoints, tool calls, graph updates, sociology signals, God-agent review, and the final tick snapshot.
 
+Tick execution is a checkpointed runtime graph. Cohort decisions run in bounded
+parallel batches, hero decisions run after cohort checkpoints, and downstream
+event, sociology, graph, God-review, endpoint-ledger, tool-call, summary, and
+commit stages run in order. See [Runtime Walkthrough](runtime.md) for the full
+stage order and resume behavior.
+
+### Endpoint Ledger
+
+An endpoint ledger tracks terminal predicates and evidence for a multiverse or
+Big Bang. Endpoint status answers whether a terminal condition is `yes`, `no`,
+`unresolved`, or unresolved due to insufficient ticks. Branch/path probability is
+accounted for separately through path mass and final timeline adjudication.
+
+### Cost Summary
+
+Cost summaries are derived from audited LLM calls and model price estimates. They
+are available at run, tick, report-version, and estimate surfaces so operators
+can inspect actual and projected spend in USD.
+
 ### Report
 
 A report is a logical slot. A report version is a generated revision containing structured content and metadata. Markdown and PDF outputs are ephemeral renders generated from that version on request.
@@ -61,6 +80,19 @@ Branch decisions, endpoint ledgers, and terminal outcomes
 Structured reports and ephemeral renders
 ```
 
+## Initialization
+
+`worldfork init` posts to `POST /api/big-bangs` and waits for the blocking
+initializer to finish. Initialization snapshots the source scenario, optionally
+chunks long scenario text, calls the initializer agent, validates structured JSON,
+and persists root `M1` state with T0 cohorts, heroes, graphs, events, endpoint
+ledgers, and config artifacts.
+
+The initializer output is population-aware. Population archetypes include
+population totals, and cohort states include represented population, population
+share, and representation mode. That population data flows into later sociology,
+split, merge, and report reasoning.
+
 ## Branching
 
 Branches are constrained by branch policy:
@@ -76,6 +108,11 @@ Child multiverses inherit parent ticks through lineage references and receive th
 ## Jobs And Control
 
 The backend models queued work as jobs. Operators can pause, resume, interrupt, requeue, claim, or synchronously run jobs through the API and CLI. Agent code should use `worldfork jobs wait` with a bounded timeout.
+
+The queue sees one tick job per multiverse tick. Cohort fan-out happens inside
+that job through bounded in-process parallelism rather than as one Celery job per
+cohort. This keeps checkpoint/resume semantics tied to the tick execution while
+still allowing high-volume cohort LLM calls to run concurrently.
 
 ## Storage Boundaries
 
