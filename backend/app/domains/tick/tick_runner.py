@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 from uuid import UUID
@@ -11,6 +12,7 @@ from sqlalchemy.orm import Session
 from app.core.clock import build_clock_context
 from app.core.labels import tick_label
 from app.db import models
+from app.db.session import SessionLocal
 from app.llm.audit import mark_stale_running_llm_calls_failed
 from app.llm.prompt_builder import build_agent_prompt_context
 from app.runtime import NodeKind, TickRuntimeState, build_tick_graph
@@ -160,8 +162,67 @@ def run_next_tick(
         nodes, checkpoints = _ensure_runtime_rows(db, execution=execution, plan=plan)
         restart_with_dynamic_tools = False
 
-        for node_key in plan.node_order:
+        node_keys = plan.node_order
+        i = 0
+        while i < len(node_keys):
+            node_key = node_keys[i]
             spec = plan.node_specs[node_key]
+
+            # Cohort + hero decision nodes have no edges between each other and
+            # all feed into the actor BARRIER. Fan out a contiguous run of them
+            # in parallel — each runs in its own thread + DB session, since
+            # SQLAlchemy Session is not thread-safe.
+            if spec.kind in {NodeKind.COHORT_DECISION, NodeKind.HERO_DECISION}:
+                batch: list[tuple[str, TickNodeSpec]] = []
+                j = i
+                while j < len(node_keys):
+                    k = node_keys[j]
+                    s = plan.node_specs[k]
+                    if s.kind not in {NodeKind.COHORT_DECISION, NodeKind.HERO_DECISION}:
+                        break
+                    cp = checkpoints[k]
+                    if cp.status == "complete":
+                        outputs[k] = cp.payload or {}
+                        j += 1
+                        continue
+                    batch.append((k, s))
+                    j += 1
+                if batch:
+                    # Worker threads open their own Sessions and look up node /
+                    # checkpoint rows by id. Those rows were created in the main
+                    # session by _ensure_runtime_rows but only flushed, not
+                    # committed — invisible to other sessions until we commit
+                    # here. Without this, threads race the commit and some raise
+                    # "runtime row missing for node …" mid-batch.
+                    _commit_progress(db, queue_job=queue_job)
+                    results = _run_actor_batch_parallel(
+                        main_db=db,
+                        batch=batch,
+                        nodes=nodes,
+                        checkpoints=checkpoints,
+                        execution=execution,
+                        big_bang_id=big_bang.id if big_bang else multiverse.big_bang_id,
+                        multiverse_id=multiverse.id,
+                        tick_id=tick.id,
+                        tick_index=next_index,
+                        prompt_context=prompt_context,
+                        queue_job=queue_job,
+                    )
+                    outputs.update(results)
+                    # Worker threads committed checkpoint rows in their own
+                    # sessions; expire the main session's cached execution row
+                    # so subsequent flushes don't clobber that progress.
+                    db.expire(execution)
+                    execution.runtime_meta = {
+                        **(execution.runtime_meta or {}),
+                        "completed_checkpoints": sorted(outputs),
+                        "current_node": batch[-1][0],
+                    }
+                    db.flush()
+                    _commit_progress(db, queue_job=queue_job)
+                i = j
+                continue
+
             node = nodes[node_key]
             if spec.kind is NodeKind.INTERRUPT_CHECK:
                 _complete_observable_node(db, node, input_payload={"after": spec.upstream})
@@ -177,10 +238,12 @@ def run_next_tick(
                     _commit_progress(db, queue_job=queue_job)
                     return tick
                 _commit_progress(db, queue_job=queue_job)
+                i += 1
                 continue
             if spec.kind is NodeKind.BARRIER:
                 _complete_observable_node(db, node, input_payload={"actor_nodes": list(plan.actor_nodes)})
                 _commit_progress(db, queue_job=queue_job)
+                i += 1
                 continue
             if spec.kind is NodeKind.STATE_COMMIT:
                 _commit_runtime_state(
@@ -197,6 +260,7 @@ def run_next_tick(
             checkpoint = checkpoints[node_key]
             if checkpoint.status == "complete":
                 outputs[node_key] = checkpoint.payload or {}
+                i += 1
                 continue
 
             node_id = node.id
@@ -254,11 +318,176 @@ def run_next_tick(
                     tool_call_keys = next_tool_call_keys
                     restart_with_dynamic_tools = True
                     break
+            i += 1
 
         if not restart_with_dynamic_tools:
             break
 
     return tick
+
+
+def _run_actor_batch_parallel(
+    *,
+    main_db: Session,
+    batch: list[tuple[str, TickNodeSpec]],
+    nodes: dict[str, models.ExecutionNode],
+    checkpoints: dict[str, models.TickCheckpoint],
+    execution: models.TickExecution,
+    big_bang_id: UUID,
+    multiverse_id: UUID,
+    tick_id: UUID,
+    tick_index: int,
+    prompt_context: dict,
+    queue_job: models.Job | None,
+) -> dict[str, dict]:
+    """Run a batch of cohort/hero decision nodes concurrently.
+
+    Each thread opens its own ``Session()`` because SQLAlchemy Sessions are not
+    thread-safe; only IDs cross the thread boundary, ORM rows are re-fetched
+    inside the thread. The main thread heartbeats the parent job every few
+    seconds while threads work, and on first failure surfaces the exception
+    through the existing ``_record_checkpoint_failure`` path on the main
+    session — preserving the prior all-or-nothing tick failure semantics.
+    """
+    if not batch:
+        return {}
+    plan_args = [(key, spec, nodes[key].id, checkpoints[key].id) for key, spec in batch]
+    max_workers = min(len(plan_args), 8)
+    results: dict[str, dict] = {}
+    first_error: tuple[str, BaseException, UUID, UUID] | None = None
+
+    with ThreadPoolExecutor(max_workers=max_workers, thread_name_prefix="tick-actor") as executor:
+        future_to_key = {
+            executor.submit(
+                _run_actor_node_isolated,
+                node_key=key,
+                spec=spec,
+                node_id=node_id,
+                checkpoint_id=checkpoint_id,
+                big_bang_id=big_bang_id,
+                multiverse_id=multiverse_id,
+                tick_id=tick_id,
+                tick_index=tick_index,
+                prompt_context=prompt_context,
+            ): (key, node_id, checkpoint_id)
+            for key, spec, node_id, checkpoint_id in plan_args
+        }
+        pending = set(future_to_key.keys())
+        while pending:
+            done, pending = wait(pending, timeout=5, return_when=FIRST_COMPLETED)
+            for fut in done:
+                key, node_id, checkpoint_id = future_to_key[fut]
+                try:
+                    payload = fut.result()
+                    results[key] = payload
+                except Exception as exc:
+                    if first_error is None:
+                        first_error = (key, exc, node_id, checkpoint_id)
+            # Keep the parent job heartbeat fresh while remaining actor threads
+            # are still in flight on the LLM provider.
+            if pending and queue_job is not None and queue_job.status == "running":
+                _commit_progress(main_db, queue_job=queue_job)
+
+    if first_error is not None:
+        key, exc, node_id, checkpoint_id = first_error
+        _record_checkpoint_failure(
+            main_db,
+            execution_id=execution.id,
+            node_id=node_id,
+            checkpoint_id=checkpoint_id,
+            tick_index=tick_index,
+            error=str(exc),
+            event_validation_error=exc if isinstance(exc, EventValidationError) else None,
+        )
+        raise exc
+
+    return results
+
+
+def _run_actor_node_isolated(
+    *,
+    node_key: str,
+    spec: TickNodeSpec,
+    node_id: UUID,
+    checkpoint_id: UUID,
+    big_bang_id: UUID,
+    multiverse_id: UUID,
+    tick_id: UUID,
+    tick_index: int,
+    prompt_context: dict,
+) -> dict:
+    """Run one cohort/hero decision in an isolated DB session/transaction.
+
+    On success, the checkpoint is committed in this thread so the UI sees
+    fan-out progress in real time. On failure, the transaction rolls back and
+    the exception re-raises so the main thread can record the failure on its
+    own session via the existing failure path.
+    """
+    db = SessionLocal()
+    try:
+        actor = db.get(models.Actor, UUID(str(spec.actor_id)))
+        if actor is None:
+            raise ValueError(f"actor {spec.actor_id} not found")
+        big_bang = db.get(models.BigBang, big_bang_id)
+        if big_bang is None:
+            raise ValueError("big bang not found")
+        multiverse = db.get(models.Multiverse, multiverse_id)
+        if multiverse is None:
+            raise ValueError("multiverse not found")
+        node = db.get(models.ExecutionNode, node_id)
+        checkpoint = db.get(models.TickCheckpoint, checkpoint_id)
+        if node is None or checkpoint is None:
+            raise ValueError(f"runtime row missing for node {node_key}")
+
+        now = datetime.now(timezone.utc)
+        node.status = "running"
+        node.started_at = node.started_at or now
+        checkpoint.status = "running"
+        checkpoint.started_at = checkpoint.started_at or now
+        attempt = models.NodeAttempt(
+            execution_node_id=node.id,
+            attempt_number=_next_attempt_number(db, node),
+            status="running",
+            started_at=now,
+            meta={"checkpoint_key": checkpoint.checkpoint_key},
+        )
+        db.add(attempt)
+        db.flush()
+        # Commit "running" so the dashboard reflects fan-out before the LLM call.
+        db.commit()
+
+        payload = run_actor_decision(
+            db,
+            big_bang=big_bang,
+            multiverse=multiverse,
+            actor=actor,
+            tick_index=tick_index,
+            prompt_context=prompt_context,
+        )
+        validation = validate_node_output(spec.kind.value, payload)
+        if not validation.ok:
+            raise ValueError(
+                f"runtime node {node_key} failed validation: {', '.join(validation.errors)}"
+            )
+        payload = {
+            **_runtime_jsonable(payload),
+            "validation": validation.model_dump(exclude={"payload"}),
+        }
+        if llm_call_id := payload.get("llm_call_id"):
+            llm_call = db.get(models.LLMCall, llm_call_id)
+            if llm_call:
+                attempt.provider = llm_call.provider
+                attempt.model = llm_call.model
+                attempt.request_artifact_id = llm_call.request_artifact_id
+                attempt.response_artifact_id = llm_call.response_artifact_id
+        _complete_checkpoint(db, node=node, checkpoint=checkpoint, attempt=attempt, payload=payload)
+        db.commit()
+        return payload
+    except Exception:
+        db.rollback()
+        raise
+    finally:
+        db.close()
 
 
 def _create_running_tick(
