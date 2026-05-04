@@ -61,10 +61,31 @@ worldfork runs list
 worldfork runs workspace <big-bang-id>
 worldfork universes trace <multiverse-id>
 worldfork cohorts transcript <cohort-id> --universe-id <multiverse-id>
+worldfork ticks timing <tick-snapshot-id>
+worldfork ticks cost <tick-snapshot-id> --include-calls
+worldfork runs cost <big-bang-id> --include-calls
+worldfork runs estimate <big-bang-id>
 worldfork logs list --status failed
 ```
 
 Use `--verbosity summary` first for agent work. Move to `normal` or `full` only when a specific task needs the extra fields.
+
+`ticks timing` is the detailed checkpoint and LLM-call timing surface for one
+tick. `ticks cost` shows observed tick cost, and `runs cost` aggregates observed
+run cost. `runs estimate` projects future cost/time from the current run state.
+
+## Cost Estimation
+
+```bash
+worldfork costs estimate
+worldfork runs estimate <big-bang-id>
+worldfork runs cost <big-bang-id> --include-calls
+worldfork ticks cost <tick-snapshot-id> --include-calls
+```
+
+Cost output is in USD. Actuals come from audited LLM calls when provider usage is
+available. Estimates use configured routes, model pricing, observed call shapes,
+remaining ticks, branch caps, and cohort parallelism.
 
 ## Jobs
 
@@ -105,9 +126,32 @@ worldfork reports versions <report-id>
 worldfork reports view <report-version-id>
 worldfork reports view <report-version-id> --format json
 worldfork reports render <report-version-id> --format pdf --output report.pdf
+worldfork reports generate multiverse <multiverse-id> --title "M1 report" --summary "Terminal timeline report."
+worldfork reports generate final <big-bang-id> --title "Final report" --summary "Cross-multiverse review."
+worldfork reports pack <big-bang-id> --mode summary
+worldfork reports adjudicate <big-bang-id>
+worldfork reports adjudication <big-bang-id>
 ```
 
 Report IDs refer to logical report slots. Report version IDs refer to a specific generated revision.
+
+`reports pack` returns the structured evidence pack used by report generation.
+`reports adjudicate` computes retained timeline/path-mass adjudication, and
+`reports adjudication` reads the latest adjudication.
+
+## Endpoint Ledgers
+
+```bash
+worldfork ledgers list <big-bang-id>
+worldfork ledgers list <big-bang-id> --multiverse-id <multiverse-id>
+worldfork ledgers view <ledger-version-id>
+worldfork ledgers path-mass <big-bang-id>
+worldfork ledgers evaluate <big-bang-id> --wait --timeout 120
+worldfork ledgers evaluate <big-bang-id> --multiverse-id <multiverse-id>
+```
+
+Ledgers track endpoint statuses and evidence. Path mass is the deterministic
+branch-probability accounting layer used for final distributions.
 
 ## Update A Checkout
 
@@ -125,4 +169,7 @@ worldfork smoke live
 worldfork demo atlas
 ```
 
-`smoke live` validates a running backend using the configured live model. `demo atlas` runs the larger onboarding simulation and emits follow-up commands for watching and viewing reports.
+`smoke live` validates a running backend using the configured live model split. `demo atlas` runs the larger onboarding simulation and emits follow-up commands for watching and viewing reports.
+
+For the full runtime sequence behind these commands, see
+[Runtime Walkthrough](runtime.md).

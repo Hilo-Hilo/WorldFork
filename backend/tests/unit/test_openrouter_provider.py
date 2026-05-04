@@ -105,25 +105,20 @@ async def test_generate_structured_raises_invalid_json_for_final_non_object_json
     assert "root must be an object" in (exc_info.value.validator_message or "")
 
 
-def test_default_routes_use_openrouter_deepseek_for_all_jobs() -> None:
+def test_default_routes_use_provider_model_split() -> None:
     routing = RoutingTable.defaults()
 
     for job_type in (
-        "initialize_big_bang",
         "simulate_universe_tick",
         "actor_deliberation_call",
         "execute_due_events",
         "social_propagation",
         "sociology_update",
-        "god_agent_review",
         "branch_universe",
         "sync_zep_memory",
         "build_review_index",
         "export_run",
         "apply_tick_results",
-        "aggregate_run_results",
-        "evaluate_endpoint_ledger",
-        "force_deviation",
     ):
         preferred, fallback = routing.route(job_type)
         assert preferred.provider == "openrouter"
@@ -132,6 +127,21 @@ def test_default_routes_use_openrouter_deepseek_for_all_jobs() -> None:
         assert fallback.provider == "openrouter"
         assert fallback.model == OPENROUTER_MODEL
         assert preferred.fallback_model == OPENROUTER_MODEL
+
+    for job_type in (
+        "initialize_big_bang",
+        "god_agent_review",
+        "aggregate_run_results",
+        "evaluate_endpoint_ledger",
+        "force_deviation",
+    ):
+        preferred, fallback = routing.route(job_type)
+        assert preferred.provider == "openai-codex"
+        assert preferred.model == "gpt-5.4"
+        assert fallback is not None
+        assert fallback.provider == "openai-codex"
+        assert fallback.model == "gpt-5.4"
+        assert preferred.fallback_model == "gpt-5.4"
 
 
 def test_same_provider_fallback_is_openrouter_native_model_hint() -> None:
@@ -186,29 +196,19 @@ def test_openrouter_extra_body_uses_native_fallback_model(prompt: PromptPacket) 
     assert kwargs["extra_body"] == {"models": ["primary/model", "fallback/model"]}
 
 
-def test_seeded_routes_use_openrouter_smart_fast_models() -> None:
-    from backend.app.scripts.seed import _ROUTING_DEFAULTS, _routing_model_defaults
+def test_seeded_routes_apply_default_governance_split() -> None:
+    from backend.app.scripts.seed import _OPENAI_CODEX_JOB_TYPES, _ROUTING_DEFAULTS, _routing_model_defaults
 
     assert _ROUTING_DEFAULTS
-    smart_job_types = {
-        "initialize_big_bang",
-        "initializer_agent",
-        "initializer_chunk_extractor",
-        "god_agent_review",
-        "god_agent",
-        "evaluate_endpoint_ledger",
-        "endpoint_ledger",
-        "aggregate_run_results",
-        "report_agent",
-    }
-    for raw_row in _ROUTING_DEFAULTS:
-        row = _routing_model_defaults(raw_row)
-        expected_model = (
-            "moonshotai/kimi-k2.6"
-            if row["job_type"] in smart_job_types
-            else OPENROUTER_MODEL
-        )
-        assert row["preferred_provider"] == "openrouter"
-        assert row["preferred_model"] == expected_model
-        assert row["fallback_provider"] == "openrouter"
-        assert row["fallback_model"] == expected_model
+    for row in _ROUTING_DEFAULTS:
+        routed = _routing_model_defaults(row)
+        if row["job_type"] in _OPENAI_CODEX_JOB_TYPES:
+            assert routed["preferred_provider"] == "openai-codex"
+            assert routed["preferred_model"] == "gpt-5.4"
+            assert routed["fallback_provider"] == "openai-codex"
+            assert routed["fallback_model"] == "gpt-5.4"
+        else:
+            assert routed["preferred_provider"] == "openrouter"
+            assert routed["preferred_model"] == OPENROUTER_MODEL
+            assert routed["fallback_provider"] == "openrouter"
+            assert routed["fallback_model"] == OPENROUTER_MODEL

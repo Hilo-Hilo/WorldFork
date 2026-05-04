@@ -456,6 +456,7 @@ def test_tick_snapshot_openapi_contract_does_not_expose_internal_ref_marker():
         "provisional_bundle",
         "final_bundle",
         "summary",
+        "cost_summary",
         "artifact_id",
         "created_at",
         "updated_at",

@@ -36,6 +36,12 @@ worldfork demo atlas
 
 Atlas reads `examples/test-big-bang.md`, creates the Atlas Resilience Crisis Big Bang, runs a root timeline, creates a manual transparency branch, allows God-agent-created branches under generous caps, drains every discovered timeline to terminal state, generates per-multiverse reports, generates a final cross-multiverse report, can render a PDF on request, and audits the default OpenRouter/DeepSeek model configuration.
 
+While Atlas runs, the same runtime phases described in
+[Runtime Walkthrough](runtime.md) apply: Big Bang initialization, checkpointed
+tick execution, bounded parallel cohort decisions, aggregate event summary,
+God-agent review with audited JSON tool calls, endpoint-ledger updates,
+branching, report generation, and cost/timing collection.
+
 Default Atlas sizing:
 
 | Setting                     | Default           |
@@ -73,6 +79,19 @@ At completion, Atlas prints:
 - follow-up `worldfork reports view` command
 - follow-up `worldfork reports render --output` command
 - follow-up `worldfork watch` command
+
+Useful follow-up inspection commands:
+
+```bash
+worldfork runs workspace <big-bang-id>
+worldfork runs cost <big-bang-id> --include-calls
+worldfork runs estimate <big-bang-id>
+worldfork ledgers list <big-bang-id>
+worldfork ledgers path-mass <big-bang-id>
+worldfork reports pack <big-bang-id> --mode summary
+worldfork reports adjudication <big-bang-id>
+worldfork logs list --status failed
+```
 
 Use the final report command first:
 

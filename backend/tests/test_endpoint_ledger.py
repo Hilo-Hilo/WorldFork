@@ -123,6 +123,39 @@ def test_endpoint_ledger_seed_and_posthoc_evaluation_versions(db: Session):
     assert endpoint_ledger_report_payload(db, posthoc)["histogram"]
 
 
+def test_endpoint_ledger_seed_uses_initializer_endpoint_ledger_entries(db: Session):
+    big_bang, multiverse, _actor = _world(db)
+    initializer_output = dict(big_bang.scenario_input["initializer_output"])
+    initializer_output["endpoint_ledger"] = [
+        {
+            "endpoint_key": "institutional_repair",
+            "label": "Institutional repair",
+            "description": "Formal institutions restore legitimacy through auditable allocation.",
+            "status": "active",
+            "realization_criteria": [
+                "ACCS decisions are publicly auditable.",
+                "Clinics and mutual-aid actors accept the allocation process.",
+            ],
+            "authority_refs": ["Atlas Regional Council", "Emergency Court Panel"],
+            "evidence_refs": ["scenario:ACCS", "scenario:trust"],
+            "blockers": ["data-smoothing scandal"],
+        }
+    ]
+    big_bang.scenario_input = {"initializer_output": initializer_output}
+    db.flush()
+
+    seed = seed_endpoint_ledger(db, big_bang=big_bang, multiverse=multiverse)
+
+    entries = {entry.endpoint_key: entry for entry in endpoint_ledger_entries(db, seed.id)}
+    assert "institutional_repair" in entries
+    assert entries["institutional_repair"].status_basis == "initializer_endpoint_ledger"
+    assert entries["institutional_repair"].realization_criteria == [
+        "ACCS decisions are publicly auditable.",
+        "Clinics and mutual-aid actors accept the allocation process.",
+    ]
+    assert entries["institutional_repair"].meta["source"] == "initializer_endpoint_ledger"
+
+
 def test_multiverse_ledger_evidence_excludes_sibling_events(db: Session):
     big_bang, multiverse, _actor = _world(db)
     sibling = models.Multiverse(
@@ -193,7 +226,6 @@ def test_llm_endpoint_evaluation_preserves_existing_entries(db: Session, monkeyp
                             "endpoint_key": "court_rejects_the_policy",
                             "label": "Court rejects the policy",
                             "status": "active",
-                            "probability": 0.4,
                         }
                     ],
                 },
@@ -244,7 +276,6 @@ def test_llm_endpoint_evaluation_accepts_endpoint_ledger_alias(db: Session, monk
                             "endpoint_key": "transit_fare_hike_dispute",
                             "label": "Transit fare hike dispute",
                             "status": "active",
-                            "probability": 0.85,
                         }
                     ],
                 },
@@ -260,43 +291,69 @@ def test_llm_endpoint_evaluation_accepts_endpoint_ledger_alias(db: Session, monk
     assert "transit_fare_hike_dispute" in keys
 
 
-def test_endpoint_probabilities_are_normalized_when_llm_overstates(db: Session):
-    entries = endpoint_ledger._assign_probabilities(
+def test_endpoint_finalization_ignores_legacy_probabilities():
+    entries = endpoint_ledger._finalize_entries(
         [
             {"endpoint_key": "a", "label": "A", "status": "active", "probability": 0.9},
             {"endpoint_key": "b", "label": "B", "status": "active", "probability": 0.9},
         ]
     )
 
-    assert sum(float(item["probability"]) for item in entries) <= 1.0
+    assert {item["probability"] for item in entries} == {None}
+    assert all("legacy_probability_ignored" in item["meta"] for item in entries)
 
 
-def test_endpoint_normalization_downgrades_unsupported_terminal_claims():
-    entries = endpoint_ledger._assign_probabilities(
+def test_endpoint_finalization_marks_final_horizon_as_insufficient_ticks():
+    evidence = {
+        "big_bang": {"simulation_config": {"max_ticks": 3}},
+        "multiverse": {"status": "completed"},
+        "ticks": [{"tick_index": 3}],
+    }
+    entries = endpoint_ledger._finalize_entries(
         [
             {
                 "endpoint_key": "law_changed",
                 "label": "Law changed",
-                "status": "realized",
-                "probability": 0.9,
-                "evidence_refs": [{"source": "cohort_claim"}],
-                "authority_refs": [],
+                "status": "active",
+                "evidence_refs": [{"source": "tick"}],
             },
             {
                 "endpoint_key": "organizing_continues",
                 "label": "Organizing continues",
                 "status": "active",
-                "probability": 0.7,
             },
-        ]
+        ],
+        evidence=evidence,
     )
     by_key = {entry["endpoint_key"]: entry for entry in entries}
 
-    assert by_key["law_changed"]["status"] == "active"
-    assert "authority evidence missing for realized endpoint" in by_key["law_changed"]["blockers"]
-    assert by_key["organizing_continues"]["status"] == "process_only"
-    assert by_key["organizing_continues"]["probability"] <= 0.1
-    assert by_key["organizing_continues"]["status_basis"] == "downgraded_missing_supporting_evidence"
+    assert by_key["law_changed"]["status"] == "insufficient_ticks"
+    assert by_key["law_changed"]["meta"]["previous_status"] == "active"
+    assert by_key["law_changed"]["meta"]["reversible_on_resume"] is True
+    assert by_key["organizing_continues"]["status"] == "insufficient_ticks"
+
+
+def test_endpoint_final_horizon_overlay_reverts_after_resume():
+    entries = endpoint_ledger._finalize_entries(
+        [
+            {
+                "endpoint_key": "law_changed",
+                "label": "Law changed",
+                "status": "insufficient_ticks",
+                "blockers": ["max_ticks_reached_before_terminal_endpoint"],
+                "meta": {
+                    "final_horizon_overlay": "insufficient_ticks",
+                    "previous_status": "active",
+                    "reversible_on_resume": True,
+                },
+            }
+        ],
+        evidence={"big_bang": {"simulation_config": {"max_ticks": 3}}, "multiverse": {"status": "active"}, "ticks": [{"tick_index": 4}]},
+    )
+
+    assert entries[0]["status"] == "active"
+    assert "max_ticks_reached_before_terminal_endpoint" not in entries[0]["blockers"]
+    assert "final_horizon_overlay" not in entries[0]["meta"]
 
 
 def test_report_patch_does_not_replace_terminal_outcome_with_unresolved_endpoint():
@@ -312,7 +369,7 @@ def test_report_patch_does_not_replace_terminal_outcome_with_unresolved_endpoint
                 "endpoint_key": "endpoint_unresolved",
                 "label": "Endpoint unresolved",
                 "status": "unresolved",
-                "probability": 1.0,
+                "path_mass": 1.0,
             }
         ],
     }

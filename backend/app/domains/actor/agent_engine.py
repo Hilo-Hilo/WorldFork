@@ -72,9 +72,17 @@ def run_actor_decision(
     actor: models.Actor,
     tick_index: int,
     prompt_context: dict,
+    release_db_connection_before_llm: bool = False,
 ) -> dict:
-    route = route_for_actor_type(actor.actor_type)
-    model = _actor_fallback_model(actor.actor_type)
+    big_bang_id = big_bang.id
+    actor_id = actor.id
+    actor_type = actor.actor_type
+    actor_name = actor.name
+    actor_archetype = actor.archetype
+    multiverse_id = multiverse.id
+    route = route_for_actor_type(actor_type)
+    model = _actor_fallback_model(actor_type)
+    shared_prompt_context = dict(prompt_context or {})
     actor_prompt_context = _with_actor_event_queue(
         db,
         multiverse=multiverse,
@@ -82,10 +90,12 @@ def run_actor_decision(
         tick_index=tick_index,
         prompt_context=prompt_context,
     )
+    if release_db_connection_before_llm and isinstance(db, Session):
+        db.commit()
     response, call = complete_with_audit(
         db,
-        big_bang_id=big_bang.id,
-        purpose=f"agent_{actor.actor_type}_{actor.id}_tick_{tick_index}",
+        big_bang_id=big_bang_id,
+        purpose=f"agent_{actor_type}_{actor_id}_tick_{tick_index}",
         model=model,
         route=route,
         messages=[
@@ -95,20 +105,31 @@ def run_actor_decision(
             },
             {
                 "role": "user",
-                "content": f"Actor: {actor.name}\nArchetype: {actor.archetype}\nContext: {actor_prompt_context}",
+                "content": f"Shared tick context for all actor decisions in this tick:\n{shared_prompt_context}",
+            },
+            {
+                "role": "user",
+                "content": (
+                    f"Actor-specific deliberation request:\n"
+                    f"Actor: {actor_name}\n"
+                    f"Archetype: {actor_archetype}\n"
+                    f"Actor context: {actor_prompt_context}"
+                ),
             },
         ],
         metadata={
             "max_tokens": 700,
             "temperature": 0.4,
-            "agent_type": actor.actor_type,
-            "actor_type": actor.actor_type,
+            "agent_type": actor_type,
+            "actor_type": actor_type,
             "agent_source": str(route),
             "canonical_job_type": ACTOR_DELIBERATION_JOB_TYPE,
-            "actor_id": str(actor.id),
-            "actor_name": actor.name,
-            "multiverse_id": str(multiverse.id),
+            "actor_id": str(actor_id),
+            "actor_name": actor_name,
+            "multiverse_id": str(multiverse_id),
             "tick_index": tick_index,
+            "prompt_cache_strategy": "openrouter_implicit_sticky",
+            "prompt_cache_stable_prefix_messages": 2,
         },
     )
     parsed = response.parsed if isinstance(response.parsed, dict) else {}
@@ -124,11 +145,11 @@ def run_actor_decision(
             }
         ]
         ratings = [{"emotion": "uncertainty", "value": 4}]
-    parsed_actions = [{**action, "actor_id": actor.id} for action in social_actions]
-    parsed_actions.extend({**{"proposed_event": event}, "actor_id": actor.id} for event in proposed_events)
-    emotion_ratings = [{**rating, "actor_id": actor.id} for rating in ratings]
+    parsed_actions = [{**action, "actor_id": actor_id} for action in social_actions]
+    parsed_actions.extend({**{"proposed_event": event}, "actor_id": actor_id} for event in proposed_events)
+    emotion_ratings = [{**rating, "actor_id": actor_id} for rating in ratings]
     return {
-        "actor_output": {"actor_id": str(actor.id), "llm_call_id": str(call.id), "parsed": parsed},
+        "actor_output": {"actor_id": str(actor_id), "llm_call_id": str(call.id), "parsed": parsed},
         "parsed_actions": parsed_actions,
         "emotion_self_ratings": emotion_ratings,
         "llm_call_id": str(call.id),

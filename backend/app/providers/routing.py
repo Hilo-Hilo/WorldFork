@@ -8,7 +8,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, cast
 
-from backend.app.core.config import FAST_MODEL_DEFAULT, SMART_MODEL_DEFAULT
 from backend.app.schemas.jobs import JobType
 from backend.app.schemas.llm import ModelConfig
 from backend.app.schemas.settings import ModelRoutingEntry
@@ -24,25 +23,31 @@ if TYPE_CHECKING:
 # Defaults — derived from PRD §16.4 example, generalised across job types.
 # ---------------------------------------------------------------------------
 
-_FAST_MODEL = FAST_MODEL_DEFAULT
-_SMART_MODEL = SMART_MODEL_DEFAULT
-_OPENROUTER_MODEL = _FAST_MODEL
-_OPENROUTER_PROVIDER = "openrouter"
-_LEGACY_GEMINI_SEED_MODEL = "google/gemini-3.1-flash-lite-preview"
-_SMART_MODEL_JOB_TYPES = frozenset(
-    {
-        "initialize_big_bang",
-        "god_agent_review",
-        "aggregate_run_results",
-        "evaluate_endpoint_ledger",
-    }
-)
+_OPENROUTER_MODEL = "deepseek/deepseek-v4-flash"
+_OPENAI_CODEX_MODEL = "gpt-5.4"
+_AGENT_MODEL = _OPENROUTER_MODEL
+_AGENT_FALLBACK_MODEL = _OPENROUTER_MODEL
+_GOD_MODEL = _OPENAI_CODEX_MODEL
+_GOD_FALLBACK_MODEL = _OPENAI_CODEX_MODEL
+_OPENAI_CODEX_JOB_TYPES = {
+    "initialize_big_bang",
+    "god_agent_review",
+    "aggregate_run_results",
+    "evaluate_endpoint_ledger",
+    "force_deviation",
+}
 def _default_entry(job_type: JobType) -> ModelRoutingEntry:
     """Return a sane default :class:`ModelRoutingEntry` for *job_type*."""
-    preferred_provider = _OPENROUTER_PROVIDER
-    preferred = _model_for_job_type(job_type)
-    fallback_provider = _OPENROUTER_PROVIDER
-    fallback = preferred
+    if job_type in _OPENAI_CODEX_JOB_TYPES:
+        preferred_provider = "openai-codex"
+        preferred = _GOD_MODEL
+        fallback_provider = "openai-codex"
+        fallback = _GOD_FALLBACK_MODEL
+    else:
+        preferred_provider = "openrouter"
+        preferred = _AGENT_MODEL
+        fallback_provider = "openrouter"
+        fallback = _AGENT_FALLBACK_MODEL
     return ModelRoutingEntry(
         job_type=job_type,
         preferred_provider=preferred_provider,
@@ -59,10 +64,6 @@ def _default_entry(job_type: JobType) -> ModelRoutingEntry:
         retry_policy="exponential_backoff",
         daily_budget_usd=None,
     )
-
-
-def _model_for_job_type(job_type: JobType | str) -> str:
-    return _SMART_MODEL if str(job_type) in _SMART_MODEL_JOB_TYPES else _FAST_MODEL
 
 
 _ALL_JOB_TYPES: tuple[JobType, ...] = (
@@ -180,8 +181,6 @@ class RoutingTable:
         entries: dict[JobType, ModelRoutingEntry] = {}
         for row in rows:
             row_dict = dict(row)
-            if _is_stale_seed_default_row(row_dict):
-                continue
             row_dict.pop("payload", None)
             try:
                 entry = ModelRoutingEntry(**row_dict)
@@ -194,34 +193,6 @@ class RoutingTable:
         for jt in _ALL_JOB_TYPES:
             entries.setdefault(jt, _default_entry(jt))
         return cls(entries)
-
-
-def _is_legacy_seed_default_row(row: dict[str, object]) -> bool:
-    payload = row.get("payload")
-    if not isinstance(payload, dict):
-        return False
-    return (
-        payload.get("source") == "seed_default"
-        and row.get("preferred_provider") == _OPENROUTER_PROVIDER
-        and row.get("preferred_model") == _LEGACY_GEMINI_SEED_MODEL
-        and payload.get("preferred_provider") == _OPENROUTER_PROVIDER
-        and payload.get("preferred_model") == _LEGACY_GEMINI_SEED_MODEL
-    )
-
-
-def _is_stale_seed_default_row(row: dict[str, object]) -> bool:
-    if _is_legacy_seed_default_row(row):
-        return True
-    payload = row.get("payload")
-    if not isinstance(payload, dict) or payload.get("source") != "seed_default":
-        return False
-    expected_model = _model_for_job_type(str(row.get("job_type") or ""))
-    return not (
-        row.get("preferred_provider") == _OPENROUTER_PROVIDER
-        and row.get("preferred_model") == expected_model
-        and row.get("fallback_provider") == _OPENROUTER_PROVIDER
-        and row.get("fallback_model") == expected_model
-    )
 
 
 async def build_provider_rate_limiter(

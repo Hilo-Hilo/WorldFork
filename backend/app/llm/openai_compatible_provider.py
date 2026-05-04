@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 from typing import Any
 
 import httpx
@@ -36,9 +35,15 @@ class OpenAICompatibleProvider(LLMProvider):
     async def complete(self, request: LLMRequest) -> LLMResponse:
         payload: dict[str, Any] = {
             "model": request.model or self.default_model,
-            "messages": _messages_with_json_schema_contract(request.messages, request.json_schema),
+            "messages": request.messages,
         }
-        payload["response_format"] = {"type": "json_object"}
+        if request.json_schema:
+            payload["response_format"] = {
+                "type": "json_schema",
+                "json_schema": request.json_schema,
+            }
+        else:
+            payload["response_format"] = {"type": "json_object"}
         for key in ("temperature", "max_tokens", "top_p"):
             if key in request.metadata:
                 payload[key] = request.metadata[key]
@@ -47,11 +52,7 @@ class OpenAICompatibleProvider(LLMProvider):
         if not self.omit_auth_header:
             headers["Authorization"] = f"Bearer {self.api_key}"
         try:
-            timeout = float(
-                request.metadata.get("request_timeout_seconds")
-                or request.metadata.get("timeout_seconds")
-                or self.request_timeout
-            )
+            timeout = float(request.metadata.get("timeout_seconds") or self.request_timeout)
         except (TypeError, ValueError):
             timeout = self.request_timeout
         timeout = max(1.0, min(timeout, 1800.0))
@@ -75,22 +76,3 @@ class OpenAICompatibleProvider(LLMProvider):
 
         content = data.get("choices", [{}])[0].get("message", {}).get("content", "")
         return LLMResponse(content=content, raw=data)
-
-
-def _messages_with_json_schema_contract(
-    messages: list[dict[str, str]],
-    json_schema: dict[str, Any] | None,
-) -> list[dict[str, str]]:
-    if not json_schema:
-        return messages
-    return [
-        *messages,
-        {
-            "role": "user",
-            "content": (
-                "Return exactly one JSON object and nothing else. The object must satisfy this "
-                "JSON Schema contract:\n"
-                f"{json.dumps(json_schema, ensure_ascii=True, sort_keys=True, default=str)}"
-            ),
-        },
-    ]

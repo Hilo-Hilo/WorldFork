@@ -15,7 +15,7 @@ from app.llm.local_provider_policy import (
     should_allow_no_auth_openai_provider,
 )
 from app.schemas.settings import ModelRoutingEntry
-from backend.app.core.config import FAST_MODEL_DEFAULT, SMART_MODEL_DEFAULT, settings
+from backend.app.core.config import settings
 from backend.app.core.db import get_session
 from backend.app.models.settings import (
     BranchPolicySettingModel,
@@ -44,24 +44,12 @@ import backend.app.providers as providers
 
 router = APIRouter(prefix="/settings", tags=["settings"])
 DbSession = Annotated[AsyncSession, Depends(get_session)]
-_OPENROUTER_PROVIDER = "openrouter"
-_FAST_MODEL = FAST_MODEL_DEFAULT
-_SMART_MODEL = SMART_MODEL_DEFAULT
-_OPENROUTER_MODEL = _FAST_MODEL
-_LEGACY_GEMINI_SEED_MODEL = "google/gemini-3.1-flash-lite-preview"
-_SMART_MODEL_ROUTES = frozenset(
-    {
-        "initializer_chunk_extractor",
-        "initializer_agent",
-        "god_agent",
-        "report_agent",
-        "endpoint_ledger",
-        "initialize_big_bang",
-        "god_agent_review",
-        "aggregate_run_results",
-        "evaluate_endpoint_ledger",
-    }
-)
+_OPENAI_CODEX_MODEL_SETTINGS = {
+    "initializer_agent_model",
+    "god_agent_model",
+    "event_summary_model",
+    "report_agent_model",
+}
 
 
 def _row_dict(row: Any) -> dict[str, Any]:
@@ -99,8 +87,6 @@ def _apply_patch(row: Any, patch: dict[str, Any]) -> Any:
 def _runtime_llm_defaults() -> dict[str, Any]:
     return {
         "default_provider": settings.default_llm_provider,
-        "smart_model": settings.smart_model,
-        "fast_model": settings.fast_model,
         "default_model": settings.default_model,
         "fallback_model": settings.fallback_model,
         "agent_models": {
@@ -171,51 +157,6 @@ def _row_source(row: dict[str, Any]) -> str:
     return "settings_model_routing"
 
 
-def _is_seed_default_row(row: dict[str, Any] | None) -> bool:
-    payload = row.get("payload") if row else None
-    return (
-        (isinstance(payload, dict) and payload.get("source") == "seed_default")
-        or _is_stale_seed_default_row(row)
-    )
-
-
-def _is_legacy_seed_default_row(row: dict[str, Any] | None) -> bool:
-    payload = row.get("payload") if row else None
-    if not isinstance(payload, dict):
-        return False
-    if row is None:
-        return False
-    return (
-        payload.get("source") == "seed_default"
-        and row.get("preferred_provider") == _OPENROUTER_PROVIDER
-        and row.get("preferred_model") == _LEGACY_GEMINI_SEED_MODEL
-        and payload.get("preferred_provider") == _OPENROUTER_PROVIDER
-        and payload.get("preferred_model") == _LEGACY_GEMINI_SEED_MODEL
-    )
-
-
-def _is_stale_seed_default_row(row: dict[str, Any] | None) -> bool:
-    if row is None:
-        return False
-    if _is_legacy_seed_default_row(row):
-        return True
-    payload = row.get("payload")
-    if not isinstance(payload, dict) or payload.get("source") != "seed_default":
-        return False
-    expected_model = _seed_default_model_for_row(row)
-    return not (
-        row.get("preferred_provider") == _OPENROUTER_PROVIDER
-        and row.get("preferred_model") == expected_model
-        and row.get("fallback_provider") == _OPENROUTER_PROVIDER
-        and row.get("fallback_model") == expected_model
-    )
-
-
-def _seed_default_model_for_row(row: dict[str, Any]) -> str:
-    job_type = str(row.get("job_type") or "")
-    return _SMART_MODEL if job_type in _SMART_MODEL_ROUTES else _FAST_MODEL
-
-
 def _default_model_for_route(route_info: dict[str, Any]) -> str:
     setting_name = route_info.get("fallback_model_setting") or "default_model"
     value = getattr(settings, str(setting_name), None)
@@ -223,6 +164,8 @@ def _default_model_for_route(route_info: dict[str, Any]) -> str:
 
 
 def _default_provider_for_route(route_info: dict[str, Any]) -> str:
+    if route_info.get("fallback_model_setting") in _OPENAI_CODEX_MODEL_SETTINGS:
+        return "openai-codex"
     return settings.default_llm_provider
 
 
@@ -232,8 +175,6 @@ def _effective_routing_entries(entries: list[dict[str, Any]]) -> list[dict[str, 
     for route_info in audited_route_catalog():
         route = str(route_info["route"])
         row = rows_by_job_type.get(route)
-        if _is_stale_seed_default_row(row):
-            row = None
         matched_route = route if row is not None else None
         if row is None:
             effective.append(

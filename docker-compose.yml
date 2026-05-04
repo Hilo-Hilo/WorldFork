@@ -54,6 +54,8 @@ services:
       - ./source_of_truth:/app/source_of_truth
       - ./infra:/app/infra
       - ./runs:/data/runs
+      - ${HOME}/.worldfork:/root/.worldfork:ro
+      - ${HOME}/.codex:/root/.codex:ro
     command: uvicorn backend.app.main:app --host 0.0.0.0 --port 8000 --reload
 
   worker_p0:
@@ -80,6 +82,8 @@ services:
       - ./source_of_truth:/app/source_of_truth
       - ./infra:/app/infra
       - ./runs:/data/runs
+      - ${HOME}/.worldfork:/root/.worldfork:ro
+      - ${HOME}/.codex:/root/.codex:ro
     command: celery -A backend.app.workers.celery_app worker -Q p0 -c 4 -n p0@%h --loglevel=INFO
 
   worker_p1:
@@ -106,6 +110,8 @@ services:
       - ./source_of_truth:/app/source_of_truth
       - ./infra:/app/infra
       - ./runs:/data/runs
+      - ${HOME}/.worldfork:/root/.worldfork:ro
+      - ${HOME}/.codex:/root/.codex:ro
     command: celery -A backend.app.workers.celery_app worker -Q p1 -c 8 -n p1@%h --loglevel=INFO
 
   worker_p2:
@@ -132,6 +138,8 @@ services:
       - ./source_of_truth:/app/source_of_truth
       - ./infra:/app/infra
       - ./runs:/data/runs
+      - ${HOME}/.worldfork:/root/.worldfork:ro
+      - ${HOME}/.codex:/root/.codex:ro
     command: celery -A backend.app.workers.celery_app worker -Q p2 -c 4 -n p2@%h --loglevel=INFO
 
   worker_p3:
@@ -158,6 +166,8 @@ services:
       - ./source_of_truth:/app/source_of_truth
       - ./infra:/app/infra
       - ./runs:/data/runs
+      - ${HOME}/.worldfork:/root/.worldfork:ro
+      - ${HOME}/.codex:/root/.codex:ro
     command: celery -A backend.app.workers.celery_app worker -Q p3 -c 2 -n p3@%h --loglevel=INFO
 
   beat:
@@ -184,6 +194,8 @@ services:
       - ./source_of_truth:/app/source_of_truth
       - ./infra:/app/infra
       - ./runs:/data/runs
+      - ${HOME}/.worldfork:/root/.worldfork:ro
+      - ${HOME}/.codex:/root/.codex:ro
     command: celery -A backend.app.workers.celery_app beat --loglevel=INFO
 
 volumes:

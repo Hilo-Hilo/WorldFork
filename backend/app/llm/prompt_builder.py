@@ -3,6 +3,8 @@ from __future__ import annotations
 import re
 
 from app.core.clock import ClockContext
+from app.core.config import get_settings
+from app.llm.prompt_budget import budget_event_queue_context
 
 MAX_PROMPT_LIST_ITEMS = 12
 MAX_PROMPT_STRING_CHARS = 1200
@@ -27,7 +29,10 @@ def build_agent_prompt_context(
         ),
     }
     if event_queue:
-        context["event_queue"] = event_queue
+        context["event_queue"] = budget_event_queue_context(
+            event_queue,
+            max_chars=get_settings().prompt_event_queue_max_chars,
+        )
     return context
 
 
@@ -48,8 +53,6 @@ def compact_simulation_state(state: dict) -> dict:
         "channels": _compact_list(state.get("channels", [])),
         "trait_vectors": _compact_list(state.get("trait_vectors", [])),
         "graph_summary": _compact_value(state.get("graph_summary", {})),
-        "branch_hypotheses": _compact_list(state.get("branch_hypotheses", [])),
-        "merge_hypotheses": _compact_list(state.get("merge_hypotheses", [])),
         "last_tick_index": state.get("last_tick_index"),
         "last_executed_events": _compact_events(state.get("last_executed_events", [])),
         "last_sociology": _compact_sociology(state.get("last_sociology", {})),

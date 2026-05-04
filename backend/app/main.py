@@ -26,6 +26,7 @@ from app.domains.big_bang import (
     scenario_bank_routes as scenario_bank,
 )
 from app.domains.endpoint_ledger import routes as endpoint_ledgers
+from app.domains.costs import routes as costs
 from app.domains.governance import routes as god_agent
 from app.domains.integrations import routes as integrations
 from app.domains.jobs import routes as jobs
@@ -121,6 +122,8 @@ def _llm_ready_checks() -> dict[str, bool]:
         or read_codex_oauth_token(settings_obj.openai_codex_auth_file)
     )
     provider = settings_obj.default_llm_provider
+    if provider == "openrouter" and settings_obj.openai_codex_enabled:
+        return {"openrouter": openrouter_ready, "openai-codex": codex_ready}
     if provider == "openai-codex":
         return {"openai-codex": codex_ready}
     if provider == "openrouter":
@@ -188,6 +191,7 @@ app.include_router(ticks.router, prefix=prefix)
 app.include_router(actors.router, prefix=prefix)
 app.include_router(graphs.router, prefix=prefix)
 app.include_router(endpoint_ledgers.router, prefix=prefix)
+app.include_router(costs.router, prefix=prefix)
 app.include_router(emotion_observability.router, prefix=prefix)
 app.include_router(sociology.router, prefix=prefix)
 app.include_router(god_agent.router, prefix=prefix)

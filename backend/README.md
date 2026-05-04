@@ -61,7 +61,7 @@ make lint
 worldfork smoke live
 ```
 
-`worldfork smoke live` uses real API credits and should use the default OpenRouter smart/fast split: `moonshotai/kimi-k2.6` for initializer, God-review, endpoint-ledger, and report work, and `deepseek/deepseek-v4-flash` for cohort, hero, action, and event-summary work.
+`worldfork smoke live` uses real API credits and should use the default split: OpenRouter `deepseek/deepseek-v4-flash` plus OpenAI Codex `gpt-5.4`.
 
 ## More Documentation
 

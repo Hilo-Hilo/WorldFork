@@ -138,7 +138,7 @@ class OpenAICodexProvider(BaseProvider):
         oauth_token_env: str = OPENAI_CODEX_OAUTH_ENV,
         codex_auth_file: str | Path | None = None,
         base_url: str = OPENAI_CODEX_RESPONSES_BASE_URL,
-        default_model: str = "deepseek/deepseek-v4-flash",
+        default_model: str = "gpt-5.4",
         fallback_model: str | None = None,
         request_timeout: float = 120.0,
     ) -> None:

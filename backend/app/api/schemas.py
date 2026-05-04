@@ -86,6 +86,7 @@ class TickSnapshotOut(ORMModel):
     provisional_bundle: dict[str, Any]
     final_bundle: dict[str, Any]
     summary: str | None
+    cost_summary: dict[str, Any] | None = None
     artifact_id: UUID | None
     created_at: datetime
     updated_at: datetime
@@ -189,6 +190,7 @@ class ReportOut(ORMModel):
     report_type: str
     status: str
     current_version: int
+    cost_summary: dict[str, Any] | None = None
     created_at: datetime
     updated_at: datetime
 
@@ -206,6 +208,7 @@ class ReportVersionOut(ORMModel):
     source_multiverse_ids: list[Any] | None = None
     content: dict[str, Any] | None = None
     generation_metadata: dict[str, Any] | None = None
+    cost_summary: dict[str, Any] | None = None
     model: str | None = None
     markdown_artifact_id: UUID | None
     pdf_artifact_id: UUID | None
@@ -227,7 +230,7 @@ class EndpointLedgerEntryOut(ORMModel):
     label: str
     description: str | None
     status: str
-    probability: float | None
+    realized: bool | None = None
     realization_criteria: list[Any] = Field(default_factory=list)
     authority_refs: list[Any]
     evidence_refs: list[Any]
@@ -316,6 +319,26 @@ class TimelineAdjudicationVersionOut(ORMModel):
 class TimelineAdjudicationDetailOut(BaseModel):
     adjudication: TimelineAdjudicationVersionOut
     entries: list[TimelineAdjudicationEntryOut]
+
+
+class EndpointPathMassRow(BaseModel):
+    endpoint_key: str | None = None
+    label: str | None = None
+    status: str | None = None
+    realized: bool | None = None
+    path_mass: float = 0.0
+    status_path_masses: dict[str, float] = Field(default_factory=dict)
+
+
+class EndpointPathMassPlotOut(BaseModel):
+    big_bang_id: UUID
+    ledger_version_id: UUID | None = None
+    aggregation: str
+    path_probability_mass: float = 0.0
+    excluded_path_probability_mass: float = 0.0
+    endpoint_path_mass_distribution: list[EndpointPathMassRow] = Field(default_factory=list)
+    plot_distribution: dict[str, Any] = Field(default_factory=dict)
+    path_probability_distribution: list[dict[str, Any]] = Field(default_factory=list)
 
 
 class TimelineAdjudicationRequest(BaseModel):

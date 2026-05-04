@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import json
+from typing import Any
 
 import httpx
 
@@ -19,12 +19,19 @@ class OpenRouterProvider(LLMProvider):
 
         payload = {
             "model": request.model or settings.default_model,
-            "messages": _messages_with_json_schema_contract(request.messages, request.json_schema),
+            "messages": request.messages,
         }
-        # DeepSeek through OpenRouter currently accepts OpenAI's json_object
-        # response mode but rejects json_schema envelopes for chat completions.
-        # Keep the schema as prompt-side contract and request valid JSON here.
-        payload["response_format"] = {"type": "json_object"}
+        if getattr(settings, "openrouter_prompt_caching_enabled", True):
+            cache_control = _prompt_cache_control(request.metadata)
+            if cache_control is not None:
+                payload["cache_control"] = cache_control
+        if request.json_schema:
+            payload["response_format"] = {
+                "type": "json_schema",
+                "json_schema": request.json_schema,
+            }
+        else:
+            payload["response_format"] = {"type": "json_object"}
         for key in ("temperature", "max_tokens", "top_p"):
             if key in request.metadata:
                 payload[key] = request.metadata[key]
@@ -32,16 +39,11 @@ class OpenRouterProvider(LLMProvider):
         headers = {
             "Authorization": f"Bearer {settings.openrouter_api_key}",
             "Content-Type": "application/json",
-            "HTTP-Referer": getattr(settings, "openrouter_http_referer", "https://worldfork.local"),
-            "X-Title": getattr(settings, "openrouter_title", "WorldFork"),
-            "X-OpenRouter-Title": getattr(settings, "openrouter_title", "WorldFork"),
+            "HTTP-Referer": "https://worldfork.local",
+            "X-Title": "WorldFork",
         }
         try:
-            timeout = float(
-                request.metadata.get("request_timeout_seconds")
-                or request.metadata.get("timeout_seconds")
-                or 60.0
-            )
+            timeout = float(request.metadata.get("timeout_seconds") or 60.0)
         except (TypeError, ValueError):
             timeout = 60.0
         async with httpx.AsyncClient(timeout=max(1.0, min(timeout, 1800.0))) as client:
@@ -70,20 +72,18 @@ class OpenRouterProvider(LLMProvider):
         return LLMResponse(content=content, raw=data)
 
 
-def _messages_with_json_schema_contract(
-    messages: list[dict[str, str]],
-    json_schema: dict | None,
-) -> list[dict[str, str]]:
-    if not json_schema:
-        return messages
-    return [
-        *messages,
-        {
-            "role": "user",
-            "content": (
-                "Return exactly one JSON object and nothing else. The object must satisfy this "
-                "JSON Schema contract:\n"
-                f"{json.dumps(json_schema, ensure_ascii=True, sort_keys=True, default=str)}"
-            ),
-        },
-    ]
+def _prompt_cache_control(metadata: dict[str, Any]) -> dict[str, Any] | None:
+    value = metadata.get("openrouter_cache_control") or metadata.get("cache_control")
+    if value is False or value is None:
+        return None
+    if isinstance(value, dict):
+        cache_type = value.get("type") or "ephemeral"
+        if cache_type != "ephemeral":
+            return None
+        cache_control = {"type": "ephemeral"}
+        if value.get("ttl") in {"1h"}:
+            cache_control["ttl"] = "1h"
+        return cache_control
+    if value is True:
+        return {"type": "ephemeral"}
+    return None

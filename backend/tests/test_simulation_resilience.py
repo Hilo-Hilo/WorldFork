@@ -16,8 +16,7 @@ from app.llm.schemas import LLMResponse
 from app.api.schemas import BigBangCreate
 from app.domains.actor import agent_engine
 from app.domains.event import event_engine
-from app.domains.big_bang import initializer, initializer_agent as initializer_agent_module
-from app.domains.big_bang.initializer_agent import normalize_initializer_output
+from app.domains.big_bang import initializer
 from app.domains.sociology.graph_engine import update_graph_layers
 from app.domains.big_bang.initializer import persist_initializer_graphs_and_observability
 from app.storage.artifact_store import ArtifactStore
@@ -185,10 +184,10 @@ def test_actor_prompt_context_includes_global_and_owned_event_queue(db, monkeypa
         ]
     )
     db.flush()
-    captured_contexts = []
+    captured_messages = []
 
     def fake_complete(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
-        captured_contexts.append(messages[-1]["content"])
+        captured_messages.append({"messages": messages, "metadata": metadata})
         call = _fake_llm_call(db, big_bang_id=big_bang_id, purpose=purpose, model=model)
         return LLMResponse(content="{}", parsed={"social_actions": [], "proposed_events": []}), call
 
@@ -203,9 +202,52 @@ def test_actor_prompt_context_includes_global_and_owned_event_queue(db, monkeypa
         prompt_context={},
     )
 
-    assert "Past water pressure loss" in captured_contexts[0]
-    assert "Alpha schedules clinic briefing" in captured_contexts[0]
-    assert "own_queued_events" in captured_contexts[0]
+    messages = captured_messages[0]["messages"]
+    assert messages[1]["content"].startswith("Shared tick context for all actor decisions")
+    assert "Actor:" not in messages[1]["content"]
+    assert "Past water pressure loss" in messages[2]["content"]
+    assert "Alpha schedules clinic briefing" in messages[2]["content"]
+    assert "own_queued_events" in messages[2]["content"]
+    assert captured_messages[0]["metadata"]["prompt_cache_strategy"] == "openrouter_implicit_sticky"
+    assert captured_messages[0]["metadata"]["prompt_cache_stable_prefix_messages"] == 2
+
+
+def test_event_queue_prompt_context_budgets_long_queues_with_omission_summary(db):
+    big_bang, root, alpha, _beta = _seed_world(db)
+    for index in range(40):
+        db.add(
+            models.Event(
+                big_bang_id=big_bang.id,
+                multiverse_id=root.id,
+                creator_actor_id=alpha.id,
+                event_type="announcement",
+                created_tick=1,
+                scheduled_tick=2 + index,
+                status="queued",
+                title=f"Future event {index}",
+                description=f"Long event description {index} " + ("detail " * 300),
+                expected_impact={"pressure": "rising", "index": index},
+                actual_impact={},
+                meta={"source": "agent_proposal"},
+            )
+        )
+    db.flush()
+
+    context = event_engine.build_event_queue_prompt_context(
+        db,
+        multiverse_id=root.id,
+        tick_index=1,
+        actor_id=alpha.id,
+        future_limit=40,
+    )
+
+    assert 1 <= len(context["upcoming_events"]) <= 12
+    assert len(context["own_queued_events"]) == 12
+    assert len(context["upcoming_events"][0]["description"]) < 700
+    assert context["prompt_budget"]["estimated_chars"] <= context["prompt_budget"]["max_chars"]
+    assert context["prompt_budget"]["omitted_total"] >= 56
+    assert context["prompt_budget"]["sections"]["upcoming_events"]["omitted_count"] >= 28
+    assert context["prompt_budget"]["sections"]["upcoming_events"]["budget_trimmed"] is True
 
 
 def test_actor_llm_call_metadata_records_canonical_source(db, monkeypatch):
@@ -234,8 +276,30 @@ def test_actor_llm_call_metadata_records_canonical_source(db, monkeypatch):
     assert metadata["canonical_job_type"] == "actor_deliberation_call"
     assert metadata["actor_id"] == str(alpha.id)
     assert metadata["actor_type"] == "cohort"
-    assert metadata["multiverse_id"] == str(root.id)
-    assert metadata["tick_index"] == 2
+
+
+def test_actor_worker_mode_releases_db_transaction_before_llm_call(db, monkeypatch):
+    big_bang, root, alpha, _beta = _seed_world(db)
+    observed = {}
+
+    def fake_complete(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
+        observed["in_transaction_during_llm"] = db.in_transaction()
+        call = _fake_llm_call(db, big_bang_id=big_bang_id, purpose=purpose, model=model)
+        return LLMResponse(content="{}", parsed={"social_actions": [], "proposed_events": []}), call
+
+    monkeypatch.setattr(agent_engine, "complete_with_audit", fake_complete)
+
+    agent_engine.run_actor_decision(
+        db,
+        big_bang=big_bang,
+        multiverse=root,
+        actor=alpha,
+        tick_index=2,
+        prompt_context={},
+        release_db_connection_before_llm=True,
+    )
+
+    assert observed["in_transaction_during_llm"] is False
 
 
 def test_initializer_seed_events_become_root_event_queue(db, monkeypatch, tmp_path):
@@ -294,106 +358,6 @@ def test_initializer_seed_events_become_root_event_queue(db, monkeypatch, tmp_pa
     ]
     assert [event["title"] for event in event_queue["past_events"]] == ["Pressure failure already visible"]
     assert [event["title"] for event in event_queue["upcoming_events"]] == ["Court hearing scheduled"]
-
-
-def test_initializer_normalizes_deepseek_type_aliases():
-    normalized = normalize_initializer_output(
-        {
-            "actors": [
-                {"name": "school_board", "type": "institution"},
-                {"name": "parents", "type": "group"},
-                {"name": "student_organizer", "type": "individual"},
-                {"name": "drivers_union", "type": "organization"},
-            ],
-            "cohort_states": [{"name": "parents", "state": {"attention_level": 0.6}}],
-            "hero_archetypes": [{"name": "student_organizer", "definition": {"role": "speaker"}}],
-            "graph_edges": [],
-        },
-        {"premise": "A school board changes bus routes."},
-    )
-
-    actor_types = {item["name"]: item["actor_type"] for item in normalized["actors"]}
-    assert actor_types == {
-        "school_board": "institution",
-        "parents": "cohort",
-        "student_organizer": "hero",
-        "drivers_union": "organization",
-    }
-    assert normalized["cohort_states"][0]["actor_name"] == "parents"
-    assert normalized["hero_archetypes"][0]["actor_type"] == "hero"
-    assert normalized["hero_archetypes"][0]["actor_name"] == "student_organizer"
-
-
-def test_initializer_agent_uses_bounded_structured_parse_repair(monkeypatch):
-    captured: dict = {}
-
-    class FakeCall:
-        id = UUID("11111111-1111-1111-1111-111111111111")
-        model = "moonshotai/kimi-k2.6"
-
-    def fake_complete_with_audit(*args, **kwargs):
-        del args
-        captured.update(kwargs)
-        return LLMResponse(content="{}", parsed={}, raw={}), FakeCall()
-
-    monkeypatch.setattr(initializer_agent_module, "complete_with_audit", fake_complete_with_audit)
-
-    result = initializer_agent_module.run_initializer_agent(
-        object(),
-        big_bang_id=UUID("22222222-2222-2222-2222-222222222222"),
-        scenario_input={"premise": "A hospital board vote creates public concern."},
-        plain_text_corpus={"simulation_brief": {"mode": "direct"}},
-    )
-
-    assert captured["metadata"]["max_attempts"] == 2
-    assert captured["metadata"]["request_timeout_seconds"] == 210
-    assert captured["metadata"]["retry_timeout_errors"] is False
-    assert captured["metadata"]["json_repair_timeout_seconds"] == 60
-    assert captured["metadata"]["max_tokens"] == 8192
-    assert result["model"] == "moonshotai/kimi-k2.6"
-    assert result["fallback"] is False
-
-
-def test_initializer_llm_failure_uses_deterministic_fallback(db, monkeypatch, tmp_path):
-
-    def fake_snapshot(db, big_bang_id):
-        snapshot = models.SourceOfTruthSnapshot(
-            big_bang_id=big_bang_id,
-            version="test",
-            content_hash="hash",
-            artifact_path="source-of-truth",
-        )
-        db.add(snapshot)
-        db.flush()
-        return snapshot
-
-    monkeypatch.setattr(initializer, "snapshot_source_of_truth", fake_snapshot)
-    monkeypatch.setattr(initializer, "ArtifactStore", lambda: ArtifactStore(root=tmp_path))
-    monkeypatch.setattr(
-        initializer,
-        "run_initializer_agent",
-        lambda *args, **kwargs: (_ for _ in ()).throw(LLMCallError("LLM unavailable")),
-    )
-
-    big_bang = initializer.create_big_bang(
-        db,
-        BigBangCreate(
-            name="Fallback",
-            scenario_text="A small scenario whose live initializer times out.",
-            use_initializer_agent=True,
-        ),
-    )
-
-    root = db.query(models.Multiverse).filter_by(big_bang_id=big_bang.id).one()
-    fallback_event = (
-        db.query(models.OperationLog)
-        .filter_by(big_bang_id=big_bang.id, event_type="initializer_fallback_used")
-        .one()
-    )
-
-    assert root.state["initializer_output"]["model"] == "deterministic_initializer_fallback"
-    assert db.query(models.Actor).filter_by(big_bang_id=big_bang.id).count() > 0
-    assert fallback_event.level == "warning"
 
 
 def test_big_bang_defaults_use_persisted_global_settings(db, monkeypatch, tmp_path):
@@ -456,53 +420,7 @@ def test_big_bang_defaults_use_persisted_global_settings(db, monkeypatch, tmp_pa
     assert config.branch_policy["branch_score_threshold"] == 0.12
 
 
-def test_initializer_chunker_failure_uses_deterministic_fallback(db, monkeypatch, tmp_path):
-    def fake_snapshot(db, big_bang_id):
-        snapshot = models.SourceOfTruthSnapshot(
-            big_bang_id=big_bang_id,
-            version="test",
-            content_hash="hash",
-            artifact_path="source-of-truth",
-        )
-        db.add(snapshot)
-        db.flush()
-        return snapshot
-
-    monkeypatch.setattr(initializer, "snapshot_source_of_truth", fake_snapshot)
-    monkeypatch.setattr(initializer, "ArtifactStore", lambda: ArtifactStore(root=tmp_path))
-    monkeypatch.setattr(
-        initializer,
-        "build_plain_text_corpus",
-        lambda *args, **kwargs: (_ for _ in ()).throw(LLMCallError("chunker unavailable")),
-    )
-    monkeypatch.setattr(
-        initializer,
-        "run_initializer_agent",
-        lambda *args, **kwargs: pytest.fail("initializer should not run after chunker failure"),
-    )
-
-    big_bang = initializer.create_big_bang(
-        db,
-        BigBangCreate(
-            name="Chunker fallback",
-            scenario_text="A long scenario whose chunk extractor fails.",
-            use_initializer_agent=True,
-        ),
-    )
-
-    root = db.query(models.Multiverse).filter_by(big_bang_id=big_bang.id).one()
-    event_types = [
-        row.event_type
-        for row in db.query(models.OperationLog).filter_by(big_bang_id=big_bang.id).all()
-    ]
-
-    assert root.state["plain_text_corpus"]["simulation_brief"]["mode"] == "fallback"
-    assert root.state["initializer_output"]["model"] == "deterministic_initializer_fallback"
-    assert "initializer_chunker_fallback_used" in event_types
-    assert "initializer_fallback_used" in event_types
-
-
-def test_unexpected_initializer_agent_error_does_not_leave_draft_big_bang(db, monkeypatch, tmp_path):
+def test_failed_initializer_agent_does_not_leave_draft_big_bang(db, monkeypatch, tmp_path):
     def fake_snapshot(db, big_bang_id):
         snapshot = models.SourceOfTruthSnapshot(
             big_bang_id=big_bang_id,
@@ -526,13 +444,13 @@ def test_unexpected_initializer_agent_error_does_not_leave_draft_big_bang(db, mo
             )
         )
         db.commit()
-        raise RuntimeError("unexpected initializer crash")
+        raise LLMCallError("provider unavailable")
 
     monkeypatch.setattr(initializer, "snapshot_source_of_truth", fake_snapshot)
     monkeypatch.setattr(initializer, "ArtifactStore", lambda: ArtifactStore(root=tmp_path))
     monkeypatch.setattr(initializer, "run_initializer_agent", fail_after_audit_commit)
 
-    with pytest.raises(RuntimeError):
+    with pytest.raises(LLMCallError):
         initializer.create_big_bang(
             db,
             BigBangCreate(
@@ -608,7 +526,13 @@ def test_event_summary_ids_are_flushed_before_return(db, monkeypatch, tmp_path):
 
     def fake_complete(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
         call = _fake_llm_call(db, big_bang_id=big_bang_id, purpose=purpose, model=model)
-        return LLMResponse(content="summary", parsed={"what_happened": "summary"}), call
+        return LLMResponse(
+            content="summary",
+            parsed={
+                "what_happened": "summary",
+                "per_event_digests": [{"event_id": str(event.id), "summary": "event summary"}],
+            },
+        ), call
 
     monkeypatch.setattr(event_engine, "complete_with_audit", fake_complete)
     monkeypatch.setattr(event_engine, "ArtifactStore", lambda: ArtifactStore(root=tmp_path))
@@ -617,6 +541,64 @@ def test_event_summary_ids_are_flushed_before_return(db, monkeypatch, tmp_path):
 
     assert summaries[0]["summary_id"] != "None"
     assert UUID(summaries[0]["summary_id"])
+
+
+def test_executed_event_summary_uses_one_aggregate_llm_call_for_multiple_events(db, monkeypatch, tmp_path):
+    big_bang, root, _alpha, _beta = _seed_world(db)
+    events = []
+    for title in ("First pressure shock", "Second coalition response"):
+        event = models.Event(
+            big_bang_id=big_bang.id,
+            multiverse_id=root.id,
+            event_type="announcement",
+            created_tick=0,
+            scheduled_tick=1,
+            status="executed",
+            title=title,
+            description=f"{title} description",
+            expected_impact={},
+            actual_impact={},
+            meta={},
+        )
+        db.add(event)
+        events.append(event)
+    db.flush()
+    calls = []
+
+    def fake_complete(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
+        calls.append({"purpose": purpose, "model": model, "messages": messages})
+        call = _fake_llm_call(db, big_bang_id=big_bang_id, purpose=purpose, model=model)
+        return (
+            LLMResponse(
+                content="aggregate",
+                parsed={
+                    "what_happened": "Both events interacted.",
+                    "outcome": "Coalition pressure intensified.",
+                    "causal_links": ["First shock made the response more salient."],
+                    "per_event_digests": [
+                        {"event_id": str(events[0].id), "summary": "First event moved attention."},
+                        {"event_id": str(events[1].id), "summary": "Second event organized reaction."},
+                    ],
+                },
+            ),
+            call,
+        )
+
+    monkeypatch.setattr(event_engine, "complete_with_audit", fake_complete)
+    monkeypatch.setattr(event_engine, "ArtifactStore", lambda: ArtifactStore(root=tmp_path))
+
+    summaries = event_engine.summarize_executed_events(db, events)
+
+    assert len(calls) == 1
+    assert calls[0]["purpose"].startswith("event_summary_tick_")
+    assert "all executed simulation events" in calls[0]["messages"][0]["content"]
+    assert "First pressure shock" in calls[0]["messages"][1]["content"]
+    assert "Second coalition response" in calls[0]["messages"][1]["content"]
+    assert len(summaries) == 2
+    assert {item["summary"] for item in summaries} == {
+        "First event moved attention.",
+        "Second event organized reaction.",
+    }
 
 
 def test_evolved_graph_edge_ids_are_flushed_before_return(db):

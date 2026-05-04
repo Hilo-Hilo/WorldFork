@@ -109,13 +109,7 @@ def build_plain_text_corpus(
                 },
                 {"role": "user", "content": f"UNTRUSTED SCENARIO CHUNK:\n{chunk.text}"},
             ],
-            metadata={
-                "max_tokens": 900,
-                "temperature": 0.15,
-                "agent_type": "initializer_chunk_extractor",
-                "max_attempts": 2,
-                "request_timeout_seconds": 90,
-            },
+            metadata={"max_tokens": 900, "temperature": 0.15, "agent_type": "initializer_chunk_extractor"},
         )
         summary = response.parsed or {"text": response.content}
         summary_artifact = store.write_json(

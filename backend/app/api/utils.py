@@ -6,7 +6,6 @@ from fastapi import HTTPException
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from sqlalchemy.orm import Session
 
-from app.llm.audit import LLMCallError
 from app.llm.provider import LLMProviderUnavailable
 
 logger = logging.getLogger(__name__)
@@ -34,7 +33,7 @@ def commit_or_500(db: Session):
 
 
 def raise_llm_unavailable(exc: Exception):
-    if isinstance(exc, LLMCallError | LLMProviderUnavailable):
+    if isinstance(exc, LLMProviderUnavailable):
         logger.exception("LLM provider unavailable", exc_info=exc)
         raise HTTPException(status_code=503, detail="LLM unavailable") from exc
     message = str(exc).lower()

@@ -37,6 +37,10 @@ worldfork reports versions <report-id>
 worldfork reports view <report-version-id>
 worldfork reports view <report-version-id> --format json
 worldfork reports render <report-version-id> --format pdf --output report.pdf
+worldfork reports pack <big-bang-id> --mode summary
+worldfork reports adjudicate <big-bang-id>
+worldfork reports adjudication <big-bang-id>
+worldfork ledgers path-mass <big-bang-id>
 ```
 
 The Markdown view can include the outcome summary, outcome distribution, multiverse comparison, report inventory, and evidence appendix when those sections are present in the structured content.
@@ -46,8 +50,9 @@ The Markdown view can include the outcome summary, outcome distribution, multive
 Generate a report for one terminal multiverse:
 
 ```bash
-worldfork query POST /api/multiverses/<multiverse-id>/report \
-  --data '{"title":"M1 report","summary":"Terminal timeline report."}'
+worldfork reports generate multiverse <multiverse-id> \
+  --title "M1 report" \
+  --summary "Terminal timeline report."
 ```
 
 Then inspect the returned report version:
@@ -61,11 +66,45 @@ worldfork reports view <report-version-id>
 The final report compares terminal multiverses for a Big Bang:
 
 ```bash
-worldfork query POST /api/big-bangs/<big-bang-id>/reports/final \
-  --data '{"title":"Final report","summary":"Cross-multiverse outcome review."}'
+worldfork reports generate final <big-bang-id> \
+  --title "Final report" \
+  --summary "Cross-multiverse outcome review."
 ```
 
 The final report should be generated after the relevant multiverses have reached terminal states.
+
+## Endpoint Ledgers, Adjudication, And Path Mass
+
+Endpoint ledgers store endpoint status and evidence. They are not the branch
+probability distribution. Final outcome probability comes from retained
+timeline/path mass after adjudication.
+
+```bash
+worldfork ledgers list <big-bang-id>
+worldfork ledgers view <ledger-version-id>
+worldfork ledgers evaluate <big-bang-id> --wait --timeout 120
+worldfork ledgers path-mass <big-bang-id>
+worldfork reports adjudicate <big-bang-id>
+worldfork reports adjudication <big-bang-id>
+```
+
+Use ledger views to inspect endpoint evidence. Use path-mass or timeline
+adjudication outputs when you need data suitable for plotting an outcome
+distribution.
+
+## Cost Summaries
+
+Report-version JSON responses can include cost summaries derived from audited
+LLM calls and model estimates. Use:
+
+```bash
+worldfork runs cost <big-bang-id>
+worldfork ticks cost <tick-snapshot-id>
+worldfork query GET /api/report-versions/<report-version-id>/cost
+```
+
+Observed provider cost is included when available. Estimated cost is marked as an
+estimate when exact provider usage is unavailable.
 
 ## Report Agent Prompting And Retry
 

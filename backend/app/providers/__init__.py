@@ -154,6 +154,8 @@ _PRICE_PER_1K: dict[str, float] = {
     "deepseek/deepseek-v3.2": 0.00026,
     "deepseek/deepseek-v4-pro": 0.00174,
     "deepseek/deepseek-v4-flash": 0.00001,
+    "gpt-5.4": 0.0,
+    "openai/gpt-5.4": 0.0,
     "openai/gpt-4o-mini": 0.00015,
     "anthropic/claude-3-5-sonnet": 0.003,
     "anthropic/claude-3-5-haiku": 0.0008,
@@ -501,11 +503,7 @@ async def initialize_providers_from_settings(settings) -> None:  # type: ignore[
         settings, "openai_codex_base_url", OPENAI_CODEX_RESPONSES_BASE_URL
     )
     codex_api_key_env = OPENAI_CODEX_OAUTH_ENV
-    codex_default_model = getattr(
-        settings,
-        "openai_codex_default_model",
-        getattr(settings, "default_model", "deepseek/deepseek-v4-flash"),
-    )
+    codex_default_model = getattr(settings, "openai_codex_default_model", "gpt-5.4")
     codex_fallback_model = getattr(settings, "openai_codex_fallback_model", None)
     codex_env_enabled = bool(getattr(settings, "openai_codex_enabled", False))
     codex_enabled = codex_env_enabled

@@ -169,7 +169,6 @@ def execute_job(db: Session, job: models.Job, *, commit_running: bool = False) -
         job.lease_expires_at = None
         job.last_heartbeat_at = None
     except Exception as exc:
-        _mark_big_bang_failed_after_job_error(db, job, exc)
         job.result = {}
         job.error = str(exc)
         job.status = "failed"
@@ -296,20 +295,6 @@ def _execute_run_big_bang_until_complete_job(db: Session, job: models.Job) -> di
     reject_archived_big_bang(big_bang)
     if big_bang.status == "paused":
         raise ValueError("big bang is paused")
-    if big_bang.status != "running":
-        big_bang.status = "running"
-        db.add(
-            models.OperationLog(
-                big_bang_id=big_bang.id,
-                event_type="run_big_bang_until_complete_started",
-                level="info",
-                body={"job_id": str(job.id), "max_total_ticks": max_total_ticks},
-            )
-        )
-        db.flush()
-        db.commit()
-        db.refresh(big_bang)
-        db.refresh(job)
 
     tick_ids: list[str] = []
     latest_tick_id: str | None = None
@@ -414,29 +399,6 @@ def _execute_run_big_bang_until_complete_job(db: Session, job: models.Job) -> di
     result["report_version_ids"] = report_version_ids
     result["final_report_version_id"] = final_report_version_id
     return result
-
-
-def _mark_big_bang_failed_after_job_error(db: Session, job: models.Job, exc: Exception) -> None:
-    if job.job_type != "run_big_bang_until_complete":
-        return
-    big_bang_id = job.big_bang_id or (job.payload or {}).get("big_bang_id")
-    if not big_bang_id:
-        return
-    big_bang = db.get(models.BigBang, big_bang_id)
-    if big_bang is None:
-        return
-    if big_bang.status in {"archived", "paused", "completed"}:
-        return
-    big_bang.status = "failed"
-    db.add(
-        models.OperationLog(
-            big_bang_id=big_bang.id,
-            event_type="run_big_bang_until_complete_failed",
-            level="error",
-            body={"job_id": str(job.id), "error": str(exc)[:4000]},
-        )
-    )
-    db.flush()
 
 
 def _require_uuid_payload(payload: dict, key: str) -> UUID:

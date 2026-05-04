@@ -229,15 +229,10 @@ def _llm_error_message(exc: Exception) -> str:
         return "LLM call timed out"
     if isinstance(exc, LLMProviderUnavailable):
         return str(exc) or "LLM unavailable"
-    return str(exc) or "LLM unavailable"
+    return str(exc)
 
 
 def _route_retry_attempts(settings: Any, metadata: dict[str, Any]) -> int:
-    if "max_attempts" in metadata:
-        try:
-            return max(1, int(metadata["max_attempts"]))
-        except (TypeError, ValueError):
-            return 1
     retry_policy = str(metadata.get("retry_policy") or "exponential_backoff")
     if retry_policy == "none":
         return 1
@@ -254,11 +249,7 @@ def _retry_delay(base_seconds: float, attempt: int, retry_policy: str) -> float:
 
 def _timeout_seconds(metadata: dict[str, Any]) -> float:
     try:
-        value = float(
-            metadata.get("request_timeout_seconds")
-            or metadata.get("timeout_seconds")
-            or 120.0
-        )
+        value = float(metadata.get("timeout_seconds") or 120.0)
     except (TypeError, ValueError):
         value = 120.0
     return max(1.0, min(value, 1800.0))
@@ -311,7 +302,6 @@ def complete_with_audit(
     for candidate in resolved_route.candidates():
         attempt_messages = messages
         request_metadata = resolved_route.metadata_for(candidate, metadata)
-        attempt_metadata = dict(request_metadata)
         retry_policy = str(request_metadata.get("retry_policy") or "exponential_backoff")
         max_attempts = _route_retry_attempts(settings, request_metadata)
         try:
@@ -342,10 +332,10 @@ def complete_with_audit(
                                 model=candidate.model,
                                 messages=attempt_messages,
                                 json_schema=json_schema,
-                                metadata=attempt_metadata,
+                                metadata=request_metadata,
                             )
                         ),
-                        timeout=_timeout_seconds(attempt_metadata),
+                        timeout=_timeout_seconds(request_metadata),
                     )
                 )
                 if not response.content and not response.parsed:
@@ -375,46 +365,30 @@ def complete_with_audit(
                         "error": error_message,
                     }
                 )
-                should_retry = attempt < max_attempts
-                if isinstance(exc, TimeoutError) and request_metadata.get("retry_timeout_errors") is False:
-                    should_retry = False
-                if not should_retry:
-                    break
-                if isinstance(exc, LLMJSONParseError):
-                    invalid_content = (
-                        failed_response.content if failed_response is not None else None
+                if attempt < max_attempts:
+                    if isinstance(exc, LLMJSONParseError):
+                        invalid_content = (
+                            failed_response.content if failed_response is not None else None
+                        )
+                        attempt_messages = _json_repair_messages(
+                            messages,
+                            error_message,
+                            invalid_content,
+                        )
+                    delay = _retry_delay(
+                        float(getattr(settings, "llm_retry_backoff_seconds", 0)),
+                        attempt,
+                        retry_policy,
                     )
-                    attempt_messages = _json_repair_messages(
-                        messages,
-                        error_message,
-                        invalid_content,
-                    )
-                    attempt_metadata = dict(request_metadata)
-                    if request_metadata.get("json_repair_timeout_seconds") is not None:
-                        attempt_metadata["request_timeout_seconds"] = request_metadata[
-                            "json_repair_timeout_seconds"
-                        ]
-                    if request_metadata.get("json_repair_max_tokens") is not None:
-                        try:
-                            repair_tokens = int(request_metadata["json_repair_max_tokens"])
-                            current_tokens = int(attempt_metadata.get("max_tokens") or 0)
-                            attempt_metadata["max_tokens"] = max(current_tokens, repair_tokens)
-                        except (TypeError, ValueError):
-                            pass
-                delay = _retry_delay(
-                    float(getattr(settings, "llm_retry_backoff_seconds", 0)),
-                    attempt,
-                    retry_policy,
-                )
-                if delay > 0:
-                    time.sleep(delay)
+                    if delay > 0:
+                        time.sleep(delay)
         if successful_candidate is not None:
             break
     try:
         if response is None or successful_candidate is None:
             if isinstance(last_error, LLMProviderUnavailable):
                 raise last_error
-            raise RuntimeError(_llm_error_message(last_error) if last_error else "LLM call failed")
+            raise RuntimeError(str(last_error) if last_error else "LLM call failed")
         call.provider = successful_candidate.provider
         call.model = successful_candidate.model
         response.parsed = ensure_response_json_object(response)
@@ -424,6 +398,8 @@ def complete_with_audit(
             "raw": response.raw,
             "provider": successful_candidate.provider,
             "model": successful_candidate.model,
+            "usage": _response_usage(response.raw),
+            "prompt_cache_usage": _prompt_cache_usage(response.raw),
         }
         call = audit_store.mark_succeeded(
             call_id=call.id,
@@ -546,6 +522,8 @@ class LLMCallAuditStore:
                 "attempts": attempts,
                 "effective_provider": provider,
                 "effective_model": model,
+                "usage": response_payload.get("usage"),
+                "prompt_cache_usage": response_payload.get("prompt_cache_usage"),
             }
             audit_db.flush()
             return call
@@ -643,6 +621,23 @@ def _can_use_independent_audit_session(db: Session, big_bang_id: Any) -> bool:
             return audit_db.get(models.BigBang, big_bang_id) is not None
     except Exception:
         return False
+
+
+def _response_usage(raw: dict[str, Any]) -> dict[str, Any] | None:
+    usage = raw.get("usage") if isinstance(raw, dict) else None
+    return usage if isinstance(usage, dict) else None
+
+
+def _prompt_cache_usage(raw: dict[str, Any]) -> dict[str, Any]:
+    usage = _response_usage(raw) or {}
+    details = usage.get("prompt_tokens_details")
+    if not isinstance(details, dict):
+        details = {}
+    return {
+        "cached_tokens": int(details.get("cached_tokens") or 0),
+        "cache_write_tokens": int(details.get("cache_write_tokens") or 0),
+        "cache_discount": usage.get("cache_discount"),
+    }
 
 
 @contextmanager

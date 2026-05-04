@@ -19,8 +19,135 @@ WorldFork turns one scenario into many inspectable timelines.
 Each run keeps the ticks, branches, agent reviews, manual interventions, logs, and final reports tied back to durable state.
 
 </div>
-
 ---
+
+## Install And Setup
+
+### Agent-guided setup (recommended)
+
+Paste this prompt into your coding agent:
+
+```text
+Run this command to install the WorldFork skill, then use its setup module to set up WorldFork on this computer:
+
+npx skills add Hilo-Hilo/WorldFork/skills/worldfork --all
+
+After installing it, use the setup module in the skill to guide me through prerequisites, .env configuration with OPENROUTER_API_KEY, CLI installation, Docker Compose startup, migrations, seeding, readiness verification, a short explanation of Big Bangs, multiverses, ticks, branches, endpoint ledgers, and reports, and the onboarding demo if I confirm I want to spend live API credits. Be proactive: explain what each setup phase proves, use `worldfork setup` to show provider options, ask which providers I want to configure, recommend the fast-cheap cohort plus stronger governance/report split for Atlas, estimate time and cost before live runs, and narrate what Atlas is doing while it runs.
+```
+
+The single `worldfork` skill contains setup, CLI, debug, report, documentation, update, reinstall, and uninstall modules. You do not need separate `worldfork-setup` or `worldfork-report` skills.
+
+### Manual setup
+
+Use this path when you want to run each command yourself.
+
+#### Prerequisites
+
+- Docker Desktop or another Docker Compose runtime
+- Python 3.11+
+- `uv`
+- Node.js 20+ if you want to install agent skills with `npx skills`
+- An OpenRouter API key
+- OpenAI Codex OAuth auth for the default initializer, God-review, endpoint-ledger, event-summary, and report routes
+
+#### 1. Clone and install the CLI
+
+```bash
+git clone https://github.com/Hilo-Hilo/WorldFork.git
+cd WorldFork
+python3.11 -m pip install -e ./cli
+worldfork --help
+```
+
+If `worldfork` resolves to an old global shim, inspect `which -a worldfork` and reinstall the editable CLI from this checkout. While repairing a shim, use the source-checkout fallback from `cli/`:
+
+```bash
+cd cli
+uv run --extra dev worldfork --help
+cd ..
+```
+
+#### 2. Configure environment and providers
+
+```bash
+cp .env.example .env
+```
+
+Set `OPENROUTER_API_KEY` in `.env`. Then configure OpenAI Codex OAuth:
+
+```bash
+worldfork settings openai-codex-login
+```
+
+The default live split is:
+
+| Work type | Default route |
+| --- | --- |
+| Cohort, hero, action, high-volume simulation | OpenRouter `deepseek/deepseek-v4-flash` |
+| Initializer, God review, endpoint ledger, event summary, reports | OpenAI Codex `gpt-5.4` |
+
+Inspect provider options and effective routing before spending live API credits:
+
+```bash
+worldfork setup
+worldfork settings llm
+```
+
+#### 3. Start the backend stack
+
+```bash
+make build
+make up
+make migrate
+make seed
+```
+
+Verify readiness:
+
+```bash
+worldfork status
+worldfork query GET /readyz --no-api-prefix
+worldfork agent discover
+```
+
+#### 4. Initialize a first Big Bang
+
+```bash
+worldfork init \
+  --name "Atlas onboarding" \
+  --scenario-file examples/test-big-bang.md \
+  --max-ticks 4 \
+  --tick-duration-minutes 720
+```
+
+Inspect the initialized workspace:
+
+```bash
+worldfork runs workspace <big-bang-id>
+worldfork watch big-bang <big-bang-id> --once
+worldfork runs cost <big-bang-id>
+worldfork ledgers list <big-bang-id>
+worldfork logs list --status failed
+```
+
+`worldfork init` proves initialization and workspace creation. For the full tick, branch, endpoint-ledger, cost/timing, and report loop, run Atlas only after approving live API-credit use:
+
+```bash
+worldfork demo atlas
+```
+
+### Update later
+
+Refresh the skill first so your agent has the newest update runbook, then use the safe updater:
+
+```bash
+npx skills add Hilo-Hilo/WorldFork/skills/worldfork --all
+worldfork update --dry-run
+worldfork update --yes
+```
+
+The updater preserves `.env`, local Docker overrides, Docker volumes, run history, artifacts, reports, and local preferences by default.
+
 
 ## WorldFork at a Glance
 
@@ -142,13 +269,13 @@ Storage boundaries:
 
 ## What Is In This Repo
 
-WorldFork is a monorepo with installable and runnable surfaces around one core runtime:
+WorldFork is a monorepo with installable and runnable surfaces around one core runtime. The layout is kept explicit so operators, agents, and maintainers can find the runtime, CLI, docs, examples, and infrastructure without hunting through generated artifacts:
 
 | Surface | Location | Purpose |
 | --- | --- | --- |
 | Backend service | `backend/app` | FastAPI API, simulation runtime, jobs, storage, reports |
 | CLI package | `cli/` | `worldfork` command for operators and agents |
-| Agent skills | `skills/` | Setup, operator, report, and full-agent validation skills |
+| Agent skill | `skills/worldfork/` | Single public WorldFork skill with setup, report, debug, CLI, and documentation modules |
 | Docs | `docs/` | Setup, architecture, demos, reporting, testing, and agent-facing guides |
 | Examples | `examples/` | Runnable scenario dossiers and demos |
 | Source of truth | `source_of_truth/` | Prompt, report, and policy templates |
@@ -157,136 +284,6 @@ WorldFork is a monorepo with installable and runnable surfaces around one core r
 | PRD | `prd.md` | Product requirements and architecture direction |
 
 There is **no web frontend** in this repository.
-
----
-
-## Setup
-
-WorldFork supports both **agent-guided** and **manual** setup.
-
-### Agent-guided setup (recommended)
-
-Paste this prompt into your agent:
-
-```text
-Run this command to install the WorldFork setup skill, then use it to set up WorldFork:
-
-npx skills add Hilo-Hilo/WorldFork/skills/worldfork-setup --all
-
-Use the setup skill to preflight the machine, configure providers, verify the
-stack, explain the core WorldFork concepts, use `worldfork setup` to compare
-provider options, recommend the Atlas model split, and narrate live demos after
-asking before API-credit use.
-```
-
-### Manual setup
-
-#### Prerequisites
-
-- Docker Desktop or another Docker Compose runtime
-- Python 3.11+
-- `uv`
-- Node.js 20+ (for `npx skills`, if using skills)
-- An OpenRouter API key
-
-#### Configure the environment
-
-```bash
-cp .env.example .env
-```
-
-Set `OPENROUTER_API_KEY` in `.env`.
-
-Keep the default smart/fast split for audited runtime routes:
-
-```text
-SMART_MODEL=moonshotai/kimi-k2.6
-FAST_MODEL=deepseek/deepseek-v4-flash
-```
-
-Initializer, God-review, endpoint-ledger, and report routes default to Kimi K2.6 through OpenRouter. Cohort, hero, action, and event-summary routes default to DeepSeek V4 Flash through OpenRouter.
-
-Install the CLI:
-
-```bash
-python3.11 -m pip install -e ./cli
-worldfork --help
-```
-
-Then configure OpenAI Codex OAuth so initializer, God-review, endpoint-ledger,
-and report routes can use `openai-codex`:
-
-```bash
-worldfork settings openai-codex-login
-```
-
-The command writes the default auth file under `~/.worldfork/`; the backend also
-accepts `OPENAI_CODEX_OAUTH_TOKEN` or `OPENAI_CODEX_AUTH_FILE` when an operator
-needs a different auth location.
-
-#### Start the stack
-
-```bash
-make build
-make up
-make migrate
-make seed
-```
-
-#### Verify readiness
-
-```bash
-worldfork status
-worldfork query GET /readyz --no-api-prefix
-worldfork setup
-```
-
-A healthy local stack returns readiness checks for the database, Redis, OpenRouter, and optional Zep integration.
-If readiness fails, first check Docker Desktop, port conflicts on `8003`, `5433`, or `6379`, and the effective LLM settings with `worldfork settings llm`.
-
-`worldfork setup` gives agents a compact provider map and the recommended Atlas
-routing profile: cheap/fast models for high-volume cohort/timeline work, and
-stronger models for initialization, God review, endpoint-ledger, and reports.
-It also shows local OpenAI-compatible options such as Ollama, vLLM, LM Studio,
-and LocalAI, which can be routed to any audited agent type after a JSON-quality
-smoke test. Strict local proxies can opt out of bearer headers with
-`payload.omit_auth_header: true`.
-
-#### Create and initialize a first Big Bang
-
-```bash
-worldfork init \
-  --name "Atlas onboarding" \
-  --scenario-file examples/test-big-bang.md \
-  --max-ticks 4 \
-  --tick-duration-minutes 720
-```
-
-This is a setup smoke for the initializer and workspace. Run the Atlas demo when
-you want ticks, branching, reports, and endpoint-ledger behavior.
-
-#### Inspect the initialized workspace
-
-```bash
-worldfork watch big-bang <big-bang-id> --once
-worldfork runs workspace <big-bang-id>
-worldfork logs list --status failed
-```
-
-Run the larger onboarding demo when you want the full branch-and-report showcase:
-
-```bash
-worldfork demo atlas
-```
-
-After a demo or completed simulation, inspect structured reports before
-rendering files:
-
-```bash
-worldfork reports list <big-bang-id>
-worldfork reports view <report-version-id>
-worldfork reports render <report-version-id> --format pdf --output report.pdf
-```
 
 ---
 
@@ -340,12 +337,12 @@ worldfork --json status
 backend/app/          FastAPI app, runtime, jobs, storage, reports
 backend/tests/        root regressions, unit, integration, and e2e tests
 cli/                  standalone Python CLI package
-skills/               installable agent skills
+skills/               installable operator and agent skills
 examples/             runnable scenario dossiers
 source_of_truth/      prompt, report, and policy templates
 scripts/              local validation and demo harnesses
 infra/                Docker and Alembic infrastructure
-docs/                 operator and agent documentation
+docs/                 operator, developer, and agent documentation
 prd.md                product requirements source
 ```
 
@@ -354,11 +351,11 @@ prd.md                product requirements source
 ## Status
 
 WorldFork is **backend-first** and **CLI-first**.
-The current system is Dockerized, tested across unit/integration/e2e layers, and live-smoke validated against the default OpenRouter smart/fast split:
+The current system is Dockerized, tested across unit/integration/e2e layers, and live-smoke validated against the default model split:
 
 ```text
-openrouter/moonshotai/kimi-k2.6
 openrouter/deepseek/deepseek-v4-flash
+openai-codex/gpt-5.4
 ```
 
 If you want to understand the project quickly, start with the diagrams above, then run:

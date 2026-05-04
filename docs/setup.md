@@ -10,13 +10,11 @@ WorldFork has two setup paths:
 Paste this prompt into your agent:
 
 ```text
-Run these two commands to install the WorldFork skills, then use the
-worldfork-setup skill to set up WorldFork on this computer:
+Run this command to install the WorldFork skill, then use it to set up WorldFork on this computer:
 
-npx skills add Hilo-Hilo/WorldFork/skills/worldfork-setup --all
 npx skills add Hilo-Hilo/WorldFork/skills/worldfork --all
 
-After installing them, use the setup skill to guide me through prerequisites,
+After installing it, use the setup module in the skill to guide me through prerequisites,
 .env configuration with OPENROUTER_API_KEY, CLI installation, Docker Compose
 startup, migrations, seeding, readiness verification, a short explanation of
 Big Bangs, multiverses, ticks, branches, endpoint ledgers, and reports, and the
@@ -104,10 +102,12 @@ port conflicts on `8003`, `5433`, and `6379`.
 Use the CLI updater for normal code refreshes:
 
 ```bash
+npx skills add Hilo-Hilo/WorldFork/skills/worldfork --all
 worldfork update --dry-run
 worldfork update --yes
 ```
 
+Refresh the `worldfork` skill first so the agent has the latest update runbook.
 The updater only fast-forwards the source checkout. It does not overwrite `.env`, local Docker overrides, run folders, artifacts, or database state, and it does not run migrations unless a future command explicitly adds that behavior.
 
 ### Verify Readiness
@@ -159,8 +159,13 @@ Inspect the initialized workspace:
 ```bash
 worldfork watch big-bang <big-bang-id> --once
 worldfork runs workspace <big-bang-id>
+worldfork runs cost <big-bang-id>
+worldfork ledgers list <big-bang-id>
 worldfork logs list --status failed
 ```
+
+For the detailed initializer, tick, queue, timing, and ledger flow behind this
+first run, see [Runtime Walkthrough](runtime.md).
 
 ### Stop Or Reset
 

@@ -214,10 +214,10 @@ async def test_get_llm_config_exposes_provider_routing_and_route_catalog(client,
         "entries": [
             {
                 "job_type": "report_agent",
-                "preferred_provider": "openrouter",
-                "preferred_model": "deepseek/deepseek-v4-flash",
+                "preferred_provider": "openai-codex",
+                "preferred_model": "gpt-5.4",
                 "fallback_provider": "openrouter",
-                "fallback_model": "deepseek/deepseek-v4-flash",
+                "fallback_model": "openai/gpt-4o-mini",
                 "temperature": 0.2,
                 "top_p": 1.0,
                 "max_tokens": 8192,
@@ -238,16 +238,13 @@ async def test_get_llm_config_exposes_provider_routing_and_route_catalog(client,
     assert resp.status_code == 200
     data = resp.json()
     assert data["runtime_defaults"]["default_provider"]
-    assert data["runtime_defaults"]["smart_model"] == "moonshotai/kimi-k2.6"
-    assert data["runtime_defaults"]["fast_model"] == "deepseek/deepseek-v4-flash"
     assert data["provider_catalog"][0]["provider"] == "openrouter"
     assert data["providers"][0]["provider"] == "openrouter"
     assert data["model_routing"][0]["job_type"] == "report_agent"
     report_effective = next(
         entry for entry in data["effective_model_routing"] if entry["route"] == "report_agent"
     )
-    assert report_effective["preferred_provider"] == "openrouter"
-    assert report_effective["preferred_model"] == "deepseek/deepseek-v4-flash"
+    assert report_effective["preferred_provider"] == "openai-codex"
     assert report_effective["matched_route"] == "report_agent"
     assert any(route["route"] == "cohort_agent" for route in data["known_routes"])
     assert all("aliases" not in route for route in data["known_routes"])
@@ -397,10 +394,9 @@ async def test_get_model_routing_empty(client):
     assert effective["cohort_agent"]["preferred_provider"] == "openrouter"
     assert effective["cohort_agent"]["preferred_model"] == "deepseek/deepseek-v4-flash"
     assert effective["hero_agent"]["preferred_model"] == "deepseek/deepseek-v4-flash"
-    assert effective["event_summary"]["preferred_model"] == "deepseek/deepseek-v4-flash"
-    for route in ("initializer_agent", "god_agent", "endpoint_ledger", "report_agent"):
-        assert effective[route]["preferred_provider"] == "openrouter"
-        assert effective[route]["preferred_model"] == "moonshotai/kimi-k2.6"
+    for route in ("initializer_agent", "god_agent", "event_summary", "endpoint_ledger", "report_agent"):
+        assert effective[route]["preferred_provider"] == "openai-codex"
+        assert effective[route]["preferred_model"] == "gpt-5.4"
     assert {route["route"] for route in data["known_routes"]} >= {
         "initializer_agent",
         "god_agent",

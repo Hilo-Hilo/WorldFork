@@ -192,6 +192,191 @@ def test_jobs_pause_calls_canonical_job_control_endpoint(monkeypatch) -> None:
     assert calls == [("POST", "/jobs/job-123/pause", None, None)]
 
 
+def test_runs_timing_calls_agent_timing_endpoint(monkeypatch) -> None:
+    calls = []
+
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None, use_api_prefix=True, timeout=None):
+            calls.append((method, path, params, json_body))
+            return {"ok": True, "data": {"big_bang_id": "bb-123", "ticks": []}, "meta": {}}
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    result = CliRunner().invoke(main, ["runs", "timing", "bb-123"])
+
+    assert result.exit_code == 0
+    assert calls == [("GET", "/agent/runs/bb-123/timing", {"verbosity": "summary"}, None)]
+    assert "big_bang_id" in result.output
+
+
+def test_ticks_timing_calls_tick_timing_endpoint(monkeypatch) -> None:
+    calls = []
+
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None, use_api_prefix=True, timeout=None):
+            calls.append((method, path, params, json_body))
+            return {"tick_snapshot_id": "tick-123", "duration_seconds": 12.5}
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    result = CliRunner().invoke(main, ["ticks", "timing", "tick-123"])
+
+    assert result.exit_code == 0
+    assert calls == [("GET", "/ticks/tick-123/timing", {"verbosity": "summary"}, None)]
+    assert "duration_seconds" in result.output
+
+
+def test_runs_cost_calls_agent_cost_endpoint(monkeypatch) -> None:
+    calls = []
+
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None, use_api_prefix=True, timeout=None):
+            calls.append((method, path, params, json_body))
+            return {"currency": "USD", "actual": {"openrouter_usd": 0.01}}
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    result = CliRunner().invoke(main, ["runs", "cost", "bb-123"])
+
+    assert result.exit_code == 0
+    assert calls == [("GET", "/agent/runs/bb-123/cost", {"verbosity": "summary"}, None)]
+    assert "openrouter_usd" in result.output
+
+
+def test_ticks_cost_calls_tick_cost_endpoint(monkeypatch) -> None:
+    calls = []
+
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None, use_api_prefix=True, timeout=None):
+            calls.append((method, path, params, json_body))
+            return {"currency": "USD", "tokens": {"total_tokens": 100}}
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    result = CliRunner().invoke(main, ["ticks", "cost", "tick-123"])
+
+    assert result.exit_code == 0
+    assert calls == [("GET", "/ticks/tick-123/cost", {"verbosity": "summary"}, None)]
+    assert "total_tokens" in result.output
+
+
+def test_runs_estimate_posts_cost_and_time_estimate_payload(monkeypatch) -> None:
+    calls = []
+
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None, use_api_prefix=True, timeout=None):
+            calls.append((method, path, params, json_body))
+            return {"currency": "USD", "time_estimate": {"estimated_wall_seconds": 12}}
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    result = CliRunner().invoke(
+        main,
+        [
+            "runs",
+            "estimate",
+            "bb-123",
+            "--remaining-ticks",
+            "5",
+            "--max-parallel-cohort-decisions",
+            "8",
+            "--model-config",
+            '{"cohort_agent_model":"deepseek/deepseek-v4-flash"}',
+        ],
+    )
+
+    assert result.exit_code == 0
+    assert calls == [
+        (
+            "POST",
+            "/agent/runs/bb-123/cost-estimate",
+            None,
+            {
+                "remaining_ticks": 5,
+                "max_ticks": None,
+                "branch_threshold": None,
+                "max_parallel_cohort_decisions": 8,
+                "model_config": {"cohort_agent_model": "deepseek/deepseek-v4-flash"},
+                "simulation_config": {},
+                "include_agent_types": [],
+                "exclude_agent_types": [],
+                "include_non_openrouter": True,
+                "include_reports": True,
+            },
+        )
+    ]
+    assert "estimated_wall_seconds" in result.output
+
+
+def test_costs_estimate_posts_pre_big_bang_payload(monkeypatch) -> None:
+    calls = []
+
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None, use_api_prefix=True, timeout=None):
+            calls.append((method, path, params, json_body))
+            return {"scope": "pre_big_bang", "currency": "USD"}
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    result = CliRunner().invoke(
+        main,
+        [
+            "costs",
+            "estimate",
+            "--assumed-cohorts",
+            "4",
+            "--assumed-heroes",
+            "1",
+            "--scenario-tokens",
+            "128000",
+        ],
+    )
+
+    assert result.exit_code == 0
+    assert calls == [
+        (
+            "POST",
+            "/costs/estimate",
+            None,
+            {
+                "remaining_ticks": None,
+                "max_ticks": None,
+                "branch_threshold": None,
+                "max_parallel_cohort_decisions": None,
+                "assumed_cohorts": 4,
+                "assumed_heroes": 1,
+                "assumed_multiverses": None,
+                "scenario_tokens": 128000,
+                "model_config": {},
+                "simulation_config": {},
+                "include_agent_types": [],
+                "exclude_agent_types": [],
+                "include_non_openrouter": True,
+                "include_reports": True,
+            },
+        )
+    ]
+    assert "pre_big_bang" in result.output
+
+
 def test_reports_render_calls_report_version_endpoint(monkeypatch) -> None:
     calls = []
 
@@ -306,6 +491,25 @@ def test_ledgers_evaluate_calls_endpoint_ledger_job(monkeypatch) -> None:
             {"idempotency_key": None, "run_inline": False, "candidate_endpoint": None},
         )
     ]
+
+
+def test_ledgers_path_mass_calls_plot_data_endpoint(monkeypatch) -> None:
+    calls = []
+
+    class FakeClient:
+        def __init__(self, *_args, **_kwargs) -> None:
+            pass
+
+        def request(self, method, path, *, params=None, json_body=None):
+            calls.append((method, path, params, json_body))
+            return {"endpoint_path_mass_distribution": []}
+
+    monkeypatch.setattr(cli_main, "WorldForkClient", FakeClient)
+
+    result = CliRunner().invoke(main, ["ledgers", "path-mass", "bb-123"])
+
+    assert result.exit_code == 0
+    assert calls == [("GET", "/big-bangs/bb-123/endpoint-ledgers/path-mass", None, None)]
 
 
 def test_ledgers_evaluate_wait_exits_nonzero_for_unsuccessful_terminal(monkeypatch) -> None:

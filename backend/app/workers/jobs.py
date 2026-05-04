@@ -71,50 +71,6 @@ def echo_envelope(self, envelope_json: str) -> dict:  # type: ignore[no-untyped-
 # ---------------------------------------------------------------------------
 
 
-@celery_app.task(
-    bind=True,
-    name="run_canonical_job",
-    acks_late=True,
-    max_retries=0,
-    soft_time_limit=3300,
-    time_limit=3600,
-)
-def run_canonical_job_task(self, job_id: str):  # type: ignore[no-untyped-def]
-    """Execute one canonical row from the ``jobs`` table.
-
-    The public /api/jobs control plane stores durable job rows. This task is a
-    bridge from that table-backed queue into the running Celery worker pool.
-    """
-    from app.db import models
-    from app.db.session import SessionLocal
-    from app.domains.jobs.executor import JobNotRunnableError, execute_job
-
-    db = SessionLocal()
-    try:
-        job = db.get(models.Job, job_id)
-        if job is None:
-            return {"job_id": job_id, "status": "missing"}
-        try:
-            execute_job(db, job, commit_running=True)
-        except JobNotRunnableError:
-            db.rollback()
-            db.refresh(job)
-            return {"job_id": str(job.id), "status": job.status, "error": job.error}
-        db.commit()
-        return {
-            "job_id": str(job.id),
-            "job_type": job.job_type,
-            "status": job.status,
-            "result": job.result or {},
-            "error": job.error,
-        }
-    except Exception:
-        db.rollback()
-        raise
-    finally:
-        db.close()
-
-
 async def _open_session():
     """Async-context-managed DB session for the current task lifecycle."""
     from backend.app.core.db import SessionLocal
@@ -790,7 +746,6 @@ async def _export_run_impl(env: JobEnvelope) -> dict:
 __all__ = [
     "heartbeat",
     "echo_envelope",
-    "run_canonical_job_task",
     "initialize_big_bang_task",
     "simulate_universe_tick_task",
     "apply_tick_results_task",

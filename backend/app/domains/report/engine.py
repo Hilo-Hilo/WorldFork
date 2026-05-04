@@ -112,19 +112,14 @@ def generate_multiverse_report(
         source={"multiverse_id": str(multiverse.id), "multiverse_version": multiverse.version},
     )
     _commit_report_inputs_before_llm(db)
-    llm_report, llm_call, report_agent_error = _run_report_agent_with_fallback(
-        db,
-        big_bang_id=multiverse.big_bang_id,
-        content=content,
-    )
+    llm_report, llm_call = _run_report_agent(db, big_bang_id=multiverse.big_bang_id, content=content)
     _complete_report_agent_structured_fields(llm_report, content)
     content["llm_report"] = llm_report
     content["ai_summary"] = _summary_fields(llm_report)
-    report_agent_model = _attach_report_agent_result_metadata(
-        metadata,
-        llm_call=llm_call,
-        fallback_error=report_agent_error,
-    )
+    report_agent_model = _attach_report_agent_call_metadata(metadata, llm_call)
+    metadata["report_agent_status"] = "succeeded"
+    metadata["report_agent_prompt_mode"] = (llm_call.meta or {}).get("prompt_mode")
+    metadata["report_agent_attempt"] = (llm_call.meta or {}).get("report_agent_attempt")
     _refresh_report_counts(db, big_bang_id=multiverse.big_bang_id, content=content)
 
     report, previous_version, version = _allocate_report_version(db, report_id=report.id)
@@ -198,6 +193,7 @@ def generate_final_big_bang_report(
         use_llm=False,
     )
     _attach_endpoint_ledger_content(db, content, endpoint_ledger)
+    _patch_outcome_conclusions_from_timeline_adjudication(db, content)
     label_by_multiverse_id = {str(item.id): item.ui_label for item in multiverses}
     reports = list(db.scalars(select(models.Report).where(models.Report.big_bang_id == big_bang.id)).all())
     content["report_inventory"] = _report_inventory_items(
@@ -218,19 +214,14 @@ def generate_final_big_bang_report(
         },
     )
     _commit_report_inputs_before_llm(db)
-    llm_report, llm_call, report_agent_error = _run_report_agent_with_fallback(
-        db,
-        big_bang_id=big_bang.id,
-        content=content,
-    )
+    llm_report, llm_call = _run_report_agent(db, big_bang_id=big_bang.id, content=content)
     _complete_report_agent_structured_fields(llm_report, content)
     content["llm_report"] = llm_report
     content["ai_summary"] = _summary_fields(llm_report)
-    report_agent_model = _attach_report_agent_result_metadata(
-        metadata,
-        llm_call=llm_call,
-        fallback_error=report_agent_error,
-    )
+    report_agent_model = _attach_report_agent_call_metadata(metadata, llm_call)
+    metadata["report_agent_status"] = "succeeded"
+    metadata["report_agent_prompt_mode"] = (llm_call.meta or {}).get("prompt_mode")
+    metadata["report_agent_attempt"] = (llm_call.meta or {}).get("report_agent_attempt")
     _refresh_report_counts(db, big_bang_id=big_bang.id, content=content)
 
     report, previous_version, version = _allocate_report_version(db, report_id=report.id)
@@ -341,13 +332,15 @@ def _attach_endpoint_ledger_content(
     content["terminality_assessment"] = payload.get("terminality_assessment", {})
     content["contradiction_check"] = payload.get("contradiction_check", {})
     aggregation_payload = payload.get("payload") if isinstance(payload.get("payload"), dict) else {}
-    if aggregation_payload.get("aggregation") == "path_probability_weighted":
+    if aggregation_payload.get("aggregation") in {"path_probability_weighted", "path_mass_by_endpoint_status"}:
         content["path_probability_distribution"] = aggregation_payload.get("path_probability_distribution", [])
+        content["endpoint_path_mass_distribution"] = aggregation_payload.get("endpoint_path_mass_distribution", [])
+        content["plot_distribution"] = aggregation_payload.get("plot_distribution", {})
         outcome_distribution = content.get("outcome_distribution")
         if isinstance(outcome_distribution, dict):
-            outcome_distribution["endpoint_probability_method"] = "path_probability_weighted"
+            outcome_distribution["endpoint_path_mass_method"] = "path_mass_by_endpoint_status"
             outcome_distribution["path_probability_mass"] = aggregation_payload.get("path_probability_mass")
-            outcome_distribution["weighted_endpoint_histogram"] = payload.get("histogram", [])
+            outcome_distribution["endpoint_path_mass_distribution"] = aggregation_payload.get("endpoint_path_mass_distribution", [])
     _patch_outcome_conclusions_from_endpoint_ledger(content)
 
 
@@ -393,20 +386,108 @@ def _patch_outcome_conclusions_from_endpoint_ledger(content: dict[str, Any]) -> 
     if not histogram:
         return
     top = max(histogram, key=lambda item: float(item.get("probability") or 0))
-    if top.get("endpoint_key") == "endpoint_unresolved" or top.get("status") in {"unresolved", "process_only"}:
+    if top.get("endpoint_key") in {"endpoint_unresolved", "endpoint_insufficient_ticks"} or top.get("status") in {
+        "unresolved",
+        "process_only",
+        "insufficient_ticks",
+    }:
         return
     likely = dict(conclusions.get("likely_endpoint") or {})
     likely["endpoint_key"] = top.get("endpoint_key")
     likely["endpoint_label"] = top.get("label")
-    likely["endpoint_probability"] = top.get("probability")
+    likely["endpoint_path_mass"] = top.get("path_mass")
     likely["endpoint_status"] = top.get("status")
     likely["endpoint_selection_basis"] = "endpoint_ledger"
     previous = likely.get("interpretation") or ""
     likely["interpretation"] = (
-        f"Endpoint ledger favors {top.get('label')} with probability {top.get('probability')} "
+        f"Endpoint ledger favors {top.get('label')} with path_mass={top.get('path_mass')} "
         f"and status={top.get('status')}. {previous}"
     ).strip()
     conclusions["likely_endpoint"] = likely
+
+
+def _patch_outcome_conclusions_from_timeline_adjudication(db: Session, content: dict[str, Any]) -> None:
+    conclusions = content.get("outcome_conclusions")
+    adjudication = content.get("timeline_adjudication")
+    if not isinstance(conclusions, dict) or not isinstance(adjudication, dict):
+        return
+    entries = adjudication.get("entries")
+    if not isinstance(entries, list):
+        return
+    included_entries = [item for item in entries if isinstance(item, dict) and item.get("include_in_final")]
+    if not included_entries:
+        return
+    comparison = content.get("multiverse_comparison")
+    comparison_items = comparison if isinstance(comparison, list) else []
+    comparison_by_id = {
+        str(item.get("multiverse_id")): item
+        for item in comparison_items
+        if isinstance(item, dict) and item.get("multiverse_id")
+    }
+
+    def key(entry: dict[str, Any]) -> tuple[float, float, int, str]:
+        row = comparison_by_id.get(str(entry.get("multiverse_id"))) or {}
+        return (
+            _float_or_default(entry.get("effective_path_probability"), 0.0),
+            _float_or_default(row.get("latest_branch_score"), 0.0),
+            int(row.get("latest_tick_index") or 0),
+            str(entry.get("ui_label") or row.get("ui_label") or ""),
+        )
+
+    selected_entry = max(included_entries, key=key)
+    selected_id = str(selected_entry.get("multiverse_id") or "")
+    row = comparison_by_id.get(selected_id) or {}
+    multiverse = db.scalar(select(models.Multiverse).where(models.Multiverse.id == selected_id))
+    latest_tick = _latest_tick(db, multiverse.id) if multiverse is not None else None
+    latest_review = _latest_god_review(db, multiverse.id) if multiverse is not None else None
+
+    likely = dict(conclusions.get("likely_endpoint") or {})
+    endpoint_source = {
+        **row,
+        "multiverse_id": selected_id,
+        "ui_label": selected_entry.get("ui_label") or row.get("ui_label"),
+        "status": row.get("status"),
+        "latest_tick_index": row.get("latest_tick_index"),
+        "latest_branch_score": row.get("latest_branch_score"),
+        "path_probability": row.get("path_probability"),
+    }
+    likely.update(
+        {
+            "multiverse_id": selected_id,
+            "multiverse_label": endpoint_source.get("ui_label"),
+            "multiverse_status": endpoint_source.get("status"),
+            "latest_tick_index": endpoint_source.get("latest_tick_index"),
+            "latest_tick_status": latest_tick.status if latest_tick else None,
+            "latest_tick_summary": latest_tick.summary if latest_tick else None,
+            "branch_score": endpoint_source.get("latest_branch_score"),
+            "god_decision": latest_review.decision if latest_review else None,
+            "god_rationale": latest_review.rationale if latest_review else None,
+            "endpoint_key": selected_entry.get("endpoint_key") or likely.get("endpoint_key"),
+            "endpoint_status": selected_entry.get("endpoint_status") or likely.get("endpoint_status"),
+            "endpoint_selection_basis": "timeline_adjudication",
+            "effective_path_probability": selected_entry.get("effective_path_probability"),
+            "interpretation": _timeline_adjudication_interpretation(
+                endpoint_source,
+                selected_entry,
+                latest_tick,
+                latest_review,
+            ),
+        }
+    )
+    conclusions["likely_endpoint"] = likely
+    mechanisms = conclusions.get("causal_mechanisms")
+    if isinstance(mechanisms, list):
+        replacement = (
+            f"Timeline adjudication selected {endpoint_source.get('ui_label')} from retained timelines "
+            f"with effective path probability={selected_entry.get('effective_path_probability')}, "
+            f"status={endpoint_source.get('status')}, latest tick={endpoint_source.get('latest_tick_index')}, "
+            f"and branch score={endpoint_source.get('latest_branch_score')}."
+        )
+        conclusions["causal_mechanisms"] = [
+            item
+            for item in mechanisms
+            if not (isinstance(item, str) and item.startswith("Endpoint selection favored "))
+        ] + [replacement]
 
 
 def render_report_version_ephemeral(
@@ -903,6 +984,31 @@ def _endpoint_interpretation(
     return f"{label} is the likely endpoint by terminal status, branch score, and latest tick position."
 
 
+def _timeline_adjudication_interpretation(
+    endpoint_source: dict[str, Any],
+    adjudication_entry: dict[str, Any],
+    latest_tick: models.TickSnapshot | None,
+    latest_review: models.GodAgentReview | None,
+) -> str:
+    label = endpoint_source.get("ui_label") or "The selected timeline"
+    endpoint_key = adjudication_entry.get("endpoint_key") or "unknown"
+    endpoint_status = adjudication_entry.get("endpoint_status") or "unknown"
+    effective_path = adjudication_entry.get("effective_path_probability")
+    tick_index = endpoint_source.get("latest_tick_index")
+    base = (
+        f"Timeline adjudication retained {label} as the representative timeline for endpoint "
+        f"{endpoint_key} with endpoint_status={endpoint_status}, effective path probability={effective_path}, "
+        f"timeline status={endpoint_source.get('status')}, and latest tick index={tick_index}."
+    )
+    if str(endpoint_status).lower() in {"unresolved", "process_only", "active", "pending"}:
+        base += " This is not a resolved terminal endpoint claim."
+    if latest_review is not None:
+        return f"{base} The latest God-agent review decided {latest_review.decision}: {latest_review.rationale}"
+    if latest_tick is not None and latest_tick.summary:
+        return f"{base} Latest tick summary: {latest_tick.summary}"
+    return base
+
+
 def _final_event_traces(db: Session, *, big_bang_id) -> list[dict[str, Any]]:
     rows = db.execute(
         select(models.Event, models.EventSummary, models.TickSnapshot)
@@ -1343,28 +1449,35 @@ def _report_agent_prompt_content(content: dict[str, Any], *, mode: str) -> dict[
     limit = REPORT_AGENT_RESCUE_TIMELINE_LIMIT if mode == "rescue" else REPORT_AGENT_STANDARD_TIMELINE_LIMIT
     if content.get("report_type") == "final_big_bang":
         comparison = content.get("multiverse_comparison") or []
-        selected = _select_report_timelines(comparison, limit=limit)
+        selected = _select_report_timelines_for_final_report(content, comparison, limit=limit)
+        adjudication = content.get("timeline_adjudication") or {}
         return {
             "report_type": "final_big_bang",
             "title": content.get("title"),
             "summary": content.get("summary"),
             "source": _compact_source(content.get("source") or {}),
+            "outcome_conclusions": _compact_outcome_conclusions(content.get("outcome_conclusions") or {}),
             "outcome_distribution": _compact_distribution(content.get("outcome_distribution") or {}),
             "probability_context": _probability_context(content),
             "endpoint_ledger": _compact_endpoint_ledger(content),
             "endpoint_histogram": _compact_report_value(content.get("endpoint_histogram") or [], max_items=limit),
+            "endpoint_path_mass_distribution": _compact_report_value(
+                content.get("endpoint_path_mass_distribution") or [],
+                max_items=limit,
+            ),
+            "plot_distribution": _compact_report_value(content.get("plot_distribution") or {}, max_items=8),
             "path_probability_distribution": _compact_path_probability_distribution(
                 content.get("path_probability_distribution") or [],
                 limit=limit,
             ),
-            "timeline_adjudication": _compact_timeline_adjudication(content.get("timeline_adjudication") or {}, limit=limit),
+            "timeline_adjudication": _compact_timeline_adjudication(adjudication, limit=limit),
             "terminality_assessment": _compact_report_value(content.get("terminality_assessment") or {}, max_items=6),
             "contradiction_check": _compact_report_value(content.get("contradiction_check") or {}, max_items=6),
             "selected_timelines": [_compact_timeline_metric(item) for item in selected],
             "timeline_selection": {
                 "selected_count": len(selected),
                 "total_count": len(comparison),
-                "policy": "highest path probability, then branch score, deepest branches, and longest tick history",
+                "policy": _timeline_selection_policy(adjudication),
             },
             "divergence_drivers": _compact_divergence_drivers(content, limit=limit),
             "recurring_patterns": _section_items(content, "Recurring Patterns")[:limit],
@@ -1380,9 +1493,9 @@ def _report_agent_prompt_content(content: dict[str, Any], *, mode: str) -> dict[
         "summary": content.get("summary"),
         "source": _compact_source(content.get("source") or {}),
         "outcome_distribution": _compact_timeline_metric(content.get("outcome_distribution") or {}),
-        "probability_context": _probability_context(content),
-        "endpoint_ledger": _compact_endpoint_ledger(content),
-        "endpoint_histogram": _compact_report_value(content.get("endpoint_histogram") or [], max_items=limit),
+            "probability_context": _probability_context(content),
+            "endpoint_ledger": _compact_endpoint_ledger(content),
+            "endpoint_histogram": _compact_report_value(content.get("endpoint_histogram") or [], max_items=limit),
         "terminality_assessment": _compact_report_value(content.get("terminality_assessment") or {}, max_items=6),
         "contradiction_check": _compact_report_value(content.get("contradiction_check") or {}, max_items=6),
         "timeline": _select_report_ticks(timeline_rows, limit=limit),
@@ -1412,6 +1525,22 @@ def _compact_endpoint_ledger(content: dict[str, Any]) -> dict[str, Any]:
         "entries": _compact_report_value((ledger.get("entries") or [])[:8], max_items=6),
         "aggregation": payload.get("aggregation"),
         "path_probability_mass": payload.get("path_probability_mass"),
+        "endpoint_path_mass_distribution": _compact_report_value(
+            payload.get("endpoint_path_mass_distribution") or [],
+            max_items=8,
+        ),
+        "plot_distribution": _compact_report_value(payload.get("plot_distribution") or {}, max_items=8),
+    }
+
+
+def _compact_outcome_conclusions(conclusions: dict[str, Any]) -> dict[str, Any]:
+    if not isinstance(conclusions, dict):
+        return {}
+    likely = conclusions.get("likely_endpoint")
+    compact_likely = _compact_report_value(likely or {}, max_items=12) if isinstance(likely, dict) else {}
+    return {
+        "likely_endpoint": compact_likely,
+        "causal_mechanisms": _compact_report_value(conclusions.get("causal_mechanisms") or [], max_items=6),
     }
 
 
@@ -1437,8 +1566,10 @@ def _compact_distribution(distribution: dict[str, Any]) -> dict[str, Any]:
         "timeline_statuses",
         "report_statuses",
         "god_decisions",
+        "endpoint_path_mass_method",
         "endpoint_probability_method",
         "path_probability_mass",
+        "endpoint_path_mass_distribution",
         "weighted_endpoint_histogram",
         "total_social_posts",
         "total_graph_edges",
@@ -1450,6 +1581,11 @@ def _compact_distribution(distribution: dict[str, Any]) -> dict[str, Any]:
             compact["weighted_endpoint_histogram"],
             max_items=8,
         )
+    if "endpoint_path_mass_distribution" in compact:
+        compact["endpoint_path_mass_distribution"] = _compact_report_value(
+            compact["endpoint_path_mass_distribution"],
+            max_items=8,
+        )
     return compact
 
 
@@ -1457,15 +1593,14 @@ def _probability_context(content: dict[str, Any]) -> dict[str, Any]:
     if content.get("report_type") == "final_big_bang":
         raw_distribution = content.get("outcome_distribution")
         distribution: dict[str, Any] = raw_distribution if isinstance(raw_distribution, dict) else {}
-        method = distribution.get("endpoint_probability_method") or "endpoint_ledger"
+        method = distribution.get("endpoint_path_mass_method") or distribution.get("endpoint_probability_method") or "endpoint_ledger"
         return {
             "scope": "final_big_bang",
-            "endpoint_probability_method": method,
+            "endpoint_path_mass_method": method,
             "path_probability_mass": distribution.get("path_probability_mass"),
             "semantics": (
-                "When endpoint_probability_method=path_probability_weighted, endpoint histogram probabilities "
-                "are final cross-timeline path-mass-weighted probabilities. Otherwise they are ledger probabilities "
-                "from the available endpoint ledger evidence."
+                "Endpoint ledger entries are yes/no/unresolved states. Final quantitative claims are path-mass "
+                "aggregations across retained timelines, not per-endpoint ledger probabilities."
             ),
         }
 
@@ -1478,8 +1613,7 @@ def _probability_context(content: dict[str, Any]) -> dict[str, Any]:
         "semantics": (
             "This is a single timeline report. branch_probability is the conditional probability assigned at "
             "this timeline's fork, and path_probability is the cumulative probability mass of this timeline. "
-            "Endpoint ledger probabilities are conditional endpoint probabilities inside this timeline; do not "
-            "describe them as cross-timeline path mass."
+            "Endpoint ledger entries are terminal-state predicates, not probability estimates."
         ),
     }
 
@@ -1493,7 +1627,11 @@ def _compact_path_probability_distribution(rows: list[Any], *, limit: int) -> li
             "ui_label": row.get("ui_label"),
             "status": row.get("status"),
             "path_probability": row.get("path_probability"),
+            "original_path_probability": row.get("original_path_probability"),
             "normalized_weight": row.get("normalized_weight"),
+            "viability_status": row.get("viability_status"),
+            "include_in_final": row.get("include_in_final"),
+            "prune_reason": row.get("prune_reason"),
         }
         compact.append({key: value for key, value in item.items() if value not in (None, "")})
     return compact
@@ -1507,6 +1645,16 @@ def _compact_timeline_adjudication(adjudication: dict[str, Any], *, limit: int) 
         "summary": _truncate_text(str(adjudication.get("summary") or ""), 360),
         "payload": _compact_report_value(adjudication.get("payload") or {}, max_items=8),
         "entries": _compact_report_value((adjudication.get("entries") or [])[:limit], max_items=8),
+        "retained_labels": [
+            item.get("ui_label")
+            for item in adjudication.get("entries", [])
+            if isinstance(item, dict) and item.get("include_in_final") and item.get("ui_label")
+        ][:limit],
+        "pruned_labels": [
+            item.get("ui_label")
+            for item in adjudication.get("entries", [])
+            if isinstance(item, dict) and item.get("include_in_final") is False and item.get("ui_label")
+        ][:limit],
     }
 
 
@@ -1554,11 +1702,57 @@ def _report_quality_controls() -> list[str]:
         "Tick indexes are zero-based; describe latest_tick_index=2 as tick index 2, not tick 3.",
         "Do not infer executed events from queued events; queued means scheduled but not executed.",
         "Do not discuss LLM-call or artifact audit totals unless they are explicitly present in this digest.",
-        "If endpoint_probability_method is path_probability_weighted, explain endpoint probabilities as path-mass-weighted outcomes derived from branch probabilities, not equal counts of timelines.",
-        "For a single_multiverse probability_context, state branch_probability and path_probability when present, and keep endpoint ledger probabilities separate from timeline path probability.",
+        "For final reports, explain endpoint_path_mass_distribution as path-mass-weighted outcomes derived from branch probabilities, not equal counts of timelines.",
+        "For a single_multiverse probability_context, state branch_probability and path_probability when present, and describe endpoint ledger entries as terminal-state predicates.",
         "Use branch_probability and path_probability when explaining branch divergence; do not treat branch_score as probability.",
         "For final reports with timeline_adjudication, describe which timelines were retained or pruned and use effective_path_probability for final endpoint probability claims.",
+        "When timeline_adjudication is present, base outcome interpretation, management notes, and risk notes on include_in_final=true retained timelines.",
+        "Do not name a pruned timeline as a final endpoint comparator or decision target unless explicitly labeling it as pruned/non-retained evidence.",
+        "If endpoint_status is unresolved, describe the chosen item as a retained representative timeline for an unresolved endpoint, not as a resolved terminal endpoint.",
     ]
+
+
+def _timeline_selection_policy(adjudication: Any) -> str:
+    if isinstance(adjudication, dict) and adjudication.get("entries"):
+        return (
+            "timeline_adjudication include_in_final=true retained timelines only; pruned timelines are "
+            "non-retained evidence and must not be final endpoint comparators"
+        )
+    return "highest path probability, then branch score, deepest branches, and longest tick history"
+
+
+def _select_report_timelines_for_final_report(
+    content: dict[str, Any],
+    comparison: list[dict[str, Any]],
+    *,
+    limit: int,
+) -> list[dict[str, Any]]:
+    adjudication = content.get("timeline_adjudication")
+    if isinstance(adjudication, dict):
+        retained_ids = {
+            str(item.get("multiverse_id"))
+            for item in adjudication.get("entries", [])
+            if isinstance(item, dict) and item.get("include_in_final") and item.get("multiverse_id")
+        }
+        if retained_ids:
+            retained = [item for item in comparison if str(item.get("multiverse_id")) in retained_ids]
+            retained_effective_path = {
+                str(item.get("multiverse_id")): _float_or_default(item.get("effective_path_probability"), 0.0)
+                for item in adjudication.get("entries", [])
+                if isinstance(item, dict) and item.get("include_in_final") and item.get("multiverse_id")
+            }
+            return sorted(
+                retained,
+                key=lambda item: (
+                    retained_effective_path.get(str(item.get("multiverse_id")), 0.0),
+                    item.get("latest_branch_score") or 0,
+                    item.get("depth") or 0,
+                    item.get("tick_count") or 0,
+                    item.get("ui_label") or "",
+                ),
+                reverse=True,
+            )[:limit]
+    return _select_report_timelines(comparison, limit=limit)
 
 
 def _select_report_timelines(comparison: list[dict[str, Any]], *, limit: int) -> list[dict[str, Any]]:
@@ -1725,8 +1919,6 @@ def _run_report_agent(
                     "prompt_mode": prompt_mode,
                     "report_agent_attempt": attempt,
                     "prompt_payload_char_count": len(json.dumps(prompt_content, default=str)),
-                    "max_attempts": 2,
-                    "request_timeout_seconds": 90,
                 },
             )
             parsed = response.parsed if isinstance(response.parsed, dict) else {}
@@ -1740,67 +1932,6 @@ def _run_report_agent(
     raise LLMCallError(f"Report agent failed after standard and rescue attempts: {'; '.join(failures)}")
 
 
-def _run_report_agent_with_fallback(
-    db: Session,
-    *,
-    big_bang_id,
-    content: dict[str, Any],
-) -> tuple[dict[str, Any], models.LLMCall | None, str | None]:
-    try:
-        llm_report, llm_call = _run_report_agent(db, big_bang_id=big_bang_id, content=content)
-        return llm_report, llm_call, None
-    except (LLMCallError, ValueError) as exc:
-        db.add(
-            models.OperationLog(
-                big_bang_id=big_bang_id,
-                event_type="report_agent_fallback_used",
-                level="warning",
-                body={
-                    "report_type": content.get("report_type"),
-                    "title": content.get("title"),
-                    "error": str(exc)[:4000],
-                },
-            )
-        )
-        db.flush()
-        return _fallback_report_agent_output(content, reason=str(exc)), None, str(exc)
-
-
-def _fallback_report_agent_output(content: dict[str, Any], *, reason: str) -> dict[str, Any]:
-    report_type = str(content.get("report_type") or "report").replace("_", " ")
-    title = str(content.get("title") or "WorldFork Report")
-    distribution = content.get("outcome_distribution") if isinstance(content.get("outcome_distribution"), dict) else {}
-    conclusions = content.get("outcome_conclusions") if isinstance(content.get("outcome_conclusions"), dict) else {}
-    likely = conclusions.get("likely_endpoint") if isinstance(conclusions.get("likely_endpoint"), dict) else {}
-    tick_count = distribution.get("tick_count") or distribution.get("total_ticks") or distribution.get("max_tick_index")
-    terminal = content.get("terminality_assessment") if isinstance(content.get("terminality_assessment"), dict) else {}
-    endpoint = likely.get("endpoint_label") or likely.get("endpoint_key") or "No selected endpoint"
-    executive_summary = (
-        f"{title} is available as a deterministic structured {report_type} because the report LLM "
-        "was unavailable during generation."
-    )
-    if tick_count is not None:
-        executive_summary += f" The structured evidence covers tick scope {tick_count}."
-    outcome = (
-        f"Likely endpoint: {endpoint}. Terminality assessment: "
-        f"{_truncate_text(json.dumps(terminal, sort_keys=True, default=str), 900)}"
-    )
-    return {
-        "report_markdown": "",
-        "executive_summary": executive_summary,
-        "outcome_interpretation": outcome,
-        "management_notes": (
-            "This report was produced from canonical database records without report-agent prose. "
-            "The structured evidence appendix remains authoritative for ticks, endpoints, timelines, "
-            "probabilities, and report inventory."
-        ),
-        "risk_notes": f"Report agent fallback reason: {_truncate_text(reason, 1200)}",
-        "endpoint_histogram": content.get("endpoint_histogram") or [],
-        "terminality_assessment": content.get("terminality_assessment") or {},
-        "contradiction_check": content.get("contradiction_check") or {},
-    }
-
-
 def _report_agent_messages(prompt_content: dict[str, Any], *, mode: str) -> list[dict[str, str]]:
     target_length = "900-1600 words" if mode == "standard" else "550-1000 words"
     return [
@@ -1812,17 +1943,23 @@ def _report_agent_messages(prompt_content: dict[str, Any], *, mode: str) -> list
                 "endpoint_histogram, terminality_assessment, contradiction_check. "
                 "Use only the supplied structured report digest. Do not invent real-world facts. "
                 "The report_markdown field must be a complete long-form Markdown report, not a short summary. "
-                "Always include a Probability Accounting section. For single-multiverse reports, that section "
-                "must state branch_probability and path_probability when present and explicitly separate those "
-                "timeline probabilities from endpoint-ledger probabilities. For final Big Bang reports, that "
-                "section must state whether endpoint probabilities are path_probability_weighted. "
+                "Always include a Path-Mass Accounting section. For single-multiverse reports, that section "
+                "must state branch_probability and path_probability when present and explicitly say endpoint "
+                "ledger entries are terminal-state predicates, not probabilities. For final Big Bang reports, "
+                "that section must state endpoint path mass by endpoint/status. "
                 f"Target {target_length}. Prefer decision-useful interpretation over raw row restatement. Explain "
                 "outcome distribution, branch divergence, cohort/hero state movement, report/version "
                 "bindings, and evidence gaps. When the digest includes path-probability weighting, describe "
-                "endpoint probabilities as branch-path mass rather than equal timeline counts. Treat "
+                "endpoint path mass as branch-path mass rather than equal timeline counts. Treat "
                 "probability_context as binding: in single-multiverse reports, separate timeline path "
-                "probability from endpoint-ledger probability; in final Big Bang reports, use the stated "
-                "endpoint probability method and the timeline_adjudication pruning ledger. Prune unneeded raw IDs and low-signal rows; refer to labels, "
+                "probability from endpoint-ledger status; in final Big Bang reports, use the stated "
+                "endpoint path-mass method and the timeline_adjudication pruning ledger. When "
+                "timeline_adjudication exists, selected_timelines contains the retained final-analysis "
+                "timelines; do not treat pruned timelines as final endpoint comparators, live decision "
+                "targets, or management targets unless you explicitly label them as pruned/non-retained "
+                "evidence. If likely_endpoint.endpoint_status is unresolved, call it a retained "
+                "representative timeline for an unresolved endpoint, not a resolved terminal endpoint. "
+                "Prune unneeded raw IDs and low-signal rows; refer to labels, "
                 "versions, ticks, branch scores, and path probabilities when they help a reviewer. If evidence "
                 "is absent or zero, say so plainly. Treat digest quality_controls as binding instructions, especially exact "
                 "numeric totals, report completion claims, zero-based tick indexes, and queued-versus-executed "
@@ -1902,25 +2039,6 @@ def _attach_report_agent_call_metadata(metadata: dict[str, Any], llm_call: Any) 
         metadata["provider"] = provider
     model = str(getattr(llm_call, "model", None) or metadata.get("model") or get_settings().report_agent_model)
     metadata["model"] = model
-    return model
-
-
-def _attach_report_agent_result_metadata(
-    metadata: dict[str, Any],
-    *,
-    llm_call: Any | None,
-    fallback_error: str | None,
-) -> str:
-    if llm_call is not None:
-        model = _attach_report_agent_call_metadata(metadata, llm_call)
-        metadata["report_agent_status"] = "succeeded"
-        metadata["report_agent_prompt_mode"] = (llm_call.meta or {}).get("prompt_mode")
-        metadata["report_agent_attempt"] = (llm_call.meta or {}).get("report_agent_attempt")
-        return model
-    model = str(metadata.get("model") or get_settings().report_agent_model)
-    metadata["model"] = model
-    metadata["report_agent_status"] = "fallback"
-    metadata["report_agent_fallback_reason"] = _truncate_text(fallback_error or "report agent unavailable", 4000)
     return model
 
 

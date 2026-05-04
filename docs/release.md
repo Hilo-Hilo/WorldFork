@@ -6,31 +6,26 @@ The CI workflow runs on pushes to `dev`, pull requests targeting `main`, and man
 
 ## Agent Skills
 
-WorldFork publishes four repository-hosted skills:
+WorldFork publishes one public repository-hosted skill:
 
 | Skill | Path | Purpose |
 | --- | --- | --- |
-| `worldfork-setup` | `skills/worldfork-setup/SKILL.md` | Temporary bootstrap skill for first-time installation and onboarding |
-| `worldfork` | `skills/worldfork/SKILL.md` | Ongoing operator skill for running and debugging WorldFork |
-| `worldfork-report` | `skills/worldfork-report/SKILL.md` | CLI-driven report generation and audit skill for Big Bang outcomes |
-| `worldfork-full-agent-test` | `skills/worldfork-full-agent-test/SKILL.md` | Fresh-environment agent validation skill for CLI coverage, delete, branching, demo, and accuracy evidence |
+| `worldfork` | `skills/worldfork/SKILL.md` | Public operator skill for setup, CLI operation, debugging, documentation, cost/time estimation, ledgers, and reports |
+
+The setup, report, debug, CLI, documentation, and runtime guides are module Markdown files inside `skills/worldfork/skills/`. Agents load the module they need after the primary `worldfork` skill triggers.
+
+The repo also keeps `worldfork-full-agent-test` as an internal validation skill for fresh-environment CLI/runtime testing. It is not part of the normal user onboarding install.
 
 The supported user-facing install source is the repository path, because `npx skills add` resolves GitHub shorthand, Git URLs, and local paths:
 
 ```bash
-npx skills add Hilo-Hilo/WorldFork/skills/worldfork-setup --all
 npx skills add Hilo-Hilo/WorldFork/skills/worldfork --all
-npx skills add Hilo-Hilo/WorldFork/skills/worldfork-report --all
-npx skills add Hilo-Hilo/WorldFork/skills/worldfork-full-agent-test --all
 ```
 
 The equivalent full URL form is:
 
 ```bash
-npx skills add https://github.com/Hilo-Hilo/WorldFork/tree/main/skills/worldfork-setup --all
 npx skills add https://github.com/Hilo-Hilo/WorldFork/tree/main/skills/worldfork --all
-npx skills add https://github.com/Hilo-Hilo/WorldFork/tree/main/skills/worldfork-report --all
-npx skills add https://github.com/Hilo-Hilo/WorldFork/tree/main/skills/worldfork-full-agent-test --all
 ```
 
 For local development inside this checkout, prefer a temporary copy when installing with `--all`. That avoids creating local agent runtime output such as `.agents/`, `skills-lock.json`, and source-tree skill symlinks in the WorldFork repository:
@@ -38,22 +33,14 @@ For local development inside this checkout, prefer a temporary copy when install
 ```bash
 tmpdir="$(mktemp -d)"
 cp -R ./skills/worldfork "$tmpdir/worldfork"
-cp -R ./skills/worldfork-setup "$tmpdir/worldfork-setup"
-cp -R ./skills/worldfork-report "$tmpdir/worldfork-report"
-cp -R ./skills/worldfork-full-agent-test "$tmpdir/worldfork-full-agent-test"
-npx skills add "$tmpdir/worldfork-setup" --all
 npx skills add "$tmpdir/worldfork" --all
-npx skills add "$tmpdir/worldfork-report" --all
-npx skills add "$tmpdir/worldfork-full-agent-test" --all
 ```
 
 Use direct local paths only for discovery validation:
 
 ```bash
 npx skills add ./skills/worldfork --list -y
-npx skills add ./skills/worldfork-setup --list -y
-npx skills add ./skills/worldfork-report --list -y
 npx skills add ./skills/worldfork-full-agent-test --list -y
 ```
 
-No npm scope, npm organization, or standalone npm package is required for the skill install path. The dev/main validation workflow checks that these skills are discoverable through the same `npx skills add` mechanism users run.
+No npm scope, npm organization, or standalone npm package is required for the skill install path. The validation workflow checks that the public skill and internal validation skill are discoverable through the same `npx skills add` mechanism users run.

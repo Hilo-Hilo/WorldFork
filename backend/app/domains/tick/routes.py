@@ -10,7 +10,9 @@ from app.api.schemas import TickSnapshotOut
 from app.api.utils import require
 from app.db import models
 from app.db.session import get_db
+from app.domains.costs.service import summarize_tick_cost
 from app.domains.tick.tick_bundles import hydrate_tick_snapshot_for_read
+from app.domains.tick.timing import tick_timing_payload
 
 router = APIRouter(prefix="/ticks", tags=["ticks"])
 
@@ -97,6 +99,28 @@ def runtime(tick_snapshot_id: UUID, db: Session = Depends(get_db)):
             }
         )
     return {"tick_snapshot_id": tick_snapshot_id, "executions": payload}
+
+
+@router.get("/{tick_snapshot_id}/timing")
+def timing(tick_snapshot_id: UUID, db: Session = Depends(get_db)):
+    tick = require(db, models.TickSnapshot, tick_snapshot_id)
+    return tick_timing_payload(db, tick)
+
+
+@router.get("/{tick_snapshot_id}/cost")
+def cost(
+    tick_snapshot_id: UUID,
+    include_calls: bool = False,
+    include_non_openrouter: bool = True,
+    db: Session = Depends(get_db),
+):
+    tick = require(db, models.TickSnapshot, tick_snapshot_id)
+    return summarize_tick_cost(
+        db,
+        tick=tick,
+        include_calls=include_calls,
+        include_non_openrouter=include_non_openrouter,
+    )
 
 
 def _node_payload(node: models.ExecutionNode) -> dict:

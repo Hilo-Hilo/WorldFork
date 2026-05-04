@@ -162,53 +162,55 @@ Runs a school converted into a cooling shelter. Balances students, migrant famil
 
 ## Initial Cohorts
 
+The initializer should assign explicit represented_population values to every cohort below. These values must be plausible slices of the 40-million-person Atlas megaregion and should be carried into cohort state as represented_population, population_share_of_archetype, and representation_mode. Population scale matters: larger cohorts create more aggregate public pressure and material demand, while smaller cohorts can still have high influence through expertise, institutional leverage, or network position.
+
 ### Low Pressure District Residents
 
-Residents in districts with early water pressure failures. Initial trust is low, anger is high, and rumor susceptibility is high if official communication is slow. They are not monolithic: some want protest, some want repair updates, some want material aid.
+Residents in districts with early water pressure failures. Represent roughly 8,200,000 people at T0. Initial trust is low, anger is high, and rumor susceptibility is high if official communication is slow. They are not monolithic: some want protest, some want repair updates, some want material aid.
 
 ### Hill Zone Households
 
-Affluent and politically connected residents whose water pressure initially remains stable. They fear crime, property loss, and forced sharing. They are sensitive to fairness claims and public shaming.
+Affluent and politically connected residents whose water pressure initially remains stable. Represent roughly 1,700,000 people at T0. They fear crime, property loss, and forced sharing. They are sensitive to fairness claims and public shaming.
 
 ### Clinic-Dependent Patients
 
-Residents who require dialysis, refrigerated medication, powered medical devices, or frequent care. They are highly sensitive to grid and water failures. They trust clinics more than regional officials.
+Residents who require dialysis, refrigerated medication, powered medical devices, or frequent care. Represent roughly 1,100,000 people at T0. They are highly sensitive to grid and water failures. They trust clinics more than regional officials.
 
 ### Utility Workers
 
-Repair crews, dispatchers, and field engineers. They know the infrastructure better than ACCS but feel watched and overridden. They can become a stabilizing force if trusted or a bottleneck if alienated.
+Repair crews, dispatchers, and field engineers. Represent roughly 185,000 people at T0. They know the infrastructure better than ACCS but feel watched and overridden. They can become a stabilizing force if trusted or a bottleneck if alienated.
 
 ### Teachers and Shelter Staff
 
-Teachers, janitors, nurses, cafeteria workers, and school administrators running emergency shelters. Their support depends on staffing, safety, pay, and clear mission boundaries.
+Teachers, janitors, nurses, cafeteria workers, and school administrators running emergency shelters. Represent roughly 620,000 people at T0. Their support depends on staffing, safety, pay, and clear mission boundaries.
 
 ### Migrant Families
 
-Families displaced by inland wildfire and heat events. They need shelter, documentation, healthcare, schooling, and protection from scapegoating.
+Families displaced by inland wildfire and heat events. Represent roughly 930,000 people at T0 and may grow or shrink as migration and shelter policy changes. They need shelter, documentation, healthcare, schooling, and protection from scapegoating.
 
 ### Small Businesses
 
-Restaurants, groceries, pharmacies, repair shops, and neighborhood services. They fear spoilage, closure, theft, and unclear rules. Their mood can shift public perception quickly.
+Restaurants, groceries, pharmacies, repair shops, and neighborhood services. Represent roughly 1,350,000 owners and workers at T0. They fear spoilage, closure, theft, and unclear rules. Their mood can shift public perception quickly.
 
 ### Port and Warehouse Workers
 
-Workers moving food, water equipment, medicine, and fuel. They are central to logistics but vulnerable to heat, scheduling pressure, and industrial exemptions.
+Workers moving food, water equipment, medicine, and fuel. Represent roughly 410,000 people at T0. They are central to logistics but vulnerable to heat, scheduling pressure, and industrial exemptions.
 
 ### Civic Tech Optimists
 
-Residents and professionals who believe ACCS can make the emergency fairer if used properly. They value dashboards, evidence, and coordination.
+Residents and professionals who believe ACCS can make the emergency fairer if used properly. Represent roughly 1,900,000 people at T0. They value dashboards, evidence, and coordination.
 
 ### Civic Tech Skeptics
 
-Residents who believe ACCS hides political choices behind math. They demand human accountability, appeal rights, and public logs.
+Residents who believe ACCS hides political choices behind math. Represent roughly 2,400,000 people at T0. They demand human accountability, appeal rights, and public logs.
 
 ### Youth Climate Network
 
-Students and young organizers connecting the crisis to long-term adaptation, housing, and migration justice. They can mobilize quickly but may alienate moderates if framed as opportunistic.
+Students and young organizers connecting the crisis to long-term adaptation, housing, and migration justice. Represent roughly 780,000 people at T0. They can mobilize quickly but may alienate moderates if framed as opportunistic.
 
 ### Regional Stability Voters
 
-Residents who mostly want order, predictable services, and lower conflict. They are swing actors in legitimacy. They may support transparency, central command, or crackdown depending on perceived competence.
+Residents who mostly want order, predictable services, and lower conflict. Represent roughly 12,600,000 people at T0. They are swing actors in legitimacy. They may support transparency, central command, or crackdown depending on perceived competence.
 
 ## Public Channels
 

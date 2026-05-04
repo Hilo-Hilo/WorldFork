@@ -54,10 +54,10 @@ class TestCeleryAppConfig:
         assert celery_app.conf.task_default_retry_delay == 10
 
     def test_time_limit(self):
-        assert celery_app.conf.task_time_limit == 3600
+        assert celery_app.conf.task_time_limit == 600
 
     def test_soft_time_limit(self):
-        assert celery_app.conf.task_soft_time_limit == 3300
+        assert celery_app.conf.task_soft_time_limit == 540
 
 
 # ---------------------------------------------------------------------------
@@ -103,16 +103,6 @@ class TestTaskRoutes:
 
     def test_initialize_big_bang_routes_to_p1(self):
         assert celery_app.conf.task_routes["initialize_big_bang"]["queue"] == "p1"
-
-    def test_run_canonical_job_routes_to_p1_by_default(self):
-        assert celery_app.conf.task_routes["run_canonical_job"]["queue"] == "p1"
-        assert celery_app.conf.task_routes["worldfork.execute_job"]["queue"] == "p1"
-
-    def test_run_canonical_job_has_long_control_plane_time_limit(self):
-        from app.domains.jobs import workers as job_workers
-
-        assert job_workers.run_job.soft_time_limit == 3300
-        assert job_workers.run_job.time_limit == 3600
 
 
 # ---------------------------------------------------------------------------

@@ -16,12 +16,7 @@ from app.domains.jobs import routes as jobs_api
 from app.api.schemas import JobCreate
 from app.db import models
 from app.domains.jobs import executor as jobs_executor
-from app.domains.jobs.queues import (
-    JOB_TYPES,
-    celery_queue_for_job_queue,
-    default_idempotency_key,
-    queue_name_for_job,
-)
+from app.domains.jobs.queues import JOB_TYPES, default_idempotency_key, queue_name_for_job
 from app.domains.jobs.executor import (
     JOB_LEASE_SECONDS,
     JobNotRunnableError,
@@ -48,13 +43,6 @@ def test_default_idempotency_key_uses_canonical_json():
 
     assert first == second
     assert len(first) < 180
-
-
-def test_canonical_job_queues_map_to_running_celery_queues():
-    assert celery_queue_for_job_queue("big_bang_control") == "p0"
-    assert celery_queue_for_job_queue("multiverse_ticks") == "p0"
-    assert celery_queue_for_job_queue("reports") == "p2"
-    assert celery_queue_for_job_queue("default") == "p1"
 
 
 def test_advertised_job_types_are_executable_and_payload_validated():
