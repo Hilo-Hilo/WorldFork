@@ -36,7 +36,7 @@ EventStatus = Literal[
 class Clock(BaseModel):
     """
     Temporal context for a simulation tick.
-    §10.3 defines the example prompt-block format.
+    Provides the example prompt-block format.
     """
 
     model_config = ConfigDict(extra="forbid")
@@ -48,7 +48,7 @@ class Clock(BaseModel):
     max_schedule_horizon_ticks: int = Field(..., gt=0)
 
     def as_prompt_block(self) -> str:
-        """Produce the §10.3 clock-context text block."""
+        """Produce the clock-context text block."""
         elapsed_hours = self.elapsed_minutes / 60
         tick_hours = self.tick_duration_minutes / 60
         horizon_minutes = self.max_schedule_horizon_ticks * self.tick_duration_minutes

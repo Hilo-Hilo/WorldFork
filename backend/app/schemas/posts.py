@@ -1,5 +1,5 @@
 """
-SocialPost schema — §9.8 verbatim.
+SocialPost schema.
 Import-free of backend.app.models.
 """
 
@@ -11,7 +11,7 @@ _VALID_VISIBILITY_SCOPE = {"public", "followers", "private", "cohort"}
 
 
 class SocialPost(BaseModel):
-    """A public content item in the platform layer — §9.8 verbatim."""
+    """A public content item in the platform layer."""
 
     model_config = ConfigDict(extra="forbid")
 

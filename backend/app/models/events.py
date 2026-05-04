@@ -1,5 +1,5 @@
 """
-EventModel — mirrors Event (§9.7).
+EventModel — mirrors Event.
 Table: events
 """
 from __future__ import annotations
