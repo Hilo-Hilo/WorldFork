@@ -318,24 +318,34 @@ function MultiverseTree({
   bigBangName,
   multiverses,
   selectedId,
+  selectedTidyHint,
   onSelect,
 }: {
   bigBangName: string;
   multiverses: Multiverse[];
   selectedId: string | null;
-  onSelect: (mvId: string) => void;
+  selectedTidyHint: string | null;
+  onSelect: (mvId: string, tidyId: string) => void;
 }) {
   const { root, nodes, links, width, height } = useMemo(
     () => buildTidyTree(bigBangName, multiverses),
     [bigBangName, multiverses],
   );
-  // selectedId is a multiverse id from the rail; resolve to the matching
-  // tree-node id (the non-continuation entry takes precedence on highlight).
+  // Prefer the tidy id of the actual node clicked (so a click on the
+  // continuation leaf lights up its incoming link). Fallback for rail
+  // clicks: pick the continuation if the multiverse has one (that's the
+  // live tail of its own timeline), else the leaf, else the fork node.
   const selectedTidyId = useMemo(() => {
+    if (selectedTidyHint && nodes.some((n) => n.id === selectedTidyHint)) {
+      return selectedTidyHint;
+    }
     if (!selectedId) return null;
-    const direct = nodes.find((n) => n.mvId === selectedId && !n.isContinuation);
-    return direct?.id ?? null;
-  }, [selectedId, nodes]);
+    const cont = nodes.find((n) => n.mvId === selectedId && n.isContinuation);
+    if (cont) return cont.id;
+    const leaf = nodes.find((n) => n.mvId === selectedId && n.kind === "leaf");
+    if (leaf) return leaf.id;
+    return nodes.find((n) => n.mvId === selectedId)?.id ?? null;
+  }, [selectedId, selectedTidyHint, nodes]);
   const lineageIds = useMemo(
     () => (selectedTidyId ? lineageOfTidy(root, selectedTidyId) : new Set<string>()),
     [root, selectedTidyId],
@@ -403,7 +413,7 @@ function MultiverseTree({
               key={n.id}
               className="node-group"
               style={{ ...groupStyle, cursor: "pointer" }}
-              onClick={() => n.mvId && onSelect(n.mvId)}
+              onClick={() => n.mvId && onSelect(n.mvId, n.id)}
             >
               {isActive && <circle className="node-pulse" cx="0" cy="0" r="0" />}
               <circle
@@ -427,7 +437,7 @@ function MultiverseTree({
             key={n.id}
             className="node-group"
             style={{ ...groupStyle, cursor: "pointer" }}
-            onClick={() => n.mvId && onSelect(n.mvId)}
+            onClick={() => n.mvId && onSelect(n.mvId, n.id)}
           >
             {isActive && <circle className="node-pulse" cx="0" cy="0" r="0" />}
             <circle
@@ -546,6 +556,7 @@ function DashboardWired({
 }) {
   const qc = useQueryClient();
   const [selected, setSelected] = useState<string | null>(null);
+  const [selectedTidyHint, setSelectedTidyHint] = useState<string | null>(null);
 
   const bigBang = useQuery({
     queryKey: ["bigBang", runId],
@@ -777,7 +788,10 @@ function DashboardWired({
                 key={m.id}
                 className={`mv-item ${selId === m.id ? "is-active" : ""}`}
                 data-status={m.status}
-                onClick={() => setSelected(m.id)}
+                onClick={() => {
+                  setSelected(m.id);
+                  setSelectedTidyHint(null);
+                }}
               >
                 <span className="mv-dot" />
                 <div className="mv-body">
@@ -845,7 +859,11 @@ function DashboardWired({
               bigBangName={bigBang.data?.name || "Run"}
               multiverses={mvList}
               selectedId={selId}
-              onSelect={setSelected}
+              selectedTidyHint={selectedTidyHint}
+              onSelect={(mvId, tidyId) => {
+                setSelected(mvId);
+                setSelectedTidyHint(tidyId);
+              }}
             />
           )}
 
