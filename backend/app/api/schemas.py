@@ -227,7 +227,7 @@ class EndpointLedgerEntryOut(ORMModel):
     label: str
     description: str | None
     status: str
-    probability: float | None
+    realized: bool | None = None
     realization_criteria: list[Any] = Field(default_factory=list)
     authority_refs: list[Any]
     evidence_refs: list[Any]
@@ -316,6 +316,26 @@ class TimelineAdjudicationVersionOut(ORMModel):
 class TimelineAdjudicationDetailOut(BaseModel):
     adjudication: TimelineAdjudicationVersionOut
     entries: list[TimelineAdjudicationEntryOut]
+
+
+class EndpointPathMassRow(BaseModel):
+    endpoint_key: str | None = None
+    label: str | None = None
+    status: str | None = None
+    realized: bool | None = None
+    path_mass: float = 0.0
+    status_path_masses: dict[str, float] = Field(default_factory=dict)
+
+
+class EndpointPathMassPlotOut(BaseModel):
+    big_bang_id: UUID
+    ledger_version_id: UUID | None = None
+    aggregation: str
+    path_probability_mass: float = 0.0
+    excluded_path_probability_mass: float = 0.0
+    endpoint_path_mass_distribution: list[EndpointPathMassRow] = Field(default_factory=list)
+    plot_distribution: dict[str, Any] = Field(default_factory=dict)
+    path_probability_distribution: list[dict[str, Any]] = Field(default_factory=list)
 
 
 class TimelineAdjudicationRequest(BaseModel):

@@ -184,7 +184,7 @@ def test_committed_sociology_graph_summary_reflects_current_tick_graph(db, monke
     db.add_all([root, alpha, beta])
     db.flush()
 
-    def fake_actor_decision(db, *, big_bang, multiverse, actor, tick_index, prompt_context):
+    def fake_actor_decision(db, *, big_bang, multiverse, actor, tick_index, prompt_context, **kwargs):
         return {
             "actor_output": {"actor_id": str(actor.id), "llm_call_id": None, "parsed": {}},
             "parsed_actions": [
@@ -302,7 +302,7 @@ def test_runtime_actor_prompt_context_includes_due_seed_events(db, monkeypatch):
     db.flush()
     captured_event_queues = []
 
-    def fake_actor_decision(db, *, big_bang, multiverse, actor, tick_index, prompt_context):
+    def fake_actor_decision(db, *, big_bang, multiverse, actor, tick_index, prompt_context, **kwargs):
         captured_event_queues.append(prompt_context.get("event_queue"))
         return {
             "actor_output": {"actor_id": str(actor.id), "llm_call_id": None, "parsed": {}},

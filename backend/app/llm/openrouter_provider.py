@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Any
+
 import httpx
 
 from app.core.config import get_settings
@@ -19,6 +21,10 @@ class OpenRouterProvider(LLMProvider):
             "model": request.model or settings.default_model,
             "messages": request.messages,
         }
+        if getattr(settings, "openrouter_prompt_caching_enabled", True):
+            cache_control = _prompt_cache_control(request.metadata)
+            if cache_control is not None:
+                payload["cache_control"] = cache_control
         if request.json_schema:
             payload["response_format"] = {
                 "type": "json_schema",
@@ -64,3 +70,20 @@ class OpenRouterProvider(LLMProvider):
 
         content = data.get("choices", [{}])[0].get("message", {}).get("content", "")
         return LLMResponse(content=content, raw=data)
+
+
+def _prompt_cache_control(metadata: dict[str, Any]) -> dict[str, Any] | None:
+    value = metadata.get("openrouter_cache_control") or metadata.get("cache_control")
+    if value is False or value is None:
+        return None
+    if isinstance(value, dict):
+        cache_type = value.get("type") or "ephemeral"
+        if cache_type != "ephemeral":
+            return None
+        cache_control = {"type": "ephemeral"}
+        if value.get("ttl") in {"1h"}:
+            cache_control["ttl"] = "1h"
+        return cache_control
+    if value is True:
+        return {"type": "ephemeral"}
+    return None

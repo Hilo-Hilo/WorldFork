@@ -31,6 +31,7 @@ class Settings(BaseSettings):
     openrouter_chat_completions_url: str = "https://openrouter.ai/api/v1/chat/completions"
     openrouter_http_referer: str = "https://worldfork.local"
     openrouter_title: str = "WorldFork"
+    openrouter_prompt_caching_enabled: bool = True
     openai_codex_enabled: bool = True
     openai_codex_oauth_token: str | None = None
     openai_codex_auth_file: str | None = None
@@ -55,10 +56,13 @@ class Settings(BaseSettings):
     default_max_branch_depth: int = 3
     default_max_active_multiverses: int = 12
     default_max_branches_per_tick: int = 2
+    max_parallel_cohort_decisions: int = Field(default=16, ge=1, le=64)
+    prompt_event_queue_max_chars: int = Field(default=16_000, ge=4_000, le=200_000)
+    prompt_god_bundle_max_chars: int = Field(default=48_000, ge=8_000, le=400_000)
     branch_score_threshold: float = 0.7
-    initializer_direct_context_char_budget: int = 18000
-    initializer_chunk_chars: int = 12000
-    initializer_chunk_overlap_chars: int = 800
+    initializer_direct_context_char_budget: int = 64_000 * 4
+    initializer_chunk_chars: int = 64_000 * 4
+    initializer_chunk_overlap_chars: int = 2_048 * 4
     llm_max_retries: int = 10
     llm_retry_backoff_seconds: float = 1.5
     zep_enabled: bool = False

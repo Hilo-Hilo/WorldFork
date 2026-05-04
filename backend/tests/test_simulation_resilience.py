@@ -184,10 +184,10 @@ def test_actor_prompt_context_includes_global_and_owned_event_queue(db, monkeypa
         ]
     )
     db.flush()
-    captured_contexts = []
+    captured_messages = []
 
     def fake_complete(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
-        captured_contexts.append(messages[-1]["content"])
+        captured_messages.append({"messages": messages, "metadata": metadata})
         call = _fake_llm_call(db, big_bang_id=big_bang_id, purpose=purpose, model=model)
         return LLMResponse(content="{}", parsed={"social_actions": [], "proposed_events": []}), call
 
@@ -202,9 +202,52 @@ def test_actor_prompt_context_includes_global_and_owned_event_queue(db, monkeypa
         prompt_context={},
     )
 
-    assert "Past water pressure loss" in captured_contexts[0]
-    assert "Alpha schedules clinic briefing" in captured_contexts[0]
-    assert "own_queued_events" in captured_contexts[0]
+    messages = captured_messages[0]["messages"]
+    assert messages[1]["content"].startswith("Shared tick context for all actor decisions")
+    assert "Actor:" not in messages[1]["content"]
+    assert "Past water pressure loss" in messages[2]["content"]
+    assert "Alpha schedules clinic briefing" in messages[2]["content"]
+    assert "own_queued_events" in messages[2]["content"]
+    assert captured_messages[0]["metadata"]["prompt_cache_strategy"] == "openrouter_implicit_sticky"
+    assert captured_messages[0]["metadata"]["prompt_cache_stable_prefix_messages"] == 2
+
+
+def test_event_queue_prompt_context_budgets_long_queues_with_omission_summary(db):
+    big_bang, root, alpha, _beta = _seed_world(db)
+    for index in range(40):
+        db.add(
+            models.Event(
+                big_bang_id=big_bang.id,
+                multiverse_id=root.id,
+                creator_actor_id=alpha.id,
+                event_type="announcement",
+                created_tick=1,
+                scheduled_tick=2 + index,
+                status="queued",
+                title=f"Future event {index}",
+                description=f"Long event description {index} " + ("detail " * 300),
+                expected_impact={"pressure": "rising", "index": index},
+                actual_impact={},
+                meta={"source": "agent_proposal"},
+            )
+        )
+    db.flush()
+
+    context = event_engine.build_event_queue_prompt_context(
+        db,
+        multiverse_id=root.id,
+        tick_index=1,
+        actor_id=alpha.id,
+        future_limit=40,
+    )
+
+    assert 1 <= len(context["upcoming_events"]) <= 12
+    assert len(context["own_queued_events"]) == 12
+    assert len(context["upcoming_events"][0]["description"]) < 700
+    assert context["prompt_budget"]["estimated_chars"] <= context["prompt_budget"]["max_chars"]
+    assert context["prompt_budget"]["omitted_total"] >= 56
+    assert context["prompt_budget"]["sections"]["upcoming_events"]["omitted_count"] >= 28
+    assert context["prompt_budget"]["sections"]["upcoming_events"]["budget_trimmed"] is True
 
 
 def test_actor_llm_call_metadata_records_canonical_source(db, monkeypatch):
@@ -233,8 +276,30 @@ def test_actor_llm_call_metadata_records_canonical_source(db, monkeypatch):
     assert metadata["canonical_job_type"] == "actor_deliberation_call"
     assert metadata["actor_id"] == str(alpha.id)
     assert metadata["actor_type"] == "cohort"
-    assert metadata["multiverse_id"] == str(root.id)
-    assert metadata["tick_index"] == 2
+
+
+def test_actor_worker_mode_releases_db_transaction_before_llm_call(db, monkeypatch):
+    big_bang, root, alpha, _beta = _seed_world(db)
+    observed = {}
+
+    def fake_complete(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
+        observed["in_transaction_during_llm"] = db.in_transaction()
+        call = _fake_llm_call(db, big_bang_id=big_bang_id, purpose=purpose, model=model)
+        return LLMResponse(content="{}", parsed={"social_actions": [], "proposed_events": []}), call
+
+    monkeypatch.setattr(agent_engine, "complete_with_audit", fake_complete)
+
+    agent_engine.run_actor_decision(
+        db,
+        big_bang=big_bang,
+        multiverse=root,
+        actor=alpha,
+        tick_index=2,
+        prompt_context={},
+        release_db_connection_before_llm=True,
+    )
+
+    assert observed["in_transaction_during_llm"] is False
 
 
 def test_initializer_seed_events_become_root_event_queue(db, monkeypatch, tmp_path):

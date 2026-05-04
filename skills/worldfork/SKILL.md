@@ -198,6 +198,8 @@ It creates the Atlas Resilience Crisis Big Bang, runs root and branch timelines,
 
 The default Atlas tick duration is 720 simulated minutes. If `--max-tick-index` is omitted, Atlas derives it from `--horizon-days` and `--tick-duration-minutes`.
 
+Atlas cohort seeds must include population scale. The Atlas scenario and harness should preserve `represented_population`, `population_share_of_archetype`, and `representation_mode` for every initial cohort so sociology, split/merge review, and God-agent population tools can reason about aggregate social weight.
+
 When running Atlas for onboarding, narrate the phases in short progress updates:
 initialization turns the scenario into actors and state, ticks advance decisions
 and events, God review decides whether branches are worth exploring, endpoint

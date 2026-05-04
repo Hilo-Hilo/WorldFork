@@ -16,7 +16,15 @@ from app.llm.audit import LLMCallError, complete_with_audit
 from app.llm.routing import AuditedLLMRoute, ResolvedLLMRoute, resolve_audited_llm_route
 
 
-ENDPOINT_STATUSES = {"active", "weakened", "eliminated", "realized", "unresolved", "process_only"}
+ENDPOINT_STATUSES = {
+    "active",
+    "weakened",
+    "eliminated",
+    "realized",
+    "unresolved",
+    "process_only",
+    "insufficient_ticks",
+}
 TERMINAL_ENTRY_STATUSES = {"realized"}
 ENDPOINT_LEDGER_JSON_SCHEMA = {
     "type": "object",
@@ -31,7 +39,6 @@ ENDPOINT_LEDGER_JSON_SCHEMA = {
                     "label": {"type": "string"},
                     "description": {"type": "string"},
                     "status": {"type": "string"},
-                    "probability": {"type": "number"},
                     "realization_criteria": {"type": "array"},
                     "authority_refs": {"type": "array"},
                     "evidence_refs": {"type": "array"},
@@ -104,7 +111,7 @@ def endpoint_ledger_report_payload(
             "label": entry.label,
             "description": entry.description,
             "status": entry.status,
-            "probability": entry.probability,
+            "realized": _realized_value(entry.status),
             "realization_criteria": entry.realization_criteria or [],
             "authority_refs": entry.authority_refs or [],
             "evidence_refs": entry.evidence_refs or [],
@@ -114,6 +121,7 @@ def endpoint_ledger_report_payload(
             "contradiction_notes": entry.contradiction_notes,
             "rationale": entry.rationale,
             "last_observed_tick_index": entry.last_observed_tick_index,
+            "meta": entry.meta or {},
         }
         for entry in endpoint_ledger_entries(db, ledger.id)
     ]
@@ -147,7 +155,7 @@ def latest_endpoint_ledger_prompt_payload(db: Session, *, big_bang_id, multivers
                 "endpoint_key": item.get("endpoint_key"),
                 "label": item.get("label"),
                 "status": item.get("status"),
-                "probability": item.get("probability"),
+                "realized": item.get("realized"),
                 "blockers": item.get("blockers"),
                 "last_observed_tick_index": item.get("last_observed_tick_index"),
             }
@@ -456,6 +464,13 @@ def _collect_evidence(
         for review in db.scalars(review_query).all()
     ]
     scenario = big_bang.scenario_input or {}
+    config = db.scalar(
+        select(models.BigBangConfig)
+        .where(models.BigBangConfig.big_bang_id == big_bang.id)
+        .order_by(models.BigBangConfig.version.desc())
+        .limit(1)
+    )
+    simulation_config = config.simulation_config if config is not None and isinstance(config.simulation_config, dict) else {}
     raw_initializer = scenario.get("initializer_output")
     initializer: dict[str, Any] = raw_initializer if isinstance(raw_initializer, dict) else {}
     multiverse_state = multiverse.state if multiverse is not None and isinstance(multiverse.state, dict) else {}
@@ -465,6 +480,7 @@ def _collect_evidence(
             "name": big_bang.name,
             "status": big_bang.status,
             "scenario_input": _compact_value(scenario, max_items=8),
+            "simulation_config": _compact_value(simulation_config, max_items=8),
         },
         "scope": "multiverse" if multiverse is not None else "big_bang",
         "multiverse": {
@@ -628,7 +644,7 @@ def _entries_from_evidence(
             "last_observed_tick_index": latest_tick_index,
             "meta": {"source": "fallback"},
         }
-    return _assign_probabilities(list(entries.values()))
+    return _finalize_entries(list(entries.values()), evidence=evidence)
 
 
 def _weighted_entries_from_multiverse_ledgers(
@@ -738,14 +754,15 @@ def _weighted_entries_from_multiverse_ledgers(
                 "prune_reason": adjudication.prune_reason if adjudication else None,
             }
         )
-        entry_probability_total = 0.0
+        timeline_had_representative = False
         for entry in entries:
-            probability = float(entry.probability or 0.0)
-            if entry.status != "eliminated":
-                entry_probability_total += probability
-            contribution = timeline_weight * probability
-            if contribution <= 0:
+            if entry.status == "eliminated":
                 continue
+            representative = _representative_status_for_weighting(entry.status, multiverse.status)
+            if representative is None:
+                continue
+            contribution = timeline_weight
+            timeline_had_representative = True
             target = aggregated.setdefault(
                 entry.endpoint_key,
                 {
@@ -753,7 +770,7 @@ def _weighted_entries_from_multiverse_ledgers(
                     "label": entry.label,
                     "description": entry.description,
                     "status_weights": Counter(),
-                    "probability": 0.0,
+                    "path_mass": 0.0,
                     "realization_criteria": [],
                     "authority_refs": [],
                     "evidence_refs": [],
@@ -765,8 +782,8 @@ def _weighted_entries_from_multiverse_ledgers(
                     "last_observed_tick_index": entry.last_observed_tick_index,
                 },
             )
-            target["probability"] += contribution
-            target["status_weights"][entry.status] += contribution
+            target["path_mass"] += contribution
+            target["status_weights"][representative] += contribution
             target["evidence_refs"].append(
                 {
                     "source": "multiverse_ledger",
@@ -774,7 +791,7 @@ def _weighted_entries_from_multiverse_ledgers(
                     "ui_label": multiverse.ui_label,
                     "ledger_version_id": str(ledger.id),
                     "path_weight": round(timeline_weight, 10),
-                    "endpoint_probability": probability,
+                    "endpoint_status": entry.status,
                 }
             )
             target["authority_refs"].extend(entry.authority_refs or [])
@@ -791,38 +808,36 @@ def _weighted_entries_from_multiverse_ledgers(
                 current = target.get("last_observed_tick_index")
                 target["last_observed_tick_index"] = max(current or 0, int(entry.last_observed_tick_index))
 
-        unresolved_probability = max(0.0, 1.0 - entry_probability_total)
-        if unresolved_probability > 0.0001:
-            contribution = timeline_weight * unresolved_probability
+        if not timeline_had_representative and timeline_weight > 0:
+            contribution = timeline_weight
             target = aggregated.setdefault(
-                "endpoint_unresolved",
+                "endpoint_insufficient_ticks",
                 {
-                    "endpoint_key": "endpoint_unresolved",
-                    "label": "Endpoint unresolved",
-                    "description": "Residual probability mass where no terminal endpoint is resolved in a source timeline.",
+                    "endpoint_key": "endpoint_insufficient_ticks",
+                    "label": "Insufficient ticks",
+                    "description": "Timeline stopped without enough ticks to resolve a terminal endpoint.",
                     "status_weights": Counter(),
-                    "probability": 0.0,
-                    "realization_criteria": ["A retained source timeline resolves its terminal endpoint."],
+                    "path_mass": 0.0,
+                    "realization_criteria": ["A retained source timeline resolves its terminal endpoint before the tick limit."],
                     "authority_refs": [],
                     "evidence_refs": [],
                     "negative_evidence_refs": [],
                     "blockers": set(),
-                    "status_basis": ["Residual path probability from retained unresolved timeline."],
+                    "status_basis": ["Retained timeline ended without realized endpoint evidence."],
                     "contradiction_notes": [],
                     "rationale": [],
                     "last_observed_tick_index": None,
                 },
             )
-            target["probability"] += contribution
-            target["status_weights"]["unresolved"] += contribution
+            target["path_mass"] += contribution
+            target["status_weights"]["insufficient_ticks"] += contribution
             target["evidence_refs"].append(
                 {
-                    "source": "path_probability_residual",
+                    "source": "path_mass_insufficient_ticks",
                     "multiverse_id": str(multiverse.id),
                     "ui_label": multiverse.ui_label,
                     "ledger_version_id": str(ledger.id),
                     "path_weight": round(timeline_weight, 10),
-                    "residual_probability": round(unresolved_probability, 10),
                 }
             )
 
@@ -830,10 +845,12 @@ def _weighted_entries_from_multiverse_ledgers(
     return {
         "entries": entries,
         "payload": {
-            "aggregation": "path_probability_weighted",
+            "aggregation": "path_mass_by_endpoint_status",
             "path_probability_mass": round(weight_total, 10),
             "excluded_path_probability_mass": round(excluded_mass, 10),
             "path_probability_distribution": path_distribution,
+            "endpoint_path_mass_distribution": _endpoint_path_mass_distribution(entries),
+            "plot_distribution": _plot_distribution(entries),
             "source_multiverse_count": len(ledger_rows),
             "adjudication_applied": bool(adjudication_by_multiverse_id),
         },
@@ -852,7 +869,7 @@ def _weighted_entry_payload(item: dict[str, Any]) -> dict[str, Any]:
         "label": item["label"],
         "description": item.get("description"),
         "status": status,
-        "probability": round(float(item.get("probability") or 0.0), 4),
+        "probability": None,
         "realization_criteria": item.get("realization_criteria") or [],
         "authority_refs": item.get("authority_refs") or [],
         "evidence_refs": item.get("evidence_refs") or [],
@@ -862,7 +879,62 @@ def _weighted_entry_payload(item: dict[str, Any]) -> dict[str, Any]:
         "contradiction_notes": contradiction_notes,
         "rationale": rationale,
         "last_observed_tick_index": item.get("last_observed_tick_index"),
-        "meta": {"source": "path_probability_weighted"},
+        "meta": {
+            "source": "path_mass_by_endpoint_status",
+            "path_mass": round(float(item.get("path_mass") or 0.0), 10),
+            "status_path_masses": {key: round(float(value), 10) for key, value in status_weights.items()},
+        },
+    }
+
+
+def _representative_status_for_weighting(endpoint_status: str, multiverse_status: str | None) -> str | None:
+    if endpoint_status == "realized":
+        return "realized"
+    if endpoint_status == "insufficient_ticks":
+        return "insufficient_ticks"
+    if endpoint_status in {"active", "weakened", "unresolved", "process_only"} and str(multiverse_status or "").lower() in {
+        "completed",
+        "terminated",
+    }:
+        return "insufficient_ticks"
+    if endpoint_status in {"active", "weakened", "unresolved", "process_only"}:
+        return "unresolved"
+    return None
+
+
+def _endpoint_path_mass_distribution(entries: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return [
+        {
+            "endpoint_key": entry.get("endpoint_key"),
+            "label": entry.get("label"),
+            "status": entry.get("status"),
+            "realized": _realized_value(str(entry.get("status") or "")),
+            "path_mass": (entry.get("meta") or {}).get("path_mass", 0.0),
+            "status_path_masses": (entry.get("meta") or {}).get("status_path_masses", {}),
+        }
+        for entry in sorted(
+            entries,
+            key=lambda item: float((item.get("meta") or {}).get("path_mass") or 0.0),
+            reverse=True,
+        )
+    ]
+
+
+def _plot_distribution(entries: list[dict[str, Any]]) -> dict[str, Any]:
+    rows = _endpoint_path_mass_distribution(entries)
+    return {
+        "x": [row["label"] for row in rows],
+        "series": [
+            {
+                "name": status,
+                "values": [
+                    float((row.get("status_path_masses") or {}).get(status) or 0.0)
+                    for row in rows
+                ],
+            }
+            for status in ("realized", "insufficient_ticks", "unresolved", "eliminated")
+        ],
+        "rows": rows,
     }
 
 
@@ -908,8 +980,10 @@ def _try_llm_endpoint_evaluation(
         "instructions": [
             "Track endpoint states, not process moves.",
             "Use statuses active, weakened, eliminated, realized, unresolved, or process_only.",
+            "Use insufficient_ticks when a final tick limit stops the timeline before a terminal endpoint resolves.",
+            "Use eliminated only when the endpoint is impossible from hard evidence or final-horizon God review, not merely because it has not happened yet.",
             "Weight authority decisions over social noise.",
-            "Return stable endpoint keys and calibrated probabilities when evidence supports them.",
+            "Return stable endpoint keys and statuses. Do not assign per-endpoint probabilities.",
             "For every endpoint, include realization_criteria, authority_refs, evidence_refs, negative_evidence_refs, and status_basis.",
             "Downgrade unsupported or process-only entries instead of leaving them as active terminal endpoints.",
         ],
@@ -970,7 +1044,7 @@ def _merge_entry_updates(base_entries: list[dict[str, Any]], updates: list[Any])
         current["endpoint_key"] = endpoint_key
         current.setdefault("label", _label_from_text(str(key)))
         merged[endpoint_key] = current
-    return _assign_probabilities(list(merged.values()))
+    return _finalize_entries(list(merged.values()))
 
 
 def _normalize_entries(entries: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -1002,21 +1076,16 @@ def _normalize_entries(entries: list[dict[str, Any]]) -> list[dict[str, Any]]:
             status = "active"
             blockers = [*blockers, "authority evidence missing for realized endpoint"]
             status_basis = status_basis or "downgraded_realized_without_authority_evidence"
-        probability = item.get("probability")
-        if probability is not None:
-            try:
-                probability = max(0.0, min(1.0, float(probability)))
-            except (TypeError, ValueError):
-                probability = None
-        if status == "process_only" and probability is not None:
-            probability = min(probability, 0.1)
+        meta = item.get("meta") if isinstance(item.get("meta"), dict) else {}
+        if item.get("probability") is not None:
+            meta = {**meta, "legacy_probability_ignored": item.get("probability")}
         normalized.append(
             {
                 "endpoint_key": key,
                 "label": _truncate(str(item.get("label") or _label_from_text(key)), 240),
                 "description": _truncate(str(item.get("description") or ""), 2000) or None,
                 "status": status,
-                "probability": probability,
+                "probability": None,
                 "realization_criteria": realization_criteria,
                 "authority_refs": authority_refs,
                 "evidence_refs": evidence_refs,
@@ -1026,29 +1095,73 @@ def _normalize_entries(entries: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 "contradiction_notes": _truncate(str(item.get("contradiction_notes") or ""), 2000) or None,
                 "rationale": _truncate(str(item.get("rationale") or ""), 2000) or None,
                 "last_observed_tick_index": _optional_int(item.get("last_observed_tick_index")),
-                "meta": item.get("meta") if isinstance(item.get("meta"), dict) else {},
+                "meta": meta,
             }
         )
     return normalized
 
 
-def _assign_probabilities(entries: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def _finalize_entries(entries: list[dict[str, Any]], *, evidence: dict[str, Any] | None = None) -> list[dict[str, Any]]:
     entries = _normalize_entries(entries)
-    missing = [entry for entry in entries if entry.get("probability") is None and entry.get("status") != "eliminated"]
-    if missing:
-        remaining = max(0.0, 1.0 - sum(float(entry.get("probability") or 0.0) for entry in entries))
-        share = round(remaining / len(missing), 4) if missing else 0.0
-        for entry in missing:
-            entry["probability"] = share
-    for entry in entries:
-        if entry.get("status") == "eliminated" and entry.get("probability") is None:
-            entry["probability"] = 0.0
-    total = sum(float(entry.get("probability") or 0.0) for entry in entries)
-    if total > 1.0:
-        for entry in entries:
-            if entry.get("probability") is not None:
-                entry["probability"] = round(float(entry["probability"]) / total, 4)
-    return sorted(entries, key=lambda item: (float(item.get("probability") or 0), item.get("label") or ""), reverse=True)
+    if _final_horizon_reached(evidence):
+        entries = [_mark_insufficient_ticks(entry, evidence=evidence) for entry in entries]
+    elif evidence is not None:
+        entries = [_revert_final_horizon_overlay(entry) for entry in entries]
+    return sorted(entries, key=lambda item: (item.get("status") != "eliminated", item.get("label") or ""), reverse=True)
+
+
+def _assign_probabilities(entries: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Backward-compatible alias: endpoint entries no longer carry probabilities."""
+    return _finalize_entries(entries)
+
+
+def _final_horizon_reached(evidence: dict[str, Any] | None) -> bool:
+    if not evidence:
+        return False
+    multiverse = evidence.get("multiverse") or {}
+    if str(multiverse.get("status") or "").lower() not in {"completed", "terminated"}:
+        return False
+    max_ticks = (((evidence.get("big_bang") or {}).get("simulation_config") or {}).get("max_ticks"))
+    if max_ticks is None:
+        return False
+    latest_tick = max((int(tick.get("tick_index") or 0) for tick in evidence.get("ticks") or []), default=None)
+    return latest_tick is not None and latest_tick >= int(max_ticks)
+
+
+def _mark_insufficient_ticks(entry: dict[str, Any], *, evidence: dict[str, Any] | None) -> dict[str, Any]:
+    if entry.get("status") in {"realized", "eliminated", "insufficient_ticks"}:
+        return entry
+    meta = entry.get("meta") if isinstance(entry.get("meta"), dict) else {}
+    if meta.get("final_horizon_overlay") == "insufficient_ticks":
+        return entry
+    latest_tick = max((int(tick.get("tick_index") or 0) for tick in (evidence or {}).get("ticks") or []), default=None)
+    return {
+        **entry,
+        "status": "insufficient_ticks",
+        "blockers": [*list(entry.get("blockers") or []), "max_ticks_reached_before_terminal_endpoint"],
+        "status_basis": "max_tick_limit_reached",
+        "last_observed_tick_index": entry.get("last_observed_tick_index") or latest_tick,
+        "meta": {
+            **meta,
+            "final_horizon_overlay": "insufficient_ticks",
+            "previous_status": entry.get("status"),
+            "reversible_on_resume": True,
+        },
+    }
+
+
+def _revert_final_horizon_overlay(entry: dict[str, Any]) -> dict[str, Any]:
+    meta = entry.get("meta") if isinstance(entry.get("meta"), dict) else {}
+    if meta.get("final_horizon_overlay") != "insufficient_ticks" or not meta.get("reversible_on_resume"):
+        return entry
+    previous_status = meta.get("previous_status") or "active"
+    blockers = [
+        blocker
+        for blocker in list(entry.get("blockers") or [])
+        if blocker != "max_ticks_reached_before_terminal_endpoint"
+    ]
+    cleaned_meta = {key: value for key, value in meta.items() if key not in {"final_horizon_overlay", "previous_status", "reversible_on_resume"}}
+    return {**entry, "status": previous_status, "blockers": blockers, "meta": cleaned_meta}
 
 
 def _endpoint_ledger_model(db: Session) -> str:
@@ -1071,12 +1184,22 @@ def _endpoint_histogram(entries: list[dict[str, Any]]) -> list[dict[str, Any]]:
         {
             "endpoint_key": item.get("endpoint_key"),
             "label": item.get("label"),
-            "probability": item.get("probability"),
             "status": item.get("status"),
+            "realized": _realized_value(str(item.get("status") or "")),
+            "path_mass": (item.get("meta") or {}).get("path_mass"),
+            "status_path_masses": (item.get("meta") or {}).get("status_path_masses", {}),
             "supporting_evidence_count": len(item.get("evidence_refs") or []),
         }
         for item in entries
     ]
+
+
+def _realized_value(status: str) -> bool | None:
+    if status == "realized":
+        return True
+    if status == "eliminated":
+        return False
+    return None
 
 
 def _terminality_assessment(entries: list[dict[str, Any]]) -> dict[str, Any]:

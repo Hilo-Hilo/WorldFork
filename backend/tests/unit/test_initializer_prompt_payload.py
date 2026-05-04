@@ -3,6 +3,7 @@ from __future__ import annotations
 from types import SimpleNamespace
 from uuid import uuid4
 
+from app.core.config import Settings
 from app.domains.big_bang import initializer_agent
 from app.llm.schemas import LLMResponse
 
@@ -139,11 +140,26 @@ def test_initializer_call_requires_endpoint_questions_and_ledger_schema(monkeypa
 
     assert "important_questions" in schema["required"]
     assert "endpoint_ledger" in schema["required"]
+    assert "population_archetypes" in schema["required"]
+    assert "cohort_states" in schema["required"]
     assert schema["properties"]["important_questions"]["maxItems"] == 5
     assert schema["properties"]["endpoint_ledger"]["maxItems"] == 5
+    assert "population_total" in schema["properties"]["population_archetypes"]["items"]["required"]
+    assert {
+        "represented_population",
+        "population_share_of_archetype",
+        "representation_mode",
+    } <= set(schema["properties"]["cohort_states"]["items"]["required"])
     assert {"endpoint_key", "label", "status", "realization_criteria"} <= set(
         schema["properties"]["endpoint_ledger"]["items"]["required"]
     )
+
+
+def test_initializer_default_chunk_budget_is_at_least_64k_token_equivalent():
+    settings = Settings()
+
+    assert settings.initializer_direct_context_char_budget >= 64_000 * 4
+    assert settings.initializer_chunk_chars >= 64_000 * 4
 
 
 def test_initializer_output_preserves_endpoint_questions_and_parseable_ledger():

@@ -398,6 +398,8 @@ def complete_with_audit(
             "raw": response.raw,
             "provider": successful_candidate.provider,
             "model": successful_candidate.model,
+            "usage": _response_usage(response.raw),
+            "prompt_cache_usage": _prompt_cache_usage(response.raw),
         }
         call = audit_store.mark_succeeded(
             call_id=call.id,
@@ -520,6 +522,8 @@ class LLMCallAuditStore:
                 "attempts": attempts,
                 "effective_provider": provider,
                 "effective_model": model,
+                "usage": response_payload.get("usage"),
+                "prompt_cache_usage": response_payload.get("prompt_cache_usage"),
             }
             audit_db.flush()
             return call
@@ -617,6 +621,23 @@ def _can_use_independent_audit_session(db: Session, big_bang_id: Any) -> bool:
             return audit_db.get(models.BigBang, big_bang_id) is not None
     except Exception:
         return False
+
+
+def _response_usage(raw: dict[str, Any]) -> dict[str, Any] | None:
+    usage = raw.get("usage") if isinstance(raw, dict) else None
+    return usage if isinstance(usage, dict) else None
+
+
+def _prompt_cache_usage(raw: dict[str, Any]) -> dict[str, Any]:
+    usage = _response_usage(raw) or {}
+    details = usage.get("prompt_tokens_details")
+    if not isinstance(details, dict):
+        details = {}
+    return {
+        "cached_tokens": int(details.get("cached_tokens") or 0),
+        "cache_write_tokens": int(details.get("cache_write_tokens") or 0),
+        "cache_discount": usage.get("cache_discount"),
+    }
 
 
 @contextmanager

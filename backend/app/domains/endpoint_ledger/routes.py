@@ -11,6 +11,7 @@ from app.api.schemas import (
     EndpointLedgerDetailOut,
     EndpointLedgerEvaluateOut,
     EndpointLedgerEvaluateRequest,
+    EndpointPathMassPlotOut,
     EndpointLedgerVersionOut,
     JobCreate,
 )
@@ -18,7 +19,12 @@ from app.api.utils import commit_or_500, raise_llm_unavailable, require
 from app.db import models
 from app.db.session import get_db
 from app.llm.audit import LLMCallError
-from app.domains.endpoint_ledger.service import endpoint_ledger_detail, evaluate_endpoint_ledger
+from app.domains.endpoint_ledger.service import (
+    endpoint_ledger_detail,
+    endpoint_ledger_report_payload,
+    evaluate_endpoint_ledger,
+    latest_endpoint_ledger,
+)
 
 router = APIRouter(tags=["endpoint-ledgers"])
 
@@ -47,6 +53,24 @@ def list_multiverse_ledgers(multiverse_id: UUID, db: Session = Depends(get_db)):
 def get_ledger(ledger_version_id: UUID, db: Session = Depends(get_db)):
     ledger = require(db, models.EndpointLedgerVersion, ledger_version_id)
     return endpoint_ledger_detail(db, ledger)
+
+
+@router.get("/big-bangs/{big_bang_id}/endpoint-ledgers/path-mass", response_model=EndpointPathMassPlotOut)
+def big_bang_endpoint_path_mass(big_bang_id: UUID, db: Session = Depends(get_db)):
+    require(db, models.BigBang, big_bang_id)
+    ledger = latest_endpoint_ledger(db, big_bang_id=big_bang_id, scope="big_bang")
+    payload = endpoint_ledger_report_payload(db, ledger)
+    ledger_payload = payload.get("payload") if isinstance(payload.get("payload"), dict) else {}
+    return {
+        "big_bang_id": big_bang_id,
+        "ledger_version_id": payload.get("ledger_version_id"),
+        "aggregation": ledger_payload.get("aggregation") or "none",
+        "path_probability_mass": ledger_payload.get("path_probability_mass") or 0.0,
+        "excluded_path_probability_mass": ledger_payload.get("excluded_path_probability_mass") or 0.0,
+        "endpoint_path_mass_distribution": ledger_payload.get("endpoint_path_mass_distribution") or [],
+        "plot_distribution": ledger_payload.get("plot_distribution") or {},
+        "path_probability_distribution": ledger_payload.get("path_probability_distribution") or [],
+    }
 
 
 @router.post("/big-bangs/{big_bang_id}/endpoint-ledgers/evaluate", response_model=EndpointLedgerEvaluateOut)
