@@ -1,8 +1,7 @@
 """Per-tick metrics for a universe.
 
 Computes the post-tick metrics blob fed into the God-agent prompt and
-recorded on the universe row for the recursive multiverse explorer (PRD
-§13.5 ``min_divergence_score``, §16/§24 observability).
+recorded on the universe row for divergence scoring and observability.
 """
 from __future__ import annotations
 

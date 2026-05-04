@@ -1,4 +1,4 @@
-"""Prometheus metrics for WorldFork (PRD §24).
+"""Prometheus metrics for WorldFork.
 
 All metrics are registered in the default Prometheus registry.
 Helper functions are provided so callers never need to import the metric

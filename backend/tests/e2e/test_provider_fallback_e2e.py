@@ -1,4 +1,4 @@
-"""End-to-end provider-fallback test (PRD §16.7, §27.3 #2).
+"""End-to-end provider-fallback test.
 
 Configures a routing entry whose primary provider raises a 5xx-ish
 ProviderError on the first attempt and succeeds on the second; the

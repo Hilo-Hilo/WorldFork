@@ -2,7 +2,7 @@
 
 A ``BranchDelta`` is the *counterfactual mutation* applied to the parent's
 state-snapshot at ``branch_from_tick`` to produce the child universe.  This
-module owns the mutation strategies for each delta variant (PRD §13.3):
+module owns the mutation strategies for each delta variant (branch-delta model):
 
 * ``counterfactual_event_rewrite`` — rewrite the description / status of an
   event that was already copied into the child by the branch engine.

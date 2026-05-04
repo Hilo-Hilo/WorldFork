@@ -1,4 +1,4 @@
-"""Divergence-score heuristic for the branch-policy gate (PRD §13.5).
+"""Divergence-score heuristic for the branch-policy gate (branch divergence policy).
 
 The God-agent proposes a branch by emitting a :class:`BranchDelta` discriminated
 union (counterfactual_event_rewrite | parameter_shift | actor_state_override |
@@ -31,7 +31,7 @@ _log = logging.getLogger(__name__)
 # Field-type weights for actor_state_override deltas.
 # ---------------------------------------------------------------------------
 
-# These weights are PRD-derived intuitions: emotion swings ripple through
+# These weights are runtime heuristics: emotion swings ripple through
 # spiral-of-silence and mobilization; stance shifts move the issue axis and
 # therefore visible posts; trust/exposure changes ripple slower.
 _FIELD_WEIGHTS: dict[str, float] = {

@@ -1,4 +1,4 @@
-"""Branch-policy gate (PRD §13.2 step 2, §13.5 explosion controls).
+"""Branch-policy gate (branch creation and explosion controls).
 
 After the God-agent emits a :class:`GodReviewOutput`, the engine asks this
 module whether the proposed decision should be:

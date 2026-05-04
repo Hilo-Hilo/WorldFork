@@ -1,5 +1,5 @@
 """
-PRD §12.4 — Belief drift with bounded persuasion kernel.
+the sociology model.4 — Belief drift with bounded persuasion kernel.
 
   belief_i(t+1) =
     belief_i(t)

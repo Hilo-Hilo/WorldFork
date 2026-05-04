@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://worldfork.ai/schemas/cohort_decision.json",
   "title": "CohortDecisionOutput",
-  "description": "Strict JSON contract returned by a cohort agent at each tick (PRD §10.5). Each *_action item references a tool_id from social_action_tools.json plus an args object. Downstream validators check args against the tool's JSONSchema and reject unknown tool_ids, unknown emotion keys, or unknown event_type keys.",
+  "description": "Strict JSON contract returned by a cohort agent at each tick. Each *_action item references a tool_id from social_action_tools.json plus an args object. Downstream validators check args against the tool's JSONSchema and reject unknown tool_ids, unknown emotion keys, or unknown event_type keys.",
   "type": "object",
   "additionalProperties": false,
   "required": ["public_actions", "event_actions", "social_actions", "self_ratings", "split_merge_proposals", "decision_rationale"],

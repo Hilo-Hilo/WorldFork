@@ -1,4 +1,4 @@
-"""Lineage path helpers for the recursive multiverse DAG (PRD §13.1, §9.9).
+"""Lineage path helpers for the recursive multiverse DAG (multiverse lineage model).
 
 Lineage paths are ordered lists of universe IDs from the root Big Bang
 universe down to (and including) the universe being described.  They are stored
