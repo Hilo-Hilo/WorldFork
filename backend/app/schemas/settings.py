@@ -1,6 +1,6 @@
 """
 Settings schemas: ProviderConfig, ModelRoutingEntry, RateLimitConfig,
-GlobalSettings, ZepConfig.
+GlobalSettings.
 Import-free of backend.app.models.
 """
 
@@ -108,21 +108,3 @@ class GlobalSettings(BaseModel):
     theme: Literal["light", "dark", "system"] = "system"
     ui_autoplay_interval_ms: int = Field(default=3000, ge=500)
     run_folder_root: str = "runs"
-
-
-# ---------------------------------------------------------------------------
-# ZepConfig
-# ---------------------------------------------------------------------------
-
-class ZepConfig(BaseModel):
-    """Zep memory integration configuration."""
-
-    model_config = ConfigDict(extra="forbid")
-
-    enabled: bool = False
-    mode: Literal[
-        "local", "local_ledger", "cohort_memory", "hero_memory", "run_scoped_threads", "hybrid"
-    ] = "local"
-    api_key_env: str = "ZEP_API_KEY"
-    cache_ttl_seconds: int = Field(default=300, ge=0)
-    degraded: bool = False

@@ -663,33 +663,6 @@ def upgrade() -> None:
     )
 
     # -----------------------------------------------------------------------
-    # settings_zep
-    # -----------------------------------------------------------------------
-    op.create_table(
-        "settings_zep",
-        sa.Column("setting_id", sa.String(64), nullable=False),
-        sa.Column("enabled", sa.Boolean(), nullable=False, server_default="false"),
-        sa.Column("mode", sa.String(32), nullable=False),
-        sa.Column("api_key_env", sa.String(128), nullable=False),
-        sa.Column("cache_ttl_seconds", sa.Integer(), nullable=False, server_default="300"),
-        sa.Column("degraded", sa.Boolean(), nullable=False, server_default="false"),
-        sa.Column("payload", postgresql.JSONB(astext_type=sa.Text()), nullable=False),
-        sa.Column(
-            "created_at",
-            sa.DateTime(timezone=True),
-            server_default=sa.text("now()"),
-            nullable=False,
-        ),
-        sa.Column(
-            "updated_at",
-            sa.DateTime(timezone=True),
-            server_default=sa.text("now()"),
-            nullable=False,
-        ),
-        sa.PrimaryKeyConstraint("setting_id", name="pk_settings_zep"),
-    )
-
-    # -----------------------------------------------------------------------
     # settings_global
     # -----------------------------------------------------------------------
     op.create_table(
@@ -727,7 +700,6 @@ def upgrade() -> None:
 
 def downgrade() -> None:
     op.drop_table("settings_global")
-    op.drop_table("settings_zep")
     op.drop_table("settings_branch_policy")
     op.drop_table("settings_rate_limit")
     op.drop_table("settings_model_routing")

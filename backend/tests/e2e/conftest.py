@@ -5,13 +5,10 @@ Most fixtures are reused or duplicated from `tests/integration/conftest.py`
 (SQLite shadow engine, ASGI client) so the suite runs without Postgres or a
 live Redis broker.
 
-External services used in production (OpenRouter, Zep,
-Celery broker) are stubbed:
+External services used in production (OpenRouter, Celery broker) are stubbed:
 
 * OpenRouter        -> `_CannedProvider` registered via
                        `register_provider("openrouter", ...)`.
-* Zep               -> default off; tests that need it monkey-patch the
-                       memory factory.
 * Celery broker     -> `enqueue` is wrapped to record calls and return the
                        envelope job_id without contacting Redis.
 * Redis (rate limit + lineage cache) -> `fakeredis.aioredis.FakeRedis`.

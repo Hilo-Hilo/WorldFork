@@ -22,7 +22,6 @@ from backend.app.models.settings import (
     ModelRoutingEntryModel,
     ProviderSettingModel,
     RateLimitSettingModel,
-    ZepSettingModel,
 )
 from backend.app.models.universes import UniverseModel
 
@@ -56,6 +55,5 @@ __all__ = [
     "ModelRoutingEntryModel",
     "RateLimitSettingModel",
     "BranchPolicySettingModel",
-    "ZepSettingModel",
     "GlobalSettingModel",
 ]

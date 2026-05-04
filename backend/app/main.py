@@ -42,7 +42,6 @@ from app.domains.tick import routes as ticks
 from app.domains.tick.tick_bundles import TickBundleHydrationError
 from backend.app.core.db import sync_engine
 from backend.app.core.redis_client import get_redis_client
-from backend.app.integrations.zep import zep_status_summary
 from backend.app.observability.router import router as observability_router
 from backend.app.providers.openai_codex import read_codex_oauth_token
 
@@ -85,7 +84,6 @@ def _create_runtime_control_tables() -> None:
         "settings_model_routing",
         "settings_provider",
         "settings_rate_limit",
-        "settings_zep",
     }
     tables = [
         RuntimeControlBase.metadata.tables[name]
@@ -151,7 +149,6 @@ async def readyz() -> JSONResponse:
         except Exception:
             return False
 
-    zep_status = await zep_status_summary()
     database_result, redis_result = await asyncio.gather(
         check_database(),
         asyncio.wait_for(check_redis(), timeout=2.0),
@@ -162,7 +159,6 @@ async def readyz() -> JSONResponse:
     checks = {
         "database": database_ok,
         "redis": redis_ok,
-        "zep": not bool(zep_status.get("degraded", False)),
         **_llm_ready_checks(),
     }
     ok = all(checks.values())

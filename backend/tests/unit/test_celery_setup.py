@@ -92,9 +92,6 @@ class TestTaskRoutes:
     def test_god_agent_review_routes_to_p1(self):
         assert celery_app.conf.task_routes["god_agent_review"]["queue"] == "p1"
 
-    def test_sync_zep_memory_routes_to_p2(self):
-        assert celery_app.conf.task_routes["sync_zep_memory"]["queue"] == "p2"
-
     def test_build_review_index_routes_to_p2(self):
         assert celery_app.conf.task_routes["build_review_index"]["queue"] == "p2"
 
@@ -164,7 +161,6 @@ _EXPECTED_MAPPING: dict[str, Queues] = {
     "sociology_update": Queues.P1,
     "god_agent_review": Queues.P1,
     "initialize_big_bang": Queues.P1,
-    "sync_zep_memory": Queues.P2,
     "build_review_index": Queues.P2,
     "export_run": Queues.P3,
 }

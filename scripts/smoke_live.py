@@ -1,7 +1,7 @@
 """Live smoke test against real OpenRouter.
 
 Prefer the maintained CLI smoke: worldfork smoke live
-Requires OPENROUTER_API_KEY in .env. Zep is intentionally disabled by default.
+Requires OPENROUTER_API_KEY in .env.
 """
 import asyncio
 
@@ -68,31 +68,11 @@ async def main():
     assert result.parsed_json is not None
     assert "answer" in result.parsed_json
 
-    # 3. Local memory roundtrip. Zep is never used unless explicitly enabled.
-    if settings.zep_enabled and settings.zep_api_key and settings.zep_api_key != "z_REPLACE_ME":
-        print("\n[3] Zep memory roundtrip")
-        import uuid
-
-        from backend.app.memory.zep_adapter import ZepMemoryProvider
-        local_fb = LocalMemoryProvider()
-        zep = ZepMemoryProvider(api_key=settings.zep_api_key, mode="cohort_memory", local_fallback=local_fb)
-        h = await zep.healthcheck()
-        print(f"  zep healthcheck ok={h['ok']} latency_ms={h.get('latency_ms')}")
-        if h["ok"]:
-            aid = f"smoke-cohort-{uuid.uuid4().hex[:8]}"
-            uid = f"smoke-universe-{uuid.uuid4().hex[:8]}"
-            await zep.ensure_user(actor_id=aid, actor_kind="cohort", metadata={"smoke": True})
-            sid = await zep.ensure_session(actor_id=aid, universe_id=uid, metadata={"smoke": True})
-            await zep.add_episode(session_id=sid, role="cohort_smoke", role_type="user",
-                                  content="Smoke test: this is a tick-1 thought.")
-            ctx = await zep.get_context(session_id=sid, max_tokens=200)
-            print(f"  context_len={len(ctx)} chars")
-            print(f"  context_excerpt={ctx[:120]!r}")
-    else:
-        print("\n[3] Zep skipped (disabled); local memory active")
-        local = LocalMemoryProvider()
-        health = await local.healthcheck()
-        assert health.get("ok", False)
+    # 3. Local memory roundtrip.
+    print("\n[3] Local memory active")
+    local = LocalMemoryProvider()
+    health = await local.healthcheck()
+    assert health.get("ok", False)
 
     print("\n== Smoke OK ==")
 

@@ -193,4 +193,4 @@ class TestMetricsEndpoint:
         data = resp.json()
         assert "ok" in data
         assert "checks" in data
-        assert {"database", "redis", "openrouter", "openai-codex", "zep"}.issubset(data["checks"])
+        assert {"database", "redis", "openrouter", "openai-codex"}.issubset(data["checks"])

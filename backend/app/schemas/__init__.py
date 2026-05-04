@@ -57,7 +57,6 @@ from backend.app.schemas.settings import (
     ModelRoutingEntry,
     ProviderConfig,
     RateLimitConfig,
-    ZepConfig,
 )
 from backend.app.schemas.sociology import (
     ChildSplitSpec,
@@ -125,5 +124,4 @@ __all__ = [
     "ModelRoutingEntry",
     "RateLimitConfig",
     "GlobalSettings",
-    "ZepConfig",
 ]
