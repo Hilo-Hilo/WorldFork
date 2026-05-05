@@ -31,6 +31,8 @@ Generated: 2026-05-05 12:20 UTC
 - E3 queued tick/report smoke: `raw/E3_queue_smoke/resolved_004/`
 - E3 default-route no-branch 16-tick run: `raw/E3_worldfork_default_route_16tick/`
 - E3 default-route no-branch 35-tick resume: `raw/E3_worldfork_default_route_35tick_resume/`
+- E3 default-route branching core12 run: `raw/E3_worldfork_default_route_branching_core12/` (live/partial until terminal path-mass capture and scoring)
+- E4 minimum-6 long-horizon run: `raw/E4_minimum_long_horizon_6/` (live/partial until terminal path-mass, cost, timing, and audit capture)
 
 ## Paper Artifacts
 
@@ -38,7 +40,7 @@ Generated: 2026-05-05 12:20 UTC
 - ICML LaTeX source: `paper/latex/main.tex`
 - Compiled PDF: `paper/latex/main.pdf`
 - Forecast scoring table: `paper/tables/table2_forecast_scoring.csv`
-- Remaining table placeholders: `paper/tables/table3_audit_metrics_placeholder.csv`, `paper/tables/table4_social_state_placeholder.csv`
+- Remaining table placeholders pending E4/E5 scoring: `paper/tables/table3_audit_metrics_placeholder.csv`, `paper/tables/table4_social_state_placeholder.csv`
 - ETA snapshot: `paper/eta.md`
 
 ## Anonymity Notes
