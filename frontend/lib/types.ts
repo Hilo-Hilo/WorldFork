@@ -29,6 +29,54 @@ export type BigBang = {
 
 export type MultiverseStatus = "active" | "running" | "paused" | "completed" | "terminated" | "failed" | "frozen" | string;
 
+export type CohortState = {
+  cohort_name?: string;
+  archetype?: string;
+  attention_level?: number;
+  expression_level?: number;
+  fatigue?: number;
+  fear_of_isolation?: number;
+  mobilization_readiness?: number;
+  perceived_majority?: number;
+  represented_population?: number;
+  private_belief?: string;
+  public_expression?: string;
+  graph_influence?: {
+    branch_pressure?: number;
+    coalition_max?: number;
+    conflict_max?: number;
+    trust_average?: number;
+    [k: string]: number | undefined;
+  };
+  [k: string]: unknown;
+};
+
+export type CohortStateEntry = {
+  actor_id?: string | null;
+  state: CohortState;
+};
+
+export type HeroState = {
+  archetype?: string;
+  description?: string;
+  current_strategy?: string;
+  attention?: number;
+  fatigue?: number;
+  graph_influence?: {
+    branch_pressure?: number;
+    coalition_max?: number;
+    conflict_max?: number;
+    trust_average?: number;
+    [k: string]: number | undefined;
+  };
+  [k: string]: unknown;
+};
+
+export type HeroStateEntry = {
+  actor_id?: string | null;
+  state: HeroState;
+};
+
 export type Multiverse = {
   id: string;
   big_bang_id: string;
@@ -44,6 +92,8 @@ export type Multiverse = {
   state: Record<string, unknown> & {
     idle_streak?: number;
     graph_summary?: unknown;
+    cohort_current_states?: CohortStateEntry[];
+    hero_current_states?: HeroStateEntry[];
     [k: string]: unknown;
   };
   report_status: string;

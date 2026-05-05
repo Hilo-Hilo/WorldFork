@@ -857,6 +857,80 @@ input, textarea { font-family: inherit; color: inherit; }
 .detail-name { font-size: 15px; font-weight: 500; color: var(--fg); margin: 0 0 4px; }
 .detail-id { font-family: var(--font-mono); font-size: 10.5px; color: var(--muted); }
 
+/* Right-rail title block (post-redesign): ui_label as the heading,
+   branch_reason as a truncated one-liner that expands on hover. */
+.detail-title { display: flex !important; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.detail-label {
+  font-size: 18px; font-weight: 500; letter-spacing: -0.01em;
+  color: var(--fg); font-family: inherit; text-transform: none;
+}
+.detail-origin {
+  font-size: 10.5px; font-family: var(--font-mono);
+  color: var(--muted-2); letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.branch-reason-line {
+  display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden; text-overflow: ellipsis;
+  font-size: 12px; color: var(--muted-2); margin: 8px 0 6px;
+  cursor: help;
+}
+.branch-reason-line .k {
+  color: var(--muted); font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.06em; text-transform: uppercase; margin-right: 6px;
+}
+
+/* Cohort signals panel: per-cohort horizontal bar group */
+.cohort-card { padding: 10px 0; border-top: 1px solid var(--border); }
+.cohort-card:first-child { border-top: none; padding-top: 0; }
+.cohort-card .name {
+  font-size: 12.5px; font-weight: 500; color: var(--fg); margin-bottom: 2px;
+}
+.cohort-card .archetype {
+  font-size: 10.5px; font-family: var(--font-mono); color: var(--muted);
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.cohort-card .pop {
+  font-size: 10.5px; font-family: var(--font-mono); color: var(--muted-2);
+  margin-left: 6px;
+}
+.cohort-bars { margin-top: 8px; display: grid; gap: 4px; }
+.cohort-bar { display: grid; grid-template-columns: 92px 1fr 36px; gap: 8px; align-items: center; }
+.cohort-bar .label {
+  font-size: 10.5px; font-family: var(--font-mono); color: var(--muted-2);
+}
+.cohort-bar .track {
+  height: 6px; background: var(--border); border-radius: 3px; overflow: hidden;
+  display: block; width: 100%;
+}
+.cohort-bar .fill {
+  display: block;
+  height: 100%; border-radius: 3px;
+  transition: width 200ms ease;
+}
+.cohort-bar .v {
+  font-size: 10.5px; font-family: var(--font-mono); color: var(--fg-2);
+  text-align: right;
+}
+
+/* Hero strategy chips */
+.hero-card {
+  padding: 8px 0; border-top: 1px solid var(--border);
+  display: grid; gap: 4px;
+}
+.hero-card:first-child { border-top: none; padding-top: 0; }
+.hero-card .name {
+  font-size: 12px; font-weight: 500; color: var(--fg);
+}
+.hero-card .strategy {
+  font-size: 11px; font-family: var(--font-mono); color: var(--accent, #5cd0a8);
+  letter-spacing: 0.02em;
+}
+.hero-card .meta {
+  font-size: 10.5px; font-family: var(--font-mono); color: var(--muted-2);
+}
+
 .detail-grid {
   display: grid; grid-template-columns: 1fr 1fr;
   gap: 14px 18px;

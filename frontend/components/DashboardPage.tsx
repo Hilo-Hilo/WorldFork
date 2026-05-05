@@ -462,6 +462,131 @@ function MultiverseTree({
   );
 }
 
+/* ===== Cohort signals panel — replaces the old "Recent run logs" block ===== */
+
+const COHORT_BARS: Array<{
+  key: keyof import("@/lib/types").CohortState;
+  label: string;
+  /** "rising" = high values are activity-positive (mint); "stress" = high values
+   * are crisis-positive (amber); "neutral" = no valence (gray). Communicates
+   * direction at a glance without the user reading every label. */
+  tone: "rising" | "stress" | "neutral";
+}> = [
+  { key: "attention_level", label: "attention", tone: "rising" },
+  { key: "expression_level", label: "expression", tone: "rising" },
+  { key: "mobilization_readiness", label: "mobilization", tone: "rising" },
+  { key: "fatigue", label: "fatigue", tone: "stress" },
+  { key: "fear_of_isolation", label: "fear of isolation", tone: "stress" },
+  { key: "perceived_majority", label: "perceived majority", tone: "neutral" },
+];
+
+const TONE_COLORS: Record<"rising" | "stress" | "neutral", string> = {
+  rising: "oklch(0.78 0.13 175)",   // mint/teal
+  stress: "oklch(0.78 0.13 70)",    // amber
+  neutral: "oklch(0.72 0.02 250)",  // muted gray-blue
+};
+
+function CohortSignalsPanel({ multiverse }: { multiverse: Multiverse }) {
+  const cohorts = (multiverse.state?.cohort_current_states || []).slice(0, 6);
+  return (
+    <div className="detail-section">
+      <h4>
+        Cohort signals <span className="extra">{cohorts.length} cohorts</span>
+      </h4>
+      {cohorts.length === 0 ? (
+        <div
+          style={{
+            padding: "12px 0",
+            fontFamily: "var(--font-mono)",
+            fontSize: 11,
+            color: "var(--muted-2)",
+          }}
+        >
+          no cohort state for this timeline yet
+        </div>
+      ) : (
+        cohorts.map((entry, i) => {
+          const s = entry.state || {};
+          const name = s.cohort_name || s.archetype || `cohort ${i + 1}`;
+          const pop = typeof s.represented_population === "number"
+            ? formatPop(s.represented_population)
+            : null;
+          return (
+            <div key={`${name}-${i}`} className="cohort-card">
+              <div className="name">
+                {name}
+                {pop && <span className="pop">· {pop}</span>}
+              </div>
+              {s.archetype && s.archetype !== name && (
+                <div className="archetype">{s.archetype}</div>
+              )}
+              <div className="cohort-bars">
+                {COHORT_BARS.map((bar) => {
+                  const raw = s[bar.key];
+                  const v = typeof raw === "number" ? Math.max(0, Math.min(1, raw)) : null;
+                  return (
+                    <div key={String(bar.key)} className="cohort-bar">
+                      <span className="label">{bar.label}</span>
+                      <span className="track">
+                        {v != null && (
+                          <span
+                            className="fill"
+                            style={{
+                              width: `${(v * 100).toFixed(0)}%`,
+                              background: TONE_COLORS[bar.tone],
+                            }}
+                          />
+                        )}
+                      </span>
+                      <span className="v">{v != null ? v.toFixed(2) : "—"}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })
+      )}
+    </div>
+  );
+}
+
+function ActiveHeroesPanel({ multiverse }: { multiverse: Multiverse }) {
+  const heroes = (multiverse.state?.hero_current_states || []).slice(0, 5);
+  if (heroes.length === 0) return null;
+  return (
+    <div className="detail-section">
+      <h4>
+        Active heroes <span className="extra">{heroes.length}</span>
+      </h4>
+      {heroes.map((entry, i) => {
+        const s = entry.state || {};
+        const archetype = s.archetype || `hero ${i + 1}`;
+        const strategy = s.current_strategy;
+        const att = typeof s.attention === "number" ? s.attention.toFixed(2) : "—";
+        const fat = typeof s.fatigue === "number" ? s.fatigue.toFixed(2) : "—";
+        return (
+          <div key={`${archetype}-${i}`} className="hero-card">
+            <div className="name">{archetype.replace(/_/g, " ")}</div>
+            {strategy && (
+              <div className="strategy">→ {strategy.replace(/_/g, " ")}</div>
+            )}
+            <div className="meta">
+              attention {att} · fatigue {fat}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function formatPop(n: number): string {
+  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
+  if (n >= 1_000) return `${(n / 1_000).toFixed(0)}k`;
+  return String(n);
+}
+
 /* ===== Brand mark used in the top bar ===== */
 
 function BrandMark() {
@@ -681,13 +806,6 @@ function DashboardWired({
     return "Run to completion";
   })();
 
-  // logs scoped to this big bang (api/agent/logs returns global; filter by message)
-  const runLogs = (logs.data?.data || []).filter(
-    (l) =>
-      // match the big-bang id substring or any of the multiverse ids
-      l.message.includes(runId.slice(0, 8)) ||
-      (multiverses.data || []).some((m) => l.message.includes(m.id.slice(0, 8))),
-  );
   const initializerOutput = bigBang.data?.scenario_input?.initializer_output as Record<string, unknown> | undefined;
   const initializerFallbackUsed = Boolean(initializerOutput?.fallback);
   const displayLog = (log: AgentLog): AgentLog =>
@@ -881,10 +999,22 @@ function DashboardWired({
           {sel ? (
             <>
               <div className="detail-section">
-                <h4>
-                  Selected <span className="extra">{sel.ui_label}</span>
+                <h4 className="detail-title">
+                  <span className="detail-label">{sel.ui_label}</span>
+                  <span className="detail-origin">
+                    {sel.parent_multiverse_id
+                      ? `branched at tick ${sel.fork_tick_index ?? "?"}`
+                      : "root timeline"}
+                  </span>
                 </h4>
-                <p className="detail-name">{sel.branch_reason || "Root timeline"}</p>
+                {sel.branch_reason ? (
+                  <p
+                    className="branch-reason-line"
+                    title={sel.branch_reason}
+                  >
+                    <span className="k">why</span> {sel.branch_reason}
+                  </p>
+                ) : null}
                 <p className="detail-id">
                   {sel.id.slice(0, 8)}… &nbsp;·&nbsp; parent {sel.parent_multiverse_id ? sel.parent_multiverse_id.slice(0, 6) + "…" : "—"}
                 </p>
@@ -916,42 +1046,8 @@ function DashboardWired({
                 </div>
               </div>
 
-              <div className="detail-section">
-                <h4>
-                  Recent run logs <span className="extra">{runLogs.length} matched</span>
-                </h4>
-                <div className="events">
-                  {runLogs.length === 0 && (
-                    <div
-                      style={{
-                        padding: "12px 0",
-                        fontFamily: "var(--font-mono)",
-                        fontSize: 11,
-                        color: "var(--muted-2)",
-                      }}
-                    >
-                      no recent log entries reference this run
-                    </div>
-                  )}
-                  {runLogs.slice(0, 8).map((rawLog) => {
-                    const l = displayLog(rawLog);
-                    return (
-                    <div key={rawLog.id} className="event">
-                      <span className="t">{new Date(l.created_at).toLocaleTimeString().slice(0, 5)}</span>
-                      <div className="b">
-                        <div className="h">
-                          <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                            {l.message}
-                          </span>
-                          <span className={`tag ${l.source}`}>{l.source}</span>
-                        </div>
-                        <div className="s">{l.status}</div>
-                      </div>
-                    </div>
-                    );
-                  })}
-                </div>
-              </div>
+              <CohortSignalsPanel multiverse={sel} />
+              <ActiveHeroesPanel multiverse={sel} />
             </>
           ) : (
             <div className="detail-section">
