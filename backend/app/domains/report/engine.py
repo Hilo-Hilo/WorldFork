@@ -2767,28 +2767,109 @@ def _attach_report_agent_call_metadata(metadata: dict[str, Any], llm_call: Any) 
     return model
 
 
+_HEADLINE_KEYS = (
+    "title",
+    "event_title",
+    "label",
+    "name",
+    "summary",
+    "description",
+    "rationale",
+)
+
+
+def _humanize_key(key: str) -> str:
+    return key.replace("_", " ")
+
+
 def _markdown_list(items: list[Any]) -> list[str]:
-    return [f"- {_markdown_value(item)}" for item in items]
+    """Render a list of items as bullets. Dict items become a headline bullet with
+    nested sub-bullets so we never fall through to Python's str(dict) repr."""
+    out: list[str] = []
+    for item in items:
+        if isinstance(item, dict):
+            if not item:
+                continue
+            headline = _dict_headline(item)
+            sub_keys = [k for k in item if k not in _seen_for_headline(item)]
+            if headline and not sub_keys:
+                out.append(f"- {headline}")
+                continue
+            out.append(f"- {headline}" if headline else "-")
+            out.extend(_markdown_block({k: item[k] for k in sub_keys}, indent=2))
+        elif isinstance(item, list):
+            out.append(f"- {_markdown_value(item)}")
+        else:
+            out.append(f"- {_markdown_value(item)}")
+    return out
 
 
 def _markdown_block(value: Any, *, indent: int = 0) -> list[str]:
     prefix = " " * indent
     if isinstance(value, dict):
+        if not value:
+            return [f"{prefix}- (empty)"]
         lines = []
         for key, item in value.items():
+            if item in (None, "", [], {}):
+                continue
+            label = _humanize_key(str(key))
             if isinstance(item, dict):
-                lines.append(f"{prefix}- {key}:")
-                lines.extend(_markdown_block(item, indent=indent + 2))
+                if not item:
+                    continue
+                inline = _dict_headline(item)
+                inner_keys = [k for k in item if k not in _seen_for_headline(item)]
+                if inline and not inner_keys:
+                    lines.append(f"{prefix}- {label}: {inline}")
+                else:
+                    lines.append(f"{prefix}- {label}:" + (f" {inline}" if inline else ""))
+                    lines.extend(
+                        _markdown_block({k: item[k] for k in inner_keys}, indent=indent + 2)
+                    )
             elif isinstance(item, list):
-                lines.append(f"{prefix}- {key}:")
-                for entry in item:
-                    lines.append(f"{prefix}  - {_markdown_value(entry)}")
+                if all(not isinstance(entry, (dict, list)) for entry in item):
+                    rendered = ", ".join(_markdown_value(entry) for entry in item if entry not in (None, ""))
+                    lines.append(f"{prefix}- {label}: {rendered}")
+                else:
+                    lines.append(f"{prefix}- {label}:")
+                    for entry in item:
+                        if isinstance(entry, dict):
+                            head = _dict_headline(entry)
+                            inner_keys = [k for k in entry if k not in _seen_for_headline(entry)]
+                            if head and not inner_keys:
+                                lines.append(f"{prefix}  - {head}")
+                            else:
+                                lines.append(f"{prefix}  - {head}" if head else f"{prefix}  -")
+                                lines.extend(
+                                    _markdown_block(
+                                        {k: entry[k] for k in inner_keys}, indent=indent + 4
+                                    )
+                                )
+                        else:
+                            lines.append(f"{prefix}  - {_markdown_value(entry)}")
             else:
-                lines.append(f"{prefix}- {key}: {_markdown_value(item)}")
-        return lines
+                lines.append(f"{prefix}- {label}: {_markdown_value(item)}")
+        return lines or [f"{prefix}- (empty)"]
     if isinstance(value, list):
-        return [f"{prefix}- {_markdown_value(item)}" for item in value]
+        return _markdown_list(value)
     return [f"{prefix}{_markdown_value(value)}"]
+
+
+def _dict_headline(value: dict[str, Any]) -> str:
+    """Pick a single human-readable line summarizing this dict, if possible."""
+    for key in _HEADLINE_KEYS:
+        candidate = value.get(key)
+        if isinstance(candidate, str) and candidate.strip():
+            return candidate.strip()
+    return ""
+
+
+def _seen_for_headline(value: dict[str, Any]) -> set[str]:
+    for key in _HEADLINE_KEYS:
+        candidate = value.get(key)
+        if isinstance(candidate, str) and candidate.strip():
+            return {key}
+    return set()
 
 
 def _markdown_table(rows: list[dict[str, Any]]) -> list[str]:
@@ -2814,8 +2895,31 @@ def _markdown_cell(value: Any) -> str:
 
 
 def _markdown_value(value: Any) -> str:
+    """Single-line text representation. Never produces Python str(dict) output;
+    nested structures collapse to compact human-readable prose."""
     if value is None:
         return ""
-    if isinstance(value, (str, int, float, bool)):
+    if isinstance(value, bool):
+        return "yes" if value else "no"
+    if isinstance(value, (str, int, float)):
         return str(value)
+    if isinstance(value, dict):
+        if not value:
+            return ""
+        headline = _dict_headline(value)
+        seen = _seen_for_headline(value)
+        tail_parts = [
+            f"{_humanize_key(str(k))}: {_markdown_value(v)}"
+            for k, v in value.items()
+            if k not in seen and v not in (None, "", [], {})
+        ]
+        if headline and tail_parts:
+            return f"{headline} ({'; '.join(tail_parts)})"
+        if headline:
+            return headline
+        return "; ".join(tail_parts)
+    if isinstance(value, (list, tuple)):
+        items = [_markdown_value(item) for item in value if item not in (None, "")]
+        items = [item for item in items if item]
+        return ", ".join(items)
     return str(value)
