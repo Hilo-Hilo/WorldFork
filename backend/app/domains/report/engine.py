@@ -828,6 +828,8 @@ def _build_multiverse_report_content(
     }
 
 
+_PREDICATE_TYPES = ("threshold_breach", "binary_event", "count", "categorical", "narrative")
+
 _PREDICATE_EXTRACT_SCHEMA = {
     "type": "object",
     "properties": {
@@ -839,8 +841,27 @@ _PREDICATE_EXTRACT_SCHEMA = {
                     "id": {"type": "string"},
                     "description": {"type": "string"},
                     "type": {"type": "string"},
+                    "quantity_label": {"type": ["string", "null"]},
+                    "unit": {"type": ["string", "null"]},
+                    "threshold": {"type": ["number", "null"]},
+                    "comparison": {"type": ["string", "null"]},
+                    "categories": {
+                        "anyOf": [
+                            {"type": "array", "items": {"type": "string"}},
+                            {"type": "null"},
+                        ]
+                    },
                 },
-                "required": ["id", "description", "type"],
+                "required": [
+                    "id",
+                    "description",
+                    "type",
+                    "quantity_label",
+                    "unit",
+                    "threshold",
+                    "comparison",
+                    "categories",
+                ],
                 "additionalProperties": False,
             },
         }
@@ -859,9 +880,12 @@ _PREDICATE_RESOLVE_SCHEMA = {
                 "properties": {
                     "predicate_id": {"type": "string"},
                     "fired": {"type": ["boolean", "null"]},
+                    "value": {"type": ["number", "null"]},
+                    "count": {"type": ["integer", "null"]},
+                    "category": {"type": ["string", "null"]},
                     "evidence": {"type": "string"},
                 },
-                "required": ["predicate_id", "fired", "evidence"],
+                "required": ["predicate_id", "fired", "value", "count", "category", "evidence"],
                 "additionalProperties": False,
             },
         }
@@ -869,6 +893,273 @@ _PREDICATE_RESOLVE_SCHEMA = {
     "required": ["resolutions"],
     "additionalProperties": False,
 }
+
+
+def _coerce_predicate_type(value: Any) -> str:
+    text = str(value or "").strip().lower()
+    if text in _PREDICATE_TYPES:
+        return text
+    return "binary_event"
+
+
+def _coerce_comparison(value: Any) -> str | None:
+    text = str(value or "").strip()
+    if text in ("<", "<=", ">", ">=", "=="):
+        return text
+    return None
+
+
+def _weighted_percentile(values_with_weights: list[tuple[float, float]], pct: float) -> float | None:
+    """Return the weighted percentile (pct in [0,1]) of `[(value, weight), ...]`.
+
+    Falls back to unweighted if all weights are zero. Returns None on empty input.
+    """
+    if not values_with_weights:
+        return None
+    sorted_pairs = sorted(values_with_weights, key=lambda pair: pair[0])
+    total = sum(max(0.0, w) for _, w in sorted_pairs)
+    if total <= 0:
+        # Unweighted fallback: all timelines equally weighted.
+        n = len(sorted_pairs)
+        idx = max(0, min(n - 1, int(round(pct * (n - 1)))))
+        return sorted_pairs[idx][0]
+    target = pct * total
+    cum = 0.0
+    for value, weight in sorted_pairs:
+        cum += max(0.0, weight)
+        if cum >= target:
+            return value
+    return sorted_pairs[-1][0]
+
+
+def _aggregate_threshold_breach(
+    predicate: dict[str, Any], rows: list[dict[str, Any]]
+) -> dict[str, Any]:
+    values: list[tuple[float, float]] = []
+    null_count = 0
+    fired_count = 0
+    false_count = 0
+    fired_path_mass = 0.0
+    false_path_mass = 0.0
+    null_path_mass = 0.0
+    total_path_mass = 0.0
+    examples: list[dict[str, Any]] = []
+    for row in rows:
+        path_mass = float(row.get("path_probability") or 0.0)
+        total_path_mass += path_mass
+        value = row.get("value")
+        fired = row.get("fired")
+        if isinstance(value, (int, float)):
+            values.append((float(value), path_mass))
+        if fired is True:
+            fired_count += 1
+            fired_path_mass += path_mass
+        elif fired is False:
+            false_count += 1
+            false_path_mass += path_mass
+        else:
+            null_count += 1
+            null_path_mass += path_mass
+        if len(examples) < 3 and (fired in (True, False) or isinstance(value, (int, float))):
+            examples.append(
+                {
+                    "multiverse_id": row.get("multiverse_id"),
+                    "ui_label": row.get("ui_label"),
+                    "value": float(value) if isinstance(value, (int, float)) else None,
+                    "fired": fired,
+                    "evidence": row.get("evidence"),
+                }
+            )
+    p10 = _weighted_percentile(values, 0.10)
+    p50 = _weighted_percentile(values, 0.50)
+    p90 = _weighted_percentile(values, 0.90)
+    return {
+        "predicate_id": predicate["id"],
+        "description": predicate["description"],
+        "type": "threshold_breach",
+        "quantity_label": predicate.get("quantity_label"),
+        "unit": predicate.get("unit"),
+        "threshold": predicate.get("threshold"),
+        "comparison": predicate.get("comparison"),
+        "fired_count": fired_count,
+        "false_count": false_count,
+        "null_count": null_count,
+        "total_count": len(rows),
+        "fired_path_mass": fired_path_mass,
+        "false_path_mass": false_path_mass,
+        "null_path_mass": null_path_mass,
+        "total_path_mass": total_path_mass,
+        "value_distribution": {
+            "p10": p10,
+            "p50": p50,
+            "p90": p90,
+            "n_with_value": len(values),
+        },
+        "evidence_examples": examples,
+    }
+
+
+def _aggregate_binary_event(
+    predicate: dict[str, Any], rows: list[dict[str, Any]]
+) -> dict[str, Any]:
+    fired_count = false_count = null_count = 0
+    fired_path_mass = total_path_mass = 0.0
+    examples: list[dict[str, Any]] = []
+    for row in rows:
+        path_mass = float(row.get("path_probability") or 0.0)
+        total_path_mass += path_mass
+        fired = row.get("fired")
+        if fired is True:
+            fired_count += 1
+            fired_path_mass += path_mass
+            if len(examples) < 3:
+                examples.append(
+                    {
+                        "multiverse_id": row.get("multiverse_id"),
+                        "ui_label": row.get("ui_label"),
+                        "evidence": row.get("evidence"),
+                    }
+                )
+        elif fired is False:
+            false_count += 1
+        else:
+            null_count += 1
+    hit_rate = fired_path_mass / total_path_mass if total_path_mass > 0 else None
+    return {
+        "predicate_id": predicate["id"],
+        "description": predicate["description"],
+        "type": "binary_event",
+        "fired_count": fired_count,
+        "false_count": false_count,
+        "null_count": null_count,
+        "total_count": len(rows),
+        "fired_path_mass": fired_path_mass,
+        "total_path_mass": total_path_mass,
+        "hit_rate": hit_rate,
+        "evidence_examples": examples,
+    }
+
+
+def _aggregate_count(
+    predicate: dict[str, Any], rows: list[dict[str, Any]]
+) -> dict[str, Any]:
+    histogram_path_mass: dict[str, float] = {}
+    histogram_count: dict[str, int] = {}
+    fired_count = false_count = null_count = 0
+    fired_path_mass = total_path_mass = 0.0
+    n_with_count = 0
+    examples: list[dict[str, Any]] = []
+    for row in rows:
+        path_mass = float(row.get("path_probability") or 0.0)
+        total_path_mass += path_mass
+        count_value = row.get("count")
+        fired = row.get("fired")
+        if isinstance(count_value, int):
+            n_with_count += 1
+            bucket = "3+" if count_value >= 3 else str(count_value)
+            histogram_path_mass[bucket] = histogram_path_mass.get(bucket, 0.0) + path_mass
+            histogram_count[bucket] = histogram_count.get(bucket, 0) + 1
+        if fired is True:
+            fired_count += 1
+            fired_path_mass += path_mass
+        elif fired is False:
+            false_count += 1
+        else:
+            null_count += 1
+        if len(examples) < 3 and isinstance(count_value, int):
+            examples.append(
+                {
+                    "multiverse_id": row.get("multiverse_id"),
+                    "ui_label": row.get("ui_label"),
+                    "count": count_value,
+                    "fired": fired,
+                    "evidence": row.get("evidence"),
+                }
+            )
+    return {
+        "predicate_id": predicate["id"],
+        "description": predicate["description"],
+        "type": "count",
+        "threshold": predicate.get("threshold"),
+        "comparison": predicate.get("comparison"),
+        "fired_count": fired_count,
+        "false_count": false_count,
+        "null_count": null_count,
+        "total_count": len(rows),
+        "fired_path_mass": fired_path_mass,
+        "total_path_mass": total_path_mass,
+        "histogram_path_mass": histogram_path_mass,
+        "histogram_count": histogram_count,
+        "n_with_count": n_with_count,
+        "evidence_examples": examples,
+    }
+
+
+def _aggregate_categorical(
+    predicate: dict[str, Any], rows: list[dict[str, Any]]
+) -> dict[str, Any]:
+    declared = predicate.get("categories") or []
+    declared_set = {c for c in declared if isinstance(c, str)}
+    by_category_count: dict[str, int] = {}
+    by_category_mass: dict[str, float] = {}
+    null_count = 0
+    null_path_mass = 0.0
+    total_path_mass = 0.0
+    examples: list[dict[str, Any]] = []
+    for row in rows:
+        path_mass = float(row.get("path_probability") or 0.0)
+        total_path_mass += path_mass
+        cat = row.get("category")
+        if isinstance(cat, str) and cat.strip():
+            label = cat.strip() if (cat.strip() in declared_set or not declared_set) else "other"
+            by_category_count[label] = by_category_count.get(label, 0) + 1
+            by_category_mass[label] = by_category_mass.get(label, 0.0) + path_mass
+            if len(examples) < 3:
+                examples.append(
+                    {
+                        "multiverse_id": row.get("multiverse_id"),
+                        "ui_label": row.get("ui_label"),
+                        "category": label,
+                        "evidence": row.get("evidence"),
+                    }
+                )
+        else:
+            null_count += 1
+            null_path_mass += path_mass
+    return {
+        "predicate_id": predicate["id"],
+        "description": predicate["description"],
+        "type": "categorical",
+        "categories": list(declared_set) if declared_set else None,
+        "category_count": by_category_count,
+        "category_path_mass": by_category_mass,
+        "null_count": null_count,
+        "null_path_mass": null_path_mass,
+        "total_count": len(rows),
+        "total_path_mass": total_path_mass,
+        "evidence_examples": examples,
+    }
+
+
+def _aggregate_narrative(
+    predicate: dict[str, Any], rows: list[dict[str, Any]]
+) -> dict[str, Any]:
+    examples = []
+    for row in rows[:6]:
+        examples.append(
+            {
+                "multiverse_id": row.get("multiverse_id"),
+                "ui_label": row.get("ui_label"),
+                "evidence": row.get("evidence"),
+            }
+        )
+    return {
+        "predicate_id": predicate["id"],
+        "description": predicate["description"],
+        "type": "narrative",
+        "total_count": len(rows),
+        "evidence_examples": examples,
+    }
 
 
 def _extract_prediction_predicates(
@@ -890,20 +1181,33 @@ def _extract_prediction_predicates(
                 {
                     "role": "system",
                     "content": (
-                        "Extract up to 5 binary or threshold-breach predicates that the user "
-                        "wants the simulation to answer. Each predicate is a yes/no question with "
-                        "an objective firing condition. Return a JSON object {predicates: [{id, "
-                        "description, type}]}. id is a short snake_case slug (<=40 chars). "
-                        "description is a single concrete sentence stating the firing condition. "
-                        "type is one of: threshold_breach, binary_event, comparative, count. "
-                        "Skip predicates that cannot be checked from simulation telemetry."
+                        "Extract up to 5 prediction predicates that the user wants the simulation "
+                        "to answer. Return a JSON object {predicates: [{id, description, type, "
+                        "quantity_label, unit, threshold, comparison, categories}]}. "
+                        "id: short snake_case slug (<=40 chars). description: single concrete "
+                        "sentence stating the firing condition. "
+                        "type is one of: "
+                        " - threshold_breach: predicate references an underlying numeric quantity and "
+                        "    a threshold (e.g. 'BTC <= 76000'). Set quantity_label (what is being "
+                        "    measured), unit (USD, USDT, percent, ...), threshold (the numeric "
+                        "    threshold), and comparison (one of '<','<=','>','>=','=='). "
+                        " - binary_event: yes/no event with no underlying quantity (e.g. 'regulators "
+                        "    issue a joint statement'). Leave numeric fields null. "
+                        " - count: predicate counts events (e.g. 'at least one additional venue "
+                        "    halts'). Set threshold and comparison if a count threshold is implied. "
+                        " - categorical: predicate selects from a discrete unordered set. Set "
+                        "    categories with the candidate labels. "
+                        " - narrative: predicate is qualitative and cannot be reduced to a number, "
+                        "    binary, count, or category. Use sparingly. "
+                        "Always include every field; use null when not applicable. Skip predicates "
+                        "that cannot be checked from simulation telemetry."
                     ),
                 },
                 {"role": "user", "content": f"Scenario:\n\n{scenario_text}"},
             ],
             json_schema=_PREDICATE_EXTRACT_SCHEMA,
             metadata={
-                "max_tokens": 700,
+                "max_tokens": 900,
                 "temperature": 0.1,
                 "agent_type": "predicate_extractor",
                 "request_timeout_seconds": 60,
@@ -920,9 +1224,25 @@ def _extract_prediction_predicates(
                 continue
             pid = str(item.get("id") or "").strip()[:40]
             desc = str(item.get("description") or "").strip()
-            ptype = str(item.get("type") or "").strip() or "binary_event"
-            if pid and desc:
-                cleaned.append({"id": pid, "description": desc, "type": ptype})
+            if not (pid and desc):
+                continue
+            ptype = _coerce_predicate_type(item.get("type"))
+            quantity_label = item.get("quantity_label")
+            unit = item.get("unit")
+            threshold = item.get("threshold")
+            categories_raw = item.get("categories")
+            cleaned.append(
+                {
+                    "id": pid,
+                    "description": desc,
+                    "type": ptype,
+                    "quantity_label": str(quantity_label).strip() if isinstance(quantity_label, str) and quantity_label.strip() else None,
+                    "unit": str(unit).strip() if isinstance(unit, str) and unit.strip() else None,
+                    "threshold": float(threshold) if isinstance(threshold, (int, float)) else None,
+                    "comparison": _coerce_comparison(item.get("comparison")),
+                    "categories": [c for c in categories_raw if isinstance(c, str) and c.strip()] if isinstance(categories_raw, list) else None,
+                }
+            )
         return cleaned
     except (LLMCallError, ValueError, KeyError):
         return []
@@ -951,10 +1271,27 @@ def _resolve_predicates_for_timeline(
                     "role": "system",
                     "content": (
                         "Score each predicate against this timeline's simulated trajectory. "
-                        "Return {resolutions: [{predicate_id, fired, evidence}]}. fired is true/false/null; "
-                        "use null when the timeline did not run far enough or telemetry is silent. "
-                        "evidence is a 1-2 sentence quote or paraphrase from the supplied state. "
-                        "Do not invent facts not present in the supplied state."
+                        "Return {resolutions: [{predicate_id, fired, value, count, category, evidence}]}. "
+                        "Always include every field. Set unused fields to null. "
+                        "Type-conditional rules: "
+                        " - threshold_breach: estimate the realized value of the underlying quantity "
+                        "    from the supplied state and put it in `value` (best estimate, your unit "
+                        "    matches the predicate's unit). Compute fired by comparing value vs the "
+                        "    predicate's threshold + comparison. Set count/category to null. "
+                        " - binary_event: set fired true/false based on whether the event occurred in "
+                        "    the supplied state. Set value/count/category to null. "
+                        " - count: estimate the count and put it in `count`. Compute fired against "
+                        "    the predicate's threshold/comparison if both are set; otherwise null. "
+                        "    Set value/category to null. "
+                        " - categorical: pick the matching category from the predicate's categories "
+                        "    list and put it in `category` (or null if none apply). Set fired/value/"
+                        "    count to null. "
+                        " - narrative: set all of fired/value/count/category to null and put a 1-2 "
+                        "    sentence answer in evidence. "
+                        "Always set fired/value/count/category to null when the timeline did not run "
+                        "far enough or telemetry is silent — do NOT guess. evidence is a 1-2 sentence "
+                        "quote or paraphrase from the supplied state. Do not invent facts not present "
+                        "in the supplied state."
                     ),
                 },
                 {
@@ -969,7 +1306,7 @@ def _resolve_predicates_for_timeline(
             ],
             json_schema=_PREDICATE_RESOLVE_SCHEMA,
             metadata={
-                "max_tokens": 900,
+                "max_tokens": 1200,
                 "temperature": 0.0,
                 "agent_type": "predicate_resolver",
                 "request_timeout_seconds": 60,
@@ -991,10 +1328,19 @@ def _resolve_predicates_for_timeline(
             fired = item.get("fired")
             if fired not in (True, False, None):
                 fired = None
+            value = item.get("value")
+            value = float(value) if isinstance(value, (int, float)) else None
+            count_value = item.get("count")
+            count_value = int(count_value) if isinstance(count_value, int) and not isinstance(count_value, bool) else None
+            category = item.get("category")
+            category = str(category).strip() if isinstance(category, str) and category.strip() else None
             cleaned.append(
                 {
                     "predicate_id": pid,
                     "fired": fired,
+                    "value": value,
+                    "count": count_value,
+                    "category": category,
                     "evidence": _truncate_text(str(item.get("evidence") or ""), 400),
                 }
             )
@@ -1003,58 +1349,55 @@ def _resolve_predicates_for_timeline(
         return []
 
 
+_PREDICATE_AGGREGATORS = {
+    "threshold_breach": _aggregate_threshold_breach,
+    "binary_event": _aggregate_binary_event,
+    "count": _aggregate_count,
+    "categorical": _aggregate_categorical,
+    "narrative": _aggregate_narrative,
+}
+
+
 def _aggregate_predicate_resolutions(
     predicates: list[dict[str, Any]],
     per_timeline: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
-    """Roll up per-timeline resolutions into one row per predicate.
-
-    Each row: {predicate_id, description, fired_count, total_count, null_count,
-    fired_path_mass, total_path_mass, evidence_examples}. Path mass is summed
-    over timelines whose `fired` is True.
-    """
+    """Type-driven roll-up: each predicate produces an output shape that matches
+    its question kind (distribution for threshold_breach, hit-rate for binary_event,
+    histogram for count, label distribution for categorical, evidence list for
+    narrative). Unknown types fall back to binary_event aggregation."""
     if not predicates:
         return []
-    by_pid: dict[str, dict[str, Any]] = {
-        p["id"]: {
-            "predicate_id": p["id"],
-            "description": p["description"],
-            "type": p.get("type"),
-            "fired_count": 0,
-            "false_count": 0,
-            "null_count": 0,
-            "total_count": 0,
-            "fired_path_mass": 0.0,
-            "total_path_mass": 0.0,
-            "evidence_examples": [],
-        }
-        for p in predicates
-    }
+    flat_by_pid: dict[str, list[dict[str, Any]]] = {p["id"]: [] for p in predicates}
     for entry in per_timeline:
-        path_mass = float(entry.get("path_probability") or 0.0)
+        timeline_fields = {
+            "multiverse_id": entry.get("multiverse_id"),
+            "ui_label": entry.get("ui_label"),
+            "path_probability": entry.get("path_probability"),
+        }
         for resolution in entry.get("resolutions") or []:
-            row = by_pid.get(resolution.get("predicate_id"))
-            if row is None:
+            pid = resolution.get("predicate_id")
+            bucket = flat_by_pid.get(pid)
+            if bucket is None:
                 continue
-            row["total_count"] += 1
-            row["total_path_mass"] += path_mass
-            fired = resolution.get("fired")
-            if fired is True:
-                row["fired_count"] += 1
-                row["fired_path_mass"] += path_mass
-                if len(row["evidence_examples"]) < 3:
-                    row["evidence_examples"].append(
-                        {
-                            "multiverse_id": entry.get("multiverse_id"),
-                            "ui_label": entry.get("ui_label"),
-                            "evidence": resolution.get("evidence"),
-                        }
-                    )
-            elif fired is False:
-                row["false_count"] += 1
-            else:
-                row["null_count"] += 1
-    return list(by_pid.values())
+            row = dict(timeline_fields)
+            row.update(
+                {
+                    "fired": resolution.get("fired"),
+                    "value": resolution.get("value"),
+                    "count": resolution.get("count"),
+                    "category": resolution.get("category"),
+                    "evidence": resolution.get("evidence"),
+                }
+            )
+            bucket.append(row)
+    out: list[dict[str, Any]] = []
+    for predicate in predicates:
+        rows = flat_by_pid[predicate["id"]]
+        ptype = _coerce_predicate_type(predicate.get("type"))
+        aggregator = _PREDICATE_AGGREGATORS.get(ptype, _aggregate_binary_event)
+        out.append(aggregator(predicate, rows))
+    return out
 
 
 def _resolve_predictions_into_content(
@@ -2262,19 +2605,31 @@ def _report_agent_messages(prompt_content: dict[str, Any], *, mode: str) -> list
     is_prediction = prompt_content.get("report_kind") == "prediction"
     if is_prediction:
         opening = (
-            "You are the WorldFork prediction report agent. The user asked a specific question "
-            "(scenario_question); your primary job is to answer it. Lead the report_markdown with "
-            "a Headline Answer line stating verdict + confidence_pct, then a one-paragraph "
-            "rationale, then the supporting evidence. Narrative analysis comes after the verdict, "
-            "not before. "
-            "Ground prediction_answer in predicate_resolutions when present: each row gives "
-            "fired_count / total_count and fired_path_mass / total_path_mass across timelines, "
-            "with concrete evidence_examples. Compute verdict from path-mass weighting: "
-            "fired_path_mass / total_path_mass > 0.5 -> yes; < 0.5 with non-trivial false rate -> no; "
-            "high null_count or insufficient ticks -> unresolved. confidence_pct must be calibrated "
-            "to evidence quality (sample size, null rate, predicate-state ambiguity), NOT to your "
-            "priors. If predicate_resolutions is empty, fall back to inference from "
+            "You are the WorldFork prediction report agent. The user asked one or more specific "
+            "questions (scenario_question); your primary job is to answer them. Lead the "
+            "report_markdown with a Headline Answer section: one line per predicate showing the "
+            "natural answer for that predicate's type, followed by a one-paragraph rationale, "
+            "then the supporting evidence. Narrative analysis comes after the headline, not "
+            "before. "
+            "Render each predicate in predicate_resolutions according to its `type` field: "
+            " - threshold_breach: report value_distribution.p10/p50/p90 with the unit and where the "
+            "    threshold sits relative to the distribution. State 'breached' / 'not breached' / "
+            "    'unresolved' based on fired_path_mass / total_path_mass. "
+            " - binary_event: report hit_rate as a percent of path-mass (e.g. '18% path-mass weight "
+            "    on regulator action'). Cite supporting timelines from evidence_examples. "
+            " - count: report histogram_path_mass as bucketed shares (0 / 1 / 2 / 3+) and "
+            "    where the threshold sits. "
+            " - categorical: report category_path_mass as a label distribution. "
+            " - narrative: cite evidence_examples and answer in 1-2 sentences. "
+            "For prediction_answer.verdict, if there is a single primary predicate compute verdict "
+            "from path-mass weighting: fired_path_mass / total_path_mass > 0.5 -> yes; < 0.5 with "
+            "non-trivial false rate -> no; high null_count or insufficient ticks -> unresolved. "
+            "If there are multiple predicates, set verdict to the dominant outcome across them and "
+            "explain in rationale how each predicate contributed. confidence_pct must be calibrated "
+            "to evidence quality (sample size, null rate, distribution width relative to threshold), "
+            "NOT to your priors. If predicate_resolutions is empty, fall back to inference from "
             "outcome_distribution + endpoint_ledger and lower confidence accordingly. "
+            "Never invent a value, count, or category that isn't in the digest. "
         )
     else:
         opening = (
