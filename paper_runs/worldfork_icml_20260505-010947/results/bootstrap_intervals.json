@@ -1,0 +1,178 @@
+{
+  "case_count": 24,
+  "condition_mean_95ci": {
+    "direct_llm": {
+      "brier": {
+        "high": 0.32785906249999996,
+        "low": 0.16880406250000002
+      },
+      "log_score": {
+        "high": 0.9275695125000002,
+        "low": 0.515644421875
+      },
+      "unresolved_mass": {
+        "high": 0.0,
+        "low": 0.0
+      }
+    },
+    "structured_direct_llm": {
+      "brier": {
+        "high": 0.316259375,
+        "low": 0.16894406250000002
+      },
+      "log_score": {
+        "high": 0.8555152041666665,
+        "low": 0.5249852260416666
+      },
+      "unresolved_mass": {
+        "high": 0.0,
+        "low": 0.0
+      }
+    },
+    "worldfork_no_branch_16tick": {
+      "brier": {
+        "high": 0.589699,
+        "low": 0.2659143333333333
+      },
+      "log_score": {
+        "high": 2.483710625,
+        "low": 0.9419676250000001
+      },
+      "unresolved_mass": {
+        "high": 1.0,
+        "low": 0.8194444583333333
+      }
+    },
+    "worldfork_no_branch_35tick_resume": {
+      "brier": {
+        "high": 0.5903066041666662,
+        "low": 0.26649300000000004
+      },
+      "log_score": {
+        "high": 2.4762645416666667,
+        "low": 0.94237590625
+      },
+      "unresolved_mass": {
+        "high": 1.0,
+        "low": 0.8194444583333333
+      }
+    }
+  },
+  "condition_means": {
+    "direct_llm": {
+      "brier": 0.24249166666666666,
+      "log_score": 0.7016981250000001,
+      "unresolved_mass": 0.0
+    },
+    "structured_direct_llm": {
+      "brier": 0.2383625,
+      "log_score": 0.677497625,
+      "unresolved_mass": 0.0
+    },
+    "worldfork_no_branch_16tick": {
+      "brier": 0.42534716666666667,
+      "log_score": 1.6864377083333333,
+      "unresolved_mass": 0.923611125
+    },
+    "worldfork_no_branch_35tick_resume": {
+      "brier": 0.42534716666666667,
+      "log_score": 1.6864377083333333,
+      "unresolved_mass": 0.923611125
+    }
+  },
+  "generated_at_utc": "2026-05-05T12:20:00Z",
+  "notes": [
+    "Paired bootstrap is over resolved card IDs.",
+    "WorldFork 35-tick resume predictions are unchanged from 16-tick predictions in this artifact package.",
+    "Intervals cover available E2/E3 no-branch forecast scores only; E3 branching, E4 audit, and E5 social-state scoring remain pending."
+  ],
+  "paired_differences_95ci": {
+    "direct_llm_minus_structured_direct_llm": {
+      "brier": {
+        "high": 0.01891687499999997,
+        "low": -0.007754166666666647,
+        "mean_difference": 0.004129166666666656
+      },
+      "log_score": {
+        "high": 0.08911060104166672,
+        "low": -0.01986330937500004,
+        "mean_difference": 0.02420050000000007
+      },
+      "unresolved_mass": {
+        "high": 0.0,
+        "low": 0.0,
+        "mean_difference": 0.0
+      }
+    },
+    "worldfork_no_branch_16tick_minus_direct_llm": {
+      "brier": {
+        "high": 0.3453603499999999,
+        "low": 0.028782687499999994,
+        "mean_difference": 0.1828555
+      },
+      "log_score": {
+        "high": 1.7548816999999997,
+        "low": 0.28541407083333326,
+        "mean_difference": 0.9847395833333332
+      },
+      "unresolved_mass": {
+        "high": 1.0,
+        "low": 0.8194444583333333,
+        "mean_difference": 0.923611125
+      }
+    },
+    "worldfork_no_branch_16tick_minus_structured_direct_llm": {
+      "brier": {
+        "high": 0.34831067916666664,
+        "low": 0.037203725,
+        "mean_difference": 0.18698466666666666
+      },
+      "log_score": {
+        "high": 1.7595877656249996,
+        "low": 0.3134876854166667,
+        "mean_difference": 1.0089400833333333
+      },
+      "unresolved_mass": {
+        "high": 1.0,
+        "low": 0.8194444583333333,
+        "mean_difference": 0.923611125
+      }
+    },
+    "worldfork_no_branch_35tick_resume_minus_direct_llm": {
+      "brier": {
+        "high": 0.3428678458333333,
+        "low": 0.03044429999999998,
+        "mean_difference": 0.1828555
+      },
+      "log_score": {
+        "high": 1.7443113375,
+        "low": 0.28952728020833335,
+        "mean_difference": 0.9847395833333332
+      },
+      "unresolved_mass": {
+        "high": 1.0,
+        "low": 0.8194444583333333,
+        "mean_difference": 0.923611125
+      }
+    },
+    "worldfork_no_branch_35tick_resume_minus_structured_direct_llm": {
+      "brier": {
+        "high": 0.3468981666666665,
+        "low": 0.03702822083333335,
+        "mean_difference": 0.18698466666666666
+      },
+      "log_score": {
+        "high": 1.7800452708333336,
+        "low": 0.29547956354166666,
+        "mean_difference": 1.0089400833333333
+      },
+      "unresolved_mass": {
+        "high": 1.0,
+        "low": 0.8194444583333333,
+        "mean_difference": 0.923611125
+      }
+    }
+  },
+  "resamples": 10000,
+  "seed": 20260505
+}

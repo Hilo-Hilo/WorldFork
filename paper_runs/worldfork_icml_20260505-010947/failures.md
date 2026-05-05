@@ -6,6 +6,7 @@
 - Existing live smoke rows used a runtime-only model-routing override that sent all job types to `openai-codex` / `gpt-5.4`. These rows are valid smoke/ablation evidence only. Future default ICML E3/E4/E5 runs should route `cohort_agent` and `hero_agent` to OpenRouter `deepseek/deepseek-v4-flash`, with governance/report routes on a strong configured model, and should capture `worldfork settings llm` before and after each batch.
 - Four resolution-source URLs did not fetch cleanly in automated verification: Oscars returned 403, Reuters returned 401, and two Paramount IR URLs timed out. These need manual/source-redundancy review before final card QA is treated as complete.
 - The 35-tick no-branch resume did not change any frozen path-mass forecast row relative to the 16-tick source predictions. Treat this as a diagnostic/negative result for endpoint-ledger closure, not as evidence that more ticks improve accuracy.
+- Tick caps are not stopping targets. If a ledger resolves naturally before 16, 32, or 35 ticks, freeze the row; if unresolved mass remains high, resume the existing Big Bang instead of reinitializing. The completed 16-to-35 no-branch resume shows that more ticks can add runtime/report evidence without changing the extracted forecast distribution.
 
 ## Not Yet Complete
 

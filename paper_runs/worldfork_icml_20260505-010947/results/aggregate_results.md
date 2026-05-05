@@ -20,6 +20,7 @@ Generated: 2026-05-05 12:20 UTC
 - E1 full initialization screen: all 108 public cards have live initialization evidence; the remaining 72 existing cards completed as queued p1 jobs in 1796.65 seconds wall time.
 - E3 default-route no-branch 16-tick run: all 24 resolved cards produced scoreable path-mass forecasts under the DeepSeek cohort/hero route policy.
 - E3 default-route no-branch 35-tick resume: all 24 resolved cards have frozen predictions after reusing the 16-tick Big Bangs. The 35-tick path-mass predictions are unchanged from the 16-tick forecasts; 17 of 23 resumed cases produced final Big Bang reports in the recovered artifact set, and all 23 resumed cases have captured endpoint-ledger/path-mass artifacts.
+- Forecast bootstrap intervals are available in `results/bootstrap_intervals.json` for the completed direct, structured-direct, 16-tick no-branch, and 35-tick no-branch rows. They cover the available E2/E3 no-branch evidence only; E3 branching and E4/E5 rows remain pending.
 
 ## Forecast Scores
 
@@ -50,6 +51,7 @@ Generated: 2026-05-05 12:20 UTC
 - The batched E3 runner confirms Celery can reduce wall time across independent no-branch cases: three 8-tick run jobs overlapped on p1 instead of running serially. The score rows are still weak forecast evidence because the captured endpoint statuses are `insufficient_ticks`; the next quality fix is more ticks/longer horizon under the default DeepSeek cohort/hero route.
 - The full 24-card default-route no-branch 16-tick batch completed but remained high-unresolved: 21 rows had unresolved mass 1.0, one had 0.666667, one had 0.5, and one had 0.0. Extending the same Big Bangs to a 35-tick cap did not change any yes/no/path-mass forecast rows. This is a negative result for the current endpoint-ledger closure behavior: extra ticks produced more runtime evidence and reports, but the extracted forecast distribution stayed fixed.
 - The 35-tick resume exposed two recoverable runtime issues rather than a Postgres capacity failure: one T35 run job went stale after the multiverse completed and one hit the worker soft time limit before final closure. Both were recovered from live Big Bang state, and `resolved_020` required a second terminal probe with `max_total_ticks=2` to generate a final report. Queue telemetry and pg_stat_activity stayed below pressure limits after the worker pool tuning.
+- Endpoint-ledger resolution is now the operational stopping condition. Tick counts such as 16, 32, and 35 should be treated as caps: stop early when a ledger resolves naturally, and resume the existing Big Bang only when unresolved path mass remains material.
 
 ## Pending Results
 

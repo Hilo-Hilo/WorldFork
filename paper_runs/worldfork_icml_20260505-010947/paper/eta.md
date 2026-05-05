@@ -4,6 +4,8 @@ Generated: 2026-05-05 12:20 UTC
 
 These estimates use live runs on the isolated `worldfork-icml` stack: `resolved_003` initialization completed in 146.20 seconds; a one-tick synchronous run plus report generation completed in 408.49 seconds; a queued `run-until-complete/jobs` smoke on `resolved_004` initialized in 131.22 seconds, then completed one tick plus reports in a 219.47 second job wait; a scored no-branch validation on `resolved_001` initialized in 135.12 seconds and completed 8 queued ticks in a 705.58 second job wait; a batched no-branch run on `resolved_003`, `resolved_005`, and `resolved_007` submitted three p1 run jobs concurrently and completed 8 ticks each with per-job waits of 648.90, 709.14, and 754.11 seconds; a scored branching validation on `resolved_001` initialized in 120.12 seconds and completed 27 tick snapshots across four multiverses in a 2131.68 second job wait; a four-case queued initializer batch completed within the first 148.14 second wait after submission; an eight-case queued initializer batch ran with p1 at 8 active jobs and finished all eight jobs in roughly 3.2 minutes from submission; a 22-case queued add-on batch finished in 464.64 seconds wall time; and the remaining 72 existing public cards finished as queued p1 jobs in 1796.65 seconds wall time.
 
+Tick counts are budget caps, not mandatory endpoints. If a ledger resolves naturally, freeze the row even if the cap was 16, 32, or 35. If unresolved mass remains high, resume the existing Big Bang rather than reinitializing. The 16-to-35 no-branch resume is a completed diagnostic: it reused existing Big Bangs but did not move any frozen path-mass forecast, so more no-branch ticks are not the fastest path to a better paper.
+
 | Block | Scope | Current status | ETA from ready backend |
 | --- | --- | --- | --- |
 | P0 static setup/card QA | Case preparation, manifest, leakage/schema QA | Complete for static checks | Done |
@@ -15,6 +17,8 @@ These estimates use live runs on the isolated `worldfork-icml` stack: `resolved_
 | E4 long-horizon audit | 18 cases x 30-35 ticks | Not started | 24-72 hours; minimum-6 fallback roughly 8-24 hours |
 | E5 social-state audit | Scoring existing E4 artifacts | Not started | 2-5 hours after E4 |
 | Paper finalization | Tables, figures, anonymized final draft | Draft scaffold exists | 2-4 hours after scores |
+
+The shortest defensible completion path is: run E3 default-route branching on the core-12 fallback first, then E4 minimum-6 if full E4 is too slow, then score E5 from the E4 artifacts. Running E3 branching full-24 and E4 full-18 is still the stronger evidence package, but it is a multi-day wall-clock path under the current branching policy.
 
 Future default ICML E3/E4/E5 runs should use OpenRouter `deepseek/deepseek-v4-flash` for `cohort_agent` and `hero_agent`, with governance/report routes on a strong configured model. The existing Codex-only rows are smoke/ablation rows and should not be aggregated with default-route rows unless the table separates route policy.
 
