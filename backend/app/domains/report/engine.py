@@ -25,6 +25,7 @@ from app.domains.report.adjudication import (
 )
 from app.domains.tick.tick_bundles import TickBundleHydrationContext, hydrate_tick_bundle
 from app.storage.pdf_store import render_markdown_pdf_bytes
+from pathlib import Path as _Path
 
 REPORT_SCHEMA_VERSION = "worldfork.report.v2"
 REPORT_AGENT_TEXT_KEYS = (
@@ -38,6 +39,7 @@ REPORT_AGENT_STRUCTURED_KEYS = (
     "endpoint_histogram",
     "terminality_assessment",
     "contradiction_check",
+    "prediction_answer",
 )
 REPORT_AGENT_OUTPUT_KEYS = (*REPORT_AGENT_TEXT_KEYS, *REPORT_AGENT_STRUCTURED_KEYS)
 REPORT_AGENT_JSON_SCHEMA = {
@@ -51,6 +53,18 @@ REPORT_AGENT_JSON_SCHEMA = {
         "endpoint_histogram": {"type": "array"},
         "terminality_assessment": {"type": "object"},
         "contradiction_check": {"type": "object"},
+        "prediction_answer": {
+            "type": "object",
+            "properties": {
+                "verdict": {"type": "string", "enum": ["yes", "no", "unresolved", "not_applicable"]},
+                "confidence_pct": {"type": "number"},
+                "supporting_timeline_ids": {"type": "array", "items": {"type": "string"}},
+                "counterevidence": {"type": "string"},
+                "rationale": {"type": "string"},
+            },
+            "required": ["verdict", "confidence_pct", "supporting_timeline_ids", "counterevidence", "rationale"],
+            "additionalProperties": False,
+        },
     },
     "required": list(REPORT_AGENT_OUTPUT_KEYS),
     "additionalProperties": False,
@@ -813,6 +827,31 @@ def _build_multiverse_report_content(
     }
 
 
+def _scenario_question_text(db: Session, *, big_bang_id) -> str | None:
+    """Return the original scenario_text for a big bang (best-effort).
+
+    Stored as a text artifact at input/scenario_text.txt. We pass this to the
+    report agent so it can answer the user's prediction question directly.
+    """
+    artifact = db.scalars(
+        select(models.Artifact)
+        .where(
+            models.Artifact.big_bang_id == big_bang_id,
+            models.Artifact.path.like("%input/scenario_text.txt"),
+        )
+        .order_by(models.Artifact.created_at.desc())
+        .limit(1)
+    ).first()
+    if artifact is None:
+        return None
+    try:
+        text = _Path(artifact.path).read_text(encoding="utf-8")
+    except OSError:
+        return None
+    text = text.strip()
+    return text or None
+
+
 def _build_final_report_content(
     db: Session,
     *,
@@ -844,11 +883,13 @@ def _build_final_report_content(
         comparison=comparison,
         lineage_edges=lineage_edges,
     )
+    scenario_question = _scenario_question_text(db, big_bang_id=big_bang.id)
     return {
         "schema_version": REPORT_SCHEMA_VERSION,
         "report_type": "final_big_bang",
         "title": title,
         "summary": summary or f"Structured final report across {len(multiverses)} multiverse timelines.",
+        "scenario_question": scenario_question,
         "source": {
             "big_bang_id": str(big_bang.id),
             "big_bang_status": big_bang.status,
@@ -1455,6 +1496,7 @@ def _report_agent_prompt_content(content: dict[str, Any], *, mode: str) -> dict[
             "report_type": "final_big_bang",
             "title": content.get("title"),
             "summary": content.get("summary"),
+            "scenario_question": _truncate_text(content.get("scenario_question") or "", 4000) or None,
             "source": _compact_source(content.get("source") or {}),
             "outcome_conclusions": _compact_outcome_conclusions(content.get("outcome_conclusions") or {}),
             "outcome_distribution": _compact_distribution(content.get("outcome_distribution") or {}),
@@ -1940,7 +1982,15 @@ def _report_agent_messages(prompt_content: dict[str, Any], *, mode: str) -> list
             "content": (
                 "You are the WorldFork report agent. Return exactly one JSON object with keys "
                 "report_markdown, executive_summary, outcome_interpretation, management_notes, risk_notes, "
-                "endpoint_histogram, terminality_assessment, contradiction_check. "
+                "endpoint_histogram, terminality_assessment, contradiction_check, prediction_answer. "
+                "If the digest contains scenario_question, treat it as the user's prediction question and "
+                "answer it via the prediction_answer object: verdict in {yes, no, unresolved, not_applicable}, "
+                "confidence_pct (0-100, calibrated to digest evidence not your priors), supporting_timeline_ids "
+                "(multiverse ids whose simulated trajectories support the verdict), counterevidence (timelines "
+                "or signals that argue the other way), and rationale (3-6 sentences citing the digest). "
+                "Mirror the verdict and confidence in the report_markdown opening as a clearly-labeled "
+                "headline answer. If scenario_question is absent, set prediction_answer.verdict to "
+                "not_applicable with confidence 0. "
                 "Use only the supplied structured report digest. Do not invent real-world facts. "
                 "The report_markdown field must be a complete long-form Markdown report, not a short summary. "
                 "Always include a Path-Mass Accounting section. For single-multiverse reports, that section "
@@ -1992,6 +2042,14 @@ def _coerce_report_agent_output(parsed: dict[str, Any]) -> dict[str, Any]:
     output["terminality_assessment"] = terminality if isinstance(terminality, dict) else {}
     contradiction = parsed.get("contradiction_check")
     output["contradiction_check"] = contradiction if isinstance(contradiction, dict) else {}
+    prediction = parsed.get("prediction_answer")
+    output["prediction_answer"] = prediction if isinstance(prediction, dict) else {
+        "verdict": "not_applicable",
+        "confidence_pct": 0,
+        "supporting_timeline_ids": [],
+        "counterevidence": "",
+        "rationale": "Report agent did not return a prediction_answer object.",
+    }
     if not output["executive_summary"]:
         output["executive_summary"] = _truncate_text(report_markdown.strip(), 1200)
     return output
@@ -2004,6 +2062,14 @@ def _complete_report_agent_structured_fields(llm_report: dict[str, Any], content
         llm_report["terminality_assessment"] = content.get("terminality_assessment") or {}
     if not llm_report.get("contradiction_check"):
         llm_report["contradiction_check"] = content.get("contradiction_check") or {}
+    if not llm_report.get("prediction_answer"):
+        llm_report["prediction_answer"] = {
+            "verdict": "not_applicable",
+            "confidence_pct": 0,
+            "supporting_timeline_ids": [],
+            "counterevidence": "",
+            "rationale": "No prediction_answer field was emitted.",
+        }
 
 
 def _summary_fields(llm_report: dict[str, Any]) -> dict[str, Any]:
