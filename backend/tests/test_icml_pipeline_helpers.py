@@ -313,3 +313,18 @@ def test_resume_additional_ticks_uses_absolute_cap() -> None:
     assert pipeline._resume_additional_ticks(latest_tick_index=35, target_max_ticks=35) == 0
     assert pipeline._resume_run_budget(latest_tick_index=16, target_max_ticks=35) == 20
     assert pipeline._resume_run_budget(latest_tick_index=35, target_max_ticks=35) == 1
+
+
+def test_resume_job_idempotency_key_includes_attempt_id() -> None:
+    pipeline = load_icml_pipeline()
+
+    key = pipeline._resume_job_idempotency_key(
+        attempt_id="retry2",
+        route_policy_id="resume35",
+        condition="worldfork_no_branch_short",
+        case_id="resolved_001",
+        big_bang_id="bb-123",
+        max_ticks=35,
+    )
+
+    assert key == "icml_resume:retry2:resume35:worldfork_no_branch_short:resolved_001:bb-123:max35"

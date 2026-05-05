@@ -489,6 +489,18 @@ def _resume_run_budget(*, latest_tick_index: int, target_max_ticks: int) -> int:
     return max(1, _resume_additional_ticks(latest_tick_index=latest_tick_index, target_max_ticks=target_max_ticks) + 1)
 
 
+def _resume_job_idempotency_key(
+    *,
+    attempt_id: str,
+    route_policy_id: str,
+    condition: str,
+    case_id: str,
+    big_bang_id: str,
+    max_ticks: int,
+) -> str:
+    return f"icml_resume:{attempt_id}:{route_policy_id}:{condition}:{case_id}:{big_bang_id}:max{max_ticks}"
+
+
 def _prepare_worldfork_resume(
     client: ApiClient,
     out_dir: Path,
@@ -549,6 +561,7 @@ def _prepare_worldfork_resume(
 def resume_worldfork_short_batch(args: argparse.Namespace) -> None:
     run_root = make_run_root(args.run_root)
     client = ApiClient(args.base_url, api_prefix=args.api_prefix, timeout=args.timeout)
+    attempt_id = args.resume_attempt_id or datetime.now(UTC).strftime("%Y%m%d%H%M%S")
     source_predictions = _prediction_output_path(run_root, args.source_prediction_output)
     output = _prediction_output_path(run_root, args.prediction_output)
     source_prediction_display = _display_run_path(source_predictions, run_root)
@@ -598,8 +611,20 @@ def resume_worldfork_short_batch(args: argparse.Namespace) -> None:
         run_job, run_create_seconds = _timed_api_call(
             client,
             "POST",
-            f"/big-bangs/{big_bang_id}/run-until-complete/jobs",
-            payload=run_payload,
+            "/jobs",
+            payload={
+                "job_type": "run_big_bang_until_complete",
+                "big_bang_id": big_bang_id,
+                "payload": run_payload,
+                "idempotency_key": _resume_job_idempotency_key(
+                    attempt_id=attempt_id,
+                    route_policy_id=args.route_policy_id,
+                    condition=condition,
+                    case_id=case_id,
+                    big_bang_id=big_bang_id,
+                    max_ticks=args.max_ticks,
+                ),
+            },
         )
         _write_json(out_dir / "run_job_create.json", run_job)
         (out_dir / "run_job_create_time_and_stderr.txt").write_text(f"real {run_create_seconds:.2f}\n", encoding="utf-8")
@@ -2001,6 +2026,7 @@ def main() -> None:
     resume_short.add_argument("--output-prefix", default="raw/E3_worldfork_short_resume")
     resume_short.add_argument("--prediction-output", required=True)
     resume_short.add_argument("--route-policy-id", required=True)
+    resume_short.add_argument("--resume-attempt-id", help="Optional suffix for fresh job idempotency keys on retry.")
     resume_short.add_argument("--max-ticks", type=int, required=True)
     resume_short.add_argument("--tick-duration-minutes", type=int, default=720)
     resume_short.add_argument(
