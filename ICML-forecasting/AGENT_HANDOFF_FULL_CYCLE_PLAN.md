@@ -565,6 +565,12 @@ Tick counts are caps, not targets. Do not spend extra ticks merely to reach 16,
 16-tick run still has unresolved path mass, resume the existing Big Bang to a
 higher cap instead of reinitializing the case.
 
+Use maximum useful parallelism, not maximum possible duplicate work. Before
+starting new runs, check active jobs, live wait sessions, and existing artifacts;
+resume or recover those resources first. If provider logs show sustained
+OpenRouter 429s, hold worker fan-out steady or drain it, then add only patched
+capacity when the active pool drops.
+
 ### 8.2 WorldFork run command template
 
 ```bash

@@ -131,6 +131,12 @@ are already resolved, carry the frozen prediction forward and do not spend more
 ticks just to hit 16, 32, or 35. If the ledger still has unresolved path mass,
 resume the existing Big Bang instead of reinitializing it.
 
+Optimize for useful parallelism, not duplicate work. Reuse active jobs, live
+wait sessions, and existing Big Bang IDs whenever possible. Add workers only
+until the current bottleneck moves to the provider or database; if OpenRouter
+returns sustained 429s, stop increasing worker fan-out and let the active pool
+drain before adding more patched capacity.
+
 For a 16-tick source ledger that should be extended to a 35-tick cap:
 
 ```bash
