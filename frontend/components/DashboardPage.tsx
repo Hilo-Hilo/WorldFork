@@ -511,15 +511,22 @@ function CohortSignalsPanel({ multiverse }: { multiverse: Multiverse }) {
           const pop = typeof s.represented_population === "number"
             ? formatPop(s.represented_population)
             : null;
+          // When the initializer collapses every cohort to the same archetype
+          // and leaves cohort_name blank, fall back to the strongest distinct
+          // signal — first behavioral_tendency. Keeps cards visually
+          // distinguishable even when the agent stripped names.
+          const tendencies = Array.isArray(s.behavioral_tendencies) ? s.behavioral_tendencies : [];
+          const shouldShowTendency = !s.cohort_name && tendencies.length > 0;
+          const subtitle = s.archetype && s.archetype !== name
+            ? s.archetype
+            : (shouldShowTendency ? tendencies[0] : null);
           return (
             <div key={`${name}-${i}`} className="cohort-card">
               <div className="name">
                 {name}
                 {pop && <span className="pop">· {pop}</span>}
               </div>
-              {s.archetype && s.archetype !== name && (
-                <div className="archetype">{s.archetype}</div>
-              )}
+              {subtitle && <div className="archetype">{subtitle}</div>}
               <div className="cohort-bars">
                 {COHORT_BARS.map((bar) => {
                   const raw = s[bar.key];

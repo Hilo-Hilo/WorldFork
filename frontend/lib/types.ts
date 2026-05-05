@@ -41,6 +41,7 @@ export type CohortState = {
   represented_population?: number;
   private_belief?: string;
   public_expression?: string;
+  behavioral_tendencies?: string[];
   graph_influence?: {
     branch_pressure?: number;
     coalition_max?: number;
