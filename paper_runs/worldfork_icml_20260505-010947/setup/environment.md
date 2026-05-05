@@ -62,6 +62,17 @@ E3 queue smoke case `resolved_004` completed one queued `run_big_bang_until_comp
 - Reported aggregate LLM seconds: 445.3739
 - Queue telemetry during run: one active p1 task; p0/p2/p3 idle
 
+E1 queued initializer batch completed four independent p1 jobs:
+
+| Case | Big Bang ID | Job wait seconds | Actors | Traits |
+| --- | --- | ---: | ---: | ---: |
+| `resolved_001` | `3c6aa085-967d-44a3-877d-cf879007eade` | 148.14 | 11 | 11 |
+| `resolved_002` | `1ec92f15-26cb-4b9f-8182-82a11dbe3d7a` | 0.13 | 7 | 7 |
+| `resolved_005` | `8e267d9d-5b4b-4e11-a535-99b94868929f` | 0.12 | 9 | 9 |
+| `resolved_006` | `0f5f24ce-317f-4829-9835-f9e37cc546b9` | 0.11 | 8 | 8 |
+
+The near-zero waits for the final three cases occurred because they completed while the script was waiting on the first queued job.
+
 ## Runtime Routing Override
 
 The local OpenRouter key is a placeholder, so the smoke run used a runtime-only model-routing override that routes all configured job types to `openai-codex` / `gpt-5.4`.

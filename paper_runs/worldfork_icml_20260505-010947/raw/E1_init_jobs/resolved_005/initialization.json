@@ -1,0 +1,1247 @@
+{
+  "big_bang_id": "8e267d9d-5b4b-4e11-a535-99b94868929f",
+  "scenario_text_present": true,
+  "plain_text_corpus": {
+    "raw_char_count": 1838,
+    "chunk_artifacts": [
+      {
+        "end": 1838,
+        "index": 0,
+        "start": 0,
+        "char_count": 1838
+      }
+    ],
+    "chunk_summaries": [],
+    "simulation_brief": {
+      "mode": "direct",
+      "text": "[debug gated]",
+      "chunk_summaries": []
+    }
+  },
+  "initializer_output": {
+    "model": "gpt-5.4",
+    "actors": [
+      {
+        "name": "nominee_s",
+        "type": "film_contender",
+        "scope": "awards_race",
+        "stakes": [
+          "win_best_picture",
+          "convert visibility_into_consensus_support"
+        ],
+        "description": "Best Picture nominee with most nominations and notable cultural conversation.",
+        "public_visibility": 0.9
+      },
+      {
+        "name": "prestige_drama_a",
+        "type": "film_contender",
+        "scope": "awards_race",
+        "stakes": [
+          "win_best_picture",
+          "consolidate_traditional_support"
+        ],
+        "description": "Competing politically literate prestige drama by established auteur with stronger historical alignment to Academy preferences.",
+        "public_visibility": 0.82
+      },
+      {
+        "name": "academy_voters",
+        "type": "institutional_electorate",
+        "scope": "academy",
+        "stakes": [
+          "select_best_picture_winner",
+          "balance_taste_reputation_and_consensus"
+        ],
+        "description": "Members voting under preferential ballot rules.",
+        "public_visibility": 0.25
+      },
+      {
+        "name": "awards_media",
+        "type": "media_ecosystem",
+        "scope": "industry_public",
+        "stakes": [
+          "identify_front_runner",
+          "frame_interpretation_of_momentum"
+        ],
+        "description": "Trade press and awards commentators shaping race narratives.",
+        "public_visibility": 0.85
+      },
+      {
+        "name": "genre_advocates",
+        "type": "advocacy_audience",
+        "scope": "public_discourse",
+        "stakes": [
+          "symbolic_validation",
+          "boost_nominee_s_legitimacy"
+        ],
+        "description": "Viewers and commentators emphasizing overdue genre recognition.",
+        "public_visibility": 0.62
+      },
+      {
+        "name": "representation_advocates",
+        "type": "advocacy_audience",
+        "scope": "public_discourse",
+        "stakes": [
+          "symbolic_breakthrough",
+          "elevate_cultural_pressure"
+        ],
+        "description": "Viewers and commentators emphasizing representational impact.",
+        "public_visibility": 0.64
+      },
+      {
+        "name": "traditionalist_voters_bloc",
+        "type": "informal_coalition",
+        "scope": "academy_subgroup",
+        "stakes": [
+          "maintain_award_norms",
+          "reward_classic_best_picture_profile"
+        ],
+        "description": "Voters gravitating toward historically typical prestige winners.",
+        "public_visibility": 0.18
+      },
+      {
+        "name": "consensus_seeking_voters_bloc",
+        "type": "informal_coalition",
+        "scope": "academy_subgroup",
+        "stakes": [
+          "avoid_polarizing_choice",
+          "reward_broad_approval"
+        ],
+        "description": "Voters sensitive to broadly acceptable rankings under preferential balloting.",
+        "public_visibility": 0.16
+      },
+      {
+        "name": "academy_awards_authority",
+        "type": "decision_authority",
+        "scope": "institution",
+        "stakes": [
+          "credible_final_resolution"
+        ],
+        "description": "Official body announcing Best Picture winner.",
+        "public_visibility": 0.7
+      }
+    ],
+    "heroes": [
+      {
+        "archetype": "front_runner_film",
+        "description": "Visible contender whose path depends on converting attention into broad ranked-ballot support."
+      },
+      {
+        "archetype": "consensus_prestige_challenger",
+        "description": "Historically aligned contender positioned to benefit from Academy habits and preference transfers."
+      }
+    ],
+    "cohorts": [
+      {
+        "fatigue": 0.32,
+        "secrecy": 0.82,
+        "archetype": "academy_members",
+        "actor_name": "academy_voters",
+        "cohort_key": "academy_nominee_s_enthusiasts",
+        "reputation": 0.58,
+        "stance_axes": {
+          "support_nominee_s": 0.82,
+          "consensus_priority": 0.48,
+          "support_traditional_prestige": 0.28
+        },
+        "private_belief": "Nominee S is worthy and exciting, but not all believe it is consensus-safe.",
+        "attention_level": 0.78,
+        "trustworthiness": 0.6,
+        "expression_level": 0.12,
+        "fear_of_isolation": 0.46,
+        "public_expression": "Limited public visibility due to secret ballot culture.",
+        "perceived_majority": 0.44,
+        "representation_mode": "estimated_subcohort",
+        "behavioral_tendencies": [
+          "rank_nominee_s_high",
+          "monitor_momentum_narratives"
+        ],
+        "mobilization_readiness": 0.35,
+        "represented_population": 2600,
+        "population_share_of_archetype": 0.26
+      },
+      {
+        "fatigue": 0.29,
+        "secrecy": 0.84,
+        "archetype": "academy_members",
+        "actor_name": "traditionalist_voters_bloc",
+        "cohort_key": "academy_traditionalists",
+        "reputation": 0.62,
+        "stance_axes": {
+          "support_nominee_s": 0.34,
+          "consensus_priority": 0.61,
+          "support_traditional_prestige": 0.83
+        },
+        "private_belief": "Historically aligned prestige contenders feel safer and more appropriate as Best Picture winners.",
+        "attention_level": 0.74,
+        "trustworthiness": 0.57,
+        "expression_level": 0.1,
+        "fear_of_isolation": 0.31,
+        "public_expression": "Mostly private; occasional indirect signaling through pundit sourcing.",
+        "perceived_majority": 0.55,
+        "representation_mode": "estimated_subcohort",
+        "behavioral_tendencies": [
+          "prefer_established_templates",
+          "discount_nomination_volume_as_decisive"
+        ],
+        "mobilization_readiness": 0.28,
+        "represented_population": 3100,
+        "population_share_of_archetype": 0.31
+      },
+      {
+        "fatigue": 0.25,
+        "secrecy": 0.88,
+        "archetype": "academy_members",
+        "actor_name": "consensus_seeking_voters_bloc",
+        "cohort_key": "academy_consensus_rankers",
+        "reputation": 0.56,
+        "stance_axes": {
+          "support_nominee_s": 0.52,
+          "consensus_priority": 0.9,
+          "support_traditional_prestige": 0.57
+        },
+        "private_belief": "Best Picture should go to a film with broad acceptability across rankings.",
+        "attention_level": 0.8,
+        "trustworthiness": 0.59,
+        "expression_level": 0.08,
+        "fear_of_isolation": 0.38,
+        "public_expression": "Minimal direct expression; behavior mainly visible only at final count.",
+        "perceived_majority": 0.5,
+        "representation_mode": "estimated_subcohort",
+        "behavioral_tendencies": [
+          "avoid_polarization",
+          "elevate_broad_second_choice_strength"
+        ],
+        "mobilization_readiness": 0.22,
+        "represented_population": 2800,
+        "population_share_of_archetype": 0.28
+      },
+      {
+        "fatigue": 0.21,
+        "secrecy": 0.18,
+        "archetype": "awards_discourse_public",
+        "actor_name": "awards_media",
+        "cohort_key": "awards_media_nominee_s_buzz",
+        "reputation": 0.66,
+        "stance_axes": {
+          "support_nominee_s": 0.69,
+          "consensus_priority": 0.51,
+          "support_traditional_prestige": 0.42
+        },
+        "private_belief": "Nominee S is a plausible front-runner but not a lock.",
+        "attention_level": 0.92,
+        "trustworthiness": 0.55,
+        "expression_level": 0.86,
+        "fear_of_isolation": 0.18,
+        "public_expression": "High coverage of nomination lead and symbolic significance.",
+        "perceived_majority": 0.53,
+        "representation_mode": "narrative_cluster",
+        "behavioral_tendencies": [
+          "amplify_front_runner_talk",
+          "hedge_with_ballot_caveats"
+        ],
+        "mobilization_readiness": 0.71,
+        "represented_population": 175000,
+        "population_share_of_archetype": 0.35
+      },
+      {
+        "fatigue": 0.24,
+        "secrecy": 0.12,
+        "archetype": "awards_discourse_public",
+        "actor_name": "genre_advocates",
+        "cohort_key": "public_symbolic_supporters",
+        "reputation": 0.48,
+        "stance_axes": {
+          "support_nominee_s": 0.88,
+          "consensus_priority": 0.36,
+          "support_traditional_prestige": 0.18
+        },
+        "private_belief": "A Nominee S win would represent overdue genre recognition and cultural validation.",
+        "attention_level": 0.73,
+        "trustworthiness": 0.52,
+        "expression_level": 0.79,
+        "fear_of_isolation": 0.27,
+        "public_expression": "Visible enthusiasm and symbolic framing online and in commentary.",
+        "perceived_majority": 0.41,
+        "representation_mode": "issue_salience_cluster",
+        "behavioral_tendencies": [
+          "celebrate_breakthrough_narrative",
+          "equate_win_with_industry_progress"
+        ],
+        "mobilization_readiness": 0.67,
+        "represented_population": 150000,
+        "population_share_of_archetype": 0.3
+      }
+    ],
+    "channels": [
+      {
+        "type": "media",
+        "notes": "Primary site of momentum framing and pundit interpretation.",
+        "visibility": "public",
+        "channel_key": "trade_press",
+        "primary_actors": [
+          "awards_media"
+        ]
+      },
+      {
+        "type": "social_public",
+        "notes": "Carries symbolic and representational narratives.",
+        "visibility": "public",
+        "channel_key": "public_social_discourse",
+        "primary_actors": [
+          "genre_advocates",
+          "representation_advocates",
+          "awards_media"
+        ]
+      },
+      {
+        "type": "institutional_private",
+        "notes": "Actual decision channel with limited observability.",
+        "visibility": "private",
+        "channel_key": "academy_private_balloting",
+        "primary_actors": [
+          "academy_voters",
+          "academy_awards_authority"
+        ]
+      },
+      {
+        "type": "informal_elite",
+        "notes": "Source of anecdotal consensus and momentum signals.",
+        "visibility": "semi_private",
+        "channel_key": "industry_whisper_network",
+        "primary_actors": [
+          "academy_voters",
+          "awards_media",
+          "traditionalist_voters_bloc"
+        ]
+      }
+    ],
+    "fallback": false,
+    "risk_flags": [
+      {
+        "risk_key": "sparse_source_packet",
+        "severity": "medium",
+        "description": "Corpus provides only high-level race conditions with limited detail on competitor field, precursors, or faction sizes."
+      },
+      {
+        "risk_key": "hidden_competitor_variance",
+        "severity": "medium",
+        "description": "Several other nominees are mentioned but not individually specified, so non-Prestige Drama A alternatives may matter."
+      },
+      {
+        "risk_key": "secret_ballot_opacity",
+        "severity": "high",
+        "description": "Private ranked-choice voting makes true consensus structure difficult to observe at T0."
+      },
+      {
+        "risk_key": "narrative_outcome_gap",
+        "severity": "medium",
+        "description": "Public conversation around symbolism may overstate formal ballot impact."
+      },
+      {
+        "risk_key": "endpoint_strictness",
+        "severity": "low",
+        "description": "Only official Best Picture result counts; ancillary category successes are non-terminal and should not be overread."
+      }
+    ],
+    "graph_edges": [
+      {
+        "layer": "exposure",
+        "reason": "Trade coverage and pundit framing reach many voters indirectly.",
+        "weight": 0.58,
+        "evidence": "Scenario notes strong conversation and front-runner uncertainty.",
+        "direction": "directed",
+        "source_actor_name": "awards_media",
+        "target_actor_name": "academy_voters"
+      },
+      {
+        "layer": "exposure",
+        "reason": "Public enthusiasm feeds media narrative material.",
+        "weight": 0.44,
+        "evidence": "Strong conversation about genre recognition.",
+        "direction": "directed",
+        "source_actor_name": "genre_advocates",
+        "target_actor_name": "awards_media"
+      },
+      {
+        "layer": "exposure",
+        "reason": "Representational framing is visible in awards discourse.",
+        "weight": 0.46,
+        "evidence": "Strong conversation about representational impact.",
+        "direction": "directed",
+        "source_actor_name": "representation_advocates",
+        "target_actor_name": "awards_media"
+      },
+      {
+        "layer": "exposure",
+        "reason": "Nomination lead increases voter visibility.",
+        "weight": 0.63,
+        "evidence": "Nominee S enters race with the most nominations.",
+        "direction": "directed",
+        "source_actor_name": "nominee_s",
+        "target_actor_name": "academy_voters"
+      },
+      {
+        "layer": "exposure",
+        "reason": "Prestige competitor is salient within Academy-facing discourse.",
+        "weight": 0.55,
+        "evidence": "Several nominees have stronger historical alignment with Academy preferences.",
+        "direction": "directed",
+        "source_actor_name": "prestige_drama_a",
+        "target_actor_name": "academy_voters"
+      },
+      {
+        "layer": "trust",
+        "reason": "Voters may consult media narratives but do not fully trust them as outcome guides.",
+        "weight": 0.33,
+        "evidence": "Front-runner uncertainty despite strong conversation.",
+        "direction": "directed",
+        "source_actor_name": "academy_voters",
+        "target_actor_name": "awards_media"
+      },
+      {
+        "layer": "trust",
+        "reason": "Nominee S is seen as a worthy contender, but not decisively consensus-safe.",
+        "weight": 0.54,
+        "evidence": "Most nominations and strong conversation, yet uncertainty remains.",
+        "direction": "directed",
+        "source_actor_name": "academy_voters",
+        "target_actor_name": "nominee_s"
+      },
+      {
+        "layer": "trust",
+        "reason": "Historically aligned prestige profile fits familiar Best Picture expectations.",
+        "weight": 0.61,
+        "evidence": "Competing prestige drama has stronger historical alignment with Academy preferences.",
+        "direction": "directed",
+        "source_actor_name": "academy_voters",
+        "target_actor_name": "prestige_drama_a"
+      },
+      {
+        "layer": "dependency",
+        "reason": "Winning depends entirely on Academy ballot rankings.",
+        "weight": 0.64,
+        "evidence": "Endpoint is official Best Picture announcement.",
+        "direction": "directed",
+        "source_actor_name": "nominee_s",
+        "target_actor_name": "academy_voters"
+      },
+      {
+        "layer": "dependency",
+        "reason": "Competing film also relies on Academy ballot outcome.",
+        "weight": 0.64,
+        "evidence": "Best Picture decided only by official Academy result.",
+        "direction": "directed",
+        "source_actor_name": "prestige_drama_a",
+        "target_actor_name": "academy_voters"
+      },
+      {
+        "layer": "dependency",
+        "reason": "Authority depends on voter ballots to produce winner.",
+        "weight": 0.57,
+        "evidence": "Official announcement resolves endpoint.",
+        "direction": "directed",
+        "source_actor_name": "academy_awards_authority",
+        "target_actor_name": "academy_voters"
+      },
+      {
+        "layer": "dependency",
+        "reason": "Media coverage depends on official result for final confirmation.",
+        "weight": 0.22,
+        "evidence": "Only official Best Picture category counts.",
+        "direction": "directed",
+        "source_actor_name": "awards_media",
+        "target_actor_name": "academy_awards_authority"
+      },
+      {
+        "layer": "influence",
+        "reason": "Narratives can shape perceptions of viability and consensus.",
+        "weight": 0.41,
+        "evidence": "Strong conversation and front-runner framing are central to scenario.",
+        "direction": "directed",
+        "source_actor_name": "awards_media",
+        "target_actor_name": "academy_voters"
+      },
+      {
+        "layer": "influence",
+        "reason": "Symbolic arguments may affect some voters' sense of significance.",
+        "weight": 0.24,
+        "evidence": "Genre recognition conversation noted.",
+        "direction": "directed",
+        "source_actor_name": "genre_advocates",
+        "target_actor_name": "academy_voters"
+      },
+      {
+        "layer": "influence",
+        "reason": "Representational impact framing may sway values-sensitive voters.",
+        "weight": 0.26,
+        "evidence": "Representational impact conversation noted.",
+        "direction": "directed",
+        "source_actor_name": "representation_advocates",
+        "target_actor_name": "academy_voters"
+      },
+      {
+        "layer": "influence",
+        "reason": "Informal norms and peer expectations favor prestige alignment.",
+        "weight": 0.38,
+        "evidence": "Historical alignment with Academy preferences matters.",
+        "direction": "directed",
+        "source_actor_name": "traditionalist_voters_bloc",
+        "target_actor_name": "academy_voters"
+      },
+      {
+        "layer": "influence",
+        "reason": "Preferential ballot logic increases relevance of consensus-minded decision heuristics.",
+        "weight": 0.47,
+        "evidence": "Broad consensus can beat first-place passion.",
+        "direction": "directed",
+        "source_actor_name": "consensus_seeking_voters_bloc",
+        "target_actor_name": "academy_voters"
+      },
+      {
+        "layer": "coalition",
+        "reason": "Both support symbolic breakthrough narratives around Nominee S.",
+        "weight": 0.52,
+        "evidence": "Genre recognition and representational impact are both salient.",
+        "direction": "bidirectional",
+        "source_actor_name": "genre_advocates",
+        "target_actor_name": "representation_advocates"
+      },
+      {
+        "layer": "coalition",
+        "reason": "Traditionalist bloc is naturally aligned with historically typical prestige contender.",
+        "weight": 0.49,
+        "evidence": "Prestige drama has stronger historical alignment.",
+        "direction": "bidirectional",
+        "source_actor_name": "traditionalist_voters_bloc",
+        "target_actor_name": "prestige_drama_a"
+      },
+      {
+        "layer": "coalition",
+        "reason": "Consensus-oriented voters may see prestige contender as broadly rankable.",
+        "weight": 0.42,
+        "evidence": "Preferential ballot rewards broad consensus.",
+        "direction": "bidirectional",
+        "source_actor_name": "consensus_seeking_voters_bloc",
+        "target_actor_name": "prestige_drama_a"
+      },
+      {
+        "layer": "coalition",
+        "reason": "Advocates strongly identify with Nominee S breakthrough path.",
+        "weight": 0.61,
+        "evidence": "Conversation emphasizes overdue genre recognition.",
+        "direction": "bidirectional",
+        "source_actor_name": "genre_advocates",
+        "target_actor_name": "nominee_s"
+      },
+      {
+        "layer": "coalition",
+        "reason": "Representational significance aligns these advocates with Nominee S.",
+        "weight": 0.58,
+        "evidence": "Conversation emphasizes representational impact.",
+        "direction": "bidirectional",
+        "source_actor_name": "representation_advocates",
+        "target_actor_name": "nominee_s"
+      },
+      {
+        "layer": "conflict",
+        "reason": "Both compete for the same terminal prize through contrasting strengths.",
+        "weight": 0.57,
+        "evidence": "Scenario frames them as alternative Best Picture paths.",
+        "direction": "bidirectional",
+        "source_actor_name": "nominee_s",
+        "target_actor_name": "prestige_drama_a"
+      },
+      {
+        "layer": "conflict",
+        "reason": "Symbolic innovation case clashes with historical preference norms.",
+        "weight": 0.34,
+        "evidence": "Genre recognition push contrasts with Academy tradition alignment.",
+        "direction": "bidirectional",
+        "source_actor_name": "genre_advocates",
+        "target_actor_name": "traditionalist_voters_bloc"
+      },
+      {
+        "layer": "conflict",
+        "reason": "Representational-change framing may challenge status-quo preference habits.",
+        "weight": 0.29,
+        "evidence": "Representational impact competes with historical preference logic.",
+        "direction": "bidirectional",
+        "source_actor_name": "representation_advocates",
+        "target_actor_name": "traditionalist_voters_bloc"
+      },
+      {
+        "layer": "oasis_interaction",
+        "reason": "High likelihood of visible public-channel interaction around buzz narratives.",
+        "weight": 0.55,
+        "evidence": "Unusually strong conversation around Nominee S.",
+        "direction": "bidirectional",
+        "source_actor_name": "awards_media",
+        "target_actor_name": "genre_advocates"
+      },
+      {
+        "layer": "oasis_interaction",
+        "reason": "Public discourse channels likely amplify representational framing.",
+        "weight": 0.53,
+        "evidence": "Representational impact is a key part of conversation.",
+        "direction": "bidirectional",
+        "source_actor_name": "awards_media",
+        "target_actor_name": "representation_advocates"
+      },
+      {
+        "layer": "oasis_interaction",
+        "reason": "Nominee S is a central subject of public awards discourse.",
+        "weight": 0.62,
+        "evidence": "Most nominations and strong conversation.",
+        "direction": "bidirectional",
+        "source_actor_name": "awards_media",
+        "target_actor_name": "nominee_s"
+      },
+      {
+        "layer": "oasis_interaction",
+        "reason": "Prestige contender remains a visible comparison point in race chatter.",
+        "weight": 0.49,
+        "evidence": "Other nominees have stronger historical alignment.",
+        "direction": "bidirectional",
+        "source_actor_name": "awards_media",
+        "target_actor_name": "prestige_drama_a"
+      }
+    ],
+    "hero_states": [
+      {
+        "fatigue": 0.18,
+        "secrecy": 0.05,
+        "hero_key": "hero_nominee_s",
+        "archetype": "front_runner_film",
+        "actor_name": "nominee_s",
+        "reputation": 0.79,
+        "stance_axes": {
+          "institutional_fit": 0.46,
+          "symbolic_momentum": 0.84,
+          "consensus_acceptability": 0.58
+        },
+        "attention_level": 0.93,
+        "trustworthiness": 0.64,
+        "current_position": "high_visibility_contender",
+        "expression_level": 0.9,
+        "fear_of_isolation": 0.12,
+        "perceived_majority": 0.52,
+        "behavioral_tendencies": [
+          "benefits_from_nominations_buzz",
+          "vulnerable_to_preferential_ballot_limits"
+        ],
+        "mobilization_readiness": 0.62
+      },
+      {
+        "fatigue": 0.2,
+        "secrecy": 0.04,
+        "hero_key": "hero_prestige_drama_a",
+        "archetype": "consensus_prestige_challenger",
+        "actor_name": "prestige_drama_a",
+        "reputation": 0.77,
+        "stance_axes": {
+          "institutional_fit": 0.82,
+          "symbolic_momentum": 0.55,
+          "consensus_acceptability": 0.71
+        },
+        "attention_level": 0.76,
+        "trustworthiness": 0.66,
+        "current_position": "credible_alternative",
+        "expression_level": 0.67,
+        "fear_of_isolation": 0.1,
+        "perceived_majority": 0.49,
+        "behavioral_tendencies": [
+          "benefits_from_historical_alignment",
+          "can_gain_from_transfer_votes"
+        ],
+        "mobilization_readiness": 0.5
+      }
+    ],
+    "llm_call_id": "a36b1cfb-b282-4b9d-81da-38a829a12a77",
+    "cohort_states": [
+      {
+        "fatigue": 0.32,
+        "secrecy": 0.82,
+        "archetype": "academy_members",
+        "actor_name": "academy_voters",
+        "cohort_key": "academy_nominee_s_enthusiasts",
+        "reputation": 0.58,
+        "stance_axes": {
+          "support_nominee_s": 0.82,
+          "consensus_priority": 0.48,
+          "support_traditional_prestige": 0.28
+        },
+        "private_belief": "Nominee S is worthy and exciting, but not all believe it is consensus-safe.",
+        "attention_level": 0.78,
+        "trustworthiness": 0.6,
+        "expression_level": 0.12,
+        "fear_of_isolation": 0.46,
+        "public_expression": "Limited public visibility due to secret ballot culture.",
+        "perceived_majority": 0.44,
+        "representation_mode": "estimated_subcohort",
+        "behavioral_tendencies": [
+          "rank_nominee_s_high",
+          "monitor_momentum_narratives"
+        ],
+        "mobilization_readiness": 0.35,
+        "represented_population": 2600,
+        "population_share_of_archetype": 0.26
+      },
+      {
+        "fatigue": 0.29,
+        "secrecy": 0.84,
+        "archetype": "academy_members",
+        "actor_name": "traditionalist_voters_bloc",
+        "cohort_key": "academy_traditionalists",
+        "reputation": 0.62,
+        "stance_axes": {
+          "support_nominee_s": 0.34,
+          "consensus_priority": 0.61,
+          "support_traditional_prestige": 0.83
+        },
+        "private_belief": "Historically aligned prestige contenders feel safer and more appropriate as Best Picture winners.",
+        "attention_level": 0.74,
+        "trustworthiness": 0.57,
+        "expression_level": 0.1,
+        "fear_of_isolation": 0.31,
+        "public_expression": "Mostly private; occasional indirect signaling through pundit sourcing.",
+        "perceived_majority": 0.55,
+        "representation_mode": "estimated_subcohort",
+        "behavioral_tendencies": [
+          "prefer_established_templates",
+          "discount_nomination_volume_as_decisive"
+        ],
+        "mobilization_readiness": 0.28,
+        "represented_population": 3100,
+        "population_share_of_archetype": 0.31
+      },
+      {
+        "fatigue": 0.25,
+        "secrecy": 0.88,
+        "archetype": "academy_members",
+        "actor_name": "consensus_seeking_voters_bloc",
+        "cohort_key": "academy_consensus_rankers",
+        "reputation": 0.56,
+        "stance_axes": {
+          "support_nominee_s": 0.52,
+          "consensus_priority": 0.9,
+          "support_traditional_prestige": 0.57
+        },
+        "private_belief": "Best Picture should go to a film with broad acceptability across rankings.",
+        "attention_level": 0.8,
+        "trustworthiness": 0.59,
+        "expression_level": 0.08,
+        "fear_of_isolation": 0.38,
+        "public_expression": "Minimal direct expression; behavior mainly visible only at final count.",
+        "perceived_majority": 0.5,
+        "representation_mode": "estimated_subcohort",
+        "behavioral_tendencies": [
+          "avoid_polarization",
+          "elevate_broad_second_choice_strength"
+        ],
+        "mobilization_readiness": 0.22,
+        "represented_population": 2800,
+        "population_share_of_archetype": 0.28
+      },
+      {
+        "fatigue": 0.21,
+        "secrecy": 0.18,
+        "archetype": "awards_discourse_public",
+        "actor_name": "awards_media",
+        "cohort_key": "awards_media_nominee_s_buzz",
+        "reputation": 0.66,
+        "stance_axes": {
+          "support_nominee_s": 0.69,
+          "consensus_priority": 0.51,
+          "support_traditional_prestige": 0.42
+        },
+        "private_belief": "Nominee S is a plausible front-runner but not a lock.",
+        "attention_level": 0.92,
+        "trustworthiness": 0.55,
+        "expression_level": 0.86,
+        "fear_of_isolation": 0.18,
+        "public_expression": "High coverage of nomination lead and symbolic significance.",
+        "perceived_majority": 0.53,
+        "representation_mode": "narrative_cluster",
+        "behavioral_tendencies": [
+          "amplify_front_runner_talk",
+          "hedge_with_ballot_caveats"
+        ],
+        "mobilization_readiness": 0.71,
+        "represented_population": 175000,
+        "population_share_of_archetype": 0.35
+      },
+      {
+        "fatigue": 0.24,
+        "secrecy": 0.12,
+        "archetype": "awards_discourse_public",
+        "actor_name": "genre_advocates",
+        "cohort_key": "public_symbolic_supporters",
+        "reputation": 0.48,
+        "stance_axes": {
+          "support_nominee_s": 0.88,
+          "consensus_priority": 0.36,
+          "support_traditional_prestige": 0.18
+        },
+        "private_belief": "A Nominee S win would represent overdue genre recognition and cultural validation.",
+        "attention_level": 0.73,
+        "trustworthiness": 0.52,
+        "expression_level": 0.79,
+        "fear_of_isolation": 0.27,
+        "public_expression": "Visible enthusiasm and symbolic framing online and in commentary.",
+        "perceived_majority": 0.41,
+        "representation_mode": "issue_salience_cluster",
+        "behavioral_tendencies": [
+          "celebrate_breakthrough_narrative",
+          "equate_win_with_industry_progress"
+        ],
+        "mobilization_readiness": 0.67,
+        "represented_population": 150000,
+        "population_share_of_archetype": 0.3
+      }
+    ],
+    "trait_vectors": [
+      {
+        "secrecy": 0.05,
+        "tendency": "high-attention contender with symbolic upside and uncertain broad ballot depth",
+        "actor_name": "nominee_s",
+        "reputation": 0.79,
+        "behavior_axes": {
+          "risk_acceptance": 0.55,
+          "consensus_seeking": 0.52,
+          "polarization_load": 0.48
+        },
+        "ideology_axes": {
+          "representation_salience": 0.74,
+          "tradition_vs_innovation": 0.78
+        },
+        "trustworthiness": 0.64
+      },
+      {
+        "secrecy": 0.04,
+        "tendency": "stable prestige alternative with stronger institutional familiarity",
+        "actor_name": "prestige_drama_a",
+        "reputation": 0.77,
+        "behavior_axes": {
+          "risk_acceptance": 0.34,
+          "consensus_seeking": 0.71,
+          "polarization_load": 0.24
+        },
+        "ideology_axes": {
+          "representation_salience": 0.42,
+          "tradition_vs_innovation": 0.31
+        },
+        "trustworthiness": 0.66
+      },
+      {
+        "secrecy": 0.9,
+        "tendency": "private electorate balancing taste, norms, and consensus mechanics",
+        "actor_name": "academy_voters",
+        "reputation": 0.72,
+        "behavior_axes": {
+          "risk_acceptance": 0.41,
+          "consensus_seeking": 0.68,
+          "polarization_load": 0.2
+        },
+        "ideology_axes": {
+          "representation_salience": 0.46,
+          "tradition_vs_innovation": 0.5
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "secrecy": 0.15,
+        "tendency": "narrative amplifier that can elevate momentum without controlling ballots",
+        "actor_name": "awards_media",
+        "reputation": 0.66,
+        "behavior_axes": {
+          "risk_acceptance": 0.58,
+          "consensus_seeking": 0.45,
+          "polarization_load": 0.33
+        },
+        "ideology_axes": {
+          "representation_salience": 0.6,
+          "tradition_vs_innovation": 0.56
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "secrecy": 0.1,
+        "tendency": "public symbolic constituency pressing overdue recognition",
+        "actor_name": "genre_advocates",
+        "reputation": 0.48,
+        "behavior_axes": {
+          "risk_acceptance": 0.63,
+          "consensus_seeking": 0.39,
+          "polarization_load": 0.44
+        },
+        "ideology_axes": {
+          "representation_salience": 0.66,
+          "tradition_vs_innovation": 0.82
+        },
+        "trustworthiness": 0.52
+      },
+      {
+        "secrecy": 0.12,
+        "tendency": "public discourse actor emphasizing representational significance",
+        "actor_name": "representation_advocates",
+        "reputation": 0.51,
+        "behavior_axes": {
+          "risk_acceptance": 0.59,
+          "consensus_seeking": 0.43,
+          "polarization_load": 0.36
+        },
+        "ideology_axes": {
+          "representation_salience": 0.88,
+          "tradition_vs_innovation": 0.67
+        },
+        "trustworthiness": 0.54
+      },
+      {
+        "secrecy": 0.84,
+        "tendency": "prefers historically validated winner profiles",
+        "actor_name": "traditionalist_voters_bloc",
+        "reputation": 0.62,
+        "behavior_axes": {
+          "risk_acceptance": 0.29,
+          "consensus_seeking": 0.64,
+          "polarization_load": 0.18
+        },
+        "ideology_axes": {
+          "representation_salience": 0.31,
+          "tradition_vs_innovation": 0.22
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "secrecy": 0.88,
+        "tendency": "sensitive to lower-ranked transferability under preferential ballot",
+        "actor_name": "consensus_seeking_voters_bloc",
+        "reputation": 0.56,
+        "behavior_axes": {
+          "risk_acceptance": 0.26,
+          "consensus_seeking": 0.9,
+          "polarization_load": 0.14
+        },
+        "ideology_axes": {
+          "representation_salience": 0.44,
+          "tradition_vs_innovation": 0.49
+        },
+        "trustworthiness": 0.59
+      }
+    ],
+    "initial_events": [
+      {
+        "tick": 0,
+        "status": "completed",
+        "summary": "Nominee S emerges with the highest nomination count.",
+        "evidence": "Source 1 nomination note.",
+        "event_key": "nominations_announced",
+        "event_type": "announcement",
+        "expected_impact": "Raises visibility, boosts front-runner framing, and increases exposure edges toward Academy voters without determining final outcome."
+      },
+      {
+        "tick": 0,
+        "status": "active",
+        "summary": "Awards discourse highlights genre recognition and representational impact tied to Nominee S.",
+        "evidence": "Scenario summary.",
+        "event_key": "symbolic_conversation_intensifies",
+        "event_type": "announcement",
+        "expected_impact": "Strengthens coalition and exposure among public advocates and media, with uncertain translation into ballots."
+      },
+      {
+        "tick": 1,
+        "status": "imminent",
+        "summary": "Commentary and voter heuristics increasingly focus on broad consensus under ranked voting.",
+        "evidence": "Source 2 industry note.",
+        "event_key": "preferential_ballot_reassessment",
+        "event_type": "announcement",
+        "expected_impact": "May shift attention toward consensus-safe contenders and reduce confidence in nomination-count determinism."
+      },
+      {
+        "tick": 3,
+        "status": "scheduled",
+        "summary": "Academy Awards authority announces Best Picture winner.",
+        "evidence": "Source 3 endpoint note.",
+        "event_key": "official_best_picture_announcement",
+        "event_type": "announcement",
+        "expected_impact": "Terminal resolution event for the simulation's main endpoint."
+      }
+    ],
+    "endpoint_ledger": [
+      {
+        "meta": {
+          "source": "initializer_endpoint_ledger",
+          "important_question": "Will Nominee S be officially announced as the Best Picture winner at the 98th Academy Awards?"
+        },
+        "label": "Nominee S wins Best Picture",
+        "status": "active",
+        "blockers": [
+          "preferential_ballot may reward broader consensus elsewhere",
+          "historically aligned prestige competitors remain credible",
+          "nomination_count advantage is non-deterministic"
+        ],
+        "rationale": "This is the primary forecast target and formal terminal condition.",
+        "description": "Terminal yes endpoint realized only if Academy Awards authority officially announces Nominee S as Best Picture winner.",
+        "probability": 0.43,
+        "endpoint_key": "nominee_s_best_picture_win",
+        "status_basis": "Scenario explicitly states yes only if Nominee S is officially announced as Best Picture winner, and no such announcement exists at T0.",
+        "evidence_refs": [
+          "endpoint_note_2026_01_23",
+          "nomination_note_2026_01_23",
+          "industry_note_2026_01_23"
+        ],
+        "authority_refs": [
+          "academy_awards_authority"
+        ],
+        "contradiction_notes": "Wins in acting, directing, or technical categories do not satisfy this endpoint.",
+        "realization_criteria": [
+          "official_awards_result names nominee_s as best_picture_winner"
+        ],
+        "negative_evidence_refs": [],
+        "last_observed_tick_index": null
+      },
+      {
+        "meta": {
+          "source": "initializer_endpoint_ledger",
+          "important_question": "Before the ceremony, do observable signals indicate that Nominee S has broad enough cross-ballot support to survive preferential ballot rounds?"
+        },
+        "label": "Nominee S does not win Best Picture",
+        "status": "active",
+        "blockers": [
+          "Nominee S maintains nomination lead and strong symbolic momentum",
+          "uncertain consensus structure may still favor Nominee S"
+        ],
+        "rationale": "Binary complement to the main question under official-category-only resolution logic.",
+        "description": "Terminal no endpoint realized if official Best Picture winner is announced and it is not Nominee S.",
+        "probability": 0.57,
+        "endpoint_key": "nominee_s_best_picture_loss",
+        "status_basis": "Official result has not yet occurred at T0; alternative winner remains plausible.",
+        "evidence_refs": [
+          "endpoint_note_2026_01_23",
+          "industry_note_2026_01_23"
+        ],
+        "authority_refs": [
+          "academy_awards_authority"
+        ],
+        "contradiction_notes": "Near-wins or wins in other Oscar categories do not invalidate this endpoint until Best Picture is announced.",
+        "realization_criteria": [
+          "official_awards_result names best_picture_winner other_than nominee_s"
+        ],
+        "negative_evidence_refs": [],
+        "last_observed_tick_index": null
+      },
+      {
+        "meta": {
+          "source": "initializer_endpoint_ledger",
+          "important_question": "Do historically aligned prestige preferences among Academy voters outweigh Nominee S's nomination-count and conversation advantage?"
+        },
+        "label": "Nominee S shows broad consensus viability before final announcement",
+        "status": "active",
+        "blockers": [
+          "secret ballot obscures true ranking depth",
+          "public symbolic enthusiasm may be mistaken for cross-ballot consensus"
+        ],
+        "rationale": "Useful discriminator because preferential-ballot breadth is the key mechanism separating front-runner buzz from actual win probability.",
+        "description": "Intermediate but endpoint-relevant state in which observable race signals imply Nominee S is likely benefiting from preferential-ballot breadth rather than only buzz.",
+        "probability": 0.39,
+        "endpoint_key": "nominee_s_broad_consensus_signal",
+        "status_basis": "At T0 Nominee S has buzz and nomination advantage, but broad-consensus evidence is unconfirmed.",
+        "evidence_refs": [
+          "industry_note_2026_01_23",
+          "scenario_summary"
+        ],
+        "authority_refs": [
+          "academy_voters",
+          "awards_media"
+        ],
+        "contradiction_notes": "This state can occur without guaranteeing final victory if another contender still prevails.",
+        "realization_criteria": [
+          "multiple credible race indicators characterize nominee_s as broadly acceptable across academy factions",
+          "trade discourse shifts toward consensus-strength framing rather than nomination-volume framing"
+        ],
+        "negative_evidence_refs": [],
+        "last_observed_tick_index": null
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype": "front_runner_film",
+        "description": "Visible contender whose path depends on converting attention into broad ranked-ballot support."
+      },
+      {
+        "archetype": "consensus_prestige_challenger",
+        "description": "Historically aligned contender positioned to benefit from Academy habits and preference transfers."
+      }
+    ],
+    "merge_hypotheses": [
+      {
+        "merge_key": "media_and_voter_consensus_alignment",
+        "affected_actors": [
+          "awards_media",
+          "academy_voters",
+          "consensus_seeking_voters_bloc"
+        ],
+        "convergence_driver": "If trade press and private voter whispers point to the same broadly acceptable contender, narrative and outcome paths may converge quickly."
+      },
+      {
+        "merge_key": "official_result_collapses_speculation",
+        "affected_actors": [
+          "academy_awards_authority",
+          "awards_media",
+          "academy_voters"
+        ],
+        "convergence_driver": "Regardless of pre-award divergence, the official Best Picture announcement ends interpretive ambiguity on terminal status."
+      }
+    ],
+    "simulation_brief": {
+      "domain": "award_forecasting",
+      "summary": "Awards-race simulation centered on whether fictionalized Nominee S wins Best Picture at the 98th Academy Awards. T0 conditions indicate Nominee S has the highest nomination count and strong public conversation around genre recognition and representational impact, while at least one competing prestige drama by an established auteur appears more historically aligned with Academy Best Picture preferences. Preferential ballot dynamics create uncertainty because broad consensus may outperform intense but narrower enthusiasm. Terminal resolution is only the official Best Picture winner announcement.",
+      "scenario_key": "resolved_005",
+      "horizon_ticks": 3,
+      "primary_endpoint": "nominee_s_best_picture_win",
+      "time_zero_context": "Post-nominations, pre-final voting resolution.",
+      "uncertainty_notes": [
+        "Nomination lead does not mechanically determine Best Picture.",
+        "Relative strength of consensus support versus passionate first-place support is uncertain.",
+        "Evidence is sparse on exact competitor slate, guild momentum, and Academy factional splits."
+      ],
+      "fictionalization_note": "Public-facing award entities remain generic or fictionalized per instruction."
+    },
+    "branch_hypotheses": [
+      {
+        "trigger": "Persistent signs that Academy voters rank Nominee S highly across multiple preference slots rather than only first place.",
+        "branch_key": "nominee_s_converts_buzz_to_consensus",
+        "alternate_path": "Nominee S remains true front-runner and wins Best Picture.",
+        "observable_divergence_signal": "Trade discourse shifts from 'exciting but uncertain' to 'broadly rankable across branches of the Academy'."
+      },
+      {
+        "trigger": "Evidence that consensus and transfer-vote logic favors historically aligned prestige films.",
+        "branch_key": "prestige_consensus_overtake",
+        "alternate_path": "Prestige Drama A or similar traditional contender overtakes Nominee S in final ballot rounds.",
+        "observable_divergence_signal": "Awards commentary increasingly emphasizes second-choice strength, safety, and Academy habit over nomination volume."
+      },
+      {
+        "trigger": "Public conversation about genre and representation grows louder without matching signs of Academy-wide support.",
+        "branch_key": "symbolic_narrative_peaks_without_ballot_conversion",
+        "alternate_path": "Nominee S dominates discourse but loses Best Picture to a consensus prestige alternative.",
+        "observable_divergence_signal": "Gap widens between public buzz intensity and privately sourced voter confidence."
+      }
+    ],
+    "sociology_baseline": [
+      {
+        "level": 0.61,
+        "model": "attention_decay",
+        "evidence": "Voters likely respond most to narratives that fit existing ideas of Best Picture legitimacy.",
+        "mechanism": "bounded_confidence",
+        "applies_to": [
+          "academy_voters",
+          "traditionalist_voters_bloc",
+          "consensus_seeking_voters_bloc"
+        ]
+      },
+      {
+        "level": 0.42,
+        "model": "attention_decay",
+        "evidence": "Public enthusiasm is visible but may intensify only with additional momentum cues.",
+        "mechanism": "threshold_mobilization",
+        "applies_to": [
+          "genre_advocates",
+          "representation_advocates",
+          "awards_media"
+        ]
+      },
+      {
+        "level": 0.83,
+        "model": "attention_decay",
+        "evidence": "Secret-ballot award culture keeps private preferences mostly hidden.",
+        "mechanism": "public_silence",
+        "applies_to": [
+          "academy_voters",
+          "traditionalist_voters_bloc",
+          "consensus_seeking_voters_bloc"
+        ]
+      },
+      {
+        "level": 0.49,
+        "model": "attention_decay",
+        "evidence": "Awards discourse clusters around shared aesthetic and symbolic frames.",
+        "mechanism": "homophily",
+        "applies_to": [
+          "awards_discourse_public",
+          "academy_members"
+        ]
+      },
+      {
+        "level": 0.58,
+        "model": "attention_decay",
+        "evidence": "Broad consensus signals matter more than isolated enthusiasm under preferential balloting.",
+        "mechanism": "complex_contagion",
+        "applies_to": [
+          "academy_voters",
+          "awards_media"
+        ]
+      },
+      {
+        "level": 0.54,
+        "model": "attention_decay",
+        "evidence": "Outcome is partly framed as validation of group-linked values and norms.",
+        "mechanism": "social_identity",
+        "applies_to": [
+          "genre_advocates",
+          "representation_advocates",
+          "traditionalist_voters_bloc"
+        ]
+      },
+      {
+        "level": 0.36,
+        "model": "attention_decay",
+        "evidence": "Awards buzz is currently elevated, limiting immediate decay at T0.",
+        "mechanism": "attention_decay",
+        "applies_to": [
+          "awards_media",
+          "awards_discourse_public"
+        ]
+      }
+    ],
+    "important_questions": [
+      "Will Nominee S be officially announced as the Best Picture winner at the 98th Academy Awards?",
+      "Before the ceremony, do observable signals indicate that Nominee S has broad enough cross-ballot support to survive preferential ballot rounds?",
+      "Do historically aligned prestige preferences among Academy voters outweigh Nominee S's nomination-count and conversation advantage?"
+    ],
+    "emotion_observations": [],
+    "population_archetypes": [
+      {
+        "archetype": "academy_members",
+        "description": "Voting members relevant to Best Picture outcome.",
+        "population_total": 10000
+      },
+      {
+        "archetype": "awards_discourse_public",
+        "description": "Industry press, tastemakers, and attentive public shaping narrative pressure but not formal outcome.",
+        "population_total": 500000
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Nominee S has the most nominations, increasing salience but not guaranteeing Best Picture.",
+        "influence_key": "nomination_count_advantage"
+      },
+      {
+        "description": "Broadly acceptable ranking performance may matter more than intense first-place support.",
+        "influence_key": "preferential_ballot_consensus"
+      },
+      {
+        "description": "Prestige-style contenders better matching past Academy preferences remain credible alternatives.",
+        "influence_key": "historical_academy_alignment"
+      },
+      {
+        "description": "Genre recognition and representational impact create additional public-discourse energy around Nominee S.",
+        "influence_key": "symbolic_breakthrough_narrative"
+      },
+      {
+        "description": "Only the official Best Picture announcement resolves the scenario; other category wins are non-terminal.",
+        "influence_key": "official_endpoint_only"
+      }
+    ]
+  }
+}

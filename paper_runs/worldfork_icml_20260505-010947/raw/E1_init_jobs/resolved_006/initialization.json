@@ -1,0 +1,1352 @@
+{
+  "big_bang_id": "0f5f24ce-317f-4829-9835-f9e37cc546b9",
+  "scenario_text_present": true,
+  "plain_text_corpus": {
+    "raw_char_count": 1780,
+    "chunk_artifacts": [
+      {
+        "end": 1780,
+        "index": 0,
+        "start": 0,
+        "char_count": 1780
+      }
+    ],
+    "chunk_summaries": [],
+    "simulation_brief": {
+      "mode": "direct",
+      "text": "[debug gated]",
+      "chunk_summaries": []
+    }
+  },
+  "initializer_output": {
+    "model": "gpt-5.4",
+    "actors": [
+      {
+        "name": "album_b",
+        "type": "nominee_album",
+        "description": "Spanish-language album by a global Latin artist; critically prominent and commercially visible; positioned as a potential cultural milestone winner.",
+        "fictionalized": true,
+        "public_visibility": "high"
+      },
+      {
+        "name": "global_latin_artist",
+        "type": "artist",
+        "description": "Lead artist associated with Album B and its award campaign narrative.",
+        "fictionalized": true,
+        "public_visibility": "high"
+      },
+      {
+        "name": "recording_academy_voters",
+        "type": "institutional_electorate",
+        "description": "Voting body selecting Album of the Year winner; consensus preferences are central to outcome.",
+        "fictionalized": true,
+        "public_visibility": "medium"
+      },
+      {
+        "name": "english_language_nominee_bloc",
+        "type": "competitor_set",
+        "description": "Several major English-language pop, rap, and singer-songwriter nominated albums competing with Album B.",
+        "fictionalized": true,
+        "public_visibility": "high"
+      },
+      {
+        "name": "music_critics",
+        "type": "media_expert_group",
+        "description": "Critics and tastemakers whose acclaim contributes to prestige and narrative momentum.",
+        "fictionalized": true,
+        "public_visibility": "medium"
+      },
+      {
+        "name": "general_listening_public",
+        "type": "mass_audience",
+        "description": "Broad audience aware of commercial visibility, milestone narratives, and nominee reputations.",
+        "fictionalized": true,
+        "public_visibility": "high"
+      },
+      {
+        "name": "award_media_commentariat",
+        "type": "media_group",
+        "description": "Awards-focused journalists and commentators framing viability, milestone significance, and historical comparisons.",
+        "fictionalized": true,
+        "public_visibility": "medium"
+      },
+      {
+        "name": "grammy_institutional_history",
+        "type": "structural_factor",
+        "description": "Historical category voting patterns favoring English-language releases and broad consensus outcomes.",
+        "fictionalized": true,
+        "public_visibility": "low"
+      }
+    ],
+    "heroes": [
+      {
+        "name": "institutional_decider",
+        "description": "Actor class with direct authority over endpoint resolution through voting."
+      },
+      {
+        "name": "narrative_carrier",
+        "description": "Actor class able to concentrate symbolic momentum and media attention."
+      },
+      {
+        "name": "competitive_block",
+        "description": "Actor class representing rival options drawing consensus away."
+      }
+    ],
+    "cohorts": [
+      {
+        "name": "academy_consensus_traditionalists",
+        "fatigue": 3,
+        "stance_axes": {
+          "tradition_weight": 0.74,
+          "consensus_preference": 0.77,
+          "album_b_award_support": 0.42,
+          "milestone_symbolism_support": 0.38
+        },
+        "archetype_name": "recording_academy_electorate",
+        "private_belief": "Album B is worthy but not the default consensus choice for top category.",
+        "attention_level": 7,
+        "expression_level": 2,
+        "fear_of_isolation": 2,
+        "public_expression": "Limited public expression due to secret balloting.",
+        "perceived_majority": 0.58,
+        "representation_mode": "estimated",
+        "mobilization_readiness": 4,
+        "represented_population": 4800,
+        "population_share_of_archetype": 0.4
+      },
+      {
+        "name": "academy_innovation_symbolism_voters",
+        "fatigue": 2,
+        "stance_axes": {
+          "tradition_weight": 0.31,
+          "consensus_preference": 0.44,
+          "album_b_award_support": 0.68,
+          "milestone_symbolism_support": 0.82
+        },
+        "archetype_name": "recording_academy_electorate",
+        "private_belief": "Album B would be a meaningful and credible winner representing artistic and cultural expansion.",
+        "attention_level": 8,
+        "expression_level": 3,
+        "fear_of_isolation": 3,
+        "public_expression": "Some soft signaling in interviews or chatter, but votes remain private.",
+        "perceived_majority": 0.34,
+        "representation_mode": "estimated",
+        "mobilization_readiness": 5,
+        "represented_population": 3000,
+        "population_share_of_archetype": 0.25
+      },
+      {
+        "name": "academy_genre_split_voters",
+        "fatigue": 3,
+        "stance_axes": {
+          "tradition_weight": 0.5,
+          "consensus_preference": 0.56,
+          "album_b_award_support": 0.5,
+          "milestone_symbolism_support": 0.49
+        },
+        "archetype_name": "recording_academy_electorate",
+        "private_belief": "Open to Album B but also attracted to strong English-language nominees across pop, rap, and singer-songwriter lanes.",
+        "attention_level": 8,
+        "expression_level": 2,
+        "fear_of_isolation": 2,
+        "public_expression": "Minimal due to ballot secrecy and uncertainty.",
+        "perceived_majority": 0.5,
+        "representation_mode": "estimated",
+        "mobilization_readiness": 4,
+        "represented_population": 4200,
+        "population_share_of_archetype": 0.35
+      },
+      {
+        "name": "critics_pro_album_b",
+        "fatigue": 2,
+        "stance_axes": {
+          "tradition_weight": 0.22,
+          "consensus_preference": 0.39,
+          "album_b_award_support": 0.78,
+          "milestone_symbolism_support": 0.84
+        },
+        "archetype_name": "awards_observer_ecosystem",
+        "private_belief": "Album B is artistically deserving and historically important.",
+        "attention_level": 8,
+        "expression_level": 7,
+        "fear_of_isolation": 2,
+        "public_expression": "High through reviews, rankings, and awards chatter.",
+        "perceived_majority": 0.46,
+        "representation_mode": "estimated",
+        "mobilization_readiness": 6,
+        "represented_population": 2500,
+        "population_share_of_archetype": 0.5
+      },
+      {
+        "name": "commentariat_historical_skeptics",
+        "fatigue": 2,
+        "stance_axes": {
+          "tradition_weight": 0.63,
+          "consensus_preference": 0.64,
+          "album_b_award_support": 0.41,
+          "milestone_symbolism_support": 0.55
+        },
+        "archetype_name": "awards_observer_ecosystem",
+        "private_belief": "Album B is competitive but base rates and category patterns argue caution.",
+        "attention_level": 9,
+        "expression_level": 6,
+        "fear_of_isolation": 1,
+        "public_expression": "Moderate via forecasting and historical framing.",
+        "perceived_majority": 0.52,
+        "representation_mode": "estimated",
+        "mobilization_readiness": 5,
+        "represented_population": 1500,
+        "population_share_of_archetype": 0.3
+      },
+      {
+        "name": "industry_watchers_uncertain",
+        "fatigue": 3,
+        "stance_axes": {
+          "tradition_weight": 0.46,
+          "consensus_preference": 0.62,
+          "album_b_award_support": 0.5,
+          "milestone_symbolism_support": 0.58
+        },
+        "archetype_name": "awards_observer_ecosystem",
+        "private_belief": "Outcome depends on hidden voter consensus and competitor vote distribution.",
+        "attention_level": 7,
+        "expression_level": 5,
+        "fear_of_isolation": 1,
+        "public_expression": "Cautious and scenario-based.",
+        "perceived_majority": 0.5,
+        "representation_mode": "estimated",
+        "mobilization_readiness": 4,
+        "represented_population": 1000,
+        "population_share_of_archetype": 0.2
+      },
+      {
+        "name": "general_public_milestone_enthusiasts",
+        "fatigue": 2,
+        "stance_axes": {
+          "tradition_weight": 0.18,
+          "consensus_preference": 0.35,
+          "album_b_award_support": 0.72,
+          "milestone_symbolism_support": 0.86
+        },
+        "archetype_name": "general_music_audience",
+        "private_belief": "Album B winning would be exciting and culturally significant.",
+        "attention_level": 5,
+        "expression_level": 6,
+        "fear_of_isolation": 2,
+        "public_expression": "Online support and celebratory framing.",
+        "perceived_majority": 0.48,
+        "representation_mode": "estimated",
+        "mobilization_readiness": 5,
+        "represented_population": 1750000,
+        "population_share_of_archetype": 0.35
+      },
+      {
+        "name": "general_public_mainstream_competitor_fans",
+        "fatigue": 2,
+        "stance_axes": {
+          "tradition_weight": 0.47,
+          "consensus_preference": 0.55,
+          "album_b_award_support": 0.36,
+          "milestone_symbolism_support": 0.29
+        },
+        "archetype_name": "general_music_audience",
+        "private_belief": "English-language nominees are more familiar or feel more likely as winners.",
+        "attention_level": 5,
+        "expression_level": 6,
+        "fear_of_isolation": 2,
+        "public_expression": "Support tends to follow fan preference rather than forecasting logic.",
+        "perceived_majority": 0.56,
+        "representation_mode": "estimated",
+        "mobilization_readiness": 5,
+        "represented_population": 2250000,
+        "population_share_of_archetype": 0.45
+      },
+      {
+        "name": "general_public_low_attention_observers",
+        "fatigue": 1,
+        "stance_axes": {
+          "tradition_weight": 0.32,
+          "consensus_preference": 0.41,
+          "album_b_award_support": 0.48,
+          "milestone_symbolism_support": 0.44
+        },
+        "archetype_name": "general_music_audience",
+        "private_belief": "Weakly formed views; reacts to headlines and eventual result.",
+        "attention_level": 2,
+        "expression_level": 2,
+        "fear_of_isolation": 1,
+        "public_expression": "Low except near ceremony.",
+        "perceived_majority": 0.5,
+        "representation_mode": "estimated",
+        "mobilization_readiness": 2,
+        "represented_population": 1000000,
+        "population_share_of_archetype": 0.2
+      }
+    ],
+    "channels": [
+      {
+        "name": "awards_press",
+        "type": "media",
+        "reach": 0.63,
+        "actors": [
+          "award_media_commentariat",
+          "music_critics",
+          "general_listening_public"
+        ]
+      },
+      {
+        "name": "music_reviews_rankings",
+        "type": "prestige_media",
+        "reach": 0.46,
+        "actors": [
+          "music_critics",
+          "award_media_commentariat",
+          "recording_academy_voters"
+        ]
+      },
+      {
+        "name": "fan_social_discourse",
+        "type": "social",
+        "reach": 0.68,
+        "actors": [
+          "general_listening_public",
+          "global_latin_artist"
+        ]
+      },
+      {
+        "name": "academy_private_balloting",
+        "type": "private_institutional",
+        "reach": 0.22,
+        "actors": [
+          "recording_academy_voters"
+        ]
+      }
+    ],
+    "fallback": false,
+    "risk_flags": [
+      {
+        "risk_key": "masked_entities",
+        "severity": "medium",
+        "description": "Real nominee identities and detailed campaign context are intentionally masked, limiting precision."
+      },
+      {
+        "risk_key": "secret_ballot_opacity",
+        "severity": "high",
+        "description": "Private Academy voting behavior is weakly observable, increasing uncertainty in consensus estimates."
+      },
+      {
+        "risk_key": "historical_base_rate_overweighting",
+        "severity": "medium",
+        "description": "Past category patterns may be informative but could understate changing institutional openness."
+      },
+      {
+        "risk_key": "symbolic_narrative_overread",
+        "severity": "medium",
+        "description": "Milestone narrative momentum may not translate into enough first-choice support for the top category."
+      },
+      {
+        "risk_key": "competition_structure_under_specified",
+        "severity": "medium",
+        "description": "Several major rivals are mentioned but their relative strength and fragmentation are not quantified in the corpus."
+      }
+    ],
+    "graph_edges": [
+      {
+        "layer": "exposure",
+        "reason": "Critical acclaim and awards discourse can reach voters indirectly.",
+        "weight": 0.42,
+        "evidence": "Album B is critically prominent.",
+        "direction": "directed",
+        "source_actor_name": "music_critics",
+        "target_actor_name": "recording_academy_voters"
+      },
+      {
+        "layer": "exposure",
+        "reason": "Awards coverage exposes voters to viability narratives and historical framing.",
+        "weight": 0.38,
+        "evidence": "Expected focus includes award forecasting and historical base rates.",
+        "direction": "directed",
+        "source_actor_name": "award_media_commentariat",
+        "target_actor_name": "recording_academy_voters"
+      },
+      {
+        "layer": "exposure",
+        "reason": "Global artist status creates broad public visibility.",
+        "weight": 0.65,
+        "evidence": "Global Latin artist; commercially visible.",
+        "direction": "directed",
+        "source_actor_name": "global_latin_artist",
+        "target_actor_name": "general_listening_public"
+      },
+      {
+        "layer": "exposure",
+        "reason": "Nominated album is directly visible within the voting field.",
+        "weight": 0.56,
+        "evidence": "Album B is nominated and commercially visible.",
+        "direction": "directed",
+        "source_actor_name": "album_b",
+        "target_actor_name": "recording_academy_voters"
+      },
+      {
+        "layer": "exposure",
+        "reason": "Several major English-language nominees have high field visibility.",
+        "weight": 0.63,
+        "evidence": "Several major English-language pop, rap, and singer-songwriter albums are also nominated.",
+        "direction": "directed",
+        "source_actor_name": "english_language_nominee_bloc",
+        "target_actor_name": "recording_academy_voters"
+      },
+      {
+        "layer": "trust",
+        "reason": "Critics have some prestige credibility but do not control voter judgment.",
+        "weight": 0.34,
+        "evidence": "Critical prominence contributes to narrative but uncertainty remains.",
+        "direction": "directed",
+        "source_actor_name": "recording_academy_voters",
+        "target_actor_name": "music_critics"
+      },
+      {
+        "layer": "trust",
+        "reason": "Historical patterns and institutional precedent shape expectations of what is award-worthy.",
+        "weight": 0.59,
+        "evidence": "Category has historically favored English-language releases and broad consensus.",
+        "direction": "directed",
+        "source_actor_name": "recording_academy_voters",
+        "target_actor_name": "grammy_institutional_history"
+      },
+      {
+        "layer": "trust",
+        "reason": "Global stature and visibility support public confidence and affinity.",
+        "weight": 0.61,
+        "evidence": "Global Latin artist; commercially visible.",
+        "direction": "directed",
+        "source_actor_name": "general_listening_public",
+        "target_actor_name": "global_latin_artist"
+      },
+      {
+        "layer": "trust",
+        "reason": "Historical voting patterns are treated as credible forecasting input.",
+        "weight": 0.66,
+        "evidence": "Historic category voting patterns create uncertainty.",
+        "direction": "directed",
+        "source_actor_name": "award_media_commentariat",
+        "target_actor_name": "grammy_institutional_history"
+      },
+      {
+        "layer": "dependency",
+        "reason": "Album B can realize endpoint only through Academy vote.",
+        "weight": 0.88,
+        "evidence": "Endpoint is yes only if Album B wins official Album of the Year category.",
+        "direction": "directed",
+        "source_actor_name": "album_b",
+        "target_actor_name": "recording_academy_voters"
+      },
+      {
+        "layer": "dependency",
+        "reason": "Artist's top-category outcome depends on Academy voter selection.",
+        "weight": 0.78,
+        "evidence": "Official Album of the Year category determines resolution.",
+        "direction": "directed",
+        "source_actor_name": "global_latin_artist",
+        "target_actor_name": "recording_academy_voters"
+      },
+      {
+        "layer": "dependency",
+        "reason": "Consensus options available in the field shape voter choice architecture.",
+        "weight": 0.31,
+        "evidence": "Several major English-language albums are nominated.",
+        "direction": "directed",
+        "source_actor_name": "recording_academy_voters",
+        "target_actor_name": "english_language_nominee_bloc"
+      },
+      {
+        "layer": "influence",
+        "reason": "Reviews and critical consensus inform awards discourse framing.",
+        "weight": 0.57,
+        "evidence": "Album B is critically prominent.",
+        "direction": "directed",
+        "source_actor_name": "music_critics",
+        "target_actor_name": "award_media_commentariat"
+      },
+      {
+        "layer": "influence",
+        "reason": "Awards narratives shape public perceptions of frontrunners and milestones.",
+        "weight": 0.49,
+        "evidence": "Strong narrative momentum and uncertainty are public discussion points.",
+        "direction": "directed",
+        "source_actor_name": "award_media_commentariat",
+        "target_actor_name": "general_listening_public"
+      },
+      {
+        "layer": "influence",
+        "reason": "Past category norms exert path-dependent influence on current choices.",
+        "weight": 0.62,
+        "evidence": "Historically favored English-language releases and broad consensus.",
+        "direction": "directed",
+        "source_actor_name": "grammy_institutional_history",
+        "target_actor_name": "recording_academy_voters"
+      },
+      {
+        "layer": "influence",
+        "reason": "Star profile and symbolic candidacy attract sustained coverage.",
+        "weight": 0.58,
+        "evidence": "Global Latin artist and major language/cultural milestone narrative.",
+        "direction": "directed",
+        "source_actor_name": "global_latin_artist",
+        "target_actor_name": "award_media_commentariat"
+      },
+      {
+        "layer": "influence",
+        "reason": "Strong rival nominees likely command broad agenda-setting within ballot choices.",
+        "weight": 0.64,
+        "evidence": "Several major English-language albums are nominated.",
+        "direction": "directed",
+        "source_actor_name": "english_language_nominee_bloc",
+        "target_actor_name": "recording_academy_voters"
+      },
+      {
+        "layer": "coalition",
+        "reason": "Critical acclaim forms a supportive prestige coalition around Album B.",
+        "weight": 0.61,
+        "evidence": "Album B is critically prominent.",
+        "direction": "directed",
+        "source_actor_name": "music_critics",
+        "target_actor_name": "album_b"
+      },
+      {
+        "layer": "coalition",
+        "reason": "A meaningful share of the public is receptive to milestone framing and fandom support.",
+        "weight": 0.46,
+        "evidence": "Commercial visibility and narrative momentum.",
+        "direction": "directed",
+        "source_actor_name": "general_listening_public",
+        "target_actor_name": "global_latin_artist"
+      },
+      {
+        "layer": "coalition",
+        "reason": "Awards commentators often align with critical prestige signals while retaining skepticism.",
+        "weight": 0.44,
+        "evidence": "Acclaim and historical base-rate framing coexist.",
+        "direction": "directed",
+        "source_actor_name": "award_media_commentariat",
+        "target_actor_name": "music_critics"
+      },
+      {
+        "layer": "conflict",
+        "reason": "They compete directly for the same singular top-category award.",
+        "weight": 0.58,
+        "evidence": "Several major English-language albums are also nominated.",
+        "direction": "bidirectional",
+        "source_actor_name": "album_b",
+        "target_actor_name": "english_language_nominee_bloc"
+      },
+      {
+        "layer": "conflict",
+        "reason": "Milestone candidacy pushes against historically dominant category patterns.",
+        "weight": 0.47,
+        "evidence": "Win would mark major language/cultural milestone; history creates uncertainty.",
+        "direction": "bidirectional",
+        "source_actor_name": "global_latin_artist",
+        "target_actor_name": "grammy_institutional_history"
+      },
+      {
+        "layer": "conflict",
+        "reason": "Critical advocacy for Album B may run against historical precedent logic.",
+        "weight": 0.33,
+        "evidence": "Critical prominence versus historic voting patterns.",
+        "direction": "bidirectional",
+        "source_actor_name": "music_critics",
+        "target_actor_name": "grammy_institutional_history"
+      },
+      {
+        "layer": "oasis_interaction",
+        "reason": "Public awards discussion likely active across media and social channels.",
+        "weight": 0.52,
+        "evidence": "Narrative momentum and category-specific debate.",
+        "direction": "bidirectional",
+        "source_actor_name": "award_media_commentariat",
+        "target_actor_name": "general_listening_public"
+      },
+      {
+        "layer": "oasis_interaction",
+        "reason": "Frequent interaction in review, ranking, and forecast ecosystems.",
+        "weight": 0.55,
+        "evidence": "Critical prominence and forecast focus.",
+        "direction": "bidirectional",
+        "source_actor_name": "music_critics",
+        "target_actor_name": "award_media_commentariat"
+      },
+      {
+        "layer": "oasis_interaction",
+        "reason": "Fans and supporters engage heavily in visible discourse around major artists.",
+        "weight": 0.6,
+        "evidence": "Global artist with commercial visibility.",
+        "direction": "bidirectional",
+        "source_actor_name": "general_listening_public",
+        "target_actor_name": "global_latin_artist"
+      }
+    ],
+    "hero_states": [
+      {
+        "goal": "Select Album of the Year winner according to member preferences and category norms.",
+        "fatigue": 3,
+        "salience": 1,
+        "actor_name": "recording_academy_voters",
+        "constraints": [
+          "Secret balloting limits public observability.",
+          "Broad consensus dynamics may advantage familiar cross-constituency nominees."
+        ],
+        "power_basis": "Direct vote authority over endpoint.",
+        "stance_axes": {
+          "tradition_weight": 0.56,
+          "consensus_preference": 0.61,
+          "album_b_award_support": 0.51,
+          "milestone_symbolism_support": 0.53
+        },
+        "attention_level": 9,
+        "expression_level": 1,
+        "fear_of_isolation": 1,
+        "perceived_majority": 0.5,
+        "hero_archetype_name": "institutional_decider",
+        "mobilization_readiness": 6
+      },
+      {
+        "goal": "Convert acclaim and visibility into top-category legitimacy.",
+        "fatigue": 4,
+        "salience": 0.87,
+        "actor_name": "global_latin_artist",
+        "constraints": [
+          "Cannot directly control final vote.",
+          "Language-history barrier may limit consensus reach."
+        ],
+        "power_basis": "Cultural visibility, prestige narrative, commercial profile.",
+        "stance_axes": {
+          "tradition_weight": 0.12,
+          "consensus_preference": 0.68,
+          "album_b_award_support": 1,
+          "milestone_symbolism_support": 0.95
+        },
+        "attention_level": 9,
+        "expression_level": 8,
+        "fear_of_isolation": 1,
+        "perceived_majority": 0.46,
+        "hero_archetype_name": "narrative_carrier",
+        "mobilization_readiness": 7
+      },
+      {
+        "goal": "Capture broad support across pop, rap, and singer-songwriter voting coalitions.",
+        "fatigue": 3,
+        "salience": 0.84,
+        "actor_name": "english_language_nominee_bloc",
+        "constraints": [
+          "Vote splitting among multiple strong nominees may reduce dominance.",
+          "No single rival identified as prohibitive favorite in corpus."
+        ],
+        "power_basis": "Historical category fit, familiarity, and breadth of appeal.",
+        "stance_axes": {
+          "tradition_weight": 0.71,
+          "consensus_preference": 0.76,
+          "album_b_award_support": 0.05,
+          "milestone_symbolism_support": 0.14
+        },
+        "attention_level": 8,
+        "expression_level": 7,
+        "fear_of_isolation": 1,
+        "perceived_majority": 0.57,
+        "hero_archetype_name": "competitive_block",
+        "mobilization_readiness": 6
+      }
+    ],
+    "llm_call_id": "a57378d7-ca47-4159-96d3-70c61deef4c7",
+    "cohort_states": [
+      {
+        "name": "academy_consensus_traditionalists",
+        "fatigue": 3,
+        "stance_axes": {
+          "tradition_weight": 0.74,
+          "consensus_preference": 0.77,
+          "album_b_award_support": 0.42,
+          "milestone_symbolism_support": 0.38
+        },
+        "archetype_name": "recording_academy_electorate",
+        "private_belief": "Album B is worthy but not the default consensus choice for top category.",
+        "attention_level": 7,
+        "expression_level": 2,
+        "fear_of_isolation": 2,
+        "public_expression": "Limited public expression due to secret balloting.",
+        "perceived_majority": 0.58,
+        "representation_mode": "estimated",
+        "mobilization_readiness": 4,
+        "represented_population": 4800,
+        "population_share_of_archetype": 0.4
+      },
+      {
+        "name": "academy_innovation_symbolism_voters",
+        "fatigue": 2,
+        "stance_axes": {
+          "tradition_weight": 0.31,
+          "consensus_preference": 0.44,
+          "album_b_award_support": 0.68,
+          "milestone_symbolism_support": 0.82
+        },
+        "archetype_name": "recording_academy_electorate",
+        "private_belief": "Album B would be a meaningful and credible winner representing artistic and cultural expansion.",
+        "attention_level": 8,
+        "expression_level": 3,
+        "fear_of_isolation": 3,
+        "public_expression": "Some soft signaling in interviews or chatter, but votes remain private.",
+        "perceived_majority": 0.34,
+        "representation_mode": "estimated",
+        "mobilization_readiness": 5,
+        "represented_population": 3000,
+        "population_share_of_archetype": 0.25
+      },
+      {
+        "name": "academy_genre_split_voters",
+        "fatigue": 3,
+        "stance_axes": {
+          "tradition_weight": 0.5,
+          "consensus_preference": 0.56,
+          "album_b_award_support": 0.5,
+          "milestone_symbolism_support": 0.49
+        },
+        "archetype_name": "recording_academy_electorate",
+        "private_belief": "Open to Album B but also attracted to strong English-language nominees across pop, rap, and singer-songwriter lanes.",
+        "attention_level": 8,
+        "expression_level": 2,
+        "fear_of_isolation": 2,
+        "public_expression": "Minimal due to ballot secrecy and uncertainty.",
+        "perceived_majority": 0.5,
+        "representation_mode": "estimated",
+        "mobilization_readiness": 4,
+        "represented_population": 4200,
+        "population_share_of_archetype": 0.35
+      },
+      {
+        "name": "critics_pro_album_b",
+        "fatigue": 2,
+        "stance_axes": {
+          "tradition_weight": 0.22,
+          "consensus_preference": 0.39,
+          "album_b_award_support": 0.78,
+          "milestone_symbolism_support": 0.84
+        },
+        "archetype_name": "awards_observer_ecosystem",
+        "private_belief": "Album B is artistically deserving and historically important.",
+        "attention_level": 8,
+        "expression_level": 7,
+        "fear_of_isolation": 2,
+        "public_expression": "High through reviews, rankings, and awards chatter.",
+        "perceived_majority": 0.46,
+        "representation_mode": "estimated",
+        "mobilization_readiness": 6,
+        "represented_population": 2500,
+        "population_share_of_archetype": 0.5
+      },
+      {
+        "name": "commentariat_historical_skeptics",
+        "fatigue": 2,
+        "stance_axes": {
+          "tradition_weight": 0.63,
+          "consensus_preference": 0.64,
+          "album_b_award_support": 0.41,
+          "milestone_symbolism_support": 0.55
+        },
+        "archetype_name": "awards_observer_ecosystem",
+        "private_belief": "Album B is competitive but base rates and category patterns argue caution.",
+        "attention_level": 9,
+        "expression_level": 6,
+        "fear_of_isolation": 1,
+        "public_expression": "Moderate via forecasting and historical framing.",
+        "perceived_majority": 0.52,
+        "representation_mode": "estimated",
+        "mobilization_readiness": 5,
+        "represented_population": 1500,
+        "population_share_of_archetype": 0.3
+      },
+      {
+        "name": "industry_watchers_uncertain",
+        "fatigue": 3,
+        "stance_axes": {
+          "tradition_weight": 0.46,
+          "consensus_preference": 0.62,
+          "album_b_award_support": 0.5,
+          "milestone_symbolism_support": 0.58
+        },
+        "archetype_name": "awards_observer_ecosystem",
+        "private_belief": "Outcome depends on hidden voter consensus and competitor vote distribution.",
+        "attention_level": 7,
+        "expression_level": 5,
+        "fear_of_isolation": 1,
+        "public_expression": "Cautious and scenario-based.",
+        "perceived_majority": 0.5,
+        "representation_mode": "estimated",
+        "mobilization_readiness": 4,
+        "represented_population": 1000,
+        "population_share_of_archetype": 0.2
+      },
+      {
+        "name": "general_public_milestone_enthusiasts",
+        "fatigue": 2,
+        "stance_axes": {
+          "tradition_weight": 0.18,
+          "consensus_preference": 0.35,
+          "album_b_award_support": 0.72,
+          "milestone_symbolism_support": 0.86
+        },
+        "archetype_name": "general_music_audience",
+        "private_belief": "Album B winning would be exciting and culturally significant.",
+        "attention_level": 5,
+        "expression_level": 6,
+        "fear_of_isolation": 2,
+        "public_expression": "Online support and celebratory framing.",
+        "perceived_majority": 0.48,
+        "representation_mode": "estimated",
+        "mobilization_readiness": 5,
+        "represented_population": 1750000,
+        "population_share_of_archetype": 0.35
+      },
+      {
+        "name": "general_public_mainstream_competitor_fans",
+        "fatigue": 2,
+        "stance_axes": {
+          "tradition_weight": 0.47,
+          "consensus_preference": 0.55,
+          "album_b_award_support": 0.36,
+          "milestone_symbolism_support": 0.29
+        },
+        "archetype_name": "general_music_audience",
+        "private_belief": "English-language nominees are more familiar or feel more likely as winners.",
+        "attention_level": 5,
+        "expression_level": 6,
+        "fear_of_isolation": 2,
+        "public_expression": "Support tends to follow fan preference rather than forecasting logic.",
+        "perceived_majority": 0.56,
+        "representation_mode": "estimated",
+        "mobilization_readiness": 5,
+        "represented_population": 2250000,
+        "population_share_of_archetype": 0.45
+      },
+      {
+        "name": "general_public_low_attention_observers",
+        "fatigue": 1,
+        "stance_axes": {
+          "tradition_weight": 0.32,
+          "consensus_preference": 0.41,
+          "album_b_award_support": 0.48,
+          "milestone_symbolism_support": 0.44
+        },
+        "archetype_name": "general_music_audience",
+        "private_belief": "Weakly formed views; reacts to headlines and eventual result.",
+        "attention_level": 2,
+        "expression_level": 2,
+        "fear_of_isolation": 1,
+        "public_expression": "Low except near ceremony.",
+        "perceived_majority": 0.5,
+        "representation_mode": "estimated",
+        "mobilization_readiness": 2,
+        "represented_population": 1000000,
+        "population_share_of_archetype": 0.2
+      }
+    ],
+    "trait_vectors": [
+      {
+        "secrecy": 0.05,
+        "tendency": "acclaim_forward_milestone_candidate",
+        "actor_name": "album_b",
+        "reputation": 0.84,
+        "behavior_axes": {
+          "prestige_signal": 0.84,
+          "cross_over_reach": 0.62,
+          "novelty_to_category": 0.74,
+          "commercial_visibility": 0.8
+        },
+        "ideology_axes": {
+          "traditional_category_fit": 0.38,
+          "cultural_expansion_symbolism": 0.9
+        },
+        "trustworthiness": 0.72
+      },
+      {
+        "secrecy": 0.2,
+        "tendency": "high_visibility_symbolic_contender",
+        "actor_name": "global_latin_artist",
+        "reputation": 0.86,
+        "behavior_axes": {
+          "media_skill": 0.76,
+          "fan_activation": 0.71,
+          "narrative_momentum": 0.82,
+          "institutional_consensus_reach": 0.61
+        },
+        "ideology_axes": {
+          "traditional_category_fit": 0.42,
+          "cultural_expansion_symbolism": 0.91
+        },
+        "trustworthiness": 0.7
+      },
+      {
+        "secrecy": 0.92,
+        "tendency": "private_plural_selector",
+        "actor_name": "recording_academy_voters",
+        "reputation": 0.61,
+        "behavior_axes": {
+          "consensus_seeking": 0.78,
+          "novelty_tolerance": 0.46,
+          "tradition_weighting": 0.63,
+          "prestige_responsiveness": 0.68
+        },
+        "ideology_axes": {
+          "institutional_continuity": 0.67,
+          "cultural_expansion_openness": 0.52
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "secrecy": 0.12,
+        "tendency": "broad_field_competitor_set",
+        "actor_name": "english_language_nominee_bloc",
+        "reputation": 0.82,
+        "behavior_axes": {
+          "category_fit": 0.83,
+          "coalition_breadth": 0.75,
+          "mainstream_familiarity": 0.81,
+          "vote_fragmentation_risk": 0.57
+        },
+        "ideology_axes": {
+          "institutional_continuity": 0.69,
+          "cultural_expansion_openness": 0.32
+        },
+        "trustworthiness": 0.66
+      },
+      {
+        "secrecy": 0.18,
+        "tendency": "acclaim_amplifier",
+        "actor_name": "music_critics",
+        "reputation": 0.7,
+        "behavior_axes": {
+          "taste_leadership": 0.73,
+          "narrative_shaping": 0.68,
+          "base_rate_resistance": 0.41,
+          "prestige_amplification": 0.79
+        },
+        "ideology_axes": {
+          "institutional_continuity": 0.28,
+          "cultural_expansion_openness": 0.77
+        },
+        "trustworthiness": 0.64
+      },
+      {
+        "secrecy": 0.12,
+        "tendency": "narrative_interpreter",
+        "actor_name": "award_media_commentariat",
+        "reputation": 0.67,
+        "behavior_axes": {
+          "speculation": 0.65,
+          "framing_power": 0.72,
+          "attention_routing": 0.69,
+          "historical_contexting": 0.8
+        },
+        "ideology_axes": {
+          "institutional_continuity": 0.49,
+          "cultural_expansion_openness": 0.58
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "secrecy": 0.05,
+        "tendency": "structural_headwind",
+        "actor_name": "grammy_institutional_history",
+        "reputation": 0.73,
+        "behavior_axes": {
+          "inertia": 0.8,
+          "path_dependence": 0.86,
+          "precedent_weight": 0.82,
+          "symbolic_resistance": 0.64
+        },
+        "ideology_axes": {
+          "institutional_continuity": 0.88,
+          "cultural_expansion_openness": 0.24
+        },
+        "trustworthiness": 0.75
+      }
+    ],
+    "initial_events": [
+      {
+        "tick": 0,
+        "type": "resolved_setup",
+        "actors": [
+          "album_b",
+          "english_language_nominee_bloc",
+          "recording_academy_voters"
+        ],
+        "event_key": "nomination_field_set",
+        "event_type": "announcement",
+        "description": "Album B and several major English-language albums are in the Album of the Year field.",
+        "expected_impact": "Establishes direct competition structure and frames consensus calculations among voters."
+      },
+      {
+        "tick": 0,
+        "type": "resolved_setup",
+        "actors": [
+          "album_b",
+          "global_latin_artist",
+          "award_media_commentariat"
+        ],
+        "event_key": "milestone_narrative_active",
+        "event_type": "announcement",
+        "description": "Coverage emphasizes that an Album B win would mark a major language/cultural milestone.",
+        "expected_impact": "Raises symbolic salience and may increase soft coalition energy around Album B without guaranteeing votes."
+      },
+      {
+        "tick": 0,
+        "type": "resolved_setup",
+        "actors": [
+          "award_media_commentariat",
+          "grammy_institutional_history"
+        ],
+        "event_key": "historical_pattern_discourse",
+        "event_type": "announcement",
+        "description": "Commentary highlights historical Album of the Year patterns favoring English-language and broad-consensus winners.",
+        "expected_impact": "Constrains overreaction to momentum by reinforcing caution and base-rate skepticism."
+      },
+      {
+        "tick": 1,
+        "type": "imminent",
+        "actors": [
+          "award_media_commentariat",
+          "music_critics",
+          "general_listening_public"
+        ],
+        "event_key": "pre_ceremony_forecast_cycle",
+        "event_type": "announcement",
+        "description": "Forecasts, rankings, and think-pieces intensify as the award date approaches.",
+        "expected_impact": "Could sharpen frontrunner narratives, reveal whether Album B momentum broadens, or entrench skepticism."
+      },
+      {
+        "tick": 2,
+        "type": "terminal_vote_window",
+        "actors": [
+          "recording_academy_voters"
+        ],
+        "event_key": "final_ballot_decision",
+        "event_type": "announcement",
+        "description": "Academy voters determine the official Album of the Year winner through secret balloting.",
+        "expected_impact": "Converts latent consensus, symbolism, and competition dynamics into the terminal outcome."
+      }
+    ],
+    "endpoint_ledger": [
+      {
+        "meta": {
+          "source": "initializer_endpoint_ledger",
+          "important_question": "Does Album B win the official 2026 Grammy Awards Album of the Year category?"
+        },
+        "label": "Album B wins Album of the Year",
+        "status": "active",
+        "blockers": [
+          "Historical category preference for English-language releases.",
+          "Need for broad Academy consensus against several major rivals.",
+          "Secret ballot opacity limits verification of momentum before result."
+        ],
+        "rationale": "This is the primary terminal endpoint explicitly defined by the corpus.",
+        "description": "Terminal yes endpoint where Album B is officially announced as the winner of the 2026 Grammy Awards Album of the Year category.",
+        "probability": 0.34,
+        "endpoint_key": "album_b_wins_aoty",
+        "status_basis": "Scenario states resolution is yes only if Album B wins the official Album of the Year category; outcome not yet realized at T0.",
+        "evidence_refs": [
+          "endpoint_note",
+          "award_context",
+          "scenario_core"
+        ],
+        "authority_refs": [
+          "recording_academy_voters"
+        ],
+        "contradiction_notes": "Genre-category wins or other honors do not satisfy this endpoint.",
+        "realization_criteria": [
+          "Official Grammy results list Album B as Album of the Year winner.",
+          "Ceremony announcement or Academy publication confirms Album B won Album of the Year."
+        ],
+        "negative_evidence_refs": [],
+        "last_observed_tick_index": null
+      },
+      {
+        "meta": {
+          "source": "initializer_endpoint_ledger",
+          "important_question": "Before the ceremony, is there credible evidence that Album B has become a broad Academy-consensus choice rather than primarily a symbolic or critical favorite?"
+        },
+        "label": "Album B does not win Album of the Year",
+        "status": "active",
+        "blockers": [
+          "Album B has real critical and narrative momentum.",
+          "Rival vote fragmentation could create a path to victory."
+        ],
+        "rationale": "Binary complement to the explicit resolution condition.",
+        "description": "Terminal no endpoint where Album B fails to win the official 2026 Grammy Awards Album of the Year category by the award decision.",
+        "probability": 0.66,
+        "endpoint_key": "album_b_does_not_win_aoty",
+        "status_basis": "Competitive field and historical headwinds make non-win a live and plausible outcome at T0.",
+        "evidence_refs": [
+          "countervailing_note",
+          "endpoint_note",
+          "scenario_core"
+        ],
+        "authority_refs": [
+          "recording_academy_voters"
+        ],
+        "contradiction_notes": "A win in any non-Album-of-the-Year category does not contradict this endpoint.",
+        "realization_criteria": [
+          "Official Grammy results name a different album as Album of the Year.",
+          "Award ceremony concludes without Album B winning Album of the Year."
+        ],
+        "negative_evidence_refs": [],
+        "last_observed_tick_index": null
+      },
+      {
+        "meta": {
+          "source": "initializer_endpoint_ledger",
+          "important_question": "Do the major English-language nominees consolidate support behind a clear frontrunner, or does the field remain fragmented?"
+        },
+        "label": "Album B achieves broad consensus status pre-vote",
+        "status": "active",
+        "blockers": [
+          "Historical skepticism may cap perceived viability.",
+          "Secret ballot structure prevents direct confirmation of consensus depth."
+        ],
+        "rationale": "Useful endpoint-facing prior because broad consensus is identified as historically important in this category.",
+        "description": "Intermediate but endpoint-relevant state in which Album B is widely regarded as the Academy-comfortable frontrunner rather than a niche, symbolic, or critic-led candidate.",
+        "probability": 0.4,
+        "endpoint_key": "album_b_becomes_broad_consensus_choice",
+        "status_basis": "Corpus implies this is a key unresolved condition affecting the final endpoint.",
+        "evidence_refs": [
+          "award_context",
+          "countervailing_note"
+        ],
+        "authority_refs": [
+          "award_media_commentariat",
+          "music_critics"
+        ],
+        "contradiction_notes": "Public excitement alone is insufficient without explicit broad-consensus framing.",
+        "realization_criteria": [
+          "Multiple independent awards-commentary sources characterize Album B as the broad Academy frontrunner.",
+          "Coverage shifts from milestone novelty to expected cross-bloc acceptability among voters."
+        ],
+        "negative_evidence_refs": [],
+        "last_observed_tick_index": null
+      },
+      {
+        "meta": {
+          "source": "initializer_endpoint_ledger",
+          "important_question": "Do the major English-language nominees consolidate support behind a clear frontrunner, or does the field remain fragmented?"
+        },
+        "label": "English-language nominee field consolidates",
+        "status": "active",
+        "blockers": [
+          "Several strong nominees across genres may keep support dispersed.",
+          "Masked corpus lacks evidence of a runaway rival at T0."
+        ],
+        "rationale": "Tracks whether competition structure shifts in a way that materially changes Album B's win path.",
+        "description": "Outcome-relevant state where one major English-language nominee emerges as the dominant consensus alternative, reducing Album B's path through fragmentation.",
+        "probability": 0.45,
+        "endpoint_key": "english_field_consolidates_against_album_b",
+        "status_basis": "The scenario explicitly notes several major English-language nominees, making consolidation vs fragmentation a live uncertainty.",
+        "evidence_refs": [
+          "scenario_core",
+          "countervailing_note"
+        ],
+        "authority_refs": [
+          "award_media_commentariat",
+          "recording_academy_voters"
+        ],
+        "contradiction_notes": "A fragmented field can still produce an English-language winner; this endpoint is specifically about consolidation signal.",
+        "realization_criteria": [
+          "Awards discourse identifies one English-language nominee as the clear likely winner across major forecasts.",
+          "Competing English-language nominees cease to be treated as evenly matched top alternatives."
+        ],
+        "negative_evidence_refs": [],
+        "last_observed_tick_index": null
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "name": "institutional_decider",
+        "description": "Actor class with direct authority over endpoint resolution through voting."
+      },
+      {
+        "name": "narrative_carrier",
+        "description": "Actor class able to concentrate symbolic momentum and media attention."
+      },
+      {
+        "name": "competitive_block",
+        "description": "Actor class representing rival options drawing consensus away."
+      }
+    ],
+    "merge_hypotheses": [
+      {
+        "merge_key": "prestige_plus_consensus_alignment",
+        "description": "If critical acclaim, public legitimacy, and perceived Academy comfort align, both skeptical and enthusiastic timelines converge toward Album B as a plausible consensus winner."
+      },
+      {
+        "merge_key": "secret_ballot_opacity",
+        "description": "Divergent public narratives may still converge in uncertainty because secret balloting hides true coalition strength until the result."
+      },
+      {
+        "merge_key": "category_rule_clarity",
+        "description": "Regardless of side narratives, all paths converge on the same terminal evidence standard: official Album of the Year result only."
+      }
+    ],
+    "simulation_brief": {
+      "mode": "direct",
+      "domain": "award_forecasting",
+      "summary": "A global Latin artist's Spanish-language Album B is nominated for the 2026 Grammy Awards Album of the Year. The album has strong critical prominence and commercial visibility, with milestone narrative momentum, but faces historical headwinds in a category that has often favored English-language releases and broad Recording Academy consensus. Multiple major English-language pop, rap, and singer-songwriter nominees create a competitive field. Terminal resolution is strictly whether Album B wins the official Album of the Year category.",
+      "timeframe": "pre-award_t0",
+      "scenario_key": "resolved_006",
+      "endpoint_frame": "yes_only_if_album_b_wins_official_album_of_the_year",
+      "decision_context": "Single terminal decision by Recording Academy voters on official Album of the Year award outcome.",
+      "uncertainty_notes": [
+        "Specific nominee identities beyond Album B are masked or not provided.",
+        "Voting body composition and campaign details are not fully specified.",
+        "No explicit evidence at T0 of scandal, disqualification, or vote split mechanics beyond general competition."
+      ]
+    },
+    "branch_hypotheses": [
+      {
+        "trigger": "Prestige and media discourse increasingly frame Album B as both deserving and broadly legitimate beyond symbolism alone.",
+        "branch_key": "milestone_breakthrough",
+        "alternate_path": "Album B becomes acceptable as the consensus winner rather than merely a symbolic favorite.",
+        "divergence_signal": "More commentary emphasizes cross-category legitimacy and broad Academy appeal rather than only milestone significance."
+      },
+      {
+        "trigger": "Historical-comparative coverage keeps highlighting that top-category voters default toward familiar English-language consensus choices.",
+        "branch_key": "base_rate_reassertion",
+        "alternate_path": "Album B remains a celebrated nominee but loses final consensus to an English-language competitor.",
+        "divergence_signal": "Forecast discourse converges on precedent, broad appeal, and category fit as decisive over novelty."
+      },
+      {
+        "trigger": "No single English-language nominee consolidates clear frontrunner status among pop, rap, and singer-songwriter lanes.",
+        "branch_key": "opposition_vote_split",
+        "alternate_path": "Fragmentation among rivals allows Album B to win with a pluralistic coalition.",
+        "divergence_signal": "Persistent media disagreement about which English-language nominee is strongest."
+      },
+      {
+        "trigger": "Support for Album B is expressed mainly as cultural milestone enthusiasm without evidence of deep Academy crossover.",
+        "branch_key": "symbolism_ceiling",
+        "alternate_path": "Album B performs strongly in discourse and possibly other categories but falls short in Album of the Year.",
+        "divergence_signal": "Praise remains concentrated in critics and public symbolism talk, while insider chatter stresses consensus limitations."
+      }
+    ],
+    "sociology_baseline": [
+      {
+        "level": 0.61,
+        "model": "attention_decay",
+        "evidence": "Voters and commentators are influenced by acclaim and precedent but remain within familiar evaluative frames.",
+        "mechanism": "bounded_confidence",
+        "applies_to": [
+          "recording_academy_voters",
+          "award_media_commentariat"
+        ]
+      },
+      {
+        "level": 0.43,
+        "model": "attention_decay",
+        "evidence": "Supportive discourse may intensify near the ceremony if momentum signals accumulate.",
+        "mechanism": "threshold_mobilization",
+        "applies_to": [
+          "general_listening_public",
+          "music_critics"
+        ]
+      },
+      {
+        "level": 0.84,
+        "model": "attention_decay",
+        "evidence": "Secret balloting keeps private preferences weakly observable.",
+        "mechanism": "public_silence",
+        "applies_to": [
+          "recording_academy_voters"
+        ]
+      },
+      {
+        "level": 0.48,
+        "model": "attention_decay",
+        "evidence": "Fans, critics, and genre communities cluster around preferred narratives and nominees.",
+        "mechanism": "homophily",
+        "applies_to": [
+          "general_listening_public",
+          "awards_observer_ecosystem"
+        ]
+      },
+      {
+        "level": 0.57,
+        "model": "attention_decay",
+        "evidence": "Milestone viability requires reinforcement from multiple prestige and media sources rather than a single signal.",
+        "mechanism": "complex_contagion",
+        "applies_to": [
+          "award_media_commentariat",
+          "general_listening_public"
+        ]
+      },
+      {
+        "level": 0.67,
+        "model": "attention_decay",
+        "evidence": "Language and cultural milestone framing can heighten identity-based support and salience.",
+        "mechanism": "social_identity",
+        "applies_to": [
+          "general_listening_public",
+          "music_critics"
+        ]
+      },
+      {
+        "level": 0.36,
+        "model": "attention_decay",
+        "evidence": "Outside nomination and ceremony peaks, mass attention may be intermittent.",
+        "mechanism": "attention_decay",
+        "applies_to": [
+          "general_listening_public"
+        ]
+      }
+    ],
+    "important_questions": [
+      "Does Album B win the official 2026 Grammy Awards Album of the Year category?",
+      "Before the ceremony, is there credible evidence that Album B has become a broad Academy-consensus choice rather than primarily a symbolic or critical favorite?",
+      "Do the major English-language nominees consolidate support behind a clear frontrunner, or does the field remain fragmented?"
+    ],
+    "emotion_observations": [],
+    "population_archetypes": [
+      {
+        "name": "recording_academy_electorate",
+        "description": "Approximate award-voting population relevant to Album of the Year decision.",
+        "population_total": 12000
+      },
+      {
+        "name": "awards_observer_ecosystem",
+        "description": "Critics, commentators, strategists, and industry-adjacent observers shaping discourse.",
+        "population_total": 5000
+      },
+      {
+        "name": "general_music_audience",
+        "description": "Large listening public exposed to nominees and prestige narratives but lacking direct vote authority.",
+        "population_total": 5000000
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "A potential major language/cultural milestone increases symbolic salience around Album B.",
+        "influence_key": "milestone_narrative"
+      },
+      {
+        "description": "Past Album of the Year voting patterns favor English-language releases and broad consensus.",
+        "influence_key": "historical_base_rate_headwind"
+      },
+      {
+        "description": "Several major English-language nominees create uncertainty over whether opposition consolidates or splits.",
+        "influence_key": "competitive_field_fragmentation"
+      },
+      {
+        "description": "Only official Album of the Year win matters; genre-category wins do not resolve endpoint.",
+        "influence_key": "category_specific_resolution_rule"
+      },
+      {
+        "description": "Album B enters T0 with strong critical prominence and commercial visibility.",
+        "influence_key": "critical_acclaim_visibility"
+      }
+    ]
+  }
+}

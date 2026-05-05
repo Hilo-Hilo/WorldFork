@@ -1,0 +1,21 @@
+{
+  "job_type": "initialize_big_bang",
+  "payload": {
+    "name": "E1_init_job_resolved_001",
+    "scenario_text": "# Case resolved_001\nBenchmark role: resolved_forecast\n\nForecast question: Will Candidate A win the 2025 Nobel Peace Prize?\n\n## Scenario\n\nCandidate A is a Venezuelan opposition figure known internationally for democracy-rights advocacy. As of the forecast date, the Nobel Peace Prize shortlist is not public, and the Norwegian Nobel Committee often surprises observers. Other plausible themes include humanitarian relief, conflict mediation, press freedom, nuclear-risk reduction, climate activism, and support for political prisoners. Use only this pre-announcement information.\n\n## Source Packet\n\n### Source 1: analyst_note / 2025-09-15\n\nCandidate A has unusually high moral-salience evidence because of long-running democratic-rights work under an authoritarian setting.\n\n### Source 2: process_note / 2025-09-15\n\nNobel Peace nominations and shortlist details are confidential; public campaigns and news attention are not reliable evidence of committee intent.\n\n### Source 3: countervailing_note / 2025-09-15\n\nRecent wars and humanitarian crises give the committee many alternative symbolic targets.\n\n## Candidate Endpoints\n- yes: The event occurs by the deadline\n- no: The event does not occur by the deadline\n\n## Expected Focus\n- secret_selection_process\n- symbolic_institutional_choice\n- geopolitical_uncertainty\n\n## Required Forecast Output\n{'type': 'probability_distribution', 'schema': {'yes': 'float in [0,1]', 'no': 'float in [0,1]', 'unresolved_mass': 'optional float in [0,1]; if used, keep yes+no+unresolved_mass = 1'}, 'scoring': 'For resolved cards, score p_yes against the hidden private resolution using binary Brier and clamped log score. If unresolved_mass is present, report it separately and normalize yes/no only if your paper explicitly chooses conditional scoring.'}\n\n## Leakage Mitigation\nModel-facing text uses partial entity masking. Do not expose private_eval entity_map or resolution during forecasting.\n",
+    "simulation_config": {
+      "max_ticks": 1,
+      "tick_duration_minutes": 720
+    },
+    "branch_policy": {
+      "max_branch_depth": 1,
+      "max_active_multiverses": 1,
+      "max_branches_per_tick": 1,
+      "branch_score_threshold": 0.999
+    },
+    "actors": [],
+    "cohorts": [],
+    "heroes": [],
+    "use_initializer_agent": true
+  }
+}

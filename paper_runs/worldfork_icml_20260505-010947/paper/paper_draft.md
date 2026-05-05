@@ -48,6 +48,10 @@ The static QA pass for this run found 108 public cards, 36 private eval rows, ma
 
 The static package QA passed. Public cards contain no private resolution fields, the 36 additional public/private/legacy records share matching IDs, and the resolved pilot is balanced across yes and no labels. This is necessary but not sufficient for final benchmark validity: the resolved-card sources still require live source verification, and the paper should describe the resolved set as a retrospective pilot with leakage risk.
 
+### 4.1.1 Initialization Smoke Coverage
+
+Six resolved-card initializations have live evidence. The synchronous initializer smoke for `resolved_003` completed in 146.20 seconds; the queued E3 smoke initialized `resolved_004` in 131.22 seconds; and a four-case queued initializer batch completed `resolved_001`, `resolved_002`, `resolved_005`, and `resolved_006`. The queued batch used independent p1 jobs and showed that multiple initializations can run concurrently, with all four jobs complete by the time the first 148.14 second wait returned. This is still a partial screen: the full E1 requirement is all 108 public cards.
+
 ### 4.2 Forecast Scoring
 
 The direct baseline block is complete for all 24 resolved cards under two conditions. The one-shot direct prompt achieved mean Brier 0.242492 and mean clamped log score 0.701698. The structured direct prompt achieved mean Brier 0.238363 and mean clamped log score 0.677498. Both direct baselines have zero unresolved mass because the output contract requires a normalized yes/no distribution. These results provide the comparison point for the pending WorldFork no-branch and branching runs; no claim about WorldFork forecast accuracy should be made until those rows are filled.

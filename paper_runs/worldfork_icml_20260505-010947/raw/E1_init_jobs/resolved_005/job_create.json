@@ -1,0 +1,44 @@
+{
+  "id": "f6004bcb-6b0c-492d-bde8-d330231fa5ba",
+  "job_type": "initialize_big_bang",
+  "queue_name": "p1",
+  "status": "queued",
+  "big_bang_id": null,
+  "payload": {
+    "name": "E1_init_job_resolved_005",
+    "scenario_text": "# Case resolved_005\nBenchmark role: resolved_forecast\n\nForecast question: Will Nominee S win Best Picture at the 98th Academy Awards?\n\n## Scenario\n\nNominee S enters the race with the most nominations and unusually strong conversation about genre recognition and representational impact. Several other Best Picture nominees have stronger historical alignment with Academy preferences, including a politically literate prestige drama by an established auteur. The endpoint is yes only if Nominee S is officially announced as Best Picture winner.\n\n## Source Packet\n\n### Source 1: nomination_note / 2026-01-23\n\nNominee S has a nomination-count advantage, but nomination volume does not mechanically determine Best Picture.\n\n### Source 2: industry_note / 2026-01-23\n\nPreferential ballot dynamics can reward broad consensus rather than passionate first-place support.\n\n### Source 3: endpoint_note / 2026-01-23\n\nOnly the official Best Picture category counts; wins in acting, directing, or technical categories do not resolve yes.\n\n## Candidate Endpoints\n- yes: The event occurs by the deadline\n- no: The event does not occur by the deadline\n\n## Expected Focus\n- award_forecasting\n- preferential_ballot\n- front_runner_uncertainty\n\n## Required Forecast Output\n{'type': 'probability_distribution', 'schema': {'yes': 'float in [0,1]', 'no': 'float in [0,1]', 'unresolved_mass': 'optional float in [0,1]; if used, keep yes+no+unresolved_mass = 1'}, 'scoring': 'For resolved cards, score p_yes against the hidden private resolution using binary Brier and clamped log score. If unresolved_mass is present, report it separately and normalize yes/no only if your paper explicitly chooses conditional scoring.'}\n\n## Leakage Mitigation\nModel-facing text uses partial entity masking. Do not expose private_eval entity_map or resolution during forecasting.\n",
+    "simulation_config": {
+      "max_ticks": 1,
+      "tick_duration_minutes": 720
+    },
+    "branch_policy": {
+      "max_branch_depth": 1,
+      "max_active_multiverses": 1,
+      "max_branches_per_tick": 1,
+      "branch_score_threshold": 0.999
+    },
+    "actors": [],
+    "cohorts": [],
+    "heroes": [],
+    "use_initializer_agent": true
+  },
+  "result": {},
+  "error": null,
+  "idempotency_key": "job:f8e787bac846304a63e56879a9b6d050b3ea39376a4c68d6c3c90e29da7558da",
+  "concurrency_key": null,
+  "attempt_number": 0,
+  "max_attempts": 3,
+  "retryable": true,
+  "available_at": "2026-05-05T01:57:40.847225Z",
+  "lease_owner": null,
+  "lease_expires_at": null,
+  "last_heartbeat_at": null,
+  "queued_at": "2026-05-05T01:57:40.847220Z",
+  "started_at": null,
+  "paused_at": null,
+  "interrupt_requested_at": null,
+  "interrupted_at": null,
+  "finished_at": null,
+  "created_at": "2026-05-05T01:57:40.845854Z",
+  "updated_at": "2026-05-05T01:57:40.845854Z"
+}

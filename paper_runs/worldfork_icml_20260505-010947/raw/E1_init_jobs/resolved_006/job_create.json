@@ -1,0 +1,44 @@
+{
+  "id": "f51ba40d-22ed-4fd8-b6ca-43104745244b",
+  "job_type": "initialize_big_bang",
+  "queue_name": "p1",
+  "status": "queued",
+  "big_bang_id": null,
+  "payload": {
+    "name": "E1_init_job_resolved_006",
+    "scenario_text": "# Case resolved_006\nBenchmark role: resolved_forecast\n\nForecast question: Will Album B, a Spanish-language album by a global Latin artist, win Album of the Year at the 2026 Grammy Awards?\n\n## Scenario\n\nAlbum B is critically prominent and commercially visible, but the Album of the Year category has historically favored English-language releases and broad Recording Academy consensus. Several major English-language pop, rap, and singer-songwriter albums are also nominated. The endpoint is yes only if Album B wins the official Album of the Year category.\n\n## Source Packet\n\n### Source 1: award_context / 2025-11-10\n\nAlbum B has strong narrative momentum because a win would mark a major language/cultural milestone.\n\n### Source 2: countervailing_note / 2025-11-10\n\nHistoric category voting patterns create uncertainty despite critical acclaim.\n\n### Source 3: endpoint_note / 2025-11-10\n\nGenre-category wins do not count; only Album of the Year resolves yes.\n\n## Candidate Endpoints\n- yes: The event occurs by the deadline\n- no: The event does not occur by the deadline\n\n## Expected Focus\n- award_forecasting\n- historical_base_rates\n- category_specific_resolution\n\n## Required Forecast Output\n{'type': 'probability_distribution', 'schema': {'yes': 'float in [0,1]', 'no': 'float in [0,1]', 'unresolved_mass': 'optional float in [0,1]; if used, keep yes+no+unresolved_mass = 1'}, 'scoring': 'For resolved cards, score p_yes against the hidden private resolution using binary Brier and clamped log score. If unresolved_mass is present, report it separately and normalize yes/no only if your paper explicitly chooses conditional scoring.'}\n\n## Leakage Mitigation\nModel-facing text uses partial entity masking. Do not expose private_eval entity_map or resolution during forecasting.\n",
+    "simulation_config": {
+      "max_ticks": 1,
+      "tick_duration_minutes": 720
+    },
+    "branch_policy": {
+      "max_branch_depth": 1,
+      "max_active_multiverses": 1,
+      "max_branches_per_tick": 1,
+      "branch_score_threshold": 0.999
+    },
+    "actors": [],
+    "cohorts": [],
+    "heroes": [],
+    "use_initializer_agent": true
+  },
+  "result": {},
+  "error": null,
+  "idempotency_key": "job:138de8539ea778a9debbe55d320c70f25fcace1cc947c0b59c7150f0209b8a9b",
+  "concurrency_key": null,
+  "attempt_number": 0,
+  "max_attempts": 3,
+  "retryable": true,
+  "available_at": "2026-05-05T01:57:41.107285Z",
+  "lease_owner": null,
+  "lease_expires_at": null,
+  "last_heartbeat_at": null,
+  "queued_at": "2026-05-05T01:57:41.107283Z",
+  "started_at": null,
+  "paused_at": null,
+  "interrupt_requested_at": null,
+  "interrupted_at": null,
+  "finished_at": null,
+  "created_at": "2026-05-05T01:57:41.107025Z",
+  "updated_at": "2026-05-05T01:57:41.107025Z"
+}

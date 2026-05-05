@@ -1,0 +1,21 @@
+{
+  "job_type": "initialize_big_bang",
+  "payload": {
+    "name": "E1_init_job_resolved_002",
+    "scenario_text": "# Case resolved_002\nBenchmark role: resolved_forecast\n\nForecast question: Will the 2025 Nobel Prize in Chemistry be awarded for Research Area M, the development of metal-organic frameworks or closely equivalent porous crystalline framework chemistry?\n\n## Scenario\n\nResearch Area M has accumulated decades of work on porous crystalline architectures with applications in gas storage, catalysis, separations, water capture, and carbon capture. Competing Nobel-plausible chemistry areas include protein design, battery chemistry, chemical biology, catalysis, and microscopy-adjacent methods. The prize committee does not publish a shortlist before the announcement.\n\n## Source Packet\n\n### Source 1: field_note / 2025-09-15\n\nResearch Area M has a clear long-run citation and application profile, with multiple senior pioneers still living.\n\n### Source 2: forecast_risk_note / 2025-09-15\n\nThe chemistry prize alternates unpredictably among methods, materials, biological chemistry, and applied discoveries.\n\n### Source 3: endpoint_note / 2025-09-15\n\nCount the endpoint as yes only if the official prize motivation centers on metal-organic frameworks or equivalent framework chemistry.\n\n## Candidate Endpoints\n- yes: The event occurs by the deadline\n- no: The event does not occur by the deadline\n\n## Expected Focus\n- scientific_prize_forecasting\n- category_boundary\n- multi_decade_citation_signal\n\n## Required Forecast Output\n{'type': 'probability_distribution', 'schema': {'yes': 'float in [0,1]', 'no': 'float in [0,1]', 'unresolved_mass': 'optional float in [0,1]; if used, keep yes+no+unresolved_mass = 1'}, 'scoring': 'For resolved cards, score p_yes against the hidden private resolution using binary Brier and clamped log score. If unresolved_mass is present, report it separately and normalize yes/no only if your paper explicitly chooses conditional scoring.'}\n\n## Leakage Mitigation\nModel-facing text uses partial entity masking. Do not expose private_eval entity_map or resolution during forecasting.\n",
+    "simulation_config": {
+      "max_ticks": 1,
+      "tick_duration_minutes": 720
+    },
+    "branch_policy": {
+      "max_branch_depth": 1,
+      "max_active_multiverses": 1,
+      "max_branches_per_tick": 1,
+      "branch_score_threshold": 0.999
+    },
+    "actors": [],
+    "cohorts": [],
+    "heroes": [],
+    "use_initializer_agent": true
+  }
+}

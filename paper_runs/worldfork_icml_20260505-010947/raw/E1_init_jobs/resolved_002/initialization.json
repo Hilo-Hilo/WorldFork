@@ -1,0 +1,1087 @@
+{
+  "big_bang_id": "1ec92f15-26cb-4b9f-8182-82a11dbe3d7a",
+  "scenario_text_present": true,
+  "plain_text_corpus": {
+    "raw_char_count": 2007,
+    "chunk_artifacts": [
+      {
+        "end": 2007,
+        "index": 0,
+        "start": 0,
+        "char_count": 2007
+      }
+    ],
+    "chunk_summaries": [],
+    "simulation_brief": {
+      "mode": "direct",
+      "text": "[debug gated]",
+      "chunk_summaries": []
+    }
+  },
+  "initializer_output": {
+    "model": "gpt-5.4",
+    "actors": [
+      {
+        "name": "research_area_m",
+        "type": "research_field",
+        "stakes": [
+          "recognition",
+          "scientific prestige",
+          "field validation"
+        ],
+        "description": "Field centered on metal-organic frameworks or equivalent porous crystalline framework chemistry.",
+        "fictionalized": false,
+        "public_visibility": "high",
+        "decision_authority": "none_direct"
+      },
+      {
+        "name": "nobel_chemistry_committee",
+        "type": "institutional_decider",
+        "stakes": [
+          "award legitimacy",
+          "field balance",
+          "historical significance"
+        ],
+        "description": "Prize-selection body controlling chemistry award recommendation and framing.",
+        "fictionalized": true,
+        "public_visibility": "medium",
+        "decision_authority": "high"
+      },
+      {
+        "name": "royal_awarding_institution",
+        "type": "institution",
+        "stakes": [
+          "institutional legitimacy",
+          "procedural continuity"
+        ],
+        "description": "Formal awarding institution that ratifies and announces the chemistry prize.",
+        "fictionalized": true,
+        "public_visibility": "high",
+        "decision_authority": "high_formal"
+      },
+      {
+        "name": "research_area_m_pioneers",
+        "type": "scientist_cohort",
+        "stakes": [
+          "career capstone recognition",
+          "historical credit"
+        ],
+        "description": "Senior living pioneers associated with Research Area M.",
+        "fictionalized": false,
+        "public_visibility": "medium",
+        "decision_authority": "none_direct"
+      },
+      {
+        "name": "competing_chemistry_fields",
+        "type": "aggregate_field_group",
+        "stakes": [
+          "competing recognition",
+          "agenda prominence"
+        ],
+        "description": "Other Nobel-plausible chemistry areas including protein design, battery chemistry, chemical biology, catalysis, and microscopy-adjacent methods.",
+        "fictionalized": false,
+        "public_visibility": "high",
+        "decision_authority": "none_direct"
+      },
+      {
+        "name": "scientific_forecasters",
+        "type": "observer_network",
+        "stakes": [
+          "forecast accuracy",
+          "model calibration"
+        ],
+        "description": "People estimating award probabilities from public signals.",
+        "fictionalized": false,
+        "public_visibility": "medium",
+        "decision_authority": "none_direct"
+      },
+      {
+        "name": "science_media",
+        "type": "media_cluster",
+        "stakes": [
+          "attention",
+          "narrative coherence"
+        ],
+        "description": "Science journalists and commentators interpreting possible prize directions.",
+        "fictionalized": false,
+        "public_visibility": "high",
+        "decision_authority": "low_indirect"
+      }
+    ],
+    "heroes": [
+      {
+        "archetype": "closed_door_selector",
+        "description": "Institutional actor with hidden information and high endpoint authority."
+      },
+      {
+        "archetype": "field_pioneer_cluster",
+        "description": "Prestige-bearing scientific figures whose existence increases award plausibility without controlling it."
+      }
+    ],
+    "cohorts": [
+      {
+        "fatigue": 0.22,
+        "archetype": "chemistry_observer_ecosystem",
+        "cohort_key": "observer_forecasters",
+        "stance_axes": {
+          "boundary_strictness": 0.7,
+          "committee_predictability": 0.28,
+          "research_area_m_award_likelihood": 0.52
+        },
+        "attention_level": 0.73,
+        "expression_level": 0.46,
+        "fear_of_isolation": 0.18,
+        "perceived_majority": 0.4,
+        "private_belief_note": "Sees Research Area M as plausible but far from dominant due to hidden shortlist and category rotation.",
+        "representation_mode": "explicit_subgroup",
+        "mobilization_readiness": 0.12,
+        "represented_population": 1200,
+        "population_share_of_archetype": 0.24
+      },
+      {
+        "fatigue": 0.19,
+        "archetype": "chemistry_observer_ecosystem",
+        "cohort_key": "science_journalists_commentators",
+        "stance_axes": {
+          "boundary_strictness": 0.62,
+          "committee_predictability": 0.25,
+          "research_area_m_award_likelihood": 0.45
+        },
+        "attention_level": 0.68,
+        "expression_level": 0.61,
+        "fear_of_isolation": 0.16,
+        "perceived_majority": 0.35,
+        "private_belief_note": "Expects surprise risk and values clear official framing at announcement.",
+        "representation_mode": "explicit_subgroup",
+        "mobilization_readiness": 0.1,
+        "represented_population": 800,
+        "population_share_of_archetype": 0.16
+      },
+      {
+        "fatigue": 0.27,
+        "archetype": "research_area_m_community",
+        "cohort_key": "research_area_m_core_supporters",
+        "stance_axes": {
+          "boundary_strictness": 0.74,
+          "committee_predictability": 0.34,
+          "research_area_m_award_likelihood": 0.78
+        },
+        "attention_level": 0.71,
+        "expression_level": 0.39,
+        "fear_of_isolation": 0.14,
+        "perceived_majority": 0.48,
+        "private_belief_note": "Views long-run citation profile and applications as strong grounds for recognition, but lacks insider visibility.",
+        "representation_mode": "explicit_subgroup",
+        "mobilization_readiness": 0.08,
+        "represented_population": 7000,
+        "population_share_of_archetype": 0.58
+      },
+      {
+        "fatigue": 0.31,
+        "archetype": "research_area_m_community",
+        "cohort_key": "research_area_m_cautious_insiders",
+        "stance_axes": {
+          "boundary_strictness": 0.8,
+          "committee_predictability": 0.2,
+          "research_area_m_award_likelihood": 0.6
+        },
+        "attention_level": 0.66,
+        "expression_level": 0.24,
+        "fear_of_isolation": 0.22,
+        "perceived_majority": 0.42,
+        "private_belief_note": "Privately aware that field strength does not guarantee Nobel timing or category fit.",
+        "representation_mode": "explicit_subgroup",
+        "mobilization_readiness": 0.05,
+        "represented_population": 5000,
+        "population_share_of_archetype": 0.42
+      },
+      {
+        "fatigue": 0.2,
+        "archetype": "broader_chemistry_community",
+        "cohort_key": "other_chemistry_specialists",
+        "stance_axes": {
+          "boundary_strictness": 0.57,
+          "committee_predictability": 0.23,
+          "research_area_m_award_likelihood": 0.41
+        },
+        "attention_level": 0.37,
+        "expression_level": 0.18,
+        "fear_of_isolation": 0.08,
+        "perceived_majority": 0.33,
+        "private_belief_note": "Recognizes many plausible alternative fields and weak ability to infer committee choice.",
+        "representation_mode": "aggregate_majority",
+        "mobilization_readiness": 0.03,
+        "represented_population": 150000,
+        "population_share_of_archetype": 1.0
+      }
+    ],
+    "channels": [
+      {
+        "type": "institutional_broadcast",
+        "notes": "Decisive endpoint channel because official motivation text controls yes/no.",
+        "visibility": "high",
+        "channel_key": "official_award_announcement",
+        "primary_actors": [
+          "royal_awarding_institution"
+        ]
+      },
+      {
+        "type": "private_institutional",
+        "notes": "High-authority hidden channel with minimal pre-announcement observability.",
+        "visibility": "opaque",
+        "channel_key": "committee_internal_deliberation",
+        "primary_actors": [
+          "nobel_chemistry_committee"
+        ]
+      },
+      {
+        "type": "public_media",
+        "notes": "Amplifies candidate narratives and post-hoc interpretation.",
+        "visibility": "high",
+        "channel_key": "science_media_coverage",
+        "primary_actors": [
+          "science_media"
+        ]
+      },
+      {
+        "type": "public_expert_network",
+        "notes": "Produces probabilistic estimates under sparse direct evidence.",
+        "visibility": "medium",
+        "channel_key": "forecasting_discourse",
+        "primary_actors": [
+          "scientific_forecasters"
+        ]
+      },
+      {
+        "type": "semi_public_professional",
+        "notes": "Contains informal judgments about deservingness and timing.",
+        "visibility": "medium",
+        "channel_key": "research_community_discussion",
+        "primary_actors": [
+          "research_area_m",
+          "competing_chemistry_fields",
+          "research_area_m_pioneers"
+        ]
+      }
+    ],
+    "fallback": false,
+    "risk_flags": [
+      {
+        "flag": "hidden_decision_process",
+        "note": "Core selector preferences are opaque before announcement.",
+        "severity": "high"
+      },
+      {
+        "flag": "category_boundary_ambiguity",
+        "note": "Equivalent framework chemistry may be contested unless official motivation is explicit.",
+        "severity": "high"
+      },
+      {
+        "flag": "broad_competitor_set",
+        "note": "Several other chemistry domains are live alternatives, limiting concentration of probability.",
+        "severity": "medium"
+      },
+      {
+        "flag": "limited_observable_precursors",
+        "note": "Pre-award public evidence may have weak causal connection to final committee choice.",
+        "severity": "medium"
+      }
+    ],
+    "graph_edges": [
+      {
+        "layer": "exposure",
+        "reason": "Forecasters consume media interpretation and retrospective Nobel narratives.",
+        "weight": 0.56,
+        "evidence": "Expected focus on forecasting and public science commentary ecosystem.",
+        "direction": "directed",
+        "source_actor_name": "science_media",
+        "target_actor_name": "scientific_forecasters"
+      },
+      {
+        "layer": "exposure",
+        "reason": "Field applications and citation profile create visible coverage material.",
+        "weight": 0.42,
+        "evidence": "Scenario cites broad applications and long-run profile.",
+        "direction": "directed",
+        "source_actor_name": "research_area_m",
+        "target_actor_name": "science_media"
+      },
+      {
+        "layer": "exposure",
+        "reason": "Official announcement and motivation flow first through formal institutional channels.",
+        "weight": 0.63,
+        "evidence": "Endpoint defined by official prize motivation.",
+        "direction": "directed",
+        "source_actor_name": "royal_awarding_institution",
+        "target_actor_name": "science_media"
+      },
+      {
+        "layer": "exposure",
+        "reason": "Committee recommendation shapes what the awarding institution announces.",
+        "weight": 0.58,
+        "evidence": "Institutional prize-selection structure implied by Nobel process.",
+        "direction": "directed",
+        "source_actor_name": "nobel_chemistry_committee",
+        "target_actor_name": "royal_awarding_institution"
+      },
+      {
+        "layer": "trust",
+        "reason": "Official motivation is the decisive source for endpoint resolution.",
+        "weight": 0.67,
+        "evidence": "Endpoint note centers official prize motivation.",
+        "direction": "directed",
+        "source_actor_name": "scientific_forecasters",
+        "target_actor_name": "royal_awarding_institution"
+      },
+      {
+        "layer": "trust",
+        "reason": "Committee competence is presumed, but its choice is unpredictable externally.",
+        "weight": 0.44,
+        "evidence": "Prize alternates unpredictably among areas.",
+        "direction": "directed",
+        "source_actor_name": "scientific_forecasters",
+        "target_actor_name": "nobel_chemistry_committee"
+      },
+      {
+        "layer": "trust",
+        "reason": "Senior pioneers are credible sources on field importance.",
+        "weight": 0.54,
+        "evidence": "Multiple living senior pioneers noted as significant.",
+        "direction": "directed",
+        "source_actor_name": "science_media",
+        "target_actor_name": "research_area_m_pioneers"
+      },
+      {
+        "layer": "dependency",
+        "reason": "Endpoint plausibility depends partly on pioneers being living and creditable candidates.",
+        "weight": 0.31,
+        "evidence": "Multiple senior pioneers still living.",
+        "direction": "directed",
+        "source_actor_name": "research_area_m_pioneers",
+        "target_actor_name": "nobel_chemistry_committee"
+      },
+      {
+        "layer": "dependency",
+        "reason": "Resolution depends on formal announcement text.",
+        "weight": 0.62,
+        "evidence": "Yes counts only if official motivation centers on Research Area M.",
+        "direction": "directed",
+        "source_actor_name": "scientific_forecasters",
+        "target_actor_name": "royal_awarding_institution"
+      },
+      {
+        "layer": "dependency",
+        "reason": "Media narratives depend on official prize framing for confirmation.",
+        "weight": 0.59,
+        "evidence": "No shortlist before announcement; official announcement is decisive.",
+        "direction": "directed",
+        "source_actor_name": "science_media",
+        "target_actor_name": "royal_awarding_institution"
+      },
+      {
+        "layer": "influence",
+        "reason": "Committee strongly influences award content and rationale.",
+        "weight": 0.74,
+        "evidence": "Institutional selection and recommendation role implied.",
+        "direction": "directed",
+        "source_actor_name": "nobel_chemistry_committee",
+        "target_actor_name": "royal_awarding_institution"
+      },
+      {
+        "layer": "influence",
+        "reason": "Prestigious pioneers shape narratives about field maturity and importance.",
+        "weight": 0.46,
+        "evidence": "Senior pioneers and long-run citation profile highlighted.",
+        "direction": "directed",
+        "source_actor_name": "research_area_m_pioneers",
+        "target_actor_name": "science_media"
+      },
+      {
+        "layer": "influence",
+        "reason": "Media can amplify candidate-area salience without resolving hidden committee preference.",
+        "weight": 0.37,
+        "evidence": "Observer ecosystem uses public narratives under uncertainty.",
+        "direction": "directed",
+        "source_actor_name": "science_media",
+        "target_actor_name": "scientific_forecasters"
+      },
+      {
+        "layer": "influence",
+        "reason": "Presence of multiple Nobel-plausible areas dilutes any one field's selection odds.",
+        "weight": 0.41,
+        "evidence": "Competing areas listed explicitly.",
+        "direction": "directed",
+        "source_actor_name": "competing_chemistry_fields",
+        "target_actor_name": "nobel_chemistry_committee"
+      },
+      {
+        "layer": "coalition",
+        "reason": "Field and pioneers are naturally aligned around recognition of Research Area M.",
+        "weight": 0.62,
+        "evidence": "Pioneers associated with the field.",
+        "direction": "bidirectional",
+        "source_actor_name": "research_area_m",
+        "target_actor_name": "research_area_m_pioneers"
+      },
+      {
+        "layer": "coalition",
+        "reason": "Some forecasters see the field as a plausible winner, but not as a committed coalition.",
+        "weight": 0.21,
+        "evidence": "Long-run citation and applications improve plausibility.",
+        "direction": "bidirectional",
+        "source_actor_name": "research_area_m",
+        "target_actor_name": "scientific_forecasters"
+      },
+      {
+        "layer": "coalition",
+        "reason": "Shared attention to Nobel speculation creates loose alignment.",
+        "weight": 0.33,
+        "evidence": "Expected focus on prize forecasting.",
+        "direction": "bidirectional",
+        "source_actor_name": "science_media",
+        "target_actor_name": "scientific_forecasters"
+      },
+      {
+        "layer": "conflict",
+        "reason": "Recognition is mutually exclusive at the prize level in a given year.",
+        "weight": 0.39,
+        "evidence": "Competing Nobel-plausible chemistry areas identified.",
+        "direction": "bidirectional",
+        "source_actor_name": "research_area_m",
+        "target_actor_name": "competing_chemistry_fields"
+      },
+      {
+        "layer": "conflict",
+        "reason": "Forecasters are frustrated by opacity rather than engaged in direct opposition.",
+        "weight": 0.18,
+        "evidence": "Shortlist not published; process unpredictable.",
+        "direction": "directed",
+        "source_actor_name": "scientific_forecasters",
+        "target_actor_name": "nobel_chemistry_committee"
+      },
+      {
+        "layer": "oasis_interaction",
+        "reason": "High likelihood of public-facing interaction around award speculation and post-announcement interpretation.",
+        "weight": 0.51,
+        "evidence": "Forecasting and science commentary overlap in visible channels.",
+        "direction": "bidirectional",
+        "source_actor_name": "science_media",
+        "target_actor_name": "scientific_forecasters"
+      },
+      {
+        "layer": "oasis_interaction",
+        "reason": "Moderate chance of interviews or expert commentary if field salience rises.",
+        "weight": 0.29,
+        "evidence": "Pioneers are visible legitimacy anchors.",
+        "direction": "bidirectional",
+        "source_actor_name": "research_area_m_pioneers",
+        "target_actor_name": "science_media"
+      },
+      {
+        "layer": "oasis_interaction",
+        "reason": "Announcement event drives concentrated public-channel interaction.",
+        "weight": 0.6,
+        "evidence": "Official motivation determines endpoint.",
+        "direction": "bidirectional",
+        "source_actor_name": "royal_awarding_institution",
+        "target_actor_name": "science_media"
+      }
+    ],
+    "hero_states": [
+      {
+        "fatigue": 0.15,
+        "secrecy": 0.96,
+        "archetype": "closed_door_selector",
+        "actor_name": "nobel_chemistry_committee",
+        "reputation": 0.84,
+        "stance_axes": {
+          "boundary_strictness": 0.68,
+          "novelty_vs_maturity_balance": 0.55,
+          "research_area_m_favorability": 0.5
+        },
+        "attention_level": 0.95,
+        "trustworthiness": 0.72,
+        "expression_level": 0.02,
+        "fear_of_isolation": 0.02,
+        "perceived_majority": 0.5,
+        "behavioral_tendencies": [
+          "deliberative",
+          "opaque",
+          "prestige_sensitive"
+        ],
+        "mobilization_readiness": 0.9,
+        "graph_influence_summary": "Highest endpoint authority; hidden shortlist prevents external calibration."
+      },
+      {
+        "fatigue": 0.34,
+        "secrecy": 0.28,
+        "archetype": "field_pioneer_cluster",
+        "actor_name": "research_area_m_pioneers",
+        "reputation": 0.88,
+        "stance_axes": {
+          "boundary_strictness": 0.76,
+          "novelty_vs_maturity_balance": 0.62,
+          "research_area_m_favorability": 0.96
+        },
+        "attention_level": 0.58,
+        "trustworthiness": 0.83,
+        "expression_level": 0.21,
+        "fear_of_isolation": 0.11,
+        "perceived_majority": 0.49,
+        "behavioral_tendencies": [
+          "status_aware",
+          "publicly_restrained",
+          "legacy_conscious"
+        ],
+        "mobilization_readiness": 0.06,
+        "graph_influence_summary": "High symbolic prestige and field legitimacy, but no direct prize control."
+      }
+    ],
+    "llm_call_id": "99ea8894-7844-44b4-8566-683568cd25dd",
+    "cohort_states": [
+      {
+        "fatigue": 0.22,
+        "archetype": "chemistry_observer_ecosystem",
+        "cohort_key": "observer_forecasters",
+        "stance_axes": {
+          "boundary_strictness": 0.7,
+          "committee_predictability": 0.28,
+          "research_area_m_award_likelihood": 0.52
+        },
+        "attention_level": 0.73,
+        "expression_level": 0.46,
+        "fear_of_isolation": 0.18,
+        "perceived_majority": 0.4,
+        "private_belief_note": "Sees Research Area M as plausible but far from dominant due to hidden shortlist and category rotation.",
+        "representation_mode": "explicit_subgroup",
+        "mobilization_readiness": 0.12,
+        "represented_population": 1200,
+        "population_share_of_archetype": 0.24
+      },
+      {
+        "fatigue": 0.19,
+        "archetype": "chemistry_observer_ecosystem",
+        "cohort_key": "science_journalists_commentators",
+        "stance_axes": {
+          "boundary_strictness": 0.62,
+          "committee_predictability": 0.25,
+          "research_area_m_award_likelihood": 0.45
+        },
+        "attention_level": 0.68,
+        "expression_level": 0.61,
+        "fear_of_isolation": 0.16,
+        "perceived_majority": 0.35,
+        "private_belief_note": "Expects surprise risk and values clear official framing at announcement.",
+        "representation_mode": "explicit_subgroup",
+        "mobilization_readiness": 0.1,
+        "represented_population": 800,
+        "population_share_of_archetype": 0.16
+      },
+      {
+        "fatigue": 0.27,
+        "archetype": "research_area_m_community",
+        "cohort_key": "research_area_m_core_supporters",
+        "stance_axes": {
+          "boundary_strictness": 0.74,
+          "committee_predictability": 0.34,
+          "research_area_m_award_likelihood": 0.78
+        },
+        "attention_level": 0.71,
+        "expression_level": 0.39,
+        "fear_of_isolation": 0.14,
+        "perceived_majority": 0.48,
+        "private_belief_note": "Views long-run citation profile and applications as strong grounds for recognition, but lacks insider visibility.",
+        "representation_mode": "explicit_subgroup",
+        "mobilization_readiness": 0.08,
+        "represented_population": 7000,
+        "population_share_of_archetype": 0.58
+      },
+      {
+        "fatigue": 0.31,
+        "archetype": "research_area_m_community",
+        "cohort_key": "research_area_m_cautious_insiders",
+        "stance_axes": {
+          "boundary_strictness": 0.8,
+          "committee_predictability": 0.2,
+          "research_area_m_award_likelihood": 0.6
+        },
+        "attention_level": 0.66,
+        "expression_level": 0.24,
+        "fear_of_isolation": 0.22,
+        "perceived_majority": 0.42,
+        "private_belief_note": "Privately aware that field strength does not guarantee Nobel timing or category fit.",
+        "representation_mode": "explicit_subgroup",
+        "mobilization_readiness": 0.05,
+        "represented_population": 5000,
+        "population_share_of_archetype": 0.42
+      },
+      {
+        "fatigue": 0.2,
+        "archetype": "broader_chemistry_community",
+        "cohort_key": "other_chemistry_specialists",
+        "stance_axes": {
+          "boundary_strictness": 0.57,
+          "committee_predictability": 0.23,
+          "research_area_m_award_likelihood": 0.41
+        },
+        "attention_level": 0.37,
+        "expression_level": 0.18,
+        "fear_of_isolation": 0.08,
+        "perceived_majority": 0.33,
+        "private_belief_note": "Recognizes many plausible alternative fields and weak ability to infer committee choice.",
+        "representation_mode": "aggregate_majority",
+        "mobilization_readiness": 0.03,
+        "represented_population": 150000,
+        "population_share_of_archetype": 1.0
+      }
+    ],
+    "trait_vectors": [
+      {
+        "secrecy": 0.18,
+        "tendency": "highly_credentialed_field_with_broad_application_story",
+        "actor_name": "research_area_m",
+        "reputation": 0.82,
+        "behavior_axes": {
+          "public_advocacy": 0.34,
+          "boundary_assertion": 0.7,
+          "institutional_patience": 0.72
+        },
+        "ideology_axes": {
+          "basic_to_applied": 0.48,
+          "materials_to_bio": 0.18,
+          "method_to_discovery": 0.44
+        },
+        "trustworthiness": 0.77
+      },
+      {
+        "secrecy": 0.96,
+        "tendency": "hidden_selector_with_category_rotation",
+        "actor_name": "nobel_chemistry_committee",
+        "reputation": 0.84,
+        "behavior_axes": {
+          "opacity": 0.95,
+          "conservatism": 0.58,
+          "agenda_independence": 0.79
+        },
+        "ideology_axes": {
+          "basic_to_applied": 0.5,
+          "materials_to_bio": 0.5,
+          "method_to_discovery": 0.5
+        },
+        "trustworthiness": 0.72
+      },
+      {
+        "secrecy": 0.74,
+        "tendency": "formal_ratifier_and_announcer",
+        "actor_name": "royal_awarding_institution",
+        "reputation": 0.9,
+        "behavior_axes": {
+          "adaptability": 0.28,
+          "proceduralism": 0.88,
+          "message_discipline": 0.9
+        },
+        "ideology_axes": {
+          "basic_to_applied": 0.5,
+          "materials_to_bio": 0.5,
+          "method_to_discovery": 0.5
+        },
+        "trustworthiness": 0.8
+      },
+      {
+        "secrecy": 0.28,
+        "tendency": "prestige_bearing_senior_figures",
+        "actor_name": "research_area_m_pioneers",
+        "reputation": 0.88,
+        "behavior_axes": {
+          "self_promotion": 0.22,
+          "prestige_signal": 0.86,
+          "coalition_maintenance": 0.51
+        },
+        "ideology_axes": {
+          "basic_to_applied": 0.46,
+          "materials_to_bio": 0.16,
+          "method_to_discovery": 0.42
+        },
+        "trustworthiness": 0.83
+      },
+      {
+        "secrecy": 0.18,
+        "tendency": "plural_set_of_strong_alternatives",
+        "actor_name": "competing_chemistry_fields",
+        "reputation": 0.81,
+        "behavior_axes": {
+          "public_advocacy": 0.33,
+          "agenda_competition": 0.61,
+          "field_fragmentation": 0.64
+        },
+        "ideology_axes": {
+          "basic_to_applied": 0.53,
+          "materials_to_bio": 0.57,
+          "method_to_discovery": 0.52
+        },
+        "trustworthiness": 0.73
+      },
+      {
+        "secrecy": 0.1,
+        "tendency": "probabilistic_observer_class",
+        "actor_name": "scientific_forecasters",
+        "reputation": 0.63,
+        "behavior_axes": {
+          "updating": 0.82,
+          "speculation": 0.49,
+          "calibration_discipline": 0.76
+        },
+        "ideology_axes": {
+          "basic_to_applied": 0.5,
+          "materials_to_bio": 0.5,
+          "method_to_discovery": 0.5
+        },
+        "trustworthiness": 0.69
+      },
+      {
+        "secrecy": 0.08,
+        "tendency": "narrative_amplifier",
+        "actor_name": "science_media",
+        "reputation": 0.67,
+        "behavior_axes": {
+          "responsiveness": 0.74,
+          "simplification": 0.66,
+          "attention_chasing": 0.64
+        },
+        "ideology_axes": {
+          "basic_to_applied": 0.5,
+          "materials_to_bio": 0.5,
+          "method_to_discovery": 0.5
+        },
+        "trustworthiness": 0.61
+      }
+    ],
+    "initial_events": [
+      {
+        "tick": 0,
+        "actors": [
+          "research_area_m",
+          "research_area_m_pioneers"
+        ],
+        "status": "active",
+        "summary": "Research Area M enters T0 with decades of citations, broad applications, and living pioneers.",
+        "evidence": "Source 1 field note.",
+        "event_key": "field_strength_recognized",
+        "event_type": "announcement",
+        "expected_impact": "Raises baseline plausibility and coalition confidence without resolving committee preference."
+      },
+      {
+        "tick": 0,
+        "actors": [
+          "competing_chemistry_fields",
+          "scientific_forecasters"
+        ],
+        "status": "active",
+        "summary": "Multiple other chemistry areas remain Nobel-plausible contenders.",
+        "evidence": "Scenario and Source 2.",
+        "event_key": "competing_fields_remain_live",
+        "event_type": "announcement",
+        "expected_impact": "Prevents Research Area M from becoming a dominant consensus pick and sustains diffuse uncertainty."
+      },
+      {
+        "tick": 0,
+        "actors": [
+          "nobel_chemistry_committee",
+          "scientific_forecasters",
+          "science_media"
+        ],
+        "status": "active",
+        "summary": "No shortlist is published before the announcement.",
+        "evidence": "Scenario text.",
+        "event_key": "no_public_shortlist",
+        "event_type": "announcement",
+        "expected_impact": "Concentrates uncertainty in hidden institutional process and reduces predictive signal quality."
+      },
+      {
+        "tick": 1,
+        "actors": [
+          "royal_awarding_institution",
+          "nobel_chemistry_committee",
+          "science_media",
+          "scientific_forecasters"
+        ],
+        "status": "scheduled",
+        "summary": "Official chemistry prize announcement will reveal motivation framing that determines endpoint classification.",
+        "evidence": "Endpoint note and candidate endpoints.",
+        "event_key": "award_announcement_pending",
+        "event_type": "announcement",
+        "expected_impact": "Rapidly collapses uncertainty and reweights trust/dependency toward official text parsing."
+      }
+    ],
+    "endpoint_ledger": [
+      {
+        "meta": {
+          "source": "initializer_endpoint_ledger",
+          "important_question": "Will the 2025 Nobel Prize in Chemistry official motivation center on metal-organic frameworks or closely equivalent porous crystalline framework chemistry?"
+        },
+        "label": "Research Area M wins under strict definition",
+        "status": "active",
+        "blockers": [
+          "hidden_shortlist",
+          "strong_competing_fields",
+          "strict_boundary_requirement"
+        ],
+        "rationale": "Main positive endpoint directly implied by forecast question.",
+        "description": "The official 2025 Chemistry prize motivation centers on metal-organic frameworks or closely equivalent porous crystalline framework chemistry.",
+        "probability": 0.34,
+        "endpoint_key": "research_area_m_yes",
+        "status_basis": "Field is Nobel-plausible with living pioneers and broad applications, but no public signal confirms committee selection.",
+        "evidence_refs": [
+          "source_1_field_note_2025_09_15",
+          "source_3_endpoint_note_2025_09_15"
+        ],
+        "authority_refs": [
+          "nobel_chemistry_committee",
+          "royal_awarding_institution"
+        ],
+        "contradiction_notes": "A prize for adjacent porous materials that lacks MOF-equivalent central framing does not realize this endpoint.",
+        "realization_criteria": [
+          "official_prize_motivation_published",
+          "motivation_text_explicitly_centers_metal_organic_frameworks_or_closely_equivalent_framework_chemistry"
+        ],
+        "negative_evidence_refs": [],
+        "last_observed_tick_index": null
+      },
+      {
+        "meta": {
+          "source": "initializer_endpoint_ledger",
+          "important_question": "If the prize touches related materials science, will the official motivation language satisfy the scenario's strict yes boundary for Research Area M?"
+        },
+        "label": "Research Area M does not win under strict definition",
+        "status": "active",
+        "blockers": [
+          "none_except_actual_yes_realization"
+        ],
+        "rationale": "Complement endpoint to the forecast question.",
+        "description": "The official 2025 Chemistry prize motivation does not center on metal-organic frameworks or closely equivalent framework chemistry by the award announcement.",
+        "probability": 0.66,
+        "endpoint_key": "research_area_m_no",
+        "status_basis": "Prize-category rotation and multiple alternative fields make non-selection the broader default class at T0.",
+        "evidence_refs": [
+          "source_2_forecast_risk_note_2025_09_15",
+          "source_3_endpoint_note_2025_09_15"
+        ],
+        "authority_refs": [
+          "nobel_chemistry_committee",
+          "royal_awarding_institution"
+        ],
+        "contradiction_notes": "If official wording clearly centers MOFs or closely equivalent framework chemistry, this endpoint is defeated.",
+        "realization_criteria": [
+          "official_prize_motivation_published",
+          "motivation_text_centers_other_domain_or_lacks_mof_equivalent_core_framing"
+        ],
+        "negative_evidence_refs": [],
+        "last_observed_tick_index": null
+      },
+      {
+        "meta": {
+          "source": "initializer_endpoint_ledger",
+          "important_question": "Will one of the listed competing Nobel-plausible chemistry areas receive the prize instead of Research Area M?"
+        },
+        "label": "Adjacent chemistry recognized without satisfying yes boundary",
+        "status": "active",
+        "blockers": [
+          "clear_MOF_centered_wording",
+          "selection_of_totally_unrelated_field"
+        ],
+        "rationale": "Important because later evidence may create ambiguity without changing terminal classification.",
+        "description": "The prize may involve nearby materials or framework concepts yet fail the strict scenario rule for a yes classification.",
+        "probability": 0.14,
+        "endpoint_key": "boundary_case_adjacent_but_not_yes",
+        "status_basis": "Scenario explicitly warns about category-boundary interpretation risk.",
+        "evidence_refs": [
+          "source_3_endpoint_note_2025_09_15"
+        ],
+        "authority_refs": [
+          "royal_awarding_institution"
+        ],
+        "contradiction_notes": "This is an interpretive subset of no, not a separate mutually exclusive top-level outcome from no.",
+        "realization_criteria": [
+          "official_prize_motivation_published",
+          "motivation_has_partial_overlap_with_porous_or_framework_chemistry",
+          "motivation_does_not_center_metal_organic_frameworks_or_closely_equivalent_framework_chemistry"
+        ],
+        "negative_evidence_refs": [],
+        "last_observed_tick_index": null
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype": "closed_door_selector",
+        "description": "Institutional actor with hidden information and high endpoint authority."
+      },
+      {
+        "archetype": "field_pioneer_cluster",
+        "description": "Prestige-bearing scientific figures whose existence increases award plausibility without controlling it."
+      }
+    ],
+    "merge_hypotheses": [
+      {
+        "evidence": "Endpoint definition depends on official motivation.",
+        "merge_key": "official_text_resolves_public_disagreement",
+        "affected_actors": [
+          "scientific_forecasters",
+          "science_media",
+          "research_area_m",
+          "competing_chemistry_fields"
+        ],
+        "convergence_driver": "All observer groups ultimately anchor on official prize motivation wording."
+      },
+      {
+        "evidence": "No shortlist and unpredictable alternation are common knowledge.",
+        "merge_key": "shared_acceptance_of_opacity",
+        "affected_actors": [
+          "scientific_forecasters",
+          "science_media",
+          "research_area_m_community"
+        ],
+        "convergence_driver": "Different camps converge on acknowledging limited pre-announcement visibility into committee intent."
+      }
+    ],
+    "simulation_brief": {
+      "notes": [
+        "Committee shortlist is not public before announcement.",
+        "Scenario is about endpoint uncertainty, not a social conflict crisis.",
+        "Real-world entities are abstracted where appropriate due to institutional sensitivity."
+      ],
+      "domain": "scientific_prize_forecasting",
+      "summary": "Forecasting whether the 2025 Nobel Prize in Chemistry official motivation will center on Research Area M, defined as metal-organic frameworks or closely equivalent porous crystalline framework chemistry. The field has strong long-run citations, applications, and multiple living senior pioneers, but the chemistry prize category rotates unpredictably across methods, materials, biological chemistry, applied discoveries, and other Nobel-plausible areas.",
+      "timeframe": "pre-award_2025",
+      "scenario_key": "resolved_002",
+      "evidence_scope": [
+        "source_1_field_note_2025_09_15",
+        "source_2_forecast_risk_note_2025_09_15",
+        "source_3_endpoint_note_2025_09_15"
+      ],
+      "endpoint_definition": "Count yes only if official prize motivation centers on metal-organic frameworks or equivalent framework chemistry.",
+      "initial_uncertainty": "high_due_to_hidden_committee_process_and_broad_competing_fields"
+    },
+    "branch_hypotheses": [
+      {
+        "trigger": "Pre-announcement signals or final citation emphasize porous crystalline framework invention lineage and broad utility.",
+        "branch_key": "committee_prefers_materials_architecture_breakthrough",
+        "alternate_path": "Research Area M receives award-centered motivation.",
+        "divergence_signal": "Official wording names metal-organic frameworks or closely equivalent framework chemistry as core prize rationale."
+      },
+      {
+        "trigger": "Selector preference for methods, biological chemistry, batteries, catalysis, or microscopy-adjacent work dominates final deliberation.",
+        "branch_key": "committee_rotates_to_other_domain",
+        "alternate_path": "Prize goes to a non-Research-Area-M domain.",
+        "divergence_signal": "Announcement motivation centers another chemistry area with no MOF-equivalent framing."
+      },
+      {
+        "trigger": "Award touches adjacent porous materials or framework concepts but not clearly MOF-centered rationale.",
+        "branch_key": "boundary_dispute_without_true_yes",
+        "alternate_path": "Public debate increases while formal endpoint remains no under strict definition.",
+        "divergence_signal": "Media or observers argue partial match, but official motivation lacks central MOF-equivalent language."
+      },
+      {
+        "trigger": "Committee gives extra weight to recognition urgency for still-living pioneers.",
+        "branch_key": "living_pioneer_timing_window_matters",
+        "alternate_path": "Research Area M probability rises late relative to equally strong but less time-sensitive areas.",
+        "divergence_signal": "Post-announcement commentary or citation framing emphasizes lifetime contribution timing."
+      }
+    ],
+    "sociology_baseline": [
+      {
+        "level": 0.58,
+        "model": "attention_decay",
+        "scope": "observer_ecosystem",
+        "evidence": "Observers update within familiar priors about Nobel patterns and field prestige.",
+        "mechanism": "bounded_confidence"
+      },
+      {
+        "level": 0.16,
+        "model": "attention_decay",
+        "scope": "research_communities",
+        "evidence": "Scenario lacks activist dynamics; expression remains mostly observational.",
+        "mechanism": "threshold_mobilization"
+      },
+      {
+        "level": 0.47,
+        "model": "attention_decay",
+        "scope": "research_area_m_community",
+        "evidence": "Many insiders may privately favor the field while speaking cautiously due to uncertainty and norms.",
+        "mechanism": "public_silence"
+      },
+      {
+        "level": 0.61,
+        "model": "attention_decay",
+        "scope": "scientific_fields",
+        "evidence": "Field-specific communities overweight their own domain's significance.",
+        "mechanism": "homophily"
+      },
+      {
+        "level": 0.22,
+        "model": "attention_decay",
+        "scope": "forecast_narratives",
+        "evidence": "A consensus candidate can spread through repeated expert/media mention, but hidden committee process limits reinforcement strength.",
+        "mechanism": "complex_contagion"
+      },
+      {
+        "level": 0.54,
+        "model": "attention_decay",
+        "scope": "disciplinary_communities",
+        "evidence": "Field affiliation shapes perceived deservedness and endpoint plausibility.",
+        "mechanism": "social_identity"
+      },
+      {
+        "level": 0.31,
+        "model": "attention_decay",
+        "scope": "observer_ecosystem",
+        "evidence": "Attention is elevated near award timing but not at permanent peak before announcement.",
+        "mechanism": "attention_decay"
+      }
+    ],
+    "important_questions": [
+      "Will the 2025 Nobel Prize in Chemistry official motivation center on metal-organic frameworks or closely equivalent porous crystalline framework chemistry?",
+      "If the prize touches related materials science, will the official motivation language satisfy the scenario's strict yes boundary for Research Area M?",
+      "Will one of the listed competing Nobel-plausible chemistry areas receive the prize instead of Research Area M?"
+    ],
+    "emotion_observations": [],
+    "population_archetypes": [
+      {
+        "archetype": "chemistry_observer_ecosystem",
+        "description": "Public-facing and expert observers tracking Nobel possibilities in chemistry.",
+        "population_total": 5000
+      },
+      {
+        "archetype": "research_area_m_community",
+        "description": "Scientists closely affiliated with Research Area M and adjacent porous framework chemistry.",
+        "population_total": 12000
+      },
+      {
+        "archetype": "broader_chemistry_community",
+        "description": "Scientists in other chemistry domains with varying interest in the award.",
+        "population_total": 150000
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "effect": "Observers should distinguish general porous materials recognition from explicit MOF-centered prize language.",
+        "context_key": "official_motivation_is_decisive"
+      },
+      {
+        "effect": "Public narratives have limited direct access to selector intent.",
+        "context_key": "hidden_shortlist"
+      },
+      {
+        "effect": "Historical alternation across chemistry subdomains weakens single-field dominance assumptions.",
+        "context_key": "category_rotation"
+      },
+      {
+        "effect": "Presence of multiple living senior pioneers increases endpoint plausibility relative to posthumous constraints.",
+        "context_key": "living_pioneer_window"
+      },
+      {
+        "effect": "Broad applications support award-worthiness but do not determine timing.",
+        "context_key": "application_breadth_signal"
+      }
+    ]
+  }
+}

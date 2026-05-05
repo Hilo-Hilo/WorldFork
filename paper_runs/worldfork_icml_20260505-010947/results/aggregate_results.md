@@ -11,6 +11,7 @@ Generated: 2026-05-05 01:53 UTC
 - E2 direct baselines: complete for 24 resolved cards x 2 conditions.
 - E3 tick/report smoke: `resolved_003` ran one synchronous tick and generated reports in 408.49 seconds.
 - E3 queue smoke: `resolved_004` ran through Celery `worldfork.execute_job`, completed one tick and generated reports after a 219.47 second job wait.
+- E1 queued initializer batch: `resolved_001`, `resolved_002`, `resolved_005`, and `resolved_006` completed as parallel p1 jobs; all captured initialized actors, traits, graphs, sociology baseline, emotion baseline, logs, and workspace.
 
 ## Forecast Scores
 
@@ -27,10 +28,11 @@ Generated: 2026-05-05 01:53 UTC
 - E3 tick/report smoke used runtime-only Codex routing because the OpenRouter key in the local environment is a placeholder. It produced 14/14 succeeded LLM calls, 174,427 reported tokens, 655.4009 aggregate LLM seconds, one report version, and one final report version.
 - The E3 smoke used synchronous `run-until-complete`; Celery queues remained idle, so this result does not test queue-concurrency tuning.
 - The queued E3 smoke produced 12/12 succeeded LLM calls, 143,700 reported tokens, 445.3739 aggregate LLM seconds, two report records, and four ledgers. Queue telemetry showed one active p1 task, so single-case queue execution is functional but not inherently parallel within the case.
+- The E1 queued initializer batch produced four successful initialization jobs. Actor counts were 11, 7, 9, and 8 respectively. Because jobs were submitted before waiting, the last three had near-zero wait times after the first 148.14 second wait returned.
 
 ## Pending Results
 
-- Full E1 initialization screen on 108 public cards.
+- Full E1 initialization screen on 108 public cards; six live initializations are now evidenced, but full coverage is pending.
 - Full E3 WorldFork short resolved no-branch and branching runs.
 - E4 long-horizon audit runs.
 - E5 social-state/emotion audit.
