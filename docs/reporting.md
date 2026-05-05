@@ -114,7 +114,10 @@ If the first report-agent LLM attempt fails after the normal LLM retry policy, t
 
 ## Continuing A Multiverse
 
-When a multiverse reaches `max_ticks`, it becomes terminal and reportable. To continue it, set a larger tick limit:
+`max_ticks` is a cap. A multiverse can become terminal earlier when the God agent
+marks it ready for report after endpoint evidence resolves; if no terminal
+decision happens first, reaching `max_ticks` also makes it terminal and
+reportable. To continue it, set a larger tick limit:
 
 ```bash
 worldfork query POST /api/multiverses/<multiverse-id>/continue \

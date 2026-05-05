@@ -346,7 +346,7 @@ Canonical job types include:
 | `initialize_big_bang` | `p1` | Queue-backed initialization path |
 | `run_multiverse_tick` | `p0` | Run or resume one tick for one multiverse |
 | `simulate_multiverse_ticks` | `p0` | Run multiple ticks for one multiverse |
-| `run_big_bang_until_complete` | `p1` | Drain active multiverses until terminal, then report |
+| `run_big_bang_until_complete` | `p1` | Drain active multiverses until terminal status, then report |
 | `generate_multiverse_report` | `p2` | Generate one terminal multiverse report |
 | `generate_final_big_bang_report` | `p2` | Generate final cross-multiverse report |
 | `evaluate_endpoint_ledger` | `p2` | Re-evaluate endpoint ledgers |
@@ -357,6 +357,12 @@ multiplier of `1` so a worker does not reserve a large hidden backlog.
 
 The canonical persisted job path is separate from older envelope-style worker
 tasks that still exist for legacy/split-task deployments.
+
+Tick limits are caps, not required stopping points. If the God agent determines
+that a timeline has resolved and emits `mark_ready_for_report`, the multiverse
+is marked `completed` and `run_big_bang_until_complete` can stop before the
+configured `max_ticks`. Endpoint-ledger evaluation records terminality evidence,
+but the completion loop stops on multiverse status.
 
 ## Job Lifecycle
 
