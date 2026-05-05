@@ -450,6 +450,17 @@ def _manifest_run_job_ids(path: Path) -> set[str]:
     return {str(row.get("run_job_id") or "") for row in read_jsonl(path) if row.get("run_job_id")}
 
 
+def _manifest_run_job_statuses(path: Path) -> dict[str, str]:
+    if not path.exists():
+        return {}
+    statuses: dict[str, str] = {}
+    for row in read_jsonl(path):
+        run_job_id = str(row.get("run_job_id") or "")
+        if run_job_id:
+            statuses[run_job_id] = str(row.get("status") or "")
+    return statuses
+
+
 def _worldfork_resume_targets(
     *,
     source_predictions: Path,
@@ -1276,7 +1287,7 @@ def collect_worldfork_short_existing(args: argparse.Namespace) -> None:
     output = _prediction_output_path(run_root, args.prediction_output)
     manifest = run_root / "manifests/worldfork_short_manifest.jsonl"
     predictions = _prediction_rows_by_key(output, route_policy_id=args.route_policy_id)
-    manifested_run_jobs = _manifest_run_job_ids(manifest)
+    manifested_run_job_statuses = _manifest_run_job_statuses(manifest)
 
     matrix = json.loads(RUN_MATRIX.read_text(encoding="utf-8"))
     default_ids = matrix["case_groups"]["worldfork_resolved_core12_fallback" if args.core12 else "resolved_24"]
@@ -1313,7 +1324,13 @@ def collect_worldfork_short_existing(args: argparse.Namespace) -> None:
                     append_jsonl(output, prediction)
                     predictions[key] = prediction
 
-            if run_job_id not in manifested_run_jobs or args.force:
+            previous_manifest_status = manifested_run_job_statuses.get(run_job_id)
+            should_append_manifest = (
+                args.force
+                or previous_manifest_status is None
+                or (status == "completed" and previous_manifest_status != "completed")
+            )
+            if should_append_manifest:
                 append_jsonl(
                     manifest,
                     worldfork_short_manifest_row(
@@ -1335,7 +1352,7 @@ def collect_worldfork_short_existing(args: argparse.Namespace) -> None:
                         prediction_output=_display_run_path(output, run_root),
                     ),
                 )
-                manifested_run_jobs.add(run_job_id)
+                manifested_run_job_statuses[run_job_id] = status
             print(json.dumps({"case_id": case_id, "condition": condition, "status": status, "ticks_run": result_payload.get("ticks_run")}))
 
 

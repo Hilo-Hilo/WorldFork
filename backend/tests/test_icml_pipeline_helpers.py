@@ -256,6 +256,21 @@ def test_manifest_run_job_ids_reads_existing_rows(tmp_path: Path) -> None:
     assert pipeline._manifest_run_job_ids(tmp_path / "missing.jsonl") == set()
 
 
+def test_manifest_run_job_statuses_keep_latest_status(tmp_path: Path) -> None:
+    pipeline = load_icml_pipeline()
+    manifest = tmp_path / "worldfork_short_manifest.jsonl"
+    pipeline.append_jsonl(manifest, {"run_job_id": "job-1", "status": "failed"})
+    pipeline.append_jsonl(manifest, {"run_job_id": "job-1", "status": "completed"})
+    pipeline.append_jsonl(manifest, {"run_job_id": "job-2", "status": "failed"})
+    pipeline.append_jsonl(manifest, {"status": "missing"})
+
+    assert pipeline._manifest_run_job_statuses(manifest) == {
+        "job-1": "completed",
+        "job-2": "failed",
+    }
+    assert pipeline._manifest_run_job_statuses(tmp_path / "missing.jsonl") == {}
+
+
 def test_artifact_wait_seconds_reads_terminal_job_artifact(tmp_path: Path) -> None:
     pipeline = load_icml_pipeline()
     wait_path = tmp_path / "run_job_wait.json"
