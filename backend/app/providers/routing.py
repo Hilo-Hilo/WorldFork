@@ -36,11 +36,11 @@ _MODEL_SETTING_BY_JOB_TYPE = {
 def _default_entry(job_type: JobType) -> ModelRoutingEntry:
     """Return a sane default :class:`ModelRoutingEntry` for *job_type*."""
     model_setting = _MODEL_SETTING_BY_JOB_TYPE.get(job_type)
-    provider = settings.default_llm_provider
     model = str(
         getattr(settings, model_setting, None) if model_setting is not None else settings.default_model
     )
     model = model or settings.default_model
+    provider = _default_provider_for_model(model, model_setting)
     return ModelRoutingEntry(
         job_type=job_type,
         preferred_provider=provider,
@@ -57,6 +57,12 @@ def _default_entry(job_type: JobType) -> ModelRoutingEntry:
         retry_policy="exponential_backoff",
         daily_budget_usd=None,
     )
+
+
+def _default_provider_for_model(model: str, model_setting: str | None) -> str:
+    if model_setting is not None and model == settings.openai_codex_default_model:
+        return "openai-codex"
+    return str(settings.default_llm_provider)
 
 
 _ALL_JOB_TYPES: tuple[JobType, ...] = (

@@ -969,6 +969,186 @@ def test_openrouter_requests_json_object_when_schema_is_absent(monkeypatch):
     assert captured["timeout"] == 7
 
 
+def test_openrouter_wraps_raw_json_schema_response_format(monkeypatch):
+    captured = {}
+
+    class FakeResponse:
+        def raise_for_status(self):
+            pass
+
+        def json(self):
+            return {"choices": [{"message": {"content": '{"decision": "continue"}'}}]}
+
+    class FakeClient:
+        def __init__(self, timeout):
+            self.timeout = timeout
+
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, exc_type, exc, tb):
+            return None
+
+        async def post(self, url, *, headers, json):
+            captured["payload"] = json
+            return FakeResponse()
+
+    settings = SimpleNamespace(
+        openrouter_api_key="test-key",
+        default_model="default-model",
+        openrouter_chat_completions_url="https://openrouter.test/chat",
+    )
+    monkeypatch.setattr(openrouter_provider, "get_settings", lambda: settings)
+    monkeypatch.setattr(openrouter_provider.httpx, "AsyncClient", FakeClient)
+
+    raw_schema = {
+        "type": "object",
+        "properties": {"decision": {"type": "string"}},
+        "required": ["decision"],
+        "additionalProperties": False,
+    }
+
+    asyncio.run(
+        openrouter_provider.OpenRouterProvider().complete(
+            LLMRequest(
+                purpose="initializer agent",
+                model="minimax/minimax-m2.7",
+                messages=[{"role": "user", "content": "Return JSON."}],
+                json_schema=raw_schema,
+                metadata={"openrouter_require_parameters": True},
+            )
+        )
+    )
+
+    assert captured["payload"]["response_format"] == {
+        "type": "json_schema",
+        "json_schema": {
+            "name": "initializer_agent",
+            "strict": True,
+            "schema": raw_schema,
+        },
+    }
+    assert captured["payload"]["provider"] == {"require_parameters": True}
+
+
+def test_openrouter_can_force_json_object_for_provider_compatibility(monkeypatch):
+    captured = {}
+
+    class FakeResponse:
+        def raise_for_status(self):
+            pass
+
+        def json(self):
+            return {"choices": [{"message": {"content": '{"decision": "continue"}'}}]}
+
+    class FakeClient:
+        def __init__(self, timeout):
+            self.timeout = timeout
+
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, exc_type, exc, tb):
+            return None
+
+        async def post(self, url, *, headers, json):
+            captured["payload"] = json
+            return FakeResponse()
+
+    settings = SimpleNamespace(
+        openrouter_api_key="test-key",
+        default_model="default-model",
+        openrouter_chat_completions_url="https://openrouter.test/chat",
+    )
+    monkeypatch.setattr(openrouter_provider, "get_settings", lambda: settings)
+    monkeypatch.setattr(openrouter_provider.httpx, "AsyncClient", FakeClient)
+
+    asyncio.run(
+        openrouter_provider.OpenRouterProvider().complete(
+            LLMRequest(
+                purpose="initializer_agent",
+                model="minimax/minimax-m2.7",
+                messages=[{"role": "user", "content": "Return JSON."}],
+                json_schema={"type": "object", "properties": {}},
+                metadata={
+                    "openrouter_response_format": "json_object",
+                    "openrouter_provider": {"allow_fallbacks": False},
+                },
+            )
+        )
+    )
+
+    assert captured["payload"]["response_format"] == {"type": "json_object"}
+    assert captured["payload"]["provider"] == {"allow_fallbacks": False}
+
+
+def test_openrouter_retries_schema_format_errors_as_json_object(monkeypatch):
+    captured = {"payloads": []}
+
+    class SchemaErrorResponse:
+        status_code = 400
+        reason_phrase = "Bad Request"
+        text = '{"error":{"message":"response_format: missing field json_schema"}}'
+
+        def raise_for_status(self):
+            request = openrouter_provider.httpx.Request("POST", "https://openrouter.test/chat")
+            response = openrouter_provider.httpx.Response(
+                status_code=400,
+                request=request,
+                text=self.text,
+            )
+            raise openrouter_provider.httpx.HTTPStatusError(
+                "Bad Request",
+                request=request,
+                response=response,
+            )
+
+    class SuccessResponse:
+        def raise_for_status(self):
+            pass
+
+        def json(self):
+            return {"choices": [{"message": {"content": '{"decision": "continue"}'}}]}
+
+    class FakeClient:
+        def __init__(self, timeout):
+            self.timeout = timeout
+            self.responses = [SchemaErrorResponse(), SuccessResponse()]
+
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, exc_type, exc, tb):
+            return None
+
+        async def post(self, url, *, headers, json):
+            captured["payloads"].append(json)
+            return self.responses.pop(0)
+
+    settings = SimpleNamespace(
+        openrouter_api_key="test-key",
+        default_model="default-model",
+        openrouter_chat_completions_url="https://openrouter.test/chat",
+    )
+    monkeypatch.setattr(openrouter_provider, "get_settings", lambda: settings)
+    monkeypatch.setattr(openrouter_provider.httpx, "AsyncClient", FakeClient)
+
+    response = asyncio.run(
+        openrouter_provider.OpenRouterProvider().complete(
+            LLMRequest(
+                purpose="initializer_agent",
+                model="minimax/minimax-m2.7",
+                messages=[{"role": "user", "content": "Return JSON."}],
+                json_schema={"type": "object", "properties": {}},
+            )
+        )
+    )
+
+    assert response.content == '{"decision": "continue"}'
+    assert captured["payloads"][0]["response_format"]["type"] == "json_schema"
+    assert captured["payloads"][1]["response_format"] == {"type": "json_object"}
+
+
 def test_openrouter_preserves_null_content_as_empty_response(monkeypatch):
     class FakeResponse:
         def raise_for_status(self):

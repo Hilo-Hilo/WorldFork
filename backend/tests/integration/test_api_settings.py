@@ -403,7 +403,7 @@ async def test_get_model_routing_empty(client):
         "report_agent": settings.report_agent_model,
     }
     for route, expected_model in expected_route_models.items():
-        assert effective[route]["preferred_provider"] == "openrouter"
+        assert effective[route]["preferred_provider"] == "openai-codex"
         assert effective[route]["preferred_model"] == expected_model
     assert {route["route"] for route in data["known_routes"]} >= {
         "initializer_agent",
