@@ -683,7 +683,12 @@ If forced smaller, the minimum defensible long-horizon set is these 6:
 
 ### 9.2 Long-horizon config
 
-Target 35 ticks. Minimum acceptable: 30 ticks. Use 35 unless a run repeatedly fails.
+Use 35 ticks as a maximum cap, not a mandatory stopping point. If all active
+multiverses reach a terminal endpoint ledger and the God agent marks them ready
+for report earlier, freeze those artifacts and stop. If endpoint ledgers remain
+materially unresolved near 30 ticks, prefer resuming the same Big Bang toward
+the 35-tick cap over reinitializing; only downgrade below 30 after repeated
+runtime failures that are documented in `failures.md`.
 
 ```json
 {"max_branch_depth":3,"max_active_multiverses":8,"max_branches_per_tick":2,"branch_score_threshold":0.75}
