@@ -48,6 +48,20 @@ E3 smoke case `resolved_003` completed one synchronous tick plus report generati
 - Reported total tokens: 174,427
 - Reported aggregate LLM seconds: 655.4009
 
+E3 queue smoke case `resolved_004` completed one queued `run_big_bang_until_complete` job through Celery p1.
+
+- Big Bang ID: `ca19adac-8899-42d6-8a6a-503509f72bd1`
+- Job ID: `38fbc8bf-e031-48e1-8282-f1c56f947048`
+- Init wall time: 131.22 seconds
+- Job wait wall time: 219.47 seconds
+- Ticks run by job: 1
+- Multiverse count: 1
+- Final report version ID: `5a04a01e-52aa-45b2-94a0-cfb7de676aaa`
+- LLM calls: 12 succeeded, 0 failed
+- Reported total tokens: 143,700
+- Reported aggregate LLM seconds: 445.3739
+- Queue telemetry during run: one active p1 task; p0/p2/p3 idle
+
 ## Runtime Routing Override
 
 The local OpenRouter key is a placeholder, so the smoke run used a runtime-only model-routing override that routes all configured job types to `openai-codex` / `gpt-5.4`.

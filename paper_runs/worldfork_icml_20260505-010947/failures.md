@@ -9,7 +9,7 @@
 ## Not Yet Complete
 
 - E1 initialization screen on 108 public cards. A single smoke case (`resolved_003`) completed successfully in 146.20 seconds.
-- E3 full WorldFork short resolved no-branch and branching runs. A one-tick/report smoke completed for `resolved_003` in 408.49 seconds, but it is not full coverage.
+- E3 full WorldFork short resolved no-branch and branching runs. One synchronous tick/report smoke completed for `resolved_003` in 408.49 seconds, and one queued tick/report smoke completed for `resolved_004` after a 219.47 second job wait, but neither is full coverage.
 - E4 long-horizon audit runs.
 - E5 social-state/emotion audit.
 - Optional social ablation and branch-threshold sweep.

@@ -1,0 +1,249 @@
+{
+  "ok": true,
+  "data": {
+    "currency": "USD",
+    "pricing": {
+      "provider": "openrouter",
+      "status": "ok",
+      "source": "https://openrouter.ai/api/v1/models"
+    },
+    "call_count": 12,
+    "tokens": {
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "total_tokens": 143700,
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "reasoning_tokens": 0
+    },
+    "actual": {
+      "openrouter_usd": 0.0
+    },
+    "estimated": {
+      "openrouter_missing_usage_usd": 0.0,
+      "non_openrouter_usd": 0.0,
+      "including_non_openrouter_usd": 0.0
+    },
+    "time_actual": {
+      "total_llm_duration_seconds": 445.3739,
+      "max_llm_duration_seconds": 130.9769
+    },
+    "by_agent": {
+      "initializer_agent": {
+        "calls": 1,
+        "total_tokens": 9453,
+        "actual_openrouter_usd": 0.0,
+        "estimated_usd": 0.0,
+        "unknown_usd_calls": 0
+      },
+      "cohort_agent": {
+        "calls": 7,
+        "total_tokens": 87802,
+        "actual_openrouter_usd": 0.0,
+        "estimated_usd": 0.0,
+        "unknown_usd_calls": 0
+      },
+      "event_summary": {
+        "calls": 1,
+        "total_tokens": 3357,
+        "actual_openrouter_usd": 0.0,
+        "estimated_usd": 0.0,
+        "unknown_usd_calls": 0
+      },
+      "god_agent": {
+        "calls": 1,
+        "total_tokens": 24861,
+        "actual_openrouter_usd": 0.0,
+        "estimated_usd": 0.0,
+        "unknown_usd_calls": 0
+      },
+      "report_agent": {
+        "calls": 2,
+        "total_tokens": 18227,
+        "actual_openrouter_usd": 0.0,
+        "estimated_usd": 0.0,
+        "unknown_usd_calls": 0
+      }
+    },
+    "by_model": {
+      "openai-codex/gpt-5.4": {
+        "calls": 12,
+        "total_tokens": 143700,
+        "actual_openrouter_usd": 0.0,
+        "estimated_usd": 0.0,
+        "unknown_usd_calls": 0
+      }
+    },
+    "calls": [
+      {
+        "id": "84fef92e-f8de-4e43-8999-6c580efd8953",
+        "purpose": "initializer_agent_ca19adac-8899-42d6-8a6a-503509f72bd1",
+        "agent_type": "initializer_agent",
+        "provider": "openai-codex",
+        "model": "gpt-5.4",
+        "status": "succeeded",
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 9453,
+        "actual_openrouter_usd": null,
+        "estimated_usd": 0.0,
+        "duration_seconds": 130.9769
+      },
+      {
+        "id": "463b220c-da3f-453f-8d45-1b6fd7401abd",
+        "purpose": "agent_entity_0122c95c-cd56-46ae-904d-7d990087c755_tick_1",
+        "agent_type": "cohort_agent",
+        "provider": "openai-codex",
+        "model": "gpt-5.4",
+        "status": "succeeded",
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 12586,
+        "actual_openrouter_usd": null,
+        "estimated_usd": 0.0,
+        "duration_seconds": 17.0447
+      },
+      {
+        "id": "673bdc80-9392-464e-a5c0-f86834300c4d",
+        "purpose": "agent_entity_12e8bfb5-468a-4fb7-a196-11a0521cdddb_tick_1",
+        "agent_type": "cohort_agent",
+        "provider": "openai-codex",
+        "model": "gpt-5.4",
+        "status": "succeeded",
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 12550,
+        "actual_openrouter_usd": null,
+        "estimated_usd": 0.0,
+        "duration_seconds": 15.4057
+      },
+      {
+        "id": "90f34b07-4a5c-48c0-9db1-d044b9d9e865",
+        "purpose": "agent_entity_b3490664-2f4b-42d8-918a-cb878ce1a8bc_tick_1",
+        "agent_type": "cohort_agent",
+        "provider": "openai-codex",
+        "model": "gpt-5.4",
+        "status": "succeeded",
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 12547,
+        "actual_openrouter_usd": null,
+        "estimated_usd": 0.0,
+        "duration_seconds": 17.0708
+      },
+      {
+        "id": "acf40b29-703e-4b7b-a27f-e70fe38e3a10",
+        "purpose": "agent_entity_7b6a3f47-5c12-4d58-a231-7da5255334ba_tick_1",
+        "agent_type": "cohort_agent",
+        "provider": "openai-codex",
+        "model": "gpt-5.4",
+        "status": "succeeded",
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 12626,
+        "actual_openrouter_usd": null,
+        "estimated_usd": 0.0,
+        "duration_seconds": 24.0656
+      },
+      {
+        "id": "c06e0ae6-e4cd-4b93-9ea8-e42fc4029761",
+        "purpose": "agent_entity_c86b9d32-7aa2-408b-85bb-84eb8c5e2d92_tick_1",
+        "agent_type": "cohort_agent",
+        "provider": "openai-codex",
+        "model": "gpt-5.4",
+        "status": "succeeded",
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 12466,
+        "actual_openrouter_usd": null,
+        "estimated_usd": 0.0,
+        "duration_seconds": 12.0284
+      },
+      {
+        "id": "01519f60-3198-4852-9370-567e63368a8e",
+        "purpose": "agent_entity_f7e0d519-ffb8-43f9-aee9-bba9787cb64e_tick_1",
+        "agent_type": "cohort_agent",
+        "provider": "openai-codex",
+        "model": "gpt-5.4",
+        "status": "succeeded",
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 12469,
+        "actual_openrouter_usd": null,
+        "estimated_usd": 0.0,
+        "duration_seconds": 17.1139
+      },
+      {
+        "id": "a258ad2f-2163-4684-ba87-0bb195a4b9ee",
+        "purpose": "agent_entity_7df423f3-d10f-43ef-ac9b-43aa41791ccd_tick_1",
+        "agent_type": "cohort_agent",
+        "provider": "openai-codex",
+        "model": "gpt-5.4",
+        "status": "succeeded",
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 12558,
+        "actual_openrouter_usd": null,
+        "estimated_usd": 0.0,
+        "duration_seconds": 17.294
+      },
+      {
+        "id": "7f53e24b-c8ef-410a-ad44-3ea1fc00d401",
+        "purpose": "event_summary_tick_45d60744-cd4c-4006-b506-0a38315a475a_v1",
+        "agent_type": "event_summary",
+        "provider": "openai-codex",
+        "model": "gpt-5.4",
+        "status": "succeeded",
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 3357,
+        "actual_openrouter_usd": null,
+        "estimated_usd": 0.0,
+        "duration_seconds": 26.222
+      },
+      {
+        "id": "94b73a68-a71d-41da-b686-582abd43f583",
+        "purpose": "god_review_ba4c6b27-622a-4057-a6c1-e7db7f579bdd_tick_1_iter_1",
+        "agent_type": "god_agent",
+        "provider": "openai-codex",
+        "model": "gpt-5.4",
+        "status": "succeeded",
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 24861,
+        "actual_openrouter_usd": null,
+        "estimated_usd": 0.0,
+        "duration_seconds": 27.5438
+      },
+      {
+        "id": "4de9dd90-26ea-4a65-a605-9788a1630cb6",
+        "purpose": "report_agent_multiverse_ba4c6b27-622a-4057-a6c1-e7db7f579bdd_1_standard_attempt_1",
+        "agent_type": "report_agent",
+        "provider": "openai-codex",
+        "model": "gpt-5.4",
+        "status": "succeeded",
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 8032,
+        "actual_openrouter_usd": null,
+        "estimated_usd": 0.0,
+        "duration_seconds": 76.8853
+      },
+      {
+        "id": "22b6a90b-ea30-4d71-9f45-7e66c46305bc",
+        "purpose": "report_agent_final_big_bang_ca19adac-8899-42d6-8a6a-503509f72bd1_1_standard_attempt_1",
+        "agent_type": "report_agent",
+        "provider": "openai-codex",
+        "model": "gpt-5.4",
+        "status": "succeeded",
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 10195,
+        "actual_openrouter_usd": null,
+        "estimated_usd": 0.0,
+        "duration_seconds": 63.7228
+      }
+    ]
+  },
+  "meta": {}
+}

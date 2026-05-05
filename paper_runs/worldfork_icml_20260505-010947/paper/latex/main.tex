@@ -1,0 +1,133 @@
+\documentclass{article}
+
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+\usepackage{icml2026}
+
+\icmltitlerunning{Auditable Branching World Models for Forecasting}
+
+\begin{document}
+
+\twocolumn[
+\icmltitle{WorldFork: Auditable Branching Socio-Institutional\\World Models for LLM Forecasting Agents}
+
+\begin{icmlauthorlist}
+\icmlauthor{Anonymous Authors}{anon}
+\end{icmlauthorlist}
+\icmlaffiliation{anon}{Anonymous Institution}
+\icmlcorrespondingauthor{Anonymous Authors}{anonymous@example.com}
+\icmlkeywords{forecasting, agents, world models, evaluation, uncertainty}
+
+\vskip 0.3in
+]
+
+\printAffiliationsAndNotice{}
+
+\begin{abstract}
+LLM forecasting systems usually return a probability and rationale, but they rarely expose the counterfactual rollouts, endpoint evidence, social assumptions, and unresolved uncertainty behind that forecast. We present WorldFork, a forecasting protocol that turns a scenario into checkpointed timelines with branch lineage, endpoint ledgers, path mass, report provenance, and explicit socio-institutional state. We build an evaluation package with 108 public initialization and audit cards, a 24-card retrospective resolved forecasting pilot, and long-horizon branch-stress tasks for lineage and report grounding. In the current run, static leakage checks pass, source fetch verification succeeds for 36 of 40 resolution URLs, direct LLM baselines complete on all 24 resolved cards, and live WorldFork smoke runs validate initialization plus tick/report execution. The evidence so far supports WorldFork as an auditable forecast artifact rather than an established accuracy improvement; the remaining full WorldFork forecast and long-horizon runs are required before making stronger Brier-score claims.
+\end{abstract}
+
+\section{Introduction}
+
+Forecasting is increasingly used to test whether general-purpose AI systems can reason under uncertainty about the real world. A useful forecast, however, is more than a scalar probability: proper scoring rules measure accuracy \citep{brier1950verification,gneiting2007strictly}, while forecasting practice also depends on exposing assumptions and uncertainty \citep{tetlock2015superforecasting}. Institutional and social events depend on actors, authorities, incentives, trust and dependency relationships, procedural deadlines, information flows, and unresolved evidence. Single-shot LLM forecasts can mention these factors in prose, but their internal assumptions are difficult to audit or compare after the fact.
+
+WorldFork addresses this gap by representing a forecast as an auditable branching world model. A scenario is initialized into actors, cohorts, candidate endpoints, graph layers, and initial socio-institutional state. The runtime advances timelines in ticks, forks alternate continuations when mechanisms diverge, tracks endpoint evidence in ledgers, records path mass, and generates reports with provenance. The purpose is not to claim that branching simulation automatically improves probabilistic accuracy. The purpose is to expose the forecast object: which assumptions led to which endpoint mass, where uncertainty remained, and which report claims are grounded in logged artifacts.
+
+This paper makes three contributions. First, it specifies a branching forecast protocol with checkpointed Big Bangs, ticks, branch lineage, endpoint ledgers, path mass, and report provenance. Second, it treats socio-institutional state as audit data: actors, cohorts, trust/dependency/conflict/influence/coalition/exposure graphs, sociology signals, source packets, and bounded emotion observations. Third, it provides a pilot benchmark and evaluation workflow covering initialization quality, resolved forecast scoring, long-horizon audit metrics, and social-state consistency.
+
+\section{Method}
+
+\textbf{Initialization.} A public scenario card is converted into a Big Bang containing typed actors and cohorts, scenario constraints, candidate endpoints, graph layers, and initial social state. For resolved forecast cards, endpoints are binary yes/no outcomes. For dossier and calibration cards, endpoints include institutional resolutions plus unresolved or abstention states. Initialization is scored for schema completeness, actor recall, authority fidelity, constraint preservation, endpoint extraction, graph quality, prompt-injection resistance, and uncertainty honesty.
+
+\textbf{Ticks and branches.} A multiverse advances in ticks. Each tick updates actor positions, social signals, events, endpoint evidence, and logs. A branch policy controls maximum depth, active multiverses, branches per tick, and branch-score threshold. Short resolved runs compare no-branch and branching policies. Long-horizon runs stress whether lineage, branch locality, path mass, and endpoint ledgers remain inspectable over many ticks.
+
+\textbf{Endpoint ledgers and reports.} Endpoint ledgers track whether candidate endpoints are supported, contradicted, unresolved, or not yet checkable. Reports are scored by sampling claims and verifying support from ticks, ledgers, logs, or source packets. For resolved scoring, yes/no probability is normalized over yes and no when unresolved mass is present; unresolved mass is still reported separately.
+
+\textbf{Socio-institutional state.} WorldFork models social assumptions as audit state, not validated psychology. Graph layers and sociology signals are useful only when they make branch divergence or report claims traceable. Emotion observations are bounded logged variables and should not be interpreted as hidden human affect.
+
+\begin{figure}[t]
+\centering
+\fbox{\begin{minipage}{0.94\columnwidth}
+\centering
+\scriptsize
+Scenario card $\rightarrow$ Big Bang initialization\\
+$\downarrow$\\
+Actors, endpoints, constraints, graph/social state\\
+$\downarrow$\\
+Ticked multiverses $\rightarrow$ branch policy $\rightarrow$ alternate timelines\\
+$\downarrow$\\
+Endpoint ledgers + path mass + logs\\
+$\downarrow$\\
+Final forecast/report with provenance
+\end{minipage}}
+\caption{WorldFork represents a forecast as a set of inspectable runtime artifacts rather than only a probability and rationale.}
+\label{fig:protocol}
+\end{figure}
+
+\section{Benchmark and Metrics}
+
+The benchmark contains 108 public cards: 72 existing synthetic WorldFork stress prompts and 36 added forecasting cards. The add-on contains 24 retrospective resolved forecast cards, 8 longform source-packet dossiers, and 4 adversarial/calibration cards. Private resolutions and gold checklists are withheld from forecast-producing systems until forecasts are frozen.
+
+\begin{table}[t]
+\centering
+\footnotesize
+\begin{tabular}{p{0.48\columnwidth}rp{0.28\columnwidth}}
+\toprule
+Group & Count & Primary use \\
+\midrule
+Synthetic stress cards & 72 & initialization and audit \\
+Resolved forecast cards & 24 & Brier/log scoring \\
+Longform dossiers & 8 & report and ledger grounding \\
+Adversarial calibration & 4 & uncertainty and injection tests \\
+\bottomrule
+\end{tabular}
+\caption{Benchmark composition for the ICML forecasting package.}
+\label{tab:composition}
+\end{table}
+
+Forecast accuracy on resolved cards uses binary Brier score $(p_{\mathrm{yes}}-y)^2$ and clamped negative log score. WorldFork outputs may assign mass to unresolved states; primary yes/no scoring normalizes over yes/no when possible and reports unresolved mass separately. Audit runs use 0--4 rubric scores for lineage integrity, branch locality, endpoint coverage, endpoint honesty, path-mass consistency, report grounding, failure observability, cost transparency, social-state consistency, and emotion observability.
+
+\section{Results}
+
+\textbf{Card QA.} Static package QA passes. The run contains 108 public cards, 36 private evaluation rows, matching public/private IDs, no private resolution fields in public cards, 24/24 resolved cards with at least one resolution source, and balanced private labels (12 yes, 12 no). Automated source fetching checked 40 resolution URLs: 36 fetched successfully and 4 were blocked or timed out. We therefore treat source validation as mostly complete but not final.
+
+\textbf{Direct baselines.} We ran two retrieval-free OpenAI Codex \texttt{gpt-5.4} direct baselines on all 24 resolved cards. The unstructured direct prompt achieved mean Brier 0.242492 and mean log score 0.701698. The structured direct prompt achieved mean Brier 0.238363 and mean log score 0.677498. Both baselines have zero unresolved mass because the output contract requires a normalized yes/no distribution.
+
+\begin{table}[t]
+\centering
+\footnotesize
+\begin{tabular}{lrrrr}
+\toprule
+Condition & $n$ & Brier & Log & Calls \\
+\midrule
+Direct LLM & 24 & 0.2425 & 0.7017 & 24 \\
+Structured & 24 & 0.2384 & 0.6775 & 24 \\
+WF no-branch & -- & -- & -- & pending \\
+WF branching & -- & -- & -- & pending \\
+\bottomrule
+\end{tabular}
+\caption{Resolved-card forecast scores. WorldFork rows are intentionally left pending until the full short-run conditions complete.}
+\label{tab:forecast}
+\end{table}
+
+\textbf{Live WorldFork smoke evidence.} Initialization on one resolved card completed in 146.20 seconds with 9 actors, 9 traits, graph state, sociology baseline, and emotion baseline present. A subsequent one-tick synchronous run plus report generation completed in 408.49 seconds, producing one tick, one multiverse, report artifacts, 14/14 successful LLM calls, 174,427 reported tokens, and 655.4009 aggregate LLM seconds. A second resolved-card smoke used the queued \texttt{/run-until-complete/jobs} path: initialization took 131.22 seconds, the queued job wait took 219.47 seconds, and 12/12 LLM calls succeeded. These smokes validate the synchronous and queued tick/report paths, but they are not scored E3 forecast results. Because the local OpenRouter value was a placeholder, live smoke runs used a runtime-only routing override to OpenAI Codex \texttt{gpt-5.4}.
+
+\textbf{Queue tuning.} The synchronous smoke left Celery queues idle. The queued smoke showed one active p1 \texttt{worldfork.execute\_job} task while p0/p2/p3 were idle. Thus Celery is functioning, but one case remains a long p1 job; queue tuning is most likely to improve throughput by running independent cases concurrently, subject to provider rate limits.
+
+\section{Limitations}
+
+The resolved cards are retrospective and use partial masking, so leakage cannot be ruled out. The synthetic and dossier cards test auditability and stress behavior rather than direct real-world forecasting accuracy. Social-state metrics are rubric-based and require evidence sampling. Emotion observations are audit variables, not validated human psychology. Current live evidence is a smoke run, not the full WorldFork forecast matrix; strong accuracy claims require the pending no-branch, branching, and long-horizon runs.
+
+\section{Conclusion}
+
+WorldFork is best viewed as an auditable forecasting substrate. Its value is the production of inspectable forecast artifacts: branch lineage, endpoint ledgers, path mass, report provenance, unresolved uncertainty, and social assumptions that can be checked after the fact. The current evidence supports the feasibility and scoring setup, while the final accuracy and auditability claims should be made only after the full WorldFork conditions are completed.
+
+\bibliography{refs}
+\bibliographystyle{icml2026}
+
+\end{document}

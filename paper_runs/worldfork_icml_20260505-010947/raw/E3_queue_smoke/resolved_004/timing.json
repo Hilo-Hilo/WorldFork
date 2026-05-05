@@ -1,0 +1,1174 @@
+{
+  "ok": true,
+  "data": {
+    "big_bang_id": "ca19adac-8899-42d6-8a6a-503509f72bd1",
+    "name": "E3_queue_smoke_resolved_004",
+    "status": "completed",
+    "created_at": "2026-05-05T01:45:07.639821+00:00",
+    "updated_at": "2026-05-05T01:50:33.718606+00:00",
+    "duration_seconds": 326.0788,
+    "initializer": {
+      "started_at": "2026-05-05T01:45:07.639821+00:00",
+      "finished_at": "2026-05-05T01:47:18.616675+00:00",
+      "duration_seconds": 130.9769,
+      "llm_calls": [
+        {
+          "id": "84fef92e-f8de-4e43-8999-6c580efd8953",
+          "purpose": "initializer_agent_ca19adac-8899-42d6-8a6a-503509f72bd1",
+          "provider": "openai-codex",
+          "model": "gpt-5.4",
+          "status": "succeeded",
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 9453,
+          "cost_usd": null,
+          "created_at": "2026-05-05T01:45:07.639821+00:00",
+          "updated_at": "2026-05-05T01:47:18.616675+00:00",
+          "duration_seconds": 130.9769,
+          "attempts": [
+            {
+              "model": "gpt-5.4",
+              "status": "succeeded",
+              "attempt": 1,
+              "provider": "openai-codex"
+            }
+          ],
+          "last_error": null
+        }
+      ],
+      "llm_summary": {
+        "total_calls": 1,
+        "status_counts": {
+          "succeeded": 1
+        },
+        "total_duration_seconds": 130.9769,
+        "max_duration_seconds": 130.9769,
+        "models": {
+          "openai-codex/gpt-5.4": 1
+        }
+      },
+      "cost_summary": {
+        "currency": "USD",
+        "pricing": {
+          "provider": "openrouter",
+          "status": "ok",
+          "source": "https://openrouter.ai/api/v1/models"
+        },
+        "call_count": 1,
+        "tokens": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 9453,
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "reasoning_tokens": 0
+        },
+        "actual": {
+          "openrouter_usd": 0.0
+        },
+        "estimated": {
+          "openrouter_missing_usage_usd": 0.0,
+          "non_openrouter_usd": 0.0,
+          "including_non_openrouter_usd": 0.0
+        },
+        "time_actual": {
+          "total_llm_duration_seconds": 130.9769,
+          "max_llm_duration_seconds": 130.9769
+        },
+        "by_agent": {
+          "initializer_agent": {
+            "calls": 1,
+            "total_tokens": 9453,
+            "actual_openrouter_usd": 0.0,
+            "estimated_usd": 0.0,
+            "unknown_usd_calls": 0
+          }
+        },
+        "by_model": {
+          "openai-codex/gpt-5.4": {
+            "calls": 1,
+            "total_tokens": 9453,
+            "actual_openrouter_usd": 0.0,
+            "estimated_usd": 0.0,
+            "unknown_usd_calls": 0
+          }
+        }
+      }
+    },
+    "jobs": [
+      {
+        "id": "38fbc8bf-e031-48e1-8282-f1c56f947048",
+        "job_type": "run_big_bang_until_complete",
+        "status": "succeeded",
+        "created_at": "2026-05-05T01:49:15.080126+00:00",
+        "queued_at": "2026-05-05T01:49:15.086424+00:00",
+        "started_at": "2026-05-05T01:49:15.228829+00:00",
+        "finished_at": "2026-05-05T01:52:54.473095+00:00",
+        "interrupted_at": null,
+        "duration_seconds": 219.2443
+      }
+    ],
+    "ticks": [
+      {
+        "tick_snapshot_id": "d56284cc-3829-459a-b2b3-9e560fd85e6d",
+        "big_bang_id": "ca19adac-8899-42d6-8a6a-503509f72bd1",
+        "multiverse_id": "ba4c6b27-622a-4057-a6c1-e7db7f579bdd",
+        "tick_index": 0,
+        "ui_label": "M1:T0",
+        "status": "final",
+        "created_at": "2026-05-05T01:47:18.633442+00:00",
+        "updated_at": "2026-05-05T01:47:18.633442+00:00",
+        "started_at": "2026-05-05T01:47:18.633442+00:00",
+        "finished_at": "2026-05-05T01:47:18.633442+00:00",
+        "duration_seconds": 0.0,
+        "executions": [],
+        "llm_calls": [
+          {
+            "id": "7f53e24b-c8ef-410a-ad44-3ea1fc00d401",
+            "purpose": "event_summary_tick_45d60744-cd4c-4006-b506-0a38315a475a_v1",
+            "provider": "openai-codex",
+            "model": "gpt-5.4",
+            "status": "succeeded",
+            "prompt_tokens": 0,
+            "completion_tokens": 0,
+            "total_tokens": 3357,
+            "cost_usd": null,
+            "created_at": "2026-05-05T01:49:39.647966+00:00",
+            "updated_at": "2026-05-05T01:50:05.870002+00:00",
+            "duration_seconds": 26.222,
+            "attempts": [
+              {
+                "model": "gpt-5.4",
+                "status": "succeeded",
+                "attempt": 1,
+                "provider": "openai-codex"
+              }
+            ],
+            "last_error": null
+          }
+        ],
+        "llm_summary": {
+          "total_calls": 1,
+          "status_counts": {
+            "succeeded": 1
+          },
+          "total_duration_seconds": 26.222,
+          "max_duration_seconds": 26.222,
+          "models": {
+            "openai-codex/gpt-5.4": 1
+          }
+        },
+        "cost_summary": {
+          "currency": "USD",
+          "pricing": {
+            "provider": "openrouter",
+            "status": "ok",
+            "source": "https://openrouter.ai/api/v1/models"
+          },
+          "call_count": 1,
+          "tokens": {
+            "prompt_tokens": 0,
+            "completion_tokens": 0,
+            "total_tokens": 3357,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "actual": {
+            "openrouter_usd": 0.0
+          },
+          "estimated": {
+            "openrouter_missing_usage_usd": 0.0,
+            "non_openrouter_usd": 0.0,
+            "including_non_openrouter_usd": 0.0
+          },
+          "time_actual": {
+            "total_llm_duration_seconds": 26.222,
+            "max_llm_duration_seconds": 26.222
+          },
+          "by_agent": {
+            "event_summary": {
+              "calls": 1,
+              "total_tokens": 3357,
+              "actual_openrouter_usd": 0.0,
+              "estimated_usd": 0.0,
+              "unknown_usd_calls": 0
+            }
+          },
+          "by_model": {
+            "openai-codex/gpt-5.4": {
+              "calls": 1,
+              "total_tokens": 3357,
+              "actual_openrouter_usd": 0.0,
+              "estimated_usd": 0.0,
+              "unknown_usd_calls": 0
+            }
+          }
+        }
+      },
+      {
+        "tick_snapshot_id": "45d60744-cd4c-4006-b506-0a38315a475a",
+        "big_bang_id": "ca19adac-8899-42d6-8a6a-503509f72bd1",
+        "multiverse_id": "ba4c6b27-622a-4057-a6c1-e7db7f579bdd",
+        "tick_index": 1,
+        "ui_label": "M1:T1",
+        "status": "final",
+        "created_at": "2026-05-05T01:49:15.236824+00:00",
+        "updated_at": "2026-05-05T01:50:33.642856+00:00",
+        "started_at": "2026-05-05T01:49:15.371874+00:00",
+        "finished_at": "2026-05-05T01:50:33.647527+00:00",
+        "duration_seconds": 78.2757,
+        "executions": [
+          {
+            "id": "1129c302-f812-45c8-8127-7ba11be99330",
+            "tick_index": 1,
+            "status": "succeeded",
+            "active_slot": null,
+            "queue_job_id": "38fbc8bf-e031-48e1-8282-f1c56f947048",
+            "created_at": "2026-05-05T01:49:15.236824+00:00",
+            "updated_at": "2026-05-05T01:50:33.642856+00:00",
+            "started_at": "2026-05-05T01:49:15.371874+00:00",
+            "finished_at": "2026-05-05T01:50:33.647527+00:00",
+            "interrupted_at": null,
+            "duration_seconds": 78.2757,
+            "stage_timings": [
+              {
+                "id": "e143741c-ea85-40e4-bddd-97aea06a70b1",
+                "node_key": "cohort:0122c95c-cd56-46ae-904d-7d990087c755",
+                "node_kind": "cohort_decision",
+                "status": "complete",
+                "checkpoint_order": 1,
+                "created_at": "2026-05-05T01:49:15.236824+00:00",
+                "updated_at": "2026-05-05T01:49:39.604190+00:00",
+                "started_at": "2026-05-05T01:49:15.393363+00:00",
+                "finished_at": "2026-05-05T01:49:39.604828+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 24.2115
+              },
+              {
+                "id": "0bbcc4c4-ab15-4f48-908e-1fe811350fe8",
+                "node_key": "cohort:12e8bfb5-468a-4fb7-a196-11a0521cdddb",
+                "node_kind": "cohort_decision",
+                "status": "complete",
+                "checkpoint_order": 2,
+                "created_at": "2026-05-05T01:49:15.236824+00:00",
+                "updated_at": "2026-05-05T01:49:39.604190+00:00",
+                "started_at": "2026-05-05T01:49:15.398805+00:00",
+                "finished_at": "2026-05-05T01:49:39.611783+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 24.213
+              },
+              {
+                "id": "67509eed-b12f-42c9-ab72-54f315abd2ec",
+                "node_key": "cohort:7b6a3f47-5c12-4d58-a231-7da5255334ba",
+                "node_kind": "cohort_decision",
+                "status": "complete",
+                "checkpoint_order": 3,
+                "created_at": "2026-05-05T01:49:15.236824+00:00",
+                "updated_at": "2026-05-05T01:49:39.604190+00:00",
+                "started_at": "2026-05-05T01:49:15.400681+00:00",
+                "finished_at": "2026-05-05T01:49:39.613725+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 24.213
+              },
+              {
+                "id": "9edea985-a6b1-4f7b-9a34-8b616b17088d",
+                "node_key": "cohort:7df423f3-d10f-43ef-ac9b-43aa41791ccd",
+                "node_kind": "cohort_decision",
+                "status": "complete",
+                "checkpoint_order": 4,
+                "created_at": "2026-05-05T01:49:15.236824+00:00",
+                "updated_at": "2026-05-05T01:49:39.604190+00:00",
+                "started_at": "2026-05-05T01:49:15.402401+00:00",
+                "finished_at": "2026-05-05T01:49:39.614914+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 24.2125
+              },
+              {
+                "id": "ed484a0d-12a8-4823-a0cc-70e6eacfea4b",
+                "node_key": "cohort:b3490664-2f4b-42d8-918a-cb878ce1a8bc",
+                "node_kind": "cohort_decision",
+                "status": "complete",
+                "checkpoint_order": 5,
+                "created_at": "2026-05-05T01:49:15.236824+00:00",
+                "updated_at": "2026-05-05T01:49:39.604190+00:00",
+                "started_at": "2026-05-05T01:49:15.404110+00:00",
+                "finished_at": "2026-05-05T01:49:39.616078+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 24.212
+              },
+              {
+                "id": "1d41bd01-efb5-4b03-b871-1686239b08ea",
+                "node_key": "cohort:c86b9d32-7aa2-408b-85bb-84eb8c5e2d92",
+                "node_kind": "cohort_decision",
+                "status": "complete",
+                "checkpoint_order": 6,
+                "created_at": "2026-05-05T01:49:15.236824+00:00",
+                "updated_at": "2026-05-05T01:49:39.604190+00:00",
+                "started_at": "2026-05-05T01:49:15.407884+00:00",
+                "finished_at": "2026-05-05T01:49:39.617220+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 24.2093
+              },
+              {
+                "id": "bb09b71c-97de-410e-a5f9-afa134c61160",
+                "node_key": "cohort:f7e0d519-ffb8-43f9-aee9-bba9787cb64e",
+                "node_kind": "cohort_decision",
+                "status": "complete",
+                "checkpoint_order": 7,
+                "created_at": "2026-05-05T01:49:15.236824+00:00",
+                "updated_at": "2026-05-05T01:49:39.604190+00:00",
+                "started_at": "2026-05-05T01:49:15.410242+00:00",
+                "finished_at": "2026-05-05T01:49:39.618343+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 24.2081
+              },
+              {
+                "id": "4c0899de-023c-412a-988b-4062e042126e",
+                "node_key": "event_generation",
+                "node_kind": "event_generation",
+                "status": "complete",
+                "checkpoint_order": 8,
+                "created_at": "2026-05-05T01:49:15.236824+00:00",
+                "updated_at": "2026-05-05T01:49:39.626873+00:00",
+                "started_at": "2026-05-05T01:49:39.624405+00:00",
+                "finished_at": "2026-05-05T01:50:05.892929+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 26.2685
+              },
+              {
+                "id": "eb09b240-32e9-465a-a271-ae275bca29d8",
+                "node_key": "sociology_update",
+                "node_kind": "sociology_update",
+                "status": "complete",
+                "checkpoint_order": 9,
+                "created_at": "2026-05-05T01:49:15.236824+00:00",
+                "updated_at": "2026-05-05T01:50:05.904106+00:00",
+                "started_at": "2026-05-05T01:50:05.900932+00:00",
+                "finished_at": "2026-05-05T01:50:05.912327+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 0.0114
+              },
+              {
+                "id": "d73db89e-2cbd-4508-ada7-a3bf722aab75",
+                "node_key": "graph_update",
+                "node_kind": "graph_update",
+                "status": "complete",
+                "checkpoint_order": 10,
+                "created_at": "2026-05-05T01:49:15.236824+00:00",
+                "updated_at": "2026-05-05T01:50:05.921583+00:00",
+                "started_at": "2026-05-05T01:50:05.919556+00:00",
+                "finished_at": "2026-05-05T01:50:05.947093+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 0.0275
+              },
+              {
+                "id": "28ac2af4-9fd7-4941-8654-914f423c3da4",
+                "node_key": "god_review",
+                "node_kind": "god_review",
+                "status": "complete",
+                "checkpoint_order": 11,
+                "created_at": "2026-05-05T01:49:15.236824+00:00",
+                "updated_at": "2026-05-05T01:50:05.958940+00:00",
+                "started_at": "2026-05-05T01:50:05.956654+00:00",
+                "finished_at": "2026-05-05T01:50:33.581171+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 27.6245
+              },
+              {
+                "id": "c0adb174-243a-4d90-9e12-919e424ea1e5",
+                "node_key": "tool_call:0:mark_ready_for_report",
+                "node_kind": "tool_call",
+                "status": "complete",
+                "checkpoint_order": 12,
+                "created_at": "2026-05-05T01:50:33.586506+00:00",
+                "updated_at": "2026-05-05T01:50:33.612753+00:00",
+                "started_at": "2026-05-05T01:50:33.608481+00:00",
+                "finished_at": "2026-05-05T01:50:33.613801+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 0.0053
+              },
+              {
+                "id": "7dd380f5-8edb-44a0-8485-6a123943ec7a",
+                "node_key": "tick_summary",
+                "node_kind": "tick_summary",
+                "status": "complete",
+                "checkpoint_order": 13,
+                "created_at": "2026-05-05T01:49:15.236824+00:00",
+                "updated_at": "2026-05-05T01:50:33.622536+00:00",
+                "started_at": "2026-05-05T01:50:33.619041+00:00",
+                "finished_at": "2026-05-05T01:50:33.625602+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 0.0066
+              },
+              {
+                "id": "41573dd4-a2f6-4eca-9096-51d230f3a94d",
+                "node_key": "interrupt_check:after_tick_summary",
+                "node_kind": "interrupt_check",
+                "status": "complete",
+                "checkpoint_order": null,
+                "created_at": "2026-05-05T01:49:15.236824+00:00",
+                "updated_at": "2026-05-05T01:50:33.634490+00:00",
+                "started_at": "2026-05-05T01:50:33.634288+00:00",
+                "finished_at": "2026-05-05T01:50:33.634288+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 0.0
+              },
+              {
+                "id": "0dfc3ebe-8bc5-4174-bcfe-1732726b88b7",
+                "node_key": "interrupt_check:after_god_review",
+                "node_kind": "interrupt_check",
+                "status": "complete",
+                "checkpoint_order": null,
+                "created_at": "2026-05-05T01:49:15.236824+00:00",
+                "updated_at": "2026-05-05T01:50:33.605412+00:00",
+                "started_at": "2026-05-05T01:50:33.604900+00:00",
+                "finished_at": "2026-05-05T01:50:33.604900+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 0.0
+              },
+              {
+                "id": "ba636722-3d34-4225-bf3b-6e8b7cabc926",
+                "node_key": "interrupt_check:after_graph_update",
+                "node_kind": "interrupt_check",
+                "status": "complete",
+                "checkpoint_order": null,
+                "created_at": "2026-05-05T01:49:15.236824+00:00",
+                "updated_at": "2026-05-05T01:50:05.955082+00:00",
+                "started_at": "2026-05-05T01:50:05.954690+00:00",
+                "finished_at": "2026-05-05T01:50:05.954690+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 0.0
+              },
+              {
+                "id": "22ade3d3-3641-48b1-802a-a5cfe7de6a7c",
+                "node_key": "interrupt_check:after_sociology_update",
+                "node_kind": "interrupt_check",
+                "status": "complete",
+                "checkpoint_order": null,
+                "created_at": "2026-05-05T01:49:15.236824+00:00",
+                "updated_at": "2026-05-05T01:50:05.918091+00:00",
+                "started_at": "2026-05-05T01:50:05.917871+00:00",
+                "finished_at": "2026-05-05T01:50:05.917871+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 0.0
+              },
+              {
+                "id": "dbcb9f2d-9228-4e5a-b63d-4d4116a0ae77",
+                "node_key": "barrier:actor_decisions",
+                "node_kind": "barrier",
+                "status": "complete",
+                "checkpoint_order": null,
+                "created_at": "2026-05-05T01:49:15.236824+00:00",
+                "updated_at": "2026-05-05T01:49:39.621389+00:00",
+                "started_at": "2026-05-05T01:49:39.621013+00:00",
+                "finished_at": "2026-05-05T01:49:39.621013+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 0.0
+              },
+              {
+                "id": "e0479f1c-889b-4ed6-b149-25b58c1f000c",
+                "node_key": "interrupt_check:after_actor_barrier",
+                "node_kind": "interrupt_check",
+                "status": "complete",
+                "checkpoint_order": null,
+                "created_at": "2026-05-05T01:49:15.236824+00:00",
+                "updated_at": "2026-05-05T01:49:39.622903+00:00",
+                "started_at": "2026-05-05T01:49:39.622753+00:00",
+                "finished_at": "2026-05-05T01:49:39.622753+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 0.0
+              },
+              {
+                "id": "c92bbb2e-c669-4269-a3a6-bdf0bead6e7c",
+                "node_key": "interrupt_check:after_event_generation",
+                "node_kind": "interrupt_check",
+                "status": "complete",
+                "checkpoint_order": null,
+                "created_at": "2026-05-05T01:49:15.236824+00:00",
+                "updated_at": "2026-05-05T01:50:05.899445+00:00",
+                "started_at": "2026-05-05T01:50:05.899018+00:00",
+                "finished_at": "2026-05-05T01:50:05.899018+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 0.0
+              },
+              {
+                "id": "0cd36a73-a6a4-4d15-ab11-811aa99e7df3",
+                "node_key": "state_commit",
+                "node_kind": "state_commit",
+                "status": "complete",
+                "checkpoint_order": null,
+                "created_at": "2026-05-05T01:49:15.236824+00:00",
+                "updated_at": "2026-05-05T01:50:33.642856+00:00",
+                "started_at": "2026-05-05T01:50:33.647527+00:00",
+                "finished_at": "2026-05-05T01:50:33.647527+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 0.0
+              },
+              {
+                "id": "80bb2bea-5ea4-4e2a-a351-4a545e7b31ee",
+                "node_key": "interrupt_check:after_tool_call:0:mark_ready_for_report",
+                "node_kind": "interrupt_check",
+                "status": "complete",
+                "checkpoint_order": null,
+                "created_at": "2026-05-05T01:50:33.586506+00:00",
+                "updated_at": "2026-05-05T01:50:33.616553+00:00",
+                "started_at": "2026-05-05T01:50:33.616099+00:00",
+                "finished_at": "2026-05-05T01:50:33.616099+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 0.0
+              }
+            ],
+            "checkpoint_timings": [
+              {
+                "id": "dd78fac2-8cf9-4c04-99c5-12fe5b3ffa93",
+                "checkpoint_key": "cohort:0122c95c-cd56-46ae-904d-7d990087c755",
+                "checkpoint_order": 1,
+                "status": "complete",
+                "started_at": "2026-05-05T01:49:15.393363+00:00",
+                "finished_at": "2026-05-05T01:49:39.604828+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 24.2115
+              },
+              {
+                "id": "54c88179-dbf8-4648-b09e-60d2a6bfc3bb",
+                "checkpoint_key": "cohort:12e8bfb5-468a-4fb7-a196-11a0521cdddb",
+                "checkpoint_order": 2,
+                "status": "complete",
+                "started_at": "2026-05-05T01:49:15.398805+00:00",
+                "finished_at": "2026-05-05T01:49:39.611783+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 24.213
+              },
+              {
+                "id": "57fff960-9ba4-493c-b8bf-b9aceb9da116",
+                "checkpoint_key": "cohort:7b6a3f47-5c12-4d58-a231-7da5255334ba",
+                "checkpoint_order": 3,
+                "status": "complete",
+                "started_at": "2026-05-05T01:49:15.400681+00:00",
+                "finished_at": "2026-05-05T01:49:39.613725+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 24.213
+              },
+              {
+                "id": "d61f3b03-beeb-438b-bdf4-df0bad2c9077",
+                "checkpoint_key": "cohort:7df423f3-d10f-43ef-ac9b-43aa41791ccd",
+                "checkpoint_order": 4,
+                "status": "complete",
+                "started_at": "2026-05-05T01:49:15.402401+00:00",
+                "finished_at": "2026-05-05T01:49:39.614914+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 24.2125
+              },
+              {
+                "id": "a09da880-2d22-492e-a3ee-bbe3e450c28d",
+                "checkpoint_key": "cohort:b3490664-2f4b-42d8-918a-cb878ce1a8bc",
+                "checkpoint_order": 5,
+                "status": "complete",
+                "started_at": "2026-05-05T01:49:15.404110+00:00",
+                "finished_at": "2026-05-05T01:49:39.616078+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 24.212
+              },
+              {
+                "id": "327799f8-943d-4d74-9e97-5919ac276cf6",
+                "checkpoint_key": "cohort:c86b9d32-7aa2-408b-85bb-84eb8c5e2d92",
+                "checkpoint_order": 6,
+                "status": "complete",
+                "started_at": "2026-05-05T01:49:15.407884+00:00",
+                "finished_at": "2026-05-05T01:49:39.617220+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 24.2093
+              },
+              {
+                "id": "251c23f7-1399-4814-a4a9-d292a8eb7088",
+                "checkpoint_key": "cohort:f7e0d519-ffb8-43f9-aee9-bba9787cb64e",
+                "checkpoint_order": 7,
+                "status": "complete",
+                "started_at": "2026-05-05T01:49:15.410242+00:00",
+                "finished_at": "2026-05-05T01:49:39.618343+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 24.2081
+              },
+              {
+                "id": "c1f12298-1985-4beb-84e4-daddd1c0fa8a",
+                "checkpoint_key": "event_generation",
+                "checkpoint_order": 8,
+                "status": "complete",
+                "started_at": "2026-05-05T01:49:39.624405+00:00",
+                "finished_at": "2026-05-05T01:50:05.892929+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 26.2685
+              },
+              {
+                "id": "b9109813-355c-4ca9-8932-1de8c9e3f439",
+                "checkpoint_key": "sociology_update",
+                "checkpoint_order": 9,
+                "status": "complete",
+                "started_at": "2026-05-05T01:50:05.900932+00:00",
+                "finished_at": "2026-05-05T01:50:05.912327+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 0.0114
+              },
+              {
+                "id": "17c73152-14ef-4bd4-bf42-a187cd00fd3b",
+                "checkpoint_key": "graph_update",
+                "checkpoint_order": 10,
+                "status": "complete",
+                "started_at": "2026-05-05T01:50:05.919556+00:00",
+                "finished_at": "2026-05-05T01:50:05.947093+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 0.0275
+              },
+              {
+                "id": "ff1779fb-43dc-4544-a999-49b827b9ade3",
+                "checkpoint_key": "god_review",
+                "checkpoint_order": 11,
+                "status": "complete",
+                "started_at": "2026-05-05T01:50:05.956654+00:00",
+                "finished_at": "2026-05-05T01:50:33.581171+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 27.6245
+              },
+              {
+                "id": "f2c4478c-3d02-492e-a18e-7e9f92e45a12",
+                "checkpoint_key": "tool_call:0:mark_ready_for_report",
+                "checkpoint_order": 12,
+                "status": "complete",
+                "started_at": "2026-05-05T01:50:33.608481+00:00",
+                "finished_at": "2026-05-05T01:50:33.613801+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 0.0053
+              },
+              {
+                "id": "cbd1c339-d1cc-43e7-8c35-439712a746a6",
+                "checkpoint_key": "tick_summary",
+                "checkpoint_order": 13,
+                "status": "complete",
+                "started_at": "2026-05-05T01:50:33.619041+00:00",
+                "finished_at": "2026-05-05T01:50:33.625602+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 0.0066
+              }
+            ],
+            "attempt_timings": [
+              {
+                "id": "ef41f103-341e-4011-9554-0e87edbf6944",
+                "execution_node_id": "e143741c-ea85-40e4-bddd-97aea06a70b1",
+                "attempt_number": 1,
+                "status": "complete",
+                "provider": "openai-codex",
+                "model": "gpt-5.4",
+                "started_at": "2026-05-05T01:49:15.393363+00:00",
+                "finished_at": "2026-05-05T01:49:39.604828+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 24.2115
+              },
+              {
+                "id": "92dbbc49-c2bb-4b41-afdf-fb0e4aaba51f",
+                "execution_node_id": "0bbcc4c4-ab15-4f48-908e-1fe811350fe8",
+                "attempt_number": 1,
+                "status": "complete",
+                "provider": "openai-codex",
+                "model": "gpt-5.4",
+                "started_at": "2026-05-05T01:49:15.398805+00:00",
+                "finished_at": "2026-05-05T01:49:39.611783+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 24.213
+              },
+              {
+                "id": "20d3c802-bb96-4b3c-acba-304ade963f1a",
+                "execution_node_id": "67509eed-b12f-42c9-ab72-54f315abd2ec",
+                "attempt_number": 1,
+                "status": "complete",
+                "provider": "openai-codex",
+                "model": "gpt-5.4",
+                "started_at": "2026-05-05T01:49:15.400681+00:00",
+                "finished_at": "2026-05-05T01:49:39.613725+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 24.213
+              },
+              {
+                "id": "224e6117-e055-4695-ba50-fa9fe9e7814d",
+                "execution_node_id": "9edea985-a6b1-4f7b-9a34-8b616b17088d",
+                "attempt_number": 1,
+                "status": "complete",
+                "provider": "openai-codex",
+                "model": "gpt-5.4",
+                "started_at": "2026-05-05T01:49:15.402401+00:00",
+                "finished_at": "2026-05-05T01:49:39.614914+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 24.2125
+              },
+              {
+                "id": "482f1702-1622-42b0-b4cb-f443a0a73afd",
+                "execution_node_id": "ed484a0d-12a8-4823-a0cc-70e6eacfea4b",
+                "attempt_number": 1,
+                "status": "complete",
+                "provider": "openai-codex",
+                "model": "gpt-5.4",
+                "started_at": "2026-05-05T01:49:15.404110+00:00",
+                "finished_at": "2026-05-05T01:49:39.616078+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 24.212
+              },
+              {
+                "id": "fd581c2a-f962-4179-acc1-44af81b671e2",
+                "execution_node_id": "1d41bd01-efb5-4b03-b871-1686239b08ea",
+                "attempt_number": 1,
+                "status": "complete",
+                "provider": "openai-codex",
+                "model": "gpt-5.4",
+                "started_at": "2026-05-05T01:49:15.407884+00:00",
+                "finished_at": "2026-05-05T01:49:39.617220+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 24.2093
+              },
+              {
+                "id": "99a1ac03-f82c-4e7c-8247-43dd88cacaea",
+                "execution_node_id": "bb09b71c-97de-410e-a5f9-afa134c61160",
+                "attempt_number": 1,
+                "status": "complete",
+                "provider": "openai-codex",
+                "model": "gpt-5.4",
+                "started_at": "2026-05-05T01:49:15.410242+00:00",
+                "finished_at": "2026-05-05T01:49:39.618343+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 24.2081
+              },
+              {
+                "id": "77966d5e-15ad-4a4a-8dd8-7a85dd1361a2",
+                "execution_node_id": "4c0899de-023c-412a-988b-4062e042126e",
+                "attempt_number": 1,
+                "status": "complete",
+                "provider": null,
+                "model": null,
+                "started_at": "2026-05-05T01:49:39.624405+00:00",
+                "finished_at": "2026-05-05T01:50:05.892929+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 26.2685
+              },
+              {
+                "id": "075b8b5b-a52d-4158-9d7c-7aa73861bb81",
+                "execution_node_id": "eb09b240-32e9-465a-a271-ae275bca29d8",
+                "attempt_number": 1,
+                "status": "complete",
+                "provider": null,
+                "model": null,
+                "started_at": "2026-05-05T01:50:05.900932+00:00",
+                "finished_at": "2026-05-05T01:50:05.912327+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 0.0114
+              },
+              {
+                "id": "980585d6-3358-4fd6-a810-fc931857dd1f",
+                "execution_node_id": "d73db89e-2cbd-4508-ada7-a3bf722aab75",
+                "attempt_number": 1,
+                "status": "complete",
+                "provider": null,
+                "model": null,
+                "started_at": "2026-05-05T01:50:05.919556+00:00",
+                "finished_at": "2026-05-05T01:50:05.947093+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 0.0275
+              },
+              {
+                "id": "12134c91-5064-47b5-99e4-f2537f84df16",
+                "execution_node_id": "28ac2af4-9fd7-4941-8654-914f423c3da4",
+                "attempt_number": 1,
+                "status": "complete",
+                "provider": "openai-codex",
+                "model": "gpt-5.4",
+                "started_at": "2026-05-05T01:50:05.956654+00:00",
+                "finished_at": "2026-05-05T01:50:33.581171+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 27.6245
+              },
+              {
+                "id": "67e399c9-caf5-4df3-8078-dfd3ba2fea65",
+                "execution_node_id": "c0adb174-243a-4d90-9e12-919e424ea1e5",
+                "attempt_number": 1,
+                "status": "complete",
+                "provider": "tool",
+                "model": "mark_ready_for_report",
+                "started_at": "2026-05-05T01:50:33.608481+00:00",
+                "finished_at": "2026-05-05T01:50:33.613801+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 0.0053
+              },
+              {
+                "id": "ce5c82e0-0c7b-4e65-91d8-beee82b54794",
+                "execution_node_id": "7dd380f5-8edb-44a0-8485-6a123943ec7a",
+                "attempt_number": 1,
+                "status": "complete",
+                "provider": null,
+                "model": null,
+                "started_at": "2026-05-05T01:50:33.619041+00:00",
+                "finished_at": "2026-05-05T01:50:33.625602+00:00",
+                "interrupted_at": null,
+                "duration_seconds": 0.0066
+              }
+            ]
+          }
+        ],
+        "llm_calls": [
+          {
+            "id": "463b220c-da3f-453f-8d45-1b6fd7401abd",
+            "purpose": "agent_entity_0122c95c-cd56-46ae-904d-7d990087c755_tick_1",
+            "provider": "openai-codex",
+            "model": "gpt-5.4",
+            "status": "succeeded",
+            "prompt_tokens": 0,
+            "completion_tokens": 0,
+            "total_tokens": 12586,
+            "cost_usd": null,
+            "created_at": "2026-05-05T01:49:15.498983+00:00",
+            "updated_at": "2026-05-05T01:49:32.543721+00:00",
+            "duration_seconds": 17.0447,
+            "attempts": [
+              {
+                "model": "gpt-5.4",
+                "status": "succeeded",
+                "attempt": 1,
+                "provider": "openai-codex"
+              }
+            ],
+            "last_error": null
+          },
+          {
+            "id": "673bdc80-9392-464e-a5c0-f86834300c4d",
+            "purpose": "agent_entity_12e8bfb5-468a-4fb7-a196-11a0521cdddb_tick_1",
+            "provider": "openai-codex",
+            "model": "gpt-5.4",
+            "status": "succeeded",
+            "prompt_tokens": 0,
+            "completion_tokens": 0,
+            "total_tokens": 12550,
+            "cost_usd": null,
+            "created_at": "2026-05-05T01:49:15.507915+00:00",
+            "updated_at": "2026-05-05T01:49:30.913610+00:00",
+            "duration_seconds": 15.4057,
+            "attempts": [
+              {
+                "model": "gpt-5.4",
+                "status": "succeeded",
+                "attempt": 1,
+                "provider": "openai-codex"
+              }
+            ],
+            "last_error": null
+          },
+          {
+            "id": "90f34b07-4a5c-48c0-9db1-d044b9d9e865",
+            "purpose": "agent_entity_b3490664-2f4b-42d8-918a-cb878ce1a8bc_tick_1",
+            "provider": "openai-codex",
+            "model": "gpt-5.4",
+            "status": "succeeded",
+            "prompt_tokens": 0,
+            "completion_tokens": 0,
+            "total_tokens": 12547,
+            "cost_usd": null,
+            "created_at": "2026-05-05T01:49:15.510279+00:00",
+            "updated_at": "2026-05-05T01:49:32.581046+00:00",
+            "duration_seconds": 17.0708,
+            "attempts": [
+              {
+                "model": "gpt-5.4",
+                "status": "succeeded",
+                "attempt": 1,
+                "provider": "openai-codex"
+              }
+            ],
+            "last_error": null
+          },
+          {
+            "id": "acf40b29-703e-4b7b-a27f-e70fe38e3a10",
+            "purpose": "agent_entity_7b6a3f47-5c12-4d58-a231-7da5255334ba_tick_1",
+            "provider": "openai-codex",
+            "model": "gpt-5.4",
+            "status": "succeeded",
+            "prompt_tokens": 0,
+            "completion_tokens": 0,
+            "total_tokens": 12626,
+            "cost_usd": null,
+            "created_at": "2026-05-05T01:49:15.512536+00:00",
+            "updated_at": "2026-05-05T01:49:39.578166+00:00",
+            "duration_seconds": 24.0656,
+            "attempts": [
+              {
+                "model": "gpt-5.4",
+                "status": "succeeded",
+                "attempt": 1,
+                "provider": "openai-codex"
+              }
+            ],
+            "last_error": null
+          },
+          {
+            "id": "c06e0ae6-e4cd-4b93-9ea8-e42fc4029761",
+            "purpose": "agent_entity_c86b9d32-7aa2-408b-85bb-84eb8c5e2d92_tick_1",
+            "provider": "openai-codex",
+            "model": "gpt-5.4",
+            "status": "succeeded",
+            "prompt_tokens": 0,
+            "completion_tokens": 0,
+            "total_tokens": 12466,
+            "cost_usd": null,
+            "created_at": "2026-05-05T01:49:15.521181+00:00",
+            "updated_at": "2026-05-05T01:49:27.549584+00:00",
+            "duration_seconds": 12.0284,
+            "attempts": [
+              {
+                "model": "gpt-5.4",
+                "status": "succeeded",
+                "attempt": 1,
+                "provider": "openai-codex"
+              }
+            ],
+            "last_error": null
+          },
+          {
+            "id": "01519f60-3198-4852-9370-567e63368a8e",
+            "purpose": "agent_entity_f7e0d519-ffb8-43f9-aee9-bba9787cb64e_tick_1",
+            "provider": "openai-codex",
+            "model": "gpt-5.4",
+            "status": "succeeded",
+            "prompt_tokens": 0,
+            "completion_tokens": 0,
+            "total_tokens": 12469,
+            "cost_usd": null,
+            "created_at": "2026-05-05T01:49:15.522006+00:00",
+            "updated_at": "2026-05-05T01:49:32.635864+00:00",
+            "duration_seconds": 17.1139,
+            "attempts": [
+              {
+                "model": "gpt-5.4",
+                "status": "succeeded",
+                "attempt": 1,
+                "provider": "openai-codex"
+              }
+            ],
+            "last_error": null
+          },
+          {
+            "id": "a258ad2f-2163-4684-ba87-0bb195a4b9ee",
+            "purpose": "agent_entity_7df423f3-d10f-43ef-ac9b-43aa41791ccd_tick_1",
+            "provider": "openai-codex",
+            "model": "gpt-5.4",
+            "status": "succeeded",
+            "prompt_tokens": 0,
+            "completion_tokens": 0,
+            "total_tokens": 12558,
+            "cost_usd": null,
+            "created_at": "2026-05-05T01:49:15.537334+00:00",
+            "updated_at": "2026-05-05T01:49:32.831330+00:00",
+            "duration_seconds": 17.294,
+            "attempts": [
+              {
+                "model": "gpt-5.4",
+                "status": "succeeded",
+                "attempt": 1,
+                "provider": "openai-codex"
+              }
+            ],
+            "last_error": null
+          },
+          {
+            "id": "7f53e24b-c8ef-410a-ad44-3ea1fc00d401",
+            "purpose": "event_summary_tick_45d60744-cd4c-4006-b506-0a38315a475a_v1",
+            "provider": "openai-codex",
+            "model": "gpt-5.4",
+            "status": "succeeded",
+            "prompt_tokens": 0,
+            "completion_tokens": 0,
+            "total_tokens": 3357,
+            "cost_usd": null,
+            "created_at": "2026-05-05T01:49:39.647966+00:00",
+            "updated_at": "2026-05-05T01:50:05.870002+00:00",
+            "duration_seconds": 26.222,
+            "attempts": [
+              {
+                "model": "gpt-5.4",
+                "status": "succeeded",
+                "attempt": 1,
+                "provider": "openai-codex"
+              }
+            ],
+            "last_error": null
+          },
+          {
+            "id": "94b73a68-a71d-41da-b686-582abd43f583",
+            "purpose": "god_review_ba4c6b27-622a-4057-a6c1-e7db7f579bdd_tick_1_iter_1",
+            "provider": "openai-codex",
+            "model": "gpt-5.4",
+            "status": "succeeded",
+            "prompt_tokens": 0,
+            "completion_tokens": 0,
+            "total_tokens": 24861,
+            "cost_usd": null,
+            "created_at": "2026-05-05T01:50:05.995174+00:00",
+            "updated_at": "2026-05-05T01:50:33.539005+00:00",
+            "duration_seconds": 27.5438,
+            "attempts": [
+              {
+                "model": "gpt-5.4",
+                "status": "succeeded",
+                "attempt": 1,
+                "provider": "openai-codex"
+              }
+            ],
+            "last_error": null
+          }
+        ],
+        "llm_summary": {
+          "total_calls": 9,
+          "status_counts": {
+            "succeeded": 9
+          },
+          "total_duration_seconds": 173.7889,
+          "max_duration_seconds": 27.5438,
+          "models": {
+            "openai-codex/gpt-5.4": 9
+          }
+        },
+        "cost_summary": {
+          "currency": "USD",
+          "pricing": {
+            "provider": "openrouter",
+            "status": "ok",
+            "source": "https://openrouter.ai/api/v1/models"
+          },
+          "call_count": 9,
+          "tokens": {
+            "prompt_tokens": 0,
+            "completion_tokens": 0,
+            "total_tokens": 116020,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "actual": {
+            "openrouter_usd": 0.0
+          },
+          "estimated": {
+            "openrouter_missing_usage_usd": 0.0,
+            "non_openrouter_usd": 0.0,
+            "including_non_openrouter_usd": 0.0
+          },
+          "time_actual": {
+            "total_llm_duration_seconds": 173.7889,
+            "max_llm_duration_seconds": 27.5438
+          },
+          "by_agent": {
+            "cohort_agent": {
+              "calls": 7,
+              "total_tokens": 87802,
+              "actual_openrouter_usd": 0.0,
+              "estimated_usd": 0.0,
+              "unknown_usd_calls": 0
+            },
+            "event_summary": {
+              "calls": 1,
+              "total_tokens": 3357,
+              "actual_openrouter_usd": 0.0,
+              "estimated_usd": 0.0,
+              "unknown_usd_calls": 0
+            },
+            "god_agent": {
+              "calls": 1,
+              "total_tokens": 24861,
+              "actual_openrouter_usd": 0.0,
+              "estimated_usd": 0.0,
+              "unknown_usd_calls": 0
+            }
+          },
+          "by_model": {
+            "openai-codex/gpt-5.4": {
+              "calls": 9,
+              "total_tokens": 116020,
+              "actual_openrouter_usd": 0.0,
+              "estimated_usd": 0.0,
+              "unknown_usd_calls": 0
+            }
+          }
+        }
+      }
+    ],
+    "cost_summary": {
+      "currency": "USD",
+      "pricing": {
+        "provider": "openrouter",
+        "status": "ok",
+        "source": "https://openrouter.ai/api/v1/models"
+      },
+      "call_count": 12,
+      "tokens": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 143700,
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "reasoning_tokens": 0
+      },
+      "actual": {
+        "openrouter_usd": 0.0
+      },
+      "estimated": {
+        "openrouter_missing_usage_usd": 0.0,
+        "non_openrouter_usd": 0.0,
+        "including_non_openrouter_usd": 0.0
+      },
+      "time_actual": {
+        "total_llm_duration_seconds": 445.3739,
+        "max_llm_duration_seconds": 130.9769
+      },
+      "by_agent": {
+        "initializer_agent": {
+          "calls": 1,
+          "total_tokens": 9453,
+          "actual_openrouter_usd": 0.0,
+          "estimated_usd": 0.0,
+          "unknown_usd_calls": 0
+        },
+        "cohort_agent": {
+          "calls": 7,
+          "total_tokens": 87802,
+          "actual_openrouter_usd": 0.0,
+          "estimated_usd": 0.0,
+          "unknown_usd_calls": 0
+        },
+        "event_summary": {
+          "calls": 1,
+          "total_tokens": 3357,
+          "actual_openrouter_usd": 0.0,
+          "estimated_usd": 0.0,
+          "unknown_usd_calls": 0
+        },
+        "report_agent": {
+          "calls": 2,
+          "total_tokens": 18227,
+          "actual_openrouter_usd": 0.0,
+          "estimated_usd": 0.0,
+          "unknown_usd_calls": 0
+        },
+        "god_agent": {
+          "calls": 1,
+          "total_tokens": 24861,
+          "actual_openrouter_usd": 0.0,
+          "estimated_usd": 0.0,
+          "unknown_usd_calls": 0
+        }
+      },
+      "by_model": {
+        "openai-codex/gpt-5.4": {
+          "calls": 12,
+          "total_tokens": 143700,
+          "actual_openrouter_usd": 0.0,
+          "estimated_usd": 0.0,
+          "unknown_usd_calls": 0
+        }
+      }
+    }
+  },
+  "meta": {}
+}
