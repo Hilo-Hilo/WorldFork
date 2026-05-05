@@ -537,12 +537,18 @@ def _routing_model_defaults(row: dict) -> dict:
         getattr(settings, model_setting, None) if model_setting is not None else settings.default_model
     )
     model = model or settings.default_model
-    provider = str(settings.default_llm_provider)
+    provider = _routing_provider_default(model, model_setting)
     row["preferred_provider"] = provider
     row["preferred_model"] = model
     row["fallback_provider"] = provider
     row["fallback_model"] = model
     return row
+
+
+def _routing_provider_default(model: str, model_setting: str | None) -> str:
+    if model_setting is not None and model == settings.openai_codex_default_model:
+        return "openai-codex"
+    return str(settings.default_llm_provider)
 
 
 def _seed_routing(session) -> None:

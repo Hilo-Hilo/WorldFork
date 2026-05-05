@@ -158,6 +158,9 @@ def _default_model_for_route(route_info: dict[str, Any]) -> str:
 
 
 def _default_provider_for_route(route_info: dict[str, Any]) -> str:
+    model = _default_model_for_route(route_info)
+    if model == settings.openai_codex_default_model:
+        return "openai-codex"
     return settings.default_llm_provider
 
 
@@ -169,16 +172,18 @@ def _effective_routing_entries(entries: list[dict[str, Any]]) -> list[dict[str, 
         row = rows_by_job_type.get(route)
         matched_route = route if row is not None else None
         if row is None:
+            preferred_provider = _default_provider_for_route(route_info)
+            preferred_model = _default_model_for_route(route_info)
             effective.append(
                 {
                     "route": route,
                     "route_kind": route_info["route_kind"],
                     "job_type": route,
                     "matched_route": None,
-                    "preferred_provider": _default_provider_for_route(route_info),
-                    "preferred_model": _default_model_for_route(route_info),
-                    "fallback_provider": settings.default_llm_provider,
-                    "fallback_model": settings.fallback_model,
+                    "preferred_provider": preferred_provider,
+                    "preferred_model": preferred_model,
+                    "fallback_provider": preferred_provider,
+                    "fallback_model": preferred_model,
                     "source": "runtime_defaults",
                     "payload": {},
                 }

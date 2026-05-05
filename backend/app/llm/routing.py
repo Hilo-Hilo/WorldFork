@@ -184,8 +184,13 @@ def resolve_audited_llm_route(
             fallback=fallback,
         )
 
-    default_provider = _settings_provider_for_route(settings, route_name, fallback_provider)
     default_model = fallback_model or _settings_model_for_route(settings, route_name)
+    default_provider = _settings_provider_for_route(
+        settings,
+        route_name,
+        fallback_provider,
+        default_model,
+    )
     return ResolvedLLMRoute(
         requested_route=route_name,
         matched_route=None,
@@ -253,5 +258,12 @@ def _settings_provider_for_route(
     settings: Any,
     route_name: str | None,
     fallback_provider: str | None,
+    model: str,
 ) -> str:
-    return str(fallback_provider or getattr(settings, "default_llm_provider", "openrouter"))
+    if fallback_provider:
+        return str(fallback_provider)
+    if route_name:
+        info = _ROUTE_INFO_BY_NAME.get(route_name)
+        if info is not None and model == getattr(settings, "openai_codex_default_model", None):
+            return "openai-codex"
+    return str(getattr(settings, "default_llm_provider", "openrouter"))

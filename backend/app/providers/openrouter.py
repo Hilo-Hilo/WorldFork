@@ -32,6 +32,11 @@ from backend.app.providers.errors import (
     ProviderTimeoutError,
     RateLimitError,
 )
+from backend.app.llm.openrouter_payload import (
+    build_openrouter_response_format,
+    openrouter_options_from_response_format,
+    response_format_override_from_openrouter_options,
+)
 from backend.app.schemas.llm import (
     EmbeddingConfig,
     EmbeddingResult,
@@ -106,9 +111,12 @@ class OpenRouterProvider(BaseProvider):
 
     @staticmethod
     def _select_response_format(config: ModelConfig) -> dict[str, Any]:
-        if config.response_format:
-            return config.response_format
-        return {"type": "json_object"}
+        openrouter_options = openrouter_options_from_response_format(config.response_format)
+        override = response_format_override_from_openrouter_options(openrouter_options)
+        return build_openrouter_response_format(
+            response_format=override or config.response_format,
+            name="worldfork_response",
+        )
 
     @staticmethod
     def _parse_json_object(content: str) -> dict[str, Any]:
@@ -158,6 +166,17 @@ class OpenRouterProvider(BaseProvider):
             kwargs["extra_body"] = {
                 "models": [config.model, config.fallback_model],
             }
+        openrouter_options = openrouter_options_from_response_format(config.response_format)
+        extra_body = dict(kwargs.get("extra_body") or {})
+        provider_options = openrouter_options.get("provider")
+        if isinstance(provider_options, dict):
+            extra_body["provider"] = provider_options
+        plugins = openrouter_options.get("plugins")
+        if isinstance(plugins, list):
+            kwargs["extra_body"] = extra_body
+            kwargs["extra_body"]["plugins"] = plugins
+        elif extra_body:
+            kwargs["extra_body"] = extra_body
         return kwargs
 
     @staticmethod
