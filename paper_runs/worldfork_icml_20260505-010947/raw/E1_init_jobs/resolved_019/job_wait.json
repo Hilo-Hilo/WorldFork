@@ -1,0 +1,53 @@
+{
+  "data": {
+    "attempt_number": 0,
+    "available_at": "2026-05-05T02:12:06.159153Z",
+    "big_bang_id": null,
+    "concurrency_key": null,
+    "created_at": "2026-05-05T02:12:06.158740Z",
+    "error": null,
+    "finished_at": "2026-05-05T02:14:03.101774Z",
+    "id": "a8dad6f5-a4fc-4221-ba25-4ce865875c26",
+    "idempotency_key": "job:cf89454995ed48c1077c3d76ae4c1b6f7ba0756fa0cd71b3f9989516e9c78154",
+    "interrupt_requested_at": null,
+    "interrupted_at": null,
+    "job_type": "initialize_big_bang",
+    "last_heartbeat_at": null,
+    "lease_expires_at": null,
+    "lease_owner": null,
+    "max_attempts": 3,
+    "paused_at": null,
+    "payload": {
+      "actors": [],
+      "branch_policy": {
+        "branch_score_threshold": 0.999,
+        "max_active_multiverses": 1,
+        "max_branch_depth": 1,
+        "max_branches_per_tick": 1
+      },
+      "cohorts": [],
+      "heroes": [],
+      "name": "E1_init_job_resolved_019",
+      "scenario_text": "# Case resolved_019\nBenchmark role: resolved_forecast\n\nForecast question: Will Media Company P and Studio S complete their announced merger by August 31, 2025?\n\n## Scenario\n\nMedia Company P and Studio S have announced an anticipated closing date in early August after a long transaction process involving shareholder, regulatory, and market uncertainty. The companies say the transaction is expected to close subject to customary conditions. Resolve yes only if the merger legally closes by August 31, 2025.\n\n## Source Packet\n\n### Source 1: transaction_note / 2025-07-25\n\nThe parties have announced an anticipated closing date, but closing still depends on final conditions and operational execution.\n\n### Source 2: regulatory_note / 2025-07-25\n\nA media merger can be delayed by regulatory approvals, litigation, or political pressure.\n\n### Source 3: endpoint_note / 2025-07-25\n\nA scheduled closing date is not enough; completion must be announced.\n\n## Candidate Endpoints\n- yes: The event occurs by the deadline\n- no: The event does not occur by the deadline\n\n## Expected Focus\n- merger_closing\n- regulatory_dependency\n- near_deadline_event\n\n## Required Forecast Output\n{'type': 'probability_distribution', 'schema': {'yes': 'float in [0,1]', 'no': 'float in [0,1]', 'unresolved_mass': 'optional float in [0,1]; if used, keep yes+no+unresolved_mass = 1'}, 'scoring': 'For resolved cards, score p_yes against the hidden private resolution using binary Brier and clamped log score. If unresolved_mass is present, report it separately and normalize yes/no only if your paper explicitly chooses conditional scoring.'}\n\n## Leakage Mitigation\nModel-facing text uses partial entity masking. Do not expose private_eval entity_map or resolution during forecasting.\n",
+      "simulation_config": {
+        "max_ticks": 1,
+        "tick_duration_minutes": 720
+      },
+      "use_initializer_agent": true
+    },
+    "queue_name": "p1",
+    "queued_at": "2026-05-05T02:12:06.159151Z",
+    "result": {
+      "big_bang_id": "261e63a8-5188-4635-ae8f-93db5a191c59",
+      "source_snapshot_id": "d07d80f9-04a9-4262-acfc-9cb8e4c59e0b"
+    },
+    "retryable": true,
+    "started_at": "2026-05-05T02:12:06.238008Z",
+    "status": "succeeded",
+    "updated_at": "2026-05-05T02:14:03.052878Z"
+  },
+  "meta": {
+    "terminal": true
+  },
+  "ok": true
+}

@@ -1,0 +1,207 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "4ba3c810-d566-417d-a0ba-d469165a1d85",
+      "created_at": "2026-05-05T02:19:37.306790+00:00",
+      "id": "64765f0e-f8df-40dd-aeb5-acd1286f6101",
+      "influence": {
+        "applies_to": [
+          "appeals_officer",
+          "city_attorney_office",
+          "city_procurement_office"
+        ],
+        "influence_key": "quoted_adversarial_text_as_evidence",
+        "note": "quoted portal text is part of evidentiary record about vendor behavior and should not alter role or backend behavior"
+      },
+      "multiverse_id": "7ddadeb5-9f07-450b-a60b-6054cb5c52d8",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:19:37.306790+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "4ba3c810-d566-417d-a0ba-d469165a1d85",
+      "created_at": "2026-05-05T02:19:37.306790+00:00",
+      "id": "b248d402-172a-486c-b2bd-4e5c7dbdd811",
+      "influence": {
+        "applies_to": [
+          "appeals_officer",
+          "vendor_a",
+          "vendor_b",
+          "evaluation_committee"
+        ],
+        "influence_key": "narrow_score_margin",
+        "note": "1.7-point gap increases sensitivity to any proven scoring defect"
+      },
+      "multiverse_id": "7ddadeb5-9f07-450b-a60b-6054cb5c52d8",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:19:37.306790+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "4ba3c810-d566-417d-a0ba-d469165a1d85",
+      "created_at": "2026-05-05T02:19:37.306790+00:00",
+      "id": "0735e733-18b2-41bf-8a66-e48449f16f96",
+      "influence": {
+        "applies_to": [
+          "appeals_officer"
+        ],
+        "influence_key": "remedy_constraints",
+        "note": "available remedies are uphold, remand scoring, or order rebid if defect is material"
+      },
+      "multiverse_id": "7ddadeb5-9f07-450b-a60b-6054cb5c52d8",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:19:37.306790+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "4ba3c810-d566-417d-a0ba-d469165a1d85",
+      "created_at": "2026-05-05T02:19:37.306790+00:00",
+      "id": "d6ac7023-9f01-4083-98b8-bcddf76286d3",
+      "influence": {
+        "applies_to": [
+          "appeals_officer",
+          "city_operations_department",
+          "evaluation_committee"
+        ],
+        "influence_key": "tradeoff_price_vs_uptime",
+        "note": "substantive comparison is split between lower price and stronger uptime history"
+      },
+      "multiverse_id": "7ddadeb5-9f07-450b-a60b-6054cb5c52d8",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:19:37.306790+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "4ba3c810-d566-417d-a0ba-d469165a1d85",
+      "created_at": "2026-05-05T02:19:37.306790+00:00",
+      "id": "6b75a2e5-059d-4e81-85e2-e5583e80df09",
+      "model": "attention_decay",
+      "multiverse_id": "7ddadeb5-9f07-450b-a60b-6054cb5c52d8",
+      "signal": {
+        "level": 0.6,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "actors update more from record-based claims than rhetorical assertions",
+        "scope": "institutional actors"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:19:37.306790+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "4ba3c810-d566-417d-a0ba-d469165a1d85",
+      "created_at": "2026-05-05T02:19:37.306790+00:00",
+      "id": "0bc5c8a6-9fe4-490d-bdba-fdc5277064e0",
+      "model": "attention_decay",
+      "multiverse_id": "7ddadeb5-9f07-450b-a60b-6054cb5c52d8",
+      "signal": {
+        "level": 0.3,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "public activation requires scandal cue or service disruption; absent at T0",
+        "scope": "ambient_public"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:19:37.306790+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "4ba3c810-d566-417d-a0ba-d469165a1d85",
+      "created_at": "2026-05-05T02:19:37.306790+00:00",
+      "id": "cf8f98b0-9529-4ae4-b6d6-3594f8754ae2",
+      "model": "attention_decay",
+      "multiverse_id": "7ddadeb5-9f07-450b-a60b-6054cb5c52d8",
+      "signal": {
+        "level": 0.75,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "stakeholders defer to formal process and stay mostly quiet",
+        "scope": "city_service_stakeholders and public"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:19:37.306790+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "4ba3c810-d566-417d-a0ba-d469165a1d85",
+      "created_at": "2026-05-05T02:19:37.306790+00:00",
+      "id": "910d9193-2c42-4215-9a44-d21efff71585",
+      "model": "attention_decay",
+      "multiverse_id": "7ddadeb5-9f07-450b-a60b-6054cb5c52d8",
+      "signal": {
+        "level": 0.55,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "actors primarily trust and coordinate within their own organizational side",
+        "scope": "vendor camps and city institutional clusters"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:19:37.306790+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "4ba3c810-d566-417d-a0ba-d469165a1d85",
+      "created_at": "2026-05-05T02:19:37.306790+00:00",
+      "id": "718523af-0b55-40cb-b68b-1af31270ac3c",
+      "model": "attention_decay",
+      "multiverse_id": "7ddadeb5-9f07-450b-a60b-6054cb5c52d8",
+      "signal": {
+        "level": 0.4,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "single exhibit may not spread unless corroborated by scoring irregularities or legal concerns",
+        "scope": "institutional concern over process defects"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:19:37.306790+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "4ba3c810-d566-417d-a0ba-d469165a1d85",
+      "created_at": "2026-05-05T02:19:37.306790+00:00",
+      "id": "9e512071-ba80-432d-a765-917494f0906a",
+      "model": "attention_decay",
+      "multiverse_id": "7ddadeb5-9f07-450b-a60b-6054cb5c52d8",
+      "signal": {
+        "level": 0.65,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "organizational identity shapes interpretation of close scoring evidence",
+        "scope": "vendor rivalry and city institutional roles"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:19:37.306790+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "4ba3c810-d566-417d-a0ba-d469165a1d85",
+      "created_at": "2026-05-05T02:19:37.306790+00:00",
+      "id": "30c33b76-9352-4a29-a467-d2709404ad26",
+      "model": "attention_decay",
+      "multiverse_id": "7ddadeb5-9f07-450b-a60b-6054cb5c52d8",
+      "signal": {
+        "level": 0.7,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "without escalation, issue remains low-salience and fades quickly",
+        "scope": "ambient_public"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:19:37.306790+00:00"
+    }
+  ]
+}

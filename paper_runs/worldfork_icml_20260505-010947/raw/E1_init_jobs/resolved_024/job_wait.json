@@ -1,0 +1,53 @@
+{
+  "data": {
+    "attempt_number": 0,
+    "available_at": "2026-05-05T02:12:06.365874Z",
+    "big_bang_id": null,
+    "concurrency_key": null,
+    "created_at": "2026-05-05T02:12:06.365183Z",
+    "error": null,
+    "finished_at": "2026-05-05T02:16:21.839636Z",
+    "id": "ae4b00c9-451a-4f33-b1e6-df836f05ead5",
+    "idempotency_key": "job:746af4fec42fe62f3b5740f65658869464ca11341d5c5894f8bd31bf477eed98",
+    "interrupt_requested_at": null,
+    "interrupted_at": null,
+    "job_type": "initialize_big_bang",
+    "last_heartbeat_at": null,
+    "lease_expires_at": null,
+    "lease_owner": null,
+    "max_attempts": 3,
+    "paused_at": null,
+    "payload": {
+      "actors": [],
+      "branch_policy": {
+        "branch_score_threshold": 0.999,
+        "max_active_multiverses": 1,
+        "max_branch_depth": 1,
+        "max_branches_per_tick": 1
+      },
+      "cohorts": [],
+      "heroes": [],
+      "name": "E1_init_job_resolved_024",
+      "scenario_text": "# Case resolved_024\nBenchmark role: resolved_forecast\n\nForecast question: Will the federal court order Company G to divest Browser C as a remedy in the search-antitrust case?\n\n## Scenario\n\nA federal court has already found Company G liable in a major search-antitrust case. The remedy phase includes proposals ranging from conduct restrictions and data-sharing duties to structural remedies. The government has argued for strong remedies, while Company G says divesting Browser C would be excessive and technically disruptive. Resolve yes only if the court orders Company G to sell or divest Browser C.\n\n## Source Packet\n\n### Source 1: legal_context / 2025-08-15\n\nLiability has been found, but remedy choice is a separate judicial decision.\n\n### Source 2: remedy_note / 2025-08-15\n\nStructural breakup remedies are rarer and face administrability and appeal concerns.\n\n### Source 3: endpoint_note / 2025-08-15\n\nData-sharing, contract limits, or conduct remedies without divestiture resolve no.\n\n## Candidate Endpoints\n- yes: The event occurs by the deadline\n- no: The event does not occur by the deadline\n\n## Expected Focus\n- antitrust_remedies\n- structural_vs_conduct_relief\n- legal_uncertainty\n\n## Required Forecast Output\n{'type': 'probability_distribution', 'schema': {'yes': 'float in [0,1]', 'no': 'float in [0,1]', 'unresolved_mass': 'optional float in [0,1]; if used, keep yes+no+unresolved_mass = 1'}, 'scoring': 'For resolved cards, score p_yes against the hidden private resolution using binary Brier and clamped log score. If unresolved_mass is present, report it separately and normalize yes/no only if your paper explicitly chooses conditional scoring.'}\n\n## Leakage Mitigation\nModel-facing text uses partial entity masking. Do not expose private_eval entity_map or resolution during forecasting.\n",
+      "simulation_config": {
+        "max_ticks": 1,
+        "tick_duration_minutes": 720
+      },
+      "use_initializer_agent": true
+    },
+    "queue_name": "p1",
+    "queued_at": "2026-05-05T02:12:06.365870Z",
+    "result": {
+      "big_bang_id": "a2bf5c15-9296-4344-9db0-58532e9aa3a8",
+      "source_snapshot_id": "a7c322b3-e9e3-493b-aec1-ee4eaf494fea"
+    },
+    "retryable": true,
+    "started_at": "2026-05-05T02:13:59.116421Z",
+    "status": "succeeded",
+    "updated_at": "2026-05-05T02:16:21.786835Z"
+  },
+  "meta": {
+    "terminal": true
+  },
+  "ok": true
+}

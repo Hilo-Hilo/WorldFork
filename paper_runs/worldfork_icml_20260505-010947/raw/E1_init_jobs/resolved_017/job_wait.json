@@ -1,0 +1,53 @@
+{
+  "data": {
+    "attempt_number": 0,
+    "available_at": "2026-05-05T02:12:06.125258Z",
+    "big_bang_id": null,
+    "concurrency_key": null,
+    "created_at": "2026-05-05T02:12:06.124998Z",
+    "error": null,
+    "finished_at": "2026-05-05T02:14:21.453568Z",
+    "id": "1c8b1f93-c28c-45fb-8a55-4c53d59606e7",
+    "idempotency_key": "job:e59aec6c5d60af2a9d3fb3048a4533b930a56aa5b11c29357f8f56c47e4a04e9",
+    "interrupt_requested_at": null,
+    "interrupted_at": null,
+    "job_type": "initialize_big_bang",
+    "last_heartbeat_at": null,
+    "lease_expires_at": null,
+    "lease_owner": null,
+    "max_attempts": 3,
+    "paused_at": null,
+    "payload": {
+      "actors": [],
+      "branch_policy": {
+        "branch_score_threshold": 0.999,
+        "max_active_multiverses": 1,
+        "max_branch_depth": 1,
+        "max_branches_per_tick": 1
+      },
+      "cohorts": [],
+      "heroes": [],
+      "name": "E1_init_job_resolved_017",
+      "scenario_text": "# Case resolved_017\nBenchmark role: resolved_forecast\n\nForecast question: Will ordinary support for Operating System W10 end on October 14, 2025 as scheduled?\n\n## Scenario\n\nThe vendor has repeatedly listed October 14, 2025 as the end-of-support date for Operating System W10. Millions of machines remain on the old operating system, and consumer advocates warn about e-waste and security exposure. Resolve yes if ordinary support ends on that date, even if paid or extended security programs exist for some users.\n\n## Source Packet\n\n### Source 1: vendor_schedule / 2025-07-01\n\nThe published lifecycle schedule says the final supported version remains supported through October 14, 2025.\n\n### Source 2: public_pressure / 2025-07-01\n\nAdvocates and some governments may pressure the vendor to extend support, but no broad reversal has been announced.\n\n### Source 3: endpoint_note / 2025-07-01\n\nPaid extended security updates do not mean ordinary support continues.\n\n## Candidate Endpoints\n- yes: The event occurs by the deadline\n- no: The event does not occur by the deadline\n\n## Expected Focus\n- scheduled_policy_change\n- support_definition\n- exception_handling\n\n## Required Forecast Output\n{'type': 'probability_distribution', 'schema': {'yes': 'float in [0,1]', 'no': 'float in [0,1]', 'unresolved_mass': 'optional float in [0,1]; if used, keep yes+no+unresolved_mass = 1'}, 'scoring': 'For resolved cards, score p_yes against the hidden private resolution using binary Brier and clamped log score. If unresolved_mass is present, report it separately and normalize yes/no only if your paper explicitly chooses conditional scoring.'}\n\n## Leakage Mitigation\nModel-facing text uses partial entity masking. Do not expose private_eval entity_map or resolution during forecasting.\n",
+      "simulation_config": {
+        "max_ticks": 1,
+        "tick_duration_minutes": 720
+      },
+      "use_initializer_agent": true
+    },
+    "queue_name": "p1",
+    "queued_at": "2026-05-05T02:12:06.125255Z",
+    "result": {
+      "big_bang_id": "c5cfaad6-8888-4171-bfdd-1dc50d9ff395",
+      "source_snapshot_id": "23b13a86-0dbe-4c18-8316-016b7a435c5a"
+    },
+    "retryable": true,
+    "started_at": "2026-05-05T02:12:06.158345Z",
+    "status": "succeeded",
+    "updated_at": "2026-05-05T02:14:21.407388Z"
+  },
+  "meta": {
+    "terminal": true
+  },
+  "ok": true
+}

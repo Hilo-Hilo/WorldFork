@@ -1,0 +1,1100 @@
+{
+  "big_bang_id": "5d4dedaa-7647-4b52-a690-a0ab0e2e9dcc",
+  "initializer_output": {
+    "actors": [
+      {
+        "attention_level": 0.92,
+        "expression_level": 0.55,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.05,
+        "fictionalized": false,
+        "mobilization_readiness": 0.4,
+        "name": "noaa_ncei",
+        "perceived_majority": 0.8,
+        "role": "official adjudicator and publisher of annual global temperature ranking",
+        "stakes": [
+          "methodological consistency",
+          "publication credibility",
+          "clear annual ranking"
+        ],
+        "stance_axes": {
+          "method_change": -0.6,
+          "rank_2025_warmest": 0,
+          "source_specificity": 0.95
+        },
+        "type": "institution"
+      },
+      {
+        "attention_level": 0.88,
+        "expression_level": 0.7,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.15,
+        "fictionalized": true,
+        "mobilization_readiness": 0.5,
+        "name": "climate_data_watchers",
+        "perceived_majority": 0.55,
+        "role": "analysts and observers tracking annual global temperature standings",
+        "stakes": [
+          "accurate ranking",
+          "timely interpretation",
+          "cross-source comparison"
+        ],
+        "stance_axes": {
+          "method_change": -0.2,
+          "rank_2025_warmest": 0.2,
+          "source_specificity": 0.75
+        },
+        "type": "expert_network"
+      },
+      {
+        "attention_level": 0.84,
+        "expression_level": 0.6,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.2,
+        "fictionalized": true,
+        "mobilization_readiness": 0.45,
+        "name": "forecast_community",
+        "perceived_majority": 0.5,
+        "role": "forecasters interpreting sparse evidence into yes/no probabilities",
+        "stakes": [
+          "correct resolution",
+          "proper source usage",
+          "base-rate calibration"
+        ],
+        "stance_axes": {
+          "method_change": -0.1,
+          "rank_2025_warmest": 0.1,
+          "source_specificity": 0.9
+        },
+        "type": "community"
+      },
+      {
+        "attention_level": 0.35,
+        "expression_level": 0.25,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.25,
+        "fictionalized": true,
+        "mobilization_readiness": 0.15,
+        "name": "general_public_observers",
+        "perceived_majority": 0.6,
+        "role": "low-information audience exposed to broad claims about heat records",
+        "stakes": [
+          "simple narratives",
+          "headline interpretation"
+        ],
+        "stance_axes": {
+          "method_change": 0,
+          "rank_2025_warmest": 0.35,
+          "source_specificity": 0.25
+        },
+        "type": "public"
+      },
+      {
+        "attention_level": 0.2,
+        "expression_level": 0.05,
+        "fatigue": 0,
+        "fear_of_isolation": 0,
+        "fictionalized": true,
+        "mobilization_readiness": 0,
+        "name": "recent_record_years",
+        "perceived_majority": 0.5,
+        "role": "competing prior years in the ranking baseline",
+        "stakes": [
+          "benchmark pressure on 2025 ranking"
+        ],
+        "stance_axes": {
+          "method_change": 0,
+          "rank_2025_warmest": -0.4,
+          "source_specificity": 0.5
+        },
+        "type": "historical_benchmark"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Forecast and expert communities converge on yes resolution; public narratives reinforce record-year framing.",
+        "branch_key": "rank_2025_first",
+        "divergence_signal": "Official report explicitly states 2025 warmest year on record.",
+        "trigger": "NOAA/NCEI publishes 2025 as rank 1 globally"
+      },
+      {
+        "alternate_path": "Resolution becomes no despite extreme warmth headlines; expert emphasis shifts toward nuance and close competition.",
+        "branch_key": "rank_2025_not_first",
+        "divergence_signal": "Official report assigns 2025 any rank below first, especially third-warmest as explicitly noted.",
+        "trigger": "NOAA/NCEI publishes 2025 as rank 2 or 3 or lower"
+      },
+      {
+        "alternate_path": "Public and some forecasters lean too heavily toward yes before formal adjudication, creating later correction risk.",
+        "branch_key": "pre_release_overconfidence",
+        "divergence_signal": "Widening gap between headline language and source-specific forecast caution.",
+        "trigger": "Strong late-year heat headlines circulate before official report"
+      }
+    ],
+    "channels": [
+      {
+        "controlled_by": "noaa_ncei",
+        "name": "noaa_annual_global_report",
+        "reach": "high_among_relevant_observers",
+        "type": "official_report"
+      },
+      {
+        "controlled_by": "climate_data_watchers",
+        "name": "expert_analysis_channels",
+        "reach": "medium",
+        "type": "specialist_media"
+      },
+      {
+        "controlled_by": "forecast_community",
+        "name": "forecast_platform_discussion",
+        "reach": "medium",
+        "type": "community_discussion"
+      },
+      {
+        "controlled_by": "general_public_observers",
+        "name": "general_news_headlines",
+        "reach": "broad",
+        "type": "mass_media"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_name": "expert_observers",
+        "attention_level": 0.92,
+        "cohort_name": "method_strict_experts",
+        "expression_level": 0.72,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.55,
+        "private_belief": {
+          "rank_2025_warmest_likelihood": "uncertain_lean_yes"
+        },
+        "public_expression": {
+          "source_emphasis": "high",
+          "style": "cautious"
+        },
+        "representation_mode": "estimated_split",
+        "represented_population": 2750,
+        "stance_axes": {
+          "method_change": -0.5,
+          "rank_2025_warmest": 0.15,
+          "source_specificity": 0.95
+        }
+      },
+      {
+        "archetype_name": "expert_observers",
+        "attention_level": 0.82,
+        "cohort_name": "headline_heat_experts",
+        "expression_level": 0.68,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.1,
+        "mobilization_readiness": 0.48,
+        "perceived_majority": 0.58,
+        "population_share_of_archetype": 0.45,
+        "private_belief": {
+          "rank_2025_warmest_likelihood": "possible_but_not_assured"
+        },
+        "public_expression": {
+          "source_emphasis": "moderate",
+          "style": "salient-extremes-focused"
+        },
+        "representation_mode": "estimated_split",
+        "represented_population": 2250,
+        "stance_axes": {
+          "method_change": -0.1,
+          "rank_2025_warmest": 0.3,
+          "source_specificity": 0.6
+        }
+      },
+      {
+        "archetype_name": "forecast_participants",
+        "attention_level": 0.87,
+        "cohort_name": "base_rate_forecasters",
+        "expression_level": 0.63,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.44,
+        "perceived_majority": 0.48,
+        "population_share_of_archetype": 0.6,
+        "private_belief": {
+          "rank_2025_warmest_likelihood": "roughly_balanced"
+        },
+        "public_expression": {
+          "source_emphasis": "very_high",
+          "style": "probabilistic"
+        },
+        "representation_mode": "estimated_split",
+        "represented_population": 720,
+        "stance_axes": {
+          "method_change": -0.2,
+          "rank_2025_warmest": 0.05,
+          "source_specificity": 0.95
+        }
+      },
+      {
+        "archetype_name": "forecast_participants",
+        "attention_level": 0.8,
+        "cohort_name": "trend_extrapolation_forecasters",
+        "expression_level": 0.58,
+        "fatigue": 0.32,
+        "fear_of_isolation": 0.16,
+        "mobilization_readiness": 0.42,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.4,
+        "private_belief": {
+          "rank_2025_warmest_likelihood": "lean_yes"
+        },
+        "public_expression": {
+          "source_emphasis": "high",
+          "style": "trend-driven"
+        },
+        "representation_mode": "estimated_split",
+        "represented_population": 480,
+        "stance_axes": {
+          "method_change": -0.05,
+          "rank_2025_warmest": 0.28,
+          "source_specificity": 0.82
+        }
+      },
+      {
+        "archetype_name": "general_audience",
+        "attention_level": 0.32,
+        "cohort_name": "headline_followers",
+        "expression_level": 0.22,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.12,
+        "perceived_majority": 0.64,
+        "population_share_of_archetype": 0.7,
+        "private_belief": {
+          "rank_2025_warmest_likelihood": "warm_year_implies_record"
+        },
+        "public_expression": {
+          "source_emphasis": "low",
+          "style": "episodic"
+        },
+        "representation_mode": "estimated_split",
+        "represented_population": 350000,
+        "stance_axes": {
+          "method_change": 0,
+          "rank_2025_warmest": 0.4,
+          "source_specificity": 0.2
+        }
+      },
+      {
+        "archetype_name": "general_audience",
+        "attention_level": 0.12,
+        "cohort_name": "disengaged_public",
+        "expression_level": 0.08,
+        "fatigue": 0.15,
+        "fear_of_isolation": 0.08,
+        "mobilization_readiness": 0.05,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.3,
+        "private_belief": {
+          "rank_2025_warmest_likelihood": "unknown"
+        },
+        "public_expression": {
+          "source_emphasis": "very_low",
+          "style": "minimal"
+        },
+        "representation_mode": "estimated_split",
+        "represented_population": 150000,
+        "stance_axes": {
+          "method_change": 0,
+          "rank_2025_warmest": 0,
+          "source_specificity": 0.05
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_name": "expert_observers",
+        "attention_level": 0.92,
+        "cohort_name": "method_strict_experts",
+        "expression_level": 0.72,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.55,
+        "private_belief": {
+          "rank_2025_warmest_likelihood": "uncertain_lean_yes"
+        },
+        "public_expression": {
+          "source_emphasis": "high",
+          "style": "cautious"
+        },
+        "representation_mode": "estimated_split",
+        "represented_population": 2750,
+        "stance_axes": {
+          "method_change": -0.5,
+          "rank_2025_warmest": 0.15,
+          "source_specificity": 0.95
+        }
+      },
+      {
+        "archetype_name": "expert_observers",
+        "attention_level": 0.82,
+        "cohort_name": "headline_heat_experts",
+        "expression_level": 0.68,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.1,
+        "mobilization_readiness": 0.48,
+        "perceived_majority": 0.58,
+        "population_share_of_archetype": 0.45,
+        "private_belief": {
+          "rank_2025_warmest_likelihood": "possible_but_not_assured"
+        },
+        "public_expression": {
+          "source_emphasis": "moderate",
+          "style": "salient-extremes-focused"
+        },
+        "representation_mode": "estimated_split",
+        "represented_population": 2250,
+        "stance_axes": {
+          "method_change": -0.1,
+          "rank_2025_warmest": 0.3,
+          "source_specificity": 0.6
+        }
+      },
+      {
+        "archetype_name": "forecast_participants",
+        "attention_level": 0.87,
+        "cohort_name": "base_rate_forecasters",
+        "expression_level": 0.63,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.44,
+        "perceived_majority": 0.48,
+        "population_share_of_archetype": 0.6,
+        "private_belief": {
+          "rank_2025_warmest_likelihood": "roughly_balanced"
+        },
+        "public_expression": {
+          "source_emphasis": "very_high",
+          "style": "probabilistic"
+        },
+        "representation_mode": "estimated_split",
+        "represented_population": 720,
+        "stance_axes": {
+          "method_change": -0.2,
+          "rank_2025_warmest": 0.05,
+          "source_specificity": 0.95
+        }
+      },
+      {
+        "archetype_name": "forecast_participants",
+        "attention_level": 0.8,
+        "cohort_name": "trend_extrapolation_forecasters",
+        "expression_level": 0.58,
+        "fatigue": 0.32,
+        "fear_of_isolation": 0.16,
+        "mobilization_readiness": 0.42,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.4,
+        "private_belief": {
+          "rank_2025_warmest_likelihood": "lean_yes"
+        },
+        "public_expression": {
+          "source_emphasis": "high",
+          "style": "trend-driven"
+        },
+        "representation_mode": "estimated_split",
+        "represented_population": 480,
+        "stance_axes": {
+          "method_change": -0.05,
+          "rank_2025_warmest": 0.28,
+          "source_specificity": 0.82
+        }
+      },
+      {
+        "archetype_name": "general_audience",
+        "attention_level": 0.32,
+        "cohort_name": "headline_followers",
+        "expression_level": 0.22,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.12,
+        "perceived_majority": 0.64,
+        "population_share_of_archetype": 0.7,
+        "private_belief": {
+          "rank_2025_warmest_likelihood": "warm_year_implies_record"
+        },
+        "public_expression": {
+          "source_emphasis": "low",
+          "style": "episodic"
+        },
+        "representation_mode": "estimated_split",
+        "represented_population": 350000,
+        "stance_axes": {
+          "method_change": 0,
+          "rank_2025_warmest": 0.4,
+          "source_specificity": 0.2
+        }
+      },
+      {
+        "archetype_name": "general_audience",
+        "attention_level": 0.12,
+        "cohort_name": "disengaged_public",
+        "expression_level": 0.08,
+        "fatigue": 0.15,
+        "fear_of_isolation": 0.08,
+        "mobilization_readiness": 0.05,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.3,
+        "private_belief": {
+          "rank_2025_warmest_likelihood": "unknown"
+        },
+        "public_expression": {
+          "source_emphasis": "very_low",
+          "style": "minimal"
+        },
+        "representation_mode": "estimated_split",
+        "represented_population": 150000,
+        "stance_axes": {
+          "method_change": 0,
+          "rank_2025_warmest": 0,
+          "source_specificity": 0.05
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "noaa_ncei"
+        ],
+        "blockers": [
+          "Prior two years may remain warmer in final analysis",
+          "Full-year analysis not yet published at T0"
+        ],
+        "contradiction_notes": "Any official rank below first negates this endpoint.",
+        "description": "Terminal yes endpoint where NOAA/NCEI names calendar year 2025 as the warmest year in the global instrumental record.",
+        "endpoint_key": "yes_ranked_warmest",
+        "evidence_refs": [
+          "Use NOAA/NCEI's annual global report as the adjudication source.",
+          "Resolve yes only if NOAA/NCEI ranks 2025 as the warmest year since records began."
+        ],
+        "label": "2025 ranked warmest by NOAA/NCEI",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will NOAA/NCEI rank calendar year 2025 as the warmest year in the global instrumental record?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.45,
+        "rationale": "This is the core terminal success condition under the scenario's binary rule.",
+        "realization_criteria": [
+          "NOAA/NCEI annual global report is published",
+          "Report explicitly ranks 2025 first/warmest in global instrumental record"
+        ],
+        "status": "active",
+        "status_basis": "Warm 2025 conditions create credible path, but source packet emphasizes uncertainty due to exceptional prior years."
+      },
+      {
+        "authority_refs": [
+          "noaa_ncei"
+        ],
+        "blockers": [
+          "2025 may still edge out prior years in final analysis"
+        ],
+        "contradiction_notes": "Official first-place ranking for 2025 negates this endpoint.",
+        "description": "Terminal no endpoint where NOAA/NCEI does not rank 2025 as warmest, including second, third, or lower.",
+        "endpoint_key": "no_not_ranked_warmest",
+        "evidence_refs": [
+          "If NOAA ranks 2025 third-warmest, the answer is no.",
+          "A very warm year can still rank second or third if recent prior years were warmer."
+        ],
+        "label": "2025 not ranked warmest by NOAA/NCEI",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will NOAA/NCEI place 2025 below first place, making the formal resolution no?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.55,
+        "rationale": "Binary resolution is source-specific and any non-first rank satisfies the no endpoint.",
+        "realization_criteria": [
+          "NOAA/NCEI annual global report is published",
+          "Report ranks 2025 below first place"
+        ],
+        "status": "active",
+        "status_basis": "Strong competition from exceptionally warm recent years makes a non-first ranking a live and substantial possibility at T0."
+      },
+      {
+        "authority_refs": [
+          "noaa_ncei",
+          "forecast_community"
+        ],
+        "blockers": [
+          "Little evidence of blocker in corpus beyond generic cross-source confusion"
+        ],
+        "contradiction_notes": "Would only be contradicted by an explicit rule change or source override not present in corpus.",
+        "description": "Process-terminal governance endpoint in which the forecast community continues to treat NOAA/NCEI annual report as the decisive resolution source.",
+        "endpoint_key": "source_authority_maintained",
+        "evidence_refs": [
+          "Use NOAA/NCEI's annual global report as the adjudication source."
+        ],
+        "label": "NOAA/NCEI remains decisive adjudicator",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "At resolution time, will NOAA/NCEI's annual report remain the accepted decisive source rather than alternative temperature records?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": null,
+        "rationale": "Though not the main yes/no outcome, this endpoint captures the authority structure governing all later resolution.",
+        "realization_criteria": [
+          "Resolution is based on NOAA/NCEI annual global report",
+          "No alternative source supersedes NOAA/NCEI within this scenario's adjudication rule"
+        ],
+        "status": "active",
+        "status_basis": "Corpus explicitly fixes NOAA/NCEI as adjudication authority."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "Use NOAA/NCEI's annual global report as the adjudication source.",
+        "layer": "dependency",
+        "reason": "Official resolution depends on NOAA/NCEI annual ranking.",
+        "source_actor_name": "forecast_community",
+        "target_actor_name": "noaa_ncei",
+        "weight": 0.9
+      },
+      {
+        "direction": "directed",
+        "evidence": "Final ranking depends on full-year global land/ocean temperature analysis.",
+        "layer": "dependency",
+        "reason": "Observers rely on NOAA/NCEI for definitive annual ranking confirmation.",
+        "source_actor_name": "climate_data_watchers",
+        "target_actor_name": "noaa_ncei",
+        "weight": 0.72
+      },
+      {
+        "direction": "directed",
+        "evidence": "Inferred from scenario focus on ranking interpretation.",
+        "layer": "dependency",
+        "reason": "Public understanding often depends on expert interpretation rather than direct report reading.",
+        "source_actor_name": "general_public_observers",
+        "target_actor_name": "climate_data_watchers",
+        "weight": 0.28
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario centers on public-facing question of warmest year ranking.",
+        "layer": "exposure",
+        "reason": "Public may see expert discussion or summaries about yearly warmth.",
+        "source_actor_name": "general_public_observers",
+        "target_actor_name": "climate_data_watchers",
+        "weight": 0.32
+      },
+      {
+        "direction": "directed",
+        "evidence": "Expected focus includes climate_ranking and base_rate_recent_extremes.",
+        "layer": "exposure",
+        "reason": "Forecasters monitor analysts discussing temperature context and ranking odds.",
+        "source_actor_name": "forecast_community",
+        "target_actor_name": "climate_data_watchers",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "NOAA/NCEI named as adjudication source.",
+        "layer": "exposure",
+        "reason": "Experts track NOAA/NCEI reports and updates closely.",
+        "source_actor_name": "climate_data_watchers",
+        "target_actor_name": "noaa_ncei",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "Use NOAA/NCEI's annual global report as the adjudication source.",
+        "layer": "trust",
+        "reason": "Forecasters accept NOAA/NCEI as authoritative adjudicator.",
+        "source_actor_name": "forecast_community",
+        "target_actor_name": "noaa_ncei",
+        "weight": 0.82
+      },
+      {
+        "direction": "directed",
+        "evidence": "Final ranking depends on full-year global land/ocean temperature analysis.",
+        "layer": "trust",
+        "reason": "Experts generally trust institutional annual analyses for formal ranking.",
+        "source_actor_name": "climate_data_watchers",
+        "target_actor_name": "noaa_ncei",
+        "weight": 0.78
+      },
+      {
+        "direction": "directed",
+        "evidence": "Evidence sparse; default bounded public trust.",
+        "layer": "trust",
+        "reason": "Institutional credibility exists but is weaker among low-information observers.",
+        "source_actor_name": "general_public_observers",
+        "target_actor_name": "noaa_ncei",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source-specific resolution depends on NOAA/NCEI ranking.",
+        "layer": "influence",
+        "reason": "Official publication strongly shapes final forecast resolution and revisions.",
+        "source_actor_name": "noaa_ncei",
+        "target_actor_name": "forecast_community",
+        "weight": 0.86
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario includes climate context and recent-extremes framing.",
+        "layer": "influence",
+        "reason": "Analyst commentary can shift perceived odds before final report.",
+        "source_actor_name": "climate_data_watchers",
+        "target_actor_name": "forecast_community",
+        "weight": 0.48
+      },
+      {
+        "direction": "directed",
+        "evidence": "Inferred weak influence from public forecast discourse.",
+        "layer": "influence",
+        "reason": "Forecast discussions have limited but nonzero spillover into broader narratives.",
+        "source_actor_name": "forecast_community",
+        "target_actor_name": "general_public_observers",
+        "weight": 0.18
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Expected focus aligns both on climate_ranking and source_specific_resolution.",
+        "layer": "coalition",
+        "reason": "Both groups share interest in accurate ranking and source-specific interpretation.",
+        "source_actor_name": "forecast_community",
+        "target_actor_name": "climate_data_watchers",
+        "weight": 0.52
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Observers depend on NOAA/NCEI but remain independent interpreters.",
+        "layer": "coalition",
+        "reason": "Loose alignment around methodological legitimacy without full institutional unity.",
+        "source_actor_name": "climate_data_watchers",
+        "target_actor_name": "noaa_ncei",
+        "weight": 0.34
+      },
+      {
+        "direction": "directed",
+        "evidence": "The prior two years were also exceptionally warm.",
+        "layer": "conflict",
+        "reason": "Prior exceptionally warm years compete with 2025 for top ranking.",
+        "source_actor_name": "recent_record_years",
+        "target_actor_name": "rank_2025_placeholder",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "A very warm year can still rank second or third.",
+        "layer": "conflict",
+        "reason": "Simple headline assumptions may conflict with source-specific probabilistic caution.",
+        "source_actor_name": "forecast_community",
+        "target_actor_name": "general_public_observers",
+        "weight": 0.16
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Expected focus on climate ranking and source-specific resolution.",
+        "layer": "oasis_interaction",
+        "reason": "Likely active online/public-channel interaction over annual ranking interpretation.",
+        "source_actor_name": "forecast_community",
+        "target_actor_name": "climate_data_watchers",
+        "weight": 0.57
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Public-facing uncertainty around whether very warm means warmest.",
+        "layer": "oasis_interaction",
+        "reason": "Experts likely explain ranking nuances in public channels when report approaches.",
+        "source_actor_name": "climate_data_watchers",
+        "target_actor_name": "general_public_observers",
+        "weight": 0.29
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Annual report serves as focal publication event.",
+        "layer": "oasis_interaction",
+        "reason": "Report releases and summaries create periodic public interaction intensity.",
+        "source_actor_name": "noaa_ncei",
+        "target_actor_name": "climate_data_watchers",
+        "weight": 0.33
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "description": "Actor with formal authority to publish the decisive ranking",
+        "name": "institutional_adjudicator"
+      },
+      {
+        "description": "Actor translating mixed climate evidence into explicit forecast odds",
+        "name": "probability_synthesizer"
+      }
+    ],
+    "hero_states": [
+      {
+        "archetype_name": "institutional_adjudicator",
+        "attention_level": 0.92,
+        "capabilities": [
+          "annual global land_ocean analysis",
+          "official ranking publication"
+        ],
+        "constraints": [
+          "must use institutional methodology",
+          "cannot resolve before full-year analysis is complete"
+        ],
+        "current_role": "pre-publication adjudicator",
+        "expression_level": 0.55,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.05,
+        "hero_name": "noaa_ncei",
+        "mobilization_readiness": 0.4,
+        "perceived_majority": 0.8
+      },
+      {
+        "archetype_name": "probability_synthesizer",
+        "attention_level": 0.84,
+        "capabilities": [
+          "aggregate sparse evidence",
+          "apply source-specific resolution rules"
+        ],
+        "constraints": [
+          "cannot control outcome",
+          "dependent on NOAA/NCEI publication"
+        ],
+        "current_role": "public probability estimator",
+        "expression_level": 0.6,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.2,
+        "hero_name": "forecast_community",
+        "mobilization_readiness": 0.45,
+        "perceived_majority": 0.5
+      }
+    ],
+    "heroes": [
+      {
+        "description": "Actor with formal authority to publish the decisive ranking",
+        "name": "institutional_adjudicator"
+      },
+      {
+        "description": "Actor translating mixed climate evidence into explicit forecast odds",
+        "name": "probability_synthesizer"
+      }
+    ],
+    "important_questions": [
+      "Will NOAA/NCEI rank calendar year 2025 as the warmest year in the global instrumental record?",
+      "Will NOAA/NCEI place 2025 below first place, making the formal resolution no?",
+      "At resolution time, will NOAA/NCEI's annual report remain the accepted decisive source rather than alternative temperature records?"
+    ],
+    "initial_events": [
+      {
+        "event_key": "warm_2025_context_established",
+        "event_type": "announcement",
+        "evidence": "The year 2025 has been very warm globally, with persistent marine heat and regional extremes.",
+        "expected_impact": "Raises baseline plausibility that 2025 could contend for warmest year, increasing attention among experts and forecasters.",
+        "status": "observed",
+        "summary": "2025 is broadly recognized as a very warm global year with persistent marine heat and regional extremes.",
+        "tick": 0
+      },
+      {
+        "event_key": "recent_years_competition_active",
+        "event_type": "announcement",
+        "evidence": "The prior two years were also exceptionally warm.",
+        "expected_impact": "Constrains overconfidence; sustains uncertainty and conflict between simple trend extrapolation and base-rate caution.",
+        "status": "observed",
+        "summary": "Prior two years remain strong competitors for top ranking.",
+        "tick": 0
+      },
+      {
+        "event_key": "official_source_rule_clarified",
+        "event_type": "announcement",
+        "evidence": "Use NOAA/NCEI's annual global report as the adjudication source.",
+        "expected_impact": "Concentrates authority and dependency on one institution; reduces relevance of alternative records for formal endpoint realization.",
+        "status": "observed",
+        "summary": "NOAA/NCEI annual global report identified as the sole adjudication source for resolution.",
+        "tick": 0
+      },
+      {
+        "event_key": "annual_ranking_publication_pending",
+        "event_type": "announcement",
+        "evidence": "The final ranking depends on full-year global land/ocean temperature analysis.",
+        "expected_impact": "Will collapse uncertainty and activate one terminal endpoint based on published rank.",
+        "status": "anticipated",
+        "summary": "NOAA/NCEI annual global land/ocean temperature analysis is expected to determine final rank.",
+        "tick": 1
+      }
+    ],
+    "llm_call_id": "1b135ecc-5f53-4cec-b0b9-ac136819f3c4",
+    "merge_hypotheses": [
+      {
+        "condition": "NOAA/NCEI publishes definitive annual ranking",
+        "convergence_effect": "Forecast, expert, and public interpretation converge around formal source-specific endpoint.",
+        "merge_key": "official_publication_convergence"
+      },
+      {
+        "condition": "Observers accept NOAA/NCEI methodology without major dispute",
+        "convergence_effect": "Differences in prior expectation matter less once official ranking is issued.",
+        "merge_key": "method_legitimacy_convergence"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "description": "People who actively follow global temperature rankings and methods",
+        "name": "expert_observers",
+        "population_total": 5000
+      },
+      {
+        "description": "Users making explicit probabilistic judgments on the resolution question",
+        "name": "forecast_participants",
+        "population_total": 1200
+      },
+      {
+        "description": "Broader public seeing occasional headlines about warm years",
+        "name": "general_audience",
+        "population_total": 500000
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "sparse_quantitative_evidence",
+        "note": "Corpus lacks numerical anomaly comparisons or model-based ranking probabilities.",
+        "severity": "medium"
+      },
+      {
+        "flag": "authority_concentration",
+        "note": "Formal endpoint is highly dependent on a single source authority, NOAA/NCEI.",
+        "severity": "low"
+      },
+      {
+        "flag": "public_overinference_risk",
+        "note": "Broad warmth signals may be mistaken for guaranteed rank 1 despite explicit caution that second or third remains possible.",
+        "severity": "medium"
+      },
+      {
+        "flag": "graph_schema_tension",
+        "note": "Scenario lacks a natural actor representing 2025 ranking contender; one conflict edge references a placeholder-like target because competition is conceptually against 2025's potential top rank rather than another social actor.",
+        "severity": "high"
+      }
+    ],
+    "simulation_brief": {
+      "domain": "climate_record_adjudication",
+      "endpoint_pressure": "binary source-specific adjudication by NOAA/NCEI annual global report",
+      "mode": "direct",
+      "primary_decision_rule": "Resolve yes only if NOAA/NCEI ranks 2025 as warmest year since records began; any lower rank resolves no.",
+      "resolution_authority": "noaa_ncei",
+      "scale": "global_scientific_information_environment",
+      "scenario_key": "resolved_022",
+      "summary": "A resolution-focused simulation about whether NOAA/NCEI will rank calendar year 2025 as the warmest year in the global instrumental record. T0 occurs with evidence that 2025 has been very warm globally, but prior two years were also exceptionally warm, leaving final annual ranking uncertain until NOAA/NCEI's annual global land/ocean temperature analysis is issued.",
+      "timeframe": "calendar_year_2025_adjudication_window",
+      "uncertainty_notes": [
+        "Full-year ranking not yet fixed at T0.",
+        "Recent years provide strong competition for top rank.",
+        "Scenario corpus is sparse and does not provide numerical anomalies or publication date certainty beyond source dates."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "forecast_community",
+          "climate_data_watchers"
+        ],
+        "evidence": "Sparse evidence and source-specific rules encourage modest updating rather than extreme certainty.",
+        "level": "moderate",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "general_public_observers"
+        ],
+        "evidence": "Scenario is adjudicative and scientific, not mass-mobilization oriented.",
+        "level": "low",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "general_public_observers"
+        ],
+        "evidence": "Most of the public is low-attention and unlikely to express strong views.",
+        "level": "moderate",
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "forecast_community",
+          "climate_data_watchers"
+        ],
+        "evidence": "Experts and forecasters cluster around shared data sources and methods.",
+        "level": "moderate",
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "general_public_observers"
+        ],
+        "evidence": "Belief that 2025 is warmest may spread through repeated headlines, but official source can interrupt this.",
+        "level": "low_to_moderate",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "all"
+        ],
+        "evidence": "Corpus emphasizes technical adjudication more than identity conflict.",
+        "level": "low",
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "general_public_observers",
+          "forecast_community"
+        ],
+        "evidence": "Attention likely spikes near official release and fades otherwise.",
+        "level": "moderate",
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context_key": "source_specific_resolution",
+        "description": "Only NOAA/NCEI annual global report determines formal resolution."
+      },
+      {
+        "context_key": "recent_extremes_base_rate",
+        "description": "Exceptionally warm recent years make top-rank competition tight."
+      },
+      {
+        "context_key": "headline_vs_official_gap",
+        "description": "Very warm conditions can produce public overinference before official rank is published."
+      },
+      {
+        "context_key": "full_year_dependency",
+        "description": "Final annual ranking requires completed year analysis, not partial or regional signals."
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "noaa_ncei",
+        "behavior_axes": {
+          "caution": 0.88,
+          "responsiveness": 0.55,
+          "rigidity": 0.7,
+          "transparency": 0.68
+        },
+        "ideology_axes": {
+          "alarmism": 0.1,
+          "institutionalism": 0.9,
+          "novelty_seeking": 0.15
+        },
+        "reputation": 0.86,
+        "secrecy": 0.25,
+        "tendency": "method-bound adjudication",
+        "trustworthiness": 0.84
+      },
+      {
+        "actor_name": "climate_data_watchers",
+        "behavior_axes": {
+          "caution": 0.72,
+          "responsiveness": 0.75,
+          "rigidity": 0.35,
+          "transparency": 0.7
+        },
+        "ideology_axes": {
+          "alarmism": 0.3,
+          "institutionalism": 0.6,
+          "novelty_seeking": 0.4
+        },
+        "reputation": 0.74,
+        "secrecy": 0.1,
+        "tendency": "active interpretation of global heat signals",
+        "trustworthiness": 0.72
+      },
+      {
+        "actor_name": "forecast_community",
+        "behavior_axes": {
+          "caution": 0.78,
+          "responsiveness": 0.68,
+          "rigidity": 0.42,
+          "transparency": 0.82
+        },
+        "ideology_axes": {
+          "alarmism": 0.18,
+          "institutionalism": 0.72,
+          "novelty_seeking": 0.28
+        },
+        "reputation": 0.7,
+        "secrecy": 0.08,
+        "tendency": "probabilistic source-aware synthesis",
+        "trustworthiness": 0.76
+      },
+      {
+        "actor_name": "general_public_observers",
+        "behavior_axes": {
+          "caution": 0.3,
+          "responsiveness": 0.35,
+          "rigidity": 0.3,
+          "transparency": 0.45
+        },
+        "ideology_axes": {
+          "alarmism": 0.32,
+          "institutionalism": 0.45,
+          "novelty_seeking": 0.35
+        },
+        "reputation": 0.4,
+        "secrecy": 0.05,
+        "tendency": "headline-driven inference",
+        "trustworthiness": 0.45
+      },
+      {
+        "actor_name": "recent_record_years",
+        "behavior_axes": {
+          "caution": 0,
+          "responsiveness": 0,
+          "rigidity": 1,
+          "transparency": 1
+        },
+        "ideology_axes": {
+          "alarmism": 0,
+          "institutionalism": 0,
+          "novelty_seeking": 0
+        },
+        "reputation": 0.75,
+        "secrecy": 0,
+        "tendency": "benchmark constraint",
+        "trustworthiness": 0.7
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 1705,
+        "end": 1705,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 1705,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

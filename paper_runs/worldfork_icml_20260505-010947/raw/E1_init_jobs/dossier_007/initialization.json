@@ -1,0 +1,1754 @@
+{
+  "big_bang_id": "873060d2-ee48-4540-a2f0-2c6b9900539b",
+  "initializer_output": {
+    "actors": [
+      {
+        "authority_scope": "controls disclosures, liquidity operations, customer communications, strategic alternatives subject to regulation",
+        "name": "bank_h",
+        "public_role": "local_business_bank",
+        "stakes": [
+          "retain deposits",
+          "maintain confidence",
+          "avoid forced public actions",
+          "preserve independence"
+        ],
+        "type": "institution"
+      },
+      {
+        "authority_scope": "primary spokesperson; can authorize messaging and exploratory strategic actions",
+        "name": "bank_h_ceo",
+        "public_role": "chief_executive",
+        "stakes": [
+          "credibility",
+          "stabilization",
+          "avoid panic"
+        ],
+        "type": "person"
+      },
+      {
+        "authority_scope": "monitor conditions; may take public supervisory action if warranted",
+        "name": "state_banking_department",
+        "public_role": "state_regulator",
+        "stakes": [
+          "financial stability",
+          "accurate public information",
+          "confidential supervision"
+        ],
+        "type": "institution"
+      },
+      {
+        "authority_scope": "shapes local narrative through coverage",
+        "name": "local_reporters",
+        "public_role": "local_news_outlet_cluster",
+        "stakes": [
+          "timely reporting",
+          "credibility",
+          "public interest"
+        ],
+        "type": "media"
+      },
+      {
+        "authority_scope": "none formal; strong agenda amplification via exposure",
+        "name": "social_media_accounts",
+        "public_role": "viral rumor amplifiers",
+        "stakes": [
+          "attention",
+          "speculation",
+          "narrative spread"
+        ],
+        "type": "network"
+      },
+      {
+        "authority_scope": "can advise members but cannot control bank or regulator",
+        "name": "trade_association",
+        "public_role": "business_membership_association",
+        "stakes": [
+          "member payroll safety",
+          "risk management reputation"
+        ],
+        "type": "institution"
+      },
+      {
+        "authority_scope": "can diversify or withdraw deposits",
+        "name": "member_firms",
+        "public_role": "business depositors linked to association",
+        "stakes": [
+          "payroll continuity",
+          "cash safety",
+          "operational continuity"
+        ],
+        "type": "group"
+      },
+      {
+        "authority_scope": "can withdraw or stay",
+        "name": "retail_depositors",
+        "public_role": "local household depositors",
+        "stakes": [
+          "savings safety",
+          "transaction access"
+        ],
+        "type": "group"
+      },
+      {
+        "authority_scope": "can reallocate balances and influence peers",
+        "name": "commercial_clients",
+        "public_role": "non-association business customers",
+        "stakes": [
+          "cash management continuity",
+          "credit access",
+          "reputational prudence"
+        ],
+        "type": "group"
+      },
+      {
+        "authority_scope": "can engage in exploratory talks or decline",
+        "name": "potential_capital_or_merger_partners",
+        "public_role": "outside banks or investors",
+        "stakes": [
+          "opportunistic transaction",
+          "risk-adjusted return"
+        ],
+        "type": "group"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Online alarm loses momentum; business clients diversify modestly but avoid broad run dynamics.",
+        "branch_key": "clarification_cools_rumor",
+        "divergence_signal": "Decline in rumor repost volume, fewer branch withdrawal anecdotes, and neutral-to-positive local coverage tone.",
+        "trigger": "Credible follow-up reporting or bank disclosures contextualize the filing screenshot and show withdrawals stabilizing."
+      },
+      {
+        "alternate_path": "Quiet diversification cascades into public signal of distress, accelerating withdrawals across client types.",
+        "branch_key": "precautionary_business_shift_becomes_run",
+        "divergence_signal": "Reports of multiple firms moving accounts, branch queues, or repeated stories about payroll-risk exits.",
+        "trigger": "Large or visible member firms move payroll balances and peers imitate."
+      },
+      {
+        "alternate_path": "State regulator issues stronger public guidance or supervisory action, reshaping narrative around official concern.",
+        "branch_key": "regulatory_visibility_increases",
+        "divergence_signal": "Formal public notice, directive language, or unscheduled regulatory media availability.",
+        "trigger": "Conditions worsen enough that private monitoring no longer suffices or misinformation becomes destabilizing."
+      },
+      {
+        "alternate_path": "Stress shifts from rumor management to transaction process while operations continue.",
+        "branch_key": "strategic_process_opens_without_immediate_failure",
+        "divergence_signal": "Credible reporting of advisors, capital raise exploration, or buyer outreach.",
+        "trigger": "Bank cannot fully restore confidence and seeks external capital or merger discussions to reassure stakeholders."
+      },
+      {
+        "alternate_path": "Bank remains open under prolonged reputational strain and episodic rumor flare-ups.",
+        "branch_key": "stress_lingers_without_resolution",
+        "divergence_signal": "Recurring mixed coverage, continued cautionary customer behavior, and absence of decisive official or strategic moves.",
+        "trigger": "Withdrawals remain elevated but manageable, while no actor can credibly settle solvency fears in public."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "social_media",
+        "primary_actors": [
+          "social_media_accounts",
+          "retail_depositors",
+          "commercial_clients",
+          "local_reporters"
+        ],
+        "salience": 0.89,
+        "type": "public_digital"
+      },
+      {
+        "channel_key": "local_news",
+        "primary_actors": [
+          "local_reporters",
+          "retail_depositors",
+          "commercial_clients",
+          "state_banking_department",
+          "bank_h_ceo"
+        ],
+        "salience": 0.77,
+        "type": "public_media"
+      },
+      {
+        "channel_key": "regulatory_statement_channel",
+        "primary_actors": [
+          "state_banking_department",
+          "local_reporters",
+          "depositors"
+        ],
+        "salience": 0.58,
+        "type": "official_public"
+      },
+      {
+        "channel_key": "trade_association_email",
+        "primary_actors": [
+          "trade_association",
+          "member_firms"
+        ],
+        "salience": 0.69,
+        "type": "semi_private"
+      },
+      {
+        "channel_key": "branch_activity",
+        "primary_actors": [
+          "retail_depositors",
+          "bank_h"
+        ],
+        "salience": 0.64,
+        "type": "public_physical_signal"
+      },
+      {
+        "channel_key": "direct_bank_client_communications",
+        "primary_actors": [
+          "bank_h_ceo",
+          "commercial_clients",
+          "member_firms",
+          "retail_depositors"
+        ],
+        "salience": 0.61,
+        "type": "institutional_direct"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "member_firms",
+        "archetype": "business_depositors",
+        "attention_level": 0.86,
+        "behavioral_tendencies": [
+          "risk_spreading",
+          "peer_checking",
+          "quiet_action_over_public_posting"
+        ],
+        "cohort_key": "member_firms_precautionary",
+        "expression_level": 0.28,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.34,
+        "graph_influence_summary": "Moderate within business networks due to payroll and peer benchmarking.",
+        "ideology_axes": {
+          "institutional_trust": 0.05,
+          "market_prudence": 0.62
+        },
+        "mobilization_readiness": 0.68,
+        "perceived_majority": "Peers are considering precautionary diversification.",
+        "population_share_of_archetype": 0.262,
+        "private_belief": "Bank may be solvent but short-term access risk justifies diversification.",
+        "public_expression": "Pragmatic caution; limited public commentary.",
+        "representation_mode": "explicit_subcohort",
+        "represented_population": 110,
+        "reputation": 0.58,
+        "secrecy": 0.56,
+        "stance_axes": {
+          "bank_confidence": -0.2,
+          "trust_regulator": 0.15,
+          "trust_rumor": 0.25,
+          "withdraw_now": 0.45
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "commercial_clients",
+        "archetype": "business_depositors",
+        "attention_level": 0.71,
+        "behavioral_tendencies": [
+          "wait_for_signal",
+          "follow_large_accounts",
+          "sensitivity_to_payroll_risk"
+        ],
+        "cohort_key": "commercial_clients_watchful",
+        "expression_level": 0.18,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.26,
+        "graph_influence_summary": "High deposit significance but diffuse public voice.",
+        "ideology_axes": {
+          "institutional_trust": 0.12,
+          "market_prudence": 0.56
+        },
+        "mobilization_readiness": 0.39,
+        "perceived_majority": "Most firms are watching rather than rushing.",
+        "population_share_of_archetype": 0.738,
+        "private_belief": "Situation is ambiguous; rumor may be overstated but cash concentration risk matters.",
+        "public_expression": "Mostly waiting and monitoring.",
+        "representation_mode": "explicit_subcohort",
+        "represented_population": 310,
+        "reputation": 0.57,
+        "secrecy": 0.51,
+        "stance_axes": {
+          "bank_confidence": 0.05,
+          "trust_regulator": 0.22,
+          "trust_rumor": 0.12,
+          "withdraw_now": 0.18
+        },
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "retail_depositors",
+        "archetype": "retail_depositors_base",
+        "attention_level": 0.62,
+        "behavioral_tendencies": [
+          "word_of_mouth_sharing",
+          "queue_signal_response",
+          "small_balance_withdrawals"
+        ],
+        "cohort_key": "retail_depositors_concerned",
+        "expression_level": 0.31,
+        "fatigue": 0.16,
+        "fear_of_isolation": 0.21,
+        "graph_influence_summary": "Visible at branches and in community chatter.",
+        "ideology_axes": {
+          "institutional_trust": -0.02,
+          "market_prudence": 0.34
+        },
+        "mobilization_readiness": 0.42,
+        "perceived_majority": "Many locals are uneasy.",
+        "population_share_of_archetype": 0.279,
+        "private_belief": "Something may be wrong because withdrawals are in the news.",
+        "public_expression": "Questioning, forwarding articles, some branch visits.",
+        "representation_mode": "explicit_subcohort",
+        "represented_population": 1900,
+        "reputation": 0.49,
+        "secrecy": 0.24,
+        "stance_axes": {
+          "bank_confidence": -0.18,
+          "trust_regulator": 0.08,
+          "trust_rumor": 0.32,
+          "withdraw_now": 0.28
+        },
+        "trustworthiness": 0.53
+      },
+      {
+        "actor_name": "retail_depositors",
+        "archetype": "retail_depositors_base",
+        "attention_level": 0.38,
+        "behavioral_tendencies": [
+          "passive_monitoring",
+          "react_to_visible_queues",
+          "defer_to_news"
+        ],
+        "cohort_key": "retail_depositors_wait_and_see",
+        "expression_level": 0.11,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.14,
+        "graph_influence_summary": "Large but quiet baseline population.",
+        "ideology_axes": {
+          "institutional_trust": 0.16,
+          "market_prudence": 0.21
+        },
+        "mobilization_readiness": 0.19,
+        "perceived_majority": "Most people have not changed behavior yet.",
+        "population_share_of_archetype": 0.721,
+        "private_belief": "Rumors may be exaggerated; waiting for clearer evidence.",
+        "public_expression": "Low public engagement.",
+        "representation_mode": "explicit_subcohort",
+        "represented_population": 4900,
+        "reputation": 0.52,
+        "secrecy": 0.22,
+        "stance_axes": {
+          "bank_confidence": 0.14,
+          "trust_regulator": 0.19,
+          "trust_rumor": 0.04,
+          "withdraw_now": 0.08
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "social_media_accounts",
+        "archetype": "local_information_audience",
+        "attention_level": 0.9,
+        "behavioral_tendencies": [
+          "viral_reposting",
+          "screenshot_reasoning",
+          "attention_chasing"
+        ],
+        "cohort_key": "local_audience_rumor_amplifiers",
+        "expression_level": 0.84,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.07,
+        "graph_influence_summary": "High exposure but low credibility.",
+        "ideology_axes": {
+          "institutional_trust": -0.18,
+          "market_prudence": 0.11
+        },
+        "mobilization_readiness": 0.52,
+        "perceived_majority": "Online conversation is turning against the bank.",
+        "population_share_of_archetype": 0.128,
+        "private_belief": "Partial filing image is enough to justify alarm or speculation.",
+        "public_expression": "High reposting and strong claims.",
+        "representation_mode": "behavioral_subcohort",
+        "represented_population": 3200,
+        "reputation": 0.31,
+        "secrecy": 0.12,
+        "stance_axes": {
+          "bank_confidence": -0.42,
+          "trust_regulator": -0.12,
+          "trust_rumor": 0.61,
+          "withdraw_now": 0.1
+        },
+        "trustworthiness": 0.28
+      },
+      {
+        "actor_name": "local_reporters",
+        "archetype": "local_information_audience",
+        "attention_level": 0.47,
+        "behavioral_tendencies": [
+          "consume_updates",
+          "defer_to_official_signals",
+          "react_to_visual_evidence"
+        ],
+        "cohort_key": "local_audience_information_seekers",
+        "expression_level": 0.22,
+        "fatigue": 0.14,
+        "fear_of_isolation": 0.16,
+        "graph_influence_summary": "Broad audience available for narrative shifts.",
+        "ideology_axes": {
+          "institutional_trust": 0.11,
+          "market_prudence": 0.19
+        },
+        "mobilization_readiness": 0.12,
+        "perceived_majority": "Issue is notable but not settled.",
+        "population_share_of_archetype": 0.872,
+        "private_belief": "Need corroborated evidence; uncertainty remains.",
+        "public_expression": "Mixed discussion shaped by news and official statements.",
+        "representation_mode": "ambient_public",
+        "represented_population": 21800,
+        "reputation": 0.5,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "bank_confidence": 0.0,
+          "trust_regulator": 0.17,
+          "trust_rumor": 0.09,
+          "withdraw_now": 0.03
+        },
+        "trustworthiness": 0.55
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "member_firms",
+        "archetype": "business_depositors",
+        "attention_level": 0.86,
+        "behavioral_tendencies": [
+          "risk_spreading",
+          "peer_checking",
+          "quiet_action_over_public_posting"
+        ],
+        "cohort_key": "member_firms_precautionary",
+        "expression_level": 0.28,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.34,
+        "graph_influence_summary": "Moderate within business networks due to payroll and peer benchmarking.",
+        "ideology_axes": {
+          "institutional_trust": 0.05,
+          "market_prudence": 0.62
+        },
+        "mobilization_readiness": 0.68,
+        "perceived_majority": "Peers are considering precautionary diversification.",
+        "population_share_of_archetype": 0.262,
+        "private_belief": "Bank may be solvent but short-term access risk justifies diversification.",
+        "public_expression": "Pragmatic caution; limited public commentary.",
+        "representation_mode": "explicit_subcohort",
+        "represented_population": 110,
+        "reputation": 0.58,
+        "secrecy": 0.56,
+        "stance_axes": {
+          "bank_confidence": -0.2,
+          "trust_regulator": 0.15,
+          "trust_rumor": 0.25,
+          "withdraw_now": 0.45
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "commercial_clients",
+        "archetype": "business_depositors",
+        "attention_level": 0.71,
+        "behavioral_tendencies": [
+          "wait_for_signal",
+          "follow_large_accounts",
+          "sensitivity_to_payroll_risk"
+        ],
+        "cohort_key": "commercial_clients_watchful",
+        "expression_level": 0.18,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.26,
+        "graph_influence_summary": "High deposit significance but diffuse public voice.",
+        "ideology_axes": {
+          "institutional_trust": 0.12,
+          "market_prudence": 0.56
+        },
+        "mobilization_readiness": 0.39,
+        "perceived_majority": "Most firms are watching rather than rushing.",
+        "population_share_of_archetype": 0.738,
+        "private_belief": "Situation is ambiguous; rumor may be overstated but cash concentration risk matters.",
+        "public_expression": "Mostly waiting and monitoring.",
+        "representation_mode": "explicit_subcohort",
+        "represented_population": 310,
+        "reputation": 0.57,
+        "secrecy": 0.51,
+        "stance_axes": {
+          "bank_confidence": 0.05,
+          "trust_regulator": 0.22,
+          "trust_rumor": 0.12,
+          "withdraw_now": 0.18
+        },
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "retail_depositors",
+        "archetype": "retail_depositors_base",
+        "attention_level": 0.62,
+        "behavioral_tendencies": [
+          "word_of_mouth_sharing",
+          "queue_signal_response",
+          "small_balance_withdrawals"
+        ],
+        "cohort_key": "retail_depositors_concerned",
+        "expression_level": 0.31,
+        "fatigue": 0.16,
+        "fear_of_isolation": 0.21,
+        "graph_influence_summary": "Visible at branches and in community chatter.",
+        "ideology_axes": {
+          "institutional_trust": -0.02,
+          "market_prudence": 0.34
+        },
+        "mobilization_readiness": 0.42,
+        "perceived_majority": "Many locals are uneasy.",
+        "population_share_of_archetype": 0.279,
+        "private_belief": "Something may be wrong because withdrawals are in the news.",
+        "public_expression": "Questioning, forwarding articles, some branch visits.",
+        "representation_mode": "explicit_subcohort",
+        "represented_population": 1900,
+        "reputation": 0.49,
+        "secrecy": 0.24,
+        "stance_axes": {
+          "bank_confidence": -0.18,
+          "trust_regulator": 0.08,
+          "trust_rumor": 0.32,
+          "withdraw_now": 0.28
+        },
+        "trustworthiness": 0.53
+      },
+      {
+        "actor_name": "retail_depositors",
+        "archetype": "retail_depositors_base",
+        "attention_level": 0.38,
+        "behavioral_tendencies": [
+          "passive_monitoring",
+          "react_to_visible_queues",
+          "defer_to_news"
+        ],
+        "cohort_key": "retail_depositors_wait_and_see",
+        "expression_level": 0.11,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.14,
+        "graph_influence_summary": "Large but quiet baseline population.",
+        "ideology_axes": {
+          "institutional_trust": 0.16,
+          "market_prudence": 0.21
+        },
+        "mobilization_readiness": 0.19,
+        "perceived_majority": "Most people have not changed behavior yet.",
+        "population_share_of_archetype": 0.721,
+        "private_belief": "Rumors may be exaggerated; waiting for clearer evidence.",
+        "public_expression": "Low public engagement.",
+        "representation_mode": "explicit_subcohort",
+        "represented_population": 4900,
+        "reputation": 0.52,
+        "secrecy": 0.22,
+        "stance_axes": {
+          "bank_confidence": 0.14,
+          "trust_regulator": 0.19,
+          "trust_rumor": 0.04,
+          "withdraw_now": 0.08
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "social_media_accounts",
+        "archetype": "local_information_audience",
+        "attention_level": 0.9,
+        "behavioral_tendencies": [
+          "viral_reposting",
+          "screenshot_reasoning",
+          "attention_chasing"
+        ],
+        "cohort_key": "local_audience_rumor_amplifiers",
+        "expression_level": 0.84,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.07,
+        "graph_influence_summary": "High exposure but low credibility.",
+        "ideology_axes": {
+          "institutional_trust": -0.18,
+          "market_prudence": 0.11
+        },
+        "mobilization_readiness": 0.52,
+        "perceived_majority": "Online conversation is turning against the bank.",
+        "population_share_of_archetype": 0.128,
+        "private_belief": "Partial filing image is enough to justify alarm or speculation.",
+        "public_expression": "High reposting and strong claims.",
+        "representation_mode": "behavioral_subcohort",
+        "represented_population": 3200,
+        "reputation": 0.31,
+        "secrecy": 0.12,
+        "stance_axes": {
+          "bank_confidence": -0.42,
+          "trust_regulator": -0.12,
+          "trust_rumor": 0.61,
+          "withdraw_now": 0.1
+        },
+        "trustworthiness": 0.28
+      },
+      {
+        "actor_name": "local_reporters",
+        "archetype": "local_information_audience",
+        "attention_level": 0.47,
+        "behavioral_tendencies": [
+          "consume_updates",
+          "defer_to_official_signals",
+          "react_to_visual_evidence"
+        ],
+        "cohort_key": "local_audience_information_seekers",
+        "expression_level": 0.22,
+        "fatigue": 0.14,
+        "fear_of_isolation": 0.16,
+        "graph_influence_summary": "Broad audience available for narrative shifts.",
+        "ideology_axes": {
+          "institutional_trust": 0.11,
+          "market_prudence": 0.19
+        },
+        "mobilization_readiness": 0.12,
+        "perceived_majority": "Issue is notable but not settled.",
+        "population_share_of_archetype": 0.872,
+        "private_belief": "Need corroborated evidence; uncertainty remains.",
+        "public_expression": "Mixed discussion shaped by news and official statements.",
+        "representation_mode": "ambient_public",
+        "represented_population": 21800,
+        "reputation": 0.5,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "bank_confidence": 0.0,
+          "trust_regulator": 0.17,
+          "trust_rumor": 0.09,
+          "withdraw_now": 0.03
+        },
+        "trustworthiness": 0.55
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "bank_h",
+          "bank_h_ceo",
+          "local_reporters",
+          "state_banking_department"
+        ],
+        "blockers": [
+          "CEO has not quantified liquidity lines",
+          "Regulatory confidentiality prevents full public proof",
+          "Trade association precaution email may sustain business caution"
+        ],
+        "contradiction_notes": "Elevated withdrawals and viral rumors already exist, so restoration is not automatic.",
+        "description": "Rumor fades after clarification and withdrawal activity normalizes without public intervention or strategic transaction becoming the main outcome.",
+        "endpoint_key": "confidence_restored",
+        "evidence_refs": [
+          "source_2_filing_excerpt_t_minus_4",
+          "source_4_regulator_statement_t_minus_2",
+          "source_6_bank_ceo_statement_t0"
+        ],
+        "label": "Confidence restored",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Within 6 weeks, do withdrawals return near normal and does the rumor lose salience without public supervisory escalation?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.24,
+        "rationale": "Requires credible clarification, attenuation of rumor spread, and enough depositor patience for switching costs and reassurance to matter.",
+        "realization_criteria": [
+          "Observable decline in withdrawal-related reports over multiple ticks",
+          "Public narrative shifts from failure speculation to stabilization",
+          "No public supervisory action announced",
+          "No public merger or capital process becomes central"
+        ],
+        "status": "active",
+        "status_basis": "Stabilization is plausible because no insolvency evidence is provided and the filing still states liquidity coverage above internal minimums."
+      },
+      {
+        "authority_refs": [
+          "member_firms",
+          "commercial_clients",
+          "retail_depositors",
+          "bank_h"
+        ],
+        "blockers": [
+          "Operational switching costs for business clients",
+          "Lack of proven insolvency evidence",
+          "Potential calming effect of regulator and CEO messaging"
+        ],
+        "contradiction_notes": "A run can occur even without insolvency if rumor dynamics intensify; however, current evidence is short of that threshold.",
+        "description": "Withdrawals accelerate into a material run that dominates the bank's near-term trajectory.",
+        "endpoint_key": "depositor_run",
+        "evidence_refs": [
+          "source_1_social_media_digest_t_minus_5",
+          "source_3_local_news_article_t_minus_3",
+          "source_5_major_depositor_email_t_minus_1"
+        ],
+        "label": "Depositor run",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do withdrawals accelerate into a material depositor run visible through repeated branch stress, business-account flight, or emergency defensive measures?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.23,
+        "rationale": "Most likely if social proof from withdrawals and business-account moves reinforces the viral narrative.",
+        "realization_criteria": [
+          "Successive reports or visible evidence of escalating withdrawals",
+          "Business depositors materially diversify or remove balances at scale",
+          "Bank messaging shifts toward urgent defensive liquidity management"
+        ],
+        "status": "active",
+        "status_basis": "The scenario already contains elevated withdrawals and a precautionary business-depositor trigger, but not yet evidence of a material run."
+      },
+      {
+        "authority_refs": [
+          "state_banking_department"
+        ],
+        "blockers": [
+          "Confidential supervisory norms",
+          "Regulator may prefer quiet oversight if conditions remain manageable",
+          "Public action may be avoided if it worsens confidence"
+        ],
+        "contradiction_notes": "Monitoring alone is not intervention; the scenario does not yet evidence a public action threshold being met.",
+        "description": "The state banking department takes public supervisory action or other overt official step beyond generic monitoring.",
+        "endpoint_key": "regulator_intervention",
+        "evidence_refs": [
+          "source_4_regulator_statement_t_minus_2"
+        ],
+        "label": "Regulator intervention",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the state banking department move from monitoring to a public supervisory intervention or comparable formal action?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.15,
+        "rationale": "Becomes more likely if stress escalates and public stabilization messaging fails.",
+        "realization_criteria": [
+          "Public notice of supervisory action, directive, restrictions, takeover-related step, or unusually explicit warning",
+          "Official communication that changes from passive monitoring language to action language"
+        ],
+        "status": "active",
+        "status_basis": "The regulator is already monitoring and publicly warning against misinformation, establishing jurisdiction and readiness without committing to action."
+      },
+      {
+        "authority_refs": [
+          "bank_h",
+          "bank_h_ceo",
+          "potential_capital_or_merger_partners",
+          "state_banking_department"
+        ],
+        "blockers": [
+          "No current public evidence of process launch",
+          "Potential counterparties may wait for more clarity",
+          "Bank may restore confidence without transaction"
+        ],
+        "contradiction_notes": "At T0 it is only a plausible option, not an evidenced active process.",
+        "description": "Bank H seeks a buyer, merger partner, or capital raise as the leading resolution path.",
+        "endpoint_key": "merger_or_capital_process",
+        "evidence_refs": [
+          "source_6_bank_ceo_statement_t0",
+          "scenario_candidate_endpoints"
+        ],
+        "label": "Merger or capital process",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does Bank H enter a public merger search, sale process, or external capital raise as the primary resolution path?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.14,
+        "rationale": "Most likely if the bank remains viable but cannot independently restore depositor confidence.",
+        "realization_criteria": [
+          "Credible public report or official confirmation of sale exploration, merger discussions, or external capital raise",
+          "Strategic process becomes the main explanation for stabilization or survival"
+        ],
+        "status": "active",
+        "status_basis": "This is a credible contingency endpoint, especially if confidence remains shaky despite available liquidity lines."
+      },
+      {
+        "authority_refs": [
+          "bank_h",
+          "state_banking_department",
+          "depositors_collective_behavior"
+        ],
+        "blockers": [
+          "Fresh clarifying evidence could quickly restore confidence",
+          "Escalation could force run or intervention instead"
+        ],
+        "contradiction_notes": "Unresolved stress is not merely the absence of news; it requires ongoing elevated pressure or caution.",
+        "description": "Stress persists for weeks without full confidence restoration, public intervention, or clear transaction resolution.",
+        "endpoint_key": "unresolved_stress",
+        "evidence_refs": [
+          "source_3_local_news_article_t_minus_3",
+          "source_4_regulator_statement_t_minus_2",
+          "source_6_bank_ceo_statement_t0"
+        ],
+        "label": "Unresolved stress",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "After 6 weeks, is the bank still operating under elevated stress without clear confidence restoration or terminal intervention?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.24,
+        "rationale": "This endpoint fits situations where no actor can publicly settle the matter but conditions do not collapse fast enough to force a terminal move.",
+        "realization_criteria": [
+          "Bank remains open after 6 weeks with continuing elevated concern or withdrawals",
+          "No public supervisory action resolves the issue",
+          "No completed confidence restoration or dominant transaction process"
+        ],
+        "status": "active",
+        "status_basis": "Current ambiguity, confidentiality limits, and incomplete liquidity disclosure make prolonged stress highly plausible."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "Source 1 social posts claim Bank H is next to fail.",
+        "layer": "exposure",
+        "reason": "Rumors are circulating widely online to local depositors.",
+        "source_actor_name": "social_media_accounts",
+        "target_actor_name": "retail_depositors",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source 1 viral posts.",
+        "layer": "exposure",
+        "reason": "Business clients are likely exposed to viral claims through online networks.",
+        "source_actor_name": "social_media_accounts",
+        "target_actor_name": "commercial_clients",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source 3 local news article on elevated withdrawals.",
+        "layer": "exposure",
+        "reason": "Local reporting reaches household customers and shapes salience.",
+        "source_actor_name": "local_reporters",
+        "target_actor_name": "retail_depositors",
+        "weight": 0.51
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source 3 local news article.",
+        "layer": "exposure",
+        "reason": "Business customers monitor local reporting for confirmation signals.",
+        "source_actor_name": "local_reporters",
+        "target_actor_name": "commercial_clients",
+        "weight": 0.43
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source 4 regulator statement.",
+        "layer": "exposure",
+        "reason": "Official monitoring statement provides a reference point for coverage.",
+        "source_actor_name": "state_banking_department",
+        "target_actor_name": "local_reporters",
+        "weight": 0.34
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source 6 CEO statement.",
+        "layer": "exposure",
+        "reason": "CEO reassurance is a public signal but may not reach all depositors directly.",
+        "source_actor_name": "bank_h_ceo",
+        "target_actor_name": "retail_depositors",
+        "weight": 0.39
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source 6 CEO statement.",
+        "layer": "exposure",
+        "reason": "Commercial clients are attentive to management statements.",
+        "source_actor_name": "bank_h_ceo",
+        "target_actor_name": "commercial_clients",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source 5 depositor email.",
+        "layer": "exposure",
+        "reason": "Association email directly reaches member firms on payroll account diversification.",
+        "source_actor_name": "trade_association",
+        "target_actor_name": "member_firms",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "Sources 1, 3, 6.",
+        "layer": "trust",
+        "reason": "Baseline customer trust persists but is weakened by rumors and withdrawal news.",
+        "source_actor_name": "retail_depositors",
+        "target_actor_name": "bank_h",
+        "weight": 0.42
+      },
+      {
+        "direction": "directed",
+        "evidence": "Sources 2, 3, 6.",
+        "layer": "trust",
+        "reason": "Business clients retain some confidence but are sensitive to liquidity ambiguity.",
+        "source_actor_name": "commercial_clients",
+        "target_actor_name": "bank_h",
+        "weight": 0.45
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source 5 association inquiry.",
+        "layer": "trust",
+        "reason": "Members are likely to treat association guidance as prudent risk management.",
+        "source_actor_name": "member_firms",
+        "target_actor_name": "trade_association",
+        "weight": 0.59
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source 4 statement warns against misinformation but gives no confidential details.",
+        "layer": "trust",
+        "reason": "Regulator credibility is moderate though confidentiality limits reassurance value.",
+        "source_actor_name": "retail_depositors",
+        "target_actor_name": "state_banking_department",
+        "weight": 0.48
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source 4.",
+        "layer": "trust",
+        "reason": "Business clients may see regulator monitoring as meaningful but incomplete.",
+        "source_actor_name": "commercial_clients",
+        "target_actor_name": "state_banking_department",
+        "weight": 0.51
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source 4.",
+        "layer": "trust",
+        "reason": "Reporters treat regulator statement as an authoritative but limited source.",
+        "source_actor_name": "local_reporters",
+        "target_actor_name": "state_banking_department",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source 1 and continued concern implied by elevated withdrawals in Source 3.",
+        "layer": "trust",
+        "reason": "Some depositors credit alarming posts, but trust is uneven.",
+        "source_actor_name": "retail_depositors",
+        "target_actor_name": "social_media_accounts",
+        "weight": 0.27
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source 5 specifically references payroll accounts.",
+        "layer": "dependency",
+        "reason": "Member firms may rely on the bank for payroll and operating accounts.",
+        "source_actor_name": "member_firms",
+        "target_actor_name": "bank_h",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario describes a local business bank; Source 5 highlights account concentration concerns.",
+        "layer": "dependency",
+        "reason": "Business clients depend on treasury and transactional banking continuity.",
+        "source_actor_name": "commercial_clients",
+        "target_actor_name": "bank_h",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario context of local bank customer base.",
+        "layer": "dependency",
+        "reason": "Retail customers rely on accounts for savings and payments but often have smaller balances and alternatives.",
+        "source_actor_name": "retail_depositors",
+        "target_actor_name": "bank_h",
+        "weight": 0.34
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source 4 monitoring authority; scenario candidate endpoint includes regulator intervention.",
+        "layer": "dependency",
+        "reason": "Bank operations and strategic actions are constrained by supervisory oversight.",
+        "source_actor_name": "bank_h",
+        "target_actor_name": "state_banking_department",
+        "weight": 0.49
+      },
+      {
+        "direction": "directed",
+        "evidence": "Candidate endpoint merger_or_capital_process.",
+        "layer": "dependency",
+        "reason": "Strategic alternatives may become relevant if confidence cannot be restored organically.",
+        "source_actor_name": "bank_h",
+        "target_actor_name": "potential_capital_or_merger_partners",
+        "weight": 0.21
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source 1 rumor wave.",
+        "layer": "influence",
+        "reason": "Viral claims can shape perceived risk and urgency.",
+        "source_actor_name": "social_media_accounts",
+        "target_actor_name": "retail_depositors",
+        "weight": 0.49
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source 3.",
+        "layer": "influence",
+        "reason": "Coverage of elevated withdrawals legitimizes concern without proving insolvency.",
+        "source_actor_name": "local_reporters",
+        "target_actor_name": "retail_depositors",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source 5.",
+        "layer": "influence",
+        "reason": "Association prompts member firms to consider diversification.",
+        "source_actor_name": "trade_association",
+        "target_actor_name": "member_firms",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source 4.",
+        "layer": "influence",
+        "reason": "Official caution against misinformation can reframe coverage tone.",
+        "source_actor_name": "state_banking_department",
+        "target_actor_name": "local_reporters",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source 6.",
+        "layer": "influence",
+        "reason": "CEO messaging can slow or accelerate withdrawals depending on credibility.",
+        "source_actor_name": "bank_h_ceo",
+        "target_actor_name": "commercial_clients",
+        "weight": 0.43
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source 6 refusal to provide dollar amounts.",
+        "layer": "influence",
+        "reason": "Public reassurance has some effect but lacks hard numbers.",
+        "source_actor_name": "bank_h_ceo",
+        "target_actor_name": "retail_depositors",
+        "weight": 0.31
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Source 5 association outreach.",
+        "layer": "coalition",
+        "reason": "Member firms share risk-management interests and communication channels.",
+        "source_actor_name": "trade_association",
+        "target_actor_name": "member_firms",
+        "weight": 0.62
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Source 4 monitoring and Source 6 bank reassurance.",
+        "layer": "coalition",
+        "reason": "Both prefer stability, though with distinct incentives and information constraints.",
+        "source_actor_name": "state_banking_department",
+        "target_actor_name": "bank_h",
+        "weight": 0.28
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Sources 3 and 4.",
+        "layer": "coalition",
+        "reason": "Weak alignment around factual clarification, not advocacy.",
+        "source_actor_name": "local_reporters",
+        "target_actor_name": "state_banking_department",
+        "weight": 0.19
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source 1.",
+        "layer": "conflict",
+        "reason": "Rumor claims directly undermine confidence in the bank.",
+        "source_actor_name": "social_media_accounts",
+        "target_actor_name": "bank_h",
+        "weight": 0.55
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source 5.",
+        "layer": "conflict",
+        "reason": "Precautionary diversification incentives diverge from bank's deposit retention goal.",
+        "source_actor_name": "member_firms",
+        "target_actor_name": "bank_h",
+        "weight": 0.24
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source 3.",
+        "layer": "conflict",
+        "reason": "Adversarial scrutiny exists but is not hostile; reporting notes lack of insolvency evidence.",
+        "source_actor_name": "local_reporters",
+        "target_actor_name": "bank_h",
+        "weight": 0.18
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source 4.",
+        "layer": "conflict",
+        "reason": "Regulator warns against misinformation circulating in the rumor environment.",
+        "source_actor_name": "state_banking_department",
+        "target_actor_name": "social_media_accounts",
+        "weight": 0.33
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Sources 1 and 3.",
+        "layer": "oasis_interaction",
+        "reason": "Online claims and press coverage are likely to interact repeatedly in public channels.",
+        "source_actor_name": "social_media_accounts",
+        "target_actor_name": "local_reporters",
+        "weight": 0.54
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Source 6 and local news context.",
+        "layer": "oasis_interaction",
+        "reason": "CEO statements and press follow-up will likely recur in visible channels.",
+        "source_actor_name": "bank_h_ceo",
+        "target_actor_name": "local_reporters",
+        "weight": 0.47
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Source 4.",
+        "layer": "oasis_interaction",
+        "reason": "Regulatory statements are likely to be quoted and revisited publicly.",
+        "source_actor_name": "state_banking_department",
+        "target_actor_name": "local_reporters",
+        "weight": 0.36
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Source 5.",
+        "layer": "oasis_interaction",
+        "reason": "Member coordination around precautionary cash management is likely to continue.",
+        "source_actor_name": "trade_association",
+        "target_actor_name": "member_firms",
+        "weight": 0.44
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "description": "Actors with capacity to calm conditions through credible disclosure or action",
+        "hero_archetype": "institutional_stabilizer"
+      },
+      {
+        "description": "Actors who can accelerate rumor spread and alter perceived consensus",
+        "hero_archetype": "narrative_amplifier"
+      },
+      {
+        "description": "Actors who can impose or signal official supervisory direction",
+        "hero_archetype": "prudential_gatekeeper"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "bank_h_ceo",
+        "attention_level": 0.95,
+        "capacity": 0.67,
+        "constraints": [
+          "cannot reveal all sensitive liquidity details",
+          "credibility limited by refusal to provide dollar amounts",
+          "must avoid triggering more alarm"
+        ],
+        "expression_level": 0.73,
+        "fatigue": 0.46,
+        "fear_of_isolation": 0.12,
+        "hero_archetype": "institutional_stabilizer",
+        "mobilization_readiness": 0.71,
+        "perceived_majority": "Stakeholders are anxious and waiting for proof.",
+        "stance_axes": {
+          "disclosure_preference": 0.34,
+          "stabilization_priority": 0.88,
+          "strategic_option_openness": 0.41
+        }
+      },
+      {
+        "actor_name": "state_banking_department",
+        "attention_level": 0.89,
+        "capacity": 0.82,
+        "constraints": [
+          "confidentiality norms",
+          "may avoid premature public action",
+          "limited public detail by design"
+        ],
+        "expression_level": 0.36,
+        "fatigue": 0.23,
+        "fear_of_isolation": 0.05,
+        "hero_archetype": "prudential_gatekeeper",
+        "mobilization_readiness": 0.64,
+        "perceived_majority": "Public lacks full context; misinformation risk is elevated.",
+        "stance_axes": {
+          "disclosure_preference": -0.22,
+          "intervention_threshold": 0.52,
+          "stability_priority": 0.93
+        }
+      },
+      {
+        "actor_name": "social_media_accounts",
+        "attention_level": 0.97,
+        "capacity": 0.74,
+        "constraints": [
+          "low verified access",
+          "platform attention cycles"
+        ],
+        "expression_level": 0.91,
+        "fatigue": 0.17,
+        "fear_of_isolation": 0.04,
+        "hero_archetype": "narrative_amplifier",
+        "mobilization_readiness": 0.77,
+        "perceived_majority": "The bank is vulnerable and people are waking up to it.",
+        "stance_axes": {
+          "alarm_bias": 0.69,
+          "correction_receptivity": -0.18,
+          "virality_priority": 0.83
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "description": "Actors with capacity to calm conditions through credible disclosure or action",
+        "hero_archetype": "institutional_stabilizer"
+      },
+      {
+        "description": "Actors who can accelerate rumor spread and alter perceived consensus",
+        "hero_archetype": "narrative_amplifier"
+      },
+      {
+        "description": "Actors who can impose or signal official supervisory direction",
+        "hero_archetype": "prudential_gatekeeper"
+      }
+    ],
+    "important_questions": [
+      "Within 6 weeks, do withdrawals return near normal and does the rumor lose salience without public supervisory escalation?",
+      "Do withdrawals accelerate into a material depositor run visible through repeated branch stress, business-account flight, or emergency defensive measures?",
+      "Does the state banking department move from monitoring to a public supervisory intervention or comparable formal action?",
+      "Does Bank H enter a public merger search, sale process, or external capital raise as the primary resolution path?",
+      "After 6 weeks, is the bank still operating under elevated stress without clear confidence restoration or terminal intervention?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "social_media_accounts",
+          "bank_h"
+        ],
+        "event_key": "rumor_wave_begins",
+        "event_type": "announcement",
+        "evidence": "Source 1",
+        "expected_impact": "Raises exposure, lowers trust among some depositors, increases attention and narrative uncertainty.",
+        "summary": "Viral posts claim Bank H is next to fail using a screenshot that omits footnotes.",
+        "tick": -5
+      },
+      {
+        "actors": [
+          "bank_h"
+        ],
+        "event_key": "filing_loss_detail_surfaces",
+        "event_type": "announcement",
+        "evidence": "Source 2",
+        "expected_impact": "Introduces ambiguity: supports stress narrative for some observers while preserving a non-insolvency interpretation.",
+        "summary": "Filing excerpt shows unrealized losses on held-to-maturity securities while stating liquidity coverage remains above internal policy minimums.",
+        "tick": -4
+      },
+      {
+        "actors": [
+          "local_reporters",
+          "retail_depositors",
+          "bank_h"
+        ],
+        "event_key": "local_news_reports_elevated_withdrawals",
+        "event_type": "announcement",
+        "evidence": "Source 3",
+        "expected_impact": "Legitimizes concern as behaviorally real while constraining stronger collapse claims.",
+        "summary": "Reporters note elevated branch withdrawals but no official evidence of insolvency.",
+        "tick": -3
+      },
+      {
+        "actors": [
+          "state_banking_department"
+        ],
+        "event_key": "regulator_monitoring_statement",
+        "event_type": "announcement",
+        "evidence": "Source 4",
+        "expected_impact": "Slightly increases institutional trust for some audiences, but confidentiality limits full reassurance.",
+        "summary": "State banking department says it is monitoring conditions and warns against misinformation.",
+        "tick": -2
+      },
+      {
+        "actors": [
+          "trade_association",
+          "member_firms"
+        ],
+        "event_key": "trade_association_precaution_email",
+        "event_type": "announcement",
+        "evidence": "Source 5",
+        "expected_impact": "Raises withdrawal readiness among concentrated business depositors and may spread quiet diversification norms.",
+        "summary": "Association asks whether payroll accounts should be diversified as a precaution.",
+        "tick": -1
+      },
+      {
+        "actors": [
+          "bank_h_ceo",
+          "bank_h"
+        ],
+        "event_key": "ceo_contingent_liquidity_claim",
+        "event_type": "announcement",
+        "evidence": "Source 6",
+        "expected_impact": "Creates a partial stabilizing signal while leaving room for skepticism and further scrutiny.",
+        "summary": "CEO says the bank has access to contingent liquidity lines but refuses to provide dollar amounts.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "bank_h",
+          "retail_depositors",
+          "commercial_clients",
+          "member_firms"
+        ],
+        "event_key": "next_week_withdrawal_signal_check",
+        "event_type": "announcement",
+        "evidence": "Inferred from sources 3, 5, and 6",
+        "expected_impact": "Will materially shift trust, conflict, and endpoint probabilities without itself determining cause.",
+        "summary": "Imminent test of whether withdrawals normalize, persist, or accelerate after the CEO statement.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "local_reporters",
+          "state_banking_department",
+          "bank_h_ceo"
+        ],
+        "event_key": "followup_media_and_regulatory_questions",
+        "event_type": "announcement",
+        "evidence": "Inferred from public controversy pattern in sources 3, 4, 6",
+        "expected_impact": "Could expose credibility gaps or support narrative stabilization depending on responses.",
+        "summary": "Press and stakeholders seek additional detail on liquidity and supervisory posture.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "37d50987-7003-4a28-9254-6616eb37700a",
+    "merge_hypotheses": [
+      {
+        "affected_actors": [
+          "bank_h",
+          "bank_h_ceo",
+          "state_banking_department",
+          "commercial_clients",
+          "retail_depositors"
+        ],
+        "convergence_driver": "Bank, regulator, and many depositors all prefer continuity if confidence can be restored without hidden losses surfacing.",
+        "evidence": "Sources 2, 4, and 6 show active but constrained stabilization messaging.",
+        "merge_key": "shared_interest_in_stability"
+      },
+      {
+        "affected_actors": [
+          "social_media_accounts",
+          "retail_depositors",
+          "local_reporters"
+        ],
+        "convergence_driver": "If no fresh damaging evidence emerges, online and retail attention may decay, reducing pressure across branches.",
+        "evidence": "Source packet contains rumor and concern but no confirmed insolvency evidence.",
+        "merge_key": "rumor_attention_decay"
+      },
+      {
+        "affected_actors": [
+          "member_firms",
+          "commercial_clients",
+          "bank_h"
+        ],
+        "convergence_driver": "Business customers face payroll and banking transition friction, which can slow collective flight and allow partial normalization.",
+        "evidence": "Source 5 focuses on diversification rather than immediate abandonment.",
+        "merge_key": "operational_switching_costs_limit_full_exit"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype": "business_depositors",
+        "description": "Firms using Bank H for payroll, operations, or treasury balances",
+        "population_total": 420
+      },
+      {
+        "archetype": "retail_depositors_base",
+        "description": "Household and small personal account holders exposed to local news and rumor spillover",
+        "population_total": 6800
+      },
+      {
+        "archetype": "local_information_audience",
+        "description": "People in the local market consuming bank-related coverage online and via news",
+        "population_total": 25000
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "no_hidden_solvency_facts",
+        "note": "Source packet does not establish insolvency; simulation should not invent balance-sheet failure facts.",
+        "severity": "high"
+      },
+      {
+        "flag": "liquidity_amount_unknown",
+        "note": "CEO cites contingent liquidity lines without amounts, limiting certainty about resilience.",
+        "severity": "medium"
+      },
+      {
+        "flag": "depositor_concentration_unobserved",
+        "note": "Business depositor concentration and uninsured share are not provided but could materially affect dynamics.",
+        "severity": "medium"
+      },
+      {
+        "flag": "regulatory_confidentiality_limits_signal",
+        "note": "Supervisor may know more than public sources but cannot disclose it, sustaining ambiguity.",
+        "severity": "medium"
+      },
+      {
+        "flag": "rumor_source_is_partial_evidence",
+        "note": "Viral screenshot omits footnotes, so initial public belief formation may be systematically distorted.",
+        "severity": "high"
+      },
+      {
+        "flag": "local_scale_population_estimates",
+        "note": "Population counts are scenario-grounded estimates because the corpus gives no explicit customer totals.",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "core_premise": "A local business bank faces viral rumors after a misread regulatory filing; withdrawals are elevated but insolvency is not evidenced in the source packet.",
+      "forecast_question": "After 6 simulated weeks, does the local-bank rumor resolve into confidence restoration, depositor run, regulator intervention, merger process, or unresolved stress?",
+      "known_constraints": [
+        "Do not assume insolvency without source support",
+        "Regulator is monitoring but withholding confidential supervisory information",
+        "CEO cites contingent liquidity lines but gives no dollar amounts",
+        "Rumor content relies on incomplete filing screenshot omitting footnotes"
+      ],
+      "mode": "direct",
+      "scenario_key": "dossier_007_local_bank_rumor",
+      "source_refs": [
+        "source_1_social_media_digest_t_minus_5",
+        "source_2_filing_excerpt_t_minus_4",
+        "source_3_local_news_article_t_minus_3",
+        "source_4_regulator_statement_t_minus_2",
+        "source_5_major_depositor_email_t_minus_1",
+        "source_6_bank_ceo_statement_t0"
+      ],
+      "t0_anchor": "bank_ceo_statement",
+      "time_horizon_weeks": 6,
+      "uncertainty_note": "The corpus supports rumor-driven stress and elevated withdrawals, but not hidden insolvency, exact liquidity figures, or a predetermined endpoint.",
+      "unresolved_facts": [
+        "Actual liquidity headroom amount",
+        "True depositor concentration and uninsured deposit share",
+        "Scale and persistence of withdrawals",
+        "Whether trade association precautionary email broadens withdrawals",
+        "Whether bank can restore confidence without disclosing more detail",
+        "Whether regulator prefers quiet monitoring or public action"
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "retail_depositors",
+          "commercial_clients",
+          "member_firms"
+        ],
+        "evidence": "Mixed signals from rumor, filing excerpt, local reporting, regulator statement, and CEO messaging.",
+        "level": "moderate",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "retail_depositors",
+          "member_firms"
+        ],
+        "evidence": "Visible withdrawals and peer diversification can trigger additional action once a social threshold is crossed.",
+        "level": "high_relevance",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "commercial_clients",
+          "member_firms"
+        ],
+        "evidence": "Business clients may privately diversify without public criticism due to reputational and operational caution.",
+        "level": "moderate",
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "member_firms",
+          "social_media_accounts"
+        ],
+        "evidence": "Trade association and online clusters reinforce within-network interpretations.",
+        "level": "moderate",
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "retail_depositors",
+          "commercial_clients"
+        ],
+        "evidence": "Rumor alone may not move customers, but combined signals from news, peers, and branch activity can.",
+        "level": "high_relevance",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "local_business_community",
+          "regulator_followers"
+        ],
+        "evidence": "Local business community shares common concerns around payroll continuity and prudent stewardship.",
+        "level": "moderate",
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "local_information_audience"
+        ],
+        "evidence": "Absent fresh confirming events, rumor intensity may fade over the 6-week horizon.",
+        "level": "moderate",
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Initial rumor source is incomplete and vulnerable to clarification.",
+        "evidence": "Source 1.",
+        "influence_key": "filing_screenshot_omits_footnotes"
+      },
+      {
+        "description": "Public sees unrealized losses and elevated withdrawals but lacks proof distinguishing liquidity stress from insolvency.",
+        "evidence": "Sources 2 and 3.",
+        "influence_key": "liquidity_vs_solvency_ambiguity"
+      },
+      {
+        "description": "Regulator can monitor and caution but cannot publicly share confidential supervisory detail to fully settle rumors.",
+        "evidence": "Source 4.",
+        "influence_key": "regulatory_confidentiality_gap"
+      },
+      {
+        "description": "Trade association email raises operational risk framing among business depositors.",
+        "evidence": "Source 5.",
+        "influence_key": "payroll_account_concentration_salience"
+      },
+      {
+        "description": "Management message may calm some stakeholders but withholding dollar amounts leaves space for doubt.",
+        "evidence": "Source 6.",
+        "influence_key": "ceo_reassurance_without_quantification"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "bank_h",
+        "behavior_axes": {
+          "adaptability": 0.57,
+          "responsiveness": 0.61,
+          "risk_tolerance": 0.33,
+          "transparency": 0.38
+        },
+        "ideology_axes": {
+          "institutional_preservation": 0.84,
+          "market_openness": 0.42
+        },
+        "reputation": 0.54,
+        "secrecy": 0.62,
+        "tendency": "defensive_stabilization",
+        "trustworthiness": 0.48
+      },
+      {
+        "actor_name": "bank_h_ceo",
+        "behavior_axes": {
+          "adaptability": 0.59,
+          "responsiveness": 0.68,
+          "risk_tolerance": 0.41,
+          "transparency": 0.36
+        },
+        "ideology_axes": {
+          "institutional_preservation": 0.88,
+          "public_accountability": 0.44
+        },
+        "reputation": 0.51,
+        "secrecy": 0.58,
+        "tendency": "controlled_reassurance",
+        "trustworthiness": 0.46
+      },
+      {
+        "actor_name": "state_banking_department",
+        "behavior_axes": {
+          "adaptability": 0.46,
+          "responsiveness": 0.49,
+          "risk_tolerance": 0.24,
+          "transparency": 0.22
+        },
+        "ideology_axes": {
+          "public_visibility": 0.28,
+          "stability_priority": 0.93
+        },
+        "reputation": 0.64,
+        "secrecy": 0.79,
+        "tendency": "quiet_monitoring",
+        "trustworthiness": 0.66
+      },
+      {
+        "actor_name": "local_reporters",
+        "behavior_axes": {
+          "adaptability": 0.63,
+          "responsiveness": 0.72,
+          "risk_tolerance": 0.47,
+          "transparency": 0.71
+        },
+        "ideology_axes": {
+          "institutional_deference": 0.34,
+          "public_interest": 0.82
+        },
+        "reputation": 0.59,
+        "secrecy": 0.14,
+        "tendency": "evidence_seeking_coverage",
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "social_media_accounts",
+        "behavior_axes": {
+          "adaptability": 0.81,
+          "responsiveness": 0.9,
+          "risk_tolerance": 0.76,
+          "transparency": 0.18
+        },
+        "ideology_axes": {
+          "attention_maximization": 0.91,
+          "institutional_trust": 0.21
+        },
+        "reputation": 0.33,
+        "secrecy": 0.11,
+        "tendency": "rumor_amplification",
+        "trustworthiness": 0.27
+      },
+      {
+        "actor_name": "trade_association",
+        "behavior_axes": {
+          "adaptability": 0.51,
+          "responsiveness": 0.66,
+          "risk_tolerance": 0.29,
+          "transparency": 0.42
+        },
+        "ideology_axes": {
+          "member_protection": 0.87,
+          "public_visibility": 0.25
+        },
+        "reputation": 0.62,
+        "secrecy": 0.53,
+        "tendency": "precautionary_coordination",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "member_firms",
+        "behavior_axes": {
+          "adaptability": 0.68,
+          "responsiveness": 0.77,
+          "risk_tolerance": 0.22,
+          "transparency": 0.29
+        },
+        "ideology_axes": {
+          "cash_safety": 0.91,
+          "operational_prudence": 0.86
+        },
+        "reputation": 0.58,
+        "secrecy": 0.59,
+        "tendency": "diversify_if_uncertain",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "retail_depositors",
+        "behavior_axes": {
+          "adaptability": 0.39,
+          "responsiveness": 0.54,
+          "risk_tolerance": 0.31,
+          "transparency": 0.41
+        },
+        "ideology_axes": {
+          "institutional_trust": 0.46,
+          "safety_seeking": 0.74
+        },
+        "reputation": 0.52,
+        "secrecy": 0.24,
+        "tendency": "queue_sensitive_waiting",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "commercial_clients",
+        "behavior_axes": {
+          "adaptability": 0.64,
+          "responsiveness": 0.69,
+          "risk_tolerance": 0.26,
+          "transparency": 0.33
+        },
+        "ideology_axes": {
+          "cash_safety": 0.84,
+          "operational_continuity": 0.88
+        },
+        "reputation": 0.57,
+        "secrecy": 0.52,
+        "tendency": "signal_following_prudence",
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "potential_capital_or_merger_partners",
+        "behavior_axes": {
+          "adaptability": 0.56,
+          "responsiveness": 0.37,
+          "risk_tolerance": 0.44,
+          "transparency": 0.21
+        },
+        "ideology_axes": {
+          "opportunism": 0.73,
+          "stability_value": 0.49
+        },
+        "reputation": 0.5,
+        "secrecy": 0.71,
+        "tendency": "conditional_engagement",
+        "trustworthiness": 0.45
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 2358,
+        "end": 2358,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 2358,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

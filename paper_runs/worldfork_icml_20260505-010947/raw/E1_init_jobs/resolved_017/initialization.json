@@ -1,0 +1,1276 @@
+{
+  "big_bang_id": "c5cfaad6-8888-4171-bfdd-1dc50d9ff395",
+  "initializer_output": {
+    "actors": [
+      {
+        "fictionalized": true,
+        "name": "vendor",
+        "role": "platform_owner_decision_maker",
+        "type": "organization"
+      },
+      {
+        "fictionalized": true,
+        "name": "operating_system_w10_user_base",
+        "role": "affected_users",
+        "type": "population_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "consumer_advocates",
+        "role": "public_pressure_actor",
+        "type": "civil_society_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "some_governments",
+        "role": "regulatory_and_procurement_pressure",
+        "type": "public_institutions"
+      },
+      {
+        "fictionalized": true,
+        "name": "enterprise_it_admins",
+        "role": "migration_and_exception_seekers",
+        "type": "institutional_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "security_community",
+        "role": "risk_interpreters",
+        "type": "expert_network"
+      },
+      {
+        "fictionalized": true,
+        "name": "device_repair_resale_ecosystem",
+        "role": "reuse_and_lifespan_interest",
+        "type": "market_network"
+      },
+      {
+        "fictionalized": true,
+        "name": "tech_media",
+        "role": "agenda_amplifier",
+        "type": "media_system"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Ordinary support ends on scheduled date while exception programs remain limited to paid or special cases.",
+        "branch_key": "vendor_holds_line",
+        "divergence_signal": "Official communications continue to use the same end date without broad free-support extension language.",
+        "trigger": "No broad reversal announcement and continued lifecycle page consistency through late pre-deadline period."
+      },
+      {
+        "alternate_path": "Vendor adds guidance, migration aid, or paid/security exceptions while ordinary support still ends on time.",
+        "branch_key": "symbolic_softening_without_deadline_change",
+        "divergence_signal": "Announcement emphasizes assistance or ESU availability while preserving ordinary support cutoff wording.",
+        "trigger": "Pressure over e-waste or security intensifies but vendor prioritizes schedule integrity."
+      },
+      {
+        "alternate_path": "Vendor announces a general postponement or continuation of ordinary support beyond 2025-10-14.",
+        "branch_key": "broad_extension_reversal",
+        "divergence_signal": "Official lifecycle schedule or equivalent vendor announcement moves the ordinary support date or redefines ordinary support coverage broadly.",
+        "trigger": "Coordinated government and public pressure combines with very high installed-base risk or continuity concerns."
+      },
+      {
+        "alternate_path": "Observed discourse becomes noisy even if terminal policy remains unchanged.",
+        "branch_key": "definition_confusion_shifts_perception",
+        "divergence_signal": "Media headlines or user conversations describe 'support extended' without matching ordinary-support criteria in official text.",
+        "trigger": "Public discussion treats paid or limited support pathways as ordinary support continuation."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "vendor_lifecycle_page",
+        "primary_actors": [
+          "vendor"
+        ],
+        "reach": 0.72,
+        "type": "official_publication"
+      },
+      {
+        "channel_key": "tech_news_coverage",
+        "primary_actors": [
+          "tech_media",
+          "consumer_advocates",
+          "security_community",
+          "vendor"
+        ],
+        "reach": 0.61,
+        "type": "media"
+      },
+      {
+        "channel_key": "enterprise_support_forums",
+        "primary_actors": [
+          "enterprise_it_admins",
+          "vendor",
+          "security_community"
+        ],
+        "reach": 0.38,
+        "type": "professional"
+      },
+      {
+        "channel_key": "government_procurement_and_policy_channels",
+        "primary_actors": [
+          "some_governments",
+          "vendor"
+        ],
+        "reach": 0.24,
+        "type": "institutional"
+      },
+      {
+        "channel_key": "public_social_discussion",
+        "primary_actors": [
+          "operating_system_w10_user_base",
+          "consumer_advocates",
+          "tech_media"
+        ],
+        "reach": 0.46,
+        "type": "social"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "w10_users",
+        "attention_level": 0.5,
+        "cohort_key": "w10_users_ready_to_migrate",
+        "expression_level": 0.35,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.25,
+        "label": "Users preparing migration before deadline",
+        "mobilization_readiness": 0.25,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Support likely ends as scheduled; migration needed.",
+        "public_expression": "Moderate discussion of upgrade timing and costs.",
+        "representation_mode": "estimated_segment",
+        "represented_population": 84000000,
+        "stance_axes": {
+          "cost_sensitivity": 0.5,
+          "extension_desirability": -0.2,
+          "security_concern": 0.7,
+          "support_end_schedule": 0.6
+        }
+      },
+      {
+        "archetype_key": "w10_users",
+        "attention_level": 0.55,
+        "cohort_key": "w10_users_hoping_for_extension",
+        "expression_level": 0.45,
+        "fatigue": 0.45,
+        "fear_of_isolation": 0.2,
+        "label": "Users delaying in hope of extension",
+        "mobilization_readiness": 0.3,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "An extension is possible or likely enough to wait.",
+        "public_expression": "Online discussion emphasizing installed-base size and precedent for flexibility.",
+        "representation_mode": "estimated_segment",
+        "represented_population": 108000000,
+        "stance_axes": {
+          "cost_sensitivity": 0.8,
+          "extension_desirability": 0.8,
+          "security_concern": 0.4,
+          "support_end_schedule": -0.2
+        }
+      },
+      {
+        "archetype_key": "w10_users",
+        "attention_level": 0.15,
+        "cohort_key": "w10_users_low_attention",
+        "expression_level": 0.05,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.1,
+        "label": "Users with low awareness or low salience",
+        "mobilization_readiness": 0.05,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.2,
+        "private_belief": "Unclear or unformed.",
+        "public_expression": "Minimal.",
+        "representation_mode": "estimated_segment",
+        "represented_population": 48000000,
+        "stance_axes": {
+          "cost_sensitivity": 0.4,
+          "extension_desirability": 0.1,
+          "security_concern": 0.2,
+          "support_end_schedule": 0.0
+        }
+      },
+      {
+        "archetype_key": "enterprise_dependents",
+        "attention_level": 0.75,
+        "cohort_key": "enterprise_fleet_migrators",
+        "expression_level": 0.2,
+        "fatigue": 0.6,
+        "fear_of_isolation": 0.15,
+        "label": "Organizations actively migrating fleets",
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.6,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Ordinary support endpoint is credible; exceptions may exist but should not be relied on.",
+        "public_expression": "Formal planning, limited public advocacy.",
+        "representation_mode": "estimated_segment",
+        "represented_population": 540000,
+        "stance_axes": {
+          "cost_sensitivity": 0.6,
+          "extension_desirability": 0.0,
+          "security_concern": 0.8,
+          "support_end_schedule": 0.7
+        }
+      },
+      {
+        "archetype_key": "enterprise_dependents",
+        "attention_level": 0.8,
+        "cohort_key": "enterprise_fleet_delayers",
+        "expression_level": 0.25,
+        "fatigue": 0.65,
+        "fear_of_isolation": 0.2,
+        "label": "Organizations seeking more time or exceptions",
+        "mobilization_readiness": 0.35,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "Support might be softened via extension paths or deadline adjustment.",
+        "public_expression": "Lobbying vendors and governments more than public campaigning.",
+        "representation_mode": "estimated_segment",
+        "represented_population": 660000,
+        "stance_axes": {
+          "cost_sensitivity": 0.85,
+          "extension_desirability": 0.75,
+          "security_concern": 0.65,
+          "support_end_schedule": -0.1
+        }
+      },
+      {
+        "archetype_key": "general_tech_public",
+        "attention_level": 0.35,
+        "cohort_key": "tech_public_observers",
+        "expression_level": 0.25,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.1,
+        "label": "Tech-attentive observers",
+        "mobilization_readiness": 0.1,
+        "perceived_majority": 0.6,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Published schedule is more likely than reversal absent announcement.",
+        "public_expression": "Commentary spikes around policy reminders and deadline news.",
+        "representation_mode": "broad_attention_pool",
+        "represented_population": 50000000,
+        "stance_axes": {
+          "cost_sensitivity": 0.3,
+          "extension_desirability": 0.2,
+          "security_concern": 0.5,
+          "support_end_schedule": 0.4
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "w10_users",
+        "attention_level": 0.5,
+        "cohort_key": "w10_users_ready_to_migrate",
+        "expression_level": 0.35,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.25,
+        "label": "Users preparing migration before deadline",
+        "mobilization_readiness": 0.25,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Support likely ends as scheduled; migration needed.",
+        "public_expression": "Moderate discussion of upgrade timing and costs.",
+        "representation_mode": "estimated_segment",
+        "represented_population": 84000000,
+        "stance_axes": {
+          "cost_sensitivity": 0.5,
+          "extension_desirability": -0.2,
+          "security_concern": 0.7,
+          "support_end_schedule": 0.6
+        }
+      },
+      {
+        "archetype_key": "w10_users",
+        "attention_level": 0.55,
+        "cohort_key": "w10_users_hoping_for_extension",
+        "expression_level": 0.45,
+        "fatigue": 0.45,
+        "fear_of_isolation": 0.2,
+        "label": "Users delaying in hope of extension",
+        "mobilization_readiness": 0.3,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "An extension is possible or likely enough to wait.",
+        "public_expression": "Online discussion emphasizing installed-base size and precedent for flexibility.",
+        "representation_mode": "estimated_segment",
+        "represented_population": 108000000,
+        "stance_axes": {
+          "cost_sensitivity": 0.8,
+          "extension_desirability": 0.8,
+          "security_concern": 0.4,
+          "support_end_schedule": -0.2
+        }
+      },
+      {
+        "archetype_key": "w10_users",
+        "attention_level": 0.15,
+        "cohort_key": "w10_users_low_attention",
+        "expression_level": 0.05,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.1,
+        "label": "Users with low awareness or low salience",
+        "mobilization_readiness": 0.05,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.2,
+        "private_belief": "Unclear or unformed.",
+        "public_expression": "Minimal.",
+        "representation_mode": "estimated_segment",
+        "represented_population": 48000000,
+        "stance_axes": {
+          "cost_sensitivity": 0.4,
+          "extension_desirability": 0.1,
+          "security_concern": 0.2,
+          "support_end_schedule": 0.0
+        }
+      },
+      {
+        "archetype_key": "enterprise_dependents",
+        "attention_level": 0.75,
+        "cohort_key": "enterprise_fleet_migrators",
+        "expression_level": 0.2,
+        "fatigue": 0.6,
+        "fear_of_isolation": 0.15,
+        "label": "Organizations actively migrating fleets",
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.6,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Ordinary support endpoint is credible; exceptions may exist but should not be relied on.",
+        "public_expression": "Formal planning, limited public advocacy.",
+        "representation_mode": "estimated_segment",
+        "represented_population": 540000,
+        "stance_axes": {
+          "cost_sensitivity": 0.6,
+          "extension_desirability": 0.0,
+          "security_concern": 0.8,
+          "support_end_schedule": 0.7
+        }
+      },
+      {
+        "archetype_key": "enterprise_dependents",
+        "attention_level": 0.8,
+        "cohort_key": "enterprise_fleet_delayers",
+        "expression_level": 0.25,
+        "fatigue": 0.65,
+        "fear_of_isolation": 0.2,
+        "label": "Organizations seeking more time or exceptions",
+        "mobilization_readiness": 0.35,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "Support might be softened via extension paths or deadline adjustment.",
+        "public_expression": "Lobbying vendors and governments more than public campaigning.",
+        "representation_mode": "estimated_segment",
+        "represented_population": 660000,
+        "stance_axes": {
+          "cost_sensitivity": 0.85,
+          "extension_desirability": 0.75,
+          "security_concern": 0.65,
+          "support_end_schedule": -0.1
+        }
+      },
+      {
+        "archetype_key": "general_tech_public",
+        "attention_level": 0.35,
+        "cohort_key": "tech_public_observers",
+        "expression_level": 0.25,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.1,
+        "label": "Tech-attentive observers",
+        "mobilization_readiness": 0.1,
+        "perceived_majority": 0.6,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Published schedule is more likely than reversal absent announcement.",
+        "public_expression": "Commentary spikes around policy reminders and deadline news.",
+        "representation_mode": "broad_attention_pool",
+        "represented_population": 50000000,
+        "stance_axes": {
+          "cost_sensitivity": 0.3,
+          "extension_desirability": 0.2,
+          "security_concern": 0.5,
+          "support_end_schedule": 0.4
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "vendor",
+          "vendor_lifecycle_leadership"
+        ],
+        "blockers": [
+          "Broad official reversal by vendor",
+          "Official redefinition making post-2025-10-14 support still ordinary support"
+        ],
+        "contradiction_notes": "Paid ESU or narrow exception programs do not contradict this endpoint unless they are defined as ordinary support.",
+        "description": "Vendor ordinary support for Operating System W10 ends on 2025-10-14 even if paid or extended security programs continue for some users.",
+        "endpoint_key": "support_ends_on_schedule",
+        "evidence_refs": [
+          "Source 1",
+          "Source 3"
+        ],
+        "label": "Ordinary support ends on scheduled date",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does vendor ordinary support for Operating System W10 end on 2025-10-14 as scheduled?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.78,
+        "rationale": "Current formal policy and endpoint definition both favor scheduled ordinary support termination.",
+        "realization_criteria": [
+          "On or after 2025-10-14, official vendor lifecycle materials still identify 2025-10-14 as the ordinary support end date or show support ended on that date.",
+          "No pre-deadline official announcement broadly postpones ordinary support beyond 2025-10-14."
+        ],
+        "status": "active",
+        "status_basis": "Published schedule repeatedly lists 2025-10-14 and no broad reversal is announced at T0."
+      },
+      {
+        "authority_refs": [
+          "vendor",
+          "vendor_lifecycle_leadership"
+        ],
+        "blockers": [
+          "Vendor preference for schedule continuity",
+          "Ability to use paid exceptions instead of broad extension"
+        ],
+        "contradiction_notes": "Availability of paid extended security updates alone is insufficient to realize this endpoint.",
+        "description": "Vendor broadens or extends ordinary support beyond 2025-10-14, preventing the scheduled ordinary-support end from occurring as written.",
+        "endpoint_key": "support_does_not_end_on_schedule",
+        "evidence_refs": [
+          "Source 2"
+        ],
+        "label": "Ordinary support does not end on scheduled date",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Before 2025-10-14, does the vendor announce a broad reversal that moves or cancels the ordinary support end date?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.22,
+        "rationale": "A large installed base and public pressure create a plausible but weaker alternative path.",
+        "realization_criteria": [
+          "Before or by 2025-10-14, official vendor materials announce a later ordinary support end date or continuing ordinary support beyond that date.",
+          "Post-deadline official materials indicate ordinary support remained active after 2025-10-14."
+        ],
+        "status": "active",
+        "status_basis": "Pressure exists but no broad reversal has been announced at T0."
+      },
+      {
+        "authority_refs": [
+          "vendor",
+          "vendor_lifecycle_leadership"
+        ],
+        "blockers": [
+          "Schedule credibility costs from reversing",
+          "Support cost and product-transition incentives"
+        ],
+        "contradiction_notes": "Messaging about ESU, migration tools, or special carve-outs without changing ordinary support date does not realize this endpoint.",
+        "description": "Vendor publicly announces a general postponement or broad continuation of ordinary support before the scheduled cutoff.",
+        "endpoint_key": "broad_reversal_announced",
+        "evidence_refs": [
+          "Source 2"
+        ],
+        "label": "Broad reversal announced before deadline",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the vendor introduce or emphasize paid or limited exception pathways while keeping ordinary support ending on schedule?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": null,
+        "rationale": "This is the clearest observable mechanism for the 'no' outcome.",
+        "realization_criteria": [
+          "Official vendor announcement or updated lifecycle page changes the ordinary support end date to later than 2025-10-14.",
+          "Announcement applies broadly rather than only to paid, enterprise-specific, or limited exception pathways."
+        ],
+        "status": "active",
+        "status_basis": "Only hypothetical pressure is evidenced at T0; no such announcement exists."
+      },
+      {
+        "authority_refs": [
+          "vendor",
+          "enterprise_it_admins"
+        ],
+        "blockers": [
+          "Need for communication clarity to avoid perceived reversal"
+        ],
+        "contradiction_notes": "This endpoint can coexist with support_ends_on_schedule and does not itself imply delay.",
+        "description": "Vendor offers or highlights paid, limited, or special support paths while preserving the ordinary support cutoff date.",
+        "endpoint_key": "exceptions_without_schedule_change",
+        "evidence_refs": [
+          "Source 3"
+        ],
+        "label": "Exception programs expand without changing ordinary support end",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do advocates and some governments form a visible pressure coalition strong enough to materially challenge the published schedule?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": null,
+        "rationale": "The scenario specifically flags exception handling as analytically important.",
+        "realization_criteria": [
+          "Official announcement introduces or emphasizes paid or limited support after 2025-10-14.",
+          "Official materials simultaneously preserve 2025-10-14 as the end of ordinary support."
+        ],
+        "status": "active",
+        "status_basis": "Source packet explicitly distinguishes paid or extended security programs from ordinary support."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Published lifecycle schedule governs support end date.",
+        "layer": "dependency",
+        "reason": "Users depend on vendor support policy and updates for ordinary support status.",
+        "source_actor_name": "operating_system_w10_user_base",
+        "target_actor_name": "vendor",
+        "weight": 0.62
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Scenario centers on support schedule affecting many machines.",
+        "layer": "dependency",
+        "reason": "Organizations rely on vendor lifecycle and support definitions for fleet planning.",
+        "source_actor_name": "enterprise_it_admins",
+        "target_actor_name": "vendor",
+        "weight": 0.65
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Advocates cite e-waste concerns tied to continued use or replacement.",
+        "layer": "dependency",
+        "reason": "Reuse market activity depends on installed machines remaining useful.",
+        "source_actor_name": "device_repair_resale_ecosystem",
+        "target_actor_name": "operating_system_w10_user_base",
+        "weight": 0.38
+      },
+      {
+        "direction": "source_receives_target_signals",
+        "evidence": "Published lifecycle schedule is public.",
+        "layer": "exposure",
+        "reason": "Users are exposed to official lifecycle notices and product messaging.",
+        "source_actor_name": "operating_system_w10_user_base",
+        "target_actor_name": "vendor",
+        "weight": 0.58
+      },
+      {
+        "direction": "source_receives_target_signals",
+        "evidence": "Support deadline is a media-amplifiable policy event.",
+        "layer": "exposure",
+        "reason": "Tech coverage shapes user awareness of the deadline.",
+        "source_actor_name": "operating_system_w10_user_base",
+        "target_actor_name": "tech_media",
+        "weight": 0.42
+      },
+      {
+        "direction": "source_receives_target_signals",
+        "evidence": "Some governments may pressure the vendor to extend support.",
+        "layer": "exposure",
+        "reason": "Governments monitor vendor policy affecting public systems.",
+        "source_actor_name": "some_governments",
+        "target_actor_name": "vendor",
+        "weight": 0.32
+      },
+      {
+        "direction": "source_receives_target_signals",
+        "evidence": "Advocates react to published deadline.",
+        "layer": "exposure",
+        "reason": "Vendor notices and policy positions are visible to advocates.",
+        "source_actor_name": "vendor",
+        "target_actor_name": "consumer_advocates",
+        "weight": 0.28
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Vendor has repeatedly listed the date, but extension pressure exists.",
+        "layer": "trust",
+        "reason": "Users generally believe vendor schedule statements, but installed-base persistence creates some skepticism about possible changes.",
+        "source_actor_name": "operating_system_w10_user_base",
+        "target_actor_name": "vendor",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Published lifecycle schedule is the key planning anchor.",
+        "layer": "trust",
+        "reason": "Institutional planning gives weight to official lifecycle publications.",
+        "source_actor_name": "enterprise_it_admins",
+        "target_actor_name": "vendor",
+        "weight": 0.58
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Consumer advocates warn about e-waste and security exposure.",
+        "layer": "trust",
+        "reason": "Some users trust advocates on e-waste and affordability, but not all prioritize those claims.",
+        "source_actor_name": "operating_system_w10_user_base",
+        "target_actor_name": "consumer_advocates",
+        "weight": 0.33
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Scenario references security exposure concerns.",
+        "layer": "trust",
+        "reason": "Security experts are credible on exposure risks after support ends.",
+        "source_actor_name": "operating_system_w10_user_base",
+        "target_actor_name": "security_community",
+        "weight": 0.49
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Ordinary support end date is set by vendor schedule.",
+        "layer": "influence",
+        "reason": "Vendor controls the support designation and can shape migration expectations.",
+        "source_actor_name": "vendor",
+        "target_actor_name": "operating_system_w10_user_base",
+        "weight": 0.74
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Support schedule directly affects fleet planning.",
+        "layer": "influence",
+        "reason": "Lifecycle policy strongly influences enterprise migration decisions.",
+        "source_actor_name": "vendor",
+        "target_actor_name": "enterprise_it_admins",
+        "weight": 0.71
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Public pressure source notes advocate activity.",
+        "layer": "influence",
+        "reason": "Advocates can raise e-waste and consumer harm framing in coverage.",
+        "source_actor_name": "consumer_advocates",
+        "target_actor_name": "tech_media",
+        "weight": 0.44
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Some governments may pressure the vendor to extend support.",
+        "layer": "influence",
+        "reason": "Governments possess procurement and legitimacy pressure, though no broad coordinated action is announced.",
+        "source_actor_name": "some_governments",
+        "target_actor_name": "vendor",
+        "weight": 0.39
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Security exposure is a central concern.",
+        "layer": "influence",
+        "reason": "Experts shape coverage on security implications of support end.",
+        "source_actor_name": "security_community",
+        "target_actor_name": "tech_media",
+        "weight": 0.47
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Issue is publicly reportable and deadline-based.",
+        "layer": "influence",
+        "reason": "Media can increase deadline salience and clarify support definitions.",
+        "source_actor_name": "tech_media",
+        "target_actor_name": "operating_system_w10_user_base",
+        "weight": 0.43
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Advocates warn about e-waste.",
+        "layer": "coalition",
+        "reason": "Both have aligned interest in reducing forced replacement and e-waste.",
+        "source_actor_name": "consumer_advocates",
+        "target_actor_name": "device_repair_resale_ecosystem",
+        "weight": 0.41
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Advocates and some governments may pressure vendor.",
+        "layer": "coalition",
+        "reason": "Potential shared interest in mitigation or extension, but coordination is uncertain.",
+        "source_actor_name": "consumer_advocates",
+        "target_actor_name": "some_governments",
+        "weight": 0.29
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Security exposure concern is relevant to enterprise planning.",
+        "layer": "coalition",
+        "reason": "Both care about planning around post-support security risk.",
+        "source_actor_name": "security_community",
+        "target_actor_name": "enterprise_it_admins",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "Advocates may pressure vendor to extend support.",
+        "layer": "conflict",
+        "reason": "Advocates favor extension or mitigation while vendor schedule indicates planned support end.",
+        "source_actor_name": "consumer_advocates",
+        "target_actor_name": "vendor",
+        "weight": 0.48
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "Millions remain on old OS; e-waste and security concerns noted.",
+        "layer": "conflict",
+        "reason": "Users facing cost or device replacement burdens may resent the cutoff, but conflict is not yet maximal.",
+        "source_actor_name": "operating_system_w10_user_base",
+        "target_actor_name": "vendor",
+        "weight": 0.31
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "Some governments may pressure the vendor.",
+        "layer": "conflict",
+        "reason": "Potential pressure exists if public-sector continuity or waste concerns intensify.",
+        "source_actor_name": "some_governments",
+        "target_actor_name": "vendor",
+        "weight": 0.27
+      },
+      {
+        "direction": "public_channel_interaction",
+        "evidence": "Published schedule and possible future announcements are newsworthy.",
+        "layer": "oasis_interaction",
+        "reason": "Routine public communication and deadline coverage interactions are likely.",
+        "source_actor_name": "vendor",
+        "target_actor_name": "tech_media",
+        "weight": 0.52
+      },
+      {
+        "direction": "public_channel_interaction",
+        "evidence": "Public pressure exists at T0.",
+        "layer": "oasis_interaction",
+        "reason": "Advocates likely use public channels to elevate harms framing.",
+        "source_actor_name": "consumer_advocates",
+        "target_actor_name": "tech_media",
+        "weight": 0.49
+      },
+      {
+        "direction": "public_channel_interaction",
+        "evidence": "Security exposure concern is central.",
+        "layer": "oasis_interaction",
+        "reason": "Public advisories and commentary may reach users as deadline approaches.",
+        "source_actor_name": "security_community",
+        "target_actor_name": "operating_system_w10_user_base",
+        "weight": 0.34
+      },
+      {
+        "direction": "public_channel_interaction",
+        "evidence": "Support lifecycle planning is active.",
+        "layer": "oasis_interaction",
+        "reason": "Public and semi-public support, conference, and guidance channels will carry exception or migration discussion.",
+        "source_actor_name": "enterprise_it_admins",
+        "target_actor_name": "vendor",
+        "weight": 0.36
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype_key": "decision_authority",
+        "label": "Platform lifecycle authority"
+      },
+      {
+        "archetype_key": "pressure_coordinator",
+        "label": "Public pressure coordinator"
+      },
+      {
+        "archetype_key": "institutional_buyer_regulator",
+        "label": "Government or large institutional pressure node"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "vendor",
+        "archetype_key": "decision_authority",
+        "attention_level": 0.9,
+        "decision_power": 0.95,
+        "expression_level": 0.5,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.05,
+        "hero_key": "vendor_lifecycle_leadership",
+        "mobilization_readiness": 0.8,
+        "perceived_majority": 0.65,
+        "private_goal": "Balance security, upgrade incentives, support costs, and installed-base transition risk.",
+        "public_goal": "Execute lifecycle policy with manageable reputational fallout.",
+        "stance_axes": {
+          "allow_paid_exceptions": 0.7,
+          "avoid_broad_free_extension": 0.6,
+          "maintain_deadline": 0.75,
+          "reputation_protection": 0.7
+        }
+      },
+      {
+        "actor_name": "consumer_advocates",
+        "archetype_key": "pressure_coordinator",
+        "attention_level": 0.7,
+        "decision_power": 0.25,
+        "expression_level": 0.7,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.15,
+        "hero_key": "consumer_advocacy_lead",
+        "mobilization_readiness": 0.65,
+        "perceived_majority": 0.4,
+        "private_goal": "Force extension, mitigation, or more accessible support options.",
+        "public_goal": "Reduce e-waste and security harm from cutoff.",
+        "stance_axes": {
+          "broad_extension": 0.85,
+          "e_waste_salience": 0.9,
+          "maintain_deadline": -0.8,
+          "security_salience": 0.8
+        }
+      },
+      {
+        "actor_name": "some_governments",
+        "archetype_key": "institutional_buyer_regulator",
+        "attention_level": 0.6,
+        "decision_power": 0.4,
+        "expression_level": 0.35,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.1,
+        "hero_key": "government_procurement_regulatory_node",
+        "mobilization_readiness": 0.45,
+        "perceived_majority": 0.45,
+        "private_goal": "Preserve operational stability while avoiding direct responsibility for private migration failures.",
+        "public_goal": "Protect public-sector continuity and reduce downstream harms.",
+        "stance_axes": {
+          "maintain_deadline": -0.2,
+          "security_salience": 0.75,
+          "seek_exceptions": 0.6,
+          "waste_salience": 0.55
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "archetype_key": "decision_authority",
+        "label": "Platform lifecycle authority"
+      },
+      {
+        "archetype_key": "pressure_coordinator",
+        "label": "Public pressure coordinator"
+      },
+      {
+        "archetype_key": "institutional_buyer_regulator",
+        "label": "Government or large institutional pressure node"
+      }
+    ],
+    "important_questions": [
+      "Does vendor ordinary support for Operating System W10 end on 2025-10-14 as scheduled?",
+      "Before 2025-10-14, does the vendor announce a broad reversal that moves or cancels the ordinary support end date?",
+      "Does the vendor introduce or emphasize paid or limited exception pathways while keeping ordinary support ending on schedule?",
+      "Do advocates and some governments form a visible pressure coalition strong enough to materially challenge the published schedule?"
+    ],
+    "initial_events": [
+      {
+        "event_key": "published_support_schedule_active",
+        "event_type": "announcement",
+        "evidence": [
+          "Source 1"
+        ],
+        "expected_impact": "Anchors trust, planning, and baseline expectation toward scheduled end absent counterannouncement.",
+        "status": "active",
+        "summary": "Vendor lifecycle schedule lists 2025-10-14 as end of ordinary support for final supported W10 version.",
+        "tick": 0
+      },
+      {
+        "event_key": "public_pressure_exists_but_diffuse",
+        "event_type": "announcement",
+        "evidence": [
+          "Source 2"
+        ],
+        "expected_impact": "Creates latent conflict and possibility of concession paths without yet breaking schedule credibility.",
+        "status": "active",
+        "summary": "Advocates and some governments may pressure vendor to extend support, but no broad reversal has been announced.",
+        "tick": 0
+      },
+      {
+        "event_key": "support_definition_clarification",
+        "event_type": "announcement",
+        "evidence": [
+          "Source 3"
+        ],
+        "expected_impact": "Reduces ambiguity around endpoint assessment and limits false signals from exception programs.",
+        "status": "active",
+        "summary": "Paid extended security updates are not equivalent to continuation of ordinary support.",
+        "tick": 0
+      },
+      {
+        "event_key": "deadline_reminder_cycle",
+        "event_type": "announcement",
+        "evidence": [
+          "Inferred from public deadline-driven scenario"
+        ],
+        "expected_impact": "Raises attention and may polarize beliefs between scheduled-end and extension-hoping cohorts.",
+        "status": "plausible_future",
+        "summary": "Media and vendor reminders increase as the deadline approaches.",
+        "tick": 1
+      },
+      {
+        "event_key": "possible_exception_or_esu_communication",
+        "event_type": "announcement",
+        "evidence": [
+          "Scenario explicitly distinguishes paid or extended security programs from ordinary support."
+        ],
+        "expected_impact": "Could reduce immediate panic while preserving scheduled endpoint; may confuse public interpretation if messaging is ambiguous.",
+        "status": "plausible_future",
+        "summary": "Vendor may clarify paid, institutional, or limited exception pathways short of changing ordinary support.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "e683bc75-32f5-4447-99f5-8c6d8c7465a3",
+    "merge_hypotheses": [
+      {
+        "condition": "Advocates, enterprises, and security experts converge on mitigation messaging regardless of disagreement over broad extension.",
+        "convergence_effect": "Channels align around preparation and risk reduction even if endpoint debate persists.",
+        "merge_key": "shared_security_risk_frame"
+      },
+      {
+        "condition": "Vendor repeatedly clarifies ordinary support versus paid exceptions.",
+        "convergence_effect": "Competing interpretations narrow, reducing discourse fragmentation.",
+        "merge_key": "official_definition_clarity"
+      },
+      {
+        "condition": "As deadline nears, costly debate yields to practical migration or contingency planning.",
+        "convergence_effect": "Both extension-hoping and schedule-expecting cohorts become more behaviorally similar.",
+        "merge_key": "migration_fatigue_pragmatism"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "w10_users",
+        "evidence": [
+          "Scenario states millions of machines remain on the old operating system."
+        ],
+        "label": "Operating System W10 users",
+        "population_total": 240000000,
+        "scope": "global_active_install_base_estimate"
+      },
+      {
+        "archetype_key": "enterprise_dependents",
+        "evidence": [
+          "Large machine base implies substantial organizational dependence; exact count uncertain."
+        ],
+        "label": "Organizations with W10-dependent fleets",
+        "population_total": 1200000,
+        "scope": "global_org_estimate"
+      },
+      {
+        "archetype_key": "general_tech_public",
+        "evidence": [
+          "Issue has tech media and public pressure relevance, but not universal salience."
+        ],
+        "label": "General tech-attentive public",
+        "population_total": 50000000,
+        "scope": "global_attention_pool_estimate"
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "definition_ambiguity_risk",
+        "note": "Public or media confusion may misclassify paid or extended security programs as continuation of ordinary support.",
+        "severity": "medium"
+      },
+      {
+        "flag": "installed_base_uncertainty",
+        "note": "The exact scale and composition of remaining W10 machines is unspecified, limiting calibration of pressure strength.",
+        "severity": "medium"
+      },
+      {
+        "flag": "government_pressure_coordination_uncertainty",
+        "note": "Some governments may pressure vendor, but breadth, leverage, and timing are not evidenced.",
+        "severity": "medium"
+      },
+      {
+        "flag": "platform_owner_leverage_high",
+        "note": "Vendor has primary authority over lifecycle definition and schedule, making outside pressure secondary unless highly coordinated.",
+        "severity": "high"
+      },
+      {
+        "flag": "forecast_resolution_boundary_sensitive",
+        "note": "Outcome hinges on the formal definition of ordinary support rather than general perceptions of continued assistance.",
+        "severity": "high"
+      }
+    ],
+    "simulation_brief": {
+      "core_question": "Will ordinary support for Operating System W10 end on 2025-10-14 as scheduled?",
+      "mode": "direct",
+      "scenario_key": "resolved_017",
+      "summary": "A vendor has a published lifecycle schedule stating ordinary support for Operating System W10 ends on 2025-10-14. Large installed base persistence, consumer advocate concerns about e-waste and security exposure, and possible government pressure create uncertainty about whether the vendor alters ordinary support before the deadline. Paid or extended security programs are explicitly distinct from ordinary support.",
+      "timeframe": {
+        "t0_reference": "2025-07-01",
+        "target_date": "2025-10-14"
+      },
+      "title": "ordinary_support_end_for_operating_system_w10",
+      "uncertainty_notes": [
+        "No broad reversal has been announced at T0.",
+        "Pressure for extension exists but its strength and coordination are only partially evidenced.",
+        "Definition boundary matters: paid or extended security updates do not count as ordinary support continuation."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "operating_system_w10_user_base",
+          "general_tech_public"
+        ],
+        "evidence": "Users update beliefs mainly from trusted official or expert sources, not all external pressure claims.",
+        "level": 0.56,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "operating_system_w10_user_base",
+          "consumer_advocates",
+          "some_governments"
+        ],
+        "evidence": "Broad mobilization likely requires a visible trigger such as announcement, leak, or incident.",
+        "level": 0.48,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "enterprise_it_admins",
+          "w10_users_ready_to_migrate"
+        ],
+        "evidence": "Many affected actors plan privately rather than campaign publicly.",
+        "level": 0.62,
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "enterprise_it_admins",
+          "security_community",
+          "consumer_advocates"
+        ],
+        "evidence": "Issue framing differs across expert, advocacy, and user communities.",
+        "level": 0.51,
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "some_governments",
+          "enterprise_it_admins"
+        ],
+        "evidence": "Coordinated pressure or policy imitation likely requires multiple reinforcing signals.",
+        "level": 0.44,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "consumer_advocates",
+          "device_repair_resale_ecosystem"
+        ],
+        "evidence": "Environmental and consumer-rights framing can create aligned identity blocs.",
+        "level": 0.39,
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "general_tech_public",
+          "operating_system_w10_user_base"
+        ],
+        "evidence": "Absent new announcements, attention to lifecycle deadlines tends to fade between reminder spikes.",
+        "level": 0.58,
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Published lifecycle schedule is the main belief anchor at T0.",
+        "influence_key": "official_schedule_anchor"
+      },
+      {
+        "description": "Paid or extended security updates are distinct from ordinary support continuation.",
+        "influence_key": "definition_boundary"
+      },
+      {
+        "description": "Large remaining machine base supports narratives favoring delay or accommodation.",
+        "influence_key": "installed_base_salience"
+      },
+      {
+        "description": "Security exposure and e-waste create competing but mutually reinforcing pressure frames.",
+        "influence_key": "harm_frame_duality"
+      },
+      {
+        "description": "No broad announced reversal constrains immediate expectations of deadline change.",
+        "influence_key": "absence_of_reversal"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "vendor",
+        "behavior_axes": {
+          "cost_sensitivity": 0.7,
+          "policy_rigidity": 0.7,
+          "responsiveness": 0.45,
+          "risk_tolerance": 0.35
+        },
+        "ideology_axes": {
+          "consumer_accommodation": 0.4,
+          "market_control": 0.8,
+          "security_priority": 0.8
+        },
+        "reputation": 0.75,
+        "secrecy": 0.6,
+        "tendency": "schedule_bound_with_selective_exceptions",
+        "trustworthiness": 0.7
+      },
+      {
+        "actor_name": "operating_system_w10_user_base",
+        "behavior_axes": {
+          "coordination": 0.2,
+          "cost_sensitivity": 0.75,
+          "responsiveness": 0.45,
+          "risk_tolerance": 0.5
+        },
+        "ideology_axes": {
+          "consumer_rights_sympathy": 0.5,
+          "security_priority": 0.5,
+          "status_quo_preference": 0.7
+        },
+        "reputation": 0.5,
+        "secrecy": 0.2,
+        "tendency": "heterogeneous_delay_and_adaptation",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "consumer_advocates",
+        "behavior_axes": {
+          "cost_sensitivity": 0.3,
+          "policy_rigidity": 0.4,
+          "responsiveness": 0.8,
+          "risk_tolerance": 0.55
+        },
+        "ideology_axes": {
+          "consumer_protection": 0.9,
+          "environmental_concern": 0.85,
+          "security_priority": 0.7
+        },
+        "reputation": 0.55,
+        "secrecy": 0.2,
+        "tendency": "issue_amplification_and_pressure",
+        "trustworthiness": 0.65
+      },
+      {
+        "actor_name": "some_governments",
+        "behavior_axes": {
+          "cost_sensitivity": 0.6,
+          "policy_rigidity": 0.5,
+          "responsiveness": 0.5,
+          "risk_tolerance": 0.3
+        },
+        "ideology_axes": {
+          "consumer_protection": 0.55,
+          "continuity_priority": 0.8,
+          "environmental_concern": 0.5
+        },
+        "reputation": 0.6,
+        "secrecy": 0.45,
+        "tendency": "selective_pressure_and_procurement_leverage",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "enterprise_it_admins",
+        "behavior_axes": {
+          "cost_sensitivity": 0.8,
+          "policy_rigidity": 0.35,
+          "responsiveness": 0.75,
+          "risk_tolerance": 0.25
+        },
+        "ideology_axes": {
+          "budget_discipline": 0.8,
+          "continuity_priority": 0.9,
+          "security_priority": 0.85
+        },
+        "reputation": 0.65,
+        "secrecy": 0.35,
+        "tendency": "pragmatic_migration_with_exception_requests",
+        "trustworthiness": 0.7
+      },
+      {
+        "actor_name": "security_community",
+        "behavior_axes": {
+          "cost_sensitivity": 0.2,
+          "policy_rigidity": 0.45,
+          "responsiveness": 0.8,
+          "risk_tolerance": 0.2
+        },
+        "ideology_axes": {
+          "consumer_protection": 0.5,
+          "environmental_concern": 0.3,
+          "security_priority": 0.95
+        },
+        "reputation": 0.7,
+        "secrecy": 0.25,
+        "tendency": "risk_warning_and_definition_clarification",
+        "trustworthiness": 0.75
+      },
+      {
+        "actor_name": "device_repair_resale_ecosystem",
+        "behavior_axes": {
+          "cost_sensitivity": 0.7,
+          "policy_rigidity": 0.2,
+          "responsiveness": 0.5,
+          "risk_tolerance": 0.45
+        },
+        "ideology_axes": {
+          "consumer_protection": 0.6,
+          "reuse_priority": 0.9,
+          "security_priority": 0.45
+        },
+        "reputation": 0.5,
+        "secrecy": 0.3,
+        "tendency": "lifespan_extension_advocacy",
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "tech_media",
+        "behavior_axes": {
+          "cost_sensitivity": 0.2,
+          "policy_rigidity": 0.15,
+          "responsiveness": 0.85,
+          "risk_tolerance": 0.5
+        },
+        "ideology_axes": {
+          "consumer_interest": 0.55,
+          "novelty_attention": 0.85,
+          "security_priority": 0.5
+        },
+        "reputation": 0.6,
+        "secrecy": 0.1,
+        "tendency": "announcement_amplification",
+        "trustworthiness": 0.55
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 1775,
+        "end": 1775,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 1775,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

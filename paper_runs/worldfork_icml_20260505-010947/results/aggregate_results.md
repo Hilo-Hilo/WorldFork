@@ -1,6 +1,6 @@
 # Aggregate Results
 
-Generated: 2026-05-05 02:09 UTC
+Generated: 2026-05-05 02:20 UTC
 
 ## Completed Blocks
 
@@ -13,6 +13,7 @@ Generated: 2026-05-05 02:09 UTC
 - E3 queue smoke: `resolved_004` ran through Celery `worldfork.execute_job`, completed one tick and generated reports after a 219.47 second job wait.
 - E1 queued initializer batch: `resolved_001`, `resolved_002`, `resolved_005`, and `resolved_006` completed as parallel p1 jobs; all captured initialized actors, traits, graphs, sociology baseline, emotion baseline, logs, and workspace.
 - E1 queued initializer batch: `resolved_007` through `resolved_014` completed as eight parallel p1 jobs; all captured initialized actors, traits, graphs, sociology baseline, emotion baseline, logs, and workspace.
+- E1 add-on initialization screen: all 36 additional public cards now have live initialization evidence.
 
 ## Forecast Scores
 
@@ -31,10 +32,11 @@ Generated: 2026-05-05 02:09 UTC
 - The queued E3 smoke produced 12/12 succeeded LLM calls, 143,700 reported tokens, 445.3739 aggregate LLM seconds, two report records, and four ledgers. Queue telemetry showed one active p1 task, so single-case queue execution is functional but not inherently parallel within the case.
 - The E1 queued initializer batch produced four successful initialization jobs. Actor counts were 11, 7, 9, and 8 respectively. Because jobs were submitted before waiting, the last three had near-zero wait times after the first 148.14 second wait returned.
 - The eight-case E1 initializer batch produced eight successful initialization jobs with actor counts 8, 9, 7, 7, 11, 14, 10, and 8 for `resolved_007` through `resolved_014`. Job elapsed times ranged from 112.37 to 188.80 seconds while p1 reported 8 active tasks.
+- The remaining 22 additional cards completed as queued p1 jobs in 464.64 seconds wall time. Per-job elapsed times ranged from 109.49 to 463.97 seconds, including queue wait across three waves.
 
 ## Pending Results
 
-- Full E1 initialization screen on 108 public cards; fourteen live initializations are now evidenced, but full coverage is pending.
+- Full E1 initialization screen on 108 public cards; 36/108 live initializations are now evidenced, covering the full additional-card add-on. The existing 72-card screen is pending.
 - Full E3 WorldFork short resolved no-branch and branching runs.
 - E4 long-horizon audit runs.
 - E5 social-state/emotion audit.

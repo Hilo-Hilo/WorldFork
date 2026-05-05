@@ -1,0 +1,21 @@
+{
+  "job_type": "initialize_big_bang",
+  "payload": {
+    "actors": [],
+    "branch_policy": {
+      "branch_score_threshold": 0.999,
+      "max_active_multiverses": 1,
+      "max_branch_depth": 1,
+      "max_branches_per_tick": 1
+    },
+    "cohorts": [],
+    "heroes": [],
+    "name": "E1_init_job_dossier_005",
+    "scenario_text": "# Case dossier_005\nBenchmark role: longform_dossier\n\nForecast question: Which endpoint receives the most path mass for the Harbor Battery permitting fight?\n\n## Scenario\n\nA grid operator and developer seek permission for a large battery project needed for summer reliability. Residents raise fire-safety and zoning concerns. Preserve interconnection deadlines, permit authority, and seasonal reliability pressure.\n\n## Source Packet\n\n### Source 1: grid_operator_warning / T-20 days\n\nWithout the Harbor Battery project, the coastal zone may face emergency demand-response calls during two expected summer peak weeks.\n\n### Source 2: developer_schedule / T-18 days\n\nThe developer says missing the May interconnection milestone would push commercial operation to the following year.\n\n### Source 3: fire_marshal_letter / T-14 days\n\nThe fire marshal requests a revised thermal-runaway response plan and an evacuation-radius analysis before signing off.\n\n### Source 4: neighborhood_petition / T-9 days\n\nResidents object to siting batteries near a school and ask the zoning board to deny the variance.\n\n### Source 5: state_energy_office_note / T-6 days\n\nThe state can preempt local denial only after a finding of regional reliability need, a process expected to take at least 45 days.\n\n### Source 6: utility_customer_poll / T-3 days\n\nCustomers support reliability upgrades in general but are split on the specific site.\n\n## Candidate Endpoints\n- permit_approved: Local permit/variance approved before milestone\n- conditional_delay: Approval delayed pending safety conditions\n- permit_denied: Local board denies variance\n- state_override: State initiates or grants reliability preemption\n- project_slips: Milestone missed and commercial operation slips\n\n## Expected Focus\n- permit_authority\n- safety_review\n- seasonal_reliability\n- state_preemption_timing\n\n## Required Forecast Output\n{'type': 'worldfork_initialization_and_report', 'minimum_outputs': ['actors/cohorts and authority constraints', 'initial events and unresolved facts', 'candidate endpoint ledger', 'branch hypotheses with rationale', 'forecast_distribution over endpoints plus unresolved_mass', 'report claims grounded to source_packet references']}\n\n## Rubric Location\nprivate_eval file\n",
+    "simulation_config": {
+      "max_ticks": 1,
+      "tick_duration_minutes": 720
+    },
+    "use_initializer_agent": true
+  }
+}

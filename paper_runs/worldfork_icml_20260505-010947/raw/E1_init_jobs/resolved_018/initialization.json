@@ -1,0 +1,1342 @@
+{
+  "big_bang_id": "9d1a6bdb-90cc-4a36-9e3f-59f67ba0cea5",
+  "initializer_output": {
+    "actors": [
+      {
+        "fictionalized": true,
+        "name": "european_commission",
+        "role": "primary_enforcer",
+        "stakes": "credible early DMA enforcement, legal defensibility, signaling value, deadline management",
+        "type": "institution"
+      },
+      {
+        "fictionalized": true,
+        "name": "gatekeeper_a",
+        "role": "regulated_platform",
+        "stakes": "avoid or reduce DMA fine, preserve platform control over app ecosystem rules, shape precedent",
+        "type": "company"
+      },
+      {
+        "fictionalized": true,
+        "name": "gatekeeper_m",
+        "role": "regulated_platform",
+        "stakes": "avoid or reduce DMA fine, preserve data-use practices, shape precedent",
+        "type": "company"
+      },
+      {
+        "fictionalized": true,
+        "name": "app_developers",
+        "role": "affected_market_participants",
+        "stakes": "more steering freedom, lower platform constraints, clearer enforcement precedent",
+        "type": "industry_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "platform_users",
+        "role": "affected_consumers",
+        "stakes": "meaningful choice over personal-data use, platform usability, privacy expectations",
+        "type": "public_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "eu_policy_audience",
+        "role": "observer_coalition",
+        "stakes": "DMA credibility, institutional consistency, political signaling",
+        "type": "elite_public"
+      },
+      {
+        "fictionalized": true,
+        "name": "legal_observers",
+        "role": "interpretive_audience",
+        "stakes": "clarity of legal theory, proportionality of enforcement, precedent quality",
+        "type": "expert_network"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "A high-signaling enforcement path where precedent setting outweighs delay from negotiation.",
+        "branch_key": "both_fined_by_deadline",
+        "divergence_signal": "Official announcements specify monetary DMA fines for both Gatekeeper A and Gatekeeper M by the deadline.",
+        "trigger": "Commission concludes both cases with monetary sanctions before 2025-04-30."
+      },
+      {
+        "alternate_path": "Asymmetric enforcement yields a mixed outcome that fails the conjunctive endpoint.",
+        "branch_key": "only_one_fined",
+        "divergence_signal": "A monetary fine is announced for one gatekeeper while the other receives no fine, a delayed decision, or only a finding/remedy.",
+        "trigger": "One case matures faster legally or factually than the other."
+      },
+      {
+        "alternate_path": "Institutional signaling occurs through findings or concessions rather than twin fines.",
+        "branch_key": "findings_without_both_fines",
+        "divergence_signal": "Official action confirms noncompliance or corrective measures but omits a monetary fine for at least one gatekeeper.",
+        "trigger": "Commission prioritizes compliance findings or remedial commitments over immediate monetary sanctions in at least one case."
+      },
+      {
+        "alternate_path": "Active enforcement continues but the benchmark endpoint resolves no due to timing.",
+        "branch_key": "deadline_slip",
+        "divergence_signal": "No official confirmation of fines for both companies by 2025-04-30 despite continued case activity.",
+        "trigger": "Procedural caution, negotiation, or legal complexity slows one or both cases past the deadline."
+      }
+    ],
+    "channels": [
+      {
+        "actors": [
+          "european_commission",
+          "eu_policy_audience",
+          "legal_observers"
+        ],
+        "channel_key": "official_commission_announcements",
+        "reach": 0.72,
+        "type": "institutional_public"
+      },
+      {
+        "actors": [
+          "gatekeeper_a",
+          "gatekeeper_m",
+          "eu_policy_audience",
+          "legal_observers",
+          "platform_users"
+        ],
+        "channel_key": "company_public_responses",
+        "reach": 0.58,
+        "type": "corporate_public"
+      },
+      {
+        "actors": [
+          "app_developers",
+          "european_commission",
+          "legal_observers"
+        ],
+        "channel_key": "developer_industry_feedback",
+        "reach": 0.46,
+        "type": "sector_network"
+      },
+      {
+        "actors": [
+          "legal_observers",
+          "eu_policy_audience"
+        ],
+        "channel_key": "expert_legal_commentary",
+        "reach": 0.54,
+        "type": "analysis_public"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype": "eu_policy_elites",
+        "attention_level": 0.9,
+        "cohort_key": "policy_hawks",
+        "expression_level": 0.55,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.65,
+        "perceived_majority": 0.6,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Early fines would reinforce DMA credibility if legally robust.",
+        "representation_mode": "issue_cohort",
+        "represented_population": 1750,
+        "stance_axes": {
+          "procedural_caution": 0.45,
+          "speed_before_deadline": 0.7,
+          "strict_dma_enforcement": 0.85
+        }
+      },
+      {
+        "archetype": "eu_policy_elites",
+        "attention_level": 0.85,
+        "cohort_key": "policy_cautious",
+        "expression_level": 0.45,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.25,
+        "mobilization_readiness": 0.4,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Decisions should prioritize defensibility over symbolic speed.",
+        "representation_mode": "issue_cohort",
+        "represented_population": 2250,
+        "stance_axes": {
+          "procedural_caution": 0.8,
+          "speed_before_deadline": 0.45,
+          "strict_dma_enforcement": 0.6
+        }
+      },
+      {
+        "archetype": "eu_policy_elites",
+        "attention_level": 0.65,
+        "cohort_key": "policy_wait_and_see",
+        "expression_level": 0.25,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.45,
+        "population_share_of_archetype": 0.2,
+        "private_belief": "Outcome uncertainty remains high until concrete procedural signals appear.",
+        "representation_mode": "issue_cohort",
+        "represented_population": 1000,
+        "stance_axes": {
+          "procedural_caution": 0.55,
+          "speed_before_deadline": 0.35,
+          "strict_dma_enforcement": 0.5
+        }
+      },
+      {
+        "archetype": "app_ecosystem_participants",
+        "attention_level": 0.7,
+        "cohort_key": "developer_reformers",
+        "expression_level": 0.5,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.25,
+        "mobilization_readiness": 0.55,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Strong action against steering restrictions would improve bargaining position.",
+        "representation_mode": "issue_cohort",
+        "represented_population": 90000,
+        "stance_axes": {
+          "anti_platform_restrictions": 0.85,
+          "belief_in_regulator_action": 0.6,
+          "litigation_tolerance": 0.5
+        }
+      },
+      {
+        "archetype": "app_ecosystem_participants",
+        "attention_level": 0.5,
+        "cohort_key": "developer_pragmatists",
+        "expression_level": 0.3,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.4,
+        "mobilization_readiness": 0.3,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "Compliance tweaks may matter more than headline fines.",
+        "representation_mode": "issue_cohort",
+        "represented_population": 110000,
+        "stance_axes": {
+          "anti_platform_restrictions": 0.65,
+          "belief_in_regulator_action": 0.45,
+          "litigation_tolerance": 0.3
+        }
+      },
+      {
+        "archetype": "eu_platform_users",
+        "attention_level": 0.35,
+        "cohort_key": "privacy_attentive_users",
+        "expression_level": 0.15,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.45,
+        "mobilization_readiness": 0.15,
+        "perceived_majority": 0.4,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "User-choice enforcement is desirable but hard to follow in detail.",
+        "representation_mode": "issue_cohort",
+        "represented_population": 37500000,
+        "stance_axes": {
+          "attention_to_dma": 0.35,
+          "privacy_priority": 0.85,
+          "regulatory_trust": 0.55
+        }
+      },
+      {
+        "archetype": "eu_platform_users",
+        "attention_level": 0.1,
+        "cohort_key": "low_attention_users",
+        "expression_level": 0.05,
+        "fatigue": 0.1,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.05,
+        "perceived_majority": 0.3,
+        "population_share_of_archetype": 0.75,
+        "private_belief": "Issue remains remote unless a major public decision or usability change occurs.",
+        "representation_mode": "issue_cohort",
+        "represented_population": 112500000,
+        "stance_axes": {
+          "attention_to_dma": 0.1,
+          "privacy_priority": 0.45,
+          "regulatory_trust": 0.4
+        }
+      },
+      {
+        "archetype": "legal_tech_observers",
+        "attention_level": 0.9,
+        "cohort_key": "legal_formalists",
+        "expression_level": 0.6,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.5,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "A fine requires robust legal grounding, especially in early DMA cases.",
+        "representation_mode": "issue_cohort",
+        "represented_population": 30000,
+        "stance_axes": {
+          "enforcement_appetite": 0.55,
+          "precedent_sensitivity": 0.85,
+          "procedural_caution": 0.75
+        }
+      },
+      {
+        "archetype": "legal_tech_observers",
+        "attention_level": 0.92,
+        "cohort_key": "legal_enforcement_watchers",
+        "expression_level": 0.65,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.15,
+        "mobilization_readiness": 0.55,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "The Commission may seek a visible early win to establish DMA credibility.",
+        "representation_mode": "issue_cohort",
+        "represented_population": 20000,
+        "stance_axes": {
+          "enforcement_appetite": 0.75,
+          "precedent_sensitivity": 0.7,
+          "procedural_caution": 0.45
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype": "eu_policy_elites",
+        "attention_level": 0.9,
+        "cohort_key": "policy_hawks",
+        "expression_level": 0.55,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.65,
+        "perceived_majority": 0.6,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Early fines would reinforce DMA credibility if legally robust.",
+        "representation_mode": "issue_cohort",
+        "represented_population": 1750,
+        "stance_axes": {
+          "procedural_caution": 0.45,
+          "speed_before_deadline": 0.7,
+          "strict_dma_enforcement": 0.85
+        }
+      },
+      {
+        "archetype": "eu_policy_elites",
+        "attention_level": 0.85,
+        "cohort_key": "policy_cautious",
+        "expression_level": 0.45,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.25,
+        "mobilization_readiness": 0.4,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Decisions should prioritize defensibility over symbolic speed.",
+        "representation_mode": "issue_cohort",
+        "represented_population": 2250,
+        "stance_axes": {
+          "procedural_caution": 0.8,
+          "speed_before_deadline": 0.45,
+          "strict_dma_enforcement": 0.6
+        }
+      },
+      {
+        "archetype": "eu_policy_elites",
+        "attention_level": 0.65,
+        "cohort_key": "policy_wait_and_see",
+        "expression_level": 0.25,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.45,
+        "population_share_of_archetype": 0.2,
+        "private_belief": "Outcome uncertainty remains high until concrete procedural signals appear.",
+        "representation_mode": "issue_cohort",
+        "represented_population": 1000,
+        "stance_axes": {
+          "procedural_caution": 0.55,
+          "speed_before_deadline": 0.35,
+          "strict_dma_enforcement": 0.5
+        }
+      },
+      {
+        "archetype": "app_ecosystem_participants",
+        "attention_level": 0.7,
+        "cohort_key": "developer_reformers",
+        "expression_level": 0.5,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.25,
+        "mobilization_readiness": 0.55,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Strong action against steering restrictions would improve bargaining position.",
+        "representation_mode": "issue_cohort",
+        "represented_population": 90000,
+        "stance_axes": {
+          "anti_platform_restrictions": 0.85,
+          "belief_in_regulator_action": 0.6,
+          "litigation_tolerance": 0.5
+        }
+      },
+      {
+        "archetype": "app_ecosystem_participants",
+        "attention_level": 0.5,
+        "cohort_key": "developer_pragmatists",
+        "expression_level": 0.3,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.4,
+        "mobilization_readiness": 0.3,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "Compliance tweaks may matter more than headline fines.",
+        "representation_mode": "issue_cohort",
+        "represented_population": 110000,
+        "stance_axes": {
+          "anti_platform_restrictions": 0.65,
+          "belief_in_regulator_action": 0.45,
+          "litigation_tolerance": 0.3
+        }
+      },
+      {
+        "archetype": "eu_platform_users",
+        "attention_level": 0.35,
+        "cohort_key": "privacy_attentive_users",
+        "expression_level": 0.15,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.45,
+        "mobilization_readiness": 0.15,
+        "perceived_majority": 0.4,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "User-choice enforcement is desirable but hard to follow in detail.",
+        "representation_mode": "issue_cohort",
+        "represented_population": 37500000,
+        "stance_axes": {
+          "attention_to_dma": 0.35,
+          "privacy_priority": 0.85,
+          "regulatory_trust": 0.55
+        }
+      },
+      {
+        "archetype": "eu_platform_users",
+        "attention_level": 0.1,
+        "cohort_key": "low_attention_users",
+        "expression_level": 0.05,
+        "fatigue": 0.1,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.05,
+        "perceived_majority": 0.3,
+        "population_share_of_archetype": 0.75,
+        "private_belief": "Issue remains remote unless a major public decision or usability change occurs.",
+        "representation_mode": "issue_cohort",
+        "represented_population": 112500000,
+        "stance_axes": {
+          "attention_to_dma": 0.1,
+          "privacy_priority": 0.45,
+          "regulatory_trust": 0.4
+        }
+      },
+      {
+        "archetype": "legal_tech_observers",
+        "attention_level": 0.9,
+        "cohort_key": "legal_formalists",
+        "expression_level": 0.6,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.5,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "A fine requires robust legal grounding, especially in early DMA cases.",
+        "representation_mode": "issue_cohort",
+        "represented_population": 30000,
+        "stance_axes": {
+          "enforcement_appetite": 0.55,
+          "precedent_sensitivity": 0.85,
+          "procedural_caution": 0.75
+        }
+      },
+      {
+        "archetype": "legal_tech_observers",
+        "attention_level": 0.92,
+        "cohort_key": "legal_enforcement_watchers",
+        "expression_level": 0.65,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.15,
+        "mobilization_readiness": 0.55,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "The Commission may seek a visible early win to establish DMA credibility.",
+        "representation_mode": "issue_cohort",
+        "represented_population": 20000,
+        "stance_axes": {
+          "enforcement_appetite": 0.75,
+          "precedent_sensitivity": 0.7,
+          "procedural_caution": 0.45
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "european_commission",
+          "commission_dma_team"
+        ],
+        "blockers": [
+          "company contestation and negotiation may delay outcomes",
+          "one case may resolve differently from the other",
+          "non-monetary findings do not satisfy the endpoint"
+        ],
+        "contradiction_notes": "Any scenario with only one fine, no fine, or post-deadline action contradicts realization.",
+        "description": "Monetary DMA fines are officially imposed on both Gatekeeper A and Gatekeeper M by 2025-04-30.",
+        "endpoint_key": "both_fined_by_deadline",
+        "evidence_refs": [
+          "ongoing_dma_investigations",
+          "precedent_pressure_recognized",
+          "deadline_filtering_of_outcomes"
+        ],
+        "label": "Both companies fined by deadline",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will both Gatekeeper A and Gatekeeper M receive monetary DMA fines by 2025-04-30?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.34,
+        "rationale": "This is the primary conjunctive benchmark and requires simultaneous success across two separate enforcement tracks.",
+        "realization_criteria": [
+          "official Commission-confirmed monetary fine for Gatekeeper A",
+          "official Commission-confirmed monetary fine for Gatekeeper M",
+          "both confirmations occur on or before 2025-04-30"
+        ],
+        "status": "active",
+        "status_basis": "Investigations are active, but no T0 evidence confirms fines yet."
+      },
+      {
+        "authority_refs": [
+          "european_commission",
+          "commission_dma_team"
+        ],
+        "blockers": [
+          "synchronized enforcement against both firms",
+          "full delay or non-monetary treatment in both cases"
+        ],
+        "contradiction_notes": "If both firms are fined by the deadline, this endpoint fails.",
+        "description": "A monetary DMA fine is imposed on exactly one of the two gatekeepers by 2025-04-30.",
+        "endpoint_key": "only_one_fined_by_deadline",
+        "evidence_refs": [
+          "ongoing_dma_investigations",
+          "company_contestation_and_negotiation"
+        ],
+        "label": "Only one company fined by deadline",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the Commission impose a monetary fine on only one of the two gatekeepers by 2025-04-30?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.26,
+        "rationale": "A conjunctive benchmark often fails through uneven case timing or divergent remedy choices.",
+        "realization_criteria": [
+          "official Commission-confirmed monetary fine for exactly one of Gatekeeper A or Gatekeeper M",
+          "the other gatekeeper lacks an official monetary fine by 2025-04-30"
+        ],
+        "status": "active",
+        "status_basis": "Separate fact patterns and negotiations make asymmetry plausible at T0."
+      },
+      {
+        "authority_refs": [
+          "european_commission",
+          "commission_dma_team",
+          "gatekeeper_a_leadership",
+          "gatekeeper_m_leadership"
+        ],
+        "blockers": [
+          "Commission chooses monetary sanctions for both cases",
+          "no visible action occurs by the deadline"
+        ],
+        "contradiction_notes": "A paired-fines outcome for both firms would reduce this endpoint unless one action is separately non-monetary before deadline.",
+        "description": "By 2025-04-30, at least one gatekeeper case yields a finding, remedy, or compliance adjustment without a monetary fine.",
+        "endpoint_key": "non_monetary_action_for_at_least_one",
+        "evidence_refs": [
+          "company_contestation_and_negotiation",
+          "deadline_filtering_of_outcomes"
+        ],
+        "label": "At least one case ends without a monetary fine",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will at least one case produce a finding, remedy, or compliance adjustment without a monetary fine by 2025-04-30?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.44,
+        "rationale": "Negotiated compliance changes and interpretive contestation create a credible softer-resolution pathway.",
+        "realization_criteria": [
+          "official action concerning at least one gatekeeper before or by 2025-04-30",
+          "the action includes a finding, remedy, commitment, or compliance change",
+          "no monetary fine accompanies that action for that gatekeeper by the deadline"
+        ],
+        "status": "active",
+        "status_basis": "Source text explicitly notes that findings without monetary fines are possible and insufficient for yes."
+      },
+      {
+        "authority_refs": [
+          "european_commission"
+        ],
+        "blockers": [
+          "Commission finalizes and announces monetary fines for both firms before the deadline"
+        ],
+        "contradiction_notes": "This endpoint is contradicted only by timely official fines for both firms.",
+        "description": "By 2025-04-30, the benchmark condition of monetary fines for both gatekeepers has not been satisfied.",
+        "endpoint_key": "deadline_passes_without_both_fines",
+        "evidence_refs": [
+          "ongoing_dma_investigations",
+          "company_contestation_and_negotiation",
+          "deadline_filtering_of_outcomes"
+        ],
+        "label": "Deadline passes without both fines",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will one or both cases remain unresolved for monetary-fine purposes at the deadline?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.66,
+        "rationale": "It captures the broad negative space around the conjunctive yes benchmark, including asymmetry, delay, and non-monetary resolutions.",
+        "realization_criteria": [
+          "as of 2025-04-30, fewer than two official Commission-confirmed monetary fines exist across the two cases"
+        ],
+        "status": "active",
+        "status_basis": "At initialization the benchmark remains unresolved and multiple pathways fail the conjunctive condition."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "Early DMA enforcement decisions carry signaling value beyond the fine amount.",
+        "layer": "exposure",
+        "reason": "Commission actions are closely watched by policy elites.",
+        "source_actor_name": "european_commission",
+        "target_actor_name": "eu_policy_audience",
+        "weight": 0.62
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Early enforcement decisions carry signaling value and are legally salient.",
+        "layer": "exposure",
+        "reason": "Legal observers track enforcement actions for precedent.",
+        "source_actor_name": "european_commission",
+        "target_actor_name": "legal_observers",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "The Commission has been investigating compliance by Gatekeeper A.",
+        "layer": "exposure",
+        "reason": "Company conduct and submissions are visible to investigators.",
+        "source_actor_name": "gatekeeper_a",
+        "target_actor_name": "european_commission",
+        "weight": 0.48
+      },
+      {
+        "direction": "outbound",
+        "evidence": "The Commission has been investigating compliance by Gatekeeper M.",
+        "layer": "exposure",
+        "reason": "Company conduct and submissions are visible to investigators.",
+        "source_actor_name": "gatekeeper_m",
+        "target_actor_name": "european_commission",
+        "weight": 0.48
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Gatekeeper A is accused of restricting app-developer steering.",
+        "layer": "exposure",
+        "reason": "Developers experience or observe steering restrictions.",
+        "source_actor_name": "gatekeeper_a",
+        "target_actor_name": "app_developers",
+        "weight": 0.55
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Gatekeeper M is scrutinized over user choice around personal-data use.",
+        "layer": "exposure",
+        "reason": "Users encounter personal-data choice design in product use.",
+        "source_actor_name": "gatekeeper_m",
+        "target_actor_name": "platform_users",
+        "weight": 0.5
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Gatekeeper A faces scrutiny tied to developer steering restrictions.",
+        "layer": "trust",
+        "reason": "Developers have moderate hope the regulator may improve platform conditions.",
+        "source_actor_name": "app_developers",
+        "target_actor_name": "european_commission",
+        "weight": 0.52
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Gatekeeper M is scrutinized over user choice around personal-data use.",
+        "layer": "trust",
+        "reason": "Users have limited but nonzero confidence in privacy-related enforcement.",
+        "source_actor_name": "platform_users",
+        "target_actor_name": "european_commission",
+        "weight": 0.42
+      },
+      {
+        "direction": "outbound",
+        "evidence": "DMA is new and early decisions carry signaling value; legal robustness matters.",
+        "layer": "trust",
+        "reason": "Observers view the Commission as legitimate but constrained by procedure.",
+        "source_actor_name": "legal_observers",
+        "target_actor_name": "european_commission",
+        "weight": 0.5
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Gatekeeper A is accused of restricting app-developer steering.",
+        "layer": "trust",
+        "reason": "Developers likely distrust platform conduct around steering restrictions.",
+        "source_actor_name": "app_developers",
+        "target_actor_name": "gatekeeper_a",
+        "weight": 0.22
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Gatekeeper M is scrutinized over user choice around personal-data use.",
+        "layer": "trust",
+        "reason": "Scrutiny over personal-data choice weakens confidence in user-centric design.",
+        "source_actor_name": "platform_users",
+        "target_actor_name": "gatekeeper_m",
+        "weight": 0.3
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario centers on app-developer steering restrictions imposed by Gatekeeper A.",
+        "layer": "dependency",
+        "reason": "Developers materially depend on platform access and rules.",
+        "source_actor_name": "app_developers",
+        "target_actor_name": "gatekeeper_a",
+        "weight": 0.72
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario concerns user choice around personal-data use on Gatekeeper M.",
+        "layer": "dependency",
+        "reason": "Users rely on the platform's interfaces and data-choice implementation.",
+        "source_actor_name": "platform_users",
+        "target_actor_name": "gatekeeper_m",
+        "weight": 0.45
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Early enforcement decisions carry signaling value beyond fine amount.",
+        "layer": "dependency",
+        "reason": "Observers depend on official actions for concrete precedent signals.",
+        "source_actor_name": "european_commission",
+        "target_actor_name": "legal_observers",
+        "weight": 0.28
+      },
+      {
+        "direction": "outbound",
+        "evidence": "The Commission has been investigating whether gatekeepers comply with DMA obligations.",
+        "layer": "influence",
+        "reason": "The regulator can impose findings, fines, or compliance pressure.",
+        "source_actor_name": "european_commission",
+        "target_actor_name": "gatekeeper_a",
+        "weight": 0.66
+      },
+      {
+        "direction": "outbound",
+        "evidence": "The Commission has been investigating whether gatekeepers comply with DMA obligations.",
+        "layer": "influence",
+        "reason": "The regulator can impose findings, fines, or compliance pressure.",
+        "source_actor_name": "european_commission",
+        "target_actor_name": "gatekeeper_m",
+        "weight": 0.66
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Both companies have incentives to contest interpretations and negotiate compliance changes.",
+        "layer": "influence",
+        "reason": "Company negotiation and contestation can shape timing and remedies.",
+        "source_actor_name": "gatekeeper_a",
+        "target_actor_name": "european_commission",
+        "weight": 0.38
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Both companies have incentives to contest interpretations and negotiate compliance changes.",
+        "layer": "influence",
+        "reason": "Company negotiation and contestation can shape timing and remedies.",
+        "source_actor_name": "gatekeeper_m",
+        "target_actor_name": "european_commission",
+        "weight": 0.4
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Early enforcement decisions carry signaling value beyond the fine amount.",
+        "layer": "influence",
+        "reason": "Experts shape perceived meaning of early DMA decisions.",
+        "source_actor_name": "legal_observers",
+        "target_actor_name": "eu_policy_audience",
+        "weight": 0.55
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Early DMA enforcement carries signaling value.",
+        "layer": "influence",
+        "reason": "Policy attention can increase pressure for credible early enforcement.",
+        "source_actor_name": "eu_policy_audience",
+        "target_actor_name": "european_commission",
+        "weight": 0.35
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Gatekeeper A is accused of restricting app-developer steering.",
+        "layer": "coalition",
+        "reason": "Latent alignment around loosening steering restrictions.",
+        "source_actor_name": "app_developers",
+        "target_actor_name": "european_commission",
+        "weight": 0.46
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Gatekeeper M is scrutinized over user choice around personal-data use.",
+        "layer": "coalition",
+        "reason": "Partial alignment around meaningful data-choice protections.",
+        "source_actor_name": "platform_users",
+        "target_actor_name": "european_commission",
+        "weight": 0.32
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Scenario emphasizes signaling value of early enforcement.",
+        "layer": "coalition",
+        "reason": "Shared interest in interpreting and signaling DMA precedent.",
+        "source_actor_name": "eu_policy_audience",
+        "target_actor_name": "legal_observers",
+        "weight": 0.5
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Gatekeeper A is accused of restricting app-developer steering.",
+        "layer": "conflict",
+        "reason": "Active regulatory scrutiny with possible sanctions.",
+        "source_actor_name": "european_commission",
+        "target_actor_name": "gatekeeper_a",
+        "weight": 0.58
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Gatekeeper M is scrutinized over user choice around personal-data use.",
+        "layer": "conflict",
+        "reason": "Active regulatory scrutiny with possible sanctions.",
+        "source_actor_name": "european_commission",
+        "target_actor_name": "gatekeeper_m",
+        "weight": 0.55
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Gatekeeper A is accused of restricting app-developer steering.",
+        "layer": "conflict",
+        "reason": "Developers face allegedly restrictive steering rules.",
+        "source_actor_name": "app_developers",
+        "target_actor_name": "gatekeeper_a",
+        "weight": 0.52
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Gatekeeper M is scrutinized over user choice around personal-data use.",
+        "layer": "conflict",
+        "reason": "Potential mismatch between user interests and data-choice design.",
+        "source_actor_name": "platform_users",
+        "target_actor_name": "gatekeeper_m",
+        "weight": 0.35
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Investigation and negotiation incentives are both present.",
+        "layer": "oasis_interaction",
+        "reason": "Likely ongoing formal-public interaction through statements and compliance discussion.",
+        "source_actor_name": "european_commission",
+        "target_actor_name": "gatekeeper_a",
+        "weight": 0.42
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Investigation and negotiation incentives are both present.",
+        "layer": "oasis_interaction",
+        "reason": "Likely ongoing formal-public interaction through statements and compliance discussion.",
+        "source_actor_name": "european_commission",
+        "target_actor_name": "gatekeeper_m",
+        "weight": 0.42
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Expected focus includes regulatory enforcement and deadline-sensitive endpoint interpretation.",
+        "layer": "oasis_interaction",
+        "reason": "Frequent public commentary on implications of DMA enforcement.",
+        "source_actor_name": "legal_observers",
+        "target_actor_name": "eu_policy_audience",
+        "weight": 0.5
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype": "regulatory_decider",
+        "description": "Institutional decision center able to impose or withhold DMA fines"
+      },
+      {
+        "archetype": "gatekeeper_response_team",
+        "description": "Corporate leadership and counsel shaping contestation and compliance offers"
+      },
+      {
+        "archetype": "sector_signal_amplifier",
+        "description": "Observers who interpret decisions and shape perceived precedent"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "european_commission",
+        "archetype": "regulatory_decider",
+        "attention_level": 0.95,
+        "authority_scope": "can issue findings and fines under DMA process",
+        "expression_level": 0.4,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.15,
+        "hero_key": "commission_dma_team",
+        "mobilization_readiness": 0.75,
+        "perceived_majority": 0.55,
+        "reputation": 0.68,
+        "secrecy": 0.75,
+        "stance_axes": {
+          "deadline_pressure": 0.58,
+          "enforcement_assertiveness": 0.68,
+          "procedural_caution": 0.72
+        },
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "gatekeeper_a",
+        "archetype": "gatekeeper_response_team",
+        "attention_level": 0.92,
+        "authority_scope": "controls legal defense and compliance adjustments",
+        "expression_level": 0.35,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.1,
+        "hero_key": "gatekeeper_a_leadership",
+        "mobilization_readiness": 0.7,
+        "perceived_majority": 0.45,
+        "reputation": 0.45,
+        "secrecy": 0.7,
+        "stance_axes": {
+          "accept_precedent": 0.2,
+          "contest_regulatory_interpretation": 0.8,
+          "negotiate_compliance": 0.65
+        },
+        "trustworthiness": 0.35
+      },
+      {
+        "actor_name": "gatekeeper_m",
+        "archetype": "gatekeeper_response_team",
+        "attention_level": 0.92,
+        "authority_scope": "controls legal defense and compliance adjustments",
+        "expression_level": 0.35,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.1,
+        "hero_key": "gatekeeper_m_leadership",
+        "mobilization_readiness": 0.72,
+        "perceived_majority": 0.45,
+        "reputation": 0.48,
+        "secrecy": 0.72,
+        "stance_axes": {
+          "accept_precedent": 0.25,
+          "contest_regulatory_interpretation": 0.78,
+          "negotiate_compliance": 0.7
+        },
+        "trustworthiness": 0.38
+      },
+      {
+        "actor_name": "legal_observers",
+        "archetype": "sector_signal_amplifier",
+        "attention_level": 0.9,
+        "authority_scope": "shapes elite interpretation but lacks formal decision power",
+        "expression_level": 0.7,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.2,
+        "hero_key": "expert_interpreters",
+        "mobilization_readiness": 0.55,
+        "perceived_majority": 0.5,
+        "reputation": 0.6,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "neutrality_norm": 0.65,
+          "newsworthiness_bias": 0.5,
+          "precedent_focus": 0.88
+        },
+        "trustworthiness": 0.65
+      }
+    ],
+    "heroes": [
+      {
+        "archetype": "regulatory_decider",
+        "description": "Institutional decision center able to impose or withhold DMA fines"
+      },
+      {
+        "archetype": "gatekeeper_response_team",
+        "description": "Corporate leadership and counsel shaping contestation and compliance offers"
+      },
+      {
+        "archetype": "sector_signal_amplifier",
+        "description": "Observers who interpret decisions and shape perceived precedent"
+      }
+    ],
+    "important_questions": [
+      "Will both Gatekeeper A and Gatekeeper M receive monetary DMA fines by 2025-04-30?",
+      "Will the Commission impose a monetary fine on only one of the two gatekeepers by 2025-04-30?",
+      "Will at least one case produce a finding, remedy, or compliance adjustment without a monetary fine by 2025-04-30?",
+      "Will one or both cases remain unresolved for monetary-fine purposes at the deadline?"
+    ],
+    "initial_events": [
+      {
+        "event_key": "ongoing_dma_investigations",
+        "event_type": "announcement",
+        "evidence": "The European Commission has been investigating whether two large digital gatekeepers comply with early DMA obligations.",
+        "expected_impact": "Sustains conflict and influence edges between regulator and firms; keeps expert attention elevated without forcing near-term resolution.",
+        "status": "active",
+        "summary": "The Commission is actively investigating Gatekeeper A and Gatekeeper M over separate DMA compliance issues.",
+        "tick": 0
+      },
+      {
+        "event_key": "precedent_pressure_recognized",
+        "event_type": "announcement",
+        "evidence": "The DMA is new, and early enforcement decisions carry signaling value beyond the fine amount.",
+        "expected_impact": "Raises policy salience, increases scrutiny of Commission timing and legal framing, and makes partial outcomes matter symbolically.",
+        "status": "active",
+        "summary": "Stakeholders recognize that early DMA decisions have signaling value beyond monetary amount.",
+        "tick": 0
+      },
+      {
+        "event_key": "company_contestation_and_negotiation",
+        "event_type": "announcement",
+        "evidence": "Both companies have incentives to contest interpretations and negotiate compliance changes.",
+        "expected_impact": "Can delay terminal decisions, reduce likelihood of immediate simultaneous fines, or convert conflict into negotiated partial adjustments.",
+        "status": "imminent",
+        "summary": "Both firms continue or intensify contestation of interpretations while exploring compliance changes.",
+        "tick": 1
+      },
+      {
+        "event_key": "deadline_filtering_of_outcomes",
+        "event_type": "announcement",
+        "evidence": "A finding without a monetary fine for either company is not enough for yes.",
+        "expected_impact": "Narrows evaluation criteria, amplifies importance of timing asymmetry and mixed-outcome scenarios.",
+        "status": "structural",
+        "summary": "Observers increasingly focus on whether both companies receive monetary fines by the deadline, excluding weaker outcomes from the yes condition.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "7f0c71e3-a5e9-4c84-a539-c6e9d93b80fc",
+    "merge_hypotheses": [
+      {
+        "affected_actors": [
+          "european_commission",
+          "eu_policy_audience",
+          "legal_observers"
+        ],
+        "mechanism": "Both aggressive and cautious observers may converge on accepting delayed or uneven outcomes if legal robustness is emphasized.",
+        "merge_key": "shared_incentive_for_legal_defensibility"
+      },
+      {
+        "affected_actors": [
+          "european_commission",
+          "gatekeeper_a",
+          "gatekeeper_m"
+        ],
+        "mechanism": "If firms offer visible compliance changes, some regulator-firm conflict may converge into a process-focused stalemate rather than immediate sanction escalation.",
+        "merge_key": "compliance_adjustment_softening_conflict"
+      },
+      {
+        "affected_actors": [
+          "eu_policy_audience",
+          "legal_observers",
+          "app_developers"
+        ],
+        "mechanism": "As the deadline nears, different observer groups converge on the same narrow evidentiary question of whether both fines actually occurred.",
+        "merge_key": "deadline_attention_convergence"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype": "eu_policy_elites",
+        "description": "Officials, policy staff, analysts, and organized observers tracking DMA enforcement",
+        "population_total": 5000
+      },
+      {
+        "archetype": "app_ecosystem_participants",
+        "description": "Developers and digital businesses affected by platform steering rules",
+        "population_total": 200000
+      },
+      {
+        "archetype": "eu_platform_users",
+        "description": "Users exposed to platform data-choice practices and media coverage",
+        "population_total": 150000000
+      },
+      {
+        "archetype": "legal_tech_observers",
+        "description": "Lawyers, academics, journalists, and compliance specialists following the cases",
+        "population_total": 50000
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "masked_entity_uncertainty",
+        "note": "Partial entity masking reduces confidence in actor-specific contextual assumptions beyond the text.",
+        "severity": "medium"
+      },
+      {
+        "flag": "procedural_stage_unknown",
+        "note": "The corpus does not specify exact procedural milestones, limiting timing calibration.",
+        "severity": "medium"
+      },
+      {
+        "flag": "conjunctive_endpoint_risk",
+        "note": "The tracked yes condition requires two separate monetary-fine events by a fixed deadline, increasing failure modes.",
+        "severity": "high"
+      },
+      {
+        "flag": "process_vs_terminal_confusion",
+        "note": "Findings, remedies, or negotiated compliance changes may be mistaken for endpoint realization unless monetary fines are explicit.",
+        "severity": "medium"
+      },
+      {
+        "flag": "signaling_bias",
+        "note": "Emphasis on precedent and signaling may lead observers to overweight visible enforcement relative to procedural caution.",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "decision_context": "European Commission DMA enforcement decisions with separate company-specific findings that jointly determine the benchmark endpoint.",
+      "domain": "regulatory_enforcement",
+      "mode": "t0_initialization",
+      "scenario_key": "resolved_018",
+      "summary": "A new EU digital regulation is being enforced against two large fictionalized gatekeepers. Gatekeeper_A faces scrutiny over app-developer steering restrictions; Gatekeeper_M faces scrutiny over user choice in personal-data use. The key terminal question is whether both receive monetary fines under the Digital Markets Act by 2025-04-30. Early enforcement has signaling value, while both firms have incentives to contest and negotiate. At T0, the process is active but unresolved, with multiple credible paths including fines for both, fines for one, non-monetary findings, delay, or negotiated compliance changes.",
+      "terminal_focus": "multi_condition_endpoint_with_deadline",
+      "time_horizon": "through_2025-04-30",
+      "uncertainty_notes": [
+        "No procedural stage beyond active investigation is specified.",
+        "No explicit evidence is provided about draft decisions, statement of objections timing, or political appetite for maximal sanctions.",
+        "Entity masking limits direct attribution to real firms; actors are fictionalized accordingly."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "level": 0.62,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Interpretations will shift mostly in response to credible procedural signals, not broad rhetoric.",
+        "scope": "elite and expert audiences"
+      },
+      {
+        "level": 0.48,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Visible draft actions, fines, or announced concessions could trigger sharper expression.",
+        "scope": "developers and policy elites"
+      },
+      {
+        "level": 0.76,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Most users remain quiet absent a salient public enforcement moment.",
+        "scope": "general users"
+      },
+      {
+        "level": 0.58,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Observers cluster by legal-procedural versus enforcement-signaling priors.",
+        "scope": "expert and policy networks"
+      },
+      {
+        "level": 0.52,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Multiple confirming signals are likely needed before a consensus forms on both-fines likelihood.",
+        "scope": "policy discourse"
+      },
+      {
+        "level": 0.44,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Affected groups interpret events through role-based interests.",
+        "scope": "developers and platform-aligned constituencies"
+      },
+      {
+        "level": 0.6,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Attention drifts quickly without concrete Commission announcements.",
+        "scope": "broad public"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Because the DMA is new, early enforcement decisions are interpreted as precedent-setting signals.",
+        "influence_key": "early_dma_signaling"
+      },
+      {
+        "description": "Both gatekeepers have incentives to contest legal interpretations and negotiate compliance changes.",
+        "influence_key": "company_contestation_incentive"
+      },
+      {
+        "description": "The tracked endpoint requires both companies to receive monetary fines by 2025-04-30; non-monetary findings do not satisfy the endpoint.",
+        "influence_key": "deadline_binary_resolution"
+      },
+      {
+        "description": "A single-company fine is insufficient for the benchmark yes outcome, creating a conjunctive endpoint.",
+        "influence_key": "multi_condition_structure"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "european_commission",
+        "behavior_axes": {
+          "assertiveness": 0.65,
+          "caution": 0.75,
+          "opacity": 0.7,
+          "responsiveness": 0.45
+        },
+        "ideology_axes": {
+          "innovation_permissiveness": 0.45,
+          "institutional_legitimacy": 0.88,
+          "market_regulation": 0.82
+        },
+        "reputation": 0.68,
+        "secrecy": 0.75,
+        "tendency": "deliberative_enforcer",
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "gatekeeper_a",
+        "behavior_axes": {
+          "assertiveness": 0.72,
+          "caution": 0.6,
+          "opacity": 0.68,
+          "responsiveness": 0.5
+        },
+        "ideology_axes": {
+          "consumer_framing": 0.5,
+          "platform_control": 0.85,
+          "regulatory_resistance": 0.72
+        },
+        "reputation": 0.45,
+        "secrecy": 0.7,
+        "tendency": "contest_and_adjust",
+        "trustworthiness": 0.35
+      },
+      {
+        "actor_name": "gatekeeper_m",
+        "behavior_axes": {
+          "assertiveness": 0.7,
+          "caution": 0.62,
+          "opacity": 0.7,
+          "responsiveness": 0.52
+        },
+        "ideology_axes": {
+          "platform_control": 0.8,
+          "privacy_framing": 0.62,
+          "regulatory_resistance": 0.7
+        },
+        "reputation": 0.48,
+        "secrecy": 0.72,
+        "tendency": "contest_and_adjust",
+        "trustworthiness": 0.38
+      },
+      {
+        "actor_name": "app_developers",
+        "behavior_axes": {
+          "assertiveness": 0.55,
+          "caution": 0.4,
+          "opacity": 0.2,
+          "responsiveness": 0.65
+        },
+        "ideology_axes": {
+          "litigation_preference": 0.35,
+          "platform_opening": 0.85,
+          "regulatory_support": 0.62
+        },
+        "reputation": 0.55,
+        "secrecy": 0.15,
+        "tendency": "opportunity_seeking",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "platform_users",
+        "behavior_axes": {
+          "assertiveness": 0.2,
+          "caution": 0.5,
+          "opacity": 0.1,
+          "responsiveness": 0.35
+        },
+        "ideology_axes": {
+          "privacy_concern": 0.55,
+          "regulatory_support": 0.45,
+          "status_quo_tolerance": 0.65
+        },
+        "reputation": 0.5,
+        "secrecy": 0.05,
+        "tendency": "low_attention_public",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "eu_policy_audience",
+        "behavior_axes": {
+          "assertiveness": 0.5,
+          "caution": 0.6,
+          "opacity": 0.25,
+          "responsiveness": 0.7
+        },
+        "ideology_axes": {
+          "deadline_salience": 0.7,
+          "enforcement_interest": 0.65,
+          "institutional_credibility": 0.82
+        },
+        "reputation": 0.58,
+        "secrecy": 0.2,
+        "tendency": "signal_interpreter",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "legal_observers",
+        "behavior_axes": {
+          "assertiveness": 0.45,
+          "caution": 0.72,
+          "opacity": 0.15,
+          "responsiveness": 0.8
+        },
+        "ideology_axes": {
+          "enforcement_interest": 0.6,
+          "precedent_focus": 0.88,
+          "proceduralism": 0.8
+        },
+        "reputation": 0.6,
+        "secrecy": 0.1,
+        "tendency": "analytic_amplifier",
+        "trustworthiness": 0.65
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 1766,
+        "end": 1766,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 1766,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

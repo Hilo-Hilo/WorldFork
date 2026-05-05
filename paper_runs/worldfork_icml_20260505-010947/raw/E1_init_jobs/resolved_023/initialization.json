@@ -1,0 +1,1609 @@
+{
+  "big_bang_id": "758b1049-6f6c-4815-b59b-fffc1c514b73",
+  "initializer_output": {
+    "actors": [
+      {
+        "constraints": [
+          "consensus pressure",
+          "time limits",
+          "cross-issue tradeoffs"
+        ],
+        "fictionalized": false,
+        "name": "cop30_presidency",
+        "resources": [
+          "drafting control",
+          "schedule control",
+          "informal shuttle diplomacy"
+        ],
+        "role": "agenda_manager_and_text_broker",
+        "stakes": [
+          "conference credibility",
+          "consensus delivery",
+          "balanced package outcome"
+        ],
+        "type": "institution"
+      },
+      {
+        "constraints": [
+          "can be diluted in consensus",
+          "internal preference variation"
+        ],
+        "fictionalized": false,
+        "name": "pro_phaseout_coalition",
+        "resources": [
+          "coalition size",
+          "moral pressure",
+          "public diplomacy"
+        ],
+        "role": "pushes explicit binding phaseout language",
+        "stakes": [
+          "strong mitigation signal",
+          "textual precedent",
+          "domestic and international climate credibility"
+        ],
+        "type": "state_coalition"
+      },
+      {
+        "constraints": [
+          "international pressure",
+          "reputational costs"
+        ],
+        "fictionalized": true,
+        "name": "producer_state_bloc",
+        "resources": [
+          "consensus blocking leverage",
+          "issue linkage",
+          "procedural delay"
+        ],
+        "role": "resists binding fossil-fuel phaseout language",
+        "stakes": [
+          "hydrocarbon revenue protection",
+          "policy flexibility",
+          "avoidance of binding precedent"
+        ],
+        "type": "state_coalition"
+      },
+      {
+        "constraints": [
+          "agenda crowding",
+          "dependence on package deals"
+        ],
+        "fictionalized": true,
+        "name": "adaptation_finance_advocates",
+        "resources": [
+          "moral legitimacy",
+          "coalitional bargaining"
+        ],
+        "role": "prioritizes adaptation finance commitments",
+        "stakes": [
+          "resource mobilization",
+          "loss and damage responsiveness",
+          "balanced package"
+        ],
+        "type": "state_coalition"
+      },
+      {
+        "constraints": [
+          "text complexity",
+          "possible tradeoff against sharper phaseout wording"
+        ],
+        "fictionalized": true,
+        "name": "just_transition_advocates",
+        "resources": [
+          "normative legitimacy",
+          "cross-bloc appeal"
+        ],
+        "role": "seeks social and labor protections in transition language",
+        "stakes": [
+          "worker protection",
+          "development equity",
+          "political acceptability of mitigation"
+        ],
+        "type": "state_coalition"
+      },
+      {
+        "constraints": [
+          "political salience dominated by headline language"
+        ],
+        "fictionalized": true,
+        "name": "implementation_metrics_group",
+        "resources": [
+          "technical expertise",
+          "drafting influence"
+        ],
+        "role": "focuses on indicators and implementation detail",
+        "stakes": [
+          "measurability",
+          "accountability",
+          "practical feasibility"
+        ],
+        "type": "state_and_technical_coalition"
+      },
+      {
+        "constraints": [
+          "no formal vote",
+          "limited room access"
+        ],
+        "fictionalized": true,
+        "name": "civil_society_phaseout_network",
+        "resources": [
+          "media visibility",
+          "demonstrations",
+          "messaging"
+        ],
+        "role": "external pressure for phaseout language",
+        "stakes": [
+          "ambitious official outcome",
+          "movement credibility"
+        ],
+        "type": "ngo_network"
+      },
+      {
+        "constraints": [
+          "partial visibility into closed-door talks"
+        ],
+        "fictionalized": true,
+        "name": "global_media",
+        "resources": [
+          "agenda amplification",
+          "public scrutiny"
+        ],
+        "role": "amplifies framing of negotiation wins losses and blockers",
+        "stakes": [
+          "narrative salience",
+          "headline clarity"
+        ],
+        "type": "media"
+      },
+      {
+        "constraints": [
+          "subordinate to party instructions and presidency direction"
+        ],
+        "fictionalized": true,
+        "name": "conference_secretariat_legal_drafters",
+        "resources": [
+          "drafting expertise",
+          "document control support"
+        ],
+        "role": "text support and legal drafting",
+        "stakes": [
+          "coherent final text",
+          "procedural defensibility"
+        ],
+        "type": "institution"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "A cross-issue package preserves explicit binding phaseout roadmap inside official final text",
+        "branch_key": "binding_text_breakthrough",
+        "divergence_signal": "draft iterations retain rather than strip explicit binding phaseout terms while finance or transition concessions increase",
+        "trigger": "early draft contains explicit roadmap language and producer resistance shows signs of narrowing rather than hardening"
+      },
+      {
+        "alternate_path": "Headline language survives only as softened aspirational or non-binding wording in official text",
+        "branch_key": "dilution_to_nonbinding",
+        "divergence_signal": "text shifts from commitment or roadmap verbs to encouragement recognition or voluntary framing",
+        "trigger": "presidency prioritizes consensus closure after strong holdout signals from producer bloc"
+      },
+      {
+        "alternate_path": "Voluntary roadmaps or side declarations emerge while official negotiated text remains weaker",
+        "branch_key": "outside_text_substitution",
+        "divergence_signal": "public celebration centers on declarations outside the negotiated text or annex-like nonbinding statements",
+        "trigger": "official text stalls but actors seek symbolic victory through declarations or side documents"
+      },
+      {
+        "alternate_path": "Ambition coalition accepts ambiguous fossil language in exchange for wins on adjacent issues",
+        "branch_key": "package_trade_for_ambiguity",
+        "divergence_signal": "supportive states publicly emphasize balanced package rather than explicit phaseout wording",
+        "trigger": "adaptation finance and just transition gains become the price of final consensus"
+      }
+    ],
+    "channels": [
+      {
+        "actors": [
+          "cop30_presidency",
+          "pro_phaseout_coalition",
+          "producer_state_bloc",
+          "adaptation_finance_advocates",
+          "just_transition_advocates",
+          "implementation_metrics_group"
+        ],
+        "channel_key": "formal_plenary",
+        "properties": {
+          "agenda_control": "cop30_presidency",
+          "binding_signal_strength": 0.9
+        },
+        "type": "official",
+        "visibility": "high"
+      },
+      {
+        "actors": [
+          "cop30_presidency",
+          "pro_phaseout_coalition",
+          "producer_state_bloc",
+          "adaptation_finance_advocates",
+          "just_transition_advocates",
+          "implementation_metrics_group",
+          "conference_secretariat_legal_drafters"
+        ],
+        "channel_key": "informal_corridor_bargaining",
+        "properties": {
+          "ambiguity_capacity": 0.84,
+          "coalition_repair_potential": 0.71
+        },
+        "type": "informal",
+        "visibility": "low"
+      },
+      {
+        "actors": [
+          "cop30_presidency",
+          "conference_secretariat_legal_drafters",
+          "implementation_metrics_group"
+        ],
+        "channel_key": "drafting_room",
+        "properties": {
+          "public_attention": 0.19,
+          "text_precision_importance": 0.91
+        },
+        "type": "technical",
+        "visibility": "low"
+      },
+      {
+        "actors": [
+          "cop30_presidency",
+          "pro_phaseout_coalition",
+          "producer_state_bloc",
+          "civil_society_phaseout_network",
+          "global_media"
+        ],
+        "channel_key": "press_briefings",
+        "properties": {
+          "commitment_lock_in_risk": 0.63,
+          "narrative_amplification": 0.86
+        },
+        "type": "public",
+        "visibility": "high"
+      },
+      {
+        "actors": [
+          "civil_society_phaseout_network",
+          "global_media",
+          "pro_phaseout_coalition"
+        ],
+        "channel_key": "civil_society_actions",
+        "properties": {
+          "formal_decision_power": 0.12,
+          "outside_pressure": 0.82
+        },
+        "type": "public",
+        "visibility": "high"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "pro_phaseout_coalition",
+        "archetype_key": "party_delegations",
+        "attention_level": 0.93,
+        "behavioral_tendencies": [
+          "public pressure",
+          "coalition maintenance",
+          "text defense"
+        ],
+        "cohort_key": "delegations_pro_phaseout_core",
+        "expression_level": 0.86,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.21,
+        "mobilization_readiness": 0.74,
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.318,
+        "private_belief": "binding phaseout language is desirable and worth bargaining for",
+        "public_expression": "openly advocates strong official text",
+        "representation_mode": "direct_cohort",
+        "represented_population": 700,
+        "reputation": 0.66,
+        "secrecy": 0.22,
+        "stance_axes": {
+          "binding_phaseout_support": 0.9,
+          "consensus_compromise_tolerance": 0.45,
+          "finance_linkage_priority": 0.5
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "adaptation_finance_advocates",
+        "archetype_key": "party_delegations",
+        "attention_level": 0.89,
+        "behavioral_tendencies": [
+          "issue linkage",
+          "package bargaining",
+          "conditional alignment"
+        ],
+        "cohort_key": "delegations_pro_phaseout_soft",
+        "expression_level": 0.63,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.33,
+        "mobilization_readiness": 0.56,
+        "perceived_majority": 0.49,
+        "population_share_of_archetype": 0.227,
+        "private_belief": "phaseout language is useful if paired with finance and equity gains",
+        "public_expression": "supports ambition but signals flexibility in package bargaining",
+        "representation_mode": "direct_cohort",
+        "represented_population": 500,
+        "reputation": 0.58,
+        "secrecy": 0.36,
+        "stance_axes": {
+          "binding_phaseout_support": 0.63,
+          "consensus_compromise_tolerance": 0.68,
+          "finance_linkage_priority": 0.88
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "producer_state_bloc",
+        "archetype_key": "party_delegations",
+        "attention_level": 0.94,
+        "behavioral_tendencies": [
+          "blocking",
+          "dilution",
+          "delay"
+        ],
+        "cohort_key": "delegations_resisting_binding_text",
+        "expression_level": 0.78,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.27,
+        "mobilization_readiness": 0.81,
+        "perceived_majority": 0.32,
+        "population_share_of_archetype": 0.205,
+        "private_belief": "binding phaseout commitment threatens core interests",
+        "public_expression": "resists binding language and seeks softer alternatives",
+        "representation_mode": "direct_cohort",
+        "represented_population": 450,
+        "reputation": 0.43,
+        "secrecy": 0.48,
+        "stance_axes": {
+          "binding_phaseout_support": 0.08,
+          "consensus_compromise_tolerance": 0.42,
+          "finance_linkage_priority": 0.51
+        },
+        "trustworthiness": 0.39
+      },
+      {
+        "actor_name": "implementation_metrics_group",
+        "archetype_key": "party_delegations",
+        "attention_level": 0.77,
+        "behavioral_tendencies": [
+          "technical drafting",
+          "mediation",
+          "ambiguity management"
+        ],
+        "cohort_key": "delegations_technical_mediators",
+        "expression_level": 0.49,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.38,
+        "mobilization_readiness": 0.37,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "clear measurable language matters more than rhetorical maximalism",
+        "public_expression": "focuses on implementable text and bridge formulas",
+        "representation_mode": "direct_cohort",
+        "represented_population": 550,
+        "reputation": 0.6,
+        "secrecy": 0.31,
+        "stance_axes": {
+          "binding_phaseout_support": 0.46,
+          "consensus_compromise_tolerance": 0.74,
+          "finance_linkage_priority": 0.44
+        },
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "civil_society_phaseout_network",
+        "archetype_key": "civil_society_attendees",
+        "attention_level": 0.95,
+        "behavioral_tendencies": [
+          "public mobilization",
+          "narrative pressure",
+          "naming and shaming"
+        ],
+        "cohort_key": "civil_society_phaseout_activists",
+        "expression_level": 0.92,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.87,
+        "perceived_majority": 0.71,
+        "population_share_of_archetype": 0.65,
+        "private_belief": "official binding phaseout language is the central test of conference ambition",
+        "public_expression": "highly visible pressure for strong text",
+        "representation_mode": "direct_cohort",
+        "represented_population": 3900,
+        "reputation": 0.62,
+        "secrecy": 0.1,
+        "stance_axes": {
+          "binding_phaseout_support": 0.97,
+          "consensus_compromise_tolerance": 0.18,
+          "finance_linkage_priority": 0.42
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "global_media",
+        "archetype_key": "media_observers",
+        "attention_level": 0.91,
+        "behavioral_tendencies": [
+          "framing",
+          "salience amplification",
+          "binary win_loss narratives"
+        ],
+        "cohort_key": "media_headline_seekers",
+        "expression_level": 0.88,
+        "fatigue": 0.17,
+        "fear_of_isolation": 0.09,
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.58,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "headline outcomes will revolve around fossil-fuel wording and whether ambition survived consensus",
+        "public_expression": "focus on blockers, breakthroughs, and text semantics",
+        "representation_mode": "direct_cohort",
+        "represented_population": 900,
+        "reputation": 0.59,
+        "secrecy": 0.08,
+        "stance_axes": {
+          "binding_phaseout_support": 0.54,
+          "consensus_compromise_tolerance": 0.36,
+          "finance_linkage_priority": 0.29
+        },
+        "trustworthiness": 0.52
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "pro_phaseout_coalition",
+        "archetype_key": "party_delegations",
+        "attention_level": 0.93,
+        "behavioral_tendencies": [
+          "public pressure",
+          "coalition maintenance",
+          "text defense"
+        ],
+        "cohort_key": "delegations_pro_phaseout_core",
+        "expression_level": 0.86,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.21,
+        "mobilization_readiness": 0.74,
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.318,
+        "private_belief": "binding phaseout language is desirable and worth bargaining for",
+        "public_expression": "openly advocates strong official text",
+        "representation_mode": "direct_cohort",
+        "represented_population": 700,
+        "reputation": 0.66,
+        "secrecy": 0.22,
+        "stance_axes": {
+          "binding_phaseout_support": 0.9,
+          "consensus_compromise_tolerance": 0.45,
+          "finance_linkage_priority": 0.5
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "adaptation_finance_advocates",
+        "archetype_key": "party_delegations",
+        "attention_level": 0.89,
+        "behavioral_tendencies": [
+          "issue linkage",
+          "package bargaining",
+          "conditional alignment"
+        ],
+        "cohort_key": "delegations_pro_phaseout_soft",
+        "expression_level": 0.63,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.33,
+        "mobilization_readiness": 0.56,
+        "perceived_majority": 0.49,
+        "population_share_of_archetype": 0.227,
+        "private_belief": "phaseout language is useful if paired with finance and equity gains",
+        "public_expression": "supports ambition but signals flexibility in package bargaining",
+        "representation_mode": "direct_cohort",
+        "represented_population": 500,
+        "reputation": 0.58,
+        "secrecy": 0.36,
+        "stance_axes": {
+          "binding_phaseout_support": 0.63,
+          "consensus_compromise_tolerance": 0.68,
+          "finance_linkage_priority": 0.88
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "producer_state_bloc",
+        "archetype_key": "party_delegations",
+        "attention_level": 0.94,
+        "behavioral_tendencies": [
+          "blocking",
+          "dilution",
+          "delay"
+        ],
+        "cohort_key": "delegations_resisting_binding_text",
+        "expression_level": 0.78,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.27,
+        "mobilization_readiness": 0.81,
+        "perceived_majority": 0.32,
+        "population_share_of_archetype": 0.205,
+        "private_belief": "binding phaseout commitment threatens core interests",
+        "public_expression": "resists binding language and seeks softer alternatives",
+        "representation_mode": "direct_cohort",
+        "represented_population": 450,
+        "reputation": 0.43,
+        "secrecy": 0.48,
+        "stance_axes": {
+          "binding_phaseout_support": 0.08,
+          "consensus_compromise_tolerance": 0.42,
+          "finance_linkage_priority": 0.51
+        },
+        "trustworthiness": 0.39
+      },
+      {
+        "actor_name": "implementation_metrics_group",
+        "archetype_key": "party_delegations",
+        "attention_level": 0.77,
+        "behavioral_tendencies": [
+          "technical drafting",
+          "mediation",
+          "ambiguity management"
+        ],
+        "cohort_key": "delegations_technical_mediators",
+        "expression_level": 0.49,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.38,
+        "mobilization_readiness": 0.37,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "clear measurable language matters more than rhetorical maximalism",
+        "public_expression": "focuses on implementable text and bridge formulas",
+        "representation_mode": "direct_cohort",
+        "represented_population": 550,
+        "reputation": 0.6,
+        "secrecy": 0.31,
+        "stance_axes": {
+          "binding_phaseout_support": 0.46,
+          "consensus_compromise_tolerance": 0.74,
+          "finance_linkage_priority": 0.44
+        },
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "civil_society_phaseout_network",
+        "archetype_key": "civil_society_attendees",
+        "attention_level": 0.95,
+        "behavioral_tendencies": [
+          "public mobilization",
+          "narrative pressure",
+          "naming and shaming"
+        ],
+        "cohort_key": "civil_society_phaseout_activists",
+        "expression_level": 0.92,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.87,
+        "perceived_majority": 0.71,
+        "population_share_of_archetype": 0.65,
+        "private_belief": "official binding phaseout language is the central test of conference ambition",
+        "public_expression": "highly visible pressure for strong text",
+        "representation_mode": "direct_cohort",
+        "represented_population": 3900,
+        "reputation": 0.62,
+        "secrecy": 0.1,
+        "stance_axes": {
+          "binding_phaseout_support": 0.97,
+          "consensus_compromise_tolerance": 0.18,
+          "finance_linkage_priority": 0.42
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "global_media",
+        "archetype_key": "media_observers",
+        "attention_level": 0.91,
+        "behavioral_tendencies": [
+          "framing",
+          "salience amplification",
+          "binary win_loss narratives"
+        ],
+        "cohort_key": "media_headline_seekers",
+        "expression_level": 0.88,
+        "fatigue": 0.17,
+        "fear_of_isolation": 0.09,
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.58,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "headline outcomes will revolve around fossil-fuel wording and whether ambition survived consensus",
+        "public_expression": "focus on blockers, breakthroughs, and text semantics",
+        "representation_mode": "direct_cohort",
+        "represented_population": 900,
+        "reputation": 0.59,
+        "secrecy": 0.08,
+        "stance_axes": {
+          "binding_phaseout_support": 0.54,
+          "consensus_compromise_tolerance": 0.36,
+          "finance_linkage_priority": 0.29
+        },
+        "trustworthiness": 0.52
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "cop30_presidency",
+          "producer_state_bloc",
+          "pro_phaseout_coalition",
+          "conference_secretariat_legal_drafters"
+        ],
+        "blockers": [
+          "consensus blocking by producer_state_bloc",
+          "dilution into non-binding language",
+          "substitution into side declarations"
+        ],
+        "contradiction_notes": "A large coalition in favor does not guarantee realization if consensus dynamics permit blocking",
+        "description": "The final official negotiated COP30 text contains an explicit binding commitment or roadmap for phasing out fossil fuels",
+        "endpoint_key": "binding_phaseout_in_official_text",
+        "evidence_refs": [
+          "source_1_negotiation_context_2025_11_10",
+          "source_2_coalition_note_2025_11_10",
+          "source_3_endpoint_note_2025_11_10"
+        ],
+        "label": "Binding phaseout in official text",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the final official COP30 negotiated text include an explicit binding commitment or roadmap for phasing out fossil fuels?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.23,
+        "rationale": "This is the primary terminal outcome directly implied by the scenario and official resolution standard",
+        "realization_criteria": [
+          "final official negotiated text is published or adopted",
+          "text explicitly states a binding commitment or binding roadmap for phasing out fossil fuels",
+          "language appears in official negotiated text rather than only side declarations press remarks or voluntary statements"
+        ],
+        "status": "active",
+        "status_basis": "The issue is salient and actively contested, with no terminal text outcome yet at T0"
+      },
+      {
+        "authority_refs": [
+          "cop30_presidency",
+          "producer_state_bloc",
+          "pro_phaseout_coalition"
+        ],
+        "blockers": [
+          "unexpected coalition breakthrough",
+          "binding roadmap survives package bargaining"
+        ],
+        "contradiction_notes": "Absence of binding language can coexist with strong symbolic declarations elsewhere but still realizes this endpoint",
+        "description": "The final official negotiated COP30 text lacks an explicit binding commitment or roadmap for phasing out fossil fuels",
+        "endpoint_key": "no_binding_phaseout_in_official_text",
+        "evidence_refs": [
+          "source_2_coalition_note_2025_11_10",
+          "source_3_endpoint_note_2025_11_10"
+        ],
+        "label": "No binding phaseout in official text",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will resistance from producer states be sufficient to remove or neutralize binding phaseout language in the final official text?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.77,
+        "rationale": "This is the principal alternative terminal outcome under the scenario's binary resolution frame",
+        "realization_criteria": [
+          "final official negotiated text is published or adopted",
+          "text omits explicit binding phaseout commitment or roadmap or contains only softened non-binding references",
+          "any stronger language exists only outside the official negotiated text"
+        ],
+        "status": "active",
+        "status_basis": "Consensus blocking and dilution are explicitly plausible at T0"
+      },
+      {
+        "authority_refs": [
+          "producer_state_bloc",
+          "cop30_presidency"
+        ],
+        "blockers": [
+          "presidency finds package that neutralizes holdouts",
+          "holdouts fracture or accept binding roadmap"
+        ],
+        "contradiction_notes": "This endpoint may overlap with no_binding_phaseout_in_official_text but adds causal attribution",
+        "description": "Producer-state resistance proves sufficient to prevent binding phaseout language from surviving into the final official negotiated text",
+        "endpoint_key": "producer_blocking_removes_binding_text",
+        "evidence_refs": [
+          "source_1_negotiation_context_2025_11_10",
+          "source_2_coalition_note_2025_11_10"
+        ],
+        "label": "Producer blocking removes binding text",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will adaptation finance, just transition, or implementation concessions become the decisive mechanism shaping the fossil-fuel wording outcome?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.61,
+        "rationale": "Scenario emphasis on consensus blocking makes causal blockage an important endpoint-facing distinction",
+        "realization_criteria": [
+          "final official text lacks binding phaseout language",
+          "credible negotiation evidence shows producer resistance was a necessary or decisive cause of removal dilution or exclusion"
+        ],
+        "status": "active",
+        "status_basis": "Producer resistance is explicit and operationally important at initialization"
+      },
+      {
+        "authority_refs": [
+          "pro_phaseout_coalition",
+          "civil_society_phaseout_network",
+          "cop30_presidency"
+        ],
+        "blockers": [
+          "binding language succeeds in official text",
+          "negotiators avoid parallel symbolic instruments"
+        ],
+        "contradiction_notes": "This endpoint can coexist with no_binding_phaseout_in_official_text and should not be mistaken for the main affirmative outcome",
+        "description": "Actors compensate for weak official text with voluntary side declarations or non-binding remarks on fossil-fuel phaseout",
+        "endpoint_key": "outside_text_substitution_occurs",
+        "evidence_refs": [
+          "source_3_endpoint_note_2025_11_10"
+        ],
+        "label": "Outside-text substitution occurs",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will voluntary side declarations or non-binding remarks emerge as substitutes for stronger official negotiated text rather than complements to it?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.46,
+        "rationale": "Distinguishing official from unofficial outcomes is central to later evidence interpretation",
+        "realization_criteria": [
+          "publicly released side declaration statement or voluntary roadmap on phaseout appears",
+          "official negotiated text remains weaker than binding phaseout commitment or roadmap"
+        ],
+        "status": "active",
+        "status_basis": "The source explicitly warns that outside-text statements do not count toward the main resolution, implying relevance as an alternative pathway"
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "scenario states strong pressure from civil society groups",
+        "layer": "exposure",
+        "reason": "Activist messaging and demonstrations are visible to media",
+        "source_actor_name": "civil_society_phaseout_network",
+        "target_actor_name": "global_media",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "headline focus on negotiated text and salience",
+        "layer": "exposure",
+        "reason": "Media framing puts public spotlight on presidency choices",
+        "source_actor_name": "global_media",
+        "target_actor_name": "cop30_presidency",
+        "weight": 0.47
+      },
+      {
+        "direction": "directed",
+        "evidence": "fossil-fuel roadmap politically salient",
+        "layer": "exposure",
+        "reason": "Media closely tracks ambition coalition messaging",
+        "source_actor_name": "global_media",
+        "target_actor_name": "pro_phaseout_coalition",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "contentious negotiation with resisting producers",
+        "layer": "exposure",
+        "reason": "Media scrutinizes visible resistance and blocking behavior",
+        "source_actor_name": "global_media",
+        "target_actor_name": "producer_state_bloc",
+        "weight": 0.42
+      },
+      {
+        "direction": "directed",
+        "evidence": "none",
+        "layer": "exposure",
+        "reason": "placeholder avoided due to actor-name constraints",
+        "source_actor_name": "cop30_presidency",
+        "target_actor_name": "party_delegations_proxy",
+        "weight": 0.0
+      },
+      {
+        "direction": "directed",
+        "evidence": "large coalition can still be blocked or diluted",
+        "layer": "trust",
+        "reason": "Coalition sees presidency as possible broker but fears dilution",
+        "source_actor_name": "pro_phaseout_coalition",
+        "target_actor_name": "cop30_presidency",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "consensus-style blocking context",
+        "layer": "trust",
+        "reason": "Bloc expects presidency to protect consensus and avoid outright exclusion",
+        "source_actor_name": "producer_state_bloc",
+        "target_actor_name": "cop30_presidency",
+        "weight": 0.43
+      },
+      {
+        "direction": "directed",
+        "evidence": "multiple issues debated in parallel",
+        "layer": "trust",
+        "reason": "Shared climate ambition with some bargaining differences",
+        "source_actor_name": "adaptation_finance_advocates",
+        "target_actor_name": "pro_phaseout_coalition",
+        "weight": 0.51
+      },
+      {
+        "direction": "directed",
+        "evidence": "implementation indicators and text drafting matter",
+        "layer": "trust",
+        "reason": "Technical actors rely on drafting competence",
+        "source_actor_name": "implementation_metrics_group",
+        "target_actor_name": "conference_secretariat_legal_drafters",
+        "weight": 0.64
+      },
+      {
+        "direction": "directed",
+        "evidence": "coalition can be blocked or diluted in consensus text",
+        "layer": "dependency",
+        "reason": "Consensus delivery depends on whether resisting bloc withholds acceptance",
+        "source_actor_name": "cop30_presidency",
+        "target_actor_name": "producer_state_bloc",
+        "weight": 0.59
+      },
+      {
+        "direction": "directed",
+        "evidence": "strong pressure from many countries for phaseout language",
+        "layer": "dependency",
+        "reason": "Presidency also needs broad legitimacy from ambition camp for credible outcome",
+        "source_actor_name": "cop30_presidency",
+        "target_actor_name": "pro_phaseout_coalition",
+        "weight": 0.48
+      },
+      {
+        "direction": "directed",
+        "evidence": "adaptation finance under debate alongside phaseout language",
+        "layer": "dependency",
+        "reason": "Strong text may require package support from finance-focused states",
+        "source_actor_name": "pro_phaseout_coalition",
+        "target_actor_name": "adaptation_finance_advocates",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "just transition debated alongside phaseout",
+        "layer": "dependency",
+        "reason": "Equity language may be needed to sustain broader support",
+        "source_actor_name": "pro_phaseout_coalition",
+        "target_actor_name": "just_transition_advocates",
+        "weight": 0.37
+      },
+      {
+        "direction": "directed",
+        "evidence": "official negotiated text needs formal drafting",
+        "layer": "dependency",
+        "reason": "Draft production and legal coherence rely on drafting team",
+        "source_actor_name": "cop30_presidency",
+        "target_actor_name": "conference_secretariat_legal_drafters",
+        "weight": 0.54
+      },
+      {
+        "direction": "directed",
+        "evidence": "presidency acts as text broker",
+        "layer": "influence",
+        "reason": "Controls draft sequencing and compromise formulas",
+        "source_actor_name": "cop30_presidency",
+        "target_actor_name": "pro_phaseout_coalition",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "agenda and text control inferred from COP presidency role",
+        "layer": "influence",
+        "reason": "Can pressure or accommodate holdouts through process management",
+        "source_actor_name": "cop30_presidency",
+        "target_actor_name": "producer_state_bloc",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "consensus text can be blocked or diluted",
+        "layer": "influence",
+        "reason": "Blocking capacity gives leverage over final wording",
+        "source_actor_name": "producer_state_bloc",
+        "target_actor_name": "cop30_presidency",
+        "weight": 0.62
+      },
+      {
+        "direction": "directed",
+        "evidence": "strong pressure from many countries",
+        "layer": "influence",
+        "reason": "Large coalition creates negotiating and reputational pressure",
+        "source_actor_name": "pro_phaseout_coalition",
+        "target_actor_name": "cop30_presidency",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "civil-society groups press for phaseout language",
+        "layer": "influence",
+        "reason": "Activists stiffen coalition resolve and raise visibility costs of retreat",
+        "source_actor_name": "civil_society_phaseout_network",
+        "target_actor_name": "pro_phaseout_coalition",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "politically salient and contentious issue",
+        "layer": "influence",
+        "reason": "Narrative framing affects perceived success or failure",
+        "source_actor_name": "global_media",
+        "target_actor_name": "cop30_presidency",
+        "weight": 0.38
+      },
+      {
+        "direction": "undirected",
+        "evidence": "both press for phaseout language",
+        "layer": "coalition",
+        "reason": "Aligned on stronger official phaseout language",
+        "source_actor_name": "pro_phaseout_coalition",
+        "target_actor_name": "civil_society_phaseout_network",
+        "weight": 0.56
+      },
+      {
+        "direction": "undirected",
+        "evidence": "issues debated together allow bargaining coalition",
+        "layer": "coalition",
+        "reason": "Potential alignment within broader ambition package",
+        "source_actor_name": "pro_phaseout_coalition",
+        "target_actor_name": "adaptation_finance_advocates",
+        "weight": 0.47
+      },
+      {
+        "direction": "undirected",
+        "evidence": "just transition debate adjacent to phaseout talks",
+        "layer": "coalition",
+        "reason": "Shared interest in climate ambition tempered by equity concerns",
+        "source_actor_name": "pro_phaseout_coalition",
+        "target_actor_name": "just_transition_advocates",
+        "weight": 0.45
+      },
+      {
+        "direction": "undirected",
+        "evidence": "adaptation finance and just transition both under negotiation",
+        "layer": "coalition",
+        "reason": "Common equity-oriented package interests",
+        "source_actor_name": "adaptation_finance_advocates",
+        "target_actor_name": "just_transition_advocates",
+        "weight": 0.52
+      },
+      {
+        "direction": "undirected",
+        "evidence": "implementation indicators debated with formal text needs",
+        "layer": "coalition",
+        "reason": "Technical actors often align with broker on feasible text landing zones",
+        "source_actor_name": "implementation_metrics_group",
+        "target_actor_name": "cop30_presidency",
+        "weight": 0.34
+      },
+      {
+        "direction": "undirected",
+        "evidence": "producing states resist binding language",
+        "layer": "conflict",
+        "reason": "Directly opposed on binding fossil-fuel phaseout language",
+        "source_actor_name": "pro_phaseout_coalition",
+        "target_actor_name": "producer_state_bloc",
+        "weight": 0.72
+      },
+      {
+        "direction": "undirected",
+        "evidence": "strong pressure from civil society versus resisting states",
+        "layer": "conflict",
+        "reason": "Activists view producers as principal blockers",
+        "source_actor_name": "civil_society_phaseout_network",
+        "target_actor_name": "producer_state_bloc",
+        "weight": 0.67
+      },
+      {
+        "direction": "undirected",
+        "evidence": "salient contentious issue with identifiable resistance",
+        "layer": "conflict",
+        "reason": "Potentially adversarial scrutiny around blocking narratives",
+        "source_actor_name": "global_media",
+        "target_actor_name": "producer_state_bloc",
+        "weight": 0.29
+      },
+      {
+        "direction": "undirected",
+        "evidence": "coalition can be diluted in consensus text",
+        "layer": "conflict",
+        "reason": "Potential frustration if presidency waters down text for consensus",
+        "source_actor_name": "pro_phaseout_coalition",
+        "target_actor_name": "cop30_presidency",
+        "weight": 0.26
+      },
+      {
+        "direction": "undirected",
+        "evidence": "headline issue likely drives repeated engagement",
+        "layer": "oasis_interaction",
+        "reason": "Frequent public and semi-public interaction over draft language",
+        "source_actor_name": "cop30_presidency",
+        "target_actor_name": "pro_phaseout_coalition",
+        "weight": 0.61
+      },
+      {
+        "direction": "undirected",
+        "evidence": "resistance central to final wording pathway",
+        "layer": "oasis_interaction",
+        "reason": "Frequent interactions due to holdout management",
+        "source_actor_name": "cop30_presidency",
+        "target_actor_name": "producer_state_bloc",
+        "weight": 0.59
+      },
+      {
+        "direction": "undirected",
+        "evidence": "civil-society pressure and media salience",
+        "layer": "oasis_interaction",
+        "reason": "High interaction around messaging and demonstrations",
+        "source_actor_name": "civil_society_phaseout_network",
+        "target_actor_name": "global_media",
+        "weight": 0.66
+      },
+      {
+        "direction": "undirected",
+        "evidence": "package deal dynamics across issues",
+        "layer": "oasis_interaction",
+        "reason": "Joint events and corridor bargaining plausible",
+        "source_actor_name": "pro_phaseout_coalition",
+        "target_actor_name": "adaptation_finance_advocates",
+        "weight": 0.43
+      },
+      {
+        "direction": "undirected",
+        "evidence": "implementation indicators and legal drafting intertwined",
+        "layer": "oasis_interaction",
+        "reason": "Regular textual consultation likely",
+        "source_actor_name": "implementation_metrics_group",
+        "target_actor_name": "conference_secretariat_legal_drafters",
+        "weight": 0.52
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "description": "Actor with agenda and drafting leverage able to steer package landing zones",
+        "key": "presiding_broker",
+        "label": "Presiding broker"
+      },
+      {
+        "description": "Actor coalition able to withhold consensus from undesired binding text",
+        "key": "blocking_anchor",
+        "label": "Blocking anchor"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "cop30_presidency",
+        "archetype_key": "presiding_broker",
+        "attention_level": 0.98,
+        "behavioral_tendencies": [
+          "text brokering",
+          "sequencing",
+          "constructive ambiguity"
+        ],
+        "decision_power": 0.86,
+        "expression_level": 0.71,
+        "fatigue": 0.26,
+        "fear_of_isolation": 0.18,
+        "hero_key": "cop30_presidency_state",
+        "mobilization_readiness": 0.69,
+        "perceived_majority": 0.5,
+        "represented_population": 1,
+        "reputation": 0.64,
+        "secrecy": 0.57,
+        "stance_axes": {
+          "binding_phaseout_support": 0.52,
+          "consensus_compromise_tolerance": 0.83,
+          "package_balance_priority": 0.91
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "producer_state_bloc",
+        "archetype_key": "blocking_anchor",
+        "attention_level": 0.95,
+        "behavioral_tendencies": [
+          "holdout threat",
+          "dilution proposals",
+          "cross-issue bargaining"
+        ],
+        "decision_power": 0.78,
+        "expression_level": 0.76,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.25,
+        "hero_key": "producer_bloc_anchor_state",
+        "mobilization_readiness": 0.8,
+        "perceived_majority": 0.34,
+        "represented_population": 1,
+        "reputation": 0.42,
+        "secrecy": 0.49,
+        "stance_axes": {
+          "binding_phaseout_support": 0.06,
+          "consensus_compromise_tolerance": 0.39,
+          "package_balance_priority": 0.47
+        },
+        "trustworthiness": 0.39
+      }
+    ],
+    "heroes": [
+      {
+        "description": "Actor with agenda and drafting leverage able to steer package landing zones",
+        "key": "presiding_broker",
+        "label": "Presiding broker"
+      },
+      {
+        "description": "Actor coalition able to withhold consensus from undesired binding text",
+        "key": "blocking_anchor",
+        "label": "Blocking anchor"
+      }
+    ],
+    "important_questions": [
+      "Will the final official COP30 negotiated text include an explicit binding commitment or roadmap for phasing out fossil fuels?",
+      "Will resistance from producer states be sufficient to remove or neutralize binding phaseout language in the final official text?",
+      "Will adaptation finance, just transition, or implementation concessions become the decisive mechanism shaping the fossil-fuel wording outcome?",
+      "Will voluntary side declarations or non-binding remarks emerge as substitutes for stronger official negotiated text rather than complements to it?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "cop30_presidency",
+          "pro_phaseout_coalition",
+          "producer_state_bloc",
+          "global_media"
+        ],
+        "event_key": "cop30_opening_salience",
+        "event_type": "announcement",
+        "expected_impact": "Raises attention levels, strengthens exposure and influence edges around headline text, and increases early narrative pressure without fixing outcome",
+        "summary": "Conference opens with fossil-fuel phaseout language as a politically salient contested issue",
+        "tick": 0,
+        "type": "setup"
+      },
+      {
+        "actors": [
+          "civil_society_phaseout_network",
+          "global_media",
+          "pro_phaseout_coalition"
+        ],
+        "event_key": "civil_society_pressure_visible",
+        "event_type": "announcement",
+        "expected_impact": "Boosts coalition morale and public salience; may harden producer defensiveness and increase conflict framing",
+        "summary": "Civil-society groups publicly press for phaseout language in the official text",
+        "tick": 0,
+        "type": "setup"
+      },
+      {
+        "actors": [
+          "cop30_presidency",
+          "adaptation_finance_advocates",
+          "just_transition_advocates",
+          "implementation_metrics_group",
+          "pro_phaseout_coalition",
+          "producer_state_bloc"
+        ],
+        "event_key": "issue_linkage_emerges",
+        "event_type": "announcement",
+        "expected_impact": "Creates room for package bargains and dilution pathways; raises dependency across issue clusters",
+        "summary": "Negotiators connect phaseout wording to adaptation finance just transition and implementation indicators",
+        "tick": 1,
+        "type": "imminent"
+      },
+      {
+        "actors": [
+          "cop30_presidency",
+          "conference_secretariat_legal_drafters",
+          "pro_phaseout_coalition",
+          "producer_state_bloc"
+        ],
+        "event_key": "first_draft_language_test",
+        "event_type": "announcement",
+        "expected_impact": "Reveals whether presidency leans toward stronger or softer wording; observable divergence in coalition cohesion and blocker response",
+        "summary": "An early draft or informal text formula tests how explicit and binding fossil-fuel language can be",
+        "tick": 2,
+        "type": "imminent"
+      },
+      {
+        "actors": [
+          "cop30_presidency",
+          "producer_state_bloc",
+          "pro_phaseout_coalition"
+        ],
+        "event_key": "late_stage_consensus_scrub",
+        "event_type": "announcement",
+        "expected_impact": "Intensifies tradeoff between ambition and closure; increases risk of ambiguity substitution for binding language",
+        "summary": "Final-stage consensus management pressures parties to accept soften or remove contested wording",
+        "tick": 4,
+        "type": "imminent"
+      }
+    ],
+    "llm_call_id": "cb7ee00d-91bc-433f-bb4e-4cc8eab2b3c6",
+    "merge_hypotheses": [
+      {
+        "affected_actors": [
+          "cop30_presidency",
+          "pro_phaseout_coalition",
+          "producer_state_bloc",
+          "adaptation_finance_advocates"
+        ],
+        "convergence_driver": "All blocs share incentive to avoid total conference breakdown and accept some final text",
+        "merge_key": "consensus_closure_pressure"
+      },
+      {
+        "affected_actors": [
+          "pro_phaseout_coalition",
+          "adaptation_finance_advocates",
+          "just_transition_advocates",
+          "producer_state_bloc"
+        ],
+        "convergence_driver": "Finance and just-transition accommodations can partially bridge ambition and resistance camps",
+        "merge_key": "equity_package_bridge"
+      },
+      {
+        "affected_actors": [
+          "cop30_presidency",
+          "implementation_metrics_group",
+          "producer_state_bloc",
+          "pro_phaseout_coalition"
+        ],
+        "convergence_driver": "Constructive ambiguity can allow divergent public interpretations while enabling formal agreement",
+        "merge_key": "textual_ambiguity_as_common_ground"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "description": "Negotiators and officials across participating state delegations",
+        "key": "party_delegations",
+        "label": "Party delegations",
+        "population_total": 2200
+      },
+      {
+        "description": "NGO representatives activists and observers seeking influence",
+        "key": "civil_society_attendees",
+        "label": "Civil society attendees",
+        "population_total": 6000
+      },
+      {
+        "description": "Journalists analysts and public-facing interpreters of negotiation developments",
+        "key": "media_observers",
+        "label": "Media observers",
+        "population_total": 900
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "limited_actor_specificity",
+        "note": "Source corpus gives coalition-level roles but few named states or detailed internal splits",
+        "severity": "medium"
+      },
+      {
+        "flag": "procedural_inference",
+        "note": "Consensus dynamics and presidency authority are inferred from COP-style multilateral negotiation context rather than fully spelled out",
+        "severity": "low"
+      },
+      {
+        "flag": "binary_resolution_boundary",
+        "note": "Strong public declarations or voluntary roadmaps may create narrative confusion while not satisfying the official endpoint",
+        "severity": "high"
+      },
+      {
+        "flag": "cross_issue_trade_uncertainty",
+        "note": "Adaptation finance just transition and implementation indicators may materially reshape outcome, but exact bargaining elasticity is underspecified",
+        "severity": "medium"
+      },
+      {
+        "flag": "graph_placeholder_omission_risk",
+        "note": "No generic non-actor nodes should be used; actor graph kept to named actors only despite broader delegation exposure patterns",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "decision_rule": "official negotiated text must include explicit binding commitment or roadmap for fossil-fuel phaseout to realize yes-like endpoint",
+      "evidence_refs": [
+        "source_1_negotiation_context_2025_11_10",
+        "source_2_coalition_note_2025_11_10",
+        "source_3_endpoint_note_2025_11_10"
+      ],
+      "mode": "multilateral_negotiation",
+      "scenario_key": "resolved_023",
+      "summary": "COP30 opens in Belém with pressure for explicit fossil-fuel phaseout language in the final official negotiated text. A sizable pro-phaseout coalition faces resistance from oil- and gas-producing states under consensus-style blocking dynamics. Adjacent bargaining issues include adaptation finance, just transition, and implementation indicators. T0 uncertainty centers on whether binding phaseout language can survive dilution into official consensus text rather than side declarations or voluntary remarks.",
+      "timeframe": "cop30_opening_to_final_text",
+      "title": "cop30_fossil_fuel_phaseout_text",
+      "uncertainties": [
+        "exact coalition size and composition not fully specified",
+        "formal decision authority and procedural rules inferred from multilateral COP context",
+        "degree of linkage trading across finance, transition, and implementation unresolved at T0"
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "level": 0.68,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Actors may accept adjacent wording shifts but not leap from resistance to binding phaseout",
+        "scope": "party_delegations"
+      },
+      {
+        "level": 0.61,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Visible blocking or dilution can trigger stronger coordinated outside pressure",
+        "scope": "civil_society_attendees"
+      },
+      {
+        "level": 0.49,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Some delegates privately prefer stronger language than they publicly signal due to package discipline",
+        "scope": "technical_and_swing_delegates"
+      },
+      {
+        "level": 0.64,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "States and advocates sort into ambition equity technical and producer camps",
+        "scope": "coalition_clusters"
+      },
+      {
+        "level": 0.58,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Support for sharper text spreads through repeated coalition reinforcement rather than single messages",
+        "scope": "party_delegations"
+      },
+      {
+        "level": 0.74,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Bloc identity and fairness narratives shape negotiation rigidity",
+        "scope": "state_blocs_and_activists"
+      },
+      {
+        "level": 0.33,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Attention remains high early due to headline salience but can shift to package details later",
+        "scope": "media_and_public"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "applies_to": [
+          "cop30_presidency",
+          "pro_phaseout_coalition",
+          "producer_state_bloc"
+        ],
+        "context_key": "consensus_blocking",
+        "description": "A large supportive coalition may still fail if a smaller resistant bloc can block or force dilution in consensus text"
+      },
+      {
+        "applies_to": [
+          "all_actors"
+        ],
+        "context_key": "binding_vs_voluntary_boundary",
+        "description": "Only explicit binding commitment or roadmap in the official negotiated text counts; side declarations and voluntary remarks do not"
+      },
+      {
+        "applies_to": [
+          "cop30_presidency",
+          "pro_phaseout_coalition",
+          "adaptation_finance_advocates",
+          "just_transition_advocates",
+          "producer_state_bloc"
+        ],
+        "context_key": "cross_issue_bargaining",
+        "description": "Adaptation finance just transition and implementation indicators can be traded against headline fossil-fuel wording"
+      },
+      {
+        "applies_to": [
+          "global_media",
+          "civil_society_phaseout_network",
+          "cop30_presidency"
+        ],
+        "context_key": "salience_pressure",
+        "description": "Fossil-fuel roadmap language is politically salient and likely to dominate public interpretations of success"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "cop30_presidency",
+        "behavior_axes": {
+          "brokerage": 0.91,
+          "message_discipline": 0.67,
+          "procedural_control": 0.88,
+          "risk_tolerance": 0.48
+        },
+        "ideology_axes": {
+          "climate_ambition": 0.58,
+          "equity_emphasis": 0.61,
+          "institutionalism": 0.87
+        },
+        "reputation": 0.64,
+        "secrecy": 0.57,
+        "tendency": "package-oriented mediator",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "pro_phaseout_coalition",
+        "behavior_axes": {
+          "brokerage": 0.54,
+          "message_discipline": 0.74,
+          "procedural_control": 0.36,
+          "risk_tolerance": 0.66
+        },
+        "ideology_axes": {
+          "climate_ambition": 0.93,
+          "equity_emphasis": 0.57,
+          "institutionalism": 0.69
+        },
+        "reputation": 0.66,
+        "secrecy": 0.24,
+        "tendency": "ambition-forward coalition builder",
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "producer_state_bloc",
+        "behavior_axes": {
+          "brokerage": 0.49,
+          "message_discipline": 0.77,
+          "procedural_control": 0.52,
+          "risk_tolerance": 0.59
+        },
+        "ideology_axes": {
+          "climate_ambition": 0.14,
+          "equity_emphasis": 0.4,
+          "institutionalism": 0.56
+        },
+        "reputation": 0.43,
+        "secrecy": 0.48,
+        "tendency": "defensive blocker",
+        "trustworthiness": 0.39
+      },
+      {
+        "actor_name": "adaptation_finance_advocates",
+        "behavior_axes": {
+          "brokerage": 0.63,
+          "message_discipline": 0.61,
+          "procedural_control": 0.34,
+          "risk_tolerance": 0.43
+        },
+        "ideology_axes": {
+          "climate_ambition": 0.68,
+          "equity_emphasis": 0.9,
+          "institutionalism": 0.66
+        },
+        "reputation": 0.58,
+        "secrecy": 0.34,
+        "tendency": "conditional package bargainer",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "just_transition_advocates",
+        "behavior_axes": {
+          "brokerage": 0.57,
+          "message_discipline": 0.59,
+          "procedural_control": 0.28,
+          "risk_tolerance": 0.41
+        },
+        "ideology_axes": {
+          "climate_ambition": 0.71,
+          "equity_emphasis": 0.88,
+          "institutionalism": 0.63
+        },
+        "reputation": 0.57,
+        "secrecy": 0.29,
+        "tendency": "equity-focused bridge seeker",
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "implementation_metrics_group",
+        "behavior_axes": {
+          "brokerage": 0.66,
+          "message_discipline": 0.72,
+          "procedural_control": 0.41,
+          "risk_tolerance": 0.27
+        },
+        "ideology_axes": {
+          "climate_ambition": 0.49,
+          "equity_emphasis": 0.46,
+          "institutionalism": 0.84
+        },
+        "reputation": 0.6,
+        "secrecy": 0.31,
+        "tendency": "technical mediator",
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "civil_society_phaseout_network",
+        "behavior_axes": {
+          "brokerage": 0.32,
+          "message_discipline": 0.81,
+          "procedural_control": 0.08,
+          "risk_tolerance": 0.73
+        },
+        "ideology_axes": {
+          "climate_ambition": 0.97,
+          "equity_emphasis": 0.6,
+          "institutionalism": 0.44
+        },
+        "reputation": 0.62,
+        "secrecy": 0.1,
+        "tendency": "outside pressure mobilizer",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "global_media",
+        "behavior_axes": {
+          "brokerage": 0.21,
+          "message_discipline": 0.55,
+          "procedural_control": 0.05,
+          "risk_tolerance": 0.52
+        },
+        "ideology_axes": {
+          "climate_ambition": 0.51,
+          "equity_emphasis": 0.39,
+          "institutionalism": 0.47
+        },
+        "reputation": 0.59,
+        "secrecy": 0.08,
+        "tendency": "salience amplifier",
+        "trustworthiness": 0.52
+      },
+      {
+        "actor_name": "conference_secretariat_legal_drafters",
+        "behavior_axes": {
+          "brokerage": 0.46,
+          "message_discipline": 0.83,
+          "procedural_control": 0.51,
+          "risk_tolerance": 0.18
+        },
+        "ideology_axes": {
+          "climate_ambition": 0.44,
+          "equity_emphasis": 0.38,
+          "institutionalism": 0.92
+        },
+        "reputation": 0.65,
+        "secrecy": 0.42,
+        "tendency": "procedural text technician",
+        "trustworthiness": 0.71
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 1868,
+        "end": 1868,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 1868,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

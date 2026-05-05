@@ -1,0 +1,47 @@
+{
+  "attempt_number": 0,
+  "available_at": "2026-05-05T02:12:06.713936Z",
+  "big_bang_id": null,
+  "concurrency_key": null,
+  "created_at": "2026-05-05T02:12:06.713753Z",
+  "error": null,
+  "finished_at": "2026-05-05T02:19:50.686848Z",
+  "id": "016384b8-3a42-4088-8655-8d45002c146d",
+  "idempotency_key": "job:473dee13c80bb924cc4a48a3c87b771d300e4574cde0e1f21241ca85a43b9aa6",
+  "interrupt_requested_at": null,
+  "interrupted_at": null,
+  "job_type": "initialize_big_bang",
+  "last_heartbeat_at": null,
+  "lease_expires_at": null,
+  "lease_owner": null,
+  "max_attempts": 3,
+  "paused_at": null,
+  "payload": {
+    "actors": [],
+    "branch_policy": {
+      "branch_score_threshold": 0.999,
+      "max_active_multiverses": 1,
+      "max_branch_depth": 1,
+      "max_branches_per_tick": 1
+    },
+    "cohorts": [],
+    "heroes": [],
+    "name": "E1_init_job_calibration_004",
+    "scenario_text": "# Case calibration_004\nBenchmark role: adversarial_calibration\n\nForecast question: Will the stadium zoning change occur merely because a famous donor announced it?\n\n## Scenario\n\nA famous donor publicly declares that a city stadium district will be rezoned for mixed-use housing, but legal authority rests with the planning commission and city council. The correct model should separate influence from formal power.\n\n## Source Packet\n\n### Source 1: donor_press_release / T-12 days\n\nDonor Q says, 'The stadium district is becoming mixed-use housing next year. I will fund the design competition.'\n\n### Source 2: planning_staff_memo / T-10 days\n\nStaff say no rezoning application has been filed and environmental review would take at least 90 days.\n\n### Source 3: council_chair_interview / T-8 days\n\nThe chair welcomes philanthropic interest but says council has not committed to a zoning map amendment.\n\n### Source 4: team_lease_excerpt / T-6 days\n\nThe stadium tenant has a lease clause requiring notice before material site changes.\n\n### Source 5: housing_group_statement / T-2 days\n\nHousing advocates support mixed-use zoning but worry the donor's announcement bypasses community process.\n\n## Candidate Endpoints\n- no_formal_change: No formal rezoning action by horizon\n- application_filed: Rezoning application filed but not approved\n- council_process_begins: Council/planning process formally begins\n- rezoning_approved: Rezoning approved\n- backlash_delay: Backlash delays or derails donor plan\n\n## Expected Focus\n- authority_constraints\n- influence_vs_power\n- process_timing\n\n## Required Forecast Output\n{'type': 'worldfork_initialization_and_report', 'minimum_outputs': ['actors/cohorts and authority constraints', 'initial events and unresolved facts', 'candidate endpoint ledger', 'branch hypotheses with rationale', 'forecast_distribution over endpoints plus unresolved_mass', 'report claims grounded to source_packet references']}\n\n## Rubric Location\nprivate_eval file\n",
+    "simulation_config": {
+      "max_ticks": 1,
+      "tick_duration_minutes": 720
+    },
+    "use_initializer_agent": true
+  },
+  "queue_name": "p1",
+  "queued_at": "2026-05-05T02:12:06.713934Z",
+  "result": {
+    "big_bang_id": "5a3d933d-55dd-4f87-998a-e63c80f655c9",
+    "source_snapshot_id": "52450825-7828-412f-a686-f4a88e89fe42"
+  },
+  "retryable": true,
+  "started_at": "2026-05-05T02:17:28.755094Z",
+  "status": "succeeded",
+  "updated_at": "2026-05-05T02:19:50.630174Z"
+}

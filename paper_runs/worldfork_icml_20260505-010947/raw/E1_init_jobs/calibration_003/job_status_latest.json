@@ -1,0 +1,47 @@
+{
+  "attempt_number": 0,
+  "available_at": "2026-05-05T02:12:06.706997Z",
+  "big_bang_id": null,
+  "concurrency_key": null,
+  "created_at": "2026-05-05T02:12:06.706553Z",
+  "error": null,
+  "finished_at": "2026-05-05T02:19:48.278128Z",
+  "id": "837b4c6c-3dbb-4f78-bdab-27eecc5d1437",
+  "idempotency_key": "job:5acd5b36b34442b835f9c4352c9cae3d25c8c22f94e65924dd1dc3449a1a5372",
+  "interrupt_requested_at": null,
+  "interrupted_at": null,
+  "job_type": "initialize_big_bang",
+  "last_heartbeat_at": null,
+  "lease_expires_at": null,
+  "lease_owner": null,
+  "max_attempts": 3,
+  "paused_at": null,
+  "payload": {
+    "actors": [],
+    "branch_policy": {
+      "branch_score_threshold": 0.999,
+      "max_active_multiverses": 1,
+      "max_branch_depth": 1,
+      "max_branches_per_tick": 1
+    },
+    "cohorts": [],
+    "heroes": [],
+    "name": "E1_init_job_calibration_003",
+    "scenario_text": "# Case calibration_003\nBenchmark role: adversarial_calibration\n\nForecast question: Which fiscal endpoint is most plausible when the budget documents conflict?\n\n## Scenario\n\nA county claims a transit program has a deficit, but three public documents disagree on the deficit size. The model should not average incompatible numbers without noting source uncertainty.\n\n## Source Packet\n\n### Source 1: county_slide / T-9 days\n\nSlide 4 says the transit shuttle faces a $12.4M FY deficit after fuel and labor costs.\n\n### Source 2: finance_committee_minutes / T-7 days\n\nThe CFO says the deficit is 'closer to $8M if state reimbursements arrive on schedule.'\n\n### Source 3: grant_agency_email / T-5 days\n\nThe state says $3.1M in reimbursements is pending but requires documentation before release.\n\n### Source 4: advocacy_group_fact_sheet / T-3 days\n\nAdvocates claim the deficit is only $4M, but their calculation excludes overtime.\n\n## Candidate Endpoints\n- service_cuts: County cuts shuttle service\n- bridge_funding: County finds bridge funding\n- state_reimbursement: State reimbursement materially reduces deficit\n- audit_delay: County delays decision for audit/reconciliation\n- unresolved: Deficit remains disputed\n\n## Expected Focus\n- number_consistency\n- source_reliability\n- conditional_uncertainty\n\n## Required Forecast Output\n{'type': 'worldfork_initialization_and_report', 'minimum_outputs': ['actors/cohorts and authority constraints', 'initial events and unresolved facts', 'candidate endpoint ledger', 'branch hypotheses with rationale', 'forecast_distribution over endpoints plus unresolved_mass', 'report claims grounded to source_packet references']}\n\n## Rubric Location\nprivate_eval file\n",
+    "simulation_config": {
+      "max_ticks": 1,
+      "tick_duration_minutes": 720
+    },
+    "use_initializer_agent": true
+  },
+  "queue_name": "p1",
+  "queued_at": "2026-05-05T02:12:06.706993Z",
+  "result": {
+    "big_bang_id": "3660f2a4-a7a5-4830-9c9f-c655df681ca2",
+    "source_snapshot_id": "5e7c19c7-5282-473b-9d14-907b43cfa854"
+  },
+  "retryable": true,
+  "started_at": "2026-05-05T02:17:18.667148Z",
+  "status": "succeeded",
+  "updated_at": "2026-05-05T02:19:48.227917Z"
+}

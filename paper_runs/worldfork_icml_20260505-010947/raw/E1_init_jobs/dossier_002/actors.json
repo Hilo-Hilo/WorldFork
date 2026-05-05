@@ -1,0 +1,488 @@
+[
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "decision_authority": "low",
+      "name": "students_grades_7_9",
+      "public_visibility": "low",
+      "role": "directly affected users",
+      "stakes": [
+        "tutoring access",
+        "privacy",
+        "usability",
+        "accessibility"
+      ],
+      "type": "population"
+    },
+    "big_bang_id": "7f6ef1b7-a463-462c-9150-64e78c1ba929",
+    "created_at": "2026-05-05T02:17:28.679641+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "b75fe47a-c4fc-4343-af03-830f0f204b53",
+    "name": "students_grades_7_9",
+    "status": "active",
+    "updated_at": "2026-05-05T02:17:28.679641+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "decision_authority": "low_collective",
+      "name": "non_english_speaking_families",
+      "public_visibility": "low_to_medium",
+      "role": "families needing translated notice and multilingual support",
+      "stakes": [
+        "comprehension of consent and risk",
+        "equitable access"
+      ],
+      "type": "population"
+    },
+    "big_bang_id": "7f6ef1b7-a463-462c-9150-64e78c1ba929",
+    "created_at": "2026-05-05T02:17:28.679641+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "a3b20038-980f-415e-90fe-4fc3dd1945b4",
+    "name": "non_english_speaking_families",
+    "status": "active",
+    "updated_at": "2026-05-05T02:17:28.679641+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "decision_authority": "low_collective",
+      "name": "students_with_disabilities",
+      "public_visibility": "low_to_medium",
+      "role": "students affected by accessibility quality",
+      "stakes": [
+        "effective access",
+        "non-discrimination"
+      ],
+      "type": "population"
+    },
+    "big_bang_id": "7f6ef1b7-a463-462c-9150-64e78c1ba929",
+    "created_at": "2026-05-05T02:17:28.679641+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "48e574ad-afd7-4505-8ce9-a5111b568aa6",
+    "name": "students_with_disabilities",
+    "status": "active",
+    "updated_at": "2026-05-05T02:17:28.679641+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "decision_authority": "conditional_high",
+      "name": "state_education_or_privacy_regulator",
+      "public_visibility": "medium",
+      "role": "potential external pause authority if complaint matures",
+      "stakes": [
+        "compliance enforcement",
+        "public protection"
+      ],
+      "type": "external_authority"
+    },
+    "big_bang_id": "7f6ef1b7-a463-462c-9150-64e78c1ba929",
+    "created_at": "2026-05-05T02:17:28.679641+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "9656ba5f-4fb3-45c9-abb1-fad70e611923",
+    "name": "state_education_or_privacy_regulator",
+    "status": "active",
+    "updated_at": "2026-05-05T02:17:28.679641+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "decision_authority": "medium_collective",
+      "name": "teacher_union_local",
+      "public_visibility": "medium",
+      "role": "teachers' collective voice",
+      "stakes": [
+        "instructional support benefits",
+        "protection from surveillance/evaluation misuse"
+      ],
+      "trait_vector": {
+        "actor_name": "teacher_union_local",
+        "behavior_axes": {
+          "collective_discipline": 0.64,
+          "escalation_readiness": 0.46,
+          "guardrail_seeking": 0.72
+        },
+        "ideology_axes": {
+          "innovation_orientation": 0.48,
+          "labor_protection": 0.87,
+          "privacy_orientation": 0.53
+        },
+        "reputation": 0.55,
+        "secrecy": 0.21,
+        "tendency": "support assistance tools while resisting evaluative misuse",
+        "trustworthiness": 0.58
+      },
+      "type": "labor_group"
+    },
+    "big_bang_id": "7f6ef1b7-a463-462c-9150-64e78c1ba929",
+    "created_at": "2026-05-05T02:17:28.679641+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "1289d639-4a78-4b0c-ab36-1c1eeb7c70f9",
+    "name": "teacher_union_local",
+    "status": "active",
+    "updated_at": "2026-05-05T02:17:28.679641+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "decision_authority": "high_formal",
+      "name": "school_board_majority",
+      "public_visibility": "high",
+      "role": "formal oversight and potential contract challenge bloc",
+      "stakes": [
+        "governance legitimacy",
+        "risk avoidance",
+        "constituent responsiveness"
+      ],
+      "trait_vector": {
+        "actor_name": "school_board_majority",
+        "behavior_axes": {
+          "conflict_avoidance": 0.53,
+          "deliberativeness": 0.58,
+          "responsiveness": 0.57
+        },
+        "ideology_axes": {
+          "equity_orientation": 0.55,
+          "innovation_orientation": 0.49,
+          "oversight_orientation": 0.62
+        },
+        "reputation": 0.51,
+        "secrecy": 0.29,
+        "tendency": "late-moving but sensitive to visible compliance concerns",
+        "trustworthiness": 0.54
+      },
+      "type": "governing_body_faction"
+    },
+    "big_bang_id": "7f6ef1b7-a463-462c-9150-64e78c1ba929",
+    "created_at": "2026-05-05T02:17:28.679641+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "4196920a-a608-480f-ac59-876e4aa82f1f",
+    "name": "school_board_majority",
+    "status": "active",
+    "updated_at": "2026-05-05T02:17:28.679641+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "decision_authority": "high_on_product_terms",
+      "name": "tutorpilot_vendor",
+      "public_visibility": "medium",
+      "role": "ai tutoring provider",
+      "stakes": [
+        "contract retention",
+        "data use flexibility",
+        "market reputation"
+      ],
+      "trait_vector": {
+        "actor_name": "tutorpilot_vendor",
+        "behavior_axes": {
+          "sales_persistence": 0.76,
+          "technical_remediation_capacity": 0.55,
+          "term_flexibility": 0.38
+        },
+        "ideology_axes": {
+          "commercial_orientation": 0.9,
+          "equity_orientation": 0.43,
+          "privacy_orientation": 0.41
+        },
+        "reputation": 0.45,
+        "secrecy": 0.57,
+        "tendency": "retain contract while preserving service-improvement data rights",
+        "trustworthiness": 0.4
+      },
+      "type": "company"
+    },
+    "big_bang_id": "7f6ef1b7-a463-462c-9150-64e78c1ba929",
+    "created_at": "2026-05-05T02:17:28.679641+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "7b9a088a-633a-42c9-aee4-0eb7590d189b",
+    "name": "tutorpilot_vendor",
+    "status": "active",
+    "updated_at": "2026-05-05T02:17:28.679641+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "decision_authority": "high_operational",
+      "name": "superintendent_office",
+      "public_visibility": "high",
+      "role": "pilot sponsor and district executive agenda setter",
+      "stakes": [
+        "timely launch",
+        "administrative credibility",
+        "response to learning loss"
+      ],
+      "trait_vector": {
+        "actor_name": "superintendent_office",
+        "behavior_axes": {
+          "compromise": 0.46,
+          "decisiveness": 0.74,
+          "message_discipline": 0.61
+        },
+        "ideology_axes": {
+          "innovation_orientation": 0.77,
+          "managerialism": 0.71,
+          "privacy_orientation": 0.39
+        },
+        "reputation": 0.58,
+        "secrecy": 0.34,
+        "tendency": "push forward unless formal blockers arise",
+        "trustworthiness": 0.48
+      },
+      "type": "institutional_leadership"
+    },
+    "big_bang_id": "7f6ef1b7-a463-462c-9150-64e78c1ba929",
+    "created_at": "2026-05-05T02:17:28.679641+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "9ba43f2b-a0df-4055-aca6-1e93e5cd9ae2",
+    "name": "superintendent_office",
+    "status": "active",
+    "updated_at": "2026-05-05T02:17:28.679641+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "decision_authority": "low_direct_high_agenda",
+      "name": "parent_privacy_coalition",
+      "public_visibility": "medium",
+      "role": "organized parent opposition/pressure group",
+      "stakes": [
+        "student privacy",
+        "informed consent",
+        "language access"
+      ],
+      "trait_vector": {
+        "actor_name": "parent_privacy_coalition",
+        "behavior_axes": {
+          "compromise": 0.59,
+          "issue_focus": 0.81,
+          "mobilization": 0.67
+        },
+        "ideology_axes": {
+          "equity_orientation": 0.74,
+          "innovation_orientation": 0.42,
+          "privacy_orientation": 0.88
+        },
+        "reputation": 0.52,
+        "secrecy": 0.12,
+        "tendency": "push for opt-in, review, and translations before acceptance",
+        "trustworthiness": 0.6
+      },
+      "type": "civic_group"
+    },
+    "big_bang_id": "7f6ef1b7-a463-462c-9150-64e78c1ba929",
+    "created_at": "2026-05-05T02:17:28.679641+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "a53578f7-6511-4ff5-ba4a-cc3e474f0b2a",
+    "name": "parent_privacy_coalition",
+    "status": "active",
+    "updated_at": "2026-05-05T02:17:28.679641+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "decision_authority": "high_shared",
+      "name": "river_city_school_district",
+      "public_visibility": "high",
+      "role": "contracting and operating institution",
+      "stakes": [
+        "student learning recovery",
+        "staff workload relief",
+        "reputational legitimacy",
+        "legal and procurement compliance"
+      ],
+      "trait_vector": {
+        "actor_name": "river_city_school_district",
+        "behavior_axes": {
+          "procedural_rigidity": 0.43,
+          "responsiveness": 0.51,
+          "risk_aversion": 0.47
+        },
+        "ideology_axes": {
+          "equity_orientation": 0.54,
+          "innovation_orientation": 0.66,
+          "privacy_orientation": 0.46
+        },
+        "reputation": 0.56,
+        "secrecy": 0.38,
+        "tendency": "institution balancing rollout urgency against legitimacy risk",
+        "trustworthiness": 0.49
+      },
+      "type": "institution"
+    },
+    "big_bang_id": "7f6ef1b7-a463-462c-9150-64e78c1ba929",
+    "created_at": "2026-05-05T02:17:28.679641+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "a987869a-961a-497f-a4f1-99d6e29aab3c",
+    "name": "river_city_school_district",
+    "status": "active",
+    "updated_at": "2026-05-05T02:17:28.679641+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "decision_authority": "low_direct_high_exposure",
+      "name": "local_press",
+      "public_visibility": "medium",
+      "role": "issue amplification channel",
+      "stakes": [
+        "public accountability",
+        "newsworthiness"
+      ],
+      "trait_vector": {
+        "actor_name": "local_press",
+        "behavior_axes": {
+          "amplification": 0.66,
+          "conflict_attention": 0.61,
+          "nuance": 0.46
+        },
+        "ideology_axes": {
+          "accountability_orientation": 0.7,
+          "innovation_orientation": 0.44,
+          "neutrality_orientation": 0.54
+        },
+        "reputation": 0.53,
+        "secrecy": 0.06,
+        "tendency": "elevate dispute if procedural irregularity and family equity concerns intersect",
+        "trustworthiness": 0.55
+      },
+      "type": "media"
+    },
+    "big_bang_id": "7f6ef1b7-a463-462c-9150-64e78c1ba929",
+    "created_at": "2026-05-05T02:17:28.679641+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "b386e23b-5e2e-41a3-bd86-3cfef118adb6",
+    "name": "local_press",
+    "status": "active",
+    "updated_at": "2026-05-05T02:17:28.679641+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "decision_authority": "medium_advisory",
+      "name": "district_privacy_and_it_staff",
+      "public_visibility": "low",
+      "role": "security and data governance reviewers",
+      "stakes": [
+        "technical compliance",
+        "risk containment"
+      ],
+      "trait_vector": {
+        "actor_name": "district_privacy_and_it_staff",
+        "behavior_axes": {
+          "documentation": 0.68,
+          "public_communication": 0.31,
+          "technical_caution": 0.72
+        },
+        "ideology_axes": {
+          "innovation_orientation": 0.45,
+          "privacy_orientation": 0.71,
+          "security_orientation": 0.79
+        },
+        "reputation": 0.5,
+        "secrecy": 0.41,
+        "tendency": "seek mitigations and language precision",
+        "trustworthiness": 0.59
+      },
+      "type": "bureaucratic_unit"
+    },
+    "big_bang_id": "7f6ef1b7-a463-462c-9150-64e78c1ba929",
+    "created_at": "2026-05-05T02:17:28.679641+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "c5387977-1f87-4231-bba7-6265334a3102",
+    "name": "district_privacy_and_it_staff",
+    "status": "active",
+    "updated_at": "2026-05-05T02:17:28.679641+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "decision_authority": "medium_administrative",
+      "name": "district_procurement_office",
+      "public_visibility": "low",
+      "role": "contract process owner",
+      "stakes": [
+        "process defensibility",
+        "timeline maintenance"
+      ],
+      "trait_vector": {
+        "actor_name": "district_procurement_office",
+        "behavior_axes": {
+          "rule_defense": 0.63,
+          "schedule_protection": 0.61,
+          "transparency": 0.39
+        },
+        "ideology_axes": {
+          "innovation_orientation": 0.52,
+          "process_orientation": 0.84,
+          "risk_orientation": 0.49
+        },
+        "reputation": 0.44,
+        "secrecy": 0.46,
+        "tendency": "defend prior exception unless politically untenable",
+        "trustworthiness": 0.47
+      },
+      "type": "bureaucratic_unit"
+    },
+    "big_bang_id": "7f6ef1b7-a463-462c-9150-64e78c1ba929",
+    "created_at": "2026-05-05T02:17:28.679641+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "f3ee55a8-e61b-4cf9-ae1f-37016caa8bcb",
+    "name": "district_procurement_office",
+    "status": "active",
+    "updated_at": "2026-05-05T02:17:28.679641+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "decision_authority": "medium_formal",
+      "name": "questioning_board_members",
+      "public_visibility": "medium",
+      "role": "board members questioning emergency exception",
+      "stakes": [
+        "procurement compliance",
+        "oversight credibility"
+      ],
+      "trait_vector": {
+        "actor_name": "questioning_board_members",
+        "behavior_axes": {
+          "agenda_disruption": 0.58,
+          "coalition_building": 0.47,
+          "scrutiny": 0.79
+        },
+        "ideology_axes": {
+          "innovation_orientation": 0.35,
+          "oversight_orientation": 0.84,
+          "privacy_orientation": 0.61
+        },
+        "reputation": 0.5,
+        "secrecy": 0.22,
+        "tendency": "escalate process questions into governance decision points",
+        "trustworthiness": 0.57
+      },
+      "type": "governing_body_faction"
+    },
+    "big_bang_id": "7f6ef1b7-a463-462c-9150-64e78c1ba929",
+    "created_at": "2026-05-05T02:17:28.679641+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "fd1df4b5-b3b6-48b8-a878-38e64f0d9974",
+    "name": "questioning_board_members",
+    "status": "active",
+    "updated_at": "2026-05-05T02:17:28.679641+00:00"
+  }
+]

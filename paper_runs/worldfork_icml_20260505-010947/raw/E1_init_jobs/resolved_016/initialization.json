@@ -1,0 +1,1082 @@
+{
+  "big_bang_id": "d4f8087b-3ae0-4138-8cd8-420e6607a233",
+  "initializer_output": {
+    "actors": [
+      {
+        "description": "Major smartphone manufacturer announcing Phone A and its launch schedule.",
+        "fictionalized": true,
+        "name": "phone_a_manufacturer",
+        "stakes": [
+          "successful launch timing",
+          "brand credibility",
+          "sales capture",
+          "supply chain execution"
+        ],
+        "type": "company"
+      },
+      {
+        "description": "New thin smartphone model announced alongside flagship devices.",
+        "fictionalized": true,
+        "name": "phone_a",
+        "stakes": [
+          "timely production",
+          "regulatory clearance",
+          "channel readiness"
+        ],
+        "type": "product"
+      },
+      {
+        "description": "Potential customers monitoring preorder and availability timing.",
+        "fictionalized": true,
+        "name": "consumers_waiting_for_phone_a",
+        "stakes": [
+          "access to product by deadline",
+          "clarity on actual shipment/retail availability"
+        ],
+        "type": "consumer_group"
+      },
+      {
+        "description": "Suppliers and manufacturing partners needed to build and distribute Phone A.",
+        "fictionalized": true,
+        "name": "supply_chain_partners",
+        "stakes": [
+          "production stability",
+          "component throughput",
+          "schedule reliability"
+        ],
+        "type": "business_group"
+      },
+      {
+        "description": "Regulatory or compliance bodies whose approvals could affect release timing.",
+        "fictionalized": true,
+        "name": "regulatory_gatekeepers",
+        "stakes": [
+          "compliance verification",
+          "market entry timing"
+        ],
+        "type": "institutional_group"
+      },
+      {
+        "description": "Retailers, carriers, and distribution channels involved in customer availability.",
+        "fictionalized": true,
+        "name": "retail_and_channel_partners",
+        "stakes": [
+          "inventory receipt",
+          "sales readiness",
+          "launch coordination"
+        ],
+        "type": "business_group"
+      },
+      {
+        "description": "Media and observers tracking launch claims, preorder timing, and actual availability.",
+        "fictionalized": true,
+        "name": "tech_media_and_watchers",
+        "stakes": [
+          "accurate reporting",
+          "launch scrutiny"
+        ],
+        "type": "media_group"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "branch_key": "on_time_launch_branch",
+        "divergence_signal": "Retail availability pages, shipments, or confirmed in-store/on-sale status appear before 2025-09-30.",
+        "plausible_path": "Preorders open, channels receive stock, and at least some customers can obtain Phone A before the deadline.",
+        "trigger": "No material supply, regulatory, or manufacturing issues emerge during the late prelaunch window."
+      },
+      {
+        "branch_key": "preorder_only_branch",
+        "divergence_signal": "Preorders are live but reporting continues to lack evidence of customer pickup, shipment, or retail sale before 2025-09-30.",
+        "plausible_path": "Public perceives progress, yet actual customer availability remains absent by deadline.",
+        "trigger": "Marketing and preorder processes proceed, but channel inventory or release authorization lags."
+      },
+      {
+        "branch_key": "slip_due_to_execution_issue_branch",
+        "divergence_signal": "Official delay language, missing channel inventory, or reports of unresolved production/compliance bottlenecks.",
+        "plausible_path": "Company or channels push availability beyond September 30 despite initial second-half September plan.",
+        "trigger": "Late-breaking supply, manufacturing, or regulatory problem emerges."
+      }
+    ],
+    "channels": [
+      {
+        "audience": [
+          "consumers_waiting_for_phone_a",
+          "tech_media_and_watchers"
+        ],
+        "channel_key": "official_company_announcement",
+        "primary_actors": [
+          "phone_a_manufacturer"
+        ],
+        "role": "Sets baseline launch expectations and any updated timing.",
+        "type": "official"
+      },
+      {
+        "audience": [
+          "consumers_waiting_for_phone_a",
+          "tech_media_and_watchers"
+        ],
+        "channel_key": "retail_channel_updates",
+        "primary_actors": [
+          "retail_and_channel_partners"
+        ],
+        "role": "Provides evidence of inventory, listings, and customer availability.",
+        "type": "commercial"
+      },
+      {
+        "audience": [
+          "consumers_waiting_for_phone_a"
+        ],
+        "channel_key": "media_coverage",
+        "primary_actors": [
+          "tech_media_and_watchers"
+        ],
+        "role": "Interprets whether launch milestones satisfy actual availability criteria.",
+        "type": "public_media"
+      },
+      {
+        "audience": [
+          "launch_ecosystem_workers"
+        ],
+        "channel_key": "supply_chain_internal_ops",
+        "primary_actors": [
+          "phone_a_manufacturer",
+          "supply_chain_partners",
+          "retail_and_channel_partners"
+        ],
+        "role": "Coordinates production and distribution readiness, mostly not public.",
+        "type": "operational"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "potential_customers",
+        "attention_level": 0.86,
+        "cohort_key": "eager_early_adopters",
+        "expression_level": 0.72,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.45,
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.18,
+        "private_belief": "Phone A is likely to launch near schedule, but not guaranteed.",
+        "public_expression": "High attention to announcement and readiness to preorder.",
+        "representation_mode": "direct",
+        "represented_population": 900000,
+        "stance_axes": {
+          "brand_loyalty": 0.72,
+          "launch_confidence": 0.68,
+          "patience_for_delay": 0.34
+        }
+      },
+      {
+        "archetype_key": "potential_customers",
+        "attention_level": 0.58,
+        "cohort_key": "wait_and_see_buyers",
+        "expression_level": 0.31,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.18,
+        "perceived_majority": 0.54,
+        "population_share_of_archetype": 0.52,
+        "private_belief": "Announcement is promising but actual store or shipment availability matters more than preorders.",
+        "public_expression": "Moderate discussion; many waiting for confirmation of availability.",
+        "representation_mode": "direct",
+        "represented_population": 2600000,
+        "stance_axes": {
+          "brand_loyalty": 0.49,
+          "launch_confidence": 0.56,
+          "patience_for_delay": 0.58
+        }
+      },
+      {
+        "archetype_key": "potential_customers",
+        "attention_level": 0.49,
+        "cohort_key": "skeptical_observers",
+        "expression_level": 0.28,
+        "fatigue": 0.16,
+        "fear_of_isolation": 0.14,
+        "mobilization_readiness": 0.12,
+        "perceived_majority": 0.39,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "Launches can slip despite announcements, especially on a short timeline.",
+        "public_expression": "Cautious commentary emphasizing execution risk.",
+        "representation_mode": "direct",
+        "represented_population": 1500000,
+        "stance_axes": {
+          "brand_loyalty": 0.33,
+          "launch_confidence": 0.42,
+          "patience_for_delay": 0.67
+        }
+      },
+      {
+        "archetype_key": "launch_ecosystem_workers",
+        "attention_level": 0.77,
+        "cohort_key": "operations_staff",
+        "expression_level": 0.08,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.53,
+        "mobilization_readiness": 0.06,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.75,
+        "private_belief": "Launch timing is achievable if no late-stage bottlenecks emerge.",
+        "public_expression": "Limited public comment due to employer constraints.",
+        "representation_mode": "proxy",
+        "represented_population": 90000,
+        "stance_axes": {
+          "disclosure_restraint": 0.82,
+          "launch_confidence": 0.63,
+          "schedule_stress": 0.61
+        }
+      },
+      {
+        "archetype_key": "launch_ecosystem_workers",
+        "attention_level": 0.69,
+        "cohort_key": "channel_staff",
+        "expression_level": 0.1,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.44,
+        "mobilization_readiness": 0.05,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "Customer availability depends on inventory arrival and sale authorization, not announcement language alone.",
+        "public_expression": "Mostly silent until inventory or date guidance is confirmed.",
+        "representation_mode": "proxy",
+        "represented_population": 30000,
+        "stance_axes": {
+          "disclosure_restraint": 0.79,
+          "launch_confidence": 0.55,
+          "schedule_stress": 0.47
+        }
+      },
+      {
+        "archetype_key": "market_observers",
+        "attention_level": 0.91,
+        "cohort_key": "specialist_watchers",
+        "expression_level": 0.74,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.09,
+        "mobilization_readiness": 0.36,
+        "perceived_majority": 0.48,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Company guidance points toward a September launch, but distinction between preorder and availability is crucial.",
+        "public_expression": "Frequent interpretation of launch wording and risk scenarios.",
+        "representation_mode": "direct",
+        "represented_population": 50000,
+        "stance_axes": {
+          "launch_confidence": 0.61,
+          "risk_attention": 0.73,
+          "semantic_strictness": 0.84
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "potential_customers",
+        "attention_level": 0.86,
+        "cohort_key": "eager_early_adopters",
+        "expression_level": 0.72,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.45,
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.18,
+        "private_belief": "Phone A is likely to launch near schedule, but not guaranteed.",
+        "public_expression": "High attention to announcement and readiness to preorder.",
+        "representation_mode": "direct",
+        "represented_population": 900000,
+        "stance_axes": {
+          "brand_loyalty": 0.72,
+          "launch_confidence": 0.68,
+          "patience_for_delay": 0.34
+        }
+      },
+      {
+        "archetype_key": "potential_customers",
+        "attention_level": 0.58,
+        "cohort_key": "wait_and_see_buyers",
+        "expression_level": 0.31,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.18,
+        "perceived_majority": 0.54,
+        "population_share_of_archetype": 0.52,
+        "private_belief": "Announcement is promising but actual store or shipment availability matters more than preorders.",
+        "public_expression": "Moderate discussion; many waiting for confirmation of availability.",
+        "representation_mode": "direct",
+        "represented_population": 2600000,
+        "stance_axes": {
+          "brand_loyalty": 0.49,
+          "launch_confidence": 0.56,
+          "patience_for_delay": 0.58
+        }
+      },
+      {
+        "archetype_key": "potential_customers",
+        "attention_level": 0.49,
+        "cohort_key": "skeptical_observers",
+        "expression_level": 0.28,
+        "fatigue": 0.16,
+        "fear_of_isolation": 0.14,
+        "mobilization_readiness": 0.12,
+        "perceived_majority": 0.39,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "Launches can slip despite announcements, especially on a short timeline.",
+        "public_expression": "Cautious commentary emphasizing execution risk.",
+        "representation_mode": "direct",
+        "represented_population": 1500000,
+        "stance_axes": {
+          "brand_loyalty": 0.33,
+          "launch_confidence": 0.42,
+          "patience_for_delay": 0.67
+        }
+      },
+      {
+        "archetype_key": "launch_ecosystem_workers",
+        "attention_level": 0.77,
+        "cohort_key": "operations_staff",
+        "expression_level": 0.08,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.53,
+        "mobilization_readiness": 0.06,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.75,
+        "private_belief": "Launch timing is achievable if no late-stage bottlenecks emerge.",
+        "public_expression": "Limited public comment due to employer constraints.",
+        "representation_mode": "proxy",
+        "represented_population": 90000,
+        "stance_axes": {
+          "disclosure_restraint": 0.82,
+          "launch_confidence": 0.63,
+          "schedule_stress": 0.61
+        }
+      },
+      {
+        "archetype_key": "launch_ecosystem_workers",
+        "attention_level": 0.69,
+        "cohort_key": "channel_staff",
+        "expression_level": 0.1,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.44,
+        "mobilization_readiness": 0.05,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "Customer availability depends on inventory arrival and sale authorization, not announcement language alone.",
+        "public_expression": "Mostly silent until inventory or date guidance is confirmed.",
+        "representation_mode": "proxy",
+        "represented_population": 30000,
+        "stance_axes": {
+          "disclosure_restraint": 0.79,
+          "launch_confidence": 0.55,
+          "schedule_stress": 0.47
+        }
+      },
+      {
+        "archetype_key": "market_observers",
+        "attention_level": 0.91,
+        "cohort_key": "specialist_watchers",
+        "expression_level": 0.74,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.09,
+        "mobilization_readiness": 0.36,
+        "perceived_majority": 0.48,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Company guidance points toward a September launch, but distinction between preorder and availability is crucial.",
+        "public_expression": "Frequent interpretation of launch wording and risk scenarios.",
+        "representation_mode": "direct",
+        "represented_population": 50000,
+        "stance_axes": {
+          "launch_confidence": 0.61,
+          "risk_attention": 0.73,
+          "semantic_strictness": 0.84
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "phone_a_manufacturer",
+          "retail_and_channel_partners"
+        ],
+        "blockers": [
+          "supply_chain_partners execution failure",
+          "regulatory_gatekeepers delay",
+          "retail_and_channel_partners inventory lag"
+        ],
+        "contradiction_notes": "Would be contradicted by evidence that only preorders opened and no customer availability occurred by deadline.",
+        "description": "Terminal yes endpoint in which Phone A is actually available to customers on or before 2025-09-30.",
+        "endpoint_key": "available_by_deadline",
+        "evidence_refs": [
+          "company_announcement_2025_09_10",
+          "endpoint_note_2025_09_10"
+        ],
+        "label": "Phone A available by September 30, 2025",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does Phone A become actually available to customers on or before 2025-09-30?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.64,
+        "rationale": "This is the primary affirmative terminal outcome implied by the scenario.",
+        "realization_criteria": [
+          "Observable evidence shows customers can purchase, receive, pick up, or otherwise obtain Phone A on or before 2025-09-30.",
+          "Evidence exceeds mere preorder opening or announcement language."
+        ],
+        "status": "active",
+        "status_basis": "Official schedule targets second-half September, so endpoint remains live at T0."
+      },
+      {
+        "authority_refs": [
+          "phone_a_manufacturer",
+          "retail_and_channel_partners",
+          "regulatory_gatekeepers"
+        ],
+        "blockers": [
+          "successful distribution before deadline",
+          "narrow but sufficient launch in at least one qualifying customer channel"
+        ],
+        "contradiction_notes": "Would be contradicted by confirmed customer availability before deadline even if rollout is limited.",
+        "description": "Terminal no endpoint in which no qualifying customer availability occurs by 2025-09-30.",
+        "endpoint_key": "not_available_by_deadline",
+        "evidence_refs": [
+          "launch_risk_note_2025_09_10",
+          "endpoint_note_2025_09_10"
+        ],
+        "label": "Phone A not available by September 30, 2025",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "By the deadline, is the strongest public evidence only preorder access rather than actual customer availability?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.36,
+        "rationale": "This is the primary negative terminal outcome implied by the scenario.",
+        "realization_criteria": [
+          "By end of 2025-09-30, there is no credible evidence of customers purchasing, receiving, or picking up Phone A.",
+          "Available evidence is limited to announcement, preorder activity, or delayed guidance."
+        ],
+        "status": "active",
+        "status_basis": "Risk note explicitly preserves possibility of slip despite planned later-September availability."
+      },
+      {
+        "authority_refs": [
+          "phone_a_manufacturer",
+          "retail_and_channel_partners"
+        ],
+        "blockers": [
+          "conversion of preorder state into shipment, pickup, or retail sale before deadline"
+        ],
+        "contradiction_notes": "If customer shipment or retail pickup occurs before deadline, this endpoint is not realized.",
+        "description": "Important terminal subcase under the no outcome where public progress occurs without actual customer availability.",
+        "endpoint_key": "preorder_without_availability",
+        "evidence_refs": [
+          "endpoint_note_2025_09_10",
+          "scenario_text"
+        ],
+        "label": "Preorders open but no qualifying availability by deadline",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do supply, regulatory, or manufacturing issues visibly emerge before the deadline and alter launch timing?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.22,
+        "rationale": "Captures a key semantic and operational distinction likely to matter in later evidence review.",
+        "realization_criteria": [
+          "Preorders are open on or before 2025-09-30.",
+          "No credible evidence of customers obtaining Phone A by 2025-09-30."
+        ],
+        "status": "active",
+        "status_basis": "Scenario explicitly warns that preorder without general availability does not resolve yes."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "Company announced Phone A and said preorders will open soon with availability later in September.",
+        "layer": "exposure",
+        "reason": "Announcement and preorder/availability messaging reach customers broadly.",
+        "source_actor_name": "phone_a_manufacturer",
+        "target_actor_name": "consumers_waiting_for_phone_a",
+        "weight": 0.72
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source packet centers on company announcement timing.",
+        "layer": "exposure",
+        "reason": "Media directly monitors official launch announcements.",
+        "source_actor_name": "phone_a_manufacturer",
+        "target_actor_name": "tech_media_and_watchers",
+        "weight": 0.78
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Expected focus includes preorder vs availability distinction.",
+        "layer": "exposure",
+        "reason": "Observers interpret and amplify launch language to customers.",
+        "source_actor_name": "tech_media_and_watchers",
+        "target_actor_name": "consumers_waiting_for_phone_a",
+        "weight": 0.61
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Announcement places availability later in September, but risk note highlights possible slips.",
+        "layer": "trust",
+        "reason": "Customers give moderate credence to official schedule but allow for slippage.",
+        "source_actor_name": "consumers_waiting_for_phone_a",
+        "target_actor_name": "phone_a_manufacturer",
+        "weight": 0.59
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Need to distinguish real availability from preorder claims.",
+        "layer": "trust",
+        "reason": "Media treats official guidance as meaningful but not conclusive.",
+        "source_actor_name": "tech_media_and_watchers",
+        "target_actor_name": "phone_a_manufacturer",
+        "weight": 0.54
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Risk note explicitly names supply and manufacturing issues as possible causes of slip.",
+        "layer": "dependency",
+        "reason": "Launch timing depends materially on supply and manufacturing execution.",
+        "source_actor_name": "phone_a_manufacturer",
+        "target_actor_name": "supply_chain_partners",
+        "weight": 0.67
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Risk note explicitly names regulatory issues.",
+        "layer": "dependency",
+        "reason": "Regulatory issues could delay availability if they arise.",
+        "source_actor_name": "phone_a_manufacturer",
+        "target_actor_name": "regulatory_gatekeepers",
+        "weight": 0.43
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Question is about availability to customers, not just announcement or preorder.",
+        "layer": "dependency",
+        "reason": "Customer availability requires channel readiness and distribution.",
+        "source_actor_name": "phone_a_manufacturer",
+        "target_actor_name": "retail_and_channel_partners",
+        "weight": 0.63
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Availability depends on physical distribution following manufacturing.",
+        "layer": "dependency",
+        "reason": "Channels need timely inventory flow to offer customer availability.",
+        "source_actor_name": "retail_and_channel_partners",
+        "target_actor_name": "supply_chain_partners",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Company announcement established second-half-of-September expectation.",
+        "layer": "influence",
+        "reason": "Official timing claims shape expectations and purchase planning.",
+        "source_actor_name": "phone_a_manufacturer",
+        "target_actor_name": "consumers_waiting_for_phone_a",
+        "weight": 0.74
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source packet emphasizes preorder vs general availability distinction.",
+        "layer": "influence",
+        "reason": "Interpretive coverage affects whether customers treat preorder as sufficient evidence.",
+        "source_actor_name": "tech_media_and_watchers",
+        "target_actor_name": "consumers_waiting_for_phone_a",
+        "weight": 0.52
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Regulatory issues listed as possible cause of slip.",
+        "layer": "influence",
+        "reason": "Regulatory decisions can constrain launch timing if issues arise.",
+        "source_actor_name": "regulatory_gatekeepers",
+        "target_actor_name": "phone_a_manufacturer",
+        "weight": 0.39
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Both benefit from timely availability to customers.",
+        "layer": "coalition",
+        "reason": "Aligned interest in a smooth launch and sales conversion.",
+        "source_actor_name": "phone_a_manufacturer",
+        "target_actor_name": "retail_and_channel_partners",
+        "weight": 0.57
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Launch timing rests on supply/manufacturing coordination.",
+        "layer": "coalition",
+        "reason": "Shared interest in executing launch on announced timeline.",
+        "source_actor_name": "phone_a_manufacturer",
+        "target_actor_name": "supply_chain_partners",
+        "weight": 0.55
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Risk note mentions regulatory issues as contingent risk, not present crisis.",
+        "layer": "conflict",
+        "reason": "Potential friction exists only if compliance issues emerge.",
+        "source_actor_name": "phone_a_manufacturer",
+        "target_actor_name": "regulatory_gatekeepers",
+        "weight": 0.18
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Resolution rule distinguishes actual availability from preorder hype.",
+        "layer": "conflict",
+        "reason": "Potential dissatisfaction if announced timing slips or availability is ambiguous.",
+        "source_actor_name": "consumers_waiting_for_phone_a",
+        "target_actor_name": "phone_a_manufacturer",
+        "weight": 0.21
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Short-horizon forecasting focus and launch announcement scrutiny.",
+        "layer": "oasis_interaction",
+        "reason": "Public updates and press interpretation are likely to interact intensively near launch.",
+        "source_actor_name": "phone_a_manufacturer",
+        "target_actor_name": "tech_media_and_watchers",
+        "weight": 0.66
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Observers track preorder vs availability semantics.",
+        "layer": "oasis_interaction",
+        "reason": "Public commentary likely shapes consumer interpretation of launch milestones.",
+        "source_actor_name": "tech_media_and_watchers",
+        "target_actor_name": "consumers_waiting_for_phone_a",
+        "weight": 0.57
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Announcement sets expectation of imminent preorder and later September availability.",
+        "layer": "oasis_interaction",
+        "reason": "Consumers watch official channels for preorder and availability updates.",
+        "source_actor_name": "phone_a_manufacturer",
+        "target_actor_name": "consumers_waiting_for_phone_a",
+        "weight": 0.63
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "description": "Company leadership and launch operations authority controlling public timing commitments.",
+        "key": "corporate_launch_decider",
+        "label": "Corporate launch decider"
+      },
+      {
+        "description": "Channel and operations leadership determining whether devices reach customers in time.",
+        "key": "distribution_executor",
+        "label": "Distribution executor"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "phone_a_manufacturer",
+        "archetype_key": "corporate_launch_decider",
+        "attention_level": 0.95,
+        "decision_power": 0.85,
+        "expression_level": 0.83,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.07,
+        "hero_key": "phone_a_manufacturer_launch_team",
+        "mobilization_readiness": 0.79,
+        "perceived_majority": 0.66,
+        "role": "Public launch authority for Phone A timing and wording.",
+        "stance_axes": {
+          "commitment_to_september_launch": 0.81,
+          "message_discipline": 0.88,
+          "risk_tolerance": 0.46
+        }
+      },
+      {
+        "actor_name": "retail_and_channel_partners",
+        "archetype_key": "distribution_executor",
+        "attention_level": 0.8,
+        "decision_power": 0.56,
+        "expression_level": 0.22,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.19,
+        "hero_key": "channel_release_operators",
+        "mobilization_readiness": 0.62,
+        "perceived_majority": 0.57,
+        "role": "Operational gate on physical customer availability once product and approvals are ready.",
+        "stance_axes": {
+          "process_dependence": 0.82,
+          "readiness_confidence": 0.58,
+          "schedule_flexibility": 0.39
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "description": "Company leadership and launch operations authority controlling public timing commitments.",
+        "key": "corporate_launch_decider",
+        "label": "Corporate launch decider"
+      },
+      {
+        "description": "Channel and operations leadership determining whether devices reach customers in time.",
+        "key": "distribution_executor",
+        "label": "Distribution executor"
+      }
+    ],
+    "important_questions": [
+      "Does Phone A become actually available to customers on or before 2025-09-30?",
+      "By the deadline, is the strongest public evidence only preorder access rather than actual customer availability?",
+      "Do supply, regulatory, or manufacturing issues visibly emerge before the deadline and alter launch timing?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "phone_a_manufacturer",
+          "phone_a"
+        ],
+        "event_key": "phone_a_announced",
+        "event_type": "announcement",
+        "evidence": "Scenario states Phone A was announced alongside next generation flagship phones.",
+        "expected_impact": "Raises consumer attention, media scrutiny, and baseline expectation of a near-term launch.",
+        "status": "observed",
+        "summary": "Manufacturer announces Phone A alongside next-generation flagship phones.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "phone_a_manufacturer"
+        ],
+        "event_key": "availability_guidance_set",
+        "event_type": "announcement",
+        "evidence": "Source 1 says announced schedule places availability in the second half of September.",
+        "expected_impact": "Anchors forecasts toward yes while leaving room for short slip risk.",
+        "status": "observed",
+        "summary": "Company guidance places availability in the second half of September 2025.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "phone_a_manufacturer",
+          "consumers_waiting_for_phone_a"
+        ],
+        "event_key": "preorder_window_opening_soon",
+        "event_type": "announcement",
+        "evidence": "Scenario says preorders will open soon.",
+        "expected_impact": "Boosts public confidence but does not by itself satisfy endpoint resolution.",
+        "status": "imminent",
+        "summary": "Preorders are expected to open soon after announcement.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "supply_chain_partners",
+          "regulatory_gatekeepers",
+          "phone_a_manufacturer"
+        ],
+        "event_key": "supply_and_compliance_check_window",
+        "event_type": "announcement",
+        "evidence": "Source 2 notes release could slip if supply, regulatory, or manufacturing issues appear.",
+        "expected_impact": "Could introduce delay signals, reduced confidence, or revised guidance if issues surface.",
+        "status": "latent",
+        "summary": "Short-term period in which supply, regulatory, or manufacturing issues could emerge.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "retail_and_channel_partners",
+          "phone_a_manufacturer",
+          "consumers_waiting_for_phone_a"
+        ],
+        "event_key": "late_september_customer_availability_test",
+        "event_type": "announcement",
+        "evidence": "Forecast question asks whether Phone A will be available to customers by September 30, 2025.",
+        "expected_impact": "Determines whether launch evidence shifts from promise to realizable endpoint.",
+        "status": "imminent",
+        "summary": "Observers look for actual customer availability before September 30.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "0f5fd9a6-2e42-47a6-8e63-cee84ee294a3",
+    "merge_hypotheses": [
+      {
+        "effect": "Reduces ambiguity between optimistic and skeptical narratives.",
+        "merge_key": "official_evidence_convergence",
+        "shared_driver": "All interpretations converge once observable customer availability evidence appears or fails to appear near deadline."
+      },
+      {
+        "effect": "Aligns semantic debates around concrete sale/shipment evidence rather than announcement language alone.",
+        "merge_key": "channel_signal_convergence",
+        "shared_driver": "Retail and distribution confirmation becomes the common arbiter across company, media, and customer beliefs."
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "description": "Broad addressable audience interested enough to notice a new flagship-adjacent smartphone launch.",
+        "key": "potential_customers",
+        "label": "Potential customers",
+        "population_total": 5000000
+      },
+      {
+        "description": "Workers across manufacturing, logistics, retail, and channel operations involved in launch execution.",
+        "key": "launch_ecosystem_workers",
+        "label": "Launch ecosystem workers",
+        "population_total": 120000
+      },
+      {
+        "description": "Media, analysts, and enthusiast observers who amplify launch expectations and detect slips.",
+        "key": "market_observers",
+        "label": "Market observers",
+        "population_total": 50000
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "entity_masking_present",
+        "note": "Scenario uses partial entity masking; actor names are fictionalized accordingly.",
+        "severity": "low"
+      },
+      {
+        "flag": "availability_definition_edge_cases",
+        "note": "Corpus does not fully specify geographic scope or minimum breadth of availability beyond customer availability vs preorder.",
+        "severity": "medium"
+      },
+      {
+        "flag": "short_horizon_execution_risk",
+        "note": "Late-stage supply, regulatory, or manufacturing issues could swing outcome quickly within the September window.",
+        "severity": "medium"
+      },
+      {
+        "flag": "announcement_vs_realization_gap",
+        "note": "Official schedule language may overstate certainty relative to actual customer-facing readiness.",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "core_question": "Will Phone A be available to customers by September 30, 2025?",
+      "mode": "direct",
+      "resolution_rule": "Resolve yes only if Phone A is available to customers by 2025-09-30; preorder without general availability is insufficient.",
+      "scenario_key": "resolved_016",
+      "summary": "A major smartphone manufacturer has announced Phone A, a new thin smartphone model, and says preorders will open soon with availability beginning later in September 2025. The central uncertainty is whether actual customer availability, not merely preorder access, occurs by September 30, 2025.",
+      "timeframe": {
+        "deadline": "2025-09-30",
+        "t0_date": "2025-09-10"
+      },
+      "title": "phone_a_availability_by_2025_09_30",
+      "uncertainty_notes": [
+        "Source packet indicates planned availability in the second half of September.",
+        "Short-horizon launch could slip due to supply, regulatory, or manufacturing issues.",
+        "Exact geography and definition of customer availability beyond preorder/general availability are not fully specified in the corpus."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "consumers_waiting_for_phone_a",
+          "tech_media_and_watchers"
+        ],
+        "evidence": "Most beliefs cluster around official later-September guidance with moderate adjustment for execution risk.",
+        "level": 0.62,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "consumers_waiting_for_phone_a"
+        ],
+        "evidence": "Public reaction likely remains subdued unless a visible slip or contradictory update appears.",
+        "level": 0.28,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "supply_chain_partners",
+          "retail_and_channel_partners",
+          "launch_ecosystem_workers"
+        ],
+        "evidence": "Operational actors have limited public expression before confirmed distribution milestones.",
+        "level": 0.71,
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "tech_media_and_watchers",
+          "eager_early_adopters"
+        ],
+        "evidence": "Enthusiast and watcher networks reinforce shared interpretations of launch language.",
+        "level": 0.46,
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "consumers_waiting_for_phone_a"
+        ],
+        "evidence": "Belief in actual availability strengthens when multiple signals align: official update, retail listings, and shipment evidence.",
+        "level": 0.51,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "eager_early_adopters",
+          "skeptical_observers"
+        ],
+        "evidence": "Brand affinity and prior launch experience shape interpretation of announcement credibility.",
+        "level": 0.43,
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "consumers_waiting_for_phone_a",
+          "market_observers"
+        ],
+        "evidence": "Attention remains high in the short window but could fade if no confirming milestones appear.",
+        "level": 0.37,
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Official statement anchors expectations to second-half September availability.",
+        "influence_key": "official_schedule_anchor"
+      },
+      {
+        "description": "Explicit mention of supply, regulatory, and manufacturing risks keeps alternative outcomes credible.",
+        "influence_key": "slip_risk_salience"
+      },
+      {
+        "description": "Observers distinguish preorder opening from actual customer availability when interpreting evidence.",
+        "influence_key": "semantic_resolution_guardrail"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "phone_a_manufacturer",
+        "behavior_axes": {
+          "caution": 0.58,
+          "execution_focus": 0.81,
+          "message_control": 0.88,
+          "responsiveness": 0.62
+        },
+        "ideology_axes": {
+          "consumer_transparency": 0.54,
+          "market_optimism": 0.74
+        },
+        "reputation": 0.84,
+        "secrecy": 0.72,
+        "tendency": "announce confidently while preserving flexibility around exact launch execution",
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "phone_a",
+        "behavior_axes": {
+          "launch_complexity": 0.64,
+          "novelty": 0.67,
+          "schedule_sensitivity": 0.61
+        },
+        "ideology_axes": {},
+        "reputation": 0.68,
+        "secrecy": 0.0,
+        "tendency": "serves as focal object whose availability depends on upstream execution",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "consumers_waiting_for_phone_a",
+        "behavior_axes": {
+          "patience": 0.44,
+          "purchase_readiness": 0.59,
+          "rumor_sensitivity": 0.48
+        },
+        "ideology_axes": {
+          "brand_affinity": 0.53
+        },
+        "reputation": 0.5,
+        "secrecy": 0.12,
+        "tendency": "reacts more strongly to concrete availability evidence than preorder headlines",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "supply_chain_partners",
+        "behavior_axes": {
+          "risk_buffering": 0.46,
+          "schedule_discipline": 0.73,
+          "throughput_focus": 0.81
+        },
+        "ideology_axes": {},
+        "reputation": 0.62,
+        "secrecy": 0.69,
+        "tendency": "can support launch target unless bottlenecks emerge late",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "regulatory_gatekeepers",
+        "behavior_axes": {
+          "escalation_threshold": 0.41,
+          "predictability": 0.56,
+          "process_rigidity": 0.78
+        },
+        "ideology_axes": {},
+        "reputation": 0.61,
+        "secrecy": 0.51,
+        "tendency": "rarely visible unless approval or compliance issues delay launch",
+        "trustworthiness": 0.66
+      },
+      {
+        "actor_name": "retail_and_channel_partners",
+        "behavior_axes": {
+          "execution_pragmatism": 0.72,
+          "inventory_dependence": 0.84,
+          "message_restraint": 0.67
+        },
+        "ideology_axes": {},
+        "reputation": 0.65,
+        "secrecy": 0.55,
+        "tendency": "will not signal broad availability until stock and authorization are concrete",
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "tech_media_and_watchers",
+        "behavior_axes": {
+          "amplification": 0.71,
+          "scrutiny": 0.83,
+          "semantic_precision": 0.76
+        },
+        "ideology_axes": {
+          "skepticism_toward_launch_claims": 0.58
+        },
+        "reputation": 0.59,
+        "secrecy": 0.08,
+        "tendency": "tracks distinction between announced timing and actual customer availability",
+        "trustworthiness": 0.67
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 1681,
+        "end": 1681,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 1681,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

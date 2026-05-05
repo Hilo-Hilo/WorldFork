@@ -88,6 +88,12 @@ E1 queued initializer batch completed eight additional independent p1 jobs:
 
 During this batch, `/jobs/queues` reported p1 at 8 active tasks, with p0/p2/p3 idle.
 
+E1 queued initializer batch completed the remaining 22 additional public cards: `resolved_015` through `resolved_024`, `dossier_001` through `dossier_008`, and `calibration_001` through `calibration_004`.
+
+- Batch wall time from first job create to last job finish: 464.64 seconds.
+- Per-job elapsed range, including queue wait: 109.49 to 463.97 seconds.
+- Result: additional 36-card live initialization coverage is complete.
+
 ## Runtime Routing Override
 
 The local OpenRouter key is a placeholder, so the smoke run used a runtime-only model-routing override that routes all configured job types to `openai-codex` / `gpt-5.4`.

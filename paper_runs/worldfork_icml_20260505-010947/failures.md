@@ -8,7 +8,7 @@
 
 ## Not Yet Complete
 
-- E1 initialization screen on 108 public cards. Fourteen live initializations are evidenced (`resolved_001` through `resolved_014`), including four-case and eight-case queued batches, but full 108-card coverage is pending.
+- E1 initialization screen on 108 public cards. The additional 36-card set is complete, but the existing 72-card screen is pending.
 - E3 full WorldFork short resolved no-branch and branching runs. One synchronous tick/report smoke completed for `resolved_003` in 408.49 seconds, and one queued tick/report smoke completed for `resolved_004` after a 219.47 second job wait, but neither is full coverage.
 - E4 long-horizon audit runs.
 - E5 social-state/emotion audit.

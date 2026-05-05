@@ -1,0 +1,47 @@
+{
+  "attempt_number": 0,
+  "available_at": "2026-05-05T02:12:06.682435Z",
+  "big_bang_id": null,
+  "concurrency_key": null,
+  "created_at": "2026-05-05T02:12:06.682267Z",
+  "error": null,
+  "finished_at": "2026-05-05T02:19:18.489851Z",
+  "id": "35ba0591-26b7-48d4-86c6-41471fee28ef",
+  "idempotency_key": "job:e8f4490a841749e7896c338b92c580ba010f749d8005c44e13320179c08f8a77",
+  "interrupt_requested_at": null,
+  "interrupted_at": null,
+  "job_type": "initialize_big_bang",
+  "last_heartbeat_at": null,
+  "lease_expires_at": null,
+  "lease_owner": null,
+  "max_attempts": 3,
+  "paused_at": null,
+  "payload": {
+    "actors": [],
+    "branch_policy": {
+      "branch_score_threshold": 0.999,
+      "max_active_multiverses": 1,
+      "max_branch_depth": 1,
+      "max_branches_per_tick": 1
+    },
+    "cohorts": [],
+    "heroes": [],
+    "name": "E1_init_job_dossier_007",
+    "scenario_text": "# Case dossier_007\nBenchmark role: longform_dossier\n\nForecast question: After 6 simulated weeks, does the local-bank rumor resolve into confidence restoration, depositor run, regulator intervention, merger process, or unresolved stress?\n\n## Scenario\n\nA local business bank faces viral rumors after a misread regulatory filing. The case tests rumor dynamics, evidence grounding, and whether WorldFork invents hidden solvency facts. Do not assume the bank is insolvent unless the source packet supports it.\n\n## Source Packet\n\n### Source 1: social_media_digest / T-5 days\n\nSeveral posts claim Bank H is 'next to fail' and cite a screenshot of a quarterly filing, but the screenshot omits footnotes.\n\n### Source 2: filing_excerpt / T-4 days\n\nBank H reports unrealized losses on held-to-maturity securities and says liquidity coverage remains above internal policy minimums.\n\n### Source 3: local_news_article / T-3 days\n\nReporters note elevated branch withdrawals but no official evidence of insolvency.\n\n### Source 4: regulator_statement / T-2 days\n\nThe state banking department says it is monitoring conditions and warns against misinformation; it does not disclose confidential supervisory information.\n\n### Source 5: major_depositor_email / T-1 day\n\nA trade association asks member firms whether payroll accounts should be diversified as a precaution.\n\n### Source 6: bank_ceo_statement / T-0\n\nThe CEO says the bank has access to contingent liquidity lines but refuses to provide dollar amounts.\n\n## Candidate Endpoints\n- confidence_restored: Rumor fades after clarification and normal withdrawals\n- depositor_run: Withdrawals accelerate into a material run\n- regulator_intervention: Regulator takes public supervisory action\n- merger_or_capital_process: Bank seeks buyer or capital raise\n- unresolved_stress: Stress persists without public resolution\n\n## Expected Focus\n- rumor_propagation\n- no_fabrication\n- liquidity_vs_solvency\n- regulatory_confidentiality\n\n## Required Forecast Output\n{'type': 'worldfork_initialization_and_report', 'minimum_outputs': ['actors/cohorts and authority constraints', 'initial events and unresolved facts', 'candidate endpoint ledger', 'branch hypotheses with rationale', 'forecast_distribution over endpoints plus unresolved_mass', 'report claims grounded to source_packet references']}\n\n## Rubric Location\nprivate_eval file\n",
+    "simulation_config": {
+      "max_ticks": 1,
+      "tick_duration_minutes": 720
+    },
+    "use_initializer_agent": true
+  },
+  "queue_name": "p1",
+  "queued_at": "2026-05-05T02:12:06.682434Z",
+  "result": {
+    "big_bang_id": "873060d2-ee48-4540-a2f0-2c6b9900539b",
+    "source_snapshot_id": "1fcb2510-30fb-41b4-b5a4-f37f1e9e77fd"
+  },
+  "retryable": true,
+  "started_at": "2026-05-05T02:16:21.848567Z",
+  "status": "succeeded",
+  "updated_at": "2026-05-05T02:19:18.434235Z"
+}

@@ -1,0 +1,53 @@
+{
+  "data": {
+    "attempt_number": 0,
+    "available_at": "2026-05-05T02:12:06.677613Z",
+    "big_bang_id": null,
+    "concurrency_key": null,
+    "created_at": "2026-05-05T02:12:06.677459Z",
+    "error": null,
+    "finished_at": "2026-05-05T02:18:28.446451Z",
+    "id": "2fc05b50-42b7-4b34-9968-3a30c355262b",
+    "idempotency_key": "job:c1e087a5a4d1b9836d1575055938ea042b415c157730977170e255820a307373",
+    "interrupt_requested_at": null,
+    "interrupted_at": null,
+    "job_type": "initialize_big_bang",
+    "last_heartbeat_at": null,
+    "lease_expires_at": null,
+    "lease_owner": null,
+    "max_attempts": 3,
+    "paused_at": null,
+    "payload": {
+      "actors": [],
+      "branch_policy": {
+        "branch_score_threshold": 0.999,
+        "max_active_multiverses": 1,
+        "max_branch_depth": 1,
+        "max_branches_per_tick": 1
+      },
+      "cohorts": [],
+      "heroes": [],
+      "name": "E1_init_job_dossier_006",
+      "scenario_text": "# Case dossier_006\nBenchmark role: longform_dossier\n\nForecast question: Which endpoint dominates the interstate water-rationing dispute after 14 simulated weeks?\n\n## Scenario\n\nA multi-state water authority must allocate drought cuts among cities, farms, and tribal governments. The legal compact is ambiguous about emergency shortages. Model authority, treaty/compact constraints, hydrological uncertainty, and distributive conflict.\n\n## Source Packet\n\n### Source 1: hydrology_bulletin / T-30 days\n\nReservoir storage is 28% below the 20-year median; spring inflows are forecast with high uncertainty.\n\n### Source 2: compact_clause_excerpt / T-25 days\n\nThe compact allows emergency reductions but does not specify how tribal senior rights interact with municipal health-and-safety minimums.\n\n### Source 3: farm_bureau_statement / T-20 days\n\nIrrigation districts say a uniform 20% cut would bankrupt late-season growers and demand crop-specific exemptions.\n\n### Source 4: tribal_council_letter / T-18 days\n\nThree tribal governments say any allocation that ignores senior rights will trigger litigation and federal consultation demands.\n\n### Source 5: city_mayors_call_notes / T-12 days\n\nMetro mayors support conservation but say hospitals and basic sanitation require protected municipal minimums.\n\n### Source 6: federal_bureau_email / T-6 days\n\nFederal staff offer technical mediation but say formal intervention requires either a state request or litigation posture.\n\n## Candidate Endpoints\n- emergency_rationing: Authority imposes emergency cuts\n- negotiated_compact: Parties agree temporary allocation formula\n- tribal_or_state_litigation: Litigation blocks or reshapes allocation\n- federal_mediation: Federal bureau enters formal mediation/intervention\n- unresolved_shortage: No stable allocation after horizon\n\n## Expected Focus\n- compact_authority\n- senior_rights\n- hydrological_uncertainty\n- distributional_conflict\n\n## Required Forecast Output\n{'type': 'worldfork_initialization_and_report', 'minimum_outputs': ['actors/cohorts and authority constraints', 'initial events and unresolved facts', 'candidate endpoint ledger', 'branch hypotheses with rationale', 'forecast_distribution over endpoints plus unresolved_mass', 'report claims grounded to source_packet references']}\n\n## Rubric Location\nprivate_eval file\n",
+      "simulation_config": {
+        "max_ticks": 1,
+        "tick_duration_minutes": 720
+      },
+      "use_initializer_agent": true
+    },
+    "queue_name": "p1",
+    "queued_at": "2026-05-05T02:12:06.677612Z",
+    "result": {
+      "big_bang_id": "f3bd91fc-c499-4756-b0e4-3e81f0edc4ac",
+      "source_snapshot_id": "0a2bfda9-f6fd-41ec-9b6a-d210620368c3"
+    },
+    "retryable": true,
+    "started_at": "2026-05-05T02:15:01.272654Z",
+    "status": "succeeded",
+    "updated_at": "2026-05-05T02:18:28.383008Z"
+  },
+  "meta": {
+    "terminal": true
+  },
+  "ok": true
+}

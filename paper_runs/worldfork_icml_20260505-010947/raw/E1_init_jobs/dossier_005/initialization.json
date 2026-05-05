@@ -1,0 +1,1597 @@
+{
+  "big_bang_id": "62faaf5c-bd2e-4713-9767-e41c5307b80a",
+  "initializer_output": {
+    "actors": [
+      {
+        "actor_type": "institution",
+        "authority_scope": "Can provide reliability assessments and influence state or local decision-makers but does not directly issue local permits.",
+        "description": "Grid operator warning of summer reliability pressure if project is absent.",
+        "name": "harbor_grid_operator",
+        "stakes": [
+          "summer reliability",
+          "avoiding emergency demand-response calls",
+          "maintaining system adequacy"
+        ]
+      },
+      {
+        "actor_type": "organization",
+        "authority_scope": "Controls application materials, safety revisions, community outreach, and project schedule responses.",
+        "description": "Developer seeking permit and interconnection milestone preservation for the Harbor Battery project.",
+        "name": "harbor_battery_developer",
+        "stakes": [
+          "permit approval",
+          "meeting May interconnection milestone",
+          "avoiding one-year commercial operation slip",
+          "project viability"
+        ]
+      },
+      {
+        "actor_type": "public_office",
+        "authority_scope": "Can withhold safety sign-off and materially delay permitting.",
+        "description": "Fire official requesting revised thermal-runaway response plan and evacuation-radius analysis before sign-off.",
+        "name": "local_fire_marshal",
+        "stakes": [
+          "public safety",
+          "procedural completeness",
+          "department credibility"
+        ]
+      },
+      {
+        "actor_type": "local_board",
+        "authority_scope": "Primary local permit/variance decision authority at T0.",
+        "description": "Local board considering requested variance and exposed to resident pressure and safety review status.",
+        "name": "harbor_zoning_board",
+        "stakes": [
+          "zoning compliance",
+          "community legitimacy",
+          "procedural defensibility"
+        ]
+      },
+      {
+        "actor_type": "civic_group",
+        "authority_scope": "No direct permit authority, but can shape local political pressure and hearing climate.",
+        "description": "Residents objecting to siting near a school and requesting denial of the variance.",
+        "name": "harbor_residents_group",
+        "stakes": [
+          "school proximity concerns",
+          "fire safety",
+          "local land-use control"
+        ]
+      },
+      {
+        "actor_type": "state_agency",
+        "authority_scope": "Potential override or preemption authority, but not immediate at T0.",
+        "description": "State entity able to pursue reliability-need preemption after a formal finding process expected to take at least 45 days.",
+        "name": "state_energy_office",
+        "stakes": [
+          "regional reliability",
+          "state policy credibility",
+          "proper statutory process"
+        ]
+      },
+      {
+        "actor_type": "public",
+        "authority_scope": "Indirect opinion pressure via public sentiment and political legitimacy.",
+        "description": "Customers who broadly support reliability upgrades but are split on the Harbor site.",
+        "name": "utility_customers_public",
+        "stakes": [
+          "reliable service",
+          "affordable and safe infrastructure",
+          "site acceptability"
+        ]
+      },
+      {
+        "actor_type": "institutional_public",
+        "authority_scope": "Indirect moral and political influence, especially in hearings and media framing.",
+        "description": "School-adjacent community implicitly affected by siting concerns.",
+        "name": "nearby_school_community",
+        "stakes": [
+          "student safety",
+          "evacuation feasibility",
+          "neighborhood stability"
+        ]
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Board moves from caution to approval, potentially with manageable conditions, before milestone.",
+        "branch_key": "fast_safety_cure_enables_approval",
+        "divergence_signal": "Fire marshal indicates substantial adequacy or withdraws major objections; hearing tone shifts from hazard debate to conditions drafting.",
+        "rationale": "Safety gate is the clearest immediate blocker, and resolving it could reduce board risk aversion despite resident opposition.",
+        "trigger": "Developer delivers credible revised thermal-runaway plan and evacuation-radius analysis quickly enough for fire marshal comfort."
+      },
+      {
+        "alternate_path": "Board delays or conditions approval beyond the point where milestone can be met, increasing project_slips mass.",
+        "branch_key": "safety_review_becomes_timing_trap",
+        "divergence_signal": "Continuation requests, supplemental analyses, or explicit statements that sign-off cannot occur before milestone.",
+        "rationale": "The schedule is already tight and even non-hostile procedural delay can become terminal for current-year operation.",
+        "trigger": "Requested safety materials arrive late, incomplete, or reveal unresolved evacuation complications near school."
+      },
+      {
+        "alternate_path": "Board denies variance or adopts a posture that is functionally equivalent to rejection of this siting path.",
+        "branch_key": "resident_pressure_pushes_local_denial",
+        "divergence_signal": "Board members publicly stress incompatibility with school proximity or zoning fit rather than remediable conditions.",
+        "rationale": "Board legitimacy concerns may outweigh general reliability support if site-specific opposition appears broad and intense.",
+        "trigger": "Petition grows, hearing turnout is strong, and school-safety frame dominates local discourse."
+      },
+      {
+        "alternate_path": "State begins or completes reliability preemption route, though likely too slowly to save near-term milestone.",
+        "branch_key": "state_fallback_activates_after_local_failure",
+        "divergence_signal": "Formal state reliability-need filings, operator testimony, or state scheduling notices after local setback.",
+        "rationale": "State authority exists but timing limits make it more compatible with later override than immediate pre-milestone rescue.",
+        "trigger": "Local denial or clear deadlock combines with grid operator escalation of summer reliability concerns."
+      },
+      {
+        "alternate_path": "Broad public support for reliability upgrades fails to convert into meaningful site-specific support, leaving opponents louder.",
+        "branch_key": "general_reliability_frame_stays_too_abstract",
+        "divergence_signal": "Poll references continue but do not generate organized pro-project testimony or local coalition growth.",
+        "rationale": "Diffuse customers are weakly attentive and may not offset concentrated neighborhood opposition.",
+        "trigger": "No acute outage or visible demand-response event occurs before local decision window."
+      }
+    ],
+    "channels": [
+      {
+        "audience": "local public and permit stakeholders",
+        "channel_key": "zoning_board_hearing",
+        "control": "harbor_zoning_board",
+        "type": "public_institutional",
+        "visibility": "high"
+      },
+      {
+        "audience": "developer, fire marshal, board",
+        "channel_key": "fire_safety_review_process",
+        "control": "local_fire_marshal",
+        "type": "technical_regulatory",
+        "visibility": "medium"
+      },
+      {
+        "audience": "local residents and board",
+        "channel_key": "resident_petition_network",
+        "control": "harbor_residents_group",
+        "type": "civic_mobilization",
+        "visibility": "high"
+      },
+      {
+        "audience": "state officials, operator, developer",
+        "channel_key": "state_reliability_process",
+        "control": "state_energy_office",
+        "type": "state_administrative",
+        "visibility": "medium"
+      },
+      {
+        "audience": "media and policymakers",
+        "channel_key": "public_opinion_polling",
+        "control": "utility_customers_public",
+        "type": "mass_opinion_signal",
+        "visibility": "medium"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "local_residents",
+        "attention_level": 0.88,
+        "behavioral_tendencies": [
+          "petitioning",
+          "hearing attendance",
+          "school-centered framing",
+          "risk amplification"
+        ],
+        "cohort_key": "petitioning_neighbors",
+        "expression_level": 0.84,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.81,
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.1833,
+        "private_belief": "Project is too risky or inappropriately sited near a school; denial is preferable to rushed approval.",
+        "public_expression": "Actively objecting and asking zoning board to deny variance.",
+        "representation_mode": "organized_petitioners",
+        "represented_population": 2200,
+        "reputation": 0.58,
+        "secrecy": 0.1,
+        "stance_axes": {
+          "fire_safety_concern": 0.9,
+          "local_control": 0.85,
+          "project_support": 0.15,
+          "reliability_priority": 0.35
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "archetype_key": "local_residents",
+        "attention_level": 0.49,
+        "behavioral_tendencies": [
+          "wait_for_official_signal",
+          "conditional support",
+          "low spontaneous action"
+        ],
+        "cohort_key": "quiet_local_moderates",
+        "expression_level": 0.21,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.44,
+        "mobilization_readiness": 0.34,
+        "perceived_majority": 0.48,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "Reliability matters, but safety and site specifics are uncertain; many are waiting for official assurances.",
+        "public_expression": "Mostly quiet or conditional.",
+        "representation_mode": "diffuse_public",
+        "represented_population": 7200,
+        "reputation": 0.5,
+        "secrecy": 0.32,
+        "stance_axes": {
+          "fire_safety_concern": 0.64,
+          "local_control": 0.62,
+          "project_support": 0.46,
+          "reliability_priority": 0.57
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "archetype_key": "local_residents",
+        "attention_level": 0.55,
+        "behavioral_tendencies": [
+          "private agreement",
+          "public caution",
+          "responsiveness to expert reassurance"
+        ],
+        "cohort_key": "reliability_first_locals",
+        "expression_level": 0.27,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.59,
+        "mobilization_readiness": 0.39,
+        "perceived_majority": 0.31,
+        "population_share_of_archetype": 0.2167,
+        "private_belief": "Project or some equivalent upgrade is needed before summer, though site concerns are real.",
+        "public_expression": "Muted support due to controversy over school proximity.",
+        "representation_mode": "latent_supporters",
+        "represented_population": 2600,
+        "reputation": 0.49,
+        "secrecy": 0.41,
+        "stance_axes": {
+          "fire_safety_concern": 0.49,
+          "local_control": 0.47,
+          "project_support": 0.68,
+          "reliability_priority": 0.82
+        },
+        "trustworthiness": 0.56
+      },
+      {
+        "archetype_key": "utility_customer_base",
+        "attention_level": 0.28,
+        "behavioral_tendencies": [
+          "low attention",
+          "reactive to outages",
+          "general reliability preference"
+        ],
+        "cohort_key": "general_customers_split",
+        "expression_level": 0.12,
+        "fatigue": 0.1,
+        "fear_of_isolation": 0.19,
+        "mobilization_readiness": 0.16,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Reliability upgrades are generally supported, but the Harbor site is contested and many lack detailed knowledge.",
+        "public_expression": "Weakly expressed, mostly through opinion polling rather than mobilization.",
+        "representation_mode": "survey_inferred_public",
+        "represented_population": 180000,
+        "reputation": 0.5,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "fire_safety_concern": 0.45,
+          "local_control": 0.4,
+          "project_support": 0.52,
+          "reliability_priority": 0.74
+        },
+        "trustworthiness": 0.54
+      },
+      {
+        "archetype_key": "local_civic_elites",
+        "attention_level": 0.92,
+        "behavioral_tendencies": [
+          "proceduralism",
+          "delay_under_uncertainty",
+          "documentation dependence"
+        ],
+        "cohort_key": "procedural_gatekeepers",
+        "expression_level": 0.6,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.14,
+        "mobilization_readiness": 0.63,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "The project may be useful, but procedural defensibility and safety completeness matter before approval.",
+        "public_expression": "Cautious, process-oriented, documentation-focused.",
+        "representation_mode": "institutional_roleholders",
+        "represented_population": 25,
+        "reputation": 0.68,
+        "secrecy": 0.44,
+        "stance_axes": {
+          "fire_safety_concern": 0.78,
+          "local_control": 0.71,
+          "project_support": 0.5,
+          "reliability_priority": 0.66
+        },
+        "trustworthiness": 0.7
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "local_residents",
+        "attention_level": 0.88,
+        "behavioral_tendencies": [
+          "petitioning",
+          "hearing attendance",
+          "school-centered framing",
+          "risk amplification"
+        ],
+        "cohort_key": "petitioning_neighbors",
+        "expression_level": 0.84,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.81,
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.1833,
+        "private_belief": "Project is too risky or inappropriately sited near a school; denial is preferable to rushed approval.",
+        "public_expression": "Actively objecting and asking zoning board to deny variance.",
+        "representation_mode": "organized_petitioners",
+        "represented_population": 2200,
+        "reputation": 0.58,
+        "secrecy": 0.1,
+        "stance_axes": {
+          "fire_safety_concern": 0.9,
+          "local_control": 0.85,
+          "project_support": 0.15,
+          "reliability_priority": 0.35
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "archetype_key": "local_residents",
+        "attention_level": 0.49,
+        "behavioral_tendencies": [
+          "wait_for_official_signal",
+          "conditional support",
+          "low spontaneous action"
+        ],
+        "cohort_key": "quiet_local_moderates",
+        "expression_level": 0.21,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.44,
+        "mobilization_readiness": 0.34,
+        "perceived_majority": 0.48,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "Reliability matters, but safety and site specifics are uncertain; many are waiting for official assurances.",
+        "public_expression": "Mostly quiet or conditional.",
+        "representation_mode": "diffuse_public",
+        "represented_population": 7200,
+        "reputation": 0.5,
+        "secrecy": 0.32,
+        "stance_axes": {
+          "fire_safety_concern": 0.64,
+          "local_control": 0.62,
+          "project_support": 0.46,
+          "reliability_priority": 0.57
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "archetype_key": "local_residents",
+        "attention_level": 0.55,
+        "behavioral_tendencies": [
+          "private agreement",
+          "public caution",
+          "responsiveness to expert reassurance"
+        ],
+        "cohort_key": "reliability_first_locals",
+        "expression_level": 0.27,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.59,
+        "mobilization_readiness": 0.39,
+        "perceived_majority": 0.31,
+        "population_share_of_archetype": 0.2167,
+        "private_belief": "Project or some equivalent upgrade is needed before summer, though site concerns are real.",
+        "public_expression": "Muted support due to controversy over school proximity.",
+        "representation_mode": "latent_supporters",
+        "represented_population": 2600,
+        "reputation": 0.49,
+        "secrecy": 0.41,
+        "stance_axes": {
+          "fire_safety_concern": 0.49,
+          "local_control": 0.47,
+          "project_support": 0.68,
+          "reliability_priority": 0.82
+        },
+        "trustworthiness": 0.56
+      },
+      {
+        "archetype_key": "utility_customer_base",
+        "attention_level": 0.28,
+        "behavioral_tendencies": [
+          "low attention",
+          "reactive to outages",
+          "general reliability preference"
+        ],
+        "cohort_key": "general_customers_split",
+        "expression_level": 0.12,
+        "fatigue": 0.1,
+        "fear_of_isolation": 0.19,
+        "mobilization_readiness": 0.16,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Reliability upgrades are generally supported, but the Harbor site is contested and many lack detailed knowledge.",
+        "public_expression": "Weakly expressed, mostly through opinion polling rather than mobilization.",
+        "representation_mode": "survey_inferred_public",
+        "represented_population": 180000,
+        "reputation": 0.5,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "fire_safety_concern": 0.45,
+          "local_control": 0.4,
+          "project_support": 0.52,
+          "reliability_priority": 0.74
+        },
+        "trustworthiness": 0.54
+      },
+      {
+        "archetype_key": "local_civic_elites",
+        "attention_level": 0.92,
+        "behavioral_tendencies": [
+          "proceduralism",
+          "delay_under_uncertainty",
+          "documentation dependence"
+        ],
+        "cohort_key": "procedural_gatekeepers",
+        "expression_level": 0.6,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.14,
+        "mobilization_readiness": 0.63,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "The project may be useful, but procedural defensibility and safety completeness matter before approval.",
+        "public_expression": "Cautious, process-oriented, documentation-focused.",
+        "representation_mode": "institutional_roleholders",
+        "represented_population": 25,
+        "reputation": 0.68,
+        "secrecy": 0.44,
+        "stance_axes": {
+          "fire_safety_concern": 0.78,
+          "local_control": 0.71,
+          "project_support": 0.5,
+          "reliability_priority": 0.66
+        },
+        "trustworthiness": 0.7
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "harbor_zoning_board",
+          "local_fire_marshal"
+        ],
+        "blockers": [
+          "pending fire-safety documentation",
+          "resident opposition near school",
+          "tight milestone timing"
+        ],
+        "contradiction_notes": "General support for reliability upgrades does not prove support for this site; site-specific opposition may still dominate.",
+        "description": "Local permit or variance is approved in time to preserve the May interconnection milestone for current-year operation.",
+        "endpoint_key": "permit_approved",
+        "evidence_refs": [
+          "source_2_developer_schedule_t_minus_18",
+          "source_3_fire_marshal_letter_t_minus_14",
+          "source_4_neighborhood_petition_t_minus_9"
+        ],
+        "label": "Local permit approved before milestone",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the Harbor zoning board approve the permit or variance before the May interconnection milestone?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.24,
+        "rationale": "This is the cleanest success path but depends on rapid safety resolution and board willingness to withstand political pressure.",
+        "realization_criteria": [
+          "harbor_zoning_board records a formal approval or variance grant",
+          "approval occurs before the May interconnection milestone cutoff",
+          "no remaining required sign-off blocks the milestone path"
+        ],
+        "status": "active",
+        "status_basis": "Still feasible at T0 but constrained by safety review and local opposition under time pressure."
+      },
+      {
+        "authority_refs": [
+          "harbor_zoning_board",
+          "local_fire_marshal"
+        ],
+        "blockers": [
+          "May milestone limits how long a nonterminal delay can remain distinct from project_slips",
+          "unclear hearing schedule"
+        ],
+        "contradiction_notes": "If delay crosses the milestone, this may merge practically into project_slips even if formal permit status remains pending.",
+        "description": "Board or related authorities postpone final approval or attach conditions that defer final actionable clearance pending further safety work.",
+        "endpoint_key": "conditional_delay",
+        "evidence_refs": [
+          "source_3_fire_marshal_letter_t_minus_14",
+          "source_4_neighborhood_petition_t_minus_9"
+        ],
+        "label": "Approval delayed pending safety conditions",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Can the developer obtain sufficiently favorable fire-safety review in time to keep the local approval path viable?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.29,
+        "rationale": "At T0, process-oriented actors have a credible middle path that avoids immediate approval or denial while preserving institutional caution.",
+        "realization_criteria": [
+          "harbor_zoning_board continues or delays decision citing safety conditions or missing analyses",
+          "local_fire_marshal maintains unresolved requests at decision point",
+          "project remains not fully cleared at immediate decision window"
+        ],
+        "status": "active",
+        "status_basis": "Strongly supported by current procedural posture because a specific technical request is outstanding."
+      },
+      {
+        "authority_refs": [
+          "harbor_zoning_board"
+        ],
+        "blockers": [
+          "board may prefer procedural delay over outright denial",
+          "reliability arguments may make denial politically costly"
+        ],
+        "contradiction_notes": "A denial does not itself resolve reliability need and may trigger state fallback rather than end the conflict.",
+        "description": "Local zoning board denies the requested variance or equivalent local permit for the Harbor Battery site.",
+        "endpoint_key": "permit_denied",
+        "evidence_refs": [
+          "source_4_neighborhood_petition_t_minus_9",
+          "source_3_fire_marshal_letter_t_minus_14"
+        ],
+        "label": "Local variance denied",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does state reliability preemption become an active decisive path, or is it too slow to matter for the near-term endpoint?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.19,
+        "rationale": "Concentrated local opposition and incomplete safety review create a credible path to denial if board prioritizes local legitimacy and risk avoidance.",
+        "realization_criteria": [
+          "harbor_zoning_board issues a formal denial vote or written denial",
+          "denial is based on zoning incompatibility, safety concerns, or site unsuitability"
+        ],
+        "status": "active",
+        "status_basis": "Plausible due to organized resident opposition and school-safety framing, but not yet dominant because board has not publicly committed."
+      },
+      {
+        "authority_refs": [
+          "state_energy_office",
+          "harbor_grid_operator"
+        ],
+        "blockers": [
+          "process expected to take at least 45 days",
+          "may require local denial or equivalent trigger",
+          "likely too slow for near-term milestone"
+        ],
+        "contradiction_notes": "Even if activated, state override may coexist with project_slips rather than prevent it.",
+        "description": "State initiates or grants a reliability-based override or preemption of local denial through formal process.",
+        "endpoint_key": "state_override",
+        "evidence_refs": [
+          "source_1_grid_operator_warning_t_minus_20",
+          "source_5_state_energy_office_note_t_minus_6"
+        ],
+        "label": "State reliability preemption",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does any delay become functionally terminal by causing the project to miss the milestone and slip commercial operation to the following year?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.12,
+        "rationale": "This endpoint has meaningful path mass because authority exists, but its schedule disadvantage reduces near-term dominance.",
+        "realization_criteria": [
+          "state_energy_office opens formal reliability-need preemption process",
+          "state issues or advances a finding enabling override of local denial",
+          "state action becomes the controlling authority path for project advancement"
+        ],
+        "status": "active",
+        "status_basis": "Legally available but timing-constrained fallback; more relevant after local setback than as immediate T0 solution."
+      },
+      {
+        "authority_refs": [
+          "harbor_battery_developer",
+          "harbor_zoning_board",
+          "local_fire_marshal"
+        ],
+        "blockers": [
+          "rapid local approval remains possible",
+          "developer may still cure safety issues in time"
+        ],
+        "contradiction_notes": "Project_slips can occur alongside later permit approval or state override; it is schedule-terminal rather than always project-terminal.",
+        "description": "The May interconnection milestone is missed, pushing commercial operation to the following year regardless of whether permitting remains alive.",
+        "endpoint_key": "project_slips",
+        "evidence_refs": [
+          "source_2_developer_schedule_t_minus_18",
+          "source_3_fire_marshal_letter_t_minus_14",
+          "source_5_state_energy_office_note_t_minus_6"
+        ],
+        "label": "Milestone missed and project slips",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does any delay become functionally terminal by causing the project to miss the milestone and slip commercial operation to the following year?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.16,
+        "rationale": "The explicit deadline and state timing lag make slippage a central endpoint even without outright substantive defeat.",
+        "realization_criteria": [
+          "May interconnection milestone passes without required approvals or sign-offs",
+          "developer or operator acknowledges commercial operation shifts to following year"
+        ],
+        "status": "active",
+        "status_basis": "A highly credible terminal schedule outcome because even modest procedural delay can trigger it."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "source_4_neighborhood_petition_t_minus_9",
+        "layer": "exposure",
+        "reason": "Petition directly targets zoning decision-makers.",
+        "source_actor_name": "harbor_residents_group",
+        "target_actor_name": "harbor_zoning_board",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "scenario and source_2_developer_schedule_t_minus_18",
+        "layer": "exposure",
+        "reason": "Permit applicant is actively presenting project materials to board.",
+        "source_actor_name": "harbor_battery_developer",
+        "target_actor_name": "harbor_zoning_board",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_3_fire_marshal_letter_t_minus_14",
+        "layer": "exposure",
+        "reason": "Safety sign-off status is likely visible and relevant to board deliberation.",
+        "source_actor_name": "local_fire_marshal",
+        "target_actor_name": "harbor_zoning_board",
+        "weight": 0.54
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_1_grid_operator_warning_t_minus_20 and source_5_state_energy_office_note_t_minus_6",
+        "layer": "exposure",
+        "reason": "Reliability warnings likely inform state reliability-need assessment.",
+        "source_actor_name": "harbor_grid_operator",
+        "target_actor_name": "state_energy_office",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "scenario and source_1_grid_operator_warning_t_minus_20",
+        "layer": "exposure",
+        "reason": "Reliability warnings may be surfaced to local permitting body.",
+        "source_actor_name": "harbor_grid_operator",
+        "target_actor_name": "harbor_zoning_board",
+        "weight": 0.39
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_6_utility_customer_poll_t_minus_3",
+        "layer": "exposure",
+        "reason": "General customer sentiment can indirectly reach board but is diffuse.",
+        "source_actor_name": "utility_customers_public",
+        "target_actor_name": "harbor_zoning_board",
+        "weight": 0.21
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_4_neighborhood_petition_t_minus_9",
+        "layer": "exposure",
+        "reason": "School-safety concerns likely circulate through resident organizing channels.",
+        "source_actor_name": "nearby_school_community",
+        "target_actor_name": "harbor_residents_group",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_3_fire_marshal_letter_t_minus_14",
+        "layer": "trust",
+        "reason": "Board likely relies on fire marshal competence for safety matters.",
+        "source_actor_name": "harbor_zoning_board",
+        "target_actor_name": "local_fire_marshal",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "inferred from source_3 and source_6",
+        "layer": "trust",
+        "reason": "Undecided locals likely defer to official safety judgment.",
+        "source_actor_name": "quiet_local_moderates",
+        "target_actor_name": "local_fire_marshal",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_1_grid_operator_warning_t_minus_20 and source_6_utility_customer_poll_t_minus_3",
+        "layer": "trust",
+        "reason": "Reliability claims have some credibility but are not fully salient locally.",
+        "source_actor_name": "quiet_local_moderates",
+        "target_actor_name": "harbor_grid_operator",
+        "weight": 0.42
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_4_neighborhood_petition_t_minus_9",
+        "layer": "trust",
+        "reason": "Objectors are skeptical of developer assurances.",
+        "source_actor_name": "harbor_residents_group",
+        "target_actor_name": "harbor_battery_developer",
+        "weight": 0.22
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_1_grid_operator_warning_t_minus_20 and source_6_utility_customer_poll_t_minus_3",
+        "layer": "trust",
+        "reason": "Grid operator reliability messaging holds moderate institutional credibility.",
+        "source_actor_name": "utility_customers_public",
+        "target_actor_name": "harbor_grid_operator",
+        "weight": 0.48
+      },
+      {
+        "direction": "directed",
+        "evidence": "scenario and candidate endpoints",
+        "layer": "dependency",
+        "reason": "Local variance approval is required for current path to proceed.",
+        "source_actor_name": "harbor_battery_developer",
+        "target_actor_name": "harbor_zoning_board",
+        "weight": 0.64
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_3_fire_marshal_letter_t_minus_14",
+        "layer": "dependency",
+        "reason": "Safety sign-off request creates a material gating dependency.",
+        "source_actor_name": "harbor_battery_developer",
+        "target_actor_name": "local_fire_marshal",
+        "weight": 0.59
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_5_state_energy_office_note_t_minus_6",
+        "layer": "dependency",
+        "reason": "State preemption is a fallback path if local denial occurs, but not immediate.",
+        "source_actor_name": "harbor_battery_developer",
+        "target_actor_name": "state_energy_office",
+        "weight": 0.33
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_1_grid_operator_warning_t_minus_20",
+        "layer": "dependency",
+        "reason": "Reliability relief in the described zone depends materially on project completion this season.",
+        "source_actor_name": "harbor_grid_operator",
+        "target_actor_name": "harbor_battery_developer",
+        "weight": 0.49
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_1_grid_operator_warning_t_minus_20 and source_5_state_energy_office_note_t_minus_6",
+        "layer": "dependency",
+        "reason": "Reliability finding would likely depend partly on operator evidence.",
+        "source_actor_name": "state_energy_office",
+        "target_actor_name": "harbor_grid_operator",
+        "weight": 0.37
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_3_fire_marshal_letter_t_minus_14",
+        "layer": "influence",
+        "reason": "Safety concerns and sign-off requests strongly shape board risk calculus.",
+        "source_actor_name": "local_fire_marshal",
+        "target_actor_name": "harbor_zoning_board",
+        "weight": 0.66
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_4_neighborhood_petition_t_minus_9",
+        "layer": "influence",
+        "reason": "Organized neighborhood objection raises political and legitimacy pressure.",
+        "source_actor_name": "harbor_residents_group",
+        "target_actor_name": "harbor_zoning_board",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_1_grid_operator_warning_t_minus_20",
+        "layer": "influence",
+        "reason": "Reliability warning can affect board perception of urgency.",
+        "source_actor_name": "harbor_grid_operator",
+        "target_actor_name": "harbor_zoning_board",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_1_grid_operator_warning_t_minus_20 and source_5_state_energy_office_note_t_minus_6",
+        "layer": "influence",
+        "reason": "Operator evidence materially informs state reliability framing.",
+        "source_actor_name": "harbor_grid_operator",
+        "target_actor_name": "state_energy_office",
+        "weight": 0.53
+      },
+      {
+        "direction": "directed",
+        "evidence": "scenario and source_2_developer_schedule_t_minus_18",
+        "layer": "influence",
+        "reason": "Applicant can advocate, revise plans, and propose conditions, but board is not captured.",
+        "source_actor_name": "harbor_battery_developer",
+        "target_actor_name": "harbor_zoning_board",
+        "weight": 0.47
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_4_neighborhood_petition_t_minus_9",
+        "layer": "influence",
+        "reason": "School-safety framing energizes neighborhood objection.",
+        "source_actor_name": "nearby_school_community",
+        "target_actor_name": "harbor_residents_group",
+        "weight": 0.51
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_1_grid_operator_warning_t_minus_20 and source_2_developer_schedule_t_minus_18",
+        "layer": "coalition",
+        "reason": "Both want project approval to preserve reliability and schedule.",
+        "source_actor_name": "harbor_grid_operator",
+        "target_actor_name": "harbor_battery_developer",
+        "weight": 0.62
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_4_neighborhood_petition_t_minus_9",
+        "layer": "coalition",
+        "reason": "Shared concern around school proximity and safety.",
+        "source_actor_name": "harbor_residents_group",
+        "target_actor_name": "nearby_school_community",
+        "weight": 0.64
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_3_fire_marshal_letter_t_minus_14",
+        "layer": "coalition",
+        "reason": "Procedural alignment around defensible safety review, though distinct roles remain.",
+        "source_actor_name": "harbor_zoning_board",
+        "target_actor_name": "local_fire_marshal",
+        "weight": 0.41
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_1_grid_operator_warning_t_minus_20 and source_5_state_energy_office_note_t_minus_6",
+        "layer": "coalition",
+        "reason": "Potential alignment on reliability need, contingent on formal process.",
+        "source_actor_name": "state_energy_office",
+        "target_actor_name": "harbor_grid_operator",
+        "weight": 0.36
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_4_neighborhood_petition_t_minus_9",
+        "layer": "conflict",
+        "reason": "Residents explicitly ask board to deny variance for developer project.",
+        "source_actor_name": "harbor_residents_group",
+        "target_actor_name": "harbor_battery_developer",
+        "weight": 0.68
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_1_grid_operator_warning_t_minus_20 and source_4_neighborhood_petition_t_minus_9",
+        "layer": "conflict",
+        "reason": "Reliability framing competes with local safety and siting objections.",
+        "source_actor_name": "harbor_residents_group",
+        "target_actor_name": "harbor_grid_operator",
+        "weight": 0.34
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_2_developer_schedule_t_minus_18 and source_3_fire_marshal_letter_t_minus_14",
+        "layer": "conflict",
+        "reason": "Not hostile but there is friction from additional safety requirements under deadline pressure.",
+        "source_actor_name": "harbor_battery_developer",
+        "target_actor_name": "local_fire_marshal",
+        "weight": 0.39
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "scenario and candidate endpoints",
+        "layer": "conflict",
+        "reason": "Potentially conflicting incentives over timing and conditions, though not yet openly adversarial.",
+        "source_actor_name": "harbor_battery_developer",
+        "target_actor_name": "harbor_zoning_board",
+        "weight": 0.28
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_5_state_energy_office_note_t_minus_6",
+        "layer": "conflict",
+        "reason": "State preemption authority creates latent jurisdictional conflict if local denial occurs.",
+        "source_actor_name": "state_energy_office",
+        "target_actor_name": "harbor_zoning_board",
+        "weight": 0.22
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "scenario and permitting context",
+        "layer": "oasis_interaction",
+        "reason": "High likelihood of public hearings, submissions, and procedural interaction.",
+        "source_actor_name": "harbor_battery_developer",
+        "target_actor_name": "harbor_zoning_board",
+        "weight": 0.59
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_4_neighborhood_petition_t_minus_9",
+        "layer": "oasis_interaction",
+        "reason": "Petition and likely hearing participation create visible interaction intensity.",
+        "source_actor_name": "harbor_residents_group",
+        "target_actor_name": "harbor_zoning_board",
+        "weight": 0.63
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_3_fire_marshal_letter_t_minus_14",
+        "layer": "oasis_interaction",
+        "reason": "Technical back-and-forth over revised response plan is likely.",
+        "source_actor_name": "local_fire_marshal",
+        "target_actor_name": "harbor_battery_developer",
+        "weight": 0.46
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_1_grid_operator_warning_t_minus_20 and source_5_state_energy_office_note_t_minus_6",
+        "layer": "oasis_interaction",
+        "reason": "Reliability communications may intensify if local process stalls.",
+        "source_actor_name": "harbor_grid_operator",
+        "target_actor_name": "state_energy_office",
+        "weight": 0.38
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype_key": "institutional_decider",
+        "label": "Institutional permit decider",
+        "role": "Actor with formal yes/no or timing power over endpoint progression."
+      },
+      {
+        "archetype_key": "schedule_constrained_advocate",
+        "label": "Schedule-constrained project advocate",
+        "role": "Actor pushing for approval before milestone under deadline pressure."
+      },
+      {
+        "archetype_key": "safety_gatekeeper",
+        "label": "Safety gatekeeper",
+        "role": "Actor able to block or slow progress pending technical assurances."
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "harbor_zoning_board",
+        "attention_level": 0.93,
+        "capabilities": [
+          "approve_variance",
+          "deny_variance",
+          "continue_hearing",
+          "impose_conditions"
+        ],
+        "constraints": [
+          "fire_safety_sign-off importance",
+          "public hearing legitimacy",
+          "local land-use standards"
+        ],
+        "current_posture": "Undeclared final position; balancing local opposition, safety sign-off, and reliability arguments.",
+        "expression_level": 0.58,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.12,
+        "hero_archetype_key": "institutional_decider",
+        "mobilization_readiness": 0.62,
+        "perceived_majority": 0.5,
+        "stance_axes": {
+          "approval_openness": 0.48,
+          "procedural_flexibility": 0.52,
+          "risk_tolerance": 0.34,
+          "state_deference": 0.41
+        }
+      },
+      {
+        "actor_name": "harbor_battery_developer",
+        "attention_level": 0.96,
+        "capabilities": [
+          "submit_revised_materials",
+          "lobby_for_timeline",
+          "community_outreach",
+          "technical_rebuttal"
+        ],
+        "constraints": [
+          "May milestone",
+          "permit dependency",
+          "fire marshal information request"
+        ],
+        "current_posture": "Pushing to preserve interconnection milestone while needing to answer safety objections and local siting concerns.",
+        "expression_level": 0.77,
+        "fatigue": 0.42,
+        "fear_of_isolation": 0.18,
+        "hero_archetype_key": "schedule_constrained_advocate",
+        "mobilization_readiness": 0.85,
+        "perceived_majority": 0.44,
+        "stance_axes": {
+          "approval_openness": 0.93,
+          "procedural_flexibility": 0.45,
+          "risk_tolerance": 0.61,
+          "state_deference": 0.58
+        }
+      },
+      {
+        "actor_name": "local_fire_marshal",
+        "attention_level": 0.9,
+        "capabilities": [
+          "request_additional_analysis",
+          "withhold_signoff",
+          "recommend_conditions"
+        ],
+        "constraints": [
+          "technical adequacy",
+          "public safety liability",
+          "department staffing/time"
+        ],
+        "current_posture": "Awaiting revised thermal-runaway response plan and evacuation-radius analysis before safety sign-off.",
+        "expression_level": 0.51,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.09,
+        "hero_archetype_key": "safety_gatekeeper",
+        "mobilization_readiness": 0.71,
+        "perceived_majority": 0.55,
+        "stance_axes": {
+          "approval_openness": 0.42,
+          "procedural_flexibility": 0.39,
+          "risk_tolerance": 0.22,
+          "state_deference": 0.36
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "archetype_key": "institutional_decider",
+        "label": "Institutional permit decider",
+        "role": "Actor with formal yes/no or timing power over endpoint progression."
+      },
+      {
+        "archetype_key": "schedule_constrained_advocate",
+        "label": "Schedule-constrained project advocate",
+        "role": "Actor pushing for approval before milestone under deadline pressure."
+      },
+      {
+        "archetype_key": "safety_gatekeeper",
+        "label": "Safety gatekeeper",
+        "role": "Actor able to block or slow progress pending technical assurances."
+      }
+    ],
+    "important_questions": [
+      "Will the Harbor zoning board approve the permit or variance before the May interconnection milestone?",
+      "Can the developer obtain sufficiently favorable fire-safety review in time to keep the local approval path viable?",
+      "Does state reliability preemption become an active decisive path, or is it too slow to matter for the near-term endpoint?",
+      "Does any delay become functionally terminal by causing the project to miss the milestone and slip commercial operation to the following year?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "harbor_grid_operator"
+        ],
+        "event_key": "grid_operator_reliability_warning",
+        "event_type": "announcement",
+        "evidence": [
+          "source_1_grid_operator_warning_t_minus_20"
+        ],
+        "expected_impact": "Raises urgency and strengthens reliability frame with local and state actors without resolving safety objections.",
+        "status": "completed",
+        "summary": "Grid operator warns coastal zone may face emergency demand-response calls during two expected summer peak weeks without Harbor Battery.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "harbor_battery_developer"
+        ],
+        "event_key": "developer_deadline_alert",
+        "event_type": "announcement",
+        "evidence": [
+          "source_2_developer_schedule_t_minus_18"
+        ],
+        "expected_impact": "Increases switching costs of delay and makes even short procedural slippage endpoint-relevant.",
+        "status": "completed",
+        "summary": "Developer states that missing the May interconnection milestone would push commercial operation to the following year.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "local_fire_marshal",
+          "harbor_battery_developer"
+        ],
+        "event_key": "fire_marshal_information_request",
+        "event_type": "announcement",
+        "evidence": [
+          "source_3_fire_marshal_letter_t_minus_14"
+        ],
+        "expected_impact": "Creates a concrete safety gate that can support conditional delay or denial if unresolved.",
+        "status": "completed",
+        "summary": "Fire marshal requests revised thermal-runaway response plan and evacuation-radius analysis before sign-off.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "harbor_residents_group",
+          "harbor_zoning_board"
+        ],
+        "event_key": "resident_petition_submitted",
+        "event_type": "announcement",
+        "evidence": [
+          "source_4_neighborhood_petition_t_minus_9"
+        ],
+        "expected_impact": "Elevates local conflict and increases reputational cost of fast approval for board members.",
+        "status": "completed",
+        "summary": "Residents object to siting near a school and ask zoning board to deny the variance.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "state_energy_office"
+        ],
+        "event_key": "state_preemption_timing_clarified",
+        "event_type": "announcement",
+        "evidence": [
+          "source_5_state_energy_office_note_t_minus_6"
+        ],
+        "expected_impact": "Makes state override a slower fallback rather than immediate rescue path before near-term milestone.",
+        "status": "completed",
+        "summary": "State notes local denial can be preempted only after reliability-need finding, with process expected to take at least 45 days.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "utility_customers_public"
+        ],
+        "event_key": "customer_poll_released",
+        "event_type": "announcement",
+        "evidence": [
+          "source_6_utility_customer_poll_t_minus_3"
+        ],
+        "expected_impact": "Supports mixed legitimacy environment and weakens claims of overwhelming public mandate either way.",
+        "status": "completed",
+        "summary": "Customers support reliability upgrades in general but are split on this specific site.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "harbor_battery_developer",
+          "local_fire_marshal"
+        ],
+        "event_key": "developer_submits_or_prepares_revised_safety_materials",
+        "event_type": "announcement",
+        "evidence": [
+          "source_3_fire_marshal_letter_t_minus_14",
+          "source_2_developer_schedule_t_minus_18"
+        ],
+        "expected_impact": "Quality and speed of submission may shift board willingness toward approval or delay.",
+        "status": "scheduled",
+        "summary": "Developer likely attempts to respond to requested fire-safety analyses.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "harbor_zoning_board",
+          "harbor_residents_group",
+          "harbor_battery_developer"
+        ],
+        "event_key": "zoning_board_hearing_or_continuance",
+        "event_type": "announcement",
+        "evidence": [
+          "scenario permitting context",
+          "source_4_neighborhood_petition_t_minus_9"
+        ],
+        "expected_impact": "Public interaction may polarize positions or reveal compromise space through conditions.",
+        "status": "anticipated",
+        "summary": "Board is likely to hold a hearing, continue proceedings, or signal need for additional conditions.",
+        "tick": 2
+      },
+      {
+        "actors": [
+          "harbor_battery_developer",
+          "harbor_grid_operator",
+          "harbor_zoning_board"
+        ],
+        "event_key": "milestone_pressure_point",
+        "event_type": "announcement",
+        "evidence": [
+          "source_2_developer_schedule_t_minus_18"
+        ],
+        "expected_impact": "Can convert procedural caution into endpoint pressure toward rushed decision, slip, or state fallback discussion.",
+        "status": "anticipated",
+        "summary": "Approaching May interconnection milestone forces practical distinction between delay that preserves year and delay that causes slip.",
+        "tick": 3
+      }
+    ],
+    "llm_call_id": "7f1c141b-b456-445d-8fdc-bc38c0d23b4f",
+    "merge_hypotheses": [
+      {
+        "affected_paths": [
+          "permit_approved",
+          "conditional_delay",
+          "project_slips"
+        ],
+        "convergence_driver": "Most actors can temporarily converge on additional safety conditions or more documentation as a face-saving intermediate step.",
+        "merge_key": "procedural_conditioning_convergence",
+        "reason": "Condition-setting allows board to acknowledge both safety concerns and reliability needs without immediate yes/no absolutism."
+      },
+      {
+        "affected_paths": [
+          "permit_approved",
+          "conditional_delay",
+          "state_override"
+        ],
+        "convergence_driver": "Even opponents and cautious officials may accept that some reliability upgrade is needed, narrowing argument to timing and siting.",
+        "merge_key": "reliability_need_shared_baseline",
+        "reason": "Shared acceptance of seasonal reliability pressure can preserve future cooperation even after local conflict."
+      },
+      {
+        "affected_paths": [
+          "conditional_delay",
+          "project_slips",
+          "permit_denied"
+        ],
+        "convergence_driver": "As milestone nears, all sides face reduced value from procedural ambiguity.",
+        "merge_key": "deadline_fatigue_forces_endpoint_clarity",
+        "reason": "A short schedule turns indecision into effectively observable outcomes, collapsing some intermediate paths into similar practical results."
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "local_residents",
+        "evidence": "Neighborhood petition and school-proximity concerns imply a local residential audience.",
+        "label": "Local residents in project area",
+        "population_total": 12000
+      },
+      {
+        "archetype_key": "utility_customer_base",
+        "evidence": "Customer poll indicates a broader utility customer public beyond immediate neighbors.",
+        "label": "Utility customers in affected service area",
+        "population_total": 180000
+      },
+      {
+        "archetype_key": "local_civic_elites",
+        "evidence": "Zoning board, fire marshal staff, and relevant municipal actors form a small procedural elite.",
+        "label": "Local decision and procedural elites",
+        "population_total": 25
+      }
+    ],
+    "risk_flags": [
+      {
+        "description": "Exact date of local hearing relative to May milestone is unspecified, limiting precision on approval-vs-slip boundary.",
+        "risk_key": "schedule_data_missing",
+        "severity": "medium"
+      },
+      {
+        "description": "It is unclear whether state preemption can begin before formal local denial or only after one.",
+        "risk_key": "state_process_trigger_ambiguity",
+        "severity": "medium"
+      },
+      {
+        "description": "Requested evacuation-radius analysis may reveal materially worse or manageable conditions; current evidence is incomplete.",
+        "risk_key": "site_specific_safety_unknowns",
+        "severity": "medium"
+      },
+      {
+        "description": "Organized local opposition may outweigh broader but weakly attentive customer support, creating nonlinear hearing dynamics.",
+        "risk_key": "concentrated_vs_diffuse_public_asymmetry",
+        "severity": "low"
+      },
+      {
+        "description": "Some terminal states can co-occur in sequence, especially project_slips with later state_override or later approval, so timeline adjudication must distinguish schedule and authority outcomes.",
+        "risk_key": "endpoint_overlap",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "forecast_question": "Which endpoint receives the most path mass for the Harbor Battery permitting fight?",
+      "mode": "direct",
+      "scenario_key": "harbor_battery_permitting_fight",
+      "source_refs": [
+        "source_1_grid_operator_warning_t_minus_20",
+        "source_2_developer_schedule_t_minus_18",
+        "source_3_fire_marshal_letter_t_minus_14",
+        "source_4_neighborhood_petition_t_minus_9",
+        "source_5_state_energy_office_note_t_minus_6",
+        "source_6_utility_customer_poll_t_minus_3"
+      ],
+      "summary": "A grid operator and project developer seek local approval for a large battery project framed as important for near-term summer reliability. Residents object on fire-safety and zoning grounds, especially due to proximity to a school. The fire marshal has requested additional safety materials before sign-off. The developer faces a May interconnection milestone; missing it likely pushes operation to the following year. The state may preempt local denial for reliability reasons, but only through a process expected to take at least 45 days.",
+      "time_context": "T0 is shortly after T-3 source timing and before the May interconnection milestone.",
+      "title": "Harbor Battery permitting fight",
+      "uncertainties": [
+        "Exact local hearing and vote schedule is not specified.",
+        "Exact magnitude of battery capacity, project financing terms, and school distance are unspecified.",
+        "Whether revised fire-safety materials can be completed quickly is unclear.",
+        "Whether state reliability finding can begin before local denial is not fully specified."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "quiet_local_moderates",
+          "reliability_first_locals",
+          "petitioning_neighbors"
+        ],
+        "evidence": "General reliability support coexists with site-specific split opinions in source_6 and source_4.",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "status": "active",
+        "strength": 0.62
+      },
+      {
+        "applies_to": [
+          "quiet_local_moderates",
+          "nearby_school_community"
+        ],
+        "evidence": "School proximity and safety framing can move previously quiet locals into public action.",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "status": "active",
+        "strength": 0.71
+      },
+      {
+        "applies_to": [
+          "reliability_first_locals",
+          "general_customers_split"
+        ],
+        "evidence": "Poll shows general support for upgrades while specific-site controversy suppresses strong public endorsement.",
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "status": "active",
+        "strength": 0.58
+      },
+      {
+        "applies_to": [
+          "petitioning_neighbors",
+          "nearby_school_community"
+        ],
+        "evidence": "Geographic and school-linked identity likely reinforce local objection messaging.",
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "status": "active",
+        "strength": 0.55
+      },
+      {
+        "applies_to": [
+          "local_residents"
+        ],
+        "evidence": "Safety fears near a school usually require repeated social confirmation before broader mobilization.",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "status": "active",
+        "strength": 0.49
+      },
+      {
+        "applies_to": [
+          "harbor_residents_group",
+          "harbor_zoning_board"
+        ],
+        "evidence": "Local-control and child-safety identities are salient in the variance fight.",
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "status": "active",
+        "strength": 0.67
+      },
+      {
+        "applies_to": [
+          "utility_customers_public"
+        ],
+        "evidence": "Broader customer attention is likely low absent outages or a visible board confrontation.",
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "status": "active",
+        "strength": 0.43
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Project opponents emphasize proximity to a school as a legitimacy-amplifying safety frame.",
+        "evidence": "source_4_neighborhood_petition_t_minus_9",
+        "influence_key": "school_proximity_frame"
+      },
+      {
+        "description": "Supporters emphasize approaching summer peak reliability risk and possible emergency demand-response calls.",
+        "evidence": "source_1_grid_operator_warning_t_minus_20",
+        "influence_key": "summer_reliability_frame"
+      },
+      {
+        "description": "May interconnection milestone creates urgency and raises cost of delay.",
+        "evidence": "source_2_developer_schedule_t_minus_18",
+        "influence_key": "deadline_pressure_frame"
+      },
+      {
+        "description": "State preemption exists as a fallback but is slowed by a 45-day process after a reliability finding path.",
+        "evidence": "source_5_state_energy_office_note_t_minus_6",
+        "influence_key": "state_timing_constraint"
+      },
+      {
+        "description": "General support for grid upgrades does not automatically transfer to support for the Harbor site.",
+        "evidence": "source_6_utility_customer_poll_t_minus_3",
+        "influence_key": "site_specific_split_opinion"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "harbor_grid_operator",
+        "behavior_axes": {
+          "proceduralism": 0.67,
+          "public_engagement": 0.34,
+          "risk_aversion": 0.56,
+          "urgency": 0.79
+        },
+        "ideology_axes": {
+          "localist": 0.28,
+          "precautionary_safety": 0.58,
+          "reliability_first": 0.91
+        },
+        "reputation": 0.66,
+        "secrecy": 0.36,
+        "tendency": "warn_of_capacity_risk",
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "harbor_battery_developer",
+        "behavior_axes": {
+          "proceduralism": 0.52,
+          "public_engagement": 0.61,
+          "risk_aversion": 0.41,
+          "urgency": 0.9
+        },
+        "ideology_axes": {
+          "localist": 0.24,
+          "precautionary_safety": 0.49,
+          "reliability_first": 0.83
+        },
+        "reputation": 0.47,
+        "secrecy": 0.33,
+        "tendency": "seek_fast_approval_under_deadline",
+        "trustworthiness": 0.52
+      },
+      {
+        "actor_name": "local_fire_marshal",
+        "behavior_axes": {
+          "proceduralism": 0.88,
+          "public_engagement": 0.38,
+          "risk_aversion": 0.86,
+          "urgency": 0.57
+        },
+        "ideology_axes": {
+          "localist": 0.55,
+          "precautionary_safety": 0.95,
+          "reliability_first": 0.44
+        },
+        "reputation": 0.74,
+        "secrecy": 0.41,
+        "tendency": "withhold_clearance_until_documented",
+        "trustworthiness": 0.79
+      },
+      {
+        "actor_name": "harbor_zoning_board",
+        "behavior_axes": {
+          "proceduralism": 0.83,
+          "public_engagement": 0.57,
+          "risk_aversion": 0.72,
+          "urgency": 0.49
+        },
+        "ideology_axes": {
+          "localist": 0.73,
+          "precautionary_safety": 0.76,
+          "reliability_first": 0.52
+        },
+        "reputation": 0.61,
+        "secrecy": 0.28,
+        "tendency": "balance_process_and_legitimacy",
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "harbor_residents_group",
+        "behavior_axes": {
+          "proceduralism": 0.46,
+          "public_engagement": 0.85,
+          "risk_aversion": 0.82,
+          "urgency": 0.72
+        },
+        "ideology_axes": {
+          "localist": 0.88,
+          "precautionary_safety": 0.92,
+          "reliability_first": 0.31
+        },
+        "reputation": 0.57,
+        "secrecy": 0.12,
+        "tendency": "mobilize_against_perceived_local_risk",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "state_energy_office",
+        "behavior_axes": {
+          "proceduralism": 0.87,
+          "public_engagement": 0.33,
+          "risk_aversion": 0.63,
+          "urgency": 0.51
+        },
+        "ideology_axes": {
+          "localist": 0.29,
+          "precautionary_safety": 0.59,
+          "reliability_first": 0.84
+        },
+        "reputation": 0.67,
+        "secrecy": 0.35,
+        "tendency": "intervene_only_through_formal_process",
+        "trustworthiness": 0.69
+      },
+      {
+        "actor_name": "utility_customers_public",
+        "behavior_axes": {
+          "proceduralism": 0.24,
+          "public_engagement": 0.19,
+          "risk_aversion": 0.52,
+          "urgency": 0.28
+        },
+        "ideology_axes": {
+          "localist": 0.39,
+          "precautionary_safety": 0.55,
+          "reliability_first": 0.73
+        },
+        "reputation": 0.5,
+        "secrecy": 0.19,
+        "tendency": "weakly attentive_until_service_risk_salient",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "nearby_school_community",
+        "behavior_axes": {
+          "proceduralism": 0.41,
+          "public_engagement": 0.67,
+          "risk_aversion": 0.88,
+          "urgency": 0.69
+        },
+        "ideology_axes": {
+          "localist": 0.82,
+          "precautionary_safety": 0.94,
+          "reliability_first": 0.36
+        },
+        "reputation": 0.64,
+        "secrecy": 0.16,
+        "tendency": "elevate_child_safety_frame",
+        "trustworthiness": 0.62
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 2244,
+        "end": 2244,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 2244,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

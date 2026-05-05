@@ -1,0 +1,1428 @@
+{
+  "big_bang_id": "3660f2a4-a7a5-4830-9c9f-c655df681ca2",
+  "initializer_output": {
+    "actors": [
+      {
+        "authority_level": "high",
+        "description": "County executive fiscal decision-makers overseeing budget response to the transit shuttle deficit.",
+        "name": "county_fiscal_leadership",
+        "public_visibility": "high",
+        "stakes": [
+          "budget balance",
+          "service continuity",
+          "public credibility",
+          "avoiding fiscal overstatement or understatement"
+        ],
+        "type": "institution"
+      },
+      {
+        "authority_level": "medium",
+        "description": "County finance committee reviewing fiscal claims and hearing budget explanations.",
+        "name": "finance_committee",
+        "public_visibility": "high",
+        "stakes": [
+          "document reconciliation",
+          "oversight credibility",
+          "committee process"
+        ],
+        "type": "institution"
+      },
+      {
+        "authority_level": "high",
+        "description": "Chief financial officer presenting a conditional lower deficit estimate if reimbursements arrive on schedule.",
+        "name": "county_cfo",
+        "public_visibility": "medium",
+        "stakes": [
+          "technical credibility",
+          "budget accuracy",
+          "timing assumptions"
+        ],
+        "type": "person_role"
+      },
+      {
+        "authority_level": "low",
+        "description": "Transit shuttle program facing claimed fiscal deficit after fuel and labor costs.",
+        "name": "county_transit_program",
+        "public_visibility": "medium",
+        "stakes": [
+          "operational continuity",
+          "labor and fuel cost coverage",
+          "rider service levels"
+        ],
+        "type": "institutional_program"
+      },
+      {
+        "authority_level": "high",
+        "description": "State agency holding pending reimbursement contingent on documentation.",
+        "name": "state_grant_agency",
+        "public_visibility": "medium",
+        "stakes": [
+          "documentation compliance",
+          "grant oversight",
+          "timely reimbursement"
+        ],
+        "type": "institution"
+      },
+      {
+        "authority_level": "low",
+        "description": "Transit advocates arguing the deficit is smaller based on an exclusion of overtime.",
+        "name": "advocacy_group",
+        "public_visibility": "high",
+        "stakes": [
+          "preserving service",
+          "public narrative",
+          "challenging county austerity framing"
+        ],
+        "type": "civil_society_group"
+      },
+      {
+        "authority_level": "low",
+        "description": "Residents using the shuttle service and exposed to possible service cuts.",
+        "name": "county_riders",
+        "public_visibility": "low",
+        "stakes": [
+          "service reliability",
+          "affordability",
+          "access"
+        ],
+        "type": "public_group"
+      },
+      {
+        "authority_level": "low",
+        "description": "General county public observing the budget dispute through public documents and meetings.",
+        "name": "county_public",
+        "public_visibility": "medium",
+        "stakes": [
+          "fiscal stewardship",
+          "public service legitimacy",
+          "confidence in officials"
+        ],
+        "type": "public_group"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "State reimbursement materially reduces the operative deficit and strengthens bridge-funding or wait-and-hold options over cuts.",
+        "branch_key": "reimbursement_released_path",
+        "divergence_signal": "Official county updates begin citing net deficit after confirmed reimbursement rather than gross deficit figures.",
+        "rationale": "Source 3 establishes pending funds as a conditional lever.",
+        "trigger": "County submits acceptable documentation and state confirms release timing."
+      },
+      {
+        "alternate_path": "County treats reimbursement as too uncertain for near-term budgeting and leans toward audit delay or service cuts.",
+        "branch_key": "documentation_stalls_path",
+        "divergence_signal": "Officials emphasize cash timing risk and avoid booking pending reimbursement into decision documents.",
+        "rationale": "CFO estimate is explicitly contingent on reimbursement arrival schedule.",
+        "trigger": "Documentation remains incomplete or state timing stays uncertain."
+      },
+      {
+        "alternate_path": "Advocacy narrative loses force if overtime is deemed unavoidable, or gains traction if overtime is shown discretionary or overstated.",
+        "branch_key": "overtime_scope_dispute_path",
+        "divergence_signal": "Meeting materials or statements explicitly reconcile deficit with and without overtime.",
+        "rationale": "Source 4 lower number excludes overtime, making scope definition a key branch point.",
+        "trigger": "Committee or public scrutiny focuses on whether overtime must be included in operative deficit calculations."
+      },
+      {
+        "alternate_path": "County delays terminal action for audit/reconciliation to restore procedural credibility.",
+        "branch_key": "process_legitimacy_path",
+        "divergence_signal": "Officials frame next steps around reconciliation, audit, or numeric consistency before policy choice.",
+        "rationale": "Scenario explicitly warns against averaging incompatible numbers and highlights source uncertainty.",
+        "trigger": "Conflicting figures become a legitimacy issue independent of underlying deficit size."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "county_slide_deck",
+        "evidence": "Source 1 county slide",
+        "primary_actors": [
+          "county_fiscal_leadership"
+        ],
+        "reach": "medium",
+        "type": "official_public_document"
+      },
+      {
+        "channel_key": "finance_committee_minutes",
+        "evidence": "Source 2 finance committee minutes",
+        "primary_actors": [
+          "finance_committee",
+          "county_cfo"
+        ],
+        "reach": "medium",
+        "type": "official_public_record"
+      },
+      {
+        "channel_key": "state_grant_email",
+        "evidence": "Source 3 grant agency email",
+        "primary_actors": [
+          "state_grant_agency",
+          "county_fiscal_leadership"
+        ],
+        "reach": "low_direct_high_decisional",
+        "type": "intergovernmental_document"
+      },
+      {
+        "channel_key": "advocacy_fact_sheet",
+        "evidence": "Source 4 advocacy group fact sheet",
+        "primary_actors": [
+          "advocacy_group"
+        ],
+        "reach": "medium",
+        "type": "civil_society_public_document"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "transit_riders",
+        "attention_level": 0.62,
+        "cohort_key": "riders_service_anxious",
+        "expression_level": 0.35,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.39,
+        "mobilization_readiness": 0.44,
+        "perceived_majority": 0.68,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "Deficit may be real but officials may be overstating urgency; priority is preserving service.",
+        "public_expression": "Concerned about cuts more than document methodology.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 12600,
+        "stance_axes": {
+          "fiscal_austerity": 0.28,
+          "service_preservation": 0.88,
+          "support_delay_for_clarity": 0.56,
+          "trust_official_numbers": 0.42
+        }
+      },
+      {
+        "archetype_key": "transit_riders",
+        "attention_level": 0.41,
+        "cohort_key": "riders_fiscally_resigned",
+        "expression_level": 0.18,
+        "fatigue": 0.37,
+        "fear_of_isolation": 0.47,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "Some reduction may be unavoidable if costs are genuinely high.",
+        "public_expression": "Muted acceptance of fiscal constraints unless cuts become severe.",
+        "representation_mode": "estimated_minor_cohort",
+        "represented_population": 5400,
+        "stance_axes": {
+          "fiscal_austerity": 0.54,
+          "service_preservation": 0.61,
+          "support_delay_for_clarity": 0.49,
+          "trust_official_numbers": 0.52
+        }
+      },
+      {
+        "archetype_key": "general_county_public",
+        "attention_level": 0.16,
+        "cohort_key": "general_public_low_attention",
+        "expression_level": 0.07,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.08,
+        "perceived_majority": 0.74,
+        "population_share_of_archetype": 0.82,
+        "private_belief": "Issue is technical and unresolved; willing to defer to officials unless service or taxes are visibly affected.",
+        "public_expression": "Minimal engagement.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 205000,
+        "stance_axes": {
+          "fiscal_austerity": 0.51,
+          "service_preservation": 0.46,
+          "support_delay_for_clarity": 0.58,
+          "trust_official_numbers": 0.49
+        }
+      },
+      {
+        "archetype_key": "general_county_public",
+        "attention_level": 0.37,
+        "cohort_key": "general_public_process_skeptics",
+        "expression_level": 0.21,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.34,
+        "mobilization_readiness": 0.19,
+        "perceived_majority": 0.33,
+        "population_share_of_archetype": 0.18,
+        "private_belief": "Conflicting numbers suggest weak county coordination or political framing.",
+        "public_expression": "Skepticism toward all sides, especially if numbers keep shifting.",
+        "representation_mode": "estimated_minor_cohort",
+        "represented_population": 45000,
+        "stance_axes": {
+          "fiscal_austerity": 0.48,
+          "service_preservation": 0.5,
+          "support_delay_for_clarity": 0.71,
+          "trust_official_numbers": 0.31
+        }
+      },
+      {
+        "archetype_key": "budget_engaged_public",
+        "attention_level": 0.86,
+        "cohort_key": "budget_watchers_data_strict",
+        "expression_level": 0.58,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.28,
+        "mobilization_readiness": 0.4,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "Figures are not comparable without adjusting for overtime and reimbursement timing.",
+        "public_expression": "Calls for reconciliation, footnotes, and source discipline.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 2200,
+        "stance_axes": {
+          "fiscal_austerity": 0.46,
+          "service_preservation": 0.63,
+          "support_delay_for_clarity": 0.84,
+          "trust_official_numbers": 0.38
+        }
+      },
+      {
+        "archetype_key": "budget_engaged_public",
+        "attention_level": 0.83,
+        "cohort_key": "budget_watchers_advocacy_aligned",
+        "expression_level": 0.66,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.31,
+        "mobilization_readiness": 0.53,
+        "perceived_majority": 0.36,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "County headline deficit likely overstates the near-term problem and service cuts are avoidable.",
+        "public_expression": "Amplifies lower deficit narratives and bridge options.",
+        "representation_mode": "estimated_minor_cohort",
+        "represented_population": 1800,
+        "stance_axes": {
+          "fiscal_austerity": 0.19,
+          "service_preservation": 0.91,
+          "support_delay_for_clarity": 0.52,
+          "trust_official_numbers": 0.27
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "transit_riders",
+        "attention_level": 0.62,
+        "cohort_key": "riders_service_anxious",
+        "expression_level": 0.35,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.39,
+        "mobilization_readiness": 0.44,
+        "perceived_majority": 0.68,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "Deficit may be real but officials may be overstating urgency; priority is preserving service.",
+        "public_expression": "Concerned about cuts more than document methodology.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 12600,
+        "stance_axes": {
+          "fiscal_austerity": 0.28,
+          "service_preservation": 0.88,
+          "support_delay_for_clarity": 0.56,
+          "trust_official_numbers": 0.42
+        }
+      },
+      {
+        "archetype_key": "transit_riders",
+        "attention_level": 0.41,
+        "cohort_key": "riders_fiscally_resigned",
+        "expression_level": 0.18,
+        "fatigue": 0.37,
+        "fear_of_isolation": 0.47,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "Some reduction may be unavoidable if costs are genuinely high.",
+        "public_expression": "Muted acceptance of fiscal constraints unless cuts become severe.",
+        "representation_mode": "estimated_minor_cohort",
+        "represented_population": 5400,
+        "stance_axes": {
+          "fiscal_austerity": 0.54,
+          "service_preservation": 0.61,
+          "support_delay_for_clarity": 0.49,
+          "trust_official_numbers": 0.52
+        }
+      },
+      {
+        "archetype_key": "general_county_public",
+        "attention_level": 0.16,
+        "cohort_key": "general_public_low_attention",
+        "expression_level": 0.07,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.08,
+        "perceived_majority": 0.74,
+        "population_share_of_archetype": 0.82,
+        "private_belief": "Issue is technical and unresolved; willing to defer to officials unless service or taxes are visibly affected.",
+        "public_expression": "Minimal engagement.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 205000,
+        "stance_axes": {
+          "fiscal_austerity": 0.51,
+          "service_preservation": 0.46,
+          "support_delay_for_clarity": 0.58,
+          "trust_official_numbers": 0.49
+        }
+      },
+      {
+        "archetype_key": "general_county_public",
+        "attention_level": 0.37,
+        "cohort_key": "general_public_process_skeptics",
+        "expression_level": 0.21,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.34,
+        "mobilization_readiness": 0.19,
+        "perceived_majority": 0.33,
+        "population_share_of_archetype": 0.18,
+        "private_belief": "Conflicting numbers suggest weak county coordination or political framing.",
+        "public_expression": "Skepticism toward all sides, especially if numbers keep shifting.",
+        "representation_mode": "estimated_minor_cohort",
+        "represented_population": 45000,
+        "stance_axes": {
+          "fiscal_austerity": 0.48,
+          "service_preservation": 0.5,
+          "support_delay_for_clarity": 0.71,
+          "trust_official_numbers": 0.31
+        }
+      },
+      {
+        "archetype_key": "budget_engaged_public",
+        "attention_level": 0.86,
+        "cohort_key": "budget_watchers_data_strict",
+        "expression_level": 0.58,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.28,
+        "mobilization_readiness": 0.4,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "Figures are not comparable without adjusting for overtime and reimbursement timing.",
+        "public_expression": "Calls for reconciliation, footnotes, and source discipline.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 2200,
+        "stance_axes": {
+          "fiscal_austerity": 0.46,
+          "service_preservation": 0.63,
+          "support_delay_for_clarity": 0.84,
+          "trust_official_numbers": 0.38
+        }
+      },
+      {
+        "archetype_key": "budget_engaged_public",
+        "attention_level": 0.83,
+        "cohort_key": "budget_watchers_advocacy_aligned",
+        "expression_level": 0.66,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.31,
+        "mobilization_readiness": 0.53,
+        "perceived_majority": 0.36,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "County headline deficit likely overstates the near-term problem and service cuts are avoidable.",
+        "public_expression": "Amplifies lower deficit narratives and bridge options.",
+        "representation_mode": "estimated_minor_cohort",
+        "represented_population": 1800,
+        "stance_axes": {
+          "fiscal_austerity": 0.19,
+          "service_preservation": 0.91,
+          "support_delay_for_clarity": 0.52,
+          "trust_official_numbers": 0.27
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "county_fiscal_leadership",
+          "county_transit_program"
+        ],
+        "blockers": [
+          "possible bridge funding",
+          "pending reimbursement",
+          "committee pressure for reconciliation",
+          "public pushback if cuts appear based on inconsistent numbers"
+        ],
+        "contradiction_notes": "Lower deficit estimates and pending reimbursement weaken inevitability of cuts.",
+        "description": "County adopts a terminal decision that reduces shuttle service levels to close the deficit.",
+        "endpoint_key": "service_cuts",
+        "evidence_refs": [
+          "Source 1",
+          "Candidate endpoints"
+        ],
+        "label": "County cuts shuttle service",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will county decision-makers adopt a reconciled operative deficit figure that explicitly accounts for overtime and reimbursement timing before making a terminal service decision?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.24,
+        "rationale": "Higher headline deficit and budget pressure make cuts plausible if uncertainty is resolved pessimistically or timing risk dominates.",
+        "realization_criteria": [
+          "official county action approves reduced routes, frequency, hours, or comparable service contraction",
+          "decision documents present cuts as the adopted fiscal solution rather than a temporary proposal"
+        ],
+        "status": "active",
+        "status_basis": "Service cuts are explicitly listed as a candidate endpoint but not adopted at T0."
+      },
+      {
+        "authority_refs": [
+          "county_fiscal_leadership",
+          "finance_committee"
+        ],
+        "blockers": [
+          "county budget constraints",
+          "political reluctance to fund before reconciliation",
+          "uncertainty about true gross deficit"
+        ],
+        "contradiction_notes": "No source directly confirms available bridge resources at T0.",
+        "description": "County adopts an interim or terminal fiscal measure that preserves service through county or partner bridge financing.",
+        "endpoint_key": "bridge_funding",
+        "evidence_refs": [
+          "Candidate endpoints",
+          "Source 2",
+          "Source 3"
+        ],
+        "label": "County finds bridge funding",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the pending state reimbursement be documented and released in time to materially reduce the county's effective deficit?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.22,
+        "rationale": "Conditional reimbursement and service-preservation pressure create a credible case for interim financing rather than immediate cuts.",
+        "realization_criteria": [
+          "official county decision allocates temporary funds or financing to maintain shuttle operations through the budget gap",
+          "service continuity is preserved without relying solely on disputed lower deficit claims"
+        ],
+        "status": "active",
+        "status_basis": "Bridge funding is a named candidate endpoint and is supported by existence of potentially temporary reimbursement-related shortfall."
+      },
+      {
+        "authority_refs": [
+          "state_grant_agency",
+          "county_fiscal_leadership"
+        ],
+        "blockers": [
+          "documentation deficiencies",
+          "processing delay",
+          "county inability to count funds within decision window"
+        ],
+        "contradiction_notes": "Pending status alone does not guarantee near-term fiscal relief.",
+        "description": "Pending state reimbursement is documented and released such that the effective deficit meaningfully declines and changes county options.",
+        "endpoint_key": "state_reimbursement",
+        "evidence_refs": [
+          "Source 3",
+          "Source 2",
+          "Candidate endpoints"
+        ],
+        "label": "State reimbursement materially reduces deficit",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the county's terminal fiscal response be service cuts, bridge funding, audit/reconciliation delay, or continued unresolved dispute?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.21,
+        "rationale": "This endpoint is mechanistically grounded in the source packet and could materially reshape the dispute.",
+        "realization_criteria": [
+          "state confirms approval or release of the pending reimbursement",
+          "county operative deficit is officially revised downward by a material amount attributable to that reimbursement"
+        ],
+        "status": "active",
+        "status_basis": "State identifies $3.1M as pending but conditional, so endpoint remains live and unresolved."
+      },
+      {
+        "authority_refs": [
+          "finance_committee",
+          "county_fiscal_leadership",
+          "county_cfo"
+        ],
+        "blockers": [
+          "immediate cash pressure",
+          "political demand for decisive action",
+          "clear reimbursement answer arriving quickly"
+        ],
+        "contradiction_notes": "If budget timing is urgent, leaders may skip formal delay and act under uncertainty.",
+        "description": "County defers terminal fiscal action while reconciling conflicting deficit figures or auditing assumptions.",
+        "endpoint_key": "audit_delay",
+        "evidence_refs": [
+          "Scenario",
+          "Source 2",
+          "Source 3",
+          "Source 4",
+          "Candidate endpoints"
+        ],
+        "label": "County delays decision for audit or reconciliation",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the advocacy group's lower-deficit framing meaningfully constrain the county from acting on the higher deficit narrative?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.23,
+        "rationale": "The scenario explicitly emphasizes number consistency and source uncertainty, making reconciliation a strong process endpoint candidate.",
+        "realization_criteria": [
+          "official county or committee action postpones terminal budget choice pending audit, reconciliation memo, or documentary review",
+          "public rationale cites inconsistent numbers, assumptions, or documentation status"
+        ],
+        "status": "active",
+        "status_basis": "Conflicting documents and non-comparable assumptions make delay procedurally plausible at T0."
+      },
+      {
+        "authority_refs": [
+          "county_fiscal_leadership",
+          "finance_committee",
+          "state_grant_agency"
+        ],
+        "blockers": [
+          "reconciled memo",
+          "state reimbursement decision",
+          "formal county fiscal vote"
+        ],
+        "contradiction_notes": "This endpoint ceases if any other terminal choice is clearly adopted and documented.",
+        "description": "No authoritative reconciliation or terminal fiscal resolution emerges within the near horizon, leaving the operative deficit contested.",
+        "endpoint_key": "unresolved",
+        "evidence_refs": [
+          "Scenario",
+          "Candidate endpoints",
+          "all sources"
+        ],
+        "label": "Deficit remains disputed",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the advocacy group's lower-deficit framing meaningfully constrain the county from acting on the higher deficit narrative?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.1,
+        "rationale": "Given conflicting accounting frames and conditional external funding, continued dispute remains a credible terminal near-term outcome.",
+        "realization_criteria": [
+          "public records continue to cite materially inconsistent deficit figures without authoritative reconciliation",
+          "no terminal county action on cuts, bridge funding, or confirmed reimbursement resolves the dispute within the observed horizon"
+        ],
+        "status": "active",
+        "status_basis": "At T0 the dispute is unresolved and source conflict is central."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "Source 1 county slide is public-facing.",
+        "layer": "exposure",
+        "reason": "County budget claims are publicly visible through slides and official messaging.",
+        "source_actor_name": "county_fiscal_leadership",
+        "target_actor_name": "county_public",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source 2 finance committee minutes.",
+        "layer": "exposure",
+        "reason": "Committee minutes create public visibility for conditional deficit statements.",
+        "source_actor_name": "finance_committee",
+        "target_actor_name": "county_public",
+        "weight": 0.33
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source 3 grant agency email.",
+        "layer": "exposure",
+        "reason": "State email informs county leaders about pending reimbursement status and documentation conditions.",
+        "source_actor_name": "state_grant_agency",
+        "target_actor_name": "county_fiscal_leadership",
+        "weight": 0.41
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source 4 advocacy group fact sheet.",
+        "layer": "exposure",
+        "reason": "Fact sheet circulates lower deficit claim into public discourse.",
+        "source_actor_name": "advocacy_group",
+        "target_actor_name": "county_public",
+        "weight": 0.39
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario transit program deficit and possible service cuts.",
+        "layer": "exposure",
+        "reason": "Riders are indirectly exposed to fiscal framing because service may be affected.",
+        "source_actor_name": "county_fiscal_leadership",
+        "target_actor_name": "county_riders",
+        "weight": 0.28
+      },
+      {
+        "direction": "inbound",
+        "evidence": "Three public documents disagree on deficit size.",
+        "layer": "trust",
+        "reason": "Conflicting numbers modestly erode confidence but do not produce total distrust at T0.",
+        "source_actor_name": "county_public",
+        "target_actor_name": "county_fiscal_leadership",
+        "weight": 0.44
+      },
+      {
+        "direction": "inbound",
+        "evidence": "Source 2 CFO says deficit closer to $8M if reimbursements arrive on schedule.",
+        "layer": "trust",
+        "reason": "CFO is a formal technical source, though statement is conditional.",
+        "source_actor_name": "finance_committee",
+        "target_actor_name": "county_cfo",
+        "weight": 0.58
+      },
+      {
+        "direction": "inbound",
+        "evidence": "Source 3 says $3.1M pending but requires documentation.",
+        "layer": "trust",
+        "reason": "State agency is trusted on reimbursement status but not timing certainty.",
+        "source_actor_name": "county_fiscal_leadership",
+        "target_actor_name": "state_grant_agency",
+        "weight": 0.57
+      },
+      {
+        "direction": "inbound",
+        "evidence": "Source 4 excludes overtime.",
+        "layer": "trust",
+        "reason": "Advocacy claim is discounted because it excludes overtime.",
+        "source_actor_name": "county_public",
+        "target_actor_name": "advocacy_group",
+        "weight": 0.34
+      },
+      {
+        "direction": "inbound",
+        "evidence": "Advocacy group argues deficit is only $4M.",
+        "layer": "trust",
+        "reason": "Riders are receptive to service-preserving voices despite technical caveat.",
+        "source_actor_name": "county_riders",
+        "target_actor_name": "advocacy_group",
+        "weight": 0.48
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Candidate endpoints include service cuts and bridge funding by county.",
+        "layer": "dependency",
+        "reason": "Program continuation depends on county funding choices.",
+        "source_actor_name": "county_transit_program",
+        "target_actor_name": "county_fiscal_leadership",
+        "weight": 0.63
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source 3 pending $3.1M reimbursement.",
+        "layer": "dependency",
+        "reason": "County net deficit depends materially on release of pending reimbursement.",
+        "source_actor_name": "county_fiscal_leadership",
+        "target_actor_name": "state_grant_agency",
+        "weight": 0.59
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source 2 provides CFO estimate conditioning fiscal outlook.",
+        "layer": "dependency",
+        "reason": "Leadership relies on CFO to produce the operative deficit estimate.",
+        "source_actor_name": "county_fiscal_leadership",
+        "target_actor_name": "county_cfo",
+        "weight": 0.54
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario concerns transit shuttle service continuity.",
+        "layer": "dependency",
+        "reason": "Riders rely on shuttle service for access.",
+        "source_actor_name": "county_riders",
+        "target_actor_name": "county_transit_program",
+        "weight": 0.61
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source 2 minutes center CFO statement.",
+        "layer": "influence",
+        "reason": "CFO shapes committee understanding of fiscal baseline.",
+        "source_actor_name": "county_cfo",
+        "target_actor_name": "finance_committee",
+        "weight": 0.64
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Committee minutes and oversight role implied.",
+        "layer": "influence",
+        "reason": "Committee oversight can affect timing and legitimacy of county action.",
+        "source_actor_name": "finance_committee",
+        "target_actor_name": "county_fiscal_leadership",
+        "weight": 0.49
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Pending reimbursement contingent on documentation.",
+        "layer": "influence",
+        "reason": "Funding gatekeeping materially affects feasible county choices.",
+        "source_actor_name": "state_grant_agency",
+        "target_actor_name": "county_fiscal_leadership",
+        "weight": 0.62
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source 4 public claim of smaller deficit.",
+        "layer": "influence",
+        "reason": "Fact sheet can shape narrative around whether cuts are justified.",
+        "source_actor_name": "advocacy_group",
+        "target_actor_name": "county_public",
+        "weight": 0.42
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Public documents exist, but no mass mobilization described.",
+        "layer": "influence",
+        "reason": "Diffuse public opinion matters but issue remains technical and low-to-medium salience at T0.",
+        "source_actor_name": "county_public",
+        "target_actor_name": "county_fiscal_leadership",
+        "weight": 0.24
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Advocates minimize deficit; riders face service risk.",
+        "layer": "coalition",
+        "reason": "Shared preference to avoid service cuts.",
+        "source_actor_name": "advocacy_group",
+        "target_actor_name": "county_riders",
+        "weight": 0.56
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "CFO presents to committee in official process.",
+        "layer": "coalition",
+        "reason": "Procedural alignment around reconciliation exists despite possible scrutiny.",
+        "source_actor_name": "county_cfo",
+        "target_actor_name": "finance_committee",
+        "weight": 0.37
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "CFO supports county fiscal framing.",
+        "layer": "coalition",
+        "reason": "Shared institutional interest in a defensible budget position.",
+        "source_actor_name": "county_fiscal_leadership",
+        "target_actor_name": "county_cfo",
+        "weight": 0.51
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Committee reviews county fiscal claims rather than simply ratifying them.",
+        "layer": "coalition",
+        "reason": "Latent institutional alignment is tempered by oversight role.",
+        "source_actor_name": "county_fiscal_leadership",
+        "target_actor_name": "finance_committee",
+        "weight": 0.32
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Source 4 says deficit only $4M versus higher county figures.",
+        "layer": "conflict",
+        "reason": "Advocates challenge the size and framing of the deficit.",
+        "source_actor_name": "advocacy_group",
+        "target_actor_name": "county_fiscal_leadership",
+        "weight": 0.58
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Source 2 and Source 4 disagree; overtime treatment differs.",
+        "layer": "conflict",
+        "reason": "Advocacy estimate conflicts with CFO conditional estimate and accounting scope.",
+        "source_actor_name": "advocacy_group",
+        "target_actor_name": "county_cfo",
+        "weight": 0.46
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Candidate endpoint service_cuts.",
+        "layer": "conflict",
+        "reason": "Potential tension exists if county moves toward service cuts.",
+        "source_actor_name": "county_riders",
+        "target_actor_name": "county_fiscal_leadership",
+        "weight": 0.29
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Source 3 conditions release on documentation.",
+        "layer": "conflict",
+        "reason": "Mild process friction may arise if reimbursement timing disrupts county decisions.",
+        "source_actor_name": "finance_committee",
+        "target_actor_name": "state_grant_agency",
+        "weight": 0.18
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "County slide and advocacy fact sheet are both public-facing documents.",
+        "layer": "oasis_interaction",
+        "reason": "Likely indirect public interaction through competing deficit claims.",
+        "source_actor_name": "county_fiscal_leadership",
+        "target_actor_name": "advocacy_group",
+        "weight": 0.31
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Public minutes provide a venue for issue visibility.",
+        "layer": "oasis_interaction",
+        "reason": "Committee process creates intermittent public engagement on the issue.",
+        "source_actor_name": "finance_committee",
+        "target_actor_name": "county_public",
+        "weight": 0.27
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Service preservation narrative is salient to riders.",
+        "layer": "oasis_interaction",
+        "reason": "Advocacy messaging likely circulates among affected riders.",
+        "source_actor_name": "advocacy_group",
+        "target_actor_name": "county_riders",
+        "weight": 0.43
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Conflicting public documents exist but mass interaction is not yet evident.",
+        "layer": "oasis_interaction",
+        "reason": "Public-facing budget controversy may prompt limited discussion or comment.",
+        "source_actor_name": "county_public",
+        "target_actor_name": "county_fiscal_leadership",
+        "weight": 0.19
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "description": "Actor with authority to define budget-operable numbers and conditional assumptions.",
+        "hero_key": "technical_fiscal_gatekeeper",
+        "label": "Technical fiscal gatekeeper"
+      },
+      {
+        "description": "Actor able to delay, request reconciliation, or structure committee response.",
+        "hero_key": "oversight_process_chair",
+        "label": "Oversight process actor"
+      },
+      {
+        "description": "Actor controlling release of state reimbursement contingent on documentation.",
+        "hero_key": "external_funding_gatekeeper",
+        "label": "External funding gatekeeper"
+      },
+      {
+        "description": "Actor contesting official framing to preserve service.",
+        "hero_key": "narrative_challenger",
+        "label": "Narrative challenger"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "county_cfo",
+        "capacity": 0.78,
+        "constraints": [
+          "depends on reimbursement timing outside direct control",
+          "must defend number consistency across public documents"
+        ],
+        "hero_key": "technical_fiscal_gatekeeper",
+        "salience": 0.9,
+        "stance_axes": {
+          "prefers_operable_numbers": 0.88,
+          "risk_tolerance_for_delay": 0.52,
+          "service_preservation": 0.48
+        }
+      },
+      {
+        "actor_name": "finance_committee",
+        "capacity": 0.62,
+        "constraints": [
+          "may lack direct operational control",
+          "relies on county staff and state documentation status"
+        ],
+        "hero_key": "oversight_process_chair",
+        "salience": 0.73,
+        "stance_axes": {
+          "fiscal_caution": 0.67,
+          "prefers_reconciliation": 0.76,
+          "service_preservation": 0.52
+        }
+      },
+      {
+        "actor_name": "state_grant_agency",
+        "capacity": 0.81,
+        "constraints": [
+          "documentation requirement may delay release",
+          "not directly accountable for county service politics"
+        ],
+        "hero_key": "external_funding_gatekeeper",
+        "salience": 0.82,
+        "stance_axes": {
+          "documentation_strictness": 0.84,
+          "service_preservation": 0.4,
+          "timely_release_if_compliant": 0.61
+        }
+      },
+      {
+        "actor_name": "advocacy_group",
+        "capacity": 0.46,
+        "constraints": [
+          "lower formal authority",
+          "fact sheet excludes overtime, limiting credibility with technical reviewers"
+        ],
+        "hero_key": "narrative_challenger",
+        "salience": 0.58,
+        "stance_axes": {
+          "narrative_contestation": 0.88,
+          "service_preservation": 0.94,
+          "technical_precision": 0.39
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "description": "Actor with authority to define budget-operable numbers and conditional assumptions.",
+        "hero_key": "technical_fiscal_gatekeeper",
+        "label": "Technical fiscal gatekeeper"
+      },
+      {
+        "description": "Actor able to delay, request reconciliation, or structure committee response.",
+        "hero_key": "oversight_process_chair",
+        "label": "Oversight process actor"
+      },
+      {
+        "description": "Actor controlling release of state reimbursement contingent on documentation.",
+        "hero_key": "external_funding_gatekeeper",
+        "label": "External funding gatekeeper"
+      },
+      {
+        "description": "Actor contesting official framing to preserve service.",
+        "hero_key": "narrative_challenger",
+        "label": "Narrative challenger"
+      }
+    ],
+    "important_questions": [
+      "Will county decision-makers adopt a reconciled operative deficit figure that explicitly accounts for overtime and reimbursement timing before making a terminal service decision?",
+      "Will the pending state reimbursement be documented and released in time to materially reduce the county's effective deficit?",
+      "Will the county's terminal fiscal response be service cuts, bridge funding, audit/reconciliation delay, or continued unresolved dispute?",
+      "Will the advocacy group's lower-deficit framing meaningfully constrain the county from acting on the higher deficit narrative?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "county_fiscal_leadership",
+          "county_transit_program"
+        ],
+        "event_key": "county_slide_claims_12_4m_deficit",
+        "event_type": "announcement",
+        "evidence": [
+          "Source 1"
+        ],
+        "expected_impact": "Raises perceived severity of the budget problem and anchors higher-deficit narrative.",
+        "status": "completed",
+        "summary": "County slide states transit shuttle faces a $12.4M fiscal-year deficit after fuel and labor costs.",
+        "tick": -9
+      },
+      {
+        "actors": [
+          "county_cfo",
+          "finance_committee"
+        ],
+        "event_key": "cfo_states_conditional_8m_estimate",
+        "event_type": "announcement",
+        "evidence": [
+          "Source 2"
+        ],
+        "expected_impact": "Introduces conditional lower estimate and highlights timing dependence rather than simple contradiction.",
+        "status": "completed",
+        "summary": "CFO says deficit is closer to $8M if state reimbursements arrive on schedule.",
+        "tick": -7
+      },
+      {
+        "actors": [
+          "state_grant_agency",
+          "county_fiscal_leadership"
+        ],
+        "event_key": "state_flags_pending_3_1m_reimbursement",
+        "event_type": "announcement",
+        "evidence": [
+          "Source 3"
+        ],
+        "expected_impact": "Creates concrete mechanism that could reduce deficit while preserving uncertainty over release timing.",
+        "status": "completed",
+        "summary": "State says $3.1M reimbursement is pending but requires documentation before release.",
+        "tick": -5
+      },
+      {
+        "actors": [
+          "advocacy_group",
+          "county_public"
+        ],
+        "event_key": "advocates_publish_4m_claim",
+        "event_type": "announcement",
+        "evidence": [
+          "Source 4"
+        ],
+        "expected_impact": "Challenges county framing, may reduce public acceptance of cuts, but weakens technical comparability.",
+        "status": "completed",
+        "summary": "Advocates claim the deficit is only $4M, excluding overtime.",
+        "tick": -3
+      },
+      {
+        "actors": [
+          "county_fiscal_leadership",
+          "finance_committee",
+          "county_cfo"
+        ],
+        "event_key": "county_reconciliation_or_decision_window",
+        "event_type": "announcement",
+        "evidence": [
+          "Candidate endpoints and scenario structure"
+        ],
+        "expected_impact": "Could shift trust and endpoint probabilities depending on whether a single operative number is produced.",
+        "status": "anticipated",
+        "summary": "County leaders are likely to either reconcile documents, delay for audit, or advance an interim fiscal response.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "county_fiscal_leadership",
+          "state_grant_agency"
+        ],
+        "event_key": "documentation_submission_or_hold",
+        "event_type": "announcement",
+        "evidence": [
+          "Source 3"
+        ],
+        "expected_impact": "A confirmation or further delay would materially alter pressure for cuts, bridge funding, or audit delay.",
+        "status": "anticipated",
+        "summary": "Documentation status for pending reimbursement may be clarified.",
+        "tick": 1
+      }
+    ],
+    "llm_call_id": "134850ad-dbe0-403d-9ed7-e713f545bee6",
+    "merge_hypotheses": [
+      {
+        "affected_actors": [
+          "county_fiscal_leadership",
+          "finance_committee",
+          "county_cfo",
+          "county_public"
+        ],
+        "condition": "Actors converge if a reconciled budget memo clarifies assumptions on overtime and reimbursement timing.",
+        "merge_key": "single_operating_number_convergence",
+        "why_it_merges": "A common accounting frame reduces narrative fragmentation even if policy preferences still differ."
+      },
+      {
+        "affected_actors": [
+          "county_fiscal_leadership",
+          "county_transit_program",
+          "advocacy_group",
+          "county_riders"
+        ],
+        "condition": "A temporary bridge funding mechanism combined with pending reimbursement reduces immediate cut pressure.",
+        "merge_key": "service_preservation_compromise",
+        "why_it_merges": "Short-term continuity can align fiscal caution with service-preservation interests without resolving every accounting dispute."
+      },
+      {
+        "affected_actors": [
+          "county_fiscal_leadership",
+          "state_grant_agency",
+          "finance_committee"
+        ],
+        "condition": "A clear state yes-or-no decision on reimbursement collapses part of the uncertainty range.",
+        "merge_key": "external_timing_constraint",
+        "why_it_merges": "Definitive timing information forces actors onto a narrower set of feasible endpoints."
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "transit_riders",
+        "evidence": "Scenario references a county transit shuttle with service-cut risk; exact ridership not provided, so realistic county-scale estimate used with uncertainty.",
+        "label": "Transit riders",
+        "population_total": 18000,
+        "scope": "county_shuttle_users"
+      },
+      {
+        "archetype_key": "general_county_public",
+        "evidence": "County-scale public observing budget dispute; exact county population not provided, estimate used as simulation baseline.",
+        "label": "General county public",
+        "population_total": 250000,
+        "scope": "county_residents"
+      },
+      {
+        "archetype_key": "budget_engaged_public",
+        "evidence": "Public document conflict likely actively followed by a smaller politically attentive subset.",
+        "label": "Budget-engaged public",
+        "population_total": 4000,
+        "scope": "residents and stakeholders following fiscal documents"
+      }
+    ],
+    "risk_flags": [
+      {
+        "description": "The reported deficit figures are not directly comparable because one is gross after fuel and labor, one is conditional on reimbursement timing, and one excludes overtime.",
+        "flag_key": "non_comparable_numbers",
+        "severity": "high"
+      },
+      {
+        "description": "Advocacy figure excludes overtime, which may not be optional in county budgeting.",
+        "flag_key": "source_scope_mismatch",
+        "severity": "high"
+      },
+      {
+        "description": "CFO estimate depends on reimbursements arriving on schedule, introducing cash-flow and booking uncertainty.",
+        "flag_key": "timing_dependency",
+        "severity": "medium"
+      },
+      {
+        "description": "State grant agency controls a material portion of deficit relief through documentation approval.",
+        "flag_key": "external_gatekeeper_leverage",
+        "severity": "medium"
+      },
+      {
+        "description": "Exact county decision chain is not fully specified in the corpus, though county fiscal leadership and finance committee are the likely authorities.",
+        "flag_key": "authority_uncertainty",
+        "severity": "medium"
+      },
+      {
+        "description": "Public and rider counts are simulation estimates due to absent exact scenario population figures.",
+        "flag_key": "population_estimate_uncertainty",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "endpoint_pressure": "County fiscal authorities likely must choose among service cuts, bridge funding, reimbursement-dependent wait, or decision delay, but no terminal choice is realized at T0.",
+      "mode": "direct",
+      "primary_tension": "Decision-makers face pressure to act on a transit shuttle deficit while documentary evidence conflicts and some figures depend on reimbursement timing and accounting assumptions.",
+      "scale": "county_program_budget_dispute",
+      "scenario_key": "calibration_003",
+      "source_reliability_note": "Documents are not numerically commensurate without adjustment. Source uncertainty should be preserved rather than averaged.",
+      "summary": "A county transit shuttle budget dispute centers on conflicting public deficit figures across county slides, finance committee minutes, a state grant email, and an advocacy fact sheet. Core uncertainty is not the existence of fiscal pressure but the size and conditionality of the deficit, especially whether pending state reimbursement is released and whether overtime is included.",
+      "time_zero_context": "T0 is after the advocacy fact sheet at T-3 days and before a final county fiscal decision.",
+      "title": "conflicting_transit_deficit_documents",
+      "uncertainties": [
+        "true net deficit size at T0",
+        "whether state reimbursement documentation will be accepted in time",
+        "whether overtime costs must be included in the operative fiscal decision",
+        "whether county leaders prioritize immediate action or reconciliation/audit"
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "description": "Actors accept number revisions that remain within credible accounting frames but resist cross-frame averaging when assumptions differ.",
+        "level": "moderate",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "description": "Public and rider mobilization likely remains subdued until a concrete service-cut proposal or visible funding denial appears.",
+        "level": "medium",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "description": "Many residents privately doubt the numbers but do not speak due to low technical confidence and low issue salience.",
+        "level": "moderate",
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "description": "Budget-engaged publics cluster around either procedural-reconciliation or service-preservation narratives.",
+        "level": "moderate",
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "description": "Skepticism about official figures spreads more if reinforced by multiple documents or committee scrutiny rather than a single claim.",
+        "level": "present",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "description": "Riders and advocates align around service identity, while officials align around procedural fiscal legitimacy.",
+        "level": "moderate",
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "description": "Absent a triggering meeting or service announcement, general public attention is likely to fade quickly.",
+        "level": "moderate",
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Multiple public deficit figures create a narrative opening for process-oriented scrutiny.",
+        "influence_key": "document_inconsistency_salience"
+      },
+      {
+        "description": "Reimbursement timing and overtime inclusion are key assumptions that shape public interpretation.",
+        "influence_key": "conditional_accounting_frame"
+      },
+      {
+        "description": "Potential cuts increase receptivity to bridge-funding or lower-deficit narratives among riders.",
+        "influence_key": "service_loss_aversion"
+      },
+      {
+        "description": "Low-information publics may defer to formal fiscal actors unless inconsistencies become more visible.",
+        "influence_key": "technical_deference"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "county_fiscal_leadership",
+        "behavior_axes": {
+          "adaptability": 0.55,
+          "caution": 0.7,
+          "opacity": 0.43,
+          "responsiveness": 0.52
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.64,
+          "proceduralism": 0.58,
+          "service_preservation": 0.46
+        },
+        "reputation": 0.56,
+        "secrecy": 0.34,
+        "tendency": "avoid visible fiscal overrun while preserving optionality",
+        "trustworthiness": 0.53
+      },
+      {
+        "actor_name": "finance_committee",
+        "behavior_axes": {
+          "adaptability": 0.51,
+          "caution": 0.75,
+          "opacity": 0.28,
+          "responsiveness": 0.48
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.6,
+          "proceduralism": 0.79,
+          "service_preservation": 0.5
+        },
+        "reputation": 0.57,
+        "secrecy": 0.22,
+        "tendency": "seek documentary reconciliation before endorsing terminal action",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "county_cfo",
+        "behavior_axes": {
+          "adaptability": 0.62,
+          "caution": 0.72,
+          "opacity": 0.31,
+          "responsiveness": 0.57
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.67,
+          "proceduralism": 0.82,
+          "service_preservation": 0.42
+        },
+        "reputation": 0.63,
+        "secrecy": 0.25,
+        "tendency": "frame deficit conditionally and emphasize reimbursement timing",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "county_transit_program",
+        "behavior_axes": {
+          "adaptability": 0.47,
+          "caution": 0.41,
+          "opacity": 0.36,
+          "responsiveness": 0.59
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.39,
+          "proceduralism": 0.48,
+          "service_preservation": 0.83
+        },
+        "reputation": 0.5,
+        "secrecy": 0.2,
+        "tendency": "seek operational continuity under budget pressure",
+        "trustworthiness": 0.52
+      },
+      {
+        "actor_name": "state_grant_agency",
+        "behavior_axes": {
+          "adaptability": 0.46,
+          "caution": 0.77,
+          "opacity": 0.33,
+          "responsiveness": 0.44
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.62,
+          "proceduralism": 0.86,
+          "service_preservation": 0.38
+        },
+        "reputation": 0.64,
+        "secrecy": 0.24,
+        "tendency": "release funds only after documentation thresholds are met",
+        "trustworthiness": 0.66
+      },
+      {
+        "actor_name": "advocacy_group",
+        "behavior_axes": {
+          "adaptability": 0.68,
+          "caution": 0.33,
+          "opacity": 0.18,
+          "responsiveness": 0.71
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.22,
+          "proceduralism": 0.37,
+          "service_preservation": 0.92
+        },
+        "reputation": 0.46,
+        "secrecy": 0.12,
+        "tendency": "publicly minimize deficit framing to resist cuts",
+        "trustworthiness": 0.41
+      },
+      {
+        "actor_name": "county_riders",
+        "behavior_axes": {
+          "adaptability": 0.4,
+          "caution": 0.49,
+          "opacity": 0.41,
+          "responsiveness": 0.61
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.31,
+          "proceduralism": 0.35,
+          "service_preservation": 0.88
+        },
+        "reputation": 0.49,
+        "secrecy": 0.29,
+        "tendency": "respond more to service threat than accounting nuance",
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "county_public",
+        "behavior_axes": {
+          "adaptability": 0.39,
+          "caution": 0.57,
+          "opacity": 0.48,
+          "responsiveness": 0.32
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.52,
+          "proceduralism": 0.51,
+          "service_preservation": 0.49
+        },
+        "reputation": 0.5,
+        "secrecy": 0.38,
+        "tendency": "stay low-attention unless conflict sharpens or effects become tangible",
+        "trustworthiness": 0.5
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 1696,
+        "end": 1696,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 1696,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

@@ -1,0 +1,47 @@
+{
+  "attempt_number": 0,
+  "available_at": "2026-05-05T02:12:06.665592Z",
+  "big_bang_id": null,
+  "concurrency_key": null,
+  "created_at": "2026-05-05T02:12:06.665405Z",
+  "error": null,
+  "finished_at": "2026-05-05T02:17:09.403669Z",
+  "id": "9ef391dd-303c-4ca8-8060-1cdb832947e7",
+  "idempotency_key": "job:b213798c45a10ccf88b9730d8318cfa51f0fccdf442720a78b10866afedcfde7",
+  "interrupt_requested_at": null,
+  "interrupted_at": null,
+  "job_type": "initialize_big_bang",
+  "last_heartbeat_at": null,
+  "lease_expires_at": null,
+  "lease_owner": null,
+  "max_attempts": 3,
+  "paused_at": null,
+  "payload": {
+    "actors": [],
+    "branch_policy": {
+      "branch_score_threshold": 0.999,
+      "max_active_multiverses": 1,
+      "max_branch_depth": 1,
+      "max_branches_per_tick": 1
+    },
+    "cohorts": [],
+    "heroes": [],
+    "name": "E1_init_job_dossier_004",
+    "scenario_text": "# Case dossier_004\nBenchmark role: longform_dossier\n\nForecast question: After 10 simulated weeks, does the marketplace fee dispute resolve through rollback, phased compromise, seller exit, regulation, or stalemate?\n\n## Scenario\n\nA large online marketplace changes seller fees and ranking incentives. Independent sellers organize a protest while advertisers and logistics partners have different incentives. Track stakeholder leverage, switching costs, and regulatory risk.\n\n## Source Packet\n\n### Source 1: platform_policy_update / T-12 days\n\nThe platform raises referral fees by 2 percentage points for several categories and offers ranking boosts to sellers who buy bundled logistics.\n\n### Source 2: seller_forum_digest / T-10 days\n\nTop independent sellers discuss a one-week listing strike, but smaller sellers worry they cannot afford lost sales.\n\n### Source 3: advertiser_brief / T-8 days\n\nMajor advertisers say marketplace traffic remains efficient and ask the platform to avoid visible checkout disruption.\n\n### Source 4: logistics_partner_memo / T-7 days\n\nThird-party logistics firms argue the bundled ranking boost unfairly ties search visibility to platform-owned fulfillment.\n\n### Source 5: consumer_group_letter / T-4 days\n\nA consumer group asks the competition authority to examine whether fee pass-through will raise prices.\n\n### Source 6: platform_exec_email / T-2 days\n\nExecutives are open to category-specific transition periods but reject a full rollback in draft talking points.\n\n## Candidate Endpoints\n- full_rollback: Platform reverses the fee/ranking change\n- phased_compromise: Platform keeps policy but delays or narrows implementation\n- seller_exit_strike: Significant seller strike or exit disrupts listings\n- regulatory_investigation: Competition authority opens formal investigation\n- durable_stalemate: Policy remains contested without decisive resolution\n\n## Expected Focus\n- platform_leverage\n- seller_coordination\n- switching_costs\n- regulatory_branch\n\n## Required Forecast Output\n{'type': 'worldfork_initialization_and_report', 'minimum_outputs': ['actors/cohorts and authority constraints', 'initial events and unresolved facts', 'candidate endpoint ledger', 'branch hypotheses with rationale', 'forecast_distribution over endpoints plus unresolved_mass', 'report claims grounded to source_packet references']}\n\n## Rubric Location\nprivate_eval file\n",
+    "simulation_config": {
+      "max_ticks": 1,
+      "tick_duration_minutes": 720
+    },
+    "use_initializer_agent": true
+  },
+  "queue_name": "p1",
+  "queued_at": "2026-05-05T02:12:06.665591Z",
+  "result": {
+    "big_bang_id": "9bc26bb6-eda1-4c54-9293-1bfa1b2f03b3",
+    "source_snapshot_id": "065834e0-c0e7-4fc6-8290-e08b8dc53bb0"
+  },
+  "retryable": true,
+  "started_at": "2026-05-05T02:14:29.319876Z",
+  "status": "succeeded",
+  "updated_at": "2026-05-05T02:17:09.349264Z"
+}

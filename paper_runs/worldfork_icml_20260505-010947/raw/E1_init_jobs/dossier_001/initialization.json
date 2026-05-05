@@ -1,0 +1,1830 @@
+{
+  "big_bang_id": "6992b2a6-1547-4c1e-a4ac-304122ebcb0c",
+  "initializer_output": {
+    "actors": [
+      {
+        "name": "riverbend_regional_housing_agency",
+        "public_visibility": "high",
+        "role": "enforcement_authority",
+        "scope": "regional",
+        "type": "institution"
+      },
+      {
+        "name": "suburb_alpha",
+        "public_visibility": "medium",
+        "role": "noncompliant_suburb_high_dependency",
+        "scope": "local",
+        "type": "municipality"
+      },
+      {
+        "name": "suburb_beta",
+        "public_visibility": "medium",
+        "role": "noncompliant_suburb_high_dependency",
+        "scope": "local",
+        "type": "municipality"
+      },
+      {
+        "name": "suburb_gamma",
+        "public_visibility": "medium",
+        "role": "noncompliant_suburb_low_dependency",
+        "scope": "local",
+        "type": "municipality"
+      },
+      {
+        "name": "suburb_delta",
+        "public_visibility": "medium",
+        "role": "noncompliant_suburb_unspecified_dependency",
+        "scope": "local",
+        "type": "municipality"
+      },
+      {
+        "name": "suburb_epsilon",
+        "public_visibility": "medium",
+        "role": "noncompliant_suburb_unspecified_dependency",
+        "scope": "local",
+        "type": "municipality"
+      },
+      {
+        "name": "coalition_of_three_mayors",
+        "public_visibility": "high",
+        "role": "opposition_coordination",
+        "scope": "multi_local",
+        "type": "political_coalition"
+      },
+      {
+        "name": "renters_housing_nonprofit_coalition",
+        "public_visibility": "high",
+        "role": "pro_enforcement_advocacy",
+        "scope": "regional",
+        "type": "advocacy_coalition"
+      },
+      {
+        "name": "state_governor_office",
+        "public_visibility": "high",
+        "role": "political_signaler",
+        "scope": "state",
+        "type": "executive_office"
+      },
+      {
+        "name": "expedited_review_court",
+        "public_visibility": "medium",
+        "role": "review_and_stay_authority",
+        "scope": "state_or_regional",
+        "type": "judicial_institution"
+      },
+      {
+        "name": "homeowner_anti_density_bloc",
+        "public_visibility": "medium",
+        "role": "anti_density_pressure",
+        "scope": "multi_local",
+        "type": "civic_group"
+      },
+      {
+        "name": "homeowner_flood_fund_bloc",
+        "public_visibility": "medium",
+        "role": "grant_preservation_pressure",
+        "scope": "multi_local",
+        "type": "civic_group"
+      },
+      {
+        "name": "local_news_media",
+        "public_visibility": "high",
+        "role": "agenda_amplifier",
+        "scope": "regional",
+        "type": "media"
+      },
+      {
+        "name": "regional_voters_general",
+        "public_visibility": "low",
+        "role": "ambient_opinion",
+        "scope": "regional",
+        "type": "public"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Suburb_alpha and/or suburb_beta seek modified compliance or partial deals even if coalition rhetoric stays combative.",
+        "branch_key": "high_dependency_suburbs_break_from_hardline",
+        "divergence_signal": "Leaks, meeting agendas, or draft plans indicating selective compliance from high-dependency suburbs.",
+        "evidence": [
+          "source_2_suburban_mayors_letter",
+          "source_3_budget_table"
+        ],
+        "rationale": "Source packet shows uneven grant dependence, making coalition durability fragile.",
+        "trigger": "Private fiscal review shows infrastructure losses are politically intolerable in highly dependent suburbs."
+      },
+      {
+        "alternate_path": "Suburb_gamma becomes the spearhead for court challenge, increasing odds of stay or prolonged dispute.",
+        "branch_key": "low_dependency_suburb_pushes_litigation_first",
+        "divergence_signal": "Early filing preparations or public legal hardening from minimally exposed suburb.",
+        "evidence": [
+          "source_3_budget_table",
+          "source_5_legal_memo_excerpt"
+        ],
+        "rationale": "Low fiscal exposure reduces deterrent effect of withholding threat.",
+        "trigger": "A low-dependency suburb judges grant threat as bearable compared with zoning concessions."
+      },
+      {
+        "alternate_path": "Agency perceives stronger political cover and begins withholding process despite litigation risk.",
+        "branch_key": "governor_signal_hardens_enforcement",
+        "divergence_signal": "Governor statement, joint appearance, or staff leak favoring enforcement.",
+        "evidence": [
+          "source_4_renters_coalition_statement"
+        ],
+        "rationale": "Advocates explicitly seek governor support; state signaling can shift legitimacy and resolve.",
+        "trigger": "Governor office publicly backs immediate enforcement or praises agency authority."
+      },
+      {
+        "alternate_path": "One or more suburbs receive modified targets or phased obligations instead of binary enforcement.",
+        "branch_key": "technical_review_opens_partial_exemption_lane",
+        "divergence_signal": "Requests for technical documentation, expert review, or revised capacity assumptions.",
+        "evidence": [
+          "source_2_suburban_mayors_letter"
+        ],
+        "rationale": "Dispute includes a technical premise, not only outright refusal.",
+        "trigger": "Agency acknowledges some validity to sewer-capacity objections or wants to preserve legal defensibility."
+      },
+      {
+        "alternate_path": "Court issues temporary stay, suspending practical penalty effects while merits are reviewed.",
+        "branch_key": "court_converts_enforcement_into_delay",
+        "divergence_signal": "Filing docket activity and order staying grant penalties.",
+        "evidence": [
+          "source_5_legal_memo_excerpt"
+        ],
+        "rationale": "Statute permits enforcement but memo says courts can stay penalties.",
+        "trigger": "Agency formally initiates withholding and suburbs promptly petition for expedited review."
+      }
+    ],
+    "channels": [
+      {
+        "audience": "municipal_governments",
+        "channel_key": "formal_agency_notice",
+        "type": "official",
+        "visibility": "medium"
+      },
+      {
+        "audience": "media_public_agency",
+        "channel_key": "mayors_public_letter",
+        "type": "official_public",
+        "visibility": "high"
+      },
+      {
+        "audience": "governor_media_public",
+        "channel_key": "advocacy_statement",
+        "type": "public_advocacy",
+        "visibility": "high"
+      },
+      {
+        "audience": "court_elites_media",
+        "channel_key": "legal_filings",
+        "type": "judicial",
+        "visibility": "medium"
+      },
+      {
+        "audience": "regional_public",
+        "channel_key": "local_news_coverage",
+        "type": "media",
+        "visibility": "high"
+      },
+      {
+        "audience": "homeowners_and_local_officials",
+        "channel_key": "local_civic_meetings",
+        "type": "community",
+        "visibility": "medium"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "suburban_homeowners",
+        "attention_level": 0.66,
+        "behavioral_tendencies": [
+          "defend_status_quo",
+          "attend_local_meetings",
+          "pressure_mayors"
+        ],
+        "cohort_key": "homeowners_anti_density",
+        "expression_level": 0.58,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.28,
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.61,
+        "population_share_of_archetype": 0.5,
+        "private_belief_public_gap": 0.08,
+        "representation_mode": "attitude_cohort",
+        "represented_population": 90000,
+        "reputation": 0.49,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "grant_enforcement_support": 0.35,
+          "housing_density_support": 0.2,
+          "litigation_support": 0.55
+        },
+        "trustworthiness": 0.53
+      },
+      {
+        "archetype_key": "suburban_homeowners",
+        "attention_level": 0.63,
+        "behavioral_tendencies": [
+          "risk_averse",
+          "funding_sensitive",
+          "quietly_press_for_compromise"
+        ],
+        "cohort_key": "homeowners_fund_protection",
+        "expression_level": 0.44,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.49,
+        "mobilization_readiness": 0.43,
+        "perceived_majority": 0.36,
+        "population_share_of_archetype": 0.3,
+        "private_belief_public_gap": 0.19,
+        "representation_mode": "attitude_cohort",
+        "represented_population": 54000,
+        "reputation": 0.52,
+        "secrecy": 0.29,
+        "stance_axes": {
+          "grant_enforcement_support": 0.57,
+          "housing_density_support": 0.42,
+          "litigation_support": 0.3
+        },
+        "trustworthiness": 0.56
+      },
+      {
+        "archetype_key": "suburban_homeowners",
+        "attention_level": 0.48,
+        "behavioral_tendencies": [
+          "monitor_news",
+          "avoid_public_conflict",
+          "shift_if_elites_signal"
+        ],
+        "cohort_key": "homeowners_crosspressured_quiet",
+        "expression_level": 0.24,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.57,
+        "mobilization_readiness": 0.25,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.2,
+        "private_belief_public_gap": 0.26,
+        "representation_mode": "attitude_cohort",
+        "represented_population": 36000,
+        "reputation": 0.5,
+        "secrecy": 0.38,
+        "stance_axes": {
+          "grant_enforcement_support": 0.46,
+          "housing_density_support": 0.38,
+          "litigation_support": 0.34
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "archetype_key": "renters_and_housing_seekers",
+        "attention_level": 0.57,
+        "behavioral_tendencies": [
+          "support_advocacy_groups",
+          "pressure_state_officials",
+          "share_fairness_frames"
+        ],
+        "cohort_key": "renters_pro_enforcement",
+        "expression_level": 0.41,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.42,
+        "mobilization_readiness": 0.47,
+        "perceived_majority": 0.33,
+        "population_share_of_archetype": 0.6,
+        "private_belief_public_gap": 0.14,
+        "representation_mode": "interest_cohort",
+        "represented_population": 156000,
+        "reputation": 0.54,
+        "secrecy": 0.21,
+        "stance_axes": {
+          "grant_enforcement_support": 0.78,
+          "housing_density_support": 0.82,
+          "litigation_support": 0.18
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "archetype_key": "renters_and_housing_seekers",
+        "attention_level": 0.29,
+        "behavioral_tendencies": [
+          "low_bandwidth",
+          "issue_diffuse",
+          "react_to_salient_events"
+        ],
+        "cohort_key": "renters_disengaged_or_skeptical",
+        "expression_level": 0.14,
+        "fatigue": 0.39,
+        "fear_of_isolation": 0.31,
+        "mobilization_readiness": 0.17,
+        "perceived_majority": 0.25,
+        "population_share_of_archetype": 0.4,
+        "private_belief_public_gap": 0.17,
+        "representation_mode": "attention_cohort",
+        "represented_population": 104000,
+        "reputation": 0.48,
+        "secrecy": 0.34,
+        "stance_axes": {
+          "grant_enforcement_support": 0.49,
+          "housing_density_support": 0.61,
+          "litigation_support": 0.22
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "archetype_key": "municipal_elites_and_staff",
+        "attention_level": 0.93,
+        "behavioral_tendencies": [
+          "coordinate_letters",
+          "threaten_legal_action",
+          "contest_technical_assumptions"
+        ],
+        "cohort_key": "municipal_leadership_resistance",
+        "expression_level": 0.78,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.81,
+        "perceived_majority": 0.58,
+        "population_share_of_archetype": 0.36,
+        "private_belief_public_gap": 0.11,
+        "representation_mode": "institutional_cohort",
+        "represented_population": 90,
+        "reputation": 0.47,
+        "secrecy": 0.46,
+        "stance_axes": {
+          "grant_enforcement_support": 0.17,
+          "housing_density_support": 0.26,
+          "litigation_support": 0.73
+        },
+        "trustworthiness": 0.44
+      },
+      {
+        "archetype_key": "municipal_elites_and_staff",
+        "attention_level": 0.88,
+        "behavioral_tendencies": [
+          "seek_extensions",
+          "privately_model_risk",
+          "prefer_partial_deals"
+        ],
+        "cohort_key": "municipal_leadership_compromise",
+        "expression_level": 0.39,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.44,
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.29,
+        "population_share_of_archetype": 0.32,
+        "private_belief_public_gap": 0.24,
+        "representation_mode": "institutional_cohort",
+        "represented_population": 80,
+        "reputation": 0.51,
+        "secrecy": 0.51,
+        "stance_axes": {
+          "grant_enforcement_support": 0.46,
+          "housing_density_support": 0.44,
+          "litigation_support": 0.31
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "archetype_key": "regional_civic_attentive_public",
+        "attention_level": 0.51,
+        "behavioral_tendencies": [
+          "follow_media_cues",
+          "update_from_official_actions",
+          "limited_direct_participation"
+        ],
+        "cohort_key": "civic_public_attentive_mixed",
+        "expression_level": 0.22,
+        "fatigue": 0.26,
+        "fear_of_isolation": 0.46,
+        "mobilization_readiness": 0.19,
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 1,
+        "private_belief_public_gap": 0.13,
+        "representation_mode": "issue_public",
+        "represented_population": 90000,
+        "reputation": 0.5,
+        "secrecy": 0.27,
+        "stance_axes": {
+          "grant_enforcement_support": 0.52,
+          "housing_density_support": 0.49,
+          "litigation_support": 0.37
+        },
+        "trustworthiness": 0.55
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "suburban_homeowners",
+        "attention_level": 0.66,
+        "behavioral_tendencies": [
+          "defend_status_quo",
+          "attend_local_meetings",
+          "pressure_mayors"
+        ],
+        "cohort_key": "homeowners_anti_density",
+        "expression_level": 0.58,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.28,
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.61,
+        "population_share_of_archetype": 0.5,
+        "private_belief_public_gap": 0.08,
+        "representation_mode": "attitude_cohort",
+        "represented_population": 90000,
+        "reputation": 0.49,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "grant_enforcement_support": 0.35,
+          "housing_density_support": 0.2,
+          "litigation_support": 0.55
+        },
+        "trustworthiness": 0.53
+      },
+      {
+        "archetype_key": "suburban_homeowners",
+        "attention_level": 0.63,
+        "behavioral_tendencies": [
+          "risk_averse",
+          "funding_sensitive",
+          "quietly_press_for_compromise"
+        ],
+        "cohort_key": "homeowners_fund_protection",
+        "expression_level": 0.44,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.49,
+        "mobilization_readiness": 0.43,
+        "perceived_majority": 0.36,
+        "population_share_of_archetype": 0.3,
+        "private_belief_public_gap": 0.19,
+        "representation_mode": "attitude_cohort",
+        "represented_population": 54000,
+        "reputation": 0.52,
+        "secrecy": 0.29,
+        "stance_axes": {
+          "grant_enforcement_support": 0.57,
+          "housing_density_support": 0.42,
+          "litigation_support": 0.3
+        },
+        "trustworthiness": 0.56
+      },
+      {
+        "archetype_key": "suburban_homeowners",
+        "attention_level": 0.48,
+        "behavioral_tendencies": [
+          "monitor_news",
+          "avoid_public_conflict",
+          "shift_if_elites_signal"
+        ],
+        "cohort_key": "homeowners_crosspressured_quiet",
+        "expression_level": 0.24,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.57,
+        "mobilization_readiness": 0.25,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.2,
+        "private_belief_public_gap": 0.26,
+        "representation_mode": "attitude_cohort",
+        "represented_population": 36000,
+        "reputation": 0.5,
+        "secrecy": 0.38,
+        "stance_axes": {
+          "grant_enforcement_support": 0.46,
+          "housing_density_support": 0.38,
+          "litigation_support": 0.34
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "archetype_key": "renters_and_housing_seekers",
+        "attention_level": 0.57,
+        "behavioral_tendencies": [
+          "support_advocacy_groups",
+          "pressure_state_officials",
+          "share_fairness_frames"
+        ],
+        "cohort_key": "renters_pro_enforcement",
+        "expression_level": 0.41,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.42,
+        "mobilization_readiness": 0.47,
+        "perceived_majority": 0.33,
+        "population_share_of_archetype": 0.6,
+        "private_belief_public_gap": 0.14,
+        "representation_mode": "interest_cohort",
+        "represented_population": 156000,
+        "reputation": 0.54,
+        "secrecy": 0.21,
+        "stance_axes": {
+          "grant_enforcement_support": 0.78,
+          "housing_density_support": 0.82,
+          "litigation_support": 0.18
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "archetype_key": "renters_and_housing_seekers",
+        "attention_level": 0.29,
+        "behavioral_tendencies": [
+          "low_bandwidth",
+          "issue_diffuse",
+          "react_to_salient_events"
+        ],
+        "cohort_key": "renters_disengaged_or_skeptical",
+        "expression_level": 0.14,
+        "fatigue": 0.39,
+        "fear_of_isolation": 0.31,
+        "mobilization_readiness": 0.17,
+        "perceived_majority": 0.25,
+        "population_share_of_archetype": 0.4,
+        "private_belief_public_gap": 0.17,
+        "representation_mode": "attention_cohort",
+        "represented_population": 104000,
+        "reputation": 0.48,
+        "secrecy": 0.34,
+        "stance_axes": {
+          "grant_enforcement_support": 0.49,
+          "housing_density_support": 0.61,
+          "litigation_support": 0.22
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "archetype_key": "municipal_elites_and_staff",
+        "attention_level": 0.93,
+        "behavioral_tendencies": [
+          "coordinate_letters",
+          "threaten_legal_action",
+          "contest_technical_assumptions"
+        ],
+        "cohort_key": "municipal_leadership_resistance",
+        "expression_level": 0.78,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.81,
+        "perceived_majority": 0.58,
+        "population_share_of_archetype": 0.36,
+        "private_belief_public_gap": 0.11,
+        "representation_mode": "institutional_cohort",
+        "represented_population": 90,
+        "reputation": 0.47,
+        "secrecy": 0.46,
+        "stance_axes": {
+          "grant_enforcement_support": 0.17,
+          "housing_density_support": 0.26,
+          "litigation_support": 0.73
+        },
+        "trustworthiness": 0.44
+      },
+      {
+        "archetype_key": "municipal_elites_and_staff",
+        "attention_level": 0.88,
+        "behavioral_tendencies": [
+          "seek_extensions",
+          "privately_model_risk",
+          "prefer_partial_deals"
+        ],
+        "cohort_key": "municipal_leadership_compromise",
+        "expression_level": 0.39,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.44,
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.29,
+        "population_share_of_archetype": 0.32,
+        "private_belief_public_gap": 0.24,
+        "representation_mode": "institutional_cohort",
+        "represented_population": 80,
+        "reputation": 0.51,
+        "secrecy": 0.51,
+        "stance_axes": {
+          "grant_enforcement_support": 0.46,
+          "housing_density_support": 0.44,
+          "litigation_support": 0.31
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "archetype_key": "regional_civic_attentive_public",
+        "attention_level": 0.51,
+        "behavioral_tendencies": [
+          "follow_media_cues",
+          "update_from_official_actions",
+          "limited_direct_participation"
+        ],
+        "cohort_key": "civic_public_attentive_mixed",
+        "expression_level": 0.22,
+        "fatigue": 0.26,
+        "fear_of_isolation": 0.46,
+        "mobilization_readiness": 0.19,
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 1,
+        "private_belief_public_gap": 0.13,
+        "representation_mode": "issue_public",
+        "represented_population": 90000,
+        "reputation": 0.5,
+        "secrecy": 0.27,
+        "stance_axes": {
+          "grant_enforcement_support": 0.52,
+          "housing_density_support": 0.49,
+          "litigation_support": 0.37
+        },
+        "trustworthiness": 0.55
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "riverbend_regional_housing_agency",
+          "expedited_review_court"
+        ],
+        "blockers": [
+          "Court stay after filing",
+          "Political pressure for negotiated extension",
+          "Technical review creating modified compliance path"
+        ],
+        "contradiction_notes": "A later stay would not negate realization if enforcement was formally begun first; it would affect downstream dominance.",
+        "description": "The regional housing agency formally initiates grant-withholding against at least one noncompliant suburb after the compliance window or upon failed plan review.",
+        "endpoint_key": "agency_enforcement",
+        "evidence_refs": [
+          "source_1_agency_notice",
+          "source_5_legal_memo_excerpt"
+        ],
+        "label": "Agency begins grant-withholding process",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Within 12 weeks, does the agency actually begin the grant-withholding enforcement process against any noncompliant suburb?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.27,
+        "rationale": "This endpoint is central because agency authority is real and deadline-backed, though constrained by legal review and uneven fiscal leverage.",
+        "realization_criteria": [
+          "Agency issues formal enforcement initiation or withholding notice against one or more suburbs.",
+          "Action is publicly acknowledged through agency communication, municipal response, or legal filing."
+        ],
+        "status": "active",
+        "status_basis": "Agency has statutory enforcement power and has already threatened grant withholding, but no formal withholding has started at T0."
+      },
+      {
+        "authority_refs": [
+          "riverbend_regional_housing_agency",
+          "suburb_alpha",
+          "suburb_beta",
+          "suburb_gamma",
+          "suburb_delta",
+          "suburb_epsilon"
+        ],
+        "blockers": [
+          "Agency hardens under advocacy or political pressure",
+          "Court route displaces negotiation",
+          "Mayoral coalition overplays legal threat and loses bargaining room"
+        ],
+        "contradiction_notes": "A brief procedural pause from court is not the same as negotiated delay unless agency and suburbs adopt a revised schedule.",
+        "description": "Agency and one or more suburbs agree to extend or phase the compliance schedule without immediate grant-withholding.",
+        "endpoint_key": "negotiated_delay",
+        "evidence_refs": [
+          "source_1_agency_notice",
+          "source_2_suburban_mayors_letter",
+          "source_3_budget_table"
+        ],
+        "label": "Suburbs receive delayed compliance schedule",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Within 12 weeks, does a court temporarily stay enforcement or grant penalties after a municipal challenge?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.25,
+        "rationale": "Uneven grant dependence and the technical-assumption dispute create incentives for a face-saving extension or phased process.",
+        "realization_criteria": [
+          "Agency publicly grants an extension, phased schedule, or delayed compliance calendar to one or more suburbs.",
+          "No active withholding is imposed during the granted delay period at the time of decision."
+        ],
+        "status": "active",
+        "status_basis": "Delay is not granted at T0, but fiscal exposure and technical disputes make schedule adjustment plausible."
+      },
+      {
+        "authority_refs": [
+          "expedited_review_court",
+          "coalition_of_three_mayors",
+          "riverbend_regional_housing_agency"
+        ],
+        "blockers": [
+          "No timely filing",
+          "Court declines stay",
+          "Agency avoids triggering ripe litigation through negotiation"
+        ],
+        "contradiction_notes": "A filed lawsuit alone does not realize this endpoint unless a stay is granted.",
+        "description": "An expedited review court issues a temporary stay preventing practical enforcement of grant penalties while legal review proceeds.",
+        "endpoint_key": "court_stay",
+        "evidence_refs": [
+          "source_2_suburban_mayors_letter",
+          "source_5_legal_memo_excerpt"
+        ],
+        "label": "Court temporarily blocks enforcement",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do the suburbs obtain a delayed compliance schedule rather than facing immediate full enforcement?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.19,
+        "rationale": "This is a strong branch because the statute allows enforcement yet courts can interrupt penalty execution during expedited review.",
+        "realization_criteria": [
+          "A suburb or coalition files for expedited review after or alongside enforcement threat/action.",
+          "Court issues an order staying grant penalties or enforcement implementation temporarily."
+        ],
+        "status": "active",
+        "status_basis": "Legal memo explicitly preserves this pathway, but no filing or stay exists at T0."
+      },
+      {
+        "authority_refs": [
+          "riverbend_regional_housing_agency",
+          "suburb_alpha",
+          "suburb_beta",
+          "suburb_gamma",
+          "suburb_delta",
+          "suburb_epsilon"
+        ],
+        "blockers": [
+          "Agency resists appearing weak or inconsistent",
+          "Insufficient technical evidence",
+          "Court process freezes administrative adjustment"
+        ],
+        "contradiction_notes": "A mere extension without changed targets does not count; criteria require modified obligations.",
+        "description": "Agency or a related authorized process grants tailored exceptions, revised targets, or modified compliance obligations for some suburbs based on capacity arguments or differentiated conditions.",
+        "endpoint_key": "partial_exemption",
+        "evidence_refs": [
+          "source_2_suburban_mayors_letter",
+          "source_3_budget_table"
+        ],
+        "label": "Some suburbs get exemptions or modified targets",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do some suburbs secure exemptions or modified targets based on technical or capacity arguments?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.17,
+        "rationale": "The sewer-capacity argument opens a technocratic lane for selective accommodation, especially if agency wants to preserve legitimacy.",
+        "realization_criteria": [
+          "One or more suburbs receive formally modified targets, exemptions, or adjusted compliance standards.",
+          "The modification is explicitly justified by technical, fiscal, or infrastructure-capacity grounds."
+        ],
+        "status": "active",
+        "status_basis": "Mayors have introduced a technical challenge to assumptions, but no exemption process is confirmed at T0."
+      },
+      {
+        "authority_refs": [
+          "riverbend_regional_housing_agency",
+          "coalition_of_three_mayors",
+          "expedited_review_court",
+          "state_governor_office"
+        ],
+        "blockers": [
+          "A clear enforcement action with no effective stay",
+          "A formal regionwide negotiated extension",
+          "A distinct court stay that becomes the dominant governing fact"
+        ],
+        "contradiction_notes": "This endpoint should not be selected if one pathway becomes clearly governing for most affected suburbs and public process.",
+        "description": "By week 12 the dispute remains a mixed state of notices, partial plans, political messaging, and/or litigation without any single endpoint clearly dominating the timeline.",
+        "endpoint_key": "unresolved_mixed",
+        "evidence_refs": [
+          "source_1_agency_notice",
+          "source_2_suburban_mayors_letter",
+          "source_5_legal_memo_excerpt",
+          "source_6_local_news_excerpt"
+        ],
+        "label": "No dominant endpoint after horizon",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "If no single endpoint resolves, does the dispute remain a mixed, unresolved pattern of partial moves without a dominant terminal outcome by week 12?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.12,
+        "rationale": "The scenario is designed around preserving uncertainty and multiple authority pathways, making prolonged mixed-state outcomes credible.",
+        "realization_criteria": [
+          "By end of horizon, no single endpoint has clearly materialized across the dispute as the dominant state.",
+          "Evidence shows simultaneous partial enforcement threats, negotiations, technical review, or litigation without decisive consolidation."
+        ],
+        "status": "active",
+        "status_basis": "T0 already features authority conflict, mixed public opinion, and legal uncertainty with deadline pressure still unfolding."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "source_1_agency_notice",
+        "layer": "exposure",
+        "reason": "Direct notice and compliance threat already issued.",
+        "source_actor_name": "riverbend_regional_housing_agency",
+        "target_actor_name": "suburb_alpha",
+        "weight": 0.71
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_1_agency_notice",
+        "layer": "exposure",
+        "reason": "Direct notice and compliance threat already issued.",
+        "source_actor_name": "riverbend_regional_housing_agency",
+        "target_actor_name": "suburb_beta",
+        "weight": 0.71
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_1_agency_notice",
+        "layer": "exposure",
+        "reason": "Direct notice and compliance threat already issued.",
+        "source_actor_name": "riverbend_regional_housing_agency",
+        "target_actor_name": "suburb_gamma",
+        "weight": 0.71
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_1_agency_notice",
+        "layer": "exposure",
+        "reason": "Direct notice and compliance threat already issued.",
+        "source_actor_name": "riverbend_regional_housing_agency",
+        "target_actor_name": "suburb_delta",
+        "weight": 0.71
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_1_agency_notice",
+        "layer": "exposure",
+        "reason": "Direct notice and compliance threat already issued.",
+        "source_actor_name": "riverbend_regional_housing_agency",
+        "target_actor_name": "suburb_epsilon",
+        "weight": 0.71
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_6_local_news_excerpt",
+        "layer": "exposure",
+        "reason": "Local news excerpt has publicized homeowner split and dispute.",
+        "source_actor_name": "local_news_media",
+        "target_actor_name": "regional_voters_general",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_4_renters_coalition_statement",
+        "layer": "exposure",
+        "reason": "Coalition explicitly asks governor to support enforcement.",
+        "source_actor_name": "renters_housing_nonprofit_coalition",
+        "target_actor_name": "state_governor_office",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_2_suburban_mayors_letter",
+        "layer": "exposure",
+        "reason": "Public letter by mayors likely reaches media and public agenda.",
+        "source_actor_name": "coalition_of_three_mayors",
+        "target_actor_name": "local_news_media",
+        "weight": 0.49
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_2_suburban_mayors_letter",
+        "layer": "trust",
+        "reason": "Suburb contests target assumptions, reducing confidence in agency competence/fairness.",
+        "source_actor_name": "suburb_alpha",
+        "target_actor_name": "riverbend_regional_housing_agency",
+        "weight": 0.31
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_2_suburban_mayors_letter",
+        "layer": "trust",
+        "reason": "Suburb contests target assumptions, reducing confidence in agency competence/fairness.",
+        "source_actor_name": "suburb_beta",
+        "target_actor_name": "riverbend_regional_housing_agency",
+        "weight": 0.31
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_2_suburban_mayors_letter; source_3_budget_table",
+        "layer": "trust",
+        "reason": "Low-dependency suburb has less incentive to defer and may trust less.",
+        "source_actor_name": "suburb_gamma",
+        "target_actor_name": "riverbend_regional_housing_agency",
+        "weight": 0.27
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_4_renters_coalition_statement",
+        "layer": "trust",
+        "reason": "Advocates want immediate enforcement, indicating moderate confidence in agency role.",
+        "source_actor_name": "renters_housing_nonprofit_coalition",
+        "target_actor_name": "riverbend_regional_housing_agency",
+        "weight": 0.64
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_2_suburban_mayors_letter; source_6_local_news_excerpt",
+        "layer": "trust",
+        "reason": "Public may credit sewer-capacity critique but remains split by funding concerns.",
+        "source_actor_name": "regional_voters_general",
+        "target_actor_name": "coalition_of_three_mayors",
+        "weight": 0.45
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_1_agency_notice; source_2_suburban_mayors_letter",
+        "layer": "trust",
+        "reason": "Agency has statutory role but faces fairness questions and local backlash.",
+        "source_actor_name": "regional_voters_general",
+        "target_actor_name": "riverbend_regional_housing_agency",
+        "weight": 0.47
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_3_budget_table",
+        "layer": "dependency",
+        "reason": "One of two suburbs relying on agency-linked grants for over 30% of planned upgrades.",
+        "source_actor_name": "suburb_alpha",
+        "target_actor_name": "riverbend_regional_housing_agency",
+        "weight": 0.79
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_3_budget_table",
+        "layer": "dependency",
+        "reason": "One of two suburbs relying on agency-linked grants for over 30% of planned upgrades.",
+        "source_actor_name": "suburb_beta",
+        "target_actor_name": "riverbend_regional_housing_agency",
+        "weight": 0.79
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_3_budget_table",
+        "layer": "dependency",
+        "reason": "One suburb relies on less than 5% of planned upgrades from agency-linked grants.",
+        "source_actor_name": "suburb_gamma",
+        "target_actor_name": "riverbend_regional_housing_agency",
+        "weight": 0.18
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_1_agency_notice; source_3_budget_table",
+        "layer": "dependency",
+        "reason": "Noncompliant suburb likely has some exposure but exact grant dependence unspecified.",
+        "source_actor_name": "suburb_delta",
+        "target_actor_name": "riverbend_regional_housing_agency",
+        "weight": 0.42
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_1_agency_notice; source_3_budget_table",
+        "layer": "dependency",
+        "reason": "Noncompliant suburb likely has some exposure but exact grant dependence unspecified.",
+        "source_actor_name": "suburb_epsilon",
+        "target_actor_name": "riverbend_regional_housing_agency",
+        "weight": 0.42
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_1_agency_notice; source_5_legal_memo_excerpt",
+        "layer": "influence",
+        "reason": "Agency controls compliance timeline and can begin withholding process.",
+        "source_actor_name": "riverbend_regional_housing_agency",
+        "target_actor_name": "suburb_alpha",
+        "weight": 0.74
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_1_agency_notice; source_5_legal_memo_excerpt",
+        "layer": "influence",
+        "reason": "Agency controls compliance timeline and can begin withholding process.",
+        "source_actor_name": "riverbend_regional_housing_agency",
+        "target_actor_name": "suburb_beta",
+        "weight": 0.74
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_1_agency_notice; source_3_budget_table",
+        "layer": "influence",
+        "reason": "Agency can enforce, though low dependency weakens leverage.",
+        "source_actor_name": "riverbend_regional_housing_agency",
+        "target_actor_name": "suburb_gamma",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_2_suburban_mayors_letter",
+        "layer": "influence",
+        "reason": "Mayors publicly frame targets as outdated and unfair.",
+        "source_actor_name": "coalition_of_three_mayors",
+        "target_actor_name": "regional_voters_general",
+        "weight": 0.51
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_4_renters_coalition_statement",
+        "layer": "influence",
+        "reason": "Advocates seek gubernatorial backing, potentially shaping political context.",
+        "source_actor_name": "renters_housing_nonprofit_coalition",
+        "target_actor_name": "state_governor_office",
+        "weight": 0.39
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_4_renters_coalition_statement",
+        "layer": "influence",
+        "reason": "Governor may shape public support and broader political cover but no direct T0 command evidenced.",
+        "source_actor_name": "state_governor_office",
+        "target_actor_name": "riverbend_regional_housing_agency",
+        "weight": 0.34
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_5_legal_memo_excerpt",
+        "layer": "influence",
+        "reason": "Court can stay grant penalties during expedited review.",
+        "source_actor_name": "expedited_review_court",
+        "target_actor_name": "riverbend_regional_housing_agency",
+        "weight": 0.57
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_2_suburban_mayors_letter",
+        "layer": "coalition",
+        "reason": "One of the three mayors is publicly aligned in challenge letter.",
+        "source_actor_name": "suburb_alpha",
+        "target_actor_name": "coalition_of_three_mayors",
+        "weight": 0.68
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_2_suburban_mayors_letter",
+        "layer": "coalition",
+        "reason": "One of the three mayors is publicly aligned in challenge letter.",
+        "source_actor_name": "suburb_beta",
+        "target_actor_name": "coalition_of_three_mayors",
+        "weight": 0.68
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_2_suburban_mayors_letter",
+        "layer": "coalition",
+        "reason": "One of the three mayors is publicly aligned in challenge letter.",
+        "source_actor_name": "suburb_gamma",
+        "target_actor_name": "coalition_of_three_mayors",
+        "weight": 0.68
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_4_renters_coalition_statement",
+        "layer": "coalition",
+        "reason": "Advocates seek alignment but no confirmed response yet.",
+        "source_actor_name": "renters_housing_nonprofit_coalition",
+        "target_actor_name": "state_governor_office",
+        "weight": 0.28
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_6_local_news_excerpt; source_2_suburban_mayors_letter",
+        "layer": "coalition",
+        "reason": "Anti-density residents likely align with resistance framing.",
+        "source_actor_name": "homeowner_anti_density_bloc",
+        "target_actor_name": "coalition_of_three_mayors",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_6_local_news_excerpt",
+        "layer": "coalition",
+        "reason": "Residents worried about flood-mitigation funds may favor some compliance or accommodation.",
+        "source_actor_name": "homeowner_flood_fund_bloc",
+        "target_actor_name": "riverbend_regional_housing_agency",
+        "weight": 0.37
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_1_agency_notice; source_2_suburban_mayors_letter",
+        "layer": "conflict",
+        "reason": "Public threat of litigation and grant withholding creates clear but not irreversible conflict.",
+        "source_actor_name": "riverbend_regional_housing_agency",
+        "target_actor_name": "coalition_of_three_mayors",
+        "weight": 0.63
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_4_renters_coalition_statement",
+        "layer": "conflict",
+        "reason": "Advocates describe delay as tactic protecting exclusionary zoning.",
+        "source_actor_name": "renters_housing_nonprofit_coalition",
+        "target_actor_name": "coalition_of_three_mayors",
+        "weight": 0.58
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_4_renters_coalition_statement; source_6_local_news_excerpt",
+        "layer": "conflict",
+        "reason": "Density politics creates substantive goal clash.",
+        "source_actor_name": "homeowner_anti_density_bloc",
+        "target_actor_name": "renters_housing_nonprofit_coalition",
+        "weight": 0.49
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_1_agency_notice; source_6_local_news_excerpt",
+        "layer": "conflict",
+        "reason": "Agency targets imply increased density and external pressure.",
+        "source_actor_name": "homeowner_anti_density_bloc",
+        "target_actor_name": "riverbend_regional_housing_agency",
+        "weight": 0.44
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_1_agency_notice; source_2_suburban_mayors_letter",
+        "layer": "oasis_interaction",
+        "reason": "High likelihood of public statements, filings, and deadline exchanges.",
+        "source_actor_name": "coalition_of_three_mayors",
+        "target_actor_name": "riverbend_regional_housing_agency",
+        "weight": 0.56
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_4_renters_coalition_statement",
+        "layer": "oasis_interaction",
+        "reason": "Public appeals and possible press events likely continue.",
+        "source_actor_name": "renters_housing_nonprofit_coalition",
+        "target_actor_name": "state_governor_office",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_6_local_news_excerpt",
+        "layer": "oasis_interaction",
+        "reason": "News coverage will structure public attention and narrative updates.",
+        "source_actor_name": "local_news_media",
+        "target_actor_name": "regional_voters_general",
+        "weight": 0.52
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_6_local_news_excerpt",
+        "layer": "oasis_interaction",
+        "reason": "Split homeowner factions likely interact in meetings and public comment spaces.",
+        "source_actor_name": "homeowner_anti_density_bloc",
+        "target_actor_name": "homeowner_flood_fund_bloc",
+        "weight": 0.47
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "key": "institutional_decider",
+        "label": "Institutional decider"
+      },
+      {
+        "key": "municipal_challenger",
+        "label": "Municipal challenger"
+      },
+      {
+        "key": "advocacy_mobilizer",
+        "label": "Advocacy mobilizer"
+      },
+      {
+        "key": "judicial_gatekeeper",
+        "label": "Judicial gatekeeper"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "riverbend_regional_housing_agency",
+        "attention_level": 0.95,
+        "decision_authority": 0.84,
+        "expression_level": 0.72,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.12,
+        "graph_influence_summary": 0.74,
+        "hero_archetype_key": "institutional_decider",
+        "legal_confidence": 0.68,
+        "mobilization_readiness": 0.78,
+        "operational_capacity": 0.71,
+        "perceived_majority": 0.49,
+        "reputation": 0.57,
+        "secrecy": 0.31,
+        "stance_axes": {
+          "litigation_avoidance": 0.46,
+          "schedule_flexibility": 0.42,
+          "strict_enforcement": 0.68
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "coalition_of_three_mayors",
+        "attention_level": 0.94,
+        "decision_authority": 0.52,
+        "expression_level": 0.81,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.17,
+        "graph_influence_summary": 0.63,
+        "hero_archetype_key": "municipal_challenger",
+        "legal_confidence": 0.66,
+        "mobilization_readiness": 0.79,
+        "operational_capacity": 0.61,
+        "perceived_majority": 0.55,
+        "reputation": 0.5,
+        "secrecy": 0.36,
+        "stance_axes": {
+          "litigation_avoidance": 0.19,
+          "schedule_flexibility": 0.77,
+          "strict_enforcement": 0.12
+        },
+        "trustworthiness": 0.46
+      },
+      {
+        "actor_name": "renters_housing_nonprofit_coalition",
+        "attention_level": 0.87,
+        "decision_authority": 0.24,
+        "expression_level": 0.74,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.24,
+        "graph_influence_summary": 0.56,
+        "hero_archetype_key": "advocacy_mobilizer",
+        "legal_confidence": 0.49,
+        "mobilization_readiness": 0.71,
+        "operational_capacity": 0.62,
+        "perceived_majority": 0.34,
+        "reputation": 0.58,
+        "secrecy": 0.22,
+        "stance_axes": {
+          "litigation_avoidance": 0.33,
+          "schedule_flexibility": 0.21,
+          "strict_enforcement": 0.82
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "expedited_review_court",
+        "attention_level": 0.41,
+        "decision_authority": 0.73,
+        "expression_level": 0.06,
+        "fatigue": 0.11,
+        "fear_of_isolation": 0.03,
+        "graph_influence_summary": 0.59,
+        "hero_archetype_key": "judicial_gatekeeper",
+        "legal_confidence": 0.7,
+        "mobilization_readiness": 0.12,
+        "operational_capacity": 0.64,
+        "perceived_majority": 0.5,
+        "reputation": 0.69,
+        "secrecy": 0.78,
+        "stance_axes": {
+          "litigation_avoidance": 0.5,
+          "schedule_flexibility": 0.5,
+          "strict_enforcement": 0.5
+        },
+        "trustworthiness": 0.66
+      },
+      {
+        "actor_name": "state_governor_office",
+        "attention_level": 0.46,
+        "decision_authority": 0.38,
+        "expression_level": 0.19,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.16,
+        "graph_influence_summary": 0.52,
+        "hero_archetype_key": "institutional_decider",
+        "legal_confidence": 0.51,
+        "mobilization_readiness": 0.28,
+        "operational_capacity": 0.69,
+        "perceived_majority": 0.45,
+        "reputation": 0.56,
+        "secrecy": 0.44,
+        "stance_axes": {
+          "litigation_avoidance": 0.57,
+          "schedule_flexibility": 0.46,
+          "strict_enforcement": 0.54
+        },
+        "trustworthiness": 0.57
+      }
+    ],
+    "heroes": [
+      {
+        "key": "institutional_decider",
+        "label": "Institutional decider"
+      },
+      {
+        "key": "municipal_challenger",
+        "label": "Municipal challenger"
+      },
+      {
+        "key": "advocacy_mobilizer",
+        "label": "Advocacy mobilizer"
+      },
+      {
+        "key": "judicial_gatekeeper",
+        "label": "Judicial gatekeeper"
+      }
+    ],
+    "important_questions": [
+      "Within 12 weeks, does the agency actually begin the grant-withholding enforcement process against any noncompliant suburb?",
+      "Within 12 weeks, does a court temporarily stay enforcement or grant penalties after a municipal challenge?",
+      "Do the suburbs obtain a delayed compliance schedule rather than facing immediate full enforcement?",
+      "Do some suburbs secure exemptions or modified targets based on technical or capacity arguments?",
+      "If no single endpoint resolves, does the dispute remain a mixed, unresolved pattern of partial moves without a dominant terminal outcome by week 12?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "riverbend_regional_housing_agency",
+          "suburb_alpha",
+          "suburb_beta",
+          "suburb_gamma",
+          "suburb_delta",
+          "suburb_epsilon"
+        ],
+        "event_key": "agency_45_day_compliance_notice_active",
+        "event_type": "announcement",
+        "evidence": "source_1_agency_notice",
+        "expected_impact": "Raises agency influence and exposure, starts countdown pressure, and makes fiscal dependence politically salient without yet forcing immediate final choices.",
+        "status": "active",
+        "summary": "Regional housing agency has placed five suburbs on a 45-day clock to submit compliance plans or risk infrastructure grant withholding.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "coalition_of_three_mayors",
+          "riverbend_regional_housing_agency"
+        ],
+        "event_key": "three_mayors_escalate_with_litigation_threat",
+        "event_type": "announcement",
+        "evidence": "source_2_suburban_mayors_letter",
+        "expected_impact": "Increases conflict and lowers trust while creating a credible legal-delay branch.",
+        "status": "active",
+        "summary": "Three mayors publicly argue targets use outdated sewer-capacity assumptions and threaten litigation if grants are withheld.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "suburb_alpha",
+          "suburb_beta",
+          "suburb_gamma",
+          "riverbend_regional_housing_agency"
+        ],
+        "event_key": "grant_dependency_asymmetry_recognized",
+        "event_type": "announcement",
+        "evidence": "source_3_budget_table",
+        "expected_impact": "Introduces divergent bargaining incentives and makes uniform suburban strategy less stable.",
+        "status": "active",
+        "summary": "Budget exposure differs sharply across suburbs, with two highly dependent and one minimally dependent on agency-linked grants.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "renters_housing_nonprofit_coalition",
+          "state_governor_office"
+        ],
+        "event_key": "advocates_request_governor_backing",
+        "event_type": "announcement",
+        "evidence": "source_4_renters_coalition_statement",
+        "expected_impact": "May raise statewide political salience and harden agency resolve if governor signals support.",
+        "status": "active",
+        "summary": "Renters and housing nonprofits call for immediate enforcement and seek support from the governor.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "coalition_of_three_mayors",
+          "expedited_review_court",
+          "riverbend_regional_housing_agency"
+        ],
+        "event_key": "legal_review_window_opening",
+        "event_type": "announcement",
+        "evidence": "source_5_legal_memo_excerpt",
+        "expected_impact": "Adds procedural uncertainty and can transform an enforcement move into a court-centered timeline.",
+        "status": "imminent",
+        "summary": "Municipal legal teams evaluate expedited review options that could stay penalties if enforcement begins.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "homeowner_anti_density_bloc",
+          "homeowner_flood_fund_bloc",
+          "local_news_media"
+        ],
+        "event_key": "homeowner_split_surfaces_in_public_discussion",
+        "event_type": "announcement",
+        "evidence": "source_6_local_news_excerpt",
+        "expected_impact": "Complicates mayoral claims of a unified local base and may empower compromise factions in high-dependency suburbs.",
+        "status": "imminent",
+        "summary": "Homeowner groups continue split signaling between anti-density opposition and fear of losing flood-mitigation funds.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "riverbend_regional_housing_agency",
+          "suburb_alpha",
+          "suburb_beta",
+          "suburb_gamma",
+          "suburb_delta",
+          "suburb_epsilon"
+        ],
+        "event_key": "compliance_plan_deadline_approaches",
+        "event_type": "announcement",
+        "evidence": "source_1_agency_notice",
+        "expected_impact": "Forces movement toward enforcement, negotiated delay, partial exemption requests, or litigation filing.",
+        "status": "scheduled",
+        "summary": "The 45-day deadline nears for five suburbs to submit compliance plans.",
+        "tick": 6
+      }
+    ],
+    "llm_call_id": "91f70517-b3db-4eb6-98b7-f1fc613ca3b8",
+    "merge_hypotheses": [
+      {
+        "affected_actors": [
+          "riverbend_regional_housing_agency",
+          "suburb_alpha",
+          "suburb_beta",
+          "suburb_delta",
+          "suburb_epsilon"
+        ],
+        "evidence": [
+          "source_3_budget_table"
+        ],
+        "mechanism": "Common reliance on infrastructure project continuity pressures both agency and some suburbs toward negotiated sequencing.",
+        "merge_key": "shared_funding_risk_drives_convergence"
+      },
+      {
+        "affected_actors": [
+          "riverbend_regional_housing_agency",
+          "coalition_of_three_mayors",
+          "expedited_review_court"
+        ],
+        "evidence": [
+          "source_2_suburban_mayors_letter",
+          "source_5_legal_memo_excerpt"
+        ],
+        "mechanism": "A technical review or phased compliance schedule could let both sides claim fairness without resolving the entire housing conflict.",
+        "merge_key": "procedural_legitimacy_repair"
+      },
+      {
+        "affected_actors": [
+          "homeowner_anti_density_bloc",
+          "homeowner_flood_fund_bloc",
+          "suburb_alpha",
+          "suburb_beta"
+        ],
+        "evidence": [
+          "source_6_local_news_excerpt"
+        ],
+        "mechanism": "Fear of losing flood-mitigation funds counterbalances anti-density mobilization and nudges local leaders toward compromise.",
+        "merge_key": "homeowner_crosspressure_temper_escalation"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "evidence": "Estimated regional scenario population needed to represent split homeowner attitudes across five suburbs; exact count unspecified.",
+        "key": "suburban_homeowners",
+        "label": "Suburban homeowners in affected suburbs",
+        "population_total": 180000
+      },
+      {
+        "evidence": "Regional renter and housing-seeker public implicated by advocacy and housing targets; count approximate due to sparse corpus.",
+        "key": "renters_and_housing_seekers",
+        "label": "Renters and housing seekers across region",
+        "population_total": 260000
+      },
+      {
+        "evidence": "Five suburbs plus agency-facing staff and elected leadership; approximate institutional population.",
+        "key": "municipal_elites_and_staff",
+        "label": "Municipal elected officials and senior staff",
+        "population_total": 250
+      },
+      {
+        "evidence": "Subset of regional public following grant and housing controversy; approximate.",
+        "key": "regional_civic_attentive_public",
+        "label": "Regionally attentive civic public",
+        "population_total": 90000
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "actor_identity_placeholder",
+        "note": "Five suburbs are unnamed in corpus, so fictional placeholders are used and exact coalition membership beyond three mayors is uncertain.",
+        "severity": "medium"
+      },
+      {
+        "flag": "population_estimates_approximate",
+        "note": "Population totals are synthetic approximations due to lack of census-scale data in source packet.",
+        "severity": "medium"
+      },
+      {
+        "flag": "court_jurisdiction_unspecified",
+        "note": "Legal memo implies expedited review and stay authority, but court identity and standards are not fully specified.",
+        "severity": "low"
+      },
+      {
+        "flag": "governor_formal_authority_ambiguous",
+        "note": "Governor is politically relevant but no direct statutory control over agency enforcement is evidenced in corpus.",
+        "severity": "medium"
+      },
+      {
+        "flag": "grant_dependence_distribution_incomplete",
+        "note": "Only two high-dependency and one low-dependency suburbs are specified; remaining two are materially uncertain.",
+        "severity": "medium"
+      },
+      {
+        "flag": "endpoint_probabilities_are_t0_priors",
+        "note": "Probabilities reflect initialization priors from sparse evidence, not a post-tick forecast update.",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "evidence_refs": [
+        "source_1_agency_notice",
+        "source_2_suburban_mayors_letter",
+        "source_3_budget_table",
+        "source_4_renters_coalition_statement",
+        "source_5_legal_memo_excerpt",
+        "source_6_local_news_excerpt"
+      ],
+      "forecast_question": "After 12 simulated weeks, which endpoint receives the most path mass in the Riverbend housing-compliance dispute?",
+      "horizon_weeks": 12,
+      "premise": "A regional housing agency has identified five suburbs as below affordable-housing targets and set a 45-day compliance deadline, creating a dispute over enforcement authority, fiscal dependence, target validity, and likely legal delay.",
+      "scenario_key": "riverbend_housing_compliance_dispute",
+      "t0_reference": "T0 = day after local_news_excerpt",
+      "title": "Riverbend housing-compliance dispute",
+      "uncertainties": [
+        "Exact identities and internal politics of the five suburbs are unspecified.",
+        "Only three mayors are confirmed as publicly coordinated in opposition.",
+        "Court behavior is uncertain despite statutory enforcement power and possible stays.",
+        "Governor involvement is requested by advocates but no formal action is reported at T0."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "evidence": "Residents sort between density concerns and fiscal-risk concerns rather than fully updating across camps.",
+        "level": 0.62,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "scope": "affected suburbs and regional attentive public"
+      },
+      {
+        "evidence": "Clear mobilization triggers exist around threatened grants, court action, and governor signaling.",
+        "level": 0.58,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "scope": "homeowner blocs and renters advocates"
+      },
+      {
+        "evidence": "Some actors privately favor compromise or enforcement but are quieter than organized blocs.",
+        "level": 0.54,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "scope": "crosspressured homeowners and disengaged renters"
+      },
+      {
+        "evidence": "Homeowner factions and municipal elites likely cluster by local identity and zoning attitudes.",
+        "level": 0.61,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "scope": "suburban civic networks"
+      },
+      {
+        "evidence": "Broader public mobilization likely needs repeated cues from officials, media, and visible penalties.",
+        "level": 0.49,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "scope": "regional policy attention"
+      },
+      {
+        "evidence": "Municipal autonomy and exclusionary-zoning accusations indicate identity-laden framing.",
+        "level": 0.67,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "scope": "local-control versus regional-fairness divide"
+      },
+      {
+        "evidence": "Absent new events, issue may remain elite-driven rather than mass-salient.",
+        "level": 0.44,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "scope": "regional public"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Agency has statutory enforcement power but court can stay penalties during expedited review.",
+        "evidence": "source_5_legal_memo_excerpt",
+        "influence_key": "authority_boundary_salience"
+      },
+      {
+        "description": "Grant reliance differs across suburbs, creating uneven incentives to comply, negotiate, or litigate.",
+        "evidence": "source_3_budget_table",
+        "influence_key": "fiscal_dependency_as_behavior_shaper"
+      },
+      {
+        "description": "Homeowner opinion is divided between anti-density and grant-protection concerns.",
+        "evidence": "source_6_local_news_excerpt",
+        "influence_key": "homeowner_split_limits_simple_local_majority"
+      },
+      {
+        "description": "Renters and nonprofits frame delay as bad-faith exclusion and seek immediate enforcement support.",
+        "evidence": "source_4_renters_coalition_statement",
+        "influence_key": "advocacy_pressure_for_immediacy"
+      },
+      {
+        "description": "Mayors challenge sewer-capacity assumptions, creating a technocratic fairness dispute rather than only ideological resistance.",
+        "evidence": "source_2_suburban_mayors_letter",
+        "influence_key": "technical_legitimacy_contest"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "riverbend_regional_housing_agency",
+        "behavior_axes": {
+          "adaptability": 0.46,
+          "assertiveness": 0.69,
+          "proceduralism": 0.81
+        },
+        "ideology_axes": {
+          "fiscal_discipline": 0.63,
+          "local_control_preference": 0.28,
+          "pro_housing_expansion": 0.72
+        },
+        "reputation": 0.57,
+        "secrecy": 0.31,
+        "tendency": "formal_enforcement_with_room_for_process_adjustment",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "suburb_alpha",
+        "behavior_axes": {
+          "adaptability": 0.43,
+          "assertiveness": 0.64,
+          "proceduralism": 0.61
+        },
+        "ideology_axes": {
+          "fiscal_discipline": 0.66,
+          "local_control_preference": 0.77,
+          "pro_housing_expansion": 0.31
+        },
+        "reputation": 0.5,
+        "secrecy": 0.42,
+        "tendency": "resist_targets_but_worry_about_funding",
+        "trustworthiness": 0.49
+      },
+      {
+        "actor_name": "suburb_beta",
+        "behavior_axes": {
+          "adaptability": 0.47,
+          "assertiveness": 0.62,
+          "proceduralism": 0.58
+        },
+        "ideology_axes": {
+          "fiscal_discipline": 0.64,
+          "local_control_preference": 0.74,
+          "pro_housing_expansion": 0.34
+        },
+        "reputation": 0.49,
+        "secrecy": 0.4,
+        "tendency": "join_resistance_with_high_grant_exposure",
+        "trustworthiness": 0.48
+      },
+      {
+        "actor_name": "suburb_gamma",
+        "behavior_axes": {
+          "adaptability": 0.39,
+          "assertiveness": 0.67,
+          "proceduralism": 0.55
+        },
+        "ideology_axes": {
+          "fiscal_discipline": 0.57,
+          "local_control_preference": 0.79,
+          "pro_housing_expansion": 0.24
+        },
+        "reputation": 0.47,
+        "secrecy": 0.38,
+        "tendency": "litigation_tolerant_due_to_low_dependency",
+        "trustworthiness": 0.45
+      },
+      {
+        "actor_name": "suburb_delta",
+        "behavior_axes": {
+          "adaptability": 0.52,
+          "assertiveness": 0.53,
+          "proceduralism": 0.57
+        },
+        "ideology_axes": {
+          "fiscal_discipline": 0.6,
+          "local_control_preference": 0.69,
+          "pro_housing_expansion": 0.37
+        },
+        "reputation": 0.5,
+        "secrecy": 0.45,
+        "tendency": "wait_and_see_with_private_negotiation_interest",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "suburb_epsilon",
+        "behavior_axes": {
+          "adaptability": 0.55,
+          "assertiveness": 0.5,
+          "proceduralism": 0.6
+        },
+        "ideology_axes": {
+          "fiscal_discipline": 0.58,
+          "local_control_preference": 0.66,
+          "pro_housing_expansion": 0.4
+        },
+        "reputation": 0.51,
+        "secrecy": 0.44,
+        "tendency": "susceptible_to_modified_target_deal",
+        "trustworthiness": 0.51
+      },
+      {
+        "actor_name": "coalition_of_three_mayors",
+        "behavior_axes": {
+          "adaptability": 0.41,
+          "assertiveness": 0.78,
+          "proceduralism": 0.63
+        },
+        "ideology_axes": {
+          "fiscal_discipline": 0.62,
+          "local_control_preference": 0.83,
+          "pro_housing_expansion": 0.27
+        },
+        "reputation": 0.5,
+        "secrecy": 0.36,
+        "tendency": "public_challenge_backed_by_legal_threat",
+        "trustworthiness": 0.46
+      },
+      {
+        "actor_name": "renters_housing_nonprofit_coalition",
+        "behavior_axes": {
+          "adaptability": 0.56,
+          "assertiveness": 0.71,
+          "proceduralism": 0.54
+        },
+        "ideology_axes": {
+          "fiscal_discipline": 0.41,
+          "local_control_preference": 0.22,
+          "pro_housing_expansion": 0.87
+        },
+        "reputation": 0.58,
+        "secrecy": 0.22,
+        "tendency": "pressure_for_immediate_enforcement",
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "state_governor_office",
+        "behavior_axes": {
+          "adaptability": 0.58,
+          "assertiveness": 0.43,
+          "proceduralism": 0.69
+        },
+        "ideology_axes": {
+          "fiscal_discipline": 0.52,
+          "local_control_preference": 0.41,
+          "pro_housing_expansion": 0.58
+        },
+        "reputation": 0.56,
+        "secrecy": 0.44,
+        "tendency": "hold_option_to_signal_without_formal_control",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "expedited_review_court",
+        "behavior_axes": {
+          "adaptability": 0.32,
+          "assertiveness": 0.35,
+          "proceduralism": 0.88
+        },
+        "ideology_axes": {
+          "fiscal_discipline": 0.5,
+          "local_control_preference": 0.5,
+          "pro_housing_expansion": 0.5
+        },
+        "reputation": 0.69,
+        "secrecy": 0.78,
+        "tendency": "process_based_intervention_if_petitioned",
+        "trustworthiness": 0.66
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 2404,
+        "end": 2404,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 2404,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

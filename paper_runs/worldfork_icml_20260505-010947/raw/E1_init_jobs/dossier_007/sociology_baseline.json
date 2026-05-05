@@ -1,0 +1,228 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "873060d2-ee48-4540-a2f0-2c6b9900539b",
+      "created_at": "2026-05-05T02:19:18.434235+00:00",
+      "id": "89ee76a6-c9f9-41ee-9117-a5692efa3362",
+      "influence": {
+        "description": "Initial rumor source is incomplete and vulnerable to clarification.",
+        "evidence": "Source 1.",
+        "influence_key": "filing_screenshot_omits_footnotes"
+      },
+      "multiverse_id": "d31f8c53-d4db-4b2e-82e7-7ec82c1e223b",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:19:18.434235+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "873060d2-ee48-4540-a2f0-2c6b9900539b",
+      "created_at": "2026-05-05T02:19:18.434235+00:00",
+      "id": "6966571a-b021-4e5d-be72-e071f1c9e946",
+      "influence": {
+        "description": "Public sees unrealized losses and elevated withdrawals but lacks proof distinguishing liquidity stress from insolvency.",
+        "evidence": "Sources 2 and 3.",
+        "influence_key": "liquidity_vs_solvency_ambiguity"
+      },
+      "multiverse_id": "d31f8c53-d4db-4b2e-82e7-7ec82c1e223b",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:19:18.434235+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "873060d2-ee48-4540-a2f0-2c6b9900539b",
+      "created_at": "2026-05-05T02:19:18.434235+00:00",
+      "id": "fd304158-d775-4d59-81a9-1d9b641da800",
+      "influence": {
+        "description": "Regulator can monitor and caution but cannot publicly share confidential supervisory detail to fully settle rumors.",
+        "evidence": "Source 4.",
+        "influence_key": "regulatory_confidentiality_gap"
+      },
+      "multiverse_id": "d31f8c53-d4db-4b2e-82e7-7ec82c1e223b",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:19:18.434235+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "873060d2-ee48-4540-a2f0-2c6b9900539b",
+      "created_at": "2026-05-05T02:19:18.434235+00:00",
+      "id": "447ecf6a-775f-4823-bc20-84857c32d0ab",
+      "influence": {
+        "description": "Trade association email raises operational risk framing among business depositors.",
+        "evidence": "Source 5.",
+        "influence_key": "payroll_account_concentration_salience"
+      },
+      "multiverse_id": "d31f8c53-d4db-4b2e-82e7-7ec82c1e223b",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:19:18.434235+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "873060d2-ee48-4540-a2f0-2c6b9900539b",
+      "created_at": "2026-05-05T02:19:18.434235+00:00",
+      "id": "350d3647-e97c-4eab-94dc-86dca6894f8b",
+      "influence": {
+        "description": "Management message may calm some stakeholders but withholding dollar amounts leaves space for doubt.",
+        "evidence": "Source 6.",
+        "influence_key": "ceo_reassurance_without_quantification"
+      },
+      "multiverse_id": "d31f8c53-d4db-4b2e-82e7-7ec82c1e223b",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:19:18.434235+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "873060d2-ee48-4540-a2f0-2c6b9900539b",
+      "created_at": "2026-05-05T02:19:18.434235+00:00",
+      "id": "19ab49dd-0c84-4e71-b1c0-245808bfb0ea",
+      "model": "attention_decay",
+      "multiverse_id": "d31f8c53-d4db-4b2e-82e7-7ec82c1e223b",
+      "signal": {
+        "applies_to": [
+          "retail_depositors",
+          "commercial_clients",
+          "member_firms"
+        ],
+        "evidence": "Mixed signals from rumor, filing excerpt, local reporting, regulator statement, and CEO messaging.",
+        "level": "moderate",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:19:18.434235+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "873060d2-ee48-4540-a2f0-2c6b9900539b",
+      "created_at": "2026-05-05T02:19:18.434235+00:00",
+      "id": "b60567b5-707a-4660-b170-adc38314961a",
+      "model": "attention_decay",
+      "multiverse_id": "d31f8c53-d4db-4b2e-82e7-7ec82c1e223b",
+      "signal": {
+        "applies_to": [
+          "retail_depositors",
+          "member_firms"
+        ],
+        "evidence": "Visible withdrawals and peer diversification can trigger additional action once a social threshold is crossed.",
+        "level": "high_relevance",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:19:18.434235+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "873060d2-ee48-4540-a2f0-2c6b9900539b",
+      "created_at": "2026-05-05T02:19:18.434235+00:00",
+      "id": "e433ba9f-d60e-43df-a782-b0bc614f1e1f",
+      "model": "attention_decay",
+      "multiverse_id": "d31f8c53-d4db-4b2e-82e7-7ec82c1e223b",
+      "signal": {
+        "applies_to": [
+          "commercial_clients",
+          "member_firms"
+        ],
+        "evidence": "Business clients may privately diversify without public criticism due to reputational and operational caution.",
+        "level": "moderate",
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:19:18.434235+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "873060d2-ee48-4540-a2f0-2c6b9900539b",
+      "created_at": "2026-05-05T02:19:18.434235+00:00",
+      "id": "6a4a1fc4-6190-4237-88b9-f09328db86c1",
+      "model": "attention_decay",
+      "multiverse_id": "d31f8c53-d4db-4b2e-82e7-7ec82c1e223b",
+      "signal": {
+        "applies_to": [
+          "member_firms",
+          "social_media_accounts"
+        ],
+        "evidence": "Trade association and online clusters reinforce within-network interpretations.",
+        "level": "moderate",
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:19:18.434235+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "873060d2-ee48-4540-a2f0-2c6b9900539b",
+      "created_at": "2026-05-05T02:19:18.434235+00:00",
+      "id": "c32cbb7c-1de3-4ad3-b8b4-1581f3f719e6",
+      "model": "attention_decay",
+      "multiverse_id": "d31f8c53-d4db-4b2e-82e7-7ec82c1e223b",
+      "signal": {
+        "applies_to": [
+          "retail_depositors",
+          "commercial_clients"
+        ],
+        "evidence": "Rumor alone may not move customers, but combined signals from news, peers, and branch activity can.",
+        "level": "high_relevance",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:19:18.434235+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "873060d2-ee48-4540-a2f0-2c6b9900539b",
+      "created_at": "2026-05-05T02:19:18.434235+00:00",
+      "id": "71cf8f5d-fc1f-4582-aa48-fa07302b7237",
+      "model": "attention_decay",
+      "multiverse_id": "d31f8c53-d4db-4b2e-82e7-7ec82c1e223b",
+      "signal": {
+        "applies_to": [
+          "local_business_community",
+          "regulator_followers"
+        ],
+        "evidence": "Local business community shares common concerns around payroll continuity and prudent stewardship.",
+        "level": "moderate",
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:19:18.434235+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "873060d2-ee48-4540-a2f0-2c6b9900539b",
+      "created_at": "2026-05-05T02:19:18.434235+00:00",
+      "id": "da8b37a2-2e7e-4e25-a9f8-c9957c2aa341",
+      "model": "attention_decay",
+      "multiverse_id": "d31f8c53-d4db-4b2e-82e7-7ec82c1e223b",
+      "signal": {
+        "applies_to": [
+          "local_information_audience"
+        ],
+        "evidence": "Absent fresh confirming events, rumor intensity may fade over the 6-week horizon.",
+        "level": "moderate",
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:19:18.434235+00:00"
+    }
+  ]
+}

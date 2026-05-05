@@ -1,0 +1,47 @@
+{
+  "attempt_number": 0,
+  "available_at": "2026-05-05T02:12:06.247952Z",
+  "big_bang_id": null,
+  "concurrency_key": null,
+  "created_at": "2026-05-05T02:12:06.247476Z",
+  "error": null,
+  "finished_at": "2026-05-05T02:14:34.950942Z",
+  "id": "be66403a-a9a1-4e0d-a712-940c7fd6ad0d",
+  "idempotency_key": "job:4793c8ede75a402027a62bd53313d267d0a558f6a5c81adf94eb8d956d79d66b",
+  "interrupt_requested_at": null,
+  "interrupted_at": null,
+  "job_type": "initialize_big_bang",
+  "last_heartbeat_at": null,
+  "lease_expires_at": null,
+  "lease_owner": null,
+  "max_attempts": 3,
+  "paused_at": null,
+  "payload": {
+    "actors": [],
+    "branch_policy": {
+      "branch_score_threshold": 0.999,
+      "max_active_multiverses": 1,
+      "max_branch_depth": 1,
+      "max_branches_per_tick": 1
+    },
+    "cohorts": [],
+    "heroes": [],
+    "name": "E1_init_job_resolved_021",
+    "scenario_text": "# Case resolved_021\nBenchmark role: resolved_forecast\n\nForecast question: Will Mission A2 launch by March 31, 2026?\n\n## Scenario\n\nMission A2 is the first crewed mission in a lunar exploration program since a prior uncrewed test. The vehicle has undergone rollout and rehearsal activity, but launch timing remains sensitive to hardware checks, ground systems, safety review, weather, and range availability. Resolve yes only if the mission launches by March 31, 2026, local launch-site time.\n\n## Source Packet\n\n### Source 1: schedule_context / 2026-02-20\n\nThe program is trying to preserve an early-2026 launch window after multiple historical delays.\n\n### Source 2: risk_note / 2026-02-20\n\nCrewed missions require conservative treatment of unresolved technical issues.\n\n### Source 3: endpoint_note / 2026-02-20\n\nA launch on April 1 or later resolves no even if the delay is less than 24 hours.\n\n## Candidate Endpoints\n- yes: The event occurs by the deadline\n- no: The event does not occur by the deadline\n\n## Expected Focus\n- space_launch_schedule\n- technical_delay_risk\n- deadline_precision\n\n## Required Forecast Output\n{'type': 'probability_distribution', 'schema': {'yes': 'float in [0,1]', 'no': 'float in [0,1]', 'unresolved_mass': 'optional float in [0,1]; if used, keep yes+no+unresolved_mass = 1'}, 'scoring': 'For resolved cards, score p_yes against the hidden private resolution using binary Brier and clamped log score. If unresolved_mass is present, report it separately and normalize yes/no only if your paper explicitly chooses conditional scoring.'}\n\n## Leakage Mitigation\nModel-facing text uses partial entity masking. Do not expose private_eval entity_map or resolution during forecasting.\n",
+    "simulation_config": {
+      "max_ticks": 1,
+      "tick_duration_minutes": 720
+    },
+    "use_initializer_agent": true
+  },
+  "queue_name": "p1",
+  "queued_at": "2026-05-05T02:12:06.247950Z",
+  "result": {
+    "big_bang_id": "c2094f7d-d33b-471d-987e-83d8fdb3da83",
+    "source_snapshot_id": "60c990c1-cce0-457d-8972-25486dc90b15"
+  },
+  "retryable": true,
+  "started_at": "2026-05-05T02:12:06.302971Z",
+  "status": "succeeded",
+  "updated_at": "2026-05-05T02:14:34.903426Z"
+}

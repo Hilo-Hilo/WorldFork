@@ -1,0 +1,1691 @@
+{
+  "big_bang_id": "078d85ac-3f5d-4700-8741-65296c76f53d",
+  "initializer_output": {
+    "actors": [
+      {
+        "authority_scope": "controls records, samples, and internal explanations but not final sponsor decision",
+        "fictionalized": true,
+        "name": "north_hall_biostudies_lab",
+        "role": "research lab under scrutiny",
+        "stakes": [
+          "continuity_of_operations",
+          "data_credibility",
+          "grant_renewal"
+        ],
+        "type": "organization_unit"
+      },
+      {
+        "authority_scope": "directs lab response and scientific representations",
+        "fictionalized": true,
+        "name": "dr_mira_hale",
+        "role": "principal_investigator",
+        "stakes": [
+          "grant_renewal",
+          "professional_reputation",
+          "lab_continuity"
+        ],
+        "type": "person"
+      },
+      {
+        "authority_scope": "limited formal authority; can surface evidence or concerns",
+        "fictionalized": true,
+        "name": "rina_park",
+        "role": "graduate_student",
+        "stakes": [
+          "research_integrity",
+          "career_risk",
+          "whistleblower_exposure"
+        ],
+        "type": "person"
+      },
+      {
+        "authority_scope": "controls inventory reconciliation details",
+        "fictionalized": true,
+        "name": "omar_velas",
+        "role": "lab_manager",
+        "stakes": [
+          "inventory_accuracy",
+          "operational_stability",
+          "credibility_of_records"
+        ],
+        "type": "person"
+      },
+      {
+        "authority_scope": "can investigate internally and advise administrators",
+        "fictionalized": true,
+        "name": "university_research_integrity_office",
+        "role": "internal review office",
+        "stakes": [
+          "process_legitimacy",
+          "institutional_protection",
+          "compliance"
+        ],
+        "type": "institution"
+      },
+      {
+        "authority_scope": "can authorize escalated review, messaging, and operational restrictions",
+        "fictionalized": true,
+        "name": "vice_provost_research",
+        "role": "senior university research administrator",
+        "stakes": [
+          "grant_revenue",
+          "institutional_reputation",
+          "regulatory_compliance"
+        ],
+        "type": "institutional_office"
+      },
+      {
+        "authority_scope": "can delay renewal, request audit, or impose sponsor-side conditions",
+        "fictionalized": true,
+        "name": "arden_biomedical_sponsor",
+        "role": "grant sponsor",
+        "stakes": [
+          "data_reliability",
+          "funding_stewardship",
+          "precedent"
+        ],
+        "type": "organization"
+      },
+      {
+        "authority_scope": "agenda pressure and legitimacy influence, not direct case control",
+        "fictionalized": true,
+        "name": "faculty_senate_science_bloc",
+        "role": "faculty senators debating review independence",
+        "stakes": [
+          "shared_governance",
+          "research_integrity",
+          "institutional_credibility"
+        ],
+        "type": "institutional_group"
+      },
+      {
+        "authority_scope": "limited; can corroborate or stay silent",
+        "fictionalized": true,
+        "name": "lab_trainees_and_staff",
+        "role": "lab personnel exposed to internal facts and operational stress",
+        "stakes": [
+          "job_security",
+          "publication_progress",
+          "mentor_relations"
+        ],
+        "type": "group"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "branch_key": "traceability_recovers_and_scope_narrows",
+        "observable_divergence_signal": "documented sample-to-figure map and consistent record trail cited in sponsor-facing response",
+        "plausible_path": "university frames incident as bounded data-quality issue with corrective controls; sponsor accepts remediation without major external action",
+        "rationale": "PI claim becomes more credible if traceability improves despite initial alarm and mislabeling",
+        "trigger": "inventory reconciliation credibly shows affected samples were not used in renewal appendix or were insulated by independent replicates"
+      },
+      {
+        "branch_key": "traceability_failure_forces_external_review",
+        "observable_divergence_signal": "formal request for outside auditor, independent committee, or sponsor evidence hold",
+        "plausible_path": "sponsor or university initiates independent review or audit because internal assurance is too weak",
+        "rationale": "source_4 deadline plus source_5 legitimacy concerns make ambiguity itself actionable",
+        "trigger": "mislabeled vials remain unmapped near sponsor deadline"
+      },
+      {
+        "branch_key": "interim_delay_without_full_escalation",
+        "observable_divergence_signal": "sponsor extends review window or pauses renewal decision while requesting supplemental materials",
+        "plausible_path": "grant renewal decision is delayed pending clarification rather than immediate external investigation or suspension",
+        "rationale": "sponsor may preserve option value when evidence is incomplete but not yet alarming enough for suspension",
+        "trigger": "university cannot provide clean assurance but offers partial documentation and remediation plan"
+      },
+      {
+        "branch_key": "internal_legitimacy_crisis_expands_scope",
+        "observable_divergence_signal": "public or institutional announcement of augmented review independence",
+        "plausible_path": "administration expands review scope or adds independent member to protect credibility",
+        "rationale": "process legitimacy can become determinant even before substantive contamination scope is resolved",
+        "trigger": "faculty governance criticism intensifies or leaks into broader academic channels"
+      },
+      {
+        "branch_key": "operational_pause_if_data_use_appears_material",
+        "observable_divergence_signal": "written restriction on experiments, sample use, or submissions",
+        "plausible_path": "university or sponsor pauses parts of lab work while evaluating record integrity",
+        "rationale": "direct data linkage would raise stakes beyond procedural dispute",
+        "trigger": "new mapping links compromised or mislabeled samples directly to key renewal figures"
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "internal_lab_email",
+        "participants": [
+          "dr_mira_hale",
+          "rina_park",
+          "lab_trainees_and_staff"
+        ],
+        "purpose": "incident discussion and instruction",
+        "type": "private_digital",
+        "visibility": "limited"
+      },
+      {
+        "channel_key": "inventory_reconciliation_records",
+        "participants": [
+          "omar_velas",
+          "dr_mira_hale",
+          "university_research_integrity_office"
+        ],
+        "purpose": "sample mapping and factual reconstruction",
+        "type": "internal_document",
+        "visibility": "restricted"
+      },
+      {
+        "channel_key": "research_integrity_review_process",
+        "participants": [
+          "university_research_integrity_office",
+          "vice_provost_research",
+          "north_hall_biostudies_lab"
+        ],
+        "purpose": "scope findings and recommendations",
+        "type": "institutional_process",
+        "visibility": "restricted_formal"
+      },
+      {
+        "channel_key": "sponsor_formal_correspondence",
+        "participants": [
+          "arden_biomedical_sponsor",
+          "vice_provost_research",
+          "university_research_integrity_office"
+        ],
+        "purpose": "assurance request and response timeline",
+        "type": "external_formal",
+        "visibility": "restricted_formal"
+      },
+      {
+        "channel_key": "faculty_senate_discussion",
+        "participants": [
+          "faculty_senate_science_bloc",
+          "vice_provost_research"
+        ],
+        "purpose": "debate independence and governance concerns",
+        "type": "semi_public_institutional",
+        "visibility": "institutional"
+      },
+      {
+        "channel_key": "lab_informal_peer_talk",
+        "participants": [
+          "lab_trainees_and_staff",
+          "rina_park"
+        ],
+        "purpose": "interpret sparse evidence and personal risk",
+        "type": "informal",
+        "visibility": "private_networked"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "lab_personnel",
+        "attention_level": 0.84,
+        "behavioral_tendencies": [
+          "avoid open conflict",
+          "share concerns selectively",
+          "watch administrative signals"
+        ],
+        "cohort_key": "lab_personnel_quiet_uncertain",
+        "expression_level": 0.28,
+        "fatigue": 0.42,
+        "fear_of_isolation": 0.68,
+        "mobilization_readiness": 0.31,
+        "perceived_majority": "most colleagues prefer waiting for reconciliation before public claims",
+        "population_share_of_archetype": 0.67,
+        "private_belief": "incident may be real but scope unknown",
+        "public_expression": "cautious and mostly private",
+        "representation_mode": "majority_cohort",
+        "represented_population": 8,
+        "reputation": 0.51,
+        "secrecy": 0.6,
+        "stance_axes": {
+          "concern_about_data_integrity": 0.62,
+          "investigation_escalation": 0.45,
+          "protect_lab_continuity": 0.7,
+          "trust_pi_account": 0.55
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "archetype_key": "lab_personnel",
+        "attention_level": 0.9,
+        "behavioral_tendencies": [
+          "document anomalies",
+          "seek procedural cover",
+          "avoid direct accusation without proof"
+        ],
+        "cohort_key": "lab_personnel_integrity_concerned",
+        "expression_level": 0.41,
+        "fatigue": 0.48,
+        "fear_of_isolation": 0.76,
+        "mobilization_readiness": 0.49,
+        "perceived_majority": "others are hesitant due to hierarchy and grant pressure",
+        "population_share_of_archetype": 0.33,
+        "private_belief": "sample overlap could affect reported work and deserves independent scrutiny",
+        "public_expression": "careful signaling through limited channels",
+        "representation_mode": "minority_cohort",
+        "represented_population": 4,
+        "reputation": 0.47,
+        "secrecy": 0.71,
+        "stance_axes": {
+          "concern_about_data_integrity": 0.79,
+          "investigation_escalation": 0.72,
+          "protect_lab_continuity": 0.4,
+          "trust_pi_account": 0.34
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "archetype_key": "research_faculty_governance",
+        "attention_level": 0.63,
+        "behavioral_tendencies": [
+          "raise process questions",
+          "seek transparency",
+          "avoid asserting facts not yet proven"
+        ],
+        "cohort_key": "faculty_governance_independence_watchers",
+        "expression_level": 0.52,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.33,
+        "mobilization_readiness": 0.44,
+        "perceived_majority": "many faculty are cautious but open to independence concerns",
+        "population_share_of_archetype": 0.45,
+        "private_belief": "internal review may be compromised when a strategic grant is involved",
+        "public_expression": "discussion in governance forums",
+        "representation_mode": "issue_attentive_cohort",
+        "represented_population": 18,
+        "reputation": 0.59,
+        "secrecy": 0.25,
+        "stance_axes": {
+          "concern_about_data_integrity": 0.58,
+          "investigation_escalation": 0.64,
+          "protect_lab_continuity": 0.38,
+          "trust_internal_review": 0.36
+        },
+        "trustworthiness": 0.62
+      },
+      {
+        "archetype_key": "research_faculty_governance",
+        "attention_level": 0.46,
+        "behavioral_tendencies": [
+          "defer to formal process",
+          "respond to new evidence",
+          "avoid public drama"
+        ],
+        "cohort_key": "faculty_governance_wait_and_see",
+        "expression_level": 0.31,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.24,
+        "perceived_majority": "premature escalation could harm institution without improving truth finding",
+        "population_share_of_archetype": 0.55,
+        "private_belief": "facts are too incomplete for strong claims",
+        "public_expression": "measured concern",
+        "representation_mode": "majority_cohort",
+        "represented_population": 22,
+        "reputation": 0.56,
+        "secrecy": 0.21,
+        "stance_axes": {
+          "concern_about_data_integrity": 0.49,
+          "investigation_escalation": 0.41,
+          "protect_lab_continuity": 0.52,
+          "trust_internal_review": 0.51
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "archetype_key": "university_research_administration",
+        "attention_level": 0.88,
+        "behavioral_tendencies": [
+          "control timelines",
+          "seek defensible documentation",
+          "balance compliance against reputational cost"
+        ],
+        "cohort_key": "admin_process_control_group",
+        "expression_level": 0.37,
+        "fatigue": 0.51,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.67,
+        "perceived_majority": "administration expects disciplined process and minimal speculative leakage",
+        "population_share_of_archetype": 1.0,
+        "private_belief": "case must be contained procedurally while satisfying sponsor",
+        "public_expression": "formal and noncommittal",
+        "representation_mode": "full_archetype",
+        "represented_population": 8,
+        "reputation": 0.54,
+        "secrecy": 0.64,
+        "stance_axes": {
+          "concern_about_data_integrity": 0.61,
+          "investigation_escalation": 0.53,
+          "protect_lab_continuity": 0.71,
+          "trust_internal_review": 0.74
+        },
+        "trustworthiness": 0.55
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "lab_personnel",
+        "attention_level": 0.84,
+        "behavioral_tendencies": [
+          "avoid open conflict",
+          "share concerns selectively",
+          "watch administrative signals"
+        ],
+        "cohort_key": "lab_personnel_quiet_uncertain",
+        "expression_level": 0.28,
+        "fatigue": 0.42,
+        "fear_of_isolation": 0.68,
+        "mobilization_readiness": 0.31,
+        "perceived_majority": "most colleagues prefer waiting for reconciliation before public claims",
+        "population_share_of_archetype": 0.67,
+        "private_belief": "incident may be real but scope unknown",
+        "public_expression": "cautious and mostly private",
+        "representation_mode": "majority_cohort",
+        "represented_population": 8,
+        "reputation": 0.51,
+        "secrecy": 0.6,
+        "stance_axes": {
+          "concern_about_data_integrity": 0.62,
+          "investigation_escalation": 0.45,
+          "protect_lab_continuity": 0.7,
+          "trust_pi_account": 0.55
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "archetype_key": "lab_personnel",
+        "attention_level": 0.9,
+        "behavioral_tendencies": [
+          "document anomalies",
+          "seek procedural cover",
+          "avoid direct accusation without proof"
+        ],
+        "cohort_key": "lab_personnel_integrity_concerned",
+        "expression_level": 0.41,
+        "fatigue": 0.48,
+        "fear_of_isolation": 0.76,
+        "mobilization_readiness": 0.49,
+        "perceived_majority": "others are hesitant due to hierarchy and grant pressure",
+        "population_share_of_archetype": 0.33,
+        "private_belief": "sample overlap could affect reported work and deserves independent scrutiny",
+        "public_expression": "careful signaling through limited channels",
+        "representation_mode": "minority_cohort",
+        "represented_population": 4,
+        "reputation": 0.47,
+        "secrecy": 0.71,
+        "stance_axes": {
+          "concern_about_data_integrity": 0.79,
+          "investigation_escalation": 0.72,
+          "protect_lab_continuity": 0.4,
+          "trust_pi_account": 0.34
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "archetype_key": "research_faculty_governance",
+        "attention_level": 0.63,
+        "behavioral_tendencies": [
+          "raise process questions",
+          "seek transparency",
+          "avoid asserting facts not yet proven"
+        ],
+        "cohort_key": "faculty_governance_independence_watchers",
+        "expression_level": 0.52,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.33,
+        "mobilization_readiness": 0.44,
+        "perceived_majority": "many faculty are cautious but open to independence concerns",
+        "population_share_of_archetype": 0.45,
+        "private_belief": "internal review may be compromised when a strategic grant is involved",
+        "public_expression": "discussion in governance forums",
+        "representation_mode": "issue_attentive_cohort",
+        "represented_population": 18,
+        "reputation": 0.59,
+        "secrecy": 0.25,
+        "stance_axes": {
+          "concern_about_data_integrity": 0.58,
+          "investigation_escalation": 0.64,
+          "protect_lab_continuity": 0.38,
+          "trust_internal_review": 0.36
+        },
+        "trustworthiness": 0.62
+      },
+      {
+        "archetype_key": "research_faculty_governance",
+        "attention_level": 0.46,
+        "behavioral_tendencies": [
+          "defer to formal process",
+          "respond to new evidence",
+          "avoid public drama"
+        ],
+        "cohort_key": "faculty_governance_wait_and_see",
+        "expression_level": 0.31,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.24,
+        "perceived_majority": "premature escalation could harm institution without improving truth finding",
+        "population_share_of_archetype": 0.55,
+        "private_belief": "facts are too incomplete for strong claims",
+        "public_expression": "measured concern",
+        "representation_mode": "majority_cohort",
+        "represented_population": 22,
+        "reputation": 0.56,
+        "secrecy": 0.21,
+        "stance_axes": {
+          "concern_about_data_integrity": 0.49,
+          "investigation_escalation": 0.41,
+          "protect_lab_continuity": 0.52,
+          "trust_internal_review": 0.51
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "archetype_key": "university_research_administration",
+        "attention_level": 0.88,
+        "behavioral_tendencies": [
+          "control timelines",
+          "seek defensible documentation",
+          "balance compliance against reputational cost"
+        ],
+        "cohort_key": "admin_process_control_group",
+        "expression_level": 0.37,
+        "fatigue": 0.51,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.67,
+        "perceived_majority": "administration expects disciplined process and minimal speculative leakage",
+        "population_share_of_archetype": 1.0,
+        "private_belief": "case must be contained procedurally while satisfying sponsor",
+        "public_expression": "formal and noncommittal",
+        "representation_mode": "full_archetype",
+        "represented_population": 8,
+        "reputation": 0.54,
+        "secrecy": 0.64,
+        "stance_axes": {
+          "concern_about_data_integrity": 0.61,
+          "investigation_escalation": 0.53,
+          "protect_lab_continuity": 0.71,
+          "trust_internal_review": 0.74
+        },
+        "trustworthiness": 0.55
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "university_research_integrity_office",
+          "vice_provost_research",
+          "arden_biomedical_sponsor"
+        ],
+        "blockers": [
+          "unmapped mislabeled vials",
+          "faculty independence concerns",
+          "sponsor skepticism under deadline"
+        ],
+        "contradiction_notes": "source_2 overlap concern and source_6 mislabeling both weaken immediate clean closure",
+        "description": "Incident is treated as a limited data-quality issue with corrective actions, without dominant external escalation or major operational pause",
+        "endpoint_key": "minor_remediation",
+        "evidence_refs": [
+          "source_3_principal_investigator_reply_t_minus_21",
+          "source_4_sponsor_notice_t_minus_14",
+          "source_6_inventory_update_t_minus_3"
+        ],
+        "label": "Minor remediation",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the university establish a credible documented link or non-link between the affected samples and the grant-renewal appendix figures?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.23,
+        "rationale": "plausible if reconciliation narrows scope and sponsor values continuity with documented fixes",
+        "realization_criteria": [
+          "documented finding states renewal data not materially affected or adequately insulated by independent replicates",
+          "university or sponsor adopts corrective actions such as inventory controls or alarm fixes",
+          "no dominant external investigation or grant delay remains unresolved at endpoint"
+        ],
+        "status": "active",
+        "status_basis": "PI asserts independent replicates, but traceability is incomplete and sponsor confirmation is pending"
+      },
+      {
+        "authority_refs": [
+          "arden_biomedical_sponsor",
+          "vice_provost_research",
+          "university_research_integrity_office"
+        ],
+        "blockers": [
+          "sufficiently credible internal documentation",
+          "administrative desire to avoid escalation",
+          "absence of direct proof linking compromised samples to figures"
+        ],
+        "contradiction_notes": "not yet triggered at T0; sponsor has requested confirmation, not audit",
+        "description": "Independent review, sponsor audit, or equivalent outside scrutiny becomes the dominant pathway",
+        "endpoint_key": "external_investigation",
+        "evidence_refs": [
+          "source_4_sponsor_notice_t_minus_14",
+          "source_5_faculty_senate_minutes_t_minus_9",
+          "source_6_inventory_update_t_minus_3"
+        ],
+        "label": "External investigation",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the sponsor accept internal assurance, delay the renewal, or require an external investigation after the response deadline?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.24,
+        "rationale": "strong candidate when evidence gaps survive deadline and internal independence is questioned",
+        "realization_criteria": [
+          "formal notice of sponsor audit, independent committee, or external investigative body",
+          "internal process is supplemented or displaced by outside review authority",
+          "case trajectory by week 9 is dominated by external fact-finding"
+        ],
+        "status": "active",
+        "status_basis": "deadline pressure and legitimacy concerns create a live path to outside review if ambiguity persists"
+      },
+      {
+        "authority_refs": [
+          "arden_biomedical_sponsor",
+          "vice_provost_research"
+        ],
+        "blockers": [
+          "sponsor may prefer audit over delay",
+          "university may provide enough assurance to avoid postponement",
+          "time pressure may force harder decision"
+        ],
+        "contradiction_notes": "delay may function as mechanism if it quickly converts into external investigation; dominant status depends on persistence",
+        "description": "Grant renewal decision is delayed pending clarification, without necessarily launching a full external investigation immediately",
+        "endpoint_key": "grant_delay",
+        "evidence_refs": [
+          "source_4_sponsor_notice_t_minus_14",
+          "source_6_inventory_update_t_minus_3"
+        ],
+        "label": "Grant delay",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will doubts about internal review independence materially change the investigation structure?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.21,
+        "rationale": "fits a scenario where ambiguity is material but not yet sanctionable",
+        "realization_criteria": [
+          "sponsor formally postpones renewal decision or requests extension before adjudicating renewal",
+          "funding decision remains contingent on supplemental clarification",
+          "delay rather than closure or suspension is the dominant endpoint by week 9"
+        ],
+        "status": "active",
+        "status_basis": "sponsor has leverage and incomplete evidence may make delay the least irreversible option"
+      },
+      {
+        "authority_refs": [
+          "vice_provost_research",
+          "arden_biomedical_sponsor"
+        ],
+        "blockers": [
+          "current evidence does not yet show direct contamination of key outputs",
+          "institutional cost of suspension is high",
+          "available intermediate options like delay or external review"
+        ],
+        "contradiction_notes": "scenario explicitly advises not to conclude misconduct at T0, limiting immediate suspension inference",
+        "description": "University or sponsor pauses lab work or major portions of operation due to integrity or safety concerns",
+        "endpoint_key": "lab_suspension",
+        "evidence_refs": [
+          "source_1_lab_incident_log_t_minus_28",
+          "source_6_inventory_update_t_minus_3"
+        ],
+        "label": "Lab suspension",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will any university or sponsor authority impose a lab work pause or operational restriction within the 9-week horizon?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.08,
+        "rationale": "becomes more likely only if affected samples are tied directly to key figures or broader record failures emerge",
+        "realization_criteria": [
+          "written order or documented decision pauses experiments, sample use, or grant-charged lab activity",
+          "restriction is attributable to the contamination investigation rather than routine operations",
+          "operational pause remains central trajectory by week 9"
+        ],
+        "status": "active",
+        "status_basis": "possible but weakly evidenced at T0 because no authority has yet signaled a pause"
+      },
+      {
+        "authority_refs": [
+          "university_research_integrity_office",
+          "vice_provost_research",
+          "arden_biomedical_sponsor"
+        ],
+        "blockers": [
+          "successful traceability reconstruction",
+          "sponsor forcing a harder endpoint",
+          "new evidence making scope clear"
+        ],
+        "contradiction_notes": "deadline pressure may reduce tolerance for indefinite uncertainty, pushing toward delay or external review instead",
+        "description": "Evidence remains too incomplete for clean closure, leaving the case procedurally open or ambiguously settled",
+        "endpoint_key": "unresolved_evidence_gap",
+        "evidence_refs": [
+          "source_1_lab_incident_log_t_minus_28",
+          "source_2_graduate_student_email_t_minus_22",
+          "source_6_inventory_update_t_minus_3"
+        ],
+        "label": "Unresolved evidence gap",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "By week 9, does the case reach bounded closure, remain in unresolved evidence gap, or convert into an externally driven process?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.24,
+        "rationale": "strong baseline because the packet emphasizes incomplete evidence and unresolved mapping",
+        "realization_criteria": [
+          "by week 9, no authoritative mapping resolves whether affected samples touched renewal data",
+          "no endpoint with stronger terminal action clearly dominates",
+          "official language emphasizes continuing uncertainty or incomplete records"
+        ],
+        "status": "active",
+        "status_basis": "unknown duration, possible overlap, and mislabeled vials together create durable ambiguity at T0"
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "source_2 and source_3",
+        "layer": "exposure",
+        "reason": "student directly raised overlap concern to PI",
+        "source_actor_name": "rina_park",
+        "target_actor_name": "dr_mira_hale",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "scenario role structure; source_3 reply posture",
+        "layer": "exposure",
+        "reason": "PI messages and expectations are highly visible within lab",
+        "source_actor_name": "dr_mira_hale",
+        "target_actor_name": "lab_trainees_and_staff",
+        "weight": 0.56
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_6",
+        "layer": "exposure",
+        "reason": "inventory updates likely flow into review channels",
+        "source_actor_name": "omar_velas",
+        "target_actor_name": "university_research_integrity_office",
+        "weight": 0.38
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_4",
+        "layer": "exposure",
+        "reason": "sponsor notice creates direct administrative attention",
+        "source_actor_name": "arden_biomedical_sponsor",
+        "target_actor_name": "vice_provost_research",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_5",
+        "layer": "exposure",
+        "reason": "senate debate can reach senior administrators",
+        "source_actor_name": "faculty_senate_science_bloc",
+        "target_actor_name": "vice_provost_research",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_4 implied response process",
+        "layer": "exposure",
+        "reason": "review outputs may be conveyed to sponsor through formal channels",
+        "source_actor_name": "university_research_integrity_office",
+        "target_actor_name": "arden_biomedical_sponsor",
+        "weight": 0.27
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_3",
+        "layer": "trust",
+        "reason": "PI asked student not to speculate, creating caution and possible mistrust",
+        "source_actor_name": "rina_park",
+        "target_actor_name": "dr_mira_hale",
+        "weight": 0.31
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_6 and role structure",
+        "layer": "trust",
+        "reason": "PI relies on lab manager for inventory reconciliation",
+        "source_actor_name": "dr_mira_hale",
+        "target_actor_name": "omar_velas",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_4 and source_5",
+        "layer": "trust",
+        "reason": "sponsor may accept internal process only if credibility is shown",
+        "source_actor_name": "arden_biomedical_sponsor",
+        "target_actor_name": "university_research_integrity_office",
+        "weight": 0.43
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_5",
+        "layer": "trust",
+        "reason": "senators openly question independence",
+        "source_actor_name": "faculty_senate_science_bloc",
+        "target_actor_name": "university_research_integrity_office",
+        "weight": 0.29
+      },
+      {
+        "direction": "directed",
+        "evidence": "institutional arrangement implied by scenario",
+        "layer": "trust",
+        "reason": "senior administration structurally depends on office process",
+        "source_actor_name": "vice_provost_research",
+        "target_actor_name": "university_research_integrity_office",
+        "weight": 0.62
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_6",
+        "layer": "trust",
+        "reason": "manager is central source for concrete inventory facts",
+        "source_actor_name": "lab_trainees_and_staff",
+        "target_actor_name": "omar_velas",
+        "weight": 0.49
+      },
+      {
+        "direction": "directed",
+        "evidence": "scenario and source_4",
+        "layer": "dependency",
+        "reason": "grant renewal materially affects lab continuity",
+        "source_actor_name": "north_hall_biostudies_lab",
+        "target_actor_name": "arden_biomedical_sponsor",
+        "weight": 0.71
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_6",
+        "layer": "dependency",
+        "reason": "PI needs inventory mapping to support or rebut contamination scope claims",
+        "source_actor_name": "dr_mira_hale",
+        "target_actor_name": "omar_velas",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_4 and authority structure",
+        "layer": "dependency",
+        "reason": "administration needs review findings for sponsor response",
+        "source_actor_name": "vice_provost_research",
+        "target_actor_name": "university_research_integrity_office",
+        "weight": 0.54
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_4",
+        "layer": "dependency",
+        "reason": "sponsor depends on university certification and records access for decision",
+        "source_actor_name": "arden_biomedical_sponsor",
+        "target_actor_name": "vice_provost_research",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "lab hierarchy in scenario",
+        "layer": "dependency",
+        "reason": "career progression and lab work depend on PI authority",
+        "source_actor_name": "lab_trainees_and_staff",
+        "target_actor_name": "dr_mira_hale",
+        "weight": 0.66
+      },
+      {
+        "direction": "directed",
+        "evidence": "scenario evidence constraints",
+        "layer": "dependency",
+        "reason": "review scope depends on lab records and cooperation",
+        "source_actor_name": "university_research_integrity_office",
+        "target_actor_name": "north_hall_biostudies_lab",
+        "weight": 0.37
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_3 and role",
+        "layer": "influence",
+        "reason": "PI can frame scientific specifics and operational stakes of grant renewal",
+        "source_actor_name": "dr_mira_hale",
+        "target_actor_name": "vice_provost_research",
+        "weight": 0.47
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_4",
+        "layer": "influence",
+        "reason": "deadline and funding leverage shape university urgency",
+        "source_actor_name": "arden_biomedical_sponsor",
+        "target_actor_name": "vice_provost_research",
+        "weight": 0.68
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_5",
+        "layer": "influence",
+        "reason": "independence concerns can alter process design or legitimacy needs",
+        "source_actor_name": "faculty_senate_science_bloc",
+        "target_actor_name": "university_research_integrity_office",
+        "weight": 0.39
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_2",
+        "layer": "influence",
+        "reason": "specific overlap claim could redirect inquiry if documented",
+        "source_actor_name": "rina_park",
+        "target_actor_name": "university_research_integrity_office",
+        "weight": 0.28
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_6",
+        "layer": "influence",
+        "reason": "inventory findings constrain PI narrative options",
+        "source_actor_name": "omar_velas",
+        "target_actor_name": "dr_mira_hale",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "authority_constraints in scenario",
+        "layer": "influence",
+        "reason": "administration can impose process and operational conditions",
+        "source_actor_name": "vice_provost_research",
+        "target_actor_name": "north_hall_biostudies_lab",
+        "weight": 0.57
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "scenario strategic grant importance",
+        "layer": "coalition",
+        "reason": "shared incentive to preserve grant if defensible",
+        "source_actor_name": "dr_mira_hale",
+        "target_actor_name": "vice_provost_research",
+        "weight": 0.51
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "authority structure",
+        "layer": "coalition",
+        "reason": "institutional alignment around formal response process",
+        "source_actor_name": "university_research_integrity_office",
+        "target_actor_name": "vice_provost_research",
+        "weight": 0.57
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_2 and source_5",
+        "layer": "coalition",
+        "reason": "potential alignment around integrity and independence concerns, though indirect",
+        "source_actor_name": "faculty_senate_science_bloc",
+        "target_actor_name": "rina_park",
+        "weight": 0.22
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "scenario split under uncertainty",
+        "layer": "coalition",
+        "reason": "some internal sympathy for concern about data integrity",
+        "source_actor_name": "lab_trainees_and_staff",
+        "target_actor_name": "rina_park",
+        "weight": 0.34
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_4 and source_5",
+        "layer": "coalition",
+        "reason": "both may value independent verification, though no direct alliance yet",
+        "source_actor_name": "arden_biomedical_sponsor",
+        "target_actor_name": "faculty_senate_science_bloc",
+        "weight": 0.18
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_2 and source_3",
+        "layer": "conflict",
+        "reason": "concern about overlap conflicts with PI effort to suppress speculation",
+        "source_actor_name": "rina_park",
+        "target_actor_name": "dr_mira_hale",
+        "weight": 0.49
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_5",
+        "layer": "conflict",
+        "reason": "debate over office independence creates legitimacy conflict",
+        "source_actor_name": "faculty_senate_science_bloc",
+        "target_actor_name": "university_research_integrity_office",
+        "weight": 0.44
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_4",
+        "layer": "conflict",
+        "reason": "sponsor seeks assurance while lab faces possible data challenge",
+        "source_actor_name": "arden_biomedical_sponsor",
+        "target_actor_name": "north_hall_biostudies_lab",
+        "weight": 0.37
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "scenario authority constraints",
+        "layer": "conflict",
+        "reason": "review interests may diverge from lab preference for narrow issue framing",
+        "source_actor_name": "university_research_integrity_office",
+        "target_actor_name": "north_hall_biostudies_lab",
+        "weight": 0.29
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_5",
+        "layer": "conflict",
+        "reason": "strategic grant pressure may clash with governance demands for independence",
+        "source_actor_name": "faculty_senate_science_bloc",
+        "target_actor_name": "vice_provost_research",
+        "weight": 0.32
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_5",
+        "layer": "oasis_interaction",
+        "reason": "senate forums and committee interactions likely host discussion",
+        "source_actor_name": "faculty_senate_science_bloc",
+        "target_actor_name": "vice_provost_research",
+        "weight": 0.46
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "sponsor notice and internal review needs",
+        "layer": "oasis_interaction",
+        "reason": "formal meetings and document exchanges likely imminent",
+        "source_actor_name": "dr_mira_hale",
+        "target_actor_name": "university_research_integrity_office",
+        "weight": 0.51
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "student concern within lab hierarchy",
+        "layer": "oasis_interaction",
+        "reason": "informal peer discussion about incident plausibly active",
+        "source_actor_name": "rina_park",
+        "target_actor_name": "lab_trainees_and_staff",
+        "weight": 0.43
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_4",
+        "layer": "oasis_interaction",
+        "reason": "formal correspondence and follow-up calls expected before deadline",
+        "source_actor_name": "arden_biomedical_sponsor",
+        "target_actor_name": "vice_provost_research",
+        "weight": 0.34
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_6",
+        "layer": "oasis_interaction",
+        "reason": "ongoing operational coordination around mislabeled vials and mapping",
+        "source_actor_name": "omar_velas",
+        "target_actor_name": "dr_mira_hale",
+        "weight": 0.58
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "hero_key": "principal_investigator",
+        "label": "Principal investigator under pressure",
+        "narrative_function": "decision focal point for lab response and explanatory claims"
+      },
+      {
+        "hero_key": "student_signaler",
+        "label": "Student raising concern",
+        "narrative_function": "early integrity signal under hierarchy pressure"
+      },
+      {
+        "hero_key": "internal_integrity_gatekeeper",
+        "label": "Internal integrity gatekeeper",
+        "narrative_function": "procedural legitimacy and scope-setting"
+      },
+      {
+        "hero_key": "sponsor_program_authority",
+        "label": "Sponsor program authority",
+        "narrative_function": "external deadline and funding leverage"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "dr_mira_hale",
+        "attention_level": 0.95,
+        "authority_notes": "high control over lab narrative and records access, but cannot unilaterally settle sponsor confidence",
+        "behavioral_tendencies": [
+          "narrow scope of concern",
+          "emphasize alternative replicates",
+          "discourage premature speculation"
+        ],
+        "current_posture": "defensive but not openly defiant; asserts appendix used independent replicates",
+        "expression_level": 0.62,
+        "fatigue": 0.57,
+        "fear_of_isolation": 0.41,
+        "hero_key": "principal_investigator",
+        "mobilization_readiness": 0.73,
+        "perceived_majority": "administration wants a contained, evidence-based answer",
+        "reputation": 0.68,
+        "secrecy": 0.58,
+        "stance_axes": {
+          "admit_material_risk": 0.28,
+          "protect_grant_timeline": 0.86,
+          "seek_internal_resolution": 0.78,
+          "support_external_review": 0.19
+        },
+        "trustworthiness": 0.47
+      },
+      {
+        "actor_name": "rina_park",
+        "attention_level": 0.83,
+        "authority_notes": "low formal authority; influence depends on evidence quality and external receptivity",
+        "behavioral_tendencies": [
+          "retain receipts",
+          "seek reassurance",
+          "escalate only if process stalls"
+        ],
+        "current_posture": "concerned and cautious after raising overlap issue",
+        "expression_level": 0.39,
+        "fatigue": 0.46,
+        "fear_of_isolation": 0.82,
+        "hero_key": "student_signaler",
+        "mobilization_readiness": 0.43,
+        "perceived_majority": "most people above me prefer caution and private handling",
+        "reputation": 0.44,
+        "secrecy": 0.67,
+        "stance_axes": {
+          "admit_material_risk": 0.76,
+          "protect_grant_timeline": 0.22,
+          "seek_internal_resolution": 0.52,
+          "support_external_review": 0.63
+        },
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "university_research_integrity_office",
+        "attention_level": 0.87,
+        "authority_notes": "can define review process and recommend escalation, but independence is contested",
+        "behavioral_tendencies": [
+          "scope questions tightly",
+          "seek documentary support",
+          "avoid premature findings"
+        ],
+        "current_posture": "procedurally central but facing independence doubts",
+        "expression_level": 0.34,
+        "fatigue": 0.44,
+        "fear_of_isolation": 0.12,
+        "hero_key": "internal_integrity_gatekeeper",
+        "mobilization_readiness": 0.69,
+        "perceived_majority": "institution expects credible internal review first",
+        "reputation": 0.48,
+        "secrecy": 0.61,
+        "stance_axes": {
+          "admit_material_risk": 0.49,
+          "protect_grant_timeline": 0.55,
+          "seek_internal_resolution": 0.82,
+          "support_external_review": 0.37
+        },
+        "trustworthiness": 0.52
+      },
+      {
+        "actor_name": "arden_biomedical_sponsor",
+        "attention_level": 0.74,
+        "authority_notes": "strong leverage over renewal timing and external audit pressure",
+        "behavioral_tendencies": [
+          "request confirmation",
+          "preserve leverage through timing",
+          "escalate if answers are weak"
+        ],
+        "current_posture": "deadline-driven skepticism pending university confirmation",
+        "expression_level": 0.41,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.06,
+        "hero_key": "sponsor_program_authority",
+        "mobilization_readiness": 0.58,
+        "perceived_majority": "funding decisions should rely on documented assurance",
+        "reputation": 0.66,
+        "secrecy": 0.32,
+        "stance_axes": {
+          "admit_material_risk": 0.57,
+          "protect_grant_timeline": 0.33,
+          "seek_internal_resolution": 0.44,
+          "support_external_review": 0.61
+        },
+        "trustworthiness": 0.6
+      }
+    ],
+    "heroes": [
+      {
+        "hero_key": "principal_investigator",
+        "label": "Principal investigator under pressure",
+        "narrative_function": "decision focal point for lab response and explanatory claims"
+      },
+      {
+        "hero_key": "student_signaler",
+        "label": "Student raising concern",
+        "narrative_function": "early integrity signal under hierarchy pressure"
+      },
+      {
+        "hero_key": "internal_integrity_gatekeeper",
+        "label": "Internal integrity gatekeeper",
+        "narrative_function": "procedural legitimacy and scope-setting"
+      },
+      {
+        "hero_key": "sponsor_program_authority",
+        "label": "Sponsor program authority",
+        "narrative_function": "external deadline and funding leverage"
+      }
+    ],
+    "important_questions": [
+      "Will the university establish a credible documented link or non-link between the affected samples and the grant-renewal appendix figures?",
+      "Will the sponsor accept internal assurance, delay the renewal, or require an external investigation after the response deadline?",
+      "Will doubts about internal review independence materially change the investigation structure?",
+      "Will any university or sponsor authority impose a lab work pause or operational restriction within the 9-week horizon?",
+      "By week 9, does the case reach bounded closure, remain in unresolved evidence gap, or convert into an externally driven process?"
+    ],
+    "initial_events": [
+      {
+        "actors_involved": [
+          "north_hall_biostudies_lab",
+          "omar_velas"
+        ],
+        "event_key": "freezer_alarm_failure_discovered",
+        "event_type": "announcement",
+        "evidence": "source_1_lab_incident_log_t_minus_28",
+        "expected_impact": "raises latent data-quality risk and dependence on reconstruction records",
+        "status": "already_occurred",
+        "summary": "Overnight freezer alarm failed; two sample boxes exceeded temperature thresholds for unknown duration",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "rina_park",
+          "dr_mira_hale"
+        ],
+        "event_key": "student_overlap_concern_raised",
+        "event_type": "announcement",
+        "evidence": "source_2_graduate_student_email_t_minus_22",
+        "expected_impact": "creates internal conflict and increases salience of data lineage questions",
+        "status": "already_occurred",
+        "summary": "Graduate student reports affected sample IDs may overlap with grant-renewal appendix figures",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "dr_mira_hale",
+          "rina_park"
+        ],
+        "event_key": "pi_pushback_and_scope_narrowing",
+        "event_type": "announcement",
+        "evidence": "source_3_principal_investigator_reply_t_minus_21",
+        "expected_impact": "temporarily suppresses open escalation while preserving factual dispute",
+        "status": "already_occurred",
+        "summary": "PI says appendix used independent replicates and asks student not to speculate until reconciliation is complete",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "arden_biomedical_sponsor",
+          "vice_provost_research"
+        ],
+        "event_key": "sponsor_confirmation_deadline_running",
+        "event_type": "announcement",
+        "evidence": "source_4_sponsor_notice_t_minus_14",
+        "expected_impact": "compresses timeline, increases leverage of external actor, and may force interim decision before full certainty",
+        "status": "already_occurred",
+        "summary": "Sponsor requests confirmation that renewal data were not affected and gives university 30 days to respond",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "faculty_senate_science_bloc",
+          "university_research_integrity_office",
+          "vice_provost_research"
+        ],
+        "event_key": "faculty_independence_debate_visible",
+        "event_type": "announcement",
+        "evidence": "source_5_faculty_senate_minutes_t_minus_9",
+        "expected_impact": "reduces legitimacy buffer for purely internal resolution",
+        "status": "already_occurred",
+        "summary": "Faculty senators debate whether internal review office is sufficiently independent when grant is strategically important",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "omar_velas",
+          "dr_mira_hale",
+          "university_research_integrity_office"
+        ],
+        "event_key": "mislabeled_vials_confirmed",
+        "event_type": "announcement",
+        "evidence": "source_6_inventory_update_t_minus_3",
+        "expected_impact": "sustains uncertainty and weakens quick exoneration pathway",
+        "status": "already_occurred",
+        "summary": "Lab manager confirms one affected box had mislabeled vials and cannot yet map them to experiment dates",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "university_research_integrity_office",
+          "omar_velas",
+          "dr_mira_hale"
+        ],
+        "event_key": "internal_reconciliation_checkpoint",
+        "event_type": "announcement",
+        "evidence": "implied by source_4 and source_6",
+        "expected_impact": "could sharpen or narrow scope; lack of progress raises pressure for external verification",
+        "status": "imminent",
+        "summary": "University review team seeks updated mapping of affected vials to experiment dates and appendix figures",
+        "tick": 1
+      },
+      {
+        "actors_involved": [
+          "vice_provost_research",
+          "university_research_integrity_office",
+          "dr_mira_hale"
+        ],
+        "event_key": "sponsor_response_drafting",
+        "event_type": "announcement",
+        "evidence": "source_4 deadline logic",
+        "expected_impact": "forces provisional framing choices that may align or clash with later facts",
+        "status": "imminent",
+        "summary": "Administration begins drafting sponsor response under incomplete evidence",
+        "tick": 2
+      },
+      {
+        "actors_involved": [
+          "arden_biomedical_sponsor",
+          "vice_provost_research"
+        ],
+        "event_key": "deadline_decision_point",
+        "event_type": "announcement",
+        "evidence": "source_4 30-day response window",
+        "expected_impact": "major branch point among minor remediation, grant delay, or external investigation",
+        "status": "imminent",
+        "summary": "Sponsor reply deadline approaches, requiring assurance, delay request, or escalation pathway",
+        "tick": 3
+      }
+    ],
+    "llm_call_id": "6446f4d7-2086-44a5-a0c1-06c583a2ee3e",
+    "merge_hypotheses": [
+      {
+        "converging_actors": [
+          "dr_mira_hale",
+          "university_research_integrity_office",
+          "vice_provost_research",
+          "arden_biomedical_sponsor"
+        ],
+        "effect": "can steer divergent narratives toward common evidence standards rather than pure reputational contest",
+        "mechanism": "all sides need a documentary basis for final funding decision",
+        "merge_key": "shared_need_for_documented_closure"
+      },
+      {
+        "converging_actors": [
+          "faculty_senate_science_bloc",
+          "university_research_administration",
+          "north_hall_biostudies_lab"
+        ],
+        "effect": "may collapse broad legitimacy arguments into practical choices like delay, audit, or bounded remediation",
+        "mechanism": "approaching sponsor deadline channels debate into concrete procedural choices",
+        "merge_key": "deadline_compression_reduces_discursive_range"
+      },
+      {
+        "converging_actors": [
+          "lab_trainees_and_staff",
+          "faculty_senate_science_bloc"
+        ],
+        "effect": "timelines may converge on unresolved evidence gap or delay rather than dramatic sanction",
+        "mechanism": "if no new evidence emerges, uncertainty may dampen mobilization and favor procedural compromise",
+        "merge_key": "coalition_fatigue_from_ambiguity"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "lab_personnel",
+        "description": "Graduate students, postdocs, technicians, and support staff in or directly attached to the lab",
+        "label": "Lab personnel",
+        "population_total": 12
+      },
+      {
+        "archetype_key": "research_faculty_governance",
+        "description": "Faculty with enough proximity to notice or discuss the case",
+        "label": "Research-active faculty and senate participants",
+        "population_total": 40
+      },
+      {
+        "archetype_key": "university_research_administration",
+        "description": "Integrity, compliance, and senior research administration actors",
+        "label": "University research administration staff",
+        "population_total": 8
+      }
+    ],
+    "risk_flags": [
+      {
+        "evidence": "source_1 and source_6",
+        "flag": "evidence_lineage_break",
+        "note": "mislabeled vials and unknown temperature excursion duration threaten reconstruction fidelity",
+        "severity": "high"
+      },
+      {
+        "evidence": "source_2 and source_3",
+        "flag": "hierarchy_chilling_effect",
+        "note": "student concern may be under-expressed due to PI authority and career dependence",
+        "severity": "medium"
+      },
+      {
+        "evidence": "source_5",
+        "flag": "internal_review_legitimacy_risk",
+        "note": "faculty senate questions independence of internal review when grant is strategically important",
+        "severity": "medium"
+      },
+      {
+        "evidence": "source_4",
+        "flag": "deadline_forcing_function",
+        "note": "sponsor's 30-day deadline may force provisional decisions before certainty is available",
+        "severity": "high"
+      },
+      {
+        "evidence": "scenario and source_4",
+        "flag": "grant_dependency_leverage",
+        "note": "lab and university likely face material incentives tied to renewal outcome, affecting behavior and credibility perceptions",
+        "severity": "high"
+      },
+      {
+        "evidence": "candidate endpoints and timeline structure",
+        "flag": "endpoint_overlap_ambiguity",
+        "note": "grant delay may be a mechanism toward external review rather than a terminal state; later evidence must disambiguate dominant endpoint",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "core_pressures": [
+        "research_integrity",
+        "evidence_uncertainty",
+        "sponsor_deadline",
+        "authority_constraints",
+        "grant dependence"
+      ],
+      "evidence_refs": [
+        "source_1_lab_incident_log_t_minus_28",
+        "source_2_graduate_student_email_t_minus_22",
+        "source_3_principal_investigator_reply_t_minus_21",
+        "source_4_sponsor_notice_t_minus_14",
+        "source_5_faculty_senate_minutes_t_minus_9",
+        "source_6_inventory_update_t_minus_3"
+      ],
+      "forecast_question": "Which endpoint dominates the university lab-contamination investigation after 9 simulated weeks?",
+      "scenario_key": "dossier_008_lab_contamination",
+      "summary": "A university lab faces allegations that a contamination incident may have affected data tied to a grant-renewal appendix. Evidence is incomplete: freezer alarm failure, possible overlap between affected samples and appendix figures, PI denial based on independent replicates, sponsor demand for confirmation within 30 days, faculty concern about internal review independence, and mislabeled vials complicating traceability.",
+      "t0_position": "investigation opened under uncertainty; no misconduct concluded",
+      "time_horizon_weeks": 9,
+      "title": "University lab contamination investigation before grant renewal",
+      "uncertainties": [
+        "whether affected sample IDs actually map to grant appendix figures",
+        "whether independent replicates fully insulate renewal data",
+        "whether mislabeled vials materially block reconstruction",
+        "whether university internal review is viewed as credible by sponsor and faculty",
+        "which authority can impose delay, external review, or suspension"
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "lab_trainees_and_staff",
+          "research_faculty_governance"
+        ],
+        "level": 0.64,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "actors update more readily from peers or trusted procedural signals than from adversarial claims"
+      },
+      {
+        "applies_to": [
+          "lab_personnel_integrity_concerned",
+          "faculty_governance_independence_watchers"
+        ],
+        "level": 0.58,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "additional documentary evidence or sponsor escalation could push currently cautious actors into visible action"
+      },
+      {
+        "applies_to": [
+          "lab_personnel"
+        ],
+        "level": 0.72,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "hierarchy and grant dependence suppress open dissent despite private uncertainty"
+      },
+      {
+        "applies_to": [
+          "lab_personnel",
+          "research_faculty_governance",
+          "university_research_administration"
+        ],
+        "level": 0.55,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "discussion clusters by role and institution"
+      },
+      {
+        "applies_to": [
+          "research_faculty_governance",
+          "university_research_administration"
+        ],
+        "level": 0.47,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "calls for external review likely require multiple reinforcing signals, not a single allegation"
+      },
+      {
+        "applies_to": [
+          "north_hall_biostudies_lab",
+          "university_research_administration"
+        ],
+        "level": 0.66,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "institutional loyalty may shape interpretation of ambiguous evidence"
+      },
+      {
+        "applies_to": [
+          "research_faculty_governance"
+        ],
+        "level": 0.31,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "attention could fade without new disclosures, but sponsor deadline counters decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "30-day sponsor response window compresses procedural tolerance for ambiguity",
+        "evidence": "source_4",
+        "influence_key": "sponsor_deadline_pressure"
+      },
+      {
+        "description": "student and trainees face dependence on PI, reducing public contradiction at T0",
+        "evidence": "source_2 and source_3",
+        "influence_key": "hierarchical_silencing_risk"
+      },
+      {
+        "description": "faculty debate can make process credibility as important as substantive findings",
+        "evidence": "source_5",
+        "influence_key": "independence_legitimacy_question"
+      },
+      {
+        "description": "mislabeled vials impede clean reconstruction and sustain uncertainty",
+        "evidence": "source_6",
+        "influence_key": "traceability_failure"
+      },
+      {
+        "description": "institution has incentive to preserve renewal path if defensible",
+        "evidence": "scenario and source_5",
+        "influence_key": "grant_strategic_importance"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "dr_mira_hale",
+        "behavior_axes": {
+          "escalation_preference": 0.27,
+          "message_discipline": 0.77,
+          "procedural_compliance": 0.56,
+          "risk_tolerance": 0.52
+        },
+        "ideology_axes": {
+          "epistemic_caution": 0.63,
+          "institutional_loyalty": 0.71,
+          "transparency_norm": 0.38
+        },
+        "reputation": 0.68,
+        "secrecy": 0.58,
+        "tendency": "contain_and_reframe",
+        "trustworthiness": 0.47
+      },
+      {
+        "actor_name": "rina_park",
+        "behavior_axes": {
+          "escalation_preference": 0.55,
+          "message_discipline": 0.49,
+          "procedural_compliance": 0.61,
+          "risk_tolerance": 0.34
+        },
+        "ideology_axes": {
+          "epistemic_caution": 0.75,
+          "institutional_loyalty": 0.42,
+          "transparency_norm": 0.72
+        },
+        "reputation": 0.44,
+        "secrecy": 0.67,
+        "tendency": "signal_concern_with_caution",
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "omar_velas",
+        "behavior_axes": {
+          "escalation_preference": 0.33,
+          "message_discipline": 0.66,
+          "procedural_compliance": 0.73,
+          "risk_tolerance": 0.31
+        },
+        "ideology_axes": {
+          "epistemic_caution": 0.69,
+          "institutional_loyalty": 0.58,
+          "transparency_norm": 0.51
+        },
+        "reputation": 0.53,
+        "secrecy": 0.49,
+        "tendency": "document_and_reconstruct",
+        "trustworthiness": 0.59
+      },
+      {
+        "actor_name": "university_research_integrity_office",
+        "behavior_axes": {
+          "escalation_preference": 0.46,
+          "message_discipline": 0.79,
+          "procedural_compliance": 0.87,
+          "risk_tolerance": 0.38
+        },
+        "ideology_axes": {
+          "epistemic_caution": 0.68,
+          "institutional_loyalty": 0.74,
+          "transparency_norm": 0.43
+        },
+        "reputation": 0.48,
+        "secrecy": 0.61,
+        "tendency": "manage_process_legitimacy",
+        "trustworthiness": 0.52
+      },
+      {
+        "actor_name": "vice_provost_research",
+        "behavior_axes": {
+          "escalation_preference": 0.43,
+          "message_discipline": 0.81,
+          "procedural_compliance": 0.82,
+          "risk_tolerance": 0.41
+        },
+        "ideology_axes": {
+          "epistemic_caution": 0.57,
+          "institutional_loyalty": 0.83,
+          "transparency_norm": 0.39
+        },
+        "reputation": 0.57,
+        "secrecy": 0.65,
+        "tendency": "balance_revenue_and_compliance",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "arden_biomedical_sponsor",
+        "behavior_axes": {
+          "escalation_preference": 0.58,
+          "message_discipline": 0.72,
+          "procedural_compliance": 0.8,
+          "risk_tolerance": 0.36
+        },
+        "ideology_axes": {
+          "epistemic_caution": 0.71,
+          "institutional_loyalty": 0.28,
+          "transparency_norm": 0.54
+        },
+        "reputation": 0.66,
+        "secrecy": 0.32,
+        "tendency": "demand_documented_assurance",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "faculty_senate_science_bloc",
+        "behavior_axes": {
+          "escalation_preference": 0.51,
+          "message_discipline": 0.46,
+          "procedural_compliance": 0.62,
+          "risk_tolerance": 0.47
+        },
+        "ideology_axes": {
+          "epistemic_caution": 0.58,
+          "institutional_loyalty": 0.49,
+          "transparency_norm": 0.67
+        },
+        "reputation": 0.59,
+        "secrecy": 0.24,
+        "tendency": "challenge_independence_gaps",
+        "trustworthiness": 0.61
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 2287,
+        "end": 2287,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 2287,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

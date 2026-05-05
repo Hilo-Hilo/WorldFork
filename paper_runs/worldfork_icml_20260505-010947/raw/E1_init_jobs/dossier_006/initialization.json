@@ -1,0 +1,1854 @@
+{
+  "big_bang_id": "f3bd91fc-c499-4756-b0e4-3e81f0edc4ac",
+  "initializer_output": {
+    "actors": [
+      {
+        "actor_type": "institution",
+        "authority_level": "high",
+        "constraints": [
+          "compact ambiguity on emergency shortages",
+          "possible litigation",
+          "hydrological uncertainty",
+          "political backlash from cities farms and tribes"
+        ],
+        "decision_scope": [
+          "declare emergency rationing",
+          "set temporary allocation framework",
+          "convene negotiations"
+        ],
+        "description": "Multi-state authority responsible for allocating drought cuts under compact.",
+        "name": "interstate_water_authority",
+        "scale": "regional",
+        "stakes": [
+          "maintain lawful allocation",
+          "avoid system failure",
+          "preserve legitimacy across states and constituencies"
+        ]
+      },
+      {
+        "actor_type": "government_coalition",
+        "authority_level": "high",
+        "constraints": [
+          "interstate bargaining",
+          "constituent divisions",
+          "compact obligations"
+        ],
+        "decision_scope": [
+          "request federal involvement",
+          "pressure authority board",
+          "support or resist allocation formula"
+        ],
+        "description": "State governments participating in or influencing the authority.",
+        "name": "member_state_governments",
+        "scale": "state",
+        "stakes": [
+          "protect in-state users",
+          "avoid economic and public-health fallout",
+          "manage legal and political exposure"
+        ]
+      },
+      {
+        "actor_type": "municipal_coalition",
+        "authority_level": "medium",
+        "constraints": [
+          "dependence on authority allocation",
+          "need to demonstrate conservation effort"
+        ],
+        "decision_scope": [
+          "public advocacy",
+          "conservation coordination",
+          "pressure state and authority officials"
+        ],
+        "description": "Metro mayors seeking protected municipal health-and-safety minimums.",
+        "name": "metro_mayors_coalition",
+        "scale": "metro",
+        "stakes": [
+          "protect hospitals sanitation and residents",
+          "avoid urban service disruption"
+        ]
+      },
+      {
+        "actor_type": "economic_coalition",
+        "authority_level": "medium",
+        "constraints": [
+          "drought reality",
+          "public optics against agriculture during shortage",
+          "fragmented crop interests"
+        ],
+        "decision_scope": [
+          "lobbying",
+          "public pressure",
+          "legal challenge support"
+        ],
+        "description": "Irrigation districts and growers opposing uniform cuts and seeking crop-specific exemptions.",
+        "name": "irrigation_districts_and_farm_bureau",
+        "scale": "regional",
+        "stakes": [
+          "prevent bankruptcy of late-season growers",
+          "retain water predictability",
+          "avoid uniform losses across crops"
+        ]
+      },
+      {
+        "actor_type": "government_coalition",
+        "authority_level": "medium",
+        "constraints": [
+          "need recognition within compact process",
+          "timing of legal remedies"
+        ],
+        "decision_scope": [
+          "litigation",
+          "federal consultation demands",
+          "negotiation leverage"
+        ],
+        "description": "Three tribal governments asserting senior rights and consultation claims.",
+        "name": "tribal_governments_coalition",
+        "scale": "regional",
+        "stakes": [
+          "protect senior water rights",
+          "defend sovereignty and treaty-related standing",
+          "avoid precedent that weakens rights"
+        ]
+      },
+      {
+        "actor_type": "federal_agency",
+        "authority_level": "conditional",
+        "constraints": [
+          "needs state request or litigation posture",
+          "limited direct authority absent trigger"
+        ],
+        "decision_scope": [
+          "technical mediation",
+          "formal mediation/intervention if triggered"
+        ],
+        "description": "Federal bureau offering technical mediation; formal intervention requires state request or litigation posture.",
+        "name": "federal_water_bureau",
+        "scale": "national",
+        "stakes": [
+          "stability of interstate allocation",
+          "lawful process",
+          "avoid premature overreach"
+        ]
+      },
+      {
+        "actor_type": "public",
+        "authority_level": "low",
+        "constraints": [
+          "limited direct control over compact decisions"
+        ],
+        "decision_scope": [
+          "opinion pressure",
+          "conservation compliance"
+        ],
+        "description": "Urban and non-farm water users affected by conservation and shortages.",
+        "name": "regional_public_consumers",
+        "scale": "regional",
+        "stakes": [
+          "reliable household water",
+          "public health",
+          "fairness in burden sharing"
+        ]
+      },
+      {
+        "actor_type": "institutional_subgroup",
+        "authority_level": "high",
+        "constraints": [
+          "member-state pressure",
+          "fear of litigation",
+          "uncertain hydrology"
+        ],
+        "decision_scope": [
+          "agenda setting",
+          "vote formation",
+          "sequencing emergency measures"
+        ],
+        "description": "Board or governing members inside the interstate water authority who translate pressure into formal decisions.",
+        "name": "authority_board_members",
+        "scale": "regional",
+        "stakes": [
+          "legal defensibility",
+          "cross-state coalition maintenance",
+          "operational continuity"
+        ]
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Emergency rationing is imposed with provisional carveouts rather than waiting for a negotiated compact.",
+        "branch_key": "emergency_formula_preempts_full_negotiation",
+        "observable_divergence_signal": "Board announces emergency authority use or formal drought schedule before stakeholder sign-on.",
+        "rationale": "Low storage and uncertainty support urgency, while legal ambiguity may still be managed through interim language.",
+        "related_endpoints": [
+          "emergency_rationing"
+        ],
+        "trigger": "Authority board concludes storage and inflow risk require immediate cuts before consensus is reached."
+      },
+      {
+        "alternate_path": "Parties adopt a temporary allocation formula with municipal minimums and some crop or category tailoring, possibly with rights-reservation language.",
+        "branch_key": "tailored_temporary_deal",
+        "observable_divergence_signal": "Joint framework language emerges referencing temporary formula, carveouts, and preserved legal positions.",
+        "rationale": "Strong pressures exist for compromise because every major bloc has veto-like disruption capacity but not absolute control.",
+        "related_endpoints": [
+          "negotiated_compact"
+        ],
+        "trigger": "States and authority perceive uniform cuts as politically or economically unsustainable but still want to avoid litigation."
+      },
+      {
+        "alternate_path": "Tribal governments file or credibly prepare litigation, shifting bargaining into courts and federal processes.",
+        "branch_key": "tribal_rights_omission_triggers_legal_forum_shift",
+        "observable_divergence_signal": "Filing notices, injunction requests, or formal consultation demands become primary timeline events.",
+        "rationale": "Source text explicitly links ignored rights to litigation and consultation demands.",
+        "related_endpoints": [
+          "tribal_or_state_litigation",
+          "federal_mediation"
+        ],
+        "trigger": "Draft allocation fails to explicitly address senior rights or consultation demands."
+      },
+      {
+        "alternate_path": "A state requests formal federal mediation before full legal escalation.",
+        "branch_key": "state_request_activates_federal_role",
+        "observable_divergence_signal": "Official request letter or federal announcement of formal mediation process.",
+        "rationale": "Federal entry is available but gated by state request absent litigation.",
+        "related_endpoints": [
+          "federal_mediation"
+        ],
+        "trigger": "Member states judge deadlock too costly or seek neutral cover for compromise."
+      },
+      {
+        "alternate_path": "Process extends with temporary patches or no stable allocation, leaving dispute unresolved by horizon.",
+        "branch_key": "hydrology_uncertainty_sustains_drift",
+        "observable_divergence_signal": "Repeated deferrals, short-lived stopgaps, or absence of enforceable cross-sector formula by late horizon.",
+        "rationale": "Uncertainty can justify postponement when legal and distributive conflict make settlement costly.",
+        "related_endpoints": [
+          "unresolved_shortage"
+        ],
+        "trigger": "Inflow updates remain inconclusive and stakeholders prefer delay over conceding precedence rules."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "authority_board_meetings",
+        "notes": "Primary decision venue for emergency allocation and temporary formulas.",
+        "participants": [
+          "interstate_water_authority",
+          "authority_board_members",
+          "member_state_governments"
+        ],
+        "type": "institutional",
+        "visibility": "mixed"
+      },
+      {
+        "channel_key": "public_statements_and_press",
+        "notes": "Main channel for pressure framing and fairness narratives.",
+        "participants": [
+          "metro_mayors_coalition",
+          "irrigation_districts_and_farm_bureau",
+          "tribal_governments_coalition",
+          "member_state_governments",
+          "interstate_water_authority"
+        ],
+        "type": "media_public",
+        "visibility": "public"
+      },
+      {
+        "channel_key": "technical_hydrology_briefings",
+        "notes": "Venue where forecast uncertainty and scenario ranges shape timing.",
+        "participants": [
+          "interstate_water_authority",
+          "member_state_governments",
+          "federal_water_bureau"
+        ],
+        "type": "expert_technical",
+        "visibility": "restricted"
+      },
+      {
+        "channel_key": "government_to_government_consultation",
+        "notes": "Potential channel if rights claims become formally engaged.",
+        "participants": [
+          "tribal_governments_coalition",
+          "member_state_governments",
+          "interstate_water_authority",
+          "federal_water_bureau"
+        ],
+        "type": "sovereign_process",
+        "visibility": "restricted"
+      },
+      {
+        "channel_key": "state_federal_requests",
+        "notes": "Necessary path for non-litigation federal intervention.",
+        "participants": [
+          "member_state_governments",
+          "federal_water_bureau"
+        ],
+        "type": "formal_intergovernmental",
+        "visibility": "restricted"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "metro_residents",
+        "attention_level": 0.71,
+        "cohort_key": "metro_health_safety_priority",
+        "expression_level": 0.54,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.68,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "municipal minimums should be protected even if others face deeper cuts",
+        "public_expression": "supports conservation with essential-service carveouts",
+        "representation_mode": "indirect_via_mayors",
+        "represented_population": 8400000,
+        "stance_axes": {
+          "farm_exemption_support": 0.28,
+          "federal_role_support": 0.55,
+          "municipal_priority": 0.86,
+          "rationing_acceptance": 0.58,
+          "tribal_rights_recognition": 0.49
+        }
+      },
+      {
+        "archetype_key": "metro_residents",
+        "attention_level": 0.52,
+        "cohort_key": "metro_shared_sacrifice_civic",
+        "expression_level": 0.31,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.37,
+        "mobilization_readiness": 0.26,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "all sectors should take visible cuts if fairness is maintained",
+        "public_expression": "backs conservation and fairness messaging",
+        "representation_mode": "diffuse_public",
+        "represented_population": 3600000,
+        "stance_axes": {
+          "farm_exemption_support": 0.34,
+          "federal_role_support": 0.6,
+          "municipal_priority": 0.63,
+          "rationing_acceptance": 0.67,
+          "tribal_rights_recognition": 0.58
+        }
+      },
+      {
+        "archetype_key": "farm_dependent_households_workers",
+        "attention_level": 0.81,
+        "cohort_key": "late_season_grower_defense",
+        "expression_level": 0.74,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.19,
+        "mobilization_readiness": 0.73,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "uniform cuts are intolerable and crop-specific exemptions are necessary",
+        "public_expression": "warns of bankruptcy and lost production",
+        "representation_mode": "organized_via_districts",
+        "represented_population": 510000,
+        "stance_axes": {
+          "farm_exemption_support": 0.9,
+          "federal_role_support": 0.29,
+          "municipal_priority": 0.24,
+          "rationing_acceptance": 0.19,
+          "tribal_rights_recognition": 0.33
+        }
+      },
+      {
+        "archetype_key": "farm_dependent_households_workers",
+        "attention_level": 0.63,
+        "cohort_key": "farm_pragmatist_adapters",
+        "expression_level": 0.42,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.46,
+        "perceived_majority": 0.36,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "cuts are likely but should be phased or tailored rather than uniform",
+        "public_expression": "supports negotiations that preserve some flexibility",
+        "representation_mode": "mixed",
+        "represented_population": 340000,
+        "stance_axes": {
+          "farm_exemption_support": 0.71,
+          "federal_role_support": 0.37,
+          "municipal_priority": 0.31,
+          "rationing_acceptance": 0.42,
+          "tribal_rights_recognition": 0.39
+        }
+      },
+      {
+        "archetype_key": "tribal_community_members",
+        "attention_level": 0.84,
+        "cohort_key": "tribal_rights_assertive",
+        "expression_level": 0.69,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.16,
+        "mobilization_readiness": 0.78,
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "senior rights must be recognized and legal challenge is justified if ignored",
+        "public_expression": "supports consultation and litigation threats",
+        "representation_mode": "organized_via_governments",
+        "represented_population": 126000,
+        "stance_axes": {
+          "farm_exemption_support": 0.14,
+          "federal_role_support": 0.72,
+          "municipal_priority": 0.22,
+          "rationing_acceptance": 0.38,
+          "tribal_rights_recognition": 0.96
+        }
+      },
+      {
+        "archetype_key": "tribal_community_members",
+        "attention_level": 0.68,
+        "cohort_key": "tribal_negotiated_protection",
+        "expression_level": 0.45,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.33,
+        "mobilization_readiness": 0.49,
+        "perceived_majority": 0.39,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "negotiation is acceptable if senior rights are explicitly protected",
+        "public_expression": "supports firm but process-oriented advocacy",
+        "representation_mode": "community_mixed",
+        "represented_population": 54000,
+        "stance_axes": {
+          "farm_exemption_support": 0.16,
+          "federal_role_support": 0.76,
+          "municipal_priority": 0.28,
+          "rationing_acceptance": 0.46,
+          "tribal_rights_recognition": 0.88
+        }
+      },
+      {
+        "archetype_key": "general_regional_water_users",
+        "attention_level": 0.39,
+        "cohort_key": "small_town_general_users",
+        "expression_level": 0.21,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.42,
+        "mobilization_readiness": 0.19,
+        "perceived_majority": 0.33,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "fairness and reliability matter more than legal intricacies",
+        "public_expression": "reactive to visible shortages and elite conflict",
+        "representation_mode": "diffuse_public",
+        "represented_population": 2500000,
+        "stance_axes": {
+          "farm_exemption_support": 0.32,
+          "federal_role_support": 0.48,
+          "municipal_priority": 0.47,
+          "rationing_acceptance": 0.51,
+          "tribal_rights_recognition": 0.41
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "metro_residents",
+        "attention_level": 0.71,
+        "cohort_key": "metro_health_safety_priority",
+        "expression_level": 0.54,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.68,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "municipal minimums should be protected even if others face deeper cuts",
+        "public_expression": "supports conservation with essential-service carveouts",
+        "representation_mode": "indirect_via_mayors",
+        "represented_population": 8400000,
+        "stance_axes": {
+          "farm_exemption_support": 0.28,
+          "federal_role_support": 0.55,
+          "municipal_priority": 0.86,
+          "rationing_acceptance": 0.58,
+          "tribal_rights_recognition": 0.49
+        }
+      },
+      {
+        "archetype_key": "metro_residents",
+        "attention_level": 0.52,
+        "cohort_key": "metro_shared_sacrifice_civic",
+        "expression_level": 0.31,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.37,
+        "mobilization_readiness": 0.26,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "all sectors should take visible cuts if fairness is maintained",
+        "public_expression": "backs conservation and fairness messaging",
+        "representation_mode": "diffuse_public",
+        "represented_population": 3600000,
+        "stance_axes": {
+          "farm_exemption_support": 0.34,
+          "federal_role_support": 0.6,
+          "municipal_priority": 0.63,
+          "rationing_acceptance": 0.67,
+          "tribal_rights_recognition": 0.58
+        }
+      },
+      {
+        "archetype_key": "farm_dependent_households_workers",
+        "attention_level": 0.81,
+        "cohort_key": "late_season_grower_defense",
+        "expression_level": 0.74,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.19,
+        "mobilization_readiness": 0.73,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "uniform cuts are intolerable and crop-specific exemptions are necessary",
+        "public_expression": "warns of bankruptcy and lost production",
+        "representation_mode": "organized_via_districts",
+        "represented_population": 510000,
+        "stance_axes": {
+          "farm_exemption_support": 0.9,
+          "federal_role_support": 0.29,
+          "municipal_priority": 0.24,
+          "rationing_acceptance": 0.19,
+          "tribal_rights_recognition": 0.33
+        }
+      },
+      {
+        "archetype_key": "farm_dependent_households_workers",
+        "attention_level": 0.63,
+        "cohort_key": "farm_pragmatist_adapters",
+        "expression_level": 0.42,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.46,
+        "perceived_majority": 0.36,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "cuts are likely but should be phased or tailored rather than uniform",
+        "public_expression": "supports negotiations that preserve some flexibility",
+        "representation_mode": "mixed",
+        "represented_population": 340000,
+        "stance_axes": {
+          "farm_exemption_support": 0.71,
+          "federal_role_support": 0.37,
+          "municipal_priority": 0.31,
+          "rationing_acceptance": 0.42,
+          "tribal_rights_recognition": 0.39
+        }
+      },
+      {
+        "archetype_key": "tribal_community_members",
+        "attention_level": 0.84,
+        "cohort_key": "tribal_rights_assertive",
+        "expression_level": 0.69,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.16,
+        "mobilization_readiness": 0.78,
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "senior rights must be recognized and legal challenge is justified if ignored",
+        "public_expression": "supports consultation and litigation threats",
+        "representation_mode": "organized_via_governments",
+        "represented_population": 126000,
+        "stance_axes": {
+          "farm_exemption_support": 0.14,
+          "federal_role_support": 0.72,
+          "municipal_priority": 0.22,
+          "rationing_acceptance": 0.38,
+          "tribal_rights_recognition": 0.96
+        }
+      },
+      {
+        "archetype_key": "tribal_community_members",
+        "attention_level": 0.68,
+        "cohort_key": "tribal_negotiated_protection",
+        "expression_level": 0.45,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.33,
+        "mobilization_readiness": 0.49,
+        "perceived_majority": 0.39,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "negotiation is acceptable if senior rights are explicitly protected",
+        "public_expression": "supports firm but process-oriented advocacy",
+        "representation_mode": "community_mixed",
+        "represented_population": 54000,
+        "stance_axes": {
+          "farm_exemption_support": 0.16,
+          "federal_role_support": 0.76,
+          "municipal_priority": 0.28,
+          "rationing_acceptance": 0.46,
+          "tribal_rights_recognition": 0.88
+        }
+      },
+      {
+        "archetype_key": "general_regional_water_users",
+        "attention_level": 0.39,
+        "cohort_key": "small_town_general_users",
+        "expression_level": 0.21,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.42,
+        "mobilization_readiness": 0.19,
+        "perceived_majority": 0.33,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "fairness and reliability matter more than legal intricacies",
+        "public_expression": "reactive to visible shortages and elite conflict",
+        "representation_mode": "diffuse_public",
+        "represented_population": 2500000,
+        "stance_axes": {
+          "farm_exemption_support": 0.32,
+          "federal_role_support": 0.48,
+          "municipal_priority": 0.47,
+          "rationing_acceptance": 0.51,
+          "tribal_rights_recognition": 0.41
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "interstate_water_authority",
+          "authority_board_members",
+          "member_state_governments"
+        ],
+        "blockers": [
+          "litigation risk over tribal senior rights",
+          "political resistance from farms and municipalities",
+          "board reluctance under uncertainty"
+        ],
+        "contradiction_notes": "A temporary negotiated formula could coexist with emergency language; endpoint requires emergency cuts to be dominant regime rather than merely threatened.",
+        "description": "The interstate water authority imposes emergency cuts that become the dominant operating allocation regime during the horizon.",
+        "endpoint_key": "emergency_rationing",
+        "evidence_refs": [
+          "source_1_hydrology_bulletin_t30",
+          "source_2_compact_clause_excerpt_t25"
+        ],
+        "label": "Emergency rationing imposed",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the interstate water authority impose emergency rationing as the dominant operating regime within 14 weeks?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.29,
+        "rationale": "Urgency and central authority capacity are real, but not yet sufficient to close legal and political gaps.",
+        "realization_criteria": [
+          "formal authority order or board action announces emergency cuts",
+          "cuts are operationalized across major user classes or jurisdictions",
+          "no later event within horizon clearly supersedes emergency regime as dominant allocation framework"
+        ],
+        "status": "active",
+        "status_basis": "Low storage and compact emergency language make this viable, but ambiguity and stakeholder resistance prevent realization at T0."
+      },
+      {
+        "authority_refs": [
+          "interstate_water_authority",
+          "member_state_governments",
+          "metro_mayors_coalition",
+          "tribal_governments_coalition",
+          "irrigation_districts_and_farm_bureau"
+        ],
+        "blockers": [
+          "deep distributive conflict",
+          "rights hierarchy ambiguity",
+          "difficulty reconciling crop-specific and municipal protections"
+        ],
+        "contradiction_notes": "A negotiated formula can preserve legal positions; full resolution of underlying compact ambiguity is not required for realization.",
+        "description": "Relevant parties agree on a temporary allocation formula that governs drought sharing during the horizon.",
+        "endpoint_key": "negotiated_compact",
+        "evidence_refs": [
+          "source_3_farm_bureau_statement_t20",
+          "source_4_tribal_council_letter_t18",
+          "source_5_city_mayors_call_notes_t12",
+          "source_6_federal_bureau_email_t6"
+        ],
+        "label": "Temporary negotiated allocation formula",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do the parties reach a temporary negotiated allocation formula that becomes the dominant governing arrangement within 14 weeks?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.25,
+        "rationale": "Mutual dependence and available mediation pathways make interim dealmaking plausible.",
+        "realization_criteria": [
+          "publicly acknowledged or formally adopted temporary formula exists",
+          "formula addresses at least major sectoral or rights priorities sufficiently to guide implementation",
+          "formula is treated as the main operating arrangement by authority and member states"
+        ],
+        "status": "active",
+        "status_basis": "Every major bloc has reasons to avoid worse alternatives, but no shared formula is evidenced at T0."
+      },
+      {
+        "authority_refs": [
+          "tribal_governments_coalition",
+          "member_state_governments",
+          "courts_implied"
+        ],
+        "blockers": [
+          "preemptive accommodation of senior rights",
+          "successful interim negotiation",
+          "states avoiding escalation"
+        ],
+        "contradiction_notes": "Litigation may coexist with federal mediation; endpoint requires litigation to be central in shaping the outcome.",
+        "description": "Litigation by tribal governments or states becomes the dominant mechanism blocking, delaying, or materially reshaping allocation outcomes.",
+        "endpoint_key": "tribal_or_state_litigation",
+        "evidence_refs": [
+          "source_2_compact_clause_excerpt_t25",
+          "source_4_tribal_council_letter_t18"
+        ],
+        "label": "Litigation blocks or reshapes allocation",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does litigation by tribes or states block, delay, or materially reshape allocation decisions within 14 weeks?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.21,
+        "rationale": "Compact ambiguity and explicit threat make this one of the clearest escalation paths.",
+        "realization_criteria": [
+          "lawsuit filing or injunction effort occurs related to allocation dispute",
+          "legal posture materially delays implementation or forces revision of allocation plan",
+          "court-centered or litigation-driven bargaining becomes dominant over purely administrative process"
+        ],
+        "status": "active",
+        "status_basis": "Tribal governments explicitly threatened litigation if senior rights are ignored, but no filing is yet reported."
+      },
+      {
+        "authority_refs": [
+          "federal_water_bureau",
+          "member_state_governments",
+          "tribal_governments_coalition"
+        ],
+        "blockers": [
+          "no state request",
+          "no litigation trigger",
+          "state preference for internal handling"
+        ],
+        "contradiction_notes": "Technical assistance alone does not realize this endpoint; formal role activation is required.",
+        "description": "The federal water bureau enters a formal mediation or intervention role that becomes central to the dispute's management.",
+        "endpoint_key": "federal_mediation",
+        "evidence_refs": [
+          "source_4_tribal_council_letter_t18",
+          "source_6_federal_bureau_email_t6"
+        ],
+        "label": "Formal federal mediation or intervention",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the federal water bureau enter formal mediation or intervention status within 14 weeks?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.12,
+        "rationale": "This endpoint is conditional but can emerge quickly if deadlock or litigation creates a trigger.",
+        "realization_criteria": [
+          "state request or litigation posture triggers formal federal role",
+          "federal bureau publicly or procedurally assumes active mediation/intervention status",
+          "parties treat federal process as central channel for allocation dispute management"
+        ],
+        "status": "active",
+        "status_basis": "Federal staff have offered technical help but clearly limited formal entry conditions at T0."
+      },
+      {
+        "authority_refs": [
+          "interstate_water_authority",
+          "member_state_governments",
+          "authority_board_members"
+        ],
+        "blockers": [
+          "urgent storage decline forcing decision",
+          "successful compromise",
+          "rapid legal or federal procedural shift"
+        ],
+        "contradiction_notes": "Short-term stopgaps do not negate this endpoint if they fail to establish a stable governing regime.",
+        "description": "The dispute remains unresolved, with no stable dominant allocation regime by the end of 14 weeks.",
+        "endpoint_key": "unresolved_shortage",
+        "evidence_refs": [
+          "source_1_hydrology_bulletin_t30",
+          "source_2_compact_clause_excerpt_t25",
+          "source_6_federal_bureau_email_t6"
+        ],
+        "label": "No stable allocation after horizon",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "By the end of 14 weeks, is there still no stable cross-party allocation regime in effect?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.13,
+        "rationale": "Deadlock is credible because all major solutions impose concentrated losses or legal risk.",
+        "realization_criteria": [
+          "no emergency regime, negotiated formula, litigation-shaped settlement, or formal federal process clearly dominates by week 14",
+          "allocation remains contested, provisional, or repeatedly deferred",
+          "major stakeholders continue to dispute governing framework"
+        ],
+        "status": "active",
+        "status_basis": "Hydrological uncertainty and legal ambiguity create drift risk, but current pressure may still force an endpoint before horizon."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "source_5_city_mayors_call_notes_t12",
+        "layer": "dependency",
+        "reason": "Municipal minimums depend on authority allocation decisions.",
+        "source_actor_name": "metro_mayors_coalition",
+        "target_actor_name": "interstate_water_authority",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_3_farm_bureau_statement_t20",
+        "layer": "dependency",
+        "reason": "Irrigation districts rely on authority water allocation and exemption design.",
+        "source_actor_name": "irrigation_districts_and_farm_bureau",
+        "target_actor_name": "interstate_water_authority",
+        "weight": 0.64
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_2_compact_clause_excerpt_t25; source_4_tribal_council_letter_t18",
+        "layer": "dependency",
+        "reason": "Allocation outcomes materially affect tribal water access under disputed rights framework.",
+        "source_actor_name": "tribal_governments_coalition",
+        "target_actor_name": "interstate_water_authority",
+        "weight": 0.48
+      },
+      {
+        "direction": "directed",
+        "evidence": "scenario_overview",
+        "layer": "dependency",
+        "reason": "Authority legitimacy and implementation depend on member-state cooperation.",
+        "source_actor_name": "interstate_water_authority",
+        "target_actor_name": "member_state_governments",
+        "weight": 0.53
+      },
+      {
+        "direction": "directed",
+        "evidence": "scenario_overview",
+        "layer": "dependency",
+        "reason": "Formal decisions require board process and internal governance.",
+        "source_actor_name": "interstate_water_authority",
+        "target_actor_name": "authority_board_members",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_6_federal_bureau_email_t6",
+        "layer": "dependency",
+        "reason": "Formal intervention requires a state request absent litigation trigger.",
+        "source_actor_name": "federal_water_bureau",
+        "target_actor_name": "member_state_governments",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_4_tribal_council_letter_t18; source_6_federal_bureau_email_t6",
+        "layer": "dependency",
+        "reason": "Litigation posture or consultation demands can create basis for federal engagement.",
+        "source_actor_name": "federal_water_bureau",
+        "target_actor_name": "tribal_governments_coalition",
+        "weight": 0.39
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_5_city_mayors_call_notes_t12",
+        "layer": "exposure",
+        "reason": "Metro residents are likely to see mayoral conservation and health-safety messaging.",
+        "source_actor_name": "regional_public_consumers",
+        "target_actor_name": "metro_mayors_coalition",
+        "weight": 0.56
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_3_farm_bureau_statement_t20",
+        "layer": "exposure",
+        "reason": "Farm bureau public statements circulate but with less universal reach than municipal messaging.",
+        "source_actor_name": "regional_public_consumers",
+        "target_actor_name": "irrigation_districts_and_farm_bureau",
+        "weight": 0.34
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_4_tribal_council_letter_t18",
+        "layer": "exposure",
+        "reason": "Tribal council letters may gain issue-attentive coverage but are less broadly seen at T0.",
+        "source_actor_name": "regional_public_consumers",
+        "target_actor_name": "tribal_governments_coalition",
+        "weight": 0.29
+      },
+      {
+        "direction": "directed",
+        "evidence": "scenario_overview",
+        "layer": "exposure",
+        "reason": "State officials closely monitor authority deliberations.",
+        "source_actor_name": "member_state_governments",
+        "target_actor_name": "interstate_water_authority",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_5_city_mayors_call_notes_t12",
+        "layer": "exposure",
+        "reason": "Authority is aware of mayoral minimum-demand position.",
+        "source_actor_name": "interstate_water_authority",
+        "target_actor_name": "metro_mayors_coalition",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_3_farm_bureau_statement_t20",
+        "layer": "exposure",
+        "reason": "Authority is aware of farm bureau bankruptcy warning and exemption demand.",
+        "source_actor_name": "interstate_water_authority",
+        "target_actor_name": "irrigation_districts_and_farm_bureau",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_4_tribal_council_letter_t18",
+        "layer": "exposure",
+        "reason": "Authority is aware of tribal rights claims and litigation threat.",
+        "source_actor_name": "interstate_water_authority",
+        "target_actor_name": "tribal_governments_coalition",
+        "weight": 0.6
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_5_city_mayors_call_notes_t12",
+        "layer": "trust",
+        "reason": "Mayors support conservation but are uncertain authority will protect municipal minimums.",
+        "source_actor_name": "metro_mayors_coalition",
+        "target_actor_name": "interstate_water_authority",
+        "weight": 0.43
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_3_farm_bureau_statement_t20",
+        "layer": "trust",
+        "reason": "Farm actors anticipate harmful uniform cuts and seek exemptions.",
+        "source_actor_name": "irrigation_districts_and_farm_bureau",
+        "target_actor_name": "interstate_water_authority",
+        "weight": 0.27
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_2_compact_clause_excerpt_t25; source_4_tribal_council_letter_t18",
+        "layer": "trust",
+        "reason": "Compact ambiguity and threat of litigation indicate low confidence rights will be honored voluntarily.",
+        "source_actor_name": "tribal_governments_coalition",
+        "target_actor_name": "interstate_water_authority",
+        "weight": 0.24
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_6_federal_bureau_email_t6",
+        "layer": "trust",
+        "reason": "Federal technical mediation is credible but formal involvement is conditional and not yet activated.",
+        "source_actor_name": "member_state_governments",
+        "target_actor_name": "federal_water_bureau",
+        "weight": 0.49
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_4_tribal_council_letter_t18; source_6_federal_bureau_email_t6",
+        "layer": "trust",
+        "reason": "Federal consultation pathway appears more receptive to rights claims than current compact ambiguity.",
+        "source_actor_name": "tribal_governments_coalition",
+        "target_actor_name": "federal_water_bureau",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "scenario_overview",
+        "layer": "influence",
+        "reason": "Authority decisions shape state political and operational options.",
+        "source_actor_name": "interstate_water_authority",
+        "target_actor_name": "member_state_governments",
+        "weight": 0.62
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_6_federal_bureau_email_t6; scenario_overview",
+        "layer": "influence",
+        "reason": "States can pressure authority and control whether to request federal involvement.",
+        "source_actor_name": "member_state_governments",
+        "target_actor_name": "interstate_water_authority",
+        "weight": 0.65
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_5_city_mayors_call_notes_t12",
+        "layer": "influence",
+        "reason": "Urban mayors can frame public-health stakes for state leaders.",
+        "source_actor_name": "metro_mayors_coalition",
+        "target_actor_name": "member_state_governments",
+        "weight": 0.51
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_3_farm_bureau_statement_t20",
+        "layer": "influence",
+        "reason": "Agricultural stakeholders can exert political pressure through economic-loss claims.",
+        "source_actor_name": "irrigation_districts_and_farm_bureau",
+        "target_actor_name": "member_state_governments",
+        "weight": 0.56
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_4_tribal_council_letter_t18",
+        "layer": "influence",
+        "reason": "Threat of litigation and consultation raises state legal and political costs.",
+        "source_actor_name": "tribal_governments_coalition",
+        "target_actor_name": "member_state_governments",
+        "weight": 0.47
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_6_federal_bureau_email_t6",
+        "layer": "influence",
+        "reason": "Technical mediation can shape options even absent formal intervention.",
+        "source_actor_name": "federal_water_bureau",
+        "target_actor_name": "interstate_water_authority",
+        "weight": 0.36
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_5_city_mayors_call_notes_t12",
+        "layer": "coalition",
+        "reason": "Shared interest in municipal reliability and health-and-safety protection.",
+        "source_actor_name": "metro_mayors_coalition",
+        "target_actor_name": "member_state_governments",
+        "weight": 0.54
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_3_farm_bureau_statement_t20",
+        "layer": "coalition",
+        "reason": "States have incentives to protect farm economies, though not uniformly.",
+        "source_actor_name": "irrigation_districts_and_farm_bureau",
+        "target_actor_name": "member_state_governments",
+        "weight": 0.49
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_4_tribal_council_letter_t18; source_6_federal_bureau_email_t6",
+        "layer": "coalition",
+        "reason": "Shared procedural pathway around consultation and mediation is plausible but not formalized.",
+        "source_actor_name": "tribal_governments_coalition",
+        "target_actor_name": "federal_water_bureau",
+        "weight": 0.41
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "scenario_overview",
+        "layer": "coalition",
+        "reason": "Internal governance is aligned around need to act, though substance may divide.",
+        "source_actor_name": "interstate_water_authority",
+        "target_actor_name": "authority_board_members",
+        "weight": 0.63
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_4_tribal_council_letter_t18",
+        "layer": "conflict",
+        "reason": "Tribes signal litigation if allocations ignore senior rights.",
+        "source_actor_name": "tribal_governments_coalition",
+        "target_actor_name": "interstate_water_authority",
+        "weight": 0.62
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_3_farm_bureau_statement_t20",
+        "layer": "conflict",
+        "reason": "Farm actors reject uniform cuts and foresee bankruptcy.",
+        "source_actor_name": "irrigation_districts_and_farm_bureau",
+        "target_actor_name": "interstate_water_authority",
+        "weight": 0.57
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_3_farm_bureau_statement_t20; source_5_city_mayors_call_notes_t12",
+        "layer": "conflict",
+        "reason": "Protected municipal minimums and farm exemptions compete for scarce water.",
+        "source_actor_name": "metro_mayors_coalition",
+        "target_actor_name": "irrigation_districts_and_farm_bureau",
+        "weight": 0.36
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_2_compact_clause_excerpt_t25; source_5_city_mayors_call_notes_t12",
+        "layer": "conflict",
+        "reason": "Potential clash if municipal minimums are treated as overriding senior rights, though direct conflict is not yet explicit.",
+        "source_actor_name": "metro_mayors_coalition",
+        "target_actor_name": "tribal_governments_coalition",
+        "weight": 0.28
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "scenario_overview",
+        "layer": "conflict",
+        "reason": "Interstate distributional conflict is embedded in multi-state allocation decisions.",
+        "source_actor_name": "member_state_governments",
+        "target_actor_name": "member_state_governments",
+        "weight": 0.34
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_5_city_mayors_call_notes_t12",
+        "layer": "oasis_interaction",
+        "reason": "Likely public and semi-public exchanges over conservation and minimums.",
+        "source_actor_name": "metro_mayors_coalition",
+        "target_actor_name": "interstate_water_authority",
+        "weight": 0.52
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_3_farm_bureau_statement_t20",
+        "layer": "oasis_interaction",
+        "reason": "Visible contestation over uniform cuts and exemptions is likely.",
+        "source_actor_name": "irrigation_districts_and_farm_bureau",
+        "target_actor_name": "interstate_water_authority",
+        "weight": 0.49
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_4_tribal_council_letter_t18",
+        "layer": "oasis_interaction",
+        "reason": "Public letters and possible consultation demands create active interaction channel.",
+        "source_actor_name": "tribal_governments_coalition",
+        "target_actor_name": "interstate_water_authority",
+        "weight": 0.46
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_6_federal_bureau_email_t6",
+        "layer": "oasis_interaction",
+        "reason": "Potential for official contact exists but remains conditional.",
+        "source_actor_name": "member_state_governments",
+        "target_actor_name": "federal_water_bureau",
+        "weight": 0.31
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype_key": "institutional_decider",
+        "label": "Institutional decider under ambiguity"
+      },
+      {
+        "archetype_key": "rights_defender",
+        "label": "Rights defender with legal leverage"
+      },
+      {
+        "archetype_key": "sectoral_lobby_leader",
+        "label": "Sectoral lobby leader"
+      },
+      {
+        "archetype_key": "federal_mediator",
+        "label": "Conditional external mediator"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "interstate_water_authority",
+        "archetype_key": "institutional_decider",
+        "attention_level": 0.92,
+        "behavioral_tendencies": [
+          "process_control",
+          "risk_avoidance",
+          "incrementalism"
+        ],
+        "expression_level": 0.56,
+        "fatigue": 0.38,
+        "fear_of_isolation": 0.31,
+        "graph_influence_summary": 0.82,
+        "hero_key": "authority_chair",
+        "mobilization_readiness": 0.67,
+        "perceived_majority": 0.44,
+        "reputation": 0.58,
+        "role": "Chair or lead executive driving emergency allocation process",
+        "secrecy": 0.52,
+        "stance_axes": {
+          "emergency_cuts_preference": 0.64,
+          "farm_exemption_support": 0.34,
+          "federal_invitation_support": 0.41,
+          "municipal_minimum_support": 0.71,
+          "negotiated_formula_preference": 0.58,
+          "tribal_rights_accommodation": 0.49
+        },
+        "trustworthiness": 0.56
+      },
+      {
+        "actor_name": "tribal_governments_coalition",
+        "archetype_key": "rights_defender",
+        "attention_level": 0.88,
+        "behavioral_tendencies": [
+          "rights_assertion",
+          "forum_shifting",
+          "coalition_signaling"
+        ],
+        "expression_level": 0.73,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.14,
+        "graph_influence_summary": 0.61,
+        "hero_key": "tribal_council_leads",
+        "mobilization_readiness": 0.81,
+        "perceived_majority": 0.4,
+        "reputation": 0.67,
+        "role": "Collective leadership asserting senior rights and consultation demands",
+        "secrecy": 0.28,
+        "stance_axes": {
+          "emergency_cuts_preference": 0.21,
+          "farm_exemption_support": 0.12,
+          "federal_invitation_support": 0.74,
+          "municipal_minimum_support": 0.3,
+          "negotiated_formula_preference": 0.44,
+          "tribal_rights_accommodation": 0.98
+        },
+        "trustworthiness": 0.69
+      },
+      {
+        "actor_name": "irrigation_districts_and_farm_bureau",
+        "archetype_key": "sectoral_lobby_leader",
+        "attention_level": 0.83,
+        "behavioral_tendencies": [
+          "loss_amplification",
+          "targeted_exemption_push",
+          "pressure_campaigning"
+        ],
+        "expression_level": 0.77,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.18,
+        "graph_influence_summary": 0.59,
+        "hero_key": "farm_bureau_president",
+        "mobilization_readiness": 0.76,
+        "perceived_majority": 0.51,
+        "reputation": 0.52,
+        "role": "Lead advocate for crop-specific exemptions and anti-uniform-cut messaging",
+        "secrecy": 0.24,
+        "stance_axes": {
+          "emergency_cuts_preference": 0.16,
+          "farm_exemption_support": 0.94,
+          "federal_invitation_support": 0.22,
+          "municipal_minimum_support": 0.27,
+          "negotiated_formula_preference": 0.61,
+          "tribal_rights_accommodation": 0.24
+        },
+        "trustworthiness": 0.47
+      },
+      {
+        "actor_name": "federal_water_bureau",
+        "archetype_key": "federal_mediator",
+        "attention_level": 0.64,
+        "behavioral_tendencies": [
+          "proceduralism",
+          "mediation_readiness",
+          "trigger_dependence"
+        ],
+        "expression_level": 0.34,
+        "fatigue": 0.17,
+        "fear_of_isolation": 0.21,
+        "graph_influence_summary": 0.48,
+        "hero_key": "federal_bureau_regional_director",
+        "mobilization_readiness": 0.44,
+        "perceived_majority": 0.36,
+        "reputation": 0.66,
+        "role": "Federal official able to offer technical support and potentially enter formal mediation if triggered",
+        "secrecy": 0.46,
+        "stance_axes": {
+          "emergency_cuts_preference": 0.39,
+          "farm_exemption_support": 0.25,
+          "federal_invitation_support": 0.95,
+          "municipal_minimum_support": 0.61,
+          "negotiated_formula_preference": 0.73,
+          "tribal_rights_accommodation": 0.72
+        },
+        "trustworthiness": 0.71
+      }
+    ],
+    "heroes": [
+      {
+        "archetype_key": "institutional_decider",
+        "label": "Institutional decider under ambiguity"
+      },
+      {
+        "archetype_key": "rights_defender",
+        "label": "Rights defender with legal leverage"
+      },
+      {
+        "archetype_key": "sectoral_lobby_leader",
+        "label": "Sectoral lobby leader"
+      },
+      {
+        "archetype_key": "federal_mediator",
+        "label": "Conditional external mediator"
+      }
+    ],
+    "important_questions": [
+      "Does the interstate water authority impose emergency rationing as the dominant operating regime within 14 weeks?",
+      "Do the parties reach a temporary negotiated allocation formula that becomes the dominant governing arrangement within 14 weeks?",
+      "Does litigation by tribes or states block, delay, or materially reshape allocation decisions within 14 weeks?",
+      "Does the federal water bureau enter formal mediation or intervention status within 14 weeks?",
+      "By the end of 14 weeks, is there still no stable cross-party allocation regime in effect?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "interstate_water_authority",
+          "member_state_governments",
+          "federal_water_bureau"
+        ],
+        "event_key": "storage_deficit_enters_decision_window",
+        "event_type": "announcement",
+        "evidence": [
+          "source_1_hydrology_bulletin_t30"
+        ],
+        "expected_impact": "Raises urgency for contingency planning, increases receptivity to emergency powers, and amplifies disputes over who should absorb cuts first.",
+        "status": "active",
+        "summary": "Reservoir storage is reported 28% below 20-year median while spring inflow remains highly uncertain.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "interstate_water_authority",
+          "tribal_governments_coalition",
+          "metro_mayors_coalition",
+          "member_state_governments"
+        ],
+        "event_key": "compact_ambiguity_becomes_central",
+        "event_type": "announcement",
+        "evidence": [
+          "source_2_compact_clause_excerpt_t25"
+        ],
+        "expected_impact": "Shifts conflict from pure scarcity management into legal interpretation and legitimacy contestation.",
+        "status": "active",
+        "summary": "Emergency reduction clause is acknowledged but priority between tribal senior rights and municipal minimums remains unspecified.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "irrigation_districts_and_farm_bureau",
+          "member_state_governments",
+          "interstate_water_authority"
+        ],
+        "event_key": "farm_exemption_campaign_underway",
+        "event_type": "announcement",
+        "evidence": [
+          "source_3_farm_bureau_statement_t20"
+        ],
+        "expected_impact": "Hardens opposition to equal-percentage rationing and creates political cost for broad agriculture cuts.",
+        "status": "active",
+        "summary": "Farm bureau and irrigation districts publicly reject uniform 20% cuts and demand crop-specific exemptions.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "tribal_governments_coalition",
+          "interstate_water_authority",
+          "member_state_governments",
+          "federal_water_bureau"
+        ],
+        "event_key": "tribal_litigation_warning_issued",
+        "event_type": "announcement",
+        "evidence": [
+          "source_4_tribal_council_letter_t18"
+        ],
+        "expected_impact": "Increases legal risk, raises salience of consultation pathways, and may deter simplistic emergency formulas.",
+        "status": "active",
+        "summary": "Three tribal governments warn that allocations ignoring senior rights will trigger litigation and consultation demands.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "metro_mayors_coalition",
+          "member_state_governments",
+          "interstate_water_authority"
+        ],
+        "event_key": "municipal_minimums_consolidated",
+        "event_type": "announcement",
+        "evidence": [
+          "source_5_city_mayors_call_notes_t12"
+        ],
+        "expected_impact": "Creates a coherent urban red line that can support negotiated carveouts or provoke distributive backlash.",
+        "status": "active",
+        "summary": "Metro mayors align around conservation plus protected health-and-safety minimums.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "federal_water_bureau",
+          "member_state_governments",
+          "interstate_water_authority",
+          "tribal_governments_coalition"
+        ],
+        "event_key": "federal_technical_mediation_offer_open",
+        "event_type": "announcement",
+        "evidence": [
+          "source_6_federal_bureau_email_t6"
+        ],
+        "expected_impact": "Keeps a de-escalation pathway available while preserving trigger-based uncertainty around formal federal entry.",
+        "status": "active",
+        "summary": "Federal bureau signals availability for technical mediation but not formal intervention without state request or litigation posture.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "interstate_water_authority",
+          "authority_board_members",
+          "member_state_governments"
+        ],
+        "event_key": "near_term_authority_deliberation",
+        "event_type": "announcement",
+        "evidence": [
+          "scenario_inference_from_all_sources"
+        ],
+        "expected_impact": "May clarify whether the system leans toward unilateral rationing or negotiated temporary formula.",
+        "status": "scheduled",
+        "summary": "Authority is likely to move from contingency review toward a draft allocation framework or emergency criteria.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "tribal_governments_coalition",
+          "metro_mayors_coalition",
+          "interstate_water_authority",
+          "member_state_governments"
+        ],
+        "event_key": "rights_and_minimums_clarification_push",
+        "event_type": "announcement",
+        "evidence": [
+          "source_2_compact_clause_excerpt_t25",
+          "source_4_tribal_council_letter_t18",
+          "source_5_city_mayors_call_notes_t12"
+        ],
+        "expected_impact": "Can either force narrower compromise language or accelerate litigation posture if omitted.",
+        "status": "scheduled",
+        "summary": "Stakeholders are likely to demand explicit treatment of tribal senior rights and municipal minimums in any draft.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "10a0c789-4334-446b-ac1a-3a53dc651b87",
+    "merge_hypotheses": [
+      {
+        "actors": [
+          "interstate_water_authority",
+          "member_state_governments",
+          "metro_mayors_coalition",
+          "irrigation_districts_and_farm_bureau",
+          "tribal_governments_coalition"
+        ],
+        "mechanism": "Common fear of reservoir collapse or deeper later cuts pushes actors toward interim accommodation.",
+        "merge_key": "shared_system_risk_convergence",
+        "why_it_could_merge": "All parties remain dependent on a functioning allocation regime and may prefer an imperfect temporary formula to unmanaged escalation."
+      },
+      {
+        "actors": [
+          "federal_water_bureau",
+          "interstate_water_authority",
+          "member_state_governments",
+          "tribal_governments_coalition"
+        ],
+        "mechanism": "Technical mediation or expert framing supplies neutral cover for compromise without requiring immediate surrender on ultimate rights claims.",
+        "merge_key": "procedural_face_saving_via_federal_technical_layer",
+        "why_it_could_merge": "Actors can preserve legal positions while agreeing to interim operational rules."
+      },
+      {
+        "actors": [
+          "member_state_governments",
+          "authority_board_members",
+          "interstate_water_authority"
+        ],
+        "mechanism": "Sustained conflict across urban farm and tribal fronts may exhaust state leaders and board members into favoring a temporary package.",
+        "merge_key": "coalition_fatigue_from_multi_front_conflict",
+        "why_it_could_merge": "Decision-makers face accumulating legitimacy costs from unresolved scarcity and may seek a stabilizing middle route."
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "metro_residents",
+        "label": "Metro residents served by municipal systems",
+        "notes": "Large urban population indirectly represented by mayors and municipal utilities.",
+        "population_total": 12000000
+      },
+      {
+        "archetype_key": "farm_dependent_households_workers",
+        "label": "Farm-dependent households and workers",
+        "notes": "Regional agricultural households and workers affected by irrigation cuts.",
+        "population_total": 850000
+      },
+      {
+        "archetype_key": "tribal_community_members",
+        "label": "Tribal community members in affected governments",
+        "notes": "Population tied to tribal governments asserting senior rights.",
+        "population_total": 180000
+      },
+      {
+        "archetype_key": "general_regional_water_users",
+        "label": "Other regional water users",
+        "notes": "Mixed small-town and non-farm users outside major metro blocs.",
+        "population_total": 2500000
+      }
+    ],
+    "risk_flags": [
+      {
+        "description": "Compact emergency clause does not clearly rank tribal senior rights against municipal health-and-safety minimums.",
+        "evidence": [
+          "source_2_compact_clause_excerpt_t25"
+        ],
+        "risk_key": "legal_ambiguity_high",
+        "severity": "high"
+      },
+      {
+        "description": "Spring inflows are uncertain, limiting confidence in cut sizing and timing.",
+        "evidence": [
+          "source_1_hydrology_bulletin_t30"
+        ],
+        "risk_key": "hydrology_forecast_uncertainty",
+        "severity": "high"
+      },
+      {
+        "description": "Uniform cuts may cause severe late-season losses, reducing political and economic feasibility of simple allocation rules.",
+        "evidence": [
+          "source_3_farm_bureau_statement_t20"
+        ],
+        "risk_key": "agricultural_elasticity_limits",
+        "severity": "medium"
+      },
+      {
+        "description": "Ignoring senior rights likely activates litigation and federal consultation demands.",
+        "evidence": [
+          "source_4_tribal_council_letter_t18"
+        ],
+        "risk_key": "tribal_consultation_and_litigation_trigger",
+        "severity": "high"
+      },
+      {
+        "description": "Formal federal mediation is unavailable without state request or litigation posture, limiting early de-escalation leverage.",
+        "evidence": [
+          "source_6_federal_bureau_email_t6"
+        ],
+        "risk_key": "federal_entry_gatekeeping",
+        "severity": "medium"
+      },
+      {
+        "description": "Authority must act under scarcity while lacking consensus legitimacy across key blocs, creating implementation risk.",
+        "evidence": [
+          "all_sources_combined"
+        ],
+        "risk_key": "authority_legitimacy_fragility",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "core_question": "Which endpoint dominates the interstate water-rationing dispute after 14 simulated weeks?",
+      "forecast_horizon_weeks": 14,
+      "mode": "direct",
+      "scenario_key": "dossier_006_interstate_water_rationing",
+      "source_refs": [
+        "source_1_hydrology_bulletin_t30",
+        "source_2_compact_clause_excerpt_t25",
+        "source_3_farm_bureau_statement_t20",
+        "source_4_tribal_council_letter_t18",
+        "source_5_city_mayors_call_notes_t12",
+        "source_6_federal_bureau_email_t6"
+      ],
+      "summary": "A multi-state water authority faces drought cuts across cities, farms, and tribal governments. Reservoir storage is well below median, inflow forecasts are uncertain, the compact permits emergency reductions but is ambiguous on tribal senior rights versus municipal health-and-safety minimums, and key stakeholders are signaling conflict while federal staff offer technical mediation short of formal intervention.",
+      "t0_context": "drought allocation dispute under ambiguous interstate compact",
+      "time_unit": "week",
+      "uncertainties": [
+        "spring inflow magnitude remains highly uncertain",
+        "legal interaction between tribal senior rights and municipal minimums is unresolved in compact text",
+        "formal federal role depends on state request or litigation posture",
+        "economic damage from uniform cuts may vary by crop and district"
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "member_state_governments",
+          "authority_board_members",
+          "metro_mayors_coalition",
+          "irrigation_districts_and_farm_bureau",
+          "tribal_governments_coalition"
+        ],
+        "level": "moderate",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Actors may negotiate within familiar legal and sectoral frames but reject proposals perceived as violating core rights or survival thresholds."
+      },
+      {
+        "applies_to": [
+          "farm_dependent_households_workers",
+          "tribal_community_members",
+          "metro_residents"
+        ],
+        "level": "high_relevance",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Visible deep cuts, announced uniform rationing, or ignored senior rights could sharply increase mobilization."
+      },
+      {
+        "applies_to": [
+          "metro_shared_sacrifice_civic",
+          "small_town_general_users"
+        ],
+        "level": "moderate",
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Many general users hold fairness views but remain quiet until service impacts or elite conflict become salient."
+      },
+      {
+        "applies_to": [
+          "irrigation_districts_and_farm_bureau",
+          "tribal_governments_coalition",
+          "metro_mayors_coalition"
+        ],
+        "level": "moderate",
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Sectoral and jurisdictional networks reinforce internal narratives about fairness and entitlement."
+      },
+      {
+        "applies_to": [
+          "member_state_governments",
+          "regional_public_consumers"
+        ],
+        "level": "moderate",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Support for drastic action likely requires repeated signals from multiple trusted actors rather than a single message."
+      },
+      {
+        "applies_to": [
+          "tribal_governments_coalition",
+          "irrigation_districts_and_farm_bureau",
+          "metro_mayors_coalition"
+        ],
+        "level": "high_relevance",
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Sovereignty, producer identity, and urban public-health stewardship shape non-fungible claims."
+      },
+      {
+        "applies_to": [
+          "regional_public_consumers"
+        ],
+        "level": "moderate",
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Absent service disruptions or dramatic legal escalation, general public attention may remain intermittent."
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Forecast uncertainty can justify delay, contingency plans, or competing interpretations of necessary cuts.",
+        "evidence": [
+          "source_1_hydrology_bulletin_t30"
+        ],
+        "influence_key": "hydrological_uncertainty"
+      },
+      {
+        "description": "Ambiguous emergency clause creates interpretive struggle over lawful priority ordering.",
+        "evidence": [
+          "source_2_compact_clause_excerpt_t25"
+        ],
+        "influence_key": "compact_ambiguity"
+      },
+      {
+        "description": "Bankruptcy framing heightens pressure against flat percentage cuts.",
+        "evidence": [
+          "source_3_farm_bureau_statement_t20"
+        ],
+        "influence_key": "sectoral_loss_salience"
+      },
+      {
+        "description": "Explicit tribal warning raises probability of legal and consultation pathways if ignored.",
+        "evidence": [
+          "source_4_tribal_council_letter_t18"
+        ],
+        "influence_key": "senior_rights_activation"
+      },
+      {
+        "description": "Hospitals and sanitation claims increase legitimacy of protected urban minimums.",
+        "evidence": [
+          "source_5_city_mayors_call_notes_t12"
+        ],
+        "influence_key": "municipal_health_floor"
+      },
+      {
+        "description": "Federal role remains latent until state request or litigation posture converts it into formal involvement.",
+        "evidence": [
+          "source_6_federal_bureau_email_t6"
+        ],
+        "influence_key": "conditional_federal_entry"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "interstate_water_authority",
+        "behavior_axes": {
+          "adaptability": 0.52,
+          "confrontation": 0.33,
+          "proceduralism": 0.79,
+          "risk_tolerance": 0.38
+        },
+        "ideology_axes": {
+          "local_control": 0.56,
+          "market_flexibility": 0.34,
+          "public_health_priority": 0.68,
+          "rights_formalism": 0.51
+        },
+        "reputation": 0.57,
+        "secrecy": 0.47,
+        "tendency": "institutional_balancer",
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "member_state_governments",
+        "behavior_axes": {
+          "adaptability": 0.49,
+          "confrontation": 0.46,
+          "proceduralism": 0.58,
+          "risk_tolerance": 0.44
+        },
+        "ideology_axes": {
+          "local_control": 0.74,
+          "market_flexibility": 0.43,
+          "public_health_priority": 0.61,
+          "rights_formalism": 0.49
+        },
+        "reputation": 0.5,
+        "secrecy": 0.42,
+        "tendency": "constituency_protector",
+        "trustworthiness": 0.48
+      },
+      {
+        "actor_name": "metro_mayors_coalition",
+        "behavior_axes": {
+          "adaptability": 0.57,
+          "confrontation": 0.45,
+          "proceduralism": 0.62,
+          "risk_tolerance": 0.41
+        },
+        "ideology_axes": {
+          "local_control": 0.67,
+          "market_flexibility": 0.29,
+          "public_health_priority": 0.88,
+          "rights_formalism": 0.44
+        },
+        "reputation": 0.6,
+        "secrecy": 0.22,
+        "tendency": "health_and_safety_advocate",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "irrigation_districts_and_farm_bureau",
+        "behavior_axes": {
+          "adaptability": 0.46,
+          "confrontation": 0.63,
+          "proceduralism": 0.43,
+          "risk_tolerance": 0.57
+        },
+        "ideology_axes": {
+          "local_control": 0.59,
+          "market_flexibility": 0.62,
+          "public_health_priority": 0.27,
+          "rights_formalism": 0.47
+        },
+        "reputation": 0.5,
+        "secrecy": 0.21,
+        "tendency": "sectoral_defender",
+        "trustworthiness": 0.45
+      },
+      {
+        "actor_name": "tribal_governments_coalition",
+        "behavior_axes": {
+          "adaptability": 0.41,
+          "confrontation": 0.61,
+          "proceduralism": 0.67,
+          "risk_tolerance": 0.52
+        },
+        "ideology_axes": {
+          "local_control": 0.71,
+          "market_flexibility": 0.18,
+          "public_health_priority": 0.46,
+          "rights_formalism": 0.92
+        },
+        "reputation": 0.66,
+        "secrecy": 0.25,
+        "tendency": "sovereign_rights_assertor",
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "federal_water_bureau",
+        "behavior_axes": {
+          "adaptability": 0.48,
+          "confrontation": 0.18,
+          "proceduralism": 0.85,
+          "risk_tolerance": 0.29
+        },
+        "ideology_axes": {
+          "local_control": 0.32,
+          "market_flexibility": 0.21,
+          "public_health_priority": 0.63,
+          "rights_formalism": 0.79
+        },
+        "reputation": 0.67,
+        "secrecy": 0.41,
+        "tendency": "conditional_mediator",
+        "trustworthiness": 0.72
+      },
+      {
+        "actor_name": "regional_public_consumers",
+        "behavior_axes": {
+          "adaptability": 0.51,
+          "confrontation": 0.24,
+          "proceduralism": 0.39,
+          "risk_tolerance": 0.34
+        },
+        "ideology_axes": {
+          "local_control": 0.46,
+          "market_flexibility": 0.22,
+          "public_health_priority": 0.69,
+          "rights_formalism": 0.31
+        },
+        "reputation": 0.49,
+        "secrecy": 0.14,
+        "tendency": "fairness_seeking_observer",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "authority_board_members",
+        "behavior_axes": {
+          "adaptability": 0.45,
+          "confrontation": 0.31,
+          "proceduralism": 0.77,
+          "risk_tolerance": 0.36
+        },
+        "ideology_axes": {
+          "local_control": 0.58,
+          "market_flexibility": 0.3,
+          "public_health_priority": 0.62,
+          "rights_formalism": 0.57
+        },
+        "reputation": 0.56,
+        "secrecy": 0.53,
+        "tendency": "vote_gated_gatekeeper",
+        "trustworthiness": 0.54
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 2321,
+        "end": 2321,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 2321,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

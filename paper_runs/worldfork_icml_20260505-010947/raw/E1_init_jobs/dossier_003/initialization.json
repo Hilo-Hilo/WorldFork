@@ -1,0 +1,1623 @@
+{
+  "big_bang_id": "1d6d0edb-821e-4679-a75b-7d779f2d5c15",
+  "initializer_output": {
+    "actors": [
+      {
+        "actor_type": "institution",
+        "authority_level": "high",
+        "description": "Decision-making hospital network leadership overseeing rollout across campuses",
+        "name": "hospital_network_leadership",
+        "stakes": [
+          "capacity management",
+          "clinical risk",
+          "regulatory exposure",
+          "reputation"
+        ]
+      },
+      {
+        "actor_type": "individual_office",
+        "authority_level": "high",
+        "description": "Clinical executive framing tool as assistive rather than autonomous",
+        "name": "chief_medical_officer",
+        "stakes": [
+          "clinical legitimacy",
+          "safe rollout",
+          "physician buy-in"
+        ]
+      },
+      {
+        "actor_type": "professional_group",
+        "authority_level": "medium",
+        "description": "Doctors and care teams who may use alerts and retain final admission decisions",
+        "name": "campus_clinicians",
+        "stakes": [
+          "workflow burden",
+          "clinical autonomy",
+          "patient safety"
+        ]
+      },
+      {
+        "actor_type": "labor_group",
+        "authority_level": "medium",
+        "description": "Union representing nurses raising staffing-based objections and calling for moratorium",
+        "name": "nurses_union",
+        "stakes": [
+          "staffing ratios",
+          "workload",
+          "member safety",
+          "voice in implementation"
+        ]
+      },
+      {
+        "actor_type": "professional_group",
+        "authority_level": "medium",
+        "description": "Nursing staff affected by ICU transfer workflow and staffing constraints",
+        "name": "bedside_nurses",
+        "stakes": [
+          "staffing burden",
+          "patient safety",
+          "workflow clarity"
+        ]
+      },
+      {
+        "actor_type": "regulator",
+        "authority_level": "medium_high",
+        "description": "State oversight body requesting documentation without ordering a halt at T0",
+        "name": "state_health_board",
+        "stakes": [
+          "compliance",
+          "fairness oversight",
+          "public accountability"
+        ]
+      },
+      {
+        "actor_type": "company",
+        "authority_level": "medium",
+        "description": "External vendor supplying triage assistant and promising a patch for missing-record handling",
+        "name": "algorithm_vendor",
+        "stakes": [
+          "contract continuity",
+          "credibility",
+          "speed of remediation"
+        ]
+      },
+      {
+        "actor_type": "patient_group",
+        "authority_level": "low",
+        "description": "Patients less likely to be disadvantaged by record-completeness issue",
+        "name": "patients_with_complete_records",
+        "stakes": [
+          "timely ICU review",
+          "safe triage"
+        ]
+      },
+      {
+        "actor_type": "patient_group",
+        "authority_level": "low",
+        "description": "Patients with missing prior records, including uninsured and recently transferred patients, facing lower alert sensitivity",
+        "name": "patients_with_incomplete_records",
+        "stakes": [
+          "equitable detection",
+          "timely ICU review",
+          "procedural fairness"
+        ]
+      },
+      {
+        "actor_type": "potential_ad_hoc_body",
+        "authority_level": "conditional",
+        "description": "Possible external or independent review mechanism if oversight intensifies",
+        "name": "independent_review_panel",
+        "stakes": [
+          "audit credibility",
+          "recommendations"
+        ]
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "branch_key": "patch_enables_limited_pilot",
+        "divergence_signal": "Internal communications shift from whether to launch to where and under what safeguards the pilot proceeds",
+        "plausible_path": "Leadership narrows deployment to selected campuses with clinician override while fairness monitoring continues",
+        "rationale": "Patch timing plus existing assistive framing favors a compromise path over immediate full deployment",
+        "trigger": "Vendor delivers patch on time with internally acceptable validation signals"
+      },
+      {
+        "branch_key": "union_pressure_forces_suspension",
+        "divergence_signal": "Leadership messaging centers staffing bottlenecks and postponement rather than model refinement",
+        "plausible_path": "Network temporarily suspends rollout pending staffing or operational review",
+        "rationale": "Union argument directly challenges the tool's relevance to the main bottleneck and can raise implementation cost",
+        "trigger": "Staffing conditions worsen or union resistance broadens beyond nursing into clinician-facing workflow objections"
+      },
+      {
+        "branch_key": "oversight_escalates_to_external_review",
+        "divergence_signal": "Formal request for independent validation, audit, or board-linked review process",
+        "plausible_path": "State board or independent panel review becomes prerequisite before expansion beyond any narrow test",
+        "rationale": "Board has not halted rollout, but fairness disparities create a plausible escalation basis",
+        "trigger": "Documentation response reveals unresolved fairness issues or external scrutiny increases"
+      },
+      {
+        "branch_key": "capacity_pressure_overrides_caution",
+        "divergence_signal": "Rollout instructions expand network-wide before patch validation or before staffing concessions",
+        "plausible_path": "Network proceeds with broader deployment under override language and temporary safeguards",
+        "rationale": "High occupancy creates strong pressure for action if leadership sees the tool as better than inaction",
+        "trigger": "ICU strain worsens and leadership judges operational need to outweigh fairness and labor objections"
+      },
+      {
+        "branch_key": "crisis_without_resolution",
+        "divergence_signal": "Repeated interim measures, delays, and mixed campus practices persist with no stable network-wide endpoint",
+        "plausible_path": "The system operates under ad hoc workarounds and acute occupancy pressure without a clear final rollout decision by week 8",
+        "rationale": "The scenario explicitly allows unresolved capacity pressure to dominate over a clean policy resolution",
+        "trigger": "Capacity remains severe while patch, oversight, and labor disputes all remain partially unresolved"
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "executive_memo_channel",
+        "description": "Formal rollout and clinical governance communications",
+        "participants": [
+          "chief_medical_officer",
+          "hospital_network_leadership",
+          "campus_clinicians"
+        ],
+        "type": "internal_official",
+        "visibility": "internal"
+      },
+      {
+        "channel_key": "union_member_channel",
+        "description": "Union statements and mobilization messaging around staffing and rollout",
+        "participants": [
+          "nurses_union",
+          "bedside_nurses"
+        ],
+        "type": "labor_internal",
+        "visibility": "internal"
+      },
+      {
+        "channel_key": "regulatory_email_channel",
+        "description": "Documentation requests and oversight correspondence",
+        "participants": [
+          "state_health_board",
+          "hospital_network_leadership"
+        ],
+        "type": "official_external",
+        "visibility": "restricted_official"
+      },
+      {
+        "channel_key": "vendor_coordination_channel",
+        "description": "Patch timing, validation, and implementation logistics",
+        "participants": [
+          "algorithm_vendor",
+          "hospital_network_leadership",
+          "chief_medical_officer"
+        ],
+        "type": "contractual_operational",
+        "visibility": "restricted_operational"
+      },
+      {
+        "channel_key": "clinical_workflow_discussion",
+        "description": "Practical discussion of ICU review workflow under capacity strain",
+        "participants": [
+          "campus_clinicians",
+          "bedside_nurses",
+          "chief_medical_officer"
+        ],
+        "type": "operational_peer",
+        "visibility": "internal_mixed"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "network_clinical_staff",
+        "attention_level": 0.72,
+        "cohort_key": "clinical_staff_supportive_cautious",
+        "expression_level": 0.48,
+        "fatigue": 0.67,
+        "fear_of_isolation": 0.32,
+        "label": "Clinicians cautiously open to assistive rollout",
+        "mobilization_readiness": 0.34,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.375,
+        "private_belief": "Algorithm may help under capacity strain if override remains clear and fairness issues are bounded",
+        "public_expression": "Measured support with caveats about workflow and validation",
+        "representation_mode": "estimated",
+        "represented_population": 1800,
+        "stance_axes": {
+          "fairness_concern": 0.55,
+          "regulatory_deference": 0.4,
+          "rollout_support": 0.35,
+          "staffing_priority": 0.45
+        }
+      },
+      {
+        "archetype_key": "network_clinical_staff",
+        "attention_level": 0.76,
+        "cohort_key": "clinical_staff_delay_until_review",
+        "expression_level": 0.51,
+        "fatigue": 0.62,
+        "fear_of_isolation": 0.36,
+        "label": "Clinicians preferring delay or pilot until review",
+        "mobilization_readiness": 0.42,
+        "perceived_majority": 0.4,
+        "population_share_of_archetype": 0.3125,
+        "private_belief": "Fairness gaps and operational uncertainty justify a narrow pilot or temporary delay",
+        "public_expression": "Requests phased deployment, more documentation, and safeguards",
+        "representation_mode": "estimated",
+        "represented_population": 1500,
+        "stance_axes": {
+          "fairness_concern": 0.74,
+          "regulatory_deference": 0.58,
+          "rollout_support": 0.15,
+          "staffing_priority": 0.5
+        }
+      },
+      {
+        "archetype_key": "network_clinical_staff",
+        "attention_level": 0.83,
+        "cohort_key": "nursing_staff_union_aligned",
+        "expression_level": 0.69,
+        "fatigue": 0.79,
+        "fear_of_isolation": 0.22,
+        "label": "Nursing staff aligned with union moratorium stance",
+        "mobilization_readiness": 0.68,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.2708,
+        "private_belief": "Staffing shortages, not alert ordering, are the core bottleneck; rollout risks burden without solving capacity",
+        "public_expression": "Supports moratorium until staffing ratios improve",
+        "representation_mode": "estimated",
+        "represented_population": 1300,
+        "stance_axes": {
+          "fairness_concern": 0.62,
+          "regulatory_deference": 0.46,
+          "rollout_support": 0.08,
+          "staffing_priority": 0.88
+        }
+      },
+      {
+        "archetype_key": "hospital_patients_under_triage_relevance",
+        "attention_level": 0.18,
+        "cohort_key": "patients_complete_records_general",
+        "expression_level": 0.05,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.12,
+        "label": "Patients with relatively complete records",
+        "mobilization_readiness": 0.06,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.6667,
+        "private_belief": "No direct expressed stance observable; likely prioritize timely care over process detail",
+        "public_expression": "Low organized expression at T0",
+        "representation_mode": "estimated",
+        "represented_population": 800,
+        "stance_axes": {
+          "fairness_concern": 0.3,
+          "regulatory_deference": 0.5,
+          "rollout_support": 0.2,
+          "staffing_priority": 0.35
+        }
+      },
+      {
+        "archetype_key": "hospital_patients_under_triage_relevance",
+        "attention_level": 0.24,
+        "cohort_key": "patients_incomplete_records_vulnerable",
+        "expression_level": 0.07,
+        "fatigue": 0.47,
+        "fear_of_isolation": 0.41,
+        "label": "Patients vulnerable to incomplete-record sensitivity gaps",
+        "mobilization_readiness": 0.09,
+        "perceived_majority": 0.22,
+        "population_share_of_archetype": 0.3333,
+        "private_belief": "Group-level preference for equitable review is implied, but direct voice is weak at T0",
+        "public_expression": "Limited direct organized expression; concerns likely mediated through review and oversight channels",
+        "representation_mode": "estimated",
+        "represented_population": 400,
+        "stance_axes": {
+          "fairness_concern": 0.85,
+          "regulatory_deference": 0.56,
+          "rollout_support": 0.05,
+          "staffing_priority": 0.38
+        }
+      },
+      {
+        "archetype_key": "oversight_and_management",
+        "attention_level": 0.88,
+        "cohort_key": "management_rollout_pragmatists",
+        "expression_level": 0.57,
+        "fatigue": 0.58,
+        "fear_of_isolation": 0.19,
+        "label": "Management favoring controlled implementation under pressure",
+        "mobilization_readiness": 0.61,
+        "perceived_majority": 0.54,
+        "population_share_of_archetype": 0.5625,
+        "private_belief": "Capacity strain makes some deployment attractive if legal and clinical risks remain manageable",
+        "public_expression": "Emphasizes assistive role, safeguards, and documentation readiness",
+        "representation_mode": "estimated",
+        "represented_population": 45,
+        "stance_axes": {
+          "fairness_concern": 0.48,
+          "regulatory_deference": 0.61,
+          "rollout_support": 0.7,
+          "staffing_priority": 0.52
+        }
+      },
+      {
+        "archetype_key": "oversight_and_management",
+        "attention_level": 0.85,
+        "cohort_key": "oversight_caution_faction",
+        "expression_level": 0.49,
+        "fatigue": 0.44,
+        "fear_of_isolation": 0.28,
+        "label": "Oversight actors preferring review before expansion",
+        "mobilization_readiness": 0.39,
+        "perceived_majority": 0.43,
+        "population_share_of_archetype": 0.4375,
+        "private_belief": "Documentation, fairness performance, and external scrutiny could force staged deployment",
+        "public_expression": "Requests records, validation detail, and narrower launch boundaries",
+        "representation_mode": "estimated",
+        "represented_population": 35,
+        "stance_axes": {
+          "fairness_concern": 0.77,
+          "regulatory_deference": 0.8,
+          "rollout_support": 0.18,
+          "staffing_priority": 0.34
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "network_clinical_staff",
+        "attention_level": 0.72,
+        "cohort_key": "clinical_staff_supportive_cautious",
+        "expression_level": 0.48,
+        "fatigue": 0.67,
+        "fear_of_isolation": 0.32,
+        "label": "Clinicians cautiously open to assistive rollout",
+        "mobilization_readiness": 0.34,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.375,
+        "private_belief": "Algorithm may help under capacity strain if override remains clear and fairness issues are bounded",
+        "public_expression": "Measured support with caveats about workflow and validation",
+        "representation_mode": "estimated",
+        "represented_population": 1800,
+        "stance_axes": {
+          "fairness_concern": 0.55,
+          "regulatory_deference": 0.4,
+          "rollout_support": 0.35,
+          "staffing_priority": 0.45
+        }
+      },
+      {
+        "archetype_key": "network_clinical_staff",
+        "attention_level": 0.76,
+        "cohort_key": "clinical_staff_delay_until_review",
+        "expression_level": 0.51,
+        "fatigue": 0.62,
+        "fear_of_isolation": 0.36,
+        "label": "Clinicians preferring delay or pilot until review",
+        "mobilization_readiness": 0.42,
+        "perceived_majority": 0.4,
+        "population_share_of_archetype": 0.3125,
+        "private_belief": "Fairness gaps and operational uncertainty justify a narrow pilot or temporary delay",
+        "public_expression": "Requests phased deployment, more documentation, and safeguards",
+        "representation_mode": "estimated",
+        "represented_population": 1500,
+        "stance_axes": {
+          "fairness_concern": 0.74,
+          "regulatory_deference": 0.58,
+          "rollout_support": 0.15,
+          "staffing_priority": 0.5
+        }
+      },
+      {
+        "archetype_key": "network_clinical_staff",
+        "attention_level": 0.83,
+        "cohort_key": "nursing_staff_union_aligned",
+        "expression_level": 0.69,
+        "fatigue": 0.79,
+        "fear_of_isolation": 0.22,
+        "label": "Nursing staff aligned with union moratorium stance",
+        "mobilization_readiness": 0.68,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.2708,
+        "private_belief": "Staffing shortages, not alert ordering, are the core bottleneck; rollout risks burden without solving capacity",
+        "public_expression": "Supports moratorium until staffing ratios improve",
+        "representation_mode": "estimated",
+        "represented_population": 1300,
+        "stance_axes": {
+          "fairness_concern": 0.62,
+          "regulatory_deference": 0.46,
+          "rollout_support": 0.08,
+          "staffing_priority": 0.88
+        }
+      },
+      {
+        "archetype_key": "hospital_patients_under_triage_relevance",
+        "attention_level": 0.18,
+        "cohort_key": "patients_complete_records_general",
+        "expression_level": 0.05,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.12,
+        "label": "Patients with relatively complete records",
+        "mobilization_readiness": 0.06,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.6667,
+        "private_belief": "No direct expressed stance observable; likely prioritize timely care over process detail",
+        "public_expression": "Low organized expression at T0",
+        "representation_mode": "estimated",
+        "represented_population": 800,
+        "stance_axes": {
+          "fairness_concern": 0.3,
+          "regulatory_deference": 0.5,
+          "rollout_support": 0.2,
+          "staffing_priority": 0.35
+        }
+      },
+      {
+        "archetype_key": "hospital_patients_under_triage_relevance",
+        "attention_level": 0.24,
+        "cohort_key": "patients_incomplete_records_vulnerable",
+        "expression_level": 0.07,
+        "fatigue": 0.47,
+        "fear_of_isolation": 0.41,
+        "label": "Patients vulnerable to incomplete-record sensitivity gaps",
+        "mobilization_readiness": 0.09,
+        "perceived_majority": 0.22,
+        "population_share_of_archetype": 0.3333,
+        "private_belief": "Group-level preference for equitable review is implied, but direct voice is weak at T0",
+        "public_expression": "Limited direct organized expression; concerns likely mediated through review and oversight channels",
+        "representation_mode": "estimated",
+        "represented_population": 400,
+        "stance_axes": {
+          "fairness_concern": 0.85,
+          "regulatory_deference": 0.56,
+          "rollout_support": 0.05,
+          "staffing_priority": 0.38
+        }
+      },
+      {
+        "archetype_key": "oversight_and_management",
+        "attention_level": 0.88,
+        "cohort_key": "management_rollout_pragmatists",
+        "expression_level": 0.57,
+        "fatigue": 0.58,
+        "fear_of_isolation": 0.19,
+        "label": "Management favoring controlled implementation under pressure",
+        "mobilization_readiness": 0.61,
+        "perceived_majority": 0.54,
+        "population_share_of_archetype": 0.5625,
+        "private_belief": "Capacity strain makes some deployment attractive if legal and clinical risks remain manageable",
+        "public_expression": "Emphasizes assistive role, safeguards, and documentation readiness",
+        "representation_mode": "estimated",
+        "represented_population": 45,
+        "stance_axes": {
+          "fairness_concern": 0.48,
+          "regulatory_deference": 0.61,
+          "rollout_support": 0.7,
+          "staffing_priority": 0.52
+        }
+      },
+      {
+        "archetype_key": "oversight_and_management",
+        "attention_level": 0.85,
+        "cohort_key": "oversight_caution_faction",
+        "expression_level": 0.49,
+        "fatigue": 0.44,
+        "fear_of_isolation": 0.28,
+        "label": "Oversight actors preferring review before expansion",
+        "mobilization_readiness": 0.39,
+        "perceived_majority": 0.43,
+        "population_share_of_archetype": 0.4375,
+        "private_belief": "Documentation, fairness performance, and external scrutiny could force staged deployment",
+        "public_expression": "Requests records, validation detail, and narrower launch boundaries",
+        "representation_mode": "estimated",
+        "represented_population": 35,
+        "stance_axes": {
+          "fairness_concern": 0.77,
+          "regulatory_deference": 0.8,
+          "rollout_support": 0.18,
+          "staffing_priority": 0.34
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "hospital_network_leadership",
+          "chief_medical_officer"
+        ],
+        "blockers": [
+          "union moratorium pressure",
+          "state board escalation",
+          "patch failure or delay",
+          "worsening staffing strain"
+        ],
+        "contradiction_notes": "Would be contradicted by immediate network-wide deployment or a formal suspension before any pilot launch",
+        "description": "A narrow deployment proceeds at selected campuses or units, with explicit clinician override and monitoring rather than full network-wide expansion",
+        "endpoint_key": "limited_pilot",
+        "evidence_refs": [
+          "source_1_cmo_memo",
+          "source_3_fairness_review",
+          "source_6_vendor_response"
+        ],
+        "label": "Limited pilot at selected campuses with clinician override",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "By week 8, does the network implement only a limited pilot, proceed network-wide, or keep rollout materially constrained?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.32,
+        "rationale": "Best fits mixed incentives: urgency to act, fairness concerns, and desire to preserve clinical control",
+        "realization_criteria": [
+          "Observable implementation at fewer than all campuses within the network",
+          "Formal communication specifies clinician override remains in force",
+          "Expansion beyond pilot remains pending additional review, monitoring, or patch validation"
+        ],
+        "status": "active",
+        "status_basis": "Assistive framing and patch timing create a compromise pathway that preserves action without full commitment"
+      },
+      {
+        "authority_refs": [
+          "hospital_network_leadership",
+          "chief_medical_officer"
+        ],
+        "blockers": [
+          "fairness review concerns",
+          "union opposition",
+          "regulatory scrutiny",
+          "vendor patch uncertainty"
+        ],
+        "contradiction_notes": "Would be weakened by any formal moratorium, narrow-campus restriction, or mandatory external review before expansion",
+        "description": "The hospital network rolls out the triage assistant broadly across campuses rather than limiting use to a pilot",
+        "endpoint_key": "full_deployment",
+        "evidence_refs": [
+          "source_1_cmo_memo",
+          "source_2_capacity_dashboard"
+        ],
+        "label": "Network-wide deployment proceeds",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does external or state-linked review become a formal gate before expansion?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.18,
+        "rationale": "Possible if leadership prioritizes capacity response and treats guardrails as sufficient",
+        "realization_criteria": [
+          "Formal authorization or observed operation across most or all campuses",
+          "No standing external review gate preventing broad use",
+          "Clinician override may remain, but deployment scope is network-wide"
+        ],
+        "status": "active",
+        "status_basis": "Capacity pressure creates a live incentive for broad adoption, though T0 evidence does not make it dominant"
+      },
+      {
+        "authority_refs": [
+          "hospital_network_leadership",
+          "chief_medical_officer"
+        ],
+        "blockers": [
+          "worsening capacity pressure",
+          "leadership reluctance to appear inactive",
+          "credible patch delivery"
+        ],
+        "contradiction_notes": "Would be contradicted by any affirmative launch during the same decision window unless the launch is later reversed",
+        "description": "Leadership pauses the rollout pending further fairness validation, staffing review, or operational reassessment",
+        "endpoint_key": "temporary_suspension",
+        "evidence_refs": [
+          "source_3_fairness_review",
+          "source_4_nurses_union_statement",
+          "source_5_state_board_email"
+        ],
+        "label": "Rollout suspended pending fairness or staffing review",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the dominant organizational narrative shift toward staffing as the primary bottleneck rather than algorithm readiness?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.19,
+        "rationale": "Suspension becomes more likely if leadership concludes the tool cannot safely or politically relieve near-term bottlenecks",
+        "realization_criteria": [
+          "Formal postponement, moratorium, or hold on planned deployment",
+          "Communications tie the hold to fairness findings, staffing ratios, or unresolved operational concerns",
+          "No active pilot or broad deployment proceeds during the hold period"
+        ],
+        "status": "active",
+        "status_basis": "Union and fairness concerns create a plausible pause scenario, especially if patch confidence weakens"
+      },
+      {
+        "authority_refs": [
+          "state_health_board",
+          "hospital_network_leadership",
+          "independent_review_panel"
+        ],
+        "blockers": [
+          "leadership chooses internal pilot without external gate",
+          "board remains passive after documentation request",
+          "capacity urgency compresses review appetite"
+        ],
+        "contradiction_notes": "Would be weakened if rollout expands substantially without any formal review gate or if concerns are resolved entirely internally",
+        "description": "A formal external or independent review process becomes the key gate before broader rollout or expansion",
+        "endpoint_key": "external_review",
+        "evidence_refs": [
+          "source_3_fairness_review",
+          "source_5_state_board_email"
+        ],
+        "label": "State board or independent panel review before expansion",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Is the vendor patch delivered on the promised timeline and treated as sufficiently credible to change deployment decisions?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.17,
+        "rationale": "Fairness disparities and documentation requests provide a clear institutional path to pre-expansion review",
+        "realization_criteria": [
+          "State board or independent panel is formally tasked with review, audit, or approval-like assessment",
+          "Leadership conditions expansion on that review's completion or findings",
+          "Documentation exchange escalates into a recognized review process rather than routine correspondence"
+        ],
+        "status": "active",
+        "status_basis": "The board is engaged but not yet interventionist, leaving this endpoint plausible but not established"
+      },
+      {
+        "authority_refs": [
+          "hospital_network_leadership",
+          "chief_medical_officer"
+        ],
+        "blockers": [
+          "clear pilot launch",
+          "clear full deployment",
+          "formal suspension",
+          "formal review gate"
+        ],
+        "contradiction_notes": "Would be contradicted by a clearly established and stable deployment or suspension path before week 8",
+        "description": "By week 8, ICU capacity strain remains the main reality and the organization has not reached a stable, decisive rollout outcome",
+        "endpoint_key": "unresolved_capacity_crisis",
+        "evidence_refs": [
+          "source_2_capacity_dashboard",
+          "source_4_nurses_union_statement",
+          "source_6_vendor_response"
+        ],
+        "label": "Capacity pressure dominates without clear rollout resolution",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Is the vendor patch delivered on the promised timeline and treated as sufficiently credible to change deployment decisions?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.14,
+        "rationale": "Multiple pressures can prevent clean resolution even while capacity remains the dominant operational fact",
+        "realization_criteria": [
+          "ICU strain remains elevated and central to decision-making",
+          "No stable terminal rollout state is observable by week 8, with mixed practices, delays, or interim measures persisting",
+          "Leadership communications continue to frame decisions as provisional"
+        ],
+        "status": "active",
+        "status_basis": "The explicit candidate endpoint is supported by severe baseline occupancy and multiple unresolved constraints"
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "source_1_cmo_memo",
+        "layer": "exposure",
+        "reason": "Leadership closely tracks CMO framing and implementation planning",
+        "source_actor_name": "hospital_network_leadership",
+        "target_actor_name": "chief_medical_officer",
+        "weight": 0.62
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_1_cmo_memo",
+        "layer": "exposure",
+        "reason": "Clinical memo and rollout framing are visible to clinicians",
+        "source_actor_name": "chief_medical_officer",
+        "target_actor_name": "campus_clinicians",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_4_nurses_union_statement",
+        "layer": "exposure",
+        "reason": "Union statement is highly visible to nursing members",
+        "source_actor_name": "nurses_union",
+        "target_actor_name": "bedside_nurses",
+        "weight": 0.64
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_5_state_board_email",
+        "layer": "exposure",
+        "reason": "Documentation request puts board concerns in management view",
+        "source_actor_name": "state_health_board",
+        "target_actor_name": "hospital_network_leadership",
+        "weight": 0.49
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_6_vendor_response",
+        "layer": "exposure",
+        "reason": "Vendor response on patch timing is visible to leadership",
+        "source_actor_name": "algorithm_vendor",
+        "target_actor_name": "hospital_network_leadership",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_3_fairness_review",
+        "layer": "exposure",
+        "reason": "No explicit actor instantiated for panel; omitted from actor set",
+        "source_actor_name": "fairness_review_panel",
+        "target_actor_name": "hospital_network_leadership",
+        "weight": 0.0
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_1_cmo_memo + source_3_fairness_review",
+        "layer": "trust",
+        "reason": "Clinicians likely grant moderate trust to CMO on clinical governance, tempered by fairness concerns",
+        "source_actor_name": "chief_medical_officer",
+        "target_actor_name": "campus_clinicians",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_4_nurses_union_statement",
+        "layer": "trust",
+        "reason": "Union is credible messenger on staffing conditions",
+        "source_actor_name": "bedside_nurses",
+        "target_actor_name": "nurses_union",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_6_vendor_response",
+        "layer": "trust",
+        "reason": "Leadership depends on vendor claims but patch not yet proven",
+        "source_actor_name": "hospital_network_leadership",
+        "target_actor_name": "algorithm_vendor",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_5_state_board_email",
+        "layer": "trust",
+        "reason": "Regulator may view network claims cautiously pending documentation",
+        "source_actor_name": "state_health_board",
+        "target_actor_name": "hospital_network_leadership",
+        "weight": 0.36
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_3_fairness_review + source_6_vendor_response",
+        "layer": "trust",
+        "reason": "Frontline clinicians have limited reason to fully trust vendor performance claims before patch and validation",
+        "source_actor_name": "campus_clinicians",
+        "target_actor_name": "algorithm_vendor",
+        "weight": 0.28
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_6_vendor_response",
+        "layer": "dependency",
+        "reason": "Rollout viability partly depends on vendor patch and tool performance",
+        "source_actor_name": "hospital_network_leadership",
+        "target_actor_name": "algorithm_vendor",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_1_cmo_memo",
+        "layer": "dependency",
+        "reason": "Clinicians depend on leadership for implementation rules and operational policy",
+        "source_actor_name": "campus_clinicians",
+        "target_actor_name": "hospital_network_leadership",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_4_nurses_union_statement",
+        "layer": "dependency",
+        "reason": "Staffing ratios and workflow conditions are set by network management structures",
+        "source_actor_name": "bedside_nurses",
+        "target_actor_name": "hospital_network_leadership",
+        "weight": 0.59
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_3_fairness_review + source_1_cmo_memo",
+        "layer": "dependency",
+        "reason": "Vulnerable patients rely on clinicians to compensate for algorithmic sensitivity gaps",
+        "source_actor_name": "patients_with_incomplete_records",
+        "target_actor_name": "campus_clinicians",
+        "weight": 0.64
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_5_state_board_email",
+        "layer": "dependency",
+        "reason": "Leadership needs regulator tolerance to proceed without interruption",
+        "source_actor_name": "hospital_network_leadership",
+        "target_actor_name": "state_health_board",
+        "weight": 0.33
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_1_cmo_memo",
+        "layer": "influence",
+        "reason": "CMO shapes whether rollout is framed as safe assistive support",
+        "source_actor_name": "chief_medical_officer",
+        "target_actor_name": "hospital_network_leadership",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_4_nurses_union_statement",
+        "layer": "influence",
+        "reason": "Union can raise implementation costs and legitimacy concerns through staffing critique",
+        "source_actor_name": "nurses_union",
+        "target_actor_name": "hospital_network_leadership",
+        "weight": 0.56
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_5_state_board_email",
+        "layer": "influence",
+        "reason": "Board documentation requests can slow or condition expansion even without formal halt",
+        "source_actor_name": "state_health_board",
+        "target_actor_name": "hospital_network_leadership",
+        "weight": 0.6
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_6_vendor_response",
+        "layer": "influence",
+        "reason": "Patch promise affects leadership confidence and scheduling",
+        "source_actor_name": "algorithm_vendor",
+        "target_actor_name": "hospital_network_leadership",
+        "weight": 0.43
+      },
+      {
+        "direction": "directed",
+        "evidence": "source_1_cmo_memo",
+        "layer": "influence",
+        "reason": "Frontline acceptance affects clinical legitimacy of rollout",
+        "source_actor_name": "campus_clinicians",
+        "target_actor_name": "chief_medical_officer",
+        "weight": 0.39
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_1_cmo_memo",
+        "layer": "coalition",
+        "reason": "Shared interest in controlled rollout under executive oversight",
+        "source_actor_name": "hospital_network_leadership",
+        "target_actor_name": "chief_medical_officer",
+        "weight": 0.65
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_4_nurses_union_statement",
+        "layer": "coalition",
+        "reason": "Strong alignment around staffing concerns and moratorium ask",
+        "source_actor_name": "nurses_union",
+        "target_actor_name": "bedside_nurses",
+        "weight": 0.72
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_5_state_board_email",
+        "layer": "coalition",
+        "reason": "External review mechanism is plausible if board escalates",
+        "source_actor_name": "state_health_board",
+        "target_actor_name": "independent_review_panel",
+        "weight": 0.24
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_2_capacity_dashboard + source_4_nurses_union_statement",
+        "layer": "coalition",
+        "reason": "Shared operational concerns exist, but priorities may differ between fairness validation and staffing pressure",
+        "source_actor_name": "campus_clinicians",
+        "target_actor_name": "bedside_nurses",
+        "weight": 0.36
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_4_nurses_union_statement + scenario",
+        "layer": "conflict",
+        "reason": "Union seeks moratorium while leadership is planning deployment",
+        "source_actor_name": "nurses_union",
+        "target_actor_name": "hospital_network_leadership",
+        "weight": 0.61
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_5_state_board_email + source_6_vendor_response",
+        "layer": "conflict",
+        "reason": "Board scrutiny could challenge vendor claims or documentation sufficiency",
+        "source_actor_name": "state_health_board",
+        "target_actor_name": "algorithm_vendor",
+        "weight": 0.34
+      },
+      {
+        "direction": "structural",
+        "evidence": "source_3_fairness_review",
+        "layer": "conflict",
+        "reason": "Tool underperforms for this group in retrospective testing",
+        "source_actor_name": "patients_with_incomplete_records",
+        "target_actor_name": "algorithm_vendor",
+        "weight": 0.41
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_3_fairness_review + source_6_vendor_response",
+        "layer": "conflict",
+        "reason": "Performance concerns create moderate tension with vendor assurances",
+        "source_actor_name": "campus_clinicians",
+        "target_actor_name": "algorithm_vendor",
+        "weight": 0.29
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_1_cmo_memo",
+        "layer": "oasis_interaction",
+        "reason": "Likely frequent discussion in meetings and internal channels about workflow and safeguards",
+        "source_actor_name": "chief_medical_officer",
+        "target_actor_name": "campus_clinicians",
+        "weight": 0.54
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_4_nurses_union_statement",
+        "layer": "oasis_interaction",
+        "reason": "Rollout dispute likely generates ongoing formal and informal exchanges",
+        "source_actor_name": "nurses_union",
+        "target_actor_name": "hospital_network_leadership",
+        "weight": 0.47
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_5_state_board_email",
+        "layer": "oasis_interaction",
+        "reason": "Documentation exchange likely continues through official channels",
+        "source_actor_name": "state_health_board",
+        "target_actor_name": "hospital_network_leadership",
+        "weight": 0.38
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_6_vendor_response",
+        "layer": "oasis_interaction",
+        "reason": "Patch timing and implementation logistics require regular communication",
+        "source_actor_name": "hospital_network_leadership",
+        "target_actor_name": "algorithm_vendor",
+        "weight": 0.44
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "description": "Senior clinical leader with authority to shape deployment scope and guardrails",
+        "hero_key": "executive_clinical_decider",
+        "label": "Executive clinical decider"
+      },
+      {
+        "description": "Union leadership capable of converting staffing concerns into rollout friction",
+        "hero_key": "labor_constraint_amplifier",
+        "label": "Labor constraint amplifier"
+      },
+      {
+        "description": "State oversight authority that can intensify review without fully controlling hospital operations",
+        "hero_key": "regulatory_gatekeeper",
+        "label": "Regulatory gatekeeper"
+      },
+      {
+        "description": "Vendor actor whose patch timing affects fairness-risk narratives",
+        "hero_key": "technical_remediation_supplier",
+        "label": "Technical remediation supplier"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "chief_medical_officer",
+        "attention_level": 0.9,
+        "constraints": [
+          "union resistance",
+          "fairness review findings",
+          "state documentation demands",
+          "capacity pressure"
+        ],
+        "expression_level": 0.66,
+        "fatigue": 0.53,
+        "fear_of_isolation": 0.21,
+        "formal_power": 0.82,
+        "hero_key": "executive_clinical_decider",
+        "informal_power": 0.68,
+        "mobilization_readiness": 0.64,
+        "objective": "Deploy tool in a clinically legitimate way without ceding final decision authority to the algorithm",
+        "perceived_majority": 0.51,
+        "role": "Clinical sponsor and safeguard framer",
+        "stance_axes": {
+          "fairness_concern": 0.57,
+          "regulatory_deference": 0.55,
+          "rollout_support": 0.72,
+          "staffing_priority": 0.41
+        }
+      },
+      {
+        "actor_name": "nurses_union",
+        "attention_level": 0.88,
+        "constraints": [
+          "limited direct authority over deployment",
+          "need to sustain member alignment",
+          "capacity crisis may weaken anti-tool narrative if burden worsens"
+        ],
+        "expression_level": 0.77,
+        "fatigue": 0.49,
+        "fear_of_isolation": 0.14,
+        "formal_power": 0.46,
+        "hero_key": "labor_constraint_amplifier",
+        "informal_power": 0.71,
+        "mobilization_readiness": 0.78,
+        "objective": "Block or delay rollout until staffing ratios improve or staffing concerns are substantively addressed",
+        "perceived_majority": 0.56,
+        "role": "Moratorium advocate",
+        "stance_axes": {
+          "fairness_concern": 0.6,
+          "regulatory_deference": 0.38,
+          "rollout_support": 0.05,
+          "staffing_priority": 0.93
+        }
+      },
+      {
+        "actor_name": "state_health_board",
+        "attention_level": 0.74,
+        "constraints": [
+          "has not ordered halt at T0",
+          "likely needs stronger evidence or public concern to escalate"
+        ],
+        "expression_level": 0.34,
+        "fatigue": 0.26,
+        "fear_of_isolation": 0.12,
+        "formal_power": 0.76,
+        "hero_key": "regulatory_gatekeeper",
+        "informal_power": 0.52,
+        "mobilization_readiness": 0.31,
+        "objective": "Ensure documentation and fairness/regulatory accountability without unnecessarily disrupting care operations absent stronger trigger",
+        "perceived_majority": 0.48,
+        "role": "Documentation requester and possible review escalator",
+        "stance_axes": {
+          "fairness_concern": 0.74,
+          "regulatory_deference": 0.95,
+          "rollout_support": 0.2,
+          "staffing_priority": 0.22
+        }
+      },
+      {
+        "actor_name": "algorithm_vendor",
+        "attention_level": 0.67,
+        "constraints": [
+          "cannot directly dictate hospital deployment decision",
+          "patch effectiveness may be questioned"
+        ],
+        "expression_level": 0.42,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.2,
+        "formal_power": 0.33,
+        "hero_key": "technical_remediation_supplier",
+        "informal_power": 0.4,
+        "mobilization_readiness": 0.44,
+        "objective": "Preserve rollout viability by delivering missing-record handling improvement within three weeks",
+        "perceived_majority": 0.45,
+        "role": "Patch provider",
+        "stance_axes": {
+          "fairness_concern": 0.35,
+          "regulatory_deference": 0.29,
+          "rollout_support": 0.9,
+          "staffing_priority": 0.08
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "description": "Senior clinical leader with authority to shape deployment scope and guardrails",
+        "hero_key": "executive_clinical_decider",
+        "label": "Executive clinical decider"
+      },
+      {
+        "description": "Union leadership capable of converting staffing concerns into rollout friction",
+        "hero_key": "labor_constraint_amplifier",
+        "label": "Labor constraint amplifier"
+      },
+      {
+        "description": "State oversight authority that can intensify review without fully controlling hospital operations",
+        "hero_key": "regulatory_gatekeeper",
+        "label": "Regulatory gatekeeper"
+      },
+      {
+        "description": "Vendor actor whose patch timing affects fairness-risk narratives",
+        "hero_key": "technical_remediation_supplier",
+        "label": "Technical remediation supplier"
+      }
+    ],
+    "important_questions": [
+      "By week 8, does the network implement only a limited pilot, proceed network-wide, or keep rollout materially constrained?",
+      "Does external or state-linked review become a formal gate before expansion?",
+      "Does the dominant organizational narrative shift toward staffing as the primary bottleneck rather than algorithm readiness?",
+      "Is the vendor patch delivered on the promised timeline and treated as sufficiently credible to change deployment decisions?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "chief_medical_officer",
+          "campus_clinicians",
+          "hospital_network_leadership"
+        ],
+        "event_key": "cmo_assistive_rollout_frame",
+        "event_type": "announcement",
+        "evidence": [
+          "source_1_cmo_memo"
+        ],
+        "expected_impact": "Moderates autonomy concerns and preserves a pathway for pilot or guarded deployment rather than outright rejection",
+        "status": "realized",
+        "summary": "CMO memo states the triage assistant flags high-risk patients for earlier ICU review and does not make final admission decisions",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "hospital_network_leadership",
+          "campus_clinicians",
+          "bedside_nurses"
+        ],
+        "event_key": "sustained_high_icu_occupancy",
+        "event_type": "announcement",
+        "evidence": [
+          "source_2_capacity_dashboard"
+        ],
+        "expected_impact": "Raises urgency and increases pressure to adopt any credible capacity-support mechanism while also heightening operational fragility",
+        "status": "realized",
+        "summary": "ICU occupancy averages 91%, with two campuses above 96% on weekends",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "hospital_network_leadership",
+          "chief_medical_officer",
+          "state_health_board",
+          "patients_with_incomplete_records",
+          "algorithm_vendor"
+        ],
+        "event_key": "fairness_gap_identified",
+        "event_type": "announcement",
+        "evidence": [
+          "source_3_fairness_review"
+        ],
+        "expected_impact": "Strengthens review, pilot, and suspension pathways; weakens confidence in immediate network-wide expansion",
+        "status": "realized",
+        "summary": "Retrospective testing finds lower alert sensitivity for patients with incomplete prior records, disproportionately affecting uninsured and recently transferred patients",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "nurses_union",
+          "bedside_nurses",
+          "hospital_network_leadership"
+        ],
+        "event_key": "union_calls_for_moratorium",
+        "event_type": "announcement",
+        "evidence": [
+          "source_4_nurses_union_statement"
+        ],
+        "expected_impact": "Raises labor conflict and increases political cost of full deployment without concessions or narrowing",
+        "status": "realized",
+        "summary": "Nurses union says staffing shortages are the bottleneck and requests moratorium until staffing ratios improve",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "state_health_board",
+          "hospital_network_leadership"
+        ],
+        "event_key": "state_board_requests_documentation",
+        "event_type": "announcement",
+        "evidence": [
+          "source_5_state_board_email"
+        ],
+        "expected_impact": "Introduces oversight friction while leaving rollout discretion substantially with network leadership at T0",
+        "status": "realized",
+        "summary": "State health board requests documentation but has not ordered a halt",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "algorithm_vendor",
+          "hospital_network_leadership",
+          "chief_medical_officer"
+        ],
+        "event_key": "vendor_patch_due_window",
+        "event_type": "announcement",
+        "evidence": [
+          "source_6_vendor_response"
+        ],
+        "expected_impact": "Creates a natural decision checkpoint for delaying expansion, validating a pilot, or contesting vendor credibility if delivery slips",
+        "status": "scheduled",
+        "summary": "Vendor says a patch can improve missing-record handling within three weeks",
+        "tick": 3
+      }
+    ],
+    "llm_call_id": "995082b9-6b81-4ac6-b29b-01074109d90d",
+    "merge_hypotheses": [
+      {
+        "basis": "Assistive framing and documentation pressure support compromise sequencing",
+        "converging_paths": [
+          "limited_pilot",
+          "external_review",
+          "temporary_suspension"
+        ],
+        "merge_key": "override_and_monitoring_compromise",
+        "shared_factor": "All can converge on a staged implementation model with clinician override and fairness monitoring if no actor can force a clean win"
+      },
+      {
+        "basis": "Capacity shortage remains a durable common driver independent of fairness debate",
+        "converging_paths": [
+          "full_deployment",
+          "limited_pilot",
+          "unresolved_capacity_crisis"
+        ],
+        "merge_key": "capacity_legitimacy_repair",
+        "shared_factor": "Persistent occupancy pressure can keep the tool in discussion even after delays, preserving eventual return to use under revised safeguards"
+      },
+      {
+        "basis": "Regulatory caution and operational delay can produce similar near-term system behavior",
+        "converging_paths": [
+          "external_review",
+          "temporary_suspension"
+        ],
+        "merge_key": "review_fatigue_narrows_options",
+        "shared_factor": "If documentation and audit cycles extend without decisive new evidence, both paths may resemble a practical freeze on expansion"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "network_clinical_staff",
+        "description": "Combined physicians, nurses, and related frontline clinical staff across the hospital network",
+        "label": "Network clinical staff",
+        "population_total": 4800
+      },
+      {
+        "archetype_key": "hospital_patients_under_triage_relevance",
+        "description": "Approximate rolling population over the initialization period whose cases could be affected by ICU-transfer review prioritization",
+        "label": "Patients relevant to ICU-transfer review",
+        "population_total": 1200
+      },
+      {
+        "archetype_key": "oversight_and_management",
+        "description": "Leadership, compliance, and oversight personnel shaping rollout decisions",
+        "label": "Oversight and management actors",
+        "population_total": 80
+      }
+    ],
+    "risk_flags": [
+      {
+        "description": "Retrospective testing already identifies lower alert sensitivity for incomplete prior records, affecting vulnerable patient groups",
+        "evidence": [
+          "source_3_fairness_review"
+        ],
+        "risk_key": "fairness_disparity_known_at_t0",
+        "severity": "high"
+      },
+      {
+        "description": "ICU occupancy near saturation may push leadership toward action before validation is complete",
+        "evidence": [
+          "source_2_capacity_dashboard"
+        ],
+        "risk_key": "capacity_pressure_distorts_decision_quality",
+        "severity": "high"
+      },
+      {
+        "description": "Union frames staffing as the true bottleneck and seeks moratorium, raising implementation friction",
+        "evidence": [
+          "source_4_nurses_union_statement"
+        ],
+        "risk_key": "labor_conflict_can_block_execution",
+        "severity": "medium_high"
+      },
+      {
+        "description": "State board has requested documentation but its escalation threshold is unknown",
+        "evidence": [
+          "source_5_state_board_email"
+        ],
+        "risk_key": "regulatory_status_uncertain",
+        "severity": "medium"
+      },
+      {
+        "description": "Patch timeline and effectiveness are promised but not yet demonstrated",
+        "evidence": [
+          "source_6_vendor_response"
+        ],
+        "risk_key": "vendor_claim_unverified",
+        "severity": "medium"
+      },
+      {
+        "description": "Scenario explicitly forbids inventing patient outcomes; simulation should evaluate institutional endpoints rather than clinical outcome claims",
+        "evidence": [
+          "scenario"
+        ],
+        "risk_key": "patient_outcomes_should_not_be_invented",
+        "severity": "high"
+      }
+    ],
+    "simulation_brief": {
+      "domain": "hospital_operations",
+      "forecast_question": "Which endpoint dominates the hospital triage-algorithm rollout after 8 simulated weeks?",
+      "horizon_weeks": 8,
+      "scenario_key": "dossier_003_hospital_triage_rollout",
+      "source_refs": [
+        "source_1_cmo_memo",
+        "source_2_capacity_dashboard",
+        "source_3_fairness_review",
+        "source_4_nurses_union_statement",
+        "source_5_state_board_email",
+        "source_6_vendor_response"
+      ],
+      "summary": "A hospital network is preparing to deploy an ICU-transfer review triage assistant during sustained capacity strain. Fairness concerns, staffing objections, vendor patch timing, and light-touch state oversight create multiple plausible rollout paths.",
+      "uncertainties": [
+        "Whether network leadership will prioritize capacity relief over fairness and labor concerns",
+        "Whether the vendor patch materially addresses missing-record sensitivity within the promised window",
+        "Whether the state health board escalates from documentation request to review pressure",
+        "Whether staffing conditions worsen enough to dominate the rollout debate"
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "description": "Staff are more open to rollout arguments when framed as assistive with clinician override, but fairness and staffing objections bound persuasion range",
+        "level": "moderate",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "description": "Union-aligned nursing response could intensify rapidly if staffing worsens or leadership appears dismissive",
+        "level": "moderate_high",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "description": "Some clinicians may privately doubt readiness while publicly using cautious procedural language",
+        "level": "moderate",
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "description": "Nurses, clinicians, managers, and regulators cluster around profession-specific narratives and trusted messengers",
+        "level": "moderate",
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "description": "Shift toward moratorium or pilot likely requires reinforcement from multiple sources such as union, clinicians, and regulator signals",
+        "level": "moderate",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "description": "Professional role identity strongly shapes interpretation of whether the bottleneck is staffing, fairness, or review workflow",
+        "level": "high",
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "description": "Attention is sustained at T0 by immediate capacity pressure and pending deployment timeline",
+        "level": "low_initial",
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context": "clinician_override_language",
+        "effect": "Reduces immediate fear of autonomy loss and makes limited pilot more socially acceptable",
+        "evidence": "source_1_cmo_memo"
+      },
+      {
+        "context": "high_icu_occupancy",
+        "effect": "Increases openness to operational interventions and raises urgency across staff",
+        "evidence": "source_2_capacity_dashboard"
+      },
+      {
+        "context": "disparate_missing_record_sensitivity",
+        "effect": "Elevates equity and compliance salience, especially for cautious clinicians and oversight actors",
+        "evidence": "source_3_fairness_review"
+      },
+      {
+        "context": "union_moratorium_frame",
+        "effect": "Shifts discourse from tool performance to staffing legitimacy and implementation burden",
+        "evidence": "source_4_nurses_union_statement"
+      },
+      {
+        "context": "documentation_request_without_halt",
+        "effect": "Creates pause pressure but preserves leadership room for phased action",
+        "evidence": "source_5_state_board_email"
+      },
+      {
+        "context": "three_week_patch_promise",
+        "effect": "Supports wait-for-remediation logic and strengthens limited-pilot or delayed expansion pathways",
+        "evidence": "source_6_vendor_response"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "hospital_network_leadership",
+        "behavior_axes": {
+          "adaptability": 0.55,
+          "proceduralism": 0.62,
+          "responsiveness": 0.58,
+          "risk_tolerance": 0.52
+        },
+        "ideology_axes": {
+          "centralization": 0.71,
+          "equity_orientation": 0.47,
+          "innovation_orientation": 0.66,
+          "labor_accommodation": 0.35
+        },
+        "reputation": 0.56,
+        "secrecy": 0.42,
+        "tendency": "pragmatic_rollout_under_pressure",
+        "trustworthiness": 0.51
+      },
+      {
+        "actor_name": "chief_medical_officer",
+        "behavior_axes": {
+          "adaptability": 0.59,
+          "proceduralism": 0.68,
+          "responsiveness": 0.61,
+          "risk_tolerance": 0.49
+        },
+        "ideology_axes": {
+          "centralization": 0.58,
+          "equity_orientation": 0.56,
+          "innovation_orientation": 0.7,
+          "labor_accommodation": 0.34
+        },
+        "reputation": 0.7,
+        "secrecy": 0.28,
+        "tendency": "guardrailed_clinical_adoption",
+        "trustworthiness": 0.67
+      },
+      {
+        "actor_name": "campus_clinicians",
+        "behavior_axes": {
+          "adaptability": 0.5,
+          "proceduralism": 0.63,
+          "responsiveness": 0.57,
+          "risk_tolerance": 0.37
+        },
+        "ideology_axes": {
+          "centralization": 0.31,
+          "equity_orientation": 0.6,
+          "innovation_orientation": 0.45,
+          "labor_accommodation": 0.48
+        },
+        "reputation": 0.65,
+        "secrecy": 0.24,
+        "tendency": "cautious_case_by_case_acceptance",
+        "trustworthiness": 0.69
+      },
+      {
+        "actor_name": "nurses_union",
+        "behavior_axes": {
+          "adaptability": 0.47,
+          "proceduralism": 0.51,
+          "responsiveness": 0.73,
+          "risk_tolerance": 0.44
+        },
+        "ideology_axes": {
+          "centralization": 0.29,
+          "equity_orientation": 0.55,
+          "innovation_orientation": 0.18,
+          "labor_accommodation": 0.94
+        },
+        "reputation": 0.58,
+        "secrecy": 0.22,
+        "tendency": "collective_pressure_for_delay",
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "bedside_nurses",
+        "behavior_axes": {
+          "adaptability": 0.46,
+          "proceduralism": 0.57,
+          "responsiveness": 0.66,
+          "risk_tolerance": 0.29
+        },
+        "ideology_axes": {
+          "centralization": 0.24,
+          "equity_orientation": 0.58,
+          "innovation_orientation": 0.26,
+          "labor_accommodation": 0.81
+        },
+        "reputation": 0.64,
+        "secrecy": 0.2,
+        "tendency": "workload_sensitive_pragmatism",
+        "trustworthiness": 0.7
+      },
+      {
+        "actor_name": "state_health_board",
+        "behavior_axes": {
+          "adaptability": 0.39,
+          "proceduralism": 0.85,
+          "responsiveness": 0.46,
+          "risk_tolerance": 0.27
+        },
+        "ideology_axes": {
+          "centralization": 0.72,
+          "equity_orientation": 0.74,
+          "innovation_orientation": 0.33,
+          "labor_accommodation": 0.41
+        },
+        "reputation": 0.68,
+        "secrecy": 0.31,
+        "tendency": "documentation_first_oversight",
+        "trustworthiness": 0.73
+      },
+      {
+        "actor_name": "algorithm_vendor",
+        "behavior_axes": {
+          "adaptability": 0.72,
+          "proceduralism": 0.41,
+          "responsiveness": 0.64,
+          "risk_tolerance": 0.63
+        },
+        "ideology_axes": {
+          "centralization": 0.46,
+          "equity_orientation": 0.3,
+          "innovation_orientation": 0.94,
+          "labor_accommodation": 0.12
+        },
+        "reputation": 0.49,
+        "secrecy": 0.39,
+        "tendency": "technical_fix_and_proceed",
+        "trustworthiness": 0.44
+      },
+      {
+        "actor_name": "patients_with_incomplete_records",
+        "behavior_axes": {
+          "adaptability": 0.28,
+          "proceduralism": 0.33,
+          "responsiveness": 0.18,
+          "risk_tolerance": 0.12
+        },
+        "ideology_axes": {
+          "centralization": 0.35,
+          "equity_orientation": 0.9,
+          "innovation_orientation": 0.16,
+          "labor_accommodation": 0.39
+        },
+        "reputation": 0.37,
+        "secrecy": 0.47,
+        "tendency": "underrepresented_equity_exposure",
+        "trustworthiness": 0.55
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 2283,
+        "end": 2283,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 2283,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

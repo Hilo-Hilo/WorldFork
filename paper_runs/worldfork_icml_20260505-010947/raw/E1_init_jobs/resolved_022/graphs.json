@@ -1,0 +1,726 @@
+{
+  "edges": [
+    {
+      "big_bang_id": "5d4dedaa-7647-4b52-a690-a0ab0e2e9dcc",
+      "created_at": "2026-05-05T02:13:55.715135+00:00",
+      "id": "47ad00b0-cb70-4bf0-8041-71c37dae6ca8",
+      "layer": "dependency",
+      "multiverse_id": "cfabae12-052e-4805-b774-57e01a1e3d26",
+      "payload": {
+        "direction": "directed",
+        "evidence": "Use NOAA/NCEI's annual global report as the adjudication source.",
+        "initializer": {
+          "direction": "directed",
+          "evidence": "Use NOAA/NCEI's annual global report as the adjudication source.",
+          "layer": "dependency",
+          "reason": "Official resolution depends on NOAA/NCEI annual ranking.",
+          "source_actor_name": "forecast_community",
+          "target_actor_name": "noaa_ncei",
+          "weight": 0.9
+        },
+        "reason": "Official resolution depends on NOAA/NCEI annual ranking."
+      },
+      "source_actor_id": "399e6dcd-3de1-4090-b3df-493f19a74141",
+      "target_actor_id": "11ec1ce7-b992-43ee-9748-5d62d8e6fee7",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:13:55.715135+00:00",
+      "weight": 0.9
+    },
+    {
+      "big_bang_id": "5d4dedaa-7647-4b52-a690-a0ab0e2e9dcc",
+      "created_at": "2026-05-05T02:13:55.715135+00:00",
+      "id": "3e830f2a-be59-4774-83c5-b65aa9cd14ad",
+      "layer": "dependency",
+      "multiverse_id": "cfabae12-052e-4805-b774-57e01a1e3d26",
+      "payload": {
+        "direction": "directed",
+        "evidence": "Final ranking depends on full-year global land/ocean temperature analysis.",
+        "initializer": {
+          "direction": "directed",
+          "evidence": "Final ranking depends on full-year global land/ocean temperature analysis.",
+          "layer": "dependency",
+          "reason": "Observers rely on NOAA/NCEI for definitive annual ranking confirmation.",
+          "source_actor_name": "climate_data_watchers",
+          "target_actor_name": "noaa_ncei",
+          "weight": 0.72
+        },
+        "reason": "Observers rely on NOAA/NCEI for definitive annual ranking confirmation."
+      },
+      "source_actor_id": "1bb84038-800d-4c58-9397-0280d4e577b9",
+      "target_actor_id": "11ec1ce7-b992-43ee-9748-5d62d8e6fee7",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:13:55.715135+00:00",
+      "weight": 0.72
+    },
+    {
+      "big_bang_id": "5d4dedaa-7647-4b52-a690-a0ab0e2e9dcc",
+      "created_at": "2026-05-05T02:13:55.715135+00:00",
+      "id": "fc27de93-f820-4009-b259-4b943fe033cf",
+      "layer": "dependency",
+      "multiverse_id": "cfabae12-052e-4805-b774-57e01a1e3d26",
+      "payload": {
+        "direction": "directed",
+        "evidence": "Inferred from scenario focus on ranking interpretation.",
+        "initializer": {
+          "direction": "directed",
+          "evidence": "Inferred from scenario focus on ranking interpretation.",
+          "layer": "dependency",
+          "reason": "Public understanding often depends on expert interpretation rather than direct report reading.",
+          "source_actor_name": "general_public_observers",
+          "target_actor_name": "climate_data_watchers",
+          "weight": 0.28
+        },
+        "reason": "Public understanding often depends on expert interpretation rather than direct report reading."
+      },
+      "source_actor_id": "f83d2cfe-a278-4f6e-81ca-ac523dbad7ec",
+      "target_actor_id": "1bb84038-800d-4c58-9397-0280d4e577b9",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:13:55.715135+00:00",
+      "weight": 0.28
+    },
+    {
+      "big_bang_id": "5d4dedaa-7647-4b52-a690-a0ab0e2e9dcc",
+      "created_at": "2026-05-05T02:13:55.715135+00:00",
+      "id": "2b0e8636-d82a-4915-a682-5f8b441859e9",
+      "layer": "exposure",
+      "multiverse_id": "cfabae12-052e-4805-b774-57e01a1e3d26",
+      "payload": {
+        "direction": "directed",
+        "evidence": "Scenario centers on public-facing question of warmest year ranking.",
+        "initializer": {
+          "direction": "directed",
+          "evidence": "Scenario centers on public-facing question of warmest year ranking.",
+          "layer": "exposure",
+          "reason": "Public may see expert discussion or summaries about yearly warmth.",
+          "source_actor_name": "general_public_observers",
+          "target_actor_name": "climate_data_watchers",
+          "weight": 0.32
+        },
+        "reason": "Public may see expert discussion or summaries about yearly warmth."
+      },
+      "source_actor_id": "f83d2cfe-a278-4f6e-81ca-ac523dbad7ec",
+      "target_actor_id": "1bb84038-800d-4c58-9397-0280d4e577b9",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:13:55.715135+00:00",
+      "weight": 0.32
+    },
+    {
+      "big_bang_id": "5d4dedaa-7647-4b52-a690-a0ab0e2e9dcc",
+      "created_at": "2026-05-05T02:13:55.715135+00:00",
+      "id": "aeb4eda6-646b-4308-a69f-ab5340e01636",
+      "layer": "exposure",
+      "multiverse_id": "cfabae12-052e-4805-b774-57e01a1e3d26",
+      "payload": {
+        "direction": "directed",
+        "evidence": "Expected focus includes climate_ranking and base_rate_recent_extremes.",
+        "initializer": {
+          "direction": "directed",
+          "evidence": "Expected focus includes climate_ranking and base_rate_recent_extremes.",
+          "layer": "exposure",
+          "reason": "Forecasters monitor analysts discussing temperature context and ranking odds.",
+          "source_actor_name": "forecast_community",
+          "target_actor_name": "climate_data_watchers",
+          "weight": 0.58
+        },
+        "reason": "Forecasters monitor analysts discussing temperature context and ranking odds."
+      },
+      "source_actor_id": "399e6dcd-3de1-4090-b3df-493f19a74141",
+      "target_actor_id": "1bb84038-800d-4c58-9397-0280d4e577b9",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:13:55.715135+00:00",
+      "weight": 0.58
+    },
+    {
+      "big_bang_id": "5d4dedaa-7647-4b52-a690-a0ab0e2e9dcc",
+      "created_at": "2026-05-05T02:13:55.715135+00:00",
+      "id": "f4ab0a42-38cc-494c-ab21-a311787696ab",
+      "layer": "exposure",
+      "multiverse_id": "cfabae12-052e-4805-b774-57e01a1e3d26",
+      "payload": {
+        "direction": "directed",
+        "evidence": "NOAA/NCEI named as adjudication source.",
+        "initializer": {
+          "direction": "directed",
+          "evidence": "NOAA/NCEI named as adjudication source.",
+          "layer": "exposure",
+          "reason": "Experts track NOAA/NCEI reports and updates closely.",
+          "source_actor_name": "climate_data_watchers",
+          "target_actor_name": "noaa_ncei",
+          "weight": 0.61
+        },
+        "reason": "Experts track NOAA/NCEI reports and updates closely."
+      },
+      "source_actor_id": "1bb84038-800d-4c58-9397-0280d4e577b9",
+      "target_actor_id": "11ec1ce7-b992-43ee-9748-5d62d8e6fee7",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:13:55.715135+00:00",
+      "weight": 0.61
+    },
+    {
+      "big_bang_id": "5d4dedaa-7647-4b52-a690-a0ab0e2e9dcc",
+      "created_at": "2026-05-05T02:13:55.715135+00:00",
+      "id": "fb4ceb48-7ee2-4c0c-93f6-50ecd3dc520a",
+      "layer": "trust",
+      "multiverse_id": "cfabae12-052e-4805-b774-57e01a1e3d26",
+      "payload": {
+        "direction": "directed",
+        "evidence": "Use NOAA/NCEI's annual global report as the adjudication source.",
+        "initializer": {
+          "direction": "directed",
+          "evidence": "Use NOAA/NCEI's annual global report as the adjudication source.",
+          "layer": "trust",
+          "reason": "Forecasters accept NOAA/NCEI as authoritative adjudicator.",
+          "source_actor_name": "forecast_community",
+          "target_actor_name": "noaa_ncei",
+          "weight": 0.82
+        },
+        "reason": "Forecasters accept NOAA/NCEI as authoritative adjudicator."
+      },
+      "source_actor_id": "399e6dcd-3de1-4090-b3df-493f19a74141",
+      "target_actor_id": "11ec1ce7-b992-43ee-9748-5d62d8e6fee7",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:13:55.715135+00:00",
+      "weight": 0.82
+    },
+    {
+      "big_bang_id": "5d4dedaa-7647-4b52-a690-a0ab0e2e9dcc",
+      "created_at": "2026-05-05T02:13:55.715135+00:00",
+      "id": "265d95e0-c00c-4731-a33a-5becad73b484",
+      "layer": "trust",
+      "multiverse_id": "cfabae12-052e-4805-b774-57e01a1e3d26",
+      "payload": {
+        "direction": "directed",
+        "evidence": "Final ranking depends on full-year global land/ocean temperature analysis.",
+        "initializer": {
+          "direction": "directed",
+          "evidence": "Final ranking depends on full-year global land/ocean temperature analysis.",
+          "layer": "trust",
+          "reason": "Experts generally trust institutional annual analyses for formal ranking.",
+          "source_actor_name": "climate_data_watchers",
+          "target_actor_name": "noaa_ncei",
+          "weight": 0.78
+        },
+        "reason": "Experts generally trust institutional annual analyses for formal ranking."
+      },
+      "source_actor_id": "1bb84038-800d-4c58-9397-0280d4e577b9",
+      "target_actor_id": "11ec1ce7-b992-43ee-9748-5d62d8e6fee7",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:13:55.715135+00:00",
+      "weight": 0.78
+    },
+    {
+      "big_bang_id": "5d4dedaa-7647-4b52-a690-a0ab0e2e9dcc",
+      "created_at": "2026-05-05T02:13:55.715135+00:00",
+      "id": "3bebe2cb-457a-402a-994c-f6f90ad9600e",
+      "layer": "trust",
+      "multiverse_id": "cfabae12-052e-4805-b774-57e01a1e3d26",
+      "payload": {
+        "direction": "directed",
+        "evidence": "Evidence sparse; default bounded public trust.",
+        "initializer": {
+          "direction": "directed",
+          "evidence": "Evidence sparse; default bounded public trust.",
+          "layer": "trust",
+          "reason": "Institutional credibility exists but is weaker among low-information observers.",
+          "source_actor_name": "general_public_observers",
+          "target_actor_name": "noaa_ncei",
+          "weight": 0.46
+        },
+        "reason": "Institutional credibility exists but is weaker among low-information observers."
+      },
+      "source_actor_id": "f83d2cfe-a278-4f6e-81ca-ac523dbad7ec",
+      "target_actor_id": "11ec1ce7-b992-43ee-9748-5d62d8e6fee7",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:13:55.715135+00:00",
+      "weight": 0.46
+    },
+    {
+      "big_bang_id": "5d4dedaa-7647-4b52-a690-a0ab0e2e9dcc",
+      "created_at": "2026-05-05T02:13:55.715135+00:00",
+      "id": "b9f46506-86fe-4bf3-beb2-3970efcdc2a5",
+      "layer": "influence",
+      "multiverse_id": "cfabae12-052e-4805-b774-57e01a1e3d26",
+      "payload": {
+        "direction": "directed",
+        "evidence": "Source-specific resolution depends on NOAA/NCEI ranking.",
+        "initializer": {
+          "direction": "directed",
+          "evidence": "Source-specific resolution depends on NOAA/NCEI ranking.",
+          "layer": "influence",
+          "reason": "Official publication strongly shapes final forecast resolution and revisions.",
+          "source_actor_name": "noaa_ncei",
+          "target_actor_name": "forecast_community",
+          "weight": 0.86
+        },
+        "reason": "Official publication strongly shapes final forecast resolution and revisions."
+      },
+      "source_actor_id": "11ec1ce7-b992-43ee-9748-5d62d8e6fee7",
+      "target_actor_id": "399e6dcd-3de1-4090-b3df-493f19a74141",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:13:55.715135+00:00",
+      "weight": 0.86
+    },
+    {
+      "big_bang_id": "5d4dedaa-7647-4b52-a690-a0ab0e2e9dcc",
+      "created_at": "2026-05-05T02:13:55.715135+00:00",
+      "id": "fff4a3cd-b63b-4cbe-966b-682fb2131a90",
+      "layer": "influence",
+      "multiverse_id": "cfabae12-052e-4805-b774-57e01a1e3d26",
+      "payload": {
+        "direction": "directed",
+        "evidence": "Scenario includes climate context and recent-extremes framing.",
+        "initializer": {
+          "direction": "directed",
+          "evidence": "Scenario includes climate context and recent-extremes framing.",
+          "layer": "influence",
+          "reason": "Analyst commentary can shift perceived odds before final report.",
+          "source_actor_name": "climate_data_watchers",
+          "target_actor_name": "forecast_community",
+          "weight": 0.48
+        },
+        "reason": "Analyst commentary can shift perceived odds before final report."
+      },
+      "source_actor_id": "1bb84038-800d-4c58-9397-0280d4e577b9",
+      "target_actor_id": "399e6dcd-3de1-4090-b3df-493f19a74141",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:13:55.715135+00:00",
+      "weight": 0.48
+    },
+    {
+      "big_bang_id": "5d4dedaa-7647-4b52-a690-a0ab0e2e9dcc",
+      "created_at": "2026-05-05T02:13:55.715135+00:00",
+      "id": "76722e8a-2890-4f8b-bd05-6a5c4c33cc4d",
+      "layer": "influence",
+      "multiverse_id": "cfabae12-052e-4805-b774-57e01a1e3d26",
+      "payload": {
+        "direction": "directed",
+        "evidence": "Inferred weak influence from public forecast discourse.",
+        "initializer": {
+          "direction": "directed",
+          "evidence": "Inferred weak influence from public forecast discourse.",
+          "layer": "influence",
+          "reason": "Forecast discussions have limited but nonzero spillover into broader narratives.",
+          "source_actor_name": "forecast_community",
+          "target_actor_name": "general_public_observers",
+          "weight": 0.18
+        },
+        "reason": "Forecast discussions have limited but nonzero spillover into broader narratives."
+      },
+      "source_actor_id": "399e6dcd-3de1-4090-b3df-493f19a74141",
+      "target_actor_id": "f83d2cfe-a278-4f6e-81ca-ac523dbad7ec",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:13:55.715135+00:00",
+      "weight": 0.18
+    },
+    {
+      "big_bang_id": "5d4dedaa-7647-4b52-a690-a0ab0e2e9dcc",
+      "created_at": "2026-05-05T02:13:55.715135+00:00",
+      "id": "1d7f526c-a36d-48fd-aba8-c3f553919b5b",
+      "layer": "coalition",
+      "multiverse_id": "cfabae12-052e-4805-b774-57e01a1e3d26",
+      "payload": {
+        "direction": "undirected",
+        "evidence": "Expected focus aligns both on climate_ranking and source_specific_resolution.",
+        "initializer": {
+          "direction": "undirected",
+          "evidence": "Expected focus aligns both on climate_ranking and source_specific_resolution.",
+          "layer": "coalition",
+          "reason": "Both groups share interest in accurate ranking and source-specific interpretation.",
+          "source_actor_name": "forecast_community",
+          "target_actor_name": "climate_data_watchers",
+          "weight": 0.52
+        },
+        "reason": "Both groups share interest in accurate ranking and source-specific interpretation."
+      },
+      "source_actor_id": "399e6dcd-3de1-4090-b3df-493f19a74141",
+      "target_actor_id": "1bb84038-800d-4c58-9397-0280d4e577b9",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:13:55.715135+00:00",
+      "weight": 0.52
+    },
+    {
+      "big_bang_id": "5d4dedaa-7647-4b52-a690-a0ab0e2e9dcc",
+      "created_at": "2026-05-05T02:13:55.715135+00:00",
+      "id": "211523d2-5747-4ab8-bbcd-753e5ef17da2",
+      "layer": "coalition",
+      "multiverse_id": "cfabae12-052e-4805-b774-57e01a1e3d26",
+      "payload": {
+        "direction": "undirected",
+        "evidence": "Observers depend on NOAA/NCEI but remain independent interpreters.",
+        "initializer": {
+          "direction": "undirected",
+          "evidence": "Observers depend on NOAA/NCEI but remain independent interpreters.",
+          "layer": "coalition",
+          "reason": "Loose alignment around methodological legitimacy without full institutional unity.",
+          "source_actor_name": "climate_data_watchers",
+          "target_actor_name": "noaa_ncei",
+          "weight": 0.34
+        },
+        "reason": "Loose alignment around methodological legitimacy without full institutional unity."
+      },
+      "source_actor_id": "1bb84038-800d-4c58-9397-0280d4e577b9",
+      "target_actor_id": "11ec1ce7-b992-43ee-9748-5d62d8e6fee7",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:13:55.715135+00:00",
+      "weight": 0.34
+    },
+    {
+      "big_bang_id": "5d4dedaa-7647-4b52-a690-a0ab0e2e9dcc",
+      "created_at": "2026-05-05T02:13:55.715135+00:00",
+      "id": "be2ab063-07e4-4d27-87f7-6575fc791d63",
+      "layer": "conflict",
+      "multiverse_id": "cfabae12-052e-4805-b774-57e01a1e3d26",
+      "payload": {
+        "direction": "directed",
+        "evidence": "The prior two years were also exceptionally warm.",
+        "initializer": {
+          "direction": "directed",
+          "evidence": "The prior two years were also exceptionally warm.",
+          "layer": "conflict",
+          "reason": "Prior exceptionally warm years compete with 2025 for top ranking.",
+          "source_actor_name": "recent_record_years",
+          "target_actor_name": "rank_2025_placeholder",
+          "weight": 0.44
+        },
+        "reason": "Prior exceptionally warm years compete with 2025 for top ranking."
+      },
+      "source_actor_id": "8c69cf1e-195d-42e3-adc2-f28d9d17ce16",
+      "target_actor_id": null,
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:13:55.715135+00:00",
+      "weight": 0.44
+    },
+    {
+      "big_bang_id": "5d4dedaa-7647-4b52-a690-a0ab0e2e9dcc",
+      "created_at": "2026-05-05T02:13:55.715135+00:00",
+      "id": "4e6e0cbf-9c15-4fb1-90f7-d3a086aa76d8",
+      "layer": "conflict",
+      "multiverse_id": "cfabae12-052e-4805-b774-57e01a1e3d26",
+      "payload": {
+        "direction": "directed",
+        "evidence": "A very warm year can still rank second or third.",
+        "initializer": {
+          "direction": "directed",
+          "evidence": "A very warm year can still rank second or third.",
+          "layer": "conflict",
+          "reason": "Simple headline assumptions may conflict with source-specific probabilistic caution.",
+          "source_actor_name": "forecast_community",
+          "target_actor_name": "general_public_observers",
+          "weight": 0.16
+        },
+        "reason": "Simple headline assumptions may conflict with source-specific probabilistic caution."
+      },
+      "source_actor_id": "399e6dcd-3de1-4090-b3df-493f19a74141",
+      "target_actor_id": "f83d2cfe-a278-4f6e-81ca-ac523dbad7ec",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:13:55.715135+00:00",
+      "weight": 0.16
+    },
+    {
+      "big_bang_id": "5d4dedaa-7647-4b52-a690-a0ab0e2e9dcc",
+      "created_at": "2026-05-05T02:13:55.715135+00:00",
+      "id": "df2c7bcd-f255-4b45-8e13-af411837c3e3",
+      "layer": "oasis_interaction",
+      "multiverse_id": "cfabae12-052e-4805-b774-57e01a1e3d26",
+      "payload": {
+        "direction": "undirected",
+        "evidence": "Expected focus on climate ranking and source-specific resolution.",
+        "initializer": {
+          "direction": "undirected",
+          "evidence": "Expected focus on climate ranking and source-specific resolution.",
+          "layer": "oasis_interaction",
+          "reason": "Likely active online/public-channel interaction over annual ranking interpretation.",
+          "source_actor_name": "forecast_community",
+          "target_actor_name": "climate_data_watchers",
+          "weight": 0.57
+        },
+        "reason": "Likely active online/public-channel interaction over annual ranking interpretation."
+      },
+      "source_actor_id": "399e6dcd-3de1-4090-b3df-493f19a74141",
+      "target_actor_id": "1bb84038-800d-4c58-9397-0280d4e577b9",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:13:55.715135+00:00",
+      "weight": 0.57
+    },
+    {
+      "big_bang_id": "5d4dedaa-7647-4b52-a690-a0ab0e2e9dcc",
+      "created_at": "2026-05-05T02:13:55.715135+00:00",
+      "id": "5f1f47e4-d3c9-4422-aec9-722532013ec9",
+      "layer": "oasis_interaction",
+      "multiverse_id": "cfabae12-052e-4805-b774-57e01a1e3d26",
+      "payload": {
+        "direction": "undirected",
+        "evidence": "Public-facing uncertainty around whether very warm means warmest.",
+        "initializer": {
+          "direction": "undirected",
+          "evidence": "Public-facing uncertainty around whether very warm means warmest.",
+          "layer": "oasis_interaction",
+          "reason": "Experts likely explain ranking nuances in public channels when report approaches.",
+          "source_actor_name": "climate_data_watchers",
+          "target_actor_name": "general_public_observers",
+          "weight": 0.29
+        },
+        "reason": "Experts likely explain ranking nuances in public channels when report approaches."
+      },
+      "source_actor_id": "1bb84038-800d-4c58-9397-0280d4e577b9",
+      "target_actor_id": "f83d2cfe-a278-4f6e-81ca-ac523dbad7ec",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:13:55.715135+00:00",
+      "weight": 0.29
+    },
+    {
+      "big_bang_id": "5d4dedaa-7647-4b52-a690-a0ab0e2e9dcc",
+      "created_at": "2026-05-05T02:13:55.715135+00:00",
+      "id": "e4287519-3b61-4e77-909c-65be4b43e2f6",
+      "layer": "oasis_interaction",
+      "multiverse_id": "cfabae12-052e-4805-b774-57e01a1e3d26",
+      "payload": {
+        "direction": "undirected",
+        "evidence": "Annual report serves as focal publication event.",
+        "initializer": {
+          "direction": "undirected",
+          "evidence": "Annual report serves as focal publication event.",
+          "layer": "oasis_interaction",
+          "reason": "Report releases and summaries create periodic public interaction intensity.",
+          "source_actor_name": "noaa_ncei",
+          "target_actor_name": "climate_data_watchers",
+          "weight": 0.33
+        },
+        "reason": "Report releases and summaries create periodic public interaction intensity."
+      },
+      "source_actor_id": "11ec1ce7-b992-43ee-9748-5d62d8e6fee7",
+      "target_actor_id": "1bb84038-800d-4c58-9397-0280d4e577b9",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:13:55.715135+00:00",
+      "weight": 0.33
+    }
+  ],
+  "snapshots": [
+    {
+      "artifact_id": null,
+      "big_bang_id": "5d4dedaa-7647-4b52-a690-a0ab0e2e9dcc",
+      "created_at": "2026-05-05T02:13:55.715135+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Both groups share interest in accurate ranking and source-specific interpretation.",
+            "source": "forecast_community",
+            "target": "climate_data_watchers",
+            "weight": 0.52
+          },
+          {
+            "reason": "Loose alignment around methodological legitimacy without full institutional unity.",
+            "source": "climate_data_watchers",
+            "target": "noaa_ncei",
+            "weight": 0.34
+          }
+        ],
+        "layer": "coalition",
+        "tick_index": 0
+      },
+      "id": "6202005c-9122-45be-a70c-ee8ff4f074ee",
+      "layer": "coalition",
+      "multiverse_id": "cfabae12-052e-4805-b774-57e01a1e3d26",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:13:55.715135+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "5d4dedaa-7647-4b52-a690-a0ab0e2e9dcc",
+      "created_at": "2026-05-05T02:13:55.715135+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Public may see expert discussion or summaries about yearly warmth.",
+            "source": "general_public_observers",
+            "target": "climate_data_watchers",
+            "weight": 0.32
+          },
+          {
+            "reason": "Forecasters monitor analysts discussing temperature context and ranking odds.",
+            "source": "forecast_community",
+            "target": "climate_data_watchers",
+            "weight": 0.58
+          },
+          {
+            "reason": "Experts track NOAA/NCEI reports and updates closely.",
+            "source": "climate_data_watchers",
+            "target": "noaa_ncei",
+            "weight": 0.61
+          }
+        ],
+        "layer": "exposure",
+        "tick_index": 0
+      },
+      "id": "31ec57f4-e12f-4b08-98f8-d1af984fbba7",
+      "layer": "exposure",
+      "multiverse_id": "cfabae12-052e-4805-b774-57e01a1e3d26",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:13:55.715135+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "5d4dedaa-7647-4b52-a690-a0ab0e2e9dcc",
+      "created_at": "2026-05-05T02:13:55.715135+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Forecasters accept NOAA/NCEI as authoritative adjudicator.",
+            "source": "forecast_community",
+            "target": "noaa_ncei",
+            "weight": 0.82
+          },
+          {
+            "reason": "Experts generally trust institutional annual analyses for formal ranking.",
+            "source": "climate_data_watchers",
+            "target": "noaa_ncei",
+            "weight": 0.78
+          },
+          {
+            "reason": "Institutional credibility exists but is weaker among low-information observers.",
+            "source": "general_public_observers",
+            "target": "noaa_ncei",
+            "weight": 0.46
+          }
+        ],
+        "layer": "trust",
+        "tick_index": 0
+      },
+      "id": "40d87367-8cba-4851-b364-852cd48c72d4",
+      "layer": "trust",
+      "multiverse_id": "cfabae12-052e-4805-b774-57e01a1e3d26",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:13:55.715135+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "5d4dedaa-7647-4b52-a690-a0ab0e2e9dcc",
+      "created_at": "2026-05-05T02:13:55.715135+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Official publication strongly shapes final forecast resolution and revisions.",
+            "source": "noaa_ncei",
+            "target": "forecast_community",
+            "weight": 0.86
+          },
+          {
+            "reason": "Analyst commentary can shift perceived odds before final report.",
+            "source": "climate_data_watchers",
+            "target": "forecast_community",
+            "weight": 0.48
+          },
+          {
+            "reason": "Forecast discussions have limited but nonzero spillover into broader narratives.",
+            "source": "forecast_community",
+            "target": "general_public_observers",
+            "weight": 0.18
+          }
+        ],
+        "layer": "influence",
+        "tick_index": 0
+      },
+      "id": "97d04396-07ce-43cd-b6a6-97d69cc555ca",
+      "layer": "influence",
+      "multiverse_id": "cfabae12-052e-4805-b774-57e01a1e3d26",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:13:55.715135+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "5d4dedaa-7647-4b52-a690-a0ab0e2e9dcc",
+      "created_at": "2026-05-05T02:13:55.715135+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Official resolution depends on NOAA/NCEI annual ranking.",
+            "source": "forecast_community",
+            "target": "noaa_ncei",
+            "weight": 0.9
+          },
+          {
+            "reason": "Observers rely on NOAA/NCEI for definitive annual ranking confirmation.",
+            "source": "climate_data_watchers",
+            "target": "noaa_ncei",
+            "weight": 0.72
+          },
+          {
+            "reason": "Public understanding often depends on expert interpretation rather than direct report reading.",
+            "source": "general_public_observers",
+            "target": "climate_data_watchers",
+            "weight": 0.28
+          }
+        ],
+        "layer": "dependency",
+        "tick_index": 0
+      },
+      "id": "05bf39c2-27e3-43c9-afa4-6985e24863e0",
+      "layer": "dependency",
+      "multiverse_id": "cfabae12-052e-4805-b774-57e01a1e3d26",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:13:55.715135+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "5d4dedaa-7647-4b52-a690-a0ab0e2e9dcc",
+      "created_at": "2026-05-05T02:13:55.715135+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Prior exceptionally warm years compete with 2025 for top ranking.",
+            "source": "recent_record_years",
+            "target": "rank_2025_placeholder",
+            "weight": 0.44
+          },
+          {
+            "reason": "Simple headline assumptions may conflict with source-specific probabilistic caution.",
+            "source": "forecast_community",
+            "target": "general_public_observers",
+            "weight": 0.16
+          }
+        ],
+        "layer": "conflict",
+        "tick_index": 0
+      },
+      "id": "1fcd1abe-757e-47b9-9520-0715163b6c50",
+      "layer": "conflict",
+      "multiverse_id": "cfabae12-052e-4805-b774-57e01a1e3d26",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:13:55.715135+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "5d4dedaa-7647-4b52-a690-a0ab0e2e9dcc",
+      "created_at": "2026-05-05T02:13:55.715135+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Likely active online/public-channel interaction over annual ranking interpretation.",
+            "source": "forecast_community",
+            "target": "climate_data_watchers",
+            "weight": 0.57
+          },
+          {
+            "reason": "Experts likely explain ranking nuances in public channels when report approaches.",
+            "source": "climate_data_watchers",
+            "target": "general_public_observers",
+            "weight": 0.29
+          },
+          {
+            "reason": "Report releases and summaries create periodic public interaction intensity.",
+            "source": "noaa_ncei",
+            "target": "climate_data_watchers",
+            "weight": 0.33
+          }
+        ],
+        "layer": "oasis_interaction",
+        "tick_index": 0
+      },
+      "id": "63cf2311-d48b-475e-a58a-78908bdbc09e",
+      "layer": "oasis_interaction",
+      "multiverse_id": "cfabae12-052e-4805-b774-57e01a1e3d26",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:13:55.715135+00:00"
+    }
+  ]
+}

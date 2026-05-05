@@ -1,0 +1,47 @@
+{
+  "attempt_number": 0,
+  "available_at": "2026-05-05T02:12:06.045713Z",
+  "big_bang_id": null,
+  "concurrency_key": null,
+  "created_at": "2026-05-05T02:12:06.044134Z",
+  "error": null,
+  "finished_at": "2026-05-05T02:14:18.786645Z",
+  "id": "d8f43769-0878-40e5-8196-87acb1e8c9b5",
+  "idempotency_key": "job:80aaefbf553ff59a6c7176e37b788ff2435e27401f2704895a010315e3911d20",
+  "interrupt_requested_at": null,
+  "interrupted_at": null,
+  "job_type": "initialize_big_bang",
+  "last_heartbeat_at": null,
+  "lease_expires_at": null,
+  "lease_owner": null,
+  "max_attempts": 3,
+  "paused_at": null,
+  "payload": {
+    "actors": [],
+    "branch_policy": {
+      "branch_score_threshold": 0.999,
+      "max_active_multiverses": 1,
+      "max_branch_depth": 1,
+      "max_branches_per_tick": 1
+    },
+    "cohorts": [],
+    "heroes": [],
+    "name": "E1_init_job_resolved_015",
+    "scenario_text": "# Case resolved_015\nBenchmark role: resolved_forecast\n\nForecast question: Will Console S2 be released to consumers by June 30, 2025?\n\n## Scenario\n\nThe manufacturer has shown a first-look trailer for the successor to its widely used hybrid console and says the new system will be released in 2025. As of the forecast date, the exact global retail date and price have not been officially announced. Resolve yes only if consumers can purchase the hardware by June 30, 2025 in at least one major launch market.\n\n## Source Packet\n\n### Source 1: company_signal / 2025-01-17\n\nThe manufacturer has publicly committed to a 2025 release window but not a precise date.\n\n### Source 2: supply_risk_note / 2025-01-17\n\nHardware launches can slip because of production, pricing, tariffs, software readiness, or launch inventory constraints.\n\n### Source 3: endpoint_note / 2025-01-17\n\nA reveal or preorder alone is insufficient; the system must be released to consumers.\n\n## Candidate Endpoints\n- yes: The event occurs by the deadline\n- no: The event does not occur by the deadline\n\n## Expected Focus\n- product_launch_forecasting\n- scheduled_release_window\n- supply_chain_risk\n\n## Required Forecast Output\n{'type': 'probability_distribution', 'schema': {'yes': 'float in [0,1]', 'no': 'float in [0,1]', 'unresolved_mass': 'optional float in [0,1]; if used, keep yes+no+unresolved_mass = 1'}, 'scoring': 'For resolved cards, score p_yes against the hidden private resolution using binary Brier and clamped log score. If unresolved_mass is present, report it separately and normalize yes/no only if your paper explicitly chooses conditional scoring.'}\n\n## Leakage Mitigation\nModel-facing text uses partial entity masking. Do not expose private_eval entity_map or resolution during forecasting.\n",
+    "simulation_config": {
+      "max_ticks": 1,
+      "tick_duration_minutes": 720
+    },
+    "use_initializer_agent": true
+  },
+  "queue_name": "p1",
+  "queued_at": "2026-05-05T02:12:06.045710Z",
+  "result": {
+    "big_bang_id": "a8ece0a0-79ac-47e3-b20d-5e59d2bdfe1a",
+    "source_snapshot_id": "7f7c8e7d-9ce4-4e51-a4e8-695c11adf733"
+  },
+  "retryable": true,
+  "started_at": "2026-05-05T02:12:06.115816Z",
+  "status": "succeeded",
+  "updated_at": "2026-05-05T02:14:18.733641Z"
+}

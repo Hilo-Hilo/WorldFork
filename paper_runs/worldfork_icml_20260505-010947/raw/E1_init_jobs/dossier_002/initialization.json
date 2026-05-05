@@ -1,0 +1,1665 @@
+{
+  "big_bang_id": "7f6ef1b7-a463-462c-9150-64e78c1ba929",
+  "initializer_output": {
+    "actors": [
+      {
+        "decision_authority": "high_shared",
+        "name": "river_city_school_district",
+        "public_visibility": "high",
+        "role": "contracting and operating institution",
+        "stakes": [
+          "student learning recovery",
+          "staff workload relief",
+          "reputational legitimacy",
+          "legal and procurement compliance"
+        ],
+        "type": "institution"
+      },
+      {
+        "decision_authority": "high_operational",
+        "name": "superintendent_office",
+        "public_visibility": "high",
+        "role": "pilot sponsor and district executive agenda setter",
+        "stakes": [
+          "timely launch",
+          "administrative credibility",
+          "response to learning loss"
+        ],
+        "type": "institutional_leadership"
+      },
+      {
+        "decision_authority": "high_formal",
+        "name": "school_board_majority",
+        "public_visibility": "high",
+        "role": "formal oversight and potential contract challenge bloc",
+        "stakes": [
+          "governance legitimacy",
+          "risk avoidance",
+          "constituent responsiveness"
+        ],
+        "type": "governing_body_faction"
+      },
+      {
+        "decision_authority": "medium_formal",
+        "name": "questioning_board_members",
+        "public_visibility": "medium",
+        "role": "board members questioning emergency exception",
+        "stakes": [
+          "procurement compliance",
+          "oversight credibility"
+        ],
+        "type": "governing_body_faction"
+      },
+      {
+        "decision_authority": "high_on_product_terms",
+        "name": "tutorpilot_vendor",
+        "public_visibility": "medium",
+        "role": "ai tutoring provider",
+        "stakes": [
+          "contract retention",
+          "data use flexibility",
+          "market reputation"
+        ],
+        "type": "company"
+      },
+      {
+        "decision_authority": "low_direct_high_agenda",
+        "name": "parent_privacy_coalition",
+        "public_visibility": "medium",
+        "role": "organized parent opposition/pressure group",
+        "stakes": [
+          "student privacy",
+          "informed consent",
+          "language access"
+        ],
+        "type": "civic_group"
+      },
+      {
+        "decision_authority": "medium_collective",
+        "name": "teacher_union_local",
+        "public_visibility": "medium",
+        "role": "teachers' collective voice",
+        "stakes": [
+          "instructional support benefits",
+          "protection from surveillance/evaluation misuse"
+        ],
+        "type": "labor_group"
+      },
+      {
+        "decision_authority": "low",
+        "name": "students_grades_7_9",
+        "public_visibility": "low",
+        "role": "directly affected users",
+        "stakes": [
+          "tutoring access",
+          "privacy",
+          "usability",
+          "accessibility"
+        ],
+        "type": "population"
+      },
+      {
+        "decision_authority": "low_collective",
+        "name": "non_english_speaking_families",
+        "public_visibility": "low_to_medium",
+        "role": "families needing translated notice and multilingual support",
+        "stakes": [
+          "comprehension of consent and risk",
+          "equitable access"
+        ],
+        "type": "population"
+      },
+      {
+        "decision_authority": "low_collective",
+        "name": "students_with_disabilities",
+        "public_visibility": "low_to_medium",
+        "role": "students affected by accessibility quality",
+        "stakes": [
+          "effective access",
+          "non-discrimination"
+        ],
+        "type": "population"
+      },
+      {
+        "decision_authority": "medium_administrative",
+        "name": "district_procurement_office",
+        "public_visibility": "low",
+        "role": "contract process owner",
+        "stakes": [
+          "process defensibility",
+          "timeline maintenance"
+        ],
+        "type": "bureaucratic_unit"
+      },
+      {
+        "decision_authority": "medium_advisory",
+        "name": "district_privacy_and_it_staff",
+        "public_visibility": "low",
+        "role": "security and data governance reviewers",
+        "stakes": [
+          "technical compliance",
+          "risk containment"
+        ],
+        "type": "bureaucratic_unit"
+      },
+      {
+        "decision_authority": "low_direct_high_exposure",
+        "name": "local_press",
+        "public_visibility": "medium",
+        "role": "issue amplification channel",
+        "stakes": [
+          "public accountability",
+          "newsworthiness"
+        ],
+        "type": "media"
+      },
+      {
+        "decision_authority": "conditional_high",
+        "name": "state_education_or_privacy_regulator",
+        "public_visibility": "medium",
+        "role": "potential external pause authority if complaint matures",
+        "stakes": [
+          "compliance enforcement",
+          "public protection"
+        ],
+        "type": "external_authority"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Opposition softens enough for modified rollout rather than hard postponement.",
+        "branch_key": "guardrails_buy_time_and_legitimacy",
+        "divergence_signal": "Parent coalition messaging shifts from stop/pause language to conditional acceptance; union remains non-escalatory; board majority avoids formal pause.",
+        "rationale": "Parent demands are specific and potentially satisfiable; conflict is not yet maximal.",
+        "trigger": "Superintendent offers independent privacy review, translated notice, and clear family choice mechanism before launch."
+      },
+      {
+        "alternate_path": "Board postpones pilot pending review even if educational case remains attractive.",
+        "branch_key": "procurement_scrutiny_forces_pause",
+        "divergence_signal": "Board majority publicly references process integrity or asks counsel/procurement for formal justification.",
+        "rationale": "Process legitimacy can override substantive enthusiasm because authority sits with governance structures.",
+        "trigger": "Questioning board members secure agenda time, document requests, or majority concern over emergency exception."
+      },
+      {
+        "alternate_path": "District determines contract is too costly to defend and cancels or rebids.",
+        "branch_key": "vendor_inflexibility_pushes_cancellation",
+        "divergence_signal": "District messaging shifts from implementation details to alternative vendor/process exploration.",
+        "rationale": "Vendor owns key terms and remediation pace, creating switching-cost tension.",
+        "trigger": "Vendor refuses plain-language opt-in/out revisions, independent review cooperation, or accelerated multilingual remediation."
+      },
+      {
+        "alternate_path": "Deployment is paused externally or quasi-externally while review proceeds.",
+        "branch_key": "external_complaint_creates_hold",
+        "divergence_signal": "District cites pending external review as reason for delay; regulator correspondence becomes part of public narrative.",
+        "rationale": "Formal external process can rapidly change risk calculus even if internal actors were leaning toward launch.",
+        "trigger": "Complaint is filed and regulator signals inquiry or caution before launch."
+      },
+      {
+        "alternate_path": "Pilot launches substantially as planned with limited changes.",
+        "branch_key": "quiet_majority_allows_full_launch",
+        "divergence_signal": "District communications emphasize urgency and readiness; opposition remains issue-specific and not mass mobilized.",
+        "rationale": "Many families are still low-attention, and institutional inertia favors proceeding absent a focal shock.",
+        "trigger": "Concerns remain fragmented, no major board coalition forms, and vendor offers cosmetic assurances."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "district_memo_and_school_notice",
+        "owners": [
+          "superintendent_office",
+          "river_city_school_district"
+        ],
+        "reach": "high",
+        "type": "official"
+      },
+      {
+        "channel_key": "board_meeting_and_constituent_email",
+        "owners": [
+          "school_board_majority",
+          "questioning_board_members"
+        ],
+        "reach": "medium_to_high",
+        "type": "governance_public"
+      },
+      {
+        "channel_key": "parent_coalition_email_lists",
+        "owners": [
+          "parent_privacy_coalition"
+        ],
+        "reach": "medium",
+        "type": "civic_network"
+      },
+      {
+        "channel_key": "union_meetings_and_staff_comms",
+        "owners": [
+          "teacher_union_local"
+        ],
+        "reach": "medium",
+        "type": "labor_internal"
+      },
+      {
+        "channel_key": "local_press_coverage",
+        "owners": [
+          "local_press"
+        ],
+        "reach": "medium",
+        "type": "media"
+      },
+      {
+        "channel_key": "regulatory_complaint_process",
+        "owners": [
+          "state_education_or_privacy_regulator"
+        ],
+        "reach": "low_visibility_high_impact",
+        "type": "formal_external"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "parent_privacy_coalition",
+        "archetype_key": "district_families_grades_7_9",
+        "attention_level": 0.62,
+        "cohort_key": "families_supportive_if_guardrailed",
+        "expression_level": 0.46,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.33,
+        "mobilization_readiness": 0.58,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "Tutoring could help if consent and review are credible",
+        "public_expression": "Demand guardrails rather than outright rejection",
+        "representation_mode": "attitudinal_cohort",
+        "represented_population": 1920,
+        "stance_axes": {
+          "ai_tutoring_value": 0.65,
+          "opt_in_preference": 0.71,
+          "privacy_protection_demand": 0.78,
+          "trust_in_district_process": 0.38
+        }
+      },
+      {
+        "actor_name": "river_city_school_district",
+        "archetype_key": "district_families_grades_7_9",
+        "attention_level": 0.31,
+        "cohort_key": "families_status_quo_or_unaware",
+        "expression_level": 0.16,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.24,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Limited information; receptive to district framing unless controversy rises",
+        "public_expression": "Mostly quiet",
+        "representation_mode": "attitudinal_cohort",
+        "represented_population": 2160,
+        "stance_axes": {
+          "ai_tutoring_value": 0.54,
+          "opt_in_preference": 0.48,
+          "privacy_protection_demand": 0.42,
+          "trust_in_district_process": 0.52
+        }
+      },
+      {
+        "actor_name": "non_english_speaking_families",
+        "archetype_key": "district_families_grades_7_9",
+        "attention_level": 0.58,
+        "cohort_key": "families_opposed_without_opt_in_translation",
+        "expression_level": 0.28,
+        "fatigue": 0.26,
+        "fear_of_isolation": 0.55,
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.22,
+        "population_share_of_archetype": 0.15,
+        "private_belief": "Notice is not legitimate without translation and understandable choices",
+        "public_expression": "Under-expressed relative to concern due to access barriers",
+        "representation_mode": "stakeholder_equity_cohort",
+        "represented_population": 720,
+        "stance_axes": {
+          "ai_tutoring_value": 0.44,
+          "opt_in_preference": 0.85,
+          "privacy_protection_demand": 0.82,
+          "trust_in_district_process": 0.29
+        }
+      },
+      {
+        "actor_name": "teacher_union_local",
+        "archetype_key": "middle_school_teachers",
+        "attention_level": 0.67,
+        "cohort_key": "teachers_support_tool_oppose_evaluation_use",
+        "expression_level": 0.52,
+        "fatigue": 0.49,
+        "fear_of_isolation": 0.27,
+        "mobilization_readiness": 0.56,
+        "perceived_majority": 0.61,
+        "population_share_of_archetype": 0.65,
+        "private_belief": "Extra tutoring is useful if dashboards are fenced off from evaluation",
+        "public_expression": "Conditional support with labor-use guardrails",
+        "representation_mode": "attitudinal_cohort",
+        "represented_population": 234,
+        "stance_axes": {
+          "ai_tutoring_value": 0.63,
+          "anti_surveillance": 0.79,
+          "privacy_protection_demand": 0.51,
+          "trust_in_district_process": 0.41
+        }
+      },
+      {
+        "actor_name": "teacher_union_local",
+        "archetype_key": "middle_school_teachers",
+        "attention_level": 0.61,
+        "cohort_key": "teachers_skeptical_of_ai_rollout",
+        "expression_level": 0.37,
+        "fatigue": 0.53,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.47,
+        "perceived_majority": 0.38,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Rollout is rushed and may burden staff",
+        "public_expression": "Muted skepticism unless board conflict escalates",
+        "representation_mode": "attitudinal_cohort",
+        "represented_population": 126,
+        "stance_axes": {
+          "ai_tutoring_value": 0.32,
+          "anti_surveillance": 0.74,
+          "privacy_protection_demand": 0.59,
+          "trust_in_district_process": 0.33
+        }
+      },
+      {
+        "actor_name": "students_grades_7_9",
+        "archetype_key": "pilot_students",
+        "attention_level": 0.28,
+        "cohort_key": "students_need_support_low_voice",
+        "expression_level": 0.12,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.44,
+        "mobilization_readiness": 0.14,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "May accept tool if assigned and easy to use",
+        "public_expression": "Low direct voice",
+        "representation_mode": "impact_cohort",
+        "represented_population": 2940,
+        "stance_axes": {
+          "ai_tutoring_value": 0.59,
+          "privacy_concern": 0.24,
+          "trust_in_school_tools": 0.56,
+          "usability_sensitivity": 0.46
+        }
+      },
+      {
+        "actor_name": "students_with_disabilities",
+        "archetype_key": "pilot_students",
+        "attention_level": 0.49,
+        "cohort_key": "students_with_accessibility_or_language_barriers",
+        "expression_level": 0.18,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.51,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.24,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "Benefit depends on real multilingual and accessibility performance",
+        "public_expression": "Concerns usually voiced through families or advocates",
+        "representation_mode": "equity_cohort",
+        "represented_population": 1260,
+        "stance_axes": {
+          "ai_tutoring_value": 0.47,
+          "privacy_concern": 0.31,
+          "trust_in_school_tools": 0.43,
+          "usability_sensitivity": 0.82
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "parent_privacy_coalition",
+        "archetype_key": "district_families_grades_7_9",
+        "attention_level": 0.62,
+        "cohort_key": "families_supportive_if_guardrailed",
+        "expression_level": 0.46,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.33,
+        "mobilization_readiness": 0.58,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "Tutoring could help if consent and review are credible",
+        "public_expression": "Demand guardrails rather than outright rejection",
+        "representation_mode": "attitudinal_cohort",
+        "represented_population": 1920,
+        "stance_axes": {
+          "ai_tutoring_value": 0.65,
+          "opt_in_preference": 0.71,
+          "privacy_protection_demand": 0.78,
+          "trust_in_district_process": 0.38
+        }
+      },
+      {
+        "actor_name": "river_city_school_district",
+        "archetype_key": "district_families_grades_7_9",
+        "attention_level": 0.31,
+        "cohort_key": "families_status_quo_or_unaware",
+        "expression_level": 0.16,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.24,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Limited information; receptive to district framing unless controversy rises",
+        "public_expression": "Mostly quiet",
+        "representation_mode": "attitudinal_cohort",
+        "represented_population": 2160,
+        "stance_axes": {
+          "ai_tutoring_value": 0.54,
+          "opt_in_preference": 0.48,
+          "privacy_protection_demand": 0.42,
+          "trust_in_district_process": 0.52
+        }
+      },
+      {
+        "actor_name": "non_english_speaking_families",
+        "archetype_key": "district_families_grades_7_9",
+        "attention_level": 0.58,
+        "cohort_key": "families_opposed_without_opt_in_translation",
+        "expression_level": 0.28,
+        "fatigue": 0.26,
+        "fear_of_isolation": 0.55,
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.22,
+        "population_share_of_archetype": 0.15,
+        "private_belief": "Notice is not legitimate without translation and understandable choices",
+        "public_expression": "Under-expressed relative to concern due to access barriers",
+        "representation_mode": "stakeholder_equity_cohort",
+        "represented_population": 720,
+        "stance_axes": {
+          "ai_tutoring_value": 0.44,
+          "opt_in_preference": 0.85,
+          "privacy_protection_demand": 0.82,
+          "trust_in_district_process": 0.29
+        }
+      },
+      {
+        "actor_name": "teacher_union_local",
+        "archetype_key": "middle_school_teachers",
+        "attention_level": 0.67,
+        "cohort_key": "teachers_support_tool_oppose_evaluation_use",
+        "expression_level": 0.52,
+        "fatigue": 0.49,
+        "fear_of_isolation": 0.27,
+        "mobilization_readiness": 0.56,
+        "perceived_majority": 0.61,
+        "population_share_of_archetype": 0.65,
+        "private_belief": "Extra tutoring is useful if dashboards are fenced off from evaluation",
+        "public_expression": "Conditional support with labor-use guardrails",
+        "representation_mode": "attitudinal_cohort",
+        "represented_population": 234,
+        "stance_axes": {
+          "ai_tutoring_value": 0.63,
+          "anti_surveillance": 0.79,
+          "privacy_protection_demand": 0.51,
+          "trust_in_district_process": 0.41
+        }
+      },
+      {
+        "actor_name": "teacher_union_local",
+        "archetype_key": "middle_school_teachers",
+        "attention_level": 0.61,
+        "cohort_key": "teachers_skeptical_of_ai_rollout",
+        "expression_level": 0.37,
+        "fatigue": 0.53,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.47,
+        "perceived_majority": 0.38,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Rollout is rushed and may burden staff",
+        "public_expression": "Muted skepticism unless board conflict escalates",
+        "representation_mode": "attitudinal_cohort",
+        "represented_population": 126,
+        "stance_axes": {
+          "ai_tutoring_value": 0.32,
+          "anti_surveillance": 0.74,
+          "privacy_protection_demand": 0.59,
+          "trust_in_district_process": 0.33
+        }
+      },
+      {
+        "actor_name": "students_grades_7_9",
+        "archetype_key": "pilot_students",
+        "attention_level": 0.28,
+        "cohort_key": "students_need_support_low_voice",
+        "expression_level": 0.12,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.44,
+        "mobilization_readiness": 0.14,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "May accept tool if assigned and easy to use",
+        "public_expression": "Low direct voice",
+        "representation_mode": "impact_cohort",
+        "represented_population": 2940,
+        "stance_axes": {
+          "ai_tutoring_value": 0.59,
+          "privacy_concern": 0.24,
+          "trust_in_school_tools": 0.56,
+          "usability_sensitivity": 0.46
+        }
+      },
+      {
+        "actor_name": "students_with_disabilities",
+        "archetype_key": "pilot_students",
+        "attention_level": 0.49,
+        "cohort_key": "students_with_accessibility_or_language_barriers",
+        "expression_level": 0.18,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.51,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.24,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "Benefit depends on real multilingual and accessibility performance",
+        "public_expression": "Concerns usually voiced through families or advocates",
+        "representation_mode": "equity_cohort",
+        "represented_population": 1260,
+        "stance_axes": {
+          "ai_tutoring_value": 0.47,
+          "privacy_concern": 0.31,
+          "trust_in_school_tools": 0.43,
+          "usability_sensitivity": 0.82
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "superintendent_office",
+          "school_board_majority",
+          "tutorpilot_vendor"
+        ],
+        "blockers": [
+          "procurement challenge",
+          "parent privacy demands",
+          "multilingual accessibility failures",
+          "possible external complaint"
+        ],
+        "contradiction_notes": "A launch with meaningful consent/privacy redesign should be classified under guardrailed_launch, not full_launch.",
+        "description": "District launches the grades 7-9 pilot in six middle schools substantially as originally planned, with only minor non-structural modifications.",
+        "endpoint_key": "full_launch",
+        "evidence_refs": [
+          "superintendent_memo_t_minus_21",
+          "vendor_security_addendum_t_minus_18"
+        ],
+        "label": "Full launch",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "By week 10, does TutorPilot launch substantially as planned, launch only with added safeguards/narrowing, or fail to launch?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.24,
+        "rationale": "Institutional inertia and urgency support this path if opposition stays fragmented.",
+        "realization_criteria": [
+          "Pilot is operating in all or nearly all planned schools by week 10",
+          "No board-imposed postponement remains in effect",
+          "No material opt-in/opt-out or independent review requirement was added as a condition of launch"
+        ],
+        "status": "active",
+        "status_basis": "Launch momentum exists, but multiple unresolved legitimacy issues keep this endpoint contested rather than dominant at T0."
+      },
+      {
+        "authority_refs": [
+          "superintendent_office",
+          "school_board_majority",
+          "tutorpilot_vendor",
+          "teacher_union_local"
+        ],
+        "blockers": [
+          "Vendor term inflexibility",
+          "time needed for review/remediation",
+          "board preference for full pause instead of conditional launch"
+        ],
+        "contradiction_notes": "If deployment is delayed beyond week 10 pending review, classify as postponement even if guardrails are being negotiated.",
+        "description": "District proceeds with rollout only after adding substantive privacy, consent, translation, accessibility, or labor-use safeguards, possibly with narrowed scope.",
+        "endpoint_key": "guardrailed_launch",
+        "evidence_refs": [
+          "parent_coalition_email_t_minus_12",
+          "teacher_union_minutes_t_minus_10",
+          "accessibility_audit_t_minus_3",
+          "vendor_security_addendum_t_minus_18"
+        ],
+        "label": "Guardrailed launch",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the emergency instructional-services exception withstand board scrutiny, or does procurement legitimacy force postponement or rebid?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.34,
+        "rationale": "Most opposition is conditional rather than absolute, making negotiated modification a strong contender.",
+        "realization_criteria": [
+          "Pilot launches by week 10",
+          "Launch conditions include at least one material safeguard such as opt-in/opt-out clarity, independent privacy review, translated notices, dashboard-use restrictions, or reduced scope pending remediation",
+          "Board and district publicly frame launch as modified or conditioned"
+        ],
+        "status": "active",
+        "status_basis": "This endpoint aligns with the specific and potentially satisfiable nature of the objections while preserving district urgency."
+      },
+      {
+        "authority_refs": [
+          "school_board_majority",
+          "questioning_board_members",
+          "superintendent_office",
+          "district_procurement_office"
+        ],
+        "blockers": [
+          "Leadership determination to proceed despite controversy",
+          "lack of majority board support for intervention",
+          "vendor offering rapid concessions"
+        ],
+        "contradiction_notes": "If contract is rebid, canceled, or externally frozen, use the more specific endpoint rather than postponement.",
+        "description": "Board or district delays deployment pending procurement, privacy, accessibility, or governance review, without fully canceling the contract by week 10.",
+        "endpoint_key": "postponement",
+        "evidence_refs": [
+          "procurement_note_t_minus_8",
+          "parent_coalition_email_t_minus_12",
+          "accessibility_audit_t_minus_3"
+        ],
+        "label": "Postponement pending review",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Are family consent and vendor data-use terms materially changed into a plain-language guardrail regime before deployment?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.26,
+        "rationale": "This is the cleanest legitimacy-preserving move when time is short and issues are multiple.",
+        "realization_criteria": [
+          "Pilot is not launched by week 10",
+          "District or board states review, audit, remediation, or governance process as reason for delay",
+          "Contract remains technically alive or unresolved rather than terminated"
+        ],
+        "status": "active",
+        "status_basis": "Formal procurement doubt plus unresolved equity/privacy issues make delay a credible central outcome."
+      },
+      {
+        "authority_refs": [
+          "school_board_majority",
+          "superintendent_office",
+          "district_procurement_office"
+        ],
+        "blockers": [
+          "High switching costs and urgency around learning support",
+          "availability of guardrail compromise",
+          "institutional reluctance to admit process error"
+        ],
+        "contradiction_notes": "A temporary delay while preserving the contract should remain postponement, not cancellation.",
+        "description": "District cancels the TutorPilot deal or decides to rebid rather than proceed under current terms.",
+        "endpoint_key": "contract_cancellation",
+        "evidence_refs": [
+          "procurement_note_t_minus_8",
+          "vendor_security_addendum_t_minus_18",
+          "accessibility_audit_t_minus_3"
+        ],
+        "label": "Contract cancellation or rebid",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does any external complaint or regulator action become the operative cause of deployment pause by week 10?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.1,
+        "rationale": "Termination requires stronger coalition durability and acceptance of operational setback than is yet visible.",
+        "realization_criteria": [
+          "District formally terminates the contract, withdraws the pilot, or initiates a rebid/reprocurement by week 10",
+          "Public rationale centers on untenable terms, process defects, or inability to remediate in time"
+        ],
+        "status": "active",
+        "status_basis": "Plausible if vendor proves inflexible or procurement defect becomes indefensible, but not yet the default at T0."
+      },
+      {
+        "authority_refs": [
+          "state_education_or_privacy_regulator",
+          "parent_privacy_coalition",
+          "river_city_school_district"
+        ],
+        "blockers": [
+          "Complaint may never be filed",
+          "External authority may move slowly",
+          "Internal actors may resolve dispute before outside action matures"
+        ],
+        "contradiction_notes": "Internal postponement absent documented external process should not be coded as legal_or_regulatory_hold.",
+        "description": "An external complaint, legal process, or regulator action becomes the operative force pausing deployment.",
+        "endpoint_key": "legal_or_regulatory_hold",
+        "evidence_refs": [
+          "candidate_endpoint_legal_or_regulatory_hold",
+          "parent_coalition_email_t_minus_12"
+        ],
+        "label": "Legal or regulatory hold",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does any external complaint or regulator action become the operative cause of deployment pause by week 10?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.06,
+        "rationale": "External leverage exists as a threat, though evidence of active filing is not yet present.",
+        "realization_criteria": [
+          "By week 10, district cites external complaint, regulator inquiry, or legal directive as cause of pause",
+          "Deployment does not proceed because of that external process rather than solely internal choice"
+        ],
+        "status": "active",
+        "status_basis": "This endpoint is plausible but contingent on escalation beyond the current record."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "superintendent_memo_t_minus_21",
+        "layer": "exposure",
+        "reason": "District launch messaging and school communications reach many families",
+        "source_actor_name": "superintendent_office",
+        "target_actor_name": "district_families_grades_7_9",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "parent_coalition_email_t_minus_12",
+        "layer": "exposure",
+        "reason": "Organized parent email and likely constituent outreach expose board to concerns",
+        "source_actor_name": "parent_privacy_coalition",
+        "target_actor_name": "school_board_majority",
+        "weight": 0.42
+      },
+      {
+        "direction": "outbound",
+        "evidence": "teacher_union_minutes_t_minus_10",
+        "layer": "exposure",
+        "reason": "Union minutes imply communicable stance that can reach board",
+        "source_actor_name": "teacher_union_local",
+        "target_actor_name": "school_board_majority",
+        "weight": 0.36
+      },
+      {
+        "direction": "outbound",
+        "evidence": "scenario_context_media_plausibility",
+        "layer": "exposure",
+        "reason": "Potential reporting channel for dispute details",
+        "source_actor_name": "local_press",
+        "target_actor_name": "district_families_grades_7_9",
+        "weight": 0.41
+      },
+      {
+        "direction": "outbound",
+        "evidence": "procurement_note_t_minus_8",
+        "layer": "exposure",
+        "reason": "Governance concerns can become reportable signals",
+        "source_actor_name": "questioning_board_members",
+        "target_actor_name": "local_press",
+        "weight": 0.33
+      },
+      {
+        "direction": "inbound",
+        "evidence": "parent_coalition_email_t_minus_12;procurement_note_t_minus_8",
+        "layer": "trust",
+        "reason": "Baseline institutional trust is mixed and now pressured by privacy/procurement concerns",
+        "source_actor_name": "district_families_grades_7_9",
+        "target_actor_name": "river_city_school_district",
+        "weight": 0.47
+      },
+      {
+        "direction": "inbound",
+        "evidence": "teacher_union_minutes_t_minus_10",
+        "layer": "trust",
+        "reason": "Conditional support exists but dashboard evaluation concern reduces trust",
+        "source_actor_name": "teacher_union_local",
+        "target_actor_name": "superintendent_office",
+        "weight": 0.39
+      },
+      {
+        "direction": "inbound",
+        "evidence": "procurement_note_t_minus_8",
+        "layer": "trust",
+        "reason": "Questioning of emergency exception weakens confidence in process handling",
+        "source_actor_name": "school_board_majority",
+        "target_actor_name": "district_procurement_office",
+        "weight": 0.43
+      },
+      {
+        "direction": "inbound",
+        "evidence": "vendor_security_addendum_t_minus_18",
+        "layer": "trust",
+        "reason": "De-identified service-improvement language without plain-language opt-out lowers trust",
+        "source_actor_name": "parent_privacy_coalition",
+        "target_actor_name": "tutorpilot_vendor",
+        "weight": 0.26
+      },
+      {
+        "direction": "inbound",
+        "evidence": "vendor_security_addendum_t_minus_18",
+        "layer": "trust",
+        "reason": "Encryption and non-sale claims offer some confidence but opt-out ambiguity remains",
+        "source_actor_name": "district_privacy_and_it_staff",
+        "target_actor_name": "tutorpilot_vendor",
+        "weight": 0.44
+      },
+      {
+        "direction": "outbound",
+        "evidence": "superintendent_memo_t_minus_21;vendor_security_addendum_t_minus_18",
+        "layer": "dependency",
+        "reason": "Pilot functionality depends on vendor product and terms",
+        "source_actor_name": "river_city_school_district",
+        "target_actor_name": "tutorpilot_vendor",
+        "weight": 0.62
+      },
+      {
+        "direction": "outbound",
+        "evidence": "procurement_note_t_minus_8",
+        "layer": "dependency",
+        "reason": "Launch timetable relies on procurement defensibility",
+        "source_actor_name": "superintendent_office",
+        "target_actor_name": "district_procurement_office",
+        "weight": 0.48
+      },
+      {
+        "direction": "outbound",
+        "evidence": "vendor_security_addendum_t_minus_18",
+        "layer": "dependency",
+        "reason": "Operational launch depends on security/privacy signoff or mitigations",
+        "source_actor_name": "superintendent_office",
+        "target_actor_name": "district_privacy_and_it_staff",
+        "weight": 0.51
+      },
+      {
+        "direction": "outbound",
+        "evidence": "parent_coalition_email_t_minus_12",
+        "layer": "dependency",
+        "reason": "Families rely on district for translated notices and participation terms",
+        "source_actor_name": "non_english_speaking_families",
+        "target_actor_name": "river_city_school_district",
+        "weight": 0.54
+      },
+      {
+        "direction": "outbound",
+        "evidence": "accessibility_audit_t_minus_3",
+        "layer": "dependency",
+        "reason": "Usable access depends on vendor remediation of multilingual/accessibility issues",
+        "source_actor_name": "students_with_disabilities",
+        "target_actor_name": "tutorpilot_vendor",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "superintendent_memo_t_minus_21",
+        "layer": "influence",
+        "reason": "Executive agenda setting and urgency framing shape board posture",
+        "source_actor_name": "superintendent_office",
+        "target_actor_name": "school_board_majority",
+        "weight": 0.57
+      },
+      {
+        "direction": "outbound",
+        "evidence": "procurement_note_t_minus_8",
+        "layer": "influence",
+        "reason": "Internal challengers can move peers by raising exception validity concerns",
+        "source_actor_name": "questioning_board_members",
+        "target_actor_name": "school_board_majority",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "parent_coalition_email_t_minus_12",
+        "layer": "influence",
+        "reason": "Coalition demands align with scrutiny faction's oversight framing",
+        "source_actor_name": "parent_privacy_coalition",
+        "target_actor_name": "questioning_board_members",
+        "weight": 0.43
+      },
+      {
+        "direction": "outbound",
+        "evidence": "teacher_union_minutes_t_minus_10",
+        "layer": "influence",
+        "reason": "Union can validate conditional support or caution around dashboard use",
+        "source_actor_name": "teacher_union_local",
+        "target_actor_name": "school_board_majority",
+        "weight": 0.39
+      },
+      {
+        "direction": "outbound",
+        "evidence": "scenario_context_media_plausibility",
+        "layer": "influence",
+        "reason": "Coverage can rapidly raise attention and mobilization",
+        "source_actor_name": "local_press",
+        "target_actor_name": "district_families_grades_7_9",
+        "weight": 0.38
+      },
+      {
+        "direction": "outbound",
+        "evidence": "candidate_endpoint_legal_or_regulatory_hold",
+        "layer": "influence",
+        "reason": "Potential complaint authority creates compliance leverage even before formal action",
+        "source_actor_name": "state_education_or_privacy_regulator",
+        "target_actor_name": "river_city_school_district",
+        "weight": 0.52
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "parent_coalition_email_t_minus_12;teacher_union_minutes_t_minus_10",
+        "layer": "coalition",
+        "reason": "Both support guardrails though priorities differ",
+        "source_actor_name": "parent_privacy_coalition",
+        "target_actor_name": "teacher_union_local",
+        "weight": 0.34
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "procurement_note_t_minus_8;parent_coalition_email_t_minus_12",
+        "layer": "coalition",
+        "reason": "Oversight concerns and parent demands are partially aligned",
+        "source_actor_name": "questioning_board_members",
+        "target_actor_name": "parent_privacy_coalition",
+        "weight": 0.37
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "superintendent_memo_t_minus_21;vendor_security_addendum_t_minus_18",
+        "layer": "coalition",
+        "reason": "Shared interest in proceeding with pilot",
+        "source_actor_name": "superintendent_office",
+        "target_actor_name": "tutorpilot_vendor",
+        "weight": 0.55
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "scenario_governance_default",
+        "layer": "coalition",
+        "reason": "Default institutional alignment exists absent severe legitimacy shock",
+        "source_actor_name": "school_board_majority",
+        "target_actor_name": "superintendent_office",
+        "weight": 0.41
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "parent_coalition_email_t_minus_12",
+        "layer": "conflict",
+        "reason": "Parents challenge launch terms and notice adequacy",
+        "source_actor_name": "parent_privacy_coalition",
+        "target_actor_name": "superintendent_office",
+        "weight": 0.49
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "teacher_union_minutes_t_minus_10",
+        "layer": "conflict",
+        "reason": "Dashboard evaluation objection creates bounded labor conflict",
+        "source_actor_name": "teacher_union_local",
+        "target_actor_name": "superintendent_office",
+        "weight": 0.35
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "procurement_note_t_minus_8",
+        "layer": "conflict",
+        "reason": "Dispute over emergency exception validity",
+        "source_actor_name": "questioning_board_members",
+        "target_actor_name": "district_procurement_office",
+        "weight": 0.51
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "parent_coalition_email_t_minus_12",
+        "layer": "conflict",
+        "reason": "Lack of translated notice undermines fairness and legitimacy",
+        "source_actor_name": "non_english_speaking_families",
+        "target_actor_name": "river_city_school_district",
+        "weight": 0.44
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "accessibility_audit_t_minus_3",
+        "layer": "conflict",
+        "reason": "Accessibility shortcomings create adverse interest though not yet mobilized",
+        "source_actor_name": "students_with_disabilities",
+        "target_actor_name": "tutorpilot_vendor",
+        "weight": 0.31
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "parent_coalition_email_t_minus_12",
+        "layer": "oasis_interaction",
+        "reason": "Public comments, emails, and meetings are likely interaction venues",
+        "source_actor_name": "parent_privacy_coalition",
+        "target_actor_name": "school_board_majority",
+        "weight": 0.53
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "teacher_union_minutes_t_minus_10",
+        "layer": "oasis_interaction",
+        "reason": "Meet-and-confer or internal discussion likely over dashboard language",
+        "source_actor_name": "teacher_union_local",
+        "target_actor_name": "superintendent_office",
+        "weight": 0.47
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "procurement_note_t_minus_8",
+        "layer": "oasis_interaction",
+        "reason": "Public governance dispute likely to surface through press questions",
+        "source_actor_name": "questioning_board_members",
+        "target_actor_name": "local_press",
+        "weight": 0.35
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "parent_coalition_email_t_minus_12",
+        "layer": "oasis_interaction",
+        "reason": "Translation and notice processes create direct public-facing contact points",
+        "source_actor_name": "river_city_school_district",
+        "target_actor_name": "non_english_speaking_families",
+        "weight": 0.29
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "hero_key": "executive_sponsor",
+        "label": "Executive sponsor pushing launch"
+      },
+      {
+        "hero_key": "oversight_challenger",
+        "label": "Governance actor questioning process"
+      },
+      {
+        "hero_key": "conditional_civic_guardrail_coalition",
+        "label": "Public stakeholders seeking safeguards not blanket rejection"
+      },
+      {
+        "hero_key": "vendor_term_holder",
+        "label": "Vendor controlling product and data terms"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "superintendent_office",
+        "attention_level": 0.84,
+        "authority_scope": "high operational; can frame rollout and negotiate implementation details but constrained by board oversight and external complaint risk",
+        "expression_level": 0.73,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.21,
+        "hero_key": "executive_sponsor",
+        "mobilization_readiness": 0.71,
+        "perceived_majority": 0.57,
+        "stance_axes": {
+          "openness_to_guardrails": 0.49,
+          "risk_tolerance": 0.58,
+          "speed_to_launch": 0.82
+        }
+      },
+      {
+        "actor_name": "questioning_board_members",
+        "attention_level": 0.76,
+        "authority_scope": "Can trigger hearings, request records, sway board agenda if support grows",
+        "expression_level": 0.51,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.38,
+        "hero_key": "oversight_challenger",
+        "mobilization_readiness": 0.62,
+        "perceived_majority": 0.34,
+        "stance_axes": {
+          "delay_willingness": 0.67,
+          "privacy_scrutiny": 0.56,
+          "procurement_scrutiny": 0.81
+        }
+      },
+      {
+        "actor_name": "parent_privacy_coalition",
+        "attention_level": 0.74,
+        "authority_scope": "Indirect influence via public pressure, media, and complaints",
+        "expression_level": 0.68,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.32,
+        "hero_key": "conditional_civic_guardrail_coalition",
+        "mobilization_readiness": 0.66,
+        "perceived_majority": 0.41,
+        "stance_axes": {
+          "anti_launch_absolute": 0.29,
+          "equity_translation_demand": 0.78,
+          "privacy_demand": 0.87
+        }
+      },
+      {
+        "actor_name": "tutorpilot_vendor",
+        "attention_level": 0.69,
+        "authority_scope": "Controls product changes, service terms, and pace of remediation",
+        "expression_level": 0.35,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.17,
+        "hero_key": "vendor_term_holder",
+        "mobilization_readiness": 0.48,
+        "perceived_majority": 0.52,
+        "stance_axes": {
+          "accommodation_willingness": 0.44,
+          "contract_retention": 0.9,
+          "data_flexibility": 0.74
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "hero_key": "executive_sponsor",
+        "label": "Executive sponsor pushing launch"
+      },
+      {
+        "hero_key": "oversight_challenger",
+        "label": "Governance actor questioning process"
+      },
+      {
+        "hero_key": "conditional_civic_guardrail_coalition",
+        "label": "Public stakeholders seeking safeguards not blanket rejection"
+      },
+      {
+        "hero_key": "vendor_term_holder",
+        "label": "Vendor controlling product and data terms"
+      }
+    ],
+    "important_questions": [
+      "By week 10, does TutorPilot launch substantially as planned, launch only with added safeguards/narrowing, or fail to launch?",
+      "Does the emergency instructional-services exception withstand board scrutiny, or does procurement legitimacy force postponement or rebid?",
+      "Are family consent and vendor data-use terms materially changed into a plain-language guardrail regime before deployment?",
+      "Does any external complaint or regulator action become the operative cause of deployment pause by week 10?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "superintendent_office",
+          "river_city_school_district"
+        ],
+        "event_key": "district_announces_six_school_pilot",
+        "event_type": "announcement",
+        "evidence": [
+          "superintendent_memo_t_minus_21"
+        ],
+        "expected_impact": "Creates launch momentum and commitment pressure; raises switching costs for leadership.",
+        "status": "completed",
+        "summary": "District planned TutorPilot launch for grades 7-9 in six middle schools citing learning loss and teacher workload.",
+        "tick": -21
+      },
+      {
+        "actors": [
+          "tutorpilot_vendor",
+          "district_privacy_and_it_staff"
+        ],
+        "event_key": "vendor_terms_surface_data_use_ambiguity",
+        "event_type": "announcement",
+        "evidence": [
+          "vendor_security_addendum_t_minus_18"
+        ],
+        "expected_impact": "Weakens trust and creates a natural bargaining point for guardrails or delay.",
+        "status": "completed",
+        "summary": "Vendor security addendum promises encryption and no sale of student data but allows de-identified service improvement without plain-language opt-out.",
+        "tick": -18
+      },
+      {
+        "actors": [
+          "parent_privacy_coalition",
+          "river_city_school_district"
+        ],
+        "event_key": "parent_guardrail_demands_sent",
+        "event_type": "announcement",
+        "evidence": [
+          "parent_coalition_email_t_minus_12"
+        ],
+        "expected_impact": "Raises legitimacy threshold for launch and opens coalition path with board skeptics.",
+        "status": "completed",
+        "summary": "Parents demand opt-in, independent privacy review, and translated notice.",
+        "tick": -12
+      },
+      {
+        "actors": [
+          "teacher_union_local",
+          "superintendent_office"
+        ],
+        "event_key": "union_sets_dashboard_red_line",
+        "event_type": "announcement",
+        "evidence": [
+          "teacher_union_minutes_t_minus_10"
+        ],
+        "expected_impact": "Creates possibility of negotiated labor guardrail rather than direct anti-launch bloc.",
+        "status": "completed",
+        "summary": "Teachers support tutoring assistance but object to use of dashboards for performance evaluation.",
+        "tick": -10
+      },
+      {
+        "actors": [
+          "questioning_board_members",
+          "district_procurement_office",
+          "school_board_majority"
+        ],
+        "event_key": "board_procurement_concern_emerges",
+        "event_type": "announcement",
+        "evidence": [
+          "procurement_note_t_minus_8"
+        ],
+        "expected_impact": "Introduces formal authority challenge and plausible postponement trigger.",
+        "status": "completed",
+        "summary": "Two board members question whether emergency instructional-services exception applies.",
+        "tick": -8
+      },
+      {
+        "actors": [
+          "district_privacy_and_it_staff",
+          "tutorpilot_vendor",
+          "students_with_disabilities"
+        ],
+        "event_key": "accessibility_audit_flags_multilingual_failures",
+        "event_type": "announcement",
+        "evidence": [
+          "accessibility_audit_t_minus_3"
+        ],
+        "expected_impact": "Raises equity and access risk, especially for a broad launch across diverse families.",
+        "status": "completed",
+        "summary": "Interface passes basic screen-reader checks but fails two multilingual support tests.",
+        "tick": -3
+      },
+      {
+        "actors": [
+          "superintendent_office",
+          "school_board_majority",
+          "questioning_board_members"
+        ],
+        "event_key": "imminent_board_and_admin_decision_window",
+        "event_type": "announcement",
+        "evidence": [
+          "scenario_t0_timing_inference"
+        ],
+        "expected_impact": "Concentrates bargaining and public pressure; may reveal real authority balance.",
+        "status": "anticipated",
+        "summary": "Near-term decision point on whether to proceed, modify terms, or pause before launch.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "parent_privacy_coalition",
+          "state_education_or_privacy_regulator"
+        ],
+        "event_key": "possible_parent_or_external_complaint_filing",
+        "event_type": "announcement",
+        "evidence": [
+          "candidate_endpoint_legal_or_regulatory_hold",
+          "parent_coalition_email_t_minus_12"
+        ],
+        "expected_impact": "Could elevate leverage without immediately deciding endpoint.",
+        "status": "anticipated",
+        "summary": "If district resists guardrails, a formal complaint pathway may be pursued.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "30288fa3-acac-4710-aa7f-0e5a5c18cbe0",
+    "merge_hypotheses": [
+      {
+        "affected_paths": [
+          "full_launch",
+          "guardrailed_launch",
+          "postponement"
+        ],
+        "mechanism": "All major actors acknowledge tutoring need, making compromise around safeguards more plausible than absolute rejection.",
+        "merge_key": "shared_interest_in_student_support"
+      },
+      {
+        "affected_paths": [
+          "guardrailed_launch",
+          "postponement"
+        ],
+        "mechanism": "If district clarifies dashboard limits and improves notices, teacher and parent coalitions may partially demobilize even without perfect trust.",
+        "merge_key": "coalition_fatigue_after_procedural_fix"
+      },
+      {
+        "affected_paths": [
+          "postponement",
+          "guardrailed_launch"
+        ],
+        "mechanism": "A board-directed review or temporary delay could restore enough procedural confidence for a later narrowed rollout.",
+        "merge_key": "governance_legitimacy_repair"
+      },
+      {
+        "affected_paths": [
+          "guardrailed_launch",
+          "full_launch"
+        ],
+        "mechanism": "Fast multilingual fixes and revised family choice terms could reconcile equity and privacy objections without abandoning contract.",
+        "merge_key": "vendor_remediation_as_bridge"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "district_families_grades_7_9",
+        "basis": "Six middle schools pilot scope implied; count estimated for medium district and marked uncertain",
+        "label": "Families of grades 7-9 students in pilot scope",
+        "population_total": 4800
+      },
+      {
+        "archetype_key": "middle_school_teachers",
+        "basis": "Estimated staffing for six middle schools; uncertain",
+        "label": "Teachers in six middle schools",
+        "population_total": 360
+      },
+      {
+        "archetype_key": "pilot_students",
+        "basis": "Estimated student population for six middle schools; uncertain",
+        "label": "Students in grades 7-9 pilot schools",
+        "population_total": 4200
+      }
+    ],
+    "risk_flags": [
+      {
+        "description": "Exact board versus superintendent authority over the already-approved contract is not fully specified in source text.",
+        "flag_key": "authority_ambiguity",
+        "severity": "medium"
+      },
+      {
+        "description": "Student, family, and teacher counts are scenario-grounded estimates rather than source-stated figures.",
+        "flag_key": "population_estimate_uncertainty",
+        "severity": "medium"
+      },
+      {
+        "description": "Meaning and scope of de-identified service-improvement data use remain unclear and may conceal material disagreement.",
+        "flag_key": "privacy_term_opacity",
+        "severity": "high"
+      },
+      {
+        "description": "Non-English-speaking families and accessibility-affected students may have stronger concerns than visible public expression suggests.",
+        "flag_key": "equity_underexpression",
+        "severity": "high"
+      },
+      {
+        "description": "Near-launch timing creates sunk-cost and schedule pressure that may bias actors toward incremental fixes over clean reset.",
+        "flag_key": "switching_cost_pressure",
+        "severity": "medium"
+      },
+      {
+        "description": "External hold is a candidate endpoint but no active complaint is evidenced at T0.",
+        "flag_key": "regulatory_path_uncertain",
+        "severity": "low_to_medium"
+      }
+    ],
+    "simulation_brief": {
+      "core_tension": "District leadership seeks rapid AI tutor rollout to address learning loss and teacher workload, while privacy, accessibility, labor-use, and procurement concerns create credible delay or redesign pressure.",
+      "forecast_question": "What endpoint dominates the school district AI-tutor contract dispute after 10 simulated weeks?",
+      "mode": "direct",
+      "scenario_key": "case_dossier_002",
+      "source_refs": [
+        "superintendent_memo_t_minus_21",
+        "vendor_security_addendum_t_minus_18",
+        "parent_coalition_email_t_minus_12",
+        "teacher_union_minutes_t_minus_10",
+        "procurement_note_t_minus_8",
+        "accessibility_audit_t_minus_3"
+      ],
+      "t0_reference": "approximately 3 days before planned pilot launch",
+      "time_horizon_weeks": 10,
+      "title": "school_district_ai_tutor_contract_dispute",
+      "uncertainties": [
+        "Whether emergency instructional-services exception was properly used",
+        "Whether board can or will intervene before launch",
+        "Whether vendor will accept stronger privacy and language-access terms",
+        "Whether accessibility shortcomings are remediable on launch timeline",
+        "Whether external complaint escalates into formal hold"
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "description": "Many families are persuadable within a guardrailed range rather than polarized at T0",
+        "level": "moderate",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "description": "Board scrutiny or media coverage could tip quiet concern into broader public action",
+        "level": "moderate",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "description": "Students and language-access-affected families have under-expressed concerns despite meaningful stakes",
+        "level": "high_in_some_cohorts",
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "description": "Parents, teachers, and board factions cluster discussion within their own networks",
+        "level": "moderate",
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "description": "Multiple reinforcing signals such as audit findings plus procurement questions may be needed for broad opposition",
+        "level": "moderate",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "description": "Parent-rights, educator-professionalism, and oversight identities shape issue framing",
+        "level": "moderate",
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "description": "Absent new revelations, controversy could subside after initial dispute burst",
+        "level": "moderate",
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context_key": "privacy_opt_choice_salience",
+        "description": "Plain-language opt-in/opt-out design is central to legitimacy among families"
+      },
+      {
+        "context_key": "procedural_legitimacy_salience",
+        "description": "Emergency exception validity can convert a technical contract issue into a governance controversy"
+      },
+      {
+        "context_key": "equity_visibility_gap",
+        "description": "Translation and multilingual support deficits may be substantively important before becoming broadly visible"
+      },
+      {
+        "context_key": "conditional_union_position",
+        "description": "Teachers are not blanket opponents; dashboard use boundary is a hinge variable"
+      },
+      {
+        "context_key": "vendor_term_inflexibility_risk",
+        "description": "Vendor may resist terms that constrain de-identified service-improvement data use"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "river_city_school_district",
+        "behavior_axes": {
+          "procedural_rigidity": 0.43,
+          "responsiveness": 0.51,
+          "risk_aversion": 0.47
+        },
+        "ideology_axes": {
+          "equity_orientation": 0.54,
+          "innovation_orientation": 0.66,
+          "privacy_orientation": 0.46
+        },
+        "reputation": 0.56,
+        "secrecy": 0.38,
+        "tendency": "institution balancing rollout urgency against legitimacy risk",
+        "trustworthiness": 0.49
+      },
+      {
+        "actor_name": "superintendent_office",
+        "behavior_axes": {
+          "compromise": 0.46,
+          "decisiveness": 0.74,
+          "message_discipline": 0.61
+        },
+        "ideology_axes": {
+          "innovation_orientation": 0.77,
+          "managerialism": 0.71,
+          "privacy_orientation": 0.39
+        },
+        "reputation": 0.58,
+        "secrecy": 0.34,
+        "tendency": "push forward unless formal blockers arise",
+        "trustworthiness": 0.48
+      },
+      {
+        "actor_name": "school_board_majority",
+        "behavior_axes": {
+          "conflict_avoidance": 0.53,
+          "deliberativeness": 0.58,
+          "responsiveness": 0.57
+        },
+        "ideology_axes": {
+          "equity_orientation": 0.55,
+          "innovation_orientation": 0.49,
+          "oversight_orientation": 0.62
+        },
+        "reputation": 0.51,
+        "secrecy": 0.29,
+        "tendency": "late-moving but sensitive to visible compliance concerns",
+        "trustworthiness": 0.54
+      },
+      {
+        "actor_name": "questioning_board_members",
+        "behavior_axes": {
+          "agenda_disruption": 0.58,
+          "coalition_building": 0.47,
+          "scrutiny": 0.79
+        },
+        "ideology_axes": {
+          "innovation_orientation": 0.35,
+          "oversight_orientation": 0.84,
+          "privacy_orientation": 0.61
+        },
+        "reputation": 0.5,
+        "secrecy": 0.22,
+        "tendency": "escalate process questions into governance decision points",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "tutorpilot_vendor",
+        "behavior_axes": {
+          "sales_persistence": 0.76,
+          "technical_remediation_capacity": 0.55,
+          "term_flexibility": 0.38
+        },
+        "ideology_axes": {
+          "commercial_orientation": 0.9,
+          "equity_orientation": 0.43,
+          "privacy_orientation": 0.41
+        },
+        "reputation": 0.45,
+        "secrecy": 0.57,
+        "tendency": "retain contract while preserving service-improvement data rights",
+        "trustworthiness": 0.4
+      },
+      {
+        "actor_name": "parent_privacy_coalition",
+        "behavior_axes": {
+          "compromise": 0.59,
+          "issue_focus": 0.81,
+          "mobilization": 0.67
+        },
+        "ideology_axes": {
+          "equity_orientation": 0.74,
+          "innovation_orientation": 0.42,
+          "privacy_orientation": 0.88
+        },
+        "reputation": 0.52,
+        "secrecy": 0.12,
+        "tendency": "push for opt-in, review, and translations before acceptance",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "teacher_union_local",
+        "behavior_axes": {
+          "collective_discipline": 0.64,
+          "escalation_readiness": 0.46,
+          "guardrail_seeking": 0.72
+        },
+        "ideology_axes": {
+          "innovation_orientation": 0.48,
+          "labor_protection": 0.87,
+          "privacy_orientation": 0.53
+        },
+        "reputation": 0.55,
+        "secrecy": 0.21,
+        "tendency": "support assistance tools while resisting evaluative misuse",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "district_procurement_office",
+        "behavior_axes": {
+          "rule_defense": 0.63,
+          "schedule_protection": 0.61,
+          "transparency": 0.39
+        },
+        "ideology_axes": {
+          "innovation_orientation": 0.52,
+          "process_orientation": 0.84,
+          "risk_orientation": 0.49
+        },
+        "reputation": 0.44,
+        "secrecy": 0.46,
+        "tendency": "defend prior exception unless politically untenable",
+        "trustworthiness": 0.47
+      },
+      {
+        "actor_name": "district_privacy_and_it_staff",
+        "behavior_axes": {
+          "documentation": 0.68,
+          "public_communication": 0.31,
+          "technical_caution": 0.72
+        },
+        "ideology_axes": {
+          "innovation_orientation": 0.45,
+          "privacy_orientation": 0.71,
+          "security_orientation": 0.79
+        },
+        "reputation": 0.5,
+        "secrecy": 0.41,
+        "tendency": "seek mitigations and language precision",
+        "trustworthiness": 0.59
+      },
+      {
+        "actor_name": "local_press",
+        "behavior_axes": {
+          "amplification": 0.66,
+          "conflict_attention": 0.61,
+          "nuance": 0.46
+        },
+        "ideology_axes": {
+          "accountability_orientation": 0.7,
+          "innovation_orientation": 0.44,
+          "neutrality_orientation": 0.54
+        },
+        "reputation": 0.53,
+        "secrecy": 0.06,
+        "tendency": "elevate dispute if procedural irregularity and family equity concerns intersect",
+        "trustworthiness": 0.55
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 2334,
+        "end": 2334,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 2334,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

@@ -1,0 +1,1699 @@
+{
+  "big_bang_id": "ff96be21-2df6-4295-9cbf-5da3f4917bb3",
+  "initializer_output": {
+    "actors": [
+      {
+        "goals": [
+          "complete merger by 2024-12-31",
+          "defend divestiture remedy",
+          "avoid injunction that blocks closing"
+        ],
+        "name": "grocery_chain_k",
+        "public_visibility": "high",
+        "scope": "national",
+        "stakes": [
+          "strategic scale",
+          "competitive positioning against larger retailers",
+          "transaction costs if delayed or blocked"
+        ],
+        "type": "company"
+      },
+      {
+        "goals": [
+          "complete merger by 2024-12-31",
+          "support remedy package",
+          "avoid deadline miss"
+        ],
+        "name": "grocery_chain_a",
+        "public_visibility": "high",
+        "scope": "national",
+        "stakes": [
+          "shareholder value",
+          "transaction certainty",
+          "integration planning"
+        ],
+        "type": "company"
+      },
+      {
+        "goals": [
+          "prevent anticompetitive merger if harms persist",
+          "win or sustain injunction",
+          "maintain enforcement credibility"
+        ],
+        "name": "federal_antitrust_regulator",
+        "public_visibility": "high",
+        "scope": "federal",
+        "stakes": [
+          "institutional legitimacy",
+          "precedent for grocery consolidation"
+        ],
+        "type": "regulator"
+      },
+      {
+        "goals": [
+          "support challenge to merger",
+          "protect state-level competition and labor interests"
+        ],
+        "name": "state_attorneys_general_coalition",
+        "public_visibility": "high",
+        "scope": "multistate",
+        "stakes": [
+          "state consumer interests",
+          "worker protections",
+          "political credibility"
+        ],
+        "type": "state_coalition"
+      },
+      {
+        "goals": [
+          "adjudicate injunction and related motions on legal standard and evidence"
+        ],
+        "name": "federal_court",
+        "public_visibility": "high",
+        "scope": "federal",
+        "stakes": [
+          "procedural legitimacy",
+          "timely decision-making"
+        ],
+        "type": "judicial_institution"
+      },
+      {
+        "goals": [
+          "approve economically rational outcome",
+          "avoid value-destructive delay"
+        ],
+        "name": "merger_shareholders_boards",
+        "public_visibility": "medium",
+        "scope": "corporate",
+        "stakes": [
+          "deal premium",
+          "fiduciary obligations"
+        ],
+        "type": "governance_group"
+      },
+      {
+        "goals": [
+          "evaluate acquisition of divested assets if offered"
+        ],
+        "name": "divestiture_buyer_pool",
+        "public_visibility": "low",
+        "scope": "industry",
+        "stakes": [
+          "asset quality",
+          "regulatory certainty",
+          "financing and execution"
+        ],
+        "type": "market_participants"
+      },
+      {
+        "goals": [
+          "protect jobs wages and bargaining power under market structure changes"
+        ],
+        "name": "grocery_workers",
+        "public_visibility": "medium",
+        "scope": "national",
+        "stakes": [
+          "employment conditions",
+          "store-level outcomes"
+        ],
+        "type": "labor_group"
+      },
+      {
+        "goals": [
+          "retain price competition and local store access"
+        ],
+        "name": "grocery_consumers",
+        "public_visibility": "medium",
+        "scope": "national",
+        "stakes": [
+          "prices",
+          "service quality",
+          "local choice"
+        ],
+        "type": "public_group"
+      },
+      {
+        "goals": [
+          "benefit or defend position relative to merged rival"
+        ],
+        "name": "larger_retail_competitors",
+        "public_visibility": "medium",
+        "scope": "national",
+        "stakes": [
+          "market share dynamics",
+          "pricing environment"
+        ],
+        "type": "competitor_group"
+      },
+      {
+        "goals": [
+          "execute transaction if feasible",
+          "manage litigation and closing mechanics"
+        ],
+        "name": "financial_and_legal_advisers",
+        "public_visibility": "low",
+        "scope": "transactional",
+        "stakes": [
+          "fees",
+          "reputation",
+          "execution success"
+        ],
+        "type": "professional_network"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "companies cannot legally close by deadline and may pivot to appeal or abandonment after year-end",
+        "branch_key": "injunction_blocks_closing",
+        "divergence_signal": "formal court order barring or delaying transaction beyond practical year-end execution window",
+        "trigger": "court grants or sustains injunction against merger before closing can occur"
+      },
+      {
+        "alternate_path": "companies accelerate closing mechanics and seek rapid consummation before 2024-12-31",
+        "branch_key": "companies_win_with_time_to_close",
+        "divergence_signal": "court decision removing immediate barrier followed by company statements on imminent closing steps",
+        "trigger": "court denies blocking relief or otherwise clears immediate legal path with enough time remaining"
+      },
+      {
+        "alternate_path": "parties pursue temporary concession package, but outcome still depends on whether settlement permits legal close before deadline",
+        "branch_key": "remedy_settlement_attempt",
+        "divergence_signal": "credible reports or filings of revised divestiture terms, buyer identification, or regulator-company negotiations",
+        "trigger": "heightened judicial risk or mixed ruling motivates intensified divestiture negotiations"
+      },
+      {
+        "alternate_path": "legal merits continue but deadline passes without closing",
+        "branch_key": "appeal_delays_terminal_close",
+        "divergence_signal": "notice of appeal, stay request, or public commitment to continued litigation instead of immediate close",
+        "trigger": "adverse ruling for either side leads to appeal or further litigation"
+      }
+    ],
+    "channels": [
+      {
+        "audience": [
+          "companies",
+          "regulators",
+          "investors",
+          "media"
+        ],
+        "name": "federal_court_filings_and_orders",
+        "reliability": 0.91,
+        "type": "institutional"
+      },
+      {
+        "audience": [
+          "public",
+          "workers",
+          "media",
+          "investors"
+        ],
+        "name": "regulatory_press_statements",
+        "reliability": 0.76,
+        "type": "public_institutional"
+      },
+      {
+        "audience": [
+          "investors",
+          "employees",
+          "media",
+          "consumers"
+        ],
+        "name": "company_press_and_investor_communications",
+        "reliability": 0.68,
+        "type": "corporate_public"
+      },
+      {
+        "audience": [
+          "investors",
+          "policy_observers",
+          "public"
+        ],
+        "name": "legal_media_and_business_press",
+        "reliability": 0.72,
+        "type": "media"
+      },
+      {
+        "audience": [
+          "companies",
+          "regulators",
+          "advisers"
+        ],
+        "name": "informal_settlement_and_remedy_negotiation",
+        "reliability": 0.55,
+        "type": "private_elite"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_name": "company_insiders",
+        "attention_level": 0.98,
+        "expression_level": 0.82,
+        "fatigue": 0.63,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.88,
+        "name": "k_a_deal_team",
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.44,
+        "private_belief": "deal is still salvageable if court path is favorable and remedy is accepted quickly",
+        "public_expression": "confident in divestitures and pro-competitive rationale",
+        "representation_mode": "direct_role_cluster",
+        "represented_population": 220,
+        "stance_axes": {
+          "deadline_pressure": 0.85,
+          "litigation_optimism": 0.6,
+          "merger_support": 0.95,
+          "regulatory_concern": 0.2
+        }
+      },
+      {
+        "archetype_name": "regulatory_legal_elites",
+        "attention_level": 0.97,
+        "expression_level": 0.84,
+        "fatigue": 0.5,
+        "fear_of_isolation": 0.08,
+        "mobilization_readiness": 0.9,
+        "name": "regulator_state_challenge_team",
+        "perceived_majority": 0.6,
+        "population_share_of_archetype": 0.2833,
+        "private_belief": "merger poses unresolved competition and worker harms; remedy may be inadequate",
+        "public_expression": "active litigation and public challenge",
+        "representation_mode": "institutional_cluster",
+        "represented_population": 340,
+        "stance_axes": {
+          "deadline_pressure": 0.4,
+          "litigation_optimism": 0.7,
+          "merger_support": 0.05,
+          "regulatory_concern": 0.95
+        }
+      },
+      {
+        "archetype_name": "regulatory_legal_elites",
+        "attention_level": 0.9,
+        "expression_level": 0.18,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.15,
+        "name": "judicial_process_observers",
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.1333,
+        "private_belief": "case turns on injunction standard, timing, and remedy credibility rather than broad rhetoric",
+        "public_expression": "limited due to judicial norms",
+        "representation_mode": "institutional_cluster",
+        "represented_population": 160,
+        "stance_axes": {
+          "deadline_pressure": 0.7,
+          "litigation_optimism": 0.5,
+          "merger_support": 0.5,
+          "regulatory_concern": 0.5
+        }
+      },
+      {
+        "archetype_name": "grocery_sector_workers",
+        "attention_level": 0.36,
+        "expression_level": 0.22,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.38,
+        "mobilization_readiness": 0.28,
+        "name": "workers_skeptical_of_merger",
+        "perceived_majority": 0.42,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "reduced competition may weaken labor leverage or job security",
+        "public_expression": "mixed and indirect; often mediated through advocates or states",
+        "representation_mode": "interest_cohort",
+        "represented_population": 900000,
+        "stance_axes": {
+          "deadline_pressure": 0.3,
+          "litigation_optimism": 0.45,
+          "merger_support": 0.25,
+          "regulatory_concern": 0.72
+        }
+      },
+      {
+        "archetype_name": "grocery_consuming_public",
+        "attention_level": 0.1,
+        "expression_level": 0.03,
+        "fatigue": 0.1,
+        "fear_of_isolation": 0.08,
+        "mobilization_readiness": 0.02,
+        "name": "consumers_low_attention",
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.8,
+        "private_belief": "uncertain and weakly informed about merger specifics",
+        "public_expression": "minimal",
+        "representation_mode": "mass_public_segment",
+        "represented_population": 120000000,
+        "stance_axes": {
+          "deadline_pressure": 0.05,
+          "litigation_optimism": 0.5,
+          "merger_support": 0.5,
+          "regulatory_concern": 0.45
+        }
+      },
+      {
+        "archetype_name": "grocery_consuming_public",
+        "attention_level": 0.28,
+        "expression_level": 0.12,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.26,
+        "mobilization_readiness": 0.08,
+        "name": "consumers_competition_concerned",
+        "perceived_majority": 0.38,
+        "population_share_of_archetype": 0.2,
+        "private_belief": "market concentration may raise prices or reduce local choice",
+        "public_expression": "limited but more responsive to legal/news developments",
+        "representation_mode": "issue_public_segment",
+        "represented_population": 30000000,
+        "stance_axes": {
+          "deadline_pressure": 0.12,
+          "litigation_optimism": 0.48,
+          "merger_support": 0.3,
+          "regulatory_concern": 0.68
+        }
+      },
+      {
+        "archetype_name": "industry_investors_observers",
+        "attention_level": 0.86,
+        "expression_level": 0.31,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.2,
+        "name": "investors_event_driven",
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "court timing dominates fundamentals before year-end",
+        "public_expression": "probabilistic and deadline-focused",
+        "representation_mode": "market_cluster",
+        "represented_population": 70000,
+        "stance_axes": {
+          "deadline_pressure": 0.88,
+          "litigation_optimism": 0.43,
+          "merger_support": 0.62,
+          "regulatory_concern": 0.58
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_name": "company_insiders",
+        "attention_level": 0.98,
+        "expression_level": 0.82,
+        "fatigue": 0.63,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.88,
+        "name": "k_a_deal_team",
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.44,
+        "private_belief": "deal is still salvageable if court path is favorable and remedy is accepted quickly",
+        "public_expression": "confident in divestitures and pro-competitive rationale",
+        "representation_mode": "direct_role_cluster",
+        "represented_population": 220,
+        "stance_axes": {
+          "deadline_pressure": 0.85,
+          "litigation_optimism": 0.6,
+          "merger_support": 0.95,
+          "regulatory_concern": 0.2
+        }
+      },
+      {
+        "archetype_name": "regulatory_legal_elites",
+        "attention_level": 0.97,
+        "expression_level": 0.84,
+        "fatigue": 0.5,
+        "fear_of_isolation": 0.08,
+        "mobilization_readiness": 0.9,
+        "name": "regulator_state_challenge_team",
+        "perceived_majority": 0.6,
+        "population_share_of_archetype": 0.2833,
+        "private_belief": "merger poses unresolved competition and worker harms; remedy may be inadequate",
+        "public_expression": "active litigation and public challenge",
+        "representation_mode": "institutional_cluster",
+        "represented_population": 340,
+        "stance_axes": {
+          "deadline_pressure": 0.4,
+          "litigation_optimism": 0.7,
+          "merger_support": 0.05,
+          "regulatory_concern": 0.95
+        }
+      },
+      {
+        "archetype_name": "regulatory_legal_elites",
+        "attention_level": 0.9,
+        "expression_level": 0.18,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.15,
+        "name": "judicial_process_observers",
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.1333,
+        "private_belief": "case turns on injunction standard, timing, and remedy credibility rather than broad rhetoric",
+        "public_expression": "limited due to judicial norms",
+        "representation_mode": "institutional_cluster",
+        "represented_population": 160,
+        "stance_axes": {
+          "deadline_pressure": 0.7,
+          "litigation_optimism": 0.5,
+          "merger_support": 0.5,
+          "regulatory_concern": 0.5
+        }
+      },
+      {
+        "archetype_name": "grocery_sector_workers",
+        "attention_level": 0.36,
+        "expression_level": 0.22,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.38,
+        "mobilization_readiness": 0.28,
+        "name": "workers_skeptical_of_merger",
+        "perceived_majority": 0.42,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "reduced competition may weaken labor leverage or job security",
+        "public_expression": "mixed and indirect; often mediated through advocates or states",
+        "representation_mode": "interest_cohort",
+        "represented_population": 900000,
+        "stance_axes": {
+          "deadline_pressure": 0.3,
+          "litigation_optimism": 0.45,
+          "merger_support": 0.25,
+          "regulatory_concern": 0.72
+        }
+      },
+      {
+        "archetype_name": "grocery_consuming_public",
+        "attention_level": 0.1,
+        "expression_level": 0.03,
+        "fatigue": 0.1,
+        "fear_of_isolation": 0.08,
+        "mobilization_readiness": 0.02,
+        "name": "consumers_low_attention",
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.8,
+        "private_belief": "uncertain and weakly informed about merger specifics",
+        "public_expression": "minimal",
+        "representation_mode": "mass_public_segment",
+        "represented_population": 120000000,
+        "stance_axes": {
+          "deadline_pressure": 0.05,
+          "litigation_optimism": 0.5,
+          "merger_support": 0.5,
+          "regulatory_concern": 0.45
+        }
+      },
+      {
+        "archetype_name": "grocery_consuming_public",
+        "attention_level": 0.28,
+        "expression_level": 0.12,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.26,
+        "mobilization_readiness": 0.08,
+        "name": "consumers_competition_concerned",
+        "perceived_majority": 0.38,
+        "population_share_of_archetype": 0.2,
+        "private_belief": "market concentration may raise prices or reduce local choice",
+        "public_expression": "limited but more responsive to legal/news developments",
+        "representation_mode": "issue_public_segment",
+        "represented_population": 30000000,
+        "stance_axes": {
+          "deadline_pressure": 0.12,
+          "litigation_optimism": 0.48,
+          "merger_support": 0.3,
+          "regulatory_concern": 0.68
+        }
+      },
+      {
+        "archetype_name": "industry_investors_observers",
+        "attention_level": 0.86,
+        "expression_level": 0.31,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.2,
+        "name": "investors_event_driven",
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "court timing dominates fundamentals before year-end",
+        "public_expression": "probabilistic and deadline-focused",
+        "representation_mode": "market_cluster",
+        "represented_population": 70000,
+        "stance_axes": {
+          "deadline_pressure": 0.88,
+          "litigation_optimism": 0.43,
+          "merger_support": 0.62,
+          "regulatory_concern": 0.58
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "federal_court",
+          "grocery_chain_k",
+          "grocery_chain_a"
+        ],
+        "blockers": [
+          "injunction issuance",
+          "stay pending appeal",
+          "insufficient time for closing mechanics",
+          "unresolved remedy conditions"
+        ],
+        "contradiction_notes": "A favorable merits signal without practical ability to close before year-end does not realize this endpoint.",
+        "description": "A judicial outcome removes immediate legal barriers with enough remaining time for closing mechanics before year-end.",
+        "endpoint_key": "pre_deadline_legal_clearance",
+        "evidence_refs": [
+          "Scenario: court decisions pending in early December",
+          "Source 3: appeal or continued litigation without closing resolves no by deadline"
+        ],
+        "label": "court clears a practical path to closing",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the federal court create a legally usable path for the merger to close before 2024-12-31?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.42,
+        "rationale": "This is the main upstream gating condition for any yes outcome.",
+        "realization_criteria": [
+          "court issues order denying or lifting blocking relief in a manner permitting consummation",
+          "no operative injunction or stay remains that bars closing before 2024-12-31",
+          "companies publicly confirm ability to proceed on closing timetable"
+        ],
+        "status": "active",
+        "status_basis": "At T0 the court has not yet ruled and legal clearance is unresolved."
+      },
+      {
+        "authority_refs": [
+          "federal_antitrust_regulator",
+          "state_attorneys_general_coalition",
+          "federal_court",
+          "divestiture_buyer_pool"
+        ],
+        "blockers": [
+          "regulator skepticism",
+          "court rejection of remedy adequacy",
+          "absence of viable divestiture buyer",
+          "time compression"
+        ],
+        "contradiction_notes": "A negotiated remedy that does not permit legal close before the deadline is not terminally sufficient for the forecast question.",
+        "description": "The proposed divestiture package is accepted by relevant decision makers or judged sufficient to neutralize blocking concerns in time for closing.",
+        "endpoint_key": "remedy_acceptance_in_time",
+        "evidence_refs": [
+          "Source 2: companies proposed divestitures",
+          "Scenario: regulators argue merger would harm competition and workers"
+        ],
+        "label": "divestiture remedy becomes sufficient in time",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the proposed divestiture package become credible and acceptable enough to remove blocking antitrust concerns in time?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.35,
+        "rationale": "The remedy is the principal alternative to outright litigation victory for the companies.",
+        "realization_criteria": [
+          "identified divestiture package is formally accepted by regulator or upheld by court as sufficient",
+          "no remaining remedy-related legal obstacle prevents closing before 2024-12-31",
+          "if buyer approval is required, a viable buyer arrangement is publicly established"
+        ],
+        "status": "active",
+        "status_basis": "Divestitures exist as proposal only; sufficiency is disputed at T0."
+      },
+      {
+        "authority_refs": [
+          "federal_court",
+          "federal_antitrust_regulator",
+          "state_attorneys_general_coalition",
+          "grocery_chain_k",
+          "grocery_chain_a"
+        ],
+        "blockers": [
+          "swift court clearance",
+          "rapid settlement with executable remedy",
+          "unusually fast closing execution"
+        ],
+        "contradiction_notes": "Litigation continuing after deadline is compatible with later transaction revival, but still realizes non-completion for this forecast horizon.",
+        "description": "The merger remains legally unresolved or procedurally encumbered past the deadline, yielding non-completion by year-end.",
+        "endpoint_key": "deadline_missed_due_to_litigation",
+        "evidence_refs": [
+          "Source 3: appeal, settlement, or continued litigation without closing resolves no",
+          "Scenario: court decisions pending in early December"
+        ],
+        "label": "appeal or continued litigation prevents 2024 close",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will appeal or continued litigation consume the remaining calendar and prevent a 2024 closing?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.58,
+        "rationale": "The hard deadline makes delay itself terminal for the forecast question.",
+        "realization_criteria": [
+          "appeal is filed or continued litigation remains pending such that transaction does not legally close by 2024-12-31",
+          "or blocking order/stay remains operative through deadline",
+          "or parties publicly acknowledge closing cannot occur in 2024 due to legal process"
+        ],
+        "status": "active",
+        "status_basis": "This pathway is explicitly identified in the corpus as resolving no if it prevents closing by deadline."
+      },
+      {
+        "authority_refs": [
+          "grocery_chain_k",
+          "grocery_chain_a",
+          "federal_court",
+          "merger_shareholders_boards"
+        ],
+        "blockers": [
+          "injunction",
+          "appeal",
+          "continued litigation",
+          "insufficient closing time after ruling",
+          "remedy execution failure"
+        ],
+        "contradiction_notes": "Settlement, favorable rhetoric, or partial approvals without consummation do not realize this endpoint.",
+        "description": "The proposed merger is legally consummated by the end of 2024.",
+        "endpoint_key": "merger_legally_closes_by_2024_12_31",
+        "evidence_refs": [
+          "Forecast question text",
+          "Scenario resolution rule: yes only if transaction legally closes by end of 2024"
+        ],
+        "label": "transaction completes by deadline",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will grocery_chain_k and grocery_chain_a legally close the merger by 2024-12-31?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.34,
+        "rationale": "This is the terminal yes condition and depends on upstream legal clearance plus execution.",
+        "realization_criteria": [
+          "official closing announcement by both companies",
+          "legal consummation occurs on or before 2024-12-31",
+          "no unresolved legal barrier prevents recognition of close"
+        ],
+        "status": "active",
+        "status_basis": "At initialization no closing has occurred and multiple legal blockers remain active."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "court decisions pending in early December; legal close required by year-end",
+        "layer": "dependency",
+        "reason": "closing depends materially on favorable or non-blocking judicial outcome",
+        "source_actor_name": "grocery_chain_k",
+        "target_actor_name": "federal_court",
+        "weight": 0.64
+      },
+      {
+        "direction": "directed",
+        "evidence": "court decisions pending in early December; legal close required by year-end",
+        "layer": "dependency",
+        "reason": "same judicial dependency for merger completion",
+        "source_actor_name": "grocery_chain_a",
+        "target_actor_name": "federal_court",
+        "weight": 0.64
+      },
+      {
+        "direction": "mutual",
+        "evidence": "proposed merger between both companies",
+        "layer": "dependency",
+        "reason": "transaction completion requires counterpart cooperation",
+        "source_actor_name": "grocery_chain_k",
+        "target_actor_name": "grocery_chain_a",
+        "weight": 0.57
+      },
+      {
+        "direction": "mutual",
+        "evidence": "proposed merger between both companies",
+        "layer": "dependency",
+        "reason": "transaction completion requires counterpart cooperation",
+        "source_actor_name": "grocery_chain_a",
+        "target_actor_name": "grocery_chain_k",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "companies proposed divestitures to fix concerns",
+        "layer": "dependency",
+        "reason": "remedy credibility may depend on viable buyers for divested assets",
+        "source_actor_name": "grocery_chain_k",
+        "target_actor_name": "divestiture_buyer_pool",
+        "weight": 0.39
+      },
+      {
+        "direction": "directed",
+        "evidence": "companies proposed divestitures to fix concerns",
+        "layer": "dependency",
+        "reason": "remedy credibility may depend on viable buyers for divested assets",
+        "source_actor_name": "grocery_chain_a",
+        "target_actor_name": "divestiture_buyer_pool",
+        "weight": 0.39
+      },
+      {
+        "direction": "directed",
+        "evidence": "complex merger under antitrust review implies advisory dependence",
+        "layer": "dependency",
+        "reason": "execution and litigation management support closing mechanics",
+        "source_actor_name": "grocery_chain_k",
+        "target_actor_name": "financial_and_legal_advisers",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "complex merger under antitrust review implies advisory dependence",
+        "layer": "dependency",
+        "reason": "execution and litigation management support closing mechanics",
+        "source_actor_name": "grocery_chain_a",
+        "target_actor_name": "financial_and_legal_advisers",
+        "weight": 0.46
+      },
+      {
+        "direction": "mutual",
+        "evidence": "both are pursuing merger and defending divestitures",
+        "layer": "trust",
+        "reason": "aligned merger counterparties with shared closing goal",
+        "source_actor_name": "grocery_chain_k",
+        "target_actor_name": "grocery_chain_a",
+        "weight": 0.62
+      },
+      {
+        "direction": "mutual",
+        "evidence": "both are pursuing merger and defending divestitures",
+        "layer": "trust",
+        "reason": "aligned merger counterparties with shared closing goal",
+        "source_actor_name": "grocery_chain_a",
+        "target_actor_name": "grocery_chain_k",
+        "weight": 0.62
+      },
+      {
+        "direction": "mutual",
+        "evidence": "FTC and state partners are actively challenging the deal",
+        "layer": "trust",
+        "reason": "co-challengers in active opposition to deal",
+        "source_actor_name": "federal_antitrust_regulator",
+        "target_actor_name": "state_attorneys_general_coalition",
+        "weight": 0.61
+      },
+      {
+        "direction": "mutual",
+        "evidence": "FTC and state partners are actively challenging the deal",
+        "layer": "trust",
+        "reason": "co-challengers in active opposition to deal",
+        "source_actor_name": "state_attorneys_general_coalition",
+        "target_actor_name": "federal_antitrust_regulator",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "regulators and several states argue the merger would harm competition and workers",
+        "layer": "trust",
+        "reason": "states articulate worker harm concerns",
+        "source_actor_name": "grocery_workers",
+        "target_actor_name": "state_attorneys_general_coalition",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "regulators argue merger would harm competition",
+        "layer": "trust",
+        "reason": "regulator seen as protector against competition harm, though public attention is low",
+        "source_actor_name": "grocery_consumers",
+        "target_actor_name": "federal_antitrust_regulator",
+        "weight": 0.38
+      },
+      {
+        "direction": "directed",
+        "evidence": "active challenge despite divestiture proposal",
+        "layer": "trust",
+        "reason": "skepticism that proposed remedy fixes harms",
+        "source_actor_name": "federal_antitrust_regulator",
+        "target_actor_name": "grocery_chain_k",
+        "weight": 0.18
+      },
+      {
+        "direction": "directed",
+        "evidence": "active challenge despite divestiture proposal",
+        "layer": "trust",
+        "reason": "same remedy skepticism",
+        "source_actor_name": "federal_antitrust_regulator",
+        "target_actor_name": "grocery_chain_a",
+        "weight": 0.18
+      },
+      {
+        "direction": "directed",
+        "evidence": "companies argue merger would improve competition against larger retailers",
+        "layer": "exposure",
+        "reason": "company arguments about improving competition can reach the public through media",
+        "source_actor_name": "grocery_chain_k",
+        "target_actor_name": "grocery_consumers",
+        "weight": 0.42
+      },
+      {
+        "direction": "directed",
+        "evidence": "companies argue merger would improve competition against larger retailers",
+        "layer": "exposure",
+        "reason": "same public argument exposure",
+        "source_actor_name": "grocery_chain_a",
+        "target_actor_name": "grocery_consumers",
+        "weight": 0.42
+      },
+      {
+        "direction": "directed",
+        "evidence": "FTC actively challenging deal on competition concerns",
+        "layer": "exposure",
+        "reason": "regulatory challenge and harm framing are publicly visible",
+        "source_actor_name": "federal_antitrust_regulator",
+        "target_actor_name": "grocery_consumers",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "states argue merger would harm workers",
+        "layer": "exposure",
+        "reason": "worker-harm narrative likely reaches labor audience through public filings and statements",
+        "source_actor_name": "state_attorneys_general_coalition",
+        "target_actor_name": "grocery_workers",
+        "weight": 0.36
+      },
+      {
+        "direction": "directed",
+        "evidence": "court decisions pending in early December",
+        "layer": "exposure",
+        "reason": "court schedule and decisions are closely watched by market participants",
+        "source_actor_name": "federal_court",
+        "target_actor_name": "industry_investors_observers",
+        "weight": 0.31
+      },
+      {
+        "direction": "directed",
+        "evidence": "court decisions pending; legal close required by year-end",
+        "layer": "influence",
+        "reason": "judicial ruling strongly shapes ability to close by deadline",
+        "source_actor_name": "federal_court",
+        "target_actor_name": "grocery_chain_k",
+        "weight": 0.72
+      },
+      {
+        "direction": "directed",
+        "evidence": "court decisions pending; legal close required by year-end",
+        "layer": "influence",
+        "reason": "judicial ruling strongly shapes ability to close by deadline",
+        "source_actor_name": "federal_court",
+        "target_actor_name": "grocery_chain_a",
+        "weight": 0.72
+      },
+      {
+        "direction": "directed",
+        "evidence": "active challenge by regulator",
+        "layer": "influence",
+        "reason": "litigation framing and evidence presentation shape court record",
+        "source_actor_name": "federal_antitrust_regulator",
+        "target_actor_name": "federal_court",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "state partners actively challenging deal",
+        "layer": "influence",
+        "reason": "state participation reinforces challenge and evidentiary pressure",
+        "source_actor_name": "state_attorneys_general_coalition",
+        "target_actor_name": "federal_court",
+        "weight": 0.33
+      },
+      {
+        "direction": "directed",
+        "evidence": "companies propose divestitures and argue pro-competitive benefits",
+        "layer": "influence",
+        "reason": "defense arguments and divestiture remedy can affect judicial assessment",
+        "source_actor_name": "grocery_chain_k",
+        "target_actor_name": "federal_court",
+        "weight": 0.4
+      },
+      {
+        "direction": "directed",
+        "evidence": "companies propose divestitures and argue pro-competitive benefits",
+        "layer": "influence",
+        "reason": "same defense-side influence through briefing and remedy commitments",
+        "source_actor_name": "grocery_chain_a",
+        "target_actor_name": "federal_court",
+        "weight": 0.4
+      },
+      {
+        "direction": "directed",
+        "evidence": "companies justify deal as improving competition against larger retailers",
+        "layer": "influence",
+        "reason": "competitive benchmark pressure shapes merger narrative",
+        "source_actor_name": "larger_retail_competitors",
+        "target_actor_name": "grocery_chain_k",
+        "weight": 0.29
+      },
+      {
+        "direction": "directed",
+        "evidence": "companies justify deal as improving competition against larger retailers",
+        "layer": "influence",
+        "reason": "same strategic benchmark pressure",
+        "source_actor_name": "larger_retail_competitors",
+        "target_actor_name": "grocery_chain_a",
+        "weight": 0.29
+      },
+      {
+        "direction": "mutual",
+        "evidence": "both are pursuing the merger and divestiture strategy",
+        "layer": "coalition",
+        "reason": "formal merger alignment with shared public defense",
+        "source_actor_name": "grocery_chain_k",
+        "target_actor_name": "grocery_chain_a",
+        "weight": 0.74
+      },
+      {
+        "direction": "mutual",
+        "evidence": "FTC and state partners are actively challenging the deal",
+        "layer": "coalition",
+        "reason": "active challenge partnership",
+        "source_actor_name": "federal_antitrust_regulator",
+        "target_actor_name": "state_attorneys_general_coalition",
+        "weight": 0.69
+      },
+      {
+        "direction": "directed",
+        "evidence": "states argue merger would harm workers",
+        "layer": "coalition",
+        "reason": "partial alignment around worker-harm concerns",
+        "source_actor_name": "grocery_workers",
+        "target_actor_name": "state_attorneys_general_coalition",
+        "weight": 0.32
+      },
+      {
+        "direction": "mutual",
+        "evidence": "FTC actively challenging the deal",
+        "layer": "conflict",
+        "reason": "active antitrust challenge to prevent or constrain the deal",
+        "source_actor_name": "federal_antitrust_regulator",
+        "target_actor_name": "grocery_chain_k",
+        "weight": 0.71
+      },
+      {
+        "direction": "mutual",
+        "evidence": "companies argue divestitures can fix concerns",
+        "layer": "conflict",
+        "reason": "company is opposing regulator challenge to preserve closing path",
+        "source_actor_name": "grocery_chain_k",
+        "target_actor_name": "federal_antitrust_regulator",
+        "weight": 0.71
+      },
+      {
+        "direction": "mutual",
+        "evidence": "FTC actively challenging the deal",
+        "layer": "conflict",
+        "reason": "active challenge applies to both merging parties",
+        "source_actor_name": "federal_antitrust_regulator",
+        "target_actor_name": "grocery_chain_a",
+        "weight": 0.71
+      },
+      {
+        "direction": "mutual",
+        "evidence": "companies argue divestitures can fix concerns",
+        "layer": "conflict",
+        "reason": "same litigation conflict",
+        "source_actor_name": "grocery_chain_a",
+        "target_actor_name": "federal_antitrust_regulator",
+        "weight": 0.71
+      },
+      {
+        "direction": "mutual",
+        "evidence": "states argue merger would harm competition and workers",
+        "layer": "conflict",
+        "reason": "state-level opposition to merger harms",
+        "source_actor_name": "state_attorneys_general_coalition",
+        "target_actor_name": "grocery_chain_k",
+        "weight": 0.63
+      },
+      {
+        "direction": "mutual",
+        "evidence": "states argue merger would harm competition and workers",
+        "layer": "conflict",
+        "reason": "same state-level opposition",
+        "source_actor_name": "state_attorneys_general_coalition",
+        "target_actor_name": "grocery_chain_a",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "worker harm concerns cited by challengers",
+        "layer": "conflict",
+        "reason": "latent labor concern over merger effects",
+        "source_actor_name": "grocery_workers",
+        "target_actor_name": "grocery_chain_k",
+        "weight": 0.34
+      },
+      {
+        "direction": "directed",
+        "evidence": "worker harm concerns cited by challengers",
+        "layer": "conflict",
+        "reason": "latent labor concern over merger effects",
+        "source_actor_name": "grocery_workers",
+        "target_actor_name": "grocery_chain_a",
+        "weight": 0.34
+      },
+      {
+        "direction": "mutual",
+        "evidence": "active challenge and proposed divestitures",
+        "layer": "oasis_interaction",
+        "reason": "likely frequent formal and public interaction through litigation and remedy discussion",
+        "source_actor_name": "grocery_chain_k",
+        "target_actor_name": "federal_antitrust_regulator",
+        "weight": 0.48
+      },
+      {
+        "direction": "mutual",
+        "evidence": "active challenge and proposed divestitures",
+        "layer": "oasis_interaction",
+        "reason": "same formal/public interaction intensity",
+        "source_actor_name": "grocery_chain_a",
+        "target_actor_name": "federal_antitrust_regulator",
+        "weight": 0.48
+      },
+      {
+        "direction": "mutual",
+        "evidence": "FTC and state partners actively challenging",
+        "layer": "oasis_interaction",
+        "reason": "coordinated challenge generates regular interaction",
+        "source_actor_name": "federal_antitrust_regulator",
+        "target_actor_name": "state_attorneys_general_coalition",
+        "weight": 0.52
+      },
+      {
+        "direction": "mutual",
+        "evidence": "pending court decisions",
+        "layer": "oasis_interaction",
+        "reason": "court-company interaction mostly through filings and hearings",
+        "source_actor_name": "federal_court",
+        "target_actor_name": "grocery_chain_k",
+        "weight": 0.27
+      },
+      {
+        "direction": "mutual",
+        "evidence": "pending court decisions",
+        "layer": "oasis_interaction",
+        "reason": "same procedural interaction",
+        "source_actor_name": "federal_court",
+        "target_actor_name": "grocery_chain_a",
+        "weight": 0.27
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "description": "senior executives and boards controlling transaction choices and concessions",
+        "name": "corporate_decision_makers"
+      },
+      {
+        "description": "federal and state leaders shaping challenge intensity and settlement posture",
+        "name": "antitrust_enforcement_leads"
+      },
+      {
+        "description": "court authority controlling injunction outcome and schedule",
+        "name": "judicial_decider"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "grocery_chain_k",
+        "archetype_name": "corporate_decision_makers",
+        "attention_level": 0.99,
+        "decision_power": 0.84,
+        "expression_level": 0.8,
+        "fatigue": 0.58,
+        "fear_of_isolation": 0.1,
+        "mobilization_readiness": 0.92,
+        "name": "grocery_chain_k_leadership",
+        "perceived_majority": 0.5,
+        "role": "merger principal",
+        "stance_axes": {
+          "deadline_sensitivity": 0.9,
+          "divestiture_confidence": 0.68,
+          "merger_support": 1,
+          "settlement_flexibility": 0.42
+        }
+      },
+      {
+        "actor_name": "grocery_chain_a",
+        "archetype_name": "corporate_decision_makers",
+        "attention_level": 0.99,
+        "decision_power": 0.84,
+        "expression_level": 0.79,
+        "fatigue": 0.6,
+        "fear_of_isolation": 0.1,
+        "mobilization_readiness": 0.91,
+        "name": "grocery_chain_a_leadership",
+        "perceived_majority": 0.5,
+        "role": "merger principal",
+        "stance_axes": {
+          "deadline_sensitivity": 0.91,
+          "divestiture_confidence": 0.66,
+          "merger_support": 1,
+          "settlement_flexibility": 0.44
+        }
+      },
+      {
+        "actor_name": "federal_antitrust_regulator",
+        "archetype_name": "antitrust_enforcement_leads",
+        "attention_level": 0.98,
+        "decision_power": 0.87,
+        "expression_level": 0.83,
+        "fatigue": 0.46,
+        "fear_of_isolation": 0.05,
+        "mobilization_readiness": 0.93,
+        "name": "federal_enforcement_leadership",
+        "perceived_majority": 0.57,
+        "role": "lead challenger",
+        "stance_axes": {
+          "harm_confidence": 0.82,
+          "injunction_priority": 0.86,
+          "merger_support": 0.02,
+          "settlement_flexibility": 0.3
+        }
+      },
+      {
+        "actor_name": "state_attorneys_general_coalition",
+        "archetype_name": "antitrust_enforcement_leads",
+        "attention_level": 0.95,
+        "decision_power": 0.7,
+        "expression_level": 0.76,
+        "fatigue": 0.44,
+        "fear_of_isolation": 0.06,
+        "mobilization_readiness": 0.88,
+        "name": "state_enforcement_leadership",
+        "perceived_majority": 0.54,
+        "role": "state co-challenger",
+        "stance_axes": {
+          "harm_confidence": 0.8,
+          "injunction_priority": 0.8,
+          "merger_support": 0.03,
+          "settlement_flexibility": 0.34
+        }
+      },
+      {
+        "actor_name": "federal_court",
+        "archetype_name": "judicial_decider",
+        "attention_level": 0.97,
+        "decision_power": 0.95,
+        "expression_level": 0.12,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.02,
+        "mobilization_readiness": 0.1,
+        "name": "presiding_court_authority",
+        "perceived_majority": 0.5,
+        "role": "injunction/schedule decider",
+        "stance_axes": {
+          "deadline_sensitivity": 0.64,
+          "harm_confidence": 0.5,
+          "merger_support": 0.5,
+          "process_neutrality": 0.95
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "description": "senior executives and boards controlling transaction choices and concessions",
+        "name": "corporate_decision_makers"
+      },
+      {
+        "description": "federal and state leaders shaping challenge intensity and settlement posture",
+        "name": "antitrust_enforcement_leads"
+      },
+      {
+        "description": "court authority controlling injunction outcome and schedule",
+        "name": "judicial_decider"
+      }
+    ],
+    "important_questions": [
+      "Will the federal court create a legally usable path for the merger to close before 2024-12-31?",
+      "Will the proposed divestiture package become credible and acceptable enough to remove blocking antitrust concerns in time?",
+      "Will appeal or continued litigation consume the remaining calendar and prevent a 2024 closing?",
+      "Will grocery_chain_k and grocery_chain_a legally close the merger by 2024-12-31?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "federal_antitrust_regulator",
+          "state_attorneys_general_coalition",
+          "grocery_chain_k",
+          "grocery_chain_a"
+        ],
+        "event_key": "active_antitrust_challenge",
+        "event_type": "announcement",
+        "evidence": "Source 1 regulatory_context",
+        "expected_impact": "elevates conflict and judicial dependency; sustains non-closing risk unless companies prevail or settle with viable remedy.",
+        "status": "realized",
+        "summary": "Federal regulator and state partners are actively challenging the merger.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "grocery_chain_k",
+          "grocery_chain_a",
+          "divestiture_buyer_pool"
+        ],
+        "event_key": "divestiture_remedy_positioned",
+        "event_type": "announcement",
+        "evidence": "Source 2 company_context",
+        "expected_impact": "creates an alternate legal and settlement pathway but does not by itself resolve injunction risk.",
+        "status": "realized",
+        "summary": "Companies propose divestitures and argue the merger improves competition against larger retailers.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "federal_court",
+          "grocery_chain_k",
+          "grocery_chain_a",
+          "federal_antitrust_regulator",
+          "state_attorneys_general_coalition"
+        ],
+        "event_key": "early_december_court_decision_window",
+        "event_type": "announcement",
+        "evidence": "Scenario text says court decisions are pending in early December",
+        "expected_impact": "major shift in influence graph, investor expectations, and endpoint probabilities depending on ruling scope and timing.",
+        "status": "scheduled",
+        "summary": "Pending court decisions may clarify whether injunction blocks or permits movement toward closing.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "grocery_chain_k",
+          "grocery_chain_a",
+          "financial_and_legal_advisers",
+          "merger_shareholders_boards"
+        ],
+        "event_key": "deadline_compression_phase",
+        "event_type": "announcement",
+        "evidence": "Resolve yes only if transaction legally closes by end of 2024",
+        "expected_impact": "raises fatigue and deadline sensitivity; increases probability of non-completion if legal certainty is incomplete.",
+        "status": "scheduled",
+        "summary": "As year-end approaches, any unresolved litigation, appeal risk, or closing mechanics become more binding.",
+        "tick": 2
+      },
+      {
+        "actors": [
+          "federal_antitrust_regulator",
+          "state_attorneys_general_coalition",
+          "grocery_chain_k",
+          "grocery_chain_a",
+          "federal_court"
+        ],
+        "event_key": "appeal_or_extended_litigation_pathway",
+        "event_type": "announcement",
+        "evidence": "Source 3 endpoint_note",
+        "expected_impact": "pushes toward non-completion endpoint even if merits remain contested.",
+        "status": "contingent",
+        "summary": "If any side seeks appeal or litigation continues, closing by deadline likely becomes infeasible.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "75d2cbb7-0ed7-43f9-a812-4fc29b21dafa",
+    "merge_hypotheses": [
+      {
+        "affected_branches": [
+          "injunction_blocks_closing",
+          "remedy_settlement_attempt",
+          "appeal_delays_terminal_close"
+        ],
+        "converging_condition": "all sides acknowledge that unresolved process after late December effectively means no completion by deadline",
+        "merge_key": "deadline_forces_common_recognition",
+        "shared_mechanism": "hard calendar constraint compresses divergent legal tactics into same non-closing outcome"
+      },
+      {
+        "affected_branches": [
+          "injunction_blocks_closing",
+          "appeal_delays_terminal_close"
+        ],
+        "converging_condition": "court and/or market signals indicate divestitures are not timely or credible enough",
+        "merge_key": "remedy_insufficiency_consensus",
+        "shared_mechanism": "weak remedy credibility aligns company, regulator, and investor expectations toward missed close"
+      },
+      {
+        "affected_branches": [
+          "companies_win_with_time_to_close",
+          "remedy_settlement_attempt"
+        ],
+        "converging_condition": "a favorable legal path arrives with sufficient operational time and counterpart alignment",
+        "merge_key": "rapid_clearance_execution",
+        "shared_mechanism": "once legal blockage falls, both branches require fast execution by companies and advisers"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "description": "executives, managers, boards, and advisers directly involved in the transaction",
+        "name": "company_insiders",
+        "population_total": 500
+      },
+      {
+        "description": "regulators, state legal teams, court staff, and antitrust bar observers",
+        "name": "regulatory_legal_elites",
+        "population_total": 1200
+      },
+      {
+        "description": "workers affected by labor-market and store-level implications",
+        "name": "grocery_sector_workers",
+        "population_total": 2000000
+      },
+      {
+        "description": "consumers exposed to grocery competition narratives",
+        "name": "grocery_consuming_public",
+        "population_total": 150000000
+      },
+      {
+        "description": "shareholders, analysts, and market participants following the deal",
+        "name": "industry_investors_observers",
+        "population_total": 200000
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "incomplete_procedural_detail",
+        "note": "Exact court posture, venue, and specific pending motions are not provided, limiting precision on timing and appeal mechanics.",
+        "severity": "medium"
+      },
+      {
+        "flag": "hard_deadline_dominance",
+        "note": "Late-stage legal uncertainty can convert many otherwise positive process developments into the same no outcome.",
+        "severity": "high"
+      },
+      {
+        "flag": "remedy_execution_uncertainty",
+        "note": "Divestitures are mentioned but buyer readiness and regulator acceptance are unspecified.",
+        "severity": "medium"
+      },
+      {
+        "flag": "public_salience_low",
+        "note": "Mass consumer and worker attention likely has limited direct causal force at T0 relative to court and regulator actions.",
+        "severity": "low"
+      },
+      {
+        "flag": "entity_masking_respected",
+        "note": "Scenario uses partial entity masking; simulation keeps actors fictionalized and does not infer hidden mappings.",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "assumptions": [
+        "public actors are lightly fictionalized for simulation safety",
+        "court decisions are pending at T0",
+        "divestiture proposal exists but adequacy is disputed",
+        "deadline is hard and process actions short of legal close are non-terminal"
+      ],
+      "core_uncertainty": "whether legal and procedural barriers are cleared in time for closing before year-end 2024",
+      "domain": "antitrust_merger_review",
+      "geography": "united_states",
+      "mode": "direct",
+      "scenario_key": "resolved_020",
+      "summary": "Two large U.S. grocery chains are pursuing a merger under active antitrust challenge by the FTC and several states. The companies argue proposed divestitures address competition concerns. Court decisions are pending in early December 2024. The transaction resolves as completed only if it legally closes by 2024-12-31; appeal, settlement without closing, or continued litigation imply non-completion by deadline.",
+      "timeframe": "early_december_2024_to_2024-12-31",
+      "title": "proposed merger of grocery_chain_k and grocery_chain_a",
+      "uncertainties": [
+        "exact court venue and procedural posture not specified",
+        "exact merger agreement outside date and financing contingencies not specified",
+        "specific labor and consumer coalition structure only partially evidenced"
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "basis": "arguments focus on remedy adequacy and legal standards more than broad ideological conversion",
+        "level": 0.58,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "scope": "elite_legal_and_market_discourse"
+      },
+      {
+        "basis": "public mobilization likely requires a salient court ruling or major media frame shift",
+        "level": 0.31,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "scope": "workers_and_consumers"
+      },
+      {
+        "basis": "low general attention to merger specifics at T0",
+        "level": 0.72,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "scope": "mass_consumers"
+      },
+      {
+        "basis": "company, regulator, and state camps reinforce internal narratives",
+        "level": 0.61,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "scope": "institutional_camps"
+      },
+      {
+        "basis": "concern spreads more credibly through repeated legal/media validation than single messages",
+        "level": 0.47,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "scope": "worker_and_consumer_concern"
+      },
+      {
+        "basis": "institutional role identities shape interpretation of harms and remedies",
+        "level": 0.52,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "scope": "regulators_workers_companies"
+      },
+      {
+        "basis": "without decisive rulings, issue may remain niche and procedural",
+        "level": 0.44,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "scope": "mass_public"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context": "hard_deadline",
+        "effect": "process moves without legal close still map toward non-completion by deadline"
+      },
+      {
+        "context": "elite_driven_attention",
+        "effect": "court and regulator actions dominate information cascades more than grassroots mobilization"
+      },
+      {
+        "context": "remedy_credibility",
+        "effect": "belief shifts hinge on whether divestitures appear concrete and sufficient"
+      },
+      {
+        "context": "coalitional_enforcement",
+        "effect": "federal-state alignment increases legitimacy and persistence of challenge"
+      },
+      {
+        "context": "timing_compression",
+        "effect": "late favorable legal news may still face execution and closing frictions"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "grocery_chain_k",
+        "behavior_axes": {
+          "adaptability": 0.65,
+          "aggressiveness": 0.58,
+          "patience": 0.34,
+          "risk_tolerance": 0.62
+        },
+        "ideology_axes": {
+          "market_consolidation_favorability": 0.82,
+          "regulatory_deference": 0.28
+        },
+        "reputation": 0.56,
+        "secrecy": 0.58,
+        "tendency": "transaction_completion_oriented",
+        "trustworthiness": 0.47
+      },
+      {
+        "actor_name": "grocery_chain_a",
+        "behavior_axes": {
+          "adaptability": 0.63,
+          "aggressiveness": 0.55,
+          "patience": 0.33,
+          "risk_tolerance": 0.6
+        },
+        "ideology_axes": {
+          "market_consolidation_favorability": 0.8,
+          "regulatory_deference": 0.3
+        },
+        "reputation": 0.57,
+        "secrecy": 0.56,
+        "tendency": "transaction_completion_oriented",
+        "trustworthiness": 0.48
+      },
+      {
+        "actor_name": "federal_antitrust_regulator",
+        "behavior_axes": {
+          "adaptability": 0.5,
+          "aggressiveness": 0.67,
+          "patience": 0.7,
+          "risk_tolerance": 0.46
+        },
+        "ideology_axes": {
+          "market_consolidation_favorability": 0.12,
+          "regulatory_deference": 0.92
+        },
+        "reputation": 0.65,
+        "secrecy": 0.42,
+        "tendency": "enforcement_forward",
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "state_attorneys_general_coalition",
+        "behavior_axes": {
+          "adaptability": 0.54,
+          "aggressiveness": 0.62,
+          "patience": 0.66,
+          "risk_tolerance": 0.5
+        },
+        "ideology_axes": {
+          "market_consolidation_favorability": 0.18,
+          "regulatory_deference": 0.8
+        },
+        "reputation": 0.6,
+        "secrecy": 0.4,
+        "tendency": "coalitional_enforcement",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "federal_court",
+        "behavior_axes": {
+          "adaptability": 0.45,
+          "aggressiveness": 0.08,
+          "patience": 0.82,
+          "risk_tolerance": 0.22
+        },
+        "ideology_axes": {
+          "market_consolidation_favorability": 0.5,
+          "regulatory_deference": 0.5
+        },
+        "reputation": 0.83,
+        "secrecy": 0.78,
+        "tendency": "process_bound_neutrality",
+        "trustworthiness": 0.79
+      },
+      {
+        "actor_name": "merger_shareholders_boards",
+        "behavior_axes": {
+          "adaptability": 0.52,
+          "aggressiveness": 0.33,
+          "patience": 0.29,
+          "risk_tolerance": 0.48
+        },
+        "ideology_axes": {
+          "market_consolidation_favorability": 0.66,
+          "regulatory_deference": 0.37
+        },
+        "reputation": 0.58,
+        "secrecy": 0.52,
+        "tendency": "value_protection",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "divestiture_buyer_pool",
+        "behavior_axes": {
+          "adaptability": 0.6,
+          "aggressiveness": 0.2,
+          "patience": 0.47,
+          "risk_tolerance": 0.41
+        },
+        "ideology_axes": {
+          "market_consolidation_favorability": 0.51,
+          "regulatory_deference": 0.49
+        },
+        "reputation": 0.52,
+        "secrecy": 0.61,
+        "tendency": "opportunistic_evaluation",
+        "trustworthiness": 0.54
+      },
+      {
+        "actor_name": "grocery_workers",
+        "behavior_axes": {
+          "adaptability": 0.43,
+          "aggressiveness": 0.24,
+          "patience": 0.58,
+          "risk_tolerance": 0.28
+        },
+        "ideology_axes": {
+          "market_consolidation_favorability": 0.24,
+          "regulatory_deference": 0.63
+        },
+        "reputation": 0.54,
+        "secrecy": 0.35,
+        "tendency": "security_seeking",
+        "trustworthiness": 0.56
+      },
+      {
+        "actor_name": "grocery_consumers",
+        "behavior_axes": {
+          "adaptability": 0.5,
+          "aggressiveness": 0.12,
+          "patience": 0.66,
+          "risk_tolerance": 0.35
+        },
+        "ideology_axes": {
+          "market_consolidation_favorability": 0.4,
+          "regulatory_deference": 0.55
+        },
+        "reputation": 0.5,
+        "secrecy": 0.2,
+        "tendency": "low_attention_price_sensitive",
+        "trustworthiness": 0.52
+      },
+      {
+        "actor_name": "larger_retail_competitors",
+        "behavior_axes": {
+          "adaptability": 0.62,
+          "aggressiveness": 0.41,
+          "patience": 0.6,
+          "risk_tolerance": 0.51
+        },
+        "ideology_axes": {
+          "market_consolidation_favorability": 0.45,
+          "regulatory_deference": 0.4
+        },
+        "reputation": 0.55,
+        "secrecy": 0.57,
+        "tendency": "strategic_positioning",
+        "trustworthiness": 0.43
+      },
+      {
+        "actor_name": "financial_and_legal_advisers",
+        "behavior_axes": {
+          "adaptability": 0.72,
+          "aggressiveness": 0.26,
+          "patience": 0.55,
+          "risk_tolerance": 0.38
+        },
+        "ideology_axes": {
+          "market_consolidation_favorability": 0.6,
+          "regulatory_deference": 0.52
+        },
+        "reputation": 0.64,
+        "secrecy": 0.74,
+        "tendency": "execution_management",
+        "trustworthiness": 0.58
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 1753,
+        "end": 1753,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 1753,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

@@ -1,0 +1,234 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "62faaf5c-bd2e-4713-9767-e41c5307b80a",
+      "created_at": "2026-05-05T02:17:37.892754+00:00",
+      "id": "854fdcf7-33fc-42a9-96d9-0339fecd5bae",
+      "influence": {
+        "description": "Project opponents emphasize proximity to a school as a legitimacy-amplifying safety frame.",
+        "evidence": "source_4_neighborhood_petition_t_minus_9",
+        "influence_key": "school_proximity_frame"
+      },
+      "multiverse_id": "b066ef86-4659-40cd-bd89-ea1175147aa0",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:17:37.892754+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "62faaf5c-bd2e-4713-9767-e41c5307b80a",
+      "created_at": "2026-05-05T02:17:37.892754+00:00",
+      "id": "87ae4217-9528-4fa5-9d38-4d19d59cc47c",
+      "influence": {
+        "description": "Supporters emphasize approaching summer peak reliability risk and possible emergency demand-response calls.",
+        "evidence": "source_1_grid_operator_warning_t_minus_20",
+        "influence_key": "summer_reliability_frame"
+      },
+      "multiverse_id": "b066ef86-4659-40cd-bd89-ea1175147aa0",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:17:37.892754+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "62faaf5c-bd2e-4713-9767-e41c5307b80a",
+      "created_at": "2026-05-05T02:17:37.892754+00:00",
+      "id": "b37b7efc-d22d-479c-875d-6200a0c07ead",
+      "influence": {
+        "description": "May interconnection milestone creates urgency and raises cost of delay.",
+        "evidence": "source_2_developer_schedule_t_minus_18",
+        "influence_key": "deadline_pressure_frame"
+      },
+      "multiverse_id": "b066ef86-4659-40cd-bd89-ea1175147aa0",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:17:37.892754+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "62faaf5c-bd2e-4713-9767-e41c5307b80a",
+      "created_at": "2026-05-05T02:17:37.892754+00:00",
+      "id": "d8954af3-d2c1-4d59-a746-dcf744fcf1c1",
+      "influence": {
+        "description": "State preemption exists as a fallback but is slowed by a 45-day process after a reliability finding path.",
+        "evidence": "source_5_state_energy_office_note_t_minus_6",
+        "influence_key": "state_timing_constraint"
+      },
+      "multiverse_id": "b066ef86-4659-40cd-bd89-ea1175147aa0",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:17:37.892754+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "62faaf5c-bd2e-4713-9767-e41c5307b80a",
+      "created_at": "2026-05-05T02:17:37.892754+00:00",
+      "id": "e198c138-d005-4510-b3d4-1b9f3cf2bef1",
+      "influence": {
+        "description": "General support for grid upgrades does not automatically transfer to support for the Harbor site.",
+        "evidence": "source_6_utility_customer_poll_t_minus_3",
+        "influence_key": "site_specific_split_opinion"
+      },
+      "multiverse_id": "b066ef86-4659-40cd-bd89-ea1175147aa0",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:17:37.892754+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "62faaf5c-bd2e-4713-9767-e41c5307b80a",
+      "created_at": "2026-05-05T02:17:37.892754+00:00",
+      "id": "078384ec-4e58-4f16-9afc-2f7d73206e43",
+      "model": "attention_decay",
+      "multiverse_id": "b066ef86-4659-40cd-bd89-ea1175147aa0",
+      "signal": {
+        "applies_to": [
+          "quiet_local_moderates",
+          "reliability_first_locals",
+          "petitioning_neighbors"
+        ],
+        "evidence": "General reliability support coexists with site-specific split opinions in source_6 and source_4.",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "status": "active",
+        "strength": 0.62
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:17:37.892754+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "62faaf5c-bd2e-4713-9767-e41c5307b80a",
+      "created_at": "2026-05-05T02:17:37.892754+00:00",
+      "id": "c6d11c72-9f60-4c0c-99ba-3cb46d9a44f9",
+      "model": "attention_decay",
+      "multiverse_id": "b066ef86-4659-40cd-bd89-ea1175147aa0",
+      "signal": {
+        "applies_to": [
+          "quiet_local_moderates",
+          "nearby_school_community"
+        ],
+        "evidence": "School proximity and safety framing can move previously quiet locals into public action.",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "status": "active",
+        "strength": 0.71
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:17:37.892754+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "62faaf5c-bd2e-4713-9767-e41c5307b80a",
+      "created_at": "2026-05-05T02:17:37.892754+00:00",
+      "id": "6b81f278-5e0f-4c59-8195-b95ca746b3cb",
+      "model": "attention_decay",
+      "multiverse_id": "b066ef86-4659-40cd-bd89-ea1175147aa0",
+      "signal": {
+        "applies_to": [
+          "reliability_first_locals",
+          "general_customers_split"
+        ],
+        "evidence": "Poll shows general support for upgrades while specific-site controversy suppresses strong public endorsement.",
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "status": "active",
+        "strength": 0.58
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:17:37.892754+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "62faaf5c-bd2e-4713-9767-e41c5307b80a",
+      "created_at": "2026-05-05T02:17:37.892754+00:00",
+      "id": "f12c784a-e9db-4495-b16e-c8e3a83d94e9",
+      "model": "attention_decay",
+      "multiverse_id": "b066ef86-4659-40cd-bd89-ea1175147aa0",
+      "signal": {
+        "applies_to": [
+          "petitioning_neighbors",
+          "nearby_school_community"
+        ],
+        "evidence": "Geographic and school-linked identity likely reinforce local objection messaging.",
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "status": "active",
+        "strength": 0.55
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:17:37.892754+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "62faaf5c-bd2e-4713-9767-e41c5307b80a",
+      "created_at": "2026-05-05T02:17:37.892754+00:00",
+      "id": "888f93e7-b261-4ae0-8dc0-528b02f246e0",
+      "model": "attention_decay",
+      "multiverse_id": "b066ef86-4659-40cd-bd89-ea1175147aa0",
+      "signal": {
+        "applies_to": [
+          "local_residents"
+        ],
+        "evidence": "Safety fears near a school usually require repeated social confirmation before broader mobilization.",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "status": "active",
+        "strength": 0.49
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:17:37.892754+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "62faaf5c-bd2e-4713-9767-e41c5307b80a",
+      "created_at": "2026-05-05T02:17:37.892754+00:00",
+      "id": "7a1cbaab-54dc-4035-8ac1-5d6d192ea59f",
+      "model": "attention_decay",
+      "multiverse_id": "b066ef86-4659-40cd-bd89-ea1175147aa0",
+      "signal": {
+        "applies_to": [
+          "harbor_residents_group",
+          "harbor_zoning_board"
+        ],
+        "evidence": "Local-control and child-safety identities are salient in the variance fight.",
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "status": "active",
+        "strength": 0.67
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:17:37.892754+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "62faaf5c-bd2e-4713-9767-e41c5307b80a",
+      "created_at": "2026-05-05T02:17:37.892754+00:00",
+      "id": "1f591e3b-e179-4306-b7fd-80bbeb5b0d8e",
+      "model": "attention_decay",
+      "multiverse_id": "b066ef86-4659-40cd-bd89-ea1175147aa0",
+      "signal": {
+        "applies_to": [
+          "utility_customers_public"
+        ],
+        "evidence": "Broader customer attention is likely low absent outages or a visible board confrontation.",
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "status": "active",
+        "strength": 0.43
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:17:37.892754+00:00"
+    }
+  ]
+}

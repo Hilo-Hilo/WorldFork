@@ -1,0 +1,1367 @@
+{
+  "big_bang_id": "a2bf5c15-9296-4344-9db0-58532e9aa3a8",
+  "initializer_output": {
+    "actors": [
+      {
+        "capabilities": [
+          "issue remedy order",
+          "schedule hearings",
+          "weigh evidence and proportionality"
+        ],
+        "constraints": [
+          "appellate scrutiny",
+          "administrability concerns",
+          "record evidence"
+        ],
+        "description": "Federal court overseeing remedy phase after liability finding.",
+        "fictionalized": true,
+        "name": "federal_court",
+        "role": "decision_authority",
+        "stakes": [
+          "craft lawful and administrable remedy",
+          "avoid reversible error",
+          "address antitrust harms"
+        ],
+        "type": "institution"
+      },
+      {
+        "capabilities": [
+          "legal advocacy",
+          "technical claims about disruption",
+          "appeal posture"
+        ],
+        "constraints": [
+          "adverse liability finding",
+          "judicial authority",
+          "public and regulatory scrutiny"
+        ],
+        "description": "Dominant search company found liable; opposes Browser C divestiture.",
+        "fictionalized": true,
+        "name": "company_g",
+        "role": "liable_defendant",
+        "stakes": [
+          "preserve integration and control of Browser C",
+          "limit operational disruption",
+          "reduce breadth of remedy"
+        ],
+        "type": "corporation"
+      },
+      {
+        "capabilities": [
+          "platform distribution and user access relevance"
+        ],
+        "constraints": [
+          "ownership by Company G",
+          "subject to court remedy consideration"
+        ],
+        "description": "Browser unit whose divestiture is proposed as a possible structural remedy.",
+        "fictionalized": true,
+        "name": "browser_c",
+        "role": "contested_asset",
+        "stakes": [
+          "continued integration with Company G or forced separation"
+        ],
+        "type": "business_unit"
+      },
+      {
+        "capabilities": [
+          "seek structural and conduct remedies",
+          "shape remedy record",
+          "public legitimacy"
+        ],
+        "constraints": [
+          "burden to justify remedy scope",
+          "judicial proportionality limits"
+        ],
+        "description": "Government-side antitrust enforcers seeking strong remedies.",
+        "fictionalized": true,
+        "name": "government_plaintiffs",
+        "role": "remedy_advocate",
+        "stakes": [
+          "effective restoration of competition",
+          "credible deterrence",
+          "avoid weak conduct-only fix"
+        ],
+        "type": "institutional_coalition"
+      },
+      {
+        "capabilities": [
+          "indirectly disciplines remedy ambition"
+        ],
+        "constraints": [
+          "not a direct decision-maker"
+        ],
+        "description": "Expected appeal and reversibility concerns surrounding aggressive remedies.",
+        "fictionalized": true,
+        "name": "appellate_risk_environment",
+        "role": "legal_constraint",
+        "stakes": [
+          "legal durability of remedy"
+        ],
+        "type": "system"
+      },
+      {
+        "capabilities": [
+          "raises cost of structural relief if separation is hard"
+        ],
+        "constraints": [
+          "depends on credibility of record evidence"
+        ],
+        "description": "Claims and concerns about feasibility, disruption, and monitoring of remedies.",
+        "fictionalized": true,
+        "name": "technical_administrability_frame",
+        "role": "implementation_constraint",
+        "stakes": [
+          "workability of final order"
+        ],
+        "type": "system"
+      },
+      {
+        "capabilities": [
+          "amplify narratives",
+          "shape reputational climate"
+        ],
+        "constraints": [
+          "no formal decision power"
+        ],
+        "description": "Industry, press, and policy observers tracking implications of the remedy.",
+        "fictionalized": true,
+        "name": "market_observers",
+        "role": "attention_public",
+        "stakes": [
+          "clarity on future platform regulation and competition policy"
+        ],
+        "type": "public_audience"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Probability of Browser C divestiture rises materially as structural relief becomes judicially normalized.",
+        "branch_key": "court_signals_structural_seriousness",
+        "divergence_signal": "Order language or hearing questions focus on necessity of separation rather than mere tailoring of conduct terms.",
+        "trigger": "Hearings or interim comments emphasize that conduct remedies alone may be insufficient."
+      },
+      {
+        "alternate_path": "Court selects conduct restrictions, contract limits, or data-sharing instead of divestiture.",
+        "branch_key": "administrability_concerns_dominate",
+        "divergence_signal": "Judicial language repeatedly stresses workability, reversibility risk, and narrower adequate remedies.",
+        "trigger": "Court record heavily emphasizes technical disruption, monitoring complexity, or appeal vulnerability."
+      },
+      {
+        "alternate_path": "Structural pressure remains politically salient, but endpoint resolves no because Browser C is not divested.",
+        "branch_key": "compromise_remedy_bundle_emerges",
+        "divergence_signal": "Detailed conduct and data remedies are specified while Browser C separation discussion recedes.",
+        "trigger": "Plaintiffs and court converge on strong but non-structural package."
+      },
+      {
+        "alternate_path": "Court becomes more willing to order Browser C divestiture despite rarity of structural remedies.",
+        "branch_key": "record_supports_browser_specific_remedy",
+        "divergence_signal": "Findings tie remedy necessity specifically to browser control rather than general market conduct.",
+        "trigger": "Evidence develops that Browser C ownership is central to the anticompetitive harm and difficult to cure behaviorally."
+      }
+    ],
+    "channels": [
+      {
+        "access": "public_record_partial",
+        "name": "federal_court_filings",
+        "primary_actors": [
+          "federal_court",
+          "government_plaintiffs",
+          "company_g"
+        ],
+        "type": "formal_legal"
+      },
+      {
+        "access": "scheduled_proceeding",
+        "name": "remedy_hearings",
+        "primary_actors": [
+          "federal_court",
+          "government_plaintiffs",
+          "company_g"
+        ],
+        "type": "formal_legal"
+      },
+      {
+        "access": "public",
+        "name": "press_and_policy_coverage",
+        "primary_actors": [
+          "market_observers",
+          "government_plaintiffs",
+          "company_g"
+        ],
+        "type": "media"
+      },
+      {
+        "access": "public",
+        "name": "expert_commentary_networks",
+        "primary_actors": [
+          "market_observers",
+          "legal_policy_observers_structuralists",
+          "legal_policy_observers_cautious_incrementalists"
+        ],
+        "type": "elite_discourse"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_name": "legal_policy_observers",
+        "attention_level": 0.85,
+        "behavioral_tendencies": [
+          "elite discourse amplification",
+          "legal argumentation",
+          "media commentary"
+        ],
+        "expression_level": 0.62,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.41,
+        "name": "legal_policy_observers_structuralists",
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Structural remedies may be necessary after liability finding, but judicial caution remains material.",
+        "public_expression": "Pushes narrative that strong remedy should remain on table.",
+        "representation_mode": "analyst_inference",
+        "represented_population": 175000,
+        "reputation": 0.61,
+        "secrecy": 0.12,
+        "stance_axes": {
+          "expect_divestiture": 0.42,
+          "favor_conduct_only": 0.22,
+          "favor_structural_remedy": 0.78
+        },
+        "trustworthiness": 0.66
+      },
+      {
+        "archetype_name": "legal_policy_observers",
+        "attention_level": 0.82,
+        "behavioral_tendencies": [
+          "procedural caution",
+          "appeal-risk focus",
+          "centrist legal commentary"
+        ],
+        "expression_level": 0.55,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.16,
+        "mobilization_readiness": 0.26,
+        "name": "legal_policy_observers_cautious_incrementalists",
+        "perceived_majority": 0.58,
+        "population_share_of_archetype": 0.65,
+        "private_belief": "Court is more likely to choose administrable conduct or data remedies than divestiture.",
+        "public_expression": "Frames breakup as legally difficult and less common.",
+        "representation_mode": "analyst_inference",
+        "represented_population": 325000,
+        "reputation": 0.64,
+        "secrecy": 0.14,
+        "stance_axes": {
+          "expect_divestiture": 0.21,
+          "favor_conduct_only": 0.66,
+          "favor_structural_remedy": 0.34
+        },
+        "trustworthiness": 0.71
+      },
+      {
+        "archetype_name": "general_digital_market_users",
+        "attention_level": 0.12,
+        "behavioral_tendencies": [
+          "attention drift",
+          "headline-only awareness"
+        ],
+        "expression_level": 0.05,
+        "fatigue": 0.08,
+        "fear_of_isolation": 0.05,
+        "mobilization_readiness": 0.03,
+        "name": "general_users_low_salience",
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.85,
+        "private_belief": "Little formed opinion; weak awareness of remedy distinctions.",
+        "public_expression": "Mostly silent.",
+        "representation_mode": "analyst_inference",
+        "represented_population": 153000000,
+        "reputation": 0.5,
+        "secrecy": 0.08,
+        "stance_axes": {
+          "expect_divestiture": 0.09,
+          "favor_conduct_only": 0.28,
+          "favor_structural_remedy": 0.18
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "archetype_name": "general_digital_market_users",
+        "attention_level": 0.31,
+        "behavioral_tendencies": [
+          "normative reform signaling",
+          "episodic engagement"
+        ],
+        "expression_level": 0.18,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.11,
+        "name": "general_users_reform_attentive",
+        "perceived_majority": 0.33,
+        "population_share_of_archetype": 0.15,
+        "private_belief": "Big-tech liability should produce meaningful consequences, though remedy mechanics are unclear.",
+        "public_expression": "Occasional support for stronger enforcement.",
+        "representation_mode": "analyst_inference",
+        "represented_population": 27000000,
+        "reputation": 0.49,
+        "secrecy": 0.09,
+        "stance_axes": {
+          "expect_divestiture": 0.27,
+          "favor_conduct_only": 0.43,
+          "favor_structural_remedy": 0.57
+        },
+        "trustworthiness": 0.52
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_name": "legal_policy_observers",
+        "attention_level": 0.85,
+        "behavioral_tendencies": [
+          "elite discourse amplification",
+          "legal argumentation",
+          "media commentary"
+        ],
+        "expression_level": 0.62,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.41,
+        "name": "legal_policy_observers_structuralists",
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Structural remedies may be necessary after liability finding, but judicial caution remains material.",
+        "public_expression": "Pushes narrative that strong remedy should remain on table.",
+        "representation_mode": "analyst_inference",
+        "represented_population": 175000,
+        "reputation": 0.61,
+        "secrecy": 0.12,
+        "stance_axes": {
+          "expect_divestiture": 0.42,
+          "favor_conduct_only": 0.22,
+          "favor_structural_remedy": 0.78
+        },
+        "trustworthiness": 0.66
+      },
+      {
+        "archetype_name": "legal_policy_observers",
+        "attention_level": 0.82,
+        "behavioral_tendencies": [
+          "procedural caution",
+          "appeal-risk focus",
+          "centrist legal commentary"
+        ],
+        "expression_level": 0.55,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.16,
+        "mobilization_readiness": 0.26,
+        "name": "legal_policy_observers_cautious_incrementalists",
+        "perceived_majority": 0.58,
+        "population_share_of_archetype": 0.65,
+        "private_belief": "Court is more likely to choose administrable conduct or data remedies than divestiture.",
+        "public_expression": "Frames breakup as legally difficult and less common.",
+        "representation_mode": "analyst_inference",
+        "represented_population": 325000,
+        "reputation": 0.64,
+        "secrecy": 0.14,
+        "stance_axes": {
+          "expect_divestiture": 0.21,
+          "favor_conduct_only": 0.66,
+          "favor_structural_remedy": 0.34
+        },
+        "trustworthiness": 0.71
+      },
+      {
+        "archetype_name": "general_digital_market_users",
+        "attention_level": 0.12,
+        "behavioral_tendencies": [
+          "attention drift",
+          "headline-only awareness"
+        ],
+        "expression_level": 0.05,
+        "fatigue": 0.08,
+        "fear_of_isolation": 0.05,
+        "mobilization_readiness": 0.03,
+        "name": "general_users_low_salience",
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.85,
+        "private_belief": "Little formed opinion; weak awareness of remedy distinctions.",
+        "public_expression": "Mostly silent.",
+        "representation_mode": "analyst_inference",
+        "represented_population": 153000000,
+        "reputation": 0.5,
+        "secrecy": 0.08,
+        "stance_axes": {
+          "expect_divestiture": 0.09,
+          "favor_conduct_only": 0.28,
+          "favor_structural_remedy": 0.18
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "archetype_name": "general_digital_market_users",
+        "attention_level": 0.31,
+        "behavioral_tendencies": [
+          "normative reform signaling",
+          "episodic engagement"
+        ],
+        "expression_level": 0.18,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.11,
+        "name": "general_users_reform_attentive",
+        "perceived_majority": 0.33,
+        "population_share_of_archetype": 0.15,
+        "private_belief": "Big-tech liability should produce meaningful consequences, though remedy mechanics are unclear.",
+        "public_expression": "Occasional support for stronger enforcement.",
+        "representation_mode": "analyst_inference",
+        "represented_population": 27000000,
+        "reputation": 0.49,
+        "secrecy": 0.09,
+        "stance_axes": {
+          "expect_divestiture": 0.27,
+          "favor_conduct_only": 0.43,
+          "favor_structural_remedy": 0.57
+        },
+        "trustworthiness": 0.52
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "federal_court"
+        ],
+        "blockers": [
+          "structural remedies are rarer",
+          "appeal concerns",
+          "administrability concerns",
+          "availability of conduct substitutes"
+        ],
+        "contradiction_notes": "If the court imposes only conduct restrictions, data-sharing, or contract limits without divesting Browser C, this endpoint is not realized.",
+        "description": "The federal court orders Company G to sell or divest Browser C as part of the remedy.",
+        "endpoint_key": "browser_c_divestiture_ordered",
+        "evidence_refs": [
+          "source_1_legal_context_2025_08_15",
+          "source_2_remedy_note_2025_08_15"
+        ],
+        "label": "Browser C divestiture ordered",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the final federal court remedy order require Company G to sell or divest Browser C?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.27,
+        "rationale": "This is the primary terminal yes condition defined by the scenario.",
+        "realization_criteria": [
+          "final remedy order explicitly requires sale, divestiture, or structural separation of Browser C from Company G",
+          "order is issued by the federal court overseeing this case"
+        ],
+        "status": "active",
+        "status_basis": "Divestiture is a live proposal but not yet chosen at T0."
+      },
+      {
+        "authority_refs": [
+          "federal_court"
+        ],
+        "blockers": [
+          "court may conclude structural relief is necessary",
+          "evidence may tie Browser C control directly to harm"
+        ],
+        "contradiction_notes": "A strong conduct package still counts as no if Browser C is not divested.",
+        "description": "The remedy phase concludes without a court order requiring Company G to divest Browser C.",
+        "endpoint_key": "no_browser_c_divestiture_order",
+        "evidence_refs": [
+          "source_2_remedy_note_2025_08_15",
+          "source_3_endpoint_note_2025_08_15"
+        ],
+        "label": "No Browser C divestiture order",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the court resolve the remedy phase with conduct, contract, or data-sharing remedies without ordering Browser C divestiture?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.73,
+        "rationale": "Scenario packet states that data-sharing, contract limits, or conduct remedies without divestiture resolve no.",
+        "realization_criteria": [
+          "final remedy order omits any requirement to sell or divest Browser C",
+          "or case reaches relevant deadline without such an order"
+        ],
+        "status": "active",
+        "status_basis": "Non-divestiture remedies are explicitly identified as resolving no and appear more standard at T0."
+      },
+      {
+        "authority_refs": [
+          "federal_court"
+        ],
+        "blockers": [
+          "court may find conduct remedies inadequate",
+          "government may persuade court to adopt structural remedy"
+        ],
+        "contradiction_notes": "This endpoint can co-exist with no_browser_c_divestiture_order but contradicts browser_c_divestiture_ordered.",
+        "description": "Court chooses conduct restrictions, contract limits, data-sharing, or related non-structural relief instead of Browser C divestiture.",
+        "endpoint_key": "conduct_remedy_without_divestiture",
+        "evidence_refs": [
+          "source_3_endpoint_note_2025_08_15"
+        ],
+        "label": "Conduct-based remedy selected",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the final remedy rationale explicitly rely on administrability or appeal-risk concerns to reject structural separation?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.58,
+        "rationale": "Important because process may appear aggressive while terminal forecast still resolves no.",
+        "realization_criteria": [
+          "final remedy order contains only non-divestiture remedies for Browser C issue",
+          "no structural separation of Browser C is mandated"
+        ],
+        "status": "active",
+        "status_basis": "Conduct remedies are explicitly listed as live alternatives at T0."
+      },
+      {
+        "authority_refs": [
+          "federal_court"
+        ],
+        "blockers": [
+          "court may reject divestiture on narrower factual grounds instead",
+          "court may still order divestiture despite concerns"
+        ],
+        "contradiction_notes": "This endpoint is compatible with no_browser_c_divestiture_order and conduct_remedy_without_divestiture but incompatible with browser_c_divestiture_ordered.",
+        "description": "Court explicitly declines Browser C divestiture because it finds breakup too disruptive, hard to administer, or vulnerable on appeal.",
+        "endpoint_key": "structural_relief_rejected_on_workability_grounds",
+        "evidence_refs": [
+          "source_2_remedy_note_2025_08_15"
+        ],
+        "label": "Structural relief rejected on workability grounds",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the final remedy rationale explicitly rely on administrability or appeal-risk concerns to reject structural separation?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.46,
+        "rationale": "Tracks the most important mechanism suppressing the yes outcome.",
+        "realization_criteria": [
+          "final order or accompanying reasoning states administrability, technical disruption, proportionality, or appeal-risk as reasons to reject Browser C divestiture"
+        ],
+        "status": "active",
+        "status_basis": "Source packet directly highlights administrability and appeal concerns as salient constraints."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "Government has argued for strong remedies.",
+        "layer": "exposure",
+        "reason": "Government filings and arguments are directly before the court in remedy phase.",
+        "source_actor_name": "government_plaintiffs",
+        "target_actor_name": "federal_court",
+        "weight": 0.62
+      },
+      {
+        "direction": "directed",
+        "evidence": "Company G says divesting Browser C would be excessive and technically disruptive.",
+        "layer": "exposure",
+        "reason": "Company G directly presents opposition to divestiture to the court.",
+        "source_actor_name": "company_g",
+        "target_actor_name": "federal_court",
+        "weight": 0.64
+      },
+      {
+        "direction": "directed",
+        "evidence": "Remedy phase is a separate judicial decision.",
+        "layer": "exposure",
+        "reason": "Court orders and questions directly shape company awareness and response.",
+        "source_actor_name": "federal_court",
+        "target_actor_name": "company_g",
+        "weight": 0.51
+      },
+      {
+        "direction": "directed",
+        "evidence": "Remedy choice is pending before the court.",
+        "layer": "exposure",
+        "reason": "Court scheduling and remedy signals are directly observed by plaintiffs.",
+        "source_actor_name": "federal_court",
+        "target_actor_name": "government_plaintiffs",
+        "weight": 0.51
+      },
+      {
+        "direction": "directed",
+        "evidence": "Case has major implications and public attention.",
+        "layer": "exposure",
+        "reason": "Observers monitor the court but have limited direct contact.",
+        "source_actor_name": "market_observers",
+        "target_actor_name": "federal_court",
+        "weight": 0.18
+      },
+      {
+        "direction": "directed",
+        "evidence": "Major search-antitrust remedy phase draws observer attention.",
+        "layer": "exposure",
+        "reason": "Court actions are publicly watched and reported.",
+        "source_actor_name": "federal_court",
+        "target_actor_name": "market_observers",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "Liability has been found, remedy is separate.",
+        "layer": "trust",
+        "reason": "Liability finding may increase credibility of plaintiff theory, but remedy demands still face scrutiny.",
+        "source_actor_name": "federal_court",
+        "target_actor_name": "government_plaintiffs",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "Federal court has already found Company G liable.",
+        "layer": "trust",
+        "reason": "Court found liability already, reducing baseline confidence in company's broader position while still considering remedy arguments.",
+        "source_actor_name": "federal_court",
+        "target_actor_name": "company_g",
+        "weight": 0.33
+      },
+      {
+        "direction": "directed",
+        "evidence": "Federal court controls remedy decision.",
+        "layer": "trust",
+        "reason": "Court seen as legitimate final arbiter.",
+        "source_actor_name": "market_observers",
+        "target_actor_name": "federal_court",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "Government has argued for strong remedies.",
+        "layer": "trust",
+        "reason": "Some observers see enforcers as credible advocates for stronger relief.",
+        "source_actor_name": "market_observers",
+        "target_actor_name": "government_plaintiffs",
+        "weight": 0.49
+      },
+      {
+        "direction": "directed",
+        "evidence": "Company G found liable.",
+        "layer": "trust",
+        "reason": "Liability finding weakens public confidence in Company G's benign framing.",
+        "source_actor_name": "market_observers",
+        "target_actor_name": "company_g",
+        "weight": 0.29
+      },
+      {
+        "direction": "directed",
+        "evidence": "Divestiture of Browser C is proposed as a remedy, implying present ownership/control.",
+        "layer": "dependency",
+        "reason": "Browser C is currently owned and operationally integrated with Company G at T0.",
+        "source_actor_name": "browser_c",
+        "target_actor_name": "company_g",
+        "weight": 0.83
+      },
+      {
+        "direction": "directed",
+        "evidence": "Company G argues divestiture would be technically disruptive.",
+        "layer": "dependency",
+        "reason": "Company G relies on retaining Browser C for integrated platform strategy and leverage.",
+        "source_actor_name": "company_g",
+        "target_actor_name": "browser_c",
+        "weight": 0.71
+      },
+      {
+        "direction": "directed",
+        "evidence": "Structural breakup remedies are rarer and face administrability and appeal concerns.",
+        "layer": "dependency",
+        "reason": "Court is constrained by concern that extreme remedies may face appeal problems.",
+        "source_actor_name": "federal_court",
+        "target_actor_name": "appellate_risk_environment",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "Company G says divestiture would be technically disruptive; structural remedies face administrability concerns.",
+        "layer": "dependency",
+        "reason": "Workability concerns directly inform remedy selection.",
+        "source_actor_name": "federal_court",
+        "target_actor_name": "technical_administrability_frame",
+        "weight": 0.59
+      },
+      {
+        "direction": "directed",
+        "evidence": "Court decides remedies.",
+        "layer": "dependency",
+        "reason": "Plaintiffs need court adoption to realize any remedy proposal.",
+        "source_actor_name": "government_plaintiffs",
+        "target_actor_name": "federal_court",
+        "weight": 0.48
+      },
+      {
+        "direction": "directed",
+        "evidence": "Divestiture would occur only if ordered by court.",
+        "layer": "dependency",
+        "reason": "Company G depends on court restraint to avoid divestiture.",
+        "source_actor_name": "company_g",
+        "target_actor_name": "federal_court",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "Government argued for strong remedies.",
+        "layer": "influence",
+        "reason": "Plaintiffs can shape remedy menu and necessity narrative.",
+        "source_actor_name": "government_plaintiffs",
+        "target_actor_name": "federal_court",
+        "weight": 0.53
+      },
+      {
+        "direction": "directed",
+        "evidence": "Company G argues divestiture is excessive and technically disruptive.",
+        "layer": "influence",
+        "reason": "Company G can influence feasibility and proportionality perceptions.",
+        "source_actor_name": "company_g",
+        "target_actor_name": "federal_court",
+        "weight": 0.49
+      },
+      {
+        "direction": "directed",
+        "evidence": "Structural breakup remedies are rarer and face appeal concerns.",
+        "layer": "influence",
+        "reason": "Expected reversibility risk pushes court away from aggressive structural relief.",
+        "source_actor_name": "appellate_risk_environment",
+        "target_actor_name": "federal_court",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "Administrability concerns noted in source packet.",
+        "layer": "influence",
+        "reason": "Implementation difficulty affects remedy choice.",
+        "source_actor_name": "technical_administrability_frame",
+        "target_actor_name": "federal_court",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "Court order determines remedy.",
+        "layer": "influence",
+        "reason": "Court has direct power to impose or reject divestiture.",
+        "source_actor_name": "federal_court",
+        "target_actor_name": "company_g",
+        "weight": 0.88
+      },
+      {
+        "direction": "directed",
+        "evidence": "Remedy is separate judicial decision.",
+        "layer": "influence",
+        "reason": "Court determines how much of plaintiff request is granted.",
+        "source_actor_name": "federal_court",
+        "target_actor_name": "government_plaintiffs",
+        "weight": 0.86
+      },
+      {
+        "direction": "directed",
+        "evidence": "Expected focus includes structural vs conduct relief with public attention.",
+        "layer": "influence",
+        "reason": "Public narrative can modestly reinforce strong-enforcement positioning.",
+        "source_actor_name": "market_observers",
+        "target_actor_name": "government_plaintiffs",
+        "weight": 0.24
+      },
+      {
+        "direction": "directed",
+        "evidence": "Strong remedies are publicly advocated by government side.",
+        "layer": "coalition",
+        "reason": "Some observers and reform-minded analysts align with stronger remedies.",
+        "source_actor_name": "government_plaintiffs",
+        "target_actor_name": "market_observers",
+        "weight": 0.31
+      },
+      {
+        "direction": "directed",
+        "evidence": "Company G frames divestiture as technically disruptive.",
+        "layer": "coalition",
+        "reason": "Company arguments align with feasibility/disruption concerns.",
+        "source_actor_name": "company_g",
+        "target_actor_name": "technical_administrability_frame",
+        "weight": 0.42
+      },
+      {
+        "direction": "directed",
+        "evidence": "Appeal concerns matter for breakup remedies.",
+        "layer": "coalition",
+        "reason": "Court is institutionally aligned with legally durable outcomes.",
+        "source_actor_name": "federal_court",
+        "target_actor_name": "appellate_risk_environment",
+        "weight": 0.28
+      },
+      {
+        "direction": "directed",
+        "evidence": "Government seeks strong remedies; Company G opposes divestiture.",
+        "layer": "conflict",
+        "reason": "They seek materially different remedies after liability finding.",
+        "source_actor_name": "government_plaintiffs",
+        "target_actor_name": "company_g",
+        "weight": 0.74
+      },
+      {
+        "direction": "directed",
+        "evidence": "Company G says divestiture would be excessive.",
+        "layer": "conflict",
+        "reason": "Company resists breadth of government proposal.",
+        "source_actor_name": "company_g",
+        "target_actor_name": "government_plaintiffs",
+        "weight": 0.74
+      },
+      {
+        "direction": "directed",
+        "evidence": "Court already found liability; remedy still pending.",
+        "layer": "conflict",
+        "reason": "Tension exists because court may impose severe remedy, but proceedings remain orderly.",
+        "source_actor_name": "company_g",
+        "target_actor_name": "federal_court",
+        "weight": 0.29
+      },
+      {
+        "direction": "directed",
+        "evidence": "Structural remedies face appeal concerns.",
+        "layer": "conflict",
+        "reason": "Aggressive remedy ambition runs into durability concerns.",
+        "source_actor_name": "government_plaintiffs",
+        "target_actor_name": "appellate_risk_environment",
+        "weight": 0.26
+      },
+      {
+        "direction": "directed",
+        "evidence": "Administrability concerns noted.",
+        "layer": "conflict",
+        "reason": "Plaintiffs' strongest asks may be resisted by implementation objections.",
+        "source_actor_name": "government_plaintiffs",
+        "target_actor_name": "technical_administrability_frame",
+        "weight": 0.22
+      },
+      {
+        "direction": "directed",
+        "evidence": "Both sides are actively contesting remedy scope.",
+        "layer": "oasis_interaction",
+        "reason": "Remedy-phase filings, hearings, and public statements create recurring interaction.",
+        "source_actor_name": "government_plaintiffs",
+        "target_actor_name": "company_g",
+        "weight": 0.47
+      },
+      {
+        "direction": "directed",
+        "evidence": "Company G publicly frames divestiture as disruptive.",
+        "layer": "oasis_interaction",
+        "reason": "Company messaging on technical disruption likely appears in public channels.",
+        "source_actor_name": "company_g",
+        "target_actor_name": "market_observers",
+        "weight": 0.36
+      },
+      {
+        "direction": "directed",
+        "evidence": "Government has argued for strong remedies.",
+        "layer": "oasis_interaction",
+        "reason": "Government remedy demands are public-facing and debated.",
+        "source_actor_name": "government_plaintiffs",
+        "target_actor_name": "market_observers",
+        "weight": 0.39
+      },
+      {
+        "direction": "directed",
+        "evidence": "Remedy phase is a visible judicial process.",
+        "layer": "oasis_interaction",
+        "reason": "Court calendar, hearings, and orders draw public attention.",
+        "source_actor_name": "federal_court",
+        "target_actor_name": "market_observers",
+        "weight": 0.34
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "description": "Central authority whose remedy choice determines endpoint.",
+        "name": "judicial_decider"
+      },
+      {
+        "description": "Company-side leadership and counsel resisting structural remedy.",
+        "name": "defense_principal"
+      },
+      {
+        "description": "Government-side leadership and counsel advocating stronger remedy.",
+        "name": "enforcement_principal"
+      }
+    ],
+    "hero_states": [
+      {
+        "attention_level": 0.98,
+        "behavioral_tendencies": [
+          "procedural caution",
+          "record-bound evaluation",
+          "proportionality assessment"
+        ],
+        "expression_level": 0.41,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.02,
+        "graph_influence_summary": {
+          "inbound_influence": 0.47,
+          "outbound_influence": 0.95
+        },
+        "hero_archetype": "judicial_decider",
+        "ideology_axes": {
+          "aggressive_market_correction": 0.32,
+          "institutional_restraint": 0.68
+        },
+        "mobilization_readiness": 0.89,
+        "name": "federal_court",
+        "perceived_majority": 0.5,
+        "reputation": 0.81,
+        "secrecy": 0.84,
+        "stance_axes": {
+          "favor_conduct_only": 0.62,
+          "favor_structural_remedy": 0.38,
+          "sensitivity_to_administrability": 0.69,
+          "sensitivity_to_appeal_risk": 0.73
+        },
+        "trustworthiness": 0.78
+      },
+      {
+        "attention_level": 0.94,
+        "behavioral_tendencies": [
+          "defensive legal messaging",
+          "technical disruption framing",
+          "appeal preservation"
+        ],
+        "expression_level": 0.76,
+        "fatigue": 0.37,
+        "fear_of_isolation": 0.11,
+        "graph_influence_summary": {
+          "inbound_influence": 0.74,
+          "outbound_influence": 0.72
+        },
+        "hero_archetype": "defense_principal",
+        "ideology_axes": {
+          "platform_integration_preference": 0.93,
+          "regulatory_concession": 0.22
+        },
+        "mobilization_readiness": 0.82,
+        "name": "company_g",
+        "perceived_majority": 0.41,
+        "reputation": 0.39,
+        "secrecy": 0.48,
+        "stance_axes": {
+          "favor_conduct_only": 0.88,
+          "favor_narrow_remedy": 0.91,
+          "favor_structural_remedy": 0.02
+        },
+        "trustworthiness": 0.34
+      },
+      {
+        "attention_level": 0.93,
+        "behavioral_tendencies": [
+          "maximal-remedy advocacy",
+          "competition-restoration framing",
+          "institutional signaling"
+        ],
+        "expression_level": 0.71,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.08,
+        "graph_influence_summary": {
+          "inbound_influence": 0.61,
+          "outbound_influence": 0.69
+        },
+        "hero_archetype": "enforcement_principal",
+        "ideology_axes": {
+          "aggressive_market_correction": 0.79,
+          "institutional_restraint": 0.44
+        },
+        "mobilization_readiness": 0.8,
+        "name": "government_plaintiffs",
+        "perceived_majority": 0.45,
+        "reputation": 0.67,
+        "secrecy": 0.36,
+        "stance_axes": {
+          "favor_conduct_only": 0.26,
+          "favor_strong_remedy": 0.87,
+          "favor_structural_remedy": 0.74
+        },
+        "trustworthiness": 0.63
+      }
+    ],
+    "heroes": [
+      {
+        "description": "Central authority whose remedy choice determines endpoint.",
+        "name": "judicial_decider"
+      },
+      {
+        "description": "Company-side leadership and counsel resisting structural remedy.",
+        "name": "defense_principal"
+      },
+      {
+        "description": "Government-side leadership and counsel advocating stronger remedy.",
+        "name": "enforcement_principal"
+      }
+    ],
+    "important_questions": [
+      "Will the final federal court remedy order require Company G to sell or divest Browser C?",
+      "Will the court resolve the remedy phase with conduct, contract, or data-sharing remedies without ordering Browser C divestiture?",
+      "Will the final remedy rationale explicitly rely on administrability or appeal-risk concerns to reject structural separation?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "federal_court",
+          "company_g",
+          "government_plaintiffs"
+        ],
+        "event_key": "liability_already_found",
+        "event_type": "announcement",
+        "expected_impact": "Raises plausibility of meaningful remedy while not determining structural outcome.",
+        "status": "realized",
+        "summary": "Federal court has already found Company G liable in the search-antitrust case.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "federal_court",
+          "government_plaintiffs",
+          "company_g"
+        ],
+        "event_key": "remedy_phase_active",
+        "event_type": "announcement",
+        "expected_impact": "Creates open contest over proportionality, feasibility, and necessity.",
+        "status": "realized",
+        "summary": "Case is in separate remedy phase with a menu spanning conduct, data-sharing, and structural proposals.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "government_plaintiffs"
+        ],
+        "event_key": "government_pushes_strong_remedies",
+        "event_type": "announcement",
+        "expected_impact": "Increases salience of divestiture as a live endpoint without making it likely.",
+        "status": "realized",
+        "summary": "Government-side actors advocate for strong remedies that keep structural relief in play.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "company_g",
+          "browser_c"
+        ],
+        "event_key": "company_resists_browser_c_divestiture",
+        "event_type": "announcement",
+        "expected_impact": "Strengthens administrability and proportionality frame against breakup.",
+        "status": "realized",
+        "summary": "Company G argues Browser C divestiture would be excessive and technically disruptive.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "federal_court",
+          "government_plaintiffs",
+          "company_g"
+        ],
+        "event_key": "remedy_briefing_and_hearings_ahead",
+        "event_type": "announcement",
+        "expected_impact": "Could reveal whether the court is testing structural necessity or steering toward conduct relief.",
+        "status": "anticipated",
+        "summary": "Additional filings, hearings, or judicial questioning are likely before final remedy order.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "federal_court"
+        ],
+        "event_key": "final_remedy_order_pending",
+        "event_type": "announcement",
+        "expected_impact": "Terminal evidence for forecast will emerge from the text of the order.",
+        "status": "anticipated",
+        "summary": "Court will eventually issue remedy order selecting among live options.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "3fdae9ee-c2e0-4854-8743-afd1522b3e8e",
+    "merge_hypotheses": [
+      {
+        "affected_actors": [
+          "federal_court",
+          "government_plaintiffs",
+          "company_g"
+        ],
+        "mechanism": "All parties orient toward a remedy likely to survive appeal, narrowing extremes over time.",
+        "merge_key": "judicial_durability_pull"
+      },
+      {
+        "affected_actors": [
+          "government_plaintiffs",
+          "company_g",
+          "technical_administrability_frame"
+        ],
+        "mechanism": "Shared recognition that remedies must be implementable could bring government asks and company concessions toward a monitored conduct package.",
+        "merge_key": "administrable_relief_convergence"
+      },
+      {
+        "affected_actors": [
+          "market_observers",
+          "federal_court",
+          "government_plaintiffs",
+          "company_g"
+        ],
+        "mechanism": "Low mass-public salience allows elite legal process, rather than broad external pressure, to dominate all branches.",
+        "merge_key": "public_attention_fade"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "description": "People closely following antitrust law and platform remedies.",
+        "name": "legal_policy_observers",
+        "population_total": 500000
+      },
+      {
+        "description": "Broad public indirectly affected by search/browser ecosystem outcomes but weakly engaged in remedy details.",
+        "name": "general_digital_market_users",
+        "population_total": 180000000
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "masked_entities",
+        "note": "Scenario uses partial masking; actor names preserved in fictionalized form to avoid unnecessary real-world targeting.",
+        "severity": "low"
+      },
+      {
+        "flag": "limited_record_detail",
+        "note": "Corpus provides only high-level remedy posture, not detailed evidentiary findings linking Browser C to harm.",
+        "severity": "medium"
+      },
+      {
+        "flag": "timing_ambiguity",
+        "note": "No explicit adjudication deadline or hearing calendar is provided, so anticipated ticks are schematic.",
+        "severity": "medium"
+      },
+      {
+        "flag": "endpoint_binary_vs_process_multistate",
+        "note": "Forecast endpoint is binary, but underlying remedy process contains several non-terminal mechanisms that must not be confused with final divestiture order.",
+        "severity": "medium"
+      },
+      {
+        "flag": "public_salience_overread_risk",
+        "note": "Mass public reaction likely has limited direct effect relative to court-centered legal process.",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "core_uncertainties": [
+        "whether the court views structural separation as necessary and proportionate",
+        "how strongly administrability and appeal-risk concerns discount divestiture",
+        "whether conduct and data remedies are seen as adequate substitutes",
+        "timing and framing of remedy submissions and hearings"
+      ],
+      "domain": "antitrust_remedy_litigation",
+      "evidence_refs": [
+        "source_1_legal_context_2025_08_15",
+        "source_2_remedy_note_2025_08_15",
+        "source_3_endpoint_note_2025_08_15"
+      ],
+      "forecast_question": "Will the federal court order Company G to divest Browser C as a remedy in the search-antitrust case?",
+      "mode": "direct",
+      "scale": "federal court case with major platform-market implications",
+      "scenario_key": "resolved_024",
+      "time_zero_summary": "Liability against Company G has already been established in a federal search-antitrust case. The proceeding is now in the remedy phase, where the court is considering a range of options from conduct restrictions and data-sharing duties to structural remedies including possible divestiture of Browser C. Government-side actors are pressing for strong remedies; Company G argues Browser C divestiture would be excessive and technically disruptive. At T0, the terminal question remains unresolved and the court retains decision authority.",
+      "uncertainty_level": "high"
+    },
+    "sociology_baseline": [
+      {
+        "evidence": "Observers likely cluster around familiar priors on structural vs conduct remedies.",
+        "level": "moderate",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "scope": "legal_policy_observers"
+      },
+      {
+        "evidence": "Public salience is limited unless dramatic court action or hearing signals emerge.",
+        "level": "low_to_moderate",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "scope": "general_public"
+      },
+      {
+        "evidence": "Most users have low attention and weakly formed opinions on remedy mechanics.",
+        "level": "high",
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "scope": "general_digital_market_users"
+      },
+      {
+        "evidence": "Antitrust and platform-policy communities sort by prior views on structuralism and restraint.",
+        "level": "moderate",
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "scope": "expert_and_policy_networks"
+      },
+      {
+        "evidence": "Expectations about divestiture require reinforcement from multiple legal cues, not single headlines.",
+        "level": "moderate",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "scope": "elite_commentary"
+      },
+      {
+        "evidence": "Government and corporate actors interpret remedy through enforcement vs integration identities.",
+        "level": "moderate",
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "scope": "institutional_actors"
+      },
+      {
+        "evidence": "Absent major rulings, public attention to remedy phase likely fades between court events.",
+        "level": "moderate",
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "scope": "general_public"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context_key": "liability_pre_established",
+        "description": "Baseline public and expert discussion starts from confirmed liability rather than merits uncertainty."
+      },
+      {
+        "context_key": "structural_remedies_are_rare",
+        "description": "Default expectation in elite discourse leans against breakup absent exceptional necessity showing."
+      },
+      {
+        "context_key": "conduct_remedies_are_live_substitutes",
+        "description": "Presence of non-divestiture options makes terminal choice non-binary in process terms, but binary for forecast endpoint."
+      },
+      {
+        "context_key": "technical_disruption_claims_salient",
+        "description": "Feasibility and implementation arguments may temper support for immediate structural separation."
+      },
+      {
+        "context_key": "court_centric_decision_authority",
+        "description": "Outcome is concentrated in judicial decision rather than broad electoral or consumer mobilization."
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "federal_court",
+        "behavior_axes": {
+          "caution": 0.81,
+          "decisiveness": 0.62,
+          "opacity": 0.74
+        },
+        "ideology_axes": {
+          "competition_intervention": 0.49,
+          "institutional_restraint": 0.68
+        },
+        "reputation": 0.81,
+        "secrecy": 0.84,
+        "tendency": "prefers legally durable and administrable remedies",
+        "trustworthiness": 0.78
+      },
+      {
+        "actor_name": "company_g",
+        "behavior_axes": {
+          "adaptability": 0.58,
+          "defensiveness": 0.87,
+          "litigation_aggressiveness": 0.78
+        },
+        "ideology_axes": {
+          "competition_concession": 0.21,
+          "integrationism": 0.92
+        },
+        "reputation": 0.39,
+        "secrecy": 0.48,
+        "tendency": "resist breakup and channel court toward narrower remedies",
+        "trustworthiness": 0.34
+      },
+      {
+        "actor_name": "government_plaintiffs",
+        "behavior_axes": {
+          "assertiveness": 0.79,
+          "narrative_discipline": 0.67,
+          "persistence": 0.73
+        },
+        "ideology_axes": {
+          "conduct_remedy_acceptance": 0.43,
+          "structuralism": 0.74
+        },
+        "reputation": 0.67,
+        "secrecy": 0.36,
+        "tendency": "seek meaningful remedy with structural option preserved",
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "appellate_risk_environment",
+        "behavior_axes": {
+          "constraint_strength": 0.71,
+          "visibility": 0.58,
+          "volatility": 0.44
+        },
+        "ideology_axes": {
+          "innovation_neutrality": 0.5,
+          "institutional_conservatism": 0.65
+        },
+        "reputation": 0.6,
+        "secrecy": 0.9,
+        "tendency": "pushes actors toward remedies likely to survive review",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "technical_administrability_frame",
+        "behavior_axes": {
+          "constraint_strength": 0.68,
+          "contestability": 0.61,
+          "elasticity": 0.52
+        },
+        "ideology_axes": {
+          "implementation_pragmatism": 0.83,
+          "structural_agnosticism": 0.49
+        },
+        "reputation": 0.56,
+        "secrecy": 0.72,
+        "tendency": "raises salience of feasibility and disruption claims",
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "market_observers",
+        "behavior_axes": {
+          "amplification": 0.63,
+          "attention_variability": 0.77,
+          "expertise_dispersion": 0.69
+        },
+        "ideology_axes": {
+          "reformism": 0.48,
+          "status_quo_bias": 0.41
+        },
+        "reputation": 0.46,
+        "secrecy": 0.12,
+        "tendency": "reacts to hearings and remedy framing rather than controlling outcome",
+        "trustworthiness": 0.48
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 1810,
+        "end": 1810,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 1810,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

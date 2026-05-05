@@ -1,0 +1,1480 @@
+{
+  "big_bang_id": "c2094f7d-d33b-471d-987e-83d8fdb3da83",
+  "initializer_output": {
+    "actors": [
+      {
+        "description": "Overall program responsible for Mission A2 planning and execution.",
+        "fictionalized": true,
+        "name": "mission_a2_program",
+        "stakes": [
+          "launch by deadline",
+          "program credibility",
+          "crew safety",
+          "schedule recovery after prior delays"
+        ],
+        "type": "organization"
+      },
+      {
+        "description": "Launch and countdown operations team managing rollout, rehearsal, and pad execution.",
+        "fictionalized": true,
+        "name": "mission_a2_launch_operations",
+        "stakes": [
+          "operational readiness",
+          "countdown stability",
+          "ground coordination"
+        ],
+        "type": "operations_team"
+      },
+      {
+        "description": "Engineering and hardware assessment teams responsible for technical issue resolution.",
+        "fictionalized": true,
+        "name": "mission_a2_engineering",
+        "stakes": [
+          "hardware integrity",
+          "verification closure",
+          "risk containment"
+        ],
+        "type": "technical_team"
+      },
+      {
+        "description": "Safety and mission assurance reviewers for crewed flight readiness.",
+        "fictionalized": true,
+        "name": "mission_a2_safety_review",
+        "stakes": [
+          "crew safety",
+          "standards compliance",
+          "conservative go/no-go discipline"
+        ],
+        "type": "oversight_body"
+      },
+      {
+        "description": "Launch range authority governing availability and clearance.",
+        "fictionalized": true,
+        "name": "range_authority",
+        "stakes": [
+          "range scheduling",
+          "public safety",
+          "conflict-free operations"
+        ],
+        "type": "institution"
+      },
+      {
+        "description": "Teams operating launch pad and supporting ground systems.",
+        "fictionalized": true,
+        "name": "ground_systems_operator",
+        "stakes": [
+          "system readiness",
+          "repair turnaround",
+          "interface reliability"
+        ],
+        "type": "infrastructure_operator"
+      },
+      {
+        "description": "Weather forecasting and constraint assessment function for launch.",
+        "fictionalized": true,
+        "name": "weather_office",
+        "stakes": [
+          "accurate constraint calls",
+          "operational safety"
+        ],
+        "type": "service_provider"
+      },
+      {
+        "description": "Crew assigned to the mission.",
+        "fictionalized": true,
+        "name": "flight_crew",
+        "stakes": [
+          "safe mission execution",
+          "schedule certainty",
+          "training synchronization"
+        ],
+        "type": "crew"
+      },
+      {
+        "description": "Specialized media and public observers tracking launch progress.",
+        "fictionalized": true,
+        "name": "space_media_watchers",
+        "stakes": [
+          "timely information",
+          "narrative about delays or success"
+        ],
+        "type": "media_public"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Program proceeds into a viable launch attempt within deadline.",
+        "branch_key": "clean_readiness_closure_branch",
+        "divergence_signal": "Official readiness language shifts from window preservation to committed launch targeting and range allocation is locked.",
+        "trigger": "Hardware checks close cleanly and safety review finds acceptable residual risk before end of March 2026."
+      },
+      {
+        "alternate_path": "Launch slips past March 31 despite continued intent to fly soon after.",
+        "branch_key": "late_technical_issue_branch",
+        "divergence_signal": "New engineering work, additional test cycles, or indefinite readiness wording appear in official updates.",
+        "trigger": "A material technical anomaly remains unresolved or emerges during final checks/rehearsal follow-up."
+      },
+      {
+        "alternate_path": "Mission remains broadly ready but misses deadline due to operational bottleneck.",
+        "branch_key": "ground_or_range_slip_branch",
+        "divergence_signal": "Public references to recycled countdown infrastructure work, range conflicts, or narrowed attempt opportunities.",
+        "trigger": "Ground system trouble or range unavailability compresses the final attempt window."
+      },
+      {
+        "alternate_path": "Launch readiness exists but mission scrubs into April, resolving no.",
+        "branch_key": "weather_boundary_branch",
+        "divergence_signal": "Official statements emphasize acceptable vehicle status while weather/red-rule conditions drive postponement.",
+        "trigger": "Weather constraints dominate near the final available pre-deadline opportunity."
+      }
+    ],
+    "channels": [
+      {
+        "actors": [
+          "mission_a2_program",
+          "space_media_watchers"
+        ],
+        "channel_key": "official_program_updates",
+        "credibility": 0.63,
+        "reach": 0.68,
+        "type": "public_official"
+      },
+      {
+        "actors": [
+          "mission_a2_program",
+          "mission_a2_engineering",
+          "mission_a2_safety_review",
+          "mission_a2_launch_operations"
+        ],
+        "channel_key": "internal_readiness_reviews",
+        "credibility": 0.84,
+        "reach": 0.39,
+        "type": "private_institutional"
+      },
+      {
+        "actors": [
+          "mission_a2_launch_operations",
+          "range_authority"
+        ],
+        "channel_key": "range_coordination",
+        "credibility": 0.8,
+        "reach": 0.18,
+        "type": "operational_private"
+      },
+      {
+        "actors": [
+          "weather_office",
+          "mission_a2_launch_operations",
+          "mission_a2_program"
+        ],
+        "channel_key": "weather_briefings",
+        "credibility": 0.77,
+        "reach": 0.22,
+        "type": "operational_private"
+      },
+      {
+        "actors": [
+          "space_media_watchers"
+        ],
+        "channel_key": "public_space_media",
+        "credibility": 0.46,
+        "reach": 0.61,
+        "type": "public_networked"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "program_workforce",
+        "attention_level": 0.96,
+        "behavioral_tendencies": [
+          "message schedule discipline",
+          "avoid overpromising",
+          "escalate unresolved issues upward"
+        ],
+        "cohort_key": "program_leadership_cohort",
+        "expression_level": 0.62,
+        "fatigue": 0.58,
+        "fear_of_isolation": 0.24,
+        "graph_influence_summary": 0.72,
+        "ideology_axes": {
+          "institutional_caution": 0.77,
+          "risk_aversion": 0.74,
+          "schedule_priority": 0.72
+        },
+        "mobilization_readiness": 0.71,
+        "perceived_majority": "most internal stakeholders want launch readiness preserved if safety criteria are met",
+        "population_share_of_archetype": 0.0167,
+        "private_belief": "deadline is achievable but fragile",
+        "public_position": "working toward early-2026 launch while avoiding unsafe commitment",
+        "representation_mode": "direct_subset",
+        "represented_population": 300,
+        "reputation": 0.71,
+        "secrecy": 0.66,
+        "stance_axes": {
+          "delay_tolerance": 0.45,
+          "launch_by_deadline_support": 0.9,
+          "safety_first": 0.9
+        },
+        "trustworthiness": 0.69
+      },
+      {
+        "archetype_key": "program_workforce",
+        "attention_level": 0.93,
+        "behavioral_tendencies": [
+          "conservative issue disposition",
+          "internal escalation",
+          "procedural adherence"
+        ],
+        "cohort_key": "engineering_and_operations_cohort",
+        "expression_level": 0.38,
+        "fatigue": 0.63,
+        "fear_of_isolation": 0.36,
+        "graph_influence_summary": 0.64,
+        "ideology_axes": {
+          "institutional_caution": 0.81,
+          "risk_aversion": 0.88,
+          "schedule_priority": 0.58
+        },
+        "mobilization_readiness": 0.66,
+        "perceived_majority": "technical staff believe unresolved issues must close before commitment",
+        "population_share_of_archetype": 0.3444,
+        "private_belief": "schedule can slip quickly if checks reveal anomalies",
+        "public_position": "technical evaluations ongoing",
+        "representation_mode": "direct_subset",
+        "represented_population": 6200,
+        "reputation": 0.75,
+        "secrecy": 0.73,
+        "stance_axes": {
+          "delay_tolerance": 0.61,
+          "launch_by_deadline_support": 0.74,
+          "safety_first": 0.92
+        },
+        "trustworthiness": 0.78
+      },
+      {
+        "archetype_key": "program_workforce",
+        "attention_level": 0.7,
+        "behavioral_tendencies": [
+          "follow official updates",
+          "defer to specialists"
+        ],
+        "cohort_key": "support_workforce_cohort",
+        "expression_level": 0.31,
+        "fatigue": 0.49,
+        "fear_of_isolation": 0.33,
+        "graph_influence_summary": 0.35,
+        "ideology_axes": {
+          "institutional_caution": 0.69,
+          "risk_aversion": 0.73,
+          "schedule_priority": 0.61
+        },
+        "mobilization_readiness": 0.43,
+        "perceived_majority": "mission should launch as soon as it is clearly ready",
+        "population_share_of_archetype": 0.6389,
+        "private_belief": "uncertainty is normal for crewed launches",
+        "public_position": "limited public expression",
+        "representation_mode": "residual_subset",
+        "represented_population": 11500,
+        "reputation": 0.62,
+        "secrecy": 0.55,
+        "stance_axes": {
+          "delay_tolerance": 0.52,
+          "launch_by_deadline_support": 0.68,
+          "safety_first": 0.8
+        },
+        "trustworthiness": 0.67
+      },
+      {
+        "archetype_key": "space_interested_public",
+        "attention_level": 0.59,
+        "behavioral_tendencies": [
+          "amplify schedule rumors",
+          "react to milestones",
+          "respond to official briefings"
+        ],
+        "cohort_key": "space_enthusiast_public_cohort",
+        "expression_level": 0.42,
+        "fatigue": 0.37,
+        "fear_of_isolation": 0.14,
+        "graph_influence_summary": 0.28,
+        "ideology_axes": {
+          "institutional_caution": 0.44,
+          "risk_aversion": 0.52,
+          "schedule_priority": 0.77
+        },
+        "mobilization_readiness": 0.27,
+        "perceived_majority": "most followers expect some delay risk but hope for launch by deadline",
+        "population_share_of_archetype": 0.7,
+        "private_belief": "crew safety may force slippage",
+        "public_position": "optimistic but watchful",
+        "representation_mode": "broad_segment",
+        "represented_population": 1750000,
+        "reputation": 0.48,
+        "secrecy": 0.12,
+        "stance_axes": {
+          "delay_tolerance": 0.41,
+          "launch_by_deadline_support": 0.88,
+          "safety_first": 0.71
+        },
+        "trustworthiness": 0.56
+      },
+      {
+        "archetype_key": "space_interested_public",
+        "attention_level": 0.53,
+        "behavioral_tendencies": [
+          "highlight precedent delays",
+          "scrutinize readiness signals"
+        ],
+        "cohort_key": "skeptical_watchers_cohort",
+        "expression_level": 0.39,
+        "fatigue": 0.46,
+        "fear_of_isolation": 0.11,
+        "graph_influence_summary": 0.22,
+        "ideology_axes": {
+          "institutional_caution": 0.58,
+          "risk_aversion": 0.75,
+          "schedule_priority": 0.33
+        },
+        "mobilization_readiness": 0.24,
+        "perceived_majority": "official schedules are often too optimistic",
+        "population_share_of_archetype": 0.3,
+        "private_belief": "historical delays make another slip plausible",
+        "public_position": "cautious skepticism",
+        "representation_mode": "minority_segment",
+        "represented_population": 750000,
+        "reputation": 0.51,
+        "secrecy": 0.09,
+        "stance_axes": {
+          "delay_tolerance": 0.76,
+          "launch_by_deadline_support": 0.39,
+          "safety_first": 0.82
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "archetype_key": "assigned_crew_circle",
+        "attention_level": 1.0,
+        "behavioral_tendencies": [
+          "message discipline",
+          "follow readiness process",
+          "avoid public dissent"
+        ],
+        "cohort_key": "crew_core_cohort",
+        "expression_level": 0.22,
+        "fatigue": 0.52,
+        "fear_of_isolation": 0.41,
+        "graph_influence_summary": 0.41,
+        "ideology_axes": {
+          "institutional_caution": 0.83,
+          "risk_aversion": 0.91,
+          "schedule_priority": 0.64
+        },
+        "mobilization_readiness": 0.79,
+        "perceived_majority": "mission should fly when fully cleared, not merely on schedule",
+        "population_share_of_archetype": 1.0,
+        "private_belief": "prepared but dependent on system closure outside crew control",
+        "public_position": "disciplined confidence",
+        "representation_mode": "full_archetype",
+        "represented_population": 12,
+        "reputation": 0.82,
+        "secrecy": 0.84,
+        "stance_axes": {
+          "delay_tolerance": 0.57,
+          "launch_by_deadline_support": 0.86,
+          "safety_first": 0.95
+        },
+        "trustworthiness": 0.79
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "program_workforce",
+        "attention_level": 0.96,
+        "behavioral_tendencies": [
+          "message schedule discipline",
+          "avoid overpromising",
+          "escalate unresolved issues upward"
+        ],
+        "cohort_key": "program_leadership_cohort",
+        "expression_level": 0.62,
+        "fatigue": 0.58,
+        "fear_of_isolation": 0.24,
+        "graph_influence_summary": 0.72,
+        "ideology_axes": {
+          "institutional_caution": 0.77,
+          "risk_aversion": 0.74,
+          "schedule_priority": 0.72
+        },
+        "mobilization_readiness": 0.71,
+        "perceived_majority": "most internal stakeholders want launch readiness preserved if safety criteria are met",
+        "population_share_of_archetype": 0.0167,
+        "private_belief": "deadline is achievable but fragile",
+        "public_position": "working toward early-2026 launch while avoiding unsafe commitment",
+        "representation_mode": "direct_subset",
+        "represented_population": 300,
+        "reputation": 0.71,
+        "secrecy": 0.66,
+        "stance_axes": {
+          "delay_tolerance": 0.45,
+          "launch_by_deadline_support": 0.9,
+          "safety_first": 0.9
+        },
+        "trustworthiness": 0.69
+      },
+      {
+        "archetype_key": "program_workforce",
+        "attention_level": 0.93,
+        "behavioral_tendencies": [
+          "conservative issue disposition",
+          "internal escalation",
+          "procedural adherence"
+        ],
+        "cohort_key": "engineering_and_operations_cohort",
+        "expression_level": 0.38,
+        "fatigue": 0.63,
+        "fear_of_isolation": 0.36,
+        "graph_influence_summary": 0.64,
+        "ideology_axes": {
+          "institutional_caution": 0.81,
+          "risk_aversion": 0.88,
+          "schedule_priority": 0.58
+        },
+        "mobilization_readiness": 0.66,
+        "perceived_majority": "technical staff believe unresolved issues must close before commitment",
+        "population_share_of_archetype": 0.3444,
+        "private_belief": "schedule can slip quickly if checks reveal anomalies",
+        "public_position": "technical evaluations ongoing",
+        "representation_mode": "direct_subset",
+        "represented_population": 6200,
+        "reputation": 0.75,
+        "secrecy": 0.73,
+        "stance_axes": {
+          "delay_tolerance": 0.61,
+          "launch_by_deadline_support": 0.74,
+          "safety_first": 0.92
+        },
+        "trustworthiness": 0.78
+      },
+      {
+        "archetype_key": "program_workforce",
+        "attention_level": 0.7,
+        "behavioral_tendencies": [
+          "follow official updates",
+          "defer to specialists"
+        ],
+        "cohort_key": "support_workforce_cohort",
+        "expression_level": 0.31,
+        "fatigue": 0.49,
+        "fear_of_isolation": 0.33,
+        "graph_influence_summary": 0.35,
+        "ideology_axes": {
+          "institutional_caution": 0.69,
+          "risk_aversion": 0.73,
+          "schedule_priority": 0.61
+        },
+        "mobilization_readiness": 0.43,
+        "perceived_majority": "mission should launch as soon as it is clearly ready",
+        "population_share_of_archetype": 0.6389,
+        "private_belief": "uncertainty is normal for crewed launches",
+        "public_position": "limited public expression",
+        "representation_mode": "residual_subset",
+        "represented_population": 11500,
+        "reputation": 0.62,
+        "secrecy": 0.55,
+        "stance_axes": {
+          "delay_tolerance": 0.52,
+          "launch_by_deadline_support": 0.68,
+          "safety_first": 0.8
+        },
+        "trustworthiness": 0.67
+      },
+      {
+        "archetype_key": "space_interested_public",
+        "attention_level": 0.59,
+        "behavioral_tendencies": [
+          "amplify schedule rumors",
+          "react to milestones",
+          "respond to official briefings"
+        ],
+        "cohort_key": "space_enthusiast_public_cohort",
+        "expression_level": 0.42,
+        "fatigue": 0.37,
+        "fear_of_isolation": 0.14,
+        "graph_influence_summary": 0.28,
+        "ideology_axes": {
+          "institutional_caution": 0.44,
+          "risk_aversion": 0.52,
+          "schedule_priority": 0.77
+        },
+        "mobilization_readiness": 0.27,
+        "perceived_majority": "most followers expect some delay risk but hope for launch by deadline",
+        "population_share_of_archetype": 0.7,
+        "private_belief": "crew safety may force slippage",
+        "public_position": "optimistic but watchful",
+        "representation_mode": "broad_segment",
+        "represented_population": 1750000,
+        "reputation": 0.48,
+        "secrecy": 0.12,
+        "stance_axes": {
+          "delay_tolerance": 0.41,
+          "launch_by_deadline_support": 0.88,
+          "safety_first": 0.71
+        },
+        "trustworthiness": 0.56
+      },
+      {
+        "archetype_key": "space_interested_public",
+        "attention_level": 0.53,
+        "behavioral_tendencies": [
+          "highlight precedent delays",
+          "scrutinize readiness signals"
+        ],
+        "cohort_key": "skeptical_watchers_cohort",
+        "expression_level": 0.39,
+        "fatigue": 0.46,
+        "fear_of_isolation": 0.11,
+        "graph_influence_summary": 0.22,
+        "ideology_axes": {
+          "institutional_caution": 0.58,
+          "risk_aversion": 0.75,
+          "schedule_priority": 0.33
+        },
+        "mobilization_readiness": 0.24,
+        "perceived_majority": "official schedules are often too optimistic",
+        "population_share_of_archetype": 0.3,
+        "private_belief": "historical delays make another slip plausible",
+        "public_position": "cautious skepticism",
+        "representation_mode": "minority_segment",
+        "represented_population": 750000,
+        "reputation": 0.51,
+        "secrecy": 0.09,
+        "stance_axes": {
+          "delay_tolerance": 0.76,
+          "launch_by_deadline_support": 0.39,
+          "safety_first": 0.82
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "archetype_key": "assigned_crew_circle",
+        "attention_level": 1.0,
+        "behavioral_tendencies": [
+          "message discipline",
+          "follow readiness process",
+          "avoid public dissent"
+        ],
+        "cohort_key": "crew_core_cohort",
+        "expression_level": 0.22,
+        "fatigue": 0.52,
+        "fear_of_isolation": 0.41,
+        "graph_influence_summary": 0.41,
+        "ideology_axes": {
+          "institutional_caution": 0.83,
+          "risk_aversion": 0.91,
+          "schedule_priority": 0.64
+        },
+        "mobilization_readiness": 0.79,
+        "perceived_majority": "mission should fly when fully cleared, not merely on schedule",
+        "population_share_of_archetype": 1.0,
+        "private_belief": "prepared but dependent on system closure outside crew control",
+        "public_position": "disciplined confidence",
+        "representation_mode": "full_archetype",
+        "represented_population": 12,
+        "reputation": 0.82,
+        "secrecy": 0.84,
+        "stance_axes": {
+          "delay_tolerance": 0.57,
+          "launch_by_deadline_support": 0.86,
+          "safety_first": 0.95
+        },
+        "trustworthiness": 0.79
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "mission_a2_program",
+          "mission_a2_safety_review",
+          "range_authority"
+        ],
+        "blockers": [
+          "unresolved technical issues",
+          "negative safety review outcome",
+          "ground system problems",
+          "range unavailability",
+          "weather constraints"
+        ],
+        "contradiction_notes": "Rollout and rehearsal are positive but do not themselves satisfy launch realization.",
+        "description": "Mission A2 physically launches on or before March 31, 2026 local launch-site time.",
+        "endpoint_key": "launch_by_march_31_2026",
+        "evidence_refs": [
+          "vehicle_rollout_and_rehearsal_activity",
+          "early_2026_window_preservation_push",
+          "ongoing_hardware_and_ground_checks"
+        ],
+        "label": "Launch by deadline",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does Mission A2 achieve an actual launch by March 31, 2026 local launch-site time?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.5,
+        "rationale": "This is the primary terminal yes endpoint defined by the scenario.",
+        "realization_criteria": [
+          "Observable launch event occurs",
+          "Timestamp is on or before 2026-03-31 in local launch-site time"
+        ],
+        "status": "active",
+        "status_basis": "Program is still attempting to preserve an early-2026 window, but multiple readiness-sensitive dependencies remain open."
+      },
+      {
+        "authority_refs": [
+          "mission_a2_program",
+          "mission_a2_safety_review",
+          "range_authority"
+        ],
+        "blockers": [
+          "timely technical closure",
+          "timely safety approval",
+          "favorable range access",
+          "acceptable weather"
+        ],
+        "contradiction_notes": "A delay of less than 24 hours still realizes this endpoint if the launch occurs on April 1 or later.",
+        "description": "Mission A2 does not physically launch by March 31, 2026 local launch-site time, including launch on April 1 or later.",
+        "endpoint_key": "no_launch_by_march_31_2026",
+        "evidence_refs": [
+          "early_2026_window_preservation_push",
+          "ongoing_hardware_and_ground_checks",
+          "formal_safety_readiness_cycle",
+          "range_and_weather_constraint_window"
+        ],
+        "label": "No launch by deadline",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Are hardware and related technical checks closed in time to support a March 2026 launch attempt?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.5,
+        "rationale": "The scenario explicitly defines this as the alternative terminal endpoint.",
+        "realization_criteria": [
+          "No observable launch event by end of 2026-03-31 local launch-site time",
+          "OR first actual launch timestamp is 2026-04-01 or later local launch-site time"
+        ],
+        "status": "active",
+        "status_basis": "Historical delays and multiple open sensitivity factors make deadline miss a live alternative at T0."
+      },
+      {
+        "authority_refs": [
+          "mission_a2_engineering",
+          "mission_a2_program",
+          "mission_a2_safety_review"
+        ],
+        "blockers": [
+          "new anomalies",
+          "slow verification cycles",
+          "rework on critical systems"
+        ],
+        "contradiction_notes": "Technical closure can occur without guaranteeing launch if weather or range causes a later miss.",
+        "description": "All material hardware and technical readiness issues are closed early enough to support a by-deadline launch attempt.",
+        "endpoint_key": "technical_closure_before_deadline",
+        "evidence_refs": [
+          "ongoing_hardware_and_ground_checks",
+          "risk_note"
+        ],
+        "label": "Technical closure before deadline",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the crewed safety review process grant effective go-status before the deadline?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": null,
+        "rationale": "This endpoint-facing precursor distinguishes technical failure from nontechnical slip pathways.",
+        "realization_criteria": [
+          "Official or authoritative readiness evidence indicates no material unresolved technical issue blocking launch before 2026-03-31"
+        ],
+        "status": "active",
+        "status_basis": "Technical checks are explicitly listed as schedule-sensitive and crewed missions handle unresolved issues conservatively."
+      },
+      {
+        "authority_refs": [
+          "mission_a2_program",
+          "range_authority",
+          "weather_office",
+          "ground_systems_operator"
+        ],
+        "blockers": [
+          "successful pre-deadline launch",
+          "evidence that technical issues remained the primary blocker"
+        ],
+        "contradiction_notes": "If technical unresolved issues remain primary, this endpoint is not realized even if weather is also unfavorable.",
+        "description": "Mission becomes broadly technically and safety ready but still misses March 31 due to weather, range, or ground-system operational constraints.",
+        "endpoint_key": "nontechnical_deadline_miss",
+        "evidence_refs": [
+          "range_and_weather_constraint_window",
+          "ongoing_hardware_and_ground_checks"
+        ],
+        "label": "Operational miss despite readiness",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do weather, ground systems, or range availability become the binding cause of a miss even if technical readiness improves?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": null,
+        "rationale": "Separates terminal no caused by operational timing from no caused by technical unreadiness.",
+        "realization_criteria": [
+          "Authoritative evidence shows technical and safety readiness substantially achieved before deadline",
+          "AND no launch by 2026-03-31 due primarily to weather, range availability, or ground-system operational constraint"
+        ],
+        "status": "active",
+        "status_basis": "Scenario explicitly includes weather, ground systems, and range availability as independent timing sensitivities."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Launch timing remains sensitive to hardware checks and unresolved technical issues must be treated conservatively.",
+        "layer": "dependency",
+        "reason": "Program schedule depends on technical issue closure.",
+        "source_actor_name": "mission_a2_program",
+        "target_actor_name": "mission_a2_engineering",
+        "weight": 0.64
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Crewed missions require conservative treatment of unresolved technical issues and safety review is named as launch-sensitive factor.",
+        "layer": "dependency",
+        "reason": "Crewed launch requires safety review approval.",
+        "source_actor_name": "mission_a2_program",
+        "target_actor_name": "mission_a2_safety_review",
+        "weight": 0.63
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Ground systems are listed as a launch-sensitive factor.",
+        "layer": "dependency",
+        "reason": "Launch timing depends on ground systems readiness.",
+        "source_actor_name": "mission_a2_program",
+        "target_actor_name": "ground_systems_operator",
+        "weight": 0.58
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Range availability is listed as a launch-sensitive factor.",
+        "layer": "dependency",
+        "reason": "Program needs range availability to launch.",
+        "source_actor_name": "mission_a2_program",
+        "target_actor_name": "range_authority",
+        "weight": 0.55
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Weather is listed as a launch-sensitive factor.",
+        "layer": "dependency",
+        "reason": "Final launch attempt depends on acceptable weather constraints.",
+        "source_actor_name": "mission_a2_program",
+        "target_actor_name": "weather_office",
+        "weight": 0.41
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Ground systems sensitivity noted in scenario.",
+        "layer": "dependency",
+        "reason": "Countdown execution requires functioning ground infrastructure.",
+        "source_actor_name": "mission_a2_launch_operations",
+        "target_actor_name": "ground_systems_operator",
+        "weight": 0.61
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Range availability affects timing.",
+        "layer": "dependency",
+        "reason": "Operational launch execution requires range clearance.",
+        "source_actor_name": "mission_a2_launch_operations",
+        "target_actor_name": "range_authority",
+        "weight": 0.52
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Crewed mission timing is governed by broader launch readiness process.",
+        "layer": "dependency",
+        "reason": "Crew schedule and mission execution are controlled by program readiness decisions.",
+        "source_actor_name": "flight_crew",
+        "target_actor_name": "mission_a2_program",
+        "weight": 0.57
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Hardware checks and technical closure are central to timing.",
+        "layer": "trust",
+        "reason": "Program leadership relies on engineering competence for readiness judgment.",
+        "source_actor_name": "mission_a2_program",
+        "target_actor_name": "mission_a2_engineering",
+        "weight": 0.62
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Crewed missions require conservative treatment of unresolved issues.",
+        "layer": "trust",
+        "reason": "Safety review has legitimacy in crewed mission decisions.",
+        "source_actor_name": "mission_a2_program",
+        "target_actor_name": "mission_a2_safety_review",
+        "weight": 0.66
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Program is trying to preserve an early-2026 window after multiple historical delays.",
+        "layer": "trust",
+        "reason": "Public observers partially trust official schedule signals but note historical delays.",
+        "source_actor_name": "space_media_watchers",
+        "target_actor_name": "mission_a2_program",
+        "weight": 0.43
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Crewed mission conservatism implies reliance on technical validation.",
+        "layer": "trust",
+        "reason": "Crew depends on engineering assurance for safety.",
+        "source_actor_name": "flight_crew",
+        "target_actor_name": "mission_a2_engineering",
+        "weight": 0.64
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Safety review is a launch-sensitive factor for a crewed mission.",
+        "layer": "influence",
+        "reason": "Safety reviewers can effectively delay launch by withholding approval.",
+        "source_actor_name": "mission_a2_safety_review",
+        "target_actor_name": "mission_a2_program",
+        "weight": 0.68
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Hardware checks and unresolved issues affect launch timing.",
+        "layer": "influence",
+        "reason": "Technical findings shape schedule decisions.",
+        "source_actor_name": "mission_a2_engineering",
+        "target_actor_name": "mission_a2_program",
+        "weight": 0.64
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Range availability affects timing.",
+        "layer": "influence",
+        "reason": "Range scheduling can constrain or enable launch date.",
+        "source_actor_name": "range_authority",
+        "target_actor_name": "mission_a2_program",
+        "weight": 0.49
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Weather sensitivity named in scenario.",
+        "layer": "influence",
+        "reason": "Weather assessments can scrub or permit attempts.",
+        "source_actor_name": "weather_office",
+        "target_actor_name": "mission_a2_launch_operations",
+        "weight": 0.44
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Rollout and rehearsal activity already influence launch perceptions.",
+        "layer": "influence",
+        "reason": "Official milestones and updates shape public narrative.",
+        "source_actor_name": "mission_a2_program",
+        "target_actor_name": "space_media_watchers",
+        "weight": 0.51
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Rollout and rehearsal indicate operational alignment.",
+        "layer": "coalition",
+        "reason": "Shared objective of executing mission when ready.",
+        "source_actor_name": "mission_a2_program",
+        "target_actor_name": "mission_a2_launch_operations",
+        "weight": 0.62
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Program seeks launch while engineering closes checks.",
+        "layer": "coalition",
+        "reason": "Shared mission success goal despite schedule-risk tradeoffs.",
+        "source_actor_name": "mission_a2_program",
+        "target_actor_name": "mission_a2_engineering",
+        "weight": 0.53
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Crewed mission execution requires program-crew alignment.",
+        "layer": "coalition",
+        "reason": "Shared interest in successful crewed mission.",
+        "source_actor_name": "mission_a2_program",
+        "target_actor_name": "flight_crew",
+        "weight": 0.57
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Crewed missions require conservative treatment of unresolved technical issues.",
+        "layer": "coalition",
+        "reason": "Both prioritize conservative treatment of unresolved issues.",
+        "source_actor_name": "mission_a2_engineering",
+        "target_actor_name": "mission_a2_safety_review",
+        "weight": 0.59
+      },
+      {
+        "direction": "latent_goal_tension",
+        "evidence": "Program is trying to preserve early-2026 launch window while crewed safety review remains critical.",
+        "layer": "conflict",
+        "reason": "Schedule pressure may conflict with conservative review cadence.",
+        "source_actor_name": "mission_a2_program",
+        "target_actor_name": "mission_a2_safety_review",
+        "weight": 0.31
+      },
+      {
+        "direction": "latent_goal_tension",
+        "evidence": "Launch timing remains sensitive to hardware checks.",
+        "layer": "conflict",
+        "reason": "Potential tension between deadline preservation and technical closure timelines.",
+        "source_actor_name": "mission_a2_program",
+        "target_actor_name": "mission_a2_engineering",
+        "weight": 0.28
+      },
+      {
+        "direction": "narrative_pressure",
+        "evidence": "Multiple historical delays create skepticism.",
+        "layer": "conflict",
+        "reason": "Observers may criticize further delays or opaque updates.",
+        "source_actor_name": "space_media_watchers",
+        "target_actor_name": "mission_a2_program",
+        "weight": 0.22
+      },
+      {
+        "direction": "source_sees_target",
+        "evidence": "Rollout and rehearsal activity are publicly visible markers.",
+        "layer": "exposure",
+        "reason": "Observers monitor official launch milestones and updates.",
+        "source_actor_name": "space_media_watchers",
+        "target_actor_name": "mission_a2_program",
+        "weight": 0.56
+      },
+      {
+        "direction": "source_seen_by_target",
+        "evidence": "Expected focus includes schedule and technical delay risk, implying ongoing watchfulness.",
+        "layer": "exposure",
+        "reason": "Program communications reach interested public and specialist media.",
+        "source_actor_name": "mission_a2_program",
+        "target_actor_name": "space_media_watchers",
+        "weight": 0.47
+      },
+      {
+        "direction": "source_seen_by_target",
+        "evidence": "Rehearsal and rollout activity inform schedule management.",
+        "layer": "exposure",
+        "reason": "Operations status is visible internally to program leadership.",
+        "source_actor_name": "mission_a2_launch_operations",
+        "target_actor_name": "mission_a2_program",
+        "weight": 0.61
+      },
+      {
+        "direction": "source_seen_by_target",
+        "evidence": "Conservative treatment of unresolved issues implies engineering-to-safety information flow.",
+        "layer": "exposure",
+        "reason": "Safety review depends on engineering evidence packages.",
+        "source_actor_name": "mission_a2_engineering",
+        "target_actor_name": "mission_a2_safety_review",
+        "weight": 0.58
+      },
+      {
+        "direction": "bidirectional_public_channel",
+        "evidence": "Publicly notable rollout/rehearsal milestones and deadline sensitivity.",
+        "layer": "oasis_interaction",
+        "reason": "Likely recurring interaction through official updates and public launch coverage.",
+        "source_actor_name": "mission_a2_program",
+        "target_actor_name": "space_media_watchers",
+        "weight": 0.46
+      },
+      {
+        "direction": "bidirectional_public_channel",
+        "evidence": "Historical delays and deadline precision encourage scrutiny.",
+        "layer": "oasis_interaction",
+        "reason": "Public commentary and questioning can shape visible narrative around readiness.",
+        "source_actor_name": "space_media_watchers",
+        "target_actor_name": "mission_a2_program",
+        "weight": 0.42
+      },
+      {
+        "direction": "coordination_channel",
+        "evidence": "Weather is a launch-sensitive factor.",
+        "layer": "oasis_interaction",
+        "reason": "Operational weather calls generate repeated coordination touchpoints.",
+        "source_actor_name": "weather_office",
+        "target_actor_name": "mission_a2_launch_operations",
+        "weight": 0.33
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "description": "Individuals with practical authority over launch readiness commitments and schedule changes.",
+        "key": "program_decision_makers",
+        "label": "Program decision makers"
+      },
+      {
+        "description": "Individuals able to block progression until technical and safety concerns are closed.",
+        "key": "technical_gatekeepers",
+        "label": "Technical gatekeepers"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "mission_a2_program",
+        "attention_level": 0.98,
+        "constraints": [
+          "cannot override unresolved safety or technical criteria credibly",
+          "dependent on range, ground systems, weather, and engineering closure"
+        ],
+        "decision_power": 0.86,
+        "expression_level": 0.61,
+        "fatigue": 0.57,
+        "fear_of_isolation": 0.22,
+        "hero_key": "program_decision_makers",
+        "mobilization_readiness": 0.74,
+        "perceived_majority": "stakeholders want deadline success without violating crewed-flight conservatism",
+        "public_commitment": "preserve early-2026 launch window if readiness allows",
+        "role": "schedule_owner",
+        "stance_axes": {
+          "delay_tolerance": 0.47,
+          "launch_by_deadline_support": 0.88,
+          "safety_first": 0.9
+        }
+      },
+      {
+        "actor_name": "mission_a2_safety_review",
+        "attention_level": 0.95,
+        "constraints": [
+          "must rely on engineering evidence",
+          "cannot create hardware readiness independently"
+        ],
+        "decision_power": 0.81,
+        "expression_level": 0.34,
+        "fatigue": 0.42,
+        "fear_of_isolation": 0.18,
+        "hero_key": "technical_gatekeepers",
+        "mobilization_readiness": 0.69,
+        "perceived_majority": "conservative treatment of unresolved issues is expected for crewed missions",
+        "public_commitment": "go only with acceptable residual risk",
+        "role": "readiness_veto_holder",
+        "stance_axes": {
+          "delay_tolerance": 0.82,
+          "launch_by_deadline_support": 0.52,
+          "safety_first": 0.99
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "description": "Individuals with practical authority over launch readiness commitments and schedule changes.",
+        "key": "program_decision_makers",
+        "label": "Program decision makers"
+      },
+      {
+        "description": "Individuals able to block progression until technical and safety concerns are closed.",
+        "key": "technical_gatekeepers",
+        "label": "Technical gatekeepers"
+      }
+    ],
+    "important_questions": [
+      "Does Mission A2 achieve an actual launch by March 31, 2026 local launch-site time?",
+      "Are hardware and related technical checks closed in time to support a March 2026 launch attempt?",
+      "Does the crewed safety review process grant effective go-status before the deadline?",
+      "Do weather, ground systems, or range availability become the binding cause of a miss even if technical readiness improves?"
+    ],
+    "initial_events": [
+      {
+        "description": "A prior uncrewed test mission has already occurred, enabling the current crewed mission phase.",
+        "event_key": "prior_uncrewed_test_completed",
+        "event_type": "announcement",
+        "expected_impact": "Supports baseline confidence in program progression without eliminating crewed-flight risk.",
+        "status": "established",
+        "tick": -12
+      },
+      {
+        "description": "Mission A2 vehicle has undergone rollout and rehearsal activity.",
+        "event_key": "vehicle_rollout_and_rehearsal_activity",
+        "event_type": "announcement",
+        "expected_impact": "Raises public and internal salience, modestly increasing confidence while exposing remaining readiness gates.",
+        "status": "established",
+        "tick": -1
+      },
+      {
+        "description": "Program is actively attempting to preserve an early-2026 launch window after historical delays.",
+        "event_key": "early_2026_window_preservation_push",
+        "event_type": "announcement",
+        "expected_impact": "Sustains schedule pressure on decision-makers but does not override technical or safety blockers.",
+        "status": "active",
+        "tick": 0
+      },
+      {
+        "description": "Technical, hardware, and ground-system checks continue to determine final readiness.",
+        "event_key": "ongoing_hardware_and_ground_checks",
+        "event_type": "announcement",
+        "expected_impact": "Can either stabilize confidence through closure or produce visible slip signals if anomalies persist.",
+        "status": "imminent",
+        "tick": 1
+      },
+      {
+        "description": "Safety and mission assurance review process evaluates unresolved issues for crewed launch acceptance.",
+        "event_key": "formal_safety_readiness_cycle",
+        "event_type": "announcement",
+        "expected_impact": "May tighten no-go standards and raise delay probability if closure evidence is incomplete.",
+        "status": "imminent",
+        "tick": 2
+      },
+      {
+        "description": "Range availability and weather conditions become acute determinants as launch opportunity nears.",
+        "event_key": "range_and_weather_constraint_window",
+        "event_type": "announcement",
+        "expected_impact": "Creates nontechnical pathway to slip even if hardware status improves.",
+        "status": "imminent",
+        "tick": 3
+      }
+    ],
+    "llm_call_id": "9cdd16a2-7a70-4d45-9147-88af12d0612f",
+    "merge_hypotheses": [
+      {
+        "condition": "All internal factions accept safety review as final arbiter for a crewed mission.",
+        "convergence_effect": "Even under schedule tension, actors converge on delay acceptance if unresolved risk remains.",
+        "merge_key": "shared_safety_legitimacy"
+      },
+      {
+        "condition": "Approaching March 31 compresses alternative narratives into a simple by-deadline versus after-deadline outcome.",
+        "convergence_effect": "Public and internal attention align around observable terminal event evidence rather than process rhetoric.",
+        "merge_key": "deadline_binary_resolution"
+      },
+      {
+        "condition": "Program, crew, engineering, and public supporters all prefer successful launch over avoidable incident.",
+        "convergence_effect": "Limits coalition fracture and keeps most disagreements procedural rather than existential.",
+        "merge_key": "mission_success_common_interest"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "description": "Combined workforce across program management, engineering, operations, contractors, and support relevant to Mission A2.",
+        "key": "program_workforce",
+        "label": "Program workforce",
+        "population_total": 18000
+      },
+      {
+        "description": "Observers with sustained attention to major crewed lunar launch scheduling.",
+        "key": "space_interested_public",
+        "label": "Space-interested public",
+        "population_total": 2500000
+      },
+      {
+        "description": "Flight crew and immediate mission-facing support personnel.",
+        "key": "assigned_crew_circle",
+        "label": "Assigned crew circle",
+        "population_total": 12
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "insufficient_entity_specificity",
+        "note": "Corpus does not name the actual organizations, launch site, or specific vehicle components; actors are therefore fictionalized and generalized.",
+        "severity": "medium"
+      },
+      {
+        "flag": "deadline_boundary_hard",
+        "note": "Resolution is highly sensitive to local-time cutoff; even April 1 launch after short delay resolves no.",
+        "severity": "high"
+      },
+      {
+        "flag": "crewed_mission_conservatism",
+        "note": "Crewed-flight safety review can dominate schedule logic and create abrupt slips from unresolved issues.",
+        "severity": "high"
+      },
+      {
+        "flag": "historical_delay_overhang",
+        "note": "Prior delays imply latent skepticism and possible schedule fragility, but magnitude is not quantified.",
+        "severity": "medium"
+      },
+      {
+        "flag": "process_vs_terminal_confusion",
+        "note": "Visible milestones like rollout and rehearsal may be misread as strong launch proof even though terminal criterion is actual launch by deadline.",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "domain": "space_launch_schedule",
+      "forecast_question": "Will Mission A2 launch by March 31, 2026?",
+      "mode": "direct",
+      "primary_tension": "deadline-constrained launch attempt versus conservative delay pressure from technical and operational readiness requirements",
+      "scenario_key": "resolved_021",
+      "summary": "Mission A2 is a crewed lunar exploration mission following a prior uncrewed test. Vehicle rollout and rehearsal activity have occurred, but launch timing remains sensitive to hardware checks, ground systems, safety review, weather, and range availability. The program is attempting to preserve an early-2026 launch window after multiple historical delays.",
+      "time_precision": "local_launch_site_time",
+      "timeframe_end": "2026-03-31",
+      "uncertainty_notes": [
+        "Exact launch provider, site, and organizations are unspecified in corpus.",
+        "No explicit current technical fault or weather issue is confirmed at T0.",
+        "Historical delays are referenced but not quantified.",
+        "Terminal evaluation is binary at the deadline boundary; launch on April 1 or later counts as no."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "space_media_watchers",
+          "space_enthusiast_public_cohort",
+          "skeptical_watchers_cohort"
+        ],
+        "evidence": "Observers update views from official milestones but also weight delay history.",
+        "level": 0.53,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "space_media_watchers"
+        ],
+        "evidence": "Public attention likely spikes around launch dates, scrubs, and technical disclosures rather than at baseline.",
+        "level": 0.34,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "engineering_and_operations_cohort",
+          "crew_core_cohort"
+        ],
+        "evidence": "Internal technical staff and crew are highly disciplined and unlikely to publicly express private concern.",
+        "level": 0.68,
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "space_enthusiast_public_cohort",
+          "skeptical_watchers_cohort"
+        ],
+        "evidence": "Optimists and skeptics cluster around prior beliefs about schedule realism.",
+        "level": 0.49,
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "space_media_watchers",
+          "space_interested_public"
+        ],
+        "evidence": "Single rumors may not dominate; repeated corroborating signals like scrub notes or successful tests matter more.",
+        "level": 0.44,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "program_workforce",
+          "space_interested_public"
+        ],
+        "evidence": "Program affiliation and enthusiast identity shape interpretation of delays versus caution.",
+        "level": 0.41,
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "space_interested_public"
+        ],
+        "evidence": "Interest can fade between milestones but returns near deadline or launch attempt.",
+        "level": 0.57,
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context_key": "deadline_precision",
+        "description": "A launch on April 1 or later counts as no even if delay is less than 24 hours."
+      },
+      {
+        "context_key": "historical_delay_memory",
+        "description": "Multiple historical delays bias observers toward skepticism about schedule commitments."
+      },
+      {
+        "context_key": "crewed_mission_conservatism",
+        "description": "Safety and unresolved technical issues carry disproportionate decision weight for crewed missions."
+      },
+      {
+        "context_key": "milestone_visibility",
+        "description": "Rollout and rehearsal create optimism signals without guaranteeing launch readiness."
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "mission_a2_program",
+        "behavior_axes": {
+          "message_discipline": 0.76,
+          "procedural_rigidity": 0.74,
+          "schedule_drive": 0.79
+        },
+        "ideology_axes": {
+          "institutional_caution": 0.74,
+          "risk_aversion": 0.76
+        },
+        "reputation": 0.72,
+        "secrecy": 0.64,
+        "tendency": "deadline-preserving but not reckless",
+        "trustworthiness": 0.69
+      },
+      {
+        "actor_name": "mission_a2_launch_operations",
+        "behavior_axes": {
+          "message_discipline": 0.63,
+          "procedural_rigidity": 0.81,
+          "schedule_drive": 0.75
+        },
+        "ideology_axes": {
+          "institutional_caution": 0.72,
+          "risk_aversion": 0.79
+        },
+        "reputation": 0.71,
+        "secrecy": 0.52,
+        "tendency": "execute when systems and conditions align",
+        "trustworthiness": 0.74
+      },
+      {
+        "actor_name": "mission_a2_engineering",
+        "behavior_axes": {
+          "message_discipline": 0.58,
+          "procedural_rigidity": 0.86,
+          "schedule_drive": 0.54
+        },
+        "ideology_axes": {
+          "institutional_caution": 0.82,
+          "risk_aversion": 0.9
+        },
+        "reputation": 0.76,
+        "secrecy": 0.71,
+        "tendency": "prefer closure over schedule optimism",
+        "trustworthiness": 0.79
+      },
+      {
+        "actor_name": "mission_a2_safety_review",
+        "behavior_axes": {
+          "message_discipline": 0.69,
+          "procedural_rigidity": 0.92,
+          "schedule_drive": 0.42
+        },
+        "ideology_axes": {
+          "institutional_caution": 0.88,
+          "risk_aversion": 0.97
+        },
+        "reputation": 0.78,
+        "secrecy": 0.62,
+        "tendency": "block on unresolved risk",
+        "trustworthiness": 0.82
+      },
+      {
+        "actor_name": "range_authority",
+        "behavior_axes": {
+          "message_discipline": 0.6,
+          "procedural_rigidity": 0.83,
+          "schedule_drive": 0.49
+        },
+        "ideology_axes": {
+          "institutional_caution": 0.8,
+          "risk_aversion": 0.85
+        },
+        "reputation": 0.7,
+        "secrecy": 0.48,
+        "tendency": "allocate scarce range access conservatively",
+        "trustworthiness": 0.72
+      },
+      {
+        "actor_name": "ground_systems_operator",
+        "behavior_axes": {
+          "message_discipline": 0.56,
+          "procedural_rigidity": 0.8,
+          "schedule_drive": 0.65
+        },
+        "ideology_axes": {
+          "institutional_caution": 0.71,
+          "risk_aversion": 0.8
+        },
+        "reputation": 0.68,
+        "secrecy": 0.49,
+        "tendency": "stabilize infrastructure before commit",
+        "trustworthiness": 0.71
+      },
+      {
+        "actor_name": "weather_office",
+        "behavior_axes": {
+          "message_discipline": 0.57,
+          "procedural_rigidity": 0.77,
+          "schedule_drive": 0.31
+        },
+        "ideology_axes": {
+          "institutional_caution": 0.66,
+          "risk_aversion": 0.82
+        },
+        "reputation": 0.69,
+        "secrecy": 0.18,
+        "tendency": "issue conditions-based constraints",
+        "trustworthiness": 0.75
+      },
+      {
+        "actor_name": "flight_crew",
+        "behavior_axes": {
+          "message_discipline": 0.84,
+          "procedural_rigidity": 0.87,
+          "schedule_drive": 0.66
+        },
+        "ideology_axes": {
+          "institutional_caution": 0.79,
+          "risk_aversion": 0.92
+        },
+        "reputation": 0.82,
+        "secrecy": 0.83,
+        "tendency": "support launch if fully cleared",
+        "trustworthiness": 0.8
+      },
+      {
+        "actor_name": "space_media_watchers",
+        "behavior_axes": {
+          "message_discipline": 0.21,
+          "procedural_rigidity": 0.22,
+          "schedule_drive": 0.58
+        },
+        "ideology_axes": {
+          "institutional_caution": 0.29,
+          "risk_aversion": 0.45
+        },
+        "reputation": 0.5,
+        "secrecy": 0.08,
+        "tendency": "amplify milestones and delay signals",
+        "trustworthiness": 0.48
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 1707,
+        "end": 1707,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 1707,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

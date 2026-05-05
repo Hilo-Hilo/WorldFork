@@ -1,0 +1,47 @@
+{
+  "attempt_number": 0,
+  "available_at": "2026-05-05T02:12:06.403418Z",
+  "big_bang_id": null,
+  "concurrency_key": null,
+  "created_at": "2026-05-05T02:12:06.402729Z",
+  "error": null,
+  "finished_at": "2026-05-05T02:17:18.660067Z",
+  "id": "ec56e7ae-69e6-4ff5-9130-4b81a39f2b51",
+  "idempotency_key": "job:863ee84d8ae411c5cc954b56541e47eb383512729b99149710c9fcd66b32e81d",
+  "interrupt_requested_at": null,
+  "interrupted_at": null,
+  "job_type": "initialize_big_bang",
+  "last_heartbeat_at": null,
+  "lease_expires_at": null,
+  "lease_owner": null,
+  "max_attempts": 3,
+  "paused_at": null,
+  "payload": {
+    "actors": [],
+    "branch_policy": {
+      "branch_score_threshold": 0.999,
+      "max_active_multiverses": 1,
+      "max_branch_depth": 1,
+      "max_branches_per_tick": 1
+    },
+    "cohorts": [],
+    "heroes": [],
+    "name": "E1_init_job_dossier_001",
+    "scenario_text": "# Case dossier_001\nBenchmark role: longform_dossier\n\nForecast question: After 12 simulated weeks, which endpoint receives the most path mass in the Riverbend housing-compliance dispute?\n\n## Scenario\n\nRiverbend's regional housing agency is threatening to withhold infrastructure grants from suburbs that miss new affordable-housing targets. The source packet includes legal, fiscal, and public-opinion evidence. Initialize a WorldFork Big Bang that preserves authority boundaries and uncertainty.\n\n## Source Packet\n\n### Source 1: agency_notice / T-14 days\n\nThe Regional Housing Agency says five suburbs are below their affordable-unit targets and gives them 45 days to submit compliance plans or risk infrastructure grant withholding.\n\n### Source 2: suburban_mayors_letter / T-11 days\n\nThree mayors argue the targets are based on outdated sewer-capacity assumptions and threaten litigation if grants are withheld.\n\n### Source 3: budget_table / T-9 days\n\nTwo of the five suburbs rely on agency-linked grants for more than 30% of planned road and drainage upgrades; one relies on less than 5%.\n\n### Source 4: renters_coalition_statement / T-7 days\n\nRenters and housing nonprofits say delay is a tactic to protect exclusionary zoning and ask the governor to support immediate enforcement.\n\n### Source 5: legal_memo_excerpt / T-4 days\n\nThe statute gives the agency enforcement power, but courts can stay grant penalties during expedited review.\n\n### Source 6: local_news_excerpt / T-1 day\n\nHomeowner groups are split: some oppose density, while others fear losing flood-mitigation funds.\n\n## Candidate Endpoints\n- agency_enforcement: Agency begins grant-withholding process\n- negotiated_delay: Suburbs receive delayed compliance schedule\n- court_stay: Court temporarily blocks enforcement\n- partial_exemption: Some suburbs get exemptions or modified targets\n- unresolved_mixed: No dominant endpoint after horizon\n\n## Expected Focus\n- authority_constraints\n- fiscal_dependency\n- legal_delay\n- stakeholder_graph\n\n## Required Forecast Output\n{'type': 'worldfork_initialization_and_report', 'minimum_outputs': ['actors/cohorts and authority constraints', 'initial events and unresolved facts', 'candidate endpoint ledger', 'branch hypotheses with rationale', 'forecast_distribution over endpoints plus unresolved_mass', 'report claims grounded to source_packet references']}\n\n## Rubric Location\nprivate_eval file\n",
+    "simulation_config": {
+      "max_ticks": 1,
+      "tick_duration_minutes": 720
+    },
+    "use_initializer_agent": true
+  },
+  "queue_name": "p1",
+  "queued_at": "2026-05-05T02:12:06.403412Z",
+  "result": {
+    "big_bang_id": "6992b2a6-1547-4c1e-a4ac-304122ebcb0c",
+    "source_snapshot_id": "b5ae40bd-29ed-4d10-9355-247eaced40d5"
+  },
+  "retryable": true,
+  "started_at": "2026-05-05T02:14:03.110039Z",
+  "status": "succeeded",
+  "updated_at": "2026-05-05T02:17:18.595850Z"
+}

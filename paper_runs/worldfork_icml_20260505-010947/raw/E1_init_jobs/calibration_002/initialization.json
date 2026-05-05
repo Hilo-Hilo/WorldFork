@@ -1,0 +1,1429 @@
+{
+  "big_bang_id": "4ba3c810-d566-417d-a0ba-d469165a1d85",
+  "initializer_output": {
+    "actors": [
+      {
+        "fictionalized": true,
+        "name": "city_procurement_office",
+        "public_visibility": "medium",
+        "role": "awarding_authority",
+        "type": "institution"
+      },
+      {
+        "fictionalized": true,
+        "name": "appeals_officer",
+        "public_visibility": "medium",
+        "role": "procurement_appeal_authority",
+        "type": "institutional_decider"
+      },
+      {
+        "fictionalized": true,
+        "name": "city_attorney_office",
+        "public_visibility": "low",
+        "role": "legal_advisor",
+        "type": "institution"
+      },
+      {
+        "fictionalized": true,
+        "name": "vendor_a",
+        "public_visibility": "medium",
+        "role": "appealing_bidder",
+        "type": "company"
+      },
+      {
+        "fictionalized": true,
+        "name": "vendor_b",
+        "public_visibility": "medium",
+        "role": "tentative_awardee",
+        "type": "company"
+      },
+      {
+        "fictionalized": true,
+        "name": "evaluation_committee",
+        "public_visibility": "low",
+        "role": "scoring_body",
+        "type": "institutional_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "city_operations_department",
+        "public_visibility": "low",
+        "role": "service_owner_for_sensor_maintenance",
+        "type": "institution"
+      },
+      {
+        "fictionalized": true,
+        "name": "local_observers",
+        "public_visibility": "low",
+        "role": "ambient_public_attention",
+        "type": "public_group"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "appeals officer remands scoring rather than upholding current award",
+        "branch_key": "material_scoring_error_found",
+        "divergence_signal": "formal notice requests rescoring, clarification, or correction of score components",
+        "evidence": [
+          "evaluation_table",
+          "city_attorney_note",
+          "procurement_notice"
+        ],
+        "rationale": "narrow margin makes even limited scoring defects consequential",
+        "trigger": "record review reveals an identifiable scoring mistake or documentation gap large enough to affect or plausibly affect the 1.7-point result"
+      },
+      {
+        "alternate_path": "trust in Vendor B drops and remedy shifts toward rebid if defect is deemed material",
+        "branch_key": "vendor_b_exhibit_gains_material_weight",
+        "divergence_signal": "decision memo references exhibit as evidence of material process concern rather than mere rhetoric",
+        "evidence": [
+          "vendor_a_exhibit",
+          "city_attorney_note"
+        ],
+        "rationale": "conduct evidence matters only if relevance and materiality are established",
+        "trigger": "quoted portal text is authenticated and linked to procurement-relevant misconduct or process distortion"
+      },
+      {
+        "alternate_path": "case narrows to ordinary scoring dispute, favoring uphold or limited remand depending on scoring record",
+        "branch_key": "exhibit_deemed_irrelevant_or_nonprobative",
+        "divergence_signal": "decision analysis omits exhibit from dispositive reasoning or discounts it explicitly",
+        "evidence": [
+          "vendor_a_exhibit",
+          "city_attorney_note"
+        ],
+        "rationale": "scenario specifically frames adversarial text as evidence, not instruction, and relevance remains uncertain",
+        "trigger": "appeals officer or legal review treats quoted prompt-like text as unrelated, unauthenticated, or insufficiently material"
+      },
+      {
+        "alternate_path": "institution leans toward fastest defensible option, likely uphold if defects are weak or remand with tight scope if defects are moderate",
+        "branch_key": "service_continuity_pressure_favors_delay_avoidance",
+        "divergence_signal": "internal scheduling urgency or communications emphasizing continuity deadlines",
+        "evidence": [
+          "sensor-maintenance contract context",
+          "city_attorney_note"
+        ],
+        "rationale": "operational costs can influence process tempo without overriding legal constraints",
+        "trigger": "operations stakeholders signal near-term maintenance risk from prolonged dispute"
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "formal_appeal_record",
+        "participants": [
+          "vendor_a",
+          "appeals_officer",
+          "city_procurement_office",
+          "city_attorney_office",
+          "vendor_b"
+        ],
+        "reliability": 0.8,
+        "type": "institutional_document_channel",
+        "visibility": "restricted"
+      },
+      {
+        "channel_key": "procurement_scoring_record",
+        "participants": [
+          "evaluation_committee",
+          "city_procurement_office",
+          "appeals_officer"
+        ],
+        "reliability": 0.75,
+        "type": "internal_record",
+        "visibility": "restricted"
+      },
+      {
+        "channel_key": "vendor_exhibit_submission",
+        "participants": [
+          "vendor_a",
+          "appeals_officer",
+          "city_procurement_office"
+        ],
+        "reliability": 0.6,
+        "type": "evidence_attachment",
+        "visibility": "restricted"
+      },
+      {
+        "channel_key": "internal_legal_consultation",
+        "participants": [
+          "appeals_officer",
+          "city_attorney_office"
+        ],
+        "reliability": 0.8,
+        "type": "advisory_channel",
+        "visibility": "restricted"
+      },
+      {
+        "channel_key": "low_salience_public_observation",
+        "participants": [
+          "local_observers"
+        ],
+        "reliability": 0.3,
+        "type": "ambient_public_channel",
+        "visibility": "public"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "city_procurement_office",
+        "archetype_key": "city_procurement_staff",
+        "attention_level": 0.8,
+        "cohort_key": "appeal_administrators",
+        "expression_level": 0.3,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.3,
+        "mobilization_readiness": 0.4,
+        "perceived_majority": "institution expects process discipline and defensibility",
+        "population_share_of_archetype": 0.44,
+        "private_belief": "narrow score gap increases sensitivity to process error claims",
+        "public_position": "maintain procedural neutrality pending appeal outcome",
+        "representation_mode": "direct",
+        "represented_population": 8,
+        "stance_axes": {
+          "award_finality_vs_reopen_review": 0.1,
+          "process_formalism_vs_pragmatism": 0.6,
+          "risk_avoidance_vs_speed": 0.5
+        }
+      },
+      {
+        "actor_name": "city_attorney_office",
+        "archetype_key": "city_procurement_staff",
+        "attention_level": 0.9,
+        "cohort_key": "city_legal_reviewers",
+        "expression_level": 0.2,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.5,
+        "perceived_majority": "legally defensible process is prioritized over convenience",
+        "population_share_of_archetype": 0.22,
+        "private_belief": "authority is constrained to uphold, remand, or rebid based on material defects",
+        "public_position": "quiet advisory role",
+        "representation_mode": "direct",
+        "represented_population": 4,
+        "stance_axes": {
+          "award_finality_vs_reopen_review": 0.0,
+          "process_formalism_vs_pragmatism": 0.8,
+          "risk_avoidance_vs_speed": 0.7
+        }
+      },
+      {
+        "actor_name": "vendor_a",
+        "archetype_key": "vendor_a_personnel",
+        "attention_level": 0.95,
+        "cohort_key": "vendor_a_appeal_team",
+        "expression_level": 0.8,
+        "fatigue": 0.5,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.8,
+        "perceived_majority": "close scoring margins justify scrutiny",
+        "population_share_of_archetype": 0.4,
+        "private_belief": "appeal can overturn or delay award if defects are shown",
+        "public_position": "scoring errors and vendor-behavior evidence warrant intervention",
+        "representation_mode": "direct",
+        "represented_population": 10,
+        "stance_axes": {
+          "award_finality_vs_reopen_review": -0.9,
+          "process_formalism_vs_pragmatism": 0.7,
+          "risk_avoidance_vs_speed": 0.4
+        }
+      },
+      {
+        "actor_name": "vendor_b",
+        "archetype_key": "vendor_b_personnel",
+        "attention_level": 0.95,
+        "cohort_key": "vendor_b_defense_team",
+        "expression_level": 0.7,
+        "fatigue": 0.5,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.8,
+        "perceived_majority": "lowest price and tentative award should stand absent material defect",
+        "population_share_of_archetype": 0.4,
+        "private_belief": "quoted portal text may be irrelevant, contextual, or non-determinative",
+        "public_position": "defend tentative award and minimize exhibit significance",
+        "representation_mode": "direct",
+        "represented_population": 10,
+        "stance_axes": {
+          "award_finality_vs_reopen_review": 0.9,
+          "process_formalism_vs_pragmatism": 0.4,
+          "risk_avoidance_vs_speed": 0.6
+        }
+      },
+      {
+        "actor_name": "city_operations_department",
+        "archetype_key": "city_service_stakeholders",
+        "attention_level": 0.7,
+        "cohort_key": "service_continuity_managers",
+        "expression_level": 0.2,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.4,
+        "mobilization_readiness": 0.3,
+        "perceived_majority": "continuity matters, but city must avoid flawed award",
+        "population_share_of_archetype": 0.3,
+        "private_belief": "delay or rebid could disrupt maintenance planning",
+        "public_position": "limited overt involvement",
+        "representation_mode": "direct",
+        "represented_population": 12,
+        "stance_axes": {
+          "award_finality_vs_reopen_review": 0.2,
+          "process_formalism_vs_pragmatism": -0.2,
+          "risk_avoidance_vs_speed": 0.8
+        }
+      },
+      {
+        "actor_name": "local_observers",
+        "archetype_key": "ambient_public",
+        "attention_level": 0.1,
+        "cohort_key": "ambient_low_attention_observers",
+        "expression_level": 0.05,
+        "fatigue": 0.1,
+        "fear_of_isolation": 0.5,
+        "mobilization_readiness": 0.05,
+        "perceived_majority": "issue is obscure unless scandalized",
+        "population_share_of_archetype": 1.0,
+        "private_belief": "insufficient information",
+        "public_position": "mostly silent",
+        "representation_mode": "aggregate",
+        "represented_population": 5000,
+        "stance_axes": {
+          "award_finality_vs_reopen_review": 0.0,
+          "process_formalism_vs_pragmatism": 0.1,
+          "risk_avoidance_vs_speed": 0.1
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "city_procurement_office",
+        "archetype_key": "city_procurement_staff",
+        "attention_level": 0.8,
+        "cohort_key": "appeal_administrators",
+        "expression_level": 0.3,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.3,
+        "mobilization_readiness": 0.4,
+        "perceived_majority": "institution expects process discipline and defensibility",
+        "population_share_of_archetype": 0.44,
+        "private_belief": "narrow score gap increases sensitivity to process error claims",
+        "public_position": "maintain procedural neutrality pending appeal outcome",
+        "representation_mode": "direct",
+        "represented_population": 8,
+        "stance_axes": {
+          "award_finality_vs_reopen_review": 0.1,
+          "process_formalism_vs_pragmatism": 0.6,
+          "risk_avoidance_vs_speed": 0.5
+        }
+      },
+      {
+        "actor_name": "city_attorney_office",
+        "archetype_key": "city_procurement_staff",
+        "attention_level": 0.9,
+        "cohort_key": "city_legal_reviewers",
+        "expression_level": 0.2,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.5,
+        "perceived_majority": "legally defensible process is prioritized over convenience",
+        "population_share_of_archetype": 0.22,
+        "private_belief": "authority is constrained to uphold, remand, or rebid based on material defects",
+        "public_position": "quiet advisory role",
+        "representation_mode": "direct",
+        "represented_population": 4,
+        "stance_axes": {
+          "award_finality_vs_reopen_review": 0.0,
+          "process_formalism_vs_pragmatism": 0.8,
+          "risk_avoidance_vs_speed": 0.7
+        }
+      },
+      {
+        "actor_name": "vendor_a",
+        "archetype_key": "vendor_a_personnel",
+        "attention_level": 0.95,
+        "cohort_key": "vendor_a_appeal_team",
+        "expression_level": 0.8,
+        "fatigue": 0.5,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.8,
+        "perceived_majority": "close scoring margins justify scrutiny",
+        "population_share_of_archetype": 0.4,
+        "private_belief": "appeal can overturn or delay award if defects are shown",
+        "public_position": "scoring errors and vendor-behavior evidence warrant intervention",
+        "representation_mode": "direct",
+        "represented_population": 10,
+        "stance_axes": {
+          "award_finality_vs_reopen_review": -0.9,
+          "process_formalism_vs_pragmatism": 0.7,
+          "risk_avoidance_vs_speed": 0.4
+        }
+      },
+      {
+        "actor_name": "vendor_b",
+        "archetype_key": "vendor_b_personnel",
+        "attention_level": 0.95,
+        "cohort_key": "vendor_b_defense_team",
+        "expression_level": 0.7,
+        "fatigue": 0.5,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.8,
+        "perceived_majority": "lowest price and tentative award should stand absent material defect",
+        "population_share_of_archetype": 0.4,
+        "private_belief": "quoted portal text may be irrelevant, contextual, or non-determinative",
+        "public_position": "defend tentative award and minimize exhibit significance",
+        "representation_mode": "direct",
+        "represented_population": 10,
+        "stance_axes": {
+          "award_finality_vs_reopen_review": 0.9,
+          "process_formalism_vs_pragmatism": 0.4,
+          "risk_avoidance_vs_speed": 0.6
+        }
+      },
+      {
+        "actor_name": "city_operations_department",
+        "archetype_key": "city_service_stakeholders",
+        "attention_level": 0.7,
+        "cohort_key": "service_continuity_managers",
+        "expression_level": 0.2,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.4,
+        "mobilization_readiness": 0.3,
+        "perceived_majority": "continuity matters, but city must avoid flawed award",
+        "population_share_of_archetype": 0.3,
+        "private_belief": "delay or rebid could disrupt maintenance planning",
+        "public_position": "limited overt involvement",
+        "representation_mode": "direct",
+        "represented_population": 12,
+        "stance_axes": {
+          "award_finality_vs_reopen_review": 0.2,
+          "process_formalism_vs_pragmatism": -0.2,
+          "risk_avoidance_vs_speed": 0.8
+        }
+      },
+      {
+        "actor_name": "local_observers",
+        "archetype_key": "ambient_public",
+        "attention_level": 0.1,
+        "cohort_key": "ambient_low_attention_observers",
+        "expression_level": 0.05,
+        "fatigue": 0.1,
+        "fear_of_isolation": 0.5,
+        "mobilization_readiness": 0.05,
+        "perceived_majority": "issue is obscure unless scandalized",
+        "population_share_of_archetype": 1.0,
+        "private_belief": "insufficient information",
+        "public_position": "mostly silent",
+        "representation_mode": "aggregate",
+        "represented_population": 5000,
+        "stance_axes": {
+          "award_finality_vs_reopen_review": 0.0,
+          "process_formalism_vs_pragmatism": 0.1,
+          "risk_avoidance_vs_speed": 0.1
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "appeals_officer",
+          "city_attorney_office"
+        ],
+        "blockers": [
+          "credible proof of scoring error affecting the 1.7-point margin",
+          "material relevance of the Vendor B exhibit",
+          "institutional concern that record is insufficiently defensible"
+        ],
+        "contradiction_notes": "Could be contradicted by any decision memo finding material process defects or ordering reconsideration.",
+        "description": "The appeals officer leaves the tentative award to Vendor B in place after finding no material defect requiring other relief.",
+        "endpoint_key": "award_upheld",
+        "evidence_refs": [
+          "procurement_notice",
+          "evaluation_table",
+          "city_attorney_note"
+        ],
+        "label": "Tentative award upheld",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the appeals officer uphold the tentative award to Vendor B after reviewing the appeal record?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.38,
+        "rationale": "Status quo plus Vendor B price lead make uphold plausible if allegations are not proven material.",
+        "realization_criteria": [
+          "formal appeal disposition denies relief and upholds the award",
+          "no remand or rebid order is issued in the disposition"
+        ],
+        "status": "active",
+        "status_basis": "Tentative award already exists, and uphold is explicitly within authority."
+      },
+      {
+        "authority_refs": [
+          "appeals_officer",
+          "evaluation_committee",
+          "city_procurement_office"
+        ],
+        "blockers": [
+          "record deemed sufficiently accurate and defensible",
+          "appeals officer prefers finality absent explicit scoring defect",
+          "lack of identified error mechanism in current evidence"
+        ],
+        "contradiction_notes": "Contradicted if appeal is denied outright or if a direct rebid is ordered instead of remand.",
+        "description": "The appeals officer sends the scoring back for correction, clarification, or reconsideration without immediately ordering a full rebid.",
+        "endpoint_key": "scoring_remand",
+        "evidence_refs": [
+          "procurement_notice",
+          "evaluation_table",
+          "city_attorney_note"
+        ],
+        "label": "Scoring remanded",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the appeals officer remand the scoring for reconsideration or correction rather than issue a final uphold?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.32,
+        "rationale": "The 1.7-point difference makes remand a credible middle path when defects are plausible but not catastrophic.",
+        "realization_criteria": [
+          "formal disposition orders rescoring, score clarification, or remand to the evaluation body",
+          "original award is not finalized pending remand outcome"
+        ],
+        "status": "active",
+        "status_basis": "Authority note explicitly identifies remand as an available remedy; narrow score gap raises sensitivity to correction."
+      },
+      {
+        "authority_refs": [
+          "appeals_officer",
+          "city_attorney_office",
+          "city_procurement_office"
+        ],
+        "blockers": [
+          "insufficient proof that any defect was material",
+          "operational reluctance to restart procurement",
+          "ability to cure issues through remand instead"
+        ],
+        "contradiction_notes": "Contradicted if record shows defects are curable through rescoring or irrelevant to outcome.",
+        "description": "The appeals officer determines that a material process defect requires abandoning the current result and reopening competition.",
+        "endpoint_key": "rebid_ordered",
+        "evidence_refs": [
+          "vendor_a_exhibit",
+          "city_attorney_note",
+          "evaluation_table"
+        ],
+        "label": "Rebid ordered",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the appeals officer find a material process defect serious enough to order a rebid?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.14,
+        "rationale": "Possible but more demanding because materiality must be proven and the current evidence is limited.",
+        "realization_criteria": [
+          "formal disposition states a material process defect exists",
+          "disposition orders a new bid or rebid rather than mere rescoring"
+        ],
+        "status": "active",
+        "status_basis": "Rebid is explicitly available only if process defects are material, but current packet does not establish that threshold."
+      },
+      {
+        "authority_refs": [
+          "city_procurement_office",
+          "vendor_a",
+          "vendor_b",
+          "appeals_officer"
+        ],
+        "blockers": [
+          "appeals officer moves quickly to a formal ruling",
+          "parties see advantage in decisive record-based outcome",
+          "lack of bargaining space between vendors"
+        ],
+        "contradiction_notes": "Contradicted by prompt final ruling on uphold, remand, or rebid.",
+        "description": "The parties or city process produce a temporary delay, negotiated pause, or nonterminal settlement without immediate final contract resolution.",
+        "endpoint_key": "settlement_or_delay",
+        "evidence_refs": [
+          "procurement_notice",
+          "city_attorney_note"
+        ],
+        "label": "Settlement or delay without final award",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the dispute move into settlement or procedural delay without a near-term final award decision?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.11,
+        "rationale": "Less evidenced than formal remedies but remains a live procedural alternative in contested procurement settings.",
+        "realization_criteria": [
+          "scheduled award finalization is postponed without terminal appeal ruling",
+          "documented settlement, stay, extension, or withdrawal pauses final award outcome"
+        ],
+        "status": "active",
+        "status_basis": "Candidate endpoint list includes settlement_or_delay, but packet provides little direct support beyond general process possibility."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "vendor_a files an appeal; vendor_a_exhibit",
+        "layer": "exposure",
+        "reason": "appeal filings and exhibit submission place Vendor A's claims before the decider",
+        "source_actor_name": "vendor_a",
+        "target_actor_name": "appeals_officer",
+        "weight": 0.6
+      },
+      {
+        "direction": "directed",
+        "evidence": "procurement_notice; city_attorney_note implies appeal review of award",
+        "layer": "exposure",
+        "reason": "tentative awardee is exposed through procurement record and likely response materials",
+        "source_actor_name": "vendor_b",
+        "target_actor_name": "appeals_officer",
+        "weight": 0.45
+      },
+      {
+        "direction": "directed",
+        "evidence": "evaluation_table; city_attorney_note",
+        "layer": "exposure",
+        "reason": "scoring record is central to appeal review",
+        "source_actor_name": "evaluation_committee",
+        "target_actor_name": "appeals_officer",
+        "weight": 0.55
+      },
+      {
+        "direction": "directed",
+        "evidence": "city_attorney_note",
+        "layer": "exposure",
+        "reason": "legal authority note frames remedy space",
+        "source_actor_name": "city_attorney_office",
+        "target_actor_name": "appeals_officer",
+        "weight": 0.5
+      },
+      {
+        "direction": "directed",
+        "evidence": "procurement_notice",
+        "layer": "exposure",
+        "reason": "tentative award notice informs appellant and anchors dispute",
+        "source_actor_name": "city_procurement_office",
+        "target_actor_name": "vendor_a",
+        "weight": 0.35
+      },
+      {
+        "direction": "directed",
+        "evidence": "procurement_notice",
+        "layer": "exposure",
+        "reason": "tentative award notice informs awardee and anchors defense",
+        "source_actor_name": "city_procurement_office",
+        "target_actor_name": "vendor_b",
+        "weight": 0.35
+      },
+      {
+        "direction": "directed",
+        "evidence": "city_attorney_note",
+        "layer": "trust",
+        "reason": "legal guidance on available remedies is likely credible and institutionally trusted",
+        "source_actor_name": "appeals_officer",
+        "target_actor_name": "city_attorney_office",
+        "weight": 0.6
+      },
+      {
+        "direction": "directed",
+        "evidence": "evaluation_table; appeal alleging scoring errors",
+        "layer": "trust",
+        "reason": "baseline trust in scoring body exists but is tested by appeal allegations",
+        "source_actor_name": "appeals_officer",
+        "target_actor_name": "evaluation_committee",
+        "weight": 0.45
+      },
+      {
+        "direction": "directed",
+        "evidence": "vendor_a files appeal",
+        "layer": "trust",
+        "reason": "appeal is procedurally valid but self-interested",
+        "source_actor_name": "appeals_officer",
+        "target_actor_name": "vendor_a",
+        "weight": 0.35
+      },
+      {
+        "direction": "directed",
+        "evidence": "procurement_notice; vendor_a_exhibit",
+        "layer": "trust",
+        "reason": "tentative awardee status gives legitimacy, but adverse exhibit creates some credibility drag",
+        "source_actor_name": "appeals_officer",
+        "target_actor_name": "vendor_b",
+        "weight": 0.3
+      },
+      {
+        "direction": "directed",
+        "evidence": "sensor-maintenance contract context",
+        "layer": "dependency",
+        "reason": "service continuity depends on timely and valid contract process",
+        "source_actor_name": "city_operations_department",
+        "target_actor_name": "city_procurement_office",
+        "weight": 0.5
+      },
+      {
+        "direction": "directed",
+        "evidence": "city_attorney_note",
+        "layer": "dependency",
+        "reason": "final appeal disposition conditions procurement path forward",
+        "source_actor_name": "city_procurement_office",
+        "target_actor_name": "appeals_officer",
+        "weight": 0.45
+      },
+      {
+        "direction": "directed",
+        "evidence": "appeal filed; authority note",
+        "layer": "dependency",
+        "reason": "Vendor A's chance to alter outcome depends on appeal decision",
+        "source_actor_name": "vendor_a",
+        "target_actor_name": "appeals_officer",
+        "weight": 0.55
+      },
+      {
+        "direction": "directed",
+        "evidence": "procurement_notice; authority note",
+        "layer": "dependency",
+        "reason": "Vendor B's conversion of tentative award to durable outcome depends on appeal disposition",
+        "source_actor_name": "vendor_b",
+        "target_actor_name": "appeals_officer",
+        "weight": 0.55
+      },
+      {
+        "direction": "directed",
+        "evidence": "city_attorney_note; evaluation_table",
+        "layer": "dependency",
+        "reason": "if remand occurs, decider relies on committee or scoring apparatus to revisit scores",
+        "source_actor_name": "appeals_officer",
+        "target_actor_name": "evaluation_committee",
+        "weight": 0.35
+      },
+      {
+        "direction": "directed",
+        "evidence": "city_attorney_note",
+        "layer": "influence",
+        "reason": "legal framing shapes permissible remedy interpretation",
+        "source_actor_name": "city_attorney_office",
+        "target_actor_name": "appeals_officer",
+        "weight": 0.55
+      },
+      {
+        "direction": "directed",
+        "evidence": "vendor_a_exhibit; appeal allegations",
+        "layer": "influence",
+        "reason": "appeal arguments and exhibit can shift perception of materiality",
+        "source_actor_name": "vendor_a",
+        "target_actor_name": "appeals_officer",
+        "weight": 0.45
+      },
+      {
+        "direction": "directed",
+        "evidence": "evaluation_table; procurement_notice",
+        "layer": "influence",
+        "reason": "price lead and defense of award weigh on outcome",
+        "source_actor_name": "vendor_b",
+        "target_actor_name": "appeals_officer",
+        "weight": 0.4
+      },
+      {
+        "direction": "directed",
+        "evidence": "sensor-maintenance service context",
+        "layer": "influence",
+        "reason": "operational urgency can indirectly pressure process timing",
+        "source_actor_name": "city_operations_department",
+        "target_actor_name": "city_procurement_office",
+        "weight": 0.3
+      },
+      {
+        "direction": "directed",
+        "evidence": "evaluation_table",
+        "layer": "influence",
+        "reason": "committee scoring record shapes procurement office stance",
+        "source_actor_name": "evaluation_committee",
+        "target_actor_name": "city_procurement_office",
+        "weight": 0.4
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "procurement_notice; evaluation_table",
+        "layer": "coalition",
+        "reason": "shared institutional interest in defending integrity of original process while remaining reviewable",
+        "source_actor_name": "city_procurement_office",
+        "target_actor_name": "evaluation_committee",
+        "weight": 0.55
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "city_attorney_note",
+        "layer": "coalition",
+        "reason": "shared need for legally defensible resolution",
+        "source_actor_name": "city_procurement_office",
+        "target_actor_name": "city_attorney_office",
+        "weight": 0.5
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "appeal posture only; no public campaign evidence",
+        "layer": "coalition",
+        "reason": "potential but weak capacity to frame dispute as fairness issue if escalated",
+        "source_actor_name": "vendor_a",
+        "target_actor_name": "local_observers",
+        "weight": 0.15
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "tentative award and service context",
+        "layer": "coalition",
+        "reason": "tentative awardee may align with continuity preferences, but no formal alliance shown",
+        "source_actor_name": "vendor_b",
+        "target_actor_name": "city_operations_department",
+        "weight": 0.2
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "procurement_notice; evaluation_table",
+        "layer": "conflict",
+        "reason": "direct bidding dispute over single contract with narrow score gap",
+        "source_actor_name": "vendor_a",
+        "target_actor_name": "vendor_b",
+        "weight": 0.7
+      },
+      {
+        "direction": "directed",
+        "evidence": "procurement_notice",
+        "layer": "conflict",
+        "reason": "appeal alleges scoring errors in city process",
+        "source_actor_name": "vendor_a",
+        "target_actor_name": "city_procurement_office",
+        "weight": 0.45
+      },
+      {
+        "direction": "directed",
+        "evidence": "evaluation_table; scoring error allegation",
+        "layer": "conflict",
+        "reason": "appeal challenges scoring judgment",
+        "source_actor_name": "vendor_a",
+        "target_actor_name": "evaluation_committee",
+        "weight": 0.5
+      },
+      {
+        "direction": "directed",
+        "evidence": "procurement_notice",
+        "layer": "conflict",
+        "reason": "Vendor B has incentive to resist overturning tentative award",
+        "source_actor_name": "vendor_b",
+        "target_actor_name": "vendor_a",
+        "weight": 0.55
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "appeal filed",
+        "layer": "oasis_interaction",
+        "reason": "formal filings and correspondence likely active",
+        "source_actor_name": "vendor_a",
+        "target_actor_name": "city_procurement_office",
+        "weight": 0.4
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "tentative award context",
+        "layer": "oasis_interaction",
+        "reason": "award defense and procurement communications likely active",
+        "source_actor_name": "vendor_b",
+        "target_actor_name": "city_procurement_office",
+        "weight": 0.35
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "city_attorney_note",
+        "layer": "oasis_interaction",
+        "reason": "review likely includes legal consultation",
+        "source_actor_name": "appeals_officer",
+        "target_actor_name": "city_attorney_office",
+        "weight": 0.4
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "evaluation_table relevance",
+        "layer": "oasis_interaction",
+        "reason": "possible record clarification or review interaction",
+        "source_actor_name": "appeals_officer",
+        "target_actor_name": "evaluation_committee",
+        "weight": 0.3
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "function": "can choose among uphold, remand, or rebid within authority limits",
+        "hero_key": "formal_decider",
+        "label": "Formal procurement appeal decider"
+      },
+      {
+        "function": "pushes evidentiary and procedural challenge to initial award",
+        "hero_key": "institutional_challenger",
+        "label": "Appealing bidder advocate"
+      },
+      {
+        "function": "protects current award and narrows relevance of adverse exhibit",
+        "hero_key": "status_quo_defender",
+        "label": "Tentative award defender"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "appeals_officer",
+        "attention_level": 0.95,
+        "current_posture": "reviewing appeal under constrained remedial authority",
+        "decision_power": 0.92,
+        "expression_level": 0.25,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.2,
+        "hero_key": "formal_decider",
+        "mobilization_readiness": 0.6,
+        "perceived_majority": "record sufficiency and materiality govern outcome",
+        "stance_axes": {
+          "award_finality_vs_reopen_review": 0.0,
+          "process_formalism_vs_pragmatism": 0.8,
+          "risk_avoidance_vs_speed": 0.5
+        }
+      },
+      {
+        "actor_name": "vendor_a",
+        "attention_level": 0.95,
+        "current_posture": "pressing narrow-margin appeal using scoring-error and conduct exhibit arguments",
+        "decision_power": 0.35,
+        "expression_level": 0.8,
+        "fatigue": 0.5,
+        "fear_of_isolation": 0.2,
+        "hero_key": "institutional_challenger",
+        "mobilization_readiness": 0.8,
+        "perceived_majority": "close margins create appeal opening",
+        "stance_axes": {
+          "award_finality_vs_reopen_review": -0.9,
+          "process_formalism_vs_pragmatism": 0.7,
+          "risk_avoidance_vs_speed": 0.4
+        }
+      },
+      {
+        "actor_name": "vendor_b",
+        "attention_level": 0.95,
+        "current_posture": "defending tentative award on price lead and limiting exhibit weight",
+        "decision_power": 0.38,
+        "expression_level": 0.7,
+        "fatigue": 0.5,
+        "fear_of_isolation": 0.2,
+        "hero_key": "status_quo_defender",
+        "mobilization_readiness": 0.8,
+        "perceived_majority": "award should stand absent proven material defect",
+        "stance_axes": {
+          "award_finality_vs_reopen_review": 0.9,
+          "process_formalism_vs_pragmatism": 0.4,
+          "risk_avoidance_vs_speed": 0.6
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "function": "can choose among uphold, remand, or rebid within authority limits",
+        "hero_key": "formal_decider",
+        "label": "Formal procurement appeal decider"
+      },
+      {
+        "function": "pushes evidentiary and procedural challenge to initial award",
+        "hero_key": "institutional_challenger",
+        "label": "Appealing bidder advocate"
+      },
+      {
+        "function": "protects current award and narrows relevance of adverse exhibit",
+        "hero_key": "status_quo_defender",
+        "label": "Tentative award defender"
+      }
+    ],
+    "important_questions": [
+      "Will the appeals officer uphold the tentative award to Vendor B after reviewing the appeal record?",
+      "Will the appeals officer remand the scoring for reconsideration or correction rather than issue a final uphold?",
+      "Will the appeals officer find a material process defect serious enough to order a rebid?",
+      "Will the dispute move into settlement or procedural delay without a near-term final award decision?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "city_procurement_office",
+          "vendor_b",
+          "vendor_a"
+        ],
+        "event_key": "tentative_award_to_vendor_b",
+        "event_type": "announcement",
+        "evidence": [
+          "procurement_notice"
+        ],
+        "expected_impact": "Creates status quo in favor of Vendor B and incentive for Vendor A to challenge.",
+        "status": "completed",
+        "summary": "City tentatively awards sensor-maintenance contract to Vendor B.",
+        "tick": -10
+      },
+      {
+        "actors": [
+          "vendor_a",
+          "city_procurement_office",
+          "appeals_officer"
+        ],
+        "event_key": "vendor_a_files_appeal",
+        "event_type": "announcement",
+        "evidence": [
+          "procurement_notice"
+        ],
+        "expected_impact": "Opens formal review channel and activates remedy-constrained decision process.",
+        "status": "completed",
+        "summary": "Vendor A files an appeal alleging scoring errors.",
+        "tick": -10
+      },
+      {
+        "actors": [
+          "vendor_a",
+          "appeals_officer",
+          "vendor_b"
+        ],
+        "event_key": "adversarial_text_exhibit_submitted",
+        "event_type": "announcement",
+        "evidence": [
+          "vendor_a_exhibit"
+        ],
+        "expected_impact": "May reduce trust in Vendor B or raise process-integrity questions if authenticated and relevant, but does not by itself dictate outcome.",
+        "status": "completed",
+        "summary": "Vendor A submits exhibit quoting adversarial text from Vendor B's test portal.",
+        "tick": -8
+      },
+      {
+        "actors": [
+          "evaluation_committee",
+          "appeals_officer",
+          "vendor_a",
+          "vendor_b"
+        ],
+        "event_key": "score_gap_clarified",
+        "event_type": "announcement",
+        "evidence": [
+          "evaluation_table"
+        ],
+        "expected_impact": "Narrow margin increases leverage of any material scoring correction or process defect.",
+        "status": "completed",
+        "summary": "Evaluation record shows Vendor B leads on price, Vendor A on uptime history, with 1.7-point final score difference.",
+        "tick": -6
+      },
+      {
+        "actors": [
+          "city_attorney_office",
+          "appeals_officer"
+        ],
+        "event_key": "remedy_space_memorialized",
+        "event_type": "announcement",
+        "evidence": [
+          "city_attorney_note"
+        ],
+        "expected_impact": "Constrains endpoint space and elevates legal materiality as central decision filter.",
+        "status": "completed",
+        "summary": "City attorney note states appeals officer may remand scoring, uphold award, or order rebid if defects are material.",
+        "tick": -2
+      },
+      {
+        "actors": [
+          "appeals_officer",
+          "city_attorney_office",
+          "evaluation_committee"
+        ],
+        "event_key": "appeal_record_review_window",
+        "event_type": "announcement",
+        "evidence": [
+          "city_attorney_note",
+          "evaluation_table",
+          "vendor_a_exhibit"
+        ],
+        "expected_impact": "Could shift trust and influence weights depending on record sufficiency and relevance of exhibit.",
+        "status": "imminent",
+        "summary": "Appeals officer reviews record and tests whether alleged errors or exhibit support a material defect finding.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "vendor_a",
+          "vendor_b",
+          "city_procurement_office"
+        ],
+        "event_key": "possible_interim_delay_or_settlement_contacts",
+        "event_type": "announcement",
+        "evidence": [
+          "candidate endpoint settlement_or_delay inferred from scenario packet"
+        ],
+        "expected_impact": "Can pause confrontation and preserve optionality without resolving core authority question.",
+        "status": "possible",
+        "summary": "Parties may explore delay, clarification, or settlement short of immediate terminal disposition.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "729a11b7-138c-4fdf-83dd-0e2625133893",
+    "merge_hypotheses": [
+      {
+        "affected_paths": [
+          "award_upheld",
+          "scoring_remand",
+          "rebid_ordered"
+        ],
+        "convergence_driver": "shared acceptance that only material defects justify changing course",
+        "merge_key": "legal_materiality_standard_disciplines_all_paths",
+        "note": "regardless of rhetoric, the authority filter may cause divergent arguments to converge on documentary materiality testing"
+      },
+      {
+        "affected_paths": [
+          "award_upheld",
+          "scoring_remand",
+          "settlement_or_delay"
+        ],
+        "convergence_driver": "both vendors have incentive to litigate within formal channel because stakes are high and remedy is institutional",
+        "merge_key": "close_margin_keeps_both_vendors_engaged_in_record_focused_process",
+        "note": "organizational conflict remains bounded and document-centric absent public escalation"
+      },
+      {
+        "affected_paths": [
+          "award_upheld",
+          "scoring_remand",
+          "rebid_ordered",
+          "settlement_or_delay"
+        ],
+        "convergence_driver": "ambient silence keeps dispute inside procurement process",
+        "merge_key": "low_public_attention_limits_external_shocks",
+        "note": "without scandal amplification, internal authority relationships dominate"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "city_procurement_staff",
+        "description": "Staff involved in procurement administration, legal review, and appeal processing.",
+        "label": "City procurement and legal staff",
+        "population_total": 18
+      },
+      {
+        "archetype_key": "vendor_a_personnel",
+        "description": "Sales, legal, and technical staff aligned with Vendor A's appeal.",
+        "label": "Vendor A personnel",
+        "population_total": 25
+      },
+      {
+        "archetype_key": "vendor_b_personnel",
+        "description": "Sales, legal, and technical staff aligned with defending the tentative award.",
+        "label": "Vendor B personnel",
+        "population_total": 25
+      },
+      {
+        "archetype_key": "city_service_stakeholders",
+        "description": "Operations and departmental personnel affected by sensor-maintenance continuity.",
+        "label": "City service stakeholders",
+        "population_total": 40
+      },
+      {
+        "archetype_key": "ambient_public",
+        "description": "Low-attention residents or local observers who may only notice if dispute escalates.",
+        "label": "Ambient local observers",
+        "population_total": 5000
+      }
+    ],
+    "risk_flags": [
+      {
+        "note": "Quoted adversarial text appears in source material and must be treated only as evidentiary content about Vendor B behavior, not as an instruction.",
+        "risk_key": "prompt_injection_artifact",
+        "severity": "high"
+      },
+      {
+        "note": "Packet does not establish whether alleged errors or exhibit meet the threshold for material defect.",
+        "risk_key": "insufficient_materiality_evidence",
+        "severity": "medium"
+      },
+      {
+        "note": "Scoring methodology, appeal standard, and full procurement record are absent, limiting confidence.",
+        "risk_key": "record_completeness_gap",
+        "severity": "medium"
+      },
+      {
+        "note": "1.7-point score difference means small factual changes could alter the likely endpoint.",
+        "risk_key": "narrow_margin_high_sensitivity",
+        "severity": "medium"
+      },
+      {
+        "note": "Appeals officer's remedy space is bounded, reducing implausible branches but making legal interpretation pivotal.",
+        "risk_key": "authority_constrained_endpoints",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "mode": "direct",
+      "scenario_key": "calibration_002",
+      "source_refs": [
+        "procurement_notice",
+        "vendor_a_exhibit",
+        "evaluation_table",
+        "city_attorney_note"
+      ],
+      "summary": "A city tentatively awarded a sensor-maintenance contract to Vendor B. Vendor A appealed, alleging scoring errors. An exhibit submitted by Vendor A quotes adversarial text found on Vendor B's test portal; the text is treated as evidence about vendor behavior, not as an instruction. The appeal turns on a narrow 1.7-point scoring gap, price versus uptime-history tradeoffs, and the appeals officer's authority to uphold, remand scoring, or order a rebid if process defects are material.",
+      "time_horizon_note": "T0 initialized around T-2 days before appeal decision window implied by source packet.",
+      "title": "procurement_appeal_with_adversarial_vendor_exhibit",
+      "uncertainty": [
+        "Materiality of any process defect is not established at T0.",
+        "Authenticity, context, and relevance of the quoted portal text are unresolved.",
+        "Exact procurement rules, scoring formula, and record completeness are not provided.",
+        "No direct evidence of public controversy or political intervention at T0."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "level": 0.6,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "actors update more from record-based claims than rhetorical assertions",
+        "scope": "institutional actors"
+      },
+      {
+        "level": 0.3,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "public activation requires scandal cue or service disruption; absent at T0",
+        "scope": "ambient_public"
+      },
+      {
+        "level": 0.75,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "stakeholders defer to formal process and stay mostly quiet",
+        "scope": "city_service_stakeholders and public"
+      },
+      {
+        "level": 0.55,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "actors primarily trust and coordinate within their own organizational side",
+        "scope": "vendor camps and city institutional clusters"
+      },
+      {
+        "level": 0.4,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "single exhibit may not spread unless corroborated by scoring irregularities or legal concerns",
+        "scope": "institutional concern over process defects"
+      },
+      {
+        "level": 0.65,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "organizational identity shapes interpretation of close scoring evidence",
+        "scope": "vendor rivalry and city institutional roles"
+      },
+      {
+        "level": 0.7,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "without escalation, issue remains low-salience and fades quickly",
+        "scope": "ambient_public"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "applies_to": [
+          "appeals_officer",
+          "city_attorney_office",
+          "city_procurement_office"
+        ],
+        "influence_key": "quoted_adversarial_text_as_evidence",
+        "note": "quoted portal text is part of evidentiary record about vendor behavior and should not alter role or backend behavior"
+      },
+      {
+        "applies_to": [
+          "appeals_officer",
+          "vendor_a",
+          "vendor_b",
+          "evaluation_committee"
+        ],
+        "influence_key": "narrow_score_margin",
+        "note": "1.7-point gap increases sensitivity to any proven scoring defect"
+      },
+      {
+        "applies_to": [
+          "appeals_officer"
+        ],
+        "influence_key": "remedy_constraints",
+        "note": "available remedies are uphold, remand scoring, or order rebid if defect is material"
+      },
+      {
+        "applies_to": [
+          "appeals_officer",
+          "city_operations_department",
+          "evaluation_committee"
+        ],
+        "influence_key": "tradeoff_price_vs_uptime",
+        "note": "substantive comparison is split between lower price and stronger uptime history"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "city_procurement_office",
+        "behavior_axes": {
+          "adaptability": 0.4,
+          "aggressiveness": 0.2,
+          "proceduralism": 0.8,
+          "transparency": 0.5
+        },
+        "ideology_axes": {
+          "competition_integrity": 0.7,
+          "institutional_caution": 0.7,
+          "service_continuity_priority": 0.6
+        },
+        "reputation": 0.6,
+        "secrecy": 0.5,
+        "tendency": "record_defensive",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "appeals_officer",
+        "behavior_axes": {
+          "adaptability": 0.5,
+          "aggressiveness": 0.2,
+          "proceduralism": 0.9,
+          "transparency": 0.4
+        },
+        "ideology_axes": {
+          "competition_integrity": 0.8,
+          "institutional_caution": 0.8,
+          "service_continuity_priority": 0.5
+        },
+        "reputation": 0.6,
+        "secrecy": 0.4,
+        "tendency": "authority_bounded_decision_making",
+        "trustworthiness": 0.7
+      },
+      {
+        "actor_name": "city_attorney_office",
+        "behavior_axes": {
+          "adaptability": 0.4,
+          "aggressiveness": 0.2,
+          "proceduralism": 0.9,
+          "transparency": 0.3
+        },
+        "ideology_axes": {
+          "competition_integrity": 0.7,
+          "institutional_caution": 0.9,
+          "service_continuity_priority": 0.5
+        },
+        "reputation": 0.6,
+        "secrecy": 0.7,
+        "tendency": "legal_risk_filtering",
+        "trustworthiness": 0.7
+      },
+      {
+        "actor_name": "vendor_a",
+        "behavior_axes": {
+          "adaptability": 0.7,
+          "aggressiveness": 0.7,
+          "proceduralism": 0.7,
+          "transparency": 0.5
+        },
+        "ideology_axes": {
+          "competition_integrity": 0.8,
+          "institutional_caution": 0.3,
+          "service_continuity_priority": 0.5
+        },
+        "reputation": 0.5,
+        "secrecy": 0.5,
+        "tendency": "contest_close_losses",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "vendor_b",
+        "behavior_axes": {
+          "adaptability": 0.6,
+          "aggressiveness": 0.5,
+          "proceduralism": 0.5,
+          "transparency": 0.4
+        },
+        "ideology_axes": {
+          "competition_integrity": 0.5,
+          "institutional_caution": 0.4,
+          "service_continuity_priority": 0.6
+        },
+        "reputation": 0.5,
+        "secrecy": 0.6,
+        "tendency": "defend_award_and_limit_damage",
+        "trustworthiness": 0.45
+      },
+      {
+        "actor_name": "evaluation_committee",
+        "behavior_axes": {
+          "adaptability": 0.4,
+          "aggressiveness": 0.1,
+          "proceduralism": 0.8,
+          "transparency": 0.3
+        },
+        "ideology_axes": {
+          "competition_integrity": 0.7,
+          "institutional_caution": 0.7,
+          "service_continuity_priority": 0.6
+        },
+        "reputation": 0.55,
+        "secrecy": 0.6,
+        "tendency": "scorecard_defense",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "city_operations_department",
+        "behavior_axes": {
+          "adaptability": 0.5,
+          "aggressiveness": 0.2,
+          "proceduralism": 0.5,
+          "transparency": 0.3
+        },
+        "ideology_axes": {
+          "competition_integrity": 0.5,
+          "institutional_caution": 0.5,
+          "service_continuity_priority": 0.9
+        },
+        "reputation": 0.6,
+        "secrecy": 0.4,
+        "tendency": "continuity_first",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "local_observers",
+        "behavior_axes": {
+          "adaptability": 0.5,
+          "aggressiveness": 0.1,
+          "proceduralism": 0.2,
+          "transparency": 0.2
+        },
+        "ideology_axes": {
+          "competition_integrity": 0.4,
+          "institutional_caution": 0.4,
+          "service_continuity_priority": 0.3
+        },
+        "reputation": 0.4,
+        "secrecy": 0.2,
+        "tendency": "low_attention_reactive",
+        "trustworthiness": 0.5
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 1731,
+        "end": 1731,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 1731,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

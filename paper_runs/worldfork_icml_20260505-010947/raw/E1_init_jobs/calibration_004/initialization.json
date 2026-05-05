@@ -1,0 +1,1308 @@
+{
+  "big_bang_id": "5a3d933d-55dd-4f87-998a-e63c80f655c9",
+  "initializer_output": {
+    "actors": [
+      {
+        "fictionalized": true,
+        "name": "donor_q",
+        "public_role": "famous donor and prospective funder",
+        "type": "individual"
+      },
+      {
+        "fictionalized": true,
+        "name": "planning_staff",
+        "public_role": "city planning staff",
+        "type": "institution"
+      },
+      {
+        "fictionalized": true,
+        "name": "planning_commission",
+        "public_role": "planning commission with zoning process role",
+        "type": "institution"
+      },
+      {
+        "fictionalized": true,
+        "name": "city_council",
+        "public_role": "city council with zoning amendment authority role",
+        "type": "institution"
+      },
+      {
+        "fictionalized": true,
+        "name": "council_chair",
+        "public_role": "city council chair",
+        "type": "individual"
+      },
+      {
+        "fictionalized": true,
+        "name": "stadium_tenant",
+        "public_role": "stadium tenant under lease",
+        "type": "organization"
+      },
+      {
+        "fictionalized": true,
+        "name": "housing_advocates",
+        "public_role": "housing advocacy coalition",
+        "type": "organization"
+      },
+      {
+        "fictionalized": true,
+        "name": "local_residents",
+        "public_role": "residents affected by stadium district planning",
+        "type": "population"
+      },
+      {
+        "fictionalized": true,
+        "name": "local_media",
+        "public_role": "local news and civic information outlets",
+        "type": "institution"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Donor announcement remains symbolic pressure rather than converting into formal process.",
+        "branch_key": "publicity_without_formal_filing",
+        "divergence_signal": "Media coverage shifts from inevitability framing to questions about missing filing and authority.",
+        "rationale": "Source 2 says no application exists; Source 3 says council has not committed.",
+        "trigger": "No rezoning application or official agenda item appears in near-term ticks."
+      },
+      {
+        "alternate_path": "Institutions begin process while withholding commitment on approval.",
+        "branch_key": "process_begins_but_without_outcome",
+        "divergence_signal": "Public notices, docket numbers, staff scheduling, or hearing preparation appear without affirmative votes.",
+        "rationale": "This fits authority constraints and timing rules better than instant rezoning.",
+        "trigger": "Application is filed or council/planning commission opens a formal docket."
+      },
+      {
+        "alternate_path": "Officials become more cautious, extending review or deferring action.",
+        "branch_key": "backlash_strengthens_delay",
+        "divergence_signal": "More public statements emphasize process integrity, notice rights, and review sequencing over project merits.",
+        "rationale": "Source 5 plus Source 4 create plausible legitimacy and contractual delay pressures.",
+        "trigger": "Community groups, advocates, or tenant objections frame donor move as bypassing legitimate process."
+      },
+      {
+        "alternate_path": "Even without direct authority, donor influence moves the issue onto formal agendas sooner than baseline.",
+        "branch_key": "elite_influence_accelerates_agenda_setting",
+        "divergence_signal": "Chair, staff, or commissioners begin discussing scope, application logistics, or workshops earlier than expected.",
+        "rationale": "Source 1 shows donor can shape salience despite lacking legal power.",
+        "trigger": "Donor continues visible engagement, including funding offers and coalition outreach."
+      },
+      {
+        "alternate_path": "Rezoning discussion becomes entangled with operational continuity and contractual negotiation.",
+        "branch_key": "tenant_leverage_complicates_redevelopment",
+        "divergence_signal": "Public or leaked references to notice timing, tenant rights, or need for parallel lease accommodations.",
+        "rationale": "Source 4 introduces a nontrivial switching-cost constraint.",
+        "trigger": "Stadium tenant invokes or signals reliance on lease notice clause."
+      }
+    ],
+    "channels": [
+      {
+        "actors": [
+          "donor_q",
+          "local_media",
+          "local_residents"
+        ],
+        "channel_key": "press_release",
+        "salience": 0.84,
+        "type": "broadcast_public"
+      },
+      {
+        "actors": [
+          "planning_staff",
+          "planning_commission",
+          "city_council"
+        ],
+        "channel_key": "staff_memo",
+        "salience": 0.66,
+        "type": "institutional_internal"
+      },
+      {
+        "actors": [
+          "council_chair",
+          "local_media",
+          "local_residents"
+        ],
+        "channel_key": "media_interview",
+        "salience": 0.68,
+        "type": "broadcast_public"
+      },
+      {
+        "actors": [
+          "stadium_tenant",
+          "city_council",
+          "planning_commission",
+          "donor_q"
+        ],
+        "channel_key": "lease_notice_channel",
+        "salience": 0.42,
+        "type": "contractual_private"
+      },
+      {
+        "actors": [
+          "housing_advocates",
+          "local_media",
+          "local_residents",
+          "city_council"
+        ],
+        "channel_key": "advocacy_statement",
+        "salience": 0.57,
+        "type": "broadcast_public"
+      },
+      {
+        "actors": [
+          "planning_staff",
+          "planning_commission",
+          "city_council",
+          "donor_q"
+        ],
+        "channel_key": "formal_application_process",
+        "salience": 0.72,
+        "type": "institutional_formal"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "local_residents",
+        "archetype_key": "city_residents_attention_public",
+        "attention_level": 0.25,
+        "cohort_key": "general_public_low_attention",
+        "expression_level": 0.15,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.8,
+        "private_belief_note": "Many are weakly favorable to housing in abstract but not engaged on process details.",
+        "representation_mode": "segment",
+        "represented_population": 400000,
+        "stance_axes": {
+          "deference_to_elites": 0.45,
+          "mixed_use_housing_support": 0.55,
+          "process_legitimacy_concern": 0.4
+        }
+      },
+      {
+        "actor_name": "local_residents",
+        "archetype_key": "city_residents_attention_public",
+        "attention_level": 0.6,
+        "cohort_key": "general_public_high_attention",
+        "expression_level": 0.35,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.3,
+        "mobilization_readiness": 0.42,
+        "perceived_majority": 0.48,
+        "population_share_of_archetype": 0.2,
+        "private_belief_note": "Attentive residents distinguish between liking housing and disliking preemptive announcements.",
+        "representation_mode": "segment",
+        "represented_population": 100000,
+        "stance_axes": {
+          "deference_to_elites": 0.3,
+          "mixed_use_housing_support": 0.58,
+          "process_legitimacy_concern": 0.62
+        }
+      },
+      {
+        "actor_name": "local_residents",
+        "archetype_key": "district_adjacent_residents",
+        "attention_level": 0.72,
+        "cohort_key": "adjacent_residents_pro_housing_cautious",
+        "expression_level": 0.48,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.32,
+        "mobilization_readiness": 0.5,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.5,
+        "private_belief_note": "Supportive of redevelopment but sensitive to community input and timing.",
+        "representation_mode": "segment",
+        "represented_population": 12500,
+        "stance_axes": {
+          "mixed_use_housing_support": 0.7,
+          "process_legitimacy_concern": 0.68,
+          "stadium_change_acceptance": 0.55
+        }
+      },
+      {
+        "actor_name": "local_residents",
+        "archetype_key": "district_adjacent_residents",
+        "attention_level": 0.74,
+        "cohort_key": "adjacent_residents_status_quo_or_skeptical",
+        "expression_level": 0.52,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.56,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.5,
+        "private_belief_note": "More likely to oppose rapid change and use process objections as a focal point.",
+        "representation_mode": "segment",
+        "represented_population": 12500,
+        "stance_axes": {
+          "mixed_use_housing_support": 0.35,
+          "process_legitimacy_concern": 0.72,
+          "stadium_change_acceptance": 0.3
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "local_residents",
+        "archetype_key": "city_residents_attention_public",
+        "attention_level": 0.25,
+        "cohort_key": "general_public_low_attention",
+        "expression_level": 0.15,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.8,
+        "private_belief_note": "Many are weakly favorable to housing in abstract but not engaged on process details.",
+        "representation_mode": "segment",
+        "represented_population": 400000,
+        "stance_axes": {
+          "deference_to_elites": 0.45,
+          "mixed_use_housing_support": 0.55,
+          "process_legitimacy_concern": 0.4
+        }
+      },
+      {
+        "actor_name": "local_residents",
+        "archetype_key": "city_residents_attention_public",
+        "attention_level": 0.6,
+        "cohort_key": "general_public_high_attention",
+        "expression_level": 0.35,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.3,
+        "mobilization_readiness": 0.42,
+        "perceived_majority": 0.48,
+        "population_share_of_archetype": 0.2,
+        "private_belief_note": "Attentive residents distinguish between liking housing and disliking preemptive announcements.",
+        "representation_mode": "segment",
+        "represented_population": 100000,
+        "stance_axes": {
+          "deference_to_elites": 0.3,
+          "mixed_use_housing_support": 0.58,
+          "process_legitimacy_concern": 0.62
+        }
+      },
+      {
+        "actor_name": "local_residents",
+        "archetype_key": "district_adjacent_residents",
+        "attention_level": 0.72,
+        "cohort_key": "adjacent_residents_pro_housing_cautious",
+        "expression_level": 0.48,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.32,
+        "mobilization_readiness": 0.5,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.5,
+        "private_belief_note": "Supportive of redevelopment but sensitive to community input and timing.",
+        "representation_mode": "segment",
+        "represented_population": 12500,
+        "stance_axes": {
+          "mixed_use_housing_support": 0.7,
+          "process_legitimacy_concern": 0.68,
+          "stadium_change_acceptance": 0.55
+        }
+      },
+      {
+        "actor_name": "local_residents",
+        "archetype_key": "district_adjacent_residents",
+        "attention_level": 0.74,
+        "cohort_key": "adjacent_residents_status_quo_or_skeptical",
+        "expression_level": 0.52,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.56,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.5,
+        "private_belief_note": "More likely to oppose rapid change and use process objections as a focal point.",
+        "representation_mode": "segment",
+        "represented_population": 12500,
+        "stance_axes": {
+          "mixed_use_housing_support": 0.35,
+          "process_legitimacy_concern": 0.72,
+          "stadium_change_acceptance": 0.3
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "planning_staff",
+          "planning_commission",
+          "city_council"
+        ],
+        "blockers": [
+          "Donor salience could pressure agenda-setting",
+          "Advocates may support process opening despite criticizing donor approach"
+        ],
+        "contradiction_notes": "Would be contradicted by any official filing, docket creation, or agenda action beginning rezoning process.",
+        "description": "By horizon, no formal rezoning application is filed and no official zoning amendment process begins.",
+        "endpoint_key": "no_formal_change",
+        "evidence_refs": [
+          "Source 2",
+          "Source 3"
+        ],
+        "label": "No formal zoning change action",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will any formal rezoning application, docket, or council/planning agenda item be initiated within the horizon?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.34,
+        "rationale": "Current evidence favors institutional inertia over automatic conversion of donor announcement into process.",
+        "realization_criteria": [
+          "No filed rezoning application in official records by horizon end",
+          "No planning commission or city council formal initiation of zoning map amendment by horizon end"
+        ],
+        "status": "active",
+        "status_basis": "At T0 there is no filed application and no council commitment."
+      },
+      {
+        "authority_refs": [
+          "planning_staff",
+          "planning_commission",
+          "city_council",
+          "donor_q"
+        ],
+        "blockers": [
+          "Need for applicant readiness and documentation",
+          "Environmental review timeline slows progression",
+          "Tenant or community concerns may complicate filing"
+        ],
+        "contradiction_notes": "Would be superseded by evidence of no filing at all or by final approval within horizon.",
+        "description": "A rezoning application is formally filed within horizon, but approval does not occur by horizon end.",
+        "endpoint_key": "application_filed",
+        "evidence_refs": [
+          "Source 1",
+          "Source 2"
+        ],
+        "label": "Application filed but not approved",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the scenario remain at symbolic donor pressure, or does it translate into an authoritative zoning decision by the end of horizon?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.27,
+        "rationale": "This is a plausible middle path consistent with strong influence but binding process constraints.",
+        "realization_criteria": [
+          "Official rezoning application or equivalent is filed",
+          "No final approval vote adopting rezoning by horizon end"
+        ],
+        "status": "active",
+        "status_basis": "Donor interest and funding could catalyze an application, but no filing exists at T0 and review takes time."
+      },
+      {
+        "authority_refs": [
+          "planning_commission",
+          "city_council",
+          "council_chair"
+        ],
+        "blockers": [
+          "Chair may avoid scheduling without application",
+          "Process backlash may make officials cautious"
+        ],
+        "contradiction_notes": "Can coexist with application filing as mechanism but not with a horizon where no formal action occurs.",
+        "description": "An official planning commission or city council process related to rezoning formally opens, even if no final approval occurs.",
+        "endpoint_key": "council_process_begins",
+        "evidence_refs": [
+          "Source 3",
+          "Source 2"
+        ],
+        "label": "Formal council or planning process begins",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will process legitimacy concerns materially delay or derail the donor-backed mixed-use concept?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.2,
+        "rationale": "Public pressure may be sufficient to start process discussion before any substantive decision.",
+        "realization_criteria": [
+          "Public agenda item, referral, workshop, hearing notice, or docket formally opens rezoning consideration",
+          "Institutional records show issue has entered official process"
+        ],
+        "status": "active",
+        "status_basis": "Chair is open to philanthropic interest but has not committed; agenda-setting remains possible."
+      },
+      {
+        "authority_refs": [
+          "planning_commission",
+          "city_council"
+        ],
+        "blockers": [
+          "No application filed at T0",
+          "Environmental review minimum of 90 days",
+          "Council noncommitment",
+          "Potential tenant notice issues"
+        ],
+        "contradiction_notes": "Would be contradicted by horizon too short for required procedural milestones or by explicit rejection.",
+        "description": "The stadium district is formally rezoned for mixed-use housing by relevant authority within horizon.",
+        "endpoint_key": "rezoning_approved",
+        "evidence_refs": [
+          "Scenario",
+          "Source 2",
+          "Source 3"
+        ],
+        "label": "Rezoning approved",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do lease-based tenant notice rights become an observable bottleneck in the redevelopment pathway?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.06,
+        "rationale": "Fame and philanthropy alone are insufficient; approval requires formal authority exercising it.",
+        "realization_criteria": [
+          "Planning and legislative approvals required by jurisdiction are completed",
+          "Official zoning map amendment or equivalent legal act is adopted"
+        ],
+        "status": "active",
+        "status_basis": "Legally possible in principle but weakly supported at initialization because prerequisite process steps are absent."
+      },
+      {
+        "authority_refs": [
+          "housing_advocates",
+          "stadium_tenant",
+          "planning_staff",
+          "city_council"
+        ],
+        "blockers": [
+          "Actors may reframe around formal process and preserve coalition",
+          "General support for housing may dampen backlash severity"
+        ],
+        "contradiction_notes": "Would weaken if actors rapidly converge on a conventional process and filing proceeds without notable controversy.",
+        "description": "Process legitimacy objections, tenant leverage, or public resistance materially slow or stall the donor-backed concept beyond baseline procedural timing.",
+        "endpoint_key": "backlash_delay",
+        "evidence_refs": [
+          "Source 4",
+          "Source 5",
+          "Source 3"
+        ],
+        "label": "Backlash delays or derails donor plan",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do lease-based tenant notice rights become an observable bottleneck in the redevelopment pathway?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.13,
+        "rationale": "Backlash is not yet dominant at T0 but is a credible branch because support for housing is paired with legitimacy concerns.",
+        "realization_criteria": [
+          "Officials publicly cite process concerns, tenant notice, or community backlash as reasons for delay, deferral, or refusal to advance donor-linked plan",
+          "Expected filing or agenda action does not proceed because of legitimacy or stakeholder resistance"
+        ],
+        "status": "active",
+        "status_basis": "Advocates already signal discomfort with process bypass and tenant rights create additional friction."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "Source 1 donor press release.",
+        "layer": "exposure",
+        "reason": "Public press release creates strong media visibility.",
+        "source_actor_name": "donor_q",
+        "target_actor_name": "local_media",
+        "weight": 0.78
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario implies public declaration and follow-on civic coverage.",
+        "layer": "exposure",
+        "reason": "Media transmits donor announcement and institutional reactions to residents.",
+        "source_actor_name": "local_media",
+        "target_actor_name": "local_residents",
+        "weight": 0.62
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source 2 planning staff memo.",
+        "layer": "exposure",
+        "reason": "Staff memo informs commission-side procedural understanding.",
+        "source_actor_name": "planning_staff",
+        "target_actor_name": "planning_commission",
+        "weight": 0.55
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source 3 council chair interview.",
+        "layer": "exposure",
+        "reason": "Chair interview publicly communicates council non-commitment.",
+        "source_actor_name": "council_chair",
+        "target_actor_name": "local_media",
+        "weight": 0.52
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source 5 housing group statement.",
+        "layer": "exposure",
+        "reason": "Advocates communicate support with process concerns to attentive public.",
+        "source_actor_name": "housing_advocates",
+        "target_actor_name": "local_residents",
+        "weight": 0.4
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source 1 contrasted with Sources 2-3.",
+        "layer": "trust",
+        "reason": "Public prominence gives some credibility, but overclaiming without authority reduces trust.",
+        "source_actor_name": "local_residents",
+        "target_actor_name": "donor_q",
+        "weight": 0.34
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source 2 planning staff memo.",
+        "layer": "trust",
+        "reason": "Technical staff seen as credible on process timing.",
+        "source_actor_name": "local_residents",
+        "target_actor_name": "planning_staff",
+        "weight": 0.52
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source 5 housing group statement.",
+        "layer": "trust",
+        "reason": "Advocates share policy goal but distrust process bypass.",
+        "source_actor_name": "housing_advocates",
+        "target_actor_name": "donor_q",
+        "weight": 0.3
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source 3 identifies chair speaking for council posture.",
+        "layer": "trust",
+        "reason": "Chair has internal agenda role and public voice.",
+        "source_actor_name": "city_council",
+        "target_actor_name": "council_chair",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source 2 notes no application filed and review timing.",
+        "layer": "dependency",
+        "reason": "Formal review depends on staff analysis and application processing.",
+        "source_actor_name": "planning_commission",
+        "target_actor_name": "planning_staff",
+        "weight": 0.63
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario states planning commission and city council hold authority roles.",
+        "layer": "dependency",
+        "reason": "Council process is informed by or linked to planning process in zoning changes.",
+        "source_actor_name": "city_council",
+        "target_actor_name": "planning_commission",
+        "weight": 0.42
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario authority constraint and Source 3.",
+        "layer": "dependency",
+        "reason": "Donor plan depends on council-authorized formal action for rezoning.",
+        "source_actor_name": "donor_q",
+        "target_actor_name": "city_council",
+        "weight": 0.26
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario and Source 2.",
+        "layer": "dependency",
+        "reason": "Any rezoning pathway requires formal planning process.",
+        "source_actor_name": "donor_q",
+        "target_actor_name": "planning_commission",
+        "weight": 0.3
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source 4 team lease excerpt.",
+        "layer": "dependency",
+        "reason": "Material site changes may require lease notice and tenant accommodation.",
+        "source_actor_name": "donor_q",
+        "target_actor_name": "stadium_tenant",
+        "weight": 0.37
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source 1 public declaration and design competition funding pledge.",
+        "layer": "influence",
+        "reason": "Fame and funding promise shape public expectations and agenda salience.",
+        "source_actor_name": "donor_q",
+        "target_actor_name": "local_residents",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario focus on influence vs power; Source 1.",
+        "layer": "influence",
+        "reason": "Public prominence and philanthropy create political pressure but not formal control.",
+        "source_actor_name": "donor_q",
+        "target_actor_name": "city_council",
+        "weight": 0.44
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source 3 public role as chair.",
+        "layer": "influence",
+        "reason": "Chair can shape scheduling, messaging, and agenda framing.",
+        "source_actor_name": "council_chair",
+        "target_actor_name": "city_council",
+        "weight": 0.64
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source 2 memo.",
+        "layer": "influence",
+        "reason": "Staff timeline and procedural constraints affect policy feasibility perceptions.",
+        "source_actor_name": "planning_staff",
+        "target_actor_name": "city_council",
+        "weight": 0.41
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source 5 housing group statement.",
+        "layer": "influence",
+        "reason": "Advocates can support mixed-use while raising legitimacy concerns.",
+        "source_actor_name": "housing_advocates",
+        "target_actor_name": "city_council",
+        "weight": 0.36
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Source 1 and Source 5.",
+        "layer": "coalition",
+        "reason": "Shared support for mixed-use housing, despite process friction.",
+        "source_actor_name": "donor_q",
+        "target_actor_name": "housing_advocates",
+        "weight": 0.34
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Source 2 and institutional roles.",
+        "layer": "coalition",
+        "reason": "Aligned within procedural planning apparatus.",
+        "source_actor_name": "planning_staff",
+        "target_actor_name": "planning_commission",
+        "weight": 0.6
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Source 3.",
+        "layer": "coalition",
+        "reason": "Chair is aligned with council institution while preserving discretion.",
+        "source_actor_name": "council_chair",
+        "target_actor_name": "city_council",
+        "weight": 0.57
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Source 1 versus Source 2.",
+        "layer": "conflict",
+        "reason": "Donor’s announcement implies a settled outcome before filing and review.",
+        "source_actor_name": "donor_q",
+        "target_actor_name": "planning_staff",
+        "weight": 0.38
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Source 1 versus Source 3.",
+        "layer": "conflict",
+        "reason": "Declaration pressures council and may be perceived as usurping authority.",
+        "source_actor_name": "donor_q",
+        "target_actor_name": "city_council",
+        "weight": 0.33
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Source 5.",
+        "layer": "conflict",
+        "reason": "Substantive alignment offset by dissatisfaction with bypassing community process.",
+        "source_actor_name": "donor_q",
+        "target_actor_name": "housing_advocates",
+        "weight": 0.36
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Source 4.",
+        "layer": "conflict",
+        "reason": "Potential site changes could run into lease-protected interests.",
+        "source_actor_name": "donor_q",
+        "target_actor_name": "stadium_tenant",
+        "weight": 0.28
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Source 1 press release.",
+        "layer": "oasis_interaction",
+        "reason": "High likelihood of repeated public messaging through press channels.",
+        "source_actor_name": "donor_q",
+        "target_actor_name": "local_media",
+        "weight": 0.72
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Source 3 interview.",
+        "layer": "oasis_interaction",
+        "reason": "Public interview indicates ongoing comment exchange.",
+        "source_actor_name": "council_chair",
+        "target_actor_name": "local_media",
+        "weight": 0.58
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Source 5 statement.",
+        "layer": "oasis_interaction",
+        "reason": "Advocates likely to issue statements and react publicly.",
+        "source_actor_name": "housing_advocates",
+        "target_actor_name": "local_media",
+        "weight": 0.46
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Community process concern in Source 5.",
+        "layer": "oasis_interaction",
+        "reason": "Public comments and civic feedback are plausible but not yet maximized at T0.",
+        "source_actor_name": "local_residents",
+        "target_actor_name": "city_council",
+        "weight": 0.31
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype_key": "high_influence_low_formal_authority",
+        "label": "Publicly influential private actor without zoning authority"
+      },
+      {
+        "archetype_key": "procedural_gatekeeper",
+        "label": "Institutional actor with process control or agenda power"
+      },
+      {
+        "archetype_key": "stakeholder_with_contractual_leverage",
+        "label": "Affected organization with contractual rights affecting timing"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "donor_q",
+        "archetype_key": "high_influence_low_formal_authority",
+        "attention_level": 0.95,
+        "authority_scope": "Can fund designs and shape attention but cannot unilaterally rezone.",
+        "expression_level": 0.95,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.08,
+        "mobilization_readiness": 0.75,
+        "perceived_majority": 0.62,
+        "resources": "High philanthropic capital and public visibility.",
+        "stance_axes": {
+          "mixed_use_housing_support": 0.95,
+          "process_deference": 0.22,
+          "rapid_timeline_preference": 0.88
+        }
+      },
+      {
+        "actor_name": "planning_commission",
+        "archetype_key": "procedural_gatekeeper",
+        "attention_level": 0.7,
+        "authority_scope": "Can shape formal planning review and recommendations.",
+        "expression_level": 0.35,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.4,
+        "perceived_majority": 0.5,
+        "stance_axes": {
+          "mixed_use_housing_support": 0.55,
+          "procedural_compliance": 0.9,
+          "timeline_caution": 0.82
+        }
+      },
+      {
+        "actor_name": "city_council",
+        "archetype_key": "procedural_gatekeeper",
+        "attention_level": 0.72,
+        "authority_scope": "Needed for formal zoning map amendment or equivalent legislative action.",
+        "expression_level": 0.42,
+        "fatigue": 0.26,
+        "fear_of_isolation": 0.24,
+        "mobilization_readiness": 0.46,
+        "perceived_majority": 0.49,
+        "stance_axes": {
+          "mixed_use_housing_support": 0.52,
+          "political_caution": 0.72,
+          "procedural_compliance": 0.86
+        }
+      },
+      {
+        "actor_name": "stadium_tenant",
+        "archetype_key": "stakeholder_with_contractual_leverage",
+        "attention_level": 0.68,
+        "authority_scope": "Lease notice rights can slow or complicate material site changes.",
+        "expression_level": 0.28,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.38,
+        "perceived_majority": 0.45,
+        "stance_axes": {
+          "contract_enforcement": 0.82,
+          "disruption_avoidance": 0.78,
+          "site_change_openness": 0.4
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "archetype_key": "high_influence_low_formal_authority",
+        "label": "Publicly influential private actor without zoning authority"
+      },
+      {
+        "archetype_key": "procedural_gatekeeper",
+        "label": "Institutional actor with process control or agenda power"
+      },
+      {
+        "archetype_key": "stakeholder_with_contractual_leverage",
+        "label": "Affected organization with contractual rights affecting timing"
+      }
+    ],
+    "important_questions": [
+      "Will any formal rezoning application, docket, or council/planning agenda item be initiated within the horizon?",
+      "Does the scenario remain at symbolic donor pressure, or does it translate into an authoritative zoning decision by the end of horizon?",
+      "Will process legitimacy concerns materially delay or derail the donor-backed mixed-use concept?",
+      "Do lease-based tenant notice rights become an observable bottleneck in the redevelopment pathway?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "donor_q",
+          "local_media",
+          "local_residents"
+        ],
+        "event_key": "donor_declares_rezoning_as_settled",
+        "event_type": "announcement",
+        "evidence": "Source 1.",
+        "expected_impact": "Raises expectations, boosts donor agenda influence, and risks backlash by implying authority beyond formal power.",
+        "summary": "Donor Q publicly says the stadium district is becoming mixed-use housing next year and offers to fund a design competition.",
+        "tick": -12,
+        "visibility": "public"
+      },
+      {
+        "actors": [
+          "planning_staff",
+          "planning_commission",
+          "city_council"
+        ],
+        "event_key": "staff_reasserts_no_application_and_review_timeline",
+        "event_type": "announcement",
+        "evidence": "Source 2.",
+        "expected_impact": "Constrains rapid-path narratives and increases procedural salience.",
+        "summary": "Planning staff note no rezoning application has been filed and environmental review would take at least 90 days.",
+        "tick": -10,
+        "visibility": "institutional_then_public"
+      },
+      {
+        "actors": [
+          "council_chair",
+          "city_council",
+          "local_media"
+        ],
+        "event_key": "council_chair_signals_noncommitment",
+        "event_type": "announcement",
+        "evidence": "Source 3.",
+        "expected_impact": "Separates openness to idea from formal endorsement, limiting donor’s apparent control.",
+        "summary": "Council chair welcomes philanthropic interest but says council has not committed to a zoning map amendment.",
+        "tick": -8,
+        "visibility": "public"
+      },
+      {
+        "actors": [
+          "stadium_tenant",
+          "donor_q",
+          "city_council"
+        ],
+        "event_key": "lease_constraint_enters_background",
+        "event_type": "announcement",
+        "evidence": "Source 4.",
+        "expected_impact": "Adds procedural and stakeholder friction that may slow any redevelopment path.",
+        "summary": "Lease excerpt indicates notice requirement before material site changes.",
+        "tick": -6,
+        "visibility": "limited_public"
+      },
+      {
+        "actors": [
+          "housing_advocates",
+          "local_media",
+          "local_residents"
+        ],
+        "event_key": "advocates_support_goal_but_criticize_process",
+        "event_type": "announcement",
+        "evidence": "Source 5.",
+        "expected_impact": "Creates cross-pressured coalition dynamics and increases legitimacy scrutiny.",
+        "summary": "Housing advocates support mixed-use zoning while warning against bypassing community process.",
+        "tick": -2,
+        "visibility": "public"
+      },
+      {
+        "actors": [
+          "planning_staff",
+          "planning_commission",
+          "city_council",
+          "donor_q"
+        ],
+        "event_key": "watch_for_application_or_agenda_item",
+        "event_type": "announcement",
+        "evidence": "Implied by Sources 2-3 and candidate endpoints.",
+        "expected_impact": "Would distinguish mere publicity from formal process initiation without determining final outcome.",
+        "summary": "Near-term observation point for whether any formal application, referral, or agenda item appears.",
+        "tick": 1,
+        "visibility": "future_watchpoint"
+      },
+      {
+        "actors": [
+          "planning_staff",
+          "planning_commission",
+          "city_council"
+        ],
+        "event_key": "review_timeline_constraint_persists",
+        "event_type": "announcement",
+        "evidence": "Source 2.",
+        "expected_impact": "Makes immediate approval unlikely and preserves delay/stalemate branches.",
+        "summary": "Minimum environmental review duration remains a hard timing benchmark if an application is filed.",
+        "tick": 90,
+        "visibility": "future_watchpoint"
+      }
+    ],
+    "llm_call_id": "68e38384-dcef-4c61-9063-663f530b8a1c",
+    "merge_hypotheses": [
+      {
+        "actors": [
+          "donor_q",
+          "housing_advocates",
+          "planning_commission",
+          "city_council"
+        ],
+        "convergence_mechanism": "Donor, advocates, and some officials converge if redevelopment is routed through normal filing, review, and community engagement.",
+        "evidence": "Source 1 and Source 5 align on substantive mixed-use interest, while Sources 2-3 define acceptable process.",
+        "merge_key": "shared_support_for_mixed_use_under_formal_process"
+      },
+      {
+        "actors": [
+          "donor_q",
+          "planning_staff",
+          "city_council",
+          "local_media"
+        ],
+        "convergence_mechanism": "Environmental review and procedural milestones force all actors to acknowledge slower timelines.",
+        "evidence": "Source 2 establishes at least 90-day review, limiting immediate-outcome narratives.",
+        "merge_key": "timing_reality_cools_overclaims"
+      },
+      {
+        "actors": [
+          "stadium_tenant",
+          "city_council",
+          "planning_commission",
+          "donor_q"
+        ],
+        "convergence_mechanism": "Need to avoid conflict with tenant pushes actors toward phased or more cautious sequencing.",
+        "evidence": "Source 4 lease notice requirement.",
+        "merge_key": "contractual_notice_creates_pragmatic_alignment"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "city_residents_attention_public",
+        "description": "General public with uneven attention to zoning and stadium redevelopment issues.",
+        "label": "City residents following civic land-use news",
+        "population_total": 500000
+      },
+      {
+        "archetype_key": "district_adjacent_residents",
+        "description": "Residents most directly attentive to local land-use impacts.",
+        "label": "Residents near stadium district",
+        "population_total": 25000
+      }
+    ],
+    "risk_flags": [
+      {
+        "description": "Public narratives may overread donor influence as equivalent to zoning authority.",
+        "evidence": "Scenario framing; Sources 1-3.",
+        "flag_key": "authority_power_misalignment",
+        "severity": "high"
+      },
+      {
+        "description": "Any forecast assuming rapid approval conflicts with no application filed and minimum 90-day review.",
+        "evidence": "Source 2.",
+        "flag_key": "timeline_inconsistency_risk",
+        "severity": "high"
+      },
+      {
+        "description": "Lease notice requirements introduce hidden timing and negotiation burdens for site changes.",
+        "evidence": "Source 4.",
+        "flag_key": "contractual_switching_costs",
+        "severity": "medium"
+      },
+      {
+        "description": "Substantive allies on housing may split over process legitimacy, weakening momentum.",
+        "evidence": "Source 5.",
+        "flag_key": "coalition_fragility",
+        "severity": "medium"
+      },
+      {
+        "description": "Exact forecast horizon is unspecified, so endpoint likelihoods should be interpreted as conditional on a near-term policy horizon rather than indefinite time.",
+        "evidence": "Scenario metadata lacks explicit horizon.",
+        "flag_key": "horizon_ambiguity",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "horizon_notes": "Near-term horizon should preserve possibilities ranging from no formal action to process initiation, with approval unlikely absent procedural steps.",
+      "mode": "direct",
+      "scenario_key": "calibration_004",
+      "summary": "A famous donor publicly announces that a city stadium district will be rezoned for mixed-use housing, but formal authority remains with planning institutions and elected officials. No application has been filed at T0, environmental review would take at least 90 days, the stadium tenant has lease-based notice rights, and housing advocates support mixed-use goals while objecting to process bypass. Core tension is influence versus formal power under timing and procedural constraints.",
+      "time_anchor": "T0 set near T-2 days relative to latest source item",
+      "uncertainty_notes": [
+        "Exact city, jurisdictional rules, and actor identities are unspecified and treated as fictionalized.",
+        "No evidence that planning commission or council has scheduled a formal vote at T0.",
+        "Donor influence level is publicly salient but not shown to override legal process."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "evidence": "People can support mixed-use yet reject claims that ignore formal process.",
+        "level": 0.58,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "scope": "attentive residents and civic actors"
+      },
+      {
+        "evidence": "Mobilization likely rises if a formal filing occurs or if actors appear to bypass notice and review.",
+        "level": 0.52,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "scope": "district-adjacent residents"
+      },
+      {
+        "evidence": "Many residents have low attention and weakly held views at T0.",
+        "level": 0.47,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "scope": "general public"
+      },
+      {
+        "evidence": "Advocates and adjacent residents likely discuss issue within aligned circles.",
+        "level": 0.5,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "scope": "housing networks and neighborhood networks"
+      },
+      {
+        "evidence": "Process concerns gain force when echoed by officials and advocates together.",
+        "level": 0.54,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "scope": "process backlash narratives"
+      },
+      {
+        "evidence": "Scenario centers on who properly decides, not only substantive housing preferences.",
+        "level": 0.49,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "scope": "institutional actors versus outsider elite influence"
+      },
+      {
+        "evidence": "Without filing or hearings, issue may cool after initial announcement spike.",
+        "level": 0.43,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "scope": "general public"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context_key": "authority_constraints",
+        "description": "Formal zoning authority lies with planning commission and city council, not donor messaging.",
+        "evidence": "Scenario text; Sources 2-3."
+      },
+      {
+        "context_key": "process_timing",
+        "description": "No application filed and environmental review requires at least 90 days.",
+        "evidence": "Source 2."
+      },
+      {
+        "context_key": "contractual_friction",
+        "description": "Stadium tenant lease requires notice before material site changes.",
+        "evidence": "Source 4."
+      },
+      {
+        "context_key": "split_support_frame",
+        "description": "Mixed-use housing has support, but legitimacy concerns cut across supportive constituencies.",
+        "evidence": "Source 5."
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "donor_q",
+        "behavior_axes": {
+          "agenda_setting": 0.88,
+          "assertiveness": 0.92,
+          "institutional_restraint": 0.25,
+          "patience": 0.28
+        },
+        "ideology_axes": {
+          "pro_growth": 0.78,
+          "pro_housing": 0.9,
+          "proceduralism": 0.3
+        },
+        "reputation": 0.8,
+        "secrecy": 0.22,
+        "tendency": "Makes public forward-leaning declarations and offers resources to catalyze action.",
+        "trustworthiness": 0.46
+      },
+      {
+        "actor_name": "planning_staff",
+        "behavior_axes": {
+          "agenda_setting": 0.35,
+          "assertiveness": 0.45,
+          "institutional_restraint": 0.9,
+          "patience": 0.82
+        },
+        "ideology_axes": {
+          "pro_housing": 0.55,
+          "proceduralism": 0.9,
+          "risk_aversion": 0.78
+        },
+        "reputation": 0.62,
+        "secrecy": 0.4,
+        "tendency": "Anchors discussion in filing requirements and review timelines.",
+        "trustworthiness": 0.72
+      },
+      {
+        "actor_name": "planning_commission",
+        "behavior_axes": {
+          "agenda_setting": 0.58,
+          "assertiveness": 0.5,
+          "institutional_restraint": 0.84,
+          "patience": 0.76
+        },
+        "ideology_axes": {
+          "pro_housing": 0.56,
+          "proceduralism": 0.88,
+          "risk_aversion": 0.68
+        },
+        "reputation": 0.6,
+        "secrecy": 0.32,
+        "tendency": "Responds to completed applications and public process rather than donor declarations.",
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "city_council",
+        "behavior_axes": {
+          "agenda_setting": 0.76,
+          "assertiveness": 0.56,
+          "institutional_restraint": 0.74,
+          "patience": 0.62
+        },
+        "ideology_axes": {
+          "political_sensitivity": 0.84,
+          "pro_housing": 0.52,
+          "proceduralism": 0.8
+        },
+        "reputation": 0.57,
+        "secrecy": 0.35,
+        "tendency": "Balances policy preferences with public legitimacy and formal sequencing.",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "council_chair",
+        "behavior_axes": {
+          "agenda_setting": 0.8,
+          "assertiveness": 0.62,
+          "institutional_restraint": 0.78,
+          "patience": 0.68
+        },
+        "ideology_axes": {
+          "political_sensitivity": 0.8,
+          "pro_housing": 0.55,
+          "proceduralism": 0.82
+        },
+        "reputation": 0.63,
+        "secrecy": 0.28,
+        "tendency": "Signals openness to interest while preserving council discretion.",
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "stadium_tenant",
+        "behavior_axes": {
+          "agenda_setting": 0.34,
+          "assertiveness": 0.52,
+          "institutional_restraint": 0.7,
+          "patience": 0.6
+        },
+        "ideology_axes": {
+          "commercial_protection": 0.78,
+          "proceduralism": 0.6,
+          "site_stability": 0.82
+        },
+        "reputation": 0.52,
+        "secrecy": 0.46,
+        "tendency": "Uses lease rights selectively to protect operational interests.",
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "housing_advocates",
+        "behavior_axes": {
+          "agenda_setting": 0.48,
+          "assertiveness": 0.7,
+          "institutional_restraint": 0.52,
+          "patience": 0.5
+        },
+        "ideology_axes": {
+          "anti_elite_capture": 0.72,
+          "pro_housing": 0.95,
+          "proceduralism": 0.66
+        },
+        "reputation": 0.59,
+        "secrecy": 0.18,
+        "tendency": "Supports zoning change goals while criticizing top-down bypass of community process.",
+        "trustworthiness": 0.67
+      },
+      {
+        "actor_name": "local_media",
+        "behavior_axes": {
+          "agenda_setting": 0.72,
+          "assertiveness": 0.6,
+          "institutional_restraint": 0.44,
+          "patience": 0.48
+        },
+        "ideology_axes": {
+          "conflict_salience": 0.62,
+          "neutrality": 0.55,
+          "process_focus": 0.68
+        },
+        "reputation": 0.64,
+        "secrecy": 0.12,
+        "tendency": "Amplifies mismatch between donor claims and formal process realities.",
+        "trustworthiness": 0.61
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 1977,
+        "end": 1977,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 1977,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

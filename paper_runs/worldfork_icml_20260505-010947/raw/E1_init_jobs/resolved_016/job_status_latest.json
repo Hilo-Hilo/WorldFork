@@ -1,0 +1,47 @@
+{
+  "attempt_number": 0,
+  "available_at": "2026-05-05T02:12:06.111807Z",
+  "big_bang_id": null,
+  "concurrency_key": null,
+  "created_at": "2026-05-05T02:12:06.111127Z",
+  "error": null,
+  "finished_at": "2026-05-05T02:13:59.110012Z",
+  "id": "c2030e54-f65d-4bf1-9e98-8fcd337458fc",
+  "idempotency_key": "job:492e3a73efba9494958cd63d18ef301830b3b1c571fcc7b75d1d99365a480f71",
+  "interrupt_requested_at": null,
+  "interrupted_at": null,
+  "job_type": "initialize_big_bang",
+  "last_heartbeat_at": null,
+  "lease_expires_at": null,
+  "lease_owner": null,
+  "max_attempts": 3,
+  "paused_at": null,
+  "payload": {
+    "actors": [],
+    "branch_policy": {
+      "branch_score_threshold": 0.999,
+      "max_active_multiverses": 1,
+      "max_branch_depth": 1,
+      "max_branches_per_tick": 1
+    },
+    "cohorts": [],
+    "heroes": [],
+    "name": "E1_init_job_resolved_016",
+    "scenario_text": "# Case resolved_016\nBenchmark role: resolved_forecast\n\nForecast question: Will Phone A be available to customers by September 30, 2025?\n\n## Scenario\n\nA major smartphone manufacturer has announced a new thin smartphone model, Phone A, alongside the next generation of its flagship phones. The company says preorders will open soon and availability will begin later in September. Resolve yes only if Phone A is available to customers by September 30, 2025.\n\n## Source Packet\n\n### Source 1: company_announcement / 2025-09-10\n\nThe announced schedule places availability in the second half of September.\n\n### Source 2: launch_risk_note / 2025-09-10\n\nA short-term release could still slip if supply, regulatory, or manufacturing issues appear.\n\n### Source 3: endpoint_note / 2025-09-10\n\nA preorder without general availability does not by itself resolve yes.\n\n## Candidate Endpoints\n- yes: The event occurs by the deadline\n- no: The event does not occur by the deadline\n\n## Expected Focus\n- product_launch_extraction\n- short_horizon_forecasting\n- preorder_vs_availability\n\n## Required Forecast Output\n{'type': 'probability_distribution', 'schema': {'yes': 'float in [0,1]', 'no': 'float in [0,1]', 'unresolved_mass': 'optional float in [0,1]; if used, keep yes+no+unresolved_mass = 1'}, 'scoring': 'For resolved cards, score p_yes against the hidden private resolution using binary Brier and clamped log score. If unresolved_mass is present, report it separately and normalize yes/no only if your paper explicitly chooses conditional scoring.'}\n\n## Leakage Mitigation\nModel-facing text uses partial entity masking. Do not expose private_eval entity_map or resolution during forecasting.\n",
+    "simulation_config": {
+      "max_ticks": 1,
+      "tick_duration_minutes": 720
+    },
+    "use_initializer_agent": true
+  },
+  "queue_name": "p1",
+  "queued_at": "2026-05-05T02:12:06.111801Z",
+  "result": {
+    "big_bang_id": "d4f8087b-3ae0-4138-8cd8-420e6607a233",
+    "source_snapshot_id": "d94b2d92-a11e-439f-a7b1-05e782c3dc27"
+  },
+  "retryable": true,
+  "started_at": "2026-05-05T02:12:06.136484Z",
+  "status": "succeeded",
+  "updated_at": "2026-05-05T02:13:59.056385Z"
+}

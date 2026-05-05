@@ -1,0 +1,1374 @@
+{
+  "big_bang_id": "a8ece0a0-79ac-47e3-b20d-5e59d2bdfe1a",
+  "initializer_output": {
+    "actors": [
+      {
+        "capabilities": [
+          "announce_release_date",
+          "set_price",
+          "allocate_inventory",
+          "coordinate_supply_chain",
+          "control_marketing"
+        ],
+        "constraints": [
+          "production_capacity",
+          "component_supply",
+          "pricing_acceptance",
+          "software_readiness",
+          "launch_logistics"
+        ],
+        "fictionalized": true,
+        "name": "console_manufacturer",
+        "public_visibility": "high",
+        "role": "decision_maker",
+        "stakes": [
+          "timely_launch",
+          "revenue",
+          "brand_momentum",
+          "install_base_growth"
+        ],
+        "type": "company"
+      },
+      {
+        "capabilities": [
+          "component_output",
+          "yield_improvement"
+        ],
+        "constraints": [
+          "capacity_limits",
+          "lead_times",
+          "quality_control"
+        ],
+        "fictionalized": true,
+        "name": "component_suppliers",
+        "public_visibility": "medium",
+        "role": "upstream_dependency",
+        "stakes": [
+          "contract_volume",
+          "on_time_delivery"
+        ],
+        "type": "industry_group"
+      },
+      {
+        "capabilities": [
+          "assembly",
+          "shipping",
+          "regional_distribution"
+        ],
+        "constraints": [
+          "throughput",
+          "shipping_disruptions",
+          "inventory_positioning"
+        ],
+        "fictionalized": true,
+        "name": "assembly_and_logistics_partners",
+        "public_visibility": "medium",
+        "role": "operational_dependency",
+        "stakes": [
+          "successful_ramp",
+          "distribution_execution"
+        ],
+        "type": "industry_group"
+      },
+      {
+        "capabilities": [
+          "launch_titles",
+          "patches",
+          "dev_support"
+        ],
+        "constraints": [
+          "readiness_timing",
+          "performance_optimization"
+        ],
+        "fictionalized": true,
+        "name": "software_developers_publishers",
+        "public_visibility": "medium",
+        "role": "ecosystem_partner",
+        "stakes": [
+          "launch_attach_rate",
+          "software_sales",
+          "platform_relationship"
+        ],
+        "type": "industry_group"
+      },
+      {
+        "capabilities": [
+          "consumer_sales",
+          "preorders",
+          "regional_availability_signaling"
+        ],
+        "constraints": [
+          "allocated_inventory",
+          "pricing_policy",
+          "launch_day_operations"
+        ],
+        "fictionalized": true,
+        "name": "major_retailers",
+        "public_visibility": "high",
+        "role": "sales_channel",
+        "stakes": [
+          "hardware_sales",
+          "traffic",
+          "allocation_share"
+        ],
+        "type": "industry_group"
+      },
+      {
+        "capabilities": [
+          "purchase",
+          "preorder_interest",
+          "attention"
+        ],
+        "constraints": [
+          "budget",
+          "scarcity",
+          "information_uncertainty"
+        ],
+        "fictionalized": true,
+        "name": "consumers",
+        "public_visibility": "high",
+        "role": "demand_side",
+        "stakes": [
+          "access_to_new_hardware",
+          "price_value",
+          "availability"
+        ],
+        "type": "public_group"
+      },
+      {
+        "capabilities": [
+          "coverage",
+          "expectation_setting"
+        ],
+        "constraints": [
+          "limited_official_information",
+          "speculation_risk"
+        ],
+        "fictionalized": true,
+        "name": "market_analysts_media",
+        "public_visibility": "high",
+        "role": "narrative_amplifier",
+        "stakes": [
+          "forecast_accuracy",
+          "audience_attention"
+        ],
+        "type": "observer_group"
+      },
+      {
+        "capabilities": [
+          "tariff_pressure",
+          "cost_shock"
+        ],
+        "constraints": [
+          "policy_uncertainty"
+        ],
+        "fictionalized": true,
+        "name": "trade_policy_environment",
+        "public_visibility": "medium",
+        "role": "external_constraint",
+        "stakes": [
+          "none_direct"
+        ],
+        "type": "structural_factor"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Launch momentum consolidates toward a by-deadline release in at least one major market.",
+        "branch_key": "spring_launch_confirmation",
+        "observable_divergence_signal": "Official date plus synchronized retailer listings or allocations appear without contradictory delay signals.",
+        "trigger": "Manufacturer announces a concrete retail date on or before late spring 2025 with retailer coordination."
+      },
+      {
+        "alternate_path": "Manufacturer defers retail release beyond June 30 to preserve margins or reposition launch timing.",
+        "branch_key": "pricing_or_tariff_delay",
+        "observable_divergence_signal": "Extended absence of price announcement, pricing-language hedges, or reports of market-specific delay tied to costs.",
+        "trigger": "Tariff or cost pressure complicates pricing decisions."
+      },
+      {
+        "alternate_path": "Manufacturer slips launch or narrows launch footprint to avoid understocked release.",
+        "branch_key": "production_inventory_shortfall",
+        "observable_divergence_signal": "Repeated emphasis on supply constraints, staggered market plans, or lack of retail inventory readiness close to deadline.",
+        "trigger": "Production ramp or launch inventory proves insufficient for confident market release."
+      },
+      {
+        "alternate_path": "Hardware release is postponed to align with software lineup or platform quality threshold.",
+        "branch_key": "software_readiness_slip",
+        "observable_divergence_signal": "Delayed software showcases, muted launch-lineup messaging, or quality-focused delay framing.",
+        "trigger": "Key software or system readiness milestones lag."
+      },
+      {
+        "alternate_path": "Yes resolution occurs via limited regional consumer release before broader rollout.",
+        "branch_key": "major_market_partial_release",
+        "observable_divergence_signal": "Official communication specifies an initial market release ahead of wider international availability.",
+        "trigger": "Global rollout readiness is uneven but at least one major market becomes feasible."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "official_trailers_announcements",
+        "credibility": 0.79,
+        "primary_actors": [
+          "console_manufacturer"
+        ],
+        "reach": 0.84,
+        "type": "owned_media"
+      },
+      {
+        "channel_key": "press_coverage_analysis",
+        "credibility": 0.66,
+        "primary_actors": [
+          "market_analysts_media"
+        ],
+        "reach": 0.69,
+        "type": "earned_media"
+      },
+      {
+        "channel_key": "retailer_listings_preorders",
+        "credibility": 0.76,
+        "primary_actors": [
+          "major_retailers"
+        ],
+        "reach": 0.63,
+        "type": "commercial_channel"
+      },
+      {
+        "channel_key": "industry_supply_signals",
+        "credibility": 0.57,
+        "primary_actors": [
+          "component_suppliers",
+          "assembly_and_logistics_partners",
+          "software_developers_publishers"
+        ],
+        "reach": 0.22,
+        "type": "backchannel_operational"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "consumers_global",
+        "attention_level": 0.88,
+        "behavioral_tendencies": [
+          "track_announcements",
+          "discuss_preorders",
+          "signal_willingness_to_buy"
+        ],
+        "cohort_key": "enthusiast_early_adopters",
+        "expression_level": 0.78,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.67,
+        "perceived_majority": 0.64,
+        "population_share_of_archetype": 0.15,
+        "private_belief": "Launch in 2025 is credible, but first-half timing remains uncertain.",
+        "public_expression": "High interest and active speculation despite incomplete details.",
+        "representation_mode": "direct",
+        "represented_population": 18000000,
+        "reputation": 0.58,
+        "secrecy": 0.1,
+        "stance_axes": {
+          "launch_confidence": 0.66,
+          "price_tolerance": 0.62,
+          "scarcity_expectation": 0.71
+        },
+        "trustworthiness": 0.62
+      },
+      {
+        "archetype_key": "consumers_global",
+        "attention_level": 0.46,
+        "behavioral_tendencies": [
+          "observe_official_news",
+          "delay_purchase_decision",
+          "compare_value"
+        ],
+        "cohort_key": "mainstream_wait_and_see",
+        "expression_level": 0.31,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.29,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "Interested but unlikely to commit until price, date, and software lineup are known.",
+        "public_expression": "Low to moderate discussion; waits for concrete retail details.",
+        "representation_mode": "direct",
+        "represented_population": 72000000,
+        "reputation": 0.5,
+        "secrecy": 0.16,
+        "stance_axes": {
+          "launch_confidence": 0.53,
+          "price_tolerance": 0.44,
+          "scarcity_expectation": 0.48
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "archetype_key": "consumers_global",
+        "attention_level": 0.39,
+        "behavioral_tendencies": [
+          "wait_for_reviews",
+          "watch_price",
+          "defer_purchase"
+        ],
+        "cohort_key": "price_sensitive_skeptics",
+        "expression_level": 0.34,
+        "fatigue": 0.15,
+        "fear_of_isolation": 0.21,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "A 2025 release is possible, but high price or shortages could effectively delay meaningful access.",
+        "public_expression": "Skeptical commentary about affordability and stock.",
+        "representation_mode": "direct",
+        "represented_population": 30000000,
+        "reputation": 0.47,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "launch_confidence": 0.42,
+          "price_tolerance": 0.24,
+          "scarcity_expectation": 0.68
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "archetype_key": "industry_ecosystem",
+        "attention_level": 0.84,
+        "behavioral_tendencies": [
+          "maintain_confidentiality",
+          "prepare_contingencies",
+          "optimize_launch_window"
+        ],
+        "cohort_key": "ecosystem_execution_group",
+        "expression_level": 0.18,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.73,
+        "perceived_majority": 0.6,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Launch timing depends on synchronized readiness across supply, software, and retail.",
+        "public_expression": "Limited public comment; signals mainly via leaks, allocations, and readiness indicators.",
+        "representation_mode": "aggregated",
+        "represented_population": 5000,
+        "reputation": 0.56,
+        "secrecy": 0.73,
+        "stance_axes": {
+          "coordination_confidence": 0.52,
+          "launch_confidence": 0.58,
+          "schedule_flexibility": 0.49
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "archetype_key": "observers",
+        "attention_level": 0.9,
+        "behavioral_tendencies": [
+          "analyze_signals",
+          "compare_historical_launches",
+          "update_probabilities"
+        ],
+        "cohort_key": "observer_forecast_community",
+        "expression_level": 0.69,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.1,
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Public 2025 commitment is meaningful, but missing date and price preserve substantial slippage risk.",
+        "public_expression": "Balanced discussion of release-window credibility versus execution risk.",
+        "representation_mode": "aggregated",
+        "represented_population": 2000,
+        "reputation": 0.61,
+        "secrecy": 0.08,
+        "stance_axes": {
+          "launch_confidence": 0.57,
+          "risk_salience": 0.66,
+          "signal_weight_on_official_commitment": 0.71
+        },
+        "trustworthiness": 0.66
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "consumers_global",
+        "attention_level": 0.88,
+        "behavioral_tendencies": [
+          "track_announcements",
+          "discuss_preorders",
+          "signal_willingness_to_buy"
+        ],
+        "cohort_key": "enthusiast_early_adopters",
+        "expression_level": 0.78,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.67,
+        "perceived_majority": 0.64,
+        "population_share_of_archetype": 0.15,
+        "private_belief": "Launch in 2025 is credible, but first-half timing remains uncertain.",
+        "public_expression": "High interest and active speculation despite incomplete details.",
+        "representation_mode": "direct",
+        "represented_population": 18000000,
+        "reputation": 0.58,
+        "secrecy": 0.1,
+        "stance_axes": {
+          "launch_confidence": 0.66,
+          "price_tolerance": 0.62,
+          "scarcity_expectation": 0.71
+        },
+        "trustworthiness": 0.62
+      },
+      {
+        "archetype_key": "consumers_global",
+        "attention_level": 0.46,
+        "behavioral_tendencies": [
+          "observe_official_news",
+          "delay_purchase_decision",
+          "compare_value"
+        ],
+        "cohort_key": "mainstream_wait_and_see",
+        "expression_level": 0.31,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.29,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "Interested but unlikely to commit until price, date, and software lineup are known.",
+        "public_expression": "Low to moderate discussion; waits for concrete retail details.",
+        "representation_mode": "direct",
+        "represented_population": 72000000,
+        "reputation": 0.5,
+        "secrecy": 0.16,
+        "stance_axes": {
+          "launch_confidence": 0.53,
+          "price_tolerance": 0.44,
+          "scarcity_expectation": 0.48
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "archetype_key": "consumers_global",
+        "attention_level": 0.39,
+        "behavioral_tendencies": [
+          "wait_for_reviews",
+          "watch_price",
+          "defer_purchase"
+        ],
+        "cohort_key": "price_sensitive_skeptics",
+        "expression_level": 0.34,
+        "fatigue": 0.15,
+        "fear_of_isolation": 0.21,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "A 2025 release is possible, but high price or shortages could effectively delay meaningful access.",
+        "public_expression": "Skeptical commentary about affordability and stock.",
+        "representation_mode": "direct",
+        "represented_population": 30000000,
+        "reputation": 0.47,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "launch_confidence": 0.42,
+          "price_tolerance": 0.24,
+          "scarcity_expectation": 0.68
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "archetype_key": "industry_ecosystem",
+        "attention_level": 0.84,
+        "behavioral_tendencies": [
+          "maintain_confidentiality",
+          "prepare_contingencies",
+          "optimize_launch_window"
+        ],
+        "cohort_key": "ecosystem_execution_group",
+        "expression_level": 0.18,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.73,
+        "perceived_majority": 0.6,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Launch timing depends on synchronized readiness across supply, software, and retail.",
+        "public_expression": "Limited public comment; signals mainly via leaks, allocations, and readiness indicators.",
+        "representation_mode": "aggregated",
+        "represented_population": 5000,
+        "reputation": 0.56,
+        "secrecy": 0.73,
+        "stance_axes": {
+          "coordination_confidence": 0.52,
+          "launch_confidence": 0.58,
+          "schedule_flexibility": 0.49
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "archetype_key": "observers",
+        "attention_level": 0.9,
+        "behavioral_tendencies": [
+          "analyze_signals",
+          "compare_historical_launches",
+          "update_probabilities"
+        ],
+        "cohort_key": "observer_forecast_community",
+        "expression_level": 0.69,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.1,
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Public 2025 commitment is meaningful, but missing date and price preserve substantial slippage risk.",
+        "public_expression": "Balanced discussion of release-window credibility versus execution risk.",
+        "representation_mode": "aggregated",
+        "represented_population": 2000,
+        "reputation": 0.61,
+        "secrecy": 0.08,
+        "stance_axes": {
+          "launch_confidence": 0.57,
+          "risk_salience": 0.66,
+          "signal_weight_on_official_commitment": 0.71
+        },
+        "trustworthiness": 0.66
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "console_manufacturer",
+          "major_retailers"
+        ],
+        "blockers": [
+          "missing_exact_date",
+          "pricing_uncertainty",
+          "production_slip",
+          "tariff_pressure",
+          "software_readiness",
+          "inventory_constraints"
+        ],
+        "contradiction_notes": "No source explicitly confirms first-half release or rules it out.",
+        "description": "Console S2 becomes purchasable by consumers on or before June 30, 2025 in at least one major launch market.",
+        "endpoint_key": "consumer_release_by_2025_06_30",
+        "evidence_refs": [
+          "scenario_text",
+          "source_1_company_signal",
+          "source_3_endpoint_note"
+        ],
+        "label": "Consumer release by deadline",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will consumers be able to purchase Console S2 by June 30, 2025 in at least one major launch market?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.58,
+        "rationale": "Primary terminal endpoint directly matches scenario resolution rule.",
+        "realization_criteria": [
+          "Official or directly observable retail availability on or before 2025-06-30",
+          "At least one major launch market has consumer purchase access",
+          "Mere reveal, preorder, or showcase does not qualify"
+        ],
+        "status": "active",
+        "status_basis": "Manufacturer has committed to a 2025 release window, but no exact date or price is announced at T0."
+      },
+      {
+        "authority_refs": [
+          "console_manufacturer",
+          "component_suppliers",
+          "assembly_and_logistics_partners",
+          "software_developers_publishers",
+          "trade_policy_environment"
+        ],
+        "blockers": [
+          "official_acceleration",
+          "successful_supply_ramp",
+          "limited_market_release_strategy"
+        ],
+        "contradiction_notes": "Public 2025 commitment weighs against assuming delay absent further evidence.",
+        "description": "Console S2 does not become purchasable by consumers in any major launch market by June 30, 2025.",
+        "endpoint_key": "no_consumer_release_by_2025_06_30",
+        "evidence_refs": [
+          "source_2_supply_risk_note",
+          "source_3_endpoint_note"
+        ],
+        "label": "No consumer release by deadline",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the manufacturer announce a concrete retail date and price early enough to support a by-deadline release?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.42,
+        "rationale": "Counter-endpoint implied by binary resolution framing.",
+        "realization_criteria": [
+          "No verified consumer retail availability in any major launch market by end of 2025-06-30",
+          "Reveal, preorder, or announcement occurs without actual consumer purchase availability"
+        ],
+        "status": "active",
+        "status_basis": "Several common hardware launch risks remain unresolved at T0 and exact date is absent."
+      },
+      {
+        "authority_refs": [
+          "console_manufacturer"
+        ],
+        "blockers": [
+          "pricing_strategy_uncertainty",
+          "tariff_reassessment",
+          "production_visibility_shortfall"
+        ],
+        "contradiction_notes": "A launch could still occur on short notice, but delayed detail announcements increase execution risk.",
+        "description": "Manufacturer announces a concrete retail date and price with enough lead time to support a by-deadline consumer launch.",
+        "endpoint_key": "date_and_price_announced_in_time",
+        "evidence_refs": [
+          "scenario_text",
+          "source_1_company_signal"
+        ],
+        "label": "Launch details announced in time",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will production, inventory, and logistics readiness remain sufficient to avoid a slip past June 30, 2025?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.62,
+        "rationale": "Important enabling endpoint for assessing whether process mechanics are trending toward the main terminal outcome.",
+        "realization_criteria": [
+          "Official date announcement specifies release on or before 2025-06-30",
+          "Official price announcement accompanies or precedes channel preparation",
+          "Retail coordination signals appear with sufficient lead time"
+        ],
+        "status": "active",
+        "status_basis": "At T0, exact date and price are still unannounced, making this a live enabling endpoint rather than realized fact."
+      },
+      {
+        "authority_refs": [
+          "console_manufacturer",
+          "major_retailers"
+        ],
+        "blockers": [
+          "uniform_global_delay",
+          "insufficient_inventory_even_for_limited_launch",
+          "channel_unreadiness"
+        ],
+        "contradiction_notes": "Corpus does not explicitly state phased rollout intent.",
+        "description": "Manufacturer uses a limited or phased regional release strategy to achieve consumer availability in one major market by the deadline even if full global launch is not ready.",
+        "endpoint_key": "major_market_partial_launch_path",
+        "evidence_refs": [
+          "scenario_text",
+          "source_3_endpoint_note"
+        ],
+        "label": "At least one major market launch path",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will software readiness support a consumer hardware release by the deadline rather than forcing a delay?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.34,
+        "rationale": "Captures a distinct terminal path to yes that differs from full simultaneous release.",
+        "realization_criteria": [
+          "Official confirmation of phased or region-specific launch",
+          "Consumers can purchase in at least one major launch market by 2025-06-30",
+          "Other markets may remain pending"
+        ],
+        "status": "active",
+        "status_basis": "Scenario resolution only requires one major launch market, making phased release a plausible route."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "Manufacturer has shown a first-look trailer and publicly said release in 2025.",
+        "layer": "exposure",
+        "reason": "Official trailers and release-window statements reach broad consumer audiences.",
+        "source_actor_name": "console_manufacturer",
+        "target_actor_name": "consumers",
+        "weight": 0.63
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Public commitment to 2025 release window.",
+        "layer": "exposure",
+        "reason": "Official signals are primary source material for coverage and forecasting.",
+        "source_actor_name": "console_manufacturer",
+        "target_actor_name": "market_analysts_media",
+        "weight": 0.71
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario focus on forecasting and scheduled release interpretation.",
+        "layer": "exposure",
+        "reason": "Media interpretation amplifies and contextualizes sparse official news.",
+        "source_actor_name": "market_analysts_media",
+        "target_actor_name": "consumers",
+        "weight": 0.57
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Public commitment to 2025 release window without exact date or price.",
+        "layer": "trust",
+        "reason": "Consumers view official release-window commitments as meaningful but incomplete.",
+        "source_actor_name": "consumers",
+        "target_actor_name": "console_manufacturer",
+        "weight": 0.61
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source packet treats company signal as important but not conclusive.",
+        "layer": "trust",
+        "reason": "Official statements are credible baseline signals, though not sufficient for exact timing.",
+        "source_actor_name": "market_analysts_media",
+        "target_actor_name": "console_manufacturer",
+        "weight": 0.56
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Supply risk note cites production constraints.",
+        "layer": "dependency",
+        "reason": "Hardware launch depends on upstream component availability and yields.",
+        "source_actor_name": "console_manufacturer",
+        "target_actor_name": "component_suppliers",
+        "weight": 0.64
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Supply risk note includes production and launch inventory constraints.",
+        "layer": "dependency",
+        "reason": "Consumer release requires assembly and distribution execution.",
+        "source_actor_name": "console_manufacturer",
+        "target_actor_name": "assembly_and_logistics_partners",
+        "weight": 0.61
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Supply risk note cites software readiness.",
+        "layer": "dependency",
+        "reason": "Software readiness influences launch confidence and timing quality.",
+        "source_actor_name": "console_manufacturer",
+        "target_actor_name": "software_developers_publishers",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Resolution depends on consumers being able to purchase hardware.",
+        "layer": "dependency",
+        "reason": "Major-market consumer availability requires retail channel readiness and stock allocation.",
+        "source_actor_name": "console_manufacturer",
+        "target_actor_name": "major_retailers",
+        "weight": 0.52
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Exact retail date and price not officially announced at T0.",
+        "layer": "dependency",
+        "reason": "Retailers rely on manufacturer for inventory, date, and pricing.",
+        "source_actor_name": "major_retailers",
+        "target_actor_name": "console_manufacturer",
+        "weight": 0.49
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Resolution requires retail consumer purchase availability.",
+        "layer": "dependency",
+        "reason": "Consumers need accessible sales channels to purchase at launch.",
+        "source_actor_name": "consumers",
+        "target_actor_name": "major_retailers",
+        "weight": 0.38
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Company can announce date, price, and release timing.",
+        "layer": "influence",
+        "reason": "Manufacturer controls primary launch signals and product terms.",
+        "source_actor_name": "console_manufacturer",
+        "target_actor_name": "consumers",
+        "weight": 0.74
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Retail timing contingent on official announcement and inventory allocation.",
+        "layer": "influence",
+        "reason": "Launch timing and allocations are set upstream by manufacturer decisions.",
+        "source_actor_name": "console_manufacturer",
+        "target_actor_name": "major_retailers",
+        "weight": 0.68
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Supply risk note cites tariffs.",
+        "layer": "influence",
+        "reason": "Tariff pressure can alter pricing or schedule choices.",
+        "source_actor_name": "trade_policy_environment",
+        "target_actor_name": "console_manufacturer",
+        "weight": 0.36
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Expected focus includes launch forecasting and release window analysis.",
+        "layer": "influence",
+        "reason": "Coverage shapes perceived probability and urgency around launch timing.",
+        "source_actor_name": "market_analysts_media",
+        "target_actor_name": "consumers",
+        "weight": 0.43
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Software readiness is part of launch stack.",
+        "layer": "coalition",
+        "reason": "Shared interest in successful platform launch.",
+        "source_actor_name": "console_manufacturer",
+        "target_actor_name": "software_developers_publishers",
+        "weight": 0.44
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Retail sales channel required for consumer release.",
+        "layer": "coalition",
+        "reason": "Both benefit from successful hardware release in major markets.",
+        "source_actor_name": "console_manufacturer",
+        "target_actor_name": "major_retailers",
+        "weight": 0.47
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Production and inventory constraints are key launch risks.",
+        "layer": "coalition",
+        "reason": "Shared economic incentive for on-time production ramp.",
+        "source_actor_name": "console_manufacturer",
+        "target_actor_name": "component_suppliers",
+        "weight": 0.42
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Supply risk note cites tariffs as possible cause of slip.",
+        "layer": "conflict",
+        "reason": "Tariffs create cost and timing pressures inconsistent with smooth launch execution.",
+        "source_actor_name": "console_manufacturer",
+        "target_actor_name": "trade_policy_environment",
+        "weight": 0.29
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Price and launch inventory remain unannounced and uncertain.",
+        "layer": "conflict",
+        "reason": "Potential tension over price, shortages, or delay if expectations are unmet.",
+        "source_actor_name": "consumers",
+        "target_actor_name": "console_manufacturer",
+        "weight": 0.24
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Launch inventory constraints named as risk.",
+        "layer": "conflict",
+        "reason": "Scarcity or limited allocation may frustrate demand even if launch occurs.",
+        "source_actor_name": "major_retailers",
+        "target_actor_name": "consumers",
+        "weight": 0.18
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "First-look trailer and public release-window signaling already visible.",
+        "layer": "oasis_interaction",
+        "reason": "Announcements and coverage will create repeated public interaction cycles.",
+        "source_actor_name": "console_manufacturer",
+        "target_actor_name": "market_analysts_media",
+        "weight": 0.61
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Forecasting ecosystem attention is high.",
+        "layer": "oasis_interaction",
+        "reason": "Public commentary and rumor interpretation will circulate broadly.",
+        "source_actor_name": "market_analysts_media",
+        "target_actor_name": "consumers",
+        "weight": 0.58
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Exact date and price still pending at T0.",
+        "layer": "oasis_interaction",
+        "reason": "Future showcases, pricing reveals, and date announcements likely drive public engagement.",
+        "source_actor_name": "console_manufacturer",
+        "target_actor_name": "consumers",
+        "weight": 0.54
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "description": "Authority cluster controlling launch timing, pricing, messaging, and channel activation.",
+        "key": "firm_launch_leadership",
+        "label": "Console manufacturer leadership"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "console_manufacturer",
+        "archetype_key": "firm_launch_leadership",
+        "attention_level": 0.95,
+        "decision_rights": [
+          "announce_date",
+          "set_launch_market_scope",
+          "finalize_price",
+          "authorize_shipments"
+        ],
+        "expression_level": 0.52,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.09,
+        "graph_influence_summary": {
+          "dependency_exposure": "high",
+          "outbound_influence": "high",
+          "public_trust": "moderate_to_high"
+        },
+        "hero_key": "manufacturer_leadership",
+        "mobilization_readiness": 0.86,
+        "objectives": [
+          "release_in_2025",
+          "avoid_failed_launch",
+          "balance_supply_and_price",
+          "protect_brand"
+        ],
+        "perceived_majority": 0.68,
+        "reputation": 0.79,
+        "role": "primary_decision_authority",
+        "secrecy": 0.82,
+        "stance_axes": {
+          "delay_aversion": 0.61,
+          "price_discipline": 0.58,
+          "quality_threshold": 0.69,
+          "schedule_commitment": 0.74
+        },
+        "trustworthiness": 0.64
+      }
+    ],
+    "heroes": [
+      {
+        "description": "Authority cluster controlling launch timing, pricing, messaging, and channel activation.",
+        "key": "firm_launch_leadership",
+        "label": "Console manufacturer leadership"
+      }
+    ],
+    "important_questions": [
+      "Will consumers be able to purchase Console S2 by June 30, 2025 in at least one major launch market?",
+      "Will the manufacturer announce a concrete retail date and price early enough to support a by-deadline release?",
+      "Will production, inventory, and logistics readiness remain sufficient to avoid a slip past June 30, 2025?",
+      "Will software readiness support a consumer hardware release by the deadline rather than forcing a delay?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "console_manufacturer",
+          "consumers",
+          "market_analysts_media"
+        ],
+        "event_key": "first_look_trailer_released",
+        "event_type": "announcement",
+        "evidence": "Scenario text.",
+        "expected_impact": "Raises attention, boosts launch salience, and increases exposure and anticipation without resolving timing uncertainty.",
+        "status": "observed",
+        "summary": "Manufacturer has shown a first-look trailer for the successor console.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "console_manufacturer",
+          "consumers",
+          "market_analysts_media"
+        ],
+        "event_key": "public_2025_release_window_commitment",
+        "event_type": "announcement",
+        "evidence": "Source 1 company_signal.",
+        "expected_impact": "Improves baseline confidence in eventual release while preserving uncertainty over first-half timing.",
+        "status": "observed",
+        "summary": "Manufacturer publicly commits to a 2025 release window.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "console_manufacturer",
+          "major_retailers",
+          "consumers"
+        ],
+        "event_key": "date_and_price_pending",
+        "event_type": "announcement",
+        "evidence": "Scenario text.",
+        "expected_impact": "Constrains consumer commitment, retailer preparation visibility, and forecast certainty.",
+        "status": "observed",
+        "summary": "Exact global retail date and price remain unannounced.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "console_manufacturer",
+          "component_suppliers",
+          "assembly_and_logistics_partners",
+          "software_developers_publishers"
+        ],
+        "event_key": "launch_readiness_monitoring_phase",
+        "event_type": "announcement",
+        "evidence": "Supply risk note.",
+        "expected_impact": "May gradually shift dependency and confidence edges as hard evidence of readiness or slippage accumulates.",
+        "status": "imminent",
+        "summary": "Operational stakeholders continue assessing production, software, and inventory readiness against 2025 target.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "console_manufacturer",
+          "major_retailers",
+          "consumers",
+          "market_analysts_media"
+        ],
+        "event_key": "future_launch_detail_announcement_window",
+        "event_type": "announcement",
+        "evidence": "Missing date and price imply forthcoming clarification event.",
+        "expected_impact": "Would sharply update consumer confidence and endpoint probabilities depending on specificity and timing.",
+        "status": "imminent",
+        "summary": "A future announcement of date, price, and/or preorder terms is anticipated but not yet scheduled in corpus.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "f25b4ff2-0bdc-4bcb-a322-0ec0b1e1ec8d",
+    "merge_hypotheses": [
+      {
+        "affected_actors": [
+          "consumers",
+          "market_analysts_media",
+          "major_retailers"
+        ],
+        "convergence_driver": "Concrete date and price announcement",
+        "effect": "Diverse expectation bands compress once official specifics replace teaser-stage ambiguity.",
+        "merge_key": "official_clarity_reduces_speculation"
+      },
+      {
+        "affected_actors": [
+          "console_manufacturer",
+          "major_retailers",
+          "software_developers_publishers",
+          "component_suppliers"
+        ],
+        "convergence_driver": "Mutual benefit from successful release",
+        "effect": "Even after interim friction, actors realign around execution if launch feasibility becomes credible.",
+        "merge_key": "shared_commercial_interest_supports_launch"
+      },
+      {
+        "affected_actors": [
+          "market_analysts_media",
+          "consumers"
+        ],
+        "convergence_driver": "Approaching June 30 threshold",
+        "effect": "Attention converges on concrete evidence of consumer purchase availability rather than softer signals like reveals or preorders.",
+        "merge_key": "deadline_pressure_forces_binary_interpretation"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "description": "Large pool of potential early-market buyers and attentive platform users.",
+        "key": "consumers_global",
+        "label": "Global prospective consumers in major launch markets",
+        "population_total": 120000000
+      },
+      {
+        "description": "Suppliers, logistics partners, retailers, and software partners materially tied to launch execution.",
+        "key": "industry_ecosystem",
+        "label": "Platform ecosystem participants",
+        "population_total": 5000
+      },
+      {
+        "description": "Analysts, reporters, and commentators shaping public expectations.",
+        "key": "observers",
+        "label": "Market observers and media",
+        "population_total": 2000
+      }
+    ],
+    "risk_flags": [
+      {
+        "description": "Corpus is intentionally minimal and does not provide concrete production, pricing, or scheduling evidence beyond a 2025 commitment.",
+        "risk_key": "sparse_evidence_base",
+        "severity": "medium"
+      },
+      {
+        "description": "Outcome hinges on strict consumer purchase availability by a specific date; near-miss announcements or preorders do not count.",
+        "risk_key": "deadline_interpretation_sensitivity",
+        "severity": "medium"
+      },
+      {
+        "description": "Scenario references a major launch market without explicit enumeration, leaving some room for interpretive disputes if regional rollout occurs.",
+        "risk_key": "major_market_ambiguity",
+        "severity": "low"
+      },
+      {
+        "description": "Tariffs are named as a possible delay mechanism but not quantified, making pricing and timing sensitivity uncertain.",
+        "risk_key": "external_cost_shock_uncertainty",
+        "severity": "medium"
+      },
+      {
+        "description": "A nominal launch could still fail endpoint criteria if consumer purchase availability is too limited or not established in a major market.",
+        "risk_key": "inventory_vs_release_distinction",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "deadline": "2025-06-30",
+      "forecast_question": "Will Console S2 be released to consumers by June 30, 2025 in at least one major launch market?",
+      "mode": "direct",
+      "resolution_criteria": "Resolve yes only if consumers can purchase the hardware by the deadline in at least one major launch market; reveal or preorder alone is insufficient.",
+      "scenario_key": "resolved_015",
+      "summary": "A console manufacturer has publicly indicated a successor hybrid console will release in 2025, but exact retail date and price are unannounced at T0. The outcome of interest is whether consumers can purchase the hardware by June 30, 2025 in at least one major launch market. Main uncertainties concern production, pricing, tariffs, software readiness, and launch inventory constraints.",
+      "time_anchor": "2025-01-17",
+      "title": "console_s2_release_by_2025_06_30",
+      "uncertainty_notes": [
+        "Exact launch date unknown at T0",
+        "Price not officially announced at T0",
+        "Major launch market not explicitly enumerated in corpus",
+        "Supply and software risks are generalized rather than quantified"
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "consumers",
+          "market_analysts_media"
+        ],
+        "evidence": "Official 2025 signal anchors expectations, but missing details cap certainty.",
+        "level": 0.64,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "consumers"
+        ],
+        "evidence": "Purchase intent and public excitement likely rise sharply after date/price/preorder signals rather than current teaser alone.",
+        "level": 0.58,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "ecosystem_execution_group"
+        ],
+        "evidence": "Operational stakeholders are important but largely nonpublic due to confidentiality.",
+        "level": 0.51,
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "consumers",
+          "market_analysts_media"
+        ],
+        "evidence": "Enthusiast and skeptic subgroups interpret the same sparse signals differently.",
+        "level": 0.47,
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "consumers"
+        ],
+        "evidence": "Broad belief in imminent launch likely requires multiple reinforcing signals such as date, price, retailer listings, and software showcases.",
+        "level": 0.55,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "consumers"
+        ],
+        "evidence": "Brand loyalty and platform affinity likely shape confidence in launch follow-through.",
+        "level": 0.43,
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "consumers",
+          "market_analysts_media"
+        ],
+        "evidence": "Attention may fade between teaser and concrete launch information if no new signals emerge.",
+        "level": 0.49,
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Public commitment to a 2025 release window creates baseline expectation of launch within calendar year.",
+        "influence_key": "official_2025_commitment"
+      },
+      {
+        "description": "Absence of exact retail date and price sustains uncertainty and delays mainstream commitment.",
+        "influence_key": "missing_precise_date_and_price"
+      },
+      {
+        "description": "Production, pricing, tariffs, software readiness, and inventory are salient delay mechanisms.",
+        "influence_key": "hardware_launch_slip_risks"
+      },
+      {
+        "description": "Resolution depends on actual consumer purchase availability, not reveal or preorder.",
+        "influence_key": "consumer_purchase_requirement"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "console_manufacturer",
+        "behavior_axes": {
+          "adaptability": 0.63,
+          "coordination_capacity": 0.81,
+          "message_discipline": 0.84,
+          "risk_tolerance": 0.45
+        },
+        "ideology_axes": {
+          "brand_protection_priority": 0.84,
+          "consumer_access_priority": 0.62,
+          "growth_priority": 0.78
+        },
+        "reputation": 0.79,
+        "secrecy": 0.82,
+        "tendency": "commit_publicly_then_preserve_optionality_until_operational_confidence",
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "component_suppliers",
+        "behavior_axes": {
+          "capacity_scaling": 0.57,
+          "flexibility": 0.48,
+          "reliability": 0.62,
+          "transparency": 0.34
+        },
+        "ideology_axes": {
+          "contract_loyalty": 0.72,
+          "margin_priority": 0.69,
+          "schedule_priority": 0.61
+        },
+        "reputation": 0.6,
+        "secrecy": 0.71,
+        "tendency": "optimize throughput while limiting public disclosure",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "assembly_and_logistics_partners",
+        "behavior_axes": {
+          "flexibility": 0.55,
+          "operational_precision": 0.68,
+          "surge_capacity": 0.51,
+          "transparency": 0.39
+        },
+        "ideology_axes": {
+          "cost_control": 0.66,
+          "schedule_priority": 0.7,
+          "service_reliability": 0.74
+        },
+        "reputation": 0.58,
+        "secrecy": 0.69,
+        "tendency": "execute ramp cautiously under uncertainty",
+        "trustworthiness": 0.59
+      },
+      {
+        "actor_name": "software_developers_publishers",
+        "behavior_axes": {
+          "adaptability": 0.65,
+          "coordination": 0.61,
+          "marketing_dependence": 0.64,
+          "readiness_variance": 0.56
+        },
+        "ideology_axes": {
+          "deadline_priority": 0.59,
+          "install_base_priority": 0.71,
+          "quality_priority": 0.73
+        },
+        "reputation": 0.57,
+        "secrecy": 0.63,
+        "tendency": "support launch if tools and schedule stabilize",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "major_retailers",
+        "behavior_axes": {
+          "communication_control": 0.52,
+          "inventory_sensitivity": 0.79,
+          "pricing_flexibility": 0.31,
+          "responsiveness": 0.67
+        },
+        "ideology_axes": {
+          "customer_access_priority": 0.63,
+          "relationship_priority": 0.72,
+          "sell_through_priority": 0.8
+        },
+        "reputation": 0.6,
+        "secrecy": 0.58,
+        "tendency": "amplify launch once allocations are firm",
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "consumers",
+        "behavior_axes": {
+          "enthusiasm": 0.63,
+          "patience": 0.46,
+          "price_sensitivity": 0.62,
+          "scarcity_response": 0.68
+        },
+        "ideology_axes": {
+          "brand_loyalty": 0.61,
+          "novelty_priority": 0.55,
+          "value_priority": 0.78
+        },
+        "reputation": 0.5,
+        "secrecy": 0.2,
+        "tendency": "attention spikes on official news, demand depends on price and availability",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "market_analysts_media",
+        "behavior_axes": {
+          "signal_amplification": 0.77,
+          "skepticism": 0.64,
+          "speculation": 0.58,
+          "update_speed": 0.72
+        },
+        "ideology_axes": {
+          "accuracy_priority": 0.67,
+          "attention_priority": 0.69,
+          "narrative_priority": 0.62
+        },
+        "reputation": 0.61,
+        "secrecy": 0.12,
+        "tendency": "translate sparse official signals into expectation bands",
+        "trustworthiness": 0.66
+      },
+      {
+        "actor_name": "trade_policy_environment",
+        "behavior_axes": {
+          "cost_impact": 0.59,
+          "predictability": 0.31,
+          "timing_impact": 0.44,
+          "volatility": 0.52
+        },
+        "ideology_axes": {
+          "none": 0.0
+        },
+        "reputation": 0.45,
+        "secrecy": 0.0,
+        "tendency": "exogenous cost and timing pressure",
+        "trustworthiness": 0.4
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 1775,
+        "end": 1775,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 1775,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

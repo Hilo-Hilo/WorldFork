@@ -1,0 +1,208 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "c2094f7d-d33b-471d-987e-83d8fdb3da83",
+      "created_at": "2026-05-05T02:14:34.903426+00:00",
+      "id": "bb818bd9-2f0b-4de0-b916-29d64c40ef29",
+      "influence": {
+        "context_key": "deadline_precision",
+        "description": "A launch on April 1 or later counts as no even if delay is less than 24 hours."
+      },
+      "multiverse_id": "850002c2-01ce-47cb-9a22-d99a6c0c890b",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:14:34.903426+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "c2094f7d-d33b-471d-987e-83d8fdb3da83",
+      "created_at": "2026-05-05T02:14:34.903426+00:00",
+      "id": "e02d0764-2d96-4b32-8479-4cd759d2ac0d",
+      "influence": {
+        "context_key": "historical_delay_memory",
+        "description": "Multiple historical delays bias observers toward skepticism about schedule commitments."
+      },
+      "multiverse_id": "850002c2-01ce-47cb-9a22-d99a6c0c890b",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:14:34.903426+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "c2094f7d-d33b-471d-987e-83d8fdb3da83",
+      "created_at": "2026-05-05T02:14:34.903426+00:00",
+      "id": "bbb5ebf9-b004-42c2-ad93-a6f9133ce9b9",
+      "influence": {
+        "context_key": "crewed_mission_conservatism",
+        "description": "Safety and unresolved technical issues carry disproportionate decision weight for crewed missions."
+      },
+      "multiverse_id": "850002c2-01ce-47cb-9a22-d99a6c0c890b",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:14:34.903426+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "c2094f7d-d33b-471d-987e-83d8fdb3da83",
+      "created_at": "2026-05-05T02:14:34.903426+00:00",
+      "id": "3eda0ee0-ca9c-48a2-af17-a46187a7417f",
+      "influence": {
+        "context_key": "milestone_visibility",
+        "description": "Rollout and rehearsal create optimism signals without guaranteeing launch readiness."
+      },
+      "multiverse_id": "850002c2-01ce-47cb-9a22-d99a6c0c890b",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:14:34.903426+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "c2094f7d-d33b-471d-987e-83d8fdb3da83",
+      "created_at": "2026-05-05T02:14:34.903426+00:00",
+      "id": "93026021-184c-4aa5-9906-7cf4b7ade2d6",
+      "model": "attention_decay",
+      "multiverse_id": "850002c2-01ce-47cb-9a22-d99a6c0c890b",
+      "signal": {
+        "applies_to": [
+          "space_media_watchers",
+          "space_enthusiast_public_cohort",
+          "skeptical_watchers_cohort"
+        ],
+        "evidence": "Observers update views from official milestones but also weight delay history.",
+        "level": 0.53,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:14:34.903426+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "c2094f7d-d33b-471d-987e-83d8fdb3da83",
+      "created_at": "2026-05-05T02:14:34.903426+00:00",
+      "id": "fc3932fd-25e4-497d-94be-621673ec91a0",
+      "model": "attention_decay",
+      "multiverse_id": "850002c2-01ce-47cb-9a22-d99a6c0c890b",
+      "signal": {
+        "applies_to": [
+          "space_media_watchers"
+        ],
+        "evidence": "Public attention likely spikes around launch dates, scrubs, and technical disclosures rather than at baseline.",
+        "level": 0.34,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:14:34.903426+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "c2094f7d-d33b-471d-987e-83d8fdb3da83",
+      "created_at": "2026-05-05T02:14:34.903426+00:00",
+      "id": "f7582d0a-655b-4a60-9bb8-9560afd703f3",
+      "model": "attention_decay",
+      "multiverse_id": "850002c2-01ce-47cb-9a22-d99a6c0c890b",
+      "signal": {
+        "applies_to": [
+          "engineering_and_operations_cohort",
+          "crew_core_cohort"
+        ],
+        "evidence": "Internal technical staff and crew are highly disciplined and unlikely to publicly express private concern.",
+        "level": 0.68,
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:14:34.903426+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "c2094f7d-d33b-471d-987e-83d8fdb3da83",
+      "created_at": "2026-05-05T02:14:34.903426+00:00",
+      "id": "357b8426-b67e-4655-9a22-34fc1115ffbe",
+      "model": "attention_decay",
+      "multiverse_id": "850002c2-01ce-47cb-9a22-d99a6c0c890b",
+      "signal": {
+        "applies_to": [
+          "space_enthusiast_public_cohort",
+          "skeptical_watchers_cohort"
+        ],
+        "evidence": "Optimists and skeptics cluster around prior beliefs about schedule realism.",
+        "level": 0.49,
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:14:34.903426+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "c2094f7d-d33b-471d-987e-83d8fdb3da83",
+      "created_at": "2026-05-05T02:14:34.903426+00:00",
+      "id": "c56f7434-d128-438d-987d-c0f04d5a783c",
+      "model": "attention_decay",
+      "multiverse_id": "850002c2-01ce-47cb-9a22-d99a6c0c890b",
+      "signal": {
+        "applies_to": [
+          "space_media_watchers",
+          "space_interested_public"
+        ],
+        "evidence": "Single rumors may not dominate; repeated corroborating signals like scrub notes or successful tests matter more.",
+        "level": 0.44,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:14:34.903426+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "c2094f7d-d33b-471d-987e-83d8fdb3da83",
+      "created_at": "2026-05-05T02:14:34.903426+00:00",
+      "id": "bd0fdcb3-214e-43ed-8e4e-a22443a3efeb",
+      "model": "attention_decay",
+      "multiverse_id": "850002c2-01ce-47cb-9a22-d99a6c0c890b",
+      "signal": {
+        "applies_to": [
+          "program_workforce",
+          "space_interested_public"
+        ],
+        "evidence": "Program affiliation and enthusiast identity shape interpretation of delays versus caution.",
+        "level": 0.41,
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:14:34.903426+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "c2094f7d-d33b-471d-987e-83d8fdb3da83",
+      "created_at": "2026-05-05T02:14:34.903426+00:00",
+      "id": "20816e34-f16a-46f3-ac00-d231abaaf944",
+      "model": "attention_decay",
+      "multiverse_id": "850002c2-01ce-47cb-9a22-d99a6c0c890b",
+      "signal": {
+        "applies_to": [
+          "space_interested_public"
+        ],
+        "evidence": "Interest can fade between milestones but returns near deadline or launch attempt.",
+        "level": 0.57,
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:14:34.903426+00:00"
+    }
+  ]
+}

@@ -1,0 +1,1090 @@
+{
+  "big_bang_id": "261e63a8-5188-4635-ae8f-93db5a191c59",
+  "initializer_output": {
+    "actors": [
+      {
+        "fictionalized": true,
+        "name": "media_company_p",
+        "public_visibility": "high",
+        "role": "merger_party",
+        "stakes": [
+          "complete announced merger",
+          "avoid delay or failed close",
+          "manage operational execution and communications"
+        ],
+        "type": "company"
+      },
+      {
+        "fictionalized": true,
+        "name": "studio_s",
+        "public_visibility": "high",
+        "role": "merger_party",
+        "stakes": [
+          "complete announced merger",
+          "secure approvals and execution",
+          "preserve transaction value"
+        ],
+        "type": "company"
+      },
+      {
+        "fictionalized": true,
+        "name": "relevant_regulators",
+        "public_visibility": "medium",
+        "role": "approval_authority",
+        "stakes": [
+          "review legality and compliance",
+          "respond to political or competitive concerns"
+        ],
+        "type": "institutional_block"
+      },
+      {
+        "fictionalized": true,
+        "name": "shareholders_of_p",
+        "public_visibility": "medium",
+        "role": "stakeholder_group",
+        "stakes": [
+          "transaction value realization",
+          "timely close",
+          "avoid adverse terms drift"
+        ],
+        "type": "investor_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "shareholders_of_s",
+        "public_visibility": "medium",
+        "role": "stakeholder_group",
+        "stakes": [
+          "deal completion",
+          "valuation certainty",
+          "deadline clarity"
+        ],
+        "type": "investor_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "potential_litigants",
+        "public_visibility": "low",
+        "role": "delay_risk_source",
+        "stakes": [
+          "challenge merger terms or legality",
+          "extract concessions or block close"
+        ],
+        "type": "adversarial_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "political_pressure_actors",
+        "public_visibility": "medium",
+        "role": "external_pressure_source",
+        "stakes": [
+          "shape regulatory posture or public narrative around merger"
+        ],
+        "type": "elite_network"
+      },
+      {
+        "fictionalized": true,
+        "name": "market_analysts_and_trade_media",
+        "public_visibility": "high",
+        "role": "narrative_amplifier",
+        "stakes": [
+          "interpret likelihood of close",
+          "report delays or completion announcements"
+        ],
+        "type": "information_network"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Companies announce legal completion before 2025-08-31.",
+        "branch_key": "clean_close_on_schedule",
+        "observable_divergence_signal": "Official company announcement and/or regulatory filing confirming transaction closed.",
+        "trigger": "All customary conditions are satisfied and no blocking legal or regulatory action emerges during the early-August window."
+      },
+      {
+        "alternate_path": "Closing slips past anticipated date but remains possible before 2025-08-31.",
+        "branch_key": "administrative_slip_without_break",
+        "observable_divergence_signal": "No completion announcement in early August, paired with language about ongoing final steps rather than deal failure.",
+        "trigger": "One or more operational or procedural closing mechanics remain incomplete in early August."
+      },
+      {
+        "alternate_path": "Closing is delayed beyond deadline or enters unresolved contestation.",
+        "branch_key": "regulatory_or_litigation_delay",
+        "observable_divergence_signal": "Formal filing, regulator statement, or credible reporting citing delay caused by review or legal challenge.",
+        "trigger": "New approval issue, litigation filing, or intensified political pressure emerges."
+      },
+      {
+        "alternate_path": "Market confidence erodes and terminal outcome trends toward non-completion by deadline, even if deal remains alive afterward.",
+        "branch_key": "silent_nonclose_by_deadline",
+        "observable_divergence_signal": "Deadline passes without legal close announcement.",
+        "trigger": "No completion announcement appears despite prior target date."
+      }
+    ],
+    "channels": [
+      {
+        "actors": [
+          "media_company_p",
+          "studio_s"
+        ],
+        "channel_key": "company_press_release",
+        "credibility": 0.76,
+        "reach": 0.74,
+        "type": "official_public"
+      },
+      {
+        "actors": [
+          "relevant_regulators",
+          "media_company_p",
+          "studio_s"
+        ],
+        "channel_key": "regulatory_filings_and_notices",
+        "credibility": 0.82,
+        "reach": 0.61,
+        "type": "official_public"
+      },
+      {
+        "actors": [
+          "market_analysts_and_trade_media"
+        ],
+        "channel_key": "trade_media_reporting",
+        "credibility": 0.64,
+        "reach": 0.66,
+        "type": "media_public"
+      },
+      {
+        "actors": [
+          "shareholders_of_p",
+          "shareholders_of_s",
+          "market_analysts_and_trade_media"
+        ],
+        "channel_key": "investor_commentary",
+        "credibility": 0.49,
+        "reach": 0.43,
+        "type": "network_public"
+      },
+      {
+        "actors": [
+          "potential_litigants"
+        ],
+        "channel_key": "court_or_litigation_filings",
+        "credibility": 0.79,
+        "reach": 0.31,
+        "type": "official_public"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype": "investor_observers",
+        "attention_level": 0.82,
+        "cohort_key": "deal_confident_investors",
+        "expression_level": 0.46,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.6,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "Deal likely but not guaranteed by deadline due to final conditions.",
+        "representation_mode": "estimated_split",
+        "represented_population": 2750,
+        "stance_axes": {
+          "deadline_confidence": 0.62,
+          "merger_support": 0.75,
+          "regulatory_concern": 0.38
+        }
+      },
+      {
+        "archetype": "investor_observers",
+        "attention_level": 0.86,
+        "cohort_key": "cautious_investors",
+        "expression_level": 0.39,
+        "fatigue": 0.48,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.19,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Announced closing target may slip if any approval or litigation issue remains.",
+        "representation_mode": "estimated_split",
+        "represented_population": 2250,
+        "stance_axes": {
+          "deadline_confidence": 0.4,
+          "merger_support": 0.58,
+          "regulatory_concern": 0.64
+        }
+      },
+      {
+        "archetype": "industry_observers",
+        "attention_level": 0.88,
+        "cohort_key": "trade_press_watchers",
+        "expression_level": 0.71,
+        "fatigue": 0.36,
+        "fear_of_isolation": 0.08,
+        "mobilization_readiness": 0.1,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "Outcome hinges on final observable close announcement, not company guidance.",
+        "representation_mode": "estimated_split",
+        "represented_population": 1400,
+        "stance_axes": {
+          "deadline_confidence": 0.47,
+          "merger_support": 0.5,
+          "regulatory_concern": 0.57
+        }
+      },
+      {
+        "archetype": "industry_observers",
+        "attention_level": 0.74,
+        "cohort_key": "industry_insiders_uncertain",
+        "expression_level": 0.28,
+        "fatigue": 0.42,
+        "fear_of_isolation": 0.26,
+        "mobilization_readiness": 0.11,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "Operational execution risk remains material near deadline.",
+        "representation_mode": "estimated_split",
+        "represented_population": 600,
+        "stance_axes": {
+          "deadline_confidence": 0.43,
+          "merger_support": 0.54,
+          "regulatory_concern": 0.61
+        }
+      },
+      {
+        "archetype": "general_public_observers",
+        "attention_level": 0.12,
+        "cohort_key": "low_attention_public",
+        "expression_level": 0.04,
+        "fatigue": 0.05,
+        "fear_of_isolation": 0.03,
+        "mobilization_readiness": 0.02,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1,
+        "private_belief": "Limited awareness; attention may rise only if there is a major announcement or controversy.",
+        "representation_mode": "broad_bucket",
+        "represented_population": 500000,
+        "stance_axes": {
+          "deadline_confidence": 0.34,
+          "merger_support": 0.5,
+          "regulatory_concern": 0.3
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype": "investor_observers",
+        "attention_level": 0.82,
+        "cohort_key": "deal_confident_investors",
+        "expression_level": 0.46,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.6,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "Deal likely but not guaranteed by deadline due to final conditions.",
+        "representation_mode": "estimated_split",
+        "represented_population": 2750,
+        "stance_axes": {
+          "deadline_confidence": 0.62,
+          "merger_support": 0.75,
+          "regulatory_concern": 0.38
+        }
+      },
+      {
+        "archetype": "investor_observers",
+        "attention_level": 0.86,
+        "cohort_key": "cautious_investors",
+        "expression_level": 0.39,
+        "fatigue": 0.48,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.19,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Announced closing target may slip if any approval or litigation issue remains.",
+        "representation_mode": "estimated_split",
+        "represented_population": 2250,
+        "stance_axes": {
+          "deadline_confidence": 0.4,
+          "merger_support": 0.58,
+          "regulatory_concern": 0.64
+        }
+      },
+      {
+        "archetype": "industry_observers",
+        "attention_level": 0.88,
+        "cohort_key": "trade_press_watchers",
+        "expression_level": 0.71,
+        "fatigue": 0.36,
+        "fear_of_isolation": 0.08,
+        "mobilization_readiness": 0.1,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "Outcome hinges on final observable close announcement, not company guidance.",
+        "representation_mode": "estimated_split",
+        "represented_population": 1400,
+        "stance_axes": {
+          "deadline_confidence": 0.47,
+          "merger_support": 0.5,
+          "regulatory_concern": 0.57
+        }
+      },
+      {
+        "archetype": "industry_observers",
+        "attention_level": 0.74,
+        "cohort_key": "industry_insiders_uncertain",
+        "expression_level": 0.28,
+        "fatigue": 0.42,
+        "fear_of_isolation": 0.26,
+        "mobilization_readiness": 0.11,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "Operational execution risk remains material near deadline.",
+        "representation_mode": "estimated_split",
+        "represented_population": 600,
+        "stance_axes": {
+          "deadline_confidence": 0.43,
+          "merger_support": 0.54,
+          "regulatory_concern": 0.61
+        }
+      },
+      {
+        "archetype": "general_public_observers",
+        "attention_level": 0.12,
+        "cohort_key": "low_attention_public",
+        "expression_level": 0.04,
+        "fatigue": 0.05,
+        "fear_of_isolation": 0.03,
+        "mobilization_readiness": 0.02,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1,
+        "private_belief": "Limited awareness; attention may rise only if there is a major announcement or controversy.",
+        "representation_mode": "broad_bucket",
+        "represented_population": 500000,
+        "stance_axes": {
+          "deadline_confidence": 0.34,
+          "merger_support": 0.5,
+          "regulatory_concern": 0.3
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "media_company_p",
+          "studio_s",
+          "relevant_regulators"
+        ],
+        "blockers": [
+          "Uncleared customary conditions",
+          "Operational execution slippage",
+          "Regulatory delay",
+          "Litigation",
+          "Political pressure"
+        ],
+        "contradiction_notes": "A scheduled or anticipated closing date alone does not realize this endpoint.",
+        "description": "The announced merger is legally completed on or before 2025-08-31.",
+        "endpoint_key": "merger_closed_by_august_31_2025",
+        "evidence_refs": [
+          "Source 1 transaction_note / 2025-07-25",
+          "Source 3 endpoint_note / 2025-07-25"
+        ],
+        "label": "Merger legally closes by deadline",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will Media Company P and Studio S legally complete the merger by 2025-08-31?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.6,
+        "rationale": "This is the main terminal outcome implied by the scenario and is directly observable through formal completion evidence.",
+        "realization_criteria": [
+          "Official company announcement confirms legal closing on or before 2025-08-31.",
+          "And/or formal regulatory or securities filing records the transaction as completed by that date."
+        ],
+        "status": "active",
+        "status_basis": "Parties announced anticipated early-August closing, but completion still depends on final conditions and execution."
+      },
+      {
+        "authority_refs": [
+          "media_company_p",
+          "studio_s",
+          "relevant_regulators",
+          "potential_litigants"
+        ],
+        "blockers": [
+          "Late but still pre-deadline completion",
+          "Ambiguous reporting without formal documentation"
+        ],
+        "contradiction_notes": "The deal may remain viable after the deadline while this endpoint is still realized for the specific question.",
+        "description": "The merger is not legally completed by 2025-08-31, whether due to delay, blockage, or silent non-close.",
+        "endpoint_key": "merger_not_closed_by_august_31_2025",
+        "evidence_refs": [
+          "Source 2 regulatory_note / 2025-07-25",
+          "Source 3 endpoint_note / 2025-07-25"
+        ],
+        "label": "Merger does not legally close by deadline",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Are the remaining customary conditions and operational closing steps cleared in time for an August 2025 legal close?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.4,
+        "rationale": "Binary resolution requires a no outcome whenever the legal close does not occur by the deadline.",
+        "realization_criteria": [
+          "No official completion announcement or formal closing record exists by 2025-08-31.",
+          "Any formal notice of delay, unresolved conditions, litigation hold, or pending review persisting past the deadline supports realization."
+        ],
+        "status": "active",
+        "status_basis": "Delay channels remain live and the endpoint depends on actual legal close by the date, not optimistic guidance."
+      },
+      {
+        "authority_refs": [
+          "media_company_p",
+          "studio_s",
+          "relevant_regulators"
+        ],
+        "blockers": [
+          "Unfinished operational steps",
+          "Pending approvals",
+          "Late-emerging documentation issues"
+        ],
+        "contradiction_notes": "This mechanism endpoint may be realized without immediate public detail if same-day close announcement implicitly confirms it.",
+        "description": "All residual customary conditions and operational execution steps are completed early enough to permit legal closing before the deadline.",
+        "endpoint_key": "conditions_and_execution_cleared",
+        "evidence_refs": [
+          "Source 1 transaction_note / 2025-07-25"
+        ],
+        "label": "Remaining conditions cleared in time",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does a regulatory, litigation, or political-pressure event materially delay closing before the deadline?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.62,
+        "rationale": "Separating this mechanism from final close helps later agents distinguish process completion from terminal legal completion.",
+        "realization_criteria": [
+          "Public filing, official statement, or closing announcement indicates all required approvals and conditions were satisfied before closing.",
+          "No outstanding procedural blocker remains in the record before 2025-08-31."
+        ],
+        "status": "active",
+        "status_basis": "Source packet explicitly says closing still depends on final conditions and operational execution."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "Scenario describes announced merger with final conditions and operational execution still pending.",
+        "layer": "dependency",
+        "reason": "Merger closing requires coordinated bilateral execution.",
+        "source_actor_name": "media_company_p",
+        "target_actor_name": "studio_s",
+        "weight": 0.62
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario describes announced merger with final conditions and operational execution still pending.",
+        "layer": "dependency",
+        "reason": "Merger closing requires coordinated bilateral execution.",
+        "source_actor_name": "studio_s",
+        "target_actor_name": "media_company_p",
+        "weight": 0.62
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source notes media merger can be delayed by regulatory approvals.",
+        "layer": "dependency",
+        "reason": "Legal closing may depend on final regulatory approvals or non-objection.",
+        "source_actor_name": "media_company_p",
+        "target_actor_name": "relevant_regulators",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source notes media merger can be delayed by regulatory approvals.",
+        "layer": "dependency",
+        "reason": "Legal closing may depend on final regulatory approvals or non-objection.",
+        "source_actor_name": "studio_s",
+        "target_actor_name": "relevant_regulators",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "Regulatory approvals are identified as a key dependency.",
+        "layer": "influence",
+        "reason": "Regulators can affect timing and conditions of closing.",
+        "source_actor_name": "relevant_regulators",
+        "target_actor_name": "media_company_p",
+        "weight": 0.64
+      },
+      {
+        "direction": "directed",
+        "evidence": "Regulatory approvals are identified as a key dependency.",
+        "layer": "influence",
+        "reason": "Regulators can affect timing and conditions of closing.",
+        "source_actor_name": "relevant_regulators",
+        "target_actor_name": "studio_s",
+        "weight": 0.64
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source notes political pressure as a delay factor.",
+        "layer": "influence",
+        "reason": "Political pressure can shape review tempo or scrutiny.",
+        "source_actor_name": "political_pressure_actors",
+        "target_actor_name": "relevant_regulators",
+        "weight": 0.37
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source notes litigation as a delay risk.",
+        "layer": "conflict",
+        "reason": "Possible litigation could impede closing.",
+        "source_actor_name": "potential_litigants",
+        "target_actor_name": "media_company_p",
+        "weight": 0.34
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source notes litigation as a delay risk.",
+        "layer": "conflict",
+        "reason": "Possible litigation could impede closing.",
+        "source_actor_name": "potential_litigants",
+        "target_actor_name": "studio_s",
+        "weight": 0.34
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario says the companies announced an anticipated closing date.",
+        "layer": "coalition",
+        "reason": "Parties are jointly pursuing announced merger.",
+        "source_actor_name": "media_company_p",
+        "target_actor_name": "studio_s",
+        "weight": 0.72
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario says the companies announced an anticipated closing date.",
+        "layer": "coalition",
+        "reason": "Parties are jointly pursuing announced merger.",
+        "source_actor_name": "studio_s",
+        "target_actor_name": "media_company_p",
+        "weight": 0.72
+      },
+      {
+        "direction": "directed",
+        "evidence": "Long transaction process with market uncertainty; anticipated close announced.",
+        "layer": "trust",
+        "reason": "Shareholders have moderate confidence in management's announced target but remain aware of uncertainty.",
+        "source_actor_name": "shareholders_of_p",
+        "target_actor_name": "media_company_p",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "Long transaction process with market uncertainty; anticipated close announced.",
+        "layer": "trust",
+        "reason": "Shareholders have moderate confidence in management's announced target but remain aware of uncertainty.",
+        "source_actor_name": "shareholders_of_s",
+        "target_actor_name": "studio_s",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "Expected focus includes near-deadline event monitoring and completion announcement.",
+        "layer": "exposure",
+        "reason": "Analysts and trade media shape investor awareness of timing signals.",
+        "source_actor_name": "market_analysts_and_trade_media",
+        "target_actor_name": "shareholders_of_p",
+        "weight": 0.56
+      },
+      {
+        "direction": "directed",
+        "evidence": "Expected focus includes near-deadline event monitoring and completion announcement.",
+        "layer": "exposure",
+        "reason": "Analysts and trade media shape investor awareness of timing signals.",
+        "source_actor_name": "market_analysts_and_trade_media",
+        "target_actor_name": "shareholders_of_s",
+        "weight": 0.56
+      },
+      {
+        "direction": "directed",
+        "evidence": "Completion must be announced; target closing date already announced.",
+        "layer": "exposure",
+        "reason": "Company announcements feed external reporting around closing status.",
+        "source_actor_name": "media_company_p",
+        "target_actor_name": "market_analysts_and_trade_media",
+        "weight": 0.49
+      },
+      {
+        "direction": "directed",
+        "evidence": "Completion must be announced; target closing date already announced.",
+        "layer": "exposure",
+        "reason": "Company announcements feed external reporting around closing status.",
+        "source_actor_name": "studio_s",
+        "target_actor_name": "market_analysts_and_trade_media",
+        "weight": 0.49
+      },
+      {
+        "direction": "directed",
+        "evidence": "Merger timing depends on public announcement for observability.",
+        "layer": "oasis_interaction",
+        "reason": "Likely ongoing public-channel interaction through press releases and reporting.",
+        "source_actor_name": "media_company_p",
+        "target_actor_name": "market_analysts_and_trade_media",
+        "weight": 0.43
+      },
+      {
+        "direction": "directed",
+        "evidence": "Merger timing depends on public announcement for observability.",
+        "layer": "oasis_interaction",
+        "reason": "Likely ongoing public-channel interaction through press releases and reporting.",
+        "source_actor_name": "studio_s",
+        "target_actor_name": "market_analysts_and_trade_media",
+        "weight": 0.43
+      },
+      {
+        "direction": "directed",
+        "evidence": "Customary conditions and approval risk remain.",
+        "layer": "conflict",
+        "reason": "Not adversarial by default, but regulator scrutiny can constrain company timing goals.",
+        "source_actor_name": "relevant_regulators",
+        "target_actor_name": "media_company_p",
+        "weight": 0.21
+      },
+      {
+        "direction": "directed",
+        "evidence": "Customary conditions and approval risk remain.",
+        "layer": "conflict",
+        "reason": "Not adversarial by default, but regulator scrutiny can constrain company timing goals.",
+        "source_actor_name": "relevant_regulators",
+        "target_actor_name": "studio_s",
+        "weight": 0.21
+      },
+      {
+        "direction": "directed",
+        "evidence": "Near-deadline event focus implies announcement-driven attention.",
+        "layer": "influence",
+        "reason": "Media coverage can briefly elevate public attention if the deal closes or slips.",
+        "source_actor_name": "market_analysts_and_trade_media",
+        "target_actor_name": "general_public_observers",
+        "weight": 0.22
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype": "corporate_decision_makers",
+        "description": "Executives and deal teams able to satisfy closing mechanics and make public announcements."
+      },
+      {
+        "archetype": "regulatory_gatekeepers",
+        "description": "Authorities with power to delay, approve, or constrain timing."
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "media_company_p",
+        "archetype": "corporate_decision_makers",
+        "attention_level": 0.94,
+        "authority_scope": "Can execute company-side closing steps and disclosures, but cannot unilaterally grant approvals.",
+        "expression_level": 0.55,
+        "fatigue": 0.57,
+        "fear_of_isolation": 0.06,
+        "hero_key": "p_deal_team",
+        "mobilization_readiness": 0.87,
+        "perceived_majority": 0.63,
+        "stance_axes": {
+          "close_speed_priority": 0.79,
+          "concession_willingness": 0.42,
+          "public_caution": 0.61
+        }
+      },
+      {
+        "actor_name": "studio_s",
+        "archetype": "corporate_decision_makers",
+        "attention_level": 0.95,
+        "authority_scope": "Can execute company-side closing steps and disclosures, contingent on external conditions.",
+        "expression_level": 0.54,
+        "fatigue": 0.56,
+        "fear_of_isolation": 0.06,
+        "hero_key": "s_deal_team",
+        "mobilization_readiness": 0.88,
+        "perceived_majority": 0.64,
+        "stance_axes": {
+          "close_speed_priority": 0.81,
+          "concession_willingness": 0.45,
+          "public_caution": 0.58
+        }
+      },
+      {
+        "actor_name": "relevant_regulators",
+        "archetype": "regulatory_gatekeepers",
+        "attention_level": 0.78,
+        "authority_scope": "Can determine approval timing or conditions and thereby shape whether closing occurs before deadline.",
+        "expression_level": 0.22,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.04,
+        "hero_key": "regulatory_review_leads",
+        "mobilization_readiness": 0.51,
+        "perceived_majority": 0.5,
+        "stance_axes": {
+          "delay_tolerance": 0.52,
+          "political_sensitivity": 0.46,
+          "procedural_rigidity": 0.68
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "archetype": "corporate_decision_makers",
+        "description": "Executives and deal teams able to satisfy closing mechanics and make public announcements."
+      },
+      {
+        "archetype": "regulatory_gatekeepers",
+        "description": "Authorities with power to delay, approve, or constrain timing."
+      }
+    ],
+    "important_questions": [
+      "Will Media Company P and Studio S legally complete the merger by 2025-08-31?",
+      "Are the remaining customary conditions and operational closing steps cleared in time for an August 2025 legal close?",
+      "Does a regulatory, litigation, or political-pressure event materially delay closing before the deadline?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "media_company_p",
+          "studio_s"
+        ],
+        "event_key": "anticipated_closing_announced",
+        "event_type": "announcement",
+        "expected_impact": "Raises confidence and investor attention, strengthens coalition edge, but does not eliminate uncertainty.",
+        "status": "active",
+        "summary": "The merger parties have announced an anticipated closing date in early August 2025.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "media_company_p",
+          "studio_s"
+        ],
+        "event_key": "residual_conditions_unresolved",
+        "event_type": "announcement",
+        "expected_impact": "Maintains nontrivial dependency and delay risk, preventing consensus from fully converging to imminent close.",
+        "status": "active",
+        "summary": "Closing still depends on customary final conditions and operational execution.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "relevant_regulators",
+          "potential_litigants",
+          "political_pressure_actors"
+        ],
+        "event_key": "regulatory_or_legal_delay_window",
+        "event_type": "announcement",
+        "expected_impact": "Could increase conflict and reduce deadline confidence if any formal impediment appears.",
+        "status": "watch",
+        "summary": "Observers monitor whether approvals, litigation, or political pressure generate slippage signals.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "media_company_p",
+          "studio_s"
+        ],
+        "event_key": "early_august_target_window",
+        "event_type": "announcement",
+        "expected_impact": "If completion is announced, confidence collapses into realized close; if not, concern over deadline risk rises.",
+        "status": "scheduled",
+        "summary": "Targeted early-August period in which the parties may attempt to complete closing.",
+        "tick": 2
+      },
+      {
+        "actors": [
+          "media_company_p",
+          "studio_s",
+          "market_analysts_and_trade_media"
+        ],
+        "event_key": "deadline_confirmation_window",
+        "event_type": "announcement",
+        "expected_impact": "Sharp update in exposure, trust, and outcome expectations as deadline approaches.",
+        "status": "scheduled",
+        "summary": "By late August, absence or presence of a completion announcement becomes decisive for the terminal outcome.",
+        "tick": 5
+      }
+    ],
+    "llm_call_id": "e15361f5-d84f-40f0-a228-0e716274e158",
+    "merge_hypotheses": [
+      {
+        "convergence_effect": "Temporary narrative swings may reconverge on closing efforts so long as deal economics remain intact.",
+        "mechanism": "Both merger parties retain aligned incentives to complete unless blocked externally.",
+        "merge_key": "shared_value_of_completion"
+      },
+      {
+        "convergence_effect": "Conflicting speculation collapses once a formal announcement or missed deadline becomes observable.",
+        "mechanism": "Observers across investor and media cohorts ultimately converge on official completion or non-completion evidence.",
+        "merge_key": "announcement_based_consensus"
+      },
+      {
+        "convergence_effect": "Narratives re-center on documented process rather than rumor.",
+        "mechanism": "Even skeptical observers tend to defer to regulator filings and company disclosures near the endpoint.",
+        "merge_key": "procedural_deference"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype": "investor_observers",
+        "description": "Investors and market watchers tracking the merger outcome.",
+        "population_total": 5000
+      },
+      {
+        "archetype": "industry_observers",
+        "description": "Media industry professionals and trade press following the transaction.",
+        "population_total": 2000
+      },
+      {
+        "archetype": "general_public_observers",
+        "description": "Broad public with low direct participation but episodic attention.",
+        "population_total": 500000
+      }
+    ],
+    "risk_flags": [
+      {
+        "note": "Entity masking limits external identity-specific priors.",
+        "risk_key": "masked_entities",
+        "severity": "low"
+      },
+      {
+        "note": "Scenario provides only high-level transaction, regulatory, and endpoint notes.",
+        "risk_key": "sparse_evidence_packet",
+        "severity": "medium"
+      },
+      {
+        "note": "Observers may overweight scheduled closing language despite explicit requirement for legal completion announcement.",
+        "risk_key": "deadline_vs_announcement_confusion",
+        "severity": "medium"
+      },
+      {
+        "note": "Regulatory timing remains a material uncertainty channel at T0.",
+        "risk_key": "regulatory_dependency_unresolved",
+        "severity": "medium"
+      },
+      {
+        "note": "Litigation is mentioned as plausible but not evidenced as active at T0.",
+        "risk_key": "litigation_tail_risk",
+        "severity": "low"
+      },
+      {
+        "note": "Near-deadline transactions can miss targets due to execution mechanics even absent strategic opposition.",
+        "risk_key": "operational_execution_slip",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "decision_frame": "Terminal question is whether the merger legally closes by the deadline, not whether a target closing date was announced.",
+      "domain": "corporate_merger_media",
+      "horizon_end": "2025-08-31",
+      "scenario_key": "resolved_019",
+      "summary": "Media Company P and Studio S have announced an anticipated closing in early August 2025 after a long transaction process. Legal closing by 2025-08-31 remains contingent on customary final conditions and operational execution, with potential delay risks from regulatory approvals, litigation, or political pressure.",
+      "time_zero": "2025-07-25",
+      "title": "media_company_p_studio_s_merger_deadline",
+      "uncertainty_notes": [
+        "Entity names are masked.",
+        "Source packet is sparse and high-level.",
+        "No explicit evidence that all approvals and closing mechanics are complete at T0."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "level": 0.58,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Observers update on official announcements and procedural signals rather than wide speculative swings.",
+        "scope": "investor_observers and industry_observers"
+      },
+      {
+        "level": 0.34,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Visible filings, adverse regulator signals, or controversy could trigger action.",
+        "scope": "potential_litigants and political_pressure_actors"
+      },
+      {
+        "level": 0.63,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Privately uncertain actors may avoid strong public claims until completion is announced.",
+        "scope": "industry_insiders_uncertain"
+      },
+      {
+        "level": 0.47,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Analysts and investors cluster around similar transaction interpretations.",
+        "scope": "investor and industry information networks"
+      },
+      {
+        "level": 0.39,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "A single rumor may not move consensus; multiple confirming signals are needed.",
+        "scope": "deadline-confidence narrative"
+      },
+      {
+        "level": 0.28,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Identity effects are secondary to procedural evidence in this corporate event.",
+        "scope": "corporate and investor camps"
+      },
+      {
+        "level": 0.51,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Public attention remains low absent a salient announcement or dispute.",
+        "scope": "general_public_observers"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Publicly announced early-August closing date creates expectation anchor.",
+        "influence_key": "announced_target_date"
+      },
+      {
+        "description": "Residual uncertainty remains because closing is subject to customary conditions.",
+        "influence_key": "customary_conditions_frame"
+      },
+      {
+        "description": "Regulatory approvals are a known and salient timing risk.",
+        "influence_key": "regulatory_delay_salience"
+      },
+      {
+        "description": "Potential litigation remains an external source of slippage.",
+        "influence_key": "litigation_delay_salience"
+      },
+      {
+        "description": "Observed resolution depends on formal completion announcement, not merely scheduled timing.",
+        "influence_key": "completion_announcement_requirement"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "media_company_p",
+        "behavior_axes": {
+          "message_discipline": 0.71,
+          "risk_tolerance": 0.48,
+          "speed_orientation": 0.74
+        },
+        "ideology_axes": {
+          "market_expansion": 0.72,
+          "procedural_deference": 0.59
+        },
+        "reputation": 0.63,
+        "secrecy": 0.67,
+        "tendency": "deadline-oriented but constrained by closing conditions",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "studio_s",
+        "behavior_axes": {
+          "message_discipline": 0.69,
+          "risk_tolerance": 0.5,
+          "speed_orientation": 0.76
+        },
+        "ideology_axes": {
+          "market_expansion": 0.74,
+          "procedural_deference": 0.58
+        },
+        "reputation": 0.62,
+        "secrecy": 0.66,
+        "tendency": "aligned with prompt close while managing uncertainty",
+        "trustworthiness": 0.59
+      },
+      {
+        "actor_name": "relevant_regulators",
+        "behavior_axes": {
+          "message_discipline": 0.83,
+          "risk_tolerance": 0.29,
+          "speed_orientation": 0.41
+        },
+        "ideology_axes": {
+          "market_expansion": 0.38,
+          "procedural_deference": 0.84
+        },
+        "reputation": 0.64,
+        "secrecy": 0.74,
+        "tendency": "process-focused gatekeeper",
+        "trustworthiness": 0.66
+      },
+      {
+        "actor_name": "potential_litigants",
+        "behavior_axes": {
+          "message_discipline": 0.44,
+          "risk_tolerance": 0.57,
+          "speed_orientation": 0.33
+        },
+        "ideology_axes": {
+          "market_expansion": 0.27,
+          "procedural_deference": 0.55
+        },
+        "reputation": 0.41,
+        "secrecy": 0.52,
+        "tendency": "opportunistic challenge if leverage exists",
+        "trustworthiness": 0.35
+      },
+      {
+        "actor_name": "political_pressure_actors",
+        "behavior_axes": {
+          "message_discipline": 0.49,
+          "risk_tolerance": 0.54,
+          "speed_orientation": 0.47
+        },
+        "ideology_axes": {
+          "market_expansion": 0.34,
+          "procedural_deference": 0.43
+        },
+        "reputation": 0.45,
+        "secrecy": 0.46,
+        "tendency": "episodic agenda pressure",
+        "trustworthiness": 0.39
+      },
+      {
+        "actor_name": "market_analysts_and_trade_media",
+        "behavior_axes": {
+          "message_discipline": 0.57,
+          "risk_tolerance": 0.41,
+          "speed_orientation": 0.62
+        },
+        "ideology_axes": {
+          "market_expansion": 0.56,
+          "procedural_deference": 0.52
+        },
+        "reputation": 0.59,
+        "secrecy": 0.18,
+        "tendency": "amplify signals around deadline and official announcements",
+        "trustworthiness": 0.61
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 1757,
+        "end": 1757,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 1757,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

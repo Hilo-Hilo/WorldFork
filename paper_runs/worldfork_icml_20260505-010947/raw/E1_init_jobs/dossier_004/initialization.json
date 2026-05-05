@@ -1,0 +1,1434 @@
+{
+  "big_bang_id": "9bc26bb6-eda1-4c54-9293-1bfa1b2f03b3",
+  "initializer_output": {
+    "actors": [
+      {
+        "decision_authority": "high",
+        "name": "marketplace_platform",
+        "public_visibility": "high",
+        "role": "policy setter and marketplace operator",
+        "stakes": [
+          "fee revenue",
+          "seller retention",
+          "search and fulfillment control",
+          "advertiser traffic stability",
+          "regulatory exposure"
+        ],
+        "type": "company_platform"
+      },
+      {
+        "decision_authority": "high",
+        "name": "platform_executive_team",
+        "public_visibility": "medium",
+        "role": "internal decision authority over fee rollout and concessions",
+        "stakes": [
+          "maintain strategic policy",
+          "avoid full rollback",
+          "manage public narrative"
+        ],
+        "type": "leadership_group"
+      },
+      {
+        "decision_authority": "medium",
+        "name": "independent_sellers_leading",
+        "public_visibility": "medium",
+        "role": "top independent sellers discussing protest coordination",
+        "stakes": [
+          "margin protection",
+          "search visibility",
+          "collective leverage"
+        ],
+        "type": "seller_group"
+      },
+      {
+        "decision_authority": "low",
+        "name": "independent_sellers_small",
+        "public_visibility": "low",
+        "role": "smaller sellers with limited strike tolerance",
+        "stakes": [
+          "daily cash flow",
+          "marketplace dependence",
+          "avoiding lost sales"
+        ],
+        "type": "seller_group"
+      },
+      {
+        "decision_authority": "medium",
+        "name": "major_advertisers",
+        "public_visibility": "low",
+        "role": "traffic buyers seeking stable conversion environment",
+        "stakes": [
+          "efficient marketplace traffic",
+          "avoid checkout disruption"
+        ],
+        "type": "business_group"
+      },
+      {
+        "decision_authority": "medium",
+        "name": "third_party_logistics_firms",
+        "public_visibility": "medium",
+        "role": "fulfillment partners opposing tied ranking advantage",
+        "stakes": [
+          "preserve competitive logistics access",
+          "prevent platform fulfillment lock-in"
+        ],
+        "type": "business_group"
+      },
+      {
+        "decision_authority": "low",
+        "name": "consumer_advocacy_group",
+        "public_visibility": "medium",
+        "role": "price and competition watchdog requesting scrutiny",
+        "stakes": [
+          "consumer prices",
+          "competition fairness"
+        ],
+        "type": "civil_society_group"
+      },
+      {
+        "decision_authority": "high",
+        "name": "competition_authority",
+        "public_visibility": "high",
+        "role": "potential formal investigator",
+        "stakes": [
+          "competition enforcement",
+          "public legitimacy"
+        ],
+        "type": "regulator"
+      },
+      {
+        "decision_authority": "low",
+        "name": "marketplace_consumers",
+        "public_visibility": "high",
+        "role": "buyers affected by prices, selection, and checkout continuity",
+        "stakes": [
+          "low prices",
+          "availability",
+          "convenience"
+        ],
+        "type": "public_group"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Small sellers join above threshold, creating meaningful listing disruption and stronger platform concession pressure.",
+        "branch_key": "seller_strike_threshold_met",
+        "observable_divergence_signal": "Rapid increase in seller forum commitments, public strike dates, and noticeable listing volume drops in affected categories.",
+        "rationale": "Collective action depends on threshold mobilization among smaller sellers despite dependence constraints.",
+        "trigger": "Leading sellers publicly commit to a one-week listing strike and visible participation estimates rise."
+      },
+      {
+        "alternate_path": "Conflict shifts from existential policy fight to narrower bargaining over implementation details.",
+        "branch_key": "phased_compromise_channel_opens",
+        "observable_divergence_signal": "Official platform communication references staged rollout, temporary fee relief, or category-specific implementation windows.",
+        "rationale": "Internal executive evidence shows willingness to consider transitions while rejecting full rollback.",
+        "trigger": "Platform announces category-specific delays, exemptions, or transition credits instead of rollback."
+      },
+      {
+        "alternate_path": "Competition authority opens formal inquiry or requests information, increasing platform caution and external leverage for challengers.",
+        "branch_key": "regulatory_escalation_from_tying_theory",
+        "observable_divergence_signal": "Authority issues information requests, announces preliminary review, or acknowledges investigation scope on tying or fee pass-through.",
+        "rationale": "Two separate complaint frames could mutually reinforce formal scrutiny if evidence or publicity grows.",
+        "trigger": "Logistics complaints and consumer price concerns combine into a competition case narrative."
+      },
+      {
+        "alternate_path": "Platform absorbs criticism without major policy reversal, leaving dispute unresolved and mostly rhetorical.",
+        "branch_key": "stall_due_to_switching_costs",
+        "observable_divergence_signal": "Forum dissent remains high while actual listing participation and seller exit remain low over multiple weeks.",
+        "rationale": "High seller dependence and low economic slack can suppress action even under broad dissatisfaction.",
+        "trigger": "Small sellers continue opposing privately but do not join strike at scale."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "seller_forums",
+        "function": "coordination and sentiment signaling",
+        "primary_actors": [
+          "independent_sellers_leading",
+          "independent_sellers_small"
+        ],
+        "type": "digital_forum",
+        "visibility": "semi_public"
+      },
+      {
+        "channel_key": "platform_policy_announcements",
+        "function": "formal policy communication",
+        "primary_actors": [
+          "marketplace_platform",
+          "platform_executive_team",
+          "independent_sellers_leading",
+          "independent_sellers_small"
+        ],
+        "type": "owned_channel",
+        "visibility": "public"
+      },
+      {
+        "channel_key": "advertiser_account_briefs",
+        "function": "commercial pressure and continuity messaging",
+        "primary_actors": [
+          "major_advertisers",
+          "marketplace_platform"
+        ],
+        "type": "business_communications",
+        "visibility": "private"
+      },
+      {
+        "channel_key": "partner_memos_trade_channels",
+        "function": "raise tying concerns",
+        "primary_actors": [
+          "third_party_logistics_firms",
+          "marketplace_platform",
+          "competition_authority"
+        ],
+        "type": "industry_channel",
+        "visibility": "mixed"
+      },
+      {
+        "channel_key": "regulatory_letter_process",
+        "function": "agenda-setting for possible review",
+        "primary_actors": [
+          "consumer_advocacy_group",
+          "competition_authority"
+        ],
+        "type": "institutional_channel",
+        "visibility": "formal"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "independent_sellers_leading",
+        "archetype_key": "independent_sellers",
+        "attention_level": 8,
+        "cohort_key": "leading_independent_sellers_cohort",
+        "dependency_on_platform": 7,
+        "economic_slack": 5,
+        "expression_level": 7,
+        "fatigue": 3,
+        "fear_of_isolation": 4,
+        "mobilization_readiness": 7,
+        "perceived_majority": 4,
+        "population_share_of_archetype": 0.05,
+        "private_belief_strength": 8,
+        "public_expression_gap": 1,
+        "representation_mode": "organized_visible_minority",
+        "represented_population": 6000,
+        "stance_axes": {
+          "bundled_logistics_ranking": "strong_oppose",
+          "fee_change": "oppose",
+          "listing_strike": "considering",
+          "regulatory_escalation": "supportive"
+        }
+      },
+      {
+        "actor_name": "independent_sellers_small",
+        "archetype_key": "independent_sellers",
+        "attention_level": 7,
+        "cohort_key": "small_independent_sellers_cohort",
+        "dependency_on_platform": 8,
+        "economic_slack": 2,
+        "expression_level": 4,
+        "fatigue": 5,
+        "fear_of_isolation": 7,
+        "mobilization_readiness": 3,
+        "perceived_majority": 3,
+        "population_share_of_archetype": 0.95,
+        "private_belief_strength": 7,
+        "public_expression_gap": 3,
+        "representation_mode": "diffuse_majority",
+        "represented_population": 114000,
+        "stance_axes": {
+          "bundled_logistics_ranking": "oppose",
+          "fee_change": "oppose",
+          "listing_strike": "hesitant",
+          "regulatory_escalation": "mild_support"
+        }
+      },
+      {
+        "actor_name": "marketplace_consumers",
+        "archetype_key": "marketplace_consumers_public",
+        "attention_level": 2,
+        "cohort_key": "price_sensitive_consumers_cohort",
+        "dependency_on_platform": 4,
+        "economic_slack": 4,
+        "expression_level": 1,
+        "fatigue": 1,
+        "fear_of_isolation": 2,
+        "mobilization_readiness": 1,
+        "perceived_majority": 5,
+        "population_share_of_archetype": 0.5,
+        "private_belief_strength": 5,
+        "public_expression_gap": 1,
+        "representation_mode": "modeled_mass_public",
+        "represented_population": 9000000,
+        "stance_axes": {
+          "competition_review": "soft_support",
+          "listing_disruption": "oppose",
+          "price_increase": "oppose"
+        }
+      },
+      {
+        "actor_name": "marketplace_consumers",
+        "archetype_key": "marketplace_consumers_public",
+        "attention_level": 2,
+        "cohort_key": "convenience_loyal_consumers_cohort",
+        "dependency_on_platform": 5,
+        "economic_slack": 5,
+        "expression_level": 1,
+        "fatigue": 1,
+        "fear_of_isolation": 1,
+        "mobilization_readiness": 1,
+        "perceived_majority": 5,
+        "population_share_of_archetype": 0.5,
+        "private_belief_strength": 4,
+        "public_expression_gap": 0,
+        "representation_mode": "modeled_mass_public",
+        "represented_population": 9000000,
+        "stance_axes": {
+          "competition_review": "neutral",
+          "listing_disruption": "strong_oppose",
+          "price_increase": "mild_oppose"
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "independent_sellers_leading",
+        "archetype_key": "independent_sellers",
+        "attention_level": 8,
+        "cohort_key": "leading_independent_sellers_cohort",
+        "dependency_on_platform": 7,
+        "economic_slack": 5,
+        "expression_level": 7,
+        "fatigue": 3,
+        "fear_of_isolation": 4,
+        "mobilization_readiness": 7,
+        "perceived_majority": 4,
+        "population_share_of_archetype": 0.05,
+        "private_belief_strength": 8,
+        "public_expression_gap": 1,
+        "representation_mode": "organized_visible_minority",
+        "represented_population": 6000,
+        "stance_axes": {
+          "bundled_logistics_ranking": "strong_oppose",
+          "fee_change": "oppose",
+          "listing_strike": "considering",
+          "regulatory_escalation": "supportive"
+        }
+      },
+      {
+        "actor_name": "independent_sellers_small",
+        "archetype_key": "independent_sellers",
+        "attention_level": 7,
+        "cohort_key": "small_independent_sellers_cohort",
+        "dependency_on_platform": 8,
+        "economic_slack": 2,
+        "expression_level": 4,
+        "fatigue": 5,
+        "fear_of_isolation": 7,
+        "mobilization_readiness": 3,
+        "perceived_majority": 3,
+        "population_share_of_archetype": 0.95,
+        "private_belief_strength": 7,
+        "public_expression_gap": 3,
+        "representation_mode": "diffuse_majority",
+        "represented_population": 114000,
+        "stance_axes": {
+          "bundled_logistics_ranking": "oppose",
+          "fee_change": "oppose",
+          "listing_strike": "hesitant",
+          "regulatory_escalation": "mild_support"
+        }
+      },
+      {
+        "actor_name": "marketplace_consumers",
+        "archetype_key": "marketplace_consumers_public",
+        "attention_level": 2,
+        "cohort_key": "price_sensitive_consumers_cohort",
+        "dependency_on_platform": 4,
+        "economic_slack": 4,
+        "expression_level": 1,
+        "fatigue": 1,
+        "fear_of_isolation": 2,
+        "mobilization_readiness": 1,
+        "perceived_majority": 5,
+        "population_share_of_archetype": 0.5,
+        "private_belief_strength": 5,
+        "public_expression_gap": 1,
+        "representation_mode": "modeled_mass_public",
+        "represented_population": 9000000,
+        "stance_axes": {
+          "competition_review": "soft_support",
+          "listing_disruption": "oppose",
+          "price_increase": "oppose"
+        }
+      },
+      {
+        "actor_name": "marketplace_consumers",
+        "archetype_key": "marketplace_consumers_public",
+        "attention_level": 2,
+        "cohort_key": "convenience_loyal_consumers_cohort",
+        "dependency_on_platform": 5,
+        "economic_slack": 5,
+        "expression_level": 1,
+        "fatigue": 1,
+        "fear_of_isolation": 1,
+        "mobilization_readiness": 1,
+        "perceived_majority": 5,
+        "population_share_of_archetype": 0.5,
+        "private_belief_strength": 4,
+        "public_expression_gap": 0,
+        "representation_mode": "modeled_mass_public",
+        "represented_population": 9000000,
+        "stance_axes": {
+          "competition_review": "neutral",
+          "listing_disruption": "strong_oppose",
+          "price_increase": "mild_oppose"
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "platform_executive_team",
+          "marketplace_platform"
+        ],
+        "blockers": [
+          "Executives explicitly reject a full rollback in draft talking points.",
+          "Platform has leverage from seller dependence and advertiser desire for continuity."
+        ],
+        "contradiction_notes": "A partial delay, temporary credit, or category carve-out would contradict full rollback realization and instead support phased_compromise.",
+        "description": "Platform reverses the announced fee increase and bundled-logistics ranking incentive in the affected categories.",
+        "endpoint_key": "full_rollback",
+        "evidence_refs": [
+          "source_1_platform_policy_update_t_minus_12",
+          "source_6_platform_exec_email_t_minus_2"
+        ],
+        "label": "Full Rollback",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "By week 10, does the platform fully reverse the fee and ranking change, or does it instead preserve the core policy with phased or narrowed implementation?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.12,
+        "rationale": "This is a terminal option because it requires decisive abandonment of the contested policy rather than a procedural adjustment.",
+        "realization_criteria": [
+          "Official platform communication rescinds the 2 percentage point fee increase in affected categories.",
+          "Official platform communication ends the ranking boost tied to bundled logistics rather than merely delaying or narrowing it."
+        ],
+        "status": "active",
+        "status_basis": "Candidate endpoint named in source packet, but internal evidence makes it less favored at T0."
+      },
+      {
+        "authority_refs": [
+          "platform_executive_team",
+          "marketplace_platform"
+        ],
+        "blockers": [
+          "If seller disruption is weak, platform may choose to hold firm rather than compromise.",
+          "If regulatory pressure escalates sharply, concessions might broaden into rollback or shift toward investigation-focused outcomes."
+        ],
+        "contradiction_notes": "A mere promise to review later without concrete implementation changes may be insufficient; a formal investigation alone does not realize this endpoint.",
+        "description": "Platform preserves the policy direction but delays, narrows, exempts, or stages implementation sufficiently to settle the immediate dispute.",
+        "endpoint_key": "phased_compromise",
+        "evidence_refs": [
+          "source_1_platform_policy_update_t_minus_12",
+          "source_6_platform_exec_email_t_minus_2"
+        ],
+        "label": "Phased Compromise",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "By week 10, does seller collective action produce significant listing disruption or durable seller exit at a scale observable to the marketplace?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.34,
+        "rationale": "This endpoint fits the platform's revealed preference for limited flexibility while preserving strategic policy direction.",
+        "realization_criteria": [
+          "Platform formally announces category-specific transition periods, narrowed scope, temporary credits, or staged rollout.",
+          "Seller protest activity declines materially after the concession without full rollback.",
+          "Core fee or ranking policy remains at least partly in force after the concession package."
+        ],
+        "status": "active",
+        "status_basis": "Most directly supported by observed executive openness to transition periods."
+      },
+      {
+        "authority_refs": [
+          "independent_sellers_leading",
+          "independent_sellers_small"
+        ],
+        "blockers": [
+          "Smaller sellers worry they cannot afford lost sales.",
+          "Platform dependence and low economic slack raise coordination thresholds."
+        ],
+        "contradiction_notes": "Symbolic protest without material listing effects would not satisfy this endpoint.",
+        "description": "A significant strike or seller exit disrupts listings enough to become a terminal feature of the dispute outcome.",
+        "endpoint_key": "seller_exit_strike",
+        "evidence_refs": [
+          "source_2_seller_forum_digest_t_minus_10"
+        ],
+        "label": "Seller Exit or Strike Disruption",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "By week 10, does the competition authority open a formal investigation into the platform's fee and ranking practices?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.18,
+        "rationale": "This endpoint captures disruption as a terminal resolution mode rather than a temporary tactic.",
+        "realization_criteria": [
+          "A one-week or longer listing strike occurs with participation large enough to create observable category-level listing disruption, or",
+          "A significant cohort of sellers exits or suspends listings causing measurable marketplace availability deterioration in affected categories."
+        ],
+        "status": "active",
+        "status_basis": "Strike is actively discussed, but mobilization constraints are substantial at T0."
+      },
+      {
+        "authority_refs": [
+          "competition_authority"
+        ],
+        "blockers": [
+          "Only complaint-stage evidence is present at T0.",
+          "Regulator may move slower than the 10-week horizon."
+        ],
+        "contradiction_notes": "A public request for comments or acknowledgment of receipt without formal case opening would not realize this endpoint.",
+        "description": "Competition authority opens a formal investigation into the fee and ranking practices.",
+        "endpoint_key": "regulatory_investigation",
+        "evidence_refs": [
+          "source_4_logistics_partner_memo_t_minus_7",
+          "source_5_consumer_group_letter_t_minus_4"
+        ],
+        "label": "Regulatory Investigation",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "By week 10, does the dispute remain materially contested without decisive rollback, compromise, disruptive seller exit, or formal regulatory action?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.14,
+        "rationale": "Formal investigation is a clear institutional endpoint distinct from bargaining outcomes.",
+        "realization_criteria": [
+          "Competition authority publicly announces a formal investigation, formal inquiry, or equivalent proceeding into the marketplace's fee/ranking conduct.",
+          "Authority issues formal information demands or procedural notices clearly indicating an opened case rather than informal monitoring alone."
+        ],
+        "status": "active",
+        "status_basis": "Plausible due to price and tying concerns but not yet procedurally advanced."
+      },
+      {
+        "authority_refs": [
+          "marketplace_platform",
+          "platform_executive_team",
+          "independent_sellers_leading",
+          "competition_authority"
+        ],
+        "blockers": [
+          "A limited concession package could settle the dispute into phased_compromise.",
+          "Escalating seller or regulatory pressure could force a more decisive endpoint."
+        ],
+        "contradiction_notes": "Persistent argument alone is insufficient if one of the other terminal endpoints becomes clearly realized.",
+        "description": "Policy remains contested through week 10 without decisive rollback, concrete compromise, major seller disruption, or formal investigation.",
+        "endpoint_key": "durable_stalemate",
+        "evidence_refs": [
+          "source_2_seller_forum_digest_t_minus_10",
+          "source_6_platform_exec_email_t_minus_2"
+        ],
+        "label": "Durable Stalemate",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "By week 10, does the dispute remain materially contested without decisive rollback, compromise, disruptive seller exit, or formal regulatory action?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.22,
+        "rationale": "Switching costs and asymmetrical dependence make unresolved contestation a credible terminal condition.",
+        "realization_criteria": [
+          "By week 10 the policy remains substantially in force.",
+          "No full rollback occurs.",
+          "No concrete phased compromise package is implemented.",
+          "No significant disruptive strike/exit occurs.",
+          "No formal regulatory investigation opens."
+        ],
+        "status": "active",
+        "status_basis": "Strongly plausible because seller coordination is uncertain and platform is resisting rollback while offering limited flexibility."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "source_2_seller_forum_digest_t_minus_10",
+        "layer": "dependency",
+        "reason": "Leading sellers rely materially on marketplace traffic and sales despite organizing capacity.",
+        "source_actor_name": "independent_sellers_leading",
+        "target_actor_name": "marketplace_platform",
+        "weight": 0.63
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "source_2_seller_forum_digest_t_minus_10",
+        "layer": "dependency",
+        "reason": "Smaller sellers indicate they cannot easily absorb lost sales from a strike.",
+        "source_actor_name": "independent_sellers_small",
+        "target_actor_name": "marketplace_platform",
+        "weight": 0.78
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "source_3_advertiser_brief_t_minus_8",
+        "layer": "dependency",
+        "reason": "Advertisers value marketplace traffic efficiency and stable checkout conditions.",
+        "source_actor_name": "major_advertisers",
+        "target_actor_name": "marketplace_platform",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "source_4_logistics_partner_memo_t_minus_7",
+        "layer": "dependency",
+        "reason": "Partner firms depend on merchant access within the marketplace ecosystem.",
+        "source_actor_name": "third_party_logistics_firms",
+        "target_actor_name": "marketplace_platform",
+        "weight": 0.42
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "scenario_inference_from_marketplace_structure_and_source_2",
+        "layer": "dependency",
+        "reason": "Platform supply breadth and category depth depend in part on independent sellers.",
+        "source_actor_name": "marketplace_platform",
+        "target_actor_name": "independent_sellers_leading",
+        "weight": 0.39
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "scenario_inference_from_marketplace_structure",
+        "layer": "dependency",
+        "reason": "Platform relies on many smaller sellers for long-tail listings and inventory diversity.",
+        "source_actor_name": "marketplace_platform",
+        "target_actor_name": "independent_sellers_small",
+        "weight": 0.52
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "source_3_advertiser_brief_t_minus_8",
+        "layer": "dependency",
+        "reason": "Advertising revenue and traffic monetization benefit from major advertiser participation.",
+        "source_actor_name": "marketplace_platform",
+        "target_actor_name": "major_advertisers",
+        "weight": 0.37
+      },
+      {
+        "direction": "source_reaches_target",
+        "evidence": "source_2_seller_forum_digest_t_minus_10",
+        "layer": "exposure",
+        "reason": "Forum discussions likely expose smaller sellers to strike framing.",
+        "source_actor_name": "independent_sellers_leading",
+        "target_actor_name": "independent_sellers_small",
+        "weight": 0.55
+      },
+      {
+        "direction": "source_reaches_target",
+        "evidence": "source_1_platform_policy_update_t_minus_12",
+        "layer": "exposure",
+        "reason": "Policy update directly affects and informs sellers.",
+        "source_actor_name": "marketplace_platform",
+        "target_actor_name": "independent_sellers_leading",
+        "weight": 0.68
+      },
+      {
+        "direction": "source_reaches_target",
+        "evidence": "source_1_platform_policy_update_t_minus_12",
+        "layer": "exposure",
+        "reason": "Policy update directly affects and informs sellers.",
+        "source_actor_name": "marketplace_platform",
+        "target_actor_name": "independent_sellers_small",
+        "weight": 0.68
+      },
+      {
+        "direction": "source_reaches_target",
+        "evidence": "source_5_consumer_group_letter_t_minus_4",
+        "layer": "exposure",
+        "reason": "Formal letter places issue before authority.",
+        "source_actor_name": "consumer_advocacy_group",
+        "target_actor_name": "competition_authority",
+        "weight": 0.49
+      },
+      {
+        "direction": "source_reaches_target",
+        "evidence": "source_4_logistics_partner_memo_t_minus_7",
+        "layer": "exposure",
+        "reason": "Partner complaints create a plausible route for antitrust visibility though not yet formalized in sources.",
+        "source_actor_name": "third_party_logistics_firms",
+        "target_actor_name": "competition_authority",
+        "weight": 0.28
+      },
+      {
+        "direction": "source_reaches_target",
+        "evidence": "source_3_advertiser_brief_t_minus_8",
+        "layer": "exposure",
+        "reason": "Advertiser brief communicates preference for avoiding checkout disruption.",
+        "source_actor_name": "major_advertisers",
+        "target_actor_name": "marketplace_platform",
+        "weight": 0.43
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "source_1_platform_policy_update_t_minus_12 and source_2_seller_forum_digest_t_minus_10",
+        "layer": "trust",
+        "reason": "Fee increase and ranking tie reduce trust in platform fairness.",
+        "source_actor_name": "independent_sellers_leading",
+        "target_actor_name": "marketplace_platform",
+        "weight": 0.24
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "source_1_platform_policy_update_t_minus_12 and source_2_seller_forum_digest_t_minus_10",
+        "layer": "trust",
+        "reason": "Affected sellers likely distrust fairness but remain engaged due to dependence.",
+        "source_actor_name": "independent_sellers_small",
+        "target_actor_name": "marketplace_platform",
+        "weight": 0.31
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "source_3_advertiser_brief_t_minus_8",
+        "layer": "trust",
+        "reason": "Advertisers still view marketplace traffic as efficient.",
+        "source_actor_name": "major_advertisers",
+        "target_actor_name": "marketplace_platform",
+        "weight": 0.58
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "source_4_logistics_partner_memo_t_minus_7",
+        "layer": "trust",
+        "reason": "They view bundled ranking boost as unfair tying behavior.",
+        "source_actor_name": "third_party_logistics_firms",
+        "target_actor_name": "marketplace_platform",
+        "weight": 0.26
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "source_5_consumer_group_letter_t_minus_4",
+        "layer": "trust",
+        "reason": "Group appeals to authority expecting review mechanism legitimacy.",
+        "source_actor_name": "consumer_advocacy_group",
+        "target_actor_name": "competition_authority",
+        "weight": 0.62
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "source_6_platform_exec_email_t_minus_2",
+        "layer": "influence",
+        "reason": "Executives hold direct authority over concessions and implementation stance.",
+        "source_actor_name": "platform_executive_team",
+        "target_actor_name": "marketplace_platform",
+        "weight": 0.87
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "source_1_platform_policy_update_t_minus_12",
+        "layer": "influence",
+        "reason": "Platform controls fees and ranking incentives affecting seller behavior.",
+        "source_actor_name": "marketplace_platform",
+        "target_actor_name": "independent_sellers_leading",
+        "weight": 0.61
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "source_1_platform_policy_update_t_minus_12 and source_2_seller_forum_digest_t_minus_10",
+        "layer": "influence",
+        "reason": "Operational dependence and ranking design shape smaller seller decisions strongly.",
+        "source_actor_name": "marketplace_platform",
+        "target_actor_name": "independent_sellers_small",
+        "weight": 0.67
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "source_2_seller_forum_digest_t_minus_10",
+        "layer": "influence",
+        "reason": "Top sellers can frame strike viability and grievance legitimacy for others.",
+        "source_actor_name": "independent_sellers_leading",
+        "target_actor_name": "independent_sellers_small",
+        "weight": 0.47
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "source_3_advertiser_brief_t_minus_8",
+        "layer": "influence",
+        "reason": "Advertiser concerns matter to revenue and optics but are not primary policy authority.",
+        "source_actor_name": "major_advertisers",
+        "target_actor_name": "marketplace_platform",
+        "weight": 0.34
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "source_5_consumer_group_letter_t_minus_4",
+        "layer": "influence",
+        "reason": "Advocacy letter may shape agenda-setting for review.",
+        "source_actor_name": "consumer_advocacy_group",
+        "target_actor_name": "competition_authority",
+        "weight": 0.29
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "source_4_logistics_partner_memo_t_minus_7",
+        "layer": "influence",
+        "reason": "Unfair tying claim may contribute expert or industry evidence.",
+        "source_actor_name": "third_party_logistics_firms",
+        "target_actor_name": "competition_authority",
+        "weight": 0.33
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "source_2_seller_forum_digest_t_minus_10 and source_4_logistics_partner_memo_t_minus_7",
+        "layer": "coalition",
+        "reason": "Both oppose ranking incentives tied to platform-owned fulfillment.",
+        "source_actor_name": "independent_sellers_leading",
+        "target_actor_name": "third_party_logistics_firms",
+        "weight": 0.41
+      },
+      {
+        "direction": "latent_alignment",
+        "evidence": "source_4_logistics_partner_memo_t_minus_7 and source_5_consumer_group_letter_t_minus_4",
+        "layer": "coalition",
+        "reason": "Both may support scrutiny of competitive effects though with different motives.",
+        "source_actor_name": "consumer_advocacy_group",
+        "target_actor_name": "third_party_logistics_firms",
+        "weight": 0.24
+      },
+      {
+        "direction": "latent_alignment",
+        "evidence": "source_2_seller_forum_digest_t_minus_10 and source_5_consumer_group_letter_t_minus_4",
+        "layer": "coalition",
+        "reason": "Shared opposition to price and fairness impacts creates weak potential alignment.",
+        "source_actor_name": "consumer_advocacy_group",
+        "target_actor_name": "independent_sellers_leading",
+        "weight": 0.22
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "source_3_advertiser_brief_t_minus_8",
+        "layer": "coalition",
+        "reason": "Both prefer uninterrupted marketplace operations and visible stability.",
+        "source_actor_name": "major_advertisers",
+        "target_actor_name": "marketplace_platform",
+        "weight": 0.51
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "source_1_platform_policy_update_t_minus_12 and source_2_seller_forum_digest_t_minus_10",
+        "layer": "conflict",
+        "reason": "Leading sellers are considering a listing strike against the policy.",
+        "source_actor_name": "independent_sellers_leading",
+        "target_actor_name": "marketplace_platform",
+        "weight": 0.64
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "source_1_platform_policy_update_t_minus_12 and source_2_seller_forum_digest_t_minus_10",
+        "layer": "conflict",
+        "reason": "Smaller sellers oppose the changes but are less able to act publicly.",
+        "source_actor_name": "independent_sellers_small",
+        "target_actor_name": "marketplace_platform",
+        "weight": 0.48
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "source_4_logistics_partner_memo_t_minus_7",
+        "layer": "conflict",
+        "reason": "Logistics partners claim unfair tying of search visibility to platform fulfillment.",
+        "source_actor_name": "third_party_logistics_firms",
+        "target_actor_name": "marketplace_platform",
+        "weight": 0.57
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "source_5_consumer_group_letter_t_minus_4",
+        "layer": "conflict",
+        "reason": "Consumer group seeks competition examination over fee pass-through and pricing.",
+        "source_actor_name": "consumer_advocacy_group",
+        "target_actor_name": "marketplace_platform",
+        "weight": 0.44
+      },
+      {
+        "direction": "potential_adversarial",
+        "evidence": "source_5_consumer_group_letter_t_minus_4",
+        "layer": "conflict",
+        "reason": "Potential but not yet realized regulatory adversarial posture.",
+        "source_actor_name": "competition_authority",
+        "target_actor_name": "marketplace_platform",
+        "weight": 0.19
+      },
+      {
+        "direction": "public_channel_interaction",
+        "evidence": "source_2_seller_forum_digest_t_minus_10",
+        "layer": "oasis_interaction",
+        "reason": "Seller forums are likely active venues for discussion and signaling.",
+        "source_actor_name": "independent_sellers_leading",
+        "target_actor_name": "independent_sellers_small",
+        "weight": 0.58
+      },
+      {
+        "direction": "public_channel_interaction",
+        "evidence": "source_1_platform_policy_update_t_minus_12 and source_6_platform_exec_email_t_minus_2",
+        "layer": "oasis_interaction",
+        "reason": "Policy communication and possible public responses create repeated visible interaction.",
+        "source_actor_name": "marketplace_platform",
+        "target_actor_name": "independent_sellers_leading",
+        "weight": 0.36
+      },
+      {
+        "direction": "public_channel_interaction",
+        "evidence": "source_5_consumer_group_letter_t_minus_4",
+        "layer": "oasis_interaction",
+        "reason": "Letter and any follow-up statements may generate visible issue traffic.",
+        "source_actor_name": "consumer_advocacy_group",
+        "target_actor_name": "competition_authority",
+        "weight": 0.31
+      },
+      {
+        "direction": "public_channel_interaction",
+        "evidence": "source_4_logistics_partner_memo_t_minus_7",
+        "layer": "oasis_interaction",
+        "reason": "Partner complaints may appear in trade or policy channels.",
+        "source_actor_name": "third_party_logistics_firms",
+        "target_actor_name": "marketplace_platform",
+        "weight": 0.27
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "domain": "corporate_governance",
+        "hero_key": "platform_decision_makers",
+        "label": "Platform Decision Makers"
+      },
+      {
+        "domain": "collective_action",
+        "hero_key": "seller_coordinators",
+        "label": "Seller Coordinators"
+      },
+      {
+        "domain": "state_enforcement",
+        "hero_key": "competition_regulators",
+        "label": "Competition Regulators"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "platform_executive_team",
+        "attention_level": 9,
+        "authority_scope": "Can modify, delay, narrow, or defend fee and ranking policy implementation.",
+        "constraint_summary": [
+          "Likely unwilling to grant full rollback at T0",
+          "Must avoid visible marketplace disruption",
+          "Must manage advertiser and regulatory optics"
+        ],
+        "expression_level": 5,
+        "fatigue": 4,
+        "fear_of_isolation": 2,
+        "hero_key": "platform_decision_makers",
+        "mobilization_readiness": 8,
+        "perceived_majority": 7
+      },
+      {
+        "actor_name": "independent_sellers_leading",
+        "attention_level": 8,
+        "authority_scope": "Can advocate for strike participation and frame seller grievances but cannot compel smaller sellers.",
+        "constraint_summary": [
+          "Participation depends on smaller sellers tolerating lost sales",
+          "Coordination may fragment by category and dependence level"
+        ],
+        "expression_level": 7,
+        "fatigue": 3,
+        "fear_of_isolation": 4,
+        "hero_key": "seller_coordinators",
+        "mobilization_readiness": 7,
+        "perceived_majority": 4
+      },
+      {
+        "actor_name": "competition_authority",
+        "attention_level": 4,
+        "authority_scope": "Can decide whether to open a formal competition investigation.",
+        "constraint_summary": [
+          "Only external complaint evidence observed at T0",
+          "Likely requires threshold evidence or political/legal prioritization"
+        ],
+        "expression_level": 2,
+        "fatigue": 2,
+        "fear_of_isolation": 1,
+        "hero_key": "competition_regulators",
+        "mobilization_readiness": 3,
+        "perceived_majority": 5
+      }
+    ],
+    "heroes": [
+      {
+        "domain": "corporate_governance",
+        "hero_key": "platform_decision_makers",
+        "label": "Platform Decision Makers"
+      },
+      {
+        "domain": "collective_action",
+        "hero_key": "seller_coordinators",
+        "label": "Seller Coordinators"
+      },
+      {
+        "domain": "state_enforcement",
+        "hero_key": "competition_regulators",
+        "label": "Competition Regulators"
+      }
+    ],
+    "important_questions": [
+      "By week 10, does the platform fully reverse the fee and ranking change, or does it instead preserve the core policy with phased or narrowed implementation?",
+      "By week 10, does seller collective action produce significant listing disruption or durable seller exit at a scale observable to the marketplace?",
+      "By week 10, does the competition authority open a formal investigation into the platform's fee and ranking practices?",
+      "By week 10, does the dispute remain materially contested without decisive rollback, compromise, disruptive seller exit, or formal regulatory action?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "marketplace_platform"
+        ],
+        "event_key": "fee_and_ranking_policy_announced",
+        "event_type": "announcement",
+        "evidence": "source_1_platform_policy_update_t_minus_12",
+        "expected_impact": "Raises seller grievance, increases dependency salience around search visibility, and creates antitrust-style tying concerns.",
+        "status": "completed_pre_t0",
+        "summary": "Marketplace raised referral fees by 2 percentage points in several categories and offered ranking boosts to sellers using bundled logistics.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "independent_sellers_leading",
+          "independent_sellers_small"
+        ],
+        "event_key": "seller_strike_discussion_active",
+        "event_type": "announcement",
+        "evidence": "source_2_seller_forum_digest_t_minus_10",
+        "expected_impact": "Creates coordination test; visible support or hesitation will strongly affect mobilization thresholds.",
+        "status": "active",
+        "summary": "Top independent sellers are discussing a one-week listing strike while smaller sellers express inability to afford lost sales.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "major_advertisers",
+          "marketplace_platform"
+        ],
+        "event_key": "advertisers_signal_continuity_preference",
+        "event_type": "announcement",
+        "evidence": "source_3_advertiser_brief_t_minus_8",
+        "expected_impact": "Strengthens platform incentive to prevent consumer-facing disruption and may favor limited concessions over rollback.",
+        "status": "completed_pre_t0",
+        "summary": "Major advertisers tell platform that traffic remains efficient and ask to avoid visible checkout disruption.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "third_party_logistics_firms",
+          "marketplace_platform"
+        ],
+        "event_key": "logistics_partners_raise_tying_objection",
+        "event_type": "announcement",
+        "evidence": "source_4_logistics_partner_memo_t_minus_7",
+        "expected_impact": "Introduces a competition-theory hook that could support regulatory scrutiny or narrower policy changes.",
+        "status": "completed_pre_t0",
+        "summary": "Third-party logistics firms object that bundled ranking boosts unfairly tie visibility to platform-owned fulfillment.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "consumer_advocacy_group",
+          "competition_authority"
+        ],
+        "event_key": "consumer_group_requests_competition_review",
+        "event_type": "announcement",
+        "evidence": "source_5_consumer_group_letter_t_minus_4",
+        "expected_impact": "Begins a potential regulatory branch but does not yet establish formal investigation.",
+        "status": "completed_pre_t0",
+        "summary": "Consumer group asks competition authority to examine possible fee pass-through effects on prices.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "platform_executive_team",
+          "marketplace_platform"
+        ],
+        "event_key": "executive_team_considers_transition_periods",
+        "event_type": "announcement",
+        "evidence": "source_6_platform_exec_email_t_minus_2",
+        "expected_impact": "Makes phased compromise more reachable than full reversal and may split seller coalition depending on category treatment.",
+        "status": "imminent",
+        "summary": "Executives are open to category-specific transition periods but reject full rollback in draft talking points.",
+        "tick": 1
+      }
+    ],
+    "llm_call_id": "02338c99-fcfb-40e2-8fba-cce5bbf79813",
+    "merge_hypotheses": [
+      {
+        "affected_paths": [
+          "seller_strike_threshold_met",
+          "phased_compromise_channel_opens",
+          "stall_due_to_switching_costs"
+        ],
+        "convergence_driver": "Platform, advertisers, and many sellers all prefer avoiding visible consumer-facing disruption.",
+        "mechanism": "Mutual aversion to checkout and traffic disruption can pull parties toward limited concessions or symbolic protest rather than maximal escalation.",
+        "merge_key": "shared_anti_disruption_incentive"
+      },
+      {
+        "affected_paths": [
+          "seller_strike_threshold_met",
+          "stall_due_to_switching_costs"
+        ],
+        "convergence_driver": "Sustained income pressure weakens seller protest cohesion over time.",
+        "mechanism": "Even after initial mobilization, unequal tolerance for lost sales can return the system toward compromise or stalemate.",
+        "merge_key": "coalition_fatigue_among_sellers"
+      },
+      {
+        "affected_paths": [
+          "regulatory_escalation_from_tying_theory",
+          "phased_compromise_channel_opens",
+          "stall_due_to_switching_costs"
+        ],
+        "convergence_driver": "Potential scrutiny changes bargaining tone even absent immediate formal investigation.",
+        "mechanism": "The mere possibility of review may support narrower implementation changes while still falling short of formal endpoint realization.",
+        "merge_key": "regulatory_shadow_without_fast_action"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "independent_sellers",
+        "description": "Third-party merchants relying on the marketplace with varying scale and strike tolerance.",
+        "label": "Independent Sellers",
+        "population_total": 120000
+      },
+      {
+        "archetype_key": "marketplace_consumers_public",
+        "description": "Active buyers exposed to platform prices, listing availability, and any disruption.",
+        "label": "Marketplace Consumers",
+        "population_total": 18000000
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag_key": "incomplete_population_evidence",
+        "note": "Seller and consumer population totals are modeled defaults for simulation coherence, not stated in source packet.",
+        "severity": "medium"
+      },
+      {
+        "flag_key": "platform_fictionalization_applied",
+        "note": "Public actors are kept generic and fictionalized because the scenario is platform and competition related.",
+        "severity": "low"
+      },
+      {
+        "flag_key": "regulatory_timing_uncertainty",
+        "note": "The 10-week horizon may be too short for some formal competition processes absent rapid escalation.",
+        "severity": "medium"
+      },
+      {
+        "flag_key": "switching_costs_underobserved",
+        "note": "Source text establishes dependence pressures qualitatively but not exact off-platform alternatives or elasticity.",
+        "severity": "medium"
+      },
+      {
+        "flag_key": "consumer_attention_low_at_t0",
+        "note": "No direct evidence of broad consumer salience yet; downstream price or availability changes may be needed for public mobilization.",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "core_premise": "A large online marketplace increased seller fees in several categories and tied ranking boosts to bundled logistics, prompting seller protest discussions, partner concerns, advertiser caution about disruption, and consumer-group pressure for competition review.",
+      "forecast_question": "After 10 simulated weeks, does the marketplace fee dispute resolve through rollback, phased compromise, seller exit, regulation, or stalemate?",
+      "mode": "direct",
+      "scenario_key": "case_dossier_004_marketplace_fee_dispute",
+      "source_refs": [
+        "source_1_platform_policy_update_t_minus_12",
+        "source_2_seller_forum_digest_t_minus_10",
+        "source_3_advertiser_brief_t_minus_8",
+        "source_4_logistics_partner_memo_t_minus_7",
+        "source_5_consumer_group_letter_t_minus_4",
+        "source_6_platform_exec_email_t_minus_2"
+      ],
+      "t0_reference": "policy announced 2 days before initialization window",
+      "time_horizon_weeks": 10,
+      "uncertainty_notes": [
+        "Seller strike capacity is unclear because top independent sellers appear more willing than smaller sellers.",
+        "Regulatory response is uncertain; only a request for examination is observed at T0, not a formal investigation.",
+        "Platform leadership appears open to transition periods but resistant to full rollback.",
+        "Magnitude of seller dependence on marketplace traffic and fulfillment remains only partially specified."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "independent_sellers"
+        ],
+        "basis": "Seller views may shift through peer discussion, but high dependence limits rapid convergence on maximal tactics.",
+        "level": "moderate",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "independent_sellers_small"
+        ],
+        "basis": "Smaller sellers are more likely to join action only if participation appears widespread enough to reduce individual risk.",
+        "level": "high_relevance",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "independent_sellers_small"
+        ],
+        "basis": "Fear of lost sales and platform dependence suppress public expression relative to private opposition.",
+        "level": "elevated",
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "independent_sellers_leading",
+          "independent_sellers_small",
+          "third_party_logistics_firms"
+        ],
+        "basis": "Trade and role-based networks likely reinforce issue framing within occupational groups.",
+        "level": "moderate",
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "seller_strike_behavior"
+        ],
+        "basis": "Joining a listing strike likely requires multiple confirming signals from peers and visible leaders.",
+        "level": "moderate",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "independent_sellers",
+          "third_party_logistics_firms"
+        ],
+        "basis": "Independent ecosystem actors may adopt a shared fairness narrative against vertically integrated platform control.",
+        "level": "moderate",
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "marketplace_consumers_public",
+          "major_advertisers"
+        ],
+        "basis": "Absent visible checkout or listing disruption, broader attention may remain low and fade quickly.",
+        "level": "moderate",
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context_key": "seller_dependence_constraint",
+        "description": "Small sellers privately oppose the policy but face strong cash-flow and dependence pressures that inhibit open protest."
+      },
+      {
+        "context_key": "platform_stability_norm",
+        "description": "Advertisers reward continuity and may indirectly discourage disruptive bargaining tactics."
+      },
+      {
+        "context_key": "competition_fairness_frame",
+        "description": "Logistics tying concerns and consumer price concerns provide a common fairness/regulatory narrative."
+      },
+      {
+        "context_key": "elite_signal_uncertainty",
+        "description": "Platform executives signal openness to transition periods, creating space for compromise expectations without conceding rollback."
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "marketplace_platform",
+        "behavior_axes": {
+          "adaptability": 6,
+          "aggressiveness": 6,
+          "responsiveness": 4,
+          "risk_tolerance": 6
+        },
+        "ideology_axes": {
+          "market_control": 8,
+          "regulatory_deference": 4,
+          "seller_accommodation": 3
+        },
+        "reputation": 6,
+        "secrecy": 7,
+        "tendency": "defend strategic policy while offering limited concessions if pressure mounts",
+        "trustworthiness": 4
+      },
+      {
+        "actor_name": "platform_executive_team",
+        "behavior_axes": {
+          "adaptability": 7,
+          "aggressiveness": 5,
+          "responsiveness": 5,
+          "risk_tolerance": 6
+        },
+        "ideology_axes": {
+          "market_control": 8,
+          "regulatory_deference": 4,
+          "seller_accommodation": 3
+        },
+        "reputation": 5,
+        "secrecy": 8,
+        "tendency": "prefer transition periods over reversal",
+        "trustworthiness": 4
+      },
+      {
+        "actor_name": "independent_sellers_leading",
+        "behavior_axes": {
+          "adaptability": 6,
+          "aggressiveness": 6,
+          "responsiveness": 7,
+          "risk_tolerance": 7
+        },
+        "ideology_axes": {
+          "market_control": 2,
+          "regulatory_receptivity": 6,
+          "seller_autonomy": 8
+        },
+        "reputation": 6,
+        "secrecy": 4,
+        "tendency": "coordinate visible protest to increase bargaining power",
+        "trustworthiness": 6
+      },
+      {
+        "actor_name": "independent_sellers_small",
+        "behavior_axes": {
+          "adaptability": 5,
+          "aggressiveness": 3,
+          "responsiveness": 6,
+          "risk_tolerance": 3
+        },
+        "ideology_axes": {
+          "market_control": 3,
+          "regulatory_receptivity": 5,
+          "seller_autonomy": 7
+        },
+        "reputation": 5,
+        "secrecy": 5,
+        "tendency": "complain privately but avoid costly collective action unless safety in numbers rises",
+        "trustworthiness": 6
+      },
+      {
+        "actor_name": "major_advertisers",
+        "behavior_axes": {
+          "adaptability": 6,
+          "aggressiveness": 2,
+          "responsiveness": 5,
+          "risk_tolerance": 4
+        },
+        "ideology_axes": {
+          "market_control": 5,
+          "platform_stability": 8,
+          "regulatory_receptivity": 3
+        },
+        "reputation": 6,
+        "secrecy": 6,
+        "tendency": "support continuity and discourage visible disruption",
+        "trustworthiness": 5
+      },
+      {
+        "actor_name": "third_party_logistics_firms",
+        "behavior_axes": {
+          "adaptability": 6,
+          "aggressiveness": 5,
+          "responsiveness": 6,
+          "risk_tolerance": 5
+        },
+        "ideology_axes": {
+          "market_control": 2,
+          "open_competition": 8,
+          "regulatory_receptivity": 7
+        },
+        "reputation": 5,
+        "secrecy": 5,
+        "tendency": "contest tying behavior and seek policy narrowing or scrutiny",
+        "trustworthiness": 6
+      },
+      {
+        "actor_name": "consumer_advocacy_group",
+        "behavior_axes": {
+          "adaptability": 5,
+          "aggressiveness": 4,
+          "responsiveness": 6,
+          "risk_tolerance": 4
+        },
+        "ideology_axes": {
+          "consumer_protection": 9,
+          "market_control": 2,
+          "regulatory_receptivity": 9
+        },
+        "reputation": 6,
+        "secrecy": 2,
+        "tendency": "convert price concerns into regulatory attention",
+        "trustworthiness": 7
+      },
+      {
+        "actor_name": "competition_authority",
+        "behavior_axes": {
+          "adaptability": 4,
+          "aggressiveness": 4,
+          "responsiveness": 4,
+          "risk_tolerance": 3
+        },
+        "ideology_axes": {
+          "consumer_protection": 8,
+          "market_control": 2,
+          "proceduralism": 9
+        },
+        "reputation": 7,
+        "secrecy": 6,
+        "tendency": "move slowly unless evidence of harm or tying becomes salient",
+        "trustworthiness": 7
+      },
+      {
+        "actor_name": "marketplace_consumers",
+        "behavior_axes": {
+          "adaptability": 5,
+          "aggressiveness": 1,
+          "responsiveness": 3,
+          "risk_tolerance": 2
+        },
+        "ideology_axes": {
+          "consumer_protection": 6,
+          "market_control": 4,
+          "platform_convenience": 8
+        },
+        "reputation": 5,
+        "secrecy": 1,
+        "tendency": "remain mostly passive unless price or availability changes become visible",
+        "trustworthiness": 5
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 2382,
+        "end": 2382,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 2382,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

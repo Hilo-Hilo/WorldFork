@@ -1,0 +1,968 @@
+{
+  "big_bang_id": "bb62759e-db1a-4d84-9dbf-8f1a815e9237",
+  "initializer_output": {
+    "actors": [
+      {
+        "fictionalized": true,
+        "name": "ministry_z_leadership",
+        "public_role": "top ministry decision authority",
+        "type": "institution"
+      },
+      {
+        "fictionalized": true,
+        "name": "ministry_z_press_office",
+        "public_role": "official communications channel",
+        "type": "institution_unit"
+      },
+      {
+        "fictionalized": true,
+        "name": "regional_directors",
+        "public_role": "regional office leadership cohort",
+        "type": "institutional_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "central_staff",
+        "public_role": "ministry administrative and policy staff",
+        "type": "institutional_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "anonymous_chat_source",
+        "public_role": "unverified internal or adjacent rumor transmitter",
+        "type": "individual_unknown"
+      },
+      {
+        "fictionalized": true,
+        "name": "rumor_receiving_public",
+        "public_role": "observers, journalists, and politically attentive public",
+        "type": "public_group"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "branch_key": "routine_meeting_branch",
+        "divergence_signal": "Participants report ordinary quarterly planning themes and no named office changes.",
+        "plausible_path": "Rumor loses intensity; minor guidance or no_change endpoints gain weight while unresolved remains meaningful until documentation appears.",
+        "trigger": "Meeting concludes with generic budget and planning language and no structural directive."
+      },
+      {
+        "branch_key": "soft_signal_branch",
+        "divergence_signal": "Internal summaries mention budget constraints or coordination changes but omit office closures, mergers, or staffing plans.",
+        "plausible_path": "Speculation persists, unresolved remains dominant, and minor_budget_guidance becomes more plausible than major_restructure.",
+        "trigger": "Post-meeting communications include ambiguous efficiency or alignment language without formal restructure order."
+      },
+      {
+        "branch_key": "hard_restructure_branch",
+        "divergence_signal": "Observable documentary evidence names affected offices, governance changes, or implementation timetable.",
+        "plausible_path": "Confidence shifts sharply toward major_restructure and conflict/dependency pressures increase for regional directors.",
+        "trigger": "A leaked memo, named official statement, or formal directive specifies regional office redesign."
+      },
+      {
+        "branch_key": "official_containment_branch",
+        "divergence_signal": "Subsequent inquiries receive same line and internal chatter produces no new artifacts.",
+        "plausible_path": "Public attention decays; unresolved may merge toward no_change if no substantive follow-up appears.",
+        "trigger": "Press office or leadership repeats routine-planning explanation and no corroboration emerges over several ticks."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "staff_calendar",
+        "notes": "Calendar entry references operational alignment and budget context; ambiguous substantive meaning.",
+        "reliability": 0.5,
+        "type": "internal_schedule_signal",
+        "visibility": "limited_internal"
+      },
+      {
+        "channel_key": "anonymous_chat",
+        "notes": "Secondhand claim with no named official or document.",
+        "reliability": 0.2,
+        "type": "informal_rumor_channel",
+        "visibility": "semi_private"
+      },
+      {
+        "channel_key": "press_reply",
+        "notes": "Attributable but limited; may be strategically incomplete.",
+        "reliability": 0.65,
+        "type": "official_public_channel",
+        "visibility": "public"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype": "central_staff_population",
+        "attention_level": 0.5,
+        "cohort_key": "central_staff_routine_interpreters",
+        "expression_level": 0.25,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.45,
+        "mobilization_readiness": 0.1,
+        "perceived_majority": 0.65,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "Likely routine planning or budget context; insufficient evidence for major change.",
+        "public_expression": "Mostly quiet or noncommittal.",
+        "representation_mode": "majority_cohort",
+        "represented_population": 420,
+        "stance_axes": {
+          "expects_major_reform": 0.2,
+          "expects_routine_planning": 0.7,
+          "prefers_public_caution": 0.8
+        }
+      },
+      {
+        "archetype": "central_staff_population",
+        "attention_level": 0.7,
+        "cohort_key": "central_staff_speculators",
+        "expression_level": 0.4,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.35,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "Something may be changing, but specifics are unknown.",
+        "public_expression": "Informal rumor-sharing in low-accountability channels.",
+        "representation_mode": "minority_cohort",
+        "represented_population": 180,
+        "stance_axes": {
+          "expects_major_reform": 0.45,
+          "expects_routine_planning": 0.35,
+          "prefers_public_caution": 0.4
+        }
+      },
+      {
+        "archetype": "regional_directors_population",
+        "attention_level": 0.65,
+        "cohort_key": "regional_directors_wait_and_see",
+        "expression_level": 0.2,
+        "fatigue": 0.45,
+        "fear_of_isolation": 0.5,
+        "mobilization_readiness": 0.15,
+        "perceived_majority": 0.6,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Meeting could matter operationally, but optional attendance weakens strong restructure inference.",
+        "public_expression": "Limited outward comment pending clarity.",
+        "representation_mode": "full_group",
+        "represented_population": 24,
+        "stance_axes": {
+          "expects_major_reform": 0.3,
+          "expects_routine_planning": 0.5,
+          "prefers_public_caution": 0.85
+        }
+      },
+      {
+        "archetype": "attentive_public_population",
+        "attention_level": 0.25,
+        "cohort_key": "attentive_public_agnostic",
+        "expression_level": 0.15,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.05,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Not enough evidence to know what is happening.",
+        "public_expression": "Low sustained attention unless new evidence appears.",
+        "representation_mode": "full_group",
+        "represented_population": 5000,
+        "stance_axes": {
+          "expects_major_reform": 0.2,
+          "expects_routine_planning": 0.3,
+          "prefers_public_caution": 0.55
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype": "central_staff_population",
+        "attention_level": 0.5,
+        "cohort_key": "central_staff_routine_interpreters",
+        "expression_level": 0.25,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.45,
+        "mobilization_readiness": 0.1,
+        "perceived_majority": 0.65,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "Likely routine planning or budget context; insufficient evidence for major change.",
+        "public_expression": "Mostly quiet or noncommittal.",
+        "representation_mode": "majority_cohort",
+        "represented_population": 420,
+        "stance_axes": {
+          "expects_major_reform": 0.2,
+          "expects_routine_planning": 0.7,
+          "prefers_public_caution": 0.8
+        }
+      },
+      {
+        "archetype": "central_staff_population",
+        "attention_level": 0.7,
+        "cohort_key": "central_staff_speculators",
+        "expression_level": 0.4,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.35,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "Something may be changing, but specifics are unknown.",
+        "public_expression": "Informal rumor-sharing in low-accountability channels.",
+        "representation_mode": "minority_cohort",
+        "represented_population": 180,
+        "stance_axes": {
+          "expects_major_reform": 0.45,
+          "expects_routine_planning": 0.35,
+          "prefers_public_caution": 0.4
+        }
+      },
+      {
+        "archetype": "regional_directors_population",
+        "attention_level": 0.65,
+        "cohort_key": "regional_directors_wait_and_see",
+        "expression_level": 0.2,
+        "fatigue": 0.45,
+        "fear_of_isolation": 0.5,
+        "mobilization_readiness": 0.15,
+        "perceived_majority": 0.6,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Meeting could matter operationally, but optional attendance weakens strong restructure inference.",
+        "public_expression": "Limited outward comment pending clarity.",
+        "representation_mode": "full_group",
+        "represented_population": 24,
+        "stance_axes": {
+          "expects_major_reform": 0.3,
+          "expects_routine_planning": 0.5,
+          "prefers_public_caution": 0.85
+        }
+      },
+      {
+        "archetype": "attentive_public_population",
+        "attention_level": 0.25,
+        "cohort_key": "attentive_public_agnostic",
+        "expression_level": 0.15,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.05,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Not enough evidence to know what is happening.",
+        "public_expression": "Low sustained attention unless new evidence appears.",
+        "representation_mode": "full_group",
+        "represented_population": 5000,
+        "stance_axes": {
+          "expects_major_reform": 0.2,
+          "expects_routine_planning": 0.3,
+          "prefers_public_caution": 0.55
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "ministry_z_leadership"
+        ],
+        "blockers": [
+          "No document at T0",
+          "Anonymous sourcing only",
+          "Press office provides routine-planning alternative explanation"
+        ],
+        "contradiction_notes": "Optional attendance for regional directors and routine-planning framing both cut against high confidence.",
+        "description": "A formal, attributable ministry action announces substantive redesign of regional offices such as closures, mergers, reporting-line changes, or major staffing reallocations.",
+        "endpoint_key": "major_restructure",
+        "evidence_refs": [
+          "source_1_calendar_entry_t_minus_7",
+          "source_2_anonymous_chat_message_t_minus_5",
+          "source_3_press_office_reply_t_minus_2"
+        ],
+        "label": "Major regional-office restructure announced",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will Ministry Z formally announce a major regional-office restructure?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.12,
+        "rationale": "Restructure remains a live possibility because the rumor specifically references big changes to regional offices, but current evidence quality is too low for strong confidence.",
+        "realization_criteria": [
+          "official announcement, directive, or named-authority statement confirms substantive regional-office restructure",
+          "observable details identify affected offices or structural implementation steps"
+        ],
+        "status": "active",
+        "status_basis": "Possible but weakly supported at initialization."
+      },
+      {
+        "authority_refs": [
+          "ministry_z_leadership",
+          "ministry_z_press_office"
+        ],
+        "blockers": [
+          "Could still be pure routine with no announcement",
+          "Ambiguous meeting language may remain nonpublic"
+        ],
+        "contradiction_notes": "Anonymous rumor about 'big changes' creates some upward pressure toward larger change interpretations.",
+        "description": "The ministry issues routine or limited operational/budget guidance without major structural change to regional offices.",
+        "endpoint_key": "minor_budget_guidance",
+        "evidence_refs": [
+          "source_1_calendar_entry_t_minus_7",
+          "source_3_press_office_reply_t_minus_2"
+        ],
+        "label": "Minor budget or planning guidance announced",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the observable outcome be limited to minor budget or planning guidance rather than structural change?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.28,
+        "rationale": "Calendar language and official framing both fit ordinary budget/planning guidance better than major restructure.",
+        "realization_criteria": [
+          "attributable communication or meeting follow-up announces budget, planning, efficiency, or alignment guidance",
+          "no observable evidence of major regional structural redesign accompanies the guidance"
+        ],
+        "status": "active",
+        "status_basis": "Best-supported substantive endpoint at T0, but still not dominant over unresolved."
+      },
+      {
+        "authority_refs": [
+          "ministry_z_leadership"
+        ],
+        "blockers": [
+          "Routine meetings can precede later action",
+          "Absence of evidence at T0 is not proof of no change"
+        ],
+        "contradiction_notes": "Rumor source keeps some residual possibility of forthcoming guidance or change alive.",
+        "description": "No meaningful regional-office policy or structural change becomes observable during the initialization horizon.",
+        "endpoint_key": "no_change",
+        "evidence_refs": [
+          "source_1_calendar_entry_t_minus_7",
+          "source_3_press_office_reply_t_minus_2"
+        ],
+        "label": "No material policy change",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "After the near-term meeting cycle, will evidence still be insufficient to support a confident endpoint beyond unresolved?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.25,
+        "rationale": "Official denial-by-routine-frame and lack of corroboration make no material change a credible endpoint.",
+        "realization_criteria": [
+          "no attributable announcement or directive regarding regional-office change appears within the horizon",
+          "meeting-related signals remain routine and nonmaterial"
+        ],
+        "status": "active",
+        "status_basis": "Plausible due to weak evidence and routine explanation, but not certain."
+      },
+      {
+        "authority_refs": [
+          "ministry_z_leadership",
+          "ministry_z_press_office"
+        ],
+        "blockers": [
+          "Formal directive or clear meeting summary could quickly resolve ambiguity"
+        ],
+        "contradiction_notes": "Unresolved is not a claim that nothing happens; it is a claim that observable evidence stays inadequate.",
+        "description": "Available evidence does not permit confident adjudication among restructure, minor guidance, or no material change by the near-term horizon.",
+        "endpoint_key": "unresolved",
+        "evidence_refs": [
+          "source_1_calendar_entry_t_minus_7",
+          "source_2_anonymous_chat_message_t_minus_5",
+          "source_3_press_office_reply_t_minus_2"
+        ],
+        "label": "Evidence remains insufficient",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will no material policy change become observable in the regional-office domain during the initial horizon?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.35,
+        "rationale": "The scenario explicitly calibrates against overconfidence and invention under rumor conditions.",
+        "realization_criteria": [
+          "after near-term meeting cycle, no attributable document or statement resolves the substance of the rumor",
+          "remaining signals are ambiguous, secondhand, or strategically noncommittal"
+        ],
+        "status": "active",
+        "status_basis": "Most justified initialization stance because all current evidence is weak or equivocal."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "Source 3 press office reply exists and addresses rumor context.",
+        "layer": "exposure",
+        "reason": "Official replies are a visible source for public interpretation.",
+        "source_actor_name": "ministry_z_press_office",
+        "target_actor_name": "rumor_receiving_public",
+        "weight": 0.55
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source 2 is an anonymous chat message.",
+        "layer": "exposure",
+        "reason": "Anonymous chat rumor likely circulates among staff or adjacent insiders.",
+        "source_actor_name": "anonymous_chat_source",
+        "target_actor_name": "central_staff",
+        "weight": 0.4
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Inferred from scenario involving regional offices and staff calendar entry; weak evidence.",
+        "layer": "exposure",
+        "reason": "Staff may discuss calendar signals and ministry chatter with regional leadership informally.",
+        "source_actor_name": "central_staff",
+        "target_actor_name": "regional_directors",
+        "weight": 0.3
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source 1 all-hands meeting with optional attendance for regional directors.",
+        "layer": "exposure",
+        "reason": "Leadership can expose regional directors to administrative meeting signals.",
+        "source_actor_name": "ministry_z_leadership",
+        "target_actor_name": "regional_directors",
+        "weight": 0.35
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source 3 provides routine-planning explanation without full detail.",
+        "layer": "trust",
+        "reason": "Official communications are more credible than anonymous rumor but not fully informative.",
+        "source_actor_name": "regional_directors",
+        "target_actor_name": "ministry_z_press_office",
+        "weight": 0.45
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source 2 cites no document or named official.",
+        "layer": "trust",
+        "reason": "Anonymous secondhand claims are weakly trusted.",
+        "source_actor_name": "central_staff",
+        "target_actor_name": "anonymous_chat_source",
+        "weight": 0.22
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source 3 is the only attributable statement.",
+        "layer": "trust",
+        "reason": "Public often relies on official reply in absence of stronger evidence.",
+        "source_actor_name": "rumor_receiving_public",
+        "target_actor_name": "ministry_z_press_office",
+        "weight": 0.5
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario concerns potential restructuring of regional offices.",
+        "layer": "dependency",
+        "reason": "Regional directors materially depend on central ministry decisions for office structure and guidance.",
+        "source_actor_name": "regional_directors",
+        "target_actor_name": "ministry_z_leadership",
+        "weight": 0.62
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Official reply declines detail, suggesting controlled messaging.",
+        "layer": "dependency",
+        "reason": "Press office depends on leadership for authorized lines and substantive policy information.",
+        "source_actor_name": "ministry_z_press_office",
+        "target_actor_name": "ministry_z_leadership",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source 1 references operational alignment and budget context.",
+        "layer": "dependency",
+        "reason": "Staff depend on leadership for operational direction and budget context.",
+        "source_actor_name": "central_staff",
+        "target_actor_name": "ministry_z_leadership",
+        "weight": 0.5
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Leadership is implied decision authority over regional offices.",
+        "layer": "influence",
+        "reason": "Leadership sets agenda and can trigger restructure or guidance.",
+        "source_actor_name": "ministry_z_leadership",
+        "target_actor_name": "regional_directors",
+        "weight": 0.64
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source 3 presents routine-planning frame.",
+        "layer": "influence",
+        "reason": "Official framing can dampen or redirect speculation.",
+        "source_actor_name": "ministry_z_press_office",
+        "target_actor_name": "rumor_receiving_public",
+        "weight": 0.48
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source 2 says 'big changes' are coming.",
+        "layer": "influence",
+        "reason": "Rumors can shape staff expectations despite weak credibility.",
+        "source_actor_name": "anonymous_chat_source",
+        "target_actor_name": "central_staff",
+        "weight": 0.28
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Press office acts on ministry behalf.",
+        "layer": "coalition",
+        "reason": "Communications and leadership are institutionally aligned.",
+        "source_actor_name": "ministry_z_leadership",
+        "target_actor_name": "ministry_z_press_office",
+        "weight": 0.6
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Both are within ministry structure; no overt division evidenced.",
+        "layer": "coalition",
+        "reason": "Shared institutional identity but differing information access.",
+        "source_actor_name": "regional_directors",
+        "target_actor_name": "central_staff",
+        "weight": 0.32
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Source 2 implies big changes; Source 3 emphasizes routine meetings.",
+        "layer": "conflict",
+        "reason": "Unofficial rumor conflicts with official attempt to neutralize speculation.",
+        "source_actor_name": "anonymous_chat_source",
+        "target_actor_name": "ministry_z_press_office",
+        "weight": 0.26
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Restructure rumor targets regional offices; no confirmation.",
+        "layer": "conflict",
+        "reason": "Potential latent tension exists if restructure affects regional offices, but no open conflict is visible at T0.",
+        "source_actor_name": "regional_directors",
+        "target_actor_name": "ministry_z_leadership",
+        "weight": 0.18
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source 2 is chat-based rumor transmission.",
+        "layer": "oasis_interaction",
+        "reason": "Anonymous chat channel likely hosts repeated informal interaction.",
+        "source_actor_name": "anonymous_chat_source",
+        "target_actor_name": "central_staff",
+        "weight": 0.45
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Source 3 official reply.",
+        "layer": "oasis_interaction",
+        "reason": "Public-facing communications likely occur through press channels and inquiries.",
+        "source_actor_name": "ministry_z_press_office",
+        "target_actor_name": "rumor_receiving_public",
+        "weight": 0.38
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype": "decision_authority",
+        "description": "Actors able to choose or authorize a real administrative announcement"
+      },
+      {
+        "archetype": "official_communicator",
+        "description": "Actors able to shape formal public interpretation without deciding underlying policy"
+      },
+      {
+        "archetype": "rumor_amplifier",
+        "description": "Actors who can elevate weak signals into wider speculation"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "ministry_z_leadership",
+        "attention_level": 0.7,
+        "authority_scope": "Can authorize a genuine restructure, minor guidance, or no announcement.",
+        "constraints": [
+          "No documentary evidence of decision at T0",
+          "May use routine planning meetings regardless of substantive change"
+        ],
+        "expression_level": 0.1,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.1,
+        "hero_archetype": "decision_authority",
+        "mobilization_readiness": 0.6,
+        "perceived_majority": 0.5,
+        "stance_axes": {
+          "toward_disclosure": 0.3,
+          "toward_restructure": 0.5,
+          "toward_routine_planning_frame": 0.6
+        }
+      },
+      {
+        "actor_name": "ministry_z_press_office",
+        "attention_level": 0.55,
+        "authority_scope": "Can confirm, deny, or deflect media/public interpretations but may not control policy choice.",
+        "constraints": [
+          "Declines further comment in source packet",
+          "May be signaling routine process rather than substance"
+        ],
+        "expression_level": 0.7,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.15,
+        "hero_archetype": "official_communicator",
+        "mobilization_readiness": 0.4,
+        "perceived_majority": 0.6,
+        "stance_axes": {
+          "toward_disclosure": 0.25,
+          "toward_restructure": 0.2,
+          "toward_routine_planning_frame": 0.8
+        }
+      },
+      {
+        "actor_name": "anonymous_chat_source",
+        "attention_level": 0.65,
+        "authority_scope": "Can spread speculation but lacks formal authority or sourcing.",
+        "constraints": [
+          "Secondhand information only",
+          "No cited document or named official"
+        ],
+        "expression_level": 0.5,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.25,
+        "hero_archetype": "rumor_amplifier",
+        "mobilization_readiness": 0.25,
+        "perceived_majority": 0.3,
+        "stance_axes": {
+          "toward_disclosure": 0.5,
+          "toward_restructure": 0.6,
+          "toward_routine_planning_frame": 0.2
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "archetype": "decision_authority",
+        "description": "Actors able to choose or authorize a real administrative announcement"
+      },
+      {
+        "archetype": "official_communicator",
+        "description": "Actors able to shape formal public interpretation without deciding underlying policy"
+      },
+      {
+        "archetype": "rumor_amplifier",
+        "description": "Actors who can elevate weak signals into wider speculation"
+      }
+    ],
+    "important_questions": [
+      "Will Ministry Z formally announce a major regional-office restructure?",
+      "Will the observable outcome be limited to minor budget or planning guidance rather than structural change?",
+      "After the near-term meeting cycle, will evidence still be insufficient to support a confident endpoint beyond unresolved?",
+      "Will no material policy change become observable in the regional-office domain during the initial horizon?"
+    ],
+    "initial_events": [
+      {
+        "event_key": "calendar_entry_observed",
+        "event_type": "announcement",
+        "evidence_refs": [
+          "source_1_calendar_entry_t_minus_7"
+        ],
+        "expected_impact": "Raises mild internal attention but does not by itself imply restructure; slightly increases exposure from leadership to regional actors.",
+        "status": "realized",
+        "summary": "An all-hands meeting labeled operational alignment and budget context exists, with optional attendance for regional directors.",
+        "tick": 0
+      },
+      {
+        "event_key": "anonymous_big_changes_rumor",
+        "event_type": "announcement",
+        "evidence_refs": [
+          "source_2_anonymous_chat_message_t_minus_5"
+        ],
+        "expected_impact": "Increases speculation among staff, weakly shifts expectations toward change, and raises rumor-channel interaction without strong trust effects.",
+        "status": "realized",
+        "summary": "Anonymous chat message claims 'big changes' are coming based on secondhand hearing.",
+        "tick": 0
+      },
+      {
+        "event_key": "press_office_routine_planning_reply",
+        "event_type": "announcement",
+        "evidence_refs": [
+          "source_3_press_office_reply_t_minus_2"
+        ],
+        "expected_impact": "Dampens immediate public escalation, reinforces cautious interpretation, but may not fully extinguish insider speculation.",
+        "status": "realized",
+        "summary": "Press office says routine planning meetings occur every quarter and declines further comment.",
+        "tick": 0
+      },
+      {
+        "event_key": "all_hands_meeting_occurs_or_updates",
+        "event_type": "announcement",
+        "evidence_refs": [
+          "source_1_calendar_entry_t_minus_7"
+        ],
+        "expected_impact": "Could shift trust, influence, and endpoint probabilities depending on whether concrete directives emerge.",
+        "status": "anticipated",
+        "summary": "The meeting or associated follow-up may generate clearer signals about whether any action extends beyond routine budget alignment.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "b1ebdcc9-3247-4760-9dae-20331de4d714",
+    "merge_hypotheses": [
+      {
+        "converging_paths": [
+          "routine_meeting_branch",
+          "official_containment_branch",
+          "soft_signal_branch"
+        ],
+        "evidence_basis": "All current sources are weak or nonconfirming.",
+        "mechanism": "Shared lack of documentary confirmation causes speculation to cool and endpoint probabilities to cluster around unresolved, minor guidance, or no change.",
+        "merge_key": "ambiguity_decay"
+      },
+      {
+        "converging_paths": [
+          "routine_meeting_branch",
+          "soft_signal_branch",
+          "hard_restructure_branch"
+        ],
+        "evidence_basis": "Current uncertainty is driven mainly by absence of authoritative specifics.",
+        "mechanism": "Any attributable written directive would dominate prior rumor interpretations and align actor beliefs rapidly.",
+        "merge_key": "formal_document_override"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype": "central_staff_population",
+        "description": "Staff inside or near Ministry Z who may see calendars, hear internal chatter, or infer meaning from routine meetings",
+        "population_total": 600
+      },
+      {
+        "archetype": "regional_directors_population",
+        "description": "Regional office leaders affected by coordination or restructuring discussions",
+        "population_total": 24
+      },
+      {
+        "archetype": "attentive_public_population",
+        "description": "External observers with some exposure to ministry rumors and official replies",
+        "population_total": 5000
+      }
+    ],
+    "risk_flags": [
+      {
+        "description": "Only three low-information sources exist, with one anonymous rumor and one ambiguous calendar entry.",
+        "flag": "sparse_evidence",
+        "severity": "high"
+      },
+      {
+        "description": "Scenario specifically tests whether the model improperly assigns high confidence to endpoints without sufficient evidence.",
+        "flag": "overconfidence_hazard",
+        "severity": "high"
+      },
+      {
+        "description": "Actual decision locus and any internal planning status are not observable at T0.",
+        "flag": "authority_opacity",
+        "severity": "medium"
+      },
+      {
+        "description": "Quarterly planning processes can be mistaken for substantive reform preparations.",
+        "flag": "routine_signal_misread",
+        "severity": "medium"
+      },
+      {
+        "description": "Secondhand phrase 'big changes' may overweight dramatic interpretations relative to evidence.",
+        "flag": "rumor_amplification_bias",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "authority_uncertainty": "Unclear which ministry authority, if any, is considering a regional restructure at T0.",
+      "configured_horizon_ticks": 7,
+      "decision_domain": "institutional communications and possible administrative planning",
+      "epistemic_posture": "high uncertainty; abstain from strong endpoint confidence",
+      "evidence_refs": [
+        "source_1_calendar_entry_t_minus_7",
+        "source_2_anonymous_chat_message_t_minus_5",
+        "source_3_press_office_reply_t_minus_2"
+      ],
+      "forecast_distribution": {
+        "major_restructure": 0.12,
+        "minor_budget_guidance": 0.28,
+        "no_change": 0.25,
+        "unresolved": 0.35
+      },
+      "mode": "direct",
+      "scenario_key": "calibration_001",
+      "source_reliability_note": "Evidence is sparse, indirect, and partially anonymous; official reply does not confirm reform.",
+      "summary": "A rumor suggests Ministry Z may restructure regional offices, but evidence at T0 is limited to a vague calendar entry, an anonymous secondhand claim, and a noncommittal press office reply. The initialization should preserve uncertainty and avoid inferring a reform plan not grounded in sources.",
+      "time_context": "T0 with source references at T-7, T-5, and T-2 days",
+      "title": "ministry_z_reform_rumor"
+    },
+    "sociology_baseline": [
+      {
+        "level": 0.65,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "scope": "internal staff and observers update only modestly from weak signals because evidence quality is low"
+      },
+      {
+        "level": 0.2,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "scope": "no major collective action likely without documentary leak or named confirmation"
+      },
+      {
+        "level": 0.7,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "scope": "many actors privately speculate but publicly refrain due to uncertainty and hierarchy"
+      },
+      {
+        "level": 0.5,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "scope": "staff rumor exchange clusters in internal social channels"
+      },
+      {
+        "level": 0.6,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "scope": "major restructure belief likely requires multiple confirming cues, not a single rumor"
+      },
+      {
+        "level": 0.55,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "scope": "institutional role shapes interpretation, with insiders and regional directors reading signals differently"
+      },
+      {
+        "level": 0.7,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "scope": "public attention will fade quickly absent new evidence or announcement"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "effect": "privileges restrained interpretation under sparse evidence",
+        "influence": "uncertainty_honesty"
+      },
+      {
+        "effect": "discourages inferring a concrete reform plan from ambiguous signals",
+        "influence": "no_fabrication"
+      },
+      {
+        "effect": "supports unresolved endpoint retention until stronger observable evidence appears",
+        "influence": "abstention"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "ministry_z_leadership",
+        "behavior_axes": {
+          "caution": 0.7,
+          "institutional_discipline": 0.8,
+          "opacity": 0.6,
+          "responsiveness": 0.4
+        },
+        "ideology_axes": {
+          "bureaucratic_continuity": 0.7,
+          "centralization": 0.5
+        },
+        "reputation": 0.55,
+        "secrecy": 0.65,
+        "tendency": "withhold until decisions are ready or deny significance of routine process",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "ministry_z_press_office",
+        "behavior_axes": {
+          "caution": 0.85,
+          "message_discipline": 0.9,
+          "opacity": 0.7,
+          "responsiveness": 0.5
+        },
+        "ideology_axes": {
+          "institutional_protection": 0.8,
+          "transparency": 0.35
+        },
+        "reputation": 0.6,
+        "secrecy": 0.7,
+        "tendency": "frame ambiguity as routine governance and avoid confirming rumors",
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "regional_directors",
+        "behavior_axes": {
+          "adaptability": 0.6,
+          "caution": 0.75,
+          "speculation": 0.3
+        },
+        "ideology_axes": {
+          "deference_to_center": 0.65,
+          "organizational_self_protection": 0.7
+        },
+        "reputation": 0.55,
+        "secrecy": 0.45,
+        "tendency": "seek signals from center before reacting publicly",
+        "trustworthiness": 0.65
+      },
+      {
+        "actor_name": "central_staff",
+        "behavior_axes": {
+          "caution": 0.55,
+          "information_sharing": 0.5,
+          "speculation": 0.45
+        },
+        "ideology_axes": {
+          "career_self_protection": 0.7,
+          "status_quo_bias": 0.6
+        },
+        "reputation": 0.5,
+        "secrecy": 0.4,
+        "tendency": "interpret sparse cues through internal chatter",
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "anonymous_chat_source",
+        "behavior_axes": {
+          "caution": 0.2,
+          "speculation": 0.8,
+          "verification": 0.15
+        },
+        "ideology_axes": {
+          "attention_seeking_vs_warning": 0.5
+        },
+        "reputation": 0.25,
+        "secrecy": 0.8,
+        "tendency": "amplify ambiguous signals without documentary support",
+        "trustworthiness": 0.25
+      },
+      {
+        "actor_name": "rumor_receiving_public",
+        "behavior_axes": {
+          "attention_volatility": 0.7,
+          "caution": 0.5,
+          "rumor_adoption": 0.35
+        },
+        "ideology_axes": {
+          "institutional_skepticism": 0.5
+        },
+        "reputation": 0.4,
+        "secrecy": 0.1,
+        "tendency": "remain low-attention until stronger evidence surfaces",
+        "trustworthiness": 0.45
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 1570,
+        "end": 1570,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 1570,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}
