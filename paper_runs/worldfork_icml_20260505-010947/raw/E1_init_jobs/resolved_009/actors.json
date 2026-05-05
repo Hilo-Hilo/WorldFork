@@ -1,0 +1,288 @@
+[
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "constraints": [
+        "fixed structure limits who meets whom when"
+      ],
+      "decision_authority": "none_at_t0_structure_only",
+      "fictionalized": true,
+      "name": "tournament_draw",
+      "public_visibility": "medium",
+      "resources": [
+        "bracket sequencing",
+        "rest-day structure"
+      ],
+      "role": "path_constraint",
+      "stakes": "none",
+      "type": "structural_actor"
+    },
+    "big_bang_id": "60634643-0713-41b6-b741-e49c4ea93cdf",
+    "created_at": "2026-05-05T02:07:12.636117+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "06caa539-e90c-4a33-b186-2f0b5f78f425",
+    "name": "tournament_draw",
+    "status": "active",
+    "updated_at": "2026-05-05T02:07:12.636117+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "constraints": [
+        "depends on prior match length and timing"
+      ],
+      "decision_authority": "none",
+      "fictionalized": true,
+      "name": "match_fatigue_dynamics",
+      "public_visibility": "low",
+      "resources": [
+        "physical wear",
+        "recovery variation"
+      ],
+      "role": "performance_modifier",
+      "stakes": "none",
+      "type": "structural_actor"
+    },
+    "big_bang_id": "60634643-0713-41b6-b741-e49c4ea93cdf",
+    "created_at": "2026-05-05T02:07:12.636117+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "a638963b-8a60-4127-b744-ca0a9b738734",
+    "name": "match_fatigue_dynamics",
+    "status": "active",
+    "updated_at": "2026-05-05T02:07:12.636117+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "constraints": [
+        "draw survival",
+        "form and fatigue uncertainty"
+      ],
+      "decision_authority": "high_over_own_match_performance",
+      "fictionalized": true,
+      "name": "recent_champion_rival",
+      "public_visibility": "high",
+      "resources": [
+        "recent title-winning profile",
+        "big-match capability"
+      ],
+      "role": "recent_champion_profile_opponent",
+      "stakes": "reclaim or add major title",
+      "trait_vector": {
+        "actor_name": "recent_champion_rival",
+        "behavior_axes": {
+          "adaptability": 0.72,
+          "aggression": 0.61,
+          "composure": 0.76,
+          "discipline": 0.78
+        },
+        "ideology_axes": {
+          "individualism": 0.84,
+          "risk_style": 0.56,
+          "tradition_vs_innovation": 0.55
+        },
+        "reputation": 0.84,
+        "secrecy": 0.48,
+        "tendency": "credible_title_threat_if_path_opens",
+        "trustworthiness": 0.58
+      },
+      "type": "athlete"
+    },
+    "big_bang_id": "60634643-0713-41b6-b741-e49c4ea93cdf",
+    "created_at": "2026-05-05T02:07:12.636117+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "3f71fd6c-fa3a-49f1-92a4-77e32ac02116",
+    "name": "recent_champion_rival",
+    "status": "active",
+    "updated_at": "2026-05-05T02:07:12.636117+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "constraints": [
+        "must survive remaining matches",
+        "fatigue risk",
+        "elite opponent risk"
+      ],
+      "decision_authority": "high_over_own_match_performance_low_over_draw",
+      "fictionalized": true,
+      "name": "player_c",
+      "public_visibility": "high",
+      "resources": [
+        "elite all-surface game",
+        "top seeding",
+        "current form",
+        "motivation"
+      ],
+      "role": "top_seed_contender",
+      "stakes": "win men's singles title and complete/improve career Grand Slam legacy",
+      "trait_vector": {
+        "actor_name": "player_c",
+        "behavior_axes": {
+          "adaptability": 0.8,
+          "aggression": 0.63,
+          "composure": 0.78,
+          "discipline": 0.82
+        },
+        "ideology_axes": {
+          "individualism": 0.85,
+          "risk_style": 0.58,
+          "tradition_vs_innovation": 0.5
+        },
+        "reputation": 0.9,
+        "secrecy": 0.55,
+        "tendency": "favorite_with_broad_surface_strength",
+        "trustworthiness": 0.62
+      },
+      "type": "athlete"
+    },
+    "big_bang_id": "60634643-0713-41b6-b741-e49c4ea93cdf",
+    "created_at": "2026-05-05T02:07:12.636117+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "9601879c-3de0-4c0f-a6e5-96df8402e72a",
+    "name": "player_c",
+    "status": "active",
+    "updated_at": "2026-05-05T02:07:12.636117+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "constraints": [
+        "uncertainty from hidden health/form details"
+      ],
+      "decision_authority": "none_over_results",
+      "fictionalized": true,
+      "name": "tennis_forecast_market",
+      "public_visibility": "medium",
+      "resources": [
+        "base rates",
+        "draw analysis",
+        "form interpretation"
+      ],
+      "role": "probability_setter",
+      "stakes": "accurate forecasting",
+      "trait_vector": {
+        "actor_name": "tennis_forecast_market",
+        "behavior_axes": {
+          "adaptability": 0.7,
+          "aggression": 0.2,
+          "composure": 0.65,
+          "discipline": 0.72
+        },
+        "ideology_axes": {
+          "individualism": 0.3,
+          "risk_style": 0.4,
+          "tradition_vs_innovation": 0.45
+        },
+        "reputation": 0.68,
+        "secrecy": 0.1,
+        "tendency": "conditional_probabilistic_update",
+        "trustworthiness": 0.7
+      },
+      "type": "observer_group"
+    },
+    "big_bang_id": "60634643-0713-41b6-b741-e49c4ea93cdf",
+    "created_at": "2026-05-05T02:07:12.636117+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "982e78c5-bff7-495a-8433-0f26406af339",
+    "name": "tennis_forecast_market",
+    "status": "active",
+    "updated_at": "2026-05-05T02:07:12.636117+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "constraints": [
+        "must remain/advance in draw",
+        "own fatigue and form uncertainty"
+      ],
+      "decision_authority": "high_over_own_match_performance",
+      "fictionalized": true,
+      "name": "melbourne_legend_rival",
+      "public_visibility": "high",
+      "resources": [
+        "historic success at Melbourne",
+        "elite experience"
+      ],
+      "role": "all_time_great_opponent",
+      "stakes": "win title and preserve unmatched Melbourne legacy",
+      "trait_vector": {
+        "actor_name": "melbourne_legend_rival",
+        "behavior_axes": {
+          "adaptability": 0.74,
+          "aggression": 0.57,
+          "composure": 0.9,
+          "discipline": 0.88
+        },
+        "ideology_axes": {
+          "individualism": 0.88,
+          "risk_style": 0.5,
+          "tradition_vs_innovation": 0.75
+        },
+        "reputation": 0.96,
+        "secrecy": 0.5,
+        "tendency": "legacy_anchor_and_high_leverage_obstacle",
+        "trustworthiness": 0.6
+      },
+      "type": "athlete"
+    },
+    "big_bang_id": "60634643-0713-41b6-b741-e49c4ea93cdf",
+    "created_at": "2026-05-05T02:07:12.636117+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "9b11bc1e-d8db-424c-9a06-c4c202386d70",
+    "name": "melbourne_legend_rival",
+    "status": "active",
+    "updated_at": "2026-05-05T02:07:12.636117+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "constraints": [
+        "lower baseline title odds than top contenders"
+      ],
+      "decision_authority": "distributed",
+      "fictionalized": true,
+      "name": "remaining_field",
+      "public_visibility": "medium",
+      "resources": [
+        "matchup variance",
+        "surface adaptation"
+      ],
+      "role": "other surviving opponents",
+      "stakes": "upset favorites and win title",
+      "trait_vector": {
+        "actor_name": "remaining_field",
+        "behavior_axes": {
+          "adaptability": 0.66,
+          "aggression": 0.54,
+          "composure": 0.62,
+          "discipline": 0.68
+        },
+        "ideology_axes": {
+          "individualism": 0.8,
+          "risk_style": 0.6,
+          "tradition_vs_innovation": 0.5
+        },
+        "reputation": 0.6,
+        "secrecy": 0.45,
+        "tendency": "collective_upset_variance",
+        "trustworthiness": 0.52
+      },
+      "type": "competitor_group"
+    },
+    "big_bang_id": "60634643-0713-41b6-b741-e49c4ea93cdf",
+    "created_at": "2026-05-05T02:07:12.636117+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "f00deffa-e2ad-4aa0-bdc4-3952a6bc11f9",
+    "name": "remaining_field",
+    "status": "active",
+    "updated_at": "2026-05-05T02:07:12.636117+00:00"
+  }
+]

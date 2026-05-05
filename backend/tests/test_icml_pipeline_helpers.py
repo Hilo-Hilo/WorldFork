@@ -80,3 +80,16 @@ def test_init_manifest_row_records_evidence_paths() -> None:
     assert row["run_dir"] == "raw/E1_init_jobs/resolved_001"
     assert "actors=11" in row["notes"]
     assert "traits=11" in row["notes"]
+
+
+def test_init_artifacts_complete_requires_all_capture_files(tmp_path: Path) -> None:
+    pipeline = load_icml_pipeline()
+    out_dir = tmp_path / "case"
+    out_dir.mkdir()
+
+    assert not pipeline.init_artifacts_complete(out_dir)
+
+    for name in pipeline.INIT_ARTIFACT_NAMES:
+        (out_dir / f"{name}.json").write_text("{}", encoding="utf-8")
+
+    assert pipeline.init_artifacts_complete(out_dir)

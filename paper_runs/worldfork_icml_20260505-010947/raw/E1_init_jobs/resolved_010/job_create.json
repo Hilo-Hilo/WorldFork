@@ -1,0 +1,44 @@
+{
+  "attempt_number": 0,
+  "available_at": "2026-05-05T02:05:17.950960Z",
+  "big_bang_id": null,
+  "concurrency_key": null,
+  "created_at": "2026-05-05T02:05:17.950153Z",
+  "error": null,
+  "finished_at": null,
+  "id": "a5f4a220-06bf-402d-8df3-61ade088534a",
+  "idempotency_key": "job:df9b21062fa03cc3ff9693957d84033fba8e2fdae5b0ed6db44e2e2b0eedfba6",
+  "interrupt_requested_at": null,
+  "interrupted_at": null,
+  "job_type": "initialize_big_bang",
+  "last_heartbeat_at": null,
+  "lease_expires_at": null,
+  "lease_owner": null,
+  "max_attempts": 3,
+  "paused_at": null,
+  "payload": {
+    "actors": [],
+    "branch_policy": {
+      "branch_score_threshold": 0.999,
+      "max_active_multiverses": 1,
+      "max_branch_depth": 1,
+      "max_branches_per_tick": 1
+    },
+    "cohorts": [],
+    "heroes": [],
+    "name": "E1_init_job_resolved_010",
+    "scenario_text": "# Case resolved_010\nBenchmark role: resolved_forecast\n\nForecast question: Will Player S win the 2026 Australian Open women's singles title?\n\n## Scenario\n\nPlayer S, the world No. 1 and an experienced Australian Open finalist, reaches the final against Player R, a fifth seed with a powerful serve and prior major-title experience. Player S has the ranking and recent Melbourne-final experience edge, but the matchup is not one-sided. Resolve yes only if Player S wins the women's singles title.\n\n## Source Packet\n\n### Source 1: matchup_note / 2026-01-29\n\nBoth finalists have plausible title cases; prior head-to-head and serve quality matter.\n\n### Source 2: variance_note / 2026-01-29\n\nA best-of-three final can swing on a few service games and pressure points.\n\n### Source 3: endpoint_note / 2026-01-29\n\nRunner-up status resolves no.\n\n## Candidate Endpoints\n- yes: The event occurs by the deadline\n- no: The event does not occur by the deadline\n\n## Expected Focus\n- single_match_forecasting\n- ranking_vs_matchup\n- binary_resolution\n\n## Required Forecast Output\n{'type': 'probability_distribution', 'schema': {'yes': 'float in [0,1]', 'no': 'float in [0,1]', 'unresolved_mass': 'optional float in [0,1]; if used, keep yes+no+unresolved_mass = 1'}, 'scoring': 'For resolved cards, score p_yes against the hidden private resolution using binary Brier and clamped log score. If unresolved_mass is present, report it separately and normalize yes/no only if your paper explicitly chooses conditional scoring.'}\n\n## Leakage Mitigation\nModel-facing text uses partial entity masking. Do not expose private_eval entity_map or resolution during forecasting.\n",
+    "simulation_config": {
+      "max_ticks": 1,
+      "tick_duration_minutes": 720
+    },
+    "use_initializer_agent": true
+  },
+  "queue_name": "p1",
+  "queued_at": "2026-05-05T02:05:17.950954Z",
+  "result": {},
+  "retryable": true,
+  "started_at": null,
+  "status": "queued",
+  "updated_at": "2026-05-05T02:05:17.950153Z"
+}

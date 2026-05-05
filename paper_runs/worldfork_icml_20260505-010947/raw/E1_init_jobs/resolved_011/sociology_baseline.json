@@ -1,0 +1,207 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "8677a186-d015-4d6b-bc12-8c67290f893d",
+      "created_at": "2026-05-05T02:08:26.699911+00:00",
+      "id": "1ebf7051-485f-457f-b487-e375ef3db199",
+      "influence": {
+        "description": "city electorate heavily tilted toward Candidate M's party",
+        "evidence": "source_1_election_context_2025_10_01",
+        "influence_key": "partisan_registration_advantage"
+      },
+      "multiverse_id": "ddf160af-20c7-44b3-962f-6ae9c244f69d",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:08:26.699911+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "8677a186-d015-4d6b-bc12-8c67290f893d",
+      "created_at": "2026-05-05T02:08:26.699911+00:00",
+      "id": "9463fada-6c67-46e1-9c63-87211c04ee80",
+      "influence": {
+        "description": "former governor has meaningful recognition that sustains uncertainty",
+        "evidence": "source_1_election_context_2025_10_01",
+        "influence_key": "name_recognition_advantage"
+      },
+      "multiverse_id": "ddf160af-20c7-44b3-962f-6ae9c244f69d",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:08:26.699911+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "8677a186-d015-4d6b-bc12-8c67290f893d",
+      "created_at": "2026-05-05T02:08:26.699911+00:00",
+      "id": "487ec073-1478-4ec0-be37-9b4c1da83b2f",
+      "influence": {
+        "description": "affordability and rent are central campaign frames",
+        "evidence": "source_2_campaign_note_2025_10_01",
+        "influence_key": "issue_frame_affordability"
+      },
+      "multiverse_id": "ddf160af-20c7-44b3-962f-6ae9c244f69d",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:08:26.699911+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "8677a186-d015-4d6b-bc12-8c67290f893d",
+      "created_at": "2026-05-05T02:08:26.699911+00:00",
+      "id": "7f0f30de-7704-41a2-a7b9-26f4845d04e2",
+      "influence": {
+        "description": "policing and safety narratives are major evaluation channels",
+        "evidence": "source_2_campaign_note_2025_10_01",
+        "influence_key": "issue_frame_public_safety"
+      },
+      "multiverse_id": "ddf160af-20c7-44b3-962f-6ae9c244f69d",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:08:26.699911+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "8677a186-d015-4d6b-bc12-8c67290f893d",
+      "created_at": "2026-05-05T02:08:26.699911+00:00",
+      "id": "5e61a757-d894-4703-aecc-a42ee7c61df2",
+      "influence": {
+        "description": "experience questions and ideological attacks can reshape viability perceptions",
+        "evidence": "scenario_text_and_source_2",
+        "influence_key": "issue_frame_experience_ideology"
+      },
+      "multiverse_id": "ddf160af-20c7-44b3-962f-6ae9c244f69d",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:08:26.699911+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "8677a186-d015-4d6b-bc12-8c67290f893d",
+      "created_at": "2026-05-05T02:08:26.699911+00:00",
+      "id": "464d6bfc-2c78-4640-8ddb-a47190549413",
+      "model": "attention_decay",
+      "multiverse_id": "ddf160af-20c7-44b3-962f-6ae9c244f69d",
+      "signal": {
+        "level": 0.62,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "persuasion more likely within familiar partisan or competence bounds than across strong ideological distance",
+        "scope": "moderate_swing_voters and city_democratic_electorate"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:08:26.699911+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "8677a186-d015-4d6b-bc12-8c67290f893d",
+      "created_at": "2026-05-05T02:08:26.699911+00:00",
+      "id": "df15b956-d604-4617-b517-0a2675bac14e",
+      "model": "attention_decay",
+      "multiverse_id": "ddf160af-20c7-44b3-962f-6ae9c244f69d",
+      "signal": {
+        "level": 0.58,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "mobilization rises if affordability stakes and viability cues align",
+        "scope": "rent_burdened_voters and city_democratic_electorate"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:08:26.699911+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "8677a186-d015-4d6b-bc12-8c67290f893d",
+      "created_at": "2026-05-05T02:08:26.699911+00:00",
+      "id": "02cedc15-96ba-436a-bfe5-c00497c6d8b0",
+      "model": "attention_decay",
+      "multiverse_id": "ddf160af-20c7-44b3-962f-6ae9c244f69d",
+      "signal": {
+        "level": 0.46,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "some voters privately diverge from party default while withholding public expression",
+        "scope": "moderate_crosspressured"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:08:26.699911+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "8677a186-d015-4d6b-bc12-8c67290f893d",
+      "created_at": "2026-05-05T02:08:26.699911+00:00",
+      "id": "76ca4640-534c-4f7b-955d-087ab3b1a7df",
+      "model": "attention_decay",
+      "multiverse_id": "ddf160af-20c7-44b3-962f-6ae9c244f69d",
+      "signal": {
+        "level": 0.55,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "partisan and issue communities reinforce existing preferences",
+        "scope": "citywide political discussion networks"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:08:26.699911+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "8677a186-d015-4d6b-bc12-8c67290f893d",
+      "created_at": "2026-05-05T02:08:26.699911+00:00",
+      "id": "2bc15c16-3e93-4a3b-88a3-854c21361f57",
+      "model": "attention_decay",
+      "multiverse_id": "ddf160af-20c7-44b3-962f-6ae9c244f69d",
+      "signal": {
+        "level": 0.51,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "multiple reinforcing cues may be needed to shift from latent preference to turnout action",
+        "scope": "endorsement and viability perceptions"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:08:26.699911+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "8677a186-d015-4d6b-bc12-8c67290f893d",
+      "created_at": "2026-05-05T02:08:26.699911+00:00",
+      "id": "30680a28-e4df-44b6-b57a-1ae82dd138f9",
+      "model": "attention_decay",
+      "multiverse_id": "ddf160af-20c7-44b3-962f-6ae9c244f69d",
+      "signal": {
+        "level": 0.71,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "party identity is a major baseline anchor in the general election",
+        "scope": "city_democratic_electorate"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:08:26.699911+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "8677a186-d015-4d6b-bc12-8c67290f893d",
+      "created_at": "2026-05-05T02:08:26.699911+00:00",
+      "id": "e521e985-cb83-43d7-8415-157b472be1fa",
+      "model": "attention_decay",
+      "multiverse_id": "ddf160af-20c7-44b3-962f-6ae9c244f69d",
+      "signal": {
+        "level": 0.43,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "non-salient issues may fade unless repeatedly amplified by media or events",
+        "scope": "general electorate"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:08:26.699911+00:00"
+    }
+  ]
+}

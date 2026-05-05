@@ -1,0 +1,298 @@
+{
+  "degraded": false,
+  "workers": [
+    {
+      "stats": {
+        "broker": {
+          "alternates": [],
+          "connect_timeout": 4,
+          "credential_provider": null,
+          "failover_strategy": "round-robin",
+          "heartbeat": 120.0,
+          "hostname": "redis",
+          "insist": false,
+          "login_method": null,
+          "port": 6379,
+          "ssl": false,
+          "transport": "redis",
+          "transport_options": {},
+          "uri_prefix": null,
+          "userid": null,
+          "virtual_host": "1"
+        },
+        "clock": "10992",
+        "pid": 1,
+        "pool": {
+          "implementation": "celery.concurrency.prefork:TaskPool",
+          "max-concurrency": 8,
+          "max-tasks-per-child": "N/A",
+          "processes": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "put-guarded-by-semaphore": false,
+          "timeouts": [
+            3300,
+            3600
+          ],
+          "writes": {
+            "all": "0.78, 0.08, 0.02, 0.05, 0.04, 0.01, 0.01, 0.01",
+            "avg": "0.12",
+            "inqueues": {
+              "active": 0,
+              "total": 8
+            },
+            "raw": "92, 10, 2, 6, 5, 1, 1, 1",
+            "strategy": "fair",
+            "total": 118
+          }
+        },
+        "prefetch_count": 8,
+        "rusage": {
+          "idrss": 0,
+          "inblock": 30928,
+          "isrss": 0,
+          "ixrss": 0,
+          "majflt": 1900,
+          "maxrss": 146744,
+          "minflt": 183082,
+          "msgrcv": 0,
+          "msgsnd": 0,
+          "nivcsw": 3830,
+          "nsignals": 0,
+          "nswap": 0,
+          "nvcsw": 10817,
+          "oublock": 440,
+          "stime": 3.408332,
+          "utime": 11.257471
+        },
+        "total": {
+          "worldfork.execute_job": 13,
+          "worldfork.heartbeat": 105
+        },
+        "uptime": 3178
+      },
+      "worker": "p1@9e111d29a346"
+    },
+    {
+      "stats": {
+        "broker": {
+          "alternates": [],
+          "connect_timeout": 4,
+          "credential_provider": null,
+          "failover_strategy": "round-robin",
+          "heartbeat": 120.0,
+          "hostname": "redis",
+          "insist": false,
+          "login_method": null,
+          "port": 6379,
+          "ssl": false,
+          "transport": "redis",
+          "transport_options": {},
+          "uri_prefix": null,
+          "userid": null,
+          "virtual_host": "1"
+        },
+        "clock": "10992",
+        "pid": 1,
+        "pool": {
+          "implementation": "celery.concurrency.prefork:TaskPool",
+          "max-concurrency": 2,
+          "max-tasks-per-child": "N/A",
+          "processes": [
+            8,
+            9
+          ],
+          "put-guarded-by-semaphore": false,
+          "timeouts": [
+            3300,
+            3600
+          ],
+          "writes": {
+            "all": "",
+            "avg": "0.00",
+            "inqueues": {
+              "active": 0,
+              "total": 2
+            },
+            "raw": "",
+            "strategy": "fair",
+            "total": 0
+          }
+        },
+        "prefetch_count": 2,
+        "rusage": {
+          "idrss": 0,
+          "inblock": 91072,
+          "isrss": 0,
+          "ixrss": 0,
+          "majflt": 53,
+          "maxrss": 147856,
+          "minflt": 43950,
+          "msgrcv": 0,
+          "msgsnd": 0,
+          "nivcsw": 2337,
+          "nsignals": 0,
+          "nswap": 0,
+          "nvcsw": 11001,
+          "oublock": 24,
+          "stime": 1.7969439999999999,
+          "utime": 10.253596
+        },
+        "total": {},
+        "uptime": 3178
+      },
+      "worker": "p3@a104672d76a9"
+    },
+    {
+      "stats": {
+        "broker": {
+          "alternates": [],
+          "connect_timeout": 4,
+          "credential_provider": null,
+          "failover_strategy": "round-robin",
+          "heartbeat": 120.0,
+          "hostname": "redis",
+          "insist": false,
+          "login_method": null,
+          "port": 6379,
+          "ssl": false,
+          "transport": "redis",
+          "transport_options": {},
+          "uri_prefix": null,
+          "userid": null,
+          "virtual_host": "1"
+        },
+        "clock": "10991",
+        "pid": 1,
+        "pool": {
+          "implementation": "celery.concurrency.prefork:TaskPool",
+          "max-concurrency": 4,
+          "max-tasks-per-child": "N/A",
+          "processes": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "put-guarded-by-semaphore": false,
+          "timeouts": [
+            3300,
+            3600
+          ],
+          "writes": {
+            "all": "",
+            "avg": "0.00",
+            "inqueues": {
+              "active": 0,
+              "total": 4
+            },
+            "raw": "",
+            "strategy": "fair",
+            "total": 0
+          }
+        },
+        "prefetch_count": 4,
+        "rusage": {
+          "idrss": 0,
+          "inblock": 32504,
+          "isrss": 0,
+          "ixrss": 0,
+          "majflt": 105,
+          "maxrss": 147704,
+          "minflt": 80627,
+          "msgrcv": 0,
+          "msgsnd": 0,
+          "nivcsw": 2905,
+          "nsignals": 0,
+          "nswap": 0,
+          "nvcsw": 10834,
+          "oublock": 24,
+          "stime": 2.436351,
+          "utime": 10.659038
+        },
+        "total": {},
+        "uptime": 3178
+      },
+      "worker": "p2@e303ba78e8ab"
+    },
+    {
+      "stats": {
+        "broker": {
+          "alternates": [],
+          "connect_timeout": 4,
+          "credential_provider": null,
+          "failover_strategy": "round-robin",
+          "heartbeat": 120.0,
+          "hostname": "redis",
+          "insist": false,
+          "login_method": null,
+          "port": 6379,
+          "ssl": false,
+          "transport": "redis",
+          "transport_options": {},
+          "uri_prefix": null,
+          "userid": null,
+          "virtual_host": "1"
+        },
+        "clock": "10991",
+        "pid": 1,
+        "pool": {
+          "implementation": "celery.concurrency.prefork:TaskPool",
+          "max-concurrency": 4,
+          "max-tasks-per-child": "N/A",
+          "processes": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "put-guarded-by-semaphore": false,
+          "timeouts": [
+            3300,
+            3600
+          ],
+          "writes": {
+            "all": "",
+            "avg": "0.00",
+            "inqueues": {
+              "active": 0,
+              "total": 4
+            },
+            "raw": "",
+            "strategy": "fair",
+            "total": 0
+          }
+        },
+        "prefetch_count": 4,
+        "rusage": {
+          "idrss": 0,
+          "inblock": 33232,
+          "isrss": 0,
+          "ixrss": 0,
+          "majflt": 2334,
+          "maxrss": 146544,
+          "minflt": 104133,
+          "msgrcv": 0,
+          "msgsnd": 0,
+          "nivcsw": 2318,
+          "nsignals": 0,
+          "nswap": 0,
+          "nvcsw": 11055,
+          "oublock": 24,
+          "stime": 2.597825,
+          "utime": 10.821965
+        },
+        "total": {},
+        "uptime": 3178
+      },
+      "worker": "p0@7ba82762c7b4"
+    }
+  ]
+}

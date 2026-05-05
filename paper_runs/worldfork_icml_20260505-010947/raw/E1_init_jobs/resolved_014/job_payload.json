@@ -1,0 +1,21 @@
+{
+  "job_type": "initialize_big_bang",
+  "payload": {
+    "actors": [],
+    "branch_policy": {
+      "branch_score_threshold": 0.999,
+      "max_active_multiverses": 1,
+      "max_branch_depth": 1,
+      "max_branches_per_tick": 1
+    },
+    "cohorts": [],
+    "heroes": [],
+    "name": "E1_init_job_resolved_014",
+    "scenario_text": "# Case resolved_014\nBenchmark role: resolved_forecast\n\nForecast question: Will Party C win the most seats in the 2025 Canadian federal election?\n\n## Scenario\n\nA snap federal election is underway after a leadership transition in the incumbent governing party. Party C has strong national polling history and a clear opposition message, while the incumbent party has a new leader and may recover support during the campaign. Resolve yes only if Party C wins more House of Commons seats than every other party.\n\n## Source Packet\n\n### Source 1: campaign_context / 2025-04-01\n\nThe election uses single-member districts, so national popular vote does not directly determine the seat winner.\n\n### Source 2: leadership_note / 2025-04-01\n\nA new prime minister can either reset the incumbent brand or inherit accumulated fatigue.\n\n### Source 3: endpoint_note / 2025-04-01\n\nWinning the popular vote but fewer seats resolves no.\n\n## Candidate Endpoints\n- yes: The event occurs by the deadline\n- no: The event does not occur by the deadline\n\n## Expected Focus\n- parliamentary_election_forecasting\n- seat_vote_conversion\n- leadership_reset\n\n## Required Forecast Output\n{'type': 'probability_distribution', 'schema': {'yes': 'float in [0,1]', 'no': 'float in [0,1]', 'unresolved_mass': 'optional float in [0,1]; if used, keep yes+no+unresolved_mass = 1'}, 'scoring': 'For resolved cards, score p_yes against the hidden private resolution using binary Brier and clamped log score. If unresolved_mass is present, report it separately and normalize yes/no only if your paper explicitly chooses conditional scoring.'}\n\n## Leakage Mitigation\nModel-facing text uses partial entity masking. Do not expose private_eval entity_map or resolution during forecasting.\n",
+    "simulation_config": {
+      "max_ticks": 1,
+      "tick_duration_minutes": 720
+    },
+    "use_initializer_agent": true
+  }
+}

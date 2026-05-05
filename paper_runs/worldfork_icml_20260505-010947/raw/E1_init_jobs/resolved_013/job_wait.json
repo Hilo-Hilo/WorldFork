@@ -1,0 +1,53 @@
+{
+  "data": {
+    "attempt_number": 0,
+    "available_at": "2026-05-05T02:05:18.015867Z",
+    "big_bang_id": null,
+    "concurrency_key": null,
+    "created_at": "2026-05-05T02:05:18.014968Z",
+    "error": null,
+    "finished_at": "2026-05-05T02:08:01.652192Z",
+    "id": "63bc8071-bd36-4315-9c8d-3e25cc9dcc84",
+    "idempotency_key": "job:53434fb5427b48f91957340c4b035a50c064da42d43408888706e8702fd16236",
+    "interrupt_requested_at": null,
+    "interrupted_at": null,
+    "job_type": "initialize_big_bang",
+    "last_heartbeat_at": null,
+    "lease_expires_at": null,
+    "lease_owner": null,
+    "max_attempts": 3,
+    "paused_at": null,
+    "payload": {
+      "actors": [],
+      "branch_policy": {
+        "branch_score_threshold": 0.999,
+        "max_active_multiverses": 1,
+        "max_branch_depth": 1,
+        "max_branches_per_tick": 1
+      },
+      "cohorts": [],
+      "heroes": [],
+      "name": "E1_init_job_resolved_013",
+      "scenario_text": "# Case resolved_013\nBenchmark role: resolved_forecast\n\nForecast question: Will Candidate R, the Republican nominee, win the 2025 New Jersey governor's race?\n\n## Scenario\n\nCandidate R previously ran statewide and faces Candidate D, a Democratic U.S. House member. The incumbent Democratic governor is term-limited. The race is discussed as competitive because of taxes, affordability, national-party sentiment, and recent Republican overperformance relative to the state's baseline. Resolve yes only if Candidate R is elected governor.\n\n## Source Packet\n\n### Source 1: state_context / 2025-10-01\n\nNew Jersey leans Democratic federally but has a history of competitive gubernatorial races.\n\n### Source 2: campaign_note / 2025-10-01\n\nProperty taxes, cost of living, corruption narratives, and presidential-party approval are plausible drivers.\n\n### Source 3: endpoint_note / 2025-10-01\n\nA narrow Democratic win resolves no even if polling had suggested a toss-up.\n\n## Candidate Endpoints\n- yes: The event occurs by the deadline\n- no: The event does not occur by the deadline\n\n## Expected Focus\n- statewide_election_forecasting\n- state_baseline_vs_issue_environment\n- candidate_re_run\n\n## Required Forecast Output\n{'type': 'probability_distribution', 'schema': {'yes': 'float in [0,1]', 'no': 'float in [0,1]', 'unresolved_mass': 'optional float in [0,1]; if used, keep yes+no+unresolved_mass = 1'}, 'scoring': 'For resolved cards, score p_yes against the hidden private resolution using binary Brier and clamped log score. If unresolved_mass is present, report it separately and normalize yes/no only if your paper explicitly chooses conditional scoring.'}\n\n## Leakage Mitigation\nModel-facing text uses partial entity masking. Do not expose private_eval entity_map or resolution during forecasting.\n",
+      "simulation_config": {
+        "max_ticks": 1,
+        "tick_duration_minutes": 720
+      },
+      "use_initializer_agent": true
+    },
+    "queue_name": "p1",
+    "queued_at": "2026-05-05T02:05:18.015862Z",
+    "result": {
+      "big_bang_id": "14ce9ad3-7472-4d36-b06b-d947df628004",
+      "source_snapshot_id": "3079558c-e64a-40ca-9e66-79388da71ccc"
+    },
+    "retryable": true,
+    "started_at": "2026-05-05T02:05:18.385362Z",
+    "status": "succeeded",
+    "updated_at": "2026-05-05T02:08:01.574649Z"
+  },
+  "meta": {
+    "terminal": true
+  },
+  "ok": true
+}

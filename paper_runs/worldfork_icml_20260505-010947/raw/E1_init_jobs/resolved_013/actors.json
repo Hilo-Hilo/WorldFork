@@ -1,0 +1,292 @@
+[
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "decision_authority": "terminal through ballots",
+      "fictionalized": false,
+      "name": "nj_general_electorate",
+      "public_visibility": "low",
+      "role": "statewide_voters",
+      "stakes": "select next governor",
+      "type": "population_actor"
+    },
+    "big_bang_id": "14ce9ad3-7472-4d36-b06b-d947df628004",
+    "created_at": "2026-05-05T02:08:01.574649+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "03c87b13-2f37-4ed3-a2e7-dee1c157904e",
+    "name": "nj_general_electorate",
+    "status": "active",
+    "updated_at": "2026-05-05T02:08:01.574649+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "decision_authority": "medium via turnout and persuasion spillover",
+      "fictionalized": false,
+      "name": "democratic_base_voters",
+      "public_visibility": "medium",
+      "role": "reliable_democratic_voters",
+      "stakes": "retain governorship and protect party control",
+      "type": "population_actor"
+    },
+    "big_bang_id": "14ce9ad3-7472-4d36-b06b-d947df628004",
+    "created_at": "2026-05-05T02:08:01.574649+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "2b8b9888-c321-45ee-a1d2-60081a1bf039",
+    "name": "democratic_base_voters",
+    "status": "active",
+    "updated_at": "2026-05-05T02:08:01.574649+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "decision_authority": "medium via turnout and local enthusiasm",
+      "fictionalized": false,
+      "name": "republican_base_voters",
+      "public_visibility": "medium",
+      "role": "reliable_republican_voters",
+      "stakes": "flip governorship",
+      "type": "population_actor"
+    },
+    "big_bang_id": "14ce9ad3-7472-4d36-b06b-d947df628004",
+    "created_at": "2026-05-05T02:08:01.574649+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "6ffa544d-ab96-408c-8b35-2c3a035a2654",
+    "name": "republican_base_voters",
+    "status": "active",
+    "updated_at": "2026-05-05T02:08:01.574649+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "decision_authority": "high marginal vote leverage",
+      "fictionalized": false,
+      "name": "swing_affordability_voters",
+      "public_visibility": "low",
+      "role": "cross-pressured voters focused on taxes and cost of living",
+      "stakes": "policy responsiveness on affordability and taxes",
+      "type": "population_actor"
+    },
+    "big_bang_id": "14ce9ad3-7472-4d36-b06b-d947df628004",
+    "created_at": "2026-05-05T02:08:01.574649+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "ec150ab5-4b32-4e98-93c9-cd8d217a254e",
+    "name": "swing_affordability_voters",
+    "status": "active",
+    "updated_at": "2026-05-05T02:08:01.574649+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "decision_authority": "medium marginal vote leverage",
+      "fictionalized": false,
+      "name": "anti_corruption_voters",
+      "public_visibility": "low",
+      "role": "voters attentive to ethics and corruption narratives",
+      "stakes": "clean governance and outsider signaling",
+      "type": "population_actor"
+    },
+    "big_bang_id": "14ce9ad3-7472-4d36-b06b-d947df628004",
+    "created_at": "2026-05-05T02:08:01.574649+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "1afa6b89-ba8b-4144-a594-776551e93be8",
+    "name": "anti_corruption_voters",
+    "status": "active",
+    "updated_at": "2026-05-05T02:08:01.574649+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "decision_authority": "high over campaign strategy; limited over macro environment",
+      "fictionalized": true,
+      "name": "candidate_d",
+      "public_visibility": "high",
+      "role": "democratic_nominee",
+      "stakes": "hold governorship for Democratic party in open-seat race",
+      "trait_vector": {
+        "actor_name": "candidate_d",
+        "behavior_axes": {
+          "adaptability": 0.57,
+          "aggression": 0.52,
+          "coalition_building": 0.61,
+          "discipline": 0.63,
+          "risk_tolerance": 0.45
+        },
+        "ideology_axes": {
+          "cultural_left": 0.66,
+          "economic_left": 0.62,
+          "institutional_continuity": 0.7
+        },
+        "reputation": 0.6,
+        "secrecy": 0.18,
+        "tendency": "defend party hold while reassuring moderates",
+        "trustworthiness": 0.57
+      },
+      "type": "candidate"
+    },
+    "big_bang_id": "14ce9ad3-7472-4d36-b06b-d947df628004",
+    "created_at": "2026-05-05T02:08:01.574649+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "3ae7aadd-4482-46a1-8460-00da718378d7",
+    "name": "candidate_d",
+    "status": "active",
+    "updated_at": "2026-05-05T02:08:01.574649+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "decision_authority": "medium indirect influence",
+      "fictionalized": true,
+      "name": "democratic_incumbent_admin",
+      "public_visibility": "high",
+      "role": "outgoing_democratic_governor_and_admin",
+      "stakes": "legacy protection and partisan succession",
+      "trait_vector": {
+        "actor_name": "democratic_incumbent_admin",
+        "behavior_axes": {
+          "adaptability": 0.42,
+          "aggression": 0.34,
+          "coalition_building": 0.58,
+          "discipline": 0.6,
+          "risk_tolerance": 0.3
+        },
+        "ideology_axes": {
+          "economic_left": 0.58,
+          "institutional_continuity": 0.82
+        },
+        "reputation": 0.48,
+        "secrecy": 0.3,
+        "tendency": "legacy defense and low-risk support",
+        "trustworthiness": 0.5
+      },
+      "type": "institutional_political_actor"
+    },
+    "big_bang_id": "14ce9ad3-7472-4d36-b06b-d947df628004",
+    "created_at": "2026-05-05T02:08:01.574649+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "5f09a3bc-76dc-42b0-a25f-5ba56835db4f",
+    "name": "democratic_incumbent_admin",
+    "status": "active",
+    "updated_at": "2026-05-05T02:08:01.574649+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "decision_authority": "low direct, high contextual influence",
+      "fictionalized": false,
+      "name": "national_party_environment",
+      "public_visibility": "high",
+      "role": "presidential-party sentiment and national mood",
+      "stakes": "none as unitary actor; exerts ambient pressure",
+      "trait_vector": {
+        "actor_name": "national_party_environment",
+        "behavior_axes": {
+          "adaptability": 0.0,
+          "aggression": 0.0,
+          "coalition_building": 0.0,
+          "discipline": 0.0,
+          "risk_tolerance": 0.0
+        },
+        "ideology_axes": {
+          "partisan_polarization": 0.78
+        },
+        "reputation": 0.45,
+        "secrecy": 0.0,
+        "tendency": "ambient national mood pressure",
+        "trustworthiness": 0.4
+      },
+      "type": "context_actor"
+    },
+    "big_bang_id": "14ce9ad3-7472-4d36-b06b-d947df628004",
+    "created_at": "2026-05-05T02:08:01.574649+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "5fd1a940-cf8a-4d1c-950e-20488c7ac98e",
+    "name": "national_party_environment",
+    "status": "active",
+    "updated_at": "2026-05-05T02:08:01.574649+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "decision_authority": "medium over issue salience",
+      "fictionalized": true,
+      "name": "state_media_ecosystem",
+      "public_visibility": "high",
+      "role": "local and regional political media",
+      "stakes": "agenda-setting, audience retention, accountability framing",
+      "trait_vector": {
+        "actor_name": "state_media_ecosystem",
+        "behavior_axes": {
+          "adaptability": 0.67,
+          "aggression": 0.46,
+          "coalition_building": 0.2,
+          "discipline": 0.51,
+          "risk_tolerance": 0.4
+        },
+        "ideology_axes": {
+          "institutional_neutrality": 0.55
+        },
+        "reputation": 0.57,
+        "secrecy": 0.12,
+        "tendency": "amplify contest competitiveness and salient issue frames",
+        "trustworthiness": 0.54
+      },
+      "type": "media_actor"
+    },
+    "big_bang_id": "14ce9ad3-7472-4d36-b06b-d947df628004",
+    "created_at": "2026-05-05T02:08:01.574649+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "e8ee152d-1d39-45d8-9fc5-bc920d65c18b",
+    "name": "state_media_ecosystem",
+    "status": "active",
+    "updated_at": "2026-05-05T02:08:01.574649+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "decision_authority": "high over campaign strategy; limited over macro environment",
+      "fictionalized": true,
+      "name": "candidate_r",
+      "public_visibility": "high",
+      "role": "republican_nominee",
+      "stakes": "win governorship by assembling crossover and turnout coalition",
+      "trait_vector": {
+        "actor_name": "candidate_r",
+        "behavior_axes": {
+          "adaptability": 0.56,
+          "aggression": 0.62,
+          "coalition_building": 0.55,
+          "discipline": 0.58,
+          "risk_tolerance": 0.61
+        },
+        "ideology_axes": {
+          "cultural_right": 0.68,
+          "economic_right": 0.78,
+          "institutional_reform": 0.54
+        },
+        "reputation": 0.56,
+        "secrecy": 0.22,
+        "tendency": "press issue dissatisfaction and seek crossover votes",
+        "trustworthiness": 0.52
+      },
+      "type": "candidate"
+    },
+    "big_bang_id": "14ce9ad3-7472-4d36-b06b-d947df628004",
+    "created_at": "2026-05-05T02:08:01.574649+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "f27f7a91-1a4e-4b9a-a043-eb37743b12b2",
+    "name": "candidate_r",
+    "status": "active",
+    "updated_at": "2026-05-05T02:08:01.574649+00:00"
+  }
+]

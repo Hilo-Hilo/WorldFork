@@ -1,0 +1,1194 @@
+{
+  "big_bang_id": "60634643-0713-41b6-b741-e49c4ea93cdf",
+  "initializer_output": {
+    "actors": [
+      {
+        "constraints": [
+          "must survive remaining matches",
+          "fatigue risk",
+          "elite opponent risk"
+        ],
+        "decision_authority": "high_over_own_match_performance_low_over_draw",
+        "fictionalized": true,
+        "name": "player_c",
+        "public_visibility": "high",
+        "resources": [
+          "elite all-surface game",
+          "top seeding",
+          "current form",
+          "motivation"
+        ],
+        "role": "top_seed_contender",
+        "stakes": "win men's singles title and complete/improve career Grand Slam legacy",
+        "type": "athlete"
+      },
+      {
+        "constraints": [
+          "must remain/advance in draw",
+          "own fatigue and form uncertainty"
+        ],
+        "decision_authority": "high_over_own_match_performance",
+        "fictionalized": true,
+        "name": "melbourne_legend_rival",
+        "public_visibility": "high",
+        "resources": [
+          "historic success at Melbourne",
+          "elite experience"
+        ],
+        "role": "all_time_great_opponent",
+        "stakes": "win title and preserve unmatched Melbourne legacy",
+        "type": "athlete"
+      },
+      {
+        "constraints": [
+          "draw survival",
+          "form and fatigue uncertainty"
+        ],
+        "decision_authority": "high_over_own_match_performance",
+        "fictionalized": true,
+        "name": "recent_champion_rival",
+        "public_visibility": "high",
+        "resources": [
+          "recent title-winning profile",
+          "big-match capability"
+        ],
+        "role": "recent_champion_profile_opponent",
+        "stakes": "reclaim or add major title",
+        "type": "athlete"
+      },
+      {
+        "constraints": [
+          "lower baseline title odds than top contenders"
+        ],
+        "decision_authority": "distributed",
+        "fictionalized": true,
+        "name": "remaining_field",
+        "public_visibility": "medium",
+        "resources": [
+          "matchup variance",
+          "surface adaptation"
+        ],
+        "role": "other surviving opponents",
+        "stakes": "upset favorites and win title",
+        "type": "competitor_group"
+      },
+      {
+        "constraints": [
+          "fixed structure limits who meets whom when"
+        ],
+        "decision_authority": "none_at_t0_structure_only",
+        "fictionalized": true,
+        "name": "tournament_draw",
+        "public_visibility": "medium",
+        "resources": [
+          "bracket sequencing",
+          "rest-day structure"
+        ],
+        "role": "path_constraint",
+        "stakes": "none",
+        "type": "structural_actor"
+      },
+      {
+        "constraints": [
+          "depends on prior match length and timing"
+        ],
+        "decision_authority": "none",
+        "fictionalized": true,
+        "name": "match_fatigue_dynamics",
+        "public_visibility": "low",
+        "resources": [
+          "physical wear",
+          "recovery variation"
+        ],
+        "role": "performance_modifier",
+        "stakes": "none",
+        "type": "structural_actor"
+      },
+      {
+        "constraints": [
+          "uncertainty from hidden health/form details"
+        ],
+        "decision_authority": "none_over_results",
+        "fictionalized": true,
+        "name": "tennis_forecast_market",
+        "public_visibility": "medium",
+        "resources": [
+          "base rates",
+          "draw analysis",
+          "form interpretation"
+        ],
+        "role": "probability_setter",
+        "stakes": "accurate forecasting",
+        "type": "observer_group"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "favorite status consolidates and Player C enters final as strong favorite",
+        "branch_key": "clean_path_to_title",
+        "divergence_signal": "analyst consensus shifts upward after bracket clarification and Player C preserves physical freshness",
+        "trigger": "Player C avoids the strongest elite rival or defeats a lower-cost semifinal opponent with manageable fatigue"
+      },
+      {
+        "alternate_path": "legacy matchup suppresses Player C title odds materially",
+        "branch_key": "legend_blockade",
+        "divergence_signal": "market discussion becomes dominated by venue-history and head-to-head style concerns rather than base-rate favorite framing",
+        "trigger": "melbourne_legend_rival advances into Player C path in strong form"
+      },
+      {
+        "alternate_path": "favorite remains alive but underperforms relative to seed-based expectation",
+        "branch_key": "fatigue_drag",
+        "divergence_signal": "visible movement in discourse toward recovery time, physical wear, and shortened-price opponent chances",
+        "trigger": "Player C survives a long taxing match before semifinal or final"
+      },
+      {
+        "alternate_path": "final opponent quality rises and Player C's path-hardness increases even if earlier rounds go well",
+        "branch_key": "recent_champion_surge",
+        "divergence_signal": "analysts reframe event from top-seed dominance to coin-flip-like title decider",
+        "trigger": "recent_champion_rival advances convincingly through adjacent side of draw"
+      }
+    ],
+    "channels": [
+      {
+        "credibility": "high",
+        "name": "match_results",
+        "reach": "universal",
+        "speed": "high",
+        "type": "official_sport_outcome"
+      },
+      {
+        "credibility": "high",
+        "name": "draw_updates",
+        "reach": "high",
+        "speed": "high",
+        "type": "tournament_structure"
+      },
+      {
+        "credibility": "medium",
+        "name": "press_conference_quotes",
+        "reach": "medium",
+        "speed": "medium",
+        "type": "media"
+      },
+      {
+        "credibility": "medium_high",
+        "name": "analyst_probability_updates",
+        "reach": "medium",
+        "speed": "high",
+        "type": "forecast_discourse"
+      },
+      {
+        "credibility": "low_medium",
+        "name": "fan_reaction_stream",
+        "reach": "high",
+        "speed": "high",
+        "type": "public_discourse"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_name": "players_and_competitive_camp",
+        "attention_level": 0.95,
+        "behavioral_tendencies": [
+          "disciplined",
+          "message-controlled",
+          "competitive"
+        ],
+        "cohort_name": "player_c_camp",
+        "expression_level": 0.6,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.1,
+        "mobilization_readiness": 0.8,
+        "perceived_majority": 0.6,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "believes Player C has strongest overall chance but recognizes elite-opponent and fatigue risk",
+        "public_expression": "confident but non-certain contender framing",
+        "representation_mode": "direct",
+        "represented_population": 3,
+        "reputation": 0.85,
+        "secrecy": 0.5,
+        "stance_axes": {
+          "elite_opponent_threat_salience": 0.6,
+          "fatigue_concern": 0.5,
+          "player_c_title_outlook": 0.7
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "archetype_name": "players_and_competitive_camp",
+        "attention_level": 0.95,
+        "behavioral_tendencies": [
+          "opportunistic",
+          "high-focus",
+          "competitive"
+        ],
+        "cohort_name": "elite_rivals_camp",
+        "expression_level": 0.55,
+        "fatigue": 0.45,
+        "fear_of_isolation": 0.15,
+        "mobilization_readiness": 0.85,
+        "perceived_majority": 0.45,
+        "population_share_of_archetype": 0.33,
+        "private_belief": "believes Player C is beatable if draw and fatigue break correctly",
+        "public_expression": "respectful confidence in own chances",
+        "representation_mode": "aggregate",
+        "represented_population": 4,
+        "reputation": 0.83,
+        "secrecy": 0.45,
+        "stance_axes": {
+          "elite_opponent_threat_salience": 0.8,
+          "fatigue_concern": 0.6,
+          "player_c_title_outlook": 0.4
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "archetype_name": "players_and_competitive_camp",
+        "attention_level": 0.85,
+        "behavioral_tendencies": [
+          "guarded",
+          "adaptive",
+          "variance-seeking"
+        ],
+        "cohort_name": "other_field_camp",
+        "expression_level": 0.35,
+        "fatigue": 0.5,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.7,
+        "perceived_majority": 0.4,
+        "population_share_of_archetype": 0.42,
+        "private_belief": "title path still volatile though favorites dominate",
+        "public_expression": "underdog focus on next match",
+        "representation_mode": "aggregate",
+        "represented_population": 5,
+        "reputation": 0.65,
+        "secrecy": 0.55,
+        "stance_axes": {
+          "elite_opponent_threat_salience": 0.7,
+          "fatigue_concern": 0.55,
+          "player_c_title_outlook": 0.35
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "archetype_name": "forecast_observers",
+        "attention_level": 0.9,
+        "behavioral_tendencies": [
+          "base-rate-aware",
+          "path-sensitive",
+          "reactive-to-results"
+        ],
+        "cohort_name": "analyst_consensus",
+        "expression_level": 0.75,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.1,
+        "mobilization_readiness": 0.5,
+        "perceived_majority": 0.7,
+        "population_share_of_archetype": 0.64,
+        "private_belief": "Player C is favorite but not overwhelming lock due to specific elite opponents and semifinal/final path sensitivity",
+        "public_expression": "conditional favoritism",
+        "representation_mode": "sampled_consensus",
+        "represented_population": 3200,
+        "reputation": 0.7,
+        "secrecy": 0.1,
+        "stance_axes": {
+          "elite_opponent_threat_salience": 0.75,
+          "fatigue_concern": 0.65,
+          "player_c_title_outlook": 0.62
+        },
+        "trustworthiness": 0.7
+      },
+      {
+        "archetype_name": "tennis_audience",
+        "attention_level": 0.78,
+        "behavioral_tendencies": [
+          "narrative-driven",
+          "recency-biased",
+          "star-focused"
+        ],
+        "cohort_name": "general_tennis_fans",
+        "expression_level": 0.5,
+        "fatigue": 0.15,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.35,
+        "perceived_majority": 0.58,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "split between top-seed expectation and deference to legendary/history-backed rivals",
+        "public_expression": "result-reactive support and debate",
+        "representation_mode": "broad_mass",
+        "represented_population": 2000000,
+        "reputation": 0.5,
+        "secrecy": 0.05,
+        "stance_axes": {
+          "elite_opponent_threat_salience": 0.68,
+          "fatigue_concern": 0.45,
+          "player_c_title_outlook": 0.55
+        },
+        "trustworthiness": 0.5
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_name": "players_and_competitive_camp",
+        "attention_level": 0.95,
+        "behavioral_tendencies": [
+          "disciplined",
+          "message-controlled",
+          "competitive"
+        ],
+        "cohort_name": "player_c_camp",
+        "expression_level": 0.6,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.1,
+        "mobilization_readiness": 0.8,
+        "perceived_majority": 0.6,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "believes Player C has strongest overall chance but recognizes elite-opponent and fatigue risk",
+        "public_expression": "confident but non-certain contender framing",
+        "representation_mode": "direct",
+        "represented_population": 3,
+        "reputation": 0.85,
+        "secrecy": 0.5,
+        "stance_axes": {
+          "elite_opponent_threat_salience": 0.6,
+          "fatigue_concern": 0.5,
+          "player_c_title_outlook": 0.7
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "archetype_name": "players_and_competitive_camp",
+        "attention_level": 0.95,
+        "behavioral_tendencies": [
+          "opportunistic",
+          "high-focus",
+          "competitive"
+        ],
+        "cohort_name": "elite_rivals_camp",
+        "expression_level": 0.55,
+        "fatigue": 0.45,
+        "fear_of_isolation": 0.15,
+        "mobilization_readiness": 0.85,
+        "perceived_majority": 0.45,
+        "population_share_of_archetype": 0.33,
+        "private_belief": "believes Player C is beatable if draw and fatigue break correctly",
+        "public_expression": "respectful confidence in own chances",
+        "representation_mode": "aggregate",
+        "represented_population": 4,
+        "reputation": 0.83,
+        "secrecy": 0.45,
+        "stance_axes": {
+          "elite_opponent_threat_salience": 0.8,
+          "fatigue_concern": 0.6,
+          "player_c_title_outlook": 0.4
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "archetype_name": "players_and_competitive_camp",
+        "attention_level": 0.85,
+        "behavioral_tendencies": [
+          "guarded",
+          "adaptive",
+          "variance-seeking"
+        ],
+        "cohort_name": "other_field_camp",
+        "expression_level": 0.35,
+        "fatigue": 0.5,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.7,
+        "perceived_majority": 0.4,
+        "population_share_of_archetype": 0.42,
+        "private_belief": "title path still volatile though favorites dominate",
+        "public_expression": "underdog focus on next match",
+        "representation_mode": "aggregate",
+        "represented_population": 5,
+        "reputation": 0.65,
+        "secrecy": 0.55,
+        "stance_axes": {
+          "elite_opponent_threat_salience": 0.7,
+          "fatigue_concern": 0.55,
+          "player_c_title_outlook": 0.35
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "archetype_name": "forecast_observers",
+        "attention_level": 0.9,
+        "behavioral_tendencies": [
+          "base-rate-aware",
+          "path-sensitive",
+          "reactive-to-results"
+        ],
+        "cohort_name": "analyst_consensus",
+        "expression_level": 0.75,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.1,
+        "mobilization_readiness": 0.5,
+        "perceived_majority": 0.7,
+        "population_share_of_archetype": 0.64,
+        "private_belief": "Player C is favorite but not overwhelming lock due to specific elite opponents and semifinal/final path sensitivity",
+        "public_expression": "conditional favoritism",
+        "representation_mode": "sampled_consensus",
+        "represented_population": 3200,
+        "reputation": 0.7,
+        "secrecy": 0.1,
+        "stance_axes": {
+          "elite_opponent_threat_salience": 0.75,
+          "fatigue_concern": 0.65,
+          "player_c_title_outlook": 0.62
+        },
+        "trustworthiness": 0.7
+      },
+      {
+        "archetype_name": "tennis_audience",
+        "attention_level": 0.78,
+        "behavioral_tendencies": [
+          "narrative-driven",
+          "recency-biased",
+          "star-focused"
+        ],
+        "cohort_name": "general_tennis_fans",
+        "expression_level": 0.5,
+        "fatigue": 0.15,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.35,
+        "perceived_majority": 0.58,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "split between top-seed expectation and deference to legendary/history-backed rivals",
+        "public_expression": "result-reactive support and debate",
+        "representation_mode": "broad_mass",
+        "represented_population": 2000000,
+        "reputation": 0.5,
+        "secrecy": 0.05,
+        "stance_axes": {
+          "elite_opponent_threat_salience": 0.68,
+          "fatigue_concern": 0.45,
+          "player_c_title_outlook": 0.55
+        },
+        "trustworthiness": 0.5
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "player_c",
+          "remaining_field",
+          "tournament_draw",
+          "match_results"
+        ],
+        "blockers": [
+          "must defeat all remaining opponents",
+          "may face elite rival",
+          "fatigue can reduce effective level"
+        ],
+        "contradiction_notes": "Reaching the final without winning does not satisfy this endpoint",
+        "description": "Terminal yes endpoint where Player C is the official men's singles champion of the 2026 Australian Open",
+        "endpoint_key": "player_c_wins_title",
+        "evidence_refs": [
+          "scenario forecast question",
+          "endpoint_note"
+        ],
+        "label": "Player C wins title",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does Player C win the 2026 Australian Open men's singles title?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.58,
+        "rationale": "This is the direct card resolution condition",
+        "realization_criteria": [
+          "official tournament result lists Player C as men's singles champion",
+          "Player C wins the final required match of the tournament"
+        ],
+        "status": "active",
+        "status_basis": "T0 unresolved because Player C is still alive but title not yet secured"
+      },
+      {
+        "authority_refs": [
+          "melbourne_legend_rival",
+          "recent_champion_rival",
+          "remaining_field",
+          "match_results"
+        ],
+        "blockers": [
+          "Player C may maintain favorite status and convert it"
+        ],
+        "contradiction_notes": "Player C remaining alive deep in tournament delays but does not eliminate this endpoint",
+        "description": "Terminal no endpoint where any other player wins the men's singles title",
+        "endpoint_key": "player_c_does_not_win_title",
+        "evidence_refs": [
+          "candidate endpoint no",
+          "base_rate_note on elite opponent lowering probability"
+        ],
+        "label": "Player C fails to win title",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does Player C have to face the Melbourne-legend rival in a terminally important late-round match?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.42,
+        "rationale": "Binary complement to title-win endpoint under strict resolved card framing",
+        "realization_criteria": [
+          "official tournament result lists a champion other than Player C",
+          "Player C is eliminated before or during the final, or loses the final"
+        ],
+        "status": "active",
+        "status_basis": "T0 unresolved because multiple rivals remain live and title not yet decided"
+      },
+      {
+        "authority_refs": [
+          "player_c",
+          "melbourne_legend_rival",
+          "recent_champion_rival",
+          "tournament_draw"
+        ],
+        "blockers": [
+          "elite rival may be eliminated before facing Player C",
+          "Player C may defeat elite rival and still win title or lose elsewhere"
+        ],
+        "contradiction_notes": "If Player C loses to non-elite remaining field, this endpoint is not realized even though no may realize",
+        "description": "Intermediate-but-outcome-relevant terminal mechanism endpoint where Player C's non-title result is caused by direct loss to a named elite rival",
+        "endpoint_key": "elite_rival_blocks_player_c",
+        "evidence_refs": [
+          "scenario mentions all-time great and recent champion profile as central threats",
+          "source 2 on single elite opponent lowering title probability"
+        ],
+        "label": "Elite rival directly blocks title path",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does fatigue become a materially cited factor reducing Player C's championship chances before the title match is complete?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.28,
+        "rationale": "Preserves main causal alternative highlighted in the corpus",
+        "realization_criteria": [
+          "Player C loses a late-round match to melbourne_legend_rival or recent_champion_rival",
+          "official bracket confirms direct elimination by that rival"
+        ],
+        "status": "active",
+        "status_basis": "Not card-resolving by itself but key endpoint pressure shaping the no pathway"
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "scenario centers on Player C title probability",
+        "layer": "exposure",
+        "reason": "late-round title favorite receives intense analyst scrutiny",
+        "source_actor_name": "tennis_forecast_market",
+        "target_actor_name": "player_c",
+        "weight": 0.72
+      },
+      {
+        "direction": "directed",
+        "evidence": "all-time great with unmatched Melbourne success noted",
+        "layer": "exposure",
+        "reason": "legendary rival in draw is heavily tracked as risk factor",
+        "source_actor_name": "tennis_forecast_market",
+        "target_actor_name": "melbourne_legend_rival",
+        "weight": 0.62
+      },
+      {
+        "direction": "directed",
+        "evidence": "recent champion profile explicitly noted",
+        "layer": "exposure",
+        "reason": "recent champion profile attracts attention as credible threat",
+        "source_actor_name": "tennis_forecast_market",
+        "target_actor_name": "recent_champion_rival",
+        "weight": 0.55
+      },
+      {
+        "direction": "directed",
+        "evidence": "Player C is top seed alive deep in tournament",
+        "layer": "exposure",
+        "reason": "top seed deep in major draws broad spectator attention",
+        "source_actor_name": "general_tennis_fans",
+        "target_actor_name": "player_c",
+        "weight": 0.7
+      },
+      {
+        "direction": "directed",
+        "evidence": "unmatched Melbourne success",
+        "layer": "exposure",
+        "reason": "historic Melbourne success amplifies audience focus",
+        "source_actor_name": "general_tennis_fans",
+        "target_actor_name": "melbourne_legend_rival",
+        "weight": 0.68
+      },
+      {
+        "direction": "directed",
+        "evidence": "case rests on form and all-surface dominance",
+        "layer": "trust",
+        "reason": "market likely views Player C as most reliable current performer",
+        "source_actor_name": "tennis_forecast_market",
+        "target_actor_name": "player_c",
+        "weight": 0.64
+      },
+      {
+        "direction": "directed",
+        "evidence": "all-time great with unmatched Melbourne success",
+        "layer": "trust",
+        "reason": "venue-specific legacy increases belief in competitive viability",
+        "source_actor_name": "general_tennis_fans",
+        "target_actor_name": "melbourne_legend_rival",
+        "weight": 0.66
+      },
+      {
+        "direction": "directed",
+        "evidence": "Player C is top seed with strong form case",
+        "layer": "trust",
+        "reason": "top seeding and form support fan confidence",
+        "source_actor_name": "general_tennis_fans",
+        "target_actor_name": "player_c",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "late-round forecasts are sensitive to semifinal matchups",
+        "layer": "dependency",
+        "reason": "title path depends on semifinal/final matchup sequence",
+        "source_actor_name": "player_c",
+        "target_actor_name": "tournament_draw",
+        "weight": 0.74
+      },
+      {
+        "direction": "directed",
+        "evidence": "forecasts are sensitive to fatigue",
+        "layer": "dependency",
+        "reason": "remaining title odds depend on physical freshness and prior match load",
+        "source_actor_name": "player_c",
+        "target_actor_name": "match_fatigue_dynamics",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "draw still includes elite rivals",
+        "layer": "dependency",
+        "reason": "chance to meet Player C or advance depends on bracket path",
+        "source_actor_name": "melbourne_legend_rival",
+        "target_actor_name": "tournament_draw",
+        "weight": 0.68
+      },
+      {
+        "direction": "directed",
+        "evidence": "draw path focus",
+        "layer": "dependency",
+        "reason": "title path is bracket-constrained",
+        "source_actor_name": "recent_champion_rival",
+        "target_actor_name": "tournament_draw",
+        "weight": 0.64
+      },
+      {
+        "direction": "directed",
+        "evidence": "dominant top seeds are strong favorites",
+        "layer": "influence",
+        "reason": "favorite status and performances shape market consensus",
+        "source_actor_name": "player_c",
+        "target_actor_name": "tennis_forecast_market",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "single elite opponent can substantially lower title probability",
+        "layer": "influence",
+        "reason": "legendary rival materially suppresses favorite probability",
+        "source_actor_name": "melbourne_legend_rival",
+        "target_actor_name": "tennis_forecast_market",
+        "weight": 0.67
+      },
+      {
+        "direction": "directed",
+        "evidence": "recent champion profile included among key threats",
+        "layer": "influence",
+        "reason": "recent champion profile shifts implied odds if advancing",
+        "source_actor_name": "recent_champion_rival",
+        "target_actor_name": "tennis_forecast_market",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "dominant top seeds are strong favorites against the field",
+        "layer": "coalition",
+        "reason": "soft alignment around Player C as baseline favorite, not advocacy",
+        "source_actor_name": "tennis_forecast_market",
+        "target_actor_name": "player_c",
+        "weight": 0.28
+      },
+      {
+        "direction": "directed",
+        "evidence": "top seed status and form case",
+        "layer": "coalition",
+        "reason": "plurality fan expectation may lean toward top seed",
+        "source_actor_name": "general_tennis_fans",
+        "target_actor_name": "player_c",
+        "weight": 0.34
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "draw includes all-time great threatening title path",
+        "layer": "conflict",
+        "reason": "both are major title threats with directly incompatible goals",
+        "source_actor_name": "player_c",
+        "target_actor_name": "melbourne_legend_rival",
+        "weight": 0.71
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "recent champion profile noted as remaining threat",
+        "layer": "conflict",
+        "reason": "recent champion profile is another direct obstacle",
+        "source_actor_name": "player_c",
+        "target_actor_name": "recent_champion_rival",
+        "weight": 0.63
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "field remains active though Player C favored",
+        "layer": "conflict",
+        "reason": "field collectively opposes Player C title outcome but with lower individual threat",
+        "source_actor_name": "player_c",
+        "target_actor_name": "remaining_field",
+        "weight": 0.48
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "forecast-focused scenario with public tournament attention",
+        "layer": "oasis_interaction",
+        "reason": "fans and analysts interact around title-odds discourse",
+        "source_actor_name": "general_tennis_fans",
+        "target_actor_name": "tennis_forecast_market",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "Player C alive deep in tournament",
+        "layer": "oasis_interaction",
+        "reason": "public attention and reaction to each result are elevated in late rounds",
+        "source_actor_name": "general_tennis_fans",
+        "target_actor_name": "player_c",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "unmatched Melbourne success",
+        "layer": "oasis_interaction",
+        "reason": "legacy-driven fan discussion likely intense",
+        "source_actor_name": "general_tennis_fans",
+        "target_actor_name": "melbourne_legend_rival",
+        "weight": 0.49
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "description": "single lead title favorite with strong form and major motivation",
+        "name": "favorite_contender"
+      },
+      {
+        "description": "historically dominant champion whose venue record materially affects path probabilities",
+        "name": "legacy_challenger"
+      }
+    ],
+    "hero_states": [
+      {
+        "archetype_name": "favorite_contender",
+        "attention_level": 0.98,
+        "current_status": "alive_deep_in_tournament",
+        "expression_level": 0.45,
+        "fatigue": 0.38,
+        "fear_of_isolation": 0.05,
+        "graph_influence_summary": {
+          "competitive": 0.8,
+          "narrative": 0.75
+        },
+        "hero_name": "player_c",
+        "mobilization_readiness": 0.92,
+        "perceived_majority": 0.62,
+        "represented_actor": "player_c",
+        "reputation": 0.9,
+        "secrecy": 0.55,
+        "stance_axes": {
+          "confidence": 0.72,
+          "legacy_drive": 0.88,
+          "risk_acceptance": 0.58
+        },
+        "trustworthiness": 0.62
+      },
+      {
+        "archetype_name": "legacy_challenger",
+        "attention_level": 0.95,
+        "current_status": "live_elite_threat_if_still_in_path",
+        "expression_level": 0.4,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.04,
+        "graph_influence_summary": {
+          "competitive": 0.82,
+          "narrative": 0.9
+        },
+        "hero_name": "melbourne_legend_rival",
+        "mobilization_readiness": 0.9,
+        "perceived_majority": 0.5,
+        "represented_actor": "melbourne_legend_rival",
+        "reputation": 0.96,
+        "secrecy": 0.5,
+        "stance_axes": {
+          "confidence": 0.7,
+          "legacy_drive": 0.86,
+          "risk_acceptance": 0.52
+        },
+        "trustworthiness": 0.6
+      }
+    ],
+    "heroes": [
+      {
+        "description": "single lead title favorite with strong form and major motivation",
+        "name": "favorite_contender"
+      },
+      {
+        "description": "historically dominant champion whose venue record materially affects path probabilities",
+        "name": "legacy_challenger"
+      }
+    ],
+    "important_questions": [
+      "Does Player C win the 2026 Australian Open men's singles title?",
+      "Does Player C have to face the Melbourne-legend rival in a terminally important late-round match?",
+      "Does fatigue become a materially cited factor reducing Player C's championship chances before the title match is complete?"
+    ],
+    "initial_events": [
+      {
+        "description": "Player C remains alive deep in the tournament as top seed",
+        "event_key": "late_round_state_confirmed",
+        "event_type": "announcement",
+        "evidence": "scenario text",
+        "expected_impact": "elevates baseline title probability relative to pre-tournament field while preserving unresolved path risk",
+        "status": "realized",
+        "tick": 0
+      },
+      {
+        "description": "Draw still includes an all-time great and a recent champion profile as salient threats",
+        "event_key": "elite_rivals_still_relevant",
+        "event_type": "announcement",
+        "evidence": "scenario text",
+        "expected_impact": "keeps title outlook below certainty and concentrates risk in specific future matchups",
+        "status": "realized",
+        "tick": 0
+      },
+      {
+        "description": "Immediate next late-round matchup structure becomes concrete or is completed",
+        "event_key": "semifinal_path_clarification",
+        "event_type": "announcement",
+        "evidence": "source 1 on semifinal sensitivity",
+        "expected_impact": "sharp update to Player C probability depending on opponent identity and match toll",
+        "status": "pending",
+        "tick": 1
+      },
+      {
+        "description": "Observers receive fresh information from match duration, recovery, or visible physical condition",
+        "event_key": "fatigue_signal_update",
+        "event_type": "announcement",
+        "evidence": "source 1 on fatigue sensitivity",
+        "expected_impact": "adjusts trust in favorite status and alters edge weights to match_fatigue_dynamics",
+        "status": "pending",
+        "tick": 1
+      },
+      {
+        "description": "Tournament reaches terminal championship outcome",
+        "event_key": "title_match_resolution",
+        "event_type": "announcement",
+        "evidence": "endpoint note",
+        "expected_impact": "resolves yes/no endpoint based solely on whether Player C wins title",
+        "status": "pending",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "163f215f-c879-48cd-a789-47141c9784bf",
+    "merge_hypotheses": [
+      {
+        "affected_actors": [
+          "tennis_forecast_market",
+          "general_tennis_fans",
+          "player_c"
+        ],
+        "convergence_driver": "if elite rivals are eliminated or visibly compromised, multiple discourse camps converge toward Player C as clear title favorite",
+        "merge_key": "favorite_baseline_reasserts"
+      },
+      {
+        "affected_actors": [
+          "player_c",
+          "melbourne_legend_rival",
+          "recent_champion_rival",
+          "remaining_field",
+          "tennis_forecast_market"
+        ],
+        "convergence_driver": "regardless of narrative path, all branches collapse into observed title outcome at tournament end",
+        "merge_key": "single_match_terminality"
+      },
+      {
+        "affected_actors": [
+          "tennis_forecast_market",
+          "general_tennis_fans"
+        ],
+        "convergence_driver": "actual late-round match quality can override both legacy and seed narratives, bringing observers back toward result-based consensus",
+        "merge_key": "performance_over_narrative"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "description": "athletes and immediate performance teams relevant to title outcome",
+        "name": "players_and_competitive_camp",
+        "population_total": 12
+      },
+      {
+        "description": "analysts and market participants interpreting title odds",
+        "name": "forecast_observers",
+        "population_total": 5000
+      },
+      {
+        "description": "broader spectators following late-round developments",
+        "name": "tennis_audience",
+        "population_total": 2000000
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "masked_entities",
+        "note": "Source uses partial entity masking; actor identities should remain fictionalized.",
+        "severity": "low"
+      },
+      {
+        "flag": "sparse_match_state",
+        "note": "Exact tournament round, opponent order, and current fatigue specifics are not provided.",
+        "severity": "medium"
+      },
+      {
+        "flag": "binary_resolution_strictness",
+        "note": "Final appearance or deep run must not be conflated with title win.",
+        "severity": "medium"
+      },
+      {
+        "flag": "narrative_overfitting_risk",
+        "note": "Legacy and motivation narratives may overweight public perception relative to actual match-level probabilities.",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "domain": "sports_tournament_forecast",
+      "primary_question": "Will Player C win the 2026 Australian Open men's singles title?",
+      "resolution_rule": "yes only if Player C wins the men's singles title by tournament end",
+      "scenario_key": "resolved_009",
+      "summary": "Forecast scenario about whether Player C wins the 2026 Australian Open men's singles title. Player C is top seed, still alive in late rounds, with strong form and career-motivation, but faces draw-path uncertainty, fatigue sensitivity, and at least one elite-opponent threat including an all-time great with strong Melbourne history and a recent champion-caliber rival.",
+      "timeframe": "late_tournament_t0_before_title_resolution",
+      "uncertainty_notes": [
+        "Exact round position is not explicitly fixed beyond 'alive deep in the tournament'.",
+        "Specific identities of Player C and rival players are masked and should remain fictionalized.",
+        "Outcome is unresolved at T0; reaching the final is explicitly not sufficient."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "tennis_forecast_market",
+          "general_tennis_fans"
+        ],
+        "evidence": "observers likely cluster around favorite framing while adjusting within limited range for draw/fatigue updates",
+        "level": "medium",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "general_tennis_fans"
+        ],
+        "evidence": "spectator attention spikes after major match results rather than continuous activism",
+        "level": "low",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "players_and_competitive_camp"
+        ],
+        "evidence": "competitive camps are message-controlled and reveal limited private confidence",
+        "level": "low",
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "general_tennis_fans",
+          "tennis_forecast_market"
+        ],
+        "evidence": "fan and analyst communities may cluster around favorite-vs-legend narratives",
+        "level": "medium",
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "general_tennis_fans"
+        ],
+        "evidence": "multiple aligned signals such as wins, fatigue rumors, and matchup confirmation can shift crowd expectations quickly",
+        "level": "medium",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "general_tennis_fans"
+        ],
+        "evidence": "star loyalty and legacy narratives shape perception beyond pure base rates",
+        "level": "medium",
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "general_tennis_fans",
+          "tennis_forecast_market"
+        ],
+        "evidence": "late-stage major tournament sustains attention until title resolution",
+        "level": "low",
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context_key": "favorite_status",
+        "description": "Player C is top seed and treated as baseline favorite against the field"
+      },
+      {
+        "context_key": "draw_path_sensitivity",
+        "description": "Semifinal and final matchup sequencing materially affects title chances"
+      },
+      {
+        "context_key": "fatigue_sensitivity",
+        "description": "Physical wear and recovery can move win probability late in tournament"
+      },
+      {
+        "context_key": "elite_opponent_risk",
+        "description": "A single elite opponent can substantially reduce Player C's title chances"
+      },
+      {
+        "context_key": "strict_endpoint",
+        "description": "Only winning the men's singles title resolves yes; finalist status alone does not"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "player_c",
+        "behavior_axes": {
+          "adaptability": 0.8,
+          "aggression": 0.63,
+          "composure": 0.78,
+          "discipline": 0.82
+        },
+        "ideology_axes": {
+          "individualism": 0.85,
+          "risk_style": 0.58,
+          "tradition_vs_innovation": 0.5
+        },
+        "reputation": 0.9,
+        "secrecy": 0.55,
+        "tendency": "favorite_with_broad_surface_strength",
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "melbourne_legend_rival",
+        "behavior_axes": {
+          "adaptability": 0.74,
+          "aggression": 0.57,
+          "composure": 0.9,
+          "discipline": 0.88
+        },
+        "ideology_axes": {
+          "individualism": 0.88,
+          "risk_style": 0.5,
+          "tradition_vs_innovation": 0.75
+        },
+        "reputation": 0.96,
+        "secrecy": 0.5,
+        "tendency": "legacy_anchor_and_high_leverage_obstacle",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "recent_champion_rival",
+        "behavior_axes": {
+          "adaptability": 0.72,
+          "aggression": 0.61,
+          "composure": 0.76,
+          "discipline": 0.78
+        },
+        "ideology_axes": {
+          "individualism": 0.84,
+          "risk_style": 0.56,
+          "tradition_vs_innovation": 0.55
+        },
+        "reputation": 0.84,
+        "secrecy": 0.48,
+        "tendency": "credible_title_threat_if_path_opens",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "remaining_field",
+        "behavior_axes": {
+          "adaptability": 0.66,
+          "aggression": 0.54,
+          "composure": 0.62,
+          "discipline": 0.68
+        },
+        "ideology_axes": {
+          "individualism": 0.8,
+          "risk_style": 0.6,
+          "tradition_vs_innovation": 0.5
+        },
+        "reputation": 0.6,
+        "secrecy": 0.45,
+        "tendency": "collective_upset_variance",
+        "trustworthiness": 0.52
+      },
+      {
+        "actor_name": "tennis_forecast_market",
+        "behavior_axes": {
+          "adaptability": 0.7,
+          "aggression": 0.2,
+          "composure": 0.65,
+          "discipline": 0.72
+        },
+        "ideology_axes": {
+          "individualism": 0.3,
+          "risk_style": 0.4,
+          "tradition_vs_innovation": 0.45
+        },
+        "reputation": 0.68,
+        "secrecy": 0.1,
+        "tendency": "conditional_probabilistic_update",
+        "trustworthiness": 0.7
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 1692,
+        "end": 1692,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 1692,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

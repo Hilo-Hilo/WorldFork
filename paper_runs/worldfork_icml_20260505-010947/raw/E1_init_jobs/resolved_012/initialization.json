@@ -1,0 +1,1347 @@
+{
+  "big_bang_id": "6b8c4c5b-80c8-43bf-a368-c1d3c6865ae1",
+  "initializer_output": {
+    "actors": [
+      {
+        "decision_authority": "medium",
+        "description": "Democratic nominee figure; former U.S. House member.",
+        "fictionalized": true,
+        "name": "candidate_d",
+        "public_visibility": "high",
+        "scope": "statewide",
+        "stakes": "Win governorship in open-seat race.",
+        "type": "person"
+      },
+      {
+        "decision_authority": "medium",
+        "description": "Republican nominee figure; sitting lieutenant governor.",
+        "fictionalized": true,
+        "name": "candidate_r",
+        "public_visibility": "high",
+        "scope": "statewide",
+        "stakes": "Win governorship and convert existing statewide profile into governorship.",
+        "type": "person"
+      },
+      {
+        "decision_authority": "high",
+        "description": "All likely and potential Virginia voters relevant to the gubernatorial election.",
+        "fictionalized": false,
+        "name": "virginia_general_electorate",
+        "public_visibility": "collective",
+        "scope": "statewide",
+        "stakes": "Select next governor.",
+        "type": "population"
+      },
+      {
+        "decision_authority": "medium",
+        "description": "Core Democratic-aligned voters in Virginia.",
+        "fictionalized": true,
+        "name": "democratic_base_voters",
+        "public_visibility": "medium",
+        "scope": "statewide",
+        "stakes": "Elect Candidate D and protect issue priorities.",
+        "type": "group"
+      },
+      {
+        "decision_authority": "medium",
+        "description": "Core Republican-aligned voters in Virginia.",
+        "fictionalized": true,
+        "name": "republican_base_voters",
+        "public_visibility": "medium",
+        "scope": "statewide",
+        "stakes": "Elect Candidate R and capitalize on opposition to national Democrats.",
+        "type": "group"
+      },
+      {
+        "decision_authority": "medium",
+        "description": "Competitive suburban and exurban voters responsive to candidate quality and issue framing.",
+        "fictionalized": true,
+        "name": "persuadable_suburban_voters",
+        "public_visibility": "low",
+        "scope": "statewide",
+        "stakes": "Choose between candidates based on mixed issue priorities and party evaluations.",
+        "type": "group"
+      },
+      {
+        "decision_authority": "medium",
+        "description": "Voters tied to federal employment or contracting, especially sensitive to federal workforce issues.",
+        "fictionalized": true,
+        "name": "federal_workforce_households",
+        "public_visibility": "low",
+        "scope": "statewide",
+        "stakes": "Protect job security, compensation, and governance stability.",
+        "type": "group"
+      },
+      {
+        "decision_authority": "medium",
+        "description": "Voters strongly motivated by abortion policy.",
+        "fictionalized": true,
+        "name": "abortion_rights_voters",
+        "public_visibility": "medium",
+        "scope": "statewide",
+        "stakes": "Support candidate perceived as closer to abortion-rights preferences.",
+        "type": "group"
+      },
+      {
+        "decision_authority": "medium",
+        "description": "Voters prioritizing inflation, affordability, and household economic pressure.",
+        "fictionalized": true,
+        "name": "cost_of_living_concerned_voters",
+        "public_visibility": "low",
+        "scope": "statewide",
+        "stakes": "Back candidate seen as stronger on everyday economic management.",
+        "type": "group"
+      },
+      {
+        "decision_authority": "medium",
+        "description": "Voters attentive to schools and education conflict.",
+        "fictionalized": true,
+        "name": "education_issue_voters",
+        "public_visibility": "medium",
+        "scope": "statewide",
+        "stakes": "Advance preferred school policy and cultural positioning.",
+        "type": "group"
+      },
+      {
+        "decision_authority": "low",
+        "description": "National Democratic Party image affecting state-level perceptions.",
+        "fictionalized": true,
+        "name": "national_democratic_brand",
+        "public_visibility": "high",
+        "scope": "national",
+        "stakes": "Limit backlash and support down-ballot/statewide candidates.",
+        "type": "institutional_brand"
+      },
+      {
+        "decision_authority": "low",
+        "description": "National Republican Party image affecting state-level perceptions.",
+        "fictionalized": true,
+        "name": "national_republican_brand",
+        "public_visibility": "high",
+        "scope": "national",
+        "stakes": "Translate national positioning into state-level gains.",
+        "type": "institutional_brand"
+      },
+      {
+        "decision_authority": "low",
+        "description": "Term-limited incumbent governor's office creating an open-seat environment.",
+        "fictionalized": true,
+        "name": "outgoing_governor_office",
+        "public_visibility": "medium",
+        "scope": "statewide",
+        "stakes": "No direct reelection path; shapes succession context.",
+        "type": "institution"
+      },
+      {
+        "decision_authority": "low",
+        "description": "Virginia political media and local/statewide attention channels.",
+        "fictionalized": true,
+        "name": "state_media_ecosystem",
+        "public_visibility": "high",
+        "scope": "statewide",
+        "stakes": "Frame competitiveness, issue salience, and candidate quality.",
+        "type": "media_system"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Candidate R gains among persuadable suburban and cost-of-living-focused voters, making structural cycle pattern decisive.",
+        "branch_key": "backlash_dominates",
+        "divergence_signal": "Public and private voter movement toward Candidate R despite mixed issue environment and no major candidate event.",
+        "trigger": "Sustained evidence that opposition-to-sitting-president sentiment outranks state-specific candidate considerations."
+      },
+      {
+        "alternate_path": "Candidate D overperforms generic cycle expectations through base enthusiasm and suburban women alignment.",
+        "branch_key": "abortion_turnout_edge_for_d",
+        "divergence_signal": "Higher expression and mobilization among abortion_rights_voters and democratic_base_voters with improved trust toward Candidate D.",
+        "trigger": "Abortion becomes the most salient mobilizing issue in late campaign discourse."
+      },
+      {
+        "alternate_path": "Cross-pressured households tilt enough toward Candidate D to offset some backlash effects.",
+        "branch_key": "federal_workforce_defection_check",
+        "divergence_signal": "Federal workforce cohort shows increasing trust and coalition weight toward Candidate D relative to Candidate R.",
+        "trigger": "Federal workforce concerns become concretely linked to candidate choice."
+      },
+      {
+        "alternate_path": "Candidate R expands issue coalition beyond base and solidifies a narrow statewide lead.",
+        "branch_key": "schools_and_affordability_republican_pull",
+        "divergence_signal": "Education_issue_voters and cost_of_living_concerned_voters show synchronized agenda alignment with Candidate R.",
+        "trigger": "Schools and cost-of-living narratives become dominant and mutually reinforcing."
+      },
+      {
+        "alternate_path": "State-specific candidate evaluation weakens nationalized race pattern and shifts late deciders.",
+        "branch_key": "candidate_quality_override",
+        "divergence_signal": "Persuadable suburban voters move asymmetrically on trust independent of national-brand changes.",
+        "trigger": "One candidate is broadly perceived as more competent or acceptable than party trend would predict."
+      }
+    ],
+    "channels": [
+      {
+        "channel_name": "statewide_local_news",
+        "public": true,
+        "reach": 0.68,
+        "type": "media"
+      },
+      {
+        "channel_name": "campaign_events_and_ads",
+        "public": true,
+        "reach": 0.71,
+        "type": "campaign"
+      },
+      {
+        "channel_name": "partisan_networks",
+        "public": "mixed",
+        "reach": 0.57,
+        "type": "social_political"
+      },
+      {
+        "channel_name": "workplace_and_household_conversations",
+        "public": false,
+        "reach": 0.46,
+        "type": "interpersonal"
+      },
+      {
+        "channel_name": "debates_and_candidate_forums",
+        "public": true,
+        "reach": 0.52,
+        "type": "event_media"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_name": "virginia_likely_voters",
+        "attention_level": 0.77,
+        "cohort_name": "democratic_base_cohort",
+        "expression_level": 0.71,
+        "fatigue": 0.44,
+        "fear_of_isolation": 0.19,
+        "mobilization_readiness": 0.69,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.3688,
+        "private_preference": "leans_candidate_d",
+        "public_expression": "open_support",
+        "representation_mode": "core_partisan_cohort",
+        "represented_population": 1180000,
+        "stance_axes": {
+          "abortion_priority": 0.75,
+          "candidate_d_support": 0.82,
+          "candidate_r_support": 0.12,
+          "cost_of_living_priority": 0.52,
+          "national_backlash_receptivity": 0.18,
+          "schools_priority": 0.45
+        }
+      },
+      {
+        "archetype_name": "virginia_likely_voters",
+        "attention_level": 0.78,
+        "cohort_name": "republican_base_cohort",
+        "expression_level": 0.74,
+        "fatigue": 0.39,
+        "fear_of_isolation": 0.16,
+        "mobilization_readiness": 0.73,
+        "perceived_majority": 0.48,
+        "population_share_of_archetype": 0.35,
+        "private_preference": "leans_candidate_r",
+        "public_expression": "open_support",
+        "representation_mode": "core_partisan_cohort",
+        "represented_population": 1120000,
+        "stance_axes": {
+          "abortion_priority": 0.31,
+          "candidate_d_support": 0.11,
+          "candidate_r_support": 0.84,
+          "cost_of_living_priority": 0.69,
+          "national_backlash_receptivity": 0.74,
+          "schools_priority": 0.66
+        }
+      },
+      {
+        "archetype_name": "virginia_likely_voters",
+        "attention_level": 0.63,
+        "cohort_name": "persuadable_suburban_cohort",
+        "expression_level": 0.39,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.36,
+        "mobilization_readiness": 0.49,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.1938,
+        "private_preference": "mixed_uncertain",
+        "public_expression": "guarded",
+        "representation_mode": "swing_cohort",
+        "represented_population": 620000,
+        "stance_axes": {
+          "abortion_priority": 0.58,
+          "candidate_d_support": 0.46,
+          "candidate_r_support": 0.47,
+          "cost_of_living_priority": 0.67,
+          "national_backlash_receptivity": 0.54,
+          "schools_priority": 0.61
+        }
+      },
+      {
+        "archetype_name": "virginia_likely_voters",
+        "attention_level": 0.66,
+        "cohort_name": "federal_workforce_cohort",
+        "expression_level": 0.28,
+        "fatigue": 0.42,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.47,
+        "perceived_majority": 0.45,
+        "population_share_of_archetype": 0.0563,
+        "private_preference": "slight_candidate_d_edge",
+        "public_expression": "muted",
+        "representation_mode": "cross_pressured_issue_group",
+        "represented_population": 180000,
+        "stance_axes": {
+          "abortion_priority": 0.41,
+          "candidate_d_support": 0.54,
+          "candidate_r_support": 0.38,
+          "cost_of_living_priority": 0.61,
+          "national_backlash_receptivity": 0.33,
+          "schools_priority": 0.37
+        }
+      },
+      {
+        "archetype_name": "virginia_potential_voters",
+        "attention_level": 0.29,
+        "cohort_name": "low_propensity_potential_voters",
+        "expression_level": 0.14,
+        "fatigue": 0.23,
+        "fear_of_isolation": 0.33,
+        "mobilization_readiness": 0.26,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.2545,
+        "private_preference": "weakly_formed",
+        "public_expression": "minimal",
+        "representation_mode": "reserve_turnout_pool",
+        "represented_population": 1400000,
+        "stance_axes": {
+          "abortion_priority": 0.43,
+          "candidate_d_support": 0.41,
+          "candidate_r_support": 0.4,
+          "cost_of_living_priority": 0.59,
+          "national_backlash_receptivity": 0.5,
+          "schools_priority": 0.4
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_name": "virginia_likely_voters",
+        "attention_level": 0.77,
+        "cohort_name": "democratic_base_cohort",
+        "expression_level": 0.71,
+        "fatigue": 0.44,
+        "fear_of_isolation": 0.19,
+        "mobilization_readiness": 0.69,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.3688,
+        "private_preference": "leans_candidate_d",
+        "public_expression": "open_support",
+        "representation_mode": "core_partisan_cohort",
+        "represented_population": 1180000,
+        "stance_axes": {
+          "abortion_priority": 0.75,
+          "candidate_d_support": 0.82,
+          "candidate_r_support": 0.12,
+          "cost_of_living_priority": 0.52,
+          "national_backlash_receptivity": 0.18,
+          "schools_priority": 0.45
+        }
+      },
+      {
+        "archetype_name": "virginia_likely_voters",
+        "attention_level": 0.78,
+        "cohort_name": "republican_base_cohort",
+        "expression_level": 0.74,
+        "fatigue": 0.39,
+        "fear_of_isolation": 0.16,
+        "mobilization_readiness": 0.73,
+        "perceived_majority": 0.48,
+        "population_share_of_archetype": 0.35,
+        "private_preference": "leans_candidate_r",
+        "public_expression": "open_support",
+        "representation_mode": "core_partisan_cohort",
+        "represented_population": 1120000,
+        "stance_axes": {
+          "abortion_priority": 0.31,
+          "candidate_d_support": 0.11,
+          "candidate_r_support": 0.84,
+          "cost_of_living_priority": 0.69,
+          "national_backlash_receptivity": 0.74,
+          "schools_priority": 0.66
+        }
+      },
+      {
+        "archetype_name": "virginia_likely_voters",
+        "attention_level": 0.63,
+        "cohort_name": "persuadable_suburban_cohort",
+        "expression_level": 0.39,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.36,
+        "mobilization_readiness": 0.49,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.1938,
+        "private_preference": "mixed_uncertain",
+        "public_expression": "guarded",
+        "representation_mode": "swing_cohort",
+        "represented_population": 620000,
+        "stance_axes": {
+          "abortion_priority": 0.58,
+          "candidate_d_support": 0.46,
+          "candidate_r_support": 0.47,
+          "cost_of_living_priority": 0.67,
+          "national_backlash_receptivity": 0.54,
+          "schools_priority": 0.61
+        }
+      },
+      {
+        "archetype_name": "virginia_likely_voters",
+        "attention_level": 0.66,
+        "cohort_name": "federal_workforce_cohort",
+        "expression_level": 0.28,
+        "fatigue": 0.42,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.47,
+        "perceived_majority": 0.45,
+        "population_share_of_archetype": 0.0563,
+        "private_preference": "slight_candidate_d_edge",
+        "public_expression": "muted",
+        "representation_mode": "cross_pressured_issue_group",
+        "represented_population": 180000,
+        "stance_axes": {
+          "abortion_priority": 0.41,
+          "candidate_d_support": 0.54,
+          "candidate_r_support": 0.38,
+          "cost_of_living_priority": 0.61,
+          "national_backlash_receptivity": 0.33,
+          "schools_priority": 0.37
+        }
+      },
+      {
+        "archetype_name": "virginia_potential_voters",
+        "attention_level": 0.29,
+        "cohort_name": "low_propensity_potential_voters",
+        "expression_level": 0.14,
+        "fatigue": 0.23,
+        "fear_of_isolation": 0.33,
+        "mobilization_readiness": 0.26,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.2545,
+        "private_preference": "weakly_formed",
+        "public_expression": "minimal",
+        "representation_mode": "reserve_turnout_pool",
+        "represented_population": 1400000,
+        "stance_axes": {
+          "abortion_priority": 0.43,
+          "candidate_d_support": 0.41,
+          "candidate_r_support": 0.4,
+          "cost_of_living_priority": 0.59,
+          "national_backlash_receptivity": 0.5,
+          "schools_priority": 0.4
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "virginia_general_electorate"
+        ],
+        "blockers": [
+          "Candidate R wins statewide vote.",
+          "Another candidate wins.",
+          "Race remains unresolved by deadline if such a condition were relevant, though corpus implies resolved-card framing."
+        ],
+        "contradiction_notes": "A Democratic victory by someone other than Candidate D would still resolve no.",
+        "description": "Terminal yes endpoint in which Candidate D is elected governor of Virginia.",
+        "endpoint_key": "candidate_d_elected_governor",
+        "evidence_refs": [
+          "Forecast question states resolve yes only if Candidate D is elected governor.",
+          "Scenario describes head-to-head race with Candidate R."
+        ],
+        "label": "Candidate D wins the governorship",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will Candidate D be elected governor of Virginia in the 2025 election?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.5,
+        "rationale": "Primary terminal outcome explicitly specified by source packet.",
+        "realization_criteria": [
+          "Certified or otherwise authoritative election result shows Candidate D wins the Virginia gubernatorial election.",
+          "No alternative Democratic winner condition applies; victory is specifically by Candidate D."
+        ],
+        "status": "active",
+        "status_basis": "At T0 the election has not yet been decided in the scenario corpus."
+      },
+      {
+        "authority_refs": [
+          "virginia_general_electorate"
+        ],
+        "blockers": [
+          "Candidate D wins the election."
+        ],
+        "contradiction_notes": "Includes close loss and any non-D victory, not merely a landslide defeat.",
+        "description": "Terminal no endpoint in which Candidate D is not elected governor, whether due to Candidate R winning or any other non-D outcome.",
+        "endpoint_key": "candidate_d_not_elected_governor",
+        "evidence_refs": [
+          "Endpoint note states a close loss or victory by a different Democrat would resolve no for Candidate D."
+        ],
+        "label": "Candidate D does not win the governorship",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the usual opposite-party-to-sitting-president pattern materially shape the final result in Candidate R's favor?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.5,
+        "rationale": "Necessary complement to the binary resolution structure.",
+        "realization_criteria": [
+          "Authoritative election result does not show Candidate D as governor-elect by the relevant resolution deadline."
+        ],
+        "status": "active",
+        "status_basis": "Mutually exclusive alternative terminal endpoint remains fully viable at T0."
+      },
+      {
+        "authority_refs": [
+          "virginia_general_electorate",
+          "candidate_r",
+          "state_media_ecosystem"
+        ],
+        "blockers": [
+          "Candidate D wins.",
+          "State-specific issue or candidate-quality effects dominate without clear backlash linkage."
+        ],
+        "contradiction_notes": "This is not the main card resolution; it is an endpoint-facing causal interpretation relevant to later review.",
+        "description": "A terminal analytical endpoint where the anti-sitting-president party pattern is judged outcome-relevant because Candidate R's eventual victory path clearly tracks that dynamic.",
+        "endpoint_key": "opposition_party_cycle_advantage_realized",
+        "evidence_refs": [
+          "Scenario notes Virginia often elects a governor from the party opposite the sitting U.S. president.",
+          "Scenario notes national-party backlash as plausible driver."
+        ],
+        "label": "Opposition-party cycle pattern proves outcome-relevant",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do persuadable suburban voters break decisively toward one candidate rather than splitting roughly evenly?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": null,
+        "rationale": "Captures an implied major branch about whether historical cycle pattern still has predictive force.",
+        "realization_criteria": [
+          "Candidate R wins the election.",
+          "Post-result evidence or campaign-observed trajectory shows anti-presidential-party sentiment was a central driver rather than incidental background noise."
+        ],
+        "status": "active",
+        "status_basis": "Structural prior exists but is not yet outcome-determinative at initialization."
+      },
+      {
+        "authority_refs": [
+          "candidate_d",
+          "candidate_r",
+          "persuadable_suburban_voters",
+          "state_media_ecosystem"
+        ],
+        "blockers": [
+          "Strong and clearly dominant backlash pattern swamps candidate-specific effects."
+        ],
+        "contradiction_notes": "Could coexist with either Candidate D or Candidate R winning, so long as candidate-specific dynamics were decisive.",
+        "description": "A terminal analytical endpoint where final result is better explained by candidate quality or state-specific issue fit than by the usual opposite-party cycle pattern.",
+        "endpoint_key": "candidate_quality_overrides_cycle_pattern",
+        "evidence_refs": [
+          "Scenario states candidate quality remains important.",
+          "Virginia is competitive, implying non-structural factors matter."
+        ],
+        "label": "Candidate-specific factors override broad cycle prior",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Which issue cluster becomes more electorally decisive at the margin: abortion/federal workforce or cost of living/schools?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": null,
+        "rationale": "Preserves a major uncertainty needed for later branch comparison.",
+        "realization_criteria": [
+          "Observed campaign trajectory or final outcome departs from what the opposition-party cycle prior alone would predict.",
+          "Persuadable voter movement and issue alignment center more on candidate acceptability/fit than generic national backlash."
+        ],
+        "status": "active",
+        "status_basis": "Candidate quality is explicitly named as an important unresolved factor at T0."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "Source packet references statewide competitive race and issue drivers.",
+        "layer": "exposure",
+        "reason": "State media broadly exposes voters to race framing and issue salience.",
+        "source_actor_name": "state_media_ecosystem",
+        "target_actor_name": "virginia_general_electorate",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "Candidate D is a named top-line gubernatorial candidate.",
+        "layer": "exposure",
+        "reason": "Major nominee has broad statewide campaign exposure.",
+        "source_actor_name": "candidate_d",
+        "target_actor_name": "virginia_general_electorate",
+        "weight": 0.54
+      },
+      {
+        "direction": "directed",
+        "evidence": "Candidate R is the opposing major-party candidate and current statewide officeholder.",
+        "layer": "exposure",
+        "reason": "Major nominee and sitting lieutenant governor has broad statewide exposure.",
+        "source_actor_name": "candidate_r",
+        "target_actor_name": "virginia_general_electorate",
+        "weight": 0.56
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario notes national polarization and national-party backlash as important.",
+        "layer": "exposure",
+        "reason": "National party image informs state race under polarization.",
+        "source_actor_name": "national_democratic_brand",
+        "target_actor_name": "virginia_general_electorate",
+        "weight": 0.47
+      },
+      {
+        "direction": "directed",
+        "evidence": "Expected focus includes nationalized_state_race.",
+        "layer": "exposure",
+        "reason": "National Republican image is visible in a nationalized state race.",
+        "source_actor_name": "national_republican_brand",
+        "target_actor_name": "virginia_general_electorate",
+        "weight": 0.45
+      },
+      {
+        "direction": "directed",
+        "evidence": "Candidate D is Democratic-side contender; no scandal or fracture evidence supplied.",
+        "layer": "trust",
+        "reason": "Partisan base starts with meaningful but not perfect trust in own nominee.",
+        "source_actor_name": "democratic_base_voters",
+        "target_actor_name": "candidate_d",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "Candidate R is Republican-side contender and statewide officeholder.",
+        "layer": "trust",
+        "reason": "Partisan base starts with meaningful trust in own nominee.",
+        "source_actor_name": "republican_base_voters",
+        "target_actor_name": "candidate_r",
+        "weight": 0.64
+      },
+      {
+        "direction": "directed",
+        "evidence": "Candidate quality remains important and preferences are competitive.",
+        "layer": "trust",
+        "reason": "Swing voters are open but unconvinced.",
+        "source_actor_name": "persuadable_suburban_voters",
+        "target_actor_name": "candidate_d",
+        "weight": 0.42
+      },
+      {
+        "direction": "directed",
+        "evidence": "Race described as competitive.",
+        "layer": "trust",
+        "reason": "Swing voters are open but unconvinced, with no decisive evidence of advantage.",
+        "source_actor_name": "persuadable_suburban_voters",
+        "target_actor_name": "candidate_r",
+        "weight": 0.43
+      },
+      {
+        "direction": "directed",
+        "evidence": "Federal workforce issues listed as plausible drivers.",
+        "layer": "trust",
+        "reason": "Federal workforce concerns plausibly improve receptivity to Democratic appeals.",
+        "source_actor_name": "federal_workforce_households",
+        "target_actor_name": "candidate_d",
+        "weight": 0.49
+      },
+      {
+        "direction": "directed",
+        "evidence": "Federal workforce issues listed as plausible drivers; no stronger corpus detail.",
+        "layer": "trust",
+        "reason": "Some caution toward Republican positioning if perceived as less protective of federal workforce interests.",
+        "source_actor_name": "federal_workforce_households",
+        "target_actor_name": "candidate_r",
+        "weight": 0.37
+      },
+      {
+        "direction": "directed",
+        "evidence": "Standard statewide competitive election structure; no alternative path indicated.",
+        "layer": "dependency",
+        "reason": "Candidate D relies on base turnout for statewide victory.",
+        "source_actor_name": "candidate_d",
+        "target_actor_name": "democratic_base_voters",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "Virginia competitiveness and candidate quality matter.",
+        "layer": "dependency",
+        "reason": "Open-seat statewide contest likely requires persuasion beyond base.",
+        "source_actor_name": "candidate_d",
+        "target_actor_name": "persuadable_suburban_voters",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "Competitive statewide race requires partisan base consolidation.",
+        "layer": "dependency",
+        "reason": "Candidate R relies on core Republican turnout.",
+        "source_actor_name": "candidate_r",
+        "target_actor_name": "republican_base_voters",
+        "weight": 0.59
+      },
+      {
+        "direction": "directed",
+        "evidence": "Candidate quality and issue salience remain important.",
+        "layer": "dependency",
+        "reason": "Winning statewide likely requires some suburban crossover or retention.",
+        "source_actor_name": "candidate_r",
+        "target_actor_name": "persuadable_suburban_voters",
+        "weight": 0.48
+      },
+      {
+        "direction": "directed",
+        "evidence": "Campaign note lists abortion as a plausible driver.",
+        "layer": "dependency",
+        "reason": "Abortion is a plausible driver that may supply margin and turnout energy.",
+        "source_actor_name": "candidate_d",
+        "target_actor_name": "abortion_rights_voters",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "Campaign note lists cost of living as plausible driver.",
+        "layer": "dependency",
+        "reason": "Economic dissatisfaction may provide support base beyond ideology.",
+        "source_actor_name": "candidate_r",
+        "target_actor_name": "cost_of_living_concerned_voters",
+        "weight": 0.43
+      },
+      {
+        "direction": "directed",
+        "evidence": "National polarization and backlash matter.",
+        "layer": "influence",
+        "reason": "National Democratic reputation affects state nominee standing.",
+        "source_actor_name": "national_democratic_brand",
+        "target_actor_name": "candidate_d",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "Expected focus includes nationalized race.",
+        "layer": "influence",
+        "reason": "National Republican reputation shapes state nominee coalition and attack lines.",
+        "source_actor_name": "national_republican_brand",
+        "target_actor_name": "candidate_r",
+        "weight": 0.5
+      },
+      {
+        "direction": "directed",
+        "evidence": "Incumbent governor cannot run again because of term limits.",
+        "layer": "influence",
+        "reason": "Term-limited incumbent defines open-seat context but lacks direct reelection presence.",
+        "source_actor_name": "outgoing_governor_office",
+        "target_actor_name": "virginia_general_electorate",
+        "weight": 0.24
+      },
+      {
+        "direction": "directed",
+        "evidence": "Candidate quality remains important in competitive race.",
+        "layer": "influence",
+        "reason": "Media framing especially matters for less partisan, quality-sensitive voters.",
+        "source_actor_name": "state_media_ecosystem",
+        "target_actor_name": "persuadable_suburban_voters",
+        "weight": 0.55
+      },
+      {
+        "direction": "directed",
+        "evidence": "Abortion listed as plausible driver.",
+        "layer": "influence",
+        "reason": "Nominee can activate issue voters through rights-centered messaging.",
+        "source_actor_name": "candidate_d",
+        "target_actor_name": "abortion_rights_voters",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "Schools listed among plausible drivers.",
+        "layer": "influence",
+        "reason": "Schools issue may be favorable terrain for Republican agenda-setting.",
+        "source_actor_name": "candidate_r",
+        "target_actor_name": "education_issue_voters",
+        "weight": 0.56
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Major-party race structure.",
+        "layer": "coalition",
+        "reason": "Strong natural alignment between Democratic nominee and Democratic base.",
+        "source_actor_name": "candidate_d",
+        "target_actor_name": "democratic_base_voters",
+        "weight": 0.65
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Major-party race structure.",
+        "layer": "coalition",
+        "reason": "Strong natural alignment between Republican nominee and Republican base.",
+        "source_actor_name": "candidate_r",
+        "target_actor_name": "republican_base_voters",
+        "weight": 0.67
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Federal workforce issues listed as plausible drivers.",
+        "layer": "coalition",
+        "reason": "Potential issue-based alignment around federal workforce stability.",
+        "source_actor_name": "candidate_d",
+        "target_actor_name": "federal_workforce_households",
+        "weight": 0.41
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Abortion is a salient driver and Candidate D is Democratic-side contender.",
+        "layer": "coalition",
+        "reason": "Likely alignment on abortion rights issue.",
+        "source_actor_name": "candidate_d",
+        "target_actor_name": "abortion_rights_voters",
+        "weight": 0.58
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Cost of living is a plausible driver and opposite-party dynamic is noted.",
+        "layer": "coalition",
+        "reason": "Economic dissatisfaction may align some voters with opposition-party candidate.",
+        "source_actor_name": "candidate_r",
+        "target_actor_name": "cost_of_living_concerned_voters",
+        "weight": 0.45
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Schools listed as plausible driver.",
+        "layer": "coalition",
+        "reason": "Schools politics may create issue alignment with Candidate R.",
+        "source_actor_name": "candidate_r",
+        "target_actor_name": "education_issue_voters",
+        "weight": 0.49
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Forecast question is a head-to-head gubernatorial race.",
+        "layer": "conflict",
+        "reason": "Direct two-candidate competition for a single office.",
+        "source_actor_name": "candidate_d",
+        "target_actor_name": "candidate_r",
+        "weight": 0.71
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Scenario explicitly notes national polarization.",
+        "layer": "conflict",
+        "reason": "National polarization creates partisan tension.",
+        "source_actor_name": "democratic_base_voters",
+        "target_actor_name": "republican_base_voters",
+        "weight": 0.59
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Nationalized state race context.",
+        "layer": "conflict",
+        "reason": "Candidate D is pressured by Republican national framing and contrast politics.",
+        "source_actor_name": "candidate_d",
+        "target_actor_name": "national_republican_brand",
+        "weight": 0.46
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "National-party backlash is a plausible driver.",
+        "layer": "conflict",
+        "reason": "Candidate R likely runs against national Democratic brand as backlash vehicle.",
+        "source_actor_name": "candidate_r",
+        "target_actor_name": "national_democratic_brand",
+        "weight": 0.49
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Top-tier statewide candidate in competitive race.",
+        "layer": "oasis_interaction",
+        "reason": "Candidate D will frequently interact with public media channels during the campaign.",
+        "source_actor_name": "candidate_d",
+        "target_actor_name": "state_media_ecosystem",
+        "weight": 0.58
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Top-tier statewide candidate and sitting lieutenant governor.",
+        "layer": "oasis_interaction",
+        "reason": "Candidate R will frequently interact with public media channels during the campaign.",
+        "source_actor_name": "candidate_r",
+        "target_actor_name": "state_media_ecosystem",
+        "weight": 0.6
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "High-salience statewide race.",
+        "layer": "oasis_interaction",
+        "reason": "Base voters engage with statewide political messaging and coverage.",
+        "source_actor_name": "democratic_base_voters",
+        "target_actor_name": "state_media_ecosystem",
+        "weight": 0.39
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "High-salience statewide race.",
+        "layer": "oasis_interaction",
+        "reason": "Base voters engage with statewide political messaging and coverage.",
+        "source_actor_name": "republican_base_voters",
+        "target_actor_name": "state_media_ecosystem",
+        "weight": 0.41
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Candidate quality remains important for these voters.",
+        "layer": "oasis_interaction",
+        "reason": "Swing voters consume election framing but are less publicly expressive.",
+        "source_actor_name": "persuadable_suburban_voters",
+        "target_actor_name": "state_media_ecosystem",
+        "weight": 0.44
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "description": "Statewide nominee with agenda-setting and mobilization capacity.",
+        "name": "major_candidate"
+      },
+      {
+        "description": "Cross-pressured high-salience issue constituency affecting margin outcomes.",
+        "name": "statewide_issue_public"
+      }
+    ],
+    "hero_states": [
+      {
+        "archetype_name": "major_candidate",
+        "attention_level": 0.88,
+        "expression_level": 0.83,
+        "fatigue": 0.46,
+        "fear_of_isolation": 0.08,
+        "hero_name": "candidate_d",
+        "mobilization_readiness": 0.81,
+        "perceived_majority": 0.49,
+        "reputation": 0.58,
+        "role": "democratic_nominee",
+        "secrecy": 0.22,
+        "stance_axes": {
+          "abortion_rights_message": 0.77,
+          "anti_nationalization_message": 0.52,
+          "economic_change_message": 0.56,
+          "education_moderation_message": 0.49,
+          "federal_workforce_protection_message": 0.68
+        },
+        "trustworthiness": 0.56
+      },
+      {
+        "archetype_name": "major_candidate",
+        "attention_level": 0.87,
+        "expression_level": 0.84,
+        "fatigue": 0.43,
+        "fear_of_isolation": 0.07,
+        "hero_name": "candidate_r",
+        "mobilization_readiness": 0.82,
+        "perceived_majority": 0.5,
+        "reputation": 0.57,
+        "role": "republican_nominee",
+        "secrecy": 0.24,
+        "stance_axes": {
+          "abortion_restriction_or_deflection_message": 0.38,
+          "anti_national_democrat_message": 0.76,
+          "economic_change_message": 0.71,
+          "education_conflict_message": 0.66,
+          "federal_workforce_message": 0.43
+        },
+        "trustworthiness": 0.53
+      }
+    ],
+    "heroes": [
+      {
+        "description": "Statewide nominee with agenda-setting and mobilization capacity.",
+        "name": "major_candidate"
+      },
+      {
+        "description": "Cross-pressured high-salience issue constituency affecting margin outcomes.",
+        "name": "statewide_issue_public"
+      }
+    ],
+    "important_questions": [
+      "Will Candidate D be elected governor of Virginia in the 2025 election?",
+      "Does the usual opposite-party-to-sitting-president pattern materially shape the final result in Candidate R's favor?",
+      "Do persuadable suburban voters break decisively toward one candidate rather than splitting roughly evenly?",
+      "Which issue cluster becomes more electorally decisive at the margin: abortion/federal workforce or cost of living/schools?"
+    ],
+    "initial_events": [
+      {
+        "event_key": "open_seat_race_confirmed",
+        "event_type": "announcement",
+        "evidence": "Scenario states incumbent governor cannot run again because of term limits.",
+        "expected_impact": "Raises uncertainty, increases relevance of candidate quality, and weakens incumbency effects.",
+        "status": "realized",
+        "summary": "The governorship is open because the incumbent governor is term-limited.",
+        "tick": 0
+      },
+      {
+        "event_key": "race_frame_competitive",
+        "event_type": "announcement",
+        "evidence": "Source 1.",
+        "expected_impact": "Keeps both coalitions mobilized and elevates importance of marginal turnout and persuasion.",
+        "status": "realized",
+        "summary": "Virginia enters the cycle with a recent history of competitive statewide races and post-presidential swings.",
+        "tick": 0
+      },
+      {
+        "event_key": "issue_salience_contestation",
+        "event_type": "announcement",
+        "evidence": "Source 2.",
+        "expected_impact": "May shift attention and coalition cohesion differently across suburban, base, and cross-pressured cohorts.",
+        "status": "scheduled",
+        "summary": "Campaigns intensify around abortion, cost of living, federal workforce issues, and schools.",
+        "tick": 1
+      },
+      {
+        "event_key": "national_backlash_signal_test",
+        "event_type": "announcement",
+        "evidence": "Scenario and Source 2.",
+        "expected_impact": "Could increase Candidate R structural advantage if backlash dominates, or fade if candidate-specific dynamics override.",
+        "status": "scheduled",
+        "summary": "Observers and campaigns test whether anti-presidential-party dynamics are material in this race.",
+        "tick": 1
+      },
+      {
+        "event_key": "late_choice_consolidation",
+        "event_type": "announcement",
+        "evidence": "Scenario says candidate quality remains important.",
+        "expected_impact": "Can widen or narrow race depending on trust, media framing, and turnout enthusiasm.",
+        "status": "scheduled",
+        "summary": "Persuadable voters begin consolidating around perceived candidate quality and issue fit.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "b27320e2-d464-4c75-b216-16a6baf28df8",
+    "merge_hypotheses": [
+      {
+        "convergence_effect": "Multiple branches still reconverge into a narrow final margin with high sensitivity to turnout composition.",
+        "merge_key": "close_race_equilibrium",
+        "shared_driver": "Competitive statewide baseline and partisan polarization keep both sides near parity."
+      },
+      {
+        "convergence_effect": "Even after issue shocks, outcome remains dependent on a limited set of cross-pressured and suburban voters.",
+        "merge_key": "base_turnout_symmetry",
+        "shared_driver": "Both parties retain strong core mobilization despite issue differences."
+      },
+      {
+        "convergence_effect": "Divergent campaign tactics partially wash out into broader partisan sorting by Election Day.",
+        "merge_key": "nationalization_floor",
+        "shared_driver": "National party brands remain persistently visible regardless of state-specific messaging."
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "description": "Likely turnout population for the gubernatorial election.",
+        "name": "virginia_likely_voters",
+        "population_total": 3200000
+      },
+      {
+        "description": "Broader pool of eligible and lower-propensity voters who may be mobilized.",
+        "name": "virginia_potential_voters",
+        "population_total": 5500000
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "masked_identity_uncertainty",
+        "note": "Candidate identities are intentionally masked, limiting use of candidate-specific priors beyond roles provided in corpus.",
+        "severity": "medium"
+      },
+      {
+        "flag": "sparse_empirical_inputs",
+        "note": "No polling, fundraising, endorsements, turnout history by region, or scandals are supplied.",
+        "severity": "high"
+      },
+      {
+        "flag": "structural_prior_overreach_risk",
+        "note": "Opposite-party cycle pattern is suggestive but may be overstated if national polarization or candidate quality dominates.",
+        "severity": "medium"
+      },
+      {
+        "flag": "issue_weight_uncertainty",
+        "note": "Several plausible issue drivers are named, but no evidence ranks their salience or directionality across cohorts.",
+        "severity": "medium"
+      },
+      {
+        "flag": "endpoint_interpretation_secondary",
+        "note": "Some analytical endpoints in ledger are causal/interpretive supplements, not the primary binary resolution target.",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "domain": "statewide_election_forecasting",
+      "geography": "Virginia",
+      "mode": "direct",
+      "resolution_rule": "Resolve yes only if Candidate D is elected governor; any other outcome resolves no.",
+      "scenario_key": "resolved_012",
+      "summary": "A competitive 2025 Virginia governor's race features Candidate D, a former U.S. House member, against Candidate R, the sitting lieutenant governor, in an open-seat contest due to term limits. The race is shaped by Virginia's history of competitive statewide elections, possible post-presidential-cycle backlash against the sitting U.S. president's party, and issue salience around abortion, cost of living, federal workforce concerns, and schools. T0 is initialized before outcome realization, with uncertainty preserved around candidate quality, turnout composition, and nationalization effects.",
+      "timeframe": "2025 gubernatorial cycle",
+      "uncertainty_notes": [
+        "Candidate identities are masked in source material; public actors are fictionalized.",
+        "No polling, fundraising, or organizational strength data are provided in the corpus.",
+        "Issue salience is evidenced, but relative voter weights and coalition durability are uncertain.",
+        "State often shows opposite-party-to-president pattern, but national polarization may weaken or complicate that tendency."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "democratic_base_voters",
+          "republican_base_voters",
+          "persuadable_suburban_voters"
+        ],
+        "evidence": "National polarization limits wide persuasion but leaves room among swing voters.",
+        "level": 0.68,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "abortion_rights_voters",
+          "cost_of_living_concerned_voters",
+          "education_issue_voters"
+        ],
+        "evidence": "Named issue drivers can trigger turnout if salience intensifies.",
+        "level": 0.61,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "federal_workforce_households",
+          "persuadable_suburban_voters"
+        ],
+        "evidence": "Cross-pressured groups may privately lean while speaking cautiously.",
+        "level": 0.52,
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "democratic_base_voters",
+          "republican_base_voters"
+        ],
+        "evidence": "Polarized partisan alignment structures discussion networks.",
+        "level": 0.66,
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "low_propensity_potential_voters",
+          "persuadable_suburban_voters"
+        ],
+        "evidence": "Multiple reinforcing cues are likely needed to alter turnout or late choice.",
+        "level": 0.49,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "democratic_base_voters",
+          "republican_base_voters",
+          "abortion_rights_voters"
+        ],
+        "evidence": "Party and issue identity likely shape candidate interpretation.",
+        "level": 0.64,
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "virginia_general_electorate"
+        ],
+        "evidence": "No crisis-level trigger at T0; salience can ebb unless reinforced by campaign events.",
+        "level": 0.43,
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Term limits remove incumbent reelection advantage and increase candidate-quality importance.",
+        "influence_key": "open_seat_competition"
+      },
+      {
+        "description": "Virginia often elects a governor from the party opposite the sitting U.S. president, creating a structural prior but not a guarantee.",
+        "influence_key": "opposition_party_cycle_pattern"
+      },
+      {
+        "description": "National polarization and party-brand backlash can shape a nominally state-level contest.",
+        "influence_key": "nationalized_state_race"
+      },
+      {
+        "description": "Multiple issue clusters offer different activation pathways across cohorts.",
+        "influence_key": "issue_stack_abortion_cost_schools_federal_workforce"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "candidate_d",
+        "behavior_axes": {
+          "adaptability": 0.58,
+          "institutionalism": 0.64,
+          "message_discipline": 0.61,
+          "risk_tolerance": 0.54
+        },
+        "ideology_axes": {
+          "cultural_progressivism": 0.68,
+          "economic_populism": 0.49,
+          "partisan_left_right": 0.39
+        },
+        "reputation": 0.58,
+        "secrecy": 0.22,
+        "tendency": "coalition_maintenance",
+        "trustworthiness": 0.56
+      },
+      {
+        "actor_name": "candidate_r",
+        "behavior_axes": {
+          "adaptability": 0.55,
+          "institutionalism": 0.52,
+          "message_discipline": 0.6,
+          "risk_tolerance": 0.59
+        },
+        "ideology_axes": {
+          "cultural_progressivism": 0.27,
+          "economic_populism": 0.57,
+          "partisan_left_right": 0.72
+        },
+        "reputation": 0.57,
+        "secrecy": 0.24,
+        "tendency": "backlash_activation",
+        "trustworthiness": 0.53
+      },
+      {
+        "actor_name": "democratic_base_voters",
+        "behavior_axes": {
+          "expressiveness": 0.68,
+          "issue_stacking": 0.63,
+          "persuadability": 0.18,
+          "turnout_habit": 0.72
+        },
+        "ideology_axes": {
+          "cultural_progressivism": 0.71,
+          "economic_populism": 0.47,
+          "partisan_left_right": 0.3
+        },
+        "reputation": 0.54,
+        "secrecy": 0.18,
+        "tendency": "loyal_mobilization",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "republican_base_voters",
+        "behavior_axes": {
+          "expressiveness": 0.7,
+          "issue_stacking": 0.61,
+          "persuadability": 0.16,
+          "turnout_habit": 0.74
+        },
+        "ideology_axes": {
+          "cultural_progressivism": 0.24,
+          "economic_populism": 0.55,
+          "partisan_left_right": 0.78
+        },
+        "reputation": 0.55,
+        "secrecy": 0.17,
+        "tendency": "loyal_mobilization",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "persuadable_suburban_voters",
+        "behavior_axes": {
+          "expressiveness": 0.36,
+          "issue_stacking": 0.58,
+          "persuadability": 0.67,
+          "turnout_habit": 0.62
+        },
+        "ideology_axes": {
+          "cultural_progressivism": 0.52,
+          "economic_populism": 0.44,
+          "partisan_left_right": 0.51
+        },
+        "reputation": 0.5,
+        "secrecy": 0.41,
+        "tendency": "late_decision",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "federal_workforce_households",
+        "behavior_axes": {
+          "expressiveness": 0.28,
+          "issue_stacking": 0.55,
+          "persuadability": 0.49,
+          "turnout_habit": 0.68
+        },
+        "ideology_axes": {
+          "cultural_progressivism": 0.5,
+          "economic_populism": 0.46,
+          "partisan_left_right": 0.47
+        },
+        "reputation": 0.52,
+        "secrecy": 0.48,
+        "tendency": "risk_averse_issue_voting",
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "state_media_ecosystem",
+        "behavior_axes": {
+          "amplification": 0.66,
+          "conflict_selection": 0.53,
+          "horse_race_focus": 0.63,
+          "localization": 0.57
+        },
+        "ideology_axes": {
+          "cultural_progressivism": 0.5,
+          "economic_populism": 0.5,
+          "partisan_left_right": 0.5
+        },
+        "reputation": 0.5,
+        "secrecy": 0.12,
+        "tendency": "competitive_narrative_framing",
+        "trustworthiness": 0.51
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 1771,
+        "end": 1771,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 1771,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

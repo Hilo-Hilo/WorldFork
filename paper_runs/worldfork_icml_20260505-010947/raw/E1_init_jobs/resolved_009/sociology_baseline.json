@@ -1,0 +1,219 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "60634643-0713-41b6-b741-e49c4ea93cdf",
+      "created_at": "2026-05-05T02:07:12.636117+00:00",
+      "id": "4ce729a8-3810-4908-a337-d9b3aab85957",
+      "influence": {
+        "context_key": "favorite_status",
+        "description": "Player C is top seed and treated as baseline favorite against the field"
+      },
+      "multiverse_id": "93aec823-2aa7-4494-9ef1-2e018bb60b34",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:07:12.636117+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "60634643-0713-41b6-b741-e49c4ea93cdf",
+      "created_at": "2026-05-05T02:07:12.636117+00:00",
+      "id": "56be5226-6fc3-4710-9df1-0cf7c5326e6e",
+      "influence": {
+        "context_key": "draw_path_sensitivity",
+        "description": "Semifinal and final matchup sequencing materially affects title chances"
+      },
+      "multiverse_id": "93aec823-2aa7-4494-9ef1-2e018bb60b34",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:07:12.636117+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "60634643-0713-41b6-b741-e49c4ea93cdf",
+      "created_at": "2026-05-05T02:07:12.636117+00:00",
+      "id": "5905ac59-2695-4e21-9d49-e068abc7c100",
+      "influence": {
+        "context_key": "fatigue_sensitivity",
+        "description": "Physical wear and recovery can move win probability late in tournament"
+      },
+      "multiverse_id": "93aec823-2aa7-4494-9ef1-2e018bb60b34",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:07:12.636117+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "60634643-0713-41b6-b741-e49c4ea93cdf",
+      "created_at": "2026-05-05T02:07:12.636117+00:00",
+      "id": "8cf6d64e-8274-44e2-b0a3-67007a267384",
+      "influence": {
+        "context_key": "elite_opponent_risk",
+        "description": "A single elite opponent can substantially reduce Player C's title chances"
+      },
+      "multiverse_id": "93aec823-2aa7-4494-9ef1-2e018bb60b34",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:07:12.636117+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "60634643-0713-41b6-b741-e49c4ea93cdf",
+      "created_at": "2026-05-05T02:07:12.636117+00:00",
+      "id": "6bb0b086-757d-4094-9799-359cc3ab22e1",
+      "influence": {
+        "context_key": "strict_endpoint",
+        "description": "Only winning the men's singles title resolves yes; finalist status alone does not"
+      },
+      "multiverse_id": "93aec823-2aa7-4494-9ef1-2e018bb60b34",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:07:12.636117+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "60634643-0713-41b6-b741-e49c4ea93cdf",
+      "created_at": "2026-05-05T02:07:12.636117+00:00",
+      "id": "cb7a2e65-d96b-4634-98e9-610da4788a8b",
+      "model": "attention_decay",
+      "multiverse_id": "93aec823-2aa7-4494-9ef1-2e018bb60b34",
+      "signal": {
+        "applies_to": [
+          "tennis_forecast_market",
+          "general_tennis_fans"
+        ],
+        "evidence": "observers likely cluster around favorite framing while adjusting within limited range for draw/fatigue updates",
+        "level": "medium",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:12.636117+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "60634643-0713-41b6-b741-e49c4ea93cdf",
+      "created_at": "2026-05-05T02:07:12.636117+00:00",
+      "id": "c97ca11d-aec1-41fd-8492-467e542c6342",
+      "model": "attention_decay",
+      "multiverse_id": "93aec823-2aa7-4494-9ef1-2e018bb60b34",
+      "signal": {
+        "applies_to": [
+          "general_tennis_fans"
+        ],
+        "evidence": "spectator attention spikes after major match results rather than continuous activism",
+        "level": "low",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:12.636117+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "60634643-0713-41b6-b741-e49c4ea93cdf",
+      "created_at": "2026-05-05T02:07:12.636117+00:00",
+      "id": "a4eac40d-38f1-4ad7-be4b-d86653dc651f",
+      "model": "attention_decay",
+      "multiverse_id": "93aec823-2aa7-4494-9ef1-2e018bb60b34",
+      "signal": {
+        "applies_to": [
+          "players_and_competitive_camp"
+        ],
+        "evidence": "competitive camps are message-controlled and reveal limited private confidence",
+        "level": "low",
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:12.636117+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "60634643-0713-41b6-b741-e49c4ea93cdf",
+      "created_at": "2026-05-05T02:07:12.636117+00:00",
+      "id": "f3434384-dab6-45cd-bf61-011c6aa629ed",
+      "model": "attention_decay",
+      "multiverse_id": "93aec823-2aa7-4494-9ef1-2e018bb60b34",
+      "signal": {
+        "applies_to": [
+          "general_tennis_fans",
+          "tennis_forecast_market"
+        ],
+        "evidence": "fan and analyst communities may cluster around favorite-vs-legend narratives",
+        "level": "medium",
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:12.636117+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "60634643-0713-41b6-b741-e49c4ea93cdf",
+      "created_at": "2026-05-05T02:07:12.636117+00:00",
+      "id": "6a94fcdf-e33b-4ee0-9afd-42e9bfde55fe",
+      "model": "attention_decay",
+      "multiverse_id": "93aec823-2aa7-4494-9ef1-2e018bb60b34",
+      "signal": {
+        "applies_to": [
+          "general_tennis_fans"
+        ],
+        "evidence": "multiple aligned signals such as wins, fatigue rumors, and matchup confirmation can shift crowd expectations quickly",
+        "level": "medium",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:12.636117+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "60634643-0713-41b6-b741-e49c4ea93cdf",
+      "created_at": "2026-05-05T02:07:12.636117+00:00",
+      "id": "ae9f7a3d-2dc2-4eb7-83f6-9fcd0a2686e4",
+      "model": "attention_decay",
+      "multiverse_id": "93aec823-2aa7-4494-9ef1-2e018bb60b34",
+      "signal": {
+        "applies_to": [
+          "general_tennis_fans"
+        ],
+        "evidence": "star loyalty and legacy narratives shape perception beyond pure base rates",
+        "level": "medium",
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:12.636117+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "60634643-0713-41b6-b741-e49c4ea93cdf",
+      "created_at": "2026-05-05T02:07:12.636117+00:00",
+      "id": "3deffcbd-c1bf-4ab1-b6e8-b3a374d633b5",
+      "model": "attention_decay",
+      "multiverse_id": "93aec823-2aa7-4494-9ef1-2e018bb60b34",
+      "signal": {
+        "applies_to": [
+          "general_tennis_fans",
+          "tennis_forecast_market"
+        ],
+        "evidence": "late-stage major tournament sustains attention until title resolution",
+        "level": "low",
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:12.636117+00:00"
+    }
+  ]
+}

@@ -1,0 +1,188 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "13e0eb20-08a5-4e1b-bb7f-53e406833619",
+      "created_at": "2026-05-05T02:07:17.946086+00:00",
+      "id": "a6f2aeb1-cc9e-496d-be91-e266a2f69cc7",
+      "influence": {
+        "description": "High variance in single-game football should shape observer caution and branch readiness.",
+        "influence_key": "single_game_variance_salience"
+      },
+      "multiverse_id": "ae4d3891-715a-409c-ae4a-25a769edd4cf",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:07:17.946086+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "13e0eb20-08a5-4e1b-bb7f-53e406833619",
+      "created_at": "2026-05-05T02:07:17.946086+00:00",
+      "id": "d52954c4-bc60-47f3-b8aa-0b03dec60796",
+      "influence": {
+        "description": "Home-field assumptions are damped but not eliminated by the neutral site.",
+        "influence_key": "neutral_site_adjustment"
+      },
+      "multiverse_id": "ae4d3891-715a-409c-ae4a-25a769edd4cf",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:07:17.946086+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "13e0eb20-08a5-4e1b-bb7f-53e406833619",
+      "created_at": "2026-05-05T02:07:17.946086+00:00",
+      "id": "65f9e6f6-2049-4bd0-8347-a79c93b66f60",
+      "influence": {
+        "description": "Only the outright winner matters; margin and spread performance are irrelevant.",
+        "influence_key": "binary_resolution_rule"
+      },
+      "multiverse_id": "ae4d3891-715a-409c-ae4a-25a769edd4cf",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:07:17.946086+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "13e0eb20-08a5-4e1b-bb7f-53e406833619",
+      "created_at": "2026-05-05T02:07:17.946086+00:00",
+      "id": "be99c46e-40a4-4096-9b50-d6c9b22d5c3d",
+      "influence": {
+        "description": "Observer framing is likely organized around Team N defense/QB versus Team S run-game/defensive-depth strengths.",
+        "influence_key": "matchup_style_frame"
+      },
+      "multiverse_id": "ae4d3891-715a-409c-ae4a-25a769edd4cf",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:07:17.946086+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "13e0eb20-08a5-4e1b-bb7f-53e406833619",
+      "created_at": "2026-05-05T02:07:17.946086+00:00",
+      "id": "5d3e6f1d-1a15-4718-b2ed-0dfa24ba5243",
+      "model": "attention_decay",
+      "multiverse_id": "ae4d3891-715a-409c-ae4a-25a769edd4cf",
+      "signal": {
+        "level": 0.58,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Observers likely update within existing priors about team styles rather than fully reverse views pre-game.",
+        "scope": "forecast_observer_pool"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:17.946086+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "13e0eb20-08a5-4e1b-bb7f-53e406833619",
+      "created_at": "2026-05-05T02:07:17.946086+00:00",
+      "id": "50e00f14-f3d4-4082-8eb7-40fd3b718993",
+      "model": "attention_decay",
+      "multiverse_id": "ae4d3891-715a-409c-ae4a-25a769edd4cf",
+      "signal": {
+        "level": 0.22,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "This is a forecasting audience, not a protest context; mobilization pressure is low.",
+        "scope": "forecast_observer_pool"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:17.946086+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "13e0eb20-08a5-4e1b-bb7f-53e406833619",
+      "created_at": "2026-05-05T02:07:17.946086+00:00",
+      "id": "243383e4-fcc7-4437-bf68-8ac5f9e2f2ec",
+      "model": "attention_decay",
+      "multiverse_id": "ae4d3891-715a-409c-ae4a-25a769edd4cf",
+      "signal": {
+        "level": 0.18,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Low fear of isolation because sports predictions tolerate disagreement.",
+        "scope": "forecast_observer_pool"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:17.946086+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "13e0eb20-08a5-4e1b-bb7f-53e406833619",
+      "created_at": "2026-05-05T02:07:17.946086+00:00",
+      "id": "96fce5d9-e860-448a-8cb2-3f9a48b8ed42",
+      "model": "attention_decay",
+      "multiverse_id": "ae4d3891-715a-409c-ae4a-25a769edd4cf",
+      "signal": {
+        "level": 0.39,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Observers may cluster around preferred matchup narratives such as quarterback play or run-game control.",
+        "scope": "forecast_observer_pool"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:17.946086+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "13e0eb20-08a5-4e1b-bb7f-53e406833619",
+      "created_at": "2026-05-05T02:07:17.946086+00:00",
+      "id": "b86f650e-a201-4587-b944-d52347b7e3ff",
+      "model": "attention_decay",
+      "multiverse_id": "ae4d3891-715a-409c-ae4a-25a769edd4cf",
+      "signal": {
+        "level": 0.33,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Consensus can form if multiple signals align on injuries or turnover expectations.",
+        "scope": "forecast_observer_pool"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:17.946086+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "13e0eb20-08a5-4e1b-bb7f-53e406833619",
+      "created_at": "2026-05-05T02:07:17.946086+00:00",
+      "id": "6b569795-af22-45fe-8f05-1510a115a797",
+      "model": "attention_decay",
+      "multiverse_id": "ae4d3891-715a-409c-ae4a-25a769edd4cf",
+      "signal": {
+        "level": 0.29,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Identity effects exist but are weaker in the supplied corpus than matchup analysis.",
+        "scope": "forecast_observer_pool"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:17.946086+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "13e0eb20-08a5-4e1b-bb7f-53e406833619",
+      "created_at": "2026-05-05T02:07:17.946086+00:00",
+      "id": "baa8aed1-bc91-4690-98e2-8414d801d40f",
+      "model": "attention_decay",
+      "multiverse_id": "ae4d3891-715a-409c-ae4a-25a769edd4cf",
+      "signal": {
+        "level": 0.12,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Attention remains high at T0 because the event is imminent.",
+        "scope": "forecast_observer_pool"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:17.946086+00:00"
+    }
+  ]
+}

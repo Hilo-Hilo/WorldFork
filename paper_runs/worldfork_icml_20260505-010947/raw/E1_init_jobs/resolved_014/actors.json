@@ -1,0 +1,293 @@
+[
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "description": "National electorate choosing MPs in single-member districts.",
+      "fictionalized": true,
+      "name": "voters_national",
+      "scope": "national",
+      "stakes": [
+        "representation",
+        "government change or continuity"
+      ],
+      "type": "electorate"
+    },
+    "big_bang_id": "a2db89ad-49c7-4af5-9b0b-581dac4f6e44",
+    "created_at": "2026-05-05T02:07:13.396087+00:00",
+    "created_tick_index": 0,
+    "description": "National electorate choosing MPs in single-member districts.",
+    "id": "1e4b1c14-9983-4f9f-843a-cf0ea5c828f9",
+    "name": "voters_national",
+    "status": "active",
+    "updated_at": "2026-05-05T02:07:13.396087+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "description": "Non-Party C opposition parties that can split votes and affect riding-level outcomes.",
+      "fictionalized": true,
+      "name": "other_opposition_parties",
+      "scope": "national",
+      "stakes": [
+        "retain or grow seat footholds",
+        "shape local vote splitting dynamics"
+      ],
+      "trait_vector": {
+        "actor_name": "other_opposition_parties",
+        "behavior_axes": {
+          "adaptability": 0.5,
+          "aggression": 0.3,
+          "message_discipline": 0.5
+        },
+        "ideology_axes": {
+          "change_orientation": 0.6,
+          "continuity_orientation": 0.3
+        },
+        "reputation": 0.5,
+        "secrecy": 0.3,
+        "tendency": "issue_niche_retention",
+        "trustworthiness": 0.5
+      },
+      "type": "party_bloc"
+    },
+    "big_bang_id": "a2db89ad-49c7-4af5-9b0b-581dac4f6e44",
+    "created_at": "2026-05-05T02:07:13.396087+00:00",
+    "created_tick_index": 0,
+    "description": "Non-Party C opposition parties that can split votes and affect riding-level outcomes.",
+    "id": "1bd8bc83-a58d-4115-99ee-0ec0ffccced9",
+    "name": "other_opposition_parties",
+    "status": "active",
+    "updated_at": "2026-05-05T02:07:13.396087+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "description": "New leader of the incumbent governing party whose campaign performance may reset or fail to reset the incumbent brand.",
+      "fictionalized": true,
+      "name": "new_prime_minister",
+      "scope": "national",
+      "stakes": [
+        "personal credibility",
+        "brand renewal",
+        "campaign message discipline"
+      ],
+      "trait_vector": {
+        "actor_name": "new_prime_minister",
+        "behavior_axes": {
+          "adaptability": 0.7,
+          "aggression": 0.4,
+          "message_discipline": 0.6
+        },
+        "ideology_axes": {
+          "change_orientation": 0.5,
+          "continuity_orientation": 0.5
+        },
+        "reputation": 0.5,
+        "secrecy": 0.3,
+        "tendency": "leadership_reset_attempt",
+        "trustworthiness": 0.5
+      },
+      "type": "leader"
+    },
+    "big_bang_id": "a2db89ad-49c7-4af5-9b0b-581dac4f6e44",
+    "created_at": "2026-05-05T02:07:13.396087+00:00",
+    "created_tick_index": 0,
+    "description": "New leader of the incumbent governing party whose campaign performance may reset or fail to reset the incumbent brand.",
+    "id": "230e5aaf-3b3b-4e32-b530-26a439958e86",
+    "name": "new_prime_minister",
+    "status": "active",
+    "updated_at": "2026-05-05T02:07:13.396087+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "description": "Main opposition party seeking to win the most seats.",
+      "fictionalized": true,
+      "name": "party_c",
+      "scope": "national",
+      "stakes": [
+        "maximize seat count",
+        "convert polling into district wins",
+        "maintain clear opposition contrast"
+      ],
+      "trait_vector": {
+        "actor_name": "party_c",
+        "behavior_axes": {
+          "adaptability": 0.5,
+          "aggression": 0.6,
+          "message_discipline": 0.7
+        },
+        "ideology_axes": {
+          "change_orientation": 0.8,
+          "continuity_orientation": 0.2
+        },
+        "reputation": 0.6,
+        "secrecy": 0.4,
+        "tendency": "opposition_consolidation",
+        "trustworthiness": 0.5
+      },
+      "type": "party"
+    },
+    "big_bang_id": "a2db89ad-49c7-4af5-9b0b-581dac4f6e44",
+    "created_at": "2026-05-05T02:07:13.396087+00:00",
+    "created_tick_index": 0,
+    "description": "Main opposition party seeking to win the most seats.",
+    "id": "88fa641c-5648-4779-a31f-857cfc29045f",
+    "name": "party_c",
+    "status": "active",
+    "updated_at": "2026-05-05T02:07:13.396087+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "description": "News and campaign information channels shaping salience of leadership reset, fatigue, and momentum.",
+      "fictionalized": true,
+      "name": "campaign_media_environment",
+      "scope": "national",
+      "stakes": [
+        "agenda setting",
+        "narrative amplification"
+      ],
+      "trait_vector": {
+        "actor_name": "campaign_media_environment",
+        "behavior_axes": {
+          "adaptability": 0.7,
+          "aggression": 0.3,
+          "message_discipline": 0.4
+        },
+        "ideology_axes": {
+          "change_orientation": 0.5,
+          "continuity_orientation": 0.5
+        },
+        "reputation": 0.5,
+        "secrecy": 0.2,
+        "tendency": "narrative_amplification",
+        "trustworthiness": 0.5
+      },
+      "type": "media_system"
+    },
+    "big_bang_id": "a2db89ad-49c7-4af5-9b0b-581dac4f6e44",
+    "created_at": "2026-05-05T02:07:13.396087+00:00",
+    "created_tick_index": 0,
+    "description": "News and campaign information channels shaping salience of leadership reset, fatigue, and momentum.",
+    "id": "8d54069e-99d7-4990-a338-b57600c1e810",
+    "name": "campaign_media_environment",
+    "status": "active",
+    "updated_at": "2026-05-05T02:07:13.396087+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "description": "Single-member district electoral structure translating votes into seats.",
+      "fictionalized": false,
+      "name": "electoral_system_smd",
+      "scope": "national",
+      "stakes": [
+        "mechanical seat conversion effects"
+      ],
+      "trait_vector": {
+        "actor_name": "electoral_system_smd",
+        "behavior_axes": {
+          "adaptability": 0.0,
+          "aggression": 0.0,
+          "message_discipline": 1.0
+        },
+        "ideology_axes": {
+          "change_orientation": 0.0,
+          "continuity_orientation": 1.0
+        },
+        "reputation": 0.9,
+        "secrecy": 0.0,
+        "tendency": "mechanical_vote_to_seat_translation",
+        "trustworthiness": 0.9
+      },
+      "type": "institution"
+    },
+    "big_bang_id": "a2db89ad-49c7-4af5-9b0b-581dac4f6e44",
+    "created_at": "2026-05-05T02:07:13.396087+00:00",
+    "created_tick_index": 0,
+    "description": "Single-member district electoral structure translating votes into seats.",
+    "id": "c784af58-453a-442f-a8b1-99d38ea7f451",
+    "name": "electoral_system_smd",
+    "status": "active",
+    "updated_at": "2026-05-05T02:07:13.396087+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "description": "Governing party entering campaign after leadership transition.",
+      "fictionalized": true,
+      "name": "incumbent_party",
+      "scope": "national",
+      "stakes": [
+        "retain enough seats to beat Party C",
+        "use leadership reset to recover support",
+        "contain fatigue from prior governance"
+      ],
+      "trait_vector": {
+        "actor_name": "incumbent_party",
+        "behavior_axes": {
+          "adaptability": 0.6,
+          "aggression": 0.4,
+          "message_discipline": 0.5
+        },
+        "ideology_axes": {
+          "change_orientation": 0.4,
+          "continuity_orientation": 0.6
+        },
+        "reputation": 0.5,
+        "secrecy": 0.5,
+        "tendency": "defensive_repositioning",
+        "trustworthiness": 0.5
+      },
+      "type": "party"
+    },
+    "big_bang_id": "a2db89ad-49c7-4af5-9b0b-581dac4f6e44",
+    "created_at": "2026-05-05T02:07:13.396087+00:00",
+    "created_tick_index": 0,
+    "description": "Governing party entering campaign after leadership transition.",
+    "id": "e3d52b41-1a2b-42b3-8dcc-62c575a41080",
+    "name": "incumbent_party",
+    "status": "active",
+    "updated_at": "2026-05-05T02:07:13.396087+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "description": "Voters in competitive ridings where small shifts determine seat outcomes.",
+      "fictionalized": true,
+      "name": "district_marginal_voters",
+      "scope": "swing_districts",
+      "stakes": [
+        "local candidate fit",
+        "leader impressions",
+        "strategic voting calculations"
+      ],
+      "trait_vector": {
+        "actor_name": "district_marginal_voters",
+        "behavior_axes": {
+          "adaptability": 0.7,
+          "aggression": 0.1,
+          "message_discipline": 0.2
+        },
+        "ideology_axes": {
+          "change_orientation": 0.5,
+          "continuity_orientation": 0.5
+        },
+        "reputation": 0.5,
+        "secrecy": 0.5,
+        "tendency": "late_swing_decisionmaking",
+        "trustworthiness": 0.5
+      },
+      "type": "voter_cohort_actor"
+    },
+    "big_bang_id": "a2db89ad-49c7-4af5-9b0b-581dac4f6e44",
+    "created_at": "2026-05-05T02:07:13.396087+00:00",
+    "created_tick_index": 0,
+    "description": "Voters in competitive ridings where small shifts determine seat outcomes.",
+    "id": "f7c1a4ea-6b72-4936-a12d-6ed03e98a357",
+    "name": "district_marginal_voters",
+    "status": "active",
+    "updated_at": "2026-05-05T02:07:13.396087+00:00"
+  }
+]

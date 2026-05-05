@@ -1,0 +1,177 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "a2db89ad-49c7-4af5-9b0b-581dac4f6e44",
+      "created_at": "2026-05-05T02:07:13.396087+00:00",
+      "id": "b9230c85-fadd-457f-ace4-f44911fd5f4b",
+      "influence": {
+        "description": "Single-member districts weaken direct mapping from national vote share to seat plurality.",
+        "evidence": "campaign_context_2025_04_01",
+        "influence_key": "seat_vote_conversion_salience"
+      },
+      "multiverse_id": "69e4cad8-f3eb-41cd-9dd0-6fd2cedeaec1",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:07:13.396087+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "a2db89ad-49c7-4af5-9b0b-581dac4f6e44",
+      "created_at": "2026-05-05T02:07:13.396087+00:00",
+      "id": "7accfd21-ad3c-4009-8dd9-e13eac573f9c",
+      "influence": {
+        "description": "New leader may either refresh incumbent image or inherit accumulated fatigue.",
+        "evidence": "leadership_note_2025_04_01",
+        "influence_key": "leadership_reset_ambiguity"
+      },
+      "multiverse_id": "69e4cad8-f3eb-41cd-9dd0-6fd2cedeaec1",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:07:13.396087+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "a2db89ad-49c7-4af5-9b0b-581dac4f6e44",
+      "created_at": "2026-05-05T02:07:13.396087+00:00",
+      "id": "2b852d64-1b11-4256-889f-116c9bee5ad7",
+      "influence": {
+        "description": "Popular vote lead without seat lead does not satisfy endpoint.",
+        "evidence": "endpoint_note_2025_04_01",
+        "influence_key": "popular_vote_not_sufficient"
+      },
+      "multiverse_id": "69e4cad8-f3eb-41cd-9dd0-6fd2cedeaec1",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:07:13.396087+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "a2db89ad-49c7-4af5-9b0b-581dac4f6e44",
+      "created_at": "2026-05-05T02:07:13.396087+00:00",
+      "id": "095841a5-c736-4216-b91d-19d8fa2223cf",
+      "model": "attention_decay",
+      "multiverse_id": "69e4cad8-f3eb-41cd-9dd0-6fd2cedeaec1",
+      "signal": {
+        "evidence": "Partisan and strategic segments likely update within moderate ideological range during campaign.",
+        "level": 0.58,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "scope": "national_electorate"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:13.396087+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "a2db89ad-49c7-4af5-9b0b-581dac4f6e44",
+      "created_at": "2026-05-05T02:07:13.396087+00:00",
+      "id": "c14d4f94-d964-4e3c-b0b4-0e1ffc88ef3f",
+      "model": "attention_decay",
+      "multiverse_id": "69e4cad8-f3eb-41cd-9dd0-6fd2cedeaec1",
+      "signal": {
+        "evidence": "Campaign momentum and leader performance can shift turnout enthusiasm without immediate saturation.",
+        "level": 0.52,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "scope": "party_supporters"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:13.396087+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "a2db89ad-49c7-4af5-9b0b-581dac4f6e44",
+      "created_at": "2026-05-05T02:07:13.396087+00:00",
+      "id": "e9ffe82a-e883-45d5-97d9-f3cb0458b047",
+      "model": "attention_decay",
+      "multiverse_id": "69e4cad8-f3eb-41cd-9dd0-6fd2cedeaec1",
+      "signal": {
+        "evidence": "Wait-and-see voters may withhold public commitment while privately reassessing.",
+        "level": 0.43,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "scope": "leadership_reset_watchers"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:13.396087+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "a2db89ad-49c7-4af5-9b0b-581dac4f6e44",
+      "created_at": "2026-05-05T02:07:13.396087+00:00",
+      "id": "957992c3-cef8-4487-b578-535f9ea113c9",
+      "model": "attention_decay",
+      "multiverse_id": "69e4cad8-f3eb-41cd-9dd0-6fd2cedeaec1",
+      "signal": {
+        "evidence": "Election discussion tends to cluster by partisan identity.",
+        "level": 0.57,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "scope": "party_aligned_networks"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:13.396087+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "a2db89ad-49c7-4af5-9b0b-581dac4f6e44",
+      "created_at": "2026-05-05T02:07:13.396087+00:00",
+      "id": "dd39fd03-364c-4e7d-8604-d50d8c90744e",
+      "model": "attention_decay",
+      "multiverse_id": "69e4cad8-f3eb-41cd-9dd0-6fd2cedeaec1",
+      "signal": {
+        "evidence": "Strategic shifts often require multiple reinforcing local signals before voters coordinate.",
+        "level": 0.55,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "scope": "strategic_voting_discourse"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:13.396087+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "a2db89ad-49c7-4af5-9b0b-581dac4f6e44",
+      "created_at": "2026-05-05T02:07:13.396087+00:00",
+      "id": "66433add-4b83-4f69-8e55-a67c531b4863",
+      "model": "attention_decay",
+      "multiverse_id": "69e4cad8-f3eb-41cd-9dd0-6fd2cedeaec1",
+      "signal": {
+        "evidence": "Core partisan attachment can resist short-run national swing narratives.",
+        "level": 0.6,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "scope": "incumbent_and_minor_party_bases"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:13.396087+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "a2db89ad-49c7-4af5-9b0b-581dac4f6e44",
+      "created_at": "2026-05-05T02:07:13.396087+00:00",
+      "id": "1346f142-3315-44b4-ae1d-d2ed52b6f4ff",
+      "model": "attention_decay",
+      "multiverse_id": "69e4cad8-f3eb-41cd-9dd0-6fd2cedeaec1",
+      "signal": {
+        "evidence": "Early campaign impressions may fade unless reinforced by ongoing events.",
+        "level": 0.46,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "scope": "national_campaign"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:13.396087+00:00"
+    }
+  ]
+}

@@ -42,6 +42,16 @@ NO_BRANCH_POLICY = {
     "max_branches_per_tick": 1,
     "branch_score_threshold": 0.999,
 }
+INIT_ARTIFACT_NAMES = [
+    "initialization",
+    "actors",
+    "traits",
+    "graphs",
+    "sociology_baseline",
+    "emotion_baseline",
+    "llm_logs",
+    "workspace",
+]
 
 
 def read_jsonl(path: Path) -> list[dict[str, Any]]:
@@ -212,6 +222,10 @@ def _count_payload(payload: Any) -> int:
     return 0
 
 
+def init_artifacts_complete(out_dir: Path) -> bool:
+    return all((out_dir / f"{name}.json").exists() for name in INIT_ARTIFACT_NAMES)
+
+
 def _case_ids_from_manifest(run_root: Path, case_ids: str | None, case_limit: int | None) -> list[str]:
     if case_ids:
         ids = [item.strip() for item in case_ids.split(",") if item.strip()]
@@ -235,12 +249,23 @@ def _capture_init_artifacts(client: ApiClient, out_dir: Path, big_bang_id: str) 
         "graphs": f"/big-bangs/{big_bang_id}/initialization/graphs",
         "sociology_baseline": f"/big-bangs/{big_bang_id}/initialization/sociology-baseline",
         "emotion_baseline": f"/big-bangs/{big_bang_id}/initialization/emotion-baseline",
-        "llm_logs": f"/logs?run_id={big_bang_id}&source=llm&verbosity=normal",
+        "llm_logs": f"/agent/logs?run_id={big_bang_id}&source=llm&verbosity=normal",
         "workspace": f"/agent/runs/{big_bang_id}/workspace?verbosity=summary",
     }
     counts: dict[str, int] = {}
     for name, path in captures.items():
-        payload = client.request("GET", path)
+        try:
+            payload = client.request("GET", path)
+        except urllib.error.HTTPError as exc:
+            payload = {
+                "ok": False,
+                "error": {
+                    "type": "http_error",
+                    "status": exc.code,
+                    "reason": exc.reason,
+                    "path": path,
+                },
+            }
         _write_json(out_dir / f"{name}.json", payload)
         counts[name] = _count_payload(payload)
     return counts
@@ -258,31 +283,35 @@ def run_init_jobs(args: argparse.Namespace) -> None:
     for case_id in case_ids:
         relative_dir = Path(args.output_prefix) / case_id
         out_dir = run_root / relative_dir
-        if (out_dir / "job_wait.json").exists() and not args.force:
+        if (out_dir / "job_wait.json").exists() and init_artifacts_complete(out_dir) and not args.force:
             print(json.dumps({"case_id": case_id, "status": "skipped_existing", "out_dir": str(out_dir)}))
             continue
-        case_file = resolve_case_file(run_root, case_id)
-        payload = build_init_job_payload(
-            case_id=case_id,
-            case_file=case_file,
-            name_prefix=args.name_prefix,
-            max_ticks=args.max_ticks,
-            tick_duration_minutes=args.tick_duration_minutes,
-            branch_policy=NO_BRANCH_POLICY,
-        )
-        _write_json(out_dir / "job_payload.json", payload)
-        job, create_seconds = _timed_api_call(client, "POST", "/jobs", payload=payload)
-        _write_json(out_dir / "job_create.json", job)
-        (out_dir / "job_create_time_and_stderr.txt").write_text(f"real {create_seconds:.2f}\n", encoding="utf-8")
-        job_id = str(job.get("id"))
-        (out_dir / "job_id.txt").write_text(job_id + "\n", encoding="utf-8")
+        if (out_dir / "job_id.txt").exists() and not args.force:
+            job_id = (out_dir / "job_id.txt").read_text(encoding="utf-8").strip()
+            print(json.dumps({"case_id": case_id, "job_id": job_id, "status": "resuming_existing"}))
+        else:
+            case_file = resolve_case_file(run_root, case_id)
+            payload = build_init_job_payload(
+                case_id=case_id,
+                case_file=case_file,
+                name_prefix=args.name_prefix,
+                max_ticks=args.max_ticks,
+                tick_duration_minutes=args.tick_duration_minutes,
+                branch_policy=NO_BRANCH_POLICY,
+            )
+            _write_json(out_dir / "job_payload.json", payload)
+            job, create_seconds = _timed_api_call(client, "POST", "/jobs", payload=payload)
+            _write_json(out_dir / "job_create.json", job)
+            (out_dir / "job_create_time_and_stderr.txt").write_text(f"real {create_seconds:.2f}\n", encoding="utf-8")
+            job_id = str(job.get("id"))
+            (out_dir / "job_id.txt").write_text(job_id + "\n", encoding="utf-8")
+            print(json.dumps({"case_id": case_id, "job_id": job_id, "status": "submitted"}))
         submitted[case_id] = {
             "job_id": job_id,
             "out_dir": out_dir,
             "relative_dir": relative_dir,
             "submitted_at": time.monotonic(),
         }
-        print(json.dumps({"case_id": case_id, "job_id": job_id, "status": "submitted"}))
 
     if not submitted:
         return

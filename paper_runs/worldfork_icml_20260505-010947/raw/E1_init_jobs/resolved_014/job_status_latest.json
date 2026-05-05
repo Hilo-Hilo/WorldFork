@@ -1,0 +1,47 @@
+{
+  "attempt_number": 0,
+  "available_at": "2026-05-05T02:05:18.057006Z",
+  "big_bang_id": null,
+  "concurrency_key": null,
+  "created_at": "2026-05-05T02:05:18.056588Z",
+  "error": null,
+  "finished_at": "2026-05-05T02:07:13.463856Z",
+  "id": "04479329-fa6a-4cdd-8d0c-4075fb835fcf",
+  "idempotency_key": "job:6bad107e79878d737d55090a5fdd72b3d3e194f3f208e321a511f36685f31112",
+  "interrupt_requested_at": null,
+  "interrupted_at": null,
+  "job_type": "initialize_big_bang",
+  "last_heartbeat_at": null,
+  "lease_expires_at": null,
+  "lease_owner": null,
+  "max_attempts": 3,
+  "paused_at": null,
+  "payload": {
+    "actors": [],
+    "branch_policy": {
+      "branch_score_threshold": 0.999,
+      "max_active_multiverses": 1,
+      "max_branch_depth": 1,
+      "max_branches_per_tick": 1
+    },
+    "cohorts": [],
+    "heroes": [],
+    "name": "E1_init_job_resolved_014",
+    "scenario_text": "# Case resolved_014\nBenchmark role: resolved_forecast\n\nForecast question: Will Party C win the most seats in the 2025 Canadian federal election?\n\n## Scenario\n\nA snap federal election is underway after a leadership transition in the incumbent governing party. Party C has strong national polling history and a clear opposition message, while the incumbent party has a new leader and may recover support during the campaign. Resolve yes only if Party C wins more House of Commons seats than every other party.\n\n## Source Packet\n\n### Source 1: campaign_context / 2025-04-01\n\nThe election uses single-member districts, so national popular vote does not directly determine the seat winner.\n\n### Source 2: leadership_note / 2025-04-01\n\nA new prime minister can either reset the incumbent brand or inherit accumulated fatigue.\n\n### Source 3: endpoint_note / 2025-04-01\n\nWinning the popular vote but fewer seats resolves no.\n\n## Candidate Endpoints\n- yes: The event occurs by the deadline\n- no: The event does not occur by the deadline\n\n## Expected Focus\n- parliamentary_election_forecasting\n- seat_vote_conversion\n- leadership_reset\n\n## Required Forecast Output\n{'type': 'probability_distribution', 'schema': {'yes': 'float in [0,1]', 'no': 'float in [0,1]', 'unresolved_mass': 'optional float in [0,1]; if used, keep yes+no+unresolved_mass = 1'}, 'scoring': 'For resolved cards, score p_yes against the hidden private resolution using binary Brier and clamped log score. If unresolved_mass is present, report it separately and normalize yes/no only if your paper explicitly chooses conditional scoring.'}\n\n## Leakage Mitigation\nModel-facing text uses partial entity masking. Do not expose private_eval entity_map or resolution during forecasting.\n",
+    "simulation_config": {
+      "max_ticks": 1,
+      "tick_duration_minutes": 720
+    },
+    "use_initializer_agent": true
+  },
+  "queue_name": "p1",
+  "queued_at": "2026-05-05T02:05:18.056984Z",
+  "result": {
+    "big_bang_id": "a2db89ad-49c7-4af5-9b0b-581dac4f6e44",
+    "source_snapshot_id": "6f88b343-7c78-4a94-afbd-5a9404384343"
+  },
+  "retryable": true,
+  "started_at": "2026-05-05T02:05:18.456937Z",
+  "status": "succeeded",
+  "updated_at": "2026-05-05T02:07:13.396087Z"
+}

@@ -1,0 +1,211 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "6b8c4c5b-80c8-43bf-a368-c1d3c6865ae1",
+      "created_at": "2026-05-05T02:07:59.534753+00:00",
+      "id": "f231152c-647e-420a-88dd-5fc465c9b38b",
+      "influence": {
+        "description": "Term limits remove incumbent reelection advantage and increase candidate-quality importance.",
+        "influence_key": "open_seat_competition"
+      },
+      "multiverse_id": "e72b22f6-495a-4c7b-b121-3bea38b14e51",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:07:59.534753+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "6b8c4c5b-80c8-43bf-a368-c1d3c6865ae1",
+      "created_at": "2026-05-05T02:07:59.534753+00:00",
+      "id": "fcb4d4d1-f690-4c47-86ba-ae8c54c214b8",
+      "influence": {
+        "description": "Virginia often elects a governor from the party opposite the sitting U.S. president, creating a structural prior but not a guarantee.",
+        "influence_key": "opposition_party_cycle_pattern"
+      },
+      "multiverse_id": "e72b22f6-495a-4c7b-b121-3bea38b14e51",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:07:59.534753+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "6b8c4c5b-80c8-43bf-a368-c1d3c6865ae1",
+      "created_at": "2026-05-05T02:07:59.534753+00:00",
+      "id": "2a9dbda6-e335-4b0b-b4ec-10b695fd3332",
+      "influence": {
+        "description": "National polarization and party-brand backlash can shape a nominally state-level contest.",
+        "influence_key": "nationalized_state_race"
+      },
+      "multiverse_id": "e72b22f6-495a-4c7b-b121-3bea38b14e51",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:07:59.534753+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "6b8c4c5b-80c8-43bf-a368-c1d3c6865ae1",
+      "created_at": "2026-05-05T02:07:59.534753+00:00",
+      "id": "bb786e1d-ea40-41d5-af13-9ca3df722a08",
+      "influence": {
+        "description": "Multiple issue clusters offer different activation pathways across cohorts.",
+        "influence_key": "issue_stack_abortion_cost_schools_federal_workforce"
+      },
+      "multiverse_id": "e72b22f6-495a-4c7b-b121-3bea38b14e51",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:07:59.534753+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "6b8c4c5b-80c8-43bf-a368-c1d3c6865ae1",
+      "created_at": "2026-05-05T02:07:59.534753+00:00",
+      "id": "4d90f08a-b647-48b8-b50f-add023c75716",
+      "model": "attention_decay",
+      "multiverse_id": "e72b22f6-495a-4c7b-b121-3bea38b14e51",
+      "signal": {
+        "applies_to": [
+          "democratic_base_voters",
+          "republican_base_voters",
+          "persuadable_suburban_voters"
+        ],
+        "evidence": "National polarization limits wide persuasion but leaves room among swing voters.",
+        "level": 0.68,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:59.534753+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "6b8c4c5b-80c8-43bf-a368-c1d3c6865ae1",
+      "created_at": "2026-05-05T02:07:59.534753+00:00",
+      "id": "5d51b416-68ce-4f7c-9fff-5814941fa4c9",
+      "model": "attention_decay",
+      "multiverse_id": "e72b22f6-495a-4c7b-b121-3bea38b14e51",
+      "signal": {
+        "applies_to": [
+          "abortion_rights_voters",
+          "cost_of_living_concerned_voters",
+          "education_issue_voters"
+        ],
+        "evidence": "Named issue drivers can trigger turnout if salience intensifies.",
+        "level": 0.61,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:59.534753+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "6b8c4c5b-80c8-43bf-a368-c1d3c6865ae1",
+      "created_at": "2026-05-05T02:07:59.534753+00:00",
+      "id": "9a7d2f8f-50ef-4cbe-ab1d-2c217e2f6f15",
+      "model": "attention_decay",
+      "multiverse_id": "e72b22f6-495a-4c7b-b121-3bea38b14e51",
+      "signal": {
+        "applies_to": [
+          "federal_workforce_households",
+          "persuadable_suburban_voters"
+        ],
+        "evidence": "Cross-pressured groups may privately lean while speaking cautiously.",
+        "level": 0.52,
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:59.534753+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "6b8c4c5b-80c8-43bf-a368-c1d3c6865ae1",
+      "created_at": "2026-05-05T02:07:59.534753+00:00",
+      "id": "1fa158eb-72cb-4fe8-9725-bbb553355a06",
+      "model": "attention_decay",
+      "multiverse_id": "e72b22f6-495a-4c7b-b121-3bea38b14e51",
+      "signal": {
+        "applies_to": [
+          "democratic_base_voters",
+          "republican_base_voters"
+        ],
+        "evidence": "Polarized partisan alignment structures discussion networks.",
+        "level": 0.66,
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:59.534753+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "6b8c4c5b-80c8-43bf-a368-c1d3c6865ae1",
+      "created_at": "2026-05-05T02:07:59.534753+00:00",
+      "id": "69c5d7d8-e8d3-47f7-957c-2e3fff60478a",
+      "model": "attention_decay",
+      "multiverse_id": "e72b22f6-495a-4c7b-b121-3bea38b14e51",
+      "signal": {
+        "applies_to": [
+          "low_propensity_potential_voters",
+          "persuadable_suburban_voters"
+        ],
+        "evidence": "Multiple reinforcing cues are likely needed to alter turnout or late choice.",
+        "level": 0.49,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:59.534753+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "6b8c4c5b-80c8-43bf-a368-c1d3c6865ae1",
+      "created_at": "2026-05-05T02:07:59.534753+00:00",
+      "id": "3ece5b61-86f8-40a2-9326-643946e0286d",
+      "model": "attention_decay",
+      "multiverse_id": "e72b22f6-495a-4c7b-b121-3bea38b14e51",
+      "signal": {
+        "applies_to": [
+          "democratic_base_voters",
+          "republican_base_voters",
+          "abortion_rights_voters"
+        ],
+        "evidence": "Party and issue identity likely shape candidate interpretation.",
+        "level": 0.64,
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:59.534753+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "6b8c4c5b-80c8-43bf-a368-c1d3c6865ae1",
+      "created_at": "2026-05-05T02:07:59.534753+00:00",
+      "id": "1ea5ce28-6059-4fee-84d6-00dad107194f",
+      "model": "attention_decay",
+      "multiverse_id": "e72b22f6-495a-4c7b-b121-3bea38b14e51",
+      "signal": {
+        "applies_to": [
+          "virginia_general_electorate"
+        ],
+        "evidence": "No crisis-level trigger at T0; salience can ebb unless reinforced by campaign events.",
+        "level": 0.43,
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:59.534753+00:00"
+    }
+  ]
+}

@@ -50,7 +50,7 @@ The static package QA passed. Public cards contain no private resolution fields,
 
 ### 4.1.1 Initialization Smoke Coverage
 
-Six resolved-card initializations have live evidence. The synchronous initializer smoke for `resolved_003` completed in 146.20 seconds; the queued E3 smoke initialized `resolved_004` in 131.22 seconds; and a four-case queued initializer batch completed `resolved_001`, `resolved_002`, `resolved_005`, and `resolved_006`. The queued batch used independent p1 jobs and showed that multiple initializations can run concurrently, with all four jobs complete by the time the first 148.14 second wait returned. This is still a partial screen: the full E1 requirement is all 108 public cards.
+Fourteen resolved-card initializations have live evidence. The synchronous initializer smoke for `resolved_003` completed in 146.20 seconds; the queued E3 smoke initialized `resolved_004` in 131.22 seconds; a four-case queued initializer batch completed `resolved_001`, `resolved_002`, `resolved_005`, and `resolved_006`; and an eight-case queued initializer batch completed `resolved_007` through `resolved_014`. The queued batches used independent p1 jobs. The eight-case batch reached p1's configured concurrency of 8 and all eight jobs completed in roughly 3.2 minutes from submission, with per-job elapsed times from 112.37 to 188.80 seconds. This is still a partial screen: the full E1 requirement is all 108 public cards.
 
 ### 4.2 Forecast Scoring
 

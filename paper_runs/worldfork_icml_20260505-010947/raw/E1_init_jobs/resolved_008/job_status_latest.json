@@ -1,0 +1,47 @@
+{
+  "attempt_number": 0,
+  "available_at": "2026-05-05T02:05:17.919846Z",
+  "big_bang_id": null,
+  "concurrency_key": null,
+  "created_at": "2026-05-05T02:05:17.919091Z",
+  "error": null,
+  "finished_at": "2026-05-05T02:07:17.993634Z",
+  "id": "774db50d-c3d6-4448-a2b3-12e2c1623074",
+  "idempotency_key": "job:5cdf383f337c4dc345e1e192504803eb81928a2f2348b7df7996d1cadcac6215",
+  "interrupt_requested_at": null,
+  "interrupted_at": null,
+  "job_type": "initialize_big_bang",
+  "last_heartbeat_at": null,
+  "lease_expires_at": null,
+  "lease_owner": null,
+  "max_attempts": 3,
+  "paused_at": null,
+  "payload": {
+    "actors": [],
+    "branch_policy": {
+      "branch_score_threshold": 0.999,
+      "max_active_multiverses": 1,
+      "max_branch_depth": 1,
+      "max_branches_per_tick": 1
+    },
+    "cohorts": [],
+    "heroes": [],
+    "name": "E1_init_job_resolved_008",
+    "scenario_text": "# Case resolved_008\nBenchmark role: resolved_forecast\n\nForecast question: Will Team N, the AFC champion, win Super Bowl LX?\n\n## Scenario\n\nTeam N enters the title game against Team S, the NFC champion, at a neutral site. Both teams have strong regular-season records. Team N's defense and quarterback story are central to its case, while Team S has a run-game advantage and defensive depth. Resolve yes only if Team N wins the game outright.\n\n## Source Packet\n\n### Source 1: matchup_note / 2026-02-06\n\nA neutral-site final reduces home-field assumptions but does not eliminate crowd and travel effects.\n\n### Source 2: forecast_note / 2026-02-06\n\nSingle-game football outcomes have high variance; injuries and turnovers are major branch drivers.\n\n### Source 3: endpoint_note / 2026-02-06\n\nPoint spread performance does not matter; only the outright winner counts.\n\n## Candidate Endpoints\n- yes: The event occurs by the deadline\n- no: The event does not occur by the deadline\n\n## Expected Focus\n- single_game_forecasting\n- injury_turnover_variance\n- binary_resolution\n\n## Required Forecast Output\n{'type': 'probability_distribution', 'schema': {'yes': 'float in [0,1]', 'no': 'float in [0,1]', 'unresolved_mass': 'optional float in [0,1]; if used, keep yes+no+unresolved_mass = 1'}, 'scoring': 'For resolved cards, score p_yes against the hidden private resolution using binary Brier and clamped log score. If unresolved_mass is present, report it separately and normalize yes/no only if your paper explicitly chooses conditional scoring.'}\n\n## Leakage Mitigation\nModel-facing text uses partial entity masking. Do not expose private_eval entity_map or resolution during forecasting.\n",
+    "simulation_config": {
+      "max_ticks": 1,
+      "tick_duration_minutes": 720
+    },
+    "use_initializer_agent": true
+  },
+  "queue_name": "p1",
+  "queued_at": "2026-05-05T02:05:17.919842Z",
+  "result": {
+    "big_bang_id": "13e0eb20-08a5-4e1b-bb7f-53e406833619",
+    "source_snapshot_id": "b0a5a714-58de-4e94-bf7e-1525650d9451"
+  },
+  "retryable": true,
+  "started_at": "2026-05-05T02:05:17.942093Z",
+  "status": "succeeded",
+  "updated_at": "2026-05-05T02:07:17.946086Z"
+}

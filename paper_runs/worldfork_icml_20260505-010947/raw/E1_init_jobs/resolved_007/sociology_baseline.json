@@ -1,0 +1,202 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "b5b98022-cafe-4cd0-95e9-002b80eaa013",
+      "created_at": "2026-05-05T02:07:34.494787+00:00",
+      "id": "6e187311-6d7f-4714-b814-d51dd9637242",
+      "influence": {
+        "context_key": "best_of_seven_path_dependence",
+        "description": "Beliefs should update incrementally as wins, losses, and pitching usage accumulate."
+      },
+      "multiverse_id": "dc7025c7-e8d6-4c0c-b178-d7f99af1cfad",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:07:34.494787+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "b5b98022-cafe-4cd0-95e9-002b80eaa013",
+      "created_at": "2026-05-05T02:07:34.494787+00:00",
+      "id": "b51c13f2-39d5-4b2e-8c8d-cc774c4e1650",
+      "influence": {
+        "context_key": "home_field_energy",
+        "description": "Crowd and venue effects may modestly raise Team T public confidence and expression at home."
+      },
+      "multiverse_id": "dc7025c7-e8d6-4c0c-b178-d7f99af1cfad",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:07:34.494787+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "b5b98022-cafe-4cd0-95e9-002b80eaa013",
+      "created_at": "2026-05-05T02:07:34.494787+00:00",
+      "id": "d2690896-ddd6-4023-a58f-80e2d704383d",
+      "influence": {
+        "context_key": "pitching_depth_salience",
+        "description": "Team L's pitching depth is a recurring heuristic for competence and late-series resilience."
+      },
+      "multiverse_id": "dc7025c7-e8d6-4c0c-b178-d7f99af1cfad",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:07:34.494787+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "b5b98022-cafe-4cd0-95e9-002b80eaa013",
+      "created_at": "2026-05-05T02:07:34.494787+00:00",
+      "id": "4664946a-f641-4bfc-810e-eacd2bc140d9",
+      "influence": {
+        "context_key": "bullpen_fatigue_watch",
+        "description": "Relief usage becomes a visible public indicator of strain and future vulnerability."
+      },
+      "multiverse_id": "dc7025c7-e8d6-4c0c-b178-d7f99af1cfad",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:07:34.494787+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "b5b98022-cafe-4cd0-95e9-002b80eaa013",
+      "created_at": "2026-05-05T02:07:34.494787+00:00",
+      "id": "f424f1bf-98cb-4e0d-913a-896fc56985a7",
+      "influence": {
+        "context_key": "travel_variance",
+        "description": "Travel can subtly shift readiness, narrative tone, and expectations between games."
+      },
+      "multiverse_id": "dc7025c7-e8d6-4c0c-b178-d7f99af1cfad",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:07:34.494787+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "b5b98022-cafe-4cd0-95e9-002b80eaa013",
+      "created_at": "2026-05-05T02:07:34.494787+00:00",
+      "id": "11f6348a-b965-4127-81d3-a457bacbc4b9",
+      "model": "attention_decay",
+      "multiverse_id": "dc7025c7-e8d6-4c0c-b178-d7f99af1cfad",
+      "signal": {
+        "evidence": "supporters start with priors but can update after each game",
+        "level": 0.62,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "scope": "fan_and_audience_belief_updates"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:34.494787+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "b5b98022-cafe-4cd0-95e9-002b80eaa013",
+      "created_at": "2026-05-05T02:07:34.494787+00:00",
+      "id": "88a4b941-0707-4421-a845-403bbf17137d",
+      "model": "attention_decay",
+      "multiverse_id": "dc7025c7-e8d6-4c0c-b178-d7f99af1cfad",
+      "signal": {
+        "evidence": "attention and expression likely intensify after pivotal wins or losses",
+        "level": 0.49,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "scope": "fan_expression_and_engagement"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:34.494787+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "b5b98022-cafe-4cd0-95e9-002b80eaa013",
+      "created_at": "2026-05-05T02:07:34.494787+00:00",
+      "id": "bff133bb-e7ef-426e-ab81-ac33b9adb3cc",
+      "model": "attention_decay",
+      "multiverse_id": "dc7025c7-e8d6-4c0c-b178-d7f99af1cfad",
+      "signal": {
+        "evidence": "anxious supporters may hedge despite private concern",
+        "level": 0.21,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "scope": "cautious_supporters"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:34.494787+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "b5b98022-cafe-4cd0-95e9-002b80eaa013",
+      "created_at": "2026-05-05T02:07:34.494787+00:00",
+      "id": "e015193d-8a06-46f8-b769-7992d65161b0",
+      "model": "attention_decay",
+      "multiverse_id": "dc7025c7-e8d6-4c0c-b178-d7f99af1cfad",
+      "signal": {
+        "evidence": "supporters cluster by team allegiance",
+        "level": 0.66,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "scope": "team_aligned_fan_clusters"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:34.494787+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "b5b98022-cafe-4cd0-95e9-002b80eaa013",
+      "created_at": "2026-05-05T02:07:34.494787+00:00",
+      "id": "55150ca6-1996-4f48-97ff-86f2063fcaeb",
+      "model": "attention_decay",
+      "multiverse_id": "dc7025c7-e8d6-4c0c-b178-d7f99af1cfad",
+      "signal": {
+        "evidence": "multiple games reinforce or weaken shared beliefs about momentum",
+        "level": 0.52,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "scope": "momentum_narratives"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:34.494787+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "b5b98022-cafe-4cd0-95e9-002b80eaa013",
+      "created_at": "2026-05-05T02:07:34.494787+00:00",
+      "id": "4f921313-d67a-4401-85a2-6bdd6ee80d3d",
+      "model": "attention_decay",
+      "multiverse_id": "dc7025c7-e8d6-4c0c-b178-d7f99af1cfad",
+      "signal": {
+        "evidence": "championship series produces strong in-group identification",
+        "level": 0.73,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "scope": "fan_alignment"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:34.494787+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "b5b98022-cafe-4cd0-95e9-002b80eaa013",
+      "created_at": "2026-05-05T02:07:34.494787+00:00",
+      "id": "6df46814-87d3-475f-9b92-c89380a9cc05",
+      "model": "attention_decay",
+      "multiverse_id": "dc7025c7-e8d6-4c0c-b178-d7f99af1cfad",
+      "signal": {
+        "evidence": "attention remains elevated early but can fluctuate with game drama",
+        "level": 0.24,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "scope": "general_audience"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:07:34.494787+00:00"
+    }
+  ]
+}

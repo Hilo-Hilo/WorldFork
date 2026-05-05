@@ -1,0 +1,1387 @@
+{
+  "big_bang_id": "14ce9ad3-7472-4d36-b06b-d947df628004",
+  "initializer_output": {
+    "actors": [
+      {
+        "decision_authority": "high over campaign strategy; limited over macro environment",
+        "fictionalized": true,
+        "name": "candidate_r",
+        "public_visibility": "high",
+        "role": "republican_nominee",
+        "stakes": "win governorship by assembling crossover and turnout coalition",
+        "type": "candidate"
+      },
+      {
+        "decision_authority": "high over campaign strategy; limited over macro environment",
+        "fictionalized": true,
+        "name": "candidate_d",
+        "public_visibility": "high",
+        "role": "democratic_nominee",
+        "stakes": "hold governorship for Democratic party in open-seat race",
+        "type": "candidate"
+      },
+      {
+        "decision_authority": "medium indirect influence",
+        "fictionalized": true,
+        "name": "democratic_incumbent_admin",
+        "public_visibility": "high",
+        "role": "outgoing_democratic_governor_and_admin",
+        "stakes": "legacy protection and partisan succession",
+        "type": "institutional_political_actor"
+      },
+      {
+        "decision_authority": "terminal through ballots",
+        "fictionalized": false,
+        "name": "nj_general_electorate",
+        "public_visibility": "low",
+        "role": "statewide_voters",
+        "stakes": "select next governor",
+        "type": "population_actor"
+      },
+      {
+        "decision_authority": "medium via turnout and persuasion spillover",
+        "fictionalized": false,
+        "name": "democratic_base_voters",
+        "public_visibility": "medium",
+        "role": "reliable_democratic_voters",
+        "stakes": "retain governorship and protect party control",
+        "type": "population_actor"
+      },
+      {
+        "decision_authority": "medium via turnout and local enthusiasm",
+        "fictionalized": false,
+        "name": "republican_base_voters",
+        "public_visibility": "medium",
+        "role": "reliable_republican_voters",
+        "stakes": "flip governorship",
+        "type": "population_actor"
+      },
+      {
+        "decision_authority": "high marginal vote leverage",
+        "fictionalized": false,
+        "name": "swing_affordability_voters",
+        "public_visibility": "low",
+        "role": "cross-pressured voters focused on taxes and cost of living",
+        "stakes": "policy responsiveness on affordability and taxes",
+        "type": "population_actor"
+      },
+      {
+        "decision_authority": "medium marginal vote leverage",
+        "fictionalized": false,
+        "name": "anti_corruption_voters",
+        "public_visibility": "low",
+        "role": "voters attentive to ethics and corruption narratives",
+        "stakes": "clean governance and outsider signaling",
+        "type": "population_actor"
+      },
+      {
+        "decision_authority": "low direct, high contextual influence",
+        "fictionalized": false,
+        "name": "national_party_environment",
+        "public_visibility": "high",
+        "role": "presidential-party sentiment and national mood",
+        "stakes": "none as unitary actor; exerts ambient pressure",
+        "type": "context_actor"
+      },
+      {
+        "decision_authority": "medium over issue salience",
+        "fictionalized": true,
+        "name": "state_media_ecosystem",
+        "public_visibility": "high",
+        "role": "local and regional political media",
+        "stakes": "agenda-setting, audience retention, accountability framing",
+        "type": "media_actor"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Candidate_R wins enough soft Democrats and independents to overcome state baseline.",
+        "branch_key": "gop_issue_environment_breakout",
+        "divergence_signal": "Cross-pressured cohorts show persistent trust and coalition movement toward candidate_r; public competitiveness shifts from toss-up to Republican edge.",
+        "trigger": "Sustained dominance of taxes and affordability in coverage plus credible Candidate_R performance."
+      },
+      {
+        "alternate_path": "Soft Democrats return home and persuadables split too evenly for Candidate_R to clear the bar.",
+        "branch_key": "democratic_reversion_to_baseline",
+        "divergence_signal": "Democratic base cohesion rises, dem_soft defection risk falls, and candidate_d trust among swing voters stabilizes above candidate_r.",
+        "trigger": "Candidate_D successfully recenters race on party loyalty, competence, and risk of GOP governance."
+      },
+      {
+        "alternate_path": "Anti-status-quo sentiment expands challenger coalition beyond pure economic voters.",
+        "branch_key": "corruption_narrative_activation",
+        "divergence_signal": "Anti_corruption_voters move from skepticism to active candidate_r coalition behavior and media salience of ethics rises.",
+        "trigger": "A concrete ethics story or sustained messaging gives corruption narrative specificity."
+      },
+      {
+        "alternate_path": "State-specific issue race merges into broader partisan referendum, benefiting either side depending on national mood direction.",
+        "branch_key": "nationalization_backfires_or_benefits",
+        "divergence_signal": "Media and campaign messaging increasingly reference national party approval over state-local concerns.",
+        "trigger": "Presidential-party approval shifts materially or becomes central campaign frame."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "local_tv_news",
+        "description": "Broad statewide exposure and race framing.",
+        "reach": 0.62,
+        "type": "broadcast_media"
+      },
+      {
+        "channel_key": "regional_newspapers_sites",
+        "description": "Issue framing, endorsements, scandals, and polling interpretation.",
+        "reach": 0.47,
+        "type": "news_digital"
+      },
+      {
+        "channel_key": "campaign_ads",
+        "description": "Direct persuasion on taxes, affordability, and character.",
+        "reach": 0.66,
+        "type": "paid_media"
+      },
+      {
+        "channel_key": "debates_public_events",
+        "description": "Candidate contrast and media amplification moments.",
+        "reach": 0.38,
+        "type": "live_public_channel"
+      },
+      {
+        "channel_key": "partisan_peer_networks",
+        "description": "Turnout reinforcement and social identity signaling.",
+        "reach": 0.58,
+        "type": "social_network"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "democratic_base_voters",
+        "archetype_key": "partisan_democrats",
+        "attention_level": 0.7,
+        "behavioral_tendencies": [
+          "habitual voting",
+          "partisan cue-taking",
+          "defensive mobilization"
+        ],
+        "cohort_key": "dem_stable",
+        "expression_level": 0.65,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.25,
+        "graph_influence_summary": "turnout-critical and narrative-amplifying within Democratic networks",
+        "mobilization_readiness": 0.68,
+        "perceived_majority": 0.65,
+        "population_share_of_archetype": 0.8,
+        "private_stance": "favor candidate_d",
+        "public_stance": "favor candidate_d",
+        "representation_mode": "core_cohort",
+        "represented_population": 1008000,
+        "reputation": 0.58,
+        "secrecy": 0.15,
+        "stance_axes": {
+          "affordability_anxiety": 0.55,
+          "anti_corruption_salience": 0.4,
+          "candidate_d_support": 0.85,
+          "candidate_r_support": 0.1,
+          "nationalization_susceptibility": 0.5,
+          "tax_anxiety": 0.45
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "democratic_base_voters",
+        "archetype_key": "partisan_democrats",
+        "attention_level": 0.58,
+        "behavioral_tendencies": [
+          "ticket flexibility",
+          "late decision-making",
+          "issue-driven evaluation"
+        ],
+        "cohort_key": "dem_soft",
+        "expression_level": 0.35,
+        "fatigue": 0.48,
+        "fear_of_isolation": 0.32,
+        "graph_influence_summary": "small but electorally meaningful erosion risk for Democratic margin",
+        "mobilization_readiness": 0.5,
+        "perceived_majority": 0.58,
+        "population_share_of_archetype": 0.2,
+        "private_stance": "lean candidate_d with issue vulnerability",
+        "public_stance": "muted democratic preference",
+        "representation_mode": "marginal_subcohort",
+        "represented_population": 252000,
+        "reputation": 0.5,
+        "secrecy": 0.28,
+        "stance_axes": {
+          "affordability_anxiety": 0.75,
+          "anti_corruption_salience": 0.55,
+          "candidate_d_support": 0.62,
+          "candidate_r_support": 0.28,
+          "nationalization_susceptibility": 0.62,
+          "tax_anxiety": 0.7
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "republican_base_voters",
+        "archetype_key": "partisan_republicans",
+        "attention_level": 0.72,
+        "behavioral_tendencies": [
+          "enthusiastic turnout",
+          "message repetition",
+          "outsider preference"
+        ],
+        "cohort_key": "rep_stable",
+        "expression_level": 0.67,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.42,
+        "graph_influence_summary": "base enthusiasm reservoir for candidate_r",
+        "mobilization_readiness": 0.74,
+        "perceived_majority": 0.38,
+        "population_share_of_archetype": 0.85,
+        "private_stance": "favor candidate_r",
+        "public_stance": "favor candidate_r",
+        "representation_mode": "core_cohort",
+        "represented_population": 833000,
+        "reputation": 0.5,
+        "secrecy": 0.12,
+        "stance_axes": {
+          "affordability_anxiety": 0.68,
+          "anti_corruption_salience": 0.5,
+          "candidate_d_support": 0.08,
+          "candidate_r_support": 0.88,
+          "nationalization_susceptibility": 0.58,
+          "tax_anxiety": 0.72
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "republican_base_voters",
+        "archetype_key": "partisan_republicans",
+        "attention_level": 0.55,
+        "behavioral_tendencies": [
+          "candidate-screening",
+          "turnout conditionality",
+          "stability preference"
+        ],
+        "cohort_key": "rep_soft",
+        "expression_level": 0.4,
+        "fatigue": 0.42,
+        "fear_of_isolation": 0.36,
+        "graph_influence_summary": "small underperformance risk if campaign misfires",
+        "mobilization_readiness": 0.54,
+        "perceived_majority": 0.35,
+        "population_share_of_archetype": 0.15,
+        "private_stance": "lean candidate_r but attentive to candidate quality",
+        "public_stance": "modest republican preference",
+        "representation_mode": "marginal_subcohort",
+        "represented_population": 147000,
+        "reputation": 0.49,
+        "secrecy": 0.22,
+        "stance_axes": {
+          "affordability_anxiety": 0.6,
+          "anti_corruption_salience": 0.62,
+          "candidate_d_support": 0.22,
+          "candidate_r_support": 0.65,
+          "nationalization_susceptibility": 0.48,
+          "tax_anxiety": 0.66
+        },
+        "trustworthiness": 0.59
+      },
+      {
+        "actor_name": "swing_affordability_voters",
+        "archetype_key": "persuadable_crosspressured",
+        "attention_level": 0.6,
+        "behavioral_tendencies": [
+          "retrospective evaluation",
+          "issue prioritization",
+          "late swing potential"
+        ],
+        "cohort_key": "swing_affordability_core",
+        "expression_level": 0.28,
+        "fatigue": 0.44,
+        "fear_of_isolation": 0.3,
+        "graph_influence_summary": "high marginal leverage in close election",
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.6,
+        "private_stance": "genuinely contested",
+        "public_stance": "mixed and low-certainty",
+        "representation_mode": "issue_cohort",
+        "represented_population": 336000,
+        "reputation": 0.5,
+        "secrecy": 0.34,
+        "stance_axes": {
+          "affordability_anxiety": 0.9,
+          "anti_corruption_salience": 0.46,
+          "candidate_d_support": 0.45,
+          "candidate_r_support": 0.48,
+          "nationalization_susceptibility": 0.42,
+          "tax_anxiety": 0.86
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "anti_corruption_voters",
+        "archetype_key": "persuadable_crosspressured",
+        "attention_level": 0.57,
+        "behavioral_tendencies": [
+          "scandal sensitivity",
+          "anti-establishment receptivity",
+          "credibility testing"
+        ],
+        "cohort_key": "anti_corruption_crosspressured",
+        "expression_level": 0.25,
+        "fatigue": 0.46,
+        "fear_of_isolation": 0.28,
+        "graph_influence_summary": "narrative-sensitive bloc that can widen or narrow challenger lane",
+        "mobilization_readiness": 0.49,
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 0.4,
+        "private_stance": "slight openness to challenger framing",
+        "public_stance": "skeptical of both sides",
+        "representation_mode": "issue_cohort",
+        "represented_population": 224000,
+        "reputation": 0.5,
+        "secrecy": 0.36,
+        "stance_axes": {
+          "affordability_anxiety": 0.62,
+          "anti_corruption_salience": 0.88,
+          "candidate_d_support": 0.4,
+          "candidate_r_support": 0.5,
+          "nationalization_susceptibility": 0.35,
+          "tax_anxiety": 0.58
+        },
+        "trustworthiness": 0.53
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "democratic_base_voters",
+        "archetype_key": "partisan_democrats",
+        "attention_level": 0.7,
+        "behavioral_tendencies": [
+          "habitual voting",
+          "partisan cue-taking",
+          "defensive mobilization"
+        ],
+        "cohort_key": "dem_stable",
+        "expression_level": 0.65,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.25,
+        "graph_influence_summary": "turnout-critical and narrative-amplifying within Democratic networks",
+        "mobilization_readiness": 0.68,
+        "perceived_majority": 0.65,
+        "population_share_of_archetype": 0.8,
+        "private_stance": "favor candidate_d",
+        "public_stance": "favor candidate_d",
+        "representation_mode": "core_cohort",
+        "represented_population": 1008000,
+        "reputation": 0.58,
+        "secrecy": 0.15,
+        "stance_axes": {
+          "affordability_anxiety": 0.55,
+          "anti_corruption_salience": 0.4,
+          "candidate_d_support": 0.85,
+          "candidate_r_support": 0.1,
+          "nationalization_susceptibility": 0.5,
+          "tax_anxiety": 0.45
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "democratic_base_voters",
+        "archetype_key": "partisan_democrats",
+        "attention_level": 0.58,
+        "behavioral_tendencies": [
+          "ticket flexibility",
+          "late decision-making",
+          "issue-driven evaluation"
+        ],
+        "cohort_key": "dem_soft",
+        "expression_level": 0.35,
+        "fatigue": 0.48,
+        "fear_of_isolation": 0.32,
+        "graph_influence_summary": "small but electorally meaningful erosion risk for Democratic margin",
+        "mobilization_readiness": 0.5,
+        "perceived_majority": 0.58,
+        "population_share_of_archetype": 0.2,
+        "private_stance": "lean candidate_d with issue vulnerability",
+        "public_stance": "muted democratic preference",
+        "representation_mode": "marginal_subcohort",
+        "represented_population": 252000,
+        "reputation": 0.5,
+        "secrecy": 0.28,
+        "stance_axes": {
+          "affordability_anxiety": 0.75,
+          "anti_corruption_salience": 0.55,
+          "candidate_d_support": 0.62,
+          "candidate_r_support": 0.28,
+          "nationalization_susceptibility": 0.62,
+          "tax_anxiety": 0.7
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "republican_base_voters",
+        "archetype_key": "partisan_republicans",
+        "attention_level": 0.72,
+        "behavioral_tendencies": [
+          "enthusiastic turnout",
+          "message repetition",
+          "outsider preference"
+        ],
+        "cohort_key": "rep_stable",
+        "expression_level": 0.67,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.42,
+        "graph_influence_summary": "base enthusiasm reservoir for candidate_r",
+        "mobilization_readiness": 0.74,
+        "perceived_majority": 0.38,
+        "population_share_of_archetype": 0.85,
+        "private_stance": "favor candidate_r",
+        "public_stance": "favor candidate_r",
+        "representation_mode": "core_cohort",
+        "represented_population": 833000,
+        "reputation": 0.5,
+        "secrecy": 0.12,
+        "stance_axes": {
+          "affordability_anxiety": 0.68,
+          "anti_corruption_salience": 0.5,
+          "candidate_d_support": 0.08,
+          "candidate_r_support": 0.88,
+          "nationalization_susceptibility": 0.58,
+          "tax_anxiety": 0.72
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "republican_base_voters",
+        "archetype_key": "partisan_republicans",
+        "attention_level": 0.55,
+        "behavioral_tendencies": [
+          "candidate-screening",
+          "turnout conditionality",
+          "stability preference"
+        ],
+        "cohort_key": "rep_soft",
+        "expression_level": 0.4,
+        "fatigue": 0.42,
+        "fear_of_isolation": 0.36,
+        "graph_influence_summary": "small underperformance risk if campaign misfires",
+        "mobilization_readiness": 0.54,
+        "perceived_majority": 0.35,
+        "population_share_of_archetype": 0.15,
+        "private_stance": "lean candidate_r but attentive to candidate quality",
+        "public_stance": "modest republican preference",
+        "representation_mode": "marginal_subcohort",
+        "represented_population": 147000,
+        "reputation": 0.49,
+        "secrecy": 0.22,
+        "stance_axes": {
+          "affordability_anxiety": 0.6,
+          "anti_corruption_salience": 0.62,
+          "candidate_d_support": 0.22,
+          "candidate_r_support": 0.65,
+          "nationalization_susceptibility": 0.48,
+          "tax_anxiety": 0.66
+        },
+        "trustworthiness": 0.59
+      },
+      {
+        "actor_name": "swing_affordability_voters",
+        "archetype_key": "persuadable_crosspressured",
+        "attention_level": 0.6,
+        "behavioral_tendencies": [
+          "retrospective evaluation",
+          "issue prioritization",
+          "late swing potential"
+        ],
+        "cohort_key": "swing_affordability_core",
+        "expression_level": 0.28,
+        "fatigue": 0.44,
+        "fear_of_isolation": 0.3,
+        "graph_influence_summary": "high marginal leverage in close election",
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.6,
+        "private_stance": "genuinely contested",
+        "public_stance": "mixed and low-certainty",
+        "representation_mode": "issue_cohort",
+        "represented_population": 336000,
+        "reputation": 0.5,
+        "secrecy": 0.34,
+        "stance_axes": {
+          "affordability_anxiety": 0.9,
+          "anti_corruption_salience": 0.46,
+          "candidate_d_support": 0.45,
+          "candidate_r_support": 0.48,
+          "nationalization_susceptibility": 0.42,
+          "tax_anxiety": 0.86
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "anti_corruption_voters",
+        "archetype_key": "persuadable_crosspressured",
+        "attention_level": 0.57,
+        "behavioral_tendencies": [
+          "scandal sensitivity",
+          "anti-establishment receptivity",
+          "credibility testing"
+        ],
+        "cohort_key": "anti_corruption_crosspressured",
+        "expression_level": 0.25,
+        "fatigue": 0.46,
+        "fear_of_isolation": 0.28,
+        "graph_influence_summary": "narrative-sensitive bloc that can widen or narrow challenger lane",
+        "mobilization_readiness": 0.49,
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 0.4,
+        "private_stance": "slight openness to challenger framing",
+        "public_stance": "skeptical of both sides",
+        "representation_mode": "issue_cohort",
+        "represented_population": 224000,
+        "reputation": 0.5,
+        "secrecy": 0.36,
+        "stance_axes": {
+          "affordability_anxiety": 0.62,
+          "anti_corruption_salience": 0.88,
+          "candidate_d_support": 0.4,
+          "candidate_r_support": 0.5,
+          "nationalization_susceptibility": 0.35,
+          "tax_anxiety": 0.58
+        },
+        "trustworthiness": 0.53
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "nj_general_electorate",
+          "state_election_authorities_unmodeled"
+        ],
+        "blockers": [
+          "Democratic baseline advantage",
+          "Candidate_D retention of soft Democrats",
+          "Insufficient crossover from swing affordability voters"
+        ],
+        "contradiction_notes": "A narrow Democratic win still resolves this endpoint as not realized.",
+        "description": "Terminal yes endpoint for the forecast card: candidate_r is elected governor by the race deadline.",
+        "endpoint_key": "candidate_r_elected_governor",
+        "evidence_refs": [
+          "Forecast question asks whether Candidate R will win the 2025 New Jersey governor's race.",
+          "Candidate endpoints specify yes if the event occurs by the deadline."
+        ],
+        "label": "Candidate R wins governorship",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will candidate_r be elected governor by the election's resolution?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.42,
+        "rationale": "This is the explicit terminal event named in the scenario.",
+        "realization_criteria": [
+          "Certified or otherwise authoritative election result shows candidate_r wins the 2025 New Jersey gubernatorial election.",
+          "Subsequent recount or adjudication does not reverse candidate_r victory by resolution time."
+        ],
+        "status": "active",
+        "status_basis": "At T0 the race is competitive and unresolved."
+      },
+      {
+        "authority_refs": [
+          "nj_general_electorate",
+          "state_election_authorities_unmodeled"
+        ],
+        "blockers": [
+          "Strong Republican overperformance relative to baseline",
+          "Issue environment remains heavily favorable to candidate_r",
+          "Democratic turnout slippage"
+        ],
+        "contradiction_notes": "Process moves like polling swings or messaging wins do not realize this endpoint without an actual losing result for candidate_r.",
+        "description": "Terminal no endpoint for the forecast card: candidate_r is not elected governor, including narrow or decisive candidate_d victory.",
+        "endpoint_key": "candidate_r_not_elected_governor",
+        "evidence_refs": [
+          "Candidate endpoints specify no if the event does not occur by the deadline.",
+          "Endpoint note states a narrow Democratic win resolves no."
+        ],
+        "label": "Candidate R does not win governorship",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will candidate_d retain enough of the Democratic baseline and soft-D vote to prevent a Republican flip?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.58,
+        "rationale": "Binary complement to the explicit yes endpoint.",
+        "realization_criteria": [
+          "Certified or otherwise authoritative election result shows candidate_r loses the 2025 New Jersey gubernatorial election.",
+          "Election is resolved without candidate_r becoming governor by the scenario deadline."
+        ],
+        "status": "active",
+        "status_basis": "At T0 no terminal result exists and no path is eliminated."
+      },
+      {
+        "authority_refs": [
+          "candidate_d",
+          "democratic_base_voters",
+          "nj_general_electorate"
+        ],
+        "blockers": [
+          "Enhanced Republican crossover",
+          "Strong anti-incumbent or anti-status-quo sentiment",
+          "Corruption narratives become salient and credible"
+        ],
+        "contradiction_notes": "A competitive campaign without Democratic victory does not satisfy this endpoint.",
+        "description": "Underlying electoral endpoint in which the state's partisan lean proves sufficient for candidate_d to prevail despite competitiveness.",
+        "endpoint_key": "democratic_baseline_holds",
+        "evidence_refs": [
+          "New Jersey leans Democratic federally but has a history of competitive gubernatorial races.",
+          "A narrow Democratic win resolves no."
+        ],
+        "label": "Democratic baseline ultimately holds",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will taxes and affordability become the decisive late-stage frame benefiting candidate_r more than candidate_d?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": null,
+        "rationale": "Critical outcome-relevant prior embedded in the scenario text.",
+        "realization_criteria": [
+          "Final election result shows candidate_d wins.",
+          "Post-election analysis indicates Democratic base turnout/retention was sufficient to withstand issue-based defections."
+        ],
+        "status": "active",
+        "status_basis": "Baseline prior remains relevant but not dispositive in an open-seat race."
+      },
+      {
+        "authority_refs": [
+          "candidate_r",
+          "swing_affordability_voters",
+          "anti_corruption_voters",
+          "nj_general_electorate"
+        ],
+        "blockers": [
+          "Reassertion of partisan baseline",
+          "Candidate_D issue neutralization",
+          "Weak conversion of issue salience into vote choice"
+        ],
+        "contradiction_notes": "Issue salience alone is insufficient absent actual victory for candidate_r.",
+        "description": "Underlying endpoint in which taxes, affordability, and related dissatisfaction are strong enough to deliver candidate_r the governorship.",
+        "endpoint_key": "issue_driven_republican_breakthrough",
+        "evidence_refs": [
+          "Property taxes, cost of living, corruption narratives, and presidential-party approval are plausible drivers.",
+          "Recent Republican overperformance relative to the state's baseline is cited as a competitiveness factor."
+        ],
+        "label": "Issue environment produces GOP breakthrough",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will corruption narratives become concrete and electorally meaningful rather than remaining background rhetoric?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": null,
+        "rationale": "Captures the main implied mechanism for a yes resolution.",
+        "realization_criteria": [
+          "Final election result shows candidate_r wins.",
+          "Observable campaign environment before resolution shows taxes/affordability remained dominant and candidate_r converted that salience into decisive crossover support."
+        ],
+        "status": "active",
+        "status_basis": "Potential but unproven route for candidate_r at initialization."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "Race discussed as competitive with issues and baseline framing.",
+        "layer": "exposure",
+        "reason": "Local media coverage shapes broad voter exposure to race narratives.",
+        "source_actor_name": "state_media_ecosystem",
+        "target_actor_name": "nj_general_electorate",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "Candidate R previously ran statewide.",
+        "layer": "exposure",
+        "reason": "Nominee has statewide visibility from current and prior run.",
+        "source_actor_name": "candidate_r",
+        "target_actor_name": "nj_general_electorate",
+        "weight": 0.56
+      },
+      {
+        "direction": "directed",
+        "evidence": "Candidate D is a Democratic U.S. House member.",
+        "layer": "exposure",
+        "reason": "Major-party nominee and U.S. House member has statewide campaign exposure.",
+        "source_actor_name": "candidate_d",
+        "target_actor_name": "nj_general_electorate",
+        "weight": 0.54
+      },
+      {
+        "direction": "directed",
+        "evidence": "Presidential-party approval is a plausible driver.",
+        "layer": "exposure",
+        "reason": "Presidential-party approval affects what voters notice and how they interpret race.",
+        "source_actor_name": "national_party_environment",
+        "target_actor_name": "nj_general_electorate",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "State leans Democratic federally and Candidate D is Democratic nominee.",
+        "layer": "trust",
+        "reason": "Democratic base starts with meaningful trust in party nominee.",
+        "source_actor_name": "democratic_base_voters",
+        "target_actor_name": "candidate_d",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "Candidate R is Republican nominee in competitive race.",
+        "layer": "trust",
+        "reason": "Republican base trusts its nominee in a competitive pickup opportunity.",
+        "source_actor_name": "republican_base_voters",
+        "target_actor_name": "candidate_r",
+        "weight": 0.64
+      },
+      {
+        "direction": "directed",
+        "evidence": "Taxes and cost of living are plausible drivers; recent Republican overperformance noted.",
+        "layer": "trust",
+        "reason": "Issue alignment on taxes and affordability gives candidate a hearing.",
+        "source_actor_name": "swing_affordability_voters",
+        "target_actor_name": "candidate_r",
+        "weight": 0.47
+      },
+      {
+        "direction": "directed",
+        "evidence": "New Jersey leans Democratic federally.",
+        "layer": "trust",
+        "reason": "Democratic nominee remains viable in baseline-blue state.",
+        "source_actor_name": "swing_affordability_voters",
+        "target_actor_name": "candidate_d",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "Corruption narratives are plausible drivers.",
+        "layer": "trust",
+        "reason": "Challenger can benefit from corruption narratives against status quo.",
+        "source_actor_name": "anti_corruption_voters",
+        "target_actor_name": "candidate_r",
+        "weight": 0.49
+      },
+      {
+        "direction": "directed",
+        "evidence": "Corruption narratives are plausible drivers; open-seat succession dynamic.",
+        "layer": "trust",
+        "reason": "Successor to incumbent party may face skepticism under corruption framing.",
+        "source_actor_name": "anti_corruption_voters",
+        "target_actor_name": "candidate_d",
+        "weight": 0.39
+      },
+      {
+        "direction": "directed",
+        "evidence": "State baseline is Democratic; Republican overperformance must exceed base vote.",
+        "layer": "dependency",
+        "reason": "Victory path materially depends on winning enough cross-pressured voters.",
+        "source_actor_name": "candidate_r",
+        "target_actor_name": "swing_affordability_voters",
+        "weight": 0.62
+      },
+      {
+        "direction": "directed",
+        "evidence": "State leans Democratic federally; narrow Democratic win remains plausible.",
+        "layer": "dependency",
+        "reason": "Hold strategy depends on retaining and turning out Democratic base.",
+        "source_actor_name": "candidate_d",
+        "target_actor_name": "democratic_base_voters",
+        "weight": 0.64
+      },
+      {
+        "direction": "directed",
+        "evidence": "Taxes and affordability create defections risk.",
+        "layer": "dependency",
+        "reason": "Soft Democrats are pivotal to preventing baseline erosion.",
+        "source_actor_name": "candidate_d",
+        "target_actor_name": "dem_soft",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "Major-party challenger needs core turnout in competitive race.",
+        "layer": "dependency",
+        "reason": "Baseline GOP turnout is required before crossover gains matter.",
+        "source_actor_name": "candidate_r",
+        "target_actor_name": "republican_base_voters",
+        "weight": 0.6
+      },
+      {
+        "direction": "directed",
+        "evidence": "Presidential-party approval is a plausible driver.",
+        "layer": "influence",
+        "reason": "Presidential-party sentiment can help or hurt co-partisan nominee.",
+        "source_actor_name": "national_party_environment",
+        "target_actor_name": "candidate_d",
+        "weight": 0.59
+      },
+      {
+        "direction": "directed",
+        "evidence": "National-party sentiment and recent Republican overperformance are noted.",
+        "layer": "influence",
+        "reason": "National dissatisfaction may open lane for opposition nominee.",
+        "source_actor_name": "national_party_environment",
+        "target_actor_name": "candidate_r",
+        "weight": 0.51
+      },
+      {
+        "direction": "directed",
+        "evidence": "Race discussion centers on taxes and affordability.",
+        "layer": "influence",
+        "reason": "Media issue framing can elevate affordability and tax concerns.",
+        "source_actor_name": "state_media_ecosystem",
+        "target_actor_name": "swing_affordability_voters",
+        "weight": 0.48
+      },
+      {
+        "direction": "directed",
+        "evidence": "Incumbent Democratic governor is term-limited, implying succession context.",
+        "layer": "influence",
+        "reason": "Outgoing administration can transfer party support and continuity cues.",
+        "source_actor_name": "democratic_incumbent_admin",
+        "target_actor_name": "candidate_d",
+        "weight": 0.44
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Democratic nominee in a Democratic-leaning state.",
+        "layer": "coalition",
+        "reason": "Natural partisan coalition anchor.",
+        "source_actor_name": "candidate_d",
+        "target_actor_name": "democratic_base_voters",
+        "weight": 0.66
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Republican nominee in competitive race.",
+        "layer": "coalition",
+        "reason": "Natural partisan coalition anchor.",
+        "source_actor_name": "candidate_r",
+        "target_actor_name": "republican_base_voters",
+        "weight": 0.68
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Corruption narratives are plausible drivers.",
+        "layer": "coalition",
+        "reason": "Potential anti-status-quo coalition if corruption frame sticks.",
+        "source_actor_name": "candidate_r",
+        "target_actor_name": "anti_corruption_voters",
+        "weight": 0.41
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Outgoing Democratic governor's party seeks to retain office.",
+        "layer": "coalition",
+        "reason": "Shared party succession and legacy interests.",
+        "source_actor_name": "candidate_d",
+        "target_actor_name": "democratic_incumbent_admin",
+        "weight": 0.57
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Binary forecast on whether Candidate R wins race against Candidate D.",
+        "layer": "conflict",
+        "reason": "Direct two-party contest for a single office.",
+        "source_actor_name": "candidate_r",
+        "target_actor_name": "candidate_d",
+        "weight": 0.71
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Open-seat race with issue and corruption pressures on governing party.",
+        "layer": "conflict",
+        "reason": "Challenger campaign benefits from running against incumbent-party record.",
+        "source_actor_name": "candidate_r",
+        "target_actor_name": "democratic_incumbent_admin",
+        "weight": 0.46
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Corruption narratives are plausible drivers.",
+        "layer": "conflict",
+        "reason": "Status-quo association creates latent friction with ethics-focused voters.",
+        "source_actor_name": "candidate_d",
+        "target_actor_name": "anti_corruption_voters",
+        "weight": 0.34
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Competitive statewide race with salient issue narratives.",
+        "layer": "oasis_interaction",
+        "reason": "Frequent public interaction through campaign coverage and statements.",
+        "source_actor_name": "candidate_r",
+        "target_actor_name": "state_media_ecosystem",
+        "weight": 0.58
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Competitive statewide race with salient issue narratives.",
+        "layer": "oasis_interaction",
+        "reason": "Frequent public interaction through campaign coverage and responses.",
+        "source_actor_name": "candidate_d",
+        "target_actor_name": "state_media_ecosystem",
+        "weight": 0.6
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Major-party head-to-head race.",
+        "layer": "oasis_interaction",
+        "reason": "Likely debate, ad, and rebuttal interaction in public channels.",
+        "source_actor_name": "candidate_r",
+        "target_actor_name": "candidate_d",
+        "weight": 0.44
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "description": "Repeat statewide Republican candidate seeking to capitalize on issue environment in a Democratic-leaning state.",
+        "hero_key": "gop_challenger",
+        "label": "Republican challenger archetype"
+      },
+      {
+        "description": "Democratic federal officeholder attempting to inherit party control in open-seat race.",
+        "hero_key": "dem_successor",
+        "label": "Democratic successor archetype"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "candidate_r",
+        "attention_level": 0.83,
+        "campaign_capacity": "plausibly competitive",
+        "expression_level": 0.82,
+        "fatigue": 0.45,
+        "fear_of_isolation": 0.18,
+        "hero_key": "gop_challenger",
+        "mobilization_readiness": 0.8,
+        "perceived_majority": 0.42,
+        "private_constraints": [
+          "must outrun state's Democratic baseline",
+          "must keep race focused on taxes and affordability rather than pure partisan identity"
+        ],
+        "public_image": "credible challenger with rerun baggage and crossover ambitions",
+        "represented_population": 1,
+        "reputation": 0.56,
+        "secrecy": 0.22,
+        "stance_axes": {
+          "affordability_focus": 0.76,
+          "anti_corruption_frame": 0.62,
+          "change_message": 0.74,
+          "national_alignment": 0.55,
+          "tax_cut_emphasis": 0.82
+        },
+        "trustworthiness": 0.52
+      },
+      {
+        "actor_name": "candidate_d",
+        "attention_level": 0.84,
+        "campaign_capacity": "well-positioned but exposed to baseline slippage",
+        "expression_level": 0.8,
+        "fatigue": 0.43,
+        "fear_of_isolation": 0.12,
+        "hero_key": "dem_successor",
+        "mobilization_readiness": 0.77,
+        "perceived_majority": 0.61,
+        "private_constraints": [
+          "must prevent open-seat drift",
+          "must hold soft Democrats while limiting issue-based defections"
+        ],
+        "public_image": "mainstream Democratic successor with federal profile",
+        "represented_population": 1,
+        "reputation": 0.6,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "affordability_focus": 0.68,
+          "anti_corruption_defense": 0.48,
+          "continuity_message": 0.58,
+          "institutional_competence_frame": 0.72,
+          "national_alignment": 0.6
+        },
+        "trustworthiness": 0.57
+      }
+    ],
+    "heroes": [
+      {
+        "description": "Repeat statewide Republican candidate seeking to capitalize on issue environment in a Democratic-leaning state.",
+        "hero_key": "gop_challenger",
+        "label": "Republican challenger archetype"
+      },
+      {
+        "description": "Democratic federal officeholder attempting to inherit party control in open-seat race.",
+        "hero_key": "dem_successor",
+        "label": "Democratic successor archetype"
+      }
+    ],
+    "important_questions": [
+      "Will candidate_r be elected governor by the election's resolution?",
+      "Will candidate_d retain enough of the Democratic baseline and soft-D vote to prevent a Republican flip?",
+      "Will taxes and affordability become the decisive late-stage frame benefiting candidate_r more than candidate_d?",
+      "Will corruption narratives become concrete and electorally meaningful rather than remaining background rhetoric?"
+    ],
+    "initial_events": [
+      {
+        "event_key": "race_begins_as_open_seat_contest",
+        "event_type": "announcement",
+        "evidence": "The incumbent Democratic governor is term-limited.",
+        "expected_impact": "Raises uncertainty relative to full incumbency and increases relevance of candidate-specific and issue-based evaluations.",
+        "participants": [
+          "candidate_r",
+          "candidate_d",
+          "democratic_incumbent_admin"
+        ],
+        "summary": "Open-seat gubernatorial race is underway after term-limited Democratic incumbent.",
+        "tick": 0
+      },
+      {
+        "event_key": "competitive_race_narrative_established",
+        "event_type": "announcement",
+        "evidence": "The race is discussed as competitive.",
+        "expected_impact": "Boosts attention, elite resource allocation, and threshold mobilization in both parties.",
+        "participants": [
+          "state_media_ecosystem",
+          "nj_general_electorate"
+        ],
+        "summary": "Observers frame the race as competitive rather than safely Democratic.",
+        "tick": 0
+      },
+      {
+        "event_key": "affordability_and_tax_frame_salient",
+        "event_type": "announcement",
+        "evidence": "Property taxes and cost of living are plausible drivers.",
+        "expected_impact": "Creates a persuasion lane for the challenger while forcing the Democrat to defend competence and relief plans.",
+        "participants": [
+          "state_media_ecosystem",
+          "swing_affordability_voters",
+          "candidate_r",
+          "candidate_d"
+        ],
+        "summary": "Taxes and cost of living are already central issue lenses.",
+        "tick": 0
+      },
+      {
+        "event_key": "corruption_frame_available",
+        "event_type": "announcement",
+        "evidence": "Corruption narratives are plausible drivers.",
+        "expected_impact": "Could shift skeptical cross-pressured voters if tied to concrete stories or defensive missteps.",
+        "participants": [
+          "anti_corruption_voters",
+          "candidate_r",
+          "candidate_d",
+          "state_media_ecosystem"
+        ],
+        "summary": "Corruption narratives remain available for activation or rebuttal.",
+        "tick": 1
+      },
+      {
+        "event_key": "national_party_sentiment_filters_state_race",
+        "event_type": "announcement",
+        "evidence": "Presidential-party approval is a plausible driver.",
+        "expected_impact": "May nationalize portions of the race, helping the out-party if dissatisfaction is strong or helping the in-party if conditions improve.",
+        "participants": [
+          "national_party_environment",
+          "candidate_d",
+          "candidate_r",
+          "nj_general_electorate"
+        ],
+        "summary": "Presidential-party approval begins shaping interpretation of state candidates.",
+        "tick": 1
+      },
+      {
+        "event_key": "late_decision_window_for_crosspressured_voters",
+        "event_type": "announcement",
+        "evidence": "Competitive race with issue-driven persuadables and no decisive T0 evidence.",
+        "expected_impact": "Keeps both endpoint paths active and makes issue sequencing important.",
+        "participants": [
+          "swing_affordability_voters",
+          "anti_corruption_voters"
+        ],
+        "summary": "Many persuadable voters remain open into later campaign stages.",
+        "tick": 3
+      }
+    ],
+    "llm_call_id": "071a50c1-b840-4546-be06-16bae5e52264",
+    "merge_hypotheses": [
+      {
+        "convergence_effect": "Narratives may converge on cost-of-living solutions, narrowing issue contrast even while electoral competition remains high.",
+        "merge_key": "economic_anxiety_shared_constraint",
+        "shared_driver": "Both campaigns must address affordability and taxes regardless of ideological differences."
+      },
+      {
+        "convergence_effect": "Different campaign noise sequences still end in a narrow Democratic hold if no strong dislodging event occurs.",
+        "merge_key": "state_baseline_reassertion",
+        "shared_driver": "Partisan identity and habitual voting pull many late deciders back toward expected blocs."
+      },
+      {
+        "convergence_effect": "Opposing surges partially cancel, keeping margin dependent on a relatively small persuadable pool.",
+        "merge_key": "competitive_race_turnout_symmetry",
+        "shared_driver": "Perception of closeness mobilizes both bases simultaneously."
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "new_jersey_general_electorate",
+        "description": "Approximate statewide voting population relevant to gubernatorial contest.",
+        "label": "New Jersey likely electorate",
+        "population_total": 2800000
+      },
+      {
+        "archetype_key": "partisan_democrats",
+        "description": "Voters with durable Democratic inclination in the statewide electorate.",
+        "label": "Democratic-leaning voters",
+        "population_total": 1260000
+      },
+      {
+        "archetype_key": "partisan_republicans",
+        "description": "Voters with durable Republican inclination in the statewide electorate.",
+        "label": "Republican-leaning voters",
+        "population_total": 980000
+      },
+      {
+        "archetype_key": "persuadable_crosspressured",
+        "description": "Voters whose preferences may move based on issues, candidate fit, and national mood.",
+        "label": "Persuadable and cross-pressured voters",
+        "population_total": 560000
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "sparse_source_packet",
+        "note": "Initialization relies on limited qualitative scenario text without polling or operational data.",
+        "severity": "medium"
+      },
+      {
+        "flag": "fictionalized_public_labels",
+        "note": "Public actors are intentionally masked/fitionalized to avoid direct real-person targeting.",
+        "severity": "low"
+      },
+      {
+        "flag": "binary_endpoint_but_multicausal_process",
+        "note": "Many process indicators may move without resolving the binary endpoint until actual election results.",
+        "severity": "medium"
+      },
+      {
+        "flag": "population_estimates_approximate",
+        "note": "Electorate and cohort counts are realistic placeholders inferred from scenario scale, not source-stated figures.",
+        "severity": "low"
+      },
+      {
+        "flag": "national_mood_ambiguity",
+        "note": "Presidential-party approval is named as a driver but no directional reading is provided at T0.",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "domain": "statewide_election_forecasting",
+      "horizon_ticks": 5,
+      "mode": "direct",
+      "premises": [
+        "New Jersey has a Democratic federal lean but competitive gubernatorial history.",
+        "The incumbent Democratic governor is term-limited, creating an open-seat race.",
+        "Taxes, affordability, corruption narratives, and presidential-party approval are plausible vote drivers.",
+        "A narrow Democratic win still resolves the forecast to no."
+      ],
+      "scenario_key": "resolved_013_nj_governor_2025",
+      "summary": "A competitive 2025 New Jersey gubernatorial race pits fictionalized Republican nominee Candidate_R against fictionalized Democratic nominee Candidate_D in an open-seat contest after a term-limited Democratic governor. Core pressures at T0 include New Jersey's Democratic baseline, issue salience around taxes and affordability, corruption narratives, national-party sentiment, and recent Republican overperformance relative to baseline. Terminal outcome is binary: Candidate_R elected governor or not elected governor.",
+      "timeframe": "2025 election cycle through election resolution",
+      "uncertainty_notes": [
+        "Source packet is sparse and high-level; no polling, fundraising, turnout, or scandal specifics are provided.",
+        "Candidate identities are partially masked; actor construction uses fictionalized public labels.",
+        "Recent Republican overperformance is described qualitatively without magnitude.",
+        "No explicit institutional disruptions or third-party candidacies are specified at T0."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "description": "Most partisan voters update within party-consistent ranges, while persuadables remain somewhat movable on high-salience local issues.",
+        "level": "medium",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "description": "Turnout spikes likely if voters perceive race as unusually close or symbolically important.",
+        "level": "medium",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "description": "Cross-pressured voters may withhold public preference while privately considering defection across party lines.",
+        "level": "medium",
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "description": "Partisan social sorting stabilizes core voters and slows broad persuasion outside issue-specific lanes.",
+        "level": "high",
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "description": "Narratives about taxes, affordability, or corruption likely need repeated reinforcement across media and peer networks to shift marginal voters.",
+        "level": "medium",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "description": "Party identity remains a strong anchor despite gubernatorial race-specific flexibility.",
+        "level": "high",
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "description": "Issue salience may fluctuate unless refreshed by campaign events, ads, or news hooks.",
+        "level": "medium",
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context_key": "state_baseline",
+        "description": "Democratic federal lean coexists with competitive gubernatorial tradition."
+      },
+      {
+        "context_key": "open_seat_dynamic",
+        "description": "Term-limited incumbent removes full incumbency advantage and creates succession uncertainty."
+      },
+      {
+        "context_key": "affordability_pressure",
+        "description": "Property taxes and cost of living are central voter concerns."
+      },
+      {
+        "context_key": "corruption_narrative",
+        "description": "Ethics and status-quo critiques may shape challenger opportunity."
+      },
+      {
+        "context_key": "national_mood",
+        "description": "Presidential-party approval and national sentiment may spill into state race."
+      },
+      {
+        "context_key": "recent_gop_overperformance",
+        "description": "Republican results have recently outperformed the state's baseline, increasing perceived competitiveness."
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "candidate_r",
+        "behavior_axes": {
+          "adaptability": 0.56,
+          "aggression": 0.62,
+          "coalition_building": 0.55,
+          "discipline": 0.58,
+          "risk_tolerance": 0.61
+        },
+        "ideology_axes": {
+          "cultural_right": 0.68,
+          "economic_right": 0.78,
+          "institutional_reform": 0.54
+        },
+        "reputation": 0.56,
+        "secrecy": 0.22,
+        "tendency": "press issue dissatisfaction and seek crossover votes",
+        "trustworthiness": 0.52
+      },
+      {
+        "actor_name": "candidate_d",
+        "behavior_axes": {
+          "adaptability": 0.57,
+          "aggression": 0.52,
+          "coalition_building": 0.61,
+          "discipline": 0.63,
+          "risk_tolerance": 0.45
+        },
+        "ideology_axes": {
+          "cultural_left": 0.66,
+          "economic_left": 0.62,
+          "institutional_continuity": 0.7
+        },
+        "reputation": 0.6,
+        "secrecy": 0.18,
+        "tendency": "defend party hold while reassuring moderates",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "democratic_incumbent_admin",
+        "behavior_axes": {
+          "adaptability": 0.42,
+          "aggression": 0.34,
+          "coalition_building": 0.58,
+          "discipline": 0.6,
+          "risk_tolerance": 0.3
+        },
+        "ideology_axes": {
+          "economic_left": 0.58,
+          "institutional_continuity": 0.82
+        },
+        "reputation": 0.48,
+        "secrecy": 0.3,
+        "tendency": "legacy defense and low-risk support",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "state_media_ecosystem",
+        "behavior_axes": {
+          "adaptability": 0.67,
+          "aggression": 0.46,
+          "coalition_building": 0.2,
+          "discipline": 0.51,
+          "risk_tolerance": 0.4
+        },
+        "ideology_axes": {
+          "institutional_neutrality": 0.55
+        },
+        "reputation": 0.57,
+        "secrecy": 0.12,
+        "tendency": "amplify contest competitiveness and salient issue frames",
+        "trustworthiness": 0.54
+      },
+      {
+        "actor_name": "national_party_environment",
+        "behavior_axes": {
+          "adaptability": 0.0,
+          "aggression": 0.0,
+          "coalition_building": 0.0,
+          "discipline": 0.0,
+          "risk_tolerance": 0.0
+        },
+        "ideology_axes": {
+          "partisan_polarization": 0.78
+        },
+        "reputation": 0.45,
+        "secrecy": 0.0,
+        "tendency": "ambient national mood pressure",
+        "trustworthiness": 0.4
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 1796,
+        "end": 1796,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 1796,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

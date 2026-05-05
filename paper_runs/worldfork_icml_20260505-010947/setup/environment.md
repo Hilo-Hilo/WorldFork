@@ -73,6 +73,21 @@ E1 queued initializer batch completed four independent p1 jobs:
 
 The near-zero waits for the final three cases occurred because they completed while the script was waiting on the first queued job.
 
+E1 queued initializer batch completed eight additional independent p1 jobs:
+
+| Case | Big Bang ID | Job elapsed seconds | Actors | Traits |
+| --- | --- | ---: | ---: | ---: |
+| `resolved_007` | `b5b98022-cafe-4cd0-95e9-002b80eaa013` | 136.72 | 8 | 8 |
+| `resolved_008` | `13e0eb20-08a5-4e1b-bb7f-53e406833619` | 120.07 | 9 | 9 |
+| `resolved_009` | `60634643-0713-41b6-b741-e49c4ea93cdf` | 114.74 | 7 | 7 |
+| `resolved_010` | `a8cd6ba5-3c91-4a3f-87a7-2d6a455bedcf` | 112.37 | 7 | 7 |
+| `resolved_011` | `8677a186-d015-4d6b-bc12-8c67290f893d` | 188.80 | 11 | 11 |
+| `resolved_012` | `6b8c4c5b-80c8-43bf-a368-c1d3c6865ae1` | 161.62 | 14 | 14 |
+| `resolved_013` | `14ce9ad3-7472-4d36-b06b-d947df628004` | 163.64 | 10 | 10 |
+| `resolved_014` | `a2db89ad-49c7-4af5-9b0b-581dac4f6e44` | 115.41 | 8 | 8 |
+
+During this batch, `/jobs/queues` reported p1 at 8 active tasks, with p0/p2/p3 idle.
+
 ## Runtime Routing Override
 
 The local OpenRouter key is a placeholder, so the smoke run used a runtime-only model-routing override that routes all configured job types to `openai-codex` / `gpt-5.4`.

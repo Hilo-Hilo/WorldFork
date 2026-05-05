@@ -1,0 +1,1085 @@
+{
+  "big_bang_id": "13e0eb20-08a5-4e1b-bb7f-53e406833619",
+  "initializer_output": {
+    "actors": [
+      {
+        "description": "AFC champion entering the title game with emphasis on defense and quarterback play.",
+        "fictionalized": true,
+        "name": "team_n",
+        "public_visibility": "high",
+        "type": "team"
+      },
+      {
+        "description": "NFC champion entering the title game with emphasis on run game and defensive depth.",
+        "fictionalized": true,
+        "name": "team_s",
+        "public_visibility": "high",
+        "type": "team"
+      },
+      {
+        "description": "Team N passing leadership and execution center.",
+        "fictionalized": true,
+        "name": "team_n_quarterback_unit",
+        "public_visibility": "high",
+        "type": "subunit"
+      },
+      {
+        "description": "Team N defensive unit central to its win case.",
+        "fictionalized": true,
+        "name": "team_n_defense",
+        "public_visibility": "high",
+        "type": "subunit"
+      },
+      {
+        "description": "Team S rushing attack and ground-control identity.",
+        "fictionalized": true,
+        "name": "team_s_run_game",
+        "public_visibility": "high",
+        "type": "subunit"
+      },
+      {
+        "description": "Team S defensive depth and resistance unit.",
+        "fictionalized": true,
+        "name": "team_s_defense",
+        "public_visibility": "high",
+        "type": "subunit"
+      },
+      {
+        "description": "Game location context affecting crowd and travel dynamics.",
+        "fictionalized": true,
+        "name": "neutral_site_environment",
+        "public_visibility": "medium",
+        "type": "environment"
+      },
+      {
+        "description": "Injuries, turnovers, and other high-variance single-game shocks.",
+        "fictionalized": true,
+        "name": "game_variance_factors",
+        "public_visibility": "low",
+        "type": "latent_factor"
+      },
+      {
+        "description": "Analysts and observers evaluating the matchup before kickoff.",
+        "fictionalized": true,
+        "name": "forecast_observers",
+        "public_visibility": "medium",
+        "type": "audience"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Team N's quarterback-centered case compounds with defensive support into an outright win path.",
+        "branch_key": "team_n_clean_qb_path",
+        "divergence_signal": "Early passing efficiency with no major turnovers and stable Team N scoring pace.",
+        "trigger": "Team N quarterback unit avoids high-cost mistakes early and converts key possessions."
+      },
+      {
+        "alternate_path": "Possession control and defensive depth reduce Team N's offensive ceiling, yielding Team N loss.",
+        "branch_key": "team_s_run_control_path",
+        "divergence_signal": "Sustained Team S rushing success, fewer obvious passing-pressure situations, and compressed Team N possession count.",
+        "trigger": "Team S establishes rushing efficiency and favorable script by the middle portion of the game."
+      },
+      {
+        "alternate_path": "Baseline matchup edges become secondary to possession shocks.",
+        "branch_key": "turnover_shock_path",
+        "divergence_signal": "Abrupt field-position or score swings tied directly to giveaways.",
+        "trigger": "One side suffers multiple turnovers or a decisive giveaway swing."
+      },
+      {
+        "alternate_path": "Pre-game central strengths weaken enough to flip favored scripts.",
+        "branch_key": "injury_disruption_path",
+        "divergence_signal": "Observable snap reduction, substitution stress, or sharp unit efficiency drop after an injury event.",
+        "trigger": "A key performer in a central subunit is limited or exits."
+      },
+      {
+        "alternate_path": "One team performs with a subtle environmental edge not captured by pure neutral assumptions.",
+        "branch_key": "neutral_site_asymmetry_path",
+        "divergence_signal": "Consistent operational comfort indicators such as cleaner communication or fewer procedural errors by one side.",
+        "trigger": "Crowd/travel comfort effects prove nontrivial despite nominal neutrality."
+      }
+    ],
+    "channels": [
+      {
+        "audience": "forecast_observers",
+        "channel_key": "pre_game_analysis",
+        "properties": {
+          "persistence": 0.55,
+          "reach": 0.78,
+          "speed": 0.73
+        },
+        "type": "broadcast_analysis"
+      },
+      {
+        "audience": "game_participants",
+        "channel_key": "team_internal_preparation",
+        "properties": {
+          "persistence": 0.47,
+          "reach": 0.42,
+          "speed": 0.69
+        },
+        "type": "internal_coordination"
+      },
+      {
+        "audience": "all",
+        "channel_key": "live_game_events",
+        "properties": {
+          "persistence": 0.88,
+          "reach": 0.95,
+          "speed": 1.0
+        },
+        "type": "event_signal"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "team_n",
+        "archetype": "game_participants",
+        "attention_level": 0.96,
+        "cohort_key": "team_n_competitive_core",
+        "expression_level": 0.74,
+        "fatigue": 0.38,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.98,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.5,
+        "private_belief_note": "Privately confident but aware single-game volatility can erase structural edges.",
+        "representation_mode": "team_roster_plus_core_staff",
+        "represented_population": 53,
+        "stance_axes": {
+          "concern_about_variance": 0.46,
+          "expects_defensive_edge": 0.68,
+          "expects_qb_edge": 0.64,
+          "expects_team_n_win": 0.62
+        }
+      },
+      {
+        "actor_name": "team_s",
+        "archetype": "game_participants",
+        "attention_level": 0.97,
+        "cohort_key": "team_s_competitive_core",
+        "expression_level": 0.75,
+        "fatigue": 0.37,
+        "fear_of_isolation": 0.11,
+        "mobilization_readiness": 0.98,
+        "perceived_majority": 0.56,
+        "population_share_of_archetype": 0.5,
+        "private_belief_note": "Privately confident that ground game and depth can control the matchup if game script stays favorable.",
+        "representation_mode": "team_roster_plus_core_staff",
+        "represented_population": 53,
+        "stance_axes": {
+          "concern_about_variance": 0.43,
+          "expects_defensive_depth_edge": 0.66,
+          "expects_run_game_edge": 0.69,
+          "expects_team_s_win": 0.61
+        }
+      },
+      {
+        "actor_name": "forecast_observers",
+        "archetype": "forecast_observer_pool",
+        "attention_level": 0.82,
+        "cohort_key": "pre_game_observers_split",
+        "expression_level": 0.41,
+        "fatigue": 0.16,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1.0,
+        "private_belief_note": "Observer pool is close to split, with many treating the game as near-even due to variance.",
+        "representation_mode": "aggregate_mixed_public",
+        "represented_population": 1000000,
+        "stance_axes": {
+          "accepts_high_variance": 0.78,
+          "cares_only_about_outright_winner": 0.88,
+          "leans_team_n": 0.51,
+          "leans_team_s": 0.49
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "team_n",
+        "archetype": "game_participants",
+        "attention_level": 0.96,
+        "cohort_key": "team_n_competitive_core",
+        "expression_level": 0.74,
+        "fatigue": 0.38,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.98,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.5,
+        "private_belief_note": "Privately confident but aware single-game volatility can erase structural edges.",
+        "representation_mode": "team_roster_plus_core_staff",
+        "represented_population": 53,
+        "stance_axes": {
+          "concern_about_variance": 0.46,
+          "expects_defensive_edge": 0.68,
+          "expects_qb_edge": 0.64,
+          "expects_team_n_win": 0.62
+        }
+      },
+      {
+        "actor_name": "team_s",
+        "archetype": "game_participants",
+        "attention_level": 0.97,
+        "cohort_key": "team_s_competitive_core",
+        "expression_level": 0.75,
+        "fatigue": 0.37,
+        "fear_of_isolation": 0.11,
+        "mobilization_readiness": 0.98,
+        "perceived_majority": 0.56,
+        "population_share_of_archetype": 0.5,
+        "private_belief_note": "Privately confident that ground game and depth can control the matchup if game script stays favorable.",
+        "representation_mode": "team_roster_plus_core_staff",
+        "represented_population": 53,
+        "stance_axes": {
+          "concern_about_variance": 0.43,
+          "expects_defensive_depth_edge": 0.66,
+          "expects_run_game_edge": 0.69,
+          "expects_team_s_win": 0.61
+        }
+      },
+      {
+        "actor_name": "forecast_observers",
+        "archetype": "forecast_observer_pool",
+        "attention_level": 0.82,
+        "cohort_key": "pre_game_observers_split",
+        "expression_level": 0.41,
+        "fatigue": 0.16,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1.0,
+        "private_belief_note": "Observer pool is close to split, with many treating the game as near-even due to variance.",
+        "representation_mode": "aggregate_mixed_public",
+        "represented_population": 1000000,
+        "stance_axes": {
+          "accepts_high_variance": 0.78,
+          "cares_only_about_outright_winner": 0.88,
+          "leans_team_n": 0.51,
+          "leans_team_s": 0.49
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "live_game_events",
+          "team_n",
+          "team_s"
+        ],
+        "blockers": [
+          "Team S can win outright.",
+          "Single-game variance can overturn pre-game matchup edges.",
+          "Pre-game corpus provides no decisive health or turnover information."
+        ],
+        "contradiction_notes": "None at T0; binary resolution rule is explicit.",
+        "description": "Terminal yes endpoint for the forecast card: Team N is the official winner of Super Bowl LX.",
+        "endpoint_key": "team_n_wins_outright",
+        "evidence_refs": [
+          "Forecast question: Will Team N, the AFC champion, win Super Bowl LX?",
+          "Resolve yes only if Team N wins the game outright.",
+          "Point spread performance does not matter; only the outright winner counts."
+        ],
+        "label": "Team N wins outright",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does Team N win Super Bowl LX outright by the end of the game?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.5,
+        "rationale": "This is the primary terminal endpoint explicitly defined by the corpus.",
+        "realization_criteria": [
+          "Official final result names Team N as game winner.",
+          "Game concludes within the forecast deadline.",
+          "Outcome is based on outright winner, not point spread or margin."
+        ],
+        "status": "active",
+        "status_basis": "The game has not yet been played at T0, so the endpoint remains unresolved and active."
+      },
+      {
+        "authority_refs": [
+          "live_game_events",
+          "team_n",
+          "team_s"
+        ],
+        "blockers": [
+          "Team N can win outright.",
+          "Pre-game strengths for Team N remain credible.",
+          "Variance may help either side rather than Team S specifically."
+        ],
+        "contradiction_notes": "None at T0.",
+        "description": "Terminal no endpoint for the forecast card: Team S wins the game, so Team N fails to win outright.",
+        "endpoint_key": "team_n_loses_outright",
+        "evidence_refs": [
+          "Candidate Endpoints include no: The event does not occur by the deadline.",
+          "Point spread performance does not matter; only the outright winner counts."
+        ],
+        "label": "Team N does not win outright",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does Team N's quarterback-centered offensive case hold up well enough to support a win path?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.5,
+        "rationale": "The scenario is a resolved-card style binary event with mutually exclusive yes/no endpoints.",
+        "realization_criteria": [
+          "Official final result names Team S as game winner.",
+          "Game concludes within the forecast deadline.",
+          "No alternate criterion such as spread cover is used."
+        ],
+        "status": "active",
+        "status_basis": "Binary opposite of the primary yes endpoint; still active before kickoff."
+      },
+      {
+        "authority_refs": [
+          "team_n_quarterback_unit",
+          "live_game_events"
+        ],
+        "blockers": [
+          "Team S defensive depth may suppress passing efficiency.",
+          "Turnovers or injury can negate quarterback advantages.",
+          "Team N could attempt alternative win routes if passing case weakens."
+        ],
+        "contradiction_notes": "This analytical endpoint may be realized without guaranteeing Team N's outright win if other factors dominate.",
+        "description": "A secondary analytical endpoint tracking whether Team N's quarterback-centered case materially succeeds, even though it is not itself the card resolution.",
+        "endpoint_key": "team_n_qb_path_realized",
+        "evidence_refs": [
+          "Team N's defense and quarterback story are central to its case.",
+          "Single-game football outcomes have high variance; injuries and turnovers are major branch drivers."
+        ],
+        "label": "Team N quarterback path realized",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does Team S's run-game advantage materially shape game control?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": null,
+        "rationale": "Later timeline evidence can compare whether the named Team N win mechanism actually appeared.",
+        "realization_criteria": [
+          "Team N passing offense is observably efficient relative to game context.",
+          "Team N quarterback unit avoids decisive negative turnover burden.",
+          "Post-game evidence shows quarterback-led offense materially contributed to Team N's competitive position."
+        ],
+        "status": "active",
+        "status_basis": "Central causal pathway explicitly named in the source, but not yet tested at T0."
+      },
+      {
+        "authority_refs": [
+          "team_s_run_game",
+          "live_game_events"
+        ],
+        "blockers": [
+          "Team N defense may neutralize rushing efficiency.",
+          "Negative game script can force Team S away from the run.",
+          "Variance shocks can dominate style advantage."
+        ],
+        "contradiction_notes": "This analytical endpoint may coexist with a close game or even fail to produce a Team S win if other phases swing late.",
+        "description": "A secondary analytical endpoint tracking whether Team S's run-game advantage materially controls the game environment.",
+        "endpoint_key": "team_s_run_control_realized",
+        "evidence_refs": [
+          "Team S has a run-game advantage and defensive depth."
+        ],
+        "label": "Team S run-control path realized",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do injuries or turnovers become decisive enough to override baseline matchup narratives?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": null,
+        "rationale": "Useful for evaluating whether the pre-game Team S case actually manifests.",
+        "realization_criteria": [
+          "Team S rushing attack consistently generates favorable game-script value.",
+          "Team S maintains possession/control patterns associated with run-game leverage.",
+          "Post-game evidence attributes material control to Team S's run-game advantage."
+        ],
+        "status": "active",
+        "status_basis": "Explicitly identified source-side mechanism, unresolved before the game begins."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "Scenario says Team N's defense and quarterback story are central to its case.",
+        "layer": "dependency",
+        "reason": "Team N's case relies materially on quarterback performance.",
+        "source_actor_name": "team_n",
+        "target_actor_name": "team_n_quarterback_unit",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario says Team N's defense is central to its case.",
+        "layer": "dependency",
+        "reason": "Team N's win path materially depends on defensive performance.",
+        "source_actor_name": "team_n",
+        "target_actor_name": "team_n_defense",
+        "weight": 0.65
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario says Team S has a run-game advantage.",
+        "layer": "dependency",
+        "reason": "Team S's advantage is tied to run-game execution.",
+        "source_actor_name": "team_s",
+        "target_actor_name": "team_s_run_game",
+        "weight": 0.64
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario says Team S has defensive depth.",
+        "layer": "dependency",
+        "reason": "Team S's defensive depth is a core support for its case.",
+        "source_actor_name": "team_s",
+        "target_actor_name": "team_s_defense",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "Neutral-site final reduces home-field assumptions but does not eliminate crowd and travel effects.",
+        "layer": "dependency",
+        "reason": "Travel and crowd conditions may modestly affect preparation and performance.",
+        "source_actor_name": "team_n",
+        "target_actor_name": "neutral_site_environment",
+        "weight": 0.22
+      },
+      {
+        "direction": "directed",
+        "evidence": "Neutral-site final reduces home-field assumptions but does not eliminate crowd and travel effects.",
+        "layer": "dependency",
+        "reason": "Travel and crowd conditions may modestly affect preparation and performance.",
+        "source_actor_name": "team_s",
+        "target_actor_name": "neutral_site_environment",
+        "weight": 0.22
+      },
+      {
+        "direction": "directed",
+        "evidence": "Single-game football outcomes have high variance; injuries and turnovers are major branch drivers.",
+        "layer": "dependency",
+        "reason": "Single-game injuries and turnovers can strongly alter Team N's outcome chances.",
+        "source_actor_name": "team_n",
+        "target_actor_name": "game_variance_factors",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "Single-game football outcomes have high variance; injuries and turnovers are major branch drivers.",
+        "layer": "dependency",
+        "reason": "Single-game injuries and turnovers can strongly alter Team S's outcome chances.",
+        "source_actor_name": "team_s",
+        "target_actor_name": "game_variance_factors",
+        "weight": 0.41
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Forecast asks whether Team N will win the title game outright against Team S.",
+        "layer": "conflict",
+        "reason": "Both teams seek mutually exclusive outright victory.",
+        "source_actor_name": "team_n",
+        "target_actor_name": "team_s",
+        "weight": 0.71
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Team N defense is central to its case; Team S has a run-game advantage.",
+        "layer": "conflict",
+        "reason": "Team N defense directly contests Team S's run-game advantage.",
+        "source_actor_name": "team_n_defense",
+        "target_actor_name": "team_s_run_game",
+        "weight": 0.62
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Team N quarterback story is central; Team S has defensive depth.",
+        "layer": "conflict",
+        "reason": "Team S defensive depth directly contests Team N's quarterback-led path.",
+        "source_actor_name": "team_s_defense",
+        "target_actor_name": "team_n_quarterback_unit",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "Team N's quarterback story is central to its case.",
+        "layer": "influence",
+        "reason": "Quarterback play heavily shapes offensive ceiling and game narrative.",
+        "source_actor_name": "team_n_quarterback_unit",
+        "target_actor_name": "team_n",
+        "weight": 0.66
+      },
+      {
+        "direction": "directed",
+        "evidence": "Team N's defense is central to its case.",
+        "layer": "influence",
+        "reason": "Defensive performance heavily shapes Team N's viability.",
+        "source_actor_name": "team_n_defense",
+        "target_actor_name": "team_n",
+        "weight": 0.64
+      },
+      {
+        "direction": "directed",
+        "evidence": "Team S has a run-game advantage.",
+        "layer": "influence",
+        "reason": "Ground-game success shapes Team S's preferred game script.",
+        "source_actor_name": "team_s_run_game",
+        "target_actor_name": "team_s",
+        "weight": 0.65
+      },
+      {
+        "direction": "directed",
+        "evidence": "Team S has defensive depth.",
+        "layer": "influence",
+        "reason": "Defensive depth provides game-control and resilience influence.",
+        "source_actor_name": "team_s_defense",
+        "target_actor_name": "team_s",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "Neutral site reduces but does not eliminate crowd and travel effects.",
+        "layer": "influence",
+        "reason": "Site conditions can modestly shift comfort and support effects.",
+        "source_actor_name": "neutral_site_environment",
+        "target_actor_name": "team_n",
+        "weight": 0.19
+      },
+      {
+        "direction": "directed",
+        "evidence": "Neutral site reduces but does not eliminate crowd and travel effects.",
+        "layer": "influence",
+        "reason": "Site conditions can modestly shift comfort and support effects.",
+        "source_actor_name": "neutral_site_environment",
+        "target_actor_name": "team_s",
+        "weight": 0.19
+      },
+      {
+        "direction": "directed",
+        "evidence": "Injuries and turnovers are major branch drivers.",
+        "layer": "influence",
+        "reason": "Turnovers/injuries can swing Team N's chances sharply in a one-game sample.",
+        "source_actor_name": "game_variance_factors",
+        "target_actor_name": "team_n",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "Injuries and turnovers are major branch drivers.",
+        "layer": "influence",
+        "reason": "Turnovers/injuries can swing Team S's chances sharply in a one-game sample.",
+        "source_actor_name": "game_variance_factors",
+        "target_actor_name": "team_s",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "Expected focus includes single-game forecasting with Team N case centered on defense and quarterback.",
+        "layer": "exposure",
+        "reason": "Observers are highly exposed to Team N pre-game narratives.",
+        "source_actor_name": "forecast_observers",
+        "target_actor_name": "team_n",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "Expected focus includes Team S run-game advantage and defensive depth.",
+        "layer": "exposure",
+        "reason": "Observers are highly exposed to Team S pre-game narratives.",
+        "source_actor_name": "forecast_observers",
+        "target_actor_name": "team_s",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "Both teams have strong regular-season records.",
+        "layer": "trust",
+        "reason": "Observers assign credible but not dominant legitimacy to Team N's case.",
+        "source_actor_name": "forecast_observers",
+        "target_actor_name": "team_n",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "Both teams have strong regular-season records.",
+        "layer": "trust",
+        "reason": "Observers assign credible but not dominant legitimacy to Team S's case.",
+        "source_actor_name": "forecast_observers",
+        "target_actor_name": "team_s",
+        "weight": 0.52
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Quarterback story is central to Team N's case.",
+        "layer": "coalition",
+        "reason": "Internal alignment around a quarterback-centered win path.",
+        "source_actor_name": "team_n",
+        "target_actor_name": "team_n_quarterback_unit",
+        "weight": 0.63
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Defense is central to Team N's case.",
+        "layer": "coalition",
+        "reason": "Internal alignment around defensive identity.",
+        "source_actor_name": "team_n",
+        "target_actor_name": "team_n_defense",
+        "weight": 0.66
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Team S has a run-game advantage.",
+        "layer": "coalition",
+        "reason": "Internal alignment around run-game advantage.",
+        "source_actor_name": "team_s",
+        "target_actor_name": "team_s_run_game",
+        "weight": 0.65
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Team S has defensive depth.",
+        "layer": "coalition",
+        "reason": "Internal alignment around defensive depth.",
+        "source_actor_name": "team_s",
+        "target_actor_name": "team_s_defense",
+        "weight": 0.62
+      },
+      {
+        "direction": "directed",
+        "evidence": "Forecast framing highlights Team N-specific strengths.",
+        "layer": "oasis_interaction",
+        "reason": "Moderate public discussion intensity around Team N's win case.",
+        "source_actor_name": "forecast_observers",
+        "target_actor_name": "team_n",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "Forecast framing highlights Team S-specific strengths.",
+        "layer": "oasis_interaction",
+        "reason": "Moderate public discussion intensity around Team S's counter-case.",
+        "source_actor_name": "forecast_observers",
+        "target_actor_name": "team_s",
+        "weight": 0.44
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype": "signal_carrying_subunits",
+        "description": "Subunits whose performance disproportionately shapes the game outcome."
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "team_n_quarterback_unit",
+        "archetype": "signal_carrying_subunits",
+        "attention_level": 0.95,
+        "expression_level": 0.71,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.09,
+        "hero_key": "team_n_qb_signal",
+        "hero_power": 0.77,
+        "mobilization_readiness": 0.97,
+        "perceived_majority": 0.58,
+        "represented_group": "team_n_competitive_core",
+        "stance_axes": {
+          "aggressive_passing_identity": 0.62,
+          "confidence_in_matchup": 0.63,
+          "mistake_avoidance_priority": 0.58
+        }
+      },
+      {
+        "actor_name": "team_n_defense",
+        "archetype": "signal_carrying_subunits",
+        "attention_level": 0.94,
+        "expression_level": 0.63,
+        "fatigue": 0.36,
+        "fear_of_isolation": 0.08,
+        "hero_key": "team_n_defense_signal",
+        "hero_power": 0.72,
+        "mobilization_readiness": 0.97,
+        "perceived_majority": 0.57,
+        "represented_group": "team_n_competitive_core",
+        "stance_axes": {
+          "confidence_in_plan": 0.61,
+          "expects_to_limit_scoring": 0.66,
+          "turnover_creation_focus": 0.57
+        }
+      },
+      {
+        "actor_name": "team_s_run_game",
+        "archetype": "signal_carrying_subunits",
+        "attention_level": 0.94,
+        "expression_level": 0.62,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.08,
+        "hero_key": "team_s_run_game_signal",
+        "hero_power": 0.73,
+        "mobilization_readiness": 0.97,
+        "perceived_majority": 0.56,
+        "represented_group": "team_s_competitive_core",
+        "stance_axes": {
+          "confidence_in_matchup": 0.62,
+          "expects_ground_control": 0.69,
+          "tempo_control_priority": 0.67
+        }
+      },
+      {
+        "actor_name": "team_s_defense",
+        "archetype": "signal_carrying_subunits",
+        "attention_level": 0.93,
+        "expression_level": 0.61,
+        "fatigue": 0.36,
+        "fear_of_isolation": 0.08,
+        "hero_key": "team_s_defense_signal",
+        "hero_power": 0.7,
+        "mobilization_readiness": 0.96,
+        "perceived_majority": 0.55,
+        "represented_group": "team_s_competitive_core",
+        "stance_axes": {
+          "confidence_in_plan": 0.6,
+          "disruption_focus": 0.59,
+          "expects_depth_advantage": 0.68
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "archetype": "signal_carrying_subunits",
+        "description": "Subunits whose performance disproportionately shapes the game outcome."
+      }
+    ],
+    "important_questions": [
+      "Does Team N win Super Bowl LX outright by the end of the game?",
+      "Does Team N's quarterback-centered offensive case hold up well enough to support a win path?",
+      "Does Team S's run-game advantage materially shape game control?",
+      "Do injuries or turnovers become decisive enough to override baseline matchup narratives?"
+    ],
+    "initial_events": [
+      {
+        "description": "Team N and Team S enter Super Bowl LX at a neutral site as conference champions.",
+        "event_key": "title_game_set",
+        "event_type": "announcement",
+        "expected_impact": "Sets a single binary contest with modest neutral-site adjustments and high attention.",
+        "tick": 0,
+        "type": "realized_setup"
+      },
+      {
+        "description": "Public framing emphasizes Team N defense and quarterback against Team S run-game and defensive depth.",
+        "event_key": "pre_game_matchup_narrative",
+        "event_type": "announcement",
+        "expected_impact": "Concentrates observer analysis on a few high-leverage subunit matchups.",
+        "tick": 0,
+        "type": "realized_setup"
+      },
+      {
+        "description": "Final injury information, ball-security expectations, and other variance-sensitive signals approach kickoff.",
+        "event_key": "variance_watch_pre_kickoff",
+        "event_type": "announcement",
+        "expected_impact": "Can shift perceived win chances without determining the outcome.",
+        "tick": 1,
+        "type": "imminent_risk_window"
+      },
+      {
+        "description": "The game is played and one team wins outright.",
+        "event_key": "game_resolution_window",
+        "event_type": "announcement",
+        "expected_impact": "Resolves the binary endpoint for Team N yes/no.",
+        "tick": 2,
+        "type": "terminal_contest"
+      }
+    ],
+    "llm_call_id": "3c6438ef-9662-4fb1-8e56-dd92469d6082",
+    "merge_hypotheses": [
+      {
+        "affected_paths": [
+          "team_n_clean_qb_path",
+          "team_s_run_control_path",
+          "turnover_shock_path",
+          "injury_disruption_path"
+        ],
+        "convergence_driver": "Regardless of pre-game narrative, single-game randomness can compress matchup differences.",
+        "merge_key": "variance_dominates_style_edges",
+        "observable_merge_signal": "Late-game win probability remains sensitive to one or two high-leverage plays."
+      },
+      {
+        "affected_paths": [
+          "team_n_clean_qb_path",
+          "team_s_run_control_path"
+        ],
+        "convergence_driver": "Both teams have credible defensive strengths that can prevent early blowout separation.",
+        "merge_key": "defensive_resistance_keeps_game_close",
+        "observable_merge_signal": "Score margin remains narrow enough that one possession can alter the terminal outcome."
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype": "game_participants",
+        "description": "Players and staff directly affecting on-field outcome.",
+        "population_total": 106
+      },
+      {
+        "archetype": "forecast_observer_pool",
+        "description": "Observers consuming and discussing the matchup forecast.",
+        "population_total": 1000000
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "masked_entities_limit_specificity",
+        "note": "Entity masking and compact corpus prevent roster-specific, coach-specific, or health-specific initialization.",
+        "severity": "medium"
+      },
+      {
+        "flag": "single_game_high_variance",
+        "note": "The source explicitly says injuries and turnovers are major branch drivers, making T0 priors fragile.",
+        "severity": "high"
+      },
+      {
+        "flag": "limited_quantitative_evidence",
+        "note": "No explicit spread, efficiency metrics, or injury report is supplied at initialization.",
+        "severity": "medium"
+      },
+      {
+        "flag": "binary_resolution_constraint",
+        "note": "Only outright winner matters; derivative performance signals should not be mistaken for terminal resolution.",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "domain": "sports_single_game_forecast",
+      "resolution_rule": "Resolve yes only if Team N wins the game outright; point spread does not matter.",
+      "scenario_key": "resolved_008",
+      "source_mode": "direct",
+      "summary": "A neutral-site championship game between Team N (AFC champion) and Team S (NFC champion). Team N's case centers on defense and quarterback performance. Team S's case centers on run-game advantage and defensive depth. The forecast endpoint is binary: whether Team N wins outright.",
+      "timeframe": "pre_game_t0",
+      "title": "team_n_vs_team_s_super_bowl_lx",
+      "uncertainty_notes": [
+        "Single-game outcomes have high variance.",
+        "Injuries and turnovers are identified as major branch drivers.",
+        "Neutral site reduces but does not eliminate crowd/travel effects.",
+        "No source packet evidence specifies exact rosters, betting line, or health status at T0."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "level": 0.58,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Observers likely update within existing priors about team styles rather than fully reverse views pre-game.",
+        "scope": "forecast_observer_pool"
+      },
+      {
+        "level": 0.22,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "This is a forecasting audience, not a protest context; mobilization pressure is low.",
+        "scope": "forecast_observer_pool"
+      },
+      {
+        "level": 0.18,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Low fear of isolation because sports predictions tolerate disagreement.",
+        "scope": "forecast_observer_pool"
+      },
+      {
+        "level": 0.39,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Observers may cluster around preferred matchup narratives such as quarterback play or run-game control.",
+        "scope": "forecast_observer_pool"
+      },
+      {
+        "level": 0.33,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Consensus can form if multiple signals align on injuries or turnover expectations.",
+        "scope": "forecast_observer_pool"
+      },
+      {
+        "level": 0.29,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Identity effects exist but are weaker in the supplied corpus than matchup analysis.",
+        "scope": "forecast_observer_pool"
+      },
+      {
+        "level": 0.12,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Attention remains high at T0 because the event is imminent.",
+        "scope": "forecast_observer_pool"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "High variance in single-game football should shape observer caution and branch readiness.",
+        "influence_key": "single_game_variance_salience"
+      },
+      {
+        "description": "Home-field assumptions are damped but not eliminated by the neutral site.",
+        "influence_key": "neutral_site_adjustment"
+      },
+      {
+        "description": "Only the outright winner matters; margin and spread performance are irrelevant.",
+        "influence_key": "binary_resolution_rule"
+      },
+      {
+        "description": "Observer framing is likely organized around Team N defense/QB versus Team S run-game/defensive-depth strengths.",
+        "influence_key": "matchup_style_frame"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "team_n",
+        "behavior_axes": {
+          "adaptability": 0.61,
+          "discipline": 0.58,
+          "resilience": 0.66,
+          "risk_taking": 0.55
+        },
+        "ideology_axes": {
+          "ball_control_orientation": 0.46,
+          "defense_orientation": 0.67,
+          "pass_orientation": 0.63
+        },
+        "reputation": 0.72,
+        "secrecy": 0.46,
+        "tendency": "Relies on defensive strength and quarterback-led upside.",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "team_s",
+        "behavior_axes": {
+          "adaptability": 0.58,
+          "discipline": 0.6,
+          "resilience": 0.65,
+          "risk_taking": 0.48
+        },
+        "ideology_axes": {
+          "defense_orientation": 0.64,
+          "pass_orientation": 0.42,
+          "run_orientation": 0.71
+        },
+        "reputation": 0.71,
+        "secrecy": 0.45,
+        "tendency": "Prefers run-game leverage with deep defensive rotation.",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "team_n_quarterback_unit",
+        "behavior_axes": {
+          "adaptability": 0.67,
+          "discipline": 0.56,
+          "resilience": 0.68,
+          "risk_taking": 0.6
+        },
+        "ideology_axes": {
+          "mistake_avoidance": 0.54,
+          "vertical_attack": 0.59
+        },
+        "reputation": 0.74,
+        "secrecy": 0.34,
+        "tendency": "High-leverage performance node with upside and variance exposure.",
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "team_n_defense",
+        "behavior_axes": {
+          "adaptability": 0.6,
+          "aggression": 0.58,
+          "discipline": 0.59,
+          "resilience": 0.65
+        },
+        "ideology_axes": {
+          "containment": 0.61,
+          "turnover_hunting": 0.57
+        },
+        "reputation": 0.73,
+        "secrecy": 0.31,
+        "tendency": "Core stabilizer for Team N's win path.",
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "team_s_run_game",
+        "behavior_axes": {
+          "adaptability": 0.54,
+          "discipline": 0.61,
+          "patience": 0.69,
+          "physicality": 0.68
+        },
+        "ideology_axes": {
+          "clock_control": 0.7,
+          "explosiveness": 0.49
+        },
+        "reputation": 0.72,
+        "secrecy": 0.28,
+        "tendency": "Primary mechanism for script control and possession leverage.",
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "team_s_defense",
+        "behavior_axes": {
+          "adaptability": 0.59,
+          "depth_utilization": 0.72,
+          "discipline": 0.6,
+          "pressure_generation": 0.55
+        },
+        "ideology_axes": {
+          "bend_not_break": 0.52,
+          "rotation_depth": 0.74
+        },
+        "reputation": 0.72,
+        "secrecy": 0.29,
+        "tendency": "Depth-oriented resistance that can absorb volatility better than thinner units.",
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "neutral_site_environment",
+        "behavior_axes": {
+          "predictability": 0.44,
+          "stability": 0.58
+        },
+        "ideology_axes": {},
+        "reputation": 0.5,
+        "secrecy": 0.0,
+        "tendency": "Moderates but does not remove crowd/travel asymmetries.",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "game_variance_factors",
+        "behavior_axes": {
+          "predictability": 0.18,
+          "volatility": 0.87
+        },
+        "ideology_axes": {},
+        "reputation": 0.5,
+        "secrecy": 0.88,
+        "tendency": "Latent shocks can overwhelm baseline matchup edges in a single game.",
+        "trustworthiness": 0.39
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 1680,
+        "end": 1680,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 1680,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

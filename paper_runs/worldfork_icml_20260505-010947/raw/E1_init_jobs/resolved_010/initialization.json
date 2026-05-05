@@ -1,0 +1,1118 @@
+{
+  "big_bang_id": "a8cd6ba5-3c91-4a3f-87a7-2d6a455bedcf",
+  "initializer_output": {
+    "actors": [
+      {
+        "decision_authority": "direct_on_court_performance",
+        "fictionalized": true,
+        "name": "player_s",
+        "public_visibility": 0.92,
+        "role": "world_no_1_finalist",
+        "stakes": "win title and validate ranking/favorite status",
+        "type": "competitor_individual"
+      },
+      {
+        "decision_authority": "direct_on_court_performance",
+        "fictionalized": true,
+        "name": "player_r",
+        "public_visibility": 0.88,
+        "role": "fifth_seed_finalist",
+        "stakes": "win title via upset or parity result",
+        "type": "competitor_individual"
+      },
+      {
+        "decision_authority": "procedural_control",
+        "fictionalized": true,
+        "name": "match_officials",
+        "public_visibility": 0.45,
+        "role": "match_administration",
+        "stakes": "fair conduct and scheduling",
+        "type": "institution"
+      },
+      {
+        "decision_authority": "none_on_result",
+        "fictionalized": true,
+        "name": "tennis_media",
+        "public_visibility": 0.8,
+        "role": "narrative_amplifier",
+        "stakes": "coverage of favorite vs challenger framing",
+        "type": "media_ecosystem"
+      },
+      {
+        "decision_authority": "none_on_result",
+        "fictionalized": true,
+        "name": "global_tennis_audience",
+        "public_visibility": 0.7,
+        "role": "spectator_attention_pool",
+        "stakes": "engagement and interpretation of favorite/upset narratives",
+        "type": "public_group"
+      },
+      {
+        "decision_authority": "indirect_strategy_support",
+        "fictionalized": true,
+        "name": "player_s_support_team",
+        "public_visibility": 0.35,
+        "role": "coaching_and_preparation",
+        "stakes": "optimize Player S tactics and composure",
+        "type": "support_team"
+      },
+      {
+        "decision_authority": "indirect_strategy_support",
+        "fictionalized": true,
+        "name": "player_r_support_team",
+        "public_visibility": 0.35,
+        "role": "coaching_and_preparation",
+        "stakes": "optimize Player R serve-led game plan and composure",
+        "type": "support_team"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "favorite status strengthens and match proceeds toward a straighter win path.",
+        "branch_key": "player_s_baseline_control",
+        "divergence_signal": "public and media commentary shifts from close-call framing toward execution-and-composure framing.",
+        "trigger": "Player S holds serve comfortably early and absorbs Player R's power without scoreboard stress."
+      },
+      {
+        "alternate_path": "match compresses into a handful of return chances, materially increasing upset odds.",
+        "branch_key": "player_r_serve_dominance",
+        "divergence_signal": "commentary emphasizes tiebreak likelihood, thin margins, and Player S needing exceptional return games.",
+        "trigger": "Player R posts high first-serve effectiveness and protects service games with few pressure points conceded."
+      },
+      {
+        "alternate_path": "result swings despite broadly similar baseline level due to best-of-three leverage.",
+        "branch_key": "pressure_point_conversion_gap",
+        "divergence_signal": "post-point narrative centers on clutch conversion rather than overall superiority.",
+        "trigger": "One player captures a disproportionate share of break points or late-game points."
+      },
+      {
+        "alternate_path": "experience edge fails to cash out and audience expectation reverses quickly.",
+        "branch_key": "favorite_pressure_overhang",
+        "divergence_signal": "media notes tentative patterns, reduced aggression, or scoreboard-framed tension from Player S.",
+        "trigger": "Player S shows visible tightness under title expectations despite ranking edge."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "broadcast_match_coverage",
+        "reach": 0.91,
+        "reliability": 0.83,
+        "speed": 0.95,
+        "type": "mass_media"
+      },
+      {
+        "channel_key": "live_commentary_and_analysis",
+        "reach": 0.76,
+        "reliability": 0.68,
+        "speed": 0.9,
+        "type": "media_analysis"
+      },
+      {
+        "channel_key": "press_conference_quotes",
+        "reach": 0.42,
+        "reliability": 0.74,
+        "speed": 0.52,
+        "type": "institutional_media"
+      },
+      {
+        "channel_key": "live_score_updates",
+        "reach": 0.81,
+        "reliability": 0.88,
+        "speed": 0.98,
+        "type": "digital_updates"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype": "live_match_viewers",
+        "attention_level": 0.86,
+        "cohort_key": "viewers_favorite_lean",
+        "expression_level": 0.54,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.12,
+        "perceived_majority": 0.68,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "Player S slightly more likely than not",
+        "public_expression": "favorite framing with caution about upset risk",
+        "representation_mode": "estimated_split",
+        "represented_population": 6600000,
+        "stance_axes": {
+          "player_r_upset_expectation": 0.38,
+          "player_s_win_expectation": 0.62,
+          "variance_salience": 0.58
+        }
+      },
+      {
+        "archetype": "live_match_viewers",
+        "attention_level": 0.82,
+        "cohort_key": "viewers_upset_alert",
+        "expression_level": 0.49,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.26,
+        "mobilization_readiness": 0.1,
+        "perceived_majority": 0.31,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "match is close because serve and pressure points can swing it",
+        "public_expression": "warning against overconfidence in ranking",
+        "representation_mode": "estimated_split",
+        "represented_population": 3000000,
+        "stance_axes": {
+          "player_r_upset_expectation": 0.53,
+          "player_s_win_expectation": 0.47,
+          "variance_salience": 0.72
+        }
+      },
+      {
+        "archetype": "live_match_viewers",
+        "attention_level": 0.79,
+        "cohort_key": "viewers_neutral_uncertain",
+        "expression_level": 0.28,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.05,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.2,
+        "private_belief": "uncertain and responsive to early momentum",
+        "public_expression": "generic anticipation",
+        "representation_mode": "estimated_split",
+        "represented_population": 2400000,
+        "stance_axes": {
+          "player_r_upset_expectation": 0.5,
+          "player_s_win_expectation": 0.5,
+          "variance_salience": 0.61
+        }
+      },
+      {
+        "archetype": "tennis_commentariat",
+        "attention_level": 0.95,
+        "cohort_key": "commentariat_favorite_but_not_lock",
+        "expression_level": 0.83,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.1,
+        "mobilization_readiness": 0.18,
+        "perceived_majority": 0.71,
+        "population_share_of_archetype": 0.65,
+        "private_belief": "Player S deserves favorite status but matchup is live",
+        "public_expression": "ranking and prior final experience edge, not one-sided",
+        "representation_mode": "estimated_split",
+        "represented_population": 16250,
+        "stance_axes": {
+          "player_r_upset_expectation": 0.4,
+          "player_s_win_expectation": 0.6,
+          "variance_salience": 0.66
+        }
+      },
+      {
+        "archetype": "tennis_commentariat",
+        "attention_level": 0.94,
+        "cohort_key": "commentariat_matchup_variance_focus",
+        "expression_level": 0.8,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.14,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "serve quality and pressure points narrow the gap materially",
+        "public_expression": "best-of-three volatility emphasis",
+        "representation_mode": "estimated_split",
+        "represented_population": 8750,
+        "stance_axes": {
+          "player_r_upset_expectation": 0.52,
+          "player_s_win_expectation": 0.48,
+          "variance_salience": 0.82
+        }
+      },
+      {
+        "archetype": "competitive_participants",
+        "attention_level": 0.77,
+        "cohort_key": "insiders_form_and_tactics_split",
+        "expression_level": 0.36,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.08,
+        "mobilization_readiness": 0.07,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "technical matchup and serve patterns may outweigh ranking priors in stretches",
+        "public_expression": "measured respect for both title cases",
+        "representation_mode": "broad_mixed_cohort",
+        "represented_population": 150000,
+        "stance_axes": {
+          "player_r_upset_expectation": 0.44,
+          "player_s_win_expectation": 0.56,
+          "variance_salience": 0.74
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype": "live_match_viewers",
+        "attention_level": 0.86,
+        "cohort_key": "viewers_favorite_lean",
+        "expression_level": 0.54,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.12,
+        "perceived_majority": 0.68,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "Player S slightly more likely than not",
+        "public_expression": "favorite framing with caution about upset risk",
+        "representation_mode": "estimated_split",
+        "represented_population": 6600000,
+        "stance_axes": {
+          "player_r_upset_expectation": 0.38,
+          "player_s_win_expectation": 0.62,
+          "variance_salience": 0.58
+        }
+      },
+      {
+        "archetype": "live_match_viewers",
+        "attention_level": 0.82,
+        "cohort_key": "viewers_upset_alert",
+        "expression_level": 0.49,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.26,
+        "mobilization_readiness": 0.1,
+        "perceived_majority": 0.31,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "match is close because serve and pressure points can swing it",
+        "public_expression": "warning against overconfidence in ranking",
+        "representation_mode": "estimated_split",
+        "represented_population": 3000000,
+        "stance_axes": {
+          "player_r_upset_expectation": 0.53,
+          "player_s_win_expectation": 0.47,
+          "variance_salience": 0.72
+        }
+      },
+      {
+        "archetype": "live_match_viewers",
+        "attention_level": 0.79,
+        "cohort_key": "viewers_neutral_uncertain",
+        "expression_level": 0.28,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.05,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.2,
+        "private_belief": "uncertain and responsive to early momentum",
+        "public_expression": "generic anticipation",
+        "representation_mode": "estimated_split",
+        "represented_population": 2400000,
+        "stance_axes": {
+          "player_r_upset_expectation": 0.5,
+          "player_s_win_expectation": 0.5,
+          "variance_salience": 0.61
+        }
+      },
+      {
+        "archetype": "tennis_commentariat",
+        "attention_level": 0.95,
+        "cohort_key": "commentariat_favorite_but_not_lock",
+        "expression_level": 0.83,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.1,
+        "mobilization_readiness": 0.18,
+        "perceived_majority": 0.71,
+        "population_share_of_archetype": 0.65,
+        "private_belief": "Player S deserves favorite status but matchup is live",
+        "public_expression": "ranking and prior final experience edge, not one-sided",
+        "representation_mode": "estimated_split",
+        "represented_population": 16250,
+        "stance_axes": {
+          "player_r_upset_expectation": 0.4,
+          "player_s_win_expectation": 0.6,
+          "variance_salience": 0.66
+        }
+      },
+      {
+        "archetype": "tennis_commentariat",
+        "attention_level": 0.94,
+        "cohort_key": "commentariat_matchup_variance_focus",
+        "expression_level": 0.8,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.14,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "serve quality and pressure points narrow the gap materially",
+        "public_expression": "best-of-three volatility emphasis",
+        "representation_mode": "estimated_split",
+        "represented_population": 8750,
+        "stance_axes": {
+          "player_r_upset_expectation": 0.52,
+          "player_s_win_expectation": 0.48,
+          "variance_salience": 0.82
+        }
+      },
+      {
+        "archetype": "competitive_participants",
+        "attention_level": 0.77,
+        "cohort_key": "insiders_form_and_tactics_split",
+        "expression_level": 0.36,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.08,
+        "mobilization_readiness": 0.07,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "technical matchup and serve patterns may outweigh ranking priors in stretches",
+        "public_expression": "measured respect for both title cases",
+        "representation_mode": "broad_mixed_cohort",
+        "represented_population": 150000,
+        "stance_axes": {
+          "player_r_upset_expectation": 0.44,
+          "player_s_win_expectation": 0.56,
+          "variance_salience": 0.74
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "player_s",
+          "player_r",
+          "match_officials"
+        ],
+        "blockers": [
+          "player_r maintains superior scoreboard edge",
+          "best_of_three_variance breaks against player_s",
+          "player_r_serve_dominance branch materializes"
+        ],
+        "contradiction_notes": "Any official runner-up result for Player S contradicts this endpoint.",
+        "description": "Terminal yes endpoint in which Player S wins the 2026 Australian Open women's singles championship.",
+        "endpoint_key": "player_s_wins_title",
+        "evidence_refs": [
+          "scenario",
+          "endpoint_note"
+        ],
+        "label": "Player S wins the title",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does Player S win the 2026 Australian Open women's singles title?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.58,
+        "rationale": "Direct restatement of the forecast's yes condition.",
+        "realization_criteria": [
+          "official result names player_s as women's singles champion",
+          "player_r is not champion"
+        ],
+        "status": "active",
+        "status_basis": "Final has not yet been played at T0; Player S is favored but not overwhelming."
+      },
+      {
+        "authority_refs": [
+          "player_s",
+          "player_r",
+          "match_officials"
+        ],
+        "blockers": [
+          "player_s converts favorite edge into match win"
+        ],
+        "contradiction_notes": "If Player S is officially named champion, this endpoint is eliminated.",
+        "description": "Terminal no endpoint in which Player S loses the final or otherwise finishes runner-up rather than champion.",
+        "endpoint_key": "player_s_does_not_win_title",
+        "evidence_refs": [
+          "scenario",
+          "endpoint_note"
+        ],
+        "label": "Player S does not win the title",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Is the final decided through a clearly one-sided performance or a narrow high-variance path shaped by a few service games and pressure points?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.42,
+        "rationale": "Binary complement to the forecast's yes condition.",
+        "realization_criteria": [
+          "official result names player_r as women's singles champion",
+          "player_s is runner_up_or_match_loser"
+        ],
+        "status": "active",
+        "status_basis": "Final is unresolved at T0 and Player R has a credible title case."
+      },
+      {
+        "authority_refs": [
+          "match_officials",
+          "tennis_media"
+        ],
+        "blockers": [
+          "one player dominates return games or wins by lopsided scoreline",
+          "serve leverage does not persist"
+        ],
+        "contradiction_notes": "A routine straight-sets or heavily lopsided result would weaken or eliminate this endpoint.",
+        "description": "Terminal characterization endpoint where the match outcome is decided by a small number of service breaks, tiebreaks, or pressure-point swings rather than broad domination.",
+        "endpoint_key": "narrow_variance_decider",
+        "evidence_refs": [
+          "variance_note",
+          "matchup_note"
+        ],
+        "label": "Narrow variance-driven finish",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does Player R's serve materially compress the match into limited return opportunities?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.54,
+        "rationale": "Captures an outcome-relevant process endpoint implied by the corpus, useful for later branch comparison.",
+        "realization_criteria": [
+          "match contains one set or decisive phase resolved by tiebreak or single-break margin",
+          "post-match statistics or reporting indicate few break opportunities or narrow game differential"
+        ],
+        "status": "active",
+        "status_basis": "Sources explicitly emphasize best-of-three variance and the importance of a few service games."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "support team role implied by elite final preparation",
+        "layer": "dependency",
+        "reason": "pre-match tactical and emotional support",
+        "source_actor_name": "player_s",
+        "target_actor_name": "player_s_support_team",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "support team role implied by elite final preparation",
+        "layer": "dependency",
+        "reason": "pre-match tactical and emotional support",
+        "source_actor_name": "player_r",
+        "target_actor_name": "player_r_support_team",
+        "weight": 0.45
+      },
+      {
+        "direction": "outbound",
+        "evidence": "support_team actor role",
+        "layer": "influence",
+        "reason": "strategy and composure input before and during final context",
+        "source_actor_name": "player_s_support_team",
+        "target_actor_name": "player_s",
+        "weight": 0.41
+      },
+      {
+        "direction": "outbound",
+        "evidence": "support_team actor role plus serve-quality note",
+        "layer": "influence",
+        "reason": "strategy emphasizing serve patterns and pressure management",
+        "source_actor_name": "player_r_support_team",
+        "target_actor_name": "player_r",
+        "weight": 0.4
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "women's singles final between two finalists",
+        "layer": "conflict",
+        "reason": "direct zero-sum title contest",
+        "source_actor_name": "player_s",
+        "target_actor_name": "player_r",
+        "weight": 0.63
+      },
+      {
+        "direction": "outbound",
+        "evidence": "scenario states ranking and recent Melbourne-final experience edge",
+        "layer": "trust",
+        "reason": "world No. 1 status and prior final experience create competence trust",
+        "source_actor_name": "global_tennis_audience",
+        "target_actor_name": "player_s",
+        "weight": 0.62
+      },
+      {
+        "direction": "outbound",
+        "evidence": "scenario states fifth seed with prior major-title experience",
+        "layer": "trust",
+        "reason": "prior major-title experience and seed status create credibility",
+        "source_actor_name": "global_tennis_audience",
+        "target_actor_name": "player_r",
+        "weight": 0.53
+      },
+      {
+        "direction": "outbound",
+        "evidence": "expected focus includes ranking_vs_matchup and binary resolution",
+        "layer": "influence",
+        "reason": "coverage frames favorite-versus-matchup-risk narrative",
+        "source_actor_name": "tennis_media",
+        "target_actor_name": "global_tennis_audience",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "major event final context",
+        "layer": "exposure",
+        "reason": "broad sports media reach during major final",
+        "source_actor_name": "tennis_media",
+        "target_actor_name": "global_tennis_audience",
+        "weight": 0.71
+      },
+      {
+        "direction": "outbound",
+        "evidence": "world No. 1 and final stage",
+        "layer": "exposure",
+        "reason": "high visibility as world No. 1 finalist",
+        "source_actor_name": "player_s",
+        "target_actor_name": "global_tennis_audience",
+        "weight": 0.76
+      },
+      {
+        "direction": "outbound",
+        "evidence": "fifth seed in major final",
+        "layer": "exposure",
+        "reason": "high visibility as finalist and fifth seed",
+        "source_actor_name": "player_r",
+        "target_actor_name": "global_tennis_audience",
+        "weight": 0.7
+      },
+      {
+        "direction": "outbound",
+        "evidence": "ranking edge and finalist experience",
+        "layer": "influence",
+        "reason": "favorite status shapes expectations and live reactions",
+        "source_actor_name": "player_s",
+        "target_actor_name": "global_tennis_audience",
+        "weight": 0.44
+      },
+      {
+        "direction": "outbound",
+        "evidence": "powerful serve and prior major-title experience",
+        "layer": "influence",
+        "reason": "serve-led upset threat can quickly reset expectations",
+        "source_actor_name": "player_r",
+        "target_actor_name": "global_tennis_audience",
+        "weight": 0.39
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "support role",
+        "layer": "coalition",
+        "reason": "strong alignment around Player S victory",
+        "source_actor_name": "player_s_support_team",
+        "target_actor_name": "player_s",
+        "weight": 0.64
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "support role",
+        "layer": "coalition",
+        "reason": "strong alignment around Player R victory",
+        "source_actor_name": "player_r_support_team",
+        "target_actor_name": "player_r",
+        "weight": 0.64
+      },
+      {
+        "direction": "outbound",
+        "evidence": "no dispute evidence in corpus",
+        "layer": "trust",
+        "reason": "baseline acceptance of fair administration",
+        "source_actor_name": "player_s",
+        "target_actor_name": "match_officials",
+        "weight": 0.57
+      },
+      {
+        "direction": "outbound",
+        "evidence": "no dispute evidence in corpus",
+        "layer": "trust",
+        "reason": "baseline acceptance of fair administration",
+        "source_actor_name": "player_r",
+        "target_actor_name": "match_officials",
+        "weight": 0.57
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "major final attention dynamics",
+        "layer": "oasis_interaction",
+        "reason": "press attention focused on favorite finalist",
+        "source_actor_name": "tennis_media",
+        "target_actor_name": "player_s",
+        "weight": 0.46
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "major final attention dynamics",
+        "layer": "oasis_interaction",
+        "reason": "press attention focused on challenger finalist",
+        "source_actor_name": "tennis_media",
+        "target_actor_name": "player_r",
+        "weight": 0.44
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "spectator ecosystem around final",
+        "layer": "oasis_interaction",
+        "reason": "audience consumes and reacts to narrative framing",
+        "source_actor_name": "global_tennis_audience",
+        "target_actor_name": "tennis_media",
+        "weight": 0.52
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "shared attention around event",
+        "layer": "coalition",
+        "reason": "temporary narrative alignment rather than formal coalition",
+        "source_actor_name": "tennis_media",
+        "target_actor_name": "global_tennis_audience",
+        "weight": 0.22
+      },
+      {
+        "direction": "outbound",
+        "evidence": "commentariat role in framing matchup",
+        "layer": "dependency",
+        "reason": "many viewers rely on commentary for interpretation",
+        "source_actor_name": "global_tennis_audience",
+        "target_actor_name": "tennis_media",
+        "weight": 0.29
+      },
+      {
+        "direction": "outbound",
+        "evidence": "institutional role of officials",
+        "layer": "dependency",
+        "reason": "official match administration provides authoritative event structure",
+        "source_actor_name": "tennis_media",
+        "target_actor_name": "match_officials",
+        "weight": 0.18
+      },
+      {
+        "direction": "outbound",
+        "evidence": "procedural control in final",
+        "layer": "exposure",
+        "reason": "official oversight directly affects match conduct",
+        "source_actor_name": "match_officials",
+        "target_actor_name": "player_s",
+        "weight": 0.61
+      },
+      {
+        "direction": "outbound",
+        "evidence": "procedural control in final",
+        "layer": "exposure",
+        "reason": "official oversight directly affects match conduct",
+        "source_actor_name": "match_officials",
+        "target_actor_name": "player_r",
+        "weight": 0.61
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype": "favorite_contender",
+        "description": "elite favorite whose baseline expectation is victory but who still faces finite single-match variance"
+      },
+      {
+        "archetype": "dangerous_challenger",
+        "description": "high-end opponent with weapons sufficient to convert a final into a close contest"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "player_s",
+        "attention_level": 0.98,
+        "expression_level": 0.52,
+        "fatigue": 0.36,
+        "fear_of_isolation": 0.05,
+        "hero_archetype": "favorite_contender",
+        "mobilization_readiness": 0.95,
+        "perceived_majority": 0.72,
+        "private_pressure": "title expectation burden and final-stage scrutiny",
+        "public_expression": "composed favorite with experience edge",
+        "represented_population": 1,
+        "stance_axes": {
+          "aggression": 0.56,
+          "composure_expectation": 0.68,
+          "confidence": 0.7,
+          "risk_acceptance": 0.48
+        }
+      },
+      {
+        "actor_name": "player_r",
+        "attention_level": 0.97,
+        "expression_level": 0.5,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.07,
+        "hero_archetype": "dangerous_challenger",
+        "mobilization_readiness": 0.94,
+        "perceived_majority": 0.34,
+        "private_pressure": "opportunity to upset top seed under major-final pressure",
+        "public_expression": "credible challenger with serve-led upside",
+        "represented_population": 1,
+        "stance_axes": {
+          "aggression": 0.69,
+          "composure_expectation": 0.61,
+          "confidence": 0.66,
+          "risk_acceptance": 0.58
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "archetype": "favorite_contender",
+        "description": "elite favorite whose baseline expectation is victory but who still faces finite single-match variance"
+      },
+      {
+        "archetype": "dangerous_challenger",
+        "description": "high-end opponent with weapons sufficient to convert a final into a close contest"
+      }
+    ],
+    "important_questions": [
+      "Does Player S win the 2026 Australian Open women's singles title?",
+      "Is the final decided through a clearly one-sided performance or a narrow high-variance path shaped by a few service games and pressure points?",
+      "Does Player R's serve materially compress the match into limited return opportunities?"
+    ],
+    "initial_events": [
+      {
+        "actors_involved": [
+          "player_s",
+          "player_r"
+        ],
+        "event_key": "final_matchup_set",
+        "event_type": "announcement",
+        "expected_impact": "Locks binary competitive frame and centers public forecasting on favorite-versus-upset dynamics.",
+        "status": "realized",
+        "summary": "Player S and Player R are confirmed as finalists in the 2026 Australian Open women's singles event.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "player_s",
+          "tennis_media",
+          "global_tennis_audience"
+        ],
+        "event_key": "favorite_narrative_consolidates",
+        "event_type": "announcement",
+        "expected_impact": "Raises baseline trust and expectation toward Player S without eliminating upset plausibility.",
+        "status": "realized",
+        "summary": "Ranking and recent Melbourne-final experience establish Player S as a modest public favorite.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "player_r",
+          "tennis_media",
+          "global_tennis_audience"
+        ],
+        "event_key": "serve_variance_storyline_gains_attention",
+        "event_type": "announcement",
+        "expected_impact": "Narrows perceived gap and increases sensitivity to early service-game signals.",
+        "status": "realized",
+        "summary": "Analysts highlight Player R's serve and pressure-point leverage in a best-of-three final.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "player_s",
+          "player_r",
+          "match_officials"
+        ],
+        "event_key": "championship_match_played",
+        "event_type": "announcement",
+        "expected_impact": "Directly resolves the endpoint ledger by converting uncertainty into a terminal winner/runner-up outcome.",
+        "status": "scheduled",
+        "summary": "The final is played, producing an observable title result.",
+        "tick": 1
+      }
+    ],
+    "llm_call_id": "eb985032-bf56-4d6a-b2ef-0e7ef3eca4d7",
+    "merge_hypotheses": [
+      {
+        "convergence_factor": "Both finalists have plausible title cases and high competence.",
+        "merge_key": "baseline_elite_quality",
+        "paths_that_may_merge": [
+          "player_s_baseline_control",
+          "player_r_serve_dominance"
+        ],
+        "shared_effect": "Even after short-run momentum swings, market and audience can re-center on a still-live match until late stages."
+      },
+      {
+        "convergence_factor": "Best-of-three structure keeps outcomes sensitive to a few games.",
+        "merge_key": "single_match_variance",
+        "paths_that_may_merge": [
+          "pressure_point_conversion_gap",
+          "favorite_pressure_overhang"
+        ],
+        "shared_effect": "Different narrative routes can still produce a narrow finish with similar endpoint uncertainty until the final set or closing games."
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype": "live_match_viewers",
+        "description": "audience directly following the final through broadcast, streams, or live updates",
+        "population_total": 12000000
+      },
+      {
+        "archetype": "tennis_commentariat",
+        "description": "analysts, journalists, and highly engaged tennis discussants shaping public narrative",
+        "population_total": 25000
+      },
+      {
+        "archetype": "competitive_participants",
+        "description": "players, coaches, and tennis insiders who interpret matchup dynamics",
+        "population_total": 150000
+      }
+    ],
+    "risk_flags": [
+      {
+        "note": "Corpus lacks detailed quantitative evidence such as recent form, injury status, exact head-to-head, and court-speed specifics.",
+        "risk_key": "sparse_source_packet",
+        "severity": "medium"
+      },
+      {
+        "note": "Players are deliberately masked as Player S and Player R; initialization preserves masking and avoids identity inference.",
+        "risk_key": "entity_masking",
+        "severity": "low"
+      },
+      {
+        "note": "Best-of-three finals can swing on a few points, limiting confidence in broad priors.",
+        "risk_key": "single_match_high_variance",
+        "severity": "medium"
+      },
+      {
+        "note": "Forecast resolves strictly on title outcome; near-miss or strong performance without title still resolves no.",
+        "risk_key": "binary_resolution_constraint",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "domain": "sports_single_match_forecast",
+      "forecast_question": "will_player_s_win_2026_australian_open_womens_singles_title",
+      "mode": "direct",
+      "resolution_rule": "yes only if Player S wins the women's singles title; runner_up_or_loss_resolves_no",
+      "scenario_key": "resolved_010",
+      "summary": "Player S, world No. 1 and experienced Australian Open finalist, faces Player R, a fifth seed with a powerful serve and prior major-title experience, in the women's singles final. Player S has ranking and recent Melbourne-final experience advantages, but the match is competitive and best-of-three variance is material.",
+      "timeframe": "2026_australian_open_final",
+      "uncertainty_notes": [
+        "Source corpus is sparse and intentionally masked.",
+        "No detailed injury, surface-speed, draw-fatigue, or exact head-to-head data provided.",
+        "Outcome is unresolved at T0; runner-up status would resolve the forecast as no."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "global_tennis_audience",
+          "tennis_commentariat"
+        ],
+        "evidence": "most observers see Player S as favorite but still accept live upset arguments",
+        "level": "moderate",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "global_tennis_audience"
+        ],
+        "evidence": "spectator reactions likely intensify only after visible momentum swings",
+        "level": "low",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "live_match_viewers"
+        ],
+        "evidence": "sports forecasting context allows open disagreement without strong social penalty",
+        "level": "low",
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "tennis_commentariat",
+          "competitive_participants"
+        ],
+        "evidence": "insiders cluster around technical matchup interpretations",
+        "level": "moderate",
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "global_tennis_audience"
+        ],
+        "evidence": "multiple commentators repeating serve-variance narratives can shift crowd expectations",
+        "level": "moderate",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "global_tennis_audience"
+        ],
+        "evidence": "corpus emphasizes matchup not tribal identity conflict",
+        "level": "low",
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "global_tennis_audience",
+          "tennis_media"
+        ],
+        "evidence": "attention likely remains high until match resolves",
+        "level": "low_pre_match",
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Player S enters as world No. 1, creating baseline favoritism in public and analyst interpretation",
+        "influence_key": "ranking_edge"
+      },
+      {
+        "description": "Player S has experienced Australian Open final conditions recently, supporting composure narratives",
+        "influence_key": "recent_melbourne_final_experience"
+      },
+      {
+        "description": "Player R's powerful serve raises hold-rate and short-run point variance",
+        "influence_key": "player_r_serve_weapon"
+      },
+      {
+        "description": "Prior major-title experience increases credibility of Player R title case",
+        "influence_key": "player_r_major_experience"
+      },
+      {
+        "description": "Final can turn on a few service games and pressure points, making upset path materially plausible",
+        "influence_key": "best_of_three_variance"
+      },
+      {
+        "description": "Only Player S title win resolves yes; any loss including runner-up resolves no",
+        "influence_key": "binary_resolution_rule"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "player_s",
+        "behavior_axes": {
+          "adaptability": 0.69,
+          "aggression": 0.56,
+          "consistency": 0.74,
+          "pressure_tolerance": 0.71
+        },
+        "ideology_axes": {
+          "institutional_alignment": 0.72,
+          "sportsmanship": 0.8
+        },
+        "reputation": 0.91,
+        "secrecy": 0.42,
+        "tendency": "baseline favorite with strong legitimacy and experience",
+        "trustworthiness": 0.78
+      },
+      {
+        "actor_name": "player_r",
+        "behavior_axes": {
+          "adaptability": 0.58,
+          "aggression": 0.69,
+          "consistency": 0.61,
+          "pressure_tolerance": 0.64,
+          "serve_reliance": 0.81
+        },
+        "ideology_axes": {
+          "institutional_alignment": 0.68,
+          "sportsmanship": 0.78
+        },
+        "reputation": 0.83,
+        "secrecy": 0.44,
+        "tendency": "high-leverage challenger capable of short-run dominance via serve quality",
+        "trustworthiness": 0.76
+      },
+      {
+        "actor_name": "match_officials",
+        "behavior_axes": {
+          "adaptability": 0.41,
+          "procedural_consistency": 0.88
+        },
+        "ideology_axes": {
+          "institutional_alignment": 0.95,
+          "neutrality": 0.93
+        },
+        "reputation": 0.79,
+        "secrecy": 0.18,
+        "tendency": "stable low-drama administration",
+        "trustworthiness": 0.84
+      },
+      {
+        "actor_name": "tennis_media",
+        "behavior_axes": {
+          "amplification": 0.83,
+          "nuance": 0.55,
+          "reactivity": 0.77
+        },
+        "ideology_axes": {
+          "favorite_bias": 0.58,
+          "upset_salience": 0.72
+        },
+        "reputation": 0.68,
+        "secrecy": 0.12,
+        "tendency": "narrative shaping around favorite versus live underdog tension",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "global_tennis_audience",
+        "behavior_axes": {
+          "attention_span": 0.62,
+          "bandwagoning": 0.57,
+          "reactivity": 0.74
+        },
+        "ideology_axes": {
+          "favorite_bias": 0.54,
+          "spectacle_preference": 0.71
+        },
+        "reputation": 0.5,
+        "secrecy": 0.08,
+        "tendency": "responds strongly to visible momentum swings",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "player_s_support_team",
+        "behavior_axes": {
+          "adaptability": 0.66,
+          "discretion": 0.75,
+          "stability": 0.72
+        },
+        "ideology_axes": {
+          "player_loyalty": 0.95
+        },
+        "reputation": 0.73,
+        "secrecy": 0.71,
+        "tendency": "quiet optimization around favored player",
+        "trustworthiness": 0.77
+      },
+      {
+        "actor_name": "player_r_support_team",
+        "behavior_axes": {
+          "adaptability": 0.63,
+          "discretion": 0.74,
+          "stability": 0.69
+        },
+        "ideology_axes": {
+          "player_loyalty": 0.95
+        },
+        "reputation": 0.7,
+        "secrecy": 0.72,
+        "tendency": "quiet optimization around challenger game plan",
+        "trustworthiness": 0.76
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 1647,
+        "end": 1647,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 1647,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

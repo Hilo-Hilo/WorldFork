@@ -1,0 +1,336 @@
+[
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "constraints": [
+        "fatigue",
+        "matchup_variance"
+      ],
+      "fictionalized": false,
+      "name": "team_t_starting_rotation",
+      "public_visibility": "medium",
+      "resources": [
+        "rotation_slots"
+      ],
+      "role": "pitching_staff_subgroup",
+      "stakes": "limit runs and preserve bullpen",
+      "trait_vector": {
+        "actor_name": "team_t_starting_rotation",
+        "behavior_axes": {
+          "resilience": 0.54,
+          "stability": 0.5,
+          "volatility": 0.52
+        },
+        "ideology_axes": {
+          "risk_aversion": 0.5
+        },
+        "reputation": 0.55,
+        "secrecy": 0.42,
+        "tendency": "variance_sensitive",
+        "trustworthiness": 0.57
+      },
+      "type": "subunit"
+    },
+    "big_bang_id": "b5b98022-cafe-4cd0-95e9-002b80eaa013",
+    "created_at": "2026-05-05T02:07:34.494787+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "2b36e14d-db69-4752-b0ff-3b0df295e520",
+    "name": "team_t_starting_rotation",
+    "status": "active",
+    "updated_at": "2026-05-05T02:07:34.494787+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "constraints": [
+        "limited_direct_control"
+      ],
+      "fictionalized": false,
+      "name": "team_t_fans",
+      "public_visibility": "high",
+      "resources": [
+        "crowd_energy",
+        "attention"
+      ],
+      "role": "support_base",
+      "stakes": "see Team T win title",
+      "trait_vector": {
+        "actor_name": "team_t_fans",
+        "behavior_axes": {
+          "loyalty": 0.88,
+          "patience": 0.42,
+          "reactivity": 0.69
+        },
+        "ideology_axes": {
+          "risk_aversion": 0.44
+        },
+        "reputation": 0.58,
+        "secrecy": 0.09,
+        "tendency": "momentum_amplifier",
+        "trustworthiness": 0.6
+      },
+      "type": "crowd"
+    },
+    "big_bang_id": "b5b98022-cafe-4cd0-95e9-002b80eaa013",
+    "created_at": "2026-05-05T02:07:34.494787+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "545c892b-3533-4cec-bb00-f5182199c749",
+    "name": "team_t_fans",
+    "status": "active",
+    "updated_at": "2026-05-05T02:07:34.494787+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "constraints": [
+        "series_variance",
+        "opponent_pitching_depth",
+        "path_dependence"
+      ],
+      "fictionalized": false,
+      "name": "team_t",
+      "public_visibility": "high",
+      "resources": [
+        "strong_offense",
+        "home_field_energy"
+      ],
+      "role": "challenger",
+      "stakes": "win championship series",
+      "trait_vector": {
+        "actor_name": "team_t",
+        "behavior_axes": {
+          "adaptability": 0.59,
+          "aggression": 0.61,
+          "discipline": 0.58
+        },
+        "ideology_axes": {
+          "risk_aversion": 0.48,
+          "tradition_modernity": 0.5
+        },
+        "reputation": 0.66,
+        "secrecy": 0.36,
+        "tendency": "offense_forward_competitor",
+        "trustworthiness": 0.64
+      },
+      "type": "team"
+    },
+    "big_bang_id": "b5b98022-cafe-4cd0-95e9-002b80eaa013",
+    "created_at": "2026-05-05T02:07:34.494787+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "ad896791-5334-4265-a4ca-cd5a5136820f",
+    "name": "team_t",
+    "status": "active",
+    "updated_at": "2026-05-05T02:07:34.494787+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "constraints": [
+        "travel",
+        "bullpen_fatigue",
+        "series_variance"
+      ],
+      "fictionalized": false,
+      "name": "team_l",
+      "public_visibility": "high",
+      "resources": [
+        "deep_pitching",
+        "recent_postseason_experience"
+      ],
+      "role": "defending_champion",
+      "stakes": "retain championship",
+      "trait_vector": {
+        "actor_name": "team_l",
+        "behavior_axes": {
+          "adaptability": 0.64,
+          "aggression": 0.56,
+          "discipline": 0.66
+        },
+        "ideology_axes": {
+          "risk_aversion": 0.53,
+          "tradition_modernity": 0.5
+        },
+        "reputation": 0.74,
+        "secrecy": 0.34,
+        "tendency": "depth_reliant_competitor",
+        "trustworthiness": 0.66
+      },
+      "type": "team"
+    },
+    "big_bang_id": "b5b98022-cafe-4cd0-95e9-002b80eaa013",
+    "created_at": "2026-05-05T02:07:34.494787+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "5d1f601d-3b9f-48a8-9f43-4422bdf90322",
+    "name": "team_l",
+    "status": "active",
+    "updated_at": "2026-05-05T02:07:34.494787+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "constraints": [
+        "usage_load",
+        "fatigue"
+      ],
+      "fictionalized": false,
+      "name": "team_l_bullpen",
+      "public_visibility": "medium",
+      "resources": [
+        "relief_arms"
+      ],
+      "role": "relief_pitching_unit",
+      "stakes": "protect leads and stabilize variance",
+      "trait_vector": {
+        "actor_name": "team_l_bullpen",
+        "behavior_axes": {
+          "resilience": 0.6,
+          "stability": 0.61,
+          "volatility": 0.46
+        },
+        "ideology_axes": {
+          "risk_aversion": 0.52
+        },
+        "reputation": 0.62,
+        "secrecy": 0.5,
+        "tendency": "comparatively_stable_relief_unit",
+        "trustworthiness": 0.6
+      },
+      "type": "subunit"
+    },
+    "big_bang_id": "b5b98022-cafe-4cd0-95e9-002b80eaa013",
+    "created_at": "2026-05-05T02:07:34.494787+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "7bf0674f-1a9c-4d2a-b95a-a63cb45a3825",
+    "name": "team_l_bullpen",
+    "status": "active",
+    "updated_at": "2026-05-05T02:07:34.494787+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "constraints": [
+        "fatigue",
+        "travel"
+      ],
+      "fictionalized": false,
+      "name": "team_l_starting_rotation",
+      "public_visibility": "medium",
+      "resources": [
+        "depth"
+      ],
+      "role": "pitching_staff_subgroup",
+      "stakes": "suppress opponent offense",
+      "trait_vector": {
+        "actor_name": "team_l_starting_rotation",
+        "behavior_axes": {
+          "resilience": 0.63,
+          "stability": 0.68,
+          "volatility": 0.39
+        },
+        "ideology_axes": {
+          "risk_aversion": 0.55
+        },
+        "reputation": 0.69,
+        "secrecy": 0.4,
+        "tendency": "depth_anchor",
+        "trustworthiness": 0.62
+      },
+      "type": "subunit"
+    },
+    "big_bang_id": "b5b98022-cafe-4cd0-95e9-002b80eaa013",
+    "created_at": "2026-05-05T02:07:34.494787+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "86186e41-bb02-420e-8f33-8e4eec87d354",
+    "name": "team_l_starting_rotation",
+    "status": "active",
+    "updated_at": "2026-05-05T02:07:34.494787+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "constraints": [
+        "usage_load",
+        "fatigue"
+      ],
+      "fictionalized": false,
+      "name": "team_t_bullpen",
+      "public_visibility": "medium",
+      "resources": [
+        "relief_arms"
+      ],
+      "role": "relief_pitching_unit",
+      "stakes": "protect leads and absorb short starts",
+      "trait_vector": {
+        "actor_name": "team_t_bullpen",
+        "behavior_axes": {
+          "resilience": 0.51,
+          "stability": 0.52,
+          "volatility": 0.57
+        },
+        "ideology_axes": {
+          "risk_aversion": 0.49
+        },
+        "reputation": 0.57,
+        "secrecy": 0.5,
+        "tendency": "load_sensitive_relief_unit",
+        "trustworthiness": 0.58
+      },
+      "type": "subunit"
+    },
+    "big_bang_id": "b5b98022-cafe-4cd0-95e9-002b80eaa013",
+    "created_at": "2026-05-05T02:07:34.494787+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "d9a82c95-f60c-46ee-8562-e549545b3638",
+    "name": "team_t_bullpen",
+    "status": "active",
+    "updated_at": "2026-05-05T02:07:34.494787+00:00"
+  },
+  {
+    "actor_type": "entity",
+    "archetype": {
+      "constraints": [
+        "reactive_to_game_results"
+      ],
+      "fictionalized": true,
+      "name": "series_media",
+      "public_visibility": "high",
+      "resources": [
+        "attention_allocation",
+        "framing_power"
+      ],
+      "role": "coverage_and_narrative",
+      "stakes": "report and amplify series developments",
+      "trait_vector": {
+        "actor_name": "series_media",
+        "behavior_axes": {
+          "amplification": 0.76,
+          "consistency": 0.48,
+          "reactivity": 0.8
+        },
+        "ideology_axes": {
+          "risk_aversion": 0.46
+        },
+        "reputation": 0.6,
+        "secrecy": 0.08,
+        "tendency": "narrative_switcher",
+        "trustworthiness": 0.55
+      },
+      "type": "media"
+    },
+    "big_bang_id": "b5b98022-cafe-4cd0-95e9-002b80eaa013",
+    "created_at": "2026-05-05T02:07:34.494787+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "da1cb5ba-a4eb-400a-8a3a-c315ad87668e",
+    "name": "series_media",
+    "status": "active",
+    "updated_at": "2026-05-05T02:07:34.494787+00:00"
+  }
+]

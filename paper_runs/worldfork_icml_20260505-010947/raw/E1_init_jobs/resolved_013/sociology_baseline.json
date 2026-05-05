@@ -1,0 +1,209 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "14ce9ad3-7472-4d36-b06b-d947df628004",
+      "created_at": "2026-05-05T02:08:01.574649+00:00",
+      "id": "aab78b18-e9c0-4a98-996f-d70c75453957",
+      "influence": {
+        "context_key": "state_baseline",
+        "description": "Democratic federal lean coexists with competitive gubernatorial tradition."
+      },
+      "multiverse_id": "9e9ff0e2-677e-44b1-a7da-da62eafabdbb",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:08:01.574649+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "14ce9ad3-7472-4d36-b06b-d947df628004",
+      "created_at": "2026-05-05T02:08:01.574649+00:00",
+      "id": "2b108f80-5b0a-4912-af3d-71d070b3614e",
+      "influence": {
+        "context_key": "open_seat_dynamic",
+        "description": "Term-limited incumbent removes full incumbency advantage and creates succession uncertainty."
+      },
+      "multiverse_id": "9e9ff0e2-677e-44b1-a7da-da62eafabdbb",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:08:01.574649+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "14ce9ad3-7472-4d36-b06b-d947df628004",
+      "created_at": "2026-05-05T02:08:01.574649+00:00",
+      "id": "371010e1-5c8e-4b49-ae8b-038084a1ef39",
+      "influence": {
+        "context_key": "affordability_pressure",
+        "description": "Property taxes and cost of living are central voter concerns."
+      },
+      "multiverse_id": "9e9ff0e2-677e-44b1-a7da-da62eafabdbb",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:08:01.574649+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "14ce9ad3-7472-4d36-b06b-d947df628004",
+      "created_at": "2026-05-05T02:08:01.574649+00:00",
+      "id": "87ea209e-3a02-4679-866c-681cd031eefe",
+      "influence": {
+        "context_key": "corruption_narrative",
+        "description": "Ethics and status-quo critiques may shape challenger opportunity."
+      },
+      "multiverse_id": "9e9ff0e2-677e-44b1-a7da-da62eafabdbb",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:08:01.574649+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "14ce9ad3-7472-4d36-b06b-d947df628004",
+      "created_at": "2026-05-05T02:08:01.574649+00:00",
+      "id": "4623e091-9951-40ce-b4e9-216971e39d3d",
+      "influence": {
+        "context_key": "national_mood",
+        "description": "Presidential-party approval and national sentiment may spill into state race."
+      },
+      "multiverse_id": "9e9ff0e2-677e-44b1-a7da-da62eafabdbb",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:08:01.574649+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "14ce9ad3-7472-4d36-b06b-d947df628004",
+      "created_at": "2026-05-05T02:08:01.574649+00:00",
+      "id": "1339f8be-65c7-41b2-8b5e-e8ce7f51ebea",
+      "influence": {
+        "context_key": "recent_gop_overperformance",
+        "description": "Republican results have recently outperformed the state's baseline, increasing perceived competitiveness."
+      },
+      "multiverse_id": "9e9ff0e2-677e-44b1-a7da-da62eafabdbb",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:08:01.574649+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "14ce9ad3-7472-4d36-b06b-d947df628004",
+      "created_at": "2026-05-05T02:08:01.574649+00:00",
+      "id": "e1b58b4d-1c70-470f-9bab-b673973b6005",
+      "model": "attention_decay",
+      "multiverse_id": "9e9ff0e2-677e-44b1-a7da-da62eafabdbb",
+      "signal": {
+        "description": "Most partisan voters update within party-consistent ranges, while persuadables remain somewhat movable on high-salience local issues.",
+        "level": "medium",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:08:01.574649+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "14ce9ad3-7472-4d36-b06b-d947df628004",
+      "created_at": "2026-05-05T02:08:01.574649+00:00",
+      "id": "3bbb4e51-f203-40be-aac8-eae198c19464",
+      "model": "attention_decay",
+      "multiverse_id": "9e9ff0e2-677e-44b1-a7da-da62eafabdbb",
+      "signal": {
+        "description": "Turnout spikes likely if voters perceive race as unusually close or symbolically important.",
+        "level": "medium",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:08:01.574649+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "14ce9ad3-7472-4d36-b06b-d947df628004",
+      "created_at": "2026-05-05T02:08:01.574649+00:00",
+      "id": "8c0b277e-099d-4763-b862-a3a980ae3000",
+      "model": "attention_decay",
+      "multiverse_id": "9e9ff0e2-677e-44b1-a7da-da62eafabdbb",
+      "signal": {
+        "description": "Cross-pressured voters may withhold public preference while privately considering defection across party lines.",
+        "level": "medium",
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:08:01.574649+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "14ce9ad3-7472-4d36-b06b-d947df628004",
+      "created_at": "2026-05-05T02:08:01.574649+00:00",
+      "id": "3f44606b-a1fe-48be-90fd-871ebbf3a31d",
+      "model": "attention_decay",
+      "multiverse_id": "9e9ff0e2-677e-44b1-a7da-da62eafabdbb",
+      "signal": {
+        "description": "Partisan social sorting stabilizes core voters and slows broad persuasion outside issue-specific lanes.",
+        "level": "high",
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:08:01.574649+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "14ce9ad3-7472-4d36-b06b-d947df628004",
+      "created_at": "2026-05-05T02:08:01.574649+00:00",
+      "id": "fb9d40d4-691a-47b3-bafb-669d1074b788",
+      "model": "attention_decay",
+      "multiverse_id": "9e9ff0e2-677e-44b1-a7da-da62eafabdbb",
+      "signal": {
+        "description": "Narratives about taxes, affordability, or corruption likely need repeated reinforcement across media and peer networks to shift marginal voters.",
+        "level": "medium",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:08:01.574649+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "14ce9ad3-7472-4d36-b06b-d947df628004",
+      "created_at": "2026-05-05T02:08:01.574649+00:00",
+      "id": "09cc30e5-9876-4fc7-a864-191fd19bac4c",
+      "model": "attention_decay",
+      "multiverse_id": "9e9ff0e2-677e-44b1-a7da-da62eafabdbb",
+      "signal": {
+        "description": "Party identity remains a strong anchor despite gubernatorial race-specific flexibility.",
+        "level": "high",
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:08:01.574649+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "14ce9ad3-7472-4d36-b06b-d947df628004",
+      "created_at": "2026-05-05T02:08:01.574649+00:00",
+      "id": "f9eea94e-4f90-427f-b1e0-b036a6bdc835",
+      "model": "attention_decay",
+      "multiverse_id": "9e9ff0e2-677e-44b1-a7da-da62eafabdbb",
+      "signal": {
+        "description": "Issue salience may fluctuate unless refreshed by campaign events, ads, or news hooks.",
+        "level": "medium",
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:08:01.574649+00:00"
+    }
+  ]
+}

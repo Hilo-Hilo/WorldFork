@@ -1,0 +1,1184 @@
+{
+  "big_bang_id": "a2db89ad-49c7-4af5-9b0b-581dac4f6e44",
+  "initializer_output": {
+    "actors": [
+      {
+        "description": "Main opposition party seeking to win the most seats.",
+        "fictionalized": true,
+        "name": "party_c",
+        "scope": "national",
+        "stakes": [
+          "maximize seat count",
+          "convert polling into district wins",
+          "maintain clear opposition contrast"
+        ],
+        "type": "party"
+      },
+      {
+        "description": "Governing party entering campaign after leadership transition.",
+        "fictionalized": true,
+        "name": "incumbent_party",
+        "scope": "national",
+        "stakes": [
+          "retain enough seats to beat Party C",
+          "use leadership reset to recover support",
+          "contain fatigue from prior governance"
+        ],
+        "type": "party"
+      },
+      {
+        "description": "New leader of the incumbent governing party whose campaign performance may reset or fail to reset the incumbent brand.",
+        "fictionalized": true,
+        "name": "new_prime_minister",
+        "scope": "national",
+        "stakes": [
+          "personal credibility",
+          "brand renewal",
+          "campaign message discipline"
+        ],
+        "type": "leader"
+      },
+      {
+        "description": "Non-Party C opposition parties that can split votes and affect riding-level outcomes.",
+        "fictionalized": true,
+        "name": "other_opposition_parties",
+        "scope": "national",
+        "stakes": [
+          "retain or grow seat footholds",
+          "shape local vote splitting dynamics"
+        ],
+        "type": "party_bloc"
+      },
+      {
+        "description": "National electorate choosing MPs in single-member districts.",
+        "fictionalized": true,
+        "name": "voters_national",
+        "scope": "national",
+        "stakes": [
+          "representation",
+          "government change or continuity"
+        ],
+        "type": "electorate"
+      },
+      {
+        "description": "Voters in competitive ridings where small shifts determine seat outcomes.",
+        "fictionalized": true,
+        "name": "district_marginal_voters",
+        "scope": "swing_districts",
+        "stakes": [
+          "local candidate fit",
+          "leader impressions",
+          "strategic voting calculations"
+        ],
+        "type": "voter_cohort_actor"
+      },
+      {
+        "description": "News and campaign information channels shaping salience of leadership reset, fatigue, and momentum.",
+        "fictionalized": true,
+        "name": "campaign_media_environment",
+        "scope": "national",
+        "stakes": [
+          "agenda setting",
+          "narrative amplification"
+        ],
+        "type": "media_system"
+      },
+      {
+        "description": "Single-member district electoral structure translating votes into seats.",
+        "fictionalized": false,
+        "name": "electoral_system_smd",
+        "scope": "national",
+        "stakes": [
+          "mechanical seat conversion effects"
+        ],
+        "type": "institution"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Incumbent party recovers enough swing support in marginals to challenge Party C seat lead.",
+        "branch_key": "incumbent_reset_branch",
+        "divergence_signal": "Sustained improvement in incumbent competitive-riding standing relative to national baseline and more favorable leader evaluations.",
+        "trigger": "New prime minister delivers credible renewal signals and avoids immediate association with prior fatigue."
+      },
+      {
+        "alternate_path": "Party C wins most seats even without overwhelming popular-vote margin.",
+        "branch_key": "party_c_efficiency_branch",
+        "divergence_signal": "Evidence of strong performance in marginal ridings and reduced opposition vote fragmentation where Party C is competitive.",
+        "trigger": "Party C converts national polling advantage into geographically efficient support."
+      },
+      {
+        "alternate_path": "Party C leads or remains strong nationally but fails to win the most seats.",
+        "branch_key": "popular_vote_seat_split_branch",
+        "divergence_signal": "Persistent mismatch between national vote polling and riding/region seat projections.",
+        "trigger": "Vote distribution remains inefficient for Party C across ridings."
+      },
+      {
+        "alternate_path": "Anti-incumbent vote splits in key ridings, lowering Party C seat conversion.",
+        "branch_key": "minor_party_fragmentation_branch",
+        "divergence_signal": "Stable local support for minor parties in ridings where Party C needs consolidation to win.",
+        "trigger": "Other opposition parties retain enough local loyalty to block Party C consolidation."
+      }
+    ],
+    "channels": [
+      {
+        "audience": "voters_national",
+        "channel_key": "national_news",
+        "reach": 0.71,
+        "type": "mass_media"
+      },
+      {
+        "audience": "voters_national",
+        "channel_key": "campaign_events",
+        "reach": 0.48,
+        "type": "offline_campaign"
+      },
+      {
+        "audience": "leadership_reset_watchers",
+        "channel_key": "leader_debates_and_interviews",
+        "reach": 0.56,
+        "type": "broadcast_political"
+      },
+      {
+        "audience": "district_marginal_voters",
+        "channel_key": "local_riding_discourse",
+        "reach": 0.44,
+        "type": "community_political"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype": "eligible_voters",
+        "attention_level": 6,
+        "behavioral_tendencies": [
+          "responsive_to_opposition_message",
+          "sensitive_to_cost_of_incumbency"
+        ],
+        "cohort_key": "change_motivated_voters",
+        "expression_level": 5,
+        "fatigue": 5,
+        "fear_of_isolation": 3,
+        "graph_influence_summary": "Moderate electoral weight; can create national momentum if consolidated.",
+        "ideology_axes": {
+          "institutional_change": 0.6,
+          "status_quo": 0.3
+        },
+        "mobilization_readiness": 6,
+        "perceived_majority": 6,
+        "population_share_of_archetype": 0.35,
+        "private_support": "leans_party_c",
+        "public_expression": "open_to_change_message",
+        "representation_mode": "estimated_segment",
+        "represented_population": 10500000,
+        "reputation": 0.5,
+        "secrecy": 0.3,
+        "stance_axes": {
+          "change_vs_continuity": 0.8,
+          "party_c_vs_incumbent": 0.7,
+          "strategic_voting": 0.5
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "archetype": "eligible_voters",
+        "attention_level": 6,
+        "behavioral_tendencies": [
+          "sticky_partisanship",
+          "potential_reset_response"
+        ],
+        "cohort_key": "incumbent_loyalists",
+        "expression_level": 5,
+        "fatigue": 6,
+        "fear_of_isolation": 4,
+        "graph_influence_summary": "Reliable base but vulnerable to accumulated fatigue if enthusiasm weakens.",
+        "ideology_axes": {
+          "institutional_change": 0.3,
+          "status_quo": 0.7
+        },
+        "mobilization_readiness": 5,
+        "perceived_majority": 4,
+        "population_share_of_archetype": 0.25,
+        "private_support": "incumbent_party",
+        "public_expression": "cautious_defense_of_government",
+        "representation_mode": "estimated_segment",
+        "represented_population": 7500000,
+        "reputation": 0.5,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "change_vs_continuity": -0.8,
+          "party_c_vs_incumbent": -0.7,
+          "strategic_voting": 0.4
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "archetype": "eligible_voters",
+        "attention_level": 7,
+        "behavioral_tendencies": [
+          "leader_evaluation",
+          "late_decisionmaking"
+        ],
+        "cohort_key": "leadership_reset_watchers",
+        "expression_level": 4,
+        "fatigue": 4,
+        "fear_of_isolation": 4,
+        "graph_influence_summary": "Potential pivot bloc if new leader meaningfully shifts incumbent perceptions.",
+        "ideology_axes": {
+          "institutional_change": 0.5,
+          "status_quo": 0.5
+        },
+        "mobilization_readiness": 4,
+        "perceived_majority": 5,
+        "population_share_of_archetype": 0.2,
+        "private_support": "undecided_or_soft",
+        "public_expression": "wait_and_see",
+        "representation_mode": "estimated_segment",
+        "represented_population": 6000000,
+        "reputation": 0.5,
+        "secrecy": 0.5,
+        "stance_axes": {
+          "change_vs_continuity": 0.1,
+          "party_c_vs_incumbent": 0.0,
+          "strategic_voting": 0.6
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "archetype": "eligible_voters",
+        "attention_level": 7,
+        "behavioral_tendencies": [
+          "seat_conversion_focus",
+          "candidate_and_riding_specific_choice"
+        ],
+        "cohort_key": "strategic_seat_maximizers",
+        "expression_level": 3,
+        "fatigue": 3,
+        "fear_of_isolation": 2,
+        "graph_influence_summary": "Small nationally but disproportionately important in close ridings.",
+        "ideology_axes": {
+          "institutional_change": 0.5,
+          "status_quo": 0.5
+        },
+        "mobilization_readiness": 5,
+        "perceived_majority": 5,
+        "population_share_of_archetype": 0.1,
+        "private_support": "district_contingent",
+        "public_expression": "tactical_discussion",
+        "representation_mode": "estimated_segment",
+        "represented_population": 3000000,
+        "reputation": 0.5,
+        "secrecy": 0.6,
+        "stance_axes": {
+          "change_vs_continuity": 0.2,
+          "party_c_vs_incumbent": 0.2,
+          "strategic_voting": 0.9
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "archetype": "eligible_voters",
+        "attention_level": 5,
+        "behavioral_tendencies": [
+          "vote_splitting_potential",
+          "resistance_to_binary_frame"
+        ],
+        "cohort_key": "minor_party_attached_voters",
+        "expression_level": 5,
+        "fatigue": 4,
+        "fear_of_isolation": 5,
+        "graph_influence_summary": "Can deny seat efficiency to larger parties via local fragmentation.",
+        "ideology_axes": {
+          "institutional_change": 0.6,
+          "status_quo": 0.4
+        },
+        "mobilization_readiness": 4,
+        "perceived_majority": 3,
+        "population_share_of_archetype": 0.12,
+        "private_support": "other_opposition_parties",
+        "public_expression": "identity_and_issue_based",
+        "representation_mode": "estimated_segment",
+        "represented_population": 3600000,
+        "reputation": 0.5,
+        "secrecy": 0.3,
+        "stance_axes": {
+          "change_vs_continuity": 0.3,
+          "party_c_vs_incumbent": 0.1,
+          "strategic_voting": 0.3
+        },
+        "trustworthiness": 0.5
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype": "eligible_voters",
+        "attention_level": 6,
+        "behavioral_tendencies": [
+          "responsive_to_opposition_message",
+          "sensitive_to_cost_of_incumbency"
+        ],
+        "cohort_key": "change_motivated_voters",
+        "expression_level": 5,
+        "fatigue": 5,
+        "fear_of_isolation": 3,
+        "graph_influence_summary": "Moderate electoral weight; can create national momentum if consolidated.",
+        "ideology_axes": {
+          "institutional_change": 0.6,
+          "status_quo": 0.3
+        },
+        "mobilization_readiness": 6,
+        "perceived_majority": 6,
+        "population_share_of_archetype": 0.35,
+        "private_support": "leans_party_c",
+        "public_expression": "open_to_change_message",
+        "representation_mode": "estimated_segment",
+        "represented_population": 10500000,
+        "reputation": 0.5,
+        "secrecy": 0.3,
+        "stance_axes": {
+          "change_vs_continuity": 0.8,
+          "party_c_vs_incumbent": 0.7,
+          "strategic_voting": 0.5
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "archetype": "eligible_voters",
+        "attention_level": 6,
+        "behavioral_tendencies": [
+          "sticky_partisanship",
+          "potential_reset_response"
+        ],
+        "cohort_key": "incumbent_loyalists",
+        "expression_level": 5,
+        "fatigue": 6,
+        "fear_of_isolation": 4,
+        "graph_influence_summary": "Reliable base but vulnerable to accumulated fatigue if enthusiasm weakens.",
+        "ideology_axes": {
+          "institutional_change": 0.3,
+          "status_quo": 0.7
+        },
+        "mobilization_readiness": 5,
+        "perceived_majority": 4,
+        "population_share_of_archetype": 0.25,
+        "private_support": "incumbent_party",
+        "public_expression": "cautious_defense_of_government",
+        "representation_mode": "estimated_segment",
+        "represented_population": 7500000,
+        "reputation": 0.5,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "change_vs_continuity": -0.8,
+          "party_c_vs_incumbent": -0.7,
+          "strategic_voting": 0.4
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "archetype": "eligible_voters",
+        "attention_level": 7,
+        "behavioral_tendencies": [
+          "leader_evaluation",
+          "late_decisionmaking"
+        ],
+        "cohort_key": "leadership_reset_watchers",
+        "expression_level": 4,
+        "fatigue": 4,
+        "fear_of_isolation": 4,
+        "graph_influence_summary": "Potential pivot bloc if new leader meaningfully shifts incumbent perceptions.",
+        "ideology_axes": {
+          "institutional_change": 0.5,
+          "status_quo": 0.5
+        },
+        "mobilization_readiness": 4,
+        "perceived_majority": 5,
+        "population_share_of_archetype": 0.2,
+        "private_support": "undecided_or_soft",
+        "public_expression": "wait_and_see",
+        "representation_mode": "estimated_segment",
+        "represented_population": 6000000,
+        "reputation": 0.5,
+        "secrecy": 0.5,
+        "stance_axes": {
+          "change_vs_continuity": 0.1,
+          "party_c_vs_incumbent": 0.0,
+          "strategic_voting": 0.6
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "archetype": "eligible_voters",
+        "attention_level": 7,
+        "behavioral_tendencies": [
+          "seat_conversion_focus",
+          "candidate_and_riding_specific_choice"
+        ],
+        "cohort_key": "strategic_seat_maximizers",
+        "expression_level": 3,
+        "fatigue": 3,
+        "fear_of_isolation": 2,
+        "graph_influence_summary": "Small nationally but disproportionately important in close ridings.",
+        "ideology_axes": {
+          "institutional_change": 0.5,
+          "status_quo": 0.5
+        },
+        "mobilization_readiness": 5,
+        "perceived_majority": 5,
+        "population_share_of_archetype": 0.1,
+        "private_support": "district_contingent",
+        "public_expression": "tactical_discussion",
+        "representation_mode": "estimated_segment",
+        "represented_population": 3000000,
+        "reputation": 0.5,
+        "secrecy": 0.6,
+        "stance_axes": {
+          "change_vs_continuity": 0.2,
+          "party_c_vs_incumbent": 0.2,
+          "strategic_voting": 0.9
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "archetype": "eligible_voters",
+        "attention_level": 5,
+        "behavioral_tendencies": [
+          "vote_splitting_potential",
+          "resistance_to_binary_frame"
+        ],
+        "cohort_key": "minor_party_attached_voters",
+        "expression_level": 5,
+        "fatigue": 4,
+        "fear_of_isolation": 5,
+        "graph_influence_summary": "Can deny seat efficiency to larger parties via local fragmentation.",
+        "ideology_axes": {
+          "institutional_change": 0.6,
+          "status_quo": 0.4
+        },
+        "mobilization_readiness": 4,
+        "perceived_majority": 3,
+        "population_share_of_archetype": 0.12,
+        "private_support": "other_opposition_parties",
+        "public_expression": "identity_and_issue_based",
+        "representation_mode": "estimated_segment",
+        "represented_population": 3600000,
+        "reputation": 0.5,
+        "secrecy": 0.3,
+        "stance_axes": {
+          "change_vs_continuity": 0.3,
+          "party_c_vs_incumbent": 0.1,
+          "strategic_voting": 0.3
+        },
+        "trustworthiness": 0.5
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "voters_national",
+          "electoral_system_smd"
+        ],
+        "blockers": [
+          "inefficient_vote_distribution",
+          "incumbent_recovery",
+          "minor_party_vote_splitting"
+        ],
+        "contradiction_notes": "Popular vote plurality alone does not realize this endpoint.",
+        "description": "Terminal yes endpoint: Party C finishes with more House of Commons seats than every other party.",
+        "endpoint_key": "party_c_wins_most_seats",
+        "evidence_refs": [
+          "scenario_core_question",
+          "campaign_context_2025_04_01"
+        ],
+        "label": "Party C wins most seats",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will Party C win more House of Commons seats than every other party by election resolution?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.53,
+        "rationale": "The scenario explicitly resolves yes only on seat plurality, making this the primary terminal condition.",
+        "realization_criteria": [
+          "Official or broadly accepted final seat count shows party_c_seats > incumbent_party_seats and party_c_seats > each_other_party_seat_count."
+        ],
+        "status": "active",
+        "status_basis": "This is the main unresolved forecast endpoint at T0."
+      },
+      {
+        "authority_refs": [
+          "voters_national",
+          "electoral_system_smd"
+        ],
+        "blockers": [
+          "party_c_riding_efficiency",
+          "incumbent_campaign_underperformance"
+        ],
+        "contradiction_notes": "This endpoint includes cases where Party C wins popular vote but not seat plurality.",
+        "description": "Terminal no endpoint: another party equals or exceeds Party C in House of Commons seat count by resolution.",
+        "endpoint_key": "party_c_fails_to_win_most_seats",
+        "evidence_refs": [
+          "scenario_core_question",
+          "endpoint_note_2025_04_01"
+        ],
+        "label": "Party C does not win most seats",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the new prime minister materially improve the incumbent party's seat competitiveness during the campaign?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.47,
+        "rationale": "Source packet explicitly notes that winning popular vote but fewer seats resolves no.",
+        "realization_criteria": [
+          "Official or broadly accepted final seat count shows party_c_seats <= max(other_party_seat_counts)."
+        ],
+        "status": "active",
+        "status_basis": "Mutually exclusive alternative to yes remains live at initialization."
+      },
+      {
+        "authority_refs": [
+          "new_prime_minister",
+          "incumbent_party",
+          "campaign_media_environment"
+        ],
+        "blockers": [
+          "accumulated_fatigue",
+          "insufficient_time_in_snap_campaign",
+          "unclear_message"
+        ],
+        "contradiction_notes": "Reset success alone does not guarantee incumbent wins most seats; it is a mechanism affecting the main endpoint.",
+        "description": "Intermediate but outcome-relevant endpoint in which the new prime minister measurably improves incumbent electoral position before final vote.",
+        "endpoint_key": "incumbent_brand_reset_realized",
+        "evidence_refs": [
+          "leadership_note_2025_04_01"
+        ],
+        "label": "Incumbent brand reset succeeds",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does Party C's support translate efficiently enough across single-member districts to outperform rivals in seat count?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": null,
+        "rationale": "Needed to preserve the scenario's causal pressure without collapsing it into the final binary endpoint.",
+        "realization_criteria": [
+          "Multiple credible campaign indicators show sustained incumbent improvement versus pre-campaign baseline, especially in seat-competitive ridings or seat projections."
+        ],
+        "status": "active",
+        "status_basis": "Leadership reset is explicitly identified as a key uncertainty shaping final seat outcome."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "Campaign underway with leadership transition and opposition messaging salient.",
+        "layer": "exposure",
+        "reason": "National campaign coverage reaches broad electorate.",
+        "source_actor_name": "campaign_media_environment",
+        "target_actor_name": "voters_national",
+        "weight": 0.65
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario states Party C has a clear opposition message.",
+        "layer": "exposure",
+        "reason": "Party C has a clear opposition message with broad campaign exposure.",
+        "source_actor_name": "party_c",
+        "target_actor_name": "voters_national",
+        "weight": 0.55
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario describes incumbent governing party in active campaign.",
+        "layer": "exposure",
+        "reason": "Incumbent governing party receives strong baseline visibility during snap election.",
+        "source_actor_name": "incumbent_party",
+        "target_actor_name": "voters_national",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "Leadership transition is central scenario premise.",
+        "layer": "exposure",
+        "reason": "New leader draws elevated attention in transition period.",
+        "source_actor_name": "new_prime_minister",
+        "target_actor_name": "voters_national",
+        "weight": 0.62
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario states Party C has strong national polling history.",
+        "layer": "trust",
+        "reason": "Strong polling history implies meaningful but not dominant baseline receptivity.",
+        "source_actor_name": "voters_national",
+        "target_actor_name": "party_c",
+        "weight": 0.48
+      },
+      {
+        "direction": "directed",
+        "evidence": "Leadership note says new PM may reset brand or inherit accumulated fatigue.",
+        "layer": "trust",
+        "reason": "Incumbent brand carries fatigue but still retains governing legitimacy.",
+        "source_actor_name": "voters_national",
+        "target_actor_name": "incumbent_party",
+        "weight": 0.4
+      },
+      {
+        "direction": "directed",
+        "evidence": "Leadership transition may either reset brand or inherit fatigue.",
+        "layer": "trust",
+        "reason": "New leader starts with uncertain but potentially renewable credibility.",
+        "source_actor_name": "voters_national",
+        "target_actor_name": "new_prime_minister",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source 1 says national popular vote does not directly determine seat winner.",
+        "layer": "dependency",
+        "reason": "Seat victory depends on efficient riding distribution, not just vote share.",
+        "source_actor_name": "party_c",
+        "target_actor_name": "electoral_system_smd",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source 1 on single-member districts.",
+        "layer": "dependency",
+        "reason": "Incumbent also depends on district-level conversion under single-member districts.",
+        "source_actor_name": "incumbent_party",
+        "target_actor_name": "electoral_system_smd",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "Seat conversion under single-member districts emphasized.",
+        "layer": "dependency",
+        "reason": "Their local choices are disproportionately translated into seat outcomes.",
+        "source_actor_name": "district_marginal_voters",
+        "target_actor_name": "electoral_system_smd",
+        "weight": 0.55
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source 2 says new prime minister can reset incumbent brand or inherit fatigue.",
+        "layer": "dependency",
+        "reason": "Recovery path partly hinges on new leader's ability to reset party image.",
+        "source_actor_name": "incumbent_party",
+        "target_actor_name": "new_prime_minister",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "Leadership transition is presented as key determinant of recovery.",
+        "layer": "influence",
+        "reason": "Leader has major influence over incumbent campaign trajectory.",
+        "source_actor_name": "new_prime_minister",
+        "target_actor_name": "incumbent_party",
+        "weight": 0.64
+      },
+      {
+        "direction": "directed",
+        "evidence": "Campaign context and leadership change are likely salient public narratives.",
+        "layer": "influence",
+        "reason": "Media frames leadership reset and campaign momentum.",
+        "source_actor_name": "campaign_media_environment",
+        "target_actor_name": "voters_national",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario states Party C has a clear opposition message.",
+        "layer": "influence",
+        "reason": "Clear opposition message can move competitive-riding voters.",
+        "source_actor_name": "party_c",
+        "target_actor_name": "district_marginal_voters",
+        "weight": 0.51
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario allows incumbent recovery during campaign.",
+        "layer": "influence",
+        "reason": "Incumbency and renewal message may sway marginal voters.",
+        "source_actor_name": "incumbent_party",
+        "target_actor_name": "district_marginal_voters",
+        "weight": 0.47
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Party C has strong polling history and opposition message.",
+        "layer": "coalition",
+        "reason": "Change-seeking bloc naturally aligns with opposition seat-maximizing bid.",
+        "source_actor_name": "party_c",
+        "target_actor_name": "change_motivated_voters",
+        "weight": 0.61
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Incumbent party remains governing party with loyal base.",
+        "layer": "coalition",
+        "reason": "Core incumbent identifiers remain aligned despite fatigue.",
+        "source_actor_name": "incumbent_party",
+        "target_actor_name": "incumbent_loyalists",
+        "weight": 0.63
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Presence of other parties implied by parliamentary election context.",
+        "layer": "coalition",
+        "reason": "Minor-party voters retain issue and identity alignment.",
+        "source_actor_name": "other_opposition_parties",
+        "target_actor_name": "minor_party_attached_voters",
+        "weight": 0.6
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Forecast asks whether Party C wins more seats than every other party.",
+        "layer": "conflict",
+        "reason": "They compete directly for national plurality of seats.",
+        "source_actor_name": "party_c",
+        "target_actor_name": "incumbent_party",
+        "weight": 0.66
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Seat conversion and vote splitting matter under SMD.",
+        "layer": "conflict",
+        "reason": "Opposition parties compete for anti-incumbent votes in ridings.",
+        "source_actor_name": "party_c",
+        "target_actor_name": "other_opposition_parties",
+        "weight": 0.34
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Canadian federal election context with multiple parties.",
+        "layer": "conflict",
+        "reason": "Riding-level competition exists across multiple parties.",
+        "source_actor_name": "incumbent_party",
+        "target_actor_name": "other_opposition_parties",
+        "weight": 0.32
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Party C has clear opposition message during active campaign.",
+        "layer": "oasis_interaction",
+        "reason": "Opposition messaging likely heavily covered and debated publicly.",
+        "source_actor_name": "party_c",
+        "target_actor_name": "campaign_media_environment",
+        "weight": 0.54
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Leadership transition in incumbent governing party.",
+        "layer": "oasis_interaction",
+        "reason": "Government transition and campaign reset attract sustained interaction.",
+        "source_actor_name": "incumbent_party",
+        "target_actor_name": "campaign_media_environment",
+        "weight": 0.58
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Leadership note centers new prime minister effect.",
+        "layer": "oasis_interaction",
+        "reason": "New leader is a focal point of public channel interaction.",
+        "source_actor_name": "new_prime_minister",
+        "target_actor_name": "campaign_media_environment",
+        "weight": 0.62
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype": "campaign_leader",
+        "description": "Individual leader whose public performance can materially alter party brand perceptions during campaign."
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "new_prime_minister",
+        "archetype": "campaign_leader",
+        "attention_level": 8,
+        "behavioral_tendencies": [
+          "high_visibility_campaigning",
+          "brand_redefinition_attempt"
+        ],
+        "expression_level": 8,
+        "fatigue": 4,
+        "fear_of_isolation": 2,
+        "graph_influence_summary": "High agenda-setting power over incumbent recovery potential.",
+        "hero_key": "new_prime_minister_state",
+        "ideology_axes": {
+          "institutional_change": 0.5,
+          "status_quo": 0.5
+        },
+        "mobilization_readiness": 7,
+        "perceived_majority": 5,
+        "power_sources": [
+          "incumbency_visibility",
+          "leadership_transition_novelty",
+          "campaign_platform_access"
+        ],
+        "reputation": 0.5,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "change_vs_continuity": 0.2,
+          "incumbent_brand_reset": 0.7,
+          "message_clarity": 0.5
+        },
+        "trustworthiness": 0.5
+      }
+    ],
+    "heroes": [
+      {
+        "archetype": "campaign_leader",
+        "description": "Individual leader whose public performance can materially alter party brand perceptions during campaign."
+      }
+    ],
+    "important_questions": [
+      "Will Party C win more House of Commons seats than every other party by election resolution?",
+      "Does the new prime minister materially improve the incumbent party's seat competitiveness during the campaign?",
+      "Does Party C's support translate efficiently enough across single-member districts to outperform rivals in seat count?",
+      "Do other opposition parties retain enough local support to prevent Party C from capturing key marginal seats?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "incumbent_party",
+          "party_c",
+          "voters_national"
+        ],
+        "event_key": "snap_election_called",
+        "event_type": "announcement",
+        "expected_impact": "Raises campaign attention, compresses decision timelines, and amplifies leader-centric narratives.",
+        "status": "realized",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "incumbent_party",
+          "new_prime_minister"
+        ],
+        "event_key": "leadership_transition_completed",
+        "event_type": "announcement",
+        "expected_impact": "Introduces uncertainty about whether incumbent fatigue persists or is partially reset.",
+        "status": "realized",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "party_c",
+          "incumbent_party",
+          "campaign_media_environment"
+        ],
+        "event_key": "campaign_message_contrast_emerges",
+        "event_type": "announcement",
+        "expected_impact": "Sharpens change-versus-renewal framing and elevates comparative leader evaluation.",
+        "status": "realized",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "campaign_media_environment",
+          "voters_national",
+          "party_c",
+          "incumbent_party"
+        ],
+        "event_key": "early_campaign_poll_interpretation",
+        "event_type": "announcement",
+        "expected_impact": "Could reinforce Party C frontrunner narrative or highlight tightening race without determining seat outcome.",
+        "status": "anticipated",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "district_marginal_voters",
+          "other_opposition_parties",
+          "party_c"
+        ],
+        "event_key": "riding_level_strategic_consolidation_signals",
+        "event_type": "announcement",
+        "expected_impact": "May alter seat efficiency through local coordination or persistent vote splitting.",
+        "status": "anticipated",
+        "tick": 2
+      },
+      {
+        "actors": [
+          "new_prime_minister",
+          "leadership_reset_watchers",
+          "incumbent_party"
+        ],
+        "event_key": "leader_performance_reassessment",
+        "event_type": "announcement",
+        "expected_impact": "Observable shifts in leader credibility could move undecided and soft incumbent-skeptical voters.",
+        "status": "anticipated",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "4ecea545-b397-44fb-8f69-a0ea1937d0dd",
+    "merge_hypotheses": [
+      {
+        "condition": "Broad media focus on leader contrast reduces local complexity and aligns voter behavior across regions.",
+        "convergence_effect": "Different early trajectories converge toward a leader-driven national swing.",
+        "merge_key": "campaign_nationalization"
+      },
+      {
+        "condition": "Repeated seat-projection and local viability cues help tactical voters coordinate.",
+        "convergence_effect": "Riding-level uncertainty narrows and seat outcomes become more correlated with perceived two-party contests.",
+        "merge_key": "strategic_voter_learning"
+      },
+      {
+        "condition": "Initial novelty of leadership transition fades and voters reassess incumbent through longer-run record.",
+        "convergence_effect": "Divergent early impressions of the new leader partially collapse back toward prior incumbent baseline.",
+        "merge_key": "fatigue_reversion"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype": "eligible_voters",
+        "description": "National pool of eligible voters exposed to campaign messaging and leadership cues.",
+        "population_total": 30000000
+      }
+    ],
+    "risk_flags": [
+      {
+        "description": "Party identities are partially masked, limiting party-specific regional priors.",
+        "risk_key": "masked_entity_ambiguity",
+        "severity": "medium"
+      },
+      {
+        "description": "Corpus lacks current polling cross-tabs, regional distribution, and incumbent seat map context.",
+        "risk_key": "sparse_empirical_baseline",
+        "severity": "medium"
+      },
+      {
+        "description": "Single-member district conversion can produce large divergence between national vote and seat totals.",
+        "risk_key": "seat_projection_uncertainty",
+        "severity": "high"
+      },
+      {
+        "description": "New leader effects can shift quickly during short campaigns and are hard to anchor at T0.",
+        "risk_key": "leadership_transition_volatility",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "core_question": "Whether Party C wins more House of Commons seats than every other party in the 2025 Canadian federal election.",
+      "domain": "parliamentary_election_forecasting",
+      "evidence_refs": [
+        "campaign_context_2025_04_01",
+        "leadership_note_2025_04_01",
+        "endpoint_note_2025_04_01"
+      ],
+      "mode": "direct",
+      "scenario_key": "resolved_014",
+      "summary": "A snap federal election follows a leadership transition in the incumbent governing party. Party C enters with strong national polling history and a clear opposition message, but the incumbent party may regain support under a new leader during the campaign. Electoral outcome depends on seat conversion under single-member districts rather than national vote share alone.",
+      "timeframe": "2025_canadian_federal_election_campaign",
+      "uncertainty_notes": [
+        "No province-level polling, district maps, or party identities are provided in the corpus.",
+        "Leadership effects are directionally ambiguous: renewal versus inherited fatigue.",
+        "Seat outcome can diverge materially from popular vote outcome under the electoral system."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "evidence": "Partisan and strategic segments likely update within moderate ideological range during campaign.",
+        "level": 0.58,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "scope": "national_electorate"
+      },
+      {
+        "evidence": "Campaign momentum and leader performance can shift turnout enthusiasm without immediate saturation.",
+        "level": 0.52,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "scope": "party_supporters"
+      },
+      {
+        "evidence": "Wait-and-see voters may withhold public commitment while privately reassessing.",
+        "level": 0.43,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "scope": "leadership_reset_watchers"
+      },
+      {
+        "evidence": "Election discussion tends to cluster by partisan identity.",
+        "level": 0.57,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "scope": "party_aligned_networks"
+      },
+      {
+        "evidence": "Strategic shifts often require multiple reinforcing local signals before voters coordinate.",
+        "level": 0.55,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "scope": "strategic_voting_discourse"
+      },
+      {
+        "evidence": "Core partisan attachment can resist short-run national swing narratives.",
+        "level": 0.6,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "scope": "incumbent_and_minor_party_bases"
+      },
+      {
+        "evidence": "Early campaign impressions may fade unless reinforced by ongoing events.",
+        "level": 0.46,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "scope": "national_campaign"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Single-member districts weaken direct mapping from national vote share to seat plurality.",
+        "evidence": "campaign_context_2025_04_01",
+        "influence_key": "seat_vote_conversion_salience"
+      },
+      {
+        "description": "New leader may either refresh incumbent image or inherit accumulated fatigue.",
+        "evidence": "leadership_note_2025_04_01",
+        "influence_key": "leadership_reset_ambiguity"
+      },
+      {
+        "description": "Popular vote lead without seat lead does not satisfy endpoint.",
+        "evidence": "endpoint_note_2025_04_01",
+        "influence_key": "popular_vote_not_sufficient"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "party_c",
+        "behavior_axes": {
+          "adaptability": 0.5,
+          "aggression": 0.6,
+          "message_discipline": 0.7
+        },
+        "ideology_axes": {
+          "change_orientation": 0.8,
+          "continuity_orientation": 0.2
+        },
+        "reputation": 0.6,
+        "secrecy": 0.4,
+        "tendency": "opposition_consolidation",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "incumbent_party",
+        "behavior_axes": {
+          "adaptability": 0.6,
+          "aggression": 0.4,
+          "message_discipline": 0.5
+        },
+        "ideology_axes": {
+          "change_orientation": 0.4,
+          "continuity_orientation": 0.6
+        },
+        "reputation": 0.5,
+        "secrecy": 0.5,
+        "tendency": "defensive_repositioning",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "new_prime_minister",
+        "behavior_axes": {
+          "adaptability": 0.7,
+          "aggression": 0.4,
+          "message_discipline": 0.6
+        },
+        "ideology_axes": {
+          "change_orientation": 0.5,
+          "continuity_orientation": 0.5
+        },
+        "reputation": 0.5,
+        "secrecy": 0.3,
+        "tendency": "leadership_reset_attempt",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "other_opposition_parties",
+        "behavior_axes": {
+          "adaptability": 0.5,
+          "aggression": 0.3,
+          "message_discipline": 0.5
+        },
+        "ideology_axes": {
+          "change_orientation": 0.6,
+          "continuity_orientation": 0.3
+        },
+        "reputation": 0.5,
+        "secrecy": 0.3,
+        "tendency": "issue_niche_retention",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "district_marginal_voters",
+        "behavior_axes": {
+          "adaptability": 0.7,
+          "aggression": 0.1,
+          "message_discipline": 0.2
+        },
+        "ideology_axes": {
+          "change_orientation": 0.5,
+          "continuity_orientation": 0.5
+        },
+        "reputation": 0.5,
+        "secrecy": 0.5,
+        "tendency": "late_swing_decisionmaking",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "campaign_media_environment",
+        "behavior_axes": {
+          "adaptability": 0.7,
+          "aggression": 0.3,
+          "message_discipline": 0.4
+        },
+        "ideology_axes": {
+          "change_orientation": 0.5,
+          "continuity_orientation": 0.5
+        },
+        "reputation": 0.5,
+        "secrecy": 0.2,
+        "tendency": "narrative_amplification",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "electoral_system_smd",
+        "behavior_axes": {
+          "adaptability": 0.0,
+          "aggression": 0.0,
+          "message_discipline": 1.0
+        },
+        "ideology_axes": {
+          "change_orientation": 0.0,
+          "continuity_orientation": 1.0
+        },
+        "reputation": 0.9,
+        "secrecy": 0.0,
+        "tendency": "mechanical_vote_to_seat_translation",
+        "trustworthiness": 0.9
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 1741,
+        "end": 1741,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 1741,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

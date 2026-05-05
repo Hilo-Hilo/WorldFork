@@ -1,0 +1,1259 @@
+{
+  "big_bang_id": "8677a186-d015-4d6b-bc12-8c67290f893d",
+  "initializer_output": {
+    "actors": [
+      {
+        "fictionalized": true,
+        "name": "candidate_m",
+        "public_visibility": 0.92,
+        "role": "major_party_nominee",
+        "stakes": "win general election by holding party base and enough swing/turnout support",
+        "type": "candidate"
+      },
+      {
+        "fictionalized": true,
+        "name": "former_governor_i",
+        "public_visibility": 0.9,
+        "role": "independent_or_non_major_party_candidate",
+        "stakes": "convert name recognition and moderation/experience appeal into a viable anti-M coalition",
+        "type": "candidate"
+      },
+      {
+        "fictionalized": true,
+        "name": "republican_nominee_r",
+        "public_visibility": 0.72,
+        "role": "republican_nominee",
+        "stakes": "retain partisan base and shape issue agenda, especially public safety and ideology contrast",
+        "type": "candidate"
+      },
+      {
+        "fictionalized": true,
+        "name": "city_democratic_electorate",
+        "public_visibility": 0.45,
+        "role": "dominant_partisan_electorate",
+        "stakes": "select candidate aligned with party identity and issue priorities",
+        "type": "voter_bloc"
+      },
+      {
+        "fictionalized": true,
+        "name": "moderate_swing_voters",
+        "public_visibility": 0.35,
+        "role": "cross_pressured_general_election_voters",
+        "stakes": "balance experience, ideology, safety, affordability, and viability",
+        "type": "voter_bloc"
+      },
+      {
+        "fictionalized": true,
+        "name": "rent_burdened_voters",
+        "public_visibility": 0.3,
+        "role": "affordability_sensitive_voters",
+        "stakes": "seek housing and cost-of-living relief",
+        "type": "voter_bloc"
+      },
+      {
+        "fictionalized": true,
+        "name": "public_safety_concerned_voters",
+        "public_visibility": 0.34,
+        "role": "security_salient_voters",
+        "stakes": "prioritize crime, policing, and order",
+        "type": "voter_bloc"
+      },
+      {
+        "fictionalized": true,
+        "name": "transit_reliant_voters",
+        "public_visibility": 0.28,
+        "role": "service_salience_voters",
+        "stakes": "care about transit performance, safety, and affordability",
+        "type": "voter_bloc"
+      },
+      {
+        "fictionalized": true,
+        "name": "city_media",
+        "public_visibility": 0.88,
+        "role": "agenda_setter",
+        "stakes": "frame race around dominant issues and candidate contrasts",
+        "type": "institution"
+      },
+      {
+        "fictionalized": true,
+        "name": "party_organizations",
+        "public_visibility": 0.63,
+        "role": "major_party_network",
+        "stakes": "convert primary win into general-election mobilization and message discipline",
+        "type": "institution"
+      },
+      {
+        "fictionalized": true,
+        "name": "donor_and_endorser_networks",
+        "public_visibility": 0.52,
+        "role": "resource_and_signal_providers",
+        "stakes": "back viable candidates and shape perceptions of momentum and legitimacy",
+        "type": "institution"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Candidate M converts party tilt into a durable lead and withstands ideology attacks",
+        "branch_key": "partisan_floor_holds",
+        "divergence_signal": "polling, endorsements, or visible turnout cues show limited erosion among Democratic-leaning voters",
+        "trigger": "city_democratic_electorate remains consolidated and turnout stays near expected baseline"
+      },
+      {
+        "alternate_path": "former_governor_i assembles moderate plus defecting party voters into a winning coalition",
+        "branch_key": "experience_swing_to_former_governor",
+        "divergence_signal": "moderate_swing_voters and safety-first blocs show sustained movement toward former_governor_i in public indicators",
+        "trigger": "competence and ideology concerns become dominant over affordability salience"
+      },
+      {
+        "alternate_path": "Candidate M underperforms partisan baseline as safety-concerned and lower-information voters move away or abstain",
+        "branch_key": "public_safety_reorders_race",
+        "divergence_signal": "media agenda and voter attention shift toward safety with weakening trust edge for candidate_m",
+        "trigger": "crime or policing framing sharply intensifies late in campaign"
+      },
+      {
+        "alternate_path": "Candidate M's issue alignment fails to convert into ballots, opening path for challenger upset",
+        "branch_key": "turnout_collapse_on_margins",
+        "divergence_signal": "field reports or participation proxies indicate depressed engagement in affordability-aligned cohorts",
+        "trigger": "young, rent-burdened, or less habitual voters show low enthusiasm or weak mobilization"
+      },
+      {
+        "alternate_path": "anti-M vote fragments enough for Candidate M to win with plurality anchored by party base",
+        "branch_key": "opposition_vote_split",
+        "divergence_signal": "republican_nominee_r does not collapse and former_governor_i cannot monopolize anti-M coalition",
+        "trigger": "former_governor_i and republican_nominee_r both retain meaningful shares"
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "local_news_coverage",
+        "description": "citywide political and issue coverage shaping candidate narratives",
+        "reach": 0.78,
+        "type": "mass_media"
+      },
+      {
+        "channel_key": "campaign_rallies_and_ads",
+        "description": "direct candidate messaging and persuasion attempts",
+        "reach": 0.64,
+        "type": "campaign"
+      },
+      {
+        "channel_key": "party_endorsement_networks",
+        "description": "party-aligned endorsements, volunteer outreach, and turnout cues",
+        "reach": 0.52,
+        "type": "organizational"
+      },
+      {
+        "channel_key": "civic_issue_discussion",
+        "description": "peer discussion around affordability, transit, policing, and competence",
+        "reach": 0.47,
+        "type": "social"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "city_democratic_electorate",
+        "archetype": "citywide_eligible_voters",
+        "attention_level": 0.72,
+        "cohort_key": "dem_base_for_m",
+        "expression_level": 0.58,
+        "fatigue": 0.36,
+        "fear_of_isolation": 0.24,
+        "mobilization_readiness": 0.66,
+        "perceived_majority": 0.74,
+        "population_share_of_archetype": 0.457,
+        "private_preference": "leans strongly to candidate_m",
+        "public_expression": "generally pro-candidate_m but uneven enthusiasm after primary",
+        "representation_mode": "explicit_cohort",
+        "represented_population": 2100000,
+        "stance_axes": {
+          "affordability_change": 0.8,
+          "anti_establishment": 0.52,
+          "experience_priority": 0.45,
+          "ideological_left_right": 0.32,
+          "public_safety_punitiveness": 0.35
+        }
+      },
+      {
+        "actor_name": "moderate_swing_voters",
+        "archetype": "likely_general_election_voters",
+        "attention_level": 0.68,
+        "cohort_key": "moderate_crosspressured",
+        "expression_level": 0.37,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.49,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.208,
+        "private_preference": "mixed between candidate_m and former_governor_i",
+        "public_expression": "cautious and wait-and-see",
+        "representation_mode": "explicit_cohort",
+        "represented_population": 500000,
+        "stance_axes": {
+          "affordability_change": 0.58,
+          "anti_establishment": 0.31,
+          "experience_priority": 0.72,
+          "ideological_left_right": 0.56,
+          "public_safety_punitiveness": 0.62
+        }
+      },
+      {
+        "actor_name": "rent_burdened_voters",
+        "archetype": "likely_general_election_voters",
+        "attention_level": 0.74,
+        "cohort_key": "rent_pressured_progressive",
+        "expression_level": 0.55,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.26,
+        "mobilization_readiness": 0.62,
+        "perceived_majority": 0.61,
+        "population_share_of_archetype": 0.175,
+        "private_preference": "leans candidate_m due to affordability framing",
+        "public_expression": "issue-forward more than candidate-loyal",
+        "representation_mode": "explicit_cohort",
+        "represented_population": 420000,
+        "stance_axes": {
+          "affordability_change": 0.91,
+          "anti_establishment": 0.61,
+          "experience_priority": 0.34,
+          "ideological_left_right": 0.27,
+          "public_safety_punitiveness": 0.28
+        }
+      },
+      {
+        "actor_name": "public_safety_concerned_voters",
+        "archetype": "likely_general_election_voters",
+        "attention_level": 0.77,
+        "cohort_key": "safety_first_voters",
+        "expression_level": 0.51,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.38,
+        "mobilization_readiness": 0.58,
+        "perceived_majority": 0.48,
+        "population_share_of_archetype": 0.158,
+        "private_preference": "split between former_governor_i and republican_nominee_r, with some reluctant candidate_m voters",
+        "public_expression": "highly responsive to public-safety framing",
+        "representation_mode": "explicit_cohort",
+        "represented_population": 380000,
+        "stance_axes": {
+          "affordability_change": 0.41,
+          "anti_establishment": 0.29,
+          "experience_priority": 0.68,
+          "ideological_left_right": 0.64,
+          "public_safety_punitiveness": 0.83
+        }
+      },
+      {
+        "actor_name": "transit_reliant_voters",
+        "archetype": "likely_general_election_voters",
+        "attention_level": 0.63,
+        "cohort_key": "transit_everyday_voters",
+        "expression_level": 0.34,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.33,
+        "mobilization_readiness": 0.46,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.125,
+        "private_preference": "issue-dependent, modest lean to candidate_m if competence concerns are contained",
+        "public_expression": "practical and service-oriented",
+        "representation_mode": "explicit_cohort",
+        "represented_population": 300000,
+        "stance_axes": {
+          "affordability_change": 0.67,
+          "anti_establishment": 0.34,
+          "experience_priority": 0.57,
+          "ideological_left_right": 0.46,
+          "public_safety_punitiveness": 0.54
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "city_democratic_electorate",
+        "archetype": "citywide_eligible_voters",
+        "attention_level": 0.72,
+        "cohort_key": "dem_base_for_m",
+        "expression_level": 0.58,
+        "fatigue": 0.36,
+        "fear_of_isolation": 0.24,
+        "mobilization_readiness": 0.66,
+        "perceived_majority": 0.74,
+        "population_share_of_archetype": 0.457,
+        "private_preference": "leans strongly to candidate_m",
+        "public_expression": "generally pro-candidate_m but uneven enthusiasm after primary",
+        "representation_mode": "explicit_cohort",
+        "represented_population": 2100000,
+        "stance_axes": {
+          "affordability_change": 0.8,
+          "anti_establishment": 0.52,
+          "experience_priority": 0.45,
+          "ideological_left_right": 0.32,
+          "public_safety_punitiveness": 0.35
+        }
+      },
+      {
+        "actor_name": "moderate_swing_voters",
+        "archetype": "likely_general_election_voters",
+        "attention_level": 0.68,
+        "cohort_key": "moderate_crosspressured",
+        "expression_level": 0.37,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.49,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.208,
+        "private_preference": "mixed between candidate_m and former_governor_i",
+        "public_expression": "cautious and wait-and-see",
+        "representation_mode": "explicit_cohort",
+        "represented_population": 500000,
+        "stance_axes": {
+          "affordability_change": 0.58,
+          "anti_establishment": 0.31,
+          "experience_priority": 0.72,
+          "ideological_left_right": 0.56,
+          "public_safety_punitiveness": 0.62
+        }
+      },
+      {
+        "actor_name": "rent_burdened_voters",
+        "archetype": "likely_general_election_voters",
+        "attention_level": 0.74,
+        "cohort_key": "rent_pressured_progressive",
+        "expression_level": 0.55,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.26,
+        "mobilization_readiness": 0.62,
+        "perceived_majority": 0.61,
+        "population_share_of_archetype": 0.175,
+        "private_preference": "leans candidate_m due to affordability framing",
+        "public_expression": "issue-forward more than candidate-loyal",
+        "representation_mode": "explicit_cohort",
+        "represented_population": 420000,
+        "stance_axes": {
+          "affordability_change": 0.91,
+          "anti_establishment": 0.61,
+          "experience_priority": 0.34,
+          "ideological_left_right": 0.27,
+          "public_safety_punitiveness": 0.28
+        }
+      },
+      {
+        "actor_name": "public_safety_concerned_voters",
+        "archetype": "likely_general_election_voters",
+        "attention_level": 0.77,
+        "cohort_key": "safety_first_voters",
+        "expression_level": 0.51,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.38,
+        "mobilization_readiness": 0.58,
+        "perceived_majority": 0.48,
+        "population_share_of_archetype": 0.158,
+        "private_preference": "split between former_governor_i and republican_nominee_r, with some reluctant candidate_m voters",
+        "public_expression": "highly responsive to public-safety framing",
+        "representation_mode": "explicit_cohort",
+        "represented_population": 380000,
+        "stance_axes": {
+          "affordability_change": 0.41,
+          "anti_establishment": 0.29,
+          "experience_priority": 0.68,
+          "ideological_left_right": 0.64,
+          "public_safety_punitiveness": 0.83
+        }
+      },
+      {
+        "actor_name": "transit_reliant_voters",
+        "archetype": "likely_general_election_voters",
+        "attention_level": 0.63,
+        "cohort_key": "transit_everyday_voters",
+        "expression_level": 0.34,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.33,
+        "mobilization_readiness": 0.46,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.125,
+        "private_preference": "issue-dependent, modest lean to candidate_m if competence concerns are contained",
+        "public_expression": "practical and service-oriented",
+        "representation_mode": "explicit_cohort",
+        "represented_population": 300000,
+        "stance_axes": {
+          "affordability_change": 0.67,
+          "anti_establishment": 0.34,
+          "experience_priority": 0.57,
+          "ideological_left_right": 0.46,
+          "public_safety_punitiveness": 0.54
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "citywide_eligible_voters",
+          "likely_general_election_voters"
+        ],
+        "blockers": [
+          "former_governor_i consolidates moderates and defectors",
+          "turnout underperformance among candidate_m-leaning cohorts",
+          "public-safety or competence narratives materially erode trust"
+        ],
+        "contradiction_notes": "Primary victory alone does not realize this endpoint.",
+        "description": "Terminal outcome where candidate_m is elected mayor in the 2025 general election.",
+        "endpoint_key": "candidate_m_wins_general",
+        "evidence_refs": [
+          "source_3_endpoint_note_2025_10_01",
+          "scenario_text"
+        ],
+        "label": "Candidate M wins general election",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will candidate_m win the 2025 general election for mayor?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.61,
+        "rationale": "This is the direct forecast-resolving endpoint implied by the corpus.",
+        "realization_criteria": [
+          "official certified result or equivalent authoritative call shows candidate_m wins the general election for mayor"
+        ],
+        "status": "active",
+        "status_basis": "Candidate M has partisan baseline support and primary victory but faces credible uncertainty from challenger recognition and issue attacks."
+      },
+      {
+        "authority_refs": [
+          "citywide_eligible_voters",
+          "likely_general_election_voters"
+        ],
+        "blockers": [
+          "city partisan tilt remains decisive",
+          "opposition vote split persists",
+          "candidate_m coalition consolidates in late campaign"
+        ],
+        "contradiction_notes": "This endpoint is mutually exclusive with candidate_m_wins_general.",
+        "description": "Terminal outcome where someone other than candidate_m wins the general election for mayor.",
+        "endpoint_key": "candidate_m_loses_general",
+        "evidence_refs": [
+          "source_3_endpoint_note_2025_10_01",
+          "source_1_election_context_2025_10_01"
+        ],
+        "label": "Candidate M loses general election",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will candidate_m retain enough of the city_democratic_electorate to preserve the partisan baseline advantage by election day?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.39,
+        "rationale": "Binary terminal alternative required by the election resolution framing.",
+        "realization_criteria": [
+          "official certified result or equivalent authoritative call shows former_governor_i or republican_nominee_r wins the general election for mayor"
+        ],
+        "status": "active",
+        "status_basis": "Opponent name recognition and issue vulnerabilities create a credible loss path despite structural partisan disadvantage for challengers."
+      },
+      {
+        "authority_refs": [
+          "city_democratic_electorate",
+          "party_organizations",
+          "candidate_m"
+        ],
+        "blockers": [
+          "ideology or competence attacks trigger meaningful defections",
+          "turnout drop among party-aligned voters",
+          "former_governor_i gains strategic anti-M support"
+        ],
+        "contradiction_notes": "This can be realized even if margin is narrower than primary coalition expectations.",
+        "description": "Intermediate-but-outcome-relevant endpoint where candidate_m retains enough party-aligned support to keep baseline electoral advantage into election day.",
+        "endpoint_key": "democratic_base_holds",
+        "evidence_refs": [
+          "source_1_election_context_2025_10_01",
+          "scenario_text"
+        ],
+        "label": "Democratic base consolidation holds",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will former_governor_i become the clear principal alternative to candidate_m rather than merely a spoiler or secondary contender?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.64,
+        "rationale": "Coalition durability is a key causal gate to the final election result.",
+        "realization_criteria": [
+          "pre-election indicators and final results show candidate_m wins a clear majority or dominant plurality among city_democratic_electorate proxies sufficient to preserve overall competitiveness"
+        ],
+        "status": "active",
+        "status_basis": "Party registration advantage exists, but general-election transition introduces consolidation risk."
+      },
+      {
+        "authority_refs": [
+          "former_governor_i",
+          "moderate_swing_voters",
+          "public_safety_concerned_voters",
+          "donor_and_endorser_networks",
+          "city_media"
+        ],
+        "blockers": [
+          "republican_nominee_r retains anti-M voters",
+          "former_governor_i fails to convert recognition into trust or turnout",
+          "party identity overwhelms challenger viability"
+        ],
+        "contradiction_notes": "Becoming principal challenger does not by itself imply winning the election.",
+        "description": "Outcome-relevant endpoint where former_governor_i clearly occupies the main anti-M lane and meaningfully contests victory.",
+        "endpoint_key": "former_governor_becomes_main_alternative",
+        "evidence_refs": [
+          "source_1_election_context_2025_10_01",
+          "source_2_campaign_note_2025_10_01"
+        ],
+        "label": "Former governor becomes principal challenger",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will affordability-aligned and rent-burdened cohorts turn out at rates sufficient to offset attacks on ideology and experience?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.58,
+        "rationale": "This endpoint captures whether recognition translates into actual competitive structure.",
+        "realization_criteria": [
+          "credible public evidence before election day shows former_governor_i consistently outpaces republican_nominee_r and attracts broad cross-pressured support as the main alternative to candidate_m"
+        ],
+        "status": "active",
+        "status_basis": "Recognition is already nontrivial, but coalition breadth is not yet established."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "source_2_campaign_note_2025_10_01",
+        "layer": "exposure",
+        "reason": "broad coverage reaches core party voters",
+        "source_actor_name": "city_media",
+        "target_actor_name": "city_democratic_electorate",
+        "weight": 0.64
+      },
+      {
+        "direction": "outbound",
+        "evidence": "source_2_campaign_note_2025_10_01",
+        "layer": "exposure",
+        "reason": "issue framing strongly reaches persuadable voters",
+        "source_actor_name": "city_media",
+        "target_actor_name": "moderate_swing_voters",
+        "weight": 0.66
+      },
+      {
+        "direction": "outbound",
+        "evidence": "source_2_campaign_note_2025_10_01",
+        "layer": "exposure",
+        "reason": "public-safety and ideology coverage is salient",
+        "source_actor_name": "city_media",
+        "target_actor_name": "public_safety_concerned_voters",
+        "weight": 0.62
+      },
+      {
+        "direction": "outbound",
+        "evidence": "scenario_and_source_2",
+        "layer": "exposure",
+        "reason": "affordability-centered platform aligns with audience attention",
+        "source_actor_name": "candidate_m",
+        "target_actor_name": "rent_burdened_voters",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "source_1_election_context_2025_10_01",
+        "layer": "exposure",
+        "reason": "name recognition creates visibility among swing voters",
+        "source_actor_name": "former_governor_i",
+        "target_actor_name": "moderate_swing_voters",
+        "weight": 0.55
+      },
+      {
+        "direction": "outbound",
+        "evidence": "source_2_campaign_note_2025_10_01",
+        "layer": "exposure",
+        "reason": "issue-based exposure despite limited partisan fit citywide",
+        "source_actor_name": "republican_nominee_r",
+        "target_actor_name": "public_safety_concerned_voters",
+        "weight": 0.46
+      },
+      {
+        "direction": "inbound_to_target",
+        "evidence": "scenario_text",
+        "layer": "trust",
+        "reason": "shared party identity and primary victory create baseline trust",
+        "source_actor_name": "city_democratic_electorate",
+        "target_actor_name": "candidate_m",
+        "weight": 0.61
+      },
+      {
+        "direction": "inbound_to_target",
+        "evidence": "source_1_election_context_2025_10_01",
+        "layer": "trust",
+        "reason": "experience and name recognition support competence perceptions",
+        "source_actor_name": "moderate_swing_voters",
+        "target_actor_name": "former_governor_i",
+        "weight": 0.57
+      },
+      {
+        "direction": "inbound_to_target",
+        "evidence": "scenario_text",
+        "layer": "trust",
+        "reason": "issue congruence on affordability",
+        "source_actor_name": "rent_burdened_voters",
+        "target_actor_name": "candidate_m",
+        "weight": 0.6
+      },
+      {
+        "direction": "inbound_to_target",
+        "evidence": "scenario_and_source_2",
+        "layer": "trust",
+        "reason": "public-safety framing raises doubts",
+        "source_actor_name": "public_safety_concerned_voters",
+        "target_actor_name": "candidate_m",
+        "weight": 0.34
+      },
+      {
+        "direction": "inbound_to_target",
+        "evidence": "source_1_and_source_2",
+        "layer": "trust",
+        "reason": "experience and moderation may imply steadier governance",
+        "source_actor_name": "public_safety_concerned_voters",
+        "target_actor_name": "former_governor_i",
+        "weight": 0.49
+      },
+      {
+        "direction": "outbound",
+        "evidence": "scenario_inference_from_party_advantage",
+        "layer": "dependency",
+        "reason": "general-election turnout machinery and coalition maintenance depend on party infrastructure",
+        "source_actor_name": "candidate_m",
+        "target_actor_name": "party_organizations",
+        "weight": 0.62
+      },
+      {
+        "direction": "outbound",
+        "evidence": "scenario_structure",
+        "layer": "dependency",
+        "reason": "non-major-party path depends on viability signals and resources",
+        "source_actor_name": "former_governor_i",
+        "target_actor_name": "donor_and_endorser_networks",
+        "weight": 0.51
+      },
+      {
+        "direction": "outbound",
+        "evidence": "source_2_campaign_note_2025_10_01",
+        "layer": "dependency",
+        "reason": "issue-focused support is core to expanding beyond party floor",
+        "source_actor_name": "republican_nominee_r",
+        "target_actor_name": "public_safety_concerned_voters",
+        "weight": 0.44
+      },
+      {
+        "direction": "outbound",
+        "evidence": "source_2_campaign_note_2025_10_01",
+        "layer": "dependency",
+        "reason": "service-performance information often mediated through coverage",
+        "source_actor_name": "transit_reliant_voters",
+        "target_actor_name": "city_media",
+        "weight": 0.25
+      },
+      {
+        "direction": "outbound",
+        "evidence": "source_2_campaign_note_2025_10_01",
+        "layer": "influence",
+        "reason": "framing affects candidate image on ideology and experience",
+        "source_actor_name": "city_media",
+        "target_actor_name": "candidate_m",
+        "weight": 0.59
+      },
+      {
+        "direction": "outbound",
+        "evidence": "source_1_and_source_2",
+        "layer": "influence",
+        "reason": "coverage can amplify viability and recognition",
+        "source_actor_name": "city_media",
+        "target_actor_name": "former_governor_i",
+        "weight": 0.57
+      },
+      {
+        "direction": "outbound",
+        "evidence": "scenario_structure",
+        "layer": "influence",
+        "reason": "party cues and mobilization affect turnout and consolidation",
+        "source_actor_name": "party_organizations",
+        "target_actor_name": "city_democratic_electorate",
+        "weight": 0.54
+      },
+      {
+        "direction": "outbound",
+        "evidence": "source_1_election_context_2025_10_01",
+        "layer": "influence",
+        "reason": "known profile can set viability perceptions",
+        "source_actor_name": "former_governor_i",
+        "target_actor_name": "moderate_swing_voters",
+        "weight": 0.56
+      },
+      {
+        "direction": "outbound",
+        "evidence": "scenario_and_source_2",
+        "layer": "influence",
+        "reason": "platform directly speaks to acute material concerns",
+        "source_actor_name": "candidate_m",
+        "target_actor_name": "rent_burdened_voters",
+        "weight": 0.61
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "scenario_text",
+        "layer": "coalition",
+        "reason": "party nominee relationship with dominant city electorate",
+        "source_actor_name": "candidate_m",
+        "target_actor_name": "city_democratic_electorate",
+        "weight": 0.63
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "scenario_text",
+        "layer": "coalition",
+        "reason": "shared affordability agenda",
+        "source_actor_name": "candidate_m",
+        "target_actor_name": "rent_burdened_voters",
+        "weight": 0.6
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_1_and_source_2",
+        "layer": "coalition",
+        "reason": "potential alignment around experience and ideology moderation",
+        "source_actor_name": "former_governor_i",
+        "target_actor_name": "moderate_swing_voters",
+        "weight": 0.48
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_2_campaign_note_2025_10_01",
+        "layer": "coalition",
+        "reason": "partial alignment on law-and-order framing",
+        "source_actor_name": "republican_nominee_r",
+        "target_actor_name": "public_safety_concerned_voters",
+        "weight": 0.39
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "scenario_text",
+        "layer": "coalition",
+        "reason": "primary win creates formal though not frictionless alliance",
+        "source_actor_name": "candidate_m",
+        "target_actor_name": "party_organizations",
+        "weight": 0.58
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "scenario_text",
+        "layer": "conflict",
+        "reason": "direct competition for broad anti-Republican and moderate voters",
+        "source_actor_name": "candidate_m",
+        "target_actor_name": "former_governor_i",
+        "weight": 0.61
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "scenario_text",
+        "layer": "conflict",
+        "reason": "general-election partisan and ideological competition",
+        "source_actor_name": "candidate_m",
+        "target_actor_name": "republican_nominee_r",
+        "weight": 0.56
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "scenario_structure",
+        "layer": "conflict",
+        "reason": "compete for some safety-first and anti-M voters",
+        "source_actor_name": "former_governor_i",
+        "target_actor_name": "republican_nominee_r",
+        "weight": 0.42
+      },
+      {
+        "direction": "inbound_to_target",
+        "evidence": "source_2_campaign_note_2025_10_01",
+        "layer": "conflict",
+        "reason": "skepticism on policing and order themes",
+        "source_actor_name": "public_safety_concerned_voters",
+        "target_actor_name": "candidate_m",
+        "weight": 0.47
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_2_campaign_note_2025_10_01",
+        "layer": "oasis_interaction",
+        "reason": "high-frequency public interaction through campaign coverage",
+        "source_actor_name": "candidate_m",
+        "target_actor_name": "city_media",
+        "weight": 0.65
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_1_and_source_2",
+        "layer": "oasis_interaction",
+        "reason": "challenger viability depends on visible media engagement",
+        "source_actor_name": "former_governor_i",
+        "target_actor_name": "city_media",
+        "weight": 0.63
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_2_campaign_note_2025_10_01",
+        "layer": "oasis_interaction",
+        "reason": "visible but less central than top two candidates",
+        "source_actor_name": "republican_nominee_r",
+        "target_actor_name": "city_media",
+        "weight": 0.49
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "scenario_structure",
+        "layer": "oasis_interaction",
+        "reason": "campaign rallies, messaging, and endorsements sustain visible contact",
+        "source_actor_name": "candidate_m",
+        "target_actor_name": "city_democratic_electorate",
+        "weight": 0.52
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "source_1_election_context_2025_10_01",
+        "layer": "oasis_interaction",
+        "reason": "visible appeals to persuadable voters",
+        "source_actor_name": "former_governor_i",
+        "target_actor_name": "moderate_swing_voters",
+        "weight": 0.5
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "description": "central candidate with partisan advantage but scrutiny on ideology and experience",
+        "hero_archetype": "major_party_nominee"
+      },
+      {
+        "description": "well-known outsider to the major-party line seeking broad anti-nominee coalition",
+        "hero_archetype": "high_name_recognition_challenger"
+      },
+      {
+        "description": "media and institutions that shape which issues dominate public attention",
+        "hero_archetype": "issue_agenda_gatekeeper"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "candidate_m",
+        "attention_level": 0.93,
+        "authority_scope": "campaign and coalition messaging, not election outcome control",
+        "current_position": "front-runner by partisan baseline but vulnerable to framing attacks and turnout slippage",
+        "expression_level": 0.86,
+        "fatigue": 0.44,
+        "fear_of_isolation": 0.12,
+        "hero_archetype": "major_party_nominee",
+        "mobilization_readiness": 0.81,
+        "perceived_majority": 0.67,
+        "stance_axes": {
+          "affordability_change": 0.87,
+          "anti_establishment": 0.58,
+          "experience_priority": 0.4,
+          "ideological_left_right": 0.24,
+          "public_safety_punitiveness": 0.33
+        }
+      },
+      {
+        "actor_name": "former_governor_i",
+        "attention_level": 0.88,
+        "authority_scope": "campaign agenda and coalition outreach, not ballot structure control",
+        "current_position": "credible challenger with brand recognition and experience appeal but weaker partisan fit",
+        "expression_level": 0.8,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.18,
+        "hero_archetype": "high_name_recognition_challenger",
+        "mobilization_readiness": 0.69,
+        "perceived_majority": 0.46,
+        "stance_axes": {
+          "affordability_change": 0.46,
+          "anti_establishment": 0.22,
+          "experience_priority": 0.86,
+          "ideological_left_right": 0.52,
+          "public_safety_punitiveness": 0.61
+        }
+      },
+      {
+        "actor_name": "city_media",
+        "attention_level": 0.95,
+        "authority_scope": "agenda-setting and visibility allocation",
+        "current_position": "sustained framing power over ideology, safety, affordability, and competence narratives",
+        "expression_level": 0.91,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.08,
+        "hero_archetype": "issue_agenda_gatekeeper",
+        "mobilization_readiness": 0.64,
+        "perceived_majority": 0.5,
+        "stance_axes": {
+          "affordability_change": 0.5,
+          "anti_establishment": 0.3,
+          "experience_priority": 0.6,
+          "ideological_left_right": 0.5,
+          "public_safety_punitiveness": 0.5
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "description": "central candidate with partisan advantage but scrutiny on ideology and experience",
+        "hero_archetype": "major_party_nominee"
+      },
+      {
+        "description": "well-known outsider to the major-party line seeking broad anti-nominee coalition",
+        "hero_archetype": "high_name_recognition_challenger"
+      },
+      {
+        "description": "media and institutions that shape which issues dominate public attention",
+        "hero_archetype": "issue_agenda_gatekeeper"
+      }
+    ],
+    "important_questions": [
+      "Will candidate_m win the 2025 general election for mayor?",
+      "Will candidate_m retain enough of the city_democratic_electorate to preserve the partisan baseline advantage by election day?",
+      "Will former_governor_i become the clear principal alternative to candidate_m rather than merely a spoiler or secondary contender?",
+      "Will affordability-aligned and rent-burdened cohorts turn out at rates sufficient to offset attacks on ideology and experience?"
+    ],
+    "initial_events": [
+      {
+        "event_key": "major_party_primary_win_confirmed",
+        "event_type": "announcement",
+        "evidence": "scenario_text",
+        "expected_impact": "raises baseline viability, activates party-consolidation dynamics, and shifts contest to broad electability questions",
+        "status": "realized",
+        "summary": "Candidate M has already won the major-party primary on an affordability-centered platform.",
+        "tick": 0
+      },
+      {
+        "event_key": "general_election_frame_set",
+        "event_type": "announcement",
+        "evidence": "source_2_campaign_note_2025_10_01",
+        "expected_impact": "increases salience of cross-pressured issue blocs and may widen scrutiny beyond partisan baseline",
+        "status": "realized",
+        "summary": "Media framing centers on affordability, rent, policing, transit, ideology, and experience.",
+        "tick": 0
+      },
+      {
+        "event_key": "name_recognition_challenge_persists",
+        "event_type": "announcement",
+        "evidence": "source_1_election_context_2025_10_01",
+        "expected_impact": "prevents immediate race closure and keeps moderates and experience-focused voters contestable",
+        "status": "realized",
+        "summary": "Former governor enters or remains in race outside major-party line with nontrivial recognition.",
+        "tick": 0
+      },
+      {
+        "event_key": "late_campaign_turnout_push",
+        "event_type": "announcement",
+        "evidence": "expected_focus_turnout",
+        "expected_impact": "may disproportionately benefit the side with stronger coalition discipline and lower voter apathy",
+        "status": "scheduled",
+        "summary": "Campaigns and party organizations intensify turnout operations as election nears.",
+        "tick": 1
+      },
+      {
+        "event_key": "final_competence_and_safety_narrative_test",
+        "event_type": "announcement",
+        "evidence": "scenario_text_and_source_2",
+        "expected_impact": "could tighten or stabilize support among moderate and safety-first voters without deterministically deciding outcome",
+        "status": "scheduled",
+        "summary": "Late-stage messaging and coverage stress-test Candidate M on experience and public safety.",
+        "tick": 1
+      }
+    ],
+    "llm_call_id": "6ff27bce-c1ed-4404-874b-e554792808ee",
+    "merge_hypotheses": [
+      {
+        "convergence_signal": "late endorsements and strategic-voting discourse push hesitant voters back toward candidate_m",
+        "mechanism": "many Democratic-leaning voters return to party home as election choice becomes binary in perceived stakes",
+        "merge_key": "shared_cost_of_defection"
+      },
+      {
+        "convergence_signal": "candidate who appears minimally acceptable on all top issues gains across multiple cohorts",
+        "mechanism": "voters evaluate affordability, transit, and safety together rather than as isolated frames",
+        "merge_key": "issue_blending"
+      },
+      {
+        "convergence_signal": "former_governor_i support plateaus despite high recognition",
+        "mechanism": "independent-style anti-nominee coalition struggles to maintain coherence across moderates and conservatives",
+        "merge_key": "coalition_fatigue_limits_challenger_growth"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype": "citywide_eligible_voters",
+        "description": "eligible voters in the city mayoral general election",
+        "population_total": 4600000
+      },
+      {
+        "archetype": "likely_general_election_voters",
+        "description": "subset likely to participate absent major shocks",
+        "population_total": 2400000
+      }
+    ],
+    "risk_flags": [
+      {
+        "note": "Source appears to allude to a real election context; actors have been fictionalized per policy.",
+        "risk_key": "real_person_election_context",
+        "severity": "medium"
+      },
+      {
+        "note": "Sparse packet gives high-level dynamics but not polling, endorsements, scandals, or institutional mechanics.",
+        "risk_key": "limited_corpus_detail",
+        "severity": "medium"
+      },
+      {
+        "note": "Terminal election outcome is clear, but many decisive process variables remain unobserved at T0.",
+        "risk_key": "outcome_binary_but_process_uncertain",
+        "severity": "low"
+      },
+      {
+        "note": "Turnout uncertainty is central yet lacks quantitative baseline in corpus.",
+        "risk_key": "turnout_data_missing",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "decision_authority": "citywide electorate determines outcome via general election",
+      "domain": "urban_election_forecasting",
+      "evidence_refs": [
+        "source_1_election_context_2025_10_01",
+        "source_2_campaign_note_2025_10_01",
+        "source_3_endpoint_note_2025_10_01"
+      ],
+      "location": "fictionalized_major_us_city",
+      "mode": "direct",
+      "primary_tension": "structural partisan advantage for Candidate M versus cross-pressures from name recognition, ideological attacks, public-safety concerns, and turnout variability",
+      "scenario_key": "resolved_011",
+      "summary": "A fictionalized citywide mayoral general election follows a major-party primary win by Candidate M, who ran on affordability. Candidate M faces a former governor running outside the major-party line and a Republican nominee. The electorate structurally leans toward Candidate M's party, but uncertainty remains around ideology framing, experience concerns, public-safety messaging, and turnout.",
+      "terminal_condition": "who wins the general election for mayor",
+      "timeframe": "t0_pre_general_election_2025",
+      "uncertainties": [
+        "exact vote shares unknown",
+        "coalition durability after primary uncertain",
+        "independent candidate appeal uncertain",
+        "turnout composition uncertain",
+        "media framing effects uncertain"
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "level": 0.62,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "persuasion more likely within familiar partisan or competence bounds than across strong ideological distance",
+        "scope": "moderate_swing_voters and city_democratic_electorate"
+      },
+      {
+        "level": 0.58,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "mobilization rises if affordability stakes and viability cues align",
+        "scope": "rent_burdened_voters and city_democratic_electorate"
+      },
+      {
+        "level": 0.46,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "some voters privately diverge from party default while withholding public expression",
+        "scope": "moderate_crosspressured"
+      },
+      {
+        "level": 0.55,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "partisan and issue communities reinforce existing preferences",
+        "scope": "citywide political discussion networks"
+      },
+      {
+        "level": 0.51,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "multiple reinforcing cues may be needed to shift from latent preference to turnout action",
+        "scope": "endorsement and viability perceptions"
+      },
+      {
+        "level": 0.71,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "party identity is a major baseline anchor in the general election",
+        "scope": "city_democratic_electorate"
+      },
+      {
+        "level": 0.43,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "non-salient issues may fade unless repeatedly amplified by media or events",
+        "scope": "general electorate"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "city electorate heavily tilted toward Candidate M's party",
+        "evidence": "source_1_election_context_2025_10_01",
+        "influence_key": "partisan_registration_advantage"
+      },
+      {
+        "description": "former governor has meaningful recognition that sustains uncertainty",
+        "evidence": "source_1_election_context_2025_10_01",
+        "influence_key": "name_recognition_advantage"
+      },
+      {
+        "description": "affordability and rent are central campaign frames",
+        "evidence": "source_2_campaign_note_2025_10_01",
+        "influence_key": "issue_frame_affordability"
+      },
+      {
+        "description": "policing and safety narratives are major evaluation channels",
+        "evidence": "source_2_campaign_note_2025_10_01",
+        "influence_key": "issue_frame_public_safety"
+      },
+      {
+        "description": "experience questions and ideological attacks can reshape viability perceptions",
+        "evidence": "scenario_text_and_source_2",
+        "influence_key": "issue_frame_experience_ideology"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "candidate_m",
+        "behavior_axes": {
+          "attack_orientation": 0.42,
+          "coalition_building": 0.7,
+          "grassroots_reliance": 0.76,
+          "message_discipline": 0.67,
+          "risk_tolerance": 0.54
+        },
+        "ideology_axes": {
+          "economic_left_right": 0.24,
+          "governance_change_statusquo": 0.35,
+          "policing_reform_order": 0.31
+        },
+        "reputation": 0.61,
+        "secrecy": 0.32,
+        "tendency": "mobilize affordability-focused base while defending against competence and ideology critiques",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "former_governor_i",
+        "behavior_axes": {
+          "attack_orientation": 0.55,
+          "coalition_building": 0.64,
+          "grassroots_reliance": 0.34,
+          "message_discipline": 0.63,
+          "risk_tolerance": 0.49
+        },
+        "ideology_axes": {
+          "economic_left_right": 0.52,
+          "governance_change_statusquo": 0.67,
+          "policing_reform_order": 0.62
+        },
+        "reputation": 0.74,
+        "secrecy": 0.38,
+        "tendency": "court moderates and experience-seeking voters via viability and stability appeals",
+        "trustworthiness": 0.53
+      },
+      {
+        "actor_name": "republican_nominee_r",
+        "behavior_axes": {
+          "attack_orientation": 0.68,
+          "coalition_building": 0.39,
+          "grassroots_reliance": 0.45,
+          "message_discipline": 0.58,
+          "risk_tolerance": 0.47
+        },
+        "ideology_axes": {
+          "economic_left_right": 0.76,
+          "governance_change_statusquo": 0.71,
+          "policing_reform_order": 0.83
+        },
+        "reputation": 0.46,
+        "secrecy": 0.29,
+        "tendency": "emphasize law-and-order and ideological contrast even if citywide ceiling is limited",
+        "trustworthiness": 0.44
+      },
+      {
+        "actor_name": "city_media",
+        "behavior_axes": {
+          "attack_orientation": 0.37,
+          "coalition_building": 0.2,
+          "grassroots_reliance": 0.05,
+          "message_discipline": 0.49,
+          "risk_tolerance": 0.41
+        },
+        "ideology_axes": {
+          "economic_left_right": 0.5,
+          "governance_change_statusquo": 0.5,
+          "policing_reform_order": 0.5
+        },
+        "reputation": 0.69,
+        "secrecy": 0.12,
+        "tendency": "elevate conflictual frames and candidate contrasts around dominant urban issues",
+        "trustworthiness": 0.51
+      },
+      {
+        "actor_name": "party_organizations",
+        "behavior_axes": {
+          "attack_orientation": 0.33,
+          "coalition_building": 0.77,
+          "grassroots_reliance": 0.68,
+          "message_discipline": 0.74,
+          "risk_tolerance": 0.36
+        },
+        "ideology_axes": {
+          "economic_left_right": 0.34,
+          "governance_change_statusquo": 0.43,
+          "policing_reform_order": 0.4
+        },
+        "reputation": 0.62,
+        "secrecy": 0.41,
+        "tendency": "translate partisan registration advantage into turnout and endorsements",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "city_democratic_electorate",
+        "behavior_axes": {
+          "attack_orientation": 0.21,
+          "coalition_building": 0.56,
+          "grassroots_reliance": 0.61,
+          "message_discipline": 0.34,
+          "risk_tolerance": 0.29
+        },
+        "ideology_axes": {
+          "economic_left_right": 0.31,
+          "governance_change_statusquo": 0.39,
+          "policing_reform_order": 0.37
+        },
+        "reputation": 0.55,
+        "secrecy": 0.19,
+        "tendency": "default toward party nominee unless doubts about electability or competence intensify",
+        "trustworthiness": 0.6
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 1856,
+        "end": 1856,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 1856,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}
