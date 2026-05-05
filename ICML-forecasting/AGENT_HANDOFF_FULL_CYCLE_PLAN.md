@@ -542,7 +542,9 @@ Run all 24 resolved cards under two WorldFork conditions.
 {"max_branch_depth":1,"max_active_multiverses":1,"max_branches_per_tick":1,"branch_score_threshold":0.999}
 ```
 
-`max_ticks=8`, `tick_duration_minutes=720`.
+`max_ticks=8` is the original pilot cap; use `tick_duration_minutes=720`.
+For default-route paper rows, DeepSeek-routed cohort/hero runs may use a higher
+cap such as 16 or 35 when ledgers remain unresolved.
 
 **Condition B: `worldfork_branching_short`**
 
@@ -550,9 +552,16 @@ Run all 24 resolved cards under two WorldFork conditions.
 {"max_branch_depth":2,"max_active_multiverses":4,"max_branches_per_tick":1,"branch_score_threshold":0.75}
 ```
 
-`max_ticks=8`, `tick_duration_minutes=720`.
+`max_ticks=8` is the original pilot cap; use `tick_duration_minutes=720`.
+For branching rows, prefer a small representative slice before scaling because
+branching can multiply active timelines and runtime cost.
 
 If cost or provider limits prevent running all 24 WorldFork short cases, use this exact fallback subset and record the downgrade: `resolved_001`, `resolved_003`, `resolved_005`, `resolved_007`, `resolved_009`, `resolved_011`, `resolved_013`, `resolved_015`, `resolved_017`, `resolved_019`, `resolved_021`, `resolved_023`. Baselines must still run all 24.
+
+Tick counts are caps, not targets. Do not spend extra ticks merely to reach 16,
+32, or 35 when an endpoint ledger has naturally resolved. Conversely, if a
+16-tick run still has unresolved path mass, resume the existing Big Bang to a
+higher cap instead of reinitializing the case.
 
 ### 8.2 WorldFork run command template
 
@@ -598,6 +607,35 @@ worldfork --verbosity normal logs list --run-id <big_bang_id> --source llm | tee
 worldfork --verbosity summary runs workspace <big_bang_id> | tee "$out_dir/workspace.json"
 worldfork jobs list --run-id <big_bang_id> | tee "$out_dir/jobs.json"
 worldfork logs list --status failed | tee "$out_dir/failed_logs_snapshot.json"
+```
+
+For reusable batch execution, prefer the repo script over hand-written loops:
+
+```bash
+python3 ICML-forecasting/scripts/icml_pipeline.py run-worldfork-short-batch \
+  --run-root "$run_root" \
+  --base-url http://127.0.0.1:18045 \
+  --conditions worldfork_no_branch_short \
+  --prediction-output raw/E3_worldfork_default_route_16tick/worldfork_predictions.jsonl \
+  --route-policy-id icml_default_deepseek_v4_flash_cohort_hero \
+  --max-ticks 16 \
+  --wait-timeout 21600
+```
+
+To extend an existing source ledger without reinitializing:
+
+```bash
+python3 ICML-forecasting/scripts/icml_pipeline.py resume-worldfork-short-batch \
+  --run-root "$run_root" \
+  --base-url http://127.0.0.1:18045 \
+  --source-prediction-output raw/E3_worldfork_default_route_16tick/worldfork_predictions.jsonl \
+  --source-route-policy-id icml_default_deepseek_v4_flash_cohort_hero \
+  --prediction-output raw/E3_worldfork_default_route_35tick_resume/worldfork_predictions.jsonl \
+  --route-policy-id icml_default_deepseek_v4_flash_cohort_hero_resume35 \
+  --output-prefix raw/E3_worldfork_default_route_35tick_resume \
+  --conditions worldfork_no_branch_short \
+  --max-ticks 35 \
+  --wait-timeout 21600
 ```
 
 ### 8.3 Extracting WorldFork forecast probabilities

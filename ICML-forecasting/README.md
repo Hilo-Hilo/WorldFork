@@ -120,6 +120,35 @@ WORLDFORK_ICML_MAX_PARALLEL_COHORT_DECISIONS=8
 Before changing any of these settings on a live ICML stack, confirm queues are
 idle with `worldfork jobs queues` or `GET /api/jobs/queues`.
 
+## E3 resume policy
+
+Treat E3 tick counts as caps, not mandatory stopping points. If endpoint ledgers
+are already resolved, carry the frozen prediction forward and do not spend more
+ticks just to hit 16, 32, or 35. If the ledger still has unresolved path mass,
+resume the existing Big Bang instead of reinitializing it.
+
+For a 16-tick source ledger that should be extended to a 35-tick cap:
+
+```bash
+python3 ICML-forecasting/scripts/icml_pipeline.py resume-worldfork-short-batch \
+  --run-root paper_runs/worldfork_icml_20260505-010947 \
+  --base-url http://127.0.0.1:18045 \
+  --source-prediction-output raw/E3_worldfork_default_route_16tick/worldfork_predictions.jsonl \
+  --source-route-policy-id icml_default_deepseek_v4_flash_cohort_hero \
+  --prediction-output raw/E3_worldfork_default_route_35tick_resume/worldfork_predictions.jsonl \
+  --route-policy-id icml_default_deepseek_v4_flash_cohort_hero_resume35 \
+  --output-prefix raw/E3_worldfork_default_route_35tick_resume \
+  --conditions worldfork_no_branch_short \
+  --max-ticks 35 \
+  --wait-timeout 21600 \
+  --poll-seconds 15
+```
+
+The resume command uses `/api/multiverses/{id}/continue` to raise only the target
+multiverse horizon, submits `run-until-complete` jobs for the additional ticks
+plus one terminal probe, and skips source rows whose `unresolved_mass` is already
+`0.0` by default.
+
 ## Agent handoff files added
 
 This bundle now includes a full-cycle execution plan for running the WorldFork ICML forecasting-paper benchmark and writing the paper:

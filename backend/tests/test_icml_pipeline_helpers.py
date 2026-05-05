@@ -185,3 +185,131 @@ def test_job_finished_treats_interrupt_requested_as_terminal() -> None:
     assert pipeline._job_finished({"status": "succeeded"})
     assert pipeline._job_finished({"status": "interrupt_requested"})
     assert not pipeline._job_finished({"status": "running"})
+
+
+def test_latest_completed_worldfork_short_runs_selects_latest_matching_route(tmp_path: Path) -> None:
+    pipeline = load_icml_pipeline()
+    manifest = tmp_path / "worldfork_short_manifest.jsonl"
+    pipeline.append_jsonl(
+        manifest,
+        {
+            "case_id": "resolved_001",
+            "condition": "worldfork_no_branch_short",
+            "route_policy_id": "old_route",
+            "prediction_output": "raw/old.jsonl",
+            "status": "completed",
+            "big_bang_id": "old-bb",
+            "run_dir": "raw/old",
+        },
+    )
+    pipeline.append_jsonl(
+        manifest,
+        {
+            "case_id": "resolved_001",
+            "condition": "worldfork_no_branch_short",
+            "route_policy_id": "source_route",
+            "prediction_output": "raw/source.jsonl",
+            "status": "failed",
+            "big_bang_id": "failed-bb",
+            "run_dir": "raw/failed",
+        },
+    )
+    pipeline.append_jsonl(
+        manifest,
+        {
+            "case_id": "resolved_001",
+            "condition": "worldfork_no_branch_short",
+            "route_policy_id": "source_route",
+            "prediction_output": "raw/source.jsonl",
+            "status": "completed",
+            "big_bang_id": "source-bb",
+            "run_dir": "raw/source",
+        },
+    )
+
+    runs = pipeline._latest_completed_worldfork_short_runs(
+        manifest,
+        source_route_policy_id="source_route",
+        source_prediction_output="raw/source.jsonl",
+    )
+
+    assert runs[("resolved_001", "worldfork_no_branch_short")]["big_bang_id"] == "source-bb"
+
+
+def test_worldfork_resume_targets_carry_forward_resolved_and_queue_unresolved(tmp_path: Path) -> None:
+    pipeline = load_icml_pipeline()
+    manifest = tmp_path / "manifest.jsonl"
+    source_predictions = tmp_path / "source.jsonl"
+    output_predictions = tmp_path / "resume.jsonl"
+    source_route = "source_route"
+    target_route = "resume_route"
+
+    for case_id in ("resolved_001", "resolved_002"):
+        pipeline.append_jsonl(
+            manifest,
+            {
+                "case_id": case_id,
+                "condition": "worldfork_no_branch_short",
+                "route_policy_id": source_route,
+                "prediction_output": str(source_predictions),
+                "status": "completed",
+                "big_bang_id": f"{case_id}-bb",
+                "run_dir": f"raw/{case_id}",
+            },
+        )
+    pipeline.append_jsonl(
+        source_predictions,
+        {
+            "case_id": "resolved_001",
+            "condition": "worldfork_no_branch_short",
+            "route_policy_id": source_route,
+            "p_yes": 0.2,
+            "p_no": 0.8,
+            "unresolved_mass": 0.0,
+        },
+    )
+    pipeline.append_jsonl(
+        source_predictions,
+        {
+            "case_id": "resolved_002",
+            "condition": "worldfork_no_branch_short",
+            "route_policy_id": source_route,
+            "p_yes": 0.5,
+            "p_no": 0.5,
+            "unresolved_mass": 1.0,
+        },
+    )
+
+    carried, targets = pipeline._worldfork_resume_targets(
+        source_predictions=source_predictions,
+        output_predictions=output_predictions,
+        source_runs=pipeline._latest_completed_worldfork_short_runs(
+            manifest,
+            source_route_policy_id=source_route,
+            source_prediction_output=str(source_predictions),
+        ),
+        source_route_policy_id=source_route,
+        target_route_policy_id=target_route,
+        conditions={"worldfork_no_branch_short"},
+        case_ids=None,
+        skip_resolved_unresolved_mass=0.0,
+        max_ticks=35,
+        force=False,
+    )
+
+    assert len(carried) == 1
+    assert carried[0]["case_id"] == "resolved_001"
+    assert carried[0]["route_policy_id"] == target_route
+    assert carried[0]["resume_status"] == "carried_forward_resolved"
+    assert carried[0]["max_ticks_requested"] == 35
+    assert [target["case_id"] for target in targets] == ["resolved_002"]
+    assert targets[0]["big_bang_id"] == "resolved_002-bb"
+
+
+def test_resume_additional_ticks_uses_absolute_cap() -> None:
+    pipeline = load_icml_pipeline()
+
+    assert pipeline._resume_additional_ticks(latest_tick_index=16, target_max_ticks=35) == 19
+    assert pipeline._resume_additional_ticks(latest_tick_index=35, target_max_ticks=35) == 0
+    assert pipeline._resume_run_budget(latest_tick_index=16, target_max_ticks=35) == 20
+    assert pipeline._resume_run_budget(latest_tick_index=35, target_max_ticks=35) == 1

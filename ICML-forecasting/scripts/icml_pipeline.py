@@ -362,6 +362,323 @@ def _annotate_prediction(prediction: dict[str, Any], args: argparse.Namespace) -
     return prediction
 
 
+def _latest_completed_worldfork_short_runs(
+    manifest_path: Path,
+    *,
+    source_route_policy_id: str | None,
+    source_prediction_output: str | None,
+) -> dict[tuple[str, str], dict[str, Any]]:
+    runs: dict[tuple[str, str], dict[str, Any]] = {}
+    if not manifest_path.exists():
+        return runs
+    for row in read_jsonl(manifest_path):
+        if row.get("status") != "completed":
+            continue
+        if source_route_policy_id is not None and str(row.get("route_policy_id") or "") != source_route_policy_id:
+            continue
+        if source_prediction_output is not None and str(row.get("prediction_output") or "") != source_prediction_output:
+            continue
+        key = (str(row.get("case_id") or ""), str(row.get("condition") or ""))
+        if not all(key):
+            continue
+        runs[key] = row
+    return runs
+
+
+def _prediction_rows_by_key(
+    path: Path,
+    *,
+    route_policy_id: str | None,
+) -> dict[tuple[str, str, str], dict[str, Any]]:
+    rows: dict[tuple[str, str, str], dict[str, Any]] = {}
+    if not path.exists():
+        return rows
+    for row in read_jsonl(path):
+        key = _prediction_key(row)
+        if route_policy_id is not None and key[2] != route_policy_id:
+            continue
+        rows[key] = row
+    return rows
+
+
+def _worldfork_resume_targets(
+    *,
+    source_predictions: Path,
+    output_predictions: Path,
+    source_runs: dict[tuple[str, str], dict[str, Any]],
+    source_route_policy_id: str,
+    target_route_policy_id: str,
+    conditions: set[str] | None,
+    case_ids: set[str] | None,
+    skip_resolved_unresolved_mass: float | None,
+    max_ticks: int,
+    force: bool,
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    existing = _prediction_rows_by_key(output_predictions, route_policy_id=target_route_policy_id)
+    carried: list[dict[str, Any]] = []
+    targets: list[dict[str, Any]] = []
+    seen_targets: set[tuple[str, str, str]] = set()
+    for source_row in read_jsonl(source_predictions):
+        case_id = str(source_row.get("case_id") or "")
+        condition = str(source_row.get("condition") or "")
+        if not case_id or not condition:
+            continue
+        if case_ids and case_id not in case_ids:
+            continue
+        if conditions and condition not in conditions:
+            continue
+        if str(source_row.get("route_policy_id") or "") != source_route_policy_id:
+            continue
+        target_key = (case_id, condition, target_route_policy_id)
+        if target_key in seen_targets:
+            continue
+        seen_targets.add(target_key)
+        if target_key in existing and not force:
+            print(json.dumps({"case_id": case_id, "condition": condition, "status": "skipped_existing_resume"}))
+            continue
+        source_run = source_runs.get((case_id, condition))
+        if source_run is None:
+            raise SystemExit(f"{case_id}/{condition}: no completed source run in manifest for resume")
+        unresolved_mass = float(source_row.get("unresolved_mass") or 0.0)
+        if skip_resolved_unresolved_mass is not None and unresolved_mass <= skip_resolved_unresolved_mass:
+            carried_row = dict(source_row)
+            carried_row["route_policy_id"] = target_route_policy_id
+            carried_row["max_ticks_requested"] = max_ticks
+            carried_row["resume_status"] = "carried_forward_resolved"
+            carried_row["source_route_policy_id"] = source_route_policy_id
+            carried_row["source_max_ticks_requested"] = source_row.get("max_ticks_requested")
+            carried.append(carried_row)
+            continue
+        targets.append(
+            {
+                "case_id": case_id,
+                "condition": condition,
+                "big_bang_id": str(source_run.get("big_bang_id") or ""),
+                "init_job_id": str(source_run.get("init_job_id") or ""),
+                "source_run_dir": str(source_run.get("run_dir") or ""),
+                "source_run_job_id": str(source_run.get("run_job_id") or ""),
+                "source_max_ticks_requested": source_row.get("max_ticks_requested"),
+            }
+        )
+    return carried, targets
+
+
+def _latest_tick_index(ticks_payload: Any) -> int:
+    if not isinstance(ticks_payload, list) or not ticks_payload:
+        return 0
+    return max(int(row.get("tick_index") or 0) for row in ticks_payload if isinstance(row, dict))
+
+
+def _multiverse_runtime_max_ticks(multiverse: dict[str, Any]) -> int | None:
+    state = multiverse.get("state") if isinstance(multiverse.get("state"), dict) else {}
+    overrides = state.get("runtime_overrides") if isinstance(state.get("runtime_overrides"), dict) else {}
+    for value in [
+        overrides.get("max_ticks"),
+        (overrides.get("simulation_config") or {}).get("max_ticks") if isinstance(overrides.get("simulation_config"), dict) else None,
+    ]:
+        if value is not None:
+            return int(value)
+    return None
+
+
+def _resume_additional_ticks(*, latest_tick_index: int, target_max_ticks: int) -> int:
+    return max(0, target_max_ticks - latest_tick_index)
+
+
+def _resume_run_budget(*, latest_tick_index: int, target_max_ticks: int) -> int:
+    return max(1, _resume_additional_ticks(latest_tick_index=latest_tick_index, target_max_ticks=target_max_ticks) + 1)
+
+
+def _prepare_worldfork_resume(
+    client: ApiClient,
+    out_dir: Path,
+    *,
+    big_bang_id: str,
+    target_max_ticks: int,
+) -> tuple[int, list[dict[str, Any]]]:
+    multiverses = client.request("GET", f"/big-bangs/{big_bang_id}/multiverses")
+    if not isinstance(multiverses, list):
+        raise SystemExit(f"{big_bang_id}: expected multiverse list")
+    latest_indexes: list[int] = []
+    continuation_rows: list[dict[str, Any]] = []
+    for multiverse in multiverses:
+        if not isinstance(multiverse, dict):
+            continue
+        status = str(multiverse.get("status") or "")
+        multiverse_id = str(multiverse.get("id") or "")
+        if not multiverse_id or status in {"completed", "terminated"}:
+            continue
+        ticks = client.request("GET", f"/multiverses/{multiverse_id}/ticks")
+        latest_tick_index = _latest_tick_index(ticks)
+        latest_indexes.append(latest_tick_index)
+        current_max_ticks = _multiverse_runtime_max_ticks(multiverse)
+        if latest_tick_index > target_max_ticks:
+            raise SystemExit(f"{big_bang_id}/{multiverse_id}: latest tick {latest_tick_index} exceeds target max {target_max_ticks}")
+        if current_max_ticks is None or current_max_ticks < target_max_ticks:
+            payload = {
+                "max_ticks": target_max_ticks,
+                "reason": "ICML E3 resume from existing capped run",
+            }
+            continued = client.request("POST", f"/multiverses/{multiverse_id}/continue", payload=payload)
+            continuation_rows.append(
+                {
+                    "multiverse_id": multiverse_id,
+                    "latest_tick_index": latest_tick_index,
+                    "previous_max_ticks": current_max_ticks,
+                    "target_max_ticks": target_max_ticks,
+                    "continue_response": continued,
+                }
+            )
+        else:
+            continuation_rows.append(
+                {
+                    "multiverse_id": multiverse_id,
+                    "latest_tick_index": latest_tick_index,
+                    "previous_max_ticks": current_max_ticks,
+                    "target_max_ticks": target_max_ticks,
+                    "continue_response": None,
+                    "status": "already_at_target_horizon",
+                }
+            )
+    _write_json(out_dir / "resume_prepare.json", {"big_bang_id": big_bang_id, "multiverses": continuation_rows})
+    if not latest_indexes:
+        return 1, continuation_rows
+    return max(_resume_run_budget(latest_tick_index=index, target_max_ticks=target_max_ticks) for index in latest_indexes), continuation_rows
+
+
+def resume_worldfork_short_batch(args: argparse.Namespace) -> None:
+    run_root = make_run_root(args.run_root)
+    client = ApiClient(args.base_url, api_prefix=args.api_prefix, timeout=args.timeout)
+    source_predictions = _prediction_output_path(run_root, args.source_prediction_output)
+    output = _prediction_output_path(run_root, args.prediction_output)
+    source_prediction_display = _display_run_path(source_predictions, run_root)
+    manifest = run_root / "manifests/worldfork_short_manifest.jsonl"
+    conditions = {item.strip() for item in args.conditions.split(",") if item.strip()} if args.conditions else None
+    case_ids = {item.strip() for item in args.case_ids.split(",") if item.strip()} if args.case_ids else None
+    skip_mass = None if args.skip_resolved_unresolved_mass < 0 else float(args.skip_resolved_unresolved_mass)
+    source_runs = _latest_completed_worldfork_short_runs(
+        manifest,
+        source_route_policy_id=args.source_route_policy_id,
+        source_prediction_output=source_prediction_display,
+    )
+    carried, targets = _worldfork_resume_targets(
+        source_predictions=source_predictions,
+        output_predictions=output,
+        source_runs=source_runs,
+        source_route_policy_id=args.source_route_policy_id,
+        target_route_policy_id=args.route_policy_id,
+        conditions=conditions,
+        case_ids=case_ids,
+        skip_resolved_unresolved_mass=skip_mass,
+        max_ticks=args.max_ticks,
+        force=args.force,
+    )
+    for row in carried:
+        append_jsonl(output, row)
+        print(json.dumps({"case_id": row["case_id"], "condition": row["condition"], "status": "carried_forward_resolved"}))
+    if not targets:
+        return
+
+    run_pending: dict[str, dict[str, Any]] = {}
+    for target in targets:
+        case_id = target["case_id"]
+        condition = target["condition"]
+        big_bang_id = target["big_bang_id"]
+        relative_dir = Path(args.output_prefix) / condition / case_id
+        out_dir = run_root / relative_dir
+        _write_json(out_dir / "resume_source.json", target)
+        run_budget, continuation_rows = _prepare_worldfork_resume(
+            client,
+            out_dir,
+            big_bang_id=big_bang_id,
+            target_max_ticks=args.max_ticks,
+        )
+        run_payload = {"max_total_ticks": run_budget}
+        _write_json(out_dir / "run_job_payload.json", run_payload)
+        run_job, run_create_seconds = _timed_api_call(
+            client,
+            "POST",
+            f"/big-bangs/{big_bang_id}/run-until-complete/jobs",
+            payload=run_payload,
+        )
+        _write_json(out_dir / "run_job_create.json", run_job)
+        (out_dir / "run_job_create_time_and_stderr.txt").write_text(f"real {run_create_seconds:.2f}\n", encoding="utf-8")
+        run_job_id = str(run_job.get("id"))
+        (out_dir / "run_job_id.txt").write_text(run_job_id + "\n", encoding="utf-8")
+        label = f"{condition}/{case_id}"
+        run_pending[label] = {
+            **target,
+            "relative_dir": relative_dir,
+            "out_dir": out_dir,
+            "job_id": run_job_id,
+            "submitted_at": time.monotonic(),
+            "run_budget": run_budget,
+            "continuation_rows": continuation_rows,
+        }
+        print(
+            json.dumps(
+                {
+                    "case_id": case_id,
+                    "condition": condition,
+                    "run_job_id": run_job_id,
+                    "status": "resume_run_submitted",
+                    "max_total_ticks": run_budget,
+                }
+            )
+        )
+
+    _write_json(run_root / "setup/worldfork_short_resume_queues_after_run_submit.json", client.request("GET", "/jobs/queues"))
+    run_completed = _wait_many_jobs(
+        client,
+        run_pending,
+        artifact_prefix="run_job",
+        wait_timeout=args.wait_timeout,
+        poll_seconds=args.poll_seconds,
+    )
+
+    for info in run_completed:
+        job = info["job"]
+        case_id = info["case_id"]
+        condition = info["condition"]
+        out_dir = info["out_dir"]
+        result_payload = job.get("result") or {}
+        status = "completed" if job.get("status") == "succeeded" else str(job.get("status"))
+        if job.get("status") == "succeeded":
+            _capture_run_artifacts(client, out_dir, info["big_bang_id"])
+            path_mass = json.loads((out_dir / "path_mass.json").read_text(encoding="utf-8"))
+            prediction = extract_worldfork_forecast(case_id, condition, path_mass)
+            prediction["route_policy_id"] = args.route_policy_id
+            prediction["source_route_policy_id"] = args.source_route_policy_id
+            prediction["source_max_ticks_requested"] = info.get("source_max_ticks_requested")
+            prediction["max_ticks_requested"] = args.max_ticks
+            prediction["tick_duration_minutes"] = int(args.tick_duration_minutes)
+            prediction["resume_status"] = "resumed_existing_big_bang"
+            append_jsonl(output, prediction)
+        manifest_row = worldfork_short_manifest_row(
+            case_id=case_id,
+            condition=condition,
+            big_bang_id=str(info["big_bang_id"]),
+            init_job_id=str(info.get("init_job_id") or ""),
+            run_job_id=str(info["job_id"]),
+            status=status,
+            init_wait_seconds=0.0,
+            run_wait_seconds=float(info["wait_seconds"]),
+            run_dir=info["relative_dir"],
+            ticks_run=int(result_payload.get("ticks_run") or 0),
+            multiverse_count=int(result_payload.get("multiverse_count") or 0),
+            final_report_version_id=result_payload.get("final_report_version_id"),
+            max_ticks_requested=args.max_ticks,
+            tick_duration_minutes=args.tick_duration_minutes,
+            route_policy_id=args.route_policy_id,
+            prediction_output=_display_run_path(output, run_root),
+        )
+        manifest_row["resume_source_run_dir"] = info.get("source_run_dir")
+        manifest_row["resume_source_run_job_id"] = info.get("source_run_job_id")
+        manifest_row["resume_run_budget"] = info.get("run_budget")
+        append_jsonl(manifest, manifest_row)
+        print(json.dumps({"case_id": case_id, "condition": condition, "status": status, "ticks_run": result_payload.get("ticks_run")}))
+
+
 def refresh_worldfork_short_ledgers(args: argparse.Namespace) -> None:
     run_root = make_run_root(args.run_root)
     client = ApiClient(args.base_url, api_prefix=args.api_prefix, timeout=args.timeout)
@@ -1666,6 +1983,34 @@ def main() -> None:
     refresh_short.add_argument("--prediction-output", default="raw/E3_worldfork_short/worldfork_predictions.jsonl")
     refresh_short.add_argument("--route-policy-ids", help="Optional comma-separated route-policy IDs to refresh.")
     refresh_short.set_defaults(func=refresh_worldfork_short_ledgers)
+
+    resume_short = sub.add_parser(
+        "resume-worldfork-short-batch",
+        help="Resume existing E3 short WorldFork BigBangs to a higher tick cap without reinitializing.",
+    )
+    resume_short.add_argument("--run-root", type=Path, required=True)
+    resume_short.add_argument("--base-url", default="http://127.0.0.1:8003")
+    resume_short.add_argument("--api-prefix", default="/api")
+    resume_short.add_argument("--timeout", type=float, default=60.0)
+    resume_short.add_argument("--wait-timeout", type=float, default=3600.0)
+    resume_short.add_argument("--poll-seconds", type=float, default=10.0)
+    resume_short.add_argument("--case-ids", help="Optional comma-separated case IDs to resume.")
+    resume_short.add_argument("--conditions", default="worldfork_no_branch_short")
+    resume_short.add_argument("--source-prediction-output", required=True)
+    resume_short.add_argument("--source-route-policy-id", required=True)
+    resume_short.add_argument("--output-prefix", default="raw/E3_worldfork_short_resume")
+    resume_short.add_argument("--prediction-output", required=True)
+    resume_short.add_argument("--route-policy-id", required=True)
+    resume_short.add_argument("--max-ticks", type=int, required=True)
+    resume_short.add_argument("--tick-duration-minutes", type=int, default=720)
+    resume_short.add_argument(
+        "--skip-resolved-unresolved-mass",
+        type=float,
+        default=0.0,
+        help="Carry forward source predictions with unresolved_mass at or below this threshold; use a negative value to disable.",
+    )
+    resume_short.add_argument("--force", action="store_true")
+    resume_short.set_defaults(func=resume_worldfork_short_batch)
 
     args = parser.parse_args()
     args.func(args)
