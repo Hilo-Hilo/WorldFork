@@ -33,6 +33,12 @@
     },
     "comparability_note": "Rows produced with Codex-only routing are smoke/ablation rows and must be reported separately from default ICML route-policy rows."
   },
+  "stopping_policy": {
+    "tick_counts_are_caps": true,
+    "stopping_criterion": "endpoint-ledger and path-mass resolution",
+    "resume_reuse_required": "Reuse existing Big Bangs, jobs, and artifacts when unresolved or insufficient path mass remains; do not reinitialize unless the source run is unusable.",
+    "default_high_volume_route": "OpenRouter deepseek/deepseek-v4-flash for cohort_agent and hero_agent in default ICML runtime rows."
+  },
   "case_groups": {
     "existing_72_all": [
       "civic_001",
@@ -301,6 +307,8 @@
         "worldfork_branching_short"
       ],
       "max_ticks": 8,
+      "tick_cap_semantics": "cap_not_target",
+      "stop_on_ledger_path_mass_resolution": true,
       "outputs": [
         "forecast_scores.csv",
         "worldfork_manifest.jsonl"
@@ -317,6 +325,8 @@
       ],
       "max_ticks": 35,
       "minimum_ticks": 30,
+      "tick_cap_semantics": "cap_not_target",
+      "stop_on_ledger_path_mass_resolution": true,
       "outputs": [
         "audit_scores.csv",
         "social_state_scores.csv"

@@ -1299,6 +1299,8 @@ def resume_worldfork_short_batch(args: argparse.Namespace) -> None:
             target_max_ticks=args.max_ticks,
         )
         run_payload = {"max_total_ticks": run_budget}
+        if getattr(args, "stop_when_endpoint_ledger_resolved", False):
+            run_payload["stop_when_endpoint_ledger_resolved"] = True
         _write_json(out_dir / "run_job_payload.json", run_payload)
         run_job, run_create_seconds = _timed_api_call(
             client,
@@ -1638,6 +1640,8 @@ def run_worldfork_short(args: argparse.Namespace) -> None:
             _capture_init_artifacts(client, out_dir, big_bang_id)
 
             run_payload = {"max_total_ticks": args.max_ticks}
+            if getattr(args, "stop_when_endpoint_ledger_resolved", False):
+                run_payload["stop_when_endpoint_ledger_resolved"] = True
             _write_json(out_dir / "run_job_payload.json", run_payload)
             run_job, run_create_seconds = _timed_api_call(
                 client,
@@ -1843,6 +1847,8 @@ def run_worldfork_short_batch(args: argparse.Namespace) -> None:
         _capture_init_artifacts(client, out_dir, big_bang_id)
 
         run_payload = {"max_total_ticks": args.max_ticks}
+        if getattr(args, "stop_when_endpoint_ledger_resolved", False):
+            run_payload["stop_when_endpoint_ledger_resolved"] = True
         _write_json(out_dir / "run_job_payload.json", run_payload)
         run_job, run_create_seconds = _timed_api_call(
             client,
@@ -2111,6 +2117,8 @@ def run_worldfork_long_batch(args: argparse.Namespace) -> None:
         _capture_init_artifacts(client, out_dir, big_bang_id)
 
         run_payload = {"max_total_ticks": args.max_total_ticks}
+        if getattr(args, "stop_when_endpoint_ledger_resolved", False):
+            run_payload["stop_when_endpoint_ledger_resolved"] = True
         _write_json(out_dir / "run_job_payload.json", run_payload)
         run_job, run_create_seconds = _timed_api_call(
             client,
@@ -2968,8 +2976,9 @@ def main() -> None:
     short.add_argument("--prediction-output", default="raw/E3_worldfork_short/worldfork_predictions.jsonl")
     short.add_argument("--route-policy-id", help="Optional route-policy label to stamp into predictions and manifest rows.")
     short.add_argument("--name-prefix", default="E3")
-    short.add_argument("--max-ticks", type=int, default=8)
+    short.add_argument("--max-ticks", type=int, default=8, help="Maximum tick cap, not a required stopping target.")
     short.add_argument("--tick-duration-minutes", type=int, default=720)
+    short.add_argument("--stop-when-endpoint-ledger-resolved", action="store_true")
     short.add_argument("--core12", action="store_true", help="Use the resolved core-12 fallback from the run matrix.")
     short.add_argument("--force", action="store_true")
     short.set_defaults(func=run_worldfork_short)
@@ -2988,8 +2997,9 @@ def main() -> None:
     short_batch.add_argument("--prediction-output", default="raw/E3_worldfork_short/worldfork_predictions.jsonl")
     short_batch.add_argument("--route-policy-id", help="Optional route-policy label to stamp into predictions and manifest rows.")
     short_batch.add_argument("--name-prefix", default="E3_batch")
-    short_batch.add_argument("--max-ticks", type=int, default=8)
+    short_batch.add_argument("--max-ticks", type=int, default=8, help="Maximum tick cap, not a required stopping target.")
     short_batch.add_argument("--tick-duration-minutes", type=int, default=720)
+    short_batch.add_argument("--stop-when-endpoint-ledger-resolved", action="store_true")
     short_batch.add_argument("--core12", action="store_true", help="Use the resolved core-12 fallback from the run matrix.")
     short_batch.add_argument("--force", action="store_true")
     short_batch.set_defaults(func=run_worldfork_short_batch)
@@ -3027,9 +3037,10 @@ def main() -> None:
     long_batch.add_argument("--output-prefix", default="raw/E4_long_horizon")
     long_batch.add_argument("--route-policy-id", help="Optional route-policy label to stamp into manifest rows.")
     long_batch.add_argument("--name-prefix", default="E4_long_horizon")
-    long_batch.add_argument("--max-ticks", type=int, default=35)
-    long_batch.add_argument("--max-total-ticks", type=int, default=240)
+    long_batch.add_argument("--max-ticks", type=int, default=35, help="Initializer tick cap, not a required stopping target.")
+    long_batch.add_argument("--max-total-ticks", type=int, default=240, help="Runtime tick cap, not a required stopping target.")
     long_batch.add_argument("--tick-duration-minutes", type=int, default=720)
+    long_batch.add_argument("--stop-when-endpoint-ledger-resolved", action="store_true")
     long_batch.add_argument("--minimum6", action="store_true", help="Use the minimum_long_horizon_6 fallback from the run matrix.")
     long_batch.add_argument("--force", action="store_true")
     long_batch.set_defaults(func=run_worldfork_long_batch)
@@ -3074,8 +3085,9 @@ def main() -> None:
     resume_short.add_argument("--prediction-output", required=True)
     resume_short.add_argument("--route-policy-id", required=True)
     resume_short.add_argument("--resume-attempt-id", help="Optional suffix for fresh job idempotency keys on retry.")
-    resume_short.add_argument("--max-ticks", type=int, required=True)
+    resume_short.add_argument("--max-ticks", type=int, required=True, help="Maximum continuation tick cap, not a required stopping target.")
     resume_short.add_argument("--tick-duration-minutes", type=int, default=720)
+    resume_short.add_argument("--stop-when-endpoint-ledger-resolved", action="store_true")
     resume_short.add_argument(
         "--skip-resolved-unresolved-mass",
         type=float,

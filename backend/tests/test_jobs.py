@@ -20,6 +20,7 @@ from app.domains.jobs.queues import JOB_TYPES, default_idempotency_key, queue_na
 from app.domains.jobs.executor import (
     JOB_LEASE_SECONDS,
     JobNotRunnableError,
+    _endpoint_path_mass_resolution,
     claim_job_for_execution,
     execute_job,
     job_should_enqueue_for_retry,
@@ -56,6 +57,57 @@ def test_advertised_job_types_are_executable_and_payload_validated():
 
     with pytest.raises(ValueError, match="big_bang_id is required"):
         validate_job_payload("run_big_bang_until_complete", {})
+
+    validate_job_payload(
+        "run_big_bang_until_complete",
+        {"max_total_ticks": 16, "stop_when_endpoint_ledger_resolved": True},
+        big_bang_id=uuid4(),
+    )
+    with pytest.raises(ValueError, match="stop_when_endpoint_ledger_resolved must be a boolean"):
+        validate_job_payload(
+            "run_big_bang_until_complete",
+            {"max_total_ticks": 16, "stop_when_endpoint_ledger_resolved": "true"},
+            big_bang_id=uuid4(),
+        )
+
+
+def test_endpoint_path_mass_resolution_treats_ticks_as_caps():
+    resolved = _endpoint_path_mass_resolution(
+        [
+            {
+                "endpoint_key": "yes",
+                "path_mass": 0.62,
+                "status_path_masses": {"realized": 0.62},
+            },
+            {
+                "endpoint_key": "no",
+                "path_mass": 0.38,
+                "status_path_masses": {"realized": 0.38},
+            },
+        ]
+    )
+    unresolved = _endpoint_path_mass_resolution(
+        [
+            {
+                "endpoint_key": "yes",
+                "status": "realized",
+                "path_mass": 0.7,
+                "status_path_masses": {"realized": 0.7},
+            },
+            {
+                "endpoint_key": "endpoint_insufficient_ticks",
+                "status": "insufficient_ticks",
+                "path_mass": 0.3,
+                "status_path_masses": {"insufficient_ticks": 0.3},
+            },
+        ]
+    )
+
+    assert resolved["resolved"] is True
+    assert resolved["unresolved_mass"] == 0.0
+    assert resolved["insufficient_ticks_mass"] == 0.0
+    assert unresolved["resolved"] is False
+    assert unresolved["insufficient_ticks_mass"] == 0.3
 
 
 def test_advertised_job_queues_are_runtime_celery_queues():

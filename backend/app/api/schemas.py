@@ -419,6 +419,10 @@ class RunUntilCompleteRequest(BaseModel):
     max_total_ticks: int = Field(default=24, ge=1, le=500)
 
 
+class RunUntilCompleteJobRequest(RunUntilCompleteRequest):
+    stop_when_endpoint_ledger_resolved: bool = False
+
+
 class ToolCallRequest(BaseModel):
     tool_name: str
     arguments: dict[str, Any] = Field(default_factory=dict)

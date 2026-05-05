@@ -253,13 +253,13 @@ Sweep thresholds: `0.55`, `0.75`, `0.95`.
 
 ### 3.1 Required experiments
 
-| Experiment ID | Cases | Conditions | Max ticks | Branch policy | Main metrics |
+| Experiment ID | Cases | Conditions | Tick cap / stop rule | Branch policy | Main metrics |
 |---|---:|---|---:|---|---|
 | E0 Card QA | 108 public + 36 private eval | static validation only | n/a | n/a | schema, leakage, endpoint quality, source/resolution verification |
 | E1 Init screen | 108 public | WorldFork init only | no runtime | no runtime | schema completeness, actor recall, authority fidelity, graph/sociology/emotion baseline, uncertainty |
 | E2 Direct baselines | 24 resolved | direct, structured-direct | n/a | n/a | Brier, log score, calibration, JSON validity |
-| E3 Resolved WorldFork short | 24 resolved | no-branch, branching | 8 | see below | Brier, log score, unresolved mass, endpoint coverage, cost |
-| E4 Long-horizon audit | 18 cases | full branching | 35 target, 30 minimum | see below | lineage, branch locality, path mass, report grounding, social-state consistency |
+| E3 Resolved WorldFork short | 24 resolved | no-branch, branching | 8 cap; stop on ledger/path-mass resolution | see below | Brier, log score, unresolved mass, endpoint coverage, cost |
+| E4 Long-horizon audit | 18 cases | full branching | 35 cap; stop early on ledger/path-mass resolution; 30 nominal lower bound only for unresolved non-fallback runs | see below | lineage, branch locality, path mass, report grounding, social-state consistency |
 | E5 Social-state/emotion audit | 18 long-horizon cases | scoring only | same as E4 | same as E4 | social mechanism grounding, graph consistency, emotion observability |
 
 ### 3.2 Stretch experiments
@@ -1000,6 +1000,9 @@ Use this checklist before declaring the run complete.
 - [ ] E4 long-horizon run on 18 cases, or documented minimum-6 fallback.
 - [ ] E5 social-state/emotion audit scored.
 - [ ] Optional ablation/sweep clearly marked optional if incomplete.
+- [ ] Frozen WorldFork decisions cite terminal job output plus `path_mass.json`.
+- [ ] Tick counts reported as caps, not required stopping targets.
+- [ ] Unresolved or insufficient path-mass extensions reuse/resume existing Big Bangs.
 
 ### Scoring
 

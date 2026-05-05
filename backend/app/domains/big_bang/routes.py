@@ -15,6 +15,7 @@ from app.api.schemas import (
     ReportOut,
     ReportRequest,
     ReportVersionOut,
+    RunUntilCompleteJobRequest,
     RunUntilCompleteOut,
     RunUntilCompleteRequest,
 )
@@ -174,17 +175,20 @@ def run_until_complete(big_bang_id: UUID, payload: RunUntilCompleteRequest | Non
 @router.post("/{big_bang_id}/run-until-complete/jobs", response_model=JobResponse)
 def run_until_complete_job(
     big_bang_id: UUID,
-    payload: RunUntilCompleteRequest | None = None,
+    payload: RunUntilCompleteJobRequest | None = None,
     db: Session = Depends(get_db),
 ):
-    request = payload or RunUntilCompleteRequest()
+    request = payload or RunUntilCompleteJobRequest()
     big_bang = require(db, models.BigBang, big_bang_id)
     reject_archived_big_bang(big_bang)
+    job_payload = {"max_total_ticks": request.max_total_ticks}
+    if request.stop_when_endpoint_ledger_resolved:
+        job_payload["stop_when_endpoint_ledger_resolved"] = True
     return create_job_record(
         JobCreate(
             job_type="run_big_bang_until_complete",
             big_bang_id=big_bang.id,
-            payload={"max_total_ticks": request.max_total_ticks},
+            payload=job_payload,
         ),
         db=db,
     )

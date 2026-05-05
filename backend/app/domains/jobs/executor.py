@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+from typing import Any
 from uuid import UUID
 
 from pydantic import ValidationError
@@ -72,6 +73,7 @@ __all__ = [
     "_mark_job_cancelled",
     "_execute_job",
     "_execute_run_big_bang_until_complete_job",
+    "_endpoint_path_mass_resolution",
 ]
 
 
@@ -108,6 +110,9 @@ def validate_job_payload(job_type: str, payload: dict | None, *, big_bang_id=Non
         _require_positive_int(payload["count"], "count")
     if job_type == "run_big_bang_until_complete" and "max_total_ticks" in payload:
         _require_positive_int(payload["max_total_ticks"], "max_total_ticks")
+    if job_type == "run_big_bang_until_complete" and "stop_when_endpoint_ledger_resolved" in payload:
+        if not isinstance(payload["stop_when_endpoint_ledger_resolved"], bool):
+            raise ValueError("stop_when_endpoint_ledger_resolved must be a boolean")
 
 
 def reject_archived_big_bang(big_bang: models.BigBang) -> None:
@@ -286,6 +291,7 @@ def _execute_run_big_bang_until_complete_job(db: Session, job: models.Job) -> di
 
     payload = job.payload or {}
     max_total_ticks = int(payload.get("max_total_ticks", 24))
+    stop_when_endpoint_ledger_resolved = bool(payload.get("stop_when_endpoint_ledger_resolved", False))
     if max_total_ticks < 1:
         raise ValueError("max_total_ticks must be a positive integer")
 
@@ -300,6 +306,7 @@ def _execute_run_big_bang_until_complete_job(db: Session, job: models.Job) -> di
     latest_tick_id: str | None = None
     latest_tick_label: str | None = None
     stopped_reason: str | None = None
+    endpoint_ledger_resolution: dict[str, Any] | None = None
 
     def make_progress(stopped: str | None = None) -> dict:
         multiverse_count = db.scalar(
@@ -317,6 +324,7 @@ def _execute_run_big_bang_until_complete_job(db: Session, job: models.Job) -> di
                 "requested_ticks": max_total_ticks,
                 "percent": min(100, round((len(tick_ids) / max_total_ticks) * 100, 2)),
             },
+            "endpoint_ledger_resolution": endpoint_ledger_resolution,
         }
 
     for _ in range(max_total_ticks):
@@ -368,6 +376,11 @@ def _execute_run_big_bang_until_complete_job(db: Session, job: models.Job) -> di
         if not made_progress:
             stopped_reason = "no_tick_progress"
             break
+        if stop_when_endpoint_ledger_resolved:
+            endpoint_ledger_resolution = _big_bang_endpoint_ledger_resolution(db, big_bang=big_bang)
+            if endpoint_ledger_resolution["resolved"]:
+                stopped_reason = "endpoint_ledger_resolved"
+                break
 
     multiverses = db.scalars(
         select(models.Multiverse)
@@ -399,6 +412,65 @@ def _execute_run_big_bang_until_complete_job(db: Session, job: models.Job) -> di
     result["report_version_ids"] = report_version_ids
     result["final_report_version_id"] = final_report_version_id
     return result
+
+
+def _big_bang_endpoint_ledger_resolution(db: Session, *, big_bang: models.BigBang) -> dict[str, Any]:
+    from app.domains.endpoint_ledger.service import endpoint_ledger_report_payload, evaluate_endpoint_ledger
+
+    ledger = evaluate_endpoint_ledger(
+        db,
+        big_bang=big_bang,
+        source_type="run_until_complete_stop_check",
+        created_by="run_until_complete",
+        use_llm=False,
+    )
+    payload = endpoint_ledger_report_payload(db, ledger)
+    ledger_payload = payload.get("payload") if isinstance(payload.get("payload"), dict) else {}
+    resolution = _endpoint_path_mass_resolution(ledger_payload.get("endpoint_path_mass_distribution"))
+    resolution["ledger_version_id"] = payload.get("ledger_version_id")
+    return resolution
+
+
+def _endpoint_path_mass_resolution(rows: Any) -> dict[str, Any]:
+    if not isinstance(rows, list):
+        rows = []
+    unresolved_mass = 0.0
+    insufficient_ticks_mass = 0.0
+    endpoint_rows = 0
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        endpoint_rows += 1
+        try:
+            path_mass = float(row.get("path_mass") or 0.0)
+        except (TypeError, ValueError):
+            path_mass = 0.0
+        status = str(row.get("status") or "").strip()
+        status_masses = row.get("status_path_masses") if isinstance(row.get("status_path_masses"), dict) else {}
+        row_unresolved_mass = 0.0
+        row_insufficient_ticks_mass = 0.0
+        try:
+            row_unresolved_mass = float(status_masses.get("unresolved") or 0.0)
+        except (TypeError, ValueError):
+            pass
+        try:
+            row_insufficient_ticks_mass = float(status_masses.get("insufficient_ticks") or 0.0)
+        except (TypeError, ValueError):
+            pass
+        if row_unresolved_mass <= 0 and status in {"active", "weakened", "unresolved", "process_only"}:
+            row_unresolved_mass = path_mass
+        if row_insufficient_ticks_mass <= 0 and status == "insufficient_ticks":
+            row_insufficient_ticks_mass = path_mass
+        unresolved_mass += row_unresolved_mass
+        insufficient_ticks_mass += row_insufficient_ticks_mass
+    unresolved_mass = round(unresolved_mass, 10)
+    insufficient_ticks_mass = round(insufficient_ticks_mass, 10)
+    return {
+        "resolved": endpoint_rows > 0 and unresolved_mass <= 1e-9 and insufficient_ticks_mass <= 1e-9,
+        "endpoint_rows": endpoint_rows,
+        "unresolved_mass": unresolved_mass,
+        "insufficient_ticks_mass": insufficient_ticks_mass,
+    }
 
 
 def _require_uuid_payload(payload: dict, key: str) -> UUID:
