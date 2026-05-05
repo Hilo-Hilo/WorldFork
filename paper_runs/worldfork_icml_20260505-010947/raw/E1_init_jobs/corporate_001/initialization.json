@@ -1,0 +1,1309 @@
+{
+  "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+  "initializer_output": {
+    "actors": [
+      {
+        "decision_authority": "high",
+        "fictionalized": true,
+        "name": "sentinel_home",
+        "public_visibility": "high",
+        "role": "home_security_provider",
+        "stakes": [
+          "preserve recurring revenue",
+          "defend pricing power",
+          "avoid mass churn",
+          "limit regulatory intervention"
+        ],
+        "type": "company"
+      },
+      {
+        "decision_authority": "medium_distributed",
+        "fictionalized": true,
+        "name": "legacy_customers",
+        "public_visibility": "medium",
+        "role": "existing_subscriber_base",
+        "stakes": [
+          "avoid higher monthly cost",
+          "retain device functionality",
+          "preserve security continuity",
+          "avoid migration hassle"
+        ],
+        "type": "customer_group"
+      },
+      {
+        "decision_authority": "medium_distributed",
+        "fictionalized": true,
+        "name": "prospective_churners",
+        "public_visibility": "low",
+        "role": "activated dissatisfied legacy segment",
+        "stakes": [
+          "punish price increase",
+          "seek alternatives",
+          "minimize switching pain"
+        ],
+        "type": "customer_group"
+      },
+      {
+        "decision_authority": "medium",
+        "fictionalized": true,
+        "name": "rival_security_firms",
+        "public_visibility": "medium",
+        "role": "competitors offering migration discounts",
+        "stakes": [
+          "acquire switching customers",
+          "frame incumbent as exploitative",
+          "expand installed base"
+        ],
+        "type": "market_group"
+      },
+      {
+        "decision_authority": "high_conditional",
+        "fictionalized": true,
+        "name": "consumer_regulators",
+        "public_visibility": "high",
+        "role": "consumer protection and competition oversight",
+        "stakes": [
+          "assess lock-in risk",
+          "deter unfair practices",
+          "avoid under-enforcement"
+        ],
+        "type": "institution"
+      },
+      {
+        "decision_authority": "low_medium",
+        "fictionalized": true,
+        "name": "consumer_advocates",
+        "public_visibility": "medium",
+        "role": "public interest commentators",
+        "stakes": [
+          "highlight lock-in concerns",
+          "amplify customer grievances",
+          "pressure regulator response"
+        ],
+        "type": "civil_group"
+      },
+      {
+        "decision_authority": "medium",
+        "fictionalized": true,
+        "name": "tech_media",
+        "public_visibility": "high",
+        "role": "issue amplifier",
+        "stakes": [
+          "cover pricing controversy",
+          "surface examples of lock-in and churn",
+          "track company response"
+        ],
+        "type": "media"
+      },
+      {
+        "decision_authority": "medium_indirect",
+        "fictionalized": true,
+        "name": "cloud_infrastructure_suppliers",
+        "public_visibility": "low",
+        "role": "upstream cost driver",
+        "stakes": [
+          "maintain contracts",
+          "pass through infrastructure costs"
+        ],
+        "type": "supplier_group"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Sentinel Home narrows, delays, or rolls back the increase for legacy customers.",
+        "branch_key": "rollback_after_churn_spike",
+        "divergence_signal": "Public retention offer, grandfathering announcement, or revised pricing notice appears before formal regulatory action.",
+        "trigger": "Early churn, cancellations, or support distress exceed management tolerance."
+      },
+      {
+        "alternate_path": "Most legacy customers absorb the increase with modest concessions and limited net churn.",
+        "branch_key": "accepted_increase_through_inertia",
+        "divergence_signal": "Complaint volume remains high while actual cancellation and migration evidence stays comparatively low over multiple ticks.",
+        "trigger": "Customer anger stays expressive but switching remains cumbersome and scattered."
+      },
+      {
+        "alternate_path": "Regulators pressure a settlement involving disclosures, transition rights, or pricing concessions rather than immediate hard sanction.",
+        "branch_key": "regulatory_settlement_track",
+        "divergence_signal": "Formal information requests, settlement language, or company commitments on migration fairness become visible.",
+        "trigger": "Evidence accumulates that lock-in or exit barriers materially weaken customer choice."
+      },
+      {
+        "alternate_path": "Rivals capture a meaningful share of dissatisfied users, weakening incumbent pricing leverage.",
+        "branch_key": "competitive_churn_wave",
+        "divergence_signal": "Publicized migration numbers, repeated customer testimonials, or expanded rival acquisition spend appears.",
+        "trigger": "Migration discounts combine with visible success stories that reduce perceived switching risk."
+      },
+      {
+        "alternate_path": "Conflict cools enough to avoid major churn and formal sanction while headline increase partly survives.",
+        "branch_key": "reputation_repair_without_full_rollback",
+        "divergence_signal": "Mixed customer response with reduced anger and no full reversal, alongside messaging about fairness adjustments.",
+        "trigger": "Company offers selective credits, phased implementation, or legacy plan modifications that soften backlash."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "customer_email_notice",
+        "participants": [
+          "sentinel_home",
+          "legacy_customers"
+        ],
+        "type": "owned_channel",
+        "visibility": "targeted"
+      },
+      {
+        "channel_key": "customer_support_contacts",
+        "participants": [
+          "sentinel_home",
+          "legacy_customers",
+          "prospective_churners"
+        ],
+        "type": "service_channel",
+        "visibility": "semi_private"
+      },
+      {
+        "channel_key": "tech_press_coverage",
+        "participants": [
+          "tech_media",
+          "sentinel_home",
+          "consumer_advocates",
+          "market_watchers"
+        ],
+        "type": "media_channel",
+        "visibility": "public"
+      },
+      {
+        "channel_key": "promotional_ads_and_offers",
+        "participants": [
+          "rival_security_firms",
+          "legacy_customers",
+          "prospective_churners"
+        ],
+        "type": "marketing_channel",
+        "visibility": "public_targeted"
+      },
+      {
+        "channel_key": "regulatory_inquiry_channel",
+        "participants": [
+          "consumer_regulators",
+          "sentinel_home"
+        ],
+        "type": "institutional_channel",
+        "visibility": "private_then_selectively_public"
+      },
+      {
+        "channel_key": "social_discussion_streams",
+        "participants": [
+          "legacy_customers",
+          "prospective_churners",
+          "market_watchers",
+          "consumer_advocates"
+        ],
+        "type": "network_channel",
+        "visibility": "public"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "legacy_customer_base",
+        "attention_level": 0.8,
+        "cohort_key": "legacy_price_sensitive",
+        "expression_level": 0.7,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.25,
+        "label": "Price-sensitive legacy customers",
+        "mobilization_readiness": 0.65,
+        "perceived_majority": 0.7,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Price increase feels unfair and may justify exit if alternatives are viable.",
+        "public_expression": "Complaints, cancellation threats, comparison shopping.",
+        "representation_mode": "segment_inference",
+        "represented_population": 450000,
+        "stance_axes": {
+          "company_trust": 0.25,
+          "price_increase_support": 0.1,
+          "regulatory_intervention_support": 0.65,
+          "switching_willingness": 0.6
+        }
+      },
+      {
+        "archetype_key": "legacy_customer_base",
+        "attention_level": 0.6,
+        "cohort_key": "legacy_inertial",
+        "expression_level": 0.35,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.45,
+        "label": "Convenience-oriented legacy customers",
+        "mobilization_readiness": 0.35,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "Dislike the increase but may stay due to hassle, device ties, or security continuity concerns.",
+        "public_expression": "Mostly quiet dissatisfaction, selective complaints.",
+        "representation_mode": "segment_inference",
+        "represented_population": 400000,
+        "stance_axes": {
+          "company_trust": 0.45,
+          "price_increase_support": 0.3,
+          "regulatory_intervention_support": 0.5,
+          "switching_willingness": 0.3
+        }
+      },
+      {
+        "archetype_key": "legacy_customer_base",
+        "attention_level": 0.45,
+        "cohort_key": "legacy_loyalists",
+        "expression_level": 0.2,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.5,
+        "label": "Brand-loyal legacy customers",
+        "mobilization_readiness": 0.15,
+        "perceived_majority": 0.25,
+        "population_share_of_archetype": 0.15,
+        "private_belief": "Accepts the company's cloud-cost explanation or prioritizes service continuity.",
+        "public_expression": "Limited defense of company or silence.",
+        "representation_mode": "segment_inference",
+        "represented_population": 150000,
+        "stance_axes": {
+          "company_trust": 0.7,
+          "price_increase_support": 0.6,
+          "regulatory_intervention_support": 0.25,
+          "switching_willingness": 0.1
+        }
+      },
+      {
+        "archetype_key": "general_market_observers",
+        "attention_level": 0.35,
+        "cohort_key": "market_watchers",
+        "expression_level": 0.25,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.35,
+        "label": "Market and consumer watchers",
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.4,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Pricing fairness and lock-in are salient if coverage intensifies.",
+        "public_expression": "Discussion, sharing stories, reputational judgment.",
+        "representation_mode": "broad_public",
+        "represented_population": 5000000,
+        "stance_axes": {
+          "company_trust": 0.4,
+          "price_increase_support": 0.25,
+          "regulatory_intervention_support": 0.55,
+          "switching_willingness": 0.2
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "legacy_customer_base",
+        "attention_level": 0.8,
+        "cohort_key": "legacy_price_sensitive",
+        "expression_level": 0.7,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.25,
+        "label": "Price-sensitive legacy customers",
+        "mobilization_readiness": 0.65,
+        "perceived_majority": 0.7,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Price increase feels unfair and may justify exit if alternatives are viable.",
+        "public_expression": "Complaints, cancellation threats, comparison shopping.",
+        "representation_mode": "segment_inference",
+        "represented_population": 450000,
+        "stance_axes": {
+          "company_trust": 0.25,
+          "price_increase_support": 0.1,
+          "regulatory_intervention_support": 0.65,
+          "switching_willingness": 0.6
+        }
+      },
+      {
+        "archetype_key": "legacy_customer_base",
+        "attention_level": 0.6,
+        "cohort_key": "legacy_inertial",
+        "expression_level": 0.35,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.45,
+        "label": "Convenience-oriented legacy customers",
+        "mobilization_readiness": 0.35,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "Dislike the increase but may stay due to hassle, device ties, or security continuity concerns.",
+        "public_expression": "Mostly quiet dissatisfaction, selective complaints.",
+        "representation_mode": "segment_inference",
+        "represented_population": 400000,
+        "stance_axes": {
+          "company_trust": 0.45,
+          "price_increase_support": 0.3,
+          "regulatory_intervention_support": 0.5,
+          "switching_willingness": 0.3
+        }
+      },
+      {
+        "archetype_key": "legacy_customer_base",
+        "attention_level": 0.45,
+        "cohort_key": "legacy_loyalists",
+        "expression_level": 0.2,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.5,
+        "label": "Brand-loyal legacy customers",
+        "mobilization_readiness": 0.15,
+        "perceived_majority": 0.25,
+        "population_share_of_archetype": 0.15,
+        "private_belief": "Accepts the company's cloud-cost explanation or prioritizes service continuity.",
+        "public_expression": "Limited defense of company or silence.",
+        "representation_mode": "segment_inference",
+        "represented_population": 150000,
+        "stance_axes": {
+          "company_trust": 0.7,
+          "price_increase_support": 0.6,
+          "regulatory_intervention_support": 0.25,
+          "switching_willingness": 0.1
+        }
+      },
+      {
+        "archetype_key": "general_market_observers",
+        "attention_level": 0.35,
+        "cohort_key": "market_watchers",
+        "expression_level": 0.25,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.35,
+        "label": "Market and consumer watchers",
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.4,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Pricing fairness and lock-in are salient if coverage intensifies.",
+        "public_expression": "Discussion, sharing stories, reputational judgment.",
+        "representation_mode": "broad_public",
+        "represented_population": 5000000,
+        "stance_axes": {
+          "company_trust": 0.4,
+          "price_increase_support": 0.25,
+          "regulatory_intervention_support": 0.55,
+          "switching_willingness": 0.2
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "sentinel_home",
+          "sentinel_exec_team"
+        ],
+        "blockers": [
+          "need to preserve recurring revenue",
+          "upstream cloud cost pressure",
+          "fear of setting precedent"
+        ],
+        "contradiction_notes": "Selective credits or partial delays alone do not realize this endpoint unless they substantially neutralize the increase for most legacy users.",
+        "description": "The company fully reverses or materially withdraws the announced increase for the affected legacy base.",
+        "endpoint_key": "price_rollback",
+        "evidence_refs": [
+          "price_increase_announced",
+          "first_churn_metrics_review"
+        ],
+        "label": "Legacy price increase rolled back",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will Sentinel Home fully or substantially roll back the legacy subscription price increase?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.28,
+        "rationale": "Management has direct authority, but will likely require strong churn or scrutiny signals.",
+        "realization_criteria": [
+          "Official company announcement rescinds or substantially reverses the increase for most legacy customers.",
+          "Billing or plan notices show legacy customers broadly remain on prior pricing or equivalent effective pricing."
+        ],
+        "status": "active",
+        "status_basis": "Rollback is explicitly named as a plausible endpoint but not chosen at T0."
+      },
+      {
+        "authority_refs": [
+          "legacy_customers",
+          "prospective_churners",
+          "rival_security_firms"
+        ],
+        "blockers": [
+          "switching costs",
+          "security continuity fears",
+          "hardware or service migration friction"
+        ],
+        "contradiction_notes": "High complaint volume without elevated actual cancellations does not realize this endpoint.",
+        "description": "A meaningful share of legacy customers cancels or migrates, reducing the company's retention position.",
+        "endpoint_key": "material_customer_churn",
+        "evidence_refs": [
+          "customer_cancellation_threats_emerge",
+          "competitors_launch_migration_discounts",
+          "competitor_migration_case_stories_surface"
+        ],
+        "label": "Material churn wave",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will legacy-customer dissatisfaction convert into materially elevated churn rather than mostly expressive backlash?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.31,
+        "rationale": "Distributed customer decisions determine this outcome; rivals can accelerate it by lowering friction.",
+        "realization_criteria": [
+          "Reported or credibly observed cancellations/migrations exceed normal attrition by a clearly material margin.",
+          "Competitors or the company acknowledge sustained elevated switching from legacy plans."
+        ],
+        "status": "active",
+        "status_basis": "Customers threaten cancellation at T0, but behavioral conversion remains unresolved."
+      },
+      {
+        "authority_refs": [
+          "consumer_regulators",
+          "sentinel_home",
+          "consumer_regulator_team"
+        ],
+        "blockers": [
+          "limited evidence of unlawful or unfair lock-in",
+          "procedural delay",
+          "company voluntary concessions that reduce appetite for formal action"
+        ],
+        "contradiction_notes": "Informal inquiries or press statements alone do not realize this endpoint absent a visible corrective arrangement.",
+        "description": "Regulatory scrutiny results in a visible settlement, consent commitment, or equivalent corrective arrangement regarding lock-in or transition fairness.",
+        "endpoint_key": "regulatory_settlement",
+        "evidence_refs": [
+          "regulators_request_information_on_lock_in",
+          "initial_regulatory_assessment"
+        ],
+        "label": "Regulatory settlement or corrective commitment",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will regulator concern over lock-in mature into a visible settlement or enforceable corrective commitment?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.22,
+        "rationale": "Regulators have conditional authority, but need evidence and process to move from questions to settlement.",
+        "realization_criteria": [
+          "Regulators announce a settlement, binding commitment, or formal corrective agreement with Sentinel Home.",
+          "Company adopts regulator-linked remedies such as migration rights, disclosures, or constrained repricing under official resolution."
+        ],
+        "status": "active",
+        "status_basis": "Scenario explicitly includes regulators asking about lock-in, but no formal action exists yet."
+      },
+      {
+        "authority_refs": [
+          "sentinel_home",
+          "legacy_customers"
+        ],
+        "blockers": [
+          "public backlash growth",
+          "credible migration pathways",
+          "regulatory escalation"
+        ],
+        "contradiction_notes": "A narrow temporary pause or isolated retention offer does not negate this endpoint if the broader increase still holds.",
+        "description": "The company retains the core increase and most legacy customers remain despite backlash, perhaps with minor concessions.",
+        "endpoint_key": "price_increase_accepted",
+        "evidence_refs": [
+          "company_defends_increase_with_cloud_cost_rationale",
+          "first_churn_metrics_review"
+        ],
+        "label": "Price increase broadly sticks",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the company retain the core price increase with only limited concessions and broad customer acceptance/inertia?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.34,
+        "rationale": "This endpoint depends on company resolve interacting with customer inertia and weak enforcement pressure.",
+        "realization_criteria": [
+          "Core higher pricing remains in force for most legacy customers after the controversy window.",
+          "Observed churn and regulatory action remain limited enough that the company does not materially reverse course."
+        ],
+        "status": "active",
+        "status_basis": "Accepted price increase is named as a plausible endpoint and supported by customer inertia and switching costs."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "scenario states company cites cloud costs",
+        "layer": "dependency",
+        "reason": "Company cites cloud costs as rationale for increase, implying meaningful upstream cost dependence.",
+        "source_actor_name": "sentinel_home",
+        "target_actor_name": "cloud_infrastructure_suppliers",
+        "weight": 0.68
+      },
+      {
+        "direction": "outbound",
+        "evidence": "home-security subscription context with legacy customers",
+        "layer": "dependency",
+        "reason": "Existing customers rely on provider for ongoing security service continuity.",
+        "source_actor_name": "legacy_customers",
+        "target_actor_name": "sentinel_home",
+        "weight": 0.62
+      },
+      {
+        "direction": "outbound",
+        "evidence": "customers threaten cancellation rather than already leaving",
+        "layer": "dependency",
+        "reason": "Even dissatisfied customers remain tied to current service until they migrate.",
+        "source_actor_name": "prospective_churners",
+        "target_actor_name": "sentinel_home",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "subscription price increase affects legacy customers",
+        "layer": "dependency",
+        "reason": "Recurring revenue depends on retention of legacy subscriber base.",
+        "source_actor_name": "sentinel_home",
+        "target_actor_name": "legacy_customers",
+        "weight": 0.57
+      },
+      {
+        "direction": "outbound",
+        "evidence": "threatened cancellation and controversy attract reporting",
+        "layer": "exposure",
+        "reason": "Customer complaints are likely source material for coverage.",
+        "source_actor_name": "legacy_customers",
+        "target_actor_name": "tech_media",
+        "weight": 0.42
+      },
+      {
+        "direction": "outbound",
+        "evidence": "media amplification typical in pricing controversy",
+        "layer": "exposure",
+        "reason": "Coverage informs subscribers about options, backlash, and regulator attention.",
+        "source_actor_name": "tech_media",
+        "target_actor_name": "legacy_customers",
+        "weight": 0.48
+      },
+      {
+        "direction": "outbound",
+        "evidence": "scenario explicitly mentions migration discounts",
+        "layer": "exposure",
+        "reason": "Competitors actively offer migration discounts to incumbent customers.",
+        "source_actor_name": "rival_security_firms",
+        "target_actor_name": "legacy_customers",
+        "weight": 0.52
+      },
+      {
+        "direction": "outbound",
+        "evidence": "regulators ask about lock-in; advocates plausibly amplify",
+        "layer": "exposure",
+        "reason": "Advocates can surface lock-in concerns to oversight bodies.",
+        "source_actor_name": "consumer_advocates",
+        "target_actor_name": "consumer_regulators",
+        "weight": 0.38
+      },
+      {
+        "direction": "outbound",
+        "evidence": "regulatory questions often track public controversy visibility",
+        "layer": "exposure",
+        "reason": "Media attention can raise issue salience for regulators.",
+        "source_actor_name": "tech_media",
+        "target_actor_name": "consumer_regulators",
+        "weight": 0.34
+      },
+      {
+        "direction": "outbound",
+        "evidence": "customers threaten cancellation after announcement",
+        "layer": "trust",
+        "reason": "Price increase strains customer belief in fairness and stewardship.",
+        "source_actor_name": "legacy_customers",
+        "target_actor_name": "sentinel_home",
+        "weight": 0.34
+      },
+      {
+        "direction": "outbound",
+        "evidence": "migration discounts create interest but not established loyalty",
+        "layer": "trust",
+        "reason": "Competitors gain some opportunity but migration claims are not fully proven.",
+        "source_actor_name": "legacy_customers",
+        "target_actor_name": "rival_security_firms",
+        "weight": 0.38
+      },
+      {
+        "direction": "outbound",
+        "evidence": "regulators ask about lock-in",
+        "layer": "trust",
+        "reason": "Regulators are inquisitive rather than fully adversarial at T0.",
+        "source_actor_name": "consumer_regulators",
+        "target_actor_name": "sentinel_home",
+        "weight": 0.4
+      },
+      {
+        "direction": "outbound",
+        "evidence": "regulatory angle present in scenario framing",
+        "layer": "trust",
+        "reason": "Public may see regulators as plausible safeguard if lock-in concerns intensify.",
+        "source_actor_name": "market_watchers",
+        "target_actor_name": "consumer_regulators",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "company announces price increase for legacy customers",
+        "layer": "influence",
+        "reason": "Platform owner controls subscription terms and service conditions.",
+        "source_actor_name": "sentinel_home",
+        "target_actor_name": "legacy_customers",
+        "weight": 0.63
+      },
+      {
+        "direction": "outbound",
+        "evidence": "regulators ask about lock-in",
+        "layer": "influence",
+        "reason": "Regulators can shape company choices through inquiry and settlement threat.",
+        "source_actor_name": "consumer_regulators",
+        "target_actor_name": "sentinel_home",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "competitors offer migration discounts",
+        "layer": "influence",
+        "reason": "Migration discounts and alternatives can convert dissatisfaction into exit.",
+        "source_actor_name": "rival_security_firms",
+        "target_actor_name": "prospective_churners",
+        "weight": 0.54
+      },
+      {
+        "direction": "outbound",
+        "evidence": "media role in visible subscription controversy",
+        "layer": "influence",
+        "reason": "Coverage shapes reputational interpretation and perceived prevalence of anger.",
+        "source_actor_name": "tech_media",
+        "target_actor_name": "market_watchers",
+        "weight": 0.5
+      },
+      {
+        "direction": "outbound",
+        "evidence": "lock-in concern central to scenario",
+        "layer": "influence",
+        "reason": "Advocates can frame issue as anti-consumer lock-in rather than routine repricing.",
+        "source_actor_name": "consumer_advocates",
+        "target_actor_name": "market_watchers",
+        "weight": 0.44
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "customers threaten cancellation; advocates likely amplify",
+        "layer": "coalition",
+        "reason": "Activated dissatisfied customers and advocates share fairness narrative.",
+        "source_actor_name": "prospective_churners",
+        "target_actor_name": "consumer_advocates",
+        "weight": 0.36
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "regulatory questions overlap with advocate framing",
+        "layer": "coalition",
+        "reason": "Shared interest in scrutinizing lock-in without full alignment on remedies.",
+        "source_actor_name": "consumer_advocates",
+        "target_actor_name": "consumer_regulators",
+        "weight": 0.32
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "migration discounts target dissatisfied customers",
+        "layer": "coalition",
+        "reason": "Both benefit from credible migration path, though relation is transactional.",
+        "source_actor_name": "rival_security_firms",
+        "target_actor_name": "prospective_churners",
+        "weight": 0.41
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "customers threaten cancellation",
+        "layer": "conflict",
+        "reason": "Customers oppose higher prices and may retaliate through cancellation.",
+        "source_actor_name": "legacy_customers",
+        "target_actor_name": "sentinel_home",
+        "weight": 0.61
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "regulators ask about lock-in",
+        "layer": "conflict",
+        "reason": "Potential disagreement over lock-in and fairness is emerging but not escalated.",
+        "source_actor_name": "consumer_regulators",
+        "target_actor_name": "sentinel_home",
+        "weight": 0.43
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "competitors offer migration discounts following increase",
+        "layer": "conflict",
+        "reason": "Competitors seek to exploit and deepen incumbent vulnerability.",
+        "source_actor_name": "rival_security_firms",
+        "target_actor_name": "sentinel_home",
+        "weight": 0.5
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "price announcement directly affects legacy subscribers",
+        "layer": "oasis_interaction",
+        "reason": "Customer support, notices, and public statements likely become active channels.",
+        "source_actor_name": "sentinel_home",
+        "target_actor_name": "legacy_customers",
+        "weight": 0.58
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "pricing controversy commonly drives press interaction",
+        "layer": "oasis_interaction",
+        "reason": "Company likely faces inquiries and public response cycles.",
+        "source_actor_name": "tech_media",
+        "target_actor_name": "sentinel_home",
+        "weight": 0.44
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "consumer fairness and lock-in are media-friendly frames",
+        "layer": "oasis_interaction",
+        "reason": "Advocates likely appear in coverage and commentary loops.",
+        "source_actor_name": "consumer_advocates",
+        "target_actor_name": "tech_media",
+        "weight": 0.39
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "migration discounts explicitly mentioned",
+        "layer": "oasis_interaction",
+        "reason": "Promotional offers create visible public and direct engagement with target customers.",
+        "source_actor_name": "rival_security_firms",
+        "target_actor_name": "legacy_customers",
+        "weight": 0.49
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype_key": "firm_leadership",
+        "description": "Executives controlling pricing and response.",
+        "label": "Firm leadership"
+      },
+      {
+        "archetype_key": "regulatory_case_team",
+        "description": "Officials deciding whether to escalate scrutiny.",
+        "label": "Regulatory case team"
+      },
+      {
+        "archetype_key": "competitor_growth_team",
+        "description": "Operators designing migration offers and messaging.",
+        "label": "Competitor growth teams"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "sentinel_home",
+        "archetype_key": "firm_leadership",
+        "attention_level": 0.9,
+        "constraints": [
+          "installed base sensitivity",
+          "reputational backlash",
+          "potential lock-in scrutiny",
+          "upstream cloud costs"
+        ],
+        "expression_level": 0.75,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.2,
+        "goal": "Hold revenue gains while containing churn and political damage.",
+        "hero_key": "sentinel_exec_team",
+        "mobilization_readiness": 0.8,
+        "perceived_majority": 0.45,
+        "power": 0.88,
+        "role": "pricing_decision_maker",
+        "stance_axes": {
+          "defensibility_of_increase": 0.7,
+          "openness_to_concessions": 0.5,
+          "regulatory_cooperation": 0.55,
+          "rollback_willingness": 0.35
+        }
+      },
+      {
+        "actor_name": "consumer_regulators",
+        "archetype_key": "regulatory_case_team",
+        "attention_level": 0.65,
+        "constraints": [
+          "limited evidence at T0",
+          "procedural burden",
+          "political salience uncertainty"
+        ],
+        "expression_level": 0.4,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.15,
+        "goal": "Determine whether lock-in concerns justify informal or formal intervention.",
+        "hero_key": "consumer_regulator_team",
+        "mobilization_readiness": 0.5,
+        "perceived_majority": 0.5,
+        "power": 0.76,
+        "role": "oversight_decider",
+        "stance_axes": {
+          "intervention_willingness": 0.55,
+          "lock_in_concern": 0.65,
+          "punitive_preference": 0.3,
+          "settlement_preference": 0.6
+        }
+      },
+      {
+        "actor_name": "rival_security_firms",
+        "archetype_key": "competitor_growth_team",
+        "attention_level": 0.7,
+        "constraints": [
+          "migration friction",
+          "hardware compatibility limits",
+          "customer trust acquisition costs"
+        ],
+        "expression_level": 0.65,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.15,
+        "goal": "Convert customer anger into migration without provoking credibility problems.",
+        "hero_key": "rival_growth_leads",
+        "mobilization_readiness": 0.75,
+        "perceived_majority": 0.55,
+        "power": 0.58,
+        "role": "competitive_response_operator",
+        "stance_axes": {
+          "aggressive_discounting": 0.7,
+          "customer_rescue_positioning": 0.75,
+          "partnership_openness": 0.2,
+          "public_attack_on_incumbent": 0.6
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "archetype_key": "firm_leadership",
+        "description": "Executives controlling pricing and response.",
+        "label": "Firm leadership"
+      },
+      {
+        "archetype_key": "regulatory_case_team",
+        "description": "Officials deciding whether to escalate scrutiny.",
+        "label": "Regulatory case team"
+      },
+      {
+        "archetype_key": "competitor_growth_team",
+        "description": "Operators designing migration offers and messaging.",
+        "label": "Competitor growth teams"
+      }
+    ],
+    "important_questions": [
+      "Will Sentinel Home fully or substantially roll back the legacy subscription price increase?",
+      "Will legacy-customer dissatisfaction convert into materially elevated churn rather than mostly expressive backlash?",
+      "Will regulator concern over lock-in mature into a visible settlement or enforceable corrective commitment?",
+      "Will the company retain the core price increase with only limited concessions and broad customer acceptance/inertia?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "sentinel_home",
+          "legacy_customers"
+        ],
+        "event_key": "price_increase_announced",
+        "event_type": "announcement",
+        "expected_impact": "Raises attention, lowers customer trust, and activates fairness and switching-cost discussion.",
+        "status": "realized",
+        "summary": "Company announces subscription price increase for legacy customers.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "legacy_customers",
+          "prospective_churners"
+        ],
+        "event_key": "customer_cancellation_threats_emerge",
+        "event_type": "announcement",
+        "expected_impact": "Increases perceived backlash scale and creates early churn signaling without confirming mass exit.",
+        "status": "realized",
+        "summary": "Some affected customers publicly or directly threaten cancellation.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "rival_security_firms",
+          "legacy_customers"
+        ],
+        "event_key": "competitors_launch_migration_discounts",
+        "event_type": "announcement",
+        "expected_impact": "Lowers practical and psychological barriers to churn if offers appear credible.",
+        "status": "realized",
+        "summary": "Rivals offer discounts to attract switching customers.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "consumer_regulators",
+          "sentinel_home"
+        ],
+        "event_key": "regulators_request_information_on_lock_in",
+        "event_type": "announcement",
+        "expected_impact": "Introduces legitimacy and compliance pressure, increasing management caution.",
+        "status": "realized",
+        "summary": "Regulators ask questions about lock-in and customer switching constraints.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "sentinel_home",
+          "tech_media",
+          "legacy_customers"
+        ],
+        "event_key": "company_defends_increase_with_cloud_cost_rationale",
+        "event_type": "announcement",
+        "expected_impact": "May reassure some loyalists but can be read as evasive if customers perceive high ownership leverage.",
+        "status": "realized",
+        "summary": "Company attributes the price increase to cloud cost pressures.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "sentinel_home"
+        ],
+        "event_key": "first_churn_metrics_review",
+        "event_type": "announcement",
+        "expected_impact": "Could trigger targeted concessions, messaging changes, or continued firmness depending on churn intensity.",
+        "status": "scheduled",
+        "summary": "Management reviews early cancellation, support load, and retention data.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "consumer_regulators"
+        ],
+        "event_key": "initial_regulatory_assessment",
+        "event_type": "announcement",
+        "expected_impact": "Could widen spread between simple controversy and formal oversight track.",
+        "status": "scheduled",
+        "summary": "Regulators assess whether lock-in indicators justify deeper inquiry.",
+        "tick": 2
+      },
+      {
+        "actors": [
+          "rival_security_firms",
+          "tech_media",
+          "prospective_churners"
+        ],
+        "event_key": "competitor_migration_case_stories_surface",
+        "event_type": "announcement",
+        "expected_impact": "Strongly informs threshold mobilization around churn and customer confidence.",
+        "status": "scheduled",
+        "summary": "Public examples of successful or failed switching begin circulating.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "1e50037c-3fb8-4cff-9f43-f33d10271ea8",
+    "merge_hypotheses": [
+      {
+        "affected_actors": [
+          "legacy_customers",
+          "prospective_churners",
+          "rival_security_firms"
+        ],
+        "convergence_driver": "Shared reluctance to disrupt home-security service can pull angry and quiet customers back toward staying behavior unless migration becomes clearly safe.",
+        "merge_key": "security_continuity_dependency"
+      },
+      {
+        "affected_actors": [
+          "consumer_regulators",
+          "sentinel_home",
+          "consumer_advocates"
+        ],
+        "convergence_driver": "Regulators may prefer incremental inquiry and settlement, causing divergent public narratives to converge on a moderate compliance path.",
+        "merge_key": "procedural_regulatory_temperance"
+      },
+      {
+        "affected_actors": [
+          "sentinel_home",
+          "legacy_customers"
+        ],
+        "convergence_driver": "Even limited concessions can satisfy enough inertial customers to reduce mobilization and compress branch differences.",
+        "merge_key": "concession_fatigue_relief"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "legacy_customer_base",
+        "description": "Customers on older pricing plans facing the announced increase.",
+        "label": "Legacy customer base",
+        "population_total": 1000000
+      },
+      {
+        "archetype_key": "general_market_observers",
+        "description": "Consumers and commentators who may update beliefs about fairness, lock-in, and alternatives.",
+        "label": "General market observers",
+        "population_total": 5000000
+      }
+    ],
+    "risk_flags": [
+      {
+        "note": "Installed base, revenue exposure, and market concentration are unspecified, limiting precise churn and regulatory weight calibration.",
+        "risk_key": "underspecified_scale",
+        "severity": "medium"
+      },
+      {
+        "note": "Scenario references lock-in but does not specify whether barriers are contractual, technical, hardware-bound, or data portability related.",
+        "risk_key": "lock_in_mechanics_unclear",
+        "severity": "medium"
+      },
+      {
+        "note": "Type and strength of regulator authority are not identified at T0.",
+        "risk_key": "regulatory_jurisdiction_unspecified",
+        "severity": "medium"
+      },
+      {
+        "note": "Endpoint competition depends heavily on migration friction and ownership leverage, but these are only qualitatively implied.",
+        "risk_key": "switching_costs_central_but_unquantified",
+        "severity": "high"
+      },
+      {
+        "note": "Complaint visibility may overstate broader customer willingness to churn due to silent inertial segments.",
+        "risk_key": "public_sentiment_visibility_bias",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "corporate_regulatory_endpoint",
+      "horizon_ticks": 8,
+      "mode": "direct",
+      "scenario_key": "corporate_001",
+      "summary": "A fictional home-security company raises subscription prices for legacy customers, triggering customer cancellation threats, competitive migration offers, and regulatory scrutiny over lock-in. The company cites cloud cost pressure. T0 should emphasize switching costs, platform ownership leverage, trust, and unresolved endpoint competition between rollback, churn, regulatory settlement, or customer acceptance of the increase.",
+      "time_zero_posture": "early controversy with unresolved commercial and regulatory pressure, not yet at terminal outcome",
+      "uncertainty_notes": [
+        "No company size, geography, installed base, or exact price delta specified.",
+        "Regulatory authority and formal legal posture are not specified at T0.",
+        "Competitor identities and customer segmentation are inferred generically from scenario framing."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "level": "medium",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Customers may update views through peers and coverage, but loyalists and inertial users will not immediately converge with angrier segments.",
+        "scope": "legacy_customer_base"
+      },
+      {
+        "level": "high_relevance",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Visible successful switching or concessions could tip quiet dissatisfaction into broader action.",
+        "scope": "price_sensitive_and_inertial_customers"
+      },
+      {
+        "level": "medium",
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Many dissatisfied users remain quiet because of hassle, uncertainty, or security continuity dependence.",
+        "scope": "legacy_inertial"
+      },
+      {
+        "level": "medium",
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Legacy customers are likely to trust similar users' migration stories more than corporate messaging.",
+        "scope": "customer_discussion_networks"
+      },
+      {
+        "level": "medium",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Repeated reports of painless migration are more likely than a single complaint to trigger wider switching.",
+        "scope": "churn_behavior"
+      },
+      {
+        "level": "medium_low",
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Some customers identify with brand reliability, slowing uniform backlash.",
+        "scope": "brand_loyalists_vs_critics"
+      },
+      {
+        "level": "medium",
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Without new revelations, issue salience may fade even if practical customer anger remains.",
+        "scope": "general_market_observers"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context_key": "switching_cost_visibility",
+        "description": "Observed ease or difficulty of moving to rival systems will shape whether complaint stays expressive or becomes behavioral."
+      },
+      {
+        "context_key": "lock_in_framing",
+        "description": "Whether public discourse frames the increase as routine repricing or exploitative lock-in will influence legitimacy."
+      },
+      {
+        "context_key": "migration_discount_salience",
+        "description": "Competitor discount visibility can convert passive dissatisfaction into comparison shopping."
+      },
+      {
+        "context_key": "service_continuity_fear",
+        "description": "Fear of losing home-security reliability suppresses public action and churn among inertial customers."
+      },
+      {
+        "context_key": "regulatory_signal_strength",
+        "description": "A mild inquiry versus formal scrutiny changes perceptions of company vulnerability and fairness."
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "sentinel_home",
+        "behavior_axes": {
+          "adaptability": 0.55,
+          "customer_empathy_signaling": 0.4,
+          "defensiveness": 0.65,
+          "operational_dependence": 0.7,
+          "risk_tolerance": 0.45
+        },
+        "ideology_axes": {
+          "consumer_protection_alignment": 0.35,
+          "market_power_assertion": 0.7
+        },
+        "reputation": 0.5,
+        "secrecy": 0.55,
+        "tendency": "defend pricing while testing concessions if churn or scrutiny rises",
+        "trustworthiness": 0.4
+      },
+      {
+        "actor_name": "legacy_customers",
+        "behavior_axes": {
+          "complaint_propensity": 0.6,
+          "inertia": 0.55,
+          "price_sensitivity": 0.7,
+          "switching_capacity": 0.4
+        },
+        "ideology_axes": {
+          "brand_loyalty": 0.4,
+          "consumer_fairness_orientation": 0.7
+        },
+        "reputation": 0.55,
+        "secrecy": 0.2,
+        "tendency": "complain first, switch selectively when migration path becomes credible",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "prospective_churners",
+        "behavior_axes": {
+          "activation": 0.75,
+          "coordination_propensity": 0.45,
+          "price_sensitivity": 0.85,
+          "switching_intent": 0.7
+        },
+        "ideology_axes": {
+          "brand_loyalty": 0.2,
+          "consumer_fairness_orientation": 0.8
+        },
+        "reputation": 0.5,
+        "secrecy": 0.15,
+        "tendency": "serve as early movers if alternatives reduce friction",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "rival_security_firms",
+        "behavior_axes": {
+          "credibility": 0.5,
+          "opportunism": 0.75,
+          "promotional_aggressiveness": 0.7,
+          "service_substitution_capacity": 0.55
+        },
+        "ideology_axes": {
+          "consumer_choice_framing": 0.65,
+          "market_expansion_drive": 0.8
+        },
+        "reputation": 0.5,
+        "secrecy": 0.35,
+        "tendency": "amplify switching narrative through discounts and migration promises",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "consumer_regulators",
+        "behavior_axes": {
+          "enforcement_capacity": 0.5,
+          "proceduralism": 0.75,
+          "responsiveness": 0.55,
+          "risk_aversion": 0.6
+        },
+        "ideology_axes": {
+          "consumer_protection_alignment": 0.8,
+          "market_intervention_tolerance": 0.65
+        },
+        "reputation": 0.6,
+        "secrecy": 0.45,
+        "tendency": "seek evidence of lock-in before escalating",
+        "trustworthiness": 0.65
+      },
+      {
+        "actor_name": "consumer_advocates",
+        "behavior_axes": {
+          "coalition_building": 0.55,
+          "institutional_power": 0.35,
+          "issue_amplification": 0.7,
+          "narrative_clarity": 0.65
+        },
+        "ideology_axes": {
+          "anti_lock_in_orientation": 0.8,
+          "consumer_protection_alignment": 0.85
+        },
+        "reputation": 0.55,
+        "secrecy": 0.15,
+        "tendency": "frame price increase as fairness and lock-in problem",
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "tech_media",
+        "behavior_axes": {
+          "agenda_setting": 0.55,
+          "attention_allocation": 0.6,
+          "controversy_amplification": 0.65,
+          "fact_gathering": 0.5
+        },
+        "ideology_axes": {
+          "consumer_interest_alignment": 0.55,
+          "neutrality_norm": 0.5
+        },
+        "reputation": 0.55,
+        "secrecy": 0.1,
+        "tendency": "magnify visible customer stories and company response gaps",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "cloud_infrastructure_suppliers",
+        "behavior_axes": {
+          "contract_rigidity": 0.65,
+          "pricing_power": 0.6,
+          "public_engagement": 0.1,
+          "service_criticality": 0.75
+        },
+        "ideology_axes": {
+          "commercial_efficiency": 0.7,
+          "consumer_alignment": 0.2
+        },
+        "reputation": 0.5,
+        "secrecy": 0.7,
+        "tendency": "remain background dependency rather than public actor",
+        "trustworthiness": 0.55
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 526,
+        "end": 526,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 526,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

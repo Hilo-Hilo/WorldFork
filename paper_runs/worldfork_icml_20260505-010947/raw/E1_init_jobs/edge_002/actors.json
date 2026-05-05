@@ -1,0 +1,282 @@
+[
+  {
+    "actor_type": "public_group",
+    "archetype": {
+      "actor_type": "public_group",
+      "decision_authority": "low_direct",
+      "fictionalized": true,
+      "name": "general_public",
+      "public_visibility": "medium",
+      "role": "ambient local audience with limited information",
+      "stakes": [
+        "civic trust",
+        "service value"
+      ],
+      "trait_vector": {
+        "actor_name": "general_public",
+        "behavior_axes": {
+          "attention_shifting": 0.75,
+          "collective_action": 0.1,
+          "responsiveness": 0.2
+        },
+        "ideology_axes": {
+          "accountability_orientation": 0.45,
+          "institutional_trust": 0.5
+        },
+        "reputation": 0.5,
+        "secrecy": 0.15,
+        "tendency": "low_attention_observer",
+        "trustworthiness": 0.5
+      }
+    },
+    "big_bang_id": "4f3cb747-11f4-4a5b-a3c9-025f14327e39",
+    "created_at": "2026-05-05T02:38:37.189430+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "45e89cac-311c-4d14-af9b-eb2514866810",
+    "name": "general_public",
+    "status": "active",
+    "updated_at": "2026-05-05T02:38:37.189430+00:00"
+  },
+  {
+    "actor_type": "institution",
+    "archetype": {
+      "actor_type": "institution",
+      "decision_authority": "medium_if_jurisdiction_exists",
+      "fictionalized": true,
+      "name": "oversight_body",
+      "public_visibility": "low",
+      "role": "potential auditor_ethics_or_regulatory reviewer",
+      "stakes": [
+        "compliance",
+        "due process",
+        "institutional legitimacy"
+      ],
+      "trait_vector": {
+        "actor_name": "oversight_body",
+        "behavior_axes": {
+          "interventionism": 0.4,
+          "proceduralism": 0.85,
+          "responsiveness": 0.35
+        },
+        "ideology_axes": {
+          "accountability_orientation": 0.7,
+          "institutional_trust": 0.7
+        },
+        "reputation": 0.55,
+        "secrecy": 0.4,
+        "tendency": "act_if_formally_triggered",
+        "trustworthiness": 0.6
+      }
+    },
+    "big_bang_id": "4f3cb747-11f4-4a5b-a3c9-025f14327e39",
+    "created_at": "2026-05-05T02:38:37.189430+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "49491d18-337b-4330-ad43-1f21ce5e142f",
+    "name": "oversight_body",
+    "status": "active",
+    "updated_at": "2026-05-05T02:38:37.189430+00:00"
+  },
+  {
+    "actor_type": "institution",
+    "archetype": {
+      "actor_type": "institution",
+      "decision_authority": "medium_agenda_setting",
+      "fictionalized": true,
+      "name": "local_press",
+      "public_visibility": "medium",
+      "role": "potential amplifier and verifier",
+      "stakes": [
+        "newsworthiness",
+        "credibility"
+      ],
+      "trait_vector": {
+        "actor_name": "local_press",
+        "behavior_axes": {
+          "amplification": 0.45,
+          "conflict_seeking": 0.35,
+          "verification": 0.8
+        },
+        "ideology_axes": {
+          "accountability_orientation": 0.75,
+          "institutional_trust": 0.45
+        },
+        "reputation": 0.6,
+        "secrecy": 0.25,
+        "tendency": "verify_before_escalating",
+        "trustworthiness": 0.65
+      }
+    },
+    "big_bang_id": "4f3cb747-11f4-4a5b-a3c9-025f14327e39",
+    "created_at": "2026-05-05T02:38:37.189430+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "49648f1d-fa93-42ef-b4c5-fc3ebbff6d8b",
+    "name": "local_press",
+    "status": "active",
+    "updated_at": "2026-05-05T02:38:37.189430+00:00"
+  },
+  {
+    "actor_type": "institution",
+    "archetype": {
+      "actor_type": "institution",
+      "decision_authority": "high_potential_but_unconfirmed",
+      "fictionalized": true,
+      "name": "ferry_contracting_authority",
+      "public_visibility": "medium",
+      "role": "public_or_quasi_public_contract_authority",
+      "stakes": [
+        "service continuity",
+        "contract legitimacy",
+        "budget control",
+        "reputation"
+      ],
+      "trait_vector": {
+        "actor_name": "ferry_contracting_authority",
+        "behavior_axes": {
+          "defensiveness": 0.55,
+          "proceduralism": 0.75,
+          "responsiveness": 0.4
+        },
+        "ideology_axes": {
+          "accountability_orientation": 0.5,
+          "institutional_trust": 0.8
+        },
+        "reputation": 0.5,
+        "secrecy": 0.45,
+        "tendency": "protect_process_and_continuity",
+        "trustworthiness": 0.5
+      }
+    },
+    "big_bang_id": "4f3cb747-11f4-4a5b-a3c9-025f14327e39",
+    "created_at": "2026-05-05T02:38:37.189430+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "83fb3cda-4c4f-4dec-a37a-9c62470e9387",
+    "name": "ferry_contracting_authority",
+    "status": "active",
+    "updated_at": "2026-05-05T02:38:37.189430+00:00"
+  },
+  {
+    "actor_type": "public_group",
+    "archetype": {
+      "actor_type": "public_group",
+      "decision_authority": "low_direct",
+      "fictionalized": true,
+      "name": "concerned_riders",
+      "public_visibility": "medium",
+      "role": "service_users_expressing_or_holding concern",
+      "stakes": [
+        "reliable transport",
+        "fair pricing",
+        "safety",
+        "accountability"
+      ],
+      "trait_vector": {
+        "actor_name": "concerned_riders",
+        "behavior_axes": {
+          "collective_action": 0.35,
+          "complaint_propensity": 0.55,
+          "responsiveness": 0.6
+        },
+        "ideology_axes": {
+          "accountability_orientation": 0.7,
+          "institutional_trust": 0.4
+        },
+        "reputation": 0.55,
+        "secrecy": 0.25,
+        "tendency": "watchful_but_not_yet_coordinated",
+        "trustworthiness": 0.55
+      }
+    },
+    "big_bang_id": "4f3cb747-11f4-4a5b-a3c9-025f14327e39",
+    "created_at": "2026-05-05T02:38:37.189430+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "969aed6f-771b-47e7-bc7d-28e349196f85",
+    "name": "concerned_riders",
+    "status": "active",
+    "updated_at": "2026-05-05T02:38:37.189430+00:00"
+  },
+  {
+    "actor_type": "individual",
+    "archetype": {
+      "actor_type": "individual",
+      "decision_authority": "none_formal",
+      "fictionalized": true,
+      "name": "anonymous_tipster",
+      "public_visibility": "low",
+      "role": "source_of_note",
+      "stakes": [
+        "raise concern",
+        "avoid exposure"
+      ],
+      "trait_vector": {
+        "actor_name": "anonymous_tipster",
+        "behavior_axes": {
+          "amplification_drive": 0.4,
+          "risk_tolerance": 0.35,
+          "truth_disclosure": 0.55
+        },
+        "ideology_axes": {
+          "accountability_orientation": 0.7,
+          "institutional_trust": 0.3
+        },
+        "reputation": 0.1,
+        "secrecy": 0.9,
+        "tendency": "anonymous_warning_without_supporting_detail",
+        "trustworthiness": 0.35
+      }
+    },
+    "big_bang_id": "4f3cb747-11f4-4a5b-a3c9-025f14327e39",
+    "created_at": "2026-05-05T02:38:37.189430+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "e706d14e-0bea-48f8-91cf-6774cfe501e1",
+    "name": "anonymous_tipster",
+    "status": "active",
+    "updated_at": "2026-05-05T02:38:37.189430+00:00"
+  },
+  {
+    "actor_type": "organization",
+    "archetype": {
+      "actor_type": "organization",
+      "decision_authority": "medium_operational",
+      "fictionalized": true,
+      "name": "ferry_operator",
+      "public_visibility": "medium",
+      "role": "current_or_proposed_service_provider",
+      "stakes": [
+        "revenue",
+        "contract retention_or_award",
+        "operational continuity",
+        "reputation"
+      ],
+      "trait_vector": {
+        "actor_name": "ferry_operator",
+        "behavior_axes": {
+          "commercial_self_protection": 0.75,
+          "defensiveness": 0.6,
+          "responsiveness": 0.45
+        },
+        "ideology_axes": {
+          "accountability_orientation": 0.4,
+          "market_orientation": 0.7
+        },
+        "reputation": 0.5,
+        "secrecy": 0.5,
+        "tendency": "defend_contract_position",
+        "trustworthiness": 0.45
+      }
+    },
+    "big_bang_id": "4f3cb747-11f4-4a5b-a3c9-025f14327e39",
+    "created_at": "2026-05-05T02:38:37.189430+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "e9310d41-7390-459c-8755-77f8c9de6011",
+    "name": "ferry_operator",
+    "status": "active",
+    "updated_at": "2026-05-05T02:38:37.189430+00:00"
+  }
+]

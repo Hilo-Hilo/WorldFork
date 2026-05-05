@@ -1,0 +1,1743 @@
+{
+  "big_bang_id": "f4083b1d-2e5a-41ee-840f-69cca9a2d33f",
+  "initializer_output": {
+    "actors": [
+      {
+        "fictionalized": true,
+        "name": "town_council",
+        "role": "decision_authority_on_local_infrastructure",
+        "scale": "local",
+        "stakes": [
+          "public safety",
+          "public legitimacy",
+          "budget discipline",
+          "traffic management"
+        ],
+        "type": "institution"
+      },
+      {
+        "fictionalized": true,
+        "name": "school_parent_group",
+        "role": "advocates_for_student_safety",
+        "scale": "local",
+        "stakes": [
+          "child safety",
+          "safe school access",
+          "visible responsiveness from town"
+        ],
+        "type": "civic_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "town_traffic_engineering_office",
+        "role": "technical_assessment_and_design_advice",
+        "scale": "local",
+        "stakes": [
+          "traffic safety standards",
+          "engineering credibility",
+          "feasible implementation"
+        ],
+        "type": "institution"
+      },
+      {
+        "fictionalized": true,
+        "name": "local_driver_group",
+        "role": "road_users_near_school_corridor",
+        "scale": "local",
+        "stakes": [
+          "travel time",
+          "road predictability",
+          "safety",
+          "avoidance of congestion"
+        ],
+        "type": "public_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "school_staff",
+        "role": "school_operations_and_student_supervision",
+        "scale": "local",
+        "stakes": [
+          "student arrival safety",
+          "dismissal flow",
+          "staff workload",
+          "school-community relations"
+        ],
+        "type": "institutional_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "town_budget_office",
+        "role": "fiscal_review_and_funding_gatekeeper",
+        "scale": "local",
+        "stakes": [
+          "cost control",
+          "budget prioritization",
+          "precedent for small capital projects"
+        ],
+        "type": "institution"
+      },
+      {
+        "fictionalized": true,
+        "name": "nearby_residents",
+        "role": "adjacent community observers",
+        "scale": "neighborhood",
+        "stakes": [
+          "street safety",
+          "noise and traffic patterns",
+          "property access"
+        ],
+        "type": "public_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "local_newsletter_forum",
+        "role": "amplifies_public_discussion",
+        "scale": "local",
+        "stakes": [
+          "audience engagement",
+          "community information flow"
+        ],
+        "type": "media_channel_actor"
+      },
+      {
+        "fictionalized": true,
+        "name": "school_principal",
+        "role": "visible school representative",
+        "scale": "local",
+        "stakes": [
+          "student welfare",
+          "operational calm",
+          "credible communication"
+        ],
+        "type": "hero_actor"
+      },
+      {
+        "fictionalized": true,
+        "name": "town_traffic_engineer",
+        "role": "technical expert voice",
+        "scale": "local",
+        "stakes": [
+          "evidence-based recommendation",
+          "professional legitimacy"
+        ],
+        "type": "hero_actor"
+      },
+      {
+        "fictionalized": true,
+        "name": "budget_director",
+        "role": "fiscal decision influencer",
+        "scale": "local",
+        "stakes": [
+          "budget discipline",
+          "avoiding overruns",
+          "defensible prioritization"
+        ],
+        "type": "hero_actor"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "technical endorsement legitimizes action and brings cautious officials closer to implementation planning",
+        "branch_key": "engineering_support_branch",
+        "divergence_signal": "public references shift from abstract concern to design specifics, and council language becomes implementation-oriented",
+        "trigger": "traffic engineering review finds conditions that justify a marked crosswalk or paired safety treatment"
+      },
+      {
+        "alternate_path": "debate shifts from simple yes-no crosswalk framing to alternatives such as signage, crossing guard, or delay pending further study",
+        "branch_key": "engineering_caution_branch",
+        "divergence_signal": "stakeholders begin debating substitute interventions rather than the original proposal alone",
+        "trigger": "traffic engineering review raises concerns about warrant, placement, or need for additional measures"
+      },
+      {
+        "alternate_path": "officials support safety in principle but defer action, seek grants, or phase implementation",
+        "branch_key": "budget_delay_branch",
+        "divergence_signal": "council and budget office messaging emphasizes timing, fiscal year constraints, or lower-cost interim steps",
+        "trigger": "budget screening identifies funding scarcity or competing priorities"
+      },
+      {
+        "alternate_path": "council becomes more cautious, and supporters need broader coalition proof to avoid stalemate",
+        "branch_key": "driver_pushback_branch",
+        "divergence_signal": "local forum and meeting comments increasingly frame the issue as traffic disruption rather than child access safety",
+        "trigger": "public discussion prominently features congestion or inconvenience complaints"
+      },
+      {
+        "alternate_path": "latent parent support becomes more organized and public, raising reputational cost of inaction",
+        "branch_key": "school_endorsement_branch",
+        "divergence_signal": "attendance or comment volume from families rises and messaging becomes more coordinated",
+        "trigger": "principal and staff visibly back a specific safety request"
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "town_council_meeting",
+        "persistence": 0.74,
+        "reach": 0.46,
+        "speed": 0.41,
+        "type": "public_institutional"
+      },
+      {
+        "channel_key": "school_email_and_notices",
+        "persistence": 0.61,
+        "reach": 0.63,
+        "speed": 0.68,
+        "type": "institutional"
+      },
+      {
+        "channel_key": "local_newsletter_forum",
+        "persistence": 0.58,
+        "reach": 0.51,
+        "speed": 0.72,
+        "type": "community_media"
+      },
+      {
+        "channel_key": "informal_parent_networks",
+        "persistence": 0.33,
+        "reach": 0.57,
+        "speed": 0.76,
+        "type": "social"
+      },
+      {
+        "channel_key": "neighborhood_word_of_mouth",
+        "persistence": 0.28,
+        "reach": 0.39,
+        "speed": 0.49,
+        "type": "social"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "school_parent_group",
+        "archetype_key": "school_parent_households",
+        "attention_level": 0.86,
+        "cohort_key": "parents_pro_crosswalk",
+        "expression_level": 0.72,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.68,
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.654,
+        "private_position": "leans_support",
+        "public_position": "support",
+        "representation_mode": "organized_and_informal",
+        "represented_population": 170,
+        "stance_axes": {
+          "budget_caution": 0.38,
+          "crosswalk_support": 0.83,
+          "traffic_calming_support": 0.74
+        }
+      },
+      {
+        "actor_name": "school_parent_group",
+        "archetype_key": "school_parent_households",
+        "attention_level": 0.52,
+        "cohort_key": "parents_uncertain_or_waiting",
+        "expression_level": 0.24,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.37,
+        "mobilization_readiness": 0.34,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.346,
+        "private_position": "mixed",
+        "public_position": "muted",
+        "representation_mode": "diffuse",
+        "represented_population": 90,
+        "stance_axes": {
+          "budget_caution": 0.5,
+          "crosswalk_support": 0.54,
+          "traffic_calming_support": 0.49
+        }
+      },
+      {
+        "actor_name": "local_driver_group",
+        "archetype_key": "regular_driver_public",
+        "attention_level": 0.46,
+        "cohort_key": "drivers_concerned_about_delay",
+        "expression_level": 0.33,
+        "fatigue": 0.16,
+        "fear_of_isolation": 0.3,
+        "mobilization_readiness": 0.29,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.432,
+        "private_position": "skeptical",
+        "public_position": "selective_opposition",
+        "representation_mode": "diffuse",
+        "represented_population": 950,
+        "stance_axes": {
+          "budget_caution": 0.44,
+          "crosswalk_support": 0.31,
+          "traffic_calming_support": 0.28
+        }
+      },
+      {
+        "actor_name": "local_driver_group",
+        "archetype_key": "regular_driver_public",
+        "attention_level": 0.31,
+        "cohort_key": "drivers_safety_accepting",
+        "expression_level": 0.14,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.17,
+        "perceived_majority": 0.45,
+        "population_share_of_archetype": 0.355,
+        "private_position": "mild_support",
+        "public_position": "mostly_quiet",
+        "representation_mode": "diffuse",
+        "represented_population": 780,
+        "stance_axes": {
+          "budget_caution": 0.41,
+          "crosswalk_support": 0.61,
+          "traffic_calming_support": 0.57
+        }
+      },
+      {
+        "actor_name": "local_driver_group",
+        "archetype_key": "regular_driver_public",
+        "attention_level": 0.12,
+        "cohort_key": "drivers_low_attention",
+        "expression_level": 0.04,
+        "fatigue": 0.08,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.07,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.214,
+        "private_position": "unclear",
+        "public_position": "none",
+        "representation_mode": "latent",
+        "represented_population": 470,
+        "stance_axes": {
+          "budget_caution": 0.45,
+          "crosswalk_support": 0.48,
+          "traffic_calming_support": 0.43
+        }
+      },
+      {
+        "actor_name": "school_staff",
+        "archetype_key": "school_staff_population",
+        "attention_level": 0.79,
+        "cohort_key": "staff_supportive",
+        "expression_level": 0.42,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.44,
+        "perceived_majority": 0.64,
+        "population_share_of_archetype": 0.727,
+        "private_position": "support",
+        "public_position": "guardedly_supportive",
+        "representation_mode": "institution-linked",
+        "represented_population": 40,
+        "stance_axes": {
+          "budget_caution": 0.33,
+          "crosswalk_support": 0.77,
+          "traffic_calming_support": 0.72
+        }
+      },
+      {
+        "actor_name": "school_staff",
+        "archetype_key": "school_staff_population",
+        "attention_level": 0.58,
+        "cohort_key": "staff_cautious_neutral",
+        "expression_level": 0.18,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.34,
+        "mobilization_readiness": 0.19,
+        "perceived_majority": 0.56,
+        "population_share_of_archetype": 0.273,
+        "private_position": "wait_and_see",
+        "public_position": "neutral",
+        "representation_mode": "institution-linked",
+        "represented_population": 15,
+        "stance_axes": {
+          "budget_caution": 0.47,
+          "crosswalk_support": 0.52,
+          "traffic_calming_support": 0.5
+        }
+      },
+      {
+        "actor_name": "nearby_residents",
+        "archetype_key": "nearby_resident_households",
+        "attention_level": 0.49,
+        "cohort_key": "nearby_residents_supportive",
+        "expression_level": 0.26,
+        "fatigue": 0.17,
+        "fear_of_isolation": 0.32,
+        "mobilization_readiness": 0.25,
+        "perceived_majority": 0.53,
+        "population_share_of_archetype": 0.583,
+        "private_position": "mild_support",
+        "public_position": "mixed_visibility",
+        "representation_mode": "informal",
+        "represented_population": 105,
+        "stance_axes": {
+          "budget_caution": 0.4,
+          "crosswalk_support": 0.67,
+          "traffic_calming_support": 0.63
+        }
+      },
+      {
+        "actor_name": "nearby_residents",
+        "archetype_key": "nearby_resident_households",
+        "attention_level": 0.43,
+        "cohort_key": "nearby_residents_access_concerned",
+        "expression_level": 0.21,
+        "fatigue": 0.15,
+        "fear_of_isolation": 0.28,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 0.417,
+        "private_position": "ambivalent",
+        "public_position": "conditional",
+        "representation_mode": "informal",
+        "represented_population": 75,
+        "stance_axes": {
+          "budget_caution": 0.46,
+          "crosswalk_support": 0.44,
+          "traffic_calming_support": 0.39
+        }
+      },
+      {
+        "actor_name": "local_newsletter_forum",
+        "archetype_key": "town_civic_observers",
+        "attention_level": 0.18,
+        "cohort_key": "general_public_low_attention",
+        "expression_level": 0.06,
+        "fatigue": 0.09,
+        "fear_of_isolation": 0.21,
+        "mobilization_readiness": 0.08,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1.0,
+        "private_position": "weakly_formed",
+        "public_position": "minimal",
+        "representation_mode": "audience",
+        "represented_population": 3200,
+        "stance_axes": {
+          "budget_caution": 0.48,
+          "crosswalk_support": 0.55,
+          "traffic_calming_support": 0.51
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "school_parent_group",
+        "archetype_key": "school_parent_households",
+        "attention_level": 0.86,
+        "cohort_key": "parents_pro_crosswalk",
+        "expression_level": 0.72,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.68,
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.654,
+        "private_position": "leans_support",
+        "public_position": "support",
+        "representation_mode": "organized_and_informal",
+        "represented_population": 170,
+        "stance_axes": {
+          "budget_caution": 0.38,
+          "crosswalk_support": 0.83,
+          "traffic_calming_support": 0.74
+        }
+      },
+      {
+        "actor_name": "school_parent_group",
+        "archetype_key": "school_parent_households",
+        "attention_level": 0.52,
+        "cohort_key": "parents_uncertain_or_waiting",
+        "expression_level": 0.24,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.37,
+        "mobilization_readiness": 0.34,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.346,
+        "private_position": "mixed",
+        "public_position": "muted",
+        "representation_mode": "diffuse",
+        "represented_population": 90,
+        "stance_axes": {
+          "budget_caution": 0.5,
+          "crosswalk_support": 0.54,
+          "traffic_calming_support": 0.49
+        }
+      },
+      {
+        "actor_name": "local_driver_group",
+        "archetype_key": "regular_driver_public",
+        "attention_level": 0.46,
+        "cohort_key": "drivers_concerned_about_delay",
+        "expression_level": 0.33,
+        "fatigue": 0.16,
+        "fear_of_isolation": 0.3,
+        "mobilization_readiness": 0.29,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.432,
+        "private_position": "skeptical",
+        "public_position": "selective_opposition",
+        "representation_mode": "diffuse",
+        "represented_population": 950,
+        "stance_axes": {
+          "budget_caution": 0.44,
+          "crosswalk_support": 0.31,
+          "traffic_calming_support": 0.28
+        }
+      },
+      {
+        "actor_name": "local_driver_group",
+        "archetype_key": "regular_driver_public",
+        "attention_level": 0.31,
+        "cohort_key": "drivers_safety_accepting",
+        "expression_level": 0.14,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.17,
+        "perceived_majority": 0.45,
+        "population_share_of_archetype": 0.355,
+        "private_position": "mild_support",
+        "public_position": "mostly_quiet",
+        "representation_mode": "diffuse",
+        "represented_population": 780,
+        "stance_axes": {
+          "budget_caution": 0.41,
+          "crosswalk_support": 0.61,
+          "traffic_calming_support": 0.57
+        }
+      },
+      {
+        "actor_name": "local_driver_group",
+        "archetype_key": "regular_driver_public",
+        "attention_level": 0.12,
+        "cohort_key": "drivers_low_attention",
+        "expression_level": 0.04,
+        "fatigue": 0.08,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.07,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.214,
+        "private_position": "unclear",
+        "public_position": "none",
+        "representation_mode": "latent",
+        "represented_population": 470,
+        "stance_axes": {
+          "budget_caution": 0.45,
+          "crosswalk_support": 0.48,
+          "traffic_calming_support": 0.43
+        }
+      },
+      {
+        "actor_name": "school_staff",
+        "archetype_key": "school_staff_population",
+        "attention_level": 0.79,
+        "cohort_key": "staff_supportive",
+        "expression_level": 0.42,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.44,
+        "perceived_majority": 0.64,
+        "population_share_of_archetype": 0.727,
+        "private_position": "support",
+        "public_position": "guardedly_supportive",
+        "representation_mode": "institution-linked",
+        "represented_population": 40,
+        "stance_axes": {
+          "budget_caution": 0.33,
+          "crosswalk_support": 0.77,
+          "traffic_calming_support": 0.72
+        }
+      },
+      {
+        "actor_name": "school_staff",
+        "archetype_key": "school_staff_population",
+        "attention_level": 0.58,
+        "cohort_key": "staff_cautious_neutral",
+        "expression_level": 0.18,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.34,
+        "mobilization_readiness": 0.19,
+        "perceived_majority": 0.56,
+        "population_share_of_archetype": 0.273,
+        "private_position": "wait_and_see",
+        "public_position": "neutral",
+        "representation_mode": "institution-linked",
+        "represented_population": 15,
+        "stance_axes": {
+          "budget_caution": 0.47,
+          "crosswalk_support": 0.52,
+          "traffic_calming_support": 0.5
+        }
+      },
+      {
+        "actor_name": "nearby_residents",
+        "archetype_key": "nearby_resident_households",
+        "attention_level": 0.49,
+        "cohort_key": "nearby_residents_supportive",
+        "expression_level": 0.26,
+        "fatigue": 0.17,
+        "fear_of_isolation": 0.32,
+        "mobilization_readiness": 0.25,
+        "perceived_majority": 0.53,
+        "population_share_of_archetype": 0.583,
+        "private_position": "mild_support",
+        "public_position": "mixed_visibility",
+        "representation_mode": "informal",
+        "represented_population": 105,
+        "stance_axes": {
+          "budget_caution": 0.4,
+          "crosswalk_support": 0.67,
+          "traffic_calming_support": 0.63
+        }
+      },
+      {
+        "actor_name": "nearby_residents",
+        "archetype_key": "nearby_resident_households",
+        "attention_level": 0.43,
+        "cohort_key": "nearby_residents_access_concerned",
+        "expression_level": 0.21,
+        "fatigue": 0.15,
+        "fear_of_isolation": 0.28,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 0.417,
+        "private_position": "ambivalent",
+        "public_position": "conditional",
+        "representation_mode": "informal",
+        "represented_population": 75,
+        "stance_axes": {
+          "budget_caution": 0.46,
+          "crosswalk_support": 0.44,
+          "traffic_calming_support": 0.39
+        }
+      },
+      {
+        "actor_name": "local_newsletter_forum",
+        "archetype_key": "town_civic_observers",
+        "attention_level": 0.18,
+        "cohort_key": "general_public_low_attention",
+        "expression_level": 0.06,
+        "fatigue": 0.09,
+        "fear_of_isolation": 0.21,
+        "mobilization_readiness": 0.08,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1.0,
+        "private_position": "weakly_formed",
+        "public_position": "minimal",
+        "representation_mode": "audience",
+        "represented_population": 3200,
+        "stance_axes": {
+          "budget_caution": 0.48,
+          "crosswalk_support": 0.55,
+          "traffic_calming_support": 0.51
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "town_council",
+          "town_traffic_engineering_office",
+          "town_budget_office"
+        ],
+        "blockers": [
+          "negative or ambiguous engineering assessment",
+          "budget constraints",
+          "organized driver or resident opposition",
+          "procedural delay"
+        ],
+        "contradiction_notes": "Could be superseded by alternative safety measures without formal crosswalk approval.",
+        "description": "A formal municipal decision authorizes installation of a crosswalk near the school.",
+        "endpoint_key": "approve_crosswalk",
+        "evidence_refs": [
+          "scenario issue is whether to add a crosswalk near a school",
+          "town council inferred as local decision authority",
+          "engineering and budget officials named as gatekeeping stakeholders"
+        ],
+        "label": "Crosswalk approved",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the town formally approve installation of a crosswalk near the school within the near-term horizon?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.42,
+        "rationale": "This is the most direct terminal policy option implied by the scenario.",
+        "realization_criteria": [
+          "council records or official announcement show approval of a crosswalk project near the school",
+          "engineering and funding pathway are accepted sufficiently for authorization"
+        ],
+        "status": "active",
+        "status_basis": "The central unresolved decision in the scenario is whether the crosswalk will be added."
+      },
+      {
+        "authority_refs": [
+          "town_council",
+          "town_traffic_engineering_office",
+          "school_principal",
+          "town_budget_office"
+        ],
+        "blockers": [
+          "lack of consensus on any intervention",
+          "budget scarcity",
+          "low urgency perception"
+        ],
+        "contradiction_notes": "If a crosswalk is approved as the primary action, this endpoint is not the terminal outcome unless only temporary alternatives precede approval.",
+        "description": "The town declines or postpones the crosswalk but implements another school-area safety step.",
+        "endpoint_key": "adopt_alternative_safety_measure",
+        "evidence_refs": [
+          "scenario includes engineers, school staff, and budget officials, implying multiple feasible response types",
+          "initializer preserves alternatives when terminal choice remains uncertain"
+        ],
+        "label": "Alternative safety measure adopted",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "If a crosswalk is not approved promptly, will the town adopt an alternative school-area safety intervention instead?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.29,
+        "rationale": "Common civic disputes resolve through compromise or lower-cost substitutes rather than binary acceptance or rejection.",
+        "realization_criteria": [
+          "official action adopts a substitute intervention such as signage, paint, crossing guard, enforcement, or pilot treatment",
+          "the action is documented as the chosen response to the school-area safety concern"
+        ],
+        "status": "active",
+        "status_basis": "No text limits the solution set to a crosswalk only; alternative mechanisms are plausible."
+      },
+      {
+        "authority_refs": [
+          "town_council",
+          "town_budget_office",
+          "town_traffic_engineering_office"
+        ],
+        "blockers": [
+          "strong public coalition for action",
+          "clear engineering endorsement",
+          "available low-cost implementation path"
+        ],
+        "contradiction_notes": "A trial or temporary measure would weaken stalemate classification if it materially responds to the issue.",
+        "description": "The town neither approves the crosswalk nor adopts a meaningful substitute within the horizon.",
+        "endpoint_key": "defer_or_stalemate",
+        "evidence_refs": [
+          "scenario provides no sign of urgent deadline or dedicated funding",
+          "budget and engineering review can slow small infrastructure decisions"
+        ],
+        "label": "Decision deferred or unresolved stalemate",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the issue move to a concrete municipal action path, or remain in procedural delay and unresolved debate?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.21,
+        "rationale": "Local infrastructure debates often persist when evidence, funding, or coalition strength is incomplete.",
+        "realization_criteria": [
+          "no formal approval of crosswalk or substitute safety intervention occurs by horizon end",
+          "official messaging continues review, delay, or leaves the issue unresolved"
+        ],
+        "status": "active",
+        "status_basis": "T0 contains unresolved pressures but no forced crisis or fixed timetable."
+      },
+      {
+        "authority_refs": [
+          "school_parent_group",
+          "school_staff",
+          "school_principal",
+          "local_newsletter_forum",
+          "town_council"
+        ],
+        "blockers": [
+          "continued quiet support with low expression",
+          "engineering ambiguity",
+          "driver pushback becoming more salient"
+        ],
+        "contradiction_notes": "Public dominance does not guarantee final policy approval if budget or engineering veto points remain binding.",
+        "description": "Parents, school staff, and allied voices become the clearly more visible and influential public coalition around the decision.",
+        "endpoint_key": "public_support_coalition_dominates",
+        "evidence_refs": [
+          "parents and school staff are central stakeholders",
+          "principal is a plausible trusted amplifier"
+        ],
+        "label": "School-safety coalition becomes publicly dominant",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Which side becomes the more publicly visible coalition at early decision points: school-safety supporters or traffic/budget cautioners?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.52,
+        "rationale": "The balance of visible coalition pressure is a meaningful endpoint-facing question for later ticks.",
+        "realization_criteria": [
+          "public comments, meeting attendance, or local coverage show school-safety supporters outnumbering or outweighing opposing voices across repeated observation points",
+          "council messaging references visible support as a decision factor"
+        ],
+        "status": "active",
+        "status_basis": "Coalition visibility is unresolved and can shape terminal outcomes."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "stakeholder set includes parents and civic decision context",
+        "layer": "exposure",
+        "reason": "parents are likely to contact or observe council deliberation on a school safety issue",
+        "source_actor_name": "school_parent_group",
+        "target_actor_name": "town_council",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "local infrastructure debate implies public process visibility",
+        "layer": "exposure",
+        "reason": "council statements and meeting agendas are visible to organized parents",
+        "source_actor_name": "town_council",
+        "target_actor_name": "school_parent_group",
+        "weight": 0.51
+      },
+      {
+        "direction": "directed",
+        "evidence": "community debate context",
+        "layer": "exposure",
+        "reason": "local media/forum monitors town debates",
+        "source_actor_name": "local_newsletter_forum",
+        "target_actor_name": "town_council",
+        "weight": 0.43
+      },
+      {
+        "direction": "directed",
+        "evidence": "public civic issue",
+        "layer": "exposure",
+        "reason": "official actions become visible to local information channels",
+        "source_actor_name": "town_council",
+        "target_actor_name": "local_newsletter_forum",
+        "weight": 0.47
+      },
+      {
+        "direction": "directed",
+        "evidence": "school-centered scenario",
+        "layer": "exposure",
+        "reason": "staff and parents interact around student arrival and dismissal concerns",
+        "source_actor_name": "school_staff",
+        "target_actor_name": "school_parent_group",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "school-centered scenario",
+        "layer": "exposure",
+        "reason": "parents communicate concerns to school staff",
+        "source_actor_name": "school_parent_group",
+        "target_actor_name": "school_staff",
+        "weight": 0.55
+      },
+      {
+        "direction": "directed",
+        "evidence": "engineering stakeholder named in infrastructure decision",
+        "layer": "exposure",
+        "reason": "technical office briefs council",
+        "source_actor_name": "town_traffic_engineering_office",
+        "target_actor_name": "town_council",
+        "weight": 0.49
+      },
+      {
+        "direction": "directed",
+        "evidence": "budget officials named in scenario",
+        "layer": "exposure",
+        "reason": "budget office informs council on affordability",
+        "source_actor_name": "town_budget_office",
+        "target_actor_name": "town_council",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "public local debate",
+        "layer": "exposure",
+        "reason": "drivers likely see or use community discussion channels intermittently",
+        "source_actor_name": "local_driver_group",
+        "target_actor_name": "local_newsletter_forum",
+        "weight": 0.36
+      },
+      {
+        "direction": "directed",
+        "evidence": "school role and local issue context",
+        "layer": "trust",
+        "reason": "parents often view the principal as a credible child-safety intermediary",
+        "source_actor_name": "school_parent_group",
+        "target_actor_name": "school_principal",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "traffic engineer as named stakeholder",
+        "layer": "trust",
+        "reason": "technical credibility exists but may be contingent on conclusions",
+        "source_actor_name": "school_parent_group",
+        "target_actor_name": "town_traffic_engineer",
+        "weight": 0.48
+      },
+      {
+        "direction": "directed",
+        "evidence": "engineering office stakeholder role",
+        "layer": "trust",
+        "reason": "drivers may trust technical justification more than advocacy claims",
+        "source_actor_name": "local_driver_group",
+        "target_actor_name": "town_traffic_engineer",
+        "weight": 0.51
+      },
+      {
+        "direction": "directed",
+        "evidence": "school staff and principal roles",
+        "layer": "trust",
+        "reason": "institutional hierarchy and shared school mission",
+        "source_actor_name": "school_staff",
+        "target_actor_name": "school_principal",
+        "weight": 0.69
+      },
+      {
+        "direction": "directed",
+        "evidence": "infrastructure decision process",
+        "layer": "trust",
+        "reason": "council depends on technical office expertise",
+        "source_actor_name": "town_council",
+        "target_actor_name": "town_traffic_engineering_office",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "budget officials named as stakeholder",
+        "layer": "trust",
+        "reason": "council relies on budget office cost estimates",
+        "source_actor_name": "town_council",
+        "target_actor_name": "town_budget_office",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "neighborhood proximity to school issue",
+        "layer": "trust",
+        "reason": "resident sympathy for school safety exists but is not universal",
+        "source_actor_name": "nearby_residents",
+        "target_actor_name": "school_parent_group",
+        "weight": 0.42
+      },
+      {
+        "direction": "directed",
+        "evidence": "crosswalk addition requires engineering input",
+        "layer": "dependency",
+        "reason": "council needs design feasibility and technical assessment before acting credibly",
+        "source_actor_name": "town_council",
+        "target_actor_name": "town_traffic_engineering_office",
+        "weight": 0.64
+      },
+      {
+        "direction": "directed",
+        "evidence": "budget officials included in scenario",
+        "layer": "dependency",
+        "reason": "council needs affordability and funding pathway review",
+        "source_actor_name": "town_council",
+        "target_actor_name": "town_budget_office",
+        "weight": 0.59
+      },
+      {
+        "direction": "directed",
+        "evidence": "public cannot directly install crosswalk",
+        "layer": "dependency",
+        "reason": "parents depend on municipal authority for road changes",
+        "source_actor_name": "school_parent_group",
+        "target_actor_name": "town_council",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "school staff are stakeholders, not road owners",
+        "layer": "dependency",
+        "reason": "school operations benefit from but cannot directly enact roadway changes",
+        "source_actor_name": "school_staff",
+        "target_actor_name": "town_council",
+        "weight": 0.38
+      },
+      {
+        "direction": "directed",
+        "evidence": "role structure in civic scenario",
+        "layer": "dependency",
+        "reason": "principal can advocate but lacks direct road authority",
+        "source_actor_name": "school_principal",
+        "target_actor_name": "town_council",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "office advises but council decides",
+        "layer": "dependency",
+        "reason": "engineering recommendations require political authorization or prioritization",
+        "source_actor_name": "town_traffic_engineering_office",
+        "target_actor_name": "town_council",
+        "weight": 0.36
+      },
+      {
+        "direction": "directed",
+        "evidence": "parents explicitly central to debate",
+        "layer": "influence",
+        "reason": "organized parents can shape agenda on child-safety issues",
+        "source_actor_name": "school_parent_group",
+        "target_actor_name": "town_council",
+        "weight": 0.54
+      },
+      {
+        "direction": "directed",
+        "evidence": "traffic engineers are core named stakeholder",
+        "layer": "influence",
+        "reason": "technical assessments can strongly shape acceptable options",
+        "source_actor_name": "town_traffic_engineering_office",
+        "target_actor_name": "town_council",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "budget officials are named stakeholder",
+        "layer": "influence",
+        "reason": "budget feasibility can narrow decision options",
+        "source_actor_name": "town_budget_office",
+        "target_actor_name": "town_council",
+        "weight": 0.53
+      },
+      {
+        "direction": "directed",
+        "evidence": "school representative role",
+        "layer": "influence",
+        "reason": "principal provides trusted local perspective without formal authority",
+        "source_actor_name": "school_principal",
+        "target_actor_name": "town_council",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "drivers named stakeholder in debate",
+        "layer": "influence",
+        "reason": "drivers can complain about delay or traffic flow but are less organized",
+        "source_actor_name": "local_driver_group",
+        "target_actor_name": "town_council",
+        "weight": 0.35
+      },
+      {
+        "direction": "directed",
+        "evidence": "community reporting channel inferred from local debate",
+        "layer": "influence",
+        "reason": "coverage may raise salience and reputational pressure",
+        "source_actor_name": "local_newsletter_forum",
+        "target_actor_name": "town_council",
+        "weight": 0.29
+      },
+      {
+        "direction": "directed",
+        "evidence": "expert role in public issue",
+        "layer": "influence",
+        "reason": "technical framing may reassure or intensify driver concerns",
+        "source_actor_name": "town_traffic_engineer",
+        "target_actor_name": "local_driver_group",
+        "weight": 0.34
+      },
+      {
+        "direction": "undirected",
+        "evidence": "both are school-centered stakeholders",
+        "layer": "coalition",
+        "reason": "shared interest in student safety",
+        "source_actor_name": "school_parent_group",
+        "target_actor_name": "school_staff",
+        "weight": 0.56
+      },
+      {
+        "direction": "undirected",
+        "evidence": "same institution and issue",
+        "layer": "coalition",
+        "reason": "aligned institutional incentives around school access safety",
+        "source_actor_name": "school_staff",
+        "target_actor_name": "school_principal",
+        "weight": 0.62
+      },
+      {
+        "direction": "undirected",
+        "evidence": "school safety context",
+        "layer": "coalition",
+        "reason": "likely alignment if principal endorses measured safety improvements",
+        "source_actor_name": "school_parent_group",
+        "target_actor_name": "school_principal",
+        "weight": 0.51
+      },
+      {
+        "direction": "undirected",
+        "evidence": "shared internal town process role",
+        "layer": "coalition",
+        "reason": "both shape feasible implementation options though from different lenses",
+        "source_actor_name": "town_traffic_engineering_office",
+        "target_actor_name": "town_budget_office",
+        "weight": 0.31
+      },
+      {
+        "direction": "undirected",
+        "evidence": "street-adjacent interests",
+        "layer": "coalition",
+        "reason": "some overlap in concern about vehicle flow and access convenience",
+        "source_actor_name": "local_driver_group",
+        "target_actor_name": "nearby_residents",
+        "weight": 0.27
+      },
+      {
+        "direction": "undirected",
+        "evidence": "parents and drivers both named as responding stakeholders",
+        "layer": "conflict",
+        "reason": "safety prioritization may conflict with perceived traffic delay concerns",
+        "source_actor_name": "school_parent_group",
+        "target_actor_name": "local_driver_group",
+        "weight": 0.42
+      },
+      {
+        "direction": "undirected",
+        "evidence": "budget officials included as stakeholders",
+        "layer": "conflict",
+        "reason": "budget caution may slow or dilute desired safety improvements",
+        "source_actor_name": "school_parent_group",
+        "target_actor_name": "town_budget_office",
+        "weight": 0.26
+      },
+      {
+        "direction": "undirected",
+        "evidence": "engineering office central to design option",
+        "layer": "conflict",
+        "reason": "drivers may resist recommendations that reduce speed or convenience",
+        "source_actor_name": "local_driver_group",
+        "target_actor_name": "town_traffic_engineering_office",
+        "weight": 0.22
+      },
+      {
+        "direction": "undirected",
+        "evidence": "neighborhood-school road context",
+        "layer": "conflict",
+        "reason": "residents may dislike school-area driving behavior while also sharing some access concerns",
+        "source_actor_name": "nearby_residents",
+        "target_actor_name": "local_driver_group",
+        "weight": 0.19
+      },
+      {
+        "direction": "undirected",
+        "evidence": "public local debate around school safety",
+        "layer": "oasis_interaction",
+        "reason": "parents likely post or react in community information spaces",
+        "source_actor_name": "school_parent_group",
+        "target_actor_name": "local_newsletter_forum",
+        "weight": 0.49
+      },
+      {
+        "direction": "undirected",
+        "evidence": "public debate context",
+        "layer": "oasis_interaction",
+        "reason": "drivers may comment episodically on congestion or rules",
+        "source_actor_name": "local_driver_group",
+        "target_actor_name": "local_newsletter_forum",
+        "weight": 0.33
+      },
+      {
+        "direction": "undirected",
+        "evidence": "civic issue visibility",
+        "layer": "oasis_interaction",
+        "reason": "official statements and meeting outcomes circulate in public channels",
+        "source_actor_name": "town_council",
+        "target_actor_name": "local_newsletter_forum",
+        "weight": 0.28
+      },
+      {
+        "direction": "undirected",
+        "evidence": "school representative role",
+        "layer": "oasis_interaction",
+        "reason": "principal communications to families can shape discussion tone",
+        "source_actor_name": "school_principal",
+        "target_actor_name": "school_parent_group",
+        "weight": 0.44
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "function": "trusted local child-safety messenger",
+        "hero_key": "school_representative",
+        "label": "School representative"
+      },
+      {
+        "function": "interprets safety and design evidence",
+        "hero_key": "technical_expert",
+        "label": "Technical expert"
+      },
+      {
+        "function": "constrains whether proposal can be funded",
+        "hero_key": "fiscal_gatekeeper",
+        "label": "Fiscal gatekeeper"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "school_principal",
+        "attention_level": 0.74,
+        "capacity": 0.62,
+        "constraints": [
+          "must avoid appearing alarmist",
+          "depends on town process",
+          "limited direct authority over road design"
+        ],
+        "current_posture": "supportive_but_measured",
+        "expression_level": 0.48,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.2,
+        "formal_power": 0.34,
+        "hero_key": "school_representative",
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.61,
+        "salience": 0.71,
+        "stance_axes": {
+          "budget_caution": 0.36,
+          "crosswalk_support": 0.78,
+          "traffic_calming_support": 0.7
+        }
+      },
+      {
+        "actor_name": "town_traffic_engineer",
+        "attention_level": 0.69,
+        "capacity": 0.7,
+        "constraints": [
+          "needs site data or standards review",
+          "recommendation may be scrutinized by multiple sides"
+        ],
+        "current_posture": "evidence_gathering",
+        "expression_level": 0.39,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.15,
+        "formal_power": 0.52,
+        "hero_key": "technical_expert",
+        "mobilization_readiness": 0.28,
+        "perceived_majority": 0.5,
+        "salience": 0.66,
+        "stance_axes": {
+          "budget_caution": 0.49,
+          "crosswalk_support": 0.57,
+          "traffic_calming_support": 0.6
+        }
+      },
+      {
+        "actor_name": "budget_director",
+        "attention_level": 0.61,
+        "capacity": 0.65,
+        "constraints": [
+          "competing municipal priorities",
+          "may require council approval or line-item availability"
+        ],
+        "current_posture": "cost_screening",
+        "expression_level": 0.31,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.19,
+        "formal_power": 0.57,
+        "hero_key": "fiscal_gatekeeper",
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.48,
+        "salience": 0.58,
+        "stance_axes": {
+          "budget_caution": 0.81,
+          "crosswalk_support": 0.46,
+          "traffic_calming_support": 0.42
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "function": "trusted local child-safety messenger",
+        "hero_key": "school_representative",
+        "label": "School representative"
+      },
+      {
+        "function": "interprets safety and design evidence",
+        "hero_key": "technical_expert",
+        "label": "Technical expert"
+      },
+      {
+        "function": "constrains whether proposal can be funded",
+        "hero_key": "fiscal_gatekeeper",
+        "label": "Fiscal gatekeeper"
+      }
+    ],
+    "important_questions": [
+      "Will the town formally approve installation of a crosswalk near the school within the near-term horizon?",
+      "If a crosswalk is not approved promptly, will the town adopt an alternative school-area safety intervention instead?",
+      "Will the issue move to a concrete municipal action path, or remain in procedural delay and unresolved debate?",
+      "Which side becomes the more publicly visible coalition at early decision points: school-safety supporters or traffic/budget cautioners?"
+    ],
+    "initial_events": [
+      {
+        "actors_involved": [
+          "town_council",
+          "school_parent_group",
+          "town_traffic_engineering_office",
+          "local_driver_group",
+          "school_staff",
+          "town_budget_office"
+        ],
+        "event_key": "issue_under_consideration",
+        "event_type": "announcement",
+        "evidence": "scenario states the town debates adding a crosswalk near a school",
+        "expected_impact": "Raises attention among directly affected groups and creates a focal decision frame without yet forcing a crisis outcome.",
+        "kind": "visible_setup",
+        "summary": "The town has an active question about whether to add a crosswalk near the school.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "school_parent_group",
+          "school_staff",
+          "school_principal"
+        ],
+        "event_key": "informal_parent_concerns_circulate",
+        "event_type": "announcement",
+        "evidence": "parents and school staff named as responding stakeholders",
+        "expected_impact": "Increases parent-school coalition strength and modestly raises council agenda pressure.",
+        "kind": "visible_setup",
+        "summary": "Parents are discussing school-area safety concerns through informal networks and likely with school staff.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "town_traffic_engineering_office",
+          "town_traffic_engineer",
+          "town_council"
+        ],
+        "event_key": "engineering_review_expected",
+        "event_type": "announcement",
+        "evidence": "traffic engineers are named stakeholders in a crosswalk proposal",
+        "expected_impact": "Can shift trust and influence toward technical framing, narrowing acceptable policy options without finalizing outcome.",
+        "kind": "imminent_process",
+        "summary": "Traffic engineering is likely to review site conditions or applicable standards before a decision.",
+        "tick": 1
+      },
+      {
+        "actors_involved": [
+          "town_budget_office",
+          "budget_director",
+          "town_council"
+        ],
+        "event_key": "budget_screening_expected",
+        "event_type": "announcement",
+        "evidence": "budget officials are named stakeholders",
+        "expected_impact": "Introduces affordability constraints and possible sequencing or delay options.",
+        "kind": "imminent_process",
+        "summary": "Budget officials are likely to assess rough cost and funding feasibility.",
+        "tick": 1
+      },
+      {
+        "actors_involved": [
+          "local_newsletter_forum",
+          "school_parent_group",
+          "local_driver_group",
+          "nearby_residents",
+          "town_council"
+        ],
+        "event_key": "public_comment_wave_possible",
+        "event_type": "announcement",
+        "evidence": "small-town debate with local stakeholder groups implies public commentary",
+        "expected_impact": "May reveal whether quiet moderates join one side, remain inactive, or split into conditional camps.",
+        "kind": "imminent_public_reaction",
+        "summary": "Local discussion may broaden through public meetings or community forum coverage.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "4125dafb-ae21-4f52-91a1-7d3837eb1dca",
+    "merge_hypotheses": [
+      {
+        "affected_paths": [
+          "engineering_support_branch",
+          "engineering_caution_branch",
+          "budget_delay_branch"
+        ],
+        "convergence_driver": "most actors can accept some child-safety improvement even if they disagree on the exact intervention",
+        "merge_key": "shared_child_safety_frame",
+        "observable_merge_signal": "discussion converges on a practical package such as signage, paint, enforcement, or a trial rather than purely adversarial positioning"
+      },
+      {
+        "affected_paths": [
+          "driver_pushback_branch",
+          "budget_delay_branch",
+          "engineering_caution_branch"
+        ],
+        "convergence_driver": "if engineering and budget review are seen as fair, stakeholders may accept a nonmaximal outcome",
+        "merge_key": "procedural_legitimacy_acceptance",
+        "observable_merge_signal": "complaints remain but actors continue engaging through official process rather than escalating conflict"
+      },
+      {
+        "affected_paths": [
+          "all"
+        ],
+        "convergence_driver": "repeated local interaction and reputational ties discourage durable polarization",
+        "merge_key": "small_town_relationship_moderation",
+        "observable_merge_signal": "public rhetoric stays measured and coalitions remain issue-specific rather than identity-hardening"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "school_parent_households",
+        "basis": "small-town school catchment approximation inferred from scenario scale",
+        "label": "School parent households",
+        "population_total": 260
+      },
+      {
+        "archetype_key": "regular_driver_public",
+        "basis": "town-scale road user population approximation",
+        "label": "Regular drivers using school-area roads",
+        "population_total": 2200
+      },
+      {
+        "archetype_key": "school_staff_population",
+        "basis": "single-school staff approximation",
+        "label": "School staff",
+        "population_total": 55
+      },
+      {
+        "archetype_key": "nearby_resident_households",
+        "basis": "neighborhood around school corridor approximation",
+        "label": "Nearby resident households",
+        "population_total": 180
+      },
+      {
+        "archetype_key": "town_civic_observers",
+        "basis": "broader local public with indirect attention",
+        "label": "General civic observers",
+        "population_total": 3200
+      }
+    ],
+    "risk_flags": [
+      {
+        "note": "No crash history, traffic speed data, crossing counts, or roadway geometry are provided.",
+        "risk_key": "missing_site_specific_safety_data",
+        "severity": "medium"
+      },
+      {
+        "note": "Decision sequence, hearing schedule, and formal authority split are inferred rather than explicit.",
+        "risk_key": "unspecified_governance_process",
+        "severity": "medium"
+      },
+      {
+        "note": "Population totals are scenario-scale estimates used to seed sociology, not sourced counts.",
+        "risk_key": "population_counts_approximate",
+        "severity": "low"
+      },
+      {
+        "note": "Stakeholder stances are inferred from typical incentives because the corpus contains no direct statements of support or opposition.",
+        "risk_key": "position_inference_from_roles",
+        "severity": "medium"
+      },
+      {
+        "note": "Conflict and dependency weights are intentionally moderate to preserve room for escalation or convergence in later ticks.",
+        "risk_key": "non_crisis_calibration",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "decision_domain": "local transport safety infrastructure",
+      "mode": "direct",
+      "scenario_name": "case_report_005_crosswalk_debate",
+      "scope": "small_town_civic_decision",
+      "source_basis": [
+        "Scenario text names issue: adding a crosswalk near a school.",
+        "Scenario text names stakeholder groups: parents, traffic engineers, drivers, school staff, budget officials.",
+        "Scenario text requests simple, complete, grounded, non-overdramatic initialization."
+      ],
+      "summary": "A small town is considering whether to add a crosswalk near a school. Parents, traffic engineers, drivers, school staff, and budget officials are the main stakeholders. T0 conditions show a live but non-crisis civic debate with safety, traffic flow, and budget tradeoffs unresolved.",
+      "time_horizon_ticks": 6,
+      "uncertainty_notes": [
+        "No town name, school name, budget size, crash history, or governing process details are provided.",
+        "No explicit evidence of an accident, imminent vote date, or precommitted funding at T0.",
+        "Stakeholder positions are inferred from role incentives and the scenario prompt, not from quoted source statements."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "level": 0.61,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "technical and safety arguments may persuade moderates, while highly convenience-focused drivers and highly activated parents are less movable",
+        "scope": "most cohorts"
+      },
+      {
+        "level": 0.54,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "visible endorsement from school staff or council agenda placement could trigger wider participation",
+        "scope": "parents_and_drivers"
+      },
+      {
+        "level": 0.58,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "many residents and drivers likely hold weak views and remain quiet unless process becomes salient",
+        "scope": "general_public_and_moderates"
+      },
+      {
+        "level": 0.49,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "discussion clusters by daily experience with the school corridor",
+        "scope": "parents_drivers_residents"
+      },
+      {
+        "level": 0.45,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "multiple confirming signals from principal, engineer, and other parents may be needed before lower-attention residents speak up",
+        "scope": "support_for_action"
+      },
+      {
+        "level": 0.57,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "role-based identities shape interpretation of safety versus convenience tradeoffs",
+        "scope": "parents_staff_drivers"
+      },
+      {
+        "level": 0.63,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "without new events, issue salience may fade outside directly affected groups",
+        "scope": "general_public"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "issues framed around children and school access receive elevated moral attention",
+        "influence_key": "child_safety_norm"
+      },
+      {
+        "description": "public acceptance depends partly on whether engineering review and budgeting appear fair",
+        "influence_key": "procedural_legitimacy"
+      },
+      {
+        "description": "small travel delays can motivate disproportionate complaint among regular drivers",
+        "influence_key": "everyday_convenience_bias"
+      },
+      {
+        "description": "because the setting is a small town, repeated face-to-face contact can moderate extremes and preserve civility",
+        "influence_key": "local_visibility"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "town_council",
+        "behavior_axes": {
+          "conflict_avoidance": 0.58,
+          "proceduralism": 0.74,
+          "responsiveness": 0.63,
+          "risk_tolerance": 0.39
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.57,
+          "safety_first": 0.58,
+          "status_quo_bias": 0.49
+        },
+        "reputation": 0.56,
+        "secrecy": 0.23,
+        "tendency": "decision_balancer",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "school_parent_group",
+        "behavior_axes": {
+          "conflict_avoidance": 0.34,
+          "proceduralism": 0.41,
+          "responsiveness": 0.79,
+          "risk_tolerance": 0.44
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.36,
+          "safety_first": 0.84,
+          "status_quo_bias": 0.22
+        },
+        "reputation": 0.59,
+        "secrecy": 0.12,
+        "tendency": "protective_advocacy",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "town_traffic_engineering_office",
+        "behavior_axes": {
+          "conflict_avoidance": 0.51,
+          "proceduralism": 0.83,
+          "responsiveness": 0.55,
+          "risk_tolerance": 0.33
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.52,
+          "safety_first": 0.72,
+          "status_quo_bias": 0.46
+        },
+        "reputation": 0.64,
+        "secrecy": 0.18,
+        "tendency": "technical_moderation",
+        "trustworthiness": 0.69
+      },
+      {
+        "actor_name": "local_driver_group",
+        "behavior_axes": {
+          "conflict_avoidance": 0.47,
+          "proceduralism": 0.35,
+          "responsiveness": 0.42,
+          "risk_tolerance": 0.52
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.45,
+          "safety_first": 0.49,
+          "status_quo_bias": 0.61
+        },
+        "reputation": 0.5,
+        "secrecy": 0.11,
+        "tendency": "convenience_protection",
+        "trustworthiness": 0.53
+      },
+      {
+        "actor_name": "school_staff",
+        "behavior_axes": {
+          "conflict_avoidance": 0.62,
+          "proceduralism": 0.64,
+          "responsiveness": 0.68,
+          "risk_tolerance": 0.36
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.34,
+          "safety_first": 0.8,
+          "status_quo_bias": 0.35
+        },
+        "reputation": 0.66,
+        "secrecy": 0.19,
+        "tendency": "guarded_support",
+        "trustworthiness": 0.7
+      },
+      {
+        "actor_name": "town_budget_office",
+        "behavior_axes": {
+          "conflict_avoidance": 0.55,
+          "proceduralism": 0.79,
+          "responsiveness": 0.44,
+          "risk_tolerance": 0.28
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.86,
+          "safety_first": 0.46,
+          "status_quo_bias": 0.59
+        },
+        "reputation": 0.6,
+        "secrecy": 0.24,
+        "tendency": "cost_gatekeeping",
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "nearby_residents",
+        "behavior_axes": {
+          "conflict_avoidance": 0.51,
+          "proceduralism": 0.4,
+          "responsiveness": 0.49,
+          "risk_tolerance": 0.38
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.42,
+          "safety_first": 0.6,
+          "status_quo_bias": 0.47
+        },
+        "reputation": 0.54,
+        "secrecy": 0.12,
+        "tendency": "localized_pragmatism",
+        "trustworthiness": 0.56
+      },
+      {
+        "actor_name": "local_newsletter_forum",
+        "behavior_axes": {
+          "conflict_avoidance": 0.29,
+          "proceduralism": 0.21,
+          "responsiveness": 0.67,
+          "risk_tolerance": 0.48
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.49,
+          "safety_first": 0.51,
+          "status_quo_bias": 0.34
+        },
+        "reputation": 0.46,
+        "secrecy": 0.08,
+        "tendency": "issue_amplification",
+        "trustworthiness": 0.47
+      },
+      {
+        "actor_name": "school_principal",
+        "behavior_axes": {
+          "conflict_avoidance": 0.57,
+          "proceduralism": 0.69,
+          "responsiveness": 0.73,
+          "risk_tolerance": 0.37
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.35,
+          "safety_first": 0.82,
+          "status_quo_bias": 0.33
+        },
+        "reputation": 0.71,
+        "secrecy": 0.16,
+        "tendency": "measured_local_advocate",
+        "trustworthiness": 0.74
+      },
+      {
+        "actor_name": "town_traffic_engineer",
+        "behavior_axes": {
+          "conflict_avoidance": 0.49,
+          "proceduralism": 0.87,
+          "responsiveness": 0.58,
+          "risk_tolerance": 0.31
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.5,
+          "safety_first": 0.73,
+          "status_quo_bias": 0.44
+        },
+        "reputation": 0.68,
+        "secrecy": 0.17,
+        "tendency": "evidence_filter",
+        "trustworthiness": 0.72
+      },
+      {
+        "actor_name": "budget_director",
+        "behavior_axes": {
+          "conflict_avoidance": 0.53,
+          "proceduralism": 0.82,
+          "responsiveness": 0.46,
+          "risk_tolerance": 0.26
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.88,
+          "safety_first": 0.43,
+          "status_quo_bias": 0.57
+        },
+        "reputation": 0.62,
+        "secrecy": 0.22,
+        "tendency": "budget_screener",
+        "trustworthiness": 0.65
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 374,
+        "end": 374,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 374,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

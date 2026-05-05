@@ -1,0 +1,1288 @@
+{
+  "big_bang_id": "55213bb0-d19f-4480-9cc3-121889669dc5",
+  "initializer_output": {
+    "actors": [
+      {
+        "actor_type": "institution",
+        "fictionalized": true,
+        "name": "rent_board",
+        "scale": "municipal"
+      },
+      {
+        "actor_type": "institutional_coalition",
+        "fictionalized": true,
+        "name": "city_council_members",
+        "scale": "municipal"
+      },
+      {
+        "actor_type": "advocacy_group",
+        "fictionalized": true,
+        "name": "tenant_organizers",
+        "scale": "local"
+      },
+      {
+        "actor_type": "interest_group",
+        "fictionalized": true,
+        "name": "small_landlords",
+        "scale": "local"
+      },
+      {
+        "actor_type": "industry_group",
+        "fictionalized": true,
+        "name": "property_insurers",
+        "scale": "regional"
+      },
+      {
+        "actor_type": "public_group",
+        "fictionalized": true,
+        "name": "local_tenants",
+        "scale": "local"
+      },
+      {
+        "actor_type": "media",
+        "fictionalized": true,
+        "name": "local_media",
+        "scale": "local"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "branch_key": "b1_attention_fades_before_vote",
+        "divergence_signal": "Media volume drops, tenant turnout stagnates, and council messaging shifts from urgency to study.",
+        "plausible_path": "General public attention decays, council moderates feel less pressure for urgent intervention, and procedural delay becomes more likely than immediate cap adoption.",
+        "trigger": "No major new testimony, media revelations, or visible rent harm stories by tick 2"
+      },
+      {
+        "branch_key": "b2_data_validates_cost_shock",
+        "divergence_signal": "Council members cite verified cost pass-through and tenant organizers debate tactical compromise.",
+        "plausible_path": "Support grows for a narrower or shorter temporary measure, or for targeted relief rather than a broad cap.",
+        "trigger": "Credible data shows insurance costs materially explain a large share of rent increases"
+      },
+      {
+        "branch_key": "b3_data_shows_overreach_or_mixed_pass_through",
+        "divergence_signal": "Council rhetoric sharpens, landlord trust declines, and media frames shift toward excess pricing concerns.",
+        "plausible_path": "Political support strengthens for a stronger temporary cap or enforcement-oriented response.",
+        "trigger": "Evidence suggests rent increases exceed documented insurance pressure for many landlords"
+      },
+      {
+        "branch_key": "b4_insurer_enters_publicly",
+        "divergence_signal": "Coverage begins quoting insurers directly and council requests insurer-specific documentation.",
+        "plausible_path": "Narrative control shifts toward technical arguments; blame may diffuse or intensify depending on data quality.",
+        "trigger": "Property insurers break silence with testimony, filings, or a public statement"
+      },
+      {
+        "branch_key": "b5_tenant_coalition_expands",
+        "divergence_signal": "Increase in public testimony, stronger local media amplification, and higher organizer-to-tenant trust.",
+        "plausible_path": "Cautious tenants become more expressive, perceived majority among renters rises, and policymakers see higher electoral risk in inaction.",
+        "trigger": "Early hearings show high renter turnout and repeated hardship stories"
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "rent_board_hearing",
+        "likely_users": [
+          "rent_board",
+          "tenant_organizers",
+          "small_landlords",
+          "city_council_members",
+          "local_media"
+        ],
+        "type": "public_institutional",
+        "visibility": "high"
+      },
+      {
+        "channel_key": "city_council_meetings",
+        "likely_users": [
+          "city_council_members",
+          "tenant_organizers",
+          "small_landlords",
+          "local_media"
+        ],
+        "type": "public_institutional",
+        "visibility": "high"
+      },
+      {
+        "channel_key": "local_press_coverage",
+        "likely_users": [
+          "local_media",
+          "tenant_organizers",
+          "small_landlords",
+          "rent_board"
+        ],
+        "type": "mass_media",
+        "visibility": "high"
+      },
+      {
+        "channel_key": "tenant_networks",
+        "likely_users": [
+          "tenant_organizers",
+          "local_tenants"
+        ],
+        "type": "community_network",
+        "visibility": "medium"
+      },
+      {
+        "channel_key": "landlord_association_comms",
+        "likely_users": [
+          "small_landlords"
+        ],
+        "type": "stakeholder_network",
+        "visibility": "low"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "local_tenants",
+        "archetype_key": "renting_households",
+        "attention_level": 0.76,
+        "cohort_key": "rent_stressed_tenants",
+        "expression_level": 0.58,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.67,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.6,
+        "private_stance": "favor immediate temporary cap or equivalent relief",
+        "public_stance": "increasingly supportive of intervention, especially where recent rent increases are salient",
+        "representation_mode": "direct",
+        "represented_population": 14400,
+        "stance_axes": {
+          "insurance_explanation_acceptance": 0.54,
+          "temporary_rent_cap_support": 0.81,
+          "trust_in_board_process": 0.48,
+          "trust_in_landlord_cost_claims": 0.31
+        }
+      },
+      {
+        "actor_name": "local_tenants",
+        "archetype_key": "renting_households",
+        "attention_level": 0.49,
+        "cohort_key": "cautious_tenants",
+        "expression_level": 0.29,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.43,
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.4,
+        "private_stance": "concerned about rent increases but uncertain about policy design",
+        "public_stance": "mixed and less vocal unless prompted by visible organizing or direct hardship",
+        "representation_mode": "direct",
+        "represented_population": 9600,
+        "stance_axes": {
+          "insurance_explanation_acceptance": 0.49,
+          "temporary_rent_cap_support": 0.58,
+          "trust_in_board_process": 0.56,
+          "trust_in_landlord_cost_claims": 0.4
+        }
+      },
+      {
+        "actor_name": "small_landlords",
+        "archetype_key": "small_landlord_operators",
+        "attention_level": 0.72,
+        "cohort_key": "cost_pressed_small_landlords",
+        "expression_level": 0.55,
+        "fatigue": 0.38,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.56,
+        "perceived_majority": 0.36,
+        "population_share_of_archetype": 0.7,
+        "private_stance": "oppose cap because costs have risen and margins are constrained",
+        "public_stance": "frame rent increases as a forced response to insurance and operating expenses",
+        "representation_mode": "direct",
+        "represented_population": 980,
+        "stance_axes": {
+          "insurance_explanation_acceptance": 0.89,
+          "temporary_rent_cap_support": 0.12,
+          "trust_in_council_data_process": 0.52,
+          "trust_in_tenant_claims": 0.33
+        }
+      },
+      {
+        "actor_name": "small_landlords",
+        "archetype_key": "small_landlord_operators",
+        "attention_level": 0.51,
+        "cohort_key": "accommodative_small_landlords",
+        "expression_level": 0.24,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.49,
+        "mobilization_readiness": 0.32,
+        "perceived_majority": 0.31,
+        "population_share_of_archetype": 0.3,
+        "private_stance": "concerned about costs but open to temporary or targeted relief if paired with review",
+        "public_stance": "less publicly visible and more wait-and-see",
+        "representation_mode": "direct",
+        "represented_population": 420,
+        "stance_axes": {
+          "insurance_explanation_acceptance": 0.78,
+          "temporary_rent_cap_support": 0.37,
+          "trust_in_council_data_process": 0.61,
+          "trust_in_tenant_claims": 0.42
+        }
+      },
+      {
+        "actor_name": "local_media",
+        "archetype_key": "general_local_public",
+        "attention_level": 0.43,
+        "cohort_key": "attentive_general_public",
+        "expression_level": 0.18,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.36,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.18,
+        "private_stance": "sees issue as important but not yet dominant over other civic concerns",
+        "public_stance": "reactive to coverage, hearings, and visible conflict",
+        "representation_mode": "indirect",
+        "represented_population": 11700,
+        "stance_axes": {
+          "insurance_explanation_acceptance": 0.47,
+          "issue_salience": 0.44,
+          "temporary_rent_cap_support": 0.51,
+          "trust_in_board_process": 0.53
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "local_tenants",
+        "archetype_key": "renting_households",
+        "attention_level": 0.76,
+        "cohort_key": "rent_stressed_tenants",
+        "expression_level": 0.58,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.67,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.6,
+        "private_stance": "favor immediate temporary cap or equivalent relief",
+        "public_stance": "increasingly supportive of intervention, especially where recent rent increases are salient",
+        "representation_mode": "direct",
+        "represented_population": 14400,
+        "stance_axes": {
+          "insurance_explanation_acceptance": 0.54,
+          "temporary_rent_cap_support": 0.81,
+          "trust_in_board_process": 0.48,
+          "trust_in_landlord_cost_claims": 0.31
+        }
+      },
+      {
+        "actor_name": "local_tenants",
+        "archetype_key": "renting_households",
+        "attention_level": 0.49,
+        "cohort_key": "cautious_tenants",
+        "expression_level": 0.29,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.43,
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.4,
+        "private_stance": "concerned about rent increases but uncertain about policy design",
+        "public_stance": "mixed and less vocal unless prompted by visible organizing or direct hardship",
+        "representation_mode": "direct",
+        "represented_population": 9600,
+        "stance_axes": {
+          "insurance_explanation_acceptance": 0.49,
+          "temporary_rent_cap_support": 0.58,
+          "trust_in_board_process": 0.56,
+          "trust_in_landlord_cost_claims": 0.4
+        }
+      },
+      {
+        "actor_name": "small_landlords",
+        "archetype_key": "small_landlord_operators",
+        "attention_level": 0.72,
+        "cohort_key": "cost_pressed_small_landlords",
+        "expression_level": 0.55,
+        "fatigue": 0.38,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.56,
+        "perceived_majority": 0.36,
+        "population_share_of_archetype": 0.7,
+        "private_stance": "oppose cap because costs have risen and margins are constrained",
+        "public_stance": "frame rent increases as a forced response to insurance and operating expenses",
+        "representation_mode": "direct",
+        "represented_population": 980,
+        "stance_axes": {
+          "insurance_explanation_acceptance": 0.89,
+          "temporary_rent_cap_support": 0.12,
+          "trust_in_council_data_process": 0.52,
+          "trust_in_tenant_claims": 0.33
+        }
+      },
+      {
+        "actor_name": "small_landlords",
+        "archetype_key": "small_landlord_operators",
+        "attention_level": 0.51,
+        "cohort_key": "accommodative_small_landlords",
+        "expression_level": 0.24,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.49,
+        "mobilization_readiness": 0.32,
+        "perceived_majority": 0.31,
+        "population_share_of_archetype": 0.3,
+        "private_stance": "concerned about costs but open to temporary or targeted relief if paired with review",
+        "public_stance": "less publicly visible and more wait-and-see",
+        "representation_mode": "direct",
+        "represented_population": 420,
+        "stance_axes": {
+          "insurance_explanation_acceptance": 0.78,
+          "temporary_rent_cap_support": 0.37,
+          "trust_in_council_data_process": 0.61,
+          "trust_in_tenant_claims": 0.42
+        }
+      },
+      {
+        "actor_name": "local_media",
+        "archetype_key": "general_local_public",
+        "attention_level": 0.43,
+        "cohort_key": "attentive_general_public",
+        "expression_level": 0.18,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.36,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.18,
+        "private_stance": "sees issue as important but not yet dominant over other civic concerns",
+        "public_stance": "reactive to coverage, hearings, and visible conflict",
+        "representation_mode": "indirect",
+        "represented_population": 11700,
+        "stance_axes": {
+          "insurance_explanation_acceptance": 0.47,
+          "issue_salience": 0.44,
+          "temporary_rent_cap_support": 0.51,
+          "trust_in_board_process": 0.53
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "rent_board",
+          "city_council_members"
+        ],
+        "blockers": [
+          "insufficient supporting data",
+          "attention decay before vote",
+          "landlord opposition",
+          "procedural delay"
+        ],
+        "contradiction_notes": "Could be superseded by targeted relief, delay, or rejection without contradicting the setup.",
+        "description": "A formal authority enacts a temporary rent cap or functionally equivalent temporary rent-limit rule within the initial scenario horizon.",
+        "endpoint_key": "temporary_cap_adopted",
+        "evidence_refs": [
+          "scenario_text",
+          "e5_data_request_before_vote",
+          "e6_formal_vote_window"
+        ],
+        "label": "Temporary rent cap adopted",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the jurisdiction adopt a temporary rent cap during the initial decision window?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.42,
+        "rationale": "This is the central terminal policy option implied by the scenario.",
+        "realization_criteria": [
+          "formal vote or binding order passes",
+          "measure imposes temporary rent increase limit",
+          "effective date or implementation directive is publicly issued"
+        ],
+        "status": "active",
+        "status_basis": "A temporary cap is explicitly under consideration but not decided at T0."
+      },
+      {
+        "authority_refs": [
+          "rent_board",
+          "city_council_members"
+        ],
+        "blockers": [
+          "sustained tenant pressure",
+          "strong data favoring intervention",
+          "salient media attention near vote"
+        ],
+        "contradiction_notes": "A process move alone is not a separate terminal endpoint if the cap question remains open beyond the horizon; this endpoint resolves when enactment does not occur in-window.",
+        "description": "The initial decision window closes without adoption of a temporary rent cap, either through rejection, deferral beyond horizon, or substitution with non-cap process steps only.",
+        "endpoint_key": "temporary_cap_rejected_or_not_enacted_in_window",
+        "evidence_refs": [
+          "scenario_text",
+          "e5_data_request_before_vote",
+          "e6_formal_vote_window"
+        ],
+        "label": "Temporary cap not enacted in initial window",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will tenant organizing remain strong enough through the vote window to sustain pressure on decision-makers?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.4,
+        "rationale": "The scenario explicitly highlights procedural uncertainty and possible decay before a formal vote.",
+        "realization_criteria": [
+          "formal rejection vote occurs",
+          "scheduled vote is deferred beyond horizon without interim cap",
+          "only hearings, audits, or data collection proceed with no binding cap enacted by horizon end"
+        ],
+        "status": "active",
+        "status_basis": "Council demand for data and concern about attention decay make non-enactment within the first window a live endpoint."
+      },
+      {
+        "authority_refs": [
+          "tenant_organizers",
+          "local_tenants",
+          "local_media"
+        ],
+        "blockers": [
+          "attention decay",
+          "organizer fatigue",
+          "lack of new mobilizing incidents"
+        ],
+        "contradiction_notes": "Pressure can be sustained even if the cap ultimately fails, so this endpoint is analytically distinct from policy adoption.",
+        "description": "Tenant coalition remains visibly active and influential through the formal decision period.",
+        "endpoint_key": "tenant_pressure_sustained_through_vote",
+        "evidence_refs": [
+          "scenario_text",
+          "e2_tenant_organizing_starts",
+          "e6_formal_vote_window"
+        ],
+        "label": "Tenant pressure sustained through vote window",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will public and media attention decay before the formal vote enough to reduce urgency?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.55,
+        "rationale": "Coalition durability is named explicitly in the scenario focus.",
+        "realization_criteria": [
+          "tenant turnout or testimony remains high through tick 3 or later",
+          "media continues covering renter demands near vote",
+          "decision-makers publicly reference ongoing tenant pressure"
+        ],
+        "status": "active",
+        "status_basis": "Organizing has begun, but durability is unresolved at T0."
+      },
+      {
+        "authority_refs": [
+          "city_council_members",
+          "rent_board",
+          "property_insurers"
+        ],
+        "blockers": [
+          "insurer noncooperation",
+          "poor data quality",
+          "conflicting landlord-level evidence"
+        ],
+        "contradiction_notes": "Partial validation may not fully resolve cap politics; substantial validation is required for realization.",
+        "description": "Credible public evidence establishes that insurance cost increases materially account for a substantial share of the rent spike across enough cases to shape the policy outcome.",
+        "endpoint_key": "insurance_cost_claim_substantially_validated",
+        "evidence_refs": [
+          "scenario_text",
+          "e4_insurer_silence",
+          "e5_data_request_before_vote"
+        ],
+        "label": "Insurance cost claim substantially validated",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will credible data validate landlords' claim that insurance costs materially drove the rent spike?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.36,
+        "rationale": "Economic pressure attribution is a core report question implied by the source.",
+        "realization_criteria": [
+          "public release of credible dataset, filing, or official analysis",
+          "decision-makers cite evidence showing insurance materially contributed to rent increases",
+          "media coverage reflects broad acknowledgment of validated cost linkage"
+        ],
+        "status": "active",
+        "status_basis": "Landlords assert the claim, but council still wants data and insurers are silent."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "tenants organize",
+        "layer": "exposure",
+        "reason": "organizers can reach affected renters through local networks and events",
+        "source_actor_name": "tenant_organizers",
+        "target_actor_name": "local_tenants",
+        "weight": 0.62
+      },
+      {
+        "direction": "directed",
+        "evidence": "small landlords say costs are real",
+        "layer": "exposure",
+        "reason": "landlords present cost claims to policymakers",
+        "source_actor_name": "small_landlords",
+        "target_actor_name": "city_council_members",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "tenants organize",
+        "layer": "exposure",
+        "reason": "tenant campaign likely communicates demands to elected officials",
+        "source_actor_name": "tenant_organizers",
+        "target_actor_name": "city_council_members",
+        "weight": 0.49
+      },
+      {
+        "direction": "directed",
+        "evidence": "attention decay and formal vote context imply public coverage",
+        "layer": "exposure",
+        "reason": "local coverage transmits dispute to broader audience",
+        "source_actor_name": "local_media",
+        "target_actor_name": "general_local_public",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "rent board considers cap; council members want data",
+        "layer": "exposure",
+        "reason": "board proceedings and signals are visible to council actors",
+        "source_actor_name": "rent_board",
+        "target_actor_name": "city_council_members",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "insurance-driven rent spike",
+        "layer": "exposure",
+        "reason": "insurer pricing and communications reach landlords directly",
+        "source_actor_name": "property_insurers",
+        "target_actor_name": "small_landlords",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "tenants organize",
+        "layer": "trust",
+        "reason": "organizers are plausible trusted interpreters of renter hardship",
+        "source_actor_name": "local_tenants",
+        "target_actor_name": "tenant_organizers",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "council members want data",
+        "layer": "trust",
+        "reason": "council sees board as a legitimate venue but still seeks evidence",
+        "source_actor_name": "city_council_members",
+        "target_actor_name": "rent_board",
+        "weight": 0.51
+      },
+      {
+        "direction": "directed",
+        "evidence": "small landlords say costs are real; council members want data",
+        "layer": "trust",
+        "reason": "landlord cost claims are plausible but not fully verified",
+        "source_actor_name": "city_council_members",
+        "target_actor_name": "small_landlords",
+        "weight": 0.42
+      },
+      {
+        "direction": "directed",
+        "evidence": "tenants organize; council wants data",
+        "layer": "trust",
+        "reason": "tenant concerns are credible but advocates are also seen as interested parties",
+        "source_actor_name": "city_council_members",
+        "target_actor_name": "tenant_organizers",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "sudden insurance-driven rent spike",
+        "layer": "trust",
+        "reason": "rent spike reduces belief that increases are fully justified",
+        "source_actor_name": "local_tenants",
+        "target_actor_name": "small_landlords",
+        "weight": 0.28
+      },
+      {
+        "direction": "directed",
+        "evidence": "insurers avoid public comment",
+        "layer": "trust",
+        "reason": "industry silence reduces perceived transparency",
+        "source_actor_name": "general_local_public",
+        "target_actor_name": "property_insurers",
+        "weight": 0.24
+      },
+      {
+        "direction": "directed",
+        "evidence": "insurance-driven rent spike",
+        "layer": "dependency",
+        "reason": "insurance is an operational input affecting landlord costs",
+        "source_actor_name": "small_landlords",
+        "target_actor_name": "property_insurers",
+        "weight": 0.71
+      },
+      {
+        "direction": "directed",
+        "evidence": "rental housing relationship is core to scenario",
+        "layer": "dependency",
+        "reason": "tenants depend on landlords for continued housing access",
+        "source_actor_name": "local_tenants",
+        "target_actor_name": "small_landlords",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "council members want data around formal vote context",
+        "layer": "dependency",
+        "reason": "board action may rely on broader municipal legitimacy and alignment",
+        "source_actor_name": "rent_board",
+        "target_actor_name": "city_council_members",
+        "weight": 0.39
+      },
+      {
+        "direction": "directed",
+        "evidence": "attention decay concern before formal vote",
+        "layer": "dependency",
+        "reason": "public narrative conditions political room for action",
+        "source_actor_name": "city_council_members",
+        "target_actor_name": "local_media",
+        "weight": 0.22
+      },
+      {
+        "direction": "directed",
+        "evidence": "council members want data",
+        "layer": "influence",
+        "reason": "council preferences and scrutiny can shape board posture",
+        "source_actor_name": "city_council_members",
+        "target_actor_name": "rent_board",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "rent board considers a temporary cap",
+        "layer": "influence",
+        "reason": "board consideration of a cap affects expectations and behavior among renters",
+        "source_actor_name": "rent_board",
+        "target_actor_name": "local_tenants",
+        "weight": 0.54
+      },
+      {
+        "direction": "directed",
+        "evidence": "tenants organize",
+        "layer": "influence",
+        "reason": "organized tenant activity can generate coverage",
+        "source_actor_name": "tenant_organizers",
+        "target_actor_name": "local_media",
+        "weight": 0.47
+      },
+      {
+        "direction": "directed",
+        "evidence": "small landlords say costs are real",
+        "layer": "influence",
+        "reason": "cost narratives may shape reporting frames",
+        "source_actor_name": "small_landlords",
+        "target_actor_name": "local_media",
+        "weight": 0.39
+      },
+      {
+        "direction": "directed",
+        "evidence": "insurers avoid public comment",
+        "layer": "influence",
+        "reason": "industry can shape policy indirectly through withheld or selective data even while quiet",
+        "source_actor_name": "property_insurers",
+        "target_actor_name": "city_council_members",
+        "weight": 0.26
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "tenants organize",
+        "layer": "coalition",
+        "reason": "organizing indicates active alignment",
+        "source_actor_name": "tenant_organizers",
+        "target_actor_name": "local_tenants",
+        "weight": 0.64
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "landlords cite insurance; insurers avoid public comment",
+        "layer": "coalition",
+        "reason": "interests partially align on validating cost pressures but public coordination is weak",
+        "source_actor_name": "small_landlords",
+        "target_actor_name": "property_insurers",
+        "weight": 0.21
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "both are involved in policy process",
+        "layer": "coalition",
+        "reason": "shared institutional interest in orderly response",
+        "source_actor_name": "city_council_members",
+        "target_actor_name": "rent_board",
+        "weight": 0.36
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "temporary cap considered; landlords say costs are real; tenants organize",
+        "layer": "conflict",
+        "reason": "cap demand conflicts with landlord opposition based on cost claims",
+        "source_actor_name": "tenant_organizers",
+        "target_actor_name": "small_landlords",
+        "weight": 0.63
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "sudden rent spike",
+        "layer": "conflict",
+        "reason": "rent spike creates grievance and distributive conflict",
+        "source_actor_name": "local_tenants",
+        "target_actor_name": "small_landlords",
+        "weight": 0.57
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "rent board considers temporary cap",
+        "layer": "conflict",
+        "reason": "possible cap proposal threatens landlord pricing flexibility",
+        "source_actor_name": "rent_board",
+        "target_actor_name": "small_landlords",
+        "weight": 0.34
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "insurance-driven rent spike",
+        "layer": "conflict",
+        "reason": "insurers are seen as upstream contributors to affordability shock",
+        "source_actor_name": "tenant_organizers",
+        "target_actor_name": "property_insurers",
+        "weight": 0.29
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "organized dispute over temporary cap",
+        "layer": "oasis_interaction",
+        "reason": "likely repeated public-channel exchanges in hearings and media",
+        "source_actor_name": "tenant_organizers",
+        "target_actor_name": "small_landlords",
+        "weight": 0.48
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "council members want data amid organizing",
+        "layer": "oasis_interaction",
+        "reason": "meetings, testimony, and statements are likely",
+        "source_actor_name": "city_council_members",
+        "target_actor_name": "tenant_organizers",
+        "weight": 0.44
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "small landlords say costs are real",
+        "layer": "oasis_interaction",
+        "reason": "cost testimony and stakeholder outreach are likely",
+        "source_actor_name": "city_council_members",
+        "target_actor_name": "small_landlords",
+        "weight": 0.43
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "formal vote attention context",
+        "layer": "oasis_interaction",
+        "reason": "board deliberations likely become a coverage node",
+        "source_actor_name": "local_media",
+        "target_actor_name": "rent_board",
+        "weight": 0.37
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "hero_key": "board_chair_archetype",
+        "label": "Rent board chair",
+        "role": "agenda_setter"
+      },
+      {
+        "hero_key": "tenant_campaign_lead_archetype",
+        "label": "Tenant organizing lead",
+        "role": "movement_entrepreneur"
+      },
+      {
+        "hero_key": "landlord_spokesperson_archetype",
+        "label": "Small landlord spokesperson",
+        "role": "interest_group_messenger"
+      },
+      {
+        "hero_key": "council_policy_moderate_archetype",
+        "label": "Data-seeking council policy moderate",
+        "role": "pivotal_decision_influencer"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "rent_board",
+        "archetype_key": "board_chair_archetype",
+        "attention_level": 0.78,
+        "decision_power": 0.79,
+        "expression_level": 0.46,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.22,
+        "hero_key": "board_chair",
+        "mobilization_readiness": 0.51,
+        "perceived_majority": 0.49,
+        "role_function": "sets hearing agenda and shapes procedural timing",
+        "stance_axes": {
+          "conflict_avoidance": 0.58,
+          "data_first_orientation": 0.77,
+          "temporary_rent_cap_support": 0.52
+        }
+      },
+      {
+        "actor_name": "tenant_organizers",
+        "archetype_key": "tenant_campaign_lead_archetype",
+        "attention_level": 0.83,
+        "decision_power": 0.42,
+        "expression_level": 0.79,
+        "fatigue": 0.37,
+        "fear_of_isolation": 0.18,
+        "hero_key": "tenant_campaign_lead",
+        "mobilization_readiness": 0.8,
+        "perceived_majority": 0.61,
+        "role_function": "coordinates tenant messaging and turnout",
+        "stance_axes": {
+          "compromise_openness": 0.34,
+          "media_activation": 0.74,
+          "temporary_rent_cap_support": 0.92
+        }
+      },
+      {
+        "actor_name": "small_landlords",
+        "archetype_key": "landlord_spokesperson_archetype",
+        "attention_level": 0.74,
+        "decision_power": 0.36,
+        "expression_level": 0.68,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.33,
+        "hero_key": "landlord_spokesperson",
+        "mobilization_readiness": 0.61,
+        "perceived_majority": 0.38,
+        "role_function": "publicly argues cost pass-through is unavoidable",
+        "stance_axes": {
+          "compromise_openness": 0.39,
+          "insurance_explanation_emphasis": 0.91,
+          "temporary_rent_cap_support": 0.08
+        }
+      },
+      {
+        "actor_name": "city_council_members",
+        "archetype_key": "council_policy_moderate_archetype",
+        "attention_level": 0.71,
+        "decision_power": 0.67,
+        "expression_level": 0.41,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.27,
+        "hero_key": "council_policy_moderate",
+        "mobilization_readiness": 0.45,
+        "perceived_majority": 0.5,
+        "role_function": "requests evidence and can sway council alignment around vote timing or policy scope",
+        "stance_axes": {
+          "data_first_orientation": 0.84,
+          "political_risk_aversion": 0.63,
+          "temporary_rent_cap_support": 0.49
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "hero_key": "board_chair_archetype",
+        "label": "Rent board chair",
+        "role": "agenda_setter"
+      },
+      {
+        "hero_key": "tenant_campaign_lead_archetype",
+        "label": "Tenant organizing lead",
+        "role": "movement_entrepreneur"
+      },
+      {
+        "hero_key": "landlord_spokesperson_archetype",
+        "label": "Small landlord spokesperson",
+        "role": "interest_group_messenger"
+      },
+      {
+        "hero_key": "council_policy_moderate_archetype",
+        "label": "Data-seeking council policy moderate",
+        "role": "pivotal_decision_influencer"
+      }
+    ],
+    "important_questions": [
+      "Will the jurisdiction adopt a temporary rent cap during the initial decision window?",
+      "Will tenant organizing remain strong enough through the vote window to sustain pressure on decision-makers?",
+      "Will public and media attention decay before the formal vote enough to reduce urgency?",
+      "Will credible data validate landlords' claim that insurance costs materially drove the rent spike?"
+    ],
+    "initial_events": [
+      {
+        "actors_involved": [
+          "local_tenants",
+          "small_landlords",
+          "property_insurers"
+        ],
+        "event_key": "e1_rent_spike_visible",
+        "event_type": "announcement",
+        "expected_impact": "Raises tenant anxiety, increases conflict edges with landlords, and creates demand for explanation.",
+        "status": "realized",
+        "summary": "Sudden rent increases become a recognized local issue linked publicly to insurance cost pressures.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "tenant_organizers",
+          "local_tenants"
+        ],
+        "event_key": "e2_tenant_organizing_starts",
+        "event_type": "announcement",
+        "expected_impact": "Boosts exposure and coalition strength within renter networks and increases public testimony likelihood.",
+        "status": "realized",
+        "summary": "Tenant organizers begin coordinated calls for temporary relief or a cap.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "small_landlords",
+          "local_media",
+          "city_council_members"
+        ],
+        "event_key": "e3_landlord_cost_claims_public",
+        "event_type": "announcement",
+        "expected_impact": "Competes with tenant framing, modestly improves landlord credibility among procedural actors, and hardens conflict.",
+        "status": "realized",
+        "summary": "Small landlords publicly argue that higher rents reflect real insurance-driven cost increases.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "property_insurers",
+          "local_media"
+        ],
+        "event_key": "e4_insurer_silence",
+        "event_type": "announcement",
+        "expected_impact": "Sustains information asymmetry and leaves space for contested narratives.",
+        "status": "realized",
+        "summary": "Property insurers avoid public comment on pricing or causation.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "city_council_members",
+          "rent_board"
+        ],
+        "event_key": "e5_data_request_before_vote",
+        "event_type": "announcement",
+        "expected_impact": "Delays closure, privileges evidence brokers, and may reduce momentum if no new public signal emerges.",
+        "status": "scheduled",
+        "summary": "Council members formally request more data ahead of a vote or recommendation stage.",
+        "tick": 1
+      },
+      {
+        "actors_involved": [
+          "rent_board",
+          "city_council_members"
+        ],
+        "event_key": "e6_formal_vote_window",
+        "event_type": "announcement",
+        "expected_impact": "Raises salience, clarifies coalition durability, and forces actors to choose between compromise, delay, or confrontation.",
+        "status": "scheduled",
+        "summary": "A formal vote window on a temporary cap or related response approaches.",
+        "tick": 3
+      }
+    ],
+    "llm_call_id": "3bb0a0e5-b35e-4357-80e2-9c27c504d090",
+    "merge_hypotheses": [
+      {
+        "converging_conditions": "Both sides accept that costs are real but dispute magnitude, and decision-makers need a bounded interim response.",
+        "merge_key": "m1_temporary_compromise_frame",
+        "shared_mechanism": "A sunset-limited temporary measure with review can partially satisfy urgency and caution."
+      },
+      {
+        "converging_conditions": "Conflict remains high but actors need institutional legitimacy before a terminal choice.",
+        "merge_key": "m2_data_collection_as_face_saving",
+        "shared_mechanism": "Commissioned data, hearings, or a pilot delay can let opposed coalitions preserve standing while moving toward a common process."
+      },
+      {
+        "converging_conditions": "Sustained mobilization proves costly and issue novelty declines.",
+        "merge_key": "m3_fatigue_reduces_escalation",
+        "shared_mechanism": "Coalition fatigue and attention decay reduce public confrontation even if substantive disagreement remains."
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "renting_households",
+        "label": "Renting households in the jurisdiction",
+        "population_total": 24000
+      },
+      {
+        "archetype_key": "small_landlord_operators",
+        "label": "Small landlord operators with local rental units",
+        "population_total": 1400
+      },
+      {
+        "archetype_key": "general_local_public",
+        "label": "General local adult public following civic issues",
+        "population_total": 65000
+      }
+    ],
+    "risk_flags": [
+      {
+        "description": "Source corpus is brief, so population sizes, procedural structure, and exact authority split are inferred defaults rather than explicit facts.",
+        "risk_key": "evidence_sparsity",
+        "severity": "medium"
+      },
+      {
+        "description": "The exact legal decision authority between rent board and city council is not fully specified; both are treated as relevant endpoint authorities.",
+        "risk_key": "authority_ambiguity",
+        "severity": "medium"
+      },
+      {
+        "description": "Insurer silence and data requests create a high risk that contested narratives outrun verified evidence at T0.",
+        "risk_key": "information_asymmetry",
+        "severity": "high"
+      },
+      {
+        "description": "Scenario explicitly flags the possibility that salience drops before a formal vote, affecting coalition leverage and endpoint realization.",
+        "risk_key": "attention_decay_risk",
+        "severity": "high"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "housing_zoning",
+      "evidence_refs": [
+        "scenario_text"
+      ],
+      "mode": "direct",
+      "primary_pressures": [
+        "insurance cost pass-through to rents",
+        "tenant affordability stress",
+        "landlord operating margin stress",
+        "information asymmetry around insurer pricing",
+        "council demand for data before vote",
+        "risk of public attention decay before decision"
+      ],
+      "scenario_key": "housing_003",
+      "summary": "A fictional local rent board is considering a temporary rent cap after a sudden rent spike attributed in part to rising insurance costs. Small landlords claim the cost shock is real, tenants are organizing for relief, insurers are avoiding public comment, and council members want better data before a formal vote.",
+      "t0_conditions": "Issue is salient but not yet at maximum crisis. Public contestation is emerging, decision-makers are information-seeking, and formal policy choice remains open.",
+      "time_horizon_ticks": 6,
+      "title": "temporary_rent_cap_after_insurance_driven_rent_spike",
+      "uncertainties": [
+        "magnitude of insurance contribution to rent spike",
+        "extent of landlord ability to absorb costs",
+        "tenant coalition durability over time",
+        "whether insurers will engage publicly",
+        "whether council consolidates around temporary cap or delays"
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "description": "Without fresh conflict, data releases, or visible hardship stories, broader public attention is likely to fade before the formal vote.",
+        "level": 0.63,
+        "mechanism_key": "attention_decay",
+        "model": "attention_decay",
+        "scope": "general_local_public"
+      },
+      {
+        "description": "Additional renters may participate if early organizing demonstrates turnout and procedural relevance.",
+        "level": 0.66,
+        "mechanism_key": "threshold_mobilization",
+        "model": "attention_decay",
+        "scope": "renting_households"
+      },
+      {
+        "description": "Moderates may stay publicly quiet despite private concern due to uncertainty and fear of social or economic exposure.",
+        "level": 0.58,
+        "mechanism_key": "public_silence",
+        "model": "attention_decay",
+        "scope": "cautious_tenants_and_accommodative_small_landlords"
+      },
+      {
+        "description": "Actors are more likely to update on evidence framed within existing narratives than on adversarial claims alone.",
+        "level": 0.55,
+        "mechanism_key": "bounded_confidence",
+        "model": "attention_decay",
+        "scope": "city_policy_discourse"
+      },
+      {
+        "description": "Information and interpretation cluster within renter and landlord networks.",
+        "level": 0.6,
+        "mechanism_key": "homophily",
+        "model": "attention_decay",
+        "scope": "tenant_and_landlord_networks"
+      },
+      {
+        "description": "Visible multiple-source endorsements increase likelihood of broader tenant participation.",
+        "level": 0.62,
+        "mechanism_key": "complex_contagion",
+        "model": "attention_decay",
+        "scope": "tenant_action"
+      },
+      {
+        "description": "Group labels shape perceived legitimacy and grievance interpretation.",
+        "level": 0.57,
+        "mechanism_key": "social_identity",
+        "model": "attention_decay",
+        "scope": "tenant_landlord_civic_roles"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Upcoming formal vote creates a focal point for organizing and countermobilization.",
+        "influence_key": "formal_vote_deadline"
+      },
+      {
+        "description": "Council demand for data slows closure and raises the value of credible evidence.",
+        "influence_key": "data_request_uncertainty"
+      },
+      {
+        "description": "Insurer refusal to comment creates an information vacuum and suspicion.",
+        "influence_key": "industry_silence"
+      },
+      {
+        "description": "Sudden rent increase keeps issue personally salient for affected tenants.",
+        "influence_key": "cost_shock_salience"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "rent_board",
+        "behavior_axes": {
+          "proceduralism": 0.8,
+          "responsiveness": 0.56,
+          "risk_tolerance": 0.39
+        },
+        "graph_influence_summary": 0.74,
+        "ideology_axes": {
+          "institutional_caution": 0.76,
+          "market_intervention": 0.54
+        },
+        "reputation": 0.58,
+        "secrecy": 0.32,
+        "tendency": "deliberative_under_pressure",
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "city_council_members",
+        "behavior_axes": {
+          "proceduralism": 0.69,
+          "responsiveness": 0.61,
+          "risk_tolerance": 0.42
+        },
+        "graph_influence_summary": 0.7,
+        "ideology_axes": {
+          "institutional_caution": 0.71,
+          "market_intervention": 0.5
+        },
+        "reputation": 0.55,
+        "secrecy": 0.35,
+        "tendency": "data_seeking_and_politically_sensitive",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "tenant_organizers",
+        "behavior_axes": {
+          "message_discipline": 0.63,
+          "mobilizing": 0.82,
+          "risk_tolerance": 0.58
+        },
+        "graph_influence_summary": 0.62,
+        "ideology_axes": {
+          "institutional_trust": 0.46,
+          "market_intervention": 0.85
+        },
+        "reputation": 0.57,
+        "secrecy": 0.28,
+        "tendency": "campaign_building",
+        "trustworthiness": 0.59
+      },
+      {
+        "actor_name": "small_landlords",
+        "behavior_axes": {
+          "adaptability": 0.44,
+          "defensiveness": 0.68,
+          "mobilizing": 0.54
+        },
+        "graph_influence_summary": 0.56,
+        "ideology_axes": {
+          "institutional_trust": 0.48,
+          "market_intervention": 0.18
+        },
+        "reputation": 0.43,
+        "secrecy": 0.41,
+        "tendency": "cost_justification_and_lobbying",
+        "trustworthiness": 0.47
+      },
+      {
+        "actor_name": "property_insurers",
+        "behavior_axes": {
+          "message_control": 0.77,
+          "public_engagement": 0.14,
+          "risk_tolerance": 0.29
+        },
+        "graph_influence_summary": 0.45,
+        "ideology_axes": {
+          "institutional_trust": 0.39,
+          "market_intervention": 0.12
+        },
+        "reputation": 0.36,
+        "secrecy": 0.74,
+        "tendency": "avoid_public_comment",
+        "trustworthiness": 0.34
+      },
+      {
+        "actor_name": "local_tenants",
+        "behavior_axes": {
+          "adaptability": 0.51,
+          "conflict_tolerance": 0.43,
+          "mobilizing": 0.48
+        },
+        "graph_influence_summary": 0.53,
+        "ideology_axes": {
+          "institutional_trust": 0.5,
+          "market_intervention": 0.7
+        },
+        "reputation": 0.51,
+        "secrecy": 0.22,
+        "tendency": "heterogeneous_but_cost_sensitive",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "local_media",
+        "behavior_axes": {
+          "amplification": 0.66,
+          "fact_checking": 0.51,
+          "novelty_seeking": 0.59
+        },
+        "graph_influence_summary": 0.6,
+        "ideology_axes": {
+          "institutional_trust": 0.52,
+          "market_intervention": 0.5
+        },
+        "reputation": 0.54,
+        "secrecy": 0.11,
+        "tendency": "coverage_follows_conflict_and_new_data",
+        "trustworthiness": 0.55
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 475,
+        "end": 475,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 475,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

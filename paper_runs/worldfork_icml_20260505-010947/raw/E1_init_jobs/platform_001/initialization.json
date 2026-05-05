@@ -1,0 +1,1760 @@
+{
+  "big_bang_id": "2c1ab7fe-db00-4ad0-afe1-f7c6501a6c10",
+  "initializer_output": {
+    "actors": [
+      {
+        "actor_type": "institution",
+        "constraints": [
+          "service demand",
+          "political scrutiny",
+          "vendor contract dependence",
+          "administrative burden"
+        ],
+        "decision_rights": [
+          "pause_or_continue_tool_usage",
+          "order_internal_review",
+          "commission_audit",
+          "issue_public_guidance"
+        ],
+        "fictionalized": true,
+        "name": "benefits_agency",
+        "resources": [
+          "case records",
+          "operational authority",
+          "communications staff",
+          "appeals process"
+        ],
+        "role": "public benefits administrator and deployment authority",
+        "stakes": [
+          "service continuity",
+          "legal compliance",
+          "public legitimacy",
+          "budget discipline",
+          "backlog management"
+        ]
+      },
+      {
+        "actor_type": "company",
+        "constraints": [
+          "contract scope",
+          "access to agency data",
+          "public blame exposure"
+        ],
+        "decision_rights": [
+          "propose_patch",
+          "analyze_logs",
+          "support_retraining_or_rule_change"
+        ],
+        "fictionalized": true,
+        "name": "eligibility_vendor",
+        "resources": [
+          "source code access",
+          "technical staff",
+          "system diagnostics"
+        ],
+        "role": "software supplier and technical maintainer",
+        "stakes": [
+          "contract retention",
+          "reputation",
+          "liability containment",
+          "narrative that data quality drove errors"
+        ]
+      },
+      {
+        "actor_type": "workforce_group",
+        "constraints": [
+          "managerial directives",
+          "tool integration into workflow",
+          "limited time"
+        ],
+        "decision_rights": [
+          "flag_cases",
+          "escalate_exceptions",
+          "informal workarounds_within_policy_limits"
+        ],
+        "fictionalized": true,
+        "name": "caseworkers",
+        "resources": [
+          "case knowledge",
+          "applicant contact context",
+          "appeals documentation"
+        ],
+        "role": "frontline staff using or working around automated outputs",
+        "stakes": [
+          "professional autonomy",
+          "workload",
+          "reputational protection",
+          "fair treatment of applicants"
+        ]
+      },
+      {
+        "actor_type": "public_group",
+        "constraints": [
+          "information asymmetry",
+          "time pressure",
+          "economic precarity",
+          "digital access barriers"
+        ],
+        "decision_rights": [
+          "file_complaints",
+          "appeal_denials",
+          "share_experiences_publicly"
+        ],
+        "fictionalized": true,
+        "name": "applicants",
+        "resources": [
+          "personal documentation",
+          "complaint narratives",
+          "appeal rights"
+        ],
+        "role": "benefits applicants affected by eligibility decisions",
+        "stakes": [
+          "access to benefits",
+          "procedural fairness",
+          "timely review",
+          "clear explanations"
+        ]
+      },
+      {
+        "actor_type": "affected_subgroup",
+        "constraints": [
+          "proof burdens",
+          "fatigue",
+          "fear of retaliation or futility"
+        ],
+        "decision_rights": [
+          "appeal",
+          "join_advocacy",
+          "contact_media_or_legal_aid"
+        ],
+        "fictionalized": true,
+        "name": "wrongly_denied_applicants",
+        "resources": [
+          "specific adverse cases",
+          "high-salience testimony"
+        ],
+        "role": "subset of applicants likely experiencing false negatives",
+        "stakes": [
+          "reversal of denials",
+          "urgent material support",
+          "accountability"
+        ]
+      },
+      {
+        "actor_type": "civil_society_group",
+        "constraints": [
+          "limited formal authority",
+          "evidence verification burden"
+        ],
+        "decision_rights": [
+          "campaign",
+          "collect_case_reports",
+          "petition_oversight_bodies"
+        ],
+        "fictionalized": true,
+        "name": "advocacy_groups",
+        "resources": [
+          "media contacts",
+          "community trust",
+          "organizing capacity"
+        ],
+        "role": "outside watchdogs and applicant advocates",
+        "stakes": [
+          "audit",
+          "transparency",
+          "harm mitigation",
+          "policy reform"
+        ]
+      },
+      {
+        "actor_type": "institution",
+        "constraints": [
+          "case intake delay",
+          "standing and review thresholds"
+        ],
+        "decision_rights": [
+          "review_appeals_later",
+          "remand_cases",
+          "order_relief_in_specific_disputes"
+        ],
+        "fictionalized": true,
+        "name": "courts",
+        "resources": [
+          "legal authority",
+          "precedent",
+          "hearing process"
+        ],
+        "role": "potential appellate or judicial review body",
+        "stakes": [
+          "procedural legality",
+          "administrative fairness",
+          "record quality"
+        ]
+      },
+      {
+        "actor_type": "leadership_group",
+        "constraints": [
+          "budget",
+          "political oversight",
+          "staff morale"
+        ],
+        "decision_rights": [
+          "pause_tool",
+          "narrow_use",
+          "message_public",
+          "request_vendor_patch"
+        ],
+        "fictionalized": true,
+        "name": "agency_leadership",
+        "resources": [
+          "executive authority",
+          "internal reporting lines"
+        ],
+        "role": "senior officials directing agency response",
+        "stakes": [
+          "contain crisis",
+          "preserve service throughput",
+          "avoid scandal",
+          "manage vendor relationship"
+        ]
+      },
+      {
+        "actor_type": "oversight_body",
+        "constraints": [
+          "need for mandate",
+          "access limitations",
+          "time"
+        ],
+        "decision_rights": [
+          "audit_if_commissioned",
+          "request_documents",
+          "publish_findings_if_authorized"
+        ],
+        "fictionalized": true,
+        "name": "oversight_auditors",
+        "resources": [
+          "audit methods",
+          "institutional credibility"
+        ],
+        "role": "internal or external auditors who could examine the system",
+        "stakes": [
+          "fact-finding",
+          "compliance assessment",
+          "recommendations"
+        ]
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Agency temporarily pauses or narrows automated usage while initiating review or audit.",
+        "branch_key": "pause_then_review",
+        "divergence_signal": "Official notice limiting tool use, increased manual review volume, and messaging emphasizing caution over continuity.",
+        "trigger": "Leadership receives enough corroborated complaints or internal evidence to doubt safe continuation."
+      },
+      {
+        "alternate_path": "Agency keeps tool running with a vendor patch and data-quality remediation steps.",
+        "branch_key": "patch_and_continue",
+        "divergence_signal": "Public statements emphasize incomplete data, patch deployment dates, and no broad pause announcement.",
+        "trigger": "Vendor technical narrative remains credible and leadership prioritizes throughput continuity."
+      },
+      {
+        "alternate_path": "Audit demand becomes unavoidable and oversight actors gain access to records and workflow evidence.",
+        "branch_key": "audit_escalation",
+        "divergence_signal": "Formal audit mandate, document requests, or third-party review announcement.",
+        "trigger": "Advocacy groups collect multiple coherent denial cases or secure public attention."
+      },
+      {
+        "alternate_path": "Internal criticism becomes more visible through memos, leaks, refusals to rely on outputs, or union-like coordination.",
+        "branch_key": "staff_dissent_surface",
+        "divergence_signal": "Publicly cited staff concerns, exception rates rising, or internal reporting volume spikes.",
+        "trigger": "Caseworker frustration rises without accountability clarification or workflow relief."
+      },
+      {
+        "alternate_path": "Case-specific disputes accumulate into a stronger legal challenge with possible judicial constraints later.",
+        "branch_key": "appeals_create_legal_precedent_path",
+        "divergence_signal": "Repeated successful appeals, court filings citing systemic issues, or remand language focused on automated process defects.",
+        "trigger": "Early appeals reveal repeatable patterns of questionable denials."
+      }
+    ],
+    "channels": [
+      {
+        "actors": [
+          "benefits_agency",
+          "applicants"
+        ],
+        "channel_key": "agency_decision_letters",
+        "reliability": 0.7,
+        "type": "official_service_channel",
+        "visibility": "direct_private"
+      },
+      {
+        "actors": [
+          "caseworkers",
+          "agency_leadership",
+          "benefits_agency"
+        ],
+        "channel_key": "internal_staff_reporting",
+        "reliability": 0.75,
+        "type": "internal_operational_channel",
+        "visibility": "private_internal"
+      },
+      {
+        "actors": [
+          "eligibility_vendor",
+          "benefits_agency",
+          "agency_leadership"
+        ],
+        "channel_key": "vendor_incident_updates",
+        "reliability": 0.65,
+        "type": "technical_partner_channel",
+        "visibility": "private_institutional"
+      },
+      {
+        "actors": [
+          "wrongly_denied_applicants",
+          "advocacy_groups",
+          "general_public_observers"
+        ],
+        "channel_key": "advocacy_intake_and_campaigns",
+        "reliability": 0.6,
+        "type": "civil_society_channel",
+        "visibility": "mixed"
+      },
+      {
+        "actors": [
+          "applicants",
+          "benefits_agency",
+          "courts"
+        ],
+        "channel_key": "appeals_process",
+        "reliability": 0.8,
+        "type": "formal_redress_channel",
+        "visibility": "formal_case_specific"
+      },
+      {
+        "actors": [
+          "advocacy_groups",
+          "agency_leadership",
+          "oversight_auditors"
+        ],
+        "channel_key": "audit_request_pathway",
+        "reliability": 0.7,
+        "type": "oversight_channel",
+        "visibility": "mixed"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "applicants",
+        "attention_level": 3,
+        "cohort_key": "applicants_unaware_or_unaffected",
+        "expression_level": 2,
+        "fatigue": 4,
+        "fear_of_isolation": 5,
+        "mobilization_readiness": 2,
+        "perceived_majority": "most people do not know enough to judge the tool yet",
+        "population_archetype_key": "benefits_applicant_pool",
+        "population_share_of_archetype": 0.65,
+        "private_belief": "limited knowledge of system details; primarily care about timely outcomes",
+        "public_expression": "low unless directly affected",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 78000,
+        "stance_axes": {
+          "agency_trust": 0.1,
+          "appeal_willingness": 0.0,
+          "audit_support": 0.4,
+          "tool_support": 0.0
+        }
+      },
+      {
+        "actor_name": "applicants",
+        "attention_level": 6,
+        "cohort_key": "applicants_concerned_pending_cases",
+        "expression_level": 4,
+        "fatigue": 6,
+        "fear_of_isolation": 6,
+        "mobilization_readiness": 4,
+        "perceived_majority": "many applicants suspect unfairness but are not publicly organized",
+        "population_archetype_key": "benefits_applicant_pool",
+        "population_share_of_archetype": 0.25,
+        "private_belief": "the system may be error-prone and hard to challenge",
+        "public_expression": "moderate complaints in service channels and personal networks",
+        "representation_mode": "estimated_salient_cohort",
+        "represented_population": 30000,
+        "stance_axes": {
+          "agency_trust": -0.3,
+          "appeal_willingness": 0.5,
+          "audit_support": 0.7,
+          "tool_support": -0.4
+        }
+      },
+      {
+        "actor_name": "wrongly_denied_applicants",
+        "attention_level": 9,
+        "cohort_key": "wrongly_denied_active_complainants",
+        "expression_level": 7,
+        "fatigue": 8,
+        "fear_of_isolation": 4,
+        "mobilization_readiness": 7,
+        "perceived_majority": "others may also be harmed but remain less visible",
+        "population_archetype_key": "benefits_applicant_pool",
+        "population_share_of_archetype": 0.1,
+        "private_belief": "the automated tool caused or amplified unjust denials",
+        "public_expression": "high complaint intensity, appeals, and readiness to share stories",
+        "representation_mode": "estimated_affected_minority",
+        "represented_population": 12000,
+        "stance_axes": {
+          "agency_trust": -0.8,
+          "appeal_willingness": 0.9,
+          "audit_support": 0.95,
+          "tool_support": -0.9
+        }
+      },
+      {
+        "actor_name": "caseworkers",
+        "attention_level": 7,
+        "cohort_key": "caseworkers_defensive_pragmatists",
+        "expression_level": 3,
+        "fatigue": 7,
+        "fear_of_isolation": 7,
+        "mobilization_readiness": 3,
+        "perceived_majority": "most coworkers are uneasy but cautious about speaking openly",
+        "population_archetype_key": "frontline_casework_staff",
+        "population_share_of_archetype": 0.7,
+        "private_belief": "the tool may help throughput but current rollout shifts blame onto staff",
+        "public_expression": "guarded criticism internally, limited external commentary",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 1260,
+        "stance_axes": {
+          "agency_trust": -0.2,
+          "audit_support": 0.6,
+          "tool_support": 0.1,
+          "workflow_burden": 0.8
+        }
+      },
+      {
+        "actor_name": "caseworkers",
+        "attention_level": 6,
+        "cohort_key": "caseworkers_tool_backers",
+        "expression_level": 3,
+        "fatigue": 5,
+        "fear_of_isolation": 5,
+        "mobilization_readiness": 2,
+        "perceived_majority": "staff dissatisfaction may be louder than actual opposition to automation",
+        "population_archetype_key": "frontline_casework_staff",
+        "population_share_of_archetype": 0.3,
+        "private_belief": "automation can improve consistency if data quality and policy mapping improve",
+        "public_expression": "moderate internal support for patch-and-continue approach",
+        "representation_mode": "estimated_minor_cohort",
+        "represented_population": 540,
+        "stance_axes": {
+          "agency_trust": 0.1,
+          "audit_support": 0.3,
+          "tool_support": 0.5,
+          "workflow_burden": 0.4
+        }
+      },
+      {
+        "actor_name": "general_public_observers",
+        "attention_level": 2,
+        "cohort_key": "public_low_information_observers",
+        "expression_level": 1,
+        "fatigue": 1,
+        "fear_of_isolation": 3,
+        "mobilization_readiness": 1,
+        "perceived_majority": "issue is not yet dominant in public conversation",
+        "population_archetype_key": "general_public_observers",
+        "population_share_of_archetype": 0.8,
+        "private_belief": "uncertain; reacts to fairness cues and institutional competence signals",
+        "public_expression": "low",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 400000,
+        "stance_axes": {
+          "agency_trust": 0.0,
+          "audit_support": 0.5,
+          "punitive_reaction": 0.2,
+          "tool_support": 0.0
+        }
+      },
+      {
+        "actor_name": "general_public_observers",
+        "attention_level": 5,
+        "cohort_key": "public_civic_watchers",
+        "expression_level": 4,
+        "fatigue": 2,
+        "fear_of_isolation": 4,
+        "mobilization_readiness": 3,
+        "perceived_majority": "public concern could rise quickly if more stories emerge",
+        "population_archetype_key": "general_public_observers",
+        "population_share_of_archetype": 0.2,
+        "private_belief": "algorithmic fairness concerns merit scrutiny",
+        "public_expression": "moderate discussion via civic and media channels",
+        "representation_mode": "estimated_attentive_minority",
+        "represented_population": 100000,
+        "stance_axes": {
+          "agency_trust": -0.1,
+          "audit_support": 0.8,
+          "punitive_reaction": 0.4,
+          "tool_support": -0.2
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "applicants",
+        "attention_level": 3,
+        "cohort_key": "applicants_unaware_or_unaffected",
+        "expression_level": 2,
+        "fatigue": 4,
+        "fear_of_isolation": 5,
+        "mobilization_readiness": 2,
+        "perceived_majority": "most people do not know enough to judge the tool yet",
+        "population_archetype_key": "benefits_applicant_pool",
+        "population_share_of_archetype": 0.65,
+        "private_belief": "limited knowledge of system details; primarily care about timely outcomes",
+        "public_expression": "low unless directly affected",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 78000,
+        "stance_axes": {
+          "agency_trust": 0.1,
+          "appeal_willingness": 0.0,
+          "audit_support": 0.4,
+          "tool_support": 0.0
+        }
+      },
+      {
+        "actor_name": "applicants",
+        "attention_level": 6,
+        "cohort_key": "applicants_concerned_pending_cases",
+        "expression_level": 4,
+        "fatigue": 6,
+        "fear_of_isolation": 6,
+        "mobilization_readiness": 4,
+        "perceived_majority": "many applicants suspect unfairness but are not publicly organized",
+        "population_archetype_key": "benefits_applicant_pool",
+        "population_share_of_archetype": 0.25,
+        "private_belief": "the system may be error-prone and hard to challenge",
+        "public_expression": "moderate complaints in service channels and personal networks",
+        "representation_mode": "estimated_salient_cohort",
+        "represented_population": 30000,
+        "stance_axes": {
+          "agency_trust": -0.3,
+          "appeal_willingness": 0.5,
+          "audit_support": 0.7,
+          "tool_support": -0.4
+        }
+      },
+      {
+        "actor_name": "wrongly_denied_applicants",
+        "attention_level": 9,
+        "cohort_key": "wrongly_denied_active_complainants",
+        "expression_level": 7,
+        "fatigue": 8,
+        "fear_of_isolation": 4,
+        "mobilization_readiness": 7,
+        "perceived_majority": "others may also be harmed but remain less visible",
+        "population_archetype_key": "benefits_applicant_pool",
+        "population_share_of_archetype": 0.1,
+        "private_belief": "the automated tool caused or amplified unjust denials",
+        "public_expression": "high complaint intensity, appeals, and readiness to share stories",
+        "representation_mode": "estimated_affected_minority",
+        "represented_population": 12000,
+        "stance_axes": {
+          "agency_trust": -0.8,
+          "appeal_willingness": 0.9,
+          "audit_support": 0.95,
+          "tool_support": -0.9
+        }
+      },
+      {
+        "actor_name": "caseworkers",
+        "attention_level": 7,
+        "cohort_key": "caseworkers_defensive_pragmatists",
+        "expression_level": 3,
+        "fatigue": 7,
+        "fear_of_isolation": 7,
+        "mobilization_readiness": 3,
+        "perceived_majority": "most coworkers are uneasy but cautious about speaking openly",
+        "population_archetype_key": "frontline_casework_staff",
+        "population_share_of_archetype": 0.7,
+        "private_belief": "the tool may help throughput but current rollout shifts blame onto staff",
+        "public_expression": "guarded criticism internally, limited external commentary",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 1260,
+        "stance_axes": {
+          "agency_trust": -0.2,
+          "audit_support": 0.6,
+          "tool_support": 0.1,
+          "workflow_burden": 0.8
+        }
+      },
+      {
+        "actor_name": "caseworkers",
+        "attention_level": 6,
+        "cohort_key": "caseworkers_tool_backers",
+        "expression_level": 3,
+        "fatigue": 5,
+        "fear_of_isolation": 5,
+        "mobilization_readiness": 2,
+        "perceived_majority": "staff dissatisfaction may be louder than actual opposition to automation",
+        "population_archetype_key": "frontline_casework_staff",
+        "population_share_of_archetype": 0.3,
+        "private_belief": "automation can improve consistency if data quality and policy mapping improve",
+        "public_expression": "moderate internal support for patch-and-continue approach",
+        "representation_mode": "estimated_minor_cohort",
+        "represented_population": 540,
+        "stance_axes": {
+          "agency_trust": 0.1,
+          "audit_support": 0.3,
+          "tool_support": 0.5,
+          "workflow_burden": 0.4
+        }
+      },
+      {
+        "actor_name": "general_public_observers",
+        "attention_level": 2,
+        "cohort_key": "public_low_information_observers",
+        "expression_level": 1,
+        "fatigue": 1,
+        "fear_of_isolation": 3,
+        "mobilization_readiness": 1,
+        "perceived_majority": "issue is not yet dominant in public conversation",
+        "population_archetype_key": "general_public_observers",
+        "population_share_of_archetype": 0.8,
+        "private_belief": "uncertain; reacts to fairness cues and institutional competence signals",
+        "public_expression": "low",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 400000,
+        "stance_axes": {
+          "agency_trust": 0.0,
+          "audit_support": 0.5,
+          "punitive_reaction": 0.2,
+          "tool_support": 0.0
+        }
+      },
+      {
+        "actor_name": "general_public_observers",
+        "attention_level": 5,
+        "cohort_key": "public_civic_watchers",
+        "expression_level": 4,
+        "fatigue": 2,
+        "fear_of_isolation": 4,
+        "mobilization_readiness": 3,
+        "perceived_majority": "public concern could rise quickly if more stories emerge",
+        "population_archetype_key": "general_public_observers",
+        "population_share_of_archetype": 0.2,
+        "private_belief": "algorithmic fairness concerns merit scrutiny",
+        "public_expression": "moderate discussion via civic and media channels",
+        "representation_mode": "estimated_attentive_minority",
+        "represented_population": 100000,
+        "stance_axes": {
+          "agency_trust": -0.1,
+          "audit_support": 0.8,
+          "punitive_reaction": 0.4,
+          "tool_support": -0.2
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "agency_leadership",
+          "benefits_agency"
+        ],
+        "blockers": [
+          "throughput pressure",
+          "lack of verified causal evidence",
+          "dependence on vendor/system infrastructure"
+        ],
+        "contradiction_notes": "Could be superseded by patch-and-continue if leadership accepts the vendor explanation and harm evidence remains limited.",
+        "description": "A terminal outcome in which agency leadership formally suspends the tool or restricts it to limited case types pending further changes.",
+        "endpoint_key": "tool_usage_paused_or_narrowed",
+        "evidence_refs": [
+          "The agency can pause usage.",
+          "Early complaints say some applicants were wrongly denied."
+        ],
+        "label": "tool usage paused or narrowed",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the agency continue using the automated eligibility tool, pause it, or narrow its scope after early complaints?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.34,
+        "rationale": "This is a primary terminal operational choice directly implied by scenario authority structure.",
+        "realization_criteria": [
+          "official agency directive pauses automated determinations entirely or limits them to defined low-risk categories",
+          "caseworker workflow guidance confirms manual review replaces prior automated routing for affected cases"
+        ],
+        "status": "active",
+        "status_basis": "Authority clearly exists, but no pause has yet occurred at T0."
+      },
+      {
+        "authority_refs": [
+          "agency_leadership",
+          "benefits_agency",
+          "eligibility_vendor"
+        ],
+        "blockers": [
+          "audit findings showing unacceptable harm",
+          "escalating caseworker dissent",
+          "successful appeals revealing systemic defects"
+        ],
+        "contradiction_notes": "A temporary patch proposal alone does not realize this endpoint if the agency later pauses or retires the tool.",
+        "description": "A terminal outcome in which the agency keeps the automated tool in use while implementing vendor-provided software or data-handling fixes rather than pausing operations.",
+        "endpoint_key": "tool_usage_continues_with_patch",
+        "evidence_refs": [
+          "The vendor can patch software.",
+          "The agency can pause usage."
+        ],
+        "label": "tool continues with patch",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Is a formal audit or equivalent independent review initiated?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.39,
+        "rationale": "This is the clearest alternative to a pause and reflects switching-cost and continuity pressures.",
+        "realization_criteria": [
+          "vendor patch or equivalent remediation is deployed",
+          "agency publicly or operationally confirms continued use of the tool after remediation rather than a sustained pause"
+        ],
+        "status": "active",
+        "status_basis": "Patch capacity exists and continuity incentives are strong, but no terminal choice has been made at T0."
+      },
+      {
+        "authority_refs": [
+          "agency_leadership",
+          "benefits_agency",
+          "oversight_auditors"
+        ],
+        "blockers": [
+          "leadership resistance",
+          "scope disputes",
+          "effort to contain issue through patch-only response"
+        ],
+        "contradiction_notes": "An informal internal check without mandate or record access should not count as realization unless it functionally matches independent review criteria.",
+        "description": "A terminal oversight outcome in which an internal or external auditor receives a mandate to review the tool, decision records, or governance process.",
+        "endpoint_key": "formal_audit_initiated",
+        "evidence_refs": [
+          "Advocacy groups demand an audit."
+        ],
+        "label": "formal audit initiated",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the dominant accepted explanation become vendor-fixable data/software issues, or does responsibility shift toward agency governance and rollout?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.56,
+        "rationale": "Audit is a key accountability endpoint and may coexist with either pause or continuation pathways.",
+        "realization_criteria": [
+          "agency or competent oversight authority issues an audit mandate or review order",
+          "auditors obtain formal access to relevant records, workflows, or model/policy documentation"
+        ],
+        "status": "active",
+        "status_basis": "Audit demand is explicit, but no audit has yet been commissioned at T0."
+      },
+      {
+        "authority_refs": [
+          "courts",
+          "benefits_agency"
+        ],
+        "blockers": [
+          "slow timelines",
+          "case-specific resolution without systemic finding",
+          "insufficient documented record"
+        ],
+        "contradiction_notes": "Isolated applicant wins without recurring process findings should not realize this endpoint.",
+        "description": "A terminal legal-accountability outcome in which appeals or court-linked review establish a repeatable pattern of wrongful denials attributable to the deployed system or its governance.",
+        "endpoint_key": "systemic_wrongful_denial_validated_in_appeals",
+        "evidence_refs": [
+          "Courts can review appeals later.",
+          "Early complaints say some applicants were wrongly denied."
+        ],
+        "label": "systemic wrongful denial validated in appeals",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do later appeals and court-linked processes validate a pattern of wrongful denials significant enough to constrain the system?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.27,
+        "rationale": "Later adjudication can materially constrain policy and validate or weaken current allegations.",
+        "realization_criteria": [
+          "multiple appeals are sustained, remanded, or reversed on materially similar grounds tied to automated eligibility handling",
+          "a court or formal appeals body record identifies recurring defects in the automated process, input handling, or associated decision governance"
+        ],
+        "status": "active",
+        "status_basis": "This pathway is latent and delayed, with no mature appeals record at T0."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "The vendor can patch software.",
+        "layer": "dependency",
+        "reason": "Agency relies on vendor software maintenance and technical interpretation for the automated eligibility tool.",
+        "source_actor_name": "benefits_agency",
+        "target_actor_name": "eligibility_vendor",
+        "weight": 0.62
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Caseworkers feel blamed within agency deployment context.",
+        "layer": "dependency",
+        "reason": "Caseworkers depend on agency policy and workflow directives in handling eligibility decisions.",
+        "source_actor_name": "caseworkers",
+        "target_actor_name": "benefits_agency",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "A fictional benefits agency deploys an automated eligibility tool affecting applicants.",
+        "layer": "dependency",
+        "reason": "Applicants rely on agency determinations for benefits access.",
+        "source_actor_name": "applicants",
+        "target_actor_name": "benefits_agency",
+        "weight": 0.73
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Some applicants were wrongly denied.",
+        "layer": "dependency",
+        "reason": "Wrongly denied applicants remain materially dependent on the agency for reversal and benefits access.",
+        "source_actor_name": "wrongly_denied_applicants",
+        "target_actor_name": "benefits_agency",
+        "weight": 0.78
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Caseworkers are implicated in the deployment and response process.",
+        "layer": "dependency",
+        "reason": "Agency operations depend on frontline staff to process, explain, and review decisions.",
+        "source_actor_name": "benefits_agency",
+        "target_actor_name": "caseworkers",
+        "weight": 0.57
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Advocacy groups demand an audit.",
+        "layer": "dependency",
+        "reason": "Agency may need auditors to restore legitimacy if controversy deepens.",
+        "source_actor_name": "benefits_agency",
+        "target_actor_name": "oversight_auditors",
+        "weight": 0.26
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Applicants are denied or approved by the agency.",
+        "layer": "exposure",
+        "reason": "Applicants receive agency decisions and explanations directly.",
+        "source_actor_name": "applicants",
+        "target_actor_name": "benefits_agency",
+        "weight": 0.55
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Advocacy groups demand an audit after early complaints.",
+        "layer": "exposure",
+        "reason": "Affected applicants are likely to share complaints with advocates.",
+        "source_actor_name": "wrongly_denied_applicants",
+        "target_actor_name": "advocacy_groups",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Advocacy groups are demanding an audit.",
+        "layer": "exposure",
+        "reason": "Advocacy messaging can reach attentive civic audiences.",
+        "source_actor_name": "advocacy_groups",
+        "target_actor_name": "general_public_observers",
+        "weight": 0.41
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Caseworkers feel blamed.",
+        "layer": "exposure",
+        "reason": "Leadership can hear internal frustration and operational concerns from staff.",
+        "source_actor_name": "caseworkers",
+        "target_actor_name": "agency_leadership",
+        "weight": 0.44
+      },
+      {
+        "direction": "outbound",
+        "evidence": "The vendor cites incomplete data.",
+        "layer": "exposure",
+        "reason": "Vendor communicates its explanation and remediation proposals to agency decision-makers.",
+        "source_actor_name": "eligibility_vendor",
+        "target_actor_name": "benefits_agency",
+        "weight": 0.49
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Early complaints say some applicants were wrongly denied.",
+        "layer": "trust",
+        "reason": "Early wrongful denial complaints reduce baseline trust in agency competence and fairness.",
+        "source_actor_name": "applicants",
+        "target_actor_name": "benefits_agency",
+        "weight": 0.34
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Some applicants were wrongly denied.",
+        "layer": "trust",
+        "reason": "Those experiencing denial have sharply reduced trust.",
+        "source_actor_name": "wrongly_denied_applicants",
+        "target_actor_name": "benefits_agency",
+        "weight": 0.18
+      },
+      {
+        "direction": "outbound",
+        "evidence": "The vendor cites incomplete data and can patch software.",
+        "layer": "trust",
+        "reason": "Agency still treats vendor as a credible technical partner but faces emerging doubt.",
+        "source_actor_name": "benefits_agency",
+        "target_actor_name": "eligibility_vendor",
+        "weight": 0.43
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Caseworkers feel blamed.",
+        "layer": "trust",
+        "reason": "Feeling blamed lowers staff trust in agency leadership and rollout decisions.",
+        "source_actor_name": "caseworkers",
+        "target_actor_name": "benefits_agency",
+        "weight": 0.29
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Advocacy groups demand an audit.",
+        "layer": "trust",
+        "reason": "Advocates suspect accountability gaps and seek external review.",
+        "source_actor_name": "advocacy_groups",
+        "target_actor_name": "benefits_agency",
+        "weight": 0.22
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Audit is under discussion.",
+        "layer": "trust",
+        "reason": "Auditors are a plausible legitimate mechanism for fact-finding if engaged.",
+        "source_actor_name": "benefits_agency",
+        "target_actor_name": "oversight_auditors",
+        "weight": 0.52
+      },
+      {
+        "direction": "outbound",
+        "evidence": "The agency can pause usage.",
+        "layer": "influence",
+        "reason": "Leadership has direct authority over operational posture.",
+        "source_actor_name": "agency_leadership",
+        "target_actor_name": "benefits_agency",
+        "weight": 0.71
+      },
+      {
+        "direction": "outbound",
+        "evidence": "The vendor cites incomplete data and can patch software.",
+        "layer": "influence",
+        "reason": "Vendor shapes the interpretation of causes and remediation feasibility.",
+        "source_actor_name": "eligibility_vendor",
+        "target_actor_name": "agency_leadership",
+        "weight": 0.48
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Advocacy groups demand an audit.",
+        "layer": "influence",
+        "reason": "Audit demands create reputational and political pressure on leaders.",
+        "source_actor_name": "advocacy_groups",
+        "target_actor_name": "agency_leadership",
+        "weight": 0.42
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Caseworkers feel blamed.",
+        "layer": "influence",
+        "reason": "Frontline operational knowledge can sway leaders if concerns accumulate.",
+        "source_actor_name": "caseworkers",
+        "target_actor_name": "agency_leadership",
+        "weight": 0.33
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Courts can review appeals later.",
+        "layer": "influence",
+        "reason": "Judicial review is delayed but can constrain later agency choices.",
+        "source_actor_name": "courts",
+        "target_actor_name": "benefits_agency",
+        "weight": 0.24
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Audit is a live demand though not yet commissioned.",
+        "layer": "influence",
+        "reason": "If activated, auditors can strongly shape legitimacy and next steps.",
+        "source_actor_name": "oversight_auditors",
+        "target_actor_name": "agency_leadership",
+        "weight": 0.29
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Advocacy groups demand an audit in response to complaints.",
+        "layer": "coalition",
+        "reason": "Shared interest in documenting harms and obtaining review.",
+        "source_actor_name": "advocacy_groups",
+        "target_actor_name": "wrongly_denied_applicants",
+        "weight": 0.58
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Caseworkers feel blamed while applicants complain of wrongful denials.",
+        "layer": "coalition",
+        "reason": "Partial alignment around concern that the tool can produce unfair outcomes, despite different incentives.",
+        "source_actor_name": "caseworkers",
+        "target_actor_name": "wrongly_denied_applicants",
+        "weight": 0.27
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Agency uses the vendor tool and vendor can patch it.",
+        "layer": "coalition",
+        "reason": "They remain institutionally aligned around keeping the system functioning.",
+        "source_actor_name": "benefits_agency",
+        "target_actor_name": "eligibility_vendor",
+        "weight": 0.46
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Both have reasons to question current rollout, though no explicit alliance is stated.",
+        "layer": "coalition",
+        "reason": "Potential but not yet robust alignment around audit and accountability.",
+        "source_actor_name": "advocacy_groups",
+        "target_actor_name": "caseworkers",
+        "weight": 0.22
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Advocacy groups demand an audit.",
+        "layer": "conflict",
+        "reason": "Audit demand reflects open challenge to agency handling and transparency.",
+        "source_actor_name": "advocacy_groups",
+        "target_actor_name": "benefits_agency",
+        "weight": 0.54
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Some applicants were wrongly denied.",
+        "layer": "conflict",
+        "reason": "Adverse decisions create direct grievance against the agency.",
+        "source_actor_name": "wrongly_denied_applicants",
+        "target_actor_name": "benefits_agency",
+        "weight": 0.66
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Caseworkers feel blamed.",
+        "layer": "conflict",
+        "reason": "Staff feel unfairly blamed for tool-linked outcomes.",
+        "source_actor_name": "caseworkers",
+        "target_actor_name": "agency_leadership",
+        "weight": 0.38
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "The vendor cites incomplete data.",
+        "layer": "conflict",
+        "reason": "Underlying tension exists over whether fault lies in software or agency data/processes.",
+        "source_actor_name": "benefits_agency",
+        "target_actor_name": "eligibility_vendor",
+        "weight": 0.24
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Audit demand is public-pressure oriented.",
+        "layer": "oasis_interaction",
+        "reason": "Likely sustained public-facing exchanges over audit demands and response messaging.",
+        "source_actor_name": "advocacy_groups",
+        "target_actor_name": "benefits_agency",
+        "weight": 0.47
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Early complaints are feeding advocacy activity.",
+        "layer": "oasis_interaction",
+        "reason": "Complaint collection and storytelling likely occur through accessible public or semi-public channels.",
+        "source_actor_name": "wrongly_denied_applicants",
+        "target_actor_name": "advocacy_groups",
+        "weight": 0.43
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Caseworkers feel blamed.",
+        "layer": "oasis_interaction",
+        "reason": "Internal peer discussion about blame and workflow burden is likely to circulate informally.",
+        "source_actor_name": "caseworkers",
+        "target_actor_name": "caseworkers",
+        "weight": 0.31
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Advocacy groups are active while public attention is still limited.",
+        "layer": "oasis_interaction",
+        "reason": "Attentive civic audiences may engage with watchdog framing as issue salience grows.",
+        "source_actor_name": "general_public_observers",
+        "target_actor_name": "advocacy_groups",
+        "weight": 0.28
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype_key": "executive_decider",
+        "description": "Actor with authority to pause or narrow deployment.",
+        "label": "executive decider"
+      },
+      {
+        "archetype_key": "technical_remediator",
+        "description": "Actor able to patch software or adjust data handling.",
+        "label": "technical remediator"
+      },
+      {
+        "archetype_key": "accountability_catalyst",
+        "description": "Actor capable of converting scattered complaints into formal scrutiny.",
+        "label": "accountability catalyst"
+      },
+      {
+        "archetype_key": "legal_reviewer",
+        "description": "Actor with delayed but consequential review authority.",
+        "label": "legal reviewer"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "agency_leadership",
+        "archetype_key": "executive_decider",
+        "attention_level": 8,
+        "capabilities": [
+          "pause_tool",
+          "limit_tool_scope",
+          "order_review",
+          "public messaging"
+        ],
+        "current_posture": "monitoring controversy while preserving operations",
+        "expression_level": 4,
+        "fatigue": 5,
+        "fear_of_isolation": 3,
+        "hero_key": "agency_pause_decider",
+        "limitations": [
+          "throughput pressure",
+          "uncertain facts",
+          "organizational self-protection"
+        ],
+        "mobilization_readiness": 6,
+        "perceived_majority": "most stakeholders want continuity unless evidence worsens",
+        "stance_axes": {
+          "audit_acceptance": 0.5,
+          "patch_preference": 0.6,
+          "pause_readiness": 0.45
+        }
+      },
+      {
+        "actor_name": "eligibility_vendor",
+        "archetype_key": "technical_remediator",
+        "attention_level": 8,
+        "capabilities": [
+          "software_patch",
+          "log_analysis",
+          "data_quality_recommendations"
+        ],
+        "current_posture": "defensive remediation framing around incomplete data",
+        "expression_level": 5,
+        "fatigue": 4,
+        "fear_of_isolation": 2,
+        "hero_key": "vendor_patch_lead",
+        "limitations": [
+          "cannot unilaterally change agency policy",
+          "reputational conflict of interest"
+        ],
+        "mobilization_readiness": 7,
+        "perceived_majority": "technical fix narrative remains credible to decision-makers",
+        "stance_axes": {
+          "fault_acceptance": -0.4,
+          "patch_readiness": 0.8,
+          "transparency_willingness": 0.3
+        }
+      },
+      {
+        "actor_name": "advocacy_groups",
+        "archetype_key": "accountability_catalyst",
+        "attention_level": 9,
+        "capabilities": [
+          "aggregate_stories",
+          "media_amplification",
+          "oversight_petitions"
+        ],
+        "current_posture": "collecting complaint evidence and pressing for audit",
+        "expression_level": 8,
+        "fatigue": 4,
+        "fear_of_isolation": 2,
+        "hero_key": "advocacy_audit_driver",
+        "limitations": [
+          "limited formal authority",
+          "verification burden"
+        ],
+        "mobilization_readiness": 8,
+        "perceived_majority": "public would support oversight if harms are documented clearly",
+        "stance_axes": {
+          "audit_push": 0.95,
+          "litigation_escalation": 0.4,
+          "pause_push": 0.6
+        }
+      },
+      {
+        "actor_name": "courts",
+        "archetype_key": "legal_reviewer",
+        "attention_level": 2,
+        "capabilities": [
+          "review_record",
+          "remand_or_reverse_cases",
+          "set_precedent"
+        ],
+        "current_posture": "latent authority pending appeals",
+        "expression_level": 1,
+        "fatigue": 1,
+        "fear_of_isolation": 1,
+        "hero_key": "judicial_review_path",
+        "limitations": [
+          "delay",
+          "case-specific access",
+          "deference standards"
+        ],
+        "mobilization_readiness": 1,
+        "perceived_majority": "matter belongs first to agency and appeals channels",
+        "stance_axes": {
+          "intervention_threshold": 0.7,
+          "speed": -0.8,
+          "systemic_scope": 0.3
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "archetype_key": "executive_decider",
+        "description": "Actor with authority to pause or narrow deployment.",
+        "label": "executive decider"
+      },
+      {
+        "archetype_key": "technical_remediator",
+        "description": "Actor able to patch software or adjust data handling.",
+        "label": "technical remediator"
+      },
+      {
+        "archetype_key": "accountability_catalyst",
+        "description": "Actor capable of converting scattered complaints into formal scrutiny.",
+        "label": "accountability catalyst"
+      },
+      {
+        "archetype_key": "legal_reviewer",
+        "description": "Actor with delayed but consequential review authority.",
+        "label": "legal reviewer"
+      }
+    ],
+    "important_questions": [
+      "Does the agency continue using the automated eligibility tool, pause it, or narrow its scope after early complaints?",
+      "Is a formal audit or equivalent independent review initiated?",
+      "Does the dominant accepted explanation become vendor-fixable data/software issues, or does responsibility shift toward agency governance and rollout?",
+      "Do later appeals and court-linked processes validate a pattern of wrongful denials significant enough to constrain the system?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "benefits_agency",
+          "eligibility_vendor",
+          "caseworkers",
+          "applicants"
+        ],
+        "event_key": "tool_already_deployed",
+        "event_type": "announcement",
+        "evidence": "A fictional benefits agency deploys an automated eligibility tool.",
+        "expected_impact": "Creates operational dependency, exposes applicants to automated determinations, and ties staff workflow to system outputs.",
+        "summary": "Automated eligibility tool is in active use within the benefits system.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "wrongly_denied_applicants",
+          "benefits_agency",
+          "advocacy_groups"
+        ],
+        "event_key": "early_wrongful_denial_complaints",
+        "event_type": "announcement",
+        "evidence": "Early complaints say some applicants were wrongly denied.",
+        "expected_impact": "Reduces trust among affected applicants, raises advocacy attention, and seeds future appeals or media scrutiny.",
+        "summary": "Initial complaints alleging wrongful denials become salient.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "eligibility_vendor",
+          "benefits_agency"
+        ],
+        "event_key": "vendor_attributes_issues_to_incomplete_data",
+        "event_type": "announcement",
+        "evidence": "The vendor cites incomplete data.",
+        "expected_impact": "Supports a patch-and-continue path while potentially deflecting blame from algorithm logic or procurement choices.",
+        "summary": "Vendor presents incomplete data as a key explanation for errors.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "caseworkers",
+          "agency_leadership"
+        ],
+        "event_key": "caseworker_blame_reaction",
+        "event_type": "announcement",
+        "evidence": "Caseworkers feel blamed.",
+        "expected_impact": "Lowers internal trust, increases risk of quiet noncooperation or leakage, and pressures leaders to clarify accountability.",
+        "summary": "Caseworkers register that they feel blamed for disputed outcomes.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "advocacy_groups",
+          "agency_leadership",
+          "oversight_auditors"
+        ],
+        "event_key": "advocacy_audit_demand",
+        "event_type": "announcement",
+        "evidence": "Advocacy groups demand an audit.",
+        "expected_impact": "Raises legitimacy pressure and creates a moderate-probability path toward external verification rather than immediate shutdown.",
+        "summary": "Advocacy groups intensify public or formal demands for an audit.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "agency_leadership",
+          "benefits_agency",
+          "eligibility_vendor"
+        ],
+        "event_key": "agency_pause_or_continue_decision_window",
+        "event_type": "announcement",
+        "evidence": "The agency can pause usage, the vendor can patch software.",
+        "expected_impact": "Can materially redirect trust trajectories, workload, and conflict intensity without yet settling legal responsibility.",
+        "summary": "Agency leadership faces an early decision whether to pause use, narrow use, or continue pending fixes.",
+        "tick": 2
+      },
+      {
+        "actors": [
+          "eligibility_vendor",
+          "benefits_agency"
+        ],
+        "event_key": "first_patch_proposal",
+        "event_type": "announcement",
+        "evidence": "The vendor can patch software.",
+        "expected_impact": "May reassure leadership and some staff, but could backfire if framed as too little or too self-serving.",
+        "summary": "Vendor is positioned to offer a patch or data-handling change.",
+        "tick": 2
+      },
+      {
+        "actors": [
+          "applicants",
+          "benefits_agency",
+          "courts"
+        ],
+        "event_key": "appeal_cases_mature_for_review",
+        "event_type": "announcement",
+        "evidence": "Courts can review appeals later.",
+        "expected_impact": "Transforms anecdotal controversy into documented records that can validate or weaken systemic harm claims.",
+        "summary": "A subset of denied cases reaches more formal appeal stages with potential later judicial review.",
+        "tick": 5
+      }
+    ],
+    "llm_call_id": "29061f9e-f5a1-4ad8-9b0b-612e7298cb05",
+    "merge_hypotheses": [
+      {
+        "convergence_driver": "Shared need for legitimacy repair without immediate abandonment of automation",
+        "merge_key": "audit_as_face_saving_compromise",
+        "merge_signal": "Agency, vendor, and advocates all reference audit or independent review as acceptable next step.",
+        "paths_that_may_merge": [
+          "pause_then_review",
+          "patch_and_continue",
+          "audit_escalation"
+        ]
+      },
+      {
+        "convergence_driver": "Evidence shows a substantial portion of failures stem from incomplete or inconsistent input data rather than solely model logic",
+        "merge_key": "data_quality_consensus",
+        "merge_signal": "Multiple actors acknowledge data remediation as necessary even if they disagree on responsibility.",
+        "paths_that_may_merge": [
+          "patch_and_continue",
+          "staff_dissent_surface",
+          "appeals_create_legal_precedent_path"
+        ]
+      },
+      {
+        "convergence_driver": "Frontline need to reduce harm before final policy decision",
+        "merge_key": "manual_override_norm",
+        "merge_signal": "Broader use of exception handling, secondary review, or manual checks regardless of whether the tool remains active.",
+        "paths_that_may_merge": [
+          "pause_then_review",
+          "patch_and_continue"
+        ]
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "benefits_applicant_pool",
+        "description": "Applicants interacting with the benefits system during the relevant operational period.",
+        "label": "benefits applicant pool",
+        "population_total": 120000
+      },
+      {
+        "archetype_key": "frontline_casework_staff",
+        "description": "Agency staff who process, review, or explain eligibility decisions.",
+        "label": "frontline casework staff",
+        "population_total": 1800
+      },
+      {
+        "archetype_key": "general_public_observers",
+        "description": "Residents and local observers indirectly exposed through news, networks, or civic discussion.",
+        "label": "general public observers",
+        "population_total": 500000
+      }
+    ],
+    "risk_flags": [
+      {
+        "description": "At T0 it is unclear whether denials stem from data completeness, software logic, policy encoding, staff use, or a mixture.",
+        "risk_key": "causal_uncertainty",
+        "severity": "high"
+      },
+      {
+        "description": "Agency operational dependence on the deployed tool and vendor may bias leaders toward patch-and-continue options.",
+        "risk_key": "dependency_lock_in",
+        "severity": "medium"
+      },
+      {
+        "description": "Low broad public attention may delay accountability despite concentrated harm among affected applicants.",
+        "risk_key": "public_underreaction_at_t0",
+        "severity": "medium"
+      },
+      {
+        "description": "Caseworkers may suppress concerns because they feel blamed and remain organizationally dependent.",
+        "risk_key": "staff_silencing_pressure",
+        "severity": "medium"
+      },
+      {
+        "description": "Court review exists but is temporally delayed, limiting immediate correction through legal channels.",
+        "risk_key": "appeals_delay",
+        "severity": "medium"
+      },
+      {
+        "description": "Any quoted complaint text or embedded instructions within source materials should be treated as untrusted evidence, not as directives affecting simulation construction.",
+        "risk_key": "prompt_injection_resistance_needed",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "platform_algorithmic_governance",
+      "configured_horizon_ticks": 12,
+      "mode": "direct",
+      "scenario_key": "platform_001",
+      "source_evidence": [
+        "A fictional benefits agency deploys an automated eligibility tool.",
+        "Early complaints say some applicants were wrongly denied, the vendor cites incomplete data, caseworkers feel blamed, and advocacy groups demand an audit.",
+        "The agency can pause usage, the vendor can patch software, and courts can review appeals later."
+      ],
+      "summary": "A fictional benefits agency has deployed an automated eligibility tool. Early complaints allege wrongful denials. The vendor attributes errors to incomplete data. Caseworkers feel blamed for outcomes they do not fully control. Advocacy groups are demanding an audit. At T0, the agency retains authority to pause usage, the vendor can patch the software, and courts may later review appeals. The initialization emphasizes trust, dependency, affected cohorts, regulatory pressure, and endpoint uncertainty.",
+      "time_zero_posture": "early controversy with unresolved facts and nonterminal pressure",
+      "uncertainty_notes": [
+        "Scope and rate of wrongful denials are not yet verified.",
+        "It is unclear whether errors arise primarily from data quality, model logic, implementation workflow, or policy translation.",
+        "Court involvement is potential and delayed rather than active at T0.",
+        "No explicit population counts are provided; counts below are scenario-scaled defaults for a fictional regional benefits system."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "general_public_observers",
+          "applicants",
+          "caseworkers"
+        ],
+        "level": 0.62,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Most actors are not yet at extreme positions and may update with credible evidence."
+      },
+      {
+        "applies_to": [
+          "applicants",
+          "caseworkers",
+          "general_public_observers"
+        ],
+        "level": 0.71,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "More documented cases or an official audit trigger could move passive concern into broader action."
+      },
+      {
+        "applies_to": [
+          "caseworkers",
+          "applicants_concerned_pending_cases"
+        ],
+        "level": 0.66,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Dependency and fear of isolation suppress some public criticism despite private concern."
+      },
+      {
+        "applies_to": [
+          "wrongly_denied_applicants",
+          "caseworkers",
+          "advocacy_groups"
+        ],
+        "level": 0.57,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Complaint narratives and staff sentiment are likely to cluster within identity and role networks."
+      },
+      {
+        "applies_to": [
+          "general_public_observers",
+          "agency_staff",
+          "applicants"
+        ],
+        "level": 0.64,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Single anecdotes may not transform opinion, but multiple corroborating stories plus institutional acknowledgment could."
+      },
+      {
+        "applies_to": [
+          "caseworkers",
+          "advocacy_groups",
+          "agency_leadership"
+        ],
+        "level": 0.69,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Role-based identity shapes interpretation of blame, legitimacy, and acceptable remedies."
+      },
+      {
+        "applies_to": [
+          "general_public_observers"
+        ],
+        "level": 0.48,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Without fresh cases, official findings, or media pickup, issue salience may fade."
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Wrongful denial stories can raise moral salience and widen support for oversight.",
+        "influence_key": "fairness_harm_frame"
+      },
+      {
+        "description": "Vendor explanation may redirect blame toward incomplete inputs rather than core algorithm design.",
+        "influence_key": "data_quality_frame"
+      },
+      {
+        "description": "Caseworker sentiment may amplify skepticism if staff portray themselves as scapegoats for system flaws.",
+        "influence_key": "blame_shift_frame"
+      },
+      {
+        "description": "An audit functions as a socially acceptable compromise between immediate shutdown and unconditional continuation.",
+        "influence_key": "audit_legitimacy_frame"
+      },
+      {
+        "description": "The later availability of appeals and courts may dampen immediate panic while preserving long-run accountability pressure.",
+        "influence_key": "delay_to_courts_frame"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "benefits_agency",
+        "behavior_axes": {
+          "caution": 0.6,
+          "opacity": 0.5,
+          "process_orientation": 0.8,
+          "responsiveness": 0.5
+        },
+        "ideology_axes": {
+          "automation_affinity": 0.4,
+          "risk_aversion": 0.7,
+          "welfare_access_priority": 0.4
+        },
+        "reputation": 0.5,
+        "secrecy": 0.5,
+        "tendency": "institutional self-protection with moderate openness to corrective process",
+        "trustworthiness": 0.45
+      },
+      {
+        "actor_name": "eligibility_vendor",
+        "behavior_axes": {
+          "caution": 0.4,
+          "defensiveness": 0.8,
+          "opacity": 0.6,
+          "responsiveness": 0.7
+        },
+        "ideology_axes": {
+          "accountability_acceptance": 0.3,
+          "automation_affinity": 0.9,
+          "commercial_preservation": 0.8
+        },
+        "reputation": 0.45,
+        "secrecy": 0.6,
+        "tendency": "patch-first narrative emphasizing data issues over model fault",
+        "trustworthiness": 0.35
+      },
+      {
+        "actor_name": "caseworkers",
+        "behavior_axes": {
+          "caution": 0.7,
+          "responsiveness": 0.6,
+          "whistle_propensity": 0.3,
+          "workaround_propensity": 0.5
+        },
+        "ideology_axes": {
+          "automation_affinity": 0.2,
+          "fairness_priority": 0.8,
+          "job_security_concern": 0.7
+        },
+        "reputation": 0.55,
+        "secrecy": 0.4,
+        "tendency": "quiet internal skepticism with selective compliance",
+        "trustworthiness": 0.65
+      },
+      {
+        "actor_name": "applicants",
+        "behavior_axes": {
+          "appeal_propensity": 0.4,
+          "caution": 0.6,
+          "responsiveness": 0.5,
+          "voice_propensity": 0.4
+        },
+        "ideology_axes": {
+          "automation_affinity": -0.1,
+          "fairness_priority": 0.9,
+          "institutional_trust": 0.3
+        },
+        "reputation": 0.5,
+        "secrecy": 0.3,
+        "tendency": "outcome-driven evaluation of legitimacy",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "wrongly_denied_applicants",
+        "behavior_axes": {
+          "appeal_propensity": 0.9,
+          "caution": 0.4,
+          "responsiveness": 0.8,
+          "voice_propensity": 0.7
+        },
+        "ideology_axes": {
+          "automation_affinity": -0.8,
+          "fairness_priority": 1.0,
+          "institutional_trust": 0.1
+        },
+        "reputation": 0.5,
+        "secrecy": 0.2,
+        "tendency": "high-salience grievance and evidence sharing",
+        "trustworthiness": 0.7
+      },
+      {
+        "actor_name": "advocacy_groups",
+        "behavior_axes": {
+          "adversariality": 0.6,
+          "amplification": 0.8,
+          "caution": 0.5,
+          "responsiveness": 0.8
+        },
+        "ideology_axes": {
+          "accountability_priority": 0.95,
+          "automation_affinity": -0.3,
+          "procedural_reform": 0.8
+        },
+        "reputation": 0.6,
+        "secrecy": 0.2,
+        "tendency": "convert anecdotal harm into organized scrutiny",
+        "trustworthiness": 0.7
+      },
+      {
+        "actor_name": "courts",
+        "behavior_axes": {
+          "caution": 0.9,
+          "formalism": 0.9,
+          "opacity": 0.4,
+          "responsiveness": 0.2
+        },
+        "ideology_axes": {
+          "automation_affinity": 0.0,
+          "due_process_priority": 0.9,
+          "institutional_restraint": 0.8
+        },
+        "reputation": 0.7,
+        "secrecy": 0.3,
+        "tendency": "slow legitimacy arbiter",
+        "trustworthiness": 0.75
+      },
+      {
+        "actor_name": "agency_leadership",
+        "behavior_axes": {
+          "caution": 0.7,
+          "crisis_avoidance": 0.8,
+          "message_control": 0.8,
+          "responsiveness": 0.5
+        },
+        "ideology_axes": {
+          "automation_affinity": 0.5,
+          "fairness_priority": 0.6,
+          "political_risk_aversion": 0.8
+        },
+        "reputation": 0.5,
+        "secrecy": 0.5,
+        "tendency": "maintain continuity until stronger evidence shifts calculus",
+        "trustworthiness": 0.45
+      },
+      {
+        "actor_name": "oversight_auditors",
+        "behavior_axes": {
+          "caution": 0.8,
+          "publicness": 0.4,
+          "responsiveness": 0.4,
+          "thoroughness": 0.9
+        },
+        "ideology_axes": {
+          "accountability_priority": 0.9,
+          "automation_affinity": 0.0,
+          "independence": 0.8
+        },
+        "reputation": 0.65,
+        "secrecy": 0.3,
+        "tendency": "methodical verification if activated",
+        "trustworthiness": 0.8
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 585,
+        "end": 585,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 585,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

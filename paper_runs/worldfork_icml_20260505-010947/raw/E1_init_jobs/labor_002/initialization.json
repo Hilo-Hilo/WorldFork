@@ -1,0 +1,1697 @@
+{
+  "big_bang_id": "9fd56e99-eeb9-4fa5-90e0-4ee73333395c",
+  "initializer_output": {
+    "actors": [
+      {
+        "fictionalized": true,
+        "name": "platform_operator",
+        "public_role": "food_delivery_platform",
+        "type": "organization"
+      },
+      {
+        "fictionalized": true,
+        "name": "courier_network",
+        "public_role": "app_based_couriers",
+        "type": "group"
+      },
+      {
+        "fictionalized": true,
+        "name": "restaurant_partners",
+        "public_role": "participating_restaurants",
+        "type": "group"
+      },
+      {
+        "fictionalized": true,
+        "name": "customers",
+        "public_role": "metro_area_consumers",
+        "type": "group"
+      },
+      {
+        "fictionalized": true,
+        "name": "local_media",
+        "public_role": "metro_news_ecosystem",
+        "type": "institution"
+      },
+      {
+        "fictionalized": true,
+        "name": "local_regulators",
+        "public_role": "city_or_state_labor_consumer_oversight",
+        "type": "institution"
+      },
+      {
+        "fictionalized": true,
+        "name": "competing_delivery_platforms",
+        "public_role": "alternative_platforms",
+        "type": "organization_group"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "platform offers formula adjustment, temporary guarantee, or localized rollback",
+        "branch_key": "rollback_after_visible_disruption",
+        "observable_divergence_signal": "platform messaging shifts from defense to concession and courier conflict weight stops rising",
+        "trigger": "boycott participation or service delays become measurable and persist through public scrutiny"
+      },
+      {
+        "alternate_path": "competitors gain labor supply or merchant interest while affected platform keeps policy",
+        "branch_key": "substitution_without_rollback",
+        "observable_divergence_signal": "rising dependency edges from couriers/restaurants to competing_delivery_platforms and declining attention to direct rollback demands",
+        "trigger": "couriers and some restaurants find workable alternatives before platform concedes"
+      },
+      {
+        "alternate_path": "local regulators open inquiry, hearing, or information request, altering platform cost-benefit calculations",
+        "branch_key": "regulatory_attention_escalates",
+        "observable_divergence_signal": "local_regulators influence on platform_operator increases and official channels become visible in event stream",
+        "trigger": "media coverage plus customer complaints plus documented earning impacts create public issue salience"
+      },
+      {
+        "alternate_path": "platform holds policy, couriers continue fragmented resistance, restaurants stay cautious, customers partially adapt",
+        "branch_key": "durable_stalemate",
+        "observable_divergence_signal": "high conflict persists without major movement in authority or dependency structure",
+        "trigger": "boycott participation is uneven and service metrics remain only moderately affected"
+      },
+      {
+        "alternate_path": "initial sympathy dissipates and opposition narrows to organizer core",
+        "branch_key": "coalition_fracture",
+        "observable_divergence_signal": "coalition weights between courier_network and other actors decline while public silence rises",
+        "trigger": "restaurants and customers prioritize continuity over labor demands, or some couriers adapt successfully"
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "courier_group_chats",
+        "control": "distributed",
+        "primary_actors": [
+          "courier_network"
+        ],
+        "reach": "medium",
+        "type": "private_digital"
+      },
+      {
+        "channel_key": "platform_app_notices",
+        "control": "platform_operator",
+        "primary_actors": [
+          "platform_operator",
+          "courier_network",
+          "restaurant_partners",
+          "customers"
+        ],
+        "reach": "high",
+        "type": "owned_platform"
+      },
+      {
+        "channel_key": "local_news_reports",
+        "control": "local_media",
+        "primary_actors": [
+          "local_media",
+          "customers",
+          "restaurant_partners",
+          "local_regulators"
+        ],
+        "reach": "medium_high",
+        "type": "mass_media"
+      },
+      {
+        "channel_key": "social_media_posts",
+        "control": "distributed",
+        "primary_actors": [
+          "courier_network",
+          "customers",
+          "local_media"
+        ],
+        "reach": "medium",
+        "type": "public_digital"
+      },
+      {
+        "channel_key": "merchant_account_calls",
+        "control": "platform_operator",
+        "primary_actors": [
+          "platform_operator",
+          "restaurant_partners"
+        ],
+        "reach": "medium",
+        "type": "private_operational"
+      },
+      {
+        "channel_key": "regulatory_complaint_channels",
+        "control": "local_regulators",
+        "primary_actors": [
+          "courier_network",
+          "customers",
+          "local_regulators"
+        ],
+        "reach": "low_medium",
+        "type": "institutional"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype": "couriers_in_metro",
+        "attention_level": 0.9,
+        "behavioral_tendencies": [
+          "peer discussion",
+          "selective work slowdown",
+          "media engagement",
+          "coordination experimentation"
+        ],
+        "cohort_key": "couriers_discontent_active",
+        "expression_level": 0.75,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.7,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "pay change likely reduces earnings and shifts risk onto workers",
+        "public_expression": "complaints, boycott talk, online testimony",
+        "representation_mode": "estimated_segment",
+        "represented_population": 4200,
+        "reputation": 0.52,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "boycott": "open",
+          "pay_formula_change": "oppose",
+          "platform_legitimacy": "low",
+          "regulation": "somewhat_support"
+        },
+        "trustworthiness": 0.62
+      },
+      {
+        "archetype": "couriers_in_metro",
+        "attention_level": 0.8,
+        "behavioral_tendencies": [
+          "income protection",
+          "wait_and_see",
+          "quiet grievance",
+          "partial multi-apping"
+        ],
+        "cohort_key": "couriers_discontent_quiet",
+        "expression_level": 0.35,
+        "fatigue": 0.55,
+        "fear_of_isolation": 0.6,
+        "mobilization_readiness": 0.45,
+        "perceived_majority": 0.45,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "earnings likely worsened but open protest carries risk",
+        "public_expression": "complaint in private channels, limited public action",
+        "representation_mode": "estimated_segment",
+        "represented_population": 4800,
+        "reputation": 0.5,
+        "secrecy": 0.45,
+        "stance_axes": {
+          "boycott": "hesitant",
+          "pay_formula_change": "oppose",
+          "platform_legitimacy": "mixed_low",
+          "regulation": "conditional_support"
+        },
+        "trustworthiness": 0.64
+      },
+      {
+        "archetype": "couriers_in_metro",
+        "attention_level": 0.65,
+        "behavioral_tendencies": [
+          "continue driving",
+          "self-optimization",
+          "observe outcomes"
+        ],
+        "cohort_key": "couriers_adaptive_or_uncertain",
+        "expression_level": 0.3,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.5,
+        "mobilization_readiness": 0.25,
+        "perceived_majority": 0.3,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "formula may reward reliability or effects are too early to judge",
+        "public_expression": "mixed reactions, continued work",
+        "representation_mode": "estimated_segment",
+        "represented_population": 3000,
+        "reputation": 0.49,
+        "secrecy": 0.35,
+        "stance_axes": {
+          "boycott": "resist",
+          "pay_formula_change": "mixed",
+          "platform_legitimacy": "mixed",
+          "regulation": "neutral"
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "archetype": "restaurant_operators_in_network",
+        "attention_level": 0.75,
+        "behavioral_tendencies": [
+          "risk minimization",
+          "channel complaints privately",
+          "monitor order volume"
+        ],
+        "cohort_key": "restaurants_service_anxious",
+        "expression_level": 0.3,
+        "fatigue": 0.45,
+        "fear_of_isolation": 0.55,
+        "mobilization_readiness": 0.25,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "pay change may reduce courier supply and hurt service times",
+        "public_expression": "private complaints to account reps, limited public comment",
+        "representation_mode": "estimated_segment",
+        "represented_population": 2475,
+        "reputation": 0.6,
+        "secrecy": 0.5,
+        "stance_axes": {
+          "boycott": "avoid_public_alignment",
+          "pay_formula_change": "concerned",
+          "platform_legitimacy": "mixed",
+          "regulation": "low_salience"
+        },
+        "trustworthiness": 0.66
+      },
+      {
+        "archetype": "restaurant_operators_in_network",
+        "attention_level": 0.6,
+        "behavioral_tendencies": [
+          "avoid retaliation risk",
+          "maintain listing",
+          "seek continuity"
+        ],
+        "cohort_key": "restaurants_dependent_pragmatic",
+        "expression_level": 0.2,
+        "fatigue": 0.5,
+        "fear_of_isolation": 0.65,
+        "mobilization_readiness": 0.15,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "platform dependence is high, policy disputes are secondary to demand access",
+        "public_expression": "stay neutral publicly",
+        "representation_mode": "estimated_segment",
+        "represented_population": 1575,
+        "reputation": 0.58,
+        "secrecy": 0.55,
+        "stance_axes": {
+          "boycott": "oppose",
+          "pay_formula_change": "mixed",
+          "platform_legitimacy": "pragmatic",
+          "regulation": "neutral"
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "archetype": "restaurant_operators_in_network",
+        "attention_level": 0.65,
+        "behavioral_tendencies": [
+          "test competitors",
+          "diversify channels"
+        ],
+        "cohort_key": "restaurants_switch_ready_minority",
+        "expression_level": 0.25,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.45,
+        "mobilization_readiness": 0.35,
+        "perceived_majority": 0.2,
+        "population_share_of_archetype": 0.1,
+        "private_belief": "if service degrades, platform substitution is acceptable",
+        "public_expression": "quiet exploration of alternatives",
+        "representation_mode": "estimated_segment",
+        "represented_population": 450,
+        "reputation": 0.57,
+        "secrecy": 0.6,
+        "stance_axes": {
+          "boycott": "unlikely",
+          "pay_formula_change": "concerned",
+          "platform_legitimacy": "low_mixed",
+          "regulation": "neutral"
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "archetype": "delivery_customers_in_metro",
+        "attention_level": 0.55,
+        "behavioral_tendencies": [
+          "comparison shopping",
+          "complain online",
+          "reduce order frequency"
+        ],
+        "cohort_key": "customers_fee_confused_price_sensitive",
+        "expression_level": 0.35,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.15,
+        "mobilization_readiness": 0.1,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "fees are confusing and total value may be worsening",
+        "public_expression": "complaints, reduced enthusiasm, cart abandonment",
+        "representation_mode": "estimated_segment",
+        "represented_population": 157500,
+        "reputation": 0.54,
+        "secrecy": 0.1,
+        "stance_axes": {
+          "fee_confusion": "high",
+          "pay_formula_change": "not_salient_directly",
+          "platform_legitimacy": "mixed_low",
+          "switching": "open"
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "archetype": "delivery_customers_in_metro",
+        "attention_level": 0.35,
+        "behavioral_tendencies": [
+          "habit persistence",
+          "service monitoring"
+        ],
+        "cohort_key": "customers_convenience_loyal",
+        "expression_level": 0.15,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.05,
+        "mobilization_readiness": 0.05,
+        "perceived_majority": 0.6,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "service convenience matters more than fee complexity unless delays become obvious",
+        "public_expression": "continued usage",
+        "representation_mode": "estimated_segment",
+        "represented_population": 140000,
+        "reputation": 0.53,
+        "secrecy": 0.05,
+        "stance_axes": {
+          "fee_confusion": "moderate",
+          "pay_formula_change": "low_salience",
+          "platform_legitimacy": "mixed",
+          "switching": "reluctant"
+        },
+        "trustworthiness": 0.56
+      },
+      {
+        "archetype": "delivery_customers_in_metro",
+        "attention_level": 0.7,
+        "behavioral_tendencies": [
+          "social amplification",
+          "ethical consumption framing",
+          "signal support"
+        ],
+        "cohort_key": "customers_values_attentive",
+        "expression_level": 0.5,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.25,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.25,
+        "population_share_of_archetype": 0.15,
+        "private_belief": "worker treatment and fee clarity affect legitimacy",
+        "public_expression": "share stories, consider boycott support",
+        "representation_mode": "estimated_segment",
+        "represented_population": 52500,
+        "reputation": 0.55,
+        "secrecy": 0.1,
+        "stance_axes": {
+          "fee_confusion": "high",
+          "pay_formula_change": "concerned_indirectly",
+          "platform_legitimacy": "low_if_reports_hold",
+          "switching": "open"
+        },
+        "trustworthiness": 0.6
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype": "couriers_in_metro",
+        "attention_level": 0.9,
+        "behavioral_tendencies": [
+          "peer discussion",
+          "selective work slowdown",
+          "media engagement",
+          "coordination experimentation"
+        ],
+        "cohort_key": "couriers_discontent_active",
+        "expression_level": 0.75,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.7,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "pay change likely reduces earnings and shifts risk onto workers",
+        "public_expression": "complaints, boycott talk, online testimony",
+        "representation_mode": "estimated_segment",
+        "represented_population": 4200,
+        "reputation": 0.52,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "boycott": "open",
+          "pay_formula_change": "oppose",
+          "platform_legitimacy": "low",
+          "regulation": "somewhat_support"
+        },
+        "trustworthiness": 0.62
+      },
+      {
+        "archetype": "couriers_in_metro",
+        "attention_level": 0.8,
+        "behavioral_tendencies": [
+          "income protection",
+          "wait_and_see",
+          "quiet grievance",
+          "partial multi-apping"
+        ],
+        "cohort_key": "couriers_discontent_quiet",
+        "expression_level": 0.35,
+        "fatigue": 0.55,
+        "fear_of_isolation": 0.6,
+        "mobilization_readiness": 0.45,
+        "perceived_majority": 0.45,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "earnings likely worsened but open protest carries risk",
+        "public_expression": "complaint in private channels, limited public action",
+        "representation_mode": "estimated_segment",
+        "represented_population": 4800,
+        "reputation": 0.5,
+        "secrecy": 0.45,
+        "stance_axes": {
+          "boycott": "hesitant",
+          "pay_formula_change": "oppose",
+          "platform_legitimacy": "mixed_low",
+          "regulation": "conditional_support"
+        },
+        "trustworthiness": 0.64
+      },
+      {
+        "archetype": "couriers_in_metro",
+        "attention_level": 0.65,
+        "behavioral_tendencies": [
+          "continue driving",
+          "self-optimization",
+          "observe outcomes"
+        ],
+        "cohort_key": "couriers_adaptive_or_uncertain",
+        "expression_level": 0.3,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.5,
+        "mobilization_readiness": 0.25,
+        "perceived_majority": 0.3,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "formula may reward reliability or effects are too early to judge",
+        "public_expression": "mixed reactions, continued work",
+        "representation_mode": "estimated_segment",
+        "represented_population": 3000,
+        "reputation": 0.49,
+        "secrecy": 0.35,
+        "stance_axes": {
+          "boycott": "resist",
+          "pay_formula_change": "mixed",
+          "platform_legitimacy": "mixed",
+          "regulation": "neutral"
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "archetype": "restaurant_operators_in_network",
+        "attention_level": 0.75,
+        "behavioral_tendencies": [
+          "risk minimization",
+          "channel complaints privately",
+          "monitor order volume"
+        ],
+        "cohort_key": "restaurants_service_anxious",
+        "expression_level": 0.3,
+        "fatigue": 0.45,
+        "fear_of_isolation": 0.55,
+        "mobilization_readiness": 0.25,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "pay change may reduce courier supply and hurt service times",
+        "public_expression": "private complaints to account reps, limited public comment",
+        "representation_mode": "estimated_segment",
+        "represented_population": 2475,
+        "reputation": 0.6,
+        "secrecy": 0.5,
+        "stance_axes": {
+          "boycott": "avoid_public_alignment",
+          "pay_formula_change": "concerned",
+          "platform_legitimacy": "mixed",
+          "regulation": "low_salience"
+        },
+        "trustworthiness": 0.66
+      },
+      {
+        "archetype": "restaurant_operators_in_network",
+        "attention_level": 0.6,
+        "behavioral_tendencies": [
+          "avoid retaliation risk",
+          "maintain listing",
+          "seek continuity"
+        ],
+        "cohort_key": "restaurants_dependent_pragmatic",
+        "expression_level": 0.2,
+        "fatigue": 0.5,
+        "fear_of_isolation": 0.65,
+        "mobilization_readiness": 0.15,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "platform dependence is high, policy disputes are secondary to demand access",
+        "public_expression": "stay neutral publicly",
+        "representation_mode": "estimated_segment",
+        "represented_population": 1575,
+        "reputation": 0.58,
+        "secrecy": 0.55,
+        "stance_axes": {
+          "boycott": "oppose",
+          "pay_formula_change": "mixed",
+          "platform_legitimacy": "pragmatic",
+          "regulation": "neutral"
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "archetype": "restaurant_operators_in_network",
+        "attention_level": 0.65,
+        "behavioral_tendencies": [
+          "test competitors",
+          "diversify channels"
+        ],
+        "cohort_key": "restaurants_switch_ready_minority",
+        "expression_level": 0.25,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.45,
+        "mobilization_readiness": 0.35,
+        "perceived_majority": 0.2,
+        "population_share_of_archetype": 0.1,
+        "private_belief": "if service degrades, platform substitution is acceptable",
+        "public_expression": "quiet exploration of alternatives",
+        "representation_mode": "estimated_segment",
+        "represented_population": 450,
+        "reputation": 0.57,
+        "secrecy": 0.6,
+        "stance_axes": {
+          "boycott": "unlikely",
+          "pay_formula_change": "concerned",
+          "platform_legitimacy": "low_mixed",
+          "regulation": "neutral"
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "archetype": "delivery_customers_in_metro",
+        "attention_level": 0.55,
+        "behavioral_tendencies": [
+          "comparison shopping",
+          "complain online",
+          "reduce order frequency"
+        ],
+        "cohort_key": "customers_fee_confused_price_sensitive",
+        "expression_level": 0.35,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.15,
+        "mobilization_readiness": 0.1,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "fees are confusing and total value may be worsening",
+        "public_expression": "complaints, reduced enthusiasm, cart abandonment",
+        "representation_mode": "estimated_segment",
+        "represented_population": 157500,
+        "reputation": 0.54,
+        "secrecy": 0.1,
+        "stance_axes": {
+          "fee_confusion": "high",
+          "pay_formula_change": "not_salient_directly",
+          "platform_legitimacy": "mixed_low",
+          "switching": "open"
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "archetype": "delivery_customers_in_metro",
+        "attention_level": 0.35,
+        "behavioral_tendencies": [
+          "habit persistence",
+          "service monitoring"
+        ],
+        "cohort_key": "customers_convenience_loyal",
+        "expression_level": 0.15,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.05,
+        "mobilization_readiness": 0.05,
+        "perceived_majority": 0.6,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "service convenience matters more than fee complexity unless delays become obvious",
+        "public_expression": "continued usage",
+        "representation_mode": "estimated_segment",
+        "represented_population": 140000,
+        "reputation": 0.53,
+        "secrecy": 0.05,
+        "stance_axes": {
+          "fee_confusion": "moderate",
+          "pay_formula_change": "low_salience",
+          "platform_legitimacy": "mixed",
+          "switching": "reluctant"
+        },
+        "trustworthiness": 0.56
+      },
+      {
+        "archetype": "delivery_customers_in_metro",
+        "attention_level": 0.7,
+        "behavioral_tendencies": [
+          "social amplification",
+          "ethical consumption framing",
+          "signal support"
+        ],
+        "cohort_key": "customers_values_attentive",
+        "expression_level": 0.5,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.25,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.25,
+        "population_share_of_archetype": 0.15,
+        "private_belief": "worker treatment and fee clarity affect legitimacy",
+        "public_expression": "share stories, consider boycott support",
+        "representation_mode": "estimated_segment",
+        "represented_population": 52500,
+        "reputation": 0.55,
+        "secrecy": 0.1,
+        "stance_axes": {
+          "fee_confusion": "high",
+          "pay_formula_change": "concerned_indirectly",
+          "platform_legitimacy": "low_if_reports_hold",
+          "switching": "open"
+        },
+        "trustworthiness": 0.6
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "platform_operator",
+          "platform_management_core"
+        ],
+        "blockers": [
+          "platform ownership control over policy",
+          "uncertain boycott participation",
+          "merchant caution",
+          "customer attention may remain shallow"
+        ],
+        "contradiction_notes": "If platform issues only cosmetic messaging changes without pay-structure revision, endpoint is not realized.",
+        "description": "The incumbent platform reverses or materially changes the disputed pay formula in the metro area.",
+        "endpoint_key": "pay_formula_rollback_or_material_modification",
+        "evidence_refs": [
+          "pay_formula_change_announced_or_implemented",
+          "courier_earnings_drop_claims_spread"
+        ],
+        "label": "Pay Formula Rollback or Material Modification",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the platform materially roll back or modify the pay formula in the affected metro area?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.28,
+        "rationale": "Platform has direct authority, but concession depends on whether economic and reputational pressure overcomes control leverage.",
+        "realization_criteria": [
+          "platform_operator publicly or operationally restores prior formula or implements a verified replacement that removes the contested earnings loss mechanism in the metro area",
+          "courier-facing pay documentation or platform notice confirms the change"
+        ],
+        "status": "active",
+        "status_basis": "The scenario explicitly frames rollback as a plausible branch, but the platform currently defends the change."
+      },
+      {
+        "authority_refs": [
+          "courier_network",
+          "restaurant_partners",
+          "competing_delivery_platforms"
+        ],
+        "blockers": [
+          "multi-homing friction",
+          "merchant setup costs",
+          "customer habit persistence",
+          "competitors may not offer sufficiently better terms"
+        ],
+        "contradiction_notes": "Short-lived experimentation without sustained migration does not realize this endpoint.",
+        "description": "Couriers and/or restaurants meaningfully shift activity toward competing platforms instead of winning rollback.",
+        "endpoint_key": "operational_substitution_shift",
+        "evidence_refs": [
+          "competitor_recruitment_probe"
+        ],
+        "label": "Operational Substitution Shift",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will courier boycott or resistance produce observable service disruption significant enough to alter other actors' behavior?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.22,
+        "rationale": "Substitution is a key non-regulatory pathway that could alter bargaining power without formal policy reversal.",
+        "realization_criteria": [
+          "competing_delivery_platforms gain a sustained and visible share of affected courier labor supply or merchant participation in the metro area",
+          "incumbent platform dependency on couriers or restaurants measurably weakens relative to competitors"
+        ],
+        "status": "active",
+        "status_basis": "Exit options are important in the source text, but their depth is unresolved at T0."
+      },
+      {
+        "authority_refs": [
+          "local_regulators"
+        ],
+        "blockers": [
+          "slow procedural tempo",
+          "limited initial evidence",
+          "uncertain political salience"
+        ],
+        "contradiction_notes": "Informal monitoring or generic public comments without procedural action do not realize this endpoint.",
+        "description": "Local regulators or other official authorities initiate a formal inquiry, hearing, order, or similar intervention tied to the dispute.",
+        "endpoint_key": "formal_regulatory_intervention",
+        "evidence_refs": [
+          "media_inquiry_window",
+          "customer_fee_confusion_discussion"
+        ],
+        "label": "Formal Regulatory Intervention",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will competing platforms become a credible exit path for enough couriers or restaurants to weaken the incumbent platform's leverage?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.14,
+        "rationale": "Official intervention is a terminally important fork because it changes who can impose costs or force disclosure.",
+        "realization_criteria": [
+          "local_regulators announce a formal investigation, hearing, information request, enforcement review, or comparable official proceeding concerning the pay formula or fee practices"
+        ],
+        "status": "active",
+        "status_basis": "Regulation is named as a branch, but no official action is evident at initialization."
+      },
+      {
+        "authority_refs": [
+          "platform_operator",
+          "courier_network"
+        ],
+        "blockers": [
+          "if disruption becomes severe, stalemate may break toward rollback or substitution",
+          "if media and regulators escalate, control may erode"
+        ],
+        "contradiction_notes": "Temporary quiet caused by information gaps alone is not durable stalemate unless core policy remains and alternatives fail.",
+        "description": "The platform retains the formula while resistance persists in fragmented form without decisive rollback, major substitution, or formal regulation.",
+        "endpoint_key": "durable_stalemate_under_platform_control",
+        "evidence_refs": [
+          "courier_boycott_call_test",
+          "restaurant_service_worry_internalized"
+        ],
+        "label": "Durable Stalemate Under Platform Control",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will local regulators or other official bodies formally intervene beyond passive monitoring?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.36,
+        "rationale": "Given asymmetric authority and moderate switching costs, unresolved equilibrium is a credible default endpoint.",
+        "realization_criteria": [
+          "after repeated dispute cycles, platform_operator keeps the core formula in place",
+          "courier grievances remain active but mobilization fails to produce decisive concession",
+          "no major sustained substitution or formal intervention supersedes the conflict"
+        ],
+        "status": "active",
+        "status_basis": "This is plausible because platform control is high and coalition durability is uncertain."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "couriers cannot directly rewrite platform policy and are contesting pay change from a dependent position",
+        "layer": "dependency",
+        "reason": "couriers rely on platform access and dispatch for earnings in the affected market",
+        "source_actor_name": "courier_network",
+        "target_actor_name": "platform_operator",
+        "weight": 0.63
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "platform frames change as rewarding reliability, implying operational dependence on courier performance",
+        "layer": "dependency",
+        "reason": "platform needs courier labor supply to maintain delivery reliability",
+        "source_actor_name": "platform_operator",
+        "target_actor_name": "courier_network",
+        "weight": 0.52
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "restaurants fear slower service and face switching costs tied to platform access",
+        "layer": "dependency",
+        "reason": "restaurants depend on platform demand flow and delivery operations",
+        "source_actor_name": "restaurant_partners",
+        "target_actor_name": "platform_operator",
+        "weight": 0.58
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "restaurant concerns matter because service quality and selection affect customer demand",
+        "layer": "dependency",
+        "reason": "platform revenue and inventory breadth depend on restaurant participation",
+        "source_actor_name": "platform_operator",
+        "target_actor_name": "restaurant_partners",
+        "weight": 0.47
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "customers see confusing fees, suggesting dissatisfaction without total lock-in",
+        "layer": "dependency",
+        "reason": "customers use platform for convenience but retain alternatives",
+        "source_actor_name": "customers",
+        "target_actor_name": "platform_operator",
+        "weight": 0.34
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "customer fee perceptions are part of the dispute's economic stakes",
+        "layer": "dependency",
+        "reason": "order volume and fee revenue depend on continued customer usage",
+        "source_actor_name": "platform_operator",
+        "target_actor_name": "customers",
+        "weight": 0.55
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "scenario highlights exit options and substitution branches",
+        "layer": "dependency",
+        "reason": "couriers may have partial exit options through multi-apping or switching",
+        "source_actor_name": "courier_network",
+        "target_actor_name": "competing_delivery_platforms",
+        "weight": 0.28
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "scenario calls for branches around substitution",
+        "layer": "dependency",
+        "reason": "some restaurants can explore alternative platforms but substitution is incomplete",
+        "source_actor_name": "restaurant_partners",
+        "target_actor_name": "competing_delivery_platforms",
+        "weight": 0.22
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "economic elasticity is a core focus",
+        "layer": "dependency",
+        "reason": "alternative delivery options exist though habits reduce immediate switching",
+        "source_actor_name": "customers",
+        "target_actor_name": "competing_delivery_platforms",
+        "weight": 0.25
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "couriers can use media pressure",
+        "layer": "exposure",
+        "reason": "courier stories are likely routed into local reporting if organized",
+        "source_actor_name": "courier_network",
+        "target_actor_name": "local_media",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "customer confusion and human-interest conflict create news hooks",
+        "layer": "exposure",
+        "reason": "media coverage can make labor and fee issues visible to consumers",
+        "source_actor_name": "local_media",
+        "target_actor_name": "customers",
+        "weight": 0.5
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "customers see confusing fees while platform frames change publicly",
+        "layer": "exposure",
+        "reason": "platform controls in-app pricing, fee displays, and direct messaging",
+        "source_actor_name": "platform_operator",
+        "target_actor_name": "customers",
+        "weight": 0.62
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "restaurants are affected by service outcomes and likely receive account communications",
+        "layer": "exposure",
+        "reason": "platform communicates policy and operational expectations directly to partners",
+        "source_actor_name": "platform_operator",
+        "target_actor_name": "restaurant_partners",
+        "weight": 0.64
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "policy change is imposed through platform systems",
+        "layer": "exposure",
+        "reason": "platform controls app notices, dispatch, and pay formula information",
+        "source_actor_name": "platform_operator",
+        "target_actor_name": "courier_network",
+        "weight": 0.68
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "boycotts and media pressure are available but not direct control channels",
+        "layer": "exposure",
+        "reason": "couriers can reach customers indirectly through social posts and media stories",
+        "source_actor_name": "courier_network",
+        "target_actor_name": "customers",
+        "weight": 0.24
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "couriers claim take-home pay drops",
+        "layer": "trust",
+        "reason": "couriers dispute the pay formula and suspect earnings loss",
+        "source_actor_name": "courier_network",
+        "target_actor_name": "platform_operator",
+        "weight": 0.22
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "restaurants fear slower service",
+        "layer": "trust",
+        "reason": "restaurants value access but worry service quality may degrade",
+        "source_actor_name": "restaurant_partners",
+        "target_actor_name": "platform_operator",
+        "weight": 0.38
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "customers see confusing fees",
+        "layer": "trust",
+        "reason": "confusing fees weaken perceived transparency and fairness",
+        "source_actor_name": "customers",
+        "target_actor_name": "platform_operator",
+        "weight": 0.34
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "courier claims are relatable but not yet universally verified",
+        "layer": "trust",
+        "reason": "some customers may credit courier accounts of lower pay, especially if stories are visible",
+        "source_actor_name": "customers",
+        "target_actor_name": "courier_network",
+        "weight": 0.48
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "media pressure is possible, not automatic",
+        "layer": "trust",
+        "reason": "courier testimony is newsworthy but requires verification",
+        "source_actor_name": "local_media",
+        "target_actor_name": "courier_network",
+        "weight": 0.44
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "no formal finding exists at T0",
+        "layer": "trust",
+        "reason": "regulators may treat the firm as a formal reporting source while remaining cautious",
+        "source_actor_name": "local_regulators",
+        "target_actor_name": "platform_operator",
+        "weight": 0.42
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "couriers cannot directly rewrite platform policy",
+        "layer": "influence",
+        "reason": "platform can unilaterally set pay formula and access conditions",
+        "source_actor_name": "platform_operator",
+        "target_actor_name": "courier_network",
+        "weight": 0.74
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "restaurants are exposed to policy-driven service changes",
+        "layer": "influence",
+        "reason": "platform shapes service conditions, fee presentation, and partner economics",
+        "source_actor_name": "platform_operator",
+        "target_actor_name": "restaurant_partners",
+        "weight": 0.61
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "customers experience confusing fees through platform design",
+        "layer": "influence",
+        "reason": "platform controls interface, fee framing, and service promises",
+        "source_actor_name": "platform_operator",
+        "target_actor_name": "customers",
+        "weight": 0.56
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "couriers can apply media pressure",
+        "layer": "influence",
+        "reason": "organized worker narratives can set a local controversy agenda",
+        "source_actor_name": "courier_network",
+        "target_actor_name": "local_media",
+        "weight": 0.48
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "public understanding depends partly on media framing",
+        "layer": "influence",
+        "reason": "coverage can shape whether consumers interpret issues as labor fairness or inconvenience",
+        "source_actor_name": "local_media",
+        "target_actor_name": "customers",
+        "weight": 0.52
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "customer fee confusion creates possible retention risk",
+        "layer": "influence",
+        "reason": "demand shifts and reputational complaints can pressure policy reconsideration",
+        "source_actor_name": "customers",
+        "target_actor_name": "platform_operator",
+        "weight": 0.43
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "restaurants fear slower service and can escalate concerns privately",
+        "layer": "influence",
+        "reason": "service complaints from merchants can matter operationally and reputationally",
+        "source_actor_name": "restaurant_partners",
+        "target_actor_name": "platform_operator",
+        "weight": 0.39
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "regulation is a plausible branch rather than a current fact",
+        "layer": "influence",
+        "reason": "oversight threat exists but intervention is not yet active",
+        "source_actor_name": "local_regulators",
+        "target_actor_name": "platform_operator",
+        "weight": 0.31
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "exit options are part of scenario focus",
+        "layer": "influence",
+        "reason": "competitors can attract couriers if dissatisfaction persists",
+        "source_actor_name": "competing_delivery_platforms",
+        "target_actor_name": "courier_network",
+        "weight": 0.33
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "couriers claim pay drops while restaurants fear slower service",
+        "layer": "coalition",
+        "reason": "shared concern about service and earnings creates latent alignment but incentives differ",
+        "source_actor_name": "courier_network",
+        "target_actor_name": "restaurant_partners",
+        "weight": 0.29
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "customer-facing fee confusion and labor stories can partially align concerns",
+        "layer": "coalition",
+        "reason": "some customers may sympathize with worker fairness claims",
+        "source_actor_name": "courier_network",
+        "target_actor_name": "customers",
+        "weight": 0.26
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "restaurants fear slower service and customers dislike confusing fees",
+        "layer": "coalition",
+        "reason": "both value reliable, transparent service but are not organized together",
+        "source_actor_name": "restaurant_partners",
+        "target_actor_name": "customers",
+        "weight": 0.22
+      },
+      {
+        "direction": "temporary_alignment",
+        "evidence": "media pressure is available to couriers",
+        "layer": "coalition",
+        "reason": "temporary agenda alignment is possible through coverage, not shared goals",
+        "source_actor_name": "courier_network",
+        "target_actor_name": "local_media",
+        "weight": 0.18
+      },
+      {
+        "direction": "mutual_opposition",
+        "evidence": "couriers claim lower take-home pay while platform defends the change",
+        "layer": "conflict",
+        "reason": "pay formula dispute creates direct interest conflict",
+        "source_actor_name": "courier_network",
+        "target_actor_name": "platform_operator",
+        "weight": 0.68
+      },
+      {
+        "direction": "grievance_against_target",
+        "evidence": "restaurants fear slower service",
+        "layer": "conflict",
+        "reason": "restaurants worry platform decision may hurt service outcomes",
+        "source_actor_name": "restaurant_partners",
+        "target_actor_name": "platform_operator",
+        "weight": 0.36
+      },
+      {
+        "direction": "grievance_against_target",
+        "evidence": "customers see confusing fees",
+        "layer": "conflict",
+        "reason": "fee confusion generates annoyance and legitimacy concerns",
+        "source_actor_name": "customers",
+        "target_actor_name": "platform_operator",
+        "weight": 0.33
+      },
+      {
+        "direction": "low_competitive_tension",
+        "evidence": "substitution remains a possible branch",
+        "layer": "conflict",
+        "reason": "competitors are alternatives rather than primary adversaries at T0",
+        "source_actor_name": "courier_network",
+        "target_actor_name": "competing_delivery_platforms",
+        "weight": 0.12
+      },
+      {
+        "direction": "high_public_channel_interaction",
+        "evidence": "boycotts and media pressure imply visible interaction",
+        "layer": "oasis_interaction",
+        "reason": "public dispute likely drives repeated statements, rebuttals, and policy explanations",
+        "source_actor_name": "courier_network",
+        "target_actor_name": "platform_operator",
+        "weight": 0.58
+      },
+      {
+        "direction": "public_channel_interaction",
+        "evidence": "media pressure is a core available tactic",
+        "layer": "oasis_interaction",
+        "reason": "worker outreach and press inquiry are likely near-term",
+        "source_actor_name": "courier_network",
+        "target_actor_name": "local_media",
+        "weight": 0.47
+      },
+      {
+        "direction": "public_channel_interaction",
+        "evidence": "fee confusion creates pressure for clarifications",
+        "layer": "oasis_interaction",
+        "reason": "customers encounter pricing explanations and possible reassurance messaging in public channels",
+        "source_actor_name": "platform_operator",
+        "target_actor_name": "customers",
+        "weight": 0.54
+      },
+      {
+        "direction": "semi_public_interaction",
+        "evidence": "restaurants are already worried about slower service",
+        "layer": "oasis_interaction",
+        "reason": "merchant complaints and account communications may intensify if delays grow",
+        "source_actor_name": "restaurant_partners",
+        "target_actor_name": "platform_operator",
+        "weight": 0.36
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype": "platform_management",
+        "description": "Decision-makers controlling pay policy, messaging, and local operational responses"
+      },
+      {
+        "archetype": "courier_organizers",
+        "description": "Visible courier leaders or informal organizers pushing boycott and media pressure"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "platform_operator",
+        "archetype": "platform_management",
+        "attention_level": 0.95,
+        "decision_authority": 0.95,
+        "expression_level": 0.7,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.1,
+        "hero_key": "platform_management_core",
+        "mobilization_readiness": 0.85,
+        "perceived_majority": 0.5,
+        "power": 0.92,
+        "reputation": 0.42,
+        "role": "policy_owner",
+        "secrecy": 0.7,
+        "stance_axes": {
+          "pay_formula_change": "defend",
+          "public_message": "reliability_reward_frame",
+          "regulation": "avoid",
+          "rollback": "resist_initially"
+        },
+        "trustworthiness": 0.4
+      },
+      {
+        "actor_name": "courier_network",
+        "archetype": "courier_organizers",
+        "attention_level": 0.95,
+        "decision_authority": 0.2,
+        "expression_level": 0.85,
+        "fatigue": 0.45,
+        "fear_of_isolation": 0.3,
+        "hero_key": "courier_organizing_core",
+        "mobilization_readiness": 0.75,
+        "perceived_majority": 0.5,
+        "power": 0.42,
+        "reputation": 0.55,
+        "role": "pressure_coordinator",
+        "secrecy": 0.35,
+        "stance_axes": {
+          "boycott": "support",
+          "media_pressure": "support",
+          "pay_formula_change": "oppose",
+          "regulation": "invite"
+        },
+        "trustworthiness": 0.63
+      }
+    ],
+    "heroes": [
+      {
+        "archetype": "platform_management",
+        "description": "Decision-makers controlling pay policy, messaging, and local operational responses"
+      },
+      {
+        "archetype": "courier_organizers",
+        "description": "Visible courier leaders or informal organizers pushing boycott and media pressure"
+      }
+    ],
+    "important_questions": [
+      "Will the platform materially roll back or modify the pay formula in the affected metro area?",
+      "Will courier boycott or resistance produce observable service disruption significant enough to alter other actors' behavior?",
+      "Will competing platforms become a credible exit path for enough couriers or restaurants to weaken the incumbent platform's leverage?",
+      "Will local regulators or other official bodies formally intervene beyond passive monitoring?",
+      "Will the dispute remain unresolved with ongoing grievances but no decisive rollback, substitution, or regulation?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "platform_operator",
+          "courier_network"
+        ],
+        "event_key": "pay_formula_change_announced_or_implemented",
+        "event_type": "announcement",
+        "expected_impact": "raises courier attention, increases platform influence salience, and seeds trust decline if pay outcomes appear worse",
+        "summary": "Platform changes courier pay formula in the metro area and presents it as rewarding reliability.",
+        "tick": 0,
+        "visibility": "high"
+      },
+      {
+        "actors": [
+          "courier_network"
+        ],
+        "event_key": "courier_earnings_drop_claims_spread",
+        "event_type": "announcement",
+        "expected_impact": "increases conflict with platform, strengthens organizer recruitment, and may attract media verification",
+        "summary": "Courier reports circulate alleging lower take-home pay under the new formula.",
+        "tick": 0,
+        "visibility": "medium"
+      },
+      {
+        "actors": [
+          "restaurant_partners"
+        ],
+        "event_key": "restaurant_service_worry_internalized",
+        "event_type": "announcement",
+        "expected_impact": "keeps merchant dissatisfaction mostly private initially while building evidence thresholds for later escalation",
+        "summary": "Restaurants begin monitoring order speed and courier availability for signs of service degradation.",
+        "tick": 0,
+        "visibility": "low_medium"
+      },
+      {
+        "actors": [
+          "customers",
+          "platform_operator"
+        ],
+        "event_key": "customer_fee_confusion_discussion",
+        "event_type": "announcement",
+        "expected_impact": "can increase churn risk and make labor story legible through consumer experience",
+        "summary": "Customers discuss or notice confusing fee presentation while evaluating whether convenience still justifies cost.",
+        "tick": 1,
+        "visibility": "medium"
+      },
+      {
+        "actors": [
+          "courier_network"
+        ],
+        "event_key": "courier_boycott_call_test",
+        "event_type": "announcement",
+        "expected_impact": "reveals actual mobilization capacity and whether discontented but quiet couriers will participate",
+        "summary": "Courier organizers test appetite for a localized boycott or coordinated offline period.",
+        "tick": 1,
+        "visibility": "medium"
+      },
+      {
+        "actors": [
+          "local_media",
+          "courier_network",
+          "platform_operator"
+        ],
+        "event_key": "media_inquiry_window",
+        "event_type": "announcement",
+        "expected_impact": "can widen exposure, sharpen legitimacy pressures, and activate customer and regulator attention",
+        "summary": "Local media evaluates whether to cover the dispute using courier testimony and platform response.",
+        "tick": 2,
+        "visibility": "medium"
+      },
+      {
+        "actors": [
+          "competing_delivery_platforms",
+          "courier_network",
+          "restaurant_partners"
+        ],
+        "event_key": "competitor_recruitment_probe",
+        "event_type": "announcement",
+        "expected_impact": "tests substitution pathways and weakens platform leverage if exit becomes more credible",
+        "summary": "Competing platforms quietly assess whether dissatisfied couriers or merchants are recruitable.",
+        "tick": 2,
+        "visibility": "low_medium"
+      }
+    ],
+    "llm_call_id": "04b15d93-6d15-4863-8507-b397800d5c54",
+    "merge_hypotheses": [
+      {
+        "convergence_mechanism": "all commercial actors benefit from acceptable delivery reliability and lower confusion even if they disagree on pay design",
+        "could_merge": [
+          "platform_operator",
+          "restaurant_partners",
+          "customers",
+          "courier_network"
+        ],
+        "merge_key": "shared_service_stability_interest",
+        "signal": "discussion shifts toward operational pilots, guarantees, or transparency tweaks rather than zero-sum rhetoric"
+      },
+      {
+        "convergence_mechanism": "income needs, media novelty loss, and merchant caution reduce appetite for sustained conflict",
+        "could_merge": [
+          "courier_network",
+          "restaurant_partners",
+          "customers"
+        ],
+        "merge_key": "fatigue_induced_deescalation",
+        "signal": "expression levels fall faster than private dissatisfaction"
+      },
+      {
+        "convergence_mechanism": "credible substitution threat can push platform and internal critics toward compromise to preserve market share",
+        "could_merge": [
+          "platform_operator",
+          "courier_network",
+          "restaurant_partners"
+        ],
+        "merge_key": "external_competitive_pressure",
+        "signal": "competitor activity rises and platform explores retention-focused modifications"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype": "couriers_in_metro",
+        "description": "Active and semi-active food-delivery couriers in the metro area exposed to the pay formula change",
+        "population_total": 12000
+      },
+      {
+        "archetype": "restaurant_operators_in_network",
+        "description": "Restaurants participating on the affected platform in the metro area",
+        "population_total": 4500
+      },
+      {
+        "archetype": "delivery_customers_in_metro",
+        "description": "Customers who use app-based food delivery with varying frequency in the metro area",
+        "population_total": 350000
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "evidence_sparse_population_counts",
+        "note": "Population totals are estimated for simulation coherence because the corpus gives no numeric counts.",
+        "severity": "medium"
+      },
+      {
+        "flag": "platform_authority_asymmetry",
+        "note": "Platform directly controls policy and communication interfaces, creating strong ownership leverage over other actors.",
+        "severity": "high"
+      },
+      {
+        "flag": "courier_income_dependency",
+        "note": "Courier willingness to sustain boycott may be constrained by immediate earnings needs.",
+        "severity": "high"
+      },
+      {
+        "flag": "coalition_fragility",
+        "note": "Couriers, restaurants, and customers share some grievances but have divergent incentives and risk exposure.",
+        "severity": "medium"
+      },
+      {
+        "flag": "customer_elasticity_uncertain",
+        "note": "Fee confusion may or may not convert into significant behavioral change absent service decline.",
+        "severity": "medium"
+      },
+      {
+        "flag": "regulatory_path_uncertain",
+        "note": "No explicit regulator action is present at T0; intervention remains contingent on public evidence and salience.",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "labor_economic_dependency",
+      "mode": "direct",
+      "scale": "single_metro_area",
+      "scenario_key": "labor_002",
+      "summary": "A food-delivery platform introduces a new courier pay formula in one metro area. Couriers report lower take-home pay, restaurants worry about slower service, customers face confusing fees, and the platform frames the change as rewarding reliability. Couriers can pressure via boycott and media but lack direct authority over platform policy. Core dynamics center on platform ownership leverage, switching costs, economic elasticity, and possible paths of rollback, substitution, regulation, or durable stalemate.",
+      "time_zero_posture": "policy change has been introduced and contested but terminal outcome remains unresolved",
+      "uncertainties": [
+        "magnitude of actual courier pay change is disputed at T0",
+        "depth of restaurant willingness to publicly align with couriers is unclear",
+        "customer elasticity and willingness to switch platforms is uncertain",
+        "presence and readiness of regulators or labor advocates is implied but not explicit"
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "customers",
+          "restaurant_partners",
+          "courier_network"
+        ],
+        "level": 0.62,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "actors update mainly from nearby experience and trusted narratives, limiting rapid consensus"
+      },
+      {
+        "applies_to": [
+          "courier_network",
+          "customers_values_attentive"
+        ],
+        "level": 0.71,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "visible participation and evidence of efficacy are needed before broader boycott support forms"
+      },
+      {
+        "applies_to": [
+          "restaurants_service_anxious",
+          "couriers_discontent_quiet"
+        ],
+        "level": 0.68,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "dependency and retaliation concerns suppress public expression relative to private grievance"
+      },
+      {
+        "applies_to": [
+          "courier_network",
+          "customers",
+          "restaurant_partners"
+        ],
+        "level": 0.58,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "peer networks sort information within role-based communities"
+      },
+      {
+        "applies_to": [
+          "courier_network",
+          "restaurant_partners"
+        ],
+        "level": 0.64,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "multiple confirming signals are needed for escalation into collective action or switching"
+      },
+      {
+        "applies_to": [
+          "courier_network",
+          "customers_values_attentive"
+        ],
+        "level": 0.57,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "worker fairness framing can strengthen in-group solidarity and outside sympathy"
+      },
+      {
+        "applies_to": [
+          "customers",
+          "local_media"
+        ],
+        "level": 0.66,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "without fresh service failures or compelling stories, public attention may fade quickly"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context_key": "platform_leverage",
+        "description": "Platform owns the pay formula, app interface, dispatch logic, and primary communication channels to couriers, restaurants, and customers"
+      },
+      {
+        "context_key": "switching_costs",
+        "description": "Couriers, restaurants, and customers each have alternatives, but income dependence, operational setup, and habit create friction"
+      },
+      {
+        "context_key": "coalition_durability",
+        "description": "Courier-restaurant-customer alignment is plausible but fragile because interests only partially overlap and public risk is uneven"
+      },
+      {
+        "context_key": "economic_elasticity",
+        "description": "Consumer price sensitivity and restaurant tolerance for degraded service may determine whether controversy converts into measurable business pressure"
+      },
+      {
+        "context_key": "policy_asymmetry",
+        "description": "Couriers can disrupt supply and shape narrative but lack direct authority to alter platform policy"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "platform_operator",
+        "behavior_axes": {
+          "adaptability": 0.58,
+          "coercive_capacity": 0.7,
+          "message_discipline": 0.8,
+          "responsiveness": 0.38,
+          "risk_tolerance": 0.62
+        },
+        "ideology_axes": {
+          "consumer_transparency": 0.4,
+          "labor_accommodation": 0.28,
+          "market_managerialism": 0.8
+        },
+        "reputation": 0.42,
+        "secrecy": 0.72,
+        "tendency": "defend centralized policy while testing local tolerance",
+        "trustworthiness": 0.4
+      },
+      {
+        "actor_name": "courier_network",
+        "behavior_axes": {
+          "adaptability": 0.7,
+          "collective_action": 0.62,
+          "economic_fragility": 0.78,
+          "message_discipline": 0.45,
+          "risk_tolerance": 0.55
+        },
+        "ideology_axes": {
+          "labor_fairness": 0.82,
+          "platform_skepticism": 0.7,
+          "regulatory_openness": 0.58
+        },
+        "reputation": 0.55,
+        "secrecy": 0.32,
+        "tendency": "contest earnings losses but constrained by income dependence",
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "restaurant_partners",
+        "behavior_axes": {
+          "adaptability": 0.48,
+          "collective_action": 0.26,
+          "dependency_sensitivity": 0.74,
+          "message_discipline": 0.4,
+          "risk_tolerance": 0.32
+        },
+        "ideology_axes": {
+          "commercial_pragmatism": 0.82,
+          "consumer_service_priority": 0.77,
+          "labor_alignment": 0.42
+        },
+        "reputation": 0.6,
+        "secrecy": 0.52,
+        "tendency": "seek service stability and avoid open confrontation unless losses become visible",
+        "trustworthiness": 0.66
+      },
+      {
+        "actor_name": "customers",
+        "behavior_axes": {
+          "adaptability": 0.62,
+          "attention_volatility": 0.72,
+          "collective_action": 0.18,
+          "price_sensitivity": 0.64,
+          "risk_tolerance": 0.2
+        },
+        "ideology_axes": {
+          "convenience_preference": 0.74,
+          "fairness_concern": 0.46,
+          "transparency_preference": 0.68
+        },
+        "reputation": 0.54,
+        "secrecy": 0.08,
+        "tendency": "respond more to fees and service changes than abstract labor policy",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "local_media",
+        "behavior_axes": {
+          "adaptability": 0.6,
+          "agenda_sensitivity": 0.7,
+          "conflict_amplification": 0.55,
+          "risk_tolerance": 0.35,
+          "verification_norm": 0.62
+        },
+        "ideology_axes": {
+          "business_sympathy": 0.44,
+          "public_interest": 0.68,
+          "worker_sympathy": 0.5
+        },
+        "reputation": 0.61,
+        "secrecy": 0.12,
+        "tendency": "cover dispute if human stories and consumer impacts become salient",
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "local_regulators",
+        "behavior_axes": {
+          "adaptability": 0.4,
+          "agenda_sensitivity": 0.58,
+          "intervention_capacity": 0.36,
+          "proceduralism": 0.82,
+          "risk_tolerance": 0.28
+        },
+        "ideology_axes": {
+          "business_caution": 0.53,
+          "consumer_protection": 0.62,
+          "labor_protection": 0.56
+        },
+        "reputation": 0.58,
+        "secrecy": 0.25,
+        "tendency": "monitor controversy and act slowly absent strong public evidence",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "competing_delivery_platforms",
+        "behavior_axes": {
+          "adaptability": 0.72,
+          "message_discipline": 0.46,
+          "opportunism": 0.78,
+          "recruitment_aggressiveness": 0.66,
+          "risk_tolerance": 0.58
+        },
+        "ideology_axes": {
+          "consumer_transparency": 0.42,
+          "labor_accommodation": 0.36,
+          "market_opportunism": 0.84
+        },
+        "reputation": 0.47,
+        "secrecy": 0.4,
+        "tendency": "capitalize on instability if switching conditions improve",
+        "trustworthiness": 0.46
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 619,
+        "end": 619,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 619,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

@@ -1,0 +1,1578 @@
+{
+  "big_bang_id": "9caeab08-603a-48d0-b8e6-31cfc70f8931",
+  "initializer_output": {
+    "actors": [
+      {
+        "fictionalized": true,
+        "name": "county_health_office",
+        "role": "public_health_authority",
+        "scale": "county",
+        "stakes": [
+          "protect public health",
+          "maintain credibility",
+          "avoid overclaiming",
+          "issue timely guidance"
+        ],
+        "type": "institution"
+      },
+      {
+        "fictionalized": true,
+        "name": "county_officials",
+        "role": "executive_and_public_messaging",
+        "scale": "county",
+        "stakes": [
+          "political legitimacy",
+          "risk management",
+          "coordination with health office"
+        ],
+        "type": "institutional_leadership"
+      },
+      {
+        "fictionalized": true,
+        "name": "public_pool_operator",
+        "role": "facility_management",
+        "scale": "local",
+        "stakes": [
+          "facility reputation",
+          "continued operation",
+          "staff morale",
+          "regulatory compliance"
+        ],
+        "type": "organization"
+      },
+      {
+        "fictionalized": true,
+        "name": "pool_staff",
+        "role": "frontline_pool_workers",
+        "scale": "local",
+        "stakes": [
+          "job security",
+          "personal reputation",
+          "clarity on safety procedures"
+        ],
+        "type": "workforce_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "parents_community",
+        "role": "caregivers_and_local_residents",
+        "scale": "county",
+        "stakes": [
+          "child safety",
+          "credible information",
+          "social reassurance"
+        ],
+        "type": "public_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "local_clinicians",
+        "role": "doctors_and_clinical_practices",
+        "scale": "county",
+        "stakes": [
+          "clear case guidance",
+          "patient counseling",
+          "diagnostic accuracy"
+        ],
+        "type": "professional_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "local_labs",
+        "role": "testing_and_confirmation",
+        "scale": "regional",
+        "stakes": [
+          "accurate testing",
+          "timely results",
+          "technical credibility"
+        ],
+        "type": "technical_institution"
+      },
+      {
+        "fictionalized": true,
+        "name": "local_media",
+        "role": "news_amplification",
+        "scale": "county",
+        "stakes": [
+          "timely reporting",
+          "audience attention",
+          "perceived accuracy"
+        ],
+        "type": "media"
+      },
+      {
+        "fictionalized": true,
+        "name": "rumor_networks",
+        "role": "peer_to_peer_information_spread",
+        "scale": "county",
+        "stakes": [
+          "rapid sharing",
+          "social signaling",
+          "sensemaking_under_uncertainty"
+        ],
+        "type": "informal_network"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "branch_key": "confirmation_strengthens_precaution",
+        "divergence_signal": "Official language shifts from possible link to confirmed or strongly supported link; clinician guidance becomes more specific; parent precaution behavior rises.",
+        "plausible_path": "Officials escalate from cautious notice to specific health guidance or pool-related operational restrictions, and rumors partially convert into validated concern.",
+        "trigger": "Lab evidence supports a link between cases and the public pool."
+      },
+      {
+        "branch_key": "false_alarm_requires_reversal",
+        "divergence_signal": "Official correction posts increase while rumor persistence remains high and trust in operator or officials does not fully rebound.",
+        "plausible_path": "Officials attempt correction and reassurance, but some parents continue to distrust the reversal and suspect minimization.",
+        "trigger": "Lab evidence fails to support the pool link or points elsewhere."
+      },
+      {
+        "branch_key": "delayed_correction_trust_erosion",
+        "divergence_signal": "Rising media attention to uncertainty itself, increased clinician complaints about ambiguity, and broader parent reliance on peer anecdotes over official statements.",
+        "plausible_path": "Rumor networks gain agenda-setting power, clinicians become more frustrated, and the pool operator grows more defensive.",
+        "trigger": "Lab results are delayed and official updates remain vague for multiple ticks."
+      },
+      {
+        "branch_key": "operator_preemptive_action",
+        "divergence_signal": "Public attention shifts toward operational actions; parent sentiment splits between reassurance and suspicion.",
+        "plausible_path": "This may reduce some parent anxiety while also being interpreted by others as tacit admission of risk.",
+        "trigger": "Pool operator voluntarily announces additional cleaning, temporary closure, or visible precaution before confirmation."
+      }
+    ],
+    "channels": [
+      {
+        "actors": [
+          "county_health_office",
+          "county_officials",
+          "local_media",
+          "general_county_residents"
+        ],
+        "name": "official_press_update",
+        "type": "public_broadcast"
+      },
+      {
+        "actors": [
+          "parents_community",
+          "rumor_networks",
+          "local_media"
+        ],
+        "name": "parent_social_threads",
+        "type": "informal_social"
+      },
+      {
+        "actors": [
+          "county_health_office",
+          "local_clinicians"
+        ],
+        "name": "clinical_advisory_channel",
+        "type": "professional"
+      },
+      {
+        "actors": [
+          "public_pool_operator",
+          "pool_staff"
+        ],
+        "name": "pool_internal_messaging",
+        "type": "organizational_internal"
+      },
+      {
+        "actors": [
+          "local_media",
+          "general_county_residents",
+          "parents_community"
+        ],
+        "name": "news_reports_and_headlines",
+        "type": "mass_media"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_name": "county_parents_and_caregivers",
+        "attention_level": 0.76,
+        "expression_level": 0.64,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.34,
+        "mobilization_readiness": 0.43,
+        "name": "concerned_parents_waiting_for_guidance",
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "Something may be wrong, but facts are incomplete.",
+        "public_expression": "Asking questions, sharing cautionary posts, discussing whether to avoid the pool.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 10800,
+        "stance_axes": {
+          "pool_risk_salience": 0.75,
+          "precaution_preference": 0.72,
+          "rumor_receptivity": 0.58,
+          "trust_in_officials": 0.52
+        }
+      },
+      {
+        "archetype_name": "county_parents_and_caregivers",
+        "attention_level": 0.51,
+        "expression_level": 0.49,
+        "fatigue": 0.14,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.24,
+        "name": "skeptical_parents_downplaying_link",
+        "perceived_majority": 0.29,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "Officials may be reacting too early or rumors may be exaggerated.",
+        "public_expression": "Questioning the evidence and warning against panic.",
+        "representation_mode": "meaningful_minority_cohort",
+        "represented_population": 4500,
+        "stance_axes": {
+          "pool_risk_salience": 0.38,
+          "precaution_preference": 0.36,
+          "rumor_receptivity": 0.41,
+          "trust_in_officials": 0.47
+        }
+      },
+      {
+        "archetype_name": "county_parents_and_caregivers",
+        "attention_level": 0.88,
+        "expression_level": 0.82,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.19,
+        "mobilization_readiness": 0.67,
+        "name": "high_anxiety_parents_active_in_rumor_sharing",
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.15,
+        "private_belief": "The pool is likely unsafe and others should be warned immediately.",
+        "public_expression": "Forwarding rumors, screenshots, and informal warnings through peer channels.",
+        "representation_mode": "high_expression_minority_cohort",
+        "represented_population": 2700,
+        "stance_axes": {
+          "pool_risk_salience": 0.9,
+          "precaution_preference": 0.88,
+          "rumor_receptivity": 0.79,
+          "trust_in_officials": 0.33
+        }
+      },
+      {
+        "archetype_name": "pool_employees",
+        "attention_level": 0.83,
+        "expression_level": 0.31,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.63,
+        "mobilization_readiness": 0.29,
+        "name": "pool_staff_defensive_but_uncertain",
+        "perceived_majority": 0.68,
+        "population_share_of_archetype": 0.8,
+        "private_belief": "The pool may not be the cause, but the situation could hurt us badly.",
+        "public_expression": "Cautious, defensive, and reluctant to speculate publicly.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 28,
+        "stance_axes": {
+          "pool_risk_salience": 0.57,
+          "precaution_preference": 0.55,
+          "reputation_threat": 0.84,
+          "trust_in_officials": 0.49
+        }
+      },
+      {
+        "archetype_name": "pool_employees",
+        "attention_level": 0.79,
+        "expression_level": 0.22,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.58,
+        "mobilization_readiness": 0.35,
+        "name": "pool_staff_safety_first",
+        "perceived_majority": 0.32,
+        "population_share_of_archetype": 0.2,
+        "private_belief": "Temporary disruption is acceptable if it protects patrons and staff.",
+        "public_expression": "Internally supportive of stronger checks and clearer protocols.",
+        "representation_mode": "meaningful_minority_cohort",
+        "represented_population": 7,
+        "stance_axes": {
+          "pool_risk_salience": 0.72,
+          "precaution_preference": 0.79,
+          "reputation_threat": 0.61,
+          "trust_in_officials": 0.58
+        }
+      },
+      {
+        "archetype_name": "county_clinical_workers",
+        "attention_level": 0.71,
+        "expression_level": 0.46,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.38,
+        "name": "clinicians_seeking_clear_guidance",
+        "perceived_majority": 0.74,
+        "population_share_of_archetype": 0.75,
+        "private_belief": "A possible cluster matters, but guidance should match evidence.",
+        "public_expression": "Requesting criteria, testing advice, and patient communication guidance.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 315,
+        "stance_axes": {
+          "evidence_threshold": 0.82,
+          "pool_risk_salience": 0.68,
+          "precaution_preference": 0.66,
+          "trust_in_officials": 0.61
+        }
+      },
+      {
+        "archetype_name": "county_clinical_workers",
+        "attention_level": 0.66,
+        "expression_level": 0.37,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.27,
+        "mobilization_readiness": 0.33,
+        "name": "clinicians_frustrated_by_ambiguity",
+        "perceived_majority": 0.35,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "Officials should either issue stronger guidance or say less until facts are known.",
+        "public_expression": "Expressing frustration about unclear messaging in professional conversations.",
+        "representation_mode": "meaningful_minority_cohort",
+        "represented_population": 105,
+        "stance_axes": {
+          "evidence_threshold": 0.76,
+          "pool_risk_salience": 0.63,
+          "precaution_preference": 0.59,
+          "trust_in_officials": 0.42
+        }
+      },
+      {
+        "archetype_name": "general_county_residents",
+        "attention_level": 0.24,
+        "expression_level": 0.11,
+        "fatigue": 0.09,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.09,
+        "name": "general_public_low_attention",
+        "perceived_majority": 0.73,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "This may be local and limited unless stronger evidence emerges.",
+        "public_expression": "Mostly observing rather than posting or acting.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 66500,
+        "stance_axes": {
+          "pool_risk_salience": 0.28,
+          "precaution_preference": 0.32,
+          "rumor_receptivity": 0.36,
+          "trust_in_officials": 0.51
+        }
+      },
+      {
+        "archetype_name": "general_county_residents",
+        "attention_level": 0.47,
+        "expression_level": 0.28,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.17,
+        "mobilization_readiness": 0.19,
+        "name": "general_public_alert_observers",
+        "perceived_majority": 0.39,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "The situation deserves attention because it could affect community venues and trust.",
+        "public_expression": "Following updates and sharing official posts or news links.",
+        "representation_mode": "engaged_minority_cohort",
+        "represented_population": 28500,
+        "stance_axes": {
+          "pool_risk_salience": 0.49,
+          "precaution_preference": 0.5,
+          "rumor_receptivity": 0.44,
+          "trust_in_officials": 0.55
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_name": "county_parents_and_caregivers",
+        "attention_level": 0.76,
+        "expression_level": 0.64,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.34,
+        "mobilization_readiness": 0.43,
+        "name": "concerned_parents_waiting_for_guidance",
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "Something may be wrong, but facts are incomplete.",
+        "public_expression": "Asking questions, sharing cautionary posts, discussing whether to avoid the pool.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 10800,
+        "stance_axes": {
+          "pool_risk_salience": 0.75,
+          "precaution_preference": 0.72,
+          "rumor_receptivity": 0.58,
+          "trust_in_officials": 0.52
+        }
+      },
+      {
+        "archetype_name": "county_parents_and_caregivers",
+        "attention_level": 0.51,
+        "expression_level": 0.49,
+        "fatigue": 0.14,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.24,
+        "name": "skeptical_parents_downplaying_link",
+        "perceived_majority": 0.29,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "Officials may be reacting too early or rumors may be exaggerated.",
+        "public_expression": "Questioning the evidence and warning against panic.",
+        "representation_mode": "meaningful_minority_cohort",
+        "represented_population": 4500,
+        "stance_axes": {
+          "pool_risk_salience": 0.38,
+          "precaution_preference": 0.36,
+          "rumor_receptivity": 0.41,
+          "trust_in_officials": 0.47
+        }
+      },
+      {
+        "archetype_name": "county_parents_and_caregivers",
+        "attention_level": 0.88,
+        "expression_level": 0.82,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.19,
+        "mobilization_readiness": 0.67,
+        "name": "high_anxiety_parents_active_in_rumor_sharing",
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.15,
+        "private_belief": "The pool is likely unsafe and others should be warned immediately.",
+        "public_expression": "Forwarding rumors, screenshots, and informal warnings through peer channels.",
+        "representation_mode": "high_expression_minority_cohort",
+        "represented_population": 2700,
+        "stance_axes": {
+          "pool_risk_salience": 0.9,
+          "precaution_preference": 0.88,
+          "rumor_receptivity": 0.79,
+          "trust_in_officials": 0.33
+        }
+      },
+      {
+        "archetype_name": "pool_employees",
+        "attention_level": 0.83,
+        "expression_level": 0.31,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.63,
+        "mobilization_readiness": 0.29,
+        "name": "pool_staff_defensive_but_uncertain",
+        "perceived_majority": 0.68,
+        "population_share_of_archetype": 0.8,
+        "private_belief": "The pool may not be the cause, but the situation could hurt us badly.",
+        "public_expression": "Cautious, defensive, and reluctant to speculate publicly.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 28,
+        "stance_axes": {
+          "pool_risk_salience": 0.57,
+          "precaution_preference": 0.55,
+          "reputation_threat": 0.84,
+          "trust_in_officials": 0.49
+        }
+      },
+      {
+        "archetype_name": "pool_employees",
+        "attention_level": 0.79,
+        "expression_level": 0.22,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.58,
+        "mobilization_readiness": 0.35,
+        "name": "pool_staff_safety_first",
+        "perceived_majority": 0.32,
+        "population_share_of_archetype": 0.2,
+        "private_belief": "Temporary disruption is acceptable if it protects patrons and staff.",
+        "public_expression": "Internally supportive of stronger checks and clearer protocols.",
+        "representation_mode": "meaningful_minority_cohort",
+        "represented_population": 7,
+        "stance_axes": {
+          "pool_risk_salience": 0.72,
+          "precaution_preference": 0.79,
+          "reputation_threat": 0.61,
+          "trust_in_officials": 0.58
+        }
+      },
+      {
+        "archetype_name": "county_clinical_workers",
+        "attention_level": 0.71,
+        "expression_level": 0.46,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.38,
+        "name": "clinicians_seeking_clear_guidance",
+        "perceived_majority": 0.74,
+        "population_share_of_archetype": 0.75,
+        "private_belief": "A possible cluster matters, but guidance should match evidence.",
+        "public_expression": "Requesting criteria, testing advice, and patient communication guidance.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 315,
+        "stance_axes": {
+          "evidence_threshold": 0.82,
+          "pool_risk_salience": 0.68,
+          "precaution_preference": 0.66,
+          "trust_in_officials": 0.61
+        }
+      },
+      {
+        "archetype_name": "county_clinical_workers",
+        "attention_level": 0.66,
+        "expression_level": 0.37,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.27,
+        "mobilization_readiness": 0.33,
+        "name": "clinicians_frustrated_by_ambiguity",
+        "perceived_majority": 0.35,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "Officials should either issue stronger guidance or say less until facts are known.",
+        "public_expression": "Expressing frustration about unclear messaging in professional conversations.",
+        "representation_mode": "meaningful_minority_cohort",
+        "represented_population": 105,
+        "stance_axes": {
+          "evidence_threshold": 0.76,
+          "pool_risk_salience": 0.63,
+          "precaution_preference": 0.59,
+          "trust_in_officials": 0.42
+        }
+      },
+      {
+        "archetype_name": "general_county_residents",
+        "attention_level": 0.24,
+        "expression_level": 0.11,
+        "fatigue": 0.09,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.09,
+        "name": "general_public_low_attention",
+        "perceived_majority": 0.73,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "This may be local and limited unless stronger evidence emerges.",
+        "public_expression": "Mostly observing rather than posting or acting.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 66500,
+        "stance_axes": {
+          "pool_risk_salience": 0.28,
+          "precaution_preference": 0.32,
+          "rumor_receptivity": 0.36,
+          "trust_in_officials": 0.51
+        }
+      },
+      {
+        "archetype_name": "general_county_residents",
+        "attention_level": 0.47,
+        "expression_level": 0.28,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.17,
+        "mobilization_readiness": 0.19,
+        "name": "general_public_alert_observers",
+        "perceived_majority": 0.39,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "The situation deserves attention because it could affect community venues and trust.",
+        "public_expression": "Following updates and sharing official posts or news links.",
+        "representation_mode": "engaged_minority_cohort",
+        "represented_population": 28500,
+        "stance_axes": {
+          "pool_risk_salience": 0.49,
+          "precaution_preference": 0.5,
+          "rumor_receptivity": 0.44,
+          "trust_in_officials": 0.55
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "county_health_office",
+          "local_labs",
+          "county_officials"
+        ],
+        "blockers": [
+          "Pending lab confirmation",
+          "Risk of overclaiming before technical substantiation",
+          "Potential alternative source of illness"
+        ],
+        "contradiction_notes": "Could be contradicted if later evidence identifies a different source or no common source.",
+        "description": "The illness cluster is publicly and credibly tied to the public pool through observable official evidence and follow-on action.",
+        "endpoint_key": "confirmed_pool_source",
+        "evidence_refs": [
+          "health_office_announces_possible_cluster",
+          "lab_results_pending_window"
+        ],
+        "label": "Confirmed pool source",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the suspected link between the illness cluster and the public pool be publicly confirmed within the scenario horizon?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.38,
+        "rationale": "This is the clearest terminal health-fact endpoint implied by the scenario.",
+        "realization_criteria": [
+          "County health office or equivalent authority publicly states that the pool link is confirmed or strongly substantiated.",
+          "Lab-confirmation evidence or equivalent technical evidence is cited in public or professional communication.",
+          "At least one concrete pool-specific guidance or operational measure is publicly justified by the confirmed link."
+        ],
+        "status": "active",
+        "status_basis": "Scenario explicitly says possible link only; confirmation is unresolved at T0."
+      },
+      {
+        "authority_refs": [
+          "county_health_office",
+          "local_labs",
+          "county_officials"
+        ],
+        "blockers": [
+          "Delays in evidence production",
+          "Persistent rumor belief despite correction",
+          "Institutional reluctance to issue sharp reversal"
+        ],
+        "contradiction_notes": "May conflict with this endpoint if later evidence reopens the pool hypothesis after a premature dismissal.",
+        "description": "The suspected pool connection is publicly corrected or dismissed based on evidence showing the pool is not the likely source.",
+        "endpoint_key": "pool_link_ruled_out",
+        "evidence_refs": [
+          "health_office_announces_possible_cluster",
+          "followup_public_update_expected"
+        ],
+        "label": "Pool link ruled out",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will county health messaging preserve moderate public trust despite uncertainty and rumor spread?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.27,
+        "rationale": "The scenario names false alarm as a major branch that should remain live.",
+        "realization_criteria": [
+          "County health office or equivalent authority publicly states that the pool is not the likely source or that the link is unsupported.",
+          "Correction or updated explanation is disseminated through official public channels.",
+          "No pool-specific restriction remains justified by current evidence."
+        ],
+        "status": "active",
+        "status_basis": "False alarm or alternate-source outcome is explicitly implied by the scenario."
+      },
+      {
+        "authority_refs": [
+          "county_health_office",
+          "local_clinicians",
+          "county_officials"
+        ],
+        "blockers": [
+          "Delayed or vague updates",
+          "Overclaiming followed by reversal",
+          "Rumor amplification through peer channels and media"
+        ],
+        "contradiction_notes": "Can coexist with either confirmation or false alarm if messaging quality remains strong.",
+        "description": "County health messaging remains a primary credible reference point despite incomplete evidence and rumor circulation.",
+        "endpoint_key": "trust_preserved_under_uncertainty",
+        "evidence_refs": [
+          "clinicians_request_guidance",
+          "followup_public_update_expected"
+        ],
+        "label": "Trust preserved under uncertainty",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the pool operator take a visible operational action such as closure or major precaution before definitive confirmation?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.44,
+        "rationale": "The scenario emphasizes institutional trust and rumor correction, making trust trajectory an endpoint-facing outcome.",
+        "realization_criteria": [
+          "Parents and clinicians continue to rely primarily on official updates or clinician-mediated official guidance for decisions.",
+          "No major public reversal or contradiction substantially damages health office credibility.",
+          "Observable correction behavior reduces dependence on rumors as the main interpretive channel."
+        ],
+        "status": "active",
+        "status_basis": "Institutional trust is an expected focus, but current trust is only moderate and fragile."
+      },
+      {
+        "authority_refs": [
+          "parents_community",
+          "rumor_networks",
+          "local_media"
+        ],
+        "blockers": [
+          "Timely and credible official clarification",
+          "Clinician amplification of official guidance",
+          "Insufficient rumor novelty or reach"
+        ],
+        "contradiction_notes": "Could still occur temporarily even if final factual endpoint becomes clear later; terminal realization requires sustained guidance dominance.",
+        "description": "Informal peer networks overtake official channels as the main practical source of advice for parents during the uncertainty window.",
+        "endpoint_key": "rumor_dominant_guidance_environment",
+        "evidence_refs": [
+          "parent_rumor_spread_accelerates",
+          "followup_public_update_expected"
+        ],
+        "label": "Rumor-dominant guidance environment",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will informal rumor networks become the dominant source of practical guidance for parents over official channels?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.41,
+        "rationale": "This captures whether process control over information shifts away from institutions.",
+        "realization_criteria": [
+          "Parent behavior is visibly driven more by peer warnings, anecdotes, or screenshots than by official updates.",
+          "Official corrections fail to materially reduce rumor circulation or practical reliance on rumors.",
+          "Media and community discourse repeatedly reference rumors as agenda-setting inputs."
+        ],
+        "status": "active",
+        "status_basis": "Rumor correction is a stated focus and rumors are already active at T0."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "Scenario states county health office announces possible cluster.",
+        "layer": "exposure",
+        "reason": "Official announcement is visible to many parents.",
+        "source_actor_name": "county_health_office",
+        "target_actor_name": "parents_community",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario states parents share rumors.",
+        "layer": "exposure",
+        "reason": "Parents are active participants in rumor-sharing channels.",
+        "source_actor_name": "parents_community",
+        "target_actor_name": "rumor_networks",
+        "weight": 0.64
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario emphasizes rumor circulation among parents.",
+        "layer": "exposure",
+        "reason": "Rumors circulate back into parent communities at high visibility.",
+        "source_actor_name": "rumor_networks",
+        "target_actor_name": "parents_community",
+        "weight": 0.72
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Likely reporting channel for county incident.",
+        "layer": "exposure",
+        "reason": "Media reporting can broaden incident visibility beyond directly affected families.",
+        "source_actor_name": "local_media",
+        "target_actor_name": "general_county_residents",
+        "weight": 0.55
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Doctors want clear guidance from officials.",
+        "layer": "exposure",
+        "reason": "Clinicians are likely monitoring official public health updates.",
+        "source_actor_name": "county_health_office",
+        "target_actor_name": "local_clinicians",
+        "weight": 0.53
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Pool staff are directly affected by reputational concerns.",
+        "layer": "exposure",
+        "reason": "Staff receive internal updates from operator or manager.",
+        "source_actor_name": "public_pool_operator",
+        "target_actor_name": "pool_staff",
+        "weight": 0.61
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Officials must avoid overclaiming, implying trust sensitivity.",
+        "layer": "trust",
+        "reason": "Parents retain moderate but fragile trust pending clarity.",
+        "source_actor_name": "parents_community",
+        "target_actor_name": "county_health_office",
+        "weight": 0.49
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Doctors want clear guidance.",
+        "layer": "trust",
+        "reason": "Clinicians generally trust official process but want clearer guidance.",
+        "source_actor_name": "local_clinicians",
+        "target_actor_name": "county_health_office",
+        "weight": 0.57
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Clinicians are a requested guidance source in such incidents and explicitly seek clarity here.",
+        "layer": "trust",
+        "reason": "Doctors are often seen as credible interpreters during health uncertainty.",
+        "source_actor_name": "parents_community",
+        "target_actor_name": "local_clinicians",
+        "weight": 0.62
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Pool staff fear reputational harm.",
+        "layer": "trust",
+        "reason": "Staff rely on management but worry about reputation-first responses.",
+        "source_actor_name": "pool_staff",
+        "target_actor_name": "public_pool_operator",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "No evidence of prior collapse; officials are central messengers.",
+        "layer": "trust",
+        "reason": "Baseline moderate trust in county leadership absent confirmed failure.",
+        "source_actor_name": "general_county_residents",
+        "target_actor_name": "county_officials",
+        "weight": 0.5
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Lab confirmation is pending.",
+        "layer": "dependency",
+        "reason": "Health office depends on lab confirmation to substantiate the pool link.",
+        "source_actor_name": "county_health_office",
+        "target_actor_name": "local_labs",
+        "weight": 0.73
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Doctors want clear guidance.",
+        "layer": "dependency",
+        "reason": "Clinicians need public health guidance for patient counseling and case framing.",
+        "source_actor_name": "local_clinicians",
+        "target_actor_name": "county_health_office",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Pool staff fear reputational harm while investigation remains unresolved.",
+        "layer": "dependency",
+        "reason": "Operator depends on official findings and guidance for operational response legitimacy.",
+        "source_actor_name": "public_pool_operator",
+        "target_actor_name": "county_health_office",
+        "weight": 0.52
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Pool staff fear reputational harm and likely await direction.",
+        "layer": "dependency",
+        "reason": "Workers depend on operator decisions for employment and public-facing instructions.",
+        "source_actor_name": "pool_staff",
+        "target_actor_name": "public_pool_operator",
+        "weight": 0.63
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Officials must avoid overclaiming.",
+        "layer": "dependency",
+        "reason": "County leaders depend on health office expertise for public claims.",
+        "source_actor_name": "county_officials",
+        "target_actor_name": "county_health_office",
+        "weight": 0.55
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Officials must avoid overclaiming while evidence is pending.",
+        "layer": "influence",
+        "reason": "Health office frames what county leaders can credibly say.",
+        "source_actor_name": "county_health_office",
+        "target_actor_name": "county_officials",
+        "weight": 0.61
+      },
+      {
+        "direction": "outbound",
+        "evidence": "County officials are public-facing authorities in a local incident.",
+        "layer": "influence",
+        "reason": "Official briefings and statements shape media agenda.",
+        "source_actor_name": "county_officials",
+        "target_actor_name": "local_media",
+        "weight": 0.47
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Local incidents often expand through news coverage.",
+        "layer": "influence",
+        "reason": "Media can elevate salience countywide.",
+        "source_actor_name": "local_media",
+        "target_actor_name": "general_county_residents",
+        "weight": 0.59
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Parents share rumors.",
+        "layer": "influence",
+        "reason": "Peer circulation strongly shapes parent risk perception under uncertainty.",
+        "source_actor_name": "rumor_networks",
+        "target_actor_name": "parents_community",
+        "weight": 0.63
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Doctors want clear guidance, implying communicative role with families.",
+        "layer": "influence",
+        "reason": "Clinical voices can materially affect perceived credibility of warnings or reassurance.",
+        "source_actor_name": "local_clinicians",
+        "target_actor_name": "parents_community",
+        "weight": 0.52
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Officials must avoid overclaiming; health office is primary source.",
+        "layer": "coalition",
+        "reason": "Shared interest in measured communication and risk management.",
+        "source_actor_name": "county_health_office",
+        "target_actor_name": "county_officials",
+        "weight": 0.62
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Doctors want clear guidance while confirmation is pending.",
+        "layer": "coalition",
+        "reason": "Both favor evidence-based guidance, though clarity tensions exist.",
+        "source_actor_name": "county_health_office",
+        "target_actor_name": "local_clinicians",
+        "weight": 0.48
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Pool staff fear reputational harm.",
+        "layer": "coalition",
+        "reason": "Shared interest in protecting jobs and facility reputation.",
+        "source_actor_name": "public_pool_operator",
+        "target_actor_name": "pool_staff",
+        "weight": 0.57
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Parents share rumors.",
+        "layer": "coalition",
+        "reason": "Informal alignment around rapid peer warning behavior.",
+        "source_actor_name": "parents_community",
+        "target_actor_name": "rumor_networks",
+        "weight": 0.44
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Possible link to public pool and reputational concern.",
+        "layer": "conflict",
+        "reason": "Parents may suspect the pool while operator fears blame.",
+        "source_actor_name": "parents_community",
+        "target_actor_name": "public_pool_operator",
+        "weight": 0.41
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Need for rumor correction under uncertainty.",
+        "layer": "conflict",
+        "reason": "Official caution conflicts with unverified rumor spread.",
+        "source_actor_name": "county_health_office",
+        "target_actor_name": "rumor_networks",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Doctors want clear guidance while confirmation is pending.",
+        "layer": "conflict",
+        "reason": "Some tension exists if guidance remains too vague.",
+        "source_actor_name": "local_clinicians",
+        "target_actor_name": "county_health_office",
+        "weight": 0.28
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Pool staff fear reputational harm.",
+        "layer": "conflict",
+        "reason": "Operator may view coverage as reputationally damaging if facts are unsettled.",
+        "source_actor_name": "public_pool_operator",
+        "target_actor_name": "local_media",
+        "weight": 0.34
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Official public announcement is already made.",
+        "layer": "oasis_interaction",
+        "reason": "Press updates are likely a major interaction channel.",
+        "source_actor_name": "county_health_office",
+        "target_actor_name": "local_media",
+        "weight": 0.61
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Parents seek information amid rumors.",
+        "layer": "oasis_interaction",
+        "reason": "Parents are likely to monitor and react to official updates.",
+        "source_actor_name": "county_health_office",
+        "target_actor_name": "parents_community",
+        "weight": 0.48
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Doctors want clear guidance.",
+        "layer": "oasis_interaction",
+        "reason": "Professional inquiries and guidance exchanges are likely.",
+        "source_actor_name": "local_clinicians",
+        "target_actor_name": "county_health_office",
+        "weight": 0.44
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Rumor and concern are publicly circulating.",
+        "layer": "oasis_interaction",
+        "reason": "Parents may comment on or share media updates in public channels.",
+        "source_actor_name": "parents_community",
+        "target_actor_name": "local_media",
+        "weight": 0.52
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Possible link to pool requires coordination.",
+        "layer": "oasis_interaction",
+        "reason": "Operator likely interacts with health office around procedures and statements.",
+        "source_actor_name": "public_pool_operator",
+        "target_actor_name": "county_health_office",
+        "weight": 0.39
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "name": "public_health_spokesperson",
+        "role": "named_or_primary_voice_for_health_office"
+      },
+      {
+        "name": "county_executive_spokesperson",
+        "role": "countywide_public_authority_voice"
+      },
+      {
+        "name": "pool_manager",
+        "role": "visible_pool_decision_maker"
+      },
+      {
+        "name": "lead_clinician_liaison",
+        "role": "clinical_guidance_intermediary"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "county_health_office",
+        "attention_level": 0.84,
+        "communication_skill": 0.64,
+        "credibility": 0.59,
+        "current_posture": "cautious_transparency",
+        "decision_power": 0.62,
+        "expression_level": 0.71,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.08,
+        "mobilization_readiness": 0.56,
+        "name": "public_health_spokesperson",
+        "perceived_majority": 0.57,
+        "public_visibility": 0.78,
+        "stance_axes": {
+          "certainty_claiming": 0.22,
+          "precaution_bias": 0.61,
+          "rumor_correction_priority": 0.74
+        }
+      },
+      {
+        "actor_name": "county_officials",
+        "attention_level": 0.63,
+        "communication_skill": 0.57,
+        "credibility": 0.5,
+        "current_posture": "supportive_but_risk_averse",
+        "decision_power": 0.58,
+        "expression_level": 0.52,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.39,
+        "name": "county_executive_spokesperson",
+        "perceived_majority": 0.51,
+        "public_visibility": 0.67,
+        "stance_axes": {
+          "certainty_claiming": 0.28,
+          "precaution_bias": 0.49,
+          "rumor_correction_priority": 0.52
+        }
+      },
+      {
+        "actor_name": "public_pool_operator",
+        "attention_level": 0.81,
+        "communication_skill": 0.46,
+        "credibility": 0.45,
+        "current_posture": "defensive_compliance",
+        "decision_power": 0.49,
+        "expression_level": 0.41,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.31,
+        "mobilization_readiness": 0.34,
+        "name": "pool_manager",
+        "perceived_majority": 0.43,
+        "public_visibility": 0.54,
+        "stance_axes": {
+          "certainty_claiming": 0.34,
+          "precaution_bias": 0.44,
+          "reputation_protection": 0.81
+        }
+      },
+      {
+        "actor_name": "local_clinicians",
+        "attention_level": 0.69,
+        "communication_skill": 0.62,
+        "credibility": 0.68,
+        "current_posture": "evidence_seeking",
+        "decision_power": 0.31,
+        "expression_level": 0.36,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.1,
+        "mobilization_readiness": 0.28,
+        "name": "lead_clinician_liaison",
+        "perceived_majority": 0.64,
+        "public_visibility": 0.38,
+        "stance_axes": {
+          "certainty_claiming": 0.2,
+          "guidance_demand": 0.83,
+          "precaution_bias": 0.58
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "name": "public_health_spokesperson",
+        "role": "named_or_primary_voice_for_health_office"
+      },
+      {
+        "name": "county_executive_spokesperson",
+        "role": "countywide_public_authority_voice"
+      },
+      {
+        "name": "pool_manager",
+        "role": "visible_pool_decision_maker"
+      },
+      {
+        "name": "lead_clinician_liaison",
+        "role": "clinical_guidance_intermediary"
+      }
+    ],
+    "important_questions": [
+      "Will the suspected link between the illness cluster and the public pool be publicly confirmed within the scenario horizon?",
+      "Will county health messaging preserve moderate public trust despite uncertainty and rumor spread?",
+      "Will the pool operator take a visible operational action such as closure or major precaution before definitive confirmation?",
+      "Will informal rumor networks become the dominant source of practical guidance for parents over official channels?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "county_health_office",
+          "parents_community",
+          "local_media",
+          "local_clinicians"
+        ],
+        "event_key": "health_office_announces_possible_cluster",
+        "event_type": "announcement",
+        "expected_impact": "Raises attention, activates precaution discussions, and creates a trust test around uncertainty framing.",
+        "summary": "County health office announces a cluster of stomach illness cases possibly linked to a public pool, with confirmation pending.",
+        "tick": 0,
+        "visibility": "public"
+      },
+      {
+        "actors": [
+          "parents_community",
+          "rumor_networks"
+        ],
+        "event_key": "parent_rumor_spread_accelerates",
+        "event_type": "announcement",
+        "expected_impact": "Increases exposure and fear faster than official correction capacity, potentially widening perceived certainty before evidence exists.",
+        "summary": "Parents begin sharing rumors and informal warnings across peer networks.",
+        "tick": 0,
+        "visibility": "semi_public"
+      },
+      {
+        "actors": [
+          "pool_staff",
+          "public_pool_operator"
+        ],
+        "event_key": "pool_staff_internal_concern",
+        "event_type": "announcement",
+        "expected_impact": "Suppresses public expression by staff but heightens defensiveness and dependency on operator messaging.",
+        "summary": "Pool staff discuss possible blame and reputational fallout while awaiting management direction.",
+        "tick": 0,
+        "visibility": "internal"
+      },
+      {
+        "actors": [
+          "local_clinicians",
+          "county_health_office"
+        ],
+        "event_key": "clinicians_request_guidance",
+        "event_type": "announcement",
+        "expected_impact": "May pressure officials to clarify guidance, improving coordination or exposing ambiguity.",
+        "summary": "Clinicians seek case definitions, testing advice, and patient communication language from the health office.",
+        "tick": 1,
+        "visibility": "professional"
+      },
+      {
+        "actors": [
+          "local_labs",
+          "county_health_office"
+        ],
+        "event_key": "lab_results_pending_window",
+        "event_type": "announcement",
+        "expected_impact": "Sustains uncertainty and gives rumors and speculation time to diverge from official caution.",
+        "summary": "Lab processing period becomes the key bottleneck for stronger public claims.",
+        "tick": 2,
+        "visibility": "institutional"
+      },
+      {
+        "actors": [
+          "county_health_office",
+          "county_officials",
+          "local_media"
+        ],
+        "event_key": "followup_public_update_expected",
+        "event_type": "announcement",
+        "expected_impact": "Can either stabilize trust through transparent uncertainty or weaken trust if messaging appears evasive.",
+        "summary": "A follow-up public update is expected even if confirmation remains incomplete.",
+        "tick": 2,
+        "visibility": "public"
+      }
+    ],
+    "llm_call_id": "51a1491e-9938-408a-8b68-40b4d3f3bbd1",
+    "merge_hypotheses": [
+      {
+        "basis": "All sides benefit from specific, evidence-matched guidance once enough information is available.",
+        "converging_actors": [
+          "county_health_office",
+          "county_officials",
+          "local_clinicians",
+          "parents_community"
+        ],
+        "evidence": "Doctors want clear guidance and officials must avoid overclaiming.",
+        "merge_key": "shared_need_for_credible_clarity"
+      },
+      {
+        "basis": "Even actors with different incentives may align around correcting false claims if the pool link weakens.",
+        "converging_actors": [
+          "county_health_office",
+          "public_pool_operator",
+          "pool_staff",
+          "local_media"
+        ],
+        "evidence": "Pool staff fear reputational harm and officials are managing unconfirmed linkage.",
+        "merge_key": "common_interest_in_reducing_unverified_harm"
+      },
+      {
+        "basis": "If no decisive new evidence arrives, attention may soften and narratives may consolidate around a lower-intensity equilibrium.",
+        "converging_actors": [
+          "parents_community",
+          "general_county_residents",
+          "local_media"
+        ],
+        "evidence": "Uncertainty is pending and wider public attention is not yet maximal.",
+        "merge_key": "fatigue_after_uncertainty_window"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "description": "Residents responsible for children and family recreational decisions.",
+        "name": "county_parents_and_caregivers",
+        "population_total": 18000
+      },
+      {
+        "description": "Workers employed at or directly serving the public pool.",
+        "name": "pool_employees",
+        "population_total": 35
+      },
+      {
+        "description": "Clinicians and related office staff exposed to patient questions.",
+        "name": "county_clinical_workers",
+        "population_total": 420
+      },
+      {
+        "description": "Broader public not directly centered in caregiving or pool operations.",
+        "name": "general_county_residents",
+        "population_total": 95000
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "evidence_gap_lab_pending",
+        "note": "Central causal claim remains unconfirmed at initialization; later agents should avoid assuming the pool is the source.",
+        "severity": "medium"
+      },
+      {
+        "flag": "trust_fragility_under_reversal",
+        "note": "A later correction could be interpreted as competence or inconsistency depending on communication quality.",
+        "severity": "medium"
+      },
+      {
+        "flag": "rumor_amplification_asymmetric",
+        "note": "Informal warnings can spread faster than technical clarification, creating temporary belief lock-in.",
+        "severity": "medium"
+      },
+      {
+        "flag": "reputation_defense_may_distort_signals",
+        "note": "Pool-related defensiveness could be mistaken by observers as evidence of guilt even when uncertainty remains.",
+        "severity": "low"
+      },
+      {
+        "flag": "scenario_scale_partially_inferred",
+        "note": "Population counts and some channel assumptions are estimated from a generic fictional county context due limited corpus detail.",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "case_id": "health_001",
+      "domain": "public_health_resource",
+      "mode": "direct",
+      "scope": "fictional_county_public_health_incident",
+      "summary": "A fictional county health office has announced a cluster of stomach illness cases possibly linked to a public pool, with lab confirmation still pending. Parents are sharing rumors, pool staff fear reputational harm, clinicians want clear guidance, and county officials are trying to communicate uncertainty without overclaiming. T0 should preserve uncertainty and multiple credible paths including confirmation, false alarm, or delayed correction.",
+      "temperature": "elevated_but_not_peak_crisis",
+      "time_horizon_ticks": 6,
+      "title": "possible_pool_linked_stomach_illness_cluster",
+      "uncertainty_notes": [
+        "Lab confirmation is pending at T0.",
+        "The public pool link is plausible but not established.",
+        "Rumors may outrun official guidance.",
+        "Institutional trust is relevant but not yet collapsed."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "parents_community",
+          "general_county_residents"
+        ],
+        "evidence": "People are more likely to accept messages that fit prior caution or skepticism about local safety incidents.",
+        "level": 0.63,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "parents_community"
+        ],
+        "evidence": "Additional anecdotal cases or vivid posts could move more parents from observation to active warning behavior.",
+        "level": 0.52,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "pool_staff",
+          "general_county_residents"
+        ],
+        "evidence": "Some concerned individuals may stay quiet due to low certainty or job dependence.",
+        "level": 0.46,
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "parents_community",
+          "local_clinicians"
+        ],
+        "evidence": "Parent-to-parent and clinician-to-clinician sharing likely clusters by familiar networks.",
+        "level": 0.66,
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "parents_community",
+          "general_county_residents"
+        ],
+        "evidence": "Repeated exposure through peers and media may be needed before broader behavioral changes occur.",
+        "level": 0.58,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "pool_staff",
+          "parents_community",
+          "local_clinicians"
+        ],
+        "evidence": "Role identities shape interpretation: caregiver protection, professional caution, and staff reputation defense.",
+        "level": 0.61,
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "general_county_residents"
+        ],
+        "evidence": "Without confirming evidence or new developments, wider public attention may fade.",
+        "level": 0.34,
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context_key": "institutional_trust_sensitivity",
+        "description": "Official credibility depends on acknowledging uncertainty while still appearing competent and responsive."
+      },
+      {
+        "context_key": "rumor_speed_advantage",
+        "description": "Informal parent networks can spread warnings faster than formal channels, especially before lab results."
+      },
+      {
+        "context_key": "reputational_defensiveness",
+        "description": "Pool-related actors have incentives to resist premature blame, shaping communication tone."
+      },
+      {
+        "context_key": "clinical_guidance_gap",
+        "description": "Ambiguous official language can create secondary uncertainty as clinicians improvise patient advice."
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "county_health_office",
+        "behavior_axes": {
+          "bureaucratic_rigidity": 0.46,
+          "caution": 0.78,
+          "responsiveness": 0.63
+        },
+        "ideology_axes": {
+          "institutional_process": 0.81,
+          "public_reassurance": 0.58
+        },
+        "reputation": 0.62,
+        "secrecy": 0.31,
+        "tendency": "careful_nonfinal_public_guidance",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "county_officials",
+        "behavior_axes": {
+          "caution": 0.69,
+          "political_risk_aversion": 0.71,
+          "responsiveness": 0.52
+        },
+        "ideology_axes": {
+          "institutional_stability": 0.77,
+          "public_reassurance": 0.66
+        },
+        "reputation": 0.54,
+        "secrecy": 0.38,
+        "tendency": "avoid_overcommitment_while_supporting_process",
+        "trustworthiness": 0.52
+      },
+      {
+        "actor_name": "public_pool_operator",
+        "behavior_axes": {
+          "caution": 0.55,
+          "defensiveness": 0.74,
+          "responsiveness": 0.48
+        },
+        "ideology_axes": {
+          "business_continuity": 0.8,
+          "public_safety": 0.59
+        },
+        "reputation": 0.5,
+        "secrecy": 0.44,
+        "tendency": "protect_facility_reputation_while_complying",
+        "trustworthiness": 0.47
+      },
+      {
+        "actor_name": "pool_staff",
+        "behavior_axes": {
+          "caution": 0.62,
+          "defensiveness": 0.68,
+          "responsiveness": 0.43
+        },
+        "ideology_axes": {
+          "job_security": 0.83,
+          "public_safety": 0.61
+        },
+        "reputation": 0.46,
+        "secrecy": 0.41,
+        "tendency": "low_public_expression_high_private_concern",
+        "trustworthiness": 0.53
+      },
+      {
+        "actor_name": "parents_community",
+        "behavior_axes": {
+          "caution": 0.67,
+          "responsiveness": 0.78,
+          "rumor_susceptibility": 0.55
+        },
+        "ideology_axes": {
+          "child_safety": 0.91,
+          "institutional_deference": 0.46
+        },
+        "reputation": 0.55,
+        "secrecy": 0.18,
+        "tendency": "rapid_peer_sharing_under_uncertainty",
+        "trustworthiness": 0.49
+      },
+      {
+        "actor_name": "local_clinicians",
+        "behavior_axes": {
+          "caution": 0.73,
+          "evidence_demand": 0.87,
+          "responsiveness": 0.57
+        },
+        "ideology_axes": {
+          "clinical_accuracy": 0.9,
+          "public_guidance_duty": 0.7
+        },
+        "reputation": 0.74,
+        "secrecy": 0.22,
+        "tendency": "seek_specific_guidance_before_strong_public_claims",
+        "trustworthiness": 0.72
+      },
+      {
+        "actor_name": "local_labs",
+        "behavior_axes": {
+          "caution": 0.82,
+          "responsiveness": 0.51,
+          "technical_precision": 0.91
+        },
+        "ideology_axes": {
+          "methodological_rigor": 0.93,
+          "public_visibility_avoidance": 0.72
+        },
+        "reputation": 0.71,
+        "secrecy": 0.29,
+        "tendency": "high_gatekeeping_on_confirmation",
+        "trustworthiness": 0.76
+      },
+      {
+        "actor_name": "local_media",
+        "behavior_axes": {
+          "amplification": 0.74,
+          "caution": 0.43,
+          "responsiveness": 0.81
+        },
+        "ideology_axes": {
+          "attention_competition": 0.66,
+          "public_information": 0.7
+        },
+        "reputation": 0.5,
+        "secrecy": 0.1,
+        "tendency": "highlight_updates_and_conflict_signals",
+        "trustworthiness": 0.48
+      },
+      {
+        "actor_name": "rumor_networks",
+        "behavior_axes": {
+          "amplification": 0.88,
+          "caution": 0.19,
+          "responsiveness": 0.92
+        },
+        "ideology_axes": {
+          "informality": 0.94,
+          "peer_protection": 0.61
+        },
+        "reputation": 0.39,
+        "secrecy": 0.12,
+        "tendency": "fast_low_verification_information_spread",
+        "trustworthiness": 0.32
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 551,
+        "end": 551,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 551,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

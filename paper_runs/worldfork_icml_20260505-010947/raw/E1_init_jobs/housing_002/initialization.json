@@ -1,0 +1,1657 @@
+{
+  "big_bang_id": "48f6b985-b41e-4e1f-8700-c64fe039f082",
+  "initializer_output": {
+    "actors": [
+      {
+        "actor_type": "institution",
+        "decision_authority": "high",
+        "fictionalized": true,
+        "name": "city_housing_department",
+        "role": "administers emergency-housing program and lease decisions",
+        "stakes": [
+          "rapid shelter provision",
+          "legal defensibility",
+          "budget control",
+          "public legitimacy"
+        ]
+      },
+      {
+        "actor_type": "organization",
+        "decision_authority": "medium",
+        "fictionalized": true,
+        "name": "hotel_operator",
+        "role": "operates leased hotel site",
+        "stakes": [
+          "lease revenue",
+          "operational stability",
+          "brand reputation",
+          "staff retention"
+        ]
+      },
+      {
+        "actor_type": "group",
+        "decision_authority": "low",
+        "fictionalized": true,
+        "name": "displaced_families",
+        "role": "fire-displaced families needing temporary shelter",
+        "stakes": [
+          "safe immediate housing",
+          "service access",
+          "stability for children",
+          "avoidance of repeated moves"
+        ]
+      },
+      {
+        "actor_type": "group",
+        "decision_authority": "medium",
+        "fictionalized": true,
+        "name": "nearby_residents_group",
+        "role": "local residents opposing or questioning hotel use",
+        "stakes": [
+          "perceived neighborhood safety",
+          "property and quality-of-life concerns",
+          "local procedural voice"
+        ]
+      },
+      {
+        "actor_type": "organization",
+        "decision_authority": "medium",
+        "fictionalized": true,
+        "name": "service_provider_coalition",
+        "role": "nonprofit and emergency service providers supporting urgent housing need",
+        "stakes": [
+          "client placement continuity",
+          "service access",
+          "program capacity",
+          "public support"
+        ]
+      },
+      {
+        "actor_type": "group",
+        "decision_authority": "low",
+        "fictionalized": true,
+        "name": "hotel_workers",
+        "role": "employees affected by changed hotel operations",
+        "stakes": [
+          "job security",
+          "workload clarity",
+          "workplace safety",
+          "schedule stability"
+        ]
+      },
+      {
+        "actor_type": "institution",
+        "decision_authority": "medium",
+        "fictionalized": true,
+        "name": "city_legal_office",
+        "role": "defends city actions and lease/zoning posture",
+        "stakes": [
+          "avoiding injunction",
+          "maintaining emergency authority",
+          "limiting liability"
+        ]
+      },
+      {
+        "actor_type": "organization",
+        "decision_authority": "medium",
+        "fictionalized": true,
+        "name": "zoning_objectors_counsel",
+        "role": "legal representation for zoning challengers",
+        "stakes": [
+          "injunctive relief",
+          "procedural compliance",
+          "client responsiveness"
+        ]
+      },
+      {
+        "actor_type": "institution",
+        "decision_authority": "high",
+        "fictionalized": true,
+        "name": "municipal_court",
+        "role": "potential reviewer of zoning objections",
+        "stakes": [
+          "procedural fairness",
+          "lawful emergency action"
+        ]
+      },
+      {
+        "actor_type": "institution",
+        "decision_authority": "high",
+        "fictionalized": true,
+        "name": "city_executive",
+        "role": "mayor or city manager setting political direction",
+        "stakes": [
+          "visible crisis response",
+          "coalition management",
+          "avoidance of political backlash"
+        ]
+      },
+      {
+        "actor_type": "organization",
+        "decision_authority": "medium",
+        "fictionalized": true,
+        "name": "local_media",
+        "role": "reports conflict and shapes public salience",
+        "stakes": [
+          "newsworthiness",
+          "public accountability"
+        ]
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "resident ambivalents move into active opposition, political pressure for relocation or injunction rises",
+        "branch_key": "incident_or_rumor_escalation",
+        "divergence_signal": "sharp increase in resident meeting turnout, complaint volume, and media safety framing",
+        "trigger": "widely shared report of a safety incident, whether verified or not"
+      },
+      {
+        "alternate_path": "city shifts from defending continuity toward contingency relocation planning",
+        "branch_key": "procedural_setback_in_court",
+        "divergence_signal": "city legal messaging becomes cautious and hotel continuity language weakens",
+        "trigger": "court signals likely procedural defect or grants temporary relief"
+      },
+      {
+        "alternate_path": "conditional neighborhood opposition softens enough for lease continuation",
+        "branch_key": "service_stabilization_success",
+        "divergence_signal": "resident complaints plateau while provider and city messaging emphasizes improved operations",
+        "trigger": "city and providers add visible management, security, or family support measures without major disruptions"
+      },
+      {
+        "alternate_path": "operator seeks contract changes or city explores substitute sites",
+        "branch_key": "labor_strain_disrupts_operations",
+        "divergence_signal": "staffing shortages, schedule disruptions, or operator warnings become publicly visible",
+        "trigger": "worker attrition, absenteeism, or public labor complaint over changed duties"
+      },
+      {
+        "alternate_path": "pressure shifts from relocation toward service expansion or broader emergency exemption",
+        "branch_key": "capacity_shortage_elsewhere",
+        "divergence_signal": "official statements stress no substitute capacity and providers call for expanded emergency accommodations",
+        "trigger": "new displacement demand or lack of alternative shelter inventory becomes salient"
+      }
+    ],
+    "channels": [
+      {
+        "actors": [
+          "city_housing_department",
+          "city_executive",
+          "local_media"
+        ],
+        "channel_key": "city_press_briefings",
+        "type": "public_official"
+      },
+      {
+        "actors": [
+          "nearby_residents_group",
+          "city_housing_department",
+          "city_executive"
+        ],
+        "channel_key": "resident_meetings",
+        "type": "community_forum"
+      },
+      {
+        "actors": [
+          "zoning_objectors_counsel",
+          "city_legal_office",
+          "municipal_court"
+        ],
+        "channel_key": "court_filings",
+        "type": "formal_legal"
+      },
+      {
+        "actors": [
+          "service_provider_coalition",
+          "city_housing_department"
+        ],
+        "channel_key": "provider_coordination_calls",
+        "type": "operational"
+      },
+      {
+        "actors": [
+          "hotel_operator",
+          "hotel_workers"
+        ],
+        "channel_key": "hotel_staff_updates",
+        "type": "internal_operational"
+      },
+      {
+        "actors": [
+          "local_media",
+          "nearby_residents_group",
+          "service_provider_coalition",
+          "city_housing_department"
+        ],
+        "channel_key": "local_news_coverage",
+        "type": "mass_media"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "displaced_families",
+        "archetype_key": "displaced_households",
+        "attention_level": 0.95,
+        "cohort_key": "sheltered_displaced_families",
+        "expression_level": 0.3,
+        "fatigue": 0.72,
+        "fear_of_isolation": 0.61,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.78,
+        "private_belief": "hotel-based shelter is preferable to instability or repeated relocation",
+        "public_expression": "limited direct public voice; needs often represented by providers or city officials",
+        "representation_mode": "direct_group_proxy",
+        "represented_population": 140,
+        "stance_axes": {
+          "continue_lease": 0.84,
+          "injunction": 0.05,
+          "relocation": 0.28,
+          "service_expansion": 0.82
+        }
+      },
+      {
+        "actor_name": "nearby_residents_group",
+        "archetype_key": "nearby_residential_public",
+        "attention_level": 0.86,
+        "cohort_key": "resident_opponents",
+        "expression_level": 0.74,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.24,
+        "mobilization_readiness": 0.68,
+        "perceived_majority": 0.58,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "hotel shelter use raises safety and neighborhood management concerns",
+        "public_expression": "complaints, meetings, possible legal support",
+        "representation_mode": "organized_subset",
+        "represented_population": 720,
+        "stance_axes": {
+          "continue_lease": 0.18,
+          "injunction": 0.62,
+          "relocation": 0.76,
+          "service_expansion": 0.12
+        }
+      },
+      {
+        "actor_name": "nearby_residents_group",
+        "archetype_key": "nearby_residential_public",
+        "attention_level": 0.49,
+        "cohort_key": "resident_ambivalents",
+        "expression_level": 0.21,
+        "fatigue": 0.16,
+        "fear_of_isolation": 0.49,
+        "mobilization_readiness": 0.26,
+        "perceived_majority": 0.43,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "mixed sympathy for displaced families and worry about neighborhood effects",
+        "public_expression": "mostly quiet unless incidents, hearings, or media coverage increase salience",
+        "representation_mode": "inferred_local_majority",
+        "represented_population": 1080,
+        "stance_axes": {
+          "continue_lease": 0.46,
+          "injunction": 0.27,
+          "relocation": 0.48,
+          "service_expansion": 0.33
+        }
+      },
+      {
+        "actor_name": "nearby_residents_group",
+        "archetype_key": "nearby_residential_public",
+        "attention_level": 0.42,
+        "cohort_key": "resident_supporters",
+        "expression_level": 0.25,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.63,
+        "mobilization_readiness": 0.24,
+        "perceived_majority": 0.26,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "emergency shelter use is justified if managed well",
+        "public_expression": "muted support, often conditional on safety and service staffing",
+        "representation_mode": "sympathetic_minority",
+        "represented_population": 600,
+        "stance_axes": {
+          "continue_lease": 0.68,
+          "injunction": 0.08,
+          "relocation": 0.24,
+          "service_expansion": 0.57
+        }
+      },
+      {
+        "actor_name": "hotel_workers",
+        "archetype_key": "hotel_labor_force",
+        "attention_level": 0.77,
+        "cohort_key": "frontline_hotel_workers",
+        "expression_level": 0.27,
+        "fatigue": 0.51,
+        "fear_of_isolation": 0.58,
+        "mobilization_readiness": 0.31,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.71,
+        "private_belief": "job changes may bring extra workload and unclear expectations but closure risk is also concerning",
+        "public_expression": "cautious, often internal rather than public due to employer dependency",
+        "representation_mode": "direct_group_proxy",
+        "represented_population": 50,
+        "stance_axes": {
+          "continue_lease": 0.51,
+          "injunction": 0.21,
+          "relocation": 0.39,
+          "service_expansion": 0.44
+        }
+      },
+      {
+        "actor_name": "local_media",
+        "archetype_key": "citywide_observers",
+        "attention_level": 0.24,
+        "cohort_key": "citywide_low_info_public",
+        "expression_level": 0.12,
+        "fatigue": 0.05,
+        "fear_of_isolation": 0.31,
+        "mobilization_readiness": 0.11,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "issue is secondary unless framed as safety failure, legal overreach, or humanitarian necessity",
+        "public_expression": "sporadic commentary and passive opinion shifts",
+        "representation_mode": "broad_public_estimate",
+        "represented_population": 120000,
+        "stance_axes": {
+          "continue_lease": 0.49,
+          "injunction": 0.19,
+          "relocation": 0.37,
+          "service_expansion": 0.41
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "displaced_families",
+        "archetype_key": "displaced_households",
+        "attention_level": 0.95,
+        "cohort_key": "sheltered_displaced_families",
+        "expression_level": 0.3,
+        "fatigue": 0.72,
+        "fear_of_isolation": 0.61,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.78,
+        "private_belief": "hotel-based shelter is preferable to instability or repeated relocation",
+        "public_expression": "limited direct public voice; needs often represented by providers or city officials",
+        "representation_mode": "direct_group_proxy",
+        "represented_population": 140,
+        "stance_axes": {
+          "continue_lease": 0.84,
+          "injunction": 0.05,
+          "relocation": 0.28,
+          "service_expansion": 0.82
+        }
+      },
+      {
+        "actor_name": "nearby_residents_group",
+        "archetype_key": "nearby_residential_public",
+        "attention_level": 0.86,
+        "cohort_key": "resident_opponents",
+        "expression_level": 0.74,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.24,
+        "mobilization_readiness": 0.68,
+        "perceived_majority": 0.58,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "hotel shelter use raises safety and neighborhood management concerns",
+        "public_expression": "complaints, meetings, possible legal support",
+        "representation_mode": "organized_subset",
+        "represented_population": 720,
+        "stance_axes": {
+          "continue_lease": 0.18,
+          "injunction": 0.62,
+          "relocation": 0.76,
+          "service_expansion": 0.12
+        }
+      },
+      {
+        "actor_name": "nearby_residents_group",
+        "archetype_key": "nearby_residential_public",
+        "attention_level": 0.49,
+        "cohort_key": "resident_ambivalents",
+        "expression_level": 0.21,
+        "fatigue": 0.16,
+        "fear_of_isolation": 0.49,
+        "mobilization_readiness": 0.26,
+        "perceived_majority": 0.43,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "mixed sympathy for displaced families and worry about neighborhood effects",
+        "public_expression": "mostly quiet unless incidents, hearings, or media coverage increase salience",
+        "representation_mode": "inferred_local_majority",
+        "represented_population": 1080,
+        "stance_axes": {
+          "continue_lease": 0.46,
+          "injunction": 0.27,
+          "relocation": 0.48,
+          "service_expansion": 0.33
+        }
+      },
+      {
+        "actor_name": "nearby_residents_group",
+        "archetype_key": "nearby_residential_public",
+        "attention_level": 0.42,
+        "cohort_key": "resident_supporters",
+        "expression_level": 0.25,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.63,
+        "mobilization_readiness": 0.24,
+        "perceived_majority": 0.26,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "emergency shelter use is justified if managed well",
+        "public_expression": "muted support, often conditional on safety and service staffing",
+        "representation_mode": "sympathetic_minority",
+        "represented_population": 600,
+        "stance_axes": {
+          "continue_lease": 0.68,
+          "injunction": 0.08,
+          "relocation": 0.24,
+          "service_expansion": 0.57
+        }
+      },
+      {
+        "actor_name": "hotel_workers",
+        "archetype_key": "hotel_labor_force",
+        "attention_level": 0.77,
+        "cohort_key": "frontline_hotel_workers",
+        "expression_level": 0.27,
+        "fatigue": 0.51,
+        "fear_of_isolation": 0.58,
+        "mobilization_readiness": 0.31,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.71,
+        "private_belief": "job changes may bring extra workload and unclear expectations but closure risk is also concerning",
+        "public_expression": "cautious, often internal rather than public due to employer dependency",
+        "representation_mode": "direct_group_proxy",
+        "represented_population": 50,
+        "stance_axes": {
+          "continue_lease": 0.51,
+          "injunction": 0.21,
+          "relocation": 0.39,
+          "service_expansion": 0.44
+        }
+      },
+      {
+        "actor_name": "local_media",
+        "archetype_key": "citywide_observers",
+        "attention_level": 0.24,
+        "cohort_key": "citywide_low_info_public",
+        "expression_level": 0.12,
+        "fatigue": 0.05,
+        "fear_of_isolation": 0.31,
+        "mobilization_readiness": 0.11,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "issue is secondary unless framed as safety failure, legal overreach, or humanitarian necessity",
+        "public_expression": "sporadic commentary and passive opinion shifts",
+        "representation_mode": "broad_public_estimate",
+        "represented_population": 120000,
+        "stance_axes": {
+          "continue_lease": 0.49,
+          "injunction": 0.19,
+          "relocation": 0.37,
+          "service_expansion": 0.41
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "city_housing_department",
+          "city_executive",
+          "hotel_operator"
+        ],
+        "blockers": [
+          "injunction risk",
+          "escalating resident opposition",
+          "operator or labor instability",
+          "lack of political cover"
+        ],
+        "contradiction_notes": "Continuation can coexist with service changes; it is contradicted only by site exit or binding halt.",
+        "description": "The city maintains the hotel as an active emergency shelter site for displaced families through the dispute period without being forced to vacate the site.",
+        "endpoint_key": "continued_lease",
+        "evidence_refs": [
+          "hotel_leased_for_emergency_family_shelter",
+          "providers_publicly_emphasize_urgency"
+        ],
+        "label": "continued hotel lease",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the city continue using the current hotel lease as the primary emergency shelter site beyond the initial dispute period?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.38,
+        "rationale": "Current dependency structure and lack of named alternative capacity make continuity a strong live option.",
+        "realization_criteria": [
+          "city_housing_department publicly confirms lease continuation or renewal",
+          "displaced_families remain housed at the hotel through a later review point",
+          "no binding court order requires cessation of current site use"
+        ],
+        "status": "active",
+        "status_basis": "Corpus explicitly frames continued lease as one endpoint and shows active need supporting continuity at T0."
+      },
+      {
+        "authority_refs": [
+          "city_housing_department",
+          "city_executive",
+          "hotel_operator",
+          "municipal_court"
+        ],
+        "blockers": [
+          "limited substitute capacity",
+          "cost and logistical switching burdens",
+          "provider resistance if alternative is inferior"
+        ],
+        "contradiction_notes": "Relocation differs from injunction because it can be voluntary, negotiated, or precautionary.",
+        "description": "Families are moved from the leased hotel to another shelter arrangement or site, whether planned or forced.",
+        "endpoint_key": "relocation_to_alternate_site",
+        "evidence_refs": [
+          "resident_safety_complaints_surface",
+          "zoning_objection_moves_toward_review"
+        ],
+        "label": "relocation of families",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will displaced families be moved from the hotel to another site because of political, legal, or operational pressure?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.27,
+        "rationale": "Resident pressure and legal uncertainty create a path to site substitution if costs become politically tolerable.",
+        "realization_criteria": [
+          "city_housing_department announces closure of current hotel placement for this population",
+          "material share of displaced_families is reassigned to another site",
+          "hotel_operator ceases serving as emergency shelter location for the program"
+        ],
+        "status": "active",
+        "status_basis": "Relocation is explicitly named in scenario endpoint set and is plausible under legal or political strain."
+      },
+      {
+        "authority_refs": [
+          "municipal_court",
+          "city_legal_office",
+          "zoning_objectors_counsel"
+        ],
+        "blockers": [
+          "judicial deference during emergency",
+          "city legal defenses",
+          "fact-specific zoning or emergency authority exceptions"
+        ],
+        "contradiction_notes": "A mere hearing, audit, or delay is not realization unless it creates binding restriction on current use.",
+        "description": "A court or similar legal authority halts, suspends, or materially restricts use of the hotel for the emergency-housing program.",
+        "endpoint_key": "injunction_or_binding_restriction",
+        "evidence_refs": [
+          "zoning_objection_moves_toward_review"
+        ],
+        "label": "injunction or binding legal restriction",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will a court or comparable legal process halt or materially restrict the current hotel-based housing arrangement?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.19,
+        "rationale": "Legal process is a major uncertainty lever but not yet realized at T0.",
+        "realization_criteria": [
+          "municipal_court issues injunction, stay, or equivalent binding order against current use",
+          "city_housing_department materially changes or pauses hotel use in direct response to binding legal order",
+          "court record establishes zoning objection success sufficient to block current arrangement"
+        ],
+        "status": "active",
+        "status_basis": "Scenario specifically notes courts may review zoning objections, preserving a live legal endpoint."
+      },
+      {
+        "authority_refs": [
+          "city_housing_department",
+          "city_executive",
+          "service_provider_coalition",
+          "hotel_operator"
+        ],
+        "blockers": [
+          "budget limits",
+          "political resistance to perceived program entrenchment",
+          "operator constraints",
+          "legal uncertainty"
+        ],
+        "contradiction_notes": "Expansion can coexist with continued lease and is not negated by temporary criticism alone.",
+        "description": "The city and partners add meaningful onsite services, staffing, or management capacity to stabilize the hotel-based shelter model.",
+        "endpoint_key": "service_expansion_at_current_site",
+        "evidence_refs": [
+          "providers_publicly_emphasize_urgency",
+          "city_considers_service_adjustments"
+        ],
+        "label": "service expansion at current site",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the city add meaningful onsite services or management capacity rather than only defending the status quo?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.31,
+        "rationale": "Expansion is a mechanism for legitimacy repair and operational stabilization when outright retreat is costly.",
+        "realization_criteria": [
+          "city_housing_department funds or launches new onsite support, management, or safety measures",
+          "service_provider_coalition gains expanded formal role at the hotel",
+          "publicly documented operational plan increases services beyond baseline shelter provision"
+        ],
+        "status": "active",
+        "status_basis": "Scenario explicitly includes service expansion as a possible endpoint and provider urgency supports it."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "emergency-housing program leases hotel for displaced families",
+        "layer": "dependency",
+        "reason": "families rely on city program for shelter placement and continuity",
+        "source_actor_name": "displaced_families",
+        "target_actor_name": "city_housing_department",
+        "weight": 0.74
+      },
+      {
+        "direction": "directed",
+        "evidence": "city emergency-housing program leases a hotel",
+        "layer": "dependency",
+        "reason": "program depends on hotel site to provide immediate family shelter capacity",
+        "source_actor_name": "city_housing_department",
+        "target_actor_name": "hotel_operator",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "hotel workers worry about job changes",
+        "layer": "dependency",
+        "reason": "workers depend on operator for employment and work conditions",
+        "source_actor_name": "hotel_workers",
+        "target_actor_name": "hotel_operator",
+        "weight": 0.66
+      },
+      {
+        "direction": "directed",
+        "evidence": "service providers cite urgent need around program",
+        "layer": "dependency",
+        "reason": "providers need city placement decisions and access to clients at site",
+        "source_actor_name": "service_provider_coalition",
+        "target_actor_name": "city_housing_department",
+        "weight": 0.47
+      },
+      {
+        "direction": "directed",
+        "evidence": "courts may review zoning objections",
+        "layer": "dependency",
+        "reason": "program requires legal defense against zoning objections",
+        "source_actor_name": "city_housing_department",
+        "target_actor_name": "city_legal_office",
+        "weight": 0.45
+      },
+      {
+        "direction": "directed",
+        "evidence": "nearby residents complain and courts may review objections",
+        "layer": "dependency",
+        "reason": "legal challenge depends on resident plaintiffs and standing",
+        "source_actor_name": "zoning_objectors_counsel",
+        "target_actor_name": "nearby_residents_group",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "nearby residents complain",
+        "layer": "exposure",
+        "reason": "resident complaints likely reach city political leadership",
+        "source_actor_name": "nearby_residents_group",
+        "target_actor_name": "city_executive",
+        "weight": 0.54
+      },
+      {
+        "direction": "directed",
+        "evidence": "service providers cite urgent need",
+        "layer": "exposure",
+        "reason": "providers communicate urgency to policymakers",
+        "source_actor_name": "service_provider_coalition",
+        "target_actor_name": "city_executive",
+        "weight": 0.49
+      },
+      {
+        "direction": "directed",
+        "evidence": "not used",
+        "layer": "exposure",
+        "reason": "invalid edge target omitted from simulation actors",
+        "source_actor_name": "local_media",
+        "target_actor_name": "citywide_observers",
+        "weight": 0.0
+      },
+      {
+        "direction": "directed",
+        "evidence": "local conflict is newsworthy",
+        "layer": "exposure",
+        "reason": "coverage reaches residents and can intensify local salience",
+        "source_actor_name": "local_media",
+        "target_actor_name": "nearby_residents_group",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "not used",
+        "layer": "exposure",
+        "reason": "invalid edge target omitted from simulation actors",
+        "source_actor_name": "local_media",
+        "target_actor_name": "citywide_observers",
+        "weight": 0.0
+      },
+      {
+        "direction": "directed",
+        "evidence": "public dispute over emergency housing use",
+        "layer": "exposure",
+        "reason": "official statements and meetings can reach local residents",
+        "source_actor_name": "city_housing_department",
+        "target_actor_name": "nearby_residents_group",
+        "weight": 0.38
+      },
+      {
+        "direction": "directed",
+        "evidence": "residents complain and zoning objections may go to court",
+        "layer": "exposure",
+        "reason": "complaints and objections provide conflict narrative for coverage",
+        "source_actor_name": "nearby_residents_group",
+        "target_actor_name": "local_media",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "service providers cite urgent need",
+        "layer": "exposure",
+        "reason": "providers can supply humanitarian framing and client-impact narrative",
+        "source_actor_name": "service_provider_coalition",
+        "target_actor_name": "local_media",
+        "weight": 0.43
+      },
+      {
+        "direction": "directed",
+        "evidence": "service providers cite urgent need",
+        "layer": "trust",
+        "reason": "providers are likely seen as practical allies for services and advocacy",
+        "source_actor_name": "displaced_families",
+        "target_actor_name": "service_provider_coalition",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "city program houses families in leased hotel",
+        "layer": "trust",
+        "reason": "city provides needed shelter but may be associated with instability and rules",
+        "source_actor_name": "displaced_families",
+        "target_actor_name": "city_housing_department",
+        "weight": 0.48
+      },
+      {
+        "direction": "directed",
+        "evidence": "nearby residents complain about safety",
+        "layer": "trust",
+        "reason": "complaints imply skepticism about competence or legitimacy",
+        "source_actor_name": "nearby_residents_group",
+        "target_actor_name": "city_housing_department",
+        "weight": 0.29
+      },
+      {
+        "direction": "directed",
+        "evidence": "courts may review zoning objections",
+        "layer": "trust",
+        "reason": "objectors likely trust counsel to formalize objections",
+        "source_actor_name": "nearby_residents_group",
+        "target_actor_name": "zoning_objectors_counsel",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "hotel workers worry about job changes",
+        "layer": "trust",
+        "reason": "workers depend on management but worry about job changes",
+        "source_actor_name": "hotel_workers",
+        "target_actor_name": "hotel_operator",
+        "weight": 0.43
+      },
+      {
+        "direction": "directed",
+        "evidence": "city emergency-housing program exists under city authority",
+        "layer": "trust",
+        "reason": "executive likely relies on department execution during emergency response",
+        "source_actor_name": "city_executive",
+        "target_actor_name": "city_housing_department",
+        "weight": 0.56
+      },
+      {
+        "direction": "directed",
+        "evidence": "courts may review objections",
+        "layer": "trust",
+        "reason": "institutional baseline trust in formal legal process without prejudgment",
+        "source_actor_name": "municipal_court",
+        "target_actor_name": "city_legal_office",
+        "weight": 0.5
+      },
+      {
+        "direction": "directed",
+        "evidence": "city leadership implied in emergency housing authority",
+        "layer": "influence",
+        "reason": "executive can shape program posture and political tolerance for options",
+        "source_actor_name": "city_executive",
+        "target_actor_name": "city_housing_department",
+        "weight": 0.69
+      },
+      {
+        "direction": "directed",
+        "evidence": "courts may review zoning objections",
+        "layer": "influence",
+        "reason": "court review can constrain or permit continued site use",
+        "source_actor_name": "municipal_court",
+        "target_actor_name": "city_housing_department",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "legal uncertainty around zoning objections",
+        "layer": "influence",
+        "reason": "legal risk assessment shapes operational choices",
+        "source_actor_name": "city_legal_office",
+        "target_actor_name": "city_housing_department",
+        "weight": 0.51
+      },
+      {
+        "direction": "directed",
+        "evidence": "residents complain about safety",
+        "layer": "influence",
+        "reason": "organized neighborhood pressure can affect political calculations",
+        "source_actor_name": "nearby_residents_group",
+        "target_actor_name": "city_executive",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "service providers cite urgent need",
+        "layer": "influence",
+        "reason": "providers can shape service design and urgency perception",
+        "source_actor_name": "service_provider_coalition",
+        "target_actor_name": "city_housing_department",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "hotel is leased and operations must adapt",
+        "layer": "influence",
+        "reason": "site operator controls operational feasibility and can signal constraints",
+        "source_actor_name": "hotel_operator",
+        "target_actor_name": "city_housing_department",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "public conflict is media-relevant",
+        "layer": "influence",
+        "reason": "coverage can alter political salience and scrutiny",
+        "source_actor_name": "local_media",
+        "target_actor_name": "city_executive",
+        "weight": 0.39
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "program and providers both oriented toward urgent need",
+        "layer": "coalition",
+        "reason": "shared interest in maintaining emergency shelter access",
+        "source_actor_name": "city_housing_department",
+        "target_actor_name": "service_provider_coalition",
+        "weight": 0.62
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "zoning objections may reach court review",
+        "layer": "coalition",
+        "reason": "residents and counsel align on legal challenge path",
+        "source_actor_name": "nearby_residents_group",
+        "target_actor_name": "zoning_objectors_counsel",
+        "weight": 0.59
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "legal review expected",
+        "layer": "coalition",
+        "reason": "city units align to defend program legality",
+        "source_actor_name": "city_housing_department",
+        "target_actor_name": "city_legal_office",
+        "weight": 0.57
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "city-run program context",
+        "layer": "coalition",
+        "reason": "shared city responsibility for emergency response",
+        "source_actor_name": "city_executive",
+        "target_actor_name": "city_housing_department",
+        "weight": 0.53
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "workers worry about job changes",
+        "layer": "coalition",
+        "reason": "shared interest in hotel continuity exists but strained by workplace concerns",
+        "source_actor_name": "hotel_operator",
+        "target_actor_name": "hotel_workers",
+        "weight": 0.34
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "nearby residents complain about safety",
+        "layer": "conflict",
+        "reason": "residents object to hotel shelter use and safety implications",
+        "source_actor_name": "nearby_residents_group",
+        "target_actor_name": "city_housing_department",
+        "weight": 0.63
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "safety complaints tied to nearby sheltering",
+        "layer": "conflict",
+        "reason": "stigma and threat perception create social tension even without direct incidents",
+        "source_actor_name": "nearby_residents_group",
+        "target_actor_name": "displaced_families",
+        "weight": 0.41
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "courts may review zoning objections",
+        "layer": "conflict",
+        "reason": "likely adversaries in zoning dispute",
+        "source_actor_name": "zoning_objectors_counsel",
+        "target_actor_name": "city_legal_office",
+        "weight": 0.56
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "hotel workers worry about job changes",
+        "layer": "conflict",
+        "reason": "labor concerns about changed duties and conditions create mild internal strain",
+        "source_actor_name": "hotel_workers",
+        "target_actor_name": "hotel_operator",
+        "weight": 0.28
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "residents complain while providers cite urgent need",
+        "layer": "conflict",
+        "reason": "humanitarian advocacy clashes with local safety framing",
+        "source_actor_name": "nearby_residents_group",
+        "target_actor_name": "service_provider_coalition",
+        "weight": 0.38
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "active complaint environment around city program",
+        "layer": "oasis_interaction",
+        "reason": "public meetings, complaint channels, and statements likely create recurring interaction",
+        "source_actor_name": "nearby_residents_group",
+        "target_actor_name": "city_housing_department",
+        "weight": 0.57
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "providers cite urgent need around city program",
+        "layer": "oasis_interaction",
+        "reason": "coordination on placements and services is likely frequent",
+        "source_actor_name": "service_provider_coalition",
+        "target_actor_name": "city_housing_department",
+        "weight": 0.61
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "salient public dispute",
+        "layer": "oasis_interaction",
+        "reason": "reporting requests and official responses likely",
+        "source_actor_name": "local_media",
+        "target_actor_name": "city_housing_department",
+        "weight": 0.42
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "resident complaints are visible conflict input",
+        "layer": "oasis_interaction",
+        "reason": "residents are likely quoted or covered in public discourse",
+        "source_actor_name": "local_media",
+        "target_actor_name": "nearby_residents_group",
+        "weight": 0.44
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "workers worry about job changes from hotel use change",
+        "layer": "oasis_interaction",
+        "reason": "operational changes require frequent internal communication",
+        "source_actor_name": "hotel_operator",
+        "target_actor_name": "hotel_workers",
+        "weight": 0.49
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "actor_name": "city_housing_department",
+        "hero_key": "city_program_manager",
+        "label": "city emergency housing program manager"
+      },
+      {
+        "actor_name": "nearby_residents_group",
+        "hero_key": "resident_lead_organizer",
+        "label": "resident opposition organizer"
+      },
+      {
+        "actor_name": "service_provider_coalition",
+        "hero_key": "lead_service_provider",
+        "label": "service coalition spokesperson"
+      },
+      {
+        "actor_name": "hotel_operator",
+        "hero_key": "hotel_general_manager",
+        "label": "hotel operational manager"
+      },
+      {
+        "actor_name": "municipal_court",
+        "hero_key": "municipal_judge_panel",
+        "label": "court reviewer"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "city_housing_department",
+        "attention_level": 0.93,
+        "expression_level": 0.66,
+        "fatigue": 0.57,
+        "fear_of_isolation": 0.39,
+        "hero_key": "city_program_manager",
+        "mobilization_readiness": 0.71,
+        "perceived_majority": 0.46,
+        "power": 0.78,
+        "stance_axes": {
+          "continue_lease": 0.79,
+          "injunction": 0.04,
+          "relocation": 0.34,
+          "service_expansion": 0.67
+        }
+      },
+      {
+        "actor_name": "nearby_residents_group",
+        "attention_level": 0.91,
+        "expression_level": 0.83,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.18,
+        "hero_key": "resident_lead_organizer",
+        "mobilization_readiness": 0.74,
+        "perceived_majority": 0.61,
+        "power": 0.52,
+        "stance_axes": {
+          "continue_lease": 0.12,
+          "injunction": 0.71,
+          "relocation": 0.81,
+          "service_expansion": 0.09
+        }
+      },
+      {
+        "actor_name": "service_provider_coalition",
+        "attention_level": 0.89,
+        "expression_level": 0.71,
+        "fatigue": 0.49,
+        "fear_of_isolation": 0.34,
+        "hero_key": "lead_service_provider",
+        "mobilization_readiness": 0.63,
+        "perceived_majority": 0.42,
+        "power": 0.49,
+        "stance_axes": {
+          "continue_lease": 0.76,
+          "injunction": 0.05,
+          "relocation": 0.31,
+          "service_expansion": 0.86
+        }
+      },
+      {
+        "actor_name": "hotel_operator",
+        "attention_level": 0.81,
+        "expression_level": 0.46,
+        "fatigue": 0.48,
+        "fear_of_isolation": 0.46,
+        "hero_key": "hotel_general_manager",
+        "mobilization_readiness": 0.42,
+        "perceived_majority": 0.44,
+        "power": 0.56,
+        "stance_axes": {
+          "continue_lease": 0.63,
+          "injunction": 0.12,
+          "relocation": 0.4,
+          "service_expansion": 0.36
+        }
+      },
+      {
+        "actor_name": "municipal_court",
+        "attention_level": 0.37,
+        "expression_level": 0.08,
+        "fatigue": 0.1,
+        "fear_of_isolation": 0.05,
+        "hero_key": "municipal_judge_panel",
+        "mobilization_readiness": 0.18,
+        "perceived_majority": 0.5,
+        "power": 0.88,
+        "stance_axes": {
+          "continue_lease": 0.5,
+          "injunction": 0.5,
+          "relocation": 0.5,
+          "service_expansion": 0.5
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "actor_name": "city_housing_department",
+        "hero_key": "city_program_manager",
+        "label": "city emergency housing program manager"
+      },
+      {
+        "actor_name": "nearby_residents_group",
+        "hero_key": "resident_lead_organizer",
+        "label": "resident opposition organizer"
+      },
+      {
+        "actor_name": "service_provider_coalition",
+        "hero_key": "lead_service_provider",
+        "label": "service coalition spokesperson"
+      },
+      {
+        "actor_name": "hotel_operator",
+        "hero_key": "hotel_general_manager",
+        "label": "hotel operational manager"
+      },
+      {
+        "actor_name": "municipal_court",
+        "hero_key": "municipal_judge_panel",
+        "label": "court reviewer"
+      }
+    ],
+    "important_questions": [
+      "Will the city continue using the current hotel lease as the primary emergency shelter site beyond the initial dispute period?",
+      "Will displaced families be moved from the hotel to another site because of political, legal, or operational pressure?",
+      "Will a court or comparable legal process halt or materially restrict the current hotel-based housing arrangement?",
+      "Will the city add meaningful onsite services or management capacity rather than only defending the status quo?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "city_housing_department",
+          "hotel_operator",
+          "displaced_families"
+        ],
+        "event_key": "hotel_leased_for_emergency_family_shelter",
+        "event_type": "announcement",
+        "expected_impact": "Creates immediate dependency on site continuity and raises local visibility of emergency sheltering.",
+        "status": "realized",
+        "summary": "City emergency-housing program uses leased hotel to house fire-displaced families.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "nearby_residents_group",
+          "city_housing_department",
+          "local_media"
+        ],
+        "event_key": "resident_safety_complaints_surface",
+        "event_type": "announcement",
+        "expected_impact": "Increases conflict and political salience; may reduce trust in city management among local observers.",
+        "status": "realized",
+        "summary": "Nearby residents voice safety-related complaints about the hotel program.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "service_provider_coalition",
+          "city_housing_department"
+        ],
+        "event_key": "providers_publicly_emphasize_urgency",
+        "event_type": "announcement",
+        "expected_impact": "Strengthens humanitarian framing and support for continuity or expansion.",
+        "status": "realized",
+        "summary": "Service providers stress ongoing urgent need for shelter capacity.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "hotel_workers",
+          "hotel_operator"
+        ],
+        "event_key": "hotel_workers_seek_operational_clarity",
+        "event_type": "announcement",
+        "expected_impact": "Could modestly alter internal trust, fatigue, and continuity risk depending on response quality.",
+        "status": "imminent",
+        "summary": "Workers press management for clarity on job changes and site operations.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "zoning_objectors_counsel",
+          "city_legal_office",
+          "municipal_court"
+        ],
+        "event_key": "zoning_objection_moves_toward_review",
+        "event_type": "announcement",
+        "expected_impact": "Raises procedural stakes and may shift media framing toward legality and injunction risk.",
+        "status": "imminent",
+        "summary": "A formal zoning objection or hearing schedule becomes more concrete.",
+        "tick": 2
+      },
+      {
+        "actors": [
+          "city_housing_department",
+          "service_provider_coalition",
+          "city_executive"
+        ],
+        "event_key": "city_considers_service_adjustments",
+        "event_type": "announcement",
+        "expected_impact": "May lower resident anxiety and strengthen lease durability without resolving all opposition.",
+        "status": "imminent",
+        "summary": "City reviews whether to add onsite management or support services to reduce friction.",
+        "tick": 3
+      }
+    ],
+    "llm_call_id": "a53a6f84-85f8-4127-8819-75b4849692f0",
+    "merge_hypotheses": [
+      {
+        "convergence_driver": "recognition that fire-displaced families need immediate shelter regardless of siting dispute",
+        "convergence_signal": "discussion shifts from whether to shelter families to how to manage site conditions",
+        "groups": [
+          "city_housing_department",
+          "nearby_residents_group",
+          "service_provider_coalition"
+        ],
+        "merge_key": "shared_emergency_legitimacy"
+      },
+      {
+        "convergence_driver": "clear court schedule or ruling narrows uncertainty and discourages speculative escalation",
+        "convergence_signal": "public discourse becomes more focused on concrete options than broad fear claims",
+        "groups": [
+          "city_housing_department",
+          "nearby_residents_group",
+          "local_media"
+        ],
+        "merge_key": "procedural_clarity_reduces_noise"
+      },
+      {
+        "convergence_driver": "management assurances and role adjustments reduce staff anxiety",
+        "convergence_signal": "fewer labor complaints and more consistent operational messaging",
+        "groups": [
+          "hotel_operator",
+          "hotel_workers",
+          "city_housing_department"
+        ],
+        "merge_key": "worker_stability_compromise"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "displaced_households",
+        "label": "displaced households linked to fire emergency",
+        "population_total": 180
+      },
+      {
+        "archetype_key": "nearby_residential_public",
+        "label": "residents living near the hotel and adjacent area",
+        "population_total": 2400
+      },
+      {
+        "archetype_key": "hotel_labor_force",
+        "label": "workers attached to hotel operations",
+        "population_total": 70
+      },
+      {
+        "archetype_key": "citywide_observers",
+        "label": "broader city public aware of issue at low to moderate detail",
+        "population_total": 120000
+      }
+    ],
+    "risk_flags": [
+      {
+        "note": "Scenario provides only compact summary-level evidence; counts and institutional structure are estimated defaults.",
+        "risk_key": "low_specificity_source",
+        "severity": "medium"
+      },
+      {
+        "note": "Safety concerns are present as complaints, not confirmed factual findings at T0.",
+        "risk_key": "stigma_without_verified_incidents",
+        "severity": "medium"
+      },
+      {
+        "note": "Lack of evidence on substitute shelter inventory creates major uncertainty around relocation feasibility and switching costs.",
+        "risk_key": "alternative_capacity_unknown",
+        "severity": "high"
+      },
+      {
+        "note": "Court review is possible but schedule, standing, and legal posture are unspecified.",
+        "risk_key": "legal_timeline_uncertain",
+        "severity": "medium"
+      },
+      {
+        "note": "Citywide observers are represented as a population archetype rather than actor, so media exposure to broader public is captured indirectly through sociology rather than actor edge references.",
+        "risk_key": "graph_edge_validation_issue",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "endpoint_pressure": "Terminal choices implied by corpus are continued lease, relocation, injunction, or service expansion.",
+      "horizon_ticks": 12,
+      "mode": "direct",
+      "scenario_key": "housing_002",
+      "summary": "A city emergency-housing program is using a leased hotel to house families displaced by fires. Nearby residents raise safety concerns, service providers emphasize urgent shelter need, hotel workers worry about changes to jobs and workplace conditions, and zoning objections may reach court review. Core pressures involve emergency displacement response, neighborhood stigma and legitimacy, operational dependency on the hotel site, and uncertainty over whether the program continues, relocates, is enjoined, or expands services.",
+      "time_zero_assumptions": [
+        "Hotel lease is active or imminently active at T0.",
+        "Families displaced by fires need immediate temporary shelter.",
+        "Resident complaints are organized enough to matter politically but have not yet fully determined outcome.",
+        "Legal review of zoning objections is plausible but unresolved at T0.",
+        "Workers face role uncertainty rather than confirmed layoffs or closures at T0."
+      ],
+      "title": "emergency_housing_hotel_lease_dispute",
+      "uncertainty_notes": [
+        "Exact city size, number of displaced families, lease duration, and hotel ownership structure are not specified.",
+        "No named public officials or organizations are provided; civic actors are fictionalized.",
+        "Safety concerns are treated as claims and perceptions, not verified incident evidence at T0."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "level": 0.58,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Residents may update within familiar safety and neighborhood frames but resist far-off humanitarian abstractions.",
+        "scope": "nearby_residential_public"
+      },
+      {
+        "level": 0.64,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Visible incidents, court filings, or media spikes could pull ambivalents into opposition.",
+        "scope": "nearby_residential_public"
+      },
+      {
+        "level": 0.67,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Conditional supporters and dependent workers are quieter than more oppositional residents.",
+        "scope": "resident_supporters_and_hotel_workers"
+      },
+      {
+        "level": 0.55,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Neighborhood and professional networks likely sort discussion into resident, provider, and city clusters.",
+        "scope": "local_networks"
+      },
+      {
+        "level": 0.51,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Broader city opinion likely shifts only after repeated cues from media, officials, and court developments.",
+        "scope": "citywide_observers"
+      },
+      {
+        "level": 0.72,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Local homeowner/resident identity and humanitarian responder identity shape interpretation of the same facts.",
+        "scope": "resident_vs_service_frames"
+      },
+      {
+        "level": 0.43,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Without fresh conflict or rulings, general public attention may fade quickly.",
+        "scope": "citywide_observers"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "applies_to": "citywide_discourse",
+        "context_key": "emergency_displacement_sympathy",
+        "effect": "can increase acceptance of temporary measures when human impacts are salient"
+      },
+      {
+        "applies_to": "nearby_residential_public",
+        "context_key": "neighborhood_safety_stigma",
+        "effect": "can raise opposition intensity even with limited verified incident evidence"
+      },
+      {
+        "applies_to": "institutional_and_media_discourse",
+        "context_key": "legal_legitimacy_frame",
+        "effect": "court review or zoning language can shift debate from compassion to procedure"
+      },
+      {
+        "applies_to": "hotel_labor_force",
+        "context_key": "worker_dependency_quieting",
+        "effect": "employment dependence suppresses public dissent until conditions worsen"
+      },
+      {
+        "applies_to": "city_housing_department_and_providers",
+        "context_key": "site_specific_dependency",
+        "effect": "lack of ready substitute capacity raises inertia toward continued use of current hotel"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "city_housing_department",
+        "behavior_axes": {
+          "adaptability": 0.66,
+          "proceduralism": 0.63,
+          "responsiveness": 0.59,
+          "risk_tolerance": 0.58
+        },
+        "ideology_axes": {
+          "humanitarian_service": 0.78,
+          "institutional_caution": 0.61,
+          "property_order": 0.49
+        },
+        "reputation": 0.53,
+        "secrecy": 0.42,
+        "tendency": "pragmatic crisis manager under legal and political pressure",
+        "trustworthiness": 0.56
+      },
+      {
+        "actor_name": "hotel_operator",
+        "behavior_axes": {
+          "adaptability": 0.62,
+          "proceduralism": 0.57,
+          "responsiveness": 0.48,
+          "risk_tolerance": 0.44
+        },
+        "ideology_axes": {
+          "humanitarian_service": 0.42,
+          "institutional_caution": 0.6,
+          "property_order": 0.66
+        },
+        "reputation": 0.5,
+        "secrecy": 0.47,
+        "tendency": "commercial operator balancing contract value and operational strain",
+        "trustworthiness": 0.52
+      },
+      {
+        "actor_name": "displaced_families",
+        "behavior_axes": {
+          "adaptability": 0.68,
+          "proceduralism": 0.31,
+          "responsiveness": 0.55,
+          "risk_tolerance": 0.24
+        },
+        "ideology_axes": {
+          "humanitarian_service": 0.88,
+          "institutional_caution": 0.41,
+          "property_order": 0.35
+        },
+        "reputation": 0.4,
+        "secrecy": 0.51,
+        "tendency": "high-need low-voice population seeking stability",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "nearby_residents_group",
+        "behavior_axes": {
+          "adaptability": 0.36,
+          "proceduralism": 0.69,
+          "responsiveness": 0.67,
+          "risk_tolerance": 0.41
+        },
+        "ideology_axes": {
+          "humanitarian_service": 0.39,
+          "institutional_caution": 0.72,
+          "property_order": 0.77
+        },
+        "reputation": 0.49,
+        "secrecy": 0.22,
+        "tendency": "localized opposition using safety and zoning frames",
+        "trustworthiness": 0.47
+      },
+      {
+        "actor_name": "service_provider_coalition",
+        "behavior_axes": {
+          "adaptability": 0.71,
+          "proceduralism": 0.46,
+          "responsiveness": 0.78,
+          "risk_tolerance": 0.63
+        },
+        "ideology_axes": {
+          "humanitarian_service": 0.91,
+          "institutional_caution": 0.43,
+          "property_order": 0.28
+        },
+        "reputation": 0.61,
+        "secrecy": 0.19,
+        "tendency": "publicly advocates continuity and service adequacy",
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "hotel_workers",
+        "behavior_axes": {
+          "adaptability": 0.54,
+          "proceduralism": 0.52,
+          "responsiveness": 0.51,
+          "risk_tolerance": 0.29
+        },
+        "ideology_axes": {
+          "humanitarian_service": 0.55,
+          "institutional_caution": 0.63,
+          "property_order": 0.51
+        },
+        "reputation": 0.46,
+        "secrecy": 0.58,
+        "tendency": "cautious stakeholders constrained by employer dependence",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "city_legal_office",
+        "behavior_axes": {
+          "adaptability": 0.41,
+          "proceduralism": 0.84,
+          "responsiveness": 0.44,
+          "risk_tolerance": 0.38
+        },
+        "ideology_axes": {
+          "humanitarian_service": 0.52,
+          "institutional_caution": 0.86,
+          "property_order": 0.62
+        },
+        "reputation": 0.55,
+        "secrecy": 0.49,
+        "tendency": "process-focused defender of city authority",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "zoning_objectors_counsel",
+        "behavior_axes": {
+          "adaptability": 0.39,
+          "proceduralism": 0.82,
+          "responsiveness": 0.53,
+          "risk_tolerance": 0.51
+        },
+        "ideology_axes": {
+          "humanitarian_service": 0.27,
+          "institutional_caution": 0.78,
+          "property_order": 0.74
+        },
+        "reputation": 0.51,
+        "secrecy": 0.36,
+        "tendency": "formalizes neighborhood grievance into legal challenge",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "municipal_court",
+        "behavior_axes": {
+          "adaptability": 0.22,
+          "proceduralism": 0.94,
+          "responsiveness": 0.36,
+          "risk_tolerance": 0.18
+        },
+        "ideology_axes": {
+          "humanitarian_service": 0.5,
+          "institutional_caution": 0.9,
+          "property_order": 0.5
+        },
+        "reputation": 0.69,
+        "secrecy": 0.33,
+        "tendency": "slow-moving legitimacy arbiter",
+        "trustworthiness": 0.71
+      },
+      {
+        "actor_name": "city_executive",
+        "behavior_axes": {
+          "adaptability": 0.64,
+          "proceduralism": 0.52,
+          "responsiveness": 0.67,
+          "risk_tolerance": 0.55
+        },
+        "ideology_axes": {
+          "humanitarian_service": 0.69,
+          "institutional_caution": 0.57,
+          "property_order": 0.58
+        },
+        "reputation": 0.54,
+        "secrecy": 0.41,
+        "tendency": "political balancer seeking visible crisis competence",
+        "trustworthiness": 0.51
+      },
+      {
+        "actor_name": "local_media",
+        "behavior_axes": {
+          "adaptability": 0.65,
+          "proceduralism": 0.44,
+          "responsiveness": 0.74,
+          "risk_tolerance": 0.48
+        },
+        "ideology_axes": {
+          "humanitarian_service": 0.51,
+          "institutional_caution": 0.4,
+          "property_order": 0.49
+        },
+        "reputation": 0.57,
+        "secrecy": 0.12,
+        "tendency": "attention amplifier sensitive to conflict and human-interest framing",
+        "trustworthiness": 0.52
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 496,
+        "end": 496,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 496,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

@@ -1,0 +1,1683 @@
+{
+  "big_bang_id": "8a1173f7-58d1-4fbe-9a94-bc9e25f8d263",
+  "initializer_output": {
+    "actors": [
+      {
+        "fictionalized": true,
+        "name": "urbannest_platform",
+        "public_visibility": "high",
+        "role": "dominant apartment-listing platform",
+        "stakes": [
+          "preserve listing dominance",
+          "expand access to broker data",
+          "normalize new agreement adoption",
+          "avoid regulation and reputational damage"
+        ],
+        "type": "firm_platform"
+      },
+      {
+        "fictionalized": true,
+        "name": "independent_brokers_association",
+        "public_visibility": "medium",
+        "role": "brokers resisting the new agreement",
+        "stakes": [
+          "retain listing access",
+          "avoid coercive data terms",
+          "protect client and tenant information",
+          "preserve business viability"
+        ],
+        "type": "industry_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "compliant_brokers",
+        "public_visibility": "low",
+        "role": "brokers who sign or are willing to sign the agreement",
+        "stakes": [
+          "maintain platform access",
+          "avoid inventory loss",
+          "limit business disruption"
+        ],
+        "type": "industry_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "renters_market_public",
+        "public_visibility": "medium",
+        "role": "renters searching for housing inventory",
+        "stakes": [
+          "find complete and timely listings",
+          "protect personal data",
+          "avoid search friction and higher costs"
+        ],
+        "type": "public_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "tenant_privacy_advocates",
+        "public_visibility": "medium",
+        "role": "privacy-focused civic advocates",
+        "stakes": [
+          "limit unnecessary tenant data collection",
+          "increase transparency and consent protections",
+          "elevate public scrutiny"
+        ],
+        "type": "advocacy_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "housing_regulators_office",
+        "public_visibility": "medium",
+        "role": "housing and competition oversight bodies considering inquiry",
+        "stakes": [
+          "assess coercion and market power concerns",
+          "protect consumers and fair market access",
+          "avoid premature or unsupported intervention"
+        ],
+        "type": "regulator"
+      },
+      {
+        "fictionalized": true,
+        "name": "alternative_listing_platforms",
+        "public_visibility": "medium",
+        "role": "smaller substitute listing channels",
+        "stakes": [
+          "gain inventory and traffic",
+          "capitalize on broker dissatisfaction",
+          "overcome liquidity disadvantage"
+        ],
+        "type": "firm_cluster"
+      },
+      {
+        "fictionalized": true,
+        "name": "local_housing_media",
+        "public_visibility": "medium",
+        "role": "trade and local press covering the dispute",
+        "stakes": [
+          "report market disruption",
+          "surface conflict narratives",
+          "attract audience attention"
+        ],
+        "type": "media"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Broker resistance collapses as exit costs outweigh collective action benefits.",
+        "branch_key": "capitulation_via_dependency",
+        "divergence_signal": "Trade association rhetoric softens while platform inventory coverage rebounds without policy rollback.",
+        "trigger": "A visible share of resisting brokers signs within the next few ticks."
+      },
+      {
+        "alternate_path": "A secondary marketplace becomes a credible fallback, reducing platform leverage.",
+        "branch_key": "substitution_gains_liquidity",
+        "divergence_signal": "Brokers publicly promote alternatives and renters report discovering meaningful inventory off-platform.",
+        "trigger": "Alternative platforms secure enough broker inventory to improve renter usefulness."
+      },
+      {
+        "alternate_path": "Informal review becomes formal inquiry, increasing concession pressure on the platform.",
+        "branch_key": "regulatory_escalation",
+        "divergence_signal": "Agency information requests, hearing notices, or public statements referencing market-power and data concerns.",
+        "trigger": "Combined coercion and privacy evidence reaches regulator action threshold."
+      },
+      {
+        "alternate_path": "The dispute persists with ongoing friction but no terminal resolution in the near term.",
+        "branch_key": "durable_stalemate",
+        "divergence_signal": "Stable mixed inventory, recurrent complaints, and intermittent coverage without decisive market or legal change.",
+        "trigger": "Some brokers sign, some resist, and no substitute reaches critical mass while regulators move slowly."
+      },
+      {
+        "alternate_path": "The controversy shifts from broker self-interest framing to consumer rights framing.",
+        "branch_key": "privacy_led_reframing",
+        "divergence_signal": "Media headlines and regulator language emphasize tenant consent, data minimization, or misuse risk over broker contract claims.",
+        "trigger": "Tenant-data specifics become legible and norm-violating to the public."
+      }
+    ],
+    "channels": [
+      {
+        "audience": [
+          "renters_market_public",
+          "brokers"
+        ],
+        "channel_key": "platform_ui",
+        "control_actor": "urbannest_platform",
+        "type": "owned_platform"
+      },
+      {
+        "audience": [
+          "brokers",
+          "media",
+          "regulators"
+        ],
+        "channel_key": "trade_association_statements",
+        "control_actor": "independent_brokers_association",
+        "type": "industry_comms"
+      },
+      {
+        "audience": [
+          "renters_market_public",
+          "housing_observers",
+          "regulators"
+        ],
+        "channel_key": "local_housing_press",
+        "control_actor": "local_housing_media",
+        "type": "media"
+      },
+      {
+        "audience": [
+          "housing_observers",
+          "regulators",
+          "renters_market_public"
+        ],
+        "channel_key": "advocacy_campaigns",
+        "control_actor": "tenant_privacy_advocates",
+        "type": "advocacy_media"
+      },
+      {
+        "audience": [
+          "brokers",
+          "advocates",
+          "public"
+        ],
+        "channel_key": "regulatory_intake",
+        "control_actor": "housing_regulators_office",
+        "type": "institutional"
+      },
+      {
+        "audience": [
+          "brokers",
+          "renters_market_public"
+        ],
+        "channel_key": "alternative_listing_sites",
+        "control_actor": "alternative_listing_platforms",
+        "type": "marketplace"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "renters",
+        "attention_level": 4,
+        "behavioral_tendencies": [
+          "convenience_seeking",
+          "search_inertia",
+          "low_issue_salience_until_personally_affected"
+        ],
+        "cohort_key": "renters_platform_reliant",
+        "expression_level": 2,
+        "fatigue": 3,
+        "fear_of_isolation": 3,
+        "mobilization_readiness": 2,
+        "perceived_majority": 0.7,
+        "population_share_of_archetype": 0.65,
+        "private_belief": "platform is the easiest way to search, but missing inventory is frustrating if noticed",
+        "public_expression": "mostly complaint-oriented rather than organized",
+        "representation_mode": "behavioral_segment",
+        "represented_population": 325000,
+        "reputation": 0.5,
+        "secrecy": 2,
+        "stance_axes": {
+          "broker_sympathy": 0.3,
+          "platform_dependence": 0.8,
+          "privacy_concern": 0.4,
+          "regulatory_support": 0.5
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "archetype_key": "renters",
+        "attention_level": 6,
+        "behavioral_tendencies": [
+          "frustration_spikes",
+          "episodic_posting",
+          "switching_if_friction_rises"
+        ],
+        "cohort_key": "renters_inventory_disrupted",
+        "expression_level": 3,
+        "fatigue": 4,
+        "fear_of_isolation": 4,
+        "mobilization_readiness": 3,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "inventory feels thinner or less reliable and someone is responsible",
+        "public_expression": "complaints about fewer options, scattered blame",
+        "representation_mode": "impact_segment",
+        "represented_population": 125000,
+        "reputation": 0.5,
+        "secrecy": 2,
+        "stance_axes": {
+          "broker_sympathy": 0.45,
+          "platform_dependence": 0.75,
+          "privacy_concern": 0.5,
+          "regulatory_support": 0.6
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "archetype_key": "renters",
+        "attention_level": 5,
+        "behavioral_tendencies": [
+          "rights_framing",
+          "policy_appeal",
+          "cross_issue_linking"
+        ],
+        "cohort_key": "renters_privacy_attentive",
+        "expression_level": 4,
+        "fatigue": 3,
+        "fear_of_isolation": 5,
+        "mobilization_readiness": 4,
+        "perceived_majority": 0.25,
+        "population_share_of_archetype": 0.1,
+        "private_belief": "tenant data-sharing terms may be excessive and underexplained",
+        "public_expression": "more likely to amplify advocate concerns than broker business concerns",
+        "representation_mode": "attitudinal_segment",
+        "represented_population": 50000,
+        "reputation": 0.5,
+        "secrecy": 3,
+        "stance_axes": {
+          "broker_sympathy": 0.5,
+          "platform_dependence": 0.55,
+          "privacy_concern": 0.8,
+          "regulatory_support": 0.7
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "archetype_key": "brokers",
+        "attention_level": 8,
+        "behavioral_tendencies": [
+          "collective_grievance",
+          "strategic_media_use",
+          "hesitant_defection_due_to_costs"
+        ],
+        "cohort_key": "brokers_resisting",
+        "expression_level": 6,
+        "fatigue": 5,
+        "fear_of_isolation": 6,
+        "mobilization_readiness": 7,
+        "perceived_majority": 0.4,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "terms are coercive but refusal is costly",
+        "public_expression": "complaints about coercion, fairness, and data overreach",
+        "representation_mode": "organizational_segment",
+        "represented_population": 4200,
+        "reputation": 0.45,
+        "secrecy": 5,
+        "stance_axes": {
+          "agreement_support": 0.05,
+          "platform_dependence": 0.8,
+          "privacy_concern": 0.7,
+          "regulatory_support": 0.75
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "archetype_key": "brokers",
+        "attention_level": 7,
+        "behavioral_tendencies": [
+          "risk_avoidance",
+          "quiet_compliance",
+          "watchful_waiting"
+        ],
+        "cohort_key": "brokers_compliant_or_waiting",
+        "expression_level": 3,
+        "fatigue": 4,
+        "fear_of_isolation": 7,
+        "mobilization_readiness": 3,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "the platform is hard to resist even if the terms are imperfect",
+        "public_expression": "muted or pragmatic acceptance",
+        "representation_mode": "organizational_segment",
+        "represented_population": 6600,
+        "reputation": 0.5,
+        "secrecy": 6,
+        "stance_axes": {
+          "agreement_support": 0.45,
+          "platform_dependence": 0.85,
+          "privacy_concern": 0.4,
+          "regulatory_support": 0.35
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "archetype_key": "brokers",
+        "attention_level": 8,
+        "behavioral_tendencies": [
+          "parallel_channel_testing",
+          "coalition_signaling",
+          "cost_sensitive_experimentation"
+        ],
+        "cohort_key": "brokers_exit_planners",
+        "expression_level": 4,
+        "fatigue": 5,
+        "fear_of_isolation": 5,
+        "mobilization_readiness": 5,
+        "perceived_majority": 0.2,
+        "population_share_of_archetype": 0.1,
+        "private_belief": "substitution is desirable but difficult without shared migration",
+        "public_expression": "experimentation with alternative channels, selective public pressure",
+        "representation_mode": "strategic_segment",
+        "represented_population": 1200,
+        "reputation": 0.45,
+        "secrecy": 6,
+        "stance_axes": {
+          "agreement_support": 0.15,
+          "platform_dependence": 0.6,
+          "privacy_concern": 0.65,
+          "regulatory_support": 0.6
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "archetype_key": "housing_observers",
+        "attention_level": 6,
+        "behavioral_tendencies": [
+          "norm_enforcement",
+          "petitioning",
+          "media_amplification"
+        ],
+        "cohort_key": "housing_observers_privacy_civic",
+        "expression_level": 5,
+        "fatigue": 3,
+        "fear_of_isolation": 4,
+        "mobilization_readiness": 5,
+        "perceived_majority": 0.35,
+        "population_share_of_archetype": 0.375,
+        "private_belief": "market dominance plus data demands deserves scrutiny",
+        "public_expression": "calls for transparency and inquiry",
+        "representation_mode": "issue_public_segment",
+        "represented_population": 30000,
+        "reputation": 0.55,
+        "secrecy": 2,
+        "stance_axes": {
+          "platform_skepticism": 0.7,
+          "privacy_concern": 0.8,
+          "regulatory_support": 0.75
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "archetype_key": "housing_observers",
+        "attention_level": 4,
+        "behavioral_tendencies": [
+          "wait_for_elites",
+          "news_reactive",
+          "low_commitment"
+        ],
+        "cohort_key": "housing_observers_general",
+        "expression_level": 3,
+        "fatigue": 2,
+        "fear_of_isolation": 3,
+        "mobilization_readiness": 2,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.625,
+        "private_belief": "possibly concerning, but facts are still unclear",
+        "public_expression": "light discussion pending clearer reporting",
+        "representation_mode": "issue_public_segment",
+        "represented_population": 50000,
+        "reputation": 0.5,
+        "secrecy": 2,
+        "stance_axes": {
+          "platform_skepticism": 0.45,
+          "privacy_concern": 0.45,
+          "regulatory_support": 0.5
+        },
+        "trustworthiness": 0.5
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "renters",
+        "attention_level": 4,
+        "behavioral_tendencies": [
+          "convenience_seeking",
+          "search_inertia",
+          "low_issue_salience_until_personally_affected"
+        ],
+        "cohort_key": "renters_platform_reliant",
+        "expression_level": 2,
+        "fatigue": 3,
+        "fear_of_isolation": 3,
+        "mobilization_readiness": 2,
+        "perceived_majority": 0.7,
+        "population_share_of_archetype": 0.65,
+        "private_belief": "platform is the easiest way to search, but missing inventory is frustrating if noticed",
+        "public_expression": "mostly complaint-oriented rather than organized",
+        "representation_mode": "behavioral_segment",
+        "represented_population": 325000,
+        "reputation": 0.5,
+        "secrecy": 2,
+        "stance_axes": {
+          "broker_sympathy": 0.3,
+          "platform_dependence": 0.8,
+          "privacy_concern": 0.4,
+          "regulatory_support": 0.5
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "archetype_key": "renters",
+        "attention_level": 6,
+        "behavioral_tendencies": [
+          "frustration_spikes",
+          "episodic_posting",
+          "switching_if_friction_rises"
+        ],
+        "cohort_key": "renters_inventory_disrupted",
+        "expression_level": 3,
+        "fatigue": 4,
+        "fear_of_isolation": 4,
+        "mobilization_readiness": 3,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "inventory feels thinner or less reliable and someone is responsible",
+        "public_expression": "complaints about fewer options, scattered blame",
+        "representation_mode": "impact_segment",
+        "represented_population": 125000,
+        "reputation": 0.5,
+        "secrecy": 2,
+        "stance_axes": {
+          "broker_sympathy": 0.45,
+          "platform_dependence": 0.75,
+          "privacy_concern": 0.5,
+          "regulatory_support": 0.6
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "archetype_key": "renters",
+        "attention_level": 5,
+        "behavioral_tendencies": [
+          "rights_framing",
+          "policy_appeal",
+          "cross_issue_linking"
+        ],
+        "cohort_key": "renters_privacy_attentive",
+        "expression_level": 4,
+        "fatigue": 3,
+        "fear_of_isolation": 5,
+        "mobilization_readiness": 4,
+        "perceived_majority": 0.25,
+        "population_share_of_archetype": 0.1,
+        "private_belief": "tenant data-sharing terms may be excessive and underexplained",
+        "public_expression": "more likely to amplify advocate concerns than broker business concerns",
+        "representation_mode": "attitudinal_segment",
+        "represented_population": 50000,
+        "reputation": 0.5,
+        "secrecy": 3,
+        "stance_axes": {
+          "broker_sympathy": 0.5,
+          "platform_dependence": 0.55,
+          "privacy_concern": 0.8,
+          "regulatory_support": 0.7
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "archetype_key": "brokers",
+        "attention_level": 8,
+        "behavioral_tendencies": [
+          "collective_grievance",
+          "strategic_media_use",
+          "hesitant_defection_due_to_costs"
+        ],
+        "cohort_key": "brokers_resisting",
+        "expression_level": 6,
+        "fatigue": 5,
+        "fear_of_isolation": 6,
+        "mobilization_readiness": 7,
+        "perceived_majority": 0.4,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "terms are coercive but refusal is costly",
+        "public_expression": "complaints about coercion, fairness, and data overreach",
+        "representation_mode": "organizational_segment",
+        "represented_population": 4200,
+        "reputation": 0.45,
+        "secrecy": 5,
+        "stance_axes": {
+          "agreement_support": 0.05,
+          "platform_dependence": 0.8,
+          "privacy_concern": 0.7,
+          "regulatory_support": 0.75
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "archetype_key": "brokers",
+        "attention_level": 7,
+        "behavioral_tendencies": [
+          "risk_avoidance",
+          "quiet_compliance",
+          "watchful_waiting"
+        ],
+        "cohort_key": "brokers_compliant_or_waiting",
+        "expression_level": 3,
+        "fatigue": 4,
+        "fear_of_isolation": 7,
+        "mobilization_readiness": 3,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "the platform is hard to resist even if the terms are imperfect",
+        "public_expression": "muted or pragmatic acceptance",
+        "representation_mode": "organizational_segment",
+        "represented_population": 6600,
+        "reputation": 0.5,
+        "secrecy": 6,
+        "stance_axes": {
+          "agreement_support": 0.45,
+          "platform_dependence": 0.85,
+          "privacy_concern": 0.4,
+          "regulatory_support": 0.35
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "archetype_key": "brokers",
+        "attention_level": 8,
+        "behavioral_tendencies": [
+          "parallel_channel_testing",
+          "coalition_signaling",
+          "cost_sensitive_experimentation"
+        ],
+        "cohort_key": "brokers_exit_planners",
+        "expression_level": 4,
+        "fatigue": 5,
+        "fear_of_isolation": 5,
+        "mobilization_readiness": 5,
+        "perceived_majority": 0.2,
+        "population_share_of_archetype": 0.1,
+        "private_belief": "substitution is desirable but difficult without shared migration",
+        "public_expression": "experimentation with alternative channels, selective public pressure",
+        "representation_mode": "strategic_segment",
+        "represented_population": 1200,
+        "reputation": 0.45,
+        "secrecy": 6,
+        "stance_axes": {
+          "agreement_support": 0.15,
+          "platform_dependence": 0.6,
+          "privacy_concern": 0.65,
+          "regulatory_support": 0.6
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "archetype_key": "housing_observers",
+        "attention_level": 6,
+        "behavioral_tendencies": [
+          "norm_enforcement",
+          "petitioning",
+          "media_amplification"
+        ],
+        "cohort_key": "housing_observers_privacy_civic",
+        "expression_level": 5,
+        "fatigue": 3,
+        "fear_of_isolation": 4,
+        "mobilization_readiness": 5,
+        "perceived_majority": 0.35,
+        "population_share_of_archetype": 0.375,
+        "private_belief": "market dominance plus data demands deserves scrutiny",
+        "public_expression": "calls for transparency and inquiry",
+        "representation_mode": "issue_public_segment",
+        "represented_population": 30000,
+        "reputation": 0.55,
+        "secrecy": 2,
+        "stance_axes": {
+          "platform_skepticism": 0.7,
+          "privacy_concern": 0.8,
+          "regulatory_support": 0.75
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "archetype_key": "housing_observers",
+        "attention_level": 4,
+        "behavioral_tendencies": [
+          "wait_for_elites",
+          "news_reactive",
+          "low_commitment"
+        ],
+        "cohort_key": "housing_observers_general",
+        "expression_level": 3,
+        "fatigue": 2,
+        "fear_of_isolation": 3,
+        "mobilization_readiness": 2,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.625,
+        "private_belief": "possibly concerning, but facts are still unclear",
+        "public_expression": "light discussion pending clearer reporting",
+        "representation_mode": "issue_public_segment",
+        "represented_population": 50000,
+        "reputation": 0.5,
+        "secrecy": 2,
+        "stance_axes": {
+          "platform_skepticism": 0.45,
+          "privacy_concern": 0.45,
+          "regulatory_support": 0.5
+        },
+        "trustworthiness": 0.5
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "urbannest_platform",
+          "independent_brokers_association",
+          "compliant_brokers"
+        ],
+        "blockers": [
+          "high grievance intensity among resisting brokers",
+          "privacy concerns that raise legitimacy costs",
+          "possibility of coordinated holdout or regulatory scrutiny"
+        ],
+        "contradiction_notes": "A broad platform concession would point more to negotiated settlement than pure capitulation.",
+        "description": "Most resisting brokers sign the agreement and accept the platform's data-sharing conditions, restoring broad listing participation without major platform rollback.",
+        "endpoint_key": "broker_capitulation",
+        "evidence_refs": [
+          "scenario: dominant platform removes listings from brokers who refuse new data-sharing agreement",
+          "scenario: model platform leverage and broker exit costs",
+          "initial_event: broker_sign_or_resist_decision_window"
+        ],
+        "label": "Broker capitulation to platform terms",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will a decisive majority of resisting brokers ultimately sign the new data-sharing agreement and restore listings under the platform's terms?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.34,
+        "rationale": "This endpoint is strongly implied by the platform's current leverage and the scenario's explicit request to model capitulation.",
+        "realization_criteria": [
+          "at least 75 percent of previously resisting broker inventory returns under signed agreements",
+          "broker association stops urging collective refusal or publicly acknowledges acceptance as the practical path",
+          "no materially narrowing platform concession is required to achieve broad compliance"
+        ],
+        "status": "active",
+        "status_basis": "Platform leverage and broker dependency are already high, but collective resistance has not yet fully broken."
+      },
+      {
+        "authority_refs": [
+          "alternative_listing_platforms",
+          "independent_brokers_association",
+          "renters_market_public"
+        ],
+        "blockers": [
+          "network effects and liquidity disadvantage",
+          "renter search inertia",
+          "coordination problems among brokers"
+        ],
+        "contradiction_notes": "Small symbolic defections without sustained renter utility do not realize this endpoint.",
+        "description": "Alternative listing channels become sufficiently useful that brokers and renters can bypass the dominant platform at meaningful scale.",
+        "endpoint_key": "credible_substitution",
+        "evidence_refs": [
+          "scenario: terminal endpoints include substitution",
+          "scenario: model broker exit costs and tenant dependency",
+          "initial_event: substitute_platform_outreach"
+        ],
+        "label": "Credible substitute marketplace emerges",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will alternative listing platforms gain enough broker inventory and renter usage to materially reduce the dominant platform's leverage?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.18,
+        "rationale": "The scenario explicitly names substitution as a terminal option, but current dependency structure makes it uphill.",
+        "realization_criteria": [
+          "alternative platforms secure enough inventory to be publicly cited as viable search destinations",
+          "measurable broker promotion or migration to alternatives persists across multiple ticks",
+          "renter-facing reports indicate meaningful inventory discovery outside the dominant platform"
+        ],
+        "status": "active",
+        "status_basis": "Substitution is possible but weak at T0 because alternatives lack demonstrated scale and renters remain platform-reliant."
+      },
+      {
+        "authority_refs": [
+          "housing_regulators_office"
+        ],
+        "blockers": [
+          "unclear jurisdiction",
+          "insufficient evidence",
+          "slow administrative timelines",
+          "consumer harm remaining diffuse"
+        ],
+        "contradiction_notes": "Informal monitoring or off-record meetings alone do not realize this endpoint.",
+        "description": "Regulators move beyond observation into an official inquiry, hearing, order, or comparable formal process focused on coercion, competition, or tenant-data practices.",
+        "endpoint_key": "formal_regulatory_action",
+        "evidence_refs": [
+          "scenario: housing regulators consider inquiry",
+          "scenario: privacy advocates worry about tenant data",
+          "scenario: brokers accuse platform of coercion"
+        ],
+        "label": "Formal regulatory inquiry or action",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will housing regulators escalate from consideration to a formal inquiry or comparable enforcement process?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.24,
+        "rationale": "The scenario explicitly introduces regulators and privacy concerns, making formal intervention a key endpoint comparator.",
+        "realization_criteria": [
+          "housing_regulators_office opens a formal inquiry or equivalent docketed process",
+          "regulators issue documented information requests, hearing notices, or public enforcement statements",
+          "the dispute becomes subject to a recognizable official oversight track"
+        ],
+        "status": "active",
+        "status_basis": "Regulators are considering inquiry, so the endpoint is live but not yet procedurally advanced."
+      },
+      {
+        "authority_refs": [
+          "urbannest_platform",
+          "independent_brokers_association",
+          "housing_regulators_office",
+          "alternative_listing_platforms"
+        ],
+        "blockers": [
+          "rapid broker capitulation",
+          "strong regulatory action",
+          "successful substitute platform scaling"
+        ],
+        "contradiction_notes": "Temporary procedural delays alone are not enough; the mixed equilibrium must persist across time.",
+        "description": "The market remains stuck in an unresolved equilibrium with some compliance, some resistance, continued friction, and no decisive substitute or regulatory settlement.",
+        "endpoint_key": "durable_stalemate",
+        "evidence_refs": [
+          "expected_focus: durable_stalemate",
+          "scenario: terminal endpoints include stalemate",
+          "scenario: model leverage, exit costs, and dependency"
+        ],
+        "label": "Durable stalemate",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the system remain in a mixed state of partial compliance, partial resistance, and unresolved pressure without a terminal policy or market shift?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.24,
+        "rationale": "The expected focus explicitly highlights durable stalemate, and current conditions strongly support an unresolved equilibrium path.",
+        "realization_criteria": [
+          "after multiple ticks, no side achieves decisive market or policy victory",
+          "a persistent mixed broker participation pattern remains in place",
+          "regulatory activity stays limited or slow and alternatives fail to achieve critical mass"
+        ],
+        "status": "active",
+        "status_basis": "Given high switching costs, mixed broker incentives, and uncertain regulatory timing, stalemate is highly plausible at T0."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "Scenario states a dominant apartment-listing platform and renter inventory loss when listings are removed.",
+        "layer": "exposure",
+        "reason": "Renters rely on the dominant platform for listings visibility.",
+        "source_actor_name": "urbannest_platform",
+        "target_actor_name": "renters_market_public",
+        "weight": 0.78
+      },
+      {
+        "direction": "directed",
+        "evidence": "Inferred from platform-mediated housing search dependence.",
+        "layer": "exposure",
+        "reason": "Renter search behavior and complaints are visible to the platform through usage and feedback channels.",
+        "source_actor_name": "renters_market_public",
+        "target_actor_name": "urbannest_platform",
+        "weight": 0.42
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario says brokers accuse the platform of coercion.",
+        "layer": "exposure",
+        "reason": "Brokers can reach media with coercion allegations.",
+        "source_actor_name": "independent_brokers_association",
+        "target_actor_name": "local_housing_media",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario says privacy advocates worry about tenant data.",
+        "layer": "exposure",
+        "reason": "Advocates can publicize tenant-data concerns.",
+        "source_actor_name": "tenant_privacy_advocates",
+        "target_actor_name": "local_housing_media",
+        "weight": 0.48
+      },
+      {
+        "direction": "directed",
+        "evidence": "Inquiry consideration is likely informed by public reporting as one source.",
+        "layer": "exposure",
+        "reason": "Media coverage can surface issues for regulators.",
+        "source_actor_name": "local_housing_media",
+        "target_actor_name": "housing_regulators_office",
+        "weight": 0.36
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario explicitly includes substitution as a terminal endpoint.",
+        "layer": "exposure",
+        "reason": "Substitutes are visible to brokers as fallback options.",
+        "source_actor_name": "alternative_listing_platforms",
+        "target_actor_name": "independent_brokers_association",
+        "weight": 0.3
+      },
+      {
+        "direction": "directed",
+        "evidence": "Dominant usage implied, with visible harm from listing removals.",
+        "layer": "trust",
+        "reason": "Renters trust the platform for utility, but inventory reduction creates strain.",
+        "source_actor_name": "renters_market_public",
+        "target_actor_name": "urbannest_platform",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario states brokers accuse the platform of coercion.",
+        "layer": "trust",
+        "reason": "Resisting brokers view the agreement as coercive.",
+        "source_actor_name": "independent_brokers_association",
+        "target_actor_name": "urbannest_platform",
+        "weight": 0.18
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario says privacy advocates worry about tenant data.",
+        "layer": "trust",
+        "reason": "Advocates are skeptical of data-sharing motives and safeguards.",
+        "source_actor_name": "tenant_privacy_advocates",
+        "target_actor_name": "urbannest_platform",
+        "weight": 0.16
+      },
+      {
+        "direction": "directed",
+        "evidence": "Regulators consider inquiry, indicating unresolved confidence.",
+        "layer": "trust",
+        "reason": "Regulators have not acted yet but are weighing concerns.",
+        "source_actor_name": "housing_regulators_office",
+        "target_actor_name": "urbannest_platform",
+        "weight": 0.4
+      },
+      {
+        "direction": "directed",
+        "evidence": "Renter harm is direct, but broker claims may not yet dominate public interpretation.",
+        "layer": "trust",
+        "reason": "Renters may partly credit brokers for inventory access but are not strongly aligned.",
+        "source_actor_name": "renters_market_public",
+        "target_actor_name": "independent_brokers_association",
+        "weight": 0.34
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario centers on broker exit costs and platform leverage.",
+        "layer": "dependency",
+        "reason": "Brokers depend materially on platform access for listing reach and lead generation.",
+        "source_actor_name": "independent_brokers_association",
+        "target_actor_name": "urbannest_platform",
+        "weight": 0.84
+      },
+      {
+        "direction": "directed",
+        "evidence": "Listings are removed for refusers, sharpening dependence.",
+        "layer": "dependency",
+        "reason": "Compliant brokers maintain access by signing, indicating strong reliance.",
+        "source_actor_name": "compliant_brokers",
+        "target_actor_name": "urbannest_platform",
+        "weight": 0.88
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario says renters lose inventory when platform removes listings.",
+        "layer": "dependency",
+        "reason": "Renters rely on the dominant platform for inventory discovery.",
+        "source_actor_name": "renters_market_public",
+        "target_actor_name": "urbannest_platform",
+        "weight": 0.76
+      },
+      {
+        "direction": "directed",
+        "evidence": "Substitution is possible only if brokers help seed alternatives.",
+        "layer": "dependency",
+        "reason": "Substitutes need broker inventory to become viable alternatives.",
+        "source_actor_name": "alternative_listing_platforms",
+        "target_actor_name": "independent_brokers_association",
+        "weight": 0.28
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario includes substitution but emphasizes broker exit costs.",
+        "layer": "dependency",
+        "reason": "Resisting brokers may need substitutes, but these are not yet fully viable.",
+        "source_actor_name": "independent_brokers_association",
+        "target_actor_name": "alternative_listing_platforms",
+        "weight": 0.24
+      },
+      {
+        "direction": "directed",
+        "evidence": "Platform removes listings from brokers who refuse the agreement.",
+        "layer": "influence",
+        "reason": "The platform can enforce or withhold listing access, shaping broker choices.",
+        "source_actor_name": "urbannest_platform",
+        "target_actor_name": "independent_brokers_association",
+        "weight": 0.8
+      },
+      {
+        "direction": "directed",
+        "evidence": "Brokers accuse platform of coercion while regulators consider inquiry.",
+        "layer": "influence",
+        "reason": "Organized broker complaints can trigger scrutiny.",
+        "source_actor_name": "independent_brokers_association",
+        "target_actor_name": "housing_regulators_office",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "Privacy advocates worry about tenant data and regulators are considering inquiry.",
+        "layer": "influence",
+        "reason": "Privacy framing can increase inquiry likelihood.",
+        "source_actor_name": "tenant_privacy_advocates",
+        "target_actor_name": "housing_regulators_office",
+        "weight": 0.43
+      },
+      {
+        "direction": "directed",
+        "evidence": "Media is a likely carrier of the dispute narrative.",
+        "layer": "influence",
+        "reason": "Coverage can shape whether renters perceive a platform abuse story or routine disruption.",
+        "source_actor_name": "local_housing_media",
+        "target_actor_name": "renters_market_public",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "Inquiry consideration often rises with public scrutiny, though not deterministically.",
+        "layer": "influence",
+        "reason": "Sustained coverage can raise salience and accountability pressure.",
+        "source_actor_name": "local_housing_media",
+        "target_actor_name": "housing_regulators_office",
+        "weight": 0.38
+      },
+      {
+        "direction": "directed",
+        "evidence": "Renters lose inventory, a plausible consumer-protection trigger.",
+        "layer": "influence",
+        "reason": "Consumer harm signals matter if renter complaints become visible.",
+        "source_actor_name": "renters_market_public",
+        "target_actor_name": "housing_regulators_office",
+        "weight": 0.31
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Brokers cite coercion; advocates cite tenant data concerns.",
+        "layer": "coalition",
+        "reason": "Both oppose the agreement, though for partly different reasons.",
+        "source_actor_name": "independent_brokers_association",
+        "target_actor_name": "tenant_privacy_advocates",
+        "weight": 0.42
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Substitution is an explicit endpoint option.",
+        "layer": "coalition",
+        "reason": "Substitutes and resisting brokers share interest in weakening platform dominance.",
+        "source_actor_name": "independent_brokers_association",
+        "target_actor_name": "alternative_listing_platforms",
+        "weight": 0.33
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Compliant brokers preserve listings by accepting terms.",
+        "layer": "coalition",
+        "reason": "Agreement signers are aligned around continued access and market continuity.",
+        "source_actor_name": "urbannest_platform",
+        "target_actor_name": "compliant_brokers",
+        "weight": 0.58
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Core dispute in scenario.",
+        "layer": "conflict",
+        "reason": "The platform is enforcing terms resisted by brokers who allege coercion.",
+        "source_actor_name": "urbannest_platform",
+        "target_actor_name": "independent_brokers_association",
+        "weight": 0.74
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Privacy concerns are explicit in scenario.",
+        "layer": "conflict",
+        "reason": "Advocates challenge the legitimacy of the data-sharing arrangement.",
+        "source_actor_name": "urbannest_platform",
+        "target_actor_name": "tenant_privacy_advocates",
+        "weight": 0.56
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Regulators are only considering inquiry at T0.",
+        "layer": "conflict",
+        "reason": "Potential oversight conflict exists but has not yet matured into formal action.",
+        "source_actor_name": "urbannest_platform",
+        "target_actor_name": "housing_regulators_office",
+        "weight": 0.34
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Scenario implies unequal willingness to accept the agreement.",
+        "layer": "conflict",
+        "reason": "Internal industry tension over whether to resist collectively or sign individually.",
+        "source_actor_name": "independent_brokers_association",
+        "target_actor_name": "compliant_brokers",
+        "weight": 0.29
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "High-profile listing removals normally generate public response.",
+        "layer": "oasis_interaction",
+        "reason": "The platform is likely to issue statements or defend policy publicly.",
+        "source_actor_name": "urbannest_platform",
+        "target_actor_name": "local_housing_media",
+        "weight": 0.4
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "They accuse the platform of coercion.",
+        "layer": "oasis_interaction",
+        "reason": "Brokers have incentive to externalize the dispute and seek sympathetic framing.",
+        "source_actor_name": "independent_brokers_association",
+        "target_actor_name": "local_housing_media",
+        "weight": 0.58
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Tenant-data worry is explicit and media-relevant.",
+        "layer": "oasis_interaction",
+        "reason": "Advocates can translate data concerns into public language.",
+        "source_actor_name": "tenant_privacy_advocates",
+        "target_actor_name": "local_housing_media",
+        "weight": 0.54
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Renters lose inventory, but collective expression is still limited at T0.",
+        "layer": "oasis_interaction",
+        "reason": "Renter anecdotes may appear if inventory loss becomes salient.",
+        "source_actor_name": "renters_market_public",
+        "target_actor_name": "local_housing_media",
+        "weight": 0.3
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "key": "platform_executive",
+        "label": "Platform executive decision-maker"
+      },
+      {
+        "key": "broker_coalition_lead",
+        "label": "Broker coalition lead"
+      },
+      {
+        "key": "privacy_campaign_lead",
+        "label": "Privacy advocate spokesperson"
+      },
+      {
+        "key": "regulatory_case_lead",
+        "label": "Regulatory case lead"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "urbannest_platform",
+        "attention_level": 9,
+        "constraints": [
+          "reputational risk",
+          "regulatory risk",
+          "need to preserve platform liquidity and user trust"
+        ],
+        "expression_level": 5,
+        "fatigue": 4,
+        "fear_of_isolation": 2,
+        "hero_key": "platform_executive",
+        "mobilization_readiness": 8,
+        "perceived_majority": 0.7,
+        "power": 0.86,
+        "role": "sets agreement enforcement and concession strategy",
+        "stance_axes": {
+          "concession_willingness": 0.3,
+          "data_expansion_priority": 0.8,
+          "enforcement_preference": 0.75
+        }
+      },
+      {
+        "actor_name": "independent_brokers_association",
+        "attention_level": 9,
+        "constraints": [
+          "member fragmentation",
+          "high exit costs",
+          "limited direct consumer reach"
+        ],
+        "expression_level": 7,
+        "fatigue": 5,
+        "fear_of_isolation": 5,
+        "hero_key": "broker_coalition_lead",
+        "mobilization_readiness": 7,
+        "perceived_majority": 0.45,
+        "power": 0.58,
+        "role": "coordinates resistance and public complaint framing",
+        "stance_axes": {
+          "negotiation_willingness": 0.6,
+          "regulatory_escalation": 0.7,
+          "resistance_commitment": 0.8
+        }
+      },
+      {
+        "actor_name": "tenant_privacy_advocates",
+        "attention_level": 7,
+        "constraints": [
+          "limited direct market authority",
+          "needs public salience and evidence clarity"
+        ],
+        "expression_level": 7,
+        "fatigue": 3,
+        "fear_of_isolation": 4,
+        "hero_key": "privacy_campaign_lead",
+        "mobilization_readiness": 6,
+        "perceived_majority": 0.35,
+        "power": 0.42,
+        "role": "raises data protection concerns and legitimacy costs",
+        "stance_axes": {
+          "coalition_with_brokers": 0.55,
+          "privacy_alarm": 0.85,
+          "regulatory_pressure": 0.8
+        }
+      },
+      {
+        "actor_name": "housing_regulators_office",
+        "attention_level": 6,
+        "constraints": [
+          "evidentiary threshold",
+          "jurisdictional caution",
+          "political and legal process time"
+        ],
+        "expression_level": 2,
+        "fatigue": 2,
+        "fear_of_isolation": 2,
+        "hero_key": "regulatory_case_lead",
+        "mobilization_readiness": 4,
+        "perceived_majority": 0.5,
+        "power": 0.72,
+        "role": "decides whether to inquire, warn, or abstain",
+        "stance_axes": {
+          "consumer_protection_priority": 0.7,
+          "intervention_readiness": 0.45,
+          "market_power_concern": 0.6
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "key": "platform_executive",
+        "label": "Platform executive decision-maker"
+      },
+      {
+        "key": "broker_coalition_lead",
+        "label": "Broker coalition lead"
+      },
+      {
+        "key": "privacy_campaign_lead",
+        "label": "Privacy advocate spokesperson"
+      },
+      {
+        "key": "regulatory_case_lead",
+        "label": "Regulatory case lead"
+      }
+    ],
+    "important_questions": [
+      "Will a decisive majority of resisting brokers ultimately sign the new data-sharing agreement and restore listings under the platform's terms?",
+      "Will alternative listing platforms gain enough broker inventory and renter usage to materially reduce the dominant platform's leverage?",
+      "Will housing regulators escalate from consideration to a formal inquiry or comparable enforcement process?",
+      "Will the system remain in a mixed state of partial compliance, partial resistance, and unresolved pressure without a terminal policy or market shift?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "urbannest_platform",
+          "independent_brokers_association",
+          "compliant_brokers"
+        ],
+        "event_key": "listing_removal_enforcement_active",
+        "event_type": "announcement",
+        "expected_impact": "Raises dependency pressure, hardens broker grievance, and creates immediate inventory effects for renters.",
+        "summary": "Platform has already removed listings from brokers refusing the new data-sharing agreement.",
+        "tick": 0,
+        "type": "realized_setup"
+      },
+      {
+        "actors": [
+          "independent_brokers_association",
+          "local_housing_media"
+        ],
+        "event_key": "broker_coercion_complaints_public",
+        "event_type": "announcement",
+        "expected_impact": "Increases conflict salience, media attention, and regulator awareness without guaranteeing intervention.",
+        "summary": "Resisting brokers publicly accuse the platform of coercion.",
+        "tick": 0,
+        "type": "realized_setup"
+      },
+      {
+        "actors": [
+          "tenant_privacy_advocates"
+        ],
+        "event_key": "privacy_concerns_surface",
+        "event_type": "announcement",
+        "expected_impact": "Broadens the dispute beyond broker economics and may reduce public trust in the platform.",
+        "summary": "Privacy advocates begin raising concerns about tenant data collection and sharing.",
+        "tick": 0,
+        "type": "realized_setup"
+      },
+      {
+        "actors": [
+          "housing_regulators_office"
+        ],
+        "event_key": "regulatory_triage_begins",
+        "event_type": "announcement",
+        "expected_impact": "Creates uncertainty for platform strategy and encourages evidence gathering by opponents.",
+        "summary": "Regulators informally assess whether the matter warrants inquiry.",
+        "tick": 1,
+        "type": "imminent"
+      },
+      {
+        "actors": [
+          "independent_brokers_association",
+          "compliant_brokers",
+          "urbannest_platform"
+        ],
+        "event_key": "broker_sign_or_resist_decision_window",
+        "event_type": "announcement",
+        "expected_impact": "May reveal whether resistance can remain coordinated or begins to fracture.",
+        "summary": "Affected brokers face near-term decision pressure to sign, hold out, or test alternatives.",
+        "tick": 2,
+        "type": "imminent"
+      },
+      {
+        "actors": [
+          "alternative_listing_platforms",
+          "independent_brokers_association"
+        ],
+        "event_key": "substitute_platform_outreach",
+        "event_type": "announcement",
+        "expected_impact": "Tests whether substitution can become credible enough to alter bargaining power.",
+        "summary": "Alternative platforms court removed brokers and pitch migration options.",
+        "tick": 2,
+        "type": "imminent"
+      },
+      {
+        "actors": [
+          "renters_market_public",
+          "local_housing_media"
+        ],
+        "event_key": "first_public_impact_stories",
+        "event_type": "announcement",
+        "expected_impact": "If numerous, can convert niche trade conflict into broader consumer issue.",
+        "summary": "Renter anecdotes about reduced inventory or search friction begin appearing.",
+        "tick": 3,
+        "type": "imminent"
+      }
+    ],
+    "llm_call_id": "9745cc46-2fb1-4b94-bee4-7cd71d7ce516",
+    "merge_hypotheses": [
+      {
+        "affected_actors": [
+          "urbannest_platform",
+          "independent_brokers_association",
+          "tenant_privacy_advocates"
+        ],
+        "convergence_driver": "Platform offers narrower data terms, delayed compliance, or implementation clarifications.",
+        "merge_key": "partial_concession_reduces_conflict",
+        "why_it_could_merge": "A process concession can satisfy enough participants to lower immediate escalation while leaving core dominance unresolved."
+      },
+      {
+        "affected_actors": [
+          "independent_brokers_association",
+          "compliant_brokers",
+          "renters_market_public"
+        ],
+        "convergence_driver": "Broker losses and public attention decay weaken resistance stamina.",
+        "merge_key": "coalition_fatigue_pushes_pragmatism",
+        "why_it_could_merge": "Shared fatigue can normalize partial compliance and shrink public conflict intensity."
+      },
+      {
+        "affected_actors": [
+          "urbannest_platform",
+          "brokers",
+          "renters_market_public"
+        ],
+        "convergence_driver": "All market participants want complete inventory and lower search friction.",
+        "merge_key": "common_need_for_market_liquidity",
+        "why_it_could_merge": "Pressure to restore transaction flow can support negotiated coexistence even without full trust repair."
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "key": "renters",
+        "label": "Renters",
+        "population_total": 500000,
+        "scope": "metro_area_inferred"
+      },
+      {
+        "key": "brokers",
+        "label": "Brokers and broker staff",
+        "population_total": 12000,
+        "scope": "metro_area_inferred"
+      },
+      {
+        "key": "housing_observers",
+        "label": "Civically attentive housing observers",
+        "population_total": 80000,
+        "scope": "metro_area_inferred"
+      }
+    ],
+    "risk_flags": [
+      {
+        "note": "Population counts and market scope are inferred for simulation utility, not directly stated in the corpus.",
+        "risk_key": "market_scale_unspecified",
+        "severity": "medium"
+      },
+      {
+        "note": "The precise content of the data-sharing agreement is unknown, limiting specificity on privacy and compliance thresholds.",
+        "risk_key": "agreement_terms_opaque",
+        "severity": "high"
+      },
+      {
+        "note": "Regulator type and legal authority are not specified, so intervention pathways remain generalized.",
+        "risk_key": "jurisdiction_uncertain",
+        "severity": "medium"
+      },
+      {
+        "note": "Renter perception of inventory loss may vary substantially, affecting mobilization and media trajectories.",
+        "risk_key": "public_awareness_not_yet_stabilized",
+        "severity": "medium"
+      },
+      {
+        "note": "Platform dominance and broker exit costs may suppress visible resistance despite private opposition.",
+        "risk_key": "dependency_asymmetry_high",
+        "severity": "high"
+      }
+    ],
+    "simulation_brief": {
+      "implicit_endpoint_pressure": [
+        "whether brokers sign or resist the agreement",
+        "whether renters shift behavior due to reduced inventory",
+        "whether regulators intervene",
+        "whether substitutes gain enough liquidity to weaken platform leverage"
+      ],
+      "mode": "direct",
+      "scenario_key": "corporate_004",
+      "summary": "A dominant apartment-listing platform has removed listings from brokers that refuse a new data-sharing agreement. Renters face reduced visible inventory, brokers allege coercive leverage, privacy advocates raise tenant-data concerns, and housing regulators are considering whether to open an inquiry. T0 should capture platform leverage, broker exit costs, renter dependency, and plausible terminal paths including capitulation, substitution, regulation, and durable stalemate.",
+      "time_horizon_ticks": 12,
+      "title": "dominant_apartment_listing_platform_data_sharing_dispute",
+      "uncertainty": [
+        "Exact market geography is unspecified.",
+        "Specific contractual terms and data fields in the new agreement are not provided.",
+        "Regulatory authority and timeline are not yet fixed.",
+        "Scale of removals and renter awareness are inferred but not quantified."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "renters_market_public",
+          "housing_observers_general"
+        ],
+        "level": "medium",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Many observers need moderately credible evidence before shifting from inconvenience framing to abuse framing."
+      },
+      {
+        "applies_to": [
+          "brokers_resisting",
+          "renters_inventory_disrupted"
+        ],
+        "level": "high",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Collective action depends on seeing enough peers resist or enough personal harm accumulate."
+      },
+      {
+        "applies_to": [
+          "brokers_compliant_or_waiting",
+          "renters_platform_reliant"
+        ],
+        "level": "medium_high",
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Private dissatisfaction may remain muted due to dependence and low issue salience."
+      },
+      {
+        "applies_to": [
+          "brokers",
+          "housing_observers"
+        ],
+        "level": "medium",
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Trade and advocacy networks reinforce within-group interpretations."
+      },
+      {
+        "applies_to": [
+          "brokers_exit_planners",
+          "housing_observers_privacy_civic"
+        ],
+        "level": "medium",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Switching platforms or backing inquiry likely requires multiple reinforcing signals, not one message."
+      },
+      {
+        "applies_to": [
+          "independent_brokers_association",
+          "tenant_privacy_advocates"
+        ],
+        "level": "medium",
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Professional identity and rights-based identity help sustain coalition despite mixed motives."
+      },
+      {
+        "applies_to": [
+          "renters_market_public",
+          "housing_observers_general"
+        ],
+        "level": "medium",
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Absent fresh incidents or coverage, public attention may fade quickly."
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Visible inventory reduction can convert abstract contract dispute into consumer issue.",
+        "influence_key": "consumer_harm_visibility"
+      },
+      {
+        "description": "Broker narrative frames the agreement as leverage abuse rather than routine policy update.",
+        "influence_key": "coercion_frame"
+      },
+      {
+        "description": "Tenant-data concerns can broaden coalition beyond industry self-interest.",
+        "influence_key": "privacy_frame"
+      },
+      {
+        "description": "High broker and renter dependence on the dominant platform suppresses immediate defection.",
+        "influence_key": "switching_cost_salience"
+      },
+      {
+        "description": "The mere possibility of inquiry changes bargaining expectations before formal action.",
+        "influence_key": "regulatory_option_presence"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "urbannest_platform",
+        "behavior_axes": {
+          "adaptability": 0.6,
+          "aggression": 0.7,
+          "risk_tolerance": 0.6,
+          "transparency": 0.35
+        },
+        "ideology_axes": {
+          "market_control": 0.8,
+          "privacy_permissiveness": 0.65,
+          "regulatory_deference": 0.3
+        },
+        "reputation": 0.62,
+        "secrecy": 0.7,
+        "tendency": "enforce_then_selectively_concede_if_costs_rise",
+        "trustworthiness": 0.4
+      },
+      {
+        "actor_name": "independent_brokers_association",
+        "behavior_axes": {
+          "adaptability": 0.5,
+          "aggression": 0.55,
+          "risk_tolerance": 0.45,
+          "transparency": 0.55
+        },
+        "ideology_axes": {
+          "market_control": 0.25,
+          "privacy_permissiveness": 0.35,
+          "regulatory_deference": 0.7
+        },
+        "reputation": 0.48,
+        "secrecy": 0.5,
+        "tendency": "complain_publicly_while_seeking_collective_leverage",
+        "trustworthiness": 0.52
+      },
+      {
+        "actor_name": "compliant_brokers",
+        "behavior_axes": {
+          "adaptability": 0.45,
+          "aggression": 0.2,
+          "risk_tolerance": 0.3,
+          "transparency": 0.35
+        },
+        "ideology_axes": {
+          "market_control": 0.45,
+          "privacy_permissiveness": 0.5,
+          "regulatory_deference": 0.45
+        },
+        "reputation": 0.5,
+        "secrecy": 0.6,
+        "tendency": "quiet_compliance_under_dependency",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "renters_market_public",
+        "behavior_axes": {
+          "adaptability": 0.5,
+          "aggression": 0.15,
+          "risk_tolerance": 0.25,
+          "transparency": 0.5
+        },
+        "ideology_axes": {
+          "market_control": 0.4,
+          "privacy_permissiveness": 0.45,
+          "regulatory_deference": 0.55
+        },
+        "reputation": 0.5,
+        "secrecy": 0.25,
+        "tendency": "convenience_driven_with_late_issue_activation",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "tenant_privacy_advocates",
+        "behavior_axes": {
+          "adaptability": 0.6,
+          "aggression": 0.45,
+          "risk_tolerance": 0.5,
+          "transparency": 0.7
+        },
+        "ideology_axes": {
+          "market_control": 0.2,
+          "privacy_permissiveness": 0.1,
+          "regulatory_deference": 0.8
+        },
+        "reputation": 0.56,
+        "secrecy": 0.2,
+        "tendency": "frame_issue_as_rights_and_accountability",
+        "trustworthiness": 0.65
+      },
+      {
+        "actor_name": "housing_regulators_office",
+        "behavior_axes": {
+          "adaptability": 0.4,
+          "aggression": 0.3,
+          "risk_tolerance": 0.25,
+          "transparency": 0.45
+        },
+        "ideology_axes": {
+          "market_control": 0.35,
+          "privacy_permissiveness": 0.25,
+          "regulatory_deference": 0.9
+        },
+        "reputation": 0.64,
+        "secrecy": 0.55,
+        "tendency": "cautious_fact_gathering_before_action",
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "alternative_listing_platforms",
+        "behavior_axes": {
+          "adaptability": 0.7,
+          "aggression": 0.4,
+          "risk_tolerance": 0.55,
+          "transparency": 0.55
+        },
+        "ideology_axes": {
+          "market_control": 0.3,
+          "privacy_permissiveness": 0.4,
+          "regulatory_deference": 0.5
+        },
+        "reputation": 0.42,
+        "secrecy": 0.35,
+        "tendency": "opportunistic_growth_if_inventory_can_be_seeded",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "local_housing_media",
+        "behavior_axes": {
+          "adaptability": 0.6,
+          "aggression": 0.35,
+          "risk_tolerance": 0.35,
+          "transparency": 0.7
+        },
+        "ideology_axes": {
+          "market_control": 0.45,
+          "privacy_permissiveness": 0.35,
+          "regulatory_deference": 0.5
+        },
+        "reputation": 0.57,
+        "secrecy": 0.15,
+        "tendency": "amplify_conflict_when_public_harm_is_clear",
+        "trustworthiness": 0.58
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 566,
+        "end": 566,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 566,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

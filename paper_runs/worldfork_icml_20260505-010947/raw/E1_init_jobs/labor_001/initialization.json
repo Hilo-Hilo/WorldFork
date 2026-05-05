@@ -1,0 +1,1647 @@
+{
+  "big_bang_id": "4fcee5ba-9822-44fb-84a9-722bd5da5062",
+  "initializer_output": {
+    "actors": [
+      {
+        "domain": "labor",
+        "fictionalized": true,
+        "name": "meridian_general_nurses_union",
+        "public_role": "bargaining representative for hospital nurses",
+        "type": "organization"
+      },
+      {
+        "domain": "healthcare_management",
+        "fictionalized": true,
+        "name": "meridian_general_hospital_executives",
+        "public_role": "hospital leadership and bargaining counterpart",
+        "type": "organization"
+      },
+      {
+        "domain": "workforce",
+        "fictionalized": true,
+        "name": "meridian_general_staff_nurses",
+        "public_role": "bedside nursing workforce",
+        "type": "group"
+      },
+      {
+        "domain": "community",
+        "fictionalized": true,
+        "name": "patients_and_families",
+        "public_role": "care recipients and household advocates",
+        "type": "group"
+      },
+      {
+        "domain": "local_government",
+        "fictionalized": true,
+        "name": "city_mediator_office",
+        "public_role": "municipal mediation and public convening",
+        "type": "institution"
+      },
+      {
+        "domain": "staffing_market",
+        "fictionalized": true,
+        "name": "travel_nurse_agencies",
+        "public_role": "supplier of temporary nursing labor",
+        "type": "industry_group"
+      },
+      {
+        "domain": "governance",
+        "fictionalized": true,
+        "name": "hospital_board",
+        "public_role": "hospital governance and executive oversight",
+        "type": "institution"
+      },
+      {
+        "domain": "media",
+        "fictionalized": true,
+        "name": "local_news_media",
+        "public_role": "local reporting and agenda setting",
+        "type": "institution"
+      },
+      {
+        "domain": "workforce",
+        "fictionalized": true,
+        "name": "non_nurse_hospital_staff",
+        "public_role": "other hospital workers affected by operations",
+        "type": "group"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Both sides announce tentative framework or intensive talks, postponing strike deadline while claiming progress.",
+        "branch_key": "settlement_before_walkout",
+        "divergence_signal": "Joint or parallel statements reference staffing review mechanisms, bargaining dates, or temporary continuity commitments.",
+        "trigger": "Authorization vote passes strongly and mediator secures visible bargaining movement on staffing or process guarantees."
+      },
+      {
+        "alternate_path": "Union sets strike date or limited work action, increasing pressure while preserving patient-safety messaging.",
+        "branch_key": "limited_strike_escalation",
+        "divergence_signal": "Union shifts from authorization rhetoric to scheduling logistics, picket preparation, or service-impact notices.",
+        "trigger": "Vote passes strongly and executives maintain hard budget line without credible staffing remedy."
+      },
+      {
+        "alternate_path": "Management pivots from bargaining pressure to legal containment strategy.",
+        "branch_key": "injunction_attempt",
+        "divergence_signal": "Executives retain counsel for emergency filing, cite public harm standards, or notify board of litigation posture.",
+        "trigger": "Hospital leadership judges service disruption risk and legal environment favorable enough to seek court restraint or emergency intervention."
+      },
+      {
+        "alternate_path": "Families and media pressure union to suspend escalation, weakening strike credibility.",
+        "branch_key": "public_backlash_against_union",
+        "divergence_signal": "Coverage shifts from unsafe staffing to harmed patients; family statements explicitly blame union action.",
+        "trigger": "Prominent cancellations or emotionally salient patient stories spread before staffing-safety frame consolidates."
+      },
+      {
+        "alternate_path": "Families and civic actors pressure management for concessions, strengthening union narrative.",
+        "branch_key": "public_backlash_against_management",
+        "divergence_signal": "Media and family testimony center on executive choices rather than strike threat as source of danger.",
+        "trigger": "Evidence of prolonged understaffing or avoidable executive delay becomes salient during dispute."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "union_member_meetings",
+        "primary_actors": [
+          "meridian_general_nurses_union",
+          "meridian_general_staff_nurses"
+        ],
+        "reach": 0.78,
+        "type": "internal_organization",
+        "visibility": "low_public_high_internal"
+      },
+      {
+        "channel_key": "hospital_internal_briefings",
+        "primary_actors": [
+          "meridian_general_hospital_executives",
+          "meridian_general_staff_nurses",
+          "non_nurse_hospital_staff"
+        ],
+        "reach": 0.69,
+        "type": "institutional",
+        "visibility": "low_public"
+      },
+      {
+        "channel_key": "local_news",
+        "primary_actors": [
+          "local_news_media",
+          "patients_and_families",
+          "meridian_general_nurses_union",
+          "meridian_general_hospital_executives"
+        ],
+        "reach": 0.62,
+        "type": "mass_media",
+        "visibility": "high_public"
+      },
+      {
+        "channel_key": "mediation_sessions",
+        "primary_actors": [
+          "city_mediator_office",
+          "meridian_general_nurses_union",
+          "meridian_general_hospital_executives"
+        ],
+        "reach": 0.18,
+        "type": "closed_door_process",
+        "visibility": "low_public"
+      },
+      {
+        "channel_key": "patient_service_notifications",
+        "primary_actors": [
+          "meridian_general_hospital_executives",
+          "patients_and_families"
+        ],
+        "reach": 0.51,
+        "type": "service_communication",
+        "visibility": "targeted_public"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "meridian_general_staff_nurses",
+        "attention_level": 0.89,
+        "cohort_key": "union_militant_nurses",
+        "expression_level": 0.78,
+        "fatigue": 0.76,
+        "fear_of_isolation": 0.28,
+        "mobilization_readiness": 0.83,
+        "perceived_majority": 0.68,
+        "population_archetype_key": "staff_nurses_population",
+        "population_share_of_archetype": 0.329,
+        "private_stance": "strongly favors authorization vote and credible strike threat over symbolic protest",
+        "public_stance": "frames action around unsafe staffing and patient safety",
+        "representation_mode": "cohort_segment",
+        "represented_population": 280,
+        "stance_axes": {
+          "management_trust": 0.18,
+          "mediation_openness": 0.52,
+          "patient_disruption_tolerance": 0.34,
+          "pro_strike": 0.82
+        }
+      },
+      {
+        "actor_name": "meridian_general_staff_nurses",
+        "attention_level": 0.82,
+        "cohort_key": "cautious_nurses",
+        "expression_level": 0.51,
+        "fatigue": 0.67,
+        "fear_of_isolation": 0.43,
+        "mobilization_readiness": 0.58,
+        "perceived_majority": 0.57,
+        "population_archetype_key": "staff_nurses_population",
+        "population_share_of_archetype": 0.471,
+        "private_stance": "believes staffing worsened but prefers settlement before an actual walkout",
+        "public_stance": "supports vote as leverage while emphasizing patient continuity",
+        "representation_mode": "cohort_segment",
+        "represented_population": 400,
+        "stance_axes": {
+          "management_trust": 0.29,
+          "mediation_openness": 0.71,
+          "patient_disruption_tolerance": 0.21,
+          "pro_strike": 0.56
+        }
+      },
+      {
+        "actor_name": "meridian_general_staff_nurses",
+        "attention_level": 0.74,
+        "cohort_key": "reluctant_nurses",
+        "expression_level": 0.24,
+        "fatigue": 0.59,
+        "fear_of_isolation": 0.69,
+        "mobilization_readiness": 0.29,
+        "perceived_majority": 0.31,
+        "population_archetype_key": "staff_nurses_population",
+        "population_share_of_archetype": 0.2,
+        "private_stance": "concerned about staffing but fearful of pay loss, retaliation, and patient harm from a strike",
+        "public_stance": "quiet or conditional support for negotiations only",
+        "representation_mode": "cohort_segment",
+        "represented_population": 170,
+        "stance_axes": {
+          "management_trust": 0.38,
+          "mediation_openness": 0.79,
+          "patient_disruption_tolerance": 0.1,
+          "pro_strike": 0.27
+        }
+      },
+      {
+        "actor_name": "patients_and_families",
+        "attention_level": 0.69,
+        "cohort_key": "high_anxiety_families",
+        "expression_level": 0.34,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.26,
+        "perceived_majority": 0.55,
+        "population_archetype_key": "patient_family_population",
+        "population_share_of_archetype": 0.3,
+        "private_stance": "prioritizes continuity of scheduled procedures and fears disruption",
+        "public_stance": "sympathetic to nurses but worried about cancellations",
+        "representation_mode": "cohort_segment",
+        "represented_population": 1800,
+        "stance_axes": {
+          "disruption_tolerance": 0.11,
+          "pressure_management": 0.42,
+          "pressure_union": 0.37,
+          "support_nurses_claims": 0.51
+        }
+      },
+      {
+        "actor_name": "patients_and_families",
+        "attention_level": 0.58,
+        "cohort_key": "safety_sympathetic_families",
+        "expression_level": 0.29,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.46,
+        "mobilization_readiness": 0.21,
+        "perceived_majority": 0.44,
+        "population_archetype_key": "patient_family_population",
+        "population_share_of_archetype": 0.4,
+        "private_stance": "believes understaffing is dangerous and nurses may be justified",
+        "public_stance": "calls for fast settlement and safe staffing commitments",
+        "representation_mode": "cohort_segment",
+        "represented_population": 2400,
+        "stance_axes": {
+          "disruption_tolerance": 0.28,
+          "pressure_management": 0.63,
+          "pressure_union": 0.19,
+          "support_nurses_claims": 0.68
+        }
+      },
+      {
+        "actor_name": "patients_and_families",
+        "attention_level": 0.23,
+        "cohort_key": "low_attention_families",
+        "expression_level": 0.08,
+        "fatigue": 0.11,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.07,
+        "perceived_majority": 0.5,
+        "population_archetype_key": "patient_family_population",
+        "population_share_of_archetype": 0.3,
+        "private_stance": "limited engagement unless directly affected by delays or media coverage",
+        "public_stance": "mostly silent",
+        "representation_mode": "cohort_segment",
+        "represented_population": 1800,
+        "stance_axes": {
+          "disruption_tolerance": 0.19,
+          "pressure_management": 0.22,
+          "pressure_union": 0.16,
+          "support_nurses_claims": 0.47
+        }
+      },
+      {
+        "actor_name": "non_nurse_hospital_staff",
+        "attention_level": 0.63,
+        "cohort_key": "operations_concerned_staff",
+        "expression_level": 0.2,
+        "fatigue": 0.48,
+        "fear_of_isolation": 0.57,
+        "mobilization_readiness": 0.18,
+        "perceived_majority": 0.52,
+        "population_archetype_key": "non_nurse_staff_population",
+        "population_share_of_archetype": 0.679,
+        "private_stance": "concerned that disruption will strain workflow and income stability but recognizes nursing shortages",
+        "public_stance": "calls for resolution and continuity",
+        "representation_mode": "cohort_segment",
+        "represented_population": 950,
+        "stance_axes": {
+          "disruption_tolerance": 0.17,
+          "management_trust": 0.36,
+          "speak_out_willingness": 0.22,
+          "support_nurses_claims": 0.54
+        }
+      },
+      {
+        "actor_name": "non_nurse_hospital_staff",
+        "attention_level": 0.56,
+        "cohort_key": "solidarity_staff_minority",
+        "expression_level": 0.31,
+        "fatigue": 0.45,
+        "fear_of_isolation": 0.62,
+        "mobilization_readiness": 0.27,
+        "perceived_majority": 0.34,
+        "population_archetype_key": "non_nurse_staff_population",
+        "population_share_of_archetype": 0.321,
+        "private_stance": "sees nurses as carrying unsafe burdens and is more openly sympathetic",
+        "public_stance": "modest solidarity, especially if patient safety stories spread",
+        "representation_mode": "cohort_segment",
+        "represented_population": 450,
+        "stance_axes": {
+          "disruption_tolerance": 0.24,
+          "management_trust": 0.24,
+          "speak_out_willingness": 0.41,
+          "support_nurses_claims": 0.72
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "meridian_general_staff_nurses",
+        "attention_level": 0.89,
+        "cohort_key": "union_militant_nurses",
+        "expression_level": 0.78,
+        "fatigue": 0.76,
+        "fear_of_isolation": 0.28,
+        "mobilization_readiness": 0.83,
+        "perceived_majority": 0.68,
+        "population_archetype_key": "staff_nurses_population",
+        "population_share_of_archetype": 0.329,
+        "private_stance": "strongly favors authorization vote and credible strike threat over symbolic protest",
+        "public_stance": "frames action around unsafe staffing and patient safety",
+        "representation_mode": "cohort_segment",
+        "represented_population": 280,
+        "stance_axes": {
+          "management_trust": 0.18,
+          "mediation_openness": 0.52,
+          "patient_disruption_tolerance": 0.34,
+          "pro_strike": 0.82
+        }
+      },
+      {
+        "actor_name": "meridian_general_staff_nurses",
+        "attention_level": 0.82,
+        "cohort_key": "cautious_nurses",
+        "expression_level": 0.51,
+        "fatigue": 0.67,
+        "fear_of_isolation": 0.43,
+        "mobilization_readiness": 0.58,
+        "perceived_majority": 0.57,
+        "population_archetype_key": "staff_nurses_population",
+        "population_share_of_archetype": 0.471,
+        "private_stance": "believes staffing worsened but prefers settlement before an actual walkout",
+        "public_stance": "supports vote as leverage while emphasizing patient continuity",
+        "representation_mode": "cohort_segment",
+        "represented_population": 400,
+        "stance_axes": {
+          "management_trust": 0.29,
+          "mediation_openness": 0.71,
+          "patient_disruption_tolerance": 0.21,
+          "pro_strike": 0.56
+        }
+      },
+      {
+        "actor_name": "meridian_general_staff_nurses",
+        "attention_level": 0.74,
+        "cohort_key": "reluctant_nurses",
+        "expression_level": 0.24,
+        "fatigue": 0.59,
+        "fear_of_isolation": 0.69,
+        "mobilization_readiness": 0.29,
+        "perceived_majority": 0.31,
+        "population_archetype_key": "staff_nurses_population",
+        "population_share_of_archetype": 0.2,
+        "private_stance": "concerned about staffing but fearful of pay loss, retaliation, and patient harm from a strike",
+        "public_stance": "quiet or conditional support for negotiations only",
+        "representation_mode": "cohort_segment",
+        "represented_population": 170,
+        "stance_axes": {
+          "management_trust": 0.38,
+          "mediation_openness": 0.79,
+          "patient_disruption_tolerance": 0.1,
+          "pro_strike": 0.27
+        }
+      },
+      {
+        "actor_name": "patients_and_families",
+        "attention_level": 0.69,
+        "cohort_key": "high_anxiety_families",
+        "expression_level": 0.34,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.26,
+        "perceived_majority": 0.55,
+        "population_archetype_key": "patient_family_population",
+        "population_share_of_archetype": 0.3,
+        "private_stance": "prioritizes continuity of scheduled procedures and fears disruption",
+        "public_stance": "sympathetic to nurses but worried about cancellations",
+        "representation_mode": "cohort_segment",
+        "represented_population": 1800,
+        "stance_axes": {
+          "disruption_tolerance": 0.11,
+          "pressure_management": 0.42,
+          "pressure_union": 0.37,
+          "support_nurses_claims": 0.51
+        }
+      },
+      {
+        "actor_name": "patients_and_families",
+        "attention_level": 0.58,
+        "cohort_key": "safety_sympathetic_families",
+        "expression_level": 0.29,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.46,
+        "mobilization_readiness": 0.21,
+        "perceived_majority": 0.44,
+        "population_archetype_key": "patient_family_population",
+        "population_share_of_archetype": 0.4,
+        "private_stance": "believes understaffing is dangerous and nurses may be justified",
+        "public_stance": "calls for fast settlement and safe staffing commitments",
+        "representation_mode": "cohort_segment",
+        "represented_population": 2400,
+        "stance_axes": {
+          "disruption_tolerance": 0.28,
+          "pressure_management": 0.63,
+          "pressure_union": 0.19,
+          "support_nurses_claims": 0.68
+        }
+      },
+      {
+        "actor_name": "patients_and_families",
+        "attention_level": 0.23,
+        "cohort_key": "low_attention_families",
+        "expression_level": 0.08,
+        "fatigue": 0.11,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.07,
+        "perceived_majority": 0.5,
+        "population_archetype_key": "patient_family_population",
+        "population_share_of_archetype": 0.3,
+        "private_stance": "limited engagement unless directly affected by delays or media coverage",
+        "public_stance": "mostly silent",
+        "representation_mode": "cohort_segment",
+        "represented_population": 1800,
+        "stance_axes": {
+          "disruption_tolerance": 0.19,
+          "pressure_management": 0.22,
+          "pressure_union": 0.16,
+          "support_nurses_claims": 0.47
+        }
+      },
+      {
+        "actor_name": "non_nurse_hospital_staff",
+        "attention_level": 0.63,
+        "cohort_key": "operations_concerned_staff",
+        "expression_level": 0.2,
+        "fatigue": 0.48,
+        "fear_of_isolation": 0.57,
+        "mobilization_readiness": 0.18,
+        "perceived_majority": 0.52,
+        "population_archetype_key": "non_nurse_staff_population",
+        "population_share_of_archetype": 0.679,
+        "private_stance": "concerned that disruption will strain workflow and income stability but recognizes nursing shortages",
+        "public_stance": "calls for resolution and continuity",
+        "representation_mode": "cohort_segment",
+        "represented_population": 950,
+        "stance_axes": {
+          "disruption_tolerance": 0.17,
+          "management_trust": 0.36,
+          "speak_out_willingness": 0.22,
+          "support_nurses_claims": 0.54
+        }
+      },
+      {
+        "actor_name": "non_nurse_hospital_staff",
+        "attention_level": 0.56,
+        "cohort_key": "solidarity_staff_minority",
+        "expression_level": 0.31,
+        "fatigue": 0.45,
+        "fear_of_isolation": 0.62,
+        "mobilization_readiness": 0.27,
+        "perceived_majority": 0.34,
+        "population_archetype_key": "non_nurse_staff_population",
+        "population_share_of_archetype": 0.321,
+        "private_stance": "sees nurses as carrying unsafe burdens and is more openly sympathetic",
+        "public_stance": "modest solidarity, especially if patient safety stories spread",
+        "representation_mode": "cohort_segment",
+        "represented_population": 450,
+        "stance_axes": {
+          "disruption_tolerance": 0.24,
+          "management_trust": 0.24,
+          "speak_out_willingness": 0.41,
+          "support_nurses_claims": 0.72
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "meridian_general_nurses_union",
+          "meridian_general_hospital_executives",
+          "hospital_board"
+        ],
+        "blockers": [
+          "Budget constraints limit management concessions.",
+          "Union must maintain internal credibility on staffing improvements.",
+          "Board approval may be needed for material commitments."
+        ],
+        "contradiction_notes": "A strong vote does not contradict settlement if it is used as bargaining leverage rather than trigger for immediate walkout.",
+        "description": "Parties reach a tentative agreement or formal standstill that averts a walkout while leaving implementation details for later.",
+        "endpoint_key": "pre_strike_settlement",
+        "evidence_refs": [
+          "strike_authorization_vote_announced",
+          "management_budget_response",
+          "mediator_outreach"
+        ],
+        "label": "Pre-strike settlement or standstill",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the parties reach a meaningful settlement or standstill agreement before any actual walkout begins?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.35,
+        "rationale": "Scenario explicitly includes settlement as a plausible branch and city mediation as a mechanism.",
+        "realization_criteria": [
+          "A signed tentative agreement, memorandum of understanding, or publicly confirmed standstill is announced by bargaining parties.",
+          "No strike start time is executed before the agreement or standstill takes effect."
+        ],
+        "status": "active",
+        "status_basis": "Authorization vote creates leverage but no terminal choice has yet been made; mediation channel remains open."
+      },
+      {
+        "authority_refs": [
+          "meridian_general_nurses_union",
+          "meridian_general_staff_nurses"
+        ],
+        "blockers": [
+          "Cautious and reluctant nurse cohorts may not cross mobilization threshold.",
+          "Public backlash risk could deter leadership.",
+          "Mediation or concessions could delay action."
+        ],
+        "contradiction_notes": "A high authorization vote alone does not realize this endpoint without actual work stoppage execution.",
+        "description": "Union proceeds from authorization to an observable strike or comparable work stoppage affecting hospital operations.",
+        "endpoint_key": "actual_nurse_strike",
+        "evidence_refs": [
+          "strike_authorization_vote_announced",
+          "authorization_vote_result",
+          "vote_campaign_inside_hospital"
+        ],
+        "label": "Actual strike or work stoppage begins",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the authorization vote translate into a real strike or comparable work stoppage?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.27,
+        "rationale": "Scenario names strike as a core endpoint option and highlights mobilization threshold dynamics.",
+        "realization_criteria": [
+          "Union announces and executes a strike start date or equivalent work stoppage.",
+          "Hospital operations are altered by nonattendance, picketing, or formal strike designation."
+        ],
+        "status": "active",
+        "status_basis": "Strike is threatened but not yet scheduled; support appears meaningful but not unanimous."
+      },
+      {
+        "authority_refs": [
+          "meridian_general_hospital_executives",
+          "hospital_board"
+        ],
+        "blockers": [
+          "Legal standards may be unfavorable or unclear.",
+          "Aggressive legal action may worsen public legitimacy.",
+          "Mediation may offer lower-cost alternative."
+        ],
+        "contradiction_notes": "Exploring contingency staffing does not itself imply a legal filing.",
+        "description": "Hospital leadership pursues injunction or comparable legal mechanism to limit or delay strike action.",
+        "endpoint_key": "injunction_or_legal_restraint_attempt",
+        "evidence_refs": [
+          "management_budget_response",
+          "contingency_staffing_review"
+        ],
+        "label": "Management seeks legal restraint",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will hospital leadership attempt an injunction or similar legal restraint rather than relying only on bargaining and contingency staffing?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.14,
+        "rationale": "Decision authority likely sits with executives subject to board risk tolerance, making this a distinct terminal option.",
+        "realization_criteria": [
+          "Hospital files for injunction, emergency order, or similar legal restraint related to labor action.",
+          "Executives publicly or formally rely on legal intervention as a principal dispute pathway."
+        ],
+        "status": "active",
+        "status_basis": "Scenario includes injunction attempt as plausible but provides no evidence it has started at T0."
+      },
+      {
+        "authority_refs": [
+          "patients_and_families",
+          "local_news_media",
+          "meridian_general_nurses_union"
+        ],
+        "blockers": [
+          "Strong patient-safety evidence may protect union legitimacy.",
+          "Management may absorb blame if understaffing appears avoidable.",
+          "No disruption has yet occurred."
+        ],
+        "contradiction_notes": "Sympathy for nurses can coexist with short-term frustration until narrative clearly consolidates.",
+        "description": "If care disruptions occur, the dominant public narrative assigns main responsibility to the union's escalation choices.",
+        "endpoint_key": "public_blame_lands_on_union",
+        "evidence_refs": [
+          "strike_authorization_vote_announced",
+          "patients_and_families",
+          "local_news"
+        ],
+        "label": "Public backlash primarily targets union",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "If procedures are canceled or delayed, does public blame fall mainly on management or on the union?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.11,
+        "rationale": "Scenario explicitly names public backlash as a branch and families as a swing audience.",
+        "realization_criteria": [
+          "Sustained media, family, or civic statements predominantly blame union action for cancellations or patient harm.",
+          "Observable public pressure causes union approval or coalition support to materially decline."
+        ],
+        "status": "active",
+        "status_basis": "Backlash is possible but not dominant at T0 because families are mixed and disruption is prospective."
+      },
+      {
+        "authority_refs": [
+          "patients_and_families",
+          "local_news_media",
+          "hospital_board",
+          "meridian_general_hospital_executives"
+        ],
+        "blockers": [
+          "Visible patient cancellations may be easier to attribute to strike threat than chronic understaffing.",
+          "Management budget frame may persuade some audiences.",
+          "Public attention may decay without salient incidents."
+        ],
+        "contradiction_notes": "Management can still reach settlement even if blame rises; blame assignment is not identical to bargaining outcome.",
+        "description": "If care disruptions or safety concerns intensify, the dominant narrative assigns main responsibility to executive decisions and understaffing.",
+        "endpoint_key": "public_blame_lands_on_management",
+        "evidence_refs": [
+          "management_budget_response",
+          "strike_authorization_vote_announced"
+        ],
+        "label": "Public backlash primarily targets management",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "If procedures are canceled or delayed, does public blame fall mainly on management or on the union?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.13,
+        "rationale": "Scenario's causal premise gives management ownership exposure through staffing deterioration and budget defense.",
+        "realization_criteria": [
+          "Sustained media, family, or civic statements predominantly blame executive staffing and bargaining choices.",
+          "Observable public pressure pushes management into concessions, reputational retreat, or board intervention."
+        ],
+        "status": "active",
+        "status_basis": "Worsening staffing ratios create a credible blame pathway against management before any walkout occurs."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Scenario centers on nurses' union strike authorization amid worsening staffing ratios.",
+        "layer": "dependency",
+        "reason": "Hospital operations depend materially on bedside nursing labor.",
+        "source_actor_name": "meridian_general_hospital_executives",
+        "target_actor_name": "meridian_general_staff_nurses",
+        "weight": 0.72
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Employment relationship implied by hospital labor dispute.",
+        "layer": "dependency",
+        "reason": "Nurses depend on hospital for wages, scheduling, and employment conditions.",
+        "source_actor_name": "meridian_general_staff_nurses",
+        "target_actor_name": "meridian_general_hospital_executives",
+        "weight": 0.63
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Families fear canceled procedures.",
+        "layer": "dependency",
+        "reason": "Patients rely on hospital administration to maintain care access and scheduling.",
+        "source_actor_name": "patients_and_families",
+        "target_actor_name": "meridian_general_hospital_executives",
+        "weight": 0.67
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Staffing ratio concerns imply care delivery dependence.",
+        "layer": "dependency",
+        "reason": "Patients rely on nurses for direct bedside care and safety.",
+        "source_actor_name": "patients_and_families",
+        "target_actor_name": "meridian_general_staff_nurses",
+        "weight": 0.58
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Traveling nurse agencies may benefit.",
+        "layer": "dependency",
+        "reason": "Executives may turn to temporary staffing if dispute escalates.",
+        "source_actor_name": "meridian_general_hospital_executives",
+        "target_actor_name": "travel_nurse_agencies",
+        "weight": 0.41
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Benefit arises through hospital staffing substitution.",
+        "layer": "dependency",
+        "reason": "Agencies need hospital demand to realize gains.",
+        "source_actor_name": "travel_nurse_agencies",
+        "target_actor_name": "meridian_general_hospital_executives",
+        "weight": 0.36
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Operational disruption would affect them.",
+        "layer": "dependency",
+        "reason": "Other staff depend on hospital operations and payroll stability.",
+        "source_actor_name": "non_nurse_hospital_staff",
+        "target_actor_name": "meridian_general_hospital_executives",
+        "weight": 0.59
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Governance oversight is implied for major concessions.",
+        "layer": "dependency",
+        "reason": "Executives may need board support for significant budget or settlement shifts.",
+        "source_actor_name": "meridian_general_hospital_executives",
+        "target_actor_name": "hospital_board",
+        "weight": 0.54
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Union announces strike authorization vote.",
+        "layer": "exposure",
+        "reason": "Nurses are highly exposed to union communications around vote and staffing.",
+        "source_actor_name": "meridian_general_staff_nurses",
+        "target_actor_name": "meridian_general_nurses_union",
+        "weight": 0.74
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Public fears around canceled procedures are newsworthy.",
+        "layer": "exposure",
+        "reason": "Families likely learn about dispute through local coverage.",
+        "source_actor_name": "patients_and_families",
+        "target_actor_name": "local_news_media",
+        "weight": 0.56
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Executives cite budget constraints.",
+        "layer": "exposure",
+        "reason": "Hospital public statements shape patient expectations about procedures.",
+        "source_actor_name": "patients_and_families",
+        "target_actor_name": "meridian_general_hospital_executives",
+        "weight": 0.49
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Plausible public dispute framing around staffing ratios.",
+        "layer": "exposure",
+        "reason": "Families also encounter union messaging framed around safety.",
+        "source_actor_name": "patients_and_families",
+        "target_actor_name": "meridian_general_nurses_union",
+        "weight": 0.38
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Executives are central public actors.",
+        "layer": "exposure",
+        "reason": "Media closely tracks executive statements in public labor disputes.",
+        "source_actor_name": "local_news_media",
+        "target_actor_name": "meridian_general_hospital_executives",
+        "weight": 0.62
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Union announcement is a visible event.",
+        "layer": "exposure",
+        "reason": "Media also tracks union vote announcements and strike rhetoric.",
+        "source_actor_name": "local_news_media",
+        "target_actor_name": "meridian_general_nurses_union",
+        "weight": 0.64
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Shared workplace operations.",
+        "layer": "exposure",
+        "reason": "Coworkers directly observe nursing workload and staffing strain.",
+        "source_actor_name": "non_nurse_hospital_staff",
+        "target_actor_name": "meridian_general_staff_nurses",
+        "weight": 0.58
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Authorization vote proceeds with mixed nurse cohorts.",
+        "layer": "trust",
+        "reason": "Union retains meaningful credibility as vehicle for staffing grievances, though not unanimous.",
+        "source_actor_name": "meridian_general_staff_nurses",
+        "target_actor_name": "meridian_general_nurses_union",
+        "weight": 0.66
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Staffing worsened and executives cite budget constraints.",
+        "layer": "trust",
+        "reason": "Worsening staffing ratios depress confidence in management competence and priorities.",
+        "source_actor_name": "meridian_general_staff_nurses",
+        "target_actor_name": "meridian_general_hospital_executives",
+        "weight": 0.24
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Families fear canceled procedures but may accept safety rationale.",
+        "layer": "trust",
+        "reason": "Nurses are generally seen as credible on bedside safety issues.",
+        "source_actor_name": "patients_and_families",
+        "target_actor_name": "meridian_general_staff_nurses",
+        "weight": 0.61
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Executives cite budget constraints while staffing worsens.",
+        "layer": "trust",
+        "reason": "Families need hospital continuity but may doubt budget explanations if care is disrupted.",
+        "source_actor_name": "patients_and_families",
+        "target_actor_name": "meridian_general_hospital_executives",
+        "weight": 0.39
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "City officials can mediate.",
+        "layer": "trust",
+        "reason": "Executives can accept mediator process as face-saving without ceding authority.",
+        "source_actor_name": "meridian_general_hospital_executives",
+        "target_actor_name": "city_mediator_office",
+        "weight": 0.51
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Mediation available but not binding.",
+        "layer": "trust",
+        "reason": "Union may see mediation as useful if it pressures management and preserves legitimacy.",
+        "source_actor_name": "meridian_general_nurses_union",
+        "target_actor_name": "city_mediator_office",
+        "weight": 0.55
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Union announces strike authorization vote.",
+        "layer": "influence",
+        "reason": "Union leadership can shape turnout, framing, and willingness to escalate.",
+        "source_actor_name": "meridian_general_nurses_union",
+        "target_actor_name": "meridian_general_staff_nurses",
+        "weight": 0.71
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Management controls employment environment.",
+        "layer": "influence",
+        "reason": "Executives influence work conditions, schedules, and threat perceptions but face low trust.",
+        "source_actor_name": "meridian_general_hospital_executives",
+        "target_actor_name": "meridian_general_staff_nurses",
+        "weight": 0.44
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Governance oversight of executive decisions.",
+        "layer": "influence",
+        "reason": "Board can constrain or authorize major settlement and legal strategies.",
+        "source_actor_name": "hospital_board",
+        "target_actor_name": "meridian_general_hospital_executives",
+        "weight": 0.63
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Families are a swing audience exposed to reporting.",
+        "layer": "influence",
+        "reason": "Coverage can define whether dispute is seen mainly as safety issue or service disruption.",
+        "source_actor_name": "local_news_media",
+        "target_actor_name": "patients_and_families",
+        "weight": 0.57
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Families fear canceled procedures.",
+        "layer": "influence",
+        "reason": "Patient sentiment can create reputational and political pressure on management.",
+        "source_actor_name": "patients_and_families",
+        "target_actor_name": "meridian_general_hospital_executives",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Public reaction is named as possible branch.",
+        "layer": "influence",
+        "reason": "Public sympathy or backlash affects union strike credibility and messaging choices.",
+        "source_actor_name": "patients_and_families",
+        "target_actor_name": "meridian_general_nurses_union",
+        "weight": 0.33
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "City can mediate but not impose contract.",
+        "layer": "influence",
+        "reason": "Mediator can convene and apply soft civic pressure.",
+        "source_actor_name": "city_mediator_office",
+        "target_actor_name": "meridian_general_hospital_executives",
+        "weight": 0.39
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Municipal mediation role.",
+        "layer": "influence",
+        "reason": "Mediator can encourage de-escalation and package face-saving terms.",
+        "source_actor_name": "city_mediator_office",
+        "target_actor_name": "meridian_general_nurses_union",
+        "weight": 0.37
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Vote follows worsening staffing ratios.",
+        "layer": "coalition",
+        "reason": "Union and represented nurses are aligned around staffing concerns despite some caution.",
+        "source_actor_name": "meridian_general_nurses_union",
+        "target_actor_name": "meridian_general_staff_nurses",
+        "weight": 0.73
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Families fear cancellations while staffing concerns imply safety case.",
+        "layer": "coalition",
+        "reason": "Latent alignment exists through patient safety framing, but disruption risks limit strength.",
+        "source_actor_name": "meridian_general_staff_nurses",
+        "target_actor_name": "patients_and_families",
+        "weight": 0.36
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Non-nurse staff recognize strain but fear disruption.",
+        "layer": "coalition",
+        "reason": "Some coworker sympathy exists, though public solidarity is muted.",
+        "source_actor_name": "non_nurse_hospital_staff",
+        "target_actor_name": "meridian_general_staff_nurses",
+        "weight": 0.32
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Budget constraints cited by executives.",
+        "layer": "coalition",
+        "reason": "Management and board share incentives for financial control and institutional continuity.",
+        "source_actor_name": "meridian_general_hospital_executives",
+        "target_actor_name": "hospital_board",
+        "weight": 0.58
+      },
+      {
+        "direction": "mutual_opposition",
+        "evidence": "Strike authorization vote announced after staffing worsens; executives cite budget constraints.",
+        "layer": "conflict",
+        "reason": "Core bargaining conflict over staffing and budget priorities.",
+        "source_actor_name": "meridian_general_nurses_union",
+        "target_actor_name": "meridian_general_hospital_executives",
+        "weight": 0.67
+      },
+      {
+        "direction": "mutual_opposition",
+        "evidence": "Worsening staffing ratios.",
+        "layer": "conflict",
+        "reason": "Bedside workers perceive unsafe conditions and inadequate response.",
+        "source_actor_name": "meridian_general_staff_nurses",
+        "target_actor_name": "meridian_general_hospital_executives",
+        "weight": 0.61
+      },
+      {
+        "direction": "potential_opposition",
+        "evidence": "Families fear canceled procedures; backlash is only a branch possibility.",
+        "layer": "conflict",
+        "reason": "Potential grievance exists if procedures are threatened, but not yet dominant.",
+        "source_actor_name": "patients_and_families",
+        "target_actor_name": "meridian_general_nurses_union",
+        "weight": 0.28
+      },
+      {
+        "direction": "potential_opposition",
+        "evidence": "Staffing has worsened under management; procedures feared canceled.",
+        "layer": "conflict",
+        "reason": "Families may fault management for allowing dispute to endanger care continuity.",
+        "source_actor_name": "patients_and_families",
+        "target_actor_name": "meridian_general_hospital_executives",
+        "weight": 0.34
+      },
+      {
+        "direction": "strategic_tension",
+        "evidence": "Traveling nurse agencies may benefit.",
+        "layer": "conflict",
+        "reason": "Agencies represent partial strike-substitution pressure and can weaken labor leverage.",
+        "source_actor_name": "meridian_general_nurses_union",
+        "target_actor_name": "travel_nurse_agencies",
+        "weight": 0.26
+      },
+      {
+        "direction": "public_channel_interaction",
+        "evidence": "Public vote announcement creates media interaction.",
+        "layer": "oasis_interaction",
+        "reason": "Union likely uses press statements and interviews to frame staffing concerns.",
+        "source_actor_name": "meridian_general_nurses_union",
+        "target_actor_name": "local_news_media",
+        "weight": 0.59
+      },
+      {
+        "direction": "public_channel_interaction",
+        "evidence": "Executives cite budget constraints.",
+        "layer": "oasis_interaction",
+        "reason": "Executives respond publicly with budget narrative and continuity assurances.",
+        "source_actor_name": "meridian_general_hospital_executives",
+        "target_actor_name": "local_news_media",
+        "weight": 0.57
+      },
+      {
+        "direction": "public_channel_interaction",
+        "evidence": "Fear of canceled procedures creates possible public voice.",
+        "layer": "oasis_interaction",
+        "reason": "Affected families may provide testimonials if disruptions become salient.",
+        "source_actor_name": "patients_and_families",
+        "target_actor_name": "local_news_media",
+        "weight": 0.31
+      },
+      {
+        "direction": "public_and_backchannel_interaction",
+        "evidence": "City mediation role.",
+        "layer": "oasis_interaction",
+        "reason": "Mediator likely engages through formal meetings and limited public statements.",
+        "source_actor_name": "city_mediator_office",
+        "target_actor_name": "meridian_general_nurses_union",
+        "weight": 0.36
+      },
+      {
+        "direction": "public_and_backchannel_interaction",
+        "evidence": "City can mediate but not impose contract.",
+        "layer": "oasis_interaction",
+        "reason": "Mediator likely convenes executives and transmits proposals.",
+        "source_actor_name": "city_mediator_office",
+        "target_actor_name": "meridian_general_hospital_executives",
+        "weight": 0.38
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "key": "union_leadership",
+        "label": "Union leadership",
+        "role": "organizes vote, bargaining posture, and strike threat credibility"
+      },
+      {
+        "key": "hospital_ceo_team",
+        "label": "Hospital executive team",
+        "role": "budget framing, operations decisions, and bargaining authority subject to board constraints"
+      },
+      {
+        "key": "city_mediator",
+        "label": "City mediator",
+        "role": "facilitates talks and public de-escalation without power to impose contract"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "meridian_general_nurses_union",
+        "attention_level": 0.94,
+        "authority_scope": "Can call and frame authorization vote, coordinate bargaining, and recommend strike action subject to internal process and law.",
+        "expression_level": 0.84,
+        "fatigue": 0.61,
+        "fear_of_isolation": 0.15,
+        "hero_key": "union_leadership",
+        "mobilization_readiness": 0.79,
+        "perceived_majority": 0.71,
+        "reputation": 0.66,
+        "secrecy": 0.48,
+        "stance_axes": {
+          "escalation_preference": 0.64,
+          "public_message_discipline": 0.76,
+          "settlement_preference": 0.73,
+          "staffing_priority": 0.91
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "meridian_general_hospital_executives",
+        "attention_level": 0.92,
+        "authority_scope": "Can bargain, adjust operations, seek legal options, and propose terms, but major concessions may require board approval.",
+        "expression_level": 0.71,
+        "fatigue": 0.58,
+        "fear_of_isolation": 0.21,
+        "hero_key": "hospital_ceo_team",
+        "mobilization_readiness": 0.51,
+        "perceived_majority": 0.46,
+        "reputation": 0.43,
+        "secrecy": 0.57,
+        "stance_axes": {
+          "cost_containment_priority": 0.86,
+          "public_message_discipline": 0.72,
+          "settlement_preference": 0.62,
+          "staffing_problem_acknowledgment": 0.41
+        },
+        "trustworthiness": 0.35
+      },
+      {
+        "actor_name": "city_mediator_office",
+        "attention_level": 0.61,
+        "authority_scope": "Can convene, shuttle proposals, and signal civic urgency, but cannot impose a contract.",
+        "expression_level": 0.44,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.09,
+        "hero_key": "city_mediator",
+        "mobilization_readiness": 0.19,
+        "perceived_majority": 0.5,
+        "reputation": 0.58,
+        "secrecy": 0.41,
+        "stance_axes": {
+          "coercive_capacity": 0.08,
+          "neutrality_display": 0.79,
+          "public_visibility_preference": 0.39,
+          "settlement_preference": 0.88
+        },
+        "trustworthiness": 0.61
+      }
+    ],
+    "heroes": [
+      {
+        "key": "union_leadership",
+        "label": "Union leadership",
+        "role": "organizes vote, bargaining posture, and strike threat credibility"
+      },
+      {
+        "key": "hospital_ceo_team",
+        "label": "Hospital executive team",
+        "role": "budget framing, operations decisions, and bargaining authority subject to board constraints"
+      },
+      {
+        "key": "city_mediator",
+        "label": "City mediator",
+        "role": "facilitates talks and public de-escalation without power to impose contract"
+      }
+    ],
+    "important_questions": [
+      "Will the parties reach a meaningful settlement or standstill agreement before any actual walkout begins?",
+      "Will the authorization vote translate into a real strike or comparable work stoppage?",
+      "Will hospital leadership attempt an injunction or similar legal restraint rather than relying only on bargaining and contingency staffing?",
+      "If procedures are canceled or delayed, does public blame fall mainly on management or on the union?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "meridian_general_nurses_union",
+          "meridian_general_staff_nurses"
+        ],
+        "event_key": "strike_authorization_vote_announced",
+        "event_type": "announcement",
+        "expected_impact": "Raises nurse attention and mobilization, increases management threat perception, and creates media hook without yet realizing a strike.",
+        "status": "occurred",
+        "summary": "Union publicly announces a strike authorization vote in response to worsening staffing ratios.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "meridian_general_hospital_executives"
+        ],
+        "event_key": "management_budget_response",
+        "event_type": "announcement",
+        "expected_impact": "Stiffens bargaining conflict, reassures board-oriented audiences somewhat, but may further depress nurse trust.",
+        "status": "occurred",
+        "summary": "Hospital executives publicly cite budget constraints as limit on immediate concessions.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "city_mediator_office",
+          "meridian_general_nurses_union",
+          "meridian_general_hospital_executives"
+        ],
+        "event_key": "mediator_outreach",
+        "event_type": "announcement",
+        "expected_impact": "Creates a settlement off-ramp and modest legitimacy pressure without changing formal authority.",
+        "status": "imminent",
+        "summary": "City mediator offers to convene talks and encourage de-escalation.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "meridian_general_nurses_union",
+          "meridian_general_staff_nurses",
+          "meridian_general_hospital_executives"
+        ],
+        "event_key": "vote_campaign_inside_hospital",
+        "event_type": "announcement",
+        "expected_impact": "Sharpens perceived majority dynamics, public/private stance divergence, and threshold mobilization sensitivity.",
+        "status": "imminent",
+        "summary": "Union and management intensify internal messaging before authorization vote.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "meridian_general_hospital_executives",
+          "travel_nurse_agencies",
+          "hospital_board"
+        ],
+        "event_key": "contingency_staffing_review",
+        "event_type": "announcement",
+        "expected_impact": "Can reduce immediate operational vulnerability while increasing union suspicion and cost pressure.",
+        "status": "imminent",
+        "summary": "Executives explore temporary staffing and service prioritization options if talks stall.",
+        "tick": 2
+      },
+      {
+        "actors": [
+          "meridian_general_nurses_union",
+          "meridian_general_staff_nurses"
+        ],
+        "event_key": "authorization_vote_result",
+        "event_type": "announcement",
+        "expected_impact": "High yes margin boosts union leverage; weak or split result increases mediation and compromise pressure.",
+        "status": "imminent",
+        "summary": "Union tallies authorization vote and decides whether to escalate bargaining posture.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "88c35897-076c-4936-8d1e-fa096242476d",
+    "merge_hypotheses": [
+      {
+        "affected_actors": [
+          "meridian_general_nurses_union",
+          "meridian_general_hospital_executives",
+          "patients_and_families"
+        ],
+        "convergence_driver": "Both union and executives rely on maintaining public legitimacy around patient care.",
+        "evidence": "Each side is vulnerable to narratives of harming patients.",
+        "merge_key": "shared_care_continuity_dependency"
+      },
+      {
+        "affected_actors": [
+          "city_mediator_office",
+          "meridian_general_nurses_union",
+          "meridian_general_hospital_executives"
+        ],
+        "convergence_driver": "City mediation offers a neutral procedural bridge without requiring either side to concede publicly first.",
+        "evidence": "City can mediate but cannot impose, making it suited for temporary convergence.",
+        "merge_key": "mediation_face_saving_channel"
+      },
+      {
+        "affected_actors": [
+          "meridian_general_nurses_union",
+          "meridian_general_hospital_executives",
+          "travel_nurse_agencies",
+          "hospital_board"
+        ],
+        "convergence_driver": "Strike preparation, temporary staffing costs, and uncertainty impose burdens on both labor and management over time.",
+        "evidence": "Budget constraints and replacement staffing incentives imply costly stalemate.",
+        "merge_key": "financial_and_operational_fatigue"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "description": "Union-represented and adjacent bedside nurses affected by staffing ratios and bargaining outcomes",
+        "key": "staff_nurses_population",
+        "label": "Hospital staff nurses",
+        "population_total": 850
+      },
+      {
+        "description": "Near-term patients and family members exposed to procedure delays and quality-of-care concerns",
+        "key": "patient_family_population",
+        "label": "Patients and families",
+        "population_total": 6000
+      },
+      {
+        "description": "Technicians, aides, clerical, and support staff exposed to operational disruption",
+        "key": "non_nurse_staff_population",
+        "label": "Non-nurse hospital staff",
+        "population_total": 1400
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "jurisdictional_legal_uncertainty",
+        "note": "No specific labor law or hospital strike restrictions provided, limiting confidence on injunction probability and strike procedure.",
+        "severity": "medium"
+      },
+      {
+        "flag": "population_scale_estimated",
+        "note": "Hospital and patient population figures are inferred for simulation coherence, not sourced from corpus.",
+        "severity": "low"
+      },
+      {
+        "flag": "public_sentiment_highly_contingent",
+        "note": "Family reaction depends strongly on whether salient evidence emphasizes cancellations or unsafe staffing.",
+        "severity": "medium"
+      },
+      {
+        "flag": "board_authority_inferred",
+        "note": "Board influence over major concessions and legal strategy is plausible but not explicit in source text.",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "labor_economic_dependency",
+      "focus": [
+        "dependency_graph",
+        "mobilization_threshold",
+        "event_authority"
+      ],
+      "mode": "direct",
+      "scale": "single fictional urban hospital and surrounding civic environment",
+      "scenario_key": "labor_001",
+      "source_summary": "Fictional hospital nurses' union announces a strike authorization vote after staffing ratios worsen. Hospital executives cite budget constraints. Patients' families fear canceled procedures. City officials can mediate but cannot impose a contract. Traveling nurse agencies may benefit.",
+      "time_zero_posture": "pre-strike escalation with unresolved bargaining pressure",
+      "title": "hospital_nurses_union_staffing_dispute",
+      "uncertainty_notes": [
+        "No city size, hospital size, or bargaining unit size specified.",
+        "No explicit legal jurisdiction for health-care strike rules or injunction standards.",
+        "No explicit current contract status or exact staffing ratio data."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "patients_and_families",
+          "non_nurse_hospital_staff",
+          "meridian_general_staff_nurses"
+        ],
+        "evidence": "Actors are more persuadable by frames near existing values such as patient safety or care continuity.",
+        "level": "moderate",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "meridian_general_staff_nurses"
+        ],
+        "evidence": "Actual strike participation likely depends on perceived supermajority support after authorization vote.",
+        "level": "high_relevance",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "reluctant_nurses",
+          "operations_concerned_staff",
+          "low_attention_families"
+        ],
+        "evidence": "Fear of isolation and dependency discourage open dissent or support.",
+        "level": "moderate",
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "meridian_general_staff_nurses",
+          "patients_and_families"
+        ],
+        "evidence": "Nurses are influenced by coworker networks; families by similar care situations and local information channels.",
+        "level": "moderate",
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "meridian_general_staff_nurses",
+          "non_nurse_hospital_staff"
+        ],
+        "evidence": "Escalation support becomes more likely when multiple trusted peers signal readiness.",
+        "level": "moderate",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "meridian_general_nurses_union",
+          "meridian_general_hospital_executives",
+          "meridian_general_staff_nurses"
+        ],
+        "evidence": "Professional identity, labor solidarity, and management role boundaries structure interpretation.",
+        "level": "high_relevance",
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "patients_and_families",
+          "local_news_media"
+        ],
+        "evidence": "Absent fresh disruption or dramatic bargaining news, public attention may fade quickly.",
+        "level": "moderate",
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "affected_actors": [
+          "patients_and_families",
+          "non_nurse_hospital_staff",
+          "local_news_media"
+        ],
+        "description": "Claims tied to unsafe staffing are more resonant than abstract compensation rhetoric.",
+        "influence_key": "patient_safety_frame"
+      },
+      {
+        "affected_actors": [
+          "patients_and_families",
+          "meridian_general_hospital_executives",
+          "local_news_media"
+        ],
+        "description": "Threats to procedures and continuity rapidly increase family attention and backlash potential.",
+        "influence_key": "care_continuity_frame"
+      },
+      {
+        "affected_actors": [
+          "hospital_board",
+          "patients_and_families",
+          "local_news_media"
+        ],
+        "description": "Management justification has some credibility with elites but weaker resonance if service quality appears to decline.",
+        "influence_key": "budget_constraint_frame"
+      },
+      {
+        "affected_actors": [
+          "meridian_general_nurses_union",
+          "meridian_general_hospital_executives",
+          "city_mediator_office"
+        ],
+        "description": "Nonbinding mediation can help both sides justify temporary de-escalation without surrender.",
+        "influence_key": "mediation_face_saving"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "meridian_general_nurses_union",
+        "behavior_axes": {
+          "adaptability": 0.61,
+          "coordination_capacity": 0.76,
+          "message_discipline": 0.75,
+          "risk_tolerance": 0.58
+        },
+        "ideology_axes": {
+          "institutionalism": 0.63,
+          "labor_militancy": 0.71,
+          "patient_safety_frame": 0.89
+        },
+        "reputation": 0.66,
+        "secrecy": 0.48,
+        "tendency": "escalate selectively to win staffing commitments while preserving public legitimacy",
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "meridian_general_hospital_executives",
+        "behavior_axes": {
+          "adaptability": 0.49,
+          "coordination_capacity": 0.68,
+          "message_discipline": 0.71,
+          "risk_tolerance": 0.46
+        },
+        "ideology_axes": {
+          "cost_control": 0.84,
+          "managerial_pragmatism": 0.67,
+          "public_service_orientation": 0.46
+        },
+        "reputation": 0.43,
+        "secrecy": 0.57,
+        "tendency": "delay costly concessions while preserving operational continuity and institutional legitimacy",
+        "trustworthiness": 0.35
+      },
+      {
+        "actor_name": "meridian_general_staff_nurses",
+        "behavior_axes": {
+          "adaptability": 0.58,
+          "coordination_capacity": 0.64,
+          "message_discipline": 0.56,
+          "risk_tolerance": 0.52
+        },
+        "ideology_axes": {
+          "institution_trust": 0.28,
+          "labor_solidarity": 0.62,
+          "patient_safety_priority": 0.87
+        },
+        "reputation": 0.74,
+        "secrecy": 0.36,
+        "tendency": "support action when staffing harm feels immediate and collective efficacy appears high",
+        "trustworthiness": 0.71
+      },
+      {
+        "actor_name": "patients_and_families",
+        "behavior_axes": {
+          "adaptability": 0.42,
+          "coordination_capacity": 0.22,
+          "message_discipline": 0.21,
+          "risk_tolerance": 0.19
+        },
+        "ideology_axes": {
+          "care_continuity_priority": 0.92,
+          "fairness_to_workers": 0.57,
+          "institution_trust": 0.49
+        },
+        "reputation": 0.55,
+        "secrecy": 0.18,
+        "tendency": "swing audience responsive to disruption signals and patient safety narratives",
+        "trustworthiness": 0.59
+      },
+      {
+        "actor_name": "city_mediator_office",
+        "behavior_axes": {
+          "adaptability": 0.54,
+          "coordination_capacity": 0.57,
+          "message_discipline": 0.63,
+          "risk_tolerance": 0.18
+        },
+        "ideology_axes": {
+          "civic_stability": 0.88,
+          "procedural_neutrality": 0.83,
+          "public_pressure_use": 0.36
+        },
+        "reputation": 0.58,
+        "secrecy": 0.41,
+        "tendency": "promote face-saving settlement and lower public temperature",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "travel_nurse_agencies",
+        "behavior_axes": {
+          "adaptability": 0.77,
+          "coordination_capacity": 0.51,
+          "message_discipline": 0.34,
+          "risk_tolerance": 0.62
+        },
+        "ideology_axes": {
+          "care_continuity_frame": 0.41,
+          "market_opportunism": 0.86,
+          "public_visibility_avoidance": 0.63
+        },
+        "reputation": 0.33,
+        "secrecy": 0.64,
+        "tendency": "capitalize on staffing gaps while remaining publicly peripheral",
+        "trustworthiness": 0.28
+      },
+      {
+        "actor_name": "hospital_board",
+        "behavior_axes": {
+          "adaptability": 0.38,
+          "coordination_capacity": 0.49,
+          "message_discipline": 0.59,
+          "risk_tolerance": 0.31
+        },
+        "ideology_axes": {
+          "financial_stewardship": 0.81,
+          "operational_intrusion": 0.37,
+          "reputation_protection": 0.72
+        },
+        "reputation": 0.47,
+        "secrecy": 0.62,
+        "tendency": "intervene if reputational or financial exposure rises materially",
+        "trustworthiness": 0.4
+      },
+      {
+        "actor_name": "local_news_media",
+        "behavior_axes": {
+          "adaptability": 0.66,
+          "coordination_capacity": 0.43,
+          "message_discipline": 0.39,
+          "risk_tolerance": 0.41
+        },
+        "ideology_axes": {
+          "conflict_salience": 0.71,
+          "neutrality_norm": 0.52,
+          "public_interest_reporting": 0.64
+        },
+        "reputation": 0.5,
+        "secrecy": 0.12,
+        "tendency": "amplify visible conflict, compelling anecdotes, and public-service impacts",
+        "trustworthiness": 0.52
+      },
+      {
+        "actor_name": "non_nurse_hospital_staff",
+        "behavior_axes": {
+          "adaptability": 0.53,
+          "coordination_capacity": 0.39,
+          "message_discipline": 0.31,
+          "risk_tolerance": 0.27
+        },
+        "ideology_axes": {
+          "coworker_solidarity": 0.51,
+          "job_stability_priority": 0.79,
+          "management_trust": 0.34
+        },
+        "reputation": 0.53,
+        "secrecy": 0.29,
+        "tendency": "stay publicly quiet unless operations visibly degrade",
+        "trustworthiness": 0.6
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 606,
+        "end": 606,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 606,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

@@ -1,0 +1,1174 @@
+{
+  "edges": [
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "825bbf07-50d0-4da4-80e9-39d4255d1484",
+      "layer": "dependency",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "transit scenario baseline",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "transit scenario baseline",
+          "layer": "dependency",
+          "reason": "Riders rely on transit service quality regardless of fare policy.",
+          "source_actor_name": "weekday_commuters",
+          "target_actor_name": "metro_transit_agency",
+          "weight": 0.54
+        },
+        "reason": "Riders rely on transit service quality regardless of fare policy."
+      },
+      "source_actor_id": "1d46ea81-257c-4793-9ff1-f88958782162",
+      "target_actor_id": "5d97a416-990d-44bb-9149-5673c597b0ff",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.54
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "44b1d27c-f6d0-4995-a619-f9b89f2f0381",
+      "layer": "exposure",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "scenario_text fare-free weekend experiment affects riders",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "scenario_text fare-free weekend experiment affects riders",
+          "layer": "exposure",
+          "reason": "Riders are directly exposed to agency service changes and announcements.",
+          "source_actor_name": "metro_transit_agency",
+          "target_actor_name": "weekday_commuters",
+          "weight": 0.61
+        },
+        "reason": "Riders are directly exposed to agency service changes and announcements."
+      },
+      "source_actor_id": "5d97a416-990d-44bb-9149-5673c597b0ff",
+      "target_actor_id": "1d46ea81-257c-4793-9ff1-f88958782162",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.61
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "2575d372-564a-4546-b17b-fce56bb0d036",
+      "layer": "exposure",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "scenario_text fare-free weekend experiment",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "scenario_text fare-free weekend experiment",
+          "layer": "exposure",
+          "reason": "Experiment is especially salient to discretionary weekend riders.",
+          "source_actor_name": "metro_transit_agency",
+          "target_actor_name": "weekend_leisure_riders",
+          "weight": 0.63
+        },
+        "reason": "Experiment is especially salient to discretionary weekend riders."
+      },
+      "source_actor_id": "5d97a416-990d-44bb-9149-5673c597b0ff",
+      "target_actor_id": "245bd0b5-3c0d-47db-b299-09fe6469495e",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.63
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "de8a75f9-dfa7-4a5a-94b2-3d35a106ca35",
+      "layer": "exposure",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "scenario_text bus crowding worsens on two lines",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "scenario_text bus crowding worsens on two lines",
+          "layer": "exposure",
+          "reason": "Affected lines make agency actions highly visible to impacted riders.",
+          "source_actor_name": "metro_transit_agency",
+          "target_actor_name": "crowded_line_riders",
+          "weight": 0.65
+        },
+        "reason": "Affected lines make agency actions highly visible to impacted riders."
+      },
+      "source_actor_id": "5d97a416-990d-44bb-9149-5673c597b0ff",
+      "target_actor_id": "309f0bcb-8633-41ec-8e8a-3feaf3652b4f",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.65
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "ae99ff8b-8863-4656-bd34-1481e22352b3",
+      "layer": "exposure",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "expected focus includes evidence citations and uncertainty",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "expected focus includes evidence citations and uncertainty",
+          "layer": "exposure",
+          "reason": "Media likely carries mixed evidence to broader public.",
+          "source_actor_name": "local_media",
+          "target_actor_name": "city_residents_general",
+          "weight": 0.57
+        },
+        "reason": "Media likely carries mixed evidence to broader public."
+      },
+      "source_actor_id": "a30cd0a2-15a0-4112-b30e-c5994a4e3a8d",
+      "target_actor_id": "d042aef1-d2d8-42b5-95db-8dfaf06265c4",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.57
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "b044f6fa-b85c-4edf-9de1-60f721b2c3f7",
+      "layer": "exposure",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "scenario_text merchants report more foot traffic",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "scenario_text merchants report more foot traffic",
+          "layer": "exposure",
+          "reason": "Merchant reports can reach policymakers through advocacy.",
+          "source_actor_name": "downtown_merchants_association",
+          "target_actor_name": "city_executive_office",
+          "weight": 0.34
+        },
+        "reason": "Merchant reports can reach policymakers through advocacy."
+      },
+      "source_actor_id": "f46315af-27bf-4f89-b736-24324e3732c2",
+      "target_actor_id": "5a9c6430-5d10-4f7c-b31b-a1c19c928f97",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.34
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "bed68aef-7916-4d0b-9122-c5192930bc22",
+      "layer": "exposure",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "scenario_text bus crowding worsens on two lines",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "scenario_text bus crowding worsens on two lines",
+          "layer": "exposure",
+          "reason": "Operators directly report crowding and workload conditions.",
+          "source_actor_name": "transit_operators_union",
+          "target_actor_name": "metro_transit_agency",
+          "weight": 0.48
+        },
+        "reason": "Operators directly report crowding and workload conditions."
+      },
+      "source_actor_id": "fa27d279-5eba-4b04-806d-812f4d4bdf0c",
+      "target_actor_id": "5d97a416-990d-44bb-9149-5673c597b0ff",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.48
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "3183a2fb-e70f-41cb-aa62-e2e8dbfd6e0e",
+      "layer": "trust",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "inbound",
+        "evidence": "mixed evidence with crowding downside",
+        "initializer": {
+          "direction": "inbound",
+          "evidence": "mixed evidence with crowding downside",
+          "layer": "trust",
+          "reason": "Moderate trust contingent on service reliability.",
+          "source_actor_name": "weekday_commuters",
+          "target_actor_name": "metro_transit_agency",
+          "weight": 0.49
+        },
+        "reason": "Moderate trust contingent on service reliability."
+      },
+      "source_actor_id": "1d46ea81-257c-4793-9ff1-f88958782162",
+      "target_actor_id": "5d97a416-990d-44bb-9149-5673c597b0ff",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.49
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "aac0cf95-e351-402d-a8ba-366a6dc89586",
+      "layer": "trust",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "inbound",
+        "evidence": "scenario_text bus crowding worsens on two lines",
+        "initializer": {
+          "direction": "inbound",
+          "evidence": "scenario_text bus crowding worsens on two lines",
+          "layer": "trust",
+          "reason": "Crowding on specific lines lowers confidence in current implementation.",
+          "source_actor_name": "crowded_line_riders",
+          "target_actor_name": "metro_transit_agency",
+          "weight": 0.34
+        },
+        "reason": "Crowding on specific lines lowers confidence in current implementation."
+      },
+      "source_actor_id": "309f0bcb-8633-41ec-8e8a-3feaf3652b4f",
+      "target_actor_id": "5d97a416-990d-44bb-9149-5673c597b0ff",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.34
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "571e861a-6b83-4527-875a-cb5a7854891c",
+      "layer": "trust",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "inbound",
+        "evidence": "scenario_text merchants report more foot traffic",
+        "initializer": {
+          "direction": "inbound",
+          "evidence": "scenario_text merchants report more foot traffic",
+          "layer": "trust",
+          "reason": "Merchants expect city leaders to consider economic activity impacts.",
+          "source_actor_name": "downtown_merchants_association",
+          "target_actor_name": "city_executive_office",
+          "weight": 0.45
+        },
+        "reason": "Merchants expect city leaders to consider economic activity impacts."
+      },
+      "source_actor_id": "f46315af-27bf-4f89-b736-24324e3732c2",
+      "target_actor_id": "5a9c6430-5d10-4f7c-b31b-a1c19c928f97",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.45
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "2a4760d1-1f48-448c-b4be-728ef1a96518",
+      "layer": "trust",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "inbound",
+        "evidence": "mixed evidence context",
+        "initializer": {
+          "direction": "inbound",
+          "evidence": "mixed evidence context",
+          "layer": "trust",
+          "reason": "Public relies on media for interpretation but may suspect selective framing.",
+          "source_actor_name": "city_residents_general",
+          "target_actor_name": "local_media",
+          "weight": 0.43
+        },
+        "reason": "Public relies on media for interpretation but may suspect selective framing."
+      },
+      "source_actor_id": "d042aef1-d2d8-42b5-95db-8dfaf06265c4",
+      "target_actor_id": "a30cd0a2-15a0-4112-b30e-c5994a4e3a8d",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.43
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "acae2727-b3e7-4bd6-a89c-6e8aab5a973e",
+      "layer": "dependency",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "experiment implies policy authorization and budget effects",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "experiment implies policy authorization and budget effects",
+          "layer": "dependency",
+          "reason": "Agency needs executive budget and policy backing for continuation or expansion.",
+          "source_actor_name": "metro_transit_agency",
+          "target_actor_name": "city_executive_office",
+          "weight": 0.58
+        },
+        "reason": "Agency needs executive budget and policy backing for continuation or expansion."
+      },
+      "source_actor_id": "5d97a416-990d-44bb-9149-5673c597b0ff",
+      "target_actor_id": "5a9c6430-5d10-4f7c-b31b-a1c19c928f97",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.58
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "4b9cf8a3-7006-427c-85db-caba45ccd860",
+      "layer": "dependency",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "terminal outcomes include policy alternatives under public governance",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "terminal outcomes include policy alternatives under public governance",
+          "layer": "dependency",
+          "reason": "Executive policy durability depends on council budget or oversight accommodation.",
+          "source_actor_name": "city_executive_office",
+          "target_actor_name": "city_council_transport_bloc",
+          "weight": 0.46
+        },
+        "reason": "Executive policy durability depends on council budget or oversight accommodation."
+      },
+      "source_actor_id": "5a9c6430-5d10-4f7c-b31b-a1c19c928f97",
+      "target_actor_id": "ddd09097-5d89-4712-847a-b26e9dd999b1",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.46
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "77016f20-fe35-4498-9a76-802e287ff874",
+      "layer": "dependency",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "scenario_text crowding worsens on two lines",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "scenario_text crowding worsens on two lines",
+          "layer": "dependency",
+          "reason": "Affected riders materially depend on the two crowded lines.",
+          "source_actor_name": "crowded_line_riders",
+          "target_actor_name": "metro_transit_agency",
+          "weight": 0.62
+        },
+        "reason": "Affected riders materially depend on the two crowded lines."
+      },
+      "source_actor_id": "309f0bcb-8633-41ec-8e8a-3feaf3652b4f",
+      "target_actor_id": "5d97a416-990d-44bb-9149-5673c597b0ff",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.62
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "a581e567-c308-4022-a0c1-34fcdea62667",
+      "layer": "dependency",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "scenario_text merchants report more foot traffic",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "scenario_text merchants report more foot traffic",
+          "layer": "dependency",
+          "reason": "Some merchants benefit from transit-enabled foot traffic but are not wholly reliant.",
+          "source_actor_name": "downtown_merchants_association",
+          "target_actor_name": "metro_transit_agency",
+          "weight": 0.29
+        },
+        "reason": "Some merchants benefit from transit-enabled foot traffic but are not wholly reliant."
+      },
+      "source_actor_id": "f46315af-27bf-4f89-b736-24324e3732c2",
+      "target_actor_id": "5d97a416-990d-44bb-9149-5673c597b0ff",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.29
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "2135999b-e154-4a95-aef1-761f2b6a2450",
+      "layer": "influence",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "public-sector fare policy context",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "public-sector fare policy context",
+          "layer": "influence",
+          "reason": "Executive office can shape pilot scope and continuation decisions.",
+          "source_actor_name": "city_executive_office",
+          "target_actor_name": "metro_transit_agency",
+          "weight": 0.64
+        },
+        "reason": "Executive office can shape pilot scope and continuation decisions."
+      },
+      "source_actor_id": "5a9c6430-5d10-4f7c-b31b-a1c19c928f97",
+      "target_actor_id": "5d97a416-990d-44bb-9149-5673c597b0ff",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.64
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "a4ab87bc-fc45-4e20-8ffb-7367d2df0166",
+      "layer": "influence",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "policy oversight context",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "policy oversight context",
+          "layer": "influence",
+          "reason": "Council oversight and fiscal signaling can constrain executive choices.",
+          "source_actor_name": "city_council_transport_bloc",
+          "target_actor_name": "city_executive_office",
+          "weight": 0.52
+        },
+        "reason": "Council oversight and fiscal signaling can constrain executive choices."
+      },
+      "source_actor_id": "ddd09097-5d89-4712-847a-b26e9dd999b1",
+      "target_actor_id": "5a9c6430-5d10-4f7c-b31b-a1c19c928f97",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.52
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "908c1d70-b301-40f9-82e0-8cb3c1d63a27",
+      "layer": "influence",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "expected focus on evidence versus interpretation",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "expected focus on evidence versus interpretation",
+          "layer": "influence",
+          "reason": "Media framing affects public interpretation of mixed evidence.",
+          "source_actor_name": "local_media",
+          "target_actor_name": "city_residents_general",
+          "weight": 0.55
+        },
+        "reason": "Media framing affects public interpretation of mixed evidence."
+      },
+      "source_actor_id": "a30cd0a2-15a0-4112-b30e-c5994a4e3a8d",
+      "target_actor_id": "d042aef1-d2d8-42b5-95db-8dfaf06265c4",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.55
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "8e2fab1d-208b-4ed6-8551-00949a1cc519",
+      "layer": "influence",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "scenario_text merchants report more foot traffic",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "scenario_text merchants report more foot traffic",
+          "layer": "influence",
+          "reason": "Business voices can influence council narratives on local commerce.",
+          "source_actor_name": "downtown_merchants_association",
+          "target_actor_name": "city_council_transport_bloc",
+          "weight": 0.37
+        },
+        "reason": "Business voices can influence council narratives on local commerce."
+      },
+      "source_actor_id": "f46315af-27bf-4f89-b736-24324e3732c2",
+      "target_actor_id": "ddd09097-5d89-4712-847a-b26e9dd999b1",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.37
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "29b0fc2a-6234-4106-9e27-d4c041ffb207",
+      "layer": "influence",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "crowding deterioration implies operator input relevance",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "crowding deterioration implies operator input relevance",
+          "layer": "influence",
+          "reason": "Operational staff can influence implementation adjustments through frontline reports.",
+          "source_actor_name": "transit_operators_union",
+          "target_actor_name": "metro_transit_agency",
+          "weight": 0.44
+        },
+        "reason": "Operational staff can influence implementation adjustments through frontline reports."
+      },
+      "source_actor_id": "fa27d279-5eba-4b04-806d-812f4d4bdf0c",
+      "target_actor_id": "5d97a416-990d-44bb-9149-5673c597b0ff",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.44
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "09ed7033-58bf-4768-bf3d-f194b8e7fe5e",
+      "layer": "coalition",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "bidirectional",
+        "evidence": "ridership rises and merchants report more foot traffic",
+        "initializer": {
+          "direction": "bidirectional",
+          "evidence": "ridership rises and merchants report more foot traffic",
+          "layer": "coalition",
+          "reason": "Both may favor continuation due to accessibility and foot traffic gains.",
+          "source_actor_name": "weekend_leisure_riders",
+          "target_actor_name": "downtown_merchants_association",
+          "weight": 0.41
+        },
+        "reason": "Both may favor continuation due to accessibility and foot traffic gains."
+      },
+      "source_actor_id": "245bd0b5-3c0d-47db-b299-09fe6469495e",
+      "target_actor_id": "f46315af-27bf-4f89-b736-24324e3732c2",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.41
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "5e67f22c-bde2-46b2-9d15-9e3f2da522ba",
+      "layer": "coalition",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "bidirectional",
+        "evidence": "experiment underway with mixed evidence",
+        "initializer": {
+          "direction": "bidirectional",
+          "evidence": "experiment underway with mixed evidence",
+          "layer": "coalition",
+          "reason": "Both share interest in demonstrating a manageable pilot outcome.",
+          "source_actor_name": "city_executive_office",
+          "target_actor_name": "metro_transit_agency",
+          "weight": 0.47
+        },
+        "reason": "Both share interest in demonstrating a manageable pilot outcome."
+      },
+      "source_actor_id": "5a9c6430-5d10-4f7c-b31b-a1c19c928f97",
+      "target_actor_id": "5d97a416-990d-44bb-9149-5673c597b0ff",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.47
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "36cdbab7-cd57-4c89-8827-b477d0d702cb",
+      "layer": "coalition",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "bidirectional",
+        "evidence": "bus crowding worsens on two lines",
+        "initializer": {
+          "direction": "bidirectional",
+          "evidence": "bus crowding worsens on two lines",
+          "layer": "coalition",
+          "reason": "Both are aligned on the need to address crowding strain.",
+          "source_actor_name": "crowded_line_riders",
+          "target_actor_name": "transit_operators_union",
+          "weight": 0.39
+        },
+        "reason": "Both are aligned on the need to address crowding strain."
+      },
+      "source_actor_id": "309f0bcb-8633-41ec-8e8a-3feaf3652b4f",
+      "target_actor_id": "fa27d279-5eba-4b04-806d-812f4d4bdf0c",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.39
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "8be1e29a-4ff9-4a44-80db-e8fe786d6bc1",
+      "layer": "coalition",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "bidirectional",
+        "evidence": "fare revenue drops",
+        "initializer": {
+          "direction": "bidirectional",
+          "evidence": "fare revenue drops",
+          "layer": "coalition",
+          "reason": "Council can align with general fiscal concerns if losses become salient.",
+          "source_actor_name": "city_council_transport_bloc",
+          "target_actor_name": "city_residents_general",
+          "weight": 0.28
+        },
+        "reason": "Council can align with general fiscal concerns if losses become salient."
+      },
+      "source_actor_id": "ddd09097-5d89-4712-847a-b26e9dd999b1",
+      "target_actor_id": "d042aef1-d2d8-42b5-95db-8dfaf06265c4",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.28
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "52c43f1d-9661-4ff4-ba04-f04763227c18",
+      "layer": "conflict",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "bus crowding worsens on two lines",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "bus crowding worsens on two lines",
+          "layer": "conflict",
+          "reason": "Current service conditions create grievance against implementation quality.",
+          "source_actor_name": "crowded_line_riders",
+          "target_actor_name": "metro_transit_agency",
+          "weight": 0.46
+        },
+        "reason": "Current service conditions create grievance against implementation quality."
+      },
+      "source_actor_id": "309f0bcb-8633-41ec-8e8a-3feaf3652b4f",
+      "target_actor_id": "5d97a416-990d-44bb-9149-5673c597b0ff",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.46
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "60986226-8a5f-478a-bc37-6a050db93cb2",
+      "layer": "conflict",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "fare-free experiment with crowding pressure",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "fare-free experiment with crowding pressure",
+          "layer": "conflict",
+          "reason": "Potential tension if political goals outpace operational capacity.",
+          "source_actor_name": "transit_operators_union",
+          "target_actor_name": "city_executive_office",
+          "weight": 0.31
+        },
+        "reason": "Potential tension if political goals outpace operational capacity."
+      },
+      "source_actor_id": "fa27d279-5eba-4b04-806d-812f4d4bdf0c",
+      "target_actor_id": "5a9c6430-5d10-4f7c-b31b-a1c19c928f97",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.31
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "58c453ee-94ba-4183-a32b-08cb75c90f6d",
+      "layer": "conflict",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "none",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "none",
+          "layer": "conflict",
+          "reason": "invalid_actor_placeholder_removed",
+          "source_actor_name": "fiscally_moderate_residents",
+          "target_actor_name": "city_executive_office",
+          "weight": 0.0
+        },
+        "reason": "invalid_actor_placeholder_removed"
+      },
+      "source_actor_id": null,
+      "target_actor_id": "5a9c6430-5d10-4f7c-b31b-a1c19c928f97",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.0
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "2d018dc0-f2cc-4ed7-818b-adb0543a90a3",
+      "layer": "conflict",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "fare revenue drops with mixed evidence",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "fare revenue drops with mixed evidence",
+          "layer": "conflict",
+          "reason": "Diffuse concern may emerge around revenue loss and service tradeoffs.",
+          "source_actor_name": "city_residents_general",
+          "target_actor_name": "metro_transit_agency",
+          "weight": 0.24
+        },
+        "reason": "Diffuse concern may emerge around revenue loss and service tradeoffs."
+      },
+      "source_actor_id": "d042aef1-d2d8-42b5-95db-8dfaf06265c4",
+      "target_actor_id": "5d97a416-990d-44bb-9149-5673c597b0ff",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.24
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "5f780b73-8749-4704-b490-4a04dbda13e3",
+      "layer": "conflict",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "multiple terminal outcomes plausible",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "multiple terminal outcomes plausible",
+          "layer": "conflict",
+          "reason": "Policy disagreement remains possible but not yet acute.",
+          "source_actor_name": "city_council_transport_bloc",
+          "target_actor_name": "city_executive_office",
+          "weight": 0.26
+        },
+        "reason": "Policy disagreement remains possible but not yet acute."
+      },
+      "source_actor_id": "ddd09097-5d89-4712-847a-b26e9dd999b1",
+      "target_actor_id": "5a9c6430-5d10-4f7c-b31b-a1c19c928f97",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.26
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "0fa90bae-be63-4760-84c0-7f79ac3efa33",
+      "layer": "oasis_interaction",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "bidirectional",
+        "evidence": "ridership rises under experiment",
+        "initializer": {
+          "direction": "bidirectional",
+          "evidence": "ridership rises under experiment",
+          "layer": "oasis_interaction",
+          "reason": "Positive rider anecdotes may circulate in public channels.",
+          "source_actor_name": "weekend_leisure_riders",
+          "target_actor_name": "local_media",
+          "weight": 0.33
+        },
+        "reason": "Positive rider anecdotes may circulate in public channels."
+      },
+      "source_actor_id": "245bd0b5-3c0d-47db-b299-09fe6469495e",
+      "target_actor_id": "a30cd0a2-15a0-4112-b30e-c5994a4e3a8d",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.33
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "4fe6f4ed-9c40-4fc8-8126-3cd23c47b567",
+      "layer": "oasis_interaction",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "bidirectional",
+        "evidence": "bus crowding worsens on two lines",
+        "initializer": {
+          "direction": "bidirectional",
+          "evidence": "bus crowding worsens on two lines",
+          "layer": "oasis_interaction",
+          "reason": "Visible crowding complaints are likely to gain public attention.",
+          "source_actor_name": "crowded_line_riders",
+          "target_actor_name": "local_media",
+          "weight": 0.49
+        },
+        "reason": "Visible crowding complaints are likely to gain public attention."
+      },
+      "source_actor_id": "309f0bcb-8633-41ec-8e8a-3feaf3652b4f",
+      "target_actor_id": "a30cd0a2-15a0-4112-b30e-c5994a4e3a8d",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.49
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "d6ab9f17-f68a-4bd6-ac82-5bffa764bdc9",
+      "layer": "oasis_interaction",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "bidirectional",
+        "evidence": "merchants report more foot traffic",
+        "initializer": {
+          "direction": "bidirectional",
+          "evidence": "merchants report more foot traffic",
+          "layer": "oasis_interaction",
+          "reason": "Merchant foot-traffic stories are easy public-interest content.",
+          "source_actor_name": "downtown_merchants_association",
+          "target_actor_name": "local_media",
+          "weight": 0.44
+        },
+        "reason": "Merchant foot-traffic stories are easy public-interest content."
+      },
+      "source_actor_id": "f46315af-27bf-4f89-b736-24324e3732c2",
+      "target_actor_id": "a30cd0a2-15a0-4112-b30e-c5994a4e3a8d",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.44
+    },
+    {
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "id": "e6916e3d-fb65-4b79-af23-f1f2ae75171f",
+      "layer": "oasis_interaction",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "payload": {
+        "direction": "bidirectional",
+        "evidence": "expected focus on evidence and uncertainty",
+        "initializer": {
+          "direction": "bidirectional",
+          "evidence": "expected focus on evidence and uncertainty",
+          "layer": "oasis_interaction",
+          "reason": "Officials may publicly frame the pilot as mixed but informative.",
+          "source_actor_name": "city_executive_office",
+          "target_actor_name": "local_media",
+          "weight": 0.38
+        },
+        "reason": "Officials may publicly frame the pilot as mixed but informative."
+      },
+      "source_actor_id": "5a9c6430-5d10-4f7c-b31b-a1c19c928f97",
+      "target_actor_id": "a30cd0a2-15a0-4112-b30e-c5994a4e3a8d",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00",
+      "weight": 0.38
+    }
+  ],
+  "snapshots": [
+    {
+      "artifact_id": null,
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Riders are directly exposed to agency service changes and announcements.",
+            "source": "metro_transit_agency",
+            "target": "weekday_commuters",
+            "weight": 0.61
+          },
+          {
+            "reason": "Experiment is especially salient to discretionary weekend riders.",
+            "source": "metro_transit_agency",
+            "target": "weekend_leisure_riders",
+            "weight": 0.63
+          },
+          {
+            "reason": "Affected lines make agency actions highly visible to impacted riders.",
+            "source": "metro_transit_agency",
+            "target": "crowded_line_riders",
+            "weight": 0.65
+          },
+          {
+            "reason": "Media likely carries mixed evidence to broader public.",
+            "source": "local_media",
+            "target": "city_residents_general",
+            "weight": 0.57
+          },
+          {
+            "reason": "Merchant reports can reach policymakers through advocacy.",
+            "source": "downtown_merchants_association",
+            "target": "city_executive_office",
+            "weight": 0.34
+          },
+          {
+            "reason": "Operators directly report crowding and workload conditions.",
+            "source": "transit_operators_union",
+            "target": "metro_transit_agency",
+            "weight": 0.48
+          }
+        ],
+        "layer": "exposure",
+        "tick_index": 0
+      },
+      "id": "efb2737c-a0fe-4d5d-9d0f-6610de79b107",
+      "layer": "exposure",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Moderate trust contingent on service reliability.",
+            "source": "weekday_commuters",
+            "target": "metro_transit_agency",
+            "weight": 0.49
+          },
+          {
+            "reason": "Crowding on specific lines lowers confidence in current implementation.",
+            "source": "crowded_line_riders",
+            "target": "metro_transit_agency",
+            "weight": 0.34
+          },
+          {
+            "reason": "Merchants expect city leaders to consider economic activity impacts.",
+            "source": "downtown_merchants_association",
+            "target": "city_executive_office",
+            "weight": 0.45
+          },
+          {
+            "reason": "Public relies on media for interpretation but may suspect selective framing.",
+            "source": "city_residents_general",
+            "target": "local_media",
+            "weight": 0.43
+          }
+        ],
+        "layer": "trust",
+        "tick_index": 0
+      },
+      "id": "eb2c0b3f-0886-4886-8b9a-1b461e31f2b8",
+      "layer": "trust",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Agency needs executive budget and policy backing for continuation or expansion.",
+            "source": "metro_transit_agency",
+            "target": "city_executive_office",
+            "weight": 0.58
+          },
+          {
+            "reason": "Executive policy durability depends on council budget or oversight accommodation.",
+            "source": "city_executive_office",
+            "target": "city_council_transport_bloc",
+            "weight": 0.46
+          },
+          {
+            "reason": "Riders rely on transit service quality regardless of fare policy.",
+            "source": "weekday_commuters",
+            "target": "metro_transit_agency",
+            "weight": 0.54
+          },
+          {
+            "reason": "Affected riders materially depend on the two crowded lines.",
+            "source": "crowded_line_riders",
+            "target": "metro_transit_agency",
+            "weight": 0.62
+          },
+          {
+            "reason": "Some merchants benefit from transit-enabled foot traffic but are not wholly reliant.",
+            "source": "downtown_merchants_association",
+            "target": "metro_transit_agency",
+            "weight": 0.29
+          }
+        ],
+        "layer": "dependency",
+        "tick_index": 0
+      },
+      "id": "0bd3da7d-2baf-4dbf-8189-21460ee653bb",
+      "layer": "dependency",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Executive office can shape pilot scope and continuation decisions.",
+            "source": "city_executive_office",
+            "target": "metro_transit_agency",
+            "weight": 0.64
+          },
+          {
+            "reason": "Council oversight and fiscal signaling can constrain executive choices.",
+            "source": "city_council_transport_bloc",
+            "target": "city_executive_office",
+            "weight": 0.52
+          },
+          {
+            "reason": "Media framing affects public interpretation of mixed evidence.",
+            "source": "local_media",
+            "target": "city_residents_general",
+            "weight": 0.55
+          },
+          {
+            "reason": "Business voices can influence council narratives on local commerce.",
+            "source": "downtown_merchants_association",
+            "target": "city_council_transport_bloc",
+            "weight": 0.37
+          },
+          {
+            "reason": "Operational staff can influence implementation adjustments through frontline reports.",
+            "source": "transit_operators_union",
+            "target": "metro_transit_agency",
+            "weight": 0.44
+          }
+        ],
+        "layer": "influence",
+        "tick_index": 0
+      },
+      "id": "efaed952-a30d-4e2a-ad89-f8cf3c2d7db5",
+      "layer": "influence",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Both may favor continuation due to accessibility and foot traffic gains.",
+            "source": "weekend_leisure_riders",
+            "target": "downtown_merchants_association",
+            "weight": 0.41
+          },
+          {
+            "reason": "Both share interest in demonstrating a manageable pilot outcome.",
+            "source": "city_executive_office",
+            "target": "metro_transit_agency",
+            "weight": 0.47
+          },
+          {
+            "reason": "Both are aligned on the need to address crowding strain.",
+            "source": "crowded_line_riders",
+            "target": "transit_operators_union",
+            "weight": 0.39
+          },
+          {
+            "reason": "Council can align with general fiscal concerns if losses become salient.",
+            "source": "city_council_transport_bloc",
+            "target": "city_residents_general",
+            "weight": 0.28
+          }
+        ],
+        "layer": "coalition",
+        "tick_index": 0
+      },
+      "id": "7d6f7ee1-31f0-47e3-935c-3bd1d9d6c6eb",
+      "layer": "coalition",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Current service conditions create grievance against implementation quality.",
+            "source": "crowded_line_riders",
+            "target": "metro_transit_agency",
+            "weight": 0.46
+          },
+          {
+            "reason": "Potential tension if political goals outpace operational capacity.",
+            "source": "transit_operators_union",
+            "target": "city_executive_office",
+            "weight": 0.31
+          },
+          {
+            "reason": "invalid_actor_placeholder_removed",
+            "source": "fiscally_moderate_residents",
+            "target": "city_executive_office",
+            "weight": 0.0
+          },
+          {
+            "reason": "Diffuse concern may emerge around revenue loss and service tradeoffs.",
+            "source": "city_residents_general",
+            "target": "metro_transit_agency",
+            "weight": 0.24
+          },
+          {
+            "reason": "Policy disagreement remains possible but not yet acute.",
+            "source": "city_council_transport_bloc",
+            "target": "city_executive_office",
+            "weight": 0.26
+          }
+        ],
+        "layer": "conflict",
+        "tick_index": 0
+      },
+      "id": "257f66f7-e46b-491a-9f64-7f8c2a8fbc04",
+      "layer": "conflict",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+      "created_at": "2026-05-05T02:41:11.758038+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Positive rider anecdotes may circulate in public channels.",
+            "source": "weekend_leisure_riders",
+            "target": "local_media",
+            "weight": 0.33
+          },
+          {
+            "reason": "Visible crowding complaints are likely to gain public attention.",
+            "source": "crowded_line_riders",
+            "target": "local_media",
+            "weight": 0.49
+          },
+          {
+            "reason": "Merchant foot-traffic stories are easy public-interest content.",
+            "source": "downtown_merchants_association",
+            "target": "local_media",
+            "weight": 0.44
+          },
+          {
+            "reason": "Officials may publicly frame the pilot as mixed but informative.",
+            "source": "city_executive_office",
+            "target": "local_media",
+            "weight": 0.38
+          }
+        ],
+        "layer": "oasis_interaction",
+        "tick_index": 0
+      },
+      "id": "c3d0bc61-5b9d-489b-8052-ab98fa7259c2",
+      "layer": "oasis_interaction",
+      "multiverse_id": "f7f0efd3-fac0-42f5-b6b3-a8ae5bca3cf4",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:41:11.758038+00:00"
+    }
+  ]
+}

@@ -1,0 +1,1416 @@
+{
+  "big_bang_id": "e7e9b3ec-c40c-40c2-96cf-44a8eff590ae",
+  "initializer_output": {
+    "actors": [
+      {
+        "fictionalized": true,
+        "name": "co_op_board",
+        "public_visibility": "high",
+        "roles": [
+          "agenda_setter",
+          "proposal_author",
+          "meeting_manager"
+        ],
+        "stakes": [
+          "building_habitability",
+          "budget_stability",
+          "governance_legitimacy"
+        ],
+        "type": "institution"
+      },
+      {
+        "fictionalized": true,
+        "name": "longtime_residents",
+        "public_visibility": "medium",
+        "roles": [
+          "owner_members",
+          "community_memory_holders"
+        ],
+        "stakes": [
+          "affordability",
+          "predictable_heat",
+          "preserving_co_op_stability"
+        ],
+        "type": "group"
+      },
+      {
+        "fictionalized": true,
+        "name": "newer_owners",
+        "public_visibility": "medium",
+        "roles": [
+          "owner_members",
+          "recent_buyers"
+        ],
+        "stakes": [
+          "property_value",
+          "building_reliability",
+          "fair_cost_allocation"
+        ],
+        "type": "group"
+      },
+      {
+        "fictionalized": true,
+        "name": "renters",
+        "public_visibility": "low",
+        "roles": [
+          "occupants",
+          "indirect_stakeholders"
+        ],
+        "stakes": [
+          "heat_reliability",
+          "rent_stability",
+          "voice_in_decisions"
+        ],
+        "type": "group"
+      },
+      {
+        "fictionalized": true,
+        "name": "maintenance_contractors",
+        "public_visibility": "medium",
+        "roles": [
+          "technical_advisors",
+          "service_providers"
+        ],
+        "stakes": [
+          "contract_revenue",
+          "reputation",
+          "scope_clarity"
+        ],
+        "type": "group"
+      },
+      {
+        "fictionalized": true,
+        "name": "board_president",
+        "public_visibility": "high",
+        "roles": [
+          "meeting_chair",
+          "public_face_of_board"
+        ],
+        "stakes": [
+          "passing_viable_plan",
+          "maintaining_trust"
+        ],
+        "type": "person"
+      },
+      {
+        "fictionalized": true,
+        "name": "building_manager",
+        "public_visibility": "medium",
+        "roles": [
+          "operations_coordinator",
+          "information_broker"
+        ],
+        "stakes": [
+          "continuity_of_service",
+          "reduced_emergency_calls"
+        ],
+        "type": "person"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "branch_key": "transparent_bid_builds_majority",
+        "observable_divergence_signal": "Public questions move from legitimacy disputes to implementation details and payment structure.",
+        "plausible_path": "Skeptical owners shift from blanket resistance to conditional support for a limited dues increase tied to repair milestones.",
+        "trigger": "Board releases credible bids, reserve information, and phased dues rationale before the meeting."
+      },
+      {
+        "branch_key": "affordability_backlash_blocks_vote",
+        "observable_divergence_signal": "Meeting attendance rises around anti-increase messaging and procedural objections.",
+        "plausible_path": "Longtime residents organize opposition, forcing delay, amendment, or search for alternatives to dues increase.",
+        "trigger": "Projected monthly increase is perceived as too high or open-ended."
+      },
+      {
+        "branch_key": "service_disruption_forces_action",
+        "observable_divergence_signal": "Renters become more vocal, manager updates intensify, and owner factions narrow differences on timing.",
+        "plausible_path": "Urgency overrides some cost resistance, increasing support for immediate repair financing.",
+        "trigger": "Boiler performance worsens or a heating interruption occurs before a final decision."
+      },
+      {
+        "branch_key": "contractor_credibility_dispute_fragments_support",
+        "observable_divergence_signal": "Discussion centers on second opinions and accusations of overscoping rather than dues fairness alone.",
+        "plausible_path": "Owners split between minimal patching, full repair, and postponement, weakening board authority.",
+        "trigger": "Competing estimates or unclear scope create suspicion about vendor recommendations."
+      }
+    ],
+    "channels": [
+      {
+        "access": [
+          "co_op_board",
+          "board_president",
+          "longtime_residents",
+          "newer_owners"
+        ],
+        "channel_key": "board_meeting",
+        "type": "formal_deliberation",
+        "visibility": "high_within_building"
+      },
+      {
+        "access": [
+          "co_op_board",
+          "board_president",
+          "building_manager",
+          "longtime_residents",
+          "newer_owners",
+          "some_renters"
+        ],
+        "channel_key": "building_notice_email",
+        "type": "broadcast",
+        "visibility": "medium_high"
+      },
+      {
+        "access": [
+          "longtime_residents",
+          "newer_owners",
+          "renters",
+          "building_manager"
+        ],
+        "channel_key": "hallway_conversation",
+        "type": "informal_local",
+        "visibility": "medium"
+      },
+      {
+        "access": [
+          "renters",
+          "longtime_residents",
+          "newer_owners"
+        ],
+        "channel_key": "landlord_tenant_messages",
+        "type": "private_interpersonal",
+        "visibility": "low"
+      },
+      {
+        "access": [
+          "co_op_board",
+          "board_president",
+          "building_manager",
+          "maintenance_contractors"
+        ],
+        "channel_key": "vendor_estimate_exchange",
+        "type": "technical_private",
+        "visibility": "low_to_medium"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "longtime_residents",
+        "archetype_key": "owner_residents",
+        "attention_level": 0.78,
+        "behavioral_tendencies": [
+          "speak_from_history",
+          "scrutinize_spending",
+          "avoid_sharp_governance_breaks"
+        ],
+        "cohort_key": "longtime_resident_owners",
+        "expression_level": 0.59,
+        "fatigue": 0.48,
+        "fear_of_isolation": 0.34,
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.58,
+        "private_preference": "split_between_targeted_repair_and_reluctant_dues_increase",
+        "public_expression": "concern_about_affordability_and_questioning_of_scope",
+        "representation_mode": "direct_group_actor",
+        "represented_population": 14,
+        "reputation": 0.7,
+        "secrecy": 0.22,
+        "stance_axes": {
+          "board_confidence": 0.46,
+          "cost_sensitivity": 0.76,
+          "dues_increase_support": 0.42,
+          "repair_urgency": 0.67
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "newer_owners",
+        "archetype_key": "owner_residents",
+        "attention_level": 0.72,
+        "behavioral_tendencies": [
+          "seek_asset_protection",
+          "compare_alternatives",
+          "respond_to_expert_input"
+        ],
+        "cohort_key": "newer_owner_members",
+        "expression_level": 0.51,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.39,
+        "mobilization_readiness": 0.57,
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 0.42,
+        "private_preference": "favor_reliable_repair_if_costs_seem_well_justified",
+        "public_expression": "request_for_clear_numbers_and_timeline",
+        "representation_mode": "direct_group_actor",
+        "represented_population": 10,
+        "reputation": 0.54,
+        "secrecy": 0.19,
+        "stance_axes": {
+          "board_confidence": 0.55,
+          "cost_sensitivity": 0.58,
+          "dues_increase_support": 0.63,
+          "repair_urgency": 0.74
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "renters",
+        "archetype_key": "renting_households",
+        "attention_level": 0.69,
+        "behavioral_tendencies": [
+          "defer_to_owners_formally",
+          "share_information_informal",
+          "react_to_service_interruptions"
+        ],
+        "cohort_key": "renters_in_building",
+        "expression_level": 0.27,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.62,
+        "mobilization_readiness": 0.34,
+        "perceived_majority": 0.31,
+        "population_share_of_archetype": 1.0,
+        "private_preference": "want_fast_repair_but_worry_costs_will_be_shifted_to_them",
+        "public_expression": "mostly_private_complaints_or_requests_to_landlords",
+        "representation_mode": "indirect_stakeholder_group",
+        "represented_population": 12,
+        "reputation": 0.49,
+        "secrecy": 0.41,
+        "stance_axes": {
+          "board_confidence": 0.33,
+          "cost_sensitivity": 0.72,
+          "dues_increase_support": 0.36,
+          "repair_urgency": 0.81
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "maintenance_contractors",
+        "archetype_key": "service_stakeholders",
+        "attention_level": 0.56,
+        "behavioral_tendencies": [
+          "prefer_clear_work_orders",
+          "emphasize_maintenance_risk",
+          "avoid_political_ownership_conflicts"
+        ],
+        "cohort_key": "service_contractors",
+        "expression_level": 0.44,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.43,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1.0,
+        "private_preference": "advocate_actionable_scope_and_payment_certainty",
+        "public_expression": "technical framing of risks and options",
+        "representation_mode": "vendor_group_actor",
+        "represented_population": 3,
+        "reputation": 0.57,
+        "secrecy": 0.36,
+        "stance_axes": {
+          "board_confidence": 0.52,
+          "cost_sensitivity": 0.21,
+          "dues_increase_support": 0.71,
+          "repair_urgency": 0.77
+        },
+        "trustworthiness": 0.55
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "longtime_residents",
+        "archetype_key": "owner_residents",
+        "attention_level": 0.78,
+        "behavioral_tendencies": [
+          "speak_from_history",
+          "scrutinize_spending",
+          "avoid_sharp_governance_breaks"
+        ],
+        "cohort_key": "longtime_resident_owners",
+        "expression_level": 0.59,
+        "fatigue": 0.48,
+        "fear_of_isolation": 0.34,
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.58,
+        "private_preference": "split_between_targeted_repair_and_reluctant_dues_increase",
+        "public_expression": "concern_about_affordability_and_questioning_of_scope",
+        "representation_mode": "direct_group_actor",
+        "represented_population": 14,
+        "reputation": 0.7,
+        "secrecy": 0.22,
+        "stance_axes": {
+          "board_confidence": 0.46,
+          "cost_sensitivity": 0.76,
+          "dues_increase_support": 0.42,
+          "repair_urgency": 0.67
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "newer_owners",
+        "archetype_key": "owner_residents",
+        "attention_level": 0.72,
+        "behavioral_tendencies": [
+          "seek_asset_protection",
+          "compare_alternatives",
+          "respond_to_expert_input"
+        ],
+        "cohort_key": "newer_owner_members",
+        "expression_level": 0.51,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.39,
+        "mobilization_readiness": 0.57,
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 0.42,
+        "private_preference": "favor_reliable_repair_if_costs_seem_well_justified",
+        "public_expression": "request_for_clear_numbers_and_timeline",
+        "representation_mode": "direct_group_actor",
+        "represented_population": 10,
+        "reputation": 0.54,
+        "secrecy": 0.19,
+        "stance_axes": {
+          "board_confidence": 0.55,
+          "cost_sensitivity": 0.58,
+          "dues_increase_support": 0.63,
+          "repair_urgency": 0.74
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "renters",
+        "archetype_key": "renting_households",
+        "attention_level": 0.69,
+        "behavioral_tendencies": [
+          "defer_to_owners_formally",
+          "share_information_informal",
+          "react_to_service_interruptions"
+        ],
+        "cohort_key": "renters_in_building",
+        "expression_level": 0.27,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.62,
+        "mobilization_readiness": 0.34,
+        "perceived_majority": 0.31,
+        "population_share_of_archetype": 1.0,
+        "private_preference": "want_fast_repair_but_worry_costs_will_be_shifted_to_them",
+        "public_expression": "mostly_private_complaints_or_requests_to_landlords",
+        "representation_mode": "indirect_stakeholder_group",
+        "represented_population": 12,
+        "reputation": 0.49,
+        "secrecy": 0.41,
+        "stance_axes": {
+          "board_confidence": 0.33,
+          "cost_sensitivity": 0.72,
+          "dues_increase_support": 0.36,
+          "repair_urgency": 0.81
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "maintenance_contractors",
+        "archetype_key": "service_stakeholders",
+        "attention_level": 0.56,
+        "behavioral_tendencies": [
+          "prefer_clear_work_orders",
+          "emphasize_maintenance_risk",
+          "avoid_political_ownership_conflicts"
+        ],
+        "cohort_key": "service_contractors",
+        "expression_level": 0.44,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.43,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1.0,
+        "private_preference": "advocate_actionable_scope_and_payment_certainty",
+        "public_expression": "technical framing of risks and options",
+        "representation_mode": "vendor_group_actor",
+        "represented_population": 3,
+        "reputation": 0.57,
+        "secrecy": 0.36,
+        "stance_axes": {
+          "board_confidence": 0.52,
+          "cost_sensitivity": 0.21,
+          "dues_increase_support": 0.71,
+          "repair_urgency": 0.77
+        },
+        "trustworthiness": 0.55
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "co_op_board",
+          "board_president",
+          "longtime_residents",
+          "newer_owners"
+        ],
+        "blockers": [
+          "affordability_backlash",
+          "insufficient_vote_support",
+          "unclear_repair_scope"
+        ],
+        "contradiction_notes": "A repair may proceed through reserves or financing without this endpoint being realized.",
+        "description": "A formal cooperative decision authorizes a monthly dues increase tied to boiler repair financing.",
+        "endpoint_key": "dues_increase_approved",
+        "evidence_refs": [
+          "board_considers_dues_increase",
+          "resident_meeting_or_vote_window"
+        ],
+        "label": "Dues increase approved",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the cooperative approve a monthly dues increase for boiler repair within the initial decision horizon?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.48,
+        "rationale": "This is the clearest terminal governance choice implied by the scenario.",
+        "realization_criteria": [
+          "board_meeting_minutes_or_vote_record_show_majority_approval_of_monthly_dues_increase",
+          "implementation_notice_sets_new_dues_amount_or_effective_date"
+        ],
+        "status": "active",
+        "status_basis": "Proposal is explicitly under debate at T0, with no outcome yet realized."
+      },
+      {
+        "authority_refs": [
+          "co_op_board",
+          "board_president",
+          "building_manager",
+          "maintenance_contractors"
+        ],
+        "blockers": [
+          "scope_dispute",
+          "funding_gap",
+          "delay_tactics",
+          "board_legitimacy_loss"
+        ],
+        "contradiction_notes": "A dues increase could pass without immediate final repair authorization if scope remains unsettled.",
+        "description": "The cooperative commits to a specific boiler repair action through signed scope, approved expenditure, or formal work order.",
+        "endpoint_key": "repair_authorized",
+        "evidence_refs": [
+          "boiler_repair_issue_acknowledged",
+          "contractor_scope_or_bid_requested"
+        ],
+        "label": "Repair authorized",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will a concrete boiler repair contract or repair scope be authorized rather than deferred or limited to temporary patching?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.56,
+        "rationale": "The practical infrastructure endpoint may diverge from the financing endpoint.",
+        "realization_criteria": [
+          "signed_vendor_contract_or_board_authorization_for_defined_repair_scope",
+          "building_manager_or_board_announces_scheduled_repair_execution"
+        ],
+        "status": "active",
+        "status_basis": "Need for repair is acknowledged, but authorization mechanism and timing remain unresolved."
+      },
+      {
+        "authority_refs": [
+          "co_op_board",
+          "board_president",
+          "longtime_residents",
+          "newer_owners"
+        ],
+        "blockers": [
+          "procedural_conflict",
+          "opaque_information_release",
+          "owner_faction_mobilization"
+        ],
+        "contradiction_notes": "A dues increase could fail while legitimacy is preserved if process is seen as fair.",
+        "description": "The board remains accepted as the valid decision manager through the boiler dispute, without visible procedural rupture.",
+        "endpoint_key": "board_legitimacy_preserved",
+        "evidence_refs": [
+          "board_considers_dues_increase",
+          "resident_meeting_or_vote_window"
+        ],
+        "label": "Board legitimacy preserved",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the board maintain sufficient legitimacy to execute the decision without a visible owner revolt or procedural breakdown?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.61,
+        "rationale": "Governance durability is a distinct endpoint from any specific policy outcome.",
+        "realization_criteria": [
+          "meeting_or_vote_occurs_without_successful_challenge_to_board_authority",
+          "post_decision_compliance_and_communications_continue_without_resignation_wave_or_formal_reversal_campaign"
+        ],
+        "status": "active",
+        "status_basis": "Trust is mixed and conflict exists, but no legitimacy collapse is established at initialization."
+      },
+      {
+        "authority_refs": [
+          "renters",
+          "longtime_residents",
+          "newer_owners",
+          "building_manager"
+        ],
+        "blockers": [
+          "fear_of_isolation",
+          "lack_of_formal_voice",
+          "stable_service_conditions"
+        ],
+        "contradiction_notes": "Renter concerns can still matter indirectly even if this endpoint does not realize publicly.",
+        "description": "Renter concerns move from private dependence channels into observable influence on the cooperative debate.",
+        "endpoint_key": "renter_pressure_becomes_visible",
+        "evidence_refs": [
+          "weather_or_service_stress_test",
+          "landlord_tenant_messages"
+        ],
+        "label": "Renter pressure becomes visible",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will renter concerns remain mostly private, or will they become a visible pressure channel affecting owner behavior?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.34,
+        "rationale": "The scenario explicitly includes renters as a distinct incentive group, making visibility of their pressure an outcome-relevant question.",
+        "realization_criteria": [
+          "documented_renter_petition_collective_message_or_meeting_intervention_occurs",
+          "owner_members_publicly_reference_renter_pressure_as_reason_for_position_change"
+        ],
+        "status": "active",
+        "status_basis": "Renters have stakes but low expression at T0, leaving this as an unresolved alternative path."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "Cooperative governance debate over dues involves residents and board members.",
+        "layer": "exposure",
+        "reason": "Board notices and meetings are likely seen by owner members.",
+        "source_actor_name": "co_op_board",
+        "target_actor_name": "longtime_residents",
+        "weight": 0.64
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Owners are central decision participants in the dues debate.",
+        "layer": "exposure",
+        "reason": "Board communications reach owner members directly.",
+        "source_actor_name": "co_op_board",
+        "target_actor_name": "newer_owners",
+        "weight": 0.64
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Renters are affected but not positioned as core decision makers.",
+        "layer": "exposure",
+        "reason": "Renters may hear about board actions indirectly through landlords or building channels.",
+        "source_actor_name": "co_op_board",
+        "target_actor_name": "renters",
+        "weight": 0.32
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Maintenance contractors are named as stakeholders in boiler repair incentives.",
+        "layer": "exposure",
+        "reason": "Contractors provide proposals and technical assessments to the board.",
+        "source_actor_name": "maintenance_contractors",
+        "target_actor_name": "co_op_board",
+        "weight": 0.45
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Manager role inferred from building operations around shared boiler.",
+        "layer": "exposure",
+        "reason": "Building manager regularly communicates operational issues upward.",
+        "source_actor_name": "building_manager",
+        "target_actor_name": "co_op_board",
+        "weight": 0.61
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Shared building environment creates informal information flow.",
+        "layer": "exposure",
+        "reason": "Occupants communicate complaints or concerns to visible owner neighbors.",
+        "source_actor_name": "renters",
+        "target_actor_name": "longtime_residents",
+        "weight": 0.27
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Debate context implies scrutiny rather than consensus.",
+        "layer": "trust",
+        "reason": "Longtime owners have moderate but not automatic trust in board stewardship.",
+        "source_actor_name": "longtime_residents",
+        "target_actor_name": "co_op_board",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario implies differentiated incentives, not full distrust.",
+        "layer": "trust",
+        "reason": "Newer owners may trust process if supported by evidence and bids.",
+        "source_actor_name": "newer_owners",
+        "target_actor_name": "co_op_board",
+        "weight": 0.52
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Renters are stakeholders but not named as governance decision-makers.",
+        "layer": "trust",
+        "reason": "Renters have limited formal voice and weaker legitimacy perceptions.",
+        "source_actor_name": "renters",
+        "target_actor_name": "co_op_board",
+        "weight": 0.33
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Contractors have incentive differences in repair scope and revenue.",
+        "layer": "trust",
+        "reason": "Board sees contractors as useful but potentially self-interested technical sources.",
+        "source_actor_name": "co_op_board",
+        "target_actor_name": "maintenance_contractors",
+        "weight": 0.48
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Manager bridges maintenance information and governance.",
+        "layer": "trust",
+        "reason": "Board relies on manager's operational knowledge.",
+        "source_actor_name": "co_op_board",
+        "target_actor_name": "building_manager",
+        "weight": 0.61
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Manager is recurring service contact in building operations.",
+        "layer": "trust",
+        "reason": "Operational continuity can generate moderate credibility with established residents.",
+        "source_actor_name": "longtime_residents",
+        "target_actor_name": "building_manager",
+        "weight": 0.57
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Shared boiler repair requires contractor involvement.",
+        "layer": "dependency",
+        "reason": "Repair options depend on technical diagnosis and execution capacity.",
+        "source_actor_name": "co_op_board",
+        "target_actor_name": "maintenance_contractors",
+        "weight": 0.62
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Dues changes are mediated by cooperative governance.",
+        "layer": "dependency",
+        "reason": "Owners depend on board process to organize financing and collective decision-making.",
+        "source_actor_name": "longtime_residents",
+        "target_actor_name": "co_op_board",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Co-op dues decision runs through board structure.",
+        "layer": "dependency",
+        "reason": "Owners rely on board to propose and administer any dues increase.",
+        "source_actor_name": "newer_owners",
+        "target_actor_name": "co_op_board",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Renters are affected indirectly in owner-governed setting.",
+        "layer": "dependency",
+        "reason": "Renters depend on owner-landlords for representation and cost pass-through decisions.",
+        "source_actor_name": "renters",
+        "target_actor_name": "longtime_residents",
+        "weight": 0.37
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Mixed owner and renter incentives implied by scenario.",
+        "layer": "dependency",
+        "reason": "Some renters depend on newer owner-landlords for communication and unit-level responses.",
+        "source_actor_name": "renters",
+        "target_actor_name": "newer_owners",
+        "weight": 0.29
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Shared boiler operations create recurring operational dependence.",
+        "layer": "dependency",
+        "reason": "Board needs manager for maintenance records, coordination, and day-to-day implementation.",
+        "source_actor_name": "co_op_board",
+        "target_actor_name": "building_manager",
+        "weight": 0.55
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Meeting chair and public face role in governance debate.",
+        "layer": "influence",
+        "reason": "President strongly shapes agenda and framing within board action.",
+        "source_actor_name": "board_president",
+        "target_actor_name": "co_op_board",
+        "weight": 0.65
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Board members are central named stakeholders in dues debate.",
+        "layer": "influence",
+        "reason": "Board can frame urgency, options, and voting procedures.",
+        "source_actor_name": "co_op_board",
+        "target_actor_name": "longtime_residents",
+        "weight": 0.54
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Owners must evaluate dues increase proposal.",
+        "layer": "influence",
+        "reason": "Board's proposals and documentation affect owner decision-making.",
+        "source_actor_name": "co_op_board",
+        "target_actor_name": "newer_owners",
+        "weight": 0.56
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Operational bridge role around boiler condition.",
+        "layer": "influence",
+        "reason": "Manager can elevate urgency through service-risk information.",
+        "source_actor_name": "building_manager",
+        "target_actor_name": "co_op_board",
+        "weight": 0.51
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Contractors provide repair framing and bids.",
+        "layer": "influence",
+        "reason": "Technical reports may sway improvement-oriented owners.",
+        "source_actor_name": "maintenance_contractors",
+        "target_actor_name": "newer_owners",
+        "weight": 0.26
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Longtime residents are a named stakeholder bloc with distinct incentives.",
+        "layer": "influence",
+        "reason": "Established owners can shape legitimacy and meeting sentiment.",
+        "source_actor_name": "longtime_residents",
+        "target_actor_name": "co_op_board",
+        "weight": 0.49
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario asks for plausible conflict and merge paths among factions.",
+        "layer": "influence",
+        "reason": "Newer owners matter as swing voters and vocal evaluators.",
+        "source_actor_name": "newer_owners",
+        "target_actor_name": "co_op_board",
+        "weight": 0.44
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Operational and governance incentives overlap on repair planning.",
+        "layer": "coalition",
+        "reason": "Both benefit from timely maintenance resolution.",
+        "source_actor_name": "co_op_board",
+        "target_actor_name": "building_manager",
+        "weight": 0.53
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Newer owners are somewhat more favorable to repair funding.",
+        "layer": "coalition",
+        "reason": "Potential alignment if board demonstrates transparent costing.",
+        "source_actor_name": "newer_owners",
+        "target_actor_name": "co_op_board",
+        "weight": 0.41
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Both groups are building occupants with different incentives.",
+        "layer": "coalition",
+        "reason": "Shared interest in heat reliability exists but is weakened by cost pass-through tension.",
+        "source_actor_name": "longtime_residents",
+        "target_actor_name": "renters",
+        "weight": 0.24
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Both belong to owner-member population archetype.",
+        "layer": "coalition",
+        "reason": "Owners share governance membership despite differing cost tolerance.",
+        "source_actor_name": "longtime_residents",
+        "target_actor_name": "newer_owners",
+        "weight": 0.36
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Repair process requires operational coordination.",
+        "layer": "coalition",
+        "reason": "Manager and vendors coordinate on technical assessment and scheduling.",
+        "source_actor_name": "maintenance_contractors",
+        "target_actor_name": "building_manager",
+        "weight": 0.43
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Debate over raising monthly dues is central scenario pressure.",
+        "layer": "conflict",
+        "reason": "Affordability concerns may translate into procedural pushback on dues increase.",
+        "source_actor_name": "longtime_residents",
+        "target_actor_name": "co_op_board",
+        "weight": 0.38
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Renters have different incentives and limited formal control.",
+        "layer": "conflict",
+        "reason": "Renters may resent low voice and potential indirect cost burden.",
+        "source_actor_name": "renters",
+        "target_actor_name": "co_op_board",
+        "weight": 0.29
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario distinguishes longtime residents and newer owners as separate incentive groups.",
+        "layer": "conflict",
+        "reason": "Different tenure and financial framing may create mild factional tension.",
+        "source_actor_name": "longtime_residents",
+        "target_actor_name": "newer_owners",
+        "weight": 0.26
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Contractors have revenue incentive in repair debates.",
+        "layer": "conflict",
+        "reason": "Board may suspect overselling or inflated scope.",
+        "source_actor_name": "co_op_board",
+        "target_actor_name": "maintenance_contractors",
+        "weight": 0.22
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Different incentives over repair speed and cost allocation.",
+        "layer": "conflict",
+        "reason": "If owners resist costs, renters may see comfort concerns minimized.",
+        "source_actor_name": "renters",
+        "target_actor_name": "longtime_residents",
+        "weight": 0.21
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Neighborhood cooperative decision process is public within building community.",
+        "layer": "oasis_interaction",
+        "reason": "Likely interaction at meetings, hallway discussions, and notices.",
+        "source_actor_name": "co_op_board",
+        "target_actor_name": "longtime_residents",
+        "weight": 0.57
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Owners are direct participants in dues debate.",
+        "layer": "oasis_interaction",
+        "reason": "Owners likely engage in public channels around proposal details.",
+        "source_actor_name": "co_op_board",
+        "target_actor_name": "newer_owners",
+        "weight": 0.55
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Shared occupancy creates common discussion channels.",
+        "layer": "oasis_interaction",
+        "reason": "Renters likely discuss heat and cost concerns informally among themselves.",
+        "source_actor_name": "renters",
+        "target_actor_name": "renters",
+        "weight": 0.34
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Operational interactions around boiler are likely noticed by residents.",
+        "layer": "oasis_interaction",
+        "reason": "Publicly observable coordination may occur around inspections or service visits.",
+        "source_actor_name": "building_manager",
+        "target_actor_name": "maintenance_contractors",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Leadership role in board communications and meetings.",
+        "layer": "oasis_interaction",
+        "reason": "President shapes visible discussion tone and procedural conduct.",
+        "source_actor_name": "board_president",
+        "target_actor_name": "co_op_board",
+        "weight": 0.52
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "description": "Small leadership node able to shape agenda, timing, and framing of the decision.",
+        "hero_key": "board_leadership",
+        "label": "Board leadership"
+      },
+      {
+        "description": "Operational actor translating technical issues into governance choices.",
+        "hero_key": "operations_bridge",
+        "label": "Operations bridge"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "board_president",
+        "attention_level": 0.84,
+        "authority_scope": [
+          "schedule_meeting",
+          "frame_vote",
+          "request_bids",
+          "communicate_plan"
+        ],
+        "behavioral_tendencies": [
+          "pushes_for_action",
+          "tries_to_hold_process_legitimacy",
+          "sensitive_to_member_backlash"
+        ],
+        "expression_level": 0.76,
+        "fatigue": 0.46,
+        "fear_of_isolation": 0.24,
+        "graph_influence_summary": "High agenda-setting influence but only moderate trust across factions.",
+        "hero_key": "board_leadership",
+        "mobilization_readiness": 0.66,
+        "perceived_majority": 0.52,
+        "reputation": 0.56,
+        "secrecy": 0.28,
+        "stance_axes": {
+          "consensus_orientation": 0.61,
+          "dues_increase_support": 0.74,
+          "repair_urgency": 0.79
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "building_manager",
+        "attention_level": 0.77,
+        "authority_scope": [
+          "share_maintenance_history",
+          "coordinate_vendor_access",
+          "surface_service_risks"
+        ],
+        "behavioral_tendencies": [
+          "pragmatic",
+          "risk_averse_on_equipment_failure",
+          "less_political_than_board"
+        ],
+        "expression_level": 0.49,
+        "fatigue": 0.53,
+        "fear_of_isolation": 0.21,
+        "graph_influence_summary": "Moderate influence through information credibility and operational dependence.",
+        "hero_key": "operations_bridge",
+        "mobilization_readiness": 0.51,
+        "perceived_majority": 0.48,
+        "reputation": 0.62,
+        "secrecy": 0.31,
+        "stance_axes": {
+          "consensus_orientation": 0.58,
+          "dues_increase_support": 0.62,
+          "repair_urgency": 0.83
+        },
+        "trustworthiness": 0.64
+      }
+    ],
+    "heroes": [
+      {
+        "description": "Small leadership node able to shape agenda, timing, and framing of the decision.",
+        "hero_key": "board_leadership",
+        "label": "Board leadership"
+      },
+      {
+        "description": "Operational actor translating technical issues into governance choices.",
+        "hero_key": "operations_bridge",
+        "label": "Operations bridge"
+      }
+    ],
+    "important_questions": [
+      "Will the cooperative approve a monthly dues increase for boiler repair within the initial decision horizon?",
+      "Will a concrete boiler repair contract or repair scope be authorized rather than deferred or limited to temporary patching?",
+      "Will the board maintain sufficient legitimacy to execute the decision without a visible owner revolt or procedural breakdown?",
+      "Will renter concerns remain mostly private, or will they become a visible pressure channel affecting owner behavior?"
+    ],
+    "initial_events": [
+      {
+        "event_key": "boiler_repair_issue_acknowledged",
+        "event_type": "announcement",
+        "evidence": "Scenario centers on repairing a shared boiler.",
+        "expected_impact": "Raises building-wide attention and creates common problem awareness without fixing consensus on cost burden.",
+        "participants": [
+          "co_op_board",
+          "building_manager",
+          "longtime_residents",
+          "newer_owners",
+          "renters"
+        ],
+        "summary": "Residents are aware that the shared boiler requires repair serious enough to prompt governance debate.",
+        "tick": 0,
+        "visibility": "high"
+      },
+      {
+        "event_key": "board_considers_dues_increase",
+        "event_type": "announcement",
+        "evidence": "Scenario explicitly states a debate about raising monthly dues.",
+        "expected_impact": "Sharpens distributional conflict and clarifies that inaction also has costs.",
+        "participants": [
+          "co_op_board",
+          "board_president",
+          "longtime_residents",
+          "newer_owners"
+        ],
+        "summary": "The board puts a monthly dues increase on the table as a possible financing mechanism.",
+        "tick": 0,
+        "visibility": "high"
+      },
+      {
+        "event_key": "contractor_scope_or_bid_requested",
+        "event_type": "announcement",
+        "evidence": "Maintenance contractors are named as stakeholders with distinct incentives.",
+        "expected_impact": "Could increase technical clarity, but also create disputes over price credibility or repair alternatives.",
+        "participants": [
+          "co_op_board",
+          "building_manager",
+          "maintenance_contractors"
+        ],
+        "summary": "Board and manager seek or refine contractor estimates and repair scope.",
+        "tick": 1,
+        "visibility": "medium"
+      },
+      {
+        "event_key": "resident_meeting_or_vote_window",
+        "event_type": "announcement",
+        "evidence": "Cooperative governance setting implies formal deliberation around dues changes.",
+        "expected_impact": "Converts diffuse concerns into visible camps, affecting legitimacy and future coalition options.",
+        "participants": [
+          "co_op_board",
+          "board_president",
+          "longtime_residents",
+          "newer_owners"
+        ],
+        "summary": "A formal discussion or preliminary vote is likely scheduled after initial information gathering.",
+        "tick": 2,
+        "visibility": "high"
+      },
+      {
+        "event_key": "weather_or_service_stress_test",
+        "event_type": "announcement",
+        "evidence": "Shared boiler condition is central uncertainty affecting perceived urgency.",
+        "expected_impact": "A noticeable service issue would raise repair urgency and reduce tolerance for delay.",
+        "participants": [
+          "building_manager",
+          "renters",
+          "longtime_residents",
+          "newer_owners"
+        ],
+        "summary": "Normal usage or colder conditions may reveal whether the boiler problem feels urgent or manageable.",
+        "tick": 3,
+        "visibility": "medium"
+      }
+    ],
+    "llm_call_id": "aa0b7379-e28d-4fa8-a462-2da909aee2c9",
+    "merge_hypotheses": [
+      {
+        "basis": "All occupant groups need reliable heat and building functionality.",
+        "convergence_effect": "Even adversarial factions may align behind some repair action if comfort or safety risk becomes salient.",
+        "merge_key": "shared_habitability_interest"
+      },
+      {
+        "basis": "Formal cooperative process concentrates choice into a meeting or vote.",
+        "convergence_effect": "Diverse grievances may compress into a smaller set of actionable options.",
+        "merge_key": "finite_decision_forum"
+      },
+      {
+        "basis": "Building manager records and contractor inspections can create a common factual floor.",
+        "convergence_effect": "Technical clarity may reduce narrative fragmentation and enable compromise on financing method.",
+        "merge_key": "operational_evidence"
+      },
+      {
+        "basis": "Residents may prefer an imperfect settlement over prolonged uncertainty and recurring boiler stress.",
+        "convergence_effect": "After initial conflict, moderates may accept a bounded plan to close the issue.",
+        "merge_key": "coalition_fatigue"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "owner_residents",
+        "description": "Residents with formal voting power in the cooperative, including both longtime and newer owners.",
+        "label": "Owner residents",
+        "population_total": 24
+      },
+      {
+        "archetype_key": "renting_households",
+        "description": "Occupants without direct cooperative voting power but affected by heat reliability and pass-through costs.",
+        "label": "Renting households",
+        "population_total": 12
+      },
+      {
+        "archetype_key": "service_stakeholders",
+        "description": "Maintenance providers and technical contacts relevant to boiler repair decisions.",
+        "label": "Service stakeholders",
+        "population_total": 3
+      }
+    ],
+    "risk_flags": [
+      {
+        "description": "No explicit data on reserve funds, borrowing options, or size of proposed dues increase.",
+        "risk_key": "missing_financial_details",
+        "severity": "medium"
+      },
+      {
+        "description": "Actual boiler condition and urgency are unspecified, so crisis intensity should remain moderate at T0.",
+        "risk_key": "missing_failure_severity",
+        "severity": "medium"
+      },
+      {
+        "description": "Which owners rent out units is not specified, limiting precision in dependency mapping.",
+        "risk_key": "owner_renter_mapping_uncertain",
+        "severity": "low"
+      },
+      {
+        "description": "Population counts are plausible small-cooperative defaults inferred from the prompt rather than explicit corpus facts.",
+        "risk_key": "small_scale_assumptions_used",
+        "severity": "low"
+      },
+      {
+        "description": "Number and quality of contractor options are not specified, affecting later branch realism.",
+        "risk_key": "contractor_market_uncertainty",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "institutional_governance",
+      "core_tensions": [
+        "repair_urgency_vs_cost_burden",
+        "owner_control_vs_renter_voice",
+        "short_term_affordability_vs_long_term_asset_stability",
+        "board_legitimacy_vs_member_skepticism"
+      ],
+      "evidence": [
+        "Scenario text names longtime residents, newer owners, renters, board members, and maintenance contractors as key stakeholders.",
+        "Scenario text centers on debate over raising monthly dues to repair a shared boiler."
+      ],
+      "mode": "direct",
+      "premise": "A neighborhood cooperative must decide whether to raise monthly dues to fund repair of a shared boiler. Residents and stakeholders have different incentives based on tenure, ownership status, affordability, comfort, and governance responsibility.",
+      "scenario_key": "governance_005",
+      "scope": "small_residential_cooperative",
+      "time_horizon_ticks": 8,
+      "title": "Neighborhood cooperative debates dues increase for shared boiler repair",
+      "uncertainties": [
+        "actual severity and timing of boiler failure",
+        "availability of reserve funds or financing",
+        "extent of renter influence through owners",
+        "contractor pricing reliability",
+        "whether a coalition for dues increase can form"
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "description": "Owners are more persuadable by arguments that stay near existing views on affordability and repair necessity.",
+        "level": 0.62,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "scope": "owner_residents"
+      },
+      {
+        "description": "Visible support from a few respected owners could trigger broader meeting participation or opposition.",
+        "level": 0.58,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "scope": "longtime_residents"
+      },
+      {
+        "description": "Renters are likely to withhold public views due to limited formal voice and dependence on owners.",
+        "level": 0.67,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "scope": "renters"
+      },
+      {
+        "description": "Longtime residents, newer owners, and renters tend to discuss issues within similar-status networks.",
+        "level": 0.49,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "scope": "tenure_and_status_groups"
+      },
+      {
+        "description": "Support for higher dues likely needs reinforcement from both technical evidence and neighbor endorsement.",
+        "level": 0.55,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "scope": "dues_increase_support"
+      },
+      {
+        "description": "Tenure and ownership status shape how fairness and responsibility are interpreted.",
+        "level": 0.6,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "scope": "owner_vs_renter_and_old_vs_new"
+      },
+      {
+        "description": "Attention may soften if boiler problems remain abstract, but rises quickly with any service disruption.",
+        "level": 0.37,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "scope": "building_wide"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Shared heating reliability makes infrastructure risk broadly legible across factions.",
+        "influence_key": "habitability_salience"
+      },
+      {
+        "description": "Monthly dues framing activates household budget concerns more than one-time abstract capital planning.",
+        "influence_key": "affordability_pressure"
+      },
+      {
+        "description": "Transparent bids, reserve data, and fair meeting process can alter coalition formation.",
+        "influence_key": "procedural_legitimacy"
+      },
+      {
+        "description": "Renters experience consequences without equivalent voting power, shaping informal pressure channels.",
+        "influence_key": "voice_imbalance"
+      },
+      {
+        "description": "Longtime residents may anchor on prior board decisions or earlier maintenance episodes when evaluating credibility.",
+        "influence_key": "tenure_memory"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "co_op_board",
+        "behavior_axes": {
+          "proceduralism": 0.75,
+          "responsiveness": 0.58,
+          "risk_tolerance": 0.43
+        },
+        "ideology_axes": {
+          "collective_obligation": 0.72,
+          "fiscal_conservatism": 0.54
+        },
+        "reputation": 0.53,
+        "secrecy": 0.34,
+        "tendency": "institutional_maintenance",
+        "trustworthiness": 0.56
+      },
+      {
+        "actor_name": "longtime_residents",
+        "behavior_axes": {
+          "proceduralism": 0.52,
+          "responsiveness": 0.57,
+          "risk_tolerance": 0.38
+        },
+        "ideology_axes": {
+          "collective_obligation": 0.61,
+          "fiscal_conservatism": 0.73
+        },
+        "reputation": 0.7,
+        "secrecy": 0.22,
+        "tendency": "cautious_stability",
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "newer_owners",
+        "behavior_axes": {
+          "proceduralism": 0.55,
+          "responsiveness": 0.62,
+          "risk_tolerance": 0.49
+        },
+        "ideology_axes": {
+          "collective_obligation": 0.64,
+          "fiscal_conservatism": 0.56
+        },
+        "reputation": 0.54,
+        "secrecy": 0.19,
+        "tendency": "improvement_oriented_scrutiny",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "renters",
+        "behavior_axes": {
+          "proceduralism": 0.28,
+          "responsiveness": 0.59,
+          "risk_tolerance": 0.31
+        },
+        "ideology_axes": {
+          "collective_obligation": 0.47,
+          "fiscal_conservatism": 0.62
+        },
+        "reputation": 0.49,
+        "secrecy": 0.41,
+        "tendency": "low_power_service_concern",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "maintenance_contractors",
+        "behavior_axes": {
+          "proceduralism": 0.67,
+          "responsiveness": 0.54,
+          "risk_tolerance": 0.57
+        },
+        "ideology_axes": {
+          "collective_obligation": 0.39,
+          "fiscal_conservatism": 0.44
+        },
+        "reputation": 0.57,
+        "secrecy": 0.36,
+        "tendency": "technical_action_bias",
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "board_president",
+        "behavior_axes": {
+          "proceduralism": 0.72,
+          "responsiveness": 0.63,
+          "risk_tolerance": 0.46
+        },
+        "ideology_axes": {
+          "collective_obligation": 0.74,
+          "fiscal_conservatism": 0.51
+        },
+        "reputation": 0.56,
+        "secrecy": 0.28,
+        "tendency": "consensus_seeking_decisiveness",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "building_manager",
+        "behavior_axes": {
+          "proceduralism": 0.64,
+          "responsiveness": 0.66,
+          "risk_tolerance": 0.34
+        },
+        "ideology_axes": {
+          "collective_obligation": 0.68,
+          "fiscal_conservatism": 0.46
+        },
+        "reputation": 0.62,
+        "secrecy": 0.31,
+        "tendency": "pragmatic_maintenance",
+        "trustworthiness": 0.64
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 406,
+        "end": 406,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 406,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

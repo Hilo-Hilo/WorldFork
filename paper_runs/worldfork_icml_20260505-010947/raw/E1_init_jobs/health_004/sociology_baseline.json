@@ -1,0 +1,225 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "b66ab4c2-34ff-4b16-8ae8-13f991872f82",
+      "created_at": "2026-05-05T02:31:23.508349+00:00",
+      "id": "d653ef84-8bf6-40dc-a567-4ca532753b43",
+      "influence": {
+        "description": "Public debate is primed by tradeoff between immediate safety precaution and maintaining mobility/access.",
+        "influence_key": "safety_vs_access_frame"
+      },
+      "multiverse_id": "79ccf9ed-006d-4054-832e-cd991d766a0f",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:23.508349+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "b66ab4c2-34ff-4b16-8ae8-13f991872f82",
+      "created_at": "2026-05-05T02:31:23.508349+00:00",
+      "id": "c8f403fe-4738-4b7c-9ef2-223e31c24362",
+      "influence": {
+        "description": "Engineering findings are likely the central legitimacy cue for officials and public interpretation.",
+        "influence_key": "expert_credibility_signal"
+      },
+      "multiverse_id": "79ccf9ed-006d-4054-832e-cd991d766a0f",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:23.508349+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "b66ab4c2-34ff-4b16-8ae8-13f991872f82",
+      "created_at": "2026-05-05T02:31:23.508349+00:00",
+      "id": "75455915-6518-4f18-8cc4-5827c8c77d4a",
+      "influence": {
+        "description": "Need for replacement funding limits simple solutions and invites bargaining or delay.",
+        "influence_key": "funding_constraint_salience"
+      },
+      "multiverse_id": "79ccf9ed-006d-4054-832e-cd991d766a0f",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:23.508349+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "b66ab4c2-34ff-4b16-8ae8-13f991872f82",
+      "created_at": "2026-05-05T02:31:23.508349+00:00",
+      "id": "4be1566f-2c8c-4891-9c17-c17301c9277d",
+      "influence": {
+        "description": "Commuter delays, truck restrictions, and business access losses are tangible signals that can outweigh abstract risk for some groups.",
+        "influence_key": "disruption_visibility"
+      },
+      "multiverse_id": "79ccf9ed-006d-4054-832e-cd991d766a0f",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:23.508349+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "b66ab4c2-34ff-4b16-8ae8-13f991872f82",
+      "created_at": "2026-05-05T02:31:23.508349+00:00",
+      "id": "b00b9327-aef7-4bc0-be00-c4a8411579d7",
+      "influence": {
+        "description": "Officials may be judged both for acting too late on safety and for overreacting without clear proof.",
+        "influence_key": "accountability_frame"
+      },
+      "multiverse_id": "79ccf9ed-006d-4054-832e-cd991d766a0f",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:23.508349+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "b66ab4c2-34ff-4b16-8ae8-13f991872f82",
+      "created_at": "2026-05-05T02:31:23.508349+00:00",
+      "id": "62908c21-5855-4878-a319-40edd466b77e",
+      "model": "attention_decay",
+      "multiverse_id": "79ccf9ed-006d-4054-832e-cd991d766a0f",
+      "signal": {
+        "applies_to": [
+          "commuter_public",
+          "general_taxpayer_voters"
+        ],
+        "evidence": "Many stakeholders likely shift only when new evidence fits prior inconvenience or safety beliefs.",
+        "level": 0.58,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:31:23.508349+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "b66ab4c2-34ff-4b16-8ae8-13f991872f82",
+      "created_at": "2026-05-05T02:31:23.508349+00:00",
+      "id": "4d86a261-34b5-4f6e-845c-58e419450fdb",
+      "model": "attention_decay",
+      "multiverse_id": "79ccf9ed-006d-4054-832e-cd991d766a0f",
+      "signal": {
+        "applies_to": [
+          "commuter_public",
+          "general_taxpayer_voters",
+          "nearby_business_alliance"
+        ],
+        "evidence": "Most public groups are not yet fully mobilized at T0 and may activate after salient disruption, incident, or cost announcement.",
+        "level": 0.64,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:31:23.508349+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "b66ab4c2-34ff-4b16-8ae8-13f991872f82",
+      "created_at": "2026-05-05T02:31:23.508349+00:00",
+      "id": "4893b075-c572-418a-ab35-33b563b0ee31",
+      "model": "attention_decay",
+      "multiverse_id": "79ccf9ed-006d-4054-832e-cd991d766a0f",
+      "signal": {
+        "applies_to": [
+          "commuter_public",
+          "general_taxpayer_voters"
+        ],
+        "evidence": "Part of the public remains uncertain and quiet until elite cues or visible impacts intensify.",
+        "level": 0.55,
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:31:23.508349+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "b66ab4c2-34ff-4b16-8ae8-13f991872f82",
+      "created_at": "2026-05-05T02:31:23.508349+00:00",
+      "id": "a900b877-1f9a-4fb8-bd97-a7948c4ef0eb",
+      "model": "attention_decay",
+      "multiverse_id": "79ccf9ed-006d-4054-832e-cd991d766a0f",
+      "signal": {
+        "applies_to": [
+          "freight_firms_association",
+          "nearby_business_alliance",
+          "commuter_public"
+        ],
+        "evidence": "Stakeholders cluster around shared economic or travel dependencies.",
+        "level": 0.5,
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:31:23.508349+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "b66ab4c2-34ff-4b16-8ae8-13f991872f82",
+      "created_at": "2026-05-05T02:31:23.508349+00:00",
+      "id": "68e73c8d-6fc7-4acc-8640-63e78c386fa1",
+      "model": "attention_decay",
+      "multiverse_id": "79ccf9ed-006d-4054-832e-cd991d766a0f",
+      "signal": {
+        "applies_to": [
+          "citywide_residents_voters",
+          "commuter_public"
+        ],
+        "evidence": "Support for costly funding or disruptive closure likely requires reinforcement from experts, officials, and peers.",
+        "level": 0.47,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:31:23.508349+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "b66ab4c2-34ff-4b16-8ae8-13f991872f82",
+      "created_at": "2026-05-05T02:31:23.508349+00:00",
+      "id": "a695fb9f-7c85-4cef-98f8-93699e39968d",
+      "model": "attention_decay",
+      "multiverse_id": "79ccf9ed-006d-4054-832e-cd991d766a0f",
+      "signal": {
+        "applies_to": [
+          "freight_firms_association",
+          "emergency_services_command",
+          "city_council_budget_bloc"
+        ],
+        "evidence": "Occupational and institutional roles strongly shape preferred framing of the problem.",
+        "level": 0.53,
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:31:23.508349+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "b66ab4c2-34ff-4b16-8ae8-13f991872f82",
+      "created_at": "2026-05-05T02:31:23.508349+00:00",
+      "id": "57c8a772-7718-48fa-8183-d8f4078003b0",
+      "model": "attention_decay",
+      "multiverse_id": "79ccf9ed-006d-4054-832e-cd991d766a0f",
+      "signal": {
+        "applies_to": [
+          "general_taxpayer_voters"
+        ],
+        "evidence": "Broader citywide interest may fade absent visible incidents or dramatic policy conflict.",
+        "level": 0.43,
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:31:23.508349+00:00"
+    }
+  ]
+}

@@ -1,0 +1,1579 @@
+{
+  "big_bang_id": "b3690fc6-3663-46b0-9ca4-83634353bbea",
+  "initializer_output": {
+    "actors": [
+      {
+        "authority_level": "informal_operational",
+        "constraints": [
+          "economic precarity",
+          "contract dependence on shippers",
+          "limited direct control over port policy"
+        ],
+        "fictionalized": true,
+        "name": "harbor_gate_trucking_cooperative",
+        "public_visibility": "medium",
+        "resources": [
+          "member labor supply",
+          "coordination capacity",
+          "public grievance narrative"
+        ],
+        "role": "organized port truck drivers threatening a slow-down",
+        "stakes": [
+          "reduce or reverse new gate fees",
+          "avoid uncompensated wait-time losses",
+          "preserve access to shipping contracts"
+        ],
+        "type": "labor_group"
+      },
+      {
+        "authority_level": "direct_operational",
+        "constraints": [
+          "political scrutiny",
+          "dependency on trucking throughput",
+          "cannot directly control shipping firm contracts"
+        ],
+        "fictionalized": true,
+        "name": "port_management_authority",
+        "public_visibility": "high",
+        "resources": [
+          "gate policy control",
+          "site operations authority",
+          "public communications"
+        ],
+        "role": "controls gate policy and port operating rules",
+        "stakes": [
+          "maintain throughput",
+          "defend fee policy or revenue rationale",
+          "avoid major disruption and political fallout"
+        ],
+        "type": "institution"
+      },
+      {
+        "authority_level": "market_contractual",
+        "constraints": [
+          "port dependence",
+          "schedule commitments",
+          "exposure to service delays"
+        ],
+        "fictionalized": true,
+        "name": "shipping_firm_consortium",
+        "public_visibility": "medium",
+        "resources": [
+          "contract allocation",
+          "routing decisions",
+          "commercial leverage"
+        ],
+        "role": "cargo owners or logistics firms controlling freight contracts",
+        "stakes": [
+          "maintain reliable cargo movement",
+          "minimize logistics cost increases",
+          "retain routing flexibility"
+        ],
+        "type": "business_group"
+      },
+      {
+        "authority_level": "limited_individual",
+        "constraints": [
+          "fragmentation",
+          "fear of income loss",
+          "dependency on dispatch and contracts"
+        ],
+        "fictionalized": true,
+        "name": "independent_port_drivers",
+        "public_visibility": "low",
+        "resources": [
+          "labor availability",
+          "anecdotal evidence of delays"
+        ],
+        "role": "drivers affected by fees and wait times, not all necessarily cooperative members",
+        "stakes": [
+          "stable loads and income",
+          "minimize time losses",
+          "avoid retaliation or deactivation from contracts"
+        ],
+        "type": "workforce_group"
+      },
+      {
+        "authority_level": "indirect_civic",
+        "constraints": [
+          "limited direct control over fees",
+          "attention may be intermittent"
+        ],
+        "fictionalized": true,
+        "name": "nearby_residents_association",
+        "public_visibility": "medium",
+        "resources": [
+          "public testimony",
+          "local media attention",
+          "environmental legitimacy"
+        ],
+        "role": "residents concerned about emissions and congestion near the port",
+        "stakes": [
+          "reduced truck idling and pollution",
+          "predictable local traffic conditions",
+          "responsiveness from regulators and port management"
+        ],
+        "type": "community_group"
+      },
+      {
+        "authority_level": "investigatory_indirect",
+        "constraints": [
+          "slow timeline",
+          "limited immediate remedial power",
+          "political sensitivity"
+        ],
+        "fictionalized": true,
+        "name": "state_transport_regulatory_agency",
+        "public_visibility": "high",
+        "resources": [
+          "inquiry authority",
+          "hearing or review processes",
+          "public findings"
+        ],
+        "role": "state agency able to investigate practices but not instantly set fees",
+        "stakes": [
+          "procedural compliance",
+          "public legitimacy",
+          "containment of escalation"
+        ],
+        "type": "government_agency"
+      },
+      {
+        "authority_level": "agenda_setting",
+        "constraints": [
+          "limited direct policy power",
+          "dependent on visible events"
+        ],
+        "fictionalized": true,
+        "name": "regional_business_press",
+        "public_visibility": "medium",
+        "resources": [
+          "news amplification",
+          "narrative framing"
+        ],
+        "role": "covers supply-chain disruption and public dispute framing",
+        "stakes": [
+          "attention-worthy conflict",
+          "credible sourcing",
+          "impact reporting"
+        ],
+        "type": "media"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Port management opens negotiation and revises, phases, or offsets gate fees.",
+        "branch_key": "fee_revision_path",
+        "divergence_signal": "Official statement references fee adjustment, phased rollout, rebate, or temporary waiver.",
+        "trigger": "Sustained slowdown signs cause measurable throughput disruption or credible threat of broader driver participation."
+      },
+      {
+        "alternate_path": "Port management keeps nominal fee policy but delays enforcement or softens collection pending review.",
+        "branch_key": "enforcement_delay_path",
+        "divergence_signal": "Agency docket activity or port notice announces temporary pause, grace period, or deferred enforcement.",
+        "trigger": "Regulatory scrutiny or political concern rises before major contract flight occurs."
+      },
+      {
+        "alternate_path": "Shippers reallocate loads, alter dispatch patterns, or favor nonparticipating carriers/drivers.",
+        "branch_key": "contract_shift_path",
+        "divergence_signal": "Reports of lost loads for cooperative members, revised carrier rosters, or rerouted freight volumes.",
+        "trigger": "Shipping firms conclude cooperative action materially threatens reliability."
+      },
+      {
+        "alternate_path": "Threat dissipates into complaint without meaningful operational disruption.",
+        "branch_key": "failed_mobilization_path",
+        "divergence_signal": "Normal gate throughput persists and cooperative rhetoric softens without concessions.",
+        "trigger": "Too few drivers join slowdown due to income fear and contract dependency."
+      },
+      {
+        "alternate_path": "Residents and possibly regulators pressure port management on congestion externalities, indirectly strengthening fee opposition.",
+        "branch_key": "resident_environmental_alignment_path",
+        "divergence_signal": "Public comments, local coverage, or agency references connect fee policy to emissions impacts.",
+        "trigger": "Visible queueing and idling increase local emissions complaints."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "driver_peer_networks",
+        "participants": [
+          "harbor_gate_trucking_cooperative",
+          "independent_port_drivers"
+        ],
+        "reach": "high_within_driver_population",
+        "type": "informal_network",
+        "visibility": "semi_private"
+      },
+      {
+        "channel_key": "port_operations_bulletins",
+        "participants": [
+          "port_management_authority",
+          "shipping_firm_consortium",
+          "harbor_gate_trucking_cooperative"
+        ],
+        "reach": "operational_stakeholders",
+        "type": "institutional_comm",
+        "visibility": "targeted_public"
+      },
+      {
+        "channel_key": "regional_business_media",
+        "participants": [
+          "regional_business_press",
+          "shipping_firm_consortium",
+          "nearby_residents_association",
+          "port_management_authority",
+          "harbor_gate_trucking_cooperative"
+        ],
+        "reach": "regional",
+        "type": "media",
+        "visibility": "public"
+      },
+      {
+        "channel_key": "regulatory_complaint_process",
+        "participants": [
+          "state_transport_regulatory_agency",
+          "harbor_gate_trucking_cooperative",
+          "nearby_residents_association"
+        ],
+        "reach": "limited_but_legitimate",
+        "type": "formal_process",
+        "visibility": "procedural"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype": "port_truck_drivers",
+        "attention_level": 0.86,
+        "behavioral_tendencies": [
+          "economically defensive",
+          "peer-sensitive",
+          "responsive to bottleneck leverage"
+        ],
+        "cohort_key": "coop_member_drivers",
+        "expression_level": 0.58,
+        "fatigue": 0.67,
+        "fear_of_isolation": 0.43,
+        "mobilization_readiness": 0.69,
+        "perceived_majority": 0.6,
+        "population_share_of_archetype": 0.389,
+        "private_belief": "gate fees are unfair and financially harmful; slowdown is a plausible pressure tactic",
+        "public_expression": "guarded support for cooperative action, with concern about lost income",
+        "representation_mode": "organized_membership",
+        "represented_population": 700,
+        "reputation": 0.54,
+        "secrecy": 0.31,
+        "stance_axes": {
+          "fee_opposition": 0.85,
+          "slowdown_support": 0.63,
+          "trust_port_management": 0.22,
+          "trust_regulatory_path": 0.46
+        },
+        "trustworthiness": 0.62
+      },
+      {
+        "archetype": "port_truck_drivers",
+        "attention_level": 0.74,
+        "behavioral_tendencies": [
+          "risk-averse",
+          "income-dependent",
+          "watching for proof of safety in numbers"
+        ],
+        "cohort_key": "nonmember_port_drivers",
+        "expression_level": 0.36,
+        "fatigue": 0.71,
+        "fear_of_isolation": 0.61,
+        "mobilization_readiness": 0.42,
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 0.611,
+        "private_belief": "fees and delays are burdensome, but collective action may be too risky",
+        "public_expression": "mixed complaints with limited commitment to slowdown",
+        "representation_mode": "inferred_operational_group",
+        "represented_population": 1100,
+        "reputation": 0.5,
+        "secrecy": 0.46,
+        "stance_axes": {
+          "fee_opposition": 0.71,
+          "slowdown_support": 0.39,
+          "trust_port_management": 0.34,
+          "trust_regulatory_path": 0.41
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "archetype": "port_logistics_decisionmakers",
+        "attention_level": 0.88,
+        "behavioral_tendencies": [
+          "institution-protective",
+          "procedural",
+          "throughput-focused"
+        ],
+        "cohort_key": "port_management_staff",
+        "expression_level": 0.68,
+        "fatigue": 0.39,
+        "fear_of_isolation": 0.24,
+        "mobilization_readiness": 0.61,
+        "perceived_majority": 0.64,
+        "population_share_of_archetype": 0.286,
+        "private_belief": "fees are operationally justified or necessary, but disruption risk is real",
+        "public_expression": "defensive messaging emphasizing orderly operations",
+        "representation_mode": "institutional_core",
+        "represented_population": 40,
+        "reputation": 0.49,
+        "secrecy": 0.52,
+        "stance_axes": {
+          "concession_openness": 0.33,
+          "fee_support": 0.78,
+          "throughput_priority": 0.9,
+          "trust_driver_claims": 0.3
+        },
+        "trustworthiness": 0.45
+      },
+      {
+        "archetype": "port_logistics_decisionmakers",
+        "attention_level": 0.79,
+        "behavioral_tendencies": [
+          "commercially pragmatic",
+          "switch-capable",
+          "low-public-expression"
+        ],
+        "cohort_key": "shipping_ops_managers",
+        "expression_level": 0.29,
+        "fatigue": 0.44,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.57,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.714,
+        "private_belief": "service continuity matters more than fee merits; contract shifts are possible if reliability deteriorates",
+        "public_expression": "low-visibility pressure for uninterrupted operations",
+        "representation_mode": "commercial_network",
+        "represented_population": 100,
+        "reputation": 0.56,
+        "secrecy": 0.63,
+        "stance_axes": {
+          "contract_shift_readiness": 0.58,
+          "fee_concern": 0.52,
+          "trust_driver_slowdown": 0.27,
+          "trust_port_management": 0.49
+        },
+        "trustworthiness": 0.51
+      },
+      {
+        "archetype": "near_port_residents",
+        "attention_level": 0.41,
+        "behavioral_tendencies": [
+          "issue-triggered",
+          "health-focused",
+          "media-responsive"
+        ],
+        "cohort_key": "air_quality_concerned_residents",
+        "expression_level": 0.24,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.31,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "port truck congestion and idling have real local costs; fee dispute matters if it changes traffic patterns",
+        "public_expression": "episodic concern tied to visible emissions or media coverage",
+        "representation_mode": "community_interest",
+        "represented_population": 22000,
+        "reputation": 0.59,
+        "secrecy": 0.17,
+        "stance_axes": {
+          "emissions_concern": 0.82,
+          "support_driver_claims": 0.48,
+          "trust_port_management": 0.36,
+          "trust_regulatory_path": 0.58
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "archetype": "state_regulatory_staff",
+        "attention_level": 0.57,
+        "behavioral_tendencies": [
+          "procedural",
+          "evidence-seeking",
+          "timeline-constrained"
+        ],
+        "cohort_key": "agency_review_staff",
+        "expression_level": 0.33,
+        "fatigue": 0.32,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.51,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "complaints may warrant review but process is slower than dispute escalation",
+        "public_expression": "cautious neutrality and procedural language",
+        "representation_mode": "bureaucratic_body",
+        "represented_population": 60,
+        "reputation": 0.61,
+        "secrecy": 0.41,
+        "stance_axes": {
+          "immediate_intervention_capacity": 0.18,
+          "investigation_openness": 0.68,
+          "trust_driver_claims": 0.49,
+          "trust_port_management": 0.46
+        },
+        "trustworthiness": 0.66
+      },
+      {
+        "archetype": "regional_observers",
+        "attention_level": 0.37,
+        "behavioral_tendencies": [
+          "attention-driven",
+          "headline-sensitive",
+          "noncommittal"
+        ],
+        "cohort_key": "supply_chain_watchers",
+        "expression_level": 0.19,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.27,
+        "mobilization_readiness": 0.12,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "the dispute is relevant mainly if it affects shipping continuity or prices",
+        "public_expression": "attention spikes with visible delays or official action",
+        "representation_mode": "diffuse_audience",
+        "represented_population": 12000,
+        "reputation": 0.5,
+        "secrecy": 0.12,
+        "stance_axes": {
+          "disruption_concern": 0.66,
+          "interest_in_regulation": 0.38,
+          "sympathy_for_drivers": 0.43,
+          "trust_in_port_operations": 0.47
+        },
+        "trustworthiness": 0.52
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype": "port_truck_drivers",
+        "attention_level": 0.86,
+        "behavioral_tendencies": [
+          "economically defensive",
+          "peer-sensitive",
+          "responsive to bottleneck leverage"
+        ],
+        "cohort_key": "coop_member_drivers",
+        "expression_level": 0.58,
+        "fatigue": 0.67,
+        "fear_of_isolation": 0.43,
+        "mobilization_readiness": 0.69,
+        "perceived_majority": 0.6,
+        "population_share_of_archetype": 0.389,
+        "private_belief": "gate fees are unfair and financially harmful; slowdown is a plausible pressure tactic",
+        "public_expression": "guarded support for cooperative action, with concern about lost income",
+        "representation_mode": "organized_membership",
+        "represented_population": 700,
+        "reputation": 0.54,
+        "secrecy": 0.31,
+        "stance_axes": {
+          "fee_opposition": 0.85,
+          "slowdown_support": 0.63,
+          "trust_port_management": 0.22,
+          "trust_regulatory_path": 0.46
+        },
+        "trustworthiness": 0.62
+      },
+      {
+        "archetype": "port_truck_drivers",
+        "attention_level": 0.74,
+        "behavioral_tendencies": [
+          "risk-averse",
+          "income-dependent",
+          "watching for proof of safety in numbers"
+        ],
+        "cohort_key": "nonmember_port_drivers",
+        "expression_level": 0.36,
+        "fatigue": 0.71,
+        "fear_of_isolation": 0.61,
+        "mobilization_readiness": 0.42,
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 0.611,
+        "private_belief": "fees and delays are burdensome, but collective action may be too risky",
+        "public_expression": "mixed complaints with limited commitment to slowdown",
+        "representation_mode": "inferred_operational_group",
+        "represented_population": 1100,
+        "reputation": 0.5,
+        "secrecy": 0.46,
+        "stance_axes": {
+          "fee_opposition": 0.71,
+          "slowdown_support": 0.39,
+          "trust_port_management": 0.34,
+          "trust_regulatory_path": 0.41
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "archetype": "port_logistics_decisionmakers",
+        "attention_level": 0.88,
+        "behavioral_tendencies": [
+          "institution-protective",
+          "procedural",
+          "throughput-focused"
+        ],
+        "cohort_key": "port_management_staff",
+        "expression_level": 0.68,
+        "fatigue": 0.39,
+        "fear_of_isolation": 0.24,
+        "mobilization_readiness": 0.61,
+        "perceived_majority": 0.64,
+        "population_share_of_archetype": 0.286,
+        "private_belief": "fees are operationally justified or necessary, but disruption risk is real",
+        "public_expression": "defensive messaging emphasizing orderly operations",
+        "representation_mode": "institutional_core",
+        "represented_population": 40,
+        "reputation": 0.49,
+        "secrecy": 0.52,
+        "stance_axes": {
+          "concession_openness": 0.33,
+          "fee_support": 0.78,
+          "throughput_priority": 0.9,
+          "trust_driver_claims": 0.3
+        },
+        "trustworthiness": 0.45
+      },
+      {
+        "archetype": "port_logistics_decisionmakers",
+        "attention_level": 0.79,
+        "behavioral_tendencies": [
+          "commercially pragmatic",
+          "switch-capable",
+          "low-public-expression"
+        ],
+        "cohort_key": "shipping_ops_managers",
+        "expression_level": 0.29,
+        "fatigue": 0.44,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.57,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.714,
+        "private_belief": "service continuity matters more than fee merits; contract shifts are possible if reliability deteriorates",
+        "public_expression": "low-visibility pressure for uninterrupted operations",
+        "representation_mode": "commercial_network",
+        "represented_population": 100,
+        "reputation": 0.56,
+        "secrecy": 0.63,
+        "stance_axes": {
+          "contract_shift_readiness": 0.58,
+          "fee_concern": 0.52,
+          "trust_driver_slowdown": 0.27,
+          "trust_port_management": 0.49
+        },
+        "trustworthiness": 0.51
+      },
+      {
+        "archetype": "near_port_residents",
+        "attention_level": 0.41,
+        "behavioral_tendencies": [
+          "issue-triggered",
+          "health-focused",
+          "media-responsive"
+        ],
+        "cohort_key": "air_quality_concerned_residents",
+        "expression_level": 0.24,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.31,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "port truck congestion and idling have real local costs; fee dispute matters if it changes traffic patterns",
+        "public_expression": "episodic concern tied to visible emissions or media coverage",
+        "representation_mode": "community_interest",
+        "represented_population": 22000,
+        "reputation": 0.59,
+        "secrecy": 0.17,
+        "stance_axes": {
+          "emissions_concern": 0.82,
+          "support_driver_claims": 0.48,
+          "trust_port_management": 0.36,
+          "trust_regulatory_path": 0.58
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "archetype": "state_regulatory_staff",
+        "attention_level": 0.57,
+        "behavioral_tendencies": [
+          "procedural",
+          "evidence-seeking",
+          "timeline-constrained"
+        ],
+        "cohort_key": "agency_review_staff",
+        "expression_level": 0.33,
+        "fatigue": 0.32,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.51,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "complaints may warrant review but process is slower than dispute escalation",
+        "public_expression": "cautious neutrality and procedural language",
+        "representation_mode": "bureaucratic_body",
+        "represented_population": 60,
+        "reputation": 0.61,
+        "secrecy": 0.41,
+        "stance_axes": {
+          "immediate_intervention_capacity": 0.18,
+          "investigation_openness": 0.68,
+          "trust_driver_claims": 0.49,
+          "trust_port_management": 0.46
+        },
+        "trustworthiness": 0.66
+      },
+      {
+        "archetype": "regional_observers",
+        "attention_level": 0.37,
+        "behavioral_tendencies": [
+          "attention-driven",
+          "headline-sensitive",
+          "noncommittal"
+        ],
+        "cohort_key": "supply_chain_watchers",
+        "expression_level": 0.19,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.27,
+        "mobilization_readiness": 0.12,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "the dispute is relevant mainly if it affects shipping continuity or prices",
+        "public_expression": "attention spikes with visible delays or official action",
+        "representation_mode": "diffuse_audience",
+        "represented_population": 12000,
+        "reputation": 0.5,
+        "secrecy": 0.12,
+        "stance_axes": {
+          "disruption_concern": 0.66,
+          "interest_in_regulation": 0.38,
+          "sympathy_for_drivers": 0.43,
+          "trust_in_port_operations": 0.47
+        },
+        "trustworthiness": 0.52
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "port_management_authority",
+          "port_operations_director"
+        ],
+        "blockers": [
+          "port authority preference to defend policy",
+          "revenue or operational rationale for fees",
+          "fear of appearing to concede under pressure"
+        ],
+        "contradiction_notes": "A messaging-only clarification without substantive economic change should not count as realization.",
+        "description": "The port materially changes the new gate fee structure through reduction, rollback, offset, or revised implementation terms that alter driver burden.",
+        "endpoint_key": "fee_revision_outcome",
+        "evidence_refs": [
+          "new_gate_fee_implementation",
+          "cooperative_slowdown_threat"
+        ],
+        "label": "Material fee revision or rollback",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the new gate fee policy be materially revised or rescinded rather than merely defended or cosmetically explained?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.31,
+        "rationale": "This is a central terminal option named in the scenario and sits within direct port authority control.",
+        "realization_criteria": [
+          "official port policy document or public notice changes fee amount, structure, waiver, rebate, or effective terms",
+          "change is substantive enough to reduce baseline driver cost burden compared with T0 policy"
+        ],
+        "status": "active",
+        "status_basis": "At T0 the fee exists and is contested; no revision has yet occurred."
+      },
+      {
+        "authority_refs": [
+          "port_management_authority",
+          "state_transport_regulatory_agency",
+          "state_review_director"
+        ],
+        "blockers": [
+          "agency lacks instant fee-setting power",
+          "port may resist setting a precedent",
+          "shippers may prefer immediate stability over procedural pause"
+        ],
+        "contradiction_notes": "Routine review without any change to timing or collection does not satisfy realization.",
+        "description": "The fee remains nominally in place but its enforcement is paused, deferred, phased, or softened pending review or negotiations.",
+        "endpoint_key": "enforcement_delay_outcome",
+        "evidence_refs": [
+          "initial_regulatory_inquiries",
+          "new_gate_fee_implementation"
+        ],
+        "label": "Formal enforcement delay or softening",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will fee enforcement be formally delayed, paused, or softened through a procedural mechanism without immediate final repeal?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.28,
+        "rationale": "The scenario explicitly names enforcement delay as an endpoint option and the authority structure supports this as a face-saving resolution.",
+        "realization_criteria": [
+          "port or competent oversight process issues a documented grace period, collection delay, pilot period, or temporary non-enforcement notice",
+          "the delay meaningfully changes immediate compliance pressure at the gates"
+        ],
+        "status": "active",
+        "status_basis": "The scenario explicitly allows investigation but indicates no immediate authority to set fees, making delay a plausible intermediate terminal arrangement."
+      },
+      {
+        "authority_refs": [
+          "shipping_firm_consortium"
+        ],
+        "blockers": [
+          "switching costs and port-specific dependencies",
+          "limited substitute capacity",
+          "shipper preference to avoid public escalation"
+        ],
+        "contradiction_notes": "Temporary dispatch fluctuations during normal variability should not count without clear dispute-linked reallocation.",
+        "description": "Shipping firms respond to dispute risk by moving loads or contract opportunities away from drivers associated with slowdown activity.",
+        "endpoint_key": "contract_shift_outcome",
+        "evidence_refs": [
+          "shipper_contingency_review",
+          "cooperative_slowdown_threat"
+        ],
+        "label": "Material contract shift away from cooperative-aligned drivers",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will shipping firms materially shift contracts or dispatch away from cooperative-aligned drivers as the dispute unfolds?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.22,
+        "rationale": "Contract control is a major leverage point and a key endpoint pressure on driver strategy.",
+        "realization_criteria": [
+          "documented load reallocation, carrier substitution, route diversion, or contract loss disproportionately affecting cooperative participants",
+          "change persists beyond a one-off operational adjustment"
+        ],
+        "status": "active",
+        "status_basis": "Shippers control contracts at T0 and have a credible substitution option, but no material reallocation is yet evidenced."
+      },
+      {
+        "authority_refs": [
+          "harbor_gate_trucking_cooperative",
+          "independent_port_drivers",
+          "shipping_firm_consortium"
+        ],
+        "blockers": [
+          "shared driver grievances may widen participation",
+          "small chokepoint disruptions can still create leverage",
+          "resident or regulatory attention could indirectly strengthen the cooperative"
+        ],
+        "contradiction_notes": "Short-lived disruption followed by later concessions would contradict this endpoint.",
+        "description": "The cooperative cannot sustain enough participation to materially disrupt operations or win concessions, and the dispute subsides without major policy change.",
+        "endpoint_key": "failed_mobilization_outcome",
+        "evidence_refs": [
+          "cooperative_slowdown_threat",
+          "shipper_contingency_review"
+        ],
+        "label": "Slowdown threat fails to generate meaningful leverage",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the cooperative convert its slowdown threat into sustained operational leverage, or will mobilization fail to reach disruptive scale?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.19,
+        "rationale": "The scenario explicitly includes failed mobilization and economic dependency makes it plausible.",
+        "realization_criteria": [
+          "throughput remains near normal despite the threat",
+          "no substantive fee revision or enforcement pause occurs",
+          "cooperative participation visibly falls or public threat rhetoric is withdrawn"
+        ],
+        "status": "active",
+        "status_basis": "At T0 the action is a threat, not a realized high-participation disruption, so failure remains a credible terminal branch."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "shipping firms control contracts",
+        "layer": "dependency",
+        "reason": "Cooperative drivers rely on shipper-controlled contracts for income and load access.",
+        "source_actor_name": "harbor_gate_trucking_cooperative",
+        "target_actor_name": "shipping_firm_consortium",
+        "weight": 0.64
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "shipping firms control contracts",
+        "layer": "dependency",
+        "reason": "Independent drivers are commercially dependent on shipping contracts.",
+        "source_actor_name": "independent_port_drivers",
+        "target_actor_name": "shipping_firm_consortium",
+        "weight": 0.68
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "port management controls gate policy",
+        "layer": "dependency",
+        "reason": "Port management controls gate policy affecting driver access and costs.",
+        "source_actor_name": "harbor_gate_trucking_cooperative",
+        "target_actor_name": "port_management_authority",
+        "weight": 0.59
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "port management controls gate policy; supply_chain focus",
+        "layer": "dependency",
+        "reason": "Shippers depend on port gate operations to move cargo through the facility.",
+        "source_actor_name": "shipping_firm_consortium",
+        "target_actor_name": "port_management_authority",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "model operational bottlenecks; cooperative threatens slow-down",
+        "layer": "dependency",
+        "reason": "Port throughput depends materially on truck labor participation even absent full strike conditions.",
+        "source_actor_name": "port_management_authority",
+        "target_actor_name": "harbor_gate_trucking_cooperative",
+        "weight": 0.43
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "state agency can investigate",
+        "layer": "dependency",
+        "reason": "Residents rely on agency review for formal external response on emissions-related concerns.",
+        "source_actor_name": "nearby_residents_association",
+        "target_actor_name": "state_transport_regulatory_agency",
+        "weight": 0.27
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "cooperative threatens slow-down over new gate fees",
+        "layer": "trust",
+        "reason": "Drivers have low confidence in port management fairness over fee policy.",
+        "source_actor_name": "harbor_gate_trucking_cooperative",
+        "target_actor_name": "port_management_authority",
+        "weight": 0.22
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "threatened slowdown by cooperative; broader driver burden",
+        "layer": "trust",
+        "reason": "Nonmember drivers see the cooperative as somewhat credible but not universally representative.",
+        "source_actor_name": "independent_port_drivers",
+        "target_actor_name": "harbor_gate_trucking_cooperative",
+        "weight": 0.48
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "port management controls gate policy",
+        "layer": "trust",
+        "reason": "Shippers maintain moderate trust in port operational competence.",
+        "source_actor_name": "shipping_firm_consortium",
+        "target_actor_name": "port_management_authority",
+        "weight": 0.49
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "nearby residents care about emissions",
+        "layer": "trust",
+        "reason": "Residents are skeptical the port sufficiently accounts for emissions burdens.",
+        "source_actor_name": "nearby_residents_association",
+        "target_actor_name": "port_management_authority",
+        "weight": 0.36
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "state agency can investigate but not instantly set fees",
+        "layer": "trust",
+        "reason": "Cooperative sees agency review as possible but not swift relief.",
+        "source_actor_name": "harbor_gate_trucking_cooperative",
+        "target_actor_name": "state_transport_regulatory_agency",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "can investigate",
+        "layer": "trust",
+        "reason": "Agency treats driver complaints as potentially credible pending evidence.",
+        "source_actor_name": "state_transport_regulatory_agency",
+        "target_actor_name": "harbor_gate_trucking_cooperative",
+        "weight": 0.49
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "port management controls gate policy",
+        "layer": "influence",
+        "reason": "Port authority can materially shape driver costs and operating conditions through gate policy.",
+        "source_actor_name": "port_management_authority",
+        "target_actor_name": "harbor_gate_trucking_cooperative",
+        "weight": 0.65
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "shipping firms control contracts",
+        "layer": "influence",
+        "reason": "Contract allocation gives shippers leverage over cooperative strategy and member risk tolerance.",
+        "source_actor_name": "shipping_firm_consortium",
+        "target_actor_name": "harbor_gate_trucking_cooperative",
+        "weight": 0.61
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "cooperative threatens a slow-down; operational bottlenecks focus",
+        "layer": "influence",
+        "reason": "A coordinated slowdown could pressure port operations indirectly through bottlenecks.",
+        "source_actor_name": "harbor_gate_trucking_cooperative",
+        "target_actor_name": "port_management_authority",
+        "weight": 0.47
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "agency can investigate but not instantly set fees",
+        "layer": "influence",
+        "reason": "Agency scrutiny can impose procedural and reputational pressure without instant fee-setting power.",
+        "source_actor_name": "state_transport_regulatory_agency",
+        "target_actor_name": "port_management_authority",
+        "weight": 0.38
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "nearby residents care about emissions",
+        "layer": "influence",
+        "reason": "Resident complaints can elevate emissions and congestion into a review issue.",
+        "source_actor_name": "nearby_residents_association",
+        "target_actor_name": "state_transport_regulatory_agency",
+        "weight": 0.31
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "expected focus includes authority and supply_chain impacts",
+        "layer": "influence",
+        "reason": "Coverage can raise salience and accelerate procedural attention.",
+        "source_actor_name": "regional_business_press",
+        "target_actor_name": "state_transport_regulatory_agency",
+        "weight": 0.29
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "drivers absorb wait times; gate fees dispute",
+        "layer": "coalition",
+        "reason": "Shared cost burdens create latent alignment, though nonmembers remain cautious.",
+        "source_actor_name": "harbor_gate_trucking_cooperative",
+        "target_actor_name": "independent_port_drivers",
+        "weight": 0.41
+      },
+      {
+        "direction": "latent_alignment",
+        "evidence": "residents care about emissions; bottlenecks matter",
+        "layer": "coalition",
+        "reason": "Potential alliance exists if fee-driven congestion worsens emissions, but goals are only partially aligned.",
+        "source_actor_name": "harbor_gate_trucking_cooperative",
+        "target_actor_name": "nearby_residents_association",
+        "weight": 0.26
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "throughput and contract continuity interests",
+        "layer": "coalition",
+        "reason": "Both prefer continuity of cargo movement and may coordinate against disruption.",
+        "source_actor_name": "port_management_authority",
+        "target_actor_name": "shipping_firm_consortium",
+        "weight": 0.44
+      },
+      {
+        "direction": "mutual_opposition",
+        "evidence": "cooperative threatens a slow-down over new gate fees",
+        "layer": "conflict",
+        "reason": "Direct conflict over new gate fees and operational burden.",
+        "source_actor_name": "harbor_gate_trucking_cooperative",
+        "target_actor_name": "port_management_authority",
+        "weight": 0.66
+      },
+      {
+        "direction": "latent_opposition",
+        "evidence": "shipping firms control contracts",
+        "layer": "conflict",
+        "reason": "Interests diverge if shippers punish slowdown participation by shifting contracts.",
+        "source_actor_name": "harbor_gate_trucking_cooperative",
+        "target_actor_name": "shipping_firm_consortium",
+        "weight": 0.34
+      },
+      {
+        "direction": "issue_opposition",
+        "evidence": "nearby residents care about emissions",
+        "layer": "conflict",
+        "reason": "Residents may oppose port practices that increase truck emissions and idling.",
+        "source_actor_name": "nearby_residents_association",
+        "target_actor_name": "port_management_authority",
+        "weight": 0.39
+      },
+      {
+        "direction": "broadcast_self_channel",
+        "evidence": "regional observers and business press role inferred from scenario focus",
+        "layer": "exposure",
+        "reason": "Press channels circulate dispute updates to regional observers and stakeholders.",
+        "source_actor_name": "regional_business_press",
+        "target_actor_name": "regional_business_press",
+        "weight": 0.51
+      },
+      {
+        "direction": "source_visible_to_target",
+        "evidence": "shipping firms depend on port operations",
+        "layer": "exposure",
+        "reason": "Shippers closely monitor official port policy and operations communications.",
+        "source_actor_name": "port_management_authority",
+        "target_actor_name": "shipping_firm_consortium",
+        "weight": 0.57
+      },
+      {
+        "direction": "source_visible_to_target",
+        "evidence": "cooperative threatens slow-down; drivers share burden",
+        "layer": "exposure",
+        "reason": "Driver networks spread cooperative messaging and threat signals across the workforce.",
+        "source_actor_name": "harbor_gate_trucking_cooperative",
+        "target_actor_name": "independent_port_drivers",
+        "weight": 0.54
+      },
+      {
+        "direction": "source_visible_to_target",
+        "evidence": "agency can investigate; residents care about emissions",
+        "layer": "exposure",
+        "reason": "Resident complaints and local advocacy are visible to the agency when activated.",
+        "source_actor_name": "nearby_residents_association",
+        "target_actor_name": "state_transport_regulatory_agency",
+        "weight": 0.33
+      },
+      {
+        "direction": "high_likelihood_public_interaction",
+        "evidence": "active dispute over gate fees",
+        "layer": "oasis_interaction",
+        "reason": "Likely recurring public-facing interaction around fees, delays, and operational messaging.",
+        "source_actor_name": "harbor_gate_trucking_cooperative",
+        "target_actor_name": "port_management_authority",
+        "weight": 0.58
+      },
+      {
+        "direction": "moderate_public_interaction",
+        "evidence": "supply_chain focus",
+        "layer": "oasis_interaction",
+        "reason": "Operational coordination and disruption management likely occur through visible updates or stakeholder calls.",
+        "source_actor_name": "port_management_authority",
+        "target_actor_name": "shipping_firm_consortium",
+        "weight": 0.49
+      },
+      {
+        "direction": "moderate_public_interaction",
+        "evidence": "indirect pressure events expected",
+        "layer": "oasis_interaction",
+        "reason": "Cooperative may use media to publicize fee burdens and slowdown rationale.",
+        "source_actor_name": "harbor_gate_trucking_cooperative",
+        "target_actor_name": "regional_business_press",
+        "weight": 0.37
+      },
+      {
+        "direction": "conditional_public_interaction",
+        "evidence": "residents care about emissions",
+        "layer": "oasis_interaction",
+        "reason": "Residents may comment publicly if emissions impacts rise.",
+        "source_actor_name": "nearby_residents_association",
+        "target_actor_name": "regional_business_press",
+        "weight": 0.28
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype": "labor_coordinator",
+        "description": "Visible cooperative leadership capable of signaling or delaying collective action"
+      },
+      {
+        "archetype": "port_executive",
+        "description": "Senior port authority figure with practical gate policy discretion"
+      },
+      {
+        "archetype": "regulatory_director",
+        "description": "Agency official able to launch or shape investigations and hearings"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "harbor_gate_trucking_cooperative",
+        "archetype": "labor_coordinator",
+        "attention_level": 0.84,
+        "expression_level": 0.72,
+        "fatigue": 0.59,
+        "fear_of_isolation": 0.28,
+        "hero_key": "coop_coordinator",
+        "mobilization_readiness": 0.74,
+        "perceived_majority": 0.62,
+        "power_base": "member coordination and operational choke-point timing",
+        "reputation": 0.57,
+        "role": "cooperative spokesperson-organizer",
+        "secrecy": 0.36,
+        "stance_axes": {
+          "fee_opposition": 0.91,
+          "negotiation_openness": 0.56,
+          "slowdown_willingness": 0.66
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "port_management_authority",
+        "archetype": "port_executive",
+        "attention_level": 0.87,
+        "expression_level": 0.66,
+        "fatigue": 0.38,
+        "fear_of_isolation": 0.19,
+        "hero_key": "port_operations_director",
+        "mobilization_readiness": 0.58,
+        "perceived_majority": 0.65,
+        "power_base": "policy control, scheduling authority, site operations command",
+        "reputation": 0.5,
+        "role": "decisionmaker over gate policy implementation and operational response",
+        "secrecy": 0.47,
+        "stance_axes": {
+          "concession_openness": 0.34,
+          "disruption_avoidance": 0.83,
+          "fee_defense": 0.79
+        },
+        "trustworthiness": 0.46
+      },
+      {
+        "actor_name": "state_transport_regulatory_agency",
+        "archetype": "regulatory_director",
+        "attention_level": 0.56,
+        "expression_level": 0.35,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.1,
+        "hero_key": "state_review_director",
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.5,
+        "power_base": "investigatory agenda and procedural legitimacy",
+        "reputation": 0.62,
+        "role": "can authorize inquiry steps and public review posture",
+        "secrecy": 0.33,
+        "stance_axes": {
+          "immediate_fee_power": 0.12,
+          "investigation_readiness": 0.64,
+          "mediation_interest": 0.53
+        },
+        "trustworthiness": 0.67
+      }
+    ],
+    "heroes": [
+      {
+        "archetype": "labor_coordinator",
+        "description": "Visible cooperative leadership capable of signaling or delaying collective action"
+      },
+      {
+        "archetype": "port_executive",
+        "description": "Senior port authority figure with practical gate policy discretion"
+      },
+      {
+        "archetype": "regulatory_director",
+        "description": "Agency official able to launch or shape investigations and hearings"
+      }
+    ],
+    "important_questions": [
+      "Will the new gate fee policy be materially revised or rescinded rather than merely defended or cosmetically explained?",
+      "Will fee enforcement be formally delayed, paused, or softened through a procedural mechanism without immediate final repeal?",
+      "Will shipping firms materially shift contracts or dispatch away from cooperative-aligned drivers as the dispute unfolds?",
+      "Will the cooperative convert its slowdown threat into sustained operational leverage, or will mobilization fail to reach disruptive scale?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "port_management_authority",
+          "harbor_gate_trucking_cooperative",
+          "independent_port_drivers"
+        ],
+        "event_key": "new_gate_fee_implementation",
+        "event_type": "announcement",
+        "expected_impact": "Raises conflict, cost sensitivity, and driver attention while lowering trust in port management.",
+        "status": "active",
+        "summary": "Port management has introduced new gate fees affecting truck access economics.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "harbor_gate_trucking_cooperative",
+          "port_management_authority",
+          "shipping_firm_consortium"
+        ],
+        "event_key": "cooperative_slowdown_threat",
+        "event_type": "announcement",
+        "expected_impact": "Creates uncertainty around throughput, tests member cohesion, and elevates shipper contingency planning.",
+        "status": "active",
+        "summary": "The trucking cooperative has signaled a possible slow-down rather than an immediate full shutdown.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "shipping_firm_consortium",
+          "port_management_authority"
+        ],
+        "event_key": "shipper_contingency_review",
+        "event_type": "announcement",
+        "expected_impact": "Increases private pressure on both port management and drivers without necessarily producing public alignment.",
+        "status": "imminent",
+        "summary": "Shipping firms quietly assess reliability risk and possible contract or routing adjustments.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "state_transport_regulatory_agency",
+          "harbor_gate_trucking_cooperative",
+          "port_management_authority"
+        ],
+        "event_key": "initial_regulatory_inquiries",
+        "event_type": "announcement",
+        "expected_impact": "Adds procedural legitimacy pressure but may not immediately change fee enforcement.",
+        "status": "plausible_imminent",
+        "summary": "Complaints or public concern may prompt the state agency to request information or open a preliminary review.",
+        "tick": 2
+      },
+      {
+        "actors": [
+          "nearby_residents_association",
+          "regional_business_press",
+          "state_transport_regulatory_agency"
+        ],
+        "event_key": "resident_attention_spike_if_idling_rises",
+        "event_type": "announcement",
+        "expected_impact": "Could broaden the dispute from labor costs into environmental and public health framing.",
+        "status": "conditional",
+        "summary": "If slowdown conditions increase queueing and idling, resident concern over emissions may become more visible.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "e3567a9e-5771-45b2-8226-0d3c671ba836",
+    "merge_hypotheses": [
+      {
+        "convergence_mechanism": "Even after escalation, mutual throughput losses can pull parties toward temporary accommodation or procedural pause.",
+        "merge_key": "throughput_restoration_common_interest",
+        "shared_dependency": "All major operational actors depend on cargo flow continuity."
+      },
+      {
+        "convergence_mechanism": "Actors may converge on delay, documentation, and hearings instead of direct confrontation.",
+        "merge_key": "regulatory_process_absorbs_conflict",
+        "shared_dependency": "Agency review offers a face-saving venue without immediate capitulation."
+      },
+      {
+        "convergence_mechanism": "Extended uncertainty can reduce participation and push both sides toward partial compromise or de-escalation.",
+        "merge_key": "coalition_fatigue_among_drivers",
+        "shared_dependency": "Driver income fragility limits prolonged mobilization."
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype": "port_truck_drivers",
+        "description": "Drivers serving port freight movements, including cooperative members and nonmembers",
+        "population_total": 1800
+      },
+      {
+        "archetype": "port_logistics_decisionmakers",
+        "description": "Managers and dispatch/operations decisionmakers across port and shipping organizations",
+        "population_total": 140
+      },
+      {
+        "archetype": "near_port_residents",
+        "description": "Residents in nearby communities exposed to truck traffic and emissions concerns",
+        "population_total": 22000
+      },
+      {
+        "archetype": "state_regulatory_staff",
+        "description": "Agency personnel relevant to transport oversight and investigations",
+        "population_total": 60
+      },
+      {
+        "archetype": "regional_observers",
+        "description": "Business press audience and adjacent stakeholders monitoring the dispute",
+        "population_total": 12000
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "evidence_sparsity_on_scale",
+        "note": "Scenario does not specify actual port size, fee magnitude, or cooperative membership share, limiting precision on bottleneck intensity.",
+        "severity": "medium"
+      },
+      {
+        "flag": "authority_asymmetry",
+        "note": "Port management has direct gate policy control, while drivers rely on indirect leverage and the agency lacks immediate fee-setting power.",
+        "severity": "high"
+      },
+      {
+        "flag": "economic_dependency_fragility",
+        "note": "Driver willingness to mobilize may be sharply constrained by contract and income dependence on shipping firms.",
+        "severity": "high"
+      },
+      {
+        "flag": "substitution_uncertainty",
+        "note": "Shipping firms may have some contract-shift leverage, but availability of substitutes is not specified.",
+        "severity": "medium"
+      },
+      {
+        "flag": "environmental_frame_contingency",
+        "note": "Resident influence is real but likely conditional on visible idling or emissions changes rather than automatic alignment.",
+        "severity": "low_to_medium"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "labor_economic_dependency",
+      "endpoint_pressure": "Terminal questions center on whether gate fees are revised, enforcement is delayed or softened, shipping contracts shift away from cooperative drivers, or the threatened mobilization fails to materialize into meaningful leverage.",
+      "main_pressures": [
+        "new gate fees increase cost pressure on drivers",
+        "port management retains policy control over gate operations",
+        "shipping firms can reallocate contracts and shape bargaining leverage",
+        "drivers experience wait-time exposure and income fragility",
+        "residents may amplify environmental pressure if congestion worsens"
+      ],
+      "mode": "direct",
+      "scenario_key": "labor_004",
+      "scope": "regional port logistics labor dispute",
+      "summary": "A port trucking cooperative is threatening a slow-down in response to newly imposed gate fees at a port. Port management controls gate access policy, shipping firms control freight contracts, drivers bear operational delays and fee burdens, nearby residents are attentive to emissions impacts, and a state agency can investigate but lacks immediate fee-setting authority. The initialization should emphasize supply-chain bottlenecks, indirect pressure pathways, and multiple unresolved endpoint options.",
+      "time_horizon": "near_term",
+      "uncertainty_notes": [
+        "Exact size of cooperative, port throughput, and contract concentration are unspecified.",
+        "State agency authority is investigatory and indirect rather than immediate or dispositive at T0.",
+        "No evidence yet of a full strike, shutdown, or formal regulatory order at initialization."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "port_truck_drivers",
+          "port_logistics_decisionmakers"
+        ],
+        "level": "moderate",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Drivers and managers are likely responsive mainly to information from operationally proximate peers and counterparties."
+      },
+      {
+        "applies_to": [
+          "port_truck_drivers"
+        ],
+        "level": "high_relevance",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Nonmember drivers may join slowdown behavior only after visible participation reaches a credible safety threshold."
+      },
+      {
+        "applies_to": [
+          "independent_port_drivers",
+          "shipping_firm_consortium"
+        ],
+        "level": "moderate",
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Economic dependency and contract exposure suppress open expression despite private dissatisfaction."
+      },
+      {
+        "applies_to": [
+          "port_truck_drivers",
+          "near_port_residents"
+        ],
+        "level": "moderate",
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Occupational and neighborhood networks likely cluster interpretation of fairness and harm."
+      },
+      {
+        "applies_to": [
+          "port_truck_drivers"
+        ],
+        "level": "moderate_to_high",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Slowdown participation likely requires reinforcement from multiple trusted peers rather than a single call."
+      },
+      {
+        "applies_to": [
+          "harbor_gate_trucking_cooperative",
+          "port_management_authority",
+          "nearby_residents_association"
+        ],
+        "level": "moderate",
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Worker, institutional, and community identities shape competing legitimacy claims."
+      },
+      {
+        "applies_to": [
+          "regional_observers",
+          "near_port_residents"
+        ],
+        "level": "moderate",
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "External attention may fade unless visible delays, hearings, or pollution episodes sustain salience."
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Truck movement is a chokepoint, so small participation changes may produce outsized visibility.",
+        "influence_key": "operational_bottleneck_salience"
+      },
+      {
+        "description": "Drivers' contract and income dependence suppress overt escalation until collective protection seems credible.",
+        "influence_key": "economic_dependency_chill"
+      },
+      {
+        "description": "Regulatory oversight exists but acts slowly, creating a gap between grievance and formal remedy.",
+        "influence_key": "indirect_authority_friction"
+      },
+      {
+        "description": "Resident emissions concerns can reframe a labor-cost dispute as a public-impact issue.",
+        "influence_key": "environmental_side_channel"
+      },
+      {
+        "description": "Shipping firms may respond to reliability concerns through contract shifts rather than public mediation.",
+        "influence_key": "commercial_substitution_option"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "harbor_gate_trucking_cooperative",
+        "behavior_axes": {
+          "coordination_capacity": 0.69,
+          "disruption_willingness": 0.63,
+          "negotiation_orientation": 0.54,
+          "risk_tolerance": 0.58
+        },
+        "ideology_axes": {
+          "institutional_deference": 0.28,
+          "labor_assertiveness": 0.81,
+          "market_pragmatism": 0.55
+        },
+        "reputation": 0.55,
+        "secrecy": 0.34,
+        "tendency": "cost-sensitive collective pressure under economic strain",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "port_management_authority",
+        "behavior_axes": {
+          "coordination_capacity": 0.77,
+          "disruption_willingness": 0.21,
+          "negotiation_orientation": 0.43,
+          "risk_tolerance": 0.42
+        },
+        "ideology_axes": {
+          "institutional_deference": 0.82,
+          "managerial_control": 0.84,
+          "market_pragmatism": 0.61
+        },
+        "reputation": 0.49,
+        "secrecy": 0.49,
+        "tendency": "defend policy while avoiding throughput losses",
+        "trustworthiness": 0.45
+      },
+      {
+        "actor_name": "shipping_firm_consortium",
+        "behavior_axes": {
+          "coordination_capacity": 0.58,
+          "negotiation_orientation": 0.39,
+          "risk_tolerance": 0.47,
+          "switching_propensity": 0.64
+        },
+        "ideology_axes": {
+          "institutional_deference": 0.49,
+          "labor_sympathy": 0.24,
+          "market_pragmatism": 0.87
+        },
+        "reputation": 0.56,
+        "secrecy": 0.62,
+        "tendency": "reallocate business if reliability worsens",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "independent_port_drivers",
+        "behavior_axes": {
+          "coordination_capacity": 0.29,
+          "disruption_willingness": 0.37,
+          "negotiation_orientation": 0.41,
+          "risk_tolerance": 0.34
+        },
+        "ideology_axes": {
+          "institutional_deference": 0.36,
+          "labor_assertiveness": 0.58,
+          "market_pragmatism": 0.72
+        },
+        "reputation": 0.5,
+        "secrecy": 0.45,
+        "tendency": "complain privately, join only if momentum looks safe",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "nearby_residents_association",
+        "behavior_axes": {
+          "coordination_capacity": 0.41,
+          "negotiation_orientation": 0.57,
+          "public_pressure_willingness": 0.46,
+          "risk_tolerance": 0.22
+        },
+        "ideology_axes": {
+          "environmental_priority": 0.84,
+          "institutional_deference": 0.52,
+          "labor_sympathy": 0.45
+        },
+        "reputation": 0.59,
+        "secrecy": 0.14,
+        "tendency": "engages when emissions impacts become visible",
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "state_transport_regulatory_agency",
+        "behavior_axes": {
+          "coordination_capacity": 0.52,
+          "negotiation_orientation": 0.48,
+          "public_pressure_willingness": 0.18,
+          "risk_tolerance": 0.19
+        },
+        "ideology_axes": {
+          "institutional_deference": 0.79,
+          "market_pragmatism": 0.44,
+          "proceduralism": 0.88
+        },
+        "reputation": 0.61,
+        "secrecy": 0.38,
+        "tendency": "slow-moving legitimacy actor",
+        "trustworthiness": 0.66
+      },
+      {
+        "actor_name": "regional_business_press",
+        "behavior_axes": {
+          "amplification_willingness": 0.61,
+          "coordination_capacity": 0.36,
+          "negotiation_orientation": 0.12,
+          "risk_tolerance": 0.31
+        },
+        "ideology_axes": {
+          "attention_to_disruption": 0.8,
+          "institutional_deference": 0.41,
+          "labor_sympathy": 0.35
+        },
+        "reputation": 0.57,
+        "secrecy": 0.08,
+        "tendency": "amplifies visible bottlenecks and official conflict",
+        "trustworthiness": 0.54
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 563,
+        "end": 563,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 563,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

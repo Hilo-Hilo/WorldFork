@@ -1,0 +1,53 @@
+{
+  "data": {
+    "attempt_number": 0,
+    "available_at": "2026-05-05T02:22:17.624554Z",
+    "big_bang_id": null,
+    "concurrency_key": null,
+    "created_at": "2026-05-05T02:22:17.624409Z",
+    "error": null,
+    "finished_at": "2026-05-05T02:39:11.153145Z",
+    "id": "f3ed0546-acca-4497-81ba-701a387b58c2",
+    "idempotency_key": "job:713233cdbca8a87b7ba92c408c1373cd455d8fb01fa5e71600884c7858d28fdb",
+    "interrupt_requested_at": null,
+    "interrupted_at": null,
+    "job_type": "initialize_big_bang",
+    "last_heartbeat_at": null,
+    "lease_expires_at": null,
+    "lease_owner": null,
+    "max_attempts": 3,
+    "paused_at": null,
+    "payload": {
+      "actors": [],
+      "branch_policy": {
+        "branch_score_threshold": 0.999,
+        "max_active_multiverses": 1,
+        "max_branch_depth": 1,
+        "max_branches_per_tick": 1
+      },
+      "cohorts": [],
+      "heroes": [],
+      "name": "E1_init_job_edge_003",
+      "scenario_text": "# Case edge_003\nBenchmark role: adversarial_edge\n\n## Scenario\n\nA fictional school district press release says bus service is improving, while parent screenshots show repeated cancellations. The screenshots may be selective. Drivers cite route overload, administrators cite hiring gains, and parents want refunds. Initialize contradictory evidence without deciding who is lying at T0.\n\n## Expected Focus\n- contradictory_evidence\n- grounding\n- risk_flags\n",
+      "simulation_config": {
+        "max_ticks": 1,
+        "tick_duration_minutes": 720
+      },
+      "use_initializer_agent": true
+    },
+    "queue_name": "p1",
+    "queued_at": "2026-05-05T02:22:17.624553Z",
+    "result": {
+      "big_bang_id": "4849cbfc-7ccd-459a-b699-5acee51d543d",
+      "source_snapshot_id": "f0a8b08d-befc-4377-afa4-892f75d4fe40"
+    },
+    "retryable": true,
+    "started_at": "2026-05-05T02:36:44.987837Z",
+    "status": "succeeded",
+    "updated_at": "2026-05-05T02:39:11.099959Z"
+  },
+  "meta": {
+    "terminal": true
+  },
+  "ok": true
+}

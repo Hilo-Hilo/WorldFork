@@ -1,0 +1,1227 @@
+{
+  "big_bang_id": "1531144a-4e0c-444b-9d9e-e95b97a9cfa1",
+  "initializer_output": {
+    "actors": [
+      {
+        "authority_scope": "informal_pressure_only",
+        "constraints": [
+          "no_formal_legislative_power",
+          "dependent_on_public_attention",
+          "dependent_on_council_receptivity"
+        ],
+        "fictionalized": true,
+        "name": "student_activist_group",
+        "public_visibility": "local_public",
+        "role": "advocacy_group",
+        "stakes": [
+          "policy_change",
+          "movement_credibility",
+          "public_attention"
+        ],
+        "type": "organization"
+      },
+      {
+        "authority_scope": "municipal_ordinance_passage",
+        "constraints": [
+          "legal_process",
+          "vote_count",
+          "public_scrutiny",
+          "business_and_resident_pressure"
+        ],
+        "fictionalized": true,
+        "name": "city_council",
+        "public_visibility": "local_public",
+        "role": "formal_decision_maker",
+        "stakes": [
+          "policy_outcome",
+          "public_legitimacy",
+          "constituent_response",
+          "economic_impact"
+        ],
+        "type": "institution"
+      },
+      {
+        "authority_scope": "scheduling_and_floor_management",
+        "constraints": [
+          "council_rules",
+          "member_support",
+          "public_pressure"
+        ],
+        "fictionalized": true,
+        "name": "council_leadership",
+        "public_visibility": "local_public",
+        "role": "agenda_setter",
+        "stakes": [
+          "process_control",
+          "coalition_management",
+          "institutional_order"
+        ],
+        "type": "institutional_subgroup"
+      },
+      {
+        "authority_scope": "informal_pressure_only",
+        "constraints": [
+          "public_reputation",
+          "dependence_on_city_policy",
+          "need_for_collective_action"
+        ],
+        "fictionalized": true,
+        "name": "local_business_coalition",
+        "public_visibility": "local_public",
+        "role": "opposition_group",
+        "stakes": [
+          "avoid_restrictions",
+          "economic_stability",
+          "regulatory_predictability"
+        ],
+        "type": "organization"
+      },
+      {
+        "authority_scope": "electoral_and_public_opinion",
+        "constraints": [
+          "limited_attention",
+          "split_preferences",
+          "collective_action_barriers"
+        ],
+        "fictionalized": true,
+        "name": "city_residents",
+        "public_visibility": "diffuse_public",
+        "role": "general_public",
+        "stakes": [
+          "community_values",
+          "economic_effects",
+          "local_quality_of_life"
+        ],
+        "type": "population"
+      },
+      {
+        "authority_scope": "agenda_shaping",
+        "constraints": [
+          "limited_information",
+          "local_news_cycles"
+        ],
+        "fictionalized": true,
+        "name": "local_media",
+        "public_visibility": "local_public",
+        "role": "information_intermediary",
+        "stakes": [
+          "newsworthiness",
+          "credibility",
+          "audience_attention"
+        ],
+        "type": "institution"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Activists reframe from direct-action claim to pressure campaign targeting council votes and public comment.",
+        "branch_key": "clarification_redirects_movement",
+        "observable_divergence_signal": "Movement messaging shifts from 'we will pass' to 'demand council pass' within 1-2 ticks.",
+        "trigger": "Media or officials publicly clarify that students cannot directly pass ordinances."
+      },
+      {
+        "alternate_path": "Resident and council trust in activists drops, weakening mobilization and making business opposition more effective.",
+        "branch_key": "overclaim_backlash",
+        "observable_divergence_signal": "Coverage and public comments emphasize procedural ignorance or credibility concerns more than policy substance.",
+        "trigger": "Public focus stays on unrealistic activist claim rather than underlying policy demand."
+      },
+      {
+        "alternate_path": "Council schedules hearing, workshop, or agenda discussion instead of ignoring the demand.",
+        "branch_key": "council_opens_process",
+        "observable_divergence_signal": "Official calendar action, hearing announcement, or public statement inviting testimony appears.",
+        "trigger": "Leadership perceives enough attention or legitimacy benefit to engage formally."
+      },
+      {
+        "alternate_path": "Council becomes more risk-averse, favoring delay, dilution, or non-action.",
+        "branch_key": "businesses_harden_stalemate",
+        "observable_divergence_signal": "Multiple businesses or trade representatives issue coordinated statements or testimony before council action.",
+        "trigger": "Business coalition rapidly coordinates opposition and warns of economic harm."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "student_event",
+        "credibility_mode": "movement_signal",
+        "primary_actors": [
+          "student_activist_group"
+        ],
+        "reach": "local_visible",
+        "type": "offline_public_event"
+      },
+      {
+        "channel_key": "city_council_meeting",
+        "credibility_mode": "institutional",
+        "primary_actors": [
+          "city_council",
+          "council_leadership",
+          "city_residents"
+        ],
+        "reach": "formal_public_record",
+        "type": "formal_governance_forum"
+      },
+      {
+        "channel_key": "local_news",
+        "credibility_mode": "journalistic",
+        "primary_actors": [
+          "local_media"
+        ],
+        "reach": "citywide",
+        "type": "media"
+      },
+      {
+        "channel_key": "lobbying_and_public_comment",
+        "credibility_mode": "advocacy",
+        "primary_actors": [
+          "student_activist_group",
+          "local_business_coalition",
+          "city_residents"
+        ],
+        "reach": "targeted_to_officials",
+        "type": "institutional_access"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "residents",
+        "attention_level": 4,
+        "cohort_key": "residents_supportive_of_restrictions",
+        "expression_level": 3,
+        "fatigue": 2,
+        "fear_of_isolation": 4,
+        "mobilization_readiness": 4,
+        "perceived_majority": 0.45,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "leans_toward_restrictions",
+        "public_expression": "mixed_and_inconsistent",
+        "representation_mode": "estimated_split_from_text",
+        "represented_population": 40000,
+        "stance_axes": {
+          "pro_business_flexibility": 0.3,
+          "pro_restriction": 0.7,
+          "trust_council_process": 0.55,
+          "trust_student_activism": 0.45
+        }
+      },
+      {
+        "archetype_key": "residents",
+        "attention_level": 4,
+        "cohort_key": "residents_opposed_to_restrictions",
+        "expression_level": 4,
+        "fatigue": 2,
+        "fear_of_isolation": 3,
+        "mobilization_readiness": 5,
+        "perceived_majority": 0.45,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "leans_against_restrictions",
+        "public_expression": "moderately_willing_to_object",
+        "representation_mode": "estimated_split_from_text",
+        "represented_population": 40000,
+        "stance_axes": {
+          "pro_business_flexibility": 0.75,
+          "pro_restriction": 0.2,
+          "trust_council_process": 0.5,
+          "trust_student_activism": 0.3
+        }
+      },
+      {
+        "archetype_key": "residents",
+        "attention_level": 2,
+        "cohort_key": "residents_ambivalent_or_uncertain",
+        "expression_level": 1,
+        "fatigue": 1,
+        "fear_of_isolation": 5,
+        "mobilization_readiness": 2,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.2,
+        "private_belief": "uncertain",
+        "public_expression": "mostly_quiet",
+        "representation_mode": "estimated_remainder",
+        "represented_population": 20000,
+        "stance_axes": {
+          "pro_business_flexibility": 0.5,
+          "pro_restriction": 0.5,
+          "trust_council_process": 0.5,
+          "trust_student_activism": 0.35
+        }
+      },
+      {
+        "archetype_key": "students",
+        "attention_level": 7,
+        "cohort_key": "engaged_students",
+        "expression_level": 7,
+        "fatigue": 3,
+        "fear_of_isolation": 2,
+        "mobilization_readiness": 7,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "supports_activist_action",
+        "public_expression": "visible_support",
+        "representation_mode": "inference_from_event_context",
+        "represented_population": 1500,
+        "stance_axes": {
+          "pro_business_flexibility": 0.2,
+          "pro_restriction": 0.75,
+          "trust_council_process": 0.35,
+          "trust_student_activism": 0.8
+        }
+      },
+      {
+        "archetype_key": "students",
+        "attention_level": 3,
+        "cohort_key": "non_engaged_students",
+        "expression_level": 2,
+        "fatigue": 1,
+        "fear_of_isolation": 4,
+        "mobilization_readiness": 3,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "varied_or_low_salience",
+        "public_expression": "limited",
+        "representation_mode": "inference_from_event_context",
+        "represented_population": 3500,
+        "stance_axes": {
+          "pro_business_flexibility": 0.4,
+          "pro_restriction": 0.5,
+          "trust_council_process": 0.4,
+          "trust_student_activism": 0.5
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "residents",
+        "attention_level": 4,
+        "cohort_key": "residents_supportive_of_restrictions",
+        "expression_level": 3,
+        "fatigue": 2,
+        "fear_of_isolation": 4,
+        "mobilization_readiness": 4,
+        "perceived_majority": 0.45,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "leans_toward_restrictions",
+        "public_expression": "mixed_and_inconsistent",
+        "representation_mode": "estimated_split_from_text",
+        "represented_population": 40000,
+        "stance_axes": {
+          "pro_business_flexibility": 0.3,
+          "pro_restriction": 0.7,
+          "trust_council_process": 0.55,
+          "trust_student_activism": 0.45
+        }
+      },
+      {
+        "archetype_key": "residents",
+        "attention_level": 4,
+        "cohort_key": "residents_opposed_to_restrictions",
+        "expression_level": 4,
+        "fatigue": 2,
+        "fear_of_isolation": 3,
+        "mobilization_readiness": 5,
+        "perceived_majority": 0.45,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "leans_against_restrictions",
+        "public_expression": "moderately_willing_to_object",
+        "representation_mode": "estimated_split_from_text",
+        "represented_population": 40000,
+        "stance_axes": {
+          "pro_business_flexibility": 0.75,
+          "pro_restriction": 0.2,
+          "trust_council_process": 0.5,
+          "trust_student_activism": 0.3
+        }
+      },
+      {
+        "archetype_key": "residents",
+        "attention_level": 2,
+        "cohort_key": "residents_ambivalent_or_uncertain",
+        "expression_level": 1,
+        "fatigue": 1,
+        "fear_of_isolation": 5,
+        "mobilization_readiness": 2,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.2,
+        "private_belief": "uncertain",
+        "public_expression": "mostly_quiet",
+        "representation_mode": "estimated_remainder",
+        "represented_population": 20000,
+        "stance_axes": {
+          "pro_business_flexibility": 0.5,
+          "pro_restriction": 0.5,
+          "trust_council_process": 0.5,
+          "trust_student_activism": 0.35
+        }
+      },
+      {
+        "archetype_key": "students",
+        "attention_level": 7,
+        "cohort_key": "engaged_students",
+        "expression_level": 7,
+        "fatigue": 3,
+        "fear_of_isolation": 2,
+        "mobilization_readiness": 7,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "supports_activist_action",
+        "public_expression": "visible_support",
+        "representation_mode": "inference_from_event_context",
+        "represented_population": 1500,
+        "stance_axes": {
+          "pro_business_flexibility": 0.2,
+          "pro_restriction": 0.75,
+          "trust_council_process": 0.35,
+          "trust_student_activism": 0.8
+        }
+      },
+      {
+        "archetype_key": "students",
+        "attention_level": 3,
+        "cohort_key": "non_engaged_students",
+        "expression_level": 2,
+        "fatigue": 1,
+        "fear_of_isolation": 4,
+        "mobilization_readiness": 3,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "varied_or_low_salience",
+        "public_expression": "limited",
+        "representation_mode": "inference_from_event_context",
+        "represented_population": 3500,
+        "stance_axes": {
+          "pro_business_flexibility": 0.4,
+          "pro_restriction": 0.5,
+          "trust_council_process": 0.4,
+          "trust_student_activism": 0.5
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "city_council",
+          "council_leadership"
+        ],
+        "blockers": [
+          "agenda_control_by_council_leadership",
+          "business_opposition_pressure",
+          "limited_public_attention",
+          "lack_of_policy_specificity"
+        ],
+        "contradiction_notes": "Student claims about passing an ordinance directly do not satisfy this endpoint without council process evidence.",
+        "description": "The issue reaches a formal municipal process stage such as a scheduled hearing, agenda item, workshop, or introduced ordinance text.",
+        "endpoint_key": "formal_council_consideration",
+        "evidence_refs": [
+          "The city council controls ordinances.",
+          "Students can only lobby, protest, and pressure council members."
+        ],
+        "label": "Formal Council Consideration Begins",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the city council formally take up an ordinance or equivalent agenda item related to the activists' demand?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.42,
+        "rationale": "This is the first realistic institutional gateway between advocacy and actual policy change.",
+        "realization_criteria": [
+          "official_council_agenda_lists_item",
+          "council_leadership_or_clerk_confirms_scheduled_consideration",
+          "public_record_shows_introduction_of_related_ordinance_or_resolution"
+        ],
+        "status": "active",
+        "status_basis": "No formal consideration is described at T0, but pressure and event framing could push the issue onto the agenda."
+      },
+      {
+        "authority_refs": [
+          "student_activist_group",
+          "city_council"
+        ],
+        "blockers": [
+          "face_saving_needs",
+          "movement_internal_messaging_inertia",
+          "media_focus_on_initial_overclaim"
+        ],
+        "contradiction_notes": "If activists continue claiming direct power without correction, this endpoint remains unrealized even if they protest effectively.",
+        "description": "The activist campaign abandons direct-legislation framing and publicly centers lobbying, protest, and council pressure.",
+        "endpoint_key": "activist_strategy_reframed",
+        "evidence_refs": [
+          "This should not be treated as something students can directly cause.",
+          "They can lobby, protest, and pressure council members."
+        ],
+        "label": "Activists Reframe to Realistic Influence Strategy",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the student activist group shift from direct-passage rhetoric to a realistic lobbying and pressure strategy?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.68,
+        "rationale": "Strategic reframing is central to whether the movement gains legitimacy and influence.",
+        "realization_criteria": [
+          "activist_public_messages_name_council_as_decision_authority",
+          "event_or_campaign_materials_replace_direct_passage_claim",
+          "activists_organize_public_comment_lobbying_or_vote_pressure_actions"
+        ],
+        "status": "active",
+        "status_basis": "T0 messaging contains an authority mismatch, creating pressure to correct or double down."
+      },
+      {
+        "authority_refs": [
+          "local_business_coalition",
+          "city_council",
+          "council_leadership"
+        ],
+        "blockers": [
+          "high_public_support",
+          "activist_reframing_and_effective_lobbying",
+          "council_members_prioritizing_restrictions_despite_business_pressure"
+        ],
+        "contradiction_notes": "A mere delay without visible business role may not fully realize this endpoint unless linked to opposition effects.",
+        "description": "Organized business resistance keeps the issue from reaching meaningful formal policy progression during the horizon.",
+        "endpoint_key": "businesses_prevent_advancement",
+        "evidence_refs": [
+          "Local businesses oppose restrictions.",
+          "The city council controls ordinances."
+        ],
+        "label": "Business Opposition Prevents Advancement",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will organized business opposition prevent the issue from advancing beyond symbolic attention?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.46,
+        "rationale": "The scenario explicitly positions businesses as a key constraint on restrictive policy.",
+        "realization_criteria": [
+          "no_formal_council_consideration_occurs_by_horizon_end",
+          "council_statements_or_behavior_cite_economic_or_business_concerns_as_reason_for_non_advancement",
+          "business_opposition_is_visible_while_issue_stalls"
+        ],
+        "status": "active",
+        "status_basis": "Businesses are the clearest organized opposing bloc at initialization, but their veto power is not absolute."
+      },
+      {
+        "authority_refs": [
+          "city_council",
+          "council_leadership"
+        ],
+        "blockers": [
+          "insufficient_time_horizon",
+          "ambiguous_process_signals",
+          "unspecified_ordinance_content"
+        ],
+        "contradiction_notes": "Protests, hearings, audits, or messaging shifts are mechanisms, not terminal states unless they culminate in one of the listed predicates.",
+        "description": "By horizon end, the issue resolves into one of three observable terminal states: ordinance passed, delayed into future process, or effective non-action.",
+        "endpoint_key": "terminal_policy_state",
+        "evidence_refs": [
+          "The city council controls ordinances.",
+          "Residents are split.",
+          "Local businesses oppose restrictions."
+        ],
+        "label": "Terminal Policy State",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the conflict end in ordinance passage, procedural delay, or effective non-action within the scenario horizon?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.5,
+        "rationale": "This endpoint captures the final policy-relevant outcome implied by the scenario while preserving uncertainty.",
+        "realization_criteria": [
+          "council_passes_related_ordinance",
+          "or_official_action_defers_issue_into_later_process_with_schedule",
+          "or_no_related_action_occurs_and_issue_loses_active_momentum_by_horizon_end"
+        ],
+        "status": "active",
+        "status_basis": "The terminal choice remains unresolved at T0 and should not be forced; several plausible endpoints remain open."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "Student activist group proposes an event publicly framed around ordinance passage.",
+        "layer": "exposure",
+        "reason": "Public event messaging can reach residents through local visibility and discussion.",
+        "source_actor_name": "student_activist_group",
+        "target_actor_name": "city_residents",
+        "weight": 0.45
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario implies local public dispute involving residents, council, and businesses.",
+        "layer": "exposure",
+        "reason": "Media likely informs residents about the controversy and procedural reality.",
+        "source_actor_name": "local_media",
+        "target_actor_name": "city_residents",
+        "weight": 0.6
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Local businesses oppose restrictions.",
+        "layer": "exposure",
+        "reason": "Businesses are organized opponents and likely communicate their objections to council members.",
+        "source_actor_name": "local_business_coalition",
+        "target_actor_name": "city_council",
+        "weight": 0.5
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario explicitly states students can lobby, protest, and pressure council members.",
+        "layer": "exposure",
+        "reason": "Activists can lobby, protest, and pressure council members.",
+        "source_actor_name": "student_activist_group",
+        "target_actor_name": "city_council",
+        "weight": 0.5
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Residents are split; council holds formal authority.",
+        "layer": "trust",
+        "reason": "Residents have moderate baseline trust in formal municipal process, but are split.",
+        "source_actor_name": "city_residents",
+        "target_actor_name": "city_council",
+        "weight": 0.5
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Students propose event saying they will pass a city ordinance tomorrow, which is unrealistic.",
+        "layer": "trust",
+        "reason": "Some residents may sympathize, but direct-legislation framing can weaken credibility.",
+        "source_actor_name": "city_residents",
+        "target_actor_name": "student_activist_group",
+        "weight": 0.38
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario warns against treating students as direct ordinance passers.",
+        "layer": "trust",
+        "reason": "Council may view activists as politically relevant but procedurally overclaiming.",
+        "source_actor_name": "city_council",
+        "target_actor_name": "student_activist_group",
+        "weight": 0.32
+      },
+      {
+        "direction": "outbound",
+        "evidence": "The city council controls ordinances.",
+        "layer": "dependency",
+        "reason": "Any actual ordinance outcome depends on council action.",
+        "source_actor_name": "student_activist_group",
+        "target_actor_name": "city_council",
+        "weight": 0.62
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Residents are split and politically relevant in municipal governance.",
+        "layer": "dependency",
+        "reason": "Council legitimacy and electoral incentives depend on resident response.",
+        "source_actor_name": "city_council",
+        "target_actor_name": "city_residents",
+        "weight": 0.35
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Businesses oppose restrictions that council could enact.",
+        "layer": "dependency",
+        "reason": "Businesses depend on council to avoid or modify restrictions.",
+        "source_actor_name": "local_business_coalition",
+        "target_actor_name": "city_council",
+        "weight": 0.4
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Media is the likely intermediary in local governance conflict.",
+        "layer": "dependency",
+        "reason": "Residents depend on local media for issue salience and process information.",
+        "source_actor_name": "city_residents",
+        "target_actor_name": "local_media",
+        "weight": 0.25
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Council has ordinance authority.",
+        "layer": "influence",
+        "reason": "Council decisions strongly shape activist success or frustration.",
+        "source_actor_name": "city_council",
+        "target_actor_name": "student_activist_group",
+        "weight": 0.55
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario explicitly permits lobbying, protest, and pressure.",
+        "layer": "influence",
+        "reason": "Activists can create pressure through protest and lobbying.",
+        "source_actor_name": "student_activist_group",
+        "target_actor_name": "city_council",
+        "weight": 0.42
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Local businesses oppose restrictions.",
+        "layer": "influence",
+        "reason": "Businesses can exert organized economic and political pressure.",
+        "source_actor_name": "local_business_coalition",
+        "target_actor_name": "city_council",
+        "weight": 0.48
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Likely role in clarifying or amplifying the event claim.",
+        "layer": "influence",
+        "reason": "Media framing can shape public understanding of authority and conflict.",
+        "source_actor_name": "local_media",
+        "target_actor_name": "city_residents",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Residents are split, implying both sides matter politically.",
+        "layer": "influence",
+        "reason": "Resident preferences matter to elected officials, though not uniformly mobilized.",
+        "source_actor_name": "city_residents",
+        "target_actor_name": "city_council",
+        "weight": 0.44
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Realistic authority initialization requires internal process control.",
+        "layer": "influence",
+        "reason": "Leadership controls agenda and timing within council process.",
+        "source_actor_name": "council_leadership",
+        "target_actor_name": "city_council",
+        "weight": 0.65
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Students are the initiating activist constituency.",
+        "layer": "coalition",
+        "reason": "Visible activist messaging aligns with engaged student supporters.",
+        "source_actor_name": "student_activist_group",
+        "target_actor_name": "engaged_students_proxy",
+        "weight": 0.6
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Businesses oppose restrictions and residents are split.",
+        "layer": "coalition",
+        "reason": "Business opposition is likely aligned with residents wary of restrictions.",
+        "source_actor_name": "local_business_coalition",
+        "target_actor_name": "residents_opposed_proxy",
+        "weight": 0.45
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Leadership operates within council authority structure.",
+        "layer": "coalition",
+        "reason": "Leadership and institution are linked but not perfectly unified.",
+        "source_actor_name": "city_council",
+        "target_actor_name": "council_leadership",
+        "weight": 0.5
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Student activists seek ordinance pressure; businesses oppose restrictions.",
+        "layer": "conflict",
+        "reason": "They hold opposing positions on restrictions.",
+        "source_actor_name": "student_activist_group",
+        "target_actor_name": "local_business_coalition",
+        "weight": 0.6
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Students seek pressure on council rather than direct control.",
+        "layer": "conflict",
+        "reason": "Activists may perceive delay or refusal as obstruction, though council is also the target of persuasion.",
+        "source_actor_name": "student_activist_group",
+        "target_actor_name": "city_council",
+        "weight": 0.35
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Businesses oppose restrictions.",
+        "layer": "conflict",
+        "reason": "Business coalition resists the activist policy push.",
+        "source_actor_name": "local_business_coalition",
+        "target_actor_name": "student_activist_group",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Residents are split and direct-legislation framing is unrealistic.",
+        "layer": "conflict",
+        "reason": "Some residents may resent overclaiming or disruption, while others support the cause.",
+        "source_actor_name": "city_residents",
+        "target_actor_name": "student_activist_group",
+        "weight": 0.28
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Students can lobby, protest, and pressure council members.",
+        "layer": "oasis_interaction",
+        "reason": "Public comments, protests, and direct appeals are likely.",
+        "source_actor_name": "student_activist_group",
+        "target_actor_name": "city_council",
+        "weight": 0.55
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Public proposal about passing an ordinance tomorrow is newsworthy.",
+        "layer": "oasis_interaction",
+        "reason": "Activist event framing is likely to draw coverage or clarification.",
+        "source_actor_name": "student_activist_group",
+        "target_actor_name": "local_media",
+        "weight": 0.5
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Organized opposition creates likely public messaging.",
+        "layer": "oasis_interaction",
+        "reason": "Businesses may publicly counter activist framing and oppose restrictions.",
+        "source_actor_name": "local_business_coalition",
+        "target_actor_name": "local_media",
+        "weight": 0.42
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Residents are split on the issue.",
+        "layer": "oasis_interaction",
+        "reason": "Residents may contact officials or attend meetings if attention rises.",
+        "source_actor_name": "city_residents",
+        "target_actor_name": "city_council",
+        "weight": 0.38
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "description": "Visible student advocate attempting to convert protest energy into council pressure.",
+        "key": "movement_organizer",
+        "label": "Student Movement Organizer"
+      },
+      {
+        "description": "Leadership actor controlling meeting schedule and process access.",
+        "key": "council_agenda_manager",
+        "label": "Council Agenda Manager"
+      },
+      {
+        "description": "Public-facing opponent of restrictions.",
+        "key": "business_spokesperson",
+        "label": "Business Coalition Spokesperson"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "student_activist_group",
+        "archetype_key": "movement_organizer",
+        "attention_level": 8,
+        "expression_level": 9,
+        "fatigue": 4,
+        "fear_of_isolation": 2,
+        "hero_key": "student_activist_group_lead",
+        "mobilization_readiness": 8,
+        "perceived_majority": 0.6,
+        "represented_population": 1,
+        "reputation": 0.5,
+        "secrecy": 2,
+        "stance_axes": {
+          "institutional_disruption_tolerance": 0.55,
+          "pro_restriction": 0.85,
+          "trust_formal_process": 0.35
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "council_leadership",
+        "archetype_key": "council_agenda_manager",
+        "attention_level": 6,
+        "expression_level": 5,
+        "fatigue": 3,
+        "fear_of_isolation": 3,
+        "hero_key": "council_leadership_operator",
+        "mobilization_readiness": 4,
+        "perceived_majority": 0.5,
+        "represented_population": 1,
+        "reputation": 0.6,
+        "secrecy": 4,
+        "stance_axes": {
+          "institutional_order": 0.85,
+          "pro_restriction": 0.5,
+          "responsiveness_to_pressure": 0.45
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "local_business_coalition",
+        "archetype_key": "business_spokesperson",
+        "attention_level": 6,
+        "expression_level": 7,
+        "fatigue": 2,
+        "fear_of_isolation": 3,
+        "hero_key": "business_coalition_spokesperson",
+        "mobilization_readiness": 6,
+        "perceived_majority": 0.45,
+        "represented_population": 1,
+        "reputation": 0.55,
+        "secrecy": 3,
+        "stance_axes": {
+          "pro_business_flexibility": 0.85,
+          "pro_restriction": 0.15,
+          "public_compromise_tone": 0.45
+        },
+        "trustworthiness": 0.5
+      }
+    ],
+    "heroes": [
+      {
+        "description": "Visible student advocate attempting to convert protest energy into council pressure.",
+        "key": "movement_organizer",
+        "label": "Student Movement Organizer"
+      },
+      {
+        "description": "Leadership actor controlling meeting schedule and process access.",
+        "key": "council_agenda_manager",
+        "label": "Council Agenda Manager"
+      },
+      {
+        "description": "Public-facing opponent of restrictions.",
+        "key": "business_spokesperson",
+        "label": "Business Coalition Spokesperson"
+      }
+    ],
+    "important_questions": [
+      "Will the city council formally take up an ordinance or equivalent agenda item related to the activists' demand?",
+      "Will the student activist group shift from direct-passage rhetoric to a realistic lobbying and pressure strategy?",
+      "Will organized business opposition prevent the issue from advancing beyond symbolic attention?",
+      "Does the conflict end in ordinance passage, procedural delay, or effective non-action within the scenario horizon?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "student_activist_group"
+        ],
+        "event_key": "activists_announce_event",
+        "event_type": "announcement",
+        "expected_impact": "Raises attention, increases exposure to the issue, and may create confusion about legal authority while energizing supporters.",
+        "status": "visible",
+        "summary": "Student activists announce or stage an event claiming they will pass a city ordinance tomorrow.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "local_media",
+          "city_council"
+        ],
+        "event_key": "media_or_official_clarification_pressure",
+        "event_type": "announcement",
+        "expected_impact": "Could reduce activist credibility if framed as overclaiming, or redirect attention toward council lobbying and procedure.",
+        "status": "imminent",
+        "summary": "Clarification pressure emerges over who actually has authority to pass an ordinance.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "local_business_coalition"
+        ],
+        "event_key": "business_opposition_response",
+        "event_type": "announcement",
+        "expected_impact": "Increases counter-mobilization, strengthens anti-restriction coalition signals, and raises council caution.",
+        "status": "imminent",
+        "summary": "Businesses respond publicly or privately against prospective restrictions.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "council_leadership",
+          "city_council"
+        ],
+        "event_key": "council_process_decision_point",
+        "event_type": "announcement",
+        "expected_impact": "Sets near-term trajectory by signaling openness, delay, or resistance without yet determining the final policy outcome.",
+        "status": "imminent",
+        "summary": "Council leadership decides whether to schedule, ignore, study, or publicly deflect the issue.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "c96ce92a-d460-44c9-999a-54934b1a7fdd",
+    "merge_hypotheses": [
+      {
+        "affected_actors": [
+          "student_activist_group",
+          "city_council",
+          "local_business_coalition",
+          "city_residents"
+        ],
+        "convergence_mechanism": "All sides accept that council process is the only valid path, reducing authority confusion.",
+        "evidence": "Scenario explicitly distinguishes direct legislation from lobbying and pressure.",
+        "merge_key": "procedural_channel_absorbs_conflict"
+      },
+      {
+        "affected_actors": [
+          "student_activist_group",
+          "local_business_coalition",
+          "city_residents"
+        ],
+        "convergence_mechanism": "If no hearing or vote is scheduled, both supporters and opponents partially demobilize.",
+        "evidence": "Local issues often lose salience without procedural milestones; no ordinance timetable is provided.",
+        "merge_key": "attention_fades_without_schedule"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "description": "General municipal population with split views on proposed restrictions and varying responsiveness to student activism and business messaging.",
+        "key": "residents",
+        "label": "City Residents",
+        "population_total": 100000
+      },
+      {
+        "description": "Students and close campus affiliates more likely to notice or discuss the activist event, but without direct municipal authority.",
+        "key": "students",
+        "label": "Student-Affiliated Public",
+        "population_total": 5000
+      }
+    ],
+    "risk_flags": [
+      {
+        "description": "Students cannot directly pass a city ordinance; any scenario framing implying direct legislative action by the activist group is institutionally impossible at T0.",
+        "evidence": "Scenario explicitly states this should not be treated as something students can directly cause.",
+        "risk_key": "impossible_direct_action",
+        "severity": "high"
+      },
+      {
+        "description": "Public misunderstanding about who has legal authority may distort trust, media framing, and perceived momentum.",
+        "evidence": "Activists say they will pass a city ordinance tomorrow, while council controls ordinances.",
+        "risk_key": "authority_confusion",
+        "severity": "medium"
+      },
+      {
+        "description": "The actual restriction or ordinance substance is missing, limiting precision about resident and business incentives.",
+        "evidence": "Scenario describes restrictions generally but gives no policy text or topic.",
+        "risk_key": "underspecified_policy_content",
+        "severity": "medium"
+      },
+      {
+        "description": "Resident and student counts are estimated because the municipality and campus size are unspecified.",
+        "evidence": "No jurisdiction size is provided in the corpus.",
+        "risk_key": "population_scale_uncertainty",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "authority_structure": "Formal ordinance authority rests with the city council; student activists may only influence through advocacy, protest, public comment, coalition-building, and media pressure.",
+      "benchmark_role": "institutional_governance",
+      "mode": "direct",
+      "scenario_key": "governance_002",
+      "summary": "A student activist group is publicly proposing an event framed as if they will directly pass a city ordinance tomorrow. In reality, students lack direct legislative authority. The city council holds ordinance authority, local businesses oppose likely restrictions, and residents are divided. T0 should reflect an emerging local governance conflict with lobbying, protest, media attention, and council pressure as realistic mechanisms.",
+      "time_horizon_ticks": 7,
+      "uncertainty_notes": [
+        "The specific ordinance content is not provided.",
+        "The size of the city, council composition, and exact institutional calendar are unspecified.",
+        "Resident opinion is described only as split, without percentages."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "city_residents",
+          "students"
+        ],
+        "evidence": "Residents are split; persuasion likely occurs within moderate opinion bands.",
+        "level": 0.6,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "city_residents",
+          "engaged_students"
+        ],
+        "evidence": "Most non-elite actors likely need visible signals before participating.",
+        "level": 0.55,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "residents_ambivalent_or_uncertain"
+        ],
+        "evidence": "Uncertain residents are likely quiet at T0.",
+        "level": 0.5,
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "students",
+          "local_business_coalition",
+          "city_residents"
+        ],
+        "evidence": "Student, business, and resident networks likely cluster by role and interest.",
+        "level": 0.58,
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "city_residents"
+        ],
+        "evidence": "Public participation in local ordinance disputes often requires repeated social cues.",
+        "level": 0.52,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "students",
+          "local_business_coalition"
+        ],
+        "evidence": "Student activist and business group identities are salient at initialization.",
+        "level": 0.65,
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "city_residents"
+        ],
+        "evidence": "Absent a meeting, vote, or controversy spike, public attention may fade quickly.",
+        "level": 0.48,
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context_key": "authority_misalignment",
+        "description": "Public claims imply direct student lawmaking, but formal authority rests with city council."
+      },
+      {
+        "context_key": "split_public",
+        "description": "Residents are divided, creating contestable narratives and unstable majority perception."
+      },
+      {
+        "context_key": "organized_opposition",
+        "description": "Local businesses are a coherent anti-restriction bloc with likely access to officials."
+      },
+      {
+        "context_key": "process_dependency",
+        "description": "Any policy shift must pass through municipal procedure, scheduling, and council votes."
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "student_activist_group",
+        "behavior_axes": {
+          "contentious_action": 0.75,
+          "institutional_engagement": 0.55,
+          "message_discipline": 0.5
+        },
+        "ideology_axes": {
+          "regulatory_change": 0.8,
+          "status_quo_alignment": 0.2
+        },
+        "reputation": 0.5,
+        "secrecy": 0.2,
+        "tendency": "escalate_attention_and_pressure",
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "city_council",
+        "behavior_axes": {
+          "proceduralism": 0.8,
+          "responsiveness": 0.5,
+          "risk_aversion": 0.65
+        },
+        "ideology_axes": {
+          "regulatory_change": 0.5,
+          "status_quo_alignment": 0.5
+        },
+        "reputation": 0.58,
+        "secrecy": 0.45,
+        "tendency": "delay_or_channel_conflict_through_process",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "council_leadership",
+        "behavior_axes": {
+          "agenda_control": 0.85,
+          "proceduralism": 0.8,
+          "public_flexibility": 0.4
+        },
+        "ideology_axes": {
+          "regulatory_change": 0.5,
+          "status_quo_alignment": 0.55
+        },
+        "reputation": 0.6,
+        "secrecy": 0.4,
+        "tendency": "manage_timing_and_access",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "local_business_coalition",
+        "behavior_axes": {
+          "elite_advocacy": 0.65,
+          "public_campaigning": 0.5,
+          "resource_mobilization": 0.7
+        },
+        "ideology_axes": {
+          "regulatory_change": 0.2,
+          "status_quo_alignment": 0.8
+        },
+        "reputation": 0.55,
+        "secrecy": 0.35,
+        "tendency": "oppose_restrictions_and_seek_moderation_or_defeat",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "city_residents",
+        "behavior_axes": {
+          "attention_variability": 0.75,
+          "conformity_pressure": 0.5,
+          "participation": 0.35
+        },
+        "ideology_axes": {
+          "regulatory_change": 0.5,
+          "status_quo_alignment": 0.5
+        },
+        "reputation": 0.5,
+        "secrecy": 0.5,
+        "tendency": "react_to_elite_cues_and_salient_events",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "local_media",
+        "behavior_axes": {
+          "agenda_amplification": 0.7,
+          "conflict_selection": 0.65,
+          "verification": 0.6
+        },
+        "ideology_axes": {
+          "regulatory_change": 0.5,
+          "status_quo_alignment": 0.5
+        },
+        "reputation": 0.62,
+        "secrecy": 0.2,
+        "tendency": "amplify_conflict_framing_and_process_updates",
+        "trustworthiness": 0.62
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 572,
+        "end": 572,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 572,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

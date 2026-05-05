@@ -1,0 +1,21 @@
+{
+  "job_type": "initialize_big_bang",
+  "payload": {
+    "actors": [],
+    "branch_policy": {
+      "branch_score_threshold": 0.999,
+      "max_active_multiverses": 1,
+      "max_branch_depth": 1,
+      "max_branches_per_tick": 1
+    },
+    "cohorts": [],
+    "heroes": [],
+    "name": "E1_init_job_election_002",
+    "scenario_text": "# Case election_002\nBenchmark role: election_legitimacy\n\n## Scenario\n\nA fictional state court orders a temporary pause in certifying a school-board referendum because of a ballot-language challenge. Parents, teachers, taxpayer groups, campaigns, and county clerks respond. Courts can rule on language, clerks administer elections, and campaigns can mobilize but cannot certify results. Seed plausible endpoints and report questions without deciding the legal outcome at T0.\n\n## Expected Focus\n- court_constraints\n- public_silence\n- endpoint_options\n",
+    "simulation_config": {
+      "max_ticks": 1,
+      "tick_duration_minutes": 720
+    },
+    "use_initializer_agent": true
+  }
+}

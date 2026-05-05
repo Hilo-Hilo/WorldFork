@@ -1,0 +1,1620 @@
+{
+  "big_bang_id": "3928ea11-9e05-4cbc-8701-54c18f360607",
+  "initializer_output": {
+    "actors": [
+      {
+        "fictionalized": true,
+        "name": "metro_transit_agency",
+        "public_visibility": "high",
+        "stakes": [
+          "ridership performance",
+          "service reliability",
+          "budget stability",
+          "public legitimacy"
+        ],
+        "type": "institution"
+      },
+      {
+        "fictionalized": true,
+        "name": "city_executive_office",
+        "public_visibility": "high",
+        "stakes": [
+          "policy credit",
+          "budget tradeoffs",
+          "public satisfaction",
+          "economic activity"
+        ],
+        "type": "government"
+      },
+      {
+        "fictionalized": true,
+        "name": "city_council_transport_bloc",
+        "public_visibility": "high",
+        "stakes": [
+          "oversight",
+          "constituent satisfaction",
+          "fiscal accountability"
+        ],
+        "type": "government_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "weekday_commuters",
+        "public_visibility": "medium",
+        "stakes": [
+          "travel affordability",
+          "predictable travel times",
+          "comfort"
+        ],
+        "type": "public_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "weekend_leisure_riders",
+        "public_visibility": "medium",
+        "stakes": [
+          "low-cost mobility",
+          "access to destinations",
+          "convenience"
+        ],
+        "type": "public_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "crowded_line_riders",
+        "public_visibility": "medium",
+        "stakes": [
+          "seat availability",
+          "travel time",
+          "service quality"
+        ],
+        "type": "public_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "transit_operators_union",
+        "public_visibility": "medium",
+        "stakes": [
+          "workload",
+          "safety",
+          "service manageability"
+        ],
+        "type": "labor_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "downtown_merchants_association",
+        "public_visibility": "medium",
+        "stakes": [
+          "foot traffic",
+          "sales volume",
+          "weekend customer access"
+        ],
+        "type": "business_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "local_media",
+        "public_visibility": "high",
+        "stakes": [
+          "narrative framing",
+          "audience attention",
+          "accountability reporting"
+        ],
+        "type": "media"
+      },
+      {
+        "fictionalized": true,
+        "name": "city_residents_general",
+        "public_visibility": "low",
+        "stakes": [
+          "tax value",
+          "mobility access",
+          "quality of city services"
+        ],
+        "type": "public_group"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "branch_key": "continue_as_pilot_extension",
+        "divergence_signal": "Public statements frame results as promising-but-incomplete and announce another test period.",
+        "plausible_path": "Decision-makers extend fare-free weekends for more data collection without full permanence.",
+        "trigger": "Agency evaluation emphasizes ridership and commerce gains while crowding appears containable."
+      },
+      {
+        "branch_key": "targeted_modification",
+        "divergence_signal": "Operational adjustment plans appear alongside continuation language rather than blanket endorsement.",
+        "plausible_path": "City keeps the experiment but adds capacity, limits scope, or changes hours/lines.",
+        "trigger": "Crowding complaints on the two lines remain salient and operational staff propose mitigations."
+      },
+      {
+        "branch_key": "rollback_to_paid_service",
+        "divergence_signal": "Budget framing dominates official communication and continuation timelines disappear.",
+        "plausible_path": "Officials end the fare-free weekends and restore normal fares after pilot review.",
+        "trigger": "Revenue loss becomes politically salient and benefits are judged too anecdotal or uneven."
+      },
+      {
+        "branch_key": "substitution_with_discount_program",
+        "divergence_signal": "Discussion shifts from universal free access to means-tested or time-limited pricing alternatives.",
+        "plausible_path": "Fare-free weekends are replaced by targeted discounts, passes, or off-peak promotions.",
+        "trigger": "Leaders seek affordability benefits without full revenue sacrifice."
+      },
+      {
+        "branch_key": "narrative_polarization_without_resolution",
+        "divergence_signal": "Repeated requests for more data occur without binding implementation changes.",
+        "plausible_path": "Debate persists through hearings and media cycles while terminal choice is deferred.",
+        "trigger": "Mixed evidence remains inconclusive and no coalition gains clear advantage."
+      }
+    ],
+    "channels": [
+      {
+        "actors": [
+          "metro_transit_agency",
+          "local_media",
+          "city_residents_general"
+        ],
+        "channel_key": "agency_press_release",
+        "reach": "citywide",
+        "type": "official"
+      },
+      {
+        "actors": [
+          "weekday_commuters",
+          "weekend_leisure_riders",
+          "crowded_line_riders"
+        ],
+        "channel_key": "bus_stop_and_onboard_conversation",
+        "reach": "line_specific",
+        "type": "informal_public"
+      },
+      {
+        "actors": [
+          "downtown_merchants_association",
+          "city_executive_office",
+          "city_council_transport_bloc"
+        ],
+        "channel_key": "merchant_association_updates",
+        "reach": "district",
+        "type": "association"
+      },
+      {
+        "actors": [
+          "city_council_transport_bloc",
+          "metro_transit_agency",
+          "transit_operators_union",
+          "local_media"
+        ],
+        "channel_key": "council_hearing_channel",
+        "reach": "citywide_elite",
+        "type": "institutional"
+      },
+      {
+        "actors": [
+          "local_media",
+          "city_residents_general",
+          "city_executive_office",
+          "metro_transit_agency"
+        ],
+        "channel_key": "local_news_cycle",
+        "reach": "citywide",
+        "type": "media"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "weekend_leisure_riders",
+        "archetype_key": "urban_riders",
+        "attention_level": 0.56,
+        "behavioral_tendencies": [
+          "shares positive personal stories",
+          "responds to convenience and cost changes"
+        ],
+        "cohort_key": "cost_sensitive_riders",
+        "expression_level": 0.48,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.24,
+        "mobilization_readiness": 0.42,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Fare-free weekends are beneficial if service remains usable.",
+        "public_expression": "Moderately supportive, mostly anecdotal praise about affordability and spontaneity.",
+        "representation_mode": "direct",
+        "represented_population": 42000,
+        "reputation": 0.51,
+        "secrecy": 0.12,
+        "stance_axes": {
+          "fare_free_support": 0.78,
+          "fiscal_caution": 0.34,
+          "service_quality_priority": 0.58
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "weekday_commuters",
+        "archetype_key": "urban_riders",
+        "attention_level": 0.61,
+        "behavioral_tendencies": [
+          "focuses on operational performance",
+          "amplifies negative service incidents more than diffuse benefits"
+        ],
+        "cohort_key": "reliability_first_commuters",
+        "expression_level": 0.39,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.31,
+        "mobilization_readiness": 0.35,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Free fares are acceptable only if crowding and reliability stay manageable.",
+        "public_expression": "Cautious and conditional; willing to criticize overcrowding on specific lines.",
+        "representation_mode": "direct",
+        "represented_population": 54000,
+        "reputation": 0.55,
+        "secrecy": 0.19,
+        "stance_axes": {
+          "fare_free_support": 0.44,
+          "fiscal_caution": 0.49,
+          "service_quality_priority": 0.83
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "crowded_line_riders",
+        "archetype_key": "urban_riders",
+        "attention_level": 0.77,
+        "behavioral_tendencies": [
+          "posts complaint evidence",
+          "supports targeted fixes over abstract ideals"
+        ],
+        "cohort_key": "overcrowding_affected_riders",
+        "expression_level": 0.62,
+        "fatigue": 0.46,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.54,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.2,
+        "private_belief": "The experiment is hurting ride quality on two lines unless capacity is added.",
+        "public_expression": "Visible complaints about crowding and discomfort.",
+        "representation_mode": "direct",
+        "represented_population": 24000,
+        "reputation": 0.52,
+        "secrecy": 0.1,
+        "stance_axes": {
+          "fare_free_support": 0.27,
+          "fiscal_caution": 0.41,
+          "service_quality_priority": 0.9
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "city_residents_general",
+        "archetype_key": "city_residents",
+        "attention_level": 0.28,
+        "behavioral_tendencies": [
+          "reacts to headlines",
+          "becomes active when costs become salient"
+        ],
+        "cohort_key": "fiscally_moderate_residents",
+        "expression_level": 0.16,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.37,
+        "mobilization_readiness": 0.18,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "Benefits must justify lost revenue and any public subsidy increase.",
+        "public_expression": "Low-intensity interest unless budget controversy grows.",
+        "representation_mode": "sampled_sentiment",
+        "represented_population": 275000,
+        "reputation": 0.5,
+        "secrecy": 0.22,
+        "stance_axes": {
+          "fare_free_support": 0.39,
+          "fiscal_caution": 0.74,
+          "service_quality_priority": 0.52
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "city_residents_general",
+        "archetype_key": "city_residents",
+        "attention_level": 0.34,
+        "behavioral_tendencies": [
+          "frames issue around access and inclusion",
+          "less focused on budget arithmetic"
+        ],
+        "cohort_key": "mobility_equity_supporters",
+        "expression_level": 0.23,
+        "fatigue": 0.1,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.24,
+        "perceived_majority": 0.43,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "Free transit can expand access and should be explored further.",
+        "public_expression": "Supportive but diffuse; lacks strong coordinated advocacy at T0.",
+        "representation_mode": "sampled_sentiment",
+        "represented_population": 125000,
+        "reputation": 0.49,
+        "secrecy": 0.17,
+        "stance_axes": {
+          "fare_free_support": 0.72,
+          "fiscal_caution": 0.29,
+          "service_quality_priority": 0.55
+        },
+        "trustworthiness": 0.56
+      },
+      {
+        "actor_name": "downtown_merchants_association",
+        "archetype_key": "small_business_owners",
+        "attention_level": 0.58,
+        "behavioral_tendencies": [
+          "uses business anecdotes",
+          "supports continuation or pilot extension"
+        ],
+        "cohort_key": "corridor_merchants",
+        "expression_level": 0.51,
+        "fatigue": 0.14,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.4,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "The experiment may boost weekend commerce if customer access gains persist.",
+        "public_expression": "Optimistic reports of increased foot traffic, though evidence is mostly observational.",
+        "representation_mode": "association",
+        "represented_population": 2200,
+        "reputation": 0.54,
+        "secrecy": 0.16,
+        "stance_axes": {
+          "fare_free_support": 0.68,
+          "fiscal_caution": 0.47,
+          "service_quality_priority": 0.36
+        },
+        "trustworthiness": 0.53
+      },
+      {
+        "actor_name": "transit_operators_union",
+        "archetype_key": "transit_workforce",
+        "attention_level": 0.69,
+        "behavioral_tendencies": [
+          "reports operational stress",
+          "prefers capacity changes over symbolic messaging"
+        ],
+        "cohort_key": "frontline_operators",
+        "expression_level": 0.47,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.46,
+        "perceived_majority": 0.48,
+        "population_share_of_archetype": 0.78,
+        "private_belief": "Crowding increases strain and may require staffing or scheduling adjustments.",
+        "public_expression": "Concerned but not yet escalatory; seeks operational fixes and safety assurances.",
+        "representation_mode": "union_proxy",
+        "represented_population": 1400,
+        "reputation": 0.59,
+        "secrecy": 0.14,
+        "stance_axes": {
+          "fare_free_support": 0.31,
+          "fiscal_caution": 0.44,
+          "service_quality_priority": 0.82
+        },
+        "trustworthiness": 0.64
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "weekend_leisure_riders",
+        "archetype_key": "urban_riders",
+        "attention_level": 0.56,
+        "behavioral_tendencies": [
+          "shares positive personal stories",
+          "responds to convenience and cost changes"
+        ],
+        "cohort_key": "cost_sensitive_riders",
+        "expression_level": 0.48,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.24,
+        "mobilization_readiness": 0.42,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Fare-free weekends are beneficial if service remains usable.",
+        "public_expression": "Moderately supportive, mostly anecdotal praise about affordability and spontaneity.",
+        "representation_mode": "direct",
+        "represented_population": 42000,
+        "reputation": 0.51,
+        "secrecy": 0.12,
+        "stance_axes": {
+          "fare_free_support": 0.78,
+          "fiscal_caution": 0.34,
+          "service_quality_priority": 0.58
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "weekday_commuters",
+        "archetype_key": "urban_riders",
+        "attention_level": 0.61,
+        "behavioral_tendencies": [
+          "focuses on operational performance",
+          "amplifies negative service incidents more than diffuse benefits"
+        ],
+        "cohort_key": "reliability_first_commuters",
+        "expression_level": 0.39,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.31,
+        "mobilization_readiness": 0.35,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Free fares are acceptable only if crowding and reliability stay manageable.",
+        "public_expression": "Cautious and conditional; willing to criticize overcrowding on specific lines.",
+        "representation_mode": "direct",
+        "represented_population": 54000,
+        "reputation": 0.55,
+        "secrecy": 0.19,
+        "stance_axes": {
+          "fare_free_support": 0.44,
+          "fiscal_caution": 0.49,
+          "service_quality_priority": 0.83
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "crowded_line_riders",
+        "archetype_key": "urban_riders",
+        "attention_level": 0.77,
+        "behavioral_tendencies": [
+          "posts complaint evidence",
+          "supports targeted fixes over abstract ideals"
+        ],
+        "cohort_key": "overcrowding_affected_riders",
+        "expression_level": 0.62,
+        "fatigue": 0.46,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.54,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.2,
+        "private_belief": "The experiment is hurting ride quality on two lines unless capacity is added.",
+        "public_expression": "Visible complaints about crowding and discomfort.",
+        "representation_mode": "direct",
+        "represented_population": 24000,
+        "reputation": 0.52,
+        "secrecy": 0.1,
+        "stance_axes": {
+          "fare_free_support": 0.27,
+          "fiscal_caution": 0.41,
+          "service_quality_priority": 0.9
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "city_residents_general",
+        "archetype_key": "city_residents",
+        "attention_level": 0.28,
+        "behavioral_tendencies": [
+          "reacts to headlines",
+          "becomes active when costs become salient"
+        ],
+        "cohort_key": "fiscally_moderate_residents",
+        "expression_level": 0.16,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.37,
+        "mobilization_readiness": 0.18,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "Benefits must justify lost revenue and any public subsidy increase.",
+        "public_expression": "Low-intensity interest unless budget controversy grows.",
+        "representation_mode": "sampled_sentiment",
+        "represented_population": 275000,
+        "reputation": 0.5,
+        "secrecy": 0.22,
+        "stance_axes": {
+          "fare_free_support": 0.39,
+          "fiscal_caution": 0.74,
+          "service_quality_priority": 0.52
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "city_residents_general",
+        "archetype_key": "city_residents",
+        "attention_level": 0.34,
+        "behavioral_tendencies": [
+          "frames issue around access and inclusion",
+          "less focused on budget arithmetic"
+        ],
+        "cohort_key": "mobility_equity_supporters",
+        "expression_level": 0.23,
+        "fatigue": 0.1,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.24,
+        "perceived_majority": 0.43,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "Free transit can expand access and should be explored further.",
+        "public_expression": "Supportive but diffuse; lacks strong coordinated advocacy at T0.",
+        "representation_mode": "sampled_sentiment",
+        "represented_population": 125000,
+        "reputation": 0.49,
+        "secrecy": 0.17,
+        "stance_axes": {
+          "fare_free_support": 0.72,
+          "fiscal_caution": 0.29,
+          "service_quality_priority": 0.55
+        },
+        "trustworthiness": 0.56
+      },
+      {
+        "actor_name": "downtown_merchants_association",
+        "archetype_key": "small_business_owners",
+        "attention_level": 0.58,
+        "behavioral_tendencies": [
+          "uses business anecdotes",
+          "supports continuation or pilot extension"
+        ],
+        "cohort_key": "corridor_merchants",
+        "expression_level": 0.51,
+        "fatigue": 0.14,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.4,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "The experiment may boost weekend commerce if customer access gains persist.",
+        "public_expression": "Optimistic reports of increased foot traffic, though evidence is mostly observational.",
+        "representation_mode": "association",
+        "represented_population": 2200,
+        "reputation": 0.54,
+        "secrecy": 0.16,
+        "stance_axes": {
+          "fare_free_support": 0.68,
+          "fiscal_caution": 0.47,
+          "service_quality_priority": 0.36
+        },
+        "trustworthiness": 0.53
+      },
+      {
+        "actor_name": "transit_operators_union",
+        "archetype_key": "transit_workforce",
+        "attention_level": 0.69,
+        "behavioral_tendencies": [
+          "reports operational stress",
+          "prefers capacity changes over symbolic messaging"
+        ],
+        "cohort_key": "frontline_operators",
+        "expression_level": 0.47,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.46,
+        "perceived_majority": 0.48,
+        "population_share_of_archetype": 0.78,
+        "private_belief": "Crowding increases strain and may require staffing or scheduling adjustments.",
+        "public_expression": "Concerned but not yet escalatory; seeks operational fixes and safety assurances.",
+        "representation_mode": "union_proxy",
+        "represented_population": 1400,
+        "reputation": 0.59,
+        "secrecy": 0.14,
+        "stance_axes": {
+          "fare_free_support": 0.31,
+          "fiscal_caution": 0.44,
+          "service_quality_priority": 0.82
+        },
+        "trustworthiness": 0.64
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "city_executive_office",
+          "metro_transit_agency",
+          "city_council_transport_bloc"
+        ],
+        "blockers": [
+          "fare revenue loss salience",
+          "crowding on two lines",
+          "council fiscal resistance"
+        ],
+        "contradiction_notes": "A continuation announcement with major narrowing may overlap with modification or substitution endpoints; terminal coding should check whether universal fare-free weekends remain in effect.",
+        "description": "The city formally extends the fare-free weekend policy beyond the initial experiment period, whether as a continued pilot or standing short-term policy.",
+        "endpoint_key": "continue_fare_free_weekends",
+        "evidence_refs": [
+          "scenario_text",
+          "agency_evaluation_release_pending",
+          "oversight_discussion_window"
+        ],
+        "label": "Continue fare-free weekends",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will city decision-makers continue fare-free weekends beyond the initial experiment window?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.34,
+        "rationale": "Ridership growth and merchant foot-traffic gains create a credible continuation case, but mixed evidence prevents early closure.",
+        "realization_criteria": [
+          "Official city or agency announcement confirms at least one additional scheduled fare-free weekend after evaluation.",
+          "No concurrent decision restores standard fares for the same decision window."
+        ],
+        "status": "active",
+        "status_basis": "Scenario states multiple terminal outcomes are plausible and does not indicate continuation has been decided at T0."
+      },
+      {
+        "authority_refs": [
+          "metro_transit_agency",
+          "city_executive_office"
+        ],
+        "blockers": [
+          "insufficient budget for added capacity",
+          "political preference for simple rollback",
+          "weak operational data"
+        ],
+        "contradiction_notes": "If modifications fully replace universal fare-free weekends with a different pricing regime, substitution endpoint may be the better terminal classification.",
+        "description": "Officials keep some version of the experiment but materially alter operations, capacity, lines, hours, or scope in response to crowding or budget concerns.",
+        "endpoint_key": "modify_experiment_with_capacity_or_scope_changes",
+        "evidence_refs": [
+          "scenario_text",
+          "two_line_crowding_reports"
+        ],
+        "label": "Modify experiment",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the city materially modify service or scope to address crowding on the two affected lines?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.29,
+        "rationale": "Localized harms often generate corrective design changes rather than all-or-nothing policy reversal.",
+        "realization_criteria": [
+          "Agency or city adopts a documented operational or geographic change tied to the fare-free weekend policy.",
+          "Change is justified publicly by crowding, service quality, or cost-management concerns."
+        ],
+        "status": "active",
+        "status_basis": "Crowding on two lines is explicit and creates a direct mechanism for targeted adjustment without requiring full reversal."
+      },
+      {
+        "authority_refs": [
+          "city_executive_office",
+          "metro_transit_agency",
+          "city_council_transport_bloc"
+        ],
+        "blockers": [
+          "ridership gains",
+          "merchant support",
+          "equity-oriented advocacy"
+        ],
+        "contradiction_notes": "A short pause pending redesign should not count unless officials clearly restore normal fares as the terminal choice.",
+        "description": "The fare-free weekend experiment ends and standard fare collection resumes without an extension of free weekends.",
+        "endpoint_key": "restore_standard_fares",
+        "evidence_refs": [
+          "scenario_text",
+          "fare_revenue_drop_recorded"
+        ],
+        "label": "Restore standard fares",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will officials terminate the experiment and restore standard fares rather than extend or replace it?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.22,
+        "rationale": "Budget pressure and uneven service impacts can produce a conservative reversion to the pre-pilot baseline.",
+        "realization_criteria": [
+          "Official announcement states the experiment is concluded and future weekends will use normal fares.",
+          "Fare collection resumes on the relevant services in the next comparable weekend period."
+        ],
+        "status": "active",
+        "status_basis": "Revenue loss is explicit and creates a plausible rollback path, but the scenario does not indicate termination has occurred."
+      },
+      {
+        "authority_refs": [
+          "city_executive_office",
+          "city_council_transport_bloc",
+          "metro_transit_agency"
+        ],
+        "blockers": [
+          "administrative complexity",
+          "lack of consensus on targeting",
+          "insufficient data on eligible beneficiaries"
+        ],
+        "contradiction_notes": "If targeted discounts are introduced only as a temporary add-on while free weekends continue unchanged, continuation remains the primary endpoint.",
+        "description": "Universal fare-free weekends are not continued; instead, leaders adopt a narrower discount, pass, or subsidy mechanism.",
+        "endpoint_key": "replace_with_targeted_affordability_program",
+        "evidence_refs": [
+          "scenario_text"
+        ],
+        "label": "Replace with targeted affordability program",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will leaders replace universal fare-free weekends with a narrower discount or subsidy policy?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.15,
+        "rationale": "Substitution is a credible middle path when leaders value access gains but resist recurring revenue loss.",
+        "realization_criteria": [
+          "Formal policy announcement ends or declines universal free weekends and names a targeted affordability alternative.",
+          "Alternative pricing or subsidy program is scheduled for implementation or funding."
+        ],
+        "status": "active",
+        "status_basis": "The scenario invites multiple terminal outcomes and mixed evidence supports compromise solutions, though no substitute program is yet described."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "scenario_text fare-free weekend experiment affects riders",
+        "layer": "exposure",
+        "reason": "Riders are directly exposed to agency service changes and announcements.",
+        "source_actor_name": "metro_transit_agency",
+        "target_actor_name": "weekday_commuters",
+        "weight": 0.61
+      },
+      {
+        "direction": "outbound",
+        "evidence": "scenario_text fare-free weekend experiment",
+        "layer": "exposure",
+        "reason": "Experiment is especially salient to discretionary weekend riders.",
+        "source_actor_name": "metro_transit_agency",
+        "target_actor_name": "weekend_leisure_riders",
+        "weight": 0.63
+      },
+      {
+        "direction": "outbound",
+        "evidence": "scenario_text bus crowding worsens on two lines",
+        "layer": "exposure",
+        "reason": "Affected lines make agency actions highly visible to impacted riders.",
+        "source_actor_name": "metro_transit_agency",
+        "target_actor_name": "crowded_line_riders",
+        "weight": 0.65
+      },
+      {
+        "direction": "outbound",
+        "evidence": "expected focus includes evidence citations and uncertainty",
+        "layer": "exposure",
+        "reason": "Media likely carries mixed evidence to broader public.",
+        "source_actor_name": "local_media",
+        "target_actor_name": "city_residents_general",
+        "weight": 0.57
+      },
+      {
+        "direction": "outbound",
+        "evidence": "scenario_text merchants report more foot traffic",
+        "layer": "exposure",
+        "reason": "Merchant reports can reach policymakers through advocacy.",
+        "source_actor_name": "downtown_merchants_association",
+        "target_actor_name": "city_executive_office",
+        "weight": 0.34
+      },
+      {
+        "direction": "outbound",
+        "evidence": "scenario_text bus crowding worsens on two lines",
+        "layer": "exposure",
+        "reason": "Operators directly report crowding and workload conditions.",
+        "source_actor_name": "transit_operators_union",
+        "target_actor_name": "metro_transit_agency",
+        "weight": 0.48
+      },
+      {
+        "direction": "inbound",
+        "evidence": "mixed evidence with crowding downside",
+        "layer": "trust",
+        "reason": "Moderate trust contingent on service reliability.",
+        "source_actor_name": "weekday_commuters",
+        "target_actor_name": "metro_transit_agency",
+        "weight": 0.49
+      },
+      {
+        "direction": "inbound",
+        "evidence": "scenario_text bus crowding worsens on two lines",
+        "layer": "trust",
+        "reason": "Crowding on specific lines lowers confidence in current implementation.",
+        "source_actor_name": "crowded_line_riders",
+        "target_actor_name": "metro_transit_agency",
+        "weight": 0.34
+      },
+      {
+        "direction": "inbound",
+        "evidence": "scenario_text merchants report more foot traffic",
+        "layer": "trust",
+        "reason": "Merchants expect city leaders to consider economic activity impacts.",
+        "source_actor_name": "downtown_merchants_association",
+        "target_actor_name": "city_executive_office",
+        "weight": 0.45
+      },
+      {
+        "direction": "inbound",
+        "evidence": "mixed evidence context",
+        "layer": "trust",
+        "reason": "Public relies on media for interpretation but may suspect selective framing.",
+        "source_actor_name": "city_residents_general",
+        "target_actor_name": "local_media",
+        "weight": 0.43
+      },
+      {
+        "direction": "outbound",
+        "evidence": "experiment implies policy authorization and budget effects",
+        "layer": "dependency",
+        "reason": "Agency needs executive budget and policy backing for continuation or expansion.",
+        "source_actor_name": "metro_transit_agency",
+        "target_actor_name": "city_executive_office",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "terminal outcomes include policy alternatives under public governance",
+        "layer": "dependency",
+        "reason": "Executive policy durability depends on council budget or oversight accommodation.",
+        "source_actor_name": "city_executive_office",
+        "target_actor_name": "city_council_transport_bloc",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "transit scenario baseline",
+        "layer": "dependency",
+        "reason": "Riders rely on transit service quality regardless of fare policy.",
+        "source_actor_name": "weekday_commuters",
+        "target_actor_name": "metro_transit_agency",
+        "weight": 0.54
+      },
+      {
+        "direction": "outbound",
+        "evidence": "scenario_text crowding worsens on two lines",
+        "layer": "dependency",
+        "reason": "Affected riders materially depend on the two crowded lines.",
+        "source_actor_name": "crowded_line_riders",
+        "target_actor_name": "metro_transit_agency",
+        "weight": 0.62
+      },
+      {
+        "direction": "outbound",
+        "evidence": "scenario_text merchants report more foot traffic",
+        "layer": "dependency",
+        "reason": "Some merchants benefit from transit-enabled foot traffic but are not wholly reliant.",
+        "source_actor_name": "downtown_merchants_association",
+        "target_actor_name": "metro_transit_agency",
+        "weight": 0.29
+      },
+      {
+        "direction": "outbound",
+        "evidence": "public-sector fare policy context",
+        "layer": "influence",
+        "reason": "Executive office can shape pilot scope and continuation decisions.",
+        "source_actor_name": "city_executive_office",
+        "target_actor_name": "metro_transit_agency",
+        "weight": 0.64
+      },
+      {
+        "direction": "outbound",
+        "evidence": "policy oversight context",
+        "layer": "influence",
+        "reason": "Council oversight and fiscal signaling can constrain executive choices.",
+        "source_actor_name": "city_council_transport_bloc",
+        "target_actor_name": "city_executive_office",
+        "weight": 0.52
+      },
+      {
+        "direction": "outbound",
+        "evidence": "expected focus on evidence versus interpretation",
+        "layer": "influence",
+        "reason": "Media framing affects public interpretation of mixed evidence.",
+        "source_actor_name": "local_media",
+        "target_actor_name": "city_residents_general",
+        "weight": 0.55
+      },
+      {
+        "direction": "outbound",
+        "evidence": "scenario_text merchants report more foot traffic",
+        "layer": "influence",
+        "reason": "Business voices can influence council narratives on local commerce.",
+        "source_actor_name": "downtown_merchants_association",
+        "target_actor_name": "city_council_transport_bloc",
+        "weight": 0.37
+      },
+      {
+        "direction": "outbound",
+        "evidence": "crowding deterioration implies operator input relevance",
+        "layer": "influence",
+        "reason": "Operational staff can influence implementation adjustments through frontline reports.",
+        "source_actor_name": "transit_operators_union",
+        "target_actor_name": "metro_transit_agency",
+        "weight": 0.44
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "ridership rises and merchants report more foot traffic",
+        "layer": "coalition",
+        "reason": "Both may favor continuation due to accessibility and foot traffic gains.",
+        "source_actor_name": "weekend_leisure_riders",
+        "target_actor_name": "downtown_merchants_association",
+        "weight": 0.41
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "experiment underway with mixed evidence",
+        "layer": "coalition",
+        "reason": "Both share interest in demonstrating a manageable pilot outcome.",
+        "source_actor_name": "city_executive_office",
+        "target_actor_name": "metro_transit_agency",
+        "weight": 0.47
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "bus crowding worsens on two lines",
+        "layer": "coalition",
+        "reason": "Both are aligned on the need to address crowding strain.",
+        "source_actor_name": "crowded_line_riders",
+        "target_actor_name": "transit_operators_union",
+        "weight": 0.39
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "fare revenue drops",
+        "layer": "coalition",
+        "reason": "Council can align with general fiscal concerns if losses become salient.",
+        "source_actor_name": "city_council_transport_bloc",
+        "target_actor_name": "city_residents_general",
+        "weight": 0.28
+      },
+      {
+        "direction": "outbound",
+        "evidence": "bus crowding worsens on two lines",
+        "layer": "conflict",
+        "reason": "Current service conditions create grievance against implementation quality.",
+        "source_actor_name": "crowded_line_riders",
+        "target_actor_name": "metro_transit_agency",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "fare-free experiment with crowding pressure",
+        "layer": "conflict",
+        "reason": "Potential tension if political goals outpace operational capacity.",
+        "source_actor_name": "transit_operators_union",
+        "target_actor_name": "city_executive_office",
+        "weight": 0.31
+      },
+      {
+        "direction": "outbound",
+        "evidence": "none",
+        "layer": "conflict",
+        "reason": "invalid_actor_placeholder_removed",
+        "source_actor_name": "fiscally_moderate_residents",
+        "target_actor_name": "city_executive_office",
+        "weight": 0.0
+      },
+      {
+        "direction": "outbound",
+        "evidence": "fare revenue drops with mixed evidence",
+        "layer": "conflict",
+        "reason": "Diffuse concern may emerge around revenue loss and service tradeoffs.",
+        "source_actor_name": "city_residents_general",
+        "target_actor_name": "metro_transit_agency",
+        "weight": 0.24
+      },
+      {
+        "direction": "outbound",
+        "evidence": "multiple terminal outcomes plausible",
+        "layer": "conflict",
+        "reason": "Policy disagreement remains possible but not yet acute.",
+        "source_actor_name": "city_council_transport_bloc",
+        "target_actor_name": "city_executive_office",
+        "weight": 0.26
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "ridership rises under experiment",
+        "layer": "oasis_interaction",
+        "reason": "Positive rider anecdotes may circulate in public channels.",
+        "source_actor_name": "weekend_leisure_riders",
+        "target_actor_name": "local_media",
+        "weight": 0.33
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "bus crowding worsens on two lines",
+        "layer": "oasis_interaction",
+        "reason": "Visible crowding complaints are likely to gain public attention.",
+        "source_actor_name": "crowded_line_riders",
+        "target_actor_name": "local_media",
+        "weight": 0.49
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "merchants report more foot traffic",
+        "layer": "oasis_interaction",
+        "reason": "Merchant foot-traffic stories are easy public-interest content.",
+        "source_actor_name": "downtown_merchants_association",
+        "target_actor_name": "local_media",
+        "weight": 0.44
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "expected focus on evidence and uncertainty",
+        "layer": "oasis_interaction",
+        "reason": "Officials may publicly frame the pilot as mixed but informative.",
+        "source_actor_name": "city_executive_office",
+        "target_actor_name": "local_media",
+        "weight": 0.38
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype_key": "agency_manager",
+        "label": "Transit agency leadership"
+      },
+      {
+        "archetype_key": "executive_decider",
+        "label": "City executive decision-maker"
+      },
+      {
+        "archetype_key": "council_oversight_lead",
+        "label": "Council transport oversight lead"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "metro_transit_agency",
+        "archetype_key": "agency_manager",
+        "attention_level": 0.83,
+        "decision_scope": [
+          "service adjustments",
+          "pilot data release",
+          "recommendation to city leadership"
+        ],
+        "expression_level": 0.44,
+        "fatigue": 0.38,
+        "fear_of_isolation": 0.21,
+        "formal_power": 0.72,
+        "hero_key": "transit_agency_general_manager",
+        "informal_power": 0.58,
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.5,
+        "role": "operational lead",
+        "stance_axes": {
+          "fare_free_support": 0.51,
+          "fiscal_caution": 0.67,
+          "service_quality_priority": 0.86
+        }
+      },
+      {
+        "actor_name": "city_executive_office",
+        "archetype_key": "executive_decider",
+        "attention_level": 0.66,
+        "decision_scope": [
+          "pilot continuation",
+          "budget proposal",
+          "public framing"
+        ],
+        "expression_level": 0.36,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.27,
+        "formal_power": 0.84,
+        "hero_key": "mayor_or_city_manager",
+        "informal_power": 0.69,
+        "mobilization_readiness": 0.34,
+        "perceived_majority": 0.48,
+        "role": "policy sponsor or approver",
+        "stance_axes": {
+          "fare_free_support": 0.49,
+          "fiscal_caution": 0.7,
+          "service_quality_priority": 0.63
+        }
+      },
+      {
+        "actor_name": "city_council_transport_bloc",
+        "archetype_key": "council_oversight_lead",
+        "attention_level": 0.61,
+        "decision_scope": [
+          "hearings",
+          "report requests",
+          "budget amendments"
+        ],
+        "expression_level": 0.41,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.24,
+        "formal_power": 0.74,
+        "hero_key": "council_transport_chair",
+        "informal_power": 0.57,
+        "mobilization_readiness": 0.31,
+        "perceived_majority": 0.5,
+        "role": "oversight and agenda gatekeeper",
+        "stance_axes": {
+          "fare_free_support": 0.47,
+          "fiscal_caution": 0.73,
+          "service_quality_priority": 0.68
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "archetype_key": "agency_manager",
+        "label": "Transit agency leadership"
+      },
+      {
+        "archetype_key": "executive_decider",
+        "label": "City executive decision-maker"
+      },
+      {
+        "archetype_key": "council_oversight_lead",
+        "label": "Council transport oversight lead"
+      }
+    ],
+    "important_questions": [
+      "Will city decision-makers continue fare-free weekends beyond the initial experiment window?",
+      "Will the city materially modify service or scope to address crowding on the two affected lines?",
+      "Will officials terminate the experiment and restore standard fares rather than extend or replace it?",
+      "Will leaders replace universal fare-free weekends with a narrower discount or subsidy policy?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "metro_transit_agency",
+          "city_executive_office"
+        ],
+        "event_key": "pilot_weekend_completed",
+        "event_type": "announcement",
+        "evidence": "scenario_text",
+        "expected_impact": "Raises attention among transit stakeholders and creates competing narratives around success metrics.",
+        "status": "realized",
+        "summary": "At least one fare-free weekend experiment has produced initial mixed evidence.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "metro_transit_agency",
+          "weekend_leisure_riders",
+          "weekday_commuters"
+        ],
+        "event_key": "ridership_increase_observed",
+        "event_type": "announcement",
+        "evidence": "scenario_text",
+        "expected_impact": "Strengthens access and popularity arguments while complicating capacity management.",
+        "status": "realized",
+        "summary": "Ridership rises during the experiment.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "metro_transit_agency",
+          "city_executive_office",
+          "city_council_transport_bloc"
+        ],
+        "event_key": "fare_revenue_drop_recorded",
+        "event_type": "announcement",
+        "evidence": "scenario_text",
+        "expected_impact": "Activates fiscal scrutiny and pressures decision-makers to compare benefits against budget loss.",
+        "status": "realized",
+        "summary": "Fare revenue drops during the experiment window.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "crowded_line_riders",
+          "transit_operators_union",
+          "metro_transit_agency"
+        ],
+        "event_key": "two_line_crowding_reports",
+        "event_type": "announcement",
+        "evidence": "scenario_text",
+        "expected_impact": "Creates localized opposition and raises the likelihood of targeted operational remedies.",
+        "status": "realized",
+        "summary": "Bus crowding worsens on two lines.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "downtown_merchants_association",
+          "city_executive_office",
+          "local_media"
+        ],
+        "event_key": "merchant_foot_traffic_reports",
+        "event_type": "announcement",
+        "evidence": "scenario_text",
+        "expected_impact": "Provides a pro-continuation economic narrative that may offset some fiscal critique.",
+        "status": "realized",
+        "summary": "Merchants report more foot traffic during the experiment.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "metro_transit_agency",
+          "city_executive_office",
+          "local_media"
+        ],
+        "event_key": "agency_evaluation_release_pending",
+        "event_type": "announcement",
+        "evidence": "inferred from experiment evaluation need",
+        "expected_impact": "Could sharpen metric disputes by formalizing what counts as success or failure.",
+        "status": "scheduled",
+        "summary": "Transit agency is likely to summarize the pilot evidence.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "city_executive_office",
+          "city_council_transport_bloc",
+          "metro_transit_agency"
+        ],
+        "event_key": "oversight_discussion_window",
+        "event_type": "announcement",
+        "evidence": "implied by terminal outcomes plausible",
+        "expected_impact": "Converts observational debate into decision pressure without yet forcing a terminal outcome.",
+        "status": "scheduled",
+        "summary": "City leadership or council is likely to discuss whether to continue, adjust, or end the experiment.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "515c47dc-529d-4aef-a923-53c7cc9cc153",
+    "merge_hypotheses": [
+      {
+        "affected_paths": [
+          "continue_as_pilot_extension",
+          "targeted_modification"
+        ],
+        "converging_factor": "Shared interest in preserving benefits while reducing crowding.",
+        "merge_key": "capacity_fix_reduces_opposition",
+        "merge_signal": "Both supporters and critics accept operational fixes as sufficient for a limited continuation."
+      },
+      {
+        "affected_paths": [
+          "targeted_modification",
+          "substitution_with_discount_program"
+        ],
+        "converging_factor": "Budget constraints push multiple camps toward a less costly middle option.",
+        "merge_key": "fiscal_ceiling_forces_narrowing",
+        "merge_signal": "Official proposals converge on smaller-scope affordability measures rather than universal free weekends."
+      },
+      {
+        "affected_paths": [
+          "continue_as_pilot_extension",
+          "narrative_polarization_without_resolution"
+        ],
+        "converging_factor": "If public attention falls, institutions may settle on a temporary compromise.",
+        "merge_key": "attention_decay_softens_conflict",
+        "merge_signal": "Low-intensity extension occurs with limited public reaction and no strong mobilization."
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "urban_riders",
+        "label": "Urban riders",
+        "population_total": 120000
+      },
+      {
+        "archetype_key": "city_residents",
+        "label": "General city residents",
+        "population_total": 500000
+      },
+      {
+        "archetype_key": "small_business_owners",
+        "label": "Small business owners in affected corridors",
+        "population_total": 4000
+      },
+      {
+        "archetype_key": "transit_workforce",
+        "label": "Transit frontline workforce",
+        "population_total": 1800
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "evidence_magnitude_unknown",
+        "note": "The corpus reports directional effects but not magnitude, duration, or statistical confidence.",
+        "severity": "medium"
+      },
+      {
+        "flag": "governance_structure_underdefined",
+        "note": "Specific decision rules, budget authority, and agency autonomy are not provided.",
+        "severity": "medium"
+      },
+      {
+        "flag": "economic_effect_anecdotal",
+        "note": "Merchant foot-traffic claims may not equal verified sales or broad area-wide benefit.",
+        "severity": "low"
+      },
+      {
+        "flag": "localized_harm_may_drive_narrative",
+        "note": "Crowding on two lines could dominate public interpretation despite citywide mixed effects.",
+        "severity": "medium"
+      },
+      {
+        "flag": "graph_edge_actor_mismatch_risk_managed",
+        "note": "Only named actors should be used in later updates; cohort labels are not graph actors.",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "evidence_refs": [
+        "scenario_text"
+      ],
+      "mode": "direct",
+      "scenario_name": "case_report_002",
+      "summary": "A fictionalized city transit fare-free weekend experiment begins with mixed early evidence: ridership up, fare revenue down, crowding worse on two bus lines, and nearby merchants reporting higher foot traffic. Decision-makers have not yet chosen a terminal policy path. T0 should preserve uncertainty between continuation, modification, rollback, or substitution.",
+      "timeframe": "t0_initialization",
+      "uncertainty_notes": [
+        "Evidence is explicitly mixed rather than conclusive.",
+        "No city size, agency name, or governance structure is provided.",
+        "Magnitude of ridership, revenue, crowding, and merchant effects is unspecified.",
+        "Terminal outcome remains open and should not be inferred from process signals alone."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "level": 0.58,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Actors are likely to update views only when evidence fits prior values on affordability, reliability, or fiscal caution.",
+        "scope": "citywide"
+      },
+      {
+        "level": 0.46,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Most groups remain observational at T0; stronger mobilization likely requires repeated crowding incidents or stronger economic proof.",
+        "scope": "affected_riders_and_merchants"
+      },
+      {
+        "level": 0.52,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Low-attention residents have opinions but limited expression until elite conflict or budget salience rises.",
+        "scope": "general_residents"
+      },
+      {
+        "level": 0.49,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Riders and merchants preferentially share within issue-relevant communities.",
+        "scope": "rider_and_business_networks"
+      },
+      {
+        "level": 0.44,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Broader support for permanence likely requires multiple reinforcing signals, not one anecdote.",
+        "scope": "policy_support"
+      },
+      {
+        "level": 0.41,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Role-based identities shape interpretation of the same pilot evidence.",
+        "scope": "commuters_operators_merchants"
+      },
+      {
+        "level": 0.36,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Absent controversy or formal decisions, broad public attention may fade after initial novelty.",
+        "scope": "citywide"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "The same pilot produces visible benefits and costs, encouraging contested interpretation rather than consensus.",
+        "influence_key": "mixed_evidence_frame"
+      },
+      {
+        "description": "Crowding is concentrated on two lines, making negative experience intense but not universal.",
+        "influence_key": "localized_service_pain"
+      },
+      {
+        "description": "Merchant foot-traffic reports provide a pro-continuation narrative even if sales evidence remains incomplete.",
+        "influence_key": "anecdotal_economic_gain"
+      },
+      {
+        "description": "Revenue loss can activate broader resident concern if linked to taxes or service tradeoffs.",
+        "influence_key": "budget_salience_potential"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "metro_transit_agency",
+        "behavior_axes": {
+          "adaptability": 0.62,
+          "responsiveness": 0.67,
+          "risk_tolerance": 0.38,
+          "transparency": 0.56
+        },
+        "ideology_axes": {
+          "austerity_orientation": 0.49,
+          "equity_orientation": 0.58,
+          "market_orientation": 0.31,
+          "public_service_orientation": 0.79
+        },
+        "reputation": 0.57,
+        "secrecy": 0.34,
+        "tendency": "operationally pragmatic",
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "city_executive_office",
+        "behavior_axes": {
+          "adaptability": 0.55,
+          "responsiveness": 0.52,
+          "risk_tolerance": 0.43,
+          "transparency": 0.47
+        },
+        "ideology_axes": {
+          "austerity_orientation": 0.61,
+          "equity_orientation": 0.51,
+          "market_orientation": 0.44,
+          "public_service_orientation": 0.64
+        },
+        "reputation": 0.53,
+        "secrecy": 0.41,
+        "tendency": "politically cautious",
+        "trustworthiness": 0.54
+      },
+      {
+        "actor_name": "city_council_transport_bloc",
+        "behavior_axes": {
+          "adaptability": 0.46,
+          "responsiveness": 0.58,
+          "risk_tolerance": 0.36,
+          "transparency": 0.59
+        },
+        "ideology_axes": {
+          "austerity_orientation": 0.65,
+          "equity_orientation": 0.5,
+          "market_orientation": 0.39,
+          "public_service_orientation": 0.66
+        },
+        "reputation": 0.55,
+        "secrecy": 0.27,
+        "tendency": "oversight-oriented",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "weekday_commuters",
+        "behavior_axes": {
+          "adaptability": 0.41,
+          "responsiveness": 0.49,
+          "risk_tolerance": 0.3,
+          "transparency": 0.62
+        },
+        "ideology_axes": {
+          "austerity_orientation": 0.51,
+          "equity_orientation": 0.45,
+          "market_orientation": 0.34,
+          "public_service_orientation": 0.63
+        },
+        "reputation": 0.55,
+        "secrecy": 0.2,
+        "tendency": "conditional evaluators",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "weekend_leisure_riders",
+        "behavior_axes": {
+          "adaptability": 0.66,
+          "responsiveness": 0.57,
+          "risk_tolerance": 0.55,
+          "transparency": 0.58
+        },
+        "ideology_axes": {
+          "austerity_orientation": 0.24,
+          "equity_orientation": 0.62,
+          "market_orientation": 0.27,
+          "public_service_orientation": 0.69
+        },
+        "reputation": 0.51,
+        "secrecy": 0.14,
+        "tendency": "benefit-seeking adopters",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "crowded_line_riders",
+        "behavior_axes": {
+          "adaptability": 0.35,
+          "responsiveness": 0.69,
+          "risk_tolerance": 0.28,
+          "transparency": 0.66
+        },
+        "ideology_axes": {
+          "austerity_orientation": 0.39,
+          "equity_orientation": 0.46,
+          "market_orientation": 0.22,
+          "public_service_orientation": 0.72
+        },
+        "reputation": 0.52,
+        "secrecy": 0.11,
+        "tendency": "complaint-amplifying service critics",
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "transit_operators_union",
+        "behavior_axes": {
+          "adaptability": 0.48,
+          "responsiveness": 0.61,
+          "risk_tolerance": 0.34,
+          "transparency": 0.54
+        },
+        "ideology_axes": {
+          "austerity_orientation": 0.36,
+          "equity_orientation": 0.49,
+          "market_orientation": 0.18,
+          "public_service_orientation": 0.74
+        },
+        "reputation": 0.59,
+        "secrecy": 0.24,
+        "tendency": "workload-sensitive negotiator",
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "downtown_merchants_association",
+        "behavior_axes": {
+          "adaptability": 0.6,
+          "responsiveness": 0.55,
+          "risk_tolerance": 0.51,
+          "transparency": 0.49
+        },
+        "ideology_axes": {
+          "austerity_orientation": 0.43,
+          "equity_orientation": 0.35,
+          "market_orientation": 0.71,
+          "public_service_orientation": 0.46
+        },
+        "reputation": 0.54,
+        "secrecy": 0.22,
+        "tendency": "economic-opportunity advocate",
+        "trustworthiness": 0.53
+      },
+      {
+        "actor_name": "local_media",
+        "behavior_axes": {
+          "adaptability": 0.67,
+          "responsiveness": 0.72,
+          "risk_tolerance": 0.58,
+          "transparency": 0.63
+        },
+        "ideology_axes": {
+          "austerity_orientation": 0.42,
+          "equity_orientation": 0.41,
+          "market_orientation": 0.59,
+          "public_service_orientation": 0.55
+        },
+        "reputation": 0.56,
+        "secrecy": 0.18,
+        "tendency": "narrative-framing amplifier",
+        "trustworthiness": 0.52
+      },
+      {
+        "actor_name": "city_residents_general",
+        "behavior_axes": {
+          "adaptability": 0.4,
+          "responsiveness": 0.37,
+          "risk_tolerance": 0.32,
+          "transparency": 0.46
+        },
+        "ideology_axes": {
+          "austerity_orientation": 0.57,
+          "equity_orientation": 0.47,
+          "market_orientation": 0.43,
+          "public_service_orientation": 0.58
+        },
+        "reputation": 0.5,
+        "secrecy": 0.26,
+        "tendency": "low-attention latent electorate",
+        "trustworthiness": 0.58
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 458,
+        "end": 458,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 458,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

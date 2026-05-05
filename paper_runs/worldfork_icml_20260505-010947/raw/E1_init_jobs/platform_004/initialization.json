@@ -1,0 +1,1653 @@
+{
+  "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+  "initializer_output": {
+    "actors": [
+      {
+        "constraints": [
+          "cannot unilaterally reveal vendor trade secrets without negotiation",
+          "depends on district staff and vendor reporting"
+        ],
+        "name": "school_board",
+        "public_visibility": "high",
+        "role": "formal decision authority on pilot renewal or cancellation",
+        "scale": "district",
+        "stakes": [
+          "governance legitimacy",
+          "student welfare",
+          "legal risk",
+          "budget oversight",
+          "pilot decision authority"
+        ],
+        "type": "institution"
+      },
+      {
+        "constraints": [
+          "must balance board direction, staff needs, and parent pressure"
+        ],
+        "name": "district_administration",
+        "public_visibility": "medium",
+        "role": "pilot sponsor and operational manager",
+        "scale": "district",
+        "stakes": [
+          "program performance",
+          "vendor management",
+          "public trust",
+          "operational continuity"
+        ],
+        "type": "institution"
+      },
+      {
+        "constraints": [
+          "limited data science visibility",
+          "dependent on district tools and policy"
+        ],
+        "name": "school_counselors",
+        "public_visibility": "medium",
+        "role": "frontline intended users of risk score outputs",
+        "scale": "district",
+        "stakes": [
+          "early warning for at-risk students",
+          "manageable workload",
+          "student trust",
+          "intervention effectiveness"
+        ],
+        "type": "professional_group"
+      },
+      {
+        "constraints": [
+          "imperfect technical information",
+          "collective action coordination costs"
+        ],
+        "name": "parents_group",
+        "public_visibility": "medium",
+        "role": "family stakeholders reacting to surveillance and fairness concerns",
+        "scale": "district",
+        "stakes": [
+          "child privacy",
+          "fair treatment",
+          "school accountability",
+          "ability to opt out"
+        ],
+        "type": "public_group"
+      },
+      {
+        "constraints": [
+          "limited formal authority",
+          "dependency on school systems"
+        ],
+        "name": "students_group",
+        "public_visibility": "medium",
+        "role": "subjects of the scoring system",
+        "scale": "district",
+        "stakes": [
+          "privacy",
+          "disciplinary consequences",
+          "reputation effects",
+          "ability to evade or game system"
+        ],
+        "type": "public_group"
+      },
+      {
+        "constraints": [
+          "must defend system credibility while preserving proprietary methods"
+        ],
+        "name": "vendor_company",
+        "public_visibility": "medium",
+        "role": "provider of attendance-risk scoring system",
+        "scale": "external",
+        "stakes": [
+          "pilot renewal",
+          "reputation",
+          "intellectual property control",
+          "future district sales"
+        ],
+        "type": "private_company"
+      },
+      {
+        "constraints": [
+          "not primary decision makers",
+          "dependent on district policy and tool usability"
+        ],
+        "name": "teachers_staff",
+        "public_visibility": "low",
+        "role": "adjacent school staff affected by implementation",
+        "scale": "district",
+        "stakes": [
+          "attendance improvement",
+          "administrative burden",
+          "student relationships"
+        ],
+        "type": "professional_group"
+      },
+      {
+        "constraints": [
+          "dependent on leaks, board meetings, and stakeholder statements"
+        ],
+        "name": "local_media_public",
+        "public_visibility": "high",
+        "role": "amplifier of public interpretation",
+        "scale": "local",
+        "stakes": [
+          "accountability narrative",
+          "public controversy",
+          "school transparency"
+        ],
+        "type": "public_audience"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Conditional support grows among moderates, reducing immediate cancellation pressure while preserving debate over adequacy.",
+        "branch_key": "partial_transparency_branch",
+        "divergence_signal": "Public statements shift from binary secrecy complaints to arguments over whether disclosed material is sufficient.",
+        "trigger": "Vendor or district offers limited methodological or audit disclosure before board decision."
+      },
+      {
+        "alternate_path": "Pilot is terminated or allowed to lapse, with district seeking non-algorithmic attendance interventions.",
+        "branch_key": "cancellation_branch",
+        "divergence_signal": "Board agenda language moves toward risk, liability, and inability to verify fairness rather than pilot refinement.",
+        "trigger": "Board concludes proprietary opacity and surveillance concerns outweigh demonstrated benefit."
+      },
+      {
+        "alternate_path": "Pilot continues with family opt-out or narrowed participation rules.",
+        "branch_key": "opt_out_branch",
+        "divergence_signal": "Public debate centers on consent mechanics, exemptions, and uneven participation rather than full-system legitimacy.",
+        "trigger": "Parent pressure coalesces around procedural compromise rather than full termination."
+      },
+      {
+        "alternate_path": "Pilot becomes routinized and expands in practice despite unresolved transparency questions.",
+        "branch_key": "normalized_use_branch",
+        "divergence_signal": "Operational discussion overtakes ethical controversy; staff planning focuses on workflow integration and scaling.",
+        "trigger": "Counselor testimonials and lack of visible scandal stabilize elite support for continuation."
+      },
+      {
+        "alternate_path": "Supporters lose confidence in system efficacy, pushing review toward redesign, pause, or cancellation.",
+        "branch_key": "gaming_backlash_branch",
+        "divergence_signal": "Conversation shifts from privacy and bias to validity, false signals, and strategic student adaptation.",
+        "trigger": "Evidence or rumor of students successfully manipulating score inputs spreads."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "board_meetings",
+        "participants": [
+          "school_board",
+          "district_administration",
+          "parents_group",
+          "local_media_public"
+        ],
+        "type": "formal_public",
+        "visibility": "high"
+      },
+      {
+        "channel_key": "district_announcements",
+        "participants": [
+          "district_administration",
+          "parents_group",
+          "students_group",
+          "teachers_staff"
+        ],
+        "type": "official_broadcast",
+        "visibility": "high"
+      },
+      {
+        "channel_key": "counselor_staff_meetings",
+        "participants": [
+          "school_counselors",
+          "teachers_staff",
+          "district_administration"
+        ],
+        "type": "internal_professional",
+        "visibility": "medium"
+      },
+      {
+        "channel_key": "student_peer_networks",
+        "participants": [
+          "students_group"
+        ],
+        "type": "informal_peer",
+        "visibility": "medium"
+      },
+      {
+        "channel_key": "parent_networks",
+        "participants": [
+          "parents_group"
+        ],
+        "type": "informal_community",
+        "visibility": "medium"
+      },
+      {
+        "channel_key": "vendor_district_negotiation",
+        "participants": [
+          "vendor_company",
+          "district_administration",
+          "school_board"
+        ],
+        "type": "restricted_institutional",
+        "visibility": "low"
+      },
+      {
+        "channel_key": "local_media_coverage",
+        "participants": [
+          "local_media_public",
+          "parents_group",
+          "school_board",
+          "district_administration"
+        ],
+        "type": "public_media",
+        "visibility": "high"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "parents_group",
+        "archetype_key": "district_parents",
+        "attention_level": 0.7,
+        "cohort_key": "privacy_concerned_parents",
+        "expression_level": 0.52,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.34,
+        "mobilization_readiness": 0.58,
+        "perceived_majority": 0.48,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "System may over-monitor students and obscure unfairness behind proprietary claims.",
+        "public_expression": "Concerned but not uniformly organized; likely to raise questions in meetings and parent channels.",
+        "representation_mode": "attitudinal_cohort",
+        "represented_population": 5400,
+        "stance_axes": {
+          "pilot_support": 0.25,
+          "privacy_priority": 0.85,
+          "transparency_demand": 0.88,
+          "trust_in_district_process": 0.42
+        }
+      },
+      {
+        "actor_name": "parents_group",
+        "archetype_key": "district_parents",
+        "attention_level": 0.52,
+        "cohort_key": "conditional_benefit_parents",
+        "expression_level": 0.36,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.36,
+        "perceived_majority": 0.4,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Early warning could help if safeguards and explanations exist.",
+        "public_expression": "Open to pilot continuation with stronger transparency or opt-out terms.",
+        "representation_mode": "attitudinal_cohort",
+        "represented_population": 4200,
+        "stance_axes": {
+          "pilot_support": 0.56,
+          "privacy_priority": 0.62,
+          "transparency_demand": 0.71,
+          "trust_in_district_process": 0.5
+        }
+      },
+      {
+        "actor_name": "parents_group",
+        "archetype_key": "district_parents",
+        "attention_level": 0.22,
+        "cohort_key": "low_attention_parents",
+        "expression_level": 0.12,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.5,
+        "mobilization_readiness": 0.14,
+        "perceived_majority": 0.3,
+        "population_share_of_archetype": 0.2,
+        "private_belief": "Issue is not yet salient enough to drive action.",
+        "public_expression": "Mostly quiet unless controversy escalates.",
+        "representation_mode": "attitudinal_cohort",
+        "represented_population": 2400,
+        "stance_axes": {
+          "pilot_support": 0.5,
+          "privacy_priority": 0.45,
+          "transparency_demand": 0.4,
+          "trust_in_district_process": 0.54
+        }
+      },
+      {
+        "actor_name": "students_group",
+        "archetype_key": "district_students",
+        "attention_level": 0.64,
+        "cohort_key": "system_gaming_students",
+        "expression_level": 0.55,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.29,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "System can probably be manipulated or mocked; score may not be fully legitimate.",
+        "public_expression": "Jokes, rumors, and peer discussion about gaming the system.",
+        "representation_mode": "behavioral_cohort",
+        "represented_population": 3000,
+        "stance_axes": {
+          "gaming_orientation": 0.81,
+          "institutional_legitimacy": 0.3,
+          "pilot_support": 0.18,
+          "privacy_priority": 0.58
+        }
+      },
+      {
+        "actor_name": "students_group",
+        "archetype_key": "district_students",
+        "attention_level": 0.57,
+        "cohort_key": "wary_students",
+        "expression_level": 0.27,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.57,
+        "mobilization_readiness": 0.24,
+        "perceived_majority": 0.38,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Monitoring may be unfair or stigmatizing, but direct resistance feels risky.",
+        "public_expression": "Limited public criticism; concern shared in peer networks more than formal channels.",
+        "representation_mode": "attitudinal_cohort",
+        "represented_population": 4500,
+        "stance_axes": {
+          "gaming_orientation": 0.35,
+          "institutional_legitimacy": 0.4,
+          "pilot_support": 0.28,
+          "privacy_priority": 0.68
+        }
+      },
+      {
+        "actor_name": "students_group",
+        "archetype_key": "district_students",
+        "attention_level": 0.2,
+        "cohort_key": "disengaged_students",
+        "expression_level": 0.1,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.36,
+        "mobilization_readiness": 0.08,
+        "perceived_majority": 0.25,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "Issue is background noise unless it directly affects them.",
+        "public_expression": "Low engagement.",
+        "representation_mode": "attitudinal_cohort",
+        "represented_population": 2500,
+        "stance_axes": {
+          "gaming_orientation": 0.22,
+          "institutional_legitimacy": 0.43,
+          "pilot_support": 0.45,
+          "privacy_priority": 0.32
+        }
+      },
+      {
+        "actor_name": "school_counselors",
+        "archetype_key": "district_staff",
+        "attention_level": 0.78,
+        "cohort_key": "pro_intervention_counselors",
+        "expression_level": 0.48,
+        "fatigue": 0.39,
+        "fear_of_isolation": 0.28,
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.067,
+        "private_belief": "Risk scores could help identify attendance problems earlier if reasonably accurate.",
+        "public_expression": "Supportive but interested in practical safeguards and interpretability.",
+        "representation_mode": "functional_cohort",
+        "represented_population": 60,
+        "stance_axes": {
+          "operational_need": 0.79,
+          "pilot_support": 0.74,
+          "privacy_priority": 0.46,
+          "transparency_demand": 0.63
+        }
+      },
+      {
+        "actor_name": "teachers_staff",
+        "archetype_key": "district_staff",
+        "attention_level": 0.46,
+        "cohort_key": "cautious_staff",
+        "expression_level": 0.24,
+        "fatigue": 0.43,
+        "fear_of_isolation": 0.46,
+        "mobilization_readiness": 0.19,
+        "perceived_majority": 0.37,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "Potential utility exists, but hidden model logic and added workload are concerning.",
+        "public_expression": "Measured skepticism in staff discussions.",
+        "representation_mode": "functional_cohort",
+        "represented_population": 540,
+        "stance_axes": {
+          "operational_need": 0.51,
+          "pilot_support": 0.48,
+          "privacy_priority": 0.52,
+          "transparency_demand": 0.66
+        }
+      },
+      {
+        "actor_name": "district_administration",
+        "archetype_key": "district_staff",
+        "attention_level": 0.83,
+        "cohort_key": "administrative_pragmatists",
+        "expression_level": 0.58,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.33,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.1,
+        "private_belief": "Pilot should be assessed pragmatically; controversy manageable if board process holds.",
+        "public_expression": "Controlled messaging around evaluation and compliance.",
+        "representation_mode": "organizational_cohort",
+        "represented_population": 90,
+        "stance_axes": {
+          "institutional_control": 0.82,
+          "pilot_support": 0.62,
+          "privacy_priority": 0.5,
+          "transparency_demand": 0.43
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "parents_group",
+        "archetype_key": "district_parents",
+        "attention_level": 0.7,
+        "cohort_key": "privacy_concerned_parents",
+        "expression_level": 0.52,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.34,
+        "mobilization_readiness": 0.58,
+        "perceived_majority": 0.48,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "System may over-monitor students and obscure unfairness behind proprietary claims.",
+        "public_expression": "Concerned but not uniformly organized; likely to raise questions in meetings and parent channels.",
+        "representation_mode": "attitudinal_cohort",
+        "represented_population": 5400,
+        "stance_axes": {
+          "pilot_support": 0.25,
+          "privacy_priority": 0.85,
+          "transparency_demand": 0.88,
+          "trust_in_district_process": 0.42
+        }
+      },
+      {
+        "actor_name": "parents_group",
+        "archetype_key": "district_parents",
+        "attention_level": 0.52,
+        "cohort_key": "conditional_benefit_parents",
+        "expression_level": 0.36,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.36,
+        "perceived_majority": 0.4,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Early warning could help if safeguards and explanations exist.",
+        "public_expression": "Open to pilot continuation with stronger transparency or opt-out terms.",
+        "representation_mode": "attitudinal_cohort",
+        "represented_population": 4200,
+        "stance_axes": {
+          "pilot_support": 0.56,
+          "privacy_priority": 0.62,
+          "transparency_demand": 0.71,
+          "trust_in_district_process": 0.5
+        }
+      },
+      {
+        "actor_name": "parents_group",
+        "archetype_key": "district_parents",
+        "attention_level": 0.22,
+        "cohort_key": "low_attention_parents",
+        "expression_level": 0.12,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.5,
+        "mobilization_readiness": 0.14,
+        "perceived_majority": 0.3,
+        "population_share_of_archetype": 0.2,
+        "private_belief": "Issue is not yet salient enough to drive action.",
+        "public_expression": "Mostly quiet unless controversy escalates.",
+        "representation_mode": "attitudinal_cohort",
+        "represented_population": 2400,
+        "stance_axes": {
+          "pilot_support": 0.5,
+          "privacy_priority": 0.45,
+          "transparency_demand": 0.4,
+          "trust_in_district_process": 0.54
+        }
+      },
+      {
+        "actor_name": "students_group",
+        "archetype_key": "district_students",
+        "attention_level": 0.64,
+        "cohort_key": "system_gaming_students",
+        "expression_level": 0.55,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.29,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "System can probably be manipulated or mocked; score may not be fully legitimate.",
+        "public_expression": "Jokes, rumors, and peer discussion about gaming the system.",
+        "representation_mode": "behavioral_cohort",
+        "represented_population": 3000,
+        "stance_axes": {
+          "gaming_orientation": 0.81,
+          "institutional_legitimacy": 0.3,
+          "pilot_support": 0.18,
+          "privacy_priority": 0.58
+        }
+      },
+      {
+        "actor_name": "students_group",
+        "archetype_key": "district_students",
+        "attention_level": 0.57,
+        "cohort_key": "wary_students",
+        "expression_level": 0.27,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.57,
+        "mobilization_readiness": 0.24,
+        "perceived_majority": 0.38,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Monitoring may be unfair or stigmatizing, but direct resistance feels risky.",
+        "public_expression": "Limited public criticism; concern shared in peer networks more than formal channels.",
+        "representation_mode": "attitudinal_cohort",
+        "represented_population": 4500,
+        "stance_axes": {
+          "gaming_orientation": 0.35,
+          "institutional_legitimacy": 0.4,
+          "pilot_support": 0.28,
+          "privacy_priority": 0.68
+        }
+      },
+      {
+        "actor_name": "students_group",
+        "archetype_key": "district_students",
+        "attention_level": 0.2,
+        "cohort_key": "disengaged_students",
+        "expression_level": 0.1,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.36,
+        "mobilization_readiness": 0.08,
+        "perceived_majority": 0.25,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "Issue is background noise unless it directly affects them.",
+        "public_expression": "Low engagement.",
+        "representation_mode": "attitudinal_cohort",
+        "represented_population": 2500,
+        "stance_axes": {
+          "gaming_orientation": 0.22,
+          "institutional_legitimacy": 0.43,
+          "pilot_support": 0.45,
+          "privacy_priority": 0.32
+        }
+      },
+      {
+        "actor_name": "school_counselors",
+        "archetype_key": "district_staff",
+        "attention_level": 0.78,
+        "cohort_key": "pro_intervention_counselors",
+        "expression_level": 0.48,
+        "fatigue": 0.39,
+        "fear_of_isolation": 0.28,
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.067,
+        "private_belief": "Risk scores could help identify attendance problems earlier if reasonably accurate.",
+        "public_expression": "Supportive but interested in practical safeguards and interpretability.",
+        "representation_mode": "functional_cohort",
+        "represented_population": 60,
+        "stance_axes": {
+          "operational_need": 0.79,
+          "pilot_support": 0.74,
+          "privacy_priority": 0.46,
+          "transparency_demand": 0.63
+        }
+      },
+      {
+        "actor_name": "teachers_staff",
+        "archetype_key": "district_staff",
+        "attention_level": 0.46,
+        "cohort_key": "cautious_staff",
+        "expression_level": 0.24,
+        "fatigue": 0.43,
+        "fear_of_isolation": 0.46,
+        "mobilization_readiness": 0.19,
+        "perceived_majority": 0.37,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "Potential utility exists, but hidden model logic and added workload are concerning.",
+        "public_expression": "Measured skepticism in staff discussions.",
+        "representation_mode": "functional_cohort",
+        "represented_population": 540,
+        "stance_axes": {
+          "operational_need": 0.51,
+          "pilot_support": 0.48,
+          "privacy_priority": 0.52,
+          "transparency_demand": 0.66
+        }
+      },
+      {
+        "actor_name": "district_administration",
+        "archetype_key": "district_staff",
+        "attention_level": 0.83,
+        "cohort_key": "administrative_pragmatists",
+        "expression_level": 0.58,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.33,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.1,
+        "private_belief": "Pilot should be assessed pragmatically; controversy manageable if board process holds.",
+        "public_expression": "Controlled messaging around evaluation and compliance.",
+        "representation_mode": "organizational_cohort",
+        "represented_population": 90,
+        "stance_axes": {
+          "institutional_control": 0.82,
+          "pilot_support": 0.62,
+          "privacy_priority": 0.5,
+          "transparency_demand": 0.43
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "school_board"
+        ],
+        "blockers": [
+          "incomplete evaluation evidence",
+          "contractual timing ambiguity",
+          "board reluctance to act without negotiated disclosures"
+        ],
+        "contradiction_notes": "A sequence of hearings or delays is not itself endpoint realization unless paired with a binding continuation or termination decision.",
+        "description": "Terminal outcome for whether the AI attendance-risk pilot continues under board authority, ends, or is left in a clearly bounded transitional state.",
+        "endpoint_key": "pilot_renewed_or_cancelled",
+        "evidence_refs": [
+          "board_review_window",
+          "pilot_already_active"
+        ],
+        "label": "Pilot renewal versus cancellation outcome",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the school board renew the pilot, cancel it, or leave it in a limited transitional status after review?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": null,
+        "rationale": "This is the clearest terminal choice governing the scenario's main branch structure.",
+        "realization_criteria": [
+          "board records a formal vote or equivalent binding decision to renew, cancel, or sunset the pilot",
+          "district implementation status changes to continuing, terminated, or explicitly transitional"
+        ],
+        "status": "active",
+        "status_basis": "Scenario explicitly states the board can renew or cancel the pilot, implying an unresolved terminal choice at T0."
+      },
+      {
+        "authority_refs": [
+          "vendor_company",
+          "district_administration",
+          "school_board"
+        ],
+        "blockers": [
+          "trade secret claims",
+          "contractual negotiation limits",
+          "fear of reputational or legal exposure"
+        ],
+        "contradiction_notes": "General promises of responsibility do not realize this endpoint without observable disclosure or a formal refusal outcome.",
+        "description": "Terminal outcome for whether proprietary constraints remain dominant, are partially relaxed, or are offset by independent validation sufficient to alter governance conditions.",
+        "endpoint_key": "transparency_settlement_level",
+        "evidence_refs": [
+          "vendor_withholds_bias_test_details",
+          "transparency_negotiation_pressure"
+        ],
+        "label": "Transparency dispute outcome",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the district and vendor produce enough public disclosure or independent validation to materially change the transparency dispute?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": null,
+        "rationale": "Transparency level strongly conditions trust, board legitimacy, and downstream renewal chances.",
+        "realization_criteria": [
+          "public release of substantive methodology, bias summary, audit summary, or equivalent independent validation",
+          "or formal confirmation that no additional disclosure/validation will be provided under current arrangement"
+        ],
+        "status": "active",
+        "status_basis": "Transparency is explicitly contested and constrained by vendor proprietary claims at initialization."
+      },
+      {
+        "authority_refs": [
+          "school_board",
+          "district_administration"
+        ],
+        "blockers": [
+          "operational complexity",
+          "equity concerns about uneven participation",
+          "administrative resistance to fragmented implementation"
+        ],
+        "contradiction_notes": "Informal case-by-case accommodations without a stated policy may not satisfy realization unless consistently documented.",
+        "description": "Terminal outcome for whether the district establishes a meaningful opt-out, exemption, or narrowed participation framework for families.",
+        "endpoint_key": "family_consent_structure",
+        "evidence_refs": [
+          "privacy_concerns_surface"
+        ],
+        "label": "Family opt-out or consent structure",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will families receive a meaningful opt-out or participation-limiting mechanism for the attendance-risk system?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": null,
+        "rationale": "Opt-out is a distinct terminal governance arrangement that can coexist with continuation or serve as compromise.",
+        "realization_criteria": [
+          "district adopts a published opt-out, exemption, consent, or participation-limiting policy for the pilot",
+          "or district formally declines to create such a mechanism before final pilot disposition"
+        ],
+        "status": "active",
+        "status_basis": "User brief explicitly requests branching around opt-out, indicating a live endpoint possibility."
+      },
+      {
+        "authority_refs": [
+          "district_administration",
+          "school_counselors",
+          "school_board"
+        ],
+        "blockers": [
+          "gaming concerns",
+          "privacy backlash",
+          "opaque fairness claims",
+          "staff workload skepticism"
+        ],
+        "contradiction_notes": "A short-term renewal alone does not prove normalization if controversy and fragility continue.",
+        "description": "Terminal outcome for whether the attendance-risk system becomes routinized in school operations or remains unstable due to ongoing legitimacy conflict.",
+        "endpoint_key": "operational_normalization",
+        "evidence_refs": [
+          "student_gaming_discourse",
+          "privacy_concerns_surface",
+          "pilot_already_active"
+        ],
+        "label": "Normalized use versus durable contestation",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the system become normalized in district operations, or remain politically contested and fragile?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": null,
+        "rationale": "This endpoint captures longer-run institutional embedding versus persistent political fragility.",
+        "realization_criteria": [
+          "system use expands or becomes embedded in standard counseling/attendance workflow with reduced public controversy over multiple review intervals",
+          "or repeated public dispute, policy challenge, or fragile temporary extensions prevent stable institutionalization"
+        ],
+        "status": "active",
+        "status_basis": "Scenario explicitly asks for branching around normalized use, indicating uncertainty beyond the immediate board vote."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Scenario states district is piloting vendor AI attendance-risk score.",
+        "layer": "dependency",
+        "reason": "District operations for the pilot rely on vendor system access and reporting.",
+        "source_actor_name": "district_administration",
+        "target_actor_name": "vendor_company",
+        "weight": 0.58
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Counselors want early warning but are not decision authority.",
+        "layer": "dependency",
+        "reason": "Counselors depend on district approval and workflow integration to use the tool.",
+        "source_actor_name": "school_counselors",
+        "target_actor_name": "district_administration",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Students are scored within school district pilot.",
+        "layer": "dependency",
+        "reason": "Students are subject to district attendance systems and policies.",
+        "source_actor_name": "students_group",
+        "target_actor_name": "district_administration",
+        "weight": 0.52
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Board can renew/cancel but operational detail likely flows through administration.",
+        "layer": "dependency",
+        "reason": "Board depends on administration for implementation details and evaluation reports.",
+        "source_actor_name": "school_board",
+        "target_actor_name": "district_administration",
+        "weight": 0.39
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Board cannot reveal vendor trade secrets without negotiation.",
+        "layer": "dependency",
+        "reason": "Board transparency is limited by vendor trade-secret constraints.",
+        "source_actor_name": "school_board",
+        "target_actor_name": "vendor_company",
+        "weight": 0.31
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Board is decision authority affecting parent concerns.",
+        "layer": "exposure",
+        "reason": "Parents likely watch board meetings and pilot decisions.",
+        "source_actor_name": "parents_group",
+        "target_actor_name": "school_board",
+        "weight": 0.49
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Parents fear surveillance and may pressure decision makers.",
+        "layer": "exposure",
+        "reason": "Board is exposed to parent questions and public feedback.",
+        "source_actor_name": "school_board",
+        "target_actor_name": "parents_group",
+        "weight": 0.44
+      },
+      {
+        "direction": "reciprocal_peer_exposure",
+        "evidence": "Students joke about gaming the system.",
+        "layer": "exposure",
+        "reason": "Peer discussion and joking create dense student-to-student exposure.",
+        "source_actor_name": "students_group",
+        "target_actor_name": "students_group",
+        "weight": 0.63
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Local public accountability likely centers on board action.",
+        "layer": "exposure",
+        "reason": "Media and public track official meetings and controversies.",
+        "source_actor_name": "local_media_public",
+        "target_actor_name": "school_board",
+        "weight": 0.37
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Privacy fears are a salient controversy vector.",
+        "layer": "exposure",
+        "reason": "Parent concerns can enter public narrative through visible complaints.",
+        "source_actor_name": "parents_group",
+        "target_actor_name": "local_media_public",
+        "weight": 0.33
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Board has authority but secrecy constraints weaken confidence.",
+        "layer": "trust",
+        "reason": "Parents retain moderate but strained trust in board oversight.",
+        "source_actor_name": "parents_group",
+        "target_actor_name": "school_board",
+        "weight": 0.45
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Vendor says bias tests are proprietary.",
+        "layer": "trust",
+        "reason": "Proprietary bias claims undermine parent trust.",
+        "source_actor_name": "parents_group",
+        "target_actor_name": "vendor_company",
+        "weight": 0.18
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "They seek early warning within district system.",
+        "layer": "trust",
+        "reason": "Counselors likely trust district processes more than external vendor claims.",
+        "source_actor_name": "school_counselors",
+        "target_actor_name": "district_administration",
+        "weight": 0.56
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Vendor withholds bias test details.",
+        "layer": "trust",
+        "reason": "Utility is plausible but opacity limits confidence.",
+        "source_actor_name": "school_counselors",
+        "target_actor_name": "vendor_company",
+        "weight": 0.34
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Students joke about gaming the system.",
+        "layer": "trust",
+        "reason": "Students show skepticism and gaming humor rather than strong legitimacy belief.",
+        "source_actor_name": "students_group",
+        "target_actor_name": "district_administration",
+        "weight": 0.29
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Board can renew or cancel pilot.",
+        "layer": "influence",
+        "reason": "Board governs whether pilot continues.",
+        "source_actor_name": "school_board",
+        "target_actor_name": "district_administration",
+        "weight": 0.66
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Operational managers likely frame pilot outcomes.",
+        "layer": "influence",
+        "reason": "Administration shapes information available to board.",
+        "source_actor_name": "district_administration",
+        "target_actor_name": "school_board",
+        "weight": 0.48
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Bias tests are proprietary and system is vendor-provided.",
+        "layer": "influence",
+        "reason": "Vendor controls technical explanations and system access.",
+        "source_actor_name": "vendor_company",
+        "target_actor_name": "district_administration",
+        "weight": 0.51
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Parents fear surveillance; board decides continuation.",
+        "layer": "influence",
+        "reason": "Organized parent concern can affect board legitimacy and votes.",
+        "source_actor_name": "parents_group",
+        "target_actor_name": "school_board",
+        "weight": 0.43
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Counselors want early warning.",
+        "layer": "influence",
+        "reason": "Professional testimony can support pilot utility claims.",
+        "source_actor_name": "school_counselors",
+        "target_actor_name": "school_board",
+        "weight": 0.35
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Controversial school technology decisions attract public scrutiny.",
+        "layer": "influence",
+        "reason": "Public framing can raise reputational pressure on board members.",
+        "source_actor_name": "local_media_public",
+        "target_actor_name": "school_board",
+        "weight": 0.32
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Parents fear surveillance; students are wary or joke about gaming.",
+        "layer": "coalition",
+        "reason": "Shared privacy concern creates partial alignment, though not fully organized.",
+        "source_actor_name": "parents_group",
+        "target_actor_name": "students_group",
+        "weight": 0.42
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Counselors want early warning; administration manages pilot.",
+        "layer": "coalition",
+        "reason": "Both have reasons to preserve pilot utility if safeguards are manageable.",
+        "source_actor_name": "school_counselors",
+        "target_actor_name": "district_administration",
+        "weight": 0.47
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Vendor provides tool under district pilot.",
+        "layer": "coalition",
+        "reason": "They are aligned around pilot continuity, though potentially strained by controversy.",
+        "source_actor_name": "district_administration",
+        "target_actor_name": "vendor_company",
+        "weight": 0.41
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "Parents fear surveillance; vendor says bias tests are proprietary.",
+        "layer": "conflict",
+        "reason": "Parents object to surveillance risk and hidden bias testing.",
+        "source_actor_name": "parents_group",
+        "target_actor_name": "vendor_company",
+        "weight": 0.61
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "Students joke about gaming the system.",
+        "layer": "conflict",
+        "reason": "Students may view system as illegitimate and subject to evasion.",
+        "source_actor_name": "students_group",
+        "target_actor_name": "vendor_company",
+        "weight": 0.44
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "District pilots the AI score despite parent concern.",
+        "layer": "conflict",
+        "reason": "Administration is associated with deploying the surveillance-like system.",
+        "source_actor_name": "parents_group",
+        "target_actor_name": "district_administration",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "Board cannot reveal trade secrets without negotiation.",
+        "layer": "conflict",
+        "reason": "Board authority is constrained by vendor secrecy, creating latent friction.",
+        "source_actor_name": "school_board",
+        "target_actor_name": "vendor_company",
+        "weight": 0.28
+      },
+      {
+        "direction": "likely_public_interaction",
+        "evidence": "Board is decision authority under parent concern.",
+        "layer": "oasis_interaction",
+        "reason": "Board meetings and public comment are likely interaction venues.",
+        "source_actor_name": "parents_group",
+        "target_actor_name": "school_board",
+        "weight": 0.53
+      },
+      {
+        "direction": "likely_public_interaction",
+        "evidence": "Students joke about gaming the system.",
+        "layer": "oasis_interaction",
+        "reason": "Student peer channels likely carry rapid discussion and jokes about gaming.",
+        "source_actor_name": "students_group",
+        "target_actor_name": "students_group",
+        "weight": 0.68
+      },
+      {
+        "direction": "likely_public_interaction",
+        "evidence": "Contested pilot requires explanation.",
+        "layer": "oasis_interaction",
+        "reason": "District communications may address concerns through official updates or forums.",
+        "source_actor_name": "district_administration",
+        "target_actor_name": "parents_group",
+        "weight": 0.39
+      },
+      {
+        "direction": "likely_public_interaction",
+        "evidence": "Privacy controversy is publicly legible.",
+        "layer": "oasis_interaction",
+        "reason": "Media coverage can relay and amplify parent concerns.",
+        "source_actor_name": "local_media_public",
+        "target_actor_name": "parents_group",
+        "weight": 0.36
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "function": "decision-making and agenda setting on renewal/cancellation",
+        "hero_key": "board_governance_lead",
+        "label": "Board governance lead"
+      },
+      {
+        "function": "manages pilot operations and public explanation",
+        "hero_key": "district_program_manager",
+        "label": "District program manager"
+      },
+      {
+        "function": "professional advocate for early warning utility",
+        "hero_key": "lead_counselor_voice",
+        "label": "Lead counselor voice"
+      },
+      {
+        "function": "coordinates transparency and opt-out pressure",
+        "hero_key": "parent_privacy_organizer",
+        "label": "Parent privacy organizer"
+      },
+      {
+        "function": "defends model and proprietary limits",
+        "hero_key": "vendor_account_lead",
+        "label": "Vendor account lead"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "school_board",
+        "attention_level": 0.81,
+        "decision_power": 0.89,
+        "expression_level": 0.61,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.24,
+        "hero_key": "board_governance_lead",
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.46,
+        "public_commitment": 0.42,
+        "stance_axes": {
+          "renewal_inclination": 0.5,
+          "risk_aversion": 0.67,
+          "transparency_inclination": 0.58
+        }
+      },
+      {
+        "actor_name": "district_administration",
+        "attention_level": 0.84,
+        "decision_power": 0.55,
+        "expression_level": 0.55,
+        "fatigue": 0.36,
+        "fear_of_isolation": 0.19,
+        "hero_key": "district_program_manager",
+        "mobilization_readiness": 0.44,
+        "perceived_majority": 0.48,
+        "public_commitment": 0.57,
+        "stance_axes": {
+          "pilot_defense": 0.63,
+          "risk_aversion": 0.59,
+          "transparency_inclination": 0.4
+        }
+      },
+      {
+        "actor_name": "school_counselors",
+        "attention_level": 0.77,
+        "decision_power": 0.31,
+        "expression_level": 0.46,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.31,
+        "hero_key": "lead_counselor_voice",
+        "mobilization_readiness": 0.39,
+        "perceived_majority": 0.43,
+        "public_commitment": 0.49,
+        "stance_axes": {
+          "pilot_defense": 0.72,
+          "student_support_priority": 0.86,
+          "transparency_inclination": 0.62
+        }
+      },
+      {
+        "actor_name": "parents_group",
+        "attention_level": 0.73,
+        "decision_power": 0.26,
+        "expression_level": 0.67,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.29,
+        "hero_key": "parent_privacy_organizer",
+        "mobilization_readiness": 0.61,
+        "perceived_majority": 0.44,
+        "public_commitment": 0.74,
+        "stance_axes": {
+          "opt_out_priority": 0.81,
+          "pilot_opposition": 0.78,
+          "transparency_inclination": 0.88
+        }
+      },
+      {
+        "actor_name": "vendor_company",
+        "attention_level": 0.79,
+        "decision_power": 0.62,
+        "expression_level": 0.51,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.18,
+        "hero_key": "vendor_account_lead",
+        "mobilization_readiness": 0.37,
+        "perceived_majority": 0.41,
+        "public_commitment": 0.69,
+        "stance_axes": {
+          "pilot_defense": 0.84,
+          "proprietary_protection": 0.91,
+          "transparency_inclination": 0.22
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "function": "decision-making and agenda setting on renewal/cancellation",
+        "hero_key": "board_governance_lead",
+        "label": "Board governance lead"
+      },
+      {
+        "function": "manages pilot operations and public explanation",
+        "hero_key": "district_program_manager",
+        "label": "District program manager"
+      },
+      {
+        "function": "professional advocate for early warning utility",
+        "hero_key": "lead_counselor_voice",
+        "label": "Lead counselor voice"
+      },
+      {
+        "function": "coordinates transparency and opt-out pressure",
+        "hero_key": "parent_privacy_organizer",
+        "label": "Parent privacy organizer"
+      },
+      {
+        "function": "defends model and proprietary limits",
+        "hero_key": "vendor_account_lead",
+        "label": "Vendor account lead"
+      }
+    ],
+    "important_questions": [
+      "Will the school board renew the pilot, cancel it, or leave it in a limited transitional status after review?",
+      "Will the district and vendor produce enough public disclosure or independent validation to materially change the transparency dispute?",
+      "Will families receive a meaningful opt-out or participation-limiting mechanism for the attendance-risk system?",
+      "Will the system become normalized in district operations, or remain politically contested and fragile?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "district_administration",
+          "vendor_company",
+          "school_counselors",
+          "students_group"
+        ],
+        "event_key": "pilot_already_active",
+        "event_type": "announcement",
+        "expected_impact": "Creates baseline dependency, staff adaptation, and subject awareness without predetermining renewal outcome.",
+        "status": "visible",
+        "summary": "AI attendance-risk score pilot is active in the district.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "parents_group",
+          "school_board",
+          "district_administration"
+        ],
+        "event_key": "privacy_concerns_surface",
+        "event_type": "announcement",
+        "expected_impact": "Raises conflict and board attention; may increase parent coordination and transparency demands.",
+        "status": "visible",
+        "summary": "Parents express fear that the system amounts to surveillance.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "vendor_company",
+          "school_board",
+          "parents_group",
+          "district_administration"
+        ],
+        "event_key": "vendor_withholds_bias_test_details",
+        "event_type": "announcement",
+        "expected_impact": "Suppresses trust, elevates transparency conflict, and constrains board messaging.",
+        "status": "visible",
+        "summary": "Vendor says bias tests are proprietary.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "students_group",
+          "district_administration"
+        ],
+        "event_key": "student_gaming_discourse",
+        "event_type": "announcement",
+        "expected_impact": "Can erode system legitimacy and encourage peer diffusion of evasive behaviors.",
+        "status": "visible",
+        "summary": "Students joke about gaming the system.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "school_board",
+          "district_administration",
+          "parents_group",
+          "school_counselors",
+          "vendor_company"
+        ],
+        "event_key": "board_review_window",
+        "event_type": "announcement",
+        "expected_impact": "Concentrates advocacy, media attention, and institutional bargaining around evidence and constraints.",
+        "status": "imminent",
+        "summary": "School board enters a review period for pilot renewal or cancellation.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "district_administration",
+          "vendor_company",
+          "school_board"
+        ],
+        "event_key": "transparency_negotiation_pressure",
+        "event_type": "announcement",
+        "expected_impact": "May produce partial concessions, stalemate, or sharper controversy depending on disclosures.",
+        "status": "imminent",
+        "summary": "Pressure builds for district-vendor negotiation over what can be disclosed publicly.",
+        "tick": 1
+      }
+    ],
+    "llm_call_id": "652b155f-2da8-4409-a2e8-eb4ee2b98af3",
+    "merge_hypotheses": [
+      {
+        "converging_parties": [
+          "parents_group",
+          "school_counselors",
+          "school_board"
+        ],
+        "evidence_basis": "Parents care about harm prevention; counselors want early warning; board seeks legitimate compromise.",
+        "mechanism": "All sides may converge on a narrowed or conditional approach if framed around student support plus safeguards.",
+        "merge_key": "shared_student_welfare_merge"
+      },
+      {
+        "converging_parties": [
+          "district_administration",
+          "parents_group",
+          "vendor_company"
+        ],
+        "evidence_basis": "Main conflict is intensified by opacity rather than a confirmed harmful incident at T0.",
+        "mechanism": "A third-party review summary, partial audit, or clearer governance rule could reduce immediate confrontation without resolving all disagreements.",
+        "merge_key": "legitimacy_repair_merge"
+      },
+      {
+        "converging_parties": [
+          "parents_group",
+          "local_media_public",
+          "school_board"
+        ],
+        "evidence_basis": "Issue salience may depend on focal events and repeated signals.",
+        "mechanism": "If controversy yields little new information, attention may decay and positions soften into procedural monitoring rather than escalation.",
+        "merge_key": "coalition_fatigue_merge"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "district_parents",
+        "description": "Families with enrolled students; likely heterogeneous on privacy and intervention tradeoffs.",
+        "label": "District parents and guardians",
+        "population_total": 12000
+      },
+      {
+        "archetype_key": "district_students",
+        "description": "Students subject to attendance monitoring and score consequences.",
+        "label": "District students",
+        "population_total": 10000
+      },
+      {
+        "archetype_key": "district_staff",
+        "description": "Counselors, teachers, and administrators interacting with or affected by the pilot.",
+        "label": "District staff",
+        "population_total": 900
+      }
+    ],
+    "risk_flags": [
+      {
+        "note": "Corpus is compact; several institutional details, contract terms, and population counts are inferred defaults rather than explicit facts.",
+        "risk_key": "evidence_sparsity",
+        "severity": "medium"
+      },
+      {
+        "note": "Vendor control over bias-testing information creates asymmetric information and weakens oversight capacity.",
+        "risk_key": "proprietary_opacity",
+        "severity": "high"
+      },
+      {
+        "note": "Board has formal continuation authority but not unconstrained disclosure authority, limiting legitimacy repair options.",
+        "risk_key": "authority_constraint",
+        "severity": "high"
+      },
+      {
+        "note": "Gaming is currently social talk, not confirmed widespread evasion behavior, but could rapidly affect validity perceptions.",
+        "risk_key": "student_adaptation_uncertainty",
+        "severity": "medium"
+      },
+      {
+        "note": "Surveillance framing can broaden opposition beyond technical fairness concerns and reshape board incentives.",
+        "risk_key": "privacy_legitimacy_conflict",
+        "severity": "high"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "platform_algorithmic_governance",
+      "core_tensions": [
+        "privacy versus early intervention benefits",
+        "institutional authority constrained by vendor proprietary claims",
+        "student adaptation and gaming risk",
+        "uncertainty about fairness and bias due to limited transparency"
+      ],
+      "decision_horizon": "near_term_board_decision_on_pilot_renewal_or_cancellation",
+      "mode": "direct",
+      "scenario_key": "platform_004",
+      "summary": "A school district is piloting an AI attendance-risk scoring system. Parents are concerned about surveillance and privacy, counselors see potential early-warning benefits, students discuss gaming the system, and the vendor withholds bias-testing details as proprietary. The school board holds renewal or cancellation authority over the pilot but faces contractual or negotiation constraints around disclosure of vendor trade secrets.",
+      "time_zero_posture": "pilot_active_with_contestation",
+      "uncertainties": [
+        "pilot scope, duration, and school coverage not specified",
+        "exact vendor contract terms unknown",
+        "student and parent mobilization level not fully specified",
+        "no confirmed bias incident at T0, only concern about opacity"
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "level": 0.61,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Stakeholders may update views incrementally if transparency increases, but large trust gaps around proprietary claims limit persuasion.",
+        "scope": "parents_group and district_staff"
+      },
+      {
+        "level": 0.58,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Many parents are concerned but may mobilize only if a focal event such as a board vote, leak, or denied opt-out occurs.",
+        "scope": "parents_group"
+      },
+      {
+        "level": 0.54,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Some privately skeptical actors may stay quiet due to dependency and fear of isolation.",
+        "scope": "students_group and cautious_staff"
+      },
+      {
+        "level": 0.63,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Peer and parent networks likely reinforce shared narratives about surveillance or gaming.",
+        "scope": "students_group and parents_group"
+      },
+      {
+        "level": 0.49,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Escalation likely requires repeated signals from multiple trusted sources, not one isolated complaint.",
+        "scope": "district_public"
+      },
+      {
+        "level": 0.57,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Professional care identity, parent protector identity, and student autonomy identity shape interpretation of the same tool.",
+        "scope": "counselors, parents, students"
+      },
+      {
+        "level": 0.46,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Salience may fade unless renewed by hearings, disclosures, or incidents.",
+        "scope": "general_public"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "applies_to": [
+          "parents_group",
+          "school_board",
+          "district_administration"
+        ],
+        "context_key": "privacy_tradeoff_frame",
+        "influence": "Interpretations are shaped by whether the score is framed as protective intervention or surveillance."
+      },
+      {
+        "applies_to": [
+          "school_board",
+          "parents_group",
+          "local_media_public"
+        ],
+        "context_key": "authority_constraint_frame",
+        "influence": "Board inability to disclose proprietary details may be seen either as reasonable contractual limitation or as evasiveness."
+      },
+      {
+        "applies_to": [
+          "school_counselors",
+          "teachers_staff",
+          "school_board"
+        ],
+        "context_key": "professional_utility_frame",
+        "influence": "Frontline stories about helping absent students could legitimize continuation despite opacity."
+      },
+      {
+        "applies_to": [
+          "students_group",
+          "district_administration"
+        ],
+        "context_key": "gaming_legitimacy_frame",
+        "influence": "Visible student gaming narratives could weaken perceived validity of the system even before hard performance evidence appears."
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "school_board",
+        "behavior_axes": {
+          "caution": 0.72,
+          "conflict_tolerance": 0.44,
+          "institutionalism": 0.84,
+          "responsiveness": 0.61
+        },
+        "ideology_axes": {
+          "accountability_oriented": 0.76,
+          "innovation_friendly": 0.52,
+          "privacy_protective": 0.56
+        },
+        "reputation": 0.57,
+        "secrecy": 0.34,
+        "tendency": "deliberative_authority_under_constraint",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "district_administration",
+        "behavior_axes": {
+          "caution": 0.63,
+          "conflict_tolerance": 0.5,
+          "institutionalism": 0.81,
+          "responsiveness": 0.47
+        },
+        "ideology_axes": {
+          "accountability_oriented": 0.62,
+          "innovation_friendly": 0.66,
+          "privacy_protective": 0.48
+        },
+        "reputation": 0.54,
+        "secrecy": 0.46,
+        "tendency": "pragmatic_program_defense",
+        "trustworthiness": 0.51
+      },
+      {
+        "actor_name": "school_counselors",
+        "behavior_axes": {
+          "caution": 0.51,
+          "conflict_tolerance": 0.32,
+          "institutionalism": 0.59,
+          "responsiveness": 0.68
+        },
+        "ideology_axes": {
+          "accountability_oriented": 0.58,
+          "innovation_friendly": 0.61,
+          "privacy_protective": 0.44
+        },
+        "reputation": 0.68,
+        "secrecy": 0.22,
+        "tendency": "student_support_oriented",
+        "trustworthiness": 0.69
+      },
+      {
+        "actor_name": "parents_group",
+        "behavior_axes": {
+          "caution": 0.66,
+          "conflict_tolerance": 0.48,
+          "institutionalism": 0.41,
+          "responsiveness": 0.74
+        },
+        "ideology_axes": {
+          "accountability_oriented": 0.72,
+          "innovation_friendly": 0.34,
+          "privacy_protective": 0.81
+        },
+        "reputation": 0.55,
+        "secrecy": 0.18,
+        "tendency": "rights_and_safeguards_pressure",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "students_group",
+        "behavior_axes": {
+          "caution": 0.33,
+          "conflict_tolerance": 0.41,
+          "institutionalism": 0.28,
+          "responsiveness": 0.62
+        },
+        "ideology_axes": {
+          "accountability_oriented": 0.29,
+          "innovation_friendly": 0.39,
+          "privacy_protective": 0.63
+        },
+        "reputation": 0.46,
+        "secrecy": 0.52,
+        "tendency": "peer_network_adaptation_and_evasion",
+        "trustworthiness": 0.48
+      },
+      {
+        "actor_name": "vendor_company",
+        "behavior_axes": {
+          "caution": 0.57,
+          "conflict_tolerance": 0.53,
+          "institutionalism": 0.49,
+          "responsiveness": 0.44
+        },
+        "ideology_axes": {
+          "accountability_oriented": 0.31,
+          "innovation_friendly": 0.87,
+          "privacy_protective": 0.27
+        },
+        "reputation": 0.5,
+        "secrecy": 0.83,
+        "tendency": "ip_protection_and_contract_maintenance",
+        "trustworthiness": 0.39
+      },
+      {
+        "actor_name": "teachers_staff",
+        "behavior_axes": {
+          "caution": 0.58,
+          "conflict_tolerance": 0.29,
+          "institutionalism": 0.64,
+          "responsiveness": 0.52
+        },
+        "ideology_axes": {
+          "accountability_oriented": 0.55,
+          "innovation_friendly": 0.47,
+          "privacy_protective": 0.49
+        },
+        "reputation": 0.61,
+        "secrecy": 0.24,
+        "tendency": "quiet_operational_assessment",
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "local_media_public",
+        "behavior_axes": {
+          "caution": 0.39,
+          "conflict_tolerance": 0.58,
+          "institutionalism": 0.31,
+          "responsiveness": 0.71
+        },
+        "ideology_axes": {
+          "accountability_oriented": 0.74,
+          "innovation_friendly": 0.41,
+          "privacy_protective": 0.57
+        },
+        "reputation": 0.52,
+        "secrecy": 0.09,
+        "tendency": "controversy_amplification_and_accountability_attention",
+        "trustworthiness": 0.49
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 552,
+        "end": 552,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 552,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

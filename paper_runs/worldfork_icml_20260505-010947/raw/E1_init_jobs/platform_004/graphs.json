@@ -1,0 +1,1142 @@
+{
+  "edges": [
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "26fef55a-8571-4e56-b277-702f80fc3a6f",
+      "layer": "dependency",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "source_depends_on_target",
+        "evidence": "Scenario states district is piloting vendor AI attendance-risk score.",
+        "initializer": {
+          "direction": "source_depends_on_target",
+          "evidence": "Scenario states district is piloting vendor AI attendance-risk score.",
+          "layer": "dependency",
+          "reason": "District operations for the pilot rely on vendor system access and reporting.",
+          "source_actor_name": "district_administration",
+          "target_actor_name": "vendor_company",
+          "weight": 0.58
+        },
+        "reason": "District operations for the pilot rely on vendor system access and reporting."
+      },
+      "source_actor_id": "280e288e-f2da-4fd4-90e9-8767f43adf88",
+      "target_actor_id": "260e7b13-fef0-409c-b6ef-0465205fcba5",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.58
+    },
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "d9161613-ceb8-4bfb-bd6a-c8e8fa170ead",
+      "layer": "dependency",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "source_depends_on_target",
+        "evidence": "Counselors want early warning but are not decision authority.",
+        "initializer": {
+          "direction": "source_depends_on_target",
+          "evidence": "Counselors want early warning but are not decision authority.",
+          "layer": "dependency",
+          "reason": "Counselors depend on district approval and workflow integration to use the tool.",
+          "source_actor_name": "school_counselors",
+          "target_actor_name": "district_administration",
+          "weight": 0.46
+        },
+        "reason": "Counselors depend on district approval and workflow integration to use the tool."
+      },
+      "source_actor_id": "6e968e60-86ab-4875-9229-0cd4453ce387",
+      "target_actor_id": "280e288e-f2da-4fd4-90e9-8767f43adf88",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.46
+    },
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "2442d85e-0752-4d7e-b2cb-365c97339670",
+      "layer": "dependency",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "source_depends_on_target",
+        "evidence": "Students are scored within school district pilot.",
+        "initializer": {
+          "direction": "source_depends_on_target",
+          "evidence": "Students are scored within school district pilot.",
+          "layer": "dependency",
+          "reason": "Students are subject to district attendance systems and policies.",
+          "source_actor_name": "students_group",
+          "target_actor_name": "district_administration",
+          "weight": 0.52
+        },
+        "reason": "Students are subject to district attendance systems and policies."
+      },
+      "source_actor_id": "f1632ea3-d738-49e1-8ce1-48b04387def1",
+      "target_actor_id": "280e288e-f2da-4fd4-90e9-8767f43adf88",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.52
+    },
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "9dd40206-d92f-44bb-9a3b-a44f1a238cae",
+      "layer": "dependency",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "source_depends_on_target",
+        "evidence": "Board can renew/cancel but operational detail likely flows through administration.",
+        "initializer": {
+          "direction": "source_depends_on_target",
+          "evidence": "Board can renew/cancel but operational detail likely flows through administration.",
+          "layer": "dependency",
+          "reason": "Board depends on administration for implementation details and evaluation reports.",
+          "source_actor_name": "school_board",
+          "target_actor_name": "district_administration",
+          "weight": 0.39
+        },
+        "reason": "Board depends on administration for implementation details and evaluation reports."
+      },
+      "source_actor_id": "d54aa7a1-14f4-450c-8c9f-26e5d16893d6",
+      "target_actor_id": "280e288e-f2da-4fd4-90e9-8767f43adf88",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.39
+    },
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "ccc23dd0-bac8-4386-b49b-7189c2c9efad",
+      "layer": "dependency",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "source_depends_on_target",
+        "evidence": "Board cannot reveal vendor trade secrets without negotiation.",
+        "initializer": {
+          "direction": "source_depends_on_target",
+          "evidence": "Board cannot reveal vendor trade secrets without negotiation.",
+          "layer": "dependency",
+          "reason": "Board transparency is limited by vendor trade-secret constraints.",
+          "source_actor_name": "school_board",
+          "target_actor_name": "vendor_company",
+          "weight": 0.31
+        },
+        "reason": "Board transparency is limited by vendor trade-secret constraints."
+      },
+      "source_actor_id": "d54aa7a1-14f4-450c-8c9f-26e5d16893d6",
+      "target_actor_id": "260e7b13-fef0-409c-b6ef-0465205fcba5",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.31
+    },
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "f1896811-5f30-4aee-ab44-180cb9553be5",
+      "layer": "exposure",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "source_exposed_to_target",
+        "evidence": "Board is decision authority affecting parent concerns.",
+        "initializer": {
+          "direction": "source_exposed_to_target",
+          "evidence": "Board is decision authority affecting parent concerns.",
+          "layer": "exposure",
+          "reason": "Parents likely watch board meetings and pilot decisions.",
+          "source_actor_name": "parents_group",
+          "target_actor_name": "school_board",
+          "weight": 0.49
+        },
+        "reason": "Parents likely watch board meetings and pilot decisions."
+      },
+      "source_actor_id": "88b43cfc-7429-4558-a191-a7f555f3515b",
+      "target_actor_id": "d54aa7a1-14f4-450c-8c9f-26e5d16893d6",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.49
+    },
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "d86405b2-e818-4426-b511-b22b9148f0c6",
+      "layer": "exposure",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "source_exposed_to_target",
+        "evidence": "Parents fear surveillance and may pressure decision makers.",
+        "initializer": {
+          "direction": "source_exposed_to_target",
+          "evidence": "Parents fear surveillance and may pressure decision makers.",
+          "layer": "exposure",
+          "reason": "Board is exposed to parent questions and public feedback.",
+          "source_actor_name": "school_board",
+          "target_actor_name": "parents_group",
+          "weight": 0.44
+        },
+        "reason": "Board is exposed to parent questions and public feedback."
+      },
+      "source_actor_id": "d54aa7a1-14f4-450c-8c9f-26e5d16893d6",
+      "target_actor_id": "88b43cfc-7429-4558-a191-a7f555f3515b",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.44
+    },
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "a90f294c-a9f7-4211-82ca-d3b6403fedbc",
+      "layer": "exposure",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "reciprocal_peer_exposure",
+        "evidence": "Students joke about gaming the system.",
+        "initializer": {
+          "direction": "reciprocal_peer_exposure",
+          "evidence": "Students joke about gaming the system.",
+          "layer": "exposure",
+          "reason": "Peer discussion and joking create dense student-to-student exposure.",
+          "source_actor_name": "students_group",
+          "target_actor_name": "students_group",
+          "weight": 0.63
+        },
+        "reason": "Peer discussion and joking create dense student-to-student exposure."
+      },
+      "source_actor_id": "f1632ea3-d738-49e1-8ce1-48b04387def1",
+      "target_actor_id": "f1632ea3-d738-49e1-8ce1-48b04387def1",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.63
+    },
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "849493c4-4389-4507-a951-fd28ae73868e",
+      "layer": "exposure",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "source_exposed_to_target",
+        "evidence": "Local public accountability likely centers on board action.",
+        "initializer": {
+          "direction": "source_exposed_to_target",
+          "evidence": "Local public accountability likely centers on board action.",
+          "layer": "exposure",
+          "reason": "Media and public track official meetings and controversies.",
+          "source_actor_name": "local_media_public",
+          "target_actor_name": "school_board",
+          "weight": 0.37
+        },
+        "reason": "Media and public track official meetings and controversies."
+      },
+      "source_actor_id": "82cd4bf6-fec1-45e2-8dea-3e9265f28af5",
+      "target_actor_id": "d54aa7a1-14f4-450c-8c9f-26e5d16893d6",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.37
+    },
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "d2bb81ff-731c-403d-8db2-567801f7f44d",
+      "layer": "exposure",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "source_exposed_to_target",
+        "evidence": "Privacy fears are a salient controversy vector.",
+        "initializer": {
+          "direction": "source_exposed_to_target",
+          "evidence": "Privacy fears are a salient controversy vector.",
+          "layer": "exposure",
+          "reason": "Parent concerns can enter public narrative through visible complaints.",
+          "source_actor_name": "parents_group",
+          "target_actor_name": "local_media_public",
+          "weight": 0.33
+        },
+        "reason": "Parent concerns can enter public narrative through visible complaints."
+      },
+      "source_actor_id": "88b43cfc-7429-4558-a191-a7f555f3515b",
+      "target_actor_id": "82cd4bf6-fec1-45e2-8dea-3e9265f28af5",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.33
+    },
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "0cabaece-c972-44ff-84b1-fbe3b68e12b2",
+      "layer": "trust",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "source_trusts_target",
+        "evidence": "Board has authority but secrecy constraints weaken confidence.",
+        "initializer": {
+          "direction": "source_trusts_target",
+          "evidence": "Board has authority but secrecy constraints weaken confidence.",
+          "layer": "trust",
+          "reason": "Parents retain moderate but strained trust in board oversight.",
+          "source_actor_name": "parents_group",
+          "target_actor_name": "school_board",
+          "weight": 0.45
+        },
+        "reason": "Parents retain moderate but strained trust in board oversight."
+      },
+      "source_actor_id": "88b43cfc-7429-4558-a191-a7f555f3515b",
+      "target_actor_id": "d54aa7a1-14f4-450c-8c9f-26e5d16893d6",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.45
+    },
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "02a34f54-aac6-401a-add1-d32510da0910",
+      "layer": "trust",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "source_trusts_target",
+        "evidence": "Vendor says bias tests are proprietary.",
+        "initializer": {
+          "direction": "source_trusts_target",
+          "evidence": "Vendor says bias tests are proprietary.",
+          "layer": "trust",
+          "reason": "Proprietary bias claims undermine parent trust.",
+          "source_actor_name": "parents_group",
+          "target_actor_name": "vendor_company",
+          "weight": 0.18
+        },
+        "reason": "Proprietary bias claims undermine parent trust."
+      },
+      "source_actor_id": "88b43cfc-7429-4558-a191-a7f555f3515b",
+      "target_actor_id": "260e7b13-fef0-409c-b6ef-0465205fcba5",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.18
+    },
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "f0c58605-93b9-4da5-9a3d-cd619891e98c",
+      "layer": "trust",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "source_trusts_target",
+        "evidence": "They seek early warning within district system.",
+        "initializer": {
+          "direction": "source_trusts_target",
+          "evidence": "They seek early warning within district system.",
+          "layer": "trust",
+          "reason": "Counselors likely trust district processes more than external vendor claims.",
+          "source_actor_name": "school_counselors",
+          "target_actor_name": "district_administration",
+          "weight": 0.56
+        },
+        "reason": "Counselors likely trust district processes more than external vendor claims."
+      },
+      "source_actor_id": "6e968e60-86ab-4875-9229-0cd4453ce387",
+      "target_actor_id": "280e288e-f2da-4fd4-90e9-8767f43adf88",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.56
+    },
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "a189fa2e-4546-4077-b7bc-446f4464768d",
+      "layer": "trust",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "source_trusts_target",
+        "evidence": "Vendor withholds bias test details.",
+        "initializer": {
+          "direction": "source_trusts_target",
+          "evidence": "Vendor withholds bias test details.",
+          "layer": "trust",
+          "reason": "Utility is plausible but opacity limits confidence.",
+          "source_actor_name": "school_counselors",
+          "target_actor_name": "vendor_company",
+          "weight": 0.34
+        },
+        "reason": "Utility is plausible but opacity limits confidence."
+      },
+      "source_actor_id": "6e968e60-86ab-4875-9229-0cd4453ce387",
+      "target_actor_id": "260e7b13-fef0-409c-b6ef-0465205fcba5",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.34
+    },
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "9fa9d418-b6cb-482e-b581-1d88094b5be9",
+      "layer": "trust",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "source_trusts_target",
+        "evidence": "Students joke about gaming the system.",
+        "initializer": {
+          "direction": "source_trusts_target",
+          "evidence": "Students joke about gaming the system.",
+          "layer": "trust",
+          "reason": "Students show skepticism and gaming humor rather than strong legitimacy belief.",
+          "source_actor_name": "students_group",
+          "target_actor_name": "district_administration",
+          "weight": 0.29
+        },
+        "reason": "Students show skepticism and gaming humor rather than strong legitimacy belief."
+      },
+      "source_actor_id": "f1632ea3-d738-49e1-8ce1-48b04387def1",
+      "target_actor_id": "280e288e-f2da-4fd4-90e9-8767f43adf88",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.29
+    },
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "3594395f-9ec6-4168-8601-5db32bc8fa9b",
+      "layer": "influence",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "source_influences_target",
+        "evidence": "Board can renew or cancel pilot.",
+        "initializer": {
+          "direction": "source_influences_target",
+          "evidence": "Board can renew or cancel pilot.",
+          "layer": "influence",
+          "reason": "Board governs whether pilot continues.",
+          "source_actor_name": "school_board",
+          "target_actor_name": "district_administration",
+          "weight": 0.66
+        },
+        "reason": "Board governs whether pilot continues."
+      },
+      "source_actor_id": "d54aa7a1-14f4-450c-8c9f-26e5d16893d6",
+      "target_actor_id": "280e288e-f2da-4fd4-90e9-8767f43adf88",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.66
+    },
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "8a3a7a75-6ab9-4251-99e5-55182bdd8392",
+      "layer": "influence",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "source_influences_target",
+        "evidence": "Operational managers likely frame pilot outcomes.",
+        "initializer": {
+          "direction": "source_influences_target",
+          "evidence": "Operational managers likely frame pilot outcomes.",
+          "layer": "influence",
+          "reason": "Administration shapes information available to board.",
+          "source_actor_name": "district_administration",
+          "target_actor_name": "school_board",
+          "weight": 0.48
+        },
+        "reason": "Administration shapes information available to board."
+      },
+      "source_actor_id": "280e288e-f2da-4fd4-90e9-8767f43adf88",
+      "target_actor_id": "d54aa7a1-14f4-450c-8c9f-26e5d16893d6",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.48
+    },
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "b18d6eee-e8af-4e16-bf68-968c7c9ac8ef",
+      "layer": "influence",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "source_influences_target",
+        "evidence": "Bias tests are proprietary and system is vendor-provided.",
+        "initializer": {
+          "direction": "source_influences_target",
+          "evidence": "Bias tests are proprietary and system is vendor-provided.",
+          "layer": "influence",
+          "reason": "Vendor controls technical explanations and system access.",
+          "source_actor_name": "vendor_company",
+          "target_actor_name": "district_administration",
+          "weight": 0.51
+        },
+        "reason": "Vendor controls technical explanations and system access."
+      },
+      "source_actor_id": "260e7b13-fef0-409c-b6ef-0465205fcba5",
+      "target_actor_id": "280e288e-f2da-4fd4-90e9-8767f43adf88",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.51
+    },
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "8b79d581-5baa-43a2-9b95-abffa8c68068",
+      "layer": "influence",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "source_influences_target",
+        "evidence": "Parents fear surveillance; board decides continuation.",
+        "initializer": {
+          "direction": "source_influences_target",
+          "evidence": "Parents fear surveillance; board decides continuation.",
+          "layer": "influence",
+          "reason": "Organized parent concern can affect board legitimacy and votes.",
+          "source_actor_name": "parents_group",
+          "target_actor_name": "school_board",
+          "weight": 0.43
+        },
+        "reason": "Organized parent concern can affect board legitimacy and votes."
+      },
+      "source_actor_id": "88b43cfc-7429-4558-a191-a7f555f3515b",
+      "target_actor_id": "d54aa7a1-14f4-450c-8c9f-26e5d16893d6",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.43
+    },
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "ddaaffec-f15d-4b35-bec9-bce1c6c5f4e4",
+      "layer": "influence",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "source_influences_target",
+        "evidence": "Counselors want early warning.",
+        "initializer": {
+          "direction": "source_influences_target",
+          "evidence": "Counselors want early warning.",
+          "layer": "influence",
+          "reason": "Professional testimony can support pilot utility claims.",
+          "source_actor_name": "school_counselors",
+          "target_actor_name": "school_board",
+          "weight": 0.35
+        },
+        "reason": "Professional testimony can support pilot utility claims."
+      },
+      "source_actor_id": "6e968e60-86ab-4875-9229-0cd4453ce387",
+      "target_actor_id": "d54aa7a1-14f4-450c-8c9f-26e5d16893d6",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.35
+    },
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "a102e077-441e-4740-a073-6035f33676f4",
+      "layer": "influence",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "source_influences_target",
+        "evidence": "Controversial school technology decisions attract public scrutiny.",
+        "initializer": {
+          "direction": "source_influences_target",
+          "evidence": "Controversial school technology decisions attract public scrutiny.",
+          "layer": "influence",
+          "reason": "Public framing can raise reputational pressure on board members.",
+          "source_actor_name": "local_media_public",
+          "target_actor_name": "school_board",
+          "weight": 0.32
+        },
+        "reason": "Public framing can raise reputational pressure on board members."
+      },
+      "source_actor_id": "82cd4bf6-fec1-45e2-8dea-3e9265f28af5",
+      "target_actor_id": "d54aa7a1-14f4-450c-8c9f-26e5d16893d6",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.32
+    },
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "8410b0f5-fa1f-42d9-bcf8-6df93ba75ded",
+      "layer": "coalition",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "mutual_alignment",
+        "evidence": "Parents fear surveillance; students are wary or joke about gaming.",
+        "initializer": {
+          "direction": "mutual_alignment",
+          "evidence": "Parents fear surveillance; students are wary or joke about gaming.",
+          "layer": "coalition",
+          "reason": "Shared privacy concern creates partial alignment, though not fully organized.",
+          "source_actor_name": "parents_group",
+          "target_actor_name": "students_group",
+          "weight": 0.42
+        },
+        "reason": "Shared privacy concern creates partial alignment, though not fully organized."
+      },
+      "source_actor_id": "88b43cfc-7429-4558-a191-a7f555f3515b",
+      "target_actor_id": "f1632ea3-d738-49e1-8ce1-48b04387def1",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.42
+    },
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "dd48f452-0597-45d6-be5f-5df22dc89bb9",
+      "layer": "coalition",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "mutual_alignment",
+        "evidence": "Counselors want early warning; administration manages pilot.",
+        "initializer": {
+          "direction": "mutual_alignment",
+          "evidence": "Counselors want early warning; administration manages pilot.",
+          "layer": "coalition",
+          "reason": "Both have reasons to preserve pilot utility if safeguards are manageable.",
+          "source_actor_name": "school_counselors",
+          "target_actor_name": "district_administration",
+          "weight": 0.47
+        },
+        "reason": "Both have reasons to preserve pilot utility if safeguards are manageable."
+      },
+      "source_actor_id": "6e968e60-86ab-4875-9229-0cd4453ce387",
+      "target_actor_id": "280e288e-f2da-4fd4-90e9-8767f43adf88",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.47
+    },
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "170ff63f-3545-4404-93f0-e143997b3186",
+      "layer": "coalition",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "mutual_alignment",
+        "evidence": "Vendor provides tool under district pilot.",
+        "initializer": {
+          "direction": "mutual_alignment",
+          "evidence": "Vendor provides tool under district pilot.",
+          "layer": "coalition",
+          "reason": "They are aligned around pilot continuity, though potentially strained by controversy.",
+          "source_actor_name": "district_administration",
+          "target_actor_name": "vendor_company",
+          "weight": 0.41
+        },
+        "reason": "They are aligned around pilot continuity, though potentially strained by controversy."
+      },
+      "source_actor_id": "280e288e-f2da-4fd4-90e9-8767f43adf88",
+      "target_actor_id": "260e7b13-fef0-409c-b6ef-0465205fcba5",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.41
+    },
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "39c0d0d7-7f2a-4ce1-848b-7ad7bee4af09",
+      "layer": "conflict",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "source_opposes_target",
+        "evidence": "Parents fear surveillance; vendor says bias tests are proprietary.",
+        "initializer": {
+          "direction": "source_opposes_target",
+          "evidence": "Parents fear surveillance; vendor says bias tests are proprietary.",
+          "layer": "conflict",
+          "reason": "Parents object to surveillance risk and hidden bias testing.",
+          "source_actor_name": "parents_group",
+          "target_actor_name": "vendor_company",
+          "weight": 0.61
+        },
+        "reason": "Parents object to surveillance risk and hidden bias testing."
+      },
+      "source_actor_id": "88b43cfc-7429-4558-a191-a7f555f3515b",
+      "target_actor_id": "260e7b13-fef0-409c-b6ef-0465205fcba5",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.61
+    },
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "633fa1b7-e75a-4b46-ba8d-62d9afe3983b",
+      "layer": "conflict",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "source_opposes_target",
+        "evidence": "Students joke about gaming the system.",
+        "initializer": {
+          "direction": "source_opposes_target",
+          "evidence": "Students joke about gaming the system.",
+          "layer": "conflict",
+          "reason": "Students may view system as illegitimate and subject to evasion.",
+          "source_actor_name": "students_group",
+          "target_actor_name": "vendor_company",
+          "weight": 0.44
+        },
+        "reason": "Students may view system as illegitimate and subject to evasion."
+      },
+      "source_actor_id": "f1632ea3-d738-49e1-8ce1-48b04387def1",
+      "target_actor_id": "260e7b13-fef0-409c-b6ef-0465205fcba5",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.44
+    },
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "f2a3bdc6-a6c5-47f4-9c87-717a62fbe1e8",
+      "layer": "conflict",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "source_opposes_target",
+        "evidence": "District pilots the AI score despite parent concern.",
+        "initializer": {
+          "direction": "source_opposes_target",
+          "evidence": "District pilots the AI score despite parent concern.",
+          "layer": "conflict",
+          "reason": "Administration is associated with deploying the surveillance-like system.",
+          "source_actor_name": "parents_group",
+          "target_actor_name": "district_administration",
+          "weight": 0.46
+        },
+        "reason": "Administration is associated with deploying the surveillance-like system."
+      },
+      "source_actor_id": "88b43cfc-7429-4558-a191-a7f555f3515b",
+      "target_actor_id": "280e288e-f2da-4fd4-90e9-8767f43adf88",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.46
+    },
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "4c51c111-b8f8-4871-b2e4-949eeba9a9fb",
+      "layer": "conflict",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "source_opposes_target",
+        "evidence": "Board cannot reveal trade secrets without negotiation.",
+        "initializer": {
+          "direction": "source_opposes_target",
+          "evidence": "Board cannot reveal trade secrets without negotiation.",
+          "layer": "conflict",
+          "reason": "Board authority is constrained by vendor secrecy, creating latent friction.",
+          "source_actor_name": "school_board",
+          "target_actor_name": "vendor_company",
+          "weight": 0.28
+        },
+        "reason": "Board authority is constrained by vendor secrecy, creating latent friction."
+      },
+      "source_actor_id": "d54aa7a1-14f4-450c-8c9f-26e5d16893d6",
+      "target_actor_id": "260e7b13-fef0-409c-b6ef-0465205fcba5",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.28
+    },
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "a69c2684-6a77-4fff-b964-2d55aa26b2cc",
+      "layer": "oasis_interaction",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "likely_public_interaction",
+        "evidence": "Board is decision authority under parent concern.",
+        "initializer": {
+          "direction": "likely_public_interaction",
+          "evidence": "Board is decision authority under parent concern.",
+          "layer": "oasis_interaction",
+          "reason": "Board meetings and public comment are likely interaction venues.",
+          "source_actor_name": "parents_group",
+          "target_actor_name": "school_board",
+          "weight": 0.53
+        },
+        "reason": "Board meetings and public comment are likely interaction venues."
+      },
+      "source_actor_id": "88b43cfc-7429-4558-a191-a7f555f3515b",
+      "target_actor_id": "d54aa7a1-14f4-450c-8c9f-26e5d16893d6",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.53
+    },
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "5794efee-bc68-441e-be33-a7b1066db33d",
+      "layer": "oasis_interaction",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "likely_public_interaction",
+        "evidence": "Students joke about gaming the system.",
+        "initializer": {
+          "direction": "likely_public_interaction",
+          "evidence": "Students joke about gaming the system.",
+          "layer": "oasis_interaction",
+          "reason": "Student peer channels likely carry rapid discussion and jokes about gaming.",
+          "source_actor_name": "students_group",
+          "target_actor_name": "students_group",
+          "weight": 0.68
+        },
+        "reason": "Student peer channels likely carry rapid discussion and jokes about gaming."
+      },
+      "source_actor_id": "f1632ea3-d738-49e1-8ce1-48b04387def1",
+      "target_actor_id": "f1632ea3-d738-49e1-8ce1-48b04387def1",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.68
+    },
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "c8a3a5c6-960c-4672-b52f-6be57ada444a",
+      "layer": "oasis_interaction",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "likely_public_interaction",
+        "evidence": "Contested pilot requires explanation.",
+        "initializer": {
+          "direction": "likely_public_interaction",
+          "evidence": "Contested pilot requires explanation.",
+          "layer": "oasis_interaction",
+          "reason": "District communications may address concerns through official updates or forums.",
+          "source_actor_name": "district_administration",
+          "target_actor_name": "parents_group",
+          "weight": 0.39
+        },
+        "reason": "District communications may address concerns through official updates or forums."
+      },
+      "source_actor_id": "280e288e-f2da-4fd4-90e9-8767f43adf88",
+      "target_actor_id": "88b43cfc-7429-4558-a191-a7f555f3515b",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.39
+    },
+    {
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "id": "0924a8e1-ff81-4426-85d5-4a14687dfec5",
+      "layer": "oasis_interaction",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "payload": {
+        "direction": "likely_public_interaction",
+        "evidence": "Privacy controversy is publicly legible.",
+        "initializer": {
+          "direction": "likely_public_interaction",
+          "evidence": "Privacy controversy is publicly legible.",
+          "layer": "oasis_interaction",
+          "reason": "Media coverage can relay and amplify parent concerns.",
+          "source_actor_name": "local_media_public",
+          "target_actor_name": "parents_group",
+          "weight": 0.36
+        },
+        "reason": "Media coverage can relay and amplify parent concerns."
+      },
+      "source_actor_id": "82cd4bf6-fec1-45e2-8dea-3e9265f28af5",
+      "target_actor_id": "88b43cfc-7429-4558-a191-a7f555f3515b",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00",
+      "weight": 0.36
+    }
+  ],
+  "snapshots": [
+    {
+      "artifact_id": null,
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "District operations for the pilot rely on vendor system access and reporting.",
+            "source": "district_administration",
+            "target": "vendor_company",
+            "weight": 0.58
+          },
+          {
+            "reason": "Counselors depend on district approval and workflow integration to use the tool.",
+            "source": "school_counselors",
+            "target": "district_administration",
+            "weight": 0.46
+          },
+          {
+            "reason": "Students are subject to district attendance systems and policies.",
+            "source": "students_group",
+            "target": "district_administration",
+            "weight": 0.52
+          },
+          {
+            "reason": "Board depends on administration for implementation details and evaluation reports.",
+            "source": "school_board",
+            "target": "district_administration",
+            "weight": 0.39
+          },
+          {
+            "reason": "Board transparency is limited by vendor trade-secret constraints.",
+            "source": "school_board",
+            "target": "vendor_company",
+            "weight": 0.31
+          }
+        ],
+        "layer": "dependency",
+        "tick_index": 0
+      },
+      "id": "09b5d42d-ef99-483a-910a-9e0ffb9fbee4",
+      "layer": "dependency",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Parents likely watch board meetings and pilot decisions.",
+            "source": "parents_group",
+            "target": "school_board",
+            "weight": 0.49
+          },
+          {
+            "reason": "Board is exposed to parent questions and public feedback.",
+            "source": "school_board",
+            "target": "parents_group",
+            "weight": 0.44
+          },
+          {
+            "reason": "Peer discussion and joking create dense student-to-student exposure.",
+            "source": "students_group",
+            "target": "students_group",
+            "weight": 0.63
+          },
+          {
+            "reason": "Media and public track official meetings and controversies.",
+            "source": "local_media_public",
+            "target": "school_board",
+            "weight": 0.37
+          },
+          {
+            "reason": "Parent concerns can enter public narrative through visible complaints.",
+            "source": "parents_group",
+            "target": "local_media_public",
+            "weight": 0.33
+          }
+        ],
+        "layer": "exposure",
+        "tick_index": 0
+      },
+      "id": "4a850f7c-7708-4cb2-b3ee-598599ce9f22",
+      "layer": "exposure",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Parents retain moderate but strained trust in board oversight.",
+            "source": "parents_group",
+            "target": "school_board",
+            "weight": 0.45
+          },
+          {
+            "reason": "Proprietary bias claims undermine parent trust.",
+            "source": "parents_group",
+            "target": "vendor_company",
+            "weight": 0.18
+          },
+          {
+            "reason": "Counselors likely trust district processes more than external vendor claims.",
+            "source": "school_counselors",
+            "target": "district_administration",
+            "weight": 0.56
+          },
+          {
+            "reason": "Utility is plausible but opacity limits confidence.",
+            "source": "school_counselors",
+            "target": "vendor_company",
+            "weight": 0.34
+          },
+          {
+            "reason": "Students show skepticism and gaming humor rather than strong legitimacy belief.",
+            "source": "students_group",
+            "target": "district_administration",
+            "weight": 0.29
+          }
+        ],
+        "layer": "trust",
+        "tick_index": 0
+      },
+      "id": "c94c3aeb-efff-4f6d-a9b2-f66e9af7bba4",
+      "layer": "trust",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Board governs whether pilot continues.",
+            "source": "school_board",
+            "target": "district_administration",
+            "weight": 0.66
+          },
+          {
+            "reason": "Administration shapes information available to board.",
+            "source": "district_administration",
+            "target": "school_board",
+            "weight": 0.48
+          },
+          {
+            "reason": "Vendor controls technical explanations and system access.",
+            "source": "vendor_company",
+            "target": "district_administration",
+            "weight": 0.51
+          },
+          {
+            "reason": "Organized parent concern can affect board legitimacy and votes.",
+            "source": "parents_group",
+            "target": "school_board",
+            "weight": 0.43
+          },
+          {
+            "reason": "Professional testimony can support pilot utility claims.",
+            "source": "school_counselors",
+            "target": "school_board",
+            "weight": 0.35
+          },
+          {
+            "reason": "Public framing can raise reputational pressure on board members.",
+            "source": "local_media_public",
+            "target": "school_board",
+            "weight": 0.32
+          }
+        ],
+        "layer": "influence",
+        "tick_index": 0
+      },
+      "id": "3392ce48-acb1-41e8-ba19-bf8a9c7ba47f",
+      "layer": "influence",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Shared privacy concern creates partial alignment, though not fully organized.",
+            "source": "parents_group",
+            "target": "students_group",
+            "weight": 0.42
+          },
+          {
+            "reason": "Both have reasons to preserve pilot utility if safeguards are manageable.",
+            "source": "school_counselors",
+            "target": "district_administration",
+            "weight": 0.47
+          },
+          {
+            "reason": "They are aligned around pilot continuity, though potentially strained by controversy.",
+            "source": "district_administration",
+            "target": "vendor_company",
+            "weight": 0.41
+          }
+        ],
+        "layer": "coalition",
+        "tick_index": 0
+      },
+      "id": "7be24d94-b0f1-43b8-bdf3-0982994aa29a",
+      "layer": "coalition",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Parents object to surveillance risk and hidden bias testing.",
+            "source": "parents_group",
+            "target": "vendor_company",
+            "weight": 0.61
+          },
+          {
+            "reason": "Students may view system as illegitimate and subject to evasion.",
+            "source": "students_group",
+            "target": "vendor_company",
+            "weight": 0.44
+          },
+          {
+            "reason": "Administration is associated with deploying the surveillance-like system.",
+            "source": "parents_group",
+            "target": "district_administration",
+            "weight": 0.46
+          },
+          {
+            "reason": "Board authority is constrained by vendor secrecy, creating latent friction.",
+            "source": "school_board",
+            "target": "vendor_company",
+            "weight": 0.28
+          }
+        ],
+        "layer": "conflict",
+        "tick_index": 0
+      },
+      "id": "221c81f8-10e5-4995-95c2-8bff0f7fa0fd",
+      "layer": "conflict",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "d77e0ee0-7833-4409-806c-0796748782e1",
+      "created_at": "2026-05-05T02:28:16.247203+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Board meetings and public comment are likely interaction venues.",
+            "source": "parents_group",
+            "target": "school_board",
+            "weight": 0.53
+          },
+          {
+            "reason": "Student peer channels likely carry rapid discussion and jokes about gaming.",
+            "source": "students_group",
+            "target": "students_group",
+            "weight": 0.68
+          },
+          {
+            "reason": "District communications may address concerns through official updates or forums.",
+            "source": "district_administration",
+            "target": "parents_group",
+            "weight": 0.39
+          },
+          {
+            "reason": "Media coverage can relay and amplify parent concerns.",
+            "source": "local_media_public",
+            "target": "parents_group",
+            "weight": 0.36
+          }
+        ],
+        "layer": "oasis_interaction",
+        "tick_index": 0
+      },
+      "id": "31d28e70-7504-42c5-b067-112586aeb995",
+      "layer": "oasis_interaction",
+      "multiverse_id": "05c531fd-c386-4fab-b13c-028667efd113",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:16.247203+00:00"
+    }
+  ]
+}

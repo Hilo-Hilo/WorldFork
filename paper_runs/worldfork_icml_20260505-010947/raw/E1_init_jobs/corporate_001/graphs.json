@@ -1,0 +1,1014 @@
+{
+  "edges": [
+    {
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "id": "178293b0-7d4b-414f-9b3f-9e58ea79d57c",
+      "layer": "dependency",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "scenario states company cites cloud costs",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "scenario states company cites cloud costs",
+          "layer": "dependency",
+          "reason": "Company cites cloud costs as rationale for increase, implying meaningful upstream cost dependence.",
+          "source_actor_name": "sentinel_home",
+          "target_actor_name": "cloud_infrastructure_suppliers",
+          "weight": 0.68
+        },
+        "reason": "Company cites cloud costs as rationale for increase, implying meaningful upstream cost dependence."
+      },
+      "source_actor_id": "f503fd39-0e8d-4066-afc7-ba58c51e1f11",
+      "target_actor_id": "cc43be4a-8f18-40de-a7b2-96f41c606c9e",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00",
+      "weight": 0.68
+    },
+    {
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "id": "71247288-36c5-48c4-955f-8ad6230490a8",
+      "layer": "dependency",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "home-security subscription context with legacy customers",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "home-security subscription context with legacy customers",
+          "layer": "dependency",
+          "reason": "Existing customers rely on provider for ongoing security service continuity.",
+          "source_actor_name": "legacy_customers",
+          "target_actor_name": "sentinel_home",
+          "weight": 0.62
+        },
+        "reason": "Existing customers rely on provider for ongoing security service continuity."
+      },
+      "source_actor_id": "b384b787-ea85-42da-a59c-afafc4843dc0",
+      "target_actor_id": "f503fd39-0e8d-4066-afc7-ba58c51e1f11",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00",
+      "weight": 0.62
+    },
+    {
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "id": "6cc82fe8-9f0d-465f-91ec-27b21a54ad12",
+      "layer": "dependency",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "customers threaten cancellation rather than already leaving",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "customers threaten cancellation rather than already leaving",
+          "layer": "dependency",
+          "reason": "Even dissatisfied customers remain tied to current service until they migrate.",
+          "source_actor_name": "prospective_churners",
+          "target_actor_name": "sentinel_home",
+          "weight": 0.58
+        },
+        "reason": "Even dissatisfied customers remain tied to current service until they migrate."
+      },
+      "source_actor_id": "35246bfe-d9a2-4ca4-92cd-7669dd8ba0a7",
+      "target_actor_id": "f503fd39-0e8d-4066-afc7-ba58c51e1f11",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00",
+      "weight": 0.58
+    },
+    {
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "id": "08d22afd-81d5-4612-bee6-c5ee915c65ad",
+      "layer": "dependency",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "subscription price increase affects legacy customers",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "subscription price increase affects legacy customers",
+          "layer": "dependency",
+          "reason": "Recurring revenue depends on retention of legacy subscriber base.",
+          "source_actor_name": "sentinel_home",
+          "target_actor_name": "legacy_customers",
+          "weight": 0.57
+        },
+        "reason": "Recurring revenue depends on retention of legacy subscriber base."
+      },
+      "source_actor_id": "f503fd39-0e8d-4066-afc7-ba58c51e1f11",
+      "target_actor_id": "b384b787-ea85-42da-a59c-afafc4843dc0",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00",
+      "weight": 0.57
+    },
+    {
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "id": "47c794d9-631e-4b97-a0e0-0b1259bda2df",
+      "layer": "exposure",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "threatened cancellation and controversy attract reporting",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "threatened cancellation and controversy attract reporting",
+          "layer": "exposure",
+          "reason": "Customer complaints are likely source material for coverage.",
+          "source_actor_name": "legacy_customers",
+          "target_actor_name": "tech_media",
+          "weight": 0.42
+        },
+        "reason": "Customer complaints are likely source material for coverage."
+      },
+      "source_actor_id": "b384b787-ea85-42da-a59c-afafc4843dc0",
+      "target_actor_id": "67fbcd5a-1803-40a8-8f42-9d4a49cdc72d",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00",
+      "weight": 0.42
+    },
+    {
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "id": "119bee7d-5a38-404e-90eb-321a9188c035",
+      "layer": "exposure",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "media amplification typical in pricing controversy",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "media amplification typical in pricing controversy",
+          "layer": "exposure",
+          "reason": "Coverage informs subscribers about options, backlash, and regulator attention.",
+          "source_actor_name": "tech_media",
+          "target_actor_name": "legacy_customers",
+          "weight": 0.48
+        },
+        "reason": "Coverage informs subscribers about options, backlash, and regulator attention."
+      },
+      "source_actor_id": "67fbcd5a-1803-40a8-8f42-9d4a49cdc72d",
+      "target_actor_id": "b384b787-ea85-42da-a59c-afafc4843dc0",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00",
+      "weight": 0.48
+    },
+    {
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "id": "48198cb2-0b66-42e3-a8f8-348996f7c7e1",
+      "layer": "exposure",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "scenario explicitly mentions migration discounts",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "scenario explicitly mentions migration discounts",
+          "layer": "exposure",
+          "reason": "Competitors actively offer migration discounts to incumbent customers.",
+          "source_actor_name": "rival_security_firms",
+          "target_actor_name": "legacy_customers",
+          "weight": 0.52
+        },
+        "reason": "Competitors actively offer migration discounts to incumbent customers."
+      },
+      "source_actor_id": "4143f228-bae6-400c-922d-d44280377afb",
+      "target_actor_id": "b384b787-ea85-42da-a59c-afafc4843dc0",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00",
+      "weight": 0.52
+    },
+    {
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "id": "6e40208a-b300-4b9c-b32b-1b180ef2cb4d",
+      "layer": "exposure",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "regulators ask about lock-in; advocates plausibly amplify",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "regulators ask about lock-in; advocates plausibly amplify",
+          "layer": "exposure",
+          "reason": "Advocates can surface lock-in concerns to oversight bodies.",
+          "source_actor_name": "consumer_advocates",
+          "target_actor_name": "consumer_regulators",
+          "weight": 0.38
+        },
+        "reason": "Advocates can surface lock-in concerns to oversight bodies."
+      },
+      "source_actor_id": "0bb898d6-b9d6-4c89-b666-09cd2c582118",
+      "target_actor_id": "33442a35-3537-41bb-a959-d10dc09b24d4",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00",
+      "weight": 0.38
+    },
+    {
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "id": "30e4a5ec-d13d-4e2b-9ad0-3f990bfc729b",
+      "layer": "exposure",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "regulatory questions often track public controversy visibility",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "regulatory questions often track public controversy visibility",
+          "layer": "exposure",
+          "reason": "Media attention can raise issue salience for regulators.",
+          "source_actor_name": "tech_media",
+          "target_actor_name": "consumer_regulators",
+          "weight": 0.34
+        },
+        "reason": "Media attention can raise issue salience for regulators."
+      },
+      "source_actor_id": "67fbcd5a-1803-40a8-8f42-9d4a49cdc72d",
+      "target_actor_id": "33442a35-3537-41bb-a959-d10dc09b24d4",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00",
+      "weight": 0.34
+    },
+    {
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "id": "34a6f7c1-f620-4e95-a87e-bd02e2789c76",
+      "layer": "trust",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "customers threaten cancellation after announcement",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "customers threaten cancellation after announcement",
+          "layer": "trust",
+          "reason": "Price increase strains customer belief in fairness and stewardship.",
+          "source_actor_name": "legacy_customers",
+          "target_actor_name": "sentinel_home",
+          "weight": 0.34
+        },
+        "reason": "Price increase strains customer belief in fairness and stewardship."
+      },
+      "source_actor_id": "b384b787-ea85-42da-a59c-afafc4843dc0",
+      "target_actor_id": "f503fd39-0e8d-4066-afc7-ba58c51e1f11",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00",
+      "weight": 0.34
+    },
+    {
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "id": "5c617ff4-7233-4ab4-8f65-40554e7e9cdc",
+      "layer": "trust",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "migration discounts create interest but not established loyalty",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "migration discounts create interest but not established loyalty",
+          "layer": "trust",
+          "reason": "Competitors gain some opportunity but migration claims are not fully proven.",
+          "source_actor_name": "legacy_customers",
+          "target_actor_name": "rival_security_firms",
+          "weight": 0.38
+        },
+        "reason": "Competitors gain some opportunity but migration claims are not fully proven."
+      },
+      "source_actor_id": "b384b787-ea85-42da-a59c-afafc4843dc0",
+      "target_actor_id": "4143f228-bae6-400c-922d-d44280377afb",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00",
+      "weight": 0.38
+    },
+    {
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "id": "7e791551-fd66-4cbb-89b3-7b59f67f18b5",
+      "layer": "trust",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "regulators ask about lock-in",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "regulators ask about lock-in",
+          "layer": "trust",
+          "reason": "Regulators are inquisitive rather than fully adversarial at T0.",
+          "source_actor_name": "consumer_regulators",
+          "target_actor_name": "sentinel_home",
+          "weight": 0.4
+        },
+        "reason": "Regulators are inquisitive rather than fully adversarial at T0."
+      },
+      "source_actor_id": "33442a35-3537-41bb-a959-d10dc09b24d4",
+      "target_actor_id": "f503fd39-0e8d-4066-afc7-ba58c51e1f11",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00",
+      "weight": 0.4
+    },
+    {
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "id": "e2e44979-4883-4494-a501-67450012bc90",
+      "layer": "trust",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "regulatory angle present in scenario framing",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "regulatory angle present in scenario framing",
+          "layer": "trust",
+          "reason": "Public may see regulators as plausible safeguard if lock-in concerns intensify.",
+          "source_actor_name": "market_watchers",
+          "target_actor_name": "consumer_regulators",
+          "weight": 0.46
+        },
+        "reason": "Public may see regulators as plausible safeguard if lock-in concerns intensify."
+      },
+      "source_actor_id": null,
+      "target_actor_id": "33442a35-3537-41bb-a959-d10dc09b24d4",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00",
+      "weight": 0.46
+    },
+    {
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "id": "24d81a47-6d36-40c2-82be-16762513edc5",
+      "layer": "influence",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "company announces price increase for legacy customers",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "company announces price increase for legacy customers",
+          "layer": "influence",
+          "reason": "Platform owner controls subscription terms and service conditions.",
+          "source_actor_name": "sentinel_home",
+          "target_actor_name": "legacy_customers",
+          "weight": 0.63
+        },
+        "reason": "Platform owner controls subscription terms and service conditions."
+      },
+      "source_actor_id": "f503fd39-0e8d-4066-afc7-ba58c51e1f11",
+      "target_actor_id": "b384b787-ea85-42da-a59c-afafc4843dc0",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00",
+      "weight": 0.63
+    },
+    {
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "id": "791b45cc-923b-4999-b331-5e5bbcd03307",
+      "layer": "influence",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "regulators ask about lock-in",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "regulators ask about lock-in",
+          "layer": "influence",
+          "reason": "Regulators can shape company choices through inquiry and settlement threat.",
+          "source_actor_name": "consumer_regulators",
+          "target_actor_name": "sentinel_home",
+          "weight": 0.58
+        },
+        "reason": "Regulators can shape company choices through inquiry and settlement threat."
+      },
+      "source_actor_id": "33442a35-3537-41bb-a959-d10dc09b24d4",
+      "target_actor_id": "f503fd39-0e8d-4066-afc7-ba58c51e1f11",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00",
+      "weight": 0.58
+    },
+    {
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "id": "f2642adf-3bff-496f-a802-e0661114452a",
+      "layer": "influence",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "competitors offer migration discounts",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "competitors offer migration discounts",
+          "layer": "influence",
+          "reason": "Migration discounts and alternatives can convert dissatisfaction into exit.",
+          "source_actor_name": "rival_security_firms",
+          "target_actor_name": "prospective_churners",
+          "weight": 0.54
+        },
+        "reason": "Migration discounts and alternatives can convert dissatisfaction into exit."
+      },
+      "source_actor_id": "4143f228-bae6-400c-922d-d44280377afb",
+      "target_actor_id": "35246bfe-d9a2-4ca4-92cd-7669dd8ba0a7",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00",
+      "weight": 0.54
+    },
+    {
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "id": "2c934620-ebbd-4938-a51c-c149a1788f29",
+      "layer": "influence",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "media role in visible subscription controversy",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "media role in visible subscription controversy",
+          "layer": "influence",
+          "reason": "Coverage shapes reputational interpretation and perceived prevalence of anger.",
+          "source_actor_name": "tech_media",
+          "target_actor_name": "market_watchers",
+          "weight": 0.5
+        },
+        "reason": "Coverage shapes reputational interpretation and perceived prevalence of anger."
+      },
+      "source_actor_id": "67fbcd5a-1803-40a8-8f42-9d4a49cdc72d",
+      "target_actor_id": null,
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00",
+      "weight": 0.5
+    },
+    {
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "id": "c56991c0-150d-4e44-9ed8-e1dedd9b0a1d",
+      "layer": "influence",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "lock-in concern central to scenario",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "lock-in concern central to scenario",
+          "layer": "influence",
+          "reason": "Advocates can frame issue as anti-consumer lock-in rather than routine repricing.",
+          "source_actor_name": "consumer_advocates",
+          "target_actor_name": "market_watchers",
+          "weight": 0.44
+        },
+        "reason": "Advocates can frame issue as anti-consumer lock-in rather than routine repricing."
+      },
+      "source_actor_id": "0bb898d6-b9d6-4c89-b666-09cd2c582118",
+      "target_actor_id": null,
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00",
+      "weight": 0.44
+    },
+    {
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "id": "f59f91e9-02dd-439c-ac35-1882c27bef8c",
+      "layer": "coalition",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "payload": {
+        "direction": "bidirectional",
+        "evidence": "customers threaten cancellation; advocates likely amplify",
+        "initializer": {
+          "direction": "bidirectional",
+          "evidence": "customers threaten cancellation; advocates likely amplify",
+          "layer": "coalition",
+          "reason": "Activated dissatisfied customers and advocates share fairness narrative.",
+          "source_actor_name": "prospective_churners",
+          "target_actor_name": "consumer_advocates",
+          "weight": 0.36
+        },
+        "reason": "Activated dissatisfied customers and advocates share fairness narrative."
+      },
+      "source_actor_id": "35246bfe-d9a2-4ca4-92cd-7669dd8ba0a7",
+      "target_actor_id": "0bb898d6-b9d6-4c89-b666-09cd2c582118",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00",
+      "weight": 0.36
+    },
+    {
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "id": "c54c0512-4fea-4774-bb60-6130ece70f69",
+      "layer": "coalition",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "payload": {
+        "direction": "bidirectional",
+        "evidence": "regulatory questions overlap with advocate framing",
+        "initializer": {
+          "direction": "bidirectional",
+          "evidence": "regulatory questions overlap with advocate framing",
+          "layer": "coalition",
+          "reason": "Shared interest in scrutinizing lock-in without full alignment on remedies.",
+          "source_actor_name": "consumer_advocates",
+          "target_actor_name": "consumer_regulators",
+          "weight": 0.32
+        },
+        "reason": "Shared interest in scrutinizing lock-in without full alignment on remedies."
+      },
+      "source_actor_id": "0bb898d6-b9d6-4c89-b666-09cd2c582118",
+      "target_actor_id": "33442a35-3537-41bb-a959-d10dc09b24d4",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00",
+      "weight": 0.32
+    },
+    {
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "id": "94f70e1f-5dbb-4ab4-81ec-ff3e7a85308a",
+      "layer": "coalition",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "payload": {
+        "direction": "bidirectional",
+        "evidence": "migration discounts target dissatisfied customers",
+        "initializer": {
+          "direction": "bidirectional",
+          "evidence": "migration discounts target dissatisfied customers",
+          "layer": "coalition",
+          "reason": "Both benefit from credible migration path, though relation is transactional.",
+          "source_actor_name": "rival_security_firms",
+          "target_actor_name": "prospective_churners",
+          "weight": 0.41
+        },
+        "reason": "Both benefit from credible migration path, though relation is transactional."
+      },
+      "source_actor_id": "4143f228-bae6-400c-922d-d44280377afb",
+      "target_actor_id": "35246bfe-d9a2-4ca4-92cd-7669dd8ba0a7",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00",
+      "weight": 0.41
+    },
+    {
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "id": "0fe18e94-e66a-4208-af3e-60b230373ff9",
+      "layer": "conflict",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "payload": {
+        "direction": "bidirectional",
+        "evidence": "customers threaten cancellation",
+        "initializer": {
+          "direction": "bidirectional",
+          "evidence": "customers threaten cancellation",
+          "layer": "conflict",
+          "reason": "Customers oppose higher prices and may retaliate through cancellation.",
+          "source_actor_name": "legacy_customers",
+          "target_actor_name": "sentinel_home",
+          "weight": 0.61
+        },
+        "reason": "Customers oppose higher prices and may retaliate through cancellation."
+      },
+      "source_actor_id": "b384b787-ea85-42da-a59c-afafc4843dc0",
+      "target_actor_id": "f503fd39-0e8d-4066-afc7-ba58c51e1f11",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00",
+      "weight": 0.61
+    },
+    {
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "id": "18ad5824-4124-4d1d-ac89-eaf2bbc57499",
+      "layer": "conflict",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "payload": {
+        "direction": "bidirectional",
+        "evidence": "regulators ask about lock-in",
+        "initializer": {
+          "direction": "bidirectional",
+          "evidence": "regulators ask about lock-in",
+          "layer": "conflict",
+          "reason": "Potential disagreement over lock-in and fairness is emerging but not escalated.",
+          "source_actor_name": "consumer_regulators",
+          "target_actor_name": "sentinel_home",
+          "weight": 0.43
+        },
+        "reason": "Potential disagreement over lock-in and fairness is emerging but not escalated."
+      },
+      "source_actor_id": "33442a35-3537-41bb-a959-d10dc09b24d4",
+      "target_actor_id": "f503fd39-0e8d-4066-afc7-ba58c51e1f11",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00",
+      "weight": 0.43
+    },
+    {
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "id": "f4f984be-e727-4e21-b6c5-4cc0dcd30045",
+      "layer": "conflict",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "payload": {
+        "direction": "bidirectional",
+        "evidence": "competitors offer migration discounts following increase",
+        "initializer": {
+          "direction": "bidirectional",
+          "evidence": "competitors offer migration discounts following increase",
+          "layer": "conflict",
+          "reason": "Competitors seek to exploit and deepen incumbent vulnerability.",
+          "source_actor_name": "rival_security_firms",
+          "target_actor_name": "sentinel_home",
+          "weight": 0.5
+        },
+        "reason": "Competitors seek to exploit and deepen incumbent vulnerability."
+      },
+      "source_actor_id": "4143f228-bae6-400c-922d-d44280377afb",
+      "target_actor_id": "f503fd39-0e8d-4066-afc7-ba58c51e1f11",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00",
+      "weight": 0.5
+    },
+    {
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "id": "b2b8ca3a-53bc-4bf2-8b76-4392fc2f12ee",
+      "layer": "oasis_interaction",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "payload": {
+        "direction": "bidirectional",
+        "evidence": "price announcement directly affects legacy subscribers",
+        "initializer": {
+          "direction": "bidirectional",
+          "evidence": "price announcement directly affects legacy subscribers",
+          "layer": "oasis_interaction",
+          "reason": "Customer support, notices, and public statements likely become active channels.",
+          "source_actor_name": "sentinel_home",
+          "target_actor_name": "legacy_customers",
+          "weight": 0.58
+        },
+        "reason": "Customer support, notices, and public statements likely become active channels."
+      },
+      "source_actor_id": "f503fd39-0e8d-4066-afc7-ba58c51e1f11",
+      "target_actor_id": "b384b787-ea85-42da-a59c-afafc4843dc0",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00",
+      "weight": 0.58
+    },
+    {
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "id": "810b513f-dc5d-48c7-8675-3f8e1ae762bf",
+      "layer": "oasis_interaction",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "payload": {
+        "direction": "bidirectional",
+        "evidence": "pricing controversy commonly drives press interaction",
+        "initializer": {
+          "direction": "bidirectional",
+          "evidence": "pricing controversy commonly drives press interaction",
+          "layer": "oasis_interaction",
+          "reason": "Company likely faces inquiries and public response cycles.",
+          "source_actor_name": "tech_media",
+          "target_actor_name": "sentinel_home",
+          "weight": 0.44
+        },
+        "reason": "Company likely faces inquiries and public response cycles."
+      },
+      "source_actor_id": "67fbcd5a-1803-40a8-8f42-9d4a49cdc72d",
+      "target_actor_id": "f503fd39-0e8d-4066-afc7-ba58c51e1f11",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00",
+      "weight": 0.44
+    },
+    {
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "id": "08fd32b8-457d-4a8b-99bc-56576cdae5e3",
+      "layer": "oasis_interaction",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "payload": {
+        "direction": "bidirectional",
+        "evidence": "consumer fairness and lock-in are media-friendly frames",
+        "initializer": {
+          "direction": "bidirectional",
+          "evidence": "consumer fairness and lock-in are media-friendly frames",
+          "layer": "oasis_interaction",
+          "reason": "Advocates likely appear in coverage and commentary loops.",
+          "source_actor_name": "consumer_advocates",
+          "target_actor_name": "tech_media",
+          "weight": 0.39
+        },
+        "reason": "Advocates likely appear in coverage and commentary loops."
+      },
+      "source_actor_id": "0bb898d6-b9d6-4c89-b666-09cd2c582118",
+      "target_actor_id": "67fbcd5a-1803-40a8-8f42-9d4a49cdc72d",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00",
+      "weight": 0.39
+    },
+    {
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "id": "0094aafe-c56d-450c-85c3-82bcac28e1f7",
+      "layer": "oasis_interaction",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "payload": {
+        "direction": "bidirectional",
+        "evidence": "migration discounts explicitly mentioned",
+        "initializer": {
+          "direction": "bidirectional",
+          "evidence": "migration discounts explicitly mentioned",
+          "layer": "oasis_interaction",
+          "reason": "Promotional offers create visible public and direct engagement with target customers.",
+          "source_actor_name": "rival_security_firms",
+          "target_actor_name": "legacy_customers",
+          "weight": 0.49
+        },
+        "reason": "Promotional offers create visible public and direct engagement with target customers."
+      },
+      "source_actor_id": "4143f228-bae6-400c-922d-d44280377afb",
+      "target_actor_id": "b384b787-ea85-42da-a59c-afafc4843dc0",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00",
+      "weight": 0.49
+    }
+  ],
+  "snapshots": [
+    {
+      "artifact_id": null,
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Company cites cloud costs as rationale for increase, implying meaningful upstream cost dependence.",
+            "source": "sentinel_home",
+            "target": "cloud_infrastructure_suppliers",
+            "weight": 0.68
+          },
+          {
+            "reason": "Existing customers rely on provider for ongoing security service continuity.",
+            "source": "legacy_customers",
+            "target": "sentinel_home",
+            "weight": 0.62
+          },
+          {
+            "reason": "Even dissatisfied customers remain tied to current service until they migrate.",
+            "source": "prospective_churners",
+            "target": "sentinel_home",
+            "weight": 0.58
+          },
+          {
+            "reason": "Recurring revenue depends on retention of legacy subscriber base.",
+            "source": "sentinel_home",
+            "target": "legacy_customers",
+            "weight": 0.57
+          }
+        ],
+        "layer": "dependency",
+        "tick_index": 0
+      },
+      "id": "06c39d0b-c8e6-4bf8-929b-2bcb0e55fb98",
+      "layer": "dependency",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Customer complaints are likely source material for coverage.",
+            "source": "legacy_customers",
+            "target": "tech_media",
+            "weight": 0.42
+          },
+          {
+            "reason": "Coverage informs subscribers about options, backlash, and regulator attention.",
+            "source": "tech_media",
+            "target": "legacy_customers",
+            "weight": 0.48
+          },
+          {
+            "reason": "Competitors actively offer migration discounts to incumbent customers.",
+            "source": "rival_security_firms",
+            "target": "legacy_customers",
+            "weight": 0.52
+          },
+          {
+            "reason": "Advocates can surface lock-in concerns to oversight bodies.",
+            "source": "consumer_advocates",
+            "target": "consumer_regulators",
+            "weight": 0.38
+          },
+          {
+            "reason": "Media attention can raise issue salience for regulators.",
+            "source": "tech_media",
+            "target": "consumer_regulators",
+            "weight": 0.34
+          }
+        ],
+        "layer": "exposure",
+        "tick_index": 0
+      },
+      "id": "3043c862-039e-439e-9165-7df607d1b693",
+      "layer": "exposure",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Price increase strains customer belief in fairness and stewardship.",
+            "source": "legacy_customers",
+            "target": "sentinel_home",
+            "weight": 0.34
+          },
+          {
+            "reason": "Competitors gain some opportunity but migration claims are not fully proven.",
+            "source": "legacy_customers",
+            "target": "rival_security_firms",
+            "weight": 0.38
+          },
+          {
+            "reason": "Regulators are inquisitive rather than fully adversarial at T0.",
+            "source": "consumer_regulators",
+            "target": "sentinel_home",
+            "weight": 0.4
+          },
+          {
+            "reason": "Public may see regulators as plausible safeguard if lock-in concerns intensify.",
+            "source": "market_watchers",
+            "target": "consumer_regulators",
+            "weight": 0.46
+          }
+        ],
+        "layer": "trust",
+        "tick_index": 0
+      },
+      "id": "fd661f6a-502a-469e-ad3a-0788d62b17fd",
+      "layer": "trust",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Platform owner controls subscription terms and service conditions.",
+            "source": "sentinel_home",
+            "target": "legacy_customers",
+            "weight": 0.63
+          },
+          {
+            "reason": "Regulators can shape company choices through inquiry and settlement threat.",
+            "source": "consumer_regulators",
+            "target": "sentinel_home",
+            "weight": 0.58
+          },
+          {
+            "reason": "Migration discounts and alternatives can convert dissatisfaction into exit.",
+            "source": "rival_security_firms",
+            "target": "prospective_churners",
+            "weight": 0.54
+          },
+          {
+            "reason": "Coverage shapes reputational interpretation and perceived prevalence of anger.",
+            "source": "tech_media",
+            "target": "market_watchers",
+            "weight": 0.5
+          },
+          {
+            "reason": "Advocates can frame issue as anti-consumer lock-in rather than routine repricing.",
+            "source": "consumer_advocates",
+            "target": "market_watchers",
+            "weight": 0.44
+          }
+        ],
+        "layer": "influence",
+        "tick_index": 0
+      },
+      "id": "25ac48d5-0fa9-4720-a813-ec45649b9f75",
+      "layer": "influence",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Activated dissatisfied customers and advocates share fairness narrative.",
+            "source": "prospective_churners",
+            "target": "consumer_advocates",
+            "weight": 0.36
+          },
+          {
+            "reason": "Shared interest in scrutinizing lock-in without full alignment on remedies.",
+            "source": "consumer_advocates",
+            "target": "consumer_regulators",
+            "weight": 0.32
+          },
+          {
+            "reason": "Both benefit from credible migration path, though relation is transactional.",
+            "source": "rival_security_firms",
+            "target": "prospective_churners",
+            "weight": 0.41
+          }
+        ],
+        "layer": "coalition",
+        "tick_index": 0
+      },
+      "id": "d5b06e71-ccc9-4f77-8ba7-bdedb77b1e2b",
+      "layer": "coalition",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Customers oppose higher prices and may retaliate through cancellation.",
+            "source": "legacy_customers",
+            "target": "sentinel_home",
+            "weight": 0.61
+          },
+          {
+            "reason": "Potential disagreement over lock-in and fairness is emerging but not escalated.",
+            "source": "consumer_regulators",
+            "target": "sentinel_home",
+            "weight": 0.43
+          },
+          {
+            "reason": "Competitors seek to exploit and deepen incumbent vulnerability.",
+            "source": "rival_security_firms",
+            "target": "sentinel_home",
+            "weight": 0.5
+          }
+        ],
+        "layer": "conflict",
+        "tick_index": 0
+      },
+      "id": "9262dfd9-5814-43fd-ba14-e72f7b0bccaa",
+      "layer": "conflict",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "45ce4ba4-9a07-4d13-bd3b-84d3b9e2dd31",
+      "created_at": "2026-05-05T02:47:26.069483+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Customer support, notices, and public statements likely become active channels.",
+            "source": "sentinel_home",
+            "target": "legacy_customers",
+            "weight": 0.58
+          },
+          {
+            "reason": "Company likely faces inquiries and public response cycles.",
+            "source": "tech_media",
+            "target": "sentinel_home",
+            "weight": 0.44
+          },
+          {
+            "reason": "Advocates likely appear in coverage and commentary loops.",
+            "source": "consumer_advocates",
+            "target": "tech_media",
+            "weight": 0.39
+          },
+          {
+            "reason": "Promotional offers create visible public and direct engagement with target customers.",
+            "source": "rival_security_firms",
+            "target": "legacy_customers",
+            "weight": 0.49
+          }
+        ],
+        "layer": "oasis_interaction",
+        "tick_index": 0
+      },
+      "id": "a6c732d8-06c7-401a-aa27-4580650c14fd",
+      "layer": "oasis_interaction",
+      "multiverse_id": "26c261ac-3f57-4750-a143-f7eb0b624494",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:47:26.069483+00:00"
+    }
+  ]
+}

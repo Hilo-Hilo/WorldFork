@@ -1,0 +1,21 @@
+{
+  "job_type": "initialize_big_bang",
+  "payload": {
+    "actors": [],
+    "branch_policy": {
+      "branch_score_threshold": 0.999,
+      "max_active_multiverses": 1,
+      "max_branch_depth": 1,
+      "max_branches_per_tick": 1
+    },
+    "cohorts": [],
+    "heroes": [],
+    "name": "E1_init_job_health_004",
+    "scenario_text": "# Case health_004\nBenchmark role: public_health_resource\n\n## Scenario\n\nA city must choose whether to close an aging bridge after engineers find cracks. Commuters, freight firms, emergency services, nearby businesses, and safety inspectors have competing priorities. Officials can restrict loads immediately but need funding for replacement. Seed plausible terminal endpoints and branch signals around emergency closure, phased repairs, denial, or political funding deal.\n\n## Expected Focus\n- long_horizon_branching\n- state_continuity\n- endpoint_ledger\n",
+    "simulation_config": {
+      "max_ticks": 1,
+      "tick_duration_minutes": 720
+    },
+    "use_initializer_agent": true
+  }
+}

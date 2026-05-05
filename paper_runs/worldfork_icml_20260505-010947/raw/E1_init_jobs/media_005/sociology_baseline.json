@@ -1,0 +1,209 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "630faf02-d558-4dd0-824a-eec8f09c245c",
+      "created_at": "2026-05-05T02:35:53.590992+00:00",
+      "id": "ea352c0e-9e1a-4b3a-9f9d-9c3b8a83ec70",
+      "influence": {
+        "context_key": "official_confusion_penalty",
+        "description": "Confusing initial official visuals reduce message uptake unless accompanied by plain-language restatement."
+      },
+      "multiverse_id": "680e15c3-852e-4377-9473-f88ce7a51e29",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:35:53.590992+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "630faf02-d558-4dd0-824a-eec8f09c245c",
+      "created_at": "2026-05-05T02:35:53.590992+00:00",
+      "id": "6ef16ed9-03be-4618-b60d-fc3d662306e4",
+      "influence": {
+        "context_key": "intermediary_trust_advantage",
+        "description": "Schools, translators, and local news can outperform the original source in perceived usability when they simplify instructions."
+      },
+      "multiverse_id": "680e15c3-852e-4377-9473-f88ce7a51e29",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:35:53.590992+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "630faf02-d558-4dd0-824a-eec8f09c245c",
+      "created_at": "2026-05-05T02:35:53.590992+00:00",
+      "id": "cd056f42-2cd0-4b64-af6f-fd08c24762fb",
+      "influence": {
+        "context_key": "translation_lag_sensitivity",
+        "description": "If corrections arrive in English first and multilingual updates lag, information inequality widens quickly."
+      },
+      "multiverse_id": "680e15c3-852e-4377-9473-f88ce7a51e29",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:35:53.590992+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "630faf02-d558-4dd0-824a-eec8f09c245c",
+      "created_at": "2026-05-05T02:35:53.590992+00:00",
+      "id": "172ef742-0d6d-44bd-8b7d-41309e3379ad",
+      "influence": {
+        "context_key": "channel_consistency_effect",
+        "description": "Repeated alignment across city, school, translator, and news channels materially improves confidence in interpretation."
+      },
+      "multiverse_id": "680e15c3-852e-4377-9473-f88ce7a51e29",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:35:53.590992+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "630faf02-d558-4dd0-824a-eec8f09c245c",
+      "created_at": "2026-05-05T02:35:53.590992+00:00",
+      "id": "68ccae92-807b-4a58-9241-40dd1e73ba1d",
+      "model": "attention_decay",
+      "multiverse_id": "680e15c3-852e-4377-9473-f88ce7a51e29",
+      "signal": {
+        "applies_to": [
+          "local_residents_general",
+          "school_families",
+          "multilingual_households"
+        ],
+        "level": 0.64,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "People are more likely to accept clarifications from already trusted intermediaries than from unfamiliar sources."
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:35:53.590992+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "630faf02-d558-4dd0-824a-eec8f09c245c",
+      "created_at": "2026-05-05T02:35:53.590992+00:00",
+      "id": "99e28d39-231f-411f-9ba6-e8d7ecd2b834",
+      "model": "attention_decay",
+      "multiverse_id": "680e15c3-852e-4377-9473-f88ce7a51e29",
+      "signal": {
+        "applies_to": [
+          "local_residents_general"
+        ],
+        "level": 0.46,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Public complaint or active questioning rises if confusion is repeated across channels or validated by peers/media."
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:35:53.590992+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "630faf02-d558-4dd0-824a-eec8f09c245c",
+      "created_at": "2026-05-05T02:35:53.590992+00:00",
+      "id": "c07732e3-489f-404d-9adb-26c5176fb704",
+      "model": "attention_decay",
+      "multiverse_id": "680e15c3-852e-4377-9473-f88ce7a51e29",
+      "signal": {
+        "applies_to": [
+          "multilingual_households",
+          "residents_low_attention"
+        ],
+        "level": 0.42,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Some households privately doubt comprehension but do not publicly signal confusion unless prompted by trusted community nodes."
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:35:53.590992+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "630faf02-d558-4dd0-824a-eec8f09c245c",
+      "created_at": "2026-05-05T02:35:53.590992+00:00",
+      "id": "e538e7dc-f25e-4003-986b-cff57beed809",
+      "model": "attention_decay",
+      "multiverse_id": "680e15c3-852e-4377-9473-f88ce7a51e29",
+      "signal": {
+        "applies_to": [
+          "multilingual_households",
+          "school_families",
+          "local_residents_general"
+        ],
+        "level": 0.58,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Residents preferentially verify information within familiar language, school, or neighborhood networks."
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:35:53.590992+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "630faf02-d558-4dd0-824a-eec8f09c245c",
+      "created_at": "2026-05-05T02:35:53.590992+00:00",
+      "id": "e29ca8da-0b73-4ac7-902a-d6dec232d97f",
+      "model": "attention_decay",
+      "multiverse_id": "680e15c3-852e-4377-9473-f88ce7a51e29",
+      "signal": {
+        "applies_to": [
+          "local_residents_general",
+          "school_families"
+        ],
+        "level": 0.61,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Belief that maps are unusable or corrected usually needs reinforcement from multiple sources."
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:35:53.590992+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "630faf02-d558-4dd0-824a-eec8f09c245c",
+      "created_at": "2026-05-05T02:35:53.590992+00:00",
+      "id": "7d3a2d59-95a8-478d-a8a4-653b89dd3a5f",
+      "model": "attention_decay",
+      "multiverse_id": "680e15c3-852e-4377-9473-f88ce7a51e29",
+      "signal": {
+        "applies_to": [
+          "school_families",
+          "multilingual_households"
+        ],
+        "level": 0.55,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "School-linked and language-community identities shape who is seen as credible."
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:35:53.590992+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "630faf02-d558-4dd0-824a-eec8f09c245c",
+      "created_at": "2026-05-05T02:35:53.590992+00:00",
+      "id": "87b0c4a7-c608-4458-8389-cf87023450b1",
+      "model": "attention_decay",
+      "multiverse_id": "680e15c3-852e-4377-9473-f88ce7a51e29",
+      "signal": {
+        "applies_to": [
+          "local_residents_general"
+        ],
+        "level": 0.47,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "If corrections are delayed or not salient, many low-attention residents disengage rather than resolve confusion."
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:35:53.590992+00:00"
+    }
+  ]
+}

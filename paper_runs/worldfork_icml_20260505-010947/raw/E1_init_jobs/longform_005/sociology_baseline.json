@@ -1,0 +1,229 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "b1ed7d1d-a345-4e66-b77b-3a36861af73c",
+      "created_at": "2026-05-05T02:44:25.866777+00:00",
+      "id": "9b2883ac-f9c0-490d-acd7-1e430de807e8",
+      "influence": {
+        "description": "Technical reliability claims can legitimize delay or conditional retirement if repeated by trusted internal experts.",
+        "influence_key": "reliability_frame_salience",
+        "target_actors": [
+          "regional_energy_coop_board",
+          "member_owner_ratepayers",
+          "state_utility_regulator"
+        ]
+      },
+      "multiverse_id": "cfafbd67-cc10-4e1c-82b8-c69e33923f7a",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:44:25.866777+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "b1ed7d1d-a345-4e66-b77b-3a36861af73c",
+      "created_at": "2026-05-05T02:44:25.866777+00:00",
+      "id": "ec52c0fa-f04d-4254-a6d9-43b918989a13",
+      "influence": {
+        "description": "Worker protection language can bridge climate and labor camps if made concrete and enforceable.",
+        "influence_key": "just_transition_frame",
+        "target_actors": [
+          "plant_workers_union",
+          "clean_air_now_coalition",
+          "regional_energy_coop_board",
+          "local_host_community"
+        ]
+      },
+      "multiverse_id": "cfafbd67-cc10-4e1c-82b8-c69e33923f7a",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:44:25.866777+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "b1ed7d1d-a345-4e66-b77b-3a36861af73c",
+      "created_at": "2026-05-05T02:44:25.866777+00:00",
+      "id": "e2a578ea-865d-433f-956d-c3779b50be84",
+      "influence": {
+        "description": "Cost recovery framing strongly affects whether members and regulator view retirement as prudent or burdensome.",
+        "influence_key": "ratepayer_prudence_frame",
+        "target_actors": [
+          "member_owner_ratepayers",
+          "state_utility_regulator",
+          "regional_energy_coop_board"
+        ]
+      },
+      "multiverse_id": "cfafbd67-cc10-4e1c-82b8-c69e33923f7a",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:44:25.866777+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "b1ed7d1d-a345-4e66-b77b-3a36861af73c",
+      "created_at": "2026-05-05T02:44:25.866777+00:00",
+      "id": "bdf221e2-0ae1-4e3c-adff-767b8c49e6e3",
+      "influence": {
+        "description": "Board recommendation precedes or shapes regulatory cost recovery review, which in turn conditions practical implementation.",
+        "influence_key": "institutional_sequence_constraint",
+        "target_actors": [
+          "regional_energy_coop_board",
+          "state_utility_regulator",
+          "coop_management"
+        ]
+      },
+      "multiverse_id": "cfafbd67-cc10-4e1c-82b8-c69e33923f7a",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:44:25.866777+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "b1ed7d1d-a345-4e66-b77b-3a36861af73c",
+      "created_at": "2026-05-05T02:44:25.866777+00:00",
+      "id": "86915f58-4bd8-4f88-8fb4-67d7361d99b7",
+      "model": "attention_decay",
+      "multiverse_id": "cfafbd67-cc10-4e1c-82b8-c69e33923f7a",
+      "signal": {
+        "applies_to": [
+          "member_owner_ratepayers",
+          "local_host_community"
+        ],
+        "evidence": "members likely respond more to frames close to existing concerns like rates, reliability, and fairness than to abstract claims",
+        "level": 0.58,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:44:25.866777+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "b1ed7d1d-a345-4e66-b77b-3a36861af73c",
+      "created_at": "2026-05-05T02:44:25.866777+00:00",
+      "id": "bc1ec261-9b9c-4815-ac66-656229b577c2",
+      "model": "attention_decay",
+      "multiverse_id": "cfafbd67-cc10-4e1c-82b8-c69e33923f7a",
+      "signal": {
+        "applies_to": [
+          "member_owner_ratepayers"
+        ],
+        "evidence": "many members likely remain passive until visible rate, reliability, or fairness cues cross a threshold",
+        "level": 0.62,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:44:25.866777+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "b1ed7d1d-a345-4e66-b77b-3a36861af73c",
+      "created_at": "2026-05-05T02:44:25.866777+00:00",
+      "id": "753fe1bb-c532-496b-9e70-c36a83c096f3",
+      "model": "attention_decay",
+      "multiverse_id": "cfafbd67-cc10-4e1c-82b8-c69e33923f7a",
+      "signal": {
+        "applies_to": [
+          "host_community_health_transition",
+          "reliability_first_members"
+        ],
+        "evidence": "quiet or uncertain cohorts may under-express minority views due to local pressure or uncertainty",
+        "level": 0.54,
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:44:25.866777+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "b1ed7d1d-a345-4e66-b77b-3a36861af73c",
+      "created_at": "2026-05-05T02:44:25.866777+00:00",
+      "id": "3c20df1f-f0b7-46b6-8ca0-6324a2300acb",
+      "model": "attention_decay",
+      "multiverse_id": "cfafbd67-cc10-4e1c-82b8-c69e33923f7a",
+      "signal": {
+        "applies_to": [
+          "local_host_community",
+          "organized_climate_supporters",
+          "union_core_households"
+        ],
+        "evidence": "local economic ties and advocacy networks likely reinforce within-group narratives",
+        "level": 0.57,
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:44:25.866777+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "b1ed7d1d-a345-4e66-b77b-3a36861af73c",
+      "created_at": "2026-05-05T02:44:25.866777+00:00",
+      "id": "9a55cb6d-96e2-4baf-ad0d-a99e523f3a93",
+      "model": "attention_decay",
+      "multiverse_id": "cfafbd67-cc10-4e1c-82b8-c69e33923f7a",
+      "signal": {
+        "applies_to": [
+          "member_owner_ratepayers"
+        ],
+        "evidence": "support for a consequential infrastructure shift likely needs repeated signals from trusted institutions and peers",
+        "level": 0.61,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:44:25.866777+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "b1ed7d1d-a345-4e66-b77b-3a36861af73c",
+      "created_at": "2026-05-05T02:44:25.866777+00:00",
+      "id": "28dacdea-77d8-4f31-a1bc-b66d6cb82424",
+      "model": "attention_decay",
+      "multiverse_id": "cfafbd67-cc10-4e1c-82b8-c69e33923f7a",
+      "signal": {
+        "applies_to": [
+          "plant_workers_union",
+          "local_host_community",
+          "member_owner_ratepayers"
+        ],
+        "evidence": "worker, community, and owner identities shape interpretation of the same facts",
+        "level": 0.68,
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:44:25.866777+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "b1ed7d1d-a345-4e66-b77b-3a36861af73c",
+      "created_at": "2026-05-05T02:44:25.866777+00:00",
+      "id": "f1a1bfee-ad28-4045-93bc-0d7d274cabd7",
+      "model": "attention_decay",
+      "multiverse_id": "cfafbd67-cc10-4e1c-82b8-c69e33923f7a",
+      "signal": {
+        "applies_to": [
+          "member_owner_ratepayers"
+        ],
+        "evidence": "unless punctuated by hearings, letters, or bill impacts, broader member attention may drift",
+        "level": 0.43,
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:44:25.866777+00:00"
+    }
+  ]
+}

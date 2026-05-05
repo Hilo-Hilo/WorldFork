@@ -1,0 +1,1482 @@
+{
+  "big_bang_id": "de9733cf-6c75-4838-a26b-6217b145f44a",
+  "initializer_output": {
+    "actors": [
+      {
+        "constraints": [
+          "ambiguous original quote",
+          "limited message control after virality",
+          "risk of alienating multiple audiences with sharper clarification"
+        ],
+        "name": "candidate_mara_vale",
+        "public_role": "fictional_mayoral_candidate",
+        "resources": [
+          "debate visibility",
+          "campaign communications team",
+          "earned media access"
+        ],
+        "stakes": [
+          "retain electoral viability",
+          "avoid appearing hostile or evasive on emergency shelter policy",
+          "maintain coalition breadth"
+        ],
+        "type": "person"
+      },
+      {
+        "constraints": [
+          "partial corrections may appear evasive",
+          "dependent on candidate discipline and media uptake"
+        ],
+        "name": "vale_campaign",
+        "public_role": "campaign_staff",
+        "resources": [
+          "press statements",
+          "surrogates",
+          "rapid response messaging"
+        ],
+        "stakes": [
+          "contain controversy",
+          "preserve candidate credibility",
+          "shift agenda to favorable issues"
+        ],
+        "type": "organization"
+      },
+      {
+        "constraints": [
+          "must maintain credibility",
+          "risk of overreach if ambiguity is later clarified benignly"
+        ],
+        "name": "shelter_advocacy_coalition",
+        "public_role": "advocacy_groups",
+        "resources": [
+          "moral authority on issue",
+          "activist networks",
+          "press outreach"
+        ],
+        "stakes": [
+          "obtain clear shelter policy commitment",
+          "signal issue salience to supporters",
+          "hold candidates publicly accountable"
+        ],
+        "type": "organization"
+      },
+      {
+        "constraints": [
+          "incomplete information at first pass",
+          "attention competition from other campaign stories"
+        ],
+        "name": "city_press_corps",
+        "public_role": "reporters_and_fact_checkers",
+        "resources": [
+          "fact-checking capacity",
+          "interview access",
+          "agenda-setting coverage"
+        ],
+        "stakes": [
+          "clarify public record",
+          "maintain audience trust",
+          "compete for attention during campaign"
+        ],
+        "type": "organization"
+      },
+      {
+        "constraints": [
+          "fatigue",
+          "limited issue attention",
+          "mixed prior knowledge"
+        ],
+        "name": "undecided_voters",
+        "public_role": "swing_electorate",
+        "resources": [
+          "electoral swing power",
+          "social sharing"
+        ],
+        "stakes": [
+          "choose credible candidate",
+          "minimize cognitive overload",
+          "use shortcuts under uncertainty"
+        ],
+        "type": "population_actor"
+      },
+      {
+        "constraints": [
+          "overattack risk",
+          "may also be drawn into shelter policy scrutiny"
+        ],
+        "name": "candidate_oren_pike",
+        "public_role": "fictional_opposing_mayoral_candidate",
+        "resources": [
+          "counter-messaging",
+          "debate follow-up events"
+        ],
+        "stakes": [
+          "benefit from rival's controversy without seeming opportunistic",
+          "present contrast on public safety and shelters"
+        ],
+        "type": "person"
+      },
+      {
+        "constraints": [
+          "varying issue salience",
+          "attention decay"
+        ],
+        "name": "general_voters",
+        "public_role": "citywide_electorate",
+        "resources": [
+          "votes",
+          "peer discussion",
+          "online/offline audience behavior"
+        ],
+        "stakes": [
+          "interpret controversy through partisan and civic lenses",
+          "maintain routine campaign attention"
+        ],
+        "type": "population_actor"
+      },
+      {
+        "constraints": [
+          "fragmented context",
+          "high noise",
+          "short attention cycles"
+        ],
+        "name": "social_media_audience",
+        "public_role": "networked_public",
+        "resources": [
+          "rapid amplification",
+          "commentary volume"
+        ],
+        "stakes": [
+          "consume and circulate salient clips",
+          "perform viewpoint signaling",
+          "react quickly to controversy"
+        ],
+        "type": "population_actor"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "branch_key": "direct_clarification_recovers",
+        "divergence_signal": "fact-check headlines shift from ambiguity to clarified position and campaign statements become internally consistent",
+        "plausible_path": "controversy narrows from moral backlash to competence scrutiny; undecided distrust softens modestly and advocacy pressure partially de-escalates",
+        "trigger": "candidate_mara_vale delivers a specific, consistent shelter policy clarification accepted by at least part of the press corps"
+      },
+      {
+        "branch_key": "partial_correction_backlash",
+        "divergence_signal": "multiple stories compare conflicting campaign explanations and advocacy statements escalate from clarification demand to condemnation",
+        "plausible_path": "advocacy groups intensify criticism, press coverage centers on evasiveness, and undecided voters update against candidate credibility",
+        "trigger": "campaign continues issuing incomplete or shifting explanations without candidate specificity"
+      },
+      {
+        "branch_key": "distraction_succeeds",
+        "divergence_signal": "share of campaign coverage on shelters falls quickly while general voter recall remains shallow",
+        "plausible_path": "public attention decays before durable trust damage forms; controversy remains within high-attention political circles",
+        "trigger": "a new campaign story or deliberate agenda shift captures more attention than the shelter quote"
+      },
+      {
+        "branch_key": "issue_reframing_competes",
+        "divergence_signal": "public messaging substitutes management language for direct shelter commitment and some undecideds repeat reframe rather than quote itself",
+        "plausible_path": "supporters consolidate around pragmatic framing while critics argue dodge; conflict persists but on altered terms",
+        "trigger": "Vale camp reframes from shelter specifics to broader emergency management, budgeting, or governance competence"
+      },
+      {
+        "branch_key": "opponent_overreach_backfires",
+        "divergence_signal": "press and online commentary focus on opportunism or hypocrisy rather than Vale's original ambiguity",
+        "plausible_path": "some undecideds discount the controversy as campaign mudslinging, muting rival gains",
+        "trigger": "candidate_oren_pike attacks too aggressively or opportunistically before facts stabilize"
+      }
+    ],
+    "channels": [
+      {
+        "audience": [
+          "social_media_audience",
+          "general_voters"
+        ],
+        "channel_name": "debate_clip_shares",
+        "channel_type": "social",
+        "credibility": 0.39,
+        "velocity": 0.84
+      },
+      {
+        "audience": [
+          "general_voters",
+          "city_press_corps",
+          "vale_core_supporters"
+        ],
+        "channel_name": "campaign_press_statements",
+        "channel_type": "campaign_comms",
+        "credibility": 0.36,
+        "velocity": 0.61
+      },
+      {
+        "audience": [
+          "city_press_corps",
+          "general_voters",
+          "social_media_audience"
+        ],
+        "channel_name": "advocacy_statements",
+        "channel_type": "civic_advocacy",
+        "credibility": 0.58,
+        "velocity": 0.56
+      },
+      {
+        "audience": [
+          "general_voters",
+          "undecided_voters",
+          "social_media_audience"
+        ],
+        "channel_name": "fact_check_articles",
+        "channel_type": "news",
+        "credibility": 0.69,
+        "velocity": 0.52
+      },
+      {
+        "audience": [
+          "general_voters",
+          "undecided_voters"
+        ],
+        "channel_name": "candidate_followup_interview",
+        "channel_type": "broadcast_or_local_press",
+        "credibility": 0.63,
+        "velocity": 0.47
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_name": "citywide_voters",
+        "attention_level": 0.58,
+        "cohort_name": "undecided_moderates",
+        "expression_level": 0.23,
+        "fatigue": 0.69,
+        "fear_of_isolation": 0.49,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.2,
+        "private_belief": "candidate ambiguity is concerning but not yet disqualifying",
+        "public_expression": "limited and sporadic; many avoid posting",
+        "representation_mode": "explicit_segment",
+        "represented_population": 48000,
+        "stance_axes": {
+          "candidate_vale_support": 0.47,
+          "issue_salience_emergency_shelters": 0.51,
+          "shelter_policy_clarity": 0.62
+        }
+      },
+      {
+        "archetype_name": "citywide_voters",
+        "attention_level": 0.63,
+        "cohort_name": "vale_core_supporters",
+        "expression_level": 0.55,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.54,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "candidate likely misspoke or was misinterpreted",
+        "public_expression": "defensive but not uniformly aggressive",
+        "representation_mode": "explicit_segment",
+        "represented_population": 72000,
+        "stance_axes": {
+          "candidate_vale_support": 0.86,
+          "issue_salience_emergency_shelters": 0.38,
+          "shelter_policy_clarity": 0.46
+        }
+      },
+      {
+        "archetype_name": "citywide_voters",
+        "attention_level": 0.61,
+        "cohort_name": "pike_core_supporters",
+        "expression_level": 0.59,
+        "fatigue": 0.36,
+        "fear_of_isolation": 0.25,
+        "mobilization_readiness": 0.6,
+        "perceived_majority": 0.48,
+        "population_share_of_archetype": 0.27,
+        "private_belief": "controversy confirms doubts about Vale",
+        "public_expression": "ready to criticize and share negative framing",
+        "representation_mode": "explicit_segment",
+        "represented_population": 64800,
+        "stance_axes": {
+          "candidate_vale_support": 0.12,
+          "issue_salience_emergency_shelters": 0.49,
+          "shelter_policy_clarity": 0.71
+        }
+      },
+      {
+        "archetype_name": "citywide_voters",
+        "attention_level": 0.29,
+        "cohort_name": "low_attention_civic_voters",
+        "expression_level": 0.12,
+        "fatigue": 0.74,
+        "fear_of_isolation": 0.42,
+        "mobilization_readiness": 0.14,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.23,
+        "private_belief": "little fixed view; controversy may blur into general distrust",
+        "public_expression": "mostly silent",
+        "representation_mode": "explicit_segment",
+        "represented_population": 55200,
+        "stance_axes": {
+          "candidate_vale_support": 0.45,
+          "issue_salience_emergency_shelters": 0.27,
+          "shelter_policy_clarity": 0.4
+        }
+      },
+      {
+        "archetype_name": "networked_public",
+        "attention_level": 0.76,
+        "cohort_name": "local_online_amplifiers",
+        "expression_level": 0.81,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.31,
+        "mobilization_readiness": 0.48,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "viral clips are meaningful but often incomplete",
+        "public_expression": "high reposting and commentary",
+        "representation_mode": "explicit_segment",
+        "represented_population": 54000,
+        "stance_axes": {
+          "candidate_vale_support": 0.41,
+          "issue_salience_emergency_shelters": 0.58,
+          "shelter_policy_clarity": 0.66
+        }
+      },
+      {
+        "archetype_name": "networked_public",
+        "attention_level": 0.37,
+        "cohort_name": "casual_scrollers",
+        "expression_level": 0.2,
+        "fatigue": 0.67,
+        "fear_of_isolation": 0.39,
+        "mobilization_readiness": 0.16,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "controversy is one item among many and may be quickly forgotten",
+        "public_expression": "light engagement, reactive sharing",
+        "representation_mode": "explicit_segment",
+        "represented_population": 126000,
+        "stance_axes": {
+          "candidate_vale_support": 0.44,
+          "issue_salience_emergency_shelters": 0.31,
+          "shelter_policy_clarity": 0.43
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_name": "citywide_voters",
+        "attention_level": 0.58,
+        "cohort_name": "undecided_moderates",
+        "expression_level": 0.23,
+        "fatigue": 0.69,
+        "fear_of_isolation": 0.49,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.2,
+        "private_belief": "candidate ambiguity is concerning but not yet disqualifying",
+        "public_expression": "limited and sporadic; many avoid posting",
+        "representation_mode": "explicit_segment",
+        "represented_population": 48000,
+        "stance_axes": {
+          "candidate_vale_support": 0.47,
+          "issue_salience_emergency_shelters": 0.51,
+          "shelter_policy_clarity": 0.62
+        }
+      },
+      {
+        "archetype_name": "citywide_voters",
+        "attention_level": 0.63,
+        "cohort_name": "vale_core_supporters",
+        "expression_level": 0.55,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.54,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "candidate likely misspoke or was misinterpreted",
+        "public_expression": "defensive but not uniformly aggressive",
+        "representation_mode": "explicit_segment",
+        "represented_population": 72000,
+        "stance_axes": {
+          "candidate_vale_support": 0.86,
+          "issue_salience_emergency_shelters": 0.38,
+          "shelter_policy_clarity": 0.46
+        }
+      },
+      {
+        "archetype_name": "citywide_voters",
+        "attention_level": 0.61,
+        "cohort_name": "pike_core_supporters",
+        "expression_level": 0.59,
+        "fatigue": 0.36,
+        "fear_of_isolation": 0.25,
+        "mobilization_readiness": 0.6,
+        "perceived_majority": 0.48,
+        "population_share_of_archetype": 0.27,
+        "private_belief": "controversy confirms doubts about Vale",
+        "public_expression": "ready to criticize and share negative framing",
+        "representation_mode": "explicit_segment",
+        "represented_population": 64800,
+        "stance_axes": {
+          "candidate_vale_support": 0.12,
+          "issue_salience_emergency_shelters": 0.49,
+          "shelter_policy_clarity": 0.71
+        }
+      },
+      {
+        "archetype_name": "citywide_voters",
+        "attention_level": 0.29,
+        "cohort_name": "low_attention_civic_voters",
+        "expression_level": 0.12,
+        "fatigue": 0.74,
+        "fear_of_isolation": 0.42,
+        "mobilization_readiness": 0.14,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.23,
+        "private_belief": "little fixed view; controversy may blur into general distrust",
+        "public_expression": "mostly silent",
+        "representation_mode": "explicit_segment",
+        "represented_population": 55200,
+        "stance_axes": {
+          "candidate_vale_support": 0.45,
+          "issue_salience_emergency_shelters": 0.27,
+          "shelter_policy_clarity": 0.4
+        }
+      },
+      {
+        "archetype_name": "networked_public",
+        "attention_level": 0.76,
+        "cohort_name": "local_online_amplifiers",
+        "expression_level": 0.81,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.31,
+        "mobilization_readiness": 0.48,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "viral clips are meaningful but often incomplete",
+        "public_expression": "high reposting and commentary",
+        "representation_mode": "explicit_segment",
+        "represented_population": 54000,
+        "stance_axes": {
+          "candidate_vale_support": 0.41,
+          "issue_salience_emergency_shelters": 0.58,
+          "shelter_policy_clarity": 0.66
+        }
+      },
+      {
+        "archetype_name": "networked_public",
+        "attention_level": 0.37,
+        "cohort_name": "casual_scrollers",
+        "expression_level": 0.2,
+        "fatigue": 0.67,
+        "fear_of_isolation": 0.39,
+        "mobilization_readiness": 0.16,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "controversy is one item among many and may be quickly forgotten",
+        "public_expression": "light engagement, reactive sharing",
+        "representation_mode": "explicit_segment",
+        "represented_population": 126000,
+        "stance_axes": {
+          "candidate_vale_support": 0.44,
+          "issue_salience_emergency_shelters": 0.31,
+          "shelter_policy_clarity": 0.43
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "candidate_mara_vale",
+          "vale_campaign",
+          "city_press_corps"
+        ],
+        "blockers": [
+          "candidate preference for strategic ambiguity",
+          "fear of alienating supporters or moderates",
+          "message inconsistency between candidate and staff"
+        ],
+        "contradiction_notes": "Partial corrections at T0 may count against stability if later messaging diverges.",
+        "description": "A terminal state where candidate_mara_vale publicly states a specific emergency shelter position and subsequent campaign messaging stays materially consistent.",
+        "endpoint_key": "stable_public_clarification",
+        "evidence_refs": [
+          "debate_answer_goes_viral",
+          "campaign_partial_corrections",
+          "press_fact_check_cycle",
+          "candidate_followup_choice"
+        ],
+        "label": "Stable public clarification by Vale",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will candidate_mara_vale issue a clear and stable public clarification of her emergency shelter position?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.38,
+        "rationale": "Clarification is one of the main implied outcome paths and is directly answerable through public evidence.",
+        "realization_criteria": [
+          "candidate_mara_vale gives at least one direct public clarification in a high-visibility channel",
+          "city_press_corps characterizes the position as clarified rather than ambiguous in follow-up coverage",
+          "vale_campaign repeats substantially the same position across subsequent statements without major contradiction"
+        ],
+        "status": "active",
+        "status_basis": "Source explicitly frames clarification as a central branch but does not indicate it has already occurred at T0."
+      },
+      {
+        "authority_refs": [
+          "undecided_voters",
+          "city_press_corps",
+          "candidate_mara_vale"
+        ],
+        "blockers": [
+          "attention decay",
+          "successful clarification",
+          "successful displacement by other issues"
+        ],
+        "contradiction_notes": "High fatigue could suppress both backlash and measurable durable impact.",
+        "description": "A terminal state where undecided_voters sustain reduced trust in candidate_mara_vale beyond the immediate viral cycle.",
+        "endpoint_key": "durable_undecided_trust_loss",
+        "evidence_refs": [
+          "press_fact_check_cycle",
+          "candidate_followup_choice",
+          "opponent_response_window"
+        ],
+        "label": "Durable undecided trust loss",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the viral ambiguity produce durable trust damage among undecided_voters rather than a transient attention spike?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.31,
+        "rationale": "Election legitimacy and candidate strategy both hinge on whether the controversy changes swing-voter trust rather than only generating noise.",
+        "realization_criteria": [
+          "repeated reporting or campaign coverage continues to frame Vale as evasive or unreliable for multiple ticks",
+          "undecided_voters cohort attention remains above baseline long enough for trust to consolidate downward rather than decay away",
+          "observable public or survey-like signals show lower support or higher distrust among undecided voters relative to pre-controversy baseline assumptions"
+        ],
+        "status": "active",
+        "status_basis": "Source notes fatigue and viral ambiguity but not yet durable damage, so endpoint remains unresolved."
+      },
+      {
+        "authority_refs": [
+          "vale_campaign",
+          "candidate_mara_vale",
+          "city_press_corps",
+          "social_media_audience"
+        ],
+        "blockers": [
+          "fresh contradictory statements",
+          "advocacy persistence",
+          "press emphasis on original wording"
+        ],
+        "contradiction_notes": "A successful reframing may coexist with trust loss if the new frame is still negative.",
+        "description": "A terminal state where the controversy no longer centers on the original ambiguous shelter answer because another frame or issue dominates.",
+        "endpoint_key": "issue_reframed_or_displaced",
+        "evidence_refs": [
+          "candidate_followup_choice",
+          "press_fact_check_cycle",
+          "opponent_response_window"
+        ],
+        "label": "Issue reframed or displaced",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the shelter controversy remain the dominant interpretive frame, or be displaced by distraction or broader issue reframing?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.42,
+        "rationale": "This captures whether process maneuvers actually shift the endpoint space rather than merely delay judgment.",
+        "realization_criteria": [
+          "campaign and press coverage shift primary narrative away from the original quote to broader emergency management, candidate competence, or an unrelated issue",
+          "share of public discussion focused on the original quote falls below follow-on framing or other campaign topics for sustained ticks",
+          "undecided_voters reference the new frame more often than the original ambiguity in observable discourse"
+        ],
+        "status": "active",
+        "status_basis": "Source explicitly instructs branch hypotheses around distraction or issue reframing, indicating an open terminal option."
+      },
+      {
+        "authority_refs": [
+          "shelter_advocacy_coalition",
+          "city_press_corps",
+          "candidate_oren_pike",
+          "general_voters"
+        ],
+        "blockers": [
+          "narrow issue containment",
+          "attention decay",
+          "clarification satisfying median audiences"
+        ],
+        "contradiction_notes": "Broader backlash may fail to form even if issue-specific distrust remains high.",
+        "description": "A terminal state where criticism expands beyond shelter-specific advocates into a wider civic or electoral coalition against Vale's handling of the issue.",
+        "endpoint_key": "broader_backlash_coalition_forms",
+        "evidence_refs": [
+          "advocacy_demands_clarification",
+          "press_fact_check_cycle",
+          "opponent_response_window"
+        ],
+        "label": "Broader backlash coalition forms",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will shelter_advocacy_coalition pressure widen into a broader backlash coalition beyond issue-specific advocates?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.27,
+        "rationale": "Distinguishes contained issue advocacy from politically consequential coalition growth.",
+        "realization_criteria": [
+          "multiple actor types beyond shelter_advocacy_coalition publicly align around criticism of Vale's answer or handling",
+          "coverage frames the controversy as a broader character or governance problem rather than a niche issue dispute",
+          "coalition and conflict edges strengthen across advocacy, press, opponent, and general voter segments in later evidence"
+        ],
+        "status": "active",
+        "status_basis": "Advocacy pressure exists at T0, but expansion into a broader coalition is not yet established."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "source states answer goes viral",
+        "layer": "exposure",
+        "reason": "viral debate clip gives wide online visibility",
+        "source_actor_name": "candidate_mara_vale",
+        "target_actor_name": "social_media_audience",
+        "weight": 0.72
+      },
+      {
+        "direction": "outbound",
+        "evidence": "viral quote context implies diffusion beyond original audience",
+        "layer": "exposure",
+        "reason": "online circulation spills into wider electorate awareness",
+        "source_actor_name": "social_media_audience",
+        "target_actor_name": "general_voters",
+        "weight": 0.49
+      },
+      {
+        "direction": "outbound",
+        "evidence": "reporters fact-check the quote",
+        "layer": "exposure",
+        "reason": "reporters and fact-checkers distribute clarifying coverage",
+        "source_actor_name": "city_press_corps",
+        "target_actor_name": "general_voters",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "advocacy groups demand clarification",
+        "layer": "exposure",
+        "reason": "advocacy demands reach civic audiences through statements and shares",
+        "source_actor_name": "shelter_advocacy_coalition",
+        "target_actor_name": "general_voters",
+        "weight": 0.37
+      },
+      {
+        "direction": "outbound",
+        "evidence": "campaign staff issue partial corrections",
+        "layer": "exposure",
+        "reason": "campaign issues partial corrections to broad audience",
+        "source_actor_name": "vale_campaign",
+        "target_actor_name": "general_voters",
+        "weight": 0.43
+      },
+      {
+        "direction": "outbound",
+        "evidence": "opponent inferred from mayoral race context",
+        "layer": "exposure",
+        "reason": "opponent likely comments through campaign channels",
+        "source_actor_name": "candidate_oren_pike",
+        "target_actor_name": "general_voters",
+        "weight": 0.28
+      },
+      {
+        "direction": "inbound",
+        "evidence": "ambiguous answer and undecided voter fatigue in source",
+        "layer": "trust",
+        "reason": "ambiguity and fatigue depress confidence without total collapse",
+        "source_actor_name": "undecided_voters",
+        "target_actor_name": "candidate_mara_vale",
+        "weight": 0.39
+      },
+      {
+        "direction": "inbound",
+        "evidence": "reporters fact-check quote",
+        "layer": "trust",
+        "reason": "fact-checkers retain moderate credibility at T0",
+        "source_actor_name": "general_voters",
+        "target_actor_name": "city_press_corps",
+        "weight": 0.56
+      },
+      {
+        "direction": "inbound",
+        "evidence": "advocacy demand for clarification suggests issue ownership",
+        "layer": "trust",
+        "reason": "advocacy has issue credibility but not universal trust",
+        "source_actor_name": "general_voters",
+        "target_actor_name": "shelter_advocacy_coalition",
+        "weight": 0.47
+      },
+      {
+        "direction": "inbound",
+        "evidence": "campaign issues partial corrections",
+        "layer": "trust",
+        "reason": "partial corrections appear strategic and incomplete",
+        "source_actor_name": "general_voters",
+        "target_actor_name": "vale_campaign",
+        "weight": 0.34
+      },
+      {
+        "direction": "inbound",
+        "evidence": "campaign staff acting on candidate controversy",
+        "layer": "trust",
+        "reason": "campaign still relies on candidate as principal messenger",
+        "source_actor_name": "vale_campaign",
+        "target_actor_name": "candidate_mara_vale",
+        "weight": 0.71
+      },
+      {
+        "direction": "outbound",
+        "evidence": "campaign staff issue corrections after viral moment",
+        "layer": "dependency",
+        "reason": "candidate depends on staff for message cleanup and scheduling",
+        "source_actor_name": "candidate_mara_vale",
+        "target_actor_name": "vale_campaign",
+        "weight": 0.63
+      },
+      {
+        "direction": "outbound",
+        "evidence": "candidate controversy central to scenario",
+        "layer": "dependency",
+        "reason": "campaign viability depends heavily on candidate's follow-up discipline",
+        "source_actor_name": "vale_campaign",
+        "target_actor_name": "candidate_mara_vale",
+        "weight": 0.74
+      },
+      {
+        "direction": "outbound",
+        "evidence": "clarification demands likely mediated through coverage",
+        "layer": "dependency",
+        "reason": "advocacy pressure gains leverage when covered by reporters",
+        "source_actor_name": "shelter_advocacy_coalition",
+        "target_actor_name": "city_press_corps",
+        "weight": 0.36
+      },
+      {
+        "direction": "outbound",
+        "evidence": "reporters fact-check while voters are fatigued",
+        "layer": "dependency",
+        "reason": "fatigued undecideds use reporting as shortcut for interpretation",
+        "source_actor_name": "undecided_voters",
+        "target_actor_name": "city_press_corps",
+        "weight": 0.42
+      },
+      {
+        "direction": "outbound",
+        "evidence": "competitive election context",
+        "layer": "dependency",
+        "reason": "opponent gains from sustained press attention on rival controversy",
+        "source_actor_name": "candidate_oren_pike",
+        "target_actor_name": "city_press_corps",
+        "weight": 0.22
+      },
+      {
+        "direction": "outbound",
+        "evidence": "reporters fact-check; undecideds fatigued",
+        "layer": "influence",
+        "reason": "fact-checks can shape interpretation among less committed voters",
+        "source_actor_name": "city_press_corps",
+        "target_actor_name": "undecided_voters",
+        "weight": 0.57
+      },
+      {
+        "direction": "outbound",
+        "evidence": "advocacy groups demand clarification",
+        "layer": "influence",
+        "reason": "organized demands can keep issue on media agenda",
+        "source_actor_name": "shelter_advocacy_coalition",
+        "target_actor_name": "city_press_corps",
+        "weight": 0.41
+      },
+      {
+        "direction": "outbound",
+        "evidence": "viral quote preceded fact-check cycle",
+        "layer": "influence",
+        "reason": "viral discussion pressures coverage and follow-up",
+        "source_actor_name": "social_media_audience",
+        "target_actor_name": "city_press_corps",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "partial corrections issued",
+        "layer": "influence",
+        "reason": "campaign can still shape some interpretation through corrections and surrogates",
+        "source_actor_name": "vale_campaign",
+        "target_actor_name": "general_voters",
+        "weight": 0.38
+      },
+      {
+        "direction": "outbound",
+        "evidence": "candidate strategy named expected focus",
+        "layer": "influence",
+        "reason": "candidate remains central decision-maker and symbolic focal point",
+        "source_actor_name": "candidate_mara_vale",
+        "target_actor_name": "undecided_voters",
+        "weight": 0.44
+      },
+      {
+        "direction": "outbound",
+        "evidence": "credible election competitor in scenario context",
+        "layer": "influence",
+        "reason": "opponent can capitalize if contrast message lands",
+        "source_actor_name": "candidate_oren_pike",
+        "target_actor_name": "undecided_voters",
+        "weight": 0.29
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "campaign staff represent candidate",
+        "layer": "coalition",
+        "reason": "formal campaign alignment",
+        "source_actor_name": "candidate_mara_vale",
+        "target_actor_name": "vale_campaign",
+        "weight": 0.82
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "both pushing information disclosure in different roles",
+        "layer": "coalition",
+        "reason": "not allied, but temporarily aligned around clarification pressure",
+        "source_actor_name": "shelter_advocacy_coalition",
+        "target_actor_name": "city_press_corps",
+        "weight": 0.24
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "support cohort exists within election context",
+        "layer": "coalition",
+        "reason": "support base aligned with opponent campaign",
+        "source_actor_name": "candidate_oren_pike",
+        "target_actor_name": "pike_core_supporters",
+        "weight": 0.78
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "core supporters likely defend candidate at T0",
+        "layer": "coalition",
+        "reason": "support base remains attached despite controversy",
+        "source_actor_name": "candidate_mara_vale",
+        "target_actor_name": "vale_core_supporters",
+        "weight": 0.81
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "demand clarification after viral answer",
+        "layer": "conflict",
+        "reason": "advocates contest ambiguity and demand direct clarification",
+        "source_actor_name": "shelter_advocacy_coalition",
+        "target_actor_name": "candidate_mara_vale",
+        "weight": 0.55
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "campaign issued only partial corrections",
+        "layer": "conflict",
+        "reason": "partial corrections do not satisfy accountability demand",
+        "source_actor_name": "shelter_advocacy_coalition",
+        "target_actor_name": "vale_campaign",
+        "weight": 0.52
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "mayoral race context",
+        "layer": "conflict",
+        "reason": "electoral rivalry intensified by controversy opportunity",
+        "source_actor_name": "candidate_oren_pike",
+        "target_actor_name": "candidate_mara_vale",
+        "weight": 0.48
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "fact-checkers reviewing quote alongside partial corrections",
+        "layer": "conflict",
+        "reason": "verification process may challenge campaign spin",
+        "source_actor_name": "city_press_corps",
+        "target_actor_name": "vale_campaign",
+        "weight": 0.31
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "viral quote and partial corrections",
+        "layer": "oasis_interaction",
+        "reason": "campaign likely interacts with online discourse through replies, posts, and monitoring",
+        "source_actor_name": "social_media_audience",
+        "target_actor_name": "vale_campaign",
+        "weight": 0.62
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "demand for clarification amid virality",
+        "layer": "oasis_interaction",
+        "reason": "advocacy messaging likely circulates heavily in public channels",
+        "source_actor_name": "social_media_audience",
+        "target_actor_name": "shelter_advocacy_coalition",
+        "weight": 0.57
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "reporters active during viral controversy",
+        "layer": "oasis_interaction",
+        "reason": "fact-check stories are shared and debated publicly",
+        "source_actor_name": "city_press_corps",
+        "target_actor_name": "social_media_audience",
+        "weight": 0.53
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "fact-check and candidate strategy focus",
+        "layer": "oasis_interaction",
+        "reason": "interviews or requests for clarification likely imminent",
+        "source_actor_name": "candidate_mara_vale",
+        "target_actor_name": "city_press_corps",
+        "weight": 0.45
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "description": "high-visibility candidate whose direct clarification choices can materially alter trust and agenda",
+        "name": "candidate_principal"
+      },
+      {
+        "description": "staff actor translating ambiguity into partial corrections or reframing",
+        "name": "campaign_message_manager"
+      },
+      {
+        "description": "advocacy/public-interest actor pressing for clarity",
+        "name": "accountability_messenger"
+      },
+      {
+        "description": "reporting actor whose fact-checks shape credibility and salience",
+        "name": "verification_gatekeeper"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "candidate_mara_vale",
+        "attention_level": 0.83,
+        "current_posture": "cautious and exposed",
+        "decision_authority": 0.87,
+        "expression_level": 0.51,
+        "fatigue": 0.44,
+        "fear_of_isolation": 0.34,
+        "hero_archetype": "candidate_principal",
+        "mobilization_readiness": 0.57,
+        "perceived_majority": 0.43,
+        "stance_axes": {
+          "clarify_now_vs_delay": 0.41,
+          "defensive_vs_conciliatory": 0.46,
+          "issue_reframe_vs_issue_ownership": 0.58
+        }
+      },
+      {
+        "actor_name": "vale_campaign",
+        "attention_level": 0.79,
+        "current_posture": "rapid response with incomplete cleanup",
+        "decision_authority": 0.61,
+        "expression_level": 0.71,
+        "fatigue": 0.56,
+        "fear_of_isolation": 0.28,
+        "hero_archetype": "campaign_message_manager",
+        "mobilization_readiness": 0.66,
+        "perceived_majority": 0.45,
+        "stance_axes": {
+          "clarify_now_vs_delay": 0.52,
+          "defensive_vs_conciliatory": 0.62,
+          "issue_reframe_vs_issue_ownership": 0.67
+        }
+      },
+      {
+        "actor_name": "shelter_advocacy_coalition",
+        "attention_level": 0.74,
+        "current_posture": "pressing for explicit clarification",
+        "decision_authority": 0.29,
+        "expression_level": 0.77,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.18,
+        "hero_archetype": "accountability_messenger",
+        "mobilization_readiness": 0.72,
+        "perceived_majority": 0.4,
+        "stance_axes": {
+          "clarify_now_vs_delay": 0.91,
+          "defensive_vs_conciliatory": 0.28,
+          "issue_reframe_vs_issue_ownership": 0.22
+        }
+      },
+      {
+        "actor_name": "city_press_corps",
+        "attention_level": 0.81,
+        "current_posture": "active verification and contextualization",
+        "decision_authority": 0.48,
+        "expression_level": 0.68,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.14,
+        "hero_archetype": "verification_gatekeeper",
+        "mobilization_readiness": 0.64,
+        "perceived_majority": 0.5,
+        "stance_axes": {
+          "clarify_now_vs_delay": 0.78,
+          "defensive_vs_conciliatory": 0.49,
+          "issue_reframe_vs_issue_ownership": 0.37
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "description": "high-visibility candidate whose direct clarification choices can materially alter trust and agenda",
+        "name": "candidate_principal"
+      },
+      {
+        "description": "staff actor translating ambiguity into partial corrections or reframing",
+        "name": "campaign_message_manager"
+      },
+      {
+        "description": "advocacy/public-interest actor pressing for clarity",
+        "name": "accountability_messenger"
+      },
+      {
+        "description": "reporting actor whose fact-checks shape credibility and salience",
+        "name": "verification_gatekeeper"
+      }
+    ],
+    "important_questions": [
+      "Will candidate_mara_vale issue a clear and stable public clarification of her emergency shelter position?",
+      "Will the viral ambiguity produce durable trust damage among undecided_voters rather than a transient attention spike?",
+      "Will the shelter controversy remain the dominant interpretive frame, or be displaced by distraction or broader issue reframing?",
+      "Will shelter_advocacy_coalition pressure widen into a broader backlash coalition beyond issue-specific advocates?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "candidate_mara_vale",
+          "social_media_audience"
+        ],
+        "event_key": "debate_answer_goes_viral",
+        "event_type": "announcement",
+        "expected_impact": "Raises exposure sharply, elevates ambiguity costs, and invites competitive framing.",
+        "status": "realized",
+        "summary": "Ambiguous debate answer about emergency shelters spreads widely online.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "shelter_advocacy_coalition",
+          "candidate_mara_vale"
+        ],
+        "event_key": "advocacy_demands_clarification",
+        "event_type": "announcement",
+        "expected_impact": "Increases issue salience, conflict pressure, and reputational stakes for nonresponse.",
+        "status": "realized",
+        "summary": "Advocacy groups publicly ask the candidate to clarify shelter policy.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "vale_campaign"
+        ],
+        "event_key": "campaign_partial_corrections",
+        "event_type": "announcement",
+        "expected_impact": "May reassure supporters while reinforcing skepticism among undecided and advocacy audiences.",
+        "status": "realized",
+        "summary": "Campaign staff issue limited corrections or contextual explanations.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "city_press_corps",
+          "candidate_mara_vale",
+          "vale_campaign"
+        ],
+        "event_key": "press_fact_check_cycle",
+        "event_type": "announcement",
+        "expected_impact": "Can convert diffuse virality into a clearer credibility test and shift trust edges.",
+        "status": "scheduled",
+        "summary": "Reporters publish or update fact-checks and seek direct clarification.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "candidate_mara_vale",
+          "vale_campaign"
+        ],
+        "event_key": "candidate_followup_choice",
+        "event_type": "announcement",
+        "expected_impact": "Primary branch trigger for trust recovery, backlash stabilization, or agenda shift.",
+        "status": "scheduled",
+        "summary": "Candidate decides whether to clarify directly, stay partial, distract, or reframe.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "candidate_oren_pike"
+        ],
+        "event_key": "opponent_response_window",
+        "event_type": "announcement",
+        "expected_impact": "Can intensify conflict or backfire if seen as opportunistic.",
+        "status": "scheduled",
+        "summary": "Opponent chooses whether and how hard to attack on shelters or competence.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "f5e06df3-fbe8-4d4a-b8ae-8a26fff5dcaf",
+    "merge_hypotheses": [
+      {
+        "affected_paths": [
+          "direct_clarification_recovers",
+          "distraction_succeeds",
+          "issue_reframing_competes"
+        ],
+        "convergence_signal": "engagement and coverage volume fall across channels regardless of unresolved private views",
+        "mechanism": "shared fatigue and campaign news turnover reduce salience across divergent early interpretations",
+        "merge_key": "attention_decay_convergence"
+      },
+      {
+        "affected_paths": [
+          "direct_clarification_recovers",
+          "partial_correction_backlash",
+          "issue_reframing_competes"
+        ],
+        "convergence_signal": "major outlets adopt similar characterization of what was said and whether correction was adequate",
+        "mechanism": "fact-check consensus creates a common reference point that compresses narrative variance",
+        "merge_key": "press_consensus_convergence"
+      },
+      {
+        "affected_paths": [
+          "partial_correction_backlash",
+          "distraction_succeeds"
+        ],
+        "convergence_signal": "fewer original posts, more repetitive commentary, and reduced offline escalation cues",
+        "mechanism": "supporter and advocacy networks reduce intensity if no new evidence emerges",
+        "merge_key": "coalition_fatigue_convergence"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "description": "eligible and likely voters in the fictional city",
+        "name": "citywide_voters",
+        "population_total": 240000
+      },
+      {
+        "description": "local and adjacent online audience exposed to campaign discourse",
+        "name": "networked_public",
+        "population_total": 180000
+      }
+    ],
+    "risk_flags": [
+      {
+        "note": "Scenario provides only compact benchmark text, so names, counts, and opponent structure are fictionalized defaults.",
+        "risk_key": "sparse_source_detail",
+        "severity": "medium"
+      },
+      {
+        "note": "All public-facing political actors are fictionalized per civic scenario safety requirement.",
+        "risk_key": "public_actor_fictionalization_applied",
+        "severity": "low"
+      },
+      {
+        "note": "No endpoint is realized at initialization; branches should remain open for later ticks.",
+        "risk_key": "t0_nonterminal_uncertainty",
+        "severity": "low"
+      },
+      {
+        "note": "Source emphasizes fatigue and attention decay, but no polling or engagement baseline is given.",
+        "risk_key": "attention_measurement_ambiguity",
+        "severity": "medium"
+      },
+      {
+        "note": "No named platform ownership or moderation authority is described, limiting precision on distribution bottlenecks.",
+        "risk_key": "platform_leverage_unspecified",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "election_legitimacy",
+      "causal_premises": [
+        "Debate clip virality increases exposure faster than campaigns can fully control framing.",
+        "Ambiguity creates room for competing interpretations by advocacy groups, campaign staff, and reporters.",
+        "Partial corrections may reduce some confusion while increasing distrust among skeptical audiences.",
+        "Undecided voters are attentive enough to notice the controversy but are also fatigued, limiting sustained engagement."
+      ],
+      "configured_focus": [
+        "candidate_strategy",
+        "trust_edges",
+        "attention_decay"
+      ],
+      "mode": "direct",
+      "scenario_key": "election_003",
+      "scope": "fictional city mayoral race",
+      "summary": "After a fictional mayoral debate, a mayoral candidate's ambiguous answer about emergency shelters goes viral. Advocacy groups demand clarification, campaign staff issue partial corrections, reporters fact-check the quote, and undecided voters show fatigue. T0 should capture exposure, trust, campaign incentives, and branching around clarification, backlash, distraction, or issue reframing.",
+      "time_horizon_ticks": 6,
+      "uncertainty_notes": [
+        "Exact city size, candidate names, and opponent details are not specified in source text.",
+        "No evidence that the issue has yet caused irreversible coalition collapse or decisive polling movement at T0.",
+        "Platform-specific ownership or moderation leverage is not specified; distribution is treated as general social/media exposure rather than a named platform intervention."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "general_voters",
+          "undecided_voters",
+          "social_media_audience"
+        ],
+        "evidence": "ambiguity allows interpretation to track existing priors rather than fully update beliefs",
+        "level": 0.58,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "shelter_advocacy_coalition",
+          "pike_core_supporters",
+          "vale_core_supporters"
+        ],
+        "evidence": "organized groups can activate quickly, but broader public needs repeated cues",
+        "level": 0.46,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "undecided_voters",
+          "low_attention_civic_voters"
+        ],
+        "evidence": "fatigue and uncertainty reduce overt expression despite private concern",
+        "level": 0.62,
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "vale_core_supporters",
+          "pike_core_supporters",
+          "local_online_amplifiers"
+        ],
+        "evidence": "supporters likely consume reinforcing interpretations of viral clip",
+        "level": 0.55,
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "general_voters",
+          "networked_public"
+        ],
+        "evidence": "movement from curiosity to backlash likely requires repeated signals from advocates, press, and peers",
+        "level": 0.51,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "vale_core_supporters",
+          "pike_core_supporters"
+        ],
+        "evidence": "candidate-aligned identities shape whether ambiguity is excused or condemned",
+        "level": 0.57,
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "casual_scrollers",
+          "low_attention_civic_voters",
+          "undecided_voters"
+        ],
+        "evidence": "source explicitly highlights fatigue and expected focus on attention decay",
+        "level": 0.68,
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "same quote can support multiple narratives until a trusted clarifier dominates",
+        "influence_key": "viral_clip_ambiguity"
+      },
+      {
+        "description": "incomplete campaign clarifications can stabilize supporter defense while deepening skeptic distrust",
+        "influence_key": "partial_correction_suspicion"
+      },
+      {
+        "description": "undecided voters may notice controversy but not sustain issue attention without repeated credible prompts",
+        "influence_key": "fatigued_swing_attention"
+      },
+      {
+        "description": "reporting can convert noisy virality into more durable reputational signal",
+        "influence_key": "fact_check_gatekeeping"
+      },
+      {
+        "description": "campaign may try shifting from shelter specifics to broader emergency management or competence narratives",
+        "influence_key": "issue_reframing_pressure"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "candidate_mara_vale",
+        "behavior_axes": {
+          "agenda_control_drive": 0.67,
+          "message_discipline": 0.48,
+          "responsiveness": 0.42,
+          "risk_tolerance": 0.44
+        },
+        "ideology_axes": {
+          "administrative_pragmatism": 0.63,
+          "shelter_expansion_openness": 0.5
+        },
+        "reputation": 0.54,
+        "secrecy": 0.47,
+        "tendency": "ambiguous under pressure; seeks flexibility",
+        "trustworthiness": 0.46
+      },
+      {
+        "actor_name": "vale_campaign",
+        "behavior_axes": {
+          "agenda_control_drive": 0.78,
+          "message_discipline": 0.62,
+          "responsiveness": 0.71,
+          "risk_tolerance": 0.39
+        },
+        "ideology_axes": {
+          "administrative_pragmatmatism": 0.66,
+          "shelter_expansion_openness": 0.51
+        },
+        "reputation": 0.5,
+        "secrecy": 0.52,
+        "tendency": "contain, reinterpret, and redirect",
+        "trustworthiness": 0.44
+      },
+      {
+        "actor_name": "shelter_advocacy_coalition",
+        "behavior_axes": {
+          "agenda_control_drive": 0.59,
+          "message_discipline": 0.69,
+          "responsiveness": 0.73,
+          "risk_tolerance": 0.56
+        },
+        "ideology_axes": {
+          "administrative_pragmatism": 0.55,
+          "shelter_expansion_openness": 0.88
+        },
+        "reputation": 0.64,
+        "secrecy": 0.18,
+        "tendency": "public accountability pressure",
+        "trustworthiness": 0.67
+      },
+      {
+        "actor_name": "city_press_corps",
+        "behavior_axes": {
+          "agenda_control_drive": 0.61,
+          "message_discipline": 0.58,
+          "responsiveness": 0.76,
+          "risk_tolerance": 0.41
+        },
+        "ideology_axes": {
+          "administrative_pragmatism": 0.5,
+          "shelter_expansion_openness": 0.5
+        },
+        "reputation": 0.66,
+        "secrecy": 0.14,
+        "tendency": "verify, contextualize, and iterate",
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "candidate_oren_pike",
+        "behavior_axes": {
+          "agenda_control_drive": 0.72,
+          "message_discipline": 0.64,
+          "responsiveness": 0.57,
+          "risk_tolerance": 0.53
+        },
+        "ideology_axes": {
+          "administrative_pragmatism": 0.58,
+          "shelter_expansion_openness": 0.43
+        },
+        "reputation": 0.53,
+        "secrecy": 0.31,
+        "tendency": "contrast without overcommitting",
+        "trustworthiness": 0.51
+      },
+      {
+        "actor_name": "undecided_voters",
+        "behavior_axes": {
+          "agenda_control_drive": 0.08,
+          "message_discipline": 0.12,
+          "responsiveness": 0.38,
+          "risk_tolerance": 0.27
+        },
+        "ideology_axes": {
+          "administrative_pragmatism": 0.57,
+          "shelter_expansion_openness": 0.53
+        },
+        "reputation": 0.5,
+        "secrecy": 0.61,
+        "tendency": "quiet evaluation under fatigue",
+        "trustworthiness": 0.52
+      },
+      {
+        "actor_name": "general_voters",
+        "behavior_axes": {
+          "agenda_control_drive": 0.1,
+          "message_discipline": 0.18,
+          "responsiveness": 0.42,
+          "risk_tolerance": 0.31
+        },
+        "ideology_axes": {
+          "administrative_pragmatism": 0.55,
+          "shelter_expansion_openness": 0.5
+        },
+        "reputation": 0.5,
+        "secrecy": 0.49,
+        "tendency": "mixed heuristics and peer influence",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "social_media_audience",
+        "behavior_axes": {
+          "agenda_control_drive": 0.22,
+          "message_discipline": 0.16,
+          "responsiveness": 0.79,
+          "risk_tolerance": 0.58
+        },
+        "ideology_axes": {
+          "administrative_pragmatism": 0.46,
+          "shelter_expansion_openness": 0.51
+        },
+        "reputation": 0.45,
+        "secrecy": 0.33,
+        "tendency": "rapid amplification with context loss",
+        "trustworthiness": 0.39
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 527,
+        "end": 527,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 527,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

@@ -1,0 +1,1525 @@
+{
+  "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+  "initializer_output": {
+    "actors": [
+      {
+        "name": "state_court",
+        "public_visibility": "high",
+        "role": "adjudicates ballot-language challenge and can modify or lift pause",
+        "type": "institution"
+      },
+      {
+        "name": "county_clerks",
+        "public_visibility": "medium",
+        "role": "administer election process and certification mechanics under court constraints",
+        "type": "institution"
+      },
+      {
+        "name": "school_board_referendum_yes_campaign",
+        "public_visibility": "medium",
+        "role": "supports referendum and seeks eventual certification of favorable result",
+        "type": "campaign"
+      },
+      {
+        "name": "school_board_referendum_no_campaign",
+        "public_visibility": "medium",
+        "role": "opposes referendum and may support challenge or delay if advantageous",
+        "type": "campaign"
+      },
+      {
+        "name": "parents_network",
+        "public_visibility": "medium",
+        "role": "parents reacting to pause with mixed substantive preferences and legitimacy concerns",
+        "type": "civic_group"
+      },
+      {
+        "name": "teachers_association",
+        "public_visibility": "medium",
+        "role": "teachers responding to referendum implications and process legitimacy",
+        "type": "organized_group"
+      },
+      {
+        "name": "taxpayer_watch_group",
+        "public_visibility": "medium",
+        "role": "taxpayer-oriented critics or watchdogs focused on wording, costs, and legitimacy",
+        "type": "civic_group"
+      },
+      {
+        "name": "local_news_media",
+        "public_visibility": "high",
+        "role": "reports court action, campaign messaging, and procedural updates",
+        "type": "media"
+      },
+      {
+        "name": "general_voters",
+        "public_visibility": "low",
+        "role": "eligible local electorate observing dispute and updating views",
+        "type": "public"
+      },
+      {
+        "name": "school_board",
+        "public_visibility": "medium",
+        "role": "substantively affected by referendum outcome but not final certifier",
+        "type": "institution"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Certification resumes with limited delay and pro-certification legitimacy narrative strengthens.",
+        "branch_key": "pause_lifted_without_remedy",
+        "divergence_signal": "Court order language emphasizes adequacy of ballot wording or lack of material defect; clerks announce resumed timeline.",
+        "trigger": "Court finds ballot language challenge insufficient for altering certification path."
+      },
+      {
+        "alternate_path": "Certification remains blocked while remedy options such as revised language, recount-adjacent review, or rerun debate emerge.",
+        "branch_key": "language_defect_requires_remedy",
+        "divergence_signal": "Orders or hearing signals focus on material voter confusion, corrective measures, or invalidation risk.",
+        "trigger": "Court indicates ballot wording likely defective or materially misleading."
+      },
+      {
+        "alternate_path": "Public attention decays broadly while activist camps harden and institutional trust erodes slowly.",
+        "branch_key": "prolonged_procedural_stalemate",
+        "divergence_signal": "Repeated delays, narrow procedural rulings, and declining general-voter engagement with steady activist messaging.",
+        "trigger": "Legal process extends without clear merits resolution."
+      },
+      {
+        "alternate_path": "Latent cohorts become more expressive, increasing meeting turnout and channel conflict.",
+        "branch_key": "public_silence_breaks_into_local_mobilization",
+        "divergence_signal": "Spike in public comments, petitions, attendance, or sharply asymmetric parent/teacher messaging.",
+        "trigger": "Trusted local actors such as school board, teachers, or parent leaders take visible side-aligned positions."
+      },
+      {
+        "alternate_path": "Process debate shifts from ballot wording to competence and fairness of election administration.",
+        "branch_key": "administrative_confusion_becomes_legitimacy_issue",
+        "divergence_signal": "Media and stakeholder questions focus on procedural contradictions, missed timelines, or uneven county messaging.",
+        "trigger": "Clerk communications are inconsistent or hard to understand."
+      }
+    ],
+    "channels": [
+      {
+        "audience": "broad_local_public",
+        "channel_key": "local_news_reports",
+        "type": "media",
+        "visibility": "high"
+      },
+      {
+        "audience": "education_stakeholders",
+        "channel_key": "school_board_meetings",
+        "type": "public_forum",
+        "visibility": "high"
+      },
+      {
+        "audience": "supporters_and_press",
+        "channel_key": "campaign_statements",
+        "type": "owned_media",
+        "visibility": "medium"
+      },
+      {
+        "audience": "parents",
+        "channel_key": "community_parent_networks",
+        "type": "social_network",
+        "visibility": "medium"
+      },
+      {
+        "audience": "teachers_and_local_public",
+        "channel_key": "teachers_internal_and_public_comms",
+        "type": "organized_group_channel",
+        "visibility": "medium"
+      },
+      {
+        "audience": "press_elites_and_attentive_public",
+        "channel_key": "court_filings_and_orders",
+        "type": "institutional_record",
+        "visibility": "medium"
+      },
+      {
+        "audience": "voters_and_campaigns",
+        "channel_key": "clerk_process_updates",
+        "type": "administrative_channel",
+        "visibility": "medium"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype": "local_electorate",
+        "attention_level": 0.58,
+        "cohort_key": "procedural_trusters",
+        "expression_level": 0.34,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.46,
+        "mobilization_readiness": 0.33,
+        "perceived_majority": "unclear",
+        "population_share_of_archetype": 0.36,
+        "private_belief": "Ballot wording should be lawful and clear before final certification.",
+        "public_expression": "Limited; many wait for legal clarification before speaking strongly.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 18000,
+        "stance_axes": {
+          "court_intervention": "cautious_acceptance",
+          "process_legitimacy": "high_priority",
+          "referendum_substance": "mixed"
+        }
+      },
+      {
+        "archetype": "local_electorate",
+        "attention_level": 0.67,
+        "cohort_key": "anti_delay_majoritarians",
+        "expression_level": 0.49,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.31,
+        "mobilization_readiness": 0.52,
+        "perceived_majority": "believe_voters_already_decided",
+        "population_share_of_archetype": 0.24,
+        "private_belief": "The vote outcome should not be derailed by post-election legal technicalities.",
+        "public_expression": "More willing to complain about delay than discuss legal specifics.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 12000,
+        "stance_axes": {
+          "court_intervention": "skeptical",
+          "process_legitimacy": "result_finality_priority",
+          "referendum_substance": "leans_yes"
+        }
+      },
+      {
+        "archetype": "local_electorate",
+        "attention_level": 0.61,
+        "cohort_key": "wording_skeptics",
+        "expression_level": 0.44,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.37,
+        "mobilization_readiness": 0.48,
+        "perceived_majority": "uncertain",
+        "population_share_of_archetype": 0.2,
+        "private_belief": "If ballot language was misleading, certification should pause.",
+        "public_expression": "Expressed through watchdog and opposition channels more than broad public forums.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 10000,
+        "stance_axes": {
+          "court_intervention": "supportive",
+          "process_legitimacy": "clarity_priority",
+          "referendum_substance": "leans_no"
+        }
+      },
+      {
+        "archetype": "local_electorate",
+        "attention_level": 0.23,
+        "cohort_key": "low_attention_bystanders",
+        "expression_level": 0.12,
+        "fatigue": 0.09,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.14,
+        "perceived_majority": "follow_local_cues",
+        "population_share_of_archetype": 0.2,
+        "private_belief": "Not enough information yet.",
+        "public_expression": "Mostly silent unless prompted by salient coverage or trusted contacts.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 10000,
+        "stance_axes": {
+          "court_intervention": "uncertain",
+          "process_legitimacy": "low_salience",
+          "referendum_substance": "weak_or_mixed"
+        }
+      },
+      {
+        "archetype": "education_stakeholders",
+        "attention_level": 0.72,
+        "cohort_key": "engaged_parents",
+        "expression_level": 0.51,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.43,
+        "mobilization_readiness": 0.55,
+        "perceived_majority": "community_split",
+        "population_share_of_archetype": 0.58,
+        "private_belief": "Need both fair process and school stability.",
+        "public_expression": "More active in school-centered channels than in general political spaces.",
+        "representation_mode": "actor_linked",
+        "represented_population": 7000,
+        "stance_axes": {
+          "court_intervention": "ambivalent",
+          "process_legitimacy": "important_but_secondary_to_school_impacts",
+          "referendum_substance": "split_with_practical_concerns"
+        }
+      },
+      {
+        "archetype": "education_stakeholders",
+        "attention_level": 0.74,
+        "cohort_key": "teachers_members",
+        "expression_level": 0.47,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.56,
+        "mobilization_readiness": 0.46,
+        "perceived_majority": "unclear_due_professional_norms",
+        "population_share_of_archetype": 0.42,
+        "private_belief": "Public messaging should stay careful until legal facts are clearer.",
+        "public_expression": "Restrained due to professional reputation and workplace sensitivity.",
+        "representation_mode": "actor_linked",
+        "represented_population": 5000,
+        "stance_axes": {
+          "court_intervention": "conditional_acceptance",
+          "process_legitimacy": "high",
+          "referendum_substance": "institutional_stability_priority"
+        }
+      },
+      {
+        "archetype": "organized_civic_activists",
+        "attention_level": 0.9,
+        "cohort_key": "campaign_and_watchdog_core",
+        "expression_level": 0.83,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.14,
+        "mobilization_readiness": 0.81,
+        "perceived_majority": "claim_majority_for_own_side",
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Narrative framing now may shape final legitimacy more than legal details alone.",
+        "public_expression": "Highly active across campaign, press, and community channels.",
+        "representation_mode": "actor_linked",
+        "represented_population": 3000,
+        "stance_axes": {
+          "court_intervention": "interpreted_through_side_advantage",
+          "process_legitimacy": "framed_strategically",
+          "referendum_substance": "polarized"
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype": "local_electorate",
+        "attention_level": 0.58,
+        "cohort_key": "procedural_trusters",
+        "expression_level": 0.34,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.46,
+        "mobilization_readiness": 0.33,
+        "perceived_majority": "unclear",
+        "population_share_of_archetype": 0.36,
+        "private_belief": "Ballot wording should be lawful and clear before final certification.",
+        "public_expression": "Limited; many wait for legal clarification before speaking strongly.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 18000,
+        "stance_axes": {
+          "court_intervention": "cautious_acceptance",
+          "process_legitimacy": "high_priority",
+          "referendum_substance": "mixed"
+        }
+      },
+      {
+        "archetype": "local_electorate",
+        "attention_level": 0.67,
+        "cohort_key": "anti_delay_majoritarians",
+        "expression_level": 0.49,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.31,
+        "mobilization_readiness": 0.52,
+        "perceived_majority": "believe_voters_already_decided",
+        "population_share_of_archetype": 0.24,
+        "private_belief": "The vote outcome should not be derailed by post-election legal technicalities.",
+        "public_expression": "More willing to complain about delay than discuss legal specifics.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 12000,
+        "stance_axes": {
+          "court_intervention": "skeptical",
+          "process_legitimacy": "result_finality_priority",
+          "referendum_substance": "leans_yes"
+        }
+      },
+      {
+        "archetype": "local_electorate",
+        "attention_level": 0.61,
+        "cohort_key": "wording_skeptics",
+        "expression_level": 0.44,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.37,
+        "mobilization_readiness": 0.48,
+        "perceived_majority": "uncertain",
+        "population_share_of_archetype": 0.2,
+        "private_belief": "If ballot language was misleading, certification should pause.",
+        "public_expression": "Expressed through watchdog and opposition channels more than broad public forums.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 10000,
+        "stance_axes": {
+          "court_intervention": "supportive",
+          "process_legitimacy": "clarity_priority",
+          "referendum_substance": "leans_no"
+        }
+      },
+      {
+        "archetype": "local_electorate",
+        "attention_level": 0.23,
+        "cohort_key": "low_attention_bystanders",
+        "expression_level": 0.12,
+        "fatigue": 0.09,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.14,
+        "perceived_majority": "follow_local_cues",
+        "population_share_of_archetype": 0.2,
+        "private_belief": "Not enough information yet.",
+        "public_expression": "Mostly silent unless prompted by salient coverage or trusted contacts.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 10000,
+        "stance_axes": {
+          "court_intervention": "uncertain",
+          "process_legitimacy": "low_salience",
+          "referendum_substance": "weak_or_mixed"
+        }
+      },
+      {
+        "archetype": "education_stakeholders",
+        "attention_level": 0.72,
+        "cohort_key": "engaged_parents",
+        "expression_level": 0.51,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.43,
+        "mobilization_readiness": 0.55,
+        "perceived_majority": "community_split",
+        "population_share_of_archetype": 0.58,
+        "private_belief": "Need both fair process and school stability.",
+        "public_expression": "More active in school-centered channels than in general political spaces.",
+        "representation_mode": "actor_linked",
+        "represented_population": 7000,
+        "stance_axes": {
+          "court_intervention": "ambivalent",
+          "process_legitimacy": "important_but_secondary_to_school_impacts",
+          "referendum_substance": "split_with_practical_concerns"
+        }
+      },
+      {
+        "archetype": "education_stakeholders",
+        "attention_level": 0.74,
+        "cohort_key": "teachers_members",
+        "expression_level": 0.47,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.56,
+        "mobilization_readiness": 0.46,
+        "perceived_majority": "unclear_due_professional_norms",
+        "population_share_of_archetype": 0.42,
+        "private_belief": "Public messaging should stay careful until legal facts are clearer.",
+        "public_expression": "Restrained due to professional reputation and workplace sensitivity.",
+        "representation_mode": "actor_linked",
+        "represented_population": 5000,
+        "stance_axes": {
+          "court_intervention": "conditional_acceptance",
+          "process_legitimacy": "high",
+          "referendum_substance": "institutional_stability_priority"
+        }
+      },
+      {
+        "archetype": "organized_civic_activists",
+        "attention_level": 0.9,
+        "cohort_key": "campaign_and_watchdog_core",
+        "expression_level": 0.83,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.14,
+        "mobilization_readiness": 0.81,
+        "perceived_majority": "claim_majority_for_own_side",
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Narrative framing now may shape final legitimacy more than legal details alone.",
+        "public_expression": "Highly active across campaign, press, and community channels.",
+        "representation_mode": "actor_linked",
+        "represented_population": 3000,
+        "stance_axes": {
+          "court_intervention": "interpreted_through_side_advantage",
+          "process_legitimacy": "framed_strategically",
+          "referendum_substance": "polarized"
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "state_court",
+          "county_clerks"
+        ],
+        "blockers": [
+          "Adverse ruling on ballot language",
+          "extended injunction or stay",
+          "administrative confusion creating further delay"
+        ],
+        "contradiction_notes": "Would be contradicted by a final order requiring new vote, invalidation, or corrective remedy before certification.",
+        "description": "The pause ends and county clerks certify the referendum outcome without material alteration to ballot terms or rerun requirements.",
+        "endpoint_key": "certification_resumes_substantially_unchanged",
+        "evidence_refs": [
+          "court_orders_temporary_pause",
+          "clerks_seek_or_publish_guidance",
+          "next_court_procedural_milestone"
+        ],
+        "label": "Certification resumes substantially unchanged",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the referendum be certified substantially as voted, or will the court-driven challenge block or materially alter certification?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.34,
+        "rationale": "Campaigns cannot certify results themselves, so this endpoint hinges on court permission and clerk execution.",
+        "realization_criteria": [
+          "state_court lifts or narrows pause sufficiently for certification",
+          "county_clerks publicly confirm certification completion",
+          "no court-ordered rerun, invalidation, or material corrective ballot remedy remains pending at terminal state"
+        ],
+        "status": "active",
+        "status_basis": "Temporary pause exists but legal outcome is unresolved; simple resumption remains plausible."
+      },
+      {
+        "authority_refs": [
+          "state_court",
+          "county_clerks"
+        ],
+        "blockers": [
+          "Court finds defect immaterial",
+          "higher legal threshold for overturning result not met",
+          "political pressure fails to alter formal legal standard"
+        ],
+        "contradiction_notes": "Would be contradicted by completed certification of the original result without material remedy.",
+        "description": "The challenge succeeds sufficiently that the original referendum result cannot be certified as cast.",
+        "endpoint_key": "certification_blocked_by_language_defect",
+        "evidence_refs": [
+          "court_orders_temporary_pause",
+          "next_court_procedural_milestone"
+        ],
+        "label": "Certification blocked by language defect",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "If the ballot language is found problematic, does the process end in correction/rerun/invalidation rather than simple delay?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.24,
+        "rationale": "The scenario specifically centers on legal scrutiny of ballot language, so outright blockage must remain active at T0.",
+        "realization_criteria": [
+          "state_court or equivalent final authority finds ballot language materially defective",
+          "county_clerks do not certify original result",
+          "terminal record directs invalidation, replacement process, or equivalent non-certification outcome"
+        ],
+        "status": "active",
+        "status_basis": "A live ballot-language challenge already triggered a pause, making non-certification a credible endpoint."
+      },
+      {
+        "authority_refs": [
+          "state_court",
+          "county_clerks"
+        ],
+        "blockers": [
+          "Court lacks basis for remedy",
+          "time/cost constraints discourage rerun",
+          "parties accept simpler certification path"
+        ],
+        "contradiction_notes": "Would be contradicted if certification proceeds unchanged or if dispute ends with permanent block and no corrective path.",
+        "description": "The dispute ends with a court- or administration-linked remedy such as revised language, a rerun, or another observable corrective procedure before any final settled status.",
+        "endpoint_key": "corrective_remedy_before_final_outcome",
+        "evidence_refs": [
+          "court_orders_temporary_pause",
+          "next_court_procedural_milestone"
+        ],
+        "label": "Corrective remedy before final outcome",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "By the time a terminal outcome emerges, does the dominant public narrative favor procedural review legitimacy or anti-delay majoritarian legitimacy?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.22,
+        "rationale": "Endpoint calibration requires preserving mechanism-to-terminal transitions where legal process could produce substitution rather than binary win/loss.",
+        "realization_criteria": [
+          "formal directive orders a new vote, revised ballot language, or equivalent corrective process",
+          "county_clerks schedule or implement the remedy",
+          "terminal state is not mere temporary pause but a concretely adopted correction path"
+        ],
+        "status": "active",
+        "status_basis": "The challenge concerns ballot wording, which often maps to remedy options distinct from simple certification or invalidation."
+      },
+      {
+        "authority_refs": [
+          "state_court",
+          "county_clerks"
+        ],
+        "blockers": [
+          "Clear ruling on merits",
+          "successful negotiated narrowing of dispute",
+          "administrative timetable forcing closure"
+        ],
+        "contradiction_notes": "Would be contradicted by any definitive terminal certification, invalidation, or rerun order within the horizon.",
+        "description": "The case remains unresolved long enough that delay itself becomes the practical terminal condition within the simulation horizon.",
+        "endpoint_key": "durable_stalemate_and_delayed_resolution",
+        "evidence_refs": [
+          "court_orders_temporary_pause",
+          "next_court_procedural_milestone"
+        ],
+        "label": "Durable stalemate and delayed resolution",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the temporary pause remain mostly an elite/institutional conflict, or does it expand into broad visible stakeholder mobilization?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.2,
+        "rationale": "The user requested endpoint options without deciding legal outcome at T0; stalemate is a plausible endpoint distinct from process steps.",
+        "realization_criteria": [
+          "multiple procedural intervals pass without final certification or final invalidation",
+          "public and institutional communications continue to reference unresolved status",
+          "no authoritative terminal order closes the dispute within horizon"
+        ],
+        "status": "active",
+        "status_basis": "Temporary pauses can stretch into functional stalemates, especially when legal and political incentives diverge."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Courts can rule on language; clerks administer elections.",
+        "layer": "dependency",
+        "reason": "Clerks depend on court guidance and orders regarding certification pause.",
+        "source_actor_name": "county_clerks",
+        "target_actor_name": "state_court",
+        "weight": 0.63
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Clerks administer elections; referendum affects school board.",
+        "layer": "dependency",
+        "reason": "School board's referendum outcome depends on clerks' administration and certification process.",
+        "source_actor_name": "school_board",
+        "target_actor_name": "county_clerks",
+        "weight": 0.42
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Campaigns can mobilize but cannot certify results.",
+        "layer": "dependency",
+        "reason": "Campaign cannot realize electoral win without certification administered by clerks.",
+        "source_actor_name": "school_board_referendum_yes_campaign",
+        "target_actor_name": "county_clerks",
+        "weight": 0.39
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Temporary pause exists because of ballot-language challenge before court.",
+        "layer": "dependency",
+        "reason": "Challenge-oriented opposition depends on court ruling to alter or sustain pause.",
+        "source_actor_name": "school_board_referendum_no_campaign",
+        "target_actor_name": "state_court",
+        "weight": 0.41
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Parents respond to school-board referendum.",
+        "layer": "dependency",
+        "reason": "Parents' substantive concerns are tied to school governance outcomes.",
+        "source_actor_name": "parents_network",
+        "target_actor_name": "school_board",
+        "weight": 0.33
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Teachers respond to school-board referendum.",
+        "layer": "dependency",
+        "reason": "Teachers' workplace and policy interests depend on school board outcomes.",
+        "source_actor_name": "teachers_association",
+        "target_actor_name": "school_board",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Public response occurs alongside institutional dispute; media is likely conduit.",
+        "layer": "dependency",
+        "reason": "Many voters rely on local reporting for procedural updates and framing.",
+        "source_actor_name": "general_voters",
+        "target_actor_name": "local_news_media",
+        "weight": 0.28
+      },
+      {
+        "direction": "source_receives_from_target",
+        "evidence": "Court pause and reactions are public-facing local events.",
+        "layer": "exposure",
+        "reason": "Voters are broadly exposed to coverage of a court pause in a local referendum.",
+        "source_actor_name": "general_voters",
+        "target_actor_name": "local_news_media",
+        "weight": 0.59
+      },
+      {
+        "direction": "source_receives_from_target",
+        "evidence": "Campaigns and parents are named responders.",
+        "layer": "exposure",
+        "reason": "Parents likely encounter campaign messaging supporting certification or referendum merits.",
+        "source_actor_name": "parents_network",
+        "target_actor_name": "school_board_referendum_yes_campaign",
+        "weight": 0.41
+      },
+      {
+        "direction": "source_receives_from_target",
+        "evidence": "Campaigns and parents are named responders.",
+        "layer": "exposure",
+        "reason": "Parents likely encounter opposition/challenge messaging as dispute unfolds.",
+        "source_actor_name": "parents_network",
+        "target_actor_name": "school_board_referendum_no_campaign",
+        "weight": 0.38
+      },
+      {
+        "direction": "source_receives_from_target",
+        "evidence": "Teachers are direct stakeholders in referendum response.",
+        "layer": "exposure",
+        "reason": "Teachers monitor legal and public developments through reporting.",
+        "source_actor_name": "teachers_association",
+        "target_actor_name": "local_news_media",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_receives_from_target",
+        "evidence": "Taxpayer groups respond to challenge and pause.",
+        "layer": "exposure",
+        "reason": "Watchdog messaging and coverage are mutually visible in local issue disputes.",
+        "source_actor_name": "taxpayer_watch_group",
+        "target_actor_name": "local_news_media",
+        "weight": 0.44
+      },
+      {
+        "direction": "source_receives_from_target",
+        "evidence": "Campaign can mobilize but not certify.",
+        "layer": "exposure",
+        "reason": "Some voters are exposed to pro-referendum messaging about respecting results.",
+        "source_actor_name": "general_voters",
+        "target_actor_name": "school_board_referendum_yes_campaign",
+        "weight": 0.34
+      },
+      {
+        "direction": "source_receives_from_target",
+        "evidence": "Campaign can mobilize around dispute.",
+        "layer": "exposure",
+        "reason": "Some voters are exposed to challenge-oriented messaging on ballot wording.",
+        "source_actor_name": "general_voters",
+        "target_actor_name": "school_board_referendum_no_campaign",
+        "weight": 0.31
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Clerks administer elections; no misconduct stated at T0.",
+        "layer": "trust",
+        "reason": "Election administrators retain moderate baseline legitimacy absent evidence of misconduct.",
+        "source_actor_name": "general_voters",
+        "target_actor_name": "county_clerks",
+        "weight": 0.54
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Court ordered temporary pause; legal outcome unresolved.",
+        "layer": "trust",
+        "reason": "Court has moderate procedural legitimacy but faces scrutiny due to pause timing.",
+        "source_actor_name": "general_voters",
+        "target_actor_name": "state_court",
+        "weight": 0.49
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Both are core responders to school-board issue.",
+        "layer": "trust",
+        "reason": "Parents and teachers share school-centered concerns but may differ on referendum substance.",
+        "source_actor_name": "parents_network",
+        "target_actor_name": "teachers_association",
+        "weight": 0.43
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Clerks are institutional administrators under court order.",
+        "layer": "trust",
+        "reason": "Teachers may trust administrative compliance more than campaign rhetoric.",
+        "source_actor_name": "teachers_association",
+        "target_actor_name": "county_clerks",
+        "weight": 0.47
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Local reporting likely central in dispute framing.",
+        "layer": "trust",
+        "reason": "Media has moderate trust as information source, though likely contested by activists.",
+        "source_actor_name": "general_voters",
+        "target_actor_name": "local_news_media",
+        "weight": 0.45
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Campaigns can mobilize but have no certification authority.",
+        "layer": "trust",
+        "reason": "Campaign claims are seen as interested and outcome-seeking.",
+        "source_actor_name": "general_voters",
+        "target_actor_name": "school_board_referendum_yes_campaign",
+        "weight": 0.32
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Campaigns can mobilize but have no certification authority.",
+        "layer": "trust",
+        "reason": "Opposition claims are also seen as strategic despite procedural framing.",
+        "source_actor_name": "general_voters",
+        "target_actor_name": "school_board_referendum_no_campaign",
+        "weight": 0.33
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Courts can rule on language; pause in certifying exists.",
+        "layer": "influence",
+        "reason": "Court directly shapes clerks' permissible certification actions.",
+        "source_actor_name": "state_court",
+        "target_actor_name": "county_clerks",
+        "weight": 0.71
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Clerks administer elections and communicate process.",
+        "layer": "influence",
+        "reason": "Administrative announcements affect perceived legitimacy and timeline expectations.",
+        "source_actor_name": "county_clerks",
+        "target_actor_name": "general_voters",
+        "weight": 0.36
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Local referendum dispute likely covered and publicly interpreted.",
+        "layer": "influence",
+        "reason": "Media coverage sets salience and interprets procedural complexity.",
+        "source_actor_name": "local_news_media",
+        "target_actor_name": "general_voters",
+        "weight": 0.58
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Campaigns respond; parents are named constituency.",
+        "layer": "influence",
+        "reason": "Pro-referendum campaign can activate parents around school impacts and result-finality claims.",
+        "source_actor_name": "school_board_referendum_yes_campaign",
+        "target_actor_name": "parents_network",
+        "weight": 0.45
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Taxpayer groups and campaigns both respond to language challenge context.",
+        "layer": "influence",
+        "reason": "Opposition/challenge messaging likely aligns with watchdog scrutiny themes.",
+        "source_actor_name": "school_board_referendum_no_campaign",
+        "target_actor_name": "taxpayer_watch_group",
+        "weight": 0.49
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Teachers are named respondents in school-board context.",
+        "layer": "influence",
+        "reason": "Teachers can shape parent views through school-community credibility.",
+        "source_actor_name": "teachers_association",
+        "target_actor_name": "parents_network",
+        "weight": 0.34
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Referendum concerns school-board governance.",
+        "layer": "influence",
+        "reason": "Board communications and perceived stakes affect parent interpretation of referendum significance.",
+        "source_actor_name": "school_board",
+        "target_actor_name": "parents_network",
+        "weight": 0.37
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Parents are stakeholders; campaign seeks support.",
+        "layer": "coalition",
+        "reason": "Potential alignment among parents favoring referendum implementation.",
+        "source_actor_name": "school_board_referendum_yes_campaign",
+        "target_actor_name": "parents_network",
+        "weight": 0.4
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Taxpayer groups respond to ballot-language challenge context.",
+        "layer": "coalition",
+        "reason": "Shared interest in challenging wording and questioning referendum legitimacy.",
+        "source_actor_name": "school_board_referendum_no_campaign",
+        "target_actor_name": "taxpayer_watch_group",
+        "weight": 0.57
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Both are named education stakeholders.",
+        "layer": "coalition",
+        "reason": "Issue-specific coordination possible around school stability despite substantive splits.",
+        "source_actor_name": "teachers_association",
+        "target_actor_name": "parents_network",
+        "weight": 0.36
+      },
+      {
+        "direction": "functional_alignment",
+        "evidence": "Clerks implement court-constrained process.",
+        "layer": "coalition",
+        "reason": "Institutional alignment around legal compliance, though not political coalition.",
+        "source_actor_name": "county_clerks",
+        "target_actor_name": "state_court",
+        "weight": 0.29
+      },
+      {
+        "direction": "mutual_opposition",
+        "evidence": "Competing campaigns respond to pause and challenge.",
+        "layer": "conflict",
+        "reason": "Directly opposed substantive and strategic goals over referendum and certification.",
+        "source_actor_name": "school_board_referendum_yes_campaign",
+        "target_actor_name": "school_board_referendum_no_campaign",
+        "weight": 0.64
+      },
+      {
+        "direction": "source_opposes_target_action",
+        "evidence": "Court ordered temporary pause affecting result finality.",
+        "layer": "conflict",
+        "reason": "Pro-side may resent pause as delaying an expected outcome, while lacking formal leverage.",
+        "source_actor_name": "school_board_referendum_yes_campaign",
+        "target_actor_name": "state_court",
+        "weight": 0.31
+      },
+      {
+        "direction": "mutual_opposition",
+        "evidence": "Taxpayer groups respond to language challenge and referendum stakes.",
+        "layer": "conflict",
+        "reason": "Watchdog scrutiny likely clashes with pro-certification narratives.",
+        "source_actor_name": "taxpayer_watch_group",
+        "target_actor_name": "school_board_referendum_yes_campaign",
+        "weight": 0.44
+      },
+      {
+        "direction": "partial_opposition",
+        "evidence": "Parents respond and are split on substance/process tradeoffs.",
+        "layer": "conflict",
+        "reason": "Some parents may see challenge as obstructive to school needs, though cohort is mixed.",
+        "source_actor_name": "parents_network",
+        "target_actor_name": "school_board_referendum_no_campaign",
+        "weight": 0.26
+      },
+      {
+        "direction": "latent_opposition",
+        "evidence": "Teachers and taxpayer groups both react from different stake positions.",
+        "layer": "conflict",
+        "reason": "Potential tension over referendum costs and school resource framing.",
+        "source_actor_name": "teachers_association",
+        "target_actor_name": "taxpayer_watch_group",
+        "weight": 0.29
+      },
+      {
+        "direction": "public_interaction",
+        "evidence": "Campaigns respond publicly to certification pause.",
+        "layer": "oasis_interaction",
+        "reason": "Campaign likely seeks coverage, statements, and public rebuttals in visible channels.",
+        "source_actor_name": "school_board_referendum_yes_campaign",
+        "target_actor_name": "local_news_media",
+        "weight": 0.52
+      },
+      {
+        "direction": "public_interaction",
+        "evidence": "Campaigns respond publicly to challenge context.",
+        "layer": "oasis_interaction",
+        "reason": "Opposition likely uses public channels to frame wording challenge and delay justification.",
+        "source_actor_name": "school_board_referendum_no_campaign",
+        "target_actor_name": "local_news_media",
+        "weight": 0.54
+      },
+      {
+        "direction": "public_interaction",
+        "evidence": "Parents respond to school-board referendum dispute.",
+        "layer": "oasis_interaction",
+        "reason": "Parents likely address board meetings or visible community forums.",
+        "source_actor_name": "parents_network",
+        "target_actor_name": "school_board",
+        "weight": 0.43
+      },
+      {
+        "direction": "public_interaction",
+        "evidence": "Teachers are organized stakeholders in school-board issue.",
+        "layer": "oasis_interaction",
+        "reason": "Teachers may use public meetings or statements but with caution.",
+        "source_actor_name": "teachers_association",
+        "target_actor_name": "school_board",
+        "weight": 0.39
+      },
+      {
+        "direction": "public_interaction",
+        "evidence": "Taxpayer groups respond to election process dispute.",
+        "layer": "oasis_interaction",
+        "reason": "Watchdogs may publicly question administration or seek clarifications.",
+        "source_actor_name": "taxpayer_watch_group",
+        "target_actor_name": "county_clerks",
+        "weight": 0.28
+      },
+      {
+        "direction": "public_interaction",
+        "evidence": "Public response to pause likely mediated by local news forums.",
+        "layer": "oasis_interaction",
+        "reason": "Letters, comments, and audience feedback create visible interaction around legitimacy narratives.",
+        "source_actor_name": "general_voters",
+        "target_actor_name": "local_news_media",
+        "weight": 0.35
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype": "institutional_arbiter",
+        "description": "Actor with formal authority over legal process and certification constraints"
+      },
+      {
+        "archetype": "election_operator",
+        "description": "Actor with administrative control over election implementation"
+      },
+      {
+        "archetype": "narrative_mobilizer",
+        "description": "Actor that can shift salience and supporter activation without formal decision power"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "state_court",
+        "attention_level": 0.84,
+        "behavioral_tendencies": [
+          "procedural_caution",
+          "legitimacy_guarding",
+          "limited_public_comment"
+        ],
+        "expression_level": 0.18,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.02,
+        "graph_influence_summary": "High institutional influence over certification timeline; indirect influence on public legitimacy through rulings.",
+        "hero_archetype": "institutional_arbiter",
+        "mobilization_readiness": 0.05,
+        "perceived_majority": "not_applicable",
+        "reputation": 0.61,
+        "secrecy": 0.72,
+        "stance_axes": {
+          "legal_formalism": "high",
+          "public_communication": "limited",
+          "speed_vs_accuracy": "accuracy_tilt"
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "county_clerks",
+        "attention_level": 0.76,
+        "behavioral_tendencies": [
+          "rule_following",
+          "risk_avoidance",
+          "administrative_clarification"
+        ],
+        "expression_level": 0.26,
+        "fatigue": 0.39,
+        "fear_of_isolation": 0.12,
+        "graph_influence_summary": "Moderate-high operational dependency hub; constrained by court order.",
+        "hero_archetype": "election_operator",
+        "mobilization_readiness": 0.11,
+        "perceived_majority": "not_applicable",
+        "reputation": 0.64,
+        "secrecy": 0.41,
+        "stance_axes": {
+          "legal_compliance": "high",
+          "process_continuity": "high",
+          "public_advocacy": "low"
+        },
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "school_board_referendum_yes_campaign",
+        "attention_level": 0.79,
+        "behavioral_tendencies": [
+          "message_discipline",
+          "supporter_activation",
+          "legitimacy_claiming"
+        ],
+        "expression_level": 0.74,
+        "fatigue": 0.36,
+        "fear_of_isolation": 0.18,
+        "graph_influence_summary": "Can intensify public salience and pressure but lacks certification authority.",
+        "hero_archetype": "narrative_mobilizer",
+        "mobilization_readiness": 0.72,
+        "perceived_majority": "claims_voter_mandate",
+        "reputation": 0.49,
+        "secrecy": 0.33,
+        "stance_axes": {
+          "court_pause": "negative",
+          "public_pressure": "selective_use",
+          "referendum_support": "high"
+        },
+        "trustworthiness": 0.45
+      },
+      {
+        "actor_name": "school_board_referendum_no_campaign",
+        "attention_level": 0.77,
+        "behavioral_tendencies": [
+          "challenge_amplification",
+          "watchdog_alignment",
+          "procedural_framing"
+        ],
+        "expression_level": 0.7,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.2,
+        "graph_influence_summary": "Can elevate challenge legitimacy and mobilize opposition, but lacks formal implementation authority.",
+        "hero_archetype": "narrative_mobilizer",
+        "mobilization_readiness": 0.69,
+        "perceived_majority": "claims_voters_were_misled_or_split",
+        "reputation": 0.48,
+        "secrecy": 0.36,
+        "stance_axes": {
+          "court_pause": "guardedly_positive",
+          "public_pressure": "selective_use",
+          "referendum_support": "low"
+        },
+        "trustworthiness": 0.47
+      }
+    ],
+    "heroes": [
+      {
+        "archetype": "institutional_arbiter",
+        "description": "Actor with formal authority over legal process and certification constraints"
+      },
+      {
+        "archetype": "election_operator",
+        "description": "Actor with administrative control over election implementation"
+      },
+      {
+        "archetype": "narrative_mobilizer",
+        "description": "Actor that can shift salience and supporter activation without formal decision power"
+      }
+    ],
+    "important_questions": [
+      "Will the referendum be certified substantially as voted, or will the court-driven challenge block or materially alter certification?",
+      "If the ballot language is found problematic, does the process end in correction/rerun/invalidation rather than simple delay?",
+      "By the time a terminal outcome emerges, does the dominant public narrative favor procedural review legitimacy or anti-delay majoritarian legitimacy?",
+      "Does the temporary pause remain mostly an elite/institutional conflict, or does it expand into broad visible stakeholder mobilization?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "state_court",
+          "county_clerks"
+        ],
+        "event_key": "court_orders_temporary_pause",
+        "event_type": "announcement",
+        "expected_impact": "Raises procedural uncertainty, increases dependency of all sides on legal timeline, and invites competing legitimacy narratives without settling merits.",
+        "summary": "State court orders temporary pause in certifying school-board referendum because of ballot-language challenge.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "school_board_referendum_yes_campaign",
+          "school_board_referendum_no_campaign",
+          "local_news_media"
+        ],
+        "event_key": "campaigns_issue_initial_reactions",
+        "event_type": "announcement",
+        "expected_impact": "Sharpens conflict and influence contests while trust in campaign claims remains limited outside core supporters.",
+        "summary": "Both campaigns begin framing the pause either as obstruction or necessary review.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "county_clerks",
+          "state_court",
+          "local_news_media"
+        ],
+        "event_key": "clerks_seek_or_publish_guidance",
+        "event_type": "announcement",
+        "expected_impact": "May stabilize institutional trust if messaging is clear, or widen confusion if scope remains ambiguous.",
+        "summary": "Clerks clarify what election steps are paused and what remains unchanged.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "parents_network",
+          "teachers_association",
+          "taxpayer_watch_group",
+          "school_board"
+        ],
+        "event_key": "stakeholder_public_comments_expand",
+        "event_type": "announcement",
+        "expected_impact": "Can lower public silence threshold and reveal whether process concerns or substantive referendum stakes dominate.",
+        "summary": "Stakeholder groups begin speaking in meetings, press quotes, or organized statements.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "state_court",
+          "local_news_media",
+          "campaigns"
+        ],
+        "event_key": "next_court_procedural_milestone",
+        "event_type": "announcement",
+        "expected_impact": "Concentrates attention and creates branch opportunities depending on whether the court signals speed, skepticism, or need for remedy.",
+        "summary": "A hearing, filing deadline, or procedural update becomes the next focal point.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "250d6ae2-4776-478d-a713-f13018e793c0",
+    "merge_hypotheses": [
+      {
+        "affected_actors": [
+          "state_court",
+          "county_clerks",
+          "general_voters",
+          "parents_network",
+          "teachers_association"
+        ],
+        "convergence_driver": "A clearly reasoned court order reduces ambiguity for both sides even if one side dislikes substance.",
+        "evidence": "Court has unique authority over legal issue and can narrow uncertainty.",
+        "merge_key": "shared_acceptance_of_clear_ruling"
+      },
+      {
+        "affected_actors": [
+          "parents_network",
+          "teachers_association",
+          "general_voters",
+          "school_board"
+        ],
+        "convergence_driver": "Extended dispute raises fatigue and encourages stakeholders to defer to clerks and court rather than sustain high conflict.",
+        "evidence": "Broad public is not maximally mobilized at T0 and may revert to low-attention mode.",
+        "merge_key": "institutional_fatigue_restores_restraint"
+      },
+      {
+        "affected_actors": [
+          "parents_network",
+          "teachers_association",
+          "school_board",
+          "county_clerks"
+        ],
+        "convergence_driver": "Even opposed camps may converge on minimizing disruption to school operations while legal process continues.",
+        "evidence": "All have stake in orderly governance and continuity.",
+        "merge_key": "common_interest_in_school_stability"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype": "local_electorate",
+        "description": "Residents eligible to vote in the referendum environment",
+        "population_total": 50000
+      },
+      {
+        "archetype": "education_stakeholders",
+        "description": "Parents and teachers with direct school-system interest",
+        "population_total": 12000
+      },
+      {
+        "archetype": "organized_civic_activists",
+        "description": "Members and supporters of campaign and watchdog groups",
+        "population_total": 3000
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "real_world_civic_sensitivity",
+        "note": "Scenario is civic/election-related, so actors are kept fictionalized and no persuasion or targeting plans are included.",
+        "severity": "medium"
+      },
+      {
+        "flag": "authority_asymmetry",
+        "note": "Campaign and stakeholder energy may be misread as dispositive despite actual endpoint authority resting mainly with court and clerks.",
+        "severity": "high"
+      },
+      {
+        "flag": "public_silence_masking_private_split",
+        "note": "Observed calm may conceal latent disagreement because many stakeholders await legal cues before speaking.",
+        "severity": "medium"
+      },
+      {
+        "flag": "incomplete_legal_record",
+        "note": "No detailed filings, vote margin, or statutory standard are provided, limiting confidence in endpoint probabilities.",
+        "severity": "high"
+      },
+      {
+        "flag": "media_framing_volatility",
+        "note": "Local coverage could meaningfully shift attention and legitimacy narratives despite unchanged legal facts.",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "election_legitimacy",
+      "focus": [
+        "court_constraints",
+        "public_silence",
+        "endpoint_options"
+      ],
+      "mode": "direct",
+      "primary_domain": "election_legitimacy",
+      "scenario_key": "election_002",
+      "summary": "A fictional state court has temporarily paused certification of a school-board referendum due to a ballot-language challenge. The dispute activates institutional, civic, and campaign actors with different authorities: courts interpret law, county clerks administer elections, and campaigns and civic groups mobilize opinion but cannot certify results. T0 should preserve legal uncertainty, public pressure, and multiple endpoint paths without deciding the case.",
+      "time_zero_condition": "temporary_pause_after_court_order",
+      "uncertainty_notes": [
+        "Legal merits of ballot-language challenge are unresolved at T0.",
+        "Scope and duration of the certification pause are not specified.",
+        "Public opinion intensity is likely uneven and partly latent due to uncertainty and local social ties.",
+        "No evidence yet of fraud, violence, or final outcome."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "general_voters",
+          "parents_network",
+          "teachers_association"
+        ],
+        "evidence": "Actors are responsive to trusted local cues rather than extreme claims alone.",
+        "level": "moderate",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "general_voters",
+          "parents_network"
+        ],
+        "evidence": "Many people remain quiet until legal updates or visible elite cues lower participation threshold.",
+        "level": "moderate",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "general_voters",
+          "teachers_association"
+        ],
+        "evidence": "Unresolved legal process and local reputational ties discourage strong early public expression.",
+        "level": "elevated",
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "parents_network",
+          "teachers_association",
+          "taxpayer_watch_group"
+        ],
+        "evidence": "Stakeholder groups cluster around shared practical or ideological concerns.",
+        "level": "moderate",
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "parents_network",
+          "general_voters"
+        ],
+        "evidence": "Belief that the pause is legitimate or illegitimate likely requires reinforcement from multiple trusted sources.",
+        "level": "moderate",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "parents_network",
+          "teachers_association",
+          "taxpayer_watch_group",
+          "campaign_and_watchdog_core"
+        ],
+        "evidence": "School, taxpayer, and campaign identities structure interpretation of the dispute.",
+        "level": "high",
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "general_voters"
+        ],
+        "evidence": "If court process drags without dramatic updates, broad public attention may fade while activists persist.",
+        "level": "moderate",
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Formal decision authority rests with court and certification administration with clerks, limiting what campaigns can directly change.",
+        "influence_key": "court_constraints"
+      },
+      {
+        "description": "Local stakeholders may privately hold strong views while publicly waiting for legal clarification or elite cues.",
+        "influence_key": "public_silence_pressure"
+      },
+      {
+        "description": "Process legitimacy and majoritarian finality are both available frames, producing mixed public interpretations.",
+        "influence_key": "institutional_legitimacy_split"
+      },
+      {
+        "description": "Temporary pause leaves several credible terminal paths active, including validation, correction, rerun, prolonged delay, or negotiated de-escalation.",
+        "influence_key": "endpoint_option_plurality"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "state_court",
+        "behavior_axes": {
+          "proceduralism": 0.91,
+          "responsiveness_to_public_pressure": 0.18,
+          "risk_tolerance": 0.24
+        },
+        "ideology_axes": {
+          "institutional_neutrality": 0.82,
+          "majoritarianism": 0.32
+        },
+        "reputation": 0.61,
+        "secrecy": 0.72,
+        "tendency": "formal_legal_gatekeeper",
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "county_clerks",
+        "behavior_axes": {
+          "proceduralism": 0.88,
+          "responsiveness_to_public_pressure": 0.27,
+          "risk_tolerance": 0.22
+        },
+        "ideology_axes": {
+          "administrative_pragmatism": 0.74,
+          "institutional_neutrality": 0.75
+        },
+        "reputation": 0.64,
+        "secrecy": 0.41,
+        "tendency": "compliance_and_continuity",
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "school_board_referendum_yes_campaign",
+        "behavior_axes": {
+          "proceduralism": 0.34,
+          "responsiveness_to_public_pressure": 0.76,
+          "risk_tolerance": 0.61
+        },
+        "ideology_axes": {
+          "change_orientation": 0.69,
+          "majoritarianism": 0.71
+        },
+        "reputation": 0.49,
+        "secrecy": 0.33,
+        "tendency": "outcome_defense",
+        "trustworthiness": 0.45
+      },
+      {
+        "actor_name": "school_board_referendum_no_campaign",
+        "behavior_axes": {
+          "proceduralism": 0.58,
+          "responsiveness_to_public_pressure": 0.73,
+          "risk_tolerance": 0.57
+        },
+        "ideology_axes": {
+          "majoritarianism": 0.46,
+          "status_quo_orientation": 0.66
+        },
+        "reputation": 0.48,
+        "secrecy": 0.36,
+        "tendency": "challenge_and_delay_if_advantageous",
+        "trustworthiness": 0.47
+      },
+      {
+        "actor_name": "parents_network",
+        "behavior_axes": {
+          "proceduralism": 0.55,
+          "responsiveness_to_public_pressure": 0.62,
+          "risk_tolerance": 0.43
+        },
+        "ideology_axes": {
+          "polarization": 0.41,
+          "school_pragmatism": 0.78
+        },
+        "reputation": 0.57,
+        "secrecy": 0.28,
+        "tendency": "practical_concerned_engagement",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "teachers_association",
+        "behavior_axes": {
+          "proceduralism": 0.68,
+          "responsiveness_to_public_pressure": 0.49,
+          "risk_tolerance": 0.29
+        },
+        "ideology_axes": {
+          "collective_solidarity": 0.67,
+          "institutional_stability": 0.79
+        },
+        "reputation": 0.56,
+        "secrecy": 0.39,
+        "tendency": "cautious_collective_signal",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "taxpayer_watch_group",
+        "behavior_axes": {
+          "proceduralism": 0.63,
+          "responsiveness_to_public_pressure": 0.64,
+          "risk_tolerance": 0.52
+        },
+        "ideology_axes": {
+          "anti_establishment": 0.44,
+          "fiscal_skepticism": 0.81
+        },
+        "reputation": 0.46,
+        "secrecy": 0.25,
+        "tendency": "watchdog_scrutiny",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "local_news_media",
+        "behavior_axes": {
+          "proceduralism": 0.59,
+          "responsiveness_to_public_pressure": 0.66,
+          "risk_tolerance": 0.38
+        },
+        "ideology_axes": {
+          "conflict_salience": 0.49,
+          "neutrality_claim": 0.62
+        },
+        "reputation": 0.54,
+        "secrecy": 0.12,
+        "tendency": "agenda_amplification",
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "general_voters",
+        "behavior_axes": {
+          "proceduralism": 0.47,
+          "responsiveness_to_public_pressure": 0.58,
+          "risk_tolerance": 0.31
+        },
+        "ideology_axes": {
+          "heterogeneous": 0.9,
+          "majoritarianism": 0.52
+        },
+        "reputation": 0.5,
+        "secrecy": 0.34,
+        "tendency": "cue_following",
+        "trustworthiness": 0.52
+      },
+      {
+        "actor_name": "school_board",
+        "behavior_axes": {
+          "proceduralism": 0.71,
+          "responsiveness_to_public_pressure": 0.51,
+          "risk_tolerance": 0.28
+        },
+        "ideology_axes": {
+          "institutional_stability": 0.76,
+          "policy_stakes": 0.73
+        },
+        "reputation": 0.53,
+        "secrecy": 0.31,
+        "tendency": "stakeholder_under_constraint",
+        "trustworthiness": 0.57
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 549,
+        "end": 549,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 549,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

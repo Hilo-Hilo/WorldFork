@@ -1,0 +1,225 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "e9298d40-69a3-4747-aaed-0181eeac942c",
+      "created_at": "2026-05-05T02:38:35.657176+00:00",
+      "id": "8ef0861c-6a96-4232-bc08-2a6f6184467c",
+      "influence": {
+        "applies_to": [
+          "city_ethics_office",
+          "city_leadership",
+          "agency_staff"
+        ],
+        "context_key": "confidentiality_constraint",
+        "effect": "reduces expressive transparency and slows public belief updating"
+      },
+      "multiverse_id": "4de013fe-1fe3-4163-85e7-a2e646367608",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:38:35.657176+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "e9298d40-69a3-4747-aaed-0181eeac942c",
+      "created_at": "2026-05-05T02:38:35.657176+00:00",
+      "id": "b247f353-58f9-47b2-b4f2-5ad39c952260",
+      "influence": {
+        "applies_to": [
+          "agency_staff",
+          "city_ethics_office"
+        ],
+        "context_key": "leak_anxiety",
+        "effect": "increases private speculation and caution around communication channels"
+      },
+      "multiverse_id": "4de013fe-1fe3-4163-85e7-a2e646367608",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:38:35.657176+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "e9298d40-69a3-4747-aaed-0181eeac942c",
+      "created_at": "2026-05-05T02:38:35.657176+00:00",
+      "id": "b51fd1a4-d414-41f3-acf1-81f9c7b5b05b",
+      "influence": {
+        "applies_to": [
+          "procurement_official",
+          "agency_staff",
+          "city_public"
+        ],
+        "context_key": "denial_without_detail",
+        "effect": "supports competing narratives rather than immediate consensus"
+      },
+      "multiverse_id": "4de013fe-1fe3-4163-85e7-a2e646367608",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:38:35.657176+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "e9298d40-69a3-4747-aaed-0181eeac942c",
+      "created_at": "2026-05-05T02:38:35.657176+00:00",
+      "id": "d5bfeb95-b165-40e2-b1ef-a28ff2e6dec1",
+      "influence": {
+        "applies_to": [
+          "journalist_pool",
+          "city_public"
+        ],
+        "context_key": "media_partial_knowledge",
+        "effect": "creates verification race and rumor vulnerability"
+      },
+      "multiverse_id": "4de013fe-1fe3-4163-85e7-a2e646367608",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:38:35.657176+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "e9298d40-69a3-4747-aaed-0181eeac942c",
+      "created_at": "2026-05-05T02:38:35.657176+00:00",
+      "id": "7b0cd9ea-62e8-4bf5-8a8d-bd7fa7832768",
+      "influence": {
+        "applies_to": [
+          "city_ethics_office",
+          "city_leadership",
+          "city_public"
+        ],
+        "context_key": "oversight_rule_legitimacy",
+        "effect": "can justify silence to some audiences while appearing evasive to others"
+      },
+      "multiverse_id": "4de013fe-1fe3-4163-85e7-a2e646367608",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:38:35.657176+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "e9298d40-69a3-4747-aaed-0181eeac942c",
+      "created_at": "2026-05-05T02:38:35.657176+00:00",
+      "id": "6344fc17-2ede-45b2-b73d-88ab9c72a437",
+      "model": "attention_decay",
+      "multiverse_id": "4de013fe-1fe3-4163-85e7-a2e646367608",
+      "signal": {
+        "level": 0.58,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Actors are likely to update beliefs mainly from moderately credible institutional or media cues, not extreme claims.",
+        "scope": "agency_staff_and_public"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:38:35.657176+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "e9298d40-69a3-4747-aaed-0181eeac942c",
+      "created_at": "2026-05-05T02:38:35.657176+00:00",
+      "id": "98bb0142-27ef-4ed6-839f-c9b85d46792a",
+      "model": "attention_decay",
+      "multiverse_id": "4de013fe-1fe3-4163-85e7-a2e646367608",
+      "signal": {
+        "level": 0.63,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Broader public mobilization likely requires concrete details, corroboration, or visible leadership failure.",
+        "scope": "city_public"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:38:35.657176+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "e9298d40-69a3-4747-aaed-0181eeac942c",
+      "created_at": "2026-05-05T02:38:35.657176+00:00",
+      "id": "cc50abb7-24d4-4f5c-84c7-fc1a4ede62eb",
+      "model": "attention_decay",
+      "multiverse_id": "4de013fe-1fe3-4163-85e7-a2e646367608",
+      "signal": {
+        "level": 0.74,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Confidentiality norms and fear of isolation suppress open internal expression despite private speculation.",
+        "scope": "agency_staff"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:38:35.657176+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "e9298d40-69a3-4747-aaed-0181eeac942c",
+      "created_at": "2026-05-05T02:38:35.657176+00:00",
+      "id": "5aa333b0-88c1-4a75-a0f9-d1b596c86c50",
+      "model": "attention_decay",
+      "multiverse_id": "4de013fe-1fe3-4163-85e7-a2e646367608",
+      "signal": {
+        "level": 0.51,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Institutional actors cluster with process-oriented peers while media cluster around accountability frames.",
+        "scope": "governance_elites_and_media"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:38:35.657176+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "e9298d40-69a3-4747-aaed-0181eeac942c",
+      "created_at": "2026-05-05T02:38:35.657176+00:00",
+      "id": "2c51804c-c645-4ac7-b3f0-551513621e40",
+      "model": "attention_decay",
+      "multiverse_id": "4de013fe-1fe3-4163-85e7-a2e646367608",
+      "signal": {
+        "level": 0.46,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Calls for procedural reform likely need reinforcement from multiple elites, reports, or documented process gaps.",
+        "scope": "reform_pressure"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:38:35.657176+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "e9298d40-69a3-4747-aaed-0181eeac942c",
+      "created_at": "2026-05-05T02:38:35.657176+00:00",
+      "id": "9a1540e5-1f4b-4118-a74d-9cbac91ed2e4",
+      "model": "attention_decay",
+      "multiverse_id": "4de013fe-1fe3-4163-85e7-a2e646367608",
+      "signal": {
+        "level": 0.62,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Role-based identity as staff, investigators, officials, or journalists shapes interpretation of proper conduct.",
+        "scope": "institutional_actors"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:38:35.657176+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "e9298d40-69a3-4747-aaed-0181eeac942c",
+      "created_at": "2026-05-05T02:38:35.657176+00:00",
+      "id": "9cb45b11-9f21-4d1a-b3a2-e22773d43179",
+      "model": "attention_decay",
+      "multiverse_id": "4de013fe-1fe3-4163-85e7-a2e646367608",
+      "signal": {
+        "level": 0.43,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Without new verified developments, public attention may fade or remain localized.",
+        "scope": "city_public"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:38:35.657176+00:00"
+    }
+  ]
+}

@@ -1,0 +1,1413 @@
+{
+  "big_bang_id": "0a449c22-72ac-4def-9459-a2f97575a601",
+  "initializer_output": {
+    "actors": [
+      {
+        "actor_type": "institution",
+        "decision_authority": "high",
+        "description": "Fictional county election administrators responsible for polling-place assignments and notice compliance.",
+        "name": "county_election_office",
+        "public_visibility": 0.7,
+        "stakes": [
+          "maintain lawful election administration",
+          "avoid voter confusion",
+          "preserve legitimacy",
+          "meet operational deadlines"
+        ]
+      },
+      {
+        "actor_type": "institution",
+        "decision_authority": "high",
+        "description": "Fictional county emergency managers controlling safety closures and site usability determinations after flooding.",
+        "name": "county_emergency_management",
+        "public_visibility": 0.55,
+        "stakes": [
+          "protect public safety",
+          "manage damaged facilities",
+          "coordinate closures"
+        ]
+      },
+      {
+        "actor_type": "advocacy_group",
+        "decision_authority": "medium",
+        "description": "Fictional disability advocates focused on physical and informational accessibility of any replacement polling sites.",
+        "name": "disability_access_coalition",
+        "public_visibility": 0.5,
+        "stakes": [
+          "accessible voting sites",
+          "adequate accommodations",
+          "equitable voter access"
+        ]
+      },
+      {
+        "actor_type": "campaign",
+        "decision_authority": "medium",
+        "description": "Fictional organized campaign monitoring polling-place changes for turnout and fairness effects.",
+        "name": "campaign_a",
+        "public_visibility": 0.45,
+        "stakes": [
+          "protect expected turnout",
+          "avoid precinct disadvantage",
+          "shape public narrative"
+        ]
+      },
+      {
+        "actor_type": "campaign",
+        "decision_authority": "medium",
+        "description": "Fictional organized campaign monitoring polling-place changes for turnout and fairness effects.",
+        "name": "campaign_b",
+        "public_visibility": 0.45,
+        "stakes": [
+          "protect expected turnout",
+          "avoid precinct disadvantage",
+          "shape public narrative"
+        ]
+      },
+      {
+        "actor_type": "public_group",
+        "decision_authority": "low",
+        "description": "Voters assigned to the flood-damaged school polling places.",
+        "name": "affected_voters",
+        "public_visibility": 0.35,
+        "stakes": [
+          "clear information",
+          "safe and accessible voting",
+          "minimal travel disruption"
+        ]
+      },
+      {
+        "actor_type": "public_group",
+        "decision_authority": "low",
+        "description": "Other county voters observing the situation and its implications for trust in election administration.",
+        "name": "general_county_voters",
+        "public_visibility": 0.3,
+        "stakes": [
+          "confidence in process",
+          "stable election logistics"
+        ]
+      },
+      {
+        "actor_type": "institution",
+        "decision_authority": "high_if_case_filed",
+        "description": "Fictional court that could hear an emergency challenge if relocation or notice is disputed.",
+        "name": "county_court",
+        "public_visibility": 0.4,
+        "stakes": [
+          "lawful remedy",
+          "procedural compliance"
+        ]
+      },
+      {
+        "actor_type": "facility_group",
+        "decision_authority": "none",
+        "description": "Two flood-damaged school facilities currently used as polling places.",
+        "name": "damaged_school_sites",
+        "public_visibility": 0.2,
+        "stakes": [
+          "site safety assessments",
+          "repair or closure status"
+        ]
+      },
+      {
+        "actor_type": "media",
+        "decision_authority": "medium",
+        "description": "Local news and civic information channels likely to relay changes and controversies.",
+        "name": "local_media",
+        "public_visibility": 0.75,
+        "stakes": [
+          "timely reporting",
+          "public accountability",
+          "audience attention"
+        ]
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Election officials execute emergency relocation to substitute sites with varying quality of access and communication.",
+        "branch_key": "emergency_relocation_branch",
+        "observable_divergence_signal": "Official reassignment notices issued; substitute site maps, transportation guidance, or accessibility accommodations become public.",
+        "trigger": "Emergency managers deem one or both damaged schools unusable before notice deadlines expire."
+      },
+      {
+        "alternate_path": "Emergency filing seeks injunction, delay, or mandated accommodation changes.",
+        "branch_key": "court_challenge_branch",
+        "observable_divergence_signal": "Court docket activity, emergency hearing request, or formal legal demand letter referencing notice or access deficiencies.",
+        "trigger": "A campaign or advocacy group concludes relocation or notice procedures violate legal or equitable standards."
+      },
+      {
+        "alternate_path": "Confusion spreads faster than official clarification, depressing confidence and increasing day-of-voting friction.",
+        "branch_key": "voter_confusion_branch",
+        "observable_divergence_signal": "Spike in voter inquiries, conflicting public reports, or reports of voters showing up to damaged sites.",
+        "trigger": "Public information about polling changes is delayed, inconsistent, or difficult to reach for affected voters."
+      },
+      {
+        "alternate_path": "Stakeholders accept emergency changes with limited conflict and contained legitimacy damage.",
+        "branch_key": "smooth_adaptation_branch",
+        "observable_divergence_signal": "Advocates shift from alarm to conditional approval, campaigns reduce public criticism, and media coverage emphasizes successful contingency execution.",
+        "trigger": "Officials provide timely compliant notice and select replacement arrangements perceived as safe and accessible."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "official_election_notices",
+        "operators": [
+          "county_election_office"
+        ],
+        "reach": 0.72,
+        "relevance": "Primary lawful communication channel for polling-place status and relocation details.",
+        "type": "official"
+      },
+      {
+        "channel_key": "emergency_public_updates",
+        "operators": [
+          "county_emergency_management"
+        ],
+        "reach": 0.51,
+        "relevance": "Source of facility closure and safety-status information.",
+        "type": "official"
+      },
+      {
+        "channel_key": "local_news",
+        "operators": [
+          "local_media"
+        ],
+        "reach": 0.67,
+        "relevance": "Main amplification channel for changes, disputes, and voter guidance.",
+        "type": "media"
+      },
+      {
+        "channel_key": "campaign_voter_contact",
+        "operators": [
+          "campaign_a",
+          "campaign_b"
+        ],
+        "reach": 0.43,
+        "relevance": "Can spread reassurance or suspicion among likely voters.",
+        "type": "organizational"
+      },
+      {
+        "channel_key": "advocacy_networks",
+        "operators": [
+          "disability_access_coalition"
+        ],
+        "reach": 0.28,
+        "relevance": "Can surface detailed accessibility concerns and practical barriers.",
+        "type": "advocacy"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "affected_precinct_voters",
+        "attention_level": 0.68,
+        "cohort_key": "affected_voters_alert_confused",
+        "expression_level": 0.34,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.36,
+        "mobilization_readiness": 0.31,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.65,
+        "private_belief": "Polling-place changes may happen and could be inconvenient or confusing.",
+        "public_expression": "Mostly waiting for official guidance; some informal concern.",
+        "representation_mode": "direct",
+        "represented_population": 7800,
+        "stance_axes": {
+          "adaptation_confidence": 0.42,
+          "institutional_trust": 0.52,
+          "litigation_support": 0.28,
+          "relocation_acceptance": 0.45
+        }
+      },
+      {
+        "archetype_key": "affected_precinct_voters",
+        "attention_level": 0.74,
+        "cohort_key": "affected_voters_access_concerned",
+        "expression_level": 0.43,
+        "fatigue": 0.26,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.44,
+        "perceived_majority": 0.39,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Any replacement site must be truly accessible and clearly communicated.",
+        "public_expression": "More likely to raise concerns through advocates or direct inquiries.",
+        "representation_mode": "direct",
+        "represented_population": 4200,
+        "stance_axes": {
+          "adaptation_confidence": 0.36,
+          "institutional_trust": 0.46,
+          "litigation_support": 0.41,
+          "relocation_acceptance": 0.4
+        }
+      },
+      {
+        "archetype_key": "other_county_voters",
+        "attention_level": 0.29,
+        "cohort_key": "other_voters_stable_observers",
+        "expression_level": 0.14,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.21,
+        "mobilization_readiness": 0.12,
+        "perceived_majority": 0.61,
+        "population_share_of_archetype": 0.75,
+        "private_belief": "Issue matters but is not yet personally disruptive.",
+        "public_expression": "Low expression unless controversy escalates.",
+        "representation_mode": "direct",
+        "represented_population": 66000,
+        "stance_axes": {
+          "adaptation_confidence": 0.55,
+          "institutional_trust": 0.57,
+          "litigation_support": 0.22,
+          "relocation_acceptance": 0.58
+        }
+      },
+      {
+        "archetype_key": "other_county_voters",
+        "attention_level": 0.47,
+        "cohort_key": "other_voters_legitimacy_sensitive",
+        "expression_level": 0.23,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.27,
+        "mobilization_readiness": 0.24,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "Polling-place changes could affect fairness depending on how they are handled.",
+        "public_expression": "Attentive to media framing and campaign claims.",
+        "representation_mode": "direct",
+        "represented_population": 22000,
+        "stance_axes": {
+          "adaptation_confidence": 0.44,
+          "institutional_trust": 0.48,
+          "litigation_support": 0.33,
+          "relocation_acceptance": 0.49
+        }
+      },
+      {
+        "archetype_key": "access_sensitive_voters",
+        "attention_level": 0.62,
+        "cohort_key": "access_sensitive_pragmatic",
+        "expression_level": 0.39,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.25,
+        "mobilization_readiness": 0.38,
+        "perceived_majority": 0.43,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "Relocation can work if accommodations and information are concrete.",
+        "public_expression": "Conditional support with requests for specifics.",
+        "representation_mode": "overlapping_issue_group",
+        "represented_population": 5400,
+        "stance_axes": {
+          "adaptation_confidence": 0.47,
+          "institutional_trust": 0.5,
+          "litigation_support": 0.31,
+          "relocation_acceptance": 0.5
+        }
+      },
+      {
+        "archetype_key": "access_sensitive_voters",
+        "attention_level": 0.71,
+        "cohort_key": "access_sensitive_skeptical",
+        "expression_level": 0.46,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.49,
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "Emergency changes often overlook real access barriers.",
+        "public_expression": "Likely to align with advocacy concerns if details remain vague.",
+        "representation_mode": "overlapping_issue_group",
+        "represented_population": 3600,
+        "stance_axes": {
+          "adaptation_confidence": 0.28,
+          "institutional_trust": 0.39,
+          "litigation_support": 0.48,
+          "relocation_acceptance": 0.31
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "affected_precinct_voters",
+        "attention_level": 0.68,
+        "cohort_key": "affected_voters_alert_confused",
+        "expression_level": 0.34,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.36,
+        "mobilization_readiness": 0.31,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.65,
+        "private_belief": "Polling-place changes may happen and could be inconvenient or confusing.",
+        "public_expression": "Mostly waiting for official guidance; some informal concern.",
+        "representation_mode": "direct",
+        "represented_population": 7800,
+        "stance_axes": {
+          "adaptation_confidence": 0.42,
+          "institutional_trust": 0.52,
+          "litigation_support": 0.28,
+          "relocation_acceptance": 0.45
+        }
+      },
+      {
+        "archetype_key": "affected_precinct_voters",
+        "attention_level": 0.74,
+        "cohort_key": "affected_voters_access_concerned",
+        "expression_level": 0.43,
+        "fatigue": 0.26,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.44,
+        "perceived_majority": 0.39,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Any replacement site must be truly accessible and clearly communicated.",
+        "public_expression": "More likely to raise concerns through advocates or direct inquiries.",
+        "representation_mode": "direct",
+        "represented_population": 4200,
+        "stance_axes": {
+          "adaptation_confidence": 0.36,
+          "institutional_trust": 0.46,
+          "litigation_support": 0.41,
+          "relocation_acceptance": 0.4
+        }
+      },
+      {
+        "archetype_key": "other_county_voters",
+        "attention_level": 0.29,
+        "cohort_key": "other_voters_stable_observers",
+        "expression_level": 0.14,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.21,
+        "mobilization_readiness": 0.12,
+        "perceived_majority": 0.61,
+        "population_share_of_archetype": 0.75,
+        "private_belief": "Issue matters but is not yet personally disruptive.",
+        "public_expression": "Low expression unless controversy escalates.",
+        "representation_mode": "direct",
+        "represented_population": 66000,
+        "stance_axes": {
+          "adaptation_confidence": 0.55,
+          "institutional_trust": 0.57,
+          "litigation_support": 0.22,
+          "relocation_acceptance": 0.58
+        }
+      },
+      {
+        "archetype_key": "other_county_voters",
+        "attention_level": 0.47,
+        "cohort_key": "other_voters_legitimacy_sensitive",
+        "expression_level": 0.23,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.27,
+        "mobilization_readiness": 0.24,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "Polling-place changes could affect fairness depending on how they are handled.",
+        "public_expression": "Attentive to media framing and campaign claims.",
+        "representation_mode": "direct",
+        "represented_population": 22000,
+        "stance_axes": {
+          "adaptation_confidence": 0.44,
+          "institutional_trust": 0.48,
+          "litigation_support": 0.33,
+          "relocation_acceptance": 0.49
+        }
+      },
+      {
+        "archetype_key": "access_sensitive_voters",
+        "attention_level": 0.62,
+        "cohort_key": "access_sensitive_pragmatic",
+        "expression_level": 0.39,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.25,
+        "mobilization_readiness": 0.38,
+        "perceived_majority": 0.43,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "Relocation can work if accommodations and information are concrete.",
+        "public_expression": "Conditional support with requests for specifics.",
+        "representation_mode": "overlapping_issue_group",
+        "represented_population": 5400,
+        "stance_axes": {
+          "adaptation_confidence": 0.47,
+          "institutional_trust": 0.5,
+          "litigation_support": 0.31,
+          "relocation_acceptance": 0.5
+        }
+      },
+      {
+        "archetype_key": "access_sensitive_voters",
+        "attention_level": 0.71,
+        "cohort_key": "access_sensitive_skeptical",
+        "expression_level": 0.46,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.49,
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "Emergency changes often overlook real access barriers.",
+        "public_expression": "Likely to align with advocacy concerns if details remain vague.",
+        "representation_mode": "overlapping_issue_group",
+        "represented_population": 3600,
+        "stance_axes": {
+          "adaptation_confidence": 0.28,
+          "institutional_trust": 0.39,
+          "litigation_support": 0.48,
+          "relocation_acceptance": 0.31
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "county_election_office",
+          "county_emergency_management"
+        ],
+        "blockers": [
+          "uncertain safety assessment results",
+          "statutory notice timing constraints",
+          "availability of accessible substitute sites"
+        ],
+        "contradiction_notes": "This endpoint does not imply relocation must occur; realization may include confirmed retention if safety and compliance permit.",
+        "description": "A terminal state in which one or both damaged school polling places are officially replaced or retained under a settled county plan.",
+        "endpoint_key": "relocation_finalized",
+        "evidence_refs": [
+          "flood_damage_to_two_school_sites",
+          "site_safety_assessment_underway",
+          "relocation_compliance_review"
+        ],
+        "label": "Polling-place relocation finalized",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will one or both damaged school polling places be formally relocated before the election?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.74,
+        "rationale": "The scenario's main operational fork is whether and how damaged-site voting arrangements are finalized.",
+        "realization_criteria": [
+          "Official county election notice confirms final status for both damaged-school polling places.",
+          "No further unresolved site-status ambiguity remains for the affected precinct assignments."
+        ],
+        "status": "active",
+        "status_basis": "Scenario explicitly centers on possible polling-place changes after flood damage but does not specify the final decision at T0."
+      },
+      {
+        "authority_refs": [
+          "county_court",
+          "campaign_a",
+          "campaign_b",
+          "disability_access_coalition"
+        ],
+        "blockers": [
+          "lack of standing or time to file",
+          "insufficient evidence of harm or noncompliance",
+          "official corrective action before filing"
+        ],
+        "contradiction_notes": "Public criticism alone does not realize this endpoint unless legal intervention materially changes the plan.",
+        "description": "A terminal state in which a court or formal legal process blocks, delays, or materially alters the county's intended polling-place approach.",
+        "endpoint_key": "legal_intervention_changes_outcome",
+        "evidence_refs": [
+          "accessibility_scrutiny_of_alternatives",
+          "campaign_monitoring_and_message_testing"
+        ],
+        "label": "Legal intervention changes the plan",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will a court challenge or formal legal intervention block, delay, or materially modify the county's polling-place plan?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.28,
+        "rationale": "This is a salient terminal option separate from routine process conflict.",
+        "realization_criteria": [
+          "A court order, consent modification, or formal legal settlement changes site assignments, notice timing, or required accommodations.",
+          "The change is attributable to a filed challenge or comparable legal intervention."
+        ],
+        "status": "active",
+        "status_basis": "The scenario explicitly identifies court challenge as a branch endpoint but provides no evidence that one has yet been filed."
+      },
+      {
+        "authority_refs": [
+          "county_election_office",
+          "local_media",
+          "affected_voters"
+        ],
+        "blockers": [
+          "timely clear notice",
+          "consistent messaging across official and media channels",
+          "stable final decision reached early enough"
+        ],
+        "contradiction_notes": "Minor uncertainty or scattered questions do not satisfy material confusion without visible operational disruption.",
+        "description": "A terminal state in which confusion over polling-place status becomes large enough to measurably disrupt affected voters.",
+        "endpoint_key": "material_voter_confusion_occurs",
+        "evidence_refs": [
+          "relocation_compliance_review",
+          "flood_damage_to_two_school_sites"
+        ],
+        "label": "Material voter confusion occurs",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will voter confusion reach a material level visible through inquiries, misdirected arrivals, or contradictory public guidance?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.36,
+        "rationale": "Confusion is a distinct outcome with legitimacy consequences even absent litigation.",
+        "realization_criteria": [
+          "Documented surge in voter inquiries, contradictory instructions, or significant reports of voters going to the wrong site.",
+          "Election administrators or credible public reporting acknowledge confusion as an operational problem rather than isolated incidents."
+        ],
+        "status": "active",
+        "status_basis": "The scenario explicitly names voter confusion as a possible endpoint; T0 shows risk but not realization."
+      },
+      {
+        "authority_refs": [
+          "county_election_office",
+          "county_emergency_management",
+          "disability_access_coalition"
+        ],
+        "blockers": [
+          "poor substitute-site accessibility",
+          "late or incomplete accommodation planning",
+          "opaque communication with advocates and voters"
+        ],
+        "contradiction_notes": "Operational completion without credible access validation does not realize this endpoint.",
+        "description": "A terminal state in which emergency polling-place changes are implemented with broad acceptance that access needs were credibly addressed.",
+        "endpoint_key": "accessible_adaptation_accepted",
+        "evidence_refs": [
+          "accessibility_scrutiny_of_alternatives",
+          "site_safety_assessment_underway"
+        ],
+        "label": "Accessible adaptation accepted",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the final plan be publicly assessed as adequately accessible by key access stakeholders?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.45,
+        "rationale": "This captures the positive terminal path distinct from mere relocation mechanics.",
+        "realization_criteria": [
+          "Replacement or retained sites are publicly documented as accessible with necessary accommodations.",
+          "Key access stakeholders refrain from ongoing objection or publicly acknowledge adequacy.",
+          "No major unresolved access complaint remains tied to the final site plan."
+        ],
+        "status": "active",
+        "status_basis": "The scenario explicitly identifies smooth adaptation as an endpoint possibility but does not establish it at T0."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "Emergency managers control safety closures.",
+        "layer": "dependency",
+        "reason": "Election officials rely on safety closure determinations before finalizing polling-place use.",
+        "source_actor_name": "county_election_office",
+        "target_actor_name": "county_emergency_management",
+        "weight": 0.64
+      },
+      {
+        "direction": "directed",
+        "evidence": "Flood damages two schools used as polling places.",
+        "layer": "dependency",
+        "reason": "Existing polling-place plan depends on the availability of the two school sites.",
+        "source_actor_name": "county_election_office",
+        "target_actor_name": "damaged_school_sites",
+        "weight": 0.51
+      },
+      {
+        "direction": "directed",
+        "evidence": "Election officials must meet statutory notice rules amid possible changes.",
+        "layer": "dependency",
+        "reason": "Affected voters rely on official notice for where and how to vote.",
+        "source_actor_name": "affected_voters",
+        "target_actor_name": "county_election_office",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario implies public communication pressure around polling-place changes.",
+        "layer": "dependency",
+        "reason": "Some voters may depend on media relay for late-breaking location changes.",
+        "source_actor_name": "affected_voters",
+        "target_actor_name": "local_media",
+        "weight": 0.32
+      },
+      {
+        "direction": "directed",
+        "evidence": "Advocates worry about access under possible relocations.",
+        "layer": "dependency",
+        "reason": "Advocates need official site and accommodation details to assess access impacts.",
+        "source_actor_name": "disability_access_coalition",
+        "target_actor_name": "county_election_office",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "Notice compliance is a central issue.",
+        "layer": "exposure",
+        "reason": "Affected voters are likely attentive to official election notices.",
+        "source_actor_name": "affected_voters",
+        "target_actor_name": "county_election_office",
+        "weight": 0.54
+      },
+      {
+        "direction": "directed",
+        "evidence": "Local reporting is a plausible public channel for county logistics news.",
+        "layer": "exposure",
+        "reason": "General voters will mostly learn of changes through media coverage if issue gains salience.",
+        "source_actor_name": "general_county_voters",
+        "target_actor_name": "local_media",
+        "weight": 0.48
+      },
+      {
+        "direction": "directed",
+        "evidence": "Issue has public-information relevance.",
+        "layer": "exposure",
+        "reason": "Affected voters may monitor local media for updates on flooding and polling changes.",
+        "source_actor_name": "affected_voters",
+        "target_actor_name": "local_media",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "Campaigns suspect turnout effects and may shape narratives.",
+        "layer": "exposure",
+        "reason": "Campaign messaging can gain reach through local coverage.",
+        "source_actor_name": "campaign_a",
+        "target_actor_name": "local_media",
+        "weight": 0.39
+      },
+      {
+        "direction": "directed",
+        "evidence": "Campaigns suspect turnout effects and may shape narratives.",
+        "layer": "exposure",
+        "reason": "Campaign messaging can gain reach through local coverage.",
+        "source_actor_name": "campaign_b",
+        "target_actor_name": "local_media",
+        "weight": 0.39
+      },
+      {
+        "direction": "directed",
+        "evidence": "No explicit scandal at T0; election legitimacy concern is live.",
+        "layer": "trust",
+        "reason": "Baseline trust is moderate but contingent on clear lawful communication.",
+        "source_actor_name": "affected_voters",
+        "target_actor_name": "county_election_office",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario presents a logistical emergency, not established wrongdoing.",
+        "layer": "trust",
+        "reason": "General voters retain moderate institutional trust absent clear mishandling.",
+        "source_actor_name": "general_county_voters",
+        "target_actor_name": "county_election_office",
+        "weight": 0.56
+      },
+      {
+        "direction": "directed",
+        "evidence": "Disability advocates are explicit concern carriers in the scenario.",
+        "layer": "trust",
+        "reason": "Accessibility-focused voters are likely to view advocates as credible monitors.",
+        "source_actor_name": "access_sensitive_voters",
+        "target_actor_name": "disability_access_coalition",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "Emergency managers control safety closures.",
+        "layer": "trust",
+        "reason": "Election officials likely credit emergency managers on safety assessments.",
+        "source_actor_name": "county_election_office",
+        "target_actor_name": "county_emergency_management",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "Emergency managers control safety closures.",
+        "layer": "influence",
+        "reason": "Safety closure authority strongly shapes available election options.",
+        "source_actor_name": "county_emergency_management",
+        "target_actor_name": "county_election_office",
+        "weight": 0.66
+      },
+      {
+        "direction": "directed",
+        "evidence": "Election officials must meet notice rules regarding polling-place changes.",
+        "layer": "influence",
+        "reason": "Official notices and assignments strongly affect voter understanding and behavior.",
+        "source_actor_name": "county_election_office",
+        "target_actor_name": "affected_voters",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "Disability advocates worry about access.",
+        "layer": "influence",
+        "reason": "Advocacy pressure can influence site choice and accommodations.",
+        "source_actor_name": "disability_access_coalition",
+        "target_actor_name": "county_election_office",
+        "weight": 0.43
+      },
+      {
+        "direction": "directed",
+        "evidence": "Campaigns suspect turnout effects.",
+        "layer": "influence",
+        "reason": "Campaign outreach may shape interpretations of whether changes affect turnout or fairness.",
+        "source_actor_name": "campaign_a",
+        "target_actor_name": "affected_voters",
+        "weight": 0.34
+      },
+      {
+        "direction": "directed",
+        "evidence": "Campaigns suspect turnout effects.",
+        "layer": "influence",
+        "reason": "Campaign outreach may shape interpretations of whether changes affect turnout or fairness.",
+        "source_actor_name": "campaign_b",
+        "target_actor_name": "affected_voters",
+        "weight": 0.34
+      },
+      {
+        "direction": "directed",
+        "evidence": "Local media is a likely amplifier of polling-place controversy.",
+        "layer": "influence",
+        "reason": "Media framing can elevate legitimacy concerns beyond affected precincts.",
+        "source_actor_name": "local_media",
+        "target_actor_name": "general_county_voters",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "Advocates worry about access for impacted voters.",
+        "layer": "coalition",
+        "reason": "Potential alignment around access protections for relocated voting sites.",
+        "source_actor_name": "disability_access_coalition",
+        "target_actor_name": "affected_voters",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "Campaigns suspect turnout effects.",
+        "layer": "coalition",
+        "reason": "Campaign may seek alignment with voters concerned about turnout obstacles.",
+        "source_actor_name": "campaign_a",
+        "target_actor_name": "affected_voters",
+        "weight": 0.29
+      },
+      {
+        "direction": "directed",
+        "evidence": "Campaigns suspect turnout effects.",
+        "layer": "coalition",
+        "reason": "Campaign may seek alignment with voters concerned about turnout obstacles.",
+        "source_actor_name": "campaign_b",
+        "target_actor_name": "affected_voters",
+        "weight": 0.29
+      },
+      {
+        "direction": "directed",
+        "evidence": "Both agencies are central to closure and relocation decisions.",
+        "layer": "coalition",
+        "reason": "Shared institutional need to stabilize a safe lawful plan.",
+        "source_actor_name": "county_election_office",
+        "target_actor_name": "county_emergency_management",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "Advocates worry about access while officials face deadline pressure.",
+        "layer": "conflict",
+        "reason": "Potential conflict if replacement sites are seen as inaccessible or rushed.",
+        "source_actor_name": "disability_access_coalition",
+        "target_actor_name": "county_election_office",
+        "weight": 0.33
+      },
+      {
+        "direction": "directed",
+        "evidence": "Campaigns suspect turnout effects.",
+        "layer": "conflict",
+        "reason": "Campaign may challenge decisions perceived to alter turnout conditions.",
+        "source_actor_name": "campaign_a",
+        "target_actor_name": "county_election_office",
+        "weight": 0.28
+      },
+      {
+        "direction": "directed",
+        "evidence": "Campaigns suspect turnout effects.",
+        "layer": "conflict",
+        "reason": "Campaign may challenge decisions perceived to alter turnout conditions.",
+        "source_actor_name": "campaign_b",
+        "target_actor_name": "county_election_office",
+        "weight": 0.28
+      },
+      {
+        "direction": "directed",
+        "evidence": "Flood damages two schools used as polling places.",
+        "layer": "conflict",
+        "reason": "Voters face disruption because damaged sites may be unusable.",
+        "source_actor_name": "affected_voters",
+        "target_actor_name": "damaged_school_sites",
+        "weight": 0.22
+      },
+      {
+        "direction": "directed",
+        "evidence": "Polling-place changes require broad communication.",
+        "layer": "oasis_interaction",
+        "reason": "Public updates and clarifications are likely to flow through media channels.",
+        "source_actor_name": "county_election_office",
+        "target_actor_name": "local_media",
+        "weight": 0.51
+      },
+      {
+        "direction": "directed",
+        "evidence": "Access worry is explicitly named in the scenario.",
+        "layer": "oasis_interaction",
+        "reason": "Advocates may use public channels to raise access concerns.",
+        "source_actor_name": "disability_access_coalition",
+        "target_actor_name": "local_media",
+        "weight": 0.42
+      },
+      {
+        "direction": "directed",
+        "evidence": "Campaigns suspect turnout effects.",
+        "layer": "oasis_interaction",
+        "reason": "Campaign may publicly comment on turnout implications.",
+        "source_actor_name": "campaign_a",
+        "target_actor_name": "local_media",
+        "weight": 0.37
+      },
+      {
+        "direction": "directed",
+        "evidence": "Campaigns suspect turnout effects.",
+        "layer": "oasis_interaction",
+        "reason": "Campaign may publicly comment on turnout implications.",
+        "source_actor_name": "campaign_b",
+        "target_actor_name": "local_media",
+        "weight": 0.37
+      },
+      {
+        "direction": "directed",
+        "evidence": "Affected voters need clarity on any relocation.",
+        "layer": "oasis_interaction",
+        "reason": "Questions and complaints may surface through public-facing election communication channels.",
+        "source_actor_name": "affected_voters",
+        "target_actor_name": "county_election_office",
+        "weight": 0.33
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "description": "Operational authority balancing legal notice, logistics, and legitimacy.",
+        "hero_key": "election_administrator",
+        "label": "Election administrator"
+      },
+      {
+        "description": "Safety authority determining damaged-site usability.",
+        "hero_key": "emergency_manager",
+        "label": "Emergency manager"
+      },
+      {
+        "description": "Public-facing accessibility watchdog and negotiator.",
+        "hero_key": "access_advocate",
+        "label": "Access advocate"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "county_election_office",
+        "attention_level": 0.83,
+        "authority_scope": "polling-place assignment and notice execution",
+        "constraints": [
+          "dependent on safety closure determinations",
+          "statutory notice deadlines",
+          "limited tolerance for voter confusion"
+        ],
+        "expression_level": 0.56,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.18,
+        "hero_key": "election_administrator",
+        "mobilization_readiness": 0.71,
+        "operational_posture": "seeking compliant contingency plan",
+        "perceived_majority": 0.54,
+        "represented_population": null,
+        "stance_axes": {
+          "access_priority": 0.58,
+          "legal_caution": 0.73,
+          "public_reassurance": 0.61,
+          "relocation_urgency": 0.62
+        }
+      },
+      {
+        "actor_name": "county_emergency_management",
+        "attention_level": 0.76,
+        "authority_scope": "closure and safety usability judgments",
+        "constraints": [
+          "damage-assessment uncertainty",
+          "cross-agency coordination burden"
+        ],
+        "expression_level": 0.39,
+        "fatigue": 0.36,
+        "fear_of_isolation": 0.11,
+        "hero_key": "emergency_manager",
+        "mobilization_readiness": 0.64,
+        "operational_posture": "site safety triage",
+        "perceived_majority": 0.58,
+        "represented_population": null,
+        "stance_axes": {
+          "closure_caution": 0.77,
+          "operational_speed": 0.59,
+          "political_detachment": 0.66,
+          "public_reassurance": 0.52
+        }
+      },
+      {
+        "actor_name": "disability_access_coalition",
+        "attention_level": 0.74,
+        "authority_scope": "advocacy and public scrutiny",
+        "constraints": [
+          "limited formal decision authority",
+          "dependent on details released by officials"
+        ],
+        "expression_level": 0.52,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.16,
+        "hero_key": "access_advocate",
+        "mobilization_readiness": 0.58,
+        "operational_posture": "monitor and pressure for accessible alternatives",
+        "perceived_majority": 0.41,
+        "represented_population": null,
+        "stance_axes": {
+          "access_alarm": 0.71,
+          "collaboration_preference": 0.55,
+          "litigation_openness": 0.46,
+          "public_pressure": 0.49
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "description": "Operational authority balancing legal notice, logistics, and legitimacy.",
+        "hero_key": "election_administrator",
+        "label": "Election administrator"
+      },
+      {
+        "description": "Safety authority determining damaged-site usability.",
+        "hero_key": "emergency_manager",
+        "label": "Emergency manager"
+      },
+      {
+        "description": "Public-facing accessibility watchdog and negotiator.",
+        "hero_key": "access_advocate",
+        "label": "Access advocate"
+      }
+    ],
+    "important_questions": [
+      "Will one or both damaged school polling places be formally relocated before the election?",
+      "Will a court challenge or formal legal intervention block, delay, or materially modify the county's polling-place plan?",
+      "Will voter confusion reach a material level visible through inquiries, misdirected arrivals, or contradictory public guidance?",
+      "Will the final plan be publicly assessed as adequately accessible by key access stakeholders?"
+    ],
+    "initial_events": [
+      {
+        "actors_involved": [
+          "damaged_school_sites",
+          "county_emergency_management",
+          "county_election_office"
+        ],
+        "event_key": "flood_damage_to_two_school_sites",
+        "event_type": "announcement",
+        "expected_impact": "Raises dependency on safety assessments, increases relocation consideration, and activates voter-information risk.",
+        "summary": "Flood damage affects two school polling locations in the fictional county.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "county_emergency_management",
+          "county_election_office"
+        ],
+        "event_key": "site_safety_assessment_underway",
+        "event_type": "announcement",
+        "expected_impact": "Keeps options open while preserving uncertainty; authority over closure leans toward emergency management.",
+        "summary": "Emergency managers are evaluating whether damaged schools can remain open as polling places.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "county_election_office"
+        ],
+        "event_key": "relocation_compliance_review",
+        "event_type": "announcement",
+        "expected_impact": "May narrow feasible timelines and expose tradeoffs between speed, access quality, and legal compliance.",
+        "summary": "Election officials review statutory notice requirements and backup site options.",
+        "tick": 1
+      },
+      {
+        "actors_involved": [
+          "disability_access_coalition",
+          "county_election_office"
+        ],
+        "event_key": "accessibility_scrutiny_of_alternatives",
+        "event_type": "announcement",
+        "expected_impact": "Can improve accommodation planning or increase conflict if details remain vague.",
+        "summary": "Disability advocates begin scrutinizing potential replacement locations and communication plans.",
+        "tick": 1
+      },
+      {
+        "actors_involved": [
+          "campaign_a",
+          "campaign_b"
+        ],
+        "event_key": "campaign_monitoring_and_message_testing",
+        "event_type": "announcement",
+        "expected_impact": "May remain low-level or become a driver of public suspicion depending on official clarity and site choices.",
+        "summary": "Campaigns assess whether polling-place changes could alter turnout patterns or narratives of fairness.",
+        "tick": 1
+      }
+    ],
+    "llm_call_id": "c474a4b2-4d7f-4619-859d-13c6df3ffdd0",
+    "merge_hypotheses": [
+      {
+        "affected_paths": [
+          "emergency_relocation_branch",
+          "smooth_adaptation_branch",
+          "court_challenge_branch"
+        ],
+        "convergence_driver": "Most actors accept that flood damage is a legitimate trigger for some change if evidence is transparent.",
+        "merge_key": "shared_safety_constraint",
+        "why_it_merges": "Transparent damage documentation can reduce disputes over motive even when actors disagree about implementation."
+      },
+      {
+        "affected_paths": [
+          "emergency_relocation_branch",
+          "voter_confusion_branch",
+          "smooth_adaptation_branch"
+        ],
+        "convergence_driver": "All major actors benefit from minimizing voter confusion once a decision is made.",
+        "merge_key": "common_need_for_clear_notice",
+        "why_it_merges": "Even adversarial actors may align around dissemination of accurate final instructions."
+      },
+      {
+        "affected_paths": [
+          "court_challenge_branch",
+          "smooth_adaptation_branch"
+        ],
+        "convergence_driver": "If accessible substitute sites are announced and communication improves, pressure coalitions may de-escalate.",
+        "merge_key": "coalition_fatigue_after_fix",
+        "why_it_merges": "Concrete remedies can satisfy enough concerns to avoid prolonged escalation."
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "affected_precinct_voters",
+        "description": "Registered or expected voters linked to the two damaged polling-place catchments.",
+        "label": "Affected precinct voters",
+        "population_total": 12000
+      },
+      {
+        "archetype_key": "other_county_voters",
+        "description": "County voters not directly assigned to the damaged polling places but potentially influenced by legitimacy narratives.",
+        "label": "Other county voters",
+        "population_total": 88000
+      },
+      {
+        "archetype_key": "access_sensitive_voters",
+        "description": "Voters countywide with elevated sensitivity to accessibility, transportation, language, or mobility barriers.",
+        "label": "Access-sensitive voters",
+        "population_total": 9000
+      }
+    ],
+    "risk_flags": [
+      {
+        "note": "County size, turnout levels, election date, and number of affected precincts are unspecified; population estimates are grounded defaults.",
+        "risk_key": "evidence_gap_county_scale",
+        "severity": "medium"
+      },
+      {
+        "note": "Decision authority is divided: emergency managers shape site viability while election officials control implementation and notice.",
+        "risk_key": "authority_split_risk",
+        "severity": "medium"
+      },
+      {
+        "note": "No replacement sites or accommodation plans are described, leaving significant uncertainty around access outcomes.",
+        "risk_key": "accessibility_detail_gap",
+        "severity": "high"
+      },
+      {
+        "note": "Statutory notice rules are explicit and may sharply constrain feasible relocation timing.",
+        "risk_key": "notice_compliance_risk",
+        "severity": "high"
+      },
+      {
+        "note": "Campaign suspicion about turnout effects could convert a logistical emergency into a legitimacy dispute if communication falters.",
+        "risk_key": "narrative_escalation_risk",
+        "severity": "medium"
+      },
+      {
+        "note": "Public institutions and campaigns are kept fictionalized per civic scenario handling requirements.",
+        "risk_key": "fictionalization_applied",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "election_legitimacy",
+      "configured_focus": [
+        "multi_timeline_reports",
+        "evidence_gaps",
+        "authority"
+      ],
+      "mode": "direct",
+      "scenario_key": "election_004",
+      "summary": "A fictional county is considering polling-place changes after flood damage to two schools. Disability advocates are concerned about accessibility, political campaigns are alert to turnout effects, emergency managers control safety closures, and election officials must comply with statutory notice rules. T0 centers on unresolved relocation decisions, compliance constraints, and competing interpretations of fairness and feasibility.",
+      "time_zero_condition": "Post-flood damage assessment is active; polling-place changes are under consideration but not fully settled.",
+      "uncertainty_notes": [
+        "Extent of flood damage and repair timeline are not specified.",
+        "Specific election date, county size, and number of affected precincts are not specified.",
+        "No explicit evidence indicates bad faith by any actor at T0."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "level": 0.54,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Most voters remain open to official explanations unless partisan or advocacy cues sharply diverge.",
+        "scope": "countywide"
+      },
+      {
+        "level": 0.47,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Visible failures in notice or accessibility could push a passive audience into complaints or legal support.",
+        "scope": "affected_voters"
+      },
+      {
+        "level": 0.63,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Many voters hold tentative concerns privately unless concrete disruption becomes salient.",
+        "scope": "general_county_voters"
+      },
+      {
+        "level": 0.42,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Campaign supporters and access-focused communities will interpret events through their existing networks.",
+        "scope": "campaign_and_advocacy_networks"
+      },
+      {
+        "level": 0.49,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Belief that the change is unfair likely requires repeated reinforcement from campaigns, advocates, or media rather than a single cue.",
+        "scope": "legitimacy_narratives"
+      },
+      {
+        "level": 0.46,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Residents directly affected may see themselves as uniquely burdened compared with the rest of the county.",
+        "scope": "affected_precincts_and_issue_publics"
+      },
+      {
+        "level": 0.58,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "If officials provide clear timely updates and disruption remains limited, wider public attention may fade quickly.",
+        "scope": "general_county_voters"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Emergency managers possess closure authority while election officials possess implementation authority, creating a visible split in responsibility.",
+        "influence_key": "authority_visibility"
+      },
+      {
+        "description": "Accessibility concerns are legitimate and can shape judgments of fairness even if relocation is operationally necessary.",
+        "influence_key": "accessibility_salience"
+      },
+      {
+        "description": "Campaign monitoring of turnout effects creates a standing incentive to scrutinize site selection and communication timing.",
+        "influence_key": "turnout_suspicion"
+      },
+      {
+        "description": "Statutory notice requirements make timing and communication quality central to legitimacy assessments.",
+        "influence_key": "notice_rule_pressure"
+      },
+      {
+        "description": "Flood damage offers a credible nonpolitical trigger for change, which may moderate suspicion unless execution appears uneven.",
+        "influence_key": "emergency_context"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "county_election_office",
+        "behavior_axes": {
+          "adaptability": 0.57,
+          "caution": 0.72,
+          "proceduralism": 0.82,
+          "responsiveness": 0.62
+        },
+        "ideology_axes": {
+          "equity_orientation": 0.56,
+          "institutional_neutrality": 0.78
+        },
+        "reputation": 0.58,
+        "secrecy": 0.34,
+        "tendency": "risk-averse procedural compliance",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "county_emergency_management",
+        "behavior_axes": {
+          "adaptability": 0.55,
+          "caution": 0.79,
+          "proceduralism": 0.69,
+          "responsiveness": 0.58
+        },
+        "ideology_axes": {
+          "equity_orientation": 0.42,
+          "institutional_neutrality": 0.8
+        },
+        "reputation": 0.61,
+        "secrecy": 0.38,
+        "tendency": "safety-first gatekeeping",
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "disability_access_coalition",
+        "behavior_axes": {
+          "adaptability": 0.67,
+          "caution": 0.47,
+          "proceduralism": 0.52,
+          "responsiveness": 0.71
+        },
+        "ideology_axes": {
+          "equity_orientation": 0.88,
+          "institutional_neutrality": 0.31
+        },
+        "reputation": 0.57,
+        "secrecy": 0.21,
+        "tendency": "equity-focused oversight",
+        "trustworthiness": 0.66
+      },
+      {
+        "actor_name": "campaign_a",
+        "behavior_axes": {
+          "adaptability": 0.64,
+          "caution": 0.43,
+          "proceduralism": 0.39,
+          "responsiveness": 0.68
+        },
+        "ideology_axes": {
+          "equity_orientation": 0.45,
+          "institutional_neutrality": 0.24
+        },
+        "reputation": 0.46,
+        "secrecy": 0.52,
+        "tendency": "strategic turnout protection",
+        "trustworthiness": 0.44
+      },
+      {
+        "actor_name": "campaign_b",
+        "behavior_axes": {
+          "adaptability": 0.63,
+          "caution": 0.44,
+          "proceduralism": 0.4,
+          "responsiveness": 0.67
+        },
+        "ideology_axes": {
+          "equity_orientation": 0.45,
+          "institutional_neutrality": 0.24
+        },
+        "reputation": 0.46,
+        "secrecy": 0.52,
+        "tendency": "strategic turnout protection",
+        "trustworthiness": 0.44
+      },
+      {
+        "actor_name": "affected_voters",
+        "behavior_axes": {
+          "adaptability": 0.5,
+          "caution": 0.49,
+          "proceduralism": 0.36,
+          "responsiveness": 0.53
+        },
+        "ideology_axes": {
+          "equity_orientation": 0.61,
+          "institutional_neutrality": 0.5
+        },
+        "reputation": 0.5,
+        "secrecy": 0.29,
+        "tendency": "information-seeking but disruption-sensitive",
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "general_county_voters",
+        "behavior_axes": {
+          "adaptability": 0.57,
+          "caution": 0.45,
+          "proceduralism": 0.4,
+          "responsiveness": 0.34
+        },
+        "ideology_axes": {
+          "equity_orientation": 0.5,
+          "institutional_neutrality": 0.54
+        },
+        "reputation": 0.5,
+        "secrecy": 0.31,
+        "tendency": "low-attention unless cues intensify",
+        "trustworthiness": 0.53
+      },
+      {
+        "actor_name": "county_court",
+        "behavior_axes": {
+          "adaptability": 0.33,
+          "caution": 0.74,
+          "proceduralism": 0.87,
+          "responsiveness": 0.41
+        },
+        "ideology_axes": {
+          "equity_orientation": 0.49,
+          "institutional_neutrality": 0.86
+        },
+        "reputation": 0.63,
+        "secrecy": 0.25,
+        "tendency": "formal dispute resolution",
+        "trustworthiness": 0.67
+      },
+      {
+        "actor_name": "local_media",
+        "behavior_axes": {
+          "adaptability": 0.69,
+          "caution": 0.46,
+          "proceduralism": 0.34,
+          "responsiveness": 0.73
+        },
+        "ideology_axes": {
+          "equity_orientation": 0.48,
+          "institutional_neutrality": 0.49
+        },
+        "reputation": 0.51,
+        "secrecy": 0.18,
+        "tendency": "amplify salient developments",
+        "trustworthiness": 0.52
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 520,
+        "end": 520,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 520,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

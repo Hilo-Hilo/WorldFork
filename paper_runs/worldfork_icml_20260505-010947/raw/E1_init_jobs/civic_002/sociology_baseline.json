@@ -1,0 +1,230 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "acd9e8a2-d11a-4b28-b4af-b6556fe34c0d",
+      "created_at": "2026-05-05T02:25:37.682763+00:00",
+      "id": "239e696d-2501-4e0e-8884-6ab74ab6b29b",
+      "influence": {
+        "description": "Statute gives the state agency enforcement power, but implementation is legally contestable and may be delayed by courts.",
+        "evidence": "Scenario expected focus and statute/lawsuit note.",
+        "influence_key": "authority_constraints"
+      },
+      "multiverse_id": "cba0457a-f6a2-4c55-add7-9e5155d86c91",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:25:37.682763+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "acd9e8a2-d11a-4b28-b4af-b6556fe34c0d",
+      "created_at": "2026-05-05T02:25:37.682763+00:00",
+      "id": "83a7879b-5f55-422c-bc14-33897ccc6b3c",
+      "influence": {
+        "description": "Municipal reliance on infrastructure grants creates leverage without immediate direct takeover.",
+        "evidence": "Agency threatens to withhold infrastructure grants.",
+        "influence_key": "fiscal_dependency"
+      },
+      "multiverse_id": "cba0457a-f6a2-4c55-add7-9e5155d86c91",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:25:37.682763+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "acd9e8a2-d11a-4b28-b4af-b6556fe34c0d",
+      "created_at": "2026-05-05T02:25:37.682763+00:00",
+      "id": "e8b6d305-2426-4b65-a366-8c01f5c6e1c0",
+      "influence": {
+        "description": "Suburban residents are predisposed to trust local councils more than distant state institutions on land-use matters.",
+        "evidence": "Scenario centers suburbs, councils, homeowners, and local reaction.",
+        "influence_key": "local_legitimacy_bias"
+      },
+      "multiverse_id": "cba0457a-f6a2-4c55-add7-9e5155d86c91",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:25:37.682763+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "acd9e8a2-d11a-4b28-b4af-b6556fe34c0d",
+      "created_at": "2026-05-05T02:25:37.682763+00:00",
+      "id": "345ba47a-588f-4920-a4e6-0e14386a92ea",
+      "influence": {
+        "description": "Governor and some municipalities may prefer compromise over pure confrontation because both housing production and suburban backlash matter.",
+        "evidence": "Scenario names governor and multiple constituencies with divergent interests.",
+        "influence_key": "coalition_cross_pressure"
+      },
+      "multiverse_id": "cba0457a-f6a2-4c55-add7-9e5155d86c91",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:25:37.682763+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "acd9e8a2-d11a-4b28-b4af-b6556fe34c0d",
+      "created_at": "2026-05-05T02:25:37.682763+00:00",
+      "id": "6a02ef8c-3b57-4de1-9c53-4832ceb09ef4",
+      "influence": {
+        "description": "Plausible terminal choices are compliance, negotiated delay, court injunction, or partial exemption rather than immediate binary victory.",
+        "evidence": "Scenario explicitly lists possible endpoints.",
+        "influence_key": "endpoint_option_set"
+      },
+      "multiverse_id": "cba0457a-f6a2-4c55-add7-9e5155d86c91",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:25:37.682763+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "acd9e8a2-d11a-4b28-b4af-b6556fe34c0d",
+      "created_at": "2026-05-05T02:25:37.682763+00:00",
+      "id": "f7fb624d-aae3-44ff-aa2a-9231a5db0d73",
+      "model": "attention_decay",
+      "multiverse_id": "cba0457a-f6a2-4c55-add7-9e5155d86c91",
+      "signal": {
+        "evidence": "Residents and local officials are likely to update within familiar local-control frames rather than from opposing statewide narratives.",
+        "level": "moderate",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "scope": [
+          "suburban_homeowners",
+          "cross_pressured_suburbanites",
+          "suburban_local_councils"
+        ]
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:25:37.682763+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "acd9e8a2-d11a-4b28-b4af-b6556fe34c0d",
+      "created_at": "2026-05-05T02:25:37.682763+00:00",
+      "id": "50cd36e1-8ee6-417c-85d0-5d50b55a809a",
+      "model": "attention_decay",
+      "multiverse_id": "cba0457a-f6a2-4c55-add7-9e5155d86c91",
+      "signal": {
+        "evidence": "Public engagement likely rises sharply around visible sanctions, hearings, or lawsuit filings rather than abstract targets alone.",
+        "level": "high_relevance",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "scope": [
+          "suburban_homeowners",
+          "renters_and_housing_seekers"
+        ]
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:25:37.682763+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "acd9e8a2-d11a-4b28-b4af-b6556fe34c0d",
+      "created_at": "2026-05-05T02:25:37.682763+00:00",
+      "id": "23453832-44e5-4f2b-9f1a-929267a336c4",
+      "model": "attention_decay",
+      "multiverse_id": "cba0457a-f6a2-4c55-add7-9e5155d86c91",
+      "signal": {
+        "evidence": "Renters and mixed-view residents may privately favor more housing while speaking less in locally homeowner-dominant settings.",
+        "level": "moderate_high",
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "scope": [
+          "pro_housing_renters",
+          "cross_pressured_suburbanites"
+        ]
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:25:37.682763+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "acd9e8a2-d11a-4b28-b4af-b6556fe34c0d",
+      "created_at": "2026-05-05T02:25:37.682763+00:00",
+      "id": "67cf3763-7a44-4188-ac64-24214194c887",
+      "model": "attention_decay",
+      "multiverse_id": "cba0457a-f6a2-4c55-add7-9e5155d86c91",
+      "signal": {
+        "evidence": "Neighborhood and municipal networks likely reinforce local-autonomy arguments.",
+        "level": "moderate",
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "scope": [
+          "suburban_homeowners",
+          "municipal_officials_defensive"
+        ]
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:25:37.682763+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "acd9e8a2-d11a-4b28-b4af-b6556fe34c0d",
+      "created_at": "2026-05-05T02:25:37.682763+00:00",
+      "id": "e3eb6cd0-5b5b-46b2-8bba-e9c0b67fee0b",
+      "model": "attention_decay",
+      "multiverse_id": "cba0457a-f6a2-4c55-add7-9e5155d86c91",
+      "signal": {
+        "evidence": "Municipal lawsuit participation and negotiated defection both likely require multiple peer signals.",
+        "level": "moderate",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "scope": [
+          "suburban_local_councils",
+          "municipal_legal_coalition",
+          "pragmatic_local_elites"
+        ]
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:25:37.682763+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "acd9e8a2-d11a-4b28-b4af-b6556fe34c0d",
+      "created_at": "2026-05-05T02:25:37.682763+00:00",
+      "id": "87fea2a7-0b4b-4610-a688-db5cad412d2e",
+      "model": "attention_decay",
+      "multiverse_id": "cba0457a-f6a2-4c55-add7-9e5155d86c91",
+      "signal": {
+        "evidence": "Conflict is structured around local resident identity, renter exclusion concerns, and state-versus-local legitimacy.",
+        "level": "high_relevance",
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "scope": [
+          "suburban_homeowners",
+          "renters_and_housing_seekers",
+          "suburban_local_councils"
+        ]
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:25:37.682763+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "acd9e8a2-d11a-4b28-b4af-b6556fe34c0d",
+      "created_at": "2026-05-05T02:25:37.682763+00:00",
+      "id": "4992bce2-873f-4225-9fae-4a59e47fa6e9",
+      "model": "attention_decay",
+      "multiverse_id": "cba0457a-f6a2-4c55-add7-9e5155d86c91",
+      "signal": {
+        "evidence": "Absent new filings, grant announcements, or hearings, public intensity may soften between salient events.",
+        "level": "moderate",
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "scope": [
+          "general"
+        ]
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:25:37.682763+00:00"
+    }
+  ]
+}

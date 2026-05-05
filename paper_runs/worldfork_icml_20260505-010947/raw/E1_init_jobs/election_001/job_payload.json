@@ -1,0 +1,21 @@
+{
+  "job_type": "initialize_big_bang",
+  "payload": {
+    "actors": [],
+    "branch_policy": {
+      "branch_score_threshold": 0.999,
+      "max_active_multiverses": 1,
+      "max_branch_depth": 1,
+      "max_branches_per_tick": 1
+    },
+    "cohorts": [],
+    "heroes": [],
+    "name": "E1_init_job_election_001",
+    "scenario_text": "# Case election_001\nBenchmark role: election_legitimacy\n\n## Scenario\n\nA fictional city council race is thrown into uncertainty after a ballot-scanner outage delays results in three precincts. Election officials say paper ballots are secure, one campaign alleges selective delays, civic groups call for patience, and local influencers spread precinct-level rumors. Initialize trust, uncertainty, legal authority, and branches around certification, recount demand, misinformation persistence, or legitimacy repair.\n\n## Expected Focus\n- legitimacy\n- rumor_containment\n- coalition_shift\n",
+    "simulation_config": {
+      "max_ticks": 1,
+      "tick_duration_minutes": 720
+    },
+    "use_initializer_agent": true
+  }
+}

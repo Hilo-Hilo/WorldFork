@@ -1,0 +1,208 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "9caeab08-603a-48d0-b8e6-31cfc70f8931",
+      "created_at": "2026-05-05T02:30:33.053858+00:00",
+      "id": "026b460e-144c-4527-a091-a9ea77f322b6",
+      "influence": {
+        "context_key": "institutional_trust_sensitivity",
+        "description": "Official credibility depends on acknowledging uncertainty while still appearing competent and responsive."
+      },
+      "multiverse_id": "147a0c95-dd9c-4291-8c80-3bccc356e907",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:30:33.053858+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "9caeab08-603a-48d0-b8e6-31cfc70f8931",
+      "created_at": "2026-05-05T02:30:33.053858+00:00",
+      "id": "fd1f4ad1-f21f-4d54-aac8-81574aca7ea1",
+      "influence": {
+        "context_key": "rumor_speed_advantage",
+        "description": "Informal parent networks can spread warnings faster than formal channels, especially before lab results."
+      },
+      "multiverse_id": "147a0c95-dd9c-4291-8c80-3bccc356e907",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:30:33.053858+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "9caeab08-603a-48d0-b8e6-31cfc70f8931",
+      "created_at": "2026-05-05T02:30:33.053858+00:00",
+      "id": "20dcf99a-35fd-48a5-a59e-a229169adeb7",
+      "influence": {
+        "context_key": "reputational_defensiveness",
+        "description": "Pool-related actors have incentives to resist premature blame, shaping communication tone."
+      },
+      "multiverse_id": "147a0c95-dd9c-4291-8c80-3bccc356e907",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:30:33.053858+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "9caeab08-603a-48d0-b8e6-31cfc70f8931",
+      "created_at": "2026-05-05T02:30:33.053858+00:00",
+      "id": "6033b0fd-cac6-482a-afc6-d55e2c857a58",
+      "influence": {
+        "context_key": "clinical_guidance_gap",
+        "description": "Ambiguous official language can create secondary uncertainty as clinicians improvise patient advice."
+      },
+      "multiverse_id": "147a0c95-dd9c-4291-8c80-3bccc356e907",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:30:33.053858+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "9caeab08-603a-48d0-b8e6-31cfc70f8931",
+      "created_at": "2026-05-05T02:30:33.053858+00:00",
+      "id": "02ee2502-744f-4bc7-81d8-e9d8096d5773",
+      "model": "attention_decay",
+      "multiverse_id": "147a0c95-dd9c-4291-8c80-3bccc356e907",
+      "signal": {
+        "applies_to": [
+          "parents_community",
+          "general_county_residents"
+        ],
+        "evidence": "People are more likely to accept messages that fit prior caution or skepticism about local safety incidents.",
+        "level": 0.63,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:30:33.053858+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "9caeab08-603a-48d0-b8e6-31cfc70f8931",
+      "created_at": "2026-05-05T02:30:33.053858+00:00",
+      "id": "ad2ddf82-f4df-499e-884a-abf3749f8b74",
+      "model": "attention_decay",
+      "multiverse_id": "147a0c95-dd9c-4291-8c80-3bccc356e907",
+      "signal": {
+        "applies_to": [
+          "parents_community"
+        ],
+        "evidence": "Additional anecdotal cases or vivid posts could move more parents from observation to active warning behavior.",
+        "level": 0.52,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:30:33.053858+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "9caeab08-603a-48d0-b8e6-31cfc70f8931",
+      "created_at": "2026-05-05T02:30:33.053858+00:00",
+      "id": "a768474a-2fea-41ee-a29b-d907e4e867ba",
+      "model": "attention_decay",
+      "multiverse_id": "147a0c95-dd9c-4291-8c80-3bccc356e907",
+      "signal": {
+        "applies_to": [
+          "pool_staff",
+          "general_county_residents"
+        ],
+        "evidence": "Some concerned individuals may stay quiet due to low certainty or job dependence.",
+        "level": 0.46,
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:30:33.053858+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "9caeab08-603a-48d0-b8e6-31cfc70f8931",
+      "created_at": "2026-05-05T02:30:33.053858+00:00",
+      "id": "7049d9c1-0373-47c9-9633-4fa52ae552d3",
+      "model": "attention_decay",
+      "multiverse_id": "147a0c95-dd9c-4291-8c80-3bccc356e907",
+      "signal": {
+        "applies_to": [
+          "parents_community",
+          "local_clinicians"
+        ],
+        "evidence": "Parent-to-parent and clinician-to-clinician sharing likely clusters by familiar networks.",
+        "level": 0.66,
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:30:33.053858+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "9caeab08-603a-48d0-b8e6-31cfc70f8931",
+      "created_at": "2026-05-05T02:30:33.053858+00:00",
+      "id": "090f1ae2-037b-4c56-87f2-0f42afce2075",
+      "model": "attention_decay",
+      "multiverse_id": "147a0c95-dd9c-4291-8c80-3bccc356e907",
+      "signal": {
+        "applies_to": [
+          "parents_community",
+          "general_county_residents"
+        ],
+        "evidence": "Repeated exposure through peers and media may be needed before broader behavioral changes occur.",
+        "level": 0.58,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:30:33.053858+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "9caeab08-603a-48d0-b8e6-31cfc70f8931",
+      "created_at": "2026-05-05T02:30:33.053858+00:00",
+      "id": "1174b26f-1956-4a1b-ac07-2888311b7c3c",
+      "model": "attention_decay",
+      "multiverse_id": "147a0c95-dd9c-4291-8c80-3bccc356e907",
+      "signal": {
+        "applies_to": [
+          "pool_staff",
+          "parents_community",
+          "local_clinicians"
+        ],
+        "evidence": "Role identities shape interpretation: caregiver protection, professional caution, and staff reputation defense.",
+        "level": 0.61,
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:30:33.053858+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "9caeab08-603a-48d0-b8e6-31cfc70f8931",
+      "created_at": "2026-05-05T02:30:33.053858+00:00",
+      "id": "f7e56a71-9500-481a-b87d-beada34f5513",
+      "model": "attention_decay",
+      "multiverse_id": "147a0c95-dd9c-4291-8c80-3bccc356e907",
+      "signal": {
+        "applies_to": [
+          "general_county_residents"
+        ],
+        "evidence": "Without confirming evidence or new developments, wider public attention may fade.",
+        "level": 0.34,
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:30:33.053858+00:00"
+    }
+  ]
+}

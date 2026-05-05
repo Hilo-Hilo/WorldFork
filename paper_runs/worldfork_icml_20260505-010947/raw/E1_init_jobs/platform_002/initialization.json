@@ -1,0 +1,1516 @@
+{
+  "big_bang_id": "7a271c3f-35ce-4f5a-b3ef-20b0013968b4",
+  "initializer_output": {
+    "actors": [
+      {
+        "fictionalized": true,
+        "name": "vista_stream_platform",
+        "public_role": "video platform operator",
+        "type": "platform_operator"
+      },
+      {
+        "fictionalized": true,
+        "name": "small_educational_creators",
+        "public_role": "independent educational creators",
+        "type": "creator_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "official_partner_channels",
+        "public_role": "platform-certified partner channels",
+        "type": "creator_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "brand_advertisers",
+        "public_role": "advertisers seeking brand safety",
+        "type": "advertiser_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "general_viewers",
+        "public_role": "platform viewers",
+        "type": "audience_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "creator_coalition_core",
+        "public_role": "organizing cluster of affected creators",
+        "type": "advocacy_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "platform_policy_team",
+        "public_role": "internal recommendation and policy decision team",
+        "type": "institutional_subactor"
+      },
+      {
+        "fictionalized": true,
+        "name": "creator_forum_media",
+        "public_role": "public discussion and creator-forum amplification layer",
+        "type": "media_channel_actor"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Platform partially or fully rolls back the recommendation change for educational content ranking.",
+        "branch_key": "rollback_branch",
+        "observable_divergence_signal": "Platform messaging shifts from defending optimization to announcing recalibration, restored distribution, or pilot reversal.",
+        "trigger": "Visible evidence pooling shows broad creator harm and legitimacy costs exceed platform reversal costs."
+      },
+      {
+        "alternate_path": "Platform launches a transparency dashboard or more detailed reporting while preserving most recommendation logic.",
+        "branch_key": "transparency_dashboard_branch",
+        "observable_divergence_signal": "New creator-facing metrics, category explanations, or periodic governance reports appear without full rollback.",
+        "trigger": "Platform seeks legitimacy repair without conceding core ranking authority."
+      },
+      {
+        "alternate_path": "A notable subset of educational creators diversifies away, reduces posting, or exits the platform ecosystem.",
+        "branch_key": "creator_exit_branch",
+        "observable_divergence_signal": "Sustained posting declines, public migration announcements, or increasing references to alternate distribution channels.",
+        "trigger": "Coalition fails to gain concessions and creators conclude reach loss is durable."
+      },
+      {
+        "alternate_path": "Advertisers privately or publicly pressure the platform to improve transparency, restore variety, or stabilize trust.",
+        "branch_key": "advertiser_pressure_branch",
+        "observable_divergence_signal": "Agency/account-team escalations, spend reallocation signals, or advertiser-linked requests for governance clarification.",
+        "trigger": "Brand buyers infer that legitimacy controversy or repetitive inventory harms campaign value."
+      },
+      {
+        "alternate_path": "No major concession occurs; creators remain dissatisfied but fragmented, and viewers adapt to the new feed.",
+        "branch_key": "durable_stalemate_branch",
+        "observable_divergence_signal": "Complaint volume persists without coordinated escalation, policy reversal, or meaningful dashboard changes.",
+        "trigger": "Platform opacity remains defensible enough and creator coordination remains below action threshold."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "platform_recommendation_feed",
+        "notes": "Primary exposure channel shaped by recommendation rules.",
+        "owner": "vista_stream_platform",
+        "type": "algorithmic_distribution",
+        "visibility": "mass_public"
+      },
+      {
+        "channel_key": "platform_creator_metrics_portal",
+        "notes": "Used to communicate vague performance metrics and partial diagnostics.",
+        "owner": "vista_stream_platform",
+        "type": "analytics_interface",
+        "visibility": "restricted_to_creators_and_partners"
+      },
+      {
+        "channel_key": "creator_forums",
+        "notes": "Key venue for coalition formation and favoritism claims.",
+        "owner": "creator_forum_media",
+        "type": "community_discussion",
+        "visibility": "semi_public"
+      },
+      {
+        "channel_key": "public_social_posts",
+        "notes": "Amplifies screenshots, anecdotes, and calls for transparency.",
+        "owner": "creator_forum_media",
+        "type": "social_media",
+        "visibility": "public"
+      },
+      {
+        "channel_key": "advertiser_account_channels",
+        "notes": "Likely path for brand safety feedback and pressure.",
+        "owner": "vista_stream_platform",
+        "type": "private_b2b",
+        "visibility": "private"
+      },
+      {
+        "channel_key": "partner_program_updates",
+        "notes": "Reinforces alignment with official partner channels.",
+        "owner": "vista_stream_platform",
+        "type": "institutional_comm",
+        "visibility": "restricted_to_partners"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype": "platform_viewers",
+        "attention_level": 0.41,
+        "cohort_key": "variety_sensitive_viewers",
+        "expression_level": 0.19,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.46,
+        "mobilization_readiness": 0.21,
+        "perceived_majority": 0.43,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Notices feed feels narrower and is somewhat receptive to creator complaints but not yet mobilized.",
+        "public_expression": "Mostly individual complaints, lower collective action.",
+        "representation_mode": "segment",
+        "represented_population": 1750000,
+        "stance_axes": {
+          "brand_safety_priority": 0.38,
+          "content_variety_preference": 0.82,
+          "creator_sympathy": 0.61,
+          "platform_legitimacy": 0.45
+        }
+      },
+      {
+        "archetype": "platform_viewers",
+        "attention_level": 0.22,
+        "cohort_key": "passive_mainstream_viewers",
+        "expression_level": 0.08,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.08,
+        "perceived_majority": 0.61,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "Experiences recommendations passively and may not connect reduced variety to policy change.",
+        "public_expression": "Low posting or complaint behavior.",
+        "representation_mode": "segment",
+        "represented_population": 2750000,
+        "stance_axes": {
+          "brand_safety_priority": 0.51,
+          "content_variety_preference": 0.46,
+          "creator_sympathy": 0.34,
+          "platform_legitimacy": 0.58
+        }
+      },
+      {
+        "archetype": "independent_educational_creators",
+        "attention_level": 0.82,
+        "cohort_key": "creator_loyalists_under_pressure",
+        "expression_level": 0.54,
+        "fatigue": 0.57,
+        "fear_of_isolation": 0.52,
+        "mobilization_readiness": 0.62,
+        "perceived_majority": 0.48,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Algorithm change is harming them unfairly, but many still hope for platform correction.",
+        "public_expression": "Visible concern, mixed criticism, cautious organizing.",
+        "representation_mode": "segment",
+        "represented_population": 5400,
+        "stance_axes": {
+          "collective_action_support": 0.58,
+          "exit_interest": 0.28,
+          "favoritism_suspicion": 0.73,
+          "platform_legitimacy": 0.32
+        }
+      },
+      {
+        "archetype": "independent_educational_creators",
+        "attention_level": 0.76,
+        "cohort_key": "creator_exit_curious",
+        "expression_level": 0.37,
+        "fatigue": 0.63,
+        "fear_of_isolation": 0.61,
+        "mobilization_readiness": 0.39,
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "Platform is structurally tilted toward partners; exit or diversification may be necessary.",
+        "public_expression": "More private planning than public protest.",
+        "representation_mode": "segment",
+        "represented_population": 3000,
+        "stance_axes": {
+          "collective_action_support": 0.44,
+          "exit_interest": 0.69,
+          "favoritism_suspicion": 0.78,
+          "platform_legitimacy": 0.21
+        }
+      },
+      {
+        "archetype": "independent_educational_creators",
+        "attention_level": 0.68,
+        "cohort_key": "creator_quiet_dependents",
+        "expression_level": 0.18,
+        "fatigue": 0.49,
+        "fear_of_isolation": 0.72,
+        "mobilization_readiness": 0.17,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "Feels harmed or anxious but avoids public criticism due to dependency on the platform.",
+        "public_expression": "Silence or vague posting.",
+        "representation_mode": "segment",
+        "represented_population": 3600,
+        "stance_axes": {
+          "collective_action_support": 0.29,
+          "exit_interest": 0.22,
+          "favoritism_suspicion": 0.57,
+          "platform_legitimacy": 0.41
+        }
+      },
+      {
+        "archetype": "advertiser_decision_makers",
+        "attention_level": 0.47,
+        "cohort_key": "brand_safety_first_advertisers",
+        "expression_level": 0.14,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.21,
+        "mobilization_readiness": 0.19,
+        "perceived_majority": 0.66,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "Safer inventory can justify platform changes unless quality or reputation costs rise.",
+        "public_expression": "Quiet feedback through account teams rather than public pressure.",
+        "representation_mode": "segment",
+        "represented_population": 540,
+        "stance_axes": {
+          "brand_safety_priority": 0.88,
+          "content_variety_interest": 0.21,
+          "platform_trust": 0.56,
+          "pressure_willingness": 0.34
+        }
+      },
+      {
+        "archetype": "advertiser_decision_makers",
+        "attention_level": 0.52,
+        "cohort_key": "performance_sensitive_advertisers",
+        "expression_level": 0.17,
+        "fatigue": 0.16,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.28,
+        "perceived_majority": 0.51,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "Will tolerate governance changes until campaign results or reputation risk worsen.",
+        "public_expression": "Reserved but more open to coordinated pressure if evidence accumulates.",
+        "representation_mode": "segment",
+        "represented_population": 360,
+        "stance_axes": {
+          "brand_safety_priority": 0.69,
+          "content_variety_interest": 0.33,
+          "platform_trust": 0.49,
+          "pressure_willingness": 0.46
+        }
+      },
+      {
+        "archetype": "partner_channel_teams",
+        "attention_level": 0.58,
+        "cohort_key": "partner_channels_confident",
+        "expression_level": 0.31,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.26,
+        "mobilization_readiness": 0.23,
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "Policy shift reflects quality and safety optimization, not unfair treatment.",
+        "public_expression": "Measured defense of partner standards.",
+        "representation_mode": "segment",
+        "represented_population": 175,
+        "stance_axes": {
+          "creator_sympathy": 0.22,
+          "favoritism_denial": 0.64,
+          "platform_legitimacy": 0.76,
+          "status_quo_support": 0.81
+        }
+      },
+      {
+        "archetype": "partner_channel_teams",
+        "attention_level": 0.49,
+        "cohort_key": "partner_channels_cautious",
+        "expression_level": 0.18,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.33,
+        "mobilization_readiness": 0.12,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "Benefits from the change but worries that visible favoritism claims could damage legitimacy.",
+        "public_expression": "Mostly quiet.",
+        "representation_mode": "segment",
+        "represented_population": 75,
+        "stance_axes": {
+          "creator_sympathy": 0.35,
+          "favoritism_denial": 0.41,
+          "platform_legitimacy": 0.62,
+          "status_quo_support": 0.57
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype": "platform_viewers",
+        "attention_level": 0.41,
+        "cohort_key": "variety_sensitive_viewers",
+        "expression_level": 0.19,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.46,
+        "mobilization_readiness": 0.21,
+        "perceived_majority": 0.43,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Notices feed feels narrower and is somewhat receptive to creator complaints but not yet mobilized.",
+        "public_expression": "Mostly individual complaints, lower collective action.",
+        "representation_mode": "segment",
+        "represented_population": 1750000,
+        "stance_axes": {
+          "brand_safety_priority": 0.38,
+          "content_variety_preference": 0.82,
+          "creator_sympathy": 0.61,
+          "platform_legitimacy": 0.45
+        }
+      },
+      {
+        "archetype": "platform_viewers",
+        "attention_level": 0.22,
+        "cohort_key": "passive_mainstream_viewers",
+        "expression_level": 0.08,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.08,
+        "perceived_majority": 0.61,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "Experiences recommendations passively and may not connect reduced variety to policy change.",
+        "public_expression": "Low posting or complaint behavior.",
+        "representation_mode": "segment",
+        "represented_population": 2750000,
+        "stance_axes": {
+          "brand_safety_priority": 0.51,
+          "content_variety_preference": 0.46,
+          "creator_sympathy": 0.34,
+          "platform_legitimacy": 0.58
+        }
+      },
+      {
+        "archetype": "independent_educational_creators",
+        "attention_level": 0.82,
+        "cohort_key": "creator_loyalists_under_pressure",
+        "expression_level": 0.54,
+        "fatigue": 0.57,
+        "fear_of_isolation": 0.52,
+        "mobilization_readiness": 0.62,
+        "perceived_majority": 0.48,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Algorithm change is harming them unfairly, but many still hope for platform correction.",
+        "public_expression": "Visible concern, mixed criticism, cautious organizing.",
+        "representation_mode": "segment",
+        "represented_population": 5400,
+        "stance_axes": {
+          "collective_action_support": 0.58,
+          "exit_interest": 0.28,
+          "favoritism_suspicion": 0.73,
+          "platform_legitimacy": 0.32
+        }
+      },
+      {
+        "archetype": "independent_educational_creators",
+        "attention_level": 0.76,
+        "cohort_key": "creator_exit_curious",
+        "expression_level": 0.37,
+        "fatigue": 0.63,
+        "fear_of_isolation": 0.61,
+        "mobilization_readiness": 0.39,
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "Platform is structurally tilted toward partners; exit or diversification may be necessary.",
+        "public_expression": "More private planning than public protest.",
+        "representation_mode": "segment",
+        "represented_population": 3000,
+        "stance_axes": {
+          "collective_action_support": 0.44,
+          "exit_interest": 0.69,
+          "favoritism_suspicion": 0.78,
+          "platform_legitimacy": 0.21
+        }
+      },
+      {
+        "archetype": "independent_educational_creators",
+        "attention_level": 0.68,
+        "cohort_key": "creator_quiet_dependents",
+        "expression_level": 0.18,
+        "fatigue": 0.49,
+        "fear_of_isolation": 0.72,
+        "mobilization_readiness": 0.17,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "Feels harmed or anxious but avoids public criticism due to dependency on the platform.",
+        "public_expression": "Silence or vague posting.",
+        "representation_mode": "segment",
+        "represented_population": 3600,
+        "stance_axes": {
+          "collective_action_support": 0.29,
+          "exit_interest": 0.22,
+          "favoritism_suspicion": 0.57,
+          "platform_legitimacy": 0.41
+        }
+      },
+      {
+        "archetype": "advertiser_decision_makers",
+        "attention_level": 0.47,
+        "cohort_key": "brand_safety_first_advertisers",
+        "expression_level": 0.14,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.21,
+        "mobilization_readiness": 0.19,
+        "perceived_majority": 0.66,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "Safer inventory can justify platform changes unless quality or reputation costs rise.",
+        "public_expression": "Quiet feedback through account teams rather than public pressure.",
+        "representation_mode": "segment",
+        "represented_population": 540,
+        "stance_axes": {
+          "brand_safety_priority": 0.88,
+          "content_variety_interest": 0.21,
+          "platform_trust": 0.56,
+          "pressure_willingness": 0.34
+        }
+      },
+      {
+        "archetype": "advertiser_decision_makers",
+        "attention_level": 0.52,
+        "cohort_key": "performance_sensitive_advertisers",
+        "expression_level": 0.17,
+        "fatigue": 0.16,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.28,
+        "perceived_majority": 0.51,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "Will tolerate governance changes until campaign results or reputation risk worsen.",
+        "public_expression": "Reserved but more open to coordinated pressure if evidence accumulates.",
+        "representation_mode": "segment",
+        "represented_population": 360,
+        "stance_axes": {
+          "brand_safety_priority": 0.69,
+          "content_variety_interest": 0.33,
+          "platform_trust": 0.49,
+          "pressure_willingness": 0.46
+        }
+      },
+      {
+        "archetype": "partner_channel_teams",
+        "attention_level": 0.58,
+        "cohort_key": "partner_channels_confident",
+        "expression_level": 0.31,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.26,
+        "mobilization_readiness": 0.23,
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "Policy shift reflects quality and safety optimization, not unfair treatment.",
+        "public_expression": "Measured defense of partner standards.",
+        "representation_mode": "segment",
+        "represented_population": 175,
+        "stance_axes": {
+          "creator_sympathy": 0.22,
+          "favoritism_denial": 0.64,
+          "platform_legitimacy": 0.76,
+          "status_quo_support": 0.81
+        }
+      },
+      {
+        "archetype": "partner_channel_teams",
+        "attention_level": 0.49,
+        "cohort_key": "partner_channels_cautious",
+        "expression_level": 0.18,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.33,
+        "mobilization_readiness": 0.12,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "Benefits from the change but worries that visible favoritism claims could damage legitimacy.",
+        "public_expression": "Mostly quiet.",
+        "representation_mode": "segment",
+        "represented_population": 75,
+        "stance_axes": {
+          "creator_sympathy": 0.35,
+          "favoritism_denial": 0.41,
+          "platform_legitimacy": 0.62,
+          "status_quo_support": 0.57
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "platform_policy_team",
+          "vista_stream_platform"
+        ],
+        "blockers": [
+          "Institutional reluctance to admit fault",
+          "Preference for partner-channel concentration",
+          "Lack of externally validated harm data"
+        ],
+        "contradiction_notes": "A transparency package without ranking change does not realize this endpoint.",
+        "description": "The platform materially reverses or recalibrates the recommendation policy so that small educational creators recover meaningful distribution relative to the post-change baseline.",
+        "endpoint_key": "platform_policy_rollback",
+        "evidence_refs": [
+          "algo_change_has_taken_effect",
+          "platform_releases_vague_metrics_note"
+        ],
+        "label": "Platform rollback or recalibration",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the platform materially reverse or recalibrate the recommendation change in a way that restores reach for small educational creators?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.24,
+        "rationale": "Platform authority is high enough to act, but reversal costs and opacity norms make this uncertain.",
+        "realization_criteria": [
+          "Platform publicly announces rollback, category-specific recalibration, or equivalent policy reversal.",
+          "Creator-side analytics show sustained reach recovery across a broad affected sample relative to immediate post-change levels.",
+          "Platform messaging acknowledges a substantive recommendation adjustment rather than only communications changes."
+        ],
+        "status": "active",
+        "status_basis": "Rollback is explicitly named as a branch, but no concession has occurred at T0."
+      },
+      {
+        "authority_refs": [
+          "platform_policy_team",
+          "vista_stream_platform"
+        ],
+        "blockers": [
+          "Secrecy around algorithmic operations",
+          "Fear that transparency invites further challenge",
+          "Resource and precedent costs of ongoing disclosure"
+        ],
+        "contradiction_notes": "Generic PR statements or one-off vague metrics do not satisfy this endpoint.",
+        "description": "The platform introduces a dashboard or equivalent disclosure system that provides actionable clarity on recommendation impacts and category treatment.",
+        "endpoint_key": "meaningful_transparency_dashboard",
+        "evidence_refs": [
+          "platform_releases_vague_metrics_note",
+          "coalition_transparency_request"
+        ],
+        "label": "Meaningful transparency disclosure",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the platform provide a meaningful transparency dashboard or equivalent disclosure that clarifies recommendation impacts beyond vague metrics?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.33,
+        "rationale": "Legitimacy repair pressures support this option even if the platform preserves substantive control.",
+        "realization_criteria": [
+          "Platform releases creator-facing dashboard, detailed category metrics, or regular governance reporting beyond vague summary metrics.",
+          "Disclosures include enough specificity to compare educational creator performance or recommendation treatment over time.",
+          "Affected creators or advertisers can cite new platform-provided data as decision-relevant evidence."
+        ],
+        "status": "active",
+        "status_basis": "Transparency dashboard is an explicit branch and a lower-cost concession than rollback."
+      },
+      {
+        "authority_refs": [
+          "creator_coalition_core",
+          "small_educational_creators"
+        ],
+        "blockers": [
+          "Fear of retaliation",
+          "Economic dependency",
+          "Organizer fatigue",
+          "Fragmentation between exit-minded and loyalist creators"
+        ],
+        "contradiction_notes": "High complaint volume from isolated individuals without coordination does not realize this endpoint.",
+        "description": "Affected small educational creators maintain a coordinated, visible coalition capable of exerting continuing legitimacy pressure on the platform.",
+        "endpoint_key": "creator_coalition_durable_pressure",
+        "evidence_refs": [
+          "creator_anecdote_pooling_begins",
+          "coalition_transparency_request"
+        ],
+        "label": "Durable creator coalition",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the affected creator coalition sustain enough participation and visibility to remain a credible pressure bloc rather than fragmenting?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.41,
+        "rationale": "This endpoint matters because many other branches depend on coalition persistence.",
+        "realization_criteria": [
+          "Coalition retains recurring participation from a substantial cross-section of affected creators over multiple ticks.",
+          "Public statements, data pooling, or coordinated asks continue without major collapse in engagement.",
+          "Platform or advertisers respond to the coalition as a recognized interlocutor."
+        ],
+        "status": "active",
+        "status_basis": "Coalition durability is explicitly uncertain and central to scenario dynamics."
+      },
+      {
+        "authority_refs": [
+          "brand_advertisers",
+          "vista_stream_platform",
+          "platform_policy_team"
+        ],
+        "blockers": [
+          "Advertiser preference for private resolution",
+          "Adequate campaign performance despite controversy",
+          "Weak public salience among viewers"
+        ],
+        "contradiction_notes": "Routine account conversations without conditional leverage do not realize this endpoint.",
+        "description": "Advertisers move from passive preference expression to concrete pressure that affects platform governance choices.",
+        "endpoint_key": "advertiser_pressure_realized",
+        "evidence_refs": [
+          "advertiser_safety_review_cycle"
+        ],
+        "label": "Advertiser pressure realized",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will advertisers convert brand safety and legitimacy concerns into concrete pressure on the platform?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.22,
+        "rationale": "Advertisers have moderate leverage due to revenue dependence, but activation thresholds are not yet crossed.",
+        "realization_criteria": [
+          "Advertisers or agencies request policy clarification, transparency, or inventory changes tied to spend decisions.",
+          "Platform communications or internal decisions explicitly respond to advertiser concern.",
+          "Observable spend threats, reallocations, or account escalations occur."
+        ],
+        "status": "active",
+        "status_basis": "Advertiser pressure is an explicit branch but remains latent at T0."
+      },
+      {
+        "authority_refs": [
+          "small_educational_creators",
+          "creator_coalition_core"
+        ],
+        "blockers": [
+          "High switching costs",
+          "Audience lock-in",
+          "Hope for rollback or transparency concession"
+        ],
+        "contradiction_notes": "Private exploration of alternatives without behavioral change does not realize this endpoint.",
+        "description": "A notable subset of small educational creators reduces reliance on the platform by exiting, cutting output, or shifting effort elsewhere.",
+        "endpoint_key": "creator_exit_diversification",
+        "evidence_refs": [
+          "creator_anecdote_pooling_begins"
+        ],
+        "label": "Creator exit or diversification",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will a notable share of small educational creators reduce reliance on the platform through exit or meaningful diversification?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.29,
+        "rationale": "Exit is plausible if coalition efforts stall and distribution losses persist.",
+        "realization_criteria": [
+          "A visible subset of affected creators publicly announces migration, reduced posting, or off-platform diversification.",
+          "Posting frequency or platform exclusivity declines across enough creators to indicate strategic reallocation rather than isolated frustration.",
+          "Coalition discourse shifts from reform demands toward adaptation or departure strategies."
+        ],
+        "status": "active",
+        "status_basis": "Creator exit is explicitly listed as a branch and is supported by high dependency stress."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "Scenario states a video platform changes recommendation rules affecting what viewers see.",
+        "layer": "exposure",
+        "reason": "Platform controls recommendation exposure reaching viewers.",
+        "source_actor_name": "vista_stream_platform",
+        "target_actor_name": "general_viewers",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "Creators experience reach cuts after recommendation rule changes.",
+        "layer": "exposure",
+        "reason": "Creators directly observe platform metrics and distribution outcomes.",
+        "source_actor_name": "vista_stream_platform",
+        "target_actor_name": "small_educational_creators",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario calls for modeling creator coalition durability.",
+        "layer": "exposure",
+        "reason": "Coalition messaging is likely visible among affected creators.",
+        "source_actor_name": "creator_coalition_core",
+        "target_actor_name": "small_educational_creators",
+        "weight": 0.47
+      },
+      {
+        "direction": "directed",
+        "evidence": "Creators suspect favoritism and public discussion is a plausible transmission path.",
+        "layer": "exposure",
+        "reason": "Creator forum discourse exposes creators to favoritism claims and organizing signals.",
+        "source_actor_name": "creator_forum_media",
+        "target_actor_name": "small_educational_creators",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "Viewers notice less variety, making complaint narratives somewhat salient.",
+        "layer": "exposure",
+        "reason": "Some viewers encounter creator complaints indirectly through discussion channels.",
+        "source_actor_name": "creator_forum_media",
+        "target_actor_name": "general_viewers",
+        "weight": 0.26
+      },
+      {
+        "direction": "directed",
+        "evidence": "Advertisers want brand safety and platform publishes metrics, albeit vague.",
+        "layer": "exposure",
+        "reason": "Platform communicates performance and safety narratives to advertisers.",
+        "source_actor_name": "vista_stream_platform",
+        "target_actor_name": "brand_advertisers",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "Creators suspect favoritism and platform publishes vague metrics.",
+        "layer": "trust",
+        "reason": "Affected creators have weakened trust due to unexplained reach loss and favoritism suspicions.",
+        "source_actor_name": "small_educational_creators",
+        "target_actor_name": "vista_stream_platform",
+        "weight": 0.24
+      },
+      {
+        "direction": "directed",
+        "evidence": "Advertisers want brand safety; no evidence of full trust collapse.",
+        "layer": "trust",
+        "reason": "Advertisers still see platform as usable but seek safety assurances.",
+        "source_actor_name": "brand_advertisers",
+        "target_actor_name": "vista_stream_platform",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "Viewers notice less variety but no mass revolt is described.",
+        "layer": "trust",
+        "reason": "Viewers retain moderate baseline trust despite noticing less variety.",
+        "source_actor_name": "general_viewers",
+        "target_actor_name": "vista_stream_platform",
+        "weight": 0.49
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario emphasizes creator coalition durability as uncertain.",
+        "layer": "trust",
+        "reason": "Creators may see coalition as a vehicle for fairness claims, but durability is unproven.",
+        "source_actor_name": "small_educational_creators",
+        "target_actor_name": "creator_coalition_core",
+        "weight": 0.51
+      },
+      {
+        "direction": "directed",
+        "evidence": "Less variety can make creator complaints more credible to a subset of viewers.",
+        "layer": "trust",
+        "reason": "Some viewers are sympathetic to creators reporting reduced reach.",
+        "source_actor_name": "general_viewers",
+        "target_actor_name": "small_educational_creators",
+        "weight": 0.43
+      },
+      {
+        "direction": "directed",
+        "evidence": "Recommendation rule changes cut reach for small educational creators.",
+        "layer": "dependency",
+        "reason": "Small creators rely heavily on platform discovery and reach.",
+        "source_actor_name": "small_educational_creators",
+        "target_actor_name": "vista_stream_platform",
+        "weight": 0.74
+      },
+      {
+        "direction": "directed",
+        "evidence": "Official partner channels are boosted by platform rules.",
+        "layer": "dependency",
+        "reason": "Partner channels benefit from platform promotion and certification structures.",
+        "source_actor_name": "official_partner_channels",
+        "target_actor_name": "vista_stream_platform",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "Advertiser pressure is named as a major branch possibility.",
+        "layer": "dependency",
+        "reason": "Platform revenue depends on advertiser participation.",
+        "source_actor_name": "vista_stream_platform",
+        "target_actor_name": "brand_advertisers",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "Advertisers seek brand safety but are not described as captive.",
+        "layer": "dependency",
+        "reason": "Advertisers rely on platform inventory but have alternatives.",
+        "source_actor_name": "brand_advertisers",
+        "target_actor_name": "vista_stream_platform",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "Viewers notice less variety rather than immediate exodus.",
+        "layer": "dependency",
+        "reason": "Viewers are accustomed to the platform but can still disengage gradually.",
+        "source_actor_name": "general_viewers",
+        "target_actor_name": "vista_stream_platform",
+        "weight": 0.36
+      },
+      {
+        "direction": "directed",
+        "evidence": "Platform authority and recommendation changes are central to the scenario.",
+        "layer": "influence",
+        "reason": "Internal policy team controls recommendation rules and disclosure choices.",
+        "source_actor_name": "platform_policy_team",
+        "target_actor_name": "vista_stream_platform",
+        "weight": 0.84
+      },
+      {
+        "direction": "directed",
+        "evidence": "Advertiser pressure is an explicit branch.",
+        "layer": "influence",
+        "reason": "Advertisers can influence policy indirectly through spending and safety demands.",
+        "source_actor_name": "brand_advertisers",
+        "target_actor_name": "vista_stream_platform",
+        "weight": 0.55
+      },
+      {
+        "direction": "directed",
+        "evidence": "Rollback and transparency are possible branches, implying some pressure path.",
+        "layer": "influence",
+        "reason": "Coalition can shape legitimacy pressure but has limited direct authority.",
+        "source_actor_name": "creator_coalition_core",
+        "target_actor_name": "vista_stream_platform",
+        "weight": 0.34
+      },
+      {
+        "direction": "directed",
+        "evidence": "Rule changes boost official partner channels.",
+        "layer": "influence",
+        "reason": "Boosted channels gain more audience attention and agenda presence.",
+        "source_actor_name": "official_partner_channels",
+        "target_actor_name": "general_viewers",
+        "weight": 0.39
+      },
+      {
+        "direction": "directed",
+        "evidence": "Viewers noticing less variety can be framed through media/forum narratives.",
+        "layer": "influence",
+        "reason": "Public discourse can shape interpretation of reduced variety.",
+        "source_actor_name": "creator_forum_media",
+        "target_actor_name": "general_viewers",
+        "weight": 0.31
+      },
+      {
+        "direction": "directed",
+        "evidence": "Advertiser pressure may rise if viewer dissatisfaction becomes visible.",
+        "layer": "influence",
+        "reason": "Audience engagement and sentiment can affect advertiser posture over time.",
+        "source_actor_name": "general_viewers",
+        "target_actor_name": "brand_advertisers",
+        "weight": 0.27
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario specifically asks to model creator coalition durability.",
+        "layer": "coalition",
+        "reason": "Affected creators have shared grievances but uneven willingness to coordinate.",
+        "source_actor_name": "small_educational_creators",
+        "target_actor_name": "creator_coalition_core",
+        "weight": 0.48
+      },
+      {
+        "direction": "directed",
+        "evidence": "Public suspicion of favoritism requires an amplification mechanism.",
+        "layer": "coalition",
+        "reason": "Coalition likely aligns with discourse channels to amplify complaints.",
+        "source_actor_name": "creator_coalition_core",
+        "target_actor_name": "creator_forum_media",
+        "weight": 0.42
+      },
+      {
+        "direction": "directed",
+        "evidence": "Official partner channels are boosted by the platform's rule changes.",
+        "layer": "coalition",
+        "reason": "Platform and partner channels are structurally aligned under the new recommendation regime.",
+        "source_actor_name": "vista_stream_platform",
+        "target_actor_name": "official_partner_channels",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "Advertisers want brand safety, which may align with the platform's stated rationale.",
+        "layer": "coalition",
+        "reason": "Shared interest in brand-safe inventory supports moderate alignment.",
+        "source_actor_name": "brand_advertisers",
+        "target_actor_name": "vista_stream_platform",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "Creators suspect favoritism after reach cuts.",
+        "layer": "conflict",
+        "reason": "Creators perceive losses and suspect unfair favoritism.",
+        "source_actor_name": "small_educational_creators",
+        "target_actor_name": "vista_stream_platform",
+        "weight": 0.62
+      },
+      {
+        "direction": "directed",
+        "evidence": "Platform publishes vague metrics while rollback and transparency are active possibilities.",
+        "layer": "conflict",
+        "reason": "Coalition seeks explanation and possible reversal from the authority maintaining opacity.",
+        "source_actor_name": "creator_coalition_core",
+        "target_actor_name": "platform_policy_team",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "Viewers notice less variety without evidence of mass mobilization.",
+        "layer": "conflict",
+        "reason": "Some viewers resent decreased variety but conflict remains diffuse.",
+        "source_actor_name": "general_viewers",
+        "target_actor_name": "vista_stream_platform",
+        "weight": 0.28
+      },
+      {
+        "direction": "directed",
+        "evidence": "Rule changes cut small creator reach while boosting partner channels.",
+        "layer": "conflict",
+        "reason": "Boosts for partner channels create perceived zero-sum disadvantage.",
+        "source_actor_name": "small_educational_creators",
+        "target_actor_name": "official_partner_channels",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "Advertisers prioritize brand safety while creators emphasize fairness and reach.",
+        "layer": "conflict",
+        "reason": "Potential tension if coalition framing appears to challenge safety-centered ad logic.",
+        "source_actor_name": "brand_advertisers",
+        "target_actor_name": "creator_coalition_core",
+        "weight": 0.18
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario includes transparency and rollback branches, implying public-facing negotiation.",
+        "layer": "oasis_interaction",
+        "reason": "Public appeals, open letters, and metrics debates are likely interaction formats.",
+        "source_actor_name": "creator_coalition_core",
+        "target_actor_name": "vista_stream_platform",
+        "weight": 0.53
+      },
+      {
+        "direction": "directed",
+        "evidence": "Creators suspect favoritism and need visible channels to share reach changes.",
+        "layer": "oasis_interaction",
+        "reason": "Affected creators likely post evidence and complaints in public forums.",
+        "source_actor_name": "small_educational_creators",
+        "target_actor_name": "creator_forum_media",
+        "weight": 0.59
+      },
+      {
+        "direction": "directed",
+        "evidence": "Noticing less variety may lead some viewers to discussion spaces.",
+        "layer": "oasis_interaction",
+        "reason": "A subset of viewers engages with discourse around recommendation changes.",
+        "source_actor_name": "general_viewers",
+        "target_actor_name": "creator_forum_media",
+        "weight": 0.23
+      },
+      {
+        "direction": "directed",
+        "evidence": "Advertiser pressure is possible but not yet dominant at T0.",
+        "layer": "oasis_interaction",
+        "reason": "Most advertiser interaction is private, but some public signaling is possible if pressure rises.",
+        "source_actor_name": "brand_advertisers",
+        "target_actor_name": "vista_stream_platform",
+        "weight": 0.21
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype": "platform_executive_authority",
+        "description": "Decision-capable platform authority over recommendation policy and public transparency."
+      },
+      {
+        "archetype": "creator_coalition_organizer",
+        "description": "Visible organizer linking affected creators into a coordinated response."
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "platform_policy_team",
+        "archetype": "platform_executive_authority",
+        "attention_level": 0.87,
+        "behavioral_tendencies": [
+          "guarded_disclosure",
+          "institutional_self_protection",
+          "metric_framing"
+        ],
+        "decision_authority": 0.83,
+        "expression_level": 0.41,
+        "fatigue": 0.36,
+        "fear_of_isolation": 0.18,
+        "graph_influence_summary": {
+          "agenda_setting": 0.82,
+          "operational_control": 0.9,
+          "public_persuasion": 0.47
+        },
+        "hero_key": "platform_policy_team_state",
+        "mobilization_readiness": 0.72,
+        "perceived_majority": 0.59,
+        "reputation": 0.44,
+        "secrecy": 0.67,
+        "stance_axes": {
+          "brand_safety_priority": 0.81,
+          "partner_channel_preference": 0.64,
+          "rollback_openness": 0.34,
+          "transparency_openness": 0.46
+        },
+        "trustworthiness": 0.39
+      },
+      {
+        "actor_name": "creator_coalition_core",
+        "archetype": "creator_coalition_organizer",
+        "attention_level": 0.84,
+        "behavioral_tendencies": [
+          "evidence_collecting",
+          "public_complaint_amplification",
+          "coalition_building"
+        ],
+        "decision_authority": 0.36,
+        "expression_level": 0.63,
+        "fatigue": 0.48,
+        "fear_of_isolation": 0.49,
+        "graph_influence_summary": {
+          "agenda_setting": 0.49,
+          "institutional_leverage": 0.34,
+          "network_activation": 0.61
+        },
+        "hero_key": "creator_coalition_core_state",
+        "mobilization_readiness": 0.68,
+        "perceived_majority": 0.44,
+        "reputation": 0.52,
+        "secrecy": 0.29,
+        "stance_axes": {
+          "advertiser_outreach_interest": 0.52,
+          "exit_advocacy": 0.33,
+          "rollback_demand": 0.71,
+          "transparency_demand": 0.86
+        },
+        "trustworthiness": 0.61
+      }
+    ],
+    "heroes": [
+      {
+        "archetype": "platform_executive_authority",
+        "description": "Decision-capable platform authority over recommendation policy and public transparency."
+      },
+      {
+        "archetype": "creator_coalition_organizer",
+        "description": "Visible organizer linking affected creators into a coordinated response."
+      }
+    ],
+    "important_questions": [
+      "Will the platform materially reverse or recalibrate the recommendation change in a way that restores reach for small educational creators?",
+      "Will the platform provide a meaningful transparency dashboard or equivalent disclosure that clarifies recommendation impacts beyond vague metrics?",
+      "Will the affected creator coalition sustain enough participation and visibility to remain a credible pressure bloc rather than fragmenting?",
+      "Will advertisers convert brand safety and legitimacy concerns into concrete pressure on the platform?",
+      "Will a notable share of small educational creators reduce reliance on the platform through exit or meaningful diversification?"
+    ],
+    "initial_events": [
+      {
+        "event_key": "algo_change_has_taken_effect",
+        "event_type": "announcement",
+        "evidence": "Core scenario premise.",
+        "expected_impact": "Raises creator attention, increases conflict and dependency salience, and shifts viewer exposure toward partner channels.",
+        "summary": "Recommendation rule change is already affecting distribution, with lower reach for small educational creators and improved visibility for official partners.",
+        "tick": 0,
+        "visibility": "public_partial"
+      },
+      {
+        "event_key": "platform_releases_vague_metrics_note",
+        "event_type": "announcement",
+        "evidence": "Scenario states the platform publishes vague metrics.",
+        "expected_impact": "Suppresses full verification while increasing distrust, rumor spread, and transparency demands.",
+        "summary": "Platform publishes limited metrics or explanations that do not clearly account for creator-level losses.",
+        "tick": 0,
+        "visibility": "public"
+      },
+      {
+        "event_key": "creator_anecdote_pooling_begins",
+        "event_type": "announcement",
+        "evidence": "Implied by favoritism suspicion and coalition focus.",
+        "expected_impact": "May strengthen coalition trust, lower isolation thresholds, and create divergence between quiet dependence and public organizing.",
+        "summary": "Affected educational creators begin comparing analytics and posting examples of reduced reach.",
+        "tick": 1,
+        "visibility": "semi_public"
+      },
+      {
+        "event_key": "advertiser_safety_review_cycle",
+        "event_type": "announcement",
+        "evidence": "Advertisers want brand safety and are a possible pressure branch.",
+        "expected_impact": "Could reinforce platform authority if metrics seem stable, or create leverage if legitimacy concerns spread.",
+        "summary": "Advertisers review campaign quality and safety context under the new recommendation mix.",
+        "tick": 2,
+        "visibility": "private"
+      },
+      {
+        "event_key": "viewer_variety_complaints_accumulate",
+        "event_type": "announcement",
+        "evidence": "Scenario states viewers notice less variety.",
+        "expected_impact": "Can increase sympathy toward creator complaints and modestly weaken platform legitimacy.",
+        "summary": "A subset of viewers starts articulating that recommendations feel narrower or more repetitive.",
+        "tick": 2,
+        "visibility": "public"
+      },
+      {
+        "event_key": "coalition_transparency_request",
+        "event_type": "announcement",
+        "evidence": "Transparency dashboard is an explicit branch option.",
+        "expected_impact": "Creates a focal test of platform responsiveness without yet deciding the terminal outcome.",
+        "summary": "Creator coalition is likely to request clearer dashboards, criteria, or audit-style explanations.",
+        "tick": 3,
+        "visibility": "public"
+      }
+    ],
+    "llm_call_id": "812ef675-2ec2-435a-a90e-e769e7bf72e5",
+    "merge_hypotheses": [
+      {
+        "converging_actors": [
+          "vista_stream_platform",
+          "small_educational_creators",
+          "brand_advertisers"
+        ],
+        "mechanism": "A limited transparency package could satisfy enough fairness and safety concerns to reduce escalation even without rollback.",
+        "merge_key": "shared_interest_in_legitimacy_repair"
+      },
+      {
+        "converging_actors": [
+          "small_educational_creators",
+          "vista_stream_platform"
+        ],
+        "mechanism": "Economic dependence and organizer fatigue may pull dissent back into quieter accommodation over time.",
+        "merge_key": "coalition_fatigue_and_dependency"
+      },
+      {
+        "converging_actors": [
+          "general_viewers",
+          "vista_stream_platform",
+          "official_partner_channels"
+        ],
+        "mechanism": "If variety complaints do not become salient, audiences may normalize the new exposure mix, stabilizing the platform's position.",
+        "merge_key": "viewer_attention_decay"
+      },
+      {
+        "converging_actors": [
+          "official_partner_channels",
+          "brand_advertisers",
+          "vista_stream_platform"
+        ],
+        "mechanism": "A shared framing around quality and safety could align beneficiaries and reduce external pressure unless contrary evidence spreads.",
+        "merge_key": "common_interest_in_quality_narrative"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype": "platform_viewers",
+        "description": "People who consume videos on the platform and experience changes in variety and recommendations.",
+        "population_total": 5000000
+      },
+      {
+        "archetype": "independent_educational_creators",
+        "description": "Small and mid-sized educational creators dependent on platform discovery.",
+        "population_total": 12000
+      },
+      {
+        "archetype": "advertiser_decision_makers",
+        "description": "Brand and agency buyers allocating spend based on safety and audience fit.",
+        "population_total": 900
+      },
+      {
+        "archetype": "partner_channel_teams",
+        "description": "Teams running official partner channels benefiting from platform certification and promotion.",
+        "population_total": 250
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "evidence_asymmetry",
+        "note": "Platform controls key measurement systems, making independent verification of favoritism difficult at T0.",
+        "severity": "medium"
+      },
+      {
+        "flag": "dependency_suppressed_dissent",
+        "note": "Creator dependence on platform distribution may hide the true scale of private dissatisfaction.",
+        "severity": "high"
+      },
+      {
+        "flag": "authority_concentration",
+        "note": "Decision authority over recommendation rules and disclosure is concentrated inside the platform.",
+        "severity": "high"
+      },
+      {
+        "flag": "public_salience_fragility",
+        "note": "Viewer concern about reduced variety may remain too diffuse to sustain broad pressure.",
+        "severity": "medium"
+      },
+      {
+        "flag": "coalition_fragility",
+        "note": "Affected creators may split between reform, resignation, and exit strategies.",
+        "severity": "medium"
+      },
+      {
+        "flag": "fictionalization_applied",
+        "note": "Institutional and group names were fictionalized because the scenario concerns platform governance dynamics.",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "platform_algorithmic_governance",
+      "configured_context": {},
+      "mode": "direct",
+      "scenario_key": "platform_002",
+      "summary": "A fictional video platform changes recommendation rules, reducing reach for small educational creators while boosting official partner channels. Small creators suspect favoritism, advertisers prioritize brand safety, viewers perceive lower variety, and the platform offers only vague metrics. T0 centers on exposure shocks, platform authority, creator coalition durability, and unresolved pathways toward rollback, transparency, creator exit, or advertiser pressure.",
+      "time_horizon_ticks": 8,
+      "uncertainty_notes": [
+        "Exact platform size, geography, and timing are unspecified.",
+        "No direct evidence yet confirms intentional favoritism beyond observed reach changes and partner gains.",
+        "Advertiser concern is directional and may not yet be organized into explicit pressure."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "general_viewers",
+          "brand_advertisers",
+          "small_educational_creators"
+        ],
+        "level": 0.58,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Actors update more readily from familiar sources and observed performance data than from distant claims."
+      },
+      {
+        "applies_to": [
+          "small_educational_creators",
+          "general_viewers"
+        ],
+        "level": 0.66,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Many affected creators need visible peer participation before escalating publicly; viewers have an even higher threshold."
+      },
+      {
+        "applies_to": [
+          "small_educational_creators"
+        ],
+        "level": 0.71,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Platform dependency suppresses open dissent among many creators despite private grievance."
+      },
+      {
+        "applies_to": [
+          "small_educational_creators",
+          "official_partner_channels",
+          "brand_advertisers"
+        ],
+        "level": 0.62,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Groups mostly exchange validating interpretations within their own networks."
+      },
+      {
+        "applies_to": [
+          "creator_coalition_core",
+          "small_educational_creators"
+        ],
+        "level": 0.57,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Coalition growth likely requires repeated, cross-validated examples of reach loss and unfair treatment."
+      },
+      {
+        "applies_to": [
+          "small_educational_creators",
+          "official_partner_channels"
+        ],
+        "level": 0.69,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Creator identity and partner status shape interpretations of fairness and legitimacy."
+      },
+      {
+        "applies_to": [
+          "general_viewers",
+          "brand_advertisers"
+        ],
+        "level": 0.52,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Without fresh signals, broad audience and advertiser focus may dissipate quickly."
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context_key": "recommendation_rule_change",
+        "description": "A salient policy shift altered exposure patterns, making before-and-after comparisons socially legible."
+      },
+      {
+        "context_key": "opaque_metrics",
+        "description": "Vague platform metrics create an evidence vacuum that increases rumor, inference, and legitimacy contests."
+      },
+      {
+        "context_key": "creator_dependency",
+        "description": "Many affected creators depend on platform reach, dampening overt dissent and increasing strategic caution."
+      },
+      {
+        "context_key": "brand_safety_frame",
+        "description": "Advertiser and platform narratives can justify concentration toward partner channels under a safety rationale."
+      },
+      {
+        "context_key": "viewer_variety_loss",
+        "description": "Perceived decline in content variety can slowly convert private annoyance into public sympathy for creators."
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "vista_stream_platform",
+        "behavior_axes": {
+          "opacity": 0.71,
+          "procedural_control": 0.86,
+          "responsiveness": 0.38,
+          "risk_aversion": 0.77
+        },
+        "ideology_axes": {
+          "brand_safety_governance": 0.81,
+          "market_ordering": 0.66,
+          "openness_to_creator_pluralism": 0.39
+        },
+        "reputation": 0.48,
+        "secrecy": 0.72,
+        "tendency": "protects platform discretion while minimizing concession cost",
+        "trustworthiness": 0.41
+      },
+      {
+        "actor_name": "small_educational_creators",
+        "behavior_axes": {
+          "coordination": 0.46,
+          "dependency_acceptance": 0.74,
+          "experimentation": 0.43,
+          "public_criticism": 0.52
+        },
+        "ideology_axes": {
+          "content_pluralism": 0.79,
+          "creator_fairness": 0.87,
+          "platform_legitimacy": 0.33
+        },
+        "reputation": 0.57,
+        "secrecy": 0.33,
+        "tendency": "seeks fairness and visibility but is constrained by platform dependence",
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "official_partner_channels",
+        "behavior_axes": {
+          "coordination": 0.41,
+          "institutional_alignment": 0.72,
+          "public_caution": 0.58,
+          "status_quo_defense": 0.63
+        },
+        "ideology_axes": {
+          "brand_safety_governance": 0.74,
+          "content_pluralism": 0.36,
+          "platform_legitimacy": 0.72
+        },
+        "reputation": 0.59,
+        "secrecy": 0.42,
+        "tendency": "supports existing governance while avoiding overt triumphalism",
+        "trustworthiness": 0.51
+      },
+      {
+        "actor_name": "brand_advertisers",
+        "behavior_axes": {
+          "pressure_use": 0.39,
+          "public_visibility": 0.21,
+          "risk_management": 0.82,
+          "switching_flexibility": 0.44
+        },
+        "ideology_axes": {
+          "brand_safety_governance": 0.86,
+          "content_pluralism": 0.28,
+          "platform_legitimacy": 0.54
+        },
+        "reputation": 0.6,
+        "secrecy": 0.58,
+        "tendency": "uses quiet leverage unless business or reputational risk rises",
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "general_viewers",
+        "behavior_axes": {
+          "attention_volatility": 0.73,
+          "complaint_propensity": 0.22,
+          "novelty_seeking": 0.49,
+          "switching_flexibility": 0.37
+        },
+        "ideology_axes": {
+          "brand_safety_governance": 0.45,
+          "content_pluralism": 0.57,
+          "platform_legitimacy": 0.52
+        },
+        "reputation": 0.5,
+        "secrecy": 0.24,
+        "tendency": "reacts to experience changes but often remains diffuse and weakly organized",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "creator_coalition_core",
+        "behavior_axes": {
+          "coordination": 0.68,
+          "escalation_preference": 0.43,
+          "evidence_gathering": 0.72,
+          "media_outreach": 0.57
+        },
+        "ideology_axes": {
+          "content_pluralism": 0.81,
+          "creator_fairness": 0.9,
+          "platform_legitimacy": 0.28
+        },
+        "reputation": 0.52,
+        "secrecy": 0.28,
+        "tendency": "tries to transform individual grievances into a credible collective case",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "platform_policy_team",
+        "behavior_axes": {
+          "institutional_discipline": 0.84,
+          "metric_management": 0.79,
+          "responsiveness": 0.35,
+          "reversal_reluctance": 0.7
+        },
+        "ideology_axes": {
+          "brand_safety_governance": 0.85,
+          "creator_pluralism": 0.34,
+          "platform_legitimacy": 0.78
+        },
+        "reputation": 0.44,
+        "secrecy": 0.67,
+        "tendency": "frames changes as optimization and avoids disclosing sensitive internals",
+        "trustworthiness": 0.39
+      },
+      {
+        "actor_name": "creator_forum_media",
+        "behavior_axes": {
+          "amplification": 0.74,
+          "attention_shifting": 0.77,
+          "controversy_sensitivity": 0.69,
+          "verification": 0.42
+        },
+        "ideology_axes": {
+          "content_pluralism": 0.63,
+          "creator_fairness": 0.7,
+          "platform_legitimacy": 0.31
+        },
+        "reputation": 0.49,
+        "secrecy": 0.12,
+        "tendency": "amplifies visible creator narratives faster than formal evidence can accumulate",
+        "trustworthiness": 0.46
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 589,
+        "end": 589,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 589,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

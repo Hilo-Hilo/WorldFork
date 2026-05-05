@@ -1,0 +1,1578 @@
+{
+  "big_bang_id": "d9d6ea3a-f32b-424d-9b7c-721784d7a538",
+  "initializer_output": {
+    "actors": [
+      {
+        "decision_authority": "high_on_store_hours_and_reopening_conditions",
+        "fictionalized": true,
+        "name": "northstar_grocers",
+        "role": "store_owner_operator",
+        "scale": "regional",
+        "stakes": [
+          "worker scheduling flexibility",
+          "loss prevention",
+          "brand reputation",
+          "community relations",
+          "store profitability"
+        ],
+        "type": "company"
+      },
+      {
+        "decision_authority": "high_on temporary closure implementation",
+        "fictionalized": true,
+        "name": "northstar_operations_leadership",
+        "role": "operations_and_security_decision_maker",
+        "scale": "company",
+        "stakes": [
+          "incident reduction",
+          "operational continuity",
+          "public justification"
+        ],
+        "type": "management_group"
+      },
+      {
+        "decision_authority": "low_direct_high_collective_voice",
+        "fictionalized": true,
+        "name": "late_night_store_workers",
+        "role": "affected_employees",
+        "scale": "site_multi_store",
+        "stakes": [
+          "hours",
+          "income stability",
+          "workplace safety",
+          "schedule predictability"
+        ],
+        "type": "labor_group"
+      },
+      {
+        "decision_authority": "medium_on_day_to_day_execution_low_on_policy",
+        "fictionalized": true,
+        "name": "night_shift_supervisors",
+        "role": "frontline_management",
+        "scale": "site_multi_store",
+        "stakes": [
+          "staff retention",
+          "safe operations",
+          "meeting directives"
+        ],
+        "type": "labor_management_interface"
+      },
+      {
+        "decision_authority": "low_individual_medium_collective_voice",
+        "fictionalized": true,
+        "name": "nearby_residents",
+        "role": "service_users",
+        "scale": "neighborhood_multi_area",
+        "stakes": [
+          "access to food and essentials",
+          "neighborhood safety perception",
+          "travel burden"
+        ],
+        "type": "community_group"
+      },
+      {
+        "decision_authority": "medium_on hearings_data_requests_public_pressure",
+        "fictionalized": true,
+        "name": "local_officials",
+        "role": "oversight_and_public_pressure",
+        "scale": "municipal",
+        "stakes": [
+          "public safety",
+          "service equity",
+          "evidence-based response"
+        ],
+        "type": "government_group"
+      },
+      {
+        "decision_authority": "medium_on incident information not on store operations",
+        "fictionalized": true,
+        "name": "local_police_precinct",
+        "role": "incident_response_and_crime_data_holder",
+        "scale": "district",
+        "stakes": [
+          "crime response credibility",
+          "resource allocation",
+          "public cooperation"
+        ],
+        "type": "public_safety_institution"
+      },
+      {
+        "decision_authority": "low_direct_medium_agenda_setting",
+        "fictionalized": true,
+        "name": "community_advocates",
+        "role": "resident_and_worker_advocacy",
+        "scale": "local",
+        "stakes": [
+          "service restoration",
+          "transparency",
+          "fair treatment of neighborhoods"
+        ],
+        "type": "civil_society_group"
+      },
+      {
+        "decision_authority": "medium_on narrative salience",
+        "fictionalized": true,
+        "name": "local_press",
+        "role": "information_amplifier",
+        "scale": "local",
+        "stakes": [
+          "accountability",
+          "public interest reporting",
+          "audience attention"
+        ],
+        "type": "media"
+      },
+      {
+        "decision_authority": "medium_on market substitution",
+        "fictionalized": true,
+        "name": "alternative_retailers",
+        "role": "substitute_service_providers",
+        "scale": "local",
+        "stakes": [
+          "capturing displaced demand",
+          "managing own safety and staffing"
+        ],
+        "type": "market_group"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "branch_key": "verified_incident_pattern_supports_company_case",
+        "observable_divergence_signal": "official statements become more conditional-supportive and resident criticism centers on alternatives rather than disbelief",
+        "plausible_path": "public and official skepticism softens; debate shifts from whether closures were justified to what mitigation and reopening conditions are realistic",
+        "trigger": "company or police-linked evidence shows repeated significant overnight incidents at the two stores"
+      },
+      {
+        "branch_key": "weak_or_incomplete_data_erodes_temporary_claim",
+        "observable_divergence_signal": "coverage emphasizes missing evidence, temporary framing is publicly questioned, and worker/resident coalition talk increases",
+        "plausible_path": "trust drops, officials and advocates intensify scrutiny, and workers suspect a de facto long-term retrenchment",
+        "trigger": "company cannot provide convincing data or timeline when asked"
+      },
+      {
+        "branch_key": "material_hours_loss_activates_worker_voice",
+        "observable_divergence_signal": "expression_level among workers rises and supervisors become visible intermediaries or dissent amplifiers",
+        "plausible_path": "workers move from private anxiety to collective demands for compensation, transfers, or reopening plan",
+        "trigger": "published schedules or paychecks show meaningful reductions without offsetting accommodations"
+      },
+      {
+        "branch_key": "substitution_absorbs_access_pressure",
+        "observable_divergence_signal": "complaint volume stabilizes and access stories become less central than governance questions",
+        "plausible_path": "resident mobilization plateaus even if frustration persists, leaving labor and transparency as the dominant issues",
+        "trigger": "alternative retailers or adjusted travel patterns adequately cover most overnight needs"
+      },
+      {
+        "branch_key": "visible_neighborhood_hardship_drives_service_campaign",
+        "observable_divergence_signal": "official rhetoric shifts toward access remedies, and advocates foreground geographic fairness",
+        "plausible_path": "service equity frame strengthens and reopening or mitigation pressure broadens beyond directly affected workers",
+        "trigger": "reports accumulate of residents unable to access essentials overnight at reasonable cost"
+      }
+    ],
+    "channels": [
+      {
+        "actors": [
+          "northstar_grocers",
+          "northstar_operations_leadership",
+          "late_night_store_workers",
+          "nearby_residents"
+        ],
+        "channel_key": "company_statements",
+        "type": "official_corporate",
+        "visibility": "mixed_public_internal"
+      },
+      {
+        "actors": [
+          "late_night_store_workers",
+          "night_shift_supervisors"
+        ],
+        "channel_key": "storefloor_and_shift_chats",
+        "type": "interpersonal_workplace",
+        "visibility": "semi_private"
+      },
+      {
+        "actors": [
+          "local_officials",
+          "northstar_grocers",
+          "local_police_precinct"
+        ],
+        "channel_key": "municipal_inquiry",
+        "type": "institutional",
+        "visibility": "mixed"
+      },
+      {
+        "actors": [
+          "local_press",
+          "nearby_residents",
+          "local_officials",
+          "northstar_grocers",
+          "community_advocates"
+        ],
+        "channel_key": "local_press_coverage",
+        "type": "media",
+        "visibility": "public"
+      },
+      {
+        "actors": [
+          "nearby_residents",
+          "community_advocates"
+        ],
+        "channel_key": "community_networks",
+        "type": "civic_social",
+        "visibility": "public_to_semi_public"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "store_workforce",
+        "attention_level": 0.8,
+        "cohort_key": "workers_hours_anxious",
+        "expression_level": 0.45,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.55,
+        "mobilization_readiness": 0.42,
+        "perceived_majority": "most coworkers are worried about hours more than public messaging",
+        "population_share_of_archetype": 0.6,
+        "private_belief": "closures may last longer than stated and reduce take-home pay",
+        "public_expression": "cautious concern, limited open challenge while awaiting schedules",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 72,
+        "stance_axes": {
+          "closure_legitimacy": -0.2,
+          "demand_for_data": 0.5,
+          "safety_priority": 0.4,
+          "trust_in_company": -0.3
+        }
+      },
+      {
+        "archetype_key": "store_workforce",
+        "attention_level": 0.7,
+        "cohort_key": "workers_safety_first",
+        "expression_level": 0.35,
+        "fatigue": 0.5,
+        "fear_of_isolation": 0.4,
+        "mobilization_readiness": 0.28,
+        "perceived_majority": "mixed workforce sentiment",
+        "population_share_of_archetype": 0.25,
+        "private_belief": "late-night conditions had become concerning enough that reduced hours may be preferable to unsafe shifts",
+        "public_expression": "supportive of precautions but still worried about pay",
+        "representation_mode": "meaningful_minority_cohort",
+        "represented_population": 30,
+        "stance_axes": {
+          "closure_legitimacy": 0.35,
+          "demand_for_data": 0.35,
+          "safety_priority": 0.8,
+          "trust_in_company": 0.05
+        }
+      },
+      {
+        "archetype_key": "store_workforce",
+        "attention_level": 0.55,
+        "cohort_key": "workers_temporariness_hopeful",
+        "expression_level": 0.2,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.18,
+        "perceived_majority": "uncertain",
+        "population_share_of_archetype": 0.15,
+        "private_belief": "company may reopen once controls are improved",
+        "public_expression": "wait-and-see",
+        "representation_mode": "minority_cohort",
+        "represented_population": 18,
+        "stance_axes": {
+          "closure_legitimacy": 0.15,
+          "demand_for_data": 0.1,
+          "safety_priority": 0.5,
+          "trust_in_company": 0.2
+        }
+      },
+      {
+        "archetype_key": "neighborhood_residents",
+        "attention_level": 0.78,
+        "cohort_key": "residents_access_disrupted",
+        "expression_level": 0.52,
+        "fatigue": 0.32,
+        "fear_of_isolation": 0.3,
+        "mobilization_readiness": 0.46,
+        "perceived_majority": "many neighbors are frustrated but not all will speak up",
+        "population_share_of_archetype": 0.3,
+        "private_belief": "closures create immediate hardship and may reflect neglect of the area",
+        "public_expression": "complaints about lost access and inconvenience",
+        "representation_mode": "high-dependence_subgroup",
+        "represented_population": 5400,
+        "stance_axes": {
+          "closure_legitimacy": -0.35,
+          "demand_for_data": 0.45,
+          "safety_priority": 0.35,
+          "trust_in_company": -0.25
+        }
+      },
+      {
+        "archetype_key": "neighborhood_residents",
+        "attention_level": 0.68,
+        "cohort_key": "residents_safety_concerned",
+        "expression_level": 0.34,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.42,
+        "mobilization_readiness": 0.24,
+        "perceived_majority": "community is divided",
+        "population_share_of_archetype": 0.25,
+        "private_belief": "if theft claims are true, reduced overnight hours may be reasonable until safety improves",
+        "public_expression": "conditional support for temporary closure",
+        "representation_mode": "meaningful_subgroup",
+        "represented_population": 4500,
+        "stance_axes": {
+          "closure_legitimacy": 0.3,
+          "demand_for_data": 0.4,
+          "safety_priority": 0.75,
+          "trust_in_company": 0.0
+        }
+      },
+      {
+        "archetype_key": "neighborhood_residents",
+        "attention_level": 0.42,
+        "cohort_key": "residents_adapting_quietly",
+        "expression_level": 0.14,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.5,
+        "mobilization_readiness": 0.12,
+        "perceived_majority": "unclear",
+        "population_share_of_archetype": 0.45,
+        "private_belief": "the issue matters but alternatives or adjusted routines may cover most needs for now",
+        "public_expression": "limited public engagement",
+        "representation_mode": "broad_quieter_group",
+        "represented_population": 8100,
+        "stance_axes": {
+          "closure_legitimacy": 0.05,
+          "demand_for_data": 0.15,
+          "safety_priority": 0.45,
+          "trust_in_company": -0.05
+        }
+      },
+      {
+        "archetype_key": "local_civic_audience",
+        "attention_level": 0.6,
+        "cohort_key": "civic_audience_accountability_watchers",
+        "expression_level": 0.36,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.25,
+        "mobilization_readiness": 0.26,
+        "perceived_majority": "broader public is only moderately attentive",
+        "population_share_of_archetype": 0.25,
+        "private_belief": "company claims should be checked against evidence and neighborhood impact",
+        "public_expression": "interest in official scrutiny and reporting",
+        "representation_mode": "engaged_public_segment",
+        "represented_population": 23750,
+        "stance_axes": {
+          "closure_legitimacy": 0.0,
+          "demand_for_data": 0.7,
+          "safety_priority": 0.5,
+          "trust_in_company": -0.1
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "store_workforce",
+        "attention_level": 0.8,
+        "cohort_key": "workers_hours_anxious",
+        "expression_level": 0.45,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.55,
+        "mobilization_readiness": 0.42,
+        "perceived_majority": "most coworkers are worried about hours more than public messaging",
+        "population_share_of_archetype": 0.6,
+        "private_belief": "closures may last longer than stated and reduce take-home pay",
+        "public_expression": "cautious concern, limited open challenge while awaiting schedules",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 72,
+        "stance_axes": {
+          "closure_legitimacy": -0.2,
+          "demand_for_data": 0.5,
+          "safety_priority": 0.4,
+          "trust_in_company": -0.3
+        }
+      },
+      {
+        "archetype_key": "store_workforce",
+        "attention_level": 0.7,
+        "cohort_key": "workers_safety_first",
+        "expression_level": 0.35,
+        "fatigue": 0.5,
+        "fear_of_isolation": 0.4,
+        "mobilization_readiness": 0.28,
+        "perceived_majority": "mixed workforce sentiment",
+        "population_share_of_archetype": 0.25,
+        "private_belief": "late-night conditions had become concerning enough that reduced hours may be preferable to unsafe shifts",
+        "public_expression": "supportive of precautions but still worried about pay",
+        "representation_mode": "meaningful_minority_cohort",
+        "represented_population": 30,
+        "stance_axes": {
+          "closure_legitimacy": 0.35,
+          "demand_for_data": 0.35,
+          "safety_priority": 0.8,
+          "trust_in_company": 0.05
+        }
+      },
+      {
+        "archetype_key": "store_workforce",
+        "attention_level": 0.55,
+        "cohort_key": "workers_temporariness_hopeful",
+        "expression_level": 0.2,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.18,
+        "perceived_majority": "uncertain",
+        "population_share_of_archetype": 0.15,
+        "private_belief": "company may reopen once controls are improved",
+        "public_expression": "wait-and-see",
+        "representation_mode": "minority_cohort",
+        "represented_population": 18,
+        "stance_axes": {
+          "closure_legitimacy": 0.15,
+          "demand_for_data": 0.1,
+          "safety_priority": 0.5,
+          "trust_in_company": 0.2
+        }
+      },
+      {
+        "archetype_key": "neighborhood_residents",
+        "attention_level": 0.78,
+        "cohort_key": "residents_access_disrupted",
+        "expression_level": 0.52,
+        "fatigue": 0.32,
+        "fear_of_isolation": 0.3,
+        "mobilization_readiness": 0.46,
+        "perceived_majority": "many neighbors are frustrated but not all will speak up",
+        "population_share_of_archetype": 0.3,
+        "private_belief": "closures create immediate hardship and may reflect neglect of the area",
+        "public_expression": "complaints about lost access and inconvenience",
+        "representation_mode": "high-dependence_subgroup",
+        "represented_population": 5400,
+        "stance_axes": {
+          "closure_legitimacy": -0.35,
+          "demand_for_data": 0.45,
+          "safety_priority": 0.35,
+          "trust_in_company": -0.25
+        }
+      },
+      {
+        "archetype_key": "neighborhood_residents",
+        "attention_level": 0.68,
+        "cohort_key": "residents_safety_concerned",
+        "expression_level": 0.34,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.42,
+        "mobilization_readiness": 0.24,
+        "perceived_majority": "community is divided",
+        "population_share_of_archetype": 0.25,
+        "private_belief": "if theft claims are true, reduced overnight hours may be reasonable until safety improves",
+        "public_expression": "conditional support for temporary closure",
+        "representation_mode": "meaningful_subgroup",
+        "represented_population": 4500,
+        "stance_axes": {
+          "closure_legitimacy": 0.3,
+          "demand_for_data": 0.4,
+          "safety_priority": 0.75,
+          "trust_in_company": 0.0
+        }
+      },
+      {
+        "archetype_key": "neighborhood_residents",
+        "attention_level": 0.42,
+        "cohort_key": "residents_adapting_quietly",
+        "expression_level": 0.14,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.5,
+        "mobilization_readiness": 0.12,
+        "perceived_majority": "unclear",
+        "population_share_of_archetype": 0.45,
+        "private_belief": "the issue matters but alternatives or adjusted routines may cover most needs for now",
+        "public_expression": "limited public engagement",
+        "representation_mode": "broad_quieter_group",
+        "represented_population": 8100,
+        "stance_axes": {
+          "closure_legitimacy": 0.05,
+          "demand_for_data": 0.15,
+          "safety_priority": 0.45,
+          "trust_in_company": -0.05
+        }
+      },
+      {
+        "archetype_key": "local_civic_audience",
+        "attention_level": 0.6,
+        "cohort_key": "civic_audience_accountability_watchers",
+        "expression_level": 0.36,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.25,
+        "mobilization_readiness": 0.26,
+        "perceived_majority": "broader public is only moderately attentive",
+        "population_share_of_archetype": 0.25,
+        "private_belief": "company claims should be checked against evidence and neighborhood impact",
+        "public_expression": "interest in official scrutiny and reporting",
+        "representation_mode": "engaged_public_segment",
+        "represented_population": 23750,
+        "stance_axes": {
+          "closure_legitimacy": 0.0,
+          "demand_for_data": 0.7,
+          "safety_priority": 0.5,
+          "trust_in_company": -0.1
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "northstar_grocers",
+          "northstar_operations_leadership"
+        ],
+        "blockers": [
+          "unresolved safety concerns",
+          "insufficient staffing confidence",
+          "continued reputational risk around incidents",
+          "lack of agreed mitigation measures"
+        ],
+        "contradiction_notes": "Temporary framing supports this endpoint, but absence of timeline or proof could undermine confidence that restoration is near-term.",
+        "description": "The two stores resume late-night operations in a meaningful way rather than remaining closed overnight.",
+        "endpoint_key": "late_night_service_restored",
+        "evidence_refs": [
+          "closure_announcement_active",
+          "official_data_request"
+        ],
+        "label": "late_night_service_restored",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will Northstar Grocers restore late-night operations at the two affected stores within the simulation horizon?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.42,
+        "rationale": "This is the most direct service-access endpoint implied by the scenario and central to trust and community outcomes.",
+        "realization_criteria": [
+          "company publicly announces restored late-night hours for both affected stores",
+          "stores are observably operating during previously closed late-night window",
+          "restoration persists for at least one subsequent tick or is accompanied by staffed schedule confirmation"
+        ],
+        "status": "active",
+        "status_basis": "Company says closures are temporary, so reopening remains a live terminal option but timing and conditions are unknown."
+      },
+      {
+        "authority_refs": [
+          "northstar_grocers",
+          "northstar_operations_leadership",
+          "local_officials",
+          "local_police_precinct"
+        ],
+        "blockers": [
+          "data gaps",
+          "privacy or disclosure limits",
+          "mismatch between claimed incidents and closure scope",
+          "institutional credibility deficits"
+        ],
+        "contradiction_notes": "Validation of the rationale does not by itself determine whether closures remain temporary or become prolonged.",
+        "description": "The closure rationale gains durable legitimacy because supporting evidence or accepted criteria are disclosed and broadly treated as credible.",
+        "endpoint_key": "theft_justification_validated",
+        "evidence_refs": [
+          "official_data_request"
+        ],
+        "label": "theft_justification_validated",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the company provide evidence or criteria that materially substantiates its theft-based justification for the closures?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.36,
+        "rationale": "Trust in the company's explanation is an explicit reporting focus and shapes later coalition behavior.",
+        "realization_criteria": [
+          "company or corroborating institution releases incident data or criteria tied to the affected stores",
+          "local officials publicly acknowledge the evidence as materially supporting the safety rationale",
+          "press and stakeholder discourse shifts from disputing justification to debating remedies or duration"
+        ],
+        "status": "active",
+        "status_basis": "Officials are requesting data, indicating the legitimacy question is open rather than settled at T0."
+      },
+      {
+        "authority_refs": [
+          "late_night_store_workers",
+          "night_shift_supervisors",
+          "northstar_grocers"
+        ],
+        "blockers": [
+          "fear of retaliation",
+          "small or uneven hours losses",
+          "informal accommodations that diffuse pressure",
+          "fragmented worker preferences"
+        ],
+        "contradiction_notes": "A labor dispute can emerge even if the theft rationale is validated, especially if accommodations are weak.",
+        "description": "Labor impacts crystallize into a public or organized dispute over lost hours, transfers, compensation, or reopening conditions.",
+        "endpoint_key": "worker_hours_dispute_visible",
+        "evidence_refs": [
+          "worker_schedule_uncertainty"
+        ],
+        "label": "worker_hours_dispute_visible",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will reduced hours or scheduling disruptions become severe enough to trigger visible collective worker pressure?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.39,
+        "rationale": "Economic dependency is core to the benchmark role, making labor expression an outcome-relevant endpoint.",
+        "realization_criteria": [
+          "workers or representatives publicly articulate demands or grievances tied to the closures",
+          "documented schedule/pay impacts show material reduction in affected workers' hours",
+          "company is forced to respond publicly or institutionally to worker claims"
+        ],
+        "status": "active",
+        "status_basis": "Workers are already worried about hours, but visible collective action or dispute has not yet emerged."
+      },
+      {
+        "authority_refs": [
+          "local_officials",
+          "community_advocates",
+          "northstar_grocers"
+        ],
+        "blockers": [
+          "adequate consumer substitution",
+          "attention decay",
+          "lack of organized resident voice",
+          "official bandwidth limits"
+        ],
+        "contradiction_notes": "An access remedy could emerge without full late-night restoration if mitigation substitutes are accepted.",
+        "description": "The service gap becomes important enough that officials or public coalitions push for a concrete access remedy, whether reopening, reduced closure scope, or substitute service measures.",
+        "endpoint_key": "civic_pressure_for_access_remedy",
+        "evidence_refs": [
+          "resident_service_gap_becomes_visible",
+          "first_local_press_story"
+        ],
+        "label": "civic_pressure_for_access_remedy",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the loss of late-night access escalate from localized inconvenience into a citywide accountability or equity issue?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.34,
+        "rationale": "The scenario explicitly asks for reporting on service access and balanced interpretation of community harms.",
+        "realization_criteria": [
+          "local officials or a visible coalition publicly demand a specific remedy for late-night access loss",
+          "resident hardship evidence becomes a recurring theme in press or civic forums",
+          "company or city responds with a concrete access mitigation plan"
+        ],
+        "status": "active",
+        "status_basis": "Residents have lost access, but it is not yet clear whether this becomes a sustained civic issue rather than a localized inconvenience."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "workers worry about hours after closures",
+        "layer": "dependency",
+        "reason": "workers depend on employer for hours and income",
+        "source_actor_name": "late_night_store_workers",
+        "target_actor_name": "northstar_grocers",
+        "weight": 0.64
+      },
+      {
+        "direction": "directed",
+        "evidence": "neighborhood residents lose access",
+        "layer": "dependency",
+        "reason": "residents relied on late-night stores for access to groceries and essentials",
+        "source_actor_name": "nearby_residents",
+        "target_actor_name": "northstar_grocers",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "store operation requires staffing though closures reduce immediate use",
+        "layer": "dependency",
+        "reason": "company relies on workforce to resume operations and maintain service",
+        "source_actor_name": "northstar_grocers",
+        "target_actor_name": "late_night_store_workers",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "repeated theft claims imply relevance of external incident context",
+        "layer": "dependency",
+        "reason": "company may rely on incident response and crime data support for justification",
+        "source_actor_name": "northstar_grocers",
+        "target_actor_name": "local_police_precinct",
+        "weight": 0.22
+      },
+      {
+        "direction": "directed",
+        "evidence": "loss of access implies fallback shopping options",
+        "layer": "dependency",
+        "reason": "residents may substitute to other sellers after closure",
+        "source_actor_name": "nearby_residents",
+        "target_actor_name": "alternative_retailers",
+        "weight": 0.29
+      },
+      {
+        "direction": "directed",
+        "evidence": "workers worry about hours while company says temporary",
+        "layer": "trust",
+        "reason": "workers are uncertain whether temporary framing is credible",
+        "source_actor_name": "late_night_store_workers",
+        "target_actor_name": "northstar_grocers",
+        "weight": 0.34
+      },
+      {
+        "direction": "directed",
+        "evidence": "officials ask for data and company says closures are temporary",
+        "layer": "trust",
+        "reason": "residents face service loss and lack supporting data",
+        "source_actor_name": "nearby_residents",
+        "target_actor_name": "northstar_grocers",
+        "weight": 0.37
+      },
+      {
+        "direction": "directed",
+        "evidence": "local officials ask for data",
+        "layer": "trust",
+        "reason": "officials are open to claims but seek verification",
+        "source_actor_name": "local_officials",
+        "target_actor_name": "northstar_grocers",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "officials engage by asking for data",
+        "layer": "trust",
+        "reason": "officials are viewed as potential accountability channel",
+        "source_actor_name": "nearby_residents",
+        "target_actor_name": "local_officials",
+        "weight": 0.49
+      },
+      {
+        "direction": "directed",
+        "evidence": "supervisors mediate day-to-day consequences",
+        "layer": "trust",
+        "reason": "frontline supervisors are closer and may share practical concerns",
+        "source_actor_name": "late_night_store_workers",
+        "target_actor_name": "night_shift_supervisors",
+        "weight": 0.51
+      },
+      {
+        "direction": "directed",
+        "evidence": "data request context likely touches public safety records",
+        "layer": "trust",
+        "reason": "officials may use police data but not uncritically",
+        "source_actor_name": "local_officials",
+        "target_actor_name": "local_police_precinct",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "workers are reacting to closure announcement",
+        "layer": "exposure",
+        "reason": "company communications on closures and scheduling reach employees",
+        "source_actor_name": "northstar_grocers",
+        "target_actor_name": "late_night_store_workers",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "residents lose access and company says closures are temporary",
+        "layer": "exposure",
+        "reason": "closure itself and company statements are publicly visible",
+        "source_actor_name": "northstar_grocers",
+        "target_actor_name": "nearby_residents",
+        "weight": 0.48
+      },
+      {
+        "direction": "directed",
+        "evidence": "official involvement increases media visibility",
+        "layer": "exposure",
+        "reason": "data requests and public concern are reportable",
+        "source_actor_name": "local_officials",
+        "target_actor_name": "local_press",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "n/a",
+        "layer": "exposure",
+        "reason": "actor not defined in schema; no edge emitted",
+        "source_actor_name": "local_press",
+        "target_actor_name": "local_civic_audience",
+        "weight": 0.0
+      },
+      {
+        "direction": "directed",
+        "evidence": "community advocacy role around access and transparency",
+        "layer": "exposure",
+        "reason": "advocates are likely to circulate service-access framing",
+        "source_actor_name": "community_advocates",
+        "target_actor_name": "nearby_residents",
+        "weight": 0.43
+      },
+      {
+        "direction": "directed",
+        "evidence": "issue has local public interest",
+        "layer": "exposure",
+        "reason": "local reporting can broaden awareness beyond directly affected users",
+        "source_actor_name": "local_press",
+        "target_actor_name": "nearby_residents",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "operational/security decision-maker role",
+        "layer": "influence",
+        "reason": "operations leadership shapes company closure and reopening decisions",
+        "source_actor_name": "northstar_operations_leadership",
+        "target_actor_name": "northstar_grocers",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "workers worry about hours due to company action",
+        "layer": "influence",
+        "reason": "company controls schedules, assignments, and closure framing",
+        "source_actor_name": "northstar_grocers",
+        "target_actor_name": "late_night_store_workers",
+        "weight": 0.62
+      },
+      {
+        "direction": "directed",
+        "evidence": "officials ask for data",
+        "layer": "influence",
+        "reason": "officials can pressure through scrutiny and public legitimacy costs",
+        "source_actor_name": "local_officials",
+        "target_actor_name": "northstar_grocers",
+        "weight": 0.47
+      },
+      {
+        "direction": "directed",
+        "evidence": "advocacy role on access and fairness",
+        "layer": "influence",
+        "reason": "advocates can elevate constituent concerns",
+        "source_actor_name": "community_advocates",
+        "target_actor_name": "local_officials",
+        "weight": 0.36
+      },
+      {
+        "direction": "directed",
+        "evidence": "media amplifies accountability issues",
+        "layer": "influence",
+        "reason": "coverage can raise salience and response pressure",
+        "source_actor_name": "local_press",
+        "target_actor_name": "local_officials",
+        "weight": 0.33
+      },
+      {
+        "direction": "directed",
+        "evidence": "public explanation is contestable",
+        "layer": "influence",
+        "reason": "coverage can affect brand and narrative credibility",
+        "source_actor_name": "local_press",
+        "target_actor_name": "northstar_grocers",
+        "weight": 0.39
+      },
+      {
+        "direction": "directed",
+        "evidence": "hours and safety concerns create internal pressure",
+        "layer": "influence",
+        "reason": "collective worker concerns can affect staffing stability and public legitimacy",
+        "source_actor_name": "late_night_store_workers",
+        "target_actor_name": "northstar_grocers",
+        "weight": 0.28
+      },
+      {
+        "direction": "reciprocal",
+        "evidence": "workers lose hours while residents lose access",
+        "layer": "coalition",
+        "reason": "shared interest in reopening or mitigation exists, though priorities differ",
+        "source_actor_name": "late_night_store_workers",
+        "target_actor_name": "nearby_residents",
+        "weight": 0.31
+      },
+      {
+        "direction": "reciprocal",
+        "evidence": "community advocacy likely aligns with service restoration demands",
+        "layer": "coalition",
+        "reason": "advocates may represent resident access concerns",
+        "source_actor_name": "nearby_residents",
+        "target_actor_name": "community_advocates",
+        "weight": 0.42
+      },
+      {
+        "direction": "reciprocal",
+        "evidence": "officials seek data and advocates seek accountability",
+        "layer": "coalition",
+        "reason": "possible collaboration around transparency and neighborhood impact",
+        "source_actor_name": "community_advocates",
+        "target_actor_name": "local_officials",
+        "weight": 0.34
+      },
+      {
+        "direction": "reciprocal",
+        "evidence": "theft claims create possible common framing",
+        "layer": "coalition",
+        "reason": "latent alignment around theft deterrence narratives",
+        "source_actor_name": "northstar_grocers",
+        "target_actor_name": "local_police_precinct",
+        "weight": 0.21
+      },
+      {
+        "direction": "reciprocal",
+        "evidence": "frontline managers face similar nightly conditions",
+        "layer": "coalition",
+        "reason": "shared practical interest in safe, staffed operations",
+        "source_actor_name": "night_shift_supervisors",
+        "target_actor_name": "late_night_store_workers",
+        "weight": 0.38
+      },
+      {
+        "direction": "reciprocal",
+        "evidence": "workers worry about hours",
+        "layer": "conflict",
+        "reason": "potential dispute over reduced hours and credibility of temporary closure",
+        "source_actor_name": "late_night_store_workers",
+        "target_actor_name": "northstar_grocers",
+        "weight": 0.44
+      },
+      {
+        "direction": "reciprocal",
+        "evidence": "residents lose access",
+        "layer": "conflict",
+        "reason": "loss of service creates grievance against operator",
+        "source_actor_name": "nearby_residents",
+        "target_actor_name": "northstar_grocers",
+        "weight": 0.41
+      },
+      {
+        "direction": "reciprocal",
+        "evidence": "officials ask for data",
+        "layer": "conflict",
+        "reason": "officials may challenge unsupported claims or prolonged closure",
+        "source_actor_name": "local_officials",
+        "target_actor_name": "northstar_grocers",
+        "weight": 0.29
+      },
+      {
+        "direction": "reciprocal",
+        "evidence": "service access and transparency concerns",
+        "layer": "conflict",
+        "reason": "advocates may oppose perceived abandonment or opacity",
+        "source_actor_name": "community_advocates",
+        "target_actor_name": "northstar_grocers",
+        "weight": 0.37
+      },
+      {
+        "direction": "reciprocal",
+        "evidence": "officials request data from company context",
+        "layer": "oasis_interaction",
+        "reason": "likely ongoing public and semi-public exchange over data and conditions",
+        "source_actor_name": "northstar_grocers",
+        "target_actor_name": "local_officials",
+        "weight": 0.44
+      },
+      {
+        "direction": "reciprocal",
+        "evidence": "worker caution and advocacy channel plausibility",
+        "layer": "oasis_interaction",
+        "reason": "workers may quietly share concerns through trusted intermediaries",
+        "source_actor_name": "late_night_store_workers",
+        "target_actor_name": "community_advocates",
+        "weight": 0.27
+      },
+      {
+        "direction": "reciprocal",
+        "evidence": "access loss creates human-interest and accountability angles",
+        "layer": "oasis_interaction",
+        "reason": "affected residents may provide stories and complaints",
+        "source_actor_name": "nearby_residents",
+        "target_actor_name": "local_press",
+        "weight": 0.35
+      },
+      {
+        "direction": "reciprocal",
+        "evidence": "civic oversight is newsworthy",
+        "layer": "oasis_interaction",
+        "reason": "official statements and follow-up questions likely circulate publicly",
+        "source_actor_name": "local_officials",
+        "target_actor_name": "local_press",
+        "weight": 0.41
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "description": "Operational leadership with authority over closure duration, mitigation, and reopening criteria.",
+        "hero_key": "company_decider",
+        "label": "company_decider"
+      },
+      {
+        "description": "Municipal official or office able to demand explanations and convene scrutiny.",
+        "hero_key": "civic_oversight_lead",
+        "label": "civic_oversight_lead"
+      },
+      {
+        "description": "Informal or formal worker representative shaping employee response.",
+        "hero_key": "worker_voice_lead",
+        "label": "worker_voice_lead"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "northstar_operations_leadership",
+        "attention_level": 0.85,
+        "constraints": [
+          "limited verified public evidence disclosed at T0",
+          "reputational risk if claims look exaggerated",
+          "operational costs of extended closure"
+        ],
+        "current_posture": "defensive_but_nonfinal",
+        "expression_level": 0.6,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.3,
+        "goals": [
+          "reduce incidents",
+          "avoid appearing indifferent",
+          "preserve option to reopen"
+        ],
+        "hero_key": "company_decider",
+        "mobilization_readiness": 0.7,
+        "perceived_majority": "public may accept temporary closure if safety rationale seems credible",
+        "power_level": 0.86,
+        "stance_axes": {
+          "closure_duration_preference": 0.15,
+          "labor_accommodation": 0.0,
+          "service_restoration_priority": 0.2,
+          "transparency_willingness": 0.1
+        }
+      },
+      {
+        "actor_name": "local_officials",
+        "attention_level": 0.72,
+        "constraints": [
+          "limited direct control over company operations",
+          "must balance safety and access concerns"
+        ],
+        "current_posture": "requesting_data_without_commitment",
+        "expression_level": 0.48,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.18,
+        "goals": [
+          "obtain evidence",
+          "protect residents",
+          "show responsiveness"
+        ],
+        "hero_key": "civic_oversight_lead",
+        "mobilization_readiness": 0.52,
+        "perceived_majority": "constituents want answers more than rhetoric",
+        "power_level": 0.58,
+        "stance_axes": {
+          "closure_duration_preference": -0.05,
+          "labor_accommodation": 0.4,
+          "service_restoration_priority": 0.55,
+          "transparency_willingness": 0.75
+        }
+      },
+      {
+        "actor_name": "late_night_store_workers",
+        "attention_level": 0.77,
+        "constraints": [
+          "dependency on employer schedules",
+          "uncertain worker consensus",
+          "limited public platform"
+        ],
+        "current_posture": "monitoring_schedule_impacts",
+        "expression_level": 0.38,
+        "fatigue": 0.42,
+        "fear_of_isolation": 0.57,
+        "goals": [
+          "protect hours",
+          "improve safety",
+          "avoid retaliation"
+        ],
+        "hero_key": "worker_voice_lead",
+        "mobilization_readiness": 0.4,
+        "perceived_majority": "coworkers are worried but hesitant",
+        "power_level": 0.34,
+        "stance_axes": {
+          "closure_duration_preference": -0.15,
+          "labor_accommodation": 0.8,
+          "service_restoration_priority": 0.35,
+          "transparency_willingness": 0.55
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "description": "Operational leadership with authority over closure duration, mitigation, and reopening criteria.",
+        "hero_key": "company_decider",
+        "label": "company_decider"
+      },
+      {
+        "description": "Municipal official or office able to demand explanations and convene scrutiny.",
+        "hero_key": "civic_oversight_lead",
+        "label": "civic_oversight_lead"
+      },
+      {
+        "description": "Informal or formal worker representative shaping employee response.",
+        "hero_key": "worker_voice_lead",
+        "label": "worker_voice_lead"
+      }
+    ],
+    "important_questions": [
+      "Will Northstar Grocers restore late-night operations at the two affected stores within the simulation horizon?",
+      "Will the company provide evidence or criteria that materially substantiates its theft-based justification for the closures?",
+      "Will reduced hours or scheduling disruptions become severe enough to trigger visible collective worker pressure?",
+      "Will the loss of late-night access escalate from localized inconvenience into a citywide accountability or equity issue?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "northstar_grocers",
+          "northstar_operations_leadership",
+          "late_night_store_workers",
+          "nearby_residents"
+        ],
+        "event_key": "closure_announcement_active",
+        "event_type": "announcement",
+        "expected_impact": "Raises company-to-worker and company-to-resident conflict, increases attention, and creates uncertainty about duration and credibility.",
+        "status": "active",
+        "summary": "Northstar Grocers has already closed late-night operations at two stores, citing repeated theft claims and calling the measure temporary.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "late_night_store_workers",
+          "night_shift_supervisors",
+          "northstar_grocers"
+        ],
+        "event_key": "worker_schedule_uncertainty",
+        "event_type": "announcement",
+        "expected_impact": "Strengthens dependency salience and may increase internal pressure before public mobilization.",
+        "status": "active",
+        "summary": "Affected workers begin assessing how the closures may reduce hours or alter shifts.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "local_officials",
+          "northstar_grocers",
+          "northstar_operations_leadership"
+        ],
+        "event_key": "official_data_request",
+        "event_type": "announcement",
+        "expected_impact": "Tests trust, may shift legitimacy toward or away from the company depending on responsiveness.",
+        "status": "imminent",
+        "summary": "Local officials ask the company for data supporting theft-related closure claims and clarification on temporary conditions.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "nearby_residents",
+          "alternative_retailers",
+          "community_advocates"
+        ],
+        "event_key": "resident_service_gap_becomes_visible",
+        "event_type": "announcement",
+        "expected_impact": "May convert diffuse inconvenience into organized complaints if substitution costs are high.",
+        "status": "imminent",
+        "summary": "Residents encounter practical late-night access problems and begin comparing alternatives.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "local_press",
+          "northstar_grocers",
+          "late_night_store_workers",
+          "local_officials",
+          "nearby_residents"
+        ],
+        "event_key": "first_local_press_story",
+        "event_type": "announcement",
+        "expected_impact": "Expands exposure, hardens narrative frames, and elevates pressure for evidence and mitigation.",
+        "status": "imminent",
+        "summary": "Local press publishes an initial report highlighting temporary closure claims, worker concerns, and official data requests.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "dd81d50a-f8e9-4c5a-b755-060a2d2fa2be",
+    "merge_hypotheses": [
+      {
+        "convergence_driver": "workers, residents, and company all benefit from a credible path to safer late-night service if losses can be contained",
+        "likely_effect": "opposing narratives may converge around pilot reopening, security changes, or partial restored hours",
+        "merge_key": "shared_interest_in_conditional_reopening"
+      },
+      {
+        "convergence_driver": "even actors with different preferences can align on wanting clearer data and criteria",
+        "likely_effect": "data disclosure and explicit benchmarks could reduce narrative conflict without settling final reopening timing",
+        "merge_key": "transparency_as_legitimacy_bridge"
+      },
+      {
+        "convergence_driver": "if closures remain temporary-looking and daily harms are manageable, public attention may decay",
+        "likely_effect": "timelines with different early reactions can converge into low-intensity stalemate unless new shocks appear",
+        "merge_key": "fatigue_limits_max_escalation"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "store_workforce",
+        "description": "Employees across the two affected stores and nearby labor pool tied to late-night operations.",
+        "label": "store_workforce",
+        "population_total": 120
+      },
+      {
+        "archetype_key": "neighborhood_residents",
+        "description": "Residents in catchment areas that relied on the two stores for late-night access.",
+        "label": "neighborhood_residents",
+        "population_total": 18000
+      },
+      {
+        "archetype_key": "local_civic_audience",
+        "description": "Wider municipal audience exposed to discussion through officials, press, and community networks.",
+        "label": "local_civic_audience",
+        "population_total": 95000
+      }
+    ],
+    "risk_flags": [
+      {
+        "description": "The scenario states repeated theft claims but provides no underlying data at T0.",
+        "flag_key": "evidence_gap_on_theft_claims",
+        "severity": "medium"
+      },
+      {
+        "description": "The company's temporary framing may reduce immediate backlash while preserving uncertainty about true reopening intent.",
+        "flag_key": "temporary_label_may_mask_longer_duration",
+        "severity": "medium"
+      },
+      {
+        "description": "Workforce and neighborhood totals are inferred for simulation usability rather than stated in the corpus.",
+        "flag_key": "population_counts_are_estimated",
+        "severity": "low"
+      },
+      {
+        "description": "Local officials can request data and apply pressure but may lack direct power to compel reopening.",
+        "flag_key": "authority_limit_on_officials",
+        "severity": "medium"
+      },
+      {
+        "description": "Resident impact is likely uneven, with highest burden on those lacking easy substitutes, but the distribution is not specified in the corpus.",
+        "flag_key": "service_hardship_distribution_unknown",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "initial_uncertainty": [
+        "actual scale and pattern of theft incidents is not independently verified at T0",
+        "duration and conditions for reopening are unclear",
+        "workers do not yet know exact scheduling or compensation impacts",
+        "residents' substitution options for late-night essentials vary by neighborhood",
+        "local officials have oversight voice but unclear direct authority over reopening"
+      ],
+      "mode": "direct",
+      "report_focus": [
+        "trust",
+        "safety",
+        "service_access",
+        "labor_hours",
+        "data_transparency"
+      ],
+      "scenario_key": "labor_005",
+      "summary": "A fictional grocery chain temporarily closes two late-night stores after repeated theft claims. Workers fear reduced hours, nearby residents lose overnight access to groceries and essentials, local officials request supporting data, and the company frames the move as temporary. T0 should remain balanced, with unresolved questions around trust, safety, labor impacts, and service restoration.",
+      "time_horizon_ticks": 8,
+      "title": "temporary_late_night_store_closures_after_theft_claims"
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "nearby_residents",
+          "late_night_store_workers",
+          "local_civic_audience"
+        ],
+        "evidence": "audiences are divided between safety and access concerns rather than polarized into absolutes",
+        "level": "medium",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "late_night_store_workers",
+          "nearby_residents"
+        ],
+        "evidence": "many are concerned but not yet publicly activated; stronger mobilization likely needs data, schedule cuts, or visible hardship",
+        "level": "medium",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "late_night_store_workers",
+          "residents_adapting_quietly"
+        ],
+        "evidence": "dependency on employer and uncertain community majority dampen expression",
+        "level": "medium_high",
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "workers",
+          "residents",
+          "civic_watchers"
+        ],
+        "evidence": "people will likely discuss the issue first within occupational or neighborhood networks",
+        "level": "medium",
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "service_restoration_demands",
+          "accountability_narratives"
+        ],
+        "evidence": "sustained mobilization likely requires reinforcement from workers, residents, officials, and press together",
+        "level": "medium",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "workers",
+          "residents",
+          "officials"
+        ],
+        "evidence": "role-based lenses shape whether safety, jobs, or access is prioritized",
+        "level": "medium",
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "local_civic_audience",
+          "nearby_residents"
+        ],
+        "evidence": "without new evidence or prolonged disruption, broader public attention may fade",
+        "level": "medium",
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "The company's use of 'temporary' may delay full backlash by signaling reversibility while preserving skepticism if no timeline appears.",
+        "influence_key": "temporary_label_effect"
+      },
+      {
+        "description": "Official requests for supporting data create a focal test for whether the closure narrative gains or loses legitimacy.",
+        "influence_key": "data_request_legitimacy_check"
+      },
+      {
+        "description": "Visible inconvenience around late-night essentials can convert quiet residents into vocal complainants if substitution proves costly.",
+        "influence_key": "daily_access_visibility"
+      },
+      {
+        "description": "Concrete schedule reductions or paycheck losses would make worker concerns more legible and coalition-friendly.",
+        "influence_key": "hours_cut_salience"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "northstar_grocers",
+        "behavior_axes": {
+          "adaptability": 0.52,
+          "conflict_tolerance": 0.38,
+          "responsiveness": 0.45,
+          "risk_aversion": 0.62
+        },
+        "ideology_axes": {
+          "community_obligation": 0.42,
+          "market_pragmatism": 0.78,
+          "security_priority": 0.63
+        },
+        "reputation": 0.52,
+        "secrecy": 0.48,
+        "tendency": "protect_operations_while_preserving_option_value",
+        "trustworthiness": 0.46
+      },
+      {
+        "actor_name": "northstar_operations_leadership",
+        "behavior_axes": {
+          "adaptability": 0.5,
+          "conflict_tolerance": 0.35,
+          "responsiveness": 0.4,
+          "risk_aversion": 0.68
+        },
+        "ideology_axes": {
+          "community_obligation": 0.38,
+          "market_pragmatism": 0.8,
+          "security_priority": 0.72
+        },
+        "reputation": 0.48,
+        "secrecy": 0.56,
+        "tendency": "justify_precaution_then_wait_for_pressure",
+        "trustworthiness": 0.42
+      },
+      {
+        "actor_name": "late_night_store_workers",
+        "behavior_axes": {
+          "adaptability": 0.58,
+          "conflict_tolerance": 0.44,
+          "responsiveness": 0.62,
+          "risk_aversion": 0.47
+        },
+        "ideology_axes": {
+          "community_obligation": 0.56,
+          "institutional_trust": 0.34,
+          "labor_security_priority": 0.83
+        },
+        "reputation": 0.58,
+        "secrecy": 0.52,
+        "tendency": "seek_hours_protection_with_cautious_voice",
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "night_shift_supervisors",
+        "behavior_axes": {
+          "adaptability": 0.6,
+          "conflict_tolerance": 0.33,
+          "responsiveness": 0.54,
+          "risk_aversion": 0.58
+        },
+        "ideology_axes": {
+          "community_obligation": 0.48,
+          "institutional_trust": 0.5,
+          "labor_security_priority": 0.55
+        },
+        "reputation": 0.5,
+        "secrecy": 0.4,
+        "tendency": "buffer_between_staff_and_management",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "nearby_residents",
+        "behavior_axes": {
+          "adaptability": 0.49,
+          "conflict_tolerance": 0.36,
+          "responsiveness": 0.55,
+          "risk_aversion": 0.51
+        },
+        "ideology_axes": {
+          "community_obligation": 0.66,
+          "institutional_trust": 0.41,
+          "service_access_priority": 0.76
+        },
+        "reputation": 0.54,
+        "secrecy": 0.28,
+        "tendency": "react_when_daily_access_costs_become_visible",
+        "trustworthiness": 0.59
+      },
+      {
+        "actor_name": "local_officials",
+        "behavior_axes": {
+          "adaptability": 0.53,
+          "conflict_tolerance": 0.49,
+          "responsiveness": 0.64,
+          "risk_aversion": 0.46
+        },
+        "ideology_axes": {
+          "community_obligation": 0.74,
+          "institutional_trust": 0.58,
+          "service_access_priority": 0.62
+        },
+        "reputation": 0.57,
+        "secrecy": 0.31,
+        "tendency": "seek_verifiable_basis_before_escalation",
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "local_police_precinct",
+        "behavior_axes": {
+          "adaptability": 0.39,
+          "conflict_tolerance": 0.52,
+          "responsiveness": 0.45,
+          "risk_aversion": 0.57
+        },
+        "ideology_axes": {
+          "community_obligation": 0.42,
+          "institutional_trust": 0.61,
+          "security_priority": 0.81
+        },
+        "reputation": 0.44,
+        "secrecy": 0.46,
+        "tendency": "frame_issue_through_incident_patterns",
+        "trustworthiness": 0.47
+      },
+      {
+        "actor_name": "community_advocates",
+        "behavior_axes": {
+          "adaptability": 0.56,
+          "conflict_tolerance": 0.63,
+          "responsiveness": 0.7,
+          "risk_aversion": 0.34
+        },
+        "ideology_axes": {
+          "community_obligation": 0.84,
+          "institutional_trust": 0.33,
+          "service_access_priority": 0.79
+        },
+        "reputation": 0.53,
+        "secrecy": 0.18,
+        "tendency": "amplify_equity_and_accountability_claims",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "local_press",
+        "behavior_axes": {
+          "adaptability": 0.62,
+          "conflict_tolerance": 0.51,
+          "responsiveness": 0.71,
+          "risk_aversion": 0.41
+        },
+        "ideology_axes": {
+          "accountability_priority": 0.77,
+          "community_obligation": 0.63,
+          "institutional_trust": 0.46
+        },
+        "reputation": 0.56,
+        "secrecy": 0.12,
+        "tendency": "elevate_conflict_and_document_effects",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "alternative_retailers",
+        "behavior_axes": {
+          "adaptability": 0.61,
+          "conflict_tolerance": 0.29,
+          "responsiveness": 0.52,
+          "risk_aversion": 0.49
+        },
+        "ideology_axes": {
+          "community_obligation": 0.31,
+          "institutional_trust": 0.4,
+          "market_pragmatism": 0.82
+        },
+        "reputation": 0.47,
+        "secrecy": 0.35,
+        "tendency": "absorb_demand_without_public_leadership",
+        "trustworthiness": 0.45
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 499,
+        "end": 499,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 499,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

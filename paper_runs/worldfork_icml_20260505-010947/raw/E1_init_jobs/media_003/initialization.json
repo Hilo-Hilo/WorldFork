@@ -1,0 +1,1507 @@
+{
+  "big_bang_id": "d0e73567-73de-4e65-b5b0-429395c55b83",
+  "initializer_output": {
+    "actors": [
+      {
+        "actor_type": "civic_group",
+        "fictionalized": true,
+        "is_public": true,
+        "name": "maple_grove_neighborhood_association",
+        "summary": "Primary neighborhood association with private internal split and muted public expression."
+      },
+      {
+        "actor_type": "faction",
+        "fictionalized": true,
+        "is_public": false,
+        "name": "association_concerned_residents",
+        "summary": "Association members worried about safety, disruption, or fit of the homeless-services site; fear being labeled cruel."
+      },
+      {
+        "actor_type": "faction",
+        "fictionalized": true,
+        "is_public": false,
+        "name": "association_supportive_residents",
+        "summary": "Association members supportive of the site or sympathetic to service provision; fear being labeled naive."
+      },
+      {
+        "actor_type": "institutional_group",
+        "fictionalized": true,
+        "is_public": true,
+        "name": "service_provider_coalition",
+        "summary": "Organizations advocating for or planning homeless services at the proposed site."
+      },
+      {
+        "actor_type": "institution",
+        "fictionalized": true,
+        "is_public": true,
+        "name": "nearby_school_leadership",
+        "summary": "Administrators and representatives of nearby schools evaluating local effects."
+      },
+      {
+        "actor_type": "government_office",
+        "fictionalized": true,
+        "is_public": true,
+        "name": "city_housing_staff",
+        "summary": "City staff managing siting, outreach, and administrative process."
+      },
+      {
+        "actor_type": "advocacy_network",
+        "fictionalized": true,
+        "is_public": true,
+        "name": "housing_justice_activists",
+        "summary": "Activists pushing for approval and framing opposition as exclusionary."
+      },
+      {
+        "actor_type": "community_network",
+        "fictionalized": true,
+        "is_public": true,
+        "name": "local_parents_network",
+        "summary": "Parents connected through school and neighborhood channels; attentive but not uniformly organized."
+      },
+      {
+        "actor_type": "general_public",
+        "fictionalized": true,
+        "is_public": true,
+        "name": "neighborhood_public_audience",
+        "summary": "Broader local residents who observe cues and may infer majority sentiment from visible speakers."
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Quiet concerned residents coordinate around delay, conditions, or alternate siting rather than remain atomized.",
+        "branch_key": "silence_breaks_through_concerned_first",
+        "divergence_signal": "Public comments shift from sparse moral framing to clustered procedural/safety testimony from multiple local speakers.",
+        "trigger": "A respected association or school-linked figure voices procedural or safety concerns publicly."
+      },
+      {
+        "alternate_path": "Muted supporters become more visible, making pro-site sentiment look locally legitimate rather than externally imposed.",
+        "branch_key": "supporters_gain_norm_cover",
+        "divergence_signal": "Increase in neighborhood-coded supportive messages using practical rather than purely moral language.",
+        "trigger": "Service providers and activists pair moral arguments with concrete mitigation details and a sympathetic local supporter speaks."
+      },
+      {
+        "alternate_path": "Parent network becomes an organized pressure bloc even if the association remains officially cautious.",
+        "branch_key": "school_concern_catalyzes_parent_mobilization",
+        "divergence_signal": "Rapid growth in parent-channel activity, attendance, and repeated school-adjacent talking points.",
+        "trigger": "Nearby school leadership signals unresolved student-flow or safety questions."
+      },
+      {
+        "alternate_path": "Previously split and quiet neighborhood actors temporarily align around process legitimacy objections.",
+        "branch_key": "process_foreclosure_backlash",
+        "divergence_signal": "Cross-faction residents use shared language about transparency, consultation, or timeline fairness.",
+        "trigger": "City communication is perceived as rushed or already decided."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "association_meeting",
+        "notes": "Key venue where silence may break or be reinforced.",
+        "primary_actors": [
+          "maple_grove_neighborhood_association",
+          "association_concerned_residents",
+          "association_supportive_residents"
+        ],
+        "type": "offline_forum",
+        "visibility": "semi_public"
+      },
+      {
+        "channel_key": "city_info_session",
+        "notes": "Formal outreach channel that can create visible cues and procedural friction.",
+        "primary_actors": [
+          "city_housing_staff",
+          "service_provider_coalition",
+          "neighborhood_public_audience",
+          "maple_grove_neighborhood_association"
+        ],
+        "type": "public_meeting",
+        "visibility": "public"
+      },
+      {
+        "channel_key": "school_parent_email_threads",
+        "notes": "Important for concern diffusion and cue-setting.",
+        "primary_actors": [
+          "nearby_school_leadership",
+          "local_parents_network"
+        ],
+        "type": "digital_private_network",
+        "visibility": "private"
+      },
+      {
+        "channel_key": "local_social_feed",
+        "notes": "High salience for norm signaling, low nuance.",
+        "primary_actors": [
+          "housing_justice_activists",
+          "neighborhood_public_audience",
+          "maple_grove_neighborhood_association"
+        ],
+        "type": "social_media",
+        "visibility": "public"
+      },
+      {
+        "channel_key": "small_group_conversations",
+        "notes": "Main channel for honest views at T0.",
+        "primary_actors": [
+          "association_concerned_residents",
+          "association_supportive_residents",
+          "local_parents_network"
+        ],
+        "type": "informal_network",
+        "visibility": "private"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "association_concerned_residents",
+        "archetype_key": "association_members",
+        "attention_level": 0.8,
+        "behavioral_tendencies": [
+          "self-censorship",
+          "private complaining",
+          "procedural framing",
+          "reliance on trusted peers"
+        ],
+        "cohort_key": "assoc_concerned_quiet",
+        "expression_level": 0.22,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.77,
+        "mobilization_readiness": 0.46,
+        "perceived_majority": 0.42,
+        "population_share_of_archetype": 0.417,
+        "private_stance": "leans against current site proposal or seeks delay/conditions",
+        "public_stance": "mostly silent or procedural concern only",
+        "representation_mode": "direct_cohort",
+        "represented_population": 75,
+        "reputation": 0.52,
+        "secrecy": 0.68,
+        "stance_axes": {
+          "process_delay_support": 0.72,
+          "public_expression_norm_support": 0.3,
+          "site_support": 0.25
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "association_supportive_residents",
+        "archetype_key": "association_members",
+        "attention_level": 0.74,
+        "behavioral_tendencies": [
+          "quiet sympathy",
+          "selective disclosure",
+          "moral caution",
+          "hesitation without consensus signals"
+        ],
+        "cohort_key": "assoc_supportive_quiet",
+        "expression_level": 0.29,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.63,
+        "mobilization_readiness": 0.42,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.389,
+        "private_stance": "supports site or service mission with some operational caveats",
+        "public_stance": "muted support; avoids appearing naive",
+        "representation_mode": "direct_cohort",
+        "represented_population": 70,
+        "reputation": 0.57,
+        "secrecy": 0.61,
+        "stance_axes": {
+          "process_delay_support": 0.31,
+          "public_expression_norm_support": 0.55,
+          "site_support": 0.74
+        },
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "maple_grove_neighborhood_association",
+        "archetype_key": "association_members",
+        "attention_level": 0.61,
+        "behavioral_tendencies": [
+          "wait-and-see",
+          "majority cue dependence",
+          "avoidance of controversy"
+        ],
+        "cohort_key": "assoc_unsettled_middle",
+        "expression_level": 0.14,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.58,
+        "mobilization_readiness": 0.27,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.194,
+        "private_stance": "uncertain and cue-sensitive",
+        "public_stance": "silent observer",
+        "representation_mode": "umbrella_cohort",
+        "represented_population": 35,
+        "reputation": 0.5,
+        "secrecy": 0.49,
+        "stance_axes": {
+          "process_delay_support": 0.5,
+          "public_expression_norm_support": 0.45,
+          "site_support": 0.5
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "local_parents_network",
+        "archetype_key": "parents_near_site",
+        "attention_level": 0.69,
+        "behavioral_tendencies": [
+          "school-cue following",
+          "protective framing",
+          "private chat amplification"
+        ],
+        "cohort_key": "school_parent_concerned",
+        "expression_level": 0.25,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.6,
+        "mobilization_readiness": 0.44,
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 0.405,
+        "private_stance": "concerned about student safety and routines, mixed on service mission",
+        "public_stance": "limited visible comment unless schools signal concern",
+        "representation_mode": "sampled_network",
+        "represented_population": 170,
+        "reputation": 0.55,
+        "secrecy": 0.42,
+        "stance_axes": {
+          "process_delay_support": 0.68,
+          "public_expression_norm_support": 0.41,
+          "site_support": 0.38
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "local_parents_network",
+        "archetype_key": "parents_near_site",
+        "attention_level": 0.58,
+        "behavioral_tendencies": [
+          "values signaling",
+          "cautious endorsement",
+          "reluctance to argue publicly"
+        ],
+        "cohort_key": "school_parent_supportive",
+        "expression_level": 0.31,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.55,
+        "mobilization_readiness": 0.36,
+        "perceived_majority": 0.43,
+        "population_share_of_archetype": 0.262,
+        "private_stance": "supports service access and anti-stigma norms",
+        "public_stance": "modest support, often conditional or values-based",
+        "representation_mode": "sampled_network",
+        "represented_population": 110,
+        "reputation": 0.56,
+        "secrecy": 0.33,
+        "stance_axes": {
+          "process_delay_support": 0.34,
+          "public_expression_norm_support": 0.64,
+          "site_support": 0.69
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "neighborhood_public_audience",
+        "archetype_key": "general_neighbors",
+        "attention_level": 0.28,
+        "behavioral_tendencies": [
+          "attention decay",
+          "headline inference",
+          "late mobilization"
+        ],
+        "cohort_key": "general_neighbors_low_attention",
+        "expression_level": 0.08,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.31,
+        "mobilization_readiness": 0.12,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.727,
+        "private_stance": "weakly formed views, responsive to salient cues",
+        "public_stance": "mostly disengaged",
+        "representation_mode": "broad_public_estimate",
+        "represented_population": 1600,
+        "reputation": 0.5,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "process_delay_support": 0.48,
+          "public_expression_norm_support": 0.5,
+          "site_support": 0.5
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "neighborhood_public_audience",
+        "archetype_key": "general_neighbors",
+        "attention_level": 0.52,
+        "behavioral_tendencies": [
+          "social proof following",
+          "comment thread observation",
+          "episodic engagement"
+        ],
+        "cohort_key": "general_neighbors_attentive",
+        "expression_level": 0.18,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.43,
+        "mobilization_readiness": 0.24,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.273,
+        "private_stance": "interested but not deeply committed",
+        "public_stance": "comment-reactive rather than agenda-setting",
+        "representation_mode": "broad_public_estimate",
+        "represented_population": 600,
+        "reputation": 0.5,
+        "secrecy": 0.24,
+        "stance_axes": {
+          "process_delay_support": 0.52,
+          "public_expression_norm_support": 0.49,
+          "site_support": 0.51
+        },
+        "trustworthiness": 0.5
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "association_concerned_residents",
+        "archetype_key": "association_members",
+        "attention_level": 0.8,
+        "behavioral_tendencies": [
+          "self-censorship",
+          "private complaining",
+          "procedural framing",
+          "reliance on trusted peers"
+        ],
+        "cohort_key": "assoc_concerned_quiet",
+        "expression_level": 0.22,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.77,
+        "mobilization_readiness": 0.46,
+        "perceived_majority": 0.42,
+        "population_share_of_archetype": 0.417,
+        "private_stance": "leans against current site proposal or seeks delay/conditions",
+        "public_stance": "mostly silent or procedural concern only",
+        "representation_mode": "direct_cohort",
+        "represented_population": 75,
+        "reputation": 0.52,
+        "secrecy": 0.68,
+        "stance_axes": {
+          "process_delay_support": 0.72,
+          "public_expression_norm_support": 0.3,
+          "site_support": 0.25
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "association_supportive_residents",
+        "archetype_key": "association_members",
+        "attention_level": 0.74,
+        "behavioral_tendencies": [
+          "quiet sympathy",
+          "selective disclosure",
+          "moral caution",
+          "hesitation without consensus signals"
+        ],
+        "cohort_key": "assoc_supportive_quiet",
+        "expression_level": 0.29,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.63,
+        "mobilization_readiness": 0.42,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.389,
+        "private_stance": "supports site or service mission with some operational caveats",
+        "public_stance": "muted support; avoids appearing naive",
+        "representation_mode": "direct_cohort",
+        "represented_population": 70,
+        "reputation": 0.57,
+        "secrecy": 0.61,
+        "stance_axes": {
+          "process_delay_support": 0.31,
+          "public_expression_norm_support": 0.55,
+          "site_support": 0.74
+        },
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "maple_grove_neighborhood_association",
+        "archetype_key": "association_members",
+        "attention_level": 0.61,
+        "behavioral_tendencies": [
+          "wait-and-see",
+          "majority cue dependence",
+          "avoidance of controversy"
+        ],
+        "cohort_key": "assoc_unsettled_middle",
+        "expression_level": 0.14,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.58,
+        "mobilization_readiness": 0.27,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.194,
+        "private_stance": "uncertain and cue-sensitive",
+        "public_stance": "silent observer",
+        "representation_mode": "umbrella_cohort",
+        "represented_population": 35,
+        "reputation": 0.5,
+        "secrecy": 0.49,
+        "stance_axes": {
+          "process_delay_support": 0.5,
+          "public_expression_norm_support": 0.45,
+          "site_support": 0.5
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "local_parents_network",
+        "archetype_key": "parents_near_site",
+        "attention_level": 0.69,
+        "behavioral_tendencies": [
+          "school-cue following",
+          "protective framing",
+          "private chat amplification"
+        ],
+        "cohort_key": "school_parent_concerned",
+        "expression_level": 0.25,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.6,
+        "mobilization_readiness": 0.44,
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 0.405,
+        "private_stance": "concerned about student safety and routines, mixed on service mission",
+        "public_stance": "limited visible comment unless schools signal concern",
+        "representation_mode": "sampled_network",
+        "represented_population": 170,
+        "reputation": 0.55,
+        "secrecy": 0.42,
+        "stance_axes": {
+          "process_delay_support": 0.68,
+          "public_expression_norm_support": 0.41,
+          "site_support": 0.38
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "local_parents_network",
+        "archetype_key": "parents_near_site",
+        "attention_level": 0.58,
+        "behavioral_tendencies": [
+          "values signaling",
+          "cautious endorsement",
+          "reluctance to argue publicly"
+        ],
+        "cohort_key": "school_parent_supportive",
+        "expression_level": 0.31,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.55,
+        "mobilization_readiness": 0.36,
+        "perceived_majority": 0.43,
+        "population_share_of_archetype": 0.262,
+        "private_stance": "supports service access and anti-stigma norms",
+        "public_stance": "modest support, often conditional or values-based",
+        "representation_mode": "sampled_network",
+        "represented_population": 110,
+        "reputation": 0.56,
+        "secrecy": 0.33,
+        "stance_axes": {
+          "process_delay_support": 0.34,
+          "public_expression_norm_support": 0.64,
+          "site_support": 0.69
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "neighborhood_public_audience",
+        "archetype_key": "general_neighbors",
+        "attention_level": 0.28,
+        "behavioral_tendencies": [
+          "attention decay",
+          "headline inference",
+          "late mobilization"
+        ],
+        "cohort_key": "general_neighbors_low_attention",
+        "expression_level": 0.08,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.31,
+        "mobilization_readiness": 0.12,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.727,
+        "private_stance": "weakly formed views, responsive to salient cues",
+        "public_stance": "mostly disengaged",
+        "representation_mode": "broad_public_estimate",
+        "represented_population": 1600,
+        "reputation": 0.5,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "process_delay_support": 0.48,
+          "public_expression_norm_support": 0.5,
+          "site_support": 0.5
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "neighborhood_public_audience",
+        "archetype_key": "general_neighbors",
+        "attention_level": 0.52,
+        "behavioral_tendencies": [
+          "social proof following",
+          "comment thread observation",
+          "episodic engagement"
+        ],
+        "cohort_key": "general_neighbors_attentive",
+        "expression_level": 0.18,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.43,
+        "mobilization_readiness": 0.24,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.273,
+        "private_stance": "interested but not deeply committed",
+        "public_stance": "comment-reactive rather than agenda-setting",
+        "representation_mode": "broad_public_estimate",
+        "represented_population": 600,
+        "reputation": 0.5,
+        "secrecy": 0.24,
+        "stance_axes": {
+          "process_delay_support": 0.52,
+          "public_expression_norm_support": 0.49,
+          "site_support": 0.51
+        },
+        "trustworthiness": 0.5
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "maple_grove_neighborhood_association",
+          "assoc_board_voice_01"
+        ],
+        "blockers": [
+          "Fear of isolation across both factions",
+          "Board preference for ambiguity",
+          "Uncertain perceived majority"
+        ],
+        "contradiction_notes": "Individual member comments should not be mistaken for an official association stance unless clearly authorized.",
+        "description": "Terminal outcome for whether the neighborhood association converts private division into a public organizational stance.",
+        "endpoint_key": "association_public_position",
+        "evidence_refs": [
+          "association_meeting",
+          "local_social_feed",
+          "city_info_session"
+        ],
+        "label": "Association takes or declines a public position",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the neighborhood association adopt a visible public position on the proposed site, or remain officially ambiguous/silent?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.72,
+        "rationale": "Association visibility is central to neighborhood-level majority inference and downstream mobilization.",
+        "realization_criteria": [
+          "Association board, meeting minutes, public letter, or official spokesperson issues a clear support, opposition, delay/conditions stance, or explicit neutrality/silence decision.",
+          "Visible local reporting or archived channel evidence confirms the organization-level position."
+        ],
+        "status": "active",
+        "status_basis": "T0 evidence shows a private split and broad public silence; no organization-level public position is established."
+      },
+      {
+        "authority_refs": [
+          "city_housing_staff"
+        ],
+        "blockers": [
+          "Neighborhood legitimacy concerns",
+          "School-related concerns",
+          "Provider operational constraints not specified",
+          "Unclear formal approver in source text"
+        ],
+        "contradiction_notes": "Interim hearings, audits, outreach sessions, and temporary concessions are process mechanisms, not final resolution unless they change the site path conclusively.",
+        "description": "Terminal policy-direction outcome for the proposed homeless-services site.",
+        "endpoint_key": "site_path_resolution",
+        "evidence_refs": [
+          "city_info_session",
+          "t1_city_outreach_or_meeting_notice"
+        ],
+        "label": "Current site path is approved, delayed/conditioned, or redirected",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the proposed homeless-services site move forward substantially as proposed, get delayed/conditioned, or get redirected away from the current path?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.65,
+        "rationale": "The scenario implies endpoint pressure around whether the site proceeds and under what terms.",
+        "realization_criteria": [
+          "City process produces a documented approval/advancement of the current site, a formal delay with required conditions, or a withdrawal/shift to an alternate site or indefinite halt.",
+          "Observable administrative or public-process records confirm the direction."
+        ],
+        "status": "active",
+        "status_basis": "Proposal exists at T0, but no terminal decision is described in source material."
+      },
+      {
+        "authority_refs": [
+          "nearby_school_leadership",
+          "local_parents_network"
+        ],
+        "blockers": [
+          "School leadership caution",
+          "Parent attention limits",
+          "Preference to avoid politicization"
+        ],
+        "contradiction_notes": "A single email or isolated complaint does not constitute bloc formation without repeated coordinated action.",
+        "description": "Terminal social-organizational outcome for whether school-adjacent concern becomes a durable visible actor in the conflict.",
+        "endpoint_key": "school_parent_bloc_formation",
+        "evidence_refs": [
+          "school_parent_email_threads",
+          "city_info_session"
+        ],
+        "label": "School-parent concerns cohere into public bloc or stay diffuse",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do nearby schools and parent networks become a coherent public pressure bloc rather than a background concern network?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.48,
+        "rationale": "School-linked activation is a major branch trigger with high leverage over broader neighborhood mobilization.",
+        "realization_criteria": [
+          "Parents and/or school leadership repeatedly coordinate visible public comments, petitions, turnout, or joint statements around the site.",
+          "Alternatively, school-linked concern remains sporadic, private, and non-coordinated through the observation horizon."
+        ],
+        "status": "active",
+        "status_basis": "Schools are involved, but no coherent public bloc is present at T0."
+      },
+      {
+        "authority_refs": [
+          "housing_justice_activists",
+          "service_provider_coalition",
+          "maple_grove_neighborhood_association",
+          "nearby_school_leadership",
+          "city_housing_staff"
+        ],
+        "blockers": [
+          "Low expression levels",
+          "Mixed framing by elites",
+          "Attention volatility"
+        ],
+        "contradiction_notes": "Momentary spikes in one frame should not count if later visible interactions revert to mixed or ambiguous framing.",
+        "description": "Terminal narrative outcome for which public frame most strongly defines the issue in neighborhood-facing channels.",
+        "endpoint_key": "dominant_discourse_frame",
+        "evidence_refs": [
+          "local_social_feed",
+          "association_meeting",
+          "city_info_session"
+        ],
+        "label": "Visible discourse settles around a dominant frame",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Which frame becomes dominant in visible local discourse: moral inclusion, safety/process concern, or managed compromise?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.7,
+        "rationale": "Information dynamics and identity labeling pressures make frame dominance a key outcome, not merely rhetoric.",
+        "realization_criteria": [
+          "Across public meetings, official comments, and visible local channels, one frame clearly dominates repeated references for at least two consecutive major interactions: inclusion/anti-stigma, safety/process concern, or compromise/mitigation.",
+          "Observable coding of statements shows persistent frame prevalence."
+        ],
+        "status": "active",
+        "status_basis": "T0 discourse is unsettled because private opinions exceed visible public speech."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "City staff are involved in the proposed site process.",
+        "layer": "exposure",
+        "reason": "City outreach and process updates are likely seen by association members.",
+        "source_actor_name": "city_housing_staff",
+        "target_actor_name": "maple_grove_neighborhood_association",
+        "weight": 0.53
+      },
+      {
+        "direction": "directed",
+        "evidence": "Activists are involved; expected focus includes information dynamics and identity.",
+        "layer": "exposure",
+        "reason": "Activist messaging is visible in public discourse and can shape perceived norms.",
+        "source_actor_name": "housing_justice_activists",
+        "target_actor_name": "neighborhood_public_audience",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "Service providers are involved in scenario.",
+        "layer": "exposure",
+        "reason": "Service providers publicly explain the project and mission.",
+        "source_actor_name": "service_provider_coalition",
+        "target_actor_name": "neighborhood_public_audience",
+        "weight": 0.39
+      },
+      {
+        "direction": "directed",
+        "evidence": "Nearby schools are involved; parents network tied to school context.",
+        "layer": "exposure",
+        "reason": "Parents closely monitor school communications.",
+        "source_actor_name": "nearby_school_leadership",
+        "target_actor_name": "local_parents_network",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "Neighborhood association is central local civic actor.",
+        "layer": "exposure",
+        "reason": "Association statements would be locally visible if issued, though current expression is muted.",
+        "source_actor_name": "maple_grove_neighborhood_association",
+        "target_actor_name": "neighborhood_public_audience",
+        "weight": 0.34
+      },
+      {
+        "direction": "directed",
+        "evidence": "Private split occurs within the association.",
+        "layer": "trust",
+        "reason": "Concerned members still rely on association as legitimate local forum.",
+        "source_actor_name": "association_concerned_residents",
+        "target_actor_name": "maple_grove_neighborhood_association",
+        "weight": 0.51
+      },
+      {
+        "direction": "directed",
+        "evidence": "Private split occurs within the association.",
+        "layer": "trust",
+        "reason": "Supportive members also see association as a relevant in-group venue.",
+        "source_actor_name": "association_supportive_residents",
+        "target_actor_name": "maple_grove_neighborhood_association",
+        "weight": 0.56
+      },
+      {
+        "direction": "directed",
+        "evidence": "Nearby schools involved; parents network proximate.",
+        "layer": "trust",
+        "reason": "Parents tend to trust school leadership on child-safety and routine matters.",
+        "source_actor_name": "local_parents_network",
+        "target_actor_name": "nearby_school_leadership",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "City staff involved in official process.",
+        "layer": "trust",
+        "reason": "Public grants limited procedural legitimacy to city staff but not strong confidence.",
+        "source_actor_name": "neighborhood_public_audience",
+        "target_actor_name": "city_housing_staff",
+        "weight": 0.42
+      },
+      {
+        "direction": "directed",
+        "evidence": "Service providers are involved in siting issue.",
+        "layer": "trust",
+        "reason": "Providers are seen as somewhat credible on homelessness services but not universally trusted.",
+        "source_actor_name": "neighborhood_public_audience",
+        "target_actor_name": "service_provider_coalition",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "City staff involved; no separate authority specified.",
+        "layer": "dependency",
+        "reason": "Association depends on city staff for procedural information and opportunities to influence siting process.",
+        "source_actor_name": "maple_grove_neighborhood_association",
+        "target_actor_name": "city_housing_staff",
+        "weight": 0.48
+      },
+      {
+        "direction": "directed",
+        "evidence": "Service providers involved in proposed site process.",
+        "layer": "dependency",
+        "reason": "Providers rely on city administrative process to advance the site.",
+        "source_actor_name": "service_provider_coalition",
+        "target_actor_name": "city_housing_staff",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "Nearby schools involved.",
+        "layer": "dependency",
+        "reason": "Parents depend on school interpretation for local impact cues.",
+        "source_actor_name": "local_parents_network",
+        "target_actor_name": "nearby_school_leadership",
+        "weight": 0.45
+      },
+      {
+        "direction": "directed",
+        "evidence": "Both are involved on pro-service side.",
+        "layer": "dependency",
+        "reason": "Activists need provider project details and legitimacy anchors for advocacy.",
+        "source_actor_name": "housing_justice_activists",
+        "target_actor_name": "service_provider_coalition",
+        "weight": 0.36
+      },
+      {
+        "direction": "directed",
+        "evidence": "City staff involved in siting and outreach context.",
+        "layer": "influence",
+        "reason": "City process framing can shape what residents see as feasible or already decided.",
+        "source_actor_name": "city_housing_staff",
+        "target_actor_name": "maple_grove_neighborhood_association",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "Activists involved; fear of labels present.",
+        "layer": "influence",
+        "reason": "Activists reinforce pro-site moral vocabulary and reduce hesitation for some supporters.",
+        "source_actor_name": "housing_justice_activists",
+        "target_actor_name": "association_supportive_residents",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "Members fear being labeled cruel or naive.",
+        "layer": "influence",
+        "reason": "Activist rhetoric may suppress public criticism through anticipated stigma.",
+        "source_actor_name": "housing_justice_activists",
+        "target_actor_name": "association_concerned_residents",
+        "weight": 0.37
+      },
+      {
+        "direction": "directed",
+        "evidence": "Nearby schools involved and salient to parents.",
+        "layer": "influence",
+        "reason": "School leaders can legitimize concern or calm fears.",
+        "source_actor_name": "nearby_school_leadership",
+        "target_actor_name": "local_parents_network",
+        "weight": 0.54
+      },
+      {
+        "direction": "directed",
+        "evidence": "Association central to neighborhood split and silence.",
+        "layer": "influence",
+        "reason": "A visible association position could shift perceived local majority.",
+        "source_actor_name": "maple_grove_neighborhood_association",
+        "target_actor_name": "neighborhood_public_audience",
+        "weight": 0.43
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Both involved in advancing or managing site proposal.",
+        "layer": "coalition",
+        "reason": "Operationally aligned around siting progress, though not identical in incentives.",
+        "source_actor_name": "service_provider_coalition",
+        "target_actor_name": "city_housing_staff",
+        "weight": 0.49
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Both involved on supportive side of services.",
+        "layer": "coalition",
+        "reason": "Shared support for service site and anti-stigma framing.",
+        "source_actor_name": "service_provider_coalition",
+        "target_actor_name": "housing_justice_activists",
+        "weight": 0.57
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Nearby schools and neighborhood residents share proximate concerns.",
+        "layer": "coalition",
+        "reason": "Latent alignment around safety and process concerns.",
+        "source_actor_name": "association_concerned_residents",
+        "target_actor_name": "local_parents_network",
+        "weight": 0.38
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Some residents supportive of site but publicly quiet.",
+        "layer": "coalition",
+        "reason": "Shared sympathy exists but is weakly organized at T0.",
+        "source_actor_name": "association_supportive_residents",
+        "target_actor_name": "service_provider_coalition",
+        "weight": 0.33
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Fear of being labeled cruel is explicit in scenario.",
+        "layer": "conflict",
+        "reason": "Concerned residents anticipate moral condemnation from activists.",
+        "source_actor_name": "association_concerned_residents",
+        "target_actor_name": "housing_justice_activists",
+        "weight": 0.46
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Neighborhood association privately splits over proposal.",
+        "layer": "conflict",
+        "reason": "Internal split with incompatible preferences, moderated by shared desire to avoid open rupture.",
+        "source_actor_name": "association_supportive_residents",
+        "target_actor_name": "association_concerned_residents",
+        "weight": 0.41
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Service providers and nearby schools both involved.",
+        "layer": "conflict",
+        "reason": "Some parents worry provider plans understate school-adjacent impacts.",
+        "source_actor_name": "local_parents_network",
+        "target_actor_name": "service_provider_coalition",
+        "weight": 0.29
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Association depends on city process while privately split.",
+        "layer": "conflict",
+        "reason": "Potential friction over responsiveness and process legitimacy, not yet escalated.",
+        "source_actor_name": "maple_grove_neighborhood_association",
+        "target_actor_name": "city_housing_staff",
+        "weight": 0.26
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "City staff and association are both central actors.",
+        "layer": "oasis_interaction",
+        "reason": "Likely meetings, email exchanges, or hearings create recurring interaction.",
+        "source_actor_name": "maple_grove_neighborhood_association",
+        "target_actor_name": "city_housing_staff",
+        "weight": 0.47
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Activists involved in public-facing information dynamics.",
+        "layer": "oasis_interaction",
+        "reason": "Public comments, posts, or rallies may create visible interactions.",
+        "source_actor_name": "housing_justice_activists",
+        "target_actor_name": "neighborhood_public_audience",
+        "weight": 0.43
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Schools involved; parent network salient.",
+        "layer": "oasis_interaction",
+        "reason": "School channels likely host ongoing parent discussion and questions.",
+        "source_actor_name": "nearby_school_leadership",
+        "target_actor_name": "local_parents_network",
+        "weight": 0.51
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Providers and association both involved in proposed site issue.",
+        "layer": "oasis_interaction",
+        "reason": "Community briefings or question sessions are plausible contact points.",
+        "source_actor_name": "service_provider_coalition",
+        "target_actor_name": "maple_grove_neighborhood_association",
+        "weight": 0.35
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype_key": "city_process_lead",
+        "description": "Administrative actor with agenda and scheduling leverage.",
+        "label": "City process lead"
+      },
+      {
+        "archetype_key": "association_board_voice",
+        "description": "Visible neighborhood spokesperson role that can break or reinforce silence.",
+        "label": "Association board voice"
+      },
+      {
+        "archetype_key": "movement_messenger",
+        "description": "Activist or provider spokesperson shaping moral framing.",
+        "label": "Movement messenger"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "city_housing_staff",
+        "archetype_key": "city_process_lead",
+        "attention_level": 0.84,
+        "expression_level": 0.56,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.18,
+        "formal_power": 0.74,
+        "hero_key": "city_process_lead_01",
+        "informal_power": 0.49,
+        "mobilization_readiness": 0.61,
+        "perceived_majority": 0.5,
+        "role": "site process manager",
+        "salience": 0.78,
+        "stance_axes": {
+          "community_accommodation": 0.52,
+          "process_speed": 0.63,
+          "site_support": 0.7
+        }
+      },
+      {
+        "actor_name": "maple_grove_neighborhood_association",
+        "archetype_key": "association_board_voice",
+        "attention_level": 0.75,
+        "expression_level": 0.24,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.66,
+        "formal_power": 0.52,
+        "hero_key": "assoc_board_voice_01",
+        "informal_power": 0.58,
+        "mobilization_readiness": 0.38,
+        "perceived_majority": 0.47,
+        "role": "board or meeting chair proxy",
+        "salience": 0.69,
+        "stance_axes": {
+          "community_accommodation": 0.62,
+          "process_speed": 0.45,
+          "site_support": 0.5
+        }
+      },
+      {
+        "actor_name": "housing_justice_activists",
+        "archetype_key": "movement_messenger",
+        "attention_level": 0.79,
+        "expression_level": 0.71,
+        "fatigue": 0.26,
+        "fear_of_isolation": 0.17,
+        "formal_power": 0.2,
+        "hero_key": "movement_messenger_01",
+        "informal_power": 0.62,
+        "mobilization_readiness": 0.74,
+        "perceived_majority": 0.57,
+        "role": "public advocate",
+        "salience": 0.64,
+        "stance_axes": {
+          "community_accommodation": 0.34,
+          "process_speed": 0.72,
+          "site_support": 0.88
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "archetype_key": "city_process_lead",
+        "description": "Administrative actor with agenda and scheduling leverage.",
+        "label": "City process lead"
+      },
+      {
+        "archetype_key": "association_board_voice",
+        "description": "Visible neighborhood spokesperson role that can break or reinforce silence.",
+        "label": "Association board voice"
+      },
+      {
+        "archetype_key": "movement_messenger",
+        "description": "Activist or provider spokesperson shaping moral framing.",
+        "label": "Movement messenger"
+      }
+    ],
+    "important_questions": [
+      "Will the neighborhood association adopt a visible public position on the proposed site, or remain officially ambiguous/silent?",
+      "Does the proposed homeless-services site move forward substantially as proposed, get delayed/conditioned, or get redirected away from the current path?",
+      "Do nearby schools and parent networks become a coherent public pressure bloc rather than a background concern network?",
+      "Which frame becomes dominant in visible local discourse: moral inclusion, safety/process concern, or managed compromise?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "maple_grove_neighborhood_association",
+          "association_concerned_residents",
+          "association_supportive_residents"
+        ],
+        "event_key": "t0_private_split_exists",
+        "event_type": "announcement",
+        "expected_impact": "Sustains latent conflict and makes visible consensus unreliable.",
+        "summary": "The association is already internally split over the proposed homeless-services site.",
+        "tick": 0,
+        "visibility": "private"
+      },
+      {
+        "actors": [
+          "association_concerned_residents",
+          "association_supportive_residents"
+        ],
+        "event_key": "t0_public_comment_chill",
+        "event_type": "announcement",
+        "expected_impact": "Keeps expression low, raises pluralistic ignorance, and amplifies first-mover effects.",
+        "summary": "Most members withhold public comment due to identity-label risk.",
+        "tick": 0,
+        "visibility": "mixed"
+      },
+      {
+        "actors": [
+          "city_housing_staff",
+          "service_provider_coalition",
+          "maple_grove_neighborhood_association"
+        ],
+        "event_key": "t1_city_outreach_or_meeting_notice",
+        "event_type": "announcement",
+        "expected_impact": "Raises neighborhood attention and forces more actors to decide whether to speak publicly.",
+        "summary": "A city outreach notice or meeting agenda is expected to surface soon.",
+        "tick": 1,
+        "visibility": "public"
+      },
+      {
+        "actors": [
+          "nearby_school_leadership",
+          "local_parents_network"
+        ],
+        "event_key": "t2_school_channel_signal",
+        "event_type": "announcement",
+        "expected_impact": "Could sharply affect parent mobilization thresholds and perceived legitimacy of concerns.",
+        "summary": "Schools may issue a neutral clarification, concern memo, or meeting response depending on incoming pressure.",
+        "tick": 2,
+        "visibility": "semi_public"
+      },
+      {
+        "actors": [
+          "housing_justice_activists",
+          "neighborhood_public_audience"
+        ],
+        "event_key": "t2_activist_visibility_push",
+        "event_type": "announcement",
+        "expected_impact": "May reduce stigma for supporters while increasing silence among those fearing moral condemnation.",
+        "summary": "Activists may elevate the issue through visible public messaging.",
+        "tick": 2,
+        "visibility": "public"
+      }
+    ],
+    "llm_call_id": "e51437a8-c136-46c8-925a-0882c2e0f637",
+    "merge_hypotheses": [
+      {
+        "affected_actors": [
+          "city_housing_staff",
+          "service_provider_coalition",
+          "nearby_school_leadership",
+          "maple_grove_neighborhood_association"
+        ],
+        "mechanism": "A concrete mitigation and monitoring package reduces symbolic conflict by offering practical safeguards.",
+        "merge_key": "mitigation_package_convergence",
+        "why_it_could_merge": "Shared interest in avoiding chaos and preserving local legitimacy can bring cautious skeptics and quiet supporters closer."
+      },
+      {
+        "affected_actors": [
+          "maple_grove_neighborhood_association",
+          "local_parents_network",
+          "neighborhood_public_audience"
+        ],
+        "mechanism": "If no catalytic event occurs, attention decay and conflict aversion keep most actors from escalating.",
+        "merge_key": "fatigue_reduces_expression",
+        "why_it_could_merge": "Low-energy stalemate can flatten visible differences despite persistent private disagreement."
+      },
+      {
+        "affected_actors": [
+          "association_concerned_residents",
+          "association_supportive_residents",
+          "city_housing_staff"
+        ],
+        "mechanism": "Actors converge on demanding clearer process rules rather than fighting directly over moral identity.",
+        "merge_key": "common_process_norms",
+        "why_it_could_merge": "Process framing offers face-saving language across the split."
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "association_members",
+        "description": "Residents affiliated with the neighborhood association.",
+        "label": "Neighborhood association members",
+        "population_total": 180
+      },
+      {
+        "archetype_key": "parents_near_site",
+        "description": "Parents with children connected to nearby schools and local routines.",
+        "label": "Parents near proposed site",
+        "population_total": 420
+      },
+      {
+        "archetype_key": "general_neighbors",
+        "description": "Broader neighborhood public with varying attention and limited direct participation.",
+        "label": "General neighborhood residents",
+        "population_total": 2200
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "thin_process_evidence",
+        "note": "Source text does not specify formal decision body, legal timeline, or exact project stage.",
+        "severity": "medium"
+      },
+      {
+        "flag": "public_silence_distorts_observation",
+        "note": "Visible speech at T0 is a weak proxy for actual neighborhood preference distribution.",
+        "severity": "high"
+      },
+      {
+        "flag": "identity_label_pressure",
+        "note": "Fear of being labeled cruel or naive may cause preference falsification and sudden nonlinear shifts if silence breaks.",
+        "severity": "high"
+      },
+      {
+        "flag": "actor_name_fictionalization_applied",
+        "note": "Neighborhood and institutional names were fictionalized to satisfy civic scenario safety guidance.",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "media_information_dynamics",
+      "case_id": "media_003",
+      "mode": "direct",
+      "scenario_summary": "A fictional neighborhood association is privately split over a proposed homeless-services site. Many members avoid public comment due to fear of being labeled cruel or naive. Service providers, nearby schools, city staff, and activists are involved. T0 should emphasize public silence, perceived majority uncertainty, latent conflict, identity pressures, and attention dynamics.",
+      "setting_scale": "neighborhood_civic",
+      "time_horizon_ticks": 6,
+      "uncertainty_notes": [
+        "No named locality, timeline, or formal decision calendar provided in source text.",
+        "Strength of each side is ambiguous; private split is clear but exact proportions are not.",
+        "Institutional authority appears to sit with city staff and related city process, but final approver is not explicitly specified."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "evidence": "Most members avoid public comment.",
+        "level": 0.76,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "scope": "association_members"
+      },
+      {
+        "evidence": "Private split combined with low expression obscures actual balance of views.",
+        "level": 0.68,
+        "mechanism": "pluralistic_ignorance",
+        "model": "attention_decay",
+        "scope": "association_members"
+      },
+      {
+        "evidence": "Residents likely respond more to in-group and institutionally proximate messengers than out-group rhetoric.",
+        "level": 0.57,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "scope": "neighborhood_wide"
+      },
+      {
+        "evidence": "Many appear willing to act only if credible peers speak first.",
+        "level": 0.64,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "scope": "association_members_and_parents"
+      },
+      {
+        "evidence": "School-linked parents and association factions sort by trust and issue framing.",
+        "level": 0.55,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "scope": "parents_and_association_factions"
+      },
+      {
+        "evidence": "Breaking silence likely requires multiple visible signals, not one lone speaker.",
+        "level": 0.61,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "scope": "public_expression"
+      },
+      {
+        "evidence": "Members fear identity labels such as cruel or naive.",
+        "level": 0.7,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "scope": "issue_frame"
+      },
+      {
+        "evidence": "Broader public has low to moderate attention absent salient events.",
+        "level": 0.48,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "scope": "general_public"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context_key": "identity_label_risk",
+        "description": "Public comment is constrained by anticipated labels of cruel or naive, raising self-censorship and indirect framing."
+      },
+      {
+        "context_key": "private_public_gap",
+        "description": "Private preferences are more polarized than visible public discourse."
+      },
+      {
+        "context_key": "majority_signal_instability",
+        "description": "Visible minority speakers could be mistaken for majority opinion due to low baseline expression."
+      },
+      {
+        "context_key": "school_proximity_salience",
+        "description": "Nearby schools create a child-safety and routine-disruption lens that can activate otherwise quiet parents."
+      },
+      {
+        "context_key": "process_legitimacy_dependence",
+        "description": "City staff scheduling and communication choices can alter whether residents view the process as open, rushed, or foreclosed."
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "maple_grove_neighborhood_association",
+        "behavior_axes": {
+          "caution": 0.73,
+          "conflict_aversion": 0.79,
+          "expressiveness": 0.26,
+          "proceduralism": 0.58
+        },
+        "ideology_axes": {
+          "care_universalism": 0.54,
+          "communitarian_order": 0.56,
+          "institutional_trust": 0.49
+        },
+        "reputation": 0.55,
+        "secrecy": 0.57,
+        "tendency": "internally divided but externally restrained",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "association_concerned_residents",
+        "behavior_axes": {
+          "caution": 0.77,
+          "conflict_aversion": 0.67,
+          "expressiveness": 0.24,
+          "proceduralism": 0.71
+        },
+        "ideology_axes": {
+          "care_universalism": 0.41,
+          "communitarian_order": 0.7,
+          "institutional_trust": 0.43
+        },
+        "reputation": 0.51,
+        "secrecy": 0.69,
+        "tendency": "private opposition with reputational defensiveness",
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "association_supportive_residents",
+        "behavior_axes": {
+          "caution": 0.68,
+          "conflict_aversion": 0.71,
+          "expressiveness": 0.32,
+          "proceduralism": 0.49
+        },
+        "ideology_axes": {
+          "care_universalism": 0.75,
+          "communitarian_order": 0.44,
+          "institutional_trust": 0.56
+        },
+        "reputation": 0.57,
+        "secrecy": 0.6,
+        "tendency": "muted support due to naive-label concern",
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "service_provider_coalition",
+        "behavior_axes": {
+          "caution": 0.42,
+          "conflict_aversion": 0.34,
+          "expressiveness": 0.67,
+          "proceduralism": 0.46
+        },
+        "ideology_axes": {
+          "care_universalism": 0.87,
+          "communitarian_order": 0.38,
+          "institutional_trust": 0.59
+        },
+        "reputation": 0.6,
+        "secrecy": 0.24,
+        "tendency": "mission-driven advocacy with operational framing",
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "nearby_school_leadership",
+        "behavior_axes": {
+          "caution": 0.81,
+          "conflict_aversion": 0.62,
+          "expressiveness": 0.29,
+          "proceduralism": 0.74
+        },
+        "ideology_axes": {
+          "care_universalism": 0.58,
+          "communitarian_order": 0.68,
+          "institutional_trust": 0.61
+        },
+        "reputation": 0.66,
+        "secrecy": 0.46,
+        "tendency": "risk-sensitive and signal-conscious",
+        "trustworthiness": 0.67
+      },
+      {
+        "actor_name": "city_housing_staff",
+        "behavior_axes": {
+          "caution": 0.59,
+          "conflict_aversion": 0.45,
+          "expressiveness": 0.48,
+          "proceduralism": 0.83
+        },
+        "ideology_axes": {
+          "care_universalism": 0.73,
+          "communitarian_order": 0.47,
+          "institutional_trust": 0.78
+        },
+        "reputation": 0.57,
+        "secrecy": 0.31,
+        "tendency": "process-managing with moderate institutional confidence",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "housing_justice_activists",
+        "behavior_axes": {
+          "caution": 0.29,
+          "conflict_aversion": 0.21,
+          "expressiveness": 0.82,
+          "proceduralism": 0.27
+        },
+        "ideology_axes": {
+          "care_universalism": 0.89,
+          "communitarian_order": 0.24,
+          "institutional_trust": 0.41
+        },
+        "reputation": 0.49,
+        "secrecy": 0.18,
+        "tendency": "high-visibility moral pressure and mobilization",
+        "trustworthiness": 0.53
+      },
+      {
+        "actor_name": "local_parents_network",
+        "behavior_axes": {
+          "caution": 0.71,
+          "conflict_aversion": 0.58,
+          "expressiveness": 0.33,
+          "proceduralism": 0.51
+        },
+        "ideology_axes": {
+          "care_universalism": 0.57,
+          "communitarian_order": 0.63,
+          "institutional_trust": 0.52
+        },
+        "reputation": 0.56,
+        "secrecy": 0.38,
+        "tendency": "protective issue monitoring through peer channels",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "neighborhood_public_audience",
+        "behavior_axes": {
+          "caution": 0.49,
+          "conflict_aversion": 0.52,
+          "expressiveness": 0.14,
+          "proceduralism": 0.34
+        },
+        "ideology_axes": {
+          "care_universalism": 0.53,
+          "communitarian_order": 0.51,
+          "institutional_trust": 0.5
+        },
+        "reputation": 0.5,
+        "secrecy": 0.22,
+        "tendency": "low-attention inference from visible cues",
+        "trustworthiness": 0.5
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 476,
+        "end": 476,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 476,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

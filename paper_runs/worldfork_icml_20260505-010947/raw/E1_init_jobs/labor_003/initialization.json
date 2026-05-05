@@ -1,0 +1,1798 @@
+{
+  "big_bang_id": "1d75e9e1-d36d-47a2-94f7-cb2630bcc66c",
+  "initializer_output": {
+    "actors": [
+      {
+        "fictionalized": true,
+        "name": "adjunct_faculty",
+        "public_visibility": "medium",
+        "type": "labor_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "tenured_faculty",
+        "public_visibility": "medium",
+        "type": "labor_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "campus_labor_coalition",
+        "public_visibility": "medium",
+        "type": "coalition"
+      },
+      {
+        "fictionalized": true,
+        "name": "students",
+        "public_visibility": "high",
+        "type": "constituency"
+      },
+      {
+        "fictionalized": true,
+        "name": "university_administration",
+        "public_visibility": "high",
+        "type": "institution"
+      },
+      {
+        "fictionalized": true,
+        "name": "major_donors",
+        "public_visibility": "low",
+        "type": "elite_constituency"
+      },
+      {
+        "fictionalized": true,
+        "name": "accreditation_observers",
+        "public_visibility": "low",
+        "type": "external_institution"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Adjunct faculty publicly move toward joining the campus labor coalition.",
+        "branch_key": "adjunct_majority_crosses_threshold",
+        "divergence_signal": "Higher adjunct expression_level, coalition edge to campus_labor_coalition above 0.65, and visible meeting attendance or statement activity.",
+        "trigger": "Visible endorsements from enough adjunct peers and at least limited tenured validation."
+      },
+      {
+        "alternate_path": "Adjunct debate stalls, with cautious waiters dominating and public neutrality persisting.",
+        "branch_key": "fear_of_isolation_freezes_alignment",
+        "divergence_signal": "Expression levels remain low despite high attention; private support indicators outpace public endorsements.",
+        "trigger": "Support remains privately diffuse and no credible protective signal emerges."
+      },
+      {
+        "alternate_path": "Students tilt against coalition-linked escalation, strengthening administrative leverage.",
+        "branch_key": "student_continuity_backlash",
+        "divergence_signal": "Student public posts and surveys prioritize uninterrupted classes over solidarity claims.",
+        "trigger": "Messaging or rumors emphasize possible class disruption before labor legitimacy is broadly understood."
+      },
+      {
+        "alternate_path": "Administration offers limited listening sessions, reviews, or temporary adjustments that slow merger momentum.",
+        "branch_key": "administrative_soft_concession",
+        "divergence_signal": "Administrative messaging shifts toward consultation while coalition joining decision is deferred.",
+        "trigger": "Leadership judges that minor accommodations could defuse coalition expansion without formal recognition of broader demands."
+      },
+      {
+        "alternate_path": "Tenured faculty reduce adjunct isolation and create a broader faculty front short of total unity.",
+        "branch_key": "tenured_bridge_activation",
+        "divergence_signal": "Committee statements, co-signed letters, or cross-rank meetings become visible.",
+        "trigger": "Faculty governance moderates decide reputational or ethical pressure requires more visible support."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "department_meetings",
+        "primary_actors": [
+          "adjunct_faculty",
+          "tenured_faculty"
+        ],
+        "type": "internal_group",
+        "visibility": "semi_private"
+      },
+      {
+        "channel_key": "campus_labor_meetings",
+        "primary_actors": [
+          "adjunct_faculty",
+          "campus_labor_coalition",
+          "students"
+        ],
+        "type": "coalition_space",
+        "visibility": "semi_private"
+      },
+      {
+        "channel_key": "faculty_governance_bodies",
+        "primary_actors": [
+          "tenured_faculty",
+          "university_administration"
+        ],
+        "type": "institutional",
+        "visibility": "semi_public"
+      },
+      {
+        "channel_key": "student_social_channels",
+        "primary_actors": [
+          "students",
+          "adjunct_faculty",
+          "university_administration"
+        ],
+        "type": "networked_public",
+        "visibility": "public"
+      },
+      {
+        "channel_key": "administrative_email_updates",
+        "primary_actors": [
+          "university_administration",
+          "students",
+          "faculty"
+        ],
+        "type": "broadcast",
+        "visibility": "public"
+      },
+      {
+        "channel_key": "donor_backchannels",
+        "primary_actors": [
+          "major_donors",
+          "university_administration"
+        ],
+        "type": "elite_private",
+        "visibility": "private"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "adjunct_faculty",
+        "archetype_key": "adjunct_instructional_staff",
+        "attention_level": 0.86,
+        "behavioral_tendencies": [
+          "peer_canvassing",
+          "quiet_commitment_testing",
+          "issue_linkage_to_working_conditions"
+        ],
+        "cohort_key": "adjunct_pro_coalition",
+        "expression_level": 0.51,
+        "fatigue": 0.62,
+        "fear_of_isolation": 0.58,
+        "mobilization_readiness": 0.68,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.432,
+        "private_position": "favor joining broader labor coalition soon",
+        "public_position": "mixed; selective advocacy in internal channels",
+        "representation_mode": "faction",
+        "represented_population": 95,
+        "reputation": 0.48,
+        "secrecy": 0.44,
+        "stance_axes": {
+          "coalition_joining": 0.82,
+          "disruption_tolerance": 0.56,
+          "institutional_trust": 0.28,
+          "risk_acceptance": 0.52
+        },
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "adjunct_faculty",
+        "archetype_key": "adjunct_instructional_staff",
+        "attention_level": 0.74,
+        "behavioral_tendencies": [
+          "private_signal_checking",
+          "contingent_support",
+          "status_quo_hedging"
+        ],
+        "cohort_key": "adjunct_cautious_waiters",
+        "expression_level": 0.29,
+        "fatigue": 0.68,
+        "fear_of_isolation": 0.72,
+        "mobilization_readiness": 0.39,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.386,
+        "private_position": "open to coalition but waiting for viability and protections",
+        "public_position": "noncommittal",
+        "representation_mode": "faction",
+        "represented_population": 85,
+        "reputation": 0.5,
+        "secrecy": 0.63,
+        "stance_axes": {
+          "coalition_joining": 0.52,
+          "disruption_tolerance": 0.34,
+          "institutional_trust": 0.36,
+          "risk_acceptance": 0.31
+        },
+        "trustworthiness": 0.59
+      },
+      {
+        "actor_name": "adjunct_faculty",
+        "archetype_key": "adjunct_instructional_staff",
+        "attention_level": 0.66,
+        "behavioral_tendencies": [
+          "conflict_avoidance",
+          "private_dissent",
+          "schedule_security_focus"
+        ],
+        "cohort_key": "adjunct_anti_escalation",
+        "expression_level": 0.22,
+        "fatigue": 0.57,
+        "fear_of_isolation": 0.64,
+        "mobilization_readiness": 0.16,
+        "perceived_majority": 0.33,
+        "population_share_of_archetype": 0.182,
+        "private_position": "skeptical of joining broader coalition due to retaliation and instability concerns",
+        "public_position": "quiet caution",
+        "representation_mode": "faction",
+        "represented_population": 40,
+        "reputation": 0.46,
+        "secrecy": 0.61,
+        "stance_axes": {
+          "coalition_joining": 0.18,
+          "disruption_tolerance": 0.12,
+          "institutional_trust": 0.44,
+          "risk_acceptance": 0.18
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "tenured_faculty",
+        "archetype_key": "tenured_and_tenure_track_faculty",
+        "attention_level": 0.72,
+        "behavioral_tendencies": [
+          "proceduralism",
+          "behind_the_scenes_support",
+          "reputation_management"
+        ],
+        "cohort_key": "tenured_sympathetic_cautious",
+        "expression_level": 0.36,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.47,
+        "mobilization_readiness": 0.34,
+        "perceived_majority": 0.48,
+        "population_share_of_archetype": 0.607,
+        "private_position": "sympathetic to adjunct concerns and potentially supportive of coalition goals",
+        "public_position": "guarded support for dialogue rather than immediate alignment",
+        "representation_mode": "faction",
+        "represented_population": 85,
+        "reputation": 0.69,
+        "secrecy": 0.39,
+        "stance_axes": {
+          "coalition_joining": 0.58,
+          "disruption_tolerance": 0.29,
+          "institutional_trust": 0.49,
+          "risk_acceptance": 0.27
+        },
+        "trustworthiness": 0.67
+      },
+      {
+        "actor_name": "tenured_faculty",
+        "archetype_key": "tenured_and_tenure_track_faculty",
+        "attention_level": 0.63,
+        "behavioral_tendencies": [
+          "distance_keeping",
+          "committee_channeling",
+          "continuity_framing"
+        ],
+        "cohort_key": "tenured_status_guardians",
+        "expression_level": 0.33,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.38,
+        "mobilization_readiness": 0.18,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.393,
+        "private_position": "prefer limited sympathy without coalition entanglement",
+        "public_position": "emphasize institutional continuity",
+        "representation_mode": "faction",
+        "represented_population": 55,
+        "reputation": 0.66,
+        "secrecy": 0.34,
+        "stance_axes": {
+          "coalition_joining": 0.26,
+          "disruption_tolerance": 0.16,
+          "institutional_trust": 0.62,
+          "risk_acceptance": 0.2
+        },
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "students",
+        "archetype_key": "students_body",
+        "attention_level": 0.54,
+        "behavioral_tendencies": [
+          "service_expectation",
+          "reactive_attention",
+          "conditional_sympathy"
+        ],
+        "cohort_key": "students_continuity_first",
+        "expression_level": 0.27,
+        "fatigue": 0.32,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.65,
+        "private_position": "support fairness in principle but prioritize uninterrupted classes",
+        "public_position": "pragmatic concern about course availability",
+        "representation_mode": "sentiment_bloc",
+        "represented_population": 7800,
+        "reputation": 0.52,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "coalition_joining": 0.44,
+          "disruption_tolerance": 0.21,
+          "institutional_trust": 0.47,
+          "risk_acceptance": 0.24
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "students",
+        "archetype_key": "students_body",
+        "attention_level": 0.61,
+        "behavioral_tendencies": [
+          "cause_amplification",
+          "peer_norm_signaling",
+          "coalition_bridgework"
+        ],
+        "cohort_key": "students_solidarity_minded",
+        "expression_level": 0.49,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.51,
+        "mobilization_readiness": 0.45,
+        "perceived_majority": 0.29,
+        "population_share_of_archetype": 0.2,
+        "private_position": "inclined to support adjunct labor action if harms are explained as temporary and necessary",
+        "public_position": "visible advocacy in some campus spaces",
+        "representation_mode": "sentiment_bloc",
+        "represented_population": 2400,
+        "reputation": 0.47,
+        "secrecy": 0.22,
+        "stance_axes": {
+          "coalition_joining": 0.71,
+          "disruption_tolerance": 0.46,
+          "institutional_trust": 0.31,
+          "risk_acceptance": 0.42
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "students",
+        "archetype_key": "students_body",
+        "attention_level": 0.23,
+        "behavioral_tendencies": [
+          "attention_decay",
+          "late_entry",
+          "headline_response"
+        ],
+        "cohort_key": "students_disengaged",
+        "expression_level": 0.09,
+        "fatigue": 0.36,
+        "fear_of_isolation": 0.14,
+        "mobilization_readiness": 0.08,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.15,
+        "private_position": "low salience unless disruption becomes visible",
+        "public_position": "mostly silent",
+        "representation_mode": "sentiment_bloc",
+        "represented_population": 1800,
+        "reputation": 0.45,
+        "secrecy": 0.11,
+        "stance_axes": {
+          "coalition_joining": 0.39,
+          "disruption_tolerance": 0.18,
+          "institutional_trust": 0.41,
+          "risk_acceptance": 0.2
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "university_administration",
+        "archetype_key": "administrative_leadership",
+        "attention_level": 0.88,
+        "behavioral_tendencies": [
+          "risk_containment",
+          "message_discipline",
+          "process_delay"
+        ],
+        "cohort_key": "administrators_optics_managers",
+        "expression_level": 0.57,
+        "fatigue": 0.39,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.61,
+        "population_share_of_archetype": 1.0,
+        "private_position": "avoid labor escalation and visible instability that could affect accreditation optics",
+        "public_position": "monitoring and continuity reassurance",
+        "representation_mode": "institutional_bloc",
+        "represented_population": 35,
+        "reputation": 0.54,
+        "secrecy": 0.66,
+        "stance_axes": {
+          "coalition_joining": 0.12,
+          "disruption_tolerance": 0.14,
+          "institutional_trust": 0.78,
+          "risk_acceptance": 0.19
+        },
+        "trustworthiness": 0.46
+      },
+      {
+        "actor_name": "major_donors",
+        "archetype_key": "donor_network",
+        "attention_level": 0.49,
+        "behavioral_tendencies": [
+          "elite_backchanneling",
+          "stability_conditioning",
+          "reputational_pressure"
+        ],
+        "cohort_key": "disruption_averse_donors",
+        "expression_level": 0.14,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.09,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.58,
+        "population_share_of_archetype": 1.0,
+        "private_position": "oppose visible disruption and pressure leadership to preserve stability",
+        "public_position": "mostly private signaling through relationships",
+        "representation_mode": "network_bloc",
+        "represented_population": 180,
+        "reputation": 0.59,
+        "secrecy": 0.74,
+        "stance_axes": {
+          "coalition_joining": 0.08,
+          "disruption_tolerance": 0.1,
+          "institutional_trust": 0.71,
+          "risk_acceptance": 0.17
+        },
+        "trustworthiness": 0.43
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "adjunct_faculty",
+        "archetype_key": "adjunct_instructional_staff",
+        "attention_level": 0.86,
+        "behavioral_tendencies": [
+          "peer_canvassing",
+          "quiet_commitment_testing",
+          "issue_linkage_to_working_conditions"
+        ],
+        "cohort_key": "adjunct_pro_coalition",
+        "expression_level": 0.51,
+        "fatigue": 0.62,
+        "fear_of_isolation": 0.58,
+        "mobilization_readiness": 0.68,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.432,
+        "private_position": "favor joining broader labor coalition soon",
+        "public_position": "mixed; selective advocacy in internal channels",
+        "representation_mode": "faction",
+        "represented_population": 95,
+        "reputation": 0.48,
+        "secrecy": 0.44,
+        "stance_axes": {
+          "coalition_joining": 0.82,
+          "disruption_tolerance": 0.56,
+          "institutional_trust": 0.28,
+          "risk_acceptance": 0.52
+        },
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "adjunct_faculty",
+        "archetype_key": "adjunct_instructional_staff",
+        "attention_level": 0.74,
+        "behavioral_tendencies": [
+          "private_signal_checking",
+          "contingent_support",
+          "status_quo_hedging"
+        ],
+        "cohort_key": "adjunct_cautious_waiters",
+        "expression_level": 0.29,
+        "fatigue": 0.68,
+        "fear_of_isolation": 0.72,
+        "mobilization_readiness": 0.39,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.386,
+        "private_position": "open to coalition but waiting for viability and protections",
+        "public_position": "noncommittal",
+        "representation_mode": "faction",
+        "represented_population": 85,
+        "reputation": 0.5,
+        "secrecy": 0.63,
+        "stance_axes": {
+          "coalition_joining": 0.52,
+          "disruption_tolerance": 0.34,
+          "institutional_trust": 0.36,
+          "risk_acceptance": 0.31
+        },
+        "trustworthiness": 0.59
+      },
+      {
+        "actor_name": "adjunct_faculty",
+        "archetype_key": "adjunct_instructional_staff",
+        "attention_level": 0.66,
+        "behavioral_tendencies": [
+          "conflict_avoidance",
+          "private_dissent",
+          "schedule_security_focus"
+        ],
+        "cohort_key": "adjunct_anti_escalation",
+        "expression_level": 0.22,
+        "fatigue": 0.57,
+        "fear_of_isolation": 0.64,
+        "mobilization_readiness": 0.16,
+        "perceived_majority": 0.33,
+        "population_share_of_archetype": 0.182,
+        "private_position": "skeptical of joining broader coalition due to retaliation and instability concerns",
+        "public_position": "quiet caution",
+        "representation_mode": "faction",
+        "represented_population": 40,
+        "reputation": 0.46,
+        "secrecy": 0.61,
+        "stance_axes": {
+          "coalition_joining": 0.18,
+          "disruption_tolerance": 0.12,
+          "institutional_trust": 0.44,
+          "risk_acceptance": 0.18
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "tenured_faculty",
+        "archetype_key": "tenured_and_tenure_track_faculty",
+        "attention_level": 0.72,
+        "behavioral_tendencies": [
+          "proceduralism",
+          "behind_the_scenes_support",
+          "reputation_management"
+        ],
+        "cohort_key": "tenured_sympathetic_cautious",
+        "expression_level": 0.36,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.47,
+        "mobilization_readiness": 0.34,
+        "perceived_majority": 0.48,
+        "population_share_of_archetype": 0.607,
+        "private_position": "sympathetic to adjunct concerns and potentially supportive of coalition goals",
+        "public_position": "guarded support for dialogue rather than immediate alignment",
+        "representation_mode": "faction",
+        "represented_population": 85,
+        "reputation": 0.69,
+        "secrecy": 0.39,
+        "stance_axes": {
+          "coalition_joining": 0.58,
+          "disruption_tolerance": 0.29,
+          "institutional_trust": 0.49,
+          "risk_acceptance": 0.27
+        },
+        "trustworthiness": 0.67
+      },
+      {
+        "actor_name": "tenured_faculty",
+        "archetype_key": "tenured_and_tenure_track_faculty",
+        "attention_level": 0.63,
+        "behavioral_tendencies": [
+          "distance_keeping",
+          "committee_channeling",
+          "continuity_framing"
+        ],
+        "cohort_key": "tenured_status_guardians",
+        "expression_level": 0.33,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.38,
+        "mobilization_readiness": 0.18,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.393,
+        "private_position": "prefer limited sympathy without coalition entanglement",
+        "public_position": "emphasize institutional continuity",
+        "representation_mode": "faction",
+        "represented_population": 55,
+        "reputation": 0.66,
+        "secrecy": 0.34,
+        "stance_axes": {
+          "coalition_joining": 0.26,
+          "disruption_tolerance": 0.16,
+          "institutional_trust": 0.62,
+          "risk_acceptance": 0.2
+        },
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "students",
+        "archetype_key": "students_body",
+        "attention_level": 0.54,
+        "behavioral_tendencies": [
+          "service_expectation",
+          "reactive_attention",
+          "conditional_sympathy"
+        ],
+        "cohort_key": "students_continuity_first",
+        "expression_level": 0.27,
+        "fatigue": 0.32,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.65,
+        "private_position": "support fairness in principle but prioritize uninterrupted classes",
+        "public_position": "pragmatic concern about course availability",
+        "representation_mode": "sentiment_bloc",
+        "represented_population": 7800,
+        "reputation": 0.52,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "coalition_joining": 0.44,
+          "disruption_tolerance": 0.21,
+          "institutional_trust": 0.47,
+          "risk_acceptance": 0.24
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "students",
+        "archetype_key": "students_body",
+        "attention_level": 0.61,
+        "behavioral_tendencies": [
+          "cause_amplification",
+          "peer_norm_signaling",
+          "coalition_bridgework"
+        ],
+        "cohort_key": "students_solidarity_minded",
+        "expression_level": 0.49,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.51,
+        "mobilization_readiness": 0.45,
+        "perceived_majority": 0.29,
+        "population_share_of_archetype": 0.2,
+        "private_position": "inclined to support adjunct labor action if harms are explained as temporary and necessary",
+        "public_position": "visible advocacy in some campus spaces",
+        "representation_mode": "sentiment_bloc",
+        "represented_population": 2400,
+        "reputation": 0.47,
+        "secrecy": 0.22,
+        "stance_axes": {
+          "coalition_joining": 0.71,
+          "disruption_tolerance": 0.46,
+          "institutional_trust": 0.31,
+          "risk_acceptance": 0.42
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "students",
+        "archetype_key": "students_body",
+        "attention_level": 0.23,
+        "behavioral_tendencies": [
+          "attention_decay",
+          "late_entry",
+          "headline_response"
+        ],
+        "cohort_key": "students_disengaged",
+        "expression_level": 0.09,
+        "fatigue": 0.36,
+        "fear_of_isolation": 0.14,
+        "mobilization_readiness": 0.08,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.15,
+        "private_position": "low salience unless disruption becomes visible",
+        "public_position": "mostly silent",
+        "representation_mode": "sentiment_bloc",
+        "represented_population": 1800,
+        "reputation": 0.45,
+        "secrecy": 0.11,
+        "stance_axes": {
+          "coalition_joining": 0.39,
+          "disruption_tolerance": 0.18,
+          "institutional_trust": 0.41,
+          "risk_acceptance": 0.2
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "university_administration",
+        "archetype_key": "administrative_leadership",
+        "attention_level": 0.88,
+        "behavioral_tendencies": [
+          "risk_containment",
+          "message_discipline",
+          "process_delay"
+        ],
+        "cohort_key": "administrators_optics_managers",
+        "expression_level": 0.57,
+        "fatigue": 0.39,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.61,
+        "population_share_of_archetype": 1.0,
+        "private_position": "avoid labor escalation and visible instability that could affect accreditation optics",
+        "public_position": "monitoring and continuity reassurance",
+        "representation_mode": "institutional_bloc",
+        "represented_population": 35,
+        "reputation": 0.54,
+        "secrecy": 0.66,
+        "stance_axes": {
+          "coalition_joining": 0.12,
+          "disruption_tolerance": 0.14,
+          "institutional_trust": 0.78,
+          "risk_acceptance": 0.19
+        },
+        "trustworthiness": 0.46
+      },
+      {
+        "actor_name": "major_donors",
+        "archetype_key": "donor_network",
+        "attention_level": 0.49,
+        "behavioral_tendencies": [
+          "elite_backchanneling",
+          "stability_conditioning",
+          "reputational_pressure"
+        ],
+        "cohort_key": "disruption_averse_donors",
+        "expression_level": 0.14,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.09,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.58,
+        "population_share_of_archetype": 1.0,
+        "private_position": "oppose visible disruption and pressure leadership to preserve stability",
+        "public_position": "mostly private signaling through relationships",
+        "representation_mode": "network_bloc",
+        "represented_population": 180,
+        "reputation": 0.59,
+        "secrecy": 0.74,
+        "stance_axes": {
+          "coalition_joining": 0.08,
+          "disruption_tolerance": 0.1,
+          "institutional_trust": 0.71,
+          "risk_acceptance": 0.17
+        },
+        "trustworthiness": 0.43
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "adjunct_faculty",
+          "campus_labor_coalition"
+        ],
+        "blockers": [
+          "Fear of isolation among cautious adjuncts",
+          "Employment dependence on administration",
+          "Lack of visible tenured backing"
+        ],
+        "contradiction_notes": "No source evidence shows a completed vote or public declaration at initialization.",
+        "description": "Adjunct faculty reach a recognizable formal alignment with the broader campus labor coalition.",
+        "endpoint_key": "adjuncts_formally_join_coalition",
+        "evidence_refs": [
+          "Adjunct faculty debate whether to join a broader campus labor coalition.",
+          "Initialize internal faction pressure and possible merge paths."
+        ],
+        "label": "Adjuncts Formally Join Coalition",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will adjunct faculty formally align with the broader campus labor coalition within the simulation horizon?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.46,
+        "rationale": "This is the clearest terminal choice implied by the scenario.",
+        "realization_criteria": [
+          "A public statement, vote result, or official coalition roster confirms adjunct participation.",
+          "Adjunct actor coalition edge to campus_labor_coalition is evidenced by formal shared actions rather than discussion alone."
+        ],
+        "status": "active",
+        "status_basis": "Debate is active but no formal decision is described at T0."
+      },
+      {
+        "authority_refs": [
+          "adjunct_faculty",
+          "university_administration"
+        ],
+        "blockers": [
+          "Successful organizer threshold crossing",
+          "Tenured bridge support",
+          "Perception that coalition raises bargaining power without intolerable disruption"
+        ],
+        "contradiction_notes": "Non-alignment can coexist with sympathy and limited issue coordination; endpoint requires absence of formal joining.",
+        "description": "Adjunct faculty do not formally join the broader coalition during the relevant horizon, whether through delay, quiet rejection, or fragmentation.",
+        "endpoint_key": "adjuncts_remain_unaligned",
+        "evidence_refs": [
+          "Adjunct faculty debate whether to join a broader campus labor coalition.",
+          "Do not make all faculty publicly aligned at T0."
+        ],
+        "label": "Adjuncts Remain Unaligned",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will tenured faculty move from private sympathy to visible public support for adjunct coalition alignment?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.34,
+        "rationale": "Preserves realistic possibility of stalemate or deferral rather than forcing escalation.",
+        "realization_criteria": [
+          "No formal coalition alignment occurs by horizon end.",
+          "Internal or public evidence shows continued division, postponement, or explicit decision not to join."
+        ],
+        "status": "active",
+        "status_basis": "Internal split and caution make non-alignment a credible endpoint."
+      },
+      {
+        "authority_refs": [
+          "tenured_faculty",
+          "faculty_governance_moderates"
+        ],
+        "blockers": [
+          "Procedural caution",
+          "Reputation risk",
+          "Preference for informal support only"
+        ],
+        "contradiction_notes": "Visible support does not require unanimous tenured alignment.",
+        "description": "Tenured faculty visibly endorse adjunct concerns or coalition linkage beyond private sympathy.",
+        "endpoint_key": "tenured_public_support_emerges",
+        "evidence_refs": [
+          "Tenured faculty are sympathetic but cautious.",
+          "Do not make all faculty publicly aligned at T0."
+        ],
+        "label": "Tenured Public Support Emerges",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "If tensions become public, will student opinion consolidate more around course continuity than labor solidarity?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.39,
+        "rationale": "Tenured behavior is a major threshold variable affecting adjunct fear of isolation.",
+        "realization_criteria": [
+          "A public statement, vote, letter, or governance action shows visible tenured support.",
+          "Tenured expression level and coalition signaling become publicly observable."
+        ],
+        "status": "active",
+        "status_basis": "Sympathy exists, but public endorsement is unresolved."
+      },
+      {
+        "authority_refs": [
+          "students",
+          "university_administration"
+        ],
+        "blockers": [
+          "Effective fairness-plus-continuity framing by adjuncts",
+          "Limited disruption visibility",
+          "Strong student solidarity activation"
+        ],
+        "contradiction_notes": "Students can be sympathetic in principle while still realizing this endpoint if continuity becomes decisive in public behavior.",
+        "description": "Student opinion becomes sufficiently continuity-focused that it strengthens administrative incentives to contain coalition expansion.",
+        "endpoint_key": "student_continuity_coalition_backstops_containment",
+        "evidence_refs": [
+          "Students care about course availability."
+        ],
+        "label": "Student Continuity Bloc Backs Containment",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will university administration primarily respond with limited concessions and process openings, or with containment and delay?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.43,
+        "rationale": "Student reaction can materially shift leverage without being the formal decision authority.",
+        "realization_criteria": [
+          "Student public discourse, surveys, petitions, or attendance patterns show continuity concerns outweigh solidarity framing.",
+          "Administration cites student continuity expectations as basis for response."
+        ],
+        "status": "active",
+        "status_basis": "Student concern is established, but not yet consolidated into an overt political stance at T0."
+      },
+      {
+        "authority_refs": [
+          "university_administration",
+          "administrative_leadership_core"
+        ],
+        "blockers": [
+          "Donor pressure for hard containment",
+          "Organizer skepticism",
+          "Visible escalation that outpaces procedural management"
+        ],
+        "contradiction_notes": "This endpoint is terminal only if it successfully stabilizes the coalition question over the horizon; otherwise it is merely a mechanism.",
+        "description": "Administration adopts limited process openings or temporary accommodations that reduce pressure without resolving the deeper coalition question on labor terms.",
+        "endpoint_key": "administration_uses_soft_concessions_to_defuse",
+        "evidence_refs": [
+          "Administrators worry about accreditation optics.",
+          "State continuity focus implied in expected focus."
+        ],
+        "label": "Administration Uses Soft Concessions to Defuse",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will university administration primarily respond with limited concessions and process openings, or with containment and delay?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.51,
+        "rationale": "Process concessions are a plausible outcome-relevant endpoint in a bounded simulation if they prevent formal coalition merger.",
+        "realization_criteria": [
+          "Leadership announces listening sessions, reviews, temporary measures, or procedural inclusion tied to labor concerns.",
+          "Coalition escalation slows without a full terminal labor settlement."
+        ],
+        "status": "active",
+        "status_basis": "Optics-sensitive leadership has incentives to preserve continuity through reversible process moves."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "Tenured faculty are sympathetic but cautious.",
+        "layer": "exposure",
+        "reason": "Adjunct concerns are visible to sympathetic tenured peers through departmental contact.",
+        "source_actor_name": "adjunct_faculty",
+        "target_actor_name": "tenured_faculty",
+        "weight": 0.48
+      },
+      {
+        "direction": "directed",
+        "evidence": "Adjunct debate includes internal faction pressure and concern about alignment.",
+        "layer": "exposure",
+        "reason": "Tenured statements and cues are noticed by adjuncts as viability signals.",
+        "source_actor_name": "tenured_faculty",
+        "target_actor_name": "adjunct_faculty",
+        "weight": 0.42
+      },
+      {
+        "direction": "directed",
+        "evidence": "Students care about course availability.",
+        "layer": "exposure",
+        "reason": "Students can observe adjunct sentiment indirectly through course interactions and campus discussion.",
+        "source_actor_name": "adjunct_faculty",
+        "target_actor_name": "students",
+        "weight": 0.31
+      },
+      {
+        "direction": "directed",
+        "evidence": "Students care about course availability.",
+        "layer": "exposure",
+        "reason": "Student concerns feed back into adjunct calculations about disruption tolerance.",
+        "source_actor_name": "students",
+        "target_actor_name": "adjunct_faculty",
+        "weight": 0.27
+      },
+      {
+        "direction": "directed",
+        "evidence": "Administrators worry about accreditation optics.",
+        "layer": "exposure",
+        "reason": "Administration can broadcast continuity messaging to students.",
+        "source_actor_name": "university_administration",
+        "target_actor_name": "students",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "Adjunct faculty debate whether to join a broader campus labor coalition.",
+        "layer": "exposure",
+        "reason": "Coalition outreach likely reaches debating adjuncts.",
+        "source_actor_name": "campus_labor_coalition",
+        "target_actor_name": "adjunct_faculty",
+        "weight": 0.51
+      },
+      {
+        "direction": "directed",
+        "evidence": "Donors dislike disruption.",
+        "layer": "exposure",
+        "reason": "Private donor concern is visible to leadership through relationship channels.",
+        "source_actor_name": "major_donors",
+        "target_actor_name": "university_administration",
+        "weight": 0.22
+      },
+      {
+        "direction": "directed",
+        "evidence": "Tenured faculty are sympathetic but cautious.",
+        "layer": "trust",
+        "reason": "Adjuncts see tenured faculty as potentially supportive but not fully reliable for public alignment.",
+        "source_actor_name": "adjunct_faculty",
+        "target_actor_name": "tenured_faculty",
+        "weight": 0.45
+      },
+      {
+        "direction": "directed",
+        "evidence": "Tenured faculty are sympathetic.",
+        "layer": "trust",
+        "reason": "Sympathy implies belief in legitimacy of adjunct concerns.",
+        "source_actor_name": "tenured_faculty",
+        "target_actor_name": "adjunct_faculty",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "Students care about course availability.",
+        "layer": "trust",
+        "reason": "Students may view adjunct concerns as partly legitimate but filtered through service concerns.",
+        "source_actor_name": "students",
+        "target_actor_name": "adjunct_faculty",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "Students care about course availability.",
+        "layer": "trust",
+        "reason": "Students maintain moderate baseline reliance on administration for continuity information.",
+        "source_actor_name": "students",
+        "target_actor_name": "university_administration",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "Administrators worry about accreditation optics.",
+        "layer": "trust",
+        "reason": "Administration treats accreditation-relevant standards as authoritative.",
+        "source_actor_name": "university_administration",
+        "target_actor_name": "accreditation_observers",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "Students care about course availability.",
+        "layer": "dependency",
+        "reason": "Course availability depends materially on adjunct instruction.",
+        "source_actor_name": "students",
+        "target_actor_name": "adjunct_faculty",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "University setting with adjunct precarity implied by labor dependency benchmark.",
+        "layer": "dependency",
+        "reason": "Adjunct employment and scheduling are institutionally controlled by administration.",
+        "source_actor_name": "adjunct_faculty",
+        "target_actor_name": "university_administration",
+        "weight": 0.59
+      },
+      {
+        "direction": "directed",
+        "evidence": "Students care about course availability; adjunct role central to course delivery.",
+        "layer": "dependency",
+        "reason": "Administration relies on adjunct labor for instructional continuity.",
+        "source_actor_name": "university_administration",
+        "target_actor_name": "adjunct_faculty",
+        "weight": 0.54
+      },
+      {
+        "direction": "directed",
+        "evidence": "Donors dislike disruption.",
+        "layer": "dependency",
+        "reason": "Leadership has some resource and relationship sensitivity to donor reactions.",
+        "source_actor_name": "university_administration",
+        "target_actor_name": "major_donors",
+        "weight": 0.34
+      },
+      {
+        "direction": "directed",
+        "evidence": "Administrators worry about accreditation optics.",
+        "layer": "dependency",
+        "reason": "Institutional legitimacy is sensitive to accreditation-related optics.",
+        "source_actor_name": "university_administration",
+        "target_actor_name": "accreditation_observers",
+        "weight": 0.47
+      },
+      {
+        "direction": "directed",
+        "evidence": "Administrators worry about accreditation optics.",
+        "layer": "influence",
+        "reason": "Leadership controls formal processes, messaging, and operational levers affecting adjunct choices.",
+        "source_actor_name": "university_administration",
+        "target_actor_name": "adjunct_faculty",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "Tenured faculty are sympathetic but cautious.",
+        "layer": "influence",
+        "reason": "Tenured cues can legitimize or dampen adjunct coalition moves.",
+        "source_actor_name": "tenured_faculty",
+        "target_actor_name": "adjunct_faculty",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "Adjunct faculty debate whether to join a broader campus labor coalition.",
+        "layer": "influence",
+        "reason": "Coalition can frame joining as strategic and normal.",
+        "source_actor_name": "campus_labor_coalition",
+        "target_actor_name": "adjunct_faculty",
+        "weight": 0.53
+      },
+      {
+        "direction": "directed",
+        "evidence": "Donors dislike disruption.",
+        "layer": "influence",
+        "reason": "Donors exert private pressure for stability.",
+        "source_actor_name": "major_donors",
+        "target_actor_name": "university_administration",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "Students care about course availability.",
+        "layer": "influence",
+        "reason": "Student continuity concerns can shape administrative response and messaging tone.",
+        "source_actor_name": "students",
+        "target_actor_name": "university_administration",
+        "weight": 0.36
+      },
+      {
+        "direction": "directed",
+        "evidence": "Administrators worry about accreditation optics.",
+        "layer": "influence",
+        "reason": "Accreditation optics shape leadership risk calculations even without direct intervention.",
+        "source_actor_name": "accreditation_observers",
+        "target_actor_name": "university_administration",
+        "weight": 0.39
+      },
+      {
+        "direction": "directed",
+        "evidence": "Adjunct faculty debate whether to join a broader campus labor coalition.",
+        "layer": "coalition",
+        "reason": "Adjuncts are actively considering alignment but have not fully joined.",
+        "source_actor_name": "adjunct_faculty",
+        "target_actor_name": "campus_labor_coalition",
+        "weight": 0.49
+      },
+      {
+        "direction": "directed",
+        "evidence": "Tenured faculty are sympathetic but cautious; do not make all faculty publicly aligned at T0.",
+        "layer": "coalition",
+        "reason": "Sympathy creates latent alignment without public unity.",
+        "source_actor_name": "tenured_faculty",
+        "target_actor_name": "adjunct_faculty",
+        "weight": 0.38
+      },
+      {
+        "direction": "directed",
+        "evidence": "Students care about course availability.",
+        "layer": "coalition",
+        "reason": "A minority of students are solidarity-minded, but campus-wide alignment is limited.",
+        "source_actor_name": "students",
+        "target_actor_name": "adjunct_faculty",
+        "weight": 0.24
+      },
+      {
+        "direction": "directed",
+        "evidence": "Donors dislike disruption; administrators worry about accreditation optics.",
+        "layer": "coalition",
+        "reason": "Both prefer continuity and low disruption, though their interests are not identical.",
+        "source_actor_name": "university_administration",
+        "target_actor_name": "major_donors",
+        "weight": 0.32
+      },
+      {
+        "direction": "directed",
+        "evidence": "Adjunct faculty debate whether to join a broader campus labor coalition.",
+        "layer": "conflict",
+        "reason": "Potential labor dispute exists over whether broader coalition alignment is necessary or acceptable.",
+        "source_actor_name": "adjunct_faculty",
+        "target_actor_name": "university_administration",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "Administrators worry about accreditation optics.",
+        "layer": "conflict",
+        "reason": "Broader labor coalition raises risk of disruption and optics damage from administration's perspective.",
+        "source_actor_name": "university_administration",
+        "target_actor_name": "campus_labor_coalition",
+        "weight": 0.43
+      },
+      {
+        "direction": "directed",
+        "evidence": "Donors dislike disruption.",
+        "layer": "conflict",
+        "reason": "Donors dislike disruption associated with coalition activity.",
+        "source_actor_name": "major_donors",
+        "target_actor_name": "campus_labor_coalition",
+        "weight": 0.37
+      },
+      {
+        "direction": "directed",
+        "evidence": "Students care about course availability.",
+        "layer": "conflict",
+        "reason": "Students may resent coalition activity if it threatens course continuity.",
+        "source_actor_name": "students",
+        "target_actor_name": "campus_labor_coalition",
+        "weight": 0.28
+      },
+      {
+        "direction": "directed",
+        "evidence": "Tenured faculty are sympathetic but cautious.",
+        "layer": "conflict",
+        "reason": "Sympathetic faculty may quietly disagree with hardline containment approaches.",
+        "source_actor_name": "tenured_faculty",
+        "target_actor_name": "university_administration",
+        "weight": 0.21
+      },
+      {
+        "direction": "directed",
+        "evidence": "Adjunct faculty debate whether to join a broader campus labor coalition.",
+        "layer": "oasis_interaction",
+        "reason": "Likely recurring interaction in meetings, chats, and organizing spaces.",
+        "source_actor_name": "adjunct_faculty",
+        "target_actor_name": "campus_labor_coalition",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "Tenured faculty are sympathetic but cautious.",
+        "layer": "oasis_interaction",
+        "reason": "Cross-faculty conversations are likely as adjuncts test sympathy levels.",
+        "source_actor_name": "adjunct_faculty",
+        "target_actor_name": "tenured_faculty",
+        "weight": 0.43
+      },
+      {
+        "direction": "directed",
+        "evidence": "Students care about course availability.",
+        "layer": "oasis_interaction",
+        "reason": "Public-facing course contexts create some interaction around continuity concerns.",
+        "source_actor_name": "students",
+        "target_actor_name": "adjunct_faculty",
+        "weight": 0.26
+      },
+      {
+        "direction": "directed",
+        "evidence": "Tenured faculty are cautious; administrators monitor optics.",
+        "layer": "oasis_interaction",
+        "reason": "Governance and continuity discussions are likely in official channels.",
+        "source_actor_name": "university_administration",
+        "target_actor_name": "tenured_faculty",
+        "weight": 0.31
+      },
+      {
+        "direction": "directed",
+        "evidence": "Students care about course availability.",
+        "layer": "oasis_interaction",
+        "reason": "Student-facing updates are a likely communication channel if tensions become visible.",
+        "source_actor_name": "university_administration",
+        "target_actor_name": "students",
+        "weight": 0.37
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "base_actor_name": "adjunct_faculty",
+        "hero_key": "adjunct_organizer_cluster",
+        "label": "Adjunct Organizer Cluster"
+      },
+      {
+        "base_actor_name": "tenured_faculty",
+        "hero_key": "faculty_governance_moderates",
+        "label": "Faculty Governance Moderates"
+      },
+      {
+        "base_actor_name": "university_administration",
+        "hero_key": "administrative_leadership_core",
+        "label": "Administrative Leadership Core"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "adjunct_faculty",
+        "attention_level": 0.9,
+        "expression_level": 0.56,
+        "fatigue": 0.64,
+        "fear_of_isolation": 0.49,
+        "graph_influence_summary": "High within adjunct discussions, moderate bridge potential to students and labor coalition, limited formal authority.",
+        "hero_key": "adjunct_organizer_cluster",
+        "mobilization_readiness": 0.72,
+        "perceived_majority": 0.44,
+        "reputation": 0.49,
+        "role": "informal organizers",
+        "secrecy": 0.47,
+        "stance_axes": {
+          "coalition_joining": 0.86,
+          "disruption_tolerance": 0.59,
+          "institutional_trust": 0.22,
+          "risk_acceptance": 0.55
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "tenured_faculty",
+        "attention_level": 0.71,
+        "expression_level": 0.34,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.41,
+        "graph_influence_summary": "Moderate agenda influence through governance norms, can legitimize or slow cross-faculty alignment.",
+        "hero_key": "faculty_governance_moderates",
+        "mobilization_readiness": 0.31,
+        "perceived_majority": 0.5,
+        "reputation": 0.72,
+        "role": "committee and senate influencers",
+        "secrecy": 0.36,
+        "stance_axes": {
+          "coalition_joining": 0.54,
+          "disruption_tolerance": 0.27,
+          "institutional_trust": 0.53,
+          "risk_acceptance": 0.24
+        },
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "university_administration",
+        "attention_level": 0.89,
+        "expression_level": 0.58,
+        "fatigue": 0.38,
+        "fear_of_isolation": 0.1,
+        "graph_influence_summary": "Highest formal authority on process timing, messaging, and concession framing; indirectly sensitive to donors and accreditation optics.",
+        "hero_key": "administrative_leadership_core",
+        "mobilization_readiness": 0.55,
+        "perceived_majority": 0.63,
+        "reputation": 0.55,
+        "role": "decision authority over institutional response",
+        "secrecy": 0.68,
+        "stance_axes": {
+          "coalition_joining": 0.11,
+          "disruption_tolerance": 0.13,
+          "institutional_trust": 0.81,
+          "risk_acceptance": 0.18
+        },
+        "trustworthiness": 0.45
+      }
+    ],
+    "heroes": [
+      {
+        "base_actor_name": "adjunct_faculty",
+        "hero_key": "adjunct_organizer_cluster",
+        "label": "Adjunct Organizer Cluster"
+      },
+      {
+        "base_actor_name": "tenured_faculty",
+        "hero_key": "faculty_governance_moderates",
+        "label": "Faculty Governance Moderates"
+      },
+      {
+        "base_actor_name": "university_administration",
+        "hero_key": "administrative_leadership_core",
+        "label": "Administrative Leadership Core"
+      }
+    ],
+    "important_questions": [
+      "Will adjunct faculty formally align with the broader campus labor coalition within the simulation horizon?",
+      "Will tenured faculty move from private sympathy to visible public support for adjunct coalition alignment?",
+      "If tensions become public, will student opinion consolidate more around course continuity than labor solidarity?",
+      "Will university administration primarily respond with limited concessions and process openings, or with containment and delay?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "adjunct_faculty"
+        ],
+        "event_key": "adjunct_internal_deliberation",
+        "event_type": "announcement",
+        "expected_impact": "May shift public expression, mobilization readiness, and internal faction balance without immediate public unity.",
+        "summary": "Adjunct faculty continue internal debate over whether joining the broader labor coalition would improve leverage or raise unacceptable risk.",
+        "tick": 0,
+        "visibility": "semi_private"
+      },
+      {
+        "actors": [
+          "campus_labor_coalition",
+          "adjunct_faculty"
+        ],
+        "event_key": "coalition_outreach_round",
+        "event_type": "announcement",
+        "expected_impact": "Could raise coalition and influence edges if outreach reduces fear of isolation or offers concrete protections.",
+        "summary": "Broader campus labor coalition conducts another outreach and framing push toward adjuncts.",
+        "tick": 1,
+        "visibility": "semi_private"
+      },
+      {
+        "actors": [
+          "tenured_faculty",
+          "adjunct_faculty",
+          "university_administration"
+        ],
+        "event_key": "faculty_governance_signal",
+        "event_type": "announcement",
+        "expected_impact": "A visible signal could lower adjunct uncertainty; silence could reinforce waiting behavior.",
+        "summary": "Tenured faculty moderates discuss whether to issue a limited statement of concern or keep support informal.",
+        "tick": 1,
+        "visibility": "semi_public"
+      },
+      {
+        "actors": [
+          "university_administration"
+        ],
+        "event_key": "administrative_continuity_planning",
+        "event_type": "announcement",
+        "expected_impact": "May increase process delays, cautious messaging, or selective concessions.",
+        "summary": "Administration reviews continuity and optics contingencies in case coalition momentum grows.",
+        "tick": 1,
+        "visibility": "private"
+      },
+      {
+        "actors": [
+          "students",
+          "adjunct_faculty",
+          "university_administration"
+        ],
+        "event_key": "student_reaction_checkpoint",
+        "event_type": "announcement",
+        "expected_impact": "Can amplify continuity pressure on both administration and adjunct organizers without fixing student alignment.",
+        "summary": "Student attention increases if rumors of scheduling disruption or coalition action circulate.",
+        "tick": 2,
+        "visibility": "public"
+      },
+      {
+        "actors": [
+          "major_donors",
+          "university_administration"
+        ],
+        "event_key": "donor_signal_cycle",
+        "event_type": "announcement",
+        "expected_impact": "May stiffen administrative aversion to visible escalation.",
+        "summary": "Some donors privately communicate concern about campus disruption and reputational fallout.",
+        "tick": 2,
+        "visibility": "private"
+      }
+    ],
+    "llm_call_id": "65c2c7d9-3842-428b-bd83-438e26944cc5",
+    "merge_hypotheses": [
+      {
+        "actors": [
+          "adjunct_faculty",
+          "students",
+          "tenured_faculty",
+          "university_administration"
+        ],
+        "basis": "A shared narrative that labor concerns can be addressed while preserving course continuity.",
+        "convergence_signal": "Public messaging converges on phased action, minimized disruption, and legitimacy of adjunct concerns.",
+        "merge_key": "continuity_plus_fairness_frame"
+      },
+      {
+        "actors": [
+          "adjunct_faculty",
+          "tenured_faculty",
+          "university_administration"
+        ],
+        "basis": "Governance or administrative process creates a low-cost interim venue for grievances, reducing immediate polarization.",
+        "convergence_signal": "Multiple sides accept committee review, listening sessions, or formal agenda placement instead of immediate confrontation.",
+        "merge_key": "procedural_offramp"
+      },
+      {
+        "actors": [
+          "adjunct_faculty",
+          "tenured_faculty",
+          "university_administration",
+          "major_donors"
+        ],
+        "basis": "Concern over accreditation or reputational damage encourages all sides to avoid visible institutional rupture.",
+        "convergence_signal": "Escalatory rhetoric falls and actors privilege controlled, internal negotiation paths.",
+        "merge_key": "external_optics_constraint"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "adjunct_instructional_staff",
+        "label": "Adjunct Instructional Staff",
+        "notes": "Estimated contingent teaching workforce large enough to matter for course delivery and coalition bargaining.",
+        "population_total": 220
+      },
+      {
+        "archetype_key": "tenured_and_tenure_track_faculty",
+        "label": "Tenured and Tenure-Track Faculty",
+        "notes": "Estimated core faculty governance bloc with mixed willingness to visibly align.",
+        "population_total": 140
+      },
+      {
+        "archetype_key": "students_body",
+        "label": "Students",
+        "notes": "General student population with primary concern around continuity of instruction.",
+        "population_total": 12000
+      },
+      {
+        "archetype_key": "administrative_leadership",
+        "label": "Administrative Leadership",
+        "notes": "Senior and mid-level decision-makers relevant to labor response and institutional optics.",
+        "population_total": 35
+      },
+      {
+        "archetype_key": "donor_network",
+        "label": "Donor Network",
+        "notes": "Active donor set with varying intensity of influence, generally disruption-averse.",
+        "population_total": 180
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag_key": "incomplete_population_evidence",
+        "note": "Population counts are estimated for simulation coherence and not specified in source text.",
+        "severity": "medium"
+      },
+      {
+        "flag_key": "coalition_structure_unspecified",
+        "note": "The broader campus labor coalition's internal composition, tactics, and authority are not detailed.",
+        "severity": "medium"
+      },
+      {
+        "flag_key": "authority_distribution_partially_inferred",
+        "note": "Administrative decision authority and tenured governance influence are inferred from institutional context rather than explicit source detail.",
+        "severity": "medium"
+      },
+      {
+        "flag_key": "public_private_preference_gap",
+        "note": "Scenario strongly implies divergence between private sympathy and public expression, especially under fear of isolation.",
+        "severity": "high"
+      },
+      {
+        "flag_key": "endpoint_overlap",
+        "note": "Soft concessions may function as a mechanism rather than final outcome if later evidence shows terminal coalition choice remains open.",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "mode": "direct",
+      "scenario_key": "labor_003",
+      "source_evidence": [
+        "Adjunct faculty debate whether to join a broader campus labor coalition.",
+        "Tenured faculty are sympathetic but cautious.",
+        "Students care about course availability.",
+        "Administrators worry about accreditation optics.",
+        "Donors dislike disruption.",
+        "Initialize internal faction pressure and possible merge paths without making all faculty publicly aligned at T0."
+      ],
+      "summary": "Adjunct faculty at a fictional university are debating whether to join a broader campus labor coalition. Tenured faculty are sympathetic but cautious, students prioritize course availability, administrators are sensitive to accreditation optics, and donors dislike disruption. T0 should reflect internal faction pressure, partial latent alignment, and unresolved merge paths without full public faculty unity.",
+      "time_horizon_ticks": 6,
+      "title": "adjunct_faculty_coalition_debate",
+      "uncertainty_notes": [
+        "Campus scale, exact population, and coalition composition are unspecified.",
+        "No active strike, vote result, or formal coalition decision is established at T0.",
+        "Public and private alignment likely diverge across faculty groups."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "adjunct_faculty",
+          "tenured_faculty",
+          "students"
+        ],
+        "evidence": "Groups are open to nearby positions but not to immediate full alignment.",
+        "level": "medium",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "adjunct_faculty",
+          "tenured_faculty"
+        ],
+        "evidence": "Many actors appear contingent on visible support before acting publicly.",
+        "level": "high",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "adjunct_faculty",
+          "tenured_faculty"
+        ],
+        "evidence": "Scenario explicitly calls for fear_of_isolation and no full public alignment at T0.",
+        "level": "high",
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "adjunct_faculty",
+          "tenured_faculty",
+          "students"
+        ],
+        "evidence": "Conversations likely cluster within role-based groups.",
+        "level": "medium",
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "adjunct_faculty",
+          "tenured_faculty"
+        ],
+        "evidence": "Joining coalition likely requires reinforcement from multiple trusted peers.",
+        "level": "medium",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "adjunct_faculty",
+          "tenured_faculty",
+          "students",
+          "university_administration"
+        ],
+        "evidence": "Employment status and institutional role shape preferences and caution.",
+        "level": "high",
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "students",
+          "major_donors"
+        ],
+        "evidence": "Absent visible disruption, these groups may not sustain high attention.",
+        "level": "medium",
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "applies_to": [
+          "adjunct_faculty",
+          "tenured_faculty"
+        ],
+        "description": "Adjunct and tenured faculty may privately support coalition linkage while under-expressing support until enough peers signal safety.",
+        "influence_key": "fear_of_isolation"
+      },
+      {
+        "applies_to": [
+          "students"
+        ],
+        "description": "Student judgments are filtered through expectations of uninterrupted instruction and schedule reliability.",
+        "influence_key": "service_continuity_norm"
+      },
+      {
+        "applies_to": [
+          "university_administration"
+        ],
+        "description": "Administrative decisions are shaped by anticipated external legitimacy interpretations, especially accreditation-related optics.",
+        "influence_key": "optics_sensitivity"
+      },
+      {
+        "applies_to": [
+          "major_donors",
+          "university_administration"
+        ],
+        "description": "Donor preferences travel mainly through private influence rather than public campaigns.",
+        "influence_key": "elite_private_pressure"
+      },
+      {
+        "applies_to": [
+          "adjunct_faculty",
+          "tenured_faculty",
+          "students",
+          "university_administration"
+        ],
+        "description": "All major actors retain incentives to avoid immediate institutional rupture, preserving room for negotiation, delay, or partial alignment.",
+        "influence_key": "state_continuity"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "adjunct_faculty",
+        "behavior_axes": {
+          "caution": 0.58,
+          "collective_action": 0.62,
+          "institutional_compliance": 0.43,
+          "public_expression": 0.39
+        },
+        "ideology_axes": {
+          "institutional_gradualism": 0.34,
+          "labor_solidarity": 0.71
+        },
+        "reputation": 0.49,
+        "secrecy": 0.56,
+        "tendency": "internally divided but structurally pressure-sensitive",
+        "trustworthiness": 0.59
+      },
+      {
+        "actor_name": "tenured_faculty",
+        "behavior_axes": {
+          "caution": 0.63,
+          "collective_action": 0.39,
+          "institutional_compliance": 0.58,
+          "public_expression": 0.35
+        },
+        "ideology_axes": {
+          "institutional_gradualism": 0.61,
+          "labor_solidarity": 0.52
+        },
+        "reputation": 0.68,
+        "secrecy": 0.37,
+        "tendency": "sympathetic yet procedurally constrained",
+        "trustworthiness": 0.66
+      },
+      {
+        "actor_name": "campus_labor_coalition",
+        "behavior_axes": {
+          "caution": 0.33,
+          "collective_action": 0.74,
+          "institutional_compliance": 0.29,
+          "public_expression": 0.61
+        },
+        "ideology_axes": {
+          "institutional_gradualism": 0.26,
+          "labor_solidarity": 0.82
+        },
+        "reputation": 0.51,
+        "secrecy": 0.31,
+        "tendency": "seeks expansion through alignment and issue bundling",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "students",
+        "behavior_axes": {
+          "caution": 0.46,
+          "collective_action": 0.28,
+          "institutional_compliance": 0.47,
+          "public_expression": 0.29
+        },
+        "ideology_axes": {
+          "institutional_gradualism": 0.45,
+          "labor_solidarity": 0.48
+        },
+        "reputation": 0.5,
+        "secrecy": 0.17,
+        "tendency": "pragmatic and disruption-sensitive",
+        "trustworthiness": 0.54
+      },
+      {
+        "actor_name": "university_administration",
+        "behavior_axes": {
+          "caution": 0.76,
+          "collective_action": 0.21,
+          "institutional_compliance": 0.88,
+          "public_expression": 0.52
+        },
+        "ideology_axes": {
+          "institutional_gradualism": 0.85,
+          "labor_solidarity": 0.18
+        },
+        "reputation": 0.55,
+        "secrecy": 0.67,
+        "tendency": "risk-managing and optics-driven",
+        "trustworthiness": 0.46
+      },
+      {
+        "actor_name": "major_donors",
+        "behavior_axes": {
+          "caution": 0.71,
+          "collective_action": 0.19,
+          "institutional_compliance": 0.73,
+          "public_expression": 0.13
+        },
+        "ideology_axes": {
+          "institutional_gradualism": 0.79,
+          "labor_solidarity": 0.14
+        },
+        "reputation": 0.6,
+        "secrecy": 0.76,
+        "tendency": "private leverage for stability",
+        "trustworthiness": 0.43
+      },
+      {
+        "actor_name": "accreditation_observers",
+        "behavior_axes": {
+          "caution": 0.69,
+          "collective_action": 0.12,
+          "institutional_compliance": 0.92,
+          "public_expression": 0.09
+        },
+        "ideology_axes": {
+          "institutional_gradualism": 0.81,
+          "labor_solidarity": 0.2
+        },
+        "reputation": 0.71,
+        "secrecy": 0.58,
+        "tendency": "external legitimacy reference point",
+        "trustworthiness": 0.62
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 526,
+        "end": 526,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 526,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

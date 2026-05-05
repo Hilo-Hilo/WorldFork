@@ -1,0 +1,1784 @@
+{
+  "big_bang_id": "9800dead-aafd-4c16-a2d1-9c0b00a364e6",
+  "initializer_output": {
+    "actors": [
+      {
+        "decision_authority": "medium",
+        "description": "Nonprofit food assistance program at the center of the allegations.",
+        "fictionalized": true,
+        "name": "harbor_meals_program",
+        "public_visibility": "high",
+        "stakes": [
+          "maintain service delivery",
+          "preserve donor trust",
+          "retain volunteers",
+          "cooperate with audit"
+        ],
+        "type": "organization"
+      },
+      {
+        "decision_authority": "low",
+        "description": "Unidentified accounts spreading claims that donated goods are being sold.",
+        "fictionalized": true,
+        "name": "anonymous_posters",
+        "public_visibility": "medium",
+        "stakes": [
+          "attention",
+          "agenda disruption",
+          "narrative influence"
+        ],
+        "type": "network"
+      },
+      {
+        "decision_authority": "low",
+        "description": "Volunteers staffing the nonprofit program and hearing the allegations.",
+        "fictionalized": true,
+        "name": "program_volunteers",
+        "public_visibility": "medium",
+        "stakes": [
+          "morale",
+          "continued participation",
+          "reputation by association"
+        ],
+        "type": "group"
+      },
+      {
+        "decision_authority": "low",
+        "description": "Recipients of food aid who fear disruption or loss of assistance.",
+        "fictionalized": true,
+        "name": "program_clients",
+        "public_visibility": "low",
+        "stakes": [
+          "service continuity",
+          "personal security",
+          "access to trusted information"
+        ],
+        "type": "group"
+      },
+      {
+        "decision_authority": "medium",
+        "description": "Individual and small institutional donors seeking reassurance and accountability.",
+        "fictionalized": true,
+        "name": "program_donors",
+        "public_visibility": "medium",
+        "stakes": [
+          "proper use of donations",
+          "reputational association",
+          "future giving decisions"
+        ],
+        "type": "group"
+      },
+      {
+        "decision_authority": "medium",
+        "description": "External or oversight auditors needing time to assess records and practices.",
+        "fictionalized": true,
+        "name": "independent_auditors",
+        "public_visibility": "medium",
+        "stakes": [
+          "fact-finding integrity",
+          "procedural legitimacy",
+          "timely reporting"
+        ],
+        "type": "institution"
+      },
+      {
+        "decision_authority": "low",
+        "description": "Broader local audience exposed to posts, statements, and coverage.",
+        "fictionalized": true,
+        "name": "local_public_audience",
+        "public_visibility": "high",
+        "stakes": [
+          "community trust",
+          "attention allocation",
+          "judgment under uncertainty"
+        ],
+        "type": "population"
+      },
+      {
+        "decision_authority": "medium",
+        "description": "Local reporters, bloggers, and civic information intermediaries monitoring the story.",
+        "fictionalized": true,
+        "name": "local_media_watchers",
+        "public_visibility": "high",
+        "stakes": [
+          "newsworthiness",
+          "verification standards",
+          "audience attention"
+        ],
+        "type": "media"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "branch_key": "rumor_amplification_spiral",
+        "divergence_signal": "Sharp increase in public reposting, wider coverage using accusatory framing, or multiple donor pauses before audit outputs.",
+        "plausible_path": "Exposure and perceived plausibility rise, donor caution increases, volunteers withdraw, and clients become more fearful despite absent proof.",
+        "trigger": "Local media or multiple public actors repeat the unsupported allegation without new evidence."
+      },
+      {
+        "branch_key": "procedural_containment",
+        "divergence_signal": "Donor statements emphasize audit patience, volunteer retention stabilizes, and media framing highlights uncertainty and lack of evidence.",
+        "plausible_path": "Stakeholders remain concerned but shift from accusation-sharing toward waiting for findings, limiting conflict escalation.",
+        "trigger": "Leadership communicates clearly about process and auditors are publicly acknowledged as independent."
+      },
+      {
+        "branch_key": "credibility_erosion_from_delay",
+        "divergence_signal": "Rising questions about why leadership is quiet, more volunteers asking for internal clarification, and donors escalating demands.",
+        "plausible_path": "Silence is interpreted as evasiveness, making unsupported claims more sticky and broadening doubt among low-information observers.",
+        "trigger": "No timely response or visible process signal emerges while the rumor persists."
+      },
+      {
+        "branch_key": "trust_repair_after_clean_preliminary_signals",
+        "divergence_signal": "Improving donor tone, clients reporting reduced fear, and media shifting from scandal frame to audit-watch frame.",
+        "plausible_path": "Moderate stakeholders soften concerns, though some public suspicion remains until a formal endpoint is reached.",
+        "trigger": "Early procedural updates show organized records or no obvious irregularities without final exoneration."
+      },
+      {
+        "branch_key": "adverse_findings_path",
+        "divergence_signal": "Requests for leadership accountability, explicit donor suspensions, and media references to documented deficiencies rather than rumor alone.",
+        "plausible_path": "Conflict sharpens, donor withdrawal grows, volunteer coalition fractures, and governance or service changes become likely.",
+        "trigger": "Auditors later identify credible irregularities or missing controls."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "anonymous_social_posts",
+        "primary_actors": [
+          "anonymous_posters",
+          "local_public_audience"
+        ],
+        "reach": 0.58,
+        "type": "digital_public",
+        "verification_norm": 0.15
+      },
+      {
+        "channel_key": "program_official_updates",
+        "primary_actors": [
+          "harbor_meals_program",
+          "program_volunteers",
+          "program_clients",
+          "program_donors"
+        ],
+        "reach": 0.52,
+        "type": "institutional_public",
+        "verification_norm": 0.8
+      },
+      {
+        "channel_key": "donor_email_and_calls",
+        "primary_actors": [
+          "program_donors",
+          "harbor_meals_program"
+        ],
+        "reach": 0.38,
+        "type": "semi_private",
+        "verification_norm": 0.7
+      },
+      {
+        "channel_key": "client_peer_networks",
+        "primary_actors": [
+          "program_clients"
+        ],
+        "reach": 0.34,
+        "type": "informal_private",
+        "verification_norm": 0.35
+      },
+      {
+        "channel_key": "local_news_coverage",
+        "primary_actors": [
+          "local_media_watchers",
+          "local_public_audience",
+          "harbor_meals_program"
+        ],
+        "reach": 0.44,
+        "type": "mass_public",
+        "verification_norm": 0.72
+      },
+      {
+        "channel_key": "audit_process_communications",
+        "primary_actors": [
+          "independent_auditors",
+          "harbor_meals_program"
+        ],
+        "reach": 0.25,
+        "type": "institutional_private",
+        "verification_norm": 0.9
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "program_volunteers",
+        "archetype": "volunteer_base",
+        "attention_level": 0.8,
+        "behavioral_tendencies": [
+          "wait_for_guidance",
+          "private_discussion",
+          "avoid_conflict"
+        ],
+        "cohort_key": "volunteers_concerned_loyal",
+        "expression_level": 0.4,
+        "fatigue": 0.6,
+        "fear_of_isolation": 0.55,
+        "mobilization_readiness": 0.35,
+        "perceived_majority": 0.45,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "Most do not know whether the claim is true but lean toward giving the program time to respond.",
+        "public_expression": "Muted concern and demoralization; many avoid public argument until facts emerge.",
+        "representation_mode": "majority_cohort",
+        "represented_population": 56,
+        "reputation": 0.62,
+        "secrecy": 0.35,
+        "stance_axes": {
+          "believes_allegation": 0.3,
+          "prefers_investigation_first": 0.85,
+          "supports_program_continuity": 0.8
+        },
+        "trustworthiness": 0.72
+      },
+      {
+        "actor_name": "program_volunteers",
+        "archetype": "volunteer_base",
+        "attention_level": 0.85,
+        "behavioral_tendencies": [
+          "hesitate_to_volunteer",
+          "seek_reassurance",
+          "ruminate_privately"
+        ],
+        "cohort_key": "volunteers_alarmed_doubters",
+        "expression_level": 0.45,
+        "fatigue": 0.65,
+        "fear_of_isolation": 0.5,
+        "mobilization_readiness": 0.4,
+        "perceived_majority": 0.35,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "A noticeable minority worries that where there is smoke there may be fire.",
+        "public_expression": "Questions leadership informally and may reduce shifts before audit results.",
+        "representation_mode": "minority_cohort",
+        "represented_population": 24,
+        "reputation": 0.55,
+        "secrecy": 0.45,
+        "stance_axes": {
+          "believes_allegation": 0.5,
+          "prefers_investigation_first": 0.75,
+          "supports_program_continuity": 0.55
+        },
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "program_clients",
+        "archetype": "client_households",
+        "attention_level": 0.75,
+        "behavioral_tendencies": [
+          "seek_private_updates",
+          "avoid_public_visibility",
+          "prepare_for_disruption"
+        ],
+        "cohort_key": "clients_anxious_dependent",
+        "expression_level": 0.2,
+        "fatigue": 0.55,
+        "fear_of_isolation": 0.7,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "Uncertain about the claim but worried service may be cut or disrupted.",
+        "public_expression": "Mostly quiet due to dependency and low confidence that speaking helps.",
+        "representation_mode": "majority_cohort",
+        "represented_population": 420,
+        "reputation": 0.5,
+        "secrecy": 0.6,
+        "stance_axes": {
+          "believes_allegation": 0.35,
+          "prefers_investigation_first": 0.7,
+          "supports_program_continuity": 0.9
+        },
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "program_clients",
+        "archetype": "client_households",
+        "attention_level": 0.8,
+        "behavioral_tendencies": [
+          "peer_warning",
+          "hedging_behavior",
+          "low_public_advocacy"
+        ],
+        "cohort_key": "clients_shaken_skeptical",
+        "expression_level": 0.3,
+        "fatigue": 0.6,
+        "fear_of_isolation": 0.65,
+        "mobilization_readiness": 0.25,
+        "perceived_majority": 0.4,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "More willing to suspect misuse because the rumor creates uncertainty around scarce aid.",
+        "public_expression": "Shares concern in peer networks more than in public forums.",
+        "representation_mode": "minority_cohort",
+        "represented_population": 180,
+        "reputation": 0.45,
+        "secrecy": 0.55,
+        "stance_axes": {
+          "believes_allegation": 0.55,
+          "prefers_investigation_first": 0.65,
+          "supports_program_continuity": 0.7
+        },
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "program_donors",
+        "archetype": "donor_base",
+        "attention_level": 0.85,
+        "behavioral_tendencies": [
+          "conditional_support",
+          "request_formal_update",
+          "financial_caution"
+        ],
+        "cohort_key": "donors_accountability_first",
+        "expression_level": 0.65,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.25,
+        "mobilization_readiness": 0.55,
+        "perceived_majority": 0.6,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "Do not know if the claims are true but want prompt explanation and visible controls.",
+        "public_expression": "Press for answers, pause new donations, ask for records or audit status.",
+        "representation_mode": "majority_cohort",
+        "represented_population": 132,
+        "reputation": 0.66,
+        "secrecy": 0.25,
+        "stance_axes": {
+          "believes_allegation": 0.4,
+          "prefers_investigation_first": 0.9,
+          "supports_program_continuity": 0.7
+        },
+        "trustworthiness": 0.74
+      },
+      {
+        "actor_name": "program_donors",
+        "archetype": "donor_base",
+        "attention_level": 0.75,
+        "behavioral_tendencies": [
+          "cautious_defense",
+          "bridge_building",
+          "hold_support_steady"
+        ],
+        "cohort_key": "donors_loyal_wait_and_see",
+        "expression_level": 0.5,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.4,
+        "perceived_majority": 0.45,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "Assume innocence absent proof but still want an independent review.",
+        "public_expression": "Defend the program cautiously while emphasizing transparency.",
+        "representation_mode": "minority_cohort",
+        "represented_population": 88,
+        "reputation": 0.7,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "believes_allegation": 0.2,
+          "prefers_investigation_first": 0.8,
+          "supports_program_continuity": 0.85
+        },
+        "trustworthiness": 0.78
+      },
+      {
+        "actor_name": "local_public_audience",
+        "archetype": "local_attention_public",
+        "attention_level": 0.45,
+        "behavioral_tendencies": [
+          "heuristic_judgment",
+          "attention_drift",
+          "light_resharing"
+        ],
+        "cohort_key": "public_low_info_observers",
+        "expression_level": 0.2,
+        "fatigue": 0.15,
+        "fear_of_isolation": 0.4,
+        "mobilization_readiness": 0.15,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.75,
+        "private_belief": "Little direct knowledge; impressions are shaped by repeated exposure and social cues.",
+        "public_expression": "Mostly passive attention with occasional rumor sharing.",
+        "representation_mode": "majority_cohort",
+        "represented_population": 9000,
+        "reputation": 0.5,
+        "secrecy": 0.15,
+        "stance_axes": {
+          "believes_allegation": 0.4,
+          "prefers_investigation_first": 0.55,
+          "supports_program_continuity": 0.5
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "local_public_audience",
+        "archetype": "local_attention_public",
+        "attention_level": 0.7,
+        "behavioral_tendencies": [
+          "speculation",
+          "social_signaling",
+          "rapid_attention_shifts"
+        ],
+        "cohort_key": "public_engaged_rumor_amplifiers",
+        "expression_level": 0.55,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.25,
+        "mobilization_readiness": 0.35,
+        "perceived_majority": 0.45,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "More receptive to impropriety narratives and more active in discussing them.",
+        "public_expression": "Commenting, resharing, and demanding visible accountability signals.",
+        "representation_mode": "minority_cohort",
+        "represented_population": 3000,
+        "reputation": 0.42,
+        "secrecy": 0.1,
+        "stance_axes": {
+          "believes_allegation": 0.55,
+          "prefers_investigation_first": 0.6,
+          "supports_program_continuity": 0.35
+        },
+        "trustworthiness": 0.46
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "program_volunteers",
+        "archetype": "volunteer_base",
+        "attention_level": 0.8,
+        "behavioral_tendencies": [
+          "wait_for_guidance",
+          "private_discussion",
+          "avoid_conflict"
+        ],
+        "cohort_key": "volunteers_concerned_loyal",
+        "expression_level": 0.4,
+        "fatigue": 0.6,
+        "fear_of_isolation": 0.55,
+        "mobilization_readiness": 0.35,
+        "perceived_majority": 0.45,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "Most do not know whether the claim is true but lean toward giving the program time to respond.",
+        "public_expression": "Muted concern and demoralization; many avoid public argument until facts emerge.",
+        "representation_mode": "majority_cohort",
+        "represented_population": 56,
+        "reputation": 0.62,
+        "secrecy": 0.35,
+        "stance_axes": {
+          "believes_allegation": 0.3,
+          "prefers_investigation_first": 0.85,
+          "supports_program_continuity": 0.8
+        },
+        "trustworthiness": 0.72
+      },
+      {
+        "actor_name": "program_volunteers",
+        "archetype": "volunteer_base",
+        "attention_level": 0.85,
+        "behavioral_tendencies": [
+          "hesitate_to_volunteer",
+          "seek_reassurance",
+          "ruminate_privately"
+        ],
+        "cohort_key": "volunteers_alarmed_doubters",
+        "expression_level": 0.45,
+        "fatigue": 0.65,
+        "fear_of_isolation": 0.5,
+        "mobilization_readiness": 0.4,
+        "perceived_majority": 0.35,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "A noticeable minority worries that where there is smoke there may be fire.",
+        "public_expression": "Questions leadership informally and may reduce shifts before audit results.",
+        "representation_mode": "minority_cohort",
+        "represented_population": 24,
+        "reputation": 0.55,
+        "secrecy": 0.45,
+        "stance_axes": {
+          "believes_allegation": 0.5,
+          "prefers_investigation_first": 0.75,
+          "supports_program_continuity": 0.55
+        },
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "program_clients",
+        "archetype": "client_households",
+        "attention_level": 0.75,
+        "behavioral_tendencies": [
+          "seek_private_updates",
+          "avoid_public_visibility",
+          "prepare_for_disruption"
+        ],
+        "cohort_key": "clients_anxious_dependent",
+        "expression_level": 0.2,
+        "fatigue": 0.55,
+        "fear_of_isolation": 0.7,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "Uncertain about the claim but worried service may be cut or disrupted.",
+        "public_expression": "Mostly quiet due to dependency and low confidence that speaking helps.",
+        "representation_mode": "majority_cohort",
+        "represented_population": 420,
+        "reputation": 0.5,
+        "secrecy": 0.6,
+        "stance_axes": {
+          "believes_allegation": 0.35,
+          "prefers_investigation_first": 0.7,
+          "supports_program_continuity": 0.9
+        },
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "program_clients",
+        "archetype": "client_households",
+        "attention_level": 0.8,
+        "behavioral_tendencies": [
+          "peer_warning",
+          "hedging_behavior",
+          "low_public_advocacy"
+        ],
+        "cohort_key": "clients_shaken_skeptical",
+        "expression_level": 0.3,
+        "fatigue": 0.6,
+        "fear_of_isolation": 0.65,
+        "mobilization_readiness": 0.25,
+        "perceived_majority": 0.4,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "More willing to suspect misuse because the rumor creates uncertainty around scarce aid.",
+        "public_expression": "Shares concern in peer networks more than in public forums.",
+        "representation_mode": "minority_cohort",
+        "represented_population": 180,
+        "reputation": 0.45,
+        "secrecy": 0.55,
+        "stance_axes": {
+          "believes_allegation": 0.55,
+          "prefers_investigation_first": 0.65,
+          "supports_program_continuity": 0.7
+        },
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "program_donors",
+        "archetype": "donor_base",
+        "attention_level": 0.85,
+        "behavioral_tendencies": [
+          "conditional_support",
+          "request_formal_update",
+          "financial_caution"
+        ],
+        "cohort_key": "donors_accountability_first",
+        "expression_level": 0.65,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.25,
+        "mobilization_readiness": 0.55,
+        "perceived_majority": 0.6,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "Do not know if the claims are true but want prompt explanation and visible controls.",
+        "public_expression": "Press for answers, pause new donations, ask for records or audit status.",
+        "representation_mode": "majority_cohort",
+        "represented_population": 132,
+        "reputation": 0.66,
+        "secrecy": 0.25,
+        "stance_axes": {
+          "believes_allegation": 0.4,
+          "prefers_investigation_first": 0.9,
+          "supports_program_continuity": 0.7
+        },
+        "trustworthiness": 0.74
+      },
+      {
+        "actor_name": "program_donors",
+        "archetype": "donor_base",
+        "attention_level": 0.75,
+        "behavioral_tendencies": [
+          "cautious_defense",
+          "bridge_building",
+          "hold_support_steady"
+        ],
+        "cohort_key": "donors_loyal_wait_and_see",
+        "expression_level": 0.5,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.4,
+        "perceived_majority": 0.45,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "Assume innocence absent proof but still want an independent review.",
+        "public_expression": "Defend the program cautiously while emphasizing transparency.",
+        "representation_mode": "minority_cohort",
+        "represented_population": 88,
+        "reputation": 0.7,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "believes_allegation": 0.2,
+          "prefers_investigation_first": 0.8,
+          "supports_program_continuity": 0.85
+        },
+        "trustworthiness": 0.78
+      },
+      {
+        "actor_name": "local_public_audience",
+        "archetype": "local_attention_public",
+        "attention_level": 0.45,
+        "behavioral_tendencies": [
+          "heuristic_judgment",
+          "attention_drift",
+          "light_resharing"
+        ],
+        "cohort_key": "public_low_info_observers",
+        "expression_level": 0.2,
+        "fatigue": 0.15,
+        "fear_of_isolation": 0.4,
+        "mobilization_readiness": 0.15,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.75,
+        "private_belief": "Little direct knowledge; impressions are shaped by repeated exposure and social cues.",
+        "public_expression": "Mostly passive attention with occasional rumor sharing.",
+        "representation_mode": "majority_cohort",
+        "represented_population": 9000,
+        "reputation": 0.5,
+        "secrecy": 0.15,
+        "stance_axes": {
+          "believes_allegation": 0.4,
+          "prefers_investigation_first": 0.55,
+          "supports_program_continuity": 0.5
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "local_public_audience",
+        "archetype": "local_attention_public",
+        "attention_level": 0.7,
+        "behavioral_tendencies": [
+          "speculation",
+          "social_signaling",
+          "rapid_attention_shifts"
+        ],
+        "cohort_key": "public_engaged_rumor_amplifiers",
+        "expression_level": 0.55,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.25,
+        "mobilization_readiness": 0.35,
+        "perceived_majority": 0.45,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "More receptive to impropriety narratives and more active in discussing them.",
+        "public_expression": "Commenting, resharing, and demanding visible accountability signals.",
+        "representation_mode": "minority_cohort",
+        "represented_population": 3000,
+        "reputation": 0.42,
+        "secrecy": 0.1,
+        "stance_axes": {
+          "believes_allegation": 0.55,
+          "prefers_investigation_first": 0.6,
+          "supports_program_continuity": 0.35
+        },
+        "trustworthiness": 0.46
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "independent_auditors",
+          "harbor_meals_program"
+        ],
+        "blockers": [
+          "No evidence provided at T0",
+          "audit process requires time",
+          "anonymous claims alone are insufficient"
+        ],
+        "contradiction_notes": "Current scenario text explicitly says the posts include no evidence.",
+        "description": "A terminal state in which credible documented findings show that donated goods were sold improperly or controls failed in a way that materially confirms the allegation.",
+        "endpoint_key": "allegation_substantiated",
+        "evidence_refs": [
+          "audit_scoping_begins",
+          "rumor_posts_visible"
+        ],
+        "label": "Allegation substantiated",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do independent auditors ultimately substantiate, partially substantiate, or reject the allegation that donated goods were secretly sold?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.18,
+        "rationale": "Included because the scenario requires preserving investigation pathways without assuming innocence or guilt.",
+        "realization_criteria": [
+          "auditor report or equivalent credible documentation confirms sale or diversion of donated goods",
+          "program leadership or governing body acknowledges substantiated misconduct or documented control failure",
+          "public narrative references documented findings rather than unsupported rumor alone"
+        ],
+        "status": "active",
+        "status_basis": "The allegation exists, but there is no proof at initialization."
+      },
+      {
+        "authority_refs": [
+          "independent_auditors",
+          "program_donors",
+          "local_media_watchers"
+        ],
+        "blockers": [
+          "Audit latency",
+          "rumor persistence despite clean findings",
+          "possible ambiguity in records or communication"
+        ],
+        "contradiction_notes": "This endpoint would be contradicted by later documented proof of wrongdoing.",
+        "description": "A terminal state in which independent review fails to find credible support for the claim that donated goods were secretly sold.",
+        "endpoint_key": "allegation_not_substantiated",
+        "evidence_refs": [
+          "audit_scoping_begins",
+          "donor_explanation_requests"
+        ],
+        "label": "Allegation not substantiated",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the food program maintain service continuity for clients through the controversy without material disruption?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.42,
+        "rationale": "The source text emphasizes uncertainty and asks not to invent proof, making a non-substantiation endpoint central.",
+        "realization_criteria": [
+          "auditor report or equivalent credible review finds no evidence supporting the alleged sales",
+          "key donor and media actors publicly cite the absence of substantiating evidence",
+          "no later contradictory documented evidence emerges within the scenario horizon"
+        ],
+        "status": "active",
+        "status_basis": "Lack of evidence at T0 makes this plausible but not yet realized."
+      },
+      {
+        "authority_refs": [
+          "harbor_meals_program",
+          "program_volunteers",
+          "program_donors"
+        ],
+        "blockers": [
+          "Stakeholder convergence around continuity",
+          "emergency donor bridge support",
+          "rapid reassurance or credible audit progress"
+        ],
+        "contradiction_notes": "This endpoint is not realized merely by anxiety or public controversy absent operational impact.",
+        "description": "A terminal state in which controversy materially interrupts client access, staffing capacity, or distribution operations.",
+        "endpoint_key": "service_disruption_materializes",
+        "evidence_refs": [
+          "client_fear_signal",
+          "volunteer_morale_drop",
+          "donor_explanation_requests"
+        ],
+        "label": "Material service disruption",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do donors maintain, pause, or withdraw meaningful support before and after credible audit signals?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.24,
+        "rationale": "Service continuity is a key real-world consequence implied by the scenario.",
+        "realization_criteria": [
+          "documented reduction, suspension, or cancellation of food assistance operations",
+          "volunteer staffing or donor support drops below operational threshold causing missed service",
+          "clients are formally notified of curtailed access or delays"
+        ],
+        "status": "active",
+        "status_basis": "Clients already fear loss of help, but no disruption is established at T0."
+      },
+      {
+        "authority_refs": [
+          "harbor_meals_program",
+          "program_donors",
+          "program_volunteers",
+          "local_media_watchers"
+        ],
+        "blockers": [
+          "Leadership silence or defensive messaging",
+          "continued rumor amplification",
+          "ambiguous audit signals"
+        ],
+        "contradiction_notes": "Trust repair can occur even if some residual suspicion remains; it is contradicted by escalating donor exit or service disruption.",
+        "description": "A terminal state in which major stakeholders resume functional support and lower conflict levels before full ultimate certainty is socially settled.",
+        "endpoint_key": "trust_repair_without_full_clarity",
+        "evidence_refs": [
+          "first_official_response_window",
+          "audit_scoping_begins"
+        ],
+        "label": "Practical trust repair before final certainty",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the public narrative become dominated by unsupported rumor amplification or by uncertainty-aware verification framing?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.31,
+        "rationale": "This captures the nonterminal process pressure becoming a socially meaningful endpoint if support stabilizes despite uncertainty.",
+        "realization_criteria": [
+          "donors resume or maintain normal giving patterns",
+          "volunteer participation stabilizes near baseline",
+          "client fear indicators decline and official continuity messaging is widely accepted",
+          "media/public framing shifts from scandal escalation to monitored resolution"
+        ],
+        "status": "active",
+        "status_basis": "The scenario explicitly invites later trust-repair dynamics, but none are realized at initialization."
+      },
+      {
+        "authority_refs": [
+          "independent_auditors",
+          "harbor_meals_program",
+          "program_donors",
+          "local_media_watchers"
+        ],
+        "blockers": [
+          "Decisive documented findings",
+          "rapid trust repair",
+          "attention decay strong enough to deflate the issue"
+        ],
+        "contradiction_notes": "This endpoint is contradicted by either clear substantiation/non-substantiation or by social normalization strong enough to end practical strain.",
+        "description": "A terminal state in which no decisive proof emerges within the horizon, but suspicion and defense persist enough to keep the program under strain.",
+        "endpoint_key": "durable_stalemate_under_uncertainty",
+        "evidence_refs": [
+          "rumor_posts_visible",
+          "audit_scoping_begins"
+        ],
+        "label": "Durable stalemate under uncertainty",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the public narrative become dominated by unsupported rumor amplification or by uncertainty-aware verification framing?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": null,
+        "rationale": "The scenario specifically emphasizes auditors needing time and uncertainty management.",
+        "realization_criteria": [
+          "no conclusive audit or equivalent determination is publicly available by horizon end",
+          "donor and public opinion remain split",
+          "program continues operating under elevated scrutiny and reduced confidence"
+        ],
+        "status": "active",
+        "status_basis": "Audit delay and low-evidence allegations create a credible uncertainty trap at T0."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "Scenario states anonymous posts claim wrongdoing.",
+        "layer": "exposure",
+        "reason": "Anonymous claims are reaching a meaningful portion of the local audience through posts.",
+        "source_actor_name": "anonymous_posters",
+        "target_actor_name": "local_public_audience",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario states volunteers are demoralized.",
+        "layer": "exposure",
+        "reason": "Volunteers are aware of the allegations and demoralized.",
+        "source_actor_name": "anonymous_posters",
+        "target_actor_name": "program_volunteers",
+        "weight": 0.52
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario states clients fear losing help.",
+        "layer": "exposure",
+        "reason": "Clients have heard enough to fear losing help.",
+        "source_actor_name": "anonymous_posters",
+        "target_actor_name": "program_clients",
+        "weight": 0.42
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario states donors demand an explanation.",
+        "layer": "exposure",
+        "reason": "Donors are sufficiently exposed to demand an explanation.",
+        "source_actor_name": "anonymous_posters",
+        "target_actor_name": "program_donors",
+        "weight": 0.47
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Organizational relationship implied by volunteer role.",
+        "layer": "exposure",
+        "reason": "Volunteers are regularly exposed to internal program communications and leadership signals.",
+        "source_actor_name": "harbor_meals_program",
+        "target_actor_name": "program_volunteers",
+        "weight": 0.6
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Program-client relationship implied by aid delivery.",
+        "layer": "exposure",
+        "reason": "Clients routinely receive service-related communications or cues from the program.",
+        "source_actor_name": "harbor_meals_program",
+        "target_actor_name": "program_clients",
+        "weight": 0.55
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Donors demand an explanation.",
+        "layer": "exposure",
+        "reason": "Donors monitor official responses and explanations from the nonprofit.",
+        "source_actor_name": "harbor_meals_program",
+        "target_actor_name": "program_donors",
+        "weight": 0.5
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Expected media information dynamics context.",
+        "layer": "exposure",
+        "reason": "Local information intermediaries can expose the broader public to frames about the allegations and response.",
+        "source_actor_name": "local_media_watchers",
+        "target_actor_name": "local_public_audience",
+        "weight": 0.44
+      },
+      {
+        "direction": "inbound",
+        "evidence": "Volunteers are demoralized, not confirmed hostile; no evidence given for claims.",
+        "layer": "trust",
+        "reason": "Volunteers retain moderate baseline trust despite demoralization and uncertainty.",
+        "source_actor_name": "program_volunteers",
+        "target_actor_name": "harbor_meals_program",
+        "weight": 0.56
+      },
+      {
+        "direction": "inbound",
+        "evidence": "Clients fear losing help; no proof of misconduct at T0.",
+        "layer": "trust",
+        "reason": "Clients rely on the program but fear losing help, producing strained yet not collapsed trust.",
+        "source_actor_name": "program_clients",
+        "target_actor_name": "harbor_meals_program",
+        "weight": 0.52
+      },
+      {
+        "direction": "inbound",
+        "evidence": "Donors demand an explanation.",
+        "layer": "trust",
+        "reason": "Donor trust is weakened enough to demand explanation but not yet fully withdrawn.",
+        "source_actor_name": "program_donors",
+        "target_actor_name": "harbor_meals_program",
+        "weight": 0.46
+      },
+      {
+        "direction": "inbound",
+        "evidence": "Posts include no evidence.",
+        "layer": "trust",
+        "reason": "Some audience members may treat anonymous accusations as plausible, but lack of evidence limits credibility.",
+        "source_actor_name": "local_public_audience",
+        "target_actor_name": "anonymous_posters",
+        "weight": 0.28
+      },
+      {
+        "direction": "inbound",
+        "evidence": "Media role inferred from scenario type.",
+        "layer": "trust",
+        "reason": "Media intermediaries have moderate trust as potential validators or correctives.",
+        "source_actor_name": "local_public_audience",
+        "target_actor_name": "local_media_watchers",
+        "weight": 0.5
+      },
+      {
+        "direction": "inbound",
+        "evidence": "Auditors need time and are positioned as fact-finders.",
+        "layer": "trust",
+        "reason": "Donors likely view independent audit as a more credible route to clarification.",
+        "source_actor_name": "program_donors",
+        "target_actor_name": "independent_auditors",
+        "weight": 0.68
+      },
+      {
+        "direction": "inbound",
+        "evidence": "Auditors need time; no proof available yet.",
+        "layer": "trust",
+        "reason": "Volunteers may accept audits as neutral clarification under uncertainty.",
+        "source_actor_name": "program_volunteers",
+        "target_actor_name": "independent_auditors",
+        "weight": 0.6
+      },
+      {
+        "direction": "inbound",
+        "evidence": "Program is a nonprofit food program serving clients who fear losing help.",
+        "layer": "dependency",
+        "reason": "Clients materially depend on the food program for assistance.",
+        "source_actor_name": "program_clients",
+        "target_actor_name": "harbor_meals_program",
+        "weight": 0.72
+      },
+      {
+        "direction": "inbound",
+        "evidence": "Volunteers are salient stakeholders in the scenario.",
+        "layer": "dependency",
+        "reason": "Program operations rely substantially on volunteers.",
+        "source_actor_name": "harbor_meals_program",
+        "target_actor_name": "program_volunteers",
+        "weight": 0.58
+      },
+      {
+        "direction": "inbound",
+        "evidence": "Donors are key enough to demand explanation.",
+        "layer": "dependency",
+        "reason": "Donor support likely underwrites program operations and flexibility.",
+        "source_actor_name": "harbor_meals_program",
+        "target_actor_name": "program_donors",
+        "weight": 0.63
+      },
+      {
+        "direction": "inbound",
+        "evidence": "Auditors need time and are needed for clarification.",
+        "layer": "dependency",
+        "reason": "Leadership depends on audit process to restore or challenge credibility.",
+        "source_actor_name": "harbor_meals_program",
+        "target_actor_name": "independent_auditors",
+        "weight": 0.4
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Posts have already produced multiple stakeholder reactions.",
+        "layer": "influence",
+        "reason": "Anonymous posts have some agenda-setting power because they triggered community concern.",
+        "source_actor_name": "anonymous_posters",
+        "target_actor_name": "local_public_audience",
+        "weight": 0.42
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Donors demand an explanation.",
+        "layer": "influence",
+        "reason": "Donors can pressure the program via funding decisions and public demands.",
+        "source_actor_name": "program_donors",
+        "target_actor_name": "harbor_meals_program",
+        "weight": 0.6
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Auditors are positioned to clarify facts later.",
+        "layer": "influence",
+        "reason": "Audit signals can shape donor decisions and confidence.",
+        "source_actor_name": "independent_auditors",
+        "target_actor_name": "program_donors",
+        "weight": 0.55
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Auditors need time; program likely must cooperate.",
+        "layer": "influence",
+        "reason": "Audit requests and findings can shape leadership actions and public posture.",
+        "source_actor_name": "independent_auditors",
+        "target_actor_name": "harbor_meals_program",
+        "weight": 0.57
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Media information dynamics focus.",
+        "layer": "influence",
+        "reason": "Coverage choices can widen or contain rumor impact.",
+        "source_actor_name": "local_media_watchers",
+        "target_actor_name": "local_public_audience",
+        "weight": 0.54
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Volunteers are demoralized and likely attentive to program response.",
+        "layer": "influence",
+        "reason": "Leadership signals can stabilize or unsettle volunteer morale.",
+        "source_actor_name": "harbor_meals_program",
+        "target_actor_name": "program_volunteers",
+        "weight": 0.52
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Clients fear losing help.",
+        "layer": "influence",
+        "reason": "Program messaging affects clients' sense of continuity and safety.",
+        "source_actor_name": "harbor_meals_program",
+        "target_actor_name": "program_clients",
+        "weight": 0.48
+      },
+      {
+        "direction": "mutual",
+        "evidence": "Demoralization does not imply rupture.",
+        "layer": "coalition",
+        "reason": "Volunteers remain structurally aligned with the program despite uncertainty.",
+        "source_actor_name": "program_volunteers",
+        "target_actor_name": "harbor_meals_program",
+        "weight": 0.62
+      },
+      {
+        "direction": "mutual",
+        "evidence": "Donors want explanation; auditors need time to assess.",
+        "layer": "coalition",
+        "reason": "Donors and auditors are aligned around transparency and verification.",
+        "source_actor_name": "program_donors",
+        "target_actor_name": "independent_auditors",
+        "weight": 0.5
+      },
+      {
+        "direction": "mutual",
+        "evidence": "Demand for explanation suggests strain within continued engagement.",
+        "layer": "coalition",
+        "reason": "Donors still have a relationship with the program but are conditionally aligned pending explanation.",
+        "source_actor_name": "program_donors",
+        "target_actor_name": "harbor_meals_program",
+        "weight": 0.38
+      },
+      {
+        "direction": "mutual",
+        "evidence": "Clients fear losing help rather than rejecting the program outright.",
+        "layer": "coalition",
+        "reason": "Clients remain aligned with continued service availability.",
+        "source_actor_name": "program_clients",
+        "target_actor_name": "harbor_meals_program",
+        "weight": 0.5
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Anonymous posts claim secret selling of donated goods.",
+        "layer": "conflict",
+        "reason": "The accusation directly challenges the program's legitimacy.",
+        "source_actor_name": "anonymous_posters",
+        "target_actor_name": "harbor_meals_program",
+        "weight": 0.66
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Donors demand an explanation.",
+        "layer": "conflict",
+        "reason": "Donor pressure for answers creates moderate friction but not open rupture.",
+        "source_actor_name": "program_donors",
+        "target_actor_name": "harbor_meals_program",
+        "weight": 0.34
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Volunteers are demoralized by the posts.",
+        "layer": "conflict",
+        "reason": "Volunteers are harmed by the allegations and may resent the accusers.",
+        "source_actor_name": "program_volunteers",
+        "target_actor_name": "anonymous_posters",
+        "weight": 0.3
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Claims are circulating without proof.",
+        "layer": "conflict",
+        "reason": "A portion of the audience may suspect wrongdoing, creating low-to-moderate social friction.",
+        "source_actor_name": "local_public_audience",
+        "target_actor_name": "harbor_meals_program",
+        "weight": 0.26
+      },
+      {
+        "direction": "mutual",
+        "evidence": "Anonymous posts are the visible trigger event.",
+        "layer": "oasis_interaction",
+        "reason": "Public online interaction around the allegation is likely active at T0.",
+        "source_actor_name": "anonymous_posters",
+        "target_actor_name": "local_public_audience",
+        "weight": 0.6
+      },
+      {
+        "direction": "mutual",
+        "evidence": "Donors demand explanation and rumors are public-facing.",
+        "layer": "oasis_interaction",
+        "reason": "Media inquiries and official responses are likely in public-facing channels.",
+        "source_actor_name": "local_media_watchers",
+        "target_actor_name": "harbor_meals_program",
+        "weight": 0.42
+      },
+      {
+        "direction": "mutual",
+        "evidence": "Donors demand an explanation.",
+        "layer": "oasis_interaction",
+        "reason": "Donors are likely communicating requests for explanation through visible or semi-visible channels.",
+        "source_actor_name": "program_donors",
+        "target_actor_name": "harbor_meals_program",
+        "weight": 0.46
+      },
+      {
+        "direction": "mutual",
+        "evidence": "Volunteers are demoralized and awaiting response.",
+        "layer": "oasis_interaction",
+        "reason": "Volunteer discussions with leadership are likely but partly internal rather than fully public.",
+        "source_actor_name": "program_volunteers",
+        "target_actor_name": "harbor_meals_program",
+        "weight": 0.36
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype": "nonprofit_leadership",
+        "description": "Visible program leadership responsible for response, records access, and service continuity."
+      },
+      {
+        "archetype": "audit_lead",
+        "description": "Lead audit figure shaping credibility of eventual findings."
+      },
+      {
+        "archetype": "lead_reporter",
+        "description": "Information intermediary who can either verify carefully or amplify ambiguity."
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "harbor_meals_program",
+        "archetype": "nonprofit_leadership",
+        "attention_level": 0.95,
+        "capabilities": [
+          "issue_statement",
+          "coordinate_volunteers",
+          "provide_records",
+          "liaise_with_donors"
+        ],
+        "constraints": [
+          "limited_verified_facts_at_T0",
+          "reputational_pressure",
+          "must_preserve_service_operations"
+        ],
+        "expression_level": 0.6,
+        "fatigue": 0.65,
+        "fear_of_isolation": 0.35,
+        "hero_key": "program_director",
+        "mobilization_readiness": 0.75,
+        "perceived_majority": 0.5,
+        "reputation": 0.58,
+        "role": "program_director",
+        "secrecy": 0.4,
+        "stance_axes": {
+          "defend_program": 0.9,
+          "embrace_transparency": 0.8,
+          "engage_publicly": 0.65
+        },
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "independent_auditors",
+        "archetype": "audit_lead",
+        "attention_level": 0.8,
+        "capabilities": [
+          "request_documents",
+          "interview_staff",
+          "publish_findings"
+        ],
+        "constraints": [
+          "verification_time",
+          "limited_initial_visibility",
+          "must_avoid_prejudgment"
+        ],
+        "expression_level": 0.25,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.15,
+        "hero_key": "audit_coordinator",
+        "mobilization_readiness": 0.5,
+        "perceived_majority": 0.5,
+        "reputation": 0.72,
+        "role": "audit_coordinator",
+        "secrecy": 0.55,
+        "stance_axes": {
+          "procedural_neutrality": 0.95,
+          "public_visibility": 0.35,
+          "speed": 0.45
+        },
+        "trustworthiness": 0.82
+      },
+      {
+        "actor_name": "local_media_watchers",
+        "archetype": "lead_reporter",
+        "attention_level": 0.7,
+        "capabilities": [
+          "cover_story",
+          "quote_sources",
+          "frame_uncertainty"
+        ],
+        "constraints": [
+          "limited documentary evidence",
+          "competitive attention incentives"
+        ],
+        "expression_level": 0.45,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.2,
+        "hero_key": "civic_reporter",
+        "mobilization_readiness": 0.4,
+        "perceived_majority": 0.5,
+        "reputation": 0.64,
+        "role": "civic_reporter",
+        "secrecy": 0.2,
+        "stance_axes": {
+          "conflict_salience": 0.55,
+          "platform_attention_need": 0.5,
+          "verification_norms": 0.8
+        },
+        "trustworthiness": 0.7
+      }
+    ],
+    "heroes": [
+      {
+        "archetype": "nonprofit_leadership",
+        "description": "Visible program leadership responsible for response, records access, and service continuity."
+      },
+      {
+        "archetype": "audit_lead",
+        "description": "Lead audit figure shaping credibility of eventual findings."
+      },
+      {
+        "archetype": "lead_reporter",
+        "description": "Information intermediary who can either verify carefully or amplify ambiguity."
+      }
+    ],
+    "important_questions": [
+      "Do independent auditors ultimately substantiate, partially substantiate, or reject the allegation that donated goods were secretly sold?",
+      "Does the food program maintain service continuity for clients through the controversy without material disruption?",
+      "Do donors maintain, pause, or withdraw meaningful support before and after credible audit signals?",
+      "Does the public narrative become dominated by unsupported rumor amplification or by uncertainty-aware verification framing?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "anonymous_posters",
+          "local_public_audience",
+          "harbor_meals_program"
+        ],
+        "event_key": "rumor_posts_visible",
+        "event_type": "announcement",
+        "expected_impact": "Raises exposure and conflict around the nonprofit, weakens confidence, and creates room for amplification or correction.",
+        "summary": "Anonymous posts alleging secret sale of donated goods are already circulating publicly without evidence.",
+        "tick": 0,
+        "type": "setup"
+      },
+      {
+        "actors": [
+          "program_volunteers",
+          "harbor_meals_program"
+        ],
+        "event_key": "volunteer_morale_drop",
+        "event_type": "announcement",
+        "expected_impact": "May reduce expression of public defense, increase private hesitation, and weaken operational resilience if unaddressed.",
+        "summary": "Volunteers experience demoralization and uncertainty following the allegations.",
+        "tick": 0,
+        "type": "setup"
+      },
+      {
+        "actors": [
+          "program_clients",
+          "harbor_meals_program"
+        ],
+        "event_key": "client_fear_signal",
+        "event_type": "announcement",
+        "expected_impact": "Increases private anxiety and dependence-driven silence while making continuity messaging more consequential.",
+        "summary": "Clients worry that the controversy could reduce or interrupt help.",
+        "tick": 0,
+        "type": "setup"
+      },
+      {
+        "actors": [
+          "program_donors",
+          "harbor_meals_program"
+        ],
+        "event_key": "donor_explanation_requests",
+        "event_type": "announcement",
+        "expected_impact": "Raises accountability pressure and could alter donation timing before facts are resolved.",
+        "summary": "Donors ask the program to explain the allegations and clarify controls.",
+        "tick": 0,
+        "type": "setup"
+      },
+      {
+        "actors": [
+          "independent_auditors",
+          "harbor_meals_program"
+        ],
+        "event_key": "audit_scoping_begins",
+        "event_type": "announcement",
+        "expected_impact": "May stabilize some stakeholders if disclosed, while also extending the uncertainty window.",
+        "summary": "Auditors begin or formalize information gathering but cannot provide immediate conclusions.",
+        "tick": 1,
+        "type": "imminent"
+      },
+      {
+        "actors": [
+          "harbor_meals_program",
+          "program_volunteers",
+          "program_donors",
+          "local_media_watchers"
+        ],
+        "event_key": "first_official_response_window",
+        "event_type": "announcement",
+        "expected_impact": "Response tone could shape trust, media framing, and volunteer retention without resolving factual uncertainty.",
+        "summary": "Program leadership faces pressure to issue an initial response before audit completion.",
+        "tick": 1,
+        "type": "imminent"
+      },
+      {
+        "actors": [
+          "local_media_watchers",
+          "anonymous_posters",
+          "harbor_meals_program"
+        ],
+        "event_key": "media_verification_decision",
+        "event_type": "announcement",
+        "expected_impact": "Can significantly affect public exposure, legitimacy perceptions, and rumor persistence.",
+        "summary": "Local media decide whether to amplify the allegation, frame it cautiously, or wait for stronger evidence.",
+        "tick": 2,
+        "type": "imminent"
+      }
+    ],
+    "llm_call_id": "88fffef3-6e45-47a9-961d-dfb898b93b9d",
+    "merge_hypotheses": [
+      {
+        "converging_actors": [
+          "harbor_meals_program",
+          "program_volunteers",
+          "program_clients",
+          "program_donors"
+        ],
+        "evidence": "Clients depend on aid; donors and volunteers are tied to program continuity.",
+        "mechanism": "Even skeptical stakeholders may converge on preserving food access while awaiting facts.",
+        "merge_key": "shared_need_for_service_continuity"
+      },
+      {
+        "converging_actors": [
+          "program_donors",
+          "program_volunteers",
+          "local_media_watchers",
+          "local_public_audience"
+        ],
+        "evidence": "Auditors are explicitly present and need time.",
+        "mechanism": "A trusted independent process can reduce narrative divergence by providing a common reference point.",
+        "merge_key": "audit_legitimacy_anchor"
+      },
+      {
+        "converging_actors": [
+          "local_public_audience",
+          "local_media_watchers",
+          "anonymous_posters"
+        ],
+        "evidence": "Claims lack evidence and public attention is often perishable.",
+        "mechanism": "Absent new evidence, attention may decay and interaction intensity may fall toward a wait-and-see equilibrium.",
+        "merge_key": "fatigue_after_initial_attention_peak"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype": "volunteer_base",
+        "description": "People who regularly volunteer with the food program.",
+        "population_total": 80
+      },
+      {
+        "archetype": "client_households",
+        "description": "Households relying on the program for regular support.",
+        "population_total": 600
+      },
+      {
+        "archetype": "donor_base",
+        "description": "Current and recent donors with some likelihood of reacting to the allegations.",
+        "population_total": 220
+      },
+      {
+        "archetype": "local_attention_public",
+        "description": "Local residents and online followers who may encounter the claims or responses.",
+        "population_total": 12000
+      }
+    ],
+    "risk_flags": [
+      {
+        "description": "The core allegation is unsupported in the source text, so the simulation must avoid assuming wrongdoing.",
+        "flag": "claim_has_no_evidence_at_t0",
+        "severity": "high"
+      },
+      {
+        "description": "Clients rely on the program, making reputational shocks potentially harmful even without proven misconduct.",
+        "flag": "service_dependency_vulnerability",
+        "severity": "high"
+      },
+      {
+        "description": "Audit time lag creates a gap in which rumor dynamics may outrun verification.",
+        "flag": "information_vacuum",
+        "severity": "medium"
+      },
+      {
+        "description": "Demoralization may weaken operations if reassurance or process visibility is insufficient.",
+        "flag": "volunteer_attrition_risk",
+        "severity": "medium"
+      },
+      {
+        "description": "Donors can quickly alter support based on perceived accountability failures, even before facts are settled.",
+        "flag": "donor_elasticity_under_uncertainty",
+        "severity": "medium"
+      },
+      {
+        "description": "Coverage choices may strongly influence whether the story remains bounded or escalates.",
+        "flag": "media_amplification_uncertainty",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "core_tensions": [
+        "unverified allegations versus institutional credibility",
+        "service continuity versus reputational damage",
+        "donor accountability demands versus audit time requirements",
+        "public rumor spread versus fact-finding latency"
+      ],
+      "decision_context": "No terminal finding exists at T0; organizational leaders, auditors, donors, volunteers, clients, and local information channels shape downstream outcomes.",
+      "domain": "media_information_dynamics",
+      "evidence_quality": "low_for_claims_moderate_for_reactions",
+      "initial_uncertainty": "high",
+      "mode": "direct",
+      "scenario_key": "media_006",
+      "summary": "Anonymous posts allege that a nonprofit food program is secretly selling donated goods. No supporting evidence is present at T0. The program faces reputational pressure, volunteer demoralization, client anxiety, donor scrutiny, and an ongoing need for auditors to gather facts. The initialization preserves uncertainty and supports later divergence across rumor amplification, investigation outcomes, and trust repair.",
+      "time_horizon_ticks": 6
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "local_public_audience",
+          "program_donors",
+          "program_volunteers"
+        ],
+        "evidence": "Absent proof, audiences are likely moved more by trusted intermediaries and repeated cues than by a single unsupported claim.",
+        "level": 0.58,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "program_donors",
+          "local_public_audience"
+        ],
+        "evidence": "Many stakeholders are concerned but await additional signals before stronger action.",
+        "level": 0.46,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "program_clients",
+          "program_volunteers"
+        ],
+        "evidence": "Dependency and uncertainty suppress open expression despite private concern.",
+        "level": 0.72,
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "program_volunteers",
+          "program_clients",
+          "program_donors"
+        ],
+        "evidence": "Peer conversations within role-based groups are likely more influential than cross-group messaging at T0.",
+        "level": 0.52,
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "local_public_audience",
+          "program_donors"
+        ],
+        "evidence": "Belief in the allegation is more likely to increase if echoed by multiple visible sources such as peers, donors, or media.",
+        "level": 0.57,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "program_volunteers",
+          "program_clients",
+          "program_donors"
+        ],
+        "evidence": "Role identity shapes whether actors defend the program, demand oversight, or remain quiet.",
+        "level": 0.63,
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "local_public_audience"
+        ],
+        "evidence": "Public attention may fade unless reinforced by new claims, coverage, or audit milestones.",
+        "level": 0.41,
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "The allegation currently lacks evidence, limiting justified certainty and making verification cues highly influential.",
+        "influence_key": "lack_of_evidence_constraint"
+      },
+      {
+        "description": "Auditors need time, creating an information vacuum in which rumors and reassurance compete.",
+        "influence_key": "audit_latency"
+      },
+      {
+        "description": "Clients' reliance on aid suppresses public confrontation and heightens sensitivity to continuity signals.",
+        "influence_key": "service_dependency"
+      },
+      {
+        "description": "Donors are socially licensed to ask questions and condition support on visible process.",
+        "influence_key": "donor_accountability_norm"
+      },
+      {
+        "description": "Volunteer participation may shift quickly if leadership communication is absent or defensive.",
+        "influence_key": "volunteer_morale_fragility"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "harbor_meals_program",
+        "behavior_axes": {
+          "defensiveness": 0.45,
+          "responsiveness": 0.7,
+          "stability": 0.7,
+          "transparency": 0.65
+        },
+        "ideology_axes": {
+          "community_service": 0.9,
+          "institutionalism": 0.75,
+          "risk_aversion": 0.6
+        },
+        "reputation": 0.58,
+        "secrecy": 0.4,
+        "tendency": "cautious_reassurance",
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "anonymous_posters",
+        "behavior_axes": {
+          "aggression": 0.55,
+          "attention_seeking": 0.75,
+          "evidence_discipline": 0.1,
+          "persistence": 0.45
+        },
+        "ideology_axes": {
+          "accountability_rhetoric": 0.55,
+          "anti_institutional": 0.65,
+          "community_service": 0.3
+        },
+        "reputation": 0.22,
+        "secrecy": 0.95,
+        "tendency": "rumor_injection",
+        "trustworthiness": 0.18
+      },
+      {
+        "actor_name": "program_volunteers",
+        "behavior_axes": {
+          "attrition_risk": 0.45,
+          "procedural_patience": 0.7,
+          "public_assertiveness": 0.4,
+          "solidarity": 0.7
+        },
+        "ideology_axes": {
+          "community_service": 0.85,
+          "institutionalism": 0.6,
+          "risk_aversion": 0.55
+        },
+        "reputation": 0.62,
+        "secrecy": 0.4,
+        "tendency": "cautious_loyalty",
+        "trustworthiness": 0.7
+      },
+      {
+        "actor_name": "program_clients",
+        "behavior_axes": {
+          "dependency_sensitivity": 0.9,
+          "exit_capacity": 0.15,
+          "procedural_patience": 0.55,
+          "public_assertiveness": 0.2
+        },
+        "ideology_axes": {
+          "community_service": 0.75,
+          "institutionalism": 0.45,
+          "risk_aversion": 0.8
+        },
+        "reputation": 0.5,
+        "secrecy": 0.6,
+        "tendency": "quiet_anxiety",
+        "trustworthiness": 0.66
+      },
+      {
+        "actor_name": "program_donors",
+        "behavior_axes": {
+          "accountability_demand": 0.8,
+          "financial_elasticity": 0.6,
+          "procedural_patience": 0.55,
+          "public_assertiveness": 0.6
+        },
+        "ideology_axes": {
+          "community_service": 0.7,
+          "institutionalism": 0.7,
+          "risk_aversion": 0.65
+        },
+        "reputation": 0.67,
+        "secrecy": 0.25,
+        "tendency": "conditional_support",
+        "trustworthiness": 0.76
+      },
+      {
+        "actor_name": "independent_auditors",
+        "behavior_axes": {
+          "conflict_avoidance": 0.6,
+          "procedural_rigor": 0.92,
+          "public_assertiveness": 0.25,
+          "speed": 0.45
+        },
+        "ideology_axes": {
+          "institutionalism": 0.9,
+          "neutrality": 0.95,
+          "risk_aversion": 0.7
+        },
+        "reputation": 0.72,
+        "secrecy": 0.55,
+        "tendency": "fact_finding",
+        "trustworthiness": 0.82
+      },
+      {
+        "actor_name": "local_public_audience",
+        "behavior_axes": {
+          "attention_volatility": 0.7,
+          "public_assertiveness": 0.3,
+          "susceptibility_to_repetition": 0.6,
+          "verification_effort": 0.3
+        },
+        "ideology_axes": {
+          "community_service": 0.55,
+          "institutionalism": 0.5,
+          "risk_aversion": 0.45
+        },
+        "reputation": 0.5,
+        "secrecy": 0.15,
+        "tendency": "mixed_reception",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "local_media_watchers",
+        "behavior_axes": {
+          "attention_competition": 0.62,
+          "conflict_salience": 0.55,
+          "public_assertiveness": 0.65,
+          "verification_effort": 0.72
+        },
+        "ideology_axes": {
+          "community_service": 0.45,
+          "institutionalism": 0.6,
+          "neutrality": 0.7
+        },
+        "reputation": 0.64,
+        "secrecy": 0.2,
+        "tendency": "selective_amplification",
+        "trustworthiness": 0.7
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 504,
+        "end": 504,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 504,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

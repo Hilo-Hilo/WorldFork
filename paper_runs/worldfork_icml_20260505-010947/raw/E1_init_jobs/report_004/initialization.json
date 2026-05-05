@@ -1,0 +1,1496 @@
+{
+  "big_bang_id": "16d74cb2-b831-4c1f-8436-23f95e0ac6a9",
+  "initializer_output": {
+    "actors": [
+      {
+        "fictionalized": true,
+        "name": "harbor_city_sanitation_department",
+        "public_visibility": "high",
+        "role": "municipal service operator and proposal sponsor",
+        "stakes": [
+          "service reliability",
+          "worker safety",
+          "budget efficiency",
+          "political accountability"
+        ],
+        "type": "institution"
+      },
+      {
+        "fictionalized": true,
+        "name": "city_executive_office",
+        "public_visibility": "high",
+        "role": "mayoral or city manager authority influencing procurement timing and policy framing",
+        "stakes": [
+          "governance credibility",
+          "budget discipline",
+          "public acceptance"
+        ],
+        "type": "institution"
+      },
+      {
+        "fictionalized": true,
+        "name": "city_council_public_works_committee",
+        "public_visibility": "high",
+        "role": "oversight and approval venue for public works and procurement scrutiny",
+        "stakes": [
+          "oversight legitimacy",
+          "constituent response",
+          "risk management"
+        ],
+        "type": "institution"
+      },
+      {
+        "fictionalized": true,
+        "name": "metrobin_systems",
+        "public_visibility": "medium",
+        "role": "smart container vendor offering discount for rapid approval",
+        "stakes": [
+          "contract award",
+          "pilot expansion",
+          "reputation as municipal partner"
+        ],
+        "type": "company"
+      },
+      {
+        "fictionalized": true,
+        "name": "resident_general_public",
+        "public_visibility": "high",
+        "role": "city residents affected by trash access changes",
+        "stakes": [
+          "ease of disposal",
+          "neighborhood cleanliness",
+          "fairness",
+          "data/privacy expectations"
+        ],
+        "type": "population_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "privacy_rights_network",
+        "public_visibility": "medium",
+        "role": "privacy-focused civil society actor objecting to tracking implications",
+        "stakes": [
+          "data minimization",
+          "civil liberties",
+          "precedent-setting"
+        ],
+        "type": "advocacy_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "sanitation_staff_union",
+        "public_visibility": "medium",
+        "role": "represents sanitation staff seeking fewer injuries and workable operations",
+        "stakes": [
+          "worker safety",
+          "job conditions",
+          "operational practicality"
+        ],
+        "type": "labor_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "local_press",
+        "public_visibility": "high",
+        "role": "amplifies controversy, hearings, and public framing",
+        "stakes": [
+          "newsworthiness",
+          "public accountability",
+          "narrative clarity"
+        ],
+        "type": "media"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Proposal advances quickly with limited safeguards debate, provoking louder privacy and access backlash.",
+        "branch_key": "rush_discount_path",
+        "observable_divergence_signal": "Compressed review calendar, limited hearings, and public emphasis on savings and modernization.",
+        "trigger": "Executive and department leadership prioritize discount savings over extended deliberation."
+      },
+      {
+        "alternate_path": "A pilot or phased rollout becomes the main policy vehicle instead of citywide replacement.",
+        "branch_key": "safeguarded_pilot_path",
+        "observable_divergence_signal": "Discussion shifts from full replacement to trial zones, opt-in rules, audits, or data-minimization terms.",
+        "trigger": "Decision-makers seek compromise by narrowing deployment scope and adding privacy/access conditions."
+      },
+      {
+        "alternate_path": "Oversight bodies delay or suspend approval pending review.",
+        "branch_key": "privacy_backlash_delay_path",
+        "observable_divergence_signal": "Hearing agendas focus on data governance, legal review, and procurement pause language.",
+        "trigger": "Tracking details or advocacy framing make the proposal symbolically about surveillance rather than sanitation."
+      },
+      {
+        "alternate_path": "Public and committee actors accept conditional experimentation despite initial skepticism.",
+        "branch_key": "worker_safety_legitimation_path",
+        "observable_divergence_signal": "Media and hearing discourse foreground workplace injuries and operational safety gains.",
+        "trigger": "Credible injury data or frontline testimony becomes salient and trusted."
+      },
+      {
+        "alternate_path": "Access redesign becomes mandatory or replacement loses momentum.",
+        "branch_key": "access_failure_preemption_path",
+        "observable_divergence_signal": "Proposal language adds exemptions, manual access alternatives, or equity review requirements.",
+        "trigger": "Illustrative cases suggest locked containers may burden elderly, disabled, unhoused, or irregular users."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "department_press_release",
+        "primary_actors": [
+          "harbor_city_sanitation_department"
+        ],
+        "type": "official_public"
+      },
+      {
+        "channel_key": "public_works_committee_hearing",
+        "primary_actors": [
+          "city_council_public_works_committee",
+          "harbor_city_sanitation_department",
+          "privacy_rights_network",
+          "sanitation_staff_union",
+          "resident_general_public"
+        ],
+        "type": "institutional_public"
+      },
+      {
+        "channel_key": "local_news_cycle",
+        "primary_actors": [
+          "local_press",
+          "resident_general_public",
+          "privacy_rights_network",
+          "sanitation_staff_union",
+          "city_executive_office"
+        ],
+        "type": "media_public"
+      },
+      {
+        "channel_key": "procurement_briefings",
+        "primary_actors": [
+          "harbor_city_sanitation_department",
+          "city_executive_office",
+          "metrobin_systems"
+        ],
+        "type": "institutional_private"
+      },
+      {
+        "channel_key": "union_member_meetings",
+        "primary_actors": [
+          "sanitation_staff_union"
+        ],
+        "type": "group_internal"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "resident_general_public",
+        "attention_level": 5,
+        "behavioral_tendencies": [
+          "responds to inconvenience stories",
+          "shifts opinion with visible service evidence"
+        ],
+        "cohort_key": "residents_access_concerned",
+        "expression_level": 4,
+        "fatigue": 2,
+        "fear_of_isolation": 4,
+        "mobilization_readiness": 4,
+        "perceived_majority": 6,
+        "population_archetype_key": "city_residents",
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Worried locked containers will make disposal less convenient or exclude some users.",
+        "public_expression": "Moderate complaint potential but not yet fully mobilized.",
+        "representation_mode": "attitudinal_cohort",
+        "represented_population": 112500,
+        "reputation": 5,
+        "secrecy": 2,
+        "stance_axes": {
+          "privacy_sensitivity": 5,
+          "smart_container_support": 3,
+          "speed_of_approval_support": 3,
+          "worker_safety_priority": 6
+        },
+        "trustworthiness": 6
+      },
+      {
+        "actor_name": "resident_general_public",
+        "attention_level": 6,
+        "behavioral_tendencies": [
+          "reacts strongly to surveillance framing",
+          "prefers procedural safeguards before adoption"
+        ],
+        "cohort_key": "residents_privacy_alert",
+        "expression_level": 5,
+        "fatigue": 2,
+        "fear_of_isolation": 5,
+        "mobilization_readiness": 6,
+        "perceived_majority": 3,
+        "population_archetype_key": "city_residents",
+        "population_share_of_archetype": 0.2,
+        "private_belief": "Tracking-capable infrastructure is unacceptable without strict limits and transparency.",
+        "public_expression": "Likely to align with advocacy messaging and comment at hearings.",
+        "representation_mode": "attitudinal_cohort",
+        "represented_population": 50000,
+        "reputation": 5,
+        "secrecy": 3,
+        "stance_axes": {
+          "privacy_sensitivity": 9,
+          "smart_container_support": 2,
+          "speed_of_approval_support": 1,
+          "worker_safety_priority": 5
+        },
+        "trustworthiness": 6
+      },
+      {
+        "actor_name": "resident_general_public",
+        "attention_level": 3,
+        "behavioral_tendencies": [
+          "waits for practical evidence",
+          "low activation absent controversy"
+        ],
+        "cohort_key": "residents_service_pragmatists",
+        "expression_level": 2,
+        "fatigue": 1,
+        "fear_of_isolation": 6,
+        "mobilization_readiness": 3,
+        "perceived_majority": 4,
+        "population_archetype_key": "city_residents",
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Open to new containers if cleanliness and reliability improve and access remains reasonable.",
+        "public_expression": "Mostly quiet unless debate intensifies or service evidence becomes visible.",
+        "representation_mode": "attitudinal_cohort",
+        "represented_population": 87500,
+        "reputation": 5,
+        "secrecy": 2,
+        "stance_axes": {
+          "privacy_sensitivity": 4,
+          "smart_container_support": 6,
+          "speed_of_approval_support": 5,
+          "worker_safety_priority": 6
+        },
+        "trustworthiness": 6
+      },
+      {
+        "actor_name": "sanitation_staff_union",
+        "attention_level": 7,
+        "behavioral_tendencies": [
+          "prioritizes injury reduction",
+          "skeptical of unmanaged rollout complexity"
+        ],
+        "cohort_key": "frontline_collectors",
+        "expression_level": 5,
+        "fatigue": 4,
+        "fear_of_isolation": 3,
+        "mobilization_readiness": 5,
+        "perceived_majority": 7,
+        "population_archetype_key": "sanitation_workforce",
+        "population_share_of_archetype": 0.7,
+        "private_belief": "If the containers reduce lifting hazards and exposure, change is worth considering.",
+        "public_expression": "Supportive when safety claims are credible, but sensitive to implementation burden.",
+        "representation_mode": "occupational_cohort",
+        "represented_population": 630,
+        "reputation": 6,
+        "secrecy": 2,
+        "stance_axes": {
+          "privacy_sensitivity": 3,
+          "smart_container_support": 7,
+          "speed_of_approval_support": 4,
+          "worker_safety_priority": 10
+        },
+        "trustworthiness": 7
+      },
+      {
+        "actor_name": "sanitation_staff_union",
+        "attention_level": 6,
+        "behavioral_tendencies": [
+          "requests operational proof",
+          "resists rushed implementation"
+        ],
+        "cohort_key": "operations_skeptics",
+        "expression_level": 4,
+        "fatigue": 5,
+        "fear_of_isolation": 4,
+        "mobilization_readiness": 4,
+        "perceived_majority": 4,
+        "population_archetype_key": "sanitation_workforce",
+        "population_share_of_archetype": 0.3,
+        "private_belief": "New technology may create maintenance burdens or unrealistic route expectations.",
+        "public_expression": "Cautious rather than oppositional at T0.",
+        "representation_mode": "occupational_cohort",
+        "represented_population": 270,
+        "reputation": 5,
+        "secrecy": 3,
+        "stance_axes": {
+          "privacy_sensitivity": 2,
+          "smart_container_support": 4,
+          "speed_of_approval_support": 2,
+          "worker_safety_priority": 9
+        },
+        "trustworthiness": 7
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "resident_general_public",
+        "attention_level": 5,
+        "behavioral_tendencies": [
+          "responds to inconvenience stories",
+          "shifts opinion with visible service evidence"
+        ],
+        "cohort_key": "residents_access_concerned",
+        "expression_level": 4,
+        "fatigue": 2,
+        "fear_of_isolation": 4,
+        "mobilization_readiness": 4,
+        "perceived_majority": 6,
+        "population_archetype_key": "city_residents",
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Worried locked containers will make disposal less convenient or exclude some users.",
+        "public_expression": "Moderate complaint potential but not yet fully mobilized.",
+        "representation_mode": "attitudinal_cohort",
+        "represented_population": 112500,
+        "reputation": 5,
+        "secrecy": 2,
+        "stance_axes": {
+          "privacy_sensitivity": 5,
+          "smart_container_support": 3,
+          "speed_of_approval_support": 3,
+          "worker_safety_priority": 6
+        },
+        "trustworthiness": 6
+      },
+      {
+        "actor_name": "resident_general_public",
+        "attention_level": 6,
+        "behavioral_tendencies": [
+          "reacts strongly to surveillance framing",
+          "prefers procedural safeguards before adoption"
+        ],
+        "cohort_key": "residents_privacy_alert",
+        "expression_level": 5,
+        "fatigue": 2,
+        "fear_of_isolation": 5,
+        "mobilization_readiness": 6,
+        "perceived_majority": 3,
+        "population_archetype_key": "city_residents",
+        "population_share_of_archetype": 0.2,
+        "private_belief": "Tracking-capable infrastructure is unacceptable without strict limits and transparency.",
+        "public_expression": "Likely to align with advocacy messaging and comment at hearings.",
+        "representation_mode": "attitudinal_cohort",
+        "represented_population": 50000,
+        "reputation": 5,
+        "secrecy": 3,
+        "stance_axes": {
+          "privacy_sensitivity": 9,
+          "smart_container_support": 2,
+          "speed_of_approval_support": 1,
+          "worker_safety_priority": 5
+        },
+        "trustworthiness": 6
+      },
+      {
+        "actor_name": "resident_general_public",
+        "attention_level": 3,
+        "behavioral_tendencies": [
+          "waits for practical evidence",
+          "low activation absent controversy"
+        ],
+        "cohort_key": "residents_service_pragmatists",
+        "expression_level": 2,
+        "fatigue": 1,
+        "fear_of_isolation": 6,
+        "mobilization_readiness": 3,
+        "perceived_majority": 4,
+        "population_archetype_key": "city_residents",
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Open to new containers if cleanliness and reliability improve and access remains reasonable.",
+        "public_expression": "Mostly quiet unless debate intensifies or service evidence becomes visible.",
+        "representation_mode": "attitudinal_cohort",
+        "represented_population": 87500,
+        "reputation": 5,
+        "secrecy": 2,
+        "stance_axes": {
+          "privacy_sensitivity": 4,
+          "smart_container_support": 6,
+          "speed_of_approval_support": 5,
+          "worker_safety_priority": 6
+        },
+        "trustworthiness": 6
+      },
+      {
+        "actor_name": "sanitation_staff_union",
+        "attention_level": 7,
+        "behavioral_tendencies": [
+          "prioritizes injury reduction",
+          "skeptical of unmanaged rollout complexity"
+        ],
+        "cohort_key": "frontline_collectors",
+        "expression_level": 5,
+        "fatigue": 4,
+        "fear_of_isolation": 3,
+        "mobilization_readiness": 5,
+        "perceived_majority": 7,
+        "population_archetype_key": "sanitation_workforce",
+        "population_share_of_archetype": 0.7,
+        "private_belief": "If the containers reduce lifting hazards and exposure, change is worth considering.",
+        "public_expression": "Supportive when safety claims are credible, but sensitive to implementation burden.",
+        "representation_mode": "occupational_cohort",
+        "represented_population": 630,
+        "reputation": 6,
+        "secrecy": 2,
+        "stance_axes": {
+          "privacy_sensitivity": 3,
+          "smart_container_support": 7,
+          "speed_of_approval_support": 4,
+          "worker_safety_priority": 10
+        },
+        "trustworthiness": 7
+      },
+      {
+        "actor_name": "sanitation_staff_union",
+        "attention_level": 6,
+        "behavioral_tendencies": [
+          "requests operational proof",
+          "resists rushed implementation"
+        ],
+        "cohort_key": "operations_skeptics",
+        "expression_level": 4,
+        "fatigue": 5,
+        "fear_of_isolation": 4,
+        "mobilization_readiness": 4,
+        "perceived_majority": 4,
+        "population_archetype_key": "sanitation_workforce",
+        "population_share_of_archetype": 0.3,
+        "private_belief": "New technology may create maintenance burdens or unrealistic route expectations.",
+        "public_expression": "Cautious rather than oppositional at T0.",
+        "representation_mode": "occupational_cohort",
+        "represented_population": 270,
+        "reputation": 5,
+        "secrecy": 3,
+        "stance_axes": {
+          "privacy_sensitivity": 2,
+          "smart_container_support": 4,
+          "speed_of_approval_support": 2,
+          "worker_safety_priority": 9
+        },
+        "trustworthiness": 7
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "harbor_city_sanitation_department",
+          "city_executive_office",
+          "city_council_public_works_committee"
+        ],
+        "blockers": [
+          "privacy objections",
+          "access concerns",
+          "oversight delay",
+          "operational skepticism"
+        ],
+        "contradiction_notes": "Would be contradicted by explicit pilot-only limitation, cancellation, or formal pause without approval.",
+        "description": "The city authorizes broad replacement of legacy bins with locked smart containers as the adopted municipal path.",
+        "endpoint_key": "citywide_replacement_approved",
+        "evidence_refs": [
+          "department_consideration",
+          "vendor_discount_pressure"
+        ],
+        "label": "Citywide replacement approved",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the city ultimately authorize citywide replacement of existing trash bins with locked smart containers?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.29,
+        "rationale": "This is the clearest terminal policy endpoint implied by the scenario.",
+        "realization_criteria": [
+          "A formal city authority approves procurement or implementation for citywide or default-wide deployment",
+          "Department or executive communications confirm replacement as adopted policy rather than exploratory option",
+          "No higher-priority active endpoint supersedes with pilot-only, cancellation, or indefinite suspension status"
+        ],
+        "status": "active",
+        "status_basis": "The proposal is under consideration but not yet approved at T0."
+      },
+      {
+        "authority_refs": [
+          "harbor_city_sanitation_department",
+          "city_council_public_works_committee",
+          "city_executive_office"
+        ],
+        "blockers": [
+          "vendor insistence on rapid full approval",
+          "budget constraints for parallel systems",
+          "strong demand for outright rejection"
+        ],
+        "contradiction_notes": "Would be contradicted by direct full-approval action or formal abandonment of the project.",
+        "description": "The city chooses a limited trial, staged rollout, or geographically constrained implementation instead of immediate citywide replacement.",
+        "endpoint_key": "pilot_or_phased_deployment_adopted",
+        "evidence_refs": [
+          "mixed stakeholder pressures",
+          "governance_tradeoff_context"
+        ],
+        "label": "Pilot or phased deployment adopted",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the proposal resolve into a pilot or phased deployment rather than immediate full replacement?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.41,
+        "rationale": "Pilot pathways often absorb conflict when safety benefits exist but legitimacy or privacy issues remain unresolved.",
+        "realization_criteria": [
+          "Formal city action limits initial deployment to a pilot, phase, or defined subset of locations",
+          "Evaluation checkpoints or expansion conditions are publicly specified",
+          "Citywide replacement remains contingent on later review rather than immediate authorization"
+        ],
+        "status": "active",
+        "status_basis": "Compromise structures are plausible because no side has decisive uncontested authority at T0."
+      },
+      {
+        "authority_refs": [
+          "city_council_public_works_committee",
+          "city_executive_office",
+          "harbor_city_sanitation_department"
+        ],
+        "blockers": [
+          "unclear technical flexibility",
+          "pressure for fast approval",
+          "weak privacy oversight capacity"
+        ],
+        "contradiction_notes": "Can coexist with pilot or citywide endpoints, but is contradicted by approval with no explicit privacy constraints.",
+        "description": "Any approved deployment is conditioned on enforceable limits on tracking, retention, sharing, or data collection.",
+        "endpoint_key": "privacy_constrained_deployment",
+        "evidence_refs": [
+          "privacy_groups_object_to_tracking"
+        ],
+        "label": "Deployment allowed only with binding privacy constraints",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Are binding privacy and data-governance limits imposed as a condition of any deployment?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.54,
+        "rationale": "The scenario strongly implies that data governance is endpoint-relevant, not just a process detail.",
+        "realization_criteria": [
+          "Approval documents or policy terms explicitly restrict tracking or require data minimization",
+          "Oversight, audit, or compliance obligations are attached to deployment",
+          "Decision records indicate privacy conditions are binding rather than advisory"
+        ],
+        "status": "active",
+        "status_basis": "Privacy objection is already salient, but no binding terms are yet in evidence."
+      },
+      {
+        "authority_refs": [
+          "city_council_public_works_committee",
+          "city_executive_office",
+          "harbor_city_sanitation_department",
+          "metrobin_systems"
+        ],
+        "blockers": [
+          "executive push for speed",
+          "strong worker-safety case",
+          "successful compromise package"
+        ],
+        "contradiction_notes": "Would be contradicted by timely formal approval for either citywide or pilot deployment.",
+        "description": "The project fails to reach implementation authorization within the relevant decision window because access, privacy, or governance concerns overwhelm momentum.",
+        "endpoint_key": "adoption_delayed_or_stalled",
+        "evidence_refs": [
+          "resident_access_concern",
+          "privacy_objection",
+          "vendor_discount_deadline"
+        ],
+        "label": "Adoption delayed or stalled",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do public access concerns force redesign requirements or materially delay adoption?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.37,
+        "rationale": "Delay is a genuine terminal outcome if the key approval window closes and the proposal loses momentum.",
+        "realization_criteria": [
+          "Formal review is postponed, procurement is paused, or approval deadline lapses without implementation authorization",
+          "Public communications frame the project as under further study, suspended, or pending redesign",
+          "Vendor discount window expires without approved adoption path"
+        ],
+        "status": "active",
+        "status_basis": "Multiple concerns exist at T0 and the time-limited discount creates a clear stall condition if approval slows."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "Residents are described as already worried about access.",
+        "layer": "exposure",
+        "reason": "Municipal service proposals are visible to residents through standard public communication.",
+        "source_actor_name": "harbor_city_sanitation_department",
+        "target_actor_name": "resident_general_public",
+        "weight": 0.52
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Privacy groups object to tracking.",
+        "layer": "exposure",
+        "reason": "Advocacy messaging can reach attentive residents during controversy.",
+        "source_actor_name": "privacy_rights_network",
+        "target_actor_name": "resident_general_public",
+        "weight": 0.38
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Staff want fewer injuries.",
+        "layer": "exposure",
+        "reason": "Worker safety claims can become publicly visible but are not the dominant public frame at T0.",
+        "source_actor_name": "sanitation_staff_union",
+        "target_actor_name": "resident_general_public",
+        "weight": 0.24
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Vendor offers a discount if approved quickly.",
+        "layer": "exposure",
+        "reason": "Vendor is actively presenting its offer to the department.",
+        "source_actor_name": "metrobin_systems",
+        "target_actor_name": "harbor_city_sanitation_department",
+        "weight": 0.51
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Governance tradeoffs invite report and public evaluation.",
+        "layer": "exposure",
+        "reason": "Media can amplify any procurement or privacy controversy.",
+        "source_actor_name": "local_press",
+        "target_actor_name": "resident_general_public",
+        "weight": 0.57
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Residents worry about access.",
+        "layer": "trust",
+        "reason": "Baseline institutional trust exists but is reduced by access worries.",
+        "source_actor_name": "resident_general_public",
+        "target_actor_name": "harbor_city_sanitation_department",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Privacy groups object to tracking.",
+        "layer": "trust",
+        "reason": "Privacy advocates have some credibility with concerned residents.",
+        "source_actor_name": "resident_general_public",
+        "target_actor_name": "privacy_rights_network",
+        "weight": 0.43
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Department is considering replacement rather than committing.",
+        "layer": "trust",
+        "reason": "Department sees vendor as plausible supplier but not fully validated.",
+        "source_actor_name": "harbor_city_sanitation_department",
+        "target_actor_name": "metrobin_systems",
+        "weight": 0.39
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Sanitation staff want fewer injuries.",
+        "layer": "trust",
+        "reason": "Worker injury concerns make staff input credible.",
+        "source_actor_name": "harbor_city_sanitation_department",
+        "target_actor_name": "sanitation_staff_union",
+        "weight": 0.54
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Public works governance context implies review, not blind trust.",
+        "layer": "trust",
+        "reason": "Committee likely treats department as legitimate but subject to oversight.",
+        "source_actor_name": "city_council_public_works_committee",
+        "target_actor_name": "harbor_city_sanitation_department",
+        "weight": 0.49
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Approval pressure implies a decision chain beyond technical staff.",
+        "layer": "dependency",
+        "reason": "Major infrastructure procurement often depends on executive budget and policy support.",
+        "source_actor_name": "harbor_city_sanitation_department",
+        "target_actor_name": "city_executive_office",
+        "weight": 0.42
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario asks for governance tradeoffs and endpoint priors.",
+        "layer": "dependency",
+        "reason": "Oversight or funding approval is a likely gate for citywide replacement.",
+        "source_actor_name": "harbor_city_sanitation_department",
+        "target_actor_name": "city_council_public_works_committee",
+        "weight": 0.47
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Considering replacing bins with vendor-offered containers.",
+        "layer": "dependency",
+        "reason": "Smart-container adoption would rely on vendor technology, but adoption is not yet locked in.",
+        "source_actor_name": "harbor_city_sanitation_department",
+        "target_actor_name": "metrobin_systems",
+        "weight": 0.28
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Discount is conditional on quick approval.",
+        "layer": "dependency",
+        "reason": "Vendor depends on city approval for contract realization.",
+        "source_actor_name": "metrobin_systems",
+        "target_actor_name": "harbor_city_sanitation_department",
+        "weight": 0.44
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Proposal affects public trash bins.",
+        "layer": "dependency",
+        "reason": "Residents rely on the department for waste service access and cleanliness.",
+        "source_actor_name": "resident_general_public",
+        "target_actor_name": "harbor_city_sanitation_department",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Staff expectations about injuries are relevant to implementation.",
+        "layer": "dependency",
+        "reason": "Operational success depends on staff adoption and workability.",
+        "source_actor_name": "harbor_city_sanitation_department",
+        "target_actor_name": "sanitation_staff_union",
+        "weight": 0.55
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Approval timing matters under discount pressure.",
+        "layer": "influence",
+        "reason": "Executive office can shape urgency, messaging, and procurement appetite.",
+        "source_actor_name": "city_executive_office",
+        "target_actor_name": "harbor_city_sanitation_department",
+        "weight": 0.56
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Governance tradeoffs imply oversight influence.",
+        "layer": "influence",
+        "reason": "Committee can slow, condition, or legitimate adoption.",
+        "source_actor_name": "city_council_public_works_committee",
+        "target_actor_name": "harbor_city_sanitation_department",
+        "weight": 0.59
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Privacy groups object to tracking.",
+        "layer": "influence",
+        "reason": "Advocacy groups can influence hearings and safeguards.",
+        "source_actor_name": "privacy_rights_network",
+        "target_actor_name": "city_council_public_works_committee",
+        "weight": 0.41
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Staff injury benefits are a key stated factor.",
+        "layer": "influence",
+        "reason": "Union support can materially shape internal legitimacy of rollout.",
+        "source_actor_name": "sanitation_staff_union",
+        "target_actor_name": "harbor_city_sanitation_department",
+        "weight": 0.48
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Discount creates pressure on approval timing.",
+        "layer": "influence",
+        "reason": "Vendor can affect agenda through pricing and modernization claims.",
+        "source_actor_name": "metrobin_systems",
+        "target_actor_name": "city_executive_office",
+        "weight": 0.27
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Tradeoffs are report-relevant and publicly legible.",
+        "layer": "influence",
+        "reason": "Media can strongly shape public salience and framing.",
+        "source_actor_name": "local_press",
+        "target_actor_name": "resident_general_public",
+        "weight": 0.53
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Staff want fewer injuries.",
+        "layer": "coalition",
+        "reason": "Shared interest in injury reduction creates conditional alignment.",
+        "source_actor_name": "harbor_city_sanitation_department",
+        "target_actor_name": "sanitation_staff_union",
+        "weight": 0.44
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Residents worry and privacy groups object.",
+        "layer": "coalition",
+        "reason": "Privacy-concerned residents can align with advocacy opposition.",
+        "source_actor_name": "privacy_rights_network",
+        "target_actor_name": "resident_general_public",
+        "weight": 0.36
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Department is considering vendor system.",
+        "layer": "coalition",
+        "reason": "Vendor and department share interest in proposal advancement but for different reasons.",
+        "source_actor_name": "metrobin_systems",
+        "target_actor_name": "harbor_city_sanitation_department",
+        "weight": 0.31
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Privacy groups object to tracking.",
+        "layer": "conflict",
+        "reason": "Tracking objections directly challenge the vendor's model or design assumptions.",
+        "source_actor_name": "privacy_rights_network",
+        "target_actor_name": "metrobin_systems",
+        "weight": 0.57
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Department is considering tracked smart containers.",
+        "layer": "conflict",
+        "reason": "Advocates may resist city adoption absent safeguards.",
+        "source_actor_name": "privacy_rights_network",
+        "target_actor_name": "harbor_city_sanitation_department",
+        "weight": 0.46
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Residents worry about access.",
+        "layer": "conflict",
+        "reason": "Access worries create low-to-moderate grievance at T0.",
+        "source_actor_name": "resident_general_public",
+        "target_actor_name": "harbor_city_sanitation_department",
+        "weight": 0.34
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Vendor offers discount if approved quickly.",
+        "layer": "conflict",
+        "reason": "Committee may resist deadline pressure and demand scrutiny.",
+        "source_actor_name": "city_council_public_works_committee",
+        "target_actor_name": "metrobin_systems",
+        "weight": 0.22
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Residents already have concerns.",
+        "layer": "oasis_interaction",
+        "reason": "Public complaint, letters, and interviews are likely if issue becomes salient.",
+        "source_actor_name": "resident_general_public",
+        "target_actor_name": "local_press",
+        "weight": 0.41
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Privacy groups object to tracking.",
+        "layer": "oasis_interaction",
+        "reason": "Advocacy objections are likely to be voiced in public channels.",
+        "source_actor_name": "privacy_rights_network",
+        "target_actor_name": "local_press",
+        "weight": 0.49
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Staff want fewer injuries.",
+        "layer": "oasis_interaction",
+        "reason": "Labor can publicly discuss injury rationale if debate broadens.",
+        "source_actor_name": "sanitation_staff_union",
+        "target_actor_name": "local_press",
+        "weight": 0.32
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Governance tradeoff evaluation implies formal review channels.",
+        "layer": "oasis_interaction",
+        "reason": "Hearings, briefings, and memos are likely public interaction sites.",
+        "source_actor_name": "harbor_city_sanitation_department",
+        "target_actor_name": "city_council_public_works_committee",
+        "weight": 0.46
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype_key": "department_decision_maker",
+        "description": "Senior public official balancing service, safety, budget, and procurement timing.",
+        "label": "Sanitation department leadership"
+      },
+      {
+        "archetype_key": "privacy_advocacy_lead",
+        "description": "Public critic shaping civil-liberties framing.",
+        "label": "Privacy advocacy lead"
+      },
+      {
+        "archetype_key": "labor_representative",
+        "description": "Visible staff voice on safety and operational realism.",
+        "label": "Sanitation labor representative"
+      },
+      {
+        "archetype_key": "vendor_account_lead",
+        "description": "Commercial actor pressing for approval under discount window.",
+        "label": "Vendor account lead"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "harbor_city_sanitation_department",
+        "attention_level": 8,
+        "behavioral_tendencies": [
+          "technocratic framing",
+          "sensitive to injury-reduction evidence",
+          "constrained by oversight"
+        ],
+        "decision_power": 0.72,
+        "expression_level": 6,
+        "fatigue": 4,
+        "fear_of_isolation": 3,
+        "hero_archetype_key": "department_decision_maker",
+        "hero_key": "commissioner_ellen_ward",
+        "mobilization_readiness": 6,
+        "perceived_majority": 5,
+        "reputation": 6,
+        "role": "sanitation commissioner",
+        "secrecy": 5,
+        "stance_axes": {
+          "privacy_sensitivity": 5,
+          "smart_container_support": 7,
+          "speed_of_approval_support": 6,
+          "worker_safety_priority": 8
+        },
+        "trustworthiness": 6
+      },
+      {
+        "actor_name": "privacy_rights_network",
+        "attention_level": 7,
+        "behavioral_tendencies": [
+          "pushes procedural scrutiny",
+          "elevates precedent and rights concerns"
+        ],
+        "decision_power": 0.31,
+        "expression_level": 7,
+        "fatigue": 2,
+        "fear_of_isolation": 2,
+        "hero_archetype_key": "privacy_advocacy_lead",
+        "hero_key": "mara_quinn",
+        "mobilization_readiness": 7,
+        "perceived_majority": 3,
+        "reputation": 6,
+        "role": "privacy campaign director",
+        "secrecy": 2,
+        "stance_axes": {
+          "privacy_sensitivity": 10,
+          "smart_container_support": 2,
+          "speed_of_approval_support": 1,
+          "worker_safety_priority": 5
+        },
+        "trustworthiness": 6
+      },
+      {
+        "actor_name": "sanitation_staff_union",
+        "attention_level": 7,
+        "behavioral_tendencies": [
+          "conditions support on worker protections",
+          "can legitimate or complicate rollout"
+        ],
+        "decision_power": 0.38,
+        "expression_level": 6,
+        "fatigue": 4,
+        "fear_of_isolation": 2,
+        "hero_archetype_key": "labor_representative",
+        "hero_key": "luis_ortega",
+        "mobilization_readiness": 6,
+        "perceived_majority": 7,
+        "reputation": 7,
+        "role": "union president",
+        "secrecy": 3,
+        "stance_axes": {
+          "privacy_sensitivity": 3,
+          "smart_container_support": 6,
+          "speed_of_approval_support": 4,
+          "worker_safety_priority": 10
+        },
+        "trustworthiness": 7
+      },
+      {
+        "actor_name": "metrobin_systems",
+        "attention_level": 8,
+        "behavioral_tendencies": [
+          "emphasizes savings and modernization",
+          "uses deadline leverage"
+        ],
+        "decision_power": 0.29,
+        "expression_level": 6,
+        "fatigue": 2,
+        "fear_of_isolation": 2,
+        "hero_archetype_key": "vendor_account_lead",
+        "hero_key": "daniel_cho",
+        "mobilization_readiness": 7,
+        "perceived_majority": 4,
+        "reputation": 5,
+        "role": "municipal sales director",
+        "secrecy": 6,
+        "stance_axes": {
+          "privacy_sensitivity": 2,
+          "smart_container_support": 10,
+          "speed_of_approval_support": 10,
+          "worker_safety_priority": 6
+        },
+        "trustworthiness": 4
+      }
+    ],
+    "heroes": [
+      {
+        "archetype_key": "department_decision_maker",
+        "description": "Senior public official balancing service, safety, budget, and procurement timing.",
+        "label": "Sanitation department leadership"
+      },
+      {
+        "archetype_key": "privacy_advocacy_lead",
+        "description": "Public critic shaping civil-liberties framing.",
+        "label": "Privacy advocacy lead"
+      },
+      {
+        "archetype_key": "labor_representative",
+        "description": "Visible staff voice on safety and operational realism.",
+        "label": "Sanitation labor representative"
+      },
+      {
+        "archetype_key": "vendor_account_lead",
+        "description": "Commercial actor pressing for approval under discount window.",
+        "label": "Vendor account lead"
+      }
+    ],
+    "important_questions": [
+      "Does the city ultimately authorize citywide replacement of existing trash bins with locked smart containers?",
+      "Does the proposal resolve into a pilot or phased deployment rather than immediate full replacement?",
+      "Are binding privacy and data-governance limits imposed as a condition of any deployment?",
+      "Do public access concerns force redesign requirements or materially delay adoption?"
+    ],
+    "initial_events": [
+      {
+        "actors_involved": [
+          "harbor_city_sanitation_department",
+          "metrobin_systems"
+        ],
+        "event_key": "proposal_under_consideration",
+        "event_type": "announcement",
+        "evidence": "Scenario states the department considers replacing bins.",
+        "expected_impact": "Raises baseline attention and creates focal point for access, privacy, and safety tradeoffs.",
+        "status": "visible",
+        "summary": "Sanitation department is actively considering replacing existing trash bins with locked smart containers.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "metrobin_systems",
+          "harbor_city_sanitation_department",
+          "city_executive_office"
+        ],
+        "event_key": "vendor_discount_window",
+        "event_type": "announcement",
+        "evidence": "Vendor offers a discount if approved quickly.",
+        "expected_impact": "Increases urgency, suspicion of rushed process, and internal pressure to define approval path.",
+        "status": "visible",
+        "summary": "Vendor presents a rapid-approval discount offer.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "resident_general_public",
+          "local_press",
+          "city_council_public_works_committee"
+        ],
+        "event_key": "resident_access_concerns_surface",
+        "event_type": "announcement",
+        "evidence": "Residents worry about access.",
+        "expected_impact": "May increase public conflict edge with the department and shift committee caution upward.",
+        "status": "imminent",
+        "summary": "Resident concerns about locked-container access become more publicly articulated.",
+        "tick": 1
+      },
+      {
+        "actors_involved": [
+          "privacy_rights_network",
+          "local_press",
+          "city_council_public_works_committee"
+        ],
+        "event_key": "privacy_objection_statement",
+        "event_type": "announcement",
+        "evidence": "Privacy groups object to tracking.",
+        "expected_impact": "Can increase attention, lower trust in the proposal, and create demand for safeguards or delay.",
+        "status": "imminent",
+        "summary": "Privacy advocates issue or amplify objections to tracking implications.",
+        "tick": 1
+      },
+      {
+        "actors_involved": [
+          "sanitation_staff_union",
+          "harbor_city_sanitation_department",
+          "local_press"
+        ],
+        "event_key": "worker_safety_argument_enters_debate",
+        "event_type": "announcement",
+        "evidence": "Sanitation staff want fewer injuries.",
+        "expected_impact": "Could moderate blanket opposition and strengthen conditional coalition around pilot or redesign options.",
+        "status": "imminent",
+        "summary": "Sanitation staff or union representatives emphasize injury-reduction benefits.",
+        "tick": 2
+      },
+      {
+        "actors_involved": [
+          "city_council_public_works_committee",
+          "city_executive_office",
+          "harbor_city_sanitation_department"
+        ],
+        "event_key": "oversight_review_scheduling",
+        "event_type": "announcement",
+        "evidence": "Governance tradeoffs and rapid-approval offer imply procedural choice.",
+        "expected_impact": "Sets process legitimacy and constrains whether the discount pressure can materially affect the outcome.",
+        "status": "imminent",
+        "summary": "Council committee or executive office determines whether the proposal moves quickly, receives hearings, or is slowed for review.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "29dd1f5d-af51-4093-81b0-3408b7365552",
+    "merge_hypotheses": [
+      {
+        "basis": "Most actors prefer cleaner streets and reliable waste service even when disagreeing on method.",
+        "convergence_mechanism": "A revised plan that protects access and limits data capture could reunify pragmatic residents, staff, and officials.",
+        "merge_key": "shared_cleanliness_goal"
+      },
+      {
+        "basis": "Contestation may cool if visible review, hearings, and safeguards reduce suspicion of a rushed deal.",
+        "convergence_mechanism": "Transparent oversight can allow actors to accept a compromise without full substantive agreement.",
+        "merge_key": "procedural_legitimacy_repair"
+      },
+      {
+        "basis": "If savings and injury benefits are both credible and privacy scope is narrowed, opponents and supporters may partially converge.",
+        "convergence_mechanism": "Shared acceptance of a constrained, measurable pilot with review checkpoints.",
+        "merge_key": "budget_and_safety_tradeoff_clarity"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "city_residents",
+        "description": "Residents who use public waste infrastructure and may be affected by access rules, cleanliness outcomes, and perceived tracking.",
+        "label": "City residents",
+        "population_total": 250000
+      },
+      {
+        "archetype_key": "sanitation_workforce",
+        "description": "Municipal sanitation employees whose injury risk and route operations may be affected by container redesign.",
+        "label": "Sanitation workforce",
+        "population_total": 900
+      }
+    ],
+    "risk_flags": [
+      {
+        "note": "The corpus mentions tracking objections but does not specify what data the system collects or how identifiable it is.",
+        "risk_key": "tracking_scope_underspecified",
+        "severity": "medium"
+      },
+      {
+        "note": "Executive and council roles are inferred from common municipal governance patterns rather than explicit scenario detail.",
+        "risk_key": "authority_chain_inferred",
+        "severity": "medium"
+      },
+      {
+        "note": "City and workforce population totals are synthetic defaults for simulation coherence.",
+        "risk_key": "population_counts_assumed",
+        "severity": "low"
+      },
+      {
+        "note": "Vendor pressure is meaningful at T0 but may collapse quickly if the discount window expires.",
+        "risk_key": "vendor_leverage_time_bounded",
+        "severity": "medium"
+      },
+      {
+        "note": "Resident attitudes are scenario-grounded but not based on explicit polling or demographic segmentation.",
+        "risk_key": "public_opinion_not_measured",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "core_tensions": [
+        "service access versus controlled container design",
+        "privacy concerns versus operational data collection",
+        "worker safety versus public convenience",
+        "procurement speed incentives versus deliberative governance"
+      ],
+      "decision_context": {
+        "decision_pressure": "vendor discount if approved quickly",
+        "primary_decision": "whether and how the city sanitation department advances smart container replacement",
+        "terminal_choice_still_open": true
+      },
+      "domain": [
+        "municipal_governance",
+        "public_services",
+        "urban_infrastructure",
+        "privacy_policy",
+        "labor_safety",
+        "procurement"
+      ],
+      "evidence_refs": [
+        "scenario_text"
+      ],
+      "mode": "direct",
+      "scenario_key": "case_report_004_smart_container_governance",
+      "setting_scale": "city",
+      "summary": "A fictionalized city sanitation department is considering replacing public trash bins with locked smart containers. At T0, governance tradeoffs are unresolved: residents are concerned about access and convenience, privacy advocates object to tracking implications, sanitation staff expect safety and injury-reduction benefits, and the vendor is offering a time-limited discount that creates decision pressure. The simulation should test branch triggers and endpoint priors rather than assume a crisis or predetermined outcome.",
+      "time_horizon_ticks": 12,
+      "uncertainty_notes": [
+        "No city size, budget, legal framework, or technical specifications are provided.",
+        "Tracking scope is implied but not specified; privacy risk should be treated as contested rather than proven at T0.",
+        "Resident sentiment is described in broad terms, not as measured polling."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "resident_general_public",
+          "city_council_public_works_committee"
+        ],
+        "evidence": "Opinion is likely to shift within moderate ranges based on practical access or privacy evidence.",
+        "level": "moderate",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "resident_general_public",
+          "privacy_rights_network"
+        ],
+        "evidence": "Residents are concerned but not fully mobilized; visible tracking details or access failures could cross a threshold.",
+        "level": "moderate",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "residents_service_pragmatists"
+        ],
+        "evidence": "A sizable pragmatic group is quiet at T0 and may not speak unless controversy escalates.",
+        "level": "moderate",
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "residents_privacy_alert",
+          "privacy_rights_network",
+          "frontline_collectors"
+        ],
+        "evidence": "Privacy-sensitive and occupational-safety networks likely reinforce internally coherent narratives.",
+        "level": "moderate",
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "resident_general_public"
+        ],
+        "evidence": "Public opinion may require repeated signals from media, neighbors, and advocates before becoming active opposition or support.",
+        "level": "moderate",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "sanitation_staff_union",
+          "privacy_rights_network",
+          "city_council_public_works_committee"
+        ],
+        "evidence": "Institutional roles and civic identities shape interpretation of the proposal.",
+        "level": "moderate",
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "resident_general_public",
+          "local_press"
+        ],
+        "evidence": "Without visible incidents, public attention may fade despite initial concern.",
+        "level": "moderate",
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Visible inconvenience or exclusion stories are likely to travel faster than technical procurement details.",
+        "influence_key": "access_friction_salience"
+      },
+      {
+        "description": "Privacy objections may expand if the system is framed as citywide tracking infrastructure rather than waste-management hardware.",
+        "influence_key": "tracking_precedent_frame"
+      },
+      {
+        "description": "Credible testimony about injury reduction can legitimate experimentation or soften opposition.",
+        "influence_key": "worker_safety_legitimacy"
+      },
+      {
+        "description": "A time-limited discount can be interpreted as either fiscal opportunity or governance shortcut.",
+        "influence_key": "rushed_procurement_suspicion"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "behavior_axes": {
+          "innovation_orientation": 6,
+          "procedural_caution": 6,
+          "responsiveness_to_public_pressure": 6,
+          "responsiveness_to_worker_safety": 8
+        },
+        "entity_name": "harbor_city_sanitation_department",
+        "graph_influence_summary": 0.72,
+        "ideology_axes": {
+          "efficiency_oriented": 8,
+          "privacy_protective": 5,
+          "service_equity_oriented": 6
+        },
+        "reputation": 6,
+        "secrecy": 5,
+        "tendency": "problem-solving but vulnerable to rushed procurement pressure",
+        "trustworthiness": 6
+      },
+      {
+        "behavior_axes": {
+          "innovation_orientation": 6,
+          "procedural_caution": 5,
+          "responsiveness_to_budget_pressure": 8,
+          "responsiveness_to_public_pressure": 6
+        },
+        "entity_name": "city_executive_office",
+        "ideology_axes": {
+          "efficiency_oriented": 8,
+          "privacy_protective": 4,
+          "service_equity_oriented": 5
+        },
+        "reputation": 5,
+        "secrecy": 5,
+        "tendency": "balances optics, cost, and speed",
+        "trustworthiness": 5
+      },
+      {
+        "behavior_axes": {
+          "conflict_tolerance": 5,
+          "innovation_orientation": 4,
+          "procedural_caution": 8,
+          "responsiveness_to_public_pressure": 8
+        },
+        "entity_name": "city_council_public_works_committee",
+        "ideology_axes": {
+          "efficiency_oriented": 5,
+          "privacy_protective": 6,
+          "service_equity_oriented": 6
+        },
+        "reputation": 6,
+        "secrecy": 3,
+        "tendency": "oversight-oriented gatekeeper",
+        "trustworthiness": 6
+      },
+      {
+        "behavior_axes": {
+          "innovation_orientation": 9,
+          "procedural_caution": 2,
+          "responsiveness_to_public_pressure": 4,
+          "sales_pressure": 9
+        },
+        "entity_name": "metrobin_systems",
+        "ideology_axes": {
+          "efficiency_oriented": 9,
+          "privacy_protective": 3,
+          "service_equity_oriented": 4
+        },
+        "reputation": 5,
+        "secrecy": 6,
+        "tendency": "commercially aggressive and deadline-driven",
+        "trustworthiness": 4
+      },
+      {
+        "behavior_axes": {
+          "innovation_orientation": 3,
+          "mobilization_propensity": 7,
+          "procedural_caution": 8,
+          "responsiveness_to_public_pressure": 7
+        },
+        "entity_name": "privacy_rights_network",
+        "ideology_axes": {
+          "efficiency_oriented": 3,
+          "privacy_protective": 10,
+          "service_equity_oriented": 6
+        },
+        "reputation": 6,
+        "secrecy": 2,
+        "tendency": "rights-protective watchdog",
+        "trustworthiness": 6
+      },
+      {
+        "behavior_axes": {
+          "innovation_orientation": 5,
+          "mobilization_propensity": 6,
+          "procedural_caution": 6,
+          "responsiveness_to_public_pressure": 4
+        },
+        "entity_name": "sanitation_staff_union",
+        "ideology_axes": {
+          "efficiency_oriented": 6,
+          "privacy_protective": 3,
+          "service_equity_oriented": 7
+        },
+        "reputation": 7,
+        "secrecy": 3,
+        "tendency": "safety-first pragmatic bargaining actor",
+        "trustworthiness": 7
+      },
+      {
+        "behavior_axes": {
+          "innovation_orientation": 5,
+          "mobilization_propensity": 4,
+          "procedural_caution": 5,
+          "responsiveness_to_public_pressure": 7
+        },
+        "entity_name": "resident_general_public",
+        "ideology_axes": {
+          "efficiency_oriented": 5,
+          "privacy_protective": 5,
+          "service_equity_oriented": 7
+        },
+        "reputation": 5,
+        "secrecy": 2,
+        "tendency": "heterogeneous and convenience-sensitive",
+        "trustworthiness": 6
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 477,
+        "end": 477,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 477,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

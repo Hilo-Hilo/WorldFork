@@ -1,0 +1,1471 @@
+{
+  "big_bang_id": "85ab2956-bddf-456e-9a81-4763c87da891",
+  "initializer_output": {
+    "actors": [
+      {
+        "decision_authority": "moderate",
+        "fictionalized": true,
+        "name": "city_oversight_board",
+        "public_visibility": "high",
+        "role": "releases partial stop data and sets oversight framing",
+        "stakes": [
+          "institutional legitimacy",
+          "data transparency credibility",
+          "compliance with disclosure obligations"
+        ],
+        "type": "institution"
+      },
+      {
+        "decision_authority": "moderate",
+        "fictionalized": true,
+        "name": "city_police_department",
+        "public_visibility": "high",
+        "role": "subject of stop data and public safety claims",
+        "stakes": [
+          "operational autonomy",
+          "public legitimacy",
+          "officer morale"
+        ],
+        "type": "institution"
+      },
+      {
+        "decision_authority": "moderate",
+        "fictionalized": true,
+        "name": "police_union",
+        "public_visibility": "high",
+        "role": "defends officers and contests interpretations",
+        "stakes": [
+          "member reputation",
+          "bargaining power",
+          "public narrative"
+        ],
+        "type": "organized_group"
+      },
+      {
+        "decision_authority": "low",
+        "fictionalized": true,
+        "name": "daily_ledger",
+        "public_visibility": "high",
+        "role": "newspaper that sued for data release",
+        "stakes": [
+          "press credibility",
+          "transparency wins",
+          "audience trust"
+        ],
+        "type": "media_organization"
+      },
+      {
+        "decision_authority": "low",
+        "fictionalized": true,
+        "name": "youth_justice_coalition",
+        "public_visibility": "medium",
+        "role": "amplifies concerns about stops and accountability through posts",
+        "stakes": [
+          "policy change",
+          "community recognition",
+          "mobilization momentum"
+        ],
+        "type": "activist_coalition"
+      },
+      {
+        "decision_authority": "low",
+        "fictionalized": true,
+        "name": "downtown_business_association",
+        "public_visibility": "medium",
+        "role": "voices concern about public safety and city stability",
+        "stakes": [
+          "foot traffic",
+          "predictable policing",
+          "city reputation"
+        ],
+        "type": "organized_group"
+      },
+      {
+        "decision_authority": "high",
+        "fictionalized": true,
+        "name": "city_attorney_office",
+        "public_visibility": "medium",
+        "role": "legal steward around disclosure limits and suppression footnote",
+        "stakes": [
+          "legal compliance",
+          "litigation risk",
+          "procedural legitimacy"
+        ],
+        "type": "institution"
+      },
+      {
+        "decision_authority": "low",
+        "fictionalized": true,
+        "name": "city_residents",
+        "public_visibility": "low",
+        "role": "general public interpreting incomplete information",
+        "stakes": [
+          "safety",
+          "fairness",
+          "trust in institutions"
+        ],
+        "type": "public_population"
+      },
+      {
+        "decision_authority": "low",
+        "fictionalized": true,
+        "name": "stopped_youth_and_families",
+        "public_visibility": "low",
+        "role": "population most directly affected by stop practices",
+        "stakes": [
+          "fair treatment",
+          "safety",
+          "voice in public debate"
+        ],
+        "type": "affected_population"
+      },
+      {
+        "decision_authority": "moderate",
+        "fictionalized": true,
+        "name": "city_council_public_safety_committee",
+        "public_visibility": "medium",
+        "role": "potential venue for hearings or follow-up oversight",
+        "stakes": [
+          "political legitimacy",
+          "responsiveness",
+          "policy leverage"
+        ],
+        "type": "institution"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Debate shifts from stop outcomes alone to a broader transparency and procedural legitimacy dispute.",
+        "branch_key": "transparency_escalation",
+        "divergence_signal": "Spike in official clarification requests, hearing talk, and media focus on suppression rules rather than substantive stop counts.",
+        "trigger": "Additional reporting highlights meaningful uncertainty or inconsistencies around the suppressed fields rationale."
+      },
+      {
+        "alternate_path": "Public discussion stabilizes around context, safety, and caution against overreading partial data.",
+        "branch_key": "safety_counterframe_consolidates",
+        "divergence_signal": "Resident sentiment and committee rhetoric emphasize operational context and delay further action.",
+        "trigger": "Union and business messaging gains traction without new contradictory evidence."
+      },
+      {
+        "alternate_path": "Turnout for meetings, petitions, or testimony grows despite incomplete data.",
+        "branch_key": "affected_community_mobilization",
+        "divergence_signal": "Visible increase in community statements, sign-ups, or hearing attendance intent.",
+        "trigger": "Coalition posts are echoed by trusted neighborhood figures or families publicly share experiences."
+      },
+      {
+        "alternate_path": "Attention decays into durable ambiguity with no near-term factual resolution.",
+        "branch_key": "institutional_stall",
+        "divergence_signal": "Coverage volume falls while trust questions persist unresolved across camps.",
+        "trigger": "Legal suppression rationale remains opaque and no actor can force rapid fuller release."
+      }
+    ],
+    "channels": [
+      {
+        "name": "board_minutes",
+        "public": true,
+        "reliability": 0.71,
+        "type": "institutional_record"
+      },
+      {
+        "name": "partial_stop_data_release",
+        "public": true,
+        "reliability": 0.74,
+        "type": "official_data_release"
+      },
+      {
+        "name": "legal_footnote",
+        "public": true,
+        "reliability": 0.8,
+        "type": "legal_annotation"
+      },
+      {
+        "name": "newspaper_reporting",
+        "public": true,
+        "reliability": 0.69,
+        "type": "local_media"
+      },
+      {
+        "name": "union_statement",
+        "public": true,
+        "reliability": 0.57,
+        "type": "organizational_message"
+      },
+      {
+        "name": "youth_coalition_posts",
+        "public": true,
+        "reliability": 0.52,
+        "type": "social_platform_posts"
+      },
+      {
+        "name": "business_association_statement",
+        "public": true,
+        "reliability": 0.6,
+        "type": "organizational_message"
+      },
+      {
+        "name": "committee_hearing_channel",
+        "public": true,
+        "reliability": 0.66,
+        "type": "institutional_forum"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_name": "general_city_public",
+        "attention_level": 0.72,
+        "cohort_name": "civically_attentive_residents",
+        "expression_level": 0.48,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.34,
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "Incomplete data still signals a need for scrutiny, but uncertainty remains due to suppressed fields.",
+        "public_expression": "Discusses transparency and fairness, often cautiously.",
+        "representation_mode": "issue_attentive_subset",
+        "represented_population": 150000,
+        "stance_axes": {
+          "data_transparency_priority": 0.77,
+          "institutional_trust": 0.44,
+          "police_accountability": 0.68,
+          "public_safety_priority": 0.62
+        }
+      },
+      {
+        "archetype_name": "general_city_public",
+        "attention_level": 0.39,
+        "cohort_name": "institutionally_deferential_residents",
+        "expression_level": 0.21,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.19,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Wait-and-see attitude; incomplete release may have legitimate legal reasons.",
+        "public_expression": "Limited discussion unless prompted by major coverage or safety events.",
+        "representation_mode": "broad_majority_segment",
+        "represented_population": 225000,
+        "stance_axes": {
+          "data_transparency_priority": 0.49,
+          "institutional_trust": 0.58,
+          "police_accountability": 0.42,
+          "public_safety_priority": 0.74
+        }
+      },
+      {
+        "archetype_name": "general_city_public",
+        "attention_level": 0.16,
+        "cohort_name": "disengaged_residents",
+        "expression_level": 0.08,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.07,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "Issue is distant or hard to interpret.",
+        "public_expression": "Minimal unless controversy broadens.",
+        "representation_mode": "low_attention_segment",
+        "represented_population": 125000,
+        "stance_axes": {
+          "data_transparency_priority": 0.4,
+          "institutional_trust": 0.5,
+          "police_accountability": 0.5,
+          "public_safety_priority": 0.55
+        }
+      },
+      {
+        "archetype_name": "directly_affected_youth_families",
+        "attention_level": 0.84,
+        "cohort_name": "affected_families_skeptical",
+        "expression_level": 0.53,
+        "fatigue": 0.46,
+        "fear_of_isolation": 0.49,
+        "mobilization_readiness": 0.62,
+        "perceived_majority": 0.38,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "Partial data likely understates lived harms; suppression reduces confidence.",
+        "public_expression": "Shares concern through community and coalition channels, but some remain cautious.",
+        "representation_mode": "majority_experience_based_segment",
+        "represented_population": 36000,
+        "stance_axes": {
+          "data_transparency_priority": 0.88,
+          "institutional_trust": 0.23,
+          "police_accountability": 0.86,
+          "public_safety_priority": 0.58
+        }
+      },
+      {
+        "archetype_name": "directly_affected_youth_families",
+        "attention_level": 0.67,
+        "cohort_name": "affected_families_cautious",
+        "expression_level": 0.29,
+        "fatigue": 0.54,
+        "fear_of_isolation": 0.61,
+        "mobilization_readiness": 0.36,
+        "perceived_majority": 0.31,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "Concerned but uncertain whether released data will lead to change.",
+        "public_expression": "Selective participation due to exposure concerns or low confidence.",
+        "representation_mode": "minority_cautious_segment",
+        "represented_population": 24000,
+        "stance_axes": {
+          "data_transparency_priority": 0.74,
+          "institutional_trust": 0.29,
+          "police_accountability": 0.71,
+          "public_safety_priority": 0.57
+        }
+      },
+      {
+        "archetype_name": "commercial_stakeholders",
+        "attention_level": 0.58,
+        "cohort_name": "business_security_focused",
+        "expression_level": 0.37,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.33,
+        "mobilization_readiness": 0.31,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "Public safety capacity should not be weakened by one-sided narratives; transparency is acceptable if context is preserved.",
+        "public_expression": "Speaks through association statements and practical concerns.",
+        "representation_mode": "majority_trade_group_segment",
+        "represented_population": 17500,
+        "stance_axes": {
+          "data_transparency_priority": 0.45,
+          "institutional_trust": 0.61,
+          "police_accountability": 0.39,
+          "public_safety_priority": 0.83
+        }
+      },
+      {
+        "archetype_name": "commercial_stakeholders",
+        "attention_level": 0.51,
+        "cohort_name": "business_reputation_sensitive",
+        "expression_level": 0.26,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.37,
+        "mobilization_readiness": 0.18,
+        "perceived_majority": 0.43,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "Both safety and legitimacy matter because visible conflict hurts commerce and city image.",
+        "public_expression": "Prefers moderation and de-escalation messaging.",
+        "representation_mode": "minority_reputation_segment",
+        "represented_population": 7500,
+        "stance_axes": {
+          "data_transparency_priority": 0.61,
+          "institutional_trust": 0.49,
+          "police_accountability": 0.52,
+          "public_safety_priority": 0.72
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_name": "general_city_public",
+        "attention_level": 0.72,
+        "cohort_name": "civically_attentive_residents",
+        "expression_level": 0.48,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.34,
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "Incomplete data still signals a need for scrutiny, but uncertainty remains due to suppressed fields.",
+        "public_expression": "Discusses transparency and fairness, often cautiously.",
+        "representation_mode": "issue_attentive_subset",
+        "represented_population": 150000,
+        "stance_axes": {
+          "data_transparency_priority": 0.77,
+          "institutional_trust": 0.44,
+          "police_accountability": 0.68,
+          "public_safety_priority": 0.62
+        }
+      },
+      {
+        "archetype_name": "general_city_public",
+        "attention_level": 0.39,
+        "cohort_name": "institutionally_deferential_residents",
+        "expression_level": 0.21,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.19,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Wait-and-see attitude; incomplete release may have legitimate legal reasons.",
+        "public_expression": "Limited discussion unless prompted by major coverage or safety events.",
+        "representation_mode": "broad_majority_segment",
+        "represented_population": 225000,
+        "stance_axes": {
+          "data_transparency_priority": 0.49,
+          "institutional_trust": 0.58,
+          "police_accountability": 0.42,
+          "public_safety_priority": 0.74
+        }
+      },
+      {
+        "archetype_name": "general_city_public",
+        "attention_level": 0.16,
+        "cohort_name": "disengaged_residents",
+        "expression_level": 0.08,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.07,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "Issue is distant or hard to interpret.",
+        "public_expression": "Minimal unless controversy broadens.",
+        "representation_mode": "low_attention_segment",
+        "represented_population": 125000,
+        "stance_axes": {
+          "data_transparency_priority": 0.4,
+          "institutional_trust": 0.5,
+          "police_accountability": 0.5,
+          "public_safety_priority": 0.55
+        }
+      },
+      {
+        "archetype_name": "directly_affected_youth_families",
+        "attention_level": 0.84,
+        "cohort_name": "affected_families_skeptical",
+        "expression_level": 0.53,
+        "fatigue": 0.46,
+        "fear_of_isolation": 0.49,
+        "mobilization_readiness": 0.62,
+        "perceived_majority": 0.38,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "Partial data likely understates lived harms; suppression reduces confidence.",
+        "public_expression": "Shares concern through community and coalition channels, but some remain cautious.",
+        "representation_mode": "majority_experience_based_segment",
+        "represented_population": 36000,
+        "stance_axes": {
+          "data_transparency_priority": 0.88,
+          "institutional_trust": 0.23,
+          "police_accountability": 0.86,
+          "public_safety_priority": 0.58
+        }
+      },
+      {
+        "archetype_name": "directly_affected_youth_families",
+        "attention_level": 0.67,
+        "cohort_name": "affected_families_cautious",
+        "expression_level": 0.29,
+        "fatigue": 0.54,
+        "fear_of_isolation": 0.61,
+        "mobilization_readiness": 0.36,
+        "perceived_majority": 0.31,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "Concerned but uncertain whether released data will lead to change.",
+        "public_expression": "Selective participation due to exposure concerns or low confidence.",
+        "representation_mode": "minority_cautious_segment",
+        "represented_population": 24000,
+        "stance_axes": {
+          "data_transparency_priority": 0.74,
+          "institutional_trust": 0.29,
+          "police_accountability": 0.71,
+          "public_safety_priority": 0.57
+        }
+      },
+      {
+        "archetype_name": "commercial_stakeholders",
+        "attention_level": 0.58,
+        "cohort_name": "business_security_focused",
+        "expression_level": 0.37,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.33,
+        "mobilization_readiness": 0.31,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "Public safety capacity should not be weakened by one-sided narratives; transparency is acceptable if context is preserved.",
+        "public_expression": "Speaks through association statements and practical concerns.",
+        "representation_mode": "majority_trade_group_segment",
+        "represented_population": 17500,
+        "stance_axes": {
+          "data_transparency_priority": 0.45,
+          "institutional_trust": 0.61,
+          "police_accountability": 0.39,
+          "public_safety_priority": 0.83
+        }
+      },
+      {
+        "archetype_name": "commercial_stakeholders",
+        "attention_level": 0.51,
+        "cohort_name": "business_reputation_sensitive",
+        "expression_level": 0.26,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.37,
+        "mobilization_readiness": 0.18,
+        "perceived_majority": 0.43,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "Both safety and legitimacy matter because visible conflict hurts commerce and city image.",
+        "public_expression": "Prefers moderation and de-escalation messaging.",
+        "representation_mode": "minority_reputation_segment",
+        "represented_population": 7500,
+        "stance_axes": {
+          "data_transparency_priority": 0.61,
+          "institutional_trust": 0.49,
+          "police_accountability": 0.52,
+          "public_safety_priority": 0.72
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "city_attorney_office",
+          "city_oversight_board",
+          "city_police_department"
+        ],
+        "blockers": [
+          "legal suppression constraints",
+          "litigation caution",
+          "records dependence on police-held systems"
+        ],
+        "contradiction_notes": "A hearing or statement alone does not realize this endpoint unless it yields materially expanded disclosure.",
+        "description": "A terminal state in which the city publicly releases materially more stop data or explanatory metadata sufficient to narrow major ambiguity created by suppressed fields.",
+        "endpoint_key": "expanded_data_disclosure",
+        "evidence_refs": [
+          "partial_stop_data_release",
+          "legal_footnote",
+          "newspaper_reporting"
+        ],
+        "label": "Expanded Data Disclosure",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the city disclose materially more stop data beyond the initial partial release, reducing the scope of suppressed unknowns?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.39,
+        "rationale": "Transparency is a core implied terminal question because current public interpretation is constrained by incomplete data.",
+        "realization_criteria": [
+          "Official release adds previously absent categories, disaggregation, or suppression rationale in a way acknowledged by major observers as materially clarifying.",
+          "City_oversight_board or city_attorney_office confirms no further routine withholding on the disputed fields within the scenario scope."
+        ],
+        "status": "active",
+        "status_basis": "Initial release is partial and source text explicitly warns against inventing suppressed facts."
+      },
+      {
+        "authority_refs": [
+          "city_oversight_board",
+          "city_council_public_safety_committee",
+          "city_residents"
+        ],
+        "blockers": [
+          "perceived legal opacity",
+          "partial release skepticism",
+          "cross-pressure from union and activists"
+        ],
+        "contradiction_notes": "Board visibility alone is not legitimacy repair if public discussion remains dominated by doubts about suppression and process.",
+        "description": "A terminal state in which the oversight board is broadly treated as a credible and procedurally legitimate steward of the controversy despite initial incompleteness.",
+        "endpoint_key": "oversight_legitimacy_repair",
+        "evidence_refs": [
+          "board_minutes",
+          "partial_stop_data_release",
+          "union_statement",
+          "newspaper_reporting"
+        ],
+        "label": "Oversight Legitimacy Repair",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the oversight board's legitimacy improve or decline after the partial release and public reaction?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.33,
+        "rationale": "The scenario explicitly asks to preserve questions of trust and legitimacy.",
+        "realization_criteria": [
+          "Sustained public and elite references characterize the board's handling as credible or fair across at least two distinct channels.",
+          "Conflict and distrust directed at the board decline without immediate replacement by new disclosure disputes."
+        ],
+        "status": "active",
+        "status_basis": "At T0, legitimacy is mixed: release helps transparency but partiality invites distrust."
+      },
+      {
+        "authority_refs": [
+          "police_union",
+          "city_police_department",
+          "downtown_business_association",
+          "city_council_public_safety_committee"
+        ],
+        "blockers": [
+          "new damaging disclosures",
+          "strong coalition mobilization",
+          "successful transparency framing"
+        ],
+        "contradiction_notes": "Temporary messaging success does not realize the endpoint if institutions still move toward strong transparency or reform action.",
+        "description": "A terminal state in which public and institutional discourse primarily accepts the interpretation that incomplete data should not drive major accountability action because safety context is paramount.",
+        "endpoint_key": "safety_context_frame_dominance",
+        "evidence_refs": [
+          "union_statement",
+          "business_association_statement",
+          "newspaper_reporting"
+        ],
+        "label": "Safety-and-Context Frame Dominance",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the public narrative settle around safety-and-context defenses rather than transparency-and-accountability concerns?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.31,
+        "rationale": "Public safety is one of the named report questions and a central competing interpretation.",
+        "realization_criteria": [
+          "Committee, major media framing, and resident discourse consistently emphasize contextual caution and public safety over disclosure insufficiency.",
+          "No major follow-up accountability mechanism is launched beyond symbolic review while safety rhetoric remains central."
+        ],
+        "status": "active",
+        "status_basis": "This frame is present but contested at initialization."
+      },
+      {
+        "authority_refs": [
+          "city_council_public_safety_committee",
+          "city_oversight_board",
+          "city_attorney_office"
+        ],
+        "blockers": [
+          "agenda control limits",
+          "legal caution",
+          "attention decay before procedural commitment"
+        ],
+        "contradiction_notes": "Media pressure or activist demands without formal procedural adoption do not realize this endpoint.",
+        "description": "A terminal state in which a competent public body initiates a concrete follow-up process such as a hearing, audit, or official records review beyond the initial release.",
+        "endpoint_key": "formal_followup_oversight",
+        "evidence_refs": [
+          "board_minutes",
+          "committee_hearing_channel",
+          "newspaper_reporting"
+        ],
+        "label": "Formal Follow-Up Oversight",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will a formal hearing, audit, or equivalent oversight follow-up be initiated by a competent city body?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.47,
+        "rationale": "The scenario implies unresolved oversight process choices after a compelled, partial release.",
+        "realization_criteria": [
+          "City_council_public_safety_committee, city_oversight_board, or another competent authority formally schedules and opens a hearing, audit, or review with stated scope.",
+          "The process produces an official agenda, notice, or docket rather than informal calls for action alone."
+        ],
+        "status": "active",
+        "status_basis": "Follow-up is plausible but not yet initiated at T0 based on source text."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "Scenario includes newspaper lawsuit and partial data release.",
+        "layer": "exposure",
+        "reason": "Newspaper coverage broadens awareness of the release and lawsuit context.",
+        "source_actor_name": "daily_ledger",
+        "target_actor_name": "city_residents",
+        "weight": 0.62
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario includes youth coalition posts.",
+        "layer": "exposure",
+        "reason": "Coalition posts spread issue framing among networked publics.",
+        "source_actor_name": "youth_justice_coalition",
+        "target_actor_name": "city_residents",
+        "weight": 0.41
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario includes police union response.",
+        "layer": "exposure",
+        "reason": "Union response reaches the public through statements and media pickup.",
+        "source_actor_name": "police_union",
+        "target_actor_name": "city_residents",
+        "weight": 0.44
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario includes board minutes and partial data release.",
+        "layer": "exposure",
+        "reason": "Board minutes and released data become publicly visible.",
+        "source_actor_name": "city_oversight_board",
+        "target_actor_name": "city_residents",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario includes local business concerns.",
+        "layer": "exposure",
+        "reason": "Business concerns circulate in local discourse but with narrower reach.",
+        "source_actor_name": "downtown_business_association",
+        "target_actor_name": "city_residents",
+        "weight": 0.25
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Coalition posts are included as part of issue response.",
+        "layer": "trust",
+        "reason": "Affected residents are more likely to trust advocacy voicing lived concerns.",
+        "source_actor_name": "stopped_youth_and_families",
+        "target_actor_name": "youth_justice_coalition",
+        "weight": 0.59
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario states newspaper lawsuit led to release.",
+        "layer": "trust",
+        "reason": "Successful lawsuit for disclosure supports press credibility for some audiences.",
+        "source_actor_name": "city_residents",
+        "target_actor_name": "daily_ledger",
+        "weight": 0.52
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Partial data release with suppressed fields.",
+        "layer": "trust",
+        "reason": "Board gains some legitimacy for release but loses some due to partiality and suppression.",
+        "source_actor_name": "city_residents",
+        "target_actor_name": "city_oversight_board",
+        "weight": 0.43
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario centers trust and legitimacy questions.",
+        "layer": "trust",
+        "reason": "Baseline mixed trust tied to safety role and controversy.",
+        "source_actor_name": "city_residents",
+        "target_actor_name": "city_police_department",
+        "weight": 0.47
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario includes local business concerns about public safety context.",
+        "layer": "trust",
+        "reason": "Business concerns align with practical reliance on visible policing.",
+        "source_actor_name": "downtown_business_association",
+        "target_actor_name": "city_police_department",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Legal footnote says some data fields are suppressed.",
+        "layer": "dependency",
+        "reason": "Release scope is constrained by legal interpretation and suppression rules.",
+        "source_actor_name": "city_oversight_board",
+        "target_actor_name": "city_attorney_office",
+        "weight": 0.61
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Stop data pertains to police activity.",
+        "layer": "dependency",
+        "reason": "Board depends on police-held records for oversight disclosures.",
+        "source_actor_name": "city_oversight_board",
+        "target_actor_name": "city_police_department",
+        "weight": 0.52
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario preserves public safety questions.",
+        "layer": "dependency",
+        "reason": "Residents depend on department for safety response capacity.",
+        "source_actor_name": "city_residents",
+        "target_actor_name": "city_police_department",
+        "weight": 0.49
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Disclosure followed lawsuit and is legally bounded.",
+        "layer": "dependency",
+        "reason": "Further disclosure depends partly on legal access and interpretation.",
+        "source_actor_name": "daily_ledger",
+        "target_actor_name": "city_attorney_office",
+        "weight": 0.33
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario includes local business concerns.",
+        "layer": "dependency",
+        "reason": "Business stakeholders rely on predictable public safety presence.",
+        "source_actor_name": "downtown_business_association",
+        "target_actor_name": "city_police_department",
+        "weight": 0.54
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Legal footnote constrains released fields.",
+        "layer": "influence",
+        "reason": "Legal office shapes what can be disclosed and how suppression is justified.",
+        "source_actor_name": "city_attorney_office",
+        "target_actor_name": "city_oversight_board",
+        "weight": 0.57
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Newspaper lawsuit and likely reporting role are central.",
+        "layer": "influence",
+        "reason": "Press framing strongly influences how partial data is interpreted.",
+        "source_actor_name": "daily_ledger",
+        "target_actor_name": "city_residents",
+        "weight": 0.56
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario includes union response.",
+        "layer": "influence",
+        "reason": "Union can shape narratives around officer treatment and public safety risk.",
+        "source_actor_name": "police_union",
+        "target_actor_name": "city_residents",
+        "weight": 0.45
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario includes youth coalition posts.",
+        "layer": "influence",
+        "reason": "Coalition may shift local discussion toward accountability and lived experience.",
+        "source_actor_name": "youth_justice_coalition",
+        "target_actor_name": "city_residents",
+        "weight": 0.39
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Plausible oversight venue implied by civic context.",
+        "layer": "influence",
+        "reason": "Committee can pressure follow-up explanation or hearings.",
+        "source_actor_name": "city_council_public_safety_committee",
+        "target_actor_name": "city_oversight_board",
+        "weight": 0.42
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Both benefit from greater visibility into stop data.",
+        "layer": "coalition",
+        "reason": "Partial alignment around transparency and scrutiny, despite different roles.",
+        "source_actor_name": "daily_ledger",
+        "target_actor_name": "youth_justice_coalition",
+        "weight": 0.29
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Union response centered on police interests.",
+        "layer": "coalition",
+        "reason": "Strong but not absolute alignment in defending officers and context.",
+        "source_actor_name": "police_union",
+        "target_actor_name": "city_police_department",
+        "weight": 0.65
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Business concerns and union response likely overlap on safety framing.",
+        "layer": "coalition",
+        "reason": "Shared concern about safety narratives, though business tone is more pragmatic.",
+        "source_actor_name": "downtown_business_association",
+        "target_actor_name": "police_union",
+        "weight": 0.31
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Shared governance space in civic setting.",
+        "layer": "coalition",
+        "reason": "Institutional alignment around maintaining oversight legitimacy is possible.",
+        "source_actor_name": "city_oversight_board",
+        "target_actor_name": "city_council_public_safety_committee",
+        "weight": 0.27
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Scenario explicitly mentions newspaper lawsuit.",
+        "layer": "conflict",
+        "reason": "Lawsuit indicates active dispute over records access.",
+        "source_actor_name": "daily_ledger",
+        "target_actor_name": "city_attorney_office",
+        "weight": 0.51
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Scenario pairs coalition posts with union response.",
+        "layer": "conflict",
+        "reason": "Accountability framing clashes with defensive officer-centered response.",
+        "source_actor_name": "youth_justice_coalition",
+        "target_actor_name": "police_union",
+        "weight": 0.57
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Issue focus on stops and legitimacy.",
+        "layer": "conflict",
+        "reason": "Coalition likely sees stop practices as harmful or insufficiently accountable.",
+        "source_actor_name": "youth_justice_coalition",
+        "target_actor_name": "city_police_department",
+        "weight": 0.55
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Records lawsuit and data controversy.",
+        "layer": "conflict",
+        "reason": "Investigative scrutiny creates moderate institutional friction.",
+        "source_actor_name": "daily_ledger",
+        "target_actor_name": "city_police_department",
+        "weight": 0.34
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Partial data release followed by union response.",
+        "layer": "conflict",
+        "reason": "Release may be seen by union as unfair or context-stripped.",
+        "source_actor_name": "city_oversight_board",
+        "target_actor_name": "police_union",
+        "weight": 0.39
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Board minutes and lawsuit-linked release are central public artifacts.",
+        "layer": "oasis_interaction",
+        "reason": "Public-facing interaction through reporting on minutes and released data.",
+        "source_actor_name": "daily_ledger",
+        "target_actor_name": "city_oversight_board",
+        "weight": 0.46
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Scenario explicitly includes coalition posts.",
+        "layer": "oasis_interaction",
+        "reason": "Coalition posts likely generate visible online discussion.",
+        "source_actor_name": "youth_justice_coalition",
+        "target_actor_name": "city_residents",
+        "weight": 0.43
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Union response and newspaper presence are both salient.",
+        "layer": "oasis_interaction",
+        "reason": "Union response likely engages or reacts to media framing in public channels.",
+        "source_actor_name": "police_union",
+        "target_actor_name": "daily_ledger",
+        "weight": 0.37
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Business concerns are part of the scenario's public discourse.",
+        "layer": "oasis_interaction",
+        "reason": "Association likely communicates concerns in public meetings or statements.",
+        "source_actor_name": "downtown_business_association",
+        "target_actor_name": "city_council_public_safety_committee",
+        "weight": 0.24
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "description": "Institutional actor pushing measured transparency and oversight legitimacy",
+        "name": "oversight_reformer"
+      },
+      {
+        "description": "Public advocate for officers emphasizing context, safety, and morale",
+        "name": "union_defender"
+      },
+      {
+        "description": "Movement actor translating partial data into demands for fuller scrutiny",
+        "name": "accountability_organizer"
+      },
+      {
+        "description": "Media actor pressing for records access and public explanation",
+        "name": "transparency_journalist"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "city_oversight_board",
+        "archetype_name": "oversight_reformer",
+        "attention_level": 0.83,
+        "expression_level": 0.62,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.29,
+        "formal_power": 0.63,
+        "hero_name": "board_chair",
+        "mobilization_readiness": 0.51,
+        "perceived_majority": 0.47,
+        "public_role": "chairs board minutes and release framing",
+        "stance_axes": {
+          "data_transparency_priority": 0.76,
+          "institutional_trust": 0.55,
+          "police_accountability": 0.72,
+          "public_safety_priority": 0.58
+        }
+      },
+      {
+        "actor_name": "police_union",
+        "archetype_name": "union_defender",
+        "attention_level": 0.85,
+        "expression_level": 0.78,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.18,
+        "formal_power": 0.49,
+        "hero_name": "union_president",
+        "mobilization_readiness": 0.68,
+        "perceived_majority": 0.54,
+        "public_role": "issues response defending officers and contesting incomplete interpretations",
+        "stance_axes": {
+          "data_transparency_priority": 0.34,
+          "institutional_trust": 0.64,
+          "police_accountability": 0.28,
+          "public_safety_priority": 0.87
+        }
+      },
+      {
+        "actor_name": "youth_justice_coalition",
+        "archetype_name": "accountability_organizer",
+        "attention_level": 0.88,
+        "expression_level": 0.81,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.24,
+        "formal_power": 0.24,
+        "hero_name": "youth_coalition_spokesperson",
+        "mobilization_readiness": 0.73,
+        "perceived_majority": 0.4,
+        "public_role": "amplifies community concern through posts and organizing",
+        "stance_axes": {
+          "data_transparency_priority": 0.89,
+          "institutional_trust": 0.22,
+          "police_accountability": 0.9,
+          "public_safety_priority": 0.52
+        }
+      },
+      {
+        "actor_name": "daily_ledger",
+        "archetype_name": "transparency_journalist",
+        "attention_level": 0.79,
+        "expression_level": 0.69,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.21,
+        "formal_power": 0.31,
+        "hero_name": "investigations_editor",
+        "mobilization_readiness": 0.38,
+        "perceived_majority": 0.44,
+        "public_role": "frames lawsuit as public right-to-know issue",
+        "stance_axes": {
+          "data_transparency_priority": 0.92,
+          "institutional_trust": 0.45,
+          "police_accountability": 0.74,
+          "public_safety_priority": 0.48
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "description": "Institutional actor pushing measured transparency and oversight legitimacy",
+        "name": "oversight_reformer"
+      },
+      {
+        "description": "Public advocate for officers emphasizing context, safety, and morale",
+        "name": "union_defender"
+      },
+      {
+        "description": "Movement actor translating partial data into demands for fuller scrutiny",
+        "name": "accountability_organizer"
+      },
+      {
+        "description": "Media actor pressing for records access and public explanation",
+        "name": "transparency_journalist"
+      }
+    ],
+    "important_questions": [
+      "Will the city disclose materially more stop data beyond the initial partial release, reducing the scope of suppressed unknowns?",
+      "Will the oversight board's legitimacy improve or decline after the partial release and public reaction?",
+      "Will the public narrative settle around safety-and-context defenses rather than transparency-and-accountability concerns?",
+      "Will a formal hearing, audit, or equivalent oversight follow-up be initiated by a competent city body?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "city_oversight_board",
+          "city_attorney_office"
+        ],
+        "event_key": "partial_data_released",
+        "event_type": "announcement",
+        "expected_impact": "Raises visibility and legitimacy questions while limiting certainty about patterns; increases dependence on framing actors.",
+        "summary": "Oversight board releases partial stop data with some fields suppressed under legal constraints.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "city_oversight_board",
+          "daily_ledger"
+        ],
+        "event_key": "board_minutes_circulate",
+        "event_type": "announcement",
+        "expected_impact": "Provides procedural cues that may either bolster legitimacy or spotlight ambiguity depending on wording.",
+        "summary": "Board minutes become part of public interpretation of the release.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "police_union",
+          "city_police_department"
+        ],
+        "event_key": "union_public_response",
+        "event_type": "announcement",
+        "expected_impact": "Strengthens safety-centered counterframe, raises conflict with accountability voices, and may reassure police-supportive audiences.",
+        "summary": "Police union responds to the partial release and likely contests incomplete or unfair readings.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "youth_justice_coalition",
+          "stopped_youth_and_families"
+        ],
+        "event_key": "coalition_post_burst",
+        "event_type": "announcement",
+        "expected_impact": "Increases salience among affected communities and can lower expression barriers for skeptical residents.",
+        "summary": "Youth coalition posts amplify concern about stops and suppressed transparency.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "downtown_business_association"
+        ],
+        "event_key": "business_concern_statement",
+        "event_type": "announcement",
+        "expected_impact": "Introduces moderating but order-focused pressure into the discourse and influences committee attention.",
+        "summary": "Business stakeholders publicly emphasize safety, stability, and contextual interpretation.",
+        "tick": 2
+      },
+      {
+        "actors": [
+          "daily_ledger",
+          "city_attorney_office",
+          "city_oversight_board"
+        ],
+        "event_key": "followup_records_questions",
+        "event_type": "announcement",
+        "expected_impact": "Keeps transparency issue active and may pressure legal or oversight clarification without resolving underlying facts.",
+        "summary": "Questions emerge about why fields are suppressed and whether further disclosure is possible.",
+        "tick": 2
+      },
+      {
+        "actors": [
+          "city_council_public_safety_committee"
+        ],
+        "event_key": "committee_agenda_consideration",
+        "event_type": "announcement",
+        "expected_impact": "Can elevate institutional accountability and prolong attention if scheduled.",
+        "summary": "Public safety committee considers whether to hold a hearing or request explanation.",
+        "tick": 3
+      }
+    ],
+    "llm_call_id": "e37ec8a5-f7a9-41dc-855f-0d427191b33f",
+    "merge_hypotheses": [
+      {
+        "convergence_driver": "Most actors can support clearer explanation of what is suppressed and why, even if they disagree on implications.",
+        "likely_effect": "Partial convergence on procedural transparency demands without agreement on policing reform.",
+        "merge_key": "shared_need_for_contextual_clarity"
+      },
+      {
+        "convergence_driver": "Absent new disclosures or incidents, all sides face diminishing audience attention.",
+        "likely_effect": "Public rhetoric moderates and conflict intensity drops into low-grade stalemate.",
+        "merge_key": "coalition_fatigue_and_attention_decay"
+      },
+      {
+        "convergence_driver": "Board, business actors, council, and some activists may all prefer orderly hearings over uncontrolled rumor spirals.",
+        "likely_effect": "Institutional forum becomes a shared outlet for contention management.",
+        "merge_key": "common_interest_in_city_stability"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "description": "Residents following the controversy with varying attention and priors",
+        "name": "general_city_public",
+        "population_total": 500000
+      },
+      {
+        "description": "Youth and families more likely to feel direct consequences of stop practices",
+        "name": "directly_affected_youth_families",
+        "population_total": 60000
+      },
+      {
+        "description": "Business owners and workers attentive to safety and downtown conditions",
+        "name": "commercial_stakeholders",
+        "population_total": 25000
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "suppressed_data_unknowns",
+        "note": "Source text explicitly says some fields are suppressed; simulation must not infer hidden distributions or identities.",
+        "severity": "high"
+      },
+      {
+        "flag": "institutional_detail_gaps",
+        "note": "Board composition, exact city legal posture, and police leadership response are unspecified.",
+        "severity": "medium"
+      },
+      {
+        "flag": "population_estimate_placeholder",
+        "note": "Population totals are scaled fictional defaults for sociology coherence, not source-provided counts.",
+        "severity": "low"
+      },
+      {
+        "flag": "narrative_polarization_potential",
+        "note": "Competing transparency and safety frames can harden quickly if new evidence or symbolic incidents arise.",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "mode": "direct",
+      "scenario_key": "longform_004",
+      "scope": "fictional_city_civic_oversight",
+      "source_constraints": [
+        "Treat all actors as fictionalized.",
+        "Do not invent suppressed data contents.",
+        "Preserve reporting questions about trust, legitimacy, public safety, and data transparency."
+      ],
+      "summary": "A fictional city police oversight board releases partial stop data after a newspaper lawsuit. Public interpretation is constrained by suppressed fields noted in a legal footnote. The initialization preserves tensions around trust, legitimacy, public safety, and data transparency without inferring undisclosed facts.",
+      "time_zero_posture": "early controversy with unresolved interpretation and moderate escalation potential",
+      "title": "partial_police_stop_data_release_after_newspaper_lawsuit",
+      "uncertainty_notes": [
+        "Underlying stop patterns cannot be fully assessed because some fields are suppressed.",
+        "Board internal divisions, if any, are not specified in source text.",
+        "No exact city population, stop counts, or timing cadence are provided."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "level": 0.63,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Residents are likely to update within prior trust clusters rather than across polarized frames.",
+        "scope": "citywide"
+      },
+      {
+        "level": 0.56,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Further mobilization likely depends on interpretable findings, symbolic incidents, or elite validation.",
+        "scope": "accountability_publics"
+      },
+      {
+        "level": 0.58,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Some privately skeptical residents remain quiet due to uncertainty, exposure risk, or low efficacy.",
+        "scope": "affected_families_and_general_public"
+      },
+      {
+        "level": 0.61,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Coalition, union, and business narratives circulate mainly in aligned audiences at T0.",
+        "scope": "online_and_civic_networks"
+      },
+      {
+        "level": 0.49,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Participation likely requires repeated cues from trusted peers and institutions rather than one post alone.",
+        "scope": "protest_or_hearing_turnout"
+      },
+      {
+        "level": 0.67,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Interpretations are filtered through identity-linked views of police, youth, neighborhood order, and fairness.",
+        "scope": "policing_and_accountability_discourse"
+      },
+      {
+        "level": 0.46,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Without fresh developments, broad attention may drop after the initial release cycle.",
+        "scope": "general_public"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context_key": "partial_data_release",
+        "effect": "Creates interpretive contest because transparency gains are offset by incompleteness."
+      },
+      {
+        "context_key": "suppressed_fields_footnote",
+        "effect": "Raises procedural uncertainty and constrains strong factual conclusions."
+      },
+      {
+        "context_key": "lawsuit_origin",
+        "effect": "Elevates legitimacy stakes by framing disclosure as compelled rather than voluntary."
+      },
+      {
+        "context_key": "union_response",
+        "effect": "Introduces public safety and officer-context counterframe early."
+      },
+      {
+        "context_key": "youth_coalition_posts",
+        "effect": "Personalizes issue salience and may lower silence thresholds among affected communities."
+      },
+      {
+        "context_key": "business_concerns",
+        "effect": "Adds stability and commerce frame that can moderate or redirect debate."
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "city_oversight_board",
+        "behavior_axes": {
+          "adversarialism": 0.34,
+          "caution": 0.71,
+          "proceduralism": 0.84,
+          "responsiveness": 0.58
+        },
+        "graph_influence_summary": 0.64,
+        "ideology_axes": {
+          "order_orientation": 0.56,
+          "reform_orientation": 0.66
+        },
+        "reputation": 0.52,
+        "secrecy": 0.46,
+        "tendency": "measured_disclosure_under_constraint",
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "city_police_department",
+        "behavior_axes": {
+          "adversarialism": 0.49,
+          "caution": 0.67,
+          "proceduralism": 0.7,
+          "responsiveness": 0.42
+        },
+        "graph_influence_summary": 0.72,
+        "ideology_axes": {
+          "order_orientation": 0.86,
+          "reform_orientation": 0.34
+        },
+        "reputation": 0.46,
+        "secrecy": 0.57,
+        "tendency": "defend_operations_and_context",
+        "trustworthiness": 0.45
+      },
+      {
+        "actor_name": "police_union",
+        "behavior_axes": {
+          "adversarialism": 0.78,
+          "caution": 0.41,
+          "proceduralism": 0.46,
+          "responsiveness": 0.63
+        },
+        "graph_influence_summary": 0.61,
+        "ideology_axes": {
+          "order_orientation": 0.89,
+          "reform_orientation": 0.22
+        },
+        "reputation": 0.44,
+        "secrecy": 0.35,
+        "tendency": "rapid_public_counterframing",
+        "trustworthiness": 0.43
+      },
+      {
+        "actor_name": "daily_ledger",
+        "behavior_axes": {
+          "adversarialism": 0.57,
+          "caution": 0.52,
+          "proceduralism": 0.62,
+          "responsiveness": 0.76
+        },
+        "graph_influence_summary": 0.58,
+        "ideology_axes": {
+          "order_orientation": 0.41,
+          "reform_orientation": 0.71
+        },
+        "reputation": 0.63,
+        "secrecy": 0.18,
+        "tendency": "adversarial_transparency_reporting",
+        "trustworthiness": 0.66
+      },
+      {
+        "actor_name": "youth_justice_coalition",
+        "behavior_axes": {
+          "adversarialism": 0.69,
+          "caution": 0.33,
+          "proceduralism": 0.29,
+          "responsiveness": 0.82
+        },
+        "graph_influence_summary": 0.47,
+        "ideology_axes": {
+          "order_orientation": 0.28,
+          "reform_orientation": 0.91
+        },
+        "reputation": 0.52,
+        "secrecy": 0.22,
+        "tendency": "mobilize_through_personalized_public_posts",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "downtown_business_association",
+        "behavior_axes": {
+          "adversarialism": 0.31,
+          "caution": 0.73,
+          "proceduralism": 0.57,
+          "responsiveness": 0.48
+        },
+        "graph_influence_summary": 0.42,
+        "ideology_axes": {
+          "order_orientation": 0.74,
+          "reform_orientation": 0.43
+        },
+        "reputation": 0.56,
+        "secrecy": 0.29,
+        "tendency": "seek_stability_and_contextual_messaging",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "city_attorney_office",
+        "behavior_axes": {
+          "adversarialism": 0.38,
+          "caution": 0.88,
+          "proceduralism": 0.93,
+          "responsiveness": 0.34
+        },
+        "graph_influence_summary": 0.53,
+        "ideology_axes": {
+          "order_orientation": 0.61,
+          "reform_orientation": 0.48
+        },
+        "reputation": 0.51,
+        "secrecy": 0.64,
+        "tendency": "narrow_legally_bounded_disclosure",
+        "trustworthiness": 0.54
+      },
+      {
+        "actor_name": "city_council_public_safety_committee",
+        "behavior_axes": {
+          "adversarialism": 0.36,
+          "caution": 0.59,
+          "proceduralism": 0.68,
+          "responsiveness": 0.61
+        },
+        "graph_influence_summary": 0.5,
+        "ideology_axes": {
+          "order_orientation": 0.58,
+          "reform_orientation": 0.57
+        },
+        "reputation": 0.49,
+        "secrecy": 0.26,
+        "tendency": "reactive_oversight_and_signal_management",
+        "trustworthiness": 0.5
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 552,
+        "end": 552,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 552,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

@@ -1,0 +1,1251 @@
+{
+  "big_bang_id": "ee16eb8a-6c32-46fd-ab0f-55fb3e715d8f",
+  "initializer_output": {
+    "actors": [
+      {
+        "description": "Primary neighborhood social app where automated moderation is newly affecting outage posts.",
+        "fictionalized": true,
+        "name": "neighborhood_app",
+        "scope": "local",
+        "type": "platform"
+      },
+      {
+        "description": "Automated moderation tool removing some legitimate water outage posts.",
+        "fictionalized": true,
+        "name": "automated_moderation_system",
+        "scope": "platform_internal",
+        "type": "algorithmic_system"
+      },
+      {
+        "description": "Human moderators handling appeals and enforcement review with backlog pressure.",
+        "fictionalized": true,
+        "name": "platform_moderators",
+        "scope": "local_platform_ops",
+        "type": "moderation_team"
+      },
+      {
+        "description": "General residents using the app and seeking outage information.",
+        "fictionalized": true,
+        "name": "residents_general",
+        "scope": "neighborhood",
+        "type": "public_group"
+      },
+      {
+        "description": "Residents shifting to private or semi-private group chats where rumors spread more easily.",
+        "fictionalized": true,
+        "name": "residents_rumor_chat_users",
+        "scope": "neighborhood",
+        "type": "public_group"
+      },
+      {
+        "description": "Water utility or related local officials attempting to share outage updates.",
+        "fictionalized": true,
+        "name": "utility_officials",
+        "scope": "local",
+        "type": "public_institution"
+      },
+      {
+        "description": "Local journalists investigating the outage information breakdown and moderation issues.",
+        "fictionalized": true,
+        "name": "local_reporters",
+        "scope": "local",
+        "type": "media"
+      },
+      {
+        "description": "Admins or influential participants in off-platform group chats.",
+        "fictionalized": true,
+        "name": "community_group_chat_admins",
+        "scope": "neighborhood",
+        "type": "informal_gatekeeper"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "branch_key": "rapid_correction_branch",
+        "divergence_signal": "Observed reinstatements, reduced complaint volume about removals, and rising exposure from utility_officials to residents_general.",
+        "plausible_path": "Residents partially reconverge on the app, rumor dependence softens, and utility updates regain reach without fully repairing trust.",
+        "trigger": "Moderators or platform systems restore legitimate outage posts and communicate the mistake within the next few ticks."
+      },
+      {
+        "branch_key": "rumor_entrenchment_branch",
+        "divergence_signal": "Sustained or rising chat migration, more resident references to off-platform claims, and declining trust edges toward neighborhood_app.",
+        "plausible_path": "Group chats become the practical default for many users, rumor cascades intensify, and common public knowledge fragments further.",
+        "trigger": "Appeals remain slow and no visible correction reaches the broader resident audience."
+      },
+      {
+        "branch_key": "media_accountability_branch",
+        "divergence_signal": "Reporter content becomes widely cited, influence from local_reporters to neighborhood_app and residents increases, and platform response becomes more public.",
+        "plausible_path": "Public scrutiny pressures the platform to explain, adjust moderation, or coordinate with officials; residents use media reports as a new reference point.",
+        "trigger": "Local reporting publishes verified evidence of erroneous moderation and communication breakdown."
+      },
+      {
+        "branch_key": "official_channel_substitution_branch",
+        "divergence_signal": "Higher exposure to utility_official_updates or news coverage despite continued app dysfunction.",
+        "plausible_path": "Residents still distrust the app for outage information, but practical harm from missing updates declines because another channel becomes authoritative.",
+        "trigger": "Utility officials successfully bypass the app using alternate communication pathways."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "neighborhood_app_public_feed",
+        "moderation_friction": 0.77,
+        "primary_actors": [
+          "neighborhood_app",
+          "residents_general",
+          "utility_officials",
+          "platform_moderators"
+        ],
+        "reliability": 0.38,
+        "speed": 0.62,
+        "type": "platform_public",
+        "visibility": 0.82
+      },
+      {
+        "channel_key": "private_group_chats",
+        "moderation_friction": 0.12,
+        "primary_actors": [
+          "residents_rumor_chat_users",
+          "community_group_chat_admins"
+        ],
+        "reliability": 0.29,
+        "speed": 0.84,
+        "type": "peer_network",
+        "visibility": 0.23
+      },
+      {
+        "channel_key": "utility_official_updates",
+        "moderation_friction": 0.19,
+        "primary_actors": [
+          "utility_officials"
+        ],
+        "reliability": 0.68,
+        "speed": 0.54,
+        "type": "institutional_broadcast",
+        "visibility": 0.31
+      },
+      {
+        "channel_key": "local_news_reporting",
+        "moderation_friction": 0.08,
+        "primary_actors": [
+          "local_reporters"
+        ],
+        "reliability": 0.71,
+        "speed": 0.43,
+        "type": "media",
+        "visibility": 0.41
+      },
+      {
+        "channel_key": "appeals_queue",
+        "moderation_friction": 0.88,
+        "primary_actors": [
+          "platform_moderators",
+          "automated_moderation_system"
+        ],
+        "reliability": 0.51,
+        "speed": 0.22,
+        "type": "platform_internal",
+        "visibility": 0.09
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "residents_general",
+        "archetype_key": "neighborhood_residents",
+        "attention_level": 0.74,
+        "cohort_key": "residents_app_reliant",
+        "expression_level": 0.46,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.28,
+        "mobilization_readiness": 0.36,
+        "perceived_majority": "Believes most neighbors are also confused and waiting for clearer updates.",
+        "population_share_of_archetype": 0.55,
+        "private_belief": "The app is still useful but currently unreliable for outage information.",
+        "public_expression": "Complaints and confusion appear sporadically on-platform; many still check the app first.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 6600,
+        "stance_axes": {
+          "desire_for_fast_updates": 0.82,
+          "official_information_trust": 0.58,
+          "platform_reliability": 0.45,
+          "rumor_tolerance": 0.34
+        }
+      },
+      {
+        "actor_name": "residents_rumor_chat_users",
+        "archetype_key": "neighborhood_residents",
+        "attention_level": 0.81,
+        "cohort_key": "residents_rumor_migrants",
+        "expression_level": 0.69,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.14,
+        "mobilization_readiness": 0.49,
+        "perceived_majority": "Believes many residents are bypassing the app for faster channels.",
+        "population_share_of_archetype": 0.25,
+        "private_belief": "Private chats are faster than the app, even if accuracy is uncertain.",
+        "public_expression": "More active in chat threads than on the app; likely to forward unverified claims.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 3000,
+        "stance_axes": {
+          "desire_for_fast_updates": 0.88,
+          "official_information_trust": 0.42,
+          "platform_reliability": 0.24,
+          "rumor_tolerance": 0.68
+        }
+      },
+      {
+        "actor_name": "residents_general",
+        "archetype_key": "neighborhood_residents",
+        "attention_level": 0.57,
+        "cohort_key": "residents_quiet_skeptics",
+        "expression_level": 0.19,
+        "fatigue": 0.39,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": "Believes loud posters may not represent the whole neighborhood.",
+        "population_share_of_archetype": 0.2,
+        "private_belief": "Neither the app nor rumors are fully reliable; wait-and-see behavior dominates.",
+        "public_expression": "Low posting; mostly observes and cross-checks information offline or through acquaintances.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 2400,
+        "stance_axes": {
+          "desire_for_fast_updates": 0.61,
+          "official_information_trust": 0.51,
+          "platform_reliability": 0.31,
+          "rumor_tolerance": 0.22
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "residents_general",
+        "archetype_key": "neighborhood_residents",
+        "attention_level": 0.74,
+        "cohort_key": "residents_app_reliant",
+        "expression_level": 0.46,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.28,
+        "mobilization_readiness": 0.36,
+        "perceived_majority": "Believes most neighbors are also confused and waiting for clearer updates.",
+        "population_share_of_archetype": 0.55,
+        "private_belief": "The app is still useful but currently unreliable for outage information.",
+        "public_expression": "Complaints and confusion appear sporadically on-platform; many still check the app first.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 6600,
+        "stance_axes": {
+          "desire_for_fast_updates": 0.82,
+          "official_information_trust": 0.58,
+          "platform_reliability": 0.45,
+          "rumor_tolerance": 0.34
+        }
+      },
+      {
+        "actor_name": "residents_rumor_chat_users",
+        "archetype_key": "neighborhood_residents",
+        "attention_level": 0.81,
+        "cohort_key": "residents_rumor_migrants",
+        "expression_level": 0.69,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.14,
+        "mobilization_readiness": 0.49,
+        "perceived_majority": "Believes many residents are bypassing the app for faster channels.",
+        "population_share_of_archetype": 0.25,
+        "private_belief": "Private chats are faster than the app, even if accuracy is uncertain.",
+        "public_expression": "More active in chat threads than on the app; likely to forward unverified claims.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 3000,
+        "stance_axes": {
+          "desire_for_fast_updates": 0.88,
+          "official_information_trust": 0.42,
+          "platform_reliability": 0.24,
+          "rumor_tolerance": 0.68
+        }
+      },
+      {
+        "actor_name": "residents_general",
+        "archetype_key": "neighborhood_residents",
+        "attention_level": 0.57,
+        "cohort_key": "residents_quiet_skeptics",
+        "expression_level": 0.19,
+        "fatigue": 0.39,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": "Believes loud posters may not represent the whole neighborhood.",
+        "population_share_of_archetype": 0.2,
+        "private_belief": "Neither the app nor rumors are fully reliable; wait-and-see behavior dominates.",
+        "public_expression": "Low posting; mostly observes and cross-checks information offline or through acquaintances.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 2400,
+        "stance_axes": {
+          "desire_for_fast_updates": 0.61,
+          "official_information_trust": 0.51,
+          "platform_reliability": 0.31,
+          "rumor_tolerance": 0.22
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "neighborhood_app",
+          "platform_moderators",
+          "automated_moderation_system"
+        ],
+        "blockers": [
+          "appeals_backlog",
+          "opaque algorithm behavior",
+          "limited moderator decision power",
+          "continued false positives"
+        ],
+        "contradiction_notes": "This endpoint is contradicted if outage posts continue to be removed or remain effectively unreachable despite nominal policy changes.",
+        "description": "The platform resumes dependable public visibility for legitimate outage information on the main neighborhood app.",
+        "endpoint_key": "restored_public_outage_channel",
+        "evidence_refs": [
+          "automated_removal_of_outage_posts",
+          "appeals_backlog_acknowledged",
+          "first_visible_correction_decision"
+        ],
+        "label": "Restored public outage channel on the app",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the neighborhood app visibly restore reliable public circulation of legitimate water outage information?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.38,
+        "rationale": "This is the clearest terminal repair outcome implied by the scenario because the central failure is platform visibility of legitimate local information.",
+        "realization_criteria": [
+          "Official outage updates and resident outage posts remain publicly visible on the app across repeated checks.",
+          "A visible moderation correction, exemption, or policy clarification is issued for outage-related content.",
+          "Resident exposure to utility_officials through neighborhood_app measurably rebounds from T0 levels."
+        ],
+        "status": "active",
+        "status_basis": "At T0 the channel is impaired but not irreversibly broken; correction remains plausible."
+      },
+      {
+        "authority_refs": [
+          "residents_rumor_chat_users",
+          "community_group_chat_admins",
+          "residents_general"
+        ],
+        "blockers": [
+          "visible platform correction",
+          "successful official channel substitution",
+          "media-driven consensus facts"
+        ],
+        "contradiction_notes": "This endpoint is weakened if residents return to a single trusted source even if they still keep chats for social coordination.",
+        "description": "Residents continue relying primarily on rumor-prone private group chats and other fragmented pathways rather than returning to a shared public channel.",
+        "endpoint_key": "durable_off_platform_fragmentation",
+        "evidence_refs": [
+          "resident_shift_to_group_chats",
+          "automated_removal_of_outage_posts"
+        ],
+        "label": "Durable migration to fragmented off-platform information networks",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will residents reconverge on a shared verified channel, or remain fragmented across rumor-heavy private chats and weakened public feeds?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.29,
+        "rationale": "The scenario explicitly highlights shift to rumor-filled chats, making fragmentation a major endpoint option.",
+        "realization_criteria": [
+          "A substantial resident subset continues to use private chats as the main outage-information source over multiple observed periods.",
+          "Public app discussion remains sparse, mistrusted, or ineffective for outage coordination.",
+          "Cross-resident disagreement about basic outage facts persists at a level consistent with fragmented common knowledge."
+        ],
+        "status": "active",
+        "status_basis": "Migration has already begun at T0, but scale and durability are still unresolved."
+      },
+      {
+        "authority_refs": [
+          "utility_officials",
+          "local_reporters",
+          "community_group_chat_admins"
+        ],
+        "blockers": [
+          "low visibility of alternate channels",
+          "resident inattention",
+          "continued rumor dominance",
+          "lack of cross-channel amplification"
+        ],
+        "contradiction_notes": "This endpoint can coexist with continued app distrust; it is contradicted only if no alternate path attains meaningful reach.",
+        "description": "Utility officials establish an alternate reliable path to reach residents at meaningful scale even if the app remains partially impaired.",
+        "endpoint_key": "official_distribution_workaround_established",
+        "evidence_refs": [
+          "utility_attempts_broadcast_workaround",
+          "utility_official_updates"
+        ],
+        "label": "Official distribution workaround established",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will utility officials secure a workable distribution path that reaches residents at meaningful scale despite platform friction?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.2,
+        "rationale": "The scenario implies platform ownership leverage over reach, so substitution is a distinct terminal possibility.",
+        "realization_criteria": [
+          "Utility updates are repeatedly disseminated through a nonblocked channel with observable resident uptake.",
+          "Residents reference official guidance from alternate channels more often than rumor claims in outage-related discussion.",
+          "Operational communication from utility_officials no longer depends primarily on successful posting in the neighborhood app."
+        ],
+        "status": "active",
+        "status_basis": "Officials are struggling at T0, indicating both need and incentive for substitution, but no successful workaround is yet evidenced."
+      },
+      {
+        "authority_refs": [
+          "local_reporters",
+          "neighborhood_app",
+          "platform_moderators"
+        ],
+        "blockers": [
+          "insufficient evidence gathering",
+          "low reporter reach",
+          "platform nonresponse",
+          "news attention decay"
+        ],
+        "contradiction_notes": "This endpoint is not realized by mere investigation; it requires observable corrective response linked to accountability pressure.",
+        "description": "External scrutiny, especially local reporting, prompts the platform to acknowledge error and implement a corrective moderation response.",
+        "endpoint_key": "accountability_driven_platform_correction",
+        "evidence_refs": [
+          "local_reporter_verification_calls",
+          "first_visible_correction_decision"
+        ],
+        "label": "Accountability-driven platform correction",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will local reporting generate enough accountability pressure to produce a platform or moderation correction?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.27,
+        "rationale": "The scenario specifically introduces reporters as a mechanism that may shift institutional behavior rather than merely describe events.",
+        "realization_criteria": [
+          "Local reporting publishes verified findings on mistaken removals or communication failures.",
+          "Platform representatives or moderators issue a public acknowledgment, explanation, or corrective action traceable to the scrutiny.",
+          "Subsequent moderation behavior toward outage content changes in an observable and sustained way."
+        ],
+        "status": "active",
+        "status_basis": "An investigation is beginning at T0, but no public findings or platform response exist yet."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "source_receives_from_target",
+        "evidence": "Scenario centers on mistaken removals within the neighborhood app.",
+        "layer": "exposure",
+        "reason": "Many residents still monitor the app for local updates.",
+        "source_actor_name": "residents_general",
+        "target_actor_name": "neighborhood_app",
+        "weight": 0.62
+      },
+      {
+        "direction": "source_receives_from_target",
+        "evidence": "Residents shift to rumor-filled group chats.",
+        "layer": "exposure",
+        "reason": "Migrating residents increasingly see information through group chats.",
+        "source_actor_name": "residents_rumor_chat_users",
+        "target_actor_name": "community_group_chat_admins",
+        "weight": 0.64
+      },
+      {
+        "direction": "source_receives_from_target",
+        "evidence": "Utility officials struggle to broadcast updates.",
+        "layer": "exposure",
+        "reason": "Officials are trying to broadcast updates but face reduced reach.",
+        "source_actor_name": "residents_general",
+        "target_actor_name": "utility_officials",
+        "weight": 0.28
+      },
+      {
+        "direction": "source_reaches_target",
+        "evidence": "Local reporters investigate.",
+        "layer": "exposure",
+        "reason": "Reporters have some reach into the resident audience but are not yet the main channel.",
+        "source_actor_name": "local_reporters",
+        "target_actor_name": "residents_general",
+        "weight": 0.22
+      },
+      {
+        "direction": "source_receives_from_target",
+        "evidence": "Moderators say appeals are backlogged.",
+        "layer": "exposure",
+        "reason": "Moderators are closely exposed to system outputs through appeals and removals.",
+        "source_actor_name": "platform_moderators",
+        "target_actor_name": "automated_moderation_system",
+        "weight": 0.55
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Automated moderation mistakenly removes posts about a water outage.",
+        "layer": "trust",
+        "reason": "Trust in the app is weakened by mistaken removals but not fully collapsed.",
+        "source_actor_name": "residents_general",
+        "target_actor_name": "neighborhood_app",
+        "weight": 0.38
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Utility officials struggle to broadcast updates, implying some baseline expectation they should provide updates.",
+        "layer": "trust",
+        "reason": "Officials retain moderate legitimacy as authoritative outage sources.",
+        "source_actor_name": "residents_general",
+        "target_actor_name": "utility_officials",
+        "weight": 0.52
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Residents shift to rumor-filled group chats.",
+        "layer": "trust",
+        "reason": "Private chat participants rely on peer intermediaries despite uneven verification.",
+        "source_actor_name": "residents_rumor_chat_users",
+        "target_actor_name": "community_group_chat_admins",
+        "weight": 0.49
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Local reporters investigate.",
+        "layer": "trust",
+        "reason": "Reporters are plausible independent validators but have not yet published decisive findings.",
+        "source_actor_name": "residents_general",
+        "target_actor_name": "local_reporters",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Utility officials struggle to broadcast updates.",
+        "layer": "trust",
+        "reason": "Officials view the app as a potentially useful but currently unreliable distribution channel.",
+        "source_actor_name": "utility_officials",
+        "target_actor_name": "neighborhood_app",
+        "weight": 0.31
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Utility officials struggle to broadcast updates after moderation problems.",
+        "layer": "dependency",
+        "reason": "Officials depend materially on the app's local audience reach for rapid broadcast.",
+        "source_actor_name": "utility_officials",
+        "target_actor_name": "neighborhood_app",
+        "weight": 0.58
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Appeals are backlogged following automated moderation errors.",
+        "layer": "dependency",
+        "reason": "Human review workflow is structured around the automated system's removals and queues.",
+        "source_actor_name": "platform_moderators",
+        "target_actor_name": "automated_moderation_system",
+        "weight": 0.63
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Scenario revolves around water outage updates.",
+        "layer": "dependency",
+        "reason": "Residents need official outage status for practical decisions.",
+        "source_actor_name": "residents_general",
+        "target_actor_name": "utility_officials",
+        "weight": 0.47
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Shift to rumor-filled group chats.",
+        "layer": "dependency",
+        "reason": "Migrants rely on chat infrastructure and admins for message circulation.",
+        "source_actor_name": "residents_rumor_chat_users",
+        "target_actor_name": "community_group_chat_admins",
+        "weight": 0.42
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Mistaken removals directly alter information availability.",
+        "layer": "influence",
+        "reason": "System actions shape what residents can see and discuss on-platform.",
+        "source_actor_name": "automated_moderation_system",
+        "target_actor_name": "residents_general",
+        "weight": 0.57
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Moderators manage appeals backlog.",
+        "layer": "influence",
+        "reason": "Moderators can affect correction pace and enforcement interpretation but are not sole decision-makers.",
+        "source_actor_name": "platform_moderators",
+        "target_actor_name": "neighborhood_app",
+        "weight": 0.36
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Officials attempt to broadcast updates about the outage.",
+        "layer": "influence",
+        "reason": "Officials can influence resident beliefs if updates reach them.",
+        "source_actor_name": "utility_officials",
+        "target_actor_name": "residents_general",
+        "weight": 0.41
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Local reporters investigate.",
+        "layer": "influence",
+        "reason": "Press scrutiny can pressure the platform toward correction or explanation.",
+        "source_actor_name": "local_reporters",
+        "target_actor_name": "neighborhood_app",
+        "weight": 0.33
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Rumor-filled group chats become salient channels.",
+        "layer": "influence",
+        "reason": "Admins and highly active members shape rumor circulation and norms.",
+        "source_actor_name": "community_group_chat_admins",
+        "target_actor_name": "residents_rumor_chat_users",
+        "weight": 0.44
+      },
+      {
+        "direction": "mutual_alignment_potential",
+        "evidence": "Reporters investigate while officials seek to broadcast updates.",
+        "layer": "coalition",
+        "reason": "Potential alignment around clarifying facts exists, though roles differ.",
+        "source_actor_name": "utility_officials",
+        "target_actor_name": "local_reporters",
+        "weight": 0.26
+      },
+      {
+        "direction": "mutual_alignment_potential",
+        "evidence": "Outage updates are needed by residents.",
+        "layer": "coalition",
+        "reason": "Residents and officials share interest in restoring reliable outage information.",
+        "source_actor_name": "residents_general",
+        "target_actor_name": "utility_officials",
+        "weight": 0.32
+      },
+      {
+        "direction": "mutual_alignment_potential",
+        "evidence": "Residents shift into group chats for updates.",
+        "layer": "coalition",
+        "reason": "Chat users and admins are aligned around fast peer communication.",
+        "source_actor_name": "residents_rumor_chat_users",
+        "target_actor_name": "community_group_chat_admins",
+        "weight": 0.48
+      },
+      {
+        "direction": "mutual_alignment_potential",
+        "evidence": "Officials struggle because moderation blocks updates.",
+        "layer": "coalition",
+        "reason": "Weak latent alignment around correcting legitimate removals may emerge.",
+        "source_actor_name": "platform_moderators",
+        "target_actor_name": "utility_officials",
+        "weight": 0.18
+      },
+      {
+        "direction": "source_in_conflict_with_target",
+        "evidence": "Automated moderation mistakenly removes posts about a water outage.",
+        "layer": "conflict",
+        "reason": "Users are frustrated that legitimate outage posts are removed.",
+        "source_actor_name": "residents_general",
+        "target_actor_name": "neighborhood_app",
+        "weight": 0.43
+      },
+      {
+        "direction": "source_in_conflict_with_target",
+        "evidence": "Officials struggle to broadcast updates due to removals and channel issues.",
+        "layer": "conflict",
+        "reason": "The system is obstructing official communication objectives.",
+        "source_actor_name": "utility_officials",
+        "target_actor_name": "automated_moderation_system",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_in_conflict_with_target",
+        "evidence": "Local reporters investigate.",
+        "layer": "conflict",
+        "reason": "Investigation creates adversarial pressure around accountability.",
+        "source_actor_name": "local_reporters",
+        "target_actor_name": "neighborhood_app",
+        "weight": 0.29
+      },
+      {
+        "direction": "source_in_conflict_with_target",
+        "evidence": "Moderators say appeals are backlogged.",
+        "layer": "conflict",
+        "reason": "Residents may blame moderators for visible removals and slow appeals.",
+        "source_actor_name": "platform_moderators",
+        "target_actor_name": "residents_general",
+        "weight": 0.21
+      },
+      {
+        "direction": "public_interaction",
+        "evidence": "The app is still the central platform in the scenario.",
+        "layer": "oasis_interaction",
+        "reason": "Public-facing app remains a key interaction venue despite frustration.",
+        "source_actor_name": "residents_general",
+        "target_actor_name": "neighborhood_app",
+        "weight": 0.61
+      },
+      {
+        "direction": "public_interaction",
+        "evidence": "Officials struggle to broadcast updates.",
+        "layer": "oasis_interaction",
+        "reason": "Officials likely attempt public posting there but with impaired results.",
+        "source_actor_name": "utility_officials",
+        "target_actor_name": "neighborhood_app",
+        "weight": 0.39
+      },
+      {
+        "direction": "public_interaction",
+        "evidence": "Local reporters investigate platform issues.",
+        "layer": "oasis_interaction",
+        "reason": "Reporters monitor or engage with public conversation as part of investigation.",
+        "source_actor_name": "local_reporters",
+        "target_actor_name": "neighborhood_app",
+        "weight": 0.27
+      },
+      {
+        "direction": "interaction_intensity",
+        "evidence": "Residents shift to rumor-filled group chats.",
+        "layer": "oasis_interaction",
+        "reason": "Group chats are active, high-frequency semi-public or private interaction spaces.",
+        "source_actor_name": "residents_rumor_chat_users",
+        "target_actor_name": "community_group_chat_admins",
+        "weight": 0.58
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "description": "Human review and appeals capacity that can correct mistaken removals.",
+        "hero_key": "moderation_ops",
+        "label": "Moderation operations"
+      },
+      {
+        "description": "Utility-side update authority trying to reestablish reliable broadcast.",
+        "hero_key": "official_comms",
+        "label": "Official communications"
+      },
+      {
+        "description": "Reporters who can surface failures and pressure corrections.",
+        "hero_key": "local_accountability_press",
+        "label": "Local accountability press"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "platform_moderators",
+        "attention_level": 0.78,
+        "capabilities": [
+          "review_removed_posts",
+          "process_appeals",
+          "communicate_policy_clarifications"
+        ],
+        "constraints": [
+          "appeals_backlog",
+          "limited_review_capacity",
+          "dependent_on_platform_systems"
+        ],
+        "decision_power": 0.46,
+        "expression_level": 0.34,
+        "fatigue": 0.67,
+        "fear_of_isolation": 0.22,
+        "hero_key": "moderation_ops",
+        "mobilization_readiness": 0.58,
+        "perceived_majority": "Believes users are increasingly frustrated but not yet fully disengaged.",
+        "role": "appeals_and_review",
+        "stance_axes": {
+          "error_correction_priority": 0.71,
+          "public_transparency": 0.43,
+          "strict_enforcement": 0.52
+        }
+      },
+      {
+        "actor_name": "utility_officials",
+        "attention_level": 0.83,
+        "capabilities": [
+          "issue_updates",
+          "confirm_service_status",
+          "coordinate_public_notice"
+        ],
+        "constraints": [
+          "reduced_platform_reach",
+          "channel_fragmentation",
+          "possible public skepticism"
+        ],
+        "decision_power": 0.55,
+        "expression_level": 0.61,
+        "fatigue": 0.44,
+        "fear_of_isolation": 0.18,
+        "hero_key": "official_comms",
+        "mobilization_readiness": 0.63,
+        "perceived_majority": "Believes many residents are missing official updates.",
+        "role": "outage_information_source",
+        "stance_axes": {
+          "conflict_aversion": 0.41,
+          "need_for_broadcast_reliability": 0.89,
+          "public_transparency": 0.72
+        }
+      },
+      {
+        "actor_name": "local_reporters",
+        "attention_level": 0.69,
+        "capabilities": [
+          "interview_sources",
+          "publish_findings",
+          "amplify_systemic_failures"
+        ],
+        "constraints": [
+          "verification_delay",
+          "limited direct control over platform",
+          "dependence_on_sources"
+        ],
+        "decision_power": 0.34,
+        "expression_level": 0.52,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.11,
+        "hero_key": "local_accountability_press",
+        "mobilization_readiness": 0.47,
+        "perceived_majority": "Believes the situation is becoming a public-interest story.",
+        "role": "investigative_observer",
+        "stance_axes": {
+          "accountability_drive": 0.82,
+          "neutrality_norm": 0.64,
+          "sensationalism": 0.27
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "description": "Human review and appeals capacity that can correct mistaken removals.",
+        "hero_key": "moderation_ops",
+        "label": "Moderation operations"
+      },
+      {
+        "description": "Utility-side update authority trying to reestablish reliable broadcast.",
+        "hero_key": "official_comms",
+        "label": "Official communications"
+      },
+      {
+        "description": "Reporters who can surface failures and pressure corrections.",
+        "hero_key": "local_accountability_press",
+        "label": "Local accountability press"
+      }
+    ],
+    "important_questions": [
+      "Will the neighborhood app visibly restore reliable public circulation of legitimate water outage information?",
+      "Will residents reconverge on a shared verified channel, or remain fragmented across rumor-heavy private chats and weakened public feeds?",
+      "Will utility officials secure a workable distribution path that reaches residents at meaningful scale despite platform friction?",
+      "Will local reporting generate enough accountability pressure to produce a platform or moderation correction?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "automated_moderation_system",
+          "neighborhood_app",
+          "residents_general"
+        ],
+        "event_key": "automated_removal_of_outage_posts",
+        "event_type": "announcement",
+        "expected_impact": "Reduces public visibility of reliable local information, lowers trust in the app, and creates openings for rumor substitution.",
+        "status": "realized",
+        "summary": "Automated moderation has already removed some legitimate posts about the water outage.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "residents_rumor_chat_users",
+          "community_group_chat_admins"
+        ],
+        "event_key": "resident_shift_to_group_chats",
+        "event_type": "announcement",
+        "expected_impact": "Raises exposure to unverified claims, increases homophilous clustering, and weakens common public knowledge.",
+        "status": "realized",
+        "summary": "A visible subset of residents has already moved into rumor-prone group chats for faster updates.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "platform_moderators"
+        ],
+        "event_key": "appeals_backlog_acknowledged",
+        "event_type": "announcement",
+        "expected_impact": "Lowers expectations of rapid correction and may shift blame from system error to organizational capacity failure.",
+        "status": "realized",
+        "summary": "Moderators indicate that appeals are backlogged.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "utility_officials",
+          "neighborhood_app"
+        ],
+        "event_key": "utility_attempts_broadcast_workaround",
+        "event_type": "announcement",
+        "expected_impact": "Could modestly restore reliable exposure if successful, or further highlight platform friction if blocked again.",
+        "status": "scheduled",
+        "summary": "Officials are likely to attempt alternate posting patterns or channel workarounds to get updates through.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "local_reporters",
+          "utility_officials",
+          "platform_moderators",
+          "residents_general"
+        ],
+        "event_key": "local_reporter_verification_calls",
+        "event_type": "announcement",
+        "expected_impact": "May produce accountability pressure, surface facts that counter rumors, and shift trust toward independently verified narratives.",
+        "status": "scheduled",
+        "summary": "Reporters begin collecting accounts and evidence about removed posts and outage communication failures.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "platform_moderators",
+          "neighborhood_app",
+          "automated_moderation_system"
+        ],
+        "event_key": "first_visible_correction_decision",
+        "event_type": "announcement",
+        "expected_impact": "Observable correction or continued inaction will strongly affect trust repair trajectories and channel migration.",
+        "status": "scheduled",
+        "summary": "A near-term decision point emerges on whether removed outage posts are restored or policy is clarified.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "869cd462-eaec-4b35-ae9c-019a88be5694",
+    "merge_hypotheses": [
+      {
+        "basis": "All major actors benefit from restoring a minimally trusted fact pattern about the outage even if they disagree on blame.",
+        "converging_actors": [
+          "residents_general",
+          "utility_officials",
+          "platform_moderators",
+          "local_reporters"
+        ],
+        "merge_key": "shared_need_for_reliable_outage_info",
+        "merge_signal": "Cross-channel citation of the same outage facts and declining contradiction volume."
+      },
+      {
+        "basis": "If rumor overload becomes costly, residents may accept slower but more verified channels.",
+        "converging_actors": [
+          "residents_general",
+          "residents_rumor_chat_users",
+          "community_group_chat_admins"
+        ],
+        "merge_key": "coalition_fatigue_against_rumor_noise",
+        "merge_signal": "Chat participants begin requesting source verification or redirecting others toward official or media-confirmed updates."
+      },
+      {
+        "basis": "A visible fix plus procedural clarification could align platform and official incentives around reliability restoration.",
+        "converging_actors": [
+          "neighborhood_app",
+          "platform_moderators",
+          "utility_officials"
+        ],
+        "merge_key": "legitimacy_repair_via_visible_correction",
+        "merge_signal": "Restored posts, explicit exemption or whitelisting for outage updates, and resumed official posting without immediate removal."
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "neighborhood_residents",
+        "description": "Residents affected by the outage and the neighborhood information environment.",
+        "label": "Neighborhood residents",
+        "population_total": 12000
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "limited_scale_evidence",
+        "note": "Population size and local network structure are inferred for simulation utility, not stated in the corpus.",
+        "severity": "medium"
+      },
+      {
+        "flag": "algorithm_opacity",
+        "note": "Cause and reversibility of mistaken removals are under-specified, increasing uncertainty around correction speed.",
+        "severity": "high"
+      },
+      {
+        "flag": "common_knowledge_breakdown",
+        "note": "Channel fragmentation may prevent residents from knowing what others know, amplifying rumor persistence beyond factual correction.",
+        "severity": "high"
+      },
+      {
+        "flag": "official_reach_dependency",
+        "note": "Utility communications appear dependent on external distribution channels they do not control.",
+        "severity": "medium"
+      },
+      {
+        "flag": "trust_repair_not_automatic",
+        "note": "Even if posts are restored, residents may not immediately return to the app without visible proof of reliability.",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "platform_algorithmic_governance",
+      "focus": [
+        "misinformation",
+        "correction_mechanisms",
+        "attention_decay"
+      ],
+      "mode": "direct",
+      "scenario_key": "platform_003",
+      "summary": "A fictional neighborhood app deploys automated moderation that incorrectly removes posts about a local water outage. Residents lose reliable visibility into outage information, some migrate to rumor-prone group chats, utility officials have difficulty distributing updates, volunteer or staff moderators face an appeals backlog, and local reporters begin investigating platform and information failures. T0 should preserve uncertainty around correction speed, trust repair, and whether residents reconverge on reliable channels or fragment further.",
+      "time_horizon_note": "T0 only; no tick executed.",
+      "uncertainty_notes": [
+        "No explicit city size or outage scale provided.",
+        "No named institutions or platform ownership structure provided.",
+        "Severity of actual water outage and moderation false-positive rate are not fully specified."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "residents_general",
+          "residents_rumor_chat_users"
+        ],
+        "level": 0.61,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Residents are more likely to accept outage claims from familiar peers or already-trusted sources than from contested platform channels."
+      },
+      {
+        "applies_to": [
+          "residents_general"
+        ],
+        "level": 0.44,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Visible evidence of widespread posting errors or credible media coverage could push more residents into complaint or channel-switching behavior."
+      },
+      {
+        "applies_to": [
+          "residents_quiet_skeptics"
+        ],
+        "level": 0.53,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Some residents remain quiet publicly due to uncertainty and limited confidence in any channel."
+      },
+      {
+        "applies_to": [
+          "residents_rumor_chat_users"
+        ],
+        "level": 0.58,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Private chat migration likely clusters around existing trust ties and neighborhood subgroups."
+      },
+      {
+        "applies_to": [
+          "residents_general",
+          "residents_rumor_chat_users"
+        ],
+        "level": 0.49,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Belief in rumors or confidence in corrections may require repeated confirmation across multiple contacts or channels."
+      },
+      {
+        "applies_to": [
+          "residents_general",
+          "utility_officials",
+          "platform_moderators"
+        ],
+        "level": 0.37,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Neighborhood identity and institutional roles matter, but strong factional polarization is not yet fully formed at T0."
+      },
+      {
+        "applies_to": [
+          "local_reporters",
+          "residents_general"
+        ],
+        "level": 0.33,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Attention is elevated at T0 because the outage is ongoing, but absent fresh signals some public attention may fade even before trust is repaired."
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Legitimate outage posts being removed creates an information vacuum that increases receptivity to informal substitutes.",
+        "influence_key": "information_void"
+      },
+      {
+        "description": "Residents are splitting between app-based public discussion and less-verifiable group chats.",
+        "influence_key": "channel_fragmentation"
+      },
+      {
+        "description": "Knowledge or perception of a moderation backlog reduces expectation of quick correction.",
+        "influence_key": "appeals_backlog_visibility"
+      },
+      {
+        "description": "Utility officials have information but insufficient dependable distribution through the main local platform.",
+        "influence_key": "official_reach_constraint"
+      },
+      {
+        "description": "Local reporting may create a public focal point for verification and institutional response.",
+        "influence_key": "emerging_accountability_scrutiny"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "neighborhood_app",
+        "behavior_axes": {
+          "centralization": 0.74,
+          "error_tolerance": 0.29,
+          "responsiveness": 0.41,
+          "transparency": 0.33
+        },
+        "ideology_axes": {
+          "safety_enforcement": 0.67,
+          "speech_openness": 0.46
+        },
+        "reputation": 0.52,
+        "secrecy": 0.58,
+        "tendency": "maintain order through automated systems with imperfect local context sensitivity",
+        "trustworthiness": 0.43
+      },
+      {
+        "actor_name": "automated_moderation_system",
+        "behavior_axes": {
+          "appealability": 0.18,
+          "consistency": 0.61,
+          "context_sensitivity": 0.22,
+          "speed": 0.87
+        },
+        "ideology_axes": {
+          "safety_enforcement": 0.78,
+          "speech_openness": 0.31
+        },
+        "reputation": 0.35,
+        "secrecy": 0.81,
+        "tendency": "acts quickly on suspected violations, producing false positives in crisis-adjacent discussion",
+        "trustworthiness": 0.29
+      },
+      {
+        "actor_name": "platform_moderators",
+        "behavior_axes": {
+          "leniency": 0.49,
+          "proceduralism": 0.71,
+          "public_engagement": 0.33,
+          "responsiveness": 0.38
+        },
+        "ideology_axes": {
+          "safety_enforcement": 0.62,
+          "speech_openness": 0.55
+        },
+        "reputation": 0.44,
+        "secrecy": 0.46,
+        "tendency": "attempt corrective review but are slowed by backlog and process constraints",
+        "trustworthiness": 0.56
+      },
+      {
+        "actor_name": "residents_general",
+        "behavior_axes": {
+          "channel_loyalty": 0.54,
+          "public_posting": 0.38,
+          "reactivity": 0.59,
+          "verification": 0.47
+        },
+        "ideology_axes": {
+          "institutional_trust": 0.51,
+          "peer_trust": 0.57
+        },
+        "reputation": 0.5,
+        "secrecy": 0.24,
+        "tendency": "seek practical updates and adapt channels based on speed and visibility",
+        "trustworthiness": 0.53
+      },
+      {
+        "actor_name": "residents_rumor_chat_users",
+        "behavior_axes": {
+          "forwarding": 0.76,
+          "public_posting": 0.57,
+          "reactivity": 0.74,
+          "verification": 0.29
+        },
+        "ideology_axes": {
+          "institutional_trust": 0.4,
+          "peer_trust": 0.66
+        },
+        "reputation": 0.41,
+        "secrecy": 0.51,
+        "tendency": "prioritize rapid peer-to-peer updates over formal verification",
+        "trustworthiness": 0.38
+      },
+      {
+        "actor_name": "utility_officials",
+        "behavior_axes": {
+          "adaptability": 0.47,
+          "broadcast_dependence": 0.73,
+          "clarity": 0.58,
+          "responsiveness": 0.62
+        },
+        "ideology_axes": {
+          "institutional_trust": 0.78,
+          "public_service_orientation": 0.84
+        },
+        "reputation": 0.56,
+        "secrecy": 0.29,
+        "tendency": "tries to distribute authoritative updates but is constrained by channel access",
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "local_reporters",
+        "behavior_axes": {
+          "amplification": 0.61,
+          "skepticism": 0.72,
+          "speed": 0.46,
+          "verification": 0.79
+        },
+        "ideology_axes": {
+          "accountability_orientation": 0.83,
+          "institutional_trust": 0.49
+        },
+        "reputation": 0.6,
+        "secrecy": 0.17,
+        "tendency": "investigates communication breakdowns and pressures institutions for evidence",
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "community_group_chat_admins",
+        "behavior_axes": {
+          "gatekeeping": 0.52,
+          "network_stewardship": 0.48,
+          "responsiveness": 0.57,
+          "verification": 0.33
+        },
+        "ideology_axes": {
+          "institutional_trust": 0.39,
+          "peer_trust": 0.71
+        },
+        "reputation": 0.47,
+        "secrecy": 0.63,
+        "tendency": "facilitates fast local exchange but with uneven quality control",
+        "trustworthiness": 0.42
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 547,
+        "end": 547,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 547,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

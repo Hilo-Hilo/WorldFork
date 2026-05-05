@@ -1,0 +1,1399 @@
+{
+  "big_bang_id": "d9ed68fb-65c9-4397-984f-29fd9989aa4f",
+  "initializer_output": {
+    "actors": [
+      {
+        "name": "redwood_university_administration",
+        "public_visibility": "high",
+        "role": "central_decision_authority",
+        "stakes": [
+          "student safety",
+          "institutional legitimacy",
+          "financial liability",
+          "reputation management",
+          "continuity of campus operations"
+        ],
+        "type": "institution"
+      },
+      {
+        "name": "campus_housing_office",
+        "public_visibility": "high",
+        "role": "housing_operator",
+        "stakes": [
+          "bed capacity",
+          "relocation logistics",
+          "resident compliance",
+          "operational credibility"
+        ],
+        "type": "institution"
+      },
+      {
+        "name": "affected_dorm_residents",
+        "public_visibility": "medium",
+        "role": "primary_exposed_students",
+        "stakes": [
+          "health protection",
+          "safe housing",
+          "academic continuity",
+          "fair treatment"
+        ],
+        "type": "group"
+      },
+      {
+        "name": "unaffected_students",
+        "public_visibility": "medium",
+        "role": "broader_student_body",
+        "stakes": [
+          "confidence in campus safety",
+          "housing stability",
+          "tuition value perceptions"
+        ],
+        "type": "group"
+      },
+      {
+        "name": "parents_family_network",
+        "public_visibility": "medium",
+        "role": "external_pressure_network",
+        "stakes": [
+          "student safety",
+          "administrative accountability",
+          "cost containment"
+        ],
+        "type": "group"
+      },
+      {
+        "name": "maintenance_workers",
+        "public_visibility": "low",
+        "role": "internal_operational_witnesses",
+        "stakes": [
+          "worker credibility",
+          "safe maintenance conditions",
+          "protection from retaliation",
+          "operational honesty"
+        ],
+        "type": "group"
+      },
+      {
+        "name": "local_landlords",
+        "public_visibility": "medium",
+        "role": "off_campus_housing_suppliers",
+        "stakes": [
+          "rental revenue",
+          "occupancy",
+          "pricing leverage"
+        ],
+        "type": "market_group"
+      },
+      {
+        "name": "student_social_media_network",
+        "public_visibility": "high",
+        "role": "public_visibility_amplifier",
+        "stakes": [
+          "information sharing",
+          "peer validation",
+          "narrative amplification"
+        ],
+        "type": "network"
+      },
+      {
+        "name": "campus_health_services",
+        "public_visibility": "medium",
+        "role": "health_advisory_node",
+        "stakes": [
+          "health guidance",
+          "symptom monitoring",
+          "risk communication credibility"
+        ],
+        "type": "institution"
+      },
+      {
+        "name": "city_public_health_office",
+        "public_visibility": "medium",
+        "role": "potential_external_oversight",
+        "stakes": [
+          "public health compliance",
+          "inspection legitimacy",
+          "community reassurance"
+        ],
+        "type": "institution"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "branch_key": "transparent_remediation_path",
+        "observable_divergence_signal": "Official updates become more detailed; conflict edges with students and parents soften; campus health messaging is amplified.",
+        "plausible_path": "Trust partially recovers, parents reduce escalation, and students accept phased relocation while repairs proceed.",
+        "trigger": "University releases specific building information, health guidance, relocation details, and remediation timeline."
+      },
+      {
+        "branch_key": "denial_or_minimization_path",
+        "observable_divergence_signal": "Student posting volume rises, parent complaints broaden, and trust in administration declines further.",
+        "plausible_path": "Online evidence and worker claims gain credibility, prompting broader student mobilization and sharper legitimacy loss.",
+        "trigger": "Administration emphasizes limited scope without matching evidence or avoids answering warning-history questions."
+      },
+      {
+        "branch_key": "repair_capacity_shortfall_path",
+        "observable_divergence_signal": "More reports of temporary placements failing, increased dependency on landlords, and rising complaints about fairness.",
+        "plausible_path": "Displacement pressure increases, more students seek off-campus housing, and price spikes become a central grievance.",
+        "trigger": "Relocation inventory or remediation staffing proves insufficient for affected residents."
+      },
+      {
+        "branch_key": "whistle_documentation_path",
+        "observable_divergence_signal": "Administration shifts to defensive posture, external oversight becomes more likely, and conflict with workers intensifies.",
+        "plausible_path": "Issue reframes around accountability and potential negligence rather than only mold management.",
+        "trigger": "Maintenance workers produce records or coordinated testimony showing earlier ignored warnings."
+      },
+      {
+        "branch_key": "external_health_review_path",
+        "observable_divergence_signal": "City public health office becomes an active public actor and institutional messaging references external findings.",
+        "plausible_path": "An independent assessment either validates the university's response or compels stronger action and disclosure.",
+        "trigger": "City public health or another external body is invited or pressured to inspect."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "student_social_posts",
+        "credibility_pattern": "high_when_visual_evidence_present",
+        "primary_actors": [
+          "affected_dorm_residents",
+          "student_social_media_network",
+          "unaffected_students",
+          "parents_family_network"
+        ],
+        "reach": "high",
+        "type": "public_digital"
+      },
+      {
+        "channel_key": "housing_email_and_portal",
+        "credibility_pattern": "official_but_contested",
+        "primary_actors": [
+          "campus_housing_office",
+          "affected_dorm_residents"
+        ],
+        "reach": "targeted",
+        "type": "institutional_direct"
+      },
+      {
+        "channel_key": "parent_calls_and_messages",
+        "credibility_pattern": "emotionally_intense_external_feedback",
+        "primary_actors": [
+          "parents_family_network",
+          "redwood_university_administration"
+        ],
+        "reach": "medium",
+        "type": "direct_pressure"
+      },
+      {
+        "channel_key": "internal_maintenance_reporting",
+        "credibility_pattern": "potentially_high_if_documented",
+        "primary_actors": [
+          "maintenance_workers",
+          "campus_housing_office",
+          "redwood_university_administration"
+        ],
+        "reach": "low",
+        "type": "internal_operational"
+      },
+      {
+        "channel_key": "campus_health_guidance",
+        "credibility_pattern": "moderate_professional_authority",
+        "primary_actors": [
+          "campus_health_services",
+          "affected_dorm_residents",
+          "unaffected_students"
+        ],
+        "reach": "medium",
+        "type": "institutional_health"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "affected_dorm_residents",
+        "archetype_key": "residential_students",
+        "attention_level": 0.93,
+        "cohort_key": "affected_resident_reporters",
+        "expression_level": 0.81,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.24,
+        "mobilization_readiness": 0.76,
+        "notes": "Students in affected dorms are actively observing conditions and some are posting evidence online.",
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.141,
+        "private_public_gap": 0.12,
+        "representation_mode": "direct",
+        "represented_population": 450,
+        "stance_axes": {
+          "desire_for_transparency": 0.88,
+          "trust_admin_response": 0.28,
+          "willingness_to_go_public": 0.74,
+          "willingness_to_relocate": 0.71
+        }
+      },
+      {
+        "actor_name": "affected_dorm_residents",
+        "archetype_key": "residential_students",
+        "attention_level": 0.87,
+        "cohort_key": "affected_resident_quiet_dependents",
+        "expression_level": 0.29,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.58,
+        "mobilization_readiness": 0.45,
+        "notes": "Students reliant on housing access may suppress criticism while privately worried.",
+        "perceived_majority": 0.38,
+        "population_share_of_archetype": 0.078,
+        "private_public_gap": 0.39,
+        "representation_mode": "direct",
+        "represented_population": 250,
+        "stance_axes": {
+          "desire_for_transparency": 0.74,
+          "trust_admin_response": 0.36,
+          "willingness_to_go_public": 0.31,
+          "willingness_to_relocate": 0.67
+        }
+      },
+      {
+        "actor_name": "unaffected_students",
+        "archetype_key": "residential_students",
+        "attention_level": 0.58,
+        "cohort_key": "unaffected_watchful_students",
+        "expression_level": 0.36,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.33,
+        "mobilization_readiness": 0.34,
+        "notes": "Broader students are alert but not yet fully mobilized.",
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.531,
+        "private_public_gap": 0.21,
+        "representation_mode": "sampled_proxy",
+        "represented_population": 1700,
+        "stance_axes": {
+          "desire_for_transparency": 0.69,
+          "trust_admin_response": 0.49,
+          "willingness_to_go_public": 0.42,
+          "willingness_to_relocate": 0.18
+        }
+      },
+      {
+        "actor_name": "parents_family_network",
+        "archetype_key": "student_families",
+        "attention_level": 0.79,
+        "cohort_key": "concerned_parents",
+        "expression_level": 0.61,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.17,
+        "mobilization_readiness": 0.64,
+        "notes": "Parents are applying pressure and are less constrained by campus dependency than students.",
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.731,
+        "private_public_gap": 0.1,
+        "representation_mode": "proxy_network",
+        "represented_population": 1900,
+        "stance_axes": {
+          "desire_for_transparency": 0.84,
+          "pressure_for_immediate_action": 0.82,
+          "trust_admin_response": 0.33,
+          "willingness_to_escalate": 0.63
+        }
+      },
+      {
+        "actor_name": "maintenance_workers",
+        "archetype_key": "housing_workers",
+        "attention_level": 0.82,
+        "cohort_key": "maintenance_staff_internal_witnesses",
+        "expression_level": 0.28,
+        "fatigue": 0.44,
+        "fear_of_isolation": 0.69,
+        "mobilization_readiness": 0.4,
+        "notes": "Workers say warnings were ignored, but many may hesitate to speak openly.",
+        "perceived_majority": 0.35,
+        "population_share_of_archetype": 0.571,
+        "private_public_gap": 0.48,
+        "representation_mode": "direct",
+        "represented_population": 80,
+        "stance_axes": {
+          "desire_for_transparency": 0.66,
+          "fear_of_retaliation": 0.72,
+          "trust_admin_response": 0.27,
+          "willingness_to_document_prior_warnings": 0.49
+        }
+      },
+      {
+        "actor_name": "local_landlords",
+        "archetype_key": "local_rental_market",
+        "attention_level": 0.73,
+        "cohort_key": "price_raising_landlords",
+        "expression_level": 0.46,
+        "fatigue": 0.11,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.52,
+        "notes": "Some local housing suppliers are reacting to demand shock by increasing prices.",
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.389,
+        "private_public_gap": 0.16,
+        "representation_mode": "market_proxy",
+        "represented_population": 35,
+        "stance_axes": {
+          "cooperation_with_university": 0.41,
+          "profit_maximization": 0.79,
+          "reputation_sensitivity": 0.37,
+          "willingness_to_hold_rates": 0.22
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "affected_dorm_residents",
+        "archetype_key": "residential_students",
+        "attention_level": 0.93,
+        "cohort_key": "affected_resident_reporters",
+        "expression_level": 0.81,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.24,
+        "mobilization_readiness": 0.76,
+        "notes": "Students in affected dorms are actively observing conditions and some are posting evidence online.",
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.141,
+        "private_public_gap": 0.12,
+        "representation_mode": "direct",
+        "represented_population": 450,
+        "stance_axes": {
+          "desire_for_transparency": 0.88,
+          "trust_admin_response": 0.28,
+          "willingness_to_go_public": 0.74,
+          "willingness_to_relocate": 0.71
+        }
+      },
+      {
+        "actor_name": "affected_dorm_residents",
+        "archetype_key": "residential_students",
+        "attention_level": 0.87,
+        "cohort_key": "affected_resident_quiet_dependents",
+        "expression_level": 0.29,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.58,
+        "mobilization_readiness": 0.45,
+        "notes": "Students reliant on housing access may suppress criticism while privately worried.",
+        "perceived_majority": 0.38,
+        "population_share_of_archetype": 0.078,
+        "private_public_gap": 0.39,
+        "representation_mode": "direct",
+        "represented_population": 250,
+        "stance_axes": {
+          "desire_for_transparency": 0.74,
+          "trust_admin_response": 0.36,
+          "willingness_to_go_public": 0.31,
+          "willingness_to_relocate": 0.67
+        }
+      },
+      {
+        "actor_name": "unaffected_students",
+        "archetype_key": "residential_students",
+        "attention_level": 0.58,
+        "cohort_key": "unaffected_watchful_students",
+        "expression_level": 0.36,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.33,
+        "mobilization_readiness": 0.34,
+        "notes": "Broader students are alert but not yet fully mobilized.",
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.531,
+        "private_public_gap": 0.21,
+        "representation_mode": "sampled_proxy",
+        "represented_population": 1700,
+        "stance_axes": {
+          "desire_for_transparency": 0.69,
+          "trust_admin_response": 0.49,
+          "willingness_to_go_public": 0.42,
+          "willingness_to_relocate": 0.18
+        }
+      },
+      {
+        "actor_name": "parents_family_network",
+        "archetype_key": "student_families",
+        "attention_level": 0.79,
+        "cohort_key": "concerned_parents",
+        "expression_level": 0.61,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.17,
+        "mobilization_readiness": 0.64,
+        "notes": "Parents are applying pressure and are less constrained by campus dependency than students.",
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.731,
+        "private_public_gap": 0.1,
+        "representation_mode": "proxy_network",
+        "represented_population": 1900,
+        "stance_axes": {
+          "desire_for_transparency": 0.84,
+          "pressure_for_immediate_action": 0.82,
+          "trust_admin_response": 0.33,
+          "willingness_to_escalate": 0.63
+        }
+      },
+      {
+        "actor_name": "maintenance_workers",
+        "archetype_key": "housing_workers",
+        "attention_level": 0.82,
+        "cohort_key": "maintenance_staff_internal_witnesses",
+        "expression_level": 0.28,
+        "fatigue": 0.44,
+        "fear_of_isolation": 0.69,
+        "mobilization_readiness": 0.4,
+        "notes": "Workers say warnings were ignored, but many may hesitate to speak openly.",
+        "perceived_majority": 0.35,
+        "population_share_of_archetype": 0.571,
+        "private_public_gap": 0.48,
+        "representation_mode": "direct",
+        "represented_population": 80,
+        "stance_axes": {
+          "desire_for_transparency": 0.66,
+          "fear_of_retaliation": 0.72,
+          "trust_admin_response": 0.27,
+          "willingness_to_document_prior_warnings": 0.49
+        }
+      },
+      {
+        "actor_name": "local_landlords",
+        "archetype_key": "local_rental_market",
+        "attention_level": 0.73,
+        "cohort_key": "price_raising_landlords",
+        "expression_level": 0.46,
+        "fatigue": 0.11,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.52,
+        "notes": "Some local housing suppliers are reacting to demand shock by increasing prices.",
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.389,
+        "private_public_gap": 0.16,
+        "representation_mode": "market_proxy",
+        "represented_population": 35,
+        "stance_axes": {
+          "cooperation_with_university": 0.41,
+          "profit_maximization": 0.79,
+          "reputation_sensitivity": 0.37,
+          "willingness_to_hold_rates": 0.22
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "redwood_university_administration",
+          "campus_housing_office",
+          "campus_health_services"
+        ],
+        "blockers": [
+          "liability aversion",
+          "uncertain remediation capacity",
+          "fear that disclosure will intensify reputational damage"
+        ],
+        "contradiction_notes": "Could be undermined if official messages minimize conditions while visual evidence continues to spread.",
+        "description": "University openly discloses scope, health guidance, remediation plans, and relocation logistics in a way that becomes the accepted operating framework.",
+        "endpoint_key": "transparency_settlement",
+        "evidence_refs": [
+          "mold_detected_in_multiple_dorms",
+          "temporary_relocation_offered",
+          "students_post_dorm_photos",
+          "formal_university_update_due"
+        ],
+        "label": "Transparency-centered settlement",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the university adopt full operational transparency about affected dorms, health risks, and remediation timelines, or maintain limited disclosure?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.34,
+        "rationale": "Transparency is directly implied as a core branch in the scenario and is a major determinant of later trust dynamics.",
+        "realization_criteria": [
+          "University publicly identifies affected housing scope or equivalent operational specificity",
+          "A remediation timeline or milestone plan is formally released",
+          "Students receive standardized relocation and health guidance",
+          "Subsequent communications are evaluated by key actors as more informative than evasive"
+        ],
+        "status": "active",
+        "status_basis": "Active because disclosure pressure is high but administration transparency stance remains mixed at T0."
+      },
+      {
+        "authority_refs": [
+          "redwood_university_administration",
+          "campus_housing_office"
+        ],
+        "blockers": [
+          "strong external scrutiny",
+          "documented worker evidence",
+          "successful transparent remediation"
+        ],
+        "contradiction_notes": "This endpoint weakens if administration shifts early to detailed, verifiable transparency.",
+        "description": "University maintains a narrow or defensive framing, leading to prolonged disputes over adequacy, credibility, and responsibility.",
+        "endpoint_key": "limited_disclosure_with_contested_response",
+        "evidence_refs": [
+          "students_post_dorm_photos",
+          "parents_begin_pressure_campaign",
+          "ignored_warning_claims_surface",
+          "formal_university_update_due"
+        ],
+        "label": "Limited disclosure and contested response",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the university provide adequate temporary housing and repairs for affected residents, or will displacement into a costly off-campus market become the dominant outcome?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.31,
+        "rationale": "Scenario explicitly names denial and transparency as competing initialization branches.",
+        "realization_criteria": [
+          "Official communications remain vague about scope or prior warning history",
+          "Student and parent criticism persists across multiple updates",
+          "Relocation and repair continue without broad legitimacy recovery",
+          "No shared factual baseline becomes widely accepted"
+        ],
+        "status": "active",
+        "status_basis": "Active because current institutional incentives include defensiveness and uncertainty, while public pressure is already visible."
+      },
+      {
+        "authority_refs": [
+          "campus_housing_office",
+          "redwood_university_administration",
+          "local_landlords"
+        ],
+        "blockers": [
+          "adequate temporary university housing",
+          "price controls or negotiated landlord restraint",
+          "rapid remediation"
+        ],
+        "contradiction_notes": "If university secures enough internal or partner housing, displacement may remain limited rather than dominant.",
+        "description": "The practical resolution for many affected students becomes movement into expensive off-campus housing rather than sufficient on-campus accommodation.",
+        "endpoint_key": "displacement_dominant_outcome",
+        "evidence_refs": [
+          "temporary_relocation_offered",
+          "off_campus_price_spike_visible"
+        ],
+        "label": "Displacement into off-campus market becomes dominant",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will claims that prior maintenance warnings were ignored become substantiated enough to alter the institutional response?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.22,
+        "rationale": "Displacement is a core endpoint-facing pressure with clear material consequences and switching-cost implications.",
+        "realization_criteria": [
+          "A substantial share of affected residents secure or are forced into off-campus housing",
+          "University temporary housing capacity is documented as insufficient or too short-lived",
+          "Off-campus price increases materially affect student housing decisions",
+          "On-campus repair timeline does not prevent extended displacement"
+        ],
+        "status": "active",
+        "status_basis": "Active because local landlords are already raising prices and student dependency on housing alternatives is present."
+      },
+      {
+        "authority_refs": [
+          "maintenance_workers",
+          "redwood_university_administration",
+          "city_public_health_office"
+        ],
+        "blockers": [
+          "lack of documentation",
+          "worker fear of retaliation",
+          "successful institutional containment of internal records"
+        ],
+        "contradiction_notes": "If claims remain anecdotal and unverified, accountability escalation may not fully materialize.",
+        "description": "The central issue evolves into whether administrators or housing officials failed to act on prior warnings, producing a stronger accountability response.",
+        "endpoint_key": "accountability_escalation_via_ignored_warnings",
+        "evidence_refs": [
+          "ignored_warning_claims_surface"
+        ],
+        "label": "Accountability escalation over ignored warnings",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will an external public-health or inspection authority become materially involved in validating or directing the response?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.13,
+        "rationale": "This endpoint captures a major causal fork that could alter authority, legitimacy, and remedy scope.",
+        "realization_criteria": [
+          "Documents, testimony, or corroborated records show prior warnings existed",
+          "Those warnings are shown to have been inadequately addressed before T0",
+          "Institutional response shifts to investigation, discipline, or formal review",
+          "Public narrative centers on preventability rather than only current mold management"
+        ],
+        "status": "active",
+        "status_basis": "Active because ignored-warning claims exist at T0-adjacent timing but are not yet substantiated."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "Scenario states students share photos online.",
+        "layer": "exposure",
+        "reason": "Students are sharing photos online.",
+        "source_actor_name": "affected_dorm_residents",
+        "target_actor_name": "student_social_media_network",
+        "weight": 0.73
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Online photo sharing creates peer visibility.",
+        "layer": "exposure",
+        "reason": "Broader students likely see circulating posts.",
+        "source_actor_name": "student_social_media_network",
+        "target_actor_name": "unaffected_students",
+        "weight": 0.62
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Parents are pressuring administrators after public student sharing.",
+        "layer": "exposure",
+        "reason": "Parents may encounter or receive reposted student content.",
+        "source_actor_name": "student_social_media_network",
+        "target_actor_name": "parents_family_network",
+        "weight": 0.48
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Housing officials offer temporary relocation.",
+        "layer": "exposure",
+        "reason": "Housing office communicates relocation offers directly to impacted residents.",
+        "source_actor_name": "campus_housing_office",
+        "target_actor_name": "affected_dorm_residents",
+        "weight": 0.64
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Mold detection plus public sharing implies reduced confidence.",
+        "layer": "trust",
+        "reason": "Residents accept some logistical necessity but question adequacy and candor.",
+        "source_actor_name": "affected_dorm_residents",
+        "target_actor_name": "campus_housing_office",
+        "weight": 0.34
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario states parents pressure administrators.",
+        "layer": "trust",
+        "reason": "Parents are applying pressure, indicating low confidence in current handling.",
+        "source_actor_name": "parents_family_network",
+        "target_actor_name": "redwood_university_administration",
+        "weight": 0.29
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Campus health is a plausible validation node; no contrary evidence provided.",
+        "layer": "trust",
+        "reason": "Health services retain moderate credibility as a health guidance source.",
+        "source_actor_name": "affected_dorm_residents",
+        "target_actor_name": "campus_health_services",
+        "weight": 0.51
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Maintenance workers say warnings were ignored.",
+        "layer": "trust",
+        "reason": "Claims that warnings were ignored imply low trust in leadership responsiveness.",
+        "source_actor_name": "maintenance_workers",
+        "target_actor_name": "redwood_university_administration",
+        "weight": 0.26
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Housing officials are offering temporary relocation.",
+        "layer": "dependency",
+        "reason": "Affected students rely on university housing for immediate shelter or relocation access.",
+        "source_actor_name": "affected_dorm_residents",
+        "target_actor_name": "campus_housing_office",
+        "weight": 0.78
+      },
+      {
+        "direction": "outbound",
+        "evidence": "University administration is implied central authority over major response choices.",
+        "layer": "dependency",
+        "reason": "Housing logistics depend on central approval, resources, and institutional cover.",
+        "source_actor_name": "campus_housing_office",
+        "target_actor_name": "redwood_university_administration",
+        "weight": 0.66
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Maintenance workers are directly tied to warning and repair pathways.",
+        "layer": "dependency",
+        "reason": "Administration depends on workers to inspect, maintain, and remediate affected facilities.",
+        "source_actor_name": "redwood_university_administration",
+        "target_actor_name": "maintenance_workers",
+        "weight": 0.52
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Local landlords raise prices amid displacement pressure.",
+        "layer": "dependency",
+        "reason": "If relocation is insufficient, students may need off-campus options.",
+        "source_actor_name": "affected_dorm_residents",
+        "target_actor_name": "local_landlords",
+        "weight": 0.37
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Central administration is implied to oversee institutional response.",
+        "layer": "influence",
+        "reason": "Administration can direct response framing and resource allocation.",
+        "source_actor_name": "redwood_university_administration",
+        "target_actor_name": "campus_housing_office",
+        "weight": 0.74
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Parents pressure administrators.",
+        "layer": "influence",
+        "reason": "External family pressure can affect reputational and political calculations.",
+        "source_actor_name": "parents_family_network",
+        "target_actor_name": "redwood_university_administration",
+        "weight": 0.47
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Students share photos online.",
+        "layer": "influence",
+        "reason": "Visible online evidence can shape institutional agenda and urgency.",
+        "source_actor_name": "student_social_media_network",
+        "target_actor_name": "redwood_university_administration",
+        "weight": 0.54
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Workers say warnings were ignored.",
+        "layer": "influence",
+        "reason": "Insider accounts about ignored warnings could become consequential if documented.",
+        "source_actor_name": "maintenance_workers",
+        "target_actor_name": "redwood_university_administration",
+        "weight": 0.33
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Parents are reacting to student conditions and pressuring administrators.",
+        "layer": "coalition",
+        "reason": "Students and families share immediate safety goals.",
+        "source_actor_name": "affected_dorm_residents",
+        "target_actor_name": "parents_family_network",
+        "weight": 0.61
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Workers say warnings were ignored while students share evidence publicly.",
+        "layer": "coalition",
+        "reason": "Both may support transparency, but coordination is limited by worker retaliation fears.",
+        "source_actor_name": "affected_dorm_residents",
+        "target_actor_name": "maintenance_workers",
+        "weight": 0.36
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Housing officials are executing a response within university structure.",
+        "layer": "coalition",
+        "reason": "These units are institutionally aligned even if under stress.",
+        "source_actor_name": "redwood_university_administration",
+        "target_actor_name": "campus_housing_office",
+        "weight": 0.58
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Public photo sharing and relocation pressure indicate active grievance.",
+        "layer": "conflict",
+        "reason": "Students want safety and transparency while administration may limit reputational damage.",
+        "source_actor_name": "affected_dorm_residents",
+        "target_actor_name": "redwood_university_administration",
+        "weight": 0.57
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Scenario explicitly states parents pressure administrators.",
+        "layer": "conflict",
+        "reason": "Parents are actively pressing administrators over safety handling.",
+        "source_actor_name": "parents_family_network",
+        "target_actor_name": "redwood_university_administration",
+        "weight": 0.63
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Maintenance workers say warnings were ignored.",
+        "layer": "conflict",
+        "reason": "Ignored-warning claims imply latent workplace and accountability conflict.",
+        "source_actor_name": "maintenance_workers",
+        "target_actor_name": "redwood_university_administration",
+        "weight": 0.46
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Local landlords raise prices.",
+        "layer": "conflict",
+        "reason": "Price increases create perceived exploitation during displacement risk.",
+        "source_actor_name": "affected_dorm_residents",
+        "target_actor_name": "local_landlords",
+        "weight": 0.41
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Temporary relocation is already being offered.",
+        "layer": "oasis_interaction",
+        "reason": "Frequent direct communication about relocation, complaints, and updates is likely.",
+        "source_actor_name": "affected_dorm_residents",
+        "target_actor_name": "campus_housing_office",
+        "weight": 0.67
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Scenario states students share photos online.",
+        "layer": "oasis_interaction",
+        "reason": "Students are actively posting and engaging online.",
+        "source_actor_name": "affected_dorm_residents",
+        "target_actor_name": "student_social_media_network",
+        "weight": 0.76
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Parents pressure administrators.",
+        "layer": "oasis_interaction",
+        "reason": "Parents are contacting or otherwise pressuring university leadership.",
+        "source_actor_name": "parents_family_network",
+        "target_actor_name": "redwood_university_administration",
+        "weight": 0.52
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Maintenance is connected to warnings and ongoing facility handling.",
+        "layer": "oasis_interaction",
+        "reason": "Workers and housing staff likely interact around facility conditions and response logistics.",
+        "source_actor_name": "maintenance_workers",
+        "target_actor_name": "campus_housing_office",
+        "weight": 0.44
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype_key": "institutional_decider",
+        "description": "Actor with authority to allocate resources, shape disclosure, and approve remediation.",
+        "label": "Institutional decider"
+      },
+      {
+        "archetype_key": "operational_manager",
+        "description": "Actor responsible for logistics and implementation of housing moves.",
+        "label": "Operational manager"
+      },
+      {
+        "archetype_key": "whistle_source",
+        "description": "Actor with insider evidence about prior warnings or operational neglect.",
+        "label": "Whistle source"
+      },
+      {
+        "archetype_key": "health_validator",
+        "description": "Actor able to influence perceived legitimacy of health claims and precautions.",
+        "label": "Health validator"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "redwood_university_administration",
+        "attention_level": 0.88,
+        "authority_scope": "high",
+        "decision_power": 0.87,
+        "expression_level": 0.57,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.31,
+        "hero_archetype_key": "institutional_decider",
+        "mobilization_readiness": 0.61,
+        "notes": "Can authorize institutional messaging, funding, and broad housing decisions, but may face internal coordination constraints.",
+        "perceived_majority": 0.49,
+        "stance_axes": {
+          "liability_aversion": 0.71,
+          "reputation_defensiveness": 0.68,
+          "speed_of_action": 0.52,
+          "transparency": 0.46
+        }
+      },
+      {
+        "actor_name": "campus_housing_office",
+        "attention_level": 0.91,
+        "authority_scope": "medium_high",
+        "decision_power": 0.74,
+        "expression_level": 0.64,
+        "fatigue": 0.38,
+        "fear_of_isolation": 0.28,
+        "hero_archetype_key": "operational_manager",
+        "mobilization_readiness": 0.72,
+        "notes": "Runs relocation offers but depends on available inventory and administrative approval.",
+        "perceived_majority": 0.44,
+        "stance_axes": {
+          "capacity_constraint_pressure": 0.78,
+          "procedural_control": 0.69,
+          "student_support_orientation": 0.63,
+          "transparency": 0.43
+        }
+      },
+      {
+        "actor_name": "maintenance_workers",
+        "attention_level": 0.81,
+        "authority_scope": "low",
+        "decision_power": 0.22,
+        "expression_level": 0.26,
+        "fatigue": 0.45,
+        "fear_of_isolation": 0.71,
+        "hero_archetype_key": "whistle_source",
+        "mobilization_readiness": 0.39,
+        "notes": "Potentially important factual witnesses if records or testimony emerge.",
+        "perceived_majority": 0.33,
+        "stance_axes": {
+          "documentation_readiness": 0.48,
+          "institutional_loyalty": 0.42,
+          "retaliation_concern": 0.76,
+          "truth_telling": 0.67
+        }
+      },
+      {
+        "actor_name": "campus_health_services",
+        "attention_level": 0.69,
+        "authority_scope": "medium",
+        "decision_power": 0.43,
+        "expression_level": 0.41,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.22,
+        "hero_archetype_key": "health_validator",
+        "mobilization_readiness": 0.48,
+        "notes": "Can shape guidance on symptoms, exposure concern, and whether student complaints are seen as credible.",
+        "perceived_majority": 0.47,
+        "stance_axes": {
+          "caution": 0.72,
+          "clinical_independence": 0.51,
+          "communication_clarity": 0.6,
+          "public_reassurance": 0.58
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "archetype_key": "institutional_decider",
+        "description": "Actor with authority to allocate resources, shape disclosure, and approve remediation.",
+        "label": "Institutional decider"
+      },
+      {
+        "archetype_key": "operational_manager",
+        "description": "Actor responsible for logistics and implementation of housing moves.",
+        "label": "Operational manager"
+      },
+      {
+        "archetype_key": "whistle_source",
+        "description": "Actor with insider evidence about prior warnings or operational neglect.",
+        "label": "Whistle source"
+      },
+      {
+        "archetype_key": "health_validator",
+        "description": "Actor able to influence perceived legitimacy of health claims and precautions.",
+        "label": "Health validator"
+      }
+    ],
+    "important_questions": [
+      "Will the university adopt full operational transparency about affected dorms, health risks, and remediation timelines, or maintain limited disclosure?",
+      "Will the university provide adequate temporary housing and repairs for affected residents, or will displacement into a costly off-campus market become the dominant outcome?",
+      "Will claims that prior maintenance warnings were ignored become substantiated enough to alter the institutional response?",
+      "Will an external public-health or inspection authority become materially involved in validating or directing the response?"
+    ],
+    "initial_events": [
+      {
+        "actors_involved": [
+          "redwood_university_administration",
+          "campus_housing_office",
+          "affected_dorm_residents"
+        ],
+        "event_key": "mold_detected_in_multiple_dorms",
+        "event_type": "announcement",
+        "expected_impact": "Raises health concern, triggers response obligations, and creates immediate legitimacy risk.",
+        "status": "realized",
+        "summary": "University identifies mold in several dorms.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "campus_housing_office",
+          "affected_dorm_residents"
+        ],
+        "event_key": "temporary_relocation_offered",
+        "event_type": "announcement",
+        "expected_impact": "Reduces some acute exposure pressure while increasing scrutiny over capacity, fairness, and adequacy.",
+        "status": "realized",
+        "summary": "Housing officials offer temporary relocation to some impacted students.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "affected_dorm_residents",
+          "student_social_media_network"
+        ],
+        "event_key": "students_post_dorm_photos",
+        "event_type": "announcement",
+        "expected_impact": "Increases exposure, accelerates narrative formation, and lowers institutional control over framing.",
+        "status": "realized",
+        "summary": "Students circulate visual evidence of mold conditions online.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "parents_family_network",
+          "redwood_university_administration"
+        ],
+        "event_key": "parents_begin_pressure_campaign",
+        "event_type": "announcement",
+        "expected_impact": "Raises reputational costs of delay and broadens the constituency demanding accountability.",
+        "status": "realized",
+        "summary": "Parents contact or pressure university administrators for action and clarity.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "maintenance_workers",
+          "campus_housing_office",
+          "redwood_university_administration"
+        ],
+        "event_key": "ignored_warning_claims_surface",
+        "event_type": "announcement",
+        "expected_impact": "Could shift the issue from facility failure to negligence narrative, increasing conflict and pressure for independent review.",
+        "status": "imminent",
+        "summary": "Maintenance workers' claims that prior warnings were ignored begin circulating more widely.",
+        "tick": 1
+      },
+      {
+        "actors_involved": [
+          "local_landlords",
+          "affected_dorm_residents",
+          "parents_family_network"
+        ],
+        "event_key": "off_campus_price_spike_visible",
+        "event_type": "announcement",
+        "expected_impact": "Raises switching costs, hardens demands for university-provided solutions, and widens anger toward displacement.",
+        "status": "imminent",
+        "summary": "Students and families notice sharper rental prices in nearby off-campus units.",
+        "tick": 1
+      },
+      {
+        "actors_involved": [
+          "redwood_university_administration",
+          "campus_housing_office",
+          "campus_health_services"
+        ],
+        "event_key": "formal_university_update_due",
+        "event_type": "announcement",
+        "expected_impact": "May either stabilize perceptions through transparency or intensify distrust if seen as minimizing risk.",
+        "status": "imminent",
+        "summary": "University is likely to issue a broader public update or policy clarification.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "b677121a-3662-4aa3-a568-20c70a341d09",
+    "merge_hypotheses": [
+      {
+        "actors_involved": [
+          "affected_dorm_residents",
+          "parents_family_network",
+          "campus_housing_office",
+          "campus_health_services",
+          "redwood_university_administration"
+        ],
+        "convergence_mechanism": "Visible health risk can align students, parents, housing staff, and administrators around immediate exposure reduction even amid blame disputes.",
+        "merge_key": "shared_safety_consensus"
+      },
+      {
+        "actors_involved": [
+          "affected_dorm_residents",
+          "campus_housing_office",
+          "redwood_university_administration",
+          "local_landlords"
+        ],
+        "convergence_mechanism": "If off-campus options remain costly and limited, competing factions may converge on phased on-campus relocation and repair as the least-worst option.",
+        "merge_key": "capacity_constraint_realism"
+      },
+      {
+        "actors_involved": [
+          "city_public_health_office",
+          "campus_health_services",
+          "redwood_university_administration",
+          "affected_dorm_residents",
+          "parents_family_network"
+        ],
+        "convergence_mechanism": "Independent health or inspection findings could reduce narrative fragmentation by supplying a shared factual baseline.",
+        "merge_key": "external_validation_stabilization"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "residential_students",
+        "description": "Students living in university-managed housing or directly affected by campus housing policy.",
+        "label": "Residential students",
+        "population_total": 3200
+      },
+      {
+        "archetype_key": "student_families",
+        "description": "Parents and close family members engaged enough to react to campus safety concerns.",
+        "label": "Student families",
+        "population_total": 2600
+      },
+      {
+        "archetype_key": "housing_workers",
+        "description": "Operational staff who may have direct knowledge of building conditions and warning history.",
+        "label": "Housing and maintenance workers",
+        "population_total": 140
+      },
+      {
+        "archetype_key": "local_rental_market",
+        "description": "Landlords and property managers positioned to absorb displaced student demand.",
+        "label": "Local rental market actors",
+        "population_total": 90
+      }
+    ],
+    "risk_flags": [
+      {
+        "description": "Actual mold type, exposure duration, and health impact are unspecified at initialization.",
+        "risk_key": "health_severity_unknown",
+        "severity": "medium"
+      },
+      {
+        "description": "Practical authority may be split among administration, housing, health services, and possible external inspectors.",
+        "risk_key": "authority_fragmentation",
+        "severity": "medium"
+      },
+      {
+        "description": "Affected students face immediate housing dependency and potentially expensive off-campus alternatives.",
+        "risk_key": "switching_cost_pressure",
+        "severity": "high"
+      },
+      {
+        "description": "Maintenance workers may withhold evidence or testimony if they fear retaliation.",
+        "risk_key": "retaliation_chilling_effect",
+        "severity": "medium"
+      },
+      {
+        "description": "Visual evidence online can rapidly outpace official messaging, magnifying distrust if communications appear evasive.",
+        "risk_key": "reputational_feedback_loop",
+        "severity": "medium"
+      },
+      {
+        "description": "Local price increases may convert a health incident into a broader affordability and fairness crisis.",
+        "risk_key": "market_exploitation_risk",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "domain": "public_health_resource",
+      "mode": "direct",
+      "scenario_id": "health_003",
+      "setting": "fictional_university_housing_mold_incident",
+      "summary": "A fictional university detects mold in several dorms. Housing officials offer temporary relocation, students share photos online, parents pressure administrators, maintenance workers say warnings were ignored, and local landlords raise prices.",
+      "t0_assumptions": [
+        "Mold presence in several dorms is already known within at least parts of the university community at T0.",
+        "Temporary relocation has been offered but is not yet fully resolved.",
+        "Public online sharing by students has begun, creating reputational and information pressure.",
+        "Claims that prior warnings were ignored are contested and not independently verified at T0.",
+        "Local rental price increases are an emerging secondary market response rather than a settled endpoint."
+      ],
+      "time_horizon_notes": "Initialize unresolved institutional, public-health, housing, and reputational pressures without assuming terminal resolution.",
+      "uncertainty_notes": [
+        "Exact dorm count, student counts, severity of health effects, and remediation timeline are unspecified.",
+        "Decision authority may be distributed across housing, university administration, environmental safety, and external inspectors."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "evidence": "People may update beliefs mainly from trusted peers, family contacts, and visible evidence like photos.",
+        "level": 0.58,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "scope": "students_and_families"
+      },
+      {
+        "evidence": "Unaffected students may mobilize only after enough peers report harm or response failures.",
+        "level": 0.63,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "scope": "broader_student_body"
+      },
+      {
+        "evidence": "Fear of retaliation or losing housing can suppress open expression despite private concern.",
+        "level": 0.49,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "scope": "housing_workers_and_dependent_students"
+      },
+      {
+        "evidence": "Dorm residents and peer networks are likely to cluster information and reinforce shared interpretations.",
+        "level": 0.61,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "scope": "student_social_clusters"
+      },
+      {
+        "evidence": "Multiple confirming posts, parental messages, and worker claims can jointly increase pressure faster than a single report.",
+        "level": 0.66,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "scope": "online_visibility_to_offline_pressure"
+      },
+      {
+        "evidence": "Campus identity can split into resident solidarity versus institutional self-protection narratives.",
+        "level": 0.57,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "scope": "student_vs_administration"
+      },
+      {
+        "evidence": "Attention may fade if no new evidence or acute health incidents emerge.",
+        "level": 0.34,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "scope": "general_public_and_unaffected_students"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Photos from dorms increase credibility and spread of resident claims.",
+        "influence_key": "visual_evidence_salience"
+      },
+      {
+        "description": "Students dependent on university housing may mute criticism unless alternatives are offered.",
+        "influence_key": "housing_dependency_silence"
+      },
+      {
+        "description": "Parents can apply pressure with fewer direct dependency costs than enrolled students.",
+        "influence_key": "family_externalization"
+      },
+      {
+        "description": "Maintenance workers may possess useful evidence but hesitate without protection.",
+        "influence_key": "whistle_fear_constraint"
+      },
+      {
+        "description": "Off-campus price increases raise switching costs and may intensify demands for on-campus remedies.",
+        "influence_key": "displacement_market_shock"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "redwood_university_administration",
+        "behavior_axes": {
+          "adaptability": 0.49,
+          "message_discipline": 0.7,
+          "responsiveness": 0.54,
+          "risk_avoidance": 0.74
+        },
+        "ideology_axes": {
+          "institutional_control": 0.77,
+          "public_accountability": 0.45
+        },
+        "reputation": 0.56,
+        "secrecy": 0.58,
+        "tendency": "guarded_managerial",
+        "trustworthiness": 0.46
+      },
+      {
+        "actor_name": "campus_housing_office",
+        "behavior_axes": {
+          "capacity_stress": 0.79,
+          "process_reliance": 0.73,
+          "responsiveness": 0.62,
+          "student_empathy": 0.55
+        },
+        "ideology_axes": {
+          "institutional_control": 0.69,
+          "public_accountability": 0.5
+        },
+        "reputation": 0.47,
+        "secrecy": 0.49,
+        "tendency": "operationally_constrained",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "affected_dorm_residents",
+        "behavior_axes": {
+          "collective_action": 0.66,
+          "evidence_sharing": 0.75,
+          "risk_sensitivity": 0.81,
+          "self_advocacy": 0.78
+        },
+        "ideology_axes": {
+          "institutional_control": 0.29,
+          "public_accountability": 0.84
+        },
+        "reputation": 0.58,
+        "secrecy": 0.21,
+        "tendency": "press_for_safety_and_visibility",
+        "trustworthiness": 0.72
+      },
+      {
+        "actor_name": "parents_family_network",
+        "behavior_axes": {
+          "escalation_readiness": 0.68,
+          "message_amplification": 0.59,
+          "patience": 0.31,
+          "protectiveness": 0.88
+        },
+        "ideology_axes": {
+          "institutional_control": 0.34,
+          "public_accountability": 0.82
+        },
+        "reputation": 0.61,
+        "secrecy": 0.18,
+        "tendency": "external_accountability_pressure",
+        "trustworthiness": 0.67
+      },
+      {
+        "actor_name": "maintenance_workers",
+        "behavior_axes": {
+          "candor": 0.56,
+          "caution": 0.77,
+          "documentation": 0.52,
+          "retaliation_avoidance": 0.81
+        },
+        "ideology_axes": {
+          "institutional_control": 0.41,
+          "public_accountability": 0.71
+        },
+        "reputation": 0.49,
+        "secrecy": 0.64,
+        "tendency": "quiet_internal_warning",
+        "trustworthiness": 0.7
+      },
+      {
+        "actor_name": "local_landlords",
+        "behavior_axes": {
+          "coordination": 0.32,
+          "price_opportunism": 0.76,
+          "reputation_sensitivity": 0.38,
+          "supply_flexibility": 0.44
+        },
+        "ideology_axes": {
+          "market_freedom": 0.81,
+          "public_accountability": 0.26
+        },
+        "reputation": 0.4,
+        "secrecy": 0.29,
+        "tendency": "demand_shock_exploitation",
+        "trustworthiness": 0.34
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 508,
+        "end": 508,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 508,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

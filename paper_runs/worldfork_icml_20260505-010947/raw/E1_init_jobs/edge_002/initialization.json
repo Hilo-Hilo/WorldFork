@@ -1,0 +1,1163 @@
+{
+  "big_bang_id": "4f3cb747-11f4-4a5b-a3c9-025f14327e39",
+  "initializer_output": {
+    "actors": [
+      {
+        "actor_type": "individual",
+        "decision_authority": "none_formal",
+        "fictionalized": true,
+        "name": "anonymous_tipster",
+        "public_visibility": "low",
+        "role": "source_of_note",
+        "stakes": [
+          "raise concern",
+          "avoid exposure"
+        ]
+      },
+      {
+        "actor_type": "institution",
+        "decision_authority": "high_potential_but_unconfirmed",
+        "fictionalized": true,
+        "name": "ferry_contracting_authority",
+        "public_visibility": "medium",
+        "role": "public_or_quasi_public_contract_authority",
+        "stakes": [
+          "service continuity",
+          "contract legitimacy",
+          "budget control",
+          "reputation"
+        ]
+      },
+      {
+        "actor_type": "organization",
+        "decision_authority": "medium_operational",
+        "fictionalized": true,
+        "name": "ferry_operator",
+        "public_visibility": "medium",
+        "role": "current_or_proposed_service_provider",
+        "stakes": [
+          "revenue",
+          "contract retention_or_award",
+          "operational continuity",
+          "reputation"
+        ]
+      },
+      {
+        "actor_type": "public_group",
+        "decision_authority": "low_direct",
+        "fictionalized": true,
+        "name": "concerned_riders",
+        "public_visibility": "medium",
+        "role": "service_users_expressing_or_holding concern",
+        "stakes": [
+          "reliable transport",
+          "fair pricing",
+          "safety",
+          "accountability"
+        ]
+      },
+      {
+        "actor_type": "public_group",
+        "decision_authority": "low_direct",
+        "fictionalized": true,
+        "name": "general_public",
+        "public_visibility": "medium",
+        "role": "ambient local audience with limited information",
+        "stakes": [
+          "civic trust",
+          "service value"
+        ]
+      },
+      {
+        "actor_type": "institution",
+        "decision_authority": "medium_agenda_setting",
+        "fictionalized": true,
+        "name": "local_press",
+        "public_visibility": "medium",
+        "role": "potential amplifier and verifier",
+        "stakes": [
+          "newsworthiness",
+          "credibility"
+        ]
+      },
+      {
+        "actor_type": "institution",
+        "decision_authority": "medium_if_jurisdiction_exists",
+        "fictionalized": true,
+        "name": "oversight_body",
+        "public_visibility": "low",
+        "role": "potential auditor_ethics_or_regulatory reviewer",
+        "stakes": [
+          "compliance",
+          "due process",
+          "institutional legitimacy"
+        ]
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Concern shifts from vague rumor to formal controversy, with increased scrutiny of authority and operator.",
+        "branch_key": "credible_evidence_emerges",
+        "divergence_signal": "Local press publishes specifics, authority acknowledges review, or oversight body opens inquiry.",
+        "trigger": "Documents, witness accounts, pricing anomalies, safety issues, or procurement irregularities become observable."
+      },
+      {
+        "alternate_path": "Public attention decays and organized anger fails to materialize beyond a small rider subset.",
+        "branch_key": "claim_remains_unverified",
+        "divergence_signal": "No official statement, no reporting with details, and rider discussion volume drops.",
+        "trigger": "No corroborating facts appear within early ticks."
+      },
+      {
+        "alternate_path": "User anger broadens from procedural concern to immediate service grievance, increasing mobilization readiness.",
+        "branch_key": "service_disruption_links_to_contract",
+        "divergence_signal": "Complaints shift from vague wrongdoing language to concrete rider harm narratives.",
+        "trigger": "A fare, reliability, safety, or scheduling problem becomes linked in public perception to the contract."
+      },
+      {
+        "alternate_path": "Authority retains more agenda control and may reduce conflict intensity while preserving endpoint uncertainty.",
+        "branch_key": "institutional_preemption",
+        "divergence_signal": "Early official statement frames issue as under review, misunderstood, or compliant.",
+        "trigger": "Contracting authority proactively announces review or clarification before external escalation."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "anonymous_note",
+        "participants": [
+          "anonymous_tipster"
+        ],
+        "reliability": "low_unverified",
+        "type": "anonymous_message",
+        "visibility": "private_or_limited"
+      },
+      {
+        "channel_key": "informal_rider_conversation",
+        "participants": [
+          "concerned_riders"
+        ],
+        "reliability": "mixed",
+        "type": "word_of_mouth",
+        "visibility": "semi_public"
+      },
+      {
+        "channel_key": "local_news_reporting",
+        "participants": [
+          "local_press",
+          "general_public",
+          "concerned_riders",
+          "ferry_contracting_authority",
+          "ferry_operator"
+        ],
+        "reliability": "medium_if_verified",
+        "type": "media",
+        "visibility": "public"
+      },
+      {
+        "channel_key": "official_statement",
+        "participants": [
+          "ferry_contracting_authority",
+          "general_public",
+          "concerned_riders"
+        ],
+        "reliability": "medium",
+        "type": "institutional_communication",
+        "visibility": "public"
+      },
+      {
+        "channel_key": "oversight_referral",
+        "participants": [
+          "oversight_body",
+          "ferry_contracting_authority",
+          "local_press"
+        ],
+        "reliability": "medium_high_if_opened",
+        "type": "formal_process",
+        "visibility": "restricted_then_public_possible"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "concerned_riders",
+        "attention_level": 0.6,
+        "behavioral_tendencies": [
+          "monitor_service",
+          "share_rumors_cautiously",
+          "complain_if_prompted"
+        ],
+        "cohort_key": "concerned_riders_core",
+        "expression_level": 0.35,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.55,
+        "mobilization_readiness": 0.35,
+        "parent_archetype_key": "ferry_ridership_public",
+        "perceived_majority": 0.4,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "something_may_be_wrong_but_details_unclear",
+        "public_expression": "limited complaints and informal discussion plausible, not yet mass mobilization",
+        "representation_mode": "direct_group_actor",
+        "represented_population": 2500,
+        "reputation": 0.5,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "accountability_demand": 0.7,
+          "contract_legitimacy_skepticism": 0.65,
+          "service_continuity_priority": 0.75
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "concerned_riders",
+        "attention_level": 0.35,
+        "behavioral_tendencies": [
+          "wait_for_evidence",
+          "avoid_public_conflict",
+          "respond_to_service_changes"
+        ],
+        "cohort_key": "quiet_riders_majority",
+        "expression_level": 0.12,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.45,
+        "mobilization_readiness": 0.18,
+        "parent_archetype_key": "ferry_ridership_public",
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.75,
+        "private_belief": "insufficient_information",
+        "public_expression": "mostly silent",
+        "representation_mode": "subcohort_of_group_actor",
+        "represented_population": 7500,
+        "reputation": 0.5,
+        "secrecy": 0.25,
+        "stance_axes": {
+          "accountability_demand": 0.45,
+          "contract_legitimacy_skepticism": 0.4,
+          "service_continuity_priority": 0.8
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "general_public",
+        "attention_level": 0.15,
+        "behavioral_tendencies": [
+          "ignore_until_salient",
+          "follow_local_news_if_triggered"
+        ],
+        "cohort_key": "ambient_public_observers",
+        "expression_level": 0.08,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.3,
+        "mobilization_readiness": 0.08,
+        "parent_archetype_key": "general_local_public",
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "vague awareness if exposed",
+        "public_expression": "low",
+        "representation_mode": "direct_group_actor",
+        "represented_population": 50000,
+        "reputation": 0.5,
+        "secrecy": 0.15,
+        "stance_axes": {
+          "accountability_demand": 0.4,
+          "contract_legitimacy_skepticism": 0.3,
+          "service_continuity_priority": 0.35
+        },
+        "trustworthiness": 0.5
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "concerned_riders",
+        "attention_level": 0.6,
+        "behavioral_tendencies": [
+          "monitor_service",
+          "share_rumors_cautiously",
+          "complain_if_prompted"
+        ],
+        "cohort_key": "concerned_riders_core",
+        "expression_level": 0.35,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.55,
+        "mobilization_readiness": 0.35,
+        "parent_archetype_key": "ferry_ridership_public",
+        "perceived_majority": 0.4,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "something_may_be_wrong_but_details_unclear",
+        "public_expression": "limited complaints and informal discussion plausible, not yet mass mobilization",
+        "representation_mode": "direct_group_actor",
+        "represented_population": 2500,
+        "reputation": 0.5,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "accountability_demand": 0.7,
+          "contract_legitimacy_skepticism": 0.65,
+          "service_continuity_priority": 0.75
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "concerned_riders",
+        "attention_level": 0.35,
+        "behavioral_tendencies": [
+          "wait_for_evidence",
+          "avoid_public_conflict",
+          "respond_to_service_changes"
+        ],
+        "cohort_key": "quiet_riders_majority",
+        "expression_level": 0.12,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.45,
+        "mobilization_readiness": 0.18,
+        "parent_archetype_key": "ferry_ridership_public",
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.75,
+        "private_belief": "insufficient_information",
+        "public_expression": "mostly silent",
+        "representation_mode": "subcohort_of_group_actor",
+        "represented_population": 7500,
+        "reputation": 0.5,
+        "secrecy": 0.25,
+        "stance_axes": {
+          "accountability_demand": 0.45,
+          "contract_legitimacy_skepticism": 0.4,
+          "service_continuity_priority": 0.8
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "general_public",
+        "attention_level": 0.15,
+        "behavioral_tendencies": [
+          "ignore_until_salient",
+          "follow_local_news_if_triggered"
+        ],
+        "cohort_key": "ambient_public_observers",
+        "expression_level": 0.08,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.3,
+        "mobilization_readiness": 0.08,
+        "parent_archetype_key": "general_local_public",
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "vague awareness if exposed",
+        "public_expression": "low",
+        "representation_mode": "direct_group_actor",
+        "represented_population": 50000,
+        "reputation": 0.5,
+        "secrecy": 0.15,
+        "stance_axes": {
+          "accountability_demand": 0.4,
+          "contract_legitimacy_skepticism": 0.3,
+          "service_continuity_priority": 0.35
+        },
+        "trustworthiness": 0.5
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "ferry_contracting_authority",
+          "oversight_body"
+        ],
+        "blockers": [
+          "no jurisdiction identified",
+          "lack of corroborating evidence",
+          "institutional reluctance"
+        ],
+        "contradiction_notes": "Could remain unrealized even if anger exists, if no formal channel is activated.",
+        "description": "A competent institutional actor begins a documented review, audit, investigation, or hearing concerning the ferry contract.",
+        "endpoint_key": "formal_review_opened",
+        "evidence_refs": [
+          "anonymous_note_exists",
+          "possible_media_or_authority_contact"
+        ],
+        "label": "Formal review opened",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does any authority or oversight body initiate a formal review of the ferry contract?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.35,
+        "rationale": "Process activation is a key terminally relevant fork because it changes evidence production and authority posture.",
+        "realization_criteria": [
+          "public announcement or document confirms review",
+          "oversight body or contracting authority assigns formal case/process",
+          "review scope explicitly references ferry contract"
+        ],
+        "status": "active",
+        "status_basis": "Anonymous allegation alone does not establish review at T0, but makes it a live possibility."
+      },
+      {
+        "authority_refs": [
+          "ferry_contracting_authority",
+          "ferry_operator"
+        ],
+        "blockers": [
+          "credible evidence of wrongdoing",
+          "political pressure",
+          "service disruption tied to contract"
+        ],
+        "contradiction_notes": "Preservation could coexist with a review if review does not alter the contract materially.",
+        "description": "The ferry contract continues substantially as-is through the initial controversy window, with no major amendment, suspension, or cancellation.",
+        "endpoint_key": "contract_preserved_without_material_change",
+        "evidence_refs": [
+          "anonymous_note_exists",
+          "verification_or_fadeout_window"
+        ],
+        "label": "Contract preserved without material change",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the ferry contract remain in force as-is, get modified, delayed, or terminated?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.4,
+        "rationale": "Switching costs and continuity incentives make preservation a plausible endpoint option.",
+        "realization_criteria": [
+          "authority confirms contract proceeds or remains active",
+          "no documented material amendment, suspension, or termination occurs within observed horizon",
+          "service governance continues under same basic arrangement"
+        ],
+        "status": "active",
+        "status_basis": "Status quo is often sticky in low-evidence allegations, but no actual contract state is confirmed."
+      },
+      {
+        "authority_refs": [
+          "ferry_contracting_authority",
+          "ferry_operator",
+          "oversight_body"
+        ],
+        "blockers": [
+          "high switching costs",
+          "lack of substitute operator",
+          "insufficient proof",
+          "continuity concerns"
+        ],
+        "contradiction_notes": "May follow formal review or acute service pressure; not implied by current evidence alone.",
+        "description": "The contract is delayed, amended in consequential ways, suspended, rebid, or terminated due to the controversy or related findings.",
+        "endpoint_key": "contract_materially_changed_or_exited",
+        "evidence_refs": [
+          "credible_evidence_emerges",
+          "service_disruption_links_to_contract"
+        ],
+        "label": "Contract materially changed or exited",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does reported anger remain localized and vague, or does it grow into broader, observable public contention?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.2,
+        "rationale": "Outcome relevance is high because the scenario centers on contract legitimacy.",
+        "realization_criteria": [
+          "official record shows delay, rebid, suspension, termination, or major amendment",
+          "authority or operator publicly acknowledges material contractual change",
+          "service arrangement shifts to substitute governance or provider path"
+        ],
+        "status": "active",
+        "status_basis": "Not evidenced at T0, but retained as a credible terminal alternative because the allegation targets the contract itself."
+      },
+      {
+        "authority_refs": [
+          "general_public",
+          "concerned_riders",
+          "local_press"
+        ],
+        "blockers": [
+          "new evidence",
+          "service disruption",
+          "agenda-setting media coverage"
+        ],
+        "contradiction_notes": "Fadeout does not imply the allegation was false, only that it failed to sustain visible contention.",
+        "description": "Attention and anger dissipate before clear verification or formal institutional outcome emerges.",
+        "endpoint_key": "public_contention_fades_without_resolution",
+        "evidence_refs": [
+          "claim_remains_unverified",
+          "verification_or_fadeout_window"
+        ],
+        "label": "Public contention fades without clear resolution",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do verifiable facts emerge that substantiate wrongdoing or serious defect in the ferry contract process or outcome?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.45,
+        "rationale": "Important to preserve as a terminal option rather than assuming all controversies escalate.",
+        "realization_criteria": [
+          "discussion volume drops across observed channels",
+          "no formal review or substantive reporting appears",
+          "public actors cease visible engagement while uncertainty remains unresolved"
+        ],
+        "status": "active",
+        "status_basis": "Sparse allegations often decay quickly absent corroboration; this is a strong baseline possibility."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "Corpus mentions an anonymous note only; recipient unspecified.",
+        "layer": "exposure",
+        "reason": "Anonymous note is a plausible initial exposure path to media.",
+        "source_actor_name": "anonymous_tipster",
+        "target_actor_name": "local_press",
+        "weight": 0.35
+      },
+      {
+        "direction": "directed",
+        "evidence": "Note says people are angry; suggests some social awareness.",
+        "layer": "exposure",
+        "reason": "Anonymous concern may circulate informally among riders.",
+        "source_actor_name": "anonymous_tipster",
+        "target_actor_name": "concerned_riders",
+        "weight": 0.2
+      },
+      {
+        "direction": "directed",
+        "evidence": "Press included as plausible amplifier under uncertainty.",
+        "layer": "exposure",
+        "reason": "If reported, local press can expose broader public to the issue.",
+        "source_actor_name": "local_press",
+        "target_actor_name": "general_public",
+        "weight": 0.4
+      },
+      {
+        "direction": "directed",
+        "evidence": "Contracting authority would plausibly communicate about ferry service.",
+        "layer": "exposure",
+        "reason": "Authority decisions or statements are visible to riders when salient.",
+        "source_actor_name": "ferry_contracting_authority",
+        "target_actor_name": "concerned_riders",
+        "weight": 0.3
+      },
+      {
+        "direction": "directed",
+        "evidence": "\"Something is wrong\" plus anger claim.",
+        "layer": "trust",
+        "reason": "Allegation implies some skepticism but not total trust collapse.",
+        "source_actor_name": "concerned_riders",
+        "target_actor_name": "ferry_contracting_authority",
+        "weight": 0.35
+      },
+      {
+        "direction": "directed",
+        "evidence": "Minimal generic civic baseline under uncertainty.",
+        "layer": "trust",
+        "reason": "Press is a potential verifier for uncertain allegations.",
+        "source_actor_name": "general_public",
+        "target_actor_name": "local_press",
+        "weight": 0.45
+      },
+      {
+        "direction": "directed",
+        "evidence": "No evidence or specifics provided in corpus.",
+        "layer": "trust",
+        "reason": "Anonymous unsupported claims start with low credibility.",
+        "source_actor_name": "local_press",
+        "target_actor_name": "anonymous_tipster",
+        "weight": 0.2
+      },
+      {
+        "direction": "directed",
+        "evidence": "Existence of a ferry contract.",
+        "layer": "trust",
+        "reason": "Contract relationship implies working trust or required operational reliance.",
+        "source_actor_name": "ferry_contracting_authority",
+        "target_actor_name": "ferry_operator",
+        "weight": 0.5
+      },
+      {
+        "direction": "directed",
+        "evidence": "Ferry contract exists.",
+        "layer": "dependency",
+        "reason": "Authority likely depends on operator for service delivery if contract is active or pending.",
+        "source_actor_name": "ferry_contracting_authority",
+        "target_actor_name": "ferry_operator",
+        "weight": 0.55
+      },
+      {
+        "direction": "directed",
+        "evidence": "Ferry service implied by contract context.",
+        "layer": "dependency",
+        "reason": "Riders plausibly depend on ferry service access.",
+        "source_actor_name": "concerned_riders",
+        "target_actor_name": "ferry_operator",
+        "weight": 0.5
+      },
+      {
+        "direction": "directed",
+        "evidence": "Public service governance implication.",
+        "layer": "dependency",
+        "reason": "Riders rely on authority for oversight and procurement legitimacy.",
+        "source_actor_name": "concerned_riders",
+        "target_actor_name": "ferry_contracting_authority",
+        "weight": 0.35
+      },
+      {
+        "direction": "directed",
+        "evidence": "Authority connected to contract control.",
+        "layer": "influence",
+        "reason": "Contract authority plausibly shapes operator outcomes.",
+        "source_actor_name": "ferry_contracting_authority",
+        "target_actor_name": "ferry_operator",
+        "weight": 0.6
+      },
+      {
+        "direction": "directed",
+        "evidence": "Generic media agenda-setting role.",
+        "layer": "influence",
+        "reason": "Press can set attention if the issue is covered.",
+        "source_actor_name": "local_press",
+        "target_actor_name": "general_public",
+        "weight": 0.45
+      },
+      {
+        "direction": "directed",
+        "evidence": "Note claims anger, but scale unknown.",
+        "layer": "influence",
+        "reason": "User dissatisfaction can pressure authority, but weakly at T0.",
+        "source_actor_name": "concerned_riders",
+        "target_actor_name": "ferry_contracting_authority",
+        "weight": 0.25
+      },
+      {
+        "direction": "directed",
+        "evidence": "Plausible compliance pathway, jurisdiction unconfirmed.",
+        "layer": "influence",
+        "reason": "Formal oversight can alter authority behavior if activated.",
+        "source_actor_name": "oversight_body",
+        "target_actor_name": "ferry_contracting_authority",
+        "weight": 0.4
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Issue-framing alignment plausible but not established.",
+        "layer": "coalition",
+        "reason": "Shared interest in surfacing verifiable concerns may form a loose alignment.",
+        "source_actor_name": "concerned_riders",
+        "target_actor_name": "local_press",
+        "weight": 0.25
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Contract existence implies some shared operational interest.",
+        "layer": "coalition",
+        "reason": "Contract relationship can create temporary alignment around continuity.",
+        "source_actor_name": "ferry_contracting_authority",
+        "target_actor_name": "ferry_operator",
+        "weight": 0.35
+      },
+      {
+        "direction": "undirected",
+        "evidence": "\"People are angry.\"",
+        "layer": "conflict",
+        "reason": "Anger claim suggests some grievance toward authority or process.",
+        "source_actor_name": "concerned_riders",
+        "target_actor_name": "ferry_contracting_authority",
+        "weight": 0.3
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Wrongdoing object is the ferry contract; attribution unclear.",
+        "layer": "conflict",
+        "reason": "If operator is associated with the disputed contract, riders may direct blame there.",
+        "source_actor_name": "concerned_riders",
+        "target_actor_name": "ferry_operator",
+        "weight": 0.25
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Potential but not active at T0.",
+        "layer": "conflict",
+        "reason": "Investigative scrutiny can create adversarial dynamics if pursued.",
+        "source_actor_name": "local_press",
+        "target_actor_name": "ferry_contracting_authority",
+        "weight": 0.2
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Anger can produce discussion, but scope unknown.",
+        "layer": "oasis_interaction",
+        "reason": "Informal public-channel discussion may occur if service users talk locally or online.",
+        "source_actor_name": "concerned_riders",
+        "target_actor_name": "general_public",
+        "weight": 0.25
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Plausible interaction channel, not yet activated.",
+        "layer": "oasis_interaction",
+        "reason": "Press may solicit rider accounts if issue surfaces.",
+        "source_actor_name": "local_press",
+        "target_actor_name": "concerned_riders",
+        "weight": 0.2
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Routine civic communication baseline.",
+        "layer": "oasis_interaction",
+        "reason": "Public statements or notices are possible but not yet evidenced.",
+        "source_actor_name": "ferry_contracting_authority",
+        "target_actor_name": "general_public",
+        "weight": 0.15
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype_key": "institutional_decision_maker",
+        "description": "Authority capable of reviewing, delaying, defending, or revising a ferry contract.",
+        "label": "Institutional decision maker"
+      },
+      {
+        "archetype_key": "watchdog_amplifier",
+        "description": "Actor who can surface or validate allegations through media or oversight channels.",
+        "label": "Watchdog amplifier"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "ferry_contracting_authority",
+        "archetype_key": "institutional_decision_maker",
+        "attention_level": 0.3,
+        "capabilities": [
+          "request_internal_review",
+          "release_statement",
+          "maintain_contract_path",
+          "refer_to_oversight"
+        ],
+        "constraints": [
+          "facts_unknown",
+          "jurisdiction_unknown",
+          "political_cover_unknown"
+        ],
+        "current_posture": "routine_operations_with_potential_latent_defensiveness",
+        "expression_level": 0.2,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.2,
+        "hero_key": "contract_authority_lead",
+        "mobilization_readiness": 0.25,
+        "perceived_majority": 0.6,
+        "role_salience": "high",
+        "stance_axes": {
+          "avoid_disruption": 0.75,
+          "protect_institution": 0.7,
+          "seek_accountability": 0.45
+        }
+      },
+      {
+        "actor_name": "local_press",
+        "archetype_key": "watchdog_amplifier",
+        "attention_level": 0.2,
+        "capabilities": [
+          "seek_documents",
+          "contact_sources",
+          "amplify_claims",
+          "withhold_unverified_reporting"
+        ],
+        "constraints": [
+          "anonymous_unverified_tip",
+          "limited_resources"
+        ],
+        "current_posture": "not_yet_fully_engaged",
+        "expression_level": 0.1,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.15,
+        "hero_key": "verification_gatekeepers",
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.5,
+        "role_salience": "medium",
+        "stance_axes": {
+          "amplification_caution": 0.7,
+          "conflict_orientation": 0.35,
+          "verification_priority": 0.8
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "archetype_key": "institutional_decision_maker",
+        "description": "Authority capable of reviewing, delaying, defending, or revising a ferry contract.",
+        "label": "Institutional decision maker"
+      },
+      {
+        "archetype_key": "watchdog_amplifier",
+        "description": "Actor who can surface or validate allegations through media or oversight channels.",
+        "label": "Watchdog amplifier"
+      }
+    ],
+    "important_questions": [
+      "Does any authority or oversight body initiate a formal review of the ferry contract?",
+      "Does the ferry contract remain in force as-is, get modified, delayed, or terminated?",
+      "Does reported anger remain localized and vague, or does it grow into broader, observable public contention?",
+      "Do verifiable facts emerge that substantiate wrongdoing or serious defect in the ferry contract process or outcome?"
+    ],
+    "initial_events": [
+      {
+        "actors_involved": [
+          "anonymous_tipster"
+        ],
+        "event_key": "anonymous_note_exists",
+        "event_type": "announcement",
+        "evidence": "Directly stated in corpus.",
+        "expected_impact": "Seeds low-confidence concern and creates potential for verification pathways without proving misconduct.",
+        "status": "realized",
+        "summary": "An anonymous note alleging something is wrong with a ferry contract exists.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "concerned_riders"
+        ],
+        "event_key": "latent_rider_dissatisfaction",
+        "event_type": "announcement",
+        "evidence": "Corpus says people are angry, but gives no scale or attribution.",
+        "expected_impact": "Slightly lowers trust in the contract process and raises receptivity to new allegations among affected users.",
+        "status": "assumed_minimal",
+        "summary": "Some rider concern or anger exists at least at rumor level.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "anonymous_tipster",
+          "local_press",
+          "ferry_contracting_authority"
+        ],
+        "event_key": "possible_media_or_authority_contact",
+        "event_type": "announcement",
+        "evidence": "Plausible next step from anonymous note; not stated.",
+        "expected_impact": "Could shift issue from rumor to agenda item if any institution acknowledges it.",
+        "status": "imminent_uncertain",
+        "summary": "The anonymous allegation may be shared with media, officials, or both.",
+        "tick": 1
+      },
+      {
+        "actors_involved": [
+          "local_press",
+          "concerned_riders",
+          "oversight_body",
+          "ferry_contracting_authority"
+        ],
+        "event_key": "verification_or_fadeout_window",
+        "event_type": "announcement",
+        "evidence": "Derived from low-evidence allegation dynamics.",
+        "expected_impact": "Determines whether attention escalates into formal scrutiny or decays into low-salience rumor.",
+        "status": "imminent_uncertain",
+        "summary": "Within a short horizon, the allegation either gains corroboration or begins to dissipate.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "f17b5e06-d95c-4c20-921a-a031ae6a9fc5",
+    "merge_hypotheses": [
+      {
+        "convergence_driver": "Riders, authority, and operator all depend on continued ferry service.",
+        "merge_key": "shared_service_continuity_interest",
+        "potential_effect": "Even amid suspicion, actors may converge on temporary calm, limited review, or procedural delay rather than immediate rupture."
+      },
+      {
+        "convergence_driver": "Media, oversight, and much of the public require corroboration before escalation.",
+        "merge_key": "verification_norms",
+        "potential_effect": "Low-quality allegations may produce temporary cross-actor restraint until stronger evidence appears."
+      },
+      {
+        "convergence_driver": "A narrow audit, clarification, or paperwork correction could satisfy enough actors without changing the ultimate contract immediately.",
+        "merge_key": "institutional_face_saving",
+        "potential_effect": "Conflict can de-escalate into a managed procedural track."
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "ferry_ridership_public",
+        "description": "People who use or closely depend on ferry service",
+        "evidence": "No scale provided; placeholder local-service population used for minimal weighting only.",
+        "label": "Ferry ridership public",
+        "population_total": 10000
+      },
+      {
+        "archetype_key": "general_local_public",
+        "description": "Broader local audience not necessarily regular riders",
+        "evidence": "No scale provided; placeholder local civic audience used for minimal weighting only.",
+        "label": "General local public",
+        "population_total": 50000
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag_key": "missing_location",
+        "note": "No jurisdiction or locality provided; authority structure and public scale are unknown.",
+        "severity": "high"
+      },
+      {
+        "flag_key": "missing_time_context",
+        "note": "No date or sequence context provided; impossible to anchor contract stage or urgency.",
+        "severity": "high"
+      },
+      {
+        "flag_key": "missing_actor_identity",
+        "note": "No named authority, operator, community, or oversight actors are identified.",
+        "severity": "high"
+      },
+      {
+        "flag_key": "missing_evidence",
+        "note": "Anonymous allegation contains no documents, incidents, or substantiating facts.",
+        "severity": "high"
+      },
+      {
+        "flag_key": "ambiguous_blame_target",
+        "note": "It is unclear whether anger is directed at the authority, operator, procurement process, service quality, corruption risk, or something else.",
+        "severity": "medium"
+      },
+      {
+        "flag_key": "population_counts_are_placeholder",
+        "note": "Population totals are fictional defaults inserted only to support minimal sociology weighting.",
+        "severity": "medium"
+      },
+      {
+        "flag_key": "high_fabrication_risk",
+        "note": "Scenario strongly constrains invention; many fields use cautious generic defaults rather than concrete claims.",
+        "severity": "high"
+      }
+    ],
+    "simulation_brief": {
+      "evidence_quality": "very_low",
+      "fictionalization": "all public actors kept generic and fictionalized due to civic/institutional ambiguity",
+      "initializer_method": "seed only minimally necessary actors, cohorts, graph, and endpoint options without inventing specifics",
+      "known_constraints": [
+        "there is a ferry contract",
+        "an anonymous note exists",
+        "the note asserts something is wrong",
+        "the note asserts some people are angry"
+      ],
+      "mode": "direct",
+      "premise": "An anonymous note alleges problems with a ferry contract and public anger, but provides no location, date, actors, or evidence.",
+      "scenario_key": "edge_002",
+      "scope": "minimal_plausible_fictional_initialization",
+      "time_zero_posture": "pre-crisis ambiguous concern state",
+      "uncertainty_level": "high",
+      "unknowns": [
+        "jurisdiction",
+        "time period",
+        "ferry operator identity",
+        "government authority identity",
+        "nature of alleged wrongdoing",
+        "scale of public anger",
+        "whether allegation is credible",
+        "whether media or oversight bodies are aware",
+        "whether service disruption exists",
+        "whether procurement decision is pending or settled"
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "level": 0.6,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Actors likely update only when claims are repeated by trusted validators because evidence is sparse.",
+        "scope": "general"
+      },
+      {
+        "level": 0.7,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Rider anger is unlikely to become coordinated action without corroboration, service harm, or visible peers speaking out.",
+        "scope": "concerned_riders"
+      },
+      {
+        "level": 0.65,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Weak facts and uncertain majority sentiment encourage private concern but limited public expression.",
+        "scope": "general"
+      },
+      {
+        "level": 0.45,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Service users are more likely than the broader public to share and reinforce concern.",
+        "scope": "riders_and_local_discussion"
+      },
+      {
+        "level": 0.55,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Multiple signals such as reporting, documents, or service disruptions would likely be needed for broad uptake.",
+        "scope": "civic_attention"
+      },
+      {
+        "level": 0.35,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "A modest user-versus-authority identity frame could form if the allegation gains traction.",
+        "scope": "riders_vs_institutions"
+      },
+      {
+        "level": 0.75,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Without new evidence, the issue is likely to fade quickly from wider attention.",
+        "scope": "general_public"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "applies_to": [
+          "local_press",
+          "general_public",
+          "concerned_riders"
+        ],
+        "context_key": "anonymous_allegation_low_evidence",
+        "effect": "raises verification demands and suppresses immediate broad mobilization"
+      },
+      {
+        "applies_to": [
+          "concerned_riders",
+          "ferry_contracting_authority",
+          "ferry_operator"
+        ],
+        "context_key": "service_dependency",
+        "effect": "keeps continuity concerns salient even if accountability questions emerge"
+      },
+      {
+        "applies_to": [
+          "concerned_riders",
+          "general_public"
+        ],
+        "context_key": "unknown_attribution",
+        "effect": "blame may diffuse between authority and operator until specifics appear"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "anonymous_tipster",
+        "behavior_axes": {
+          "amplification_drive": 0.4,
+          "risk_tolerance": 0.35,
+          "truth_disclosure": 0.55
+        },
+        "ideology_axes": {
+          "accountability_orientation": 0.7,
+          "institutional_trust": 0.3
+        },
+        "reputation": 0.1,
+        "secrecy": 0.9,
+        "tendency": "anonymous_warning_without_supporting_detail",
+        "trustworthiness": 0.35
+      },
+      {
+        "actor_name": "ferry_contracting_authority",
+        "behavior_axes": {
+          "defensiveness": 0.55,
+          "proceduralism": 0.75,
+          "responsiveness": 0.4
+        },
+        "ideology_axes": {
+          "accountability_orientation": 0.5,
+          "institutional_trust": 0.8
+        },
+        "reputation": 0.5,
+        "secrecy": 0.45,
+        "tendency": "protect_process_and_continuity",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "ferry_operator",
+        "behavior_axes": {
+          "commercial_self_protection": 0.75,
+          "defensiveness": 0.6,
+          "responsiveness": 0.45
+        },
+        "ideology_axes": {
+          "accountability_orientation": 0.4,
+          "market_orientation": 0.7
+        },
+        "reputation": 0.5,
+        "secrecy": 0.5,
+        "tendency": "defend_contract_position",
+        "trustworthiness": 0.45
+      },
+      {
+        "actor_name": "concerned_riders",
+        "behavior_axes": {
+          "collective_action": 0.35,
+          "complaint_propensity": 0.55,
+          "responsiveness": 0.6
+        },
+        "ideology_axes": {
+          "accountability_orientation": 0.7,
+          "institutional_trust": 0.4
+        },
+        "reputation": 0.55,
+        "secrecy": 0.25,
+        "tendency": "watchful_but_not_yet_coordinated",
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "general_public",
+        "behavior_axes": {
+          "attention_shifting": 0.75,
+          "collective_action": 0.1,
+          "responsiveness": 0.2
+        },
+        "ideology_axes": {
+          "accountability_orientation": 0.45,
+          "institutional_trust": 0.5
+        },
+        "reputation": 0.5,
+        "secrecy": 0.15,
+        "tendency": "low_attention_observer",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "local_press",
+        "behavior_axes": {
+          "amplification": 0.45,
+          "conflict_seeking": 0.35,
+          "verification": 0.8
+        },
+        "ideology_axes": {
+          "accountability_orientation": 0.75,
+          "institutional_trust": 0.45
+        },
+        "reputation": 0.6,
+        "secrecy": 0.25,
+        "tendency": "verify_before_escalating",
+        "trustworthiness": 0.65
+      },
+      {
+        "actor_name": "oversight_body",
+        "behavior_axes": {
+          "interventionism": 0.4,
+          "proceduralism": 0.85,
+          "responsiveness": 0.35
+        },
+        "ideology_axes": {
+          "accountability_orientation": 0.7,
+          "institutional_trust": 0.7
+        },
+        "reputation": 0.55,
+        "secrecy": 0.4,
+        "tendency": "act_if_formally_triggered",
+        "trustworthiness": 0.6
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 461,
+        "end": 461,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 461,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

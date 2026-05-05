@@ -1,0 +1,1782 @@
+{
+  "big_bang_id": "b1ed7d1d-a345-4e66-b77b-3a36861af73c",
+  "initializer_output": {
+    "actors": [
+      {
+        "actor_type": "institution",
+        "authority_level": 0.82,
+        "description": "Governing board of the cooperative with recommendation authority over plant retirement strategy.",
+        "fictionalized": true,
+        "name": "regional_energy_coop_board",
+        "scope": "regional",
+        "stakes": [
+          "reliability",
+          "member legitimacy",
+          "financial stability",
+          "regulatory approvability"
+        ]
+      },
+      {
+        "actor_type": "asset",
+        "authority_level": 0.05,
+        "description": "Aging gas-fired generation plant under possible early retirement.",
+        "fictionalized": true,
+        "name": "harbor_gas_plant",
+        "scope": "regional",
+        "stakes": [
+          "operational reliability",
+          "maintenance burden",
+          "emissions profile",
+          "stranded cost exposure"
+        ]
+      },
+      {
+        "actor_type": "institution",
+        "authority_level": 0.68,
+        "description": "Executive and staff leadership preparing recommendations and operational analysis.",
+        "fictionalized": true,
+        "name": "coop_management",
+        "scope": "regional",
+        "stakes": [
+          "implementation feasibility",
+          "rate impacts",
+          "board confidence",
+          "regulatory compliance"
+        ]
+      },
+      {
+        "actor_type": "expert_group",
+        "authority_level": 0.46,
+        "description": "Internal or contracted technical staff producing reliability memo.",
+        "fictionalized": true,
+        "name": "grid_reliability_team",
+        "scope": "regional",
+        "stakes": [
+          "system adequacy",
+          "credibility",
+          "risk communication"
+        ]
+      },
+      {
+        "actor_type": "public_group",
+        "authority_level": 0.38,
+        "description": "Member-owners who consume power, elect or influence cooperative governance, and bear cost impacts.",
+        "fictionalized": true,
+        "name": "member_owner_ratepayers",
+        "scope": "regional",
+        "stakes": [
+          "rates",
+          "service reliability",
+          "community values"
+        ]
+      },
+      {
+        "actor_type": "advocacy_group",
+        "authority_level": 0.41,
+        "description": "Climate and clean energy campaign urging early retirement.",
+        "fictionalized": true,
+        "name": "clean_air_now_coalition",
+        "scope": "regional",
+        "stakes": [
+          "emissions reduction",
+          "public momentum",
+          "narrative legitimacy"
+        ]
+      },
+      {
+        "actor_type": "labor_union",
+        "authority_level": 0.52,
+        "description": "Union representing workers tied to the gas plant and related operations.",
+        "fictionalized": true,
+        "name": "plant_workers_union",
+        "scope": "regional",
+        "stakes": [
+          "job security",
+          "transition compensation",
+          "training",
+          "local economic stability"
+        ]
+      },
+      {
+        "actor_type": "regulator",
+        "authority_level": 0.9,
+        "description": "State regulatory body that can approve or deny cost recovery and set conditions.",
+        "fictionalized": true,
+        "name": "state_utility_regulator",
+        "scope": "state",
+        "stakes": [
+          "consumer protection",
+          "reliability",
+          "prudence review",
+          "political legitimacy"
+        ]
+      },
+      {
+        "actor_type": "community",
+        "authority_level": 0.29,
+        "description": "Community economically and socially affected by plant operations and any closure.",
+        "fictionalized": true,
+        "name": "local_host_community",
+        "scope": "local",
+        "stakes": [
+          "jobs",
+          "tax base",
+          "health impacts",
+          "identity"
+        ]
+      },
+      {
+        "actor_type": "market_actor",
+        "authority_level": 0.24,
+        "description": "Potential suppliers of replacement power, storage, efficiency, or demand response resources.",
+        "fictionalized": true,
+        "name": "alternative_resource_developers",
+        "scope": "regional",
+        "stakes": [
+          "market opportunity",
+          "contract access",
+          "timeline certainty"
+        ]
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "branch_key": "conditional_early_retirement_coalition",
+        "divergence_signal": "Public messaging shifts from whether to retire to what conditions and timeline govern retirement.",
+        "plausible_path": "Board recommends early retirement bundled with worker transition package and replacement resource sequencing.",
+        "trigger": "Board receives a reliability pathway showing manageable replacement risk and regulator signals cost recovery openness if conditions are met."
+      },
+      {
+        "branch_key": "reliability_delay_path",
+        "divergence_signal": "Board and management repeatedly foreground reserve margins, contingency planning, and timing uncertainty.",
+        "plausible_path": "Board recommends delayed retirement or staged operation while seeking more planning and procurement.",
+        "trigger": "Reliability memo emphasizes near-term adequacy risk without fast replacement options."
+      },
+      {
+        "branch_key": "ratepayer_backlash_path",
+        "divergence_signal": "Comment volume becomes dominated by rates language rather than emissions or labor fairness.",
+        "plausible_path": "Member-owner opposition grows, reducing board appetite for aggressive retirement despite climate pressure.",
+        "trigger": "Cost recovery appears likely to raise bills materially or is framed that way in member discourse."
+      },
+      {
+        "branch_key": "labor_conditioning_path",
+        "divergence_signal": "Regulatory and board documents begin naming labor protections as explicit predicates for retirement.",
+        "plausible_path": "Retirement remains possible, but only through a negotiated package with severance, retraining, transfer rights, or phased closure.",
+        "trigger": "Union credibly threatens procedural opposition unless transition terms are concrete and enforceable."
+      },
+      {
+        "branch_key": "regulatory_brake_path",
+        "divergence_signal": "Management begins emphasizing balance-sheet exposure and legal uncertainty over climate commitments.",
+        "plausible_path": "Board defers or narrows retirement recommendation because implementation without cost recovery becomes financially unattractive.",
+        "trigger": "Regulator letter or later filings question prudence of stranded cost recovery."
+      }
+    ],
+    "channels": [
+      {
+        "actors": [
+          "regional_energy_coop_board",
+          "coop_management",
+          "member_owner_ratepayers"
+        ],
+        "channel_key": "board_meetings",
+        "publicness": "semi_public",
+        "type": "governance"
+      },
+      {
+        "actors": [
+          "member_owner_ratepayers",
+          "regional_energy_coop_board"
+        ],
+        "channel_key": "member_comment_process",
+        "publicness": "public",
+        "type": "public_input"
+      },
+      {
+        "actors": [
+          "grid_reliability_team",
+          "coop_management",
+          "regional_energy_coop_board"
+        ],
+        "channel_key": "reliability_memo_circulation",
+        "publicness": "limited_then_leaky",
+        "type": "technical_document"
+      },
+      {
+        "actors": [
+          "clean_air_now_coalition",
+          "member_owner_ratepayers",
+          "regional_energy_coop_board"
+        ],
+        "channel_key": "climate_campaign_media",
+        "publicness": "public",
+        "type": "campaign"
+      },
+      {
+        "actors": [
+          "plant_workers_union",
+          "regional_energy_coop_board",
+          "state_utility_regulator"
+        ],
+        "channel_key": "union_bargaining_and_testimony",
+        "publicness": "mixed",
+        "type": "labor"
+      },
+      {
+        "actors": [
+          "state_utility_regulator",
+          "regional_energy_coop_board",
+          "coop_management"
+        ],
+        "channel_key": "regulator_letter_and_docket",
+        "publicness": "public",
+        "type": "formal_regulatory"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "member_owners",
+        "attention_level": 0.56,
+        "cohort_key": "reliability_first_members",
+        "expression_level": 0.34,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.46,
+        "mobilization_readiness": 0.31,
+        "perceived_majority": "uncertain",
+        "population_share_of_archetype": 0.42,
+        "private_belief": "Concerned early retirement could threaten reliability or raise bills.",
+        "public_expression": "Tend to raise practical questions rather than ideological objections.",
+        "representation_mode": "inferred_split",
+        "represented_population": 75600,
+        "stance_axes": {
+          "clean_energy_transition": "mixed",
+          "cost_recovery": "conditional_acceptance",
+          "plant_retirement_timing": "cautious_delay",
+          "worker_transition_support": "moderate_support"
+        }
+      },
+      {
+        "archetype_key": "member_owners",
+        "attention_level": 0.49,
+        "cohort_key": "cost_sensitive_members",
+        "expression_level": 0.27,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.39,
+        "mobilization_readiness": 0.25,
+        "perceived_majority": "rates_concerned",
+        "population_share_of_archetype": 0.3,
+        "private_belief": "Main concern is whether any pathway increases bills.",
+        "public_expression": "Likely to comment if bill impacts become salient.",
+        "representation_mode": "inferred_split",
+        "represented_population": 54000,
+        "stance_axes": {
+          "clean_energy_transition": "instrumental",
+          "cost_recovery": "skeptical",
+          "plant_retirement_timing": "depends_on_rates",
+          "worker_transition_support": "limited_support_if_bounded"
+        }
+      },
+      {
+        "archetype_key": "member_owners",
+        "attention_level": 0.61,
+        "cohort_key": "transition_supportive_members",
+        "expression_level": 0.48,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.33,
+        "mobilization_readiness": 0.45,
+        "perceived_majority": "minority_but_growing",
+        "population_share_of_archetype": 0.28,
+        "private_belief": "Early retirement is desirable if reliability and worker fairness are addressed.",
+        "public_expression": "More willing to submit comments and echo advocacy messaging.",
+        "representation_mode": "inferred_split",
+        "represented_population": 50400,
+        "stance_axes": {
+          "clean_energy_transition": "strong_support",
+          "cost_recovery": "accept_if_justified",
+          "plant_retirement_timing": "favor_early",
+          "worker_transition_support": "strong_support"
+        }
+      },
+      {
+        "archetype_key": "plant_linked_workers_and_households",
+        "attention_level": 0.86,
+        "cohort_key": "union_core_households",
+        "expression_level": 0.63,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.68,
+        "perceived_majority": "locally_supported_but_regionally_uncertain",
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Closure may be inevitable eventually but should not happen without enforceable protections.",
+        "public_expression": "Frames issue around fairness, safety, and regional economic stability.",
+        "representation_mode": "direct_scenario_role",
+        "represented_population": 420,
+        "stance_axes": {
+          "clean_energy_transition": "conditional",
+          "cost_recovery": "support_if_preserves_transition_terms",
+          "plant_retirement_timing": "oppose_early_without_deal",
+          "worker_transition_support": "maximal"
+        }
+      },
+      {
+        "archetype_key": "host_community_residents",
+        "attention_level": 0.58,
+        "cohort_key": "host_community_jobs_first",
+        "expression_level": 0.36,
+        "fatigue": 0.26,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.37,
+        "perceived_majority": "locally_dominant",
+        "population_share_of_archetype": 0.5,
+        "private_belief": "Economic disruption risk is immediate and personal.",
+        "public_expression": "Likely to echo union concerns more than technical reliability arguments.",
+        "representation_mode": "inferred_split",
+        "represented_population": 11000,
+        "stance_axes": {
+          "clean_energy_transition": "ambivalent",
+          "cost_recovery": "mixed",
+          "plant_retirement_timing": "delay",
+          "worker_transition_support": "strong_support"
+        }
+      },
+      {
+        "archetype_key": "host_community_residents",
+        "attention_level": 0.52,
+        "cohort_key": "host_community_health_transition",
+        "expression_level": 0.31,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.5,
+        "mobilization_readiness": 0.29,
+        "perceived_majority": "quiet_minority",
+        "population_share_of_archetype": 0.5,
+        "private_belief": "Retirement could improve local health and align with long-term regional change.",
+        "public_expression": "Often muted unless legitimized by official plans.",
+        "representation_mode": "inferred_split",
+        "represented_population": 11000,
+        "stance_axes": {
+          "clean_energy_transition": "supportive",
+          "cost_recovery": "conditional",
+          "plant_retirement_timing": "favor_early_if_orderly",
+          "worker_transition_support": "strong_support"
+        }
+      },
+      {
+        "archetype_key": "regional_climate_engaged_public",
+        "attention_level": 0.84,
+        "cohort_key": "organized_climate_supporters",
+        "expression_level": 0.71,
+        "fatigue": 0.32,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.66,
+        "perceived_majority": "morally_confident_not_numerically_certain",
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Old gas generation should be retired as soon as a credible path exists.",
+        "public_expression": "Uses campaign framing and public pressure to shift board agenda.",
+        "representation_mode": "direct_scenario_role",
+        "represented_population": 12000,
+        "stance_axes": {
+          "clean_energy_transition": "strong_support",
+          "cost_recovery": "accept_if_linked_to_transition",
+          "plant_retirement_timing": "favor_early",
+          "worker_transition_support": "strong_support"
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "member_owners",
+        "attention_level": 0.56,
+        "cohort_key": "reliability_first_members",
+        "expression_level": 0.34,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.46,
+        "mobilization_readiness": 0.31,
+        "perceived_majority": "uncertain",
+        "population_share_of_archetype": 0.42,
+        "private_belief": "Concerned early retirement could threaten reliability or raise bills.",
+        "public_expression": "Tend to raise practical questions rather than ideological objections.",
+        "representation_mode": "inferred_split",
+        "represented_population": 75600,
+        "stance_axes": {
+          "clean_energy_transition": "mixed",
+          "cost_recovery": "conditional_acceptance",
+          "plant_retirement_timing": "cautious_delay",
+          "worker_transition_support": "moderate_support"
+        }
+      },
+      {
+        "archetype_key": "member_owners",
+        "attention_level": 0.49,
+        "cohort_key": "cost_sensitive_members",
+        "expression_level": 0.27,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.39,
+        "mobilization_readiness": 0.25,
+        "perceived_majority": "rates_concerned",
+        "population_share_of_archetype": 0.3,
+        "private_belief": "Main concern is whether any pathway increases bills.",
+        "public_expression": "Likely to comment if bill impacts become salient.",
+        "representation_mode": "inferred_split",
+        "represented_population": 54000,
+        "stance_axes": {
+          "clean_energy_transition": "instrumental",
+          "cost_recovery": "skeptical",
+          "plant_retirement_timing": "depends_on_rates",
+          "worker_transition_support": "limited_support_if_bounded"
+        }
+      },
+      {
+        "archetype_key": "member_owners",
+        "attention_level": 0.61,
+        "cohort_key": "transition_supportive_members",
+        "expression_level": 0.48,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.33,
+        "mobilization_readiness": 0.45,
+        "perceived_majority": "minority_but_growing",
+        "population_share_of_archetype": 0.28,
+        "private_belief": "Early retirement is desirable if reliability and worker fairness are addressed.",
+        "public_expression": "More willing to submit comments and echo advocacy messaging.",
+        "representation_mode": "inferred_split",
+        "represented_population": 50400,
+        "stance_axes": {
+          "clean_energy_transition": "strong_support",
+          "cost_recovery": "accept_if_justified",
+          "plant_retirement_timing": "favor_early",
+          "worker_transition_support": "strong_support"
+        }
+      },
+      {
+        "archetype_key": "plant_linked_workers_and_households",
+        "attention_level": 0.86,
+        "cohort_key": "union_core_households",
+        "expression_level": 0.63,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.68,
+        "perceived_majority": "locally_supported_but_regionally_uncertain",
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Closure may be inevitable eventually but should not happen without enforceable protections.",
+        "public_expression": "Frames issue around fairness, safety, and regional economic stability.",
+        "representation_mode": "direct_scenario_role",
+        "represented_population": 420,
+        "stance_axes": {
+          "clean_energy_transition": "conditional",
+          "cost_recovery": "support_if_preserves_transition_terms",
+          "plant_retirement_timing": "oppose_early_without_deal",
+          "worker_transition_support": "maximal"
+        }
+      },
+      {
+        "archetype_key": "host_community_residents",
+        "attention_level": 0.58,
+        "cohort_key": "host_community_jobs_first",
+        "expression_level": 0.36,
+        "fatigue": 0.26,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.37,
+        "perceived_majority": "locally_dominant",
+        "population_share_of_archetype": 0.5,
+        "private_belief": "Economic disruption risk is immediate and personal.",
+        "public_expression": "Likely to echo union concerns more than technical reliability arguments.",
+        "representation_mode": "inferred_split",
+        "represented_population": 11000,
+        "stance_axes": {
+          "clean_energy_transition": "ambivalent",
+          "cost_recovery": "mixed",
+          "plant_retirement_timing": "delay",
+          "worker_transition_support": "strong_support"
+        }
+      },
+      {
+        "archetype_key": "host_community_residents",
+        "attention_level": 0.52,
+        "cohort_key": "host_community_health_transition",
+        "expression_level": 0.31,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.5,
+        "mobilization_readiness": 0.29,
+        "perceived_majority": "quiet_minority",
+        "population_share_of_archetype": 0.5,
+        "private_belief": "Retirement could improve local health and align with long-term regional change.",
+        "public_expression": "Often muted unless legitimized by official plans.",
+        "representation_mode": "inferred_split",
+        "represented_population": 11000,
+        "stance_axes": {
+          "clean_energy_transition": "supportive",
+          "cost_recovery": "conditional",
+          "plant_retirement_timing": "favor_early_if_orderly",
+          "worker_transition_support": "strong_support"
+        }
+      },
+      {
+        "archetype_key": "regional_climate_engaged_public",
+        "attention_level": 0.84,
+        "cohort_key": "organized_climate_supporters",
+        "expression_level": 0.71,
+        "fatigue": 0.32,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.66,
+        "perceived_majority": "morally_confident_not_numerically_certain",
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Old gas generation should be retired as soon as a credible path exists.",
+        "public_expression": "Uses campaign framing and public pressure to shift board agenda.",
+        "representation_mode": "direct_scenario_role",
+        "represented_population": 12000,
+        "stance_axes": {
+          "clean_energy_transition": "strong_support",
+          "cost_recovery": "accept_if_linked_to_transition",
+          "plant_retirement_timing": "favor_early",
+          "worker_transition_support": "strong_support"
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "regional_energy_coop_board",
+          "board_chair"
+        ],
+        "blockers": [
+          "negative reliability findings",
+          "fear of member backlash over rates",
+          "lack of regulator confidence on cost recovery",
+          "absence of worker transition package"
+        ],
+        "contradiction_notes": "A board statement favoring more study without selecting retirement timing does not realize this endpoint.",
+        "description": "Terminal state in which the cooperative board formally endorses early retirement of the aging gas plant, as distinct from delay or indefinite study.",
+        "endpoint_key": "board_recommends_early_retirement",
+        "evidence_refs": [
+          "board can recommend retirement",
+          "must decide whether to retire an old gas plant early"
+        ],
+        "label": "Board recommends early retirement",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the cooperative board ultimately recommend early retirement of the gas plant rather than delay or further study?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.44,
+        "rationale": "This is the clearest terminal governance choice implied by the scenario.",
+        "realization_criteria": [
+          "board resolution or equivalent formal recommendation explicitly selecting early retirement",
+          "official board materials specify retirement timing earlier than status quo planning baseline"
+        ],
+        "status": "active",
+        "status_basis": "At T0 the decision remains open and publicly contested."
+      },
+      {
+        "authority_refs": [
+          "state_utility_regulator",
+          "lead_regulator"
+        ],
+        "blockers": [
+          "prudence concerns",
+          "rate shock concerns",
+          "insufficient evidentiary support",
+          "unclear replacement plan"
+        ],
+        "contradiction_notes": "A procedural hearing notice or request for more information alone is not endpoint realization.",
+        "description": "Terminal state in which the state regulator authorizes or clearly signals approval of cost recovery sufficient for the cooperative to proceed with retirement-related stranded or transition costs.",
+        "endpoint_key": "regulator_approves_cost_recovery_path",
+        "evidence_refs": [
+          "regulators approve cost recovery",
+          "state regulator letter"
+        ],
+        "label": "Regulator approves cost recovery path",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the state regulator approve a cost recovery pathway sufficient to make retirement implementation financially viable?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.47,
+        "rationale": "Without cost recovery clarity, process activity may not translate into implementable retirement.",
+        "realization_criteria": [
+          "formal order, letter, or docket action approving cost recovery or prudence treatment for retirement plan",
+          "approval is specific enough that management treats retirement financing as viable"
+        ],
+        "status": "active",
+        "status_basis": "The regulator is positioned as a gatekeeper and has not yet resolved the issue at T0."
+      },
+      {
+        "authority_refs": [
+          "plant_workers_union",
+          "union_president",
+          "regional_energy_coop_board",
+          "coop_management"
+        ],
+        "blockers": [
+          "cost disputes",
+          "mistrust of management promises",
+          "insufficient funding or transfer options",
+          "regulatory refusal to recognize transition costs"
+        ],
+        "contradiction_notes": "General assurances without concrete terms do not realize this endpoint.",
+        "description": "Terminal state in which negotiated worker protections are formalized strongly enough to structure labor response to retirement.",
+        "endpoint_key": "worker_transition_terms_secured",
+        "evidence_refs": [
+          "workers negotiate transition terms",
+          "labor union concern"
+        ],
+        "label": "Worker transition terms secured",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Are enforceable worker transition terms secured before or alongside any retirement move?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.52,
+        "rationale": "Labor terms are a distinct endpoint because they can independently determine coalition durability and implementation friction.",
+        "realization_criteria": [
+          "written agreement, memorandum, or binding condition specifying transition terms for affected workers",
+          "union leadership publicly acknowledges terms as sufficient basis for next-step implementation or narrowed opposition"
+        ],
+        "status": "active",
+        "status_basis": "Negotiation is implied but unresolved at initialization."
+      },
+      {
+        "authority_refs": [
+          "regional_energy_coop_board",
+          "grid_reliability_team",
+          "coop_management"
+        ],
+        "blockers": [
+          "credible replacement portfolio",
+          "mitigation plan accepted by board and regulator",
+          "pressure from climate and supportive members"
+        ],
+        "contradiction_notes": "Routine acknowledgment of reliability review without it determining timing does not realize this endpoint.",
+        "description": "Terminal state in which the documented reliability assessment is sufficiently negative or unresolved that retirement is formally delayed, staged far later, or rejected at the decision point.",
+        "endpoint_key": "reliability_case_blocks_or_delays_retirement",
+        "evidence_refs": [
+          "grid reliability memo",
+          "must decide whether to retire an old gas plant early"
+        ],
+        "label": "Reliability case blocks or delays retirement",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do documented reliability concerns remain strong enough to block or materially delay retirement at the decision point?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.38,
+        "rationale": "The scenario specifically includes a reliability memo, implying a live alternative pathway where technical constraints dominate.",
+        "realization_criteria": [
+          "board or management cites reliability findings as principal reason for delay or non-retirement decision",
+          "official plan keeps plant operating beyond proposed early retirement window due to adequacy or replacement shortfall"
+        ],
+        "status": "active",
+        "status_basis": "Reliability memo exists and could materially shape the decision, but its direction is not fully known at T0."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "regulators approve cost recovery",
+        "layer": "dependency",
+        "reason": "Board strategy depends on regulator approval for cost recovery viability.",
+        "source_actor_name": "regional_energy_coop_board",
+        "target_actor_name": "state_utility_regulator",
+        "weight": 0.64
+      },
+      {
+        "direction": "outbound",
+        "evidence": "old gas plant early retirement decision",
+        "layer": "dependency",
+        "reason": "Operations and retirement planning depend on the plant's condition and role.",
+        "source_actor_name": "coop_management",
+        "target_actor_name": "harbor_gas_plant",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "grid reliability memo",
+        "layer": "dependency",
+        "reason": "Board needs reliability analysis to justify timing choices.",
+        "source_actor_name": "regional_energy_coop_board",
+        "target_actor_name": "grid_reliability_team",
+        "weight": 0.49
+      },
+      {
+        "direction": "outbound",
+        "evidence": "workers negotiate transition terms",
+        "layer": "dependency",
+        "reason": "Workforce transition terms affect political and implementation feasibility.",
+        "source_actor_name": "regional_energy_coop_board",
+        "target_actor_name": "plant_workers_union",
+        "weight": 0.43
+      },
+      {
+        "direction": "outbound",
+        "evidence": "member-owner comments",
+        "layer": "dependency",
+        "reason": "Members rely on board governance for rates and service outcomes.",
+        "source_actor_name": "member_owner_ratepayers",
+        "target_actor_name": "regional_energy_coop_board",
+        "weight": 0.47
+      },
+      {
+        "direction": "outbound",
+        "evidence": "labor union concern and local closure implications implied by plant retirement",
+        "layer": "dependency",
+        "reason": "Community has local economic exposure to plant status.",
+        "source_actor_name": "local_host_community",
+        "target_actor_name": "harbor_gas_plant",
+        "weight": 0.52
+      },
+      {
+        "direction": "outbound",
+        "evidence": "retirement decision implies substitution need",
+        "layer": "dependency",
+        "reason": "Replacement pathways may require outside resources if plant retires.",
+        "source_actor_name": "regional_energy_coop_board",
+        "target_actor_name": "alternative_resource_developers",
+        "weight": 0.31
+      },
+      {
+        "direction": "outbound",
+        "evidence": "grid reliability memo included as core scenario element",
+        "layer": "trust",
+        "reason": "Technical memo is a relatively trusted input for governance decisions.",
+        "source_actor_name": "regional_energy_coop_board",
+        "target_actor_name": "grid_reliability_team",
+        "weight": 0.63
+      },
+      {
+        "direction": "outbound",
+        "evidence": "member-owner comments imply engagement and evaluative posture",
+        "layer": "trust",
+        "reason": "Baseline institutional trust exists but is not overwhelming.",
+        "source_actor_name": "member_owner_ratepayers",
+        "target_actor_name": "regional_energy_coop_board",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "climate group campaign",
+        "layer": "trust",
+        "reason": "Advocacy is visible but not universally accepted by members.",
+        "source_actor_name": "member_owner_ratepayers",
+        "target_actor_name": "clean_air_now_coalition",
+        "weight": 0.29
+      },
+      {
+        "direction": "outbound",
+        "evidence": "workers negotiate transition terms",
+        "layer": "trust",
+        "reason": "Union views board as necessary counterpart but not fully trusted protector.",
+        "source_actor_name": "plant_workers_union",
+        "target_actor_name": "regional_energy_coop_board",
+        "weight": 0.34
+      },
+      {
+        "direction": "outbound",
+        "evidence": "state regulator letter",
+        "layer": "trust",
+        "reason": "Board expects formal process fairness even if approval is uncertain.",
+        "source_actor_name": "regional_energy_coop_board",
+        "target_actor_name": "state_utility_regulator",
+        "weight": 0.51
+      },
+      {
+        "direction": "outbound",
+        "evidence": "campaign pressure contrasted with reliability memo",
+        "layer": "trust",
+        "reason": "Advocates may respect expertise but suspect conservative bias toward delay.",
+        "source_actor_name": "clean_air_now_coalition",
+        "target_actor_name": "grid_reliability_team",
+        "weight": 0.32
+      },
+      {
+        "direction": "outbound",
+        "evidence": "regulators approve cost recovery",
+        "layer": "influence",
+        "reason": "Regulator shapes feasible board recommendations through cost recovery authority.",
+        "source_actor_name": "state_utility_regulator",
+        "target_actor_name": "regional_energy_coop_board",
+        "weight": 0.72
+      },
+      {
+        "direction": "outbound",
+        "evidence": "board can recommend retirement",
+        "layer": "influence",
+        "reason": "Board signals legitimacy and frames options for members.",
+        "source_actor_name": "regional_energy_coop_board",
+        "target_actor_name": "member_owner_ratepayers",
+        "weight": 0.54
+      },
+      {
+        "direction": "outbound",
+        "evidence": "climate group campaign",
+        "layer": "influence",
+        "reason": "Campaign can raise salience and mobilize supportive comments.",
+        "source_actor_name": "clean_air_now_coalition",
+        "target_actor_name": "member_owner_ratepayers",
+        "weight": 0.48
+      },
+      {
+        "direction": "outbound",
+        "evidence": "labor union concern",
+        "layer": "influence",
+        "reason": "Union can anchor local interpretation around jobs and fairness.",
+        "source_actor_name": "plant_workers_union",
+        "target_actor_name": "local_host_community",
+        "weight": 0.59
+      },
+      {
+        "direction": "outbound",
+        "evidence": "grid reliability memo",
+        "layer": "influence",
+        "reason": "Technical findings shape management's internal recommendation framing.",
+        "source_actor_name": "grid_reliability_team",
+        "target_actor_name": "coop_management",
+        "weight": 0.53
+      },
+      {
+        "direction": "outbound",
+        "evidence": "board recommendation process implied by scenario",
+        "layer": "influence",
+        "reason": "Management prepares options and implementation assessments for board decision.",
+        "source_actor_name": "coop_management",
+        "target_actor_name": "regional_energy_coop_board",
+        "weight": 0.62
+      },
+      {
+        "direction": "outbound",
+        "evidence": "workers negotiate transition terms and regulator letter",
+        "layer": "influence",
+        "reason": "Union may push regulator to condition approvals on transition protections.",
+        "source_actor_name": "plant_workers_union",
+        "target_actor_name": "state_utility_regulator",
+        "weight": 0.41
+      },
+      {
+        "direction": "outbound",
+        "evidence": "climate group campaign",
+        "layer": "influence",
+        "reason": "Campaign pressure seeks to move board toward early retirement.",
+        "source_actor_name": "clean_air_now_coalition",
+        "target_actor_name": "regional_energy_coop_board",
+        "weight": 0.45
+      },
+      {
+        "direction": "outbound",
+        "evidence": "none",
+        "layer": "coalition",
+        "reason": "invalid_non_actor_placeholder_removed",
+        "source_actor_name": "clean_air_now_coalition",
+        "target_actor_name": "transition_supportive_members",
+        "weight": 0.0
+      },
+      {
+        "direction": "outbound",
+        "evidence": "climate campaign plus local impacts implied by retirement debate",
+        "layer": "coalition",
+        "reason": "Potential but limited alignment exists through health and transition framing.",
+        "source_actor_name": "clean_air_now_coalition",
+        "target_actor_name": "local_host_community",
+        "weight": 0.22
+      },
+      {
+        "direction": "outbound",
+        "evidence": "labor union concern",
+        "layer": "coalition",
+        "reason": "Shared economic concerns create active local alignment.",
+        "source_actor_name": "plant_workers_union",
+        "target_actor_name": "local_host_community",
+        "weight": 0.61
+      },
+      {
+        "direction": "outbound",
+        "evidence": "board recommendation supported by management inputs",
+        "layer": "coalition",
+        "reason": "Institutional alignment around formal decision process.",
+        "source_actor_name": "regional_energy_coop_board",
+        "target_actor_name": "coop_management",
+        "weight": 0.64
+      },
+      {
+        "direction": "outbound",
+        "evidence": "early retirement campaign and replacement resource opportunity",
+        "layer": "coalition",
+        "reason": "Both benefit from accelerated transition narratives though with different motives.",
+        "source_actor_name": "clean_air_now_coalition",
+        "target_actor_name": "alternative_resource_developers",
+        "weight": 0.37
+      },
+      {
+        "direction": "outbound",
+        "evidence": "climate group campaign for early retirement",
+        "layer": "conflict",
+        "reason": "Advocates seek retirement of the plant as a central campaign goal.",
+        "source_actor_name": "clean_air_now_coalition",
+        "target_actor_name": "harbor_gas_plant",
+        "weight": 0.74
+      },
+      {
+        "direction": "outbound",
+        "evidence": "labor union concern alongside climate campaign",
+        "layer": "conflict",
+        "reason": "Union may see campaign as threatening jobs if transition specifics are weak.",
+        "source_actor_name": "plant_workers_union",
+        "target_actor_name": "clean_air_now_coalition",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "none",
+        "layer": "conflict",
+        "reason": "invalid_non_actor_placeholder_removed",
+        "source_actor_name": "cost_sensitive_members_proxy",
+        "target_actor_name": "state_utility_regulator",
+        "weight": 0.0
+      },
+      {
+        "direction": "outbound",
+        "evidence": "workers negotiate transition terms",
+        "layer": "conflict",
+        "reason": "Conflict emerges if board advances early retirement without adequate terms.",
+        "source_actor_name": "plant_workers_union",
+        "target_actor_name": "regional_energy_coop_board",
+        "weight": 0.39
+      },
+      {
+        "direction": "outbound",
+        "evidence": "member-owner comments",
+        "layer": "conflict",
+        "reason": "Some members are prepared to object over rates or reliability if recommendation misaligns with preferences.",
+        "source_actor_name": "member_owner_ratepayers",
+        "target_actor_name": "regional_energy_coop_board",
+        "weight": 0.28
+      },
+      {
+        "direction": "outbound",
+        "evidence": "state regulator letter",
+        "layer": "conflict",
+        "reason": "Potential prudence challenge if board plan is weakly justified.",
+        "source_actor_name": "state_utility_regulator",
+        "target_actor_name": "regional_energy_coop_board",
+        "weight": 0.26
+      },
+      {
+        "direction": "outbound",
+        "evidence": "member-owner comments and board recommendation context",
+        "layer": "exposure",
+        "reason": "Members are exposed to board communications and recommendation process.",
+        "source_actor_name": "member_owner_ratepayers",
+        "target_actor_name": "regional_energy_coop_board",
+        "weight": 0.57
+      },
+      {
+        "direction": "outbound",
+        "evidence": "climate group campaign",
+        "layer": "exposure",
+        "reason": "Campaign messaging reaches at least a meaningful share of members.",
+        "source_actor_name": "member_owner_ratepayers",
+        "target_actor_name": "clean_air_now_coalition",
+        "weight": 0.44
+      },
+      {
+        "direction": "outbound",
+        "evidence": "state regulator letter",
+        "layer": "exposure",
+        "reason": "Board is attentive to regulator signals and letter content.",
+        "source_actor_name": "regional_energy_coop_board",
+        "target_actor_name": "state_utility_regulator",
+        "weight": 0.51
+      },
+      {
+        "direction": "outbound",
+        "evidence": "grid reliability memo",
+        "layer": "exposure",
+        "reason": "Board sees and relies on memo outputs.",
+        "source_actor_name": "regional_energy_coop_board",
+        "target_actor_name": "grid_reliability_team",
+        "weight": 0.62
+      },
+      {
+        "direction": "outbound",
+        "evidence": "labor union concern",
+        "layer": "exposure",
+        "reason": "Community is likely to hear union concerns through local networks.",
+        "source_actor_name": "local_host_community",
+        "target_actor_name": "plant_workers_union",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "climate group campaign",
+        "layer": "exposure",
+        "reason": "Board is exposed to campaign activity and public pressure.",
+        "source_actor_name": "regional_energy_coop_board",
+        "target_actor_name": "clean_air_now_coalition",
+        "weight": 0.47
+      },
+      {
+        "direction": "outbound",
+        "evidence": "campaign and board recommendation process",
+        "layer": "oasis_interaction",
+        "reason": "Public comment, meetings, and media-facing interactions are likely.",
+        "source_actor_name": "clean_air_now_coalition",
+        "target_actor_name": "regional_energy_coop_board",
+        "weight": 0.49
+      },
+      {
+        "direction": "outbound",
+        "evidence": "workers negotiate transition terms",
+        "layer": "oasis_interaction",
+        "reason": "Negotiation and public testimony channels are active or imminent.",
+        "source_actor_name": "plant_workers_union",
+        "target_actor_name": "regional_energy_coop_board",
+        "weight": 0.54
+      },
+      {
+        "direction": "outbound",
+        "evidence": "member-owner comments",
+        "layer": "oasis_interaction",
+        "reason": "Comment submissions and cooperative forums create recurring interaction.",
+        "source_actor_name": "member_owner_ratepayers",
+        "target_actor_name": "regional_energy_coop_board",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "state regulator letter",
+        "layer": "oasis_interaction",
+        "reason": "Formal letters and proceedings create visible institutional interaction.",
+        "source_actor_name": "state_utility_regulator",
+        "target_actor_name": "regional_energy_coop_board",
+        "weight": 0.42
+      },
+      {
+        "direction": "outbound",
+        "evidence": "campaign and labor concern coexist in scenario",
+        "layer": "oasis_interaction",
+        "reason": "They may publicly contest each other's framing around retirement timing and fairness.",
+        "source_actor_name": "clean_air_now_coalition",
+        "target_actor_name": "plant_workers_union",
+        "weight": 0.31
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "hero_key": "board_chair",
+        "label": "Board chair",
+        "role": "agenda setter and coalition manager"
+      },
+      {
+        "hero_key": "lead_regulator",
+        "label": "Lead state regulator",
+        "role": "cost recovery and prudence gatekeeper"
+      },
+      {
+        "hero_key": "union_president",
+        "label": "Union president",
+        "role": "labor bargaining focal actor"
+      },
+      {
+        "hero_key": "climate_campaign_director",
+        "label": "Climate campaign director",
+        "role": "public pressure focal actor"
+      },
+      {
+        "hero_key": "reliability_memo_author",
+        "label": "Reliability memo author",
+        "role": "technical credibility focal actor"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "regional_energy_coop_board",
+        "attention_level": 0.78,
+        "constraints": [
+          "regulatory approval uncertainty",
+          "member-owner split",
+          "labor opposition if terms weak"
+        ],
+        "expression_level": 0.44,
+        "fatigue": 0.33,
+        "formal_power": 0.77,
+        "hero_key": "board_chair",
+        "informal_power": 0.62,
+        "perceived_options": [
+          "recommend_early_retirement_with_conditions",
+          "recommend_delayed_retirement",
+          "request_more_study"
+        ]
+      },
+      {
+        "actor_name": "state_utility_regulator",
+        "attention_level": 0.65,
+        "constraints": [
+          "prudence standards",
+          "consumer protection duties",
+          "political scrutiny of reliability and rates"
+        ],
+        "expression_level": 0.29,
+        "fatigue": 0.2,
+        "formal_power": 0.91,
+        "hero_key": "lead_regulator",
+        "informal_power": 0.58,
+        "perceived_options": [
+          "approve_cost_recovery",
+          "approve_with_conditions",
+          "delay_or_deny"
+        ]
+      },
+      {
+        "actor_name": "plant_workers_union",
+        "attention_level": 0.79,
+        "constraints": [
+          "member job anxiety",
+          "limited leverage if retirement consensus hardens"
+        ],
+        "expression_level": 0.61,
+        "fatigue": 0.38,
+        "formal_power": 0.63,
+        "hero_key": "union_president",
+        "informal_power": 0.55,
+        "perceived_options": [
+          "resist_retirement",
+          "negotiate_transition",
+          "seek_regulatory_conditions"
+        ]
+      },
+      {
+        "actor_name": "clean_air_now_coalition",
+        "attention_level": 0.82,
+        "constraints": [
+          "need reliability credibility",
+          "risk of appearing indifferent to workers"
+        ],
+        "expression_level": 0.74,
+        "fatigue": 0.29,
+        "formal_power": 0.28,
+        "hero_key": "climate_campaign_director",
+        "informal_power": 0.57,
+        "perceived_options": [
+          "escalate_campaign",
+          "support_conditional_compromise",
+          "target_regulator_and_board"
+        ]
+      },
+      {
+        "actor_name": "grid_reliability_team",
+        "attention_level": 0.69,
+        "constraints": [
+          "technical uncertainty",
+          "management framing of memo contents"
+        ],
+        "expression_level": 0.22,
+        "fatigue": 0.25,
+        "formal_power": 0.36,
+        "hero_key": "reliability_memo_author",
+        "informal_power": 0.51,
+        "perceived_options": [
+          "stress_operational_risks",
+          "outline_mitigation_pathways",
+          "recommend_further_analysis"
+        ]
+      }
+    ],
+    "heroes": [
+      {
+        "hero_key": "board_chair",
+        "label": "Board chair",
+        "role": "agenda setter and coalition manager"
+      },
+      {
+        "hero_key": "lead_regulator",
+        "label": "Lead state regulator",
+        "role": "cost recovery and prudence gatekeeper"
+      },
+      {
+        "hero_key": "union_president",
+        "label": "Union president",
+        "role": "labor bargaining focal actor"
+      },
+      {
+        "hero_key": "climate_campaign_director",
+        "label": "Climate campaign director",
+        "role": "public pressure focal actor"
+      },
+      {
+        "hero_key": "reliability_memo_author",
+        "label": "Reliability memo author",
+        "role": "technical credibility focal actor"
+      }
+    ],
+    "important_questions": [
+      "Does the cooperative board ultimately recommend early retirement of the gas plant rather than delay or further study?",
+      "Does the state regulator approve a cost recovery pathway sufficient to make retirement implementation financially viable?",
+      "Are enforceable worker transition terms secured before or alongside any retirement move?",
+      "Do documented reliability concerns remain strong enough to block or materially delay retirement at the decision point?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "regional_energy_coop_board",
+          "coop_management",
+          "harbor_gas_plant"
+        ],
+        "event_key": "t0_existing_retirement_question",
+        "event_type": "announcement",
+        "evidence": "must decide whether to retire an old gas plant early",
+        "expected_impact": "Raises attention, activates stakeholder framing competition, and increases demand for technical and financial justification.",
+        "status": "visible",
+        "summary": "The cooperative has opened or is actively considering the question of early retirement for the aging gas plant.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "member_owner_ratepayers",
+          "regional_energy_coop_board"
+        ],
+        "event_key": "t0_member_owner_comments_present",
+        "event_type": "announcement",
+        "evidence": "include member-owner comments",
+        "expected_impact": "Signals legitimacy pressure and may reveal split priorities around rates, reliability, and climate.",
+        "status": "visible",
+        "summary": "Member-owner comments are already part of the decision environment.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "grid_reliability_team",
+          "coop_management",
+          "regional_energy_coop_board"
+        ],
+        "event_key": "t0_reliability_memo_exists",
+        "event_type": "announcement",
+        "evidence": "include grid reliability memo",
+        "expected_impact": "Constrains narrative freedom by anchoring debate in operational claims, while leaving room for interpretation.",
+        "status": "visible",
+        "summary": "A grid reliability memo exists or is circulating as a key input to the decision.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "clean_air_now_coalition",
+          "member_owner_ratepayers",
+          "regional_energy_coop_board"
+        ],
+        "event_key": "t0_climate_campaign_active",
+        "event_type": "announcement",
+        "evidence": "include climate group campaign",
+        "expected_impact": "Increases public salience and may shift supportive members from passive approval to active engagement.",
+        "status": "visible",
+        "summary": "A climate group campaign is underway pressing for early retirement.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "plant_workers_union",
+          "regional_energy_coop_board",
+          "local_host_community"
+        ],
+        "event_key": "t0_union_concern_active",
+        "event_type": "announcement",
+        "evidence": "include labor union concern",
+        "expected_impact": "Raises political cost of rapid retirement without credible protections and strengthens local cohesion.",
+        "status": "visible",
+        "summary": "Labor union concern is active regarding jobs and transition terms.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "state_utility_regulator",
+          "regional_energy_coop_board",
+          "coop_management"
+        ],
+        "event_key": "t0_regulator_letter_sent",
+        "event_type": "announcement",
+        "evidence": "include state regulator letter",
+        "expected_impact": "Narrows feasible proposals by emphasizing prudence, documentation, or conditions for approval.",
+        "status": "visible",
+        "summary": "The state regulator has issued a letter signaling oversight expectations around cost recovery or process.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "coop_management",
+          "regional_energy_coop_board",
+          "grid_reliability_team"
+        ],
+        "event_key": "t1_board_option_framing",
+        "event_type": "announcement",
+        "evidence": "board can recommend retirement",
+        "expected_impact": "Can compress debate into a few institutional choices and elevate some tradeoffs over others.",
+        "status": "imminent",
+        "summary": "Management is likely to package options for the board, including early retirement, delayed retirement, or further study.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "plant_workers_union",
+          "coop_management",
+          "regional_energy_coop_board"
+        ],
+        "event_key": "t2_transition_terms_probe",
+        "event_type": "announcement",
+        "evidence": "workers negotiate transition terms",
+        "expected_impact": "May reduce conflict if credible or intensify it if talks appear symbolic.",
+        "status": "imminent",
+        "summary": "Union and cooperative side are likely to test possible transition terms before any final recommendation hardens.",
+        "tick": 2
+      },
+      {
+        "actors": [
+          "state_utility_regulator",
+          "regional_energy_coop_board",
+          "coop_management"
+        ],
+        "event_key": "t3_regulatory_signal_clarification",
+        "event_type": "announcement",
+        "evidence": "regulators approve cost recovery",
+        "expected_impact": "Can materially alter board willingness to endorse early retirement by changing expected financial risk.",
+        "status": "imminent",
+        "summary": "Regulatory staff or public docket activity may clarify whether cost recovery is plausible under different timing scenarios.",
+        "tick": 3
+      }
+    ],
+    "llm_call_id": "750e7572-329d-4d44-998c-9f996f4871d9",
+    "merge_hypotheses": [
+      {
+        "actors": [
+          "plant_workers_union",
+          "clean_air_now_coalition",
+          "regional_energy_coop_board",
+          "local_host_community"
+        ],
+        "mechanism": "Concrete transition terms reduce labor-climate conflict and allow broader support for retirement timing compromise.",
+        "merge_key": "just_transition_convergence"
+      },
+      {
+        "actors": [
+          "state_utility_regulator",
+          "regional_energy_coop_board",
+          "member_owner_ratepayers",
+          "grid_reliability_team"
+        ],
+        "mechanism": "A regulator-blessed package with staged retirement and measurable reliability safeguards could align board, members, and regulators.",
+        "merge_key": "conditional_prudence_convergence"
+      },
+      {
+        "actors": [
+          "regional_energy_coop_board",
+          "plant_workers_union",
+          "clean_air_now_coalition",
+          "member_owner_ratepayers"
+        ],
+        "mechanism": "Prolonged ambiguity may push rivals toward an interim compromise to avoid escalating procedural conflict and public fatigue.",
+        "merge_key": "shared_uncertainty_fatigue"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "member_owners",
+        "basis": "fictional regional cooperative customer-owner base inferred from scenario scale",
+        "label": "Member-owners",
+        "population_total": 180000
+      },
+      {
+        "archetype_key": "plant_linked_workers_and_households",
+        "basis": "fictional plant labor force plus immediate household dependence proxy",
+        "label": "Plant-linked workers and households",
+        "population_total": 420
+      },
+      {
+        "archetype_key": "host_community_residents",
+        "basis": "fictional local community near plant",
+        "label": "Host community residents",
+        "population_total": 22000
+      },
+      {
+        "archetype_key": "regional_climate_engaged_public",
+        "basis": "organized advocacy and attentive supporters at regional scale",
+        "label": "Regionally climate-engaged public",
+        "population_total": 12000
+      }
+    ],
+    "risk_flags": [
+      {
+        "description": "Corpus is concise and provides scenario scaffolding rather than detailed facts, so several counts and weight calibrations are inferred defaults.",
+        "level": "medium",
+        "risk_key": "source_thinness"
+      },
+      {
+        "description": "Decision authority is clearly divided between board recommendation, regulator cost recovery approval, and worker negotiation leverage.",
+        "level": "low",
+        "risk_key": "authority_split"
+      },
+      {
+        "description": "No explicit stranded cost magnitude, rate impact, or replacement cost estimates are provided, limiting precision on elasticity and backlash risk.",
+        "level": "medium",
+        "risk_key": "economic_uncertainty"
+      },
+      {
+        "description": "Two non-actor placeholders were removed conceptually but remain as zero-weight edges due to strict shape preservation risk; later cleanup may be needed for simulation integrity.",
+        "level": "high",
+        "risk_key": "graph_placeholder_artifact"
+      },
+      {
+        "description": "Hearings, letters, and studies are likely along the path; they should not be mistaken for terminal outcomes unless they satisfy endpoint criteria.",
+        "level": "medium",
+        "risk_key": "endpoint_nonfinal_process_confusion"
+      }
+    ],
+    "simulation_brief": {
+      "mode": "direct",
+      "primary_decision_domain": "energy_infrastructure_governance",
+      "scenario_key": "longform_005",
+      "source_evidence": [
+        "fictional regional energy cooperative must decide whether to retire an old gas plant early",
+        "include member-owner comments, grid reliability memo, climate group campaign, labor union concern, and state regulator letter",
+        "board can recommend retirement, regulators approve cost recovery, and workers negotiate transition terms"
+      ],
+      "summary": "A fictional regional energy cooperative is weighing early retirement of an aging gas plant amid member-owner concern, grid reliability analysis, climate advocacy pressure, labor transition demands, and state regulatory oversight. The board can recommend retirement timing, the state regulator can approve or constrain cost recovery, and workers can negotiate transition terms that affect feasibility and coalition stability.",
+      "t0_posture": "pre-decision with active public pressure and unresolved operational constraints",
+      "time_horizon_ticks": 6,
+      "title": "regional_energy_cooperative_gas_plant_retirement_decision",
+      "uncertainty_notes": [
+        "No detailed plant economics, worker counts, or exact service territory population are provided.",
+        "The scenario implies but does not quantify reliability risk, political salience, and cost recovery exposure.",
+        "Member-owner opinion is present but not numerically specified; represented as split cohorts rather than a single majority."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "member_owner_ratepayers",
+          "local_host_community"
+        ],
+        "evidence": "members likely respond more to frames close to existing concerns like rates, reliability, and fairness than to abstract claims",
+        "level": 0.58,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "member_owner_ratepayers"
+        ],
+        "evidence": "many members likely remain passive until visible rate, reliability, or fairness cues cross a threshold",
+        "level": 0.62,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "host_community_health_transition",
+          "reliability_first_members"
+        ],
+        "evidence": "quiet or uncertain cohorts may under-express minority views due to local pressure or uncertainty",
+        "level": 0.54,
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "local_host_community",
+          "organized_climate_supporters",
+          "union_core_households"
+        ],
+        "evidence": "local economic ties and advocacy networks likely reinforce within-group narratives",
+        "level": 0.57,
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "member_owner_ratepayers"
+        ],
+        "evidence": "support for a consequential infrastructure shift likely needs repeated signals from trusted institutions and peers",
+        "level": 0.61,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "plant_workers_union",
+          "local_host_community",
+          "member_owner_ratepayers"
+        ],
+        "evidence": "worker, community, and owner identities shape interpretation of the same facts",
+        "level": 0.68,
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "member_owner_ratepayers"
+        ],
+        "evidence": "unless punctuated by hearings, letters, or bill impacts, broader member attention may drift",
+        "level": 0.43,
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Technical reliability claims can legitimize delay or conditional retirement if repeated by trusted internal experts.",
+        "influence_key": "reliability_frame_salience",
+        "target_actors": [
+          "regional_energy_coop_board",
+          "member_owner_ratepayers",
+          "state_utility_regulator"
+        ]
+      },
+      {
+        "description": "Worker protection language can bridge climate and labor camps if made concrete and enforceable.",
+        "influence_key": "just_transition_frame",
+        "target_actors": [
+          "plant_workers_union",
+          "clean_air_now_coalition",
+          "regional_energy_coop_board",
+          "local_host_community"
+        ]
+      },
+      {
+        "description": "Cost recovery framing strongly affects whether members and regulator view retirement as prudent or burdensome.",
+        "influence_key": "ratepayer_prudence_frame",
+        "target_actors": [
+          "member_owner_ratepayers",
+          "state_utility_regulator",
+          "regional_energy_coop_board"
+        ]
+      },
+      {
+        "description": "Board recommendation precedes or shapes regulatory cost recovery review, which in turn conditions practical implementation.",
+        "influence_key": "institutional_sequence_constraint",
+        "target_actors": [
+          "regional_energy_coop_board",
+          "state_utility_regulator",
+          "coop_management"
+        ]
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "regional_energy_coop_board",
+        "behavior_axes": {
+          "adaptability": 0.49,
+          "proceduralism": 0.77,
+          "responsiveness": 0.58,
+          "risk_tolerance": 0.36
+        },
+        "graph_influence_summary": 0.8,
+        "ideology_axes": {
+          "climate_priority": 0.46,
+          "labor_sympathy": 0.52,
+          "market_prudence": 0.58,
+          "reliability_priority": 0.71
+        },
+        "reputation": 0.55,
+        "secrecy": 0.41,
+        "tendency": "cautious_balancer",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "harbor_gas_plant",
+        "behavior_axes": {
+          "cost_rigidity": 0.66,
+          "failure_sensitivity": 0.61,
+          "operational_flexibility": 0.28,
+          "replaceability": 0.43
+        },
+        "graph_influence_summary": 0.47,
+        "ideology_axes": {
+          "climate_priority": 0.1,
+          "labor_sympathy": 0.1,
+          "market_prudence": 0.5,
+          "reliability_priority": 0.77
+        },
+        "reputation": 0.34,
+        "secrecy": 0.05,
+        "tendency": "aging_dependency_node",
+        "trustworthiness": 0.45
+      },
+      {
+        "actor_name": "coop_management",
+        "behavior_axes": {
+          "adaptability": 0.56,
+          "proceduralism": 0.73,
+          "responsiveness": 0.51,
+          "risk_tolerance": 0.42
+        },
+        "graph_influence_summary": 0.69,
+        "ideology_axes": {
+          "climate_priority": 0.41,
+          "labor_sympathy": 0.44,
+          "market_prudence": 0.69,
+          "reliability_priority": 0.78
+        },
+        "reputation": 0.5,
+        "secrecy": 0.48,
+        "tendency": "implementation_pragmatist",
+        "trustworthiness": 0.54
+      },
+      {
+        "actor_name": "grid_reliability_team",
+        "behavior_axes": {
+          "adaptability": 0.47,
+          "proceduralism": 0.82,
+          "responsiveness": 0.38,
+          "risk_tolerance": 0.24
+        },
+        "graph_influence_summary": 0.52,
+        "ideology_axes": {
+          "climate_priority": 0.32,
+          "labor_sympathy": 0.31,
+          "market_prudence": 0.63,
+          "reliability_priority": 0.9
+        },
+        "reputation": 0.64,
+        "secrecy": 0.36,
+        "tendency": "technical_guardrail",
+        "trustworthiness": 0.69
+      },
+      {
+        "actor_name": "member_owner_ratepayers",
+        "behavior_axes": {
+          "adaptability": 0.48,
+          "proceduralism": 0.35,
+          "responsiveness": 0.44,
+          "risk_tolerance": 0.39
+        },
+        "graph_influence_summary": 0.43,
+        "ideology_axes": {
+          "climate_priority": 0.43,
+          "labor_sympathy": 0.51,
+          "market_prudence": 0.66,
+          "reliability_priority": 0.74
+        },
+        "reputation": 0.48,
+        "secrecy": 0.22,
+        "tendency": "diffuse_constituency",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "clean_air_now_coalition",
+        "behavior_axes": {
+          "adaptability": 0.64,
+          "proceduralism": 0.33,
+          "responsiveness": 0.73,
+          "risk_tolerance": 0.61
+        },
+        "graph_influence_summary": 0.56,
+        "ideology_axes": {
+          "climate_priority": 0.93,
+          "labor_sympathy": 0.58,
+          "market_prudence": 0.34,
+          "reliability_priority": 0.41
+        },
+        "reputation": 0.47,
+        "secrecy": 0.18,
+        "tendency": "mobilizing_advocate",
+        "trustworthiness": 0.49
+      },
+      {
+        "actor_name": "plant_workers_union",
+        "behavior_axes": {
+          "adaptability": 0.45,
+          "proceduralism": 0.54,
+          "responsiveness": 0.67,
+          "risk_tolerance": 0.48
+        },
+        "graph_influence_summary": 0.61,
+        "ideology_axes": {
+          "climate_priority": 0.28,
+          "labor_sympathy": 0.95,
+          "market_prudence": 0.47,
+          "reliability_priority": 0.62
+        },
+        "reputation": 0.53,
+        "secrecy": 0.31,
+        "tendency": "protective_negotiator",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "state_utility_regulator",
+        "behavior_axes": {
+          "adaptability": 0.4,
+          "proceduralism": 0.88,
+          "responsiveness": 0.42,
+          "risk_tolerance": 0.29
+        },
+        "graph_influence_summary": 0.84,
+        "ideology_axes": {
+          "climate_priority": 0.44,
+          "labor_sympathy": 0.39,
+          "market_prudence": 0.79,
+          "reliability_priority": 0.81
+        },
+        "reputation": 0.62,
+        "secrecy": 0.37,
+        "tendency": "conditional_gatekeeper",
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "local_host_community",
+        "behavior_axes": {
+          "adaptability": 0.43,
+          "proceduralism": 0.31,
+          "responsiveness": 0.49,
+          "risk_tolerance": 0.37
+        },
+        "graph_influence_summary": 0.35,
+        "ideology_axes": {
+          "climate_priority": 0.46,
+          "labor_sympathy": 0.72,
+          "market_prudence": 0.57,
+          "reliability_priority": 0.55
+        },
+        "reputation": 0.46,
+        "secrecy": 0.24,
+        "tendency": "place_based_stakeholder",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "alternative_resource_developers",
+        "behavior_axes": {
+          "adaptability": 0.72,
+          "proceduralism": 0.29,
+          "responsiveness": 0.52,
+          "risk_tolerance": 0.58
+        },
+        "graph_influence_summary": 0.27,
+        "ideology_axes": {
+          "climate_priority": 0.68,
+          "labor_sympathy": 0.26,
+          "market_prudence": 0.51,
+          "reliability_priority": 0.48
+        },
+        "reputation": 0.4,
+        "secrecy": 0.34,
+        "tendency": "opportunity_seeker",
+        "trustworthiness": 0.43
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 528,
+        "end": 528,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 528,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

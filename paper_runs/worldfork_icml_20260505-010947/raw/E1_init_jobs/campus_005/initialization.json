@@ -1,0 +1,1870 @@
+{
+  "big_bang_id": "a714a5e9-9575-44e9-8a7d-3a86c0c80ae6",
+  "initializer_output": {
+    "actors": [
+      {
+        "domain": "education_governance",
+        "fictionalized": true,
+        "name": "school_board",
+        "type": "institution"
+      },
+      {
+        "domain": "district_administration",
+        "fictionalized": true,
+        "name": "district_superintendent",
+        "type": "institutional_leader"
+      },
+      {
+        "domain": "education",
+        "fictionalized": true,
+        "name": "north_high_school",
+        "type": "school"
+      },
+      {
+        "domain": "education",
+        "fictionalized": true,
+        "name": "south_high_school",
+        "type": "school"
+      },
+      {
+        "domain": "family_stakeholders",
+        "fictionalized": true,
+        "name": "parents_association",
+        "type": "community_group"
+      },
+      {
+        "domain": "students",
+        "fictionalized": true,
+        "name": "student_body",
+        "type": "community_group"
+      },
+      {
+        "domain": "school_staff",
+        "fictionalized": true,
+        "name": "teachers_association",
+        "type": "organized_group"
+      },
+      {
+        "domain": "athletics_support",
+        "fictionalized": true,
+        "name": "sports_boosters",
+        "type": "community_group"
+      },
+      {
+        "domain": "district_operations",
+        "fictionalized": true,
+        "name": "transportation_department",
+        "type": "operational_unit"
+      },
+      {
+        "domain": "finance",
+        "fictionalized": true,
+        "name": "budget_office",
+        "type": "administrative_unit"
+      },
+      {
+        "domain": "civic_environment",
+        "fictionalized": true,
+        "name": "local_community",
+        "type": "public"
+      },
+      {
+        "domain": "public_information",
+        "fictionalized": true,
+        "name": "local_media",
+        "type": "media"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "branch_key": "merger_gains_momentum",
+        "divergence_signal": "Public statements increasingly frame merger as necessary and feasible; moderate parents and some teachers become more accepting.",
+        "plausible_path": "Board members converge on a merger plan with transition messaging and limited concessions.",
+        "trigger": "Budget and enrollment evidence appears compelling and implementation burdens seem manageable."
+      },
+      {
+        "branch_key": "decision_delayed_for_more_study",
+        "divergence_signal": "Officials emphasize due diligence, missing data, and timeline extensions rather than endorsing a structural endpoint.",
+        "plausible_path": "Board delays the decision, requests more analysis, and extends consultation.",
+        "trigger": "Transportation, staffing, or community questions remain unresolved after early hearings."
+      },
+      {
+        "branch_key": "compromise_restructuring",
+        "divergence_signal": "Discussion shifts from yes-or-no merger framing toward hybrid designs and limited pilots.",
+        "plausible_path": "Leaders pursue a partial consolidation, shared programs, phased integration, or campus-specialization model.",
+        "trigger": "Full merger draws resistance but status quo appears fiscally weak."
+      },
+      {
+        "branch_key": "community_backlash_escalates",
+        "divergence_signal": "Meeting turnout spikes, symbolic school-defense messaging spreads, and media coverage centers on anger and fairness complaints.",
+        "plausible_path": "Parents, students, and boosters intensify opposition, making legitimacy costs central to the board's calculus.",
+        "trigger": "Stakeholders perceive the process as rushed, opaque, or dismissive of school identity and travel burdens."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "school_board_meeting",
+        "dominant_actors": [
+          "school_board",
+          "district_superintendent",
+          "parents_association",
+          "teachers_association",
+          "sports_boosters",
+          "student_body"
+        ],
+        "type": "public_governance",
+        "visibility": "high"
+      },
+      {
+        "channel_key": "district_memo_and_reports",
+        "dominant_actors": [
+          "district_superintendent",
+          "budget_office",
+          "transportation_department",
+          "school_board"
+        ],
+        "type": "institutional_document",
+        "visibility": "medium"
+      },
+      {
+        "channel_key": "parent_networks",
+        "dominant_actors": [
+          "parents_association",
+          "student_body",
+          "local_community"
+        ],
+        "type": "informal_social",
+        "visibility": "medium"
+      },
+      {
+        "channel_key": "school_events_and_athletics",
+        "dominant_actors": [
+          "sports_boosters",
+          "student_body",
+          "parents_association",
+          "local_community"
+        ],
+        "type": "community_gathering",
+        "visibility": "medium"
+      },
+      {
+        "channel_key": "local_media_coverage",
+        "dominant_actors": [
+          "local_media",
+          "school_board",
+          "district_superintendent",
+          "parents_association"
+        ],
+        "type": "media",
+        "visibility": "high"
+      },
+      {
+        "channel_key": "staff_meetings_and_union_comms",
+        "dominant_actors": [
+          "teachers_association",
+          "district_superintendent",
+          "north_high_school",
+          "south_high_school"
+        ],
+        "type": "organizational",
+        "visibility": "low_to_medium"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "parents_guardians",
+        "attention_level": 0.73,
+        "cohort_key": "parents_cost_concerned",
+        "expression_level": 0.42,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.44,
+        "label": "Parents focused on district sustainability",
+        "mobilization_readiness": 0.48,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.375,
+        "private_public_gap": 0.19,
+        "representation_mode": "estimated_segment",
+        "represented_population": 900,
+        "stance_axes": {
+          "compromise_support": 0.57,
+          "delay_support": 0.38,
+          "identity_preservation": 0.31,
+          "merge_support": 0.62
+        }
+      },
+      {
+        "archetype_key": "parents_guardians",
+        "attention_level": 0.81,
+        "cohort_key": "parents_identity_defenders",
+        "expression_level": 0.67,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.27,
+        "label": "Parents defending school identity and continuity",
+        "mobilization_readiness": 0.69,
+        "perceived_majority": 0.51,
+        "population_share_of_archetype": 0.4375,
+        "private_public_gap": 0.09,
+        "representation_mode": "estimated_segment",
+        "represented_population": 1050,
+        "stance_axes": {
+          "compromise_support": 0.49,
+          "delay_support": 0.61,
+          "identity_preservation": 0.84,
+          "merge_support": 0.18
+        }
+      },
+      {
+        "archetype_key": "parents_guardians",
+        "attention_level": 0.54,
+        "cohort_key": "parents_undecided_waiting",
+        "expression_level": 0.23,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.55,
+        "label": "Parents waiting for clearer details",
+        "mobilization_readiness": 0.31,
+        "perceived_majority": 0.43,
+        "population_share_of_archetype": 0.1875,
+        "private_public_gap": 0.24,
+        "representation_mode": "estimated_segment",
+        "represented_population": 450,
+        "stance_axes": {
+          "compromise_support": 0.58,
+          "delay_support": 0.52,
+          "identity_preservation": 0.49,
+          "merge_support": 0.39
+        }
+      },
+      {
+        "archetype_key": "students",
+        "attention_level": 0.78,
+        "cohort_key": "students_identity_attached",
+        "expression_level": 0.59,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.24,
+        "label": "Students attached to current school identity and peer networks",
+        "mobilization_readiness": 0.63,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.5833,
+        "private_public_gap": 0.07,
+        "representation_mode": "estimated_segment",
+        "represented_population": 700,
+        "stance_axes": {
+          "compromise_support": 0.46,
+          "delay_support": 0.55,
+          "identity_preservation": 0.88,
+          "merge_support": 0.21
+        }
+      },
+      {
+        "archetype_key": "students",
+        "attention_level": 0.52,
+        "cohort_key": "students_pragmatic",
+        "expression_level": 0.34,
+        "fatigue": 0.15,
+        "fear_of_isolation": 0.48,
+        "label": "Students open to practical changes if opportunities improve",
+        "mobilization_readiness": 0.29,
+        "perceived_majority": 0.36,
+        "population_share_of_archetype": 0.25,
+        "private_public_gap": 0.21,
+        "representation_mode": "estimated_segment",
+        "represented_population": 300,
+        "stance_axes": {
+          "compromise_support": 0.61,
+          "delay_support": 0.31,
+          "identity_preservation": 0.34,
+          "merge_support": 0.56
+        }
+      },
+      {
+        "archetype_key": "students",
+        "attention_level": 0.27,
+        "cohort_key": "students_low_attention",
+        "expression_level": 0.14,
+        "fatigue": 0.11,
+        "fear_of_isolation": 0.41,
+        "label": "Students with low attention until concrete changes appear",
+        "mobilization_readiness": 0.18,
+        "perceived_majority": 0.33,
+        "population_share_of_archetype": 0.1667,
+        "private_public_gap": 0.17,
+        "representation_mode": "estimated_segment",
+        "represented_population": 200,
+        "stance_axes": {
+          "compromise_support": 0.51,
+          "delay_support": 0.44,
+          "identity_preservation": 0.4,
+          "merge_support": 0.4
+        }
+      },
+      {
+        "archetype_key": "teachers_staff",
+        "attention_level": 0.84,
+        "cohort_key": "teachers_job_security_concerned",
+        "expression_level": 0.51,
+        "fatigue": 0.37,
+        "fear_of_isolation": 0.46,
+        "label": "Teachers concerned about staffing, assignments, and culture",
+        "mobilization_readiness": 0.58,
+        "perceived_majority": 0.49,
+        "population_share_of_archetype": 0.6111,
+        "private_public_gap": 0.26,
+        "representation_mode": "estimated_segment",
+        "represented_population": 110,
+        "stance_axes": {
+          "compromise_support": 0.52,
+          "delay_support": 0.63,
+          "identity_preservation": 0.66,
+          "merge_support": 0.24
+        }
+      },
+      {
+        "archetype_key": "teachers_staff",
+        "attention_level": 0.71,
+        "cohort_key": "teachers_reform_pragmatists",
+        "expression_level": 0.39,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.52,
+        "label": "Teachers willing to consider restructuring for program stability",
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.3889,
+        "private_public_gap": 0.29,
+        "representation_mode": "estimated_segment",
+        "represented_population": 70,
+        "stance_axes": {
+          "compromise_support": 0.64,
+          "delay_support": 0.29,
+          "identity_preservation": 0.28,
+          "merge_support": 0.58
+        }
+      },
+      {
+        "archetype_key": "community_supporters",
+        "attention_level": 0.79,
+        "cohort_key": "boosters_tradition_defenders",
+        "expression_level": 0.72,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.19,
+        "label": "Boosters and supporters defending athletics and tradition",
+        "mobilization_readiness": 0.74,
+        "perceived_majority": 0.53,
+        "population_share_of_archetype": 0.6111,
+        "private_public_gap": 0.05,
+        "representation_mode": "estimated_segment",
+        "represented_population": 550,
+        "stance_axes": {
+          "compromise_support": 0.41,
+          "delay_support": 0.57,
+          "identity_preservation": 0.91,
+          "merge_support": 0.16
+        }
+      },
+      {
+        "archetype_key": "community_supporters",
+        "attention_level": 0.48,
+        "cohort_key": "community_budget_pragmatists",
+        "expression_level": 0.27,
+        "fatigue": 0.16,
+        "fear_of_isolation": 0.47,
+        "label": "Community members focused on efficient use of funds",
+        "mobilization_readiness": 0.25,
+        "perceived_majority": 0.38,
+        "population_share_of_archetype": 0.3889,
+        "private_public_gap": 0.2,
+        "representation_mode": "estimated_segment",
+        "represented_population": 350,
+        "stance_axes": {
+          "compromise_support": 0.55,
+          "delay_support": 0.33,
+          "identity_preservation": 0.25,
+          "merge_support": 0.61
+        }
+      },
+      {
+        "archetype_key": "operations_finance_staff",
+        "attention_level": 0.77,
+        "cohort_key": "operations_implementation_realists",
+        "expression_level": 0.32,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.51,
+        "label": "Transportation and finance staff focused on feasibility",
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 1,
+        "private_public_gap": 0.31,
+        "representation_mode": "full_group",
+        "represented_population": 45,
+        "stance_axes": {
+          "compromise_support": 0.68,
+          "delay_support": 0.46,
+          "identity_preservation": 0.18,
+          "merge_support": 0.47
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "parents_guardians",
+        "attention_level": 0.73,
+        "cohort_key": "parents_cost_concerned",
+        "expression_level": 0.42,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.44,
+        "label": "Parents focused on district sustainability",
+        "mobilization_readiness": 0.48,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.375,
+        "private_public_gap": 0.19,
+        "representation_mode": "estimated_segment",
+        "represented_population": 900,
+        "stance_axes": {
+          "compromise_support": 0.57,
+          "delay_support": 0.38,
+          "identity_preservation": 0.31,
+          "merge_support": 0.62
+        }
+      },
+      {
+        "archetype_key": "parents_guardians",
+        "attention_level": 0.81,
+        "cohort_key": "parents_identity_defenders",
+        "expression_level": 0.67,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.27,
+        "label": "Parents defending school identity and continuity",
+        "mobilization_readiness": 0.69,
+        "perceived_majority": 0.51,
+        "population_share_of_archetype": 0.4375,
+        "private_public_gap": 0.09,
+        "representation_mode": "estimated_segment",
+        "represented_population": 1050,
+        "stance_axes": {
+          "compromise_support": 0.49,
+          "delay_support": 0.61,
+          "identity_preservation": 0.84,
+          "merge_support": 0.18
+        }
+      },
+      {
+        "archetype_key": "parents_guardians",
+        "attention_level": 0.54,
+        "cohort_key": "parents_undecided_waiting",
+        "expression_level": 0.23,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.55,
+        "label": "Parents waiting for clearer details",
+        "mobilization_readiness": 0.31,
+        "perceived_majority": 0.43,
+        "population_share_of_archetype": 0.1875,
+        "private_public_gap": 0.24,
+        "representation_mode": "estimated_segment",
+        "represented_population": 450,
+        "stance_axes": {
+          "compromise_support": 0.58,
+          "delay_support": 0.52,
+          "identity_preservation": 0.49,
+          "merge_support": 0.39
+        }
+      },
+      {
+        "archetype_key": "students",
+        "attention_level": 0.78,
+        "cohort_key": "students_identity_attached",
+        "expression_level": 0.59,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.24,
+        "label": "Students attached to current school identity and peer networks",
+        "mobilization_readiness": 0.63,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.5833,
+        "private_public_gap": 0.07,
+        "representation_mode": "estimated_segment",
+        "represented_population": 700,
+        "stance_axes": {
+          "compromise_support": 0.46,
+          "delay_support": 0.55,
+          "identity_preservation": 0.88,
+          "merge_support": 0.21
+        }
+      },
+      {
+        "archetype_key": "students",
+        "attention_level": 0.52,
+        "cohort_key": "students_pragmatic",
+        "expression_level": 0.34,
+        "fatigue": 0.15,
+        "fear_of_isolation": 0.48,
+        "label": "Students open to practical changes if opportunities improve",
+        "mobilization_readiness": 0.29,
+        "perceived_majority": 0.36,
+        "population_share_of_archetype": 0.25,
+        "private_public_gap": 0.21,
+        "representation_mode": "estimated_segment",
+        "represented_population": 300,
+        "stance_axes": {
+          "compromise_support": 0.61,
+          "delay_support": 0.31,
+          "identity_preservation": 0.34,
+          "merge_support": 0.56
+        }
+      },
+      {
+        "archetype_key": "students",
+        "attention_level": 0.27,
+        "cohort_key": "students_low_attention",
+        "expression_level": 0.14,
+        "fatigue": 0.11,
+        "fear_of_isolation": 0.41,
+        "label": "Students with low attention until concrete changes appear",
+        "mobilization_readiness": 0.18,
+        "perceived_majority": 0.33,
+        "population_share_of_archetype": 0.1667,
+        "private_public_gap": 0.17,
+        "representation_mode": "estimated_segment",
+        "represented_population": 200,
+        "stance_axes": {
+          "compromise_support": 0.51,
+          "delay_support": 0.44,
+          "identity_preservation": 0.4,
+          "merge_support": 0.4
+        }
+      },
+      {
+        "archetype_key": "teachers_staff",
+        "attention_level": 0.84,
+        "cohort_key": "teachers_job_security_concerned",
+        "expression_level": 0.51,
+        "fatigue": 0.37,
+        "fear_of_isolation": 0.46,
+        "label": "Teachers concerned about staffing, assignments, and culture",
+        "mobilization_readiness": 0.58,
+        "perceived_majority": 0.49,
+        "population_share_of_archetype": 0.6111,
+        "private_public_gap": 0.26,
+        "representation_mode": "estimated_segment",
+        "represented_population": 110,
+        "stance_axes": {
+          "compromise_support": 0.52,
+          "delay_support": 0.63,
+          "identity_preservation": 0.66,
+          "merge_support": 0.24
+        }
+      },
+      {
+        "archetype_key": "teachers_staff",
+        "attention_level": 0.71,
+        "cohort_key": "teachers_reform_pragmatists",
+        "expression_level": 0.39,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.52,
+        "label": "Teachers willing to consider restructuring for program stability",
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.3889,
+        "private_public_gap": 0.29,
+        "representation_mode": "estimated_segment",
+        "represented_population": 70,
+        "stance_axes": {
+          "compromise_support": 0.64,
+          "delay_support": 0.29,
+          "identity_preservation": 0.28,
+          "merge_support": 0.58
+        }
+      },
+      {
+        "archetype_key": "community_supporters",
+        "attention_level": 0.79,
+        "cohort_key": "boosters_tradition_defenders",
+        "expression_level": 0.72,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.19,
+        "label": "Boosters and supporters defending athletics and tradition",
+        "mobilization_readiness": 0.74,
+        "perceived_majority": 0.53,
+        "population_share_of_archetype": 0.6111,
+        "private_public_gap": 0.05,
+        "representation_mode": "estimated_segment",
+        "represented_population": 550,
+        "stance_axes": {
+          "compromise_support": 0.41,
+          "delay_support": 0.57,
+          "identity_preservation": 0.91,
+          "merge_support": 0.16
+        }
+      },
+      {
+        "archetype_key": "community_supporters",
+        "attention_level": 0.48,
+        "cohort_key": "community_budget_pragmatists",
+        "expression_level": 0.27,
+        "fatigue": 0.16,
+        "fear_of_isolation": 0.47,
+        "label": "Community members focused on efficient use of funds",
+        "mobilization_readiness": 0.25,
+        "perceived_majority": 0.38,
+        "population_share_of_archetype": 0.3889,
+        "private_public_gap": 0.2,
+        "representation_mode": "estimated_segment",
+        "represented_population": 350,
+        "stance_axes": {
+          "compromise_support": 0.55,
+          "delay_support": 0.33,
+          "identity_preservation": 0.25,
+          "merge_support": 0.61
+        }
+      },
+      {
+        "archetype_key": "operations_finance_staff",
+        "attention_level": 0.77,
+        "cohort_key": "operations_implementation_realists",
+        "expression_level": 0.32,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.51,
+        "label": "Transportation and finance staff focused on feasibility",
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 1,
+        "private_public_gap": 0.31,
+        "representation_mode": "full_group",
+        "represented_population": 45,
+        "stance_axes": {
+          "compromise_support": 0.68,
+          "delay_support": 0.46,
+          "identity_preservation": 0.18,
+          "merge_support": 0.47
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "school_board",
+          "district_superintendent"
+        ],
+        "blockers": [
+          "identity-based opposition from parents, students, and boosters",
+          "transportation feasibility concerns",
+          "teacher staffing disruption concerns",
+          "legitimacy costs if process appears rushed"
+        ],
+        "contradiction_notes": "A draft discussion, pilot, or nonbinding recommendation does not realize this endpoint without a binding board action.",
+        "description": "A terminal outcome in which the board formally consolidates the two under-enrolled high schools into a single merged structure.",
+        "endpoint_key": "full_high_school_merger",
+        "evidence_refs": [
+          "under_enrollment_problem_recognized",
+          "board_opens_merger_debate",
+          "administrative_option_review"
+        ],
+        "label": "Full high school merger approved",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the school board ultimately approve a full merger of the two high schools?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.31,
+        "rationale": "Under-enrollment and budget pressure create a credible path to consolidation, but T0 evidence does not show majority lock-in.",
+        "realization_criteria": [
+          "school_board records a formal vote or binding resolution approving merger",
+          "district issues an implementation plan that retires the two-school structure as separate high schools",
+          "no later board action reverses the approved merger within the observed horizon"
+        ],
+        "status": "active",
+        "status_basis": "Merger is explicitly one of the scenario's branch possibilities and remains live at T0."
+      },
+      {
+        "authority_refs": [
+          "school_board",
+          "district_superintendent"
+        ],
+        "blockers": [
+          "strong board consensus for immediate action",
+          "external fiscal pressure that makes delay costly",
+          "clear feasibility case reducing uncertainty"
+        ],
+        "contradiction_notes": "Routine process meetings do not realize this endpoint unless they formally push back a decision or keep the structural question open.",
+        "description": "A terminal outcome in which the board does not make a binding structural choice within the near decision window and instead extends study, consultation, or timeline.",
+        "endpoint_key": "decision_delay_extended_review",
+        "evidence_refs": [
+          "board_opens_merger_debate",
+          "public_comment_or_listening_session",
+          "administrative_option_review"
+        ],
+        "label": "Decision delayed for extended review",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the board defer a terminal structural decision and keep the issue open through extended study or timeline shift?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.29,
+        "rationale": "Balanced T0 and incomplete detail make delay a highly credible institutional response.",
+        "realization_criteria": [
+          "school_board publicly postpones a planned decision or declines to schedule a final vote",
+          "district announces additional study, hearings, or data collection before any binding structural action",
+          "the two-school structure remains unchanged during the delay interval"
+        ],
+        "status": "active",
+        "status_basis": "Delay is explicitly requested as a branch hypothesis and is plausible given unresolved stakeholder concerns."
+      },
+      {
+        "authority_refs": [
+          "school_board",
+          "district_superintendent",
+          "budget_office",
+          "transportation_department"
+        ],
+        "blockers": [
+          "stakeholders reject hybrid arrangements as inadequate or confusing",
+          "operational complexity makes compromise too costly",
+          "board polarization collapses middle-ground support"
+        ],
+        "contradiction_notes": "Informal discussion of alternatives does not realize this endpoint without a binding adopted structure.",
+        "description": "A terminal outcome in which leaders choose a hybrid model such as shared programs, phased integration, campus specialization, or limited consolidation rather than a full immediate merger.",
+        "endpoint_key": "compromise_partial_restructuring",
+        "evidence_refs": [
+          "administrative_option_review",
+          "under_enrollment_problem_recognized",
+          "public_comment_or_listening_session"
+        ],
+        "label": "Compromise or phased restructuring adopted",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will leaders adopt a partial or phased restructuring instead of a simple full-merger or no-merger outcome?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.26,
+        "rationale": "Compromise can reconcile fiscal pressure with identity preservation if legitimacy and feasibility are handled carefully.",
+        "realization_criteria": [
+          "school_board adopts a binding plan that preserves some separate identity or operations while restructuring others",
+          "district implementation documents specify a hybrid or phased model instead of full merger or status quo",
+          "public communications consistently describe the chosen model as a compromise structure"
+        ],
+        "status": "active",
+        "status_basis": "The scenario explicitly names compromise as a key branch and operational actors make mixed designs plausible."
+      },
+      {
+        "authority_refs": [
+          "school_board",
+          "district_superintendent",
+          "parents_association",
+          "sports_boosters",
+          "local_community"
+        ],
+        "blockers": [
+          "board members prioritize fiscal necessity over public anger",
+          "opposition remains loud but numerically limited",
+          "compromise absorbs backlash without blocking structural change"
+        ],
+        "contradiction_notes": "General opposition alone does not realize this endpoint unless it materially changes board action on merger.",
+        "description": "A terminal outcome in which community resistance becomes strong enough that decision-makers abandon or shelve a full-merger push in the observed phase.",
+        "endpoint_key": "backlash_forces_no_immediate_merger",
+        "evidence_refs": [
+          "stakeholder_reaction_networks_activate",
+          "public_comment_or_listening_session",
+          "board_opens_merger_debate"
+        ],
+        "label": "Backlash blocks or deters immediate merger",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will community backlash become strong enough to materially constrain the board's willingness to impose its preferred option?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.14,
+        "rationale": "Because authority is formal but legitimacy is contested, backlash can become outcome-relevant without surpassing legal authority.",
+        "realization_criteria": [
+          "school_board or superintendent publicly withdraws, tables, or declines to advance a merger proposal citing opposition, legitimacy, or community division",
+          "meeting turnout, organized opposition, and public statements visibly precede the withdrawal or shelving",
+          "no binding full-merger approval occurs in the same decision cycle"
+        ],
+        "status": "active",
+        "status_basis": "Community backlash is explicitly listed as a branch possibility and legitimacy is central to the benchmark role."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "School board debate is central to the scenario.",
+        "layer": "exposure",
+        "reason": "Board deliberations are likely publicly reported.",
+        "source_actor_name": "school_board",
+        "target_actor_name": "local_media",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Administrative agenda setting is implied by the school-merger debate.",
+        "layer": "exposure",
+        "reason": "Superintendent communications and recommendations are seen by the board.",
+        "source_actor_name": "district_superintendent",
+        "target_actor_name": "school_board",
+        "weight": 0.63
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Parents are named as reacting stakeholders.",
+        "layer": "exposure",
+        "reason": "Parent reactions are likely visible in meetings and public comment.",
+        "source_actor_name": "parents_association",
+        "target_actor_name": "school_board",
+        "weight": 0.55
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Students are directly affected by the possible merger.",
+        "layer": "exposure",
+        "reason": "Student sentiment influences family discussion and advocacy.",
+        "source_actor_name": "student_body",
+        "target_actor_name": "parents_association",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Teachers are named reacting stakeholders.",
+        "layer": "exposure",
+        "reason": "Teacher concerns are likely conveyed through formal and informal channels.",
+        "source_actor_name": "teachers_association",
+        "target_actor_name": "school_board",
+        "weight": 0.49
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Sports boosters are named stakeholders in a high-school merger case.",
+        "layer": "exposure",
+        "reason": "Boosters are visible in community networks and symbolic school debates.",
+        "source_actor_name": "sports_boosters",
+        "target_actor_name": "local_community",
+        "weight": 0.61
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Budget analysts are named reacting stakeholders.",
+        "layer": "exposure",
+        "reason": "Budget analyses feed administrative framing.",
+        "source_actor_name": "budget_office",
+        "target_actor_name": "district_superintendent",
+        "weight": 0.52
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Transportation staff are named reacting stakeholders.",
+        "layer": "exposure",
+        "reason": "Transportation feasibility informs the administration.",
+        "source_actor_name": "transportation_department",
+        "target_actor_name": "district_superintendent",
+        "weight": 0.48
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Public institutional legitimacy benchmark implies mediated visibility.",
+        "layer": "exposure",
+        "reason": "Media coverage shapes community awareness of the debate.",
+        "source_actor_name": "local_media",
+        "target_actor_name": "local_community",
+        "weight": 0.65
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Balanced T0 with legitimacy pressure and no final decision.",
+        "layer": "trust",
+        "reason": "Parents recognize authority but may question process fairness.",
+        "source_actor_name": "parents_association",
+        "target_actor_name": "school_board",
+        "weight": 0.41
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Teachers are affected by merger implications.",
+        "layer": "trust",
+        "reason": "Staff expect administrative transparency but worry about hidden staffing impacts.",
+        "source_actor_name": "teachers_association",
+        "target_actor_name": "district_superintendent",
+        "weight": 0.39
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Administrative recommendations are structurally important in school governance.",
+        "layer": "trust",
+        "reason": "Board relies on superintendent competence for option development.",
+        "source_actor_name": "school_board",
+        "target_actor_name": "district_superintendent",
+        "weight": 0.57
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Local media likely covers the issue without full universal trust.",
+        "layer": "trust",
+        "reason": "Media are a moderate but imperfect source of process information.",
+        "source_actor_name": "local_community",
+        "target_actor_name": "local_media",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Teachers are direct institutional intermediaries in school change debates.",
+        "layer": "trust",
+        "reason": "Students often rely on teachers for interpretation of change impacts.",
+        "source_actor_name": "student_body",
+        "target_actor_name": "teachers_association",
+        "weight": 0.51
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Institutional legitimacy is the benchmark focus.",
+        "layer": "trust",
+        "reason": "Baseline legitimacy exists but is fragile under perceived unfairness.",
+        "source_actor_name": "local_community",
+        "target_actor_name": "school_board",
+        "weight": 0.44
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Merger debate requires district operational analysis.",
+        "layer": "dependency",
+        "reason": "Board depends on administration for proposals, sequencing, and implementation plans.",
+        "source_actor_name": "school_board",
+        "target_actor_name": "district_superintendent",
+        "weight": 0.62
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Budget analysts are explicitly part of the scenario.",
+        "layer": "dependency",
+        "reason": "Enrollment and cost arguments depend on budget analysis.",
+        "source_actor_name": "district_superintendent",
+        "target_actor_name": "budget_office",
+        "weight": 0.59
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Transportation staff are explicitly part of the scenario.",
+        "layer": "dependency",
+        "reason": "Travel implications depend on routing and capacity information.",
+        "source_actor_name": "district_superintendent",
+        "target_actor_name": "transportation_department",
+        "weight": 0.56
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Possible merger would disrupt existing high-school arrangements.",
+        "layer": "dependency",
+        "reason": "Students rely on current school routines, peer structure, and services.",
+        "source_actor_name": "student_body",
+        "target_actor_name": "north_high_school",
+        "weight": 0.51
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Possible merger would disrupt existing high-school arrangements.",
+        "layer": "dependency",
+        "reason": "Students rely on current school routines, peer structure, and services.",
+        "source_actor_name": "student_body",
+        "target_actor_name": "south_high_school",
+        "weight": 0.51
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Transportation is a named stakeholder area in merger reactions.",
+        "layer": "dependency",
+        "reason": "Family acceptance partly depends on commute feasibility.",
+        "source_actor_name": "parents_association",
+        "target_actor_name": "transportation_department",
+        "weight": 0.43
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Sports boosters are explicitly named in the scenario.",
+        "layer": "dependency",
+        "reason": "Booster activity is tied to existing school identities and programs.",
+        "source_actor_name": "sports_boosters",
+        "target_actor_name": "north_high_school",
+        "weight": 0.47
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Sports boosters are explicitly named in the scenario.",
+        "layer": "dependency",
+        "reason": "Booster activity is tied to existing school identities and programs.",
+        "source_actor_name": "sports_boosters",
+        "target_actor_name": "south_high_school",
+        "weight": 0.47
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Superintendent role is structurally central in a merger debate.",
+        "layer": "influence",
+        "reason": "Administrative framing can strongly shape board options and timing.",
+        "source_actor_name": "district_superintendent",
+        "target_actor_name": "school_board",
+        "weight": 0.64
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Budget analysts are named stakeholders in the reaction environment.",
+        "layer": "influence",
+        "reason": "Cost and utilization findings can shift board preferences.",
+        "source_actor_name": "budget_office",
+        "target_actor_name": "school_board",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Transportation staff are named stakeholders.",
+        "layer": "influence",
+        "reason": "Route burdens can alter perceived feasibility of a merger.",
+        "source_actor_name": "transportation_department",
+        "target_actor_name": "school_board",
+        "weight": 0.38
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Parents are a major stakeholder group in the debate.",
+        "layer": "influence",
+        "reason": "Visible parent reaction affects legitimacy and electoral pressure.",
+        "source_actor_name": "parents_association",
+        "target_actor_name": "school_board",
+        "weight": 0.53
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Teachers are explicitly involved in reactions.",
+        "layer": "influence",
+        "reason": "Teacher concerns shape operational credibility and public trust.",
+        "source_actor_name": "teachers_association",
+        "target_actor_name": "school_board",
+        "weight": 0.44
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Sports boosters are salient in high school identity disputes.",
+        "layer": "influence",
+        "reason": "Boosters can amplify symbolic loss narratives and attendance at events.",
+        "source_actor_name": "sports_boosters",
+        "target_actor_name": "local_community",
+        "weight": 0.49
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Institutional legitimacy benchmark implies visibility matters.",
+        "layer": "influence",
+        "reason": "Coverage affects reputational costs and public scrutiny.",
+        "source_actor_name": "local_media",
+        "target_actor_name": "school_board",
+        "weight": 0.37
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Students are direct stakeholders in the merger question.",
+        "layer": "influence",
+        "reason": "Student testimony and sentiment can humanize consequences.",
+        "source_actor_name": "student_body",
+        "target_actor_name": "local_community",
+        "weight": 0.34
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Both groups are reacting stakeholders with reasons to seek detail or delay.",
+        "layer": "coalition",
+        "reason": "Shared concern over disruption and process transparency creates partial alignment.",
+        "source_actor_name": "parents_association",
+        "target_actor_name": "teachers_association",
+        "weight": 0.42
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Both are likely sensitive to school continuity and symbols.",
+        "layer": "coalition",
+        "reason": "Identity and tradition concerns can align these groups.",
+        "source_actor_name": "parents_association",
+        "target_actor_name": "sports_boosters",
+        "weight": 0.48
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Budget analysis supports central administration's option development.",
+        "layer": "coalition",
+        "reason": "Administrative and financial arms are aligned on feasibility framing.",
+        "source_actor_name": "district_superintendent",
+        "target_actor_name": "budget_office",
+        "weight": 0.55
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Transportation feasibility is part of merger planning context.",
+        "layer": "coalition",
+        "reason": "Operational planning requires administrative coordination.",
+        "source_actor_name": "district_superintendent",
+        "target_actor_name": "transportation_department",
+        "weight": 0.51
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Budget and transportation are both named implementation stakeholders.",
+        "layer": "coalition",
+        "reason": "Both contribute technocratic constraints to decision design.",
+        "source_actor_name": "budget_office",
+        "target_actor_name": "transportation_department",
+        "weight": 0.31
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Sports boosters and students are both likely sensitive to school pride issues.",
+        "layer": "coalition",
+        "reason": "Athletics and school spirit create partial alignment around identity concerns.",
+        "source_actor_name": "student_body",
+        "target_actor_name": "sports_boosters",
+        "weight": 0.37
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Scenario juxtaposes budget analysts with sports boosters reacting to merger possibility.",
+        "layer": "conflict",
+        "reason": "Cost-saving logic may clash with tradition-centered priorities.",
+        "source_actor_name": "budget_office",
+        "target_actor_name": "sports_boosters",
+        "weight": 0.41
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Balanced T0 with legitimacy tension and no final decision.",
+        "layer": "conflict",
+        "reason": "Parents may suspect the administration is pushing consolidation too strongly or opaquely.",
+        "source_actor_name": "district_superintendent",
+        "target_actor_name": "parents_association",
+        "weight": 0.33
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "School board is debating a contentious merger question.",
+        "layer": "conflict",
+        "reason": "Decision uncertainty invites grievance over fairness and representation.",
+        "source_actor_name": "school_board",
+        "target_actor_name": "local_community",
+        "weight": 0.29
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Teachers and budget analysts are both central reacting stakeholders.",
+        "layer": "conflict",
+        "reason": "Staffing concerns may clash with fiscal reduction arguments.",
+        "source_actor_name": "teachers_association",
+        "target_actor_name": "budget_office",
+        "weight": 0.36
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Transportation consequences are salient in merger reactions.",
+        "layer": "conflict",
+        "reason": "Longer routes or scheduling changes could trigger family opposition.",
+        "source_actor_name": "transportation_department",
+        "target_actor_name": "parents_association",
+        "weight": 0.24
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Parents are key participants in the school board debate.",
+        "layer": "oasis_interaction",
+        "reason": "Board meetings and public comment create repeated visible interaction.",
+        "source_actor_name": "school_board",
+        "target_actor_name": "parents_association",
+        "weight": 0.57
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Teachers are named reacting stakeholders.",
+        "layer": "oasis_interaction",
+        "reason": "Public meetings and formal consultation likely produce recurring contact.",
+        "source_actor_name": "school_board",
+        "target_actor_name": "teachers_association",
+        "weight": 0.48
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Sports boosters are explicitly named stakeholders.",
+        "layer": "oasis_interaction",
+        "reason": "Athletics concerns likely surface in open meetings and community events.",
+        "source_actor_name": "school_board",
+        "target_actor_name": "sports_boosters",
+        "weight": 0.44
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Students are named stakeholders but often less institutionally central than adults.",
+        "layer": "oasis_interaction",
+        "reason": "Students may appear in visible public testimony or school-centered forums.",
+        "source_actor_name": "school_board",
+        "target_actor_name": "student_body",
+        "weight": 0.36
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Media visibility is relevant to institutional legitimacy.",
+        "layer": "oasis_interaction",
+        "reason": "Administrative briefings and questions likely occur in public information channels.",
+        "source_actor_name": "district_superintendent",
+        "target_actor_name": "local_media",
+        "weight": 0.41
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Parents are salient public-facing stakeholders in the debate.",
+        "layer": "oasis_interaction",
+        "reason": "Parents may use media to voice concern and shape narrative.",
+        "source_actor_name": "parents_association",
+        "target_actor_name": "local_media",
+        "weight": 0.46
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "High school sports identity is likely newsworthy in merger debates.",
+        "layer": "oasis_interaction",
+        "reason": "Boosters provide emotionally resonant stories about tradition and loss.",
+        "source_actor_name": "sports_boosters",
+        "target_actor_name": "local_media",
+        "weight": 0.38
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "description": "Actors with formal authority over merger decisions.",
+        "hero_archetype_key": "governing_decider",
+        "label": "Governing decider"
+      },
+      {
+        "description": "Actor shaping options, sequencing, and information flow.",
+        "hero_archetype_key": "administrative_agenda_setter",
+        "label": "Administrative agenda setter"
+      },
+      {
+        "description": "Actors able to amplify public reaction and legitimacy pressure.",
+        "hero_archetype_key": "high_visibility_stakeholder_voice",
+        "label": "High-visibility stakeholder voice"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "school_board",
+        "attention_level": 0.88,
+        "decision_authority": 0.97,
+        "expression_level": 0.61,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.18,
+        "graph_influence_summary": 0.86,
+        "hero_archetype_key": "governing_decider",
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.44,
+        "reputation": 0.49,
+        "secrecy": 0.24,
+        "stance_axes": {
+          "compromise_support": 0.56,
+          "delay_support": 0.5,
+          "identity_preservation": 0.47,
+          "merge_support": 0.5
+        },
+        "trustworthiness": 0.52
+      },
+      {
+        "actor_name": "district_superintendent",
+        "attention_level": 0.91,
+        "decision_authority": 0.71,
+        "expression_level": 0.57,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.22,
+        "graph_influence_summary": 0.79,
+        "hero_archetype_key": "administrative_agenda_setter",
+        "mobilization_readiness": 0.44,
+        "perceived_majority": 0.45,
+        "reputation": 0.51,
+        "secrecy": 0.38,
+        "stance_axes": {
+          "compromise_support": 0.63,
+          "delay_support": 0.42,
+          "identity_preservation": 0.34,
+          "merge_support": 0.54
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "parents_association",
+        "attention_level": 0.83,
+        "decision_authority": 0.24,
+        "expression_level": 0.66,
+        "fatigue": 0.23,
+        "fear_of_isolation": 0.29,
+        "graph_influence_summary": 0.62,
+        "hero_archetype_key": "high_visibility_stakeholder_voice",
+        "mobilization_readiness": 0.68,
+        "perceived_majority": 0.52,
+        "reputation": 0.58,
+        "secrecy": 0.14,
+        "stance_axes": {
+          "compromise_support": 0.56,
+          "delay_support": 0.58,
+          "identity_preservation": 0.72,
+          "merge_support": 0.34
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "teachers_association",
+        "attention_level": 0.82,
+        "decision_authority": 0.19,
+        "expression_level": 0.55,
+        "fatigue": 0.39,
+        "fear_of_isolation": 0.34,
+        "graph_influence_summary": 0.55,
+        "hero_archetype_key": "high_visibility_stakeholder_voice",
+        "mobilization_readiness": 0.57,
+        "perceived_majority": 0.46,
+        "reputation": 0.56,
+        "secrecy": 0.21,
+        "stance_axes": {
+          "compromise_support": 0.58,
+          "delay_support": 0.56,
+          "identity_preservation": 0.54,
+          "merge_support": 0.37
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "sports_boosters",
+        "attention_level": 0.8,
+        "decision_authority": 0.12,
+        "expression_level": 0.74,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.17,
+        "graph_influence_summary": 0.51,
+        "hero_archetype_key": "high_visibility_stakeholder_voice",
+        "mobilization_readiness": 0.75,
+        "perceived_majority": 0.51,
+        "reputation": 0.53,
+        "secrecy": 0.11,
+        "stance_axes": {
+          "compromise_support": 0.4,
+          "delay_support": 0.55,
+          "identity_preservation": 0.86,
+          "merge_support": 0.2
+        },
+        "trustworthiness": 0.46
+      }
+    ],
+    "heroes": [
+      {
+        "description": "Actors with formal authority over merger decisions.",
+        "hero_archetype_key": "governing_decider",
+        "label": "Governing decider"
+      },
+      {
+        "description": "Actor shaping options, sequencing, and information flow.",
+        "hero_archetype_key": "administrative_agenda_setter",
+        "label": "Administrative agenda setter"
+      },
+      {
+        "description": "Actors able to amplify public reaction and legitimacy pressure.",
+        "hero_archetype_key": "high_visibility_stakeholder_voice",
+        "label": "High-visibility stakeholder voice"
+      }
+    ],
+    "important_questions": [
+      "Will the school board ultimately approve a full merger of the two high schools?",
+      "Will the board defer a terminal structural decision and keep the issue open through extended study or timeline shift?",
+      "Will leaders adopt a partial or phased restructuring instead of a simple full-merger or no-merger outcome?",
+      "Will community backlash become strong enough to materially constrain the board's willingness to impose its preferred option?"
+    ],
+    "initial_events": [
+      {
+        "actors_involved": [
+          "school_board",
+          "district_superintendent",
+          "budget_office",
+          "north_high_school",
+          "south_high_school"
+        ],
+        "event_key": "under_enrollment_problem_recognized",
+        "event_type": "announcement",
+        "expected_impact": "Keeps consolidation, cost-sharing, and program restructuring in active consideration without determining the outcome.",
+        "status": "active",
+        "summary": "District stakeholders are aware that both high schools are under-enrolled.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "school_board",
+          "district_superintendent",
+          "local_media",
+          "local_community"
+        ],
+        "event_key": "board_opens_merger_debate",
+        "event_type": "announcement",
+        "expected_impact": "Raises attention, exposure, and legitimacy sensitivity across stakeholder groups.",
+        "status": "active",
+        "summary": "The school board has begun debating whether to merge the two high schools.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "parents_association",
+          "student_body",
+          "teachers_association",
+          "sports_boosters",
+          "transportation_department",
+          "budget_office"
+        ],
+        "event_key": "stakeholder_reaction_networks_activate",
+        "event_type": "announcement",
+        "expected_impact": "Initial narratives start to diverge around cost, identity, jobs, and commute burdens.",
+        "status": "active",
+        "summary": "Parents, students, teachers, boosters, transportation staff, and budget analysts begin interpreting implications from their own vantage points.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "district_superintendent",
+          "budget_office",
+          "transportation_department",
+          "school_board"
+        ],
+        "event_key": "administrative_option_review",
+        "event_type": "announcement",
+        "expected_impact": "Concrete details could shift undecided stakeholders and reweight trust or conflict edges.",
+        "status": "anticipated",
+        "summary": "The superintendent and district staff prepare or refine options, likely including merger, delay, or compromise designs.",
+        "tick": 1
+      },
+      {
+        "actors_involved": [
+          "school_board",
+          "parents_association",
+          "student_body",
+          "teachers_association",
+          "sports_boosters",
+          "local_community"
+        ],
+        "event_key": "public_comment_or_listening_session",
+        "event_type": "announcement",
+        "expected_impact": "May increase expression and mobilization while testing whether legitimacy can be maintained through process.",
+        "status": "anticipated",
+        "summary": "A visible forum for parent, student, teacher, and community input is likely to occur.",
+        "tick": 2
+      },
+      {
+        "actors_involved": [
+          "school_board",
+          "district_superintendent",
+          "local_media"
+        ],
+        "event_key": "preliminary_board_signal",
+        "event_type": "announcement",
+        "expected_impact": "Could crystallize coalitions, provoke backlash, or soften uncertainty depending on perceived fairness and detail quality.",
+        "status": "anticipated",
+        "summary": "Board members may signal whether they favor merger, delay, or a middle path before any final vote.",
+        "tick": 3
+      }
+    ],
+    "llm_call_id": "e4fbd22e-deb3-4ea4-b5c2-dc8e856a3a4c",
+    "merge_hypotheses": [
+      {
+        "affected_actors": [
+          "school_board",
+          "district_superintendent",
+          "parents_association",
+          "teachers_association",
+          "budget_office"
+        ],
+        "convergence_driver": "Even opposed groups may acknowledge under-enrollment and resource strain as a common problem.",
+        "likely_effect": "Keeps compromise or phased solutions viable even after conflict rises.",
+        "merge_key": "shared_fiscal_constraint"
+      },
+      {
+        "affected_actors": [
+          "transportation_department",
+          "budget_office",
+          "school_board",
+          "parents_association",
+          "teachers_association"
+        ],
+        "convergence_driver": "Operational details from transportation and staffing may narrow unrealistic proposals across factions.",
+        "likely_effect": "Shifts debate from symbolic absolutes toward workable alternatives.",
+        "merge_key": "feasibility_reality_check"
+      },
+      {
+        "affected_actors": [
+          "school_board",
+          "district_superintendent",
+          "local_community",
+          "parents_association",
+          "student_body"
+        ],
+        "convergence_driver": "Visible hearings, revised timelines, and transparent criteria could reduce distrust.",
+        "likely_effect": "Allows some public opposition to coexist with acceptance of a procedurally fair outcome.",
+        "merge_key": "legitimacy_repair_through_process"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "parents_guardians",
+        "description": "Households connected to the two high schools and feeder patterns.",
+        "label": "Parents and guardians",
+        "population_total": 2400
+      },
+      {
+        "archetype_key": "students",
+        "description": "Students directly enrolled or expecting enrollment at the two high schools.",
+        "label": "Students",
+        "population_total": 1200
+      },
+      {
+        "archetype_key": "teachers_staff",
+        "description": "Instructional staff and closely affected school employees.",
+        "label": "Teachers and school staff",
+        "population_total": 180
+      },
+      {
+        "archetype_key": "community_supporters",
+        "description": "Boosters, alumni-minded residents, and school-identity stakeholders.",
+        "label": "Community supporters",
+        "population_total": 900
+      },
+      {
+        "archetype_key": "operations_finance_staff",
+        "description": "Transportation and budget personnel with implementation visibility.",
+        "label": "Operations and finance staff",
+        "population_total": 45
+      }
+    ],
+    "risk_flags": [
+      {
+        "note": "No exact enrollment, cost-savings, or commute figures are provided, limiting calibration of fiscal urgency and feasibility.",
+        "risk_key": "limited_quantitative_evidence",
+        "severity": "medium"
+      },
+      {
+        "note": "Individual board member preferences are not stated, so decision authority is clear but coalition math is uncertain.",
+        "risk_key": "unknown_board_alignment",
+        "severity": "medium"
+      },
+      {
+        "note": "Mascot, rivalry, or neighborhood symbolism could sharply increase resistance if later evidence adds such specifics.",
+        "risk_key": "identity_pressure_under_modeled_if_symbolic_details_emerge",
+        "severity": "low"
+      },
+      {
+        "note": "Transportation or staffing details could materially alter whether merger or compromise is feasible.",
+        "risk_key": "implementation_constraints_could_reweight_endpoints",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "campus_institutional_legitimacy",
+      "decision_status": "pre_decision",
+      "mode": "direct",
+      "primary_tension": "institutional efficiency versus community identity and access",
+      "scenario_key": "campus_005",
+      "summary": "A fictional school board is considering whether to merge two under-enrolled high schools. No final decision has been made at T0. Key pressures include enrollment decline, budget concerns, school identity, travel logistics, staffing implications, and community legitimacy. The initialization should remain balanced, with plausible branches including merger, delay, compromise, and backlash.",
+      "time_horizon_known": false,
+      "uncertainty_notes": [
+        "No named schools, district size, or exact enrollment figures are provided.",
+        "Specific board member positions are not stated at T0.",
+        "No explicit fiscal emergency or legal deadline is given, so pressure exists without requiring immediate crisis."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "level": 0.58,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Stakeholders are somewhat open to persuasion when proposals are concrete, but identity-linked views are sticky.",
+        "scope": "community_wide"
+      },
+      {
+        "level": 0.64,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Visible triggers such as a draft vote date, mascot loss, or route changes could rapidly increase turnout and protest.",
+        "scope": "parents_boosters_students"
+      },
+      {
+        "level": 0.49,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Undecided families and pragmatic teachers may hold back until details are clearer.",
+        "scope": "moderates_and_undecideds"
+      },
+      {
+        "level": 0.61,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "School-specific social ties and feeder communities reinforce in-group narratives.",
+        "scope": "school_identity_networks"
+      },
+      {
+        "level": 0.56,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Participation is more likely after repeated cues from parents, teachers, boosters, and peers.",
+        "scope": "mobilization_channels"
+      },
+      {
+        "level": 0.78,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Existing school identity is a major organizing force in attitudes toward merger.",
+        "scope": "school_affiliation"
+      },
+      {
+        "level": 0.34,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Sustained attention may soften without a hearing, leak, recommendation, or vote schedule.",
+        "scope": "general_public"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "School names, teams, traditions, and community attachment are likely to frame reactions beyond pure cost analysis.",
+        "influence_key": "school_identity_salience"
+      },
+      {
+        "description": "Stakeholders care whether the board appears transparent, consultative, and even-handed.",
+        "influence_key": "procedural_fairness_sensitivity"
+      },
+      {
+        "description": "Transportation burdens, staffing changes, and scheduling details shape acceptability of any structural option.",
+        "influence_key": "implementation_feasibility"
+      },
+      {
+        "description": "Low enrollment creates an efficiency rationale that keeps merger options live even without consensus.",
+        "influence_key": "under_enrollment_problem_frame"
+      },
+      {
+        "description": "Some pragmatic or undecided stakeholders are attentive but not yet fully expressive in public channels.",
+        "influence_key": "moderate_silence_at_t0"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "school_board",
+        "behavior_axes": {
+          "conflict_tolerance": 0.47,
+          "proceduralism": 0.76,
+          "responsiveness": 0.58,
+          "risk_aversion": 0.62
+        },
+        "ideology_axes": {
+          "community_preservation": 0.51,
+          "fiscal_efficiency": 0.58,
+          "institutional_legitimacy": 0.74
+        },
+        "reputation": 0.49,
+        "secrecy": 0.24,
+        "tendency": "balancing formal governance, legitimacy concerns, and budget pressure",
+        "trustworthiness": 0.52
+      },
+      {
+        "actor_name": "district_superintendent",
+        "behavior_axes": {
+          "conflict_tolerance": 0.51,
+          "proceduralism": 0.71,
+          "responsiveness": 0.46,
+          "risk_aversion": 0.59
+        },
+        "ideology_axes": {
+          "community_preservation": 0.39,
+          "fiscal_efficiency": 0.67,
+          "institutional_legitimacy": 0.65
+        },
+        "reputation": 0.51,
+        "secrecy": 0.38,
+        "tendency": "frames options through feasibility, enrollment trends, and implementation constraints",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "north_high_school",
+        "behavior_axes": {
+          "adaptability": 0.42,
+          "identity_salience": 0.72,
+          "institutional_stability": 0.63
+        },
+        "ideology_axes": {
+          "academic_continuity": 0.61,
+          "community_preservation": 0.69
+        },
+        "reputation": 0.57,
+        "secrecy": 0.12,
+        "tendency": "protecting local continuity and school identity",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "south_high_school",
+        "behavior_axes": {
+          "adaptability": 0.45,
+          "identity_salience": 0.7,
+          "institutional_stability": 0.61
+        },
+        "ideology_axes": {
+          "academic_continuity": 0.6,
+          "community_preservation": 0.67
+        },
+        "reputation": 0.56,
+        "secrecy": 0.12,
+        "tendency": "protecting local continuity and school identity",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "parents_association",
+        "behavior_axes": {
+          "activism": 0.64,
+          "conflict_tolerance": 0.49,
+          "responsiveness": 0.76
+        },
+        "ideology_axes": {
+          "community_preservation": 0.74,
+          "fiscal_efficiency": 0.43,
+          "institutional_legitimacy": 0.59
+        },
+        "reputation": 0.58,
+        "secrecy": 0.14,
+        "tendency": "pushes for voice, transparency, and continuity protections",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "student_body",
+        "behavior_axes": {
+          "activism": 0.54,
+          "adaptability": 0.52,
+          "identity_salience": 0.73
+        },
+        "ideology_axes": {
+          "community_preservation": 0.7,
+          "opportunity_expansion": 0.49
+        },
+        "reputation": 0.55,
+        "secrecy": 0.1,
+        "tendency": "reacts strongly to belonging, routines, sports, and peer networks",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "teachers_association",
+        "behavior_axes": {
+          "activism": 0.53,
+          "proceduralism": 0.62,
+          "risk_aversion": 0.66
+        },
+        "ideology_axes": {
+          "academic_quality": 0.68,
+          "institutional_legitimacy": 0.57,
+          "job_security": 0.77
+        },
+        "reputation": 0.56,
+        "secrecy": 0.21,
+        "tendency": "weighs staffing stability against long-run program viability",
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "sports_boosters",
+        "behavior_axes": {
+          "activism": 0.78,
+          "conflict_tolerance": 0.57,
+          "identity_salience": 0.88
+        },
+        "ideology_axes": {
+          "community_preservation": 0.86,
+          "fiscal_efficiency": 0.24,
+          "symbolic_status": 0.72
+        },
+        "reputation": 0.53,
+        "secrecy": 0.11,
+        "tendency": "mobilizes quickly around mascots, rivalries, and local pride",
+        "trustworthiness": 0.46
+      },
+      {
+        "actor_name": "transportation_department",
+        "behavior_axes": {
+          "adaptability": 0.48,
+          "proceduralism": 0.81,
+          "risk_aversion": 0.61
+        },
+        "ideology_axes": {
+          "community_preservation": 0.26,
+          "operational_feasibility": 0.87
+        },
+        "reputation": 0.52,
+        "secrecy": 0.19,
+        "tendency": "focuses on routes, time burdens, and service capacity",
+        "trustworthiness": 0.66
+      },
+      {
+        "actor_name": "budget_office",
+        "behavior_axes": {
+          "proceduralism": 0.84,
+          "responsiveness": 0.38,
+          "risk_aversion": 0.58
+        },
+        "ideology_axes": {
+          "community_preservation": 0.22,
+          "fiscal_efficiency": 0.89
+        },
+        "reputation": 0.54,
+        "secrecy": 0.23,
+        "tendency": "prioritizes solvency, utilization, and cost containment",
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "local_community",
+        "behavior_axes": {
+          "attention_volatility": 0.62,
+          "identity_salience": 0.61,
+          "responsiveness": 0.57
+        },
+        "ideology_axes": {
+          "community_preservation": 0.63,
+          "fiscal_efficiency": 0.46
+        },
+        "reputation": 0.5,
+        "secrecy": 0.08,
+        "tendency": "forms impressions through school symbolism, fairness, and local consequences",
+        "trustworthiness": 0.49
+      },
+      {
+        "actor_name": "local_media",
+        "behavior_axes": {
+          "agenda_attention": 0.71,
+          "conflict_amplification": 0.52,
+          "responsiveness": 0.69
+        },
+        "ideology_axes": {
+          "community_preservation": 0.41,
+          "public_accountability": 0.74
+        },
+        "reputation": 0.57,
+        "secrecy": 0.09,
+        "tendency": "elevates controversy, process fairness, and human impact stories",
+        "trustworthiness": 0.55
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 471,
+        "end": 471,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 471,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

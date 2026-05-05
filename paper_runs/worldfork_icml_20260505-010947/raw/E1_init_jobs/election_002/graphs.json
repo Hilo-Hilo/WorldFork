@@ -1,0 +1,1494 @@
+{
+  "edges": [
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "43e1814b-1d96-40ae-8cef-dbff56798596",
+      "layer": "dependency",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "source_depends_on_target",
+        "evidence": "Courts can rule on language; clerks administer elections.",
+        "initializer": {
+          "direction": "source_depends_on_target",
+          "evidence": "Courts can rule on language; clerks administer elections.",
+          "layer": "dependency",
+          "reason": "Clerks depend on court guidance and orders regarding certification pause.",
+          "source_actor_name": "county_clerks",
+          "target_actor_name": "state_court",
+          "weight": 0.63
+        },
+        "reason": "Clerks depend on court guidance and orders regarding certification pause."
+      },
+      "source_actor_id": "131e0907-953e-42f5-a6ce-b0bcb4b8fd1f",
+      "target_actor_id": "e25a4783-0d93-4780-b131-c1a385e3a1a6",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.63
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "1a2e89a9-50dd-4036-96b0-dcc37792bd21",
+      "layer": "dependency",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "source_depends_on_target",
+        "evidence": "Clerks administer elections; referendum affects school board.",
+        "initializer": {
+          "direction": "source_depends_on_target",
+          "evidence": "Clerks administer elections; referendum affects school board.",
+          "layer": "dependency",
+          "reason": "School board's referendum outcome depends on clerks' administration and certification process.",
+          "source_actor_name": "school_board",
+          "target_actor_name": "county_clerks",
+          "weight": 0.42
+        },
+        "reason": "School board's referendum outcome depends on clerks' administration and certification process."
+      },
+      "source_actor_id": "5f8dd74f-62f6-4351-978e-e60cdd58d164",
+      "target_actor_id": "131e0907-953e-42f5-a6ce-b0bcb4b8fd1f",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.42
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "f65d3241-3026-4381-8d5a-8989273fe60d",
+      "layer": "dependency",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "source_depends_on_target",
+        "evidence": "Campaigns can mobilize but cannot certify results.",
+        "initializer": {
+          "direction": "source_depends_on_target",
+          "evidence": "Campaigns can mobilize but cannot certify results.",
+          "layer": "dependency",
+          "reason": "Campaign cannot realize electoral win without certification administered by clerks.",
+          "source_actor_name": "school_board_referendum_yes_campaign",
+          "target_actor_name": "county_clerks",
+          "weight": 0.39
+        },
+        "reason": "Campaign cannot realize electoral win without certification administered by clerks."
+      },
+      "source_actor_id": "2326d4c5-e836-45b0-acfe-4ec1df0bc6da",
+      "target_actor_id": "131e0907-953e-42f5-a6ce-b0bcb4b8fd1f",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.39
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "8384769c-f289-48f0-bd2f-15f8143e61b2",
+      "layer": "dependency",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "source_depends_on_target",
+        "evidence": "Temporary pause exists because of ballot-language challenge before court.",
+        "initializer": {
+          "direction": "source_depends_on_target",
+          "evidence": "Temporary pause exists because of ballot-language challenge before court.",
+          "layer": "dependency",
+          "reason": "Challenge-oriented opposition depends on court ruling to alter or sustain pause.",
+          "source_actor_name": "school_board_referendum_no_campaign",
+          "target_actor_name": "state_court",
+          "weight": 0.41
+        },
+        "reason": "Challenge-oriented opposition depends on court ruling to alter or sustain pause."
+      },
+      "source_actor_id": "402bbbec-81a4-439e-a500-fbf6e7aa00c8",
+      "target_actor_id": "e25a4783-0d93-4780-b131-c1a385e3a1a6",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.41
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "998a9ea5-5869-49b5-b693-70ab2fc4fdbb",
+      "layer": "dependency",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "source_depends_on_target",
+        "evidence": "Parents respond to school-board referendum.",
+        "initializer": {
+          "direction": "source_depends_on_target",
+          "evidence": "Parents respond to school-board referendum.",
+          "layer": "dependency",
+          "reason": "Parents' substantive concerns are tied to school governance outcomes.",
+          "source_actor_name": "parents_network",
+          "target_actor_name": "school_board",
+          "weight": 0.33
+        },
+        "reason": "Parents' substantive concerns are tied to school governance outcomes."
+      },
+      "source_actor_id": "7a0c9dcd-0ba0-4e15-880a-a63d2c14c119",
+      "target_actor_id": "5f8dd74f-62f6-4351-978e-e60cdd58d164",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.33
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "4b21566b-48d2-4b3d-8989-06bc087f840a",
+      "layer": "dependency",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "source_depends_on_target",
+        "evidence": "Teachers respond to school-board referendum.",
+        "initializer": {
+          "direction": "source_depends_on_target",
+          "evidence": "Teachers respond to school-board referendum.",
+          "layer": "dependency",
+          "reason": "Teachers' workplace and policy interests depend on school board outcomes.",
+          "source_actor_name": "teachers_association",
+          "target_actor_name": "school_board",
+          "weight": 0.46
+        },
+        "reason": "Teachers' workplace and policy interests depend on school board outcomes."
+      },
+      "source_actor_id": "fa30f04f-5ceb-4f51-ae89-7fd5287768e3",
+      "target_actor_id": "5f8dd74f-62f6-4351-978e-e60cdd58d164",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.46
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "6f0e98c4-3d6b-4fa6-b21c-d4a39f9d229c",
+      "layer": "dependency",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "source_depends_on_target",
+        "evidence": "Public response occurs alongside institutional dispute; media is likely conduit.",
+        "initializer": {
+          "direction": "source_depends_on_target",
+          "evidence": "Public response occurs alongside institutional dispute; media is likely conduit.",
+          "layer": "dependency",
+          "reason": "Many voters rely on local reporting for procedural updates and framing.",
+          "source_actor_name": "general_voters",
+          "target_actor_name": "local_news_media",
+          "weight": 0.28
+        },
+        "reason": "Many voters rely on local reporting for procedural updates and framing."
+      },
+      "source_actor_id": "9c579d64-04ba-438e-a0bc-7c702aa8ba61",
+      "target_actor_id": "5da0de6d-6618-4195-8fed-65719d63a613",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.28
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "e3137362-c95b-4e66-8456-f9fb84f539b7",
+      "layer": "exposure",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "source_receives_from_target",
+        "evidence": "Court pause and reactions are public-facing local events.",
+        "initializer": {
+          "direction": "source_receives_from_target",
+          "evidence": "Court pause and reactions are public-facing local events.",
+          "layer": "exposure",
+          "reason": "Voters are broadly exposed to coverage of a court pause in a local referendum.",
+          "source_actor_name": "general_voters",
+          "target_actor_name": "local_news_media",
+          "weight": 0.59
+        },
+        "reason": "Voters are broadly exposed to coverage of a court pause in a local referendum."
+      },
+      "source_actor_id": "9c579d64-04ba-438e-a0bc-7c702aa8ba61",
+      "target_actor_id": "5da0de6d-6618-4195-8fed-65719d63a613",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.59
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "afec7dfa-5344-4a59-99be-3e534689e2f5",
+      "layer": "exposure",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "source_receives_from_target",
+        "evidence": "Campaigns and parents are named responders.",
+        "initializer": {
+          "direction": "source_receives_from_target",
+          "evidence": "Campaigns and parents are named responders.",
+          "layer": "exposure",
+          "reason": "Parents likely encounter campaign messaging supporting certification or referendum merits.",
+          "source_actor_name": "parents_network",
+          "target_actor_name": "school_board_referendum_yes_campaign",
+          "weight": 0.41
+        },
+        "reason": "Parents likely encounter campaign messaging supporting certification or referendum merits."
+      },
+      "source_actor_id": "7a0c9dcd-0ba0-4e15-880a-a63d2c14c119",
+      "target_actor_id": "2326d4c5-e836-45b0-acfe-4ec1df0bc6da",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.41
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "7488489e-b989-4d9b-8908-4322f74c3d51",
+      "layer": "exposure",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "source_receives_from_target",
+        "evidence": "Campaigns and parents are named responders.",
+        "initializer": {
+          "direction": "source_receives_from_target",
+          "evidence": "Campaigns and parents are named responders.",
+          "layer": "exposure",
+          "reason": "Parents likely encounter opposition/challenge messaging as dispute unfolds.",
+          "source_actor_name": "parents_network",
+          "target_actor_name": "school_board_referendum_no_campaign",
+          "weight": 0.38
+        },
+        "reason": "Parents likely encounter opposition/challenge messaging as dispute unfolds."
+      },
+      "source_actor_id": "7a0c9dcd-0ba0-4e15-880a-a63d2c14c119",
+      "target_actor_id": "402bbbec-81a4-439e-a500-fbf6e7aa00c8",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.38
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "9bb49f68-3646-4f27-a1aa-a0de7b70afb7",
+      "layer": "exposure",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "source_receives_from_target",
+        "evidence": "Teachers are direct stakeholders in referendum response.",
+        "initializer": {
+          "direction": "source_receives_from_target",
+          "evidence": "Teachers are direct stakeholders in referendum response.",
+          "layer": "exposure",
+          "reason": "Teachers monitor legal and public developments through reporting.",
+          "source_actor_name": "teachers_association",
+          "target_actor_name": "local_news_media",
+          "weight": 0.46
+        },
+        "reason": "Teachers monitor legal and public developments through reporting."
+      },
+      "source_actor_id": "fa30f04f-5ceb-4f51-ae89-7fd5287768e3",
+      "target_actor_id": "5da0de6d-6618-4195-8fed-65719d63a613",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.46
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "d82d89d7-18ab-4ed7-88fe-b0540cc86728",
+      "layer": "exposure",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "source_receives_from_target",
+        "evidence": "Taxpayer groups respond to challenge and pause.",
+        "initializer": {
+          "direction": "source_receives_from_target",
+          "evidence": "Taxpayer groups respond to challenge and pause.",
+          "layer": "exposure",
+          "reason": "Watchdog messaging and coverage are mutually visible in local issue disputes.",
+          "source_actor_name": "taxpayer_watch_group",
+          "target_actor_name": "local_news_media",
+          "weight": 0.44
+        },
+        "reason": "Watchdog messaging and coverage are mutually visible in local issue disputes."
+      },
+      "source_actor_id": "8e5c25be-2b0f-4d3a-af4e-1ce7860621d0",
+      "target_actor_id": "5da0de6d-6618-4195-8fed-65719d63a613",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.44
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "96248918-8ed0-4116-acad-1d4d976b7ee2",
+      "layer": "exposure",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "source_receives_from_target",
+        "evidence": "Campaign can mobilize but not certify.",
+        "initializer": {
+          "direction": "source_receives_from_target",
+          "evidence": "Campaign can mobilize but not certify.",
+          "layer": "exposure",
+          "reason": "Some voters are exposed to pro-referendum messaging about respecting results.",
+          "source_actor_name": "general_voters",
+          "target_actor_name": "school_board_referendum_yes_campaign",
+          "weight": 0.34
+        },
+        "reason": "Some voters are exposed to pro-referendum messaging about respecting results."
+      },
+      "source_actor_id": "9c579d64-04ba-438e-a0bc-7c702aa8ba61",
+      "target_actor_id": "2326d4c5-e836-45b0-acfe-4ec1df0bc6da",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.34
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "a077f858-9b08-42b9-af69-719584f4f1ef",
+      "layer": "exposure",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "source_receives_from_target",
+        "evidence": "Campaign can mobilize around dispute.",
+        "initializer": {
+          "direction": "source_receives_from_target",
+          "evidence": "Campaign can mobilize around dispute.",
+          "layer": "exposure",
+          "reason": "Some voters are exposed to challenge-oriented messaging on ballot wording.",
+          "source_actor_name": "general_voters",
+          "target_actor_name": "school_board_referendum_no_campaign",
+          "weight": 0.31
+        },
+        "reason": "Some voters are exposed to challenge-oriented messaging on ballot wording."
+      },
+      "source_actor_id": "9c579d64-04ba-438e-a0bc-7c702aa8ba61",
+      "target_actor_id": "402bbbec-81a4-439e-a500-fbf6e7aa00c8",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.31
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "b2efdc47-d63f-4010-9850-5d60ba8aefba",
+      "layer": "trust",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "source_trusts_target",
+        "evidence": "Clerks administer elections; no misconduct stated at T0.",
+        "initializer": {
+          "direction": "source_trusts_target",
+          "evidence": "Clerks administer elections; no misconduct stated at T0.",
+          "layer": "trust",
+          "reason": "Election administrators retain moderate baseline legitimacy absent evidence of misconduct.",
+          "source_actor_name": "general_voters",
+          "target_actor_name": "county_clerks",
+          "weight": 0.54
+        },
+        "reason": "Election administrators retain moderate baseline legitimacy absent evidence of misconduct."
+      },
+      "source_actor_id": "9c579d64-04ba-438e-a0bc-7c702aa8ba61",
+      "target_actor_id": "131e0907-953e-42f5-a6ce-b0bcb4b8fd1f",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.54
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "f72d64b8-36f6-478b-a57d-0b0462f7a847",
+      "layer": "trust",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "source_trusts_target",
+        "evidence": "Court ordered temporary pause; legal outcome unresolved.",
+        "initializer": {
+          "direction": "source_trusts_target",
+          "evidence": "Court ordered temporary pause; legal outcome unresolved.",
+          "layer": "trust",
+          "reason": "Court has moderate procedural legitimacy but faces scrutiny due to pause timing.",
+          "source_actor_name": "general_voters",
+          "target_actor_name": "state_court",
+          "weight": 0.49
+        },
+        "reason": "Court has moderate procedural legitimacy but faces scrutiny due to pause timing."
+      },
+      "source_actor_id": "9c579d64-04ba-438e-a0bc-7c702aa8ba61",
+      "target_actor_id": "e25a4783-0d93-4780-b131-c1a385e3a1a6",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.49
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "f8d50351-4141-4dd4-a4d0-98236740c12c",
+      "layer": "trust",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "source_trusts_target",
+        "evidence": "Both are core responders to school-board issue.",
+        "initializer": {
+          "direction": "source_trusts_target",
+          "evidence": "Both are core responders to school-board issue.",
+          "layer": "trust",
+          "reason": "Parents and teachers share school-centered concerns but may differ on referendum substance.",
+          "source_actor_name": "parents_network",
+          "target_actor_name": "teachers_association",
+          "weight": 0.43
+        },
+        "reason": "Parents and teachers share school-centered concerns but may differ on referendum substance."
+      },
+      "source_actor_id": "7a0c9dcd-0ba0-4e15-880a-a63d2c14c119",
+      "target_actor_id": "fa30f04f-5ceb-4f51-ae89-7fd5287768e3",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.43
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "fe28db91-0f9c-44ed-9f51-43a070231986",
+      "layer": "trust",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "source_trusts_target",
+        "evidence": "Clerks are institutional administrators under court order.",
+        "initializer": {
+          "direction": "source_trusts_target",
+          "evidence": "Clerks are institutional administrators under court order.",
+          "layer": "trust",
+          "reason": "Teachers may trust administrative compliance more than campaign rhetoric.",
+          "source_actor_name": "teachers_association",
+          "target_actor_name": "county_clerks",
+          "weight": 0.47
+        },
+        "reason": "Teachers may trust administrative compliance more than campaign rhetoric."
+      },
+      "source_actor_id": "fa30f04f-5ceb-4f51-ae89-7fd5287768e3",
+      "target_actor_id": "131e0907-953e-42f5-a6ce-b0bcb4b8fd1f",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.47
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "c97ae941-6ef2-4d21-ac88-a73188ac6353",
+      "layer": "trust",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "source_trusts_target",
+        "evidence": "Local reporting likely central in dispute framing.",
+        "initializer": {
+          "direction": "source_trusts_target",
+          "evidence": "Local reporting likely central in dispute framing.",
+          "layer": "trust",
+          "reason": "Media has moderate trust as information source, though likely contested by activists.",
+          "source_actor_name": "general_voters",
+          "target_actor_name": "local_news_media",
+          "weight": 0.45
+        },
+        "reason": "Media has moderate trust as information source, though likely contested by activists."
+      },
+      "source_actor_id": "9c579d64-04ba-438e-a0bc-7c702aa8ba61",
+      "target_actor_id": "5da0de6d-6618-4195-8fed-65719d63a613",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.45
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "ab434721-125f-4bc1-bb1c-6c0c3498a1f2",
+      "layer": "trust",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "source_trusts_target",
+        "evidence": "Campaigns can mobilize but have no certification authority.",
+        "initializer": {
+          "direction": "source_trusts_target",
+          "evidence": "Campaigns can mobilize but have no certification authority.",
+          "layer": "trust",
+          "reason": "Campaign claims are seen as interested and outcome-seeking.",
+          "source_actor_name": "general_voters",
+          "target_actor_name": "school_board_referendum_yes_campaign",
+          "weight": 0.32
+        },
+        "reason": "Campaign claims are seen as interested and outcome-seeking."
+      },
+      "source_actor_id": "9c579d64-04ba-438e-a0bc-7c702aa8ba61",
+      "target_actor_id": "2326d4c5-e836-45b0-acfe-4ec1df0bc6da",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.32
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "0af8250a-c50d-4ad2-a73f-ce78557b2509",
+      "layer": "trust",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "source_trusts_target",
+        "evidence": "Campaigns can mobilize but have no certification authority.",
+        "initializer": {
+          "direction": "source_trusts_target",
+          "evidence": "Campaigns can mobilize but have no certification authority.",
+          "layer": "trust",
+          "reason": "Opposition claims are also seen as strategic despite procedural framing.",
+          "source_actor_name": "general_voters",
+          "target_actor_name": "school_board_referendum_no_campaign",
+          "weight": 0.33
+        },
+        "reason": "Opposition claims are also seen as strategic despite procedural framing."
+      },
+      "source_actor_id": "9c579d64-04ba-438e-a0bc-7c702aa8ba61",
+      "target_actor_id": "402bbbec-81a4-439e-a500-fbf6e7aa00c8",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.33
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "1953cc8b-b8d5-44dc-9e4b-f55c7f45d3be",
+      "layer": "influence",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "source_influences_target",
+        "evidence": "Courts can rule on language; pause in certifying exists.",
+        "initializer": {
+          "direction": "source_influences_target",
+          "evidence": "Courts can rule on language; pause in certifying exists.",
+          "layer": "influence",
+          "reason": "Court directly shapes clerks' permissible certification actions.",
+          "source_actor_name": "state_court",
+          "target_actor_name": "county_clerks",
+          "weight": 0.71
+        },
+        "reason": "Court directly shapes clerks' permissible certification actions."
+      },
+      "source_actor_id": "e25a4783-0d93-4780-b131-c1a385e3a1a6",
+      "target_actor_id": "131e0907-953e-42f5-a6ce-b0bcb4b8fd1f",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.71
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "d58f922a-4564-4a06-90fa-a96fb9eb46fd",
+      "layer": "influence",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "source_influences_target",
+        "evidence": "Clerks administer elections and communicate process.",
+        "initializer": {
+          "direction": "source_influences_target",
+          "evidence": "Clerks administer elections and communicate process.",
+          "layer": "influence",
+          "reason": "Administrative announcements affect perceived legitimacy and timeline expectations.",
+          "source_actor_name": "county_clerks",
+          "target_actor_name": "general_voters",
+          "weight": 0.36
+        },
+        "reason": "Administrative announcements affect perceived legitimacy and timeline expectations."
+      },
+      "source_actor_id": "131e0907-953e-42f5-a6ce-b0bcb4b8fd1f",
+      "target_actor_id": "9c579d64-04ba-438e-a0bc-7c702aa8ba61",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.36
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "87c9788c-f96f-4c27-91f0-b09943aff26b",
+      "layer": "influence",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "source_influences_target",
+        "evidence": "Local referendum dispute likely covered and publicly interpreted.",
+        "initializer": {
+          "direction": "source_influences_target",
+          "evidence": "Local referendum dispute likely covered and publicly interpreted.",
+          "layer": "influence",
+          "reason": "Media coverage sets salience and interprets procedural complexity.",
+          "source_actor_name": "local_news_media",
+          "target_actor_name": "general_voters",
+          "weight": 0.58
+        },
+        "reason": "Media coverage sets salience and interprets procedural complexity."
+      },
+      "source_actor_id": "5da0de6d-6618-4195-8fed-65719d63a613",
+      "target_actor_id": "9c579d64-04ba-438e-a0bc-7c702aa8ba61",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.58
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "08638e7d-4651-4a3d-9061-80c5b7cbe215",
+      "layer": "influence",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "source_influences_target",
+        "evidence": "Campaigns respond; parents are named constituency.",
+        "initializer": {
+          "direction": "source_influences_target",
+          "evidence": "Campaigns respond; parents are named constituency.",
+          "layer": "influence",
+          "reason": "Pro-referendum campaign can activate parents around school impacts and result-finality claims.",
+          "source_actor_name": "school_board_referendum_yes_campaign",
+          "target_actor_name": "parents_network",
+          "weight": 0.45
+        },
+        "reason": "Pro-referendum campaign can activate parents around school impacts and result-finality claims."
+      },
+      "source_actor_id": "2326d4c5-e836-45b0-acfe-4ec1df0bc6da",
+      "target_actor_id": "7a0c9dcd-0ba0-4e15-880a-a63d2c14c119",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.45
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "eac2dc95-e738-4d2f-9de4-fe5e8f05a29c",
+      "layer": "influence",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "source_influences_target",
+        "evidence": "Taxpayer groups and campaigns both respond to language challenge context.",
+        "initializer": {
+          "direction": "source_influences_target",
+          "evidence": "Taxpayer groups and campaigns both respond to language challenge context.",
+          "layer": "influence",
+          "reason": "Opposition/challenge messaging likely aligns with watchdog scrutiny themes.",
+          "source_actor_name": "school_board_referendum_no_campaign",
+          "target_actor_name": "taxpayer_watch_group",
+          "weight": 0.49
+        },
+        "reason": "Opposition/challenge messaging likely aligns with watchdog scrutiny themes."
+      },
+      "source_actor_id": "402bbbec-81a4-439e-a500-fbf6e7aa00c8",
+      "target_actor_id": "8e5c25be-2b0f-4d3a-af4e-1ce7860621d0",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.49
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "18050cf5-ee7e-49fe-a4ce-1ff7291f7ec0",
+      "layer": "influence",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "source_influences_target",
+        "evidence": "Teachers are named respondents in school-board context.",
+        "initializer": {
+          "direction": "source_influences_target",
+          "evidence": "Teachers are named respondents in school-board context.",
+          "layer": "influence",
+          "reason": "Teachers can shape parent views through school-community credibility.",
+          "source_actor_name": "teachers_association",
+          "target_actor_name": "parents_network",
+          "weight": 0.34
+        },
+        "reason": "Teachers can shape parent views through school-community credibility."
+      },
+      "source_actor_id": "fa30f04f-5ceb-4f51-ae89-7fd5287768e3",
+      "target_actor_id": "7a0c9dcd-0ba0-4e15-880a-a63d2c14c119",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.34
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "752884cc-b7bb-490e-8eac-8b4b75027e33",
+      "layer": "influence",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "source_influences_target",
+        "evidence": "Referendum concerns school-board governance.",
+        "initializer": {
+          "direction": "source_influences_target",
+          "evidence": "Referendum concerns school-board governance.",
+          "layer": "influence",
+          "reason": "Board communications and perceived stakes affect parent interpretation of referendum significance.",
+          "source_actor_name": "school_board",
+          "target_actor_name": "parents_network",
+          "weight": 0.37
+        },
+        "reason": "Board communications and perceived stakes affect parent interpretation of referendum significance."
+      },
+      "source_actor_id": "5f8dd74f-62f6-4351-978e-e60cdd58d164",
+      "target_actor_id": "7a0c9dcd-0ba0-4e15-880a-a63d2c14c119",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.37
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "4d7fb274-09f4-4e00-94e2-3a110d638c7f",
+      "layer": "coalition",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "mutual_alignment",
+        "evidence": "Parents are stakeholders; campaign seeks support.",
+        "initializer": {
+          "direction": "mutual_alignment",
+          "evidence": "Parents are stakeholders; campaign seeks support.",
+          "layer": "coalition",
+          "reason": "Potential alignment among parents favoring referendum implementation.",
+          "source_actor_name": "school_board_referendum_yes_campaign",
+          "target_actor_name": "parents_network",
+          "weight": 0.4
+        },
+        "reason": "Potential alignment among parents favoring referendum implementation."
+      },
+      "source_actor_id": "2326d4c5-e836-45b0-acfe-4ec1df0bc6da",
+      "target_actor_id": "7a0c9dcd-0ba0-4e15-880a-a63d2c14c119",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.4
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "2ca2d836-fd83-456d-8d93-5e593f2aaa40",
+      "layer": "coalition",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "mutual_alignment",
+        "evidence": "Taxpayer groups respond to ballot-language challenge context.",
+        "initializer": {
+          "direction": "mutual_alignment",
+          "evidence": "Taxpayer groups respond to ballot-language challenge context.",
+          "layer": "coalition",
+          "reason": "Shared interest in challenging wording and questioning referendum legitimacy.",
+          "source_actor_name": "school_board_referendum_no_campaign",
+          "target_actor_name": "taxpayer_watch_group",
+          "weight": 0.57
+        },
+        "reason": "Shared interest in challenging wording and questioning referendum legitimacy."
+      },
+      "source_actor_id": "402bbbec-81a4-439e-a500-fbf6e7aa00c8",
+      "target_actor_id": "8e5c25be-2b0f-4d3a-af4e-1ce7860621d0",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.57
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "61d8e62a-682d-4c7f-a666-b29042919e65",
+      "layer": "coalition",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "mutual_alignment",
+        "evidence": "Both are named education stakeholders.",
+        "initializer": {
+          "direction": "mutual_alignment",
+          "evidence": "Both are named education stakeholders.",
+          "layer": "coalition",
+          "reason": "Issue-specific coordination possible around school stability despite substantive splits.",
+          "source_actor_name": "teachers_association",
+          "target_actor_name": "parents_network",
+          "weight": 0.36
+        },
+        "reason": "Issue-specific coordination possible around school stability despite substantive splits."
+      },
+      "source_actor_id": "fa30f04f-5ceb-4f51-ae89-7fd5287768e3",
+      "target_actor_id": "7a0c9dcd-0ba0-4e15-880a-a63d2c14c119",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.36
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "ed44716b-efdb-4f5e-9ea0-bf7714f00308",
+      "layer": "coalition",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "functional_alignment",
+        "evidence": "Clerks implement court-constrained process.",
+        "initializer": {
+          "direction": "functional_alignment",
+          "evidence": "Clerks implement court-constrained process.",
+          "layer": "coalition",
+          "reason": "Institutional alignment around legal compliance, though not political coalition.",
+          "source_actor_name": "county_clerks",
+          "target_actor_name": "state_court",
+          "weight": 0.29
+        },
+        "reason": "Institutional alignment around legal compliance, though not political coalition."
+      },
+      "source_actor_id": "131e0907-953e-42f5-a6ce-b0bcb4b8fd1f",
+      "target_actor_id": "e25a4783-0d93-4780-b131-c1a385e3a1a6",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.29
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "3b9ebb93-0435-4779-98e0-32e1cbd930c6",
+      "layer": "conflict",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "mutual_opposition",
+        "evidence": "Competing campaigns respond to pause and challenge.",
+        "initializer": {
+          "direction": "mutual_opposition",
+          "evidence": "Competing campaigns respond to pause and challenge.",
+          "layer": "conflict",
+          "reason": "Directly opposed substantive and strategic goals over referendum and certification.",
+          "source_actor_name": "school_board_referendum_yes_campaign",
+          "target_actor_name": "school_board_referendum_no_campaign",
+          "weight": 0.64
+        },
+        "reason": "Directly opposed substantive and strategic goals over referendum and certification."
+      },
+      "source_actor_id": "2326d4c5-e836-45b0-acfe-4ec1df0bc6da",
+      "target_actor_id": "402bbbec-81a4-439e-a500-fbf6e7aa00c8",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.64
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "1b4aeb7b-3fd7-4405-9b9e-421819bbdf26",
+      "layer": "conflict",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "source_opposes_target_action",
+        "evidence": "Court ordered temporary pause affecting result finality.",
+        "initializer": {
+          "direction": "source_opposes_target_action",
+          "evidence": "Court ordered temporary pause affecting result finality.",
+          "layer": "conflict",
+          "reason": "Pro-side may resent pause as delaying an expected outcome, while lacking formal leverage.",
+          "source_actor_name": "school_board_referendum_yes_campaign",
+          "target_actor_name": "state_court",
+          "weight": 0.31
+        },
+        "reason": "Pro-side may resent pause as delaying an expected outcome, while lacking formal leverage."
+      },
+      "source_actor_id": "2326d4c5-e836-45b0-acfe-4ec1df0bc6da",
+      "target_actor_id": "e25a4783-0d93-4780-b131-c1a385e3a1a6",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.31
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "a897f366-e174-477b-b5b3-aaa2f1f2ee88",
+      "layer": "conflict",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "mutual_opposition",
+        "evidence": "Taxpayer groups respond to language challenge and referendum stakes.",
+        "initializer": {
+          "direction": "mutual_opposition",
+          "evidence": "Taxpayer groups respond to language challenge and referendum stakes.",
+          "layer": "conflict",
+          "reason": "Watchdog scrutiny likely clashes with pro-certification narratives.",
+          "source_actor_name": "taxpayer_watch_group",
+          "target_actor_name": "school_board_referendum_yes_campaign",
+          "weight": 0.44
+        },
+        "reason": "Watchdog scrutiny likely clashes with pro-certification narratives."
+      },
+      "source_actor_id": "8e5c25be-2b0f-4d3a-af4e-1ce7860621d0",
+      "target_actor_id": "2326d4c5-e836-45b0-acfe-4ec1df0bc6da",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.44
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "bee938ce-2796-4238-94b9-b2e4d2817ba0",
+      "layer": "conflict",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "partial_opposition",
+        "evidence": "Parents respond and are split on substance/process tradeoffs.",
+        "initializer": {
+          "direction": "partial_opposition",
+          "evidence": "Parents respond and are split on substance/process tradeoffs.",
+          "layer": "conflict",
+          "reason": "Some parents may see challenge as obstructive to school needs, though cohort is mixed.",
+          "source_actor_name": "parents_network",
+          "target_actor_name": "school_board_referendum_no_campaign",
+          "weight": 0.26
+        },
+        "reason": "Some parents may see challenge as obstructive to school needs, though cohort is mixed."
+      },
+      "source_actor_id": "7a0c9dcd-0ba0-4e15-880a-a63d2c14c119",
+      "target_actor_id": "402bbbec-81a4-439e-a500-fbf6e7aa00c8",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.26
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "74bdb7d1-dc54-48a9-a598-d257861a4e0f",
+      "layer": "conflict",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "latent_opposition",
+        "evidence": "Teachers and taxpayer groups both react from different stake positions.",
+        "initializer": {
+          "direction": "latent_opposition",
+          "evidence": "Teachers and taxpayer groups both react from different stake positions.",
+          "layer": "conflict",
+          "reason": "Potential tension over referendum costs and school resource framing.",
+          "source_actor_name": "teachers_association",
+          "target_actor_name": "taxpayer_watch_group",
+          "weight": 0.29
+        },
+        "reason": "Potential tension over referendum costs and school resource framing."
+      },
+      "source_actor_id": "fa30f04f-5ceb-4f51-ae89-7fd5287768e3",
+      "target_actor_id": "8e5c25be-2b0f-4d3a-af4e-1ce7860621d0",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.29
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "ed2a2bbc-6574-4703-b481-ce4a331f6f8d",
+      "layer": "oasis_interaction",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "public_interaction",
+        "evidence": "Campaigns respond publicly to certification pause.",
+        "initializer": {
+          "direction": "public_interaction",
+          "evidence": "Campaigns respond publicly to certification pause.",
+          "layer": "oasis_interaction",
+          "reason": "Campaign likely seeks coverage, statements, and public rebuttals in visible channels.",
+          "source_actor_name": "school_board_referendum_yes_campaign",
+          "target_actor_name": "local_news_media",
+          "weight": 0.52
+        },
+        "reason": "Campaign likely seeks coverage, statements, and public rebuttals in visible channels."
+      },
+      "source_actor_id": "2326d4c5-e836-45b0-acfe-4ec1df0bc6da",
+      "target_actor_id": "5da0de6d-6618-4195-8fed-65719d63a613",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.52
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "b02c907b-1769-4f86-8871-7d237e7c73cb",
+      "layer": "oasis_interaction",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "public_interaction",
+        "evidence": "Campaigns respond publicly to challenge context.",
+        "initializer": {
+          "direction": "public_interaction",
+          "evidence": "Campaigns respond publicly to challenge context.",
+          "layer": "oasis_interaction",
+          "reason": "Opposition likely uses public channels to frame wording challenge and delay justification.",
+          "source_actor_name": "school_board_referendum_no_campaign",
+          "target_actor_name": "local_news_media",
+          "weight": 0.54
+        },
+        "reason": "Opposition likely uses public channels to frame wording challenge and delay justification."
+      },
+      "source_actor_id": "402bbbec-81a4-439e-a500-fbf6e7aa00c8",
+      "target_actor_id": "5da0de6d-6618-4195-8fed-65719d63a613",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.54
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "eb37eedf-b0c3-4083-b1a9-0571ea2cbea2",
+      "layer": "oasis_interaction",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "public_interaction",
+        "evidence": "Parents respond to school-board referendum dispute.",
+        "initializer": {
+          "direction": "public_interaction",
+          "evidence": "Parents respond to school-board referendum dispute.",
+          "layer": "oasis_interaction",
+          "reason": "Parents likely address board meetings or visible community forums.",
+          "source_actor_name": "parents_network",
+          "target_actor_name": "school_board",
+          "weight": 0.43
+        },
+        "reason": "Parents likely address board meetings or visible community forums."
+      },
+      "source_actor_id": "7a0c9dcd-0ba0-4e15-880a-a63d2c14c119",
+      "target_actor_id": "5f8dd74f-62f6-4351-978e-e60cdd58d164",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.43
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "a6bdb874-38d4-4d6d-a142-635972058424",
+      "layer": "oasis_interaction",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "public_interaction",
+        "evidence": "Teachers are organized stakeholders in school-board issue.",
+        "initializer": {
+          "direction": "public_interaction",
+          "evidence": "Teachers are organized stakeholders in school-board issue.",
+          "layer": "oasis_interaction",
+          "reason": "Teachers may use public meetings or statements but with caution.",
+          "source_actor_name": "teachers_association",
+          "target_actor_name": "school_board",
+          "weight": 0.39
+        },
+        "reason": "Teachers may use public meetings or statements but with caution."
+      },
+      "source_actor_id": "fa30f04f-5ceb-4f51-ae89-7fd5287768e3",
+      "target_actor_id": "5f8dd74f-62f6-4351-978e-e60cdd58d164",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.39
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "6613c555-0261-49a4-a83c-54db62c04267",
+      "layer": "oasis_interaction",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "public_interaction",
+        "evidence": "Taxpayer groups respond to election process dispute.",
+        "initializer": {
+          "direction": "public_interaction",
+          "evidence": "Taxpayer groups respond to election process dispute.",
+          "layer": "oasis_interaction",
+          "reason": "Watchdogs may publicly question administration or seek clarifications.",
+          "source_actor_name": "taxpayer_watch_group",
+          "target_actor_name": "county_clerks",
+          "weight": 0.28
+        },
+        "reason": "Watchdogs may publicly question administration or seek clarifications."
+      },
+      "source_actor_id": "8e5c25be-2b0f-4d3a-af4e-1ce7860621d0",
+      "target_actor_id": "131e0907-953e-42f5-a6ce-b0bcb4b8fd1f",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.28
+    },
+    {
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "id": "68057f01-6392-40bf-a9d3-281d2327a61a",
+      "layer": "oasis_interaction",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "payload": {
+        "direction": "public_interaction",
+        "evidence": "Public response to pause likely mediated by local news forums.",
+        "initializer": {
+          "direction": "public_interaction",
+          "evidence": "Public response to pause likely mediated by local news forums.",
+          "layer": "oasis_interaction",
+          "reason": "Letters, comments, and audience feedback create visible interaction around legitimacy narratives.",
+          "source_actor_name": "general_voters",
+          "target_actor_name": "local_news_media",
+          "weight": 0.35
+        },
+        "reason": "Letters, comments, and audience feedback create visible interaction around legitimacy narratives."
+      },
+      "source_actor_id": "9c579d64-04ba-438e-a0bc-7c702aa8ba61",
+      "target_actor_id": "5da0de6d-6618-4195-8fed-65719d63a613",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00",
+      "weight": 0.35
+    }
+  ],
+  "snapshots": [
+    {
+      "artifact_id": null,
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Clerks depend on court guidance and orders regarding certification pause.",
+            "source": "county_clerks",
+            "target": "state_court",
+            "weight": 0.63
+          },
+          {
+            "reason": "School board's referendum outcome depends on clerks' administration and certification process.",
+            "source": "school_board",
+            "target": "county_clerks",
+            "weight": 0.42
+          },
+          {
+            "reason": "Campaign cannot realize electoral win without certification administered by clerks.",
+            "source": "school_board_referendum_yes_campaign",
+            "target": "county_clerks",
+            "weight": 0.39
+          },
+          {
+            "reason": "Challenge-oriented opposition depends on court ruling to alter or sustain pause.",
+            "source": "school_board_referendum_no_campaign",
+            "target": "state_court",
+            "weight": 0.41
+          },
+          {
+            "reason": "Parents' substantive concerns are tied to school governance outcomes.",
+            "source": "parents_network",
+            "target": "school_board",
+            "weight": 0.33
+          },
+          {
+            "reason": "Teachers' workplace and policy interests depend on school board outcomes.",
+            "source": "teachers_association",
+            "target": "school_board",
+            "weight": 0.46
+          },
+          {
+            "reason": "Many voters rely on local reporting for procedural updates and framing.",
+            "source": "general_voters",
+            "target": "local_news_media",
+            "weight": 0.28
+          }
+        ],
+        "layer": "dependency",
+        "tick_index": 0
+      },
+      "id": "28529495-1556-44a7-9757-c37fcdfca61c",
+      "layer": "dependency",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Voters are broadly exposed to coverage of a court pause in a local referendum.",
+            "source": "general_voters",
+            "target": "local_news_media",
+            "weight": 0.59
+          },
+          {
+            "reason": "Parents likely encounter campaign messaging supporting certification or referendum merits.",
+            "source": "parents_network",
+            "target": "school_board_referendum_yes_campaign",
+            "weight": 0.41
+          },
+          {
+            "reason": "Parents likely encounter opposition/challenge messaging as dispute unfolds.",
+            "source": "parents_network",
+            "target": "school_board_referendum_no_campaign",
+            "weight": 0.38
+          },
+          {
+            "reason": "Teachers monitor legal and public developments through reporting.",
+            "source": "teachers_association",
+            "target": "local_news_media",
+            "weight": 0.46
+          },
+          {
+            "reason": "Watchdog messaging and coverage are mutually visible in local issue disputes.",
+            "source": "taxpayer_watch_group",
+            "target": "local_news_media",
+            "weight": 0.44
+          },
+          {
+            "reason": "Some voters are exposed to pro-referendum messaging about respecting results.",
+            "source": "general_voters",
+            "target": "school_board_referendum_yes_campaign",
+            "weight": 0.34
+          },
+          {
+            "reason": "Some voters are exposed to challenge-oriented messaging on ballot wording.",
+            "source": "general_voters",
+            "target": "school_board_referendum_no_campaign",
+            "weight": 0.31
+          }
+        ],
+        "layer": "exposure",
+        "tick_index": 0
+      },
+      "id": "69abc91f-b704-4b53-9b12-6dd12f0f5265",
+      "layer": "exposure",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Election administrators retain moderate baseline legitimacy absent evidence of misconduct.",
+            "source": "general_voters",
+            "target": "county_clerks",
+            "weight": 0.54
+          },
+          {
+            "reason": "Court has moderate procedural legitimacy but faces scrutiny due to pause timing.",
+            "source": "general_voters",
+            "target": "state_court",
+            "weight": 0.49
+          },
+          {
+            "reason": "Parents and teachers share school-centered concerns but may differ on referendum substance.",
+            "source": "parents_network",
+            "target": "teachers_association",
+            "weight": 0.43
+          },
+          {
+            "reason": "Teachers may trust administrative compliance more than campaign rhetoric.",
+            "source": "teachers_association",
+            "target": "county_clerks",
+            "weight": 0.47
+          },
+          {
+            "reason": "Media has moderate trust as information source, though likely contested by activists.",
+            "source": "general_voters",
+            "target": "local_news_media",
+            "weight": 0.45
+          },
+          {
+            "reason": "Campaign claims are seen as interested and outcome-seeking.",
+            "source": "general_voters",
+            "target": "school_board_referendum_yes_campaign",
+            "weight": 0.32
+          },
+          {
+            "reason": "Opposition claims are also seen as strategic despite procedural framing.",
+            "source": "general_voters",
+            "target": "school_board_referendum_no_campaign",
+            "weight": 0.33
+          }
+        ],
+        "layer": "trust",
+        "tick_index": 0
+      },
+      "id": "a9e2658f-df41-4969-bc6b-404b4a4cef8e",
+      "layer": "trust",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Court directly shapes clerks' permissible certification actions.",
+            "source": "state_court",
+            "target": "county_clerks",
+            "weight": 0.71
+          },
+          {
+            "reason": "Administrative announcements affect perceived legitimacy and timeline expectations.",
+            "source": "county_clerks",
+            "target": "general_voters",
+            "weight": 0.36
+          },
+          {
+            "reason": "Media coverage sets salience and interprets procedural complexity.",
+            "source": "local_news_media",
+            "target": "general_voters",
+            "weight": 0.58
+          },
+          {
+            "reason": "Pro-referendum campaign can activate parents around school impacts and result-finality claims.",
+            "source": "school_board_referendum_yes_campaign",
+            "target": "parents_network",
+            "weight": 0.45
+          },
+          {
+            "reason": "Opposition/challenge messaging likely aligns with watchdog scrutiny themes.",
+            "source": "school_board_referendum_no_campaign",
+            "target": "taxpayer_watch_group",
+            "weight": 0.49
+          },
+          {
+            "reason": "Teachers can shape parent views through school-community credibility.",
+            "source": "teachers_association",
+            "target": "parents_network",
+            "weight": 0.34
+          },
+          {
+            "reason": "Board communications and perceived stakes affect parent interpretation of referendum significance.",
+            "source": "school_board",
+            "target": "parents_network",
+            "weight": 0.37
+          }
+        ],
+        "layer": "influence",
+        "tick_index": 0
+      },
+      "id": "45124343-1e4f-4ac7-ba6b-380352afc27a",
+      "layer": "influence",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Potential alignment among parents favoring referendum implementation.",
+            "source": "school_board_referendum_yes_campaign",
+            "target": "parents_network",
+            "weight": 0.4
+          },
+          {
+            "reason": "Shared interest in challenging wording and questioning referendum legitimacy.",
+            "source": "school_board_referendum_no_campaign",
+            "target": "taxpayer_watch_group",
+            "weight": 0.57
+          },
+          {
+            "reason": "Issue-specific coordination possible around school stability despite substantive splits.",
+            "source": "teachers_association",
+            "target": "parents_network",
+            "weight": 0.36
+          },
+          {
+            "reason": "Institutional alignment around legal compliance, though not political coalition.",
+            "source": "county_clerks",
+            "target": "state_court",
+            "weight": 0.29
+          }
+        ],
+        "layer": "coalition",
+        "tick_index": 0
+      },
+      "id": "2d309e93-3d75-41da-b4b6-7d783772ef2e",
+      "layer": "coalition",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Directly opposed substantive and strategic goals over referendum and certification.",
+            "source": "school_board_referendum_yes_campaign",
+            "target": "school_board_referendum_no_campaign",
+            "weight": 0.64
+          },
+          {
+            "reason": "Pro-side may resent pause as delaying an expected outcome, while lacking formal leverage.",
+            "source": "school_board_referendum_yes_campaign",
+            "target": "state_court",
+            "weight": 0.31
+          },
+          {
+            "reason": "Watchdog scrutiny likely clashes with pro-certification narratives.",
+            "source": "taxpayer_watch_group",
+            "target": "school_board_referendum_yes_campaign",
+            "weight": 0.44
+          },
+          {
+            "reason": "Some parents may see challenge as obstructive to school needs, though cohort is mixed.",
+            "source": "parents_network",
+            "target": "school_board_referendum_no_campaign",
+            "weight": 0.26
+          },
+          {
+            "reason": "Potential tension over referendum costs and school resource framing.",
+            "source": "teachers_association",
+            "target": "taxpayer_watch_group",
+            "weight": 0.29
+          }
+        ],
+        "layer": "conflict",
+        "tick_index": 0
+      },
+      "id": "14cc51f2-39b6-4c93-9497-100d7284ab5c",
+      "layer": "conflict",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "7dbd084c-8b40-4bce-81d5-7e9e7082fa0c",
+      "created_at": "2026-05-05T02:45:25.506780+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Campaign likely seeks coverage, statements, and public rebuttals in visible channels.",
+            "source": "school_board_referendum_yes_campaign",
+            "target": "local_news_media",
+            "weight": 0.52
+          },
+          {
+            "reason": "Opposition likely uses public channels to frame wording challenge and delay justification.",
+            "source": "school_board_referendum_no_campaign",
+            "target": "local_news_media",
+            "weight": 0.54
+          },
+          {
+            "reason": "Parents likely address board meetings or visible community forums.",
+            "source": "parents_network",
+            "target": "school_board",
+            "weight": 0.43
+          },
+          {
+            "reason": "Teachers may use public meetings or statements but with caution.",
+            "source": "teachers_association",
+            "target": "school_board",
+            "weight": 0.39
+          },
+          {
+            "reason": "Watchdogs may publicly question administration or seek clarifications.",
+            "source": "taxpayer_watch_group",
+            "target": "county_clerks",
+            "weight": 0.28
+          },
+          {
+            "reason": "Letters, comments, and audience feedback create visible interaction around legitimacy narratives.",
+            "source": "general_voters",
+            "target": "local_news_media",
+            "weight": 0.35
+          }
+        ],
+        "layer": "oasis_interaction",
+        "tick_index": 0
+      },
+      "id": "8dd7ac22-ef82-4e54-a1e5-bdb422396aeb",
+      "layer": "oasis_interaction",
+      "multiverse_id": "53ff9c20-6b98-4366-b03a-d078451cb726",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:45:25.506780+00:00"
+    }
+  ]
+}

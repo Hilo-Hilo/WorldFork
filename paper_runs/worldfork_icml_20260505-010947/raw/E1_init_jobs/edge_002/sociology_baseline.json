@@ -1,0 +1,188 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "4f3cb747-11f4-4a5b-a3c9-025f14327e39",
+      "created_at": "2026-05-05T02:38:37.189430+00:00",
+      "id": "a48e93ad-3e99-4236-b716-5846eceb975c",
+      "influence": {
+        "applies_to": [
+          "local_press",
+          "general_public",
+          "concerned_riders"
+        ],
+        "context_key": "anonymous_allegation_low_evidence",
+        "effect": "raises verification demands and suppresses immediate broad mobilization"
+      },
+      "multiverse_id": "703dbfec-20e9-420a-9faf-b9a1ec30408a",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:38:37.189430+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "4f3cb747-11f4-4a5b-a3c9-025f14327e39",
+      "created_at": "2026-05-05T02:38:37.189430+00:00",
+      "id": "38532b2e-91bd-473b-8e40-266f4d4cfd03",
+      "influence": {
+        "applies_to": [
+          "concerned_riders",
+          "ferry_contracting_authority",
+          "ferry_operator"
+        ],
+        "context_key": "service_dependency",
+        "effect": "keeps continuity concerns salient even if accountability questions emerge"
+      },
+      "multiverse_id": "703dbfec-20e9-420a-9faf-b9a1ec30408a",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:38:37.189430+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "4f3cb747-11f4-4a5b-a3c9-025f14327e39",
+      "created_at": "2026-05-05T02:38:37.189430+00:00",
+      "id": "e50a8e34-78ce-4361-b808-b1b08eb509ff",
+      "influence": {
+        "applies_to": [
+          "concerned_riders",
+          "general_public"
+        ],
+        "context_key": "unknown_attribution",
+        "effect": "blame may diffuse between authority and operator until specifics appear"
+      },
+      "multiverse_id": "703dbfec-20e9-420a-9faf-b9a1ec30408a",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:38:37.189430+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "4f3cb747-11f4-4a5b-a3c9-025f14327e39",
+      "created_at": "2026-05-05T02:38:37.189430+00:00",
+      "id": "803c8d80-2f68-41a7-94ad-c58d294cdb5f",
+      "model": "attention_decay",
+      "multiverse_id": "703dbfec-20e9-420a-9faf-b9a1ec30408a",
+      "signal": {
+        "level": 0.6,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Actors likely update only when claims are repeated by trusted validators because evidence is sparse.",
+        "scope": "general"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:38:37.189430+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "4f3cb747-11f4-4a5b-a3c9-025f14327e39",
+      "created_at": "2026-05-05T02:38:37.189430+00:00",
+      "id": "4061a495-7f18-4860-a8ef-600be1fdc4a8",
+      "model": "attention_decay",
+      "multiverse_id": "703dbfec-20e9-420a-9faf-b9a1ec30408a",
+      "signal": {
+        "level": 0.7,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Rider anger is unlikely to become coordinated action without corroboration, service harm, or visible peers speaking out.",
+        "scope": "concerned_riders"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:38:37.189430+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "4f3cb747-11f4-4a5b-a3c9-025f14327e39",
+      "created_at": "2026-05-05T02:38:37.189430+00:00",
+      "id": "9ec9f7ba-8c52-47f7-97c2-0d9a600c9913",
+      "model": "attention_decay",
+      "multiverse_id": "703dbfec-20e9-420a-9faf-b9a1ec30408a",
+      "signal": {
+        "level": 0.65,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Weak facts and uncertain majority sentiment encourage private concern but limited public expression.",
+        "scope": "general"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:38:37.189430+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "4f3cb747-11f4-4a5b-a3c9-025f14327e39",
+      "created_at": "2026-05-05T02:38:37.189430+00:00",
+      "id": "f99932aa-fe1b-4e3a-aad4-f7d69a17c371",
+      "model": "attention_decay",
+      "multiverse_id": "703dbfec-20e9-420a-9faf-b9a1ec30408a",
+      "signal": {
+        "level": 0.45,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Service users are more likely than the broader public to share and reinforce concern.",
+        "scope": "riders_and_local_discussion"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:38:37.189430+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "4f3cb747-11f4-4a5b-a3c9-025f14327e39",
+      "created_at": "2026-05-05T02:38:37.189430+00:00",
+      "id": "10ea8cef-551d-4332-8746-37d939ad3e23",
+      "model": "attention_decay",
+      "multiverse_id": "703dbfec-20e9-420a-9faf-b9a1ec30408a",
+      "signal": {
+        "level": 0.55,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Multiple signals such as reporting, documents, or service disruptions would likely be needed for broad uptake.",
+        "scope": "civic_attention"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:38:37.189430+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "4f3cb747-11f4-4a5b-a3c9-025f14327e39",
+      "created_at": "2026-05-05T02:38:37.189430+00:00",
+      "id": "b435e6ad-8063-491d-92c6-d6949a4125b6",
+      "model": "attention_decay",
+      "multiverse_id": "703dbfec-20e9-420a-9faf-b9a1ec30408a",
+      "signal": {
+        "level": 0.35,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "A modest user-versus-authority identity frame could form if the allegation gains traction.",
+        "scope": "riders_vs_institutions"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:38:37.189430+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "4f3cb747-11f4-4a5b-a3c9-025f14327e39",
+      "created_at": "2026-05-05T02:38:37.189430+00:00",
+      "id": "3bad8407-b8a6-439d-9428-845923687691",
+      "model": "attention_decay",
+      "multiverse_id": "703dbfec-20e9-420a-9faf-b9a1ec30408a",
+      "signal": {
+        "level": 0.75,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Without new evidence, the issue is likely to fade quickly from wider attention.",
+        "scope": "general_public"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:38:37.189430+00:00"
+    }
+  ]
+}

@@ -1,0 +1,1617 @@
+{
+  "big_bang_id": "183fd9b3-7513-4754-ab8b-240c090c0e2e",
+  "initializer_output": {
+    "actors": [
+      {
+        "fictionalized": true,
+        "name": "hospital_board",
+        "public_visibility": "high",
+        "role": "formal decision authority on cafeteria service model",
+        "stakes": [
+          "budget control",
+          "service continuity",
+          "public legitimacy",
+          "labor relations"
+        ],
+        "type": "governing_body"
+      },
+      {
+        "fictionalized": true,
+        "name": "board_chair",
+        "public_visibility": "high",
+        "role": "agenda setter and meeting manager for board process",
+        "stakes": [
+          "orderly process",
+          "board cohesion",
+          "public credibility"
+        ],
+        "type": "institutional_leader"
+      },
+      {
+        "fictionalized": true,
+        "name": "hospital_executive_team",
+        "public_visibility": "medium",
+        "role": "operational leadership supplying budget and service recommendations",
+        "stakes": [
+          "cost containment",
+          "operational reliability",
+          "reputation with board"
+        ],
+        "type": "management"
+      },
+      {
+        "fictionalized": true,
+        "name": "cafeteria_workers",
+        "public_visibility": "medium",
+        "role": "current workforce operating cafeteria services",
+        "stakes": [
+          "job security",
+          "wages and benefits",
+          "working conditions",
+          "dignity"
+        ],
+        "type": "labor_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "patient_public",
+        "public_visibility": "medium",
+        "role": "patients and family/public observers affected by food quality and service reliability",
+        "stakes": [
+          "food quality",
+          "safety",
+          "continuity",
+          "institutional trust"
+        ],
+        "type": "public_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "outside_vendors",
+        "public_visibility": "low",
+        "role": "potential private cafeteria contractors lobbying for outsourcing",
+        "stakes": [
+          "contract award",
+          "revenue",
+          "market reputation"
+        ],
+        "type": "commercial_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "hospital_finance_office",
+        "public_visibility": "low",
+        "role": "producer of budget pressure analysis and savings estimates",
+        "stakes": [
+          "fiscal discipline",
+          "credibility of cost projections"
+        ],
+        "type": "internal_function"
+      },
+      {
+        "fictionalized": true,
+        "name": "clinical_staff",
+        "public_visibility": "medium",
+        "role": "hospital staff indirectly affected by patient meal quality and service coordination",
+        "stakes": [
+          "patient care support",
+          "workflow stability",
+          "institutional morale"
+        ],
+        "type": "internal_professional_group"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "branch_key": "outsourcing_fast_track",
+        "observable_divergence_signal": "Meeting materials and chair framing reduce alternative discussion time and elevate vendor cost comparisons above reform options.",
+        "plausible_path": "Undecided board members cohere around outsourcing, workers oppose publicly, and management emphasizes implementation safeguards.",
+        "trigger": "Board packet presents outsourcing as uniquely credible savings path with manageable service-risk claims."
+      },
+      {
+        "branch_key": "in_house_reform_track",
+        "observable_divergence_signal": "Executives are directed to return with in-house savings targets, operational redesign, or quality metrics instead of contract terms.",
+        "plausible_path": "Board requests internal efficiency plan, performance benchmarks, or pilot reforms while retaining workforce.",
+        "trigger": "Board perceives quality and legitimacy risks from outsourcing as too high relative to uncertain savings."
+      },
+      {
+        "branch_key": "labor_concession_bargain",
+        "observable_divergence_signal": "Discussion shifts from contract award to quantified workforce givebacks, job guarantees, or negotiated benchmarks.",
+        "plausible_path": "Management and board test whether concessions can close enough of the savings gap to defer privatization.",
+        "trigger": "Workers or their advocates signal willingness to accept scheduling, staffing, or compensation concessions to avert outsourcing."
+      },
+      {
+        "branch_key": "delayed_vote_due_to_legitimacy_or_data_gaps",
+        "observable_divergence_signal": "Chair or swing members call for additional review, procurement detail, or patient-quality evidence before binding action.",
+        "plausible_path": "Vote is postponed for further analysis, hearings, or comparative proposals, preserving all main endpoints.",
+        "trigger": "Board members conclude information is incomplete or public backlash risk is rising."
+      }
+    ],
+    "channels": [
+      {
+        "audience": [
+          "hospital_board",
+          "cafeteria_workers",
+          "patient_public",
+          "local_public_observers"
+        ],
+        "channel_key": "board_public_meeting",
+        "notes": "Main formal venue for visible deliberation and testimony.",
+        "type": "public_institutional",
+        "visibility": "high"
+      },
+      {
+        "audience": [
+          "hospital_board",
+          "board_chair",
+          "hospital_executive_team",
+          "hospital_finance_office"
+        ],
+        "channel_key": "executive_briefing_memo",
+        "notes": "Primary channel for budget and procurement framing.",
+        "type": "internal_formal",
+        "visibility": "low"
+      },
+      {
+        "audience": [
+          "cafeteria_workers",
+          "clinical_staff",
+          "hospital_staff_non_cafeteria"
+        ],
+        "channel_key": "staff_breakroom_and_internal_chat",
+        "notes": "Spreads rumors, private concerns, and tactical sentiment.",
+        "type": "informal_internal",
+        "visibility": "medium"
+      },
+      {
+        "audience": [
+          "patient_public",
+          "hospital_executive_team",
+          "clinical_staff"
+        ],
+        "channel_key": "patient_feedback_stream",
+        "notes": "Potential route for food-quality concerns to become legible.",
+        "type": "service_feedback",
+        "visibility": "medium"
+      },
+      {
+        "audience": [
+          "outside_vendors",
+          "hospital_executive_team",
+          "select_board_contacts"
+        ],
+        "channel_key": "private_vendor_outreach",
+        "notes": "Quiet lobbying and proposal shaping.",
+        "type": "private_external",
+        "visibility": "low"
+      },
+      {
+        "audience": [
+          "local_public_observers",
+          "patient_public",
+          "hospital_board"
+        ],
+        "channel_key": "local_press_and_community_social",
+        "notes": "Not yet highly activated but available if conflict becomes visible.",
+        "type": "public_media",
+        "visibility": "medium"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype": "cafeteria_workforce",
+        "attention_level": 0.88,
+        "cohort_key": "workers_job_security_first",
+        "expression_level": 0.58,
+        "fatigue": 0.36,
+        "fear_of_isolation": 0.32,
+        "mobilization_readiness": 0.63,
+        "perceived_majority": 0.74,
+        "population_share_of_archetype": 0.71,
+        "private_stance": "strongly against outsourcing unless protections are guaranteed",
+        "public_stance": "leans against outsourcing",
+        "representation_mode": "direct",
+        "represented_population": 85,
+        "stance_axes": {
+          "delay_support": 0.55,
+          "in_house_reform_support": 0.65,
+          "labor_concession_support": 0.45,
+          "outsourcing_support": 0.1
+        }
+      },
+      {
+        "archetype": "cafeteria_workforce",
+        "attention_level": 0.8,
+        "cohort_key": "workers_resigned_pragmatists",
+        "expression_level": 0.31,
+        "fatigue": 0.49,
+        "fear_of_isolation": 0.56,
+        "mobilization_readiness": 0.37,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.29,
+        "private_stance": "open to concession or outsourcing if jobs/benefits partly preserved",
+        "public_stance": "cautious and mixed",
+        "representation_mode": "direct",
+        "represented_population": 35,
+        "stance_axes": {
+          "delay_support": 0.34,
+          "in_house_reform_support": 0.42,
+          "labor_concession_support": 0.57,
+          "outsourcing_support": 0.32
+        }
+      },
+      {
+        "archetype": "patients_and_family",
+        "attention_level": 0.41,
+        "cohort_key": "patients_quality_concerned",
+        "expression_level": 0.18,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.44,
+        "mobilization_readiness": 0.19,
+        "perceived_majority": 0.48,
+        "population_share_of_archetype": 0.6,
+        "private_stance": "skeptical of changes that might reduce quality",
+        "public_stance": "prioritize food quality and reliability over governance model",
+        "representation_mode": "sampled_interest_group",
+        "represented_population": 540,
+        "stance_axes": {
+          "delay_support": 0.46,
+          "in_house_reform_support": 0.52,
+          "labor_concession_support": 0.29,
+          "outsourcing_support": 0.34
+        }
+      },
+      {
+        "archetype": "patients_and_family",
+        "attention_level": 0.16,
+        "cohort_key": "patients_low_attention",
+        "expression_level": 0.06,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.28,
+        "mobilization_readiness": 0.08,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.4,
+        "private_stance": "limited information; reacts if quality becomes salient",
+        "public_stance": "mostly unexpressed",
+        "representation_mode": "ambient_public",
+        "represented_population": 360,
+        "stance_axes": {
+          "delay_support": 0.26,
+          "in_house_reform_support": 0.31,
+          "labor_concession_support": 0.22,
+          "outsourcing_support": 0.3
+        }
+      },
+      {
+        "archetype": "hospital_staff_non_cafeteria",
+        "attention_level": 0.37,
+        "cohort_key": "clinical_staff_service_stability",
+        "expression_level": 0.14,
+        "fatigue": 0.47,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.12,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.53,
+        "private_stance": "support whichever option preserves meal reliability and patient outcomes",
+        "public_stance": "avoid disruption; pragmatic",
+        "representation_mode": "inferred_internal_group",
+        "represented_population": 950,
+        "stance_axes": {
+          "delay_support": 0.28,
+          "in_house_reform_support": 0.49,
+          "labor_concession_support": 0.33,
+          "outsourcing_support": 0.36
+        }
+      },
+      {
+        "archetype": "hospital_staff_non_cafeteria",
+        "attention_level": 0.29,
+        "cohort_key": "general_staff_budget_realists",
+        "expression_level": 0.11,
+        "fatigue": 0.44,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.09,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.47,
+        "private_stance": "somewhat open to outsourcing if finances are severe",
+        "public_stance": "accept need for savings",
+        "representation_mode": "inferred_internal_group",
+        "represented_population": 850,
+        "stance_axes": {
+          "delay_support": 0.21,
+          "in_house_reform_support": 0.38,
+          "labor_concession_support": 0.35,
+          "outsourcing_support": 0.47
+        }
+      },
+      {
+        "archetype": "local_public_observers",
+        "attention_level": 0.07,
+        "cohort_key": "local_public_low_salience",
+        "expression_level": 0.03,
+        "fatigue": 0.1,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.03,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.88,
+        "private_stance": "weak priors; may react to fairness or quality narratives",
+        "public_stance": "not engaged",
+        "representation_mode": "ambient_public",
+        "represented_population": 22000,
+        "stance_axes": {
+          "delay_support": 0.22,
+          "in_house_reform_support": 0.25,
+          "labor_concession_support": 0.18,
+          "outsourcing_support": 0.25
+        }
+      },
+      {
+        "archetype": "local_public_observers",
+        "attention_level": 0.26,
+        "cohort_key": "local_public_fairness_watchers",
+        "expression_level": 0.12,
+        "fatigue": 0.15,
+        "fear_of_isolation": 0.39,
+        "mobilization_readiness": 0.16,
+        "perceived_majority": 0.37,
+        "population_share_of_archetype": 0.12,
+        "private_stance": "skeptical of quiet vendor influence and labor harm",
+        "public_stance": "sensitive to public institution fairness and service quality",
+        "representation_mode": "issue_attentive_public",
+        "represented_population": 3000,
+        "stance_axes": {
+          "delay_support": 0.39,
+          "in_house_reform_support": 0.46,
+          "labor_concession_support": 0.24,
+          "outsourcing_support": 0.22
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype": "cafeteria_workforce",
+        "attention_level": 0.88,
+        "cohort_key": "workers_job_security_first",
+        "expression_level": 0.58,
+        "fatigue": 0.36,
+        "fear_of_isolation": 0.32,
+        "mobilization_readiness": 0.63,
+        "perceived_majority": 0.74,
+        "population_share_of_archetype": 0.71,
+        "private_stance": "strongly against outsourcing unless protections are guaranteed",
+        "public_stance": "leans against outsourcing",
+        "representation_mode": "direct",
+        "represented_population": 85,
+        "stance_axes": {
+          "delay_support": 0.55,
+          "in_house_reform_support": 0.65,
+          "labor_concession_support": 0.45,
+          "outsourcing_support": 0.1
+        }
+      },
+      {
+        "archetype": "cafeteria_workforce",
+        "attention_level": 0.8,
+        "cohort_key": "workers_resigned_pragmatists",
+        "expression_level": 0.31,
+        "fatigue": 0.49,
+        "fear_of_isolation": 0.56,
+        "mobilization_readiness": 0.37,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.29,
+        "private_stance": "open to concession or outsourcing if jobs/benefits partly preserved",
+        "public_stance": "cautious and mixed",
+        "representation_mode": "direct",
+        "represented_population": 35,
+        "stance_axes": {
+          "delay_support": 0.34,
+          "in_house_reform_support": 0.42,
+          "labor_concession_support": 0.57,
+          "outsourcing_support": 0.32
+        }
+      },
+      {
+        "archetype": "patients_and_family",
+        "attention_level": 0.41,
+        "cohort_key": "patients_quality_concerned",
+        "expression_level": 0.18,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.44,
+        "mobilization_readiness": 0.19,
+        "perceived_majority": 0.48,
+        "population_share_of_archetype": 0.6,
+        "private_stance": "skeptical of changes that might reduce quality",
+        "public_stance": "prioritize food quality and reliability over governance model",
+        "representation_mode": "sampled_interest_group",
+        "represented_population": 540,
+        "stance_axes": {
+          "delay_support": 0.46,
+          "in_house_reform_support": 0.52,
+          "labor_concession_support": 0.29,
+          "outsourcing_support": 0.34
+        }
+      },
+      {
+        "archetype": "patients_and_family",
+        "attention_level": 0.16,
+        "cohort_key": "patients_low_attention",
+        "expression_level": 0.06,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.28,
+        "mobilization_readiness": 0.08,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.4,
+        "private_stance": "limited information; reacts if quality becomes salient",
+        "public_stance": "mostly unexpressed",
+        "representation_mode": "ambient_public",
+        "represented_population": 360,
+        "stance_axes": {
+          "delay_support": 0.26,
+          "in_house_reform_support": 0.31,
+          "labor_concession_support": 0.22,
+          "outsourcing_support": 0.3
+        }
+      },
+      {
+        "archetype": "hospital_staff_non_cafeteria",
+        "attention_level": 0.37,
+        "cohort_key": "clinical_staff_service_stability",
+        "expression_level": 0.14,
+        "fatigue": 0.47,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.12,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.53,
+        "private_stance": "support whichever option preserves meal reliability and patient outcomes",
+        "public_stance": "avoid disruption; pragmatic",
+        "representation_mode": "inferred_internal_group",
+        "represented_population": 950,
+        "stance_axes": {
+          "delay_support": 0.28,
+          "in_house_reform_support": 0.49,
+          "labor_concession_support": 0.33,
+          "outsourcing_support": 0.36
+        }
+      },
+      {
+        "archetype": "hospital_staff_non_cafeteria",
+        "attention_level": 0.29,
+        "cohort_key": "general_staff_budget_realists",
+        "expression_level": 0.11,
+        "fatigue": 0.44,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.09,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.47,
+        "private_stance": "somewhat open to outsourcing if finances are severe",
+        "public_stance": "accept need for savings",
+        "representation_mode": "inferred_internal_group",
+        "represented_population": 850,
+        "stance_axes": {
+          "delay_support": 0.21,
+          "in_house_reform_support": 0.38,
+          "labor_concession_support": 0.35,
+          "outsourcing_support": 0.47
+        }
+      },
+      {
+        "archetype": "local_public_observers",
+        "attention_level": 0.07,
+        "cohort_key": "local_public_low_salience",
+        "expression_level": 0.03,
+        "fatigue": 0.1,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.03,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.88,
+        "private_stance": "weak priors; may react to fairness or quality narratives",
+        "public_stance": "not engaged",
+        "representation_mode": "ambient_public",
+        "represented_population": 22000,
+        "stance_axes": {
+          "delay_support": 0.22,
+          "in_house_reform_support": 0.25,
+          "labor_concession_support": 0.18,
+          "outsourcing_support": 0.25
+        }
+      },
+      {
+        "archetype": "local_public_observers",
+        "attention_level": 0.26,
+        "cohort_key": "local_public_fairness_watchers",
+        "expression_level": 0.12,
+        "fatigue": 0.15,
+        "fear_of_isolation": 0.39,
+        "mobilization_readiness": 0.16,
+        "perceived_majority": 0.37,
+        "population_share_of_archetype": 0.12,
+        "private_stance": "skeptical of quiet vendor influence and labor harm",
+        "public_stance": "sensitive to public institution fairness and service quality",
+        "representation_mode": "issue_attentive_public",
+        "represented_population": 3000,
+        "stance_axes": {
+          "delay_support": 0.39,
+          "in_house_reform_support": 0.46,
+          "labor_concession_support": 0.24,
+          "outsourcing_support": 0.22
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "hospital_board",
+          "board_chair"
+        ],
+        "blockers": [
+          "public concern over food quality",
+          "worker resistance and job-loss backlash",
+          "insufficient confidence in vendor claims",
+          "desire for additional review"
+        ],
+        "contradiction_notes": "A delay, in-house reform directive, or labor-concession package could preempt this endpoint without disproving that outsourcing had early momentum.",
+        "description": "Board authorizes transition of cafeteria services to an external vendor or launches binding procurement/award that commits the hospital to outsourced operation.",
+        "endpoint_key": "outsourcing_approved",
+        "evidence_refs": [
+          "budget_pressure_cited_in_pre_vote_discussion",
+          "quiet_vendor_lobbying_underway",
+          "formal_board_vote_or_schedule_decision"
+        ],
+        "label": "Outsourcing approved",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the hospital board ultimately approve outsourcing cafeteria services rather than retain direct operation?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.34,
+        "rationale": "This is the most explicit privatization endpoint and a central comparison case for later divergence.",
+        "realization_criteria": [
+          "hospital_board records a majority vote approving outsourced cafeteria operation or binding vendor award",
+          "official board minutes/resolution commit the hospital to external operation beyond a temporary study",
+          "implementation authority is delegated to management for outsourced transition"
+        ],
+        "status": "active",
+        "status_basis": "Outsourcing is explicitly named as a live option under budget pressure with vendor lobbying present, but no decision has yet been taken."
+      },
+      {
+        "authority_refs": [
+          "hospital_board",
+          "hospital_executive_team"
+        ],
+        "blockers": [
+          "finance estimates showing insufficient internal savings",
+          "board belief that management cannot execute reform quickly",
+          "continued vendor attractiveness"
+        ],
+        "contradiction_notes": "A temporary study request alone does not realize this endpoint unless the board actually selects internal retention as the path.",
+        "description": "Board decides to retain cafeteria services internally while requiring operational reform, cost savings, or performance benchmarks.",
+        "endpoint_key": "in_house_reform_adopted",
+        "evidence_refs": [
+          "budget_pressure_cited_in_pre_vote_discussion",
+          "public_comment_or_testimony_window",
+          "formal_board_vote_or_schedule_decision"
+        ],
+        "label": "In-house reform adopted",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the board commit to an in-house reform path with explicit performance or savings requirements instead of outsourcing?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.27,
+        "rationale": "This endpoint captures a substantive non-outsourcing resolution rather than mere process delay.",
+        "realization_criteria": [
+          "hospital_board formally rejects outsourcing in favor of internal retention",
+          "board resolution or executive directive sets measurable in-house savings, quality, or restructuring targets",
+          "no binding external vendor commitment is authorized as the selected terminal model"
+        ],
+        "status": "active",
+        "status_basis": "Scenario explicitly calls for branch hypotheses around in-house reform, and patient quality concerns make this a credible alternative."
+      },
+      {
+        "authority_refs": [
+          "cafeteria_workers",
+          "hospital_executive_team",
+          "hospital_board"
+        ],
+        "blockers": [
+          "lack of worker coordination",
+          "insufficient concession magnitude relative to savings target",
+          "board preference for outsourcing regardless of concessions"
+        ],
+        "contradiction_notes": "Worker statements of flexibility do not realize this endpoint unless concessions are formalized and recognized as dispositive.",
+        "description": "The dispute resolves through worker concessions that materially satisfy board/management savings demands and avert outsourcing.",
+        "endpoint_key": "labor_concession_settlement",
+        "evidence_refs": [
+          "workers_internal_alarm_over_job_security",
+          "budget_pressure_cited_in_pre_vote_discussion",
+          "formal_board_vote_or_schedule_decision"
+        ],
+        "label": "Labor concession settlement",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will worker concessions become the terminal mechanism that resolves the cafeteria governance dispute?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.18,
+        "rationale": "This endpoint operationalizes a compromise path driven by switching costs and labor dependency.",
+        "realization_criteria": [
+          "cafeteria_workers or recognized representatives accept quantified concessions on compensation, scheduling, staffing, or work rules",
+          "hospital_board or management formally states concessions are sufficient to retain in-house operation",
+          "outsourcing option is withdrawn or suspended on the basis of the concession package"
+        ],
+        "status": "active",
+        "status_basis": "Labor concession is explicitly identified in the scenario as a branch option but no organized agreement exists at T0."
+      },
+      {
+        "authority_refs": [
+          "board_chair",
+          "hospital_board"
+        ],
+        "blockers": [
+          "chair desire to resolve quickly",
+          "clear majority already favoring one substantive option",
+          "urgent fiscal deadlines"
+        ],
+        "contradiction_notes": "A short recess within one meeting does not count unless the substantive decision is deferred beyond the initial decision window.",
+        "description": "Board postpones a binding service-model choice beyond the initial decision window for further study, hearings, or comparative review.",
+        "endpoint_key": "decision_delayed",
+        "evidence_refs": [
+          "pre_vote_board_packet_or_briefing_expected",
+          "public_comment_or_testimony_window",
+          "formal_board_vote_or_schedule_decision"
+        ],
+        "label": "Decision delayed",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the board postpone a binding decision rather than choose a service model in the near term?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.21,
+        "rationale": "Process delay is not terminal in the long run, but within this scenario's initial endpoint pressure it is a meaningful near-term outcome that preserves all substantive branches.",
+        "realization_criteria": [
+          "hospital_board declines to take a binding vote at the expected decision point",
+          "board chair or board resolution schedules additional review, hearings, or analysis before selecting outsourcing or retention path",
+          "no terminal service-model commitment is made within the immediate vote window"
+        ],
+        "status": "active",
+        "status_basis": "Delayed vote is explicitly named as a branch option and is plausible when legitimacy, quality, or data concerns remain unresolved."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Board members cite budget pressure and require operational grounding for cafeteria decision.",
+        "layer": "dependency",
+        "reason": "Board relies on management for options, implementation estimates, and recommendation framing.",
+        "source_actor_name": "hospital_board",
+        "target_actor_name": "hospital_executive_team",
+        "weight": 0.58
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Scenario explicitly centers budget pressure as a board rationale.",
+        "layer": "dependency",
+        "reason": "Executives depend on finance analysis to justify budget-based change.",
+        "source_actor_name": "hospital_executive_team",
+        "target_actor_name": "hospital_finance_office",
+        "weight": 0.62
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Patients care about food quality; workers currently provide service.",
+        "layer": "dependency",
+        "reason": "Patients rely on current food-service labor for meal delivery and quality continuity.",
+        "source_actor_name": "patient_public",
+        "target_actor_name": "cafeteria_workers",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Hospital operations are affected by cafeteria service continuity.",
+        "layer": "dependency",
+        "reason": "Clinical workflows indirectly depend on reliable patient meal service.",
+        "source_actor_name": "clinical_staff",
+        "target_actor_name": "cafeteria_workers",
+        "weight": 0.34
+      },
+      {
+        "direction": "source_depends_on_target_if_selected",
+        "evidence": "Outsourcing is a live option under consideration.",
+        "layer": "dependency",
+        "reason": "If outsourcing proceeds, board needs vendor capacity as substitute operator.",
+        "source_actor_name": "hospital_board",
+        "target_actor_name": "outside_vendors",
+        "weight": 0.21
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Workers fear job loss from upcoming vote.",
+        "layer": "dependency",
+        "reason": "Workers depend on board decision for employment security and service model.",
+        "source_actor_name": "cafeteria_workers",
+        "target_actor_name": "hospital_board",
+        "weight": 0.39
+      },
+      {
+        "direction": "source_sees_target",
+        "evidence": "Public hospital governance decisions are at least partly visible; patients care about outcome.",
+        "layer": "exposure",
+        "reason": "Public can observe board vote and official statements at limited attention.",
+        "source_actor_name": "patient_public",
+        "target_actor_name": "hospital_board",
+        "weight": 0.28
+      },
+      {
+        "direction": "source_sees_target",
+        "evidence": "Workers fear job loss tied directly to board vote.",
+        "layer": "exposure",
+        "reason": "Workers closely monitor board agenda and deliberation around outsourcing.",
+        "source_actor_name": "cafeteria_workers",
+        "target_actor_name": "hospital_board",
+        "weight": 0.61
+      },
+      {
+        "direction": "source_sees_target",
+        "evidence": "Governance process implies formal informational exposure.",
+        "layer": "exposure",
+        "reason": "Board receives management briefing and recommendations.",
+        "source_actor_name": "hospital_board",
+        "target_actor_name": "hospital_executive_team",
+        "weight": 0.57
+      },
+      {
+        "direction": "source_sees_target",
+        "evidence": "Workers are directly affected and likely part of deliberative input.",
+        "layer": "exposure",
+        "reason": "Board has some visibility into worker concerns through meetings and testimony, but imperfectly.",
+        "source_actor_name": "hospital_board",
+        "target_actor_name": "cafeteria_workers",
+        "weight": 0.31
+      },
+      {
+        "direction": "source_sees_target",
+        "evidence": "Vendors lobby quietly.",
+        "layer": "exposure",
+        "reason": "Board is exposed to vendor pitches, directly or indirectly, though lobbying is quiet.",
+        "source_actor_name": "hospital_board",
+        "target_actor_name": "outside_vendors",
+        "weight": 0.26
+      },
+      {
+        "direction": "source_sees_target",
+        "evidence": "Quiet lobbying is occurring around outsourcing option.",
+        "layer": "exposure",
+        "reason": "Vendors likely target management channels with outsourcing proposals.",
+        "source_actor_name": "outside_vendors",
+        "target_actor_name": "hospital_executive_team",
+        "weight": 0.43
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Board members cite budget pressure, implying reliance on fiscal credibility.",
+        "layer": "trust",
+        "reason": "Board tends to credit internal budget analysis more than external claims at T0.",
+        "source_actor_name": "hospital_board",
+        "target_actor_name": "hospital_finance_office",
+        "weight": 0.6
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Executives typically frame options; no explicit scandal or collapse noted.",
+        "layer": "trust",
+        "reason": "Management is a credible but not unquestioned source of recommendations.",
+        "source_actor_name": "hospital_board",
+        "target_actor_name": "hospital_executive_team",
+        "weight": 0.54
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Patients care about food quality; current service staff hold practical knowledge.",
+        "layer": "trust",
+        "reason": "Workers are plausibly seen as service-experienced and directly connected to food quality.",
+        "source_actor_name": "patient_public",
+        "target_actor_name": "cafeteria_workers",
+        "weight": 0.49
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Public hospital status plus contested decision environment.",
+        "layer": "trust",
+        "reason": "Public institution legitimacy exists but may weaken if quality or fairness concerns rise.",
+        "source_actor_name": "patient_public",
+        "target_actor_name": "hospital_board",
+        "weight": 0.37
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Lobbying is quiet, not fully public or validated.",
+        "layer": "trust",
+        "reason": "Board may view vendor savings claims cautiously absent full proof.",
+        "source_actor_name": "hospital_board",
+        "target_actor_name": "outside_vendors",
+        "weight": 0.29
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Internal staff often accept management data while worrying about disruption.",
+        "layer": "trust",
+        "reason": "Staff moderately trust management competence but not unconditionally on service changes.",
+        "source_actor_name": "clinical_staff",
+        "target_actor_name": "hospital_executive_team",
+        "weight": 0.41
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Board chair role implies high procedural influence in vote setting.",
+        "layer": "influence",
+        "reason": "Chair can frame agenda, timing, and acceptable process pathways.",
+        "source_actor_name": "board_chair",
+        "target_actor_name": "hospital_board",
+        "weight": 0.64
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Board cites budget pressure; executives likely structure the proposal set.",
+        "layer": "influence",
+        "reason": "Management recommendations shape board perception of practical options.",
+        "source_actor_name": "hospital_executive_team",
+        "target_actor_name": "hospital_board",
+        "weight": 0.56
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Budget pressure is a central rationale in the scenario.",
+        "layer": "influence",
+        "reason": "Savings estimates and deficit framing can move undecided board members.",
+        "source_actor_name": "hospital_finance_office",
+        "target_actor_name": "hospital_board",
+        "weight": 0.47
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Vendors lobby quietly.",
+        "layer": "influence",
+        "reason": "Quiet lobbying can affect management's comparison of outsourcing feasibility.",
+        "source_actor_name": "outside_vendors",
+        "target_actor_name": "hospital_executive_team",
+        "weight": 0.38
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Workers fear job loss and are an affected stakeholder group.",
+        "layer": "influence",
+        "reason": "Workers can influence through testimony, morale claims, and job-loss narrative, but lack formal authority.",
+        "source_actor_name": "cafeteria_workers",
+        "target_actor_name": "hospital_board",
+        "weight": 0.34
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Patients care about food quality, a politically visible service issue.",
+        "layer": "influence",
+        "reason": "Public concern about food quality can constrain reputationally sensitive board members if activated.",
+        "source_actor_name": "patient_public",
+        "target_actor_name": "hospital_board",
+        "weight": 0.27
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Clinical staff are adjacent to patient outcomes but not central deciders.",
+        "layer": "influence",
+        "reason": "Clinical concerns about patient meal reliability can sway deliberation if voiced.",
+        "source_actor_name": "clinical_staff",
+        "target_actor_name": "hospital_board",
+        "weight": 0.24
+      },
+      {
+        "direction": "mutual_alignment_potential",
+        "evidence": "Workers fear job loss; patients care about food quality.",
+        "layer": "coalition",
+        "reason": "Potential alignment around quality-and-care framing rather than pure labor framing.",
+        "source_actor_name": "cafeteria_workers",
+        "target_actor_name": "patient_public",
+        "weight": 0.33
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Budget pressure is the main institutional justification for action.",
+        "layer": "coalition",
+        "reason": "Internal fiscal and management actors are aligned around budget discipline.",
+        "source_actor_name": "hospital_executive_team",
+        "target_actor_name": "hospital_finance_office",
+        "weight": 0.61
+      },
+      {
+        "direction": "conditional_alignment",
+        "evidence": "Vendors lobby quietly for contract opportunity.",
+        "layer": "coalition",
+        "reason": "Conditional alignment exists if outsourcing is favored.",
+        "source_actor_name": "outside_vendors",
+        "target_actor_name": "hospital_executive_team",
+        "weight": 0.29
+      },
+      {
+        "direction": "latent_alignment",
+        "evidence": "Governance process and recommendation framing are linked.",
+        "layer": "coalition",
+        "reason": "Chair and executives share interest in a manageable and defensible process.",
+        "source_actor_name": "board_chair",
+        "target_actor_name": "hospital_executive_team",
+        "weight": 0.42
+      },
+      {
+        "direction": "mutual_alignment_potential",
+        "evidence": "Patients care about food quality; clinical staff care about patient support services.",
+        "layer": "coalition",
+        "reason": "Both groups prioritize patient service quality and continuity.",
+        "source_actor_name": "clinical_staff",
+        "target_actor_name": "patient_public",
+        "weight": 0.37
+      },
+      {
+        "direction": "mutual_opposition",
+        "evidence": "Workers fear job loss while vendors seek contract award.",
+        "layer": "conflict",
+        "reason": "Outsourcing creates direct competition over jobs and service control.",
+        "source_actor_name": "cafeteria_workers",
+        "target_actor_name": "outside_vendors",
+        "weight": 0.66
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "Executives likely carry budget-driven options; workers fear losses.",
+        "layer": "conflict",
+        "reason": "Workers may blame management for advancing cost-cutting at labor's expense.",
+        "source_actor_name": "cafeteria_workers",
+        "target_actor_name": "hospital_executive_team",
+        "weight": 0.48
+      },
+      {
+        "direction": "conditional_grievance",
+        "evidence": "Patients care about food quality while board cites budget pressure.",
+        "layer": "conflict",
+        "reason": "Low-grade conflict potential exists if quality concerns are perceived as discounted.",
+        "source_actor_name": "patient_public",
+        "target_actor_name": "hospital_board",
+        "weight": 0.22
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "Upcoming vote pits savings rationale against employment concerns.",
+        "layer": "conflict",
+        "reason": "Board may view worker resistance as obstacle to fiscal adjustment, though conflict is not yet maximal.",
+        "source_actor_name": "hospital_board",
+        "target_actor_name": "cafeteria_workers",
+        "weight": 0.31
+      },
+      {
+        "direction": "likely_public_channel_interaction",
+        "evidence": "Board vote is pending and workers are directly affected.",
+        "layer": "oasis_interaction",
+        "reason": "Likely interaction through public meetings, testimony, or visible appeals.",
+        "source_actor_name": "cafeteria_workers",
+        "target_actor_name": "hospital_board",
+        "weight": 0.44
+      },
+      {
+        "direction": "likely_public_channel_interaction",
+        "evidence": "Patients care about food quality but average attention is limited at T0.",
+        "layer": "oasis_interaction",
+        "reason": "Some patients/families may comment or attend if food quality becomes salient.",
+        "source_actor_name": "patient_public",
+        "target_actor_name": "hospital_board",
+        "weight": 0.21
+      },
+      {
+        "direction": "limited_public_channel_interaction",
+        "evidence": "Lobbying is described as quiet.",
+        "layer": "oasis_interaction",
+        "reason": "Vendor interaction is more likely indirect or private than public-facing.",
+        "source_actor_name": "outside_vendors",
+        "target_actor_name": "hospital_board",
+        "weight": 0.12
+      },
+      {
+        "direction": "possible_public_channel_interaction",
+        "evidence": "Clinical staff have adjacent but not primary involvement.",
+        "layer": "oasis_interaction",
+        "reason": "Clinical voices may surface in memos or comments if service-risk concerns rise.",
+        "source_actor_name": "clinical_staff",
+        "target_actor_name": "hospital_board",
+        "weight": 0.16
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype": "institutional_decider",
+        "description": "Formal authority actors who can schedule, frame, and decide the vote"
+      },
+      {
+        "archetype": "operational_manager",
+        "description": "Internal actors controlling data, implementation feasibility, and process recommendations"
+      },
+      {
+        "archetype": "affected_worker_advocate",
+        "description": "Directly impacted labor-side voice seeking protections or alternative plans"
+      },
+      {
+        "archetype": "quiet_market_suitor",
+        "description": "External contractor actor using low-visibility influence to shape procurement preference"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "board_chair",
+        "attention_level": 0.85,
+        "decision_power": 0.78,
+        "expression_level": 0.62,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.18,
+        "hero_archetype": "institutional_decider",
+        "mobilization_readiness": 0.57,
+        "perceived_majority": 0.51,
+        "reputation": 0.58,
+        "secrecy": 0.31,
+        "stance_axes": {
+          "delay_support": 0.41,
+          "in_house_reform_support": 0.34,
+          "labor_concession_support": 0.3,
+          "outsourcing_support": 0.48
+        },
+        "trustworthiness": 0.56
+      },
+      {
+        "actor_name": "hospital_board",
+        "attention_level": 0.82,
+        "decision_power": 0.95,
+        "expression_level": 0.54,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.27,
+        "hero_archetype": "institutional_decider",
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.5,
+        "reputation": 0.55,
+        "secrecy": 0.28,
+        "stance_axes": {
+          "delay_support": 0.36,
+          "in_house_reform_support": 0.4,
+          "labor_concession_support": 0.31,
+          "outsourcing_support": 0.44
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "hospital_executive_team",
+        "attention_level": 0.79,
+        "decision_power": 0.61,
+        "expression_level": 0.43,
+        "fatigue": 0.46,
+        "fear_of_isolation": 0.16,
+        "hero_archetype": "operational_manager",
+        "mobilization_readiness": 0.49,
+        "perceived_majority": 0.54,
+        "reputation": 0.53,
+        "secrecy": 0.42,
+        "stance_axes": {
+          "delay_support": 0.19,
+          "in_house_reform_support": 0.37,
+          "labor_concession_support": 0.28,
+          "outsourcing_support": 0.52
+        },
+        "trustworthiness": 0.52
+      },
+      {
+        "actor_name": "cafeteria_workers",
+        "attention_level": 0.9,
+        "decision_power": 0.23,
+        "expression_level": 0.61,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.34,
+        "hero_archetype": "affected_worker_advocate",
+        "mobilization_readiness": 0.62,
+        "perceived_majority": 0.57,
+        "reputation": 0.57,
+        "secrecy": 0.21,
+        "stance_axes": {
+          "delay_support": 0.5,
+          "in_house_reform_support": 0.59,
+          "labor_concession_support": 0.49,
+          "outsourcing_support": 0.16
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "outside_vendors",
+        "attention_level": 0.68,
+        "decision_power": 0.26,
+        "expression_level": 0.19,
+        "fatigue": 0.14,
+        "fear_of_isolation": 0.22,
+        "hero_archetype": "quiet_market_suitor",
+        "mobilization_readiness": 0.48,
+        "perceived_majority": 0.43,
+        "reputation": 0.46,
+        "secrecy": 0.74,
+        "stance_axes": {
+          "delay_support": 0.12,
+          "in_house_reform_support": 0.05,
+          "labor_concession_support": 0.09,
+          "outsourcing_support": 0.95
+        },
+        "trustworthiness": 0.39
+      }
+    ],
+    "heroes": [
+      {
+        "archetype": "institutional_decider",
+        "description": "Formal authority actors who can schedule, frame, and decide the vote"
+      },
+      {
+        "archetype": "operational_manager",
+        "description": "Internal actors controlling data, implementation feasibility, and process recommendations"
+      },
+      {
+        "archetype": "affected_worker_advocate",
+        "description": "Directly impacted labor-side voice seeking protections or alternative plans"
+      },
+      {
+        "archetype": "quiet_market_suitor",
+        "description": "External contractor actor using low-visibility influence to shape procurement preference"
+      }
+    ],
+    "important_questions": [
+      "Will the hospital board ultimately approve outsourcing cafeteria services rather than retain direct operation?",
+      "Will the board commit to an in-house reform path with explicit performance or savings requirements instead of outsourcing?",
+      "Will worker concessions become the terminal mechanism that resolves the cafeteria governance dispute?",
+      "Will the board postpone a binding decision rather than choose a service model in the near term?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "hospital_board",
+          "hospital_executive_team",
+          "hospital_finance_office"
+        ],
+        "event_key": "budget_pressure_cited_in_pre_vote_discussion",
+        "event_type": "announcement",
+        "expected_impact": "Raises legitimacy of cost-saving arguments, strengthens board dependence on finance framing, and keeps outsourcing on the agenda without settling the choice.",
+        "status": "visible",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "cafeteria_workers"
+        ],
+        "event_key": "workers_internal_alarm_over_job_security",
+        "event_type": "announcement",
+        "expected_impact": "Increases worker attention and mobilization readiness; may widen private-public stance gap among less secure workers.",
+        "status": "visible",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "outside_vendors",
+          "hospital_executive_team"
+        ],
+        "event_key": "quiet_vendor_lobbying_underway",
+        "event_type": "announcement",
+        "expected_impact": "Can subtly increase outsourcing feasibility perceptions while creating latent legitimacy risk if exposed.",
+        "status": "partly_visible",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "board_chair",
+          "hospital_board",
+          "hospital_executive_team",
+          "hospital_finance_office"
+        ],
+        "event_key": "pre_vote_board_packet_or_briefing_expected",
+        "event_type": "announcement",
+        "expected_impact": "May sharpen internal alignment, reveal whether management is pushing outsourcing versus comparative evaluation, and affect delay probability.",
+        "status": "imminent",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "cafeteria_workers",
+          "patient_public",
+          "clinical_staff",
+          "hospital_board"
+        ],
+        "event_key": "public_comment_or_testimony_window",
+        "event_type": "announcement",
+        "expected_impact": "Could increase exposure and trust shifts depending on whether quality and job impacts become concrete.",
+        "status": "imminent",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "hospital_board",
+          "board_chair"
+        ],
+        "event_key": "formal_board_vote_or_schedule_decision",
+        "event_type": "announcement",
+        "expected_impact": "Creates branch point among immediate outsourcing approval, delay, request for in-house reform plan, or concession-seeking negotiation.",
+        "status": "imminent",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "21f530bb-8d63-42ad-945e-b1a25952b4a4",
+    "merge_hypotheses": [
+      {
+        "convergence_driver": "All major actors need uninterrupted patient meal service.",
+        "effect": "Even divergent camps may converge on phased implementation, temporary guarantees, or pilot structures rather than abrupt disruption.",
+        "groups": [
+          "hospital_board",
+          "hospital_executive_team",
+          "cafeteria_workers",
+          "clinical_staff",
+          "patient_public"
+        ],
+        "merge_key": "shared_service_continuity_constraint"
+      },
+      {
+        "convergence_driver": "Open comparison of cost, quality, and labor impacts can reduce suspicion across camps.",
+        "effect": "Transparent process may make either reform or delay more broadly acceptable even without full agreement on substance.",
+        "groups": [
+          "hospital_board",
+          "patient_public",
+          "cafeteria_workers",
+          "hospital_executive_team"
+        ],
+        "merge_key": "legitimacy_repair_through_transparency"
+      },
+      {
+        "convergence_driver": "Acknowledgment that some savings are necessary narrows viable endpoints.",
+        "effect": "Can pull conflict toward concession or reform bargaining instead of total standoff.",
+        "groups": [
+          "hospital_board",
+          "hospital_executive_team",
+          "cafeteria_workers"
+        ],
+        "merge_key": "fiscal_reality_as_common_constraint"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype": "cafeteria_workforce",
+        "description": "Employees directly involved in cafeteria operations",
+        "population_total": 120
+      },
+      {
+        "archetype": "patients_and_family",
+        "description": "Current inpatients and closely engaged family/public users with direct food-service concern",
+        "population_total": 900
+      },
+      {
+        "archetype": "hospital_staff_non_cafeteria",
+        "description": "Clinical and non-cafeteria staff exposed to internal discussion and service effects",
+        "population_total": 1800
+      },
+      {
+        "archetype": "local_public_observers",
+        "description": "Broader local community with low to moderate attention to hospital governance",
+        "population_total": 25000
+      }
+    ],
+    "risk_flags": [
+      {
+        "note": "The corpus does not specify whether cafeteria workers have formal union representation, affecting concession and mobilization pathways.",
+        "risk_key": "unspecified_union_or_worker_representation",
+        "severity": "medium"
+      },
+      {
+        "note": "Public-hospital contracting constraints and procurement law are not described, limiting precision on outsourcing speed and reversibility.",
+        "risk_key": "unclear_procurement_rules",
+        "severity": "medium"
+      },
+      {
+        "note": "Number of board members, faction balance, and swing votes are not specified, so authority is clear but coalition math is uncertain.",
+        "risk_key": "board_composition_unknown",
+        "severity": "medium"
+      },
+      {
+        "note": "Patient food-quality concern is established, but baseline quality data are missing, making trust shifts conditional on future evidence.",
+        "risk_key": "service_quality_metrics_absent",
+        "severity": "low"
+      },
+      {
+        "note": "Vendor influence is present but partly hidden; exposure or leak events could sharply alter legitimacy perceptions later.",
+        "risk_key": "quiet_lobbying_visibility_gap",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "institutional_governance",
+      "mode": "direct",
+      "scenario_key": "governance_003",
+      "setting": "fictional_public_hospital_governance",
+      "summary": "A fictionalized public hospital board is approaching a vote on whether to outsource cafeteria services amid budget pressure. Cafeteria workers fear job loss, patients care about food quality, vendors are quietly lobbying, and board members are balancing fiscal, labor, and public-legitimacy concerns. T0 includes unresolved dependencies, mixed public/private stances, and multiple credible endpoint paths: outsourcing, in-house reform, labor concession, or delayed vote.",
+      "time_horizon_known": false,
+      "uncertainty_notes": [
+        "Exact hospital size, board composition, union status, and vendor identities are unspecified.",
+        "Budget pressure is established, but the magnitude of the deficit and procurement constraints are not specified.",
+        "Public salience appears moderate at T0 rather than full crisis."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "hospital_board",
+          "hospital_staff_non_cafeteria",
+          "patient_public"
+        ],
+        "evidence": "Actors likely update within familiar frames such as budget credibility, service quality, and fairness rather than radical shifts at T0.",
+        "level": "medium",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "cafeteria_workforce",
+          "patients_and_family",
+          "local_public_observers"
+        ],
+        "evidence": "Mobilization likely requires visible trigger such as leaked savings plan, testimony, or quality-risk narrative.",
+        "level": "high_relevance",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "patients_and_family",
+          "hospital_staff_non_cafeteria",
+          "local_public_observers"
+        ],
+        "evidence": "Many affected actors have concerns but limited expression at T0.",
+        "level": "moderate",
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "cafeteria_workforce",
+          "hospital_staff_non_cafeteria",
+          "hospital_board"
+        ],
+        "evidence": "Workers, staff, and board members each sort information within role-based networks.",
+        "level": "moderate",
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "patient_public",
+          "local_public_observers"
+        ],
+        "evidence": "Public concern likely spreads only after repeated cues from workers, clinicians, or visible meeting conflict.",
+        "level": "moderate",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "cafeteria_workers",
+          "hospital_board",
+          "clinical_staff"
+        ],
+        "evidence": "Labor, governance, and care identities shape how the same budget facts are interpreted.",
+        "level": "high_relevance",
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "patients_and_family",
+          "local_public_observers"
+        ],
+        "evidence": "Absent a salient incident, outside attention to cafeteria governance remains low.",
+        "level": "high",
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context_key": "budget_pressure_frame",
+        "description": "Cost-savings framing increases receptivity among fiscally attentive actors but can weaken trust if quality concerns are not addressed."
+      },
+      {
+        "context_key": "job_loss_visibility",
+        "description": "Concrete worker job-loss narratives can activate fairness concerns and raise public attention."
+      },
+      {
+        "context_key": "food_quality_salience",
+        "description": "Any signal that outsourcing may change food quality can expand patient and clinician engagement."
+      },
+      {
+        "context_key": "quiet_lobbying_suspicion",
+        "description": "Perceived nontransparent vendor access can increase legitimacy scrutiny even without broad mobilization."
+      },
+      {
+        "context_key": "process_timing",
+        "description": "Scheduling a near-term vote versus extending review materially shapes coalition formation and conflict intensity."
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "hospital_board",
+        "behavior_axes": {
+          "cost_sensitivity": 0.67,
+          "proceduralism": 0.72,
+          "responsiveness_to_internal_data": 0.66,
+          "responsiveness_to_public_pressure": 0.49,
+          "risk_aversion": 0.58
+        },
+        "ideology_axes": {
+          "labor_sympathy": 0.39,
+          "market_orientation": 0.48,
+          "service_universalism": 0.61
+        },
+        "reputation": 0.55,
+        "secrecy": 0.28,
+        "tendency": "deliberative_split_body",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "board_chair",
+        "behavior_axes": {
+          "cost_sensitivity": 0.61,
+          "proceduralism": 0.78,
+          "responsiveness_to_internal_data": 0.64,
+          "responsiveness_to_public_pressure": 0.42,
+          "risk_aversion": 0.55
+        },
+        "ideology_axes": {
+          "labor_sympathy": 0.34,
+          "market_orientation": 0.51,
+          "service_universalism": 0.58
+        },
+        "reputation": 0.58,
+        "secrecy": 0.31,
+        "tendency": "agenda_manage_and_seek_viable_majority",
+        "trustworthiness": 0.56
+      },
+      {
+        "actor_name": "hospital_executive_team",
+        "behavior_axes": {
+          "cost_sensitivity": 0.79,
+          "proceduralism": 0.63,
+          "responsiveness_to_internal_data": 0.81,
+          "responsiveness_to_public_pressure": 0.33,
+          "risk_aversion": 0.62
+        },
+        "ideology_axes": {
+          "labor_sympathy": 0.28,
+          "market_orientation": 0.57,
+          "service_universalism": 0.55
+        },
+        "reputation": 0.53,
+        "secrecy": 0.42,
+        "tendency": "frame_choices_through_operational_feasibility",
+        "trustworthiness": 0.52
+      },
+      {
+        "actor_name": "hospital_finance_office",
+        "behavior_axes": {
+          "cost_sensitivity": 0.88,
+          "proceduralism": 0.71,
+          "responsiveness_to_internal_data": 0.86,
+          "responsiveness_to_public_pressure": 0.21,
+          "risk_aversion": 0.67
+        },
+        "ideology_axes": {
+          "labor_sympathy": 0.22,
+          "market_orientation": 0.54,
+          "service_universalism": 0.42
+        },
+        "reputation": 0.51,
+        "secrecy": 0.36,
+        "tendency": "elevate_savings_case",
+        "trustworthiness": 0.59
+      },
+      {
+        "actor_name": "cafeteria_workers",
+        "behavior_axes": {
+          "cost_sensitivity": 0.34,
+          "proceduralism": 0.39,
+          "responsiveness_to_internal_data": 0.37,
+          "responsiveness_to_public_pressure": 0.58,
+          "risk_aversion": 0.73
+        },
+        "ideology_axes": {
+          "labor_sympathy": 0.88,
+          "market_orientation": 0.12,
+          "service_universalism": 0.64
+        },
+        "reputation": 0.57,
+        "secrecy": 0.21,
+        "tendency": "defend_jobs_while_claiming_service_knowledge",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "patient_public",
+        "behavior_axes": {
+          "cost_sensitivity": 0.29,
+          "proceduralism": 0.25,
+          "responsiveness_to_internal_data": 0.22,
+          "responsiveness_to_public_pressure": 0.41,
+          "risk_aversion": 0.66
+        },
+        "ideology_axes": {
+          "labor_sympathy": 0.44,
+          "market_orientation": 0.27,
+          "service_universalism": 0.73
+        },
+        "reputation": 0.6,
+        "secrecy": 0.12,
+        "tendency": "react_when_quality_or_fairness_becomes_visible",
+        "trustworthiness": 0.54
+      },
+      {
+        "actor_name": "outside_vendors",
+        "behavior_axes": {
+          "cost_sensitivity": 0.91,
+          "proceduralism": 0.46,
+          "responsiveness_to_internal_data": 0.52,
+          "responsiveness_to_public_pressure": 0.18,
+          "risk_aversion": 0.37
+        },
+        "ideology_axes": {
+          "labor_sympathy": 0.09,
+          "market_orientation": 0.93,
+          "service_universalism": 0.26
+        },
+        "reputation": 0.46,
+        "secrecy": 0.74,
+        "tendency": "quiet_lobbying_and_promised_efficiency",
+        "trustworthiness": 0.39
+      },
+      {
+        "actor_name": "clinical_staff",
+        "behavior_axes": {
+          "cost_sensitivity": 0.35,
+          "proceduralism": 0.49,
+          "responsiveness_to_internal_data": 0.51,
+          "responsiveness_to_public_pressure": 0.31,
+          "risk_aversion": 0.64
+        },
+        "ideology_axes": {
+          "labor_sympathy": 0.46,
+          "market_orientation": 0.31,
+          "service_universalism": 0.78
+        },
+        "reputation": 0.64,
+        "secrecy": 0.19,
+        "tendency": "prioritize_patient_service_stability",
+        "trustworthiness": 0.63
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 464,
+        "end": 464,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 464,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

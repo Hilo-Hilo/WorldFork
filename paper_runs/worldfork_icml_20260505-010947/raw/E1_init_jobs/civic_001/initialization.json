@@ -1,0 +1,1617 @@
+{
+  "big_bang_id": "6146928f-8e7a-4e9d-8dc8-deb64c7a6b27",
+  "initializer_output": {
+    "actors": [
+      {
+        "decision_authority": "high_agenda_and_whip_influence",
+        "description": "Mayor seeking a viable corridor redesign package that can pass council within six weeks.",
+        "fictionalized": true,
+        "name": "harbor_city_mayor",
+        "stakes": [
+          "policy passage",
+          "political credibility",
+          "coalition management"
+        ],
+        "type": "public_official"
+      },
+      {
+        "decision_authority": "final_formal_vote",
+        "description": "City council with formal authority over corridor redesign approval.",
+        "fictionalized": true,
+        "name": "harbor_city_council",
+        "stakes": [
+          "constituent response",
+          "traffic and safety outcomes",
+          "political bargaining"
+        ],
+        "type": "government_body"
+      },
+      {
+        "decision_authority": "technical_recommendation",
+        "description": "Agency developing lane redesign details and operational case for buses and bikes.",
+        "fictionalized": true,
+        "name": "transportation_department",
+        "stakes": [
+          "implementation feasibility",
+          "service reliability",
+          "technical legitimacy"
+        ],
+        "type": "city_agency"
+      },
+      {
+        "decision_authority": "advisory",
+        "description": "Pending audit reviewers assessing street safety conditions and options.",
+        "fictionalized": true,
+        "name": "safety_audit_team",
+        "stakes": [
+          "credibility",
+          "evidence quality"
+        ],
+        "type": "expert_body"
+      },
+      {
+        "decision_authority": "informal_pressure",
+        "description": "Corridor merchants concerned about lost curb access and delivery disruption; organizing petition.",
+        "fictionalized": true,
+        "name": "small_business_merchants_association",
+        "stakes": [
+          "customer access",
+          "deliveries",
+          "parking turnover",
+          "revenue"
+        ],
+        "type": "interest_group"
+      },
+      {
+        "decision_authority": "informal_pressure",
+        "description": "Riders and advocates pushing for more reliable bus service.",
+        "fictionalized": true,
+        "name": "transit_riders_union",
+        "stakes": [
+          "travel time reliability",
+          "service dignity",
+          "policy follow-through"
+        ],
+        "type": "civic_group"
+      },
+      {
+        "decision_authority": "informal_pressure",
+        "description": "Street safety advocates favoring protected bike lanes after minor crashes.",
+        "fictionalized": true,
+        "name": "bike_safety_advocates",
+        "stakes": [
+          "injury prevention",
+          "safe network continuity"
+        ],
+        "type": "civic_group"
+      },
+      {
+        "decision_authority": "informal_pressure",
+        "description": "Nearby homeowners worried about spillover parking on residential streets.",
+        "fictionalized": true,
+        "name": "corridor_homeowners_network",
+        "stakes": [
+          "parking availability",
+          "traffic calm",
+          "property area quality"
+        ],
+        "type": "resident_group"
+      },
+      {
+        "decision_authority": "informal_operational_leverage",
+        "description": "Local delivery firms and suppliers affected by curb access changes.",
+        "fictionalized": true,
+        "name": "delivery_logistics_operators",
+        "stakes": [
+          "loading access",
+          "route efficiency",
+          "operational costs"
+        ],
+        "type": "economic_actor"
+      },
+      {
+        "decision_authority": "agenda_influence",
+        "description": "City media likely to amplify hearing narratives, safety framing, and political stakes.",
+        "fictionalized": true,
+        "name": "local_news_outlets",
+        "stakes": [
+          "audience attention",
+          "issue framing"
+        ],
+        "type": "media"
+      },
+      {
+        "decision_authority": "ambient_legitimacy",
+        "description": "Broader public with diffuse interest in safety, congestion, and neighborhood fairness.",
+        "fictionalized": true,
+        "name": "general_city_public",
+        "stakes": [
+          "city mobility",
+          "fairness perceptions",
+          "quality of life"
+        ],
+        "type": "public"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "branch_key": "audit_supports_reallocation",
+        "observable_divergence_signal": "Public statements shift from whether to reallocate space to how to mitigate loading and neighborhood parking impacts.",
+        "plausible_path": "Council moderates gain cover to back a revised but substantial redesign, especially if delivery mitigations are added.",
+        "trigger": "Safety audit finds current corridor design poses meaningful safety or reliability problems and supports lane changes."
+      },
+      {
+        "branch_key": "audit_ambiguous_or_critical",
+        "observable_divergence_signal": "Officials increasingly call for phased implementation, pilot language, or further study rather than full approval.",
+        "plausible_path": "Council delays, narrows, or pilots the plan instead of approving full corridor conversion.",
+        "trigger": "Safety audit is inconclusive or questions benefits relative to disruption."
+      },
+      {
+        "branch_key": "merchant_homeowner_alignment_hardens",
+        "observable_divergence_signal": "Joint appearances, shared messaging, or co-signed communications from merchants and neighborhood groups.",
+        "plausible_path": "An anti-redesign coalition forms strong enough to sway swing council members toward postponement or substantial rollback.",
+        "trigger": "Petition gains visible signatures and homeowner concerns are publicly linked to business losses."
+      },
+      {
+        "branch_key": "supporter_activation_overcomes_silence",
+        "observable_divergence_signal": "Media coverage highlights rider and safety testimony at parity with or above parking-loss complaints.",
+        "plausible_path": "Perceived public support for reallocation rises, reducing council fear of backing visible curb changes.",
+        "trigger": "Transit riders and safety advocates turn out strongly at hearing with credible stories about delays and crashes."
+      },
+      {
+        "branch_key": "mitigation_package_changes_conflict",
+        "observable_divergence_signal": "Merchant pragmatists and moderate homeowners publicly distinguish themselves from maximal opponents.",
+        "plausible_path": "Conflict softens enough for a partial coalition supporting a modified redesign.",
+        "trigger": "Mayor and agency introduce loading zones, timed deliveries, or residential parking management as concessions."
+      }
+    ],
+    "channels": [
+      {
+        "audience": "council_media_public",
+        "channel_key": "public_hearing",
+        "control": "harbor_city_council",
+        "salience": 0.88,
+        "type": "institutional_public_forum"
+      },
+      {
+        "audience": "council_mayor_media",
+        "channel_key": "merchants_petition",
+        "control": "small_business_merchants_association",
+        "salience": 0.79,
+        "type": "petition_and_direct_lobbying"
+      },
+      {
+        "audience": "mayor_council_media_public",
+        "channel_key": "safety_audit_release",
+        "control": "safety_audit_team",
+        "salience": 0.83,
+        "type": "expert_report"
+      },
+      {
+        "audience": "general_city_public",
+        "channel_key": "local_media_coverage",
+        "control": "local_news_outlets",
+        "salience": 0.72,
+        "type": "news"
+      },
+      {
+        "audience": "mayor_council",
+        "channel_key": "agency_briefings",
+        "control": "transportation_department",
+        "salience": 0.65,
+        "type": "technical_briefing"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "small_business_merchants_association",
+        "archetype_key": "corridor_merchants_and_staff",
+        "attention_level": 0.86,
+        "cohort_key": "merchants_organized_opponents",
+        "expression_level": 0.82,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.24,
+        "mobilization_readiness": 0.77,
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.6,
+        "private_position": "skeptical_to_opposed unless loading and parking mitigations are added",
+        "public_position": "opposed to removing street parking without stronger delivery protections",
+        "representation_mode": "organized_membership_and_claimed_support",
+        "represented_population": 480,
+        "stance_axes": {
+          "bus_lane_support": 0.28,
+          "delivery_access_priority": 0.88,
+          "protected_bike_lane_support": 0.34,
+          "safety_priority": 0.54,
+          "street_parking_preservation": 0.83
+        }
+      },
+      {
+        "actor_name": "small_business_merchants_association",
+        "archetype_key": "corridor_merchants_and_staff",
+        "attention_level": 0.63,
+        "cohort_key": "merchants_cautious_pragmatists",
+        "expression_level": 0.38,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.46,
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.48,
+        "population_share_of_archetype": 0.4,
+        "private_position": "open to redesign if deliveries and customer access are preserved",
+        "public_position": "muted concern awaiting details and audit",
+        "representation_mode": "partial_and_informal",
+        "represented_population": 320,
+        "stance_axes": {
+          "bus_lane_support": 0.46,
+          "delivery_access_priority": 0.8,
+          "protected_bike_lane_support": 0.44,
+          "safety_priority": 0.61,
+          "street_parking_preservation": 0.62
+        }
+      },
+      {
+        "actor_name": "transit_riders_union",
+        "archetype_key": "regular_bus_riders",
+        "attention_level": 0.68,
+        "cohort_key": "bus_riders_reliability_backers",
+        "expression_level": 0.49,
+        "fatigue": 0.36,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.58,
+        "perceived_majority": 0.43,
+        "population_share_of_archetype": 0.65,
+        "private_position": "supportive of bus lanes and generally favorable to safety redesign",
+        "public_position": "wants reliable buses and action soon",
+        "representation_mode": "advocacy_and_loose public alignment",
+        "represented_population": 7800,
+        "stance_axes": {
+          "bus_lane_support": 0.87,
+          "delivery_access_priority": 0.34,
+          "protected_bike_lane_support": 0.64,
+          "safety_priority": 0.72,
+          "street_parking_preservation": 0.22
+        }
+      },
+      {
+        "actor_name": "transit_riders_union",
+        "archetype_key": "regular_bus_riders",
+        "attention_level": 0.44,
+        "cohort_key": "bus_riders_quiet_supporters",
+        "expression_level": 0.19,
+        "fatigue": 0.42,
+        "fear_of_isolation": 0.57,
+        "mobilization_readiness": 0.33,
+        "perceived_majority": 0.37,
+        "population_share_of_archetype": 0.35,
+        "private_position": "supportive but not organized",
+        "public_position": "mostly silent unless prompted by hearing or delays worsen",
+        "representation_mode": "latent_constituency",
+        "represented_population": 4200,
+        "stance_axes": {
+          "bus_lane_support": 0.78,
+          "delivery_access_priority": 0.28,
+          "protected_bike_lane_support": 0.55,
+          "safety_priority": 0.66,
+          "street_parking_preservation": 0.3
+        }
+      },
+      {
+        "actor_name": "corridor_homeowners_network",
+        "archetype_key": "nearby_homeowners",
+        "attention_level": 0.61,
+        "cohort_key": "homeowners_parking_defenders",
+        "expression_level": 0.51,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.33,
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.6,
+        "private_position": "concerned about spillover parking and neighborhood inconvenience",
+        "public_position": "demands mitigation before lane conversion",
+        "representation_mode": "neighborhood network",
+        "represented_population": 3600,
+        "stance_axes": {
+          "bus_lane_support": 0.39,
+          "delivery_access_priority": 0.47,
+          "protected_bike_lane_support": 0.41,
+          "safety_priority": 0.58,
+          "street_parking_preservation": 0.76
+        }
+      },
+      {
+        "actor_name": "corridor_homeowners_network",
+        "archetype_key": "nearby_homeowners",
+        "attention_level": 0.46,
+        "cohort_key": "homeowners_split_moderates",
+        "expression_level": 0.27,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.49,
+        "mobilization_readiness": 0.31,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.4,
+        "private_position": "supports safety improvements if spillover is managed",
+        "public_position": "mixed and conditional",
+        "representation_mode": "partial neighborhood sentiment",
+        "represented_population": 2400,
+        "stance_axes": {
+          "bus_lane_support": 0.53,
+          "delivery_access_priority": 0.35,
+          "protected_bike_lane_support": 0.57,
+          "safety_priority": 0.69,
+          "street_parking_preservation": 0.51
+        }
+      },
+      {
+        "actor_name": "bike_safety_advocates",
+        "archetype_key": "active_transport_supporters",
+        "attention_level": 0.71,
+        "cohort_key": "bike_safety_core_supporters",
+        "expression_level": 0.66,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.38,
+        "mobilization_readiness": 0.64,
+        "perceived_majority": 0.35,
+        "population_share_of_archetype": 0.63,
+        "private_position": "strongly supports protected bike lanes and bus priority",
+        "public_position": "frames issue around safety after crashes",
+        "representation_mode": "organized_advocacy",
+        "represented_population": 2200,
+        "stance_axes": {
+          "bus_lane_support": 0.79,
+          "delivery_access_priority": 0.18,
+          "protected_bike_lane_support": 0.92,
+          "safety_priority": 0.9,
+          "street_parking_preservation": 0.14
+        }
+      },
+      {
+        "actor_name": "general_city_public",
+        "archetype_key": "general_city_residents",
+        "attention_level": 0.21,
+        "cohort_key": "general_public_low_salience",
+        "expression_level": 0.08,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.12,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1.0,
+        "private_position": "weakly formed views; responds to fairness, safety, and congestion frames",
+        "public_position": "mostly inattentive at T0",
+        "representation_mode": "ambient_public",
+        "represented_population": 85000,
+        "stance_axes": {
+          "bus_lane_support": 0.49,
+          "delivery_access_priority": 0.41,
+          "protected_bike_lane_support": 0.47,
+          "safety_priority": 0.59,
+          "street_parking_preservation": 0.45
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "small_business_merchants_association",
+        "archetype_key": "corridor_merchants_and_staff",
+        "attention_level": 0.86,
+        "cohort_key": "merchants_organized_opponents",
+        "expression_level": 0.82,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.24,
+        "mobilization_readiness": 0.77,
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.6,
+        "private_position": "skeptical_to_opposed unless loading and parking mitigations are added",
+        "public_position": "opposed to removing street parking without stronger delivery protections",
+        "representation_mode": "organized_membership_and_claimed_support",
+        "represented_population": 480,
+        "stance_axes": {
+          "bus_lane_support": 0.28,
+          "delivery_access_priority": 0.88,
+          "protected_bike_lane_support": 0.34,
+          "safety_priority": 0.54,
+          "street_parking_preservation": 0.83
+        }
+      },
+      {
+        "actor_name": "small_business_merchants_association",
+        "archetype_key": "corridor_merchants_and_staff",
+        "attention_level": 0.63,
+        "cohort_key": "merchants_cautious_pragmatists",
+        "expression_level": 0.38,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.46,
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.48,
+        "population_share_of_archetype": 0.4,
+        "private_position": "open to redesign if deliveries and customer access are preserved",
+        "public_position": "muted concern awaiting details and audit",
+        "representation_mode": "partial_and_informal",
+        "represented_population": 320,
+        "stance_axes": {
+          "bus_lane_support": 0.46,
+          "delivery_access_priority": 0.8,
+          "protected_bike_lane_support": 0.44,
+          "safety_priority": 0.61,
+          "street_parking_preservation": 0.62
+        }
+      },
+      {
+        "actor_name": "transit_riders_union",
+        "archetype_key": "regular_bus_riders",
+        "attention_level": 0.68,
+        "cohort_key": "bus_riders_reliability_backers",
+        "expression_level": 0.49,
+        "fatigue": 0.36,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.58,
+        "perceived_majority": 0.43,
+        "population_share_of_archetype": 0.65,
+        "private_position": "supportive of bus lanes and generally favorable to safety redesign",
+        "public_position": "wants reliable buses and action soon",
+        "representation_mode": "advocacy_and_loose public alignment",
+        "represented_population": 7800,
+        "stance_axes": {
+          "bus_lane_support": 0.87,
+          "delivery_access_priority": 0.34,
+          "protected_bike_lane_support": 0.64,
+          "safety_priority": 0.72,
+          "street_parking_preservation": 0.22
+        }
+      },
+      {
+        "actor_name": "transit_riders_union",
+        "archetype_key": "regular_bus_riders",
+        "attention_level": 0.44,
+        "cohort_key": "bus_riders_quiet_supporters",
+        "expression_level": 0.19,
+        "fatigue": 0.42,
+        "fear_of_isolation": 0.57,
+        "mobilization_readiness": 0.33,
+        "perceived_majority": 0.37,
+        "population_share_of_archetype": 0.35,
+        "private_position": "supportive but not organized",
+        "public_position": "mostly silent unless prompted by hearing or delays worsen",
+        "representation_mode": "latent_constituency",
+        "represented_population": 4200,
+        "stance_axes": {
+          "bus_lane_support": 0.78,
+          "delivery_access_priority": 0.28,
+          "protected_bike_lane_support": 0.55,
+          "safety_priority": 0.66,
+          "street_parking_preservation": 0.3
+        }
+      },
+      {
+        "actor_name": "corridor_homeowners_network",
+        "archetype_key": "nearby_homeowners",
+        "attention_level": 0.61,
+        "cohort_key": "homeowners_parking_defenders",
+        "expression_level": 0.51,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.33,
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.6,
+        "private_position": "concerned about spillover parking and neighborhood inconvenience",
+        "public_position": "demands mitigation before lane conversion",
+        "representation_mode": "neighborhood network",
+        "represented_population": 3600,
+        "stance_axes": {
+          "bus_lane_support": 0.39,
+          "delivery_access_priority": 0.47,
+          "protected_bike_lane_support": 0.41,
+          "safety_priority": 0.58,
+          "street_parking_preservation": 0.76
+        }
+      },
+      {
+        "actor_name": "corridor_homeowners_network",
+        "archetype_key": "nearby_homeowners",
+        "attention_level": 0.46,
+        "cohort_key": "homeowners_split_moderates",
+        "expression_level": 0.27,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.49,
+        "mobilization_readiness": 0.31,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.4,
+        "private_position": "supports safety improvements if spillover is managed",
+        "public_position": "mixed and conditional",
+        "representation_mode": "partial neighborhood sentiment",
+        "represented_population": 2400,
+        "stance_axes": {
+          "bus_lane_support": 0.53,
+          "delivery_access_priority": 0.35,
+          "protected_bike_lane_support": 0.57,
+          "safety_priority": 0.69,
+          "street_parking_preservation": 0.51
+        }
+      },
+      {
+        "actor_name": "bike_safety_advocates",
+        "archetype_key": "active_transport_supporters",
+        "attention_level": 0.71,
+        "cohort_key": "bike_safety_core_supporters",
+        "expression_level": 0.66,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.38,
+        "mobilization_readiness": 0.64,
+        "perceived_majority": 0.35,
+        "population_share_of_archetype": 0.63,
+        "private_position": "strongly supports protected bike lanes and bus priority",
+        "public_position": "frames issue around safety after crashes",
+        "representation_mode": "organized_advocacy",
+        "represented_population": 2200,
+        "stance_axes": {
+          "bus_lane_support": 0.79,
+          "delivery_access_priority": 0.18,
+          "protected_bike_lane_support": 0.92,
+          "safety_priority": 0.9,
+          "street_parking_preservation": 0.14
+        }
+      },
+      {
+        "actor_name": "general_city_public",
+        "archetype_key": "general_city_residents",
+        "attention_level": 0.21,
+        "cohort_key": "general_public_low_salience",
+        "expression_level": 0.08,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.12,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1.0,
+        "private_position": "weakly formed views; responds to fairness, safety, and congestion frames",
+        "public_position": "mostly inattentive at T0",
+        "representation_mode": "ambient_public",
+        "represented_population": 85000,
+        "stance_axes": {
+          "bus_lane_support": 0.49,
+          "delivery_access_priority": 0.41,
+          "protected_bike_lane_support": 0.47,
+          "safety_priority": 0.59,
+          "street_parking_preservation": 0.45
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "harbor_city_council",
+          "harbor_city_mayor"
+        ],
+        "blockers": [
+          "merchant petition pressure",
+          "homeowner spillover concerns",
+          "adverse or ambiguous audit",
+          "council swing vote caution"
+        ],
+        "contradiction_notes": "A pilot, delay, or single-corridor compromise would not satisfy this endpoint.",
+        "description": "Council approves a substantial corridor conversion including bus lanes and protected bike lanes on both corridors, not merely a study or pilot.",
+        "endpoint_key": "full_redesign_approval",
+        "evidence_refs": [
+          "public_hearing_pending",
+          "safety_audit_pending_release",
+          "council_vote_window_pressure"
+        ],
+        "label": "Full redesign approved",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the city council approve a substantial redesign that includes both bus lanes and protected bike lanes on the two corridors?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.34,
+        "rationale": "This is the clearest terminal version of the proposal implied by the scenario.",
+        "realization_criteria": [
+          "formal council vote passes corridor redesign authorization",
+          "approved package includes bus lanes on both targeted corridors",
+          "approved package includes protected bike lanes on both targeted corridors"
+        ],
+        "status": "active",
+        "status_basis": "Proposal is active but no approval has occurred at T0."
+      },
+      {
+        "authority_refs": [
+          "harbor_city_council",
+          "harbor_city_mayor",
+          "transportation_department"
+        ],
+        "blockers": [
+          "hardline opposition refusing compromise",
+          "supporters rejecting dilution",
+          "insufficient time to draft mitigations"
+        ],
+        "contradiction_notes": "A pure deferral or study order without implementation authority would not satisfy this endpoint.",
+        "description": "Council approves a narrowed, phased, or mitigated redesign rather than the original full conversion.",
+        "endpoint_key": "modified_compromise_package",
+        "evidence_refs": [
+          "merchant_petition_drive",
+          "public_hearing_pending",
+          "safety_audit_pending_release"
+        ],
+        "label": "Modified compromise approved",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will decision-makers converge on a modified package with mitigations or partial implementation rather than the original proposal?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.38,
+        "rationale": "The scenario contains strong incentives for bargaining through mitigations and scope adjustments.",
+        "realization_criteria": [
+          "formal council vote passes a corridor action package",
+          "package materially changes original scope through phased rollout, corridor reduction, pilot status, or explicit loading/parking mitigations",
+          "decision is framed as implementation rather than indefinite study"
+        ],
+        "status": "active",
+        "status_basis": "Multiple stakeholder concerns suggest compromise is a live endpoint at initialization."
+      },
+      {
+        "authority_refs": [
+          "harbor_city_council",
+          "harbor_city_mayor"
+        ],
+        "blockers": [
+          "successful compromise coalition",
+          "strong audit support creating urgency"
+        ],
+        "contradiction_notes": "Short scheduling changes that still culminate in timely approval do not satisfy this endpoint.",
+        "description": "Formal approval is not achieved within the immediate six-week window and the matter is postponed, sent back for more study, or tabled.",
+        "endpoint_key": "decision_delayed_or_deferred",
+        "evidence_refs": [
+          "safety_audit_pending_release",
+          "council_vote_window_pressure"
+        ],
+        "label": "Decision delayed or deferred",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will unresolved audit findings and coalition resistance push the decision into delay, deferral, or further study beyond the six-week window?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.28,
+        "rationale": "Process friction may dominate if legitimacy or vote counts remain weak.",
+        "realization_criteria": [
+          "no formal approval of full or modified redesign by end of the six-week window",
+          "official action postpones, tables, studies, or defers the decision"
+        ],
+        "status": "active",
+        "status_basis": "Unresolved audit and coalition uncertainty make delay a credible terminal option."
+      },
+      {
+        "authority_refs": [
+          "small_business_merchants_association",
+          "corridor_homeowners_network",
+          "harbor_city_council",
+          "harbor_city_mayor"
+        ],
+        "blockers": [
+          "supporter mobilization",
+          "credible mitigation package",
+          "audit findings favoring redesign"
+        ],
+        "contradiction_notes": "Simple parallel complaints without coordinated effect are insufficient.",
+        "description": "Merchant and homeowner coordination becomes durable enough to force major redesign rollback, significant parking retention, or politically visible retreat.",
+        "endpoint_key": "opposition_coalition_reshapes_outcome",
+        "evidence_refs": [
+          "merchant_petition_drive",
+          "public_hearing_pending"
+        ],
+        "label": "Opposition coalition reshapes outcome",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will merchant and homeowner opposition consolidate into a durable coalition capable of reshaping council votes?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.31,
+        "rationale": "Coalition durability is central to whether opposition changes the final decision path.",
+        "realization_criteria": [
+          "merchant and homeowner groups engage in sustained joint public or lobbying activity",
+          "council or mayor materially revises proposal toward parking retention because of that coalition",
+          "official statements cite local business or spillover parking backlash as a decisive reason"
+        ],
+        "status": "active",
+        "status_basis": "Shared parking-loss concerns create a plausible but not yet fully consolidated coalition at T0."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "Scenario implies public hearing, petition, and mayoral vote push likely to be publicly covered.",
+        "layer": "exposure",
+        "reason": "Local media are a primary broad exposure channel for the corridor controversy.",
+        "source_actor_name": "local_news_outlets",
+        "target_actor_name": "general_city_public",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "Pending merchants' petition and council vote window.",
+        "layer": "exposure",
+        "reason": "Petition and business complaints are likely to reach council offices directly.",
+        "source_actor_name": "small_business_merchants_association",
+        "target_actor_name": "harbor_city_council",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "Transit riders want reliability and hearing is pending.",
+        "layer": "exposure",
+        "reason": "Rider advocacy can reach council through testimony and organized outreach.",
+        "source_actor_name": "transit_riders_union",
+        "target_actor_name": "harbor_city_council",
+        "weight": 0.42
+      },
+      {
+        "direction": "directed",
+        "evidence": "Protected bike lane proposal follows minor crashes.",
+        "layer": "exposure",
+        "reason": "Safety advocates are likely to testify and communicate with council.",
+        "source_actor_name": "bike_safety_advocates",
+        "target_actor_name": "harbor_city_council",
+        "weight": 0.39
+      },
+      {
+        "direction": "directed",
+        "evidence": "Homeowners worry about spillover parking.",
+        "layer": "exposure",
+        "reason": "Residents concerned about spillover parking are likely to contact council.",
+        "source_actor_name": "corridor_homeowners_network",
+        "target_actor_name": "harbor_city_council",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "Agency is the technical proposer for redesign details.",
+        "layer": "exposure",
+        "reason": "Agency briefings shape the mayor's understanding of feasibility and benefits.",
+        "source_actor_name": "transportation_department",
+        "target_actor_name": "harbor_city_mayor",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "Unresolved safety audit.",
+        "layer": "exposure",
+        "reason": "Pending audit will directly inform executive framing.",
+        "source_actor_name": "safety_audit_team",
+        "target_actor_name": "harbor_city_mayor",
+        "weight": 0.36
+      },
+      {
+        "direction": "directed",
+        "evidence": "Mayor needs a workable package; agency provides technical basis.",
+        "layer": "trust",
+        "reason": "Mayor likely relies on agency competence but remains politically cautious.",
+        "source_actor_name": "harbor_city_mayor",
+        "target_actor_name": "transportation_department",
+        "weight": 0.54
+      },
+      {
+        "direction": "directed",
+        "evidence": "Audit unresolved and relevant to decision.",
+        "layer": "trust",
+        "reason": "Independent or semi-independent audit can provide legitimate safety evidence.",
+        "source_actor_name": "harbor_city_council",
+        "target_actor_name": "safety_audit_team",
+        "weight": 0.59
+      },
+      {
+        "direction": "directed",
+        "evidence": "Businesses fear delivery disruption from parking removal.",
+        "layer": "trust",
+        "reason": "Merchants likely doubt the administration's sensitivity to business access concerns.",
+        "source_actor_name": "small_business_merchants_association",
+        "target_actor_name": "harbor_city_mayor",
+        "weight": 0.34
+      },
+      {
+        "direction": "directed",
+        "evidence": "Mayor needs votes; riders want reliability.",
+        "layer": "trust",
+        "reason": "Riders may see the mayor as somewhat aligned but unproven until action occurs.",
+        "source_actor_name": "transit_riders_union",
+        "target_actor_name": "harbor_city_mayor",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "Homeowners worry about parking displacement.",
+        "layer": "trust",
+        "reason": "Residents may distrust agency assurances on spillover parking effects.",
+        "source_actor_name": "corridor_homeowners_network",
+        "target_actor_name": "transportation_department",
+        "weight": 0.33
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario explicitly states mayor needs council votes within six weeks.",
+        "layer": "dependency",
+        "reason": "Mayor needs council votes within six weeks to realize the proposal.",
+        "source_actor_name": "harbor_city_mayor",
+        "target_actor_name": "harbor_city_council",
+        "weight": 0.74
+      },
+      {
+        "direction": "directed",
+        "evidence": "Lane replacement plan requires technical specification.",
+        "layer": "dependency",
+        "reason": "Executive strategy depends on agency design revisions and implementation details.",
+        "source_actor_name": "harbor_city_mayor",
+        "target_actor_name": "transportation_department",
+        "weight": 0.51
+      },
+      {
+        "direction": "directed",
+        "evidence": "Small businesses fear delivery disruption.",
+        "layer": "dependency",
+        "reason": "Merchant concerns are materially tied to delivery access and loading operations.",
+        "source_actor_name": "small_business_merchants_association",
+        "target_actor_name": "delivery_logistics_operators",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "Safety audit unresolved before vote period.",
+        "layer": "dependency",
+        "reason": "Audit findings may be needed to justify yes votes or amendments.",
+        "source_actor_name": "harbor_city_council",
+        "target_actor_name": "safety_audit_team",
+        "weight": 0.47
+      },
+      {
+        "direction": "directed",
+        "evidence": "Late buses motivate support for bus lanes.",
+        "layer": "dependency",
+        "reason": "Riders depend on agency action for service reliability improvements.",
+        "source_actor_name": "regular_bus_riders_proxy",
+        "target_actor_name": "transportation_department",
+        "weight": 0.32
+      },
+      {
+        "direction": "directed",
+        "evidence": "Needs votes within six weeks, implying active executive role.",
+        "layer": "influence",
+        "reason": "Mayor can shape agenda, negotiation terms, and coalition formation.",
+        "source_actor_name": "harbor_city_mayor",
+        "target_actor_name": "harbor_city_council",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "Council holds formal vote authority.",
+        "layer": "influence",
+        "reason": "Council receptivity constrains mayoral options and timing.",
+        "source_actor_name": "harbor_city_council",
+        "target_actor_name": "harbor_city_mayor",
+        "weight": 0.55
+      },
+      {
+        "direction": "directed",
+        "evidence": "Pending merchants' petition.",
+        "layer": "influence",
+        "reason": "Organized merchant petition can affect swing members through economic and local pressure.",
+        "source_actor_name": "small_business_merchants_association",
+        "target_actor_name": "harbor_city_council",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "Transit riders want reliability; hearing pending.",
+        "layer": "influence",
+        "reason": "Riders can influence members through hearing testimony and reliability narrative.",
+        "source_actor_name": "transit_riders_union",
+        "target_actor_name": "harbor_city_council",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "Minor crashes cited as policy catalyst.",
+        "layer": "influence",
+        "reason": "Safety framing after crashes can shape council legitimacy concerns.",
+        "source_actor_name": "bike_safety_advocates",
+        "target_actor_name": "harbor_city_council",
+        "weight": 0.38
+      },
+      {
+        "direction": "directed",
+        "evidence": "Public hearing and conflictual local issue likely to be reported.",
+        "layer": "influence",
+        "reason": "Media framing can raise salience and shift perceived legitimacy.",
+        "source_actor_name": "local_news_outlets",
+        "target_actor_name": "general_city_public",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "Issue combines safety, business, and neighborhood conflict.",
+        "layer": "influence",
+        "reason": "Coverage can alter political risk perceptions for council members.",
+        "source_actor_name": "local_news_outlets",
+        "target_actor_name": "harbor_city_council",
+        "weight": 0.36
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Transit reliability and protected bike lane goals are aligned in proposal.",
+        "layer": "coalition",
+        "reason": "Both groups support reallocating street space toward buses and safer biking.",
+        "source_actor_name": "transit_riders_union",
+        "target_actor_name": "bike_safety_advocates",
+        "weight": 0.57
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Businesses fear disruption; homeowners fear spillover parking.",
+        "layer": "coalition",
+        "reason": "Both resist parking loss, though for different reasons.",
+        "source_actor_name": "small_business_merchants_association",
+        "target_actor_name": "corridor_homeowners_network",
+        "weight": 0.39
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Proposal originates through city policy process.",
+        "layer": "coalition",
+        "reason": "Administration and agency are generally aligned behind proposal development.",
+        "source_actor_name": "harbor_city_mayor",
+        "target_actor_name": "transportation_department",
+        "weight": 0.49
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Delivery disruption is central merchant concern.",
+        "layer": "coalition",
+        "reason": "Shared interest in preserving workable loading access.",
+        "source_actor_name": "small_business_merchants_association",
+        "target_actor_name": "delivery_logistics_operators",
+        "weight": 0.46
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Businesses fear delivery disruption from lane conversion.",
+        "layer": "conflict",
+        "reason": "Parking removal proposal directly conflicts with merchant curb-access priorities.",
+        "source_actor_name": "small_business_merchants_association",
+        "target_actor_name": "transportation_department",
+        "weight": 0.56
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Homeowners worry about spillover parking.",
+        "layer": "conflict",
+        "reason": "Residents fear displaced parking from agency plan.",
+        "source_actor_name": "corridor_homeowners_network",
+        "target_actor_name": "transportation_department",
+        "weight": 0.43
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Protected bike lanes imply curb reallocation merchants oppose.",
+        "layer": "conflict",
+        "reason": "Street allocation goals diverge, though conflict is not fully hardened at T0.",
+        "source_actor_name": "small_business_merchants_association",
+        "target_actor_name": "bike_safety_advocates",
+        "weight": 0.34
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Merchants fear disruption; riders prioritize reliability.",
+        "layer": "conflict",
+        "reason": "Bus lane support can be perceived as threatening parking-dependent commerce.",
+        "source_actor_name": "small_business_merchants_association",
+        "target_actor_name": "transit_riders_union",
+        "weight": 0.29
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Petition suggests anticipated contestation.",
+        "layer": "conflict",
+        "reason": "Potential friction exists if council advances redesign over merchant objections.",
+        "source_actor_name": "harbor_city_council",
+        "target_actor_name": "small_business_merchants_association",
+        "weight": 0.21
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Pending merchants' petition in a civic controversy.",
+        "layer": "oasis_interaction",
+        "reason": "Petition and business stories are likely to generate public-facing interactions.",
+        "source_actor_name": "small_business_merchants_association",
+        "target_actor_name": "local_news_outlets",
+        "weight": 0.52
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Series of late buses is a key catalyst.",
+        "layer": "oasis_interaction",
+        "reason": "Rider stories about late buses can appear in public discourse.",
+        "source_actor_name": "transit_riders_union",
+        "target_actor_name": "local_news_outlets",
+        "weight": 0.34
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Minor crashes motivate proposal.",
+        "layer": "oasis_interaction",
+        "reason": "Safety advocates are likely to engage in public messaging tied to crashes.",
+        "source_actor_name": "bike_safety_advocates",
+        "target_actor_name": "local_news_outlets",
+        "weight": 0.37
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Needs council votes in a compressed timeline.",
+        "layer": "oasis_interaction",
+        "reason": "Mayor will likely use media to frame urgency and moderation.",
+        "source_actor_name": "harbor_city_mayor",
+        "target_actor_name": "local_news_outlets",
+        "weight": 0.49
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Pending public hearing.",
+        "layer": "oasis_interaction",
+        "reason": "Hearing and council deliberation create public interaction opportunities.",
+        "source_actor_name": "harbor_city_council",
+        "target_actor_name": "general_city_public",
+        "weight": 0.31
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype_key": "executive_broker",
+        "description": "Mayor balancing policy goals and council arithmetic.",
+        "label": "Executive broker"
+      },
+      {
+        "archetype_key": "swing_decision_body",
+        "description": "Council as formal authority with internal coalition uncertainty.",
+        "label": "Swing decision body"
+      },
+      {
+        "archetype_key": "technical_implementer",
+        "description": "Transportation agency shaping feasibility and design details.",
+        "label": "Technical implementer"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "harbor_city_mayor",
+        "archetype_key": "executive_broker",
+        "attention_level": 0.92,
+        "constraints": [
+          "needs council votes",
+          "unresolved safety audit",
+          "merchant and homeowner concerns"
+        ],
+        "current_goal": "Assemble a passable redesign package within six weeks without provoking a unified anti-plan coalition.",
+        "expression_level": 0.61,
+        "fatigue": 0.47,
+        "fear_of_isolation": 0.18,
+        "hero_key": "mayor_broker_state",
+        "mobilization_readiness": 0.73,
+        "perceived_majority": 0.46,
+        "power": 0.82,
+        "role_salience": 0.95,
+        "stance_axes": {
+          "bus_lane_support": 0.74,
+          "delivery_access_priority": 0.56,
+          "protected_bike_lane_support": 0.68,
+          "safety_priority": 0.76,
+          "street_parking_preservation": 0.34
+        }
+      },
+      {
+        "actor_name": "harbor_city_council",
+        "archetype_key": "swing_decision_body",
+        "attention_level": 0.81,
+        "constraints": [
+          "formal vote responsibility",
+          "hearing exposure",
+          "unclear audit evidence",
+          "coalition uncertainty"
+        ],
+        "current_goal": "Evaluate whether a corridor redesign can be approved without unacceptable constituent backlash.",
+        "expression_level": 0.43,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.29,
+        "hero_key": "council_vote_state",
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.5,
+        "power": 0.91,
+        "role_salience": 0.98,
+        "stance_axes": {
+          "bus_lane_support": 0.56,
+          "delivery_access_priority": 0.52,
+          "protected_bike_lane_support": 0.54,
+          "safety_priority": 0.67,
+          "street_parking_preservation": 0.5
+        }
+      },
+      {
+        "actor_name": "transportation_department",
+        "archetype_key": "technical_implementer",
+        "attention_level": 0.79,
+        "constraints": [
+          "audit pending",
+          "operational tradeoffs",
+          "political edits likely"
+        ],
+        "current_goal": "Defend a credible street redesign while preserving implementation feasibility.",
+        "expression_level": 0.52,
+        "fatigue": 0.39,
+        "fear_of_isolation": 0.16,
+        "hero_key": "transport_design_state",
+        "mobilization_readiness": 0.57,
+        "perceived_majority": 0.48,
+        "power": 0.64,
+        "role_salience": 0.77,
+        "stance_axes": {
+          "bus_lane_support": 0.82,
+          "delivery_access_priority": 0.49,
+          "protected_bike_lane_support": 0.74,
+          "safety_priority": 0.81,
+          "street_parking_preservation": 0.21
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "archetype_key": "executive_broker",
+        "description": "Mayor balancing policy goals and council arithmetic.",
+        "label": "Executive broker"
+      },
+      {
+        "archetype_key": "swing_decision_body",
+        "description": "Council as formal authority with internal coalition uncertainty.",
+        "label": "Swing decision body"
+      },
+      {
+        "archetype_key": "technical_implementer",
+        "description": "Transportation agency shaping feasibility and design details.",
+        "label": "Technical implementer"
+      }
+    ],
+    "important_questions": [
+      "Will the city council approve a substantial redesign that includes both bus lanes and protected bike lanes on the two corridors?",
+      "Will decision-makers converge on a modified package with mitigations or partial implementation rather than the original proposal?",
+      "Will unresolved audit findings and coalition resistance push the decision into delay, deferral, or further study beyond the six-week window?",
+      "Will merchant and homeowner opposition consolidate into a durable coalition capable of reshaping council votes?"
+    ],
+    "initial_events": [
+      {
+        "event_key": "proposal_publicly_active",
+        "event_type": "announcement",
+        "evidence": "Scenario states city proposes replacement after late buses and minor crashes.",
+        "expected_impact": "Creates issue salience among directly affected stakeholders and initiates coalition sorting.",
+        "status": "realized",
+        "summary": "City proposal to replace street parking on two commercial corridors with bus lanes and protected bike lanes is publicly active.",
+        "tick": 0
+      },
+      {
+        "event_key": "merchant_petition_drive",
+        "event_type": "announcement",
+        "evidence": "Scenario explicitly includes a merchants' petition.",
+        "expected_impact": "Raises council exposure to business concerns and may harden parking-preservation framing.",
+        "status": "realized",
+        "summary": "Merchants are organizing a petition against or to modify the parking removal plan.",
+        "tick": 0
+      },
+      {
+        "event_key": "public_hearing_pending",
+        "event_type": "announcement",
+        "evidence": "Scenario explicitly includes a pending public hearing.",
+        "expected_impact": "Could convert quiet private preferences into visible testimony, affecting perceived majority and council caution.",
+        "status": "scheduled",
+        "summary": "Public hearing on the corridor redesign is pending.",
+        "tick": 1
+      },
+      {
+        "event_key": "safety_audit_pending_release",
+        "event_type": "announcement",
+        "evidence": "Scenario explicitly includes an unresolved safety audit.",
+        "expected_impact": "Can increase or decrease legitimacy for the redesign depending on findings and framing.",
+        "status": "scheduled_uncertain",
+        "summary": "Safety audit remains unresolved and may release findings during the decision window.",
+        "tick": 2
+      },
+      {
+        "event_key": "council_vote_window_pressure",
+        "event_type": "announcement",
+        "evidence": "Mayor needs council votes within six weeks.",
+        "expected_impact": "Increases bargaining pressure, likelihood of amendments, and cost of prolonged ambiguity.",
+        "status": "scheduled",
+        "summary": "Mayor's six-week vote deadline approaches.",
+        "tick": 6
+      }
+    ],
+    "llm_call_id": "c1b11da7-d050-426f-8e16-3c65f8426b65",
+    "merge_hypotheses": [
+      {
+        "affected_actors": [
+          "harbor_city_mayor",
+          "harbor_city_council",
+          "transportation_department",
+          "small_business_merchants_association",
+          "corridor_homeowners_network",
+          "transit_riders_union",
+          "bike_safety_advocates"
+        ],
+        "convergence_mechanism": "A credible audit can provide a common factual anchor even for disagreeing groups.",
+        "merge_key": "shared_safety_legitimacy"
+      },
+      {
+        "affected_actors": [
+          "harbor_city_mayor",
+          "transportation_department",
+          "small_business_merchants_association",
+          "corridor_homeowners_network",
+          "harbor_city_council"
+        ],
+        "convergence_mechanism": "Delivery and parking mitigations can reduce zero-sum perceptions and narrow the dispute to implementation details.",
+        "merge_key": "mitigation_based_compromise"
+      },
+      {
+        "affected_actors": [
+          "harbor_city_mayor",
+          "harbor_city_council",
+          "small_business_merchants_association",
+          "transit_riders_union",
+          "corridor_homeowners_network"
+        ],
+        "convergence_mechanism": "As the vote window closes, stakeholders may accept an imperfect compromise rather than extended uncertainty.",
+        "merge_key": "deadline_fatigue"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "corridor_merchants_and_staff",
+        "description": "Business owners, managers, and workers along the two commercial corridors.",
+        "label": "Corridor merchants and staff",
+        "population_total": 800
+      },
+      {
+        "archetype_key": "regular_bus_riders",
+        "description": "Residents and workers who regularly rely on bus service using the affected corridors.",
+        "label": "Regular bus riders",
+        "population_total": 12000
+      },
+      {
+        "archetype_key": "nearby_homeowners",
+        "description": "Homeowners and long-term residents near the corridors concerned about spillover effects.",
+        "label": "Nearby homeowners",
+        "population_total": 6000
+      },
+      {
+        "archetype_key": "active_transport_supporters",
+        "description": "Residents inclined toward bike, walk, and street safety improvements.",
+        "label": "Active transport supporters",
+        "population_total": 3500
+      },
+      {
+        "archetype_key": "general_city_residents",
+        "description": "Broader city population not tightly organized around the issue at T0.",
+        "label": "General city residents",
+        "population_total": 85000
+      }
+    ],
+    "risk_flags": [
+      {
+        "level": "medium",
+        "note": "Source does not name a formal rider representative body; transit_riders_union is a fictionalized organizing actor and one dependency reference is a proxy abstraction.",
+        "risk_key": "actor_proxy_edge_mismatch"
+      },
+      {
+        "level": "medium",
+        "note": "Exact number of votes, swing members, and committee gatekeepers are unspecified.",
+        "risk_key": "council_composition_unknown"
+      },
+      {
+        "level": "medium",
+        "note": "It is unclear whether the safety audit focuses on crashes, bus operations, street design alternatives, or all three.",
+        "risk_key": "audit_scope_unknown"
+      },
+      {
+        "level": "low",
+        "note": "Population totals are realistic inferred defaults for simulation seeding, not source-stated counts.",
+        "risk_key": "population_estimates_inferred"
+      },
+      {
+        "level": "low",
+        "note": "T0 conflict is active but not saturated; broader public attention may remain low until hearing or media escalation.",
+        "risk_key": "public_salience_not_maxed"
+      }
+    ],
+    "simulation_brief": {
+      "domain": "civic_policy",
+      "mode": "direct",
+      "scenario_key": "civic_001",
+      "summary": "A fictional coastal city is considering replacing street parking on two commercial corridors with bus lanes and protected bike lanes following late buses and minor crashes. Transit reliability, street safety, delivery access, neighborhood parking spillover, and near-term council politics are all active pressures. The mayor needs council votes within six weeks. A public hearing is pending, merchants are organizing a petition, and a safety audit remains unresolved.",
+      "time_horizon_note": "Near-term policy decision window centered on the next six weeks.",
+      "uncertainty_notes": [
+        "Safety audit findings are unresolved at T0.",
+        "Exact council composition and vote commitments are not specified.",
+        "Scale of merchant opposition and rider mobilization is plausible but not numerically specified in source."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "level": 0.58,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Actors are more persuadable by mitigation details than by opposing value frames.",
+        "scope": "organized stakeholders"
+      },
+      {
+        "level": 0.62,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Broader public likely remains inactive unless hearing coverage or parking/safety narratives intensify.",
+        "scope": "general city residents"
+      },
+      {
+        "level": 0.67,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Some private support for redesign is muted by uncertainty and fear of standing out locally.",
+        "scope": "quiet bus supporters and mixed homeowners"
+      },
+      {
+        "level": 0.55,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Local peer networks reinforce parking and access concerns.",
+        "scope": "merchant and neighborhood networks"
+      },
+      {
+        "level": 0.6,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Visible testimony from multiple constituencies may be needed to normalize support for street reallocation.",
+        "scope": "policy support activation"
+      },
+      {
+        "level": 0.64,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Issue interpretation is filtered through livelihood, commuting, and neighborhood identity.",
+        "scope": "merchant, rider, homeowner identities"
+      },
+      {
+        "level": 0.43,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Without catalytic events, broad interest may remain shallow despite stakeholder conflict.",
+        "scope": "general public"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Safety framing has legitimacy potential but is constrained by the unresolved audit.",
+        "influence_key": "safety_after_minor_crashes"
+      },
+      {
+        "description": "Repeated late buses create a practical service narrative favoring bus lanes.",
+        "influence_key": "reliability_salience_from_late_buses"
+      },
+      {
+        "description": "Visible parking loss is easier for opponents to organize around than future reliability gains are for supporters.",
+        "influence_key": "loss_aversion_over_parking_removal"
+      },
+      {
+        "description": "Homeowner concern is focused on neighborhood externalities rather than corridor-wide transport performance.",
+        "influence_key": "localized_spillover_fear"
+      },
+      {
+        "description": "Six-week deadline increases bargaining leverage for organized groups and raises value of near-term public events.",
+        "influence_key": "compressed_vote_timeline"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "harbor_city_mayor",
+        "behavior_axes": {
+          "compromise_orientation": 0.72,
+          "message_discipline": 0.69,
+          "responsiveness": 0.63,
+          "risk_tolerance": 0.52
+        },
+        "ideology_axes": {
+          "pro_business_access": 0.58,
+          "pro_safety_design": 0.74,
+          "pro_transit": 0.71
+        },
+        "reputation": 0.61,
+        "secrecy": 0.48,
+        "tendency": "brokerage_under_time_pressure",
+        "trustworthiness": 0.56
+      },
+      {
+        "actor_name": "harbor_city_council",
+        "behavior_axes": {
+          "compromise_orientation": 0.62,
+          "message_discipline": 0.44,
+          "responsiveness": 0.71,
+          "risk_tolerance": 0.41
+        },
+        "ideology_axes": {
+          "pro_business_access": 0.57,
+          "pro_safety_design": 0.63,
+          "pro_transit": 0.55
+        },
+        "reputation": 0.52,
+        "secrecy": 0.37,
+        "tendency": "constituency_sensitive_deliberation",
+        "trustworthiness": 0.53
+      },
+      {
+        "actor_name": "transportation_department",
+        "behavior_axes": {
+          "compromise_orientation": 0.51,
+          "message_discipline": 0.66,
+          "responsiveness": 0.49,
+          "risk_tolerance": 0.46
+        },
+        "ideology_axes": {
+          "pro_business_access": 0.42,
+          "pro_safety_design": 0.82,
+          "pro_transit": 0.83
+        },
+        "reputation": 0.58,
+        "secrecy": 0.29,
+        "tendency": "technical_justification",
+        "trustworthiness": 0.67
+      },
+      {
+        "actor_name": "safety_audit_team",
+        "behavior_axes": {
+          "compromise_orientation": 0.43,
+          "message_discipline": 0.71,
+          "responsiveness": 0.38,
+          "risk_tolerance": 0.26
+        },
+        "ideology_axes": {
+          "pro_business_access": 0.5,
+          "pro_safety_design": 0.76,
+          "pro_transit": 0.5
+        },
+        "reputation": 0.63,
+        "secrecy": 0.41,
+        "tendency": "evidence_gated_release",
+        "trustworthiness": 0.72
+      },
+      {
+        "actor_name": "small_business_merchants_association",
+        "behavior_axes": {
+          "compromise_orientation": 0.47,
+          "message_discipline": 0.74,
+          "responsiveness": 0.77,
+          "risk_tolerance": 0.39
+        },
+        "ideology_axes": {
+          "pro_business_access": 0.88,
+          "pro_safety_design": 0.46,
+          "pro_transit": 0.31
+        },
+        "reputation": 0.55,
+        "secrecy": 0.24,
+        "tendency": "organized_loss_aversion",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "transit_riders_union",
+        "behavior_axes": {
+          "compromise_orientation": 0.56,
+          "message_discipline": 0.58,
+          "responsiveness": 0.69,
+          "risk_tolerance": 0.44
+        },
+        "ideology_axes": {
+          "pro_business_access": 0.34,
+          "pro_safety_design": 0.68,
+          "pro_transit": 0.91
+        },
+        "reputation": 0.5,
+        "secrecy": 0.18,
+        "tendency": "underorganized_service_demand",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "bike_safety_advocates",
+        "behavior_axes": {
+          "compromise_orientation": 0.46,
+          "message_discipline": 0.64,
+          "responsiveness": 0.66,
+          "risk_tolerance": 0.53
+        },
+        "ideology_axes": {
+          "pro_business_access": 0.26,
+          "pro_safety_design": 0.93,
+          "pro_transit": 0.73
+        },
+        "reputation": 0.49,
+        "secrecy": 0.16,
+        "tendency": "normative_safety_campaigning",
+        "trustworthiness": 0.59
+      },
+      {
+        "actor_name": "corridor_homeowners_network",
+        "behavior_axes": {
+          "compromise_orientation": 0.49,
+          "message_discipline": 0.57,
+          "responsiveness": 0.62,
+          "risk_tolerance": 0.34
+        },
+        "ideology_axes": {
+          "pro_business_access": 0.52,
+          "pro_safety_design": 0.57,
+          "pro_transit": 0.42
+        },
+        "reputation": 0.54,
+        "secrecy": 0.21,
+        "tendency": "localized_defensive_mobilization",
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "delivery_logistics_operators",
+        "behavior_axes": {
+          "compromise_orientation": 0.55,
+          "message_discipline": 0.51,
+          "responsiveness": 0.58,
+          "risk_tolerance": 0.45
+        },
+        "ideology_axes": {
+          "pro_business_access": 0.84,
+          "pro_safety_design": 0.44,
+          "pro_transit": 0.33
+        },
+        "reputation": 0.47,
+        "secrecy": 0.31,
+        "tendency": "operational_constraint_signaling",
+        "trustworthiness": 0.52
+      },
+      {
+        "actor_name": "local_news_outlets",
+        "behavior_axes": {
+          "compromise_orientation": 0.33,
+          "message_discipline": 0.49,
+          "responsiveness": 0.74,
+          "risk_tolerance": 0.61
+        },
+        "ideology_axes": {
+          "pro_business_access": 0.5,
+          "pro_safety_design": 0.56,
+          "pro_transit": 0.5
+        },
+        "reputation": 0.58,
+        "secrecy": 0.11,
+        "tendency": "conflict_and_accountability_framing",
+        "trustworthiness": 0.52
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 576,
+        "end": 576,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 576,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

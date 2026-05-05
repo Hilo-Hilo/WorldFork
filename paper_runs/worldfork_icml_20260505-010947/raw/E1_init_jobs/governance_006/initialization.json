@@ -1,0 +1,1525 @@
+{
+  "big_bang_id": "e9298d40-69a3-4747-aaed-0181eeac942c",
+  "initializer_output": {
+    "actors": [
+      {
+        "description": "Municipal ethics oversight office responsible for complaint intake and review.",
+        "fictionalized": true,
+        "name": "city_ethics_office",
+        "public_visibility": "medium",
+        "stakes": [
+          "protect complaint integrity",
+          "maintain legitimacy",
+          "follow disclosure rules",
+          "avoid leak-driven process failure"
+        ],
+        "type": "institution"
+      },
+      {
+        "description": "Procurement official who is the subject of the confidential complaint and denies wrongdoing.",
+        "fictionalized": true,
+        "name": "procurement_official",
+        "public_visibility": "medium",
+        "stakes": [
+          "protect position",
+          "defend reputation",
+          "avoid sanction",
+          "limit rumor spread"
+        ],
+        "type": "individual_official"
+      },
+      {
+        "description": "Staff in or around the relevant agency who are aware of internal sensitivity and fear leaks.",
+        "fictionalized": true,
+        "name": "agency_staff",
+        "public_visibility": "low",
+        "stakes": [
+          "job security",
+          "procedural fairness",
+          "avoid retaliation",
+          "avoid being blamed for leaks"
+        ],
+        "type": "workforce_group"
+      },
+      {
+        "description": "Local journalists who know a complaint exists but not its content.",
+        "fictionalized": true,
+        "name": "journalist_pool",
+        "public_visibility": "high",
+        "stakes": [
+          "verify facts",
+          "break story",
+          "protect sources",
+          "avoid false reporting"
+        ],
+        "type": "media_group"
+      },
+      {
+        "description": "Mayor's office or senior city administrators with indirect authority over messaging, staffing, and institutional posture.",
+        "fictionalized": true,
+        "name": "city_leadership",
+        "public_visibility": "high",
+        "stakes": [
+          "contain governance fallout",
+          "preserve public trust",
+          "avoid political damage",
+          "maintain lawful process"
+        ],
+        "type": "executive_group"
+      },
+      {
+        "description": "The formal confidentiality and disclosure rules governing ethics investigations.",
+        "fictionalized": true,
+        "name": "oversight_rules_regime",
+        "public_visibility": "medium",
+        "stakes": [
+          "procedural compliance",
+          "confidentiality",
+          "fairness",
+          "legitimacy through rule adherence"
+        ],
+        "type": "institutional_constraint"
+      },
+      {
+        "description": "Unknown source of the complaint.",
+        "fictionalized": true,
+        "name": "complainant_unknown",
+        "public_visibility": "low",
+        "stakes": [
+          "report concern safely",
+          "avoid exposure",
+          "seek accountability"
+        ],
+        "type": "anonymous_actor"
+      },
+      {
+        "description": "Residents and observers who may react to rumor, reporting, and official process signals.",
+        "fictionalized": true,
+        "name": "city_public",
+        "public_visibility": "high",
+        "stakes": [
+          "clean government",
+          "fair process",
+          "timely accountability",
+          "confidence in institutions"
+        ],
+        "type": "general_public"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "branch_key": "substantiation_path",
+        "observable_divergence_signal": "Internal process intensifies, official access narrows, or external reporting shifts from existence of complaint to specific verified allegations.",
+        "plausible_path": "Investigation deepens, leadership prepares contingency actions, and public scrutiny rises if verification or leaks occur.",
+        "trigger": "Preliminary assessment finds credible evidence or corroborating records supporting material allegations."
+      },
+      {
+        "branch_key": "dismissal_path",
+        "observable_divergence_signal": "Reduction in institutional activity, absence of further sourcing momentum, or formal closure language if disclosure rules permit.",
+        "plausible_path": "Matter is closed or narrowed, but lingering suspicion may remain if public awareness preceded explanation.",
+        "trigger": "Preliminary review finds the complaint unsupported, procedurally defective, or too weak to pursue."
+      },
+      {
+        "branch_key": "leak_path",
+        "observable_divergence_signal": "Public reports include nonpublic specifics unavailable from official statements.",
+        "plausible_path": "Media narrative outruns formal process, trust fractures inside the agency, and leadership shifts into containment mode.",
+        "trigger": "A staff member or adjacent insider shares complaint details or investigative fragments outside approved channels."
+      },
+      {
+        "branch_key": "procedural_reform_path",
+        "observable_divergence_signal": "Public or internal discussion shifts from individual guilt to process redesign, audit, or rule changes.",
+        "plausible_path": "Actors separate the individual case from system issues and launch policy review, training, or disclosure-rule adjustments.",
+        "trigger": "Handling tensions reveal gaps in procurement oversight, confidentiality practice, or complaint processing regardless of allegation merits."
+      },
+      {
+        "branch_key": "durable_uncertainty_path",
+        "observable_divergence_signal": "Repeated references to an unresolved complaint with little new evidence and declining public attention.",
+        "plausible_path": "A low-grade legitimacy cloud persists without decisive outcome, producing rumor cycles and fatigue.",
+        "trigger": "Complaint remains unresolved while confidentiality rules keep facts obscured and reporters cannot fully verify."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "formal_ethics_intake",
+        "participants": [
+          "complainant_unknown",
+          "city_ethics_office"
+        ],
+        "reliability": 0.74,
+        "type": "private_institutional",
+        "visibility": "confidential"
+      },
+      {
+        "channel_key": "internal_agency_communication",
+        "participants": [
+          "agency_staff",
+          "procurement_official",
+          "city_leadership"
+        ],
+        "reliability": 0.52,
+        "type": "private_institutional",
+        "visibility": "restricted"
+      },
+      {
+        "channel_key": "press_inquiry_channel",
+        "participants": [
+          "journalist_pool",
+          "city_ethics_office",
+          "city_leadership",
+          "procurement_official"
+        ],
+        "reliability": 0.57,
+        "type": "semi_public",
+        "visibility": "selective_public"
+      },
+      {
+        "channel_key": "public_reporting_channel",
+        "participants": [
+          "journalist_pool",
+          "city_public"
+        ],
+        "reliability": 0.54,
+        "type": "public_media",
+        "visibility": "public"
+      },
+      {
+        "channel_key": "informal_leak_network",
+        "participants": [
+          "agency_staff",
+          "journalist_pool",
+          "unknown_others"
+        ],
+        "reliability": 0.33,
+        "type": "informal_private",
+        "visibility": "hidden"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "agency_staff_population",
+        "attention_level": 0.74,
+        "cohort_key": "agency_staff_cautious_majority",
+        "expression_level": 0.22,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.67,
+        "label": "Cautious staff majority",
+        "mobilization_readiness": 0.24,
+        "perceived_majority": 0.61,
+        "population_share_of_archetype": 0.708,
+        "private_belief": "Something may be wrong but facts are unclear; speaking openly is risky.",
+        "public_expression": "Minimal outward comment; defer to process and confidentiality.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 170,
+        "stance_axes": {
+          "due_process_vs_immediate_disclosure": 0.68,
+          "institutional_loyalty_vs_whistleblowing": 0.62,
+          "reform_pressure_vs_status_quo": 0.48
+        }
+      },
+      {
+        "archetype_key": "agency_staff_population",
+        "attention_level": 0.83,
+        "cohort_key": "agency_staff_rumor_sensitive_minority",
+        "expression_level": 0.36,
+        "fatigue": 0.39,
+        "fear_of_isolation": 0.58,
+        "label": "Rumor-sensitive staff minority",
+        "mobilization_readiness": 0.39,
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.292,
+        "private_belief": "Leak risk is high and leadership may not fully control the narrative.",
+        "public_expression": "Selective private discussion; limited public silence.",
+        "representation_mode": "estimated_minority_cohort",
+        "represented_population": 70,
+        "stance_axes": {
+          "due_process_vs_immediate_disclosure": 0.44,
+          "institutional_loyalty_vs_whistleblowing": 0.41,
+          "reform_pressure_vs_status_quo": 0.63
+        }
+      },
+      {
+        "archetype_key": "local_news_audience",
+        "attention_level": 0.29,
+        "cohort_key": "news_audience_wait_and_see",
+        "expression_level": 0.18,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.21,
+        "label": "Wait-and-see residents",
+        "mobilization_readiness": 0.15,
+        "perceived_majority": 0.64,
+        "population_share_of_archetype": 0.678,
+        "private_belief": "A complaint matters, but details are needed before judgment.",
+        "public_expression": "Low active engagement unless concrete revelations emerge.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 122000,
+        "stance_axes": {
+          "due_process_vs_immediate_disclosure": 0.57,
+          "institutional_loyalty_vs_whistleblowing": 0.49,
+          "reform_pressure_vs_status_quo": 0.46
+        }
+      },
+      {
+        "archetype_key": "local_news_audience",
+        "attention_level": 0.52,
+        "cohort_key": "news_audience_corruption_alert_segment",
+        "expression_level": 0.41,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.26,
+        "label": "Corruption-alert residents",
+        "mobilization_readiness": 0.44,
+        "perceived_majority": 0.37,
+        "population_share_of_archetype": 0.322,
+        "private_belief": "Where there is a confidential complaint, there may be serious misconduct or a cover-up.",
+        "public_expression": "Higher likelihood of sharing media reports and demanding transparency.",
+        "representation_mode": "estimated_attention_segment",
+        "represented_population": 58000,
+        "stance_axes": {
+          "due_process_vs_immediate_disclosure": 0.34,
+          "institutional_loyalty_vs_whistleblowing": 0.29,
+          "reform_pressure_vs_status_quo": 0.74
+        }
+      },
+      {
+        "archetype_key": "city_governance_elites",
+        "attention_level": 0.88,
+        "cohort_key": "governance_elites_process_first",
+        "expression_level": 0.47,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.24,
+        "label": "Process-first governance elites",
+        "mobilization_readiness": 0.51,
+        "perceived_majority": 0.7,
+        "population_share_of_archetype": 0.686,
+        "private_belief": "Improper disclosure could damage fairness and city liability even if public pressure rises.",
+        "public_expression": "Support careful compliance language and limited comment.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 24,
+        "stance_axes": {
+          "due_process_vs_immediate_disclosure": 0.79,
+          "institutional_loyalty_vs_whistleblowing": 0.66,
+          "reform_pressure_vs_status_quo": 0.38
+        }
+      },
+      {
+        "archetype_key": "city_governance_elites",
+        "attention_level": 0.86,
+        "cohort_key": "governance_elites_reform_watchers",
+        "expression_level": 0.39,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.33,
+        "label": "Reform-watch governance elites",
+        "mobilization_readiness": 0.48,
+        "perceived_majority": 0.31,
+        "population_share_of_archetype": 0.314,
+        "private_belief": "Even an unproven complaint can expose weak procurement or ethics procedures.",
+        "public_expression": "Quietly probe for oversight gaps; avoid prejudging merits.",
+        "representation_mode": "estimated_minority_cohort",
+        "represented_population": 11,
+        "stance_axes": {
+          "due_process_vs_immediate_disclosure": 0.55,
+          "institutional_loyalty_vs_whistleblowing": 0.43,
+          "reform_pressure_vs_status_quo": 0.71
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "agency_staff_population",
+        "attention_level": 0.74,
+        "cohort_key": "agency_staff_cautious_majority",
+        "expression_level": 0.22,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.67,
+        "label": "Cautious staff majority",
+        "mobilization_readiness": 0.24,
+        "perceived_majority": 0.61,
+        "population_share_of_archetype": 0.708,
+        "private_belief": "Something may be wrong but facts are unclear; speaking openly is risky.",
+        "public_expression": "Minimal outward comment; defer to process and confidentiality.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 170,
+        "stance_axes": {
+          "due_process_vs_immediate_disclosure": 0.68,
+          "institutional_loyalty_vs_whistleblowing": 0.62,
+          "reform_pressure_vs_status_quo": 0.48
+        }
+      },
+      {
+        "archetype_key": "agency_staff_population",
+        "attention_level": 0.83,
+        "cohort_key": "agency_staff_rumor_sensitive_minority",
+        "expression_level": 0.36,
+        "fatigue": 0.39,
+        "fear_of_isolation": 0.58,
+        "label": "Rumor-sensitive staff minority",
+        "mobilization_readiness": 0.39,
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.292,
+        "private_belief": "Leak risk is high and leadership may not fully control the narrative.",
+        "public_expression": "Selective private discussion; limited public silence.",
+        "representation_mode": "estimated_minority_cohort",
+        "represented_population": 70,
+        "stance_axes": {
+          "due_process_vs_immediate_disclosure": 0.44,
+          "institutional_loyalty_vs_whistleblowing": 0.41,
+          "reform_pressure_vs_status_quo": 0.63
+        }
+      },
+      {
+        "archetype_key": "local_news_audience",
+        "attention_level": 0.29,
+        "cohort_key": "news_audience_wait_and_see",
+        "expression_level": 0.18,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.21,
+        "label": "Wait-and-see residents",
+        "mobilization_readiness": 0.15,
+        "perceived_majority": 0.64,
+        "population_share_of_archetype": 0.678,
+        "private_belief": "A complaint matters, but details are needed before judgment.",
+        "public_expression": "Low active engagement unless concrete revelations emerge.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 122000,
+        "stance_axes": {
+          "due_process_vs_immediate_disclosure": 0.57,
+          "institutional_loyalty_vs_whistleblowing": 0.49,
+          "reform_pressure_vs_status_quo": 0.46
+        }
+      },
+      {
+        "archetype_key": "local_news_audience",
+        "attention_level": 0.52,
+        "cohort_key": "news_audience_corruption_alert_segment",
+        "expression_level": 0.41,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.26,
+        "label": "Corruption-alert residents",
+        "mobilization_readiness": 0.44,
+        "perceived_majority": 0.37,
+        "population_share_of_archetype": 0.322,
+        "private_belief": "Where there is a confidential complaint, there may be serious misconduct or a cover-up.",
+        "public_expression": "Higher likelihood of sharing media reports and demanding transparency.",
+        "representation_mode": "estimated_attention_segment",
+        "represented_population": 58000,
+        "stance_axes": {
+          "due_process_vs_immediate_disclosure": 0.34,
+          "institutional_loyalty_vs_whistleblowing": 0.29,
+          "reform_pressure_vs_status_quo": 0.74
+        }
+      },
+      {
+        "archetype_key": "city_governance_elites",
+        "attention_level": 0.88,
+        "cohort_key": "governance_elites_process_first",
+        "expression_level": 0.47,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.24,
+        "label": "Process-first governance elites",
+        "mobilization_readiness": 0.51,
+        "perceived_majority": 0.7,
+        "population_share_of_archetype": 0.686,
+        "private_belief": "Improper disclosure could damage fairness and city liability even if public pressure rises.",
+        "public_expression": "Support careful compliance language and limited comment.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 24,
+        "stance_axes": {
+          "due_process_vs_immediate_disclosure": 0.79,
+          "institutional_loyalty_vs_whistleblowing": 0.66,
+          "reform_pressure_vs_status_quo": 0.38
+        }
+      },
+      {
+        "archetype_key": "city_governance_elites",
+        "attention_level": 0.86,
+        "cohort_key": "governance_elites_reform_watchers",
+        "expression_level": 0.39,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.33,
+        "label": "Reform-watch governance elites",
+        "mobilization_readiness": 0.48,
+        "perceived_majority": 0.31,
+        "population_share_of_archetype": 0.314,
+        "private_belief": "Even an unproven complaint can expose weak procurement or ethics procedures.",
+        "public_expression": "Quietly probe for oversight gaps; avoid prejudging merits.",
+        "representation_mode": "estimated_minority_cohort",
+        "represented_population": 11,
+        "stance_axes": {
+          "due_process_vs_immediate_disclosure": 0.55,
+          "institutional_loyalty_vs_whistleblowing": 0.43,
+          "reform_pressure_vs_status_quo": 0.71
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "city_ethics_office",
+          "city_leadership"
+        ],
+        "blockers": [
+          "confidentiality limits on disclosure",
+          "insufficient evidence",
+          "leadership reluctance absent verified record"
+        ],
+        "contradiction_notes": "Official denial and unknown complaint content prevent strong prior confidence.",
+        "description": "A terminal outcome in which the complaint results in an official substantiated finding or equivalent confirmed misconduct determination regarding the procurement official.",
+        "endpoint_key": "substantiated_wrongdoing",
+        "evidence_refs": [
+          "scenario_text",
+          "complaint_received"
+        ],
+        "label": "Substantiated wrongdoing finding",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the complaint against the procurement official be substantiated by later verified findings?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.31,
+        "rationale": "Substantiation is a core branch explicitly implied by scenario focus.",
+        "realization_criteria": [
+          "A formal ethics finding, disciplinary notice, investigative report, or authoritative city action explicitly states the official committed misconduct or violated rules.",
+          "The finding is attributable to a recognized authority actor rather than rumor or anonymous reporting."
+        ],
+        "status": "active",
+        "status_basis": "A complaint exists, but no determination is available at T0."
+      },
+      {
+        "authority_refs": [
+          "city_ethics_office",
+          "city_leadership"
+        ],
+        "blockers": [
+          "new corroborating evidence",
+          "leaks that force extended review",
+          "political pressure to continue inquiry"
+        ],
+        "contradiction_notes": "Public suspicion may persist even if the case closes, so narrative closure may differ from procedural closure.",
+        "description": "A terminal outcome in which the complaint is dismissed, closed, or otherwise resolved without a substantiated misconduct finding.",
+        "endpoint_key": "case_closed_without_substantiation",
+        "evidence_refs": [
+          "scenario_text",
+          "preliminary_assessment_checkpoint"
+        ],
+        "label": "Case closed without substantiation",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the matter be dismissed, closed, or otherwise end without a substantiated wrongdoing finding?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.29,
+        "rationale": "The scenario explicitly includes dismissal as a central alternative endpoint.",
+        "realization_criteria": [
+          "A formal closure, declination, dismissal, or equivalent official record indicates no substantiated wrongdoing finding will issue from this complaint.",
+          "No later authoritative reversal reopens the same matter within the observed horizon."
+        ],
+        "status": "active",
+        "status_basis": "Dismissal/closure is explicitly named as a branch, but no early merits assessment is known."
+      },
+      {
+        "authority_refs": [
+          "agency_staff",
+          "journalist_pool",
+          "city_ethics_office"
+        ],
+        "blockers": [
+          "strong internal message discipline",
+          "limited document access",
+          "fear of retaliation or source exposure"
+        ],
+        "contradiction_notes": "A leak can coexist with either substantiation or dismissal; it is terminal here as a distinct public-state endpoint.",
+        "description": "A terminal outcome in which significant nonpublic details from the complaint or inquiry enter public circulation through leaks or unauthorized disclosure.",
+        "endpoint_key": "material_leak_public_revelation",
+        "evidence_refs": [
+          "scenario_text",
+          "media_awareness_without_contents",
+          "internal_confidentiality_reinforcement"
+        ],
+        "label": "Material leak of nonpublic details",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will nonpublic complaint details or investigative information leak into media or public circulation?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.34,
+        "rationale": "Leak risk is one of the scenario's stated central uncertainties.",
+        "realization_criteria": [
+          "Media reports, public documents, or acknowledged disclosures reveal specific nonpublic complaint contents, evidence, or internal investigative steps not previously officially released.",
+          "The revealed details are substantial enough to alter public understanding of the case."
+        ],
+        "status": "active",
+        "status_basis": "Staff fear leaks and journalists already have partial awareness, creating a credible leak pathway at T0."
+      },
+      {
+        "authority_refs": [
+          "city_leadership",
+          "city_ethics_office",
+          "oversight_rules_regime"
+        ],
+        "blockers": [
+          "case closure without broader concern",
+          "leadership preference for narrow containment",
+          "lack of documented process failure"
+        ],
+        "contradiction_notes": "Reform can occur whether or not the official is ultimately cleared or sanctioned.",
+        "description": "A terminal outcome in which the city implements concrete reforms to procurement oversight, complaint handling, confidentiality practice, or related governance procedures tied to this episode.",
+        "endpoint_key": "procedural_reform_adopted",
+        "evidence_refs": [
+          "scenario_text",
+          "procedural_reform_path"
+        ],
+        "label": "Procedural reform adopted",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the city adopt concrete procedural reforms tied to the complaint or its handling?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.24,
+        "rationale": "The scenario explicitly asks for branches around procedural reform.",
+        "realization_criteria": [
+          "A formally adopted policy change, audit implementation, training mandate, structural review, or rules revision is announced or enacted and explicitly linked to the complaint or its handling.",
+          "The action goes beyond temporary messaging or an informal promise to review."
+        ],
+        "status": "active",
+        "status_basis": "Procedural reform is an explicit branch but depends on system-level learning or pressure not yet evidenced."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "Journalists know a complaint exists; public may learn through reporting.",
+        "layer": "exposure",
+        "reason": "Journalists can expose the existence of the complaint and related questions to residents.",
+        "source_actor_name": "journalist_pool",
+        "target_actor_name": "city_public",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "Oversight and institutional handling imply executive awareness pathways.",
+        "layer": "exposure",
+        "reason": "Ethics office process updates likely reach leadership through formal channels.",
+        "source_actor_name": "city_ethics_office",
+        "target_actor_name": "city_leadership",
+        "weight": 0.42
+      },
+      {
+        "direction": "directed",
+        "evidence": "Agency staff fear leaks.",
+        "layer": "exposure",
+        "reason": "Leak anxiety implies possible staff-to-media information exposure channels.",
+        "source_actor_name": "agency_staff",
+        "target_actor_name": "journalist_pool",
+        "weight": 0.28
+      },
+      {
+        "direction": "directed",
+        "evidence": "The official denies wrongdoing.",
+        "layer": "exposure",
+        "reason": "The official's denial is likely seen within the agency environment.",
+        "source_actor_name": "procurement_official",
+        "target_actor_name": "agency_staff",
+        "weight": 0.37
+      },
+      {
+        "direction": "directed",
+        "evidence": "Leadership plausibly manages messaging under oversight constraints.",
+        "layer": "exposure",
+        "reason": "Leadership may issue limited public statements if attention rises.",
+        "source_actor_name": "city_leadership",
+        "target_actor_name": "city_public",
+        "weight": 0.31
+      },
+      {
+        "direction": "directed",
+        "evidence": "Ethics office receives a confidential complaint.",
+        "layer": "exposure",
+        "reason": "The complainant has directly delivered the complaint to the ethics office.",
+        "source_actor_name": "complainant_unknown",
+        "target_actor_name": "city_ethics_office",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "Staff fear leaks while oversight rules limit disclosure.",
+        "layer": "trust",
+        "reason": "Staff see the office as legitimate but are uncertain about confidentiality protection.",
+        "source_actor_name": "agency_staff",
+        "target_actor_name": "city_ethics_office",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "Complaint exists but content is unknown; uncertainty remains.",
+        "layer": "trust",
+        "reason": "Public trust is moderate pending facts and handling quality.",
+        "source_actor_name": "city_public",
+        "target_actor_name": "city_ethics_office",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "Rules limit disclosure and journalists lack content.",
+        "layer": "trust",
+        "reason": "Reporters may respect the office's formal role but suspect over-withholding.",
+        "source_actor_name": "journalist_pool",
+        "target_actor_name": "city_ethics_office",
+        "weight": 0.33
+      },
+      {
+        "direction": "directed",
+        "evidence": "Confidential complaint plus denial.",
+        "layer": "trust",
+        "reason": "Denial prevents immediate collapse of confidence, but complaint existence creates doubt.",
+        "source_actor_name": "agency_staff",
+        "target_actor_name": "procurement_official",
+        "weight": 0.38
+      },
+      {
+        "direction": "directed",
+        "evidence": "Ethics office is designated receiver of complaint.",
+        "layer": "trust",
+        "reason": "Leadership likely relies on ethics office competence for lawful handling.",
+        "source_actor_name": "city_leadership",
+        "target_actor_name": "city_ethics_office",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "Journalists know a complaint exists but not its content.",
+        "layer": "trust",
+        "reason": "Local media can credibly signal an issue exists, but details remain unverified.",
+        "source_actor_name": "city_public",
+        "target_actor_name": "journalist_pool",
+        "weight": 0.49
+      },
+      {
+        "direction": "directed",
+        "evidence": "Confidential complaint is within ethics office control.",
+        "layer": "dependency",
+        "reason": "Leadership depends on ethics process for verified facts before major action.",
+        "source_actor_name": "city_leadership",
+        "target_actor_name": "city_ethics_office",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "Journalists know a complaint exists but not its content; staff fear leaks.",
+        "layer": "dependency",
+        "reason": "Reporters may depend on staff or adjacent insiders for confirmation or leak pathways.",
+        "source_actor_name": "journalist_pool",
+        "target_actor_name": "agency_staff",
+        "weight": 0.35
+      },
+      {
+        "direction": "directed",
+        "evidence": "Leadership has likely personnel and messaging leverage.",
+        "layer": "dependency",
+        "reason": "The official's job security and public defense partly depend on leadership posture.",
+        "source_actor_name": "procurement_official",
+        "target_actor_name": "city_leadership",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "Oversight rules limit disclosure.",
+        "layer": "dependency",
+        "reason": "The office is materially constrained by confidentiality and disclosure rules.",
+        "source_actor_name": "city_ethics_office",
+        "target_actor_name": "oversight_rules_regime",
+        "weight": 0.71
+      },
+      {
+        "direction": "directed",
+        "evidence": "Public facts are limited while journalists track the complaint.",
+        "layer": "dependency",
+        "reason": "Residents rely on journalists for information absent official disclosure.",
+        "source_actor_name": "city_public",
+        "target_actor_name": "journalist_pool",
+        "weight": 0.26
+      },
+      {
+        "direction": "directed",
+        "evidence": "Complaint lodged confidentially with ethics office.",
+        "layer": "dependency",
+        "reason": "Complaint pursuit depends on office willingness and capacity to protect and assess it.",
+        "source_actor_name": "complainant_unknown",
+        "target_actor_name": "city_ethics_office",
+        "weight": 0.47
+      },
+      {
+        "direction": "directed",
+        "evidence": "Leadership lacks full facts and must respect oversight process.",
+        "layer": "influence",
+        "reason": "Ethics office assessments can shape leadership decisions and tone.",
+        "source_actor_name": "city_ethics_office",
+        "target_actor_name": "city_leadership",
+        "weight": 0.51
+      },
+      {
+        "direction": "directed",
+        "evidence": "Journalists know a complaint exists and may pursue the story.",
+        "layer": "influence",
+        "reason": "Media framing can raise salience and alter public expectations.",
+        "source_actor_name": "journalist_pool",
+        "target_actor_name": "city_public",
+        "weight": 0.59
+      },
+      {
+        "direction": "directed",
+        "evidence": "Staff fear leaks in a hierarchical institution.",
+        "layer": "influence",
+        "reason": "Leadership signals affect staff caution and perceptions of retaliation or openness.",
+        "source_actor_name": "city_leadership",
+        "target_actor_name": "agency_staff",
+        "weight": 0.48
+      },
+      {
+        "direction": "directed",
+        "evidence": "Official denies wrongdoing and is within agency context.",
+        "layer": "influence",
+        "reason": "The official can influence close colleagues through denial and status.",
+        "source_actor_name": "procurement_official",
+        "target_actor_name": "agency_staff",
+        "weight": 0.34
+      },
+      {
+        "direction": "directed",
+        "evidence": "Journalists know a complaint exists.",
+        "layer": "influence",
+        "reason": "Press inquiries can force leadership agenda attention even without full facts.",
+        "source_actor_name": "journalist_pool",
+        "target_actor_name": "city_leadership",
+        "weight": 0.43
+      },
+      {
+        "direction": "directed",
+        "evidence": "Oversight rules limit disclosure.",
+        "layer": "influence",
+        "reason": "Rules strongly structure disclosure choices and investigation posture.",
+        "source_actor_name": "oversight_rules_regime",
+        "target_actor_name": "city_ethics_office",
+        "weight": 0.62
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Ethics office operates under oversight rules.",
+        "layer": "coalition",
+        "reason": "The office is aligned with rule-based confidentiality and process integrity.",
+        "source_actor_name": "city_ethics_office",
+        "target_actor_name": "oversight_rules_regime",
+        "weight": 0.64
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Both face legitimacy risk from mishandling.",
+        "layer": "coalition",
+        "reason": "Leadership and ethics office share an interest in orderly lawful handling at T0.",
+        "source_actor_name": "city_leadership",
+        "target_actor_name": "city_ethics_office",
+        "weight": 0.41
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Public and journalists both value information and accountability.",
+        "layer": "coalition",
+        "reason": "Media and attentive public share an accountability interest, though not perfectly aligned.",
+        "source_actor_name": "journalist_pool",
+        "target_actor_name": "city_public",
+        "weight": 0.36
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Complaint exists; staff fear leaks rather than openly rallying.",
+        "layer": "coalition",
+        "reason": "Some staff may sympathize with protected reporting, but alignment is uncertain.",
+        "source_actor_name": "agency_staff",
+        "target_actor_name": "complainant_unknown",
+        "weight": 0.22
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Complaint targets the official; official denies wrongdoing.",
+        "layer": "conflict",
+        "reason": "The subject of the complaint has directly adverse interests to the complainant.",
+        "source_actor_name": "procurement_official",
+        "target_actor_name": "complainant_unknown",
+        "weight": 0.57
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Journalists know a complaint exists but not content; rules limit disclosure.",
+        "layer": "conflict",
+        "reason": "Reporters seek disclosure while the office is constrained to withhold details.",
+        "source_actor_name": "journalist_pool",
+        "target_actor_name": "city_ethics_office",
+        "weight": 0.39
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Agency staff fear leaks.",
+        "layer": "conflict",
+        "reason": "Staff fear being exposed as leak sources or drawn into press scrutiny.",
+        "source_actor_name": "agency_staff",
+        "target_actor_name": "journalist_pool",
+        "weight": 0.32
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Public may demand accountability under uncertainty.",
+        "layer": "conflict",
+        "reason": "Potential latent frustration if leadership appears evasive or passive.",
+        "source_actor_name": "city_public",
+        "target_actor_name": "city_leadership",
+        "weight": 0.27
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Official denies wrongdoing while complaint remains active.",
+        "layer": "conflict",
+        "reason": "The official may resist processes perceived as reputationally harmful or unfair.",
+        "source_actor_name": "procurement_official",
+        "target_actor_name": "city_ethics_office",
+        "weight": 0.36
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Journalists have enough information to ask questions even without content.",
+        "layer": "oasis_interaction",
+        "reason": "Public questioning and statement requests are likely in open channels.",
+        "source_actor_name": "journalist_pool",
+        "target_actor_name": "city_leadership",
+        "weight": 0.46
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Rules limit disclosure while media interest exists.",
+        "layer": "oasis_interaction",
+        "reason": "The office is likely to receive inquiries it cannot fully answer.",
+        "source_actor_name": "journalist_pool",
+        "target_actor_name": "city_ethics_office",
+        "weight": 0.41
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Leadership messaging is a plausible channel under scrutiny.",
+        "layer": "oasis_interaction",
+        "reason": "Official communications may occur if the matter gains attention.",
+        "source_actor_name": "city_leadership",
+        "target_actor_name": "city_public",
+        "weight": 0.29
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Official denies wrongdoing.",
+        "layer": "oasis_interaction",
+        "reason": "Denial may be conveyed through media interactions or quoted statements.",
+        "source_actor_name": "procurement_official",
+        "target_actor_name": "journalist_pool",
+        "weight": 0.33
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Staff fear leaks and may seek process clarification.",
+        "layer": "oasis_interaction",
+        "reason": "Internal procedural contact is likely as staff seek reassurance or guidance.",
+        "source_actor_name": "agency_staff",
+        "target_actor_name": "city_ethics_office",
+        "weight": 0.38
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "description": "Actors with procedural or narrative gatekeeping power over the complaint process.",
+        "key": "institutional_gatekeepers",
+        "label": "Institutional gatekeepers"
+      },
+      {
+        "description": "Actors capable of shaping public salience and interpretation.",
+        "key": "narrative_drivers",
+        "label": "Narrative drivers"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "city_ethics_office",
+        "attention_level": 0.92,
+        "capabilities": [
+          "intake and assess complaint",
+          "control official disclosures within rules",
+          "refer for further review",
+          "recommend procedural changes"
+        ],
+        "constraints": [
+          "confidentiality obligations",
+          "limited public explanation capacity",
+          "reputational sensitivity if leaks occur"
+        ],
+        "current_role": "complaint custodian and process gatekeeper",
+        "expression_level": 0.33,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.19,
+        "hero_archetype_key": "institutional_gatekeepers",
+        "mobilization_readiness": 0.62,
+        "perceived_majority": 0.58,
+        "stance_axes": {
+          "confidentiality_vs_transparency": 0.81,
+          "proceduralism_vs_speed": 0.73,
+          "reform_vs_preservation": 0.46
+        }
+      },
+      {
+        "actor_name": "procurement_official",
+        "attention_level": 0.95,
+        "capabilities": [
+          "issue denial",
+          "signal cooperation",
+          "influence close colleagues",
+          "seek leadership backing"
+        ],
+        "constraints": [
+          "limited credibility under investigation shadow",
+          "cannot fully dispel unknown allegations without details",
+          "dependent on institutional process"
+        ],
+        "current_role": "subject of allegations mounting a denial-based defense",
+        "expression_level": 0.61,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.54,
+        "hero_archetype_key": "narrative_drivers",
+        "mobilization_readiness": 0.57,
+        "perceived_majority": 0.43,
+        "stance_axes": {
+          "confidentiality_vs_transparency": 0.52,
+          "proceduralism_vs_speed": 0.57,
+          "reform_vs_preservation": 0.28
+        }
+      },
+      {
+        "actor_name": "journalist_pool",
+        "attention_level": 0.84,
+        "capabilities": [
+          "surface leads",
+          "increase public salience",
+          "pressure officials with questions",
+          "protect source channels"
+        ],
+        "constraints": [
+          "lack of complaint contents",
+          "verification standards",
+          "legal and reputational risk from weak sourcing"
+        ],
+        "current_role": "verification-seeking external scrutiny actor",
+        "expression_level": 0.66,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.11,
+        "hero_archetype_key": "narrative_drivers",
+        "mobilization_readiness": 0.69,
+        "perceived_majority": 0.49,
+        "stance_axes": {
+          "confidentiality_vs_transparency": 0.24,
+          "proceduralism_vs_speed": 0.39,
+          "reform_vs_preservation": 0.64
+        }
+      },
+      {
+        "actor_name": "city_leadership",
+        "attention_level": 0.76,
+        "capabilities": [
+          "set messaging tone",
+          "coordinate with legal/oversight staff",
+          "order internal reviews",
+          "make staffing decisions if warranted"
+        ],
+        "constraints": [
+          "cannot ignore oversight rules",
+          "political exposure",
+          "limited verified facts at T0"
+        ],
+        "current_role": "executive stabilizer with messaging and personnel influence",
+        "expression_level": 0.41,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.22,
+        "hero_archetype_key": "institutional_gatekeepers",
+        "mobilization_readiness": 0.55,
+        "perceived_majority": 0.56,
+        "stance_axes": {
+          "confidentiality_vs_transparency": 0.64,
+          "proceduralism_vs_speed": 0.62,
+          "reform_vs_preservation": 0.44
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "description": "Actors with procedural or narrative gatekeeping power over the complaint process.",
+        "key": "institutional_gatekeepers",
+        "label": "Institutional gatekeepers"
+      },
+      {
+        "description": "Actors capable of shaping public salience and interpretation.",
+        "key": "narrative_drivers",
+        "label": "Narrative drivers"
+      }
+    ],
+    "important_questions": [
+      "Will the complaint against the procurement official be substantiated by later verified findings?",
+      "Will the matter be dismissed, closed, or otherwise end without a substantiated wrongdoing finding?",
+      "Will nonpublic complaint details or investigative information leak into media or public circulation?",
+      "Will the city adopt concrete procedural reforms tied to the complaint or its handling?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "city_ethics_office",
+          "complainant_unknown",
+          "procurement_official"
+        ],
+        "event_key": "complaint_received",
+        "event_type": "announcement",
+        "evidence": "Scenario states the office receives a confidential complaint.",
+        "expected_impact": "Raises internal attention, activates confidentiality constraints, and creates latent conflict between accountability and secrecy.",
+        "status": "realized",
+        "summary": "The city ethics office receives a confidential complaint regarding the procurement official.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "journalist_pool",
+          "city_ethics_office",
+          "city_public"
+        ],
+        "event_key": "media_awareness_without_contents",
+        "event_type": "announcement",
+        "evidence": "Scenario states journalists know a complaint exists but not its content.",
+        "expected_impact": "Creates early external scrutiny, rumor risk, and pressure for confirmation without full public salience.",
+        "status": "realized",
+        "summary": "Journalists know a complaint exists but do not know its content.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "procurement_official",
+          "agency_staff",
+          "journalist_pool"
+        ],
+        "event_key": "official_denial_enters_circulation",
+        "event_type": "announcement",
+        "evidence": "Scenario states the official denies wrongdoing.",
+        "expected_impact": "Prevents immediate consensus around guilt, strengthens uncertainty branches, and may stabilize some loyalists temporarily.",
+        "status": "realized",
+        "summary": "The procurement official denies wrongdoing.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "city_ethics_office",
+          "city_leadership",
+          "agency_staff"
+        ],
+        "event_key": "internal_confidentiality_reinforcement",
+        "event_type": "announcement",
+        "evidence": "Staff fear leaks and oversight rules limit disclosure.",
+        "expected_impact": "May suppress open talk while increasing private suspicion and leak salience.",
+        "status": "anticipated",
+        "summary": "Ethics or leadership channels reiterate disclosure limits and caution staff against unauthorized discussion.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "journalist_pool",
+          "city_ethics_office",
+          "city_leadership",
+          "procurement_official"
+        ],
+        "event_key": "press_questions_escalate",
+        "event_type": "announcement",
+        "evidence": "Journalists already know a complaint exists.",
+        "expected_impact": "Tests message discipline and may widen exposure if responses are inconsistent.",
+        "status": "anticipated",
+        "summary": "Journalists pursue confirmation, context, and comment from city offices and the official.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "city_ethics_office"
+        ],
+        "event_key": "preliminary_assessment_checkpoint",
+        "event_type": "announcement",
+        "evidence": "Complaint intake typically requires early assessment; scenario emphasizes branching around substantiation or dismissal.",
+        "expected_impact": "Can redirect the timeline toward substantiation, dismissal, continued inquiry, or procedural review without public resolution yet.",
+        "status": "anticipated",
+        "summary": "Ethics office reaches an early internal view on whether the complaint appears facially credible, incomplete, or dismissible.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "24aa034b-04b7-486b-8393-841a0a500a5e",
+    "merge_hypotheses": [
+      {
+        "convergence_effect": "Even adversarial actors temporarily orient around waiting for procedural milestones rather than forcing instant resolution.",
+        "merge_key": "rule_bound_convergence",
+        "shared_driver": "Most actors accept that confidentiality rules restrict immediate disclosure."
+      },
+      {
+        "convergence_effect": "Promotes cautious language and slows escalation until stronger evidence appears.",
+        "merge_key": "legitimacy_preservation",
+        "shared_driver": "City ethics office, leadership, and some media all benefit from avoiding clearly false or reckless claims."
+      },
+      {
+        "convergence_effect": "Competing narratives can settle into a temporary stalemate rather than expanding conflict.",
+        "merge_key": "fatigue_induced_deescalation",
+        "shared_driver": "If no new facts emerge, staff and public attention may decay."
+      },
+      {
+        "convergence_effect": "Timelines that differ on guilt can still merge into a process-improvement outcome.",
+        "merge_key": "systemic_reform_common_ground",
+        "shared_driver": "Even actors disagreeing on the complaint's merits may agree that procurement or complaint procedures deserve review."
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "description": "Employees in the affected agency and adjacent administrative functions who may hear rumors or process cues.",
+        "key": "agency_staff_population",
+        "label": "Agency staff",
+        "population_total": 240
+      },
+      {
+        "description": "Residents who may encounter reporting or official statements about the complaint.",
+        "key": "local_news_audience",
+        "label": "Local civic information audience",
+        "population_total": 180000
+      },
+      {
+        "description": "Senior officials, oversight personnel, and politically attentive actors with higher access to process information.",
+        "key": "city_governance_elites",
+        "label": "City governance elites",
+        "population_total": 35
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "content_unknown",
+        "note": "The complaint's contents and evidentiary basis are unspecified, limiting precision of guilt- or reform-related priors.",
+        "severity": "medium"
+      },
+      {
+        "flag": "confidentiality_bias_on_observation",
+        "note": "Disclosure restrictions may hide decisive developments from public channels for extended periods, causing evidence lags.",
+        "severity": "high"
+      },
+      {
+        "flag": "leak_sensitivity",
+        "note": "Staff fear leaks, so hidden informal channels may matter disproportionately to narrative evolution.",
+        "severity": "high"
+      },
+      {
+        "flag": "authority_ambiguity",
+        "note": "The exact decision rights between ethics office, leadership, and other oversight bodies are not fully specified in the source text.",
+        "severity": "medium"
+      },
+      {
+        "flag": "reputational_asymmetry",
+        "note": "The official may suffer reputational damage even without substantiation because complaint existence is already partially known.",
+        "severity": "medium"
+      },
+      {
+        "flag": "public_salience_uncertainty",
+        "note": "General public attention may remain limited unless journalists obtain specifics or leaders mishandle messaging.",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "institutional_governance",
+      "core_pressures": [
+        "confidential complaint handling",
+        "restricted disclosure under oversight rules",
+        "media curiosity without verified details",
+        "internal leak anxiety",
+        "official reputational defense",
+        "possible governance reform if process weaknesses emerge"
+      ],
+      "evidence_refs": [
+        "scenario_text"
+      ],
+      "known_unknowns": [
+        "complaint content",
+        "strength of evidence",
+        "identity of complainant",
+        "scope of potential misconduct",
+        "whether journalists can verify details",
+        "whether leadership will prioritize confidentiality over transparency signaling"
+      ],
+      "mode": "direct",
+      "scenario_key": "governance_006",
+      "summary": "A fictional city ethics office has received a confidential complaint concerning a procurement official. Journalists are aware a complaint exists but do not know its contents. Agency staff are worried about leaks. The official denies wrongdoing. Oversight and confidentiality rules constrain disclosure. T0 should preserve uncertainty over whether allegations are substantiated, dismissed, leaked, or lead to procedural reform.",
+      "t0_posture": "early institutional uncertainty with confidentiality pressure and reputational risk",
+      "time_horizon_known": false
+    },
+    "sociology_baseline": [
+      {
+        "level": 0.58,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Actors are likely to update beliefs mainly from moderately credible institutional or media cues, not extreme claims.",
+        "scope": "agency_staff_and_public"
+      },
+      {
+        "level": 0.63,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Broader public mobilization likely requires concrete details, corroboration, or visible leadership failure.",
+        "scope": "city_public"
+      },
+      {
+        "level": 0.74,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Confidentiality norms and fear of isolation suppress open internal expression despite private speculation.",
+        "scope": "agency_staff"
+      },
+      {
+        "level": 0.51,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Institutional actors cluster with process-oriented peers while media cluster around accountability frames.",
+        "scope": "governance_elites_and_media"
+      },
+      {
+        "level": 0.46,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Calls for procedural reform likely need reinforcement from multiple elites, reports, or documented process gaps.",
+        "scope": "reform_pressure"
+      },
+      {
+        "level": 0.62,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Role-based identity as staff, investigators, officials, or journalists shapes interpretation of proper conduct.",
+        "scope": "institutional_actors"
+      },
+      {
+        "level": 0.43,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Without new verified developments, public attention may fade or remain localized.",
+        "scope": "city_public"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "applies_to": [
+          "city_ethics_office",
+          "city_leadership",
+          "agency_staff"
+        ],
+        "context_key": "confidentiality_constraint",
+        "effect": "reduces expressive transparency and slows public belief updating"
+      },
+      {
+        "applies_to": [
+          "agency_staff",
+          "city_ethics_office"
+        ],
+        "context_key": "leak_anxiety",
+        "effect": "increases private speculation and caution around communication channels"
+      },
+      {
+        "applies_to": [
+          "procurement_official",
+          "agency_staff",
+          "city_public"
+        ],
+        "context_key": "denial_without_detail",
+        "effect": "supports competing narratives rather than immediate consensus"
+      },
+      {
+        "applies_to": [
+          "journalist_pool",
+          "city_public"
+        ],
+        "context_key": "media_partial_knowledge",
+        "effect": "creates verification race and rumor vulnerability"
+      },
+      {
+        "applies_to": [
+          "city_ethics_office",
+          "city_leadership",
+          "city_public"
+        ],
+        "context_key": "oversight_rule_legitimacy",
+        "effect": "can justify silence to some audiences while appearing evasive to others"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "city_ethics_office",
+        "behavior_axes": {
+          "adaptability": 0.47,
+          "institutional_formality": 0.9,
+          "message_discipline": 0.82,
+          "risk_tolerance": 0.28
+        },
+        "ideology_axes": {
+          "accountability_norm": 0.79,
+          "procedural_fairness_norm": 0.88,
+          "transparency_norm": 0.46
+        },
+        "reputation": 0.58,
+        "secrecy": 0.83,
+        "tendency": "guarded_process_management",
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "procurement_official",
+        "behavior_axes": {
+          "adaptability": 0.52,
+          "institutional_formality": 0.67,
+          "message_discipline": 0.59,
+          "risk_tolerance": 0.51
+        },
+        "ideology_axes": {
+          "accountability_norm": 0.42,
+          "procedural_fairness_norm": 0.61,
+          "transparency_norm": 0.33
+        },
+        "reputation": 0.47,
+        "secrecy": 0.56,
+        "tendency": "defensive_denial",
+        "trustworthiness": 0.39
+      },
+      {
+        "actor_name": "agency_staff",
+        "behavior_axes": {
+          "adaptability": 0.45,
+          "institutional_formality": 0.71,
+          "message_discipline": 0.54,
+          "risk_tolerance": 0.29
+        },
+        "ideology_axes": {
+          "accountability_norm": 0.63,
+          "procedural_fairness_norm": 0.72,
+          "transparency_norm": 0.44
+        },
+        "reputation": 0.5,
+        "secrecy": 0.62,
+        "tendency": "quiet_monitoring",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "journalist_pool",
+        "behavior_axes": {
+          "adaptability": 0.71,
+          "institutional_formality": 0.48,
+          "message_discipline": 0.63,
+          "risk_tolerance": 0.61
+        },
+        "ideology_axes": {
+          "accountability_norm": 0.76,
+          "procedural_fairness_norm": 0.52,
+          "transparency_norm": 0.84
+        },
+        "reputation": 0.56,
+        "secrecy": 0.58,
+        "tendency": "source_driven_scrutiny",
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "city_leadership",
+        "behavior_axes": {
+          "adaptability": 0.53,
+          "institutional_formality": 0.78,
+          "message_discipline": 0.74,
+          "risk_tolerance": 0.38
+        },
+        "ideology_axes": {
+          "accountability_norm": 0.62,
+          "procedural_fairness_norm": 0.74,
+          "transparency_norm": 0.49
+        },
+        "reputation": 0.54,
+        "secrecy": 0.6,
+        "tendency": "containment_with_optionality",
+        "trustworthiness": 0.51
+      },
+      {
+        "actor_name": "oversight_rules_regime",
+        "behavior_axes": {
+          "adaptability": 0.18,
+          "institutional_formality": 0.98,
+          "message_discipline": 0.95,
+          "risk_tolerance": 0.05
+        },
+        "ideology_axes": {
+          "accountability_norm": 0.71,
+          "procedural_fairness_norm": 0.95,
+          "transparency_norm": 0.31
+        },
+        "reputation": 0.6,
+        "secrecy": 0.91,
+        "tendency": "rule_constrained_confidentiality",
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "complainant_unknown",
+        "behavior_axes": {
+          "adaptability": 0.58,
+          "institutional_formality": 0.43,
+          "message_discipline": 0.49,
+          "risk_tolerance": 0.34
+        },
+        "ideology_axes": {
+          "accountability_norm": 0.81,
+          "procedural_fairness_norm": 0.55,
+          "transparency_norm": 0.57
+        },
+        "reputation": 0.3,
+        "secrecy": 0.87,
+        "tendency": "protected_reporting_under_uncertainty",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "city_public",
+        "behavior_axes": {
+          "adaptability": 0.51,
+          "institutional_formality": 0.31,
+          "message_discipline": 0.29,
+          "risk_tolerance": 0.4
+        },
+        "ideology_axes": {
+          "accountability_norm": 0.74,
+          "procedural_fairness_norm": 0.48,
+          "transparency_norm": 0.72
+        },
+        "reputation": 0.5,
+        "secrecy": 0.16,
+        "tendency": "conditional_attention",
+        "trustworthiness": 0.47
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 492,
+        "end": 492,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 492,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

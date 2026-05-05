@@ -1,0 +1,1361 @@
+{
+  "big_bang_id": "b051f930-3042-4d90-8436-90a8afcc3dc4",
+  "initializer_output": {
+    "actors": [
+      {
+        "actor_type": "platform_company",
+        "fictionalized": true,
+        "name": "ridewave",
+        "public_role": "ride_hailing_app_operator",
+        "scale": "single_platform"
+      },
+      {
+        "actor_type": "leadership_group",
+        "fictionalized": true,
+        "name": "platform_management",
+        "public_role": "decision_authority",
+        "scale": "company_internal"
+      },
+      {
+        "actor_type": "internal_team",
+        "fictionalized": true,
+        "name": "driver_ops_team",
+        "public_role": "driver_policy_and_operations",
+        "scale": "company_internal"
+      },
+      {
+        "actor_type": "worker_group",
+        "fictionalized": true,
+        "name": "support_staff",
+        "public_role": "customer_and_driver_support",
+        "scale": "company_internal"
+      },
+      {
+        "actor_type": "internal_team",
+        "fictionalized": true,
+        "name": "driver_app_product_team",
+        "public_role": "experiment_owner",
+        "scale": "company_internal"
+      },
+      {
+        "actor_type": "constituency",
+        "fictionalized": true,
+        "name": "driver_pool",
+        "public_role": "platform_labor_supply",
+        "scale": "platform_side"
+      },
+      {
+        "actor_type": "constituency",
+        "fictionalized": true,
+        "name": "rider_pool",
+        "public_role": "platform_demand_side",
+        "scale": "platform_side"
+      },
+      {
+        "actor_type": "cohort_actor",
+        "fictionalized": true,
+        "name": "safety_concerned_riders",
+        "public_role": "rider_safety_voice",
+        "scale": "platform_side"
+      },
+      {
+        "actor_type": "cohort_actor",
+        "fictionalized": true,
+        "name": "fairness_concerned_drivers",
+        "public_role": "driver_fairness_voice",
+        "scale": "platform_side"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Trust among fairness-concerned drivers improves modestly and management considers wider rollout.",
+        "branch_key": "meaningful_transparency_branch",
+        "divergence_signal": "Peer discussion shifts from 'cosmetic' complaints toward examples of understandable outcomes and fewer repeat appeals.",
+        "trigger": "Drivers report explanations as specific and actionable while appeal rates flatten or decline."
+      },
+      {
+        "alternate_path": "Driver skepticism hardens, support contact rises, and management reframes the test as needing revision rather than expansion.",
+        "branch_key": "cosmetic_change_backlash_branch",
+        "divergence_signal": "Increase in driver complaints emphasizing opacity despite the new screen and repeated support clarifications.",
+        "trigger": "Drivers perceive explanations as vague or inconsistent with outcomes."
+      },
+      {
+        "alternate_path": "Management slows transparency expansion and recenters safety language over fairness gains.",
+        "branch_key": "safety_legitimacy_guardrail_branch",
+        "divergence_signal": "Internal messaging and review documents prioritize safety exceptions and reputational protection over appeal reduction.",
+        "trigger": "Any rider-facing or internal safety concern becomes associated with softer enforcement messaging."
+      },
+      {
+        "alternate_path": "Operational burden dominates evaluation, leading to script changes, narrower test scope, or delayed rollout.",
+        "branch_key": "support_overload_branch",
+        "divergence_signal": "Support reports queue growth, repeated categories, and staffing strain becoming central decision evidence.",
+        "trigger": "Ticket volume spikes materially after launch even if explanations are more informative."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "driver_app_ui",
+        "description": "In-app explanation screen shown to drivers in test conditions.",
+        "primary_actors": [
+          "driver_app_product_team",
+          "driver_pool"
+        ],
+        "reach": 0.78,
+        "type": "owned_product_surface"
+      },
+      {
+        "channel_key": "support_ticket_system",
+        "description": "Formal support contact path where confusion or disputes appear.",
+        "primary_actors": [
+          "support_staff",
+          "driver_pool",
+          "rider_pool"
+        ],
+        "reach": 0.41,
+        "type": "service_channel"
+      },
+      {
+        "channel_key": "internal_ops_reporting",
+        "description": "Operational summaries and escalations about ticket patterns and appeals.",
+        "primary_actors": [
+          "support_staff",
+          "driver_ops_team",
+          "platform_management"
+        ],
+        "reach": 0.36,
+        "type": "internal_channel"
+      },
+      {
+        "channel_key": "driver_peer_networks",
+        "description": "Peer-to-peer discussion of ratings, fairness, and deactivation experiences.",
+        "primary_actors": [
+          "driver_pool",
+          "fairness_concerned_drivers"
+        ],
+        "reach": 0.52,
+        "type": "informal_network"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "fairness_concerned_drivers",
+        "archetype_key": "drivers",
+        "attention_level": 0.72,
+        "behavioral_tendencies": [
+          "watch_for_policy_signals",
+          "share_experiences_peer_to_peer",
+          "delay_judgment_until_seen_in_practice"
+        ],
+        "cohort_key": "drivers_fairness_hopeful",
+        "expression_level": 0.48,
+        "fatigue": 0.58,
+        "fear_of_isolation": 0.39,
+        "mobilization_readiness": 0.46,
+        "perceived_majority": 0.61,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "Explanation screen could improve perceived fairness and reduce opaque enforcement.",
+        "public_expression": "Cautiously optimistic, with continued concern about deactivation risk.",
+        "representation_mode": "attitudinal_majority_cohort",
+        "represented_population": 6600,
+        "reputation": 0.49,
+        "secrecy": 0.28,
+        "stance_axes": {
+          "appeal_reliance": 0.62,
+          "platform_trust": 0.36,
+          "safety_priority": 0.54,
+          "transparency_demand": 0.82
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "driver_pool",
+        "archetype_key": "drivers",
+        "attention_level": 0.64,
+        "behavioral_tendencies": [
+          "private_grumbling",
+          "low_expectation_update",
+          "react_to_case_examples"
+        ],
+        "cohort_key": "drivers_resigned_skeptics",
+        "expression_level": 0.33,
+        "fatigue": 0.67,
+        "fear_of_isolation": 0.52,
+        "mobilization_readiness": 0.31,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "New interface may not change underlying enforcement power and could be cosmetic.",
+        "public_expression": "Muted skepticism, selective complaint, low confidence in formal recourse.",
+        "representation_mode": "attitudinal_minority_cohort",
+        "represented_population": 5400,
+        "reputation": 0.44,
+        "secrecy": 0.42,
+        "stance_axes": {
+          "appeal_reliance": 0.57,
+          "platform_trust": 0.24,
+          "safety_priority": 0.47,
+          "transparency_demand": 0.74
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "safety_concerned_riders",
+        "archetype_key": "riders",
+        "attention_level": 0.38,
+        "behavioral_tendencies": [
+          "incident_sensitive",
+          "passive_until_salient",
+          "preference_for_stable_service"
+        ],
+        "cohort_key": "riders_safety_first",
+        "expression_level": 0.19,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.17,
+        "perceived_majority": 0.69,
+        "population_share_of_archetype": 0.5,
+        "private_belief": "Any rating-related change should preserve or improve rider safety.",
+        "public_expression": "Limited direct expression unless prompted by a visible incident or media cue.",
+        "representation_mode": "attitudinal_majority_cohort",
+        "represented_population": 90000,
+        "reputation": 0.57,
+        "secrecy": 0.22,
+        "stance_axes": {
+          "platform_trust": 0.58,
+          "safety_priority": 0.9,
+          "service_convenience": 0.72,
+          "transparency_demand": 0.43
+        },
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "rider_pool",
+        "archetype_key": "riders",
+        "attention_level": 0.22,
+        "behavioral_tendencies": [
+          "low_issue_attention",
+          "react_to_service_disruption",
+          "follow_platform_defaults"
+        ],
+        "cohort_key": "riders_convenience_default",
+        "expression_level": 0.08,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.08,
+        "perceived_majority": 0.74,
+        "population_share_of_archetype": 0.5,
+        "private_belief": "Policy details matter less than ride availability and basic safety confidence.",
+        "public_expression": "Mostly silent at T0.",
+        "representation_mode": "broad_default_cohort",
+        "represented_population": 90000,
+        "reputation": 0.55,
+        "secrecy": 0.17,
+        "stance_axes": {
+          "platform_trust": 0.55,
+          "safety_priority": 0.67,
+          "service_convenience": 0.84,
+          "transparency_demand": 0.24
+        },
+        "trustworthiness": 0.66
+      },
+      {
+        "actor_name": "support_staff",
+        "archetype_key": "support_workers",
+        "attention_level": 0.78,
+        "behavioral_tendencies": [
+          "escalate_operational_risks",
+          "document_repeat_issues",
+          "adapt_if_scripts_improve"
+        ],
+        "cohort_key": "support_staff_ticket_anxious",
+        "expression_level": 0.41,
+        "fatigue": 0.61,
+        "fear_of_isolation": 0.34,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "New explanations may initially increase confusion, contact volume, or edge-case complaints.",
+        "public_expression": "Professional caution inside company channels.",
+        "representation_mode": "occupational_cohort",
+        "represented_population": 350,
+        "reputation": 0.58,
+        "secrecy": 0.49,
+        "stance_axes": {
+          "management_alignment": 0.52,
+          "safety_priority": 0.63,
+          "transparency_demand": 0.59,
+          "workload_concern": 0.86
+        },
+        "trustworthiness": 0.71
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "fairness_concerned_drivers",
+        "archetype_key": "drivers",
+        "attention_level": 0.72,
+        "behavioral_tendencies": [
+          "watch_for_policy_signals",
+          "share_experiences_peer_to_peer",
+          "delay_judgment_until_seen_in_practice"
+        ],
+        "cohort_key": "drivers_fairness_hopeful",
+        "expression_level": 0.48,
+        "fatigue": 0.58,
+        "fear_of_isolation": 0.39,
+        "mobilization_readiness": 0.46,
+        "perceived_majority": 0.61,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "Explanation screen could improve perceived fairness and reduce opaque enforcement.",
+        "public_expression": "Cautiously optimistic, with continued concern about deactivation risk.",
+        "representation_mode": "attitudinal_majority_cohort",
+        "represented_population": 6600,
+        "reputation": 0.49,
+        "secrecy": 0.28,
+        "stance_axes": {
+          "appeal_reliance": 0.62,
+          "platform_trust": 0.36,
+          "safety_priority": 0.54,
+          "transparency_demand": 0.82
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "driver_pool",
+        "archetype_key": "drivers",
+        "attention_level": 0.64,
+        "behavioral_tendencies": [
+          "private_grumbling",
+          "low_expectation_update",
+          "react_to_case_examples"
+        ],
+        "cohort_key": "drivers_resigned_skeptics",
+        "expression_level": 0.33,
+        "fatigue": 0.67,
+        "fear_of_isolation": 0.52,
+        "mobilization_readiness": 0.31,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "New interface may not change underlying enforcement power and could be cosmetic.",
+        "public_expression": "Muted skepticism, selective complaint, low confidence in formal recourse.",
+        "representation_mode": "attitudinal_minority_cohort",
+        "represented_population": 5400,
+        "reputation": 0.44,
+        "secrecy": 0.42,
+        "stance_axes": {
+          "appeal_reliance": 0.57,
+          "platform_trust": 0.24,
+          "safety_priority": 0.47,
+          "transparency_demand": 0.74
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "safety_concerned_riders",
+        "archetype_key": "riders",
+        "attention_level": 0.38,
+        "behavioral_tendencies": [
+          "incident_sensitive",
+          "passive_until_salient",
+          "preference_for_stable_service"
+        ],
+        "cohort_key": "riders_safety_first",
+        "expression_level": 0.19,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.17,
+        "perceived_majority": 0.69,
+        "population_share_of_archetype": 0.5,
+        "private_belief": "Any rating-related change should preserve or improve rider safety.",
+        "public_expression": "Limited direct expression unless prompted by a visible incident or media cue.",
+        "representation_mode": "attitudinal_majority_cohort",
+        "represented_population": 90000,
+        "reputation": 0.57,
+        "secrecy": 0.22,
+        "stance_axes": {
+          "platform_trust": 0.58,
+          "safety_priority": 0.9,
+          "service_convenience": 0.72,
+          "transparency_demand": 0.43
+        },
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "rider_pool",
+        "archetype_key": "riders",
+        "attention_level": 0.22,
+        "behavioral_tendencies": [
+          "low_issue_attention",
+          "react_to_service_disruption",
+          "follow_platform_defaults"
+        ],
+        "cohort_key": "riders_convenience_default",
+        "expression_level": 0.08,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.08,
+        "perceived_majority": 0.74,
+        "population_share_of_archetype": 0.5,
+        "private_belief": "Policy details matter less than ride availability and basic safety confidence.",
+        "public_expression": "Mostly silent at T0.",
+        "representation_mode": "broad_default_cohort",
+        "represented_population": 90000,
+        "reputation": 0.55,
+        "secrecy": 0.17,
+        "stance_axes": {
+          "platform_trust": 0.55,
+          "safety_priority": 0.67,
+          "service_convenience": 0.84,
+          "transparency_demand": 0.24
+        },
+        "trustworthiness": 0.66
+      },
+      {
+        "actor_name": "support_staff",
+        "archetype_key": "support_workers",
+        "attention_level": 0.78,
+        "behavioral_tendencies": [
+          "escalate_operational_risks",
+          "document_repeat_issues",
+          "adapt_if_scripts_improve"
+        ],
+        "cohort_key": "support_staff_ticket_anxious",
+        "expression_level": 0.41,
+        "fatigue": 0.61,
+        "fear_of_isolation": 0.34,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "New explanations may initially increase confusion, contact volume, or edge-case complaints.",
+        "public_expression": "Professional caution inside company channels.",
+        "representation_mode": "occupational_cohort",
+        "represented_population": 350,
+        "reputation": 0.58,
+        "secrecy": 0.49,
+        "stance_axes": {
+          "management_alignment": 0.52,
+          "safety_priority": 0.63,
+          "transparency_demand": 0.59,
+          "workload_concern": 0.86
+        },
+        "trustworthiness": 0.71
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "platform_management",
+          "driver_app_product_team"
+        ],
+        "blockers": [
+          "Negative support load",
+          "Weak or ambiguous appeal reduction",
+          "Perceived safety tradeoff",
+          "Driver backlash that the feature is cosmetic"
+        ],
+        "contradiction_notes": "No source evidence says rollout is approved or rejected at initialization.",
+        "description": "The platform expands the explanation screen beyond the initial test cohort into wider driver-facing use.",
+        "endpoint_key": "broad_explanation_rollout",
+        "evidence_refs": [
+          "Scenario states the app is testing a new driver-rating explanation screen",
+          "Management wants fewer appeals"
+        ],
+        "label": "Broad rollout of driver-rating explanation screen",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the platform move from test to broader rollout of the driver-rating explanation screen?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.46,
+        "rationale": "This is the clearest terminal product-governance choice implied by the test.",
+        "realization_criteria": [
+          "Official internal or public rollout decision recorded",
+          "Exposure extends from test cohort to a majority of active drivers",
+          "Support and product materials updated for ongoing standard use"
+        ],
+        "status": "active",
+        "status_basis": "A test is underway or prepared, but no rollout decision is yet evidenced at T0."
+      },
+      {
+        "authority_refs": [
+          "platform_management",
+          "driver_ops_team"
+        ],
+        "blockers": [
+          "Appeal substitution into support tickets",
+          "Insufficient explanation clarity",
+          "Low driver trust limiting behavior change"
+        ],
+        "contradiction_notes": "No baseline metrics are provided, so magnitude thresholds remain internal and unknown.",
+        "description": "The platform observes and accepts a material reduction in appeals tied to the explanation screen or adjacent changes.",
+        "endpoint_key": "appeals_reduction_realized",
+        "evidence_refs": [
+          "Management wants fewer appeals",
+          "Test concerns a new explanatory interface affecting contested decisions"
+        ],
+        "label": "Appeal reduction becomes a realized outcome",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will observed driver appeal volume materially decline after the test begins?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.41,
+        "rationale": "Appeal reduction is one of the main outcome dimensions for judging the intervention.",
+        "realization_criteria": [
+          "Appeal volume declines by a clearly reported internal threshold",
+          "Management attributes part of the decline to the explanation intervention",
+          "No immediate offsetting surge in unresolved support contacts obscures the result"
+        ],
+        "status": "active",
+        "status_basis": "Appeal reduction is an explicit management goal but not yet observed at T0."
+      },
+      {
+        "authority_refs": [
+          "fairness_concerned_drivers",
+          "driver_pool",
+          "ridewave"
+        ],
+        "blockers": [
+          "Explanations perceived as vague",
+          "Persistent deactivation pain points",
+          "Peer sharing of negative case examples"
+        ],
+        "contradiction_notes": "A legitimacy gain could occur without a broad rollout, or vice versa.",
+        "description": "Drivers come to see rating-related enforcement as more understandable and less unfair, reducing legitimacy conflict even without full policy change.",
+        "endpoint_key": "driver_fairness_legitimacy_gain",
+        "evidence_refs": [
+          "Drivers hope the change reduces unfair deactivations"
+        ],
+        "label": "Driver fairness legitimacy gain",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will drivers' perceived fairness and trust in rating-related enforcement improve enough to change public sentiment?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.38,
+        "rationale": "The scenario frames driver fairness as a core pressure, making this a distinct terminal outcome.",
+        "realization_criteria": [
+          "Observable increase in positive or neutral driver discussion about explanations",
+          "Reduced prevalence of unfair-deactivation complaints among exposed drivers",
+          "Moderate trust increase in driver-facing feedback or survey proxies"
+        ],
+        "status": "active",
+        "status_basis": "Drivers are hopeful but skeptical; legitimacy has not yet improved at T0."
+      },
+      {
+        "authority_refs": [
+          "support_staff",
+          "platform_management",
+          "driver_app_product_team"
+        ],
+        "blockers": [
+          "Strong scripts and product fixes",
+          "Appeal reduction that offsets inbound contacts",
+          "Management willingness to absorb temporary burden"
+        ],
+        "contradiction_notes": "Temporary ticket spikes alone do not realize this endpoint unless they materially block continuation.",
+        "description": "Support burden becomes the deciding reason to narrow, delay, or redesign the test rather than expand it.",
+        "endpoint_key": "support_overload_blocks_rollout",
+        "evidence_refs": [
+          "Support staff worry about ticket volume"
+        ],
+        "label": "Support overload blocks or delays continuation",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will support ticket volume or complexity become the main blocker to continuation or expansion of the test?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.34,
+        "rationale": "Support capacity is the main countervailing pressure explicitly named in the source.",
+        "realization_criteria": [
+          "Ticket volume or handling time rises above accepted thresholds",
+          "Internal reviews cite support burden as a primary decision blocker",
+          "Expansion is paused, narrowed, or revised because of support capacity concerns"
+        ],
+        "status": "active",
+        "status_basis": "Support concern is explicit but not yet realized as an operational crisis."
+      },
+      {
+        "authority_refs": [
+          "platform_management",
+          "driver_ops_team",
+          "safety_concerned_riders"
+        ],
+        "blockers": [
+          "Evidence that explanations improve fairness without safety concern",
+          "Lack of any incident or perceived safety tension"
+        ],
+        "contradiction_notes": "This endpoint can coexist with rollout if rollout occurs in a constrained form.",
+        "description": "Management keeps or narrows the explanatory approach because safety legitimacy or enforcement discretion is judged more important than fuller explanation detail.",
+        "endpoint_key": "safety_framing_limits_transparency",
+        "evidence_refs": [
+          "Riders want safety",
+          "Management must preserve safety legitimacy as implied by the platform governance context"
+        ],
+        "label": "Safety framing limits transparency depth",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "If transparency and safety framing come into tension, will management prioritize safety legitimacy over fuller explanation?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.29,
+        "rationale": "The scenario sets up a recurring platform-governance tradeoff between transparency and safety assurance.",
+        "realization_criteria": [
+          "Management or policy documents explicitly constrain explanation detail on safety grounds",
+          "Rollout proceeds only with limited or guarded explanation language",
+          "Internal decision records prioritize safety legitimacy over fuller transparency"
+        ],
+        "status": "active",
+        "status_basis": "Safety is a standing constraint at T0 but no limiting decision has been made."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "Scenario centers on a driver-rating explanation screen for drivers.",
+        "layer": "exposure",
+        "reason": "The new explanation screen will be seen by drivers subject to the test.",
+        "source_actor_name": "driver_app_product_team",
+        "target_actor_name": "driver_pool",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "Riders are stakeholders in the scenario through safety concerns.",
+        "layer": "exposure",
+        "reason": "Riders may encounter indirect platform messaging or consequences from rating-governance changes.",
+        "source_actor_name": "ridewave",
+        "target_actor_name": "rider_pool",
+        "weight": 0.34
+      },
+      {
+        "direction": "directed",
+        "evidence": "Drivers hope for reduced unfair deactivations, implying active attention and discussion.",
+        "layer": "exposure",
+        "reason": "Drivers commonly share experiences peer-to-peer about enforcement and platform changes.",
+        "source_actor_name": "driver_pool",
+        "target_actor_name": "driver_pool",
+        "weight": 0.42
+      },
+      {
+        "direction": "directed",
+        "evidence": "Support staff worry about ticket volume, making reporting likely.",
+        "layer": "exposure",
+        "reason": "Support channels surface recurring contact patterns upward.",
+        "source_actor_name": "support_staff",
+        "target_actor_name": "platform_management",
+        "weight": 0.39
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario explicitly says drivers hope the change reduces unfair deactivations.",
+        "layer": "trust",
+        "reason": "Drivers show low baseline trust given concern about unfair deactivations.",
+        "source_actor_name": "driver_pool",
+        "target_actor_name": "ridewave",
+        "weight": 0.29
+      },
+      {
+        "direction": "directed",
+        "evidence": "Riders want safety, but no crisis or scandal is specified at T0.",
+        "layer": "trust",
+        "reason": "Riders retain moderate trust so long as safety appears protected.",
+        "source_actor_name": "rider_pool",
+        "target_actor_name": "ridewave",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario says the app tests a new screen.",
+        "layer": "trust",
+        "reason": "Management likely trusts the product team enough to run a test, but not a guaranteed rollout.",
+        "source_actor_name": "platform_management",
+        "target_actor_name": "driver_app_product_team",
+        "weight": 0.62
+      },
+      {
+        "direction": "directed",
+        "evidence": "Support staff are named as a relevant internal concern source.",
+        "layer": "trust",
+        "reason": "Support observations are operationally useful but may compete with management efficiency priorities.",
+        "source_actor_name": "platform_management",
+        "target_actor_name": "support_staff",
+        "weight": 0.51
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario focuses on deactivation fairness within a ride-hailing app.",
+        "layer": "dependency",
+        "reason": "Drivers rely on the platform for access to ride-hailing work and are vulnerable to deactivation decisions.",
+        "source_actor_name": "driver_pool",
+        "target_actor_name": "ridewave",
+        "weight": 0.71
+      },
+      {
+        "direction": "directed",
+        "evidence": "Ride-hailing service requires drivers as core supply.",
+        "layer": "dependency",
+        "reason": "The platform depends on drivers to supply rides and maintain service availability.",
+        "source_actor_name": "ridewave",
+        "target_actor_name": "driver_pool",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "Riders are core users in ride-hailing.",
+        "layer": "dependency",
+        "reason": "Platform demand depends on riders using the app.",
+        "source_actor_name": "ridewave",
+        "target_actor_name": "rider_pool",
+        "weight": 0.59
+      },
+      {
+        "direction": "directed",
+        "evidence": "Support worries about ticket volume around the new screen.",
+        "layer": "dependency",
+        "reason": "Support needs coherent product behavior and explanations to handle tickets effectively.",
+        "source_actor_name": "support_staff",
+        "target_actor_name": "driver_app_product_team",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "Management is the implied decision authority over broader appeals outcomes.",
+        "layer": "dependency",
+        "reason": "Product experiments require management approval and rollout authority.",
+        "source_actor_name": "driver_app_product_team",
+        "target_actor_name": "platform_management",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "Management wants fewer appeals and holds organizational authority.",
+        "layer": "influence",
+        "reason": "Management controls priorities, approval, and rollout scope.",
+        "source_actor_name": "platform_management",
+        "target_actor_name": "driver_app_product_team",
+        "weight": 0.76
+      },
+      {
+        "direction": "directed",
+        "evidence": "The scenario is about a test whose results matter to management goals.",
+        "layer": "influence",
+        "reason": "Experiment evidence can shape management decisions.",
+        "source_actor_name": "driver_app_product_team",
+        "target_actor_name": "platform_management",
+        "weight": 0.48
+      },
+      {
+        "direction": "directed",
+        "evidence": "Support staff anticipate ticket-volume effects.",
+        "layer": "influence",
+        "reason": "Ticket patterns can influence operational interpretations and policy adjustments.",
+        "source_actor_name": "support_staff",
+        "target_actor_name": "driver_ops_team",
+        "weight": 0.43
+      },
+      {
+        "direction": "directed",
+        "evidence": "Drivers hope for reduced unfair deactivations.",
+        "layer": "influence",
+        "reason": "Driver sentiment can affect legitimacy and appeal pressure but not immediate formal authority.",
+        "source_actor_name": "fairness_concerned_drivers",
+        "target_actor_name": "ridewave",
+        "weight": 0.31
+      },
+      {
+        "direction": "directed",
+        "evidence": "Riders want safety.",
+        "layer": "influence",
+        "reason": "Rider safety expectations constrain platform governance choices.",
+        "source_actor_name": "safety_concerned_riders",
+        "target_actor_name": "ridewave",
+        "weight": 0.37
+      },
+      {
+        "direction": "undirected",
+        "evidence": "New explanation screen is aligned with driver fairness hopes.",
+        "layer": "coalition",
+        "reason": "Both favor clearer explanations, though for different reasons.",
+        "source_actor_name": "driver_app_product_team",
+        "target_actor_name": "fairness_concerned_drivers",
+        "weight": 0.44
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Management wants fewer appeals; product is testing explanation screen.",
+        "layer": "coalition",
+        "reason": "Both want fewer appeals, with product seeking a design-based solution.",
+        "source_actor_name": "platform_management",
+        "target_actor_name": "driver_app_product_team",
+        "weight": 0.53
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Support worries about ticket volume while management wants fewer appeals.",
+        "layer": "coalition",
+        "reason": "Both benefit if appeals and ticket burden fall, though support fears a short-term increase.",
+        "source_actor_name": "support_staff",
+        "target_actor_name": "platform_management",
+        "weight": 0.36
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Riders want safety; management cannot weaken safety posture.",
+        "layer": "coalition",
+        "reason": "Both prioritize preserving safety legitimacy.",
+        "source_actor_name": "safety_concerned_riders",
+        "target_actor_name": "platform_management",
+        "weight": 0.41
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Scenario explicitly references unfair deactivations as a concern.",
+        "layer": "conflict",
+        "reason": "Drivers perceive a fairness conflict around ratings and deactivations.",
+        "source_actor_name": "driver_pool",
+        "target_actor_name": "ridewave",
+        "weight": 0.52
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Support staff worry about ticket volume from the change.",
+        "layer": "conflict",
+        "reason": "Support may resist if the test increases avoidable contact or unclear edge cases.",
+        "source_actor_name": "support_staff",
+        "target_actor_name": "driver_app_product_team",
+        "weight": 0.27
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Riders want safety while drivers want fewer unfair deactivations.",
+        "layer": "conflict",
+        "reason": "Safety-maximizing and fairness-maximizing interpretations may diverge if explanations are seen as softening enforcement.",
+        "source_actor_name": "safety_concerned_riders",
+        "target_actor_name": "fairness_concerned_drivers",
+        "weight": 0.24
+      },
+      {
+        "direction": "directed",
+        "evidence": "Support staff worry about ticket volume related to the test.",
+        "layer": "oasis_interaction",
+        "reason": "Drivers are likely to contact support if the explanation screen is confusing or contestable.",
+        "source_actor_name": "driver_pool",
+        "target_actor_name": "support_staff",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "Support is the primary human-facing operational group mentioned.",
+        "layer": "oasis_interaction",
+        "reason": "Support responses are a major channel for clarifying the new screen.",
+        "source_actor_name": "support_staff",
+        "target_actor_name": "driver_pool",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "Ticket-volume concern makes coordination likely.",
+        "layer": "oasis_interaction",
+        "reason": "Product and support will likely exchange updates during the test.",
+        "source_actor_name": "driver_app_product_team",
+        "target_actor_name": "support_staff",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "Issue salience is moderate among drivers at T0.",
+        "layer": "oasis_interaction",
+        "reason": "Drivers likely compare notes in public or semi-public discussion spaces.",
+        "source_actor_name": "fairness_concerned_drivers",
+        "target_actor_name": "fairness_concerned_drivers",
+        "weight": 0.49
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "function": "approves rollout_scope_and_policy_tradeoffs",
+        "hero_key": "management_decider",
+        "label": "Platform management decision-maker"
+      },
+      {
+        "function": "designs_explanation_screen_and_test_metrics",
+        "hero_key": "product_experiment_lead",
+        "label": "Driver app experiment lead"
+      },
+      {
+        "function": "monitors_ticket_volume_and_escalation_patterns",
+        "hero_key": "support_operations_lead",
+        "label": "Support operations lead"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "platform_management",
+        "attention_level": 0.76,
+        "constraints": [
+          "Cannot visibly weaken safety posture",
+          "Must manage internal metrics and support costs",
+          "Needs evidence before broad rollout"
+        ],
+        "current_goal": "Reduce appeals while preserving safety legitimacy and operational efficiency.",
+        "decision_power": 0.88,
+        "expression_level": 0.34,
+        "fatigue": 0.42,
+        "fear_of_isolation": 0.21,
+        "hero_key": "management_decider",
+        "mobilization_readiness": 0.58,
+        "perceived_majority": 0.66,
+        "stance_axes": {
+          "efficiency_priority": 0.84,
+          "labor_fairness_priority": 0.46,
+          "safety_priority": 0.81,
+          "transparency_preference": 0.51
+        }
+      },
+      {
+        "actor_name": "driver_app_product_team",
+        "attention_level": 0.83,
+        "constraints": [
+          "Needs management approval for broader changes",
+          "Dependent on data instrumentation and app deployment",
+          "Must avoid creating legal or reputational risk"
+        ],
+        "current_goal": "Run a credible test showing explanations improve comprehension and reduce unnecessary appeals.",
+        "decision_power": 0.57,
+        "expression_level": 0.45,
+        "fatigue": 0.38,
+        "fear_of_isolation": 0.28,
+        "hero_key": "product_experiment_lead",
+        "mobilization_readiness": 0.64,
+        "perceived_majority": 0.54,
+        "stance_axes": {
+          "efficiency_priority": 0.68,
+          "safety_priority": 0.62,
+          "transparency_preference": 0.74,
+          "user_comprehension_priority": 0.87
+        }
+      },
+      {
+        "actor_name": "support_staff",
+        "attention_level": 0.8,
+        "constraints": [
+          "Limited control over product design",
+          "Must absorb first-wave confusion",
+          "Depends on training and escalation paths"
+        ],
+        "current_goal": "Prevent a surge in tickets and maintain coherent scripts during the test.",
+        "decision_power": 0.34,
+        "expression_level": 0.39,
+        "fatigue": 0.59,
+        "fear_of_isolation": 0.31,
+        "hero_key": "support_operations_lead",
+        "mobilization_readiness": 0.36,
+        "perceived_majority": 0.51,
+        "stance_axes": {
+          "efficiency_priority": 0.79,
+          "safety_priority": 0.66,
+          "transparency_preference": 0.56,
+          "workload_stability_priority": 0.88
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "function": "approves rollout_scope_and_policy_tradeoffs",
+        "hero_key": "management_decider",
+        "label": "Platform management decision-maker"
+      },
+      {
+        "function": "designs_explanation_screen_and_test_metrics",
+        "hero_key": "product_experiment_lead",
+        "label": "Driver app experiment lead"
+      },
+      {
+        "function": "monitors_ticket_volume_and_escalation_patterns",
+        "hero_key": "support_operations_lead",
+        "label": "Support operations lead"
+      }
+    ],
+    "important_questions": [
+      "Will the platform move from test to broader rollout of the driver-rating explanation screen?",
+      "Will observed driver appeal volume materially decline after the test begins?",
+      "Will drivers' perceived fairness and trust in rating-related enforcement improve enough to change public sentiment?",
+      "Will support ticket volume or complexity become the main blocker to continuation or expansion of the test?",
+      "If transparency and safety framing come into tension, will management prioritize safety legitimacy over fuller explanation?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "driver_app_product_team",
+          "platform_management"
+        ],
+        "event_key": "explanation_screen_test_prepared",
+        "event_type": "announcement",
+        "expected_impact": "Raises driver attention, creates an evidence-gathering phase, and opens a path for either legitimacy gains or confusion.",
+        "summary": "Platform finalizes or enters initial deployment of a driver-rating explanation screen test.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "support_staff",
+          "driver_app_product_team"
+        ],
+        "event_key": "support_briefing_risk_flag",
+        "event_type": "announcement",
+        "expected_impact": "Increases internal monitoring and may bias early interpretation toward workload effects.",
+        "summary": "Support staff flag concern that new explanations may generate more tickets before stabilizing.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "driver_pool",
+          "fairness_concerned_drivers"
+        ],
+        "event_key": "driver_first_impressions_window",
+        "event_type": "announcement",
+        "expected_impact": "May shift peer trust and expression levels without yet changing policy outcomes.",
+        "summary": "Drivers in the test begin sharing first impressions of whether explanations feel meaningful or cosmetic.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "support_staff",
+          "driver_ops_team",
+          "platform_management"
+        ],
+        "event_key": "early_ticket_volume_review",
+        "event_type": "announcement",
+        "expected_impact": "Could alter management confidence, script changes, or test scope depending on whether confusion rises or appeals decline.",
+        "summary": "Internal review compares support volume and category mix after the test begins.",
+        "tick": 2
+      },
+      {
+        "actors": [
+          "platform_management",
+          "driver_app_product_team"
+        ],
+        "event_key": "preliminary_appeal_metric_check",
+        "event_type": "announcement",
+        "expected_impact": "Creates branching pressure toward expansion, revision, or containment of the test.",
+        "summary": "Management examines whether the explanation screen changes appeal behavior among exposed drivers.",
+        "tick": 3
+      }
+    ],
+    "llm_call_id": "85db295a-e403-47dc-a185-751a6da571a2",
+    "merge_hypotheses": [
+      {
+        "converging_parties": [
+          "platform_management",
+          "driver_app_product_team",
+          "support_staff"
+        ],
+        "evidence": "Management wants fewer appeals; support wants manageable volume; product wants a successful test.",
+        "mechanism": "If explanations reduce unnecessary contacts and appeals, internal stakeholders converge around rollout despite different motivations.",
+        "merge_key": "shared_efficiency_merge"
+      },
+      {
+        "converging_parties": [
+          "fairness_concerned_drivers",
+          "safety_concerned_riders",
+          "platform_management"
+        ],
+        "evidence": "Drivers seek fewer unfair deactivations while riders want safety.",
+        "mechanism": "If clearer explanations are framed as improving legitimate enforcement rather than weakening it, fairness and safety concerns can partially align.",
+        "merge_key": "safety_and_fairness_merge"
+      },
+      {
+        "converging_parties": [
+          "driver_pool",
+          "support_staff",
+          "platform_management"
+        ],
+        "evidence": "Scenario implies a compact governance test rather than a crisis event.",
+        "mechanism": "If effects are small or ambiguous, attention may decay into a low-intensity stalemate without broad mobilization or reform.",
+        "merge_key": "fatigue_based_stalemate_merge"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "drivers",
+        "evidence": "Ride-hailing app scenario implies a driver population affected by rating explanations and deactivation concerns.",
+        "label": "Platform drivers",
+        "population_total": 12000
+      },
+      {
+        "archetype_key": "riders",
+        "evidence": "Ride-hailing app scenario implies a rider population concerned with safety.",
+        "label": "Platform riders",
+        "population_total": 180000
+      },
+      {
+        "archetype_key": "support_workers",
+        "evidence": "Scenario explicitly mentions support staff worrying about ticket volume.",
+        "label": "Support staff",
+        "population_total": 350
+      }
+    ],
+    "risk_flags": [
+      {
+        "description": "The corpus is compact and leaves many operational specifics unspecified, including rollout scope, exact metrics, and regulatory context.",
+        "risk_key": "limited_source_detail",
+        "severity": "medium"
+      },
+      {
+        "description": "Population totals are scenario-scale estimates for simulation completeness, not directly stated in the source text.",
+        "risk_key": "population_estimate_inferred",
+        "severity": "low"
+      },
+      {
+        "description": "Management and internal team authority relations are inferred from a standard platform organization because the source gives only role-level cues.",
+        "risk_key": "authority_structure_inferred",
+        "severity": "low"
+      },
+      {
+        "description": "There is no evidence of a public scandal, major incident, or regulatory intervention at T0; escalation should not be assumed.",
+        "risk_key": "no_external_public_crisis_evidence",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "domain": "platform_algorithmic_governance",
+      "mode": "direct",
+      "scenario_key": "platform_005",
+      "source_evidence": [
+        "Scenario states a fictional ride-hailing app tests a new driver-rating explanation screen",
+        "Scenario states drivers hope it reduces unfair deactivations",
+        "Scenario states riders want safety",
+        "Scenario states support staff worry about ticket volume",
+        "Scenario states management wants fewer appeals"
+      ],
+      "summary": "A fictional ride-hailing platform is preparing or beginning a test of a new driver-rating explanation screen. Drivers expect fairer treatment and fewer unexplained deactivations, riders prioritize safety, support staff anticipate possible ticket-volume changes, and management seeks fewer appeals and smoother governance. T0 contains unresolved tradeoffs rather than a full crisis.",
+      "t0_uncertainties": [
+        "Whether explanation detail will actually reduce perceived unfairness",
+        "Whether riders interpret changes as safety-positive, neutral, or evasive",
+        "Whether support load rises from confusion before falling from fewer appeals",
+        "Whether management prioritizes transparency, efficiency, or liability containment if tradeoffs appear"
+      ],
+      "time_horizon_ticks": 6,
+      "title": "driver_rating_explanation_screen_test"
+    },
+    "sociology_baseline": [
+      {
+        "level": 0.62,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Driver views on fairness likely update more from peer cases than official assurances.",
+        "scope": "drivers"
+      },
+      {
+        "level": 0.48,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Broader driver agitation likely requires visible examples of unfairness persisting after the test.",
+        "scope": "drivers"
+      },
+      {
+        "level": 0.71,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Most riders remain quiet unless safety signals become salient.",
+        "scope": "riders"
+      },
+      {
+        "level": 0.58,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Occupational groups are more likely to trust in-group accounts.",
+        "scope": "drivers_and_support"
+      },
+      {
+        "level": 0.46,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Multiple similar stories would be needed to shift broad sentiment sharply.",
+        "scope": "drivers"
+      },
+      {
+        "level": 0.54,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Shared experience of platform enforcement creates a fairness-oriented identity frame.",
+        "scope": "drivers"
+      },
+      {
+        "level": 0.67,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Absent incident cues, rider attention to governance changes fades quickly.",
+        "scope": "riders"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context_key": "driver_fairness_salience",
+        "description": "Drivers are primed to evaluate the test through deactivation fairness, not only interface usability.",
+        "evidence": "Drivers hope it reduces unfair deactivations."
+      },
+      {
+        "context_key": "rider_safety_constraint",
+        "description": "Any perceived reduction in safety legitimacy can activate rider concern despite low day-to-day attention.",
+        "evidence": "Riders want safety."
+      },
+      {
+        "context_key": "support_capacity_sensitivity",
+        "description": "Operational burden is an immediate internal lens for evaluating the test.",
+        "evidence": "Support staff worry about ticket volume."
+      },
+      {
+        "context_key": "management_appeal_reduction_goal",
+        "description": "Leadership will likely judge the test partly by whether it lowers appeals.",
+        "evidence": "Management wants fewer appeals."
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "ridewave",
+        "behavior_axes": {
+          "procedural_formality": 0.69,
+          "responsiveness": 0.52,
+          "risk_tolerance": 0.46
+        },
+        "ideology_axes": {
+          "customer_safety": 0.78,
+          "market_efficiency": 0.74,
+          "worker_fairness": 0.43
+        },
+        "reputation": 0.52,
+        "secrecy": 0.58,
+        "tendency": "optimize_policy_for_operational_and_reputational balance",
+        "trustworthiness": 0.48
+      },
+      {
+        "actor_name": "platform_management",
+        "behavior_axes": {
+          "procedural_formality": 0.72,
+          "responsiveness": 0.47,
+          "risk_tolerance": 0.41
+        },
+        "ideology_axes": {
+          "customer_safety": 0.8,
+          "market_efficiency": 0.82,
+          "worker_fairness": 0.45
+        },
+        "reputation": 0.5,
+        "secrecy": 0.61,
+        "tendency": "favor measurable reductions in appeals and liability exposure",
+        "trustworthiness": 0.46
+      },
+      {
+        "actor_name": "driver_ops_team",
+        "behavior_axes": {
+          "procedural_formality": 0.76,
+          "responsiveness": 0.58,
+          "risk_tolerance": 0.39
+        },
+        "ideology_axes": {
+          "customer_safety": 0.77,
+          "market_efficiency": 0.69,
+          "worker_fairness": 0.52
+        },
+        "reputation": 0.49,
+        "secrecy": 0.55,
+        "tendency": "mediate between policy enforcement and driver-facing legitimacy",
+        "trustworthiness": 0.54
+      },
+      {
+        "actor_name": "support_staff",
+        "behavior_axes": {
+          "procedural_formality": 0.71,
+          "responsiveness": 0.73,
+          "risk_tolerance": 0.28
+        },
+        "ideology_axes": {
+          "customer_safety": 0.69,
+          "market_efficiency": 0.61,
+          "worker_fairness": 0.57
+        },
+        "reputation": 0.58,
+        "secrecy": 0.46,
+        "tendency": "surface repeat friction and protect workflow stability",
+        "trustworthiness": 0.71
+      },
+      {
+        "actor_name": "driver_app_product_team",
+        "behavior_axes": {
+          "procedural_formality": 0.63,
+          "responsiveness": 0.67,
+          "risk_tolerance": 0.57
+        },
+        "ideology_axes": {
+          "customer_safety": 0.62,
+          "market_efficiency": 0.71,
+          "worker_fairness": 0.64
+        },
+        "reputation": 0.56,
+        "secrecy": 0.44,
+        "tendency": "test interface-based governance fixes",
+        "trustworthiness": 0.59
+      },
+      {
+        "actor_name": "driver_pool",
+        "behavior_axes": {
+          "procedural_formality": 0.33,
+          "responsiveness": 0.62,
+          "risk_tolerance": 0.49
+        },
+        "ideology_axes": {
+          "customer_safety": 0.55,
+          "market_efficiency": 0.42,
+          "worker_fairness": 0.86
+        },
+        "reputation": 0.47,
+        "secrecy": 0.37,
+        "tendency": "judge policies through lived enforcement outcomes",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "rider_pool",
+        "behavior_axes": {
+          "procedural_formality": 0.27,
+          "responsiveness": 0.34,
+          "risk_tolerance": 0.31
+        },
+        "ideology_axes": {
+          "customer_safety": 0.88,
+          "market_efficiency": 0.68,
+          "worker_fairness": 0.39
+        },
+        "reputation": 0.59,
+        "secrecy": 0.18,
+        "tendency": "stay low-attention absent salient safety signals",
+        "trustworthiness": 0.67
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 493,
+        "end": 493,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 493,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

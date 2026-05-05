@@ -1,0 +1,1426 @@
+{
+  "big_bang_id": "c9a48524-3380-4628-8d32-b0baebfb284a",
+  "initializer_output": {
+    "actors": [
+      {
+        "actor_type": "institution",
+        "fictionalized": true,
+        "name": "regional_newspaper",
+        "public_visibility": "high",
+        "role": "primary news publisher controlling referendum coverage access",
+        "stakes": [
+          "subscription revenue",
+          "organizational survival",
+          "editorial legitimacy",
+          "audience trust"
+        ]
+      },
+      {
+        "actor_type": "leadership_group",
+        "fictionalized": true,
+        "name": "publisher_leadership",
+        "public_visibility": "medium",
+        "role": "decision authority over paywall policy and public justification",
+        "stakes": [
+          "financial sustainability",
+          "brand reputation",
+          "staff stability"
+        ]
+      },
+      {
+        "actor_type": "institutional_subgroup",
+        "fictionalized": true,
+        "name": "newsroom_staff",
+        "public_visibility": "medium",
+        "role": "produces reporting that becomes paywalled and later excerpted",
+        "stakes": [
+          "journalistic mission",
+          "audience reach",
+          "employment continuity"
+        ]
+      },
+      {
+        "actor_type": "civic_group",
+        "fictionalized": true,
+        "name": "civic_access_coalition",
+        "public_visibility": "medium",
+        "role": "criticizes paywall as harmful to referendum information access",
+        "stakes": [
+          "civic participation",
+          "equitable information access",
+          "public pressure leverage"
+        ]
+      },
+      {
+        "actor_type": "campaign",
+        "fictionalized": true,
+        "name": "referendum_yes_campaign",
+        "public_visibility": "medium",
+        "role": "adapts messaging under altered media access conditions",
+        "stakes": [
+          "persuasion reach",
+          "message discipline",
+          "narrative advantage"
+        ]
+      },
+      {
+        "actor_type": "campaign",
+        "fictionalized": true,
+        "name": "referendum_no_campaign",
+        "public_visibility": "medium",
+        "role": "adapts messaging under altered media access conditions",
+        "stakes": [
+          "persuasion reach",
+          "message discipline",
+          "narrative advantage"
+        ]
+      },
+      {
+        "actor_type": "public_population",
+        "fictionalized": true,
+        "name": "local_voters",
+        "public_visibility": "high",
+        "role": "audience needing referendum information and making final electoral choice",
+        "stakes": [
+          "access to trustworthy information",
+          "civic efficacy",
+          "decision confidence"
+        ]
+      },
+      {
+        "actor_type": "audience_segment",
+        "fictionalized": true,
+        "name": "subscribers",
+        "public_visibility": "low",
+        "role": "paying readers retaining direct article access",
+        "stakes": [
+          "information access",
+          "value for subscription spending"
+        ]
+      },
+      {
+        "actor_type": "audience_segment",
+        "fictionalized": true,
+        "name": "non_subscriber_readers",
+        "public_visibility": "low",
+        "role": "readers blocked from full election coverage and more dependent on secondary channels",
+        "stakes": [
+          "free access",
+          "shared summaries",
+          "social-media-derived understanding"
+        ]
+      },
+      {
+        "actor_type": "network_public",
+        "fictionalized": true,
+        "name": "social_media_posters",
+        "public_visibility": "medium",
+        "role": "recirculates article snippets, commentary, and distortions",
+        "stakes": [
+          "attention",
+          "agenda amplification",
+          "identity signaling"
+        ]
+      },
+      {
+        "actor_type": "media_peer",
+        "fictionalized": true,
+        "name": "local_radio_and_tv",
+        "public_visibility": "medium",
+        "role": "alternate local information channel that may react to access controversy",
+        "stakes": [
+          "audience share",
+          "public-service standing",
+          "competitive positioning"
+        ]
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Publisher offers temporary free access, article exemptions, or a referendum information hub while preserving broader subscription policy.",
+        "branch_key": "partial_rollback_branch",
+        "observable_divergence_signal": "Public announcement of temporary access change, unlocked links, or free-to-read referendum explainers.",
+        "trigger": "Sustained civic criticism plus visible confusion or distortion around key referendum articles."
+      },
+      {
+        "alternate_path": "Publisher maintains paywall and reframes criticism around sustainability and the cost of quality local journalism.",
+        "branch_key": "subscription_defense_holds_branch",
+        "observable_divergence_signal": "Repeated editorial defense messaging without access concessions and stable subscriber-facing rhetoric.",
+        "trigger": "Backlash remains limited and subscriber support offsets legitimacy costs."
+      },
+      {
+        "alternate_path": "Secondary summaries become the dominant referendum information layer for many non-subscribers, increasing factual drift.",
+        "branch_key": "misinformation_expansion_branch",
+        "observable_divergence_signal": "Growing prevalence of disputed screenshots, quote fragments, and contradictory public understandings of article claims.",
+        "trigger": "Snippet circulation outpaces corrective full-article access across open channels."
+      },
+      {
+        "alternate_path": "The paywall itself becomes a referendum-adjacent controversy that damages newspaper reputation regardless of policy change.",
+        "branch_key": "public_backlash_escalation_branch",
+        "observable_divergence_signal": "Public petitions, local call-in criticism, competitor media scrutiny, or notable drops in trust expressions.",
+        "trigger": "Criticism broadens beyond civic groups into wider voter resentment or peer media coverage."
+      },
+      {
+        "alternate_path": "The paywall remains but loses agenda-setting centrality as radio, TV, and campaign messaging fill the gap.",
+        "branch_key": "channel_substitution_branch",
+        "observable_divergence_signal": "Higher citation of broadcast summaries and campaign-produced explainers than direct newspaper articles in public discussion.",
+        "trigger": "Alternate media and campaigns successfully replace the newspaper as the practical information bridge."
+      }
+    ],
+    "channels": [
+      {
+        "access": "restricted",
+        "artifact_persistence": "high",
+        "channel_key": "paywalled_newspaper_site",
+        "traceability": "high_before_excerpting",
+        "type": "owned_media"
+      },
+      {
+        "access": "partially_open",
+        "artifact_persistence": "medium",
+        "channel_key": "newspaper_headlines_and_teasers",
+        "traceability": "medium",
+        "type": "owned_media_surface"
+      },
+      {
+        "access": "open",
+        "artifact_persistence": "medium",
+        "channel_key": "social_media_snippets",
+        "traceability": "low_to_medium",
+        "type": "networked_public"
+      },
+      {
+        "access": "targeted_and_open_mix",
+        "artifact_persistence": "medium",
+        "channel_key": "campaign_direct_messaging",
+        "traceability": "medium",
+        "type": "campaign_media"
+      },
+      {
+        "access": "open",
+        "artifact_persistence": "low_to_medium",
+        "channel_key": "local_radio_tv",
+        "traceability": "medium",
+        "type": "broadcast_media"
+      },
+      {
+        "access": "semi_open",
+        "artifact_persistence": "low",
+        "channel_key": "community_civic_networks",
+        "traceability": "low",
+        "type": "interpersonal_and_org"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "subscribers",
+        "archetype_key": "local_electorate",
+        "attention_level": 8,
+        "cohort_key": "subscribed_civically_engaged_voters",
+        "expression_level": 5,
+        "fatigue": 4,
+        "fear_of_isolation": 3,
+        "mobilization_readiness": 4,
+        "perceived_majority": 5,
+        "population_share_of_archetype": 0.15,
+        "private_belief_summary": "Values direct reporting access and is somewhat sympathetic to local journalism finances, but not uniformly supportive of paywall timing.",
+        "public_expression_summary": "More likely to defend subscription value or share article takeaways selectively.",
+        "representation_mode": "direct_segment",
+        "represented_population": 18000,
+        "stance_axes": {
+          "concern_about_misinformation": 7,
+          "support_paywall_timing": 4,
+          "support_public_access_priority": 6,
+          "trust_newspaper": 6
+        }
+      },
+      {
+        "actor_name": "non_subscriber_readers",
+        "archetype_key": "local_electorate",
+        "attention_level": 6,
+        "cohort_key": "blocked_non_subscriber_voters",
+        "expression_level": 4,
+        "fatigue": 3,
+        "fear_of_isolation": 4,
+        "mobilization_readiness": 3,
+        "perceived_majority": 6,
+        "population_share_of_archetype": 0.6,
+        "private_belief_summary": "Sees the paywall as frustrating or unfair, but many do not convert frustration into organized action.",
+        "public_expression_summary": "Likely to discuss snippets, screenshots, and complaints rather than full article content.",
+        "representation_mode": "direct_segment",
+        "represented_population": 72000,
+        "stance_axes": {
+          "concern_about_misinformation": 5,
+          "support_paywall_timing": 2,
+          "support_public_access_priority": 8,
+          "trust_newspaper": 4
+        }
+      },
+      {
+        "actor_name": "local_voters",
+        "archetype_key": "local_electorate",
+        "attention_level": 3,
+        "cohort_key": "low_attention_voters",
+        "expression_level": 2,
+        "fatigue": 2,
+        "fear_of_isolation": 5,
+        "mobilization_readiness": 2,
+        "perceived_majority": 5,
+        "population_share_of_archetype": 0.25,
+        "private_belief_summary": "Weakly informed, susceptible to channel effects, and likely to encounter referendum information incidentally.",
+        "public_expression_summary": "Limited direct discussion except when prompted by salient controversy or viral snippets.",
+        "representation_mode": "direct_segment",
+        "represented_population": 30000,
+        "stance_axes": {
+          "concern_about_misinformation": 3,
+          "support_paywall_timing": 3,
+          "support_public_access_priority": 6,
+          "trust_newspaper": 5
+        }
+      },
+      {
+        "actor_name": "civic_access_coalition",
+        "archetype_key": "organized_civic_participants",
+        "attention_level": 9,
+        "cohort_key": "civic_access_advocates",
+        "expression_level": 8,
+        "fatigue": 4,
+        "fear_of_isolation": 3,
+        "mobilization_readiness": 7,
+        "perceived_majority": 4,
+        "population_share_of_archetype": 0.5,
+        "private_belief_summary": "Views election coverage as a quasi-public good that should remain broadly accessible before a vote.",
+        "public_expression_summary": "Prepared to criticize the paywall publicly and request rollback or exemptions.",
+        "representation_mode": "organized_subset",
+        "represented_population": 900,
+        "stance_axes": {
+          "concern_about_misinformation": 7,
+          "support_paywall_timing": 1,
+          "support_public_access_priority": 9,
+          "trust_newspaper": 4
+        }
+      },
+      {
+        "actor_name": "referendum_yes_campaign",
+        "archetype_key": "campaign_ecosystem",
+        "attention_level": 8,
+        "cohort_key": "campaign_operators_yes",
+        "expression_level": 7,
+        "fatigue": 5,
+        "fear_of_isolation": 4,
+        "mobilization_readiness": 8,
+        "perceived_majority": 5,
+        "population_share_of_archetype": 0.5,
+        "private_belief_summary": "Treats the paywall primarily as a tactical media environment change rather than a principle issue.",
+        "public_expression_summary": "May selectively frame access issues if advantageous while shifting toward excerpts and surrogate messaging.",
+        "representation_mode": "campaign_team",
+        "represented_population": 200,
+        "stance_axes": {
+          "concern_about_misinformation": 4,
+          "support_paywall_timing": 4,
+          "support_public_access_priority": 5,
+          "trust_newspaper": 5
+        }
+      },
+      {
+        "actor_name": "referendum_no_campaign",
+        "archetype_key": "campaign_ecosystem",
+        "attention_level": 8,
+        "cohort_key": "campaign_operators_no",
+        "expression_level": 7,
+        "fatigue": 5,
+        "fear_of_isolation": 4,
+        "mobilization_readiness": 8,
+        "perceived_majority": 5,
+        "population_share_of_archetype": 0.5,
+        "private_belief_summary": "Treats the paywall primarily as a tactical media environment change rather than a principle issue.",
+        "public_expression_summary": "May selectively frame access issues if advantageous while shifting toward excerpts and surrogate messaging.",
+        "representation_mode": "campaign_team",
+        "represented_population": 200,
+        "stance_axes": {
+          "concern_about_misinformation": 4,
+          "support_paywall_timing": 4,
+          "support_public_access_priority": 5,
+          "trust_newspaper": 5
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "subscribers",
+        "archetype_key": "local_electorate",
+        "attention_level": 8,
+        "cohort_key": "subscribed_civically_engaged_voters",
+        "expression_level": 5,
+        "fatigue": 4,
+        "fear_of_isolation": 3,
+        "mobilization_readiness": 4,
+        "perceived_majority": 5,
+        "population_share_of_archetype": 0.15,
+        "private_belief_summary": "Values direct reporting access and is somewhat sympathetic to local journalism finances, but not uniformly supportive of paywall timing.",
+        "public_expression_summary": "More likely to defend subscription value or share article takeaways selectively.",
+        "representation_mode": "direct_segment",
+        "represented_population": 18000,
+        "stance_axes": {
+          "concern_about_misinformation": 7,
+          "support_paywall_timing": 4,
+          "support_public_access_priority": 6,
+          "trust_newspaper": 6
+        }
+      },
+      {
+        "actor_name": "non_subscriber_readers",
+        "archetype_key": "local_electorate",
+        "attention_level": 6,
+        "cohort_key": "blocked_non_subscriber_voters",
+        "expression_level": 4,
+        "fatigue": 3,
+        "fear_of_isolation": 4,
+        "mobilization_readiness": 3,
+        "perceived_majority": 6,
+        "population_share_of_archetype": 0.6,
+        "private_belief_summary": "Sees the paywall as frustrating or unfair, but many do not convert frustration into organized action.",
+        "public_expression_summary": "Likely to discuss snippets, screenshots, and complaints rather than full article content.",
+        "representation_mode": "direct_segment",
+        "represented_population": 72000,
+        "stance_axes": {
+          "concern_about_misinformation": 5,
+          "support_paywall_timing": 2,
+          "support_public_access_priority": 8,
+          "trust_newspaper": 4
+        }
+      },
+      {
+        "actor_name": "local_voters",
+        "archetype_key": "local_electorate",
+        "attention_level": 3,
+        "cohort_key": "low_attention_voters",
+        "expression_level": 2,
+        "fatigue": 2,
+        "fear_of_isolation": 5,
+        "mobilization_readiness": 2,
+        "perceived_majority": 5,
+        "population_share_of_archetype": 0.25,
+        "private_belief_summary": "Weakly informed, susceptible to channel effects, and likely to encounter referendum information incidentally.",
+        "public_expression_summary": "Limited direct discussion except when prompted by salient controversy or viral snippets.",
+        "representation_mode": "direct_segment",
+        "represented_population": 30000,
+        "stance_axes": {
+          "concern_about_misinformation": 3,
+          "support_paywall_timing": 3,
+          "support_public_access_priority": 6,
+          "trust_newspaper": 5
+        }
+      },
+      {
+        "actor_name": "civic_access_coalition",
+        "archetype_key": "organized_civic_participants",
+        "attention_level": 9,
+        "cohort_key": "civic_access_advocates",
+        "expression_level": 8,
+        "fatigue": 4,
+        "fear_of_isolation": 3,
+        "mobilization_readiness": 7,
+        "perceived_majority": 4,
+        "population_share_of_archetype": 0.5,
+        "private_belief_summary": "Views election coverage as a quasi-public good that should remain broadly accessible before a vote.",
+        "public_expression_summary": "Prepared to criticize the paywall publicly and request rollback or exemptions.",
+        "representation_mode": "organized_subset",
+        "represented_population": 900,
+        "stance_axes": {
+          "concern_about_misinformation": 7,
+          "support_paywall_timing": 1,
+          "support_public_access_priority": 9,
+          "trust_newspaper": 4
+        }
+      },
+      {
+        "actor_name": "referendum_yes_campaign",
+        "archetype_key": "campaign_ecosystem",
+        "attention_level": 8,
+        "cohort_key": "campaign_operators_yes",
+        "expression_level": 7,
+        "fatigue": 5,
+        "fear_of_isolation": 4,
+        "mobilization_readiness": 8,
+        "perceived_majority": 5,
+        "population_share_of_archetype": 0.5,
+        "private_belief_summary": "Treats the paywall primarily as a tactical media environment change rather than a principle issue.",
+        "public_expression_summary": "May selectively frame access issues if advantageous while shifting toward excerpts and surrogate messaging.",
+        "representation_mode": "campaign_team",
+        "represented_population": 200,
+        "stance_axes": {
+          "concern_about_misinformation": 4,
+          "support_paywall_timing": 4,
+          "support_public_access_priority": 5,
+          "trust_newspaper": 5
+        }
+      },
+      {
+        "actor_name": "referendum_no_campaign",
+        "archetype_key": "campaign_ecosystem",
+        "attention_level": 8,
+        "cohort_key": "campaign_operators_no",
+        "expression_level": 7,
+        "fatigue": 5,
+        "fear_of_isolation": 4,
+        "mobilization_readiness": 8,
+        "perceived_majority": 5,
+        "population_share_of_archetype": 0.5,
+        "private_belief_summary": "Treats the paywall primarily as a tactical media environment change rather than a principle issue.",
+        "public_expression_summary": "May selectively frame access issues if advantageous while shifting toward excerpts and surrogate messaging.",
+        "representation_mode": "campaign_team",
+        "represented_population": 200,
+        "stance_axes": {
+          "concern_about_misinformation": 4,
+          "support_paywall_timing": 4,
+          "support_public_access_priority": 5,
+          "trust_newspaper": 5
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "publisher_leadership",
+          "regional_newspaper"
+        ],
+        "blockers": [
+          "revenue survival pressure",
+          "precedent concerns about free access demands",
+          "limited time to retool access systems"
+        ],
+        "contradiction_notes": "A narrowly free explainer page without broader referendum access may only partially satisfy this endpoint.",
+        "description": "The newspaper fully removes or substantially relaxes access restrictions for referendum coverage before the vote.",
+        "endpoint_key": "paywall_rollback",
+        "evidence_refs": [
+          "paywall_activation_on_referendum_coverage",
+          "civic_access_criticism_emerges"
+        ],
+        "label": "Paywall rollback or referendum exemption",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the newspaper fully or partially remove the paywall from referendum coverage before voting day?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.29,
+        "rationale": "Scenario explicitly names rollback as a possible endpoint and the decision is still open at T0.",
+        "realization_criteria": [
+          "Publisher publicly announces that referendum coverage is free to access or grants a broad temporary exemption",
+          "At least one observable channel shows unlocked referendum articles or a clearly free referendum information hub"
+        ],
+        "status": "active",
+        "status_basis": "Civic pressure exists, but direct authority remains with publisher leadership and no rollback has yet occurred."
+      },
+      {
+        "authority_refs": [
+          "civic_access_coalition",
+          "local_voters",
+          "local_radio_and_tv",
+          "social_media_posters"
+        ],
+        "blockers": [
+          "public sympathy for local news finances",
+          "short attention cycles",
+          "limited issue salience among low-attention voters"
+        ],
+        "contradiction_notes": "High online criticism without broader local salience may not meet the threshold for meaningful legitimacy damage.",
+        "description": "The paywall becomes a notable public controversy that measurably harms the newspaper's civic standing before or around the referendum.",
+        "endpoint_key": "public_backlash",
+        "evidence_refs": [
+          "civic_access_criticism_emerges",
+          "publisher_survival_justification_circulates"
+        ],
+        "label": "Public backlash meaningfully damages legitimacy",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will public backlash against the paywall materially reduce the newspaper's civic legitimacy by the referendum period?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.26,
+        "rationale": "The scenario directly identifies public backlash as a possible endpoint and legitimacy pressure is central to the conflict.",
+        "realization_criteria": [
+          "Observable expansion of criticism beyond initial civic groups into broader voter or peer-media channels",
+          "Clear public evidence of reputational damage such as widespread negative coverage, petitions, or sustained criticism tied specifically to election access"
+        ],
+        "status": "active",
+        "status_basis": "Initial criticism is visible, but it has not yet clearly broadened into generalized backlash."
+      },
+      {
+        "authority_refs": [
+          "publisher_leadership",
+          "regional_newspaper",
+          "subscribers"
+        ],
+        "blockers": [
+          "escalating civic backlash",
+          "misinformation costs from restricted access",
+          "competitive pressure from alternate channels"
+        ],
+        "contradiction_notes": "A token concession may complicate classification if the core paywall remains in place.",
+        "description": "The publisher keeps the paywall substantially intact through the referendum period and maintains a publicly defensible survival narrative.",
+        "endpoint_key": "subscription_defense_holds",
+        "evidence_refs": [
+          "paywall_activation_on_referendum_coverage",
+          "publisher_survival_justification_circulates"
+        ],
+        "label": "Subscription defense holds without major concession",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the publisher successfully sustain the paywall under a financial-survival justification without major concession?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.34,
+        "rationale": "Publisher already presents a survival rationale, making continuity a strong live option.",
+        "realization_criteria": [
+          "No broad rollback or referendum exemption is announced before voting day",
+          "Publisher continues to defend the paywall as necessary for sustainability in observable public messaging"
+        ],
+        "status": "active",
+        "status_basis": "This is the current default institutional posture at T0, though it remains vulnerable to backlash and distortion effects."
+      },
+      {
+        "authority_refs": [
+          "social_media_posters",
+          "non_subscriber_readers",
+          "referendum_yes_campaign",
+          "referendum_no_campaign"
+        ],
+        "blockers": [
+          "effective alternate summaries from trusted open channels",
+          "publisher clarifications or free-access exceptions",
+          "low overall referendum attention"
+        ],
+        "contradiction_notes": "High snippet activity does not automatically imply major misinformation if context-preserving summaries remain common.",
+        "description": "Decontextualized social-media circulation becomes a prominent practical source of referendum understanding for many blocked readers.",
+        "endpoint_key": "misinformation_spread",
+        "evidence_refs": [
+          "snippet_distortion_accumulates",
+          "campaign_channel_adjustments_begin"
+        ],
+        "label": "Snippet distortion becomes a major information layer",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will distorted or decontextualized social-media snippets become a major practical source of referendum understanding for non-subscribers?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.31,
+        "rationale": "Scenario explicitly names misinformation spread as a central endpoint and artifact traceability is a key focus.",
+        "realization_criteria": [
+          "Observable referendum discourse increasingly references screenshots, snippets, or paraphrases rather than full articles",
+          "Corrections or context from original reporting fail to keep pace with secondary circulation in open channels"
+        ],
+        "status": "active",
+        "status_basis": "The mechanism is already seeded in the scenario, but dominance over voter understanding is not yet established."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Publisher cites financial survival.",
+        "layer": "dependency",
+        "reason": "Subscription revenue materially supports publication sustainability.",
+        "source_actor_name": "regional_newspaper",
+        "target_actor_name": "subscribers",
+        "weight": 0.58
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Paywall creates differentiated access to articles.",
+        "layer": "dependency",
+        "reason": "Subscribers rely on the newspaper for full referendum coverage access.",
+        "source_actor_name": "subscribers",
+        "target_actor_name": "regional_newspaper",
+        "weight": 0.42
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Social media snippets distort articles.",
+        "layer": "dependency",
+        "reason": "Blocked readers become more reliant on secondary recirculation channels.",
+        "source_actor_name": "non_subscriber_readers",
+        "target_actor_name": "social_media_posters",
+        "weight": 0.49
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Campaigns adapt messaging and snippets circulate socially.",
+        "layer": "dependency",
+        "reason": "Campaign messaging adaptation likely uses open channels when direct article access is restricted.",
+        "source_actor_name": "referendum_yes_campaign",
+        "target_actor_name": "social_media_posters",
+        "weight": 0.41
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Campaigns adapt messaging and snippets circulate socially.",
+        "layer": "dependency",
+        "reason": "Campaign messaging adaptation likely uses open channels when direct article access is restricted.",
+        "source_actor_name": "referendum_no_campaign",
+        "target_actor_name": "social_media_posters",
+        "weight": 0.41
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Regional newspaper election coverage is central to scenario.",
+        "layer": "dependency",
+        "reason": "Newspaper remains a key local information source even if direct access is uneven.",
+        "source_actor_name": "local_voters",
+        "target_actor_name": "regional_newspaper",
+        "weight": 0.34
+      },
+      {
+        "direction": "source_reaches_target",
+        "evidence": "Paywall differentiates access.",
+        "layer": "exposure",
+        "reason": "Subscribers directly receive and can read paywalled election coverage.",
+        "source_actor_name": "regional_newspaper",
+        "target_actor_name": "subscribers",
+        "weight": 0.63
+      },
+      {
+        "direction": "source_reaches_target",
+        "evidence": "Coverage is paywalled, not absent.",
+        "layer": "exposure",
+        "reason": "Non-subscribers still see headlines, teasers, or references but not full content.",
+        "source_actor_name": "regional_newspaper",
+        "target_actor_name": "non_subscriber_readers",
+        "weight": 0.27
+      },
+      {
+        "direction": "source_reaches_target",
+        "evidence": "Social media snippets distort articles.",
+        "layer": "exposure",
+        "reason": "Secondary snippets are likely a major exposure path for blocked readers.",
+        "source_actor_name": "social_media_posters",
+        "target_actor_name": "non_subscriber_readers",
+        "weight": 0.61
+      },
+      {
+        "direction": "source_reaches_target",
+        "evidence": "Civic groups accuse newspaper of reducing access.",
+        "layer": "exposure",
+        "reason": "Civic criticism can reach voters through public statements and community networks.",
+        "source_actor_name": "civic_access_coalition",
+        "target_actor_name": "local_voters",
+        "weight": 0.36
+      },
+      {
+        "direction": "source_reaches_target",
+        "evidence": "Campaigns adapt messaging.",
+        "layer": "exposure",
+        "reason": "Campaigns are adapting messaging in response to altered media conditions.",
+        "source_actor_name": "referendum_yes_campaign",
+        "target_actor_name": "local_voters",
+        "weight": 0.38
+      },
+      {
+        "direction": "source_reaches_target",
+        "evidence": "Campaigns adapt messaging.",
+        "layer": "exposure",
+        "reason": "Campaigns are adapting messaging in response to altered media conditions.",
+        "source_actor_name": "referendum_no_campaign",
+        "target_actor_name": "local_voters",
+        "weight": 0.38
+      },
+      {
+        "direction": "source_reaches_target",
+        "evidence": "Multi-channel focus implied by scenario.",
+        "layer": "exposure",
+        "reason": "Alternate local media may cover both the referendum and the paywall controversy.",
+        "source_actor_name": "local_radio_and_tv",
+        "target_actor_name": "local_voters",
+        "weight": 0.43
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Newspaper remains central yet is accused of reducing access.",
+        "layer": "trust",
+        "reason": "Baseline institutional trust exists but is strained by access restriction.",
+        "source_actor_name": "local_voters",
+        "target_actor_name": "regional_newspaper",
+        "weight": 0.52
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Subscriber status implies stronger attachment.",
+        "layer": "trust",
+        "reason": "Subscribers show revealed willingness to pay and likely above-average trust.",
+        "source_actor_name": "subscribers",
+        "target_actor_name": "regional_newspaper",
+        "weight": 0.64
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Civic accusations of reduced access.",
+        "layer": "trust",
+        "reason": "Access restriction weakens perceived public-serving legitimacy among blocked readers.",
+        "source_actor_name": "non_subscriber_readers",
+        "target_actor_name": "regional_newspaper",
+        "weight": 0.38
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Snippets distort articles.",
+        "layer": "trust",
+        "reason": "Social snippets are accessible but less reliable than full reporting.",
+        "source_actor_name": "local_voters",
+        "target_actor_name": "social_media_posters",
+        "weight": 0.29
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Accuse it of reducing access.",
+        "layer": "trust",
+        "reason": "Coalition disputes the access decision while not necessarily denying all reporting quality.",
+        "source_actor_name": "civic_access_coalition",
+        "target_actor_name": "regional_newspaper",
+        "weight": 0.33
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Publisher cites financial survival.",
+        "layer": "influence",
+        "reason": "Leadership controls access policy and institutional response.",
+        "source_actor_name": "publisher_leadership",
+        "target_actor_name": "regional_newspaper",
+        "weight": 0.73
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Coverage occurs shortly before local referendum.",
+        "layer": "influence",
+        "reason": "Election coverage can shape what facts and frames voters encounter.",
+        "source_actor_name": "regional_newspaper",
+        "target_actor_name": "local_voters",
+        "weight": 0.55
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Civic groups accuse the newspaper.",
+        "layer": "influence",
+        "reason": "Public criticism can create legitimacy and reputational pressure on decision-makers.",
+        "source_actor_name": "civic_access_coalition",
+        "target_actor_name": "publisher_leadership",
+        "weight": 0.39
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Social media snippets distort articles.",
+        "layer": "influence",
+        "reason": "Accessible snippets and commentary can shape interpretations, especially among non-subscribers.",
+        "source_actor_name": "social_media_posters",
+        "target_actor_name": "local_voters",
+        "weight": 0.47
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Campaigns adapt messaging.",
+        "layer": "influence",
+        "reason": "Campaign messaging may seed or cue snippet framing and distribution.",
+        "source_actor_name": "referendum_yes_campaign",
+        "target_actor_name": "social_media_posters",
+        "weight": 0.31
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Campaigns adapt messaging.",
+        "layer": "influence",
+        "reason": "Campaign messaging may seed or cue snippet framing and distribution.",
+        "source_actor_name": "referendum_no_campaign",
+        "target_actor_name": "social_media_posters",
+        "weight": 0.31
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Multi-channel information dynamics are central to case.",
+        "layer": "influence",
+        "reason": "Alternate media can reframe controversy and summarize inaccessible reporting.",
+        "source_actor_name": "local_radio_and_tv",
+        "target_actor_name": "local_voters",
+        "weight": 0.36
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Civic groups oppose reduced access; non-subscribers are most affected.",
+        "layer": "coalition",
+        "reason": "Shared preference for broader access creates latent alignment.",
+        "source_actor_name": "civic_access_coalition",
+        "target_actor_name": "non_subscriber_readers",
+        "weight": 0.46
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Publisher cites financial survival; subscribers pay for access.",
+        "layer": "coalition",
+        "reason": "Subscribers have some aligned interest in sustaining the paper's business model.",
+        "source_actor_name": "regional_newspaper",
+        "target_actor_name": "subscribers",
+        "weight": 0.41
+      },
+      {
+        "direction": "latent_alignment",
+        "evidence": "Journalistic mission plausibly aligns with access concerns, but not explicitly stated.",
+        "layer": "coalition",
+        "reason": "Possible normative overlap on civic information access, though not fully public or organized.",
+        "source_actor_name": "newsroom_staff",
+        "target_actor_name": "civic_access_coalition",
+        "weight": 0.24
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "Civic groups accuse it of reducing access; publisher defends survival rationale.",
+        "layer": "conflict",
+        "reason": "Direct disagreement over timing and legitimacy of paywalling election coverage.",
+        "source_actor_name": "civic_access_coalition",
+        "target_actor_name": "publisher_leadership",
+        "weight": 0.57
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "Paywalled election coverage reduces access.",
+        "layer": "conflict",
+        "reason": "Affected readers face blocked access and may resent the decision.",
+        "source_actor_name": "non_subscriber_readers",
+        "target_actor_name": "regional_newspaper",
+        "weight": 0.44
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "Social media snippets distort articles.",
+        "layer": "conflict",
+        "reason": "Snippet distortion undermines context and editorial control.",
+        "source_actor_name": "regional_newspaper",
+        "target_actor_name": "social_media_posters",
+        "weight": 0.36
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "Distortion of articles through snippets.",
+        "layer": "conflict",
+        "reason": "Subscribers may dislike decontextualized reuse of paid reporting.",
+        "source_actor_name": "subscribers",
+        "target_actor_name": "social_media_posters",
+        "weight": 0.22
+      },
+      {
+        "direction": "bidirectional_public_interaction",
+        "evidence": "Accusation and defense are already present.",
+        "layer": "oasis_interaction",
+        "reason": "Public statements, rebuttals, and quote exchanges are likely.",
+        "source_actor_name": "regional_newspaper",
+        "target_actor_name": "civic_access_coalition",
+        "weight": 0.44
+      },
+      {
+        "direction": "bidirectional_public_interaction",
+        "evidence": "Artifact traceability and snippet distortion are central.",
+        "layer": "oasis_interaction",
+        "reason": "Article snippets and reactions create visible public interaction traces.",
+        "source_actor_name": "social_media_posters",
+        "target_actor_name": "regional_newspaper",
+        "weight": 0.53
+      },
+      {
+        "direction": "bidirectional_public_interaction",
+        "evidence": "Campaigns adapt messaging.",
+        "layer": "oasis_interaction",
+        "reason": "Campaign adaptation likely increases direct public posting and open-channel engagement.",
+        "source_actor_name": "referendum_yes_campaign",
+        "target_actor_name": "local_voters",
+        "weight": 0.42
+      },
+      {
+        "direction": "bidirectional_public_interaction",
+        "evidence": "Campaigns adapt messaging.",
+        "layer": "oasis_interaction",
+        "reason": "Campaign adaptation likely increases direct public posting and open-channel engagement.",
+        "source_actor_name": "referendum_no_campaign",
+        "target_actor_name": "local_voters",
+        "weight": 0.42
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype_key": "institutional_deciders",
+        "description": "Actors with authority to maintain, soften, or reverse access policy.",
+        "label": "Institutional deciders"
+      },
+      {
+        "archetype_key": "public_pressure_organizers",
+        "description": "Actors capable of generating legitimacy pressure around access.",
+        "label": "Public pressure organizers"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "publisher_leadership",
+        "archetype_key": "institutional_deciders",
+        "attention_level": 9,
+        "decision_authority": "high",
+        "expression_level": 6,
+        "fatigue": 6,
+        "fear_of_isolation": 5,
+        "hero_key": "publisher_leadership_state",
+        "mobilization_readiness": 7,
+        "perceived_majority": 4,
+        "power_summary": "Can directly modify paywall rules, exemptions, and messaging cadence.",
+        "reputation": 5,
+        "secrecy": 6,
+        "stance_axes": {
+          "defend_editorial_independence": 7,
+          "protect_public_access": 4,
+          "protect_revenue": 8,
+          "sensitivity_to_backlash": 6
+        },
+        "trustworthiness": 5
+      },
+      {
+        "actor_name": "civic_access_coalition",
+        "archetype_key": "public_pressure_organizers",
+        "attention_level": 9,
+        "decision_authority": "medium",
+        "expression_level": 8,
+        "fatigue": 4,
+        "fear_of_isolation": 2,
+        "hero_key": "civic_access_spokes_state",
+        "mobilization_readiness": 8,
+        "perceived_majority": 5,
+        "power_summary": "Can raise public and elite pressure but cannot directly change the newspaper's access policy.",
+        "reputation": 6,
+        "secrecy": 2,
+        "stance_axes": {
+          "defend_editorial_independence": 5,
+          "protect_public_access": 9,
+          "protect_revenue": 2,
+          "sensitivity_to_backlash": 4
+        },
+        "trustworthiness": 6
+      }
+    ],
+    "heroes": [
+      {
+        "archetype_key": "institutional_deciders",
+        "description": "Actors with authority to maintain, soften, or reverse access policy.",
+        "label": "Institutional deciders"
+      },
+      {
+        "archetype_key": "public_pressure_organizers",
+        "description": "Actors capable of generating legitimacy pressure around access.",
+        "label": "Public pressure organizers"
+      }
+    ],
+    "important_questions": [
+      "Will the newspaper fully or partially remove the paywall from referendum coverage before voting day?",
+      "Will public backlash against the paywall materially reduce the newspaper's civic legitimacy by the referendum period?",
+      "Will the publisher successfully sustain the paywall under a financial-survival justification without major concession?",
+      "Will distorted or decontextualized social-media snippets become a major practical source of referendum understanding for non-subscribers?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "regional_newspaper",
+          "publisher_leadership",
+          "newsroom_staff"
+        ],
+        "event_key": "paywall_activation_on_referendum_coverage",
+        "event_type": "announcement",
+        "expected_impact": "Raises access asymmetry, strengthens subscriber advantage, and creates legitimacy pressure on the publisher.",
+        "status": "visible",
+        "summary": "The regional newspaper has placed referendum election coverage behind a paywall.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "civic_access_coalition",
+          "publisher_leadership"
+        ],
+        "event_key": "civic_access_criticism_emerges",
+        "event_type": "announcement",
+        "expected_impact": "Increases conflict and public scrutiny; may lower perceived legitimacy of the paywall among non-subscribers.",
+        "status": "visible",
+        "summary": "Civic groups publicly criticize the paywall as reducing access before the vote.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "publisher_leadership",
+          "regional_newspaper"
+        ],
+        "event_key": "publisher_survival_justification_circulates",
+        "event_type": "announcement",
+        "expected_impact": "Can stabilize subscriber support and temper backlash among voters concerned about local news viability.",
+        "status": "visible",
+        "summary": "Publisher frames the move as necessary for financial survival.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "referendum_yes_campaign",
+          "referendum_no_campaign",
+          "social_media_posters"
+        ],
+        "event_key": "campaign_channel_adjustments_begin",
+        "event_type": "announcement",
+        "expected_impact": "Shifts exposure toward direct and socially mediated frames, possibly reducing the newspaper's agenda control.",
+        "status": "imminent",
+        "summary": "Campaigns begin adapting messaging tactics to the altered information environment.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "social_media_posters",
+          "non_subscriber_readers",
+          "regional_newspaper"
+        ],
+        "event_key": "snippet_distortion_accumulates",
+        "event_type": "announcement",
+        "expected_impact": "Weakens artifact traceability, increases misinformation risk, and may prompt calls for open access or clarifications.",
+        "status": "imminent",
+        "summary": "Screenshots, partial quotes, and commentary increasingly detach claims from full article context.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "local_voters",
+          "referendum_yes_campaign",
+          "referendum_no_campaign"
+        ],
+        "event_key": "referendum_day_approaches",
+        "event_type": "announcement",
+        "expected_impact": "Converts information-access dynamics into electoral and legitimacy outcomes; sharply raises value of late corrections.",
+        "status": "scheduled",
+        "summary": "The referendum arrives unless prior events change timing assumptions.",
+        "tick": 14
+      }
+    ],
+    "llm_call_id": "43a02053-ab3c-42ad-bfb0-06c7f12796d2",
+    "merge_hypotheses": [
+      {
+        "convergence_driver": "Both publisher and critics benefit from being seen as supporting informed voting.",
+        "likely_effect": "Opens space for compromise mechanisms such as limited free access, summaries, or public-service exemptions.",
+        "merge_key": "shared_civic_legitimacy_merge"
+      },
+      {
+        "convergence_driver": "All major actors are disadvantaged if snippet distortion becomes unmanageable.",
+        "likely_effect": "Encourages cross-channel correction behavior, clearer citations, or alternative open explainers.",
+        "merge_key": "anti_distortion_merge"
+      },
+      {
+        "convergence_driver": "As voting day nears, prolonged conflict may yield diminishing returns relative to practical information delivery.",
+        "likely_effect": "Actors may accept temporary or procedural fixes rather than maximal positions.",
+        "merge_key": "time_pressure_merge"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "local_electorate",
+        "description": "Residents eligible or likely to follow the referendum outcome, with uneven subscription access and varying reliance on social channels.",
+        "label": "Local electorate",
+        "population_total": 120000
+      },
+      {
+        "archetype_key": "organized_civic_participants",
+        "description": "Activists, advocacy volunteers, association members, and community organizers engaged in local information-access debates.",
+        "label": "Organized civic participants",
+        "population_total": 1800
+      },
+      {
+        "archetype_key": "campaign_ecosystem",
+        "description": "Staff, volunteers, consultants, and highly engaged supporters tied to referendum campaigns.",
+        "label": "Campaign ecosystem",
+        "population_total": 400
+      }
+    ],
+    "risk_flags": [
+      {
+        "note": "The referendum topic is unspecified, limiting inference about which campaign benefits more from access asymmetry.",
+        "risk_key": "unknown_referendum_content",
+        "severity": "medium"
+      },
+      {
+        "note": "Population counts are synthetic but scaled to a plausible regional local-referendum environment due to absent hard figures.",
+        "risk_key": "population_estimate_uncertainty",
+        "severity": "medium"
+      },
+      {
+        "note": "The scenario mentions social media snippets generally without naming platform mechanics, so interaction assumptions remain broad.",
+        "risk_key": "platform_specificity_missing",
+        "severity": "low"
+      },
+      {
+        "note": "Potential differences between business leadership and newsroom values are plausible but not explicitly documented in the source.",
+        "risk_key": "newsroom_internal_division_unobserved",
+        "severity": "medium"
+      },
+      {
+        "note": "With only two weeks before the referendum, distorted recirculation may outrun correction capacity if open access remains limited.",
+        "risk_key": "traceability_degradation_could_accelerate_fast",
+        "severity": "high"
+      }
+    ],
+    "simulation_brief": {
+      "core_pressures": [
+        "public-interest access versus newsroom revenue survival",
+        "artifact traceability loss as snippets detach from full articles",
+        "campaign adaptation to unequal access conditions",
+        "institutional trust stress around local election information"
+      ],
+      "domain": "media_information_dynamics",
+      "mode": "direct",
+      "seed_tone": "contested_but_not_max_crisis",
+      "simulation_id": "media_004",
+      "summary": "A fictionalized regional newspaper places local referendum election coverage behind a paywall two weeks before voting. Civic groups criticize the move as reducing public access to essential information, while the publisher frames it as necessary for financial survival. Campaigns adjust messaging tactics in response, and social media snippets begin circulating decontextualized or distorted article claims. T0 centers on information access asymmetry, channel fragmentation, institutional legitimacy pressure, and unresolved endpoint competition among rollback, sustained paywall defense, backlash, and misinformation expansion.",
+      "time_horizon_notes": "T0 only. Referendum is approximately 14 days away, creating short decision cycles and high sensitivity to information access changes.",
+      "uncertainty_notes": [
+        "Specific town, referendum subject, and exact circulation figures are not provided.",
+        "No explicit evidence identifies one campaign side as favored by the paywall; asymmetry is treated as plausible but unresolved.",
+        "Social media distortion is present in the scenario premise, but scale and platform-specific intensity are uncertain at T0."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "evidence": "Voters are likely to accept interpretations near their prior campaign leanings, especially when full articles are inaccessible.",
+        "level": "medium",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "scope": "local_voters"
+      },
+      {
+        "evidence": "Many affected readers may complain privately unless visible coalition activity lowers participation thresholds.",
+        "level": "medium",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "scope": "non_subscriber_readers_and_civic_groups"
+      },
+      {
+        "evidence": "Lower-attention voters are unlikely to speak publicly without salient triggers.",
+        "level": "medium",
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "scope": "low_attention_voters"
+      },
+      {
+        "evidence": "Campaign adaptation and snippet sharing likely circulate within aligned networks.",
+        "level": "medium",
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "scope": "campaign_and_social_networks"
+      },
+      {
+        "evidence": "Perceptions of unfairness or distortion may require repeated cross-channel reinforcement before broad uptake.",
+        "level": "medium",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "scope": "backlash_and_misinfo_narratives"
+      },
+      {
+        "evidence": "Access status can map onto identity-coded attitudes about deservingness, expertise, and civic fairness.",
+        "level": "medium",
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "scope": "subscribers_vs_non_subscribers"
+      },
+      {
+        "evidence": "Only two weeks remain before the referendum, creating fast-moving but fragile attention cycles.",
+        "level": "high",
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "scope": "general_public"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Whether election reporting should be treated as a civic necessity rather than a premium product is salient context for public interpretation.",
+        "influence_key": "access_as_fairness_frame"
+      },
+      {
+        "description": "The publisher's survival argument can legitimize the paywall among audiences concerned about local news collapse.",
+        "influence_key": "financial_survival_frame"
+      },
+      {
+        "description": "As article claims move into snippets and screenshots, attribution and context degrade, increasing ambiguity around what was actually reported.",
+        "influence_key": "traceability_loss"
+      },
+      {
+        "description": "Campaigns may compensate for reduced newspaper reach by increasing direct and social messaging.",
+        "influence_key": "campaign_channel_substitution"
+      },
+      {
+        "description": "The two-week window compresses correction opportunities and makes early framing more consequential.",
+        "influence_key": "time_pressure_before_vote"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "regional_newspaper",
+        "behavior_axes": {
+          "adaptability": 5,
+          "institutional_caution": 7,
+          "public_service_orientation": 6,
+          "revenue_defensiveness": 8
+        },
+        "ideology_axes": {
+          "civic_duty": 6,
+          "market_logic": 7,
+          "openness": 4
+        },
+        "reputation": 6,
+        "secrecy": 5,
+        "tendency": "defend decision while monitoring backlash",
+        "trustworthiness": 6
+      },
+      {
+        "actor_name": "publisher_leadership",
+        "behavior_axes": {
+          "adaptability": 6,
+          "institutional_caution": 8,
+          "public_service_orientation": 5,
+          "revenue_defensiveness": 8
+        },
+        "ideology_axes": {
+          "civic_duty": 5,
+          "market_logic": 8,
+          "openness": 4
+        },
+        "reputation": 5,
+        "secrecy": 6,
+        "tendency": "justify paywall as survival necessity",
+        "trustworthiness": 5
+      },
+      {
+        "actor_name": "newsroom_staff",
+        "behavior_axes": {
+          "adaptability": 6,
+          "institutional_caution": 5,
+          "public_service_orientation": 8,
+          "revenue_defensiveness": 4
+        },
+        "ideology_axes": {
+          "civic_duty": 8,
+          "market_logic": 4,
+          "openness": 6
+        },
+        "reputation": 6,
+        "secrecy": 4,
+        "tendency": "torn between mission reach and institutional survival",
+        "trustworthiness": 7
+      },
+      {
+        "actor_name": "civic_access_coalition",
+        "behavior_axes": {
+          "adaptability": 7,
+          "institutional_caution": 3,
+          "public_service_orientation": 9,
+          "revenue_defensiveness": 2
+        },
+        "ideology_axes": {
+          "civic_duty": 9,
+          "market_logic": 2,
+          "openness": 8
+        },
+        "reputation": 6,
+        "secrecy": 2,
+        "tendency": "pressure for broader access and accountability",
+        "trustworthiness": 6
+      },
+      {
+        "actor_name": "referendum_yes_campaign",
+        "behavior_axes": {
+          "adaptability": 8,
+          "institutional_caution": 4,
+          "public_service_orientation": 4,
+          "revenue_defensiveness": 1
+        },
+        "ideology_axes": {
+          "civic_duty": 5,
+          "market_logic": 5,
+          "openness": 5
+        },
+        "reputation": 5,
+        "secrecy": 5,
+        "tendency": "opportunistic channel adaptation",
+        "trustworthiness": 4
+      },
+      {
+        "actor_name": "referendum_no_campaign",
+        "behavior_axes": {
+          "adaptability": 8,
+          "institutional_caution": 4,
+          "public_service_orientation": 4,
+          "revenue_defensiveness": 1
+        },
+        "ideology_axes": {
+          "civic_duty": 5,
+          "market_logic": 5,
+          "openness": 5
+        },
+        "reputation": 5,
+        "secrecy": 5,
+        "tendency": "opportunistic channel adaptation",
+        "trustworthiness": 4
+      },
+      {
+        "actor_name": "social_media_posters",
+        "behavior_axes": {
+          "adaptability": 9,
+          "institutional_caution": 2,
+          "public_service_orientation": 3,
+          "revenue_defensiveness": 1
+        },
+        "ideology_axes": {
+          "civic_duty": 3,
+          "market_logic": 4,
+          "openness": 8
+        },
+        "reputation": 4,
+        "secrecy": 5,
+        "tendency": "fragment and amplify snippets with weak context retention",
+        "trustworthiness": 3
+      },
+      {
+        "actor_name": "local_radio_and_tv",
+        "behavior_axes": {
+          "adaptability": 6,
+          "institutional_caution": 6,
+          "public_service_orientation": 7,
+          "revenue_defensiveness": 4
+        },
+        "ideology_axes": {
+          "civic_duty": 7,
+          "market_logic": 5,
+          "openness": 6
+        },
+        "reputation": 6,
+        "secrecy": 3,
+        "tendency": "potential alternate access bridge",
+        "trustworthiness": 6
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 532,
+        "end": 532,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 532,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

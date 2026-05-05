@@ -1,0 +1,221 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "ee16eb8a-6c32-46fd-ab0f-55fb3e715d8f",
+      "created_at": "2026-05-05T02:28:02.499947+00:00",
+      "id": "b6eeea03-5507-4861-a5b2-a008e394d886",
+      "influence": {
+        "description": "Legitimate outage posts being removed creates an information vacuum that increases receptivity to informal substitutes.",
+        "influence_key": "information_void"
+      },
+      "multiverse_id": "b4dc5851-c6c1-4c56-87a4-7e63e93b634d",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:02.499947+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "ee16eb8a-6c32-46fd-ab0f-55fb3e715d8f",
+      "created_at": "2026-05-05T02:28:02.499947+00:00",
+      "id": "c4b43514-c551-4b15-a207-afae4ba75341",
+      "influence": {
+        "description": "Residents are splitting between app-based public discussion and less-verifiable group chats.",
+        "influence_key": "channel_fragmentation"
+      },
+      "multiverse_id": "b4dc5851-c6c1-4c56-87a4-7e63e93b634d",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:02.499947+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "ee16eb8a-6c32-46fd-ab0f-55fb3e715d8f",
+      "created_at": "2026-05-05T02:28:02.499947+00:00",
+      "id": "059ca992-5fbc-4806-92d2-115801ae1c45",
+      "influence": {
+        "description": "Knowledge or perception of a moderation backlog reduces expectation of quick correction.",
+        "influence_key": "appeals_backlog_visibility"
+      },
+      "multiverse_id": "b4dc5851-c6c1-4c56-87a4-7e63e93b634d",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:02.499947+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "ee16eb8a-6c32-46fd-ab0f-55fb3e715d8f",
+      "created_at": "2026-05-05T02:28:02.499947+00:00",
+      "id": "600b5533-0677-4975-8838-e8eedb50c073",
+      "influence": {
+        "description": "Utility officials have information but insufficient dependable distribution through the main local platform.",
+        "influence_key": "official_reach_constraint"
+      },
+      "multiverse_id": "b4dc5851-c6c1-4c56-87a4-7e63e93b634d",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:02.499947+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "ee16eb8a-6c32-46fd-ab0f-55fb3e715d8f",
+      "created_at": "2026-05-05T02:28:02.499947+00:00",
+      "id": "3ccaf434-a984-4058-a9dc-903e89273470",
+      "influence": {
+        "description": "Local reporting may create a public focal point for verification and institutional response.",
+        "influence_key": "emerging_accountability_scrutiny"
+      },
+      "multiverse_id": "b4dc5851-c6c1-4c56-87a4-7e63e93b634d",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:02.499947+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "ee16eb8a-6c32-46fd-ab0f-55fb3e715d8f",
+      "created_at": "2026-05-05T02:28:02.499947+00:00",
+      "id": "e901ae1a-3c60-4eb3-8d32-740a9f69de9d",
+      "model": "attention_decay",
+      "multiverse_id": "b4dc5851-c6c1-4c56-87a4-7e63e93b634d",
+      "signal": {
+        "applies_to": [
+          "residents_general",
+          "residents_rumor_chat_users"
+        ],
+        "level": 0.61,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Residents are more likely to accept outage claims from familiar peers or already-trusted sources than from contested platform channels."
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:28:02.499947+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "ee16eb8a-6c32-46fd-ab0f-55fb3e715d8f",
+      "created_at": "2026-05-05T02:28:02.499947+00:00",
+      "id": "13ba2688-5de5-4a17-b6e9-0e18b4a5a9a7",
+      "model": "attention_decay",
+      "multiverse_id": "b4dc5851-c6c1-4c56-87a4-7e63e93b634d",
+      "signal": {
+        "applies_to": [
+          "residents_general"
+        ],
+        "level": 0.44,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Visible evidence of widespread posting errors or credible media coverage could push more residents into complaint or channel-switching behavior."
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:28:02.499947+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "ee16eb8a-6c32-46fd-ab0f-55fb3e715d8f",
+      "created_at": "2026-05-05T02:28:02.499947+00:00",
+      "id": "bd8919a4-0889-40d5-86fe-fe0e2ee17673",
+      "model": "attention_decay",
+      "multiverse_id": "b4dc5851-c6c1-4c56-87a4-7e63e93b634d",
+      "signal": {
+        "applies_to": [
+          "residents_quiet_skeptics"
+        ],
+        "level": 0.53,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Some residents remain quiet publicly due to uncertainty and limited confidence in any channel."
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:28:02.499947+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "ee16eb8a-6c32-46fd-ab0f-55fb3e715d8f",
+      "created_at": "2026-05-05T02:28:02.499947+00:00",
+      "id": "ed3fb649-a655-4f72-8ee0-314b1c4681ce",
+      "model": "attention_decay",
+      "multiverse_id": "b4dc5851-c6c1-4c56-87a4-7e63e93b634d",
+      "signal": {
+        "applies_to": [
+          "residents_rumor_chat_users"
+        ],
+        "level": 0.58,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Private chat migration likely clusters around existing trust ties and neighborhood subgroups."
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:28:02.499947+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "ee16eb8a-6c32-46fd-ab0f-55fb3e715d8f",
+      "created_at": "2026-05-05T02:28:02.499947+00:00",
+      "id": "7960f352-7c5b-4bce-94f8-519bdd1f4826",
+      "model": "attention_decay",
+      "multiverse_id": "b4dc5851-c6c1-4c56-87a4-7e63e93b634d",
+      "signal": {
+        "applies_to": [
+          "residents_general",
+          "residents_rumor_chat_users"
+        ],
+        "level": 0.49,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Belief in rumors or confidence in corrections may require repeated confirmation across multiple contacts or channels."
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:28:02.499947+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "ee16eb8a-6c32-46fd-ab0f-55fb3e715d8f",
+      "created_at": "2026-05-05T02:28:02.499947+00:00",
+      "id": "477edad3-c0a1-440d-a498-fc2b43164df5",
+      "model": "attention_decay",
+      "multiverse_id": "b4dc5851-c6c1-4c56-87a4-7e63e93b634d",
+      "signal": {
+        "applies_to": [
+          "residents_general",
+          "utility_officials",
+          "platform_moderators"
+        ],
+        "level": 0.37,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Neighborhood identity and institutional roles matter, but strong factional polarization is not yet fully formed at T0."
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:28:02.499947+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "ee16eb8a-6c32-46fd-ab0f-55fb3e715d8f",
+      "created_at": "2026-05-05T02:28:02.499947+00:00",
+      "id": "e759d726-a109-4c53-abf4-2f20765e2d1e",
+      "model": "attention_decay",
+      "multiverse_id": "b4dc5851-c6c1-4c56-87a4-7e63e93b634d",
+      "signal": {
+        "applies_to": [
+          "local_reporters",
+          "residents_general"
+        ],
+        "level": 0.33,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Attention is elevated at T0 because the outage is ongoing, but absent fresh signals some public attention may fade even before trust is repaired."
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:28:02.499947+00:00"
+    }
+  ]
+}

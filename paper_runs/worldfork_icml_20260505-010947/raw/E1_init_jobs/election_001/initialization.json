@@ -1,0 +1,1705 @@
+{
+  "big_bang_id": "fde5af7c-48bf-4559-abaa-d18ba835b0ec",
+  "initializer_output": {
+    "actors": [
+      {
+        "actor_type": "institution",
+        "constraints": [
+          "must verify delayed precinct results",
+          "subject to public scrutiny"
+        ],
+        "fictionalized": true,
+        "name": "city_election_office",
+        "public_visibility": "high",
+        "resources": [
+          "custody of ballots",
+          "official communications",
+          "counting procedures"
+        ],
+        "stakes": [
+          "accurate count",
+          "procedural legitimacy",
+          "timely certification"
+        ]
+      },
+      {
+        "actor_type": "institution_subunit",
+        "constraints": [
+          "dependent on election office process"
+        ],
+        "fictionalized": true,
+        "name": "paper_ballot_chain_team",
+        "public_visibility": "medium",
+        "resources": [
+          "paper ballot records",
+          "custody logs"
+        ],
+        "stakes": [
+          "ballot security credibility",
+          "chain-of-custody integrity"
+        ]
+      },
+      {
+        "actor_type": "campaign",
+        "constraints": [
+          "limited direct control over count"
+        ],
+        "fictionalized": true,
+        "name": "campaign_aurora",
+        "public_visibility": "high",
+        "resources": [
+          "candidate surrogates",
+          "supporter network",
+          "public statements"
+        ],
+        "stakes": [
+          "possible electoral advantage",
+          "narrative control",
+          "supporter mobilization"
+        ]
+      },
+      {
+        "actor_type": "campaign",
+        "constraints": [
+          "limited direct control over count"
+        ],
+        "fictionalized": true,
+        "name": "campaign_harbor",
+        "public_visibility": "high",
+        "resources": [
+          "candidate surrogates",
+          "supporter network",
+          "public statements"
+        ],
+        "stakes": [
+          "result acceptance if favorable",
+          "defense against delegitimization"
+        ]
+      },
+      {
+        "actor_type": "civic_group",
+        "constraints": [
+          "cannot certify results"
+        ],
+        "fictionalized": true,
+        "name": "civic_integrity_coalition",
+        "public_visibility": "medium",
+        "resources": [
+          "community credibility",
+          "volunteers",
+          "local press access"
+        ],
+        "stakes": [
+          "public patience",
+          "nonviolence",
+          "institutional trust"
+        ]
+      },
+      {
+        "actor_type": "media_network",
+        "constraints": [
+          "credibility varies by member"
+        ],
+        "fictionalized": true,
+        "name": "local_influencers_network",
+        "public_visibility": "high",
+        "resources": [
+          "social channels",
+          "rumor amplification"
+        ],
+        "stakes": [
+          "attention",
+          "audience growth",
+          "local relevance"
+        ]
+      },
+      {
+        "actor_type": "public_cohort_anchor",
+        "constraints": [
+          "limited procedural visibility"
+        ],
+        "fictionalized": true,
+        "name": "delayed_precinct_voters",
+        "public_visibility": "medium",
+        "resources": [
+          "local testimony",
+          "community ties"
+        ],
+        "stakes": [
+          "having votes counted",
+          "fair treatment",
+          "clarity"
+        ]
+      },
+      {
+        "actor_type": "public_cohort_anchor",
+        "constraints": [
+          "reliant on intermediaries for updates"
+        ],
+        "fictionalized": true,
+        "name": "general_city_voters",
+        "public_visibility": "medium",
+        "resources": [
+          "public opinion",
+          "informal discussion"
+        ],
+        "stakes": [
+          "legitimate outcome",
+          "social stability",
+          "informational clarity"
+        ]
+      },
+      {
+        "actor_type": "institution",
+        "constraints": [
+          "must rely on tabulation record and legal process"
+        ],
+        "fictionalized": true,
+        "name": "city_canvassing_board",
+        "public_visibility": "medium",
+        "resources": [
+          "formal certification authority",
+          "hearing schedule"
+        ],
+        "stakes": [
+          "lawful certification",
+          "process regularity"
+        ]
+      },
+      {
+        "actor_type": "media",
+        "constraints": [
+          "dependent on source access and verification"
+        ],
+        "fictionalized": true,
+        "name": "local_press_pool",
+        "public_visibility": "high",
+        "resources": [
+          "news reach",
+          "official interviews"
+        ],
+        "stakes": [
+          "credible reporting",
+          "timely updates"
+        ]
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "branch_key": "rapid_transparency_repair",
+        "divergence_signal": "Declining rumor repost volume paired with increased trust references to paper-ballot safeguards and official timetable.",
+        "plausible_path": "Moderate voters and some affected precinct residents regain confidence, reducing rumor traction and lowering support for aggressive contestation.",
+        "trigger": "Election office releases detailed outage explanation, custody assurances, and a credible counting timeline."
+      },
+      {
+        "branch_key": "recount_pressure_escalates",
+        "divergence_signal": "Public statements using terms like recount, challenge, selective treatment, or unfair precinct handling increase across campaign and supporter channels.",
+        "plausible_path": "Recount or formal challenge demands become central, shifting attention from outage explanation to procedural combat.",
+        "trigger": "Campaign allegations are repeated by surrogates and gain uptake among affected precinct voters or press."
+      },
+      {
+        "branch_key": "misinformation_persistence_loop",
+        "divergence_signal": "Rumor narratives remain stable despite factual updates, with recurring anecdotal claims detached from new evidence.",
+        "plausible_path": "Even after vote counting progresses, a residual belief in hidden manipulation persists among skeptical cohorts.",
+        "trigger": "Official updates remain sparse or technically vague while influencer rumors provide vivid local anecdotes."
+      },
+      {
+        "branch_key": "coalition_split_on_acceptance",
+        "divergence_signal": "Previously process-oriented civic or media voices adopt stronger accountability rhetoric and emphasize unresolved doubts.",
+        "plausible_path": "Some bridge actors shift from patience to demanding audits or expanded review, weakening legitimacy repair.",
+        "trigger": "If the margin is narrow and delayed precinct totals matter visibly, civic and media actors struggle to maintain a unified patience frame."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "official_press_briefings",
+        "primary_actors": [
+          "city_election_office",
+          "local_press_pool"
+        ],
+        "reach": 0.62,
+        "type": "institutional_public",
+        "volatility": 0.24
+      },
+      {
+        "channel_key": "campaign_statements",
+        "primary_actors": [
+          "campaign_aurora",
+          "campaign_harbor",
+          "local_press_pool"
+        ],
+        "reach": 0.53,
+        "type": "elite_public",
+        "volatility": 0.49
+      },
+      {
+        "channel_key": "local_social_posts",
+        "primary_actors": [
+          "local_influencers_network",
+          "general_city_voters",
+          "delayed_precinct_voters"
+        ],
+        "reach": 0.59,
+        "type": "networked_public",
+        "volatility": 0.71
+      },
+      {
+        "channel_key": "civic_group_updates",
+        "primary_actors": [
+          "civic_integrity_coalition",
+          "activist_patience_advocates"
+        ],
+        "reach": 0.34,
+        "type": "civic_public",
+        "volatility": 0.28
+      },
+      {
+        "channel_key": "certification_meetings",
+        "primary_actors": [
+          "city_canvassing_board",
+          "city_election_office",
+          "campaign_aurora",
+          "campaign_harbor"
+        ],
+        "reach": 0.26,
+        "type": "formal_governance",
+        "volatility": 0.44
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "city_electorate",
+        "attention_level": 0.46,
+        "cohort_key": "calm_process_trusters",
+        "expression_level": 0.28,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.34,
+        "label": "Calm Process Trusters",
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Delay is inconvenient but likely administrative rather than malicious.",
+        "public_expression": "Limited posting; willing to wait for official updates.",
+        "representation_mode": "direct_segment",
+        "represented_population": 54000,
+        "stance_axes": {
+          "conflict_escalation_support": 0.18,
+          "election_trust": 0.68,
+          "patience_for_delay": 0.72,
+          "rumor_receptivity": 0.24
+        }
+      },
+      {
+        "archetype_key": "city_electorate",
+        "attention_level": 0.63,
+        "cohort_key": "suspicious_observers",
+        "expression_level": 0.44,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.41,
+        "label": "Suspicious Observers",
+        "mobilization_readiness": 0.39,
+        "perceived_majority": 0.39,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "Delay may be procedural, but selective treatment is plausible.",
+        "public_expression": "Shares questions and speculation, waits for cues from campaigns or influencers.",
+        "representation_mode": "direct_segment",
+        "represented_population": 36000,
+        "stance_axes": {
+          "conflict_escalation_support": 0.37,
+          "election_trust": 0.42,
+          "patience_for_delay": 0.43,
+          "rumor_receptivity": 0.58
+        }
+      },
+      {
+        "archetype_key": "city_electorate",
+        "attention_level": 0.18,
+        "cohort_key": "disengaged_majority",
+        "expression_level": 0.1,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.21,
+        "label": "Disengaged Majority",
+        "mobilization_readiness": 0.08,
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "Unclear what happened; low willingness to follow details.",
+        "public_expression": "Minimal engagement unless controversy intensifies.",
+        "representation_mode": "direct_segment",
+        "represented_population": 30000,
+        "stance_axes": {
+          "conflict_escalation_support": 0.15,
+          "election_trust": 0.5,
+          "patience_for_delay": 0.51,
+          "rumor_receptivity": 0.32
+        }
+      },
+      {
+        "archetype_key": "politically_engaged_public",
+        "attention_level": 0.77,
+        "cohort_key": "activist_patience_advocates",
+        "expression_level": 0.62,
+        "fatigue": 0.26,
+        "fear_of_isolation": 0.49,
+        "label": "Patience Advocates",
+        "mobilization_readiness": 0.46,
+        "perceived_majority": 0.33,
+        "population_share_of_archetype": 0.42,
+        "private_belief": "Premature accusations are dangerous; process protection matters most.",
+        "public_expression": "Calls for patience, verification, and de-escalation.",
+        "representation_mode": "issue_network",
+        "represented_population": 10000,
+        "stance_axes": {
+          "conflict_escalation_support": 0.12,
+          "election_trust": 0.64,
+          "patience_for_delay": 0.81,
+          "rumor_receptivity": 0.18
+        }
+      },
+      {
+        "archetype_key": "politically_engaged_public",
+        "attention_level": 0.84,
+        "cohort_key": "campaign_loyal_skeptics",
+        "expression_level": 0.71,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.27,
+        "label": "Campaign Loyal Skeptics",
+        "mobilization_readiness": 0.59,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.375,
+        "private_belief": "The delayed count may disadvantage their preferred side.",
+        "public_expression": "Amplifies campaign cues, recount talk, and fairness concerns.",
+        "representation_mode": "partisan_network",
+        "represented_population": 9000,
+        "stance_axes": {
+          "conflict_escalation_support": 0.46,
+          "election_trust": 0.34,
+          "patience_for_delay": 0.28,
+          "rumor_receptivity": 0.61
+        }
+      },
+      {
+        "archetype_key": "politically_engaged_public",
+        "attention_level": 0.88,
+        "cohort_key": "engaged_information_brokers",
+        "expression_level": 0.67,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.31,
+        "label": "Engaged Information Brokers",
+        "mobilization_readiness": 0.33,
+        "perceived_majority": 0.36,
+        "population_share_of_archetype": 0.208,
+        "private_belief": "Facts are incomplete; verification and speed both matter.",
+        "public_expression": "Shares updates, caveats, and selective debunks.",
+        "representation_mode": "media_civic_overlap",
+        "represented_population": 5000,
+        "stance_axes": {
+          "conflict_escalation_support": 0.22,
+          "election_trust": 0.55,
+          "patience_for_delay": 0.57,
+          "rumor_receptivity": 0.35
+        }
+      },
+      {
+        "archetype_key": "delayed_precinct_residents",
+        "attention_level": 0.79,
+        "cohort_key": "affected_voters_anxious",
+        "expression_level": 0.52,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.38,
+        "label": "Affected Voters Anxious",
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.667,
+        "private_belief": "Their precincts are being singled out by circumstance, and they need reassurance their votes count.",
+        "public_expression": "Seeks answers; vulnerable to rumor if official updates lag.",
+        "representation_mode": "place_based_segment",
+        "represented_population": 6000,
+        "stance_axes": {
+          "conflict_escalation_support": 0.31,
+          "election_trust": 0.47,
+          "patience_for_delay": 0.39,
+          "rumor_receptivity": 0.49
+        }
+      },
+      {
+        "archetype_key": "delayed_precinct_residents",
+        "attention_level": 0.58,
+        "cohort_key": "affected_voters_confident",
+        "expression_level": 0.36,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.44,
+        "label": "Affected Voters Confident",
+        "mobilization_readiness": 0.19,
+        "perceived_majority": 0.29,
+        "population_share_of_archetype": 0.333,
+        "private_belief": "Paper ballots protect against outage-related loss.",
+        "public_expression": "Moderate reassurance within neighborhood networks.",
+        "representation_mode": "place_based_segment",
+        "represented_population": 3000,
+        "stance_axes": {
+          "conflict_escalation_support": 0.14,
+          "election_trust": 0.66,
+          "patience_for_delay": 0.64,
+          "rumor_receptivity": 0.21
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "city_electorate",
+        "attention_level": 0.46,
+        "cohort_key": "calm_process_trusters",
+        "expression_level": 0.28,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.34,
+        "label": "Calm Process Trusters",
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Delay is inconvenient but likely administrative rather than malicious.",
+        "public_expression": "Limited posting; willing to wait for official updates.",
+        "representation_mode": "direct_segment",
+        "represented_population": 54000,
+        "stance_axes": {
+          "conflict_escalation_support": 0.18,
+          "election_trust": 0.68,
+          "patience_for_delay": 0.72,
+          "rumor_receptivity": 0.24
+        }
+      },
+      {
+        "archetype_key": "city_electorate",
+        "attention_level": 0.63,
+        "cohort_key": "suspicious_observers",
+        "expression_level": 0.44,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.41,
+        "label": "Suspicious Observers",
+        "mobilization_readiness": 0.39,
+        "perceived_majority": 0.39,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "Delay may be procedural, but selective treatment is plausible.",
+        "public_expression": "Shares questions and speculation, waits for cues from campaigns or influencers.",
+        "representation_mode": "direct_segment",
+        "represented_population": 36000,
+        "stance_axes": {
+          "conflict_escalation_support": 0.37,
+          "election_trust": 0.42,
+          "patience_for_delay": 0.43,
+          "rumor_receptivity": 0.58
+        }
+      },
+      {
+        "archetype_key": "city_electorate",
+        "attention_level": 0.18,
+        "cohort_key": "disengaged_majority",
+        "expression_level": 0.1,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.21,
+        "label": "Disengaged Majority",
+        "mobilization_readiness": 0.08,
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "Unclear what happened; low willingness to follow details.",
+        "public_expression": "Minimal engagement unless controversy intensifies.",
+        "representation_mode": "direct_segment",
+        "represented_population": 30000,
+        "stance_axes": {
+          "conflict_escalation_support": 0.15,
+          "election_trust": 0.5,
+          "patience_for_delay": 0.51,
+          "rumor_receptivity": 0.32
+        }
+      },
+      {
+        "archetype_key": "politically_engaged_public",
+        "attention_level": 0.77,
+        "cohort_key": "activist_patience_advocates",
+        "expression_level": 0.62,
+        "fatigue": 0.26,
+        "fear_of_isolation": 0.49,
+        "label": "Patience Advocates",
+        "mobilization_readiness": 0.46,
+        "perceived_majority": 0.33,
+        "population_share_of_archetype": 0.42,
+        "private_belief": "Premature accusations are dangerous; process protection matters most.",
+        "public_expression": "Calls for patience, verification, and de-escalation.",
+        "representation_mode": "issue_network",
+        "represented_population": 10000,
+        "stance_axes": {
+          "conflict_escalation_support": 0.12,
+          "election_trust": 0.64,
+          "patience_for_delay": 0.81,
+          "rumor_receptivity": 0.18
+        }
+      },
+      {
+        "archetype_key": "politically_engaged_public",
+        "attention_level": 0.84,
+        "cohort_key": "campaign_loyal_skeptics",
+        "expression_level": 0.71,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.27,
+        "label": "Campaign Loyal Skeptics",
+        "mobilization_readiness": 0.59,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.375,
+        "private_belief": "The delayed count may disadvantage their preferred side.",
+        "public_expression": "Amplifies campaign cues, recount talk, and fairness concerns.",
+        "representation_mode": "partisan_network",
+        "represented_population": 9000,
+        "stance_axes": {
+          "conflict_escalation_support": 0.46,
+          "election_trust": 0.34,
+          "patience_for_delay": 0.28,
+          "rumor_receptivity": 0.61
+        }
+      },
+      {
+        "archetype_key": "politically_engaged_public",
+        "attention_level": 0.88,
+        "cohort_key": "engaged_information_brokers",
+        "expression_level": 0.67,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.31,
+        "label": "Engaged Information Brokers",
+        "mobilization_readiness": 0.33,
+        "perceived_majority": 0.36,
+        "population_share_of_archetype": 0.208,
+        "private_belief": "Facts are incomplete; verification and speed both matter.",
+        "public_expression": "Shares updates, caveats, and selective debunks.",
+        "representation_mode": "media_civic_overlap",
+        "represented_population": 5000,
+        "stance_axes": {
+          "conflict_escalation_support": 0.22,
+          "election_trust": 0.55,
+          "patience_for_delay": 0.57,
+          "rumor_receptivity": 0.35
+        }
+      },
+      {
+        "archetype_key": "delayed_precinct_residents",
+        "attention_level": 0.79,
+        "cohort_key": "affected_voters_anxious",
+        "expression_level": 0.52,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.38,
+        "label": "Affected Voters Anxious",
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.667,
+        "private_belief": "Their precincts are being singled out by circumstance, and they need reassurance their votes count.",
+        "public_expression": "Seeks answers; vulnerable to rumor if official updates lag.",
+        "representation_mode": "place_based_segment",
+        "represented_population": 6000,
+        "stance_axes": {
+          "conflict_escalation_support": 0.31,
+          "election_trust": 0.47,
+          "patience_for_delay": 0.39,
+          "rumor_receptivity": 0.49
+        }
+      },
+      {
+        "archetype_key": "delayed_precinct_residents",
+        "attention_level": 0.58,
+        "cohort_key": "affected_voters_confident",
+        "expression_level": 0.36,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.44,
+        "label": "Affected Voters Confident",
+        "mobilization_readiness": 0.19,
+        "perceived_majority": 0.29,
+        "population_share_of_archetype": 0.333,
+        "private_belief": "Paper ballots protect against outage-related loss.",
+        "public_expression": "Moderate reassurance within neighborhood networks.",
+        "representation_mode": "place_based_segment",
+        "represented_population": 3000,
+        "stance_axes": {
+          "conflict_escalation_support": 0.14,
+          "election_trust": 0.66,
+          "patience_for_delay": 0.64,
+          "rumor_receptivity": 0.21
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "city_canvassing_board",
+          "city_election_office"
+        ],
+        "blockers": [
+          "unresolved tabulation discrepancy",
+          "formal objections",
+          "continued uncertainty about delayed precinct handling"
+        ],
+        "contradiction_notes": "A timely certification can coexist with continued public skepticism; certification alone does not prove legitimacy repair.",
+        "description": "The race is formally certified on the standard near-term schedule without a major delay attributable to the outage dispute.",
+        "endpoint_key": "timely_certification",
+        "evidence_refs": [
+          "certification_timetable_pressure",
+          "official_ballot_security_statement"
+        ],
+        "label": "Timely Certification",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the city canvassing board certify the race on the ordinary near-term timetable without a major procedural delay?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.56,
+        "rationale": "Certification is an explicit branch focus and the key formal endpoint for administrative completion.",
+        "realization_criteria": [
+          "city_canvassing_board issues formal certification decision",
+          "certification occurs without extraordinary postponement beyond ordinary local process window",
+          "no unresolved delayed-precinct tabulation defect blocks certification"
+        ],
+        "status": "active",
+        "status_basis": "Certification remains available but depends on satisfactory processing of delayed precinct ballots and political acceptance of the explanation."
+      },
+      {
+        "authority_refs": [
+          "campaign_aurora",
+          "campaign_harbor",
+          "city_canvassing_board"
+        ],
+        "blockers": [
+          "insufficient legal basis",
+          "high switching costs for losing campaign",
+          "clarifying evidence that lowers grievance salience"
+        ],
+        "contradiction_notes": "Informal demands for recount do not realize this endpoint unless a formal mechanism is triggered.",
+        "description": "A campaign or authorized mechanism launches a formal recount, contest, or equivalent procedural challenge centered on the delayed precinct issue.",
+        "endpoint_key": "formal_recount_or_challenge",
+        "evidence_refs": [
+          "campaign_selective_delay_claim",
+          "certification_timetable_pressure"
+        ],
+        "label": "Formal Recount or Challenge",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will a campaign or authorized body initiate a formal recount or equivalent challenge tied to the delayed precincts?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.48,
+        "rationale": "The scenario explicitly names recount demand as a major branch.",
+        "realization_criteria": [
+          "campaign files recount request or formal contest",
+          "city_canvassing_board or other competent body schedules challenge-related review",
+          "public reporting confirms formal procedural escalation beyond informal allegation"
+        ],
+        "status": "active",
+        "status_basis": "One campaign has already alleged selective delays, creating a clear path to formal escalation if margin or narrative incentives support it."
+      },
+      {
+        "authority_refs": [
+          "local_influencers_network",
+          "campaign_aurora",
+          "general_city_voters"
+        ],
+        "blockers": [
+          "credible transparency release",
+          "cross-actor convergence on paper-ballot verification",
+          "attention decay"
+        ],
+        "contradiction_notes": "Persistent doubt can coexist with timely certification and even with absence of recount.",
+        "description": "A durable segment of the public continues to treat the result as suspicious even after count completion or certification.",
+        "endpoint_key": "persistent_legitimacy_doubt",
+        "evidence_refs": [
+          "rumor_cascade_precinct_level",
+          "campaign_selective_delay_claim"
+        ],
+        "label": "Persistent Legitimacy Doubt",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "After counting is completed, will rumor-driven doubts about legitimacy remain materially active in public discourse?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.52,
+        "rationale": "Misinformation persistence is explicitly named and may be more consequential than any single procedural move.",
+        "realization_criteria": [
+          "continued rumor or suspicion narratives remain salient after official count completion",
+          "multiple public channels show recurring doubt claims detached from new evidence",
+          "trust in city_election_office among key skeptical cohorts remains materially depressed relative to T0"
+        ],
+        "status": "active",
+        "status_basis": "Rumor spread and strategic allegations are already present at initialization, creating a path for persistent doubt even without formal contest success."
+      },
+      {
+        "authority_refs": [
+          "city_election_office",
+          "civic_integrity_coalition",
+          "local_press_pool",
+          "city_canvassing_board"
+        ],
+        "blockers": [
+          "vague or delayed transparency",
+          "narrow margin magnifying suspicion",
+          "continued influencer amplification"
+        ],
+        "contradiction_notes": "Legitimacy repair does not require universal trust, only broad enough acceptance to reduce active contestation.",
+        "description": "Public confidence recovers enough that the outage is broadly treated as an administratively resolved disruption rather than evidence of selective manipulation.",
+        "endpoint_key": "legitimacy_repair",
+        "evidence_refs": [
+          "official_ballot_security_statement",
+          "civic_patience_appeal"
+        ],
+        "label": "Legitimacy Repair",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will official transparency and civic patience messaging restore enough confidence to prevent broad escalation of contestation?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.44,
+        "rationale": "The scenario explicitly instructs initialization around legitimacy repair as a possible outcome.",
+        "realization_criteria": [
+          "official explanation and paper-ballot verification are broadly repeated without major contradiction",
+          "rumor volume declines across local social and press channels",
+          "affected precinct voters show visible acceptance that ballots were counted and safeguarded"
+        ],
+        "status": "active",
+        "status_basis": "There is credible repair capacity because paper ballots are secure and civic groups are already advocating patience, but trust is not yet stabilized."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "Election officials say paper ballots are secure.",
+        "layer": "exposure",
+        "reason": "Official updates reach broad public through statements and notices.",
+        "source_actor_name": "city_election_office",
+        "target_actor_name": "general_city_voters",
+        "weight": 0.54
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Outage delays results in three precincts.",
+        "layer": "exposure",
+        "reason": "Affected voters are especially attentive to official updates.",
+        "source_actor_name": "city_election_office",
+        "target_actor_name": "delayed_precinct_voters",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "One campaign alleges selective delays.",
+        "layer": "exposure",
+        "reason": "Campaign allegations circulate among politically attentive residents.",
+        "source_actor_name": "campaign_aurora",
+        "target_actor_name": "general_city_voters",
+        "weight": 0.41
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario includes multiple campaigns in city council race uncertainty.",
+        "layer": "exposure",
+        "reason": "Competing campaign messages reach the broader public.",
+        "source_actor_name": "campaign_harbor",
+        "target_actor_name": "general_city_voters",
+        "weight": 0.37
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Civic groups call for patience.",
+        "layer": "exposure",
+        "reason": "Civic groups publicly call for patience.",
+        "source_actor_name": "civic_integrity_coalition",
+        "target_actor_name": "general_city_voters",
+        "weight": 0.33
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Local influencers spread precinct-level rumors.",
+        "layer": "exposure",
+        "reason": "Local influencers spread rumors into public channels.",
+        "source_actor_name": "local_influencers_network",
+        "target_actor_name": "general_city_voters",
+        "weight": 0.56
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Implied in local election information environment.",
+        "layer": "exposure",
+        "reason": "Local press relays developments to voters.",
+        "source_actor_name": "local_press_pool",
+        "target_actor_name": "general_city_voters",
+        "weight": 0.51
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Officials assert paper ballot security amid delayed results.",
+        "layer": "trust",
+        "reason": "Baseline institutional trust is present but softened by outage uncertainty.",
+        "source_actor_name": "general_city_voters",
+        "target_actor_name": "city_election_office",
+        "weight": 0.49
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Three precincts experience delayed results.",
+        "layer": "trust",
+        "reason": "Affected voters have somewhat lower trust due to direct impact of delay.",
+        "source_actor_name": "delayed_precinct_voters",
+        "target_actor_name": "city_election_office",
+        "weight": 0.43
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Civic groups call for patience.",
+        "layer": "trust",
+        "reason": "Civic patience appeals have moderate credibility.",
+        "source_actor_name": "general_city_voters",
+        "target_actor_name": "civic_integrity_coalition",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Local reporting implied as key information channel.",
+        "layer": "trust",
+        "reason": "Press seen as a verification intermediary.",
+        "source_actor_name": "general_city_voters",
+        "target_actor_name": "local_press_pool",
+        "weight": 0.52
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Rumors spread via influencers.",
+        "layer": "trust",
+        "reason": "Influencers have reach but uneven credibility.",
+        "source_actor_name": "general_city_voters",
+        "target_actor_name": "local_influencers_network",
+        "weight": 0.29
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Certification is a focal branch around delayed results.",
+        "layer": "dependency",
+        "reason": "Certification depends on tabulated and verified results from election administration.",
+        "source_actor_name": "city_canvassing_board",
+        "target_actor_name": "city_election_office",
+        "weight": 0.63
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Officials say paper ballots are secure.",
+        "layer": "dependency",
+        "reason": "Secure paper ballot handling underpins recovery from scanner outage.",
+        "source_actor_name": "city_election_office",
+        "target_actor_name": "paper_ballot_chain_team",
+        "weight": 0.57
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Campaign alleges selective delays but lacks direct count control.",
+        "layer": "dependency",
+        "reason": "Any factual challenge still relies on official disclosures and count updates.",
+        "source_actor_name": "campaign_aurora",
+        "target_actor_name": "city_election_office",
+        "weight": 0.35
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Outcome uncertainty tied to delayed precinct tabulation.",
+        "layer": "dependency",
+        "reason": "Campaign defense of legitimacy depends on official process completion.",
+        "source_actor_name": "campaign_harbor",
+        "target_actor_name": "city_election_office",
+        "weight": 0.34
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Information environment implied by scenario focus on rumor and legitimacy.",
+        "layer": "dependency",
+        "reason": "Most residents rely on press to interpret procedural developments.",
+        "source_actor_name": "general_city_voters",
+        "target_actor_name": "local_press_pool",
+        "weight": 0.38
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Officials publicly state ballots are secure.",
+        "layer": "influence",
+        "reason": "Official framing can shape legitimacy perceptions if timely and credible.",
+        "source_actor_name": "city_election_office",
+        "target_actor_name": "general_city_voters",
+        "weight": 0.52
+      },
+      {
+        "direction": "outbound",
+        "evidence": "One campaign alleges selective delays.",
+        "layer": "influence",
+        "reason": "Campaign cues strongly activate loyal supporters' interpretation of delay.",
+        "source_actor_name": "campaign_aurora",
+        "target_actor_name": "campaign_loyal_skeptics",
+        "weight": 0.61
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Competing campaign message environment implied.",
+        "layer": "influence",
+        "reason": "Competing campaign can influence a subset but less directly across loyalties.",
+        "source_actor_name": "campaign_harbor",
+        "target_actor_name": "campaign_loyal_skeptics",
+        "weight": 0.32
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Civic groups call for patience.",
+        "layer": "influence",
+        "reason": "Civic groups are a focal organizer for patience messaging.",
+        "source_actor_name": "civic_integrity_coalition",
+        "target_actor_name": "activist_patience_advocates",
+        "weight": 0.59
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Local influencers spread precinct-level rumors.",
+        "layer": "influence",
+        "reason": "Rumor-prone observers are sensitive to influencer narratives.",
+        "source_actor_name": "local_influencers_network",
+        "target_actor_name": "suspicious_observers",
+        "weight": 0.57
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Implied media role in evolving election uncertainty.",
+        "layer": "influence",
+        "reason": "Press updates guide engaged interpreters and reposting behavior.",
+        "source_actor_name": "local_press_pool",
+        "target_actor_name": "engaged_information_brokers",
+        "weight": 0.48
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Certification branch requires board authority.",
+        "layer": "influence",
+        "reason": "Board scheduling and certification expectations shape office tempo.",
+        "source_actor_name": "city_canvassing_board",
+        "target_actor_name": "city_election_office",
+        "weight": 0.36
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Civic groups call for patience while officials defend ballot security.",
+        "layer": "coalition",
+        "reason": "Loose alignment around patience and process credibility.",
+        "source_actor_name": "civic_integrity_coalition",
+        "target_actor_name": "city_election_office",
+        "weight": 0.42
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Campaign alleges selective delays while influencers spread rumors.",
+        "layer": "coalition",
+        "reason": "Latent narrative alignment may emerge around selective-delay suspicion.",
+        "source_actor_name": "campaign_aurora",
+        "target_actor_name": "local_influencers_network",
+        "weight": 0.28
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Patience and legitimacy repair are expected focus areas.",
+        "layer": "coalition",
+        "reason": "Mutual interest in calming delegitimization if official count seems defensible.",
+        "source_actor_name": "campaign_harbor",
+        "target_actor_name": "civic_integrity_coalition",
+        "weight": 0.31
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "One campaign alleges selective delays.",
+        "layer": "conflict",
+        "reason": "Selective-delay allegation places campaign in moderate conflict with officials.",
+        "source_actor_name": "campaign_aurora",
+        "target_actor_name": "city_election_office",
+        "weight": 0.47
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "City council race thrown into uncertainty.",
+        "layer": "conflict",
+        "reason": "Result uncertainty intensifies zero-sum campaign competition.",
+        "source_actor_name": "campaign_aurora",
+        "target_actor_name": "campaign_harbor",
+        "weight": 0.51
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Precinct-level rumors circulate during delayed results.",
+        "layer": "conflict",
+        "reason": "Rumor spread undercuts official credibility even without formal confrontation.",
+        "source_actor_name": "local_influencers_network",
+        "target_actor_name": "city_election_office",
+        "weight": 0.39
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Delay and allegations create uncertainty about fairness.",
+        "layer": "conflict",
+        "reason": "Some public grievance toward administrators is emerging.",
+        "source_actor_name": "suspicious_observers",
+        "target_actor_name": "city_election_office",
+        "weight": 0.34
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Officials need channels to explain outage and ballot security.",
+        "layer": "oasis_interaction",
+        "reason": "Press briefings and updates likely serve as key public interaction venue.",
+        "source_actor_name": "city_election_office",
+        "target_actor_name": "local_press_pool",
+        "weight": 0.62
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Campaign alleges selective delays.",
+        "layer": "oasis_interaction",
+        "reason": "Allegation likely enters public discourse via interviews and statements.",
+        "source_actor_name": "campaign_aurora",
+        "target_actor_name": "local_press_pool",
+        "weight": 0.49
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Civic groups call for patience.",
+        "layer": "oasis_interaction",
+        "reason": "Patience messaging likely appears in public reporting and social posts.",
+        "source_actor_name": "civic_integrity_coalition",
+        "target_actor_name": "local_press_pool",
+        "weight": 0.43
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Influencers spread precinct-level rumors.",
+        "layer": "oasis_interaction",
+        "reason": "Public comment threads and posts are active rumor exchange spaces.",
+        "source_actor_name": "local_influencers_network",
+        "target_actor_name": "general_city_voters",
+        "weight": 0.58
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype_key": "institutional_referee",
+        "label": "Institutional Referee"
+      },
+      {
+        "archetype_key": "campaign_narrative_driver",
+        "label": "Campaign Narrative Driver"
+      },
+      {
+        "archetype_key": "civic_trust_mediator",
+        "label": "Civic Trust Mediator"
+      },
+      {
+        "archetype_key": "rumor_amplifier",
+        "label": "Rumor Amplifier"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "city_election_office",
+        "archetype_key": "institutional_referee",
+        "attention_level": 0.91,
+        "decision_scope": [
+          "tabulation updates",
+          "public reassurance",
+          "process transparency"
+        ],
+        "expression_level": 0.72,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.18,
+        "formal_power": 0.78,
+        "hero_key": "election_director",
+        "informal_power": 0.49,
+        "mobilization_readiness": 0.62,
+        "perceived_majority": 0.5,
+        "stance_axes": {
+          "accuracy_priority": 0.85,
+          "defensiveness": 0.38,
+          "speed_priority": 0.44,
+          "transparency_priority": 0.7
+        }
+      },
+      {
+        "actor_name": "campaign_aurora",
+        "archetype_key": "campaign_narrative_driver",
+        "attention_level": 0.88,
+        "decision_scope": [
+          "challenge narrative",
+          "supporter signaling",
+          "recount pressure"
+        ],
+        "expression_level": 0.79,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.14,
+        "formal_power": 0.34,
+        "hero_key": "aurora_campaign_manager",
+        "informal_power": 0.61,
+        "mobilization_readiness": 0.71,
+        "perceived_majority": 0.46,
+        "stance_axes": {
+          "contest_results": 0.67,
+          "escalation_risk_tolerance": 0.55,
+          "institutional_deference": 0.31,
+          "message_discipline": 0.58
+        }
+      },
+      {
+        "actor_name": "campaign_harbor",
+        "archetype_key": "campaign_narrative_driver",
+        "attention_level": 0.84,
+        "decision_scope": [
+          "defend count legitimacy",
+          "supporter calming",
+          "counter-messaging"
+        ],
+        "expression_level": 0.67,
+        "fatigue": 0.26,
+        "fear_of_isolation": 0.16,
+        "formal_power": 0.34,
+        "hero_key": "harbor_campaign_manager",
+        "informal_power": 0.57,
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.48,
+        "stance_axes": {
+          "contest_results": 0.29,
+          "escalation_risk_tolerance": 0.34,
+          "institutional_deference": 0.63,
+          "message_discipline": 0.61
+        }
+      },
+      {
+        "actor_name": "civic_integrity_coalition",
+        "archetype_key": "civic_trust_mediator",
+        "attention_level": 0.76,
+        "decision_scope": [
+          "patience messaging",
+          "community de-escalation",
+          "observer coordination"
+        ],
+        "expression_level": 0.64,
+        "fatigue": 0.23,
+        "fear_of_isolation": 0.37,
+        "formal_power": 0.18,
+        "hero_key": "civic_coordinator",
+        "informal_power": 0.51,
+        "mobilization_readiness": 0.48,
+        "perceived_majority": 0.35,
+        "stance_axes": {
+          "assertiveness": 0.46,
+          "cross_group_outreach": 0.69,
+          "de_escalation": 0.82,
+          "process_trust": 0.73
+        }
+      },
+      {
+        "actor_name": "local_influencers_network",
+        "archetype_key": "rumor_amplifier",
+        "attention_level": 0.93,
+        "decision_scope": [
+          "frame precinct rumors",
+          "attention steering",
+          "viral repetition"
+        ],
+        "expression_level": 0.88,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.09,
+        "formal_power": 0.05,
+        "hero_key": "lead_local_influencer_cluster",
+        "informal_power": 0.64,
+        "mobilization_readiness": 0.74,
+        "perceived_majority": 0.42,
+        "stance_axes": {
+          "attention_seeking": 0.78,
+          "conflict_salience": 0.66,
+          "narrative_flexibility": 0.71,
+          "verification_norms": 0.29
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "archetype_key": "institutional_referee",
+        "label": "Institutional Referee"
+      },
+      {
+        "archetype_key": "campaign_narrative_driver",
+        "label": "Campaign Narrative Driver"
+      },
+      {
+        "archetype_key": "civic_trust_mediator",
+        "label": "Civic Trust Mediator"
+      },
+      {
+        "archetype_key": "rumor_amplifier",
+        "label": "Rumor Amplifier"
+      }
+    ],
+    "important_questions": [
+      "Will the city canvassing board certify the race on the ordinary near-term timetable without a major procedural delay?",
+      "Will a campaign or authorized body initiate a formal recount or equivalent challenge tied to the delayed precincts?",
+      "After counting is completed, will rumor-driven doubts about legitimacy remain materially active in public discourse?",
+      "Will official transparency and civic patience messaging restore enough confidence to prevent broad escalation of contestation?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "city_election_office",
+          "delayed_precinct_voters"
+        ],
+        "event_key": "scanner_outage_detected",
+        "event_type": "announcement",
+        "evidence": "Ballot-scanner outage delays results in three precincts.",
+        "expected_impact": "Raises uncertainty, concentrates attention on affected precincts, and opens interpretive space for rumors and strategic allegations.",
+        "status": "realized",
+        "summary": "Ballot-scanner outage delays reporting in three precincts.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "city_election_office",
+          "paper_ballot_chain_team"
+        ],
+        "event_key": "official_ballot_security_statement",
+        "event_type": "announcement",
+        "evidence": "Election officials say paper ballots are secure.",
+        "expected_impact": "Partially stabilizes trust among process-oriented voters while inviting scrutiny over proof and transparency.",
+        "status": "realized",
+        "summary": "Election officials state that paper ballots remain secure despite the outage.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "campaign_aurora"
+        ],
+        "event_key": "campaign_selective_delay_claim",
+        "event_type": "announcement",
+        "evidence": "One campaign alleges selective delays.",
+        "expected_impact": "Increases conflict with election administration and gives skeptical voters a narrative hook for recount or challenge demands.",
+        "status": "realized",
+        "summary": "One campaign alleges the delays may be selective rather than neutral.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "civic_integrity_coalition"
+        ],
+        "event_key": "civic_patience_appeal",
+        "event_type": "announcement",
+        "evidence": "Civic groups call for patience.",
+        "expected_impact": "Supplies a counterframe to delegitimization and may reduce immediate escalation among moderates.",
+        "status": "realized",
+        "summary": "Civic groups ask the public to remain patient while votes are verified.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "local_influencers_network",
+          "general_city_voters",
+          "delayed_precinct_voters"
+        ],
+        "event_key": "rumor_cascade_precinct_level",
+        "event_type": "announcement",
+        "evidence": "Local influencers spread precinct-level rumors.",
+        "expected_impact": "Can widen distrust and produce localized certainty without confirmed evidence, especially among suspicious observers.",
+        "status": "anticipated",
+        "summary": "Local influencers continue circulating anecdotal precinct-level rumors before complete official clarification.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "city_canvassing_board",
+          "city_election_office",
+          "campaign_aurora",
+          "campaign_harbor"
+        ],
+        "event_key": "certification_timetable_pressure",
+        "event_type": "announcement",
+        "evidence": "Expected branches around certification and recount demand.",
+        "expected_impact": "Shifts discourse from rumor alone to procedural leverage and formal authority contests.",
+        "status": "anticipated",
+        "summary": "The approaching certification process sharpens demands for clarity, recount requests, or procedural objections.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "d03dee4b-0e03-480e-a667-289e6fe88f87",
+    "merge_hypotheses": [
+      {
+        "affected_actors": [
+          "city_election_office",
+          "city_canvassing_board",
+          "campaign_harbor",
+          "civic_integrity_coalition",
+          "local_press_pool"
+        ],
+        "convergence_driver": "Most actors benefit from an eventual count accepted as lawful enough to prevent prolonged citywide instability.",
+        "merge_key": "shared_interest_in_orderly_finality",
+        "observable_merge_signal": "Messages converge on finishing verification and accepting formal milestones even amid disagreement."
+      },
+      {
+        "affected_actors": [
+          "city_election_office",
+          "campaign_aurora",
+          "campaign_harbor",
+          "delayed_precinct_voters"
+        ],
+        "convergence_driver": "The existence of paper ballots provides a factual substrate that both skeptics and defenders can use to justify verification without total collapse of legitimacy.",
+        "merge_key": "paper_ballot_common_ground",
+        "observable_merge_signal": "Rhetoric shifts from fraud implication toward inspectable paper-ballot review and procedural proof."
+      },
+      {
+        "affected_actors": [
+          "general_city_voters",
+          "disengaged_majority",
+          "engaged_information_brokers"
+        ],
+        "convergence_driver": "If rumors repeatedly fail to produce corroboration, attention and emotional intensity may decay among less engaged publics.",
+        "merge_key": "rumor_fatigue",
+        "observable_merge_signal": "Lower posting frequency, more neutral language, and reduced salience of the delayed precinct issue."
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "city_electorate",
+        "description": "Voting-age public exposed to the race and its legitimacy narratives.",
+        "label": "City Electorate",
+        "population_total": 120000
+      },
+      {
+        "archetype_key": "politically_engaged_public",
+        "description": "Residents closely following results, commentary, and procedural developments.",
+        "label": "Politically Engaged Public",
+        "population_total": 24000
+      },
+      {
+        "archetype_key": "delayed_precinct_residents",
+        "description": "Residents in or tied to the three precincts affected by the scanner outage.",
+        "label": "Delayed Precinct Residents",
+        "population_total": 9000
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "high_ambiguity_low_evidence",
+        "note": "Source corpus is short and does not specify margin, legal thresholds, or technical root cause of outage.",
+        "severity": "medium"
+      },
+      {
+        "flag": "rumor_amplification_window",
+        "note": "Localized delays plus anecdotal influencer content create favorable conditions for durable suspicion before official clarity arrives.",
+        "severity": "high"
+      },
+      {
+        "flag": "authority_bottleneck",
+        "note": "Formal endpoint progression depends on election office processing and canvassing board certification authority.",
+        "severity": "medium"
+      },
+      {
+        "flag": "narrow_margin_sensitivity_unknown",
+        "note": "If the delayed precincts are decisive, conflict and recount pressure could intensify sharply, but margin evidence is absent at T0.",
+        "severity": "medium"
+      },
+      {
+        "flag": "public_private_belief_gap",
+        "note": "Some trust-leaning residents may stay quiet, allowing more skeptical narratives to appear dominant in public channels.",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "election_legitimacy",
+      "mode": "direct",
+      "scenario_key": "election_001",
+      "scope": "fictional city-level election administration and public discourse",
+      "summary": "A fictional city council race faces uncertainty after a ballot-scanner outage delays results in three precincts. Paper ballots are reportedly secure, but the delay creates room for allegations of selective treatment, rumor spread, recount pressure, and competing narratives about legitimacy. T0 should center on trust, uncertainty, legal authority, rumor dynamics, and branching possibilities around certification, recount demands, misinformation persistence, and legitimacy repair.",
+      "time_horizon": "near-term post-election uncertaintly period",
+      "uncertainty_notes": [
+        "Cause and duration of scanner outage are not specified beyond delay.",
+        "No evidence establishes fraud, tampering, or final margin at T0.",
+        "Scale of influencer reach and campaign capacity is inferred as local, not citywide mass dominance.",
+        "Legal procedures for recount/certification are implied but not fully described in source text."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "general_city_voters",
+          "politically_engaged_public"
+        ],
+        "level": 0.58,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Residents accept updates mostly from moderately trusted institutions, civic groups, or aligned campaigns."
+      },
+      {
+        "applies_to": [
+          "campaign_loyal_skeptics",
+          "affected_voters_anxious"
+        ],
+        "level": 0.46,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Mobilization likely rises if recount language, legal action, or contradictory updates appear."
+      },
+      {
+        "applies_to": [
+          "calm_process_trusters",
+          "affected_voters_confident"
+        ],
+        "level": 0.52,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Many privately trust the process more than they publicly express during uncertainty."
+      },
+      {
+        "applies_to": [
+          "campaign_loyal_skeptics",
+          "activist_patience_advocates",
+          "engaged_information_brokers"
+        ],
+        "level": 0.61,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Interpretations cluster by political and media network ties."
+      },
+      {
+        "applies_to": [
+          "suspicious_observers",
+          "general_city_voters"
+        ],
+        "level": 0.55,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Rumor acceptance increases when repeated by campaign-adjacent and influencer sources together."
+      },
+      {
+        "applies_to": [
+          "campaign_loyal_skeptics",
+          "delayed_precinct_residents"
+        ],
+        "level": 0.57,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "People read outage narratives through side loyalty and place-based fairness concerns."
+      },
+      {
+        "applies_to": [
+          "disengaged_majority",
+          "general_city_voters"
+        ],
+        "level": 0.34,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "If no new controversy emerges, some public attention can soften over time."
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context_key": "outage_with_paper_backup",
+        "description": "Technical outage delays results, but paper ballots are reported secure, creating a contest between procedural reassurance and suspicion."
+      },
+      {
+        "context_key": "selective_delay_allegation",
+        "description": "A campaign introduces fairness-based suspicion without established proof, increasing ambiguity rather than certainty."
+      },
+      {
+        "context_key": "patience_counterframe",
+        "description": "Civic groups provide a de-escalatory frame that can compete with outrage narratives if amplified."
+      },
+      {
+        "context_key": "localized_rumor_vectors",
+        "description": "Precinct-level anecdotes and local influencer posts are likely to personalize and intensify uncertainty."
+      },
+      {
+        "context_key": "certification_authority_bottleneck",
+        "description": "Formal legitimacy depends on a certifying body downstream from election administration."
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "city_election_office",
+        "behavior_axes": {
+          "proceduralism": 0.87,
+          "reactivity": 0.42,
+          "transparency": 0.66
+        },
+        "ideology_axes": {
+          "institutionalism": 0.8,
+          "populism": 0.12
+        },
+        "reputation": 0.58,
+        "secrecy": 0.31,
+        "tendency": "defend process while avoiding premature claims",
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "paper_ballot_chain_team",
+        "behavior_axes": {
+          "proceduralism": 0.91,
+          "reactivity": 0.28,
+          "transparency": 0.39
+        },
+        "ideology_axes": {
+          "institutionalism": 0.83,
+          "populism": 0.08
+        },
+        "reputation": 0.55,
+        "secrecy": 0.42,
+        "tendency": "maintain custody and verification details",
+        "trustworthiness": 0.69
+      },
+      {
+        "actor_name": "campaign_aurora",
+        "behavior_axes": {
+          "aggressiveness": 0.54,
+          "message_discipline": 0.57,
+          "opportunism": 0.62
+        },
+        "ideology_axes": {
+          "institutionalism": 0.36,
+          "populism": 0.61
+        },
+        "reputation": 0.47,
+        "secrecy": 0.46,
+        "tendency": "probe delay for competitive narrative advantage",
+        "trustworthiness": 0.39
+      },
+      {
+        "actor_name": "campaign_harbor",
+        "behavior_axes": {
+          "aggressiveness": 0.37,
+          "message_discipline": 0.62,
+          "opportunism": 0.44
+        },
+        "ideology_axes": {
+          "institutionalism": 0.57,
+          "populism": 0.38
+        },
+        "reputation": 0.5,
+        "secrecy": 0.38,
+        "tendency": "favor procedural validation if current trajectory appears acceptable",
+        "trustworthiness": 0.48
+      },
+      {
+        "actor_name": "civic_integrity_coalition",
+        "behavior_axes": {
+          "bridge_building": 0.78,
+          "public_engagement": 0.61,
+          "reactivity": 0.43
+        },
+        "ideology_axes": {
+          "institutionalism": 0.71,
+          "pluralism": 0.76
+        },
+        "reputation": 0.59,
+        "secrecy": 0.19,
+        "tendency": "encourage patience and nonzero trust in process",
+        "trustworthiness": 0.71
+      },
+      {
+        "actor_name": "local_influencers_network",
+        "behavior_axes": {
+          "amplification": 0.79,
+          "attention_seeking": 0.82,
+          "verification": 0.27
+        },
+        "ideology_axes": {
+          "institutionalism": 0.29,
+          "populism": 0.58
+        },
+        "reputation": 0.41,
+        "secrecy": 0.21,
+        "tendency": "circulate precinct-level rumors and emotionally salient anecdotes",
+        "trustworthiness": 0.28
+      },
+      {
+        "actor_name": "delayed_precinct_voters",
+        "behavior_axes": {
+          "public_engagement": 0.49,
+          "reactivity": 0.52,
+          "vigilance": 0.68
+        },
+        "ideology_axes": {
+          "institutionalism": 0.48,
+          "populism": 0.42
+        },
+        "reputation": 0.52,
+        "secrecy": 0.22,
+        "tendency": "seek reassurance and fairness signals",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "general_city_voters",
+        "behavior_axes": {
+          "public_engagement": 0.24,
+          "reactivity": 0.31,
+          "vigilance": 0.39
+        },
+        "ideology_axes": {
+          "institutionalism": 0.51,
+          "populism": 0.37
+        },
+        "reputation": 0.51,
+        "secrecy": 0.18,
+        "tendency": "follow elite and peer cues unless stakes rise",
+        "trustworthiness": 0.52
+      },
+      {
+        "actor_name": "city_canvassing_board",
+        "behavior_axes": {
+          "proceduralism": 0.84,
+          "reactivity": 0.33,
+          "transparency": 0.54
+        },
+        "ideology_axes": {
+          "institutionalism": 0.82,
+          "populism": 0.11
+        },
+        "reputation": 0.56,
+        "secrecy": 0.35,
+        "tendency": "prioritize legal regularity and certifiable record",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "local_press_pool",
+        "behavior_axes": {
+          "conflict_salience": 0.46,
+          "reactivity": 0.63,
+          "verification": 0.68
+        },
+        "ideology_axes": {
+          "institutionalism": 0.55,
+          "pluralism": 0.62
+        },
+        "reputation": 0.57,
+        "secrecy": 0.17,
+        "tendency": "balance urgent updates with incomplete facts",
+        "trustworthiness": 0.6
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 583,
+        "end": 583,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 583,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

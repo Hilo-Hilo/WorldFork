@@ -1,0 +1,1981 @@
+{
+  "big_bang_id": "2438c0ee-12f3-4471-b3b5-0a8693fc1bce",
+  "initializer_output": {
+    "actors": [
+      {
+        "name": "regional_drought_authority",
+        "public_visibility": "high",
+        "role": "proposes and may adopt rationing rules",
+        "stakes": [
+          "maintain water supply",
+          "preserve legitimacy",
+          "secure compliance",
+          "avoid legal and political backlash"
+        ],
+        "type": "institution"
+      },
+      {
+        "name": "commercial_farmers",
+        "public_visibility": "high",
+        "role": "high-volume agricultural users",
+        "stakes": [
+          "crop survival",
+          "income continuity",
+          "predictable allocations",
+          "protection from disproportionate cuts"
+        ],
+        "type": "group"
+      },
+      {
+        "name": "suburban_homeowners",
+        "public_visibility": "high",
+        "role": "residential property users",
+        "stakes": [
+          "lawn/garden and household use",
+          "bill stability",
+          "perceived fairness relative to other sectors"
+        ],
+        "type": "group"
+      },
+      {
+        "name": "industrial_users",
+        "public_visibility": "medium",
+        "role": "business and manufacturing water users",
+        "stakes": [
+          "operational continuity",
+          "cost control",
+          "exemptions or tailored quotas",
+          "reputation management"
+        ],
+        "type": "group"
+      },
+      {
+        "name": "urban_tenants",
+        "public_visibility": "medium",
+        "role": "renters with limited direct control over infrastructure",
+        "stakes": [
+          "basic household access",
+          "affordability",
+          "protection from landlord pass-through or service degradation"
+        ],
+        "type": "group"
+      },
+      {
+        "name": "environmental_advocates",
+        "public_visibility": "medium",
+        "role": "conservation-oriented civic actors",
+        "stakes": [
+          "ecosystem protection",
+          "demand reduction",
+          "equitable conservation rules",
+          "anti-exemption enforcement"
+        ],
+        "type": "group"
+      },
+      {
+        "name": "regional_courts",
+        "public_visibility": "medium",
+        "role": "possible later reviewer of authority rules",
+        "stakes": [
+          "procedural legality",
+          "review legitimacy",
+          "conflict de-escalation through adjudication"
+        ],
+        "type": "institution"
+      },
+      {
+        "name": "water_haulers_black_market",
+        "public_visibility": "low",
+        "role": "rumored illicit or gray-market redistribution channel",
+        "stakes": [
+          "profit from scarcity",
+          "avoid detection",
+          "expand where formal supply is constrained"
+        ],
+        "type": "informal_network"
+      },
+      {
+        "name": "local_media_and_social_feeds",
+        "public_visibility": "high",
+        "role": "amplifies fairness narratives and rumors",
+        "stakes": [
+          "attention",
+          "controversy",
+          "public accountability"
+        ],
+        "type": "information_network"
+      },
+      {
+        "name": "municipal_landlords_and_property_managers",
+        "public_visibility": "low",
+        "role": "intermediaries affecting tenant water conditions and compliance",
+        "stakes": [
+          "cost containment",
+          "property operations",
+          "avoid penalties and tenant conflict"
+        ],
+        "type": "group"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Rules prioritize strict shared sacrifice over sector-specific flexibility.",
+        "branch_key": "strict_uniform_rationing_path",
+        "divergence_signal": "Published rule text shows narrow exemptions, broad enforcement language, and pro-conservation messaging.",
+        "trigger": "Authority concludes legitimacy requires visible across-the-board reductions with limited carve-outs."
+      },
+      {
+        "alternate_path": "Authority creates significant agricultural or industrial exemptions within tiered framework.",
+        "branch_key": "productive_sector_exemption_path",
+        "divergence_signal": "Draft or final rules include special quotas, delayed compliance, or tailored carve-outs for productive sectors.",
+        "trigger": "Farmer and industrial lobbying raises perceived economic risk above legitimacy risk."
+      },
+      {
+        "alternate_path": "Public compliance debate shifts from conservation necessity to legitimacy and selective punishment.",
+        "branch_key": "enforcement_backlash_path",
+        "divergence_signal": "Stories of fines, shutoffs, or selective enforcement dominate local coverage and increase open grievance.",
+        "trigger": "Early penalties, inspections, or visible unequal enforcement generate anger and media amplification."
+      },
+      {
+        "alternate_path": "Formal compliance appears stable publicly while gray-market access and hidden workarounds spread privately.",
+        "branch_key": "quiet_evasion_growth_path",
+        "divergence_signal": "Rising anecdotal reports of hauling, unusual water sourcing, or local discrepancies without equivalent public protest.",
+        "trigger": "Rumors of off-system hauling persist while fairness trust declines and enforcement remains patchy."
+      },
+      {
+        "alternate_path": "Stakeholders accept a mixed conservation regime with fewer open fractures.",
+        "branch_key": "negotiated_conservation_path",
+        "divergence_signal": "Cross-sector messaging emphasizes burden-sharing, efficiency measures, and reduced hostility toward implementation.",
+        "trigger": "Authority finds a package combining visible shared sacrifice, basic-use protections, and practical flexibility."
+      }
+    ],
+    "channels": [
+      {
+        "latency": "low",
+        "name": "formal_authority_announcements",
+        "reach": 0.78,
+        "trust_signal": 0.56,
+        "type": "official"
+      },
+      {
+        "latency": "medium",
+        "name": "public_hearings_and_comment",
+        "reach": 0.41,
+        "trust_signal": 0.59,
+        "type": "civic"
+      },
+      {
+        "latency": "low",
+        "name": "local_news",
+        "reach": 0.67,
+        "trust_signal": 0.48,
+        "type": "media"
+      },
+      {
+        "latency": "very_low",
+        "name": "social_feeds_and_neighborhood_groups",
+        "reach": 0.72,
+        "trust_signal": 0.34,
+        "type": "social"
+      },
+      {
+        "latency": "medium",
+        "name": "sector_association_networks",
+        "reach": 0.53,
+        "trust_signal": 0.57,
+        "type": "sectoral"
+      },
+      {
+        "latency": "low",
+        "name": "informal_supply_rumor_networks",
+        "reach": 0.26,
+        "trust_signal": 0.22,
+        "type": "informal"
+      },
+      {
+        "latency": "medium",
+        "name": "property_management_notices",
+        "reach": 0.31,
+        "trust_signal": 0.37,
+        "type": "intermediary"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_name": "regional_residents",
+        "attention_level": 0.68,
+        "behavioral_tendencies": [
+          "compare burdens across neighborhoods",
+          "comply if peers comply",
+          "resent visible waste"
+        ],
+        "cohort_name": "suburban_homeowner_majority",
+        "expression_level": 0.49,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.36,
+        "graph_influence_summary": "Moderate through voting, neighborhood talk, and visible consumption norms.",
+        "ideology_axes": {
+          "collective_sacrifice": 0.58,
+          "institutional_trust": 0.45,
+          "market_coordination": 0.47
+        },
+        "mobilization_readiness": 0.42,
+        "perceived_majority": 0.54,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Moderate acceptance of restrictions if visibly shared across sectors; suspicion rises if agriculture or industry appears protected.",
+        "public_expression": "Fairness-focused complaints, neighborhood comparison, moderate rule-following rhetoric.",
+        "representation_mode": "direct_group_mapping",
+        "represented_population": 420000,
+        "reputation": 0.56,
+        "secrecy": 0.22,
+        "stance_axes": {
+          "conservation_identity": 0.44,
+          "enforcement_support": 0.52,
+          "fairness_priority": 0.69,
+          "rationing_acceptance": 0.46,
+          "sector_exemption_support": 0.28
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "archetype_name": "regional_residents",
+        "attention_level": 0.52,
+        "behavioral_tendencies": [
+          "adapt quietly",
+          "avoid conflict with landlords",
+          "support fairness if low-risk"
+        ],
+        "cohort_name": "urban_tenant_majority",
+        "expression_level": 0.29,
+        "fatigue": 0.43,
+        "fear_of_isolation": 0.57,
+        "graph_influence_summary": "Large population weight but relatively low direct agenda-setting.",
+        "ideology_axes": {
+          "collective_sacrifice": 0.62,
+          "institutional_trust": 0.4,
+          "market_coordination": 0.39
+        },
+        "mobilization_readiness": 0.26,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Basic-use protections matter more than decorative-use restrictions; many feel less able to shape outcomes.",
+        "public_expression": "Muted, often indirect through complaints about costs or landlord behavior rather than drought policy itself.",
+        "representation_mode": "direct_group_mapping",
+        "represented_population": 540000,
+        "reputation": 0.51,
+        "secrecy": 0.34,
+        "stance_axes": {
+          "conservation_identity": 0.5,
+          "enforcement_support": 0.37,
+          "fairness_priority": 0.77,
+          "rationing_acceptance": 0.55,
+          "sector_exemption_support": 0.18
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "archetype_name": "regional_residents",
+        "attention_level": 0.44,
+        "behavioral_tendencies": [
+          "private grievance",
+          "low-visibility workarounds",
+          "follow local norms"
+        ],
+        "cohort_name": "residential_silent_minorities",
+        "expression_level": 0.16,
+        "fatigue": 0.47,
+        "fear_of_isolation": 0.66,
+        "graph_influence_summary": "Low individual visibility but important for aggregate compliance.",
+        "ideology_axes": {
+          "collective_sacrifice": 0.41,
+          "institutional_trust": 0.29,
+          "market_coordination": 0.44
+        },
+        "mobilization_readiness": 0.18,
+        "perceived_majority": 0.35,
+        "population_share_of_archetype": 0.2,
+        "private_belief": "Skeptical that restrictions will be enforced evenly; some may quietly evade if low risk.",
+        "public_expression": "Little public expression unless directly affected by penalties or shortages.",
+        "representation_mode": "cross-cutting_remainder",
+        "represented_population": 240000,
+        "reputation": 0.45,
+        "secrecy": 0.48,
+        "stance_axes": {
+          "conservation_identity": 0.33,
+          "enforcement_support": 0.3,
+          "fairness_priority": 0.64,
+          "rationing_acceptance": 0.34,
+          "sector_exemption_support": 0.22
+        },
+        "trustworthiness": 0.49
+      },
+      {
+        "archetype_name": "water_dependent_economic_actors",
+        "attention_level": 0.83,
+        "behavioral_tendencies": [
+          "lobby for exemptions",
+          "invoke regional economic harm",
+          "seek operational flexibility"
+        ],
+        "cohort_name": "farm_operators",
+        "expression_level": 0.66,
+        "fatigue": 0.39,
+        "fear_of_isolation": 0.28,
+        "graph_influence_summary": "Strong leverage through dependency and local economic salience.",
+        "ideology_axes": {
+          "collective_sacrifice": 0.31,
+          "institutional_trust": 0.36,
+          "market_coordination": 0.61
+        },
+        "mobilization_readiness": 0.61,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.294,
+        "private_belief": "Agriculture sees itself as essential and expects differentiated treatment.",
+        "public_expression": "Frames water access as economic necessity and food-system fairness.",
+        "representation_mode": "direct_group_mapping",
+        "represented_population": 25000,
+        "reputation": 0.53,
+        "secrecy": 0.26,
+        "stance_axes": {
+          "conservation_identity": 0.38,
+          "enforcement_support": 0.31,
+          "fairness_priority": 0.72,
+          "rationing_acceptance": 0.27,
+          "sector_exemption_support": 0.74
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "archetype_name": "water_dependent_economic_actors",
+        "attention_level": 0.74,
+        "behavioral_tendencies": [
+          "backchannel lobbying",
+          "cost-benefit framing",
+          "quiet compliance if exemptions secured"
+        ],
+        "cohort_name": "industrial_operators",
+        "expression_level": 0.43,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.34,
+        "graph_influence_summary": "High backstage influence, moderate public sympathy.",
+        "ideology_axes": {
+          "collective_sacrifice": 0.29,
+          "institutional_trust": 0.43,
+          "market_coordination": 0.7
+        },
+        "mobilization_readiness": 0.49,
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 0.176,
+        "private_belief": "Seeks negotiated carve-outs or efficiency-based accommodations rather than public confrontation.",
+        "public_expression": "Technical and employment-centered arguments for flexibility.",
+        "representation_mode": "direct_group_mapping",
+        "represented_population": 15000,
+        "reputation": 0.47,
+        "secrecy": 0.41,
+        "stance_axes": {
+          "conservation_identity": 0.35,
+          "enforcement_support": 0.4,
+          "fairness_priority": 0.58,
+          "rationing_acceptance": 0.33,
+          "sector_exemption_support": 0.68
+        },
+        "trustworthiness": 0.51
+      },
+      {
+        "archetype_name": "water_dependent_economic_actors",
+        "attention_level": 0.58,
+        "behavioral_tendencies": [
+          "watch larger actors",
+          "seek practical guidance",
+          "avoid political exposure"
+        ],
+        "cohort_name": "small_business_and_service_dependents",
+        "expression_level": 0.31,
+        "fatigue": 0.37,
+        "fear_of_isolation": 0.45,
+        "graph_influence_summary": "Diffuse but numerous; can reinforce legitimacy if policy seems balanced.",
+        "ideology_axes": {
+          "collective_sacrifice": 0.49,
+          "institutional_trust": 0.44,
+          "market_coordination": 0.54
+        },
+        "mobilization_readiness": 0.28,
+        "perceived_majority": 0.43,
+        "population_share_of_archetype": 0.529,
+        "private_belief": "Can tolerate some restrictions if larger users also sacrifice.",
+        "public_expression": "Limited unless business continuity is directly threatened.",
+        "representation_mode": "sector_remainder",
+        "represented_population": 45000,
+        "reputation": 0.54,
+        "secrecy": 0.29,
+        "stance_axes": {
+          "conservation_identity": 0.42,
+          "enforcement_support": 0.46,
+          "fairness_priority": 0.66,
+          "rationing_acceptance": 0.49,
+          "sector_exemption_support": 0.35
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "archetype_name": "civic_and_oversight_public",
+        "attention_level": 0.81,
+        "behavioral_tendencies": [
+          "monitor policy details",
+          "mobilize through moral framing",
+          "ally with fairness narratives"
+        ],
+        "cohort_name": "environmental_advocacy_core",
+        "expression_level": 0.63,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.26,
+        "graph_influence_summary": "Moderate narrative power, especially in media and hearings.",
+        "ideology_axes": {
+          "collective_sacrifice": 0.84,
+          "institutional_trust": 0.48,
+          "market_coordination": 0.24
+        },
+        "mobilization_readiness": 0.59,
+        "perceived_majority": 0.38,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "Scarcity justifies strong demand reduction if burden-sharing is visible and ecosystems are protected.",
+        "public_expression": "Advocates conservation, anti-waste norms, and scrutiny of carve-outs.",
+        "representation_mode": "direct_group_mapping",
+        "represented_population": 30000,
+        "reputation": 0.5,
+        "secrecy": 0.19,
+        "stance_axes": {
+          "conservation_identity": 0.91,
+          "enforcement_support": 0.67,
+          "fairness_priority": 0.71,
+          "rationing_acceptance": 0.76,
+          "sector_exemption_support": 0.12
+        },
+        "trustworthiness": 0.62
+      },
+      {
+        "archetype_name": "civic_and_oversight_public",
+        "attention_level": 0.64,
+        "behavioral_tendencies": [
+          "amplify symbolic incidents",
+          "react to enforcement stories",
+          "follow narrative cues"
+        ],
+        "cohort_name": "media_monitoring_public",
+        "expression_level": 0.4,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.39,
+        "graph_influence_summary": "Shapes perceived majority and pressure through attention cycles.",
+        "ideology_axes": {
+          "collective_sacrifice": 0.56,
+          "institutional_trust": 0.38,
+          "market_coordination": 0.43
+        },
+        "mobilization_readiness": 0.32,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.75,
+        "private_belief": "Outcome legitimacy depends heavily on visible consistency and hypocrisy exposure.",
+        "public_expression": "Shares stories, rumors, and fairness comparisons rather than technical drought data.",
+        "representation_mode": "network_audience",
+        "represented_population": 90000,
+        "reputation": 0.48,
+        "secrecy": 0.21,
+        "stance_axes": {
+          "conservation_identity": 0.46,
+          "enforcement_support": 0.43,
+          "fairness_priority": 0.73,
+          "rationing_acceptance": 0.5,
+          "sector_exemption_support": 0.27
+        },
+        "trustworthiness": 0.5
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_name": "regional_residents",
+        "attention_level": 0.68,
+        "behavioral_tendencies": [
+          "compare burdens across neighborhoods",
+          "comply if peers comply",
+          "resent visible waste"
+        ],
+        "cohort_name": "suburban_homeowner_majority",
+        "expression_level": 0.49,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.36,
+        "graph_influence_summary": "Moderate through voting, neighborhood talk, and visible consumption norms.",
+        "ideology_axes": {
+          "collective_sacrifice": 0.58,
+          "institutional_trust": 0.45,
+          "market_coordination": 0.47
+        },
+        "mobilization_readiness": 0.42,
+        "perceived_majority": 0.54,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Moderate acceptance of restrictions if visibly shared across sectors; suspicion rises if agriculture or industry appears protected.",
+        "public_expression": "Fairness-focused complaints, neighborhood comparison, moderate rule-following rhetoric.",
+        "representation_mode": "direct_group_mapping",
+        "represented_population": 420000,
+        "reputation": 0.56,
+        "secrecy": 0.22,
+        "stance_axes": {
+          "conservation_identity": 0.44,
+          "enforcement_support": 0.52,
+          "fairness_priority": 0.69,
+          "rationing_acceptance": 0.46,
+          "sector_exemption_support": 0.28
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "archetype_name": "regional_residents",
+        "attention_level": 0.52,
+        "behavioral_tendencies": [
+          "adapt quietly",
+          "avoid conflict with landlords",
+          "support fairness if low-risk"
+        ],
+        "cohort_name": "urban_tenant_majority",
+        "expression_level": 0.29,
+        "fatigue": 0.43,
+        "fear_of_isolation": 0.57,
+        "graph_influence_summary": "Large population weight but relatively low direct agenda-setting.",
+        "ideology_axes": {
+          "collective_sacrifice": 0.62,
+          "institutional_trust": 0.4,
+          "market_coordination": 0.39
+        },
+        "mobilization_readiness": 0.26,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Basic-use protections matter more than decorative-use restrictions; many feel less able to shape outcomes.",
+        "public_expression": "Muted, often indirect through complaints about costs or landlord behavior rather than drought policy itself.",
+        "representation_mode": "direct_group_mapping",
+        "represented_population": 540000,
+        "reputation": 0.51,
+        "secrecy": 0.34,
+        "stance_axes": {
+          "conservation_identity": 0.5,
+          "enforcement_support": 0.37,
+          "fairness_priority": 0.77,
+          "rationing_acceptance": 0.55,
+          "sector_exemption_support": 0.18
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "archetype_name": "regional_residents",
+        "attention_level": 0.44,
+        "behavioral_tendencies": [
+          "private grievance",
+          "low-visibility workarounds",
+          "follow local norms"
+        ],
+        "cohort_name": "residential_silent_minorities",
+        "expression_level": 0.16,
+        "fatigue": 0.47,
+        "fear_of_isolation": 0.66,
+        "graph_influence_summary": "Low individual visibility but important for aggregate compliance.",
+        "ideology_axes": {
+          "collective_sacrifice": 0.41,
+          "institutional_trust": 0.29,
+          "market_coordination": 0.44
+        },
+        "mobilization_readiness": 0.18,
+        "perceived_majority": 0.35,
+        "population_share_of_archetype": 0.2,
+        "private_belief": "Skeptical that restrictions will be enforced evenly; some may quietly evade if low risk.",
+        "public_expression": "Little public expression unless directly affected by penalties or shortages.",
+        "representation_mode": "cross-cutting_remainder",
+        "represented_population": 240000,
+        "reputation": 0.45,
+        "secrecy": 0.48,
+        "stance_axes": {
+          "conservation_identity": 0.33,
+          "enforcement_support": 0.3,
+          "fairness_priority": 0.64,
+          "rationing_acceptance": 0.34,
+          "sector_exemption_support": 0.22
+        },
+        "trustworthiness": 0.49
+      },
+      {
+        "archetype_name": "water_dependent_economic_actors",
+        "attention_level": 0.83,
+        "behavioral_tendencies": [
+          "lobby for exemptions",
+          "invoke regional economic harm",
+          "seek operational flexibility"
+        ],
+        "cohort_name": "farm_operators",
+        "expression_level": 0.66,
+        "fatigue": 0.39,
+        "fear_of_isolation": 0.28,
+        "graph_influence_summary": "Strong leverage through dependency and local economic salience.",
+        "ideology_axes": {
+          "collective_sacrifice": 0.31,
+          "institutional_trust": 0.36,
+          "market_coordination": 0.61
+        },
+        "mobilization_readiness": 0.61,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.294,
+        "private_belief": "Agriculture sees itself as essential and expects differentiated treatment.",
+        "public_expression": "Frames water access as economic necessity and food-system fairness.",
+        "representation_mode": "direct_group_mapping",
+        "represented_population": 25000,
+        "reputation": 0.53,
+        "secrecy": 0.26,
+        "stance_axes": {
+          "conservation_identity": 0.38,
+          "enforcement_support": 0.31,
+          "fairness_priority": 0.72,
+          "rationing_acceptance": 0.27,
+          "sector_exemption_support": 0.74
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "archetype_name": "water_dependent_economic_actors",
+        "attention_level": 0.74,
+        "behavioral_tendencies": [
+          "backchannel lobbying",
+          "cost-benefit framing",
+          "quiet compliance if exemptions secured"
+        ],
+        "cohort_name": "industrial_operators",
+        "expression_level": 0.43,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.34,
+        "graph_influence_summary": "High backstage influence, moderate public sympathy.",
+        "ideology_axes": {
+          "collective_sacrifice": 0.29,
+          "institutional_trust": 0.43,
+          "market_coordination": 0.7
+        },
+        "mobilization_readiness": 0.49,
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 0.176,
+        "private_belief": "Seeks negotiated carve-outs or efficiency-based accommodations rather than public confrontation.",
+        "public_expression": "Technical and employment-centered arguments for flexibility.",
+        "representation_mode": "direct_group_mapping",
+        "represented_population": 15000,
+        "reputation": 0.47,
+        "secrecy": 0.41,
+        "stance_axes": {
+          "conservation_identity": 0.35,
+          "enforcement_support": 0.4,
+          "fairness_priority": 0.58,
+          "rationing_acceptance": 0.33,
+          "sector_exemption_support": 0.68
+        },
+        "trustworthiness": 0.51
+      },
+      {
+        "archetype_name": "water_dependent_economic_actors",
+        "attention_level": 0.58,
+        "behavioral_tendencies": [
+          "watch larger actors",
+          "seek practical guidance",
+          "avoid political exposure"
+        ],
+        "cohort_name": "small_business_and_service_dependents",
+        "expression_level": 0.31,
+        "fatigue": 0.37,
+        "fear_of_isolation": 0.45,
+        "graph_influence_summary": "Diffuse but numerous; can reinforce legitimacy if policy seems balanced.",
+        "ideology_axes": {
+          "collective_sacrifice": 0.49,
+          "institutional_trust": 0.44,
+          "market_coordination": 0.54
+        },
+        "mobilization_readiness": 0.28,
+        "perceived_majority": 0.43,
+        "population_share_of_archetype": 0.529,
+        "private_belief": "Can tolerate some restrictions if larger users also sacrifice.",
+        "public_expression": "Limited unless business continuity is directly threatened.",
+        "representation_mode": "sector_remainder",
+        "represented_population": 45000,
+        "reputation": 0.54,
+        "secrecy": 0.29,
+        "stance_axes": {
+          "conservation_identity": 0.42,
+          "enforcement_support": 0.46,
+          "fairness_priority": 0.66,
+          "rationing_acceptance": 0.49,
+          "sector_exemption_support": 0.35
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "archetype_name": "civic_and_oversight_public",
+        "attention_level": 0.81,
+        "behavioral_tendencies": [
+          "monitor policy details",
+          "mobilize through moral framing",
+          "ally with fairness narratives"
+        ],
+        "cohort_name": "environmental_advocacy_core",
+        "expression_level": 0.63,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.26,
+        "graph_influence_summary": "Moderate narrative power, especially in media and hearings.",
+        "ideology_axes": {
+          "collective_sacrifice": 0.84,
+          "institutional_trust": 0.48,
+          "market_coordination": 0.24
+        },
+        "mobilization_readiness": 0.59,
+        "perceived_majority": 0.38,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "Scarcity justifies strong demand reduction if burden-sharing is visible and ecosystems are protected.",
+        "public_expression": "Advocates conservation, anti-waste norms, and scrutiny of carve-outs.",
+        "representation_mode": "direct_group_mapping",
+        "represented_population": 30000,
+        "reputation": 0.5,
+        "secrecy": 0.19,
+        "stance_axes": {
+          "conservation_identity": 0.91,
+          "enforcement_support": 0.67,
+          "fairness_priority": 0.71,
+          "rationing_acceptance": 0.76,
+          "sector_exemption_support": 0.12
+        },
+        "trustworthiness": 0.62
+      },
+      {
+        "archetype_name": "civic_and_oversight_public",
+        "attention_level": 0.64,
+        "behavioral_tendencies": [
+          "amplify symbolic incidents",
+          "react to enforcement stories",
+          "follow narrative cues"
+        ],
+        "cohort_name": "media_monitoring_public",
+        "expression_level": 0.4,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.39,
+        "graph_influence_summary": "Shapes perceived majority and pressure through attention cycles.",
+        "ideology_axes": {
+          "collective_sacrifice": 0.56,
+          "institutional_trust": 0.38,
+          "market_coordination": 0.43
+        },
+        "mobilization_readiness": 0.32,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.75,
+        "private_belief": "Outcome legitimacy depends heavily on visible consistency and hypocrisy exposure.",
+        "public_expression": "Shares stories, rumors, and fairness comparisons rather than technical drought data.",
+        "representation_mode": "network_audience",
+        "represented_population": 90000,
+        "reputation": 0.48,
+        "secrecy": 0.21,
+        "stance_axes": {
+          "conservation_identity": 0.46,
+          "enforcement_support": 0.43,
+          "fairness_priority": 0.73,
+          "rationing_acceptance": 0.5,
+          "sector_exemption_support": 0.27
+        },
+        "trustworthiness": 0.5
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "regional_drought_authority"
+        ],
+        "blockers": [
+          "economic pressure from farmers and industrial users",
+          "legitimacy risk if burdens appear uneven",
+          "potential later court review",
+          "compliance erosion through evasion rumors"
+        ],
+        "contradiction_notes": "Would be contradicted by materially broad exemptions that shield major sectors from meaningful cuts.",
+        "description": "A terminal policy state where the authority adopts and sustains a relatively strict rationing regime with limited exemptions across major sectors.",
+        "endpoint_key": "strict_rationing_outcome",
+        "evidence_refs": [
+          "A regional drought authority proposes tiered water rationing.",
+          "The authority can set rationing rules.",
+          "Endpoints include strict rationing."
+        ],
+        "label": "Strict broadly shared rationing adopted",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the regional drought authority ultimately adopt strict broadly shared rationing, or a materially exemption-heavy framework?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.28,
+        "rationale": "This is a core terminal option because the authority has immediate rule-setting authority under scarcity conditions.",
+        "realization_criteria": [
+          "Final adopted rationing rules impose substantive restrictions on residential, agricultural, and industrial users.",
+          "Exemptions remain narrow enough that no major sector is effectively carved out of conservation burden.",
+          "Authority implementation messaging and enforcement plans remain centered on shared sacrifice rather than sectoral carve-outs."
+        ],
+        "status": "active",
+        "status_basis": "At T0, authority has formal power and strict rationing is explicitly named as a possible endpoint, but no final rule exists."
+      },
+      {
+        "authority_refs": [
+          "regional_drought_authority"
+        ],
+        "blockers": [
+          "public backlash over unfairness",
+          "environmental opposition to carve-outs",
+          "risk that exemptions depress compliance among residents",
+          "possible legal vulnerability if rulemaking appears arbitrary"
+        ],
+        "contradiction_notes": "Would be contradicted by a strict cross-sector rule with only minimal technical exceptions.",
+        "description": "A terminal policy state where rationing exists formally but major sectors secure substantial carve-outs, delays, or tailored treatment.",
+        "endpoint_key": "exemption_heavy_rationing_outcome",
+        "evidence_refs": [
+          "Farmers, suburban homeowners, industrial users, urban tenants, and environmental advocates all claim fairness.",
+          "Endpoints include exemptions."
+        ],
+        "label": "Exemption-heavy rationing framework adopted",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the system stabilize around mostly formal compliance, or does quiet evasion become a meaningful parallel access pattern?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.31,
+        "rationale": "Switching costs and economic dependency give productive sectors leverage to push toward differentiated treatment.",
+        "realization_criteria": [
+          "Final rule text contains major exemptions, differentiated quotas, or delayed compliance for agriculture, industry, or another large-use sector.",
+          "Public implementation shows uneven burden allocation across major stakeholder groups.",
+          "Authority messaging justifies sector-specific necessity more than equal sacrifice."
+        ],
+        "status": "active",
+        "status_basis": "Competing fairness claims and sector dependency make carve-outs plausible at initialization."
+      },
+      {
+        "authority_refs": [
+          "regional_drought_authority",
+          "local_media_and_social_feeds"
+        ],
+        "blockers": [
+          "low enforcement intensity",
+          "successful legitimacy-building communication",
+          "broadly perceived evenhandedness",
+          "attention decay before symbolic incidents emerge"
+        ],
+        "contradiction_notes": "Would be weakened if implementation remains low-conflict and discourse stays centered on negotiated burden-sharing.",
+        "description": "A terminal social-political state where the main conflict shifts from rule design to anger over selective, harsh, or visibly unequal enforcement.",
+        "endpoint_key": "enforcement_backlash_outcome",
+        "evidence_refs": [
+          "Endpoints include enforcement backlash.",
+          "Model compliance pressure and public silence."
+        ],
+        "label": "Enforcement backlash dominates implementation",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does enforcement remain administratively accepted, or does backlash against selective or harsh enforcement become the dominant conflict?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.19,
+        "rationale": "In scarcity governance, selective enforcement can become the politically decisive endpoint even when rule text remains unchanged.",
+        "realization_criteria": [
+          "Local discourse and media become dominated by stories of fines, inspections, shutoffs, or selective punishment.",
+          "Affected groups mobilize primarily against enforcement legitimacy rather than against drought conservation in general.",
+          "Authority devotes significant public response to defending enforcement fairness or scaling tactics back under pressure."
+        ],
+        "status": "active",
+        "status_basis": "Backlash is not yet present at T0 but is explicitly indicated as an outcome path and is supported by fairness sensitivity."
+      },
+      {
+        "authority_refs": [
+          "regional_drought_authority",
+          "commercial_farmers",
+          "industrial_users",
+          "suburban_homeowners",
+          "urban_tenants",
+          "environmental_advocates"
+        ],
+        "blockers": [
+          "sector zero-sum framing",
+          "rumor-driven trust erosion",
+          "perceived hidden exemptions",
+          "lack of credible basic-use protection for vulnerable residents"
+        ],
+        "contradiction_notes": "Would be contradicted by escalating open conflict, legal hardening, or widespread quiet evasion overwhelming formal settlement.",
+        "description": "A terminal state where stakeholders reach an accepted conservation arrangement combining meaningful reductions, basic-use protections, and enough flexibility to preserve legitimacy.",
+        "endpoint_key": "negotiated_conservation_outcome",
+        "evidence_refs": [
+          "Endpoints include negotiated conservation.",
+          "All claim fairness."
+        ],
+        "label": "Negotiated conservation settlement stabilizes",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do key stakeholders converge on a negotiated conservation arrangement that preserves legitimacy across sectors?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.22,
+        "rationale": "A blended compromise is plausible where authority seeks compliance durability more than maximal strictness.",
+        "realization_criteria": [
+          "Cross-sector stakeholders publicly accept a final or revised rationing framework without major active resistance.",
+          "Rules or implementation guidance visibly combine conservation targets with fairness protections and practical accommodations.",
+          "Conflict intensity declines as compliance messaging becomes more cooperative than accusatory."
+        ],
+        "status": "active",
+        "status_basis": "Negotiated conservation is an explicit endpoint and is plausible because no group has decisive unilateral social legitimacy at T0."
+      },
+      {
+        "authority_refs": [
+          "regional_courts",
+          "regional_drought_authority"
+        ],
+        "blockers": [
+          "no filed challenge",
+          "judicial deference",
+          "slow litigation relative to implementation timeline",
+          "stakeholders preferring negotiation over suit"
+        ],
+        "contradiction_notes": "Would be contradicted if no meaningful legal challenge emerges or review remains irrelevant to final implementation.",
+        "description": "A terminal institutional state where later judicial review changes, delays, or invalidates significant parts of the authority's rationing framework.",
+        "endpoint_key": "court_constrained_regime_outcome",
+        "evidence_refs": [
+          "Courts can review later."
+        ],
+        "label": "Court materially constrains or alters regime",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does later court review materially alter or constrain the authority's rationing regime?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.14,
+        "rationale": "This endpoint matters because formal decision authority rests with the drought authority, but later judicial intervention remains a credible external constraint.",
+        "realization_criteria": [
+          "A court accepts review and issues an order materially affecting implementation, legality, timing, or core design of rationing rules.",
+          "Authority must revise, pause, or justify the regime in response to judicial action.",
+          "Public and stakeholder behavior reorients around judicial constraints rather than solely administrative discretion."
+        ],
+        "status": "active",
+        "status_basis": "Court review is structurally available but not yet activated at T0."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Authority proposes tiered rationing affecting farmers.",
+        "layer": "dependency",
+        "reason": "Farm operations rely on authority allocations and rules during drought.",
+        "source_actor_name": "commercial_farmers",
+        "target_actor_name": "regional_drought_authority",
+        "weight": 0.62
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Industrial users are claimants in rationing fairness dispute.",
+        "layer": "dependency",
+        "reason": "Industrial continuity depends on rationing design and water access permissions.",
+        "source_actor_name": "industrial_users",
+        "target_actor_name": "regional_drought_authority",
+        "weight": 0.58
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Suburban homeowners are directly affected by rationing proposal.",
+        "layer": "dependency",
+        "reason": "Residential access and restrictions are governed by proposed rules.",
+        "source_actor_name": "suburban_homeowners",
+        "target_actor_name": "regional_drought_authority",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Urban tenants are affected stakeholders; landlords are plausible intermediaries in multi-unit settings.",
+        "layer": "dependency",
+        "reason": "Tenants often experience water access indirectly through building management decisions and costs.",
+        "source_actor_name": "urban_tenants",
+        "target_actor_name": "municipal_landlords_and_property_managers",
+        "weight": 0.54
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Rationing rules would affect urban residential delivery and compliance.",
+        "layer": "dependency",
+        "reason": "Property managers must adapt building operations to rationing rules.",
+        "source_actor_name": "municipal_landlords_and_property_managers",
+        "target_actor_name": "regional_drought_authority",
+        "weight": 0.41
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Environmental advocates seek conservation-oriented rationing.",
+        "layer": "dependency",
+        "reason": "Advocates depend on policy adoption for conservation outcomes.",
+        "source_actor_name": "environmental_advocates",
+        "target_actor_name": "regional_drought_authority",
+        "weight": 0.27
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Black-market hauling rumors emerge in context of proposed rationing.",
+        "layer": "dependency",
+        "reason": "Informal market opportunity grows from formal restrictions and scarcity conditions set by authority action.",
+        "source_actor_name": "water_haulers_black_market",
+        "target_actor_name": "regional_drought_authority",
+        "weight": 0.24
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Scenario emphasizes fairness claims and public pressure.",
+        "layer": "exposure",
+        "reason": "Homeowners are likely to encounter fairness narratives through media and social channels.",
+        "source_actor_name": "suburban_homeowners",
+        "target_actor_name": "local_media_and_social_feeds",
+        "weight": 0.63
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Public discourse around rationing and fairness is implied.",
+        "layer": "exposure",
+        "reason": "Tenants receive indirect information through news and social discussion.",
+        "source_actor_name": "urban_tenants",
+        "target_actor_name": "local_media_and_social_feeds",
+        "weight": 0.48
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Multiple sectors claim fairness publicly.",
+        "layer": "exposure",
+        "reason": "Farmers monitor public narratives affecting exemptions and legitimacy.",
+        "source_actor_name": "commercial_farmers",
+        "target_actor_name": "local_media_and_social_feeds",
+        "weight": 0.39
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Industrial users are involved in fairness contestation.",
+        "layer": "exposure",
+        "reason": "Industry tracks reputational and policy coverage.",
+        "source_actor_name": "industrial_users",
+        "target_actor_name": "local_media_and_social_feeds",
+        "weight": 0.34
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Expected focus includes fairness narratives and compliance.",
+        "layer": "exposure",
+        "reason": "Advocates use and monitor media to shape conservation narratives.",
+        "source_actor_name": "environmental_advocates",
+        "target_actor_name": "local_media_and_social_feeds",
+        "weight": 0.57
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Authority faces fairness contest and rumor emergence.",
+        "layer": "exposure",
+        "reason": "Authority monitors reaction and rumor spread.",
+        "source_actor_name": "regional_drought_authority",
+        "target_actor_name": "local_media_and_social_feeds",
+        "weight": 0.52
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "All sides claim fairness; no settled legitimacy at T0.",
+        "layer": "trust",
+        "reason": "Moderate trust contingent on visible fairness and competence.",
+        "source_actor_name": "suburban_homeowners",
+        "target_actor_name": "regional_drought_authority",
+        "weight": 0.42
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Public silence and limited direct power are salient.",
+        "layer": "trust",
+        "reason": "Tenants see authority as somewhat legitimate but distant and unevenly responsive.",
+        "source_actor_name": "urban_tenants",
+        "target_actor_name": "regional_drought_authority",
+        "weight": 0.38
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Farmers claim fairness against rationing design.",
+        "layer": "trust",
+        "reason": "Farmers expect misaligned or burdensome rules absent exemptions.",
+        "source_actor_name": "commercial_farmers",
+        "target_actor_name": "regional_drought_authority",
+        "weight": 0.29
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Industrial users seek fairness and likely tailored treatment.",
+        "layer": "trust",
+        "reason": "Industry expects negotiation but not fully aligned treatment.",
+        "source_actor_name": "industrial_users",
+        "target_actor_name": "regional_drought_authority",
+        "weight": 0.36
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Endpoints include negotiated conservation versus exemptions.",
+        "layer": "trust",
+        "reason": "Advocates are somewhat trusting if authority adopts meaningful conservation but wary of carve-outs.",
+        "source_actor_name": "environmental_advocates",
+        "target_actor_name": "regional_drought_authority",
+        "weight": 0.47
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Courts can review later.",
+        "layer": "trust",
+        "reason": "Authority expects procedural review as legitimate though potentially constraining.",
+        "source_actor_name": "regional_drought_authority",
+        "target_actor_name": "regional_courts",
+        "weight": 0.55
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Rumors emerge through public discourse dynamics.",
+        "layer": "trust",
+        "reason": "Information channels are used heavily but not deeply trusted.",
+        "source_actor_name": "regional_residents_proxy",
+        "target_actor_name": "local_media_and_social_feeds",
+        "weight": 0.35
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Authority can set rationing rules.",
+        "layer": "influence",
+        "reason": "Authority can materially alter agricultural access through rule design.",
+        "source_actor_name": "regional_drought_authority",
+        "target_actor_name": "commercial_farmers",
+        "weight": 0.63
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Authority has rule-setting power over industrial users.",
+        "layer": "influence",
+        "reason": "Authority can constrain or accommodate industrial usage.",
+        "source_actor_name": "regional_drought_authority",
+        "target_actor_name": "industrial_users",
+        "weight": 0.59
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Homeowners are named affected users.",
+        "layer": "influence",
+        "reason": "Authority shapes household restrictions and compliance expectations.",
+        "source_actor_name": "regional_drought_authority",
+        "target_actor_name": "suburban_homeowners",
+        "weight": 0.51
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Urban tenants are included among fairness claimants.",
+        "layer": "influence",
+        "reason": "Authority indirectly shapes tenant conditions through service rules and restrictions.",
+        "source_actor_name": "regional_drought_authority",
+        "target_actor_name": "urban_tenants",
+        "weight": 0.44
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Farmers are a major fairness claimant under resource dependency.",
+        "layer": "influence",
+        "reason": "Farmers can apply economic and political pressure for exemptions.",
+        "source_actor_name": "commercial_farmers",
+        "target_actor_name": "regional_drought_authority",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Industrial users claim fairness and likely seek tailored rules.",
+        "layer": "influence",
+        "reason": "Industry can lobby around jobs and investment impacts.",
+        "source_actor_name": "industrial_users",
+        "target_actor_name": "regional_drought_authority",
+        "weight": 0.43
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Expected focus includes negotiated conservation.",
+        "layer": "influence",
+        "reason": "Advocates can shape legitimacy by framing conservation urgency.",
+        "source_actor_name": "environmental_advocates",
+        "target_actor_name": "regional_drought_authority",
+        "weight": 0.38
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Fairness narratives and rumor dynamics are central.",
+        "layer": "influence",
+        "reason": "Media shapes perceived fairness, majority sentiment, and salience.",
+        "source_actor_name": "local_media_and_social_feeds",
+        "target_actor_name": "suburban_homeowners",
+        "weight": 0.58
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Public silence and fairness narratives interact via information channels.",
+        "layer": "influence",
+        "reason": "Media affects attention and interpretation of burden-sharing.",
+        "source_actor_name": "local_media_and_social_feeds",
+        "target_actor_name": "urban_tenants",
+        "weight": 0.41
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Public backlash and enforcement concerns are endpoint-relevant.",
+        "layer": "influence",
+        "reason": "Amplified controversy can pressure messaging and implementation choices.",
+        "source_actor_name": "local_media_and_social_feeds",
+        "target_actor_name": "regional_drought_authority",
+        "weight": 0.37
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Endpoints include exemptions.",
+        "layer": "coalition",
+        "reason": "Both may align around exemptions or flexible treatment for productive sectors.",
+        "source_actor_name": "commercial_farmers",
+        "target_actor_name": "industrial_users",
+        "weight": 0.42
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Both residential groups are directly affected by rationing fairness.",
+        "layer": "coalition",
+        "reason": "Shared fairness concerns can align residential sectors if burden appears unequal.",
+        "source_actor_name": "suburban_homeowners",
+        "target_actor_name": "urban_tenants",
+        "weight": 0.29
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Negotiated conservation and fairness are both salient.",
+        "layer": "coalition",
+        "reason": "Potential alliance around anti-exemption and basic-use protection, though not automatic.",
+        "source_actor_name": "urban_tenants",
+        "target_actor_name": "environmental_advocates",
+        "weight": 0.24
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Conservation and fairness narratives can overlap.",
+        "layer": "coalition",
+        "reason": "Conditional alignment possible if conservation rules are visibly shared.",
+        "source_actor_name": "suburban_homeowners",
+        "target_actor_name": "environmental_advocates",
+        "weight": 0.21
+      },
+      {
+        "direction": "conditional_alignment",
+        "evidence": "Advocates seek strict and equitable reductions.",
+        "layer": "coalition",
+        "reason": "Partial alignment exists if authority advances meaningful conservation.",
+        "source_actor_name": "environmental_advocates",
+        "target_actor_name": "regional_drought_authority",
+        "weight": 0.33
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "Farmers claim fairness under proposed rationing.",
+        "layer": "conflict",
+        "reason": "Farmers may view tiered rationing as a threat to livelihood and fairness.",
+        "source_actor_name": "commercial_farmers",
+        "target_actor_name": "regional_drought_authority",
+        "weight": 0.54
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "Industrial users dispute fairness.",
+        "layer": "conflict",
+        "reason": "Industry may resist costly or inflexible restrictions.",
+        "source_actor_name": "industrial_users",
+        "target_actor_name": "regional_drought_authority",
+        "weight": 0.41
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "Competing fairness claims across sectors.",
+        "layer": "conflict",
+        "reason": "Homeowners may resent perceived preferential treatment for agriculture.",
+        "source_actor_name": "suburban_homeowners",
+        "target_actor_name": "commercial_farmers",
+        "weight": 0.33
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "Environmental advocates claim fairness and conservation priorities.",
+        "layer": "conflict",
+        "reason": "Advocates may see agricultural exemptions as environmentally harmful.",
+        "source_actor_name": "environmental_advocates",
+        "target_actor_name": "commercial_farmers",
+        "weight": 0.38
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "Endpoints include strict rationing versus exemptions.",
+        "layer": "conflict",
+        "reason": "Advocates may resist industrial carve-outs as undermining conservation.",
+        "source_actor_name": "environmental_advocates",
+        "target_actor_name": "industrial_users",
+        "weight": 0.36
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "Black-market hauling rumors emerge.",
+        "layer": "conflict",
+        "reason": "Informal hauling undermines rationing legitimacy and compliance.",
+        "source_actor_name": "regional_drought_authority",
+        "target_actor_name": "water_haulers_black_market",
+        "weight": 0.57
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "Tenant vulnerability under rationing is implied by stakeholder structure.",
+        "layer": "conflict",
+        "reason": "Tenants may fear costs or restrictions being passed down unfairly.",
+        "source_actor_name": "urban_tenants",
+        "target_actor_name": "municipal_landlords_and_property_managers",
+        "weight": 0.31
+      },
+      {
+        "direction": "bidirectional_public_interaction",
+        "evidence": "Authority is proposing rules affecting farmers materially.",
+        "layer": "oasis_interaction",
+        "reason": "Likely hearings, notices, and direct stakeholder engagement.",
+        "source_actor_name": "regional_drought_authority",
+        "target_actor_name": "commercial_farmers",
+        "weight": 0.49
+      },
+      {
+        "direction": "bidirectional_public_interaction",
+        "evidence": "Industrial users are central claimants.",
+        "layer": "oasis_interaction",
+        "reason": "Public consultation and technical meetings are likely around implementation.",
+        "source_actor_name": "regional_drought_authority",
+        "target_actor_name": "industrial_users",
+        "weight": 0.43
+      },
+      {
+        "direction": "bidirectional_public_interaction",
+        "evidence": "Negotiated conservation is an explicit endpoint track.",
+        "layer": "oasis_interaction",
+        "reason": "Advocates likely participate in visible public comment and conservation debates.",
+        "source_actor_name": "regional_drought_authority",
+        "target_actor_name": "environmental_advocates",
+        "weight": 0.37
+      },
+      {
+        "direction": "bidirectional_public_interaction",
+        "evidence": "Fairness narratives and rumors are central.",
+        "layer": "oasis_interaction",
+        "reason": "Public-facing statements, interviews, and controversy response are likely.",
+        "source_actor_name": "local_media_and_social_feeds",
+        "target_actor_name": "regional_drought_authority",
+        "weight": 0.46
+      },
+      {
+        "direction": "bidirectional_public_interaction",
+        "evidence": "Compliance pressure and fairness narratives shape public expression.",
+        "layer": "oasis_interaction",
+        "reason": "Visible residential discussion likely occurs through local social channels.",
+        "source_actor_name": "local_media_and_social_feeds",
+        "target_actor_name": "suburban_homeowners",
+        "weight": 0.52
+      },
+      {
+        "direction": "bidirectional_public_interaction",
+        "evidence": "Conservation and fairness messaging are salient.",
+        "layer": "oasis_interaction",
+        "reason": "Advocates are likely active in public messaging and commentary.",
+        "source_actor_name": "local_media_and_social_feeds",
+        "target_actor_name": "environmental_advocates",
+        "weight": 0.44
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "description": "Institutional actor with formal power to adopt rationing rules",
+        "name": "decision_authority"
+      },
+      {
+        "description": "Institutional actor that can later constrain or uphold rules",
+        "name": "review_authority"
+      },
+      {
+        "description": "Actor positioned to benefit from scarcity and uneven enforcement",
+        "name": "informal_supply_opportunist"
+      }
+    ],
+    "hero_states": [
+      {
+        "archetype_name": "decision_authority",
+        "attention_level": 0.9,
+        "constraints": [
+          "legitimacy concerns",
+          "future court review",
+          "sector compliance limits",
+          "information uncertainty"
+        ],
+        "expression_level": 0.74,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.12,
+        "formal_power": 0.92,
+        "hero_name": "regional_drought_authority",
+        "informal_power": 0.63,
+        "mobilization_readiness": 0.71,
+        "perceived_majority": 0.49,
+        "private_pressures": "Must conserve supply without triggering visible unfairness or widespread evasion.",
+        "public_commitments": "Preparing tiered rationing framework under drought pressure.",
+        "represented_actor": "regional_drought_authority",
+        "stance_axes": {
+          "enforcement_intensity": 0.46,
+          "equity_emphasis": 0.57,
+          "exemption_openness": 0.41,
+          "rationing_strictness": 0.61
+        }
+      },
+      {
+        "archetype_name": "review_authority",
+        "attention_level": 0.32,
+        "constraints": [
+          "case must be brought",
+          "review occurs later than rule proposal",
+          "depends on legal record"
+        ],
+        "expression_level": 0.08,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.05,
+        "formal_power": 0.79,
+        "hero_name": "regional_courts",
+        "informal_power": 0.46,
+        "mobilization_readiness": 0.11,
+        "perceived_majority": 0.5,
+        "private_pressures": "Maintain legitimacy and procedural neutrality.",
+        "public_commitments": "No explicit position at T0.",
+        "represented_actor": "regional_courts",
+        "stance_axes": {
+          "deference_to_authority": 0.57,
+          "equity_emphasis": 0.55,
+          "procedural_scrutiny": 0.68,
+          "speed_of_intervention": 0.29
+        }
+      },
+      {
+        "archetype_name": "informal_supply_opportunist",
+        "attention_level": 0.27,
+        "constraints": [
+          "rumor status",
+          "enforcement uncertainty",
+          "logistical detection risk"
+        ],
+        "expression_level": 0.05,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.61,
+        "formal_power": 0.02,
+        "hero_name": "water_haulers_black_market",
+        "informal_power": 0.24,
+        "mobilization_readiness": 0.38,
+        "perceived_majority": 0.22,
+        "private_pressures": "Grow only if shortages and perceived unfairness create demand for off-system access.",
+        "public_commitments": "None.",
+        "represented_actor": "water_haulers_black_market",
+        "stance_axes": {
+          "profit_motive": 0.88,
+          "rationing_opposition": 0.78,
+          "risk_tolerance": 0.67,
+          "visibility_preference": 0.18
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "description": "Institutional actor with formal power to adopt rationing rules",
+        "name": "decision_authority"
+      },
+      {
+        "description": "Institutional actor that can later constrain or uphold rules",
+        "name": "review_authority"
+      },
+      {
+        "description": "Actor positioned to benefit from scarcity and uneven enforcement",
+        "name": "informal_supply_opportunist"
+      }
+    ],
+    "important_questions": [
+      "Does the regional drought authority ultimately adopt strict broadly shared rationing, or a materially exemption-heavy framework?",
+      "Does the system stabilize around mostly formal compliance, or does quiet evasion become a meaningful parallel access pattern?",
+      "Does enforcement remain administratively accepted, or does backlash against selective or harsh enforcement become the dominant conflict?",
+      "Do key stakeholders converge on a negotiated conservation arrangement that preserves legitimacy across sectors?",
+      "Does later court review materially alter or constrain the authority's rationing regime?"
+    ],
+    "initial_events": [
+      {
+        "actors_involved": [
+          "regional_drought_authority"
+        ],
+        "event_key": "drought_authority_releases_tiered_rationing_proposal",
+        "event_type": "announcement",
+        "expected_impact": "Raises attention, forces fairness comparisons, and activates lobbying from high-dependency sectors without yet locking final terms.",
+        "status": "visible",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "commercial_farmers",
+          "suburban_homeowners",
+          "industrial_users",
+          "urban_tenants",
+          "environmental_advocates",
+          "local_media_and_social_feeds"
+        ],
+        "event_key": "sector_fairness_claims_enter_public_discourse",
+        "event_type": "announcement",
+        "expected_impact": "Increases conflict and coalition experimentation across sectors; perceived legitimacy begins to hinge on burden-sharing narratives.",
+        "status": "visible",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "water_haulers_black_market",
+          "local_media_and_social_feeds"
+        ],
+        "event_key": "black_market_water_hauling_rumors_spread",
+        "event_type": "announcement",
+        "expected_impact": "Weakens trust and may normalize quiet evasion if not credibly addressed.",
+        "status": "visible_but_unverified",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "regional_drought_authority",
+          "commercial_farmers",
+          "industrial_users",
+          "environmental_advocates",
+          "suburban_homeowners"
+        ],
+        "event_key": "authority_collects_feedback_and_considers_rule_details",
+        "event_type": "announcement",
+        "expected_impact": "Creates openings for exemptions, stricter enforcement language, or legitimacy-building concessions.",
+        "status": "imminent",
+        "tick": 1
+      },
+      {
+        "actors_involved": [
+          "suburban_homeowners",
+          "urban_tenants",
+          "commercial_farmers",
+          "industrial_users",
+          "local_media_and_social_feeds"
+        ],
+        "event_key": "early_compliance_signals_emerge_in_residential_and_sector_networks",
+        "event_type": "announcement",
+        "expected_impact": "Observed behavior begins shaping perceived majority, silence, and enforcement expectations.",
+        "status": "imminent",
+        "tick": 2
+      },
+      {
+        "actors_involved": [
+          "regional_courts",
+          "regional_drought_authority"
+        ],
+        "event_key": "potential_legal_review_path_becomes_salient",
+        "event_type": "announcement",
+        "expected_impact": "May shift conflict from public rhetoric to procedural contest if parties conclude direct influence failed.",
+        "status": "conditional_imminent",
+        "tick": 3
+      }
+    ],
+    "llm_call_id": "855ecc5c-733b-49de-8a5d-25d56197c7d8",
+    "merge_hypotheses": [
+      {
+        "affected_actors": [
+          "regional_drought_authority",
+          "commercial_farmers",
+          "industrial_users",
+          "suburban_homeowners",
+          "urban_tenants",
+          "environmental_advocates"
+        ],
+        "convergence_driver": "Observable worsening drought conditions could make all groups accept some common sacrifice despite fairness disputes.",
+        "merge_key": "shared_scarcity_reality"
+      },
+      {
+        "affected_actors": [
+          "commercial_farmers",
+          "industrial_users",
+          "suburban_homeowners",
+          "environmental_advocates",
+          "regional_drought_authority"
+        ],
+        "convergence_driver": "Sustained conflict without decisive gains may push sectors toward practical compromise rather than maximalist demands.",
+        "merge_key": "coalition_fatigue"
+      },
+      {
+        "affected_actors": [
+          "regional_drought_authority",
+          "suburban_homeowners",
+          "urban_tenants",
+          "environmental_advocates",
+          "local_media_and_social_feeds"
+        ],
+        "convergence_driver": "Clear allocation logic, public data, and visible anti-evasion measures could reduce rumor-driven distrust.",
+        "merge_key": "legitimacy_repair_through_transparency"
+      },
+      {
+        "affected_actors": [
+          "regional_drought_authority",
+          "suburban_homeowners",
+          "commercial_farmers",
+          "industrial_users",
+          "environmental_advocates"
+        ],
+        "convergence_driver": "Confirmed black-market abuse could align otherwise divided groups behind stronger formal governance.",
+        "merge_key": "common_adversary_informal_evasion"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "description": "General residential population affected directly or indirectly by rationing",
+        "name": "regional_residents",
+        "population_total": 1200000
+      },
+      {
+        "description": "Actors whose operations rely materially on water access",
+        "name": "water_dependent_economic_actors",
+        "population_total": 85000
+      },
+      {
+        "description": "People active in advocacy, monitoring, media, and public discourse",
+        "name": "civic_and_oversight_public",
+        "population_total": 120000
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "limited_scale_data",
+        "note": "No exact regional population, reservoir levels, or drought metrics are provided; population values are calibrated defaults for simulation utility.",
+        "severity": "medium"
+      },
+      {
+        "flag": "rumor_evidence_only",
+        "note": "Black-market hauling is reported as rumor at T0; treat as pressure on trust and compliance, not confirmed dominant behavior.",
+        "severity": "medium"
+      },
+      {
+        "flag": "open_group_boundaries",
+        "note": "Stakeholder groups are broad and may contain internal splits not fully specified in source text.",
+        "severity": "low"
+      },
+      {
+        "flag": "proxy_actor_edge_used",
+        "note": "One trust edge references generalized residents via media trust logic; broad public trust remains weakly evidenced and should be refined in later updates.",
+        "severity": "medium"
+      },
+      {
+        "flag": "court_timing_uncertain",
+        "note": "Judicial review is possible later but no filing trigger or legal basis is specified at initialization.",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "case_id": "health_002",
+      "domain": "public_health_resource",
+      "mode": "direct",
+      "primary_tensions": [
+        "scarcity_vs_fairness",
+        "uniform_rules_vs_sector_exemptions",
+        "compliance_vs_evasion",
+        "public_acceptance_vs_enforcement_backlash",
+        "short_term_economic_needs_vs_conservation_goals"
+      ],
+      "summary": "A regional drought authority is preparing tiered water rationing amid scarcity. Key groups dispute fairness: farmers, suburban homeowners, industrial users, urban tenants, and environmental advocates. The authority has primary rule-setting power at T0, with court review possible later. Rumors of black-market water hauling indicate potential compliance erosion and uneven enforcement. Initialization should emphasize resource dependency, fairness narratives, compliance pressure, public silence, and endpoint uncertainty among strict rationing, exemptions, enforcement backlash, and negotiated conservation.",
+      "timeframe": "pre-implementation_to_early_rollout",
+      "uncertainty_notes": [
+        "No named jurisdiction, population size, or exact drought severity is provided.",
+        "No explicit legal filing, protest, or enacted rule exists at T0.",
+        "Black-market activity is rumor-level at initialization, not confirmed systemwide."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "level": 0.62,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Actors are more persuadable by narratives that preserve their prior sense of deservingness and necessity.",
+        "scope": "cross-sector fairness arguments"
+      },
+      {
+        "level": 0.58,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Many actors will remain passive until visible exemptions, penalties, or shortages cross a fairness threshold.",
+        "scope": "residential and business compliance politics"
+      },
+      {
+        "level": 0.67,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Privately skeptical groups are likely under-expressive at T0 due to low efficacy or dependency.",
+        "scope": "urban_tenants and compliance-skeptical residents"
+      },
+      {
+        "level": 0.54,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Farm, industry, residential, and advocacy communities cluster around their own fairness narratives.",
+        "scope": "sectoral discourse"
+      },
+      {
+        "level": 0.49,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Single stories may not shift behavior, but repeated reports of hypocrisy or evasion could.",
+        "scope": "compliance erosion or protest uptake"
+      },
+      {
+        "level": 0.71,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Sector identity strongly structures perceptions of deservingness and sacrifice.",
+        "scope": "farmer/resident/environmentalist role identities"
+      },
+      {
+        "level": 0.36,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Attention is meaningful now but could fade unless concrete enforcement or hardship stories appear.",
+        "scope": "general public"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context_key": "fairness_narratives",
+        "description": "Competing claims center on which uses are essential and whether burden-sharing is visible across sectors."
+      },
+      {
+        "context_key": "resource_dependency",
+        "description": "Agriculture and industry have higher operational water dependence; tenants have lower control despite direct household need."
+      },
+      {
+        "context_key": "compliance_pressure",
+        "description": "Observed peer compliance and exemption visibility are likely stronger drivers than abstract conservation messaging alone."
+      },
+      {
+        "context_key": "public_silence",
+        "description": "Some residents, especially tenants and skeptical minorities, may privately dissent without immediate public expression."
+      },
+      {
+        "context_key": "rumor_channel",
+        "description": "Black-market hauling rumors can erode trust even before large-scale confirmation if they suggest unequal access."
+      },
+      {
+        "context_key": "review_lag",
+        "description": "Courts can review later, so early policy legitimacy depends more on authority signaling and implementation than immediate adjudication."
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "regional_drought_authority",
+        "behavior_axes": {
+          "adaptability": 0.52,
+          "coerciveness": 0.44,
+          "rule_orientation": 0.83,
+          "transparency": 0.48
+        },
+        "ideology_axes": {
+          "collective_management": 0.79,
+          "equity_salience": 0.58,
+          "market_reliance": 0.26
+        },
+        "reputation": 0.57,
+        "secrecy": 0.42,
+        "tendency": "technocratic_balancer",
+        "trustworthiness": 0.54
+      },
+      {
+        "actor_name": "commercial_farmers",
+        "behavior_axes": {
+          "adaptability": 0.56,
+          "coerciveness": 0.21,
+          "rule_orientation": 0.41,
+          "transparency": 0.45
+        },
+        "ideology_axes": {
+          "collective_management": 0.33,
+          "equity_salience": 0.71,
+          "market_reliance": 0.66
+        },
+        "reputation": 0.52,
+        "secrecy": 0.29,
+        "tendency": "essential_sector_claimant",
+        "trustworthiness": 0.53
+      },
+      {
+        "actor_name": "suburban_homeowners",
+        "behavior_axes": {
+          "adaptability": 0.49,
+          "coerciveness": 0.19,
+          "rule_orientation": 0.58,
+          "transparency": 0.62
+        },
+        "ideology_axes": {
+          "collective_management": 0.54,
+          "equity_salience": 0.68,
+          "market_reliance": 0.46
+        },
+        "reputation": 0.56,
+        "secrecy": 0.23,
+        "tendency": "reciprocal_complier",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "industrial_users",
+        "behavior_axes": {
+          "adaptability": 0.64,
+          "coerciveness": 0.24,
+          "rule_orientation": 0.5,
+          "transparency": 0.34
+        },
+        "ideology_axes": {
+          "collective_management": 0.38,
+          "equity_salience": 0.49,
+          "market_reliance": 0.73
+        },
+        "reputation": 0.46,
+        "secrecy": 0.47,
+        "tendency": "backchannel_negotiator",
+        "trustworthiness": 0.49
+      },
+      {
+        "actor_name": "urban_tenants",
+        "behavior_axes": {
+          "adaptability": 0.57,
+          "coerciveness": 0.08,
+          "rule_orientation": 0.61,
+          "transparency": 0.46
+        },
+        "ideology_axes": {
+          "collective_management": 0.61,
+          "equity_salience": 0.76,
+          "market_reliance": 0.35
+        },
+        "reputation": 0.5,
+        "secrecy": 0.35,
+        "tendency": "low_voice_fairness_seeker",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "environmental_advocates",
+        "behavior_axes": {
+          "adaptability": 0.51,
+          "coerciveness": 0.29,
+          "rule_orientation": 0.7,
+          "transparency": 0.72
+        },
+        "ideology_axes": {
+          "collective_management": 0.82,
+          "equity_salience": 0.69,
+          "market_reliance": 0.19
+        },
+        "reputation": 0.51,
+        "secrecy": 0.18,
+        "tendency": "conservation_monitor",
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "regional_courts",
+        "behavior_axes": {
+          "adaptability": 0.27,
+          "coerciveness": 0.41,
+          "rule_orientation": 0.88,
+          "transparency": 0.59
+        },
+        "ideology_axes": {
+          "collective_management": 0.57,
+          "equity_salience": 0.56,
+          "market_reliance": 0.31
+        },
+        "reputation": 0.68,
+        "secrecy": 0.31,
+        "tendency": "procedural_arbiter",
+        "trustworthiness": 0.7
+      },
+      {
+        "actor_name": "water_haulers_black_market",
+        "behavior_axes": {
+          "adaptability": 0.72,
+          "coerciveness": 0.18,
+          "rule_orientation": 0.08,
+          "transparency": 0.07
+        },
+        "ideology_axes": {
+          "collective_management": 0.06,
+          "equity_salience": 0.12,
+          "market_reliance": 0.89
+        },
+        "reputation": 0.14,
+        "secrecy": 0.86,
+        "tendency": "scarcity_exploiter",
+        "trustworthiness": 0.16
+      },
+      {
+        "actor_name": "local_media_and_social_feeds",
+        "behavior_axes": {
+          "adaptability": 0.79,
+          "coerciveness": 0.12,
+          "rule_orientation": 0.42,
+          "transparency": 0.39
+        },
+        "ideology_axes": {
+          "collective_management": 0.44,
+          "equity_salience": 0.72,
+          "market_reliance": 0.41
+        },
+        "reputation": 0.45,
+        "secrecy": 0.14,
+        "tendency": "narrative_amplifier",
+        "trustworthiness": 0.43
+      },
+      {
+        "actor_name": "municipal_landlords_and_property_managers",
+        "behavior_axes": {
+          "adaptability": 0.52,
+          "coerciveness": 0.31,
+          "rule_orientation": 0.56,
+          "transparency": 0.28
+        },
+        "ideology_axes": {
+          "collective_management": 0.39,
+          "equity_salience": 0.36,
+          "market_reliance": 0.68
+        },
+        "reputation": 0.4,
+        "secrecy": 0.51,
+        "tendency": "cost_shifter",
+        "trustworthiness": 0.38
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 595,
+        "end": 595,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 595,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

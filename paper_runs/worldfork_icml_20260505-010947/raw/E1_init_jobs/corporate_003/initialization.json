@@ -1,0 +1,1680 @@
+{
+  "big_bang_id": "a20e959e-b73c-4924-8601-abe15d4dddd1",
+  "initializer_output": {
+    "actors": [
+      {
+        "decision_authority": "internal operations, records access, public response, remediation offers",
+        "fictionalized": true,
+        "name": "firm_novalogic",
+        "public_visibility": "high",
+        "role": "logistics_software_vendor",
+        "stakes": [
+          "retain_city_contract",
+          "avoid_regulatory_and_reputational_damage",
+          "preserve_customer_trust"
+        ],
+        "type": "organization"
+      },
+      {
+        "decision_authority": "can disclose evidence and testimony",
+        "fictionalized": true,
+        "name": "employee_whistleblower",
+        "public_visibility": "medium",
+        "role": "alleging_employee",
+        "stakes": [
+          "credibility",
+          "employment_security",
+          "public_interest",
+          "personal_protection"
+        ],
+        "type": "person"
+      },
+      {
+        "decision_authority": "can review, pause, continue, or recommend termination of contract",
+        "fictionalized": true,
+        "name": "city_procurement_office",
+        "public_visibility": "high",
+        "role": "contracting_authority_and_reviewer",
+        "stakes": [
+          "contract_integrity",
+          "public_accountability",
+          "service_continuity",
+          "political_legitimacy"
+        ],
+        "type": "institution"
+      },
+      {
+        "decision_authority": "can request records, validate metrics, and inform procurement decisions",
+        "fictionalized": true,
+        "name": "city_contract_oversight_team",
+        "public_visibility": "medium",
+        "role": "review_and_audit_support",
+        "stakes": [
+          "fact_finding",
+          "procedural_fairness"
+        ],
+        "type": "institutional_unit"
+      },
+      {
+        "decision_authority": "can provide testimony and informal corroboration",
+        "fictionalized": true,
+        "name": "drivers_service_cohort",
+        "public_visibility": "medium",
+        "role": "frontline_delivery_workers_reporting_mismatch",
+        "stakes": [
+          "operational_accuracy",
+          "workload_fairness",
+          "safety_and_performance_expectations"
+        ],
+        "type": "group"
+      },
+      {
+        "decision_authority": "can amplify narrative and lobby indirectly",
+        "fictionalized": true,
+        "name": "competitor_firms",
+        "public_visibility": "medium",
+        "role": "market_rivals_amplifying_story",
+        "stakes": [
+          "market_share",
+          "public_contract_opportunity",
+          "reputational_advantage"
+        ],
+        "type": "group"
+      },
+      {
+        "decision_authority": "indirect agenda and legitimacy pressure",
+        "fictionalized": true,
+        "name": "city_public_and_media",
+        "public_visibility": "high",
+        "role": "external_observers",
+        "stakes": [
+          "trust_in_procurement",
+          "service_reliability",
+          "accountability"
+        ],
+        "type": "group"
+      },
+      {
+        "decision_authority": "controls firm strategy, cooperation posture, and trust-repair actions",
+        "fictionalized": true,
+        "name": "firm_leadership",
+        "public_visibility": "high",
+        "role": "executive_decision_makers",
+        "stakes": [
+          "organizational_survival",
+          "legal_exposure",
+          "investor_and_client_confidence"
+        ],
+        "type": "group"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "branch_key": "b1_audit_escalation",
+        "divergence_signal": "Document requests broaden, oversight team role deepens, and official language shifts from review to audit-like scrutiny.",
+        "plausible_path": "Procurement office expands review into formal audit or intensified oversight before final contract decision.",
+        "trigger": "review encounters inconsistent records or multi-source corroboration from drivers and insiders"
+      },
+      {
+        "branch_key": "b2_temporary_contract_pause",
+        "divergence_signal": "City announces service safeguards, interim measures, or procurement hold language without yet terminating the vendor.",
+        "plausible_path": "Contract is temporarily paused or partially suspended while facts are verified or interim controls are imposed.",
+        "trigger": "city judges risk of continued operation under disputed metrics as too high relative to immediate continuity options"
+      },
+      {
+        "branch_key": "b3_exoneration_or_limited_remediation",
+        "divergence_signal": "Official statements emphasize insufficient evidence of manipulation and focus on process improvements rather than culpability.",
+        "plausible_path": "Review closes with no major sanction, possibly combined with reporting fixes or transparency commitments.",
+        "trigger": "firm provides records or methodology that plausibly explain discrepancies without proving manipulation"
+      },
+      {
+        "branch_key": "b4_contract_termination",
+        "divergence_signal": "City leadership or procurement authority frames issue as breach or misrepresentation rather than a disputed performance interpretation.",
+        "plausible_path": "City moves from review to termination or non-renewal of the contract.",
+        "trigger": "clear evidence of manipulation or material misrepresentation emerges and continuity alternatives become acceptable"
+      },
+      {
+        "branch_key": "b5_trust_repair_without_full_clearance",
+        "divergence_signal": "Public discussion shifts from guilt-only framing to oversight-and-remediation framing; procurement references compliance steps.",
+        "plausible_path": "Immediate termination pressure eases while review continues, producing a managed stalemate with conditional continuation.",
+        "trigger": "firm cooperates visibly, offers audit access, and adopts corrective controls before findings are final"
+      }
+    ],
+    "channels": [
+      {
+        "actors": [
+          "firm_novalogic",
+          "firm_leadership"
+        ],
+        "channel_key": "firm_public_statement",
+        "credibility": 0.38,
+        "reach": 0.71,
+        "type": "public_pr"
+      },
+      {
+        "actors": [
+          "city_procurement_office",
+          "city_contract_oversight_team",
+          "firm_novalogic",
+          "employee_whistleblower"
+        ],
+        "channel_key": "procurement_review_process",
+        "credibility": 0.81,
+        "reach": 0.52,
+        "type": "institutional_review"
+      },
+      {
+        "actors": [
+          "drivers_service_cohort",
+          "city_procurement_office",
+          "city_public_and_media"
+        ],
+        "channel_key": "driver_testimony_networks",
+        "credibility": 0.63,
+        "reach": 0.43,
+        "type": "frontline_informal_and_formal_reports"
+      },
+      {
+        "actors": [
+          "competitor_firms",
+          "city_public_and_media"
+        ],
+        "channel_key": "competitor_amplification",
+        "credibility": 0.29,
+        "reach": 0.58,
+        "type": "industry_public_commentary"
+      },
+      {
+        "actors": [
+          "city_public_and_media"
+        ],
+        "channel_key": "local_public_discussion",
+        "credibility": 0.5,
+        "reach": 0.49,
+        "type": "public_attention_channel"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "firm_employees",
+        "attention_level": 0.72,
+        "behavioral_tendencies": [
+          "risk_averse",
+          "status_quo_oriented",
+          "message_disciplined"
+        ],
+        "cohort_key": "employees_loyal_uncertain",
+        "expression_level": 0.28,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.63,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.68,
+        "population_share_of_archetype": 0.595,
+        "private_belief": "uncertain_about_internal_accuracy_but_inclined_to_defend_firm",
+        "public_expression": "limited_public_comment; tends to echo official denial or remain silent",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 250,
+        "reputation": 0.56,
+        "secrecy": 0.58,
+        "stance_axes": {
+          "expects_wrongdoing": 0.35,
+          "supports_external_review": 0.45,
+          "supports_firm": 0.7
+        },
+        "trustworthiness": 0.53
+      },
+      {
+        "archetype_key": "firm_employees",
+        "attention_level": 0.77,
+        "behavioral_tendencies": [
+          "withholding",
+          "evidence_sensitive",
+          "employment_protective"
+        ],
+        "cohort_key": "employees_internal_doubters",
+        "expression_level": 0.19,
+        "fatigue": 0.42,
+        "fear_of_isolation": 0.76,
+        "mobilization_readiness": 0.31,
+        "perceived_majority": 0.31,
+        "population_share_of_archetype": 0.286,
+        "private_belief": "suspects metrics may have been presented inaccurately",
+        "public_expression": "quiet concern, selective off-record discussion",
+        "representation_mode": "significant_minority_cohort",
+        "represented_population": 120,
+        "reputation": 0.49,
+        "secrecy": 0.71,
+        "stance_axes": {
+          "expects_wrongdoing": 0.66,
+          "supports_external_review": 0.74,
+          "supports_firm": 0.38
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "archetype_key": "firm_employees",
+        "attention_level": 0.93,
+        "behavioral_tendencies": [
+          "message_control",
+          "defensive",
+          "strategic_delay_if_needed"
+        ],
+        "cohort_key": "employees_leadership_core",
+        "expression_level": 0.82,
+        "fatigue": 0.48,
+        "fear_of_isolation": 0.21,
+        "mobilization_readiness": 0.79,
+        "perceived_majority": 0.74,
+        "population_share_of_archetype": 0.119,
+        "private_belief": "focused_on_containing_risk_and_preserving_contract",
+        "public_expression": "coordinated denial and legitimacy defense",
+        "representation_mode": "organizational_core",
+        "represented_population": 50,
+        "reputation": 0.44,
+        "secrecy": 0.77,
+        "stance_axes": {
+          "expects_wrongdoing": 0.22,
+          "supports_external_review": 0.3,
+          "supports_firm": 0.95
+        },
+        "trustworthiness": 0.38
+      },
+      {
+        "archetype_key": "drivers",
+        "attention_level": 0.79,
+        "behavioral_tendencies": [
+          "experiential_testimony",
+          "pragmatic",
+          "informal_coordination"
+        ],
+        "cohort_key": "drivers_mismatch_reporters",
+        "expression_level": 0.47,
+        "fatigue": 0.55,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.654,
+        "private_belief": "reported metrics did not match operating reality",
+        "public_expression": "willing to corroborate when asked, not uniformly organized",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 170,
+        "reputation": 0.57,
+        "secrecy": 0.33,
+        "stance_axes": {
+          "expects_wrongdoing": 0.73,
+          "supports_external_review": 0.81,
+          "supports_firm": 0.18
+        },
+        "trustworthiness": 0.66
+      },
+      {
+        "archetype_key": "drivers",
+        "attention_level": 0.46,
+        "behavioral_tendencies": [
+          "low_engagement",
+          "wait_and_see"
+        ],
+        "cohort_key": "drivers_disengaged_or_unsure",
+        "expression_level": 0.18,
+        "fatigue": 0.49,
+        "fear_of_isolation": 0.52,
+        "mobilization_readiness": 0.21,
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 0.346,
+        "private_belief": "mixed or weakly formed views on metric accuracy",
+        "public_expression": "low participation unless controversy expands",
+        "representation_mode": "minority_cohort",
+        "represented_population": 90,
+        "reputation": 0.51,
+        "secrecy": 0.36,
+        "stance_axes": {
+          "expects_wrongdoing": 0.41,
+          "supports_external_review": 0.52,
+          "supports_firm": 0.36
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "archetype_key": "city_procurement_staff",
+        "attention_level": 0.91,
+        "behavioral_tendencies": [
+          "evidence_driven",
+          "risk_managing",
+          "continuity_conscious"
+        ],
+        "cohort_key": "procurement_review_staff",
+        "expression_level": 0.41,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.67,
+        "perceived_majority": 0.58,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "process should verify claims before major action",
+        "public_expression": "procedural neutrality",
+        "representation_mode": "full_archetype",
+        "represented_population": 35,
+        "reputation": 0.71,
+        "secrecy": 0.62,
+        "stance_axes": {
+          "expects_wrongdoing": 0.49,
+          "supports_external_review": 0.92,
+          "supports_firm": 0.34
+        },
+        "trustworthiness": 0.74
+      },
+      {
+        "archetype_key": "market_observers",
+        "attention_level": 0.83,
+        "behavioral_tendencies": [
+          "opportunistic",
+          "agenda_amplifying",
+          "competitive_signaling"
+        ],
+        "cohort_key": "competitor_amplifiers",
+        "expression_level": 0.72,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.17,
+        "mobilization_readiness": 0.74,
+        "perceived_majority": 0.54,
+        "population_share_of_archetype": 0.667,
+        "private_belief": "story creates opening to weaken incumbent vendor",
+        "public_expression": "active amplification framed as accountability concern",
+        "representation_mode": "dominant_subgroup",
+        "represented_population": 80,
+        "reputation": 0.46,
+        "secrecy": 0.42,
+        "stance_axes": {
+          "expects_wrongdoing": 0.68,
+          "supports_external_review": 0.76,
+          "supports_firm": 0.08
+        },
+        "trustworthiness": 0.32
+      },
+      {
+        "archetype_key": "market_observers",
+        "attention_level": 0.61,
+        "behavioral_tendencies": [
+          "analytical",
+          "reputation_sensitive"
+        ],
+        "cohort_key": "industry_watchers_cautious",
+        "expression_level": 0.33,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.29,
+        "perceived_majority": 0.49,
+        "population_share_of_archetype": 0.333,
+        "private_belief": "needs verification before strong conclusions",
+        "public_expression": "measured commentary",
+        "representation_mode": "minority_subgroup",
+        "represented_population": 40,
+        "reputation": 0.55,
+        "secrecy": 0.27,
+        "stance_axes": {
+          "expects_wrongdoing": 0.44,
+          "supports_external_review": 0.69,
+          "supports_firm": 0.29
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "archetype_key": "city_public_observers",
+        "attention_level": 0.38,
+        "behavioral_tendencies": [
+          "headline_reactive",
+          "attention_limited"
+        ],
+        "cohort_key": "public_observers_low_information",
+        "expression_level": 0.16,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.24,
+        "mobilization_readiness": 0.14,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.8,
+        "private_belief": "uncertain but alert to procurement integrity issue",
+        "public_expression": "sporadic attention and low-cost opinion sharing",
+        "representation_mode": "broad_public_majority",
+        "represented_population": 40000,
+        "reputation": 0.5,
+        "secrecy": 0.11,
+        "stance_axes": {
+          "expects_wrongdoing": 0.51,
+          "supports_external_review": 0.71,
+          "supports_firm": 0.27
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "archetype_key": "city_public_observers",
+        "attention_level": 0.69,
+        "behavioral_tendencies": [
+          "accountability_oriented",
+          "social_sharing",
+          "issue_monitoring"
+        ],
+        "cohort_key": "public_observers_engaged",
+        "expression_level": 0.44,
+        "fatigue": 0.16,
+        "fear_of_isolation": 0.19,
+        "mobilization_readiness": 0.32,
+        "perceived_majority": 0.61,
+        "population_share_of_archetype": 0.2,
+        "private_belief": "concerned about contract integrity and city oversight quality",
+        "public_expression": "active discussion and scrutiny",
+        "representation_mode": "engaged_public_minority",
+        "represented_population": 10000,
+        "reputation": 0.52,
+        "secrecy": 0.09,
+        "stance_axes": {
+          "expects_wrongdoing": 0.59,
+          "supports_external_review": 0.84,
+          "supports_firm": 0.18
+        },
+        "trustworthiness": 0.54
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "firm_employees",
+        "attention_level": 0.72,
+        "behavioral_tendencies": [
+          "risk_averse",
+          "status_quo_oriented",
+          "message_disciplined"
+        ],
+        "cohort_key": "employees_loyal_uncertain",
+        "expression_level": 0.28,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.63,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.68,
+        "population_share_of_archetype": 0.595,
+        "private_belief": "uncertain_about_internal_accuracy_but_inclined_to_defend_firm",
+        "public_expression": "limited_public_comment; tends to echo official denial or remain silent",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 250,
+        "reputation": 0.56,
+        "secrecy": 0.58,
+        "stance_axes": {
+          "expects_wrongdoing": 0.35,
+          "supports_external_review": 0.45,
+          "supports_firm": 0.7
+        },
+        "trustworthiness": 0.53
+      },
+      {
+        "archetype_key": "firm_employees",
+        "attention_level": 0.77,
+        "behavioral_tendencies": [
+          "withholding",
+          "evidence_sensitive",
+          "employment_protective"
+        ],
+        "cohort_key": "employees_internal_doubters",
+        "expression_level": 0.19,
+        "fatigue": 0.42,
+        "fear_of_isolation": 0.76,
+        "mobilization_readiness": 0.31,
+        "perceived_majority": 0.31,
+        "population_share_of_archetype": 0.286,
+        "private_belief": "suspects metrics may have been presented inaccurately",
+        "public_expression": "quiet concern, selective off-record discussion",
+        "representation_mode": "significant_minority_cohort",
+        "represented_population": 120,
+        "reputation": 0.49,
+        "secrecy": 0.71,
+        "stance_axes": {
+          "expects_wrongdoing": 0.66,
+          "supports_external_review": 0.74,
+          "supports_firm": 0.38
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "archetype_key": "firm_employees",
+        "attention_level": 0.93,
+        "behavioral_tendencies": [
+          "message_control",
+          "defensive",
+          "strategic_delay_if_needed"
+        ],
+        "cohort_key": "employees_leadership_core",
+        "expression_level": 0.82,
+        "fatigue": 0.48,
+        "fear_of_isolation": 0.21,
+        "mobilization_readiness": 0.79,
+        "perceived_majority": 0.74,
+        "population_share_of_archetype": 0.119,
+        "private_belief": "focused_on_containing_risk_and_preserving_contract",
+        "public_expression": "coordinated denial and legitimacy defense",
+        "representation_mode": "organizational_core",
+        "represented_population": 50,
+        "reputation": 0.44,
+        "secrecy": 0.77,
+        "stance_axes": {
+          "expects_wrongdoing": 0.22,
+          "supports_external_review": 0.3,
+          "supports_firm": 0.95
+        },
+        "trustworthiness": 0.38
+      },
+      {
+        "archetype_key": "drivers",
+        "attention_level": 0.79,
+        "behavioral_tendencies": [
+          "experiential_testimony",
+          "pragmatic",
+          "informal_coordination"
+        ],
+        "cohort_key": "drivers_mismatch_reporters",
+        "expression_level": 0.47,
+        "fatigue": 0.55,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.654,
+        "private_belief": "reported metrics did not match operating reality",
+        "public_expression": "willing to corroborate when asked, not uniformly organized",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 170,
+        "reputation": 0.57,
+        "secrecy": 0.33,
+        "stance_axes": {
+          "expects_wrongdoing": 0.73,
+          "supports_external_review": 0.81,
+          "supports_firm": 0.18
+        },
+        "trustworthiness": 0.66
+      },
+      {
+        "archetype_key": "drivers",
+        "attention_level": 0.46,
+        "behavioral_tendencies": [
+          "low_engagement",
+          "wait_and_see"
+        ],
+        "cohort_key": "drivers_disengaged_or_unsure",
+        "expression_level": 0.18,
+        "fatigue": 0.49,
+        "fear_of_isolation": 0.52,
+        "mobilization_readiness": 0.21,
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 0.346,
+        "private_belief": "mixed or weakly formed views on metric accuracy",
+        "public_expression": "low participation unless controversy expands",
+        "representation_mode": "minority_cohort",
+        "represented_population": 90,
+        "reputation": 0.51,
+        "secrecy": 0.36,
+        "stance_axes": {
+          "expects_wrongdoing": 0.41,
+          "supports_external_review": 0.52,
+          "supports_firm": 0.36
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "archetype_key": "city_procurement_staff",
+        "attention_level": 0.91,
+        "behavioral_tendencies": [
+          "evidence_driven",
+          "risk_managing",
+          "continuity_conscious"
+        ],
+        "cohort_key": "procurement_review_staff",
+        "expression_level": 0.41,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.67,
+        "perceived_majority": 0.58,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "process should verify claims before major action",
+        "public_expression": "procedural neutrality",
+        "representation_mode": "full_archetype",
+        "represented_population": 35,
+        "reputation": 0.71,
+        "secrecy": 0.62,
+        "stance_axes": {
+          "expects_wrongdoing": 0.49,
+          "supports_external_review": 0.92,
+          "supports_firm": 0.34
+        },
+        "trustworthiness": 0.74
+      },
+      {
+        "archetype_key": "market_observers",
+        "attention_level": 0.83,
+        "behavioral_tendencies": [
+          "opportunistic",
+          "agenda_amplifying",
+          "competitive_signaling"
+        ],
+        "cohort_key": "competitor_amplifiers",
+        "expression_level": 0.72,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.17,
+        "mobilization_readiness": 0.74,
+        "perceived_majority": 0.54,
+        "population_share_of_archetype": 0.667,
+        "private_belief": "story creates opening to weaken incumbent vendor",
+        "public_expression": "active amplification framed as accountability concern",
+        "representation_mode": "dominant_subgroup",
+        "represented_population": 80,
+        "reputation": 0.46,
+        "secrecy": 0.42,
+        "stance_axes": {
+          "expects_wrongdoing": 0.68,
+          "supports_external_review": 0.76,
+          "supports_firm": 0.08
+        },
+        "trustworthiness": 0.32
+      },
+      {
+        "archetype_key": "market_observers",
+        "attention_level": 0.61,
+        "behavioral_tendencies": [
+          "analytical",
+          "reputation_sensitive"
+        ],
+        "cohort_key": "industry_watchers_cautious",
+        "expression_level": 0.33,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.29,
+        "perceived_majority": 0.49,
+        "population_share_of_archetype": 0.333,
+        "private_belief": "needs verification before strong conclusions",
+        "public_expression": "measured commentary",
+        "representation_mode": "minority_subgroup",
+        "represented_population": 40,
+        "reputation": 0.55,
+        "secrecy": 0.27,
+        "stance_axes": {
+          "expects_wrongdoing": 0.44,
+          "supports_external_review": 0.69,
+          "supports_firm": 0.29
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "archetype_key": "city_public_observers",
+        "attention_level": 0.38,
+        "behavioral_tendencies": [
+          "headline_reactive",
+          "attention_limited"
+        ],
+        "cohort_key": "public_observers_low_information",
+        "expression_level": 0.16,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.24,
+        "mobilization_readiness": 0.14,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.8,
+        "private_belief": "uncertain but alert to procurement integrity issue",
+        "public_expression": "sporadic attention and low-cost opinion sharing",
+        "representation_mode": "broad_public_majority",
+        "represented_population": 40000,
+        "reputation": 0.5,
+        "secrecy": 0.11,
+        "stance_axes": {
+          "expects_wrongdoing": 0.51,
+          "supports_external_review": 0.71,
+          "supports_firm": 0.27
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "archetype_key": "city_public_observers",
+        "attention_level": 0.69,
+        "behavioral_tendencies": [
+          "accountability_oriented",
+          "social_sharing",
+          "issue_monitoring"
+        ],
+        "cohort_key": "public_observers_engaged",
+        "expression_level": 0.44,
+        "fatigue": 0.16,
+        "fear_of_isolation": 0.19,
+        "mobilization_readiness": 0.32,
+        "perceived_majority": 0.61,
+        "population_share_of_archetype": 0.2,
+        "private_belief": "concerned about contract integrity and city oversight quality",
+        "public_expression": "active discussion and scrutiny",
+        "representation_mode": "engaged_public_minority",
+        "represented_population": 10000,
+        "reputation": 0.52,
+        "secrecy": 0.09,
+        "stance_axes": {
+          "expects_wrongdoing": 0.59,
+          "supports_external_review": 0.84,
+          "supports_firm": 0.18
+        },
+        "trustworthiness": 0.54
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "city_procurement_office",
+          "city_contract_oversight_team"
+        ],
+        "blockers": [
+          "service_continuity_dependency",
+          "need_for_sufficient_evidence",
+          "switching_costs_to_replace_vendor"
+        ],
+        "contradiction_notes": "Could be delayed even under adverse findings if no substitute is ready.",
+        "description": "The city ends, cancels, or declines continuation of the vendor relationship because the metrics controversy is judged materially disqualifying.",
+        "endpoint_key": "contract_termination",
+        "evidence_refs": [
+          "scenario_contract_exists",
+          "procurement_review_started",
+          "allegation_of_metric_manipulation",
+          "driver_mismatch_claims"
+        ],
+        "label": "contract terminated or effectively ended",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the city ultimately continue, pause, or terminate the public contract with firm_novalogic?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.27,
+        "rationale": "A terminal exit remains plausible if evidence hardens and continuity constraints become manageable.",
+        "realization_criteria": [
+          "city_procurement_office or superior city authority issues formal termination, cancellation, or non-continuation decision tied to the dispute",
+          "contract services are officially ended or transition plan is activated away from firm_novalogic"
+        ],
+        "status": "active",
+        "status_basis": "Termination is explicitly named as a branch but not decided at T0."
+      },
+      {
+        "authority_refs": [
+          "city_procurement_office"
+        ],
+        "blockers": [
+          "high_continuity_pressure",
+          "lack_of_immediate_alternative_system",
+          "political_cost_of_disruption"
+        ],
+        "contradiction_notes": "A pause may function as a mechanism before either exoneration or termination, but still constitutes an observable endpoint if sustained by official order.",
+        "description": "The city does not yet end the relationship but imposes a temporary pause, hold, or partial suspension while review continues.",
+        "endpoint_key": "temporary_contract_pause",
+        "evidence_refs": [
+          "procurement_review_started",
+          "authority_over_public_contract",
+          "explicit_scenario_branch_pause"
+        ],
+        "label": "contract paused or partially suspended pending findings",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the review produce an official finding that delivery-time metrics were manipulated or materially misrepresented?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.29,
+        "rationale": "This path balances accountability and continuity when evidence is concerning but not yet fully dispositive.",
+        "realization_criteria": [
+          "city_procurement_office announces temporary pause, payment hold, new work freeze, or partial suspension linked to the review",
+          "service continues only under interim controls or reduced scope"
+        ],
+        "status": "active",
+        "status_basis": "Pause is explicitly listed as a plausible branch in the source scenario."
+      },
+      {
+        "authority_refs": [
+          "city_procurement_office",
+          "city_contract_oversight_team"
+        ],
+        "blockers": [
+          "credible corroboration_from_drivers_or_documents",
+          "public skepticism",
+          "inconsistencies_in_firm_records"
+        ],
+        "contradiction_notes": "Formal exoneration may still leave reputational residue and trust deficits.",
+        "description": "The review closes without an official finding of manipulation sufficient to justify major sanction, though minor reporting corrections may still occur.",
+        "endpoint_key": "exoneration_or_no_major_breach_finding",
+        "evidence_refs": [
+          "firm_denial",
+          "review_opened_without_prejudgment",
+          "evidence_uncertainty_noted_in_scenario"
+        ],
+        "label": "vendor exonerated or no major breach found",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the initial procurement review remain limited or escalate into a deeper audit or oversight process?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.22,
+        "rationale": "The scenario instructs evidence uncertainty; denial plus unresolved proof keep this outcome plausible.",
+        "realization_criteria": [
+          "review concludes with no formal finding of manipulation or material misrepresentation",
+          "contract continues without major punitive action beyond routine remediation or clarification"
+        ],
+        "status": "active",
+        "status_basis": "Exoneration is explicitly named as a branch and evidence remains unresolved at initialization."
+      },
+      {
+        "authority_refs": [
+          "city_procurement_office",
+          "city_contract_oversight_team",
+          "firm_leadership"
+        ],
+        "blockers": [
+          "severe_evidence_triggering_immediate_termination",
+          "firm_noncooperation",
+          "loss_of_public_or_political_patience"
+        ],
+        "contradiction_notes": "This may later resolve into termination or exoneration, but at T0 it is a meaningful endpoint option because process escalation can coexist with temporary continuation.",
+        "description": "The city escalates the process into a stronger audit or oversight regime while keeping the contract temporarily active under conditions.",
+        "endpoint_key": "audit_escalation_with_conditional_continuation",
+        "evidence_refs": [
+          "review_started",
+          "explicit_scenario_focus_audit",
+          "service_continuity_dependency"
+        ],
+        "label": "deeper audit with contract conditionally continued",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Can firm_novalogic retain enough institutional trust through cooperation and remediation to avoid the most severe endpoint?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.22,
+        "rationale": "The scenario emphasizes audit as a central branch and not all escalations immediately determine terminal guilt.",
+        "realization_criteria": [
+          "review formally expands into audit-like investigation or enhanced oversight",
+          "firm_novalogic remains active vendor during the expanded process under documented conditions, reporting controls, or compliance requirements"
+        ],
+        "status": "active",
+        "status_basis": "Audit pressure is explicit and continuity dependency makes conditional continuation credible."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "scenario states employee alleges manipulation and procurement office starts review",
+        "layer": "exposure",
+        "reason": "allegation has reached contracting authority",
+        "source_actor_name": "employee_whistleblower",
+        "target_actor_name": "city_procurement_office",
+        "weight": 0.56
+      },
+      {
+        "direction": "directed",
+        "evidence": "scenario states firm denies wrongdoing",
+        "layer": "exposure",
+        "reason": "public denial creates visibility of firm position",
+        "source_actor_name": "firm_novalogic",
+        "target_actor_name": "city_public_and_media",
+        "weight": 0.42
+      },
+      {
+        "direction": "directed",
+        "evidence": "drivers say metrics never matched reality",
+        "layer": "exposure",
+        "reason": "driver statements are available to review process",
+        "source_actor_name": "drivers_service_cohort",
+        "target_actor_name": "city_procurement_office",
+        "weight": 0.47
+      },
+      {
+        "direction": "directed",
+        "evidence": "scenario states competitors amplify the story",
+        "layer": "exposure",
+        "reason": "competitors are amplifying the story into public channels",
+        "source_actor_name": "competitor_firms",
+        "target_actor_name": "city_public_and_media",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "procurement office starts a review",
+        "layer": "exposure",
+        "reason": "review actions are visible to vendor",
+        "source_actor_name": "city_procurement_office",
+        "target_actor_name": "firm_novalogic",
+        "weight": 0.51
+      },
+      {
+        "direction": "directed",
+        "evidence": "review launched after allegation",
+        "layer": "trust",
+        "reason": "review indicates reduced confidence pending verification",
+        "source_actor_name": "city_procurement_office",
+        "target_actor_name": "firm_novalogic",
+        "weight": 0.34
+      },
+      {
+        "direction": "directed",
+        "evidence": "allegation initiates review",
+        "layer": "trust",
+        "reason": "claim is credible enough to trigger review but not yet validated",
+        "source_actor_name": "city_procurement_office",
+        "target_actor_name": "employee_whistleblower",
+        "weight": 0.49
+      },
+      {
+        "direction": "directed",
+        "evidence": "drivers report mismatch with reality",
+        "layer": "trust",
+        "reason": "frontline testimony may be materially informative",
+        "source_actor_name": "city_procurement_office",
+        "target_actor_name": "drivers_service_cohort",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "review aligns with accountability expectations",
+        "layer": "trust",
+        "reason": "public expects office to investigate responsibly",
+        "source_actor_name": "city_public_and_media",
+        "target_actor_name": "city_procurement_office",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "public controversy over manipulated metrics",
+        "layer": "trust",
+        "reason": "allegation and denial create skepticism toward firm claims",
+        "source_actor_name": "city_public_and_media",
+        "target_actor_name": "firm_novalogic",
+        "weight": 0.29
+      },
+      {
+        "direction": "directed",
+        "evidence": "public contract exists and remains active at T0",
+        "layer": "dependency",
+        "reason": "city relies on vendor contract for logistics software continuity",
+        "source_actor_name": "city_procurement_office",
+        "target_actor_name": "firm_novalogic",
+        "weight": 0.62
+      },
+      {
+        "direction": "directed",
+        "evidence": "contract retention is central stake",
+        "layer": "dependency",
+        "reason": "firm depends on city contract revenue and approval",
+        "source_actor_name": "firm_novalogic",
+        "target_actor_name": "city_procurement_office",
+        "weight": 0.54
+      },
+      {
+        "direction": "directed",
+        "evidence": "oversight team supports review of alleged manipulation",
+        "layer": "dependency",
+        "reason": "review requires access to firm records and metric methodology",
+        "source_actor_name": "city_contract_oversight_team",
+        "target_actor_name": "firm_novalogic",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "drivers report mismatch with reality under contract operations",
+        "layer": "dependency",
+        "reason": "drivers are affected by software metrics and operational expectations",
+        "source_actor_name": "drivers_service_cohort",
+        "target_actor_name": "firm_novalogic",
+        "weight": 0.38
+      },
+      {
+        "direction": "directed",
+        "evidence": "office can review and potentially pause or terminate contract",
+        "layer": "influence",
+        "reason": "procurement authority can materially affect contract status",
+        "source_actor_name": "city_procurement_office",
+        "target_actor_name": "firm_novalogic",
+        "weight": 0.71
+      },
+      {
+        "direction": "directed",
+        "evidence": "executive role over strategy and messaging",
+        "layer": "influence",
+        "reason": "leadership controls firm response and disclosures",
+        "source_actor_name": "firm_leadership",
+        "target_actor_name": "firm_novalogic",
+        "weight": 0.83
+      },
+      {
+        "direction": "directed",
+        "evidence": "whistleblower claim anchors controversy",
+        "layer": "influence",
+        "reason": "allegation can shape narrative if repeated or documented",
+        "source_actor_name": "employee_whistleblower",
+        "target_actor_name": "city_public_and_media",
+        "weight": 0.34
+      },
+      {
+        "direction": "directed",
+        "evidence": "competitors amplify story",
+        "layer": "influence",
+        "reason": "amplification increases salience of allegations",
+        "source_actor_name": "competitor_firms",
+        "target_actor_name": "city_public_and_media",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "drivers say metrics never matched reality",
+        "layer": "influence",
+        "reason": "consistent frontline accounts can affect review judgments",
+        "source_actor_name": "drivers_service_cohort",
+        "target_actor_name": "city_procurement_office",
+        "weight": 0.43
+      },
+      {
+        "direction": "directed",
+        "evidence": "both contest official performance representation",
+        "layer": "coalition",
+        "reason": "shared narrative around metric mismatch",
+        "source_actor_name": "employee_whistleblower",
+        "target_actor_name": "drivers_service_cohort",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "office starts review with oversight support implied",
+        "layer": "coalition",
+        "reason": "institutional alignment around review process",
+        "source_actor_name": "city_procurement_office",
+        "target_actor_name": "city_contract_oversight_team",
+        "weight": 0.64
+      },
+      {
+        "direction": "directed",
+        "evidence": "firm denies wrongdoing through leadership control",
+        "layer": "coalition",
+        "reason": "leadership and firm are aligned in defense posture",
+        "source_actor_name": "firm_novalogic",
+        "target_actor_name": "firm_leadership",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "competitors amplify accountability story",
+        "layer": "coalition",
+        "reason": "temporary alignment around scrutiny, though motives differ",
+        "source_actor_name": "competitor_firms",
+        "target_actor_name": "city_public_and_media",
+        "weight": 0.27
+      },
+      {
+        "direction": "directed",
+        "evidence": "employee alleges metric manipulation",
+        "layer": "conflict",
+        "reason": "direct allegation challenges firm conduct",
+        "source_actor_name": "employee_whistleblower",
+        "target_actor_name": "firm_novalogic",
+        "weight": 0.69
+      },
+      {
+        "direction": "directed",
+        "evidence": "firm denies wrongdoing",
+        "layer": "conflict",
+        "reason": "firm denial implicitly contests whistleblower credibility",
+        "source_actor_name": "firm_novalogic",
+        "target_actor_name": "employee_whistleblower",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "drivers say metrics never matched reality",
+        "layer": "conflict",
+        "reason": "drivers dispute accuracy of reported metrics",
+        "source_actor_name": "drivers_service_cohort",
+        "target_actor_name": "firm_novalogic",
+        "weight": 0.56
+      },
+      {
+        "direction": "directed",
+        "evidence": "competitors amplify story",
+        "layer": "conflict",
+        "reason": "rivals seek advantage through amplification",
+        "source_actor_name": "competitor_firms",
+        "target_actor_name": "firm_novalogic",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "office starts review",
+        "layer": "conflict",
+        "reason": "review introduces formal adversarial scrutiny without full rupture",
+        "source_actor_name": "city_procurement_office",
+        "target_actor_name": "firm_novalogic",
+        "weight": 0.39
+      },
+      {
+        "direction": "directed",
+        "evidence": "ongoing contract and active review process",
+        "layer": "oasis_interaction",
+        "reason": "likely frequent formal communication during review",
+        "source_actor_name": "firm_novalogic",
+        "target_actor_name": "city_procurement_office",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "allegation has triggered review",
+        "layer": "oasis_interaction",
+        "reason": "potential interviews, submissions, and clarifications",
+        "source_actor_name": "employee_whistleblower",
+        "target_actor_name": "city_procurement_office",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "drivers are voicing mismatch claims",
+        "layer": "oasis_interaction",
+        "reason": "driver experiences may circulate in public discussion",
+        "source_actor_name": "drivers_service_cohort",
+        "target_actor_name": "city_public_and_media",
+        "weight": 0.31
+      },
+      {
+        "direction": "directed",
+        "evidence": "competitors amplify story",
+        "layer": "oasis_interaction",
+        "reason": "active public amplification raises interaction intensity",
+        "source_actor_name": "competitor_firms",
+        "target_actor_name": "city_public_and_media",
+        "weight": 0.55
+      },
+      {
+        "direction": "directed",
+        "evidence": "public contract controversy with active review",
+        "layer": "oasis_interaction",
+        "reason": "review itself becomes a subject of public updates and scrutiny",
+        "source_actor_name": "city_procurement_office",
+        "target_actor_name": "city_public_and_media",
+        "weight": 0.37
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype_key": "whistleblower_role",
+        "description": "Insider source whose claim can trigger document review, corroboration, and legitimacy shifts.",
+        "label": "whistleblower"
+      },
+      {
+        "archetype_key": "review_authority_role",
+        "description": "Institutional authority with power to shape process and endpoint through review, pause, or termination decisions.",
+        "label": "review authority"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "employee_whistleblower",
+        "archetype_key": "whistleblower_role",
+        "attention_level": 0.86,
+        "behavioral_tendencies": [
+          "evidence_disclosing",
+          "risk_accepting",
+          "credibility_seeking"
+        ],
+        "capabilities": [
+          "provide allegation detail",
+          "share documents_or_context_if_available",
+          "shape review agenda"
+        ],
+        "constraints": [
+          "retaliation_risk",
+          "credibility_contestation",
+          "limited formal authority"
+        ],
+        "expression_level": 0.74,
+        "fatigue": 0.51,
+        "fear_of_isolation": 0.58,
+        "hero_key": "employee_whistleblower",
+        "mobilization_readiness": 0.81,
+        "perceived_majority": 0.37,
+        "reputation": 0.48,
+        "secrecy": 0.64,
+        "stance_axes": {
+          "expects_wrongdoing": 0.88,
+          "supports_external_review": 0.95,
+          "supports_firm": 0.05
+        },
+        "trustworthiness": 0.67
+      },
+      {
+        "actor_name": "city_procurement_office",
+        "archetype_key": "review_authority_role",
+        "attention_level": 0.93,
+        "behavioral_tendencies": [
+          "procedural",
+          "risk_balancing",
+          "continuity_guarding"
+        ],
+        "capabilities": [
+          "request records",
+          "set review cadence",
+          "pause_or_continue_contract",
+          "refer_for_deeper_audit"
+        ],
+        "constraints": [
+          "service_continuity_needs",
+          "evidentiary_thresholds",
+          "political_scrutiny"
+        ],
+        "expression_level": 0.46,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.14,
+        "hero_key": "city_procurement_office",
+        "mobilization_readiness": 0.72,
+        "perceived_majority": 0.63,
+        "reputation": 0.72,
+        "secrecy": 0.57,
+        "stance_axes": {
+          "expects_wrongdoing": 0.5,
+          "supports_external_review": 0.94,
+          "supports_firm": 0.32
+        },
+        "trustworthiness": 0.75
+      }
+    ],
+    "heroes": [
+      {
+        "archetype_key": "whistleblower_role",
+        "description": "Insider source whose claim can trigger document review, corroboration, and legitimacy shifts.",
+        "label": "whistleblower"
+      },
+      {
+        "archetype_key": "review_authority_role",
+        "description": "Institutional authority with power to shape process and endpoint through review, pause, or termination decisions.",
+        "label": "review authority"
+      }
+    ],
+    "important_questions": [
+      "Will the city ultimately continue, pause, or terminate the public contract with firm_novalogic?",
+      "Will the review produce an official finding that delivery-time metrics were manipulated or materially misrepresented?",
+      "Will the initial procurement review remain limited or escalate into a deeper audit or oversight process?",
+      "Can firm_novalogic retain enough institutional trust through cooperation and remediation to avoid the most severe endpoint?"
+    ],
+    "initial_events": [
+      {
+        "event_key": "e1_whistleblower_allegation_active",
+        "event_type": "announcement",
+        "expected_impact": "Raises conflict and exposure around the firm, lowers baseline trust, and creates opportunity for corroboration or rebuttal.",
+        "status": "visible",
+        "summary": "An employee allegation of manipulated delivery-time metrics is already active in the environment.",
+        "tick": 0
+      },
+      {
+        "event_key": "e2_firm_denial_issued",
+        "event_type": "announcement",
+        "expected_impact": "Stabilizes loyal internal cohorts temporarily while increasing scrutiny of records, transparency, and consistency.",
+        "status": "visible",
+        "summary": "The firm has denied wrongdoing.",
+        "tick": 0
+      },
+      {
+        "event_key": "e3_procurement_review_opened",
+        "event_type": "announcement",
+        "expected_impact": "Centers authority in institutional process, increases dependence on documentary evidence, and opens branches toward audit, pause, exoneration, or termination.",
+        "status": "visible",
+        "summary": "The city procurement office has begun a review of the public contract metrics issue.",
+        "tick": 0
+      },
+      {
+        "event_key": "e4_driver_mismatch_claims_circulate",
+        "event_type": "announcement",
+        "expected_impact": "Provides potential corroboration that may push the review toward deeper audit if consistency strengthens.",
+        "status": "visible",
+        "summary": "Drivers are reporting that delivery-time metrics did not match operational reality.",
+        "tick": 0
+      },
+      {
+        "event_key": "e5_competitor_story_amplification",
+        "event_type": "announcement",
+        "expected_impact": "Sustains public attention and pressure but may also create skepticism about motives behind the narrative.",
+        "status": "imminent",
+        "summary": "Competitors continue amplifying the controversy through market and public channels.",
+        "tick": 1
+      },
+      {
+        "event_key": "e6_record_request_or_interviews",
+        "event_type": "announcement",
+        "expected_impact": "Can increase evidentiary clarity, expose inconsistencies, or support procedural de-escalation if records align.",
+        "status": "imminent",
+        "summary": "Review staff are likely to request records, methodologies, or interviews from the firm and key witnesses.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "07b9cd0c-b220-4891-89c8-70d4c5f9e0ff",
+    "merge_hypotheses": [
+      {
+        "convergence_effect": "Even adversarial parties may converge on interim continuation, pilot safeguards, or staged decision-making rather than abrupt rupture.",
+        "merge_key": "m1_service_continuity_pull",
+        "shared_dependency": "City still needs functioning logistics software during review"
+      },
+      {
+        "convergence_effect": "Competing narratives may temporarily align around document production, interviews, and procedural transparency.",
+        "merge_key": "m2_evidence_standard_convergence",
+        "shared_dependency": "Most actors need review findings viewed as legitimate"
+      },
+      {
+        "convergence_effect": "Absent fresh evidence, polarizing public rhetoric may soften into wait-for-findings behavior.",
+        "merge_key": "m3_attention_fatigue",
+        "shared_dependency": "Public and market attention is costly to sustain without new facts"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "firm_employees",
+        "description": "Employees of the fictional logistics software firm, including operations, data, support, and management.",
+        "label": "firm employees",
+        "population_total": 420
+      },
+      {
+        "archetype_key": "drivers",
+        "description": "Drivers whose experience informs whether delivery-time metrics matched reality.",
+        "label": "drivers linked to contract operations",
+        "population_total": 260
+      },
+      {
+        "archetype_key": "city_procurement_staff",
+        "description": "Officials and support staff involved in contract review and compliance.",
+        "label": "city procurement and oversight staff",
+        "population_total": 35
+      },
+      {
+        "archetype_key": "market_observers",
+        "description": "Competitors, industry watchers, and relevant business observers tracking the dispute.",
+        "label": "market observers",
+        "population_total": 120
+      },
+      {
+        "archetype_key": "city_public_observers",
+        "description": "Residents and local observers aware of the contract controversy at varying levels.",
+        "label": "city public observers",
+        "population_total": 50000
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag_key": "evidence_asymmetry",
+        "note": "The firm may control key internal records and methodologies, making initial external judgments incomplete.",
+        "severity": "high"
+      },
+      {
+        "flag_key": "retaliation_chill",
+        "note": "Potential internal witnesses may remain silent due to dependency on employer and fear of isolation.",
+        "severity": "medium"
+      },
+      {
+        "flag_key": "competitive_signal_contamination",
+        "note": "Competitor amplification raises attention but may complicate public interpretation of the dispute's credibility.",
+        "severity": "medium"
+      },
+      {
+        "flag_key": "service_continuity_switching_costs",
+        "note": "City dependence on an active vendor may slow severe sanctions even if trust degrades.",
+        "severity": "high"
+      },
+      {
+        "flag_key": "authority_concentration",
+        "note": "A relatively small set of procurement actors may determine endpoint timing and framing.",
+        "severity": "medium"
+      },
+      {
+        "flag_key": "narrative_polarization",
+        "note": "Dueling frames of whistleblower credibility versus firm denial can harden before records are reviewed.",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "corporate_regulatory_endpoint",
+      "mode": "direct",
+      "scenario_key": "corporate_003",
+      "summary": "At T0, a fictional logistics software firm faces an allegation from an employee that delivery-time metrics were manipulated for a public contract. The firm publicly denies wrongdoing. A city procurement office has started a review. Drivers associated with service delivery report that the published metrics never matched operational reality. Competitors are amplifying the story. Terminal uncertainty centers on whether the review leads to audit escalation, temporary contract pause, exoneration, or contract termination.",
+      "time_horizon_ticks": 12,
+      "title": "logistics metrics contract review",
+      "uncertainty_notes": [
+        "Evidence quality is mixed at initialization; allegations, denials, driver testimony, and competitor amplification are all present but not yet adjudicated.",
+        "Decision authority appears partly concentrated in the city procurement office, with firm leadership controlling internal records and messaging.",
+        "Public controversy is active but not yet at maximum institutional crisis; multiple reversible process paths remain open."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "level": 0.66,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Most actors update within existing trust boundaries; firm loyalists and critics interpret the same allegations differently.",
+        "scope": "employees_and_public"
+      },
+      {
+        "level": 0.58,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Additional corroboration or documentary evidence could sharply increase willingness to speak.",
+        "scope": "drivers_and_employees"
+      },
+      {
+        "level": 0.63,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Employment dependence and fear of isolation suppress open dissent inside the firm.",
+        "scope": "internal_employee_population"
+      },
+      {
+        "level": 0.54,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Actors cluster by institutional role and incentives, reinforcing shared interpretations.",
+        "scope": "market_and_internal_networks"
+      },
+      {
+        "level": 0.61,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Single allegation matters, but multiple corroborating sources are likely needed for major legitimacy shifts.",
+        "scope": "procurement_and_public_attention"
+      },
+      {
+        "level": 0.69,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Organizational identity shapes defensive and accountability-oriented narratives.",
+        "scope": "firm_vs_oversight_alignment"
+      },
+      {
+        "level": 0.43,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Public attention may fade without new disclosures or formal action.",
+        "scope": "general_public"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "City decision-makers face service continuity pressure, making immediate termination less automatic even under suspicion.",
+        "influence_key": "contract_continuity_constraint"
+      },
+      {
+        "description": "Employees with concerns may stay quiet due to career and retaliation risk.",
+        "influence_key": "employment_dependency_silence"
+      },
+      {
+        "description": "Driver testimony can gain credibility when concrete operational mismatches are easy to describe.",
+        "influence_key": "frontline_experience_salience"
+      },
+      {
+        "description": "Competitor involvement raises attention but can muddy perceived motive purity of the allegations.",
+        "influence_key": "competitive_amplification_noise"
+      },
+      {
+        "description": "Observers expect the procurement office to be neither captured by the vendor nor reckless about service disruption.",
+        "influence_key": "procedural_legitimacy_expectation"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "firm_novalogic",
+        "behavior_axes": {
+          "adaptability": 0.55,
+          "aggressiveness": 0.44,
+          "defensiveness": 0.78,
+          "transparency": 0.32
+        },
+        "ideology_axes": {
+          "market_preservation": 0.82,
+          "proceduralism": 0.46,
+          "public_accountability": 0.34
+        },
+        "reputation": 0.52,
+        "secrecy": 0.69,
+        "tendency": "deny_and_contain",
+        "trustworthiness": 0.41
+      },
+      {
+        "actor_name": "employee_whistleblower",
+        "behavior_axes": {
+          "adaptability": 0.62,
+          "aggressiveness": 0.41,
+          "defensiveness": 0.22,
+          "transparency": 0.73
+        },
+        "ideology_axes": {
+          "market_preservation": 0.21,
+          "proceduralism": 0.71,
+          "public_accountability": 0.87
+        },
+        "reputation": 0.48,
+        "secrecy": 0.64,
+        "tendency": "surface_internal_irregularity",
+        "trustworthiness": 0.67
+      },
+      {
+        "actor_name": "city_procurement_office",
+        "behavior_axes": {
+          "adaptability": 0.51,
+          "aggressiveness": 0.29,
+          "defensiveness": 0.35,
+          "transparency": 0.58
+        },
+        "ideology_axes": {
+          "market_preservation": 0.44,
+          "proceduralism": 0.88,
+          "public_accountability": 0.81
+        },
+        "reputation": 0.72,
+        "secrecy": 0.57,
+        "tendency": "verify_before_deciding",
+        "trustworthiness": 0.75
+      },
+      {
+        "actor_name": "city_contract_oversight_team",
+        "behavior_axes": {
+          "adaptability": 0.48,
+          "aggressiveness": 0.22,
+          "defensiveness": 0.28,
+          "transparency": 0.55
+        },
+        "ideology_axes": {
+          "market_preservation": 0.39,
+          "proceduralism": 0.91,
+          "public_accountability": 0.78
+        },
+        "reputation": 0.68,
+        "secrecy": 0.61,
+        "tendency": "technical_fact_finding",
+        "trustworthiness": 0.77
+      },
+      {
+        "actor_name": "drivers_service_cohort",
+        "behavior_axes": {
+          "adaptability": 0.46,
+          "aggressiveness": 0.26,
+          "defensiveness": 0.31,
+          "transparency": 0.64
+        },
+        "ideology_axes": {
+          "market_preservation": 0.26,
+          "proceduralism": 0.54,
+          "public_accountability": 0.72
+        },
+        "reputation": 0.57,
+        "secrecy": 0.34,
+        "tendency": "report_operational_reality",
+        "trustworthiness": 0.65
+      },
+      {
+        "actor_name": "competitor_firms",
+        "behavior_axes": {
+          "adaptability": 0.73,
+          "aggressiveness": 0.67,
+          "defensiveness": 0.47,
+          "transparency": 0.29
+        },
+        "ideology_axes": {
+          "market_preservation": 0.88,
+          "proceduralism": 0.38,
+          "public_accountability": 0.42
+        },
+        "reputation": 0.45,
+        "secrecy": 0.49,
+        "tendency": "exploit_opening",
+        "trustworthiness": 0.31
+      },
+      {
+        "actor_name": "city_public_and_media",
+        "behavior_axes": {
+          "adaptability": 0.58,
+          "aggressiveness": 0.33,
+          "defensiveness": 0.19,
+          "transparency": 0.61
+        },
+        "ideology_axes": {
+          "market_preservation": 0.31,
+          "proceduralism": 0.57,
+          "public_accountability": 0.79
+        },
+        "reputation": 0.5,
+        "secrecy": 0.12,
+        "tendency": "attention_driven_scrutiny",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "firm_leadership",
+        "behavior_axes": {
+          "adaptability": 0.57,
+          "aggressiveness": 0.51,
+          "defensiveness": 0.83,
+          "transparency": 0.27
+        },
+        "ideology_axes": {
+          "market_preservation": 0.9,
+          "proceduralism": 0.43,
+          "public_accountability": 0.28
+        },
+        "reputation": 0.46,
+        "secrecy": 0.8,
+        "tendency": "protect_contract_and_control_narrative",
+        "trustworthiness": 0.37
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 536,
+        "end": 536,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 536,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

@@ -1,0 +1,1416 @@
+{
+  "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+  "initializer_output": {
+    "actors": [
+      {
+        "actor_type": "institution",
+        "decision_scope": "operations_communications",
+        "description": "Municipal office coordinating heat response and cooling center messaging.",
+        "name": "town_emergency_office",
+        "public_visibility": 0.74,
+        "stakes": [
+          "public_safety",
+          "message_clarity",
+          "center_utilization",
+          "credibility"
+        ]
+      },
+      {
+        "actor_type": "service_team",
+        "decision_scope": "site_operations",
+        "description": "Staff and on-site workers operating the cooling center.",
+        "name": "cooling_center_staff",
+        "public_visibility": 0.58,
+        "stakes": [
+          "safe_intake",
+          "throughput",
+          "staff_load"
+        ]
+      },
+      {
+        "actor_type": "population_group",
+        "decision_scope": "individual_attendance",
+        "description": "Older residents with elevated heat risk, including some needing transport assistance.",
+        "name": "senior_residents",
+        "public_visibility": 0.42,
+        "stakes": [
+          "heat_safety",
+          "transport_access",
+          "clarity_on_entry_rules"
+        ]
+      },
+      {
+        "actor_type": "civic_network",
+        "decision_scope": "ride_capacity_allocation",
+        "description": "Residents organizing transportation rides to the cooling center.",
+        "name": "volunteer_ride_network",
+        "public_visibility": 0.49,
+        "stakes": [
+          "helping_neighbors",
+          "coordination_efficiency",
+          "avoiding_overload"
+        ]
+      },
+      {
+        "actor_type": "institution",
+        "decision_scope": "funding_authorization",
+        "description": "Municipal budget officials monitoring costs of cooling center operations and transport support.",
+        "name": "budget_office",
+        "public_visibility": 0.34,
+        "stakes": [
+          "cost_control",
+          "fiscal_justification",
+          "temporary_spending_limits"
+        ]
+      },
+      {
+        "actor_type": "population_group",
+        "decision_scope": "informal_information_sharing",
+        "description": "General town residents who may need information, may volunteer, or may repeat rumors.",
+        "name": "town_residents_general",
+        "public_visibility": 0.51,
+        "stakes": [
+          "community_safety",
+          "convenience",
+          "social_reputation"
+        ]
+      },
+      {
+        "actor_type": "informal_network",
+        "decision_scope": "none_centralized",
+        "description": "Diffuse rumor channel spreading the false claim that registration is required.",
+        "name": "local_misinformation_stream",
+        "public_visibility": 0.37,
+        "stakes": [
+          "attention",
+          "rumor_repetition"
+        ]
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Rumor loses traction, seniors become more willing to attend, and volunteer rides convert into visible successes.",
+        "branch_key": "early_trust_repair",
+        "observable_divergence_signal": "Increase in direct inquiries shifting from eligibility questions to transport/logistics questions; reduced rumor repetition.",
+        "trigger": "Town emergency office issues a clear repeated correction that no registration is required and volunteers echo it."
+      },
+      {
+        "alternate_path": "Residents continue to believe entry requires pre-registration, suppressing center use and increasing frustration.",
+        "branch_key": "rumor_persists_despite_notice",
+        "observable_divergence_signal": "Continued public questions about sign-up requirements and lower-than-expected ride uptake.",
+        "trigger": "Official correction is delayed, too narrow, or does not reach seniors through trusted intermediaries."
+      },
+      {
+        "alternate_path": "Ride network expands, reducing transport bottlenecks and increasing legitimacy of the response.",
+        "branch_key": "volunteer_capacity_breakthrough",
+        "observable_divergence_signal": "Growth in volunteer sign-ups and shorter wait time for requested rides.",
+        "trigger": "Latent volunteers receive a clear ask with manageable ride commitments."
+      },
+      {
+        "alternate_path": "Officials narrow service scope, become more cautious, or avoid new commitments despite ongoing need.",
+        "branch_key": "cost_constraint_tightens",
+        "observable_divergence_signal": "Public or internal emphasis on temporary limits, fewer added ride supports, or delayed operational expansion.",
+        "trigger": "Budget officials frame transport or center operations as unsustainably costly."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "official_town_updates",
+        "primary_actors": [
+          "town_emergency_office"
+        ],
+        "reach": 0.58,
+        "trust_signal": 0.57,
+        "type": "public_official"
+      },
+      {
+        "channel_key": "neighbor_word_of_mouth",
+        "primary_actors": [
+          "town_residents_general",
+          "senior_residents"
+        ],
+        "reach": 0.62,
+        "trust_signal": 0.52,
+        "type": "informal_social"
+      },
+      {
+        "channel_key": "volunteer_coordination",
+        "primary_actors": [
+          "volunteer_ride_network"
+        ],
+        "reach": 0.34,
+        "trust_signal": 0.68,
+        "type": "civic_network"
+      },
+      {
+        "channel_key": "on_site_staff_interactions",
+        "primary_actors": [
+          "cooling_center_staff"
+        ],
+        "reach": 0.21,
+        "trust_signal": 0.73,
+        "type": "service_contact"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "senior_residents",
+        "archetype_key": "older_adults",
+        "attention_level": 0.74,
+        "behavioral_tendencies": [
+          "seek_confirmation_before_travel",
+          "avoid_confusing_processes",
+          "rely_on_known_contacts"
+        ],
+        "cohort_key": "seniors_needing_transport",
+        "expression_level": 0.28,
+        "fatigue": 0.63,
+        "fear_of_isolation": 0.4,
+        "ideology_axes": {
+          "communal_reliance": 0.68,
+          "institutional_trust": 0.5
+        },
+        "mobilization_readiness": 0.34,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.36,
+        "private_belief_summary": "Cooling center could help, but attendance depends on transport and confidence they can enter without registration barriers.",
+        "public_expression_summary": "Limited direct expression; often ask family, neighbors, or staff before acting.",
+        "representation_mode": "needs_based_subcohort",
+        "represented_population": 80,
+        "reputation": 0.64,
+        "secrecy": 0.24,
+        "stance_axes": {
+          "sensitivity_to_access_barriers": 0.79,
+          "trust_official_guidance": 0.48,
+          "willingness_to_seek_help": 0.57
+        },
+        "trustworthiness": 0.72
+      },
+      {
+        "actor_name": "senior_residents",
+        "archetype_key": "older_adults",
+        "attention_level": 0.61,
+        "behavioral_tendencies": [
+          "monitor_conditions",
+          "share_word_of_mouth_updates",
+          "delay_if_entry_rules_seem_unclear"
+        ],
+        "cohort_key": "seniors_independent_access",
+        "expression_level": 0.31,
+        "fatigue": 0.55,
+        "fear_of_isolation": 0.33,
+        "ideology_axes": {
+          "communal_reliance": 0.59,
+          "institutional_trust": 0.54
+        },
+        "mobilization_readiness": 0.26,
+        "perceived_majority": 0.49,
+        "population_share_of_archetype": 0.64,
+        "private_belief_summary": "More able to attend independently, but rumor about registration may still deter some visits.",
+        "public_expression_summary": "Some share practical tips with peers, but many remain quiet unless directly affected.",
+        "representation_mode": "access_based_subcohort",
+        "represented_population": 140,
+        "reputation": 0.62,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "sensitivity_to_access_barriers": 0.62,
+          "trust_official_guidance": 0.54,
+          "willingness_to_seek_help": 0.44
+        },
+        "trustworthiness": 0.74
+      },
+      {
+        "actor_name": "volunteer_ride_network",
+        "archetype_key": "civically_engaged_adults",
+        "attention_level": 0.79,
+        "behavioral_tendencies": [
+          "coordinate_informally",
+          "amplify_useful_updates",
+          "fill_service_gaps"
+        ],
+        "cohort_key": "active_volunteers",
+        "expression_level": 0.72,
+        "fatigue": 0.38,
+        "fear_of_isolation": 0.21,
+        "ideology_axes": {
+          "communal_reliance": 0.84,
+          "institutional_trust": 0.58
+        },
+        "mobilization_readiness": 0.83,
+        "perceived_majority": 0.43,
+        "population_share_of_archetype": 0.28,
+        "private_belief_summary": "Immediate help is needed; transport coordination is feasible if messaging becomes clearer.",
+        "public_expression_summary": "Visible willingness to assist and recruit others.",
+        "representation_mode": "participation_subcohort",
+        "represented_population": 25,
+        "reputation": 0.68,
+        "secrecy": 0.16,
+        "stance_axes": {
+          "sensitivity_to_access_barriers": 0.66,
+          "trust_official_guidance": 0.6,
+          "willingness_to_seek_help": 0.71
+        },
+        "trustworthiness": 0.76
+      },
+      {
+        "actor_name": "town_residents_general",
+        "archetype_key": "civically_engaged_adults",
+        "attention_level": 0.51,
+        "behavioral_tendencies": [
+          "wait_for_clear_call_to_action",
+          "share_updates_with_friends",
+          "avoid_open_ended_commitments"
+        ],
+        "cohort_key": "latent_volunteers",
+        "expression_level": 0.24,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.29,
+        "ideology_axes": {
+          "communal_reliance": 0.67,
+          "institutional_trust": 0.52
+        },
+        "mobilization_readiness": 0.48,
+        "perceived_majority": 0.4,
+        "population_share_of_archetype": 0.72,
+        "private_belief_summary": "Open to helping if asked clearly and if logistics seem manageable.",
+        "public_expression_summary": "Mostly passive observers at T0.",
+        "representation_mode": "readiness_subcohort",
+        "represented_population": 65,
+        "reputation": 0.55,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "sensitivity_to_access_barriers": 0.49,
+          "trust_official_guidance": 0.52,
+          "willingness_to_seek_help": 0.47
+        },
+        "trustworthiness": 0.7
+      },
+      {
+        "actor_name": "town_residents_general",
+        "archetype_key": "general_households",
+        "attention_level": 0.57,
+        "behavioral_tendencies": [
+          "repeat_unverified_claims",
+          "respond_to_social_proximity",
+          "prefer_simple_rules"
+        ],
+        "cohort_key": "rumor_exposed_households",
+        "expression_level": 0.46,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.25,
+        "ideology_axes": {
+          "communal_reliance": 0.52,
+          "institutional_trust": 0.45
+        },
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.32,
+        "private_belief_summary": "Many are unsure whether registration is required and may pass along cautionary advice.",
+        "public_expression_summary": "Moderate rumor repetition, often framed as trying to help.",
+        "representation_mode": "information_exposure_subcohort",
+        "represented_population": 350,
+        "reputation": 0.5,
+        "secrecy": 0.14,
+        "stance_axes": {
+          "sensitivity_to_access_barriers": 0.58,
+          "trust_official_guidance": 0.43,
+          "willingness_to_seek_help": 0.39
+        },
+        "trustworthiness": 0.56
+      },
+      {
+        "actor_name": "town_residents_general",
+        "archetype_key": "general_households",
+        "attention_level": 0.33,
+        "behavioral_tendencies": [
+          "low_information_attention",
+          "react_to_salient_updates",
+          "limited_initial_participation"
+        ],
+        "cohort_key": "uninvolved_households",
+        "expression_level": 0.18,
+        "fatigue": 0.23,
+        "fear_of_isolation": 0.19,
+        "ideology_axes": {
+          "communal_reliance": 0.48,
+          "institutional_trust": 0.56
+        },
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.68,
+        "private_belief_summary": "Aware of the heat wave but not strongly engaged with cooling center details.",
+        "public_expression_summary": "Low expression unless prompted by official messaging or neighbor needs.",
+        "representation_mode": "residual_subcohort",
+        "represented_population": 750,
+        "reputation": 0.47,
+        "secrecy": 0.11,
+        "stance_axes": {
+          "sensitivity_to_access_barriers": 0.37,
+          "trust_official_guidance": 0.56,
+          "willingness_to_seek_help": 0.31
+        },
+        "trustworthiness": 0.63
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "senior_residents",
+        "archetype_key": "older_adults",
+        "attention_level": 0.74,
+        "behavioral_tendencies": [
+          "seek_confirmation_before_travel",
+          "avoid_confusing_processes",
+          "rely_on_known_contacts"
+        ],
+        "cohort_key": "seniors_needing_transport",
+        "expression_level": 0.28,
+        "fatigue": 0.63,
+        "fear_of_isolation": 0.4,
+        "ideology_axes": {
+          "communal_reliance": 0.68,
+          "institutional_trust": 0.5
+        },
+        "mobilization_readiness": 0.34,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.36,
+        "private_belief_summary": "Cooling center could help, but attendance depends on transport and confidence they can enter without registration barriers.",
+        "public_expression_summary": "Limited direct expression; often ask family, neighbors, or staff before acting.",
+        "representation_mode": "needs_based_subcohort",
+        "represented_population": 80,
+        "reputation": 0.64,
+        "secrecy": 0.24,
+        "stance_axes": {
+          "sensitivity_to_access_barriers": 0.79,
+          "trust_official_guidance": 0.48,
+          "willingness_to_seek_help": 0.57
+        },
+        "trustworthiness": 0.72
+      },
+      {
+        "actor_name": "senior_residents",
+        "archetype_key": "older_adults",
+        "attention_level": 0.61,
+        "behavioral_tendencies": [
+          "monitor_conditions",
+          "share_word_of_mouth_updates",
+          "delay_if_entry_rules_seem_unclear"
+        ],
+        "cohort_key": "seniors_independent_access",
+        "expression_level": 0.31,
+        "fatigue": 0.55,
+        "fear_of_isolation": 0.33,
+        "ideology_axes": {
+          "communal_reliance": 0.59,
+          "institutional_trust": 0.54
+        },
+        "mobilization_readiness": 0.26,
+        "perceived_majority": 0.49,
+        "population_share_of_archetype": 0.64,
+        "private_belief_summary": "More able to attend independently, but rumor about registration may still deter some visits.",
+        "public_expression_summary": "Some share practical tips with peers, but many remain quiet unless directly affected.",
+        "representation_mode": "access_based_subcohort",
+        "represented_population": 140,
+        "reputation": 0.62,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "sensitivity_to_access_barriers": 0.62,
+          "trust_official_guidance": 0.54,
+          "willingness_to_seek_help": 0.44
+        },
+        "trustworthiness": 0.74
+      },
+      {
+        "actor_name": "volunteer_ride_network",
+        "archetype_key": "civically_engaged_adults",
+        "attention_level": 0.79,
+        "behavioral_tendencies": [
+          "coordinate_informally",
+          "amplify_useful_updates",
+          "fill_service_gaps"
+        ],
+        "cohort_key": "active_volunteers",
+        "expression_level": 0.72,
+        "fatigue": 0.38,
+        "fear_of_isolation": 0.21,
+        "ideology_axes": {
+          "communal_reliance": 0.84,
+          "institutional_trust": 0.58
+        },
+        "mobilization_readiness": 0.83,
+        "perceived_majority": 0.43,
+        "population_share_of_archetype": 0.28,
+        "private_belief_summary": "Immediate help is needed; transport coordination is feasible if messaging becomes clearer.",
+        "public_expression_summary": "Visible willingness to assist and recruit others.",
+        "representation_mode": "participation_subcohort",
+        "represented_population": 25,
+        "reputation": 0.68,
+        "secrecy": 0.16,
+        "stance_axes": {
+          "sensitivity_to_access_barriers": 0.66,
+          "trust_official_guidance": 0.6,
+          "willingness_to_seek_help": 0.71
+        },
+        "trustworthiness": 0.76
+      },
+      {
+        "actor_name": "town_residents_general",
+        "archetype_key": "civically_engaged_adults",
+        "attention_level": 0.51,
+        "behavioral_tendencies": [
+          "wait_for_clear_call_to_action",
+          "share_updates_with_friends",
+          "avoid_open_ended_commitments"
+        ],
+        "cohort_key": "latent_volunteers",
+        "expression_level": 0.24,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.29,
+        "ideology_axes": {
+          "communal_reliance": 0.67,
+          "institutional_trust": 0.52
+        },
+        "mobilization_readiness": 0.48,
+        "perceived_majority": 0.4,
+        "population_share_of_archetype": 0.72,
+        "private_belief_summary": "Open to helping if asked clearly and if logistics seem manageable.",
+        "public_expression_summary": "Mostly passive observers at T0.",
+        "representation_mode": "readiness_subcohort",
+        "represented_population": 65,
+        "reputation": 0.55,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "sensitivity_to_access_barriers": 0.49,
+          "trust_official_guidance": 0.52,
+          "willingness_to_seek_help": 0.47
+        },
+        "trustworthiness": 0.7
+      },
+      {
+        "actor_name": "town_residents_general",
+        "archetype_key": "general_households",
+        "attention_level": 0.57,
+        "behavioral_tendencies": [
+          "repeat_unverified_claims",
+          "respond_to_social_proximity",
+          "prefer_simple_rules"
+        ],
+        "cohort_key": "rumor_exposed_households",
+        "expression_level": 0.46,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.25,
+        "ideology_axes": {
+          "communal_reliance": 0.52,
+          "institutional_trust": 0.45
+        },
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.32,
+        "private_belief_summary": "Many are unsure whether registration is required and may pass along cautionary advice.",
+        "public_expression_summary": "Moderate rumor repetition, often framed as trying to help.",
+        "representation_mode": "information_exposure_subcohort",
+        "represented_population": 350,
+        "reputation": 0.5,
+        "secrecy": 0.14,
+        "stance_axes": {
+          "sensitivity_to_access_barriers": 0.58,
+          "trust_official_guidance": 0.43,
+          "willingness_to_seek_help": 0.39
+        },
+        "trustworthiness": 0.56
+      },
+      {
+        "actor_name": "town_residents_general",
+        "archetype_key": "general_households",
+        "attention_level": 0.33,
+        "behavioral_tendencies": [
+          "low_information_attention",
+          "react_to_salient_updates",
+          "limited_initial_participation"
+        ],
+        "cohort_key": "uninvolved_households",
+        "expression_level": 0.18,
+        "fatigue": 0.23,
+        "fear_of_isolation": 0.19,
+        "ideology_axes": {
+          "communal_reliance": 0.48,
+          "institutional_trust": 0.56
+        },
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.68,
+        "private_belief_summary": "Aware of the heat wave but not strongly engaged with cooling center details.",
+        "public_expression_summary": "Low expression unless prompted by official messaging or neighbor needs.",
+        "representation_mode": "residual_subcohort",
+        "represented_population": 750,
+        "reputation": 0.47,
+        "secrecy": 0.11,
+        "stance_axes": {
+          "sensitivity_to_access_barriers": 0.37,
+          "trust_official_guidance": 0.56,
+          "willingness_to_seek_help": 0.31
+        },
+        "trustworthiness": 0.63
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "town_emergency_office",
+          "volunteer_ride_network",
+          "cooling_center_staff"
+        ],
+        "blockers": [
+          "low reach into senior networks",
+          "continued informal rumor forwarding",
+          "unclear or inconsistent official wording"
+        ],
+        "contradiction_notes": "An official correction alone is insufficient if observed behavior still reflects registration confusion.",
+        "description": "The false claim that registration is required no longer meaningfully shapes access behavior or dominant public understanding.",
+        "endpoint_key": "rumor_displaced",
+        "evidence_refs": [
+          "registration_rumor_circulates",
+          "official_clarification_window"
+        ],
+        "label": "Registration rumor displaced",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the false belief that registration is required get materially displaced in the town's active information environment?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.55,
+        "rationale": "Trust repair and official communication are explicit scenario goals.",
+        "realization_criteria": [
+          "Repeated observable public messaging states no registration is required",
+          "Majority of new inquiries concern logistics rather than eligibility",
+          "Rumor repetition falls below correction repetition across observed town channels"
+        ],
+        "status": "active",
+        "status_basis": "At T0 the rumor is active and unresolved."
+      },
+      {
+        "authority_refs": [
+          "volunteer_ride_network",
+          "town_emergency_office",
+          "budget_office"
+        ],
+        "blockers": [
+          "insufficient volunteer supply",
+          "coordination confusion",
+          "budget refusal to support scaling if needed"
+        ],
+        "contradiction_notes": "Visible volunteer activity does not equal stable coverage if demand exceeds capacity.",
+        "description": "Residents needing rides can access the cooling center with acceptable reliability during the active heat period.",
+        "endpoint_key": "transport_access_stabilized",
+        "evidence_refs": [
+          "ride_help_organizing_begins",
+          "budget_review_pressure"
+        ],
+        "label": "Transport access stabilized for vulnerable seniors",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do seniors needing rides gain reliable enough transport access to reach the cooling center during the heat wave?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.5,
+        "rationale": "Transport is a central operational bottleneck named in the scenario.",
+        "realization_criteria": [
+          "Most ride requests from seniors receive a completed ride or alternative transport arrangement",
+          "Transport availability is no longer the dominant barrier cited by high-need seniors",
+          "Cooling center attendance from transport-dependent seniors becomes sustained rather than sporadic"
+        ],
+        "status": "active",
+        "status_basis": "Rides are being organized, but reliability and capacity are not yet established."
+      },
+      {
+        "authority_refs": [
+          "budget_office",
+          "town_emergency_office"
+        ],
+        "blockers": [
+          "cost escalation visibility",
+          "low documented usage creating fiscal skepticism",
+          "competing municipal priorities"
+        ],
+        "contradiction_notes": "Temporary review or audit is not itself endpoint realization unless it changes service continuation.",
+        "description": "Budget authority does not materially curtail the cooling center or associated access support before the key demand window passes.",
+        "endpoint_key": "response_funding_continues",
+        "evidence_refs": [
+          "budget_review_pressure"
+        ],
+        "label": "Response funding or tolerance continues through demand period",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does municipal budget authority sustain or constrain the operational and transport response before access demand stabilizes?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.57,
+        "rationale": "Funding tolerance is the main institutional leverage over duration and scale.",
+        "realization_criteria": [
+          "No budget-driven reduction in center availability during the active heat response",
+          "Operational or transport support remains authorized through the main need period",
+          "Officials do not publicly narrow access due primarily to cost concerns"
+        ],
+        "status": "active",
+        "status_basis": "Budget concern is present but no curtailment has yet occurred at T0."
+      },
+      {
+        "authority_refs": [
+          "town_emergency_office",
+          "volunteer_ride_network",
+          "cooling_center_staff"
+        ],
+        "blockers": [
+          "slow correction",
+          "mixed messages across channels",
+          "continued unmet transport needs undermining credibility"
+        ],
+        "contradiction_notes": "Operational success without recognized official authorship may improve outcomes without fully restoring office credibility.",
+        "description": "The town emergency office is again treated as a reliable source on cooling center access and logistics by key publics.",
+        "endpoint_key": "official_credibility_recovers",
+        "evidence_refs": [
+          "registration_rumor_circulates",
+          "official_clarification_window"
+        ],
+        "label": "Official credibility recovers after misinformation",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the town emergency office recover or strengthen public trust after the misinformation episode?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.52,
+        "rationale": "Trust repair is an explicit scenario objective.",
+        "realization_criteria": [
+          "Residents increasingly cite official guidance when discussing center access",
+          "Trust indicators from seniors and general households rise relative to the rumor period",
+          "Volunteers and staff align their public explanations with official messaging without visible friction"
+        ],
+        "status": "active",
+        "status_basis": "The scenario begins with a trust challenge rather than a completed trust collapse."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "Scenario emphasizes official communication needs.",
+        "layer": "exposure",
+        "reason": "Official messages can reach many residents, though not perfectly.",
+        "source_actor_name": "town_emergency_office",
+        "target_actor_name": "town_residents_general",
+        "weight": 0.55
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Need for communication and trust repair around access rules.",
+        "layer": "exposure",
+        "reason": "Some seniors receive official updates, but reach may be uneven.",
+        "source_actor_name": "town_emergency_office",
+        "target_actor_name": "senior_residents",
+        "weight": 0.42
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Misinformation spreads that registration is required when it is not.",
+        "layer": "exposure",
+        "reason": "Rumor about registration is already circulating.",
+        "source_actor_name": "local_misinformation_stream",
+        "target_actor_name": "town_residents_general",
+        "weight": 0.51
+      },
+      {
+        "direction": "outbound",
+        "evidence": "False claim affects access perceptions.",
+        "layer": "exposure",
+        "reason": "Seniors may receive the rumor via neighbors or family.",
+        "source_actor_name": "local_misinformation_stream",
+        "target_actor_name": "senior_residents",
+        "weight": 0.39
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Volunteers organize rides for seniors.",
+        "layer": "exposure",
+        "reason": "Volunteers are beginning outreach for rides but coverage is partial.",
+        "source_actor_name": "volunteer_ride_network",
+        "target_actor_name": "senior_residents",
+        "weight": 0.33
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Staff operate the center but are not primary broadcasters.",
+        "layer": "exposure",
+        "reason": "Direct exposure occurs mainly when residents inquire or arrive.",
+        "source_actor_name": "cooling_center_staff",
+        "target_actor_name": "senior_residents",
+        "weight": 0.22
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario designed to test trust repair.",
+        "layer": "trust",
+        "reason": "Moderate baseline trust with some erosion risk from confusing rumor conditions.",
+        "source_actor_name": "senior_residents",
+        "target_actor_name": "town_emergency_office",
+        "weight": 0.49
+      },
+      {
+        "direction": "directed",
+        "evidence": "No explicit prior scandal; issue is current misinformation.",
+        "layer": "trust",
+        "reason": "Residents retain moderate institutional trust at T0.",
+        "source_actor_name": "town_residents_general",
+        "target_actor_name": "town_emergency_office",
+        "weight": 0.53
+      },
+      {
+        "direction": "directed",
+        "evidence": "Volunteers organizing rides for seniors.",
+        "layer": "trust",
+        "reason": "Neighbor help is often trusted when practical and local.",
+        "source_actor_name": "senior_residents",
+        "target_actor_name": "volunteer_ride_network",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "Volunteer mobilization is part of scenario focus.",
+        "layer": "trust",
+        "reason": "Officials see volunteers as useful but informal partners.",
+        "source_actor_name": "town_emergency_office",
+        "target_actor_name": "volunteer_ride_network",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "Seniors need transport; volunteers organize rides.",
+        "layer": "dependency",
+        "reason": "A meaningful subset of seniors need rides to access cooling relief.",
+        "source_actor_name": "senior_residents",
+        "target_actor_name": "volunteer_ride_network",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "Emergency office coordinates heat response.",
+        "layer": "dependency",
+        "reason": "Staff rely on official guidance and operating decisions.",
+        "source_actor_name": "cooling_center_staff",
+        "target_actor_name": "town_emergency_office",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "Budget officials worry about cost.",
+        "layer": "dependency",
+        "reason": "Expanded operations or transport support may require funding tolerance.",
+        "source_actor_name": "town_emergency_office",
+        "target_actor_name": "budget_office",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "Official communication affects ride confidence.",
+        "layer": "dependency",
+        "reason": "Volunteer efficiency depends on clear destination rules and public confirmation.",
+        "source_actor_name": "volunteer_ride_network",
+        "target_actor_name": "town_emergency_office",
+        "weight": 0.32
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Official communication is a core test dimension.",
+        "layer": "influence",
+        "reason": "Official statements can set the public understanding if timely and repeated.",
+        "source_actor_name": "town_emergency_office",
+        "target_actor_name": "town_residents_general",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Budget officials worry about cost.",
+        "layer": "influence",
+        "reason": "Funding concerns can shape operational choices and message confidence.",
+        "source_actor_name": "budget_office",
+        "target_actor_name": "town_emergency_office",
+        "weight": 0.47
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Volunteer mobilization is expected focus.",
+        "layer": "influence",
+        "reason": "Visible volunteer action can shift local norms toward helping.",
+        "source_actor_name": "volunteer_ride_network",
+        "target_actor_name": "town_residents_general",
+        "weight": 0.31
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Rumor already spreads.",
+        "layer": "influence",
+        "reason": "Simple false rule claims can be sticky in local networks.",
+        "source_actor_name": "local_misinformation_stream",
+        "target_actor_name": "town_residents_general",
+        "weight": 0.43
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Same response effort.",
+        "layer": "coalition",
+        "reason": "Aligned on safe and effective cooling center operations.",
+        "source_actor_name": "town_emergency_office",
+        "target_actor_name": "cooling_center_staff",
+        "weight": 0.61
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Volunteers organize rides while officials handle communication.",
+        "layer": "coalition",
+        "reason": "Potentially aligned around access, but not yet fully integrated.",
+        "source_actor_name": "town_emergency_office",
+        "target_actor_name": "volunteer_ride_network",
+        "weight": 0.42
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Ride organization for seniors.",
+        "layer": "coalition",
+        "reason": "Shared interest in getting vulnerable residents to safety.",
+        "source_actor_name": "volunteer_ride_network",
+        "target_actor_name": "senior_residents",
+        "weight": 0.52
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Budget officials worry about cost.",
+        "layer": "conflict",
+        "reason": "Cost concerns may constrain emergency expansion or transport support.",
+        "source_actor_name": "budget_office",
+        "target_actor_name": "town_emergency_office",
+        "weight": 0.36
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "False claim that registration is required when it is not.",
+        "layer": "conflict",
+        "reason": "Rumor directly undermines official communication and access goals.",
+        "source_actor_name": "local_misinformation_stream",
+        "target_actor_name": "town_emergency_office",
+        "weight": 0.49
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Registration rumor could block attendance.",
+        "layer": "conflict",
+        "reason": "False access barrier may deter use by vulnerable residents.",
+        "source_actor_name": "local_misinformation_stream",
+        "target_actor_name": "senior_residents",
+        "weight": 0.41
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Official communication is central.",
+        "layer": "oasis_interaction",
+        "reason": "Likely interaction through public advisories and updates.",
+        "source_actor_name": "town_emergency_office",
+        "target_actor_name": "town_residents_general",
+        "weight": 0.54
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Volunteers organize rides.",
+        "layer": "oasis_interaction",
+        "reason": "Likely public coordination and requests for volunteer help.",
+        "source_actor_name": "volunteer_ride_network",
+        "target_actor_name": "town_residents_general",
+        "weight": 0.37
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Misinformation spreads in town.",
+        "layer": "oasis_interaction",
+        "reason": "Rumor likely moves in visible and semi-visible social channels.",
+        "source_actor_name": "local_misinformation_stream",
+        "target_actor_name": "town_residents_general",
+        "weight": 0.45
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "hero_key": "operations_lead",
+        "label": "Emergency response operations lead",
+        "role_domain": "municipal_response"
+      },
+      {
+        "hero_key": "volunteer_coordinator",
+        "label": "Volunteer ride coordinator",
+        "role_domain": "civic_coordination"
+      },
+      {
+        "hero_key": "budget_gatekeeper",
+        "label": "Budget approval authority",
+        "role_domain": "municipal_finance"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "town_emergency_office",
+        "attention_level": 0.87,
+        "authority_level": 0.79,
+        "credibility_at_t0": 0.57,
+        "expression_level": 0.64,
+        "fatigue": 0.42,
+        "fear_of_isolation": 0.18,
+        "hero_key": "operations_lead",
+        "mobilization_readiness": 0.76,
+        "operational_capacity": 0.62,
+        "perceived_majority": 0.58,
+        "represented_population": 1,
+        "stance_axes": {
+          "cost_sensitivity": 0.46,
+          "prioritize_access": 0.83,
+          "prioritize_message_control": 0.71
+        }
+      },
+      {
+        "actor_name": "volunteer_ride_network",
+        "attention_level": 0.81,
+        "authority_level": 0.43,
+        "credibility_at_t0": 0.69,
+        "expression_level": 0.71,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.17,
+        "hero_key": "volunteer_coordinator",
+        "mobilization_readiness": 0.86,
+        "operational_capacity": 0.48,
+        "perceived_majority": 0.46,
+        "represented_population": 1,
+        "stance_axes": {
+          "cost_sensitivity": 0.27,
+          "prioritize_access": 0.89,
+          "prioritize_message_control": 0.44
+        }
+      },
+      {
+        "actor_name": "budget_office",
+        "attention_level": 0.59,
+        "authority_level": 0.72,
+        "credibility_at_t0": 0.51,
+        "expression_level": 0.29,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.24,
+        "hero_key": "budget_gatekeeper",
+        "mobilization_readiness": 0.37,
+        "operational_capacity": 0.55,
+        "perceived_majority": 0.52,
+        "represented_population": 1,
+        "stance_axes": {
+          "cost_sensitivity": 0.84,
+          "prioritize_access": 0.41,
+          "prioritize_message_control": 0.36
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "hero_key": "operations_lead",
+        "label": "Emergency response operations lead",
+        "role_domain": "municipal_response"
+      },
+      {
+        "hero_key": "volunteer_coordinator",
+        "label": "Volunteer ride coordinator",
+        "role_domain": "civic_coordination"
+      },
+      {
+        "hero_key": "budget_gatekeeper",
+        "label": "Budget approval authority",
+        "role_domain": "municipal_finance"
+      }
+    ],
+    "important_questions": [
+      "Does the false belief that registration is required get materially displaced in the town's active information environment?",
+      "Do seniors needing rides gain reliable enough transport access to reach the cooling center during the heat wave?",
+      "Does municipal budget authority sustain or constrain the operational and transport response before access demand stabilizes?",
+      "Does the town emergency office recover or strengthen public trust after the misinformation episode?"
+    ],
+    "initial_events": [
+      {
+        "event_key": "cooling_center_opened",
+        "event_type": "announcement",
+        "expected_impact": "Raises awareness of available relief but creates need for clear access instructions and transport coordination.",
+        "involved_actors": [
+          "town_emergency_office",
+          "cooling_center_staff"
+        ],
+        "status": "visible",
+        "summary": "Town opens a cooling center in response to the heat wave.",
+        "tick": 0
+      },
+      {
+        "event_key": "ride_help_organizing_begins",
+        "event_type": "announcement",
+        "expected_impact": "Can reduce access barriers and build solidarity if coordination and official guidance align.",
+        "involved_actors": [
+          "volunteer_ride_network",
+          "senior_residents"
+        ],
+        "status": "visible",
+        "summary": "Volunteers begin organizing rides for seniors and others needing help reaching the center.",
+        "tick": 0
+      },
+      {
+        "event_key": "registration_rumor_circulates",
+        "event_type": "announcement",
+        "expected_impact": "Depresses confidence, increases hesitation among vulnerable residents, and forces a trust repair challenge.",
+        "involved_actors": [
+          "local_misinformation_stream",
+          "town_residents_general",
+          "senior_residents"
+        ],
+        "status": "visible",
+        "summary": "False information circulates that registration is required to use the cooling center.",
+        "tick": 0
+      },
+      {
+        "event_key": "budget_review_pressure",
+        "event_type": "announcement",
+        "expected_impact": "May constrain expansion, slow commitments, or push officials toward narrower messaging and service scope.",
+        "involved_actors": [
+          "budget_office",
+          "town_emergency_office"
+        ],
+        "status": "imminent",
+        "summary": "Budget officials assess whether response and transport-related costs are expanding too quickly.",
+        "tick": 1
+      },
+      {
+        "event_key": "official_clarification_window",
+        "event_type": "announcement",
+        "expected_impact": "Could improve trust and attendance if correction reaches rumor-exposed networks quickly enough.",
+        "involved_actors": [
+          "town_emergency_office",
+          "town_residents_general",
+          "senior_residents"
+        ],
+        "status": "imminent",
+        "summary": "A near-term opportunity exists for officials to clarify that registration is not required.",
+        "tick": 1
+      }
+    ],
+    "llm_call_id": "0976fec5-429e-4de4-a817-3ef0f64da9c8",
+    "merge_hypotheses": [
+      {
+        "affected_actors": [
+          "town_emergency_office",
+          "cooling_center_staff",
+          "volunteer_ride_network",
+          "senior_residents",
+          "town_residents_general"
+        ],
+        "convergence_driver": "Common recognition that the heat wave poses immediate risk can align officials, staff, volunteers, and households around basic access goals.",
+        "merge_key": "shared_heat_risk_alignment"
+      },
+      {
+        "affected_actors": [
+          "senior_residents",
+          "town_residents_general",
+          "town_emergency_office",
+          "volunteer_ride_network"
+        ],
+        "convergence_driver": "Visible successful entries without registration can reduce disagreement and bring rumor-exposed households back toward the official view.",
+        "merge_key": "practical_success_overrides_confusion"
+      },
+      {
+        "affected_actors": [
+          "town_emergency_office",
+          "budget_office",
+          "volunteer_ride_network",
+          "cooling_center_staff"
+        ],
+        "convergence_driver": "Limited funds and finite volunteer capacity may push actors toward more coordinated scheduling and messaging.",
+        "merge_key": "resource_constraint_forces_coordination"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "older_adults",
+        "label": "Older adults in town",
+        "population_total": 220,
+        "salient_needs": [
+          "heat_relief",
+          "transport",
+          "clear_instructions"
+        ]
+      },
+      {
+        "archetype_key": "civically_engaged_adults",
+        "label": "Civically engaged adults",
+        "population_total": 90,
+        "salient_needs": [
+          "coordination",
+          "trustworthy_updates",
+          "manageable_time_commitment"
+        ]
+      },
+      {
+        "archetype_key": "general_households",
+        "label": "General households",
+        "population_total": 1100,
+        "salient_needs": [
+          "accurate_public_information",
+          "confidence_in_local_response"
+        ]
+      }
+    ],
+    "risk_flags": [
+      {
+        "description": "Vulnerable residents may self-exclude because they believe registration is mandatory.",
+        "risk_key": "access_deterrence_from_false_rule",
+        "severity": "medium"
+      },
+      {
+        "description": "Volunteer efforts may be insufficient or unevenly coordinated relative to need.",
+        "risk_key": "transport_bottleneck",
+        "severity": "medium"
+      },
+      {
+        "description": "Budget caution could suppress scaling or duration before needs are fully met.",
+        "risk_key": "institutional_cost_constraint",
+        "severity": "medium"
+      },
+      {
+        "description": "The corpus is intentionally small, so actor names, counts, and capacities are calibrated defaults rather than text-specific facts.",
+        "risk_key": "limited_evidence_specificity",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "domain": "public_health_resource",
+      "initial_temperature": "elevated_but_not_crisis_peak",
+      "mode": "direct",
+      "primary_dynamics": [
+        "trust_repair",
+        "volunteer_mobilization",
+        "official_communication",
+        "transport_access",
+        "cost_constraint"
+      ],
+      "scale": "small_town",
+      "scenario_key": "health_005",
+      "setting": "fictional_town_heat_wave_cooling_center",
+      "t0_summary": "A fictional town has opened a cooling center during a heat wave. Seniors and other heat-vulnerable residents may need transportation. Volunteers are beginning to organize rides. Budget officials are concerned about operating and transport costs. False information is circulating that registration is required, creating a trust and access problem.",
+      "uncertainty_notes": [
+        "Town size, exact heat severity, and cooling center capacity are not specified.",
+        "The source of misinformation is unspecified.",
+        "No explicit timeline horizon is provided; imminent events are seeded conservatively."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "evidence": "Residents are more likely to update beliefs from familiar and plausible sources than from distant corrections.",
+        "level": 0.63,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "scope": "townwide"
+      },
+      {
+        "evidence": "Latent volunteers likely join once enough visible participation and clear asks appear.",
+        "level": 0.58,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "scope": "volunteer_recruitment"
+      },
+      {
+        "evidence": "Some confused residents may remain quiet rather than ask publicly about eligibility.",
+        "level": 0.46,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "scope": "seniors_and_general_residents"
+      },
+      {
+        "evidence": "Seniors and households likely rely on trusted local contacts for practical advice.",
+        "level": 0.54,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "scope": "neighborhood_and_age_peers"
+      },
+      {
+        "evidence": "Repeated confirmation from multiple contacts may be needed to mobilize help or undo rumor beliefs.",
+        "level": 0.49,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "scope": "volunteering_and_rumor_correction"
+      },
+      {
+        "evidence": "A civic helper identity exists but is not yet dominant.",
+        "level": 0.44,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "scope": "community_helpers_vs_passive_observers"
+      },
+      {
+        "evidence": "Absent repeated prompts, many residents may tune out operational details.",
+        "level": 0.52,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "scope": "general_households"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Whether a simple repeated statement that no registration is required reaches seniors and rumor-exposed households.",
+        "influence_key": "clarity_of_no_registration_message"
+      },
+      {
+        "description": "Public examples of seniors being transported successfully may increase volunteer recruitment and attendance confidence.",
+        "influence_key": "visibility_of_successful_rides"
+      },
+      {
+        "description": "If cost concerns become public, they may dampen perceived durability of support.",
+        "influence_key": "budget_constraint_salience"
+      },
+      {
+        "description": "Neighbors, volunteers, and staff may function as more persuasive access clarifiers than formal notices alone.",
+        "influence_key": "trusted_local_intermediaries"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "town_emergency_office",
+        "behavior_axes": {
+          "bureaucratic_caution": 0.56,
+          "coordination_orientation": 0.72,
+          "responsiveness": 0.68
+        },
+        "ideology_axes": {
+          "community_reliance": 0.61,
+          "institutionalism": 0.78
+        },
+        "reputation": 0.58,
+        "secrecy": 0.31,
+        "tendency": "formal_response_with_room_for_trust_repair",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "cooling_center_staff",
+        "behavior_axes": {
+          "bureaucratic_caution": 0.39,
+          "coordination_orientation": 0.66,
+          "responsiveness": 0.73
+        },
+        "ideology_axes": {
+          "community_reliance": 0.69,
+          "institutionalism": 0.63
+        },
+        "reputation": 0.65,
+        "secrecy": 0.18,
+        "tendency": "service_delivery_under_practical_constraints",
+        "trustworthiness": 0.74
+      },
+      {
+        "actor_name": "senior_residents",
+        "behavior_axes": {
+          "bureaucratic_caution": 0.58,
+          "coordination_orientation": 0.36,
+          "responsiveness": 0.47
+        },
+        "ideology_axes": {
+          "community_reliance": 0.64,
+          "institutionalism": 0.52
+        },
+        "reputation": 0.64,
+        "secrecy": 0.23,
+        "tendency": "risk_aware_help_seekers_with_access_constraints",
+        "trustworthiness": 0.73
+      },
+      {
+        "actor_name": "volunteer_ride_network",
+        "behavior_axes": {
+          "bureaucratic_caution": 0.22,
+          "coordination_orientation": 0.77,
+          "responsiveness": 0.82
+        },
+        "ideology_axes": {
+          "community_reliance": 0.87,
+          "institutionalism": 0.46
+        },
+        "reputation": 0.68,
+        "secrecy": 0.14,
+        "tendency": "high_motivation_informal_problem_solving",
+        "trustworthiness": 0.75
+      },
+      {
+        "actor_name": "budget_office",
+        "behavior_axes": {
+          "bureaucratic_caution": 0.79,
+          "coordination_orientation": 0.45,
+          "responsiveness": 0.44
+        },
+        "ideology_axes": {
+          "community_reliance": 0.39,
+          "institutionalism": 0.81
+        },
+        "reputation": 0.49,
+        "secrecy": 0.37,
+        "tendency": "cost_gatekeeping_before_expansion",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "town_residents_general",
+        "behavior_axes": {
+          "bureaucratic_caution": 0.33,
+          "coordination_orientation": 0.41,
+          "responsiveness": 0.46
+        },
+        "ideology_axes": {
+          "community_reliance": 0.54,
+          "institutionalism": 0.51
+        },
+        "reputation": 0.51,
+        "secrecy": 0.15,
+        "tendency": "mixed_attention_word_of_mouth_public",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "local_misinformation_stream",
+        "behavior_axes": {
+          "bureaucratic_caution": 0.08,
+          "coordination_orientation": 0.18,
+          "responsiveness": 0.61
+        },
+        "ideology_axes": {
+          "community_reliance": 0.42,
+          "institutionalism": 0.24
+        },
+        "reputation": 0.29,
+        "secrecy": 0.52,
+        "tendency": "diffuse_low_verification_rumor_spread",
+        "trustworthiness": 0.22
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 476,
+        "end": 476,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 476,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

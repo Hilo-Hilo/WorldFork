@@ -1,0 +1,1465 @@
+{
+  "big_bang_id": "4849cbfc-7ccd-459a-b699-5acee51d543d",
+  "initializer_output": {
+    "actors": [
+      {
+        "decision_authority": "medium_high",
+        "fictionalized": true,
+        "name": "north_vale_school_district",
+        "public_visibility": "high",
+        "stakes": [
+          "maintain legitimacy",
+          "stabilize bus operations",
+          "avoid refund and reputational pressure"
+        ],
+        "type": "institution"
+      },
+      {
+        "decision_authority": "high",
+        "fictionalized": true,
+        "name": "district_transportation_office",
+        "public_visibility": "medium",
+        "stakes": [
+          "staff routes",
+          "report service metrics",
+          "manage contractor or fleet constraints"
+        ],
+        "type": "institution_subunit"
+      },
+      {
+        "decision_authority": "medium_high",
+        "fictionalized": true,
+        "name": "district_administrators",
+        "public_visibility": "high",
+        "stakes": [
+          "defend district messaging",
+          "show improvement progress",
+          "contain political fallout"
+        ],
+        "type": "leadership_group"
+      },
+      {
+        "decision_authority": "low_medium",
+        "fictionalized": true,
+        "name": "school_bus_drivers",
+        "public_visibility": "medium",
+        "stakes": [
+          "manageable workloads",
+          "safe schedules",
+          "credible acknowledgment of overload"
+        ],
+        "type": "workforce_group"
+      },
+      {
+        "decision_authority": "medium",
+        "fictionalized": true,
+        "name": "parents_riders_group",
+        "public_visibility": "high",
+        "stakes": [
+          "reliable student transportation",
+          "financial fairness",
+          "responsive communication"
+        ],
+        "type": "constituency_group"
+      },
+      {
+        "decision_authority": "low",
+        "fictionalized": true,
+        "name": "students_bus_dependent",
+        "public_visibility": "low",
+        "stakes": [
+          "timely school access",
+          "predictable daily routines",
+          "reduced stress"
+        ],
+        "type": "affected_population"
+      },
+      {
+        "decision_authority": "medium",
+        "fictionalized": true,
+        "name": "local_press_and_community_pages",
+        "public_visibility": "high",
+        "stakes": [
+          "attentionworthy conflict",
+          "public accountability",
+          "shareable evidence"
+        ],
+        "type": "media_network"
+      },
+      {
+        "decision_authority": "high",
+        "fictionalized": true,
+        "name": "school_board",
+        "public_visibility": "high",
+        "stakes": [
+          "district oversight",
+          "budget and policy response",
+          "public confidence"
+        ],
+        "type": "governing_body"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "public belief shifts toward systemic service failure and stronger refund pressure",
+        "branch_key": "screenshots_expand_into_pattern",
+        "divergence_signal": "complaint volume broadens across neighborhoods and moderators/media frame incidents as districtwide rather than isolated",
+        "trigger": "additional parents from varied routes post similar recent cancellation evidence"
+      },
+      {
+        "alternate_path": "moderates accept uneven improvement and pressure shifts from refunds to targeted fixes",
+        "branch_key": "improvement_data_gains_credibility",
+        "divergence_signal": "parent discussion begins distinguishing legacy problems from current trend improvement",
+        "trigger": "district releases route-level or time-series metrics showing cancellations falling despite remaining hot spots"
+      },
+      {
+        "alternate_path": "frontline testimony undermines administrative message discipline and accelerates oversight response",
+        "branch_key": "driver_voice_publicly_breaks",
+        "divergence_signal": "named or repeated driver accounts appear in public channels with consistent operational details",
+        "trigger": "drivers speak more openly, collectively, or through protected channels about overload"
+      },
+      {
+        "alternate_path": "conflict moves from service complaints to fairness and governance accountability",
+        "branch_key": "refund_issue_reframed_by_policy_constraint",
+        "divergence_signal": "public discussion centers on authority and policy barriers rather than just cancellation frequency",
+        "trigger": "district states refunds are limited by policy, contract, or budget structure"
+      }
+    ],
+    "channels": [
+      {
+        "audience": [
+          "parents_riders_group",
+          "general_district_public"
+        ],
+        "channel_key": "district_press_release",
+        "credibility_profile": "formal_but_contested",
+        "operators": [
+          "north_vale_school_district",
+          "district_administrators"
+        ],
+        "type": "official_public"
+      },
+      {
+        "audience": [
+          "parents_riders_group",
+          "local_press_and_community_pages",
+          "general_district_public"
+        ],
+        "channel_key": "parent_screenshot_sharing",
+        "credibility_profile": "concrete_but_possibly_selective",
+        "operators": [
+          "parents_riders_group"
+        ],
+        "type": "peer_network"
+      },
+      {
+        "audience": [
+          "district_transportation_office",
+          "parents_riders_group",
+          "local_press_and_community_pages"
+        ],
+        "channel_key": "driver_internal_and_selective_external_comments",
+        "credibility_profile": "frontline_but_incomplete",
+        "operators": [
+          "school_bus_drivers"
+        ],
+        "type": "mixed_private_public"
+      },
+      {
+        "audience": [
+          "parents_riders_group",
+          "district_administrators",
+          "general_district_public"
+        ],
+        "channel_key": "school_board_comment_process",
+        "credibility_profile": "procedural",
+        "operators": [
+          "school_board"
+        ],
+        "type": "oversight_public"
+      },
+      {
+        "audience": [
+          "general_district_public",
+          "school_board",
+          "parents_riders_group"
+        ],
+        "channel_key": "local_press_and_community_pages",
+        "credibility_profile": "amplifying_and_mixed",
+        "operators": [
+          "local_press_and_community_pages"
+        ],
+        "type": "media_social"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "district_parents",
+        "attention_level": 0.9,
+        "cohort_key": "parents_angry_sharers",
+        "expression_level": 0.85,
+        "fatigue": 0.45,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.78,
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "service reliability is materially worse than district messaging suggests",
+        "public_expression": "shares screenshots, complaints, and refund demands",
+        "representation_mode": "active_vocal_subset",
+        "represented_population": 1050,
+        "stance_axes": {
+          "benefit_of_doubt_for_district": 0.2,
+          "district_claims_improving_service": 0.15,
+          "refund_support": 0.9
+        }
+      },
+      {
+        "archetype_key": "district_parents",
+        "attention_level": 0.72,
+        "cohort_key": "parents_concerned_uncertain",
+        "expression_level": 0.38,
+        "fatigue": 0.54,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.49,
+        "perceived_majority": 0.48,
+        "population_share_of_archetype": 0.5,
+        "private_belief": "service problems appear real but evidence may be uneven",
+        "public_expression": "complains privately, limited public posting",
+        "representation_mode": "broad_mixed_majority",
+        "represented_population": 2100,
+        "stance_axes": {
+          "benefit_of_doubt_for_district": 0.46,
+          "district_claims_improving_service": 0.42,
+          "refund_support": 0.68
+        }
+      },
+      {
+        "archetype_key": "district_parents",
+        "attention_level": 0.45,
+        "cohort_key": "parents_wait_and_see",
+        "expression_level": 0.16,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.47,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.29,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "service may be improving unevenly and online examples may be selective",
+        "public_expression": "minimal posting, seeks direct updates",
+        "representation_mode": "quieter_minor_cohort",
+        "represented_population": 1050,
+        "stance_axes": {
+          "benefit_of_doubt_for_district": 0.61,
+          "district_claims_improving_service": 0.58,
+          "refund_support": 0.35
+        }
+      },
+      {
+        "archetype_key": "transport_staff",
+        "attention_level": 0.8,
+        "cohort_key": "drivers_overloaded",
+        "expression_level": 0.34,
+        "fatigue": 0.79,
+        "fear_of_isolation": 0.58,
+        "mobilization_readiness": 0.43,
+        "perceived_majority": 0.67,
+        "population_share_of_archetype": 0.65,
+        "private_belief": "route load and operational strain remain serious",
+        "public_expression": "speaks selectively due to job risk",
+        "representation_mode": "dominant_reported_internal_cohort",
+        "represented_population": 78,
+        "stance_axes": {
+          "publicly_challenge_admins": 0.33,
+          "route_overload_salience": 0.88,
+          "service_currently_improving": 0.28
+        }
+      },
+      {
+        "archetype_key": "transport_staff",
+        "attention_level": 0.58,
+        "cohort_key": "drivers_cautiously_optimistic",
+        "expression_level": 0.21,
+        "fatigue": 0.55,
+        "fear_of_isolation": 0.49,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "hiring gains exist and may improve service gradually",
+        "public_expression": "mixed, mostly internal discussion",
+        "representation_mode": "minor_internal_cohort",
+        "represented_population": 42,
+        "stance_axes": {
+          "publicly_challenge_admins": 0.18,
+          "route_overload_salience": 0.52,
+          "service_currently_improving": 0.56
+        }
+      },
+      {
+        "archetype_key": "bus_dependent_students",
+        "attention_level": 0.76,
+        "cohort_key": "students_disrupted",
+        "expression_level": 0.08,
+        "fatigue": 0.51,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.06,
+        "perceived_majority": 0.6,
+        "population_share_of_archetype": 0.5,
+        "private_belief": "transportation is unpredictable",
+        "public_expression": "indirect through parents and attendance patterns",
+        "representation_mode": "affected_subpopulation",
+        "represented_population": 2550,
+        "stance_axes": {
+          "direct_public_voice": 0.1,
+          "felt_service_reliability": 0.28,
+          "need_for_stability": 0.92
+        }
+      },
+      {
+        "archetype_key": "general_district_public",
+        "attention_level": 0.64,
+        "cohort_key": "public_observers_attention_spike",
+        "expression_level": 0.4,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.3,
+        "mobilization_readiness": 0.28,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "district may be overspinning but facts are incomplete",
+        "public_expression": "reactive comments and sharing",
+        "representation_mode": "issue_attentive_subset",
+        "represented_population": 5400,
+        "stance_axes": {
+          "patience_for_operational_complexity": 0.44,
+          "skepticism_of_official_claims": 0.63,
+          "support_for_refunds": 0.57
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "district_parents",
+        "attention_level": 0.9,
+        "cohort_key": "parents_angry_sharers",
+        "expression_level": 0.85,
+        "fatigue": 0.45,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.78,
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "service reliability is materially worse than district messaging suggests",
+        "public_expression": "shares screenshots, complaints, and refund demands",
+        "representation_mode": "active_vocal_subset",
+        "represented_population": 1050,
+        "stance_axes": {
+          "benefit_of_doubt_for_district": 0.2,
+          "district_claims_improving_service": 0.15,
+          "refund_support": 0.9
+        }
+      },
+      {
+        "archetype_key": "district_parents",
+        "attention_level": 0.72,
+        "cohort_key": "parents_concerned_uncertain",
+        "expression_level": 0.38,
+        "fatigue": 0.54,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.49,
+        "perceived_majority": 0.48,
+        "population_share_of_archetype": 0.5,
+        "private_belief": "service problems appear real but evidence may be uneven",
+        "public_expression": "complains privately, limited public posting",
+        "representation_mode": "broad_mixed_majority",
+        "represented_population": 2100,
+        "stance_axes": {
+          "benefit_of_doubt_for_district": 0.46,
+          "district_claims_improving_service": 0.42,
+          "refund_support": 0.68
+        }
+      },
+      {
+        "archetype_key": "district_parents",
+        "attention_level": 0.45,
+        "cohort_key": "parents_wait_and_see",
+        "expression_level": 0.16,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.47,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.29,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "service may be improving unevenly and online examples may be selective",
+        "public_expression": "minimal posting, seeks direct updates",
+        "representation_mode": "quieter_minor_cohort",
+        "represented_population": 1050,
+        "stance_axes": {
+          "benefit_of_doubt_for_district": 0.61,
+          "district_claims_improving_service": 0.58,
+          "refund_support": 0.35
+        }
+      },
+      {
+        "archetype_key": "transport_staff",
+        "attention_level": 0.8,
+        "cohort_key": "drivers_overloaded",
+        "expression_level": 0.34,
+        "fatigue": 0.79,
+        "fear_of_isolation": 0.58,
+        "mobilization_readiness": 0.43,
+        "perceived_majority": 0.67,
+        "population_share_of_archetype": 0.65,
+        "private_belief": "route load and operational strain remain serious",
+        "public_expression": "speaks selectively due to job risk",
+        "representation_mode": "dominant_reported_internal_cohort",
+        "represented_population": 78,
+        "stance_axes": {
+          "publicly_challenge_admins": 0.33,
+          "route_overload_salience": 0.88,
+          "service_currently_improving": 0.28
+        }
+      },
+      {
+        "archetype_key": "transport_staff",
+        "attention_level": 0.58,
+        "cohort_key": "drivers_cautiously_optimistic",
+        "expression_level": 0.21,
+        "fatigue": 0.55,
+        "fear_of_isolation": 0.49,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "hiring gains exist and may improve service gradually",
+        "public_expression": "mixed, mostly internal discussion",
+        "representation_mode": "minor_internal_cohort",
+        "represented_population": 42,
+        "stance_axes": {
+          "publicly_challenge_admins": 0.18,
+          "route_overload_salience": 0.52,
+          "service_currently_improving": 0.56
+        }
+      },
+      {
+        "archetype_key": "bus_dependent_students",
+        "attention_level": 0.76,
+        "cohort_key": "students_disrupted",
+        "expression_level": 0.08,
+        "fatigue": 0.51,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.06,
+        "perceived_majority": 0.6,
+        "population_share_of_archetype": 0.5,
+        "private_belief": "transportation is unpredictable",
+        "public_expression": "indirect through parents and attendance patterns",
+        "representation_mode": "affected_subpopulation",
+        "represented_population": 2550,
+        "stance_axes": {
+          "direct_public_voice": 0.1,
+          "felt_service_reliability": 0.28,
+          "need_for_stability": 0.92
+        }
+      },
+      {
+        "archetype_key": "general_district_public",
+        "attention_level": 0.64,
+        "cohort_key": "public_observers_attention_spike",
+        "expression_level": 0.4,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.3,
+        "mobilization_readiness": 0.28,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "district may be overspinning but facts are incomplete",
+        "public_expression": "reactive comments and sharing",
+        "representation_mode": "issue_attentive_subset",
+        "represented_population": 5400,
+        "stance_axes": {
+          "patience_for_operational_complexity": 0.44,
+          "skepticism_of_official_claims": 0.63,
+          "support_for_refunds": 0.57
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "district_transportation_office",
+          "district_administrators",
+          "school_board"
+        ],
+        "blockers": [
+          "lack of trusted metrics",
+          "continued route overload",
+          "fresh visible cancellations"
+        ],
+        "contradiction_notes": "Parent screenshots and driver overload reports directly challenge this endpoint's near-term credibility.",
+        "description": "A terminal state where observable transportation performance improves enough that major stakeholders broadly recognize improvement as real, even if uneven.",
+        "endpoint_key": "verified_service_improvement",
+        "evidence_refs": [
+          "district_improvement_press_release",
+          "hiring_gains_message_repeated",
+          "service_reliability_trend"
+        ],
+        "label": "Verified service improvement recognized",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will verified districtwide bus reliability evidence show improvement, stagnation, or continued deterioration over the near term?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.32,
+        "rationale": "This is an implied terminal possibility because the district has already advanced an improvement narrative.",
+        "realization_criteria": [
+          "district or board-published route/system metrics show sustained reduction in cancellations across multiple reporting periods",
+          "parent complaint volume declines materially across multiple routes",
+          "no major contradictory surge from drivers or new screenshot clusters overturns the trend"
+        ],
+        "status": "active",
+        "status_basis": "administrators claim improvement, but contradictory evidence prevents realization at T0"
+      },
+      {
+        "authority_refs": [
+          "district_administrators",
+          "school_board",
+          "north_vale_school_district"
+        ],
+        "blockers": [
+          "budget constraints",
+          "policy or contractual limits",
+          "administrative resistance if improvements are deemed sufficient"
+        ],
+        "contradiction_notes": "If service is shown to be improving and screenshots are selective, refund pressure may weaken or narrow.",
+        "description": "A terminal state where affected families receive refunds, credits, fee relief, or an equivalent compensation mechanism tied to bus disruptions.",
+        "endpoint_key": "formal_refund_or_compensation_adopted",
+        "evidence_refs": [
+          "refund_demand_coalesces",
+          "refund_policy_outcome"
+        ],
+        "label": "Refund or compensation adopted",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the district or board authorize any refund, credit, or equivalent compensation for affected families?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.24,
+        "rationale": "Refunds are a concrete endpoint because parents have already articulated this as a desired outcome.",
+        "realization_criteria": [
+          "district administration or school board formally authorizes a compensation policy",
+          "affected families become eligible through published criteria",
+          "implementation begins or budget authorization is recorded"
+        ],
+        "status": "active",
+        "status_basis": "parents want refunds, but no authority decision or policy basis is provided at T0"
+      },
+      {
+        "authority_refs": [
+          "school_board"
+        ],
+        "blockers": [
+          "insufficient board attention",
+          "lack of organized public pressure",
+          "internal preference for informal handling"
+        ],
+        "contradiction_notes": "A credible voluntary data release by the district could reduce demand for formal escalation.",
+        "description": "A terminal state where the school board or equivalent authority initiates a hearing, audit, investigation, or structured review of transportation service and messaging.",
+        "endpoint_key": "formal_oversight_review_opened",
+        "evidence_refs": [
+          "board_information_request_or_public_comment",
+          "oversight_escalation"
+        ],
+        "label": "Formal oversight review opened",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the school board open a formal review, hearing, or audit of transportation performance and messaging?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.56,
+        "rationale": "The unresolved factual conflict naturally points toward a verification-oriented endpoint under board authority.",
+        "realization_criteria": [
+          "board agenda, vote, hearing notice, or formal request establishes a review process",
+          "administration is required to submit records, metrics, or testimony",
+          "public oversight process proceeds beyond routine messaging"
+        ],
+        "status": "active",
+        "status_basis": "contradictory evidence and refund pressure make review plausible, but no formal board action exists at T0"
+      },
+      {
+        "authority_refs": [
+          "parents_riders_group",
+          "local_press_and_community_pages",
+          "school_board"
+        ],
+        "blockers": [
+          "trusted route-level data showing improvement",
+          "successful legitimacy repair by administrators",
+          "public attention decay before consensus forms"
+        ],
+        "contradiction_notes": "This endpoint is weakened if verified metrics demonstrate broad improvement despite visible exceptions.",
+        "description": "A terminal state where public and oversight actors broadly treat the district's improvement messaging as misleading or not credible.",
+        "endpoint_key": "official_narrative_loses_legitimacy",
+        "evidence_refs": [
+          "parent_cancellation_screenshots_circulate",
+          "drivers_route_overload_account",
+          "narrative_dominance"
+        ],
+        "label": "Official narrative loses legitimacy",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Which narrative gains wider public legitimacy: uneven improvement under constraint, or misleading official reassurance amid ongoing cancellations?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.48,
+        "rationale": "Narrative legitimacy is a meaningful endpoint because the scenario centers on contradictory public evidence rather than resolved operational facts.",
+        "realization_criteria": [
+          "wider public discourse, board statements, or media framing characterize official claims as unreliable",
+          "new cross-route evidence or corroborated driver accounts outweigh district reassurance",
+          "district messaging no longer sets the dominant interpretation of service conditions"
+        ],
+        "status": "active",
+        "status_basis": "trust in administrators is already strained, but the evidence base is still incomplete and potentially selective at T0"
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "source_to_target",
+        "evidence": "scenario states a school district press release says bus service is improving",
+        "layer": "exposure",
+        "reason": "parents are exposed to district press releases and official updates",
+        "source_actor_name": "district_administrators",
+        "target_actor_name": "parents_riders_group",
+        "weight": 0.62
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "scenario mentions parent screenshots showing repeated cancellations",
+        "layer": "exposure",
+        "reason": "parent screenshots and complaints are likely visible through community channels",
+        "source_actor_name": "parents_riders_group",
+        "target_actor_name": "local_press_and_community_pages",
+        "weight": 0.58
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "derived from screenshot circulation and public dispute dynamics",
+        "layer": "exposure",
+        "reason": "community channels spread the dispute to wider observers",
+        "source_actor_name": "local_press_and_community_pages",
+        "target_actor_name": "general_district_public",
+        "weight": 0.61
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "scenario says drivers cite route overload",
+        "layer": "exposure",
+        "reason": "drivers' accounts may reach parents indirectly or selectively",
+        "source_actor_name": "school_bus_drivers",
+        "target_actor_name": "parents_riders_group",
+        "weight": 0.31
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "administrators cite hiring gains regarding bus service",
+        "layer": "exposure",
+        "reason": "administrators depend on transportation office information for public claims",
+        "source_actor_name": "district_transportation_office",
+        "target_actor_name": "district_administrators",
+        "weight": 0.64
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "press release says improving while screenshots show repeated cancellations",
+        "layer": "trust",
+        "reason": "public claims conflict with circulated cancellation evidence",
+        "source_actor_name": "parents_riders_group",
+        "target_actor_name": "district_administrators",
+        "weight": 0.28
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "drivers cite route overload",
+        "layer": "trust",
+        "reason": "frontline operational testimony appears plausible to affected families",
+        "source_actor_name": "parents_riders_group",
+        "target_actor_name": "school_bus_drivers",
+        "weight": 0.52
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "administrators cite hiring gains",
+        "layer": "trust",
+        "reason": "administrators rely on internal staffing and service reports",
+        "source_actor_name": "district_administrators",
+        "target_actor_name": "district_transportation_office",
+        "weight": 0.59
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "contradictory public claims and parent screenshots at T0",
+        "layer": "trust",
+        "reason": "board has baseline institutional trust but contradictory evidence reduces confidence",
+        "source_actor_name": "school_board",
+        "target_actor_name": "district_administrators",
+        "weight": 0.47
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "screenshots may be selective",
+        "layer": "trust",
+        "reason": "observers treat circulated screenshots as useful but not definitive",
+        "source_actor_name": "general_district_public",
+        "target_actor_name": "local_press_and_community_pages",
+        "weight": 0.41
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "scenario concerns school district bus service",
+        "layer": "dependency",
+        "reason": "students rely on district transportation access for school attendance",
+        "source_actor_name": "students_bus_dependent",
+        "target_actor_name": "north_vale_school_district",
+        "weight": 0.72
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "parents want refunds and are affected by cancellations",
+        "layer": "dependency",
+        "reason": "families depend on district-managed transportation service and policy",
+        "source_actor_name": "parents_riders_group",
+        "target_actor_name": "north_vale_school_district",
+        "weight": 0.63
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "administrators cite hiring gains tied to operations",
+        "layer": "dependency",
+        "reason": "public performance claims depend on actual route execution and staffing",
+        "source_actor_name": "district_administrators",
+        "target_actor_name": "district_transportation_office",
+        "weight": 0.67
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "drivers cite route overload within district operations",
+        "layer": "dependency",
+        "reason": "drivers depend on route assignments, scheduling, and employment structure",
+        "source_actor_name": "school_bus_drivers",
+        "target_actor_name": "district_transportation_office",
+        "weight": 0.61
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "no independent audit evidence is provided at T0",
+        "layer": "dependency",
+        "reason": "board oversight depends on information provided by administration",
+        "source_actor_name": "school_board",
+        "target_actor_name": "district_administrators",
+        "weight": 0.44
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "district press release frames service as improving",
+        "layer": "influence",
+        "reason": "official press releases shape baseline public understanding",
+        "source_actor_name": "district_administrators",
+        "target_actor_name": "general_district_public",
+        "weight": 0.54
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "parents want refunds",
+        "layer": "influence",
+        "reason": "refund demands and visible complaints can pressure oversight agenda",
+        "source_actor_name": "parents_riders_group",
+        "target_actor_name": "school_board",
+        "weight": 0.49
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "contradictory evidence is publicly shareable and conflictual",
+        "layer": "influence",
+        "reason": "public attention can increase demand for response or hearing",
+        "source_actor_name": "local_press_and_community_pages",
+        "target_actor_name": "school_board",
+        "weight": 0.43
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "drivers cite route overload",
+        "layer": "influence",
+        "reason": "frontline reports affect internal credibility of improvement claims",
+        "source_actor_name": "school_bus_drivers",
+        "target_actor_name": "district_administrators",
+        "weight": 0.36
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "governing body oversight role implied by school district setting",
+        "layer": "influence",
+        "reason": "board can direct review or policy response",
+        "source_actor_name": "school_board",
+        "target_actor_name": "north_vale_school_district",
+        "weight": 0.58
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "parents cite cancellations; drivers cite route overload",
+        "layer": "coalition",
+        "reason": "both have reason to emphasize service strain though motives differ",
+        "source_actor_name": "parents_riders_group",
+        "target_actor_name": "school_bus_drivers",
+        "weight": 0.42
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "administrators cite hiring gains from transportation context",
+        "layer": "coalition",
+        "reason": "shared institutional interest in defending improvement narrative while managing operations",
+        "source_actor_name": "district_administrators",
+        "target_actor_name": "district_transportation_office",
+        "weight": 0.57
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "school governance relationship with unresolved factual dispute",
+        "layer": "coalition",
+        "reason": "baseline institutional alignment exists but is strained by contradictory evidence",
+        "source_actor_name": "school_board",
+        "target_actor_name": "district_administrators",
+        "weight": 0.34
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "press release optimism conflicts with screenshots; parents want refunds",
+        "layer": "conflict",
+        "reason": "parents challenge official service claims and seek financial remedy",
+        "source_actor_name": "parents_riders_group",
+        "target_actor_name": "district_administrators",
+        "weight": 0.66
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "drivers cite route overload while administrators cite hiring gains",
+        "layer": "conflict",
+        "reason": "drivers' overload account is in tension with improvement messaging",
+        "source_actor_name": "school_bus_drivers",
+        "target_actor_name": "district_administrators",
+        "weight": 0.48
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "parents want refunds over repeated cancellations",
+        "layer": "conflict",
+        "reason": "service dissatisfaction and refund demands create grievance toward district",
+        "source_actor_name": "parents_riders_group",
+        "target_actor_name": "north_vale_school_district",
+        "weight": 0.57
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "community circulation of contradictory evidence",
+        "layer": "conflict",
+        "reason": "public scrutiny pressures official narrative credibility",
+        "source_actor_name": "local_press_and_community_pages",
+        "target_actor_name": "district_administrators",
+        "weight": 0.37
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "public press release and parent screenshots indicate active interaction space",
+        "layer": "oasis_interaction",
+        "reason": "likely repeated interaction across public posts, meetings, and complaint channels",
+        "source_actor_name": "parents_riders_group",
+        "target_actor_name": "district_administrators",
+        "weight": 0.63
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "scenario mentions parent screenshots circulated publicly",
+        "layer": "oasis_interaction",
+        "reason": "parents likely use community pages to share screenshots and complaints",
+        "source_actor_name": "parents_riders_group",
+        "target_actor_name": "local_press_and_community_pages",
+        "weight": 0.68
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "drivers cite overload but job dependence may limit direct posting",
+        "layer": "oasis_interaction",
+        "reason": "drivers may appear indirectly or anonymously in public discourse",
+        "source_actor_name": "school_bus_drivers",
+        "target_actor_name": "local_press_and_community_pages",
+        "weight": 0.26
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "refund demands create likely oversight contact",
+        "layer": "oasis_interaction",
+        "reason": "board may receive comments or meeting pressure from parents",
+        "source_actor_name": "school_board",
+        "target_actor_name": "parents_riders_group",
+        "weight": 0.39
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype_key": "district_spokesperson_role",
+        "function": "message_owner",
+        "label": "District spokesperson/administrative voice"
+      },
+      {
+        "archetype_key": "parent_forum_organizer_role",
+        "function": "evidence_aggregator",
+        "label": "Parent complaint amplifier"
+      },
+      {
+        "archetype_key": "driver_voice_role",
+        "function": "operational_whistle_signal",
+        "label": "Driver or union-adjacent frontline voice"
+      },
+      {
+        "archetype_key": "board_oversight_role",
+        "function": "hearing_and_policy_authority",
+        "label": "School board oversight actor"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "district_administrators",
+        "archetype_key": "district_spokesperson_role",
+        "attention_level": 0.86,
+        "expression_level": 0.82,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.24,
+        "hero_key": "district_spokesperson",
+        "mobilization_readiness": 0.71,
+        "perceived_majority": 0.52,
+        "power": "medium_high",
+        "stance_axes": {
+          "admit_systemic_failure_now": 0.18,
+          "refund_openness": 0.26,
+          "service_improving_claim": 0.8
+        }
+      },
+      {
+        "actor_name": "parents_riders_group",
+        "archetype_key": "parent_forum_organizer_role",
+        "attention_level": 0.91,
+        "expression_level": 0.88,
+        "fatigue": 0.47,
+        "fear_of_isolation": 0.16,
+        "hero_key": "lead_parent_organizer",
+        "mobilization_readiness": 0.82,
+        "perceived_majority": 0.66,
+        "power": "medium",
+        "stance_axes": {
+          "refund_push": 0.91,
+          "service_failure_claim": 0.84,
+          "trust_district_metrics": 0.18
+        }
+      },
+      {
+        "actor_name": "school_bus_drivers",
+        "archetype_key": "driver_voice_role",
+        "attention_level": 0.73,
+        "expression_level": 0.31,
+        "fatigue": 0.81,
+        "fear_of_isolation": 0.63,
+        "hero_key": "frontline_driver_voice",
+        "mobilization_readiness": 0.39,
+        "perceived_majority": 0.61,
+        "power": "low_medium",
+        "stance_axes": {
+          "public_escalation": 0.36,
+          "route_overload_claim": 0.87,
+          "trust_admin_fix_capacity": 0.33
+        }
+      },
+      {
+        "actor_name": "school_board",
+        "archetype_key": "board_oversight_role",
+        "attention_level": 0.67,
+        "expression_level": 0.46,
+        "fatigue": 0.26,
+        "fear_of_isolation": 0.33,
+        "hero_key": "board_oversight_member",
+        "mobilization_readiness": 0.44,
+        "perceived_majority": 0.5,
+        "power": "high",
+        "stance_axes": {
+          "demand_verification": 0.78,
+          "public_alignment_with_admins": 0.42,
+          "refund_policy_review": 0.51
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "archetype_key": "district_spokesperson_role",
+        "function": "message_owner",
+        "label": "District spokesperson/administrative voice"
+      },
+      {
+        "archetype_key": "parent_forum_organizer_role",
+        "function": "evidence_aggregator",
+        "label": "Parent complaint amplifier"
+      },
+      {
+        "archetype_key": "driver_voice_role",
+        "function": "operational_whistle_signal",
+        "label": "Driver or union-adjacent frontline voice"
+      },
+      {
+        "archetype_key": "board_oversight_role",
+        "function": "hearing_and_policy_authority",
+        "label": "School board oversight actor"
+      }
+    ],
+    "important_questions": [
+      "Will verified districtwide bus reliability evidence show improvement, stagnation, or continued deterioration over the near term?",
+      "Will the district or board authorize any refund, credit, or equivalent compensation for affected families?",
+      "Will the school board open a formal review, hearing, or audit of transportation performance and messaging?",
+      "Which narrative gains wider public legitimacy: uneven improvement under constraint, or misleading official reassurance amid ongoing cancellations?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "north_vale_school_district",
+          "district_administrators"
+        ],
+        "event_key": "district_improvement_press_release",
+        "event_type": "announcement",
+        "expected_impact": "raises official baseline narrative, but also creates a clear claim that can be contested by anecdotal evidence.",
+        "status": "visible",
+        "summary": "District issues a public statement claiming bus service is improving.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "parents_riders_group",
+          "local_press_and_community_pages"
+        ],
+        "event_key": "parent_cancellation_screenshots_circulate",
+        "event_type": "announcement",
+        "expected_impact": "increases conflict, reduces trust in official messaging, and may elevate refund demands if examples appear recurrent.",
+        "status": "visible",
+        "summary": "Parents share screenshots showing repeated bus cancellations.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "school_bus_drivers"
+        ],
+        "event_key": "drivers_route_overload_account",
+        "event_type": "announcement",
+        "expected_impact": "adds plausibility to service-failure claims while also suggesting the issue may be operational rather than deceptive.",
+        "status": "visible_but_partial",
+        "summary": "Drivers describe route overload as a cause of continuing service strain.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "district_administrators",
+          "district_transportation_office"
+        ],
+        "event_key": "hiring_gains_message_repeated",
+        "event_type": "announcement",
+        "expected_impact": "may stabilize some moderate observers but can backfire if fresh cancellations continue.",
+        "status": "imminent",
+        "summary": "Administrators reiterate that hiring gains are underway or recently achieved.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "parents_riders_group"
+        ],
+        "event_key": "refund_demand_coalesces",
+        "event_type": "announcement",
+        "expected_impact": "creates a more legible pressure campaign and raises the stakes for board or administrative response.",
+        "status": "imminent",
+        "summary": "Parents begin converging on refunds as a common demand.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "school_board",
+          "district_administrators",
+          "parents_riders_group"
+        ],
+        "event_key": "board_information_request_or_public_comment",
+        "event_type": "announcement",
+        "expected_impact": "can convert diffuse grievance into oversight process without yet determining the factual winner.",
+        "status": "plausible_imminent",
+        "summary": "Board may request verification, receive comments, or discuss transportation reliability.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "6e732631-38d1-43c0-aa72-3461cf8b3016",
+    "merge_hypotheses": [
+      {
+        "affected_actors": [
+          "north_vale_school_district",
+          "district_administrators",
+          "school_bus_drivers",
+          "parents_riders_group",
+          "school_board"
+        ],
+        "convergence_factor": "all major actors need a functioning bus system more than prolonged narrative war",
+        "evidence": "everyone is tied to transportation reliability even while disputing causes and messaging",
+        "merge_key": "shared_need_for_service_stability"
+      },
+      {
+        "affected_actors": [
+          "school_board",
+          "district_administrators",
+          "parents_riders_group",
+          "school_bus_drivers"
+        ],
+        "convergence_factor": "a credible audit, route review, or public metric breakdown could narrow factual disagreement",
+        "evidence": "current dispute hinges on contradictory and incomplete evidence rather than explicit ideological polarization",
+        "merge_key": "verification_process_reduces_heat"
+      },
+      {
+        "affected_actors": [
+          "general_district_public",
+          "parents_riders_group",
+          "local_press_and_community_pages"
+        ],
+        "convergence_factor": "without fresh visible cancellations or new evidence, public attention may decay and camps soften",
+        "evidence": "issue salience is event-driven and may cool absent reinforcement",
+        "merge_key": "fatigue_after_initial_spike"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "district_parents",
+        "label": "District parents with bus-riding students",
+        "population_total": 4200,
+        "scope": "fictional_district"
+      },
+      {
+        "archetype_key": "transport_staff",
+        "label": "Transportation staff and drivers",
+        "population_total": 120,
+        "scope": "fictional_district"
+      },
+      {
+        "archetype_key": "bus_dependent_students",
+        "label": "Students dependent on district buses",
+        "population_total": 5100,
+        "scope": "fictional_district"
+      },
+      {
+        "archetype_key": "general_district_public",
+        "label": "General district public observers",
+        "population_total": 18000,
+        "scope": "fictional_district"
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "contradictory_evidence_unresolved",
+        "note": "The corpus explicitly requires contradictory evidence without deciding who is lying at T0.",
+        "severity": "high"
+      },
+      {
+        "flag": "anecdote_selection_bias",
+        "note": "Parent screenshots may be real but nonrepresentative, so anecdotal evidence should not be treated as systemwide proof at initialization.",
+        "severity": "high"
+      },
+      {
+        "flag": "official_metric_opacity",
+        "note": "Administrators cite hiring gains, but no verified reliability metric or route-level breakdown is provided.",
+        "severity": "medium"
+      },
+      {
+        "flag": "workforce_silencing_pressure",
+        "note": "Drivers may have relevant information but face dependency and fear-of-isolation constraints that suppress public expression.",
+        "severity": "medium"
+      },
+      {
+        "flag": "authority_and_policy_gap_on_refunds",
+        "note": "Refund demand exists, but legal, contractual, budgetary, and governance authority for compensation are unspecified.",
+        "severity": "medium"
+      },
+      {
+        "flag": "scenario_scale_inference",
+        "note": "Population counts and district structure are inferred fictional defaults because the corpus provides no explicit district size.",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "mode": "direct",
+      "primary_tensions": [
+        "public claims versus anecdotal counterevidence",
+        "service capacity versus rider expectations",
+        "operational staffing gains versus route overload",
+        "financial accountability pressure over refunds"
+      ],
+      "scenario_key": "edge_003",
+      "summary": "A fictional school district publicly claims bus service is improving while parents circulate screenshots showing repeated bus cancellations. Drivers describe route overload, administrators emphasize hiring gains, and parents seek refunds. Evidence is contradictory and possibly selective at T0; initialization preserves uncertainty without resolving who is correct.",
+      "timeframe": "t0_initialization",
+      "title": "fictional_school_bus_service_dispute",
+      "uncertainty_notes": [
+        "parent screenshots may be selective rather than representative",
+        "district hiring gains may be real but insufficient to improve service reliability systemwide",
+        "no verified systemwide cancellation rate is provided at T0",
+        "refund policy, authority, and contractual constraints are not specified"
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "district_parents",
+          "general_district_public"
+        ],
+        "evidence": "official claims and anecdotal screenshots produce selective updating rather than immediate consensus",
+        "level": "moderate",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "district_parents"
+        ],
+        "evidence": "refund demands may spread if enough parents see similar cancellations or trusted corroboration",
+        "level": "moderate_high",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "transport_staff",
+          "parents_wait_and_see"
+        ],
+        "evidence": "drivers face job dependence and some parents remain uncertain despite concern",
+        "level": "moderate",
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "parents_riders_group",
+          "school_bus_drivers"
+        ],
+        "evidence": "parents cluster in complaint spaces; drivers share internal operational perspective",
+        "level": "moderate",
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "district_parents",
+          "general_district_public"
+        ],
+        "evidence": "multiple screenshots, repeated anecdotes, and media pickup are likely needed for broad belief shift",
+        "level": "high",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "district_administrators",
+          "school_bus_drivers",
+          "parents_riders_group"
+        ],
+        "evidence": "institutional role, workforce identity, and parent identity shape interpretation of the same facts",
+        "level": "moderate",
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "general_district_public"
+        ],
+        "evidence": "public attention may fade absent new cancellations, audits, or board action",
+        "level": "moderate",
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Competing evidence streams coexist: official improvement messaging, selective screenshot evidence, and frontline overload claims.",
+        "influence_key": "contradictory_evidence_frame"
+      },
+      {
+        "description": "Financial remedy demand gives dissatisfied parents a simple focal ask that can organize attention.",
+        "influence_key": "refund_salience"
+      },
+      {
+        "description": "Hiring gains and route management complexity create plausible nonbinary interpretations, slowing consensus.",
+        "influence_key": "operational_complexity_buffer"
+      },
+      {
+        "description": "Drivers may limit public speech because employment dependence raises isolation and retaliation concerns.",
+        "influence_key": "workplace_silence_pressure"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "north_vale_school_district",
+        "behavior_axes": {
+          "message_discipline": 0.74,
+          "reactivity": 0.46,
+          "risk_tolerance": 0.36,
+          "transparency": 0.43
+        },
+        "ideology_axes": {
+          "fiscal_caution": 0.58,
+          "institutional_self_protection": 0.72,
+          "service_equity_orientation": 0.61
+        },
+        "reputation": 0.5,
+        "secrecy": 0.52,
+        "tendency": "defend institutional performance while seeking operational stabilization",
+        "trustworthiness": 0.46
+      },
+      {
+        "actor_name": "district_transportation_office",
+        "behavior_axes": {
+          "message_discipline": 0.51,
+          "operational_focus": 0.86,
+          "reactivity": 0.57,
+          "transparency": 0.4
+        },
+        "ideology_axes": {
+          "fiscal_caution": 0.49,
+          "institutional_self_protection": 0.62,
+          "service_equity_orientation": 0.66
+        },
+        "reputation": 0.47,
+        "secrecy": 0.48,
+        "tendency": "optimize routes and staffing under constraint",
+        "trustworthiness": 0.51
+      },
+      {
+        "actor_name": "district_administrators",
+        "behavior_axes": {
+          "conflict_avoidance": 0.55,
+          "message_discipline": 0.81,
+          "reactivity": 0.63,
+          "transparency": 0.39
+        },
+        "ideology_axes": {
+          "fiscal_caution": 0.56,
+          "institutional_self_protection": 0.77,
+          "service_equity_orientation": 0.54
+        },
+        "reputation": 0.49,
+        "secrecy": 0.57,
+        "tendency": "foreground favorable indicators and contain criticism",
+        "trustworthiness": 0.42
+      },
+      {
+        "actor_name": "school_bus_drivers",
+        "behavior_axes": {
+          "conflict_avoidance": 0.64,
+          "message_discipline": 0.28,
+          "reactivity": 0.52,
+          "transparency": 0.62
+        },
+        "ideology_axes": {
+          "institutional_self_protection": 0.31,
+          "labor_self_preservation": 0.82,
+          "service_equity_orientation": 0.71
+        },
+        "reputation": 0.55,
+        "secrecy": 0.35,
+        "tendency": "report strain cautiously because of workplace dependence",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "parents_riders_group",
+        "behavior_axes": {
+          "conflict_avoidance": 0.29,
+          "message_discipline": 0.33,
+          "reactivity": 0.78,
+          "transparency": 0.69
+        },
+        "ideology_axes": {
+          "consumer_fairness": 0.84,
+          "institutional_deference": 0.24,
+          "service_equity_orientation": 0.73
+        },
+        "reputation": 0.51,
+        "secrecy": 0.18,
+        "tendency": "circulate concrete anecdotes and push for accountability",
+        "trustworthiness": 0.54
+      },
+      {
+        "actor_name": "students_bus_dependent",
+        "behavior_axes": {
+          "conflict_avoidance": 0.73,
+          "message_discipline": 0.12,
+          "reactivity": 0.34,
+          "transparency": 0.22
+        },
+        "ideology_axes": {
+          "institutional_deference": 0.57,
+          "need_for_stability": 0.92,
+          "service_equity_orientation": 0.65
+        },
+        "reputation": 0.5,
+        "secrecy": 0.41,
+        "tendency": "experience consequences indirectly represented by adults",
+        "trustworthiness": 0.56
+      },
+      {
+        "actor_name": "local_press_and_community_pages",
+        "behavior_axes": {
+          "conflict_avoidance": 0.21,
+          "message_discipline": 0.37,
+          "reactivity": 0.74,
+          "transparency": 0.52
+        },
+        "ideology_axes": {
+          "accountability_orientation": 0.71,
+          "attention_maximization": 0.76,
+          "institutional_deference": 0.32
+        },
+        "reputation": 0.5,
+        "secrecy": 0.12,
+        "tendency": "amplify conflict signals and contradictory evidence",
+        "trustworthiness": 0.48
+      },
+      {
+        "actor_name": "school_board",
+        "behavior_axes": {
+          "conflict_avoidance": 0.49,
+          "message_discipline": 0.58,
+          "reactivity": 0.45,
+          "transparency": 0.56
+        },
+        "ideology_axes": {
+          "fiscal_caution": 0.64,
+          "institutional_self_protection": 0.52,
+          "oversight_orientation": 0.74
+        },
+        "reputation": 0.54,
+        "secrecy": 0.34,
+        "tendency": "seek verification before imposing policy or financial remedies",
+        "trustworthiness": 0.55
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 453,
+        "end": 453,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 453,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

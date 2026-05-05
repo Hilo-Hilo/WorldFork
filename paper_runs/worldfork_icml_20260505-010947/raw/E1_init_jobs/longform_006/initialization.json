@@ -1,0 +1,1705 @@
+{
+  "big_bang_id": "45ce6fdc-6fb7-43e4-890b-36750154fa42",
+  "initializer_output": {
+    "actors": [
+      {
+        "fictionalized": true,
+        "name": "harbor_unified_school_district",
+        "public_visibility": "high",
+        "role": "decision_authority and contract owner",
+        "stakes": [
+          "student meal continuity",
+          "legal compliance",
+          "budget stability",
+          "public legitimacy"
+        ],
+        "type": "institution"
+      },
+      {
+        "fictionalized": true,
+        "name": "school_board",
+        "public_visibility": "high",
+        "role": "oversight and approval pressure",
+        "stakes": [
+          "public accountability",
+          "policy compliance",
+          "political risk"
+        ],
+        "type": "governing_body"
+      },
+      {
+        "fictionalized": true,
+        "name": "golden_field_nutrition_services",
+        "public_visibility": "high",
+        "role": "school meal contractor",
+        "stakes": [
+          "contract retention",
+          "reputation",
+          "operational recovery",
+          "financial stability"
+        ],
+        "type": "vendor"
+      },
+      {
+        "fictionalized": true,
+        "name": "district_procurement_office",
+        "public_visibility": "medium",
+        "role": "procurement rules interpretation and process management",
+        "stakes": [
+          "procedural integrity",
+          "schedule control",
+          "bid defensibility"
+        ],
+        "type": "bureaucratic_unit"
+      },
+      {
+        "fictionalized": true,
+        "name": "district_nutrition_director",
+        "public_visibility": "medium",
+        "role": "meal program operational lead",
+        "stakes": [
+          "service continuity",
+          "nutritional compliance",
+          "vendor oversight credibility"
+        ],
+        "type": "individual_official"
+      },
+      {
+        "fictionalized": true,
+        "name": "district_nutritionist",
+        "public_visibility": "low",
+        "role": "internal expert issuing memo",
+        "stakes": [
+          "food quality standards",
+          "student health",
+          "evidence credibility"
+        ],
+        "type": "individual_expert"
+      },
+      {
+        "fictionalized": true,
+        "name": "parent_association_network",
+        "public_visibility": "medium",
+        "role": "organized parent concern amplifier",
+        "stakes": [
+          "student welfare",
+          "responsiveness from district",
+          "vendor accountability"
+        ],
+        "type": "civic_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "students_secondary_network",
+        "public_visibility": "medium",
+        "role": "student online and hallway commentary",
+        "stakes": [
+          "food experience",
+          "school trust",
+          "peer signaling"
+        ],
+        "type": "public_network"
+      },
+      {
+        "fictionalized": true,
+        "name": "union_kitchen_staff_local",
+        "public_visibility": "medium",
+        "role": "district kitchen staff and support workers",
+        "stakes": [
+          "workload stability",
+          "safety and quality standards",
+          "insourcing leverage"
+        ],
+        "type": "labor_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "school_principals_caucus",
+        "public_visibility": "low",
+        "role": "site administrators reporting disruptions",
+        "stakes": [
+          "school operations",
+          "parent relations",
+          "lunch schedule reliability"
+        ],
+        "type": "institutional_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "local_press_education_desk",
+        "public_visibility": "high",
+        "role": "potential public agenda setter",
+        "stakes": [
+          "newsworthiness",
+          "accountability reporting"
+        ],
+        "type": "media"
+      },
+      {
+        "fictionalized": true,
+        "name": "alternative_regional_vendors",
+        "public_visibility": "low",
+        "role": "possible replacement bidders or emergency suppliers",
+        "stakes": [
+          "market entry",
+          "capacity screening",
+          "pricing leverage"
+        ],
+        "type": "market_group"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "district moves from complaint management to formal rebid preparation while maintaining interim service",
+        "branch_key": "rebid_path_opens",
+        "observable_divergence_signal": "board references procurement timeline, market sounding begins, and vendor communications shift from defense to retention bidding posture",
+        "trigger": "documented violations accumulate and procurement office deems defensible rebid timing feasible"
+      },
+      {
+        "alternate_path": "district adopts monitored remediation instead of immediate rebid or cancellation",
+        "branch_key": "remediation_plan_holds",
+        "observable_divergence_signal": "public messaging emphasizes benchmarks, oversight cadence, and temporary conditional confidence rather than contract termination",
+        "trigger": "vendor provides measurable corrective benchmarks and district sees short-run continuity risk from replacement"
+      },
+      {
+        "alternate_path": "district explores emergency cancellation or suspension despite procedural and capacity risk",
+        "branch_key": "emergency_cancellation_push",
+        "observable_divergence_signal": "legal review language intensifies, emergency procurement exceptions are cited, and principals report contingency operations",
+        "trigger": "severe quality evidence, repeated late deliveries, or health/safety framing makes continuity under incumbent less defensible than disruption"
+      },
+      {
+        "alternate_path": "district minimizes public conflict and extends or renews vendor relationship with limited visible changes",
+        "branch_key": "quiet_renewal_attempt",
+        "observable_divergence_signal": "board agenda stays thin, communications become vague, and procurement office emphasizes continuity over competitive process",
+        "trigger": "public attention decays, evidence remains fragmented, and switching costs appear high"
+      },
+      {
+        "alternate_path": "parents, labor, and principals indirectly align around stronger action against vendor",
+        "branch_key": "coalition_escalation",
+        "observable_divergence_signal": "shared artifacts circulate across previously separate channels and demands converge on formal accountability",
+        "trigger": "nutritionist memo or union note leaks into parent/public channels with corroborating student posts"
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "parent_email_chains",
+        "credibility_effect": "high for firsthand complaints, moderate for verification",
+        "primary_actors": [
+          "parent_association_network",
+          "school_principals_caucus",
+          "harbor_unified_school_district"
+        ],
+        "type": "email",
+        "visibility": "semi_private"
+      },
+      {
+        "channel_key": "vendor_statement_channel",
+        "credibility_effect": "moderate but discounted by prior allegations",
+        "primary_actors": [
+          "golden_field_nutrition_services",
+          "harbor_unified_school_district"
+        ],
+        "type": "formal_statement",
+        "visibility": "public"
+      },
+      {
+        "channel_key": "internal_nutrition_memo",
+        "credibility_effect": "high if leaked or cited",
+        "primary_actors": [
+          "district_nutritionist",
+          "district_nutrition_director",
+          "harbor_unified_school_district"
+        ],
+        "type": "internal_document",
+        "visibility": "private"
+      },
+      {
+        "channel_key": "student_social_posts",
+        "credibility_effect": "high exposure, mixed reliability",
+        "primary_actors": [
+          "students_secondary_network",
+          "parent_association_network"
+        ],
+        "type": "social_media",
+        "visibility": "public"
+      },
+      {
+        "channel_key": "union_staff_note",
+        "credibility_effect": "moderate to high on operational burden claims",
+        "primary_actors": [
+          "union_kitchen_staff_local",
+          "harbor_unified_school_district"
+        ],
+        "type": "internal_labor_message",
+        "visibility": "semi_private"
+      },
+      {
+        "channel_key": "procurement_rules_text",
+        "credibility_effect": "high for constraints and allowed actions",
+        "primary_actors": [
+          "district_procurement_office",
+          "school_board",
+          "harbor_unified_school_district"
+        ],
+        "type": "policy_document",
+        "visibility": "public_or_internal"
+      },
+      {
+        "channel_key": "board_public_comment",
+        "credibility_effect": "high salience, moderate fact density",
+        "primary_actors": [
+          "school_board",
+          "parent_association_network",
+          "harbor_unified_school_district"
+        ],
+        "type": "meeting_forum",
+        "visibility": "public"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "district_parents",
+        "attention_level": 0.82,
+        "behavioral_tendencies": [
+          "complaint sharing",
+          "artifact collection",
+          "peer escalation"
+        ],
+        "cohort_key": "concerned_parents_active",
+        "expression_level": 0.74,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.22,
+        "graph_influence_summary": "Moderate networked pressure through parent emails and PTA-like channels.",
+        "mobilization_readiness": 0.68,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "vendor performance is below acceptable standard and district may be minimizing the problem",
+        "public_expression": "emailing schools and district, discussing publicly in parent channels",
+        "representation_mode": "issue_public",
+        "represented_population": 3000,
+        "reputation": 0.56,
+        "secrecy": 0.12,
+        "stance_axes": {
+          "process_patience": 0.35,
+          "service_continuity_priority": 0.62,
+          "trust_in_district": 0.38,
+          "vendor_accountability": 0.85
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "archetype_key": "district_parents",
+        "attention_level": 0.46,
+        "behavioral_tendencies": [
+          "monitoring",
+          "informal discussion",
+          "conditional escalation"
+        ],
+        "cohort_key": "parents_wait_and_see",
+        "expression_level": 0.23,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.49,
+        "graph_influence_summary": "Large but quiet block that can swing legitimacy.",
+        "mobilization_readiness": 0.31,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "there may be a real problem but continuity matters and facts are incomplete",
+        "public_expression": "limited public comment, mostly observational",
+        "representation_mode": "issue_private",
+        "represented_population": 6600,
+        "reputation": 0.5,
+        "secrecy": 0.34,
+        "stance_axes": {
+          "process_patience": 0.61,
+          "service_continuity_priority": 0.74,
+          "trust_in_district": 0.52,
+          "vendor_accountability": 0.58
+        },
+        "trustworthiness": 0.66
+      },
+      {
+        "archetype_key": "district_parents",
+        "attention_level": 0.33,
+        "behavioral_tendencies": [
+          "de-escalation",
+          "skepticism of anecdotes"
+        ],
+        "cohort_key": "parents_vendor_defenders_minority",
+        "expression_level": 0.19,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.58,
+        "graph_influence_summary": "Small minority with limited public confidence.",
+        "mobilization_readiness": 0.16,
+        "perceived_majority": 0.18,
+        "population_share_of_archetype": 0.1,
+        "private_belief": "complaints may be exaggerated and abrupt cancellation could worsen service",
+        "public_expression": "occasional moderation appeals",
+        "representation_mode": "issue_selective",
+        "represented_population": 1200,
+        "reputation": 0.43,
+        "secrecy": 0.41,
+        "stance_axes": {
+          "process_patience": 0.79,
+          "service_continuity_priority": 0.82,
+          "trust_in_district": 0.57,
+          "vendor_accountability": 0.28
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "archetype_key": "district_students_secondary",
+        "attention_level": 0.77,
+        "behavioral_tendencies": [
+          "viral amplification",
+          "peer contagion",
+          "episodic outrage"
+        ],
+        "cohort_key": "students_mocking_and_complaining",
+        "expression_level": 0.72,
+        "fatigue": 0.14,
+        "fear_of_isolation": 0.11,
+        "graph_influence_summary": "High exposure but low formal authority.",
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.7,
+        "population_share_of_archetype": 0.5,
+        "private_belief": "meal quality is poor and lateness is noticeable",
+        "public_expression": "posts, jokes, photos, and complaints",
+        "representation_mode": "issue_public",
+        "represented_population": 2100,
+        "reputation": 0.46,
+        "secrecy": 0.08,
+        "stance_axes": {
+          "process_patience": 0.22,
+          "service_continuity_priority": 0.49,
+          "trust_in_district": 0.34,
+          "vendor_accountability": 0.76
+        },
+        "trustworthiness": 0.47
+      },
+      {
+        "archetype_key": "district_students_secondary",
+        "attention_level": 0.34,
+        "behavioral_tendencies": [
+          "adaptation",
+          "localized complaint"
+        ],
+        "cohort_key": "students_indifferent_or_adaptive",
+        "expression_level": 0.18,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.29,
+        "graph_influence_summary": "Low sustained pressure unless catalyzed by visible incidents.",
+        "mobilization_readiness": 0.18,
+        "perceived_majority": 0.39,
+        "population_share_of_archetype": 0.5,
+        "private_belief": "meals are inconsistent but not worth sustained action",
+        "public_expression": "sporadic comments only",
+        "representation_mode": "issue_private",
+        "represented_population": 2100,
+        "reputation": 0.45,
+        "secrecy": 0.26,
+        "stance_axes": {
+          "process_patience": 0.47,
+          "service_continuity_priority": 0.51,
+          "trust_in_district": 0.45,
+          "vendor_accountability": 0.44
+        },
+        "trustworthiness": 0.49
+      },
+      {
+        "archetype_key": "district_school_staff",
+        "attention_level": 0.69,
+        "behavioral_tendencies": [
+          "documentation",
+          "workarounds",
+          "cautious escalation"
+        ],
+        "cohort_key": "school_staff_disruption_reporters",
+        "expression_level": 0.31,
+        "fatigue": 0.43,
+        "fear_of_isolation": 0.44,
+        "graph_influence_summary": "Operationally credible but institutionally constrained.",
+        "mobilization_readiness": 0.38,
+        "perceived_majority": 0.58,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "delivery failures create real operational burdens and records should be preserved",
+        "public_expression": "internal reporting, limited public comment",
+        "representation_mode": "institutional_internal",
+        "represented_population": 420,
+        "reputation": 0.61,
+        "secrecy": 0.58,
+        "stance_axes": {
+          "process_patience": 0.54,
+          "service_continuity_priority": 0.79,
+          "trust_in_district": 0.51,
+          "vendor_accountability": 0.72
+        },
+        "trustworthiness": 0.76
+      },
+      {
+        "archetype_key": "district_school_staff",
+        "attention_level": 0.74,
+        "behavioral_tendencies": [
+          "organized pressure",
+          "capacity framing",
+          "coalition testing"
+        ],
+        "cohort_key": "union_staff_quality_hawks",
+        "expression_level": 0.46,
+        "fatigue": 0.49,
+        "fear_of_isolation": 0.36,
+        "graph_influence_summary": "Can shape staff narrative and link labor concerns to public accountability.",
+        "mobilization_readiness": 0.61,
+        "perceived_majority": 0.45,
+        "population_share_of_archetype": 0.2,
+        "private_belief": "vendor failures validate union concerns and may support insourcing or stronger oversight",
+        "public_expression": "note circulation, guarded advocacy",
+        "representation_mode": "organized_labor",
+        "represented_population": 280,
+        "reputation": 0.54,
+        "secrecy": 0.47,
+        "stance_axes": {
+          "process_patience": 0.37,
+          "service_continuity_priority": 0.73,
+          "trust_in_district": 0.42,
+          "vendor_accountability": 0.83
+        },
+        "trustworthiness": 0.68
+      },
+      {
+        "archetype_key": "district_school_staff",
+        "attention_level": 0.41,
+        "behavioral_tendencies": [
+          "risk aversion",
+          "quiet compliance"
+        ],
+        "cohort_key": "staff_cautious_neutral",
+        "expression_level": 0.14,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.52,
+        "graph_influence_summary": "Large quiet workforce sensitive to leadership signals.",
+        "mobilization_readiness": 0.21,
+        "perceived_majority": 0.33,
+        "population_share_of_archetype": 0.5,
+        "private_belief": "problem exists but public conflict may worsen operations",
+        "public_expression": "minimal public involvement",
+        "representation_mode": "issue_private",
+        "represented_population": 700,
+        "reputation": 0.52,
+        "secrecy": 0.61,
+        "stance_axes": {
+          "process_patience": 0.68,
+          "service_continuity_priority": 0.81,
+          "trust_in_district": 0.56,
+          "vendor_accountability": 0.49
+        },
+        "trustworthiness": 0.64
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "district_parents",
+        "attention_level": 0.82,
+        "behavioral_tendencies": [
+          "complaint sharing",
+          "artifact collection",
+          "peer escalation"
+        ],
+        "cohort_key": "concerned_parents_active",
+        "expression_level": 0.74,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.22,
+        "graph_influence_summary": "Moderate networked pressure through parent emails and PTA-like channels.",
+        "mobilization_readiness": 0.68,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "vendor performance is below acceptable standard and district may be minimizing the problem",
+        "public_expression": "emailing schools and district, discussing publicly in parent channels",
+        "representation_mode": "issue_public",
+        "represented_population": 3000,
+        "reputation": 0.56,
+        "secrecy": 0.12,
+        "stance_axes": {
+          "process_patience": 0.35,
+          "service_continuity_priority": 0.62,
+          "trust_in_district": 0.38,
+          "vendor_accountability": 0.85
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "archetype_key": "district_parents",
+        "attention_level": 0.46,
+        "behavioral_tendencies": [
+          "monitoring",
+          "informal discussion",
+          "conditional escalation"
+        ],
+        "cohort_key": "parents_wait_and_see",
+        "expression_level": 0.23,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.49,
+        "graph_influence_summary": "Large but quiet block that can swing legitimacy.",
+        "mobilization_readiness": 0.31,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "there may be a real problem but continuity matters and facts are incomplete",
+        "public_expression": "limited public comment, mostly observational",
+        "representation_mode": "issue_private",
+        "represented_population": 6600,
+        "reputation": 0.5,
+        "secrecy": 0.34,
+        "stance_axes": {
+          "process_patience": 0.61,
+          "service_continuity_priority": 0.74,
+          "trust_in_district": 0.52,
+          "vendor_accountability": 0.58
+        },
+        "trustworthiness": 0.66
+      },
+      {
+        "archetype_key": "district_parents",
+        "attention_level": 0.33,
+        "behavioral_tendencies": [
+          "de-escalation",
+          "skepticism of anecdotes"
+        ],
+        "cohort_key": "parents_vendor_defenders_minority",
+        "expression_level": 0.19,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.58,
+        "graph_influence_summary": "Small minority with limited public confidence.",
+        "mobilization_readiness": 0.16,
+        "perceived_majority": 0.18,
+        "population_share_of_archetype": 0.1,
+        "private_belief": "complaints may be exaggerated and abrupt cancellation could worsen service",
+        "public_expression": "occasional moderation appeals",
+        "representation_mode": "issue_selective",
+        "represented_population": 1200,
+        "reputation": 0.43,
+        "secrecy": 0.41,
+        "stance_axes": {
+          "process_patience": 0.79,
+          "service_continuity_priority": 0.82,
+          "trust_in_district": 0.57,
+          "vendor_accountability": 0.28
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "archetype_key": "district_students_secondary",
+        "attention_level": 0.77,
+        "behavioral_tendencies": [
+          "viral amplification",
+          "peer contagion",
+          "episodic outrage"
+        ],
+        "cohort_key": "students_mocking_and_complaining",
+        "expression_level": 0.72,
+        "fatigue": 0.14,
+        "fear_of_isolation": 0.11,
+        "graph_influence_summary": "High exposure but low formal authority.",
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.7,
+        "population_share_of_archetype": 0.5,
+        "private_belief": "meal quality is poor and lateness is noticeable",
+        "public_expression": "posts, jokes, photos, and complaints",
+        "representation_mode": "issue_public",
+        "represented_population": 2100,
+        "reputation": 0.46,
+        "secrecy": 0.08,
+        "stance_axes": {
+          "process_patience": 0.22,
+          "service_continuity_priority": 0.49,
+          "trust_in_district": 0.34,
+          "vendor_accountability": 0.76
+        },
+        "trustworthiness": 0.47
+      },
+      {
+        "archetype_key": "district_students_secondary",
+        "attention_level": 0.34,
+        "behavioral_tendencies": [
+          "adaptation",
+          "localized complaint"
+        ],
+        "cohort_key": "students_indifferent_or_adaptive",
+        "expression_level": 0.18,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.29,
+        "graph_influence_summary": "Low sustained pressure unless catalyzed by visible incidents.",
+        "mobilization_readiness": 0.18,
+        "perceived_majority": 0.39,
+        "population_share_of_archetype": 0.5,
+        "private_belief": "meals are inconsistent but not worth sustained action",
+        "public_expression": "sporadic comments only",
+        "representation_mode": "issue_private",
+        "represented_population": 2100,
+        "reputation": 0.45,
+        "secrecy": 0.26,
+        "stance_axes": {
+          "process_patience": 0.47,
+          "service_continuity_priority": 0.51,
+          "trust_in_district": 0.45,
+          "vendor_accountability": 0.44
+        },
+        "trustworthiness": 0.49
+      },
+      {
+        "archetype_key": "district_school_staff",
+        "attention_level": 0.69,
+        "behavioral_tendencies": [
+          "documentation",
+          "workarounds",
+          "cautious escalation"
+        ],
+        "cohort_key": "school_staff_disruption_reporters",
+        "expression_level": 0.31,
+        "fatigue": 0.43,
+        "fear_of_isolation": 0.44,
+        "graph_influence_summary": "Operationally credible but institutionally constrained.",
+        "mobilization_readiness": 0.38,
+        "perceived_majority": 0.58,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "delivery failures create real operational burdens and records should be preserved",
+        "public_expression": "internal reporting, limited public comment",
+        "representation_mode": "institutional_internal",
+        "represented_population": 420,
+        "reputation": 0.61,
+        "secrecy": 0.58,
+        "stance_axes": {
+          "process_patience": 0.54,
+          "service_continuity_priority": 0.79,
+          "trust_in_district": 0.51,
+          "vendor_accountability": 0.72
+        },
+        "trustworthiness": 0.76
+      },
+      {
+        "archetype_key": "district_school_staff",
+        "attention_level": 0.74,
+        "behavioral_tendencies": [
+          "organized pressure",
+          "capacity framing",
+          "coalition testing"
+        ],
+        "cohort_key": "union_staff_quality_hawks",
+        "expression_level": 0.46,
+        "fatigue": 0.49,
+        "fear_of_isolation": 0.36,
+        "graph_influence_summary": "Can shape staff narrative and link labor concerns to public accountability.",
+        "mobilization_readiness": 0.61,
+        "perceived_majority": 0.45,
+        "population_share_of_archetype": 0.2,
+        "private_belief": "vendor failures validate union concerns and may support insourcing or stronger oversight",
+        "public_expression": "note circulation, guarded advocacy",
+        "representation_mode": "organized_labor",
+        "represented_population": 280,
+        "reputation": 0.54,
+        "secrecy": 0.47,
+        "stance_axes": {
+          "process_patience": 0.37,
+          "service_continuity_priority": 0.73,
+          "trust_in_district": 0.42,
+          "vendor_accountability": 0.83
+        },
+        "trustworthiness": 0.68
+      },
+      {
+        "archetype_key": "district_school_staff",
+        "attention_level": 0.41,
+        "behavioral_tendencies": [
+          "risk aversion",
+          "quiet compliance"
+        ],
+        "cohort_key": "staff_cautious_neutral",
+        "expression_level": 0.14,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.52,
+        "graph_influence_summary": "Large quiet workforce sensitive to leadership signals.",
+        "mobilization_readiness": 0.21,
+        "perceived_majority": 0.33,
+        "population_share_of_archetype": 0.5,
+        "private_belief": "problem exists but public conflict may worsen operations",
+        "public_expression": "minimal public involvement",
+        "representation_mode": "issue_private",
+        "represented_population": 700,
+        "reputation": 0.52,
+        "secrecy": 0.61,
+        "stance_axes": {
+          "process_patience": 0.68,
+          "service_continuity_priority": 0.81,
+          "trust_in_district": 0.56,
+          "vendor_accountability": 0.49
+        },
+        "trustworthiness": 0.64
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "harbor_unified_school_district",
+          "district_procurement_office",
+          "school_board"
+        ],
+        "blockers": [
+          "switching costs and meal continuity risk",
+          "limited alternative vendor capacity",
+          "procedural timing and defensibility"
+        ],
+        "contradiction_notes": "A remediation plan may coexist temporarily with rebid preparation, so short-run corrective steps do not negate this endpoint.",
+        "description": "The district initiates a formal rebid or equivalent competitive replacement process that results in the incumbent losing control of the meal contract.",
+        "endpoint_key": "vendor_rebid_replacement",
+        "evidence_refs": [
+          "procurement_rules_text",
+          "incident_documentation_review",
+          "board_public_comment",
+          "vendor_statement_channel"
+        ],
+        "label": "formal_rebid_and_vendor_replacement",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the district ultimately keep the incumbent vendor under the challenged contract, replace it through rebid, or terminate it through emergency action?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.31,
+        "rationale": "Rebid is a terminal option if evidence strengthens and process constraints can be managed.",
+        "realization_criteria": [
+          "district publicly or formally issues rebid/solicitation or equivalent competitive replacement action",
+          "incumbent is not retained as the continuing primary meal vendor after award decision"
+        ],
+        "status": "active",
+        "status_basis": "Scenario explicitly names rebid as a possible branch, but no formal procurement action is yet described at T0."
+      },
+      {
+        "authority_refs": [
+          "harbor_unified_school_district",
+          "district_nutrition_director",
+          "golden_field_nutrition_services"
+        ],
+        "blockers": [
+          "continued visible failures",
+          "loss of political legitimacy",
+          "evidence of safety-level breach"
+        ],
+        "contradiction_notes": "If remediation is purely rhetorical and quickly collapses into cancellation or rebid, this endpoint is not realized.",
+        "description": "The district keeps the incumbent vendor in place under an explicit corrective action framework with measurable oversight.",
+        "endpoint_key": "monitored_remediation_continuation",
+        "evidence_refs": [
+          "vendor_statement_channel",
+          "internal_nutrition_memo",
+          "incident_documentation_review"
+        ],
+        "label": "incumbent_retained_under_monitored_remediation",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Is the district response publicly visible and formalized, or mostly handled through low-visibility administrative process?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.37,
+        "rationale": "The district has incentives to preserve continuity while buying time under procurement constraints.",
+        "realization_criteria": [
+          "district and vendor adopt documented corrective benchmarks or oversight milestones",
+          "incumbent continues service beyond the immediate dispute period without formal replacement or emergency termination"
+        ],
+        "status": "active",
+        "status_basis": "Vendor defense and continuity pressures make remediation the most immediate nonterminal mechanism available at T0."
+      },
+      {
+        "authority_refs": [
+          "harbor_unified_school_district",
+          "district_procurement_office",
+          "school_board"
+        ],
+        "blockers": [
+          "legal defensibility concerns",
+          "replacement capacity shortfalls",
+          "administrative reluctance to risk service disruption"
+        ],
+        "contradiction_notes": "Escalated rhetoric alone does not realize this endpoint without formal action and operational substitution.",
+        "description": "The district invokes emergency or expedited authority to end or suspend the incumbent arrangement before a standard renewal or rebid conclusion.",
+        "endpoint_key": "emergency_cancellation",
+        "evidence_refs": [
+          "procurement_rules_text",
+          "internal_nutrition_memo",
+          "school_principals_caucus reports"
+        ],
+        "label": "emergency_cancellation_or_suspension",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "If remediation is chosen, does it become a real monitored corrective regime or a symbolic delay mechanism before renewal or replacement?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.14,
+        "rationale": "This endpoint becomes more likely if quality concerns are reframed as urgent safety or repeated operational breakdown.",
+        "realization_criteria": [
+          "district formally cancels, suspends, or materially halts incumbent contract under emergency or exception authority",
+          "interim meal sourcing is shifted away from incumbent through emergency measures"
+        ],
+        "status": "active",
+        "status_basis": "Scenario names emergency cancellation as a possible path, but T0 evidence does not yet establish extreme threshold conditions."
+      },
+      {
+        "authority_refs": [
+          "harbor_unified_school_district",
+          "district_procurement_office",
+          "school_board"
+        ],
+        "blockers": [
+          "sustained parent pressure",
+          "artifact leaks",
+          "formal board scrutiny",
+          "continued service failures"
+        ],
+        "contradiction_notes": "A temporary remediation announcement may still culminate in quiet renewal if monitoring fades and no terminal switch occurs.",
+        "description": "The incumbent relationship is quietly renewed or extended with limited public confrontation and weak visible change.",
+        "endpoint_key": "quiet_renewal",
+        "evidence_refs": [
+          "procurement_rules_text",
+          "vendor_statement_channel",
+          "board_public_comment"
+        ],
+        "label": "low_visibility_renewal_or_extension",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do parents, students, and union-linked staff sustain a pressure coalition long enough to influence the terminal contract outcome?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.18,
+        "rationale": "Administrative inertia and market dependence can favor continuation if public salience drops.",
+        "realization_criteria": [
+          "district approves or executes renewal/extension of incumbent arrangement",
+          "no substantial public-facing accountability process or competitive replacement interrupts the continuation"
+        ],
+        "status": "active",
+        "status_basis": "Scenario explicitly includes quiet renewal as a branch; continuity incentives and attention decay make it plausible though contested."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "scenario states school meal vendor contract under challenge",
+        "layer": "dependency",
+        "reason": "district relies on incumbent vendor for meal supply continuity",
+        "source_actor_name": "harbor_unified_school_district",
+        "target_actor_name": "golden_field_nutrition_services",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "vendor defense implies contract retention stakes",
+        "layer": "dependency",
+        "reason": "vendor relies on district contract revenue and access",
+        "source_actor_name": "golden_field_nutrition_services",
+        "target_actor_name": "harbor_unified_school_district",
+        "weight": 0.56
+      },
+      {
+        "direction": "directed",
+        "evidence": "procurement rules included as governing constraint",
+        "layer": "dependency",
+        "reason": "operational response depends on procurement pathway permissions",
+        "source_actor_name": "district_nutrition_director",
+        "target_actor_name": "district_procurement_office",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "late deliveries affect school operations",
+        "layer": "dependency",
+        "reason": "site operations depend on district meal decisions and logistics",
+        "source_actor_name": "harbor_unified_school_district",
+        "target_actor_name": "school_principals_caucus",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "possible rebid and emergency replacement implied",
+        "layer": "dependency",
+        "reason": "replacement path exists but is not yet activated and likely capacity constrained",
+        "source_actor_name": "harbor_unified_school_district",
+        "target_actor_name": "alternative_regional_vendors",
+        "weight": 0.27
+      },
+      {
+        "direction": "directed",
+        "evidence": "parent emails are part of source set",
+        "layer": "trust",
+        "reason": "district credibility weakened by allegations and perceived slow response",
+        "source_actor_name": "parent_association_network",
+        "target_actor_name": "harbor_unified_school_district",
+        "weight": 0.36
+      },
+      {
+        "direction": "directed",
+        "evidence": "nutritionist memo included in scenario",
+        "layer": "trust",
+        "reason": "internal expert memo carries technical legitimacy",
+        "source_actor_name": "harbor_unified_school_district",
+        "target_actor_name": "district_nutritionist",
+        "weight": 0.67
+      },
+      {
+        "direction": "directed",
+        "evidence": "operational disruption channel implied",
+        "layer": "trust",
+        "reason": "principals likely rely on nutrition office for corrective action",
+        "source_actor_name": "school_principals_caucus",
+        "target_actor_name": "district_nutrition_director",
+        "weight": 0.59
+      },
+      {
+        "direction": "directed",
+        "evidence": "allegations of poor quality and late deliveries",
+        "layer": "trust",
+        "reason": "poor quality allegations depress vendor credibility",
+        "source_actor_name": "parent_association_network",
+        "target_actor_name": "golden_field_nutrition_services",
+        "weight": 0.22
+      },
+      {
+        "direction": "directed",
+        "evidence": "vendor defense alongside challenge",
+        "layer": "trust",
+        "reason": "vendor defense exists but allegations reduce confidence",
+        "source_actor_name": "harbor_unified_school_district",
+        "target_actor_name": "golden_field_nutrition_services",
+        "weight": 0.34
+      },
+      {
+        "direction": "directed",
+        "evidence": "student posts included as evidence source",
+        "layer": "exposure",
+        "reason": "student posts can circulate into parent channels",
+        "source_actor_name": "students_secondary_network",
+        "target_actor_name": "parent_association_network",
+        "weight": 0.54
+      },
+      {
+        "direction": "directed",
+        "evidence": "parent emails and public challenge context",
+        "layer": "exposure",
+        "reason": "organized parent communication likely reaches elected oversight body",
+        "source_actor_name": "parent_association_network",
+        "target_actor_name": "school_board",
+        "weight": 0.48
+      },
+      {
+        "direction": "directed",
+        "evidence": "public accountability scenario with visible complaints",
+        "layer": "exposure",
+        "reason": "board is attentive to potential coverage",
+        "source_actor_name": "local_press_education_desk",
+        "target_actor_name": "school_board",
+        "weight": 0.33
+      },
+      {
+        "direction": "directed",
+        "evidence": "late deliveries affect schools directly",
+        "layer": "exposure",
+        "reason": "site reports give direct visibility into late deliveries",
+        "source_actor_name": "school_principals_caucus",
+        "target_actor_name": "district_nutrition_director",
+        "weight": 0.62
+      },
+      {
+        "direction": "directed",
+        "evidence": "union kitchen staff note included in source set",
+        "layer": "exposure",
+        "reason": "staff note may leak or be shared informally with parents",
+        "source_actor_name": "union_kitchen_staff_local",
+        "target_actor_name": "parent_association_network",
+        "weight": 0.24
+      },
+      {
+        "direction": "directed",
+        "evidence": "governing body oversight role inferred from district structure",
+        "layer": "influence",
+        "reason": "board oversight can shape district response and timeline",
+        "source_actor_name": "school_board",
+        "target_actor_name": "harbor_unified_school_district",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "procurement rules central to decision pathways",
+        "layer": "influence",
+        "reason": "process gatekeeping shapes available options and pace",
+        "source_actor_name": "district_procurement_office",
+        "target_actor_name": "harbor_unified_school_district",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "parent emails as active pressure source",
+        "layer": "influence",
+        "reason": "organized parents can elevate issue salience",
+        "source_actor_name": "parent_association_network",
+        "target_actor_name": "school_board",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "nutritionist memo included",
+        "layer": "influence",
+        "reason": "technical memo may legitimize enforcement or remediation demands",
+        "source_actor_name": "district_nutritionist",
+        "target_actor_name": "district_nutrition_director",
+        "weight": 0.51
+      },
+      {
+        "direction": "directed",
+        "evidence": "potential media role in public institutional dispute",
+        "layer": "influence",
+        "reason": "coverage can validate complaints and coordinate attention",
+        "source_actor_name": "local_press_education_desk",
+        "target_actor_name": "parent_association_network",
+        "weight": 0.29
+      },
+      {
+        "direction": "undirected",
+        "evidence": "parent emails and union note both indicate concern vectors",
+        "layer": "coalition",
+        "reason": "shared dissatisfaction with vendor may create tactical alignment despite different motives",
+        "source_actor_name": "parent_association_network",
+        "target_actor_name": "union_kitchen_staff_local",
+        "weight": 0.37
+      },
+      {
+        "direction": "undirected",
+        "evidence": "memo plus delivery issues",
+        "layer": "coalition",
+        "reason": "quality and operational concerns may align internally around documentation",
+        "source_actor_name": "district_nutritionist",
+        "target_actor_name": "school_principals_caucus",
+        "weight": 0.32
+      },
+      {
+        "direction": "undirected",
+        "evidence": "remediation and rebid pathways require coordination",
+        "layer": "coalition",
+        "reason": "both seek defensible process continuity, though with different priorities",
+        "source_actor_name": "district_nutrition_director",
+        "target_actor_name": "district_procurement_office",
+        "weight": 0.44
+      },
+      {
+        "direction": "undirected",
+        "evidence": "student posts and parent emails both listed",
+        "layer": "coalition",
+        "reason": "student posts reinforce parent complaints",
+        "source_actor_name": "parent_association_network",
+        "target_actor_name": "students_secondary_network",
+        "weight": 0.41
+      },
+      {
+        "direction": "undirected",
+        "evidence": "vendor contract challenged after allegations",
+        "layer": "conflict",
+        "reason": "parents challenge vendor performance and credibility",
+        "source_actor_name": "parent_association_network",
+        "target_actor_name": "golden_field_nutrition_services",
+        "weight": 0.67
+      },
+      {
+        "direction": "undirected",
+        "evidence": "union kitchen staff note included",
+        "layer": "conflict",
+        "reason": "staff note likely frames vendor failure as burdensome or avoidable",
+        "source_actor_name": "union_kitchen_staff_local",
+        "target_actor_name": "golden_field_nutrition_services",
+        "weight": 0.52
+      },
+      {
+        "direction": "undirected",
+        "evidence": "challenge status with vendor defense still active",
+        "layer": "conflict",
+        "reason": "performance allegations create contractual friction but not yet full rupture",
+        "source_actor_name": "harbor_unified_school_district",
+        "target_actor_name": "golden_field_nutrition_services",
+        "weight": 0.46
+      },
+      {
+        "direction": "undirected",
+        "evidence": "parent complaint structure implied",
+        "layer": "conflict",
+        "reason": "district may be criticized for oversight and response pace",
+        "source_actor_name": "parent_association_network",
+        "target_actor_name": "harbor_unified_school_district",
+        "weight": 0.39
+      },
+      {
+        "direction": "undirected",
+        "evidence": "student posts cited",
+        "layer": "oasis_interaction",
+        "reason": "students are likely to publicly react to vendor-associated meal failures",
+        "source_actor_name": "students_secondary_network",
+        "target_actor_name": "golden_field_nutrition_services",
+        "weight": 0.43
+      },
+      {
+        "direction": "undirected",
+        "evidence": "parent emails central to setup",
+        "layer": "oasis_interaction",
+        "reason": "email and public forum interaction is likely frequent",
+        "source_actor_name": "parent_association_network",
+        "target_actor_name": "harbor_unified_school_district",
+        "weight": 0.58
+      },
+      {
+        "direction": "undirected",
+        "evidence": "oversight context and civic pressure",
+        "layer": "oasis_interaction",
+        "reason": "board meetings or comment channels may host visible interaction",
+        "source_actor_name": "school_board",
+        "target_actor_name": "parent_association_network",
+        "weight": 0.36
+      },
+      {
+        "direction": "undirected",
+        "evidence": "public institutional controversy dynamics",
+        "layer": "oasis_interaction",
+        "reason": "press inquiry becomes plausible if issue sustains visibility",
+        "source_actor_name": "local_press_education_desk",
+        "target_actor_name": "harbor_unified_school_district",
+        "weight": 0.27
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "description": "Officials who can choose remediation, rebid timing, emergency measures, or renewal pathway.",
+        "hero_key": "district_admin_decider",
+        "label": "district operational decider"
+      },
+      {
+        "description": "Vendor-facing leader attempting to preserve contract via defense and corrective action.",
+        "hero_key": "vendor_recovery_lead",
+        "label": "vendor recovery lead"
+      },
+      {
+        "description": "Non-district actor able to convert scattered complaints into formal scrutiny.",
+        "hero_key": "public_accountability_catalyst",
+        "label": "public accountability catalyst"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "district_nutrition_director",
+        "attention_level": 0.88,
+        "constraints": [
+          "procurement rules",
+          "limited replacement capacity",
+          "board oversight",
+          "documentation burden"
+        ],
+        "expression_level": 0.41,
+        "fatigue": 0.57,
+        "fear_of_isolation": 0.38,
+        "goal": "stabilize meal service while preserving compliance and administrative credibility",
+        "hero_key": "district_admin_decider",
+        "institutional_position": "program lead with operational leverage but not sole final authority",
+        "mobilization_readiness": 0.63,
+        "perceived_majority": 0.49,
+        "power": 0.72,
+        "stance_axes": {
+          "emergency_cancellation_willingness": 0.34,
+          "quiet_renewal_tolerance": 0.27,
+          "rebid_openness": 0.52,
+          "remediation_preference": 0.71
+        }
+      },
+      {
+        "actor_name": "golden_field_nutrition_services",
+        "attention_level": 0.83,
+        "constraints": [
+          "delivery performance record",
+          "public narratives",
+          "contract enforcement",
+          "limited trust"
+        ],
+        "expression_level": 0.59,
+        "fatigue": 0.46,
+        "fear_of_isolation": 0.51,
+        "goal": "retain contract through defense, mitigation, and credibility repair",
+        "hero_key": "vendor_recovery_lead",
+        "institutional_position": "incumbent contractor with service dependence leverage",
+        "mobilization_readiness": 0.58,
+        "perceived_majority": 0.32,
+        "power": 0.66,
+        "stance_axes": {
+          "emergency_cancellation_resistance": 0.91,
+          "quiet_renewal_preference": 0.67,
+          "rebid_opposition": 0.84,
+          "remediation_preference": 0.86
+        }
+      },
+      {
+        "actor_name": "parent_association_network",
+        "attention_level": 0.79,
+        "constraints": [
+          "evidence fragmentation",
+          "volunteer attention limits",
+          "process opacity"
+        ],
+        "expression_level": 0.71,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.19,
+        "goal": "force visible corrective action and credible review",
+        "hero_key": "public_accountability_catalyst",
+        "institutional_position": "networked civic pressure actor without formal authority",
+        "mobilization_readiness": 0.72,
+        "perceived_majority": 0.55,
+        "power": 0.48,
+        "stance_axes": {
+          "emergency_cancellation_willingness": 0.48,
+          "quiet_renewal_opposition": 0.87,
+          "rebid_openness": 0.74,
+          "remediation_skepticism": 0.63
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "description": "Officials who can choose remediation, rebid timing, emergency measures, or renewal pathway.",
+        "hero_key": "district_admin_decider",
+        "label": "district operational decider"
+      },
+      {
+        "description": "Vendor-facing leader attempting to preserve contract via defense and corrective action.",
+        "hero_key": "vendor_recovery_lead",
+        "label": "vendor recovery lead"
+      },
+      {
+        "description": "Non-district actor able to convert scattered complaints into formal scrutiny.",
+        "hero_key": "public_accountability_catalyst",
+        "label": "public accountability catalyst"
+      }
+    ],
+    "important_questions": [
+      "Does the district ultimately keep the incumbent vendor under the challenged contract, replace it through rebid, or terminate it through emergency action?",
+      "Is the district response publicly visible and formalized, or mostly handled through low-visibility administrative process?",
+      "If remediation is chosen, does it become a real monitored corrective regime or a symbolic delay mechanism before renewal or replacement?",
+      "Do parents, students, and union-linked staff sustain a pressure coalition long enough to influence the terminal contract outcome?"
+    ],
+    "initial_events": [
+      {
+        "event_key": "quality_and_lateness_allegations_active",
+        "event_type": "announcement",
+        "expected_impact": "raises conflict with vendor, reduces trust, increases evidence gathering and exposure",
+        "status": "active",
+        "summary": "Allegations of poor meal quality and late deliveries are already circulating across parent and school channels.",
+        "tick": 0
+      },
+      {
+        "event_key": "vendor_defense_issued",
+        "event_type": "announcement",
+        "expected_impact": "slows immediate rupture, preserves remediation branch, but may backfire if contradicted by artifacts",
+        "status": "active",
+        "summary": "Vendor has offered a defense of its performance and likely attributes issues to manageable factors rather than systemic failure.",
+        "tick": 0
+      },
+      {
+        "event_key": "nutritionist_memo_exists",
+        "event_type": "announcement",
+        "expected_impact": "creates latent trigger for stronger internal enforcement or public escalation if disclosed",
+        "status": "active",
+        "summary": "An internal nutritionist memo exists as a potentially high-credibility artifact regarding quality concerns.",
+        "tick": 0
+      },
+      {
+        "event_key": "union_staff_note_circulating",
+        "event_type": "announcement",
+        "expected_impact": "supports coalition formation and capacity arguments against quiet renewal",
+        "status": "active",
+        "summary": "Union kitchen staff note is in circulation, indicating staff awareness and a possible organized labor angle.",
+        "tick": 0
+      },
+      {
+        "event_key": "incident_documentation_review",
+        "event_type": "announcement",
+        "expected_impact": "improves artifact traceability and may sharpen eligibility for remediation or cancellation pathways",
+        "status": "plausible_imminent",
+        "summary": "District staff begin or continue compiling delivery and quality records against contract terms.",
+        "tick": 1
+      },
+      {
+        "event_key": "board_attention_threshold_test",
+        "event_type": "announcement",
+        "expected_impact": "increases public salience and constrains quiet handling",
+        "status": "plausible_imminent",
+        "summary": "Issue may reach the school board through parent outreach or agenda-setting pressure.",
+        "tick": 2
+      },
+      {
+        "event_key": "vendor_corrective_plan_offer",
+        "event_type": "announcement",
+        "expected_impact": "creates temporary off-ramp from crisis and competes with rebid advocates",
+        "status": "plausible_imminent",
+        "summary": "Vendor may offer a remediation plan with delivery benchmarks and quality assurances.",
+        "tick": 2
+      },
+      {
+        "event_key": "replacement_capacity_scan",
+        "event_type": "announcement",
+        "expected_impact": "changes bargaining leverage and endpoint probabilities without committing to switch",
+        "status": "plausible_imminent",
+        "summary": "District informally assesses alternative vendors or emergency sourcing feasibility.",
+        "tick": 3
+      }
+    ],
+    "llm_call_id": "2b037409-6933-49c6-86a8-15f39c564325",
+    "merge_hypotheses": [
+      {
+        "convergence_effect": "even adversarial actors may tolerate a temporary remediation bridge before any terminal switch",
+        "merge_key": "continuity_constraint_convergence",
+        "shared_driver": "all major actors need uninterrupted student meals"
+      },
+      {
+        "convergence_effect": "district, board, and parents may align on process once evidence threshold is commonly accepted",
+        "merge_key": "artifact_consensus",
+        "shared_driver": "credible documentation can narrow dispute over whether a problem exists"
+      },
+      {
+        "convergence_effect": "without fresh failures, public challengers may drift back toward monitored patience",
+        "merge_key": "coalition_fatigue",
+        "shared_driver": "sustained advocacy requires time and repeated incidents"
+      },
+      {
+        "convergence_effect": "rebid advocates and cautious administrators may converge on phased transition rather than immediate cancellation",
+        "merge_key": "market_capacity_limits",
+        "shared_driver": "few ready replacement vendors reduce practical alternatives"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "district_parents",
+        "description": "Households with enrolled students affected by meal service quality and reliability.",
+        "label": "district parents and guardians",
+        "population_total": 12000
+      },
+      {
+        "archetype_key": "district_students_secondary",
+        "description": "Students likely to post, compare lunch experiences, and influence visible sentiment.",
+        "label": "secondary students",
+        "population_total": 4200
+      },
+      {
+        "archetype_key": "district_school_staff",
+        "description": "Principals, teachers, support staff, and kitchen-adjacent personnel exposed to disruptions.",
+        "label": "school staff",
+        "population_total": 1400
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag_key": "source_corpus_partial",
+        "note": "Initializer is based on a compact scenario summary rather than full artifact text, limiting confidence on exact claims and sequencing.",
+        "severity": "medium"
+      },
+      {
+        "flag_key": "process_authority_ambiguity",
+        "note": "Final authority between board, district administration, and procurement office is inferred but not explicitly specified in the corpus.",
+        "severity": "medium"
+      },
+      {
+        "flag_key": "replacement_capacity_uncertain",
+        "note": "Alternative vendor availability is central to endpoint probabilities but not evidenced directly.",
+        "severity": "high"
+      },
+      {
+        "flag_key": "artifact_leak_sensitivity",
+        "note": "Nutritionist memo and union note could sharply shift public legitimacy if disclosed across channels.",
+        "severity": "medium"
+      },
+      {
+        "flag_key": "continuity_dependency_underweighted_by_public",
+        "note": "Public pressure may underestimate meal service switching costs, creating divergence between preferred and feasible endpoints.",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "mode": "direct",
+      "primary_tensions": [
+        "service reliability vs continuity of meal operations",
+        "child welfare concerns vs contractual/procurement constraints",
+        "public pressure vs administrative caution",
+        "vendor remediation claims vs credibility erosion",
+        "internal staff capacity limits vs outsourcing dependence"
+      ],
+      "scenario_key": "longform_006",
+      "scope": "district_school_meal_procurement_dispute",
+      "summary": "A fictional school meal vendor contract faces challenge after allegations of poor food quality and late deliveries. Initial evidence sources include parent emails, vendor defense statements, a nutritionist memo, student posts, a union kitchen staff note, and procurement rules. Terminal pressure centers on whether the district pursues rebid, remediation, emergency cancellation, or quiet renewal.",
+      "time_horizon_ticks": 8,
+      "title": "fictional_school_meal_vendor_contract_dispute",
+      "uncertainty_notes": [
+        "Full source corpus is summarized rather than fully reproduced.",
+        "Specific district size, contract value, and documented violation counts are not provided.",
+        "Some actors and counts are inferred at a realistic fictional district scale to support T0 simulation."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "district_parents",
+          "district_school_staff"
+        ],
+        "level": "moderate",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "actors update more from peers and credible documents than from generic reassurance"
+      },
+      {
+        "applies_to": [
+          "district_parents",
+          "district_students_secondary"
+        ],
+        "level": "high_relevance",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "a few salient photos, memo leaks, or repeated late deliveries could shift quiet observers into public action"
+      },
+      {
+        "applies_to": [
+          "district_school_staff"
+        ],
+        "level": "moderate",
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "staff may privately agree with criticisms while avoiding public comment due to role constraints"
+      },
+      {
+        "applies_to": [
+          "parent_association_network",
+          "students_secondary_network",
+          "union_kitchen_staff_local"
+        ],
+        "level": "moderate",
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "issue narratives cluster within peer groups before crossing into formal channels"
+      },
+      {
+        "applies_to": [
+          "district_parents"
+        ],
+        "level": "moderate",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "multiple corroborating artifacts are likely needed before broad parent mobilization"
+      },
+      {
+        "applies_to": [
+          "union_kitchen_staff_local",
+          "school_board",
+          "parent_association_network"
+        ],
+        "level": "moderate",
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "labor, caregiver, and governance identities shape acceptable frames and alliances"
+      },
+      {
+        "applies_to": [
+          "district_students_secondary",
+          "district_parents"
+        ],
+        "level": "moderate",
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "without fresh incidents or visible process moments, issue salience may fade"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "emails, memo, staff note, posts, and rules create competing evidence chains that shape credibility and escalation",
+        "influence_key": "artifact_traceability"
+      },
+      {
+        "description": "procurement rules limit abrupt action and can slow or redirect accountability demands",
+        "influence_key": "procedural_constraint_salience"
+      },
+      {
+        "description": "meal service continuity raises tolerance for temporary remediation despite dissatisfaction",
+        "influence_key": "continuity_dependency"
+      },
+      {
+        "description": "parents, students, and union staff share concerns but differ on preferred remedy and time horizon",
+        "influence_key": "coalition_fluidity"
+      },
+      {
+        "description": "staff and many parents may privately agree with criticism while publicly remaining cautious",
+        "influence_key": "public_private_gap"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "harbor_unified_school_district",
+        "behavior_axes": {
+          "conflict_tolerance": 0.36,
+          "proceduralism": 0.82,
+          "responsiveness": 0.49,
+          "risk_aversion": 0.71
+        },
+        "ideology_axes": {
+          "labor_alignment": 0.41,
+          "market_reliance": 0.58,
+          "public_accountability": 0.67
+        },
+        "reputation": 0.54,
+        "secrecy": 0.52,
+        "tendency": "stabilize and delay hard terminal choice until evidence or pressure increases",
+        "trustworthiness": 0.56
+      },
+      {
+        "actor_name": "school_board",
+        "behavior_axes": {
+          "conflict_tolerance": 0.42,
+          "proceduralism": 0.69,
+          "responsiveness": 0.58,
+          "risk_aversion": 0.64
+        },
+        "ideology_axes": {
+          "labor_alignment": 0.46,
+          "market_reliance": 0.53,
+          "public_accountability": 0.76
+        },
+        "reputation": 0.55,
+        "secrecy": 0.35,
+        "tendency": "reactive oversight sensitive to public salience",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "golden_field_nutrition_services",
+        "behavior_axes": {
+          "conflict_tolerance": 0.63,
+          "proceduralism": 0.56,
+          "responsiveness": 0.61,
+          "risk_aversion": 0.47
+        },
+        "ideology_axes": {
+          "labor_alignment": 0.18,
+          "market_reliance": 0.88,
+          "public_accountability": 0.39
+        },
+        "reputation": 0.41,
+        "secrecy": 0.48,
+        "tendency": "defend contract and offer corrective promises before conceding structural fault",
+        "trustworthiness": 0.38
+      },
+      {
+        "actor_name": "district_procurement_office",
+        "behavior_axes": {
+          "conflict_tolerance": 0.29,
+          "proceduralism": 0.91,
+          "responsiveness": 0.37,
+          "risk_aversion": 0.78
+        },
+        "ideology_axes": {
+          "labor_alignment": 0.3,
+          "market_reliance": 0.61,
+          "public_accountability": 0.59
+        },
+        "reputation": 0.58,
+        "secrecy": 0.57,
+        "tendency": "enforce process gates and slow abrupt transitions",
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "district_nutritionist",
+        "behavior_axes": {
+          "conflict_tolerance": 0.31,
+          "proceduralism": 0.72,
+          "responsiveness": 0.66,
+          "risk_aversion": 0.55
+        },
+        "ideology_axes": {
+          "labor_alignment": 0.39,
+          "market_reliance": 0.44,
+          "public_accountability": 0.73
+        },
+        "reputation": 0.62,
+        "secrecy": 0.43,
+        "tendency": "evidence-centered internal escalation",
+        "trustworthiness": 0.77
+      },
+      {
+        "actor_name": "parent_association_network",
+        "behavior_axes": {
+          "conflict_tolerance": 0.57,
+          "proceduralism": 0.41,
+          "responsiveness": 0.82,
+          "risk_aversion": 0.39
+        },
+        "ideology_axes": {
+          "labor_alignment": 0.47,
+          "market_reliance": 0.33,
+          "public_accountability": 0.88
+        },
+        "reputation": 0.57,
+        "secrecy": 0.18,
+        "tendency": "aggregate complaints and seek visible accountability",
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "students_secondary_network",
+        "behavior_axes": {
+          "conflict_tolerance": 0.52,
+          "proceduralism": 0.16,
+          "responsiveness": 0.79,
+          "risk_aversion": 0.21
+        },
+        "ideology_axes": {
+          "labor_alignment": 0.35,
+          "market_reliance": 0.31,
+          "public_accountability": 0.51
+        },
+        "reputation": 0.44,
+        "secrecy": 0.09,
+        "tendency": "rapid visible amplification through posts and jokes",
+        "trustworthiness": 0.42
+      },
+      {
+        "actor_name": "union_kitchen_staff_local",
+        "behavior_axes": {
+          "conflict_tolerance": 0.62,
+          "proceduralism": 0.55,
+          "responsiveness": 0.71,
+          "risk_aversion": 0.43
+        },
+        "ideology_axes": {
+          "labor_alignment": 0.91,
+          "market_reliance": 0.14,
+          "public_accountability": 0.74
+        },
+        "reputation": 0.53,
+        "secrecy": 0.39,
+        "tendency": "connect service failures to labor and capacity arguments",
+        "trustworthiness": 0.69
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 489,
+        "end": 489,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 489,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

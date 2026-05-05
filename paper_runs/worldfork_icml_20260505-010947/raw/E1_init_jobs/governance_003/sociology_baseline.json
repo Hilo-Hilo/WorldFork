@@ -1,0 +1,228 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "183fd9b3-7513-4754-ab8b-240c090c0e2e",
+      "created_at": "2026-05-05T02:37:23.652455+00:00",
+      "id": "0be67f47-b1ba-4b14-8e3d-4338f17cc897",
+      "influence": {
+        "context_key": "budget_pressure_frame",
+        "description": "Cost-savings framing increases receptivity among fiscally attentive actors but can weaken trust if quality concerns are not addressed."
+      },
+      "multiverse_id": "6d713c4f-c524-47c5-b142-dfa56c87f328",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:37:23.652455+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "183fd9b3-7513-4754-ab8b-240c090c0e2e",
+      "created_at": "2026-05-05T02:37:23.652455+00:00",
+      "id": "17c72822-827c-430d-83b6-8b72ae9ec2a2",
+      "influence": {
+        "context_key": "job_loss_visibility",
+        "description": "Concrete worker job-loss narratives can activate fairness concerns and raise public attention."
+      },
+      "multiverse_id": "6d713c4f-c524-47c5-b142-dfa56c87f328",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:37:23.652455+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "183fd9b3-7513-4754-ab8b-240c090c0e2e",
+      "created_at": "2026-05-05T02:37:23.652455+00:00",
+      "id": "737faef7-64bf-41af-88fe-c8c339f0756f",
+      "influence": {
+        "context_key": "food_quality_salience",
+        "description": "Any signal that outsourcing may change food quality can expand patient and clinician engagement."
+      },
+      "multiverse_id": "6d713c4f-c524-47c5-b142-dfa56c87f328",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:37:23.652455+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "183fd9b3-7513-4754-ab8b-240c090c0e2e",
+      "created_at": "2026-05-05T02:37:23.652455+00:00",
+      "id": "3871c61b-0ee1-491d-b0a4-dfc018646021",
+      "influence": {
+        "context_key": "quiet_lobbying_suspicion",
+        "description": "Perceived nontransparent vendor access can increase legitimacy scrutiny even without broad mobilization."
+      },
+      "multiverse_id": "6d713c4f-c524-47c5-b142-dfa56c87f328",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:37:23.652455+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "183fd9b3-7513-4754-ab8b-240c090c0e2e",
+      "created_at": "2026-05-05T02:37:23.652455+00:00",
+      "id": "b1ab8be0-b086-43d6-860e-18ceb58ab0e8",
+      "influence": {
+        "context_key": "process_timing",
+        "description": "Scheduling a near-term vote versus extending review materially shapes coalition formation and conflict intensity."
+      },
+      "multiverse_id": "6d713c4f-c524-47c5-b142-dfa56c87f328",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:37:23.652455+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "183fd9b3-7513-4754-ab8b-240c090c0e2e",
+      "created_at": "2026-05-05T02:37:23.652455+00:00",
+      "id": "d768ff18-fa74-4c64-8d5d-36bed4db0d99",
+      "model": "attention_decay",
+      "multiverse_id": "6d713c4f-c524-47c5-b142-dfa56c87f328",
+      "signal": {
+        "applies_to": [
+          "hospital_board",
+          "hospital_staff_non_cafeteria",
+          "patient_public"
+        ],
+        "evidence": "Actors likely update within familiar frames such as budget credibility, service quality, and fairness rather than radical shifts at T0.",
+        "level": "medium",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:37:23.652455+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "183fd9b3-7513-4754-ab8b-240c090c0e2e",
+      "created_at": "2026-05-05T02:37:23.652455+00:00",
+      "id": "30511c78-19fd-4aa9-8d6c-bb4d59e62c5e",
+      "model": "attention_decay",
+      "multiverse_id": "6d713c4f-c524-47c5-b142-dfa56c87f328",
+      "signal": {
+        "applies_to": [
+          "cafeteria_workforce",
+          "patients_and_family",
+          "local_public_observers"
+        ],
+        "evidence": "Mobilization likely requires visible trigger such as leaked savings plan, testimony, or quality-risk narrative.",
+        "level": "high_relevance",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:37:23.652455+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "183fd9b3-7513-4754-ab8b-240c090c0e2e",
+      "created_at": "2026-05-05T02:37:23.652455+00:00",
+      "id": "58c741ef-e49e-4f7d-ae83-a6effd706da3",
+      "model": "attention_decay",
+      "multiverse_id": "6d713c4f-c524-47c5-b142-dfa56c87f328",
+      "signal": {
+        "applies_to": [
+          "patients_and_family",
+          "hospital_staff_non_cafeteria",
+          "local_public_observers"
+        ],
+        "evidence": "Many affected actors have concerns but limited expression at T0.",
+        "level": "moderate",
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:37:23.652455+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "183fd9b3-7513-4754-ab8b-240c090c0e2e",
+      "created_at": "2026-05-05T02:37:23.652455+00:00",
+      "id": "13721416-d0bf-4da0-8394-7df46192e972",
+      "model": "attention_decay",
+      "multiverse_id": "6d713c4f-c524-47c5-b142-dfa56c87f328",
+      "signal": {
+        "applies_to": [
+          "cafeteria_workforce",
+          "hospital_staff_non_cafeteria",
+          "hospital_board"
+        ],
+        "evidence": "Workers, staff, and board members each sort information within role-based networks.",
+        "level": "moderate",
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:37:23.652455+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "183fd9b3-7513-4754-ab8b-240c090c0e2e",
+      "created_at": "2026-05-05T02:37:23.652455+00:00",
+      "id": "d166fb04-f7b3-4f1d-9311-4bdf96380f1b",
+      "model": "attention_decay",
+      "multiverse_id": "6d713c4f-c524-47c5-b142-dfa56c87f328",
+      "signal": {
+        "applies_to": [
+          "patient_public",
+          "local_public_observers"
+        ],
+        "evidence": "Public concern likely spreads only after repeated cues from workers, clinicians, or visible meeting conflict.",
+        "level": "moderate",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:37:23.652455+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "183fd9b3-7513-4754-ab8b-240c090c0e2e",
+      "created_at": "2026-05-05T02:37:23.652455+00:00",
+      "id": "c46767aa-21d0-41fa-8578-d2d194e72ddf",
+      "model": "attention_decay",
+      "multiverse_id": "6d713c4f-c524-47c5-b142-dfa56c87f328",
+      "signal": {
+        "applies_to": [
+          "cafeteria_workers",
+          "hospital_board",
+          "clinical_staff"
+        ],
+        "evidence": "Labor, governance, and care identities shape how the same budget facts are interpreted.",
+        "level": "high_relevance",
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:37:23.652455+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "183fd9b3-7513-4754-ab8b-240c090c0e2e",
+      "created_at": "2026-05-05T02:37:23.652455+00:00",
+      "id": "a1f05311-4f7f-4fbf-82bf-bbe28c2e239d",
+      "model": "attention_decay",
+      "multiverse_id": "6d713c4f-c524-47c5-b142-dfa56c87f328",
+      "signal": {
+        "applies_to": [
+          "patients_and_family",
+          "local_public_observers"
+        ],
+        "evidence": "Absent a salient incident, outside attention to cafeteria governance remains low.",
+        "level": "high",
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:37:23.652455+00:00"
+    }
+  ]
+}

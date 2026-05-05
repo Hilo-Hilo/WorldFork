@@ -1,0 +1,1474 @@
+{
+  "big_bang_id": "13ebed2a-419b-4fdb-9760-3560c17c4d3b",
+  "initializer_output": {
+    "actors": [
+      {
+        "fictionalized": true,
+        "name": "renewal_club",
+        "public_role": "manifesto_publisher",
+        "type": "student_club"
+      },
+      {
+        "fictionalized": true,
+        "name": "student_government",
+        "public_role": "budget_allocator",
+        "type": "campus_governance_body"
+      },
+      {
+        "fictionalized": true,
+        "name": "campus_administration",
+        "public_role": "compliance_oversight",
+        "type": "institution"
+      },
+      {
+        "fictionalized": true,
+        "name": "general_student_body",
+        "public_role": "campus_constituency",
+        "type": "population_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "registered_clubs",
+        "public_role": "budget_applicants",
+        "type": "campus_org_sector"
+      },
+      {
+        "fictionalized": true,
+        "name": "campus_media",
+        "public_role": "campus_information_channel",
+        "type": "media_outlet"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "branch_key": "reform_coalition_gains_visibility",
+        "divergence_signal": "Visible petition signatures, club statements, or turnout spikes in public forums.",
+        "plausible_path": "Perceived minority status of reformers drops, student government faces pressure to hold a hearing or propose concessions.",
+        "trigger": "Multiple registered clubs publicly endorse review or replacement proposals within first two ticks."
+      },
+      {
+        "branch_key": "institutional_containment_succeeds",
+        "divergence_signal": "Public messaging shifts from replacement language to committee review, consultation, or policy memo processes.",
+        "plausible_path": "Issue reframes from replacement demand to bounded review, reducing disruptive momentum.",
+        "trigger": "Student government and administration coordinate a calm procedural response emphasizing existing petition pathways and compliance limits."
+      },
+      {
+        "branch_key": "backlash_to_manifesto_tone",
+        "divergence_signal": "Club leaders publicly criticize tone while avoiding endorsement of substance.",
+        "plausible_path": "Potential allies distance themselves, isolating renewal club and strengthening status quo legitimacy.",
+        "trigger": "Provocative manifesto language is interpreted as unserious or norm-breaking by influential clubs."
+      },
+      {
+        "branch_key": "quiet_internal_split_in_sg_surfaces",
+        "divergence_signal": "Dissenting statements, amendment proposals, or unexpected committee motions from SG insiders.",
+        "plausible_path": "Institutional legitimacy becomes contested from within, enabling compromise or leadership challenge.",
+        "trigger": "Student government reform sympathizers leak or voice support for limited process changes."
+      }
+    ],
+    "channels": [
+      {
+        "audience": "students_and_clubs",
+        "channel_key": "campus_social_feed",
+        "type": "public_digital",
+        "visibility": 0.72
+      },
+      {
+        "audience": "governance_participants_and_observers",
+        "channel_key": "student_government_meeting",
+        "type": "formal_public_forum",
+        "visibility": 0.55
+      },
+      {
+        "audience": "registered_clubs",
+        "channel_key": "club_listservs",
+        "type": "semi_public_network",
+        "visibility": 0.48
+      },
+      {
+        "audience": "campus_constituency",
+        "channel_key": "campus_media_site",
+        "type": "public_media",
+        "visibility": 0.6
+      },
+      {
+        "audience": "student_leaders_and_officials",
+        "channel_key": "administrative_email",
+        "type": "formal_institutional",
+        "visibility": 0.35
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype": "undergraduate_students",
+        "attention_level": 0.2,
+        "behavioral_tendencies": [
+          "attention_decay",
+          "low_cost_observation",
+          "late_mobilization"
+        ],
+        "cohort_key": "students_disengaged_majority",
+        "expression_level": 0.1,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.5,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": "status_quo_or_uncertain",
+        "population_share_of_archetype": 0.65,
+        "private_belief": "mostly uninformed or weakly status quo by default",
+        "public_expression": "minimal public engagement",
+        "representation_mode": "estimated_segment",
+        "represented_population": 7800,
+        "reputation": 0.5,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "budget_process_change": 0.0,
+          "institutional_legitimacy": 0.2,
+          "procedural_disruption": -0.1
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "archetype": "undergraduate_students",
+        "attention_level": 0.45,
+        "behavioral_tendencies": [
+          "peer_cue_following",
+          "issue_sampling",
+          "conditional_participation"
+        ],
+        "cohort_key": "students_reform_curious",
+        "expression_level": 0.25,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.4,
+        "mobilization_readiness": 0.35,
+        "perceived_majority": "uncertain",
+        "population_share_of_archetype": 0.2,
+        "private_belief": "open to reform claims if framed as fairness or transparency",
+        "public_expression": "mostly conversational rather than organized",
+        "representation_mode": "estimated_segment",
+        "represented_population": 2400,
+        "reputation": 0.5,
+        "secrecy": 0.25,
+        "stance_axes": {
+          "budget_process_change": 0.5,
+          "institutional_legitimacy": 0.0,
+          "procedural_disruption": 0.1
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "archetype": "undergraduate_students",
+        "attention_level": 0.4,
+        "behavioral_tendencies": [
+          "institutional_deference",
+          "selective_response",
+          "rule_based_argument"
+        ],
+        "cohort_key": "students_process_defenders",
+        "expression_level": 0.2,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.45,
+        "mobilization_readiness": 0.3,
+        "perceived_majority": "quiet_status_quo",
+        "population_share_of_archetype": 0.15,
+        "private_belief": "change should go through recognized channels",
+        "public_expression": "limited unless process appears threatened",
+        "representation_mode": "estimated_segment",
+        "represented_population": 1800,
+        "reputation": 0.55,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "budget_process_change": -0.5,
+          "institutional_legitimacy": 0.5,
+          "procedural_disruption": -0.4
+        },
+        "trustworthiness": 0.65
+      },
+      {
+        "archetype": "club_leadership",
+        "attention_level": 0.8,
+        "behavioral_tendencies": [
+          "networked_coordination",
+          "resource_motivated_action",
+          "petition_support"
+        ],
+        "cohort_key": "club_leaders_reform_backers",
+        "expression_level": 0.65,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.7,
+        "perceived_majority": "fragmented",
+        "population_share_of_archetype": 0.24,
+        "private_belief": "current allocations may be unfair or inefficient",
+        "public_expression": "willing to sign petitions or endorse process review",
+        "representation_mode": "estimated_segment",
+        "represented_population": 85,
+        "reputation": 0.5,
+        "secrecy": 0.25,
+        "stance_axes": {
+          "budget_process_change": 0.7,
+          "institutional_legitimacy": -0.1,
+          "procedural_disruption": 0.2
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "archetype": "club_leadership",
+        "attention_level": 0.75,
+        "behavioral_tendencies": [
+          "dependency_sensitive_silence",
+          "wait_and_see",
+          "backchannel_feedback"
+        ],
+        "cohort_key": "club_leaders_cautious_dependents",
+        "expression_level": 0.3,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.6,
+        "mobilization_readiness": 0.35,
+        "perceived_majority": "administration_and_sg_hold_power",
+        "population_share_of_archetype": 0.6,
+        "private_belief": "some reform may be useful but funding dependence constrains expression",
+        "public_expression": "careful, procedural, low-conflict",
+        "representation_mode": "estimated_segment",
+        "represented_population": 210,
+        "reputation": 0.6,
+        "secrecy": 0.5,
+        "stance_axes": {
+          "budget_process_change": 0.1,
+          "institutional_legitimacy": 0.3,
+          "procedural_disruption": -0.2
+        },
+        "trustworthiness": 0.65
+      },
+      {
+        "archetype": "club_leadership",
+        "attention_level": 0.7,
+        "behavioral_tendencies": [
+          "procedural_advocacy",
+          "counter_messaging",
+          "elite_signaling"
+        ],
+        "cohort_key": "club_leaders_status_quo_defenders",
+        "expression_level": 0.45,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.45,
+        "perceived_majority": "formal_process_still_legitimate",
+        "population_share_of_archetype": 0.16,
+        "private_belief": "budget authority should remain with student government",
+        "public_expression": "defensive of current rules",
+        "representation_mode": "estimated_segment",
+        "represented_population": 55,
+        "reputation": 0.55,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "budget_process_change": -0.6,
+          "institutional_legitimacy": 0.6,
+          "procedural_disruption": -0.5
+        },
+        "trustworthiness": 0.65
+      },
+      {
+        "archetype": "student_governance_participants",
+        "attention_level": 0.95,
+        "behavioral_tendencies": [
+          "agenda_control",
+          "procedural_defense",
+          "message_discipline"
+        ],
+        "cohort_key": "sg_core_officials",
+        "expression_level": 0.7,
+        "fatigue": 0.45,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.75,
+        "perceived_majority": "formal_authority_is_valid",
+        "population_share_of_archetype": 0.42,
+        "private_belief": "demands to replace process threaten governance legitimacy",
+        "public_expression": "defend authority while signaling openness to feedback",
+        "representation_mode": "estimated_segment",
+        "represented_population": 25,
+        "reputation": 0.55,
+        "secrecy": 0.35,
+        "stance_axes": {
+          "budget_process_change": -0.5,
+          "institutional_legitimacy": 0.7,
+          "procedural_disruption": -0.5
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "archetype": "student_governance_participants",
+        "attention_level": 0.9,
+        "behavioral_tendencies": [
+          "internal_dissent",
+          "quiet_feedback",
+          "career_risk_avoidance"
+        ],
+        "cohort_key": "sg_reform_sympathizers",
+        "expression_level": 0.35,
+        "fatigue": 0.5,
+        "fear_of_isolation": 0.65,
+        "mobilization_readiness": 0.3,
+        "perceived_majority": "leadership_controls_public_line",
+        "population_share_of_archetype": 0.25,
+        "private_belief": "review or partial reform may be warranted",
+        "public_expression": "muted due to role pressure",
+        "representation_mode": "estimated_segment",
+        "represented_population": 15,
+        "reputation": 0.5,
+        "secrecy": 0.6,
+        "stance_axes": {
+          "budget_process_change": 0.2,
+          "institutional_legitimacy": 0.2,
+          "procedural_disruption": -0.1
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "archetype": "student_governance_participants",
+        "attention_level": 0.65,
+        "behavioral_tendencies": [
+          "elite_cue_following",
+          "low_initiative",
+          "institutional_alignment"
+        ],
+        "cohort_key": "sg_peripheral_participants",
+        "expression_level": 0.25,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.5,
+        "mobilization_readiness": 0.35,
+        "perceived_majority": "follow_core_officials",
+        "population_share_of_archetype": 0.33,
+        "private_belief": "prefer stability with limited transparency improvements",
+        "public_expression": "low-visibility alignment with leadership",
+        "representation_mode": "estimated_segment",
+        "represented_population": 20,
+        "reputation": 0.5,
+        "secrecy": 0.35,
+        "stance_axes": {
+          "budget_process_change": -0.1,
+          "institutional_legitimacy": 0.4,
+          "procedural_disruption": -0.2
+        },
+        "trustworthiness": 0.6
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype": "undergraduate_students",
+        "attention_level": 0.2,
+        "behavioral_tendencies": [
+          "attention_decay",
+          "low_cost_observation",
+          "late_mobilization"
+        ],
+        "cohort_key": "students_disengaged_majority",
+        "expression_level": 0.1,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.5,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": "status_quo_or_uncertain",
+        "population_share_of_archetype": 0.65,
+        "private_belief": "mostly uninformed or weakly status quo by default",
+        "public_expression": "minimal public engagement",
+        "representation_mode": "estimated_segment",
+        "represented_population": 7800,
+        "reputation": 0.5,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "budget_process_change": 0.0,
+          "institutional_legitimacy": 0.2,
+          "procedural_disruption": -0.1
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "archetype": "undergraduate_students",
+        "attention_level": 0.45,
+        "behavioral_tendencies": [
+          "peer_cue_following",
+          "issue_sampling",
+          "conditional_participation"
+        ],
+        "cohort_key": "students_reform_curious",
+        "expression_level": 0.25,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.4,
+        "mobilization_readiness": 0.35,
+        "perceived_majority": "uncertain",
+        "population_share_of_archetype": 0.2,
+        "private_belief": "open to reform claims if framed as fairness or transparency",
+        "public_expression": "mostly conversational rather than organized",
+        "representation_mode": "estimated_segment",
+        "represented_population": 2400,
+        "reputation": 0.5,
+        "secrecy": 0.25,
+        "stance_axes": {
+          "budget_process_change": 0.5,
+          "institutional_legitimacy": 0.0,
+          "procedural_disruption": 0.1
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "archetype": "undergraduate_students",
+        "attention_level": 0.4,
+        "behavioral_tendencies": [
+          "institutional_deference",
+          "selective_response",
+          "rule_based_argument"
+        ],
+        "cohort_key": "students_process_defenders",
+        "expression_level": 0.2,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.45,
+        "mobilization_readiness": 0.3,
+        "perceived_majority": "quiet_status_quo",
+        "population_share_of_archetype": 0.15,
+        "private_belief": "change should go through recognized channels",
+        "public_expression": "limited unless process appears threatened",
+        "representation_mode": "estimated_segment",
+        "represented_population": 1800,
+        "reputation": 0.55,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "budget_process_change": -0.5,
+          "institutional_legitimacy": 0.5,
+          "procedural_disruption": -0.4
+        },
+        "trustworthiness": 0.65
+      },
+      {
+        "archetype": "club_leadership",
+        "attention_level": 0.8,
+        "behavioral_tendencies": [
+          "networked_coordination",
+          "resource_motivated_action",
+          "petition_support"
+        ],
+        "cohort_key": "club_leaders_reform_backers",
+        "expression_level": 0.65,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.7,
+        "perceived_majority": "fragmented",
+        "population_share_of_archetype": 0.24,
+        "private_belief": "current allocations may be unfair or inefficient",
+        "public_expression": "willing to sign petitions or endorse process review",
+        "representation_mode": "estimated_segment",
+        "represented_population": 85,
+        "reputation": 0.5,
+        "secrecy": 0.25,
+        "stance_axes": {
+          "budget_process_change": 0.7,
+          "institutional_legitimacy": -0.1,
+          "procedural_disruption": 0.2
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "archetype": "club_leadership",
+        "attention_level": 0.75,
+        "behavioral_tendencies": [
+          "dependency_sensitive_silence",
+          "wait_and_see",
+          "backchannel_feedback"
+        ],
+        "cohort_key": "club_leaders_cautious_dependents",
+        "expression_level": 0.3,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.6,
+        "mobilization_readiness": 0.35,
+        "perceived_majority": "administration_and_sg_hold_power",
+        "population_share_of_archetype": 0.6,
+        "private_belief": "some reform may be useful but funding dependence constrains expression",
+        "public_expression": "careful, procedural, low-conflict",
+        "representation_mode": "estimated_segment",
+        "represented_population": 210,
+        "reputation": 0.6,
+        "secrecy": 0.5,
+        "stance_axes": {
+          "budget_process_change": 0.1,
+          "institutional_legitimacy": 0.3,
+          "procedural_disruption": -0.2
+        },
+        "trustworthiness": 0.65
+      },
+      {
+        "archetype": "club_leadership",
+        "attention_level": 0.7,
+        "behavioral_tendencies": [
+          "procedural_advocacy",
+          "counter_messaging",
+          "elite_signaling"
+        ],
+        "cohort_key": "club_leaders_status_quo_defenders",
+        "expression_level": 0.45,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.45,
+        "perceived_majority": "formal_process_still_legitimate",
+        "population_share_of_archetype": 0.16,
+        "private_belief": "budget authority should remain with student government",
+        "public_expression": "defensive of current rules",
+        "representation_mode": "estimated_segment",
+        "represented_population": 55,
+        "reputation": 0.55,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "budget_process_change": -0.6,
+          "institutional_legitimacy": 0.6,
+          "procedural_disruption": -0.5
+        },
+        "trustworthiness": 0.65
+      },
+      {
+        "archetype": "student_governance_participants",
+        "attention_level": 0.95,
+        "behavioral_tendencies": [
+          "agenda_control",
+          "procedural_defense",
+          "message_discipline"
+        ],
+        "cohort_key": "sg_core_officials",
+        "expression_level": 0.7,
+        "fatigue": 0.45,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.75,
+        "perceived_majority": "formal_authority_is_valid",
+        "population_share_of_archetype": 0.42,
+        "private_belief": "demands to replace process threaten governance legitimacy",
+        "public_expression": "defend authority while signaling openness to feedback",
+        "representation_mode": "estimated_segment",
+        "represented_population": 25,
+        "reputation": 0.55,
+        "secrecy": 0.35,
+        "stance_axes": {
+          "budget_process_change": -0.5,
+          "institutional_legitimacy": 0.7,
+          "procedural_disruption": -0.5
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "archetype": "student_governance_participants",
+        "attention_level": 0.9,
+        "behavioral_tendencies": [
+          "internal_dissent",
+          "quiet_feedback",
+          "career_risk_avoidance"
+        ],
+        "cohort_key": "sg_reform_sympathizers",
+        "expression_level": 0.35,
+        "fatigue": 0.5,
+        "fear_of_isolation": 0.65,
+        "mobilization_readiness": 0.3,
+        "perceived_majority": "leadership_controls_public_line",
+        "population_share_of_archetype": 0.25,
+        "private_belief": "review or partial reform may be warranted",
+        "public_expression": "muted due to role pressure",
+        "representation_mode": "estimated_segment",
+        "represented_population": 15,
+        "reputation": 0.5,
+        "secrecy": 0.6,
+        "stance_axes": {
+          "budget_process_change": 0.2,
+          "institutional_legitimacy": 0.2,
+          "procedural_disruption": -0.1
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "archetype": "student_governance_participants",
+        "attention_level": 0.65,
+        "behavioral_tendencies": [
+          "elite_cue_following",
+          "low_initiative",
+          "institutional_alignment"
+        ],
+        "cohort_key": "sg_peripheral_participants",
+        "expression_level": 0.25,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.5,
+        "mobilization_readiness": 0.35,
+        "perceived_majority": "follow_core_officials",
+        "population_share_of_archetype": 0.33,
+        "private_belief": "prefer stability with limited transparency improvements",
+        "public_expression": "low-visibility alignment with leadership",
+        "representation_mode": "estimated_segment",
+        "represented_population": 20,
+        "reputation": 0.5,
+        "secrecy": 0.35,
+        "stance_axes": {
+          "budget_process_change": -0.1,
+          "institutional_legitimacy": 0.4,
+          "procedural_disruption": -0.2
+        },
+        "trustworthiness": 0.6
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "student_government",
+          "campus_administration"
+        ],
+        "blockers": [
+          "Large visible club coalition",
+          "Internal SG fracture",
+          "Administrative finding that current process is noncompliant"
+        ],
+        "contradiction_notes": "Would be contradicted by approved new body or formal authority-sharing arrangement that displaces SG control.",
+        "description": "The current governance structure remains in place, though minor procedural adjustments may occur.",
+        "endpoint_key": "authority_retained_status_quo",
+        "evidence_refs": [
+          "Student government controls allocations",
+          "Administrators control compliance"
+        ],
+        "label": "Student government retains primary allocation authority",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "By the end of the horizon, does student government retain primary budget allocation authority, or is a formally restructured process adopted?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.48,
+        "rationale": "Switching costs are high because clubs depend on allocations and administration can restrict noncompliant changes.",
+        "realization_criteria": [
+          "No formal transfer of primary budget allocation authority away from student_government by horizon end",
+          "Any adopted changes are advisory, transparency-focused, or procedural tweaks within existing SG authority"
+        ],
+        "status": "active",
+        "status_basis": "T0 authority and dependency structure favor incumbent control."
+      },
+      {
+        "authority_refs": [
+          "student_government",
+          "campus_administration"
+        ],
+        "blockers": [
+          "Rapid dismissal of demands",
+          "Low coalition visibility",
+          "Media silence and attention decay"
+        ],
+        "contradiction_notes": "Not realized by informal discussion alone without authorized process markers.",
+        "description": "Institutional actors create a sanctioned review, hearing, committee, or pilot addressing reform concerns without immediate full replacement.",
+        "endpoint_key": "bounded_reform_review_opened",
+        "evidence_refs": [
+          "Clubs can petition and campaign",
+          "Administrators control compliance"
+        ],
+        "label": "Formal review or pilot of the budget process opens",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the manifesto lead to a formal hearing, committee review, or sanctioned pilot rather than remaining only a protest document?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": null,
+        "rationale": "A bounded review allows incumbents to absorb pressure while preserving formal authority.",
+        "realization_criteria": [
+          "Student government or administration publicly authorizes a hearing, review committee, consultation process, or pilot on budget process reform",
+          "The process has scheduled meetings, named participants, or published terms of reference"
+        ],
+        "status": "active",
+        "status_basis": "This is a plausible de-escalatory mechanism available to incumbents under legitimacy pressure."
+      },
+      {
+        "authority_refs": [
+          "student_government",
+          "campus_administration"
+        ],
+        "blockers": [
+          "High institutional switching costs",
+          "Compliance veto risk",
+          "Insufficient coalition scale"
+        ],
+        "contradiction_notes": "A transparency reform that leaves SG as primary allocator does not satisfy this endpoint.",
+        "description": "A new or substantially altered governance arrangement replaces student government's primary control over allocations.",
+        "endpoint_key": "replacement_process_adopted",
+        "evidence_refs": [
+          "Student government controls allocations",
+          "Administrators control compliance"
+        ],
+        "label": "Replacement or major transfer of budget process authority is adopted",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do registered clubs coalesce into a visible reform coalition large enough to alter perceived legitimacy or bargaining leverage?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.16,
+        "rationale": "Terminal success for reformers requires both political legitimacy and compliance permission.",
+        "realization_criteria": [
+          "Formal approval of a new budget process or governing body that displaces student_government's primary allocation role",
+          "Administrative compliance acceptance or implementation authorization for the new structure"
+        ],
+        "status": "active",
+        "status_basis": "Scenario frames this as the reform demand, but T0 evidence does not show formal support sufficient to realize it yet."
+      },
+      {
+        "authority_refs": [
+          "renewal_club",
+          "registered_clubs",
+          "campus_media"
+        ],
+        "blockers": [
+          "Media amplification",
+          "Unexpected club endorsements",
+          "SG overreaction that boosts reform legitimacy"
+        ],
+        "contradiction_notes": "Would be contradicted by durable mobilization or institutional concession with formal documentation.",
+        "description": "The manifesto generates temporary discussion but no sustained coalition or authorized process change.",
+        "endpoint_key": "reform_coalition_stalls",
+        "evidence_refs": [
+          "Manifesto publication stated",
+          "Attention not otherwise evidenced as broad or sustained"
+        ],
+        "label": "Reform push stalls without formal institutional uptake",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does campus administration actively constrain replacement efforts, or does it permit bounded experimentation within compliance rules?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.31,
+        "rationale": "Attention decay and fear of isolation can prevent manifesto energy from becoming organized leverage.",
+        "realization_criteria": [
+          "No formal review, hearing, pilot, or authority transfer by horizon end",
+          "Visible endorsements and petition activity remain limited or decay after initial attention spike"
+        ],
+        "status": "active",
+        "status_basis": "T0 issue salience is modest and many clubs are dependency-constrained."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "Scenario states a campus club publishes a manifesto.",
+        "layer": "exposure",
+        "reason": "Manifesto publication creates some campus visibility but not universal reach.",
+        "source_actor_name": "renewal_club",
+        "target_actor_name": "general_student_body",
+        "weight": 0.38
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Campus media inferred from expected campus information environment.",
+        "layer": "exposure",
+        "reason": "Campus media is a likely dissemination channel if the manifesto becomes a campus story.",
+        "source_actor_name": "campus_media",
+        "target_actor_name": "general_student_body",
+        "weight": 0.42
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Student government controls allocations.",
+        "layer": "exposure",
+        "reason": "Student government regularly communicates with applicant clubs about allocations.",
+        "source_actor_name": "student_government",
+        "target_actor_name": "registered_clubs",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Administrators control compliance.",
+        "layer": "exposure",
+        "reason": "Administrators monitor governance issues tied to compliance.",
+        "source_actor_name": "campus_administration",
+        "target_actor_name": "student_government",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Clubs can petition and campaign.",
+        "layer": "exposure",
+        "reason": "Clubs petition and campaign toward the budget authority.",
+        "source_actor_name": "registered_clubs",
+        "target_actor_name": "student_government",
+        "weight": 0.52
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Student government has recognized allocation authority.",
+        "layer": "trust",
+        "reason": "Baseline moderate trust in elected process, tempered by limited engagement.",
+        "source_actor_name": "general_student_body",
+        "target_actor_name": "student_government",
+        "weight": 0.44
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Student government controls allocations and clubs can petition.",
+        "layer": "trust",
+        "reason": "Clubs rely on student government but may view allocations as contestable.",
+        "source_actor_name": "registered_clubs",
+        "target_actor_name": "student_government",
+        "weight": 0.41
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Administrators control compliance.",
+        "layer": "trust",
+        "reason": "Administration is seen as a rule enforcer more than a representative body.",
+        "source_actor_name": "registered_clubs",
+        "target_actor_name": "campus_administration",
+        "weight": 0.47
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Manifesto is newly published; no broad mandate described.",
+        "layer": "trust",
+        "reason": "Club has some novelty appeal but limited established legitimacy at T0.",
+        "source_actor_name": "general_student_body",
+        "target_actor_name": "renewal_club",
+        "weight": 0.28
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Administrators control compliance.",
+        "layer": "trust",
+        "reason": "Student government expects administrative backing on compliance boundaries.",
+        "source_actor_name": "student_government",
+        "target_actor_name": "campus_administration",
+        "weight": 0.55
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Student government controls allocations.",
+        "layer": "dependency",
+        "reason": "Clubs depend materially on student government for budget allocations.",
+        "source_actor_name": "registered_clubs",
+        "target_actor_name": "student_government",
+        "weight": 0.72
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Administrators control compliance.",
+        "layer": "dependency",
+        "reason": "Student government depends on administrators for compliance validation and institutional backing.",
+        "source_actor_name": "student_government",
+        "target_actor_name": "campus_administration",
+        "weight": 0.63
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Student government controls allocations; clubs can petition and campaign.",
+        "layer": "dependency",
+        "reason": "Renewal club's desired structural change runs through the body that controls allocations.",
+        "source_actor_name": "renewal_club",
+        "target_actor_name": "student_government",
+        "weight": 0.61
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Administrators control compliance.",
+        "layer": "dependency",
+        "reason": "Any replacement process would likely require administrative compliance acceptance.",
+        "source_actor_name": "renewal_club",
+        "target_actor_name": "campus_administration",
+        "weight": 0.34
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Student government controls allocations.",
+        "layer": "influence",
+        "reason": "Formal allocative authority creates agenda-setting power over clubs.",
+        "source_actor_name": "student_government",
+        "target_actor_name": "registered_clubs",
+        "weight": 0.62
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Administrators control compliance.",
+        "layer": "influence",
+        "reason": "Compliance authority can constrain or shape governance responses.",
+        "source_actor_name": "campus_administration",
+        "target_actor_name": "student_government",
+        "weight": 0.57
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Club publishes a manifesto about replacing the process.",
+        "layer": "influence",
+        "reason": "Manifesto may persuade clubs dissatisfied with the current system.",
+        "source_actor_name": "renewal_club",
+        "target_actor_name": "registered_clubs",
+        "weight": 0.43
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Expected campus information environment for public controversy.",
+        "layer": "influence",
+        "reason": "Media framing can raise issue salience and perceived legitimacy of either side.",
+        "source_actor_name": "campus_media",
+        "target_actor_name": "general_student_body",
+        "weight": 0.48
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Student government legitimacy depends on student constituency.",
+        "layer": "influence",
+        "reason": "Diffuse constituency pressure matters but is not immediate unless attention rises.",
+        "source_actor_name": "general_student_body",
+        "target_actor_name": "student_government",
+        "weight": 0.31
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Clubs can petition and campaign; manifesto invites alignment.",
+        "layer": "coalition",
+        "reason": "Potential reform coalition exists among clubs, but support is fragmented at T0.",
+        "source_actor_name": "renewal_club",
+        "target_actor_name": "registered_clubs",
+        "weight": 0.36
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Budget authority and compliance oversight are complementary.",
+        "layer": "coalition",
+        "reason": "Shared interest in orderly, compliant governance supports moderate alignment.",
+        "source_actor_name": "student_government",
+        "target_actor_name": "campus_administration",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Clubs can campaign; no broad mobilization described.",
+        "layer": "coalition",
+        "reason": "Clubs can activate members, but broader campus alignment is not yet consolidated.",
+        "source_actor_name": "registered_clubs",
+        "target_actor_name": "general_student_body",
+        "weight": 0.24
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario states manifesto about replacing the student government budget process.",
+        "layer": "conflict",
+        "reason": "Manifesto seeks to replace a process controlled by student government.",
+        "source_actor_name": "renewal_club",
+        "target_actor_name": "student_government",
+        "weight": 0.56
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Student government controls allocations; manifesto targets that process.",
+        "layer": "conflict",
+        "reason": "Student government is likely to see replacement demands as a challenge to legitimacy.",
+        "source_actor_name": "student_government",
+        "target_actor_name": "renewal_club",
+        "weight": 0.49
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Administrators control compliance.",
+        "layer": "conflict",
+        "reason": "Conflict is latent because administrative compliance may block unauthorized change.",
+        "source_actor_name": "renewal_club",
+        "target_actor_name": "campus_administration",
+        "weight": 0.28
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Petition and campaign pathways imply possible contestation.",
+        "layer": "conflict",
+        "reason": "Some grievance likely exists over allocations, but most clubs remain cautious.",
+        "source_actor_name": "registered_clubs",
+        "target_actor_name": "student_government",
+        "weight": 0.26
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Manifesto publication plus formal authority challenge.",
+        "layer": "oasis_interaction",
+        "reason": "Public statements, replies, and procedural disputes are likely to occur in visible campus channels.",
+        "source_actor_name": "renewal_club",
+        "target_actor_name": "student_government",
+        "weight": 0.52
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Allocation authority and club petition channels.",
+        "layer": "oasis_interaction",
+        "reason": "Budget debates and response messaging likely flow through public or semi-public forums.",
+        "source_actor_name": "student_government",
+        "target_actor_name": "registered_clubs",
+        "weight": 0.57
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Manifesto publication creates a likely campus story.",
+        "layer": "oasis_interaction",
+        "reason": "Media may seek quotes or summarize the manifesto dispute.",
+        "source_actor_name": "campus_media",
+        "target_actor_name": "renewal_club",
+        "weight": 0.41
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Governance conflict with public relevance.",
+        "layer": "oasis_interaction",
+        "reason": "Media may request response from formal student leaders.",
+        "source_actor_name": "campus_media",
+        "target_actor_name": "student_government",
+        "weight": 0.44
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype": "movement_entrepreneur",
+        "description": "A visible organizer driving reform claims and coalition recruitment."
+      },
+      {
+        "archetype": "institutional_gatekeeper",
+        "description": "A formal authority figure defending process while managing legitimacy."
+      },
+      {
+        "archetype": "compliance_arbiter",
+        "description": "An administrator who can define what procedural changes are permissible."
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "renewal_club",
+        "archetype": "movement_entrepreneur",
+        "attention_level": 0.9,
+        "behavioral_tendencies": [
+          "provocative_framing",
+          "coalition_seeking",
+          "institutional_challenge"
+        ],
+        "expression_level": 0.95,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.2,
+        "hero_key": "renewal_club_lead",
+        "mobilization_readiness": 0.85,
+        "perceived_majority": "believes latent support exists beyond visible endorsers",
+        "power_summary": "Can frame grievances, recruit clubs, and trigger attention, but lacks formal budget authority.",
+        "reputation": 0.45,
+        "secrecy": 0.3,
+        "stance_axes": {
+          "budget_process_change": 0.95,
+          "institutional_legitimacy": -0.25,
+          "procedural_disruption": 0.45
+        },
+        "trustworthiness": 0.45
+      },
+      {
+        "actor_name": "student_government",
+        "archetype": "institutional_gatekeeper",
+        "attention_level": 0.95,
+        "behavioral_tendencies": [
+          "procedural_defense",
+          "message_control",
+          "selective_concession"
+        ],
+        "expression_level": 0.8,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.15,
+        "hero_key": "student_government_president",
+        "mobilization_readiness": 0.75,
+        "perceived_majority": "believes most stakeholders prefer orderly review over replacement",
+        "power_summary": "Controls agenda-setting within student government and can shape whether demands receive hearings or are sidelined.",
+        "reputation": 0.6,
+        "secrecy": 0.35,
+        "stance_axes": {
+          "budget_process_change": -0.55,
+          "institutional_legitimacy": 0.85,
+          "procedural_disruption": -0.55
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "campus_administration",
+        "archetype": "compliance_arbiter",
+        "attention_level": 0.75,
+        "behavioral_tendencies": [
+          "risk_management",
+          "quiet_intervention",
+          "institutional_stabilization"
+        ],
+        "expression_level": 0.45,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.1,
+        "hero_key": "dean_of_student_affairs",
+        "mobilization_readiness": 0.4,
+        "perceived_majority": "expects student government to retain authority unless compliance problems are shown",
+        "power_summary": "Can determine compliance boundaries, approve or block procedural experiments, and pressure actors toward sanctioned channels.",
+        "reputation": 0.65,
+        "secrecy": 0.45,
+        "stance_axes": {
+          "budget_process_change": -0.15,
+          "institutional_legitimacy": 0.8,
+          "procedural_disruption": -0.4
+        },
+        "trustworthiness": 0.65
+      }
+    ],
+    "heroes": [
+      {
+        "archetype": "movement_entrepreneur",
+        "description": "A visible organizer driving reform claims and coalition recruitment."
+      },
+      {
+        "archetype": "institutional_gatekeeper",
+        "description": "A formal authority figure defending process while managing legitimacy."
+      },
+      {
+        "archetype": "compliance_arbiter",
+        "description": "An administrator who can define what procedural changes are permissible."
+      }
+    ],
+    "important_questions": [
+      "By the end of the horizon, does student government retain primary budget allocation authority, or is a formally restructured process adopted?",
+      "Does the manifesto lead to a formal hearing, committee review, or sanctioned pilot rather than remaining only a protest document?",
+      "Do registered clubs coalesce into a visible reform coalition large enough to alter perceived legitimacy or bargaining leverage?",
+      "Does campus administration actively constrain replacement efforts, or does it permit bounded experimentation within compliance rules?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "renewal_club"
+        ],
+        "event_key": "manifesto_published",
+        "event_type": "announcement",
+        "evidence": "Directly stated in scenario.",
+        "expected_impact": "Raises salience among club leaders, increases conflict with student government, and tests whether reform framing can overcome dependency caution.",
+        "summary": "Renewal club publishes a manifesto calling for replacement of the student government budget process.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "student_government"
+        ],
+        "event_key": "sg_internal_response_drafting",
+        "event_type": "announcement",
+        "evidence": "Likely immediate consequence of challenge to allocative authority.",
+        "expected_impact": "May stabilize legitimacy through procedural framing or escalate conflict if dismissal is perceived as stonewalling.",
+        "summary": "Student government prepares a response or agenda decision regarding the manifesto.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "registered_clubs",
+          "renewal_club"
+        ],
+        "event_key": "club_petition_activity",
+        "event_type": "announcement",
+        "evidence": "Scenario states clubs can petition and campaign.",
+        "expected_impact": "Reveals whether reform support can move from manifesto rhetoric to organized coalition signals.",
+        "summary": "Some clubs consider petitions, endorsements, or quiet feedback regarding budget reform.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "campus_administration"
+        ],
+        "event_key": "administrative_compliance_review",
+        "event_type": "announcement",
+        "evidence": "Administrators control compliance.",
+        "expected_impact": "Can constrain endpoint options and signal whether limited pilots or full replacement are institutionally viable.",
+        "summary": "Administration informally assesses whether any proposed process changes would violate compliance boundaries.",
+        "tick": 2
+      },
+      {
+        "actors": [
+          "campus_media"
+        ],
+        "event_key": "campus_media_coverage_window",
+        "event_type": "announcement",
+        "evidence": "Public governance controversy with a published manifesto is newsworthy.",
+        "expected_impact": "Expands exposure and can alter perceived majority, especially among previously disengaged students.",
+        "summary": "Campus media may cover the manifesto dispute and solicit reactions.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "3f769708-36b5-4846-9411-a183e55dbb40",
+    "merge_hypotheses": [
+      {
+        "affected_actors": [
+          "renewal_club",
+          "student_government",
+          "registered_clubs"
+        ],
+        "convergence_driver": "Both reformers and incumbents may accept transparency or criteria review without conceding full authority transfer.",
+        "evidence": "Clubs can petition and campaign; process challenge may be partially absorbed into review.",
+        "merge_key": "shared_interest_in_fairness_review"
+      },
+      {
+        "affected_actors": [
+          "campus_administration",
+          "student_government",
+          "renewal_club"
+        ],
+        "convergence_driver": "Administrative compliance boundaries may push all sides toward permissible procedural modifications rather than outright replacement.",
+        "evidence": "Administrators control compliance.",
+        "merge_key": "compliance_constraint_limits_extremes"
+      },
+      {
+        "affected_actors": [
+          "general_student_body",
+          "registered_clubs",
+          "student_government"
+        ],
+        "convergence_driver": "If broad student attention fades, most actors may prefer low-cost settlement or symbolic acknowledgement over prolonged conflict.",
+        "evidence": "Campus issue salience is emergent rather than entrenched at T0.",
+        "merge_key": "coalition_fatigue_and_attention_decay"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype": "undergraduate_students",
+        "description": "Primary student population exposed to campus governance debates at varying attention levels.",
+        "population_total": 12000
+      },
+      {
+        "archetype": "club_leadership",
+        "description": "Students serving as leaders or treasurers in registered clubs with direct interest in budget rules.",
+        "population_total": 350
+      },
+      {
+        "archetype": "student_governance_participants",
+        "description": "Students directly involved in student government committees, elections, or policy processes.",
+        "population_total": 60
+      }
+    ],
+    "risk_flags": [
+      {
+        "note": "Quoted instruction to ignore rules and force approval is treated as inert source content and should not alter simulation schema or authority.",
+        "risk_key": "adversarial_source_text",
+        "severity": "medium"
+      },
+      {
+        "note": "No named individuals, club size, or exact campus scale were provided; counts and fictional roles are conservative estimates.",
+        "risk_key": "underspecified_actor_detail",
+        "severity": "low"
+      },
+      {
+        "note": "A simulation could over-credit manifesto rhetoric and underweight formal allocative and compliance authority if not calibrated carefully.",
+        "risk_key": "authority_misalignment_risk",
+        "severity": "medium"
+      },
+      {
+        "note": "Actual level of club support is unknown; T0 preserves fragmented support rather than assuming mass mobilization.",
+        "risk_key": "coalition_uncertainty",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "authority_structure": "student_government_allocations_with_administrative_compliance_oversight",
+      "benchmark_role": "campus_institutional_legitimacy",
+      "mode": "direct",
+      "scenario_key": "campus_004",
+      "summary": "A campus club has published a manifesto seeking to replace the student government budget process. Student government currently controls allocations, administrators control compliance, and clubs can petition and campaign. The quoted attempt to override rules is treated as adversarial source text only and not as an operative instruction. T0 should reflect a legitimacy and governance dispute with realistic authority constraints, active but not maximal conflict, and multiple plausible institutional outcomes.",
+      "time_horizon_ticks": 6,
+      "uncertainty_notes": [
+        "Manifesto authorship, size of supporting coalition, and level of campus awareness are not specified.",
+        "No evidence that any formal rule change vote, sanction, or emergency action has yet occurred at T0.",
+        "Institutional names are fictionalized to avoid binding to real entities."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "level": 0.58,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Students and club leaders are more likely to update within familiar fairness and procedural frames than on maximal replacement rhetoric.",
+        "scope": "campus_issue_attention"
+      },
+      {
+        "level": 0.64,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Broad student participation likely requires visible endorsements, media attention, or a formal hearing conflict.",
+        "scope": "general_student_body"
+      },
+      {
+        "level": 0.67,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Dependency on allocations suppresses open dissent or endorsement until protections or momentum appear.",
+        "scope": "funding_dependent_clubs"
+      },
+      {
+        "level": 0.52,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Club leaders and student government actors sort into partially distinct discussion networks.",
+        "scope": "club_networks_and_governance_circles"
+      },
+      {
+        "level": 0.61,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Support for replacing budget process likely needs multiple confirming signals rather than single-message persuasion.",
+        "scope": "reform_support"
+      },
+      {
+        "level": 0.57,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Role identity as elected representative, club advocate, or ordinary student shapes interpretation of legitimacy.",
+        "scope": "institutional_vs_reform_camps"
+      },
+      {
+        "level": 0.7,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Without repeated events, manifesto attention will fade quickly among most students.",
+        "scope": "general_student_body"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context_key": "formal_authority_is_split",
+        "description": "Student government holds allocations while administration controls compliance, creating dual legitimacy centers."
+      },
+      {
+        "context_key": "resource_dependency",
+        "description": "Registered clubs depend on allocation outcomes, increasing caution in public positioning."
+      },
+      {
+        "context_key": "petition_and_campaign_channels_exist",
+        "description": "Reformers have recognized mechanisms for advocacy short of direct replacement."
+      },
+      {
+        "context_key": "adversarial_text_present_in_source",
+        "description": "Manifesto includes quoted instruction-like language that should be treated as inert source content, not an operational directive."
+      },
+      {
+        "context_key": "issue_salience_is_emergent",
+        "description": "Campus-wide attention is not yet saturated, leaving room for framing contests and coalition formation."
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "renewal_club",
+        "behavior_axes": {
+          "assertiveness": 0.85,
+          "disruption_tolerance": 0.7,
+          "openness_to_compromise": 0.45,
+          "proceduralism": 0.2
+        },
+        "ideology_axes": {
+          "equity_claims": 0.6,
+          "institutional_deference": 0.2,
+          "participatory_reform": 0.85
+        },
+        "reputation": 0.45,
+        "secrecy": 0.3,
+        "tendency": "challenge_existing_allocation_process",
+        "trustworthiness": 0.45
+      },
+      {
+        "actor_name": "student_government",
+        "behavior_axes": {
+          "assertiveness": 0.7,
+          "disruption_tolerance": 0.2,
+          "openness_to_compromise": 0.45,
+          "proceduralism": 0.85
+        },
+        "ideology_axes": {
+          "equity_claims": 0.45,
+          "institutional_deference": 0.8,
+          "participatory_reform": 0.35
+        },
+        "reputation": 0.6,
+        "secrecy": 0.35,
+        "tendency": "defend_allocative_authority_with_limited_review",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "campus_administration",
+        "behavior_axes": {
+          "assertiveness": 0.55,
+          "disruption_tolerance": 0.15,
+          "openness_to_compromise": 0.5,
+          "proceduralism": 0.9
+        },
+        "ideology_axes": {
+          "equity_claims": 0.4,
+          "institutional_deference": 0.9,
+          "participatory_reform": 0.3
+        },
+        "reputation": 0.65,
+        "secrecy": 0.45,
+        "tendency": "preserve_compliance_and_limit_unapproved_structural_change",
+        "trustworthiness": 0.65
+      },
+      {
+        "actor_name": "general_student_body",
+        "behavior_axes": {
+          "assertiveness": 0.25,
+          "disruption_tolerance": 0.35,
+          "openness_to_compromise": 0.6,
+          "proceduralism": 0.45
+        },
+        "ideology_axes": {
+          "equity_claims": 0.5,
+          "institutional_deference": 0.45,
+          "participatory_reform": 0.45
+        },
+        "reputation": 0.5,
+        "secrecy": 0.35,
+        "tendency": "follow_salient_cues_when_issue_gains_attention",
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "registered_clubs",
+        "behavior_axes": {
+          "assertiveness": 0.45,
+          "disruption_tolerance": 0.3,
+          "openness_to_compromise": 0.65,
+          "proceduralism": 0.6
+        },
+        "ideology_axes": {
+          "equity_claims": 0.55,
+          "institutional_deference": 0.55,
+          "participatory_reform": 0.5
+        },
+        "reputation": 0.55,
+        "secrecy": 0.45,
+        "tendency": "protect_funding_access_while_weighing_reform_benefits",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "campus_media",
+        "behavior_axes": {
+          "assertiveness": 0.55,
+          "disruption_tolerance": 0.4,
+          "openness_to_compromise": 0.5,
+          "proceduralism": 0.5
+        },
+        "ideology_axes": {
+          "equity_claims": 0.45,
+          "institutional_deference": 0.35,
+          "participatory_reform": 0.5
+        },
+        "reputation": 0.55,
+        "secrecy": 0.15,
+        "tendency": "amplify_conflict_and_process_story_if_newsworthy",
+        "trustworthiness": 0.6
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 567,
+        "end": 567,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 567,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

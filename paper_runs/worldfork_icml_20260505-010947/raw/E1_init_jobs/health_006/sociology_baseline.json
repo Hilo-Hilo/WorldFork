@@ -1,0 +1,230 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "a03b14cf-ab6e-4a4d-8bbd-b525eb485459",
+      "created_at": "2026-05-05T02:30:51.336561+00:00",
+      "id": "5f9a0cdf-47a8-4d86-aed9-f883c179c31f",
+      "influence": {
+        "context_key": "dependency_suppresses_voice",
+        "description": "Clients depend on services, making private dissent more likely than overt complaints."
+      },
+      "multiverse_id": "7de24868-df85-4544-8165-abde50511eba",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:30:51.336561+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "a03b14cf-ab6e-4a4d-8bbd-b525eb485459",
+      "created_at": "2026-05-05T02:30:51.336561+00:00",
+      "id": "51a02953-b2f4-4432-a2a6-e2cead1a20c1",
+      "influence": {
+        "context_key": "private_partner_disagreement",
+        "description": "Church partners disagree but may avoid public conflict to preserve relationships."
+      },
+      "multiverse_id": "7de24868-df85-4544-8165-abde50511eba",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:30:51.336561+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "a03b14cf-ab6e-4a4d-8bbd-b525eb485459",
+      "created_at": "2026-05-05T02:30:51.336561+00:00",
+      "id": "ca7feffc-9662-4517-a381-1cb6d14b994c",
+      "influence": {
+        "context_key": "operational_friction_visibility",
+        "description": "Volunteer-observed delays can convert abstract policy debate into concrete organizational evidence."
+      },
+      "multiverse_id": "7de24868-df85-4544-8165-abde50511eba",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:30:51.336561+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "a03b14cf-ab6e-4a4d-8bbd-b525eb485459",
+      "created_at": "2026-05-05T02:30:51.336561+00:00",
+      "id": "eaf2900a-9ebb-4fd1-9207-992ec7cda249",
+      "influence": {
+        "context_key": "donor_leverage",
+        "description": "Funding redirection threat gives a smaller donor bloc outsized agenda-setting power."
+      },
+      "multiverse_id": "7de24868-df85-4544-8165-abde50511eba",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:30:51.336561+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "a03b14cf-ab6e-4a4d-8bbd-b525eb485459",
+      "created_at": "2026-05-05T02:30:51.336561+00:00",
+      "id": "167352b2-f3bd-4112-860a-0eb962df699f",
+      "influence": {
+        "context_key": "quiet_exit_signal",
+        "description": "Falling client attendance may function as a delayed and ambiguous protest signal rather than explicit opposition."
+      },
+      "multiverse_id": "7de24868-df85-4544-8165-abde50511eba",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:30:51.336561+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "a03b14cf-ab6e-4a4d-8bbd-b525eb485459",
+      "created_at": "2026-05-05T02:30:51.336561+00:00",
+      "id": "5a2c1d16-4a73-4e5d-8a5f-c4bfe86473fa",
+      "model": "attention_decay",
+      "multiverse_id": "7de24868-df85-4544-8165-abde50511eba",
+      "signal": {
+        "applies_to": [
+          "food_bank_clients",
+          "partner_churches",
+          "frontline_volunteers"
+        ],
+        "description": "Several groups hold concerns privately while limiting public dissent due to dependency, role norms, or reputational caution.",
+        "level": 0.73,
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:30:51.336561+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "a03b14cf-ab6e-4a4d-8bbd-b525eb485459",
+      "created_at": "2026-05-05T02:30:51.336561+00:00",
+      "id": "2fd13fa5-3d38-45db-9484-3253fadc6ca0",
+      "model": "attention_decay",
+      "multiverse_id": "7de24868-df85-4544-8165-abde50511eba",
+      "signal": {
+        "applies_to": [
+          "food_bank_board",
+          "frontline_volunteers",
+          "partner_churches",
+          "accountability_donors"
+        ],
+        "description": "Actors may accept incremental modifications or exemptions more readily than wholesale frame reversal.",
+        "level": 0.56,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:30:51.336561+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "a03b14cf-ab6e-4a4d-8bbd-b525eb485459",
+      "created_at": "2026-05-05T02:30:51.336561+00:00",
+      "id": "36205763-f99b-4e96-83ae-c5b55bb8b07b",
+      "model": "attention_decay",
+      "multiverse_id": "7de24868-df85-4544-8165-abde50511eba",
+      "signal": {
+        "applies_to": [
+          "food_bank_clients",
+          "partner_churches",
+          "frontline_volunteers"
+        ],
+        "description": "Many dissatisfied actors are unlikely to mobilize unless visible harms, queue delays, or peer testimony accumulate.",
+        "level": 0.64,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:30:51.336561+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "a03b14cf-ab6e-4a4d-8bbd-b525eb485459",
+      "created_at": "2026-05-05T02:30:51.336561+00:00",
+      "id": "26074a73-82b7-49ec-a568-d293fd38739d",
+      "model": "attention_decay",
+      "multiverse_id": "7de24868-df85-4544-8165-abde50511eba",
+      "signal": {
+        "applies_to": [
+          "food_bank_clients",
+          "partner_churches",
+          "frontline_volunteers"
+        ],
+        "description": "Public challenge to the policy likely requires repeated reinforcement from multiple trusted peers rather than a single complaint.",
+        "level": 0.68,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:30:51.336561+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "a03b14cf-ab6e-4a4d-8bbd-b525eb485459",
+      "created_at": "2026-05-05T02:30:51.336561+00:00",
+      "id": "37d40a1e-b87c-44d5-a7ca-3cc3985e377a",
+      "model": "attention_decay",
+      "multiverse_id": "7de24868-df85-4544-8165-abde50511eba",
+      "signal": {
+        "applies_to": [
+          "food_bank_clients",
+          "partner_churches",
+          "accountability_donors"
+        ],
+        "description": "Views cluster within stakeholder role networks, slowing cross-group empathy.",
+        "level": 0.59,
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:30:51.336561+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "a03b14cf-ab6e-4a4d-8bbd-b525eb485459",
+      "created_at": "2026-05-05T02:30:51.336561+00:00",
+      "id": "a7a75065-4c0d-48a9-96eb-eba04a60d8b9",
+      "model": "attention_decay",
+      "multiverse_id": "7de24868-df85-4544-8165-abde50511eba",
+      "signal": {
+        "applies_to": [
+          "accountability_donors",
+          "frontline_volunteers",
+          "partner_churches"
+        ],
+        "description": "Role identities of steward, helper, and faith partner shape how actors interpret the same policy.",
+        "level": 0.66,
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:30:51.336561+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "a03b14cf-ab6e-4a4d-8bbd-b525eb485459",
+      "created_at": "2026-05-05T02:30:51.336561+00:00",
+      "id": "1bf16a61-aeeb-4126-a908-f87023b46af0",
+      "model": "attention_decay",
+      "multiverse_id": "7de24868-df85-4544-8165-abde50511eba",
+      "signal": {
+        "applies_to": [
+          "local_public",
+          "donor_base"
+        ],
+        "description": "Absent visible incidents, broader attention may remain low or fade.",
+        "level": 0.47,
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:30:51.336561+00:00"
+    }
+  ]
+}

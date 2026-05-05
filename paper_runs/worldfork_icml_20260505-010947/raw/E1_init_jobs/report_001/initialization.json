@@ -1,0 +1,1496 @@
+{
+  "big_bang_id": "f7e4a1fd-e050-410b-8c8b-6bdf3e515cd6",
+  "initializer_output": {
+    "actors": [
+      {
+        "authority_level": 0.82,
+        "fictionalized": true,
+        "name": "city_school_system",
+        "role": "pilot_operator",
+        "stakes": [
+          "student_meal_delivery",
+          "operational_continuity",
+          "pilot_evaluation"
+        ],
+        "type": "institution"
+      },
+      {
+        "authority_level": 0.68,
+        "fictionalized": true,
+        "name": "city_budget_office",
+        "role": "fiscal_monitor",
+        "stakes": [
+          "cost_control",
+          "budget_forecasting",
+          "reporting_credibility"
+        ],
+        "type": "institution"
+      },
+      {
+        "authority_level": 0.86,
+        "fictionalized": true,
+        "name": "city_political_leadership",
+        "role": "decision_authority",
+        "stakes": [
+          "public_approval",
+          "policy_durability",
+          "budget_tradeoffs"
+        ],
+        "type": "institution"
+      },
+      {
+        "authority_level": 0.42,
+        "fictionalized": true,
+        "name": "parents_group",
+        "role": "family_stakeholder",
+        "stakes": [
+          "child_wellbeing",
+          "household_cost_relief",
+          "school_quality"
+        ],
+        "type": "public_group"
+      },
+      {
+        "authority_level": 0.47,
+        "fictionalized": true,
+        "name": "cafeteria_staff_group",
+        "role": "meal_implementation_workforce",
+        "stakes": [
+          "workload",
+          "staffing_conditions",
+          "service_quality"
+        ],
+        "type": "worker_group"
+      },
+      {
+        "authority_level": 0.35,
+        "fictionalized": true,
+        "name": "students_group",
+        "role": "service_recipients",
+        "stakes": [
+          "meal_access",
+          "stigma_reduction",
+          "meal_quality"
+        ],
+        "type": "public_group"
+      },
+      {
+        "authority_level": 0.39,
+        "fictionalized": true,
+        "name": "local_farms_network",
+        "role": "food_supplier",
+        "stakes": [
+          "procurement_stability",
+          "local_sales",
+          "public_reputation"
+        ],
+        "type": "supplier_group"
+      },
+      {
+        "authority_level": 0.44,
+        "fictionalized": true,
+        "name": "local_media_observers",
+        "role": "narrative_amplifier",
+        "stakes": [
+          "public_accountability",
+          "storyworthiness"
+        ],
+        "type": "media"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Support coalition consolidates around continuation or scaled expansion.",
+        "branch_key": "access_gain_with_manageable_costs",
+        "divergence_signal": "Budget review shows moderate cost growth while parents and staff report net-positive experience.",
+        "trigger": "Early participation increases without severe budget variance or staffing breakdown."
+      },
+      {
+        "alternate_path": "Pilot remains popular in principle but faces operational retrenchment, staffing demands, or reduced scope.",
+        "branch_key": "workload_backlash",
+        "divergence_signal": "Staff-facing channels show repeated complaints, slower service, or explicit requests for staffing relief.",
+        "trigger": "Cafeteria staff experience sustained overload, absenteeism, or service bottlenecks."
+      },
+      {
+        "alternate_path": "Political leadership shifts from expansion framing to temporary, narrower, or sunset framing.",
+        "branch_key": "fiscal_pushback",
+        "divergence_signal": "Public budget documents and leadership remarks emphasize affordability limits over access benefits.",
+        "trigger": "Budget office identifies material cost strain relative to expectations or competing priorities."
+      },
+      {
+        "alternate_path": "Pilot gains additional legitimacy through economic-local-benefit framing.",
+        "branch_key": "procurement_localism_boost",
+        "divergence_signal": "Media and official reports cite local sourcing as a co-benefit rather than a cost problem.",
+        "trigger": "Local farms participate visibly without major price controversy."
+      },
+      {
+        "alternate_path": "Leadership argues benefits are too limited for permanent adoption.",
+        "branch_key": "quality_or_uptake_disappointment",
+        "divergence_signal": "Nutrition access indicators stagnate while complaints about quality or convenience recur.",
+        "trigger": "Meals are free but participation or satisfaction does not improve enough to justify strain."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "school_newsletters",
+        "primary_actors": [
+          "city_school_system",
+          "parents_group"
+        ],
+        "publicness": "mixed",
+        "reach": 0.62,
+        "type": "institutional"
+      },
+      {
+        "channel_key": "school_board_meetings",
+        "primary_actors": [
+          "city_school_system",
+          "city_political_leadership",
+          "parents_group",
+          "cafeteria_staff_group"
+        ],
+        "publicness": "public",
+        "reach": 0.38,
+        "type": "civic_forum"
+      },
+      {
+        "channel_key": "cafeteria_operations_briefings",
+        "primary_actors": [
+          "city_school_system",
+          "cafeteria_staff_group"
+        ],
+        "publicness": "private",
+        "reach": 0.71,
+        "type": "workplace"
+      },
+      {
+        "channel_key": "budget_reports",
+        "primary_actors": [
+          "city_budget_office",
+          "city_political_leadership",
+          "local_media_observers"
+        ],
+        "publicness": "mixed",
+        "reach": 0.44,
+        "type": "institutional"
+      },
+      {
+        "channel_key": "local_media_coverage",
+        "primary_actors": [
+          "local_media_observers",
+          "city_public",
+          "parents_group",
+          "city_political_leadership"
+        ],
+        "publicness": "public",
+        "reach": 0.57,
+        "type": "media"
+      },
+      {
+        "channel_key": "student_peer_talk",
+        "primary_actors": [
+          "students_group"
+        ],
+        "publicness": "private",
+        "reach": 0.66,
+        "type": "informal_social"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "students",
+        "attention_level": 0.63,
+        "cohort_key": "students_high_need",
+        "expression_level": 0.34,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.37,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.58,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Free school meals likely improve consistent access and reduce skipped meals.",
+        "public_expression": "Moderate support, often expressed indirectly through participation rather than advocacy.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 4200,
+        "reputation": 0.57,
+        "secrecy": 0.22,
+        "stance_axes": {
+          "budget_caution": 0.28,
+          "free_meals_support": 0.84,
+          "service_quality_sensitivity": 0.61
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "archetype_key": "students",
+        "attention_level": 0.48,
+        "cohort_key": "students_general",
+        "expression_level": 0.29,
+        "fatigue": 0.16,
+        "fear_of_isolation": 0.33,
+        "mobilization_readiness": 0.19,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.65,
+        "private_belief": "Support depends on taste, convenience, and reduced stigma more than ideology.",
+        "public_expression": "Variable and low-salience unless meal quality or wait times become visible problems.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 7800,
+        "reputation": 0.56,
+        "secrecy": 0.25,
+        "stance_axes": {
+          "budget_caution": 0.31,
+          "free_meals_support": 0.67,
+          "service_quality_sensitivity": 0.72
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "archetype_key": "parents",
+        "attention_level": 0.58,
+        "cohort_key": "parents_supportive_relief",
+        "expression_level": 0.46,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "Pilot helps families and should continue if quality and cost remain acceptable.",
+        "public_expression": "Moderate support, strongest when framed around child nutrition and cost relief.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 4400,
+        "reputation": 0.6,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "budget_caution": 0.46,
+          "free_meals_support": 0.79,
+          "worker_support": 0.62
+        },
+        "trustworthiness": 0.66
+      },
+      {
+        "archetype_key": "parents",
+        "attention_level": 0.62,
+        "cohort_key": "parents_fiscally_cautious",
+        "expression_level": 0.43,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.32,
+        "mobilization_readiness": 0.39,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Pilot may be worthwhile but only if costs do not crowd out other school priorities.",
+        "public_expression": "Selective scrutiny through meetings, local discussion, and budget-oriented commentary.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 3600,
+        "reputation": 0.58,
+        "secrecy": 0.21,
+        "stance_axes": {
+          "budget_caution": 0.78,
+          "free_meals_support": 0.51,
+          "worker_support": 0.49
+        },
+        "trustworthiness": 0.64
+      },
+      {
+        "archetype_key": "cafeteria_staff",
+        "attention_level": 0.76,
+        "cohort_key": "cafeteria_staff_hopeful_strained",
+        "expression_level": 0.52,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.48,
+        "perceived_majority": 0.61,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Pilot can help students but may increase workload unless staffing and process support improve.",
+        "public_expression": "Cautious, practical feedback with concern about labor intensity and service speed.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 180,
+        "reputation": 0.62,
+        "secrecy": 0.27,
+        "stance_axes": {
+          "free_meals_support": 0.64,
+          "management_trust": 0.42,
+          "workload_concern": 0.83
+        },
+        "trustworthiness": 0.71
+      },
+      {
+        "archetype_key": "local_farms",
+        "attention_level": 0.57,
+        "cohort_key": "local_farms_opportunistic",
+        "expression_level": 0.38,
+        "fatigue": 0.17,
+        "fear_of_isolation": 0.26,
+        "mobilization_readiness": 0.31,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Pilot could expand stable demand if procurement channels remain accessible.",
+        "public_expression": "Supportive but conditional on contract feasibility and pricing.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 40,
+        "reputation": 0.55,
+        "secrecy": 0.24,
+        "stance_axes": {
+          "free_meals_support": 0.69,
+          "price_sensitivity": 0.67,
+          "procurement_access_priority": 0.81
+        },
+        "trustworthiness": 0.59
+      },
+      {
+        "archetype_key": "city_public",
+        "attention_level": 0.23,
+        "cohort_key": "city_public_low_attention",
+        "expression_level": 0.14,
+        "fatigue": 0.1,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.12,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Weak prior; opinions can shift based on cost headlines or visible student benefits.",
+        "public_expression": "Low at T0 unless controversy rises.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 50000,
+        "reputation": 0.5,
+        "secrecy": 0.31,
+        "stance_axes": {
+          "budget_caution": 0.54,
+          "controversy_susceptibility": 0.61,
+          "free_meals_support": 0.56
+        },
+        "trustworthiness": 0.53
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "students",
+        "attention_level": 0.63,
+        "cohort_key": "students_high_need",
+        "expression_level": 0.34,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.37,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.58,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Free school meals likely improve consistent access and reduce skipped meals.",
+        "public_expression": "Moderate support, often expressed indirectly through participation rather than advocacy.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 4200,
+        "reputation": 0.57,
+        "secrecy": 0.22,
+        "stance_axes": {
+          "budget_caution": 0.28,
+          "free_meals_support": 0.84,
+          "service_quality_sensitivity": 0.61
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "archetype_key": "students",
+        "attention_level": 0.48,
+        "cohort_key": "students_general",
+        "expression_level": 0.29,
+        "fatigue": 0.16,
+        "fear_of_isolation": 0.33,
+        "mobilization_readiness": 0.19,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.65,
+        "private_belief": "Support depends on taste, convenience, and reduced stigma more than ideology.",
+        "public_expression": "Variable and low-salience unless meal quality or wait times become visible problems.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 7800,
+        "reputation": 0.56,
+        "secrecy": 0.25,
+        "stance_axes": {
+          "budget_caution": 0.31,
+          "free_meals_support": 0.67,
+          "service_quality_sensitivity": 0.72
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "archetype_key": "parents",
+        "attention_level": 0.58,
+        "cohort_key": "parents_supportive_relief",
+        "expression_level": 0.46,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "Pilot helps families and should continue if quality and cost remain acceptable.",
+        "public_expression": "Moderate support, strongest when framed around child nutrition and cost relief.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 4400,
+        "reputation": 0.6,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "budget_caution": 0.46,
+          "free_meals_support": 0.79,
+          "worker_support": 0.62
+        },
+        "trustworthiness": 0.66
+      },
+      {
+        "archetype_key": "parents",
+        "attention_level": 0.62,
+        "cohort_key": "parents_fiscally_cautious",
+        "expression_level": 0.43,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.32,
+        "mobilization_readiness": 0.39,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Pilot may be worthwhile but only if costs do not crowd out other school priorities.",
+        "public_expression": "Selective scrutiny through meetings, local discussion, and budget-oriented commentary.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 3600,
+        "reputation": 0.58,
+        "secrecy": 0.21,
+        "stance_axes": {
+          "budget_caution": 0.78,
+          "free_meals_support": 0.51,
+          "worker_support": 0.49
+        },
+        "trustworthiness": 0.64
+      },
+      {
+        "archetype_key": "cafeteria_staff",
+        "attention_level": 0.76,
+        "cohort_key": "cafeteria_staff_hopeful_strained",
+        "expression_level": 0.52,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.48,
+        "perceived_majority": 0.61,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Pilot can help students but may increase workload unless staffing and process support improve.",
+        "public_expression": "Cautious, practical feedback with concern about labor intensity and service speed.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 180,
+        "reputation": 0.62,
+        "secrecy": 0.27,
+        "stance_axes": {
+          "free_meals_support": 0.64,
+          "management_trust": 0.42,
+          "workload_concern": 0.83
+        },
+        "trustworthiness": 0.71
+      },
+      {
+        "archetype_key": "local_farms",
+        "attention_level": 0.57,
+        "cohort_key": "local_farms_opportunistic",
+        "expression_level": 0.38,
+        "fatigue": 0.17,
+        "fear_of_isolation": 0.26,
+        "mobilization_readiness": 0.31,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Pilot could expand stable demand if procurement channels remain accessible.",
+        "public_expression": "Supportive but conditional on contract feasibility and pricing.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 40,
+        "reputation": 0.55,
+        "secrecy": 0.24,
+        "stance_axes": {
+          "free_meals_support": 0.69,
+          "price_sensitivity": 0.67,
+          "procurement_access_priority": 0.81
+        },
+        "trustworthiness": 0.59
+      },
+      {
+        "archetype_key": "city_public",
+        "attention_level": 0.23,
+        "cohort_key": "city_public_low_attention",
+        "expression_level": 0.14,
+        "fatigue": 0.1,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.12,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Weak prior; opinions can shift based on cost headlines or visible student benefits.",
+        "public_expression": "Low at T0 unless controversy rises.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 50000,
+        "reputation": 0.5,
+        "secrecy": 0.31,
+        "stance_axes": {
+          "budget_caution": 0.54,
+          "controversy_susceptibility": 0.61,
+          "free_meals_support": 0.56
+        },
+        "trustworthiness": 0.53
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "city_political_leadership",
+          "city_budget_office",
+          "city_school_system"
+        ],
+        "blockers": [
+          "budget overrun narrative",
+          "unsustainable cafeteria workload",
+          "weak measured access gains",
+          "coalition fracture among parents and leadership"
+        ],
+        "contradiction_notes": "Track later evidence that supports, weakens, eliminates, or realizes this endpoint.",
+        "description": "The city converts the semester pilot into an ongoing free school meals policy at roughly citywide scope.",
+        "endpoint_key": "pilot_made_permanent",
+        "evidence_refs": [
+          "semester_end_report_preparation",
+          "first_budget_review",
+          "mid_semester_feedback_cycle"
+        ],
+        "label": "Pilot made permanent",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "By semester end, does the pilot produce a clear observable increase in student nutrition access relative to pre-pilot conditions or plausible no-pilot continuation?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.29,
+        "rationale": "Permanent adoption is a natural terminal option when a pilot tests access, cost, and operational durability.",
+        "realization_criteria": [
+          "formal decision by city_political_leadership or equivalent governing authority to continue beyond semester end",
+          "identified funding path accepted by city_budget_office or bypassed through superior authority",
+          "city_school_system directed to operate meals after pilot sunset without sunset language"
+        ],
+        "status": "active",
+        "status_basis": "Scenario asks for endpoint options and political durability but does not specify final outcome."
+      },
+      {
+        "authority_refs": [
+          "city_political_leadership",
+          "city_school_system",
+          "city_budget_office"
+        ],
+        "blockers": [
+          "leadership preference for decisive closure",
+          "inability to fund even modified continuation",
+          "severe operational breakdown"
+        ],
+        "contradiction_notes": "Track later evidence that supports, weakens, eliminates, or realizes this endpoint.",
+        "description": "The city continues the policy temporarily or in revised form, with staffing, scope, procurement, or eligibility adjustments.",
+        "endpoint_key": "pilot_extended_with_modifications",
+        "evidence_refs": [
+          "first_budget_review",
+          "mid_semester_feedback_cycle",
+          "semester_end_report_preparation"
+        ],
+        "label": "Pilot extended with modifications",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "By semester end, are pilot costs judged fiscally tolerable by the city actors who can authorize continuation?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.34,
+        "rationale": "This preserves uncertainty when benefits exist but cost or workload concerns remain unresolved.",
+        "realization_criteria": [
+          "formal extension beyond original semester timeline",
+          "officially documented modifications to scope, staffing, sourcing, or implementation rules",
+          "leadership frames action as continued evaluation rather than permanent settlement"
+        ],
+        "status": "active",
+        "status_basis": "Pilot contexts often resolve through temporary extension when evidence is mixed."
+      },
+      {
+        "authority_refs": [
+          "city_political_leadership",
+          "city_budget_office",
+          "city_school_system"
+        ],
+        "blockers": [
+          "strong parent support",
+          "visible access gains",
+          "manageable cost findings",
+          "successful operational adaptation"
+        ],
+        "contradiction_notes": "Track later evidence that supports, weakens, eliminates, or realizes this endpoint.",
+        "description": "The city ends free school meals when the semester pilot expires.",
+        "endpoint_key": "pilot_terminated_after_semester",
+        "evidence_refs": [
+          "first_budget_review",
+          "semester_end_report_preparation"
+        ],
+        "label": "Pilot terminated after semester",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "By semester end, is cafeteria staff workload sustainable without major service degradation or labor backlash?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.24,
+        "rationale": "The scenario explicitly emphasizes budget strain and workload as possible reasons continuation may fail.",
+        "realization_criteria": [
+          "formal decision not to continue free meals beyond pilot term",
+          "post-semester meal operations revert to prior policy",
+          "official justification cites cost, limited benefit, operational strain, or insufficient support"
+        ],
+        "status": "active",
+        "status_basis": "Termination is a credible terminal option when a pilot faces fiscal or operational doubts."
+      },
+      {
+        "authority_refs": [
+          "city_political_leadership",
+          "city_budget_office",
+          "city_school_system"
+        ],
+        "blockers": [
+          "administrative complexity concerns",
+          "universalist political framing",
+          "lack of data to justify targeting rule"
+        ],
+        "contradiction_notes": "Track later evidence that supports, weakens, eliminates, or realizes this endpoint.",
+        "description": "The city ends universal free meals but preserves a narrower version, such as limited schools, limited grades, or targeted eligibility support.",
+        "endpoint_key": "policy_narrowed_to_targeted_or_partial_model",
+        "evidence_refs": [
+          "first_budget_review",
+          "mid_semester_feedback_cycle",
+          "semester_end_report_preparation"
+        ],
+        "label": "Policy narrowed to targeted or partial model",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "At the terminal decision point, does the coalition supporting continuation remain politically durable enough for leaders to maintain or extend the policy?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.13,
+        "rationale": "This endpoint captures substitution and compromise rather than binary continuation or cancellation.",
+        "realization_criteria": [
+          "formal adoption of a narrower post-pilot policy replacing universal pilot scope",
+          "budget and implementation documents specify reduced coverage",
+          "leadership presents narrowing as compromise between access and cost"
+        ],
+        "status": "active",
+        "status_basis": "A narrowed policy is a plausible compromise under mixed evidence and switching-cost pressure."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Scenario names cafeteria staff as a core responder to the pilot.",
+        "layer": "dependency",
+        "reason": "Meal delivery depends on cafeteria labor capacity.",
+        "source_actor_name": "city_school_system",
+        "target_actor_name": "cafeteria_staff_group",
+        "weight": 0.63
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Scenario names local farms as responders to the pilot.",
+        "layer": "dependency",
+        "reason": "Local sourcing options may support the meal program but are not proven exclusive.",
+        "source_actor_name": "city_school_system",
+        "target_actor_name": "local_farms_network",
+        "weight": 0.38
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Scenario includes budget analysts and budget strain as core dimensions.",
+        "layer": "dependency",
+        "reason": "Pilot continuity depends on fiscal monitoring and budget accommodation.",
+        "source_actor_name": "city_school_system",
+        "target_actor_name": "city_budget_office",
+        "weight": 0.54
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Parents are a key stakeholder in free school meals.",
+        "layer": "dependency",
+        "reason": "Parents rely on school meal operations for student nutrition access during the pilot.",
+        "source_actor_name": "parents_group",
+        "target_actor_name": "city_school_system",
+        "weight": 0.49
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Students are direct recipients in the scenario.",
+        "layer": "dependency",
+        "reason": "Students directly rely on the school system for access to the pilot meals.",
+        "source_actor_name": "students_group",
+        "target_actor_name": "city_school_system",
+        "weight": 0.61
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Local farms are listed as responders to the pilot.",
+        "layer": "dependency",
+        "reason": "Potential farm sales may depend partly on school procurement demand.",
+        "source_actor_name": "local_farms_network",
+        "target_actor_name": "city_school_system",
+        "weight": 0.33
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Political durability is a tracked outcome.",
+        "layer": "exposure",
+        "reason": "Parents are likely to observe leadership messaging and policy framing.",
+        "source_actor_name": "parents_group",
+        "target_actor_name": "city_political_leadership",
+        "weight": 0.42
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Parents are central stakeholders affecting political durability.",
+        "layer": "exposure",
+        "reason": "Leaders are attentive to parents as a visible constituency.",
+        "source_actor_name": "city_political_leadership",
+        "target_actor_name": "parents_group",
+        "weight": 0.51
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Students respond to the pilot directly.",
+        "layer": "exposure",
+        "reason": "Students directly experience implementation quality and meal access changes.",
+        "source_actor_name": "students_group",
+        "target_actor_name": "city_school_system",
+        "weight": 0.57
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Cafeteria staff implement the pilot.",
+        "layer": "exposure",
+        "reason": "Staff are highly exposed to operational directives and system changes.",
+        "source_actor_name": "cafeteria_staff_group",
+        "target_actor_name": "city_school_system",
+        "weight": 0.64
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Political durability implies public narrative scrutiny.",
+        "layer": "exposure",
+        "reason": "Media monitor official claims and political framing.",
+        "source_actor_name": "local_media_observers",
+        "target_actor_name": "city_political_leadership",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "placeholder_removed",
+        "layer": "exposure",
+        "reason": "No actor named city_public_low_attention_proxy exists.",
+        "source_actor_name": "city_public_low_attention_proxy",
+        "target_actor_name": "local_media_observers",
+        "weight": 0.0
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Scenario implies mixed support and concern dimensions.",
+        "layer": "trust",
+        "reason": "Parents show moderate baseline confidence with conditional scrutiny on quality and cost.",
+        "source_actor_name": "parents_group",
+        "target_actor_name": "city_school_system",
+        "weight": 0.52
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Worker workload is a required comparison dimension.",
+        "layer": "trust",
+        "reason": "Staff are engaged but unsure management will absorb workload impacts effectively.",
+        "source_actor_name": "cafeteria_staff_group",
+        "target_actor_name": "city_school_system",
+        "weight": 0.42
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Students respond directly to meal availability and quality.",
+        "layer": "trust",
+        "reason": "Students' trust is driven by visible service quality and consistent access.",
+        "source_actor_name": "students_group",
+        "target_actor_name": "city_school_system",
+        "weight": 0.55
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Budget strain is a key endpoint dimension.",
+        "layer": "trust",
+        "reason": "Leadership relies on budget analysts for credible affordability signals.",
+        "source_actor_name": "city_political_leadership",
+        "target_actor_name": "city_budget_office",
+        "weight": 0.58
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Pilot depends on delivery and evaluation.",
+        "layer": "trust",
+        "reason": "Leadership needs school system implementation reporting but may revise confidence if operations strain.",
+        "source_actor_name": "city_political_leadership",
+        "target_actor_name": "city_school_system",
+        "weight": 0.57
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Political durability and endpoint options imply leadership leverage.",
+        "layer": "influence",
+        "reason": "Political leadership can shape continuation, framing, and operating expectations.",
+        "source_actor_name": "city_political_leadership",
+        "target_actor_name": "city_school_system",
+        "weight": 0.64
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Budget analysts are named as core responders.",
+        "layer": "influence",
+        "reason": "Budget office can strongly influence affordability narratives and decision thresholds.",
+        "source_actor_name": "city_budget_office",
+        "target_actor_name": "city_political_leadership",
+        "weight": 0.59
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Parents are core stakeholders in continuation politics.",
+        "layer": "influence",
+        "reason": "Parent sentiment can affect political durability of the pilot.",
+        "source_actor_name": "parents_group",
+        "target_actor_name": "city_political_leadership",
+        "weight": 0.47
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Worker workload is a tracked report dimension.",
+        "layer": "influence",
+        "reason": "Operational feedback from staff can alter implementation choices.",
+        "source_actor_name": "cafeteria_staff_group",
+        "target_actor_name": "city_school_system",
+        "weight": 0.44
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "placeholder_removed",
+        "layer": "influence",
+        "reason": "No actor named city_public_low_attention_proxy exists.",
+        "source_actor_name": "local_media_observers",
+        "target_actor_name": "city_public_low_attention_proxy",
+        "weight": 0.0
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Political durability is sensitive to public narrative.",
+        "layer": "influence",
+        "reason": "Media framing can pressure leaders by amplifying costs or benefits.",
+        "source_actor_name": "local_media_observers",
+        "target_actor_name": "city_political_leadership",
+        "weight": 0.41
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Both groups benefit from improved nutrition access.",
+        "layer": "coalition",
+        "reason": "Shared interest in improved student meal access and stigma reduction.",
+        "source_actor_name": "parents_group",
+        "target_actor_name": "students_group",
+        "weight": 0.54
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Both are necessary to run the pilot.",
+        "layer": "coalition",
+        "reason": "Shared implementation goals exist despite workload tensions.",
+        "source_actor_name": "city_school_system",
+        "target_actor_name": "cafeteria_staff_group",
+        "weight": 0.45
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Local farms respond to the pilot as interested stakeholders.",
+        "layer": "coalition",
+        "reason": "Potential alignment around local procurement and pilot success.",
+        "source_actor_name": "city_school_system",
+        "target_actor_name": "local_farms_network",
+        "weight": 0.31
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Parents are moderately supportive but not unconditional.",
+        "layer": "coalition",
+        "reason": "Conditional alignment exists if service quality and affordability hold.",
+        "source_actor_name": "parents_group",
+        "target_actor_name": "city_school_system",
+        "weight": 0.36
+      },
+      {
+        "direction": "goal_tension",
+        "evidence": "Budget strain is a central comparison dimension.",
+        "layer": "conflict",
+        "reason": "Cost control and implementation ambition may diverge as the pilot unfolds.",
+        "source_actor_name": "city_budget_office",
+        "target_actor_name": "city_school_system",
+        "weight": 0.37
+      },
+      {
+        "direction": "goal_tension",
+        "evidence": "Worker workload is a required report topic.",
+        "layer": "conflict",
+        "reason": "Workload concerns may conflict with service expansion expectations.",
+        "source_actor_name": "cafeteria_staff_group",
+        "target_actor_name": "city_school_system",
+        "weight": 0.34
+      },
+      {
+        "direction": "goal_tension",
+        "evidence": "Potential tension between access and cost control is implied.",
+        "layer": "conflict",
+        "reason": "Parents seeking continuity may resist restrictive fiscal framing if benefits are visible.",
+        "source_actor_name": "parents_group",
+        "target_actor_name": "city_budget_office",
+        "weight": 0.23
+      },
+      {
+        "direction": "goal_tension",
+        "evidence": "Budget strain and local farm response are both scenario components.",
+        "layer": "conflict",
+        "reason": "Price or procurement access issues could create tension if local sourcing is judged too costly.",
+        "source_actor_name": "local_farms_network",
+        "target_actor_name": "city_budget_office",
+        "weight": 0.21
+      },
+      {
+        "direction": "likely_public_interaction",
+        "evidence": "Parents are politically relevant stakeholders.",
+        "layer": "oasis_interaction",
+        "reason": "Public meetings, school communications, and local discussion are likely interaction channels.",
+        "source_actor_name": "parents_group",
+        "target_actor_name": "city_political_leadership",
+        "weight": 0.44
+      },
+      {
+        "direction": "likely_public_interaction",
+        "evidence": "Staff are directly implementing the pilot.",
+        "layer": "oasis_interaction",
+        "reason": "Frequent operational feedback loops are likely in public or semi-public work channels.",
+        "source_actor_name": "cafeteria_staff_group",
+        "target_actor_name": "city_school_system",
+        "weight": 0.53
+      },
+      {
+        "direction": "likely_public_interaction",
+        "evidence": "Political durability and reporting focus imply public communication.",
+        "layer": "oasis_interaction",
+        "reason": "Media inquiries and statements are likely as the pilot unfolds.",
+        "source_actor_name": "local_media_observers",
+        "target_actor_name": "city_political_leadership",
+        "weight": 0.39
+      },
+      {
+        "direction": "likely_public_interaction",
+        "evidence": "Pilot quality and access will generate parent feedback.",
+        "layer": "oasis_interaction",
+        "reason": "Parents likely interact with school administrators through school-facing channels.",
+        "source_actor_name": "parents_group",
+        "target_actor_name": "city_school_system",
+        "weight": 0.41
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "function": "operational manager and evaluator",
+        "hero_key": "school_system_admin",
+        "label": "School system administration"
+      },
+      {
+        "function": "fiscal gatekeeper and cost narrator",
+        "hero_key": "budget_director",
+        "label": "Budget office leadership"
+      },
+      {
+        "function": "terminal policy chooser",
+        "hero_key": "city_leader",
+        "label": "City political leadership"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "city_school_system",
+        "attention_level": 0.83,
+        "constraints": [
+          "must deliver meals reliably",
+          "must produce credible implementation data",
+          "depends on staffing and suppliers"
+        ],
+        "decision_power": 0.74,
+        "expression_level": 0.61,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.22,
+        "hero_key": "school_system_admin",
+        "mobilization_readiness": 0.64,
+        "perceived_majority": 0.56,
+        "stance_axes": {
+          "cost_sensitivity": 0.58,
+          "pilot_commitment": 0.72,
+          "staff_accommodation": 0.54
+        }
+      },
+      {
+        "actor_name": "city_budget_office",
+        "attention_level": 0.79,
+        "constraints": [
+          "cannot unilaterally set policy outcome",
+          "can shape legitimacy of affordability claims"
+        ],
+        "decision_power": 0.62,
+        "expression_level": 0.58,
+        "fatigue": 0.26,
+        "fear_of_isolation": 0.19,
+        "hero_key": "budget_director",
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.48,
+        "stance_axes": {
+          "cost_sensitivity": 0.88,
+          "evidence_threshold": 0.77,
+          "pilot_commitment": 0.46
+        }
+      },
+      {
+        "actor_name": "city_political_leadership",
+        "attention_level": 0.71,
+        "constraints": [
+          "requires budget and implementation feasibility",
+          "sensitive to public narrative and coalition durability"
+        ],
+        "decision_power": 0.88,
+        "expression_level": 0.55,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.24,
+        "hero_key": "city_leader",
+        "mobilization_readiness": 0.49,
+        "perceived_majority": 0.5,
+        "stance_axes": {
+          "coalition_maintenance": 0.74,
+          "pilot_commitment": 0.59,
+          "reelection_sensitivity": 0.79
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "function": "operational manager and evaluator",
+        "hero_key": "school_system_admin",
+        "label": "School system administration"
+      },
+      {
+        "function": "fiscal gatekeeper and cost narrator",
+        "hero_key": "budget_director",
+        "label": "Budget office leadership"
+      },
+      {
+        "function": "terminal policy chooser",
+        "hero_key": "city_leader",
+        "label": "City political leadership"
+      }
+    ],
+    "important_questions": [
+      "By semester end, does the pilot produce a clear observable increase in student nutrition access relative to pre-pilot conditions or plausible no-pilot continuation?",
+      "By semester end, are pilot costs judged fiscally tolerable by the city actors who can authorize continuation?",
+      "By semester end, is cafeteria staff workload sustainable without major service degradation or labor backlash?",
+      "At the terminal decision point, does the coalition supporting continuation remain politically durable enough for leaders to maintain or extend the policy?"
+    ],
+    "initial_events": [
+      {
+        "event_key": "pilot_launch",
+        "event_type": "announcement",
+        "evidence": "Scenario states the city pilots free school meals for one semester.",
+        "expected_impact": "Raises attention among directly affected groups and creates operational, fiscal, and political measurement pressures.",
+        "status": "realized",
+        "summary": "The fictional city begins a one-semester free school meals pilot.",
+        "tick": 0
+      },
+      {
+        "event_key": "early_usage_adjustment_period",
+        "event_type": "announcement",
+        "evidence": "Pilot implementation implies an early adjustment phase.",
+        "expected_impact": "May increase cafeteria workload visibility and alter student/parent impressions before stable operations emerge.",
+        "status": "anticipated",
+        "summary": "Schools experience initial participation shifts and workflow adaptation in meal service.",
+        "tick": 1
+      },
+      {
+        "event_key": "first_budget_review",
+        "event_type": "announcement",
+        "evidence": "Budget analysts and budget strain are explicit scenario dimensions.",
+        "expected_impact": "Could strengthen caution narratives or reassure leadership depending on cost trajectory.",
+        "status": "anticipated",
+        "summary": "Budget analysts produce an early read on pilot costs and variance.",
+        "tick": 2
+      },
+      {
+        "event_key": "mid_semester_feedback_cycle",
+        "event_type": "announcement",
+        "evidence": "Stakeholder responses are central to the scenario.",
+        "expected_impact": "May crystallize whether support coalitions deepen or fragment.",
+        "status": "anticipated",
+        "summary": "Parents, staff, and students provide more concrete feedback on access, quality, and workload.",
+        "tick": 3
+      },
+      {
+        "event_key": "semester_end_report_preparation",
+        "event_type": "announcement",
+        "evidence": "Expected final report focus is explicitly stated.",
+        "expected_impact": "Narrows viable endpoint narratives and shapes continuation decisions.",
+        "status": "anticipated",
+        "summary": "Officials assemble evidence comparing nutrition access, budget strain, worker workload, and political durability across branches.",
+        "tick": 5
+      }
+    ],
+    "llm_call_id": "0253a6ee-9c38-4392-a5d9-db68512795c3",
+    "merge_hypotheses": [
+      {
+        "affected_actors": [
+          "city_school_system",
+          "parents_group",
+          "cafeteria_staff_group",
+          "city_political_leadership"
+        ],
+        "convergence_factor": "Most actors can align around student wellbeing even when disagreeing on cost or method.",
+        "merge_key": "shared_child_wellbeing_norm"
+      },
+      {
+        "affected_actors": [
+          "city_budget_office",
+          "city_school_system",
+          "city_political_leadership",
+          "parents_group"
+        ],
+        "convergence_factor": "Credible measurement and limited operational fixes may reduce conflict between access advocates and fiscal skeptics.",
+        "merge_key": "evidence_driven_midcourse_correction"
+      },
+      {
+        "affected_actors": [
+          "city_public",
+          "city_political_leadership",
+          "parents_group",
+          "city_budget_office"
+        ],
+        "convergence_factor": "As attention decays, actors may accept a compromise such as modified continuation rather than maximal victory.",
+        "merge_key": "fatigue_induced_pragmatism"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "students",
+        "description": "Students enrolled in the fictional city school system and directly affected by meal access.",
+        "label": "Students",
+        "population_total": 12000
+      },
+      {
+        "archetype_key": "parents",
+        "description": "Adults responsible for enrolled students and responsive to household budget and child wellbeing impacts.",
+        "label": "Parents and guardians",
+        "population_total": 8000
+      },
+      {
+        "archetype_key": "cafeteria_staff",
+        "description": "Workers preparing and serving meals across the system.",
+        "label": "Cafeteria staff",
+        "population_total": 180
+      },
+      {
+        "archetype_key": "local_farms",
+        "description": "Farm operators and managers with potential procurement exposure to the pilot.",
+        "label": "Local farm stakeholders",
+        "population_total": 40
+      },
+      {
+        "archetype_key": "city_public",
+        "description": "Residents not directly central to implementation but relevant to political durability.",
+        "label": "General city public observers",
+        "population_total": 50000
+      }
+    ],
+    "risk_flags": [
+      {
+        "note": "No explicit city size or school count was provided; population values are calibrated fictional defaults for simulation coherence.",
+        "risk_key": "incomplete_scale_data",
+        "severity": "medium"
+      },
+      {
+        "note": "Decision authority is inferred as city political leadership with budget office influence, but exact formal authority chain is not stated.",
+        "risk_key": "unspecified_governance_structure",
+        "severity": "medium"
+      },
+      {
+        "note": "Pre-pilot nutrition access, staffing levels, and cost baselines are not supplied, limiting certainty on T0 priors.",
+        "risk_key": "traceability_gap_on_baselines",
+        "severity": "medium"
+      },
+      {
+        "note": "Source corpus is sparse; care should be taken in later validation because low-evidence graph edges may need refinement. Two placeholder proxy edges were zeroed due to missing actor evidence.",
+        "risk_key": "graph_placeholder_edge_issue",
+        "severity": "high"
+      },
+      {
+        "note": "Scenario explicitly requests branch comparison, so terminal outcomes should remain open rather than prematurely collapsed at initialization.",
+        "risk_key": "endpoint_uncertainty_high",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "mode": "direct",
+      "reporting_focus": [
+        "nutrition_access",
+        "budget_strain",
+        "worker_workload",
+        "political_durability",
+        "traceability",
+        "outcome_distribution"
+      ],
+      "scenario_key": "case_report_001",
+      "scope": "municipal_school_meal_policy_pilot",
+      "summary": "A fictional city is piloting free school meals for one semester. Key stakeholders include parents, cafeteria staff, students, budget analysts, and local farms. T0 should preserve uncertainty around nutrition access gains, budget strain, worker workload, and political durability.",
+      "time_horizon": "one_semester",
+      "title": "fictional_city_free_school_meals_pilot",
+      "uncertainty_notes": [
+        "No city size, school count, or exact budget baseline is provided.",
+        "No named political leadership or school district structure is provided.",
+        "Pilot design details such as universal eligibility mechanics, procurement rules, and staffing provisions are unspecified."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "parents_group",
+          "city_public",
+          "city_political_leadership"
+        ],
+        "level": 0.58,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Moderate persuasion range; stakeholders can shift within practical cost-benefit bounds."
+      },
+      {
+        "applies_to": [
+          "parents_group",
+          "cafeteria_staff_group"
+        ],
+        "level": 0.61,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Visible budget overruns or service failures could push moderate observers into active participation."
+      },
+      {
+        "applies_to": [
+          "students_group",
+          "city_public"
+        ],
+        "level": 0.66,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Many affected individuals are unlikely to speak publicly unless issues become salient."
+      },
+      {
+        "applies_to": [
+          "parents_group",
+          "cafeteria_staff_group",
+          "local_farms_network"
+        ],
+        "level": 0.49,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Stakeholders are likely to cluster discussion within role-based communities."
+      },
+      {
+        "applies_to": [
+          "parents_group",
+          "city_public"
+        ],
+        "level": 0.53,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Broader opinion shifts likely require repeated confirming signals, not a single message."
+      },
+      {
+        "applies_to": [
+          "parents_group",
+          "cafeteria_staff_group",
+          "students_group"
+        ],
+        "level": 0.57,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Role identities shape interpretation of the pilot's success criteria."
+      },
+      {
+        "applies_to": [
+          "city_public"
+        ],
+        "level": 0.62,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "General public attention is likely to fade without controversy or new evidence."
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Frames emphasizing child wellbeing and reduced stigma may increase support among parents and general observers.",
+        "influence_key": "nutrition_access_frame"
+      },
+      {
+        "description": "Cost-growth narratives may disproportionately activate fiscally cautious parents and political leadership.",
+        "influence_key": "budget_overrun_frame"
+      },
+      {
+        "description": "Reports of cafeteria overload may reduce political durability unless paired with mitigation steps.",
+        "influence_key": "worker_strain_frame"
+      },
+      {
+        "description": "Evidence of local farm participation may improve legitimacy if not associated with excessive price increases.",
+        "influence_key": "local_supply_frame"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "city_school_system",
+        "behavior_axes": {
+          "adaptability": 0.58,
+          "proceduralism": 0.76,
+          "risk_tolerance": 0.43
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.56,
+          "universal_service_orientation": 0.68
+        },
+        "reputation": 0.61,
+        "secrecy": 0.34,
+        "tendency": "implementation_pragmatist",
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "city_budget_office",
+        "behavior_axes": {
+          "adaptability": 0.41,
+          "proceduralism": 0.82,
+          "risk_tolerance": 0.29
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.86,
+          "universal_service_orientation": 0.44
+        },
+        "reputation": 0.63,
+        "secrecy": 0.39,
+        "tendency": "cost_guardian",
+        "trustworthiness": 0.67
+      },
+      {
+        "actor_name": "city_political_leadership",
+        "behavior_axes": {
+          "adaptability": 0.62,
+          "proceduralism": 0.55,
+          "risk_tolerance": 0.51
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.62,
+          "universal_service_orientation": 0.57
+        },
+        "reputation": 0.57,
+        "secrecy": 0.37,
+        "tendency": "coalition_balancer",
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "parents_group",
+        "behavior_axes": {
+          "adaptability": 0.57,
+          "proceduralism": 0.38,
+          "risk_tolerance": 0.44
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.59,
+          "universal_service_orientation": 0.66
+        },
+        "reputation": 0.6,
+        "secrecy": 0.22,
+        "tendency": "conditional_support",
+        "trustworthiness": 0.65
+      },
+      {
+        "actor_name": "cafeteria_staff_group",
+        "behavior_axes": {
+          "adaptability": 0.61,
+          "proceduralism": 0.63,
+          "risk_tolerance": 0.35
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.41,
+          "universal_service_orientation": 0.71
+        },
+        "reputation": 0.63,
+        "secrecy": 0.28,
+        "tendency": "service_pragmatist",
+        "trustworthiness": 0.72
+      },
+      {
+        "actor_name": "students_group",
+        "behavior_axes": {
+          "adaptability": 0.73,
+          "proceduralism": 0.22,
+          "risk_tolerance": 0.48
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.29,
+          "universal_service_orientation": 0.69
+        },
+        "reputation": 0.56,
+        "secrecy": 0.3,
+        "tendency": "usage_driven",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "local_farms_network",
+        "behavior_axes": {
+          "adaptability": 0.54,
+          "proceduralism": 0.49,
+          "risk_tolerance": 0.47
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.57,
+          "universal_service_orientation": 0.52
+        },
+        "reputation": 0.55,
+        "secrecy": 0.25,
+        "tendency": "market_opportunist",
+        "trustworthiness": 0.59
+      },
+      {
+        "actor_name": "local_media_observers",
+        "behavior_axes": {
+          "adaptability": 0.68,
+          "proceduralism": 0.44,
+          "risk_tolerance": 0.52
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.5,
+          "universal_service_orientation": 0.5
+        },
+        "reputation": 0.54,
+        "secrecy": 0.18,
+        "tendency": "narrative_amplifier",
+        "trustworthiness": 0.52
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 475,
+        "end": 475,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 475,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

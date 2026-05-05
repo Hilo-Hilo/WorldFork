@@ -1,0 +1,1372 @@
+{
+  "big_bang_id": "8fc53ed7-a319-4b7d-becf-c14892ae78f7",
+  "initializer_output": {
+    "actors": [
+      {
+        "actor_type": "institution",
+        "description": "Public emergency authority associated with the alert system and apology.",
+        "fictionalized": true,
+        "name": "regional_emergency_management_office",
+        "scope": "regional",
+        "stakes": [
+          "restore public trust",
+          "maintain emergency compliance",
+          "limit political and legal fallout",
+          "continue alert operations"
+        ]
+      },
+      {
+        "actor_type": "team",
+        "description": "Operational staff responsible for alert issuance workflows and safeguards.",
+        "fictionalized": true,
+        "name": "alert_app_operations_team",
+        "scope": "regional",
+        "stakes": [
+          "maintain service continuity",
+          "diagnose failure",
+          "avoid blame concentration",
+          "improve procedures"
+        ]
+      },
+      {
+        "actor_type": "team",
+        "description": "Engineers investigating the technical cause, reportedly identifying a test-mode failure.",
+        "fictionalized": true,
+        "name": "alert_app_engineering_team",
+        "scope": "regional",
+        "stakes": [
+          "identify root cause",
+          "protect technical credibility",
+          "ship fixes",
+          "avoid repeated incident"
+        ]
+      },
+      {
+        "actor_type": "public_group",
+        "description": "General population receiving or hearing about the false evacuation warning.",
+        "fictionalized": true,
+        "name": "regional_residents",
+        "scope": "regional",
+        "stakes": [
+          "safety",
+          "accurate alerts",
+          "accountability",
+          "confidence in future warnings"
+        ]
+      },
+      {
+        "actor_type": "public_group",
+        "description": "Residents with disabilities reporting accessibility problems with alerts.",
+        "fictionalized": true,
+        "name": "disabled_residents",
+        "scope": "regional",
+        "stakes": [
+          "accessible emergency communication",
+          "equal safety access",
+          "recognition of harm",
+          "design reform"
+        ]
+      },
+      {
+        "actor_type": "political_group",
+        "description": "Politicians and oversight actors calling for hearings.",
+        "fictionalized": true,
+        "name": "regional_political_oversight_bloc",
+        "scope": "regional",
+        "stakes": [
+          "public accountability",
+          "institutional oversight",
+          "political visibility",
+          "policy reform"
+        ]
+      },
+      {
+        "actor_type": "media",
+        "description": "Local and regional news outlets amplifying the incident and responses.",
+        "fictionalized": true,
+        "name": "regional_news_media",
+        "scope": "regional",
+        "stakes": [
+          "public information",
+          "scrutiny",
+          "narrative framing"
+        ]
+      },
+      {
+        "actor_type": "civic_group",
+        "description": "Advocates likely to elevate accessibility failures into a policy issue.",
+        "fictionalized": true,
+        "name": "accessibility_advocacy_groups",
+        "scope": "regional",
+        "stakes": [
+          "accessible systems",
+          "public accountability",
+          "inclusion in remediation"
+        ]
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Public controversy cools after apology, patch, and procedural assurances.",
+        "branch_key": "isolated_bug_narrative_holds",
+        "divergence_signal": "Coverage shifts from blame escalation to implementation updates; trust decline stops worsening.",
+        "trigger": "Engineering evidence supports narrow test-mode failure with clear fix and no broader control breakdown."
+      },
+      {
+        "alternate_path": "Incident broadens into governance failure with stronger hearing demands and leadership pressure.",
+        "branch_key": "systemic_process_failure_revealed",
+        "divergence_signal": "Officials delay specifics, multiple teams share blame, and oversight requests documents or testimony.",
+        "trigger": "Investigation shows weak separation between testing and live systems or inadequate operational approvals."
+      },
+      {
+        "alternate_path": "Reform agenda centers on inclusive alert design, not only technical bug repair.",
+        "branch_key": "accessibility_becomes_primary_accountability_frame",
+        "divergence_signal": "Media and hearings feature accessibility witnesses, audits, and disability-rights demands.",
+        "trigger": "More affected residents or advocates document concrete accessibility breakdowns during the false alert."
+      },
+      {
+        "alternate_path": "Main risk shifts from reputational damage to operational safety degradation during future incidents.",
+        "branch_key": "future_alert_compliance_erosion",
+        "divergence_signal": "Surveying, anecdotal reporting, or app behavior shows muted response intent to subsequent warnings.",
+        "trigger": "Residents publicly state they will ignore or second-guess future alerts."
+      },
+      {
+        "alternate_path": "Public narrative hardens around incompetence even if fixes are technically straightforward.",
+        "branch_key": "political_pressure_outpaces_technical_repair",
+        "divergence_signal": "Message inconsistencies, visible blame assignment, and repeated calls for resignations or external review.",
+        "trigger": "Hearings or partisan conflict begin before a credible remediation package is ready."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "official_press_briefings",
+        "primary_actors": [
+          "regional_emergency_management_office",
+          "regional_news_media"
+        ],
+        "reach": 0.67,
+        "type": "public_institutional"
+      },
+      {
+        "channel_key": "alert_app_notifications",
+        "primary_actors": [
+          "regional_emergency_management_office",
+          "alert_app_operations_team",
+          "regional_residents",
+          "disabled_residents"
+        ],
+        "reach": 0.58,
+        "type": "platform_service"
+      },
+      {
+        "channel_key": "regional_news_coverage",
+        "primary_actors": [
+          "regional_news_media",
+          "regional_residents",
+          "regional_political_oversight_bloc"
+        ],
+        "reach": 0.72,
+        "type": "mass_media"
+      },
+      {
+        "channel_key": "oversight_hearing_announcements",
+        "primary_actors": [
+          "regional_political_oversight_bloc",
+          "regional_news_media",
+          "regional_emergency_management_office"
+        ],
+        "reach": 0.49,
+        "type": "public_political"
+      },
+      {
+        "channel_key": "advocacy_statements",
+        "primary_actors": [
+          "accessibility_advocacy_groups",
+          "disabled_residents",
+          "regional_news_media"
+        ],
+        "reach": 0.36,
+        "type": "civic_public"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "regional_public",
+        "attention_level": 0.82,
+        "cohort_key": "alarm_affected_residents",
+        "expression_level": 0.61,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.48,
+        "perceived_majority": 0.68,
+        "population_share_of_archetype": 0.42,
+        "private_belief": "System reliability is damaged and officials may have weak controls.",
+        "public_expression": "Complaint, concern, demand for explanation, but not universal disengagement from future alerts.",
+        "representation_mode": "estimated_subgroup",
+        "represented_population": 420000,
+        "stance_axes": {
+          "accountability_demand": 0.76,
+          "continued_alert_usefulness": 0.58,
+          "hearing_support": 0.64,
+          "institutional_trust": 0.32
+        }
+      },
+      {
+        "archetype_key": "regional_public",
+        "attention_level": 0.56,
+        "cohort_key": "cautious_compliant_residents",
+        "expression_level": 0.34,
+        "fatigue": 0.16,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.26,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "The incident is serious but emergency systems still matter and should be fixed rather than abandoned.",
+        "public_expression": "Moderate criticism with preference for procedural repair.",
+        "representation_mode": "estimated_subgroup",
+        "represented_population": 350000,
+        "stance_axes": {
+          "accountability_demand": 0.59,
+          "continued_alert_usefulness": 0.72,
+          "hearing_support": 0.49,
+          "institutional_trust": 0.46
+        }
+      },
+      {
+        "archetype_key": "regional_public",
+        "attention_level": 0.63,
+        "cohort_key": "skeptical_disengaging_residents",
+        "expression_level": 0.41,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.24,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.37,
+        "population_share_of_archetype": 0.23,
+        "private_belief": "The alert system may be incompetent and future warnings could be ignored.",
+        "public_expression": "Cynicism, jokes, or disengagement more than organized action.",
+        "representation_mode": "estimated_subgroup",
+        "represented_population": 230000,
+        "stance_axes": {
+          "accountability_demand": 0.67,
+          "continued_alert_usefulness": 0.29,
+          "hearing_support": 0.54,
+          "institutional_trust": 0.21
+        }
+      },
+      {
+        "archetype_key": "disabled_public",
+        "attention_level": 0.88,
+        "cohort_key": "disabled_residents_access_harmed",
+        "expression_level": 0.67,
+        "fatigue": 0.39,
+        "fear_of_isolation": 0.21,
+        "mobilization_readiness": 0.62,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "The false alert exposed both reliability and accessibility failures that create unequal danger.",
+        "public_expression": "Strong calls for accessibility review, inclusion, and accountability.",
+        "representation_mode": "estimated_subgroup",
+        "represented_population": 90000,
+        "stance_axes": {
+          "accountability_demand": 0.84,
+          "continued_alert_usefulness": 0.41,
+          "hearing_support": 0.78,
+          "institutional_trust": 0.19
+        }
+      },
+      {
+        "archetype_key": "disabled_public",
+        "attention_level": 0.71,
+        "cohort_key": "disabled_residents_watchful_pragmatic",
+        "expression_level": 0.46,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.27,
+        "mobilization_readiness": 0.39,
+        "perceived_majority": 0.36,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "The system can still be necessary if accessibility is corrected quickly and credibly.",
+        "public_expression": "Conditional support tied to concrete remediation.",
+        "representation_mode": "estimated_subgroup",
+        "represented_population": 60000,
+        "stance_axes": {
+          "accountability_demand": 0.71,
+          "continued_alert_usefulness": 0.57,
+          "hearing_support": 0.63,
+          "institutional_trust": 0.34
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "regional_public",
+        "attention_level": 0.82,
+        "cohort_key": "alarm_affected_residents",
+        "expression_level": 0.61,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.48,
+        "perceived_majority": 0.68,
+        "population_share_of_archetype": 0.42,
+        "private_belief": "System reliability is damaged and officials may have weak controls.",
+        "public_expression": "Complaint, concern, demand for explanation, but not universal disengagement from future alerts.",
+        "representation_mode": "estimated_subgroup",
+        "represented_population": 420000,
+        "stance_axes": {
+          "accountability_demand": 0.76,
+          "continued_alert_usefulness": 0.58,
+          "hearing_support": 0.64,
+          "institutional_trust": 0.32
+        }
+      },
+      {
+        "archetype_key": "regional_public",
+        "attention_level": 0.56,
+        "cohort_key": "cautious_compliant_residents",
+        "expression_level": 0.34,
+        "fatigue": 0.16,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.26,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "The incident is serious but emergency systems still matter and should be fixed rather than abandoned.",
+        "public_expression": "Moderate criticism with preference for procedural repair.",
+        "representation_mode": "estimated_subgroup",
+        "represented_population": 350000,
+        "stance_axes": {
+          "accountability_demand": 0.59,
+          "continued_alert_usefulness": 0.72,
+          "hearing_support": 0.49,
+          "institutional_trust": 0.46
+        }
+      },
+      {
+        "archetype_key": "regional_public",
+        "attention_level": 0.63,
+        "cohort_key": "skeptical_disengaging_residents",
+        "expression_level": 0.41,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.24,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.37,
+        "population_share_of_archetype": 0.23,
+        "private_belief": "The alert system may be incompetent and future warnings could be ignored.",
+        "public_expression": "Cynicism, jokes, or disengagement more than organized action.",
+        "representation_mode": "estimated_subgroup",
+        "represented_population": 230000,
+        "stance_axes": {
+          "accountability_demand": 0.67,
+          "continued_alert_usefulness": 0.29,
+          "hearing_support": 0.54,
+          "institutional_trust": 0.21
+        }
+      },
+      {
+        "archetype_key": "disabled_public",
+        "attention_level": 0.88,
+        "cohort_key": "disabled_residents_access_harmed",
+        "expression_level": 0.67,
+        "fatigue": 0.39,
+        "fear_of_isolation": 0.21,
+        "mobilization_readiness": 0.62,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "The false alert exposed both reliability and accessibility failures that create unequal danger.",
+        "public_expression": "Strong calls for accessibility review, inclusion, and accountability.",
+        "representation_mode": "estimated_subgroup",
+        "represented_population": 90000,
+        "stance_axes": {
+          "accountability_demand": 0.84,
+          "continued_alert_usefulness": 0.41,
+          "hearing_support": 0.78,
+          "institutional_trust": 0.19
+        }
+      },
+      {
+        "archetype_key": "disabled_public",
+        "attention_level": 0.71,
+        "cohort_key": "disabled_residents_watchful_pragmatic",
+        "expression_level": 0.46,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.27,
+        "mobilization_readiness": 0.39,
+        "perceived_majority": 0.36,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "The system can still be necessary if accessibility is corrected quickly and credibly.",
+        "public_expression": "Conditional support tied to concrete remediation.",
+        "representation_mode": "estimated_subgroup",
+        "represented_population": 60000,
+        "stance_axes": {
+          "accountability_demand": 0.71,
+          "continued_alert_usefulness": 0.57,
+          "hearing_support": 0.63,
+          "institutional_trust": 0.34
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "regional_emergency_management_office",
+          "alert_app_operations_team",
+          "alert_app_engineering_team",
+          "regional_residents"
+        ],
+        "blockers": [
+          "continued ambiguity about safeguards",
+          "evidence of systemic process weakness",
+          "poor crisis communication",
+          "future compliance cynicism"
+        ],
+        "contradiction_notes": "A visible apology coexists with low trust and accountability demands; stabilization requires more than messaging.",
+        "description": "The alert system remains broadly treated as credible enough for future compliance despite damage from the false warning.",
+        "endpoint_key": "public_trust_stabilized",
+        "evidence_refs": [
+          "official apology",
+          "future remediation plan",
+          "resident reaction",
+          "media framing"
+        ],
+        "label": "Public trust stabilized at usable level",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does public trust in the regional emergency-alert system recover enough that residents remain willing to comply with future alerts?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.46,
+        "rationale": "The scenario explicitly asks reports to assess trust damage and recovery branches, making trust recovery a core endpoint.",
+        "realization_criteria": [
+          "observable_public_statements_from_officials_include_specific_corrective_actions",
+          "subsequent_reporting_shows_no_major_expansion_of_noncompliance_intent",
+          "no_new_false_alert_or_major_contradictory_disclosure_occurs_within_initial_response_window"
+        ],
+        "status": "active",
+        "status_basis": "Trust is damaged but not irretrievably collapsed at T0; public safety dependency preserves possibility of stabilization."
+      },
+      {
+        "authority_refs": [
+          "alert_app_engineering_team",
+          "regional_emergency_management_office",
+          "regional_political_oversight_bloc"
+        ],
+        "blockers": [
+          "insufficient disclosure",
+          "narrow technical explanation accepted publicly",
+          "lack of independent review"
+        ],
+        "contradiction_notes": "Preliminary root cause can either reduce uncertainty or conceal wider procedural weaknesses if too quickly accepted.",
+        "description": "The incident is validated as more than a one-off bug, showing broader deficiencies in controls, testing separation, or operational governance.",
+        "endpoint_key": "systemic_failure_confirmed",
+        "evidence_refs": [
+          "engineering diagnosis",
+          "hearing records",
+          "internal review findings"
+        ],
+        "label": "Systemic process failure confirmed",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Is the incident ultimately understood as a contained test-mode error or as evidence of broader process and control failure?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.41,
+        "rationale": "Technical process is a named focus area, and endpoint differentiation depends on whether failure scope broadens.",
+        "realization_criteria": [
+          "official_or_oversight_findings_identify_multiple_control_breakdowns",
+          "evidence_shows_test_mode_failure_was_enabled_by_missing_or_bypassed_safeguards",
+          "corrective_plan_requires_multi-layer_process_reform_not_only_single_patch"
+        ],
+        "status": "active",
+        "status_basis": "Current evidence points to a test-mode failure but does not yet establish whether controls failed narrowly or systemically."
+      },
+      {
+        "authority_refs": [
+          "regional_emergency_management_office",
+          "alert_app_operations_team",
+          "alert_app_engineering_team",
+          "regional_political_oversight_bloc",
+          "accessibility_advocacy_groups"
+        ],
+        "blockers": [
+          "official minimization of accessibility issue",
+          "treating incident as purely technical",
+          "lack of implementation capacity"
+        ],
+        "contradiction_notes": "Accessibility is already public, yet may still be sidelined if officials narrow the narrative to a singular bug.",
+        "description": "Accessibility becomes an acknowledged and operationalized part of the corrective response.",
+        "endpoint_key": "accessibility_reform_instituted",
+        "evidence_refs": [
+          "disabled residents complaints",
+          "official remediation plan",
+          "hearing agenda"
+        ],
+        "label": "Accessibility reform instituted",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do officials commit to and begin meaningful accessibility remediation rather than treating accessibility as peripheral?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.52,
+        "rationale": "The scenario explicitly highlights disabled residents and accessibility, requiring an endpoint beyond generic accountability.",
+        "realization_criteria": [
+          "official_plan_includes_accessibility_audit_or_design_changes",
+          "disabled_residents_or_advocates_are_formally_consulted_or_heard",
+          "follow-up communications reference measurable accessibility standards_or_testing"
+        ],
+        "status": "active",
+        "status_basis": "Accessibility harm is visible at T0 but not yet guaranteed to shape policy or engineering response."
+      },
+      {
+        "authority_refs": [
+          "regional_political_oversight_bloc",
+          "regional_emergency_management_office",
+          "regional_news_media"
+        ],
+        "blockers": [
+          "attention decay",
+          "cross-party fragmentation",
+          "rapid trust repair reducing urgency",
+          "limited formal jurisdiction"
+        ],
+        "contradiction_notes": "Political incentives support hearings, but authority and persistence are uncertain.",
+        "description": "Political response results in concrete institutional action such as hearings, audit orders, mandated reporting, or leadership consequences.",
+        "endpoint_key": "formal_oversight_action_taken",
+        "evidence_refs": [
+          "politicians call hearings",
+          "public statements",
+          "oversight calendar"
+        ],
+        "label": "Formal oversight action taken",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do political hearing efforts produce formal accountability actions beyond public criticism?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.58,
+        "rationale": "Hearings are explicitly mentioned, and later evidence can determine whether oversight remains symbolic or becomes formal.",
+        "realization_criteria": [
+          "hearing_is_formally_scheduled_or_conducted",
+          "oversight_body_requests_documents_or_testimony",
+          "audit_or_formal_review_is_announced",
+          "leadership_or_policy_consequences_are_recorded"
+        ],
+        "status": "active",
+        "status_basis": "Calls for hearings exist at T0, but concrete oversight outputs are not yet realized."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "Officials apologize after false evacuation warning.",
+        "layer": "exposure",
+        "reason": "Officials are publicly associated with the false alert and apology.",
+        "source_actor_name": "regional_emergency_management_office",
+        "target_actor_name": "regional_residents",
+        "weight": 0.64
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Politicians call hearings and accountability becomes public issue.",
+        "layer": "exposure",
+        "reason": "Media coverage likely spreads incident details and accountability narratives.",
+        "source_actor_name": "regional_news_media",
+        "target_actor_name": "regional_residents",
+        "weight": 0.61
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Public controversy and calls for hearings.",
+        "layer": "exposure",
+        "reason": "Media attention reinforces hearing salience.",
+        "source_actor_name": "regional_news_media",
+        "target_actor_name": "regional_political_oversight_bloc",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Disabled residents say alerts were inaccessible.",
+        "layer": "exposure",
+        "reason": "Accessibility claims can surface through advocacy channels to oversight actors.",
+        "source_actor_name": "accessibility_advocacy_groups",
+        "target_actor_name": "regional_political_oversight_bloc",
+        "weight": 0.38
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Politicians call hearings.",
+        "layer": "exposure",
+        "reason": "Hearing calls create visible political response.",
+        "source_actor_name": "regional_political_oversight_bloc",
+        "target_actor_name": "regional_residents",
+        "weight": 0.44
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Disabled residents say alerts were inaccessible.",
+        "layer": "exposure",
+        "reason": "First-person accessibility complaints are newsworthy.",
+        "source_actor_name": "disabled_residents",
+        "target_actor_name": "regional_news_media",
+        "weight": 0.35
+      },
+      {
+        "direction": "inbound",
+        "evidence": "Residents demand accountability after false evacuation warning.",
+        "layer": "trust",
+        "reason": "False warning has damaged perceived competence and reliability.",
+        "source_actor_name": "regional_residents",
+        "target_actor_name": "regional_emergency_management_office",
+        "weight": 0.29
+      },
+      {
+        "direction": "inbound",
+        "evidence": "Disabled residents say alerts were inaccessible.",
+        "layer": "trust",
+        "reason": "Accessibility concerns compound trust damage beyond general reliability concerns.",
+        "source_actor_name": "disabled_residents",
+        "target_actor_name": "regional_emergency_management_office",
+        "weight": 0.21
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Engineers identify a test-mode failure.",
+        "layer": "trust",
+        "reason": "Leadership depends on engineers for credible diagnosis.",
+        "source_actor_name": "regional_emergency_management_office",
+        "target_actor_name": "alert_app_engineering_team",
+        "weight": 0.56
+      },
+      {
+        "direction": "inbound",
+        "evidence": "Politicians call hearings.",
+        "layer": "trust",
+        "reason": "Oversight actors are skeptical and seek formal inquiry.",
+        "source_actor_name": "regional_political_oversight_bloc",
+        "target_actor_name": "regional_emergency_management_office",
+        "weight": 0.31
+      },
+      {
+        "direction": "inbound",
+        "evidence": "Accessibility complaints following false alert.",
+        "layer": "trust",
+        "reason": "Advocates are likely doubtful until accessibility remediation is explicit.",
+        "source_actor_name": "accessibility_advocacy_groups",
+        "target_actor_name": "regional_emergency_management_office",
+        "weight": 0.24
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Emergency-alert app operational failure requires process review.",
+        "layer": "dependency",
+        "reason": "Agency relies on operations staff to run alert workflows safely.",
+        "source_actor_name": "regional_emergency_management_office",
+        "target_actor_name": "alert_app_operations_team",
+        "weight": 0.63
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Engineers identify a test-mode failure.",
+        "layer": "dependency",
+        "reason": "Agency relies on engineering diagnosis and fixes to restore system credibility.",
+        "source_actor_name": "regional_emergency_management_office",
+        "target_actor_name": "alert_app_engineering_team",
+        "weight": 0.59
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Regional emergency-alert app is a public safety channel.",
+        "layer": "dependency",
+        "reason": "Residents depend on emergency authority for accurate warnings during crises.",
+        "source_actor_name": "regional_residents",
+        "target_actor_name": "regional_emergency_management_office",
+        "weight": 0.51
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Inaccessibility concerns tied to emergency alerting.",
+        "layer": "dependency",
+        "reason": "Disabled residents depend on accessible alerts for equitable safety access.",
+        "source_actor_name": "disabled_residents",
+        "target_actor_name": "regional_emergency_management_office",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Hearings are being called in a visible controversy.",
+        "layer": "dependency",
+        "reason": "Political oversight benefits from public visibility to sustain pressure.",
+        "source_actor_name": "regional_political_oversight_bloc",
+        "target_actor_name": "regional_news_media",
+        "weight": 0.27
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Incident is report-focused and politically salient.",
+        "layer": "influence",
+        "reason": "Media framing shapes perceived severity and accountability expectations.",
+        "source_actor_name": "regional_news_media",
+        "target_actor_name": "regional_residents",
+        "weight": 0.55
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Politicians call hearings.",
+        "layer": "influence",
+        "reason": "Hearing threats can compel disclosures and procedural changes.",
+        "source_actor_name": "regional_political_oversight_bloc",
+        "target_actor_name": "regional_emergency_management_office",
+        "weight": 0.62
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Engineers identify a test-mode failure.",
+        "layer": "influence",
+        "reason": "Technical findings define plausible official explanations and remedies.",
+        "source_actor_name": "alert_app_engineering_team",
+        "target_actor_name": "regional_emergency_management_office",
+        "weight": 0.48
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Disabled residents report inaccessible alerts.",
+        "layer": "influence",
+        "reason": "Accessibility harms create a salient equity angle for oversight agendas.",
+        "source_actor_name": "disabled_residents",
+        "target_actor_name": "regional_political_oversight_bloc",
+        "weight": 0.42
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Accessibility issue present in incident.",
+        "layer": "influence",
+        "reason": "Advocates can elevate accessibility framing in coverage.",
+        "source_actor_name": "accessibility_advocacy_groups",
+        "target_actor_name": "regional_news_media",
+        "weight": 0.39
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Residents demand accountability and politicians call hearings.",
+        "layer": "coalition",
+        "reason": "Shared interest in accountability, though not necessarily partisan alignment.",
+        "source_actor_name": "regional_residents",
+        "target_actor_name": "regional_political_oversight_bloc",
+        "weight": 0.41
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Disabled residents say alerts were inaccessible.",
+        "layer": "coalition",
+        "reason": "Strong common cause around inaccessible emergency alerts.",
+        "source_actor_name": "disabled_residents",
+        "target_actor_name": "accessibility_advocacy_groups",
+        "weight": 0.61
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Oversight opening plus accessibility complaints.",
+        "layer": "coalition",
+        "reason": "Potential alignment if hearings address accessibility and inclusion.",
+        "source_actor_name": "disabled_residents",
+        "target_actor_name": "regional_political_oversight_bloc",
+        "weight": 0.46
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Officials responding while engineers identify failure mode.",
+        "layer": "coalition",
+        "reason": "Shared need to restore operational credibility and maintain service.",
+        "source_actor_name": "regional_emergency_management_office",
+        "target_actor_name": "alert_app_engineering_team",
+        "weight": 0.52
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Technical and process dimensions are both implicated.",
+        "layer": "coalition",
+        "reason": "Operations and engineering both need coordinated remediation.",
+        "source_actor_name": "alert_app_operations_team",
+        "target_actor_name": "alert_app_engineering_team",
+        "weight": 0.57
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Residents demand accountability.",
+        "layer": "conflict",
+        "reason": "Residents are demanding accountability after the false alert.",
+        "source_actor_name": "regional_residents",
+        "target_actor_name": "regional_emergency_management_office",
+        "weight": 0.58
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Disabled residents say alerts were inaccessible.",
+        "layer": "conflict",
+        "reason": "Accessibility failures intensify grievance and perceived neglect.",
+        "source_actor_name": "disabled_residents",
+        "target_actor_name": "regional_emergency_management_office",
+        "weight": 0.66
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Politicians call hearings.",
+        "layer": "conflict",
+        "reason": "Formal oversight pressure creates institutional tension.",
+        "source_actor_name": "regional_political_oversight_bloc",
+        "target_actor_name": "regional_emergency_management_office",
+        "weight": 0.54
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Incident has public accountability dimension.",
+        "layer": "conflict",
+        "reason": "Scrutiny and negative framing increase pressure on officials.",
+        "source_actor_name": "regional_news_media",
+        "target_actor_name": "regional_emergency_management_office",
+        "weight": 0.37
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Accessibility complaints tied to public safety service.",
+        "layer": "conflict",
+        "reason": "Advocates likely view accessibility failures as preventable governance shortcomings.",
+        "source_actor_name": "accessibility_advocacy_groups",
+        "target_actor_name": "regional_emergency_management_office",
+        "weight": 0.49
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Officials apologize amid public scrutiny.",
+        "layer": "oasis_interaction",
+        "reason": "Press briefings, statements, and follow-up reporting are likely immediate interaction channels.",
+        "source_actor_name": "regional_emergency_management_office",
+        "target_actor_name": "regional_news_media",
+        "weight": 0.53
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Politicians call hearings.",
+        "layer": "oasis_interaction",
+        "reason": "Hearing calls and accountability messaging will play out in public channels.",
+        "source_actor_name": "regional_political_oversight_bloc",
+        "target_actor_name": "regional_news_media",
+        "weight": 0.49
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Accessibility concerns surfaced publicly.",
+        "layer": "oasis_interaction",
+        "reason": "Likely public sharing of accessibility complaints and demands.",
+        "source_actor_name": "disabled_residents",
+        "target_actor_name": "accessibility_advocacy_groups",
+        "weight": 0.44
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Public demand for accountability.",
+        "layer": "oasis_interaction",
+        "reason": "Residents discuss, react to, and feed stories about the false alert.",
+        "source_actor_name": "regional_residents",
+        "target_actor_name": "regional_news_media",
+        "weight": 0.36
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype_key": "official_response_lead",
+        "label": "Emergency office leadership",
+        "role": "public decision authority"
+      },
+      {
+        "archetype_key": "technical_remediation_lead",
+        "label": "Engineering remediation lead",
+        "role": "technical diagnosis and fix"
+      },
+      {
+        "archetype_key": "oversight_chair",
+        "label": "Political oversight chair",
+        "role": "hearing and accountability agenda setter"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "regional_emergency_management_office",
+        "archetype_key": "official_response_lead",
+        "attention_level": 0.91,
+        "expression_level": 0.78,
+        "fatigue": 0.44,
+        "fear_of_isolation": 0.33,
+        "formal_power": 0.74,
+        "hero_key": "emo_director",
+        "mobilization_readiness": 0.61,
+        "name": "EMO Director",
+        "perceived_majority": 0.51,
+        "role": "Senior official leading public response and remediation commitments.",
+        "stance_axes": {
+          "apology_orientation": 0.82,
+          "defensiveness": 0.36,
+          "reform_willingness": 0.58,
+          "transparency": 0.54
+        }
+      },
+      {
+        "actor_name": "alert_app_engineering_team",
+        "archetype_key": "technical_remediation_lead",
+        "attention_level": 0.86,
+        "expression_level": 0.31,
+        "fatigue": 0.49,
+        "fear_of_isolation": 0.38,
+        "formal_power": 0.52,
+        "hero_key": "engineering_manager",
+        "mobilization_readiness": 0.72,
+        "name": "Engineering Manager",
+        "perceived_majority": 0.42,
+        "role": "Technical lead associated with identifying the test-mode failure.",
+        "stance_axes": {
+          "process_reform_willingness": 0.69,
+          "public_visibility_comfort": 0.28,
+          "root_cause_certainty": 0.57,
+          "service_continuity_priority": 0.81
+        }
+      },
+      {
+        "actor_name": "regional_political_oversight_bloc",
+        "archetype_key": "oversight_chair",
+        "attention_level": 0.84,
+        "expression_level": 0.73,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.14,
+        "formal_power": 0.67,
+        "hero_key": "oversight_committee_chair",
+        "mobilization_readiness": 0.76,
+        "name": "Oversight Committee Chair",
+        "perceived_majority": 0.62,
+        "role": "Political figure pressing for hearings and visible accountability.",
+        "stance_axes": {
+          "cross_partisan_cooperation": 0.41,
+          "hearing_push": 0.88,
+          "institutional_reform_interest": 0.63,
+          "performative_pressure": 0.47
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "archetype_key": "official_response_lead",
+        "label": "Emergency office leadership",
+        "role": "public decision authority"
+      },
+      {
+        "archetype_key": "technical_remediation_lead",
+        "label": "Engineering remediation lead",
+        "role": "technical diagnosis and fix"
+      },
+      {
+        "archetype_key": "oversight_chair",
+        "label": "Political oversight chair",
+        "role": "hearing and accountability agenda setter"
+      }
+    ],
+    "important_questions": [
+      "Does public trust in the regional emergency-alert system recover enough that residents remain willing to comply with future alerts?",
+      "Is the incident ultimately understood as a contained test-mode error or as evidence of broader process and control failure?",
+      "Do officials commit to and begin meaningful accessibility remediation rather than treating accessibility as peripheral?",
+      "Do political hearing efforts produce formal accountability actions beyond public criticism?"
+    ],
+    "initial_events": [
+      {
+        "event_key": "false_evacuation_alert_sent",
+        "event_type": "announcement",
+        "expected_impact": "Immediate trust shock, confusion, and scrutiny of operational safeguards.",
+        "status": "realized",
+        "summary": "Regional emergency-alert app sends a false evacuation warning.",
+        "tick": 0
+      },
+      {
+        "event_key": "official_apology_issued",
+        "event_type": "announcement",
+        "expected_impact": "May reduce anger at the margins but does not resolve competence concerns without concrete explanation.",
+        "status": "realized",
+        "summary": "Officials publicly apologize for the false warning.",
+        "tick": 0
+      },
+      {
+        "event_key": "accessibility_failures_reported",
+        "event_type": "announcement",
+        "expected_impact": "Expands incident scope from reliability failure to equity and safety governance problem.",
+        "status": "realized",
+        "summary": "Disabled residents report that alerts were inaccessible or insufficiently accessible.",
+        "tick": 0
+      },
+      {
+        "event_key": "test_mode_failure_preliminary_identified",
+        "event_type": "announcement",
+        "expected_impact": "Provides a candidate explanation while raising questions about safeguards, separation of test and production, and change control.",
+        "status": "realized",
+        "summary": "Engineers identify a test-mode failure as a likely cause.",
+        "tick": 0
+      },
+      {
+        "event_key": "hearing_calls_escalate",
+        "event_type": "announcement",
+        "expected_impact": "Increases disclosure pressure and can harden adversarial framing around accountability.",
+        "status": "scheduled",
+        "summary": "Political oversight actors push for hearings or formal inquiry.",
+        "tick": 1
+      },
+      {
+        "event_key": "remediation_plan_announcement_window",
+        "event_type": "announcement",
+        "expected_impact": "Can stabilize trust decline if specific and credible; weak plans may intensify skepticism.",
+        "status": "scheduled",
+        "summary": "Officials may present a corrective-action plan covering technical fixes and communication process changes.",
+        "tick": 2
+      },
+      {
+        "event_key": "accessibility_review_demand",
+        "event_type": "announcement",
+        "expected_impact": "Determines whether accessibility remains central or is sidelined as a secondary issue.",
+        "status": "scheduled",
+        "summary": "Advocates and affected residents seek explicit accessibility audit or redesign commitment.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "24ddc78f-5d3c-459b-8bdc-b260eda46870",
+    "merge_hypotheses": [
+      {
+        "convergence_basis": "All major actors remain dependent on a functioning emergency alert system.",
+        "likely_effect": "Even adversarial actors may converge on preserving service continuity while contesting accountability.",
+        "merge_key": "shared_public_safety_dependency"
+      },
+      {
+        "convergence_basis": "A visible independent technical and accessibility review could offer a common legitimacy anchor.",
+        "likely_effect": "Reduces narrative fragmentation and allows both reform advocates and officials to accept shared findings.",
+        "merge_key": "credible_third_party_review"
+      },
+      {
+        "convergence_basis": "Public attention may decay if no new harms emerge quickly.",
+        "likely_effect": "Residents, media, and politicians may converge toward a lower-intensity monitoring stance rather than constant escalation.",
+        "merge_key": "fatigue_after_initial_spike"
+      },
+      {
+        "convergence_basis": "Specific accessibility remediation steps can align disabled residents, advocates, and cautious officials around measurable progress.",
+        "likely_effect": "Transforms some conflict into conditional coalition support.",
+        "merge_key": "concrete_accessibility_commitments"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "regional_public",
+        "description": "General residents affected directly or indirectly by the false alert.",
+        "label": "Regional public",
+        "population_total": 1000000
+      },
+      {
+        "archetype_key": "disabled_public",
+        "description": "Residents with disabilities facing heightened communication-access risks during emergency alerts.",
+        "label": "Disabled residents",
+        "population_total": 150000
+      }
+    ],
+    "risk_flags": [
+      {
+        "note": "Population estimates are inferred for simulation coherence and not provided by source text.",
+        "risk_key": "population_scale_uncertain",
+        "severity": "medium"
+      },
+      {
+        "note": "It is unclear whether the app is fully government-run, contractor-operated, or shared, limiting precision on authority edges.",
+        "risk_key": "governance_structure_unknown",
+        "severity": "medium"
+      },
+      {
+        "note": "Specific modalities of inaccessibility are not described, so remediation branches remain broad.",
+        "risk_key": "accessibility_failure_details_sparse",
+        "severity": "medium"
+      },
+      {
+        "note": "No confirmed injuries, evacuations, or economic losses are stated at T0.",
+        "risk_key": "harm_extent_not_specified",
+        "severity": "low"
+      },
+      {
+        "note": "The identified test-mode failure may be accurate but could prematurely narrow inquiry before process weaknesses are assessed.",
+        "risk_key": "premature_root_cause_lock_in",
+        "severity": "high"
+      },
+      {
+        "note": "The most consequential downstream risk may be residents discounting future real alerts, which is not yet directly measured at T0.",
+        "risk_key": "future_compliance_risk",
+        "severity": "high"
+      }
+    ],
+    "simulation_brief": {
+      "configured_context": {},
+      "mode": "direct",
+      "scenario_key": "case_report_006",
+      "summary": "A regional emergency-alert app issued a false evacuation warning. Officials have apologized. Residents seek accountability, disabled residents report accessibility barriers, engineers point to a test-mode failure, and politicians are calling for hearings. T0 should capture trust damage, accessibility concerns, technical process failure, and multiple recovery or escalation paths without assuming final resolution.",
+      "time_horizon_known": false,
+      "title": "false_evacuation_alert_regional_app",
+      "uncertainty_notes": [
+        "Exact region, agency structure, app vendor structure, and population scale are not specified.",
+        "The false alert is established, but severity of actual downstream harm, legal exposure, and technical root cause depth remain uncertain at T0.",
+        "Hearing authority and whether the app is publicly run, contractor-operated, or hybrid are not fully specified."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "regional_residents",
+          "disabled_residents"
+        ],
+        "level": "moderate",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Residents may update views through familiar institutional and media narratives rather than technical detail alone."
+      },
+      {
+        "applies_to": [
+          "regional_residents",
+          "disabled_residents",
+          "regional_political_oversight_bloc"
+        ],
+        "level": "moderate",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Further disclosures, stories of concrete harm, or visible official evasion could increase public action and hearing support."
+      },
+      {
+        "applies_to": [
+          "cautious_compliant_residents",
+          "disabled_residents_watchful_pragmatic"
+        ],
+        "level": "moderate",
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Some residents privately distrust the system more than they publicly express because emergency services remain necessary."
+      },
+      {
+        "applies_to": [
+          "disabled_residents",
+          "accessibility_advocacy_groups"
+        ],
+        "level": "moderate",
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Accessibility framing is likely to cluster within advocacy and affected networks first."
+      },
+      {
+        "applies_to": [
+          "regional_residents"
+        ],
+        "level": "moderate",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Widespread behavioral shift such as ignoring future alerts would likely require repeated reinforcement from peers and media, not a single complaint."
+      },
+      {
+        "applies_to": [
+          "disabled_residents",
+          "regional_political_oversight_bloc"
+        ],
+        "level": "high",
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Accessibility concerns create a distinct fairness and inclusion identity frame that can sustain pressure."
+      },
+      {
+        "applies_to": [
+          "regional_residents",
+          "regional_news_media"
+        ],
+        "level": "moderate",
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Absent new revelations or official conflict, broad public attention may fade faster than technical remediation timelines."
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Many residents remain dependent on emergency alerts even while mistrusting them, limiting immediate total disengagement.",
+        "influence_key": "public_safety_necessity_constraint"
+      },
+      {
+        "description": "Accessibility complaints can shift the incident from simple technical error to broader governance and inclusion failure.",
+        "influence_key": "accessibility_equity_salience"
+      },
+      {
+        "description": "Calls for hearings increase legitimacy pressure and keep the issue in public circulation.",
+        "influence_key": "hearing_visibility_effect"
+      },
+      {
+        "description": "Narrative may split between isolated test-mode mistake and systemic process failure.",
+        "influence_key": "technical_vs_governance_frame_competition"
+      },
+      {
+        "description": "The key social consequence is whether future real alerts are discounted, not only whether apologies were issued.",
+        "influence_key": "future_compliance_risk"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "regional_emergency_management_office",
+        "behavior_axes": {
+          "procedural_rigidity": 0.59,
+          "public_accountability": 0.55,
+          "reactivity": 0.63,
+          "risk_aversion": 0.72
+        },
+        "ideology_axes": {
+          "civil_inclusion_orientation": 0.49,
+          "technocratic_governance": 0.71
+        },
+        "reputation": 0.46,
+        "secrecy": 0.43,
+        "tendency": "stabilize_operations_while_limiting_escalation",
+        "trustworthiness": 0.41
+      },
+      {
+        "actor_name": "alert_app_operations_team",
+        "behavior_axes": {
+          "procedural_rigidity": 0.66,
+          "public_accountability": 0.34,
+          "reactivity": 0.68,
+          "risk_aversion": 0.74
+        },
+        "ideology_axes": {
+          "civil_inclusion_orientation": 0.38,
+          "technocratic_governance": 0.76
+        },
+        "reputation": 0.43,
+        "secrecy": 0.52,
+        "tendency": "preserve_service_and_tighten_workflow_controls",
+        "trustworthiness": 0.45
+      },
+      {
+        "actor_name": "alert_app_engineering_team",
+        "behavior_axes": {
+          "procedural_rigidity": 0.48,
+          "public_accountability": 0.37,
+          "reactivity": 0.71,
+          "risk_aversion": 0.61
+        },
+        "ideology_axes": {
+          "civil_inclusion_orientation": 0.44,
+          "technocratic_governance": 0.84
+        },
+        "reputation": 0.51,
+        "secrecy": 0.39,
+        "tendency": "seek_root_cause_and_patch_failure",
+        "trustworthiness": 0.56
+      },
+      {
+        "actor_name": "regional_residents",
+        "behavior_axes": {
+          "procedural_rigidity": 0.22,
+          "public_accountability": 0.73,
+          "reactivity": 0.58,
+          "risk_aversion": 0.64
+        },
+        "ideology_axes": {
+          "civil_inclusion_orientation": 0.57,
+          "technocratic_governance": 0.43
+        },
+        "reputation": 0.5,
+        "secrecy": 0.14,
+        "tendency": "evaluate_future_alerts_through_recent_failure_memory",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "disabled_residents",
+        "behavior_axes": {
+          "procedural_rigidity": 0.25,
+          "public_accountability": 0.84,
+          "reactivity": 0.66,
+          "risk_aversion": 0.76
+        },
+        "ideology_axes": {
+          "civil_inclusion_orientation": 0.9,
+          "technocratic_governance": 0.39
+        },
+        "reputation": 0.56,
+        "secrecy": 0.16,
+        "tendency": "link_reliability_and_accessibility_as_joint_safety_issue",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "regional_political_oversight_bloc",
+        "behavior_axes": {
+          "procedural_rigidity": 0.53,
+          "public_accountability": 0.79,
+          "reactivity": 0.74,
+          "risk_aversion": 0.45
+        },
+        "ideology_axes": {
+          "civil_inclusion_orientation": 0.6,
+          "technocratic_governance": 0.52
+        },
+        "reputation": 0.49,
+        "secrecy": 0.27,
+        "tendency": "convert_public_concern_into_hearing_pressure",
+        "trustworthiness": 0.47
+      },
+      {
+        "actor_name": "regional_news_media",
+        "behavior_axes": {
+          "procedural_rigidity": 0.19,
+          "public_accountability": 0.69,
+          "reactivity": 0.77,
+          "risk_aversion": 0.31
+        },
+        "ideology_axes": {
+          "civil_inclusion_orientation": 0.54,
+          "technocratic_governance": 0.41
+        },
+        "reputation": 0.55,
+        "secrecy": 0.11,
+        "tendency": "amplify_visible_failures_and_response_quality",
+        "trustworthiness": 0.52
+      },
+      {
+        "actor_name": "accessibility_advocacy_groups",
+        "behavior_axes": {
+          "procedural_rigidity": 0.28,
+          "public_accountability": 0.86,
+          "reactivity": 0.69,
+          "risk_aversion": 0.52
+        },
+        "ideology_axes": {
+          "civil_inclusion_orientation": 0.94,
+          "technocratic_governance": 0.37
+        },
+        "reputation": 0.58,
+        "secrecy": 0.12,
+        "tendency": "press_for_inclusive_remediation_and_oversight",
+        "trustworthiness": 0.63
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 505,
+        "end": 505,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 505,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

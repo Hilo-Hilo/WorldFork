@@ -1,0 +1,1508 @@
+{
+  "big_bang_id": "a03b14cf-ab6e-4a4d-8bbd-b525eb485459",
+  "initializer_output": {
+    "actors": [
+      {
+        "decision_authority": "high",
+        "description": "Main food distribution organization implementing income verification.",
+        "fictionalized": true,
+        "name": "regional_food_bank",
+        "stakes": [
+          "maintain donor funding",
+          "preserve service throughput",
+          "retain legitimacy with clients and partners"
+        ],
+        "type": "institution"
+      },
+      {
+        "decision_authority": "high",
+        "description": "Board overseeing policy and able to change verification requirements.",
+        "fictionalized": true,
+        "name": "food_bank_board",
+        "stakes": [
+          "governance legitimacy",
+          "financial stability",
+          "mission performance"
+        ],
+        "type": "governing_body"
+      },
+      {
+        "decision_authority": "medium",
+        "description": "Donors pressing for income verification and accountability measures.",
+        "fictionalized": true,
+        "name": "accountability_donors",
+        "stakes": [
+          "assurance of proper targeting",
+          "reputational comfort",
+          "control over funded practices"
+        ],
+        "type": "donor_coalition"
+      },
+      {
+        "decision_authority": "low",
+        "description": "People seeking food assistance and subject to verification procedures.",
+        "fictionalized": true,
+        "name": "food_bank_clients",
+        "stakes": [
+          "access to food",
+          "dignity",
+          "privacy",
+          "predictability of service"
+        ],
+        "type": "service_population"
+      },
+      {
+        "decision_authority": "low",
+        "description": "Volunteers handling intake and distribution who expect slower operations.",
+        "fictionalized": true,
+        "name": "frontline_volunteers",
+        "stakes": [
+          "smooth service delivery",
+          "reduced conflict at distribution points",
+          "mission fulfillment"
+        ],
+        "type": "workforce_cohort"
+      },
+      {
+        "decision_authority": "medium",
+        "description": "Church partners involved in referrals or distribution, with private disagreement over policy.",
+        "fictionalized": true,
+        "name": "partner_churches",
+        "stakes": [
+          "community trust",
+          "partnership continuity",
+          "moral positioning"
+        ],
+        "type": "partner_network"
+      },
+      {
+        "decision_authority": "low",
+        "description": "Regional observers and potential future participants in the issue environment.",
+        "fictionalized": true,
+        "name": "local_public",
+        "stakes": [
+          "charitable trust",
+          "community norms"
+        ],
+        "type": "ambient_public"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Board or operations leadership introduces exemptions, simplified checks, or reduced documentation burden.",
+        "branch_key": "softening_after_operational_friction",
+        "divergence_signal": "Internal memos, revised intake guidance, or public explanation emphasizing dignity and speed rather than strict verification.",
+        "trigger": "Observed queue delays, volunteer complaints, or service throughput decline during early implementation."
+      },
+      {
+        "alternate_path": "Visible protest stays low but service usage declines among vulnerable clients.",
+        "branch_key": "quiet_client_exit",
+        "divergence_signal": "Drop in repeat visits, increased anecdotal avoidance, or partner reports of unmet need outside normal channels.",
+        "trigger": "Clients perceive verification as stigmatizing and hear confirming experiences from peers."
+      },
+      {
+        "alternate_path": "Funding threats intensify, pushing the board toward stricter enforcement despite operational objections.",
+        "branch_key": "donor_hardening",
+        "divergence_signal": "Conditional pledges, donor letters, or board language stressing compliance and stewardship over access concerns.",
+        "trigger": "Donors perceive implementation as lax or reversible."
+      },
+      {
+        "alternate_path": "A low-publicity but influential internal coalition presses the board for revision.",
+        "branch_key": "private_coalition_forms_against_policy",
+        "divergence_signal": "Coordinated private feedback, shared talking points, or multiple partner requests for reconsideration at the same meeting.",
+        "trigger": "Partner churches and volunteers exchange reinforcing accounts of harm or slowdown."
+      },
+      {
+        "alternate_path": "Local public attention rises, changing reputational incentives for board and donors.",
+        "branch_key": "public_issue_activation",
+        "divergence_signal": "Public testimonials, social media discussion, or local press framing verification as dignity or access issue.",
+        "trigger": "A client story, church statement, or local media mention converts private unease into public controversy."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "intake_distribution_sites",
+        "participants": [
+          "food_bank_clients",
+          "frontline_volunteers",
+          "regional_food_bank"
+        ],
+        "type": "in_person_service",
+        "visibility": "semi_public"
+      },
+      {
+        "channel_key": "board_meetings",
+        "participants": [
+          "food_bank_board",
+          "regional_food_bank"
+        ],
+        "type": "governance",
+        "visibility": "private"
+      },
+      {
+        "channel_key": "donor_communications",
+        "participants": [
+          "accountability_donors",
+          "food_bank_board",
+          "regional_food_bank"
+        ],
+        "type": "funding_relationship",
+        "visibility": "private"
+      },
+      {
+        "channel_key": "partner_coordination_calls",
+        "participants": [
+          "partner_churches",
+          "regional_food_bank"
+        ],
+        "type": "partner_network",
+        "visibility": "private"
+      },
+      {
+        "channel_key": "community_word_of_mouth",
+        "participants": [
+          "food_bank_clients",
+          "partner_churches",
+          "local_public"
+        ],
+        "type": "informal_network",
+        "visibility": "diffuse"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "food_bank_clients",
+        "archetype_key": "clients",
+        "attention_level": 0.63,
+        "cohort_key": "clients_stigma_worried",
+        "expression_level": 0.21,
+        "fatigue": 0.48,
+        "fear_of_isolation": 0.73,
+        "mobilization_readiness": 0.28,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "Verification feels stigmatizing or risky; some may reduce usage if alternatives exist.",
+        "public_expression": "Muted; many avoid confrontation due to dependency and shame concerns.",
+        "representation_mode": "majority_tendency",
+        "represented_population": 1320,
+        "stance_axes": {
+          "privacy_priority": 0.79,
+          "public_voice_willingness": 0.24,
+          "service_continuity_priority": 0.84,
+          "verification_support": 0.22
+        }
+      },
+      {
+        "actor_name": "food_bank_clients",
+        "archetype_key": "clients",
+        "attention_level": 0.52,
+        "cohort_key": "clients_pragmatic_compliers",
+        "expression_level": 0.16,
+        "fatigue": 0.44,
+        "fear_of_isolation": 0.58,
+        "mobilization_readiness": 0.17,
+        "perceived_majority": 0.56,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Verification is unpleasant but acceptable if food access remains reliable.",
+        "public_expression": "Mostly compliant, little advocacy.",
+        "representation_mode": "minority_tendency",
+        "represented_population": 840,
+        "stance_axes": {
+          "privacy_priority": 0.52,
+          "public_voice_willingness": 0.18,
+          "service_continuity_priority": 0.88,
+          "verification_support": 0.49
+        }
+      },
+      {
+        "actor_name": "food_bank_clients",
+        "archetype_key": "clients",
+        "attention_level": 0.67,
+        "cohort_key": "clients_exit_prone",
+        "expression_level": 0.1,
+        "fatigue": 0.55,
+        "fear_of_isolation": 0.76,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.29,
+        "population_share_of_archetype": 0.1,
+        "private_belief": "Verification is unacceptable; may avoid services entirely.",
+        "public_expression": "Low voice, high quiet withdrawal risk.",
+        "representation_mode": "meaningful_minority",
+        "represented_population": 240,
+        "stance_axes": {
+          "privacy_priority": 0.91,
+          "public_voice_willingness": 0.12,
+          "service_continuity_priority": 0.67,
+          "verification_support": 0.08
+        }
+      },
+      {
+        "actor_name": "frontline_volunteers",
+        "archetype_key": "volunteers",
+        "attention_level": 0.71,
+        "cohort_key": "volunteers_throughput_concerned",
+        "expression_level": 0.33,
+        "fatigue": 0.5,
+        "fear_of_isolation": 0.46,
+        "mobilization_readiness": 0.34,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.65,
+        "private_belief": "Verification may slow lines and create friction.",
+        "public_expression": "Cautious internal concern rather than public dissent.",
+        "representation_mode": "majority_tendency",
+        "represented_population": 91,
+        "stance_axes": {
+          "privacy_priority": 0.46,
+          "public_voice_willingness": 0.31,
+          "service_continuity_priority": 0.9,
+          "verification_support": 0.38
+        }
+      },
+      {
+        "actor_name": "frontline_volunteers",
+        "archetype_key": "volunteers",
+        "attention_level": 0.58,
+        "cohort_key": "volunteers_accountability_sympathetic",
+        "expression_level": 0.36,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.37,
+        "mobilization_readiness": 0.26,
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Some verification is reasonable if it protects resources.",
+        "public_expression": "Moderate support in organizational settings.",
+        "representation_mode": "minority_tendency",
+        "represented_population": 49,
+        "stance_axes": {
+          "privacy_priority": 0.34,
+          "public_voice_willingness": 0.39,
+          "service_continuity_priority": 0.76,
+          "verification_support": 0.62
+        }
+      },
+      {
+        "actor_name": "partner_churches",
+        "archetype_key": "church_partners",
+        "attention_level": 0.64,
+        "cohort_key": "churches_privately_opposed",
+        "expression_level": 0.22,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.61,
+        "mobilization_readiness": 0.25,
+        "perceived_majority": 0.38,
+        "population_share_of_archetype": 0.56,
+        "private_belief": "Verification may undermine dignity and access.",
+        "public_expression": "Restrained; avoid open rupture with food bank and donors.",
+        "representation_mode": "majority_tendency",
+        "represented_population": 20,
+        "stance_axes": {
+          "privacy_priority": 0.74,
+          "public_voice_willingness": 0.29,
+          "service_continuity_priority": 0.72,
+          "verification_support": 0.27
+        }
+      },
+      {
+        "actor_name": "partner_churches",
+        "archetype_key": "church_partners",
+        "attention_level": 0.49,
+        "cohort_key": "churches_cautious_neutral",
+        "expression_level": 0.19,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.42,
+        "mobilization_readiness": 0.14,
+        "perceived_majority": 0.51,
+        "population_share_of_archetype": 0.28,
+        "private_belief": "Unsure; willing to defer to board judgment while monitoring effects.",
+        "public_expression": "Neutral support or silence.",
+        "representation_mode": "minority_tendency",
+        "represented_population": 10,
+        "stance_axes": {
+          "privacy_priority": 0.51,
+          "public_voice_willingness": 0.24,
+          "service_continuity_priority": 0.7,
+          "verification_support": 0.49
+        }
+      },
+      {
+        "actor_name": "partner_churches",
+        "archetype_key": "church_partners",
+        "attention_level": 0.46,
+        "cohort_key": "churches_accountability_supportive",
+        "expression_level": 0.27,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.31,
+        "mobilization_readiness": 0.18,
+        "perceived_majority": 0.33,
+        "population_share_of_archetype": 0.17,
+        "private_belief": "Verification is appropriate stewardship.",
+        "public_expression": "Willing to endorse internally, less active publicly.",
+        "representation_mode": "meaningful_minority",
+        "represented_population": 6,
+        "stance_axes": {
+          "privacy_priority": 0.31,
+          "public_voice_willingness": 0.34,
+          "service_continuity_priority": 0.64,
+          "verification_support": 0.68
+        }
+      },
+      {
+        "actor_name": "accountability_donors",
+        "archetype_key": "donor_base",
+        "attention_level": 0.74,
+        "cohort_key": "donors_accountability_core",
+        "expression_level": 0.57,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Verification is necessary for credible stewardship.",
+        "public_expression": "More willing than others to press policy demands.",
+        "representation_mode": "high_influence_minority",
+        "represented_population": 42,
+        "stance_axes": {
+          "privacy_priority": 0.22,
+          "public_voice_willingness": 0.61,
+          "service_continuity_priority": 0.58,
+          "verification_support": 0.89
+        }
+      },
+      {
+        "actor_name": "accountability_donors",
+        "archetype_key": "donor_base",
+        "attention_level": 0.38,
+        "cohort_key": "donors_passive_majority",
+        "expression_level": 0.14,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.16,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.65,
+        "private_belief": "Generally trust leadership but may react to accountability framing.",
+        "public_expression": "Low unless prompted by controversy or board messaging.",
+        "representation_mode": "majority_tendency",
+        "represented_population": 78,
+        "stance_axes": {
+          "privacy_priority": 0.29,
+          "public_voice_willingness": 0.2,
+          "service_continuity_priority": 0.61,
+          "verification_support": 0.57
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "food_bank_clients",
+        "archetype_key": "clients",
+        "attention_level": 0.63,
+        "cohort_key": "clients_stigma_worried",
+        "expression_level": 0.21,
+        "fatigue": 0.48,
+        "fear_of_isolation": 0.73,
+        "mobilization_readiness": 0.28,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "Verification feels stigmatizing or risky; some may reduce usage if alternatives exist.",
+        "public_expression": "Muted; many avoid confrontation due to dependency and shame concerns.",
+        "representation_mode": "majority_tendency",
+        "represented_population": 1320,
+        "stance_axes": {
+          "privacy_priority": 0.79,
+          "public_voice_willingness": 0.24,
+          "service_continuity_priority": 0.84,
+          "verification_support": 0.22
+        }
+      },
+      {
+        "actor_name": "food_bank_clients",
+        "archetype_key": "clients",
+        "attention_level": 0.52,
+        "cohort_key": "clients_pragmatic_compliers",
+        "expression_level": 0.16,
+        "fatigue": 0.44,
+        "fear_of_isolation": 0.58,
+        "mobilization_readiness": 0.17,
+        "perceived_majority": 0.56,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Verification is unpleasant but acceptable if food access remains reliable.",
+        "public_expression": "Mostly compliant, little advocacy.",
+        "representation_mode": "minority_tendency",
+        "represented_population": 840,
+        "stance_axes": {
+          "privacy_priority": 0.52,
+          "public_voice_willingness": 0.18,
+          "service_continuity_priority": 0.88,
+          "verification_support": 0.49
+        }
+      },
+      {
+        "actor_name": "food_bank_clients",
+        "archetype_key": "clients",
+        "attention_level": 0.67,
+        "cohort_key": "clients_exit_prone",
+        "expression_level": 0.1,
+        "fatigue": 0.55,
+        "fear_of_isolation": 0.76,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.29,
+        "population_share_of_archetype": 0.1,
+        "private_belief": "Verification is unacceptable; may avoid services entirely.",
+        "public_expression": "Low voice, high quiet withdrawal risk.",
+        "representation_mode": "meaningful_minority",
+        "represented_population": 240,
+        "stance_axes": {
+          "privacy_priority": 0.91,
+          "public_voice_willingness": 0.12,
+          "service_continuity_priority": 0.67,
+          "verification_support": 0.08
+        }
+      },
+      {
+        "actor_name": "frontline_volunteers",
+        "archetype_key": "volunteers",
+        "attention_level": 0.71,
+        "cohort_key": "volunteers_throughput_concerned",
+        "expression_level": 0.33,
+        "fatigue": 0.5,
+        "fear_of_isolation": 0.46,
+        "mobilization_readiness": 0.34,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.65,
+        "private_belief": "Verification may slow lines and create friction.",
+        "public_expression": "Cautious internal concern rather than public dissent.",
+        "representation_mode": "majority_tendency",
+        "represented_population": 91,
+        "stance_axes": {
+          "privacy_priority": 0.46,
+          "public_voice_willingness": 0.31,
+          "service_continuity_priority": 0.9,
+          "verification_support": 0.38
+        }
+      },
+      {
+        "actor_name": "frontline_volunteers",
+        "archetype_key": "volunteers",
+        "attention_level": 0.58,
+        "cohort_key": "volunteers_accountability_sympathetic",
+        "expression_level": 0.36,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.37,
+        "mobilization_readiness": 0.26,
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Some verification is reasonable if it protects resources.",
+        "public_expression": "Moderate support in organizational settings.",
+        "representation_mode": "minority_tendency",
+        "represented_population": 49,
+        "stance_axes": {
+          "privacy_priority": 0.34,
+          "public_voice_willingness": 0.39,
+          "service_continuity_priority": 0.76,
+          "verification_support": 0.62
+        }
+      },
+      {
+        "actor_name": "partner_churches",
+        "archetype_key": "church_partners",
+        "attention_level": 0.64,
+        "cohort_key": "churches_privately_opposed",
+        "expression_level": 0.22,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.61,
+        "mobilization_readiness": 0.25,
+        "perceived_majority": 0.38,
+        "population_share_of_archetype": 0.56,
+        "private_belief": "Verification may undermine dignity and access.",
+        "public_expression": "Restrained; avoid open rupture with food bank and donors.",
+        "representation_mode": "majority_tendency",
+        "represented_population": 20,
+        "stance_axes": {
+          "privacy_priority": 0.74,
+          "public_voice_willingness": 0.29,
+          "service_continuity_priority": 0.72,
+          "verification_support": 0.27
+        }
+      },
+      {
+        "actor_name": "partner_churches",
+        "archetype_key": "church_partners",
+        "attention_level": 0.49,
+        "cohort_key": "churches_cautious_neutral",
+        "expression_level": 0.19,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.42,
+        "mobilization_readiness": 0.14,
+        "perceived_majority": 0.51,
+        "population_share_of_archetype": 0.28,
+        "private_belief": "Unsure; willing to defer to board judgment while monitoring effects.",
+        "public_expression": "Neutral support or silence.",
+        "representation_mode": "minority_tendency",
+        "represented_population": 10,
+        "stance_axes": {
+          "privacy_priority": 0.51,
+          "public_voice_willingness": 0.24,
+          "service_continuity_priority": 0.7,
+          "verification_support": 0.49
+        }
+      },
+      {
+        "actor_name": "partner_churches",
+        "archetype_key": "church_partners",
+        "attention_level": 0.46,
+        "cohort_key": "churches_accountability_supportive",
+        "expression_level": 0.27,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.31,
+        "mobilization_readiness": 0.18,
+        "perceived_majority": 0.33,
+        "population_share_of_archetype": 0.17,
+        "private_belief": "Verification is appropriate stewardship.",
+        "public_expression": "Willing to endorse internally, less active publicly.",
+        "representation_mode": "meaningful_minority",
+        "represented_population": 6,
+        "stance_axes": {
+          "privacy_priority": 0.31,
+          "public_voice_willingness": 0.34,
+          "service_continuity_priority": 0.64,
+          "verification_support": 0.68
+        }
+      },
+      {
+        "actor_name": "accountability_donors",
+        "archetype_key": "donor_base",
+        "attention_level": 0.74,
+        "cohort_key": "donors_accountability_core",
+        "expression_level": 0.57,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Verification is necessary for credible stewardship.",
+        "public_expression": "More willing than others to press policy demands.",
+        "representation_mode": "high_influence_minority",
+        "represented_population": 42,
+        "stance_axes": {
+          "privacy_priority": 0.22,
+          "public_voice_willingness": 0.61,
+          "service_continuity_priority": 0.58,
+          "verification_support": 0.89
+        }
+      },
+      {
+        "actor_name": "accountability_donors",
+        "archetype_key": "donor_base",
+        "attention_level": 0.38,
+        "cohort_key": "donors_passive_majority",
+        "expression_level": 0.14,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.16,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.65,
+        "private_belief": "Generally trust leadership but may react to accountability framing.",
+        "public_expression": "Low unless prompted by controversy or board messaging.",
+        "representation_mode": "majority_tendency",
+        "represented_population": 78,
+        "stance_axes": {
+          "privacy_priority": 0.29,
+          "public_voice_willingness": 0.2,
+          "service_continuity_priority": 0.61,
+          "verification_support": 0.57
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "food_bank_board",
+          "regional_food_bank"
+        ],
+        "blockers": [
+          "Measured client drop-off",
+          "volunteer evidence of severe slowdown",
+          "coordinated partner opposition",
+          "donor preference shift toward softer accountability mechanisms"
+        ],
+        "contradiction_notes": "Retention can coexist with softened implementation; endpoint fails only if core requirement is removed or effectively abandoned.",
+        "description": "Income verification remains substantially in place as the operative access rule, with at most minor administrative tweaks.",
+        "endpoint_key": "verification_policy_retained",
+        "evidence_refs": [
+          "verification_policy_introduced",
+          "donor_reassessment_window"
+        ],
+        "label": "verification policy retained",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the food bank keep income verification substantially intact, modify it, or repeal it?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.43,
+        "rationale": "Board has formal authority and donor pressure currently favors persistence.",
+        "realization_criteria": [
+          "Board or organization formally confirms verification as continuing policy",
+          "No adopted change removes the core income-check requirement by end of horizon",
+          "Implementation documents continue to require verification for typical client access"
+        ],
+        "status": "active",
+        "status_basis": "Policy is already introduced at T0 and no reversal is evidenced."
+      },
+      {
+        "authority_refs": [
+          "food_bank_board",
+          "regional_food_bank",
+          "frontline_volunteers"
+        ],
+        "blockers": [
+          "Strong donor insistence on strict verification",
+          "lack of clear operational harm evidence",
+          "board reluctance to appear reversible"
+        ],
+        "contradiction_notes": "A softened regime may still count as policy retained in broad political terms; this endpoint is specifically about meaningful burden reduction.",
+        "description": "The board or operations leadership modifies the policy to reduce stigma, discretion burden, or throughput delays while preserving some accountability signaling.",
+        "endpoint_key": "verification_policy_softened_or_revised",
+        "evidence_refs": [
+          "frontline_adjustment_period",
+          "partner_feedback_cycle"
+        ],
+        "label": "verification softened or revised",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do clients materially reduce usage or avoid services because of stigma and verification burden?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.34,
+        "rationale": "This is the main compromise path if shared mission and implementation friction matter.",
+        "realization_criteria": [
+          "Adopted policy change narrows documentation demands, adds exemptions, delays enforcement, or substitutes lighter screening",
+          "Official guidance reflects reduced burden compared with initial rollout",
+          "Change is implemented organization-wide rather than ad hoc at one site"
+        ],
+        "status": "active",
+        "status_basis": "Operational and reputational pressures are present but not yet decisive."
+      },
+      {
+        "authority_refs": [
+          "food_bank_clients",
+          "regional_food_bank",
+          "partner_churches"
+        ],
+        "blockers": [
+          "Effective reassurance messaging",
+          "light-touch implementation",
+          "client dependence overriding stigma concerns",
+          "lack of observable data"
+        ],
+        "contradiction_notes": "Quiet exit can occur under either retained or revised policy; it is an outcome effect, not a governance choice.",
+        "description": "A meaningful subset of clients avoid or reduce use of food bank services because verification is experienced as stigmatizing or burdensome.",
+        "endpoint_key": "client_quiet_exit_materializes",
+        "evidence_refs": [
+          "client_usage_signal_emerges",
+          "community_word_of_mouth"
+        ],
+        "label": "client quiet exit materializes",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do donors maintain support, intensify conditions, or redirect funds in response to implementation choices?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.37,
+        "rationale": "Dependency and stigma make silent withdrawal a plausible endpoint even without public mobilization.",
+        "realization_criteria": [
+          "Observed decline in attendance, repeat visits, or completed intake linked by testimony or partner reports to verification concerns",
+          "Partner or frontline reports consistently cite avoidance behavior across multiple cases",
+          "Alternative explanation such as reduced need does not fully account for the pattern"
+        ],
+        "status": "active",
+        "status_basis": "Scenario explicitly states clients may avoid services, but no usage decline is yet evidenced."
+      },
+      {
+        "authority_refs": [
+          "accountability_donors",
+          "food_bank_board"
+        ],
+        "blockers": [
+          "Board satisfies donors with credible enforcement",
+          "donors prefer influence without public rupture",
+          "switching costs for donors to alternative charities"
+        ],
+        "contradiction_notes": "Funding pressure may remain threatened rather than realized; only actual redirection or withholding satisfies this endpoint.",
+        "description": "Meaningful donor support is redirected or conditionally withheld over dissatisfaction with policy enforcement or reversal.",
+        "endpoint_key": "donor_funding_redirection",
+        "evidence_refs": [
+          "donor_reassessment_window",
+          "verification_policy_introduced"
+        ],
+        "label": "donor funding redirection",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do volunteers and partner churches remain privately uneasy, or do they form an influential expressed coalition for change?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.21,
+        "rationale": "This is the clearest terminal leverage endpoint on the donor side.",
+        "realization_criteria": [
+          "Named donor bloc reduces, freezes, or reroutes funds tied to the verification dispute",
+          "Board or organization records funding loss or explicit conditionality linked to accountability concerns",
+          "Operational planning adjusts in response to donor action"
+        ],
+        "status": "active",
+        "status_basis": "Donors possess leverage and can redirect funds, but no redirection is reported at T0."
+      },
+      {
+        "authority_refs": [
+          "frontline_volunteers",
+          "partner_churches",
+          "food_bank_board"
+        ],
+        "blockers": [
+          "Fear of isolation",
+          "desire to protect institutional relationships",
+          "insufficient mutual visibility of concerns"
+        ],
+        "contradiction_notes": "Coalition formation can stop short of public controversy and still count if coordination is internally visible.",
+        "description": "Volunteers and partner churches move from isolated private concern to coordinated internal pressure on the board or leadership.",
+        "endpoint_key": "private_dissent_becomes_internal_coalition",
+        "evidence_refs": [
+          "partner_feedback_cycle",
+          "frontline_adjustment_period"
+        ],
+        "label": "private dissent becomes internal coalition",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do volunteers and partner churches remain privately uneasy, or do they form an influential expressed coalition for change?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.29,
+        "rationale": "The scenario explicitly asks to model minority views, complex contagion, and public silence; this endpoint tests whether silence breaks internally.",
+        "realization_criteria": [
+          "Multiple partner churches and volunteer representatives jointly communicate concerns or recommendations",
+          "Board receives coordinated rather than isolated feedback",
+          "Shared framing or proposals emerge across church and volunteer channels"
+        ],
+        "status": "active",
+        "status_basis": "Private disagreement exists, but expressed coalition formation is not yet evidenced."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "donor pressure prompted income verification; donors can redirect funds",
+        "layer": "dependency",
+        "reason": "Food bank relies on donor funding and is responsive to pressure tied to resources.",
+        "source_actor_name": "regional_food_bank",
+        "target_actor_name": "accountability_donors",
+        "weight": 0.61
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "clients can avoid services, implying service dependence and exit cost",
+        "layer": "dependency",
+        "reason": "Clients depend materially on food assistance access.",
+        "source_actor_name": "food_bank_clients",
+        "target_actor_name": "regional_food_bank",
+        "weight": 0.78
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "partner churches are involved stakeholders in the distribution network",
+        "layer": "dependency",
+        "reason": "Church partners rely on the food bank relationship for service coordination or supply.",
+        "source_actor_name": "partner_churches",
+        "target_actor_name": "regional_food_bank",
+        "weight": 0.42
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "volunteers worry about slower distribution",
+        "layer": "dependency",
+        "reason": "Operations depend on volunteers to execute intake and distribution.",
+        "source_actor_name": "regional_food_bank",
+        "target_actor_name": "frontline_volunteers",
+        "weight": 0.49
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "donor pressure led to verification; donors can redirect funds",
+        "layer": "influence",
+        "reason": "Donors influence board policy through funding leverage and accountability framing.",
+        "source_actor_name": "accountability_donors",
+        "target_actor_name": "food_bank_board",
+        "weight": 0.66
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "board can change policy",
+        "layer": "influence",
+        "reason": "Board governs organizational policy choices.",
+        "source_actor_name": "food_bank_board",
+        "target_actor_name": "regional_food_bank",
+        "weight": 0.74
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "volunteers worry about slower distribution",
+        "layer": "influence",
+        "reason": "Volunteer feedback can shape implementation adjustments by exposing bottlenecks.",
+        "source_actor_name": "frontline_volunteers",
+        "target_actor_name": "regional_food_bank",
+        "weight": 0.41
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "partner churches disagree privately",
+        "layer": "influence",
+        "reason": "Partners may privately advocate to revise or soften policy.",
+        "source_actor_name": "partner_churches",
+        "target_actor_name": "food_bank_board",
+        "weight": 0.37
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "clients can avoid services",
+        "layer": "influence",
+        "reason": "Clients have limited influence through attendance changes and testimony, but low voice at T0.",
+        "source_actor_name": "food_bank_clients",
+        "target_actor_name": "regional_food_bank",
+        "weight": 0.28
+      },
+      {
+        "direction": "source_exposes_target",
+        "evidence": "clients are subject to income verification",
+        "layer": "exposure",
+        "reason": "Clients directly encounter the verification policy and related messaging.",
+        "source_actor_name": "regional_food_bank",
+        "target_actor_name": "food_bank_clients",
+        "weight": 0.63
+      },
+      {
+        "direction": "source_exposes_target",
+        "evidence": "volunteers are concerned about slower distribution from verification",
+        "layer": "exposure",
+        "reason": "Volunteers receive implementation instructions and see policy effects.",
+        "source_actor_name": "regional_food_bank",
+        "target_actor_name": "frontline_volunteers",
+        "weight": 0.71
+      },
+      {
+        "direction": "source_exposes_target",
+        "evidence": "partner churches are engaged enough to disagree privately",
+        "layer": "exposure",
+        "reason": "Partners are informed about policy changes affecting service pathways.",
+        "source_actor_name": "regional_food_bank",
+        "target_actor_name": "partner_churches",
+        "weight": 0.52
+      },
+      {
+        "direction": "source_exposes_target",
+        "evidence": "donor pressure preceded policy adoption",
+        "layer": "exposure",
+        "reason": "Donor communications and expectations reach board members.",
+        "source_actor_name": "accountability_donors",
+        "target_actor_name": "food_bank_board",
+        "weight": 0.54
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "some clients fear stigma",
+        "layer": "trust",
+        "reason": "Clients retain some reliance but stigma fears weaken trust and safety perceptions.",
+        "source_actor_name": "food_bank_clients",
+        "target_actor_name": "regional_food_bank",
+        "weight": 0.44
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "volunteers worry about slower distribution",
+        "layer": "trust",
+        "reason": "Volunteers generally trust the institution but worry about operational competence under new rules.",
+        "source_actor_name": "frontline_volunteers",
+        "target_actor_name": "regional_food_bank",
+        "weight": 0.58
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "partner churches disagree privately",
+        "layer": "trust",
+        "reason": "Partners remain engaged but private disagreement lowers confidence.",
+        "source_actor_name": "partner_churches",
+        "target_actor_name": "regional_food_bank",
+        "weight": 0.47
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "donor pressure used to seek policy change",
+        "layer": "trust",
+        "reason": "Donors appear confident enough in board responsiveness to press accountability demands rather than exit immediately.",
+        "source_actor_name": "accountability_donors",
+        "target_actor_name": "food_bank_board",
+        "weight": 0.62
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "income verification introduced after donor pressure",
+        "layer": "coalition",
+        "reason": "Current alignment around accountability framing supports the policy.",
+        "source_actor_name": "accountability_donors",
+        "target_actor_name": "food_bank_board",
+        "weight": 0.57
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "volunteers remain engaged in distribution",
+        "layer": "coalition",
+        "reason": "Shared mission and service role sustain working alignment despite concerns.",
+        "source_actor_name": "regional_food_bank",
+        "target_actor_name": "frontline_volunteers",
+        "weight": 0.53
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "partner churches are still partner actors, not exited",
+        "layer": "coalition",
+        "reason": "Partnership persists despite private disagreement.",
+        "source_actor_name": "regional_food_bank",
+        "target_actor_name": "partner_churches",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_conflicts_with_target",
+        "evidence": "some clients fear stigma and can avoid services",
+        "layer": "conflict",
+        "reason": "Stigma and privacy concerns create latent conflict over access terms.",
+        "source_actor_name": "food_bank_clients",
+        "target_actor_name": "regional_food_bank",
+        "weight": 0.39
+      },
+      {
+        "direction": "source_conflicts_with_target",
+        "evidence": "volunteers worry about slower distribution",
+        "layer": "conflict",
+        "reason": "Operational concerns may conflict with board policy priorities.",
+        "source_actor_name": "frontline_volunteers",
+        "target_actor_name": "food_bank_board",
+        "weight": 0.31
+      },
+      {
+        "direction": "source_conflicts_with_target",
+        "evidence": "partner churches disagree privately",
+        "layer": "conflict",
+        "reason": "Private disagreement over the policy creates low-to-moderate goal conflict.",
+        "source_actor_name": "partner_churches",
+        "target_actor_name": "food_bank_board",
+        "weight": 0.34
+      },
+      {
+        "direction": "source_conflicts_with_target",
+        "evidence": "donors want accountability; clients fear stigma",
+        "layer": "conflict",
+        "reason": "Donor accountability preferences are in tension with client privacy and stigma concerns.",
+        "source_actor_name": "accountability_donors",
+        "target_actor_name": "food_bank_clients",
+        "weight": 0.29
+      },
+      {
+        "direction": "frequent_public_or_semipublic_interaction",
+        "evidence": "verification affects distribution interactions",
+        "layer": "oasis_interaction",
+        "reason": "They interact directly at service points where friction or reassurance can spread.",
+        "source_actor_name": "food_bank_clients",
+        "target_actor_name": "frontline_volunteers",
+        "weight": 0.66
+      },
+      {
+        "direction": "regular_channel_interaction",
+        "evidence": "volunteers anticipate slower distribution",
+        "layer": "oasis_interaction",
+        "reason": "Volunteers relay operational experiences into organizational channels.",
+        "source_actor_name": "frontline_volunteers",
+        "target_actor_name": "regional_food_bank",
+        "weight": 0.58
+      },
+      {
+        "direction": "regular_channel_interaction",
+        "evidence": "private disagreement implies active communication pathway",
+        "layer": "oasis_interaction",
+        "reason": "Partners communicate concerns through coordination channels.",
+        "source_actor_name": "partner_churches",
+        "target_actor_name": "regional_food_bank",
+        "weight": 0.43
+      },
+      {
+        "direction": "occasional_public_interaction",
+        "evidence": "no explicit broad public controversy yet at T0",
+        "layer": "oasis_interaction",
+        "reason": "Public interaction remains limited unless issue escalates.",
+        "source_actor_name": "regional_food_bank",
+        "target_actor_name": "local_public",
+        "weight": 0.24
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "hero_key": "board_governance_leadership",
+        "label": "board governance leadership",
+        "role": "formal_decider"
+      },
+      {
+        "hero_key": "operations_leadership",
+        "label": "food bank operations leadership",
+        "role": "implementation_manager"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "food_bank_board",
+        "attention_level": 0.76,
+        "expression_level": 0.51,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.27,
+        "formal_power": 0.93,
+        "hero_key": "board_governance_leadership",
+        "informal_power": 0.64,
+        "mobilization_readiness": 0.49,
+        "perceived_majority": 0.58,
+        "stance_axes": {
+          "privacy_priority": 0.4,
+          "responsiveness_to_donor_pressure": 0.77,
+          "service_continuity_priority": 0.71,
+          "verification_support": 0.63
+        }
+      },
+      {
+        "actor_name": "regional_food_bank",
+        "attention_level": 0.82,
+        "expression_level": 0.48,
+        "fatigue": 0.46,
+        "fear_of_isolation": 0.21,
+        "formal_power": 0.79,
+        "hero_key": "operations_leadership",
+        "informal_power": 0.58,
+        "mobilization_readiness": 0.56,
+        "perceived_majority": 0.5,
+        "stance_axes": {
+          "privacy_priority": 0.44,
+          "responsiveness_to_frontline_friction": 0.74,
+          "service_continuity_priority": 0.89,
+          "verification_support": 0.51
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "hero_key": "board_governance_leadership",
+        "label": "board governance leadership",
+        "role": "formal_decider"
+      },
+      {
+        "hero_key": "operations_leadership",
+        "label": "food bank operations leadership",
+        "role": "implementation_manager"
+      }
+    ],
+    "important_questions": [
+      "Does the food bank keep income verification substantially intact, modify it, or repeal it?",
+      "Do clients materially reduce usage or avoid services because of stigma and verification burden?",
+      "Do donors maintain support, intensify conditions, or redirect funds in response to implementation choices?",
+      "Do volunteers and partner churches remain privately uneasy, or do they form an influential expressed coalition for change?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "regional_food_bank",
+          "food_bank_board",
+          "accountability_donors"
+        ],
+        "description": "Income verification policy has been introduced following donor pressure.",
+        "event_key": "verification_policy_introduced",
+        "event_type": "announcement",
+        "expected_impact": "Raises accountability salience, increases client privacy concerns, and creates implementation burden without determining long-run acceptance.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "frontline_volunteers",
+          "regional_food_bank"
+        ],
+        "description": "Early implementation reveals whether verification slows intake and distribution in practice.",
+        "event_key": "frontline_adjustment_period",
+        "event_type": "announcement",
+        "expected_impact": "Could strengthen internal calls for process fixes, exceptions, or policy softening if delays become visible.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "partner_churches",
+          "regional_food_bank",
+          "food_bank_board"
+        ],
+        "description": "Partner churches privately communicate concerns or observations from clients.",
+        "event_key": "partner_feedback_cycle",
+        "event_type": "announcement",
+        "expected_impact": "May increase board awareness of hidden dissatisfaction while preserving public quiet at first.",
+        "tick": 2
+      },
+      {
+        "actors": [
+          "accountability_donors",
+          "food_bank_board"
+        ],
+        "description": "Donors informally assess whether the new policy is being enforced and whether accountability concerns are satisfied.",
+        "event_key": "donor_reassessment_window",
+        "event_type": "announcement",
+        "expected_impact": "Can stabilize board resolve or intensify pressure for stricter implementation.",
+        "tick": 3
+      },
+      {
+        "actors": [
+          "food_bank_clients",
+          "regional_food_bank"
+        ],
+        "description": "Attendance or repeat-use patterns begin to reveal whether some clients are quietly avoiding services.",
+        "event_key": "client_usage_signal_emerges",
+        "event_type": "announcement",
+        "expected_impact": "Creates ambiguous evidence that can be read as reduced need, stigma-driven exit, or normal fluctuation.",
+        "tick": 3
+      }
+    ],
+    "llm_call_id": "9f5389bf-c3a1-438f-8169-794cc3b1e1b7",
+    "merge_hypotheses": [
+      {
+        "condition": "All major actors continue valuing food distribution continuity and accept a face-saving compromise.",
+        "convergence_effect": "Stakeholders converge on a modified verification regime that preserves both accountability language and practical accessibility.",
+        "merge_key": "shared_mission_repair"
+      },
+      {
+        "condition": "Neither donors nor partner institutions want open rupture that endangers food distribution.",
+        "convergence_effect": "Conflict remains bounded and channels back into procedural adjustment rather than institutional split.",
+        "merge_key": "resource_dependency_constrains_break"
+      },
+      {
+        "condition": "Client exit and service slowdown remain difficult to measure clearly.",
+        "convergence_effect": "Competing interpretations persist, producing temporary stalemate rather than decisive escalation.",
+        "merge_key": "ambiguity_of_harm_signals"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "clients",
+        "basis": "regional recurring and occasional service users implied by scenario scale",
+        "label": "food bank clients",
+        "population_total": 2400
+      },
+      {
+        "archetype_key": "volunteers",
+        "basis": "moderate regional volunteer corps estimate",
+        "label": "frontline volunteers",
+        "population_total": 140
+      },
+      {
+        "archetype_key": "church_partners",
+        "basis": "small regional partner network estimate",
+        "label": "partner church leaders",
+        "population_total": 36
+      },
+      {
+        "archetype_key": "donor_base",
+        "basis": "subset of donors with meaningful giving influence",
+        "label": "active donor decision-makers",
+        "population_total": 120
+      }
+    ],
+    "risk_flags": [
+      {
+        "description": "Client dependence on food access may suppress explicit feedback and hide harm until usage declines.",
+        "risk_key": "high_dependency_voice_suppression",
+        "severity": "medium"
+      },
+      {
+        "description": "Changes in attendance or throughput may be hard to attribute cleanly to verification rather than normal fluctuation.",
+        "risk_key": "measurement_ambiguity",
+        "severity": "medium"
+      },
+      {
+        "description": "Unspecified donor concentration creates uncertainty about how much actual leverage accountability donors possess.",
+        "risk_key": "donor_concentration_unknown",
+        "severity": "medium"
+      },
+      {
+        "description": "Partner church dissent may be stronger than public signals indicate, affecting branch timing unpredictably.",
+        "risk_key": "private_disagreement_underreported",
+        "severity": "medium"
+      },
+      {
+        "description": "Scenario does not establish open scandal or collapse at T0; escalation should remain contingent on observed signals.",
+        "risk_key": "premature_crisis_assumption",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "public_health_resource",
+      "case_key": "health_006",
+      "mode": "direct",
+      "scope": "regional food assistance network",
+      "summary": "A regional food bank has introduced an income verification policy after donor pressure. Donors frame the change as accountability, while some clients fear stigma and may avoid services, volunteers worry service will slow, and partner churches show private disagreement with limited public expression. The board retains formal authority to revise policy, donors hold leverage through funding redirection, and clients retain exit power by avoiding services. T0 should emphasize public silence, private disagreement, material dependency, and unresolved endpoint uncertainty rather than full crisis.",
+      "time_horizon_ticks": 6,
+      "uncertainty_notes": [
+        "Exact population sizes, donor concentration, and number of partner churches are not specified.",
+        "No evidence that public controversy has fully surfaced at T0; disagreement appears partly private.",
+        "No evidence of realized policy reversal, donor withdrawal, or service collapse at initialization."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "food_bank_clients",
+          "partner_churches",
+          "frontline_volunteers"
+        ],
+        "description": "Several groups hold concerns privately while limiting public dissent due to dependency, role norms, or reputational caution.",
+        "level": 0.73,
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "food_bank_board",
+          "frontline_volunteers",
+          "partner_churches",
+          "accountability_donors"
+        ],
+        "description": "Actors may accept incremental modifications or exemptions more readily than wholesale frame reversal.",
+        "level": 0.56,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "food_bank_clients",
+          "partner_churches",
+          "frontline_volunteers"
+        ],
+        "description": "Many dissatisfied actors are unlikely to mobilize unless visible harms, queue delays, or peer testimony accumulate.",
+        "level": 0.64,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "food_bank_clients",
+          "partner_churches",
+          "frontline_volunteers"
+        ],
+        "description": "Public challenge to the policy likely requires repeated reinforcement from multiple trusted peers rather than a single complaint.",
+        "level": 0.68,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "food_bank_clients",
+          "partner_churches",
+          "accountability_donors"
+        ],
+        "description": "Views cluster within stakeholder role networks, slowing cross-group empathy.",
+        "level": 0.59,
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "accountability_donors",
+          "frontline_volunteers",
+          "partner_churches"
+        ],
+        "description": "Role identities of steward, helper, and faith partner shape how actors interpret the same policy.",
+        "level": 0.66,
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "local_public",
+          "donor_base"
+        ],
+        "description": "Absent visible incidents, broader attention may remain low or fade.",
+        "level": 0.47,
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context_key": "dependency_suppresses_voice",
+        "description": "Clients depend on services, making private dissent more likely than overt complaints."
+      },
+      {
+        "context_key": "private_partner_disagreement",
+        "description": "Church partners disagree but may avoid public conflict to preserve relationships."
+      },
+      {
+        "context_key": "operational_friction_visibility",
+        "description": "Volunteer-observed delays can convert abstract policy debate into concrete organizational evidence."
+      },
+      {
+        "context_key": "donor_leverage",
+        "description": "Funding redirection threat gives a smaller donor bloc outsized agenda-setting power."
+      },
+      {
+        "context_key": "quiet_exit_signal",
+        "description": "Falling client attendance may function as a delayed and ambiguous protest signal rather than explicit opposition."
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "regional_food_bank",
+        "behavior_axes": {
+          "bureaucratic_flexibility": 0.46,
+          "conflict_avoidance": 0.63,
+          "mission_protection": 0.81,
+          "proceduralism": 0.67
+        },
+        "ideology_axes": {
+          "accountability_norm": 0.62,
+          "dignity_norm": 0.58,
+          "inclusion_norm": 0.61
+        },
+        "reputation": 0.7,
+        "secrecy": 0.39,
+        "tendency": "tries to balance donor expectations and service delivery",
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "food_bank_board",
+        "behavior_axes": {
+          "policy_revisability": 0.57,
+          "responsiveness_to_clients": 0.45,
+          "responsiveness_to_funders": 0.76,
+          "risk_aversion": 0.66
+        },
+        "ideology_axes": {
+          "accountability_norm": 0.72,
+          "charitable_universalism": 0.49,
+          "institutional_legitimacy_norm": 0.7
+        },
+        "reputation": 0.64,
+        "secrecy": 0.44,
+        "tendency": "prefers controlled policy adjustment over abrupt reversal unless pressure broadens",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "accountability_donors",
+        "behavior_axes": {
+          "conditional_support": 0.78,
+          "exit_willingness": 0.49,
+          "monitoring_intensity": 0.71,
+          "public_pressure_willingness": 0.52
+        },
+        "ideology_axes": {
+          "accountability_norm": 0.88,
+          "privacy_norm": 0.24,
+          "service_universality": 0.35
+        },
+        "reputation": 0.61,
+        "secrecy": 0.28,
+        "tendency": "uses funding leverage more than operational involvement",
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "food_bank_clients",
+        "behavior_axes": {
+          "dependency_on_service": 0.84,
+          "peer_sensitivity": 0.68,
+          "quiet_exit_propensity": 0.46,
+          "voice_suppression": 0.74
+        },
+        "ideology_axes": {
+          "dignity_norm": 0.83,
+          "privacy_norm": 0.8,
+          "procedural_acceptance": 0.36
+        },
+        "reputation": 0.52,
+        "secrecy": 0.71,
+        "tendency": "privately responsive to stigma cues and access friction",
+        "trustworthiness": 0.59
+      },
+      {
+        "actor_name": "frontline_volunteers",
+        "behavior_axes": {
+          "burnout_risk": 0.49,
+          "informal_feedback": 0.67,
+          "public_loyalty": 0.61,
+          "service_orientation": 0.86
+        },
+        "ideology_axes": {
+          "accountability_norm": 0.54,
+          "dignity_norm": 0.66,
+          "operational_efficiency_norm": 0.85
+        },
+        "reputation": 0.63,
+        "secrecy": 0.43,
+        "tendency": "flags implementation problems before taking public positions",
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "partner_churches",
+        "behavior_axes": {
+          "client_protectiveness": 0.69,
+          "private_advocacy": 0.64,
+          "public_confrontation_avoidance": 0.76,
+          "relational_caution": 0.73
+        },
+        "ideology_axes": {
+          "accountability_norm": 0.46,
+          "coalitional_loyalty": 0.57,
+          "dignity_norm": 0.79
+        },
+        "reputation": 0.67,
+        "secrecy": 0.6,
+        "tendency": "voices disagreement privately unless harm becomes visible",
+        "trustworthiness": 0.66
+      },
+      {
+        "actor_name": "local_public",
+        "behavior_axes": {
+          "attention_volatility": 0.73,
+          "charity_trust_default": 0.61,
+          "issue_activation_threshold": 0.69
+        },
+        "ideology_axes": {
+          "accountability_norm": 0.56,
+          "fairness_norm": 0.58,
+          "privacy_norm": 0.43
+        },
+        "reputation": 0.5,
+        "secrecy": 0.12,
+        "tendency": "mostly latent unless a public controversy or testimony spreads",
+        "trustworthiness": 0.5
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 521,
+        "end": 521,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 521,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

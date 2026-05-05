@@ -1,0 +1,192 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "b051f930-3042-4d90-8436-90a8afcc3dc4",
+      "created_at": "2026-05-05T02:30:14.683519+00:00",
+      "id": "dbcee865-a231-4529-bd56-f823b09026d8",
+      "influence": {
+        "context_key": "driver_fairness_salience",
+        "description": "Drivers are primed to evaluate the test through deactivation fairness, not only interface usability.",
+        "evidence": "Drivers hope it reduces unfair deactivations."
+      },
+      "multiverse_id": "e598e5a0-c2a3-4b72-8cf2-cf39e831a74b",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:30:14.683519+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "b051f930-3042-4d90-8436-90a8afcc3dc4",
+      "created_at": "2026-05-05T02:30:14.683519+00:00",
+      "id": "189435f5-b5a6-455c-8c90-957dd41a3f4b",
+      "influence": {
+        "context_key": "rider_safety_constraint",
+        "description": "Any perceived reduction in safety legitimacy can activate rider concern despite low day-to-day attention.",
+        "evidence": "Riders want safety."
+      },
+      "multiverse_id": "e598e5a0-c2a3-4b72-8cf2-cf39e831a74b",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:30:14.683519+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "b051f930-3042-4d90-8436-90a8afcc3dc4",
+      "created_at": "2026-05-05T02:30:14.683519+00:00",
+      "id": "d1afe036-76de-4b73-9a49-68ac4f2672a1",
+      "influence": {
+        "context_key": "support_capacity_sensitivity",
+        "description": "Operational burden is an immediate internal lens for evaluating the test.",
+        "evidence": "Support staff worry about ticket volume."
+      },
+      "multiverse_id": "e598e5a0-c2a3-4b72-8cf2-cf39e831a74b",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:30:14.683519+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "b051f930-3042-4d90-8436-90a8afcc3dc4",
+      "created_at": "2026-05-05T02:30:14.683519+00:00",
+      "id": "1c34016c-dc20-4570-8012-1a2ff9d0b146",
+      "influence": {
+        "context_key": "management_appeal_reduction_goal",
+        "description": "Leadership will likely judge the test partly by whether it lowers appeals.",
+        "evidence": "Management wants fewer appeals."
+      },
+      "multiverse_id": "e598e5a0-c2a3-4b72-8cf2-cf39e831a74b",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:30:14.683519+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "b051f930-3042-4d90-8436-90a8afcc3dc4",
+      "created_at": "2026-05-05T02:30:14.683519+00:00",
+      "id": "d2e7a7a7-74ff-4a88-acde-085c58969a47",
+      "model": "attention_decay",
+      "multiverse_id": "e598e5a0-c2a3-4b72-8cf2-cf39e831a74b",
+      "signal": {
+        "level": 0.62,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Driver views on fairness likely update more from peer cases than official assurances.",
+        "scope": "drivers"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:30:14.683519+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "b051f930-3042-4d90-8436-90a8afcc3dc4",
+      "created_at": "2026-05-05T02:30:14.683519+00:00",
+      "id": "4acf513f-c877-4fb5-ada6-75117867cfa7",
+      "model": "attention_decay",
+      "multiverse_id": "e598e5a0-c2a3-4b72-8cf2-cf39e831a74b",
+      "signal": {
+        "level": 0.48,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Broader driver agitation likely requires visible examples of unfairness persisting after the test.",
+        "scope": "drivers"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:30:14.683519+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "b051f930-3042-4d90-8436-90a8afcc3dc4",
+      "created_at": "2026-05-05T02:30:14.683519+00:00",
+      "id": "781245cd-0adb-49c7-980d-1ed7e6efc0e6",
+      "model": "attention_decay",
+      "multiverse_id": "e598e5a0-c2a3-4b72-8cf2-cf39e831a74b",
+      "signal": {
+        "level": 0.71,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Most riders remain quiet unless safety signals become salient.",
+        "scope": "riders"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:30:14.683519+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "b051f930-3042-4d90-8436-90a8afcc3dc4",
+      "created_at": "2026-05-05T02:30:14.683519+00:00",
+      "id": "babb2bf5-c1e9-4229-978a-2bbda5ab3ced",
+      "model": "attention_decay",
+      "multiverse_id": "e598e5a0-c2a3-4b72-8cf2-cf39e831a74b",
+      "signal": {
+        "level": 0.58,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Occupational groups are more likely to trust in-group accounts.",
+        "scope": "drivers_and_support"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:30:14.683519+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "b051f930-3042-4d90-8436-90a8afcc3dc4",
+      "created_at": "2026-05-05T02:30:14.683519+00:00",
+      "id": "4433f2df-7462-4608-95f8-69f5e2a9bcba",
+      "model": "attention_decay",
+      "multiverse_id": "e598e5a0-c2a3-4b72-8cf2-cf39e831a74b",
+      "signal": {
+        "level": 0.46,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Multiple similar stories would be needed to shift broad sentiment sharply.",
+        "scope": "drivers"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:30:14.683519+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "b051f930-3042-4d90-8436-90a8afcc3dc4",
+      "created_at": "2026-05-05T02:30:14.683519+00:00",
+      "id": "0c0d8e85-4942-4d28-898e-c2bfd92610cf",
+      "model": "attention_decay",
+      "multiverse_id": "e598e5a0-c2a3-4b72-8cf2-cf39e831a74b",
+      "signal": {
+        "level": 0.54,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Shared experience of platform enforcement creates a fairness-oriented identity frame.",
+        "scope": "drivers"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:30:14.683519+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "b051f930-3042-4d90-8436-90a8afcc3dc4",
+      "created_at": "2026-05-05T02:30:14.683519+00:00",
+      "id": "176feaa1-5015-4058-9a89-1252ddca8f11",
+      "model": "attention_decay",
+      "multiverse_id": "e598e5a0-c2a3-4b72-8cf2-cf39e831a74b",
+      "signal": {
+        "level": 0.67,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Absent incident cues, rider attention to governance changes fades quickly.",
+        "scope": "riders"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:30:14.683519+00:00"
+    }
+  ]
+}

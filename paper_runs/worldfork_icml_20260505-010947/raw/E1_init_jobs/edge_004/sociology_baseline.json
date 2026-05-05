@@ -1,0 +1,231 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "503ecb3f-2fa0-4381-8cdd-6d29c63230d6",
+      "created_at": "2026-05-05T02:40:07.118657+00:00",
+      "id": "c2ffc922-b5bd-4745-b3e9-11f7b816860c",
+      "influence": {
+        "context_key": "accessibility_failure_legitimacy",
+        "description": "Accessibility concerns carry moral and civic legitimacy that can amplify relatively small but credible witness groups."
+      },
+      "multiverse_id": "ddb2ba39-730d-40ed-930b-c2d0d009f189",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:40:07.118657+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "503ecb3f-2fa0-4381-8cdd-6d29c63230d6",
+      "created_at": "2026-05-05T02:40:07.118657+00:00",
+      "id": "dd77bdb2-70e3-4ab2-8341-ca7d95c0d047",
+      "influence": {
+        "context_key": "continuity_vs_correction_tradeoff",
+        "description": "Many stakeholders prefer continuity, but not at unlimited reputational or access cost."
+      },
+      "multiverse_id": "ddb2ba39-730d-40ed-930b-c2d0d009f189",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:40:07.118657+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "503ecb3f-2fa0-4381-8cdd-6d29c63230d6",
+      "created_at": "2026-05-05T02:40:07.118657+00:00",
+      "id": "403b2b21-5b7a-4542-9c8c-4fe10678d31f",
+      "influence": {
+        "context_key": "private_vs_public_pressure_split",
+        "description": "Sponsors and businesses are more likely to apply pressure privately, while advocates and some artists are more likely to speak publicly."
+      },
+      "multiverse_id": "ddb2ba39-730d-40ed-930b-c2d0d009f189",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:40:07.118657+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "503ecb3f-2fa0-4381-8cdd-6d29c63230d6",
+      "created_at": "2026-05-05T02:40:07.118657+00:00",
+      "id": "51ad60d2-1ea5-4e5d-a8ea-14cfa8b30323",
+      "influence": {
+        "context_key": "site_change_switching_costs",
+        "description": "Relocation imposes logistical, financial, and scheduling switching costs on organizers, vendors, transit, and police."
+      },
+      "multiverse_id": "ddb2ba39-730d-40ed-930b-c2d0d009f189",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:40:07.118657+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "503ecb3f-2fa0-4381-8cdd-6d29c63230d6",
+      "created_at": "2026-05-05T02:40:07.118657+00:00",
+      "id": "7006208a-9a52-4dac-8299-fd64acb5e217",
+      "influence": {
+        "context_key": "weather_as_contextual_amplifier",
+        "description": "Forecast changes can increase urgency or justify operational shifts without being the root cause."
+      },
+      "multiverse_id": "ddb2ba39-730d-40ed-930b-c2d0d009f189",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:40:07.118657+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "503ecb3f-2fa0-4381-8cdd-6d29c63230d6",
+      "created_at": "2026-05-05T02:40:07.118657+00:00",
+      "id": "8028ed3f-fcb8-4e75-8c34-fba3ba139a13",
+      "model": "attention_decay",
+      "multiverse_id": "ddb2ba39-730d-40ed-930b-c2d0d009f189",
+      "signal": {
+        "applies_to": [
+          "general_attendees_status_quo_leaning",
+          "attendance_uncertain_public",
+          "residents_low_attention"
+        ],
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Moderate changes in opinion are more likely than abrupt reversals unless new failures or authoritative endorsements appear.",
+        "strength": 0.63
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:40:07.118657+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "503ecb3f-2fa0-4381-8cdd-6d29c63230d6",
+      "created_at": "2026-05-05T02:40:07.118657+00:00",
+      "id": "17fbe6b6-91ab-4bc7-9e17-9082a72f142e",
+      "model": "attention_decay",
+      "multiverse_id": "ddb2ba39-730d-40ed-930b-c2d0d009f189",
+      "signal": {
+        "applies_to": [
+          "participating_artists",
+          "disabled_attendee_advocates",
+          "food_vendors",
+          "nearby_residents"
+        ],
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Collective action likely depends on visible peer participation, not isolated complaints alone.",
+        "strength": 0.71
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:40:07.118657+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "503ecb3f-2fa0-4381-8cdd-6d29c63230d6",
+      "created_at": "2026-05-05T02:40:07.118657+00:00",
+      "id": "5aa66fda-b6ab-464a-aa3c-0b9a090acc5f",
+      "model": "attention_decay",
+      "multiverse_id": "ddb2ba39-730d-40ed-930b-c2d0d009f189",
+      "signal": {
+        "applies_to": [
+          "attendance_uncertain_public",
+          "general_attendees_status_quo_leaning",
+          "vendors_pragmatic"
+        ],
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Many actors may privately doubt current plans while remaining publicly quiet pending stronger cues.",
+        "strength": 0.58
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:40:07.118657+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "503ecb3f-2fa0-4381-8cdd-6d29c63230d6",
+      "created_at": "2026-05-05T02:40:07.118657+00:00",
+      "id": "e85a17ec-4b0e-469a-afde-1abf5eff1d82",
+      "model": "attention_decay",
+      "multiverse_id": "ddb2ba39-730d-40ed-930b-c2d0d009f189",
+      "signal": {
+        "applies_to": [
+          "participating_artists",
+          "disabled_attendee_advocates",
+          "nearby_residents"
+        ],
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Opinion clustering likely follows professional, identity, and neighborhood lines.",
+        "strength": 0.54
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:40:07.118657+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "503ecb3f-2fa0-4381-8cdd-6d29c63230d6",
+      "created_at": "2026-05-05T02:40:07.118657+00:00",
+      "id": "6704d8f9-a321-4a61-b338-187d5e62307e",
+      "model": "attention_decay",
+      "multiverse_id": "ddb2ba39-730d-40ed-930b-c2d0d009f189",
+      "signal": {
+        "applies_to": [
+          "participating_artists",
+          "festival_sponsors",
+          "nearby_residents"
+        ],
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Escalation toward relocation pressure likely requires reinforcement from multiple trusted sources.",
+        "strength": 0.66
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:40:07.118657+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "503ecb3f-2fa0-4381-8cdd-6d29c63230d6",
+      "created_at": "2026-05-05T02:40:07.118657+00:00",
+      "id": "2263b866-b1f8-4458-949d-8f469b78256b",
+      "model": "attention_decay",
+      "multiverse_id": "ddb2ba39-730d-40ed-930b-c2d0d009f189",
+      "signal": {
+        "applies_to": [
+          "residents_festival_pride",
+          "artists_values_forward",
+          "disabled_attendees_and_allies"
+        ],
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Local identity, professional norms, and disability rights identity shape interpretation of the dispute.",
+        "strength": 0.69
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:40:07.118657+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "503ecb3f-2fa0-4381-8cdd-6d29c63230d6",
+      "created_at": "2026-05-05T02:40:07.118657+00:00",
+      "id": "e0ecffde-3f69-47ae-9ef0-bc0ce602331e",
+      "model": "attention_decay",
+      "multiverse_id": "ddb2ba39-730d-40ed-930b-c2d0d009f189",
+      "signal": {
+        "applies_to": [
+          "attendance_uncertain_public",
+          "other_local_businesses",
+          "residents_low_attention"
+        ],
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Without fresh incidents or announcements, diffuse publics may disengage quickly.",
+        "strength": 0.43
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:40:07.118657+00:00"
+    }
+  ]
+}

@@ -1,0 +1,225 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "9fd56e99-eeb9-4fa5-90e0-4ee73333395c",
+      "created_at": "2026-05-05T02:25:07.716662+00:00",
+      "id": "8f562720-cb04-4903-832c-12b19736d2b0",
+      "influence": {
+        "context_key": "platform_leverage",
+        "description": "Platform owns the pay formula, app interface, dispatch logic, and primary communication channels to couriers, restaurants, and customers"
+      },
+      "multiverse_id": "4c90e2b8-5f79-413c-9409-d0f37547315d",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:25:07.716662+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "9fd56e99-eeb9-4fa5-90e0-4ee73333395c",
+      "created_at": "2026-05-05T02:25:07.716662+00:00",
+      "id": "da6dc4a6-4cef-4dbe-ae29-9cd785aece79",
+      "influence": {
+        "context_key": "switching_costs",
+        "description": "Couriers, restaurants, and customers each have alternatives, but income dependence, operational setup, and habit create friction"
+      },
+      "multiverse_id": "4c90e2b8-5f79-413c-9409-d0f37547315d",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:25:07.716662+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "9fd56e99-eeb9-4fa5-90e0-4ee73333395c",
+      "created_at": "2026-05-05T02:25:07.716662+00:00",
+      "id": "fb381100-dde8-4df8-854c-9294e2b2b25b",
+      "influence": {
+        "context_key": "coalition_durability",
+        "description": "Courier-restaurant-customer alignment is plausible but fragile because interests only partially overlap and public risk is uneven"
+      },
+      "multiverse_id": "4c90e2b8-5f79-413c-9409-d0f37547315d",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:25:07.716662+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "9fd56e99-eeb9-4fa5-90e0-4ee73333395c",
+      "created_at": "2026-05-05T02:25:07.716662+00:00",
+      "id": "f514bdbc-a635-43af-aa07-acd92fe491b9",
+      "influence": {
+        "context_key": "economic_elasticity",
+        "description": "Consumer price sensitivity and restaurant tolerance for degraded service may determine whether controversy converts into measurable business pressure"
+      },
+      "multiverse_id": "4c90e2b8-5f79-413c-9409-d0f37547315d",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:25:07.716662+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "9fd56e99-eeb9-4fa5-90e0-4ee73333395c",
+      "created_at": "2026-05-05T02:25:07.716662+00:00",
+      "id": "8bb018b2-0251-4536-b263-daa69dba5221",
+      "influence": {
+        "context_key": "policy_asymmetry",
+        "description": "Couriers can disrupt supply and shape narrative but lack direct authority to alter platform policy"
+      },
+      "multiverse_id": "4c90e2b8-5f79-413c-9409-d0f37547315d",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:25:07.716662+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "9fd56e99-eeb9-4fa5-90e0-4ee73333395c",
+      "created_at": "2026-05-05T02:25:07.716662+00:00",
+      "id": "bcb7dd60-3213-4f43-a207-0d8f61477fe5",
+      "model": "attention_decay",
+      "multiverse_id": "4c90e2b8-5f79-413c-9409-d0f37547315d",
+      "signal": {
+        "applies_to": [
+          "customers",
+          "restaurant_partners",
+          "courier_network"
+        ],
+        "level": 0.62,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "actors update mainly from nearby experience and trusted narratives, limiting rapid consensus"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:25:07.716662+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "9fd56e99-eeb9-4fa5-90e0-4ee73333395c",
+      "created_at": "2026-05-05T02:25:07.716662+00:00",
+      "id": "ca79c3e2-12a9-4351-9d55-ecd094e514b1",
+      "model": "attention_decay",
+      "multiverse_id": "4c90e2b8-5f79-413c-9409-d0f37547315d",
+      "signal": {
+        "applies_to": [
+          "courier_network",
+          "customers_values_attentive"
+        ],
+        "level": 0.71,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "visible participation and evidence of efficacy are needed before broader boycott support forms"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:25:07.716662+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "9fd56e99-eeb9-4fa5-90e0-4ee73333395c",
+      "created_at": "2026-05-05T02:25:07.716662+00:00",
+      "id": "cb55d2b2-46ce-491a-a5fe-f00096b78230",
+      "model": "attention_decay",
+      "multiverse_id": "4c90e2b8-5f79-413c-9409-d0f37547315d",
+      "signal": {
+        "applies_to": [
+          "restaurants_service_anxious",
+          "couriers_discontent_quiet"
+        ],
+        "level": 0.68,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "dependency and retaliation concerns suppress public expression relative to private grievance"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:25:07.716662+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "9fd56e99-eeb9-4fa5-90e0-4ee73333395c",
+      "created_at": "2026-05-05T02:25:07.716662+00:00",
+      "id": "d014c180-58fc-4ce1-a548-fb4d6c0266d2",
+      "model": "attention_decay",
+      "multiverse_id": "4c90e2b8-5f79-413c-9409-d0f37547315d",
+      "signal": {
+        "applies_to": [
+          "courier_network",
+          "customers",
+          "restaurant_partners"
+        ],
+        "level": 0.58,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "peer networks sort information within role-based communities"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:25:07.716662+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "9fd56e99-eeb9-4fa5-90e0-4ee73333395c",
+      "created_at": "2026-05-05T02:25:07.716662+00:00",
+      "id": "0bcb0f60-b952-42d6-874b-1267e0304781",
+      "model": "attention_decay",
+      "multiverse_id": "4c90e2b8-5f79-413c-9409-d0f37547315d",
+      "signal": {
+        "applies_to": [
+          "courier_network",
+          "restaurant_partners"
+        ],
+        "level": 0.64,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "multiple confirming signals are needed for escalation into collective action or switching"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:25:07.716662+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "9fd56e99-eeb9-4fa5-90e0-4ee73333395c",
+      "created_at": "2026-05-05T02:25:07.716662+00:00",
+      "id": "cd90f235-f306-49de-a007-bcfc0dd6fd53",
+      "model": "attention_decay",
+      "multiverse_id": "4c90e2b8-5f79-413c-9409-d0f37547315d",
+      "signal": {
+        "applies_to": [
+          "courier_network",
+          "customers_values_attentive"
+        ],
+        "level": 0.57,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "worker fairness framing can strengthen in-group solidarity and outside sympathy"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:25:07.716662+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "9fd56e99-eeb9-4fa5-90e0-4ee73333395c",
+      "created_at": "2026-05-05T02:25:07.716662+00:00",
+      "id": "066b7e01-3d1f-45fc-88b6-e4e48044148a",
+      "model": "attention_decay",
+      "multiverse_id": "4c90e2b8-5f79-413c-9409-d0f37547315d",
+      "signal": {
+        "applies_to": [
+          "customers",
+          "local_media"
+        ],
+        "level": 0.66,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "without fresh service failures or compelling stories, public attention may fade quickly"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:25:07.716662+00:00"
+    }
+  ]
+}

@@ -1,0 +1,1570 @@
+{
+  "big_bang_id": "516fde98-735f-4f53-87a9-39541a07ee90",
+  "initializer_output": {
+    "actors": [
+      {
+        "actor_type": "institution",
+        "description": "City transit agency with authority over footage release procedures and public communications",
+        "fictionalized": true,
+        "name": "transit_agency",
+        "stakes": [
+          "institutional legitimacy",
+          "rider trust",
+          "employee discipline process",
+          "privacy compliance"
+        ]
+      },
+      {
+        "actor_type": "institution",
+        "description": "Transit policing unit connected to the officer and incident response",
+        "fictionalized": true,
+        "name": "transit_police_unit",
+        "stakes": [
+          "officer legitimacy",
+          "public order",
+          "morale",
+          "reputational protection"
+        ]
+      },
+      {
+        "actor_type": "individual",
+        "description": "Transit officer shown in the edited clip",
+        "fictionalized": true,
+        "name": "accused_officer",
+        "stakes": [
+          "employment consequences",
+          "public reputation",
+          "narrative framing of the encounter"
+        ]
+      },
+      {
+        "actor_type": "civil_group",
+        "description": "Organized rider groups concerned about respectful treatment and accountability",
+        "fictionalized": true,
+        "name": "rider_advocacy_groups",
+        "stakes": [
+          "rider safety",
+          "public accountability",
+          "mobilization credibility"
+        ]
+      },
+      {
+        "actor_type": "public_group",
+        "description": "General rider population exposed to the controversy",
+        "fictionalized": true,
+        "name": "everyday_riders",
+        "stakes": [
+          "confidence in transit",
+          "personal safety",
+          "fair treatment"
+        ]
+      },
+      {
+        "actor_type": "media_network",
+        "description": "Local online personalities who can rapidly amplify interpretations of the clip",
+        "fictionalized": true,
+        "name": "local_influencers",
+        "stakes": [
+          "audience growth",
+          "issue visibility",
+          "perceived responsiveness"
+        ]
+      },
+      {
+        "actor_type": "media_institution",
+        "description": "Reporters seeking fuller evidence, context, and official records",
+        "fictionalized": true,
+        "name": "investigative_reporters",
+        "stakes": [
+          "verification",
+          "scoop value",
+          "public credibility"
+        ]
+      },
+      {
+        "actor_type": "public_group",
+        "description": "Broader online audience consuming and resharing claims",
+        "fictionalized": true,
+        "name": "local_online_public",
+        "stakes": [
+          "narrative participation",
+          "identity signaling",
+          "low-cost commentary"
+        ]
+      },
+      {
+        "actor_type": "institution_subunit",
+        "description": "Internal or contracted review function that determines whether body-camera footage can be released",
+        "fictionalized": true,
+        "name": "privacy_review_team",
+        "stakes": [
+          "privacy compliance",
+          "process legitimacy",
+          "timeliness"
+        ]
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Early public consensus forms around the edited interpretation, making later corrections less effective",
+        "branch_key": "rapid_amplification_before_verification",
+        "observable_divergence_signal": "High repost volume and moralized commentary substantially outpace links to verified reporting or agency statements",
+        "trigger": "Influencers or advocacy accounts push the clip faster than reporters can contextualize it"
+      },
+      {
+        "alternate_path": "Narrative shifts toward procedural evaluation of the full encounter rather than pure clip outrage",
+        "branch_key": "timely_contextual_release",
+        "observable_divergence_signal": "Public discussion begins citing longer footage, timestamps, or corroborated sequence details",
+        "trigger": "Privacy review concludes quickly enough for the agency to release clarifying footage or a detailed factual summary"
+      },
+      {
+        "alternate_path": "Institutional legitimacy declines even if eventual evidence is more nuanced",
+        "branch_key": "delay_interpreted_as_coverup",
+        "observable_divergence_signal": "Growth in accusations that the agency is hiding footage or protecting the officer",
+        "trigger": "Agency review or statement is slow, thin, or legalistic"
+      },
+      {
+        "alternate_path": "Verification intermediaries reduce rumor intensity without fully ending controversy",
+        "branch_key": "reporter_led_correction_path",
+        "observable_divergence_signal": "Audience shares shift from raw clip posts to reporter threads or articles emphasizing uncertainty and evidence gaps",
+        "trigger": "Investigative reporters obtain corroborating witnesses, metadata, or partial context before official release"
+      },
+      {
+        "alternate_path": "Formal correction coexists with persistent rumor communities",
+        "branch_key": "correction_without_belief_update",
+        "observable_divergence_signal": "Continued resharing of the original clip framing after public availability of fuller context",
+        "trigger": "Later evidence contradicts the strongest early claims but arrives after identity-linked narratives have hardened"
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "short_video_platform",
+        "primary_actors": [
+          "local_influencers",
+          "local_online_public"
+        ],
+        "properties": {
+          "speed": 0.9,
+          "verification_friction": 0.2,
+          "virality": 0.86
+        },
+        "type": "public_social"
+      },
+      {
+        "channel_key": "local_news_reporting",
+        "primary_actors": [
+          "investigative_reporters",
+          "local_online_public",
+          "everyday_riders"
+        ],
+        "properties": {
+          "speed": 0.52,
+          "verification_friction": 0.71,
+          "virality": 0.46
+        },
+        "type": "news_media"
+      },
+      {
+        "channel_key": "agency_public_statement",
+        "primary_actors": [
+          "transit_agency",
+          "everyday_riders",
+          "investigative_reporters"
+        ],
+        "properties": {
+          "speed": 0.43,
+          "verification_friction": 0.83,
+          "virality": 0.38
+        },
+        "type": "official_comms"
+      },
+      {
+        "channel_key": "rider_networks",
+        "primary_actors": [
+          "rider_advocacy_groups",
+          "everyday_riders"
+        ],
+        "properties": {
+          "speed": 0.58,
+          "verification_friction": 0.37,
+          "virality": 0.42
+        },
+        "type": "community_network"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "city_riders",
+        "attention_level": 0.72,
+        "cohort_key": "concerned_riders",
+        "expression_level": 0.48,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.28,
+        "mobilization_readiness": 0.51,
+        "perceived_majority": 0.58,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Clip may reflect a broader accountability problem, but facts remain incomplete",
+        "public_expression": "Concerned discussion and calls for transparency",
+        "representation_mode": "attitudinal_segment",
+        "represented_population": 175000,
+        "stance_axes": {
+          "priority_accountability": 0.78,
+          "priority_due_process": 0.42,
+          "trust_agency": 0.35,
+          "trust_clip_as_complete_evidence": 0.55
+        }
+      },
+      {
+        "archetype_key": "city_riders",
+        "attention_level": 0.54,
+        "cohort_key": "wait_for_context_riders",
+        "expression_level": 0.24,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.43,
+        "mobilization_readiness": 0.27,
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Need full footage before judging the officer or agency",
+        "public_expression": "Limited commenting; preference for verified reporting",
+        "representation_mode": "attitudinal_segment",
+        "represented_population": 225000,
+        "stance_axes": {
+          "priority_accountability": 0.56,
+          "priority_due_process": 0.69,
+          "trust_agency": 0.52,
+          "trust_clip_as_complete_evidence": 0.28
+        }
+      },
+      {
+        "archetype_key": "city_riders",
+        "attention_level": 0.26,
+        "cohort_key": "disengaged_riders",
+        "expression_level": 0.1,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.17,
+        "mobilization_readiness": 0.08,
+        "perceived_majority": 0.22,
+        "population_share_of_archetype": 0.2,
+        "private_belief": "Incident matters less than service reliability unless stronger evidence emerges",
+        "public_expression": "Minimal participation",
+        "representation_mode": "attitudinal_segment",
+        "represented_population": 100000,
+        "stance_axes": {
+          "priority_accountability": 0.38,
+          "priority_due_process": 0.44,
+          "trust_agency": 0.47,
+          "trust_clip_as_complete_evidence": 0.31
+        }
+      },
+      {
+        "archetype_key": "local_online_audience",
+        "attention_level": 0.83,
+        "cohort_key": "viral_clip_believers",
+        "expression_level": 0.69,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.21,
+        "mobilization_readiness": 0.58,
+        "perceived_majority": 0.63,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "Edited clip likely captures the essential truth",
+        "public_expression": "Active resharing, moral commentary, demands for action",
+        "representation_mode": "attention_segment",
+        "represented_population": 48000,
+        "stance_axes": {
+          "priority_accountability": 0.81,
+          "priority_due_process": 0.26,
+          "trust_agency": 0.24,
+          "trust_clip_as_complete_evidence": 0.74
+        }
+      },
+      {
+        "archetype_key": "local_online_audience",
+        "attention_level": 0.61,
+        "cohort_key": "verification_oriented_online",
+        "expression_level": 0.33,
+        "fatigue": 0.16,
+        "fear_of_isolation": 0.49,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.26,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "Claims are premature without fuller evidence",
+        "public_expression": "Requests for source checking and longer footage",
+        "representation_mode": "attention_segment",
+        "represented_population": 30000,
+        "stance_axes": {
+          "priority_accountability": 0.52,
+          "priority_due_process": 0.72,
+          "trust_agency": 0.44,
+          "trust_clip_as_complete_evidence": 0.22
+        }
+      },
+      {
+        "archetype_key": "local_online_audience",
+        "attention_level": 0.58,
+        "cohort_key": "ambient_resharers",
+        "expression_level": 0.41,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.18,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Uncertain but willing to engage with the trending story",
+        "public_expression": "Low-friction reactions, jokes, and occasional reshares",
+        "representation_mode": "behavior_segment",
+        "represented_population": 42000,
+        "stance_axes": {
+          "priority_accountability": 0.49,
+          "priority_due_process": 0.39,
+          "trust_agency": 0.39,
+          "trust_clip_as_complete_evidence": 0.46
+        }
+      },
+      {
+        "archetype_key": "transit_personnel",
+        "attention_level": 0.77,
+        "cohort_key": "institutional_staff",
+        "expression_level": 0.14,
+        "fatigue": 0.37,
+        "fear_of_isolation": 0.68,
+        "mobilization_readiness": 0.12,
+        "perceived_majority": 0.61,
+        "population_share_of_archetype": 0.72,
+        "private_belief": "Public reaction may be outrunning known facts; process discipline matters",
+        "public_expression": "Constrained by policy, mostly silent outside official messaging",
+        "representation_mode": "organizational_segment",
+        "represented_population": 1800,
+        "stance_axes": {
+          "priority_accountability": 0.41,
+          "priority_due_process": 0.83,
+          "trust_agency": 0.74,
+          "trust_clip_as_complete_evidence": 0.19
+        }
+      },
+      {
+        "archetype_key": "transit_personnel",
+        "attention_level": 0.81,
+        "cohort_key": "rank_and_file_policing_staff",
+        "expression_level": 0.09,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.72,
+        "mobilization_readiness": 0.1,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.28,
+        "private_belief": "Officer may be unfairly judged from edited footage",
+        "public_expression": "Defensive private discussion, little official public speech",
+        "representation_mode": "organizational_segment",
+        "represented_population": 700,
+        "stance_axes": {
+          "priority_accountability": 0.29,
+          "priority_due_process": 0.86,
+          "trust_agency": 0.68,
+          "trust_clip_as_complete_evidence": 0.14
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "city_riders",
+        "attention_level": 0.72,
+        "cohort_key": "concerned_riders",
+        "expression_level": 0.48,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.28,
+        "mobilization_readiness": 0.51,
+        "perceived_majority": 0.58,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Clip may reflect a broader accountability problem, but facts remain incomplete",
+        "public_expression": "Concerned discussion and calls for transparency",
+        "representation_mode": "attitudinal_segment",
+        "represented_population": 175000,
+        "stance_axes": {
+          "priority_accountability": 0.78,
+          "priority_due_process": 0.42,
+          "trust_agency": 0.35,
+          "trust_clip_as_complete_evidence": 0.55
+        }
+      },
+      {
+        "archetype_key": "city_riders",
+        "attention_level": 0.54,
+        "cohort_key": "wait_for_context_riders",
+        "expression_level": 0.24,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.43,
+        "mobilization_readiness": 0.27,
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Need full footage before judging the officer or agency",
+        "public_expression": "Limited commenting; preference for verified reporting",
+        "representation_mode": "attitudinal_segment",
+        "represented_population": 225000,
+        "stance_axes": {
+          "priority_accountability": 0.56,
+          "priority_due_process": 0.69,
+          "trust_agency": 0.52,
+          "trust_clip_as_complete_evidence": 0.28
+        }
+      },
+      {
+        "archetype_key": "city_riders",
+        "attention_level": 0.26,
+        "cohort_key": "disengaged_riders",
+        "expression_level": 0.1,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.17,
+        "mobilization_readiness": 0.08,
+        "perceived_majority": 0.22,
+        "population_share_of_archetype": 0.2,
+        "private_belief": "Incident matters less than service reliability unless stronger evidence emerges",
+        "public_expression": "Minimal participation",
+        "representation_mode": "attitudinal_segment",
+        "represented_population": 100000,
+        "stance_axes": {
+          "priority_accountability": 0.38,
+          "priority_due_process": 0.44,
+          "trust_agency": 0.47,
+          "trust_clip_as_complete_evidence": 0.31
+        }
+      },
+      {
+        "archetype_key": "local_online_audience",
+        "attention_level": 0.83,
+        "cohort_key": "viral_clip_believers",
+        "expression_level": 0.69,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.21,
+        "mobilization_readiness": 0.58,
+        "perceived_majority": 0.63,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "Edited clip likely captures the essential truth",
+        "public_expression": "Active resharing, moral commentary, demands for action",
+        "representation_mode": "attention_segment",
+        "represented_population": 48000,
+        "stance_axes": {
+          "priority_accountability": 0.81,
+          "priority_due_process": 0.26,
+          "trust_agency": 0.24,
+          "trust_clip_as_complete_evidence": 0.74
+        }
+      },
+      {
+        "archetype_key": "local_online_audience",
+        "attention_level": 0.61,
+        "cohort_key": "verification_oriented_online",
+        "expression_level": 0.33,
+        "fatigue": 0.16,
+        "fear_of_isolation": 0.49,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.26,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "Claims are premature without fuller evidence",
+        "public_expression": "Requests for source checking and longer footage",
+        "representation_mode": "attention_segment",
+        "represented_population": 30000,
+        "stance_axes": {
+          "priority_accountability": 0.52,
+          "priority_due_process": 0.72,
+          "trust_agency": 0.44,
+          "trust_clip_as_complete_evidence": 0.22
+        }
+      },
+      {
+        "archetype_key": "local_online_audience",
+        "attention_level": 0.58,
+        "cohort_key": "ambient_resharers",
+        "expression_level": 0.41,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.18,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Uncertain but willing to engage with the trending story",
+        "public_expression": "Low-friction reactions, jokes, and occasional reshares",
+        "representation_mode": "behavior_segment",
+        "represented_population": 42000,
+        "stance_axes": {
+          "priority_accountability": 0.49,
+          "priority_due_process": 0.39,
+          "trust_agency": 0.39,
+          "trust_clip_as_complete_evidence": 0.46
+        }
+      },
+      {
+        "archetype_key": "transit_personnel",
+        "attention_level": 0.77,
+        "cohort_key": "institutional_staff",
+        "expression_level": 0.14,
+        "fatigue": 0.37,
+        "fear_of_isolation": 0.68,
+        "mobilization_readiness": 0.12,
+        "perceived_majority": 0.61,
+        "population_share_of_archetype": 0.72,
+        "private_belief": "Public reaction may be outrunning known facts; process discipline matters",
+        "public_expression": "Constrained by policy, mostly silent outside official messaging",
+        "representation_mode": "organizational_segment",
+        "represented_population": 1800,
+        "stance_axes": {
+          "priority_accountability": 0.41,
+          "priority_due_process": 0.83,
+          "trust_agency": 0.74,
+          "trust_clip_as_complete_evidence": 0.19
+        }
+      },
+      {
+        "archetype_key": "transit_personnel",
+        "attention_level": 0.81,
+        "cohort_key": "rank_and_file_policing_staff",
+        "expression_level": 0.09,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.72,
+        "mobilization_readiness": 0.1,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.28,
+        "private_belief": "Officer may be unfairly judged from edited footage",
+        "public_expression": "Defensive private discussion, little official public speech",
+        "representation_mode": "organizational_segment",
+        "represented_population": 700,
+        "stance_axes": {
+          "priority_accountability": 0.29,
+          "priority_due_process": 0.86,
+          "trust_agency": 0.68,
+          "trust_clip_as_complete_evidence": 0.14
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "transit_agency",
+          "privacy_review_team"
+        ],
+        "blockers": [
+          "privacy review delay",
+          "institutional risk aversion",
+          "legal or policy limits on release"
+        ],
+        "contradiction_notes": "Release remains uncertain because the scenario does not guarantee timing, completeness, or scope.",
+        "description": "The controversy reaches a terminal informational state where body-camera footage or equivalent authoritative context is publicly available and materially clarifies the encounter.",
+        "endpoint_key": "public_context_release",
+        "evidence_refs": [
+          "simulation_brief",
+          "initial_events:privacy_review_begins",
+          "graph_edges:transit_agency->privacy_review_team:dependency"
+        ],
+        "label": "Public release of clarifying context",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will materially clarifying body-camera footage or equivalent full-context evidence become public within the scenario window?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.58,
+        "rationale": "This is a core terminal information outcome because it can decisively alter what later actors can claim.",
+        "realization_criteria": [
+          "Agency publicly releases body-camera footage, extended footage, or an authoritative detailed reconstruction",
+          "Released material materially resolves at least one central ambiguity of the edited clip",
+          "Reporters or major public channels reference the released context as primary evidence"
+        ],
+        "status": "active",
+        "status_basis": "Scenario explicitly states the agency can release body-camera footage after privacy review, but full footage is unavailable at T0."
+      },
+      {
+        "authority_refs": [
+          "local_influencers",
+          "local_online_public"
+        ],
+        "blockers": [
+          "fast credible evidence release",
+          "strong reporter-led reframing",
+          "attention decay before entrenchment hardens"
+        ],
+        "contradiction_notes": "Persistence is plausible but not certain; a strong corrective information cascade could prevent dominance.",
+        "description": "The early edited-clip interpretation stays socially dominant or persistently influential despite verification efforts or later corrections.",
+        "endpoint_key": "edited_clip_narrative_entrenchment",
+        "evidence_refs": [
+          "simulation_brief",
+          "branch_hypotheses:correction_without_belief_update",
+          "sociology_prompt_influences:correction_resistance"
+        ],
+        "label": "Edited clip narrative remains entrenched",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the edited clip remain the dominant public narrative even after verification efforts begin?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.61,
+        "rationale": "The scenario is about misinformation dynamics, so persistence of false or incomplete framing is a principal endpoint.",
+        "realization_criteria": [
+          "Majority of high-visibility public discussion continues citing the original clip framing after verification attempts",
+          "Correction content receives lower sustained engagement than original outrage content",
+          "Rumor repetition persists across influencer or public channels after clarifying evidence appears or is reported absent"
+        ],
+        "status": "active",
+        "status_basis": "Scenario explicitly warns that rumors may persist after correction, making narrative entrenchment a live endpoint."
+      },
+      {
+        "authority_refs": [
+          "transit_agency",
+          "privacy_review_team",
+          "rider_advocacy_groups",
+          "local_influencers"
+        ],
+        "blockers": [
+          "timely transparent update",
+          "visible privacy rationale accepted as legitimate",
+          "independent verification that tempers suspicion"
+        ],
+        "contradiction_notes": "A careful but timely response could keep the issue in a procedural evidence lane rather than a coverup lane.",
+        "description": "The main public interpretation shifts from the officer's conduct alone to a broader belief that the agency is hiding or managing evidence illegitimately.",
+        "endpoint_key": "agency_coverup_frame",
+        "evidence_refs": [
+          "branch_hypotheses:delay_interpreted_as_coverup",
+          "trait_vectors:transit_agency",
+          "graph_edges:local_influencers->transit_agency:conflict"
+        ],
+        "label": "Agency response collapses into coverup framing",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the transit agency preserve enough legitimacy to keep the controversy procedural rather than being cast as a coverup?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.42,
+        "rationale": "Decision authority over release creates leverage, but also reputational exposure if the process is perceived as evasive.",
+        "realization_criteria": [
+          "Public-facing discourse prominently accuses the agency of concealment or bad-faith delay",
+          "Agency statements are widely treated as illegitimate or untrustworthy by rider and online audiences",
+          "Calls for external oversight or pressure escalate primarily because of the response process rather than only the original clip"
+        ],
+        "status": "active",
+        "status_basis": "The agency has asymmetric evidence control and procedural delay constraints, creating a live risk of delegitimation at T0."
+      },
+      {
+        "authority_refs": [
+          "investigative_reporters",
+          "local_influencers",
+          "rider_advocacy_groups"
+        ],
+        "blockers": [
+          "lack of access to evidence",
+          "faster viral recirculation of the edited clip",
+          "institutional noncooperation"
+        ],
+        "contradiction_notes": "Even strong reporting may not fully dominate if audiences prefer identity-consistent clip narratives.",
+        "description": "Investigative reporting becomes the main trusted lens through which the public interprets the incident, reducing dependence on the raw viral clip.",
+        "endpoint_key": "reporter_mediated_reframing",
+        "evidence_refs": [
+          "hero_states:investigative_reporters",
+          "branch_hypotheses:reporter_led_correction_path",
+          "graph_edges:investigative_reporters->local_online_public:influence"
+        ],
+        "label": "Reporter-mediated reframing becomes dominant",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will investigative reporting measurably shift audience attention from raw outrage to evidence-based interpretation?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.37,
+        "rationale": "This endpoint captures whether verification intermediaries can materially redirect information dynamics.",
+        "realization_criteria": [
+          "Reporter outputs become the most-cited sources in subsequent public discussion",
+          "Public conversations increasingly reference verification status, missing context, or reported factual findings",
+          "Influencer and rider-group narratives adapt to reporter-established evidence boundaries"
+        ],
+        "status": "active",
+        "status_basis": "Reporters are explicitly present as verification actors, but their success depends on access and timing."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "Scenario states influencers can amplify",
+        "layer": "exposure",
+        "reason": "Influencers can rapidly push clip interpretations into local feeds",
+        "source_actor_name": "local_influencers",
+        "target_actor_name": "local_online_public",
+        "weight": 0.72
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario includes investigative reporters responding",
+        "layer": "exposure",
+        "reason": "Reporters distribute verification-oriented updates to the same audience",
+        "source_actor_name": "investigative_reporters",
+        "target_actor_name": "local_online_public",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario includes rider groups responding",
+        "layer": "exposure",
+        "reason": "Rider groups communicate concerns directly to rider communities",
+        "source_actor_name": "rider_advocacy_groups",
+        "target_actor_name": "everyday_riders",
+        "weight": 0.49
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario notes agency can release body-camera footage after review",
+        "layer": "exposure",
+        "reason": "Agency can issue statements and release footage to riders",
+        "source_actor_name": "transit_agency",
+        "target_actor_name": "everyday_riders",
+        "weight": 0.41
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Officer-related event implicates transit police and agency response",
+        "layer": "exposure",
+        "reason": "Internal reporting and incident information flow likely runs through the unit to the agency",
+        "source_actor_name": "transit_police_unit",
+        "target_actor_name": "transit_agency",
+        "weight": 0.53
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Misinformation and network exposure are expected focus areas",
+        "layer": "exposure",
+        "reason": "Online discussion spills into rider perception and conversation",
+        "source_actor_name": "local_online_public",
+        "target_actor_name": "everyday_riders",
+        "weight": 0.44
+      },
+      {
+        "direction": "inbound_evaluation",
+        "evidence": "Agency authority exists, but edited clip creates uncertainty",
+        "layer": "trust",
+        "reason": "Riders hold moderate but strained trust pending evidence",
+        "source_actor_name": "everyday_riders",
+        "target_actor_name": "transit_agency",
+        "weight": 0.43
+      },
+      {
+        "direction": "inbound_evaluation",
+        "evidence": "Scenario notes influencers can amplify but not verify facts",
+        "layer": "trust",
+        "reason": "Influencers are seen as responsive but not fully reliable",
+        "source_actor_name": "local_online_public",
+        "target_actor_name": "local_influencers",
+        "weight": 0.47
+      },
+      {
+        "direction": "inbound_evaluation",
+        "evidence": "Scenario includes investigative reporters responding under uncertainty",
+        "layer": "trust",
+        "reason": "Reporters have comparatively higher verification credibility",
+        "source_actor_name": "local_online_public",
+        "target_actor_name": "investigative_reporters",
+        "weight": 0.58
+      },
+      {
+        "direction": "inbound_evaluation",
+        "evidence": "Both actors respond to uncertainty around the clip",
+        "layer": "trust",
+        "reason": "Advocacy groups may trust reporters to surface evidence and accountability facts",
+        "source_actor_name": "rider_advocacy_groups",
+        "target_actor_name": "investigative_reporters",
+        "weight": 0.55
+      },
+      {
+        "direction": "inbound_evaluation",
+        "evidence": "Body-camera release is conditioned on privacy review",
+        "layer": "trust",
+        "reason": "Agency relies on privacy review as a legitimate gatekeeping process",
+        "source_actor_name": "transit_agency",
+        "target_actor_name": "privacy_review_team",
+        "weight": 0.63
+      },
+      {
+        "direction": "inbound_evaluation",
+        "evidence": "Rider groups are central respondents to the incident",
+        "layer": "trust",
+        "reason": "Some riders see advocacy groups as authentic representatives of rider concern",
+        "source_actor_name": "everyday_riders",
+        "target_actor_name": "rider_advocacy_groups",
+        "weight": 0.52
+      },
+      {
+        "direction": "depends_on",
+        "evidence": "Scenario explicitly says agency can release body-camera footage after privacy review",
+        "layer": "dependency",
+        "reason": "Agency release of body-camera footage depends on privacy review clearance",
+        "source_actor_name": "transit_agency",
+        "target_actor_name": "privacy_review_team",
+        "weight": 0.76
+      },
+      {
+        "direction": "depends_on",
+        "evidence": "Full footage unavailable; agency controls potential release path",
+        "layer": "dependency",
+        "reason": "Reporters depend partly on agency cooperation or release for full evidence",
+        "source_actor_name": "investigative_reporters",
+        "target_actor_name": "transit_agency",
+        "weight": 0.51
+      },
+      {
+        "direction": "depends_on",
+        "evidence": "Evidence uncertainty and correction mechanisms are central",
+        "layer": "dependency",
+        "reason": "Groups benefit from reporters validating claims they cannot prove alone",
+        "source_actor_name": "rider_advocacy_groups",
+        "target_actor_name": "investigative_reporters",
+        "weight": 0.32
+      },
+      {
+        "direction": "depends_on",
+        "evidence": "Network exposure and amplification are expected focuses",
+        "layer": "dependency",
+        "reason": "A segment of public attention is routed through influencer framing",
+        "source_actor_name": "local_online_public",
+        "target_actor_name": "local_influencers",
+        "weight": 0.37
+      },
+      {
+        "direction": "depends_on",
+        "evidence": "Agency is the likely formal release and response authority",
+        "layer": "dependency",
+        "reason": "Unit depends on agency communications and administrative authority during controversy",
+        "source_actor_name": "transit_police_unit",
+        "target_actor_name": "transit_agency",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Scenario says influencers can amplify",
+        "layer": "influence",
+        "reason": "Influencers shape salience and early interpretation of the clip",
+        "source_actor_name": "local_influencers",
+        "target_actor_name": "local_online_public",
+        "weight": 0.74
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Agency controls possible body-camera release",
+        "layer": "influence",
+        "reason": "Agency statements and evidence release can materially alter interpretation",
+        "source_actor_name": "transit_agency",
+        "target_actor_name": "everyday_riders",
+        "weight": 0.57
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Correction mechanisms are part of the scenario",
+        "layer": "influence",
+        "reason": "Reporters can reframe the story toward verified facts",
+        "source_actor_name": "investigative_reporters",
+        "target_actor_name": "local_online_public",
+        "weight": 0.59
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Rider groups respond prominently",
+        "layer": "influence",
+        "reason": "Advocacy groups can convert concern into accountability demands",
+        "source_actor_name": "rider_advocacy_groups",
+        "target_actor_name": "everyday_riders",
+        "weight": 0.52
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Body-camera release is conditional on privacy review",
+        "layer": "influence",
+        "reason": "Review team controls timing and scope constraints on release",
+        "source_actor_name": "privacy_review_team",
+        "target_actor_name": "transit_agency",
+        "weight": 0.61
+      },
+      {
+        "direction": "mutual",
+        "evidence": "Both seek clarification under uncertainty",
+        "layer": "coalition",
+        "reason": "Loose alignment around transparency and fact-finding",
+        "source_actor_name": "rider_advocacy_groups",
+        "target_actor_name": "investigative_reporters",
+        "weight": 0.39
+      },
+      {
+        "direction": "mutual",
+        "evidence": "Privacy review is part of the agency pathway",
+        "layer": "coalition",
+        "reason": "Institutional alignment around compliant release process",
+        "source_actor_name": "transit_agency",
+        "target_actor_name": "privacy_review_team",
+        "weight": 0.64
+      },
+      {
+        "direction": "mutual",
+        "evidence": "Agency and police are jointly implicated by the incident",
+        "layer": "coalition",
+        "reason": "Shared institutional interest in coordinated response",
+        "source_actor_name": "transit_agency",
+        "target_actor_name": "transit_police_unit",
+        "weight": 0.47
+      },
+      {
+        "direction": "mutual",
+        "evidence": "Both can amplify concern about the clip",
+        "layer": "coalition",
+        "reason": "Potential temporary alignment if accountability framing dominates",
+        "source_actor_name": "local_influencers",
+        "target_actor_name": "rider_advocacy_groups",
+        "weight": 0.34
+      },
+      {
+        "direction": "oppositional",
+        "evidence": "Officer conduct controversy implicates transit police",
+        "layer": "conflict",
+        "reason": "Accountability demands may clash with defensive institutional posture",
+        "source_actor_name": "rider_advocacy_groups",
+        "target_actor_name": "transit_police_unit",
+        "weight": 0.56
+      },
+      {
+        "direction": "oppositional",
+        "evidence": "Release requires review, creating lag while influencers amplify",
+        "layer": "conflict",
+        "reason": "Agency caution may be framed online as evasion or delay",
+        "source_actor_name": "local_influencers",
+        "target_actor_name": "transit_agency",
+        "weight": 0.42
+      },
+      {
+        "direction": "oppositional",
+        "evidence": "Reporters seek fuller evidence unavailable at T0",
+        "layer": "conflict",
+        "reason": "Press scrutiny pressures agency secrecy and timing",
+        "source_actor_name": "investigative_reporters",
+        "target_actor_name": "transit_agency",
+        "weight": 0.31
+      },
+      {
+        "direction": "oppositional",
+        "evidence": "Edited video appears to show the officer insulting riders",
+        "layer": "conflict",
+        "reason": "Public anger is directed at the officer shown in the clip",
+        "source_actor_name": "local_online_public",
+        "target_actor_name": "accused_officer",
+        "weight": 0.53
+      },
+      {
+        "direction": "oppositional",
+        "evidence": "Agency is responsible for response and possible disclosure",
+        "layer": "conflict",
+        "reason": "Rider trust strain creates low-to-moderate institutional friction",
+        "source_actor_name": "everyday_riders",
+        "target_actor_name": "transit_agency",
+        "weight": 0.33
+      },
+      {
+        "direction": "mutual",
+        "evidence": "Amplification and verification actors are both active",
+        "layer": "oasis_interaction",
+        "reason": "Public exchanges may occur over evidence, sourcing, and framing",
+        "source_actor_name": "local_influencers",
+        "target_actor_name": "investigative_reporters",
+        "weight": 0.44
+      },
+      {
+        "direction": "mutual",
+        "evidence": "Agency authority and rider group concern are explicit",
+        "layer": "oasis_interaction",
+        "reason": "Likely public demands for release, apology, or accountability",
+        "source_actor_name": "rider_advocacy_groups",
+        "target_actor_name": "transit_agency",
+        "weight": 0.51
+      },
+      {
+        "direction": "mutual",
+        "evidence": "Network exposure and authority dynamics are central",
+        "layer": "oasis_interaction",
+        "reason": "Agency social channels may receive direct public pressure",
+        "source_actor_name": "local_online_public",
+        "target_actor_name": "transit_agency",
+        "weight": 0.43
+      },
+      {
+        "direction": "mutual",
+        "evidence": "Reporters are investigating and agency holds possible evidence",
+        "layer": "oasis_interaction",
+        "reason": "Press requests and official statements create visible interaction",
+        "source_actor_name": "transit_agency",
+        "target_actor_name": "investigative_reporters",
+        "weight": 0.46
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype_key": "institutional_deciders",
+        "description": "Actors with process control over information release and official response",
+        "label": "Institutional deciders"
+      },
+      {
+        "archetype_key": "narrative_amplifiers",
+        "description": "Actors with reach but limited verification authority",
+        "label": "Narrative amplifiers"
+      },
+      {
+        "archetype_key": "verification_brokers",
+        "description": "Actors who can narrow uncertainty through evidence gathering and reporting",
+        "label": "Verification brokers"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "transit_agency",
+        "attention_level": 0.88,
+        "decision_power": 0.82,
+        "expression_level": 0.42,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.33,
+        "graph_influence_summary": 0.72,
+        "hero_archetype_key": "institutional_deciders",
+        "mobilization_readiness": 0.64,
+        "perceived_majority": 0.45,
+        "reputation": 0.51,
+        "secrecy": 0.56,
+        "stance_axes": {
+          "due_process_priority": 0.78,
+          "institutional_self_protection": 0.63,
+          "risk_aversion": 0.71,
+          "transparency_preference": 0.48
+        },
+        "trustworthiness": 0.49
+      },
+      {
+        "actor_name": "privacy_review_team",
+        "attention_level": 0.74,
+        "decision_power": 0.67,
+        "expression_level": 0.08,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.41,
+        "graph_influence_summary": 0.46,
+        "hero_archetype_key": "institutional_deciders",
+        "mobilization_readiness": 0.55,
+        "perceived_majority": 0.52,
+        "reputation": 0.44,
+        "secrecy": 0.71,
+        "stance_axes": {
+          "due_process_priority": 0.81,
+          "institutional_self_protection": 0.47,
+          "risk_aversion": 0.79,
+          "transparency_preference": 0.39
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "local_influencers",
+        "attention_level": 0.92,
+        "decision_power": 0.31,
+        "expression_level": 0.87,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.14,
+        "graph_influence_summary": 0.76,
+        "hero_archetype_key": "narrative_amplifiers",
+        "mobilization_readiness": 0.8,
+        "perceived_majority": 0.61,
+        "reputation": 0.57,
+        "secrecy": 0.12,
+        "stance_axes": {
+          "due_process_priority": 0.29,
+          "institutional_self_protection": 0.18,
+          "risk_aversion": 0.28,
+          "transparency_preference": 0.66
+        },
+        "trustworthiness": 0.41
+      },
+      {
+        "actor_name": "investigative_reporters",
+        "attention_level": 0.84,
+        "decision_power": 0.44,
+        "expression_level": 0.51,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.19,
+        "graph_influence_summary": 0.62,
+        "hero_archetype_key": "verification_brokers",
+        "mobilization_readiness": 0.63,
+        "perceived_majority": 0.37,
+        "reputation": 0.69,
+        "secrecy": 0.21,
+        "stance_axes": {
+          "due_process_priority": 0.68,
+          "institutional_self_protection": 0.12,
+          "risk_aversion": 0.46,
+          "transparency_preference": 0.81
+        },
+        "trustworthiness": 0.74
+      },
+      {
+        "actor_name": "rider_advocacy_groups",
+        "attention_level": 0.87,
+        "decision_power": 0.36,
+        "expression_level": 0.72,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.16,
+        "graph_influence_summary": 0.59,
+        "hero_archetype_key": "narrative_amplifiers",
+        "mobilization_readiness": 0.71,
+        "perceived_majority": 0.56,
+        "reputation": 0.58,
+        "secrecy": 0.15,
+        "stance_axes": {
+          "due_process_priority": 0.41,
+          "institutional_self_protection": 0.09,
+          "risk_aversion": 0.35,
+          "transparency_preference": 0.84
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "transit_police_unit",
+        "attention_level": 0.86,
+        "decision_power": 0.63,
+        "expression_level": 0.31,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.39,
+        "graph_influence_summary": 0.57,
+        "hero_archetype_key": "institutional_deciders",
+        "mobilization_readiness": 0.58,
+        "perceived_majority": 0.43,
+        "reputation": 0.46,
+        "secrecy": 0.62,
+        "stance_axes": {
+          "due_process_priority": 0.82,
+          "institutional_self_protection": 0.72,
+          "risk_aversion": 0.73,
+          "transparency_preference": 0.34
+        },
+        "trustworthiness": 0.43
+      }
+    ],
+    "heroes": [
+      {
+        "archetype_key": "institutional_deciders",
+        "description": "Actors with process control over information release and official response",
+        "label": "Institutional deciders"
+      },
+      {
+        "archetype_key": "narrative_amplifiers",
+        "description": "Actors with reach but limited verification authority",
+        "label": "Narrative amplifiers"
+      },
+      {
+        "archetype_key": "verification_brokers",
+        "description": "Actors who can narrow uncertainty through evidence gathering and reporting",
+        "label": "Verification brokers"
+      }
+    ],
+    "important_questions": [
+      "Will materially clarifying body-camera footage or equivalent full-context evidence become public within the scenario window?",
+      "Will the edited clip remain the dominant public narrative even after verification efforts begin?",
+      "Will the transit agency preserve enough legitimacy to keep the controversy procedural rather than being cast as a coverup?",
+      "Will investigative reporting measurably shift audience attention from raw outrage to evidence-based interpretation?"
+    ],
+    "initial_events": [
+      {
+        "actors_involved": [
+          "accused_officer",
+          "local_online_public",
+          "local_influencers"
+        ],
+        "event_key": "edited_clip_surfaces",
+        "event_type": "announcement",
+        "expected_impact": "Raises attention, increases exposure and conflict toward the officer and agency, and anchors early interpretations before verification",
+        "status": "realized",
+        "summary": "An edited video appears to show a transit officer insulting riders and begins circulating publicly",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "rider_advocacy_groups",
+          "local_influencers",
+          "everyday_riders"
+        ],
+        "event_key": "advocacy_and_influencer_reaction",
+        "event_type": "announcement",
+        "expected_impact": "Strengthens accountability framing and increases perceived majority sentiment around the clip narrative",
+        "status": "realized",
+        "summary": "Rider groups and local influencers begin responding to the clip with concern and amplification",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "investigative_reporters",
+          "transit_agency",
+          "transit_police_unit"
+        ],
+        "event_key": "reporters_seek_full_context",
+        "event_type": "announcement",
+        "expected_impact": "May slow overconfidence among some audiences and create pressure for formal evidence release",
+        "status": "scheduled",
+        "summary": "Investigative reporters request fuller footage, statements, and context from agency sources",
+        "tick": 1
+      },
+      {
+        "actors_involved": [
+          "transit_agency",
+          "privacy_review_team"
+        ],
+        "event_key": "privacy_review_begins",
+        "event_type": "announcement",
+        "expected_impact": "Creates a visible institutional process but also introduces delay that can be framed as caution or concealment",
+        "status": "scheduled",
+        "summary": "The agency initiates or formalizes privacy review of body-camera footage for possible release",
+        "tick": 1
+      },
+      {
+        "actors_involved": [
+          "transit_agency",
+          "everyday_riders",
+          "investigative_reporters"
+        ],
+        "event_key": "possible_official_update",
+        "event_type": "announcement",
+        "expected_impact": "Could partially stabilize trust among due-process-oriented audiences or intensify suspicion if too vague",
+        "status": "contingent",
+        "summary": "Agency may issue an interim statement before any footage release",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "d3b37620-b575-47e2-b36a-1740359163bd",
+    "merge_hypotheses": [
+      {
+        "affected_actors": [
+          "transit_agency",
+          "rider_advocacy_groups",
+          "investigative_reporters",
+          "everyday_riders"
+        ],
+        "convergence_driver": "Most actors benefit from greater factual clarity even if they expect different implications",
+        "merge_key": "shared_interest_in_full_footage"
+      },
+      {
+        "affected_actors": [
+          "local_online_public",
+          "everyday_riders",
+          "local_influencers"
+        ],
+        "convergence_driver": "If no dramatic new evidence appears, declining attention can soften polarized public engagement",
+        "merge_key": "attention_fatigue_reduces_extremes"
+      },
+      {
+        "affected_actors": [
+          "transit_agency",
+          "investigative_reporters",
+          "wait_for_context_riders",
+          "concerned_riders"
+        ],
+        "convergence_driver": "A credible review process plus visible evidence handling may partially restore trust across skeptical and cautious cohorts",
+        "merge_key": "procedural_legitimacy_repair"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "city_riders",
+        "description": "People who regularly use the transit system and may be sensitive to safety and respect concerns",
+        "label": "City riders",
+        "population_total": 500000
+      },
+      {
+        "archetype_key": "local_online_audience",
+        "description": "People likely to encounter, discuss, and reshare the clip or subsequent reporting",
+        "label": "Local online audience",
+        "population_total": 120000
+      },
+      {
+        "archetype_key": "transit_personnel",
+        "description": "Transit agency and policing-adjacent workers affected by institutional pressure",
+        "label": "Transit personnel ecosystem",
+        "population_total": 2500
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "high_evidence_asymmetry",
+        "note": "Agency-controlled footage creates asymmetric access to truth at T0.",
+        "severity": "medium"
+      },
+      {
+        "flag": "early_clip_overconfidence",
+        "note": "Edited visual evidence can generate strong belief before verification.",
+        "severity": "high"
+      },
+      {
+        "flag": "correction_lag",
+        "note": "Privacy review slows correction relative to amplification speed.",
+        "severity": "high"
+      },
+      {
+        "flag": "persistent_rumor_after_correction",
+        "note": "Scenario explicitly indicates rumors may persist after correction.",
+        "severity": "high"
+      },
+      {
+        "flag": "uncertain_incident_ground_truth",
+        "note": "Initializer should avoid assuming the officer is clearly guilty or exonerated at T0.",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "media_information_dynamics",
+      "horizon_notes": "Short-cycle information cascade with institutional review lag",
+      "mode": "direct",
+      "scale": "city_local",
+      "scenario_key": "media_002",
+      "summary": "An edited video appears to show a transit officer insulting riders, but full footage is unavailable at T0. Rider groups, transit police, local influencers, and investigative reporters react under uncertainty. The transit agency may release body-camera footage only after privacy review. Influencers can amplify claims but cannot independently verify the underlying event. Rumors may persist after later correction.",
+      "time_zero_conditions": [
+        "Edited clip is circulating publicly",
+        "Full footage is not publicly available",
+        "Underlying facts are uncertain",
+        "Formal correction mechanism exists through agency review and possible body-camera release",
+        "Public attention is likely to outpace verified evidence"
+      ],
+      "uncertainty_notes": [
+        "Clip authenticity as a complete representation of the encounter is unverified",
+        "Officer conduct severity is unclear without full footage",
+        "Agency response speed depends on privacy review process",
+        "Persistence of belief after correction is plausible"
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "everyday_riders",
+          "local_online_public"
+        ],
+        "level": 0.62,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "People may accept updates that fit existing beliefs about authority or rider mistreatment"
+      },
+      {
+        "applies_to": [
+          "rider_advocacy_groups",
+          "concerned_riders"
+        ],
+        "level": 0.57,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Visible peer concern can move accountability demands from discussion to coordinated action"
+      },
+      {
+        "applies_to": [
+          "wait_for_context_riders",
+          "institutional_staff",
+          "rank_and_file_policing_staff"
+        ],
+        "level": 0.61,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Some actors privately dissent from the dominant public clip narrative but speak cautiously"
+      },
+      {
+        "applies_to": [
+          "local_online_public",
+          "rider_advocacy_groups"
+        ],
+        "level": 0.58,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Accounts cluster into communities that repeat aligned interpretations"
+      },
+      {
+        "applies_to": [
+          "local_online_public",
+          "everyday_riders"
+        ],
+        "level": 0.64,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Repeated exposure from multiple visible accounts can harden belief in the edited clip framing"
+      },
+      {
+        "applies_to": [
+          "rider_advocacy_groups",
+          "transit_police_unit",
+          "institutional_staff"
+        ],
+        "level": 0.53,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Group loyalties shape interpretation of accountability and procedural fairness"
+      },
+      {
+        "applies_to": [
+          "local_online_public",
+          "everyday_riders"
+        ],
+        "level": 0.44,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Attention may fall quickly unless refreshed by new evidence, official action, or controversy"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "An edited clip creates a salient but incomplete visual narrative that encourages overconfident interpretation",
+        "influence_key": "edited_clip_ambiguity"
+      },
+      {
+        "description": "Official evidence release is slower than social amplification because privacy review is required",
+        "influence_key": "verification_lag"
+      },
+      {
+        "description": "The agency holds potential clarifying footage while outside actors lack direct access",
+        "influence_key": "authority_asymmetric_access"
+      },
+      {
+        "description": "Some audiences may continue repeating early claims after later clarification",
+        "influence_key": "correction_resistance"
+      },
+      {
+        "description": "Influencers can magnify attention without resolving factual uncertainty",
+        "influence_key": "amplification_without_fact_control"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "transit_agency",
+        "behavior_axes": {
+          "adaptability": 0.48,
+          "message_discipline": 0.79,
+          "proceduralism": 0.83,
+          "responsiveness": 0.54
+        },
+        "ideology_axes": {
+          "institutional_authority": 0.82,
+          "public_accountability": 0.52
+        },
+        "reputation": 0.51,
+        "secrecy": 0.56,
+        "tendency": "cautious_release_after_review",
+        "trustworthiness": 0.49
+      },
+      {
+        "actor_name": "transit_police_unit",
+        "behavior_axes": {
+          "adaptability": 0.36,
+          "message_discipline": 0.75,
+          "proceduralism": 0.78,
+          "responsiveness": 0.42
+        },
+        "ideology_axes": {
+          "institutional_authority": 0.88,
+          "public_accountability": 0.37
+        },
+        "reputation": 0.46,
+        "secrecy": 0.62,
+        "tendency": "defensive_under_scrutiny",
+        "trustworthiness": 0.43
+      },
+      {
+        "actor_name": "accused_officer",
+        "behavior_axes": {
+          "adaptability": 0.28,
+          "message_discipline": 0.67,
+          "proceduralism": 0.61,
+          "responsiveness": 0.12
+        },
+        "ideology_axes": {
+          "institutional_authority": 0.73,
+          "public_accountability": 0.29
+        },
+        "reputation": 0.22,
+        "secrecy": 0.74,
+        "tendency": "constrained_and_reputation_vulnerable",
+        "trustworthiness": 0.34
+      },
+      {
+        "actor_name": "rider_advocacy_groups",
+        "behavior_axes": {
+          "adaptability": 0.67,
+          "message_discipline": 0.58,
+          "proceduralism": 0.41,
+          "responsiveness": 0.79
+        },
+        "ideology_axes": {
+          "institutional_authority": 0.22,
+          "public_accountability": 0.86
+        },
+        "reputation": 0.58,
+        "secrecy": 0.15,
+        "tendency": "press_for_transparency",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "local_influencers",
+        "behavior_axes": {
+          "adaptability": 0.82,
+          "message_discipline": 0.36,
+          "proceduralism": 0.18,
+          "responsiveness": 0.92
+        },
+        "ideology_axes": {
+          "institutional_authority": 0.24,
+          "public_accountability": 0.72
+        },
+        "reputation": 0.57,
+        "secrecy": 0.12,
+        "tendency": "amplify_before_verification",
+        "trustworthiness": 0.41
+      },
+      {
+        "actor_name": "investigative_reporters",
+        "behavior_axes": {
+          "adaptability": 0.61,
+          "message_discipline": 0.64,
+          "proceduralism": 0.72,
+          "responsiveness": 0.66
+        },
+        "ideology_axes": {
+          "institutional_authority": 0.36,
+          "public_accountability": 0.84
+        },
+        "reputation": 0.69,
+        "secrecy": 0.21,
+        "tendency": "verify_and_contextualize",
+        "trustworthiness": 0.74
+      },
+      {
+        "actor_name": "privacy_review_team",
+        "behavior_axes": {
+          "adaptability": 0.33,
+          "message_discipline": 0.71,
+          "proceduralism": 0.91,
+          "responsiveness": 0.38
+        },
+        "ideology_axes": {
+          "institutional_authority": 0.79,
+          "public_accountability": 0.49
+        },
+        "reputation": 0.44,
+        "secrecy": 0.71,
+        "tendency": "gate_release_on_compliance",
+        "trustworthiness": 0.58
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 533,
+        "end": 533,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 533,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

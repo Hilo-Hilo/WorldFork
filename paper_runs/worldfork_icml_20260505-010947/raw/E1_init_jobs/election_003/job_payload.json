@@ -1,0 +1,21 @@
+{
+  "job_type": "initialize_big_bang",
+  "payload": {
+    "actors": [],
+    "branch_policy": {
+      "branch_score_threshold": 0.999,
+      "max_active_multiverses": 1,
+      "max_branch_depth": 1,
+      "max_branches_per_tick": 1
+    },
+    "cohorts": [],
+    "heroes": [],
+    "name": "E1_init_job_election_003",
+    "scenario_text": "# Case election_003\nBenchmark role: election_legitimacy\n\n## Scenario\n\nAfter a fictional mayoral debate, a candidate's ambiguous answer about emergency shelters goes viral. Advocacy groups demand clarification, campaign staff issue partial corrections, reporters fact-check the quote, and undecided voters are fatigued. Initialize exposure, trust, campaign incentives, and branch hypotheses around clarification, backlash, distraction, or issue reframing.\n\n## Expected Focus\n- candidate_strategy\n- trust_edges\n- attention_decay\n",
+    "simulation_config": {
+      "max_ticks": 1,
+      "tick_duration_minutes": 720
+    },
+    "use_initializer_agent": true
+  }
+}

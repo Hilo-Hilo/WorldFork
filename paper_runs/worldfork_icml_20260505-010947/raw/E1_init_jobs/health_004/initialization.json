@@ -1,0 +1,1860 @@
+{
+  "big_bang_id": "b66ab4c2-34ff-4b16-8ae8-13f991872f82",
+  "initializer_output": {
+    "actors": [
+      {
+        "description": "Executive leadership balancing safety, mobility, and political fallout.",
+        "fictionalized": true,
+        "name": "city_mayor_office",
+        "scale": "city",
+        "type": "government_executive"
+      },
+      {
+        "description": "Operates and manages bridge access, restrictions, and maintenance planning.",
+        "fictionalized": true,
+        "name": "city_transport_department",
+        "scale": "city",
+        "type": "municipal_agency"
+      },
+      {
+        "description": "Engineers who inspected the bridge and found cracks.",
+        "fictionalized": true,
+        "name": "bridge_engineering_team",
+        "scale": "city",
+        "type": "technical_expert_group"
+      },
+      {
+        "description": "Budget decision-makers relevant to replacement or repair funding.",
+        "fictionalized": true,
+        "name": "city_council_budget_bloc",
+        "scale": "city",
+        "type": "government_legislative"
+      },
+      {
+        "description": "Potential external funding source or approving authority for major replacement support.",
+        "fictionalized": true,
+        "name": "state_transport_funding_authority",
+        "scale": "regional",
+        "type": "external_government_funder"
+      },
+      {
+        "description": "Safety inspectors and compliance officials concerned with public risk and standards.",
+        "fictionalized": true,
+        "name": "safety_inspectorate",
+        "scale": "city_regional",
+        "type": "oversight_regulator"
+      },
+      {
+        "description": "Daily bridge users concerned with travel time, safety, and reliability.",
+        "fictionalized": true,
+        "name": "commuter_public",
+        "scale": "city",
+        "type": "population_group"
+      },
+      {
+        "description": "Freight and logistics firms relying on bridge throughput and load capacity.",
+        "fictionalized": true,
+        "name": "freight_firms_association",
+        "scale": "city_regional",
+        "type": "industry_group"
+      },
+      {
+        "description": "Fire, ambulance, and related emergency routing authorities affected by closure or restrictions.",
+        "fictionalized": true,
+        "name": "emergency_services_command",
+        "scale": "city",
+        "type": "public_safety_operator"
+      },
+      {
+        "description": "Businesses near the bridge corridor dependent on access and customer flow.",
+        "fictionalized": true,
+        "name": "nearby_business_alliance",
+        "scale": "district",
+        "type": "business_group"
+      },
+      {
+        "description": "Local news outlets likely to amplify technical findings and public reactions.",
+        "fictionalized": true,
+        "name": "local_news_media",
+        "scale": "city",
+        "type": "media"
+      },
+      {
+        "description": "Residents and voters bearing fiscal and political consequences of infrastructure decisions.",
+        "fictionalized": true,
+        "name": "general_taxpayer_voters",
+        "scale": "city",
+        "type": "population_group"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Officials move from restrictions review to emergency full closure.",
+        "branch_key": "emergency_closure_branch",
+        "divergence_signal": "Public announcement of immediate closure, emergency rerouting plans, and rapid spike in safety-aligned coalition edges.",
+        "trigger": "New inspection evidence or inspector warning indicates crack severity exceeds safe operating threshold."
+      },
+      {
+        "alternate_path": "City adopts phased repairs with load restrictions and inspection schedule instead of full closure.",
+        "branch_key": "phased_repair_branch",
+        "divergence_signal": "Publication of staged repair timetable, freight exemptions debate, and stabilization of conflict below crisis level.",
+        "trigger": "Technical findings support continued limited operation under controlled loads and monitoring."
+      },
+      {
+        "alternate_path": "Bridge remains mostly open while responsibility is shifted into procedural review.",
+        "branch_key": "denial_delay_branch",
+        "divergence_signal": "Messaging stresses no immediate danger, restrictions are postponed, and trust in officials diverges from trust in engineers.",
+        "trigger": "Officials question severity, emphasize uncertainty, or defer action pending more study without major restrictions."
+      },
+      {
+        "alternate_path": "Funding agreement reduces incentive for denial and creates a structured transition plan.",
+        "branch_key": "political_funding_deal_branch",
+        "divergence_signal": "Joint funding statements, budget scheduling commitments, and coalition growth between executive and budget actors.",
+        "trigger": "Mayor, council, and external funder align on financing package tied to replacement or major rehabilitation."
+      },
+      {
+        "alternate_path": "Public pressure shifts toward reopening, exemptions, or blame allocation despite technical concerns.",
+        "branch_key": "service_disruption_backlash_branch",
+        "divergence_signal": "Media coverage centers on economic pain and commuting chaos more than crack severity.",
+        "trigger": "Restrictions or closure create severe commute delays, freight bottlenecks, or visible business losses before safety incident occurs."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "official_press_briefing",
+        "primary_actors": [
+          "city_mayor_office",
+          "city_transport_department"
+        ],
+        "reach": 0.68,
+        "type": "institutional_public"
+      },
+      {
+        "channel_key": "engineering_report_memo",
+        "primary_actors": [
+          "bridge_engineering_team",
+          "city_transport_department",
+          "city_mayor_office",
+          "city_council_budget_bloc"
+        ],
+        "reach": 0.31,
+        "type": "institutional_internal"
+      },
+      {
+        "channel_key": "local_news_coverage",
+        "primary_actors": [
+          "local_news_media"
+        ],
+        "reach": 0.72,
+        "type": "mass_media"
+      },
+      {
+        "channel_key": "industry_advocacy_meetings",
+        "primary_actors": [
+          "freight_firms_association",
+          "nearby_business_alliance",
+          "city_council_budget_bloc",
+          "city_mayor_office"
+        ],
+        "reach": 0.29,
+        "type": "stakeholder_lobbying"
+      },
+      {
+        "channel_key": "emergency_coordination_calls",
+        "primary_actors": [
+          "emergency_services_command",
+          "city_transport_department",
+          "city_mayor_office"
+        ],
+        "reach": 0.22,
+        "type": "operational_internal"
+      },
+      {
+        "channel_key": "public_comment_feedback",
+        "primary_actors": [
+          "commuter_public",
+          "general_taxpayer_voters",
+          "city_mayor_office"
+        ],
+        "reach": 0.41,
+        "type": "civic_public"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "daily_commuters",
+        "attention_level": 0.58,
+        "behavioral_tendencies": [
+          "risk_averse",
+          "waits_for_official_guidance",
+          "complains_about_delays_if_impacts_expand"
+        ],
+        "cohort_key": "commuters_safety_first",
+        "expression_level": 0.36,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.34,
+        "mobilization_readiness": 0.39,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.35,
+        "private_preference": "Prefer restrictions or closure if engineers indicate meaningful risk.",
+        "public_expression": "Cautious concern, limited vocality until clearer warning is public.",
+        "representation_mode": "modeled_segment",
+        "represented_population": 42000,
+        "stance_axes": {
+          "bridge_closure_support": 0.62,
+          "institutional_trust": 0.52,
+          "tax_funding_support": 0.58,
+          "traffic_disruption_tolerance": 0.44
+        }
+      },
+      {
+        "archetype_key": "daily_commuters",
+        "attention_level": 0.61,
+        "behavioral_tendencies": [
+          "status_quo_bias",
+          "responsive_to_travel_delays",
+          "can_shift_if_new_incident_occurs"
+        ],
+        "cohort_key": "commuters_access_first",
+        "expression_level": 0.49,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.47,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.45,
+        "private_preference": "Keep bridge open with minimal disruption unless danger becomes undeniable.",
+        "public_expression": "Visible frustration about commute impacts and skepticism toward precautionary closure.",
+        "representation_mode": "modeled_segment",
+        "represented_population": 54000,
+        "stance_axes": {
+          "bridge_closure_support": 0.24,
+          "institutional_trust": 0.43,
+          "tax_funding_support": 0.41,
+          "traffic_disruption_tolerance": 0.19
+        }
+      },
+      {
+        "archetype_key": "daily_commuters",
+        "attention_level": 0.39,
+        "behavioral_tendencies": [
+          "public_silence",
+          "late_opinion_formation",
+          "follows_salient_events"
+        ],
+        "cohort_key": "commuters_quiet_uncertain",
+        "expression_level": 0.17,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.49,
+        "mobilization_readiness": 0.18,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.2,
+        "private_preference": "Await more evidence and follow whichever position looks legitimate.",
+        "public_expression": "Mostly silent at T0.",
+        "representation_mode": "modeled_segment",
+        "represented_population": 24000,
+        "stance_axes": {
+          "bridge_closure_support": 0.46,
+          "institutional_trust": 0.45,
+          "tax_funding_support": 0.47,
+          "traffic_disruption_tolerance": 0.31
+        }
+      },
+      {
+        "archetype_key": "freight_workers_and_firms",
+        "attention_level": 0.76,
+        "behavioral_tendencies": [
+          "economically_sensitive",
+          "organized_lobbying",
+          "adapts_if_routing_costs_spike"
+        ],
+        "cohort_key": "freight_continuity_bloc",
+        "expression_level": 0.68,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.16,
+        "mobilization_readiness": 0.62,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.7,
+        "private_preference": "Avoid closure and preserve heavy vehicle access if possible.",
+        "public_expression": "Strong advocacy for load-management alternatives and fast capital funding.",
+        "representation_mode": "industry_segment",
+        "represented_population": 5600,
+        "stance_axes": {
+          "bridge_closure_support": 0.14,
+          "institutional_trust": 0.4,
+          "tax_funding_support": 0.63,
+          "traffic_disruption_tolerance": 0.16
+        }
+      },
+      {
+        "archetype_key": "freight_workers_and_firms",
+        "attention_level": 0.7,
+        "behavioral_tendencies": [
+          "cost_benefit_reasoning",
+          "responsive_to_technical_updates"
+        ],
+        "cohort_key": "freight_safety_pragmatists",
+        "expression_level": 0.42,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.28,
+        "mobilization_readiness": 0.4,
+        "perceived_majority": 0.33,
+        "population_share_of_archetype": 0.3,
+        "private_preference": "Accept restrictions if engineering evidence is strong and detours are planned.",
+        "public_expression": "Measured concern about safety and business continuity together.",
+        "representation_mode": "industry_segment",
+        "represented_population": 2400,
+        "stance_axes": {
+          "bridge_closure_support": 0.39,
+          "institutional_trust": 0.49,
+          "tax_funding_support": 0.68,
+          "traffic_disruption_tolerance": 0.29
+        }
+      },
+      {
+        "archetype_key": "district_businesses_and_workers",
+        "attention_level": 0.73,
+        "behavioral_tendencies": [
+          "high_local_dependency",
+          "coalition_seeking",
+          "message_discipline"
+        ],
+        "cohort_key": "businesses_access_preservation",
+        "expression_level": 0.61,
+        "fatigue": 0.38,
+        "fear_of_isolation": 0.24,
+        "mobilization_readiness": 0.57,
+        "perceived_majority": 0.48,
+        "population_share_of_archetype": 0.65,
+        "private_preference": "Keep customer and delivery access open; oppose abrupt full closure.",
+        "public_expression": "Economic impact warnings and calls for mitigation plans.",
+        "representation_mode": "district_segment",
+        "represented_population": 3900,
+        "stance_axes": {
+          "bridge_closure_support": 0.21,
+          "institutional_trust": 0.46,
+          "tax_funding_support": 0.55,
+          "traffic_disruption_tolerance": 0.18
+        }
+      },
+      {
+        "archetype_key": "district_businesses_and_workers",
+        "attention_level": 0.62,
+        "behavioral_tendencies": [
+          "risk_management",
+          "less_publicly_confrontational"
+        ],
+        "cohort_key": "businesses_safety_reputation_guard",
+        "expression_level": 0.34,
+        "fatigue": 0.26,
+        "fear_of_isolation": 0.37,
+        "mobilization_readiness": 0.29,
+        "perceived_majority": 0.39,
+        "population_share_of_archetype": 0.35,
+        "private_preference": "Prefer credible safety action over reputational damage from an avoidable failure.",
+        "public_expression": "Quiet support for precaution if paired with access support measures.",
+        "representation_mode": "district_segment",
+        "represented_population": 2100,
+        "stance_axes": {
+          "bridge_closure_support": 0.51,
+          "institutional_trust": 0.53,
+          "tax_funding_support": 0.61,
+          "traffic_disruption_tolerance": 0.37
+        }
+      },
+      {
+        "archetype_key": "citywide_residents_voters",
+        "attention_level": 0.34,
+        "behavioral_tendencies": [
+          "budget_sensitivity",
+          "reactive_attention",
+          "susceptible_to_messaging_on_waste"
+        ],
+        "cohort_key": "voters_fiscal_caution",
+        "expression_level": 0.19,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.31,
+        "mobilization_readiness": 0.21,
+        "perceived_majority": 0.51,
+        "population_share_of_archetype": 0.45,
+        "private_preference": "Avoid major new spending unless risk is clearly demonstrated.",
+        "public_expression": "Low salience at T0 unless costs or scandal rise.",
+        "representation_mode": "modeled_segment",
+        "represented_population": 157500,
+        "stance_axes": {
+          "bridge_closure_support": 0.34,
+          "institutional_trust": 0.41,
+          "tax_funding_support": 0.29,
+          "traffic_disruption_tolerance": 0.33
+        }
+      },
+      {
+        "archetype_key": "citywide_residents_voters",
+        "attention_level": 0.41,
+        "behavioral_tendencies": [
+          "institutional_problem_solving",
+          "accepts_longer_horizon_costs"
+        ],
+        "cohort_key": "voters_infrastructure_rebuilders",
+        "expression_level": 0.28,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.3,
+        "perceived_majority": 0.43,
+        "population_share_of_archetype": 0.35,
+        "private_preference": "Support capital investment and precautionary action if justified by experts.",
+        "public_expression": "Supportive when issue is framed as overdue infrastructure stewardship.",
+        "representation_mode": "modeled_segment",
+        "represented_population": 122500,
+        "stance_axes": {
+          "bridge_closure_support": 0.55,
+          "institutional_trust": 0.5,
+          "tax_funding_support": 0.64,
+          "traffic_disruption_tolerance": 0.42
+        }
+      },
+      {
+        "archetype_key": "citywide_residents_voters",
+        "attention_level": 0.16,
+        "behavioral_tendencies": [
+          "attention_decay",
+          "follows_media_salience"
+        ],
+        "cohort_key": "voters_low_attention_mixed",
+        "expression_level": 0.08,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.42,
+        "mobilization_readiness": 0.09,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.2,
+        "private_preference": "Weakly formed views at T0.",
+        "public_expression": "Minimal.",
+        "representation_mode": "modeled_segment",
+        "represented_population": 70000,
+        "stance_axes": {
+          "bridge_closure_support": 0.44,
+          "institutional_trust": 0.45,
+          "tax_funding_support": 0.46,
+          "traffic_disruption_tolerance": 0.28
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "daily_commuters",
+        "attention_level": 0.58,
+        "behavioral_tendencies": [
+          "risk_averse",
+          "waits_for_official_guidance",
+          "complains_about_delays_if_impacts_expand"
+        ],
+        "cohort_key": "commuters_safety_first",
+        "expression_level": 0.36,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.34,
+        "mobilization_readiness": 0.39,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.35,
+        "private_preference": "Prefer restrictions or closure if engineers indicate meaningful risk.",
+        "public_expression": "Cautious concern, limited vocality until clearer warning is public.",
+        "representation_mode": "modeled_segment",
+        "represented_population": 42000,
+        "stance_axes": {
+          "bridge_closure_support": 0.62,
+          "institutional_trust": 0.52,
+          "tax_funding_support": 0.58,
+          "traffic_disruption_tolerance": 0.44
+        }
+      },
+      {
+        "archetype_key": "daily_commuters",
+        "attention_level": 0.61,
+        "behavioral_tendencies": [
+          "status_quo_bias",
+          "responsive_to_travel_delays",
+          "can_shift_if_new_incident_occurs"
+        ],
+        "cohort_key": "commuters_access_first",
+        "expression_level": 0.49,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.47,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.45,
+        "private_preference": "Keep bridge open with minimal disruption unless danger becomes undeniable.",
+        "public_expression": "Visible frustration about commute impacts and skepticism toward precautionary closure.",
+        "representation_mode": "modeled_segment",
+        "represented_population": 54000,
+        "stance_axes": {
+          "bridge_closure_support": 0.24,
+          "institutional_trust": 0.43,
+          "tax_funding_support": 0.41,
+          "traffic_disruption_tolerance": 0.19
+        }
+      },
+      {
+        "archetype_key": "daily_commuters",
+        "attention_level": 0.39,
+        "behavioral_tendencies": [
+          "public_silence",
+          "late_opinion_formation",
+          "follows_salient_events"
+        ],
+        "cohort_key": "commuters_quiet_uncertain",
+        "expression_level": 0.17,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.49,
+        "mobilization_readiness": 0.18,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.2,
+        "private_preference": "Await more evidence and follow whichever position looks legitimate.",
+        "public_expression": "Mostly silent at T0.",
+        "representation_mode": "modeled_segment",
+        "represented_population": 24000,
+        "stance_axes": {
+          "bridge_closure_support": 0.46,
+          "institutional_trust": 0.45,
+          "tax_funding_support": 0.47,
+          "traffic_disruption_tolerance": 0.31
+        }
+      },
+      {
+        "archetype_key": "freight_workers_and_firms",
+        "attention_level": 0.76,
+        "behavioral_tendencies": [
+          "economically_sensitive",
+          "organized_lobbying",
+          "adapts_if_routing_costs_spike"
+        ],
+        "cohort_key": "freight_continuity_bloc",
+        "expression_level": 0.68,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.16,
+        "mobilization_readiness": 0.62,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.7,
+        "private_preference": "Avoid closure and preserve heavy vehicle access if possible.",
+        "public_expression": "Strong advocacy for load-management alternatives and fast capital funding.",
+        "representation_mode": "industry_segment",
+        "represented_population": 5600,
+        "stance_axes": {
+          "bridge_closure_support": 0.14,
+          "institutional_trust": 0.4,
+          "tax_funding_support": 0.63,
+          "traffic_disruption_tolerance": 0.16
+        }
+      },
+      {
+        "archetype_key": "freight_workers_and_firms",
+        "attention_level": 0.7,
+        "behavioral_tendencies": [
+          "cost_benefit_reasoning",
+          "responsive_to_technical_updates"
+        ],
+        "cohort_key": "freight_safety_pragmatists",
+        "expression_level": 0.42,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.28,
+        "mobilization_readiness": 0.4,
+        "perceived_majority": 0.33,
+        "population_share_of_archetype": 0.3,
+        "private_preference": "Accept restrictions if engineering evidence is strong and detours are planned.",
+        "public_expression": "Measured concern about safety and business continuity together.",
+        "representation_mode": "industry_segment",
+        "represented_population": 2400,
+        "stance_axes": {
+          "bridge_closure_support": 0.39,
+          "institutional_trust": 0.49,
+          "tax_funding_support": 0.68,
+          "traffic_disruption_tolerance": 0.29
+        }
+      },
+      {
+        "archetype_key": "district_businesses_and_workers",
+        "attention_level": 0.73,
+        "behavioral_tendencies": [
+          "high_local_dependency",
+          "coalition_seeking",
+          "message_discipline"
+        ],
+        "cohort_key": "businesses_access_preservation",
+        "expression_level": 0.61,
+        "fatigue": 0.38,
+        "fear_of_isolation": 0.24,
+        "mobilization_readiness": 0.57,
+        "perceived_majority": 0.48,
+        "population_share_of_archetype": 0.65,
+        "private_preference": "Keep customer and delivery access open; oppose abrupt full closure.",
+        "public_expression": "Economic impact warnings and calls for mitigation plans.",
+        "representation_mode": "district_segment",
+        "represented_population": 3900,
+        "stance_axes": {
+          "bridge_closure_support": 0.21,
+          "institutional_trust": 0.46,
+          "tax_funding_support": 0.55,
+          "traffic_disruption_tolerance": 0.18
+        }
+      },
+      {
+        "archetype_key": "district_businesses_and_workers",
+        "attention_level": 0.62,
+        "behavioral_tendencies": [
+          "risk_management",
+          "less_publicly_confrontational"
+        ],
+        "cohort_key": "businesses_safety_reputation_guard",
+        "expression_level": 0.34,
+        "fatigue": 0.26,
+        "fear_of_isolation": 0.37,
+        "mobilization_readiness": 0.29,
+        "perceived_majority": 0.39,
+        "population_share_of_archetype": 0.35,
+        "private_preference": "Prefer credible safety action over reputational damage from an avoidable failure.",
+        "public_expression": "Quiet support for precaution if paired with access support measures.",
+        "representation_mode": "district_segment",
+        "represented_population": 2100,
+        "stance_axes": {
+          "bridge_closure_support": 0.51,
+          "institutional_trust": 0.53,
+          "tax_funding_support": 0.61,
+          "traffic_disruption_tolerance": 0.37
+        }
+      },
+      {
+        "archetype_key": "citywide_residents_voters",
+        "attention_level": 0.34,
+        "behavioral_tendencies": [
+          "budget_sensitivity",
+          "reactive_attention",
+          "susceptible_to_messaging_on_waste"
+        ],
+        "cohort_key": "voters_fiscal_caution",
+        "expression_level": 0.19,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.31,
+        "mobilization_readiness": 0.21,
+        "perceived_majority": 0.51,
+        "population_share_of_archetype": 0.45,
+        "private_preference": "Avoid major new spending unless risk is clearly demonstrated.",
+        "public_expression": "Low salience at T0 unless costs or scandal rise.",
+        "representation_mode": "modeled_segment",
+        "represented_population": 157500,
+        "stance_axes": {
+          "bridge_closure_support": 0.34,
+          "institutional_trust": 0.41,
+          "tax_funding_support": 0.29,
+          "traffic_disruption_tolerance": 0.33
+        }
+      },
+      {
+        "archetype_key": "citywide_residents_voters",
+        "attention_level": 0.41,
+        "behavioral_tendencies": [
+          "institutional_problem_solving",
+          "accepts_longer_horizon_costs"
+        ],
+        "cohort_key": "voters_infrastructure_rebuilders",
+        "expression_level": 0.28,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.3,
+        "perceived_majority": 0.43,
+        "population_share_of_archetype": 0.35,
+        "private_preference": "Support capital investment and precautionary action if justified by experts.",
+        "public_expression": "Supportive when issue is framed as overdue infrastructure stewardship.",
+        "representation_mode": "modeled_segment",
+        "represented_population": 122500,
+        "stance_axes": {
+          "bridge_closure_support": 0.55,
+          "institutional_trust": 0.5,
+          "tax_funding_support": 0.64,
+          "traffic_disruption_tolerance": 0.42
+        }
+      },
+      {
+        "archetype_key": "citywide_residents_voters",
+        "attention_level": 0.16,
+        "behavioral_tendencies": [
+          "attention_decay",
+          "follows_media_salience"
+        ],
+        "cohort_key": "voters_low_attention_mixed",
+        "expression_level": 0.08,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.42,
+        "mobilization_readiness": 0.09,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.2,
+        "private_preference": "Weakly formed views at T0.",
+        "public_expression": "Minimal.",
+        "representation_mode": "modeled_segment",
+        "represented_population": 70000,
+        "stance_axes": {
+          "bridge_closure_support": 0.44,
+          "institutional_trust": 0.45,
+          "tax_funding_support": 0.46,
+          "traffic_disruption_tolerance": 0.28
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "city_mayor_office",
+          "city_transport_department",
+          "safety_inspectorate"
+        ],
+        "blockers": [
+          "political resistance to disruption",
+          "uncertainty about crack severity",
+          "lack of immediate alternatives for traffic and freight"
+        ],
+        "contradiction_notes": "Could be superseded if technical review supports safe restricted operation rather than closure.",
+        "description": "The bridge is fully closed to ordinary traffic as a terminal operational status due to safety concerns.",
+        "endpoint_key": "emergency_full_closure",
+        "evidence_refs": [
+          "engineers_identify_bridge_cracks",
+          "load_restriction_option_prepared"
+        ],
+        "label": "Emergency full closure of bridge",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the city ultimately keep the bridge open under restrictions, fully close it, or continue largely normal operations after the crack findings?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.25,
+        "rationale": "Closure remains a terminal option when safety thresholds dominate access concerns.",
+        "realization_criteria": [
+          "official order or public notice states bridge is fully closed to regular vehicular traffic",
+          "traffic operations shift to closure routing rather than mere restrictions",
+          "no scheduled near-term reopening without substantial repair"
+        ],
+        "status": "active",
+        "status_basis": "Scenario explicitly names emergency closure as plausible endpoint."
+      },
+      {
+        "authority_refs": [
+          "city_transport_department",
+          "city_mayor_office",
+          "bridge_engineering_team"
+        ],
+        "blockers": [
+          "worsening technical findings",
+          "inadequate repair funding",
+          "stakeholder conflict over which vehicles retain access"
+        ],
+        "contradiction_notes": "Not realized if city fully closes bridge or leaves it largely normal without meaningful repair action.",
+        "description": "The bridge remains in limited use under load or access restrictions while a phased repair program proceeds.",
+        "endpoint_key": "restricted_operation_phased_repairs",
+        "evidence_refs": [
+          "engineers_identify_bridge_cracks",
+          "load_restriction_option_prepared"
+        ],
+        "label": "Restricted operation with phased repairs",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Is a funded repair or replacement program formally authorized rather than left in indefinite review?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.35,
+        "rationale": "This is the most natural compromise path between safety action and continuity needs.",
+        "realization_criteria": [
+          "formal operating restrictions are enacted",
+          "published repair or monitoring schedule exists",
+          "bridge remains open in some capacity during implementation"
+        ],
+        "status": "active",
+        "status_basis": "Scenario explicitly identifies phased repairs and immediate load restriction option."
+      },
+      {
+        "authority_refs": [
+          "city_mayor_office",
+          "city_council_budget_bloc",
+          "city_transport_department"
+        ],
+        "blockers": [
+          "strong inspector or engineering warning",
+          "visible public backlash over perceived negligence",
+          "incident or worsening inspection results"
+        ],
+        "contradiction_notes": "Contradicted by decisive restriction, closure, or formal funding deal that commits to major action.",
+        "description": "Officials avoid major closure or funded corrective action, keeping the bridge mostly operational while prolonging review or minimizing the threat.",
+        "endpoint_key": "denial_or_extended_delay",
+        "evidence_refs": [
+          "executive_decision_window_opens",
+          "budget_funding_discussions_begin"
+        ],
+        "label": "Denial or extended delay",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does expert safety framing or disruption/fiscal politics become the dominant basis for final decision-making?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.2,
+        "rationale": "Funding friction and political cost create a credible inertia endpoint.",
+        "realization_criteria": [
+          "no substantial restrictions or closure are imposed for an extended decision period",
+          "official messaging emphasizes uncertainty or non-urgency",
+          "no binding funded repair or replacement authorization occurs"
+        ],
+        "status": "active",
+        "status_basis": "Scenario explicitly names denial as plausible endpoint."
+      },
+      {
+        "authority_refs": [
+          "city_council_budget_bloc",
+          "city_mayor_office",
+          "state_transport_funding_authority"
+        ],
+        "blockers": [
+          "fiscal opposition",
+          "intergovernmental bargaining failure",
+          "uncertain technical scope or cost escalation"
+        ],
+        "contradiction_notes": "Can coexist with temporary restrictions, but not with indefinite inaction as terminal state.",
+        "description": "City and relevant funding partners secure a formal financing arrangement for replacement or major rehabilitation, creating a durable capital path.",
+        "endpoint_key": "political_funding_deal_for_replacement",
+        "evidence_refs": [
+          "budget_funding_discussions_begin"
+        ],
+        "label": "Political funding deal for replacement or major rehabilitation",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do commuters, freight interests, and nearby businesses remain aligned against disruptive closure, or does that coalition fracture under safety evidence or mitigation offers?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.2,
+        "rationale": "A funding deal is the main path from process conflict to durable infrastructure resolution.",
+        "realization_criteria": [
+          "budget ordinance, funding agreement, or equivalent formal authorization is approved",
+          "identified funding sources cover a defined replacement or major rehabilitation plan",
+          "responsible authorities publicly commit to implementation"
+        ],
+        "status": "active",
+        "status_basis": "Scenario explicitly mentions political funding deal and need for replacement funding."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Scenario cites commuters as directly affected by closure choice.",
+        "layer": "dependency",
+        "reason": "Commuters depend on bridge operations and routing decisions.",
+        "source_actor_name": "commuter_public",
+        "target_actor_name": "city_transport_department",
+        "weight": 0.58
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Scenario cites freight firms and possible immediate load restrictions.",
+        "layer": "dependency",
+        "reason": "Freight movement depends on load permissions and bridge access continuity.",
+        "source_actor_name": "freight_firms_association",
+        "target_actor_name": "city_transport_department",
+        "weight": 0.61
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Scenario cites emergency services as affected stakeholder.",
+        "layer": "dependency",
+        "reason": "Emergency routing reliability depends partly on bridge availability and traffic management.",
+        "source_actor_name": "emergency_services_command",
+        "target_actor_name": "city_transport_department",
+        "weight": 0.49
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Scenario cites nearby businesses with competing priorities.",
+        "layer": "dependency",
+        "reason": "Business access and customer flow depend on bridge status and corridor management.",
+        "source_actor_name": "nearby_business_alliance",
+        "target_actor_name": "city_transport_department",
+        "weight": 0.53
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Officials need funding for replacement.",
+        "layer": "dependency",
+        "reason": "Agency needs funding authority for major replacement or repair commitments.",
+        "source_actor_name": "city_transport_department",
+        "target_actor_name": "city_council_budget_bloc",
+        "weight": 0.57
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Funding need for replacement implies possible external support dependency.",
+        "layer": "dependency",
+        "reason": "Local budget strategy may rely on external funds for replacement scale costs.",
+        "source_actor_name": "city_council_budget_bloc",
+        "target_actor_name": "state_transport_funding_authority",
+        "weight": 0.42
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Engineers found cracks; officials must decide response.",
+        "layer": "dependency",
+        "reason": "Executive credibility on action depends on technical findings.",
+        "source_actor_name": "city_mayor_office",
+        "target_actor_name": "bridge_engineering_team",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Replacement requires funding.",
+        "layer": "dependency",
+        "reason": "Executive needs legislative budget cooperation for durable solution.",
+        "source_actor_name": "city_mayor_office",
+        "target_actor_name": "city_council_budget_bloc",
+        "weight": 0.51
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Cracks found by engineers drive closure or restriction choices.",
+        "layer": "dependency",
+        "reason": "Operational restrictions depend on technical assessment severity.",
+        "source_actor_name": "city_transport_department",
+        "target_actor_name": "bridge_engineering_team",
+        "weight": 0.52
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Engineers are named as source of crack findings.",
+        "layer": "trust",
+        "reason": "Technical experts retain moderate baseline credibility on safety matters.",
+        "source_actor_name": "commuter_public",
+        "target_actor_name": "bridge_engineering_team",
+        "weight": 0.54
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Competing priorities create skepticism around politically costly decisions.",
+        "layer": "trust",
+        "reason": "Public trusts executive messaging only moderately when disruption stakes are high.",
+        "source_actor_name": "commuter_public",
+        "target_actor_name": "city_mayor_office",
+        "weight": 0.41
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Load restrictions are plausible but contested.",
+        "layer": "trust",
+        "reason": "Industry gives some credence to engineering findings but weighs economic costs heavily.",
+        "source_actor_name": "freight_firms_association",
+        "target_actor_name": "bridge_engineering_team",
+        "weight": 0.43
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Businesses have competing priorities with officials.",
+        "layer": "trust",
+        "reason": "Businesses hold moderate trust pending mitigation and clarity.",
+        "source_actor_name": "nearby_business_alliance",
+        "target_actor_name": "city_mayor_office",
+        "weight": 0.44
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Crack findings initiate decision pressure.",
+        "layer": "trust",
+        "reason": "Executive relies on engineers for defensible action threshold.",
+        "source_actor_name": "city_mayor_office",
+        "target_actor_name": "bridge_engineering_team",
+        "weight": 0.63
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Replacement funding depends on condition evidence.",
+        "layer": "trust",
+        "reason": "Budget actors need technical validation before authorizing major funds.",
+        "source_actor_name": "city_council_budget_bloc",
+        "target_actor_name": "bridge_engineering_team",
+        "weight": 0.52
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Local media likely channels bridge issue to wider public.",
+        "layer": "trust",
+        "reason": "Voters receive issue salience through media but with mixed confidence.",
+        "source_actor_name": "general_taxpayer_voters",
+        "target_actor_name": "local_news_media",
+        "weight": 0.39
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Crack findings are core trigger.",
+        "layer": "influence",
+        "reason": "Technical severity shapes executive room to delay or act.",
+        "source_actor_name": "bridge_engineering_team",
+        "target_actor_name": "city_mayor_office",
+        "weight": 0.59
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Officials choose whether to close or restrict loads.",
+        "layer": "influence",
+        "reason": "Executive can direct public posture and operational priorities.",
+        "source_actor_name": "city_mayor_office",
+        "target_actor_name": "city_transport_department",
+        "weight": 0.64
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Need funding for replacement.",
+        "layer": "influence",
+        "reason": "Budget feasibility constrains executive promises.",
+        "source_actor_name": "city_council_budget_bloc",
+        "target_actor_name": "city_mayor_office",
+        "weight": 0.48
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Replacement funding need implies leverage from outside funders.",
+        "layer": "influence",
+        "reason": "External funding availability shapes local willingness to commit.",
+        "source_actor_name": "state_transport_funding_authority",
+        "target_actor_name": "city_council_budget_bloc",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Freight firms have major stake in closure and restrictions.",
+        "layer": "influence",
+        "reason": "Industry can pressure for continuity and fast capital action.",
+        "source_actor_name": "freight_firms_association",
+        "target_actor_name": "city_council_budget_bloc",
+        "weight": 0.44
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Emergency services are key stakeholder in route reliability.",
+        "layer": "influence",
+        "reason": "Emergency response concerns can legitimize precautionary action.",
+        "source_actor_name": "emergency_services_command",
+        "target_actor_name": "city_mayor_office",
+        "weight": 0.51
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Public understanding likely mediated by local coverage.",
+        "layer": "influence",
+        "reason": "Media shapes salience, perceived urgency, and blame assignment.",
+        "source_actor_name": "local_news_media",
+        "target_actor_name": "commuter_public",
+        "weight": 0.57
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Replacement funding and public safety are newsworthy.",
+        "layer": "influence",
+        "reason": "Media can broaden issue from corridor users to citywide fiscal debate.",
+        "source_actor_name": "local_news_media",
+        "target_actor_name": "general_taxpayer_voters",
+        "weight": 0.53
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Engineers and safety inspectors align around crack findings.",
+        "layer": "coalition",
+        "reason": "Shared safety orientation and evidence-based concern.",
+        "source_actor_name": "bridge_engineering_team",
+        "target_actor_name": "safety_inspectorate",
+        "weight": 0.61
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Freight firms and nearby businesses have competing but aligned continuity interests.",
+        "layer": "coalition",
+        "reason": "Both prefer preserving access and minimizing abrupt closure impacts.",
+        "source_actor_name": "freight_firms_association",
+        "target_actor_name": "nearby_business_alliance",
+        "weight": 0.55
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Officials must decide on restrictions or closure.",
+        "layer": "coalition",
+        "reason": "Shared responsibility for visible response and public management.",
+        "source_actor_name": "city_mayor_office",
+        "target_actor_name": "city_transport_department",
+        "weight": 0.58
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Emergency services impacted by bridge reliability decisions.",
+        "layer": "coalition",
+        "reason": "Possible alignment if safety framing strengthens.",
+        "source_actor_name": "city_mayor_office",
+        "target_actor_name": "emergency_services_command",
+        "weight": 0.41
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Funding need creates latent intergovernmental coalition path.",
+        "layer": "coalition",
+        "reason": "Potential partnership on replacement financing if deal terms emerge.",
+        "source_actor_name": "city_council_budget_bloc",
+        "target_actor_name": "state_transport_funding_authority",
+        "weight": 0.36
+      },
+      {
+        "direction": "goal_conflict",
+        "evidence": "Scenario mentions immediate load restriction option.",
+        "layer": "conflict",
+        "reason": "Load restrictions directly oppose freight continuity priorities.",
+        "source_actor_name": "freight_firms_association",
+        "target_actor_name": "safety_inspectorate",
+        "weight": 0.47
+      },
+      {
+        "direction": "grievance_risk",
+        "evidence": "Commuters have competing priorities with officials.",
+        "layer": "conflict",
+        "reason": "Potential resentment over travel disruptions from restrictions or closure.",
+        "source_actor_name": "commuter_public",
+        "target_actor_name": "city_transport_department",
+        "weight": 0.34
+      },
+      {
+        "direction": "interest_conflict",
+        "evidence": "Nearby businesses face access losses under closure.",
+        "layer": "conflict",
+        "reason": "Businesses may oppose abrupt closure without mitigation.",
+        "source_actor_name": "nearby_business_alliance",
+        "target_actor_name": "city_mayor_office",
+        "weight": 0.38
+      },
+      {
+        "direction": "institutional_conflict",
+        "evidence": "Funding requirement creates bargaining tension.",
+        "layer": "conflict",
+        "reason": "Disagreement possible over urgency, spending scale, or blame.",
+        "source_actor_name": "city_council_budget_bloc",
+        "target_actor_name": "city_mayor_office",
+        "weight": 0.29
+      },
+      {
+        "direction": "latent_fiscal_conflict",
+        "evidence": "Replacement funding implies fiscal tradeoffs.",
+        "layer": "conflict",
+        "reason": "Potential resistance to new spending or taxes.",
+        "source_actor_name": "general_taxpayer_voters",
+        "target_actor_name": "city_council_budget_bloc",
+        "weight": 0.27
+      },
+      {
+        "direction": "source_visible_to_target",
+        "evidence": "Bridge safety and funding are broadly newsworthy.",
+        "layer": "exposure",
+        "reason": "Citywide residents likely see coverage through local news.",
+        "source_actor_name": "local_news_media",
+        "target_actor_name": "general_taxpayer_voters",
+        "weight": 0.62
+      },
+      {
+        "direction": "source_visible_to_target",
+        "evidence": "Bridge issue directly affects daily travel.",
+        "layer": "exposure",
+        "reason": "Commuters closely follow transport-related reporting.",
+        "source_actor_name": "local_news_media",
+        "target_actor_name": "commuter_public",
+        "weight": 0.66
+      },
+      {
+        "direction": "source_visible_to_target",
+        "evidence": "Officials will communicate restrictions or closure decisions.",
+        "layer": "exposure",
+        "reason": "Official announcements on bridge status are visible to users.",
+        "source_actor_name": "city_mayor_office",
+        "target_actor_name": "commuter_public",
+        "weight": 0.57
+      },
+      {
+        "direction": "source_visible_to_target",
+        "evidence": "Possible immediate load restrictions.",
+        "layer": "exposure",
+        "reason": "Operational notices and restriction guidance reach freight stakeholders.",
+        "source_actor_name": "city_transport_department",
+        "target_actor_name": "freight_firms_association",
+        "weight": 0.54
+      },
+      {
+        "direction": "source_visible_to_target",
+        "evidence": "Crack findings drive funding discussion.",
+        "layer": "exposure",
+        "reason": "Inspection findings likely brief budget actors directly or through reports.",
+        "source_actor_name": "bridge_engineering_team",
+        "target_actor_name": "city_council_budget_bloc",
+        "weight": 0.43
+      },
+      {
+        "direction": "likely_public_interaction",
+        "evidence": "Commuters are core visible stakeholder.",
+        "layer": "oasis_interaction",
+        "reason": "Public comment and response around bridge disruptions likely active.",
+        "source_actor_name": "commuter_public",
+        "target_actor_name": "city_mayor_office",
+        "weight": 0.46
+      },
+      {
+        "direction": "likely_public_interaction",
+        "evidence": "Immediate restriction decisions are salient to freight firms.",
+        "layer": "oasis_interaction",
+        "reason": "Industry likely engages in public and semi-public advocacy over load rules.",
+        "source_actor_name": "freight_firms_association",
+        "target_actor_name": "city_transport_department",
+        "weight": 0.49
+      },
+      {
+        "direction": "likely_public_interaction",
+        "evidence": "Nearby businesses are directly affected.",
+        "layer": "oasis_interaction",
+        "reason": "Businesses likely petition publicly for access protections.",
+        "source_actor_name": "nearby_business_alliance",
+        "target_actor_name": "city_mayor_office",
+        "weight": 0.44
+      },
+      {
+        "direction": "likely_public_interaction",
+        "evidence": "Closure controversy is highly reportable.",
+        "layer": "oasis_interaction",
+        "reason": "Press questioning likely around safety evidence and action timing.",
+        "source_actor_name": "local_news_media",
+        "target_actor_name": "city_mayor_office",
+        "weight": 0.52
+      },
+      {
+        "direction": "likely_public_interaction",
+        "evidence": "Engineers found cracks and become focal evidence source.",
+        "layer": "oasis_interaction",
+        "reason": "Technical findings may become public through interviews or leaks.",
+        "source_actor_name": "local_news_media",
+        "target_actor_name": "bridge_engineering_team",
+        "weight": 0.37
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "description": "Actor with authority to shape immediate restrictions, public framing, and emergency response posture.",
+        "key": "executive_decider",
+        "label": "Executive decider"
+      },
+      {
+        "description": "Actor whose assessments determine perceived safety credibility.",
+        "key": "technical_whistle_signal",
+        "label": "Technical signal carrier"
+      },
+      {
+        "description": "Actor able to unlock or block medium-term repair or replacement funding.",
+        "key": "budget_gatekeeper",
+        "label": "Budget gatekeeper"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "city_mayor_office",
+        "attention_level": 0.78,
+        "constraints": [
+          "political backlash from commuters and business groups",
+          "depends on technical legitimacy and budget partners"
+        ],
+        "decision_scope": "High influence over emergency messaging, temporary restrictions, and agenda-setting for funding.",
+        "expression_level": 0.57,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.22,
+        "hero_archetype_key": "executive_decider",
+        "mobilization_readiness": 0.61,
+        "perceived_majority": 0.47,
+        "reputation": 0.52,
+        "secrecy": 0.46,
+        "stance_axes": {
+          "disruption_avoidance": 0.62,
+          "funding_push": 0.51,
+          "political_risk_aversion": 0.66,
+          "precautionary_action": 0.53
+        },
+        "trustworthiness": 0.49
+      },
+      {
+        "actor_name": "bridge_engineering_team",
+        "attention_level": 0.71,
+        "constraints": [
+          "must communicate uncertainty carefully",
+          "may be filtered through officials"
+        ],
+        "decision_scope": "Limited formal decision power but high evidentiary leverage through inspection findings.",
+        "expression_level": 0.38,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.41,
+        "hero_archetype_key": "technical_whistle_signal",
+        "mobilization_readiness": 0.33,
+        "perceived_majority": 0.35,
+        "reputation": 0.68,
+        "secrecy": 0.35,
+        "stance_axes": {
+          "disruption_avoidance": 0.31,
+          "funding_push": 0.58,
+          "political_risk_aversion": 0.27,
+          "precautionary_action": 0.74
+        },
+        "trustworthiness": 0.74
+      },
+      {
+        "actor_name": "city_council_budget_bloc",
+        "attention_level": 0.64,
+        "constraints": [
+          "fiscal caution among voters",
+          "possible dependence on external funding"
+        ],
+        "decision_scope": "Can accelerate, defer, or condition local funding commitments and negotiations.",
+        "expression_level": 0.46,
+        "fatigue": 0.37,
+        "fear_of_isolation": 0.25,
+        "hero_archetype_key": "budget_gatekeeper",
+        "mobilization_readiness": 0.44,
+        "perceived_majority": 0.5,
+        "reputation": 0.47,
+        "secrecy": 0.41,
+        "stance_axes": {
+          "disruption_avoidance": 0.51,
+          "funding_push": 0.43,
+          "political_risk_aversion": 0.63,
+          "precautionary_action": 0.47
+        },
+        "trustworthiness": 0.45
+      }
+    ],
+    "heroes": [
+      {
+        "description": "Actor with authority to shape immediate restrictions, public framing, and emergency response posture.",
+        "key": "executive_decider",
+        "label": "Executive decider"
+      },
+      {
+        "description": "Actor whose assessments determine perceived safety credibility.",
+        "key": "technical_whistle_signal",
+        "label": "Technical signal carrier"
+      },
+      {
+        "description": "Actor able to unlock or block medium-term repair or replacement funding.",
+        "key": "budget_gatekeeper",
+        "label": "Budget gatekeeper"
+      }
+    ],
+    "important_questions": [
+      "Does the city ultimately keep the bridge open under restrictions, fully close it, or continue largely normal operations after the crack findings?",
+      "Is a funded repair or replacement program formally authorized rather than left in indefinite review?",
+      "Does expert safety framing or disruption/fiscal politics become the dominant basis for final decision-making?",
+      "Do commuters, freight interests, and nearby businesses remain aligned against disruptive closure, or does that coalition fracture under safety evidence or mitigation offers?"
+    ],
+    "initial_events": [
+      {
+        "actors_involved": [
+          "bridge_engineering_team",
+          "city_transport_department",
+          "city_mayor_office"
+        ],
+        "event_key": "engineers_identify_bridge_cracks",
+        "event_type": "announcement",
+        "expected_impact": "Raises technical concern, increases dependence on expert interpretation, and seeds conflict between precaution and continuity.",
+        "summary": "Inspection finds cracks on aging bridge, creating immediate safety review pressure.",
+        "tick": 0,
+        "visibility": "limited_official"
+      },
+      {
+        "actors_involved": [
+          "city_transport_department",
+          "safety_inspectorate",
+          "freight_firms_association"
+        ],
+        "event_key": "load_restriction_option_prepared",
+        "event_type": "announcement",
+        "expected_impact": "Creates a moderate compromise path, but sharpens freight sensitivity and signals seriousness.",
+        "summary": "Officials prepare immediate load restriction option short of full closure.",
+        "tick": 0,
+        "visibility": "internal_planning"
+      },
+      {
+        "actors_involved": [
+          "city_mayor_office",
+          "city_transport_department"
+        ],
+        "event_key": "executive_decision_window_opens",
+        "event_type": "announcement",
+        "expected_impact": "Increases media salience and forces clearer public framing without yet resolving terminal outcome.",
+        "summary": "City leadership must decide whether to announce restrictions, further inspections, or temporary closure review.",
+        "tick": 1,
+        "visibility": "official"
+      },
+      {
+        "actors_involved": [
+          "city_mayor_office",
+          "city_council_budget_bloc",
+          "state_transport_funding_authority"
+        ],
+        "event_key": "budget_funding_discussions_begin",
+        "event_type": "announcement",
+        "expected_impact": "Activates medium-term endpoint competition between phased repairs, replacement deal, and delay.",
+        "summary": "Preliminary talks begin on repair or replacement funding pathways.",
+        "tick": 2,
+        "visibility": "semi_public"
+      },
+      {
+        "actors_involved": [
+          "commuter_public",
+          "freight_firms_association",
+          "nearby_business_alliance",
+          "emergency_services_command",
+          "local_news_media"
+        ],
+        "event_key": "stakeholder_pushback_and_support_surface",
+        "event_type": "announcement",
+        "expected_impact": "Reveals coalition durability, public silence thresholds, and whether safety framing or disruption framing dominates.",
+        "summary": "Affected groups begin voicing competing priorities as official options become visible.",
+        "tick": 2,
+        "visibility": "public"
+      }
+    ],
+    "llm_call_id": "49087f6a-7c7e-44ba-9af6-e5d2f617e97d",
+    "merge_hypotheses": [
+      {
+        "affected_paths": [
+          "emergency_closure_branch",
+          "phased_repair_branch",
+          "political_funding_deal_branch"
+        ],
+        "convergence_driver": "Broad acceptance of engineering evidence could align otherwise divided groups behind some precautionary measure.",
+        "merge_key": "shared_safety_legitimacy"
+      },
+      {
+        "affected_paths": [
+          "phased_repair_branch",
+          "political_funding_deal_branch",
+          "service_disruption_backlash_branch"
+        ],
+        "convergence_driver": "Credible outside funding or cost-sharing may reduce conflict between safety action and fiscal caution.",
+        "merge_key": "funding_relief_convergence"
+      },
+      {
+        "affected_paths": [
+          "phased_repair_branch",
+          "denial_delay_branch"
+        ],
+        "convergence_driver": "Extended uncertainty without incident may lower attention and push actors toward a pragmatic compromise or quiet delay.",
+        "merge_key": "fatigue_and_normalization"
+      },
+      {
+        "affected_paths": [
+          "denial_delay_branch",
+          "phased_repair_branch",
+          "political_funding_deal_branch"
+        ],
+        "convergence_driver": "Fear of being blamed for a later failure may pull officials and budget actors toward visible action even after initial hesitation.",
+        "merge_key": "common_blame_avoidance"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "description": "Residents who regularly depend on the bridge corridor for work, school, or routine travel.",
+        "key": "daily_commuters",
+        "label": "Daily commuters",
+        "population_total": 120000
+      },
+      {
+        "description": "Drivers, dispatchers, and firm operators tied to freight movement across the bridge.",
+        "key": "freight_workers_and_firms",
+        "label": "Freight workers and firms",
+        "population_total": 8000
+      },
+      {
+        "description": "Business owners, employees, and local service providers near the bridge approaches.",
+        "key": "district_businesses_and_workers",
+        "label": "District businesses and workers",
+        "population_total": 6000
+      },
+      {
+        "description": "Broader public affected by taxes, service reliability, and political accountability.",
+        "key": "citywide_residents_voters",
+        "label": "Citywide residents and voters",
+        "population_total": 350000
+      }
+    ],
+    "risk_flags": [
+      {
+        "description": "The corpus confirms cracks but not exact severity, load implications, or failure timeline.",
+        "level": "medium",
+        "risk_key": "technical_severity_unknown"
+      },
+      {
+        "description": "Precise legal authority for closure, restrictions, and capital approval is not fully specified in source text.",
+        "level": "medium",
+        "risk_key": "authority_allocation_uncertain"
+      },
+      {
+        "description": "It is unclear how widely inspection findings are already known at T0.",
+        "level": "low",
+        "risk_key": "public_information_stage_ambiguous"
+      },
+      {
+        "description": "Scenario concerns public safety and civic operations; output kept fictionalized and non-operational.",
+        "level": "low",
+        "risk_key": "infrastructure_safety_topic"
+      },
+      {
+        "description": "Funding deal may coexist with temporary restrictions, so terminal comparison should track operational and capital endpoints separately.",
+        "level": "medium",
+        "risk_key": "endpoint_overlap_possible"
+      }
+    ],
+    "simulation_brief": {
+      "configured_context": {},
+      "domain": "public_infrastructure_public_safety",
+      "mode": "direct",
+      "scenario_key": "health_004",
+      "summary": "A fictionalized city faces a decision over an aging bridge after engineers identify cracks. Decision pressure centers on balancing safety risk, commuter disruption, freight continuity, emergency response reliability, nearby business access, and funding constraints for replacement or repair. T0 contains unresolved technical concern, political and budget uncertainty, and multiple credible endpoint paths including emergency closure, phased repair with restrictions, denial/delay, or a funding agreement.",
+      "time_horizon": "long_horizon_branching",
+      "uncertainty_notes": [
+        "Severity and propagation rate of cracks are not fully specified at T0.",
+        "Exact legal closure authority and budget process are not fully specified.",
+        "Public awareness may still be partial at initialization."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "commuter_public",
+          "general_taxpayer_voters"
+        ],
+        "evidence": "Many stakeholders likely shift only when new evidence fits prior inconvenience or safety beliefs.",
+        "level": 0.58,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "commuter_public",
+          "general_taxpayer_voters",
+          "nearby_business_alliance"
+        ],
+        "evidence": "Most public groups are not yet fully mobilized at T0 and may activate after salient disruption, incident, or cost announcement.",
+        "level": 0.64,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "commuter_public",
+          "general_taxpayer_voters"
+        ],
+        "evidence": "Part of the public remains uncertain and quiet until elite cues or visible impacts intensify.",
+        "level": 0.55,
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "freight_firms_association",
+          "nearby_business_alliance",
+          "commuter_public"
+        ],
+        "evidence": "Stakeholders cluster around shared economic or travel dependencies.",
+        "level": 0.5,
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "citywide_residents_voters",
+          "commuter_public"
+        ],
+        "evidence": "Support for costly funding or disruptive closure likely requires reinforcement from experts, officials, and peers.",
+        "level": 0.47,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "freight_firms_association",
+          "emergency_services_command",
+          "city_council_budget_bloc"
+        ],
+        "evidence": "Occupational and institutional roles strongly shape preferred framing of the problem.",
+        "level": 0.53,
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "general_taxpayer_voters"
+        ],
+        "evidence": "Broader citywide interest may fade absent visible incidents or dramatic policy conflict.",
+        "level": 0.43,
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Public debate is primed by tradeoff between immediate safety precaution and maintaining mobility/access.",
+        "influence_key": "safety_vs_access_frame"
+      },
+      {
+        "description": "Engineering findings are likely the central legitimacy cue for officials and public interpretation.",
+        "influence_key": "expert_credibility_signal"
+      },
+      {
+        "description": "Need for replacement funding limits simple solutions and invites bargaining or delay.",
+        "influence_key": "funding_constraint_salience"
+      },
+      {
+        "description": "Commuter delays, truck restrictions, and business access losses are tangible signals that can outweigh abstract risk for some groups.",
+        "influence_key": "disruption_visibility"
+      },
+      {
+        "description": "Officials may be judged both for acting too late on safety and for overreacting without clear proof.",
+        "influence_key": "accountability_frame"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "city_mayor_office",
+        "behavior_axes": {
+          "message_discipline": 0.68,
+          "opportunism": 0.48,
+          "responsiveness": 0.63,
+          "risk_tolerance": 0.42
+        },
+        "ideology_axes": {
+          "institutionalism": 0.64,
+          "market_accommodation": 0.57,
+          "public_spending": 0.52
+        },
+        "reputation": 0.52,
+        "secrecy": 0.46,
+        "tendency": "balancing_compromise",
+        "trustworthiness": 0.49
+      },
+      {
+        "actor_name": "city_transport_department",
+        "behavior_axes": {
+          "message_discipline": 0.62,
+          "operational_focus": 0.79,
+          "responsiveness": 0.58,
+          "risk_tolerance": 0.36
+        },
+        "ideology_axes": {
+          "institutionalism": 0.75,
+          "market_accommodation": 0.41,
+          "public_spending": 0.54
+        },
+        "reputation": 0.57,
+        "secrecy": 0.38,
+        "tendency": "procedural_management",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "bridge_engineering_team",
+        "behavior_axes": {
+          "evidence_orientation": 0.88,
+          "message_discipline": 0.49,
+          "responsiveness": 0.55,
+          "risk_tolerance": 0.24
+        },
+        "ideology_axes": {
+          "institutionalism": 0.81,
+          "market_accommodation": 0.28,
+          "public_spending": 0.5
+        },
+        "reputation": 0.68,
+        "secrecy": 0.35,
+        "tendency": "technical_candor",
+        "trustworthiness": 0.74
+      },
+      {
+        "actor_name": "city_council_budget_bloc",
+        "behavior_axes": {
+          "bargaining": 0.76,
+          "message_discipline": 0.56,
+          "responsiveness": 0.47,
+          "risk_tolerance": 0.39
+        },
+        "ideology_axes": {
+          "institutionalism": 0.59,
+          "market_accommodation": 0.55,
+          "public_spending": 0.43
+        },
+        "reputation": 0.47,
+        "secrecy": 0.41,
+        "tendency": "conditional_appropriation",
+        "trustworthiness": 0.45
+      },
+      {
+        "actor_name": "state_transport_funding_authority",
+        "behavior_axes": {
+          "message_discipline": 0.64,
+          "procedural_rigidity": 0.81,
+          "responsiveness": 0.34,
+          "risk_tolerance": 0.33
+        },
+        "ideology_axes": {
+          "institutionalism": 0.8,
+          "market_accommodation": 0.37,
+          "public_spending": 0.48
+        },
+        "reputation": 0.6,
+        "secrecy": 0.44,
+        "tendency": "slow_gatekeeping",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "safety_inspectorate",
+        "behavior_axes": {
+          "enforcement": 0.72,
+          "message_discipline": 0.58,
+          "responsiveness": 0.52,
+          "risk_tolerance": 0.21
+        },
+        "ideology_axes": {
+          "institutionalism": 0.86,
+          "market_accommodation": 0.23,
+          "public_spending": 0.46
+        },
+        "reputation": 0.66,
+        "secrecy": 0.29,
+        "tendency": "precautionary_oversight",
+        "trustworthiness": 0.7
+      },
+      {
+        "actor_name": "commuter_public",
+        "behavior_axes": {
+          "convenience_seeking": 0.82,
+          "message_discipline": 0.22,
+          "responsiveness": 0.61,
+          "risk_tolerance": 0.49
+        },
+        "ideology_axes": {
+          "institutionalism": 0.44,
+          "market_accommodation": 0.5,
+          "public_spending": 0.45
+        },
+        "reputation": 0.49,
+        "secrecy": 0.18,
+        "tendency": "heterogeneous_reactive",
+        "trustworthiness": 0.46
+      },
+      {
+        "actor_name": "freight_firms_association",
+        "behavior_axes": {
+          "cost_sensitivity": 0.87,
+          "message_discipline": 0.73,
+          "responsiveness": 0.66,
+          "risk_tolerance": 0.57
+        },
+        "ideology_axes": {
+          "institutionalism": 0.41,
+          "market_accommodation": 0.79,
+          "public_spending": 0.58
+        },
+        "reputation": 0.45,
+        "secrecy": 0.33,
+        "tendency": "continuity_lobbying",
+        "trustworthiness": 0.43
+      },
+      {
+        "actor_name": "emergency_services_command",
+        "behavior_axes": {
+          "message_discipline": 0.71,
+          "operational_focus": 0.9,
+          "responsiveness": 0.8,
+          "risk_tolerance": 0.31
+        },
+        "ideology_axes": {
+          "institutionalism": 0.78,
+          "market_accommodation": 0.24,
+          "public_spending": 0.62
+        },
+        "reputation": 0.7,
+        "secrecy": 0.36,
+        "tendency": "service_reliability_first",
+        "trustworthiness": 0.69
+      },
+      {
+        "actor_name": "nearby_business_alliance",
+        "behavior_axes": {
+          "cost_sensitivity": 0.78,
+          "message_discipline": 0.64,
+          "responsiveness": 0.63,
+          "risk_tolerance": 0.46
+        },
+        "ideology_axes": {
+          "institutionalism": 0.39,
+          "market_accommodation": 0.74,
+          "public_spending": 0.51
+        },
+        "reputation": 0.46,
+        "secrecy": 0.28,
+        "tendency": "access_protection",
+        "trustworthiness": 0.47
+      },
+      {
+        "actor_name": "local_news_media",
+        "behavior_axes": {
+          "amplification": 0.84,
+          "message_discipline": 0.35,
+          "responsiveness": 0.77,
+          "risk_tolerance": 0.52
+        },
+        "ideology_axes": {
+          "institutionalism": 0.51,
+          "market_accommodation": 0.45,
+          "public_spending": 0.5
+        },
+        "reputation": 0.5,
+        "secrecy": 0.14,
+        "tendency": "salience_amplification",
+        "trustworthiness": 0.48
+      },
+      {
+        "actor_name": "general_taxpayer_voters",
+        "behavior_axes": {
+          "cost_sensitivity": 0.66,
+          "message_discipline": 0.18,
+          "responsiveness": 0.38,
+          "risk_tolerance": 0.43
+        },
+        "ideology_axes": {
+          "institutionalism": 0.47,
+          "market_accommodation": 0.52,
+          "public_spending": 0.44
+        },
+        "reputation": 0.5,
+        "secrecy": 0.17,
+        "tendency": "low_attention_fiscal_filter",
+        "trustworthiness": 0.44
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 552,
+        "end": 552,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 552,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

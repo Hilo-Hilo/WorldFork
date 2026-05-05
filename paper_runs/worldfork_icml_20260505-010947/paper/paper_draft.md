@@ -2,7 +2,7 @@
 
 ## Abstract
 
-Large language model forecasting systems commonly return a probability and a rationale, but the artifacts behind that forecast are difficult to inspect: counterfactual branches, unresolved endpoint evidence, social assumptions, and failure modes are often compressed into a single explanation. We present WorldFork, a forecasting protocol that represents a scenario as checkpointed timelines with branch lineage, endpoint ledgers, path mass, report provenance, and explicit socio-institutional state. We evaluate the protocol with a 108-card initialization and audit suite, a 24-card retrospective resolved-forecast pilot, and long-horizon branching stress runs designed to test lineage, report grounding, uncertainty preservation, and social-state observability. The current artifact package has passed static card QA and leakage separation; live forecast scores and audit metrics will be inserted after frozen model outputs are produced. The intended claim is not that branching simulation guarantees better Brier score, but that it produces auditable forecast objects that expose where a forecast depends on contested mechanisms or unresolved evidence.
+Large language model forecasting systems commonly return a probability and a rationale, but the artifacts behind that forecast are difficult to inspect: counterfactual branches, unresolved endpoint evidence, social assumptions, and failure modes are often compressed into a single explanation. We present WorldFork, a forecasting protocol that represents a scenario as checkpointed timelines with branch lineage, endpoint ledgers, path mass, report provenance, and explicit socio-institutional state. We evaluate the protocol with a 108-card initialization and audit suite, a 24-card retrospective resolved-forecast pilot, and long-horizon branching stress runs designed to test lineage, report grounding, uncertainty preservation, and social-state observability. The current artifact package has passed static card QA and leakage separation, completed a 108-card live initialization screen, and completed direct baseline forecast scoring on the 24 resolved cards. The intended claim is not that branching simulation guarantees better Brier score, but that it produces auditable forecast objects that expose where a forecast depends on contested mechanisms or unresolved evidence.
 
 ## 1. Introduction
 
@@ -40,7 +40,7 @@ The benchmark contains 108 public cards: 72 existing synthetic WorldFork stress 
 
 Forecast accuracy on the 24 resolved cards uses binary Brier score and clamped negative log score. For WorldFork outputs with unresolved path mass, the primary yes/no score normalizes over yes and no when possible and reports unresolved mass separately. Audit runs are scored on lineage integrity, branch locality, endpoint coverage, endpoint honesty, path-mass consistency, report grounding, failure observability, cost transparency, social-state consistency, and emotion observability.
 
-The static QA pass for this run found 108 public cards, 36 private eval rows, matching public/private IDs, no private fields in public cards, and 24/24 resolved cards with at least one resolution source. Live source fetching and full historical source verification remain to be completed before final claims.
+The static QA pass for this run found 108 public cards, 36 private eval rows, matching public/private IDs, no private fields in public cards, and 24/24 resolved cards with at least one resolution source. Automated source fetching checked 40 resolution URLs: 36 fetched successfully and 4 were blocked or timed out, so source validation remains mostly complete but not final.
 
 ## 4. Results
 
@@ -50,7 +50,7 @@ The static package QA passed. Public cards contain no private resolution fields,
 
 ### 4.1.1 Initialization Smoke Coverage
 
-The additional 36-card set now has complete live initialization evidence. The synchronous initializer smoke for `resolved_003` completed in 146.20 seconds; the queued E3 smoke initialized `resolved_004` in 131.22 seconds; queued initializer batches completed the remaining 34 additional public cards. The eight-case batch reached p1's configured concurrency of 8, and the final 22-case add-on batch drained in 464.64 seconds wall time across three waves. This is still a partial screen for the paper's full E1 requirement: the existing 72 public stress cards remain to be initialized.
+The full 108-card suite now has live initialization evidence. The synchronous initializer smoke for `resolved_003` completed in 146.20 seconds; the queued E3 smoke initialized `resolved_004` in 131.22 seconds; queued initializer batches completed the remaining 34 additional public cards and all 72 existing public stress cards. The final 22-card add-on batch drained in 464.64 seconds wall time across three waves, and the existing 72-card batch completed in 1796.65 seconds with p1 saturated at its configured concurrency of 8. The automated coverage table reports 108/108 succeeded initializations, mean actor count 8.76, mean trait count 8.82, mean graph edge count 33.99, and sociology plus emotion baselines present for 108/108 cases. This is runtime coverage evidence; semantic 0-4 initialization quality scoring remains pending.
 
 ### 4.2 Forecast Scoring
 

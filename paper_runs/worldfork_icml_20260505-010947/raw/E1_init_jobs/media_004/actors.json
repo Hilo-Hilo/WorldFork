@@ -1,0 +1,399 @@
+[
+  {
+    "actor_type": "public_population",
+    "archetype": {
+      "actor_type": "public_population",
+      "fictionalized": true,
+      "name": "local_voters",
+      "public_visibility": "high",
+      "role": "audience needing referendum information and making final electoral choice",
+      "stakes": [
+        "access to trustworthy information",
+        "civic efficacy",
+        "decision confidence"
+      ]
+    },
+    "big_bang_id": "c9a48524-3380-4628-8d32-b0baebfb284a",
+    "created_at": "2026-05-05T02:36:48.853422+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "5d2ea050-cd26-4150-a685-fd62a311ffe3",
+    "name": "local_voters",
+    "status": "active",
+    "updated_at": "2026-05-05T02:36:48.853422+00:00"
+  },
+  {
+    "actor_type": "audience_segment",
+    "archetype": {
+      "actor_type": "audience_segment",
+      "fictionalized": true,
+      "name": "subscribers",
+      "public_visibility": "low",
+      "role": "paying readers retaining direct article access",
+      "stakes": [
+        "information access",
+        "value for subscription spending"
+      ]
+    },
+    "big_bang_id": "c9a48524-3380-4628-8d32-b0baebfb284a",
+    "created_at": "2026-05-05T02:36:48.853422+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "997c5d99-f104-45bc-925f-030debd73380",
+    "name": "subscribers",
+    "status": "active",
+    "updated_at": "2026-05-05T02:36:48.853422+00:00"
+  },
+  {
+    "actor_type": "audience_segment",
+    "archetype": {
+      "actor_type": "audience_segment",
+      "fictionalized": true,
+      "name": "non_subscriber_readers",
+      "public_visibility": "low",
+      "role": "readers blocked from full election coverage and more dependent on secondary channels",
+      "stakes": [
+        "free access",
+        "shared summaries",
+        "social-media-derived understanding"
+      ]
+    },
+    "big_bang_id": "c9a48524-3380-4628-8d32-b0baebfb284a",
+    "created_at": "2026-05-05T02:36:48.853422+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "fe255e23-3c10-4708-91c3-1cb41ab75d7e",
+    "name": "non_subscriber_readers",
+    "status": "active",
+    "updated_at": "2026-05-05T02:36:48.853422+00:00"
+  },
+  {
+    "actor_type": "network_public",
+    "archetype": {
+      "actor_type": "network_public",
+      "fictionalized": true,
+      "name": "social_media_posters",
+      "public_visibility": "medium",
+      "role": "recirculates article snippets, commentary, and distortions",
+      "stakes": [
+        "attention",
+        "agenda amplification",
+        "identity signaling"
+      ],
+      "trait_vector": {
+        "actor_name": "social_media_posters",
+        "behavior_axes": {
+          "adaptability": 9,
+          "institutional_caution": 2,
+          "public_service_orientation": 3,
+          "revenue_defensiveness": 1
+        },
+        "ideology_axes": {
+          "civic_duty": 3,
+          "market_logic": 4,
+          "openness": 8
+        },
+        "reputation": 4,
+        "secrecy": 5,
+        "tendency": "fragment and amplify snippets with weak context retention",
+        "trustworthiness": 3
+      }
+    },
+    "big_bang_id": "c9a48524-3380-4628-8d32-b0baebfb284a",
+    "created_at": "2026-05-05T02:36:48.853422+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "1d22ab85-cc46-47cd-b747-98fdfef04a14",
+    "name": "social_media_posters",
+    "status": "active",
+    "updated_at": "2026-05-05T02:36:48.853422+00:00"
+  },
+  {
+    "actor_type": "leadership_group",
+    "archetype": {
+      "actor_type": "leadership_group",
+      "fictionalized": true,
+      "name": "publisher_leadership",
+      "public_visibility": "medium",
+      "role": "decision authority over paywall policy and public justification",
+      "stakes": [
+        "financial sustainability",
+        "brand reputation",
+        "staff stability"
+      ],
+      "trait_vector": {
+        "actor_name": "publisher_leadership",
+        "behavior_axes": {
+          "adaptability": 6,
+          "institutional_caution": 8,
+          "public_service_orientation": 5,
+          "revenue_defensiveness": 8
+        },
+        "ideology_axes": {
+          "civic_duty": 5,
+          "market_logic": 8,
+          "openness": 4
+        },
+        "reputation": 5,
+        "secrecy": 6,
+        "tendency": "justify paywall as survival necessity",
+        "trustworthiness": 5
+      }
+    },
+    "big_bang_id": "c9a48524-3380-4628-8d32-b0baebfb284a",
+    "created_at": "2026-05-05T02:36:48.853422+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "457d1892-9c77-478e-8772-63f2bdefb5ee",
+    "name": "publisher_leadership",
+    "status": "active",
+    "updated_at": "2026-05-05T02:36:48.853422+00:00"
+  },
+  {
+    "actor_type": "media_peer",
+    "archetype": {
+      "actor_type": "media_peer",
+      "fictionalized": true,
+      "name": "local_radio_and_tv",
+      "public_visibility": "medium",
+      "role": "alternate local information channel that may react to access controversy",
+      "stakes": [
+        "audience share",
+        "public-service standing",
+        "competitive positioning"
+      ],
+      "trait_vector": {
+        "actor_name": "local_radio_and_tv",
+        "behavior_axes": {
+          "adaptability": 6,
+          "institutional_caution": 6,
+          "public_service_orientation": 7,
+          "revenue_defensiveness": 4
+        },
+        "ideology_axes": {
+          "civic_duty": 7,
+          "market_logic": 5,
+          "openness": 6
+        },
+        "reputation": 6,
+        "secrecy": 3,
+        "tendency": "potential alternate access bridge",
+        "trustworthiness": 6
+      }
+    },
+    "big_bang_id": "c9a48524-3380-4628-8d32-b0baebfb284a",
+    "created_at": "2026-05-05T02:36:48.853422+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "52848419-d08d-48cb-ac86-87e7ab637285",
+    "name": "local_radio_and_tv",
+    "status": "active",
+    "updated_at": "2026-05-05T02:36:48.853422+00:00"
+  },
+  {
+    "actor_type": "civic_group",
+    "archetype": {
+      "actor_type": "civic_group",
+      "fictionalized": true,
+      "name": "civic_access_coalition",
+      "public_visibility": "medium",
+      "role": "criticizes paywall as harmful to referendum information access",
+      "stakes": [
+        "civic participation",
+        "equitable information access",
+        "public pressure leverage"
+      ],
+      "trait_vector": {
+        "actor_name": "civic_access_coalition",
+        "behavior_axes": {
+          "adaptability": 7,
+          "institutional_caution": 3,
+          "public_service_orientation": 9,
+          "revenue_defensiveness": 2
+        },
+        "ideology_axes": {
+          "civic_duty": 9,
+          "market_logic": 2,
+          "openness": 8
+        },
+        "reputation": 6,
+        "secrecy": 2,
+        "tendency": "pressure for broader access and accountability",
+        "trustworthiness": 6
+      }
+    },
+    "big_bang_id": "c9a48524-3380-4628-8d32-b0baebfb284a",
+    "created_at": "2026-05-05T02:36:48.853422+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "c32e3216-8fd7-4fb2-b46d-e41cb36c9183",
+    "name": "civic_access_coalition",
+    "status": "active",
+    "updated_at": "2026-05-05T02:36:48.853422+00:00"
+  },
+  {
+    "actor_type": "campaign",
+    "archetype": {
+      "actor_type": "campaign",
+      "fictionalized": true,
+      "name": "referendum_no_campaign",
+      "public_visibility": "medium",
+      "role": "adapts messaging under altered media access conditions",
+      "stakes": [
+        "persuasion reach",
+        "message discipline",
+        "narrative advantage"
+      ],
+      "trait_vector": {
+        "actor_name": "referendum_no_campaign",
+        "behavior_axes": {
+          "adaptability": 8,
+          "institutional_caution": 4,
+          "public_service_orientation": 4,
+          "revenue_defensiveness": 1
+        },
+        "ideology_axes": {
+          "civic_duty": 5,
+          "market_logic": 5,
+          "openness": 5
+        },
+        "reputation": 5,
+        "secrecy": 5,
+        "tendency": "opportunistic channel adaptation",
+        "trustworthiness": 4
+      }
+    },
+    "big_bang_id": "c9a48524-3380-4628-8d32-b0baebfb284a",
+    "created_at": "2026-05-05T02:36:48.853422+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "d813b378-8300-4f91-91e2-d242596580e7",
+    "name": "referendum_no_campaign",
+    "status": "active",
+    "updated_at": "2026-05-05T02:36:48.853422+00:00"
+  },
+  {
+    "actor_type": "institution",
+    "archetype": {
+      "actor_type": "institution",
+      "fictionalized": true,
+      "name": "regional_newspaper",
+      "public_visibility": "high",
+      "role": "primary news publisher controlling referendum coverage access",
+      "stakes": [
+        "subscription revenue",
+        "organizational survival",
+        "editorial legitimacy",
+        "audience trust"
+      ],
+      "trait_vector": {
+        "actor_name": "regional_newspaper",
+        "behavior_axes": {
+          "adaptability": 5,
+          "institutional_caution": 7,
+          "public_service_orientation": 6,
+          "revenue_defensiveness": 8
+        },
+        "ideology_axes": {
+          "civic_duty": 6,
+          "market_logic": 7,
+          "openness": 4
+        },
+        "reputation": 6,
+        "secrecy": 5,
+        "tendency": "defend decision while monitoring backlash",
+        "trustworthiness": 6
+      }
+    },
+    "big_bang_id": "c9a48524-3380-4628-8d32-b0baebfb284a",
+    "created_at": "2026-05-05T02:36:48.853422+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "ddfb1c8d-3275-4c72-aa0d-d71bc6208665",
+    "name": "regional_newspaper",
+    "status": "active",
+    "updated_at": "2026-05-05T02:36:48.853422+00:00"
+  },
+  {
+    "actor_type": "institutional_subgroup",
+    "archetype": {
+      "actor_type": "institutional_subgroup",
+      "fictionalized": true,
+      "name": "newsroom_staff",
+      "public_visibility": "medium",
+      "role": "produces reporting that becomes paywalled and later excerpted",
+      "stakes": [
+        "journalistic mission",
+        "audience reach",
+        "employment continuity"
+      ],
+      "trait_vector": {
+        "actor_name": "newsroom_staff",
+        "behavior_axes": {
+          "adaptability": 6,
+          "institutional_caution": 5,
+          "public_service_orientation": 8,
+          "revenue_defensiveness": 4
+        },
+        "ideology_axes": {
+          "civic_duty": 8,
+          "market_logic": 4,
+          "openness": 6
+        },
+        "reputation": 6,
+        "secrecy": 4,
+        "tendency": "torn between mission reach and institutional survival",
+        "trustworthiness": 7
+      }
+    },
+    "big_bang_id": "c9a48524-3380-4628-8d32-b0baebfb284a",
+    "created_at": "2026-05-05T02:36:48.853422+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "e3094f8a-db22-4acb-8d8f-83749216ea36",
+    "name": "newsroom_staff",
+    "status": "active",
+    "updated_at": "2026-05-05T02:36:48.853422+00:00"
+  },
+  {
+    "actor_type": "campaign",
+    "archetype": {
+      "actor_type": "campaign",
+      "fictionalized": true,
+      "name": "referendum_yes_campaign",
+      "public_visibility": "medium",
+      "role": "adapts messaging under altered media access conditions",
+      "stakes": [
+        "persuasion reach",
+        "message discipline",
+        "narrative advantage"
+      ],
+      "trait_vector": {
+        "actor_name": "referendum_yes_campaign",
+        "behavior_axes": {
+          "adaptability": 8,
+          "institutional_caution": 4,
+          "public_service_orientation": 4,
+          "revenue_defensiveness": 1
+        },
+        "ideology_axes": {
+          "civic_duty": 5,
+          "market_logic": 5,
+          "openness": 5
+        },
+        "reputation": 5,
+        "secrecy": 5,
+        "tendency": "opportunistic channel adaptation",
+        "trustworthiness": 4
+      }
+    },
+    "big_bang_id": "c9a48524-3380-4628-8d32-b0baebfb284a",
+    "created_at": "2026-05-05T02:36:48.853422+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "efc7ae25-8412-47d9-8afb-d6ea3e2959dd",
+    "name": "referendum_yes_campaign",
+    "status": "active",
+    "updated_at": "2026-05-05T02:36:48.853422+00:00"
+  }
+]

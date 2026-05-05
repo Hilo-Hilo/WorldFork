@@ -1,0 +1,1471 @@
+{
+  "big_bang_id": "e5928ce1-29b2-4e22-8729-feccd8d4c78f",
+  "initializer_output": {
+    "actors": [
+      {
+        "fictionalized": true,
+        "name": "regional_pharmacy_chain",
+        "scale": "regional",
+        "type": "company"
+      },
+      {
+        "fictionalized": true,
+        "name": "national_retailer",
+        "scale": "national",
+        "type": "company"
+      },
+      {
+        "fictionalized": true,
+        "name": "pharmacy_workers",
+        "scale": "regional",
+        "type": "labor_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "patients_customers",
+        "scale": "regional",
+        "type": "consumer_public"
+      },
+      {
+        "fictionalized": true,
+        "name": "local_officials",
+        "scale": "local",
+        "type": "government_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "antitrust_regulators",
+        "scale": "state_or_federal",
+        "type": "regulator"
+      },
+      {
+        "fictionalized": true,
+        "name": "local_communities",
+        "scale": "regional",
+        "type": "community_group"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Deal shifts from straightforward approval track to remedy-heavy or block-risk pathway.",
+        "branch_key": "regulatory_intensity_escalates",
+        "observable_divergence_signal": "Formal filing, second-stage review, or public acknowledgement of antitrust concerns.",
+        "trigger": "Evidence of significant market overlap or formal review initiation emerges."
+      },
+      {
+        "alternate_path": "Buyer faces rising pressure to sign labor concessions or a community-benefit agreement before approval momentum builds.",
+        "branch_key": "community_pressure_coalesces",
+        "observable_divergence_signal": "Joint letters, coordinated public meetings, or a published list of demands.",
+        "trigger": "Officials, workers, and patients align around specific closure and scheduling protections."
+      },
+      {
+        "alternate_path": "National retailer pauses or exits negotiations rather than accept remedy burden.",
+        "branch_key": "buyer_withdrawal_on_costs",
+        "observable_divergence_signal": "Negotiation slowdown, leaked concerns about economics, or refusal to commit to protections.",
+        "trigger": "Required divestitures or guarantees materially reduce expected transaction value."
+      },
+      {
+        "alternate_path": "Public conflict softens and officials shift from resistance to conditional acceptance.",
+        "branch_key": "stabilization_through_concessions",
+        "observable_divergence_signal": "Written commitments, term sheet language, or positive official statements.",
+        "trigger": "Companies offer credible, measurable commitments on jobs, scheduling, or store continuity."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "corporate_press_statements",
+        "participants": [
+          "regional_pharmacy_chain",
+          "national_retailer"
+        ],
+        "type": "public_media",
+        "visibility": 0.8
+      },
+      {
+        "channel_key": "workplace_internal_updates",
+        "participants": [
+          "regional_pharmacy_chain",
+          "pharmacy_workers"
+        ],
+        "type": "internal",
+        "visibility": 0.35
+      },
+      {
+        "channel_key": "local_public_meetings",
+        "participants": [
+          "local_officials",
+          "pharmacy_workers",
+          "patients_customers",
+          "local_communities"
+        ],
+        "type": "public_forum",
+        "visibility": 0.7
+      },
+      {
+        "channel_key": "regulatory_review_process",
+        "participants": [
+          "antitrust_regulators",
+          "regional_pharmacy_chain",
+          "national_retailer"
+        ],
+        "type": "institutional",
+        "visibility": 0.4
+      },
+      {
+        "channel_key": "local_news_and_social_discussion",
+        "participants": [
+          "pharmacy_workers",
+          "patients_customers",
+          "local_officials",
+          "local_communities"
+        ],
+        "type": "hybrid_public",
+        "visibility": 0.75
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "frontline_workers",
+        "attention_level": 0.8,
+        "behavioral_tendencies": [
+          "monitor management signals",
+          "share workplace rumors",
+          "support conditional concessions"
+        ],
+        "cohort_key": "worker_anxious_wait_and_see",
+        "expression_level": 0.45,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.55,
+        "mobilization_readiness": 0.5,
+        "perceived_majority": 0.7,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "The acquisition likely brings cost cutting unless protections are secured.",
+        "public_expression": "Cautious concern about schedules, staffing, and job security.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 1680,
+        "reputation": 0.52,
+        "secrecy": 0.35,
+        "stance_axes": {
+          "deal_support": -0.2,
+          "labor_concessions_demand": 0.8,
+          "trust_in_buyer": 0.3,
+          "trust_in_current_management": 0.4
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "archetype_key": "frontline_workers",
+        "attention_level": 0.65,
+        "behavioral_tendencies": [
+          "avoid public conflict",
+          "compare stability vs cuts",
+          "respond to concrete guarantees"
+        ],
+        "cohort_key": "worker_pragmatic_deal_supporters",
+        "expression_level": 0.35,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.5,
+        "mobilization_readiness": 0.35,
+        "perceived_majority": 0.25,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "A larger owner could stabilize operations if cuts are limited.",
+        "public_expression": "Conditional openness to the deal with safeguards.",
+        "representation_mode": "estimated_minority_cohort",
+        "represented_population": 720,
+        "reputation": 0.5,
+        "secrecy": 0.4,
+        "stance_axes": {
+          "deal_support": 0.35,
+          "labor_concessions_demand": 0.55,
+          "trust_in_buyer": 0.45,
+          "trust_in_current_management": 0.45
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "archetype_key": "patients_and_customers",
+        "attention_level": 0.6,
+        "behavioral_tendencies": [
+          "seek reassurance",
+          "react to closure rumors",
+          "engage when service access seems threatened"
+        ],
+        "cohort_key": "patients_access_anxious",
+        "expression_level": 0.3,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.25,
+        "perceived_majority": 0.6,
+        "population_share_of_archetype": 0.65,
+        "private_belief": "The acquisition could reduce local pharmacy access and service continuity.",
+        "public_expression": "Concern about closures and prescription disruption.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 117000,
+        "reputation": 0.55,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "closure_concern": 0.85,
+          "deal_support": -0.1,
+          "price_concern": 0.65,
+          "trust_in_regulators": 0.55
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "archetype_key": "patients_and_customers",
+        "attention_level": 0.4,
+        "behavioral_tendencies": [
+          "stay passive",
+          "evaluate practical effects",
+          "shift quickly if closures are announced"
+        ],
+        "cohort_key": "patients_convenience_oriented",
+        "expression_level": 0.15,
+        "fatigue": 0.15,
+        "fear_of_isolation": 0.25,
+        "mobilization_readiness": 0.15,
+        "perceived_majority": 0.3,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "A national retailer may improve convenience if locations remain open.",
+        "public_expression": "Mostly quiet unless service changes become concrete.",
+        "representation_mode": "estimated_minority_cohort",
+        "represented_population": 63000,
+        "reputation": 0.5,
+        "secrecy": 0.25,
+        "stance_axes": {
+          "closure_concern": 0.45,
+          "deal_support": 0.2,
+          "price_concern": 0.5,
+          "trust_in_regulators": 0.45
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "archetype_key": "civic_stakeholders",
+        "attention_level": 0.85,
+        "behavioral_tendencies": [
+          "seek leverage through publicity",
+          "press for written guarantees",
+          "coordinate with communities"
+        ],
+        "cohort_key": "officials_guarantee_seekers",
+        "expression_level": 0.65,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.55,
+        "perceived_majority": 0.65,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "The deal is negotiable if enforceable protections are obtained.",
+        "public_expression": "Demand for commitments on jobs, schedules, and service continuity.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 84,
+        "reputation": 0.62,
+        "secrecy": 0.3,
+        "stance_axes": {
+          "community_guarantee_demand": 0.85,
+          "deal_support": 0.0,
+          "trust_in_buyer": 0.35,
+          "trust_in_regulators": 0.6
+        },
+        "trustworthiness": 0.65
+      },
+      {
+        "archetype_key": "civic_stakeholders",
+        "attention_level": 0.7,
+        "behavioral_tendencies": [
+          "prefer compromise",
+          "avoid hard opposition",
+          "respond to economic risk framing"
+        ],
+        "cohort_key": "officials_growth_friendly",
+        "expression_level": 0.45,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.25,
+        "mobilization_readiness": 0.35,
+        "perceived_majority": 0.3,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "A negotiated acquisition may preserve more value than failure of the chain.",
+        "public_expression": "Supportive but cautious, asking for balanced protections.",
+        "representation_mode": "estimated_minority_cohort",
+        "represented_population": 36,
+        "reputation": 0.58,
+        "secrecy": 0.25,
+        "stance_axes": {
+          "community_guarantee_demand": 0.55,
+          "deal_support": 0.35,
+          "trust_in_buyer": 0.45,
+          "trust_in_regulators": 0.5
+        },
+        "trustworthiness": 0.63
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "frontline_workers",
+        "attention_level": 0.8,
+        "behavioral_tendencies": [
+          "monitor management signals",
+          "share workplace rumors",
+          "support conditional concessions"
+        ],
+        "cohort_key": "worker_anxious_wait_and_see",
+        "expression_level": 0.45,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.55,
+        "mobilization_readiness": 0.5,
+        "perceived_majority": 0.7,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "The acquisition likely brings cost cutting unless protections are secured.",
+        "public_expression": "Cautious concern about schedules, staffing, and job security.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 1680,
+        "reputation": 0.52,
+        "secrecy": 0.35,
+        "stance_axes": {
+          "deal_support": -0.2,
+          "labor_concessions_demand": 0.8,
+          "trust_in_buyer": 0.3,
+          "trust_in_current_management": 0.4
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "archetype_key": "frontline_workers",
+        "attention_level": 0.65,
+        "behavioral_tendencies": [
+          "avoid public conflict",
+          "compare stability vs cuts",
+          "respond to concrete guarantees"
+        ],
+        "cohort_key": "worker_pragmatic_deal_supporters",
+        "expression_level": 0.35,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.5,
+        "mobilization_readiness": 0.35,
+        "perceived_majority": 0.25,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "A larger owner could stabilize operations if cuts are limited.",
+        "public_expression": "Conditional openness to the deal with safeguards.",
+        "representation_mode": "estimated_minority_cohort",
+        "represented_population": 720,
+        "reputation": 0.5,
+        "secrecy": 0.4,
+        "stance_axes": {
+          "deal_support": 0.35,
+          "labor_concessions_demand": 0.55,
+          "trust_in_buyer": 0.45,
+          "trust_in_current_management": 0.45
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "archetype_key": "patients_and_customers",
+        "attention_level": 0.6,
+        "behavioral_tendencies": [
+          "seek reassurance",
+          "react to closure rumors",
+          "engage when service access seems threatened"
+        ],
+        "cohort_key": "patients_access_anxious",
+        "expression_level": 0.3,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.25,
+        "perceived_majority": 0.6,
+        "population_share_of_archetype": 0.65,
+        "private_belief": "The acquisition could reduce local pharmacy access and service continuity.",
+        "public_expression": "Concern about closures and prescription disruption.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 117000,
+        "reputation": 0.55,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "closure_concern": 0.85,
+          "deal_support": -0.1,
+          "price_concern": 0.65,
+          "trust_in_regulators": 0.55
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "archetype_key": "patients_and_customers",
+        "attention_level": 0.4,
+        "behavioral_tendencies": [
+          "stay passive",
+          "evaluate practical effects",
+          "shift quickly if closures are announced"
+        ],
+        "cohort_key": "patients_convenience_oriented",
+        "expression_level": 0.15,
+        "fatigue": 0.15,
+        "fear_of_isolation": 0.25,
+        "mobilization_readiness": 0.15,
+        "perceived_majority": 0.3,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "A national retailer may improve convenience if locations remain open.",
+        "public_expression": "Mostly quiet unless service changes become concrete.",
+        "representation_mode": "estimated_minority_cohort",
+        "represented_population": 63000,
+        "reputation": 0.5,
+        "secrecy": 0.25,
+        "stance_axes": {
+          "closure_concern": 0.45,
+          "deal_support": 0.2,
+          "price_concern": 0.5,
+          "trust_in_regulators": 0.45
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "archetype_key": "civic_stakeholders",
+        "attention_level": 0.85,
+        "behavioral_tendencies": [
+          "seek leverage through publicity",
+          "press for written guarantees",
+          "coordinate with communities"
+        ],
+        "cohort_key": "officials_guarantee_seekers",
+        "expression_level": 0.65,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.55,
+        "perceived_majority": 0.65,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "The deal is negotiable if enforceable protections are obtained.",
+        "public_expression": "Demand for commitments on jobs, schedules, and service continuity.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 84,
+        "reputation": 0.62,
+        "secrecy": 0.3,
+        "stance_axes": {
+          "community_guarantee_demand": 0.85,
+          "deal_support": 0.0,
+          "trust_in_buyer": 0.35,
+          "trust_in_regulators": 0.6
+        },
+        "trustworthiness": 0.65
+      },
+      {
+        "archetype_key": "civic_stakeholders",
+        "attention_level": 0.7,
+        "behavioral_tendencies": [
+          "prefer compromise",
+          "avoid hard opposition",
+          "respond to economic risk framing"
+        ],
+        "cohort_key": "officials_growth_friendly",
+        "expression_level": 0.45,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.25,
+        "mobilization_readiness": 0.35,
+        "perceived_majority": 0.3,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "A negotiated acquisition may preserve more value than failure of the chain.",
+        "public_expression": "Supportive but cautious, asking for balanced protections.",
+        "representation_mode": "estimated_minority_cohort",
+        "represented_population": 36,
+        "reputation": 0.58,
+        "secrecy": 0.25,
+        "stance_axes": {
+          "community_guarantee_demand": 0.55,
+          "deal_support": 0.35,
+          "trust_in_buyer": 0.45,
+          "trust_in_regulators": 0.5
+        },
+        "trustworthiness": 0.63
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "antitrust_regulators",
+          "regional_chain_exec_team",
+          "national_retailer_exec_team"
+        ],
+        "blockers": [
+          "Antitrust challenge",
+          "Economics worsened by concessions or remedies",
+          "Public pressure causing delay or reconsideration"
+        ],
+        "contradiction_notes": "Approval may still coexist with remedies; separate endpoint tracks whether conditions are attached.",
+        "description": "The transaction is cleared and proceeds to closing without being abandoned at the approval stage.",
+        "endpoint_key": "acquisition_approved",
+        "evidence_refs": [
+          "Scenario states regulators approve or block the deal",
+          "Scenario states companies can negotiate terms"
+        ],
+        "label": "Acquisition approved",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the proposed acquisition receive regulatory approval in a form that allows closing?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.46,
+        "rationale": "Approval is a core terminal option explicitly implied by the scenario.",
+        "realization_criteria": [
+          "Regulator or competent authority issues approval or declines action allowing closing",
+          "Companies publicly confirm transaction will close or has closed"
+        ],
+        "status": "active",
+        "status_basis": "Deal is possible but unresolved at T0."
+      },
+      {
+        "authority_refs": [
+          "antitrust_regulators",
+          "national_retailer_exec_team",
+          "regional_chain_exec_team"
+        ],
+        "blockers": [
+          "Insufficient competitive concern to require remedy",
+          "Parties refuse conditions",
+          "Deal withdrawn before conditional approval"
+        ],
+        "contradiction_notes": "This endpoint is a subtype of approval but tracked separately because it materially changes incentives and switching costs.",
+        "description": "The deal is allowed only if the parties accept formal divestitures, conduct remedies, or similarly binding conditions.",
+        "endpoint_key": "remedy_conditioned_approval",
+        "evidence_refs": [
+          "Scenario requests endpoint priors around divestiture",
+          "Scenario notes antitrust review is possible"
+        ],
+        "label": "Approval with divestiture or conditions",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will approval, if any, require divestitures or other formal remedies?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.28,
+        "rationale": "The scenario explicitly names divestiture as an endpoint prior.",
+        "realization_criteria": [
+          "Approval decision explicitly conditions closing on divestitures, behavioral commitments, or binding settlement terms",
+          "Companies accept and proceed under those conditions"
+        ],
+        "status": "active",
+        "status_basis": "Antitrust pathway is possible but not yet factually specified."
+      },
+      {
+        "authority_refs": [
+          "regional_chain_exec_team",
+          "national_retailer_exec_team"
+        ],
+        "blockers": [
+          "Economics remain acceptable",
+          "Regulatory path looks manageable",
+          "Stakeholder concessions are affordable"
+        ],
+        "contradiction_notes": "Withdrawal can follow failed negotiations, failed remedy talks, or perceived block risk.",
+        "description": "The acquisition effort ends without closing because one or both companies terminate or abandon it.",
+        "endpoint_key": "transaction_withdrawn",
+        "evidence_refs": [
+          "Scenario requests endpoint priors around withdrawal",
+          "Companies can negotiate terms"
+        ],
+        "label": "Transaction withdrawn",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will either company withdraw from the transaction before a closing decision?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.22,
+        "rationale": "The scenario explicitly identifies withdrawal as a major terminal option.",
+        "realization_criteria": [
+          "One or both companies publicly terminate negotiations or withdraw filing",
+          "No successor binding path to close remains active"
+        ],
+        "status": "active",
+        "status_basis": "Withdrawal remains credible because buyer economics and review risk are unresolved."
+      },
+      {
+        "authority_refs": [
+          "regional_chain_exec_team",
+          "national_retailer_exec_team",
+          "local_official_leadership"
+        ],
+        "blockers": [
+          "Companies resist cost increases",
+          "Workers lack unified leverage",
+          "Regulatory process focuses narrowly on competition"
+        ],
+        "contradiction_notes": "Labor concessions may occur whether or not the acquisition ultimately closes, but most likely arise in connection with deal pressure.",
+        "description": "Workers obtain concrete, observable protections tied to the transaction, such as scheduling, staffing, severance, or job-security commitments.",
+        "endpoint_key": "labor_concessions_secured",
+        "evidence_refs": [
+          "Workers fear scheduling cuts",
+          "Scenario requests endpoint priors around labor concessions"
+        ],
+        "label": "Meaningful labor concessions secured",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will workers secure concrete protections on scheduling, staffing, or employment terms?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.34,
+        "rationale": "Worker scheduling concerns create a specific endpoint worth tracking beyond generic public reaction.",
+        "realization_criteria": [
+          "Written company commitment or binding side agreement specifies worker protections",
+          "Protections are publicly announced or reliably documented as part of transaction terms"
+        ],
+        "status": "active",
+        "status_basis": "Worker concerns are salient, but no concession framework is yet agreed."
+      },
+      {
+        "authority_refs": [
+          "local_official_leadership",
+          "regional_chain_exec_team",
+          "national_retailer_exec_team"
+        ],
+        "blockers": [
+          "Officials lack leverage",
+          "Companies refuse binding local commitments",
+          "Regulatory timeline outpaces civic negotiations"
+        ],
+        "contradiction_notes": "A community-benefit agreement can coexist with approval, conditional approval, or even a failed sale if offered as a standalone continuity plan.",
+        "description": "Local officials obtain an enforceable agreement covering closures, service continuity, investment, or local access commitments.",
+        "endpoint_key": "community_benefit_agreement_secured",
+        "evidence_refs": [
+          "Local officials want guarantees",
+          "Scenario requests endpoint priors around community-benefit agreement"
+        ],
+        "label": "Community-benefit agreement secured",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will local officials obtain an enforceable community-benefit or service-continuity agreement tied to the deal?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.31,
+        "rationale": "The scenario explicitly identifies this as a plausible terminal outcome class.",
+        "realization_criteria": [
+          "Signed agreement, ordinance-linked covenant, or similarly enforceable commitment on community protections is announced",
+          "Terms specify measurable obligations on store continuity, service levels, or local investment"
+        ],
+        "status": "active",
+        "status_basis": "Officials are motivated to seek guarantees, but no formal bargaining instrument is specified at T0."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Scenario states the chain may be acquired by a national retailer and companies can negotiate terms.",
+        "layer": "dependency",
+        "reason": "Seller's preferred strategic path depends on buyer interest and terms.",
+        "source_actor_name": "regional_pharmacy_chain",
+        "target_actor_name": "national_retailer",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Scenario states antitrust review is possible and regulators approve or block the deal.",
+        "layer": "dependency",
+        "reason": "Buyer needs regulatory approval if review is triggered or required.",
+        "source_actor_name": "national_retailer",
+        "target_actor_name": "antitrust_regulators",
+        "weight": 0.58
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Scenario states regulators approve or block the deal.",
+        "layer": "dependency",
+        "reason": "Seller also depends on clearance for transaction completion.",
+        "source_actor_name": "regional_pharmacy_chain",
+        "target_actor_name": "antitrust_regulators",
+        "weight": 0.58
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Workers fear scheduling cuts.",
+        "layer": "dependency",
+        "reason": "Workers rely on the chain for schedules and employment conditions at T0.",
+        "source_actor_name": "pharmacy_workers",
+        "target_actor_name": "regional_pharmacy_chain",
+        "weight": 0.63
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Patients worry about closures.",
+        "layer": "dependency",
+        "reason": "Patients rely on existing pharmacy locations and services.",
+        "source_actor_name": "patients_customers",
+        "target_actor_name": "regional_pharmacy_chain",
+        "weight": 0.57
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Closure worries and community-benefit framing are implied in scenario focus.",
+        "layer": "dependency",
+        "reason": "Community access and local retail service continuity are tied to the chain's footprint.",
+        "source_actor_name": "local_communities",
+        "target_actor_name": "regional_pharmacy_chain",
+        "weight": 0.44
+      },
+      {
+        "direction": "source_observes_target",
+        "evidence": "Workers fear scheduling cuts tied to potential acquisition.",
+        "layer": "exposure",
+        "reason": "Workers closely monitor management signals about the deal.",
+        "source_actor_name": "pharmacy_workers",
+        "target_actor_name": "regional_pharmacy_chain",
+        "weight": 0.62
+      },
+      {
+        "direction": "source_observes_target",
+        "evidence": "Patients worry about closures.",
+        "layer": "exposure",
+        "reason": "Customers watch for signs of closures or service changes.",
+        "source_actor_name": "patients_customers",
+        "target_actor_name": "regional_pharmacy_chain",
+        "weight": 0.45
+      },
+      {
+        "direction": "source_observes_target",
+        "evidence": "Local officials want guarantees.",
+        "layer": "exposure",
+        "reason": "Officials watch buyer commitments and public statements.",
+        "source_actor_name": "local_officials",
+        "target_actor_name": "national_retailer",
+        "weight": 0.48
+      },
+      {
+        "direction": "source_observes_target",
+        "evidence": "Antitrust review is possible.",
+        "layer": "exposure",
+        "reason": "Regulators are likely aware of transaction claims and market implications.",
+        "source_actor_name": "antitrust_regulators",
+        "target_actor_name": "national_retailer",
+        "weight": 0.36
+      },
+      {
+        "direction": "source_observes_target",
+        "evidence": "Antitrust review is possible.",
+        "layer": "exposure",
+        "reason": "Regulators would monitor seller disclosures and market structure issues.",
+        "source_actor_name": "antitrust_regulators",
+        "target_actor_name": "regional_pharmacy_chain",
+        "weight": 0.36
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Workers fear scheduling cuts.",
+        "layer": "trust",
+        "reason": "Workers anticipate scheduling cuts under new ownership.",
+        "source_actor_name": "pharmacy_workers",
+        "target_actor_name": "national_retailer",
+        "weight": 0.28
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Workers fear outcomes but current employer still controls present schedules.",
+        "layer": "trust",
+        "reason": "Current management retains only moderate credibility amid sale uncertainty.",
+        "source_actor_name": "pharmacy_workers",
+        "target_actor_name": "regional_pharmacy_chain",
+        "weight": 0.38
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Patients worry about closures.",
+        "layer": "trust",
+        "reason": "Customers have moderate trust in current service continuity but worry about future closures.",
+        "source_actor_name": "patients_customers",
+        "target_actor_name": "regional_pharmacy_chain",
+        "weight": 0.42
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Local officials want guarantees.",
+        "layer": "trust",
+        "reason": "Officials want guarantees, implying limited trust without enforceable commitments.",
+        "source_actor_name": "local_officials",
+        "target_actor_name": "national_retailer",
+        "weight": 0.32
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Regulators can approve or block the deal.",
+        "layer": "trust",
+        "reason": "Officials may look to regulators as a credible external check.",
+        "source_actor_name": "local_officials",
+        "target_actor_name": "antitrust_regulators",
+        "weight": 0.56
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Regulators approve or block the deal.",
+        "layer": "influence",
+        "reason": "Regulators can condition or block the acquisition, shaping buyer strategy strongly.",
+        "source_actor_name": "antitrust_regulators",
+        "target_actor_name": "national_retailer",
+        "weight": 0.74
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Regulators approve or block the deal.",
+        "layer": "influence",
+        "reason": "Regulatory review strongly shapes seller options and timing.",
+        "source_actor_name": "antitrust_regulators",
+        "target_actor_name": "regional_pharmacy_chain",
+        "weight": 0.74
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Local officials want guarantees.",
+        "layer": "influence",
+        "reason": "Officials can create reputational and political pressure for concessions.",
+        "source_actor_name": "local_officials",
+        "target_actor_name": "regional_pharmacy_chain",
+        "weight": 0.42
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Local officials want guarantees.",
+        "layer": "influence",
+        "reason": "Officials can increase public costs of refusing community commitments.",
+        "source_actor_name": "local_officials",
+        "target_actor_name": "national_retailer",
+        "weight": 0.44
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Workers fear scheduling cuts while officials seek guarantees.",
+        "layer": "influence",
+        "reason": "Worker concerns can shape officials' bargaining agenda.",
+        "source_actor_name": "pharmacy_workers",
+        "target_actor_name": "local_officials",
+        "weight": 0.34
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Patients worry about closures and officials want guarantees.",
+        "layer": "influence",
+        "reason": "Constituent closure concerns can affect official messaging.",
+        "source_actor_name": "patients_customers",
+        "target_actor_name": "local_officials",
+        "weight": 0.31
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Workers fear cuts; officials want guarantees.",
+        "layer": "coalition",
+        "reason": "Shared interest in employment and service protections supports alignment.",
+        "source_actor_name": "pharmacy_workers",
+        "target_actor_name": "local_officials",
+        "weight": 0.52
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Patients worry about closures; officials want guarantees.",
+        "layer": "coalition",
+        "reason": "Shared concern over closures and access makes coordination plausible.",
+        "source_actor_name": "patients_customers",
+        "target_actor_name": "local_officials",
+        "weight": 0.47
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Community-benefit agreement is an endpoint prior.",
+        "layer": "coalition",
+        "reason": "Officials and communities share interest in preserving local access.",
+        "source_actor_name": "local_officials",
+        "target_actor_name": "local_communities",
+        "weight": 0.58
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Worker and patient concerns are both present in scenario.",
+        "layer": "coalition",
+        "reason": "Job security and service continuity can align in public campaigns.",
+        "source_actor_name": "pharmacy_workers",
+        "target_actor_name": "local_communities",
+        "weight": 0.41
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "Workers fear scheduling cuts.",
+        "layer": "conflict",
+        "reason": "Anticipated cost-cutting and scheduling reductions create meaningful friction.",
+        "source_actor_name": "pharmacy_workers",
+        "target_actor_name": "national_retailer",
+        "weight": 0.57
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "Patients worry about closures.",
+        "layer": "conflict",
+        "reason": "Potential closures create concern about buyer incentives.",
+        "source_actor_name": "patients_customers",
+        "target_actor_name": "national_retailer",
+        "weight": 0.43
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "Local officials want guarantees.",
+        "layer": "conflict",
+        "reason": "Officials may resist absent credible guarantees.",
+        "source_actor_name": "local_officials",
+        "target_actor_name": "national_retailer",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "Antitrust review is possible.",
+        "layer": "conflict",
+        "reason": "Potential competitive concerns create procedural adversarial tension.",
+        "source_actor_name": "antitrust_regulators",
+        "target_actor_name": "national_retailer",
+        "weight": 0.34
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "Antitrust review is possible.",
+        "layer": "conflict",
+        "reason": "Review can challenge transaction assumptions even before a formal block.",
+        "source_actor_name": "antitrust_regulators",
+        "target_actor_name": "regional_pharmacy_chain",
+        "weight": 0.28
+      },
+      {
+        "direction": "likely_public_interaction",
+        "evidence": "Officials want guarantees and workers fear cuts.",
+        "layer": "oasis_interaction",
+        "reason": "Likely public meetings, statements, or listening sessions on jobs and schedules.",
+        "source_actor_name": "local_officials",
+        "target_actor_name": "pharmacy_workers",
+        "weight": 0.46
+      },
+      {
+        "direction": "likely_public_interaction",
+        "evidence": "Patients worry about closures; officials seek guarantees.",
+        "layer": "oasis_interaction",
+        "reason": "Likely public-facing discussion around closures and access.",
+        "source_actor_name": "local_officials",
+        "target_actor_name": "patients_customers",
+        "weight": 0.42
+      },
+      {
+        "direction": "likely_public_interaction",
+        "evidence": "Companies can negotiate terms.",
+        "layer": "oasis_interaction",
+        "reason": "Ongoing public and semi-public transaction signaling may occur.",
+        "source_actor_name": "regional_pharmacy_chain",
+        "target_actor_name": "national_retailer",
+        "weight": 0.38
+      },
+      {
+        "direction": "likely_public_interaction",
+        "evidence": "Regulatory review and local guarantees are both part of scenario.",
+        "layer": "oasis_interaction",
+        "reason": "Officials may comment or submit concerns during review pathways.",
+        "source_actor_name": "antitrust_regulators",
+        "target_actor_name": "local_officials",
+        "weight": 0.24
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype_key": "corporate_decision_maker",
+        "label": "Corporate decision maker"
+      },
+      {
+        "archetype_key": "regulatory_gatekeeper",
+        "label": "Regulatory gatekeeper"
+      },
+      {
+        "archetype_key": "civic_negotiator",
+        "label": "Civic negotiator"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "regional_pharmacy_chain",
+        "archetype_key": "corporate_decision_maker",
+        "attention_level": 0.9,
+        "constraints": [
+          "Needs buyer terms",
+          "Faces worker and community concern",
+          "May need regulatory clearance"
+        ],
+        "decision_power": 0.72,
+        "expression_level": 0.5,
+        "fatigue": 0.4,
+        "fear_of_isolation": 0.2,
+        "hero_key": "regional_chain_exec_team",
+        "mobilization_readiness": 0.7,
+        "objective": "Secure an acceptable transaction or viable alternative while preserving enterprise value and continuity.",
+        "perceived_majority": 0.5,
+        "role": "seller_management",
+        "stance_axes": {
+          "closure_tolerance": 0.35,
+          "sell_probability": 0.7,
+          "willingness_to_offer_concessions": 0.55
+        }
+      },
+      {
+        "actor_name": "national_retailer",
+        "archetype_key": "corporate_decision_maker",
+        "attention_level": 0.9,
+        "constraints": [
+          "Must assess antitrust exposure",
+          "May resist costly labor or community commitments",
+          "Can withdraw if remedies erode value"
+        ],
+        "decision_power": 0.78,
+        "expression_level": 0.45,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.15,
+        "hero_key": "national_retailer_exec_team",
+        "mobilization_readiness": 0.75,
+        "objective": "Acquire strategically if economics and regulatory risk remain acceptable.",
+        "perceived_majority": 0.45,
+        "role": "buyer_management",
+        "stance_axes": {
+          "buy_probability": 0.68,
+          "divestiture_acceptance": 0.4,
+          "willingness_to_offer_concessions": 0.45
+        }
+      },
+      {
+        "actor_name": "antitrust_regulators",
+        "archetype_key": "regulatory_gatekeeper",
+        "attention_level": 0.75,
+        "constraints": [
+          "Requires evidence and review process",
+          "Authority may be limited to competition issues rather than labor promises",
+          "Timing can reshape negotiation leverage"
+        ],
+        "decision_power": 0.9,
+        "expression_level": 0.25,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.1,
+        "hero_key": "antitrust_review_team",
+        "mobilization_readiness": 0.55,
+        "objective": "Assess whether the transaction harms competition and determine whether to approve, condition, or block.",
+        "perceived_majority": 0.5,
+        "role": "approval_authority",
+        "stance_axes": {
+          "approval_openness": 0.5,
+          "block_willingness": 0.35,
+          "remedy_preference": 0.55
+        }
+      },
+      {
+        "actor_name": "local_officials",
+        "archetype_key": "civic_negotiator",
+        "attention_level": 0.85,
+        "constraints": [
+          "Cannot directly approve deal",
+          "Influence depends on public pressure and company responsiveness",
+          "May lack unified bargaining position"
+        ],
+        "decision_power": 0.48,
+        "expression_level": 0.7,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.15,
+        "hero_key": "local_official_leadership",
+        "mobilization_readiness": 0.6,
+        "objective": "Extract enforceable commitments on jobs, access, and closures.",
+        "perceived_majority": 0.6,
+        "role": "community_pressure_broker",
+        "stance_axes": {
+          "deal_support": 0.1,
+          "escalation_willingness": 0.5,
+          "guarantee_demand": 0.85
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "archetype_key": "corporate_decision_maker",
+        "label": "Corporate decision maker"
+      },
+      {
+        "archetype_key": "regulatory_gatekeeper",
+        "label": "Regulatory gatekeeper"
+      },
+      {
+        "archetype_key": "civic_negotiator",
+        "label": "Civic negotiator"
+      }
+    ],
+    "important_questions": [
+      "Will the proposed acquisition receive regulatory approval in a form that allows closing?",
+      "Will approval, if any, require divestitures or other formal remedies?",
+      "Will either company withdraw from the transaction before a closing decision?",
+      "Will workers secure concrete protections on scheduling, staffing, or employment terms?",
+      "Will local officials obtain an enforceable community-benefit or service-continuity agreement tied to the deal?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "regional_pharmacy_chain",
+          "national_retailer",
+          "pharmacy_workers",
+          "patients_customers"
+        ],
+        "event_key": "deal_consideration_becomes_known",
+        "event_type": "announcement",
+        "expected_impact": "Raises attention, activates rumor channels, and increases exposure and conflict edges around the buyer.",
+        "summary": "The possibility of a sale to a national retailer is known among key stakeholders.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "pharmacy_workers",
+          "regional_pharmacy_chain",
+          "national_retailer"
+        ],
+        "event_key": "worker_scheduling_fears_surface",
+        "event_type": "announcement",
+        "expected_impact": "Lowers worker trust in buyer, increases local coalition potential with officials and communities.",
+        "summary": "Workers begin discussing risks of scheduling reductions and cost cutting under new ownership.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "local_officials",
+          "regional_pharmacy_chain",
+          "national_retailer",
+          "local_communities"
+        ],
+        "event_key": "officials_signal_need_for_guarantees",
+        "event_type": "announcement",
+        "expected_impact": "Raises public bargaining pressure and may pull corporate negotiators toward concession design.",
+        "summary": "Local officials indicate that any deal should include commitments on closures, jobs, or services.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "antitrust_regulators",
+          "regional_pharmacy_chain",
+          "national_retailer"
+        ],
+        "event_key": "regulatory_risk_assessment_begins",
+        "event_type": "announcement",
+        "expected_impact": "Increases influence of regulators on deal structure, timing, and remedy discussions.",
+        "summary": "Parties and observers begin evaluating whether antitrust review is likely and how burdensome it may be.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "regional_pharmacy_chain",
+          "national_retailer",
+          "local_officials"
+        ],
+        "event_key": "informal_concession_discussions",
+        "event_type": "announcement",
+        "expected_impact": "Could modestly increase trust if concrete, or deepen cynicism if vague.",
+        "summary": "Early exploration of labor or community assurances begins without binding outcome.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "827d8c7b-5670-49a8-8746-a9d79715e256",
+    "merge_hypotheses": [
+      {
+        "affected_actors": [
+          "regional_pharmacy_chain",
+          "national_retailer",
+          "pharmacy_workers",
+          "patients_customers",
+          "local_officials"
+        ],
+        "convergence_driver": "All major actors benefit from avoiding abrupt service disruption and uncertainty.",
+        "likely_effect": "Supports negotiated interim safeguards even if final endpoint remains unresolved.",
+        "merge_key": "shared_need_for_continuity"
+      },
+      {
+        "affected_actors": [
+          "regional_pharmacy_chain",
+          "national_retailer",
+          "antitrust_regulators",
+          "local_officials"
+        ],
+        "convergence_driver": "If regulatory risk becomes central, disparate public arguments may collapse into a narrower debate over acceptable remedies.",
+        "likely_effect": "Timelines converge around divestiture or condition design rather than pure political conflict.",
+        "merge_key": "remedy_over_messaging"
+      },
+      {
+        "affected_actors": [
+          "pharmacy_workers",
+          "patients_customers",
+          "local_officials",
+          "regional_pharmacy_chain"
+        ],
+        "convergence_driver": "Prolonged ambiguity can reduce maximal demands and push stakeholders toward a tolerable compromise.",
+        "likely_effect": "Moderates public escalation and increases receptivity to partial concessions.",
+        "merge_key": "fatigue_from_extended_uncertainty"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "frontline_workers",
+        "description": "Employees whose schedules, wages, staffing, and job security may be affected by the acquisition.",
+        "label": "Frontline pharmacy workers",
+        "population_total": 2400
+      },
+      {
+        "archetype_key": "patients_and_customers",
+        "description": "People relying on pharmacy access, prescriptions, and retail convenience.",
+        "label": "Patients and customers",
+        "population_total": 180000
+      },
+      {
+        "archetype_key": "civic_stakeholders",
+        "description": "Local officials and civic intermediaries engaged in public accountability around closures and guarantees.",
+        "label": "Civic stakeholders",
+        "population_total": 120
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "sparse_corpus",
+        "note": "Scenario text is brief, leaving market structure, union status, and financial condition unspecified.",
+        "severity": "medium"
+      },
+      {
+        "flag": "authority_split",
+        "note": "Companies negotiate deal terms, but regulators hold decisive approval power, creating multi-level endpoint uncertainty.",
+        "severity": "medium"
+      },
+      {
+        "flag": "public_private_gap",
+        "note": "Some stakeholders may publicly ask for guarantees while privately preferring a stabilized acquisition over deal failure.",
+        "severity": "medium"
+      },
+      {
+        "flag": "economic_elasticity_unclear",
+        "note": "Unknown transaction economics make it hard to estimate how much concessions or remedies the buyer will tolerate.",
+        "severity": "medium"
+      },
+      {
+        "flag": "platform_ownership_leverage_not_applicable",
+        "note": "Scenario is corporate-regulatory rather than platform-governance centered; leverage runs through ownership, employment, and regulatory approval instead.",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "corporate_regulatory_endpoint",
+      "mode": "direct",
+      "scenario_key": "corporate_002",
+      "summary": "A regional pharmacy chain is considering acquisition by a national retailer. Workers fear scheduling cuts, patients worry about store or service closures, local officials seek guarantees, and antitrust review may shape the outcome. At T0 the deal is unresolved; firms can negotiate terms, while regulatory authorities may approve, condition, or block the transaction.",
+      "time_horizon_ticks": 12,
+      "uncertainty_notes": [
+        "No named companies, geography, transaction size, or regulator level are specified.",
+        "Labor organization status, market concentration, and financial distress are not specified.",
+        "Community-benefit demands and concession scope are implied but not yet formalized."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "evidence": "Stakeholders may shift views with concrete guarantees or remedy details, but not from generic reassurance alone.",
+        "level": 0.58,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "evidence": "Patients and many workers are concerned but not yet fully activated absent announced closures or cuts.",
+        "level": 0.62,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "evidence": "Some deal supporters and pragmatists stay quiet while uncertainty remains high.",
+        "level": 0.57,
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "evidence": "Workers, patients, and officials each interpret the deal through role-specific interests.",
+        "level": 0.54,
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "evidence": "Public pressure likely strengthens when multiple stakeholder groups echo closure and job concerns.",
+        "level": 0.48,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "evidence": "Worker identity, local community identity, and official accountability shape reactions.",
+        "level": 0.6,
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "evidence": "Without visible filings, leaks, or closures, public attention may drift between milestones.",
+        "level": 0.43,
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context_key": "worker_customer_tradeoff",
+        "description": "Public debate likely frames job protection against convenience, price, and continuity claims."
+      },
+      {
+        "context_key": "regulatory_gatekeeping",
+        "description": "Final transaction path depends on regulatory authority rather than corporate messaging alone."
+      },
+      {
+        "context_key": "guarantee_politics",
+        "description": "Local officials can raise expectations for enforceable commitments on jobs and access."
+      },
+      {
+        "context_key": "uncertain_market_concentration",
+        "description": "Antitrust intensity depends on market overlap facts not specified at T0."
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "regional_pharmacy_chain",
+        "behavior_axes": {
+          "adaptability": 0.55,
+          "cost_cutting_bias": 0.5,
+          "negotiation_flexibility": 0.6,
+          "risk_tolerance": 0.45
+        },
+        "ideology_axes": {
+          "community_obligation": 0.5,
+          "labor_accommodation": 0.45,
+          "market_consolidation": 0.55
+        },
+        "reputation": 0.5,
+        "secrecy": 0.65,
+        "tendency": "transaction-seeking but sensitive to backlash",
+        "trustworthiness": 0.48
+      },
+      {
+        "actor_name": "national_retailer",
+        "behavior_axes": {
+          "adaptability": 0.6,
+          "cost_cutting_bias": 0.7,
+          "negotiation_flexibility": 0.45,
+          "risk_tolerance": 0.55
+        },
+        "ideology_axes": {
+          "community_obligation": 0.4,
+          "labor_accommodation": 0.35,
+          "market_consolidation": 0.75
+        },
+        "reputation": 0.46,
+        "secrecy": 0.7,
+        "tendency": "disciplined acquirer with remedy and cost sensitivity",
+        "trustworthiness": 0.42
+      },
+      {
+        "actor_name": "pharmacy_workers",
+        "behavior_axes": {
+          "adaptability": 0.5,
+          "collective_action_bias": 0.45,
+          "message_discipline": 0.4,
+          "risk_tolerance": 0.35
+        },
+        "ideology_axes": {
+          "community_obligation": 0.7,
+          "job_security_priority": 0.9,
+          "market_consolidation": 0.25
+        },
+        "reputation": 0.55,
+        "secrecy": 0.35,
+        "tendency": "cautious, anxious, conditional opposition",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "patients_customers",
+        "behavior_axes": {
+          "adaptability": 0.45,
+          "attention_volatility": 0.6,
+          "mobilization_threshold": 0.65,
+          "risk_tolerance": 0.25
+        },
+        "ideology_axes": {
+          "access_priority": 0.9,
+          "market_consolidation": 0.35,
+          "price_sensitivity": 0.7
+        },
+        "reputation": 0.54,
+        "secrecy": 0.2,
+        "tendency": "mostly passive until direct access threats emerge",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "local_officials",
+        "behavior_axes": {
+          "adaptability": 0.55,
+          "negotiation_flexibility": 0.65,
+          "public_pressure_use": 0.7,
+          "risk_tolerance": 0.4
+        },
+        "ideology_axes": {
+          "community_obligation": 0.85,
+          "labor_accommodation": 0.65,
+          "market_consolidation": 0.4
+        },
+        "reputation": 0.6,
+        "secrecy": 0.3,
+        "tendency": "seek guarantees rather than immediate maximal confrontation",
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "antitrust_regulators",
+        "behavior_axes": {
+          "adaptability": 0.45,
+          "interventionism": 0.5,
+          "proceduralism": 0.85,
+          "risk_tolerance": 0.35
+        },
+        "ideology_axes": {
+          "community_obligation": 0.45,
+          "competition_priority": 0.9,
+          "labor_accommodation": 0.35
+        },
+        "reputation": 0.66,
+        "secrecy": 0.55,
+        "tendency": "process-driven gatekeeper",
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "local_communities",
+        "behavior_axes": {
+          "adaptability": 0.45,
+          "attention_volatility": 0.55,
+          "collective_action_bias": 0.4,
+          "risk_tolerance": 0.3
+        },
+        "ideology_axes": {
+          "access_priority": 0.8,
+          "community_obligation": 0.85,
+          "market_consolidation": 0.3
+        },
+        "reputation": 0.57,
+        "secrecy": 0.2,
+        "tendency": "supportive of pressure when local losses feel concrete",
+        "trustworthiness": 0.6
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 555,
+        "end": 555,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 555,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

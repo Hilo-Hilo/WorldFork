@@ -1,0 +1,1773 @@
+{
+  "big_bang_id": "0f4cc160-77b8-4881-b6ce-5f4d80a80cc5",
+  "initializer_output": {
+    "actors": [
+      {
+        "description": "Decision-coordinating office overseeing the pilot evaluation and administrative response.",
+        "fictionalized": true,
+        "name": "city_manager_office",
+        "resources": [
+          "administrative authority",
+          "agenda setting",
+          "evaluation scheduling",
+          "interdepartmental coordination"
+        ],
+        "scale": "citywide",
+        "stakes": [
+          "pilot credibility",
+          "service performance",
+          "political calm",
+          "evidence-based decision"
+        ],
+        "type": "institution"
+      },
+      {
+        "description": "Department managing sanitation operations and pilot execution.",
+        "fictionalized": true,
+        "name": "public_works_department",
+        "resources": [
+          "collection scheduling",
+          "crew supervision",
+          "equipment allocation",
+          "field reporting"
+        ],
+        "scale": "citywide",
+        "stakes": [
+          "operational feasibility",
+          "worker performance",
+          "route efficiency",
+          "complaint management"
+        ],
+        "type": "institution"
+      },
+      {
+        "description": "Workers conducting overnight pickup and assessing on-the-ground safety and workload realities.",
+        "fictionalized": true,
+        "name": "sanitation_workers",
+        "resources": [
+          "implementation knowledge",
+          "informal shop-floor credibility",
+          "ability to report hazards"
+        ],
+        "scale": "citywide",
+        "stakes": [
+          "personal safety",
+          "work conditions",
+          "schedule stability",
+          "job dignity"
+        ],
+        "type": "labor_group"
+      },
+      {
+        "description": "Residents living near garages or collection-adjacent routes who are sensitive to overnight noise and disruption.",
+        "fictionalized": true,
+        "name": "downtown_residents_near_garages",
+        "resources": [
+          "complaints",
+          "testimony",
+          "local organizing potential"
+        ],
+        "scale": "neighborhood",
+        "stakes": [
+          "sleep quality",
+          "neighborhood quiet",
+          "sanitation quality",
+          "responsiveness from city"
+        ],
+        "type": "community_group"
+      },
+      {
+        "description": "Bars, restaurants, venues, and related businesses favoring cleaner streets during nighttime operating hours.",
+        "fictionalized": true,
+        "name": "nightlife_businesses",
+        "resources": [
+          "merchant coordination",
+          "public messaging",
+          "relationship with city officials"
+        ],
+        "scale": "downtown",
+        "stakes": [
+          "customer experience",
+          "street cleanliness",
+          "reduced daytime disruption",
+          "downtown foot traffic"
+        ],
+        "type": "business_group"
+      },
+      {
+        "description": "Customers and visitors affected indirectly by street cleanliness and perceived order.",
+        "fictionalized": true,
+        "name": "downtown_visitors",
+        "resources": [
+          "spending choices",
+          "informal word of mouth"
+        ],
+        "scale": "downtown",
+        "stakes": [
+          "clean public space",
+          "convenience",
+          "safety perception"
+        ],
+        "type": "public_group"
+      },
+      {
+        "description": "Local media likely to cover complaints, business reactions, and city evaluation milestones.",
+        "fictionalized": true,
+        "name": "local_news_outlet",
+        "resources": [
+          "agenda amplification",
+          "issue framing"
+        ],
+        "scale": "citywide",
+        "stakes": [
+          "public interest reporting",
+          "narrative salience"
+        ],
+        "type": "media"
+      },
+      {
+        "description": "Elected officials who may react to constituent complaints and evaluation findings.",
+        "fictionalized": true,
+        "name": "city_council_members",
+        "resources": [
+          "public hearings",
+          "oversight pressure",
+          "messaging platform"
+        ],
+        "scale": "citywide",
+        "stakes": [
+          "constituent satisfaction",
+          "visible responsiveness",
+          "policy oversight"
+        ],
+        "type": "institution"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "branch_key": "complaints_outpace_benefits",
+        "divergence_signal": "Complaint volume rises, news stories center residents, and mixed residents shift toward expression.",
+        "plausible_path": "Council attention and media framing tilt toward quality-of-life harms, increasing pressure for restrictions, route changes, or early rollback talk.",
+        "trigger": "Repeated resident noise complaints become more visible than cleanliness gains during early pilot weeks."
+      },
+      {
+        "branch_key": "operational_mitigation_stabilizes_pilot",
+        "divergence_signal": "Worker concern intensity falls, resident complaint recurrence slows, and city messaging emphasizes responsiveness.",
+        "plausible_path": "Conflict softens enough for the pilot to continue through the full evaluation window with contested but manageable support.",
+        "trigger": "Public works quickly adjusts routes, timing, or equipment in response to worker and resident concerns."
+      },
+      {
+        "branch_key": "worker_safety_becomes_binding_constraint",
+        "divergence_signal": "Department briefings, incident logs, or worker statements dominate internal discussion and public justification.",
+        "plausible_path": "Administrative focus shifts from neighborhood politics to implementation viability, making continuation contingent on staffing or safety changes.",
+        "trigger": "A visible incident or repeated hazard reports elevate labor concerns beyond routine operations."
+      },
+      {
+        "branch_key": "benefit_visibility_grows_for_businesses_and_visitors",
+        "divergence_signal": "Merchant statements become more coordinated and media coverage includes positive customer-facing anecdotes.",
+        "plausible_path": "Supportive business coalition becomes more vocal, giving city manager cover to preserve the pilot pending evaluation.",
+        "trigger": "Cleaner morning streets and reduced daytime trash disruption become noticeable to businesses and patrons."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "resident_complaint_hotline",
+        "note": "Primary route for quality-of-life complaints.",
+        "participants": [
+          "downtown_residents_near_garages",
+          "public_works_department",
+          "city_manager_office"
+        ],
+        "publicness": "low",
+        "type": "administrative"
+      },
+      {
+        "channel_key": "city_council_constituent_contact",
+        "note": "Email, calls, and office outreach shape oversight attention.",
+        "participants": [
+          "downtown_residents_near_garages",
+          "city_council_members"
+        ],
+        "publicness": "low_to_medium",
+        "type": "political"
+      },
+      {
+        "channel_key": "merchant_association_meetings",
+        "note": "Potential source of organized support or conditional feedback.",
+        "participants": [
+          "nightlife_businesses",
+          "city_manager_office",
+          "public_works_department"
+        ],
+        "publicness": "low",
+        "type": "business_network"
+      },
+      {
+        "channel_key": "department_shift_briefings",
+        "note": "Key channel for hazard reports and route adjustment feedback.",
+        "participants": [
+          "public_works_department",
+          "sanitation_workers"
+        ],
+        "publicness": "low",
+        "type": "operational"
+      },
+      {
+        "channel_key": "local_news_coverage",
+        "note": "Issue amplification and framing arena.",
+        "participants": [
+          "local_news_outlet",
+          "downtown_residents_near_garages",
+          "nightlife_businesses",
+          "city_manager_office",
+          "city_council_members"
+        ],
+        "publicness": "high",
+        "type": "media"
+      },
+      {
+        "channel_key": "public_meeting_or_evaluation_hearing",
+        "note": "Likely later focal point if pilot remains contested.",
+        "participants": [
+          "city_manager_office",
+          "city_council_members",
+          "downtown_residents_near_garages",
+          "nightlife_businesses",
+          "sanitation_workers"
+        ],
+        "publicness": "high",
+        "type": "civic_forum"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "downtown_residents_near_garages",
+        "attention_level": 0.72,
+        "behavioral_tendencies": [
+          "complaint filing",
+          "neighbor discussion",
+          "conditional escalation if ignored"
+        ],
+        "cohort_key": "resident_noise_sensitive",
+        "expression_level": 0.58,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.32,
+        "mobilization_readiness": 0.56,
+        "perceived_majority": 0.52,
+        "population_archetype_key": "downtown_resident_population",
+        "population_share_of_archetype": 0.3,
+        "private_belief": "Pilot likely harms overnight quality of life unless routes and noise controls improve.",
+        "public_expression": "Complaint-ready but not uniformly organized at T0.",
+        "representation_mode": "direct",
+        "represented_population": 1800,
+        "reputation": 0.55,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "noise_tolerance": 0.1,
+          "pilot_support": 0.2,
+          "service_tradeoff_acceptance": 0.35,
+          "trust_in_city_process": 0.45
+        },
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "downtown_residents_near_garages",
+        "attention_level": 0.48,
+        "behavioral_tendencies": [
+          "wait for evidence",
+          "discuss privately",
+          "shift if complaints become salient"
+        ],
+        "cohort_key": "resident_mixed_wait_and_see",
+        "expression_level": 0.22,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.24,
+        "perceived_majority": 0.44,
+        "population_archetype_key": "downtown_resident_population",
+        "population_share_of_archetype": 0.5,
+        "private_belief": "Pilot may be acceptable if streets are cleaner and disruptions remain limited.",
+        "public_expression": "Mostly observant and low-volume at T0.",
+        "representation_mode": "direct",
+        "represented_population": 3000,
+        "reputation": 0.5,
+        "secrecy": 0.36,
+        "stance_axes": {
+          "noise_tolerance": 0.45,
+          "pilot_support": 0.5,
+          "service_tradeoff_acceptance": 0.56,
+          "trust_in_city_process": 0.52
+        },
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "downtown_residents_near_garages",
+        "attention_level": 0.4,
+        "behavioral_tendencies": [
+          "conditional support",
+          "limited public advocacy",
+          "preference for measured evaluation"
+        ],
+        "cohort_key": "resident_cleanliness_prioritizers",
+        "expression_level": 0.2,
+        "fatigue": 0.1,
+        "fear_of_isolation": 0.54,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.28,
+        "population_archetype_key": "downtown_resident_population",
+        "population_share_of_archetype": 0.2,
+        "private_belief": "Cleaner streets may justify some inconvenience if impacts stay bounded.",
+        "public_expression": "Mild support, often quieter than opponents.",
+        "representation_mode": "direct",
+        "represented_population": 1200,
+        "reputation": 0.47,
+        "secrecy": 0.42,
+        "stance_axes": {
+          "noise_tolerance": 0.5,
+          "pilot_support": 0.68,
+          "service_tradeoff_acceptance": 0.71,
+          "trust_in_city_process": 0.58
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "sanitation_workers",
+        "attention_level": 0.76,
+        "behavioral_tendencies": [
+          "incident reporting",
+          "peer coordination",
+          "conditional cooperation if mitigations appear"
+        ],
+        "cohort_key": "overnight_route_workers",
+        "expression_level": 0.44,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.37,
+        "mobilization_readiness": 0.46,
+        "perceived_majority": 0.49,
+        "population_archetype_key": "sanitation_workforce_population",
+        "population_share_of_archetype": 0.33,
+        "private_belief": "Overnight operations may improve logistics but create safety and visibility concerns.",
+        "public_expression": "Cautious, operationally specific concern signaling.",
+        "representation_mode": "direct",
+        "represented_population": 60,
+        "reputation": 0.66,
+        "secrecy": 0.34,
+        "stance_axes": {
+          "pilot_support": 0.42,
+          "safety_confidence": 0.28,
+          "trust_in_management": 0.46,
+          "willingness_to_escalate": 0.38
+        },
+        "trustworthiness": 0.72
+      },
+      {
+        "actor_name": "sanitation_workers",
+        "attention_level": 0.34,
+        "behavioral_tendencies": [
+          "observe internally",
+          "follow crew narratives",
+          "defer to directly affected workers"
+        ],
+        "cohort_key": "other_sanitation_staff",
+        "expression_level": 0.14,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.18,
+        "perceived_majority": 0.41,
+        "population_archetype_key": "sanitation_workforce_population",
+        "population_share_of_archetype": 0.67,
+        "private_belief": "Interested but less directly exposed to overnight conditions.",
+        "public_expression": "Muted unless pilot spills into broader scheduling concerns.",
+        "representation_mode": "direct",
+        "represented_population": 120,
+        "reputation": 0.58,
+        "secrecy": 0.4,
+        "stance_axes": {
+          "pilot_support": 0.48,
+          "safety_confidence": 0.45,
+          "trust_in_management": 0.5,
+          "willingness_to_escalate": 0.25
+        },
+        "trustworthiness": 0.69
+      },
+      {
+        "actor_name": "nightlife_businesses",
+        "attention_level": 0.66,
+        "behavioral_tendencies": [
+          "merchant advocacy",
+          "share positive anecdotes",
+          "seek pilot continuation if benefits visible"
+        ],
+        "cohort_key": "business_supporters",
+        "expression_level": 0.52,
+        "fatigue": 0.14,
+        "fear_of_isolation": 0.19,
+        "mobilization_readiness": 0.5,
+        "perceived_majority": 0.57,
+        "population_archetype_key": "nightlife_business_population",
+        "population_share_of_archetype": 0.7,
+        "private_belief": "Overnight pickup can improve customer-facing cleanliness and reduce daytime friction.",
+        "public_expression": "Supportive and message-ready.",
+        "representation_mode": "direct",
+        "represented_population": 98,
+        "reputation": 0.54,
+        "secrecy": 0.16,
+        "stance_axes": {
+          "cleanliness_priority": 0.82,
+          "pilot_support": 0.8,
+          "tolerance_for_night_activity": 0.76,
+          "trust_in_city_process": 0.55
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "nightlife_businesses",
+        "attention_level": 0.42,
+        "behavioral_tendencies": [
+          "wait for evidence",
+          "align with merchant sentiment if clear"
+        ],
+        "cohort_key": "business_cautious_or_neutral",
+        "expression_level": 0.22,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.27,
+        "mobilization_readiness": 0.24,
+        "perceived_majority": 0.46,
+        "population_archetype_key": "nightlife_business_population",
+        "population_share_of_archetype": 0.3,
+        "private_belief": "Potential upside exists but depends on execution and neighborhood backlash.",
+        "public_expression": "Low-key, contingent positioning.",
+        "representation_mode": "direct",
+        "represented_population": 42,
+        "reputation": 0.5,
+        "secrecy": 0.29,
+        "stance_axes": {
+          "cleanliness_priority": 0.68,
+          "pilot_support": 0.56,
+          "tolerance_for_night_activity": 0.63,
+          "trust_in_city_process": 0.48
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "downtown_visitors",
+        "attention_level": 0.18,
+        "behavioral_tendencies": [
+          "low-signal feedback",
+          "spending-based response",
+          "weak social transmission unless issue spikes"
+        ],
+        "cohort_key": "casual_visitors",
+        "expression_level": 0.06,
+        "fatigue": 0.05,
+        "fear_of_isolation": 0.08,
+        "mobilization_readiness": 0.04,
+        "perceived_majority": 0.5,
+        "population_archetype_key": "downtown_visitor_population",
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Weakly attentive, responsive mainly to visible cleanliness and convenience cues.",
+        "public_expression": "Diffuse and mostly unorganized.",
+        "representation_mode": "aggregate_proxy",
+        "represented_population": 12000,
+        "reputation": 0.45,
+        "secrecy": 0.62,
+        "stance_axes": {
+          "cleanliness_priority": 0.62,
+          "issue_attention": 0.2,
+          "pilot_support": 0.54,
+          "trust_in_city_services": 0.5
+        },
+        "trustworthiness": 0.49
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "downtown_residents_near_garages",
+        "attention_level": 0.72,
+        "behavioral_tendencies": [
+          "complaint filing",
+          "neighbor discussion",
+          "conditional escalation if ignored"
+        ],
+        "cohort_key": "resident_noise_sensitive",
+        "expression_level": 0.58,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.32,
+        "mobilization_readiness": 0.56,
+        "perceived_majority": 0.52,
+        "population_archetype_key": "downtown_resident_population",
+        "population_share_of_archetype": 0.3,
+        "private_belief": "Pilot likely harms overnight quality of life unless routes and noise controls improve.",
+        "public_expression": "Complaint-ready but not uniformly organized at T0.",
+        "representation_mode": "direct",
+        "represented_population": 1800,
+        "reputation": 0.55,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "noise_tolerance": 0.1,
+          "pilot_support": 0.2,
+          "service_tradeoff_acceptance": 0.35,
+          "trust_in_city_process": 0.45
+        },
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "downtown_residents_near_garages",
+        "attention_level": 0.48,
+        "behavioral_tendencies": [
+          "wait for evidence",
+          "discuss privately",
+          "shift if complaints become salient"
+        ],
+        "cohort_key": "resident_mixed_wait_and_see",
+        "expression_level": 0.22,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.24,
+        "perceived_majority": 0.44,
+        "population_archetype_key": "downtown_resident_population",
+        "population_share_of_archetype": 0.5,
+        "private_belief": "Pilot may be acceptable if streets are cleaner and disruptions remain limited.",
+        "public_expression": "Mostly observant and low-volume at T0.",
+        "representation_mode": "direct",
+        "represented_population": 3000,
+        "reputation": 0.5,
+        "secrecy": 0.36,
+        "stance_axes": {
+          "noise_tolerance": 0.45,
+          "pilot_support": 0.5,
+          "service_tradeoff_acceptance": 0.56,
+          "trust_in_city_process": 0.52
+        },
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "downtown_residents_near_garages",
+        "attention_level": 0.4,
+        "behavioral_tendencies": [
+          "conditional support",
+          "limited public advocacy",
+          "preference for measured evaluation"
+        ],
+        "cohort_key": "resident_cleanliness_prioritizers",
+        "expression_level": 0.2,
+        "fatigue": 0.1,
+        "fear_of_isolation": 0.54,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.28,
+        "population_archetype_key": "downtown_resident_population",
+        "population_share_of_archetype": 0.2,
+        "private_belief": "Cleaner streets may justify some inconvenience if impacts stay bounded.",
+        "public_expression": "Mild support, often quieter than opponents.",
+        "representation_mode": "direct",
+        "represented_population": 1200,
+        "reputation": 0.47,
+        "secrecy": 0.42,
+        "stance_axes": {
+          "noise_tolerance": 0.5,
+          "pilot_support": 0.68,
+          "service_tradeoff_acceptance": 0.71,
+          "trust_in_city_process": 0.58
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "sanitation_workers",
+        "attention_level": 0.76,
+        "behavioral_tendencies": [
+          "incident reporting",
+          "peer coordination",
+          "conditional cooperation if mitigations appear"
+        ],
+        "cohort_key": "overnight_route_workers",
+        "expression_level": 0.44,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.37,
+        "mobilization_readiness": 0.46,
+        "perceived_majority": 0.49,
+        "population_archetype_key": "sanitation_workforce_population",
+        "population_share_of_archetype": 0.33,
+        "private_belief": "Overnight operations may improve logistics but create safety and visibility concerns.",
+        "public_expression": "Cautious, operationally specific concern signaling.",
+        "representation_mode": "direct",
+        "represented_population": 60,
+        "reputation": 0.66,
+        "secrecy": 0.34,
+        "stance_axes": {
+          "pilot_support": 0.42,
+          "safety_confidence": 0.28,
+          "trust_in_management": 0.46,
+          "willingness_to_escalate": 0.38
+        },
+        "trustworthiness": 0.72
+      },
+      {
+        "actor_name": "sanitation_workers",
+        "attention_level": 0.34,
+        "behavioral_tendencies": [
+          "observe internally",
+          "follow crew narratives",
+          "defer to directly affected workers"
+        ],
+        "cohort_key": "other_sanitation_staff",
+        "expression_level": 0.14,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.18,
+        "perceived_majority": 0.41,
+        "population_archetype_key": "sanitation_workforce_population",
+        "population_share_of_archetype": 0.67,
+        "private_belief": "Interested but less directly exposed to overnight conditions.",
+        "public_expression": "Muted unless pilot spills into broader scheduling concerns.",
+        "representation_mode": "direct",
+        "represented_population": 120,
+        "reputation": 0.58,
+        "secrecy": 0.4,
+        "stance_axes": {
+          "pilot_support": 0.48,
+          "safety_confidence": 0.45,
+          "trust_in_management": 0.5,
+          "willingness_to_escalate": 0.25
+        },
+        "trustworthiness": 0.69
+      },
+      {
+        "actor_name": "nightlife_businesses",
+        "attention_level": 0.66,
+        "behavioral_tendencies": [
+          "merchant advocacy",
+          "share positive anecdotes",
+          "seek pilot continuation if benefits visible"
+        ],
+        "cohort_key": "business_supporters",
+        "expression_level": 0.52,
+        "fatigue": 0.14,
+        "fear_of_isolation": 0.19,
+        "mobilization_readiness": 0.5,
+        "perceived_majority": 0.57,
+        "population_archetype_key": "nightlife_business_population",
+        "population_share_of_archetype": 0.7,
+        "private_belief": "Overnight pickup can improve customer-facing cleanliness and reduce daytime friction.",
+        "public_expression": "Supportive and message-ready.",
+        "representation_mode": "direct",
+        "represented_population": 98,
+        "reputation": 0.54,
+        "secrecy": 0.16,
+        "stance_axes": {
+          "cleanliness_priority": 0.82,
+          "pilot_support": 0.8,
+          "tolerance_for_night_activity": 0.76,
+          "trust_in_city_process": 0.55
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "nightlife_businesses",
+        "attention_level": 0.42,
+        "behavioral_tendencies": [
+          "wait for evidence",
+          "align with merchant sentiment if clear"
+        ],
+        "cohort_key": "business_cautious_or_neutral",
+        "expression_level": 0.22,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.27,
+        "mobilization_readiness": 0.24,
+        "perceived_majority": 0.46,
+        "population_archetype_key": "nightlife_business_population",
+        "population_share_of_archetype": 0.3,
+        "private_belief": "Potential upside exists but depends on execution and neighborhood backlash.",
+        "public_expression": "Low-key, contingent positioning.",
+        "representation_mode": "direct",
+        "represented_population": 42,
+        "reputation": 0.5,
+        "secrecy": 0.29,
+        "stance_axes": {
+          "cleanliness_priority": 0.68,
+          "pilot_support": 0.56,
+          "tolerance_for_night_activity": 0.63,
+          "trust_in_city_process": 0.48
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "downtown_visitors",
+        "attention_level": 0.18,
+        "behavioral_tendencies": [
+          "low-signal feedback",
+          "spending-based response",
+          "weak social transmission unless issue spikes"
+        ],
+        "cohort_key": "casual_visitors",
+        "expression_level": 0.06,
+        "fatigue": 0.05,
+        "fear_of_isolation": 0.08,
+        "mobilization_readiness": 0.04,
+        "perceived_majority": 0.5,
+        "population_archetype_key": "downtown_visitor_population",
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Weakly attentive, responsive mainly to visible cleanliness and convenience cues.",
+        "public_expression": "Diffuse and mostly unorganized.",
+        "representation_mode": "aggregate_proxy",
+        "represented_population": 12000,
+        "reputation": 0.45,
+        "secrecy": 0.62,
+        "stance_axes": {
+          "cleanliness_priority": 0.62,
+          "issue_attention": 0.2,
+          "pilot_support": 0.54,
+          "trust_in_city_services": 0.5
+        },
+        "trustworthiness": 0.49
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "city_manager_office",
+          "public_works_department",
+          "city_council_members"
+        ],
+        "blockers": [
+          "sustained resident opposition",
+          "binding worker safety issues",
+          "negative evaluation metrics",
+          "council oversight pressure"
+        ],
+        "contradiction_notes": "Continuation could still occur with modifications; later evidence must distinguish continuation from fundamentally altered replacement.",
+        "description": "The city decides to continue the overnight trash pickup program beyond the initial three-month evaluation in substantially similar or expanded form.",
+        "endpoint_key": "pilot_continued",
+        "evidence_refs": [
+          "three_month_evaluation_window",
+          "interim_evaluation_setup",
+          "business_support_signaling",
+          "worker_safety_concern_reporting",
+          "early_resident_noise_complaints"
+        ],
+        "label": "Pilot continued after evaluation",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "At the end of the three-month evaluation, is the overnight trash pickup pilot continued in substantially similar form?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.4,
+        "rationale": "Continuation is a central terminal option implied by a pilot structure.",
+        "realization_criteria": [
+          "City manager office or authorized city body publicly confirms continuation beyond pilot end date",
+          "Operational schedules for overnight pickup remain in effect after evaluation window",
+          "No terminal cancellation or full reversion decision is issued at evaluation close"
+        ],
+        "status": "active",
+        "status_basis": "Scenario specifies a pilot and evaluation but no outcome."
+      },
+      {
+        "authority_refs": [
+          "city_manager_office",
+          "public_works_department",
+          "city_council_members"
+        ],
+        "blockers": [
+          "visible cleanliness gains",
+          "manageable mitigation options",
+          "administrative reluctance to reverse quickly"
+        ],
+        "contradiction_notes": "Temporary pauses or partial route changes do not alone realize termination unless overnight model is formally ended.",
+        "description": "The city ends the overnight pickup pilot and reverts away from the overnight model for the affected downtown area.",
+        "endpoint_key": "pilot_terminated",
+        "evidence_refs": [
+          "early_resident_noise_complaints",
+          "worker_safety_concern_reporting",
+          "three_month_evaluation_window"
+        ],
+        "label": "Pilot terminated after evaluation or earlier",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Before any terminal decision, does the city materially modify the pilot's routes, timing, equipment, or safeguards to address noise or worker safety?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.28,
+        "rationale": "Termination is the main alternative terminal outcome to continuation.",
+        "realization_criteria": [
+          "Official city communication states pilot is ended or discontinued",
+          "Overnight pickup schedules are withdrawn for the pilot area",
+          "Collection operations revert to non-pilot timing or an explicitly different non-overnight arrangement"
+        ],
+        "status": "active",
+        "status_basis": "Pilot success or failure is explicitly unspecified at T0."
+      },
+      {
+        "authority_refs": [
+          "city_manager_office",
+          "public_works_department"
+        ],
+        "blockers": [
+          "lack of feasible mitigation tools",
+          "budget or staffing rigidity",
+          "polarized narratives demanding all-or-nothing resolution"
+        ],
+        "contradiction_notes": "Minor messaging changes or routine tuning should not count without material operational change.",
+        "description": "The city preserves an overnight pickup approach beyond the pilot period but only after substantial route, timing, equipment, staffing, or safeguard changes.",
+        "endpoint_key": "pilot_continued_with_material_modifications",
+        "evidence_refs": [
+          "worker_safety_concern_reporting",
+          "early_resident_noise_complaints",
+          "interim_evaluation_setup"
+        ],
+        "label": "Pilot continued but materially modified",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do worker safety concerns become the main binding factor in the city's continuation decision, overtaking resident complaints or business support?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.32,
+        "rationale": "This endpoint captures a likely compromise path and prevents false binary framing.",
+        "realization_criteria": [
+          "City announces continuation tied to concrete mitigation measures",
+          "Observed operations after evaluation differ materially from initial pilot design",
+          "Official rationale cites noise reduction or worker safety accommodation as a condition of continuation"
+        ],
+        "status": "active",
+        "status_basis": "Scenario presents multiple pressure points that naturally support an adjusted rather than binary outcome."
+      },
+      {
+        "authority_refs": [
+          "public_works_department",
+          "city_manager_office",
+          "sanitation_workers"
+        ],
+        "blockers": [
+          "resident complaints dominating agenda",
+          "lack of documented incidents",
+          "ability to mitigate hazards cheaply"
+        ],
+        "contradiction_notes": "Safety may matter substantially without becoming the decisive endpoint driver; later evidence should compare stated reasons.",
+        "description": "The final city decision is primarily justified by worker safety viability rather than resident satisfaction or business cleanliness benefits.",
+        "endpoint_key": "worker_safety_as_decisive_constraint",
+        "evidence_refs": [
+          "worker_safety_concern_reporting",
+          "interim_evaluation_setup"
+        ],
+        "label": "Worker safety becomes decisive constraint",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Which public narrative becomes dominant by the evaluation point: resident noise harms, cleaner-streets business benefits, or balanced mixed evidence?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.22,
+        "rationale": "This is an outcome-relevant endpoint question implied by operational dependency and authority structure.",
+        "realization_criteria": [
+          "Official decision documents or statements center worker safety as the principal reason for continuation, modification, or termination",
+          "Operational incident/hazard evidence is cited as controlling in evaluation outcome",
+          "Stakeholder reporting shows safety concerns drove key schedule or staffing choices"
+        ],
+        "status": "active",
+        "status_basis": "Worker safety is explicitly named as a concern at T0 but not yet clearly dominant."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "Residents complain about noise; council likely exposed via constituent channels.",
+        "layer": "exposure",
+        "reason": "Residents can reach elected officials through complaints and constituent contact.",
+        "source_actor_name": "downtown_residents_near_garages",
+        "target_actor_name": "city_council_members",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "Noise complaints near garages create local coverage potential.",
+        "layer": "exposure",
+        "reason": "Resident complaints are newsworthy and easily surfaced.",
+        "source_actor_name": "downtown_residents_near_garages",
+        "target_actor_name": "local_news_outlet",
+        "weight": 0.38
+      },
+      {
+        "direction": "directed",
+        "evidence": "Nightlife businesses support cleaner streets.",
+        "layer": "exposure",
+        "reason": "Business stakeholders can convey support through downtown advocacy channels.",
+        "source_actor_name": "nightlife_businesses",
+        "target_actor_name": "city_manager_office",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "Workers worry about safety in overnight operations.",
+        "layer": "exposure",
+        "reason": "Workers directly report operating conditions to department supervisors.",
+        "source_actor_name": "sanitation_workers",
+        "target_actor_name": "public_works_department",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "City manager wants a three-month evaluation.",
+        "layer": "exposure",
+        "reason": "Department implementation reports flow upward to city administration.",
+        "source_actor_name": "public_works_department",
+        "target_actor_name": "city_manager_office",
+        "weight": 0.55
+      },
+      {
+        "direction": "directed",
+        "evidence": "Local outlet likely to report on visible pilot conflict.",
+        "layer": "exposure",
+        "reason": "Media coverage can shape diffuse public awareness.",
+        "source_actor_name": "local_news_outlet",
+        "target_actor_name": "downtown_visitors",
+        "weight": 0.24
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario specifies evaluation rather than resolved distrust.",
+        "layer": "trust",
+        "reason": "Residents retain moderate trust in an evaluation process but are complaint-sensitive.",
+        "source_actor_name": "downtown_residents_near_garages",
+        "target_actor_name": "city_manager_office",
+        "weight": 0.45
+      },
+      {
+        "direction": "directed",
+        "evidence": "Workers worry about safety under department-run operations.",
+        "layer": "trust",
+        "reason": "Workers rely on department management but have safety concerns.",
+        "source_actor_name": "sanitation_workers",
+        "target_actor_name": "public_works_department",
+        "weight": 0.47
+      },
+      {
+        "direction": "directed",
+        "evidence": "Businesses support the pilot's cleanliness goals.",
+        "layer": "trust",
+        "reason": "Businesses see city administration as a channel for a cleaner downtown pilot.",
+        "source_actor_name": "nightlife_businesses",
+        "target_actor_name": "city_manager_office",
+        "weight": 0.53
+      },
+      {
+        "direction": "directed",
+        "evidence": "Three-month evaluation requires departmental execution.",
+        "layer": "trust",
+        "reason": "Administrative office depends on department competence to run the pilot.",
+        "source_actor_name": "city_manager_office",
+        "target_actor_name": "public_works_department",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "Evaluation framing suggests some administrative legitimacy without full deference.",
+        "layer": "trust",
+        "reason": "Council has moderate trust but retains oversight posture.",
+        "source_actor_name": "city_council_members",
+        "target_actor_name": "city_manager_office",
+        "weight": 0.49
+      },
+      {
+        "direction": "directed",
+        "evidence": "Pilot implementation sits with sanitation/public works.",
+        "layer": "dependency",
+        "reason": "City manager's evaluation and policy options depend on operational delivery and data from public works.",
+        "source_actor_name": "city_manager_office",
+        "target_actor_name": "public_works_department",
+        "weight": 0.68
+      },
+      {
+        "direction": "directed",
+        "evidence": "Workers execute pickup and perceive safety conditions firsthand.",
+        "layer": "dependency",
+        "reason": "Pilot performance depends on workers carrying out overnight routes safely.",
+        "source_actor_name": "public_works_department",
+        "target_actor_name": "sanitation_workers",
+        "weight": 0.64
+      },
+      {
+        "direction": "directed",
+        "evidence": "Businesses support cleaner streets from overnight pickup.",
+        "layer": "dependency",
+        "reason": "Cleaner streets depend on collection reliability.",
+        "source_actor_name": "nightlife_businesses",
+        "target_actor_name": "public_works_department",
+        "weight": 0.42
+      },
+      {
+        "direction": "directed",
+        "evidence": "Complaints require administrative response to matter materially.",
+        "layer": "dependency",
+        "reason": "Residents depend on city authority to alter schedules or mitigation measures.",
+        "source_actor_name": "downtown_residents_near_garages",
+        "target_actor_name": "city_manager_office",
+        "weight": 0.33
+      },
+      {
+        "direction": "directed",
+        "evidence": "City manager is named as evaluation lead.",
+        "layer": "dependency",
+        "reason": "Formal change may still require executive-administrative action even if council pressures.",
+        "source_actor_name": "city_council_members",
+        "target_actor_name": "city_manager_office",
+        "weight": 0.31
+      },
+      {
+        "direction": "directed",
+        "evidence": "City manager wants a three-month evaluation.",
+        "layer": "influence",
+        "reason": "Administrative office can direct evaluation criteria and operational priorities.",
+        "source_actor_name": "city_manager_office",
+        "target_actor_name": "public_works_department",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "Department controls implementation knowledge.",
+        "layer": "influence",
+        "reason": "Operational evidence can shape the manager's ultimate recommendation.",
+        "source_actor_name": "public_works_department",
+        "target_actor_name": "city_manager_office",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "Noise complaints often draw elected attention.",
+        "layer": "influence",
+        "reason": "Residents can activate constituent responsiveness.",
+        "source_actor_name": "downtown_residents_near_garages",
+        "target_actor_name": "city_council_members",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "Businesses support cleaner streets.",
+        "layer": "influence",
+        "reason": "Businesses can advocate for continuation based on commercial benefits.",
+        "source_actor_name": "nightlife_businesses",
+        "target_actor_name": "city_manager_office",
+        "weight": 0.43
+      },
+      {
+        "direction": "directed",
+        "evidence": "Media can amplify conflicts around municipal pilots.",
+        "layer": "influence",
+        "reason": "Coverage can increase oversight salience.",
+        "source_actor_name": "local_news_outlet",
+        "target_actor_name": "city_council_members",
+        "weight": 0.39
+      },
+      {
+        "direction": "directed",
+        "evidence": "Worker concern is a key constraint in the scenario.",
+        "layer": "influence",
+        "reason": "Worker safety reports can prompt operational changes.",
+        "source_actor_name": "sanitation_workers",
+        "target_actor_name": "public_works_department",
+        "weight": 0.49
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Businesses support overnight pickup; manager wants evaluation.",
+        "layer": "coalition",
+        "reason": "Shared interest in giving the pilot a fair trial if cleanliness improves.",
+        "source_actor_name": "nightlife_businesses",
+        "target_actor_name": "city_manager_office",
+        "weight": 0.44
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Pilot launch and evaluation require coordination.",
+        "layer": "coalition",
+        "reason": "Administrative and operational arms are aligned on running the pilot initially.",
+        "source_actor_name": "city_manager_office",
+        "target_actor_name": "public_works_department",
+        "weight": 0.57
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Residents complaining can draw council advocacy.",
+        "layer": "coalition",
+        "reason": "Potential alignment around responsiveness to neighborhood concerns.",
+        "source_actor_name": "downtown_residents_near_garages",
+        "target_actor_name": "city_council_members",
+        "weight": 0.36
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Both groups express concerns, though from different angles.",
+        "layer": "coalition",
+        "reason": "Latent alignment possible if both emphasize harms from overnight implementation.",
+        "source_actor_name": "sanitation_workers",
+        "target_actor_name": "downtown_residents_near_garages",
+        "weight": 0.22
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Residents complain about noise while businesses support the pilot.",
+        "layer": "conflict",
+        "reason": "Resident quiet concerns and business cleanliness preferences can diverge.",
+        "source_actor_name": "downtown_residents_near_garages",
+        "target_actor_name": "nightlife_businesses",
+        "weight": 0.43
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Complaints are tied to overnight pickup activity.",
+        "layer": "conflict",
+        "reason": "Residents may view department operations as source of disruption.",
+        "source_actor_name": "downtown_residents_near_garages",
+        "target_actor_name": "public_works_department",
+        "weight": 0.39
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Workers worry about safety during the pilot.",
+        "layer": "conflict",
+        "reason": "Safety concerns create friction with management expectations.",
+        "source_actor_name": "sanitation_workers",
+        "target_actor_name": "public_works_department",
+        "weight": 0.31
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Stake asymmetry exists though no direct dispute is specified.",
+        "layer": "conflict",
+        "reason": "Businesses want benefits from a schedule that may heighten worker risk exposure.",
+        "source_actor_name": "sanitation_workers",
+        "target_actor_name": "nightlife_businesses",
+        "weight": 0.19
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Resident complaints commonly route to elected officials.",
+        "layer": "oasis_interaction",
+        "reason": "Likely interaction through meetings, emails, and public comment.",
+        "source_actor_name": "downtown_residents_near_garages",
+        "target_actor_name": "city_council_members",
+        "weight": 0.47
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Businesses have a clear stake in cleaner streets.",
+        "layer": "oasis_interaction",
+        "reason": "Business associations or merchants likely communicate support publicly or semi-publicly.",
+        "source_actor_name": "nightlife_businesses",
+        "target_actor_name": "city_manager_office",
+        "weight": 0.36
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Pilot has multiple competing stakeholders.",
+        "layer": "oasis_interaction",
+        "reason": "Media may request statements as pilot controversy emerges.",
+        "source_actor_name": "local_news_outlet",
+        "target_actor_name": "city_manager_office",
+        "weight": 0.34
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Noise complaints are legible story material.",
+        "layer": "oasis_interaction",
+        "reason": "Residents may speak in public-facing complaint narratives.",
+        "source_actor_name": "local_news_outlet",
+        "target_actor_name": "downtown_residents_near_garages",
+        "weight": 0.29
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Workers and department interact continuously during pilot execution.",
+        "layer": "oasis_interaction",
+        "reason": "Frequent communication on routes, incidents, and operational adjustments.",
+        "source_actor_name": "public_works_department",
+        "target_actor_name": "sanitation_workers",
+        "weight": 0.51
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "key": "executive_administrator",
+        "label": "Administrative decision authority",
+        "typical_role": "city executive office"
+      },
+      {
+        "key": "department_operator",
+        "label": "Operational implementer",
+        "typical_role": "public works leadership"
+      },
+      {
+        "key": "elected_oversight_actor",
+        "label": "Responsive oversight figure",
+        "typical_role": "city council member bloc"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "city_manager_office",
+        "archetype_key": "executive_administrator",
+        "attention_level": 0.82,
+        "behavioral_tendencies": [
+          "seek measurable outcomes",
+          "avoid premature commitment",
+          "broker among stakeholders"
+        ],
+        "decision_power": 0.82,
+        "expression_level": 0.58,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.16,
+        "hero_key": "city_manager_office_state",
+        "mobilization_readiness": 0.61,
+        "perceived_majority": 0.5,
+        "reputation": 0.57,
+        "role": "Pilot sponsor and evaluator gatekeeper",
+        "schedule_control": 0.86,
+        "secrecy": 0.28,
+        "stance_axes": {
+          "evaluation_caution": 0.78,
+          "pilot_commitment": 0.62,
+          "responsiveness_to_complaints": 0.63,
+          "risk_tolerance": 0.38
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "public_works_department",
+        "archetype_key": "department_operator",
+        "attention_level": 0.8,
+        "behavioral_tendencies": [
+          "implement incremental adjustments",
+          "protect departmental credibility",
+          "respond to field constraints"
+        ],
+        "decision_power": 0.71,
+        "expression_level": 0.46,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.14,
+        "hero_key": "public_works_department_state",
+        "mobilization_readiness": 0.68,
+        "perceived_majority": 0.48,
+        "reputation": 0.56,
+        "role": "Operational manager of routes, staffing, and implementation feedback",
+        "schedule_control": 0.77,
+        "secrecy": 0.34,
+        "stance_axes": {
+          "adaptation_willingness": 0.64,
+          "operational_confidence": 0.52,
+          "pilot_commitment": 0.58,
+          "safety_priority": 0.74
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "city_council_members",
+        "archetype_key": "elected_oversight_actor",
+        "attention_level": 0.56,
+        "behavioral_tendencies": [
+          "react to complaint volume",
+          "seek public accountability",
+          "hedge before evaluation results"
+        ],
+        "decision_power": 0.55,
+        "expression_level": 0.4,
+        "fatigue": 0.16,
+        "fear_of_isolation": 0.22,
+        "hero_key": "city_council_members_state",
+        "mobilization_readiness": 0.45,
+        "perceived_majority": 0.5,
+        "reputation": 0.53,
+        "role": "Constituent-responsive overseers who may amplify complaints or demand review",
+        "schedule_control": 0.42,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "constituent_responsiveness": 0.8,
+          "oversight_assertiveness": 0.6,
+          "pilot_commitment": 0.46,
+          "risk_tolerance": 0.4
+        },
+        "trustworthiness": 0.54
+      }
+    ],
+    "heroes": [
+      {
+        "key": "executive_administrator",
+        "label": "Administrative decision authority",
+        "typical_role": "city executive office"
+      },
+      {
+        "key": "department_operator",
+        "label": "Operational implementer",
+        "typical_role": "public works leadership"
+      },
+      {
+        "key": "elected_oversight_actor",
+        "label": "Responsive oversight figure",
+        "typical_role": "city council member bloc"
+      }
+    ],
+    "important_questions": [
+      "At the end of the three-month evaluation, is the overnight trash pickup pilot continued in substantially similar form?",
+      "Before any terminal decision, does the city materially modify the pilot's routes, timing, equipment, or safeguards to address noise or worker safety?",
+      "Do worker safety concerns become the main binding factor in the city's continuation decision, overtaking resident complaints or business support?",
+      "Which public narrative becomes dominant by the evaluation point: resident noise harms, cleaner-streets business benefits, or balanced mixed evidence?"
+    ],
+    "initial_events": [
+      {
+        "actors_involved": [
+          "city_manager_office",
+          "public_works_department",
+          "sanitation_workers",
+          "downtown_residents_near_garages",
+          "nightlife_businesses"
+        ],
+        "event_key": "pilot_launch_active",
+        "event_type": "announcement",
+        "expected_impact": "Raises attention among directly affected groups, activates operational dependency edges, and starts measurement period without locking outcome.",
+        "status": "active",
+        "summary": "Overnight trash pickup pilot begins downtown.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "downtown_residents_near_garages",
+          "public_works_department",
+          "city_council_members",
+          "local_news_outlet"
+        ],
+        "event_key": "early_resident_noise_complaints",
+        "event_type": "announcement",
+        "expected_impact": "Increases exposure and conflict salience, may shift council attention before hard performance data accumulates.",
+        "status": "active",
+        "summary": "Residents near garages begin voicing concern about overnight noise.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "sanitation_workers",
+          "public_works_department",
+          "city_manager_office"
+        ],
+        "event_key": "worker_safety_concern_reporting",
+        "event_type": "announcement",
+        "expected_impact": "Introduces non-public-facing viability constraint that may force route, staffing, or equipment adjustments.",
+        "status": "active",
+        "summary": "Sanitation workers flag safety concerns tied to overnight operations.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "nightlife_businesses",
+          "city_manager_office",
+          "local_news_outlet"
+        ],
+        "event_key": "business_support_signaling",
+        "event_type": "announcement",
+        "expected_impact": "Provides countervailing legitimacy to continuation, but benefits may remain less emotionally vivid than complaints.",
+        "status": "scheduled",
+        "summary": "Nightlife businesses communicate support for cleaner streets and reduced daytime disruption.",
+        "tick": 1
+      },
+      {
+        "actors_involved": [
+          "city_manager_office",
+          "public_works_department",
+          "city_council_members"
+        ],
+        "event_key": "interim_evaluation_setup",
+        "event_type": "announcement",
+        "expected_impact": "Makes metrics and narrative framing more important, potentially rewarding whichever stakeholders supply clearer evidence first.",
+        "status": "scheduled",
+        "summary": "City manager's office sets criteria or requests interim reporting for the three-month pilot.",
+        "tick": 4
+      }
+    ],
+    "llm_call_id": "80a3800c-81f5-48fc-84c3-be82c0ca2822",
+    "merge_hypotheses": [
+      {
+        "affected_actors": [
+          "city_manager_office",
+          "public_works_department",
+          "downtown_residents_near_garages",
+          "nightlife_businesses",
+          "sanitation_workers"
+        ],
+        "convergence_driver": "Most actors may prefer schedule or mitigation tweaks over immediate cancellation if harms appear manageable.",
+        "merge_key": "shared_interest_in_adjustment_not_abandonment",
+        "note": "Incremental adaptation could align otherwise divided groups around a modified pilot."
+      },
+      {
+        "affected_actors": [
+          "city_manager_office",
+          "city_council_members",
+          "nightlife_businesses",
+          "downtown_residents_near_garages"
+        ],
+        "convergence_driver": "Commitment to a three-month evaluation can slow maximalist demands and keep stakeholders engaged in evidence gathering.",
+        "merge_key": "evaluation_norm_legitimacy",
+        "note": "A shared norm of waiting for review may preserve procedural legitimacy despite disagreement."
+      },
+      {
+        "affected_actors": [
+          "downtown_residents_near_garages",
+          "nightlife_businesses",
+          "city_manager_office",
+          "public_works_department"
+        ],
+        "convergence_driver": "Residents, businesses, and city officials all benefit from a baseline of cleanliness and predictable service even if they disagree on timing.",
+        "merge_key": "common_avoidance_of_downtown_disorder",
+        "note": "Common service goals could support compromise on implementation details."
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "key": "downtown_resident_population",
+        "label": "Downtown residents affected by pilot conditions",
+        "notes": "Approximate fictionalized downtown residential population used for simulation weighting.",
+        "population_total": 6000
+      },
+      {
+        "key": "sanitation_workforce_population",
+        "label": "Sanitation workforce linked to overnight operations",
+        "notes": "Approximate fictionalized workforce population, with only part directly assigned overnight.",
+        "population_total": 180
+      },
+      {
+        "key": "nightlife_business_population",
+        "label": "Downtown nightlife businesses",
+        "notes": "Approximate fictionalized establishment count.",
+        "population_total": 140
+      },
+      {
+        "key": "downtown_visitor_population",
+        "label": "Downtown nighttime visitors",
+        "notes": "Open-flow nightly affected public estimated for weighting at T0.",
+        "population_total": 12000
+      }
+    ],
+    "risk_flags": [
+      {
+        "note": "Scenario omits exact city size and institutional structure; population counts are fictionalized approximations for weighting.",
+        "risk_key": "underspecified_city_scale",
+        "severity": "low"
+      },
+      {
+        "note": "City manager appears to lead evaluation, but final authority may be shared with council or departmental procedure.",
+        "risk_key": "authority_ambiguity",
+        "severity": "medium"
+      },
+      {
+        "note": "Concentrated resident complaints may be more visible than diffuse cleanliness benefits, risking narrative distortion at T0.",
+        "risk_key": "public_opinion_visibility_bias",
+        "severity": "medium"
+      },
+      {
+        "note": "No explicit union or formal labor representation is specified, limiting precision on worker escalation pathways.",
+        "risk_key": "labor_structure_unknown",
+        "severity": "medium"
+      },
+      {
+        "note": "Evaluation criteria are unspecified, creating uncertainty around what evidence later determines continuation or termination.",
+        "risk_key": "metric_definition_missing",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "civic_policy",
+      "mode": "direct",
+      "scenario_key": "civic_005",
+      "summary": "A fictional city begins a three-month pilot for overnight trash pickup in the downtown area. Initial pressures include resident complaints about noise, sanitation worker safety concerns, nightlife business support for cleaner streets, and a city manager's desire for evaluation before any permanent decision. T0 should preserve uncertainty about pilot outcomes.",
+      "time_horizon_note": "Three-month evaluation window implied; initialization includes immediate setup and near-term review pressure.",
+      "uncertainty_notes": [
+        "No city name, population size, union structure, or exact pilot schedule specified.",
+        "No evidence that the pilot is already succeeding or failing at T0.",
+        "Public opinion likely mixed and partially latent rather than fully mobilized."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "level": "moderate",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Actors are open to evidence but filter it through immediate lived impacts and stake positions.",
+        "scope": [
+          "downtown_residents_near_garages",
+          "nightlife_businesses",
+          "city_council_members"
+        ]
+      },
+      {
+        "level": "moderate",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Complaint or hazard escalation likely requires visible repeated incidents rather than one-off dissatisfaction.",
+        "scope": [
+          "downtown_residents_near_garages",
+          "sanitation_workers"
+        ]
+      },
+      {
+        "level": "moderate",
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Some residents may privately tolerate the pilot while louder complaints dominate public perception.",
+        "scope": [
+          "resident_mixed_wait_and_see",
+          "resident_cleanliness_prioritizers"
+        ]
+      },
+      {
+        "level": "moderate",
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Stakeholder groups are likely to sort discussion within their own networks first.",
+        "scope": [
+          "downtown_residents_near_garages",
+          "nightlife_businesses",
+          "sanitation_workers"
+        ]
+      },
+      {
+        "level": "low_to_moderate",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Mobilization around opposition likely grows after multiple confirming stories, not isolated noise reports.",
+        "scope": [
+          "downtown_residents_near_garages",
+          "city_council_members"
+        ]
+      },
+      {
+        "level": "moderate",
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Labor, resident, and merchant identities shape interpretations of fairness and acceptable tradeoffs.",
+        "scope": [
+          "sanitation_workers",
+          "downtown_residents_near_garages",
+          "nightlife_businesses"
+        ]
+      },
+      {
+        "level": "moderate",
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Diffuse publics may quickly lose interest unless media salience or visible incidents persist.",
+        "scope": [
+          "downtown_visitors",
+          "citywide_public"
+        ]
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "applies_to": [
+          "city_manager_office",
+          "city_council_members",
+          "local_news_outlet"
+        ],
+        "context_key": "three_month_evaluation_window",
+        "effect": "Creates a focal timeline for interim narratives, accountability demands, and decision anticipation."
+      },
+      {
+        "applies_to": [
+          "downtown_residents_near_garages",
+          "local_news_outlet"
+        ],
+        "context_key": "overnight_noise_visibility",
+        "effect": "Makes negative residential impacts easy to notice and narrate even before aggregate data is available."
+      },
+      {
+        "applies_to": [
+          "nightlife_businesses",
+          "downtown_visitors"
+        ],
+        "context_key": "cleanliness_benefit_diffusion",
+        "effect": "Support benefits may be real but diffuse, producing weaker early collective voice than concentrated complaints."
+      },
+      {
+        "applies_to": [
+          "public_works_department",
+          "city_manager_office",
+          "sanitation_workers"
+        ],
+        "context_key": "worker_safety_constraint",
+        "effect": "Operational viability depends on credible safety mitigation, not only public acceptance."
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "city_manager_office",
+        "behavior_axes": {
+          "adaptability": 0.62,
+          "caution": 0.75,
+          "conflict_aversion": 0.58,
+          "proceduralism": 0.84
+        },
+        "ideology_axes": {
+          "business_accommodation": 0.52,
+          "labor_sensitivity": 0.5,
+          "resident_protection": 0.62,
+          "service_efficiency": 0.68
+        },
+        "reputation": 0.57,
+        "secrecy": 0.28,
+        "tendency": "evaluation_first_balancer",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "public_works_department",
+        "behavior_axes": {
+          "adaptability": 0.67,
+          "caution": 0.62,
+          "conflict_aversion": 0.46,
+          "proceduralism": 0.73
+        },
+        "ideology_axes": {
+          "business_accommodation": 0.44,
+          "labor_sensitivity": 0.66,
+          "resident_protection": 0.54,
+          "service_efficiency": 0.78
+        },
+        "reputation": 0.56,
+        "secrecy": 0.34,
+        "tendency": "operations_manager",
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "sanitation_workers",
+        "behavior_axes": {
+          "adaptability": 0.55,
+          "caution": 0.7,
+          "conflict_aversion": 0.42,
+          "proceduralism": 0.48
+        },
+        "ideology_axes": {
+          "business_accommodation": 0.31,
+          "labor_sensitivity": 0.88,
+          "resident_protection": 0.46,
+          "service_efficiency": 0.58
+        },
+        "reputation": 0.66,
+        "secrecy": 0.36,
+        "tendency": "safety_guarded_pragmatist",
+        "trustworthiness": 0.72
+      },
+      {
+        "actor_name": "downtown_residents_near_garages",
+        "behavior_axes": {
+          "adaptability": 0.4,
+          "caution": 0.63,
+          "conflict_aversion": 0.47,
+          "proceduralism": 0.38
+        },
+        "ideology_axes": {
+          "business_accommodation": 0.29,
+          "labor_sensitivity": 0.41,
+          "resident_protection": 0.86,
+          "service_efficiency": 0.42
+        },
+        "reputation": 0.55,
+        "secrecy": 0.31,
+        "tendency": "quality_of_life_defender",
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "nightlife_businesses",
+        "behavior_axes": {
+          "adaptability": 0.64,
+          "caution": 0.39,
+          "conflict_aversion": 0.44,
+          "proceduralism": 0.35
+        },
+        "ideology_axes": {
+          "business_accommodation": 0.89,
+          "labor_sensitivity": 0.34,
+          "resident_protection": 0.36,
+          "service_efficiency": 0.74
+        },
+        "reputation": 0.54,
+        "secrecy": 0.2,
+        "tendency": "clean_streets_advocate",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "downtown_visitors",
+        "behavior_axes": {
+          "adaptability": 0.52,
+          "caution": 0.28,
+          "conflict_aversion": 0.76,
+          "proceduralism": 0.14
+        },
+        "ideology_axes": {
+          "business_accommodation": 0.51,
+          "labor_sensitivity": 0.22,
+          "resident_protection": 0.33,
+          "service_efficiency": 0.56
+        },
+        "reputation": 0.45,
+        "secrecy": 0.62,
+        "tendency": "low_attention_beneficiary",
+        "trustworthiness": 0.49
+      },
+      {
+        "actor_name": "local_news_outlet",
+        "behavior_axes": {
+          "adaptability": 0.58,
+          "caution": 0.46,
+          "conflict_aversion": 0.26,
+          "proceduralism": 0.31
+        },
+        "ideology_axes": {
+          "business_accommodation": 0.4,
+          "labor_sensitivity": 0.45,
+          "resident_protection": 0.53,
+          "service_efficiency": 0.47
+        },
+        "reputation": 0.59,
+        "secrecy": 0.12,
+        "tendency": "salience_amplifier",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "city_council_members",
+        "behavior_axes": {
+          "adaptability": 0.49,
+          "caution": 0.58,
+          "conflict_aversion": 0.37,
+          "proceduralism": 0.51
+        },
+        "ideology_axes": {
+          "business_accommodation": 0.47,
+          "labor_sensitivity": 0.52,
+          "resident_protection": 0.71,
+          "service_efficiency": 0.51
+        },
+        "reputation": 0.53,
+        "secrecy": 0.22,
+        "tendency": "constituent_responder",
+        "trustworthiness": 0.54
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 518,
+        "end": 518,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 518,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

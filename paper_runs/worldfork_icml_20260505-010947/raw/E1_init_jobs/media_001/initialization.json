@@ -1,0 +1,1272 @@
+{
+  "big_bang_id": "61555382-fb19-4db2-840b-442101972d69",
+  "initializer_output": {
+    "actors": [
+      {
+        "actor_type": "public_official",
+        "fictionalized": true,
+        "name": "mayor_helena_cross",
+        "role": "mayor accused of steering or benefiting a donor-linked emergency contract",
+        "stakes": [
+          "retain office",
+          "maintain legitimacy",
+          "avoid formal audit damage",
+          "preserve coalition support"
+        ]
+      },
+      {
+        "actor_type": "media_outlet",
+        "fictionalized": true,
+        "name": "local_news_site",
+        "role": "first outlet reporting donor-linked contract story",
+        "stakes": [
+          "audience credibility",
+          "story amplification",
+          "source protection"
+        ]
+      },
+      {
+        "actor_type": "political_group",
+        "fictionalized": true,
+        "name": "opposition_civic_bloc",
+        "role": "opposition-aligned groups amplifying the story and pressing accountability",
+        "stakes": [
+          "damage mayor's standing",
+          "mobilize supporters",
+          "frame scandal narrative"
+        ]
+      },
+      {
+        "actor_type": "institutional_staff",
+        "fictionalized": true,
+        "name": "city_procurement_staff",
+        "role": "internal staff releasing partial documents related to the contract",
+        "stakes": [
+          "protect process integrity",
+          "avoid retaliation",
+          "shape factual record"
+        ]
+      },
+      {
+        "actor_type": "civil_society_group",
+        "fictionalized": true,
+        "name": "civic_watchdogs",
+        "role": "watchdog organizations seeking a clear timeline and formal review",
+        "stakes": [
+          "transparency",
+          "process accountability",
+          "institutional reform leverage"
+        ]
+      },
+      {
+        "actor_type": "contractor",
+        "fictionalized": true,
+        "name": "donor_linked_firm",
+        "role": "firm awarded emergency contract with donor linkage concerns",
+        "stakes": [
+          "retain contract",
+          "avoid reputational damage",
+          "limit scrutiny of ties"
+        ]
+      },
+      {
+        "actor_type": "public",
+        "fictionalized": true,
+        "name": "city_residents",
+        "role": "general local population exposed to scandal coverage",
+        "stakes": [
+          "service continuity",
+          "honest governance",
+          "clarity amid conflicting claims"
+        ]
+      },
+      {
+        "actor_type": "institution",
+        "fictionalized": true,
+        "name": "city_council_leadership",
+        "role": "potential oversight and agenda-setting body",
+        "stakes": [
+          "institutional credibility",
+          "political positioning",
+          "control over hearings or inquiry"
+        ]
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "A formal audit or hearing process begins, shifting discourse from rumor to procedural adjudication.",
+        "branch_key": "audit_pathway",
+        "observable_divergence_signal": "Council schedules oversight action, requests records, or names a review mechanism.",
+        "trigger": "Watchdog pressure plus additional document inconsistencies or council appetite for oversight."
+      },
+      {
+        "alternate_path": "Opposition and segments of the public move from investigation demands to direct resignation calls.",
+        "branch_key": "resignation_pressure_wave",
+        "observable_divergence_signal": "Resignation language appears in mainstream local discourse and is echoed by non-opposition actors.",
+        "trigger": "New evidence of favoritism, contradictory mayor statements, or elite defections."
+      },
+      {
+        "alternate_path": "Narrative softens toward poor optics but not scandal, reducing mobilization.",
+        "branch_key": "exoneration_or_containment",
+        "observable_divergence_signal": "Coverage shifts from accusation to clarification, and watchdog rhetoric narrows to process improvement.",
+        "trigger": "Full timeline shows legal emergency authority and no actionable donor intervention."
+      },
+      {
+        "alternate_path": "Ambiguity deepens and rumor survival strengthens, sustaining high attention and distrust.",
+        "branch_key": "scandal_escalation_via_leaks",
+        "observable_divergence_signal": "Serial document drops keep producing fresh contradictions without a definitive record.",
+        "trigger": "Additional partial leaks reveal omissions, unusual contact, or inconsistent justifications."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "local_news_reporting",
+        "credibility": 0.61,
+        "primary_actors": [
+          "local_news_site"
+        ],
+        "reach": "citywide",
+        "type": "news"
+      },
+      {
+        "channel_key": "opposition_social_amplification",
+        "credibility": 0.38,
+        "primary_actors": [
+          "opposition_civic_bloc"
+        ],
+        "reach": "engaged_civics_network",
+        "type": "social_network"
+      },
+      {
+        "channel_key": "watchdog_public_statements",
+        "credibility": 0.63,
+        "primary_actors": [
+          "civic_watchdogs"
+        ],
+        "reach": "engaged_civics_network",
+        "type": "civic_communication"
+      },
+      {
+        "channel_key": "anonymous_document_leak_flow",
+        "credibility": 0.57,
+        "primary_actors": [
+          "city_procurement_staff",
+          "local_news_site"
+        ],
+        "reach": "indirect_public",
+        "type": "leak"
+      },
+      {
+        "channel_key": "official_city_messaging",
+        "credibility": 0.45,
+        "primary_actors": [
+          "mayor_helena_cross",
+          "city_council_leadership"
+        ],
+        "reach": "citywide",
+        "type": "institutional_statement"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "general_residents",
+        "attention_level": 3.2,
+        "cohort_key": "residents_low_attention",
+        "expression_level": 2.4,
+        "fatigue": 2.0,
+        "fear_of_isolation": 4.1,
+        "mobilization_readiness": 2.7,
+        "perceived_majority": "people are unsure and waiting",
+        "population_share_of_archetype": 0.6,
+        "private_belief_summary": "Aware that something may be wrong but uncertain on facts and legality.",
+        "public_expression_summary": "Mostly passive discussion or observation.",
+        "representation_mode": "direct",
+        "represented_population": 72000,
+        "stance_axes": {
+          "demand_investigation": 5.4,
+          "scandal_certainty": 3.6,
+          "service_continuity_priority": 7.1,
+          "trust_mayor": 4.8
+        }
+      },
+      {
+        "archetype_key": "general_residents",
+        "attention_level": 6.5,
+        "cohort_key": "residents_high_attention",
+        "expression_level": 5.1,
+        "fatigue": 3.0,
+        "fear_of_isolation": 3.7,
+        "mobilization_readiness": 4.9,
+        "perceived_majority": "public concern is growing",
+        "population_share_of_archetype": 0.4,
+        "private_belief_summary": "More likely to suspect favoritism but still recognize ambiguity in emergency legality.",
+        "public_expression_summary": "Discussing and sharing coverage; some pressure for investigation.",
+        "representation_mode": "direct",
+        "represented_population": 48000,
+        "stance_axes": {
+          "demand_investigation": 6.8,
+          "scandal_certainty": 5.2,
+          "service_continuity_priority": 6.3,
+          "trust_mayor": 3.8
+        }
+      },
+      {
+        "archetype_key": "city_hall_workers",
+        "attention_level": 8.1,
+        "cohort_key": "procurement_insiders_cautious",
+        "expression_level": 3.3,
+        "fatigue": 4.8,
+        "fear_of_isolation": 7.2,
+        "mobilization_readiness": 3.8,
+        "perceived_majority": "many insiders know optics are bad but few will speak openly",
+        "population_share_of_archetype": 0.122,
+        "private_belief_summary": "Some believe process irregularities or optics problems exist; most are cautious about overclaiming illegality.",
+        "public_expression_summary": "Prefer anonymous or partial disclosures over open confrontation.",
+        "representation_mode": "functional_subgroup",
+        "represented_population": 220,
+        "stance_axes": {
+          "demand_investigation": 6.2,
+          "retaliation_fear": 7.8,
+          "scandal_certainty": 4.7,
+          "trust_mayor": 3.5
+        }
+      },
+      {
+        "archetype_key": "city_hall_workers",
+        "attention_level": 5.8,
+        "cohort_key": "city_hall_staff_general",
+        "expression_level": 2.1,
+        "fatigue": 4.0,
+        "fear_of_isolation": 6.6,
+        "mobilization_readiness": 2.5,
+        "perceived_majority": "best to stay quiet until facts settle",
+        "population_share_of_archetype": 0.878,
+        "private_belief_summary": "Concerned about fallout and reputational spillover to city operations.",
+        "public_expression_summary": "Quiet, procedural, waiting for direction.",
+        "representation_mode": "direct",
+        "represented_population": 1580,
+        "stance_axes": {
+          "demand_investigation": 5.1,
+          "retaliation_fear": 6.1,
+          "scandal_certainty": 3.9,
+          "trust_mayor": 4.6
+        }
+      },
+      {
+        "archetype_key": "engaged_civics_network",
+        "attention_level": 7.4,
+        "cohort_key": "watchdog_followers",
+        "expression_level": 6.3,
+        "fatigue": 3.1,
+        "fear_of_isolation": 2.8,
+        "mobilization_readiness": 6.0,
+        "perceived_majority": "a formal review is reasonable and defensible",
+        "population_share_of_archetype": 0.6,
+        "private_belief_summary": "Strongly favor document review and timeline reconstruction before declaring guilt.",
+        "public_expression_summary": "Calling for transparency, audit, and procedural accountability.",
+        "representation_mode": "network_cluster",
+        "represented_population": 2700,
+        "stance_axes": {
+          "demand_investigation": 8.0,
+          "proceduralism": 8.6,
+          "scandal_certainty": 5.0,
+          "trust_mayor": 3.4
+        }
+      },
+      {
+        "archetype_key": "engaged_civics_network",
+        "attention_level": 8.5,
+        "cohort_key": "opposition_activists",
+        "expression_level": 7.9,
+        "fatigue": 2.9,
+        "fear_of_isolation": 1.8,
+        "mobilization_readiness": 7.8,
+        "perceived_majority": "the mayor is weakening and narrative momentum can build",
+        "population_share_of_archetype": 0.4,
+        "private_belief_summary": "View the story as likely evidence of favoritism and political vulnerability.",
+        "public_expression_summary": "Actively amplifying, framing optics as corruption-adjacent.",
+        "representation_mode": "network_cluster",
+        "represented_population": 1800,
+        "stance_axes": {
+          "demand_investigation": 8.7,
+          "resignation_pressure": 6.0,
+          "scandal_certainty": 7.1,
+          "trust_mayor": 1.9
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "general_residents",
+        "attention_level": 3.2,
+        "cohort_key": "residents_low_attention",
+        "expression_level": 2.4,
+        "fatigue": 2.0,
+        "fear_of_isolation": 4.1,
+        "mobilization_readiness": 2.7,
+        "perceived_majority": "people are unsure and waiting",
+        "population_share_of_archetype": 0.6,
+        "private_belief_summary": "Aware that something may be wrong but uncertain on facts and legality.",
+        "public_expression_summary": "Mostly passive discussion or observation.",
+        "representation_mode": "direct",
+        "represented_population": 72000,
+        "stance_axes": {
+          "demand_investigation": 5.4,
+          "scandal_certainty": 3.6,
+          "service_continuity_priority": 7.1,
+          "trust_mayor": 4.8
+        }
+      },
+      {
+        "archetype_key": "general_residents",
+        "attention_level": 6.5,
+        "cohort_key": "residents_high_attention",
+        "expression_level": 5.1,
+        "fatigue": 3.0,
+        "fear_of_isolation": 3.7,
+        "mobilization_readiness": 4.9,
+        "perceived_majority": "public concern is growing",
+        "population_share_of_archetype": 0.4,
+        "private_belief_summary": "More likely to suspect favoritism but still recognize ambiguity in emergency legality.",
+        "public_expression_summary": "Discussing and sharing coverage; some pressure for investigation.",
+        "representation_mode": "direct",
+        "represented_population": 48000,
+        "stance_axes": {
+          "demand_investigation": 6.8,
+          "scandal_certainty": 5.2,
+          "service_continuity_priority": 6.3,
+          "trust_mayor": 3.8
+        }
+      },
+      {
+        "archetype_key": "city_hall_workers",
+        "attention_level": 8.1,
+        "cohort_key": "procurement_insiders_cautious",
+        "expression_level": 3.3,
+        "fatigue": 4.8,
+        "fear_of_isolation": 7.2,
+        "mobilization_readiness": 3.8,
+        "perceived_majority": "many insiders know optics are bad but few will speak openly",
+        "population_share_of_archetype": 0.122,
+        "private_belief_summary": "Some believe process irregularities or optics problems exist; most are cautious about overclaiming illegality.",
+        "public_expression_summary": "Prefer anonymous or partial disclosures over open confrontation.",
+        "representation_mode": "functional_subgroup",
+        "represented_population": 220,
+        "stance_axes": {
+          "demand_investigation": 6.2,
+          "retaliation_fear": 7.8,
+          "scandal_certainty": 4.7,
+          "trust_mayor": 3.5
+        }
+      },
+      {
+        "archetype_key": "city_hall_workers",
+        "attention_level": 5.8,
+        "cohort_key": "city_hall_staff_general",
+        "expression_level": 2.1,
+        "fatigue": 4.0,
+        "fear_of_isolation": 6.6,
+        "mobilization_readiness": 2.5,
+        "perceived_majority": "best to stay quiet until facts settle",
+        "population_share_of_archetype": 0.878,
+        "private_belief_summary": "Concerned about fallout and reputational spillover to city operations.",
+        "public_expression_summary": "Quiet, procedural, waiting for direction.",
+        "representation_mode": "direct",
+        "represented_population": 1580,
+        "stance_axes": {
+          "demand_investigation": 5.1,
+          "retaliation_fear": 6.1,
+          "scandal_certainty": 3.9,
+          "trust_mayor": 4.6
+        }
+      },
+      {
+        "archetype_key": "engaged_civics_network",
+        "attention_level": 7.4,
+        "cohort_key": "watchdog_followers",
+        "expression_level": 6.3,
+        "fatigue": 3.1,
+        "fear_of_isolation": 2.8,
+        "mobilization_readiness": 6.0,
+        "perceived_majority": "a formal review is reasonable and defensible",
+        "population_share_of_archetype": 0.6,
+        "private_belief_summary": "Strongly favor document review and timeline reconstruction before declaring guilt.",
+        "public_expression_summary": "Calling for transparency, audit, and procedural accountability.",
+        "representation_mode": "network_cluster",
+        "represented_population": 2700,
+        "stance_axes": {
+          "demand_investigation": 8.0,
+          "proceduralism": 8.6,
+          "scandal_certainty": 5.0,
+          "trust_mayor": 3.4
+        }
+      },
+      {
+        "archetype_key": "engaged_civics_network",
+        "attention_level": 8.5,
+        "cohort_key": "opposition_activists",
+        "expression_level": 7.9,
+        "fatigue": 2.9,
+        "fear_of_isolation": 1.8,
+        "mobilization_readiness": 7.8,
+        "perceived_majority": "the mayor is weakening and narrative momentum can build",
+        "population_share_of_archetype": 0.4,
+        "private_belief_summary": "View the story as likely evidence of favoritism and political vulnerability.",
+        "public_expression_summary": "Actively amplifying, framing optics as corruption-adjacent.",
+        "representation_mode": "network_cluster",
+        "represented_population": 1800,
+        "stance_axes": {
+          "demand_investigation": 8.7,
+          "resignation_pressure": 6.0,
+          "scandal_certainty": 7.1,
+          "trust_mayor": 1.9
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "city_council_leadership"
+        ],
+        "blockers": [
+          "council reluctance",
+          "insufficient documentary clarity",
+          "successful mayoral containment messaging"
+        ],
+        "contradiction_notes": "No formal oversight has yet begun at T0.",
+        "description": "A recognized city authority opens a formal audit, hearing, inquiry, or documented review of the contract award.",
+        "endpoint_key": "formal_oversight_initiated",
+        "evidence_refs": [
+          "watchdogs_request_timeline",
+          "oversight_decision_point"
+        ],
+        "label": "Formal oversight initiated",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will a formal audit, hearing, or equivalent oversight process be initiated?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.56,
+        "rationale": "Oversight is a terminal institutional choice distinct from interim media pressure.",
+        "realization_criteria": [
+          "city_council_leadership or another recognized oversight authority publicly schedules a hearing, audit, or inquiry",
+          "records requests, subpoenas, or formal review orders are issued"
+        ],
+        "status": "active",
+        "status_basis": "The scenario explicitly foregrounds audit as a major possible branch."
+      },
+      {
+        "authority_refs": [
+          "city_council_leadership",
+          "opposition_civic_bloc",
+          "civic_watchdogs"
+        ],
+        "blockers": [
+          "uncertain legality",
+          "watchdog preference for procedure over punishment",
+          "absence of elite defections"
+        ],
+        "contradiction_notes": "T0 evidence supports criticism and scrutiny, not yet broad resignation consensus.",
+        "description": "The mayor faces sustained and credible calls to resign from beyond the core opposition.",
+        "endpoint_key": "credible_resignation_pressure",
+        "evidence_refs": [
+          "opposition_amplifies",
+          "mayor_response_window"
+        ],
+        "label": "Credible resignation pressure emerges",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the controversy escalate from criticism into credible resignation pressure on the mayor?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.28,
+        "rationale": "This captures whether political costs become office-threatening rather than merely reputational.",
+        "realization_criteria": [
+          "resignation demands are publicly made by multiple actors including at least one non-opposition actor or institutional elite",
+          "coverage and public messaging shift from inquiry to office viability"
+        ],
+        "status": "active",
+        "status_basis": "Resignation pressure is named as a possible endpoint but is not dominant at initialization."
+      },
+      {
+        "authority_refs": [
+          "mayor_helena_cross",
+          "city_council_leadership",
+          "civic_watchdogs",
+          "local_news_site"
+        ],
+        "blockers": [
+          "continued ambiguity from partial documents",
+          "new contradictory leaks",
+          "low trust in official messaging"
+        ],
+        "contradiction_notes": "Bad optics and donor linkage currently suppress easy exoneration at T0.",
+        "description": "The dominant interpretation becomes that the contract was legal and not scandalous enough to justify major sanctions, though optics may remain poor.",
+        "endpoint_key": "public_exoneration_frame",
+        "evidence_refs": [
+          "partial_documents_surface",
+          "mayor_response_window"
+        ],
+        "label": "Public exoneration or containment frame",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will a fuller document timeline support a public interpretation of legal or procedural exoneration?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.34,
+        "rationale": "This endpoint matters because process clarification may absorb scandal pressure without removing all reputational damage.",
+        "realization_criteria": [
+          "a fuller timeline or document set is released showing rule-compliant emergency procurement",
+          "major local discourse shifts toward legality, misunderstanding, or optics-only criticism",
+          "oversight demands recede or conclude without serious finding"
+        ],
+        "status": "active",
+        "status_basis": "The scenario explicitly notes the contract may be legal, preserving a credible containment path."
+      },
+      {
+        "authority_refs": [
+          "local_news_site",
+          "city_procurement_staff",
+          "opposition_civic_bloc"
+        ],
+        "blockers": [
+          "complete records released quickly",
+          "credible procedural explanation",
+          "attention decay without new facts"
+        ],
+        "contradiction_notes": "Escalation is plausible but not locked in because evidence remains partial.",
+        "description": "The controversy persists and expands through continuing leaks, amplification, and unresolved contradictions.",
+        "endpoint_key": "escalating_scandal_cycle",
+        "evidence_refs": [
+          "story_breaks",
+          "partial_documents_surface",
+          "opposition_amplifies"
+        ],
+        "label": "Escalating scandal cycle",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will continuing leaks and amplification sustain the issue as an expanding scandal rather than a contained optics problem?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.49,
+        "rationale": "This endpoint captures rumor survival and compounding uncertainty rather than a single formal decision.",
+        "realization_criteria": [
+          "multiple additional revelations or partial document releases occur across ticks",
+          "trust in mayor declines further while issue salience stays elevated",
+          "mainstream local coverage continues to frame the issue as an active scandal rather than settled dispute"
+        ],
+        "status": "active",
+        "status_basis": "The scenario explicitly includes scandal escalation as a focal branch and already contains leak-like dynamics."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "Local news site reports the donor-linked emergency contract.",
+        "layer": "exposure",
+        "reason": "Initial report creates broad public exposure to the contract story.",
+        "source_actor_name": "local_news_site",
+        "target_actor_name": "city_residents",
+        "weight": 0.62
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Opposition groups amplify the story.",
+        "layer": "exposure",
+        "reason": "Opposition groups amplify the story into public discussion channels.",
+        "source_actor_name": "opposition_civic_bloc",
+        "target_actor_name": "city_residents",
+        "weight": 0.48
+      },
+      {
+        "direction": "outbound",
+        "evidence": "City procurement staff release partial documents.",
+        "layer": "exposure",
+        "reason": "Partial documents increase media visibility into the procurement record.",
+        "source_actor_name": "city_procurement_staff",
+        "target_actor_name": "local_news_site",
+        "weight": 0.44
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Civic watchdogs ask for a timeline.",
+        "layer": "exposure",
+        "reason": "Watchdog requests for a timeline add procedural framing to the story.",
+        "source_actor_name": "civic_watchdogs",
+        "target_actor_name": "city_residents",
+        "weight": 0.31
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Contract may be legal but optics are bad.",
+        "layer": "trust",
+        "reason": "Optics concerns reduce confidence, but legality remains uncertain.",
+        "source_actor_name": "city_residents",
+        "target_actor_name": "mayor_helena_cross",
+        "weight": 0.34
+      },
+      {
+        "direction": "outbound",
+        "evidence": "The site is the initial public reporter of the story.",
+        "layer": "trust",
+        "reason": "Residents grant moderate trust to local reporting absent contradiction.",
+        "source_actor_name": "city_residents",
+        "target_actor_name": "local_news_site",
+        "weight": 0.55
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Watchdogs ask for a timeline rather than immediate guilt conclusions.",
+        "layer": "trust",
+        "reason": "Timeline requests appear measured and accountability-focused.",
+        "source_actor_name": "city_residents",
+        "target_actor_name": "civic_watchdogs",
+        "weight": 0.52
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Opposition groups are amplifying the story.",
+        "layer": "trust",
+        "reason": "Partisan amplification is viewed with some skepticism.",
+        "source_actor_name": "city_residents",
+        "target_actor_name": "opposition_civic_bloc",
+        "weight": 0.29
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Procurement staff hold relevant documents and process knowledge.",
+        "layer": "dependency",
+        "reason": "Executive office depends on staff records and procurement process legitimacy.",
+        "source_actor_name": "mayor_helena_cross",
+        "target_actor_name": "city_procurement_staff",
+        "weight": 0.41
+      },
+      {
+        "direction": "outbound",
+        "evidence": "The contract is an emergency contract with public service implications.",
+        "layer": "dependency",
+        "reason": "Residents depend on city executive continuity for emergency service execution.",
+        "source_actor_name": "city_residents",
+        "target_actor_name": "mayor_helena_cross",
+        "weight": 0.38
+      },
+      {
+        "direction": "outbound",
+        "evidence": "The firm is donor-linked and under scrutiny due to mayor-associated contract award.",
+        "layer": "dependency",
+        "reason": "Firm's political protection may rely in part on incumbent defense of the award.",
+        "source_actor_name": "donor_linked_firm",
+        "target_actor_name": "mayor_helena_cross",
+        "weight": 0.26
+      },
+      {
+        "direction": "outbound",
+        "evidence": "The dispute concerns an emergency contract already awarded.",
+        "layer": "dependency",
+        "reason": "If the contract is central to emergency response, the mayor has some operational dependence on the contractor's performance.",
+        "source_actor_name": "mayor_helena_cross",
+        "target_actor_name": "donor_linked_firm",
+        "weight": 0.33
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Local news site reports the story first.",
+        "layer": "influence",
+        "reason": "The outlet sets the initial agenda and framing for scandal interpretation.",
+        "source_actor_name": "local_news_site",
+        "target_actor_name": "city_residents",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Opposition groups amplify the story.",
+        "layer": "influence",
+        "reason": "Amplification can intensify salience and pressure even without full trust.",
+        "source_actor_name": "opposition_civic_bloc",
+        "target_actor_name": "city_residents",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Watchdogs ask for a timeline, implying oversight demand.",
+        "layer": "influence",
+        "reason": "Watchdog pressure can nudge oversight scheduling and inquiry framing.",
+        "source_actor_name": "civic_watchdogs",
+        "target_actor_name": "city_council_leadership",
+        "weight": 0.39
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Council is a plausible local authority for hearings or pressure escalation.",
+        "layer": "influence",
+        "reason": "Council leaders can shape oversight threat and political isolation.",
+        "source_actor_name": "city_council_leadership",
+        "target_actor_name": "mayor_helena_cross",
+        "weight": 0.42
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Staff release partial documents.",
+        "layer": "influence",
+        "reason": "Document access gives staff indirect influence over follow-up reporting.",
+        "source_actor_name": "city_procurement_staff",
+        "target_actor_name": "local_news_site",
+        "weight": 0.37
+      },
+      {
+        "direction": "reciprocal",
+        "evidence": "Both are acting on the same controversy with different styles.",
+        "layer": "coalition",
+        "reason": "Shared interest in scrutiny exists, but motives differ.",
+        "source_actor_name": "opposition_civic_bloc",
+        "target_actor_name": "civic_watchdogs",
+        "weight": 0.28
+      },
+      {
+        "direction": "reciprocal",
+        "evidence": "The contract went to a donor-linked firm tied to the controversy.",
+        "layer": "coalition",
+        "reason": "There is perceived alignment around defending the contract award.",
+        "source_actor_name": "mayor_helena_cross",
+        "target_actor_name": "donor_linked_firm",
+        "weight": 0.24
+      },
+      {
+        "direction": "reciprocal",
+        "evidence": "Reporting and timeline demands are complementary.",
+        "layer": "coalition",
+        "reason": "Loose alignment around public-interest scrutiny, not formal coordination.",
+        "source_actor_name": "local_news_site",
+        "target_actor_name": "civic_watchdogs",
+        "weight": 0.21
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Opposition groups amplify the story.",
+        "layer": "conflict",
+        "reason": "Opposition sees an opportunity to weaken the mayor through the scandal.",
+        "source_actor_name": "opposition_civic_bloc",
+        "target_actor_name": "mayor_helena_cross",
+        "weight": 0.63
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Watchdogs ask for a timeline.",
+        "layer": "conflict",
+        "reason": "Watchdogs are not necessarily anti-mayor but seek accountability that may threaten her position.",
+        "source_actor_name": "civic_watchdogs",
+        "target_actor_name": "mayor_helena_cross",
+        "weight": 0.41
+      },
+      {
+        "direction": "outbound",
+        "evidence": "The outlet reports the controversial contract story.",
+        "layer": "conflict",
+        "reason": "Adversarial reporting introduces reputational conflict.",
+        "source_actor_name": "local_news_site",
+        "target_actor_name": "mayor_helena_cross",
+        "weight": 0.36
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Procurement staff release partial documents.",
+        "layer": "conflict",
+        "reason": "Partial release of documents signals internal tension or mistrust.",
+        "source_actor_name": "city_procurement_staff",
+        "target_actor_name": "mayor_helena_cross",
+        "weight": 0.32
+      },
+      {
+        "direction": "reciprocal",
+        "evidence": "Opposition groups amplify the story first reported by the site.",
+        "layer": "oasis_interaction",
+        "reason": "Public interaction likely increases as opposition shares and comments on reporting.",
+        "source_actor_name": "local_news_site",
+        "target_actor_name": "opposition_civic_bloc",
+        "weight": 0.51
+      },
+      {
+        "direction": "reciprocal",
+        "evidence": "Reporting and watchdog demands are mutually visible.",
+        "layer": "oasis_interaction",
+        "reason": "Watchdogs likely cite reporting while pressing for a timeline.",
+        "source_actor_name": "local_news_site",
+        "target_actor_name": "civic_watchdogs",
+        "weight": 0.43
+      },
+      {
+        "direction": "reciprocal",
+        "evidence": "Local scandal reporting draws local audience attention.",
+        "layer": "oasis_interaction",
+        "reason": "Residents likely comment, share, and consume updates through public channels.",
+        "source_actor_name": "city_residents",
+        "target_actor_name": "local_news_site",
+        "weight": 0.47
+      },
+      {
+        "direction": "reciprocal",
+        "evidence": "Opposition amplification enters public discussion streams.",
+        "layer": "oasis_interaction",
+        "reason": "Some interaction occurs through debate and message sharing, but not all residents align.",
+        "source_actor_name": "city_residents",
+        "target_actor_name": "opposition_civic_bloc",
+        "weight": 0.34
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype_key": "executive_office_holder",
+        "label": "Executive office holder under scandal scrutiny"
+      },
+      {
+        "archetype_key": "investigative_local_media",
+        "label": "Local outlet shaping first-wave scandal exposure"
+      },
+      {
+        "archetype_key": "procedural_accountability_advocate",
+        "label": "Watchdog actor pushing formal review and timeline clarity"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "mayor_helena_cross",
+        "attention_level": 8.4,
+        "decision_authority": 8.7,
+        "expression_level": 5.5,
+        "fatigue": 4.2,
+        "fear_of_isolation": 5.7,
+        "hero_archetype_key": "executive_office_holder",
+        "mobilization_readiness": 5.1,
+        "perceived_majority": "public concern can still be contained if legality holds",
+        "stance_axes": {
+          "cooperate_with_review": 4.8,
+          "deny_wrongdoing": 7.2,
+          "message_discipline": 6.4,
+          "protect_office": 8.6
+        }
+      },
+      {
+        "actor_name": "local_news_site",
+        "attention_level": 9.0,
+        "decision_authority": 5.2,
+        "expression_level": 8.1,
+        "fatigue": 3.8,
+        "fear_of_isolation": 2.4,
+        "hero_archetype_key": "investigative_local_media",
+        "mobilization_readiness": 7.0,
+        "perceived_majority": "story significance is validated by broad pickup",
+        "stance_axes": {
+          "adversarial_scrutiny": 6.8,
+          "caution_on_unproven_claims": 6.1,
+          "publish_followups": 7.4,
+          "source_protection": 8.2
+        }
+      },
+      {
+        "actor_name": "civic_watchdogs",
+        "attention_level": 8.0,
+        "decision_authority": 4.1,
+        "expression_level": 6.9,
+        "fatigue": 2.7,
+        "fear_of_isolation": 2.2,
+        "hero_archetype_key": "procedural_accountability_advocate",
+        "mobilization_readiness": 6.6,
+        "perceived_majority": "formal scrutiny has legitimacy even among moderates",
+        "stance_axes": {
+          "audit_preference": 8.0,
+          "nonpartisan_posture": 6.7,
+          "resignation_pressure": 3.9,
+          "timeline_demand": 8.8
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "archetype_key": "executive_office_holder",
+        "label": "Executive office holder under scandal scrutiny"
+      },
+      {
+        "archetype_key": "investigative_local_media",
+        "label": "Local outlet shaping first-wave scandal exposure"
+      },
+      {
+        "archetype_key": "procedural_accountability_advocate",
+        "label": "Watchdog actor pushing formal review and timeline clarity"
+      }
+    ],
+    "important_questions": [
+      "Will a formal audit, hearing, or equivalent oversight process be initiated?",
+      "Will the controversy escalate from criticism into credible resignation pressure on the mayor?",
+      "Will a fuller document timeline support a public interpretation of legal or procedural exoneration?",
+      "Will continuing leaks and amplification sustain the issue as an expanding scandal rather than a contained optics problem?"
+    ],
+    "initial_events": [
+      {
+        "actors_involved": [
+          "local_news_site",
+          "mayor_helena_cross",
+          "donor_linked_firm"
+        ],
+        "event_key": "story_breaks",
+        "event_type": "announcement",
+        "expected_impact": "Raises exposure, lowers baseline trust in the mayor, and sets first narrative frame.",
+        "status": "visible",
+        "summary": "Local news site publishes report on donor-linked emergency contract awarded by mayor's administration.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "opposition_civic_bloc",
+          "city_residents"
+        ],
+        "event_key": "opposition_amplifies",
+        "event_type": "announcement",
+        "expected_impact": "Increases attention and conflict, but may also polarize interpretation.",
+        "status": "visible",
+        "summary": "Opposition groups circulate and sharpen the story as a governance scandal.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "city_procurement_staff",
+          "local_news_site"
+        ],
+        "event_key": "partial_documents_surface",
+        "event_type": "announcement",
+        "expected_impact": "Boosts evidentiary salience while preserving ambiguity due to incompleteness.",
+        "status": "visible",
+        "summary": "City procurement staff release partial documents tied to the contract process.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "civic_watchdogs",
+          "city_council_leadership",
+          "mayor_helena_cross"
+        ],
+        "event_key": "watchdogs_request_timeline",
+        "event_type": "announcement",
+        "expected_impact": "Creates a legitimacy-tested demand for formal procedural response.",
+        "status": "imminent",
+        "summary": "Civic watchdogs publicly request a full procurement timeline and document chain.",
+        "tick": 1
+      },
+      {
+        "actors_involved": [
+          "mayor_helena_cross"
+        ],
+        "event_key": "mayor_response_window",
+        "event_type": "announcement",
+        "expected_impact": "Response quality may shape whether residents see confidence, evasion, or accountability.",
+        "status": "imminent",
+        "summary": "Mayor's office faces pressure to issue denial, explanation, or partial concession.",
+        "tick": 1
+      },
+      {
+        "actors_involved": [
+          "city_council_leadership",
+          "civic_watchdogs",
+          "mayor_helena_cross"
+        ],
+        "event_key": "oversight_decision_point",
+        "event_type": "announcement",
+        "expected_impact": "Could convert a media controversy into an institutional accountability track.",
+        "status": "imminent",
+        "summary": "City council leadership informally weighs whether to schedule an inquiry, hearing, or wait for more facts.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "05f0d9e7-b254-4fa1-8466-d840fabd8cce",
+    "merge_hypotheses": [
+      {
+        "convergence_mechanism": "Operational dependence on the contract can moderate maximal escalation.",
+        "description": "Even critical actors may converge on preserving emergency service continuity while contesting accountability.",
+        "merge_key": "shared_need_for_service_continuity"
+      },
+      {
+        "convergence_mechanism": "Formal review can provide a common evidentiary focal point.",
+        "description": "Opposing narratives may partially converge if an accepted timeline or audit process is established.",
+        "merge_key": "procedural_resolution_norm"
+      },
+      {
+        "convergence_mechanism": "Attention decay and limited novelty reduce open conflict.",
+        "description": "If no major new facts emerge, public discourse may converge toward lower intensity uncertainty rather than definitive judgment.",
+        "merge_key": "attention_fatigue_without_new_revelations"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "general_residents",
+        "description": "Local residents following city governance at varying attention levels.",
+        "label": "General city residents",
+        "population_total": 120000
+      },
+      {
+        "archetype_key": "city_hall_workers",
+        "description": "Municipal employees with varying proximity to procurement and political leadership.",
+        "label": "City hall workers",
+        "population_total": 1800
+      },
+      {
+        "archetype_key": "engaged_civics_network",
+        "description": "Politically attentive residents, activists, donors, and watchdog followers.",
+        "label": "Engaged civics network",
+        "population_total": 4500
+      }
+    ],
+    "risk_flags": [
+      {
+        "description": "Partial documents create evidentiary asymmetry and raise risk of misinterpretation or selective framing.",
+        "flag_key": "incomplete_document_record",
+        "severity": "high"
+      },
+      {
+        "description": "Observers may collapse bad optics into assumptions of illegality before the record is complete.",
+        "flag_key": "optics_legality_conflation",
+        "severity": "medium"
+      },
+      {
+        "description": "If leaked materials are incomplete or context-poor, both trust and correction dynamics may become unstable.",
+        "flag_key": "anonymous_source_fragility",
+        "severity": "medium"
+      },
+      {
+        "description": "Opposition amplification can increase salience but also reduce perceived neutrality of the issue among moderates.",
+        "flag_key": "partisan_amplification_distortion",
+        "severity": "medium"
+      },
+      {
+        "description": "Fear of retaliation may limit fuller disclosures from procurement staff, preserving uncertainty.",
+        "flag_key": "institutional_retaliation_chill",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "media_information_dynamics",
+      "horizon_ticks": 6,
+      "mode": "direct",
+      "scenario_summary": "A local news site reports that a fictional mayor's emergency contract went to a donor-linked firm. The contract may be legal but optics are bad. Opposition groups amplify the story, city procurement staff release partial documents, and civic watchdogs ask for a timeline. T0 should center trust, exposure, uncertainty, and endpoint pressure around audit, resignation pressure, exoneration, or scandal escalation.",
+      "scope": "local civic media and political information environment",
+      "simulation_id": "media_001",
+      "time_zero_condition": "Early public controversy with incomplete records, contested interpretation, and rising information demand.",
+      "uncertainty_notes": [
+        "Legality of the contract is not resolved at T0.",
+        "Extent of donor influence over procurement is not established at T0.",
+        "Partial document release may clarify or further confuse the timeline.",
+        "Public reaction is active but not yet at peak crisis."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "evidence": "Residents may update based on trusted local media and watchdog frames, but partisan amplification limits persuasion across camps.",
+        "level": 0.64,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "evidence": "Many residents are not ready to mobilize unless additional documents, elite signals, or oversight actions appear.",
+        "level": 0.57,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "evidence": "City employees and moderate residents may privately suspect problems while withholding public claims.",
+        "level": 0.61,
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "evidence": "Opposition and watchdog audiences partially overlap, while low-attention residents remain in weaker-information clusters.",
+        "level": 0.58,
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "evidence": "Belief in serious wrongdoing likely requires reinforcement from documents, watchdogs, and institutional action rather than one report alone.",
+        "level": 0.53,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "evidence": "Partisan and institutional identities shape interpretation, but the issue remains partly procedural rather than fully tribal at T0.",
+        "level": 0.49,
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "evidence": "Absent new disclosures or official moves, local scandal attention could soften after the initial burst.",
+        "level": 0.46,
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "The narrative tension hinges on whether bad optics are interpreted as proof of corruption or merely poor judgment.",
+        "influence_key": "optics_vs_legality_gap"
+      },
+      {
+        "description": "Incomplete records can sustain rumor survival, selective interpretation, and serial revelations.",
+        "influence_key": "partial_document_ambiguity"
+      },
+      {
+        "description": "Watchdog timeline requests create a socially acceptable middle position between dismissal and full scandal certainty.",
+        "influence_key": "procedural_legitimacy_frame"
+      },
+      {
+        "description": "Partisan amplification raises salience but can also trigger skepticism among moderates.",
+        "influence_key": "opposition_amplification_pressure"
+      },
+      {
+        "description": "The initial outlet is positioned to either deepen the scandal frame or publish clarifying context that changes trust trajectories.",
+        "influence_key": "local_media_correction_channel"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "mayor_helena_cross",
+        "behavior_axes": {
+          "adaptability": 5.0,
+          "defensiveness": 6.5,
+          "message_control": 7.3,
+          "risk_tolerance": 5.6
+        },
+        "ideology_axes": {
+          "institutionalism": 6.4,
+          "patronage_tolerance_perceived": 5.7
+        },
+        "reputation": 5.1,
+        "secrecy": 6.2,
+        "tendency": "contain_and_reframe",
+        "trustworthiness": 4.2
+      },
+      {
+        "actor_name": "local_news_site",
+        "behavior_axes": {
+          "adversarial_posture": 6.4,
+          "correction_openness": 6.1,
+          "speed": 6.5,
+          "verification_drive": 7.0
+        },
+        "ideology_axes": {
+          "institutional_skepticism": 6.2,
+          "public_interest_orientation": 7.4
+        },
+        "reputation": 6.1,
+        "secrecy": 5.8,
+        "tendency": "investigate_and_update",
+        "trustworthiness": 6.7
+      },
+      {
+        "actor_name": "opposition_civic_bloc",
+        "behavior_axes": {
+          "amplification": 8.1,
+          "coalition_seeking": 6.6,
+          "restraint": 3.5,
+          "selective_framing": 7.0
+        },
+        "ideology_axes": {
+          "anti_incumbent_orientation": 8.5,
+          "procedural_concern": 5.0
+        },
+        "reputation": 4.9,
+        "secrecy": 3.7,
+        "tendency": "escalate_narrative_pressure",
+        "trustworthiness": 4.4
+      },
+      {
+        "actor_name": "city_procurement_staff",
+        "behavior_axes": {
+          "documentation_focus": 8.0,
+          "internal_dissent": 5.4,
+          "proceduralism": 8.3,
+          "whistle_caution": 7.7
+        },
+        "ideology_axes": {
+          "institutional_integrity": 7.9,
+          "political_neutrality": 6.8
+        },
+        "reputation": 5.5,
+        "secrecy": 7.9,
+        "tendency": "leak_partially_under_pressure",
+        "trustworthiness": 6.3
+      },
+      {
+        "actor_name": "civic_watchdogs",
+        "behavior_axes": {
+          "evidence_demand": 8.6,
+          "persistence": 7.1,
+          "procedural_restraint": 7.4,
+          "public_pressure": 6.0
+        },
+        "ideology_axes": {
+          "good_governance": 8.9,
+          "partisanship": 3.8
+        },
+        "reputation": 6.5,
+        "secrecy": 3.4,
+        "tendency": "seek_formal_review",
+        "trustworthiness": 7.0
+      },
+      {
+        "actor_name": "donor_linked_firm",
+        "behavior_axes": {
+          "legalism": 6.7,
+          "public_visibility": 3.4,
+          "responsiveness": 4.1,
+          "self_protection": 7.5
+        },
+        "ideology_axes": {
+          "commercial_interest": 8.8,
+          "political_entanglement_perceived": 6.3
+        },
+        "reputation": 4.2,
+        "secrecy": 6.6,
+        "tendency": "minimize_comment",
+        "trustworthiness": 3.9
+      },
+      {
+        "actor_name": "city_council_leadership",
+        "behavior_axes": {
+          "agenda_control": 7.2,
+          "caution": 6.8,
+          "opportunism": 5.6,
+          "oversight_capacity": 6.0
+        },
+        "ideology_axes": {
+          "anti_scandal_positioning": 5.9,
+          "institutional_preservation": 7.5
+        },
+        "reputation": 5.3,
+        "secrecy": 4.8,
+        "tendency": "wait_then_signal",
+        "trustworthiness": 5.4
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 538,
+        "end": 538,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 538,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

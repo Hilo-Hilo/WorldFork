@@ -1,0 +1,211 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "4fcee5ba-9822-44fb-84a9-722bd5da5062",
+      "created_at": "2026-05-05T02:25:18.638321+00:00",
+      "id": "448c7f0d-72da-419e-af37-22cd0f53583d",
+      "influence": {
+        "description": "Claims tied to unsafe staffing are more resonant than abstract compensation rhetoric.",
+        "influence_key": "patient_safety_frame"
+      },
+      "multiverse_id": "84369ebd-46fe-4275-9cb3-7a9758f532b4",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:25:18.638321+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "4fcee5ba-9822-44fb-84a9-722bd5da5062",
+      "created_at": "2026-05-05T02:25:18.638321+00:00",
+      "id": "8ee3e1a4-4f5e-45ac-8481-393169ae02f0",
+      "influence": {
+        "description": "Threats to procedures and continuity rapidly increase family attention and backlash potential.",
+        "influence_key": "care_continuity_frame"
+      },
+      "multiverse_id": "84369ebd-46fe-4275-9cb3-7a9758f532b4",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:25:18.638321+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "4fcee5ba-9822-44fb-84a9-722bd5da5062",
+      "created_at": "2026-05-05T02:25:18.638321+00:00",
+      "id": "1c097d41-6f3d-41d5-9777-afeb4971ffd1",
+      "influence": {
+        "description": "Management justification has some credibility with elites but weaker resonance if service quality appears to decline.",
+        "influence_key": "budget_constraint_frame"
+      },
+      "multiverse_id": "84369ebd-46fe-4275-9cb3-7a9758f532b4",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:25:18.638321+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "4fcee5ba-9822-44fb-84a9-722bd5da5062",
+      "created_at": "2026-05-05T02:25:18.638321+00:00",
+      "id": "dc02159a-216b-413f-9466-b914a2a74d13",
+      "influence": {
+        "description": "Nonbinding mediation can help both sides justify temporary de-escalation without surrender.",
+        "influence_key": "mediation_face_saving"
+      },
+      "multiverse_id": "84369ebd-46fe-4275-9cb3-7a9758f532b4",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:25:18.638321+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "4fcee5ba-9822-44fb-84a9-722bd5da5062",
+      "created_at": "2026-05-05T02:25:18.638321+00:00",
+      "id": "58cb9d71-8711-4c80-92af-2a70fc62ed3b",
+      "model": "attention_decay",
+      "multiverse_id": "84369ebd-46fe-4275-9cb3-7a9758f532b4",
+      "signal": {
+        "applies_to": [
+          "patients_and_families",
+          "non_nurse_hospital_staff",
+          "meridian_general_staff_nurses"
+        ],
+        "evidence": "Actors are more persuadable by frames near existing values such as patient safety or care continuity.",
+        "level": "moderate",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:25:18.638321+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "4fcee5ba-9822-44fb-84a9-722bd5da5062",
+      "created_at": "2026-05-05T02:25:18.638321+00:00",
+      "id": "6fd40258-6a61-405e-9ebc-5a6fa8175814",
+      "model": "attention_decay",
+      "multiverse_id": "84369ebd-46fe-4275-9cb3-7a9758f532b4",
+      "signal": {
+        "applies_to": [
+          "meridian_general_staff_nurses"
+        ],
+        "evidence": "Actual strike participation likely depends on perceived supermajority support after authorization vote.",
+        "level": "high_relevance",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:25:18.638321+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "4fcee5ba-9822-44fb-84a9-722bd5da5062",
+      "created_at": "2026-05-05T02:25:18.638321+00:00",
+      "id": "4a306940-4ca7-4913-a230-df6ceebb7f44",
+      "model": "attention_decay",
+      "multiverse_id": "84369ebd-46fe-4275-9cb3-7a9758f532b4",
+      "signal": {
+        "applies_to": [
+          "reluctant_nurses",
+          "operations_concerned_staff",
+          "low_attention_families"
+        ],
+        "evidence": "Fear of isolation and dependency discourage open dissent or support.",
+        "level": "moderate",
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:25:18.638321+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "4fcee5ba-9822-44fb-84a9-722bd5da5062",
+      "created_at": "2026-05-05T02:25:18.638321+00:00",
+      "id": "86f0161a-5ea8-42b3-a2fc-bf097991c229",
+      "model": "attention_decay",
+      "multiverse_id": "84369ebd-46fe-4275-9cb3-7a9758f532b4",
+      "signal": {
+        "applies_to": [
+          "meridian_general_staff_nurses",
+          "patients_and_families"
+        ],
+        "evidence": "Nurses are influenced by coworker networks; families by similar care situations and local information channels.",
+        "level": "moderate",
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:25:18.638321+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "4fcee5ba-9822-44fb-84a9-722bd5da5062",
+      "created_at": "2026-05-05T02:25:18.638321+00:00",
+      "id": "f7efb769-b190-445e-8ce4-2341d4bfdf7c",
+      "model": "attention_decay",
+      "multiverse_id": "84369ebd-46fe-4275-9cb3-7a9758f532b4",
+      "signal": {
+        "applies_to": [
+          "meridian_general_staff_nurses",
+          "non_nurse_hospital_staff"
+        ],
+        "evidence": "Escalation support becomes more likely when multiple trusted peers signal readiness.",
+        "level": "moderate",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:25:18.638321+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "4fcee5ba-9822-44fb-84a9-722bd5da5062",
+      "created_at": "2026-05-05T02:25:18.638321+00:00",
+      "id": "7ae54883-bb12-4f4b-b65c-e38a9f99b066",
+      "model": "attention_decay",
+      "multiverse_id": "84369ebd-46fe-4275-9cb3-7a9758f532b4",
+      "signal": {
+        "applies_to": [
+          "meridian_general_nurses_union",
+          "meridian_general_hospital_executives",
+          "meridian_general_staff_nurses"
+        ],
+        "evidence": "Professional identity, labor solidarity, and management role boundaries structure interpretation.",
+        "level": "high_relevance",
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:25:18.638321+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "4fcee5ba-9822-44fb-84a9-722bd5da5062",
+      "created_at": "2026-05-05T02:25:18.638321+00:00",
+      "id": "af4d2590-895e-45ee-b6ea-408007e88718",
+      "model": "attention_decay",
+      "multiverse_id": "84369ebd-46fe-4275-9cb3-7a9758f532b4",
+      "signal": {
+        "applies_to": [
+          "patients_and_families",
+          "local_news_media"
+        ],
+        "evidence": "Absent fresh disruption or dramatic bargaining news, public attention may fade quickly.",
+        "level": "moderate",
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:25:18.638321+00:00"
+    }
+  ]
+}

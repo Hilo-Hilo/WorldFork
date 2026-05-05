@@ -1,0 +1,1619 @@
+{
+  "big_bang_id": "638a27e6-bd11-44d5-8dc1-1233e13f7cd3",
+  "initializer_output": {
+    "actors": [
+      {
+        "decision_authority": "high",
+        "fictionalized": true,
+        "name": "platform_marketplace",
+        "notes": "Owns ranking system and commission policy.",
+        "public_visibility": "high",
+        "stakes": [
+          "commission revenue",
+          "market liquidity",
+          "family retention",
+          "tutor supply stability",
+          "trust in matching quality"
+        ],
+        "type": "platform_company"
+      },
+      {
+        "decision_authority": "low",
+        "fictionalized": true,
+        "name": "established_tutors",
+        "notes": "High-rated tutors with existing reviews and repeat business.",
+        "public_visibility": "medium",
+        "stakes": [
+          "client flow",
+          "income stability",
+          "status preservation",
+          "platform visibility"
+        ],
+        "type": "seller_group"
+      },
+      {
+        "decision_authority": "low",
+        "fictionalized": true,
+        "name": "new_tutors",
+        "notes": "Low-review or newly onboarded tutors vulnerable to ranking opacity.",
+        "public_visibility": "low",
+        "stakes": [
+          "discovery",
+          "first bookings",
+          "income access",
+          "fair ranking opportunity"
+        ],
+        "type": "seller_group"
+      },
+      {
+        "decision_authority": "medium",
+        "fictionalized": true,
+        "name": "families_buyers",
+        "notes": "Households purchasing tutoring sessions.",
+        "public_visibility": "medium",
+        "stakes": [
+          "price",
+          "tutor quality",
+          "safety",
+          "availability",
+          "search convenience"
+        ],
+        "type": "buyer_group"
+      },
+      {
+        "decision_authority": "medium",
+        "fictionalized": true,
+        "name": "rival_platforms",
+        "notes": "Competitors advertising migration/import tools.",
+        "public_visibility": "medium",
+        "stakes": [
+          "seller acquisition",
+          "buyer acquisition",
+          "brand differentiation"
+        ],
+        "type": "competitor_group"
+      },
+      {
+        "decision_authority": "low",
+        "fictionalized": true,
+        "name": "tutor_organizers",
+        "notes": "Emergent coordination among tutors, not yet dominant.",
+        "public_visibility": "low",
+        "stakes": [
+          "better terms",
+          "transparency",
+          "collective bargaining leverage"
+        ],
+        "type": "informal_collective"
+      },
+      {
+        "decision_authority": "medium",
+        "fictionalized": true,
+        "name": "consumer_regulators",
+        "notes": "Potential venue for complaints or inquiry.",
+        "public_visibility": "medium",
+        "stakes": [
+          "fairness",
+          "consumer protection",
+          "platform accountability",
+          "competition"
+        ],
+        "type": "public_institution"
+      },
+      {
+        "decision_authority": "low",
+        "fictionalized": true,
+        "name": "tutor_forums",
+        "notes": "Includes chat groups, online forums, and creator commentary.",
+        "public_visibility": "medium",
+        "stakes": [
+          "information exchange",
+          "peer validation",
+          "complaint amplification"
+        ],
+        "type": "community_channel_actor"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "branch_key": "incumbent_absorption_branch",
+        "observable_divergence_signal": "High-rated tutor complaint volume plateaus while new-tutor complaints continue without broad incumbent participation.",
+        "plausible_path": "Incumbents largely stay, platform narrative of improved matching stabilizes, and tutor coalition remains fragmented.",
+        "trigger": "Established tutors retain bookings and perceive limited harm from AI score despite higher commissions."
+      },
+      {
+        "branch_key": "new_tutor_exit_accelerates",
+        "observable_divergence_signal": "Rising mentions of inactive profiles, onboarding abandonment, or successful import-tool usage.",
+        "plausible_path": "New tutors multi-home or leave, rival platforms gain supply, and platform faces longer-term pipeline quality risks rather than immediate collapse.",
+        "trigger": "Early new tutors report steep visibility loss or failed booking attempts after score rollout."
+      },
+      {
+        "branch_key": "buyer_price_elasticity_branch",
+        "observable_divergence_signal": "Increase in price complaints, coupon demand, reduced session frequency, or conversion drop indicators.",
+        "plausible_path": "Booking volume softens, families shop around, and platform considers promotional offsets or fee adjustments to preserve demand liquidity.",
+        "trigger": "Families experience noticeable session price increases or weaker perceived value."
+      },
+      {
+        "branch_key": "collective_action_legibility_branch",
+        "observable_divergence_signal": "Shared evidence documents, common talking points, and identifiable spokesperson emergence.",
+        "plausible_path": "Petitions, public letters, or complaint filings increase organizer influence and raise external scrutiny.",
+        "trigger": "Tutors gather enough examples to frame AI score as systematically unfair rather than individually unlucky."
+      },
+      {
+        "branch_key": "regulatory_attention_branch",
+        "observable_divergence_signal": "Formal acknowledgement from a regulator, inquiry letter, or public request for complaints.",
+        "plausible_path": "Regulators request information or open an inquiry, increasing platform incentive to disclose or soften policy.",
+        "trigger": "Complaints combine consumer price effects with tutor fairness/competition claims."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "platform_email_announcements",
+        "notes": "Primary vector for policy rollout and justification.",
+        "primary_actors": [
+          "platform_marketplace",
+          "established_tutors",
+          "new_tutors"
+        ],
+        "type": "owned_platform",
+        "visibility": "targeted_mass"
+      },
+      {
+        "channel_key": "in_app_search_and_ranking",
+        "notes": "Where the AI matching score shapes outcomes.",
+        "primary_actors": [
+          "platform_marketplace",
+          "families_buyers",
+          "established_tutors",
+          "new_tutors"
+        ],
+        "type": "product_surface",
+        "visibility": "behavioral"
+      },
+      {
+        "channel_key": "tutor_forums_and_group_chats",
+        "notes": "Key venue for grievance aggregation and tactic diffusion.",
+        "primary_actors": [
+          "tutor_forums",
+          "established_tutors",
+          "new_tutors",
+          "tutor_organizers"
+        ],
+        "type": "community",
+        "visibility": "semi_public"
+      },
+      {
+        "channel_key": "competitor_ads_and_outreach",
+        "notes": "Migration offers and import tools messaging.",
+        "primary_actors": [
+          "rival_platforms",
+          "established_tutors",
+          "new_tutors"
+        ],
+        "type": "market_competition",
+        "visibility": "public_targeted"
+      },
+      {
+        "channel_key": "customer_support_and_reviews",
+        "notes": "Where buyer reaction and tutor complaints become legible.",
+        "primary_actors": [
+          "families_buyers",
+          "platform_marketplace",
+          "established_tutors",
+          "new_tutors"
+        ],
+        "type": "feedback",
+        "visibility": "mixed"
+      },
+      {
+        "channel_key": "regulatory_complaint_portals",
+        "notes": "Potential escalation path if evidence accumulates.",
+        "primary_actors": [
+          "consumer_regulators",
+          "tutor_organizers",
+          "families_buyers"
+        ],
+        "type": "institutional",
+        "visibility": "formal_private"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "established_tutors",
+        "archetype": "tutors_marketplace_side",
+        "attention_level": 7,
+        "behavioral_tendencies": [
+          "optimize profile and pricing",
+          "preserve repeat clients",
+          "avoid risky confrontation unless income drops"
+        ],
+        "cohort_key": "established_tutors_core",
+        "expression_level": 5,
+        "fatigue": 4,
+        "fear_of_isolation": 5,
+        "mobilization_readiness": 4,
+        "perceived_majority": "uncertain_split",
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Platform changes are unfairly extractive but may remain tolerable if ranking continues to reward incumbency and demand remains strong.",
+        "public_expression": "Mixed; selective complaints, cautious adaptation, some wait-and-see acceptance.",
+        "representation_mode": "direct_group_proxy",
+        "represented_population": 4200,
+        "reputation": 7,
+        "secrecy": 4,
+        "stance_axes": {
+          "ai_matching_score": "conditional_accept",
+          "collective_action": "conditional_support",
+          "commission_change": "oppose",
+          "platform_exit": "reluctant",
+          "regulatory_escalation": "low_to_moderate_support"
+        },
+        "trustworthiness": 6
+      },
+      {
+        "actor_name": "new_tutors",
+        "archetype": "tutors_marketplace_side",
+        "attention_level": 8,
+        "behavioral_tendencies": [
+          "compare competing platforms",
+          "seek ranking hacks",
+          "delay investment in platform-specific effort"
+        ],
+        "cohort_key": "new_tutors_fragile",
+        "expression_level": 6,
+        "fatigue": 5,
+        "fear_of_isolation": 6,
+        "mobilization_readiness": 6,
+        "perceived_majority": "many_others_discontent_but_quiet",
+        "population_share_of_archetype": 0.4,
+        "private_belief": "The AI score may lock them out of discovery and make entry economically unattractive.",
+        "public_expression": "More anxious discussion than public protest; some active search for alternatives.",
+        "representation_mode": "direct_group_proxy",
+        "represented_population": 4800,
+        "reputation": 3,
+        "secrecy": 5,
+        "stance_axes": {
+          "ai_matching_score": "strong_oppose",
+          "collective_action": "moderate_support",
+          "commission_change": "strong_oppose",
+          "platform_exit": "open",
+          "regulatory_escalation": "moderate_support"
+        },
+        "trustworthiness": 5
+      },
+      {
+        "actor_name": "new_tutors",
+        "archetype": "tutors_marketplace_side",
+        "attention_level": 5,
+        "behavioral_tendencies": [
+          "multi-home",
+          "wait for clearer evidence",
+          "respond to referral incentives"
+        ],
+        "cohort_key": "prospective_tutors_observers",
+        "expression_level": 2,
+        "fatigue": 2,
+        "fear_of_isolation": 4,
+        "mobilization_readiness": 2,
+        "perceived_majority": "platform_still_looks_dominant",
+        "population_share_of_archetype": 0.25,
+        "private_belief": "Entry conditions may be worsening before they commit.",
+        "public_expression": "Mostly silent observation and low-commitment experimentation.",
+        "representation_mode": "scenario_inferred_open_edge",
+        "represented_population": 3000,
+        "reputation": 1,
+        "secrecy": 6,
+        "stance_axes": {
+          "ai_matching_score": "skeptical",
+          "collective_action": "low_support",
+          "commission_change": "oppose",
+          "platform_exit": "not_applicable_yet",
+          "regulatory_escalation": "low_support"
+        },
+        "trustworthiness": 5
+      },
+      {
+        "actor_name": "families_buyers",
+        "archetype": "families_marketplace_side",
+        "attention_level": 6,
+        "behavioral_tendencies": [
+          "reduce session frequency",
+          "shop across apps",
+          "favor discounts and trusted tutors"
+        ],
+        "cohort_key": "price_sensitive_families",
+        "expression_level": 4,
+        "fatigue": 3,
+        "fear_of_isolation": 3,
+        "mobilization_readiness": 3,
+        "perceived_majority": "others_also_price_sensitive",
+        "population_share_of_archetype": 0.55,
+        "private_belief": "Price increases matter more than platform governance details unless quality visibly drops.",
+        "public_expression": "Complaints framed around affordability and value, not labor fairness.",
+        "representation_mode": "inferred_buyer_segment",
+        "represented_population": 22000,
+        "reputation": 5,
+        "secrecy": 3,
+        "stance_axes": {
+          "ai_matching_score": "conditional_accept",
+          "higher_prices": "oppose",
+          "regulatory_attention": "low_support",
+          "switch_platform": "conditional"
+        },
+        "trustworthiness": 6
+      },
+      {
+        "actor_name": "families_buyers",
+        "archetype": "families_marketplace_side",
+        "attention_level": 5,
+        "behavioral_tendencies": [
+          "follow ratings",
+          "prefer low-friction booking",
+          "stay if outcomes remain good"
+        ],
+        "cohort_key": "quality_seeking_families",
+        "expression_level": 3,
+        "fatigue": 2,
+        "fear_of_isolation": 2,
+        "mobilization_readiness": 2,
+        "perceived_majority": "buyers_want_reliable_results",
+        "population_share_of_archetype": 0.45,
+        "private_belief": "A matching score could improve search if it is accurate, but unexplained changes create caution.",
+        "public_expression": "Curious but not ideological; feedback follows booking outcomes.",
+        "representation_mode": "inferred_buyer_segment",
+        "represented_population": 18000,
+        "reputation": 5,
+        "secrecy": 2,
+        "stance_axes": {
+          "ai_matching_score": "conditional_support",
+          "higher_prices": "tolerate_if_quality_high",
+          "regulatory_attention": "low_support",
+          "switch_platform": "moderate_if_quality_falls"
+        },
+        "trustworthiness": 6
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "established_tutors",
+        "archetype": "tutors_marketplace_side",
+        "attention_level": 7,
+        "behavioral_tendencies": [
+          "optimize profile and pricing",
+          "preserve repeat clients",
+          "avoid risky confrontation unless income drops"
+        ],
+        "cohort_key": "established_tutors_core",
+        "expression_level": 5,
+        "fatigue": 4,
+        "fear_of_isolation": 5,
+        "mobilization_readiness": 4,
+        "perceived_majority": "uncertain_split",
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Platform changes are unfairly extractive but may remain tolerable if ranking continues to reward incumbency and demand remains strong.",
+        "public_expression": "Mixed; selective complaints, cautious adaptation, some wait-and-see acceptance.",
+        "representation_mode": "direct_group_proxy",
+        "represented_population": 4200,
+        "reputation": 7,
+        "secrecy": 4,
+        "stance_axes": {
+          "ai_matching_score": "conditional_accept",
+          "collective_action": "conditional_support",
+          "commission_change": "oppose",
+          "platform_exit": "reluctant",
+          "regulatory_escalation": "low_to_moderate_support"
+        },
+        "trustworthiness": 6
+      },
+      {
+        "actor_name": "new_tutors",
+        "archetype": "tutors_marketplace_side",
+        "attention_level": 8,
+        "behavioral_tendencies": [
+          "compare competing platforms",
+          "seek ranking hacks",
+          "delay investment in platform-specific effort"
+        ],
+        "cohort_key": "new_tutors_fragile",
+        "expression_level": 6,
+        "fatigue": 5,
+        "fear_of_isolation": 6,
+        "mobilization_readiness": 6,
+        "perceived_majority": "many_others_discontent_but_quiet",
+        "population_share_of_archetype": 0.4,
+        "private_belief": "The AI score may lock them out of discovery and make entry economically unattractive.",
+        "public_expression": "More anxious discussion than public protest; some active search for alternatives.",
+        "representation_mode": "direct_group_proxy",
+        "represented_population": 4800,
+        "reputation": 3,
+        "secrecy": 5,
+        "stance_axes": {
+          "ai_matching_score": "strong_oppose",
+          "collective_action": "moderate_support",
+          "commission_change": "strong_oppose",
+          "platform_exit": "open",
+          "regulatory_escalation": "moderate_support"
+        },
+        "trustworthiness": 5
+      },
+      {
+        "actor_name": "new_tutors",
+        "archetype": "tutors_marketplace_side",
+        "attention_level": 5,
+        "behavioral_tendencies": [
+          "multi-home",
+          "wait for clearer evidence",
+          "respond to referral incentives"
+        ],
+        "cohort_key": "prospective_tutors_observers",
+        "expression_level": 2,
+        "fatigue": 2,
+        "fear_of_isolation": 4,
+        "mobilization_readiness": 2,
+        "perceived_majority": "platform_still_looks_dominant",
+        "population_share_of_archetype": 0.25,
+        "private_belief": "Entry conditions may be worsening before they commit.",
+        "public_expression": "Mostly silent observation and low-commitment experimentation.",
+        "representation_mode": "scenario_inferred_open_edge",
+        "represented_population": 3000,
+        "reputation": 1,
+        "secrecy": 6,
+        "stance_axes": {
+          "ai_matching_score": "skeptical",
+          "collective_action": "low_support",
+          "commission_change": "oppose",
+          "platform_exit": "not_applicable_yet",
+          "regulatory_escalation": "low_support"
+        },
+        "trustworthiness": 5
+      },
+      {
+        "actor_name": "families_buyers",
+        "archetype": "families_marketplace_side",
+        "attention_level": 6,
+        "behavioral_tendencies": [
+          "reduce session frequency",
+          "shop across apps",
+          "favor discounts and trusted tutors"
+        ],
+        "cohort_key": "price_sensitive_families",
+        "expression_level": 4,
+        "fatigue": 3,
+        "fear_of_isolation": 3,
+        "mobilization_readiness": 3,
+        "perceived_majority": "others_also_price_sensitive",
+        "population_share_of_archetype": 0.55,
+        "private_belief": "Price increases matter more than platform governance details unless quality visibly drops.",
+        "public_expression": "Complaints framed around affordability and value, not labor fairness.",
+        "representation_mode": "inferred_buyer_segment",
+        "represented_population": 22000,
+        "reputation": 5,
+        "secrecy": 3,
+        "stance_axes": {
+          "ai_matching_score": "conditional_accept",
+          "higher_prices": "oppose",
+          "regulatory_attention": "low_support",
+          "switch_platform": "conditional"
+        },
+        "trustworthiness": 6
+      },
+      {
+        "actor_name": "families_buyers",
+        "archetype": "families_marketplace_side",
+        "attention_level": 5,
+        "behavioral_tendencies": [
+          "follow ratings",
+          "prefer low-friction booking",
+          "stay if outcomes remain good"
+        ],
+        "cohort_key": "quality_seeking_families",
+        "expression_level": 3,
+        "fatigue": 2,
+        "fear_of_isolation": 2,
+        "mobilization_readiness": 2,
+        "perceived_majority": "buyers_want_reliable_results",
+        "population_share_of_archetype": 0.45,
+        "private_belief": "A matching score could improve search if it is accurate, but unexplained changes create caution.",
+        "public_expression": "Curious but not ideological; feedback follows booking outcomes.",
+        "representation_mode": "inferred_buyer_segment",
+        "represented_population": 18000,
+        "reputation": 5,
+        "secrecy": 2,
+        "stance_axes": {
+          "ai_matching_score": "conditional_support",
+          "higher_prices": "tolerate_if_quality_high",
+          "regulatory_attention": "low_support",
+          "switch_platform": "moderate_if_quality_falls"
+        },
+        "trustworthiness": 6
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "platform_marketplace"
+        ],
+        "blockers": [
+          "unclear buyer elasticity",
+          "uncertain tutor retention",
+          "possible competitor pressure",
+          "potential external scrutiny"
+        ],
+        "contradiction_notes": "Selective promotions could mask effective rollback without formally changing list commission.",
+        "description": "Terminal outcome for the higher commission policy, including persistence, rollback, segmentation, or compensating rebates.",
+        "endpoint_key": "commission_policy_outcome",
+        "evidence_refs": [
+          "commission_rate_increase_announced"
+        ],
+        "label": "Commission policy terminal state",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the platform keep the higher commission rate in force, or does it materially roll back, rebate, or segment it?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.68,
+        "rationale": "The platform directly controls commission terms, but two-sided market reactions may force modification.",
+        "realization_criteria": [
+          "platform formally confirms higher commission remains in place for the relevant tutor base for multiple ticks without material offset",
+          "or platform announces measurable rollback/rebate/segmented exception that changes tutor economics"
+        ],
+        "status": "active",
+        "status_basis": "Policy increase is announced at T0, but its durable form is not settled."
+      },
+      {
+        "authority_refs": [
+          "platform_marketplace",
+          "consumer_regulators"
+        ],
+        "blockers": [
+          "difficulty proving harm",
+          "platform control over information",
+          "lagging buyer-side evidence"
+        ],
+        "contradiction_notes": "Cosmetic messaging changes should not count as governance change unless observable user-facing recourse or signal design changes occur.",
+        "description": "Terminal outcome for whether the AI score remains operationally dominant and opaque, becomes more transparent/adjusted, or is partially suspended.",
+        "endpoint_key": "ai_matching_governance_outcome",
+        "evidence_refs": [
+          "ai_matching_score_rollout"
+        ],
+        "label": "AI matching score governance state",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the AI matching score remain largely opaque and unchanged, or will the platform materially adjust transparency, weighting, or launch criteria?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.61,
+        "rationale": "Ranking ownership is a core leverage point and likely focal issue for fairness conflict.",
+        "realization_criteria": [
+          "platform retains AI score as primary matching signal without meaningful new transparency or fairness safeguards",
+          "or platform publishes substantive explanation, modifies weightings/appeals, or suspends score features"
+        ],
+        "status": "active",
+        "status_basis": "AI score exists at T0, but governance response to pushback remains open."
+      },
+      {
+        "authority_refs": [
+          "established_tutors",
+          "new_tutors",
+          "rival_platforms",
+          "platform_marketplace"
+        ],
+        "blockers": [
+          "switching costs from reviews and repeat clients",
+          "buyer demand may not follow tutors",
+          "incumbent/newcomer split"
+        ],
+        "contradiction_notes": "Small symbolic exits do not equal market-relevant supply reconfiguration.",
+        "description": "Terminal outcome for whether the marketplace retains enough tutor participation, experiences meaningful multi-homing, or loses supply to rivals.",
+        "endpoint_key": "tutor_supply_reconfiguration",
+        "evidence_refs": [
+          "competitor_migration_campaigns_begin",
+          "tutor_side_forum_complaints_coalesce"
+        ],
+        "label": "Tutor supply and migration outcome",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will tutor participation meaningfully remain, multi-home, or migrate away enough to alter marketplace liquidity?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.52,
+        "rationale": "Tutor-side behavior is the main market feedback channel constraining platform leverage.",
+        "realization_criteria": [
+          "tutor activity remains broadly stable with no substantial migration signal",
+          "or sustained increase in multi-homing/exit/import-tool adoption measurably shifts supply distribution"
+        ],
+        "status": "active",
+        "status_basis": "Exit is plausible but not realized at T0; supply behavior depends on elasticity and social proof."
+      },
+      {
+        "authority_refs": [
+          "tutor_organizers",
+          "consumer_regulators",
+          "platform_marketplace"
+        ],
+        "blockers": [
+          "fragmented tutor incentives",
+          "private fear of retaliation or invisibility",
+          "high evidentiary burden for algorithmic harm"
+        ],
+        "contradiction_notes": "Media attention alone is not sufficient unless it produces concrete platform or regulator obligations.",
+        "description": "Terminal outcome for whether organized tutor pressure or regulator attention becomes a material constraint on platform policy.",
+        "endpoint_key": "external_constraint_outcome",
+        "evidence_refs": [
+          "first_regulatory_lobbying_attempts",
+          "tutor_side_forum_complaints_coalesce"
+        ],
+        "label": "Collective or regulatory constraint outcome",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will tutor organizing and/or regulatory outreach mature into a credible constraint on platform policy?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.39,
+        "rationale": "This endpoint captures whether private discontent remains diffuse or becomes an external decision constraint.",
+        "realization_criteria": [
+          "no organized campaign or regulator action achieves material policy leverage by horizon end",
+          "or a petition, collective action, inquiry, or formal complaint process creates observable platform response obligations or concessions"
+        ],
+        "status": "active",
+        "status_basis": "Organizing and lobbying are available paths, but capacity and legitimacy are not yet consolidated at T0."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Scenario states tutors may stay, organize, or exit; platform owns ranking and commission policy.",
+        "layer": "dependency",
+        "reason": "Established tutors rely on marketplace demand flow and reviews despite some off-platform repeat business.",
+        "source_actor_name": "established_tutors",
+        "target_actor_name": "platform_marketplace",
+        "weight": 0.58
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Scenario notes new tutors fear invisibility under AI matching score.",
+        "layer": "dependency",
+        "reason": "New tutors depend strongly on platform discovery and ranking access for initial bookings.",
+        "source_actor_name": "new_tutors",
+        "target_actor_name": "platform_marketplace",
+        "weight": 0.64
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Marketplace mediates matching; competitors exist.",
+        "layer": "dependency",
+        "reason": "Families use the platform for search and transaction convenience but can shop elsewhere.",
+        "source_actor_name": "families_buyers",
+        "target_actor_name": "platform_marketplace",
+        "weight": 0.44
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "High-rated tutors may stay, implying strategic relevance.",
+        "layer": "dependency",
+        "reason": "Platform needs credible high-rated supply to preserve quality and buyer trust.",
+        "source_actor_name": "platform_marketplace",
+        "target_actor_name": "established_tutors",
+        "weight": 0.53
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Marketplace requires tutor pipeline though not all newcomers are pivotal at T0.",
+        "layer": "dependency",
+        "reason": "Platform needs replenishing supply and category breadth, but any one new tutor is replaceable.",
+        "source_actor_name": "platform_marketplace",
+        "target_actor_name": "new_tutors",
+        "weight": 0.36
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Competitors advertise migration tools.",
+        "layer": "dependency",
+        "reason": "Competitors need dissatisfied tutors to seed migration campaigns.",
+        "source_actor_name": "rival_platforms",
+        "target_actor_name": "new_tutors",
+        "weight": 0.41
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Coordination among tutors likely runs through forums and groups.",
+        "layer": "dependency",
+        "reason": "Organizers rely on communication channels to recruit and aggregate stories.",
+        "source_actor_name": "tutor_organizers",
+        "target_actor_name": "tutor_forums",
+        "weight": 0.47
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "Commission and AI score changes affect tutor-side experience.",
+        "layer": "exposure",
+        "reason": "Platform announcements and ranking changes are directly visible to established tutors.",
+        "source_actor_name": "platform_marketplace",
+        "target_actor_name": "established_tutors",
+        "weight": 0.63
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "Fear of invisibility follows platform-side changes.",
+        "layer": "exposure",
+        "reason": "New tutors see onboarding, visibility, and score signals directly.",
+        "source_actor_name": "platform_marketplace",
+        "target_actor_name": "new_tutors",
+        "weight": 0.66
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "Scenario states families see price changes.",
+        "layer": "exposure",
+        "reason": "Families encounter price changes and score-mediated search outcomes.",
+        "source_actor_name": "platform_marketplace",
+        "target_actor_name": "families_buyers",
+        "weight": 0.51
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "Competitors advertise migration tools.",
+        "layer": "exposure",
+        "reason": "Competitors target tutor dissatisfaction with migration offers.",
+        "source_actor_name": "rival_platforms",
+        "target_actor_name": "established_tutors",
+        "weight": 0.42
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "Competitors advertise migration tools; new tutors fear invisibility.",
+        "layer": "exposure",
+        "reason": "New tutors actively compare alternatives and are exposed to poaching messaging.",
+        "source_actor_name": "rival_platforms",
+        "target_actor_name": "new_tutors",
+        "weight": 0.49
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "Forums/community channels inferred from organizing possibility.",
+        "layer": "exposure",
+        "reason": "Forum discussions circulate policy interpretations and tactics.",
+        "source_actor_name": "tutor_forums",
+        "target_actor_name": "established_tutors",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "Fear and uncertainty around matching score encourage forum use.",
+        "layer": "exposure",
+        "reason": "New tutors are likely to seek peer information when facing opacity.",
+        "source_actor_name": "tutor_forums",
+        "target_actor_name": "new_tutors",
+        "weight": 0.57
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Higher commission creates dissatisfaction, but many may stay.",
+        "layer": "trust",
+        "reason": "Incumbents trust the platform somewhat on market access but are wary of extraction.",
+        "source_actor_name": "established_tutors",
+        "target_actor_name": "platform_marketplace",
+        "weight": 0.39
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Scenario explicitly notes fear of invisibility.",
+        "layer": "trust",
+        "reason": "New tutors doubt fair access under an opaque score.",
+        "source_actor_name": "new_tutors",
+        "target_actor_name": "platform_marketplace",
+        "weight": 0.24
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "No active scandal yet; changes are newly introduced.",
+        "layer": "trust",
+        "reason": "Families retain moderate trust in search convenience and safety despite price concerns.",
+        "source_actor_name": "families_buyers",
+        "target_actor_name": "platform_marketplace",
+        "weight": 0.52
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Tutors can organize, but support is not consolidated.",
+        "layer": "trust",
+        "reason": "Some incumbents see organizers as useful but risky or unproven.",
+        "source_actor_name": "established_tutors",
+        "target_actor_name": "tutor_organizers",
+        "weight": 0.31
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "New tutors fear invisibility and may seek collective remedies.",
+        "layer": "trust",
+        "reason": "New tutors are more receptive to collective framing because they feel vulnerable.",
+        "source_actor_name": "new_tutors",
+        "target_actor_name": "tutor_organizers",
+        "weight": 0.48
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "High-rated tutors may stay, indicating social proof matters.",
+        "layer": "trust",
+        "reason": "Visible reviews and repeat relationships support tutor-specific trust.",
+        "source_actor_name": "families_buyers",
+        "target_actor_name": "established_tutors",
+        "weight": 0.55
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Platform owns ranking and commission policy.",
+        "layer": "influence",
+        "reason": "Platform sets ranking visibility and fee terms affecting tutor behavior.",
+        "source_actor_name": "platform_marketplace",
+        "target_actor_name": "established_tutors",
+        "weight": 0.72
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "AI matching score may determine visibility for new tutors.",
+        "layer": "influence",
+        "reason": "Platform strongly shapes entry viability through scoring and discovery rules.",
+        "source_actor_name": "platform_marketplace",
+        "target_actor_name": "new_tutors",
+        "weight": 0.76
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Families see price changes and platform-mediated matching outputs.",
+        "layer": "influence",
+        "reason": "Platform controls presentation, pricing interface, and matching cues seen by families.",
+        "source_actor_name": "platform_marketplace",
+        "target_actor_name": "families_buyers",
+        "weight": 0.58
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Migration tools are actively advertised.",
+        "layer": "influence",
+        "reason": "Competitors can shape expectations by reducing perceived switching friction.",
+        "source_actor_name": "rival_platforms",
+        "target_actor_name": "new_tutors",
+        "weight": 0.43
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Community discussion likely helps organizer emergence.",
+        "layer": "influence",
+        "reason": "Forums can elevate certain grievances and spokespersons into organizing roles.",
+        "source_actor_name": "tutor_forums",
+        "target_actor_name": "tutor_organizers",
+        "weight": 0.52
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Tutors can organize or lobby regulators.",
+        "layer": "influence",
+        "reason": "Organizers may frame personal ranking anxiety as collective platform governance issue.",
+        "source_actor_name": "tutor_organizers",
+        "target_actor_name": "new_tutors",
+        "weight": 0.41
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Lobby regulators is a possible path, not a realized event.",
+        "layer": "influence",
+        "reason": "Regulators have latent leverage but no active action at T0.",
+        "source_actor_name": "consumer_regulators",
+        "target_actor_name": "platform_marketplace",
+        "weight": 0.28
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "High-rated tutors may stay while new tutors fear invisibility.",
+        "layer": "coalition",
+        "reason": "Both dislike higher commissions, but ranking effects split incentives.",
+        "source_actor_name": "established_tutors",
+        "target_actor_name": "new_tutors",
+        "weight": 0.29
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Fear of invisibility raises receptivity to collective action.",
+        "layer": "coalition",
+        "reason": "New tutors have stronger incentive to align with organizing efforts.",
+        "source_actor_name": "new_tutors",
+        "target_actor_name": "tutor_organizers",
+        "weight": 0.51
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "High-rated tutors may stay.",
+        "layer": "coalition",
+        "reason": "Some shared fee grievance exists, but incumbents are less eager to escalate.",
+        "source_actor_name": "established_tutors",
+        "target_actor_name": "tutor_organizers",
+        "weight": 0.33
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Families see price changes but no organized demand for intervention yet.",
+        "layer": "coalition",
+        "reason": "Potential alignment on affordability or fairness exists but is weak before visible harm.",
+        "source_actor_name": "families_buyers",
+        "target_actor_name": "consumer_regulators",
+        "weight": 0.22
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Competitors advertise migration tools to affected tutors.",
+        "layer": "coalition",
+        "reason": "Short-term alignment around migration opportunity, though interests are transactional.",
+        "source_actor_name": "rival_platforms",
+        "target_actor_name": "new_tutors",
+        "weight": 0.37
+      },
+      {
+        "direction": "source_vs_target",
+        "evidence": "New tutors fear invisibility under AI score.",
+        "layer": "conflict",
+        "reason": "Opacity and fee increases create perceived exclusion and distributive conflict.",
+        "source_actor_name": "platform_marketplace",
+        "target_actor_name": "new_tutors",
+        "weight": 0.61
+      },
+      {
+        "direction": "source_vs_target",
+        "evidence": "Marketplace raises commission rates.",
+        "layer": "conflict",
+        "reason": "Commission increase creates direct monetary grievance despite continued reliance.",
+        "source_actor_name": "platform_marketplace",
+        "target_actor_name": "established_tutors",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_vs_target",
+        "evidence": "Competitors advertise migration tools.",
+        "layer": "conflict",
+        "reason": "Competitors are actively trying to siphon supply using policy change as wedge issue.",
+        "source_actor_name": "platform_marketplace",
+        "target_actor_name": "rival_platforms",
+        "weight": 0.49
+      },
+      {
+        "direction": "source_vs_target",
+        "evidence": "Tutors can organize or lobby regulators.",
+        "layer": "conflict",
+        "reason": "Organizers frame changes as unfair governance requiring response.",
+        "source_actor_name": "tutor_organizers",
+        "target_actor_name": "platform_marketplace",
+        "weight": 0.44
+      },
+      {
+        "direction": "source_vs_target",
+        "evidence": "Families see price changes.",
+        "layer": "conflict",
+        "reason": "Price increases may create buyer dissatisfaction, but conflict is still low-intensity.",
+        "source_actor_name": "families_buyers",
+        "target_actor_name": "platform_marketplace",
+        "weight": 0.27
+      },
+      {
+        "direction": "likely_public_channel_interaction",
+        "evidence": "Direct operational relationship around commissions and scoring.",
+        "layer": "oasis_interaction",
+        "reason": "Frequent public/help-center/email interactions around policy updates and performance feedback.",
+        "source_actor_name": "platform_marketplace",
+        "target_actor_name": "established_tutors",
+        "weight": 0.54
+      },
+      {
+        "direction": "likely_public_channel_interaction",
+        "evidence": "New tutors fear invisibility and seek answers.",
+        "layer": "oasis_interaction",
+        "reason": "High likelihood of support tickets, onboarding questions, and public complaints about visibility.",
+        "source_actor_name": "platform_marketplace",
+        "target_actor_name": "new_tutors",
+        "weight": 0.56
+      },
+      {
+        "direction": "likely_public_channel_interaction",
+        "evidence": "Opacity and vulnerability encourage peer discussion.",
+        "layer": "oasis_interaction",
+        "reason": "New tutors likely discuss score effects in public or semi-public channels.",
+        "source_actor_name": "tutor_forums",
+        "target_actor_name": "new_tutors",
+        "weight": 0.59
+      },
+      {
+        "direction": "likely_public_channel_interaction",
+        "evidence": "Incumbents are attentive but more cautious.",
+        "layer": "oasis_interaction",
+        "reason": "Established tutors participate selectively in discussions around fees and tactics.",
+        "source_actor_name": "tutor_forums",
+        "target_actor_name": "established_tutors",
+        "weight": 0.43
+      },
+      {
+        "direction": "likely_public_channel_interaction",
+        "evidence": "Competitors advertise migration tools.",
+        "layer": "oasis_interaction",
+        "reason": "Migration campaigns likely occur through outreach, ads, and public comparison pages.",
+        "source_actor_name": "rival_platforms",
+        "target_actor_name": "new_tutors",
+        "weight": 0.46
+      },
+      {
+        "direction": "likely_public_channel_interaction",
+        "evidence": "Families see price changes and may react through platform channels.",
+        "layer": "oasis_interaction",
+        "reason": "Buyer-side reviews and support interactions may rise if prices or matching outcomes disappoint.",
+        "source_actor_name": "families_buyers",
+        "target_actor_name": "platform_marketplace",
+        "weight": 0.34
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "description": "Decision-making leadership controlling commission and ranking policy.",
+        "hero_archetype": "platform_exec"
+      },
+      {
+        "description": "Visible tutor-side coordinator capable of framing grievances and recruiting peers.",
+        "hero_archetype": "lead_tutor_organizer"
+      },
+      {
+        "description": "Rival platform operator promoting migration pathways.",
+        "hero_archetype": "competitor_growth_lead"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "platform_marketplace",
+        "attention_level": 9,
+        "capabilities": [
+          "change commission policy",
+          "tune ranking visibility",
+          "message users",
+          "offer selective incentives"
+        ],
+        "constraints": [
+          "two-sided market balance",
+          "reputational risk",
+          "competitive leakage",
+          "possible regulator scrutiny"
+        ],
+        "expression_level": 6,
+        "fatigue": 4,
+        "fear_of_isolation": 2,
+        "hero_archetype": "platform_exec",
+        "hero_key": "platform_policy_lead",
+        "mobilization_readiness": 7,
+        "perceived_majority": "most_users_will_adapt",
+        "role": "policy_and_market_design_owner",
+        "stance_axes": {
+          "ai_matching_score": "support",
+          "commission_change": "support",
+          "concessions": "conditional",
+          "transparency": "limited"
+        }
+      },
+      {
+        "actor_name": "tutor_organizers",
+        "attention_level": 8,
+        "capabilities": [
+          "collect testimonials",
+          "coordinate petitions",
+          "spread migration information"
+        ],
+        "constraints": [
+          "fragmented tutor interests",
+          "dependency on platform income",
+          "difficulty proving algorithmic harm"
+        ],
+        "expression_level": 5,
+        "fatigue": 5,
+        "fear_of_isolation": 6,
+        "hero_archetype": "lead_tutor_organizer",
+        "hero_key": "tutor_network_organizer",
+        "mobilization_readiness": 6,
+        "perceived_majority": "discontent_is_broader_than_publicly_visible",
+        "role": "grievance_aggregator",
+        "stance_axes": {
+          "ai_matching_score": "oppose_without_transparency",
+          "collective_action": "support",
+          "commission_change": "oppose",
+          "platform_exit": "strategic_option",
+          "regulatory_escalation": "conditional_support"
+        }
+      },
+      {
+        "actor_name": "rival_platforms",
+        "attention_level": 7,
+        "capabilities": [
+          "offer import tools",
+          "temporary fee discounts",
+          "seller outreach"
+        ],
+        "constraints": [
+          "must build liquidity",
+          "buyer demand may lag tutor migration"
+        ],
+        "expression_level": 6,
+        "fatigue": 3,
+        "fear_of_isolation": 1,
+        "hero_archetype": "competitor_growth_lead",
+        "hero_key": "rival_growth_operator",
+        "mobilization_readiness": 7,
+        "perceived_majority": "switchers_available_if_friction_is_lowered",
+        "role": "poaching_campaign_owner",
+        "stance_axes": {
+          "migration_tools": "support",
+          "platform_policy": "exploit_rival_misstep",
+          "price_positioning": "flexible"
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "description": "Decision-making leadership controlling commission and ranking policy.",
+        "hero_archetype": "platform_exec"
+      },
+      {
+        "description": "Visible tutor-side coordinator capable of framing grievances and recruiting peers.",
+        "hero_archetype": "lead_tutor_organizer"
+      },
+      {
+        "description": "Rival platform operator promoting migration pathways.",
+        "hero_archetype": "competitor_growth_lead"
+      }
+    ],
+    "important_questions": [
+      "Does the platform keep the higher commission rate in force, or does it materially roll back, rebate, or segment it?",
+      "Will the AI matching score remain largely opaque and unchanged, or will the platform materially adjust transparency, weighting, or launch criteria?",
+      "Will tutor participation meaningfully remain, multi-home, or migrate away enough to alter marketplace liquidity?",
+      "Will tutor organizing and/or regulatory outreach mature into a credible constraint on platform policy?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "platform_marketplace",
+          "established_tutors",
+          "new_tutors"
+        ],
+        "event_key": "commission_rate_increase_announced",
+        "event_type": "announcement",
+        "evidence": "Scenario states marketplace raises commission rates.",
+        "expected_impact": "Raises seller grievance, increases perceived extractiveness, and may prompt price pass-through or reduced tutor margin tolerance.",
+        "status": "realized",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "platform_marketplace",
+          "established_tutors",
+          "new_tutors",
+          "families_buyers"
+        ],
+        "event_key": "ai_matching_score_rollout",
+        "event_type": "announcement",
+        "evidence": "Scenario states platform introduces an AI matching score.",
+        "expected_impact": "Shifts visibility and discovery expectations, especially increasing uncertainty for new tutors and potential search-quality expectations for families.",
+        "status": "realized",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "rival_platforms",
+          "established_tutors",
+          "new_tutors"
+        ],
+        "event_key": "competitor_migration_campaigns_begin",
+        "event_type": "announcement",
+        "evidence": "Scenario states competitors advertise migration tools.",
+        "expected_impact": "Lowers perceived switching friction, tests elasticity of tutor loyalty, and may amplify narrative that exit is feasible.",
+        "status": "imminent",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "tutor_forums",
+          "new_tutors",
+          "established_tutors",
+          "tutor_organizers"
+        ],
+        "event_key": "tutor_side_forum_complaints_coalesce",
+        "event_type": "announcement",
+        "evidence": "Organizing is a stated option and score opacity creates discussion demand.",
+        "expected_impact": "Could convert isolated frustration into shared causal interpretations and early organizing signals without guaranteeing mass action.",
+        "status": "imminent",
+        "tick": 2
+      },
+      {
+        "actors": [
+          "families_buyers",
+          "platform_marketplace"
+        ],
+        "event_key": "family_price_reaction_visible",
+        "event_type": "announcement",
+        "evidence": "Scenario states families see price changes.",
+        "expected_impact": "Buyer complaints, lower conversion, or reduced booking frequency may create pressure for selective concessions or messaging adjustments.",
+        "status": "imminent",
+        "tick": 3
+      },
+      {
+        "actors": [
+          "tutor_organizers",
+          "consumer_regulators"
+        ],
+        "event_key": "first_regulatory_lobbying_attempts",
+        "event_type": "announcement",
+        "evidence": "Tutors can lobby regulators.",
+        "expected_impact": "Introduces external legitimacy pressure if tutor evidence becomes coherent enough to present as fairness or competition concern.",
+        "status": "possible_imminent",
+        "tick": 4
+      }
+    ],
+    "llm_call_id": "ac48eadb-9ec4-43cf-a3e7-b6300a1b88db",
+    "merge_hypotheses": [
+      {
+        "converging_parties": [
+          "platform_marketplace",
+          "established_tutors",
+          "new_tutors"
+        ],
+        "mechanism": "Temporary incentives, commission rebates, or score transparency tweaks reduce immediate pressure without reversing core policy.",
+        "merge_key": "selective_concession_merge",
+        "why_it_could_merge": "All sides retain value from marketplace continuity and may accept partial accommodation over disruptive exit."
+      },
+      {
+        "converging_parties": [
+          "platform_marketplace",
+          "families_buyers",
+          "established_tutors"
+        ],
+        "mechanism": "If matching quality visibly improves for families and incumbents keep demand, conflict may settle into grudging acceptance.",
+        "merge_key": "shared_quality_narrative_merge",
+        "why_it_could_merge": "Common interest in reliable outcomes can outweigh abstract governance concerns for many participants."
+      },
+      {
+        "converging_parties": [
+          "platform_marketplace",
+          "established_tutors"
+        ],
+        "mechanism": "Fear of rival platform gains could motivate private negotiations or retention programs.",
+        "merge_key": "common_competitor_threat_merge",
+        "why_it_could_merge": "Both parties lose if liquidity fragments too quickly across competitors."
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype": "tutors_marketplace_side",
+        "description": "Active and prospective freelance tutors on or considering the platform.",
+        "population_total": 12000
+      },
+      {
+        "archetype": "families_marketplace_side",
+        "description": "Active buyer households using or considering the platform for tutoring.",
+        "population_total": 40000
+      }
+    ],
+    "risk_flags": [
+      {
+        "description": "The corpus implies ranking opacity and fear of exclusion but does not specify measurable error or bias mechanisms.",
+        "risk_key": "opaque_algorithmic_harm_uncertainty",
+        "severity": "medium"
+      },
+      {
+        "description": "Established and new tutors experience the policy differently, weakening unified action at T0.",
+        "risk_key": "coalition_fragmentation",
+        "severity": "high"
+      },
+      {
+        "description": "Review history, platform familiarity, and buyer liquidity may make migration slower than grievance intensity suggests.",
+        "risk_key": "switching_cost_underestimation",
+        "severity": "high"
+      },
+      {
+        "description": "Family reaction may matter decisively, but T0 lacks direct evidence on price elasticity magnitude.",
+        "risk_key": "buyer_side_evidence_gap",
+        "severity": "medium"
+      },
+      {
+        "description": "Even if lobbying begins, institutional response may lag beyond the immediate simulation horizon.",
+        "risk_key": "regulatory_latency",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "platform_algorithmic_governance",
+      "core_pressures": [
+        "higher platform take rate",
+        "ranking opacity via AI matching score",
+        "income volatility for tutors",
+        "price pass-through to families",
+        "competitive poaching by rivals",
+        "collective action versus individual dependency"
+      ],
+      "endpoint_pressure": "Whether the platform sustains the new policy, modifies it, faces migration/organizing pressure, or encounters external constraints.",
+      "mode": "direct",
+      "scenario_key": "platform_006",
+      "summary": "A fictional freelance tutoring marketplace raises commissions and launches an AI matching score. Established high-rated tutors may tolerate or benefit from the change, newer tutors fear reduced visibility, families react to price and quality signals, and rival platforms market migration tools. The platform controls ranking and commission policy, while tutors may organize, exit, or seek regulatory scrutiny. T0 should preserve uncertainty around retention, migration, collective action, and external intervention.",
+      "time_horizon_ticks": 12,
+      "uncertainty_notes": [
+        "Exact market size, geography, and regulatory venue are unspecified.",
+        "No realized boycott, regulator action, or mass migration is established at T0.",
+        "AI score design, transparency, and error rate are not specified; fairness concerns are inferred from role effects."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "established_tutors",
+          "new_tutors",
+          "families_buyers"
+        ],
+        "evidence": "Users update beliefs based on direct earnings or booking outcomes more than abstract policy arguments.",
+        "level": "moderate",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "established_tutors",
+          "new_tutors"
+        ],
+        "evidence": "Many tutors may wait for proof that others will act before joining petitions, exits, or complaints.",
+        "level": "high_relevance",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "established_tutors",
+          "new_tutors"
+        ],
+        "evidence": "Dependency on platform income and visibility suppresses open criticism by some tutors.",
+        "level": "moderate_to_high",
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "tutor_forums",
+          "tutor_organizers"
+        ],
+        "evidence": "Tutor-side discussions likely cluster by role and shared grievances.",
+        "level": "moderate",
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "tutor_exit",
+          "collective_action"
+        ],
+        "evidence": "Migration or organizing becomes more likely when multiple peers validate the move and provide tactics.",
+        "level": "moderate",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "new_tutors",
+          "established_tutors"
+        ],
+        "evidence": "Platform changes may sharpen identity as precarious newcomers versus protected incumbents.",
+        "level": "emergent",
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "families_buyers",
+          "established_tutors"
+        ],
+        "evidence": "If service quality remains acceptable, outrage may fade even if dissatisfaction persists privately.",
+        "level": "moderate",
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Review history, client continuity, profile setup effort, and uncertainty about demand on rival platforms damp immediate exit.",
+        "influence_key": "switching_costs_tutor_side"
+      },
+      {
+        "description": "Families vary in price sensitivity; some reduce session frequency or search alternatives if commission pass-through raises costs.",
+        "influence_key": "economic_elasticity_buyer_side"
+      },
+      {
+        "description": "Opaque AI score can intensify fairness narratives because affected users cannot easily verify causes of lower visibility.",
+        "influence_key": "ranking_opacity"
+      },
+      {
+        "description": "Uneven effects across tutor cohorts may weaken coalition durability and slow unified action.",
+        "influence_key": "incumbent_newcomer_split"
+      },
+      {
+        "description": "Control over ranking, presentation, and fees gives the platform strong agenda-setting power at T0.",
+        "influence_key": "platform_ownership_leverage"
+      },
+      {
+        "description": "Migration tools lower friction enough to make partial multi-homing or gradual exit plausible rather than immediate mass departure.",
+        "influence_key": "competitive_substitution_path"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "platform_marketplace",
+        "behavior_axes": {
+          "adaptability": 7,
+          "extractiveness": 6,
+          "opacity": 7,
+          "responsiveness": 4,
+          "risk_tolerance": 6
+        },
+        "ideology_axes": {
+          "consumer_welfare_signaling": 6,
+          "innovation_favorability": 8,
+          "market_control": 8,
+          "worker_voice": 3
+        },
+        "reputation": 6,
+        "secrecy": 7,
+        "tendency": "optimize monetization and control while preserving marketplace stability",
+        "trustworthiness": 4
+      },
+      {
+        "actor_name": "established_tutors",
+        "behavior_axes": {
+          "adaptability": 6,
+          "collectivism": 4,
+          "exit_propensity": 3,
+          "risk_tolerance": 4,
+          "status_defense": 7
+        },
+        "ideology_axes": {
+          "market_fairness": 6,
+          "platform_dependence_acceptance": 6,
+          "worker_voice": 5
+        },
+        "reputation": 7,
+        "secrecy": 4,
+        "tendency": "protect existing demand channels and hedge rather than lead confrontation",
+        "trustworthiness": 6
+      },
+      {
+        "actor_name": "new_tutors",
+        "behavior_axes": {
+          "adaptability": 7,
+          "collectivism": 5,
+          "exit_propensity": 6,
+          "grievance_sensitivity": 8,
+          "risk_tolerance": 5
+        },
+        "ideology_axes": {
+          "market_fairness": 8,
+          "platform_dependence_acceptance": 3,
+          "worker_voice": 6
+        },
+        "reputation": 3,
+        "secrecy": 5,
+        "tendency": "respond quickly to perceived exclusion and compare alternatives",
+        "trustworthiness": 5
+      },
+      {
+        "actor_name": "families_buyers",
+        "behavior_axes": {
+          "convenience_preference": 8,
+          "loyalty": 4,
+          "price_sensitivity": 7,
+          "quality_sensitivity": 7,
+          "voice_propensity": 3
+        },
+        "ideology_axes": {
+          "consumer_welfare": 8,
+          "innovation_acceptance": 6,
+          "labor_fairness_attention": 4
+        },
+        "reputation": 5,
+        "secrecy": 3,
+        "tendency": "stay with low-friction options unless value deteriorates",
+        "trustworthiness": 6
+      },
+      {
+        "actor_name": "rival_platforms",
+        "behavior_axes": {
+          "adaptability": 8,
+          "aggressiveness": 7,
+          "opportunism": 8,
+          "subsidy_willingness": 6
+        },
+        "ideology_axes": {
+          "competition_framing": 8,
+          "openness_signaling": 5,
+          "platform_control": 7
+        },
+        "reputation": 5,
+        "secrecy": 5,
+        "tendency": "capitalize on dissatisfaction if switching costs can be reduced",
+        "trustworthiness": 4
+      },
+      {
+        "actor_name": "tutor_organizers",
+        "behavior_axes": {
+          "coalition_building": 7,
+          "conflict_tolerance": 5,
+          "evidence_seeking": 6,
+          "persistence": 6
+        },
+        "ideology_axes": {
+          "market_fairness": 8,
+          "platform_dependence_acceptance": 2,
+          "worker_voice": 8
+        },
+        "reputation": 4,
+        "secrecy": 4,
+        "tendency": "convert diffuse grievance into visible collective demands",
+        "trustworthiness": 6
+      },
+      {
+        "actor_name": "consumer_regulators",
+        "behavior_axes": {
+          "evidence_threshold": 7,
+          "interventionism": 5,
+          "proceduralism": 8,
+          "reactivity": 4
+        },
+        "ideology_axes": {
+          "competition_concern": 6,
+          "consumer_welfare": 8,
+          "due_process": 8
+        },
+        "reputation": 6,
+        "secrecy": 3,
+        "tendency": "act slowly unless complaints become legible and public",
+        "trustworthiness": 7
+      },
+      {
+        "actor_name": "tutor_forums",
+        "behavior_axes": {
+          "amplification": 7,
+          "solidarity": 5,
+          "verification": 3,
+          "volatility": 6
+        },
+        "ideology_axes": {
+          "anti_platform_bias": 5,
+          "consumer_focus": 3,
+          "worker_voice": 7
+        },
+        "reputation": 4,
+        "secrecy": 2,
+        "tendency": "surface anecdotal evidence and accelerate shared interpretations",
+        "trustworthiness": 4
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 554,
+        "end": 554,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 554,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

@@ -1,0 +1,504 @@
+[
+  {
+    "actor_type": "leadership_group",
+    "archetype": {
+      "actor_type": "leadership_group",
+      "constraints": [
+        "budget",
+        "political oversight",
+        "staff morale"
+      ],
+      "decision_rights": [
+        "pause_tool",
+        "narrow_use",
+        "message_public",
+        "request_vendor_patch"
+      ],
+      "fictionalized": true,
+      "name": "agency_leadership",
+      "resources": [
+        "executive authority",
+        "internal reporting lines"
+      ],
+      "role": "senior officials directing agency response",
+      "stakes": [
+        "contain crisis",
+        "preserve service throughput",
+        "avoid scandal",
+        "manage vendor relationship"
+      ],
+      "trait_vector": {
+        "actor_name": "agency_leadership",
+        "behavior_axes": {
+          "caution": 0.7,
+          "crisis_avoidance": 0.8,
+          "message_control": 0.8,
+          "responsiveness": 0.5
+        },
+        "ideology_axes": {
+          "automation_affinity": 0.5,
+          "fairness_priority": 0.6,
+          "political_risk_aversion": 0.8
+        },
+        "reputation": 0.5,
+        "secrecy": 0.5,
+        "tendency": "maintain continuity until stronger evidence shifts calculus",
+        "trustworthiness": 0.45
+      }
+    },
+    "big_bang_id": "2c1ab7fe-db00-4ad0-afe1-f7c6501a6c10",
+    "created_at": "2026-05-05T02:28:12.504262+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "30f3e714-4a8b-499a-8b9e-05cfb6615bc7",
+    "name": "agency_leadership",
+    "status": "active",
+    "updated_at": "2026-05-05T02:28:12.504262+00:00"
+  },
+  {
+    "actor_type": "oversight_body",
+    "archetype": {
+      "actor_type": "oversight_body",
+      "constraints": [
+        "need for mandate",
+        "access limitations",
+        "time"
+      ],
+      "decision_rights": [
+        "audit_if_commissioned",
+        "request_documents",
+        "publish_findings_if_authorized"
+      ],
+      "fictionalized": true,
+      "name": "oversight_auditors",
+      "resources": [
+        "audit methods",
+        "institutional credibility"
+      ],
+      "role": "internal or external auditors who could examine the system",
+      "stakes": [
+        "fact-finding",
+        "compliance assessment",
+        "recommendations"
+      ],
+      "trait_vector": {
+        "actor_name": "oversight_auditors",
+        "behavior_axes": {
+          "caution": 0.8,
+          "publicness": 0.4,
+          "responsiveness": 0.4,
+          "thoroughness": 0.9
+        },
+        "ideology_axes": {
+          "accountability_priority": 0.9,
+          "automation_affinity": 0.0,
+          "independence": 0.8
+        },
+        "reputation": 0.65,
+        "secrecy": 0.3,
+        "tendency": "methodical verification if activated",
+        "trustworthiness": 0.8
+      }
+    },
+    "big_bang_id": "2c1ab7fe-db00-4ad0-afe1-f7c6501a6c10",
+    "created_at": "2026-05-05T02:28:12.504262+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "2fe9881f-767b-462b-bcf1-94c8b242cb10",
+    "name": "oversight_auditors",
+    "status": "active",
+    "updated_at": "2026-05-05T02:28:12.504262+00:00"
+  },
+  {
+    "actor_type": "workforce_group",
+    "archetype": {
+      "actor_type": "workforce_group",
+      "constraints": [
+        "managerial directives",
+        "tool integration into workflow",
+        "limited time"
+      ],
+      "decision_rights": [
+        "flag_cases",
+        "escalate_exceptions",
+        "informal workarounds_within_policy_limits"
+      ],
+      "fictionalized": true,
+      "name": "caseworkers",
+      "resources": [
+        "case knowledge",
+        "applicant contact context",
+        "appeals documentation"
+      ],
+      "role": "frontline staff using or working around automated outputs",
+      "stakes": [
+        "professional autonomy",
+        "workload",
+        "reputational protection",
+        "fair treatment of applicants"
+      ],
+      "trait_vector": {
+        "actor_name": "caseworkers",
+        "behavior_axes": {
+          "caution": 0.7,
+          "responsiveness": 0.6,
+          "whistle_propensity": 0.3,
+          "workaround_propensity": 0.5
+        },
+        "ideology_axes": {
+          "automation_affinity": 0.2,
+          "fairness_priority": 0.8,
+          "job_security_concern": 0.7
+        },
+        "reputation": 0.55,
+        "secrecy": 0.4,
+        "tendency": "quiet internal skepticism with selective compliance",
+        "trustworthiness": 0.65
+      }
+    },
+    "big_bang_id": "2c1ab7fe-db00-4ad0-afe1-f7c6501a6c10",
+    "created_at": "2026-05-05T02:28:12.504262+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "00fe99db-a323-4aa2-bd82-1693d9514d64",
+    "name": "caseworkers",
+    "status": "active",
+    "updated_at": "2026-05-05T02:28:12.504262+00:00"
+  },
+  {
+    "actor_type": "institution",
+    "archetype": {
+      "actor_type": "institution",
+      "constraints": [
+        "service demand",
+        "political scrutiny",
+        "vendor contract dependence",
+        "administrative burden"
+      ],
+      "decision_rights": [
+        "pause_or_continue_tool_usage",
+        "order_internal_review",
+        "commission_audit",
+        "issue_public_guidance"
+      ],
+      "fictionalized": true,
+      "name": "benefits_agency",
+      "resources": [
+        "case records",
+        "operational authority",
+        "communications staff",
+        "appeals process"
+      ],
+      "role": "public benefits administrator and deployment authority",
+      "stakes": [
+        "service continuity",
+        "legal compliance",
+        "public legitimacy",
+        "budget discipline",
+        "backlog management"
+      ],
+      "trait_vector": {
+        "actor_name": "benefits_agency",
+        "behavior_axes": {
+          "caution": 0.6,
+          "opacity": 0.5,
+          "process_orientation": 0.8,
+          "responsiveness": 0.5
+        },
+        "ideology_axes": {
+          "automation_affinity": 0.4,
+          "risk_aversion": 0.7,
+          "welfare_access_priority": 0.4
+        },
+        "reputation": 0.5,
+        "secrecy": 0.5,
+        "tendency": "institutional self-protection with moderate openness to corrective process",
+        "trustworthiness": 0.45
+      }
+    },
+    "big_bang_id": "2c1ab7fe-db00-4ad0-afe1-f7c6501a6c10",
+    "created_at": "2026-05-05T02:28:12.504262+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "5696272a-a499-4e12-8103-785f4e6f4928",
+    "name": "benefits_agency",
+    "status": "active",
+    "updated_at": "2026-05-05T02:28:12.504262+00:00"
+  },
+  {
+    "actor_type": "company",
+    "archetype": {
+      "actor_type": "company",
+      "constraints": [
+        "contract scope",
+        "access to agency data",
+        "public blame exposure"
+      ],
+      "decision_rights": [
+        "propose_patch",
+        "analyze_logs",
+        "support_retraining_or_rule_change"
+      ],
+      "fictionalized": true,
+      "name": "eligibility_vendor",
+      "resources": [
+        "source code access",
+        "technical staff",
+        "system diagnostics"
+      ],
+      "role": "software supplier and technical maintainer",
+      "stakes": [
+        "contract retention",
+        "reputation",
+        "liability containment",
+        "narrative that data quality drove errors"
+      ],
+      "trait_vector": {
+        "actor_name": "eligibility_vendor",
+        "behavior_axes": {
+          "caution": 0.4,
+          "defensiveness": 0.8,
+          "opacity": 0.6,
+          "responsiveness": 0.7
+        },
+        "ideology_axes": {
+          "accountability_acceptance": 0.3,
+          "automation_affinity": 0.9,
+          "commercial_preservation": 0.8
+        },
+        "reputation": 0.45,
+        "secrecy": 0.6,
+        "tendency": "patch-first narrative emphasizing data issues over model fault",
+        "trustworthiness": 0.35
+      }
+    },
+    "big_bang_id": "2c1ab7fe-db00-4ad0-afe1-f7c6501a6c10",
+    "created_at": "2026-05-05T02:28:12.504262+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "71deaba0-6025-4ff9-9c2e-999fbef2ffc6",
+    "name": "eligibility_vendor",
+    "status": "active",
+    "updated_at": "2026-05-05T02:28:12.504262+00:00"
+  },
+  {
+    "actor_type": "public_group",
+    "archetype": {
+      "actor_type": "public_group",
+      "constraints": [
+        "information asymmetry",
+        "time pressure",
+        "economic precarity",
+        "digital access barriers"
+      ],
+      "decision_rights": [
+        "file_complaints",
+        "appeal_denials",
+        "share_experiences_publicly"
+      ],
+      "fictionalized": true,
+      "name": "applicants",
+      "resources": [
+        "personal documentation",
+        "complaint narratives",
+        "appeal rights"
+      ],
+      "role": "benefits applicants affected by eligibility decisions",
+      "stakes": [
+        "access to benefits",
+        "procedural fairness",
+        "timely review",
+        "clear explanations"
+      ],
+      "trait_vector": {
+        "actor_name": "applicants",
+        "behavior_axes": {
+          "appeal_propensity": 0.4,
+          "caution": 0.6,
+          "responsiveness": 0.5,
+          "voice_propensity": 0.4
+        },
+        "ideology_axes": {
+          "automation_affinity": -0.1,
+          "fairness_priority": 0.9,
+          "institutional_trust": 0.3
+        },
+        "reputation": 0.5,
+        "secrecy": 0.3,
+        "tendency": "outcome-driven evaluation of legitimacy",
+        "trustworthiness": 0.6
+      }
+    },
+    "big_bang_id": "2c1ab7fe-db00-4ad0-afe1-f7c6501a6c10",
+    "created_at": "2026-05-05T02:28:12.504262+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "8823b2de-03e1-4263-be58-f9afbbdd2b0f",
+    "name": "applicants",
+    "status": "active",
+    "updated_at": "2026-05-05T02:28:12.504262+00:00"
+  },
+  {
+    "actor_type": "civil_society_group",
+    "archetype": {
+      "actor_type": "civil_society_group",
+      "constraints": [
+        "limited formal authority",
+        "evidence verification burden"
+      ],
+      "decision_rights": [
+        "campaign",
+        "collect_case_reports",
+        "petition_oversight_bodies"
+      ],
+      "fictionalized": true,
+      "name": "advocacy_groups",
+      "resources": [
+        "media contacts",
+        "community trust",
+        "organizing capacity"
+      ],
+      "role": "outside watchdogs and applicant advocates",
+      "stakes": [
+        "audit",
+        "transparency",
+        "harm mitigation",
+        "policy reform"
+      ],
+      "trait_vector": {
+        "actor_name": "advocacy_groups",
+        "behavior_axes": {
+          "adversariality": 0.6,
+          "amplification": 0.8,
+          "caution": 0.5,
+          "responsiveness": 0.8
+        },
+        "ideology_axes": {
+          "accountability_priority": 0.95,
+          "automation_affinity": -0.3,
+          "procedural_reform": 0.8
+        },
+        "reputation": 0.6,
+        "secrecy": 0.2,
+        "tendency": "convert anecdotal harm into organized scrutiny",
+        "trustworthiness": 0.7
+      }
+    },
+    "big_bang_id": "2c1ab7fe-db00-4ad0-afe1-f7c6501a6c10",
+    "created_at": "2026-05-05T02:28:12.504262+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "b19f3192-4514-4971-8152-f0046856ab34",
+    "name": "advocacy_groups",
+    "status": "active",
+    "updated_at": "2026-05-05T02:28:12.504262+00:00"
+  },
+  {
+    "actor_type": "institution",
+    "archetype": {
+      "actor_type": "institution",
+      "constraints": [
+        "case intake delay",
+        "standing and review thresholds"
+      ],
+      "decision_rights": [
+        "review_appeals_later",
+        "remand_cases",
+        "order_relief_in_specific_disputes"
+      ],
+      "fictionalized": true,
+      "name": "courts",
+      "resources": [
+        "legal authority",
+        "precedent",
+        "hearing process"
+      ],
+      "role": "potential appellate or judicial review body",
+      "stakes": [
+        "procedural legality",
+        "administrative fairness",
+        "record quality"
+      ],
+      "trait_vector": {
+        "actor_name": "courts",
+        "behavior_axes": {
+          "caution": 0.9,
+          "formalism": 0.9,
+          "opacity": 0.4,
+          "responsiveness": 0.2
+        },
+        "ideology_axes": {
+          "automation_affinity": 0.0,
+          "due_process_priority": 0.9,
+          "institutional_restraint": 0.8
+        },
+        "reputation": 0.7,
+        "secrecy": 0.3,
+        "tendency": "slow legitimacy arbiter",
+        "trustworthiness": 0.75
+      }
+    },
+    "big_bang_id": "2c1ab7fe-db00-4ad0-afe1-f7c6501a6c10",
+    "created_at": "2026-05-05T02:28:12.504262+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "bc5d5947-acfe-493a-b85c-bb4ac5f013a0",
+    "name": "courts",
+    "status": "active",
+    "updated_at": "2026-05-05T02:28:12.504262+00:00"
+  },
+  {
+    "actor_type": "affected_subgroup",
+    "archetype": {
+      "actor_type": "affected_subgroup",
+      "constraints": [
+        "proof burdens",
+        "fatigue",
+        "fear of retaliation or futility"
+      ],
+      "decision_rights": [
+        "appeal",
+        "join_advocacy",
+        "contact_media_or_legal_aid"
+      ],
+      "fictionalized": true,
+      "name": "wrongly_denied_applicants",
+      "resources": [
+        "specific adverse cases",
+        "high-salience testimony"
+      ],
+      "role": "subset of applicants likely experiencing false negatives",
+      "stakes": [
+        "reversal of denials",
+        "urgent material support",
+        "accountability"
+      ],
+      "trait_vector": {
+        "actor_name": "wrongly_denied_applicants",
+        "behavior_axes": {
+          "appeal_propensity": 0.9,
+          "caution": 0.4,
+          "responsiveness": 0.8,
+          "voice_propensity": 0.7
+        },
+        "ideology_axes": {
+          "automation_affinity": -0.8,
+          "fairness_priority": 1.0,
+          "institutional_trust": 0.1
+        },
+        "reputation": 0.5,
+        "secrecy": 0.2,
+        "tendency": "high-salience grievance and evidence sharing",
+        "trustworthiness": 0.7
+      }
+    },
+    "big_bang_id": "2c1ab7fe-db00-4ad0-afe1-f7c6501a6c10",
+    "created_at": "2026-05-05T02:28:12.504262+00:00",
+    "created_tick_index": 0,
+    "description": null,
+    "id": "dd5d2b19-b2c1-4b60-bf74-84cf25935212",
+    "name": "wrongly_denied_applicants",
+    "status": "active",
+    "updated_at": "2026-05-05T02:28:12.504262+00:00"
+  }
+]

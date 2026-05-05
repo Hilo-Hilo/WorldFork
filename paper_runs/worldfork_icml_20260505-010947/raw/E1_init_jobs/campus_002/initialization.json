@@ -1,0 +1,1576 @@
+{
+  "big_bang_id": "c1f3007c-c124-4a3a-9261-27c336c34b58",
+  "initializer_output": {
+    "actors": [
+      {
+        "actor_type": "institution",
+        "fictionalized": true,
+        "name": "north_vale_university_administration",
+        "public_role": "university leadership"
+      },
+      {
+        "actor_type": "institution",
+        "fictionalized": true,
+        "name": "north_vale_athletics_department",
+        "public_role": "athletics administration"
+      },
+      {
+        "actor_type": "individual",
+        "fictionalized": true,
+        "name": "coach_arden_reed",
+        "public_role": "star head coach"
+      },
+      {
+        "actor_type": "group",
+        "fictionalized": true,
+        "name": "current_athletes",
+        "public_role": "team athletes"
+      },
+      {
+        "actor_type": "group",
+        "fictionalized": true,
+        "name": "former_athletes",
+        "public_role": "former team members"
+      },
+      {
+        "actor_type": "institution",
+        "fictionalized": true,
+        "name": "student_journal",
+        "public_role": "student journalists"
+      },
+      {
+        "actor_type": "institution",
+        "fictionalized": true,
+        "name": "outside_counsel_firm",
+        "public_role": "external investigators/counsel"
+      },
+      {
+        "actor_type": "group",
+        "fictionalized": true,
+        "name": "alumni_support_network",
+        "public_role": "alumni defenders of coach"
+      },
+      {
+        "actor_type": "group",
+        "fictionalized": true,
+        "name": "major_donors",
+        "public_role": "influential donors"
+      },
+      {
+        "actor_type": "group",
+        "fictionalized": true,
+        "name": "campus_students",
+        "public_role": "general student body"
+      },
+      {
+        "actor_type": "institution",
+        "fictionalized": true,
+        "name": "board_oversight_committee",
+        "public_role": "board-level oversight actors"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Witnesses perceive reduced retaliation risk and more corroborating accounts emerge.",
+        "branch_key": "interim_suspension_increases_reporting",
+        "divergence_signal": "Increase in on-record or attributable testimony, reduced athlete fear signals, and improved trust toward administration.",
+        "trigger": "Administration places coach on temporary leave before findings are final."
+      },
+      {
+        "alternate_path": "Students and some former athletes interpret caution as protectionism, increasing mobilization and distrust.",
+        "branch_key": "no_interim_action_deepens_legitimacy_gap",
+        "divergence_signal": "Campus criticism rises, student paper coverage intensifies, and private witness cooperation remains low.",
+        "trigger": "Administration keeps coach active while emphasizing process alone."
+      },
+      {
+        "alternate_path": "Alumni and donor support consolidates around fairness-to-coach framing, slowing institutional action.",
+        "branch_key": "partial_evidence_backlash",
+        "divergence_signal": "Public discourse shifts from athlete safety to media credibility and due-process rhetoric.",
+        "trigger": "Early reporting contains gaps or ambiguities that defenders amplify."
+      },
+      {
+        "alternate_path": "Previously split groups partially converge on acceptance of proportional institutional response.",
+        "branch_key": "credible_investigation_merges_audiences",
+        "divergence_signal": "Decline in narrative polarization, more aligned donor/alumni messaging, and reduced conflict toward student journalists.",
+        "trigger": "Outside counsel is perceived as independent and produces specific, testable findings."
+      }
+    ],
+    "channels": [
+      {
+        "audience": "campus_public",
+        "channel_key": "campus_student_press",
+        "owner_actor": "student_journal",
+        "type": "media",
+        "visibility": "high"
+      },
+      {
+        "audience": "campus_and_external_public",
+        "channel_key": "official_university_statements",
+        "owner_actor": "north_vale_university_administration",
+        "type": "institutional",
+        "visibility": "high"
+      },
+      {
+        "audience": "athletics_participants",
+        "channel_key": "athletics_internal_communications",
+        "owner_actor": "north_vale_athletics_department",
+        "type": "institutional",
+        "visibility": "low"
+      },
+      {
+        "audience": "alumni_external_public",
+        "channel_key": "alumni_networks",
+        "owner_actor": "alumni_support_network",
+        "type": "social",
+        "visibility": "medium"
+      },
+      {
+        "audience": "institutional_leadership",
+        "channel_key": "donor_private_outreach",
+        "owner_actor": "major_donors",
+        "type": "elite_private",
+        "visibility": "low"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "athletics_participants",
+        "attention_level": 0.89,
+        "cohort_key": "current_athletes_quiet_concerned",
+        "expression_level": 0.24,
+        "fatigue": 0.52,
+        "fear_of_isolation": 0.82,
+        "label": "Current athletes with private concern and public caution",
+        "mobilization_readiness": 0.35,
+        "perceived_majority": "believe many teammates are worried but unsure who will speak publicly",
+        "population_share_of_archetype": 0.611,
+        "private_belief_public_gap": 0.66,
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 110,
+        "stance_axes": {
+          "coach_accountability": 0.64,
+          "institutional_trust": 0.32,
+          "public_disclosure_support": 0.38,
+          "retaliation_fear": 0.81
+        }
+      },
+      {
+        "archetype_key": "athletics_participants",
+        "attention_level": 0.78,
+        "cohort_key": "current_athletes_defensive_loyalists",
+        "expression_level": 0.58,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.44,
+        "label": "Current athletes loyal to coach or team image",
+        "mobilization_readiness": 0.57,
+        "perceived_majority": "believe vocal defenders may shape public narrative",
+        "population_share_of_archetype": 0.278,
+        "private_belief_public_gap": 0.19,
+        "representation_mode": "estimated_minority_cohort",
+        "represented_population": 50,
+        "stance_axes": {
+          "coach_accountability": 0.22,
+          "institutional_trust": 0.46,
+          "public_disclosure_support": 0.21,
+          "retaliation_fear": 0.41
+        }
+      },
+      {
+        "archetype_key": "athletics_participants",
+        "attention_level": 0.71,
+        "cohort_key": "former_athletes_mixed_witnesses",
+        "expression_level": 0.47,
+        "fatigue": 0.49,
+        "fear_of_isolation": 0.39,
+        "label": "Former athletes with mixed experiences and variable willingness to speak",
+        "mobilization_readiness": 0.46,
+        "perceived_majority": "uncertain whether current athletes can speak safely",
+        "population_share_of_archetype": 0.111,
+        "private_belief_public_gap": 0.21,
+        "representation_mode": "estimated_residual_cohort",
+        "represented_population": 20,
+        "stance_axes": {
+          "coach_accountability": 0.57,
+          "institutional_trust": 0.29,
+          "public_disclosure_support": 0.55,
+          "retaliation_fear": 0.36
+        }
+      },
+      {
+        "archetype_key": "campus_public",
+        "attention_level": 0.56,
+        "cohort_key": "campus_students_wait_and_watch",
+        "expression_level": 0.27,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.26,
+        "label": "General students following the story with incomplete information",
+        "mobilization_readiness": 0.22,
+        "perceived_majority": "believe more evidence is needed before firm judgment",
+        "population_share_of_archetype": 0.7,
+        "private_belief_public_gap": 0.17,
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 8400,
+        "stance_axes": {
+          "coach_accountability": 0.53,
+          "institutional_trust": 0.43,
+          "public_disclosure_support": 0.61,
+          "retaliation_fear": 0.18
+        }
+      },
+      {
+        "archetype_key": "campus_public",
+        "attention_level": 0.77,
+        "cohort_key": "campus_students_activist_accountability",
+        "expression_level": 0.62,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.21,
+        "label": "Students inclined toward accountability advocacy",
+        "mobilization_readiness": 0.63,
+        "perceived_majority": "believe administration often protects athletics",
+        "population_share_of_archetype": 0.2,
+        "private_belief_public_gap": 0.09,
+        "representation_mode": "estimated_active_minority",
+        "represented_population": 2400,
+        "stance_axes": {
+          "coach_accountability": 0.81,
+          "institutional_trust": 0.24,
+          "public_disclosure_support": 0.82,
+          "retaliation_fear": 0.22
+        }
+      },
+      {
+        "archetype_key": "campus_public",
+        "attention_level": 0.49,
+        "cohort_key": "campus_students_athletics_first",
+        "expression_level": 0.41,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.24,
+        "label": "Students prioritizing program reputation and continuity",
+        "mobilization_readiness": 0.29,
+        "perceived_majority": "believe media may be overreacting",
+        "population_share_of_archetype": 0.1,
+        "private_belief_public_gap": 0.08,
+        "representation_mode": "estimated_supportive_minority",
+        "represented_population": 1200,
+        "stance_axes": {
+          "coach_accountability": 0.28,
+          "institutional_trust": 0.51,
+          "public_disclosure_support": 0.34,
+          "retaliation_fear": 0.11
+        }
+      },
+      {
+        "archetype_key": "alumni_external_public",
+        "attention_level": 0.72,
+        "cohort_key": "alumni_defenders",
+        "expression_level": 0.68,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.12,
+        "label": "Alumni and supporters defending the coach",
+        "mobilization_readiness": 0.54,
+        "perceived_majority": "believe winning program deserves benefit of the doubt",
+        "population_share_of_archetype": 0.35,
+        "private_belief_public_gap": 0.07,
+        "representation_mode": "estimated_vocal_bloc",
+        "represented_population": 15750,
+        "stance_axes": {
+          "coach_accountability": 0.18,
+          "institutional_trust": 0.49,
+          "public_disclosure_support": 0.26,
+          "retaliation_fear": 0.06
+        }
+      },
+      {
+        "archetype_key": "alumni_external_public",
+        "attention_level": 0.51,
+        "cohort_key": "alumni_wait_for_findings",
+        "expression_level": 0.24,
+        "fatigue": 0.17,
+        "fear_of_isolation": 0.15,
+        "label": "Alumni waiting for investigation findings",
+        "mobilization_readiness": 0.18,
+        "perceived_majority": "believe institution should investigate before acting definitively",
+        "population_share_of_archetype": 0.5,
+        "private_belief_public_gap": 0.11,
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 22500,
+        "stance_axes": {
+          "coach_accountability": 0.48,
+          "institutional_trust": 0.45,
+          "public_disclosure_support": 0.46,
+          "retaliation_fear": 0.05
+        }
+      },
+      {
+        "archetype_key": "alumni_external_public",
+        "attention_level": 0.64,
+        "cohort_key": "alumni_accountability_minor",
+        "expression_level": 0.39,
+        "fatigue": 0.26,
+        "fear_of_isolation": 0.29,
+        "label": "Alumni concerned about culture and reputational harm",
+        "mobilization_readiness": 0.36,
+        "perceived_majority": "believe defenders are louder than they are numerous",
+        "population_share_of_archetype": 0.15,
+        "private_belief_public_gap": 0.18,
+        "representation_mode": "estimated_minor_cohort",
+        "represented_population": 6750,
+        "stance_axes": {
+          "coach_accountability": 0.74,
+          "institutional_trust": 0.31,
+          "public_disclosure_support": 0.59,
+          "retaliation_fear": 0.08
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "athletics_participants",
+        "attention_level": 0.89,
+        "cohort_key": "current_athletes_quiet_concerned",
+        "expression_level": 0.24,
+        "fatigue": 0.52,
+        "fear_of_isolation": 0.82,
+        "label": "Current athletes with private concern and public caution",
+        "mobilization_readiness": 0.35,
+        "perceived_majority": "believe many teammates are worried but unsure who will speak publicly",
+        "population_share_of_archetype": 0.611,
+        "private_belief_public_gap": 0.66,
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 110,
+        "stance_axes": {
+          "coach_accountability": 0.64,
+          "institutional_trust": 0.32,
+          "public_disclosure_support": 0.38,
+          "retaliation_fear": 0.81
+        }
+      },
+      {
+        "archetype_key": "athletics_participants",
+        "attention_level": 0.78,
+        "cohort_key": "current_athletes_defensive_loyalists",
+        "expression_level": 0.58,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.44,
+        "label": "Current athletes loyal to coach or team image",
+        "mobilization_readiness": 0.57,
+        "perceived_majority": "believe vocal defenders may shape public narrative",
+        "population_share_of_archetype": 0.278,
+        "private_belief_public_gap": 0.19,
+        "representation_mode": "estimated_minority_cohort",
+        "represented_population": 50,
+        "stance_axes": {
+          "coach_accountability": 0.22,
+          "institutional_trust": 0.46,
+          "public_disclosure_support": 0.21,
+          "retaliation_fear": 0.41
+        }
+      },
+      {
+        "archetype_key": "athletics_participants",
+        "attention_level": 0.71,
+        "cohort_key": "former_athletes_mixed_witnesses",
+        "expression_level": 0.47,
+        "fatigue": 0.49,
+        "fear_of_isolation": 0.39,
+        "label": "Former athletes with mixed experiences and variable willingness to speak",
+        "mobilization_readiness": 0.46,
+        "perceived_majority": "uncertain whether current athletes can speak safely",
+        "population_share_of_archetype": 0.111,
+        "private_belief_public_gap": 0.21,
+        "representation_mode": "estimated_residual_cohort",
+        "represented_population": 20,
+        "stance_axes": {
+          "coach_accountability": 0.57,
+          "institutional_trust": 0.29,
+          "public_disclosure_support": 0.55,
+          "retaliation_fear": 0.36
+        }
+      },
+      {
+        "archetype_key": "campus_public",
+        "attention_level": 0.56,
+        "cohort_key": "campus_students_wait_and_watch",
+        "expression_level": 0.27,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.26,
+        "label": "General students following the story with incomplete information",
+        "mobilization_readiness": 0.22,
+        "perceived_majority": "believe more evidence is needed before firm judgment",
+        "population_share_of_archetype": 0.7,
+        "private_belief_public_gap": 0.17,
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 8400,
+        "stance_axes": {
+          "coach_accountability": 0.53,
+          "institutional_trust": 0.43,
+          "public_disclosure_support": 0.61,
+          "retaliation_fear": 0.18
+        }
+      },
+      {
+        "archetype_key": "campus_public",
+        "attention_level": 0.77,
+        "cohort_key": "campus_students_activist_accountability",
+        "expression_level": 0.62,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.21,
+        "label": "Students inclined toward accountability advocacy",
+        "mobilization_readiness": 0.63,
+        "perceived_majority": "believe administration often protects athletics",
+        "population_share_of_archetype": 0.2,
+        "private_belief_public_gap": 0.09,
+        "representation_mode": "estimated_active_minority",
+        "represented_population": 2400,
+        "stance_axes": {
+          "coach_accountability": 0.81,
+          "institutional_trust": 0.24,
+          "public_disclosure_support": 0.82,
+          "retaliation_fear": 0.22
+        }
+      },
+      {
+        "archetype_key": "campus_public",
+        "attention_level": 0.49,
+        "cohort_key": "campus_students_athletics_first",
+        "expression_level": 0.41,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.24,
+        "label": "Students prioritizing program reputation and continuity",
+        "mobilization_readiness": 0.29,
+        "perceived_majority": "believe media may be overreacting",
+        "population_share_of_archetype": 0.1,
+        "private_belief_public_gap": 0.08,
+        "representation_mode": "estimated_supportive_minority",
+        "represented_population": 1200,
+        "stance_axes": {
+          "coach_accountability": 0.28,
+          "institutional_trust": 0.51,
+          "public_disclosure_support": 0.34,
+          "retaliation_fear": 0.11
+        }
+      },
+      {
+        "archetype_key": "alumni_external_public",
+        "attention_level": 0.72,
+        "cohort_key": "alumni_defenders",
+        "expression_level": 0.68,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.12,
+        "label": "Alumni and supporters defending the coach",
+        "mobilization_readiness": 0.54,
+        "perceived_majority": "believe winning program deserves benefit of the doubt",
+        "population_share_of_archetype": 0.35,
+        "private_belief_public_gap": 0.07,
+        "representation_mode": "estimated_vocal_bloc",
+        "represented_population": 15750,
+        "stance_axes": {
+          "coach_accountability": 0.18,
+          "institutional_trust": 0.49,
+          "public_disclosure_support": 0.26,
+          "retaliation_fear": 0.06
+        }
+      },
+      {
+        "archetype_key": "alumni_external_public",
+        "attention_level": 0.51,
+        "cohort_key": "alumni_wait_for_findings",
+        "expression_level": 0.24,
+        "fatigue": 0.17,
+        "fear_of_isolation": 0.15,
+        "label": "Alumni waiting for investigation findings",
+        "mobilization_readiness": 0.18,
+        "perceived_majority": "believe institution should investigate before acting definitively",
+        "population_share_of_archetype": 0.5,
+        "private_belief_public_gap": 0.11,
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 22500,
+        "stance_axes": {
+          "coach_accountability": 0.48,
+          "institutional_trust": 0.45,
+          "public_disclosure_support": 0.46,
+          "retaliation_fear": 0.05
+        }
+      },
+      {
+        "archetype_key": "alumni_external_public",
+        "attention_level": 0.64,
+        "cohort_key": "alumni_accountability_minor",
+        "expression_level": 0.39,
+        "fatigue": 0.26,
+        "fear_of_isolation": 0.29,
+        "label": "Alumni concerned about culture and reputational harm",
+        "mobilization_readiness": 0.36,
+        "perceived_majority": "believe defenders are louder than they are numerous",
+        "population_share_of_archetype": 0.15,
+        "private_belief_public_gap": 0.18,
+        "representation_mode": "estimated_minor_cohort",
+        "represented_population": 6750,
+        "stance_axes": {
+          "coach_accountability": 0.74,
+          "institutional_trust": 0.31,
+          "public_disclosure_support": 0.59,
+          "retaliation_fear": 0.08
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "north_vale_university_administration",
+          "board_oversight_committee"
+        ],
+        "blockers": [
+          "donor_and_alumni_pushback",
+          "fear_of_overreacting_to_partial_evidence",
+          "legal_and_reputational_caution"
+        ],
+        "contradiction_notes": "If the institution adopts temporary non-disciplinary adjustments without formal leave, endpoint interpretation may be disputed.",
+        "description": "A terminal early-process endpoint where university leadership materially limits the coach's duties pending findings.",
+        "endpoint_key": "coach_interim_suspension",
+        "evidence_refs": [
+          "The university can suspend staff",
+          "administrators hire outside counsel"
+        ],
+        "label": "Coach placed on interim leave or equivalent restriction",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the university place the coach on interim leave or otherwise materially restrict duties before the investigation concludes?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.46,
+        "rationale": "This is an observable institutional choice that strongly affects witness behavior and legitimacy trajectories.",
+        "realization_criteria": [
+          "University issues formal notice of interim leave, suspension, or removal from active coaching duties.",
+          "Athletics department operational authority over the coach is materially restricted before final investigative findings."
+        ],
+        "status": "active",
+        "status_basis": "The scenario explicitly states the university has authority to suspend staff, but no interim action is yet confirmed at T0."
+      },
+      {
+        "authority_refs": [
+          "outside_counsel_firm",
+          "north_vale_university_administration",
+          "board_oversight_committee"
+        ],
+        "blockers": [
+          "perceived_investigator_capture",
+          "opaque_methodology",
+          "continued_partial_leaks_that_outpace_official_process"
+        ],
+        "contradiction_notes": "A technically complete investigation may still fail this endpoint if major audiences reject its independence or scope.",
+        "description": "A process endpoint where the outside review is sufficiently trusted that major groups treat its findings as the reference point for next steps.",
+        "endpoint_key": "investigation_broadly_accepted",
+        "evidence_refs": [
+          "administrators hire outside counsel",
+          "Model uncertainty and possible merge paths around credible investigation outcomes"
+        ],
+        "label": "Investigation gains broad legitimacy across key audiences",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the outside-counsel process be broadly accepted as credible by key campus and alumni audiences?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.41,
+        "rationale": "Merge logic in the scenario depends heavily on whether a common factual authority emerges.",
+        "realization_criteria": [
+          "Public-facing summary or institutional communication cites specific investigative findings.",
+          "Campus students, key alumni blocs, and leadership show reduced open dispute over the investigation's legitimacy relative to earlier stages."
+        ],
+        "status": "active",
+        "status_basis": "Outside counsel has been retained, but acceptance of its legitimacy remains unsettled."
+      },
+      {
+        "authority_refs": [
+          "current_athletes",
+          "former_athletes",
+          "outside_counsel_firm"
+        ],
+        "blockers": [
+          "retaliation_fear",
+          "team_dependency",
+          "silence_due_to_isolation"
+        ],
+        "contradiction_notes": "More statements do not realize this endpoint unless they materially improve corroboration quality.",
+        "description": "A factual-clarity endpoint where enough athletes participate to substantially clarify what occurred and whether complaints were ignored.",
+        "endpoint_key": "witness_disclosure_threshold_reached",
+        "evidence_refs": [
+          "Athletes fear retaliation",
+          "investigators determine facts later"
+        ],
+        "label": "Witness cooperation reaches corroboration threshold",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will current and former athletes provide enough cooperative testimony to materially clarify the allegations?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.38,
+        "rationale": "Without sufficient witness cooperation, terminal outcomes may remain ambiguous regardless of public pressure.",
+        "realization_criteria": [
+          "Multiple current or former athletes provide testimony or attributable accounts that establish a coherent pattern or materially refute one.",
+          "Investigators or credible reporting indicate corroboration beyond isolated allegation."
+        ],
+        "status": "active",
+        "status_basis": "Retaliation fears make this uncertain, and current public evidence is only partial at T0."
+      },
+      {
+        "authority_refs": [
+          "north_vale_university_administration",
+          "board_oversight_committee"
+        ],
+        "blockers": [
+          "insufficient_evidence",
+          "coalition_pressure",
+          "procedural_delays",
+          "reputational_switching_costs"
+        ],
+        "contradiction_notes": "Temporary measures, hearings, or messaging changes alone do not realize this endpoint if a final personnel or accountability choice remains open.",
+        "description": "A terminal resolution endpoint covering sanction, retention after exoneration, negotiated exit, or unresolved stalemate after investigation milestones.",
+        "endpoint_key": "final_accountability_disposition",
+        "evidence_refs": [
+          "The university can suspend staff, investigators determine facts later",
+          "donors influence reputation"
+        ],
+        "label": "Final accountability outcome for coach and implicated leadership",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the process end in meaningful accountability for the coach and/or athletics leadership, exoneration, or durable ambiguity?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.52,
+        "rationale": "This is the main endpoint family implied by the case and subsumes sanction, exoneration, exit, and durable ambiguity branches.",
+        "realization_criteria": [
+          "University formally announces a durable disposition such as termination, resignation, suspension with findings, retention after investigation, or closure without action.",
+          "Key employment and governance status of the coach is no longer under active institutional review."
+        ],
+        "status": "active",
+        "status_basis": "The scenario establishes both authority and unresolved uncertainty, leaving multiple terminal outcomes plausible."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "student journalists publish partial evidence",
+        "layer": "exposure",
+        "reason": "Student reporting is likely visible to a substantial campus audience.",
+        "source_actor_name": "student_journal",
+        "target_actor_name": "campus_students",
+        "weight": 0.63
+      },
+      {
+        "direction": "outbound",
+        "evidence": "student journalists publish partial evidence",
+        "layer": "exposure",
+        "reason": "Published reporting increases administrative awareness and response pressure.",
+        "source_actor_name": "student_journal",
+        "target_actor_name": "north_vale_university_administration",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "alumni defend the coach",
+        "layer": "exposure",
+        "reason": "Alumni defense messaging reaches leadership through formal and informal channels.",
+        "source_actor_name": "alumni_support_network",
+        "target_actor_name": "north_vale_university_administration",
+        "weight": 0.44
+      },
+      {
+        "direction": "outbound",
+        "evidence": "administrators hire outside counsel",
+        "layer": "exposure",
+        "reason": "Administrative statements and actions are visible campus-wide.",
+        "source_actor_name": "north_vale_university_administration",
+        "target_actor_name": "campus_students",
+        "weight": 0.41
+      },
+      {
+        "direction": "outbound",
+        "evidence": "athletes fear retaliation",
+        "layer": "exposure",
+        "reason": "Potential leaks or background contact may supply reporting leads, but fear limits openness.",
+        "source_actor_name": "current_athletes",
+        "target_actor_name": "student_journal",
+        "weight": 0.28
+      },
+      {
+        "direction": "outbound",
+        "evidence": "star coach; alumni defend the coach",
+        "layer": "exposure",
+        "reason": "Coach prominence makes his framing highly visible to supporters.",
+        "source_actor_name": "coach_arden_reed",
+        "target_actor_name": "alumni_support_network",
+        "weight": 0.47
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Athletes fear retaliation",
+        "layer": "trust",
+        "reason": "Fear of retaliation depresses trust that the institution will protect reporters.",
+        "source_actor_name": "current_athletes",
+        "target_actor_name": "north_vale_university_administration",
+        "weight": 0.26
+      },
+      {
+        "direction": "outbound",
+        "evidence": "alumni defend the coach",
+        "layer": "trust",
+        "reason": "Defending behavior implies continued confidence in the coach.",
+        "source_actor_name": "alumni_support_network",
+        "target_actor_name": "coach_arden_reed",
+        "weight": 0.64
+      },
+      {
+        "direction": "outbound",
+        "evidence": "student journalists publish partial evidence",
+        "layer": "trust",
+        "reason": "Partial evidence creates moderate but not complete trust in student reporting.",
+        "source_actor_name": "campus_students",
+        "target_actor_name": "student_journal",
+        "weight": 0.49
+      },
+      {
+        "direction": "outbound",
+        "evidence": "administrators hire outside counsel",
+        "layer": "trust",
+        "reason": "Hiring outside counsel signals reliance on their competence and legitimacy.",
+        "source_actor_name": "north_vale_university_administration",
+        "target_actor_name": "outside_counsel_firm",
+        "weight": 0.61
+      },
+      {
+        "direction": "outbound",
+        "evidence": "The university can suspend staff, investigators determine facts later",
+        "layer": "trust",
+        "reason": "Board oversight has cautious but conditional confidence in leadership process.",
+        "source_actor_name": "board_oversight_committee",
+        "target_actor_name": "north_vale_university_administration",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "outside counsel hired amid allegations involving star coach",
+        "layer": "trust",
+        "reason": "Students are likely uncertain whether leadership will prioritize truth over athletics reputation.",
+        "source_actor_name": "campus_students",
+        "target_actor_name": "north_vale_university_administration",
+        "weight": 0.37
+      },
+      {
+        "direction": "outbound",
+        "evidence": "star coach",
+        "layer": "dependency",
+        "reason": "Program visibility and continuity are materially tied to the star coach.",
+        "source_actor_name": "north_vale_athletics_department",
+        "target_actor_name": "coach_arden_reed",
+        "weight": 0.62
+      },
+      {
+        "direction": "outbound",
+        "evidence": "administrators hire outside counsel",
+        "layer": "dependency",
+        "reason": "The administration depends on external fact-finding for credible process legitimacy.",
+        "source_actor_name": "north_vale_university_administration",
+        "target_actor_name": "outside_counsel_firm",
+        "weight": 0.55
+      },
+      {
+        "direction": "outbound",
+        "evidence": "donors influence reputation",
+        "layer": "dependency",
+        "reason": "Donor sentiment affects reputational and financial flexibility.",
+        "source_actor_name": "north_vale_university_administration",
+        "target_actor_name": "major_donors",
+        "weight": 0.43
+      },
+      {
+        "direction": "outbound",
+        "evidence": "athletes fear retaliation",
+        "layer": "dependency",
+        "reason": "Athletes rely on department structures for playing time, scholarships, and team standing.",
+        "source_actor_name": "current_athletes",
+        "target_actor_name": "north_vale_athletics_department",
+        "weight": 0.57
+      },
+      {
+        "direction": "outbound",
+        "evidence": "The university can suspend staff",
+        "layer": "dependency",
+        "reason": "Coach depends on administrative authority for employment status and discipline outcomes.",
+        "source_actor_name": "coach_arden_reed",
+        "target_actor_name": "north_vale_university_administration",
+        "weight": 0.34
+      },
+      {
+        "direction": "outbound",
+        "evidence": "donors influence reputation",
+        "layer": "dependency",
+        "reason": "Athletics reputation and support are partly sustained by donor backing.",
+        "source_actor_name": "north_vale_athletics_department",
+        "target_actor_name": "major_donors",
+        "weight": 0.48
+      },
+      {
+        "direction": "outbound",
+        "evidence": "star coach",
+        "layer": "influence",
+        "reason": "A star coach has strong agenda and culture-setting influence within the department.",
+        "source_actor_name": "coach_arden_reed",
+        "target_actor_name": "north_vale_athletics_department",
+        "weight": 0.66
+      },
+      {
+        "direction": "outbound",
+        "evidence": "donors influence reputation",
+        "layer": "influence",
+        "reason": "Donors can shape leadership calculations through reputational and funding leverage.",
+        "source_actor_name": "major_donors",
+        "target_actor_name": "north_vale_university_administration",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "student journalists publish partial evidence",
+        "layer": "influence",
+        "reason": "Reporting helps set the issue agenda for campus discussion.",
+        "source_actor_name": "student_journal",
+        "target_actor_name": "campus_students",
+        "weight": 0.54
+      },
+      {
+        "direction": "outbound",
+        "evidence": "The university can suspend staff",
+        "layer": "influence",
+        "reason": "Leadership has formal supervisory power over athletics operations and staff status.",
+        "source_actor_name": "north_vale_university_administration",
+        "target_actor_name": "north_vale_athletics_department",
+        "weight": 0.59
+      },
+      {
+        "direction": "outbound",
+        "evidence": "alumni defend the coach",
+        "layer": "influence",
+        "reason": "Visible alumni defense may reinforce donor caution about punitive moves.",
+        "source_actor_name": "alumni_support_network",
+        "target_actor_name": "major_donors",
+        "weight": 0.36
+      },
+      {
+        "direction": "outbound",
+        "evidence": "university can suspend staff; investigators determine facts later",
+        "layer": "influence",
+        "reason": "Oversight actors can shape acceptable procedural options and timing.",
+        "source_actor_name": "board_oversight_committee",
+        "target_actor_name": "north_vale_university_administration",
+        "weight": 0.53
+      },
+      {
+        "direction": "outbound",
+        "evidence": "alumni defend the coach",
+        "layer": "coalition",
+        "reason": "Public defense indicates active alignment around preserving the coach's standing.",
+        "source_actor_name": "alumni_support_network",
+        "target_actor_name": "coach_arden_reed",
+        "weight": 0.62
+      },
+      {
+        "direction": "outbound",
+        "evidence": "administrators hire outside counsel",
+        "layer": "coalition",
+        "reason": "Administration and counsel are aligned around a credible procedural response.",
+        "source_actor_name": "north_vale_university_administration",
+        "target_actor_name": "outside_counsel_firm",
+        "weight": 0.47
+      },
+      {
+        "direction": "outbound",
+        "evidence": "student journalists publish partial evidence",
+        "layer": "coalition",
+        "reason": "A portion of students align with continued scrutiny and information release.",
+        "source_actor_name": "campus_students",
+        "target_actor_name": "student_journal",
+        "weight": 0.34
+      },
+      {
+        "direction": "outbound",
+        "evidence": "star coach; allegations involve athletics department",
+        "layer": "coalition",
+        "reason": "Department incentives favor protecting a successful central figure at T0.",
+        "source_actor_name": "north_vale_athletics_department",
+        "target_actor_name": "coach_arden_reed",
+        "weight": 0.57
+      },
+      {
+        "direction": "outbound",
+        "evidence": "donors influence reputation; alumni defend the coach",
+        "layer": "coalition",
+        "reason": "Some overlap likely exists in preserving program prestige, though not all donors are public defenders.",
+        "source_actor_name": "major_donors",
+        "target_actor_name": "alumni_support_network",
+        "weight": 0.29
+      },
+      {
+        "direction": "outbound",
+        "evidence": "star coach ignored hazing complaints; athletes fear retaliation",
+        "layer": "conflict",
+        "reason": "Allegations that complaints were ignored create latent grievance and perceived risk.",
+        "source_actor_name": "current_athletes",
+        "target_actor_name": "coach_arden_reed",
+        "weight": 0.49
+      },
+      {
+        "direction": "outbound",
+        "evidence": "student journalists publish partial evidence",
+        "layer": "conflict",
+        "reason": "Investigative reporting pressures athletics leadership and may expose failures.",
+        "source_actor_name": "student_journal",
+        "target_actor_name": "north_vale_athletics_department",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "outside counsel hired after allegations",
+        "layer": "conflict",
+        "reason": "Students may perceive administrative delay or opacity as self-protective.",
+        "source_actor_name": "campus_students",
+        "target_actor_name": "north_vale_university_administration",
+        "weight": 0.33
+      },
+      {
+        "direction": "outbound",
+        "evidence": "alumni defend the coach; student journalists publish partial evidence",
+        "layer": "conflict",
+        "reason": "Defenders may see partial reporting as unfair or damaging.",
+        "source_actor_name": "alumni_support_network",
+        "target_actor_name": "student_journal",
+        "weight": 0.37
+      },
+      {
+        "direction": "outbound",
+        "evidence": "The university can suspend staff",
+        "layer": "conflict",
+        "reason": "Leadership faces tension between coach protection and institutional legitimacy.",
+        "source_actor_name": "north_vale_university_administration",
+        "target_actor_name": "coach_arden_reed",
+        "weight": 0.28
+      },
+      {
+        "direction": "outbound",
+        "evidence": "allegations that a star coach ignored hazing complaints",
+        "layer": "conflict",
+        "reason": "Former athletes with concerns may view department culture as defensive or unsafe.",
+        "source_actor_name": "former_athletes",
+        "target_actor_name": "north_vale_athletics_department",
+        "weight": 0.31
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "student journalists publish partial evidence; alumni defend the coach",
+        "layer": "oasis_interaction",
+        "reason": "Reporting and defense narratives are likely to interact in public channels.",
+        "source_actor_name": "student_journal",
+        "target_actor_name": "alumni_support_network",
+        "weight": 0.43
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "administrators hire outside counsel",
+        "layer": "oasis_interaction",
+        "reason": "Official updates and student reactions will likely circulate through campus channels.",
+        "source_actor_name": "north_vale_university_administration",
+        "target_actor_name": "campus_students",
+        "weight": 0.46
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "star coach; alumni defend the coach",
+        "layer": "oasis_interaction",
+        "reason": "The coach and supporters are likely to echo or reinforce each other's public framing.",
+        "source_actor_name": "coach_arden_reed",
+        "target_actor_name": "alumni_support_network",
+        "weight": 0.51
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "athletes fear retaliation",
+        "layer": "oasis_interaction",
+        "reason": "Backchannel or cautious public interaction is possible but constrained by fear.",
+        "source_actor_name": "current_athletes",
+        "target_actor_name": "student_journal",
+        "weight": 0.24
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "student journalists publish partial evidence",
+        "layer": "oasis_interaction",
+        "reason": "Campus discussion likely centers on journal updates and debate over evidence quality.",
+        "source_actor_name": "campus_students",
+        "target_actor_name": "student_journal",
+        "weight": 0.48
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "hero_archetype_key": "institutional_deciders",
+        "label": "Actors with formal authority over interim action and process legitimacy"
+      },
+      {
+        "hero_archetype_key": "narrative_shapers",
+        "label": "Actors able to shape public interpretation of incomplete evidence"
+      },
+      {
+        "hero_archetype_key": "witness_brokers",
+        "label": "Actors whose willingness to surface testimony affects factual clarity"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "north_vale_university_administration",
+        "attention_level": 0.93,
+        "decision_power": 0.86,
+        "expression_level": 0.52,
+        "fatigue": 0.38,
+        "fear_of_isolation": 0.34,
+        "hero_archetype_key": "institutional_deciders",
+        "mobilization_readiness": 0.61,
+        "perceived_majority": "believe campus expects visible process but not necessarily immediate final judgment",
+        "stance_axes": {
+          "interim_action_willingness": 0.56,
+          "procedural_caution": 0.73,
+          "reputation_protection": 0.71,
+          "transparency_preference": 0.44
+        }
+      },
+      {
+        "actor_name": "board_oversight_committee",
+        "attention_level": 0.74,
+        "decision_power": 0.68,
+        "expression_level": 0.21,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.18,
+        "hero_archetype_key": "institutional_deciders",
+        "mobilization_readiness": 0.33,
+        "perceived_majority": "believe leadership should avoid avoidable legal and reputational error",
+        "stance_axes": {
+          "interim_action_willingness": 0.49,
+          "procedural_caution": 0.79,
+          "reputation_protection": 0.76,
+          "transparency_preference": 0.36
+        }
+      },
+      {
+        "actor_name": "student_journal",
+        "attention_level": 0.87,
+        "decision_power": 0.39,
+        "expression_level": 0.84,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.17,
+        "hero_archetype_key": "narrative_shapers",
+        "mobilization_readiness": 0.71,
+        "perceived_majority": "believe more sources may emerge if reporting continues",
+        "stance_axes": {
+          "accountability_drive": 0.78,
+          "institutional_deference": 0.18,
+          "publication_urgency": 0.69,
+          "verification_caution": 0.51
+        }
+      },
+      {
+        "actor_name": "coach_arden_reed",
+        "attention_level": 0.95,
+        "decision_power": 0.47,
+        "expression_level": 0.63,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.22,
+        "hero_archetype_key": "narrative_shapers",
+        "mobilization_readiness": 0.66,
+        "perceived_majority": "believe results and loyal supporters provide insulation",
+        "stance_axes": {
+          "cooperation_signal": 0.41,
+          "program_loyalty_frame": 0.76,
+          "public_denial_or_minimization": 0.62,
+          "self_protection": 0.84
+        }
+      },
+      {
+        "actor_name": "current_athletes",
+        "attention_level": 0.91,
+        "decision_power": 0.34,
+        "expression_level": 0.28,
+        "fatigue": 0.57,
+        "fear_of_isolation": 0.79,
+        "hero_archetype_key": "witness_brokers",
+        "mobilization_readiness": 0.31,
+        "perceived_majority": "believe testimony is risky without visible protection",
+        "stance_axes": {
+          "investigation_cooperation": 0.54,
+          "safety_need": 0.83,
+          "speak_up_willingness": 0.37,
+          "team_loyalty": 0.58
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "hero_archetype_key": "institutional_deciders",
+        "label": "Actors with formal authority over interim action and process legitimacy"
+      },
+      {
+        "hero_archetype_key": "narrative_shapers",
+        "label": "Actors able to shape public interpretation of incomplete evidence"
+      },
+      {
+        "hero_archetype_key": "witness_brokers",
+        "label": "Actors whose willingness to surface testimony affects factual clarity"
+      }
+    ],
+    "important_questions": [
+      "Will the university place the coach on interim leave or otherwise materially restrict duties before the investigation concludes?",
+      "Will the outside-counsel process be broadly accepted as credible by key campus and alumni audiences?",
+      "Will current and former athletes provide enough cooperative testimony to materially clarify the allegations?",
+      "Does the process end in meaningful accountability for the coach and/or athletics leadership, exoneration, or durable ambiguity?"
+    ],
+    "initial_events": [
+      {
+        "actors_involved": [
+          "current_athletes",
+          "north_vale_athletics_department",
+          "coach_arden_reed"
+        ],
+        "event_key": "allegations_surface_internally",
+        "event_type": "announcement",
+        "expected_impact": "Raises internal anxiety, suppresses some speech, and seeds conflict between safety and program loyalty.",
+        "summary": "Complaints and allegations about ignored hazing concerns are already circulating within athletics channels.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "student_journal",
+          "campus_students",
+          "north_vale_university_administration"
+        ],
+        "event_key": "student_journal_partial_publication",
+        "event_type": "announcement",
+        "expected_impact": "Increases campus attention, widens exposure, and pressures administrators to show process legitimacy.",
+        "summary": "Student journalists publish partial evidence related to the allegations.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "north_vale_university_administration",
+          "outside_counsel_firm"
+        ],
+        "event_key": "outside_counsel_retained",
+        "event_type": "announcement",
+        "expected_impact": "Provides a legitimacy mechanism but may also be seen as delay or controlled damage management depending on follow-through.",
+        "summary": "University leadership hires outside counsel to investigate.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "alumni_support_network",
+          "coach_arden_reed",
+          "major_donors"
+        ],
+        "event_key": "alumni_defense_messages_intensify",
+        "event_type": "announcement",
+        "expected_impact": "Strengthens the coach's protective coalition and may raise administrative switching costs for immediate punitive action.",
+        "summary": "Supportive alumni messaging grows more visible as reporting spreads.",
+        "tick": 1
+      },
+      {
+        "actors_involved": [
+          "north_vale_university_administration",
+          "board_oversight_committee",
+          "coach_arden_reed"
+        ],
+        "event_key": "interim_action_decision_window",
+        "event_type": "announcement",
+        "expected_impact": "Strong signal to witnesses and public audiences about whether safety and accountability are being prioritized.",
+        "summary": "Leadership weighs whether to impose temporary suspension or leave the coach in place pending investigation.",
+        "tick": 1
+      },
+      {
+        "actors_involved": [
+          "outside_counsel_firm",
+          "current_athletes",
+          "former_athletes"
+        ],
+        "event_key": "witness_outreach_phase",
+        "event_type": "announcement",
+        "expected_impact": "Could either unlock corroboration and merge paths or reinforce silence if protections appear weak.",
+        "summary": "Outside counsel begins collecting testimony from current and former athletes.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "ad984302-a492-41cc-a86f-8da539329c21",
+    "merge_hypotheses": [
+      {
+        "basis": "Most actors lack complete information and can converge if factual clarity improves.",
+        "merge_key": "shared_need_for_fact_pattern",
+        "possible_convergence": "Defenders, neutral students, and administrators may accept a measured sanction or exoneration if evidence is seen as credible."
+      },
+      {
+        "basis": "Even opposed groups share interest in preserving university legitimacy over prolonged scandal.",
+        "merge_key": "institutional_reputation_preservation",
+        "possible_convergence": "Support may form around transparent process, witness protections, and a finite decision timeline."
+      },
+      {
+        "basis": "Sustained conflict is costly for students, alumni, and leadership.",
+        "merge_key": "coalition_fatigue_after_initial_narrative_battle",
+        "possible_convergence": "A clear investigative milestone or board-backed statement may narrow acceptable interpretations and reduce open conflict."
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "athletics_participants",
+        "label": "Athletics participants and close peers",
+        "population_total": 180
+      },
+      {
+        "archetype_key": "campus_public",
+        "label": "General campus student public",
+        "population_total": 12000
+      },
+      {
+        "archetype_key": "alumni_external_public",
+        "label": "Alumni and external supporters",
+        "population_total": 45000
+      }
+    ],
+    "risk_flags": [
+      {
+        "note": "Athlete fear may distort visible sentiment and reduce early fact quality.",
+        "risk_key": "high_retaliation_chill",
+        "severity": "high"
+      },
+      {
+        "note": "Donors and alumni may raise switching costs for visible accountability moves.",
+        "risk_key": "elite_reputation_pressure",
+        "severity": "medium"
+      },
+      {
+        "note": "Incomplete reporting can intensify narrative conflict before facts converge.",
+        "risk_key": "partial_evidence_polarization",
+        "severity": "medium"
+      },
+      {
+        "note": "Hiring outside counsel does not guarantee trust if independence or transparency are questioned.",
+        "risk_key": "process_legitimacy_uncertainty",
+        "severity": "high"
+      },
+      {
+        "note": "Program dependence on the star coach may bias internal responses and prolong ambiguity.",
+        "risk_key": "overreliance_on_star_actor",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "campus_institutional_legitimacy",
+      "mode": "direct",
+      "scenario_key": "campus_002",
+      "summary": "A fictional university athletics department faces allegations that a star coach ignored hazing complaints. Athletes fear retaliation, alumni and some donors defend the coach, administrators bring in outside counsel, and student journalists publish partial evidence. The institution has authority to impose interim staff measures before full fact-finding. T0 should preserve uncertainty over underlying facts while seeding legitimacy pressure, elite influence, trust repair dynamics, and possible convergence around credible investigation outcomes.",
+      "time_horizon_notes": "No explicit horizon provided; initial events include near-term institutional and media developments without forcing crisis resolution.",
+      "uncertainty_notes": [
+        "Underlying hazing facts are not fully established at T0.",
+        "Public evidence is partial and may be incomplete or selectively interpreted.",
+        "Retaliation fears may suppress reporting, making visible sentiment differ from private beliefs.",
+        "Donor and alumni influence is reputational and financial but not necessarily formally decisive."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "level": 0.62,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Actors are somewhat persuadable by new evidence, but loyalty and identity narrow acceptable updates.",
+        "scope": "campus_public_and_alumni"
+      },
+      {
+        "level": 0.68,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Many athletes likely require visible protection or corroboration before speaking publicly.",
+        "scope": "current_athletes"
+      },
+      {
+        "level": 0.74,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Retaliation fears suppress expression relative to private concern.",
+        "scope": "athletics_participants"
+      },
+      {
+        "level": 0.59,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Supporters cluster around existing identity and program loyalty ties.",
+        "scope": "alumni_and_athletics_networks"
+      },
+      {
+        "level": 0.64,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Multiple corroborating testimonies may be needed before additional witnesses speak.",
+        "scope": "witness_disclosure"
+      },
+      {
+        "level": 0.77,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Team and program identity strongly shape interpretation of allegations.",
+        "scope": "athletics_and_alumni"
+      },
+      {
+        "level": 0.31,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Attention is elevated now but can fade if process becomes opaque and slow.",
+        "scope": "campus_public"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context_key": "elite_influence",
+        "description": "Donors, alumni networks, and a star coach create asymmetrical pressure on administrators and public framing."
+      },
+      {
+        "context_key": "merge_logic",
+        "description": "Credible independent findings could partially reunify divided audiences even if initial narratives diverge."
+      },
+      {
+        "context_key": "trust_repair",
+        "description": "Visible witness protection, procedural clarity, and proportional interim action are likely prerequisites for institutional trust recovery."
+      },
+      {
+        "context_key": "partial_evidence_environment",
+        "description": "Fragmentary reporting encourages narrative competition and overinterpretation by both defenders and critics."
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "north_vale_university_administration",
+        "behavior_axes": {
+          "adaptability": 0.54,
+          "message_discipline": 0.67,
+          "responsiveness": 0.58,
+          "risk_aversion": 0.72
+        },
+        "ideology_axes": {
+          "accountability_norms": 0.57,
+          "athletics_exceptionalism": 0.42,
+          "institutionalism": 0.81
+        },
+        "reputation": 0.55,
+        "secrecy": 0.58,
+        "tendency": "process_manage_then_message",
+        "trustworthiness": 0.46
+      },
+      {
+        "actor_name": "north_vale_athletics_department",
+        "behavior_axes": {
+          "adaptability": 0.37,
+          "message_discipline": 0.61,
+          "responsiveness": 0.39,
+          "risk_aversion": 0.63
+        },
+        "ideology_axes": {
+          "accountability_norms": 0.34,
+          "athletics_exceptionalism": 0.79,
+          "institutionalism": 0.62
+        },
+        "reputation": 0.49,
+        "secrecy": 0.66,
+        "tendency": "protect_program_continuity",
+        "trustworthiness": 0.33
+      },
+      {
+        "actor_name": "coach_arden_reed",
+        "behavior_axes": {
+          "adaptability": 0.45,
+          "message_discipline": 0.72,
+          "responsiveness": 0.36,
+          "risk_aversion": 0.48
+        },
+        "ideology_axes": {
+          "accountability_norms": 0.27,
+          "athletics_exceptionalism": 0.84,
+          "institutionalism": 0.31
+        },
+        "reputation": 0.74,
+        "secrecy": 0.61,
+        "tendency": "charismatic_defense_and_loyalty_activation",
+        "trustworthiness": 0.29
+      },
+      {
+        "actor_name": "current_athletes",
+        "behavior_axes": {
+          "adaptability": 0.52,
+          "message_discipline": 0.41,
+          "responsiveness": 0.43,
+          "risk_aversion": 0.77
+        },
+        "ideology_axes": {
+          "accountability_norms": 0.63,
+          "athletics_exceptionalism": 0.55,
+          "institutionalism": 0.39
+        },
+        "reputation": 0.58,
+        "secrecy": 0.57,
+        "tendency": "private_sharing_public_caution",
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "former_athletes",
+        "behavior_axes": {
+          "adaptability": 0.56,
+          "message_discipline": 0.37,
+          "responsiveness": 0.51,
+          "risk_aversion": 0.46
+        },
+        "ideology_axes": {
+          "accountability_norms": 0.66,
+          "athletics_exceptionalism": 0.41,
+          "institutionalism": 0.28
+        },
+        "reputation": 0.47,
+        "secrecy": 0.38,
+        "tendency": "selective_disclosure",
+        "trustworthiness": 0.59
+      },
+      {
+        "actor_name": "student_journal",
+        "behavior_axes": {
+          "adaptability": 0.71,
+          "message_discipline": 0.56,
+          "responsiveness": 0.74,
+          "risk_aversion": 0.34
+        },
+        "ideology_axes": {
+          "accountability_norms": 0.83,
+          "athletics_exceptionalism": 0.12,
+          "institutionalism": 0.21
+        },
+        "reputation": 0.46,
+        "secrecy": 0.29,
+        "tendency": "publish_partial_verified_material",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "outside_counsel_firm",
+        "behavior_axes": {
+          "adaptability": 0.42,
+          "message_discipline": 0.77,
+          "responsiveness": 0.49,
+          "risk_aversion": 0.69
+        },
+        "ideology_axes": {
+          "accountability_norms": 0.64,
+          "athletics_exceptionalism": 0.08,
+          "institutionalism": 0.78
+        },
+        "reputation": 0.63,
+        "secrecy": 0.74,
+        "tendency": "controlled_fact_finding",
+        "trustworthiness": 0.52
+      },
+      {
+        "actor_name": "alumni_support_network",
+        "behavior_axes": {
+          "adaptability": 0.35,
+          "message_discipline": 0.43,
+          "responsiveness": 0.64,
+          "risk_aversion": 0.29
+        },
+        "ideology_axes": {
+          "accountability_norms": 0.25,
+          "athletics_exceptionalism": 0.76,
+          "institutionalism": 0.47
+        },
+        "reputation": 0.53,
+        "secrecy": 0.18,
+        "tendency": "public_defense_campaigning",
+        "trustworthiness": 0.4
+      },
+      {
+        "actor_name": "major_donors",
+        "behavior_axes": {
+          "adaptability": 0.44,
+          "message_discipline": 0.68,
+          "responsiveness": 0.46,
+          "risk_aversion": 0.61
+        },
+        "ideology_axes": {
+          "accountability_norms": 0.39,
+          "athletics_exceptionalism": 0.65,
+          "institutionalism": 0.69
+        },
+        "reputation": 0.68,
+        "secrecy": 0.62,
+        "tendency": "private_pressure_with_conditional_support",
+        "trustworthiness": 0.41
+      },
+      {
+        "actor_name": "campus_students",
+        "behavior_axes": {
+          "adaptability": 0.63,
+          "message_discipline": 0.29,
+          "responsiveness": 0.51,
+          "risk_aversion": 0.42
+        },
+        "ideology_axes": {
+          "accountability_norms": 0.71,
+          "athletics_exceptionalism": 0.26,
+          "institutionalism": 0.33
+        },
+        "reputation": 0.5,
+        "secrecy": 0.21,
+        "tendency": "wait_then_react",
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "board_oversight_committee",
+        "behavior_axes": {
+          "adaptability": 0.38,
+          "message_discipline": 0.82,
+          "responsiveness": 0.41,
+          "risk_aversion": 0.76
+        },
+        "ideology_axes": {
+          "accountability_norms": 0.55,
+          "athletics_exceptionalism": 0.37,
+          "institutionalism": 0.88
+        },
+        "reputation": 0.61,
+        "secrecy": 0.71,
+        "tendency": "backstage_governance",
+        "trustworthiness": 0.49
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 572,
+        "end": 572,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 572,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

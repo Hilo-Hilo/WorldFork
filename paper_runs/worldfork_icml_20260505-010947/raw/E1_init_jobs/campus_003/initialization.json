@@ -1,0 +1,1594 @@
+{
+  "big_bang_id": "ab635878-1b54-4a5b-ae0a-1ca69a4ed196",
+  "initializer_output": {
+    "actors": [
+      {
+        "fictionalized": true,
+        "name": "graduate_student_union",
+        "public_role": "student_labor_organization",
+        "scope": "campus",
+        "type": "organization"
+      },
+      {
+        "fictionalized": true,
+        "name": "department_leadership",
+        "public_role": "academic_department_management",
+        "scope": "department",
+        "type": "institution"
+      },
+      {
+        "fictionalized": true,
+        "name": "graduate_students_visa_dependent",
+        "public_role": "international_or_status_dependent_graduate_students",
+        "scope": "department",
+        "type": "cohort_actor"
+      },
+      {
+        "fictionalized": true,
+        "name": "graduate_students_nonvisa",
+        "public_role": "domestic_or_less_status_dependent_graduate_students",
+        "scope": "department",
+        "type": "cohort_actor"
+      },
+      {
+        "fictionalized": true,
+        "name": "faculty_private_sympathizers",
+        "public_role": "faculty_members_privately_sympathetic_to_students",
+        "scope": "department",
+        "type": "cohort_actor"
+      },
+      {
+        "fictionalized": true,
+        "name": "faculty_cautious_neutrals",
+        "public_role": "faculty_members_publicly_cautious_or_ambiguous",
+        "scope": "department",
+        "type": "cohort_actor"
+      },
+      {
+        "fictionalized": true,
+        "name": "university_administration",
+        "public_role": "central_university_administration",
+        "scope": "campus",
+        "type": "institution"
+      },
+      {
+        "fictionalized": true,
+        "name": "local_media",
+        "public_role": "local_journalists_and_outlets",
+        "scope": "off_campus",
+        "type": "institution"
+      },
+      {
+        "fictionalized": true,
+        "name": "broader_student_body",
+        "public_role": "nonaffected_students_and_observers",
+        "scope": "campus",
+        "type": "population_actor"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Media, faculty, and broader campus treat the issue as credible retaliation rather than routine bureaucracy.",
+        "branch_key": "documentation_breakthrough",
+        "observable_divergence_signal": "Reporter engagement rises, faculty public statements increase, and administrative response shifts from denial to inquiry or concession.",
+        "trigger": "Multiple consistent student accounts or documents link delays to organizing timing or threatening signals."
+      },
+      {
+        "alternate_path": "Union claims remain hard to substantiate publicly, allowing official procedural framing to dominate.",
+        "branch_key": "fear_induced_silence",
+        "observable_divergence_signal": "Low witness participation, few attributable stories, and declining mention of the issue outside union circles.",
+        "trigger": "Visa-dependent students perceive reporting risk as too high and refrain from sharing specifics."
+      },
+      {
+        "alternate_path": "Immediate pressure eases while the core retaliation allegation remains unsettled, producing a legitimacy stalemate.",
+        "branch_key": "procedural_concession_without_admission",
+        "observable_divergence_signal": "Material complaints temporarily drop, but trust in leadership remains low and dispute framing persists.",
+        "trigger": "Administration or department expedites delayed fellowship payments or offers a neutral review process."
+      },
+      {
+        "alternate_path": "Faculty validation reduces fear of isolation among students and raises institutional pressure for independent review.",
+        "branch_key": "faculty_legitimacy_intervention",
+        "observable_divergence_signal": "Open letters, meeting interventions, or faculty-signed requests for clarification appear.",
+        "trigger": "A visible subset of faculty privately sympathetic at T0 decides silence is costlier than speaking."
+      },
+      {
+        "alternate_path": "Conflict remains localized, with high private grievance but limited campus-wide mobilization.",
+        "branch_key": "attention_decay_outside_department",
+        "observable_divergence_signal": "Broader student body remains disengaged, local media does not publish follow-up, and official statements stop evolving.",
+        "trigger": "No new evidence, no broader coalition, and no compelling media hook emerge within early ticks."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "union_listserv_and_meetings",
+        "primary_actors": [
+          "graduate_student_union",
+          "graduate_students_visa_dependent",
+          "graduate_students_nonvisa"
+        ],
+        "type": "internal_organizing",
+        "visibility": "semi_private"
+      },
+      {
+        "channel_key": "department_email_and_admin_updates",
+        "primary_actors": [
+          "department_leadership",
+          "graduate_students_visa_dependent",
+          "graduate_students_nonvisa",
+          "faculty_private_sympathizers",
+          "faculty_cautious_neutrals"
+        ],
+        "type": "institutional",
+        "visibility": "formal"
+      },
+      {
+        "channel_key": "faculty_backchannel_conversations",
+        "primary_actors": [
+          "faculty_private_sympathizers",
+          "graduate_student_union",
+          "graduate_students_visa_dependent",
+          "graduate_students_nonvisa"
+        ],
+        "type": "informal",
+        "visibility": "private"
+      },
+      {
+        "channel_key": "campus_social_posts_and_group_chats",
+        "primary_actors": [
+          "graduate_student_union",
+          "graduate_students_nonvisa",
+          "broader_student_body"
+        ],
+        "type": "networked_public",
+        "visibility": "mixed"
+      },
+      {
+        "channel_key": "local_media_inquiry",
+        "primary_actors": [
+          "local_media",
+          "graduate_student_union",
+          "university_administration",
+          "department_leadership"
+        ],
+        "type": "journalistic",
+        "visibility": "public_facing"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "graduate_students_visa_dependent",
+        "archetype_key": "department_graduate_students",
+        "attention_level": 0.79,
+        "behavioral_tendencies": [
+          "risk_averse_publicly",
+          "shares_concerns_privately",
+          "monitors_peer_safety",
+          "avoids_authority_conflict"
+        ],
+        "cohort_key": "grad_visa_dependent_quiet_angry",
+        "expression_level": 0.28,
+        "fatigue": 0.54,
+        "fear_of_isolation": 0.82,
+        "ideology_axes": {
+          "institutional_deference": 0.51,
+          "labor_solidarity": 0.69
+        },
+        "mobilization_readiness": 0.36,
+        "perceived_majority": 0.38,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "Many suspect delays may be used to chill organizing or at minimum are tolerated despite harm.",
+        "public_expression": "Cautious, fragmented, often avoids explicit accusations in public settings.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 48,
+        "reputation": 0.49,
+        "secrecy": 0.76,
+        "stance_axes": {
+          "retaliation_suspicion": 0.71,
+          "risk_tolerance_public_action": 0.22,
+          "trust_department_process": 0.24,
+          "union_support": 0.74
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "graduate_students_nonvisa",
+        "archetype_key": "department_graduate_students",
+        "attention_level": 0.76,
+        "behavioral_tendencies": [
+          "tests_public_boundaries",
+          "seeks_evidence",
+          "supports_peers",
+          "amplifies_union_claims_selectively"
+        ],
+        "cohort_key": "grad_nonvisa_more_expressive",
+        "expression_level": 0.57,
+        "fatigue": 0.46,
+        "fear_of_isolation": 0.51,
+        "ideology_axes": {
+          "institutional_deference": 0.36,
+          "labor_solidarity": 0.72
+        },
+        "mobilization_readiness": 0.58,
+        "perceived_majority": 0.49,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "Many think the delays are suspicious or at least politically consequential, though some are unsure of intent.",
+        "public_expression": "More willing than visa-dependent peers to voice concern, sign statements, or relay stories to the union.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 72,
+        "reputation": 0.53,
+        "secrecy": 0.42,
+        "stance_axes": {
+          "retaliation_suspicion": 0.62,
+          "risk_tolerance_public_action": 0.49,
+          "trust_department_process": 0.33,
+          "union_support": 0.68
+        },
+        "trustworthiness": 0.66
+      },
+      {
+        "actor_name": "faculty_private_sympathizers",
+        "archetype_key": "department_faculty",
+        "attention_level": 0.67,
+        "behavioral_tendencies": [
+          "private_support",
+          "proceduralism",
+          "reputational_caution",
+          "evidence_seeking"
+        ],
+        "cohort_key": "faculty_private_sympathy",
+        "expression_level": 0.29,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.64,
+        "ideology_axes": {
+          "institutional_deference": 0.57,
+          "labor_solidarity": 0.58
+        },
+        "mobilization_readiness": 0.33,
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "Students may be experiencing real pressure; even absent explicit intent, the delays are damaging and legitimacy-threatening.",
+        "public_expression": "Private reassurance and backchannel advice, but limited public challenge to administrators.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 12,
+        "reputation": 0.68,
+        "secrecy": 0.67,
+        "stance_axes": {
+          "concern_about_retaliation": 0.63,
+          "student_sympathy": 0.77,
+          "trust_internal_resolution": 0.44,
+          "willingness_publicly_confront_department": 0.31
+        },
+        "trustworthiness": 0.7
+      },
+      {
+        "actor_name": "faculty_cautious_neutrals",
+        "archetype_key": "department_faculty",
+        "attention_level": 0.48,
+        "behavioral_tendencies": [
+          "wait_and_see",
+          "conflict_avoidance",
+          "procedural_signaling"
+        ],
+        "cohort_key": "faculty_cautious_mainstream",
+        "expression_level": 0.24,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.43,
+        "ideology_axes": {
+          "institutional_deference": 0.69,
+          "labor_solidarity": 0.41
+        },
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.56,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "Uncertain whether delays reflect retaliation or ordinary bureaucracy; prefers not to escalate without proof.",
+        "public_expression": "Emphasizes due process, incomplete information, and need to avoid premature conclusions.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 18,
+        "reputation": 0.62,
+        "secrecy": 0.49,
+        "stance_axes": {
+          "concern_about_retaliation": 0.4,
+          "student_sympathy": 0.46,
+          "trust_internal_resolution": 0.58,
+          "willingness_publicly_confront_department": 0.19
+        },
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "broader_student_body",
+        "archetype_key": "campus_observers",
+        "attention_level": 0.18,
+        "behavioral_tendencies": [
+          "attention_sensitive",
+          "headline_driven",
+          "peer_cued"
+        ],
+        "cohort_key": "campus_low_attention_observers",
+        "expression_level": 0.08,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.27,
+        "ideology_axes": {
+          "institutional_deference": 0.47,
+          "labor_solidarity": 0.49
+        },
+        "mobilization_readiness": 0.11,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Most know little; some are open to the union framing if concrete stories emerge.",
+        "public_expression": "Little visible engagement at T0.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 5000,
+        "reputation": 0.5,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "baseline_union_sympathy": 0.52,
+          "institutional_trust": 0.51,
+          "issue_attention": 0.18
+        },
+        "trustworthiness": 0.55
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "graduate_students_visa_dependent",
+        "archetype_key": "department_graduate_students",
+        "attention_level": 0.79,
+        "behavioral_tendencies": [
+          "risk_averse_publicly",
+          "shares_concerns_privately",
+          "monitors_peer_safety",
+          "avoids_authority_conflict"
+        ],
+        "cohort_key": "grad_visa_dependent_quiet_angry",
+        "expression_level": 0.28,
+        "fatigue": 0.54,
+        "fear_of_isolation": 0.82,
+        "ideology_axes": {
+          "institutional_deference": 0.51,
+          "labor_solidarity": 0.69
+        },
+        "mobilization_readiness": 0.36,
+        "perceived_majority": 0.38,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "Many suspect delays may be used to chill organizing or at minimum are tolerated despite harm.",
+        "public_expression": "Cautious, fragmented, often avoids explicit accusations in public settings.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 48,
+        "reputation": 0.49,
+        "secrecy": 0.76,
+        "stance_axes": {
+          "retaliation_suspicion": 0.71,
+          "risk_tolerance_public_action": 0.22,
+          "trust_department_process": 0.24,
+          "union_support": 0.74
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "graduate_students_nonvisa",
+        "archetype_key": "department_graduate_students",
+        "attention_level": 0.76,
+        "behavioral_tendencies": [
+          "tests_public_boundaries",
+          "seeks_evidence",
+          "supports_peers",
+          "amplifies_union_claims_selectively"
+        ],
+        "cohort_key": "grad_nonvisa_more_expressive",
+        "expression_level": 0.57,
+        "fatigue": 0.46,
+        "fear_of_isolation": 0.51,
+        "ideology_axes": {
+          "institutional_deference": 0.36,
+          "labor_solidarity": 0.72
+        },
+        "mobilization_readiness": 0.58,
+        "perceived_majority": 0.49,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "Many think the delays are suspicious or at least politically consequential, though some are unsure of intent.",
+        "public_expression": "More willing than visa-dependent peers to voice concern, sign statements, or relay stories to the union.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 72,
+        "reputation": 0.53,
+        "secrecy": 0.42,
+        "stance_axes": {
+          "retaliation_suspicion": 0.62,
+          "risk_tolerance_public_action": 0.49,
+          "trust_department_process": 0.33,
+          "union_support": 0.68
+        },
+        "trustworthiness": 0.66
+      },
+      {
+        "actor_name": "faculty_private_sympathizers",
+        "archetype_key": "department_faculty",
+        "attention_level": 0.67,
+        "behavioral_tendencies": [
+          "private_support",
+          "proceduralism",
+          "reputational_caution",
+          "evidence_seeking"
+        ],
+        "cohort_key": "faculty_private_sympathy",
+        "expression_level": 0.29,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.64,
+        "ideology_axes": {
+          "institutional_deference": 0.57,
+          "labor_solidarity": 0.58
+        },
+        "mobilization_readiness": 0.33,
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "Students may be experiencing real pressure; even absent explicit intent, the delays are damaging and legitimacy-threatening.",
+        "public_expression": "Private reassurance and backchannel advice, but limited public challenge to administrators.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 12,
+        "reputation": 0.68,
+        "secrecy": 0.67,
+        "stance_axes": {
+          "concern_about_retaliation": 0.63,
+          "student_sympathy": 0.77,
+          "trust_internal_resolution": 0.44,
+          "willingness_publicly_confront_department": 0.31
+        },
+        "trustworthiness": 0.7
+      },
+      {
+        "actor_name": "faculty_cautious_neutrals",
+        "archetype_key": "department_faculty",
+        "attention_level": 0.48,
+        "behavioral_tendencies": [
+          "wait_and_see",
+          "conflict_avoidance",
+          "procedural_signaling"
+        ],
+        "cohort_key": "faculty_cautious_mainstream",
+        "expression_level": 0.24,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.43,
+        "ideology_axes": {
+          "institutional_deference": 0.69,
+          "labor_solidarity": 0.41
+        },
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.56,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "Uncertain whether delays reflect retaliation or ordinary bureaucracy; prefers not to escalate without proof.",
+        "public_expression": "Emphasizes due process, incomplete information, and need to avoid premature conclusions.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 18,
+        "reputation": 0.62,
+        "secrecy": 0.49,
+        "stance_axes": {
+          "concern_about_retaliation": 0.4,
+          "student_sympathy": 0.46,
+          "trust_internal_resolution": 0.58,
+          "willingness_publicly_confront_department": 0.19
+        },
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "broader_student_body",
+        "archetype_key": "campus_observers",
+        "attention_level": 0.18,
+        "behavioral_tendencies": [
+          "attention_sensitive",
+          "headline_driven",
+          "peer_cued"
+        ],
+        "cohort_key": "campus_low_attention_observers",
+        "expression_level": 0.08,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.27,
+        "ideology_axes": {
+          "institutional_deference": 0.47,
+          "labor_solidarity": 0.49
+        },
+        "mobilization_readiness": 0.11,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "Most know little; some are open to the union framing if concrete stories emerge.",
+        "public_expression": "Little visible engagement at T0.",
+        "representation_mode": "direct_cohort",
+        "represented_population": 5000,
+        "reputation": 0.5,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "baseline_union_sympathy": 0.52,
+          "institutional_trust": 0.51,
+          "issue_attention": 0.18
+        },
+        "trustworthiness": 0.55
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "university_administration",
+          "local_media",
+          "faculty_private_sympathizers"
+        ],
+        "blockers": [
+          "High fear of exposure among visa-dependent students.",
+          "Documentation may be incomplete or ambiguous.",
+          "Administration may resist admitting retaliatory interpretation."
+        ],
+        "contradiction_notes": "A payment fix alone would not validate retaliatory intent unless paired with evidence about motivation or discriminatory timing.",
+        "description": "The central allegation becomes institutionally or publicly credible through documentation, corroborated testimony, or formal findings.",
+        "endpoint_key": "retaliation_claim_validated",
+        "evidence_refs": [
+          "union_accusation_already_public",
+          "private_student_story_collection"
+        ],
+        "label": "Retaliation claim validated",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does credible evidence emerge that fellowship delays were intentionally used to discourage union organizing?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.34,
+        "rationale": "This is the core factual endpoint underlying legitimacy judgments.",
+        "realization_criteria": [
+          "Published or formally acknowledged evidence links fellowship delays to anti-organizing intent or selective discouragement.",
+          "At least one authoritative actor or credible external channel treats retaliation as substantiated rather than speculative."
+        ],
+        "status": "active",
+        "status_basis": "At T0 the claim is publicly asserted but not yet validated by independent evidence or formal review."
+      },
+      {
+        "authority_refs": [
+          "university_administration"
+        ],
+        "blockers": [
+          "Leadership may prefer containment and informal fixes.",
+          "Evidence may remain too thin to justify escalation.",
+          "Department-central coalition may resist precedent-setting review."
+        ],
+        "contradiction_notes": "A generic statement about monitoring the situation without scope or mechanism does not realize this endpoint.",
+        "description": "The university initiates a review mechanism with enough independence or scope to investigate the allegation beyond simple denial.",
+        "endpoint_key": "institutional_review_opened",
+        "evidence_refs": [
+          "administrative_denial_positioned",
+          "department_process_explanation_or_minor_fix"
+        ],
+        "label": "Independent or meaningful review opened",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do vulnerable graduate students gain enough protection and visible support to speak more openly?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.47,
+        "rationale": "Review decisions are a key institutional legitimacy fork distinct from substantive guilt.",
+        "realization_criteria": [
+          "Central administration announces an inquiry, ombuds review, audit, or comparable mechanism with defined scope.",
+          "The review is framed as assessing facts or process failures, not merely repeating departmental denial."
+        ],
+        "status": "active",
+        "status_basis": "At T0 administrators deny intent; no meaningful review is yet confirmed."
+      },
+      {
+        "authority_refs": [
+          "graduate_students_visa_dependent",
+          "graduate_student_union",
+          "department_leadership"
+        ],
+        "blockers": [
+          "Faculty protection, anonymous reporting channels, or broad coalition support could lower participation risk.",
+          "External scrutiny could make retaliation fears less isolating."
+        ],
+        "contradiction_notes": "Private testimony growth without public visibility may still satisfy this endpoint if overt chilling remains strong.",
+        "description": "Vulnerable students remain largely unable or unwilling to participate publicly, preserving a large public-private belief gap.",
+        "endpoint_key": "student_chilling_effect_persists",
+        "evidence_refs": [
+          "private_student_story_collection"
+        ],
+        "label": "Chilling effect persists",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the university move from denial to a meaningful independent review or only offer procedural reassurance?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.63,
+        "rationale": "The scenario explicitly centers public-private belief gaps and dependency-driven silence.",
+        "realization_criteria": [
+          "Visa-dependent or otherwise vulnerable students continue low public participation across multiple ticks despite ongoing grievance.",
+          "Union activity relies mostly on indirect or lower-risk participants rather than visible testimony from the most affected cohort."
+        ],
+        "status": "active",
+        "status_basis": "T0 already shows high fear of isolation and strong dependency among visa-dependent students."
+      },
+      {
+        "authority_refs": [
+          "local_media",
+          "broader_student_body",
+          "graduate_student_union"
+        ],
+        "blockers": [
+          "New documents, faculty intervention, or visible student hardship can reactivate attention.",
+          "A misstep in official messaging can create a new hook."
+        ],
+        "contradiction_notes": "Temporary dips in visibility do not realize this endpoint if later evidence reignites the story.",
+        "description": "The controversy remains localized and loses momentum before broader campus or external accountability forms.",
+        "endpoint_key": "issue_attention_decays",
+        "evidence_refs": [
+          "possible_local_media_triage"
+        ],
+        "label": "Issue attention decays",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the controversy expand into a broader campus or local media legitimacy issue, or does attention decay?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.52,
+        "rationale": "Attention decay is a major pressure in campus legitimacy disputes with ambiguous facts.",
+        "realization_criteria": [
+          "No sustained follow-up coverage or broad campus mobilization materializes within the early horizon.",
+          "Public discussion volume and coalition expansion decline while official framing stabilizes."
+        ],
+        "status": "active",
+        "status_basis": "Local media attention is limited and broader campus attention is low at T0."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "Union has made accusations tied to fellowship delays affecting students.",
+        "layer": "exposure",
+        "reason": "Union messaging reaches affected students through organizing channels.",
+        "source_actor_name": "graduate_student_union",
+        "target_actor_name": "graduate_students_visa_dependent",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "Some students are angry and organizing-related accusations are public.",
+        "layer": "exposure",
+        "reason": "Non-visa students are more reachable and publicly engaged with union framing.",
+        "source_actor_name": "graduate_student_union",
+        "target_actor_name": "graduate_students_nonvisa",
+        "weight": 0.64
+      },
+      {
+        "direction": "directed",
+        "evidence": "Department is implicated in fellowship delays affecting students.",
+        "layer": "exposure",
+        "reason": "Department communications and funding processes directly shape student awareness.",
+        "source_actor_name": "department_leadership",
+        "target_actor_name": "graduate_students_visa_dependent",
+        "weight": 0.62
+      },
+      {
+        "direction": "directed",
+        "evidence": "Department denial is part of scenario setup.",
+        "layer": "exposure",
+        "reason": "Department actions and statements are visible to enrolled graduate students.",
+        "source_actor_name": "department_leadership",
+        "target_actor_name": "graduate_students_nonvisa",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "Faculty are in same department and respond privately.",
+        "layer": "exposure",
+        "reason": "Faculty are exposed to departmental narratives and process explanations.",
+        "source_actor_name": "department_leadership",
+        "target_actor_name": "faculty_private_sympathizers",
+        "weight": 0.55
+      },
+      {
+        "direction": "directed",
+        "evidence": "Administrators deny intent and are involved in public framing.",
+        "layer": "exposure",
+        "reason": "Central administration can monitor and message around departmental controversy.",
+        "source_actor_name": "university_administration",
+        "target_actor_name": "department_leadership",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "Local media has limited attention.",
+        "layer": "exposure",
+        "reason": "Limited local media coverage creates low but nonzero exposure.",
+        "source_actor_name": "local_media",
+        "target_actor_name": "broader_student_body",
+        "weight": 0.23
+      },
+      {
+        "direction": "directed",
+        "evidence": "Public accusation exists and media is a plausible audience.",
+        "layer": "exposure",
+        "reason": "Union claims may be pitched to reporters.",
+        "source_actor_name": "graduate_student_union",
+        "target_actor_name": "local_media",
+        "weight": 0.31
+      },
+      {
+        "direction": "directed",
+        "evidence": "Visa-dependent students are angry yet constrained.",
+        "layer": "trust",
+        "reason": "Students may trust union intent but fear consequences of visible association.",
+        "source_actor_name": "graduate_students_visa_dependent",
+        "target_actor_name": "graduate_student_union",
+        "weight": 0.54
+      },
+      {
+        "direction": "directed",
+        "evidence": "Some students are angry and less constrained than visa-dependent peers.",
+        "layer": "trust",
+        "reason": "Non-visa students are more able to align with union claims publicly.",
+        "source_actor_name": "graduate_students_nonvisa",
+        "target_actor_name": "graduate_student_union",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "Union accuses department of using delays to discourage organizing.",
+        "layer": "trust",
+        "reason": "Suspected retaliation lowers trust in departmental fairness.",
+        "source_actor_name": "graduate_students_visa_dependent",
+        "target_actor_name": "department_leadership",
+        "weight": 0.22
+      },
+      {
+        "direction": "directed",
+        "evidence": "Student anger and accusation imply low confidence in official intent.",
+        "layer": "trust",
+        "reason": "Denials face skepticism among affected students.",
+        "source_actor_name": "graduate_students_nonvisa",
+        "target_actor_name": "department_leadership",
+        "weight": 0.28
+      },
+      {
+        "direction": "directed",
+        "evidence": "Faculty are privately sympathetic.",
+        "layer": "trust",
+        "reason": "Sympathetic faculty see union concerns as at least partly credible.",
+        "source_actor_name": "faculty_private_sympathizers",
+        "target_actor_name": "graduate_student_union",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "Faculty are sympathetic to students while department denies intent.",
+        "layer": "trust",
+        "reason": "Private sympathy implies doubts about departmental handling.",
+        "source_actor_name": "faculty_private_sympathizers",
+        "target_actor_name": "department_leadership",
+        "weight": 0.34
+      },
+      {
+        "direction": "directed",
+        "evidence": "Faculty are publicly cautious and uncertain.",
+        "layer": "trust",
+        "reason": "Cautious faculty still give some benefit of procedural doubt.",
+        "source_actor_name": "faculty_cautious_neutrals",
+        "target_actor_name": "department_leadership",
+        "weight": 0.49
+      },
+      {
+        "direction": "directed",
+        "evidence": "Broader campus has little visible engagement at T0.",
+        "layer": "trust",
+        "reason": "Default institutional legitimacy remains moderate at low attention.",
+        "source_actor_name": "broader_student_body",
+        "target_actor_name": "university_administration",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario explicitly notes visa dependency and fellowship delays.",
+        "layer": "dependency",
+        "reason": "Visa-dependent students rely heavily on departmental funding timing, status stability, and professional gatekeeping.",
+        "source_actor_name": "graduate_students_visa_dependent",
+        "target_actor_name": "department_leadership",
+        "weight": 0.82
+      },
+      {
+        "direction": "directed",
+        "evidence": "Fellowship delays are a material lever affecting students.",
+        "layer": "dependency",
+        "reason": "Graduate students depend on departmental funding and academic progression.",
+        "source_actor_name": "graduate_students_nonvisa",
+        "target_actor_name": "department_leadership",
+        "weight": 0.67
+      },
+      {
+        "direction": "directed",
+        "evidence": "Administrators deny intent and can shape response scope.",
+        "layer": "dependency",
+        "reason": "Department legitimacy and process cover depend on central administration backing.",
+        "source_actor_name": "department_leadership",
+        "target_actor_name": "university_administration",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "Faculty are privately sympathetic but not publicly assertive.",
+        "layer": "dependency",
+        "reason": "Faculty career and governance incentives discourage open conflict with leadership.",
+        "source_actor_name": "faculty_private_sympathizers",
+        "target_actor_name": "department_leadership",
+        "weight": 0.48
+      },
+      {
+        "direction": "directed",
+        "evidence": "Public caution suggests dependence and risk sensitivity.",
+        "layer": "dependency",
+        "reason": "Cautious faculty are institutionally embedded and attentive to departmental hierarchy.",
+        "source_actor_name": "faculty_cautious_neutrals",
+        "target_actor_name": "department_leadership",
+        "weight": 0.56
+      },
+      {
+        "direction": "directed",
+        "evidence": "Union is central accuser and organizer.",
+        "layer": "influence",
+        "reason": "Union can frame the issue and coordinate lower-risk participation.",
+        "source_actor_name": "graduate_student_union",
+        "target_actor_name": "graduate_students_nonvisa",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "Visa-dependent students remain cautious despite anger.",
+        "layer": "influence",
+        "reason": "Union can shape interpretation but cannot fully overcome risk constraints.",
+        "source_actor_name": "graduate_student_union",
+        "target_actor_name": "graduate_students_visa_dependent",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "Fellowship delays and visa dependency create coercive influence potential.",
+        "layer": "influence",
+        "reason": "Funding and status leverage give leadership agenda power over vulnerable students.",
+        "source_actor_name": "department_leadership",
+        "target_actor_name": "graduate_students_visa_dependent",
+        "weight": 0.64
+      },
+      {
+        "direction": "directed",
+        "evidence": "Administrators publicly deny intent and hold broader authority.",
+        "layer": "influence",
+        "reason": "Central administration can validate, constrain, or redirect departmental response.",
+        "source_actor_name": "university_administration",
+        "target_actor_name": "department_leadership",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "Faculty are privately sympathetic.",
+        "layer": "influence",
+        "reason": "Faculty can quietly legitimize claims and provide evidence pathways.",
+        "source_actor_name": "faculty_private_sympathizers",
+        "target_actor_name": "graduate_student_union",
+        "weight": 0.29
+      },
+      {
+        "direction": "directed",
+        "evidence": "Local media attention is limited but present.",
+        "layer": "influence",
+        "reason": "Even limited reporting can raise reputational stakes for administrators.",
+        "source_actor_name": "local_media",
+        "target_actor_name": "university_administration",
+        "weight": 0.26
+      },
+      {
+        "direction": "directed",
+        "evidence": "Low initial attention reduces immediate pressure.",
+        "layer": "influence",
+        "reason": "Campus sentiment matters only if attention increases.",
+        "source_actor_name": "broader_student_body",
+        "target_actor_name": "university_administration",
+        "weight": 0.18
+      },
+      {
+        "direction": "undirected",
+        "evidence": "They are more able to express anger and organize.",
+        "layer": "coalition",
+        "reason": "These students are the union's most available active base in the department.",
+        "source_actor_name": "graduate_student_union",
+        "target_actor_name": "graduate_students_nonvisa",
+        "weight": 0.63
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Visa dependence suppresses open organizing.",
+        "layer": "coalition",
+        "reason": "Shared grievance exists, but safety concerns weaken active coalition density.",
+        "source_actor_name": "graduate_student_union",
+        "target_actor_name": "graduate_students_visa_dependent",
+        "weight": 0.44
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Faculty are privately sympathetic.",
+        "layer": "coalition",
+        "reason": "Latent alliance exists through shared concern, mostly offstage.",
+        "source_actor_name": "graduate_student_union",
+        "target_actor_name": "faculty_private_sympathizers",
+        "weight": 0.33
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Administrators deny intent alongside department position.",
+        "layer": "coalition",
+        "reason": "Both prefer legitimacy preservation and procedural control at T0.",
+        "source_actor_name": "department_leadership",
+        "target_actor_name": "university_administration",
+        "weight": 0.49
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Public faculty caution benefits leadership containment.",
+        "layer": "coalition",
+        "reason": "Procedural caution creates soft alignment without strong enthusiasm.",
+        "source_actor_name": "faculty_cautious_neutrals",
+        "target_actor_name": "department_leadership",
+        "weight": 0.37
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Scenario opens with union accusation against department.",
+        "layer": "conflict",
+        "reason": "Union accusation directly challenges departmental legitimacy and intent.",
+        "source_actor_name": "graduate_student_union",
+        "target_actor_name": "department_leadership",
+        "weight": 0.66
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Students are angry yet constrained.",
+        "layer": "conflict",
+        "reason": "Private grievance is significant but muted by dependency.",
+        "source_actor_name": "graduate_students_visa_dependent",
+        "target_actor_name": "department_leadership",
+        "weight": 0.47
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Some students are angry and can be more expressive.",
+        "layer": "conflict",
+        "reason": "Anger and lower dependence allow more open opposition.",
+        "source_actor_name": "graduate_students_nonvisa",
+        "target_actor_name": "department_leadership",
+        "weight": 0.54
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Administrators deny intent.",
+        "layer": "conflict",
+        "reason": "Administration denial broadens dispute but central conflict still centers on department.",
+        "source_actor_name": "graduate_student_union",
+        "target_actor_name": "university_administration",
+        "weight": 0.35
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Faculty sympathy is private and cautious.",
+        "layer": "conflict",
+        "reason": "Private concern exists without overt confrontation.",
+        "source_actor_name": "faculty_private_sympathizers",
+        "target_actor_name": "department_leadership",
+        "weight": 0.28
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Active accusation and denial imply visible exchanges.",
+        "layer": "oasis_interaction",
+        "reason": "Public statements, emails, meetings, or petitions are likely interaction channels.",
+        "source_actor_name": "graduate_student_union",
+        "target_actor_name": "department_leadership",
+        "weight": 0.52
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Local media has limited attention.",
+        "layer": "oasis_interaction",
+        "reason": "Union may seek coverage, but media bandwidth is low.",
+        "source_actor_name": "graduate_student_union",
+        "target_actor_name": "local_media",
+        "weight": 0.27
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Shared denial/procedural response expected.",
+        "layer": "oasis_interaction",
+        "reason": "Coordinated messaging and internal consultations are likely.",
+        "source_actor_name": "department_leadership",
+        "target_actor_name": "university_administration",
+        "weight": 0.44
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Faculty sympathy is private.",
+        "layer": "oasis_interaction",
+        "reason": "Backchannel contact is plausible but not highly public.",
+        "source_actor_name": "graduate_student_union",
+        "target_actor_name": "faculty_private_sympathizers",
+        "weight": 0.25
+      },
+      {
+        "direction": "undirected",
+        "evidence": "Limited media attention but reporting channel exists.",
+        "layer": "oasis_interaction",
+        "reason": "Possible inquiry-response loop if reporter probes story.",
+        "source_actor_name": "local_media",
+        "target_actor_name": "university_administration",
+        "weight": 0.21
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype_key": "union_spokesperson",
+        "label": "Union spokesperson",
+        "role": "claim_maker_and_coordinator"
+      },
+      {
+        "archetype_key": "department_chair_proxy",
+        "label": "Department chair proxy",
+        "role": "department_public_denial_and_process_owner"
+      },
+      {
+        "archetype_key": "administrative_comms_lead",
+        "label": "Administrative communications lead",
+        "role": "campus_message_gatekeeper"
+      },
+      {
+        "archetype_key": "local_reporter",
+        "label": "Local reporter",
+        "role": "limited_attention_external_observer"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "graduate_student_union",
+        "archetype_key": "union_spokesperson",
+        "attention_level": 0.74,
+        "current_goal": "Validate student concerns, protect vulnerable members, and raise institutional costs of inaction without exposing high-risk students.",
+        "expression_level": 0.77,
+        "fatigue": 0.42,
+        "fear_of_isolation": 0.36,
+        "hero_key": "union_spokesperson_t0",
+        "mobilization_readiness": 0.69,
+        "perceived_majority": 0.44,
+        "power_summary": "Moderate agenda power among affected students; limited formal authority; some reputational leverage if media or faculty validate claims.",
+        "private_constraints": [
+          "Needs corroboration to sustain credibility.",
+          "Must protect visa-dependent students from exposure.",
+          "Has limited leverage without broader attention."
+        ],
+        "stance_axes": {
+          "coalition_building": 0.71,
+          "escalation_preference": 0.58,
+          "evidence_threshold_for_public_claims": 0.61
+        },
+        "visible_position": "Accuses department of using fellowship delays to discourage organizing."
+      },
+      {
+        "actor_name": "department_leadership",
+        "archetype_key": "department_chair_proxy",
+        "attention_level": 0.68,
+        "current_goal": "Contain legitimacy damage, deny retaliatory intent, and preserve discretion over departmental processes.",
+        "expression_level": 0.63,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.22,
+        "hero_key": "department_chair_proxy_t0",
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.58,
+        "power_summary": "High operational control over departmental processes and narratives inside the department; weaker external credibility if evidence accumulates.",
+        "private_constraints": [
+          "May face documentation exposure if patterns are scrutinized.",
+          "Depends on central administration for broader legitimacy cover.",
+          "Cannot fully control faculty backchannels or student testimony."
+        ],
+        "stance_axes": {
+          "escalation_preference": 0.34,
+          "openness_to_concession": 0.29,
+          "procedural_defensiveness": 0.76
+        },
+        "visible_position": "Denies intent behind fellowship delays and resists framing them as anti-union retaliation."
+      },
+      {
+        "actor_name": "university_administration",
+        "archetype_key": "administrative_comms_lead",
+        "attention_level": 0.52,
+        "current_goal": "Prevent campus-wide escalation, preserve institutional legitimacy, and avoid setting precedents before facts are clearer.",
+        "expression_level": 0.41,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.18,
+        "hero_key": "administrative_comms_lead_t0",
+        "mobilization_readiness": 0.24,
+        "perceived_majority": 0.61,
+        "power_summary": "High campus legitimacy and coordination power; can delay, investigate, or standardize responses across units.",
+        "private_constraints": [
+          "Central administration may inherit the conflict if media or faculty scrutiny expands.",
+          "Can offer process remedies without admitting wrongdoing.",
+          "Sensitive to legal, labor, and reputational risks."
+        ],
+        "stance_axes": {
+          "escalation_preference": 0.27,
+          "message_discipline": 0.81,
+          "openness_to_inquiry": 0.43
+        },
+        "visible_position": "Supports department denial or neutral procedural framing pending review."
+      },
+      {
+        "actor_name": "local_media",
+        "archetype_key": "local_reporter",
+        "attention_level": 0.33,
+        "current_goal": "Assess whether the story merits scarce reporting attention.",
+        "expression_level": 0.16,
+        "fatigue": 0.37,
+        "fear_of_isolation": 0.12,
+        "hero_key": "local_reporter_t0",
+        "mobilization_readiness": 0.14,
+        "perceived_majority": 0.45,
+        "power_summary": "Low initial attention but potentially high leverage if a documented retaliation narrative becomes legible.",
+        "private_constraints": [
+          "Limited newsroom bandwidth.",
+          "Needs documentation or multiple credible sources.",
+          "Campus labor stories compete with higher-salience local news."
+        ],
+        "stance_axes": {
+          "followup_likelihood": 0.36,
+          "skepticism": 0.57,
+          "story_interest": 0.39
+        },
+        "visible_position": "Watching but not fully committed to the story."
+      }
+    ],
+    "heroes": [
+      {
+        "archetype_key": "union_spokesperson",
+        "label": "Union spokesperson",
+        "role": "claim_maker_and_coordinator"
+      },
+      {
+        "archetype_key": "department_chair_proxy",
+        "label": "Department chair proxy",
+        "role": "department_public_denial_and_process_owner"
+      },
+      {
+        "archetype_key": "administrative_comms_lead",
+        "label": "Administrative communications lead",
+        "role": "campus_message_gatekeeper"
+      },
+      {
+        "archetype_key": "local_reporter",
+        "label": "Local reporter",
+        "role": "limited_attention_external_observer"
+      }
+    ],
+    "important_questions": [
+      "Does credible evidence emerge that fellowship delays were intentionally used to discourage union organizing?",
+      "Do vulnerable graduate students gain enough protection and visible support to speak more openly?",
+      "Does the university move from denial to a meaningful independent review or only offer procedural reassurance?",
+      "Does the controversy expand into a broader campus or local media legitimacy issue, or does attention decay?"
+    ],
+    "initial_events": [
+      {
+        "actors_involved": [
+          "graduate_student_union",
+          "department_leadership"
+        ],
+        "event_key": "union_accusation_already_public",
+        "event_type": "announcement",
+        "expected_impact": "Raises conflict and exposure, increases internal discussion, and pressures leadership to defend legitimacy.",
+        "summary": "The graduate student union publicly accuses the department of using fellowship delays to discourage organizing.",
+        "tick": 0,
+        "visibility": "public"
+      },
+      {
+        "actors_involved": [
+          "department_leadership",
+          "university_administration"
+        ],
+        "event_key": "administrative_denial_positioned",
+        "event_type": "announcement",
+        "expected_impact": "Stabilizes cautious observers temporarily, but may deepen student distrust if unsupported by remedies.",
+        "summary": "Departmental and/or administrative actors deny retaliatory intent and frame delays as nonpolitical or procedural.",
+        "tick": 0,
+        "visibility": "public"
+      },
+      {
+        "actors_involved": [
+          "graduate_student_union",
+          "graduate_students_visa_dependent",
+          "graduate_students_nonvisa"
+        ],
+        "event_key": "private_student_story_collection",
+        "event_type": "announcement",
+        "expected_impact": "Could increase internal cohesion and evidence quality while also raising exposure concerns for vulnerable students.",
+        "summary": "Union begins or expands collection of student accounts about delay timing and organizing pressure.",
+        "tick": 1,
+        "visibility": "semi_private"
+      },
+      {
+        "actors_involved": [
+          "faculty_private_sympathizers",
+          "faculty_cautious_neutrals",
+          "department_leadership"
+        ],
+        "event_key": "faculty_backchannel_reactions",
+        "event_type": "announcement",
+        "expected_impact": "May modestly shift trust and influence if faculty signal concern to leadership or students.",
+        "summary": "Faculty discuss concerns privately and assess whether to intervene informally.",
+        "tick": 1,
+        "visibility": "private"
+      },
+      {
+        "actors_involved": [
+          "local_media",
+          "graduate_student_union",
+          "university_administration"
+        ],
+        "event_key": "possible_local_media_triage",
+        "event_type": "announcement",
+        "expected_impact": "Could either amplify legitimacy pressure or allow attention decay if the story stalls.",
+        "summary": "A local reporter evaluates whether enough documentation or sourcing exists for follow-up coverage.",
+        "tick": 2,
+        "visibility": "public"
+      },
+      {
+        "actors_involved": [
+          "department_leadership",
+          "university_administration"
+        ],
+        "event_key": "department_process_explanation_or_minor_fix",
+        "event_type": "announcement",
+        "expected_impact": "Could reduce immediate hardship while leaving intent and accountability unresolved.",
+        "summary": "Leadership may issue a process explanation, temporary payment fix, or generic commitment to review.",
+        "tick": 2,
+        "visibility": "public"
+      }
+    ],
+    "llm_call_id": "d759c7c9-3341-4556-a555-89c94bba8624",
+    "merge_hypotheses": [
+      {
+        "affected_actors": [
+          "graduate_student_union",
+          "department_leadership",
+          "university_administration",
+          "faculty_private_sympathizers"
+        ],
+        "convergence_driver": "Most actors benefit from reducing immediate student hardship regardless of disagreement about intent.",
+        "likely_effect": "Temporary convergence around processing fixes or communication improvements even if accountability remains contested.",
+        "merge_key": "shared_interest_in_payment_normalization"
+      },
+      {
+        "affected_actors": [
+          "graduate_student_union",
+          "graduate_students_visa_dependent",
+          "faculty_private_sympathizers",
+          "local_media"
+        ],
+        "convergence_driver": "Ambiguous evidence and high personal risk can flatten escalation on all sides.",
+        "likely_effect": "Timeline branches may reconverge into low-visibility stalemate unless a new proof source appears.",
+        "merge_key": "coalition_fatigue_under_ambiguity"
+      },
+      {
+        "affected_actors": [
+          "university_administration",
+          "department_leadership",
+          "graduate_student_union",
+          "faculty_cautious_neutrals"
+        ],
+        "convergence_driver": "An inquiry, audit, or ombuds-style review can provide a common process focal point.",
+        "likely_effect": "Public conflict intensity may decrease while actors defer substantive resolution to process.",
+        "merge_key": "legitimacy_repair_via_review_mechanism"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "department_graduate_students",
+        "description": "Graduate students directly affected by fellowship timing, advising, and organizing climate.",
+        "label": "Department graduate students",
+        "population_total": 120
+      },
+      {
+        "archetype_key": "department_faculty",
+        "description": "Faculty with varying levels of sympathy, caution, and institutional dependence.",
+        "label": "Department faculty",
+        "population_total": 30
+      },
+      {
+        "archetype_key": "campus_observers",
+        "description": "Broader student and campus audience with low initial attention.",
+        "label": "Campus observers",
+        "population_total": 5000
+      }
+    ],
+    "risk_flags": [
+      {
+        "description": "The scenario does not establish whether delays are intentional retaliation, routine dysfunction, or mixed causes.",
+        "risk_key": "evidence_ambiguity",
+        "severity": "high"
+      },
+      {
+        "description": "Visa and funding dependence may suppress truthful public reporting and distort visible sentiment.",
+        "risk_key": "high_dependency_vulnerability",
+        "severity": "high"
+      },
+      {
+        "description": "Observed public calm may understate private grievance, making surface legitimacy measures unreliable.",
+        "risk_key": "public_private_belief_gap",
+        "severity": "high"
+      },
+      {
+        "description": "Population counts are inferred for simulation coherence and may not match the source institution.",
+        "risk_key": "limited_scale_precision",
+        "severity": "medium"
+      },
+      {
+        "description": "Low media bandwidth can cause major evidentiary developments to remain socially under-amplified at T0.",
+        "risk_key": "media_underobservation",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "campus_institutional_legitimacy",
+      "case_id": "campus_003",
+      "mode": "direct",
+      "summary": "A graduate student union alleges that a university department is using fellowship payment delays to discourage union organizing. Graduate students show anger but many face visa and funding dependency. Faculty are privately sympathetic but publicly cautious. Administrators deny retaliatory intent. Local media attention exists but is limited. T0 should emphasize public-private belief gaps, fear of isolation, dependency relations, and legitimacy-sensitive reporting questions.",
+      "time_horizon_ticks": 6,
+      "uncertainty_notes": [
+        "No specific university, department, union local, or administrator identities are provided.",
+        "No confirmed evidence at T0 establishes whether fellowship delays are intentional retaliation, routine bureaucracy, or mixed causes.",
+        "Media salience and student participation scale are described qualitatively, not quantitatively."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "description": "Private suspicion and sympathy exceed public expression due to dependency and reputational caution.",
+        "level": 0.8,
+        "mechanism": "public_private_belief_gap",
+        "model": "attention_decay",
+        "scope": "department"
+      },
+      {
+        "description": "High silence pressure among vulnerable students and cautious faculty suppresses overt dissent.",
+        "level": 0.77,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "scope": "visa_dependent_students_and_faculty"
+      },
+      {
+        "description": "Actors are most persuaded by evidence from trusted peers, faculty, or documented cases rather than abstract claims.",
+        "level": 0.56,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "scope": "campus"
+      },
+      {
+        "description": "Visible participation likely remains low until enough peers act or protective structures emerge.",
+        "level": 0.68,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "scope": "graduate_students"
+      },
+      {
+        "description": "Information and confidence travel through status-similar student and faculty subnets.",
+        "level": 0.61,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "scope": "department_networks"
+      },
+      {
+        "description": "Students need repeated reinforcement from peers, faculty, or media before escalating publicly.",
+        "level": 0.64,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "scope": "organizing_support"
+      },
+      {
+        "description": "Union and administration frame the issue through competing identity lenses of worker vulnerability versus procedural legitimacy.",
+        "level": 0.59,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "scope": "labor_vs_institution"
+      },
+      {
+        "description": "Absent new evidence or visible confrontation, outside attention will fade quickly.",
+        "level": 0.72,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "scope": "broader_campus_and_media"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "applies_to": "graduate_students_visa_dependent",
+        "description": "Material and status dependence raises self-censorship and lowers overt participation.",
+        "influence_key": "dependency_chills_expression"
+      },
+      {
+        "applies_to": "faculty_private_sympathizers_and_students",
+        "description": "Quiet faculty support can stabilize student beliefs without immediately increasing public speech.",
+        "influence_key": "private_faculty_validation"
+      },
+      {
+        "applies_to": "department_leadership_and_university_administration",
+        "description": "Official denials and process language can slow coalition growth when evidence remains ambiguous.",
+        "influence_key": "procedural_legitimacy_shield"
+      },
+      {
+        "applies_to": "local_media_and_broader_campus",
+        "description": "Outside audiences require concise, documentable hooks before sustaining attention.",
+        "influence_key": "limited_media_bandwidth"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "graduate_student_union",
+        "behavior_axes": {
+          "assertiveness": 0.68,
+          "caution": 0.57,
+          "coordination": 0.71
+        },
+        "ideology_axes": {
+          "institutional_deference": 0.19,
+          "labor_solidarity": 0.88
+        },
+        "reputation": 0.55,
+        "secrecy": 0.49,
+        "tendency": "protective_escalation",
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "department_leadership",
+        "behavior_axes": {
+          "assertiveness": 0.61,
+          "caution": 0.63,
+          "coordination": 0.66
+        },
+        "ideology_axes": {
+          "institutional_deference": 0.82,
+          "labor_skepticism": 0.61
+        },
+        "reputation": 0.46,
+        "secrecy": 0.58,
+        "tendency": "procedural_denial",
+        "trustworthiness": 0.37
+      },
+      {
+        "actor_name": "graduate_students_visa_dependent",
+        "behavior_axes": {
+          "assertiveness": 0.24,
+          "caution": 0.84,
+          "coordination": 0.46
+        },
+        "ideology_axes": {
+          "institutional_deference": 0.51,
+          "labor_solidarity": 0.69
+        },
+        "reputation": 0.49,
+        "secrecy": 0.76,
+        "tendency": "private_grievance_withdrawal",
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "graduate_students_nonvisa",
+        "behavior_axes": {
+          "assertiveness": 0.56,
+          "caution": 0.52,
+          "coordination": 0.58
+        },
+        "ideology_axes": {
+          "institutional_deference": 0.36,
+          "labor_solidarity": 0.72
+        },
+        "reputation": 0.53,
+        "secrecy": 0.42,
+        "tendency": "selective_public_advocacy",
+        "trustworthiness": 0.66
+      },
+      {
+        "actor_name": "faculty_private_sympathizers",
+        "behavior_axes": {
+          "assertiveness": 0.33,
+          "caution": 0.73,
+          "coordination": 0.51
+        },
+        "ideology_axes": {
+          "institutional_deference": 0.57,
+          "labor_solidarity": 0.58
+        },
+        "reputation": 0.68,
+        "secrecy": 0.67,
+        "tendency": "backchannel_support",
+        "trustworthiness": 0.7
+      },
+      {
+        "actor_name": "faculty_cautious_neutrals",
+        "behavior_axes": {
+          "assertiveness": 0.21,
+          "caution": 0.71,
+          "coordination": 0.44
+        },
+        "ideology_axes": {
+          "institutional_deference": 0.69,
+          "labor_solidarity": 0.41
+        },
+        "reputation": 0.62,
+        "secrecy": 0.49,
+        "tendency": "procedural_waiting",
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "university_administration",
+        "behavior_axes": {
+          "assertiveness": 0.47,
+          "caution": 0.79,
+          "coordination": 0.74
+        },
+        "ideology_axes": {
+          "institutional_deference": 0.86,
+          "labor_skepticism": 0.48
+        },
+        "reputation": 0.57,
+        "secrecy": 0.56,
+        "tendency": "legitimacy_management",
+        "trustworthiness": 0.45
+      },
+      {
+        "actor_name": "local_media",
+        "behavior_axes": {
+          "assertiveness": 0.26,
+          "caution": 0.69,
+          "coordination": 0.34
+        },
+        "ideology_axes": {
+          "institutional_deference": 0.38,
+          "labor_solidarity": 0.47
+        },
+        "reputation": 0.6,
+        "secrecy": 0.18,
+        "tendency": "attention_triage",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "broader_student_body",
+        "behavior_axes": {
+          "assertiveness": 0.19,
+          "caution": 0.38,
+          "coordination": 0.22
+        },
+        "ideology_axes": {
+          "institutional_deference": 0.47,
+          "labor_solidarity": 0.49
+        },
+        "reputation": 0.5,
+        "secrecy": 0.18,
+        "tendency": "low_attention_observation",
+        "trustworthiness": 0.55
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 494,
+        "end": 494,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 494,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

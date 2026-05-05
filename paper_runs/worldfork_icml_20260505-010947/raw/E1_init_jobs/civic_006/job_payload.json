@@ -1,0 +1,21 @@
+{
+  "job_type": "initialize_big_bang",
+  "payload": {
+    "actors": [],
+    "branch_policy": {
+      "branch_score_threshold": 0.999,
+      "max_active_multiverses": 1,
+      "max_branch_depth": 1,
+      "max_branches_per_tick": 1
+    },
+    "cohorts": [],
+    "heroes": [],
+    "name": "E1_init_job_civic_006",
+    "scenario_text": "# Case civic_006\nBenchmark role: civic_policy\n\n## Scenario\n\nA regional planning board must pick one of three flood-wall alignments after updated maps show higher risk. One route protects downtown but disrupts a low-income neighborhood, one protects homes but leaves warehouses exposed, and one delays construction for redesign. Agencies, residents, insurers, and logistics firms disagree. Encode uncertainty, material dependency, branch endpoints, and reporting questions about fairness and risk transfer.\n\n## Expected Focus\n- minority_cohorts\n- belief_uncertainty\n- endpoint_ledger\n",
+    "simulation_config": {
+      "max_ticks": 1,
+      "tick_duration_minutes": 720
+    },
+    "use_initializer_agent": true
+  }
+}

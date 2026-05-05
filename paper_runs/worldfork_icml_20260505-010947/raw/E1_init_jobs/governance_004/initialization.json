@@ -1,0 +1,1635 @@
+{
+  "big_bang_id": "624e4f63-0ee0-47b8-b36e-7f0b85183816",
+  "initializer_output": {
+    "actors": [
+      {
+        "decision_authority": "indirect_via_trustee_board",
+        "fictionalized": true,
+        "name": "harbor_pension_fund",
+        "public_visibility": "high",
+        "role": "asset_owner_and_decision_forum",
+        "stakes": [
+          "portfolio_returns",
+          "beneficiary_trust",
+          "governance_legitimacy",
+          "compliance"
+        ],
+        "type": "institution"
+      },
+      {
+        "decision_authority": "high",
+        "fictionalized": true,
+        "name": "trustee_board",
+        "public_visibility": "high",
+        "role": "final_decision_authority_on_investment_policy",
+        "stakes": [
+          "fiduciary_duty",
+          "legal_defensibility",
+          "stakeholder_legitimacy",
+          "fund_performance"
+        ],
+        "type": "governing_body"
+      },
+      {
+        "decision_authority": "medium",
+        "fictionalized": true,
+        "name": "investment_staff",
+        "public_visibility": "medium",
+        "role": "internal_analysis_and_recommendation",
+        "stakes": [
+          "analytic_credibility",
+          "implementation_feasibility",
+          "policy_alignment"
+        ],
+        "type": "institutional_team"
+      },
+      {
+        "decision_authority": "medium",
+        "fictionalized": true,
+        "name": "external_asset_managers",
+        "public_visibility": "medium",
+        "role": "portfolio_implementation_and_risk_warning",
+        "stakes": [
+          "mandate_stability",
+          "tracking_error_control",
+          "client_relationship"
+        ],
+        "type": "service_provider_group"
+      },
+      {
+        "decision_authority": "low",
+        "fictionalized": true,
+        "name": "retiree_beneficiaries",
+        "public_visibility": "medium",
+        "role": "income_dependent_beneficiaries",
+        "stakes": [
+          "retirement_security",
+          "fund_returns",
+          "institutional_trust"
+        ],
+        "type": "stakeholder_group"
+      },
+      {
+        "decision_authority": "low",
+        "fictionalized": true,
+        "name": "ethics_advocates",
+        "public_visibility": "medium",
+        "role": "normative_pressure_for_divestment",
+        "stakes": [
+          "ethical_alignment",
+          "public_accountability",
+          "precedent_setting"
+        ],
+        "type": "advocacy_group"
+      },
+      {
+        "decision_authority": "medium",
+        "fictionalized": true,
+        "name": "legal_counsel",
+        "public_visibility": "low",
+        "role": "fiduciary_and_process_risk_advisor",
+        "stakes": [
+          "legal_defensibility",
+          "process_integrity"
+        ],
+        "type": "professional_advisor"
+      },
+      {
+        "decision_authority": "none",
+        "fictionalized": true,
+        "name": "surveillance_linked_holdings",
+        "public_visibility": "low",
+        "role": "target_of_possible_divestment",
+        "stakes": [
+          "continued_investment_access"
+        ],
+        "type": "market_exposure_cluster"
+      },
+      {
+        "decision_authority": "low",
+        "fictionalized": true,
+        "name": "financial_press",
+        "public_visibility": "high",
+        "role": "external_observer_and_amplifier",
+        "stakes": [
+          "narrative_salience",
+          "controversy_coverage"
+        ],
+        "type": "media_group"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Board moves toward a criteria-based, partial divestment or watchlist policy instead of blanket rejection or blanket divestment.",
+        "branch_key": "criteria_based_compromise_branch",
+        "observable_divergence_signal": "Meeting materials or public statements reference screening thresholds, phased implementation, or exception criteria.",
+        "trigger": "Trustees receive analysis showing targeted or phased exclusions can be implemented with limited tracking error."
+      },
+      {
+        "alternate_path": "Board declines divestment and instead reaffirms existing investment policy with enhanced monitoring language.",
+        "branch_key": "returns_first_rejection_branch",
+        "observable_divergence_signal": "Public rationale centers on fiduciary duty, benchmark discipline, and insufficiency of auditable evidence for action.",
+        "trigger": "Market-risk analysis or legal advice emphasizes material fiduciary downside from divestment."
+      },
+      {
+        "alternate_path": "Public pressure escalates faster than internal review, increasing conflict and reputational stakes for trustees.",
+        "branch_key": "movement_escalation_branch",
+        "observable_divergence_signal": "Spike in petitions, open letters, beneficiary testimony, or sustained press coverage.",
+        "trigger": "Advocates frame trustee caution as ethical failure and attract beneficiary support or media attention."
+      },
+      {
+        "alternate_path": "Board postpones terminal choice and commissions further study, preserving status quo longer than either side wants.",
+        "branch_key": "process_delay_branch",
+        "observable_divergence_signal": "Creation of task forces, consultant requests, or repeated agenda deferrals without endpoint resolution.",
+        "trigger": "Legal ambiguity and implementation complexity remain unresolved."
+      }
+    ],
+    "channels": [
+      {
+        "actors": [
+          "trustee_board",
+          "investment_staff",
+          "legal_counsel"
+        ],
+        "channel_key": "board_meetings",
+        "reach": "internal_high",
+        "type": "formal_governance",
+        "visibility": "medium"
+      },
+      {
+        "actors": [
+          "external_asset_managers",
+          "investment_staff",
+          "trustee_board"
+        ],
+        "channel_key": "manager_briefings",
+        "reach": "internal_medium",
+        "type": "technical_advisory",
+        "visibility": "low"
+      },
+      {
+        "actors": [
+          "retiree_beneficiaries",
+          "trustee_board"
+        ],
+        "channel_key": "beneficiary_letters_and_comments",
+        "reach": "medium",
+        "type": "stakeholder_feedback",
+        "visibility": "medium"
+      },
+      {
+        "actors": [
+          "ethics_advocates",
+          "retiree_beneficiaries",
+          "financial_press"
+        ],
+        "channel_key": "advocacy_campaigns",
+        "reach": "medium",
+        "type": "public_pressure",
+        "visibility": "high"
+      },
+      {
+        "actors": [
+          "financial_press",
+          "retiree_beneficiaries",
+          "ethics_advocates",
+          "trustee_board"
+        ],
+        "channel_key": "press_coverage",
+        "reach": "medium",
+        "type": "media",
+        "visibility": "high"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "beneficiary_public",
+        "attention_level": 0.54,
+        "behavioral_tendencies": [
+          "caution",
+          "loss_aversion",
+          "deference_to_trustees"
+        ],
+        "cohort_key": "return_anxious_retirees",
+        "expression_level": 0.38,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.33,
+        "mobilization_readiness": 0.31,
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "Returns and pension security should dominate unless ethical harms are clearly material and manageable.",
+        "public_expression": "Cautious, often asking for proof that divestment will not harm returns.",
+        "representation_mode": "direct_interest_group",
+        "represented_population": 72000,
+        "reputation": 0.58,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "divestment_support": 0.35,
+          "ethics_priority": 0.4,
+          "fiduciary_strictness": 0.78,
+          "risk_tolerance": 0.3
+        },
+        "trustworthiness": 0.62
+      },
+      {
+        "archetype_key": "beneficiary_public",
+        "attention_level": 0.49,
+        "behavioral_tendencies": [
+          "conditional_activism",
+          "moral_framing",
+          "process_attention"
+        ],
+        "cohort_key": "ethics_concerned_retirees",
+        "expression_level": 0.41,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.46,
+        "mobilization_readiness": 0.44,
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "The fund should reduce exposure to surveillance-linked firms if a credible process preserves fiduciary standards.",
+        "public_expression": "Selective support for review, petitions, or letters rather than maximal protest at T0.",
+        "representation_mode": "latent_constituency",
+        "represented_population": 36000,
+        "reputation": 0.55,
+        "secrecy": 0.27,
+        "stance_axes": {
+          "divestment_support": 0.68,
+          "ethics_priority": 0.79,
+          "fiduciary_strictness": 0.61,
+          "risk_tolerance": 0.46
+        },
+        "trustworthiness": 0.64
+      },
+      {
+        "archetype_key": "beneficiary_public",
+        "attention_level": 0.16,
+        "behavioral_tendencies": [
+          "inattention",
+          "status_quo_bias"
+        ],
+        "cohort_key": "disengaged_beneficiaries",
+        "expression_level": 0.08,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.21,
+        "mobilization_readiness": 0.09,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.1,
+        "private_belief": "Issue is distant unless it visibly affects payments or headlines.",
+        "public_expression": "Mostly silent.",
+        "representation_mode": "background_population",
+        "represented_population": 12000,
+        "reputation": 0.5,
+        "secrecy": 0.34,
+        "stance_axes": {
+          "divestment_support": 0.5,
+          "ethics_priority": 0.45,
+          "fiduciary_strictness": 0.5,
+          "risk_tolerance": 0.45
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "archetype_key": "governance_professionals",
+        "attention_level": 0.83,
+        "behavioral_tendencies": [
+          "proceduralism",
+          "documentation",
+          "delay_for_clarity"
+        ],
+        "cohort_key": "fiduciary_cautious_governance_professionals",
+        "expression_level": 0.52,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.17,
+        "mobilization_readiness": 0.58,
+        "perceived_majority": 0.71,
+        "population_share_of_archetype": 0.62,
+        "private_belief": "Any divestment must be tightly documented, legally defensible, and operationally practical.",
+        "public_expression": "Process-focused and noncommittal on endpoint.",
+        "representation_mode": "institutional_core",
+        "represented_population": 28,
+        "reputation": 0.69,
+        "secrecy": 0.41,
+        "stance_axes": {
+          "divestment_support": 0.42,
+          "ethics_priority": 0.48,
+          "fiduciary_strictness": 0.9,
+          "risk_tolerance": 0.24
+        },
+        "trustworthiness": 0.73
+      },
+      {
+        "archetype_key": "governance_professionals",
+        "attention_level": 0.78,
+        "behavioral_tendencies": [
+          "incremental_reform",
+          "policy_design",
+          "bridge_building"
+        ],
+        "cohort_key": "mission_aligned_professionals",
+        "expression_level": 0.47,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.42,
+        "mobilization_readiness": 0.51,
+        "perceived_majority": 0.36,
+        "population_share_of_archetype": 0.38,
+        "private_belief": "Ethical alignment can be pursued within fiduciary guardrails through phased or criteria-based action.",
+        "public_expression": "Advocates for review frameworks, screens, or escalation ladders.",
+        "representation_mode": "internal_minority",
+        "represented_population": 17,
+        "reputation": 0.63,
+        "secrecy": 0.36,
+        "stance_axes": {
+          "divestment_support": 0.66,
+          "ethics_priority": 0.72,
+          "fiduciary_strictness": 0.75,
+          "risk_tolerance": 0.41
+        },
+        "trustworthiness": 0.71
+      },
+      {
+        "archetype_key": "advocacy_public",
+        "attention_level": 0.74,
+        "behavioral_tendencies": [
+          "issue_campaigning",
+          "moral_pressure",
+          "coalition_seeking"
+        ],
+        "cohort_key": "organized_ethics_advocates",
+        "expression_level": 0.72,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.19,
+        "mobilization_readiness": 0.69,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "Divestment is a necessary ethical stance against surveillance-linked harms.",
+        "public_expression": "Visible pressure for action, likely framed around values and accountability.",
+        "representation_mode": "organized_network",
+        "represented_population": 3200,
+        "reputation": 0.52,
+        "secrecy": 0.16,
+        "stance_axes": {
+          "divestment_support": 0.92,
+          "ethics_priority": 0.95,
+          "fiduciary_strictness": 0.34,
+          "risk_tolerance": 0.67
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "archetype_key": "advocacy_public",
+        "attention_level": 0.33,
+        "behavioral_tendencies": [
+          "low_commitment_support",
+          "attention_shifting"
+        ],
+        "cohort_key": "sympathetic_but_passive_public",
+        "expression_level": 0.24,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.28,
+        "mobilization_readiness": 0.26,
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "Divestment sounds ethically appealing but is not a top personal priority.",
+        "public_expression": "Intermittent endorsement, low sustained engagement.",
+        "representation_mode": "ambient_support_layer",
+        "represented_population": 4800,
+        "reputation": 0.49,
+        "secrecy": 0.22,
+        "stance_axes": {
+          "divestment_support": 0.64,
+          "ethics_priority": 0.71,
+          "fiduciary_strictness": 0.43,
+          "risk_tolerance": 0.5
+        },
+        "trustworthiness": 0.55
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "beneficiary_public",
+        "attention_level": 0.54,
+        "behavioral_tendencies": [
+          "caution",
+          "loss_aversion",
+          "deference_to_trustees"
+        ],
+        "cohort_key": "return_anxious_retirees",
+        "expression_level": 0.38,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.33,
+        "mobilization_readiness": 0.31,
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "Returns and pension security should dominate unless ethical harms are clearly material and manageable.",
+        "public_expression": "Cautious, often asking for proof that divestment will not harm returns.",
+        "representation_mode": "direct_interest_group",
+        "represented_population": 72000,
+        "reputation": 0.58,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "divestment_support": 0.35,
+          "ethics_priority": 0.4,
+          "fiduciary_strictness": 0.78,
+          "risk_tolerance": 0.3
+        },
+        "trustworthiness": 0.62
+      },
+      {
+        "archetype_key": "beneficiary_public",
+        "attention_level": 0.49,
+        "behavioral_tendencies": [
+          "conditional_activism",
+          "moral_framing",
+          "process_attention"
+        ],
+        "cohort_key": "ethics_concerned_retirees",
+        "expression_level": 0.41,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.46,
+        "mobilization_readiness": 0.44,
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "The fund should reduce exposure to surveillance-linked firms if a credible process preserves fiduciary standards.",
+        "public_expression": "Selective support for review, petitions, or letters rather than maximal protest at T0.",
+        "representation_mode": "latent_constituency",
+        "represented_population": 36000,
+        "reputation": 0.55,
+        "secrecy": 0.27,
+        "stance_axes": {
+          "divestment_support": 0.68,
+          "ethics_priority": 0.79,
+          "fiduciary_strictness": 0.61,
+          "risk_tolerance": 0.46
+        },
+        "trustworthiness": 0.64
+      },
+      {
+        "archetype_key": "beneficiary_public",
+        "attention_level": 0.16,
+        "behavioral_tendencies": [
+          "inattention",
+          "status_quo_bias"
+        ],
+        "cohort_key": "disengaged_beneficiaries",
+        "expression_level": 0.08,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.21,
+        "mobilization_readiness": 0.09,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.1,
+        "private_belief": "Issue is distant unless it visibly affects payments or headlines.",
+        "public_expression": "Mostly silent.",
+        "representation_mode": "background_population",
+        "represented_population": 12000,
+        "reputation": 0.5,
+        "secrecy": 0.34,
+        "stance_axes": {
+          "divestment_support": 0.5,
+          "ethics_priority": 0.45,
+          "fiduciary_strictness": 0.5,
+          "risk_tolerance": 0.45
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "archetype_key": "governance_professionals",
+        "attention_level": 0.83,
+        "behavioral_tendencies": [
+          "proceduralism",
+          "documentation",
+          "delay_for_clarity"
+        ],
+        "cohort_key": "fiduciary_cautious_governance_professionals",
+        "expression_level": 0.52,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.17,
+        "mobilization_readiness": 0.58,
+        "perceived_majority": 0.71,
+        "population_share_of_archetype": 0.62,
+        "private_belief": "Any divestment must be tightly documented, legally defensible, and operationally practical.",
+        "public_expression": "Process-focused and noncommittal on endpoint.",
+        "representation_mode": "institutional_core",
+        "represented_population": 28,
+        "reputation": 0.69,
+        "secrecy": 0.41,
+        "stance_axes": {
+          "divestment_support": 0.42,
+          "ethics_priority": 0.48,
+          "fiduciary_strictness": 0.9,
+          "risk_tolerance": 0.24
+        },
+        "trustworthiness": 0.73
+      },
+      {
+        "archetype_key": "governance_professionals",
+        "attention_level": 0.78,
+        "behavioral_tendencies": [
+          "incremental_reform",
+          "policy_design",
+          "bridge_building"
+        ],
+        "cohort_key": "mission_aligned_professionals",
+        "expression_level": 0.47,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.42,
+        "mobilization_readiness": 0.51,
+        "perceived_majority": 0.36,
+        "population_share_of_archetype": 0.38,
+        "private_belief": "Ethical alignment can be pursued within fiduciary guardrails through phased or criteria-based action.",
+        "public_expression": "Advocates for review frameworks, screens, or escalation ladders.",
+        "representation_mode": "internal_minority",
+        "represented_population": 17,
+        "reputation": 0.63,
+        "secrecy": 0.36,
+        "stance_axes": {
+          "divestment_support": 0.66,
+          "ethics_priority": 0.72,
+          "fiduciary_strictness": 0.75,
+          "risk_tolerance": 0.41
+        },
+        "trustworthiness": 0.71
+      },
+      {
+        "archetype_key": "advocacy_public",
+        "attention_level": 0.74,
+        "behavioral_tendencies": [
+          "issue_campaigning",
+          "moral_pressure",
+          "coalition_seeking"
+        ],
+        "cohort_key": "organized_ethics_advocates",
+        "expression_level": 0.72,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.19,
+        "mobilization_readiness": 0.69,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "Divestment is a necessary ethical stance against surveillance-linked harms.",
+        "public_expression": "Visible pressure for action, likely framed around values and accountability.",
+        "representation_mode": "organized_network",
+        "represented_population": 3200,
+        "reputation": 0.52,
+        "secrecy": 0.16,
+        "stance_axes": {
+          "divestment_support": 0.92,
+          "ethics_priority": 0.95,
+          "fiduciary_strictness": 0.34,
+          "risk_tolerance": 0.67
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "archetype_key": "advocacy_public",
+        "attention_level": 0.33,
+        "behavioral_tendencies": [
+          "low_commitment_support",
+          "attention_shifting"
+        ],
+        "cohort_key": "sympathetic_but_passive_public",
+        "expression_level": 0.24,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.28,
+        "mobilization_readiness": 0.26,
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "Divestment sounds ethically appealing but is not a top personal priority.",
+        "public_expression": "Intermittent endorsement, low sustained engagement.",
+        "representation_mode": "ambient_support_layer",
+        "represented_population": 4800,
+        "reputation": 0.49,
+        "secrecy": 0.22,
+        "stance_axes": {
+          "divestment_support": 0.64,
+          "ethics_priority": 0.71,
+          "fiduciary_strictness": 0.43,
+          "risk_tolerance": 0.5
+        },
+        "trustworthiness": 0.55
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "trustee_board",
+          "board_chair"
+        ],
+        "blockers": [
+          "legal_caution",
+          "tracking_error_concerns",
+          "insufficient_auditability",
+          "board_coalition_fragility"
+        ],
+        "contradiction_notes": "Could be superseded by a no-change decision or indefinite deferral.",
+        "description": "The fund formally approves an investment policy change that restricts, exits, or phases out surveillance-linked holdings.",
+        "endpoint_key": "adopt_any_divestment_policy",
+        "evidence_refs": [
+          "A fictional pension fund considers divesting from companies linked to surveillance technology.",
+          "Trustees have fiduciary duties."
+        ],
+        "label": "Adopt divestment-related policy",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the trustee board formally adopt any divestment-related policy targeting surveillance-linked holdings?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.45,
+        "rationale": "This is the primary terminal governance choice implied by the scenario.",
+        "realization_criteria": [
+          "Board vote or equivalent formal resolution approves a policy change targeting surveillance-linked holdings.",
+          "Implementation instructions are issued to staff or managers.",
+          "Decision is publicly or internally recorded as adopted rather than merely studied."
+        ],
+        "status": "active",
+        "status_basis": "Under active consideration but not decided at T0."
+      },
+      {
+        "authority_refs": [
+          "trustee_board",
+          "investment_staff",
+          "legal_counsel"
+        ],
+        "blockers": [
+          "advocacy_rejection_of_compromise",
+          "screening_complexity",
+          "unclear_company_definitions"
+        ],
+        "contradiction_notes": "If full divestment is adopted, this endpoint is not realized unless policy is explicitly partial.",
+        "description": "The fund chooses a limited, screened, or phased policy rather than broad full divestment.",
+        "endpoint_key": "partial_or_criteria_based_restriction",
+        "evidence_refs": [
+          "Asset managers warn of tracking error.",
+          "Model authority, legal caution, stakeholder trust, and terminal endpoints."
+        ],
+        "label": "Adopt partial or criteria-based restriction",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "If action is taken, will the endpoint be partial criteria-based restriction or broader divestment?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.34,
+        "rationale": "Tracking error pressure makes a narrower endpoint especially relevant for later comparison.",
+        "realization_criteria": [
+          "Formal policy specifies thresholds, watchlists, exclusions, or phased divestment criteria.",
+          "Some surveillance-linked exposure remains permissible under defined conditions.",
+          "Managers receive implementation rules narrower than full portfolio-wide divestment."
+        ],
+        "status": "active",
+        "status_basis": "Compromise path is plausible given fiduciary caution and implementation concerns."
+      },
+      {
+        "authority_refs": [
+          "trustee_board",
+          "general_counsel",
+          "chief_investment_officer"
+        ],
+        "blockers": [
+          "sustained_advocacy_pressure",
+          "beneficiary_trust_erosion",
+          "credible_low_cost_divestment_plan"
+        ],
+        "contradiction_notes": "A temporary study period alone does not realize this endpoint unless the review closes without policy change.",
+        "description": "The fund ultimately declines to adopt a divestment policy and keeps current investment approach substantially unchanged.",
+        "endpoint_key": "retain_status_quo_policy",
+        "evidence_refs": [
+          "Retirees worry about returns.",
+          "Asset managers warn of tracking error.",
+          "Trustees have fiduciary duties."
+        ],
+        "label": "Retain existing holdings policy",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the fund ultimately retain current holdings policy after review rather than changing allocation rules?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.37,
+        "rationale": "Status quo retention is a distinct terminal outcome, not just absence of motion.",
+        "realization_criteria": [
+          "Board formally rejects divestment or closes review without policy change.",
+          "No new surveillance-linked screening or exit mandate is issued.",
+          "Official rationale cites fiduciary, legal, or implementation grounds for maintaining status quo."
+        ],
+        "status": "active",
+        "status_basis": "Strong live option because return and fiduciary concerns are prominent at T0."
+      },
+      {
+        "authority_refs": [
+          "trustee_board",
+          "board_chair",
+          "legal_counsel"
+        ],
+        "blockers": [
+          "deadline_pressure",
+          "public_escalation",
+          "clear_technical_recommendation"
+        ],
+        "contradiction_notes": "Deferral is a terminal endpoint only if the modeled horizon closes without a final policy choice; interim delays are otherwise mechanisms.",
+        "description": "The fund does not reach a terminal policy choice within the modeled horizon and remains in study, consultation, or repeated postponement.",
+        "endpoint_key": "extended_deferral_without_terminal_choice",
+        "evidence_refs": [
+          "Model authority, legal caution, stakeholder trust, and terminal endpoints.",
+          "auditability"
+        ],
+        "label": "Extended deferral",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the governance process end in prolonged deferral without a terminal policy choice during the modeled horizon?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.28,
+        "rationale": "The scenario explicitly emphasizes process quality and endpoint tracking, making stalemate/deferral important to monitor.",
+        "realization_criteria": [
+          "Scheduled decision points pass without formal adoption or rejection.",
+          "Board commissions additional review, consultation, or legal analysis beyond initial process steps.",
+          "Holdings policy remains temporarily unchanged because decision authority has not exercised a terminal choice."
+        ],
+        "status": "active",
+        "status_basis": "High procedural caution and incomplete evidence make delay credible at initialization."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Trustees have fiduciary duties and govern the divestment consideration.",
+        "layer": "dependency",
+        "reason": "Fund policy direction depends on trustee decisions.",
+        "source_actor_name": "harbor_pension_fund",
+        "target_actor_name": "trustee_board",
+        "weight": 0.61
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Asset managers warn of tracking error; authority and auditability are central.",
+        "layer": "dependency",
+        "reason": "Board relies on staff analysis for feasibility and risk assessment.",
+        "source_actor_name": "trustee_board",
+        "target_actor_name": "investment_staff",
+        "weight": 0.53
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Legal caution and fiduciary duties are explicit scenario focus areas.",
+        "layer": "dependency",
+        "reason": "Board depends on legal interpretation for fiduciary defensibility.",
+        "source_actor_name": "trustee_board",
+        "target_actor_name": "legal_counsel",
+        "weight": 0.58
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Asset managers warn of tracking error.",
+        "layer": "dependency",
+        "reason": "Portfolio implementation and benchmark management rely on external managers.",
+        "source_actor_name": "harbor_pension_fund",
+        "target_actor_name": "external_asset_managers",
+        "weight": 0.49
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Retirees worry about returns.",
+        "layer": "dependency",
+        "reason": "Beneficiaries rely on fund performance for retirement security.",
+        "source_actor_name": "retiree_beneficiaries",
+        "target_actor_name": "harbor_pension_fund",
+        "weight": 0.65
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Possible divestment from companies linked to surveillance technology.",
+        "layer": "dependency",
+        "reason": "Managers may hold these firms within benchmarked portfolios.",
+        "source_actor_name": "external_asset_managers",
+        "target_actor_name": "surveillance_linked_holdings",
+        "weight": 0.31
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Stakeholder trust is a modeling focus; retirees worry about returns.",
+        "layer": "trust",
+        "reason": "Beneficiaries retain moderate institutional trust but are cautious about outcomes.",
+        "source_actor_name": "retiree_beneficiaries",
+        "target_actor_name": "trustee_board",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Investment staff are the likely source of auditability and tracking-error analysis.",
+        "layer": "trust",
+        "reason": "Board tends to trust internal technical assessments.",
+        "source_actor_name": "trustee_board",
+        "target_actor_name": "investment_staff",
+        "weight": 0.63
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Legal caution is explicitly salient.",
+        "layer": "trust",
+        "reason": "Legal counsel is trusted on fiduciary process constraints.",
+        "source_actor_name": "trustee_board",
+        "target_actor_name": "legal_counsel",
+        "weight": 0.66
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Asset managers warn of tracking error.",
+        "layer": "trust",
+        "reason": "Managers are trusted on implementation realities but not final policy judgment.",
+        "source_actor_name": "trustee_board",
+        "target_actor_name": "external_asset_managers",
+        "weight": 0.49
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Ethics advocates push divestment while authority remains with trustees.",
+        "layer": "trust",
+        "reason": "Advocates see board as responsive only if pressed.",
+        "source_actor_name": "ethics_advocates",
+        "target_actor_name": "trustee_board",
+        "weight": 0.33
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Managers warn of tracking error in context of contested decision.",
+        "layer": "trust",
+        "reason": "Beneficiaries may accept technical claims but suspect self-interest.",
+        "source_actor_name": "retiree_beneficiaries",
+        "target_actor_name": "external_asset_managers",
+        "weight": 0.37
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Model authority; trustees have fiduciary duties.",
+        "layer": "influence",
+        "reason": "Board controls policy and can authorize divestment or retention.",
+        "source_actor_name": "trustee_board",
+        "target_actor_name": "harbor_pension_fund",
+        "weight": 0.72
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Auditability and tracking-error concerns imply staff agenda power.",
+        "layer": "influence",
+        "reason": "Staff recommendations shape trustee options and comfort.",
+        "source_actor_name": "investment_staff",
+        "target_actor_name": "trustee_board",
+        "weight": 0.62
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Legal caution is a core scenario dimension.",
+        "layer": "influence",
+        "reason": "Legal framing can narrow acceptable options.",
+        "source_actor_name": "legal_counsel",
+        "target_actor_name": "trustee_board",
+        "weight": 0.59
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Asset managers warn of tracking error.",
+        "layer": "influence",
+        "reason": "Managers can emphasize implementation costs and benchmark effects.",
+        "source_actor_name": "external_asset_managers",
+        "target_actor_name": "trustee_board",
+        "weight": 0.47
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Ethics advocates push divestment.",
+        "layer": "influence",
+        "reason": "Advocates create reputational and moral pressure on trustees.",
+        "source_actor_name": "ethics_advocates",
+        "target_actor_name": "trustee_board",
+        "weight": 0.44
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Retirees worry about returns; stakeholder trust matters.",
+        "layer": "influence",
+        "reason": "Beneficiaries shape legitimacy and board sensitivity to trust.",
+        "source_actor_name": "retiree_beneficiaries",
+        "target_actor_name": "trustee_board",
+        "weight": 0.41
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Media attention is a plausible amplifier in governance disputes.",
+        "layer": "influence",
+        "reason": "Coverage can make the issue more salient to beneficiaries.",
+        "source_actor_name": "financial_press",
+        "target_actor_name": "retiree_beneficiaries",
+        "weight": 0.28
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Institutional governance scenario with stakeholder trust focus.",
+        "layer": "exposure",
+        "reason": "Beneficiaries can observe board statements and outcomes more than deliberations.",
+        "source_actor_name": "retiree_beneficiaries",
+        "target_actor_name": "trustee_board",
+        "weight": 0.32
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Ethics advocates push divestment.",
+        "layer": "exposure",
+        "reason": "Board is likely aware of advocacy messaging and demands.",
+        "source_actor_name": "trustee_board",
+        "target_actor_name": "ethics_advocates",
+        "weight": 0.41
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Stakeholder trust and ethical pressure are central.",
+        "layer": "exposure",
+        "reason": "Advocates can reach beneficiaries through campaigns and public framing.",
+        "source_actor_name": "ethics_advocates",
+        "target_actor_name": "retiree_beneficiaries",
+        "weight": 0.39
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Asset managers warn of tracking error.",
+        "layer": "exposure",
+        "reason": "Board regularly receives manager briefings and warnings.",
+        "source_actor_name": "trustee_board",
+        "target_actor_name": "external_asset_managers",
+        "weight": 0.56
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Report comparison and public trust imply possible external scrutiny.",
+        "layer": "exposure",
+        "reason": "Trustees are somewhat exposed to reputational coverage risk.",
+        "source_actor_name": "financial_press",
+        "target_actor_name": "trustee_board",
+        "weight": 0.27
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Ethics advocates push divestment; some retirees likely share ethical concern.",
+        "layer": "coalition",
+        "reason": "Potential alignment around ethical divestment if fiduciary concerns are addressed.",
+        "source_actor_name": "ethics_advocates",
+        "target_actor_name": "ethics_concerned_retirees",
+        "weight": 0.52
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Authority and auditability are explicit priorities.",
+        "layer": "coalition",
+        "reason": "Shared interest in defensible process and orderly governance.",
+        "source_actor_name": "trustee_board",
+        "target_actor_name": "investment_staff",
+        "weight": 0.58
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Trustees have fiduciary duties; legal caution is central.",
+        "layer": "coalition",
+        "reason": "Shared orientation toward fiduciary caution and defensibility.",
+        "source_actor_name": "trustee_board",
+        "target_actor_name": "legal_counsel",
+        "weight": 0.61
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Asset managers warn of tracking error.",
+        "layer": "coalition",
+        "reason": "Common technical concern about tracking error and implementation burden.",
+        "source_actor_name": "investment_staff",
+        "target_actor_name": "external_asset_managers",
+        "weight": 0.46
+      },
+      {
+        "direction": "mutual_opposition",
+        "evidence": "Ethics advocates push divestment; asset managers warn of tracking error.",
+        "layer": "conflict",
+        "reason": "Advocates seek divestment while managers emphasize cost and benchmark deviation.",
+        "source_actor_name": "ethics_advocates",
+        "target_actor_name": "external_asset_managers",
+        "weight": 0.49
+      },
+      {
+        "direction": "mutual_opposition",
+        "evidence": "Push for divestment contrasted with trustee fiduciary duties.",
+        "layer": "conflict",
+        "reason": "Advocates press for action while board remains process-bound and undecided.",
+        "source_actor_name": "ethics_advocates",
+        "target_actor_name": "trustee_board",
+        "weight": 0.43
+      },
+      {
+        "direction": "mutual_opposition",
+        "evidence": "Retirees worry about returns.",
+        "layer": "conflict",
+        "reason": "Return-focused beneficiaries may resist value-driven action they see as risky.",
+        "source_actor_name": "return_anxious_retirees",
+        "target_actor_name": "ethics_advocates",
+        "weight": 0.34
+      },
+      {
+        "direction": "latent_opposition",
+        "evidence": "Fund considers divesting from these companies.",
+        "layer": "conflict",
+        "reason": "Potential adversarial posture exists only if review advances toward restrictions.",
+        "source_actor_name": "trustee_board",
+        "target_actor_name": "surveillance_linked_holdings",
+        "weight": 0.21
+      },
+      {
+        "direction": "public_interaction",
+        "evidence": "Stakeholder trust and pressure dynamics imply shared public venues.",
+        "layer": "oasis_interaction",
+        "reason": "Likely interaction in public comment channels, letters, and meetings.",
+        "source_actor_name": "retiree_beneficiaries",
+        "target_actor_name": "ethics_advocates",
+        "weight": 0.36
+      },
+      {
+        "direction": "public_interaction",
+        "evidence": "Institutional governance context with stakeholder trust focus.",
+        "layer": "oasis_interaction",
+        "reason": "Board communications and beneficiary feedback are likely visible in public governance settings.",
+        "source_actor_name": "trustee_board",
+        "target_actor_name": "retiree_beneficiaries",
+        "weight": 0.42
+      },
+      {
+        "direction": "public_interaction",
+        "evidence": "Ethics advocates push divestment against trustee authority backdrop.",
+        "layer": "oasis_interaction",
+        "reason": "Potential for hearings, statements, or formal submissions.",
+        "source_actor_name": "trustee_board",
+        "target_actor_name": "ethics_advocates",
+        "weight": 0.39
+      },
+      {
+        "direction": "public_interaction",
+        "evidence": "Public controversy is plausible though not yet maximal.",
+        "layer": "oasis_interaction",
+        "reason": "Media may quote or amplify advocacy arguments.",
+        "source_actor_name": "financial_press",
+        "target_actor_name": "ethics_advocates",
+        "weight": 0.31
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "function": "agenda_control_and_coalition_management",
+        "key": "board_chair",
+        "label": "Trustee board chair"
+      },
+      {
+        "function": "investment_recommendation_and_implementation_assessment",
+        "key": "chief_investment_officer",
+        "label": "Chief investment officer"
+      },
+      {
+        "function": "external_pressure_and_public_framing",
+        "key": "lead_ethics_advocate",
+        "label": "Lead ethics advocate"
+      },
+      {
+        "function": "legal_risk_and_fiduciary_interpretation",
+        "key": "general_counsel",
+        "label": "General counsel"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "trustee_board",
+        "attention_level": 0.86,
+        "expression_level": 0.48,
+        "fatigue": 0.26,
+        "fear_of_isolation": 0.14,
+        "formal_power": 0.88,
+        "hero_key": "board_chair",
+        "informal_power": 0.67,
+        "mobilization_readiness": 0.63,
+        "perceived_majority": 0.58,
+        "represented_population": 1,
+        "reputation": 0.66,
+        "role": "agenda_setter",
+        "secrecy": 0.44,
+        "stance_axes": {
+          "divestment_support": 0.46,
+          "ethics_priority": 0.52,
+          "fiduciary_strictness": 0.9,
+          "risk_tolerance": 0.28
+        },
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "investment_staff",
+        "attention_level": 0.84,
+        "expression_level": 0.43,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.18,
+        "formal_power": 0.73,
+        "hero_key": "chief_investment_officer",
+        "informal_power": 0.71,
+        "mobilization_readiness": 0.57,
+        "perceived_majority": 0.64,
+        "represented_population": 1,
+        "reputation": 0.72,
+        "role": "technical_recommender",
+        "secrecy": 0.39,
+        "stance_axes": {
+          "divestment_support": 0.38,
+          "ethics_priority": 0.45,
+          "fiduciary_strictness": 0.87,
+          "risk_tolerance": 0.25
+        },
+        "trustworthiness": 0.74
+      },
+      {
+        "actor_name": "ethics_advocates",
+        "attention_level": 0.79,
+        "expression_level": 0.81,
+        "fatigue": 0.23,
+        "fear_of_isolation": 0.12,
+        "formal_power": 0.18,
+        "hero_key": "lead_ethics_advocate",
+        "informal_power": 0.55,
+        "mobilization_readiness": 0.74,
+        "perceived_majority": 0.36,
+        "represented_population": 1,
+        "reputation": 0.54,
+        "role": "campaign_spokesperson",
+        "secrecy": 0.17,
+        "stance_axes": {
+          "divestment_support": 0.95,
+          "ethics_priority": 0.97,
+          "fiduciary_strictness": 0.29,
+          "risk_tolerance": 0.62
+        },
+        "trustworthiness": 0.56
+      },
+      {
+        "actor_name": "legal_counsel",
+        "attention_level": 0.77,
+        "expression_level": 0.34,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.11,
+        "formal_power": 0.64,
+        "hero_key": "general_counsel",
+        "informal_power": 0.62,
+        "mobilization_readiness": 0.49,
+        "perceived_majority": 0.67,
+        "represented_population": 1,
+        "reputation": 0.7,
+        "role": "process_guardrail",
+        "secrecy": 0.53,
+        "stance_axes": {
+          "divestment_support": 0.4,
+          "ethics_priority": 0.42,
+          "fiduciary_strictness": 0.94,
+          "risk_tolerance": 0.18
+        },
+        "trustworthiness": 0.76
+      }
+    ],
+    "heroes": [
+      {
+        "function": "agenda_control_and_coalition_management",
+        "key": "board_chair",
+        "label": "Trustee board chair"
+      },
+      {
+        "function": "investment_recommendation_and_implementation_assessment",
+        "key": "chief_investment_officer",
+        "label": "Chief investment officer"
+      },
+      {
+        "function": "external_pressure_and_public_framing",
+        "key": "lead_ethics_advocate",
+        "label": "Lead ethics advocate"
+      },
+      {
+        "function": "legal_risk_and_fiduciary_interpretation",
+        "key": "general_counsel",
+        "label": "General counsel"
+      }
+    ],
+    "important_questions": [
+      "Will the trustee board formally adopt any divestment-related policy targeting surveillance-linked holdings?",
+      "If action is taken, will the endpoint be partial criteria-based restriction or broader divestment?",
+      "Will the fund ultimately retain current holdings policy after review rather than changing allocation rules?",
+      "Will the governance process end in prolonged deferral without a terminal policy choice during the modeled horizon?"
+    ],
+    "initial_events": [
+      {
+        "event_key": "issue_enters_board_agenda",
+        "event_type": "announcement",
+        "evidence": "A fictional pension fund considers divesting from companies linked to surveillance technology.",
+        "expected_impact": "Raises attention inside governance channels and begins formal framing around fiduciary duty versus ethical alignment.",
+        "status": "realized",
+        "summary": "Possible divestment from surveillance-linked companies is under active consideration by the fund.",
+        "tick": 0
+      },
+      {
+        "event_key": "manager_tracking_error_warning",
+        "event_type": "announcement",
+        "evidence": "Asset managers warn of tracking error.",
+        "expected_impact": "Strengthens dependency on technical analysis and may increase caution among trustees.",
+        "status": "realized",
+        "summary": "External managers communicate concern that divestment could create tracking error or implementation costs.",
+        "tick": 0
+      },
+      {
+        "event_key": "advocacy_pressure_visible",
+        "event_type": "announcement",
+        "evidence": "Ethics advocates push divestment.",
+        "expected_impact": "Elevates reputational pressure and increases likelihood of public-facing process steps.",
+        "status": "realized",
+        "summary": "Ethics advocates are pushing for divestment.",
+        "tick": 0
+      },
+      {
+        "event_key": "fiduciary_review_requested",
+        "event_type": "announcement",
+        "evidence": "Model authority, legal caution, stakeholder trust, and terminal endpoints.",
+        "expected_impact": "May slow immediate action while increasing auditability and narrowing acceptable endpoint paths.",
+        "status": "expected",
+        "summary": "Trustees seek formal legal and investment review of divestment options and constraints.",
+        "tick": 1
+      },
+      {
+        "event_key": "beneficiary_reaction_wave",
+        "event_type": "announcement",
+        "evidence": "Retirees worry about returns; stakeholder trust is central.",
+        "expected_impact": "Could polarize return-first and ethics-first constituencies, affecting trustee perceived legitimacy.",
+        "status": "expected",
+        "summary": "Retiree concerns and comments become more visible once review framing is public.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "93761002-e245-4ff6-b72d-51050e7767f7",
+    "merge_hypotheses": [
+      {
+        "convergence_driver": "Shared desire for defensible and reviewable process.",
+        "could_merge": [
+          "trustee_board",
+          "investment_staff",
+          "ethics_advocates",
+          "retiree_beneficiaries"
+        ],
+        "mechanism": "Transparent criteria and documented portfolio impact estimates reduce cross-group suspicion.",
+        "merge_key": "auditability_convergence"
+      },
+      {
+        "convergence_driver": "Common interest in minimizing both ethical exposure and portfolio disruption.",
+        "could_merge": [
+          "trustee_board",
+          "external_asset_managers",
+          "ethics_advocates",
+          "ethics_concerned_retirees"
+        ],
+        "mechanism": "A narrow or phased policy can partially satisfy ethics demands while containing switching costs.",
+        "merge_key": "limited_harm_solution"
+      },
+      {
+        "convergence_driver": "Attention decay and process complexity.",
+        "could_merge": [
+          "retiree_beneficiaries",
+          "ethics_advocates",
+          "trustee_board"
+        ],
+        "mechanism": "If controversy does not intensify, groups may settle into a durable but unsatisfying monitored status quo.",
+        "merge_key": "fatigue_to_stalemate"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "description": "Retirees and beneficiaries affected by pension fund performance and governance decisions.",
+        "key": "beneficiary_public",
+        "label": "Fund beneficiaries and retirees",
+        "population_total": 120000
+      },
+      {
+        "description": "Trustees, staff, counsel, and related internal professionals involved in analysis and decisions.",
+        "key": "governance_professionals",
+        "label": "Governance and investment professionals",
+        "population_total": 45
+      },
+      {
+        "description": "External advocates attentive to ethical investment and surveillance concerns.",
+        "key": "advocacy_public",
+        "label": "Ethics and civil society advocates",
+        "population_total": 8000
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "authority_concentration",
+        "note": "Terminal choice appears concentrated in the trustee board, making board agenda control a key bottleneck.",
+        "severity": "medium"
+      },
+      {
+        "flag": "legal_ambiguity",
+        "note": "Jurisdiction-specific fiduciary standards are unspecified, limiting precision on permissible endpoints.",
+        "severity": "medium"
+      },
+      {
+        "flag": "switching_cost_uncertainty",
+        "note": "Tracking-error concern is explicit, but magnitude of implementation cost is unknown at T0.",
+        "severity": "medium"
+      },
+      {
+        "flag": "stakeholder_trust_fragility",
+        "note": "Beneficiary trust could move in different directions depending on whether process is seen as protective or evasive.",
+        "severity": "medium"
+      },
+      {
+        "flag": "definition_risk",
+        "note": "Scope of 'surveillance-linked companies' is undefined, which may create auditability and enforcement disputes.",
+        "severity": "medium"
+      },
+      {
+        "flag": "media_escalation_uncertainty",
+        "note": "Public amplification is plausible but not evidenced as intense at initialization.",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "institutional_governance",
+      "case_key": "governance_004",
+      "evidence": [
+        "A fictional pension fund considers divesting from companies linked to surveillance technology.",
+        "Retirees worry about returns, ethics advocates push divestment, asset managers warn of tracking error, and trustees have fiduciary duties.",
+        "Model authority, legal caution, stakeholder trust, and terminal endpoints for later report comparison."
+      ],
+      "mode": "direct",
+      "scope": "fictional pension fund governance decision on possible divestment from companies linked to surveillance technology",
+      "t0_summary": "A fictional pension fund is considering whether to divest from companies linked to surveillance technology. Retirees are attentive to returns, ethics advocates favor divestment, asset managers warn about tracking error and portfolio costs, and trustees face fiduciary and legal caution constraints. No terminal decision is realized at T0; authority and trust are central uncertainties.",
+      "time_horizon_note": "Horizon not specified in corpus; initialize with near-term governance and review pressures only.",
+      "uncertainties": [
+        "Exact fund size, portfolio exposure, and legal jurisdiction are unspecified.",
+        "Specific companies, campaign organizations, and beneficiaries are not named.",
+        "Board voting rules and consultant roles are inferred but not explicit."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "retiree_beneficiaries",
+          "trustee_board",
+          "ethics_advocates"
+        ],
+        "level": "moderate",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Actors update most when arguments fit existing frames of returns, ethics, or fiduciary duty."
+      },
+      {
+        "applies_to": [
+          "retiree_beneficiaries",
+          "ethics_advocates"
+        ],
+        "level": "moderate",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Beneficiary participation likely rises after visible board action, media coverage, or a concrete proposal."
+      },
+      {
+        "applies_to": [
+          "retiree_beneficiaries",
+          "governance_professionals"
+        ],
+        "level": "moderate_high",
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Many privately hold views but defer publicly due to complexity and institutional authority."
+      },
+      {
+        "applies_to": [
+          "retiree_beneficiaries",
+          "ethics_advocates",
+          "governance_professionals"
+        ],
+        "level": "moderate",
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Return-focused and ethics-focused communities cluster around distinct framing norms."
+      },
+      {
+        "applies_to": [
+          "retiree_beneficiaries"
+        ],
+        "level": "moderate",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Support for divestment among beneficiaries likely requires repeated cues from trusted institutional or peer sources."
+      },
+      {
+        "applies_to": [
+          "trustee_board",
+          "retiree_beneficiaries",
+          "ethics_advocates"
+        ],
+        "level": "moderate",
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Roles as fiduciaries, retirees, and advocates shape acceptable public positions."
+      },
+      {
+        "applies_to": [
+          "retiree_beneficiaries",
+          "sympathetic_but_passive_public"
+        ],
+        "level": "moderate",
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Issue salience may fade without scheduled decisions or visible controversy."
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context_key": "fiduciary_frame",
+        "description": "Arguments framed as protecting beneficiaries have higher legitimacy with trustees and retirees."
+      },
+      {
+        "context_key": "tracking_error_frame",
+        "description": "Technical warnings can dampen rapid support for blanket divestment unless countered by credible implementation plans."
+      },
+      {
+        "context_key": "ethical_harm_frame",
+        "description": "Surveillance-linked association creates moral salience and reputational pressure even before financial effects are proven."
+      },
+      {
+        "context_key": "process_legitimacy",
+        "description": "Auditability and transparent criteria affect whether stakeholders accept any endpoint."
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "harbor_pension_fund",
+        "behavior_axes": {
+          "adaptability": 0.42,
+          "proceduralism": 0.8,
+          "responsiveness": 0.48,
+          "risk_aversion": 0.7
+        },
+        "ideology_axes": {
+          "ethical_activism": 0.43,
+          "institutional_conservatism": 0.74,
+          "market_pragmatism": 0.67
+        },
+        "reputation": 0.64,
+        "secrecy": 0.38,
+        "tendency": "stability_seeking",
+        "trustworthiness": 0.66
+      },
+      {
+        "actor_name": "trustee_board",
+        "behavior_axes": {
+          "adaptability": 0.39,
+          "proceduralism": 0.89,
+          "responsiveness": 0.46,
+          "risk_aversion": 0.77
+        },
+        "ideology_axes": {
+          "ethical_activism": 0.47,
+          "institutional_conservatism": 0.81,
+          "market_pragmatism": 0.64
+        },
+        "reputation": 0.66,
+        "secrecy": 0.44,
+        "tendency": "cautious_adjudication",
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "investment_staff",
+        "behavior_axes": {
+          "adaptability": 0.45,
+          "proceduralism": 0.82,
+          "responsiveness": 0.44,
+          "risk_aversion": 0.74
+        },
+        "ideology_axes": {
+          "ethical_activism": 0.38,
+          "institutional_conservatism": 0.69,
+          "market_pragmatism": 0.78
+        },
+        "reputation": 0.71,
+        "secrecy": 0.36,
+        "tendency": "technical_caution",
+        "trustworthiness": 0.73
+      },
+      {
+        "actor_name": "external_asset_managers",
+        "behavior_axes": {
+          "adaptability": 0.51,
+          "proceduralism": 0.71,
+          "responsiveness": 0.41,
+          "risk_aversion": 0.68
+        },
+        "ideology_axes": {
+          "ethical_activism": 0.24,
+          "institutional_conservatism": 0.58,
+          "market_pragmatism": 0.84
+        },
+        "reputation": 0.63,
+        "secrecy": 0.35,
+        "tendency": "benchmark_protection",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "retiree_beneficiaries",
+        "behavior_axes": {
+          "adaptability": 0.34,
+          "proceduralism": 0.47,
+          "responsiveness": 0.39,
+          "risk_aversion": 0.79
+        },
+        "ideology_axes": {
+          "ethical_activism": 0.46,
+          "institutional_conservatism": 0.56,
+          "market_pragmatism": 0.62
+        },
+        "reputation": 0.59,
+        "secrecy": 0.24,
+        "tendency": "security_first",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "ethics_advocates",
+        "behavior_axes": {
+          "adaptability": 0.66,
+          "proceduralism": 0.32,
+          "responsiveness": 0.81,
+          "risk_aversion": 0.36
+        },
+        "ideology_axes": {
+          "ethical_activism": 0.93,
+          "institutional_conservatism": 0.27,
+          "market_pragmatism": 0.22
+        },
+        "reputation": 0.52,
+        "secrecy": 0.16,
+        "tendency": "normative_pressure",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "legal_counsel",
+        "behavior_axes": {
+          "adaptability": 0.31,
+          "proceduralism": 0.91,
+          "responsiveness": 0.37,
+          "risk_aversion": 0.83
+        },
+        "ideology_axes": {
+          "ethical_activism": 0.31,
+          "institutional_conservatism": 0.84,
+          "market_pragmatism": 0.58
+        },
+        "reputation": 0.7,
+        "secrecy": 0.54,
+        "tendency": "defensibility_filter",
+        "trustworthiness": 0.76
+      },
+      {
+        "actor_name": "financial_press",
+        "behavior_axes": {
+          "adaptability": 0.69,
+          "proceduralism": 0.29,
+          "responsiveness": 0.76,
+          "risk_aversion": 0.22
+        },
+        "ideology_axes": {
+          "ethical_activism": 0.49,
+          "institutional_conservatism": 0.21,
+          "market_pragmatism": 0.55
+        },
+        "reputation": 0.57,
+        "secrecy": 0.12,
+        "tendency": "salience_amplification",
+        "trustworthiness": 0.5
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 485,
+        "end": 485,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 485,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

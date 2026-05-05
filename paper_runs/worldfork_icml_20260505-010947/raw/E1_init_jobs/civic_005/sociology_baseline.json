@@ -1,0 +1,230 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "0f4cc160-77b8-4881-b6ce-5f4d80a80cc5",
+      "created_at": "2026-05-05T02:25:09.274337+00:00",
+      "id": "dcde969b-c2b5-4a30-8b13-e636722a41ca",
+      "influence": {
+        "applies_to": [
+          "city_manager_office",
+          "city_council_members",
+          "local_news_outlet"
+        ],
+        "context_key": "three_month_evaluation_window",
+        "effect": "Creates a focal timeline for interim narratives, accountability demands, and decision anticipation."
+      },
+      "multiverse_id": "3ed6fb18-c032-44a1-a4af-fce62c448135",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:25:09.274337+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "0f4cc160-77b8-4881-b6ce-5f4d80a80cc5",
+      "created_at": "2026-05-05T02:25:09.274337+00:00",
+      "id": "ab9f500e-816d-411c-9b42-d933eb5745b3",
+      "influence": {
+        "applies_to": [
+          "downtown_residents_near_garages",
+          "local_news_outlet"
+        ],
+        "context_key": "overnight_noise_visibility",
+        "effect": "Makes negative residential impacts easy to notice and narrate even before aggregate data is available."
+      },
+      "multiverse_id": "3ed6fb18-c032-44a1-a4af-fce62c448135",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:25:09.274337+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "0f4cc160-77b8-4881-b6ce-5f4d80a80cc5",
+      "created_at": "2026-05-05T02:25:09.274337+00:00",
+      "id": "8be994ae-93e0-4be5-8abe-14ca9a3c3169",
+      "influence": {
+        "applies_to": [
+          "nightlife_businesses",
+          "downtown_visitors"
+        ],
+        "context_key": "cleanliness_benefit_diffusion",
+        "effect": "Support benefits may be real but diffuse, producing weaker early collective voice than concentrated complaints."
+      },
+      "multiverse_id": "3ed6fb18-c032-44a1-a4af-fce62c448135",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:25:09.274337+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "0f4cc160-77b8-4881-b6ce-5f4d80a80cc5",
+      "created_at": "2026-05-05T02:25:09.274337+00:00",
+      "id": "287291c0-92fa-458d-af70-09132a99fba8",
+      "influence": {
+        "applies_to": [
+          "public_works_department",
+          "city_manager_office",
+          "sanitation_workers"
+        ],
+        "context_key": "worker_safety_constraint",
+        "effect": "Operational viability depends on credible safety mitigation, not only public acceptance."
+      },
+      "multiverse_id": "3ed6fb18-c032-44a1-a4af-fce62c448135",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:25:09.274337+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "0f4cc160-77b8-4881-b6ce-5f4d80a80cc5",
+      "created_at": "2026-05-05T02:25:09.274337+00:00",
+      "id": "07f9953d-e7b2-44dd-b30a-dcbab274fcc3",
+      "model": "attention_decay",
+      "multiverse_id": "3ed6fb18-c032-44a1-a4af-fce62c448135",
+      "signal": {
+        "level": "moderate",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Actors are open to evidence but filter it through immediate lived impacts and stake positions.",
+        "scope": [
+          "downtown_residents_near_garages",
+          "nightlife_businesses",
+          "city_council_members"
+        ]
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:25:09.274337+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "0f4cc160-77b8-4881-b6ce-5f4d80a80cc5",
+      "created_at": "2026-05-05T02:25:09.274337+00:00",
+      "id": "457e64f4-8968-4c87-9ecb-d3140179e783",
+      "model": "attention_decay",
+      "multiverse_id": "3ed6fb18-c032-44a1-a4af-fce62c448135",
+      "signal": {
+        "level": "moderate",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Complaint or hazard escalation likely requires visible repeated incidents rather than one-off dissatisfaction.",
+        "scope": [
+          "downtown_residents_near_garages",
+          "sanitation_workers"
+        ]
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:25:09.274337+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "0f4cc160-77b8-4881-b6ce-5f4d80a80cc5",
+      "created_at": "2026-05-05T02:25:09.274337+00:00",
+      "id": "1888c536-d481-4920-aff4-719d02647612",
+      "model": "attention_decay",
+      "multiverse_id": "3ed6fb18-c032-44a1-a4af-fce62c448135",
+      "signal": {
+        "level": "moderate",
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Some residents may privately tolerate the pilot while louder complaints dominate public perception.",
+        "scope": [
+          "resident_mixed_wait_and_see",
+          "resident_cleanliness_prioritizers"
+        ]
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:25:09.274337+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "0f4cc160-77b8-4881-b6ce-5f4d80a80cc5",
+      "created_at": "2026-05-05T02:25:09.274337+00:00",
+      "id": "4c00f064-1373-4b68-965d-fb83116293fa",
+      "model": "attention_decay",
+      "multiverse_id": "3ed6fb18-c032-44a1-a4af-fce62c448135",
+      "signal": {
+        "level": "moderate",
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Stakeholder groups are likely to sort discussion within their own networks first.",
+        "scope": [
+          "downtown_residents_near_garages",
+          "nightlife_businesses",
+          "sanitation_workers"
+        ]
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:25:09.274337+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "0f4cc160-77b8-4881-b6ce-5f4d80a80cc5",
+      "created_at": "2026-05-05T02:25:09.274337+00:00",
+      "id": "ab1ddb08-89e5-4f7b-aca6-c03588b9c85c",
+      "model": "attention_decay",
+      "multiverse_id": "3ed6fb18-c032-44a1-a4af-fce62c448135",
+      "signal": {
+        "level": "low_to_moderate",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Mobilization around opposition likely grows after multiple confirming stories, not isolated noise reports.",
+        "scope": [
+          "downtown_residents_near_garages",
+          "city_council_members"
+        ]
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:25:09.274337+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "0f4cc160-77b8-4881-b6ce-5f4d80a80cc5",
+      "created_at": "2026-05-05T02:25:09.274337+00:00",
+      "id": "30fbaee9-1d33-4ce6-9c60-d86bad4e8632",
+      "model": "attention_decay",
+      "multiverse_id": "3ed6fb18-c032-44a1-a4af-fce62c448135",
+      "signal": {
+        "level": "moderate",
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Labor, resident, and merchant identities shape interpretations of fairness and acceptable tradeoffs.",
+        "scope": [
+          "sanitation_workers",
+          "downtown_residents_near_garages",
+          "nightlife_businesses"
+        ]
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:25:09.274337+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "0f4cc160-77b8-4881-b6ce-5f4d80a80cc5",
+      "created_at": "2026-05-05T02:25:09.274337+00:00",
+      "id": "b5fc6bde-03e9-4bbd-ae2e-0bb418ed522f",
+      "model": "attention_decay",
+      "multiverse_id": "3ed6fb18-c032-44a1-a4af-fce62c448135",
+      "signal": {
+        "level": "moderate",
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Diffuse publics may quickly lose interest unless media salience or visible incidents persist.",
+        "scope": [
+          "downtown_visitors",
+          "citywide_public"
+        ]
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:25:09.274337+00:00"
+    }
+  ]
+}

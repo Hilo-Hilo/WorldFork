@@ -1,0 +1,1999 @@
+{
+  "big_bang_id": "34166ebd-d7d1-41eb-bd3a-77d0ad2f24c3",
+  "initializer_output": {
+    "actors": [
+      {
+        "fictionalized": true,
+        "name": "harbor_shelter_network",
+        "public_visibility": "high",
+        "role": "nonprofit shelter operator",
+        "stakes": [
+          "maintain services",
+          "cover operating gap",
+          "protect legitimacy",
+          "avoid disorderly closures"
+        ],
+        "type": "organization"
+      },
+      {
+        "fictionalized": true,
+        "name": "network_board",
+        "public_visibility": "medium",
+        "role": "decision authority over programs and sites",
+        "stakes": [
+          "financial solvency",
+          "fiduciary duty",
+          "reputation",
+          "organizational survival"
+        ],
+        "type": "governing_body"
+      },
+      {
+        "fictionalized": true,
+        "name": "executive_leadership",
+        "public_visibility": "medium",
+        "role": "operational management and public messaging",
+        "stakes": [
+          "stabilize operations",
+          "retain staff",
+          "secure funds",
+          "manage board pressure"
+        ],
+        "type": "leadership_team"
+      },
+      {
+        "fictionalized": true,
+        "name": "frontline_staff",
+        "public_visibility": "medium",
+        "role": "paid service staff",
+        "stakes": [
+          "job security",
+          "manageable workload",
+          "client care continuity",
+          "voice in restructuring"
+        ],
+        "type": "workforce_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "volunteer_corps",
+        "public_visibility": "low",
+        "role": "supplementary service support",
+        "stakes": [
+          "mission continuity",
+          "site loyalty",
+          "personal efficacy"
+        ],
+        "type": "volunteer_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "clients",
+        "public_visibility": "low",
+        "role": "shelter residents and service users",
+        "stakes": [
+          "continued access to beds and services",
+          "stability",
+          "safety",
+          "proximity and trust"
+        ],
+        "type": "service_population"
+      },
+      {
+        "fictionalized": true,
+        "name": "donor_base",
+        "public_visibility": "low",
+        "role": "private donors and philanthropic supporters",
+        "stakes": [
+          "organizational impact",
+          "fiscal responsibility",
+          "visible need response"
+        ],
+        "type": "funding_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "city_grant_office",
+        "public_visibility": "medium",
+        "role": "municipal grant administration and possible bridge funding gatekeeper",
+        "stakes": [
+          "budget compliance",
+          "service continuity",
+          "political accountability"
+        ],
+        "type": "municipal_actor"
+      },
+      {
+        "fictionalized": true,
+        "name": "neighborhood_groups",
+        "public_visibility": "medium",
+        "role": "local community organizations near sites",
+        "stakes": [
+          "local service presence",
+          "order and neighborhood concerns",
+          "influence over site decisions"
+        ],
+        "type": "civic_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "housing_advocates",
+        "public_visibility": "medium",
+        "role": "public mobilizers for client protection and public funding",
+        "stakes": [
+          "prevent harmful cuts",
+          "pressure city action",
+          "protect vulnerable clients"
+        ],
+        "type": "advocacy_coalition"
+      },
+      {
+        "fictionalized": true,
+        "name": "local_media",
+        "public_visibility": "high",
+        "role": "agenda-setting coverage",
+        "stakes": [
+          "public interest coverage",
+          "accountability narrative"
+        ],
+        "type": "media"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Short-term private funding reduces immediate closure pressure and buys time for a less disruptive plan.",
+        "branch_key": "donor_rescue_branch",
+        "divergence_signal": "Observable spike in pledged gifts, public endorsements, and board messaging that shifts from closure triage to stabilization.",
+        "trigger": "Emergency appeal gains rapid traction with major donors and broad small-donor engagement."
+      },
+      {
+        "alternate_path": "Board advances consolidation or targeted program closure as the fastest solvency measure.",
+        "branch_key": "forced_consolidation_branch",
+        "divergence_signal": "Formal board agenda items, staff notices, or public statements naming site mergers, closures, or service reductions.",
+        "trigger": "Funding gap remains uncovered through the first decision window and city response is delayed."
+      },
+      {
+        "alternate_path": "Operational capacity degrades even without formal closures, increasing client disruption and advocacy intensity.",
+        "branch_key": "burnout_cascade_branch",
+        "divergence_signal": "Visible absenteeism, resignations, service bottlenecks, or internal warnings about unsafe staffing levels.",
+        "trigger": "Staff overtime, uncertainty, and morale decline intensify before funding relief arrives."
+      },
+      {
+        "alternate_path": "City officials accelerate bridge funding or broker a temporary deal to avoid immediate cuts.",
+        "branch_key": "political_intervention_branch",
+        "divergence_signal": "Public statements from municipal offices, emergency hearings, expedited grant review, or provisional funding commitments.",
+        "trigger": "Advocates and media elevate the crisis into a municipal accountability issue."
+      },
+      {
+        "alternate_path": "Potential allies divide, weakening either fundraising or political pressure and increasing decision volatility.",
+        "branch_key": "coalition_fracture_branch",
+        "divergence_signal": "Divergent staff, donor, volunteer, or neighborhood messaging that stops short of a unified rescue or reform line.",
+        "trigger": "Stakeholders split over whether consolidation is responsible triage or unacceptable retreat."
+      }
+    ],
+    "channels": [
+      {
+        "actors": [
+          "executive_leadership",
+          "frontline_staff"
+        ],
+        "channel_key": "internal_staff_comms",
+        "reach": 0.78,
+        "type": "internal",
+        "volatility": 0.46
+      },
+      {
+        "actors": [
+          "network_board",
+          "executive_leadership"
+        ],
+        "channel_key": "board_deliberation",
+        "reach": 0.24,
+        "type": "internal_governance",
+        "volatility": 0.31
+      },
+      {
+        "actors": [
+          "executive_leadership",
+          "donor_base",
+          "local_media"
+        ],
+        "channel_key": "donor_appeals",
+        "reach": 0.52,
+        "type": "fundraising",
+        "volatility": 0.49
+      },
+      {
+        "actors": [
+          "housing_advocates",
+          "local_media",
+          "city_grant_office",
+          "neighborhood_groups"
+        ],
+        "channel_key": "advocacy_campaigns",
+        "reach": 0.57,
+        "type": "public",
+        "volatility": 0.61
+      },
+      {
+        "actors": [
+          "clients",
+          "frontline_staff"
+        ],
+        "channel_key": "client_staff_site_updates",
+        "reach": 0.71,
+        "type": "service_interface",
+        "volatility": 0.42
+      },
+      {
+        "actors": [
+          "city_grant_office",
+          "executive_leadership",
+          "network_board"
+        ],
+        "channel_key": "municipal_grant_process",
+        "reach": 0.33,
+        "type": "institutional",
+        "volatility": 0.27
+      },
+      {
+        "actors": [
+          "neighborhood_groups",
+          "housing_advocates",
+          "harbor_shelter_network"
+        ],
+        "channel_key": "community_meetings",
+        "reach": 0.39,
+        "type": "civic_public",
+        "volatility": 0.58
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "frontline_staff",
+        "archetype_key": "staff_population",
+        "attention_level": 0.91,
+        "behavioral_tendencies": [
+          "duty_bound",
+          "informal_peer_coordination",
+          "risk_of_exit_if_overloaded"
+        ],
+        "cohort_key": "staff_alarm_cohort",
+        "expression_level": 0.58,
+        "fatigue": 0.73,
+        "fear_of_isolation": 0.44,
+        "mobilization_readiness": 0.57,
+        "perceived_majority": 0.66,
+        "population_share_of_archetype": 0.694,
+        "private_belief": "Funding cut threatens service quality and jobs; consolidation may worsen workloads.",
+        "public_expression": "Concerned but still partly restrained while awaiting leadership decisions.",
+        "representation_mode": "majority_segment",
+        "represented_population": 125,
+        "reputation": 0.66,
+        "secrecy": 0.31,
+        "stance_axes": {
+          "burnout_risk_salience": 0.89,
+          "city_intervention_support": 0.74,
+          "consolidation_support": 0.35,
+          "emergency_fundraising_support": 0.78
+        },
+        "trustworthiness": 0.71
+      },
+      {
+        "actor_name": "frontline_staff",
+        "archetype_key": "staff_population",
+        "attention_level": 0.82,
+        "behavioral_tendencies": [
+          "quiet_pragmatism",
+          "deference_to_management"
+        ],
+        "cohort_key": "staff_pragmatist_cohort",
+        "expression_level": 0.39,
+        "fatigue": 0.61,
+        "fear_of_isolation": 0.55,
+        "mobilization_readiness": 0.34,
+        "perceived_majority": 0.28,
+        "population_share_of_archetype": 0.306,
+        "private_belief": "Some consolidation may be necessary if funding is not restored quickly.",
+        "public_expression": "Cautious support for triage and restructuring.",
+        "representation_mode": "minority_segment",
+        "represented_population": 55,
+        "reputation": 0.58,
+        "secrecy": 0.42,
+        "stance_axes": {
+          "burnout_risk_salience": 0.68,
+          "city_intervention_support": 0.52,
+          "consolidation_support": 0.62,
+          "emergency_fundraising_support": 0.63
+        },
+        "trustworthiness": 0.69
+      },
+      {
+        "actor_name": "volunteer_corps",
+        "archetype_key": "volunteer_population",
+        "attention_level": 0.74,
+        "behavioral_tendencies": [
+          "prosocial_activation",
+          "network_sharing"
+        ],
+        "cohort_key": "core_volunteers",
+        "expression_level": 0.52,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.64,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.375,
+        "private_belief": "Sites should be preserved if possible; volunteers can help bridge strain.",
+        "public_expression": "Mission-forward support and willingness to help fundraise.",
+        "representation_mode": "active_core",
+        "represented_population": 90,
+        "reputation": 0.63,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "burnout_risk_salience": 0.49,
+          "city_intervention_support": 0.61,
+          "consolidation_support": 0.29,
+          "emergency_fundraising_support": 0.83
+        },
+        "trustworthiness": 0.77
+      },
+      {
+        "actor_name": "volunteer_corps",
+        "archetype_key": "volunteer_population",
+        "attention_level": 0.46,
+        "behavioral_tendencies": [
+          "episodic_engagement",
+          "cue_following"
+        ],
+        "cohort_key": "casual_volunteers",
+        "expression_level": 0.22,
+        "fatigue": 0.14,
+        "fear_of_isolation": 0.38,
+        "mobilization_readiness": 0.23,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.625,
+        "private_belief": "Concerned but unsure how severe the crisis is.",
+        "public_expression": "Low-volume sympathy and wait-and-see posture.",
+        "representation_mode": "diffuse_segment",
+        "represented_population": 150,
+        "reputation": 0.52,
+        "secrecy": 0.24,
+        "stance_axes": {
+          "burnout_risk_salience": 0.36,
+          "city_intervention_support": 0.48,
+          "consolidation_support": 0.45,
+          "emergency_fundraising_support": 0.56
+        },
+        "trustworthiness": 0.73
+      },
+      {
+        "actor_name": "clients",
+        "archetype_key": "client_population",
+        "attention_level": 0.88,
+        "behavioral_tendencies": [
+          "high_dependency",
+          "quiet_distress",
+          "service_preservation_priority"
+        ],
+        "cohort_key": "high_dependency_clients",
+        "expression_level": 0.19,
+        "fatigue": 0.69,
+        "fear_of_isolation": 0.71,
+        "mobilization_readiness": 0.21,
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.619,
+        "private_belief": "Service disruptions could be personally destabilizing or dangerous.",
+        "public_expression": "Limited public voice due to dependency and instability.",
+        "representation_mode": "high_need_segment",
+        "represented_population": 260,
+        "reputation": 0.43,
+        "secrecy": 0.59,
+        "stance_axes": {
+          "burnout_risk_salience": 0.77,
+          "city_intervention_support": 0.82,
+          "consolidation_support": 0.18,
+          "emergency_fundraising_support": 0.71
+        },
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "clients",
+        "archetype_key": "client_population",
+        "attention_level": 0.72,
+        "behavioral_tendencies": [
+          "information_dependence",
+          "low_public_visibility"
+        ],
+        "cohort_key": "lower_visibility_clients",
+        "expression_level": 0.16,
+        "fatigue": 0.51,
+        "fear_of_isolation": 0.63,
+        "mobilization_readiness": 0.18,
+        "perceived_majority": 0.49,
+        "population_share_of_archetype": 0.381,
+        "private_belief": "Concerned about access and location changes, but details remain unclear.",
+        "public_expression": "Mostly private discussion and reliance on staff for updates.",
+        "representation_mode": "broader_segment",
+        "represented_population": 160,
+        "reputation": 0.45,
+        "secrecy": 0.52,
+        "stance_axes": {
+          "burnout_risk_salience": 0.54,
+          "city_intervention_support": 0.69,
+          "consolidation_support": 0.27,
+          "emergency_fundraising_support": 0.59
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "donor_base",
+        "archetype_key": "donor_population",
+        "attention_level": 0.67,
+        "behavioral_tendencies": [
+          "selective_rescue",
+          "governance_sensitivity"
+        ],
+        "cohort_key": "major_donors",
+        "expression_level": 0.18,
+        "fatigue": 0.11,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.075,
+        "private_belief": "May fund a bridge if convinced of credibility and a stabilization plan.",
+        "public_expression": "Quiet due diligence rather than immediate public advocacy.",
+        "representation_mode": "high_resource_minority",
+        "represented_population": 120,
+        "reputation": 0.71,
+        "secrecy": 0.61,
+        "stance_axes": {
+          "burnout_risk_salience": 0.28,
+          "city_intervention_support": 0.39,
+          "consolidation_support": 0.57,
+          "emergency_fundraising_support": 0.72
+        },
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "donor_base",
+        "archetype_key": "donor_population",
+        "attention_level": 0.29,
+        "behavioral_tendencies": [
+          "attention_sensitive_giving",
+          "message_responsive"
+        ],
+        "cohort_key": "small_donors",
+        "expression_level": 0.12,
+        "fatigue": 0.07,
+        "fear_of_isolation": 0.19,
+        "mobilization_readiness": 0.24,
+        "perceived_majority": 0.38,
+        "population_share_of_archetype": 0.925,
+        "private_belief": "Likely sympathetic if the crisis is made salient and actionable.",
+        "public_expression": "Low engagement unless prompted by campaign or media attention.",
+        "representation_mode": "mass_segment",
+        "represented_population": 1480,
+        "reputation": 0.57,
+        "secrecy": 0.15,
+        "stance_axes": {
+          "burnout_risk_salience": 0.22,
+          "city_intervention_support": 0.46,
+          "consolidation_support": 0.33,
+          "emergency_fundraising_support": 0.69
+        },
+        "trustworthiness": 0.74
+      },
+      {
+        "actor_name": "neighborhood_groups",
+        "archetype_key": "neighborhood_public",
+        "attention_level": 0.53,
+        "behavioral_tendencies": [
+          "community_advocacy",
+          "situational_alignment"
+        ],
+        "cohort_key": "service_supportive_neighbors",
+        "expression_level": 0.41,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.36,
+        "mobilization_readiness": 0.37,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.467,
+        "private_belief": "Cuts could harm vulnerable people and shift burdens locally.",
+        "public_expression": "Selective support for keeping services nearby.",
+        "representation_mode": "organized_support_segment",
+        "represented_population": 420,
+        "reputation": 0.59,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "burnout_risk_salience": 0.35,
+          "city_intervention_support": 0.66,
+          "consolidation_support": 0.31,
+          "emergency_fundraising_support": 0.52
+        },
+        "trustworthiness": 0.7
+      },
+      {
+        "actor_name": "neighborhood_groups",
+        "archetype_key": "neighborhood_public",
+        "attention_level": 0.57,
+        "behavioral_tendencies": [
+          "localized_pressure",
+          "procedural_demands"
+        ],
+        "cohort_key": "order_concerned_neighbors",
+        "expression_level": 0.46,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.27,
+        "mobilization_readiness": 0.42,
+        "perceived_majority": 0.51,
+        "population_share_of_archetype": 0.533,
+        "private_belief": "Consolidation might reduce local strain, though abrupt closures could also create spillovers.",
+        "public_expression": "Mixed messages emphasizing order, consultation, and site-specific concerns.",
+        "representation_mode": "organized_concern_segment",
+        "represented_population": 480,
+        "reputation": 0.55,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "burnout_risk_salience": 0.18,
+          "city_intervention_support": 0.41,
+          "consolidation_support": 0.58,
+          "emergency_fundraising_support": 0.34
+        },
+        "trustworthiness": 0.62
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "frontline_staff",
+        "archetype_key": "staff_population",
+        "attention_level": 0.91,
+        "behavioral_tendencies": [
+          "duty_bound",
+          "informal_peer_coordination",
+          "risk_of_exit_if_overloaded"
+        ],
+        "cohort_key": "staff_alarm_cohort",
+        "expression_level": 0.58,
+        "fatigue": 0.73,
+        "fear_of_isolation": 0.44,
+        "mobilization_readiness": 0.57,
+        "perceived_majority": 0.66,
+        "population_share_of_archetype": 0.694,
+        "private_belief": "Funding cut threatens service quality and jobs; consolidation may worsen workloads.",
+        "public_expression": "Concerned but still partly restrained while awaiting leadership decisions.",
+        "representation_mode": "majority_segment",
+        "represented_population": 125,
+        "reputation": 0.66,
+        "secrecy": 0.31,
+        "stance_axes": {
+          "burnout_risk_salience": 0.89,
+          "city_intervention_support": 0.74,
+          "consolidation_support": 0.35,
+          "emergency_fundraising_support": 0.78
+        },
+        "trustworthiness": 0.71
+      },
+      {
+        "actor_name": "frontline_staff",
+        "archetype_key": "staff_population",
+        "attention_level": 0.82,
+        "behavioral_tendencies": [
+          "quiet_pragmatism",
+          "deference_to_management"
+        ],
+        "cohort_key": "staff_pragmatist_cohort",
+        "expression_level": 0.39,
+        "fatigue": 0.61,
+        "fear_of_isolation": 0.55,
+        "mobilization_readiness": 0.34,
+        "perceived_majority": 0.28,
+        "population_share_of_archetype": 0.306,
+        "private_belief": "Some consolidation may be necessary if funding is not restored quickly.",
+        "public_expression": "Cautious support for triage and restructuring.",
+        "representation_mode": "minority_segment",
+        "represented_population": 55,
+        "reputation": 0.58,
+        "secrecy": 0.42,
+        "stance_axes": {
+          "burnout_risk_salience": 0.68,
+          "city_intervention_support": 0.52,
+          "consolidation_support": 0.62,
+          "emergency_fundraising_support": 0.63
+        },
+        "trustworthiness": 0.69
+      },
+      {
+        "actor_name": "volunteer_corps",
+        "archetype_key": "volunteer_population",
+        "attention_level": 0.74,
+        "behavioral_tendencies": [
+          "prosocial_activation",
+          "network_sharing"
+        ],
+        "cohort_key": "core_volunteers",
+        "expression_level": 0.52,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.64,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.375,
+        "private_belief": "Sites should be preserved if possible; volunteers can help bridge strain.",
+        "public_expression": "Mission-forward support and willingness to help fundraise.",
+        "representation_mode": "active_core",
+        "represented_population": 90,
+        "reputation": 0.63,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "burnout_risk_salience": 0.49,
+          "city_intervention_support": 0.61,
+          "consolidation_support": 0.29,
+          "emergency_fundraising_support": 0.83
+        },
+        "trustworthiness": 0.77
+      },
+      {
+        "actor_name": "volunteer_corps",
+        "archetype_key": "volunteer_population",
+        "attention_level": 0.46,
+        "behavioral_tendencies": [
+          "episodic_engagement",
+          "cue_following"
+        ],
+        "cohort_key": "casual_volunteers",
+        "expression_level": 0.22,
+        "fatigue": 0.14,
+        "fear_of_isolation": 0.38,
+        "mobilization_readiness": 0.23,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.625,
+        "private_belief": "Concerned but unsure how severe the crisis is.",
+        "public_expression": "Low-volume sympathy and wait-and-see posture.",
+        "representation_mode": "diffuse_segment",
+        "represented_population": 150,
+        "reputation": 0.52,
+        "secrecy": 0.24,
+        "stance_axes": {
+          "burnout_risk_salience": 0.36,
+          "city_intervention_support": 0.48,
+          "consolidation_support": 0.45,
+          "emergency_fundraising_support": 0.56
+        },
+        "trustworthiness": 0.73
+      },
+      {
+        "actor_name": "clients",
+        "archetype_key": "client_population",
+        "attention_level": 0.88,
+        "behavioral_tendencies": [
+          "high_dependency",
+          "quiet_distress",
+          "service_preservation_priority"
+        ],
+        "cohort_key": "high_dependency_clients",
+        "expression_level": 0.19,
+        "fatigue": 0.69,
+        "fear_of_isolation": 0.71,
+        "mobilization_readiness": 0.21,
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.619,
+        "private_belief": "Service disruptions could be personally destabilizing or dangerous.",
+        "public_expression": "Limited public voice due to dependency and instability.",
+        "representation_mode": "high_need_segment",
+        "represented_population": 260,
+        "reputation": 0.43,
+        "secrecy": 0.59,
+        "stance_axes": {
+          "burnout_risk_salience": 0.77,
+          "city_intervention_support": 0.82,
+          "consolidation_support": 0.18,
+          "emergency_fundraising_support": 0.71
+        },
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "clients",
+        "archetype_key": "client_population",
+        "attention_level": 0.72,
+        "behavioral_tendencies": [
+          "information_dependence",
+          "low_public_visibility"
+        ],
+        "cohort_key": "lower_visibility_clients",
+        "expression_level": 0.16,
+        "fatigue": 0.51,
+        "fear_of_isolation": 0.63,
+        "mobilization_readiness": 0.18,
+        "perceived_majority": 0.49,
+        "population_share_of_archetype": 0.381,
+        "private_belief": "Concerned about access and location changes, but details remain unclear.",
+        "public_expression": "Mostly private discussion and reliance on staff for updates.",
+        "representation_mode": "broader_segment",
+        "represented_population": 160,
+        "reputation": 0.45,
+        "secrecy": 0.52,
+        "stance_axes": {
+          "burnout_risk_salience": 0.54,
+          "city_intervention_support": 0.69,
+          "consolidation_support": 0.27,
+          "emergency_fundraising_support": 0.59
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "donor_base",
+        "archetype_key": "donor_population",
+        "attention_level": 0.67,
+        "behavioral_tendencies": [
+          "selective_rescue",
+          "governance_sensitivity"
+        ],
+        "cohort_key": "major_donors",
+        "expression_level": 0.18,
+        "fatigue": 0.11,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.075,
+        "private_belief": "May fund a bridge if convinced of credibility and a stabilization plan.",
+        "public_expression": "Quiet due diligence rather than immediate public advocacy.",
+        "representation_mode": "high_resource_minority",
+        "represented_population": 120,
+        "reputation": 0.71,
+        "secrecy": 0.61,
+        "stance_axes": {
+          "burnout_risk_salience": 0.28,
+          "city_intervention_support": 0.39,
+          "consolidation_support": 0.57,
+          "emergency_fundraising_support": 0.72
+        },
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "donor_base",
+        "archetype_key": "donor_population",
+        "attention_level": 0.29,
+        "behavioral_tendencies": [
+          "attention_sensitive_giving",
+          "message_responsive"
+        ],
+        "cohort_key": "small_donors",
+        "expression_level": 0.12,
+        "fatigue": 0.07,
+        "fear_of_isolation": 0.19,
+        "mobilization_readiness": 0.24,
+        "perceived_majority": 0.38,
+        "population_share_of_archetype": 0.925,
+        "private_belief": "Likely sympathetic if the crisis is made salient and actionable.",
+        "public_expression": "Low engagement unless prompted by campaign or media attention.",
+        "representation_mode": "mass_segment",
+        "represented_population": 1480,
+        "reputation": 0.57,
+        "secrecy": 0.15,
+        "stance_axes": {
+          "burnout_risk_salience": 0.22,
+          "city_intervention_support": 0.46,
+          "consolidation_support": 0.33,
+          "emergency_fundraising_support": 0.69
+        },
+        "trustworthiness": 0.74
+      },
+      {
+        "actor_name": "neighborhood_groups",
+        "archetype_key": "neighborhood_public",
+        "attention_level": 0.53,
+        "behavioral_tendencies": [
+          "community_advocacy",
+          "situational_alignment"
+        ],
+        "cohort_key": "service_supportive_neighbors",
+        "expression_level": 0.41,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.36,
+        "mobilization_readiness": 0.37,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.467,
+        "private_belief": "Cuts could harm vulnerable people and shift burdens locally.",
+        "public_expression": "Selective support for keeping services nearby.",
+        "representation_mode": "organized_support_segment",
+        "represented_population": 420,
+        "reputation": 0.59,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "burnout_risk_salience": 0.35,
+          "city_intervention_support": 0.66,
+          "consolidation_support": 0.31,
+          "emergency_fundraising_support": 0.52
+        },
+        "trustworthiness": 0.7
+      },
+      {
+        "actor_name": "neighborhood_groups",
+        "archetype_key": "neighborhood_public",
+        "attention_level": 0.57,
+        "behavioral_tendencies": [
+          "localized_pressure",
+          "procedural_demands"
+        ],
+        "cohort_key": "order_concerned_neighbors",
+        "expression_level": 0.46,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.27,
+        "mobilization_readiness": 0.42,
+        "perceived_majority": 0.51,
+        "population_share_of_archetype": 0.533,
+        "private_belief": "Consolidation might reduce local strain, though abrupt closures could also create spillovers.",
+        "public_expression": "Mixed messages emphasizing order, consultation, and site-specific concerns.",
+        "representation_mode": "organized_concern_segment",
+        "represented_population": 480,
+        "reputation": 0.55,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "burnout_risk_salience": 0.18,
+          "city_intervention_support": 0.41,
+          "consolidation_support": 0.58,
+          "emergency_fundraising_support": 0.34
+        },
+        "trustworthiness": 0.62
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "network_board",
+          "executive_leadership"
+        ],
+        "blockers": [
+          "successful emergency fundraising",
+          "timely municipal bridge funding",
+          "strong coalition pressure that raises political or reputational cost"
+        ],
+        "contradiction_notes": "Not realized by internal review alone; process discussion without formal adoption does not satisfy the endpoint.",
+        "description": "A terminal operational retrenchment where the board formally reduces the network footprint or shuts programs instead of preserving all current sites.",
+        "endpoint_key": "network_consolidates_sites",
+        "evidence_refs": [
+          "Board can close programs.",
+          "Stakeholders disagree over whether to consolidate sites."
+        ],
+        "label": "Network consolidates sites or closes programs",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the shelter network board decide to consolidate sites or close programs rather than maintain the current footprint?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.38,
+        "rationale": "This is the most direct terminal choice implied by the scenario and sits under board control.",
+        "realization_criteria": [
+          "board passes a formal closure or consolidation resolution",
+          "organization publicly announces named site closures, mergers, or permanent program shutdowns",
+          "implementation steps begin such as transfer plans, layoffs, or service withdrawal notices"
+        ],
+        "status": "active",
+        "status_basis": "Board has the formal authority and consolidation is explicitly under dispute, but no decision is made at T0."
+      },
+      {
+        "authority_refs": [
+          "city_grant_office",
+          "network_board",
+          "executive_leadership"
+        ],
+        "blockers": [
+          "municipal budget procedure delays",
+          "political reluctance",
+          "insufficient documentation or match conditions"
+        ],
+        "contradiction_notes": "Symbolic political support without an actual funding commitment does not realize this endpoint.",
+        "description": "A terminal funding outcome where municipal actors commit and deliver interim financial support sufficient to materially defer immediate closures or consolidation.",
+        "endpoint_key": "city_bridge_funding_secured",
+        "evidence_refs": [
+          "The city can bridge funding later.",
+          "Political intervention is a plausible branch."
+        ],
+        "label": "City bridge funding secured",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will municipal actors provide bridge funding in time to materially alter near-term closure or consolidation decisions?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.24,
+        "rationale": "Municipal intervention is a distinct terminal alternative to private rescue or retrenchment.",
+        "realization_criteria": [
+          "city grant office or authorized municipal authority approves bridge funds",
+          "a signed funding commitment or disbursement schedule is issued",
+          "board or leadership states the commitment materially changes immediate closure timing"
+        ],
+        "status": "active",
+        "status_basis": "Bridge funding is explicitly possible but not committed at initialization."
+      },
+      {
+        "authority_refs": [
+          "donor_base",
+          "executive_leadership",
+          "network_board"
+        ],
+        "blockers": [
+          "weak donor attention",
+          "low confidence in governance",
+          "short decision window before funds arrive"
+        ],
+        "contradiction_notes": "General sympathy or small unsustained gifts do not realize this endpoint unless they materially alter the near-term decision set.",
+        "description": "A terminal rescue outcome where donor commitments are sufficient to materially narrow the shortfall and preserve near-term operations without immediate forced consolidation.",
+        "endpoint_key": "private_fundraising_stabilizes_operations",
+        "evidence_refs": [
+          "Preserve plausible branches around emergency fundraising.",
+          "Donors are a named stakeholder group."
+        ],
+        "label": "Private fundraising stabilizes operations",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will emergency fundraising generate enough committed support to reduce immediate operating shortfall pressure?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.21,
+        "rationale": "Private rescue is a separate terminal option with different switching costs and governance implications.",
+        "realization_criteria": [
+          "documented donor commitments cover a substantial share of the immediate operating gap",
+          "leadership publicly suspends imminent closure plans because of fundraising success",
+          "cash-flow or pledge timing is usable within the decision window"
+        ],
+        "status": "active",
+        "status_basis": "Emergency fundraising is an explicit branch, but donor mobilization is uncertain at T0."
+      },
+      {
+        "authority_refs": [
+          "frontline_staff",
+          "executive_leadership",
+          "network_board"
+        ],
+        "blockers": [
+          "temporary staffing support",
+          "credible relief timeline",
+          "successful morale stabilization and workload management"
+        ],
+        "contradiction_notes": "General stress without actual service disruption does not realize this endpoint.",
+        "description": "A terminal operational failure mode where staffing strain causes meaningful service degradation even before or apart from formal closure decisions.",
+        "endpoint_key": "burnout_driven_service_disruption",
+        "evidence_refs": [
+          "Preserve plausible branches around staff burnout.",
+          "Staff are central stakeholders under funding stress."
+        ],
+        "label": "Burnout-driven service disruption",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will staff burnout become severe enough to create service disruption independent of formal board cuts?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.17,
+        "rationale": "This endpoint captures an operational path distinct from formal governance decisions.",
+        "realization_criteria": [
+          "documented staffing shortages or resignations force reduced intake, hours, or service quality",
+          "internal or public notices cite staffing strain as the proximate cause of disruption",
+          "clients experience measurable continuity breaks not solely attributable to formal site closures"
+        ],
+        "status": "active",
+        "status_basis": "Burnout is explicitly named as an uncertain branch and current staff fatigue is elevated at T0."
+      },
+      {
+        "authority_refs": [
+          "network_board",
+          "executive_leadership",
+          "city_grant_office",
+          "donor_base"
+        ],
+        "blockers": [
+          "decisive board closure vote",
+          "large private rescue",
+          "clear municipal bridge funding package"
+        ],
+        "contradiction_notes": "Temporary audits, hearings, or messaging changes alone are mechanisms, not this endpoint, unless they prolong unresolved patched operations.",
+        "description": "A terminal nonresolution where no actor secures a decisive long-term fix, but temporary concessions, delays, or partial patches keep the system operating in a fragile state.",
+        "endpoint_key": "durable_stalemate_with_temporary_patch",
+        "evidence_refs": [
+          "Preserve uncertainty and plausible branches.",
+          "Do not start at maximum crisis."
+        ],
+        "label": "Durable stalemate with temporary patching",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will advocacy and public pressure escalate into meaningful political intervention rather than remain symbolic?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.29,
+        "rationale": "Many nonprofit funding crises persist through improvised stopgaps; this endpoint preserves realistic ambiguity.",
+        "realization_criteria": [
+          "no formal long-term consolidation or full funding rescue occurs within the key decision horizon",
+          "operations continue through short-term patches such as partial gifts, limited municipal delay, or piecemeal cuts",
+          "core conflict over future footprint remains unresolved in official communications"
+        ],
+        "status": "active",
+        "status_basis": "The scenario explicitly asks to preserve uncertainty and plausible branches rather than force rapid resolution."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Scenario centers on clients affected by possible consolidation and program closures.",
+        "layer": "dependency",
+        "reason": "Clients rely materially on shelter services for stability and safety.",
+        "source_actor_name": "clients",
+        "target_actor_name": "harbor_shelter_network",
+        "weight": 0.84
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Emergency fundraising is identified as a plausible branch.",
+        "layer": "dependency",
+        "reason": "Private donations are a meaningful potential buffer after the funding cut.",
+        "source_actor_name": "harbor_shelter_network",
+        "target_actor_name": "donor_base",
+        "weight": 0.56
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "City can bridge funding later.",
+        "layer": "dependency",
+        "reason": "Municipal bridge funding could stabilize operations later.",
+        "source_actor_name": "harbor_shelter_network",
+        "target_actor_name": "city_grant_office",
+        "weight": 0.61
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Staff burnout is a highlighted branch pressure.",
+        "layer": "dependency",
+        "reason": "Service continuity depends on staff labor and retention.",
+        "source_actor_name": "harbor_shelter_network",
+        "target_actor_name": "frontline_staff",
+        "weight": 0.65
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Volunteers are named as a key stakeholder group.",
+        "layer": "dependency",
+        "reason": "Volunteers provide supplementary capacity but are not sole operators.",
+        "source_actor_name": "harbor_shelter_network",
+        "target_actor_name": "volunteer_corps",
+        "weight": 0.34
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Board can close programs.",
+        "layer": "dependency",
+        "reason": "Leadership requires board approval for major closure or consolidation decisions.",
+        "source_actor_name": "executive_leadership",
+        "target_actor_name": "network_board",
+        "weight": 0.52
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Disagreement over consolidation and looming burnout imply partial strain.",
+        "layer": "trust",
+        "reason": "Staff trust leadership only moderately under sudden austerity pressure.",
+        "source_actor_name": "frontline_staff",
+        "target_actor_name": "executive_leadership",
+        "weight": 0.43
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Clients depend on ongoing service relationships.",
+        "layer": "trust",
+        "reason": "Clients are likely to trust direct caregivers more than distant decision-makers.",
+        "source_actor_name": "clients",
+        "target_actor_name": "frontline_staff",
+        "weight": 0.64
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Donor support is plausible but likely conditioned on credibility.",
+        "layer": "trust",
+        "reason": "Donors may look to board governance for fiscal stewardship but uncertainty remains.",
+        "source_actor_name": "donor_base",
+        "target_actor_name": "network_board",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Emergency fundraising branch depends on leadership credibility.",
+        "layer": "trust",
+        "reason": "Operational messaging and rescue plans affect donor confidence.",
+        "source_actor_name": "donor_base",
+        "target_actor_name": "executive_leadership",
+        "weight": 0.49
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Advocates can mobilize around cuts and burnout risk.",
+        "layer": "trust",
+        "reason": "Advocates likely see staff as credible witnesses of service strain.",
+        "source_actor_name": "housing_advocates",
+        "target_actor_name": "frontline_staff",
+        "weight": 0.58
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Board can close programs while staff disagree over consolidation.",
+        "layer": "trust",
+        "reason": "Board authority over closures creates skepticism among staff.",
+        "source_actor_name": "frontline_staff",
+        "target_actor_name": "network_board",
+        "weight": 0.32
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Board can close programs.",
+        "layer": "influence",
+        "reason": "Board holds decisive authority over closures and consolidation.",
+        "source_actor_name": "network_board",
+        "target_actor_name": "harbor_shelter_network",
+        "weight": 0.81
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Leadership manages operations and likely frames options.",
+        "layer": "influence",
+        "reason": "Leadership recommendations shape board choices but do not control them.",
+        "source_actor_name": "executive_leadership",
+        "target_actor_name": "network_board",
+        "weight": 0.52
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "City can bridge funding later.",
+        "layer": "influence",
+        "reason": "Bridge funding timing materially affects available options.",
+        "source_actor_name": "city_grant_office",
+        "target_actor_name": "harbor_shelter_network",
+        "weight": 0.63
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Advocates can mobilize.",
+        "layer": "influence",
+        "reason": "Public advocacy can raise political cost of inaction.",
+        "source_actor_name": "housing_advocates",
+        "target_actor_name": "city_grant_office",
+        "weight": 0.42
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Media likely shapes awareness in civic funding disputes.",
+        "layer": "influence",
+        "reason": "Coverage can increase salience and giving activity.",
+        "source_actor_name": "local_media",
+        "target_actor_name": "donor_base",
+        "weight": 0.39
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Political intervention is an expected branch.",
+        "layer": "influence",
+        "reason": "Coverage can increase scrutiny of municipal response.",
+        "source_actor_name": "local_media",
+        "target_actor_name": "city_grant_office",
+        "weight": 0.31
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Burnout and service impacts are likely advocacy inputs.",
+        "layer": "influence",
+        "reason": "Staff testimony and informal signals can animate advocacy framing.",
+        "source_actor_name": "frontline_staff",
+        "target_actor_name": "housing_advocates",
+        "weight": 0.47
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Leadership manages operations across the network.",
+        "layer": "exposure",
+        "reason": "Staff regularly observe leadership communications and operational directives.",
+        "source_actor_name": "frontline_staff",
+        "target_actor_name": "executive_leadership",
+        "weight": 0.62
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Clients rely on staff updates about continuity.",
+        "layer": "exposure",
+        "reason": "Clients receive most information through frontline interactions.",
+        "source_actor_name": "clients",
+        "target_actor_name": "frontline_staff",
+        "weight": 0.73
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Emergency fundraising salience may travel through public reporting.",
+        "layer": "exposure",
+        "reason": "Donor attention can be activated by media coverage.",
+        "source_actor_name": "donor_base",
+        "target_actor_name": "local_media",
+        "weight": 0.41
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Both are involved in public disagreement over site decisions.",
+        "layer": "exposure",
+        "reason": "Neighborhood stakeholders are likely to encounter advocacy messaging in public forums.",
+        "source_actor_name": "neighborhood_groups",
+        "target_actor_name": "housing_advocates",
+        "weight": 0.35
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Political intervention is plausible.",
+        "layer": "exposure",
+        "reason": "Municipal officials monitor press around civic service disruptions.",
+        "source_actor_name": "city_grant_office",
+        "target_actor_name": "local_media",
+        "weight": 0.28
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Advocates can mobilize; staff fear burnout and service loss.",
+        "layer": "coalition",
+        "reason": "Shared interest in preventing harmful cuts creates latent alignment.",
+        "source_actor_name": "frontline_staff",
+        "target_actor_name": "housing_advocates",
+        "weight": 0.54
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Both are responsible for organizational continuity.",
+        "layer": "coalition",
+        "reason": "Leadership and board share institutional survival goals despite possible tactical differences.",
+        "source_actor_name": "executive_leadership",
+        "target_actor_name": "network_board",
+        "weight": 0.57
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Advocates can mobilize over service cuts affecting clients.",
+        "layer": "coalition",
+        "reason": "Advocates seek to protect client access and continuity.",
+        "source_actor_name": "housing_advocates",
+        "target_actor_name": "clients",
+        "weight": 0.51
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Both are directly tied to site operations.",
+        "layer": "coalition",
+        "reason": "Volunteers and staff share mission-preserving instincts.",
+        "source_actor_name": "volunteer_corps",
+        "target_actor_name": "frontline_staff",
+        "weight": 0.46
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Neighborhood groups disagree internally; some support service preservation.",
+        "layer": "coalition",
+        "reason": "Supportive neighborhood sentiment may align with advocacy under visible threat.",
+        "source_actor_name": "service_supportive_neighbors",
+        "target_actor_name": "housing_advocates",
+        "weight": 0.22
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "Disagreement over whether to consolidate sites.",
+        "layer": "conflict",
+        "reason": "Potential closures and restructuring create labor-management tension.",
+        "source_actor_name": "network_board",
+        "target_actor_name": "frontline_staff",
+        "weight": 0.48
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "Advocates can mobilize while board can close programs.",
+        "layer": "conflict",
+        "reason": "Advocates may resist board-led closures or consolidations.",
+        "source_actor_name": "network_board",
+        "target_actor_name": "housing_advocates",
+        "weight": 0.44
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "Neighborhood groups disagree over consolidation effects.",
+        "layer": "conflict",
+        "reason": "Some neighborhood factions may resist site-specific outcomes or service concentration.",
+        "source_actor_name": "neighborhood_groups",
+        "target_actor_name": "harbor_shelter_network",
+        "weight": 0.29
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "Funding rescue depends partly on confidence in management choices.",
+        "layer": "conflict",
+        "reason": "Some donors may question governance if cuts appear mishandled.",
+        "source_actor_name": "donor_base",
+        "target_actor_name": "network_board",
+        "weight": 0.21
+      },
+      {
+        "direction": "public_interaction",
+        "evidence": "Mobilization and political intervention are explicit branches.",
+        "layer": "oasis_interaction",
+        "reason": "Advocates are likely to use public channels to frame the crisis.",
+        "source_actor_name": "housing_advocates",
+        "target_actor_name": "local_media",
+        "weight": 0.58
+      },
+      {
+        "direction": "public_interaction",
+        "evidence": "Emergency fundraising is a plausible path.",
+        "layer": "oasis_interaction",
+        "reason": "Leadership likely communicates directly in appeals and updates.",
+        "source_actor_name": "executive_leadership",
+        "target_actor_name": "donor_base",
+        "weight": 0.49
+      },
+      {
+        "direction": "public_interaction",
+        "evidence": "Advocacy may draw on staff conditions and service impacts.",
+        "layer": "oasis_interaction",
+        "reason": "Public-facing stories or signals may pass between staff and advocates.",
+        "source_actor_name": "frontline_staff",
+        "target_actor_name": "housing_advocates",
+        "weight": 0.37
+      },
+      {
+        "direction": "public_interaction",
+        "evidence": "Neighborhood groups are named stakeholders in the dispute.",
+        "layer": "oasis_interaction",
+        "reason": "Community meetings or complaints/support can reach municipal channels.",
+        "source_actor_name": "neighborhood_groups",
+        "target_actor_name": "city_grant_office",
+        "weight": 0.33
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "description": "Actors with formal power to close programs or consolidate sites.",
+        "key": "board_deciders",
+        "label": "Board decision-makers"
+      },
+      {
+        "description": "Actors with authority over emergency public funding processes.",
+        "key": "city_funders",
+        "label": "Municipal bridge-funding gatekeepers"
+      },
+      {
+        "description": "Actors capable of converting concern into public pressure.",
+        "key": "advocacy_mobilizers",
+        "label": "Advocacy mobilizers"
+      },
+      {
+        "description": "Actors managing day-to-day continuity and internal morale.",
+        "key": "operational_stabilizers",
+        "label": "Operational stabilizers"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "network_board",
+        "archetype_key": "board_deciders",
+        "attention_level": 0.93,
+        "decision_scope": [
+          "program_closure",
+          "site_consolidation",
+          "budget_approval",
+          "leadership_direction"
+        ],
+        "expression_level": 0.42,
+        "fatigue": 0.37,
+        "fear_of_isolation": 0.22,
+        "formal_power": 0.91,
+        "hero_key": "network_board_state",
+        "informal_power": 0.61,
+        "mobilization_readiness": 0.49,
+        "perceived_majority": 0.52,
+        "reputation": 0.55,
+        "secrecy": 0.63,
+        "stance_axes": {
+          "city_intervention_support": 0.46,
+          "consolidation_support": 0.64,
+          "emergency_fundraising_support": 0.58,
+          "risk_tolerance_for_delay": 0.34
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "city_grant_office",
+        "archetype_key": "city_funders",
+        "attention_level": 0.69,
+        "decision_scope": [
+          "bridge_funding_recommendation",
+          "grant_timing",
+          "compliance_conditions"
+        ],
+        "expression_level": 0.23,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.18,
+        "formal_power": 0.72,
+        "hero_key": "city_grant_office_state",
+        "informal_power": 0.56,
+        "mobilization_readiness": 0.31,
+        "perceived_majority": 0.47,
+        "reputation": 0.61,
+        "secrecy": 0.51,
+        "stance_axes": {
+          "city_intervention_support": 0.81,
+          "consolidation_support": 0.41,
+          "emergency_fundraising_support": 0.32,
+          "risk_tolerance_for_delay": 0.57
+        },
+        "trustworthiness": 0.66
+      },
+      {
+        "actor_name": "housing_advocates",
+        "archetype_key": "advocacy_mobilizers",
+        "attention_level": 0.84,
+        "decision_scope": [
+          "public_campaigns",
+          "coalition_building",
+          "media_pressure"
+        ],
+        "expression_level": 0.71,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.24,
+        "formal_power": 0.18,
+        "hero_key": "housing_advocates_state",
+        "informal_power": 0.67,
+        "mobilization_readiness": 0.76,
+        "perceived_majority": 0.43,
+        "reputation": 0.64,
+        "secrecy": 0.17,
+        "stance_axes": {
+          "city_intervention_support": 0.86,
+          "consolidation_support": 0.16,
+          "emergency_fundraising_support": 0.61,
+          "risk_tolerance_for_delay": 0.29
+        },
+        "trustworthiness": 0.69
+      },
+      {
+        "actor_name": "executive_leadership",
+        "archetype_key": "operational_stabilizers",
+        "attention_level": 0.95,
+        "decision_scope": [
+          "internal_triage",
+          "stakeholder_messaging",
+          "fundraising_push",
+          "board_recommendations"
+        ],
+        "expression_level": 0.51,
+        "fatigue": 0.66,
+        "fear_of_isolation": 0.31,
+        "formal_power": 0.74,
+        "hero_key": "executive_leadership_state",
+        "informal_power": 0.62,
+        "mobilization_readiness": 0.68,
+        "perceived_majority": 0.48,
+        "reputation": 0.59,
+        "secrecy": 0.46,
+        "stance_axes": {
+          "city_intervention_support": 0.59,
+          "consolidation_support": 0.49,
+          "emergency_fundraising_support": 0.77,
+          "risk_tolerance_for_delay": 0.44
+        },
+        "trustworthiness": 0.62
+      }
+    ],
+    "heroes": [
+      {
+        "description": "Actors with formal power to close programs or consolidate sites.",
+        "key": "board_deciders",
+        "label": "Board decision-makers"
+      },
+      {
+        "description": "Actors with authority over emergency public funding processes.",
+        "key": "city_funders",
+        "label": "Municipal bridge-funding gatekeepers"
+      },
+      {
+        "description": "Actors capable of converting concern into public pressure.",
+        "key": "advocacy_mobilizers",
+        "label": "Advocacy mobilizers"
+      },
+      {
+        "description": "Actors managing day-to-day continuity and internal morale.",
+        "key": "operational_stabilizers",
+        "label": "Operational stabilizers"
+      }
+    ],
+    "important_questions": [
+      "Will the shelter network board decide to consolidate sites or close programs rather than maintain the current footprint?",
+      "Will municipal actors provide bridge funding in time to materially alter near-term closure or consolidation decisions?",
+      "Will emergency fundraising generate enough committed support to reduce immediate operating shortfall pressure?",
+      "Will staff burnout become severe enough to create service disruption independent of formal board cuts?",
+      "Will advocacy and public pressure escalate into meaningful political intervention rather than remain symbolic?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "harbor_shelter_network",
+          "executive_leadership",
+          "network_board"
+        ],
+        "event_key": "funding_cut_announced",
+        "event_type": "announcement",
+        "expected_impact": "Raises attention, sharpens dependency on board decisions and external funding, and increases anxiety across staff and clients.",
+        "status": "occurred",
+        "summary": "A sudden funding cut creates an immediate operating gap across the shelter network.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "executive_leadership",
+          "network_board"
+        ],
+        "event_key": "internal_consolidation_review",
+        "event_type": "announcement",
+        "expected_impact": "May increase conflict with staff and advocates while clarifying the decision space for donors and city officials.",
+        "status": "imminent",
+        "summary": "Leadership prepares options on site consolidation and program triage for board review.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "executive_leadership",
+          "donor_base",
+          "volunteer_corps"
+        ],
+        "event_key": "emergency_fundraising_push",
+        "event_type": "announcement",
+        "expected_impact": "Could temporarily improve morale and donor attention if framed credibly, but weak uptake may deepen austerity pressure.",
+        "status": "imminent",
+        "summary": "Network considers or launches an emergency fundraising appeal.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "housing_advocates",
+          "frontline_staff",
+          "clients"
+        ],
+        "event_key": "advocacy_signal_detection",
+        "event_type": "announcement",
+        "expected_impact": "Could raise media exposure and municipal attention without yet determining policy response.",
+        "status": "imminent",
+        "summary": "Advocates assess whether service disruption and burnout risks justify public mobilization.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "city_grant_office",
+          "executive_leadership",
+          "network_board"
+        ],
+        "event_key": "city_bridge_funding_assessment",
+        "event_type": "announcement",
+        "expected_impact": "Could preserve non-consolidation paths or, if delayed, strengthen board arguments for cuts.",
+        "status": "possible",
+        "summary": "Municipal grant officials evaluate whether bridge funding is procedurally and politically feasible.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "76fb4f40-f113-43b3-af96-9841c57b9499",
+    "merge_hypotheses": [
+      {
+        "affected_actors": [
+          "frontline_staff",
+          "housing_advocates",
+          "neighborhood_groups",
+          "donor_base",
+          "executive_leadership"
+        ],
+        "convergence_driver": "Visible risk of client displacement could align staff, advocates, supportive neighbors, and cautious donors around temporary stabilization.",
+        "merge_key": "shared_client_harm_merge"
+      },
+      {
+        "affected_actors": [
+          "network_board",
+          "executive_leadership",
+          "city_grant_office",
+          "donor_base"
+        ],
+        "convergence_driver": "Even actors disagreeing on long-run structure may converge on short-term bridge funding to preserve optionality.",
+        "merge_key": "temporary_bridge_merge"
+      },
+      {
+        "affected_actors": [
+          "network_board",
+          "frontline_staff",
+          "housing_advocates",
+          "neighborhood_groups"
+        ],
+        "convergence_driver": "If conflict becomes costly and no rescue materializes, opposing camps may accept partial consolidation with mitigation measures.",
+        "merge_key": "fatigue_induced_pragmatism_merge"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "description": "Paid workforce across multiple sites and programs.",
+        "key": "staff_population",
+        "label": "Shelter network staff",
+        "population_total": 180
+      },
+      {
+        "description": "Recurring and occasional volunteers supporting operations.",
+        "key": "volunteer_population",
+        "label": "Volunteer corps",
+        "population_total": 240
+      },
+      {
+        "description": "Current shelter residents and active service users affected by site continuity.",
+        "key": "client_population",
+        "label": "Clients",
+        "population_total": 420
+      },
+      {
+        "description": "Small, medium, and major donors with varying engagement.",
+        "key": "donor_population",
+        "label": "Private donors",
+        "population_total": 1600
+      },
+      {
+        "description": "Residents and civic participants around shelter sites.",
+        "key": "neighborhood_public",
+        "label": "Neighborhood stakeholders",
+        "population_total": 900
+      }
+    ],
+    "risk_flags": [
+      {
+        "note": "Corpus is brief and does not specify exact budget gap, site count, or timeline.",
+        "risk_key": "evidence_sparsity",
+        "severity": "medium"
+      },
+      {
+        "note": "Population totals are realistic placeholders inferred for simulation utility, not directly evidenced by the corpus.",
+        "risk_key": "count_estimation",
+        "severity": "medium"
+      },
+      {
+        "note": "Formal decision authority is concentrated in the board, creating strong top-down leverage over service outcomes.",
+        "risk_key": "authority_asymmetry",
+        "severity": "high"
+      },
+      {
+        "note": "Clients are highly affected but structurally underrepresented in public conflict and decision channels.",
+        "risk_key": "client_voice_suppression",
+        "severity": "high"
+      },
+      {
+        "note": "Operational strain could outrun financial decision cycles and produce nonlinear disruption.",
+        "risk_key": "burnout_escalation_potential",
+        "severity": "high"
+      },
+      {
+        "note": "Potential allies may fracture over whether consolidation is prudent triage or unacceptable harm.",
+        "risk_key": "coalition_instability",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "labor_economic_dependency",
+      "mode": "direct",
+      "primary_pressures": [
+        "operating shortfall",
+        "service continuity risk",
+        "board authority over closures",
+        "staff strain",
+        "stakeholder disagreement",
+        "political timing uncertainty"
+      ],
+      "scenario_key": "labor_006",
+      "summary": "A nonprofit shelter network faces a sudden funding cut, creating conflict over whether to consolidate sites. Key actors include staff, volunteers, clients, donors, municipal grant officers, neighborhood groups, advocates, and the board. Decision pressure centers on emergency fundraising, possible site consolidation, staff burnout, and potential political intervention, with uncertainty preserved at T0.",
+      "timeframe": "immediate_post_cut_pre_resolution",
+      "title": "nonprofit_shelter_network_funding_cut",
+      "uncertainty_notes": [
+        "Size and duration of the funding gap are unspecified.",
+        "No single terminal outcome is resolved at T0.",
+        "Municipal bridge funding is possible but not committed.",
+        "Advocacy capacity and donor responsiveness are plausible but uncertain."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "level": 0.61,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Actors are more persuadable by adjacent frames like stabilization and efficiency than by maximalist demands.",
+        "scope": "donors_neighbors_board"
+      },
+      {
+        "level": 0.68,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Many supportive actors require visible cues such as media coverage, advocacy calls, or leadership appeals before acting.",
+        "scope": "volunteers_donors_neighbors"
+      },
+      {
+        "level": 0.74,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Dependency and job risk suppress full public expression of private concerns.",
+        "scope": "clients_staff_minority_views"
+      },
+      {
+        "level": 0.57,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Stakeholders cluster by role and information channels, reinforcing different interpretations of consolidation.",
+        "scope": "staff_advocates_donors_neighbors"
+      },
+      {
+        "level": 0.63,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Participation in fundraising or protest likely depends on multiple reinforcing signals rather than single messages.",
+        "scope": "fundraising_and_advocacy"
+      },
+      {
+        "level": 0.72,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Role identities shape perceived legitimacy and acceptable tradeoffs.",
+        "scope": "staff_board_advocates_neighbors"
+      },
+      {
+        "level": 0.54,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Absent new developments, outside attention may fade quickly despite initial concern.",
+        "scope": "donors_neighbors_media_audience"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context_key": "funding_cut_shock",
+        "description": "A sudden financial shock increases uncertainty and makes early narratives sticky."
+      },
+      {
+        "context_key": "formal_decision_asymmetry",
+        "description": "Board has formal closure authority while others rely on persuasion, fundraising, or politics."
+      },
+      {
+        "context_key": "client_dependency_silencing",
+        "description": "Clients are highly affected but have low public expression due to dependency and instability."
+      },
+      {
+        "context_key": "burnout_as_multiplier",
+        "description": "Staff fatigue can convert a budget issue into an operational crisis if unresolved."
+      },
+      {
+        "context_key": "bridge_funding_option",
+        "description": "Municipal intervention remains possible, preserving alternatives to immediate consolidation."
+      },
+      {
+        "context_key": "site_consolidation_symbolism",
+        "description": "Consolidation is both a technical efficiency option and a symbolic threat to local stakeholders."
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "harbor_shelter_network",
+        "behavior_axes": {
+          "adaptability": 0.53,
+          "responsiveness": 0.66,
+          "risk_aversion": 0.58,
+          "transparency": 0.48
+        },
+        "ideology_axes": {
+          "fiscal_austerity": 0.41,
+          "public_private_mix": 0.63,
+          "service_preservation": 0.82
+        },
+        "reputation": 0.66,
+        "secrecy": 0.43,
+        "tendency": "mission_preserving_but_resource_constrained",
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "network_board",
+        "behavior_axes": {
+          "adaptability": 0.47,
+          "responsiveness": 0.44,
+          "risk_aversion": 0.71,
+          "transparency": 0.36
+        },
+        "ideology_axes": {
+          "fiscal_austerity": 0.68,
+          "public_private_mix": 0.54,
+          "service_preservation": 0.61
+        },
+        "reputation": 0.55,
+        "secrecy": 0.63,
+        "tendency": "fiduciary_triage",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "executive_leadership",
+        "behavior_axes": {
+          "adaptability": 0.67,
+          "responsiveness": 0.68,
+          "risk_aversion": 0.56,
+          "transparency": 0.49
+        },
+        "ideology_axes": {
+          "fiscal_austerity": 0.46,
+          "public_private_mix": 0.6,
+          "service_preservation": 0.78
+        },
+        "reputation": 0.59,
+        "secrecy": 0.46,
+        "tendency": "stabilize_and_buy_time",
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "frontline_staff",
+        "behavior_axes": {
+          "adaptability": 0.62,
+          "responsiveness": 0.81,
+          "risk_aversion": 0.49,
+          "transparency": 0.61
+        },
+        "ideology_axes": {
+          "fiscal_austerity": 0.24,
+          "public_private_mix": 0.52,
+          "service_preservation": 0.85
+        },
+        "reputation": 0.66,
+        "secrecy": 0.34,
+        "tendency": "care_first_with_burnout_risk",
+        "trustworthiness": 0.71
+      },
+      {
+        "actor_name": "volunteer_corps",
+        "behavior_axes": {
+          "adaptability": 0.64,
+          "responsiveness": 0.58,
+          "risk_aversion": 0.35,
+          "transparency": 0.66
+        },
+        "ideology_axes": {
+          "fiscal_austerity": 0.21,
+          "public_private_mix": 0.49,
+          "service_preservation": 0.81
+        },
+        "reputation": 0.63,
+        "secrecy": 0.2,
+        "tendency": "episodic_support_activation",
+        "trustworthiness": 0.77
+      },
+      {
+        "actor_name": "clients",
+        "behavior_axes": {
+          "adaptability": 0.39,
+          "responsiveness": 0.52,
+          "risk_aversion": 0.74,
+          "transparency": 0.37
+        },
+        "ideology_axes": {
+          "fiscal_austerity": 0.1,
+          "public_private_mix": 0.44,
+          "service_preservation": 0.92
+        },
+        "reputation": 0.44,
+        "secrecy": 0.56,
+        "tendency": "high_dependency_low_voice",
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "donor_base",
+        "behavior_axes": {
+          "adaptability": 0.42,
+          "responsiveness": 0.39,
+          "risk_aversion": 0.63,
+          "transparency": 0.31
+        },
+        "ideology_axes": {
+          "fiscal_austerity": 0.51,
+          "public_private_mix": 0.72,
+          "service_preservation": 0.66
+        },
+        "reputation": 0.58,
+        "secrecy": 0.27,
+        "tendency": "conditional_financial_response",
+        "trustworthiness": 0.73
+      },
+      {
+        "actor_name": "city_grant_office",
+        "behavior_axes": {
+          "adaptability": 0.41,
+          "responsiveness": 0.46,
+          "risk_aversion": 0.67,
+          "transparency": 0.45
+        },
+        "ideology_axes": {
+          "fiscal_austerity": 0.57,
+          "public_private_mix": 0.78,
+          "service_preservation": 0.69
+        },
+        "reputation": 0.61,
+        "secrecy": 0.51,
+        "tendency": "procedural_gatekeeping",
+        "trustworthiness": 0.66
+      },
+      {
+        "actor_name": "neighborhood_groups",
+        "behavior_axes": {
+          "adaptability": 0.48,
+          "responsiveness": 0.47,
+          "risk_aversion": 0.52,
+          "transparency": 0.59
+        },
+        "ideology_axes": {
+          "fiscal_austerity": 0.43,
+          "public_private_mix": 0.46,
+          "service_preservation": 0.49
+        },
+        "reputation": 0.57,
+        "secrecy": 0.19,
+        "tendency": "site_specific_pressure",
+        "trustworthiness": 0.66
+      },
+      {
+        "actor_name": "housing_advocates",
+        "behavior_axes": {
+          "adaptability": 0.69,
+          "responsiveness": 0.74,
+          "risk_aversion": 0.28,
+          "transparency": 0.71
+        },
+        "ideology_axes": {
+          "fiscal_austerity": 0.12,
+          "public_private_mix": 0.67,
+          "service_preservation": 0.9
+        },
+        "reputation": 0.64,
+        "secrecy": 0.17,
+        "tendency": "mobilize_public_pressure",
+        "trustworthiness": 0.69
+      },
+      {
+        "actor_name": "local_media",
+        "behavior_axes": {
+          "adaptability": 0.56,
+          "responsiveness": 0.52,
+          "risk_aversion": 0.34,
+          "transparency": 0.62
+        },
+        "ideology_axes": {
+          "fiscal_austerity": 0.37,
+          "public_private_mix": 0.51,
+          "service_preservation": 0.5
+        },
+        "reputation": 0.6,
+        "secrecy": 0.11,
+        "tendency": "attention_amplification",
+        "trustworthiness": 0.57
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 557,
+        "end": 557,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 557,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

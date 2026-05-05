@@ -1,0 +1,247 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "1d75e9e1-d36d-47a2-94f7-cb2630bcc66c",
+      "created_at": "2026-05-05T02:27:52.128813+00:00",
+      "id": "4f85e0f7-4a3c-4a37-bb66-986cb7b96800",
+      "influence": {
+        "applies_to": [
+          "adjunct_faculty",
+          "tenured_faculty"
+        ],
+        "description": "Adjunct and tenured faculty may privately support coalition linkage while under-expressing support until enough peers signal safety.",
+        "influence_key": "fear_of_isolation"
+      },
+      "multiverse_id": "b6a0e405-41bb-479d-b8de-87d124920628",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:27:52.128813+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "1d75e9e1-d36d-47a2-94f7-cb2630bcc66c",
+      "created_at": "2026-05-05T02:27:52.128813+00:00",
+      "id": "e843152c-00cf-4653-8152-a5e8884df1a5",
+      "influence": {
+        "applies_to": [
+          "students"
+        ],
+        "description": "Student judgments are filtered through expectations of uninterrupted instruction and schedule reliability.",
+        "influence_key": "service_continuity_norm"
+      },
+      "multiverse_id": "b6a0e405-41bb-479d-b8de-87d124920628",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:27:52.128813+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "1d75e9e1-d36d-47a2-94f7-cb2630bcc66c",
+      "created_at": "2026-05-05T02:27:52.128813+00:00",
+      "id": "78e5e2a0-cefb-45b9-b253-888a96e4cca4",
+      "influence": {
+        "applies_to": [
+          "university_administration"
+        ],
+        "description": "Administrative decisions are shaped by anticipated external legitimacy interpretations, especially accreditation-related optics.",
+        "influence_key": "optics_sensitivity"
+      },
+      "multiverse_id": "b6a0e405-41bb-479d-b8de-87d124920628",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:27:52.128813+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "1d75e9e1-d36d-47a2-94f7-cb2630bcc66c",
+      "created_at": "2026-05-05T02:27:52.128813+00:00",
+      "id": "ff3f6bc5-df7b-492a-92de-6d80ca9ba9cc",
+      "influence": {
+        "applies_to": [
+          "major_donors",
+          "university_administration"
+        ],
+        "description": "Donor preferences travel mainly through private influence rather than public campaigns.",
+        "influence_key": "elite_private_pressure"
+      },
+      "multiverse_id": "b6a0e405-41bb-479d-b8de-87d124920628",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:27:52.128813+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "1d75e9e1-d36d-47a2-94f7-cb2630bcc66c",
+      "created_at": "2026-05-05T02:27:52.128813+00:00",
+      "id": "669a2974-6a66-4feb-ae09-e55eb61db9b7",
+      "influence": {
+        "applies_to": [
+          "adjunct_faculty",
+          "tenured_faculty",
+          "students",
+          "university_administration"
+        ],
+        "description": "All major actors retain incentives to avoid immediate institutional rupture, preserving room for negotiation, delay, or partial alignment.",
+        "influence_key": "state_continuity"
+      },
+      "multiverse_id": "b6a0e405-41bb-479d-b8de-87d124920628",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:27:52.128813+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "1d75e9e1-d36d-47a2-94f7-cb2630bcc66c",
+      "created_at": "2026-05-05T02:27:52.128813+00:00",
+      "id": "23061034-a1a7-4be4-a675-3fb883872088",
+      "model": "attention_decay",
+      "multiverse_id": "b6a0e405-41bb-479d-b8de-87d124920628",
+      "signal": {
+        "applies_to": [
+          "adjunct_faculty",
+          "tenured_faculty",
+          "students"
+        ],
+        "evidence": "Groups are open to nearby positions but not to immediate full alignment.",
+        "level": "medium",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:27:52.128813+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "1d75e9e1-d36d-47a2-94f7-cb2630bcc66c",
+      "created_at": "2026-05-05T02:27:52.128813+00:00",
+      "id": "f632f307-4b07-44dc-a19d-da1a478c8c11",
+      "model": "attention_decay",
+      "multiverse_id": "b6a0e405-41bb-479d-b8de-87d124920628",
+      "signal": {
+        "applies_to": [
+          "adjunct_faculty",
+          "tenured_faculty"
+        ],
+        "evidence": "Many actors appear contingent on visible support before acting publicly.",
+        "level": "high",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:27:52.128813+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "1d75e9e1-d36d-47a2-94f7-cb2630bcc66c",
+      "created_at": "2026-05-05T02:27:52.128813+00:00",
+      "id": "8b2a90f3-26f7-4767-952b-d4d87d31b9d4",
+      "model": "attention_decay",
+      "multiverse_id": "b6a0e405-41bb-479d-b8de-87d124920628",
+      "signal": {
+        "applies_to": [
+          "adjunct_faculty",
+          "tenured_faculty"
+        ],
+        "evidence": "Scenario explicitly calls for fear_of_isolation and no full public alignment at T0.",
+        "level": "high",
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:27:52.128813+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "1d75e9e1-d36d-47a2-94f7-cb2630bcc66c",
+      "created_at": "2026-05-05T02:27:52.128813+00:00",
+      "id": "2ceaed10-8d39-4916-9f1e-a1bfc5ec2ecf",
+      "model": "attention_decay",
+      "multiverse_id": "b6a0e405-41bb-479d-b8de-87d124920628",
+      "signal": {
+        "applies_to": [
+          "adjunct_faculty",
+          "tenured_faculty",
+          "students"
+        ],
+        "evidence": "Conversations likely cluster within role-based groups.",
+        "level": "medium",
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:27:52.128813+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "1d75e9e1-d36d-47a2-94f7-cb2630bcc66c",
+      "created_at": "2026-05-05T02:27:52.128813+00:00",
+      "id": "5aa1ca1a-93ea-4eeb-8e7c-cc71a5892c54",
+      "model": "attention_decay",
+      "multiverse_id": "b6a0e405-41bb-479d-b8de-87d124920628",
+      "signal": {
+        "applies_to": [
+          "adjunct_faculty",
+          "tenured_faculty"
+        ],
+        "evidence": "Joining coalition likely requires reinforcement from multiple trusted peers.",
+        "level": "medium",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:27:52.128813+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "1d75e9e1-d36d-47a2-94f7-cb2630bcc66c",
+      "created_at": "2026-05-05T02:27:52.128813+00:00",
+      "id": "7eb99364-e1f9-4f4a-88d5-ee9c35d5b219",
+      "model": "attention_decay",
+      "multiverse_id": "b6a0e405-41bb-479d-b8de-87d124920628",
+      "signal": {
+        "applies_to": [
+          "adjunct_faculty",
+          "tenured_faculty",
+          "students",
+          "university_administration"
+        ],
+        "evidence": "Employment status and institutional role shape preferences and caution.",
+        "level": "high",
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:27:52.128813+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "1d75e9e1-d36d-47a2-94f7-cb2630bcc66c",
+      "created_at": "2026-05-05T02:27:52.128813+00:00",
+      "id": "adf5b0e7-3b8c-42d3-8715-3036e35d8e9f",
+      "model": "attention_decay",
+      "multiverse_id": "b6a0e405-41bb-479d-b8de-87d124920628",
+      "signal": {
+        "applies_to": [
+          "students",
+          "major_donors"
+        ],
+        "evidence": "Absent visible disruption, these groups may not sustain high attention.",
+        "level": "medium",
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:27:52.128813+00:00"
+    }
+  ]
+}

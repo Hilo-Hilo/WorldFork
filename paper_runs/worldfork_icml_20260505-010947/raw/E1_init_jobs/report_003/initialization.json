@@ -1,0 +1,1701 @@
+{
+  "big_bang_id": "7552bb4d-662f-4073-8534-4520329c7af0",
+  "initializer_output": {
+    "actors": [
+      {
+        "decision_authority": "high",
+        "fictionalized": true,
+        "name": "harbor_defender_office",
+        "public_visibility": "high",
+        "role": "public_defender_office",
+        "stakes": [
+          "service capacity",
+          "case quality",
+          "institutional legitimacy",
+          "court relations",
+          "funding continuity"
+        ],
+        "type": "institution"
+      },
+      {
+        "decision_authority": "high",
+        "fictionalized": true,
+        "name": "chief_defender_mara_ortiz",
+        "public_visibility": "medium",
+        "role": "office_leader",
+        "stakes": [
+          "program success",
+          "attorney morale",
+          "court credibility",
+          "funder confidence"
+        ],
+        "type": "person"
+      },
+      {
+        "decision_authority": "medium",
+        "fictionalized": true,
+        "name": "staff_attorneys",
+        "public_visibility": "medium",
+        "role": "line_attorneys",
+        "stakes": [
+          "professional standards",
+          "workload control",
+          "client outcomes",
+          "role security"
+        ],
+        "type": "group"
+      },
+      {
+        "decision_authority": "low",
+        "fictionalized": true,
+        "name": "volunteer_intake_group",
+        "public_visibility": "low",
+        "role": "volunteer_triage_workers",
+        "stakes": [
+          "access to legal service work",
+          "recognition",
+          "continued participation",
+          "training quality"
+        ],
+        "type": "group"
+      },
+      {
+        "decision_authority": "low",
+        "fictionalized": true,
+        "name": "indigent_clients",
+        "public_visibility": "low",
+        "role": "service_recipients",
+        "stakes": [
+          "speed of assistance",
+          "quality of representation",
+          "clarity of process",
+          "fair treatment"
+        ],
+        "type": "group"
+      },
+      {
+        "decision_authority": "medium",
+        "fictionalized": true,
+        "name": "trial_judges_panel",
+        "public_visibility": "high",
+        "role": "court_judges",
+        "stakes": [
+          "docket efficiency",
+          "procedural reliability",
+          "timely case movement"
+        ],
+        "type": "group"
+      },
+      {
+        "decision_authority": "medium",
+        "fictionalized": true,
+        "name": "justice_access_funders",
+        "public_visibility": "medium",
+        "role": "philanthropic_or_public_funders",
+        "stakes": [
+          "measurable impact",
+          "service throughput",
+          "accountability",
+          "reputational return"
+        ],
+        "type": "group"
+      },
+      {
+        "decision_authority": "medium",
+        "fictionalized": true,
+        "name": "office_admin_ops",
+        "public_visibility": "low",
+        "role": "operations_and_data_staff",
+        "stakes": [
+          "workable workflow",
+          "reporting burden",
+          "implementation stability"
+        ],
+        "type": "group"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "branch_key": "guardrailed_pilot_branch",
+        "observable_divergence_signal": "Written supervision rules, limited case categories, and attorney participation in pilot review appear by early ticks.",
+        "plausible_path": "Attorney opposition softens, funders accept phased evidence, and early delay pressure becomes manageable without major legitimacy loss.",
+        "trigger": "Leadership adopts narrow volunteer scope with attorney supervision and limited metrics pilot."
+      },
+      {
+        "branch_key": "overextended_rollout_branch",
+        "observable_divergence_signal": "Reports of unclear volunteer authority, attorney refusal behavior, or inconsistent intake outputs appear.",
+        "plausible_path": "Quality incidents or internal backlash emerge, trust drops, and judges or funders scrutinize the office more aggressively.",
+        "trigger": "Leadership expands volunteer access before guardrails or training capacity are settled."
+      },
+      {
+        "branch_key": "metrics_dominance_branch",
+        "observable_divergence_signal": "Dashboards prioritize volume and wait-time metrics with limited quality indicators.",
+        "plausible_path": "Speed and throughput improve on paper while internal concern about legal quality and supervision burden grows, creating latent instability.",
+        "trigger": "Funder reporting requirements become the primary decision frame for success."
+      },
+      {
+        "branch_key": "backlog_relief_legitimation_branch",
+        "observable_divergence_signal": "Judicial complaints ease and junior attorneys report workload relief.",
+        "plausible_path": "Skeptics remain cautious but lose coalition strength as practical gains become salient.",
+        "trigger": "Early triage visibly reduces client wait times or court delays without obvious errors."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "internal_staff_meetings",
+        "primary_actors": [
+          "chief_defender_mara_ortiz",
+          "staff_attorneys",
+          "office_admin_ops"
+        ],
+        "purpose": "Program design debate and implementation updates",
+        "type": "internal",
+        "visibility": "private"
+      },
+      {
+        "channel_key": "court_calendar_interactions",
+        "primary_actors": [
+          "harbor_defender_office",
+          "trial_judges_panel"
+        ],
+        "purpose": "Delay complaints and readiness signals",
+        "type": "institutional",
+        "visibility": "semi_public"
+      },
+      {
+        "channel_key": "funder_reporting_calls",
+        "primary_actors": [
+          "chief_defender_mara_ortiz",
+          "office_admin_ops",
+          "justice_access_funders"
+        ],
+        "purpose": "Metrics expectations and progress review",
+        "type": "institutional",
+        "visibility": "private"
+      },
+      {
+        "channel_key": "volunteer_onboarding_comms",
+        "primary_actors": [
+          "harbor_defender_office",
+          "volunteer_intake_group"
+        ],
+        "purpose": "Access, training, and role definition",
+        "type": "organizational",
+        "visibility": "private"
+      },
+      {
+        "channel_key": "client_intake_touchpoints",
+        "primary_actors": [
+          "harbor_defender_office",
+          "indigent_clients"
+        ],
+        "purpose": "Initial contact, triage, and complaint emergence",
+        "type": "service",
+        "visibility": "private"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "office_staff",
+        "attention_level": 0.9,
+        "behavioral_tendencies": [
+          "raise professional concerns",
+          "seek procedural guardrails",
+          "resist rushed rollout"
+        ],
+        "cohort_key": "senior_attorneys_quality_guardians",
+        "expression_level": 0.7,
+        "fatigue": 0.5,
+        "fear_of_isolation": 0.3,
+        "label": "Senior Attorneys Focused on Quality Control",
+        "mobilization_readiness": 0.7,
+        "perceived_majority": 0.6,
+        "population_share_of_archetype": 0.286,
+        "private_position": "Skeptical of volunteer-led triage absent strong supervision.",
+        "public_position": "Cautious support only with safeguards.",
+        "representation_mode": "direct",
+        "represented_population": 14,
+        "reputation": 0.75,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "centralized_control": 0.8,
+          "metric_orientation": 0.1,
+          "program_support": -0.5,
+          "quality_priority": 0.9,
+          "speed_priority": 0.2
+        },
+        "trustworthiness": 0.8
+      },
+      {
+        "archetype_key": "office_staff",
+        "attention_level": 0.8,
+        "behavioral_tendencies": [
+          "adapt under pressure",
+          "complain privately",
+          "support practical fixes"
+        ],
+        "cohort_key": "junior_attorneys_overloaded_pragmatists",
+        "expression_level": 0.5,
+        "fatigue": 0.8,
+        "fear_of_isolation": 0.5,
+        "label": "Junior Attorneys Seeking Workload Relief",
+        "mobilization_readiness": 0.5,
+        "perceived_majority": 0.4,
+        "population_share_of_archetype": 0.367,
+        "private_position": "Open to triage help if it genuinely reduces backlog and avoids malpractice risk.",
+        "public_position": "Mixed; supportive in principle but attentive to supervision burden.",
+        "representation_mode": "direct",
+        "represented_population": 18,
+        "reputation": 0.6,
+        "secrecy": 0.4,
+        "stance_axes": {
+          "centralized_control": 0.4,
+          "metric_orientation": 0.4,
+          "program_support": 0.2,
+          "quality_priority": 0.7,
+          "speed_priority": 0.7
+        },
+        "trustworthiness": 0.7
+      },
+      {
+        "archetype_key": "office_staff",
+        "attention_level": 0.7,
+        "behavioral_tendencies": [
+          "optimize forms",
+          "translate demands into workflow",
+          "avoid open conflict"
+        ],
+        "cohort_key": "admin_implementation_team",
+        "expression_level": 0.4,
+        "fatigue": 0.6,
+        "fear_of_isolation": 0.4,
+        "label": "Admin and Operations Implementers",
+        "mobilization_readiness": 0.4,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.347,
+        "private_position": "Need the program to become operationally legible and reportable.",
+        "public_position": "Supportive if workflow and data capture are feasible.",
+        "representation_mode": "direct",
+        "represented_population": 17,
+        "reputation": 0.55,
+        "secrecy": 0.3,
+        "stance_axes": {
+          "centralized_control": 0.6,
+          "metric_orientation": 0.8,
+          "program_support": 0.5,
+          "quality_priority": 0.5,
+          "speed_priority": 0.6
+        },
+        "trustworthiness": 0.75
+      },
+      {
+        "archetype_key": "volunteers",
+        "attention_level": 0.8,
+        "behavioral_tendencies": [
+          "seek inclusion",
+          "signal commitment",
+          "underestimate complexity"
+        ],
+        "cohort_key": "access_motivated_volunteers",
+        "expression_level": 0.8,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.3,
+        "label": "Access-Motivated Volunteers",
+        "mobilization_readiness": 0.7,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1.0,
+        "private_position": "Want meaningful client contact and a chance to prove usefulness.",
+        "public_position": "Enthusiastic about helping reduce delays.",
+        "representation_mode": "direct",
+        "represented_population": 24,
+        "reputation": 0.45,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "centralized_control": 0.3,
+          "metric_orientation": 0.5,
+          "program_support": 0.95,
+          "quality_priority": 0.4,
+          "speed_priority": 0.8
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "archetype_key": "clients",
+        "attention_level": 0.6,
+        "behavioral_tendencies": [
+          "accept imperfect help",
+          "respond to wait times",
+          "rarely coordinate collectively"
+        ],
+        "cohort_key": "urgent_need_clients",
+        "expression_level": 0.2,
+        "fatigue": 0.7,
+        "fear_of_isolation": 0.6,
+        "label": "Clients Prioritizing Fast Intake",
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.65,
+        "private_position": "Prefer faster contact even if process feels simplified, so long as they are heard.",
+        "public_position": "Limited organized expression; complaints appear through delay experiences.",
+        "representation_mode": "inferred",
+        "represented_population": 780,
+        "reputation": 0.4,
+        "secrecy": 0.5,
+        "stance_axes": {
+          "centralized_control": 0.1,
+          "metric_orientation": 0.0,
+          "program_support": 0.4,
+          "quality_priority": 0.5,
+          "speed_priority": 0.9
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "archetype_key": "clients",
+        "attention_level": 0.5,
+        "behavioral_tendencies": [
+          "judge by case experience",
+          "hesitate to complain",
+          "depend on advocates"
+        ],
+        "cohort_key": "quality_sensitive_clients",
+        "expression_level": 0.2,
+        "fatigue": 0.7,
+        "fear_of_isolation": 0.7,
+        "label": "Clients Sensitive to Representation Quality",
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.3,
+        "population_share_of_archetype": 0.35,
+        "private_position": "Wary of non-attorney handling if it affects legal accuracy or trust.",
+        "public_position": "Mostly individualized concern rather than organized opposition.",
+        "representation_mode": "inferred",
+        "represented_population": 420,
+        "reputation": 0.4,
+        "secrecy": 0.5,
+        "stance_axes": {
+          "centralized_control": 0.2,
+          "metric_orientation": 0.0,
+          "program_support": -0.1,
+          "quality_priority": 0.9,
+          "speed_priority": 0.5
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "archetype_key": "judicial_actors",
+        "attention_level": 0.7,
+        "behavioral_tendencies": [
+          "signal impatience",
+          "reward smoother calendars",
+          "scrutinize repeated delays"
+        ],
+        "cohort_key": "delay_averse_judges",
+        "expression_level": 0.6,
+        "fatigue": 0.5,
+        "fear_of_isolation": 0.2,
+        "label": "Judges Focused on Delay Reduction",
+        "mobilization_readiness": 0.5,
+        "perceived_majority": 0.7,
+        "population_share_of_archetype": 1.0,
+        "private_position": "Want fewer intake-related delays and clearer readiness signals from the defense side.",
+        "public_position": "Critical of ongoing delays, receptive to practical fixes.",
+        "representation_mode": "direct",
+        "represented_population": 12,
+        "reputation": 0.8,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "centralized_control": 0.5,
+          "metric_orientation": 0.6,
+          "program_support": 0.3,
+          "quality_priority": 0.4,
+          "speed_priority": 0.9
+        },
+        "trustworthiness": 0.7
+      },
+      {
+        "archetype_key": "funding_actors",
+        "attention_level": 0.7,
+        "behavioral_tendencies": [
+          "ask for dashboards",
+          "tie support to evidence",
+          "prefer scalable narratives"
+        ],
+        "cohort_key": "metrics_driven_funders",
+        "expression_level": 0.5,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.2,
+        "label": "Funders Seeking Demonstrable Metrics",
+        "mobilization_readiness": 0.4,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1.0,
+        "private_position": "Supportive if the office can show throughput, timeliness, and accountability.",
+        "public_position": "Constructively supportive with emphasis on measurable results.",
+        "representation_mode": "direct",
+        "represented_population": 6,
+        "reputation": 0.7,
+        "secrecy": 0.3,
+        "stance_axes": {
+          "centralized_control": 0.4,
+          "metric_orientation": 1.0,
+          "program_support": 0.6,
+          "quality_priority": 0.4,
+          "speed_priority": 0.7
+        },
+        "trustworthiness": 0.65
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "office_staff",
+        "attention_level": 0.9,
+        "behavioral_tendencies": [
+          "raise professional concerns",
+          "seek procedural guardrails",
+          "resist rushed rollout"
+        ],
+        "cohort_key": "senior_attorneys_quality_guardians",
+        "expression_level": 0.7,
+        "fatigue": 0.5,
+        "fear_of_isolation": 0.3,
+        "label": "Senior Attorneys Focused on Quality Control",
+        "mobilization_readiness": 0.7,
+        "perceived_majority": 0.6,
+        "population_share_of_archetype": 0.286,
+        "private_position": "Skeptical of volunteer-led triage absent strong supervision.",
+        "public_position": "Cautious support only with safeguards.",
+        "representation_mode": "direct",
+        "represented_population": 14,
+        "reputation": 0.75,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "centralized_control": 0.8,
+          "metric_orientation": 0.1,
+          "program_support": -0.5,
+          "quality_priority": 0.9,
+          "speed_priority": 0.2
+        },
+        "trustworthiness": 0.8
+      },
+      {
+        "archetype_key": "office_staff",
+        "attention_level": 0.8,
+        "behavioral_tendencies": [
+          "adapt under pressure",
+          "complain privately",
+          "support practical fixes"
+        ],
+        "cohort_key": "junior_attorneys_overloaded_pragmatists",
+        "expression_level": 0.5,
+        "fatigue": 0.8,
+        "fear_of_isolation": 0.5,
+        "label": "Junior Attorneys Seeking Workload Relief",
+        "mobilization_readiness": 0.5,
+        "perceived_majority": 0.4,
+        "population_share_of_archetype": 0.367,
+        "private_position": "Open to triage help if it genuinely reduces backlog and avoids malpractice risk.",
+        "public_position": "Mixed; supportive in principle but attentive to supervision burden.",
+        "representation_mode": "direct",
+        "represented_population": 18,
+        "reputation": 0.6,
+        "secrecy": 0.4,
+        "stance_axes": {
+          "centralized_control": 0.4,
+          "metric_orientation": 0.4,
+          "program_support": 0.2,
+          "quality_priority": 0.7,
+          "speed_priority": 0.7
+        },
+        "trustworthiness": 0.7
+      },
+      {
+        "archetype_key": "office_staff",
+        "attention_level": 0.7,
+        "behavioral_tendencies": [
+          "optimize forms",
+          "translate demands into workflow",
+          "avoid open conflict"
+        ],
+        "cohort_key": "admin_implementation_team",
+        "expression_level": 0.4,
+        "fatigue": 0.6,
+        "fear_of_isolation": 0.4,
+        "label": "Admin and Operations Implementers",
+        "mobilization_readiness": 0.4,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.347,
+        "private_position": "Need the program to become operationally legible and reportable.",
+        "public_position": "Supportive if workflow and data capture are feasible.",
+        "representation_mode": "direct",
+        "represented_population": 17,
+        "reputation": 0.55,
+        "secrecy": 0.3,
+        "stance_axes": {
+          "centralized_control": 0.6,
+          "metric_orientation": 0.8,
+          "program_support": 0.5,
+          "quality_priority": 0.5,
+          "speed_priority": 0.6
+        },
+        "trustworthiness": 0.75
+      },
+      {
+        "archetype_key": "volunteers",
+        "attention_level": 0.8,
+        "behavioral_tendencies": [
+          "seek inclusion",
+          "signal commitment",
+          "underestimate complexity"
+        ],
+        "cohort_key": "access_motivated_volunteers",
+        "expression_level": 0.8,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.3,
+        "label": "Access-Motivated Volunteers",
+        "mobilization_readiness": 0.7,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1.0,
+        "private_position": "Want meaningful client contact and a chance to prove usefulness.",
+        "public_position": "Enthusiastic about helping reduce delays.",
+        "representation_mode": "direct",
+        "represented_population": 24,
+        "reputation": 0.45,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "centralized_control": 0.3,
+          "metric_orientation": 0.5,
+          "program_support": 0.95,
+          "quality_priority": 0.4,
+          "speed_priority": 0.8
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "archetype_key": "clients",
+        "attention_level": 0.6,
+        "behavioral_tendencies": [
+          "accept imperfect help",
+          "respond to wait times",
+          "rarely coordinate collectively"
+        ],
+        "cohort_key": "urgent_need_clients",
+        "expression_level": 0.2,
+        "fatigue": 0.7,
+        "fear_of_isolation": 0.6,
+        "label": "Clients Prioritizing Fast Intake",
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.65,
+        "private_position": "Prefer faster contact even if process feels simplified, so long as they are heard.",
+        "public_position": "Limited organized expression; complaints appear through delay experiences.",
+        "representation_mode": "inferred",
+        "represented_population": 780,
+        "reputation": 0.4,
+        "secrecy": 0.5,
+        "stance_axes": {
+          "centralized_control": 0.1,
+          "metric_orientation": 0.0,
+          "program_support": 0.4,
+          "quality_priority": 0.5,
+          "speed_priority": 0.9
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "archetype_key": "clients",
+        "attention_level": 0.5,
+        "behavioral_tendencies": [
+          "judge by case experience",
+          "hesitate to complain",
+          "depend on advocates"
+        ],
+        "cohort_key": "quality_sensitive_clients",
+        "expression_level": 0.2,
+        "fatigue": 0.7,
+        "fear_of_isolation": 0.7,
+        "label": "Clients Sensitive to Representation Quality",
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.3,
+        "population_share_of_archetype": 0.35,
+        "private_position": "Wary of non-attorney handling if it affects legal accuracy or trust.",
+        "public_position": "Mostly individualized concern rather than organized opposition.",
+        "representation_mode": "inferred",
+        "represented_population": 420,
+        "reputation": 0.4,
+        "secrecy": 0.5,
+        "stance_axes": {
+          "centralized_control": 0.2,
+          "metric_orientation": 0.0,
+          "program_support": -0.1,
+          "quality_priority": 0.9,
+          "speed_priority": 0.5
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "archetype_key": "judicial_actors",
+        "attention_level": 0.7,
+        "behavioral_tendencies": [
+          "signal impatience",
+          "reward smoother calendars",
+          "scrutinize repeated delays"
+        ],
+        "cohort_key": "delay_averse_judges",
+        "expression_level": 0.6,
+        "fatigue": 0.5,
+        "fear_of_isolation": 0.2,
+        "label": "Judges Focused on Delay Reduction",
+        "mobilization_readiness": 0.5,
+        "perceived_majority": 0.7,
+        "population_share_of_archetype": 1.0,
+        "private_position": "Want fewer intake-related delays and clearer readiness signals from the defense side.",
+        "public_position": "Critical of ongoing delays, receptive to practical fixes.",
+        "representation_mode": "direct",
+        "represented_population": 12,
+        "reputation": 0.8,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "centralized_control": 0.5,
+          "metric_orientation": 0.6,
+          "program_support": 0.3,
+          "quality_priority": 0.4,
+          "speed_priority": 0.9
+        },
+        "trustworthiness": 0.7
+      },
+      {
+        "archetype_key": "funding_actors",
+        "attention_level": 0.7,
+        "behavioral_tendencies": [
+          "ask for dashboards",
+          "tie support to evidence",
+          "prefer scalable narratives"
+        ],
+        "cohort_key": "metrics_driven_funders",
+        "expression_level": 0.5,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.2,
+        "label": "Funders Seeking Demonstrable Metrics",
+        "mobilization_readiness": 0.4,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1.0,
+        "private_position": "Supportive if the office can show throughput, timeliness, and accountability.",
+        "public_position": "Constructively supportive with emphasis on measurable results.",
+        "representation_mode": "direct",
+        "represented_population": 6,
+        "reputation": 0.7,
+        "secrecy": 0.3,
+        "stance_axes": {
+          "centralized_control": 0.4,
+          "metric_orientation": 1.0,
+          "program_support": 0.6,
+          "quality_priority": 0.4,
+          "speed_priority": 0.7
+        },
+        "trustworthiness": 0.65
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "chief_defender_mara_ortiz",
+          "harbor_defender_office",
+          "staff_attorneys"
+        ],
+        "blockers": [
+          "attorney resistance",
+          "quality incident risk",
+          "unclear supervision capacity",
+          "insufficient metrics"
+        ],
+        "contradiction_notes": "Judicial desire for speed may support sustainment even if attorney trust remains mixed.",
+        "description": "The office institutionalizes volunteer intake triage as an ongoing program rather than a temporary experiment.",
+        "endpoint_key": "sustained_triage_model",
+        "evidence_refs": [
+          "program_launch_announcement",
+          "attorney_quality_concerns_surface",
+          "funder_metrics_request"
+        ],
+        "label": "Sustained Volunteer Triage Model",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the volunteer intake triage program become a sustained core workflow, remain a narrow supervised pilot, or get rolled back?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.42,
+        "rationale": "This is the clearest terminal organizational choice implied by the scenario.",
+        "realization_criteria": [
+          "Formal office policy or repeated operations establish volunteer triage beyond a pilot window.",
+          "Volunteer roles remain active across multiple reporting periods or case cohorts.",
+          "Leadership communications frame triage as standard workflow rather than temporary trial."
+        ],
+        "status": "active",
+        "status_basis": "The scenario states launch pressure exists, but long-term institutionalization is unresolved."
+      },
+      {
+        "authority_refs": [
+          "chief_defender_mara_ortiz",
+          "staff_attorneys",
+          "office_admin_ops"
+        ],
+        "blockers": [
+          "continued court impatience for larger speed gains",
+          "volunteer pressure for broader access",
+          "funder preference for scalable metrics"
+        ],
+        "contradiction_notes": "If delay pressure intensifies sharply, pilot limits may be seen as insufficient.",
+        "description": "The office retains the program only in limited scope with explicit attorney oversight and constrained volunteer authority.",
+        "endpoint_key": "narrow_guardrailed_pilot",
+        "evidence_refs": [
+          "attorney_quality_concerns_surface",
+          "workflow_design_or_training_checkpoint"
+        ],
+        "label": "Narrow Supervised Pilot",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Who ultimately controls triage design at equilibrium: office leadership and operations, or attorneys through supervision and scope limits?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.33,
+        "rationale": "This endpoint preserves both service experimentation and professional safeguards.",
+        "realization_criteria": [
+          "Written scope limits define volunteer tasks and prohibited actions.",
+          "Attorney supervision is required for consequential triage decisions.",
+          "Program reporting identifies pilot status or restricted deployment rather than office-wide normalization."
+        ],
+        "status": "active",
+        "status_basis": "Attorney quality concerns make a constrained compromise highly plausible at T0."
+      },
+      {
+        "authority_refs": [
+          "chief_defender_mara_ortiz",
+          "harbor_defender_office"
+        ],
+        "blockers": [
+          "persistent need for speed",
+          "funder and court pressure to show reform",
+          "lack of substitute capacity"
+        ],
+        "contradiction_notes": "Rollback may reduce quality risk yet worsen delay pressure, generating external backlash.",
+        "description": "The office pauses, materially shrinks, or abandons volunteer triage after conflict, poor performance, or legitimacy concerns.",
+        "endpoint_key": "program_rollback_or_suspension",
+        "evidence_refs": [
+          "attorney_quality_concerns_surface",
+          "judicial_delay_pressure_continues"
+        ],
+        "label": "Program Rollback or Suspension",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "At observable outcome level, does the program improve intake speed and delay performance without documented quality breakdowns?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.18,
+        "rationale": "Abandonment remains a credible terminal option if implementation fails.",
+        "realization_criteria": [
+          "Leadership announces suspension, rollback, or termination of volunteer triage.",
+          "Volunteer onboarding ceases or active triage roles are revoked.",
+          "Operational workflow reverts primarily to attorney-controlled intake without volunteer triage participation."
+        ],
+        "status": "active",
+        "status_basis": "The conflict is real, but source text does not establish a decisive failure at T0."
+      },
+      {
+        "authority_refs": [
+          "justice_access_funders",
+          "chief_defender_mara_ortiz",
+          "office_admin_ops"
+        ],
+        "blockers": [
+          "weak data infrastructure",
+          "disputed metric validity",
+          "quality concerns not captured by dashboards"
+        ],
+        "contradiction_notes": "The program could continue internally even if funder enthusiasm weakens, depending on other resources.",
+        "description": "Funder support continues only if the office produces acceptable performance metrics linked to the triage model.",
+        "endpoint_key": "metrics_conditioned_funding_continuity",
+        "evidence_refs": [
+          "funder_metrics_request",
+          "program_launch_announcement"
+        ],
+        "label": "Metrics-Conditioned Funding Continuity",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does continued funder support become tied to a metrics-validated model, or does support weaken because results are inconclusive or contested?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.51,
+        "rationale": "Funding leverage is an implied endpoint pressure, not just a process detail.",
+        "realization_criteria": [
+          "Funders renew, extend, or maintain support explicitly citing reported program metrics.",
+          "Funding communications condition continuation on measurable throughput, timeliness, or related indicators.",
+          "Office reporting systems become embedded in program governance due to funding requirements."
+        ],
+        "status": "active",
+        "status_basis": "Funders clearly want metrics, but no funding decision has occurred yet."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "Attorneys fear quality loss under the new program.",
+        "layer": "exposure",
+        "reason": "Attorneys closely observe leadership decisions affecting practice standards.",
+        "source_actor_name": "staff_attorneys",
+        "target_actor_name": "chief_defender_mara_ortiz",
+        "weight": 0.65
+      },
+      {
+        "direction": "directed",
+        "evidence": "Office launch context implies internal communication on program design.",
+        "layer": "exposure",
+        "reason": "Leadership communications reach attorneys through internal channels.",
+        "source_actor_name": "chief_defender_mara_ortiz",
+        "target_actor_name": "staff_attorneys",
+        "weight": 0.6
+      },
+      {
+        "direction": "directed",
+        "evidence": "Volunteers want access.",
+        "layer": "exposure",
+        "reason": "Volunteers monitor office access and onboarding opportunities.",
+        "source_actor_name": "volunteer_intake_group",
+        "target_actor_name": "harbor_defender_office",
+        "weight": 0.55
+      },
+      {
+        "direction": "directed",
+        "evidence": "Judges complain about delays.",
+        "layer": "exposure",
+        "reason": "Judges observe office delay patterns and hearing readiness.",
+        "source_actor_name": "trial_judges_panel",
+        "target_actor_name": "harbor_defender_office",
+        "weight": 0.5
+      },
+      {
+        "direction": "directed",
+        "evidence": "Funders want metrics.",
+        "layer": "exposure",
+        "reason": "Funders watch program outputs and institutional reporting.",
+        "source_actor_name": "justice_access_funders",
+        "target_actor_name": "harbor_defender_office",
+        "weight": 0.45
+      },
+      {
+        "direction": "directed",
+        "evidence": "Clients need speed.",
+        "layer": "exposure",
+        "reason": "Clients directly experience intake responsiveness.",
+        "source_actor_name": "indigent_clients",
+        "target_actor_name": "harbor_defender_office",
+        "weight": 0.5
+      },
+      {
+        "direction": "directed",
+        "evidence": "Attorneys fear quality loss.",
+        "layer": "trust",
+        "reason": "Attorneys doubt volunteers can preserve representation quality without strong controls.",
+        "source_actor_name": "staff_attorneys",
+        "target_actor_name": "volunteer_intake_group",
+        "weight": 0.25
+      },
+      {
+        "direction": "directed",
+        "evidence": "Program launch requires implementation support and metrics.",
+        "layer": "trust",
+        "reason": "Leadership relies on operations staff to make the model workable.",
+        "source_actor_name": "chief_defender_mara_ortiz",
+        "target_actor_name": "office_admin_ops",
+        "weight": 0.62
+      },
+      {
+        "direction": "directed",
+        "evidence": "Funders want metrics rather than unconditional endorsement.",
+        "layer": "trust",
+        "reason": "Funders are provisionally confident but want evidence.",
+        "source_actor_name": "justice_access_funders",
+        "target_actor_name": "chief_defender_mara_ortiz",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "Judges complain about delays.",
+        "layer": "trust",
+        "reason": "Delay complaints indicate constrained confidence in current performance.",
+        "source_actor_name": "trial_judges_panel",
+        "target_actor_name": "harbor_defender_office",
+        "weight": 0.42
+      },
+      {
+        "direction": "directed",
+        "evidence": "Clients need speed and service conditions are contested.",
+        "layer": "trust",
+        "reason": "Clients depend on the office but may be uncertain about intake quality and speed.",
+        "source_actor_name": "indigent_clients",
+        "target_actor_name": "harbor_defender_office",
+        "weight": 0.48
+      },
+      {
+        "direction": "directed",
+        "evidence": "The office is the service provider in the scenario.",
+        "layer": "dependency",
+        "reason": "Clients materially rely on the office for defense access and intake.",
+        "source_actor_name": "indigent_clients",
+        "target_actor_name": "harbor_defender_office",
+        "weight": 0.82
+      },
+      {
+        "direction": "directed",
+        "evidence": "Funders want metrics, implying leverage over support.",
+        "layer": "dependency",
+        "reason": "Program continuity and experimentation may depend on funder backing or reporting acceptance.",
+        "source_actor_name": "harbor_defender_office",
+        "target_actor_name": "justice_access_funders",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "Judges complain about delays.",
+        "layer": "dependency",
+        "reason": "Operational legitimacy is partly tied to court scheduling and tolerance for delays.",
+        "source_actor_name": "harbor_defender_office",
+        "target_actor_name": "trial_judges_panel",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "Volunteers want access.",
+        "layer": "dependency",
+        "reason": "Volunteers need office approval and structure to participate.",
+        "source_actor_name": "volunteer_intake_group",
+        "target_actor_name": "harbor_defender_office",
+        "weight": 0.7
+      },
+      {
+        "direction": "directed",
+        "evidence": "Attorneys are central to quality concerns in the office.",
+        "layer": "dependency",
+        "reason": "Legal service quality and supervision capacity depend on attorneys.",
+        "source_actor_name": "harbor_defender_office",
+        "target_actor_name": "staff_attorneys",
+        "weight": 0.76
+      },
+      {
+        "direction": "directed",
+        "evidence": "Launch context implies need for leadership authorization.",
+        "layer": "dependency",
+        "reason": "Implementation staff rely on executive decisions to set workflow and resource priorities.",
+        "source_actor_name": "office_admin_ops",
+        "target_actor_name": "chief_defender_mara_ortiz",
+        "weight": 0.5
+      },
+      {
+        "direction": "directed",
+        "evidence": "Office leader role in launch decision.",
+        "layer": "influence",
+        "reason": "Chief defender can set institutional direction on the program.",
+        "source_actor_name": "chief_defender_mara_ortiz",
+        "target_actor_name": "harbor_defender_office",
+        "weight": 0.78
+      },
+      {
+        "direction": "directed",
+        "evidence": "Attorneys fear quality loss, creating internal pressure.",
+        "layer": "influence",
+        "reason": "Attorney acceptance affects viability and legitimacy of rollout.",
+        "source_actor_name": "staff_attorneys",
+        "target_actor_name": "chief_defender_mara_ortiz",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "Judges complain about delays.",
+        "layer": "influence",
+        "reason": "Judicial complaints shape urgency around delays.",
+        "source_actor_name": "trial_judges_panel",
+        "target_actor_name": "harbor_defender_office",
+        "weight": 0.54
+      },
+      {
+        "direction": "directed",
+        "evidence": "Funders want metrics.",
+        "layer": "influence",
+        "reason": "Funding expectations push leadership toward metricized proof of success.",
+        "source_actor_name": "justice_access_funders",
+        "target_actor_name": "chief_defender_mara_ortiz",
+        "weight": 0.49
+      },
+      {
+        "direction": "directed",
+        "evidence": "Workflow and reporting needs are implied by the program.",
+        "layer": "influence",
+        "reason": "Operations staff influence what implementation models are practically possible.",
+        "source_actor_name": "office_admin_ops",
+        "target_actor_name": "harbor_defender_office",
+        "weight": 0.43
+      },
+      {
+        "direction": "directed",
+        "evidence": "Volunteers want access.",
+        "layer": "influence",
+        "reason": "Volunteer enthusiasm creates pressure for inclusion but limited formal authority.",
+        "source_actor_name": "volunteer_intake_group",
+        "target_actor_name": "harbor_defender_office",
+        "weight": 0.26
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Attorneys fear quality loss affecting service quality.",
+        "layer": "coalition",
+        "reason": "Attorneys frame objections around protecting client representation quality.",
+        "source_actor_name": "staff_attorneys",
+        "target_actor_name": "indigent_clients",
+        "weight": 0.46
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Volunteers want access; funders want metrics.",
+        "layer": "coalition",
+        "reason": "Both favor expanded service capacity if results are demonstrable.",
+        "source_actor_name": "volunteer_intake_group",
+        "target_actor_name": "justice_access_funders",
+        "weight": 0.34
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Program launch requires operational execution.",
+        "layer": "coalition",
+        "reason": "Leadership and operations share interest in a manageable implementation.",
+        "source_actor_name": "chief_defender_mara_ortiz",
+        "target_actor_name": "office_admin_ops",
+        "weight": 0.58
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Judges complain about delays; funders want measurable progress.",
+        "layer": "coalition",
+        "reason": "Both reward faster throughput, though for different reasons.",
+        "source_actor_name": "trial_judges_panel",
+        "target_actor_name": "justice_access_funders",
+        "weight": 0.31
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Attorneys fear quality loss while volunteers want access.",
+        "layer": "conflict",
+        "reason": "Core disagreement over volunteer role and quality risk.",
+        "source_actor_name": "staff_attorneys",
+        "target_actor_name": "volunteer_intake_group",
+        "weight": 0.63
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Judges complain about delays.",
+        "layer": "conflict",
+        "reason": "Delay complaints create institutional friction.",
+        "source_actor_name": "trial_judges_panel",
+        "target_actor_name": "harbor_defender_office",
+        "weight": 0.48
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Funders want metrics while attorneys fear quality loss.",
+        "layer": "conflict",
+        "reason": "Metrics pressure may clash with professional caution and non-quantified quality concerns.",
+        "source_actor_name": "justice_access_funders",
+        "target_actor_name": "staff_attorneys",
+        "weight": 0.28
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Clients need speed.",
+        "layer": "conflict",
+        "reason": "Client need for speed can become dissatisfaction if delays persist.",
+        "source_actor_name": "indigent_clients",
+        "target_actor_name": "harbor_defender_office",
+        "weight": 0.24
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Internal conflict over program design is central at T0.",
+        "layer": "oasis_interaction",
+        "reason": "Frequent visible internal meetings or communications are likely during rollout.",
+        "source_actor_name": "chief_defender_mara_ortiz",
+        "target_actor_name": "staff_attorneys",
+        "weight": 0.62
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Judges complain about delays.",
+        "layer": "oasis_interaction",
+        "reason": "Court-facing exchanges around delays are likely salient and recurring.",
+        "source_actor_name": "harbor_defender_office",
+        "target_actor_name": "trial_judges_panel",
+        "weight": 0.47
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Funders want metrics.",
+        "layer": "oasis_interaction",
+        "reason": "Reporting and update exchanges likely occur around metrics expectations.",
+        "source_actor_name": "harbor_defender_office",
+        "target_actor_name": "justice_access_funders",
+        "weight": 0.38
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Volunteers want access and program is launching.",
+        "layer": "oasis_interaction",
+        "reason": "Onboarding, training, or role-definition interactions are likely if launch proceeds.",
+        "source_actor_name": "harbor_defender_office",
+        "target_actor_name": "volunteer_intake_group",
+        "weight": 0.44
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype_key": "executive_decider",
+        "description": "Leader who can set program design and balance stakeholder demands.",
+        "label": "Executive Decider"
+      },
+      {
+        "archetype_key": "professional_guardian",
+        "description": "Respected attorney figure who can legitimize or stall operational change.",
+        "label": "Professional Guardian"
+      },
+      {
+        "archetype_key": "implementation_operator",
+        "description": "Workflow manager who converts policy into practice and metrics.",
+        "label": "Implementation Operator"
+      }
+    ],
+    "hero_states": [
+      {
+        "archetype_key": "executive_decider",
+        "attention_level": 0.95,
+        "behavioral_tendencies": [
+          "broker compromises",
+          "delay final commitments until pressure clarifies",
+          "protect institutional legitimacy"
+        ],
+        "current_goal": "Launch or stabilize a volunteer intake triage model without losing attorney buy-in or external credibility.",
+        "expression_level": 0.7,
+        "fatigue": 0.6,
+        "fear_of_isolation": 0.3,
+        "formal_power": 0.9,
+        "hero_key": "mara_ortiz",
+        "informal_power": 0.7,
+        "mobilization_readiness": 0.8,
+        "name": "chief_defender_mara_ortiz",
+        "perceived_majority": 0.5,
+        "reputation": 0.7,
+        "role": "chief_defender",
+        "secrecy": 0.4,
+        "stance_axes": {
+          "centralized_control": 0.6,
+          "metric_orientation": 0.6,
+          "program_support": 0.7,
+          "quality_priority": 0.7,
+          "speed_priority": 0.7
+        },
+        "trustworthiness": 0.7
+      },
+      {
+        "archetype_key": "professional_guardian",
+        "attention_level": 0.85,
+        "behavioral_tendencies": [
+          "voice concerns clearly",
+          "organize peer caution",
+          "accept pilots with safeguards"
+        ],
+        "current_goal": "Prevent service degradation and preserve attorney oversight over legally consequential screening.",
+        "expression_level": 0.75,
+        "fatigue": 0.6,
+        "fear_of_isolation": 0.2,
+        "formal_power": 0.5,
+        "hero_key": "elena_park",
+        "informal_power": 0.8,
+        "mobilization_readiness": 0.7,
+        "name": "elena_park",
+        "perceived_majority": 0.6,
+        "reputation": 0.82,
+        "role": "senior_trial_attorney",
+        "secrecy": 0.2,
+        "stance_axes": {
+          "centralized_control": 0.8,
+          "metric_orientation": 0.2,
+          "program_support": -0.4,
+          "quality_priority": 0.95,
+          "speed_priority": 0.3
+        },
+        "trustworthiness": 0.85
+      },
+      {
+        "archetype_key": "implementation_operator",
+        "attention_level": 0.8,
+        "behavioral_tendencies": [
+          "standardize processes",
+          "translate disputes into workflow choices",
+          "prefer pilot evidence"
+        ],
+        "current_goal": "Make intake flow measurable, manageable, and acceptable to both staff and funders.",
+        "expression_level": 0.5,
+        "fatigue": 0.5,
+        "fear_of_isolation": 0.3,
+        "formal_power": 0.4,
+        "hero_key": "darius_reed",
+        "informal_power": 0.5,
+        "mobilization_readiness": 0.6,
+        "name": "darius_reed",
+        "perceived_majority": 0.5,
+        "reputation": 0.58,
+        "role": "operations_manager",
+        "secrecy": 0.3,
+        "stance_axes": {
+          "centralized_control": 0.7,
+          "metric_orientation": 0.9,
+          "program_support": 0.6,
+          "quality_priority": 0.5,
+          "speed_priority": 0.7
+        },
+        "trustworthiness": 0.75
+      }
+    ],
+    "heroes": [
+      {
+        "archetype_key": "executive_decider",
+        "description": "Leader who can set program design and balance stakeholder demands.",
+        "label": "Executive Decider"
+      },
+      {
+        "archetype_key": "professional_guardian",
+        "description": "Respected attorney figure who can legitimize or stall operational change.",
+        "label": "Professional Guardian"
+      },
+      {
+        "archetype_key": "implementation_operator",
+        "description": "Workflow manager who converts policy into practice and metrics.",
+        "label": "Implementation Operator"
+      }
+    ],
+    "important_questions": [
+      "Does the volunteer intake triage program become a sustained core workflow, remain a narrow supervised pilot, or get rolled back?",
+      "Who ultimately controls triage design at equilibrium: office leadership and operations, or attorneys through supervision and scope limits?",
+      "At observable outcome level, does the program improve intake speed and delay performance without documented quality breakdowns?",
+      "Does continued funder support become tied to a metrics-validated model, or does support weaken because results are inconclusive or contested?"
+    ],
+    "initial_events": [
+      {
+        "event_key": "program_launch_announcement",
+        "event_type": "announcement",
+        "evidence": "Scenario states a fictional public defender office launches a volunteer intake triage program.",
+        "expected_impact": "Raises attorney attention, volunteer enthusiasm, and implementation urgency while surfacing unresolved design concerns.",
+        "status": "visible",
+        "summary": "The defender office signals launch or near-launch of a volunteer intake triage program.",
+        "tick": 0
+      },
+      {
+        "event_key": "attorney_quality_concerns_surface",
+        "event_type": "announcement",
+        "evidence": "Attorneys fear quality loss.",
+        "expected_impact": "Increases conflict and reduces trust between attorneys and volunteers unless safeguards are clarified.",
+        "status": "visible",
+        "summary": "Attorneys articulate fear that volunteer triage may reduce service quality.",
+        "tick": 0
+      },
+      {
+        "event_key": "judicial_delay_pressure_continues",
+        "event_type": "announcement",
+        "evidence": "Judges complain about delays.",
+        "expected_impact": "Sustains pressure for speed-oriented reforms and raises the cost of inaction for leadership.",
+        "status": "visible",
+        "summary": "Judges continue complaining about delays affecting case processing.",
+        "tick": 0
+      },
+      {
+        "event_key": "funder_metrics_request",
+        "event_type": "announcement",
+        "evidence": "Funders want metrics.",
+        "expected_impact": "Pushes leadership and operations toward measurable pilot structures, possibly sidelining less legible quality concerns.",
+        "status": "imminent",
+        "summary": "Funders ask for concrete metrics or early reporting criteria for the new program.",
+        "tick": 1
+      },
+      {
+        "event_key": "workflow_design_or_training_checkpoint",
+        "event_type": "announcement",
+        "evidence": "Launch context and quality concerns imply immediate design decisions.",
+        "expected_impact": "May reduce uncertainty if clear guardrails emerge, or intensify internal resistance if role boundaries remain vague.",
+        "status": "imminent",
+        "summary": "The office must define volunteer scope, supervision, and intake workflow details.",
+        "tick": 1
+      },
+      {
+        "event_key": "early_client_feedback_signal",
+        "event_type": "announcement",
+        "evidence": "Clients need speed and are primary service recipients.",
+        "expected_impact": "Could strengthen leadership confidence, validate attorney concerns, or create mixed evidence that prolongs dispute.",
+        "status": "imminent",
+        "summary": "First anecdotal signs of whether intake speed feels improved to clients begin to circulate.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "dcf567a9-9057-47b5-9cff-c3fae23fb6ad",
+    "merge_hypotheses": [
+      {
+        "convergence_driver": "All major actors recognize backlog and delay as a common operational bottleneck.",
+        "likely_effect": "Even conflicting groups may converge on some modified triage arrangement rather than pure abandonment or unconstrained expansion.",
+        "merge_key": "shared_capacity_constraint"
+      },
+      {
+        "convergence_driver": "A small, measurable pilot offers a face-saving compromise between quality concerns and expansion pressure.",
+        "likely_effect": "Attorneys, leadership, and funders align around staged proof rather than absolutist positions.",
+        "merge_key": "pilot_evidence_compromise"
+      },
+      {
+        "convergence_driver": "No actor wants visible client harm or embarrassment in court.",
+        "likely_effect": "If risk signals surface, previously divergent actors may converge on tighter supervision and narrower volunteer scope.",
+        "merge_key": "client_harm_avoidance_norm"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "office_staff",
+        "description": "Personnel inside the defender office affected by workflow and program design.",
+        "label": "Office Staff",
+        "population_total": 49
+      },
+      {
+        "archetype_key": "volunteers",
+        "description": "Individuals seeking or performing volunteer intake triage roles.",
+        "label": "Volunteers",
+        "population_total": 24
+      },
+      {
+        "archetype_key": "clients",
+        "description": "Indigent clients experiencing intake speed and quality tradeoffs during the initial period.",
+        "label": "Clients Awaiting or Receiving Intake",
+        "population_total": 1200
+      },
+      {
+        "archetype_key": "judicial_actors",
+        "description": "Judges and court-facing officials concerned with delays.",
+        "label": "Judicial Actors",
+        "population_total": 12
+      },
+      {
+        "archetype_key": "funding_actors",
+        "description": "Program officers or funding decision participants tracking metrics and results.",
+        "label": "Funding Actors",
+        "population_total": 6
+      }
+    ],
+    "risk_flags": [
+      {
+        "description": "The corpus does not specify who formally approves volunteer scope, training standards, or supervision rules.",
+        "risk_key": "underspecified_governance",
+        "severity": "medium"
+      },
+      {
+        "description": "Client needs are central, but direct client sentiment and organized feedback channels are weakly evidenced.",
+        "risk_key": "client_voice_underobserved",
+        "severity": "medium"
+      },
+      {
+        "description": "Funder demand for metrics may privilege speed and throughput over harder-to-measure representation quality.",
+        "risk_key": "quality_metric_mismatch",
+        "severity": "high"
+      },
+      {
+        "description": "Role ambiguity between attorneys and volunteers could become the main escalation vector if design choices are unclear.",
+        "risk_key": "professional_boundary_conflict",
+        "severity": "high"
+      },
+      {
+        "description": "Judicial frustration about delays may push leadership toward visible speed improvements before institutional trust is secured.",
+        "risk_key": "delay_pressure_distortion",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "endpoint_pressure": "The office faces a medium-term choice among sustaining, constraining, redesigning, or abandoning the volunteer intake triage model under pressure from attorneys, courts, clients, and funders.",
+      "mode": "direct",
+      "scenario_key": "case_report_003",
+      "scope": "institutional service-delivery conflict inside a fictional public defender ecosystem",
+      "source_confidence": "moderate",
+      "t0_summary": "A fictional public defender office is preparing or launching a volunteer intake triage program. Core tensions at T0 center on service speed versus representation quality, attorney control versus volunteer access, court delay pressure, and funder demand for measurable outcomes.",
+      "time_horizon_ticks": 6,
+      "title": "fictional_public_defender_volunteer_intake_triage",
+      "uncertainties": [
+        "Program design details, staffing levels, jurisdiction size, and exact legal authority are not specified.",
+        "It is unclear whether the volunteer program is already active or in immediate pre-launch.",
+        "Client sentiment is implied but not directly evidenced beyond need for speed."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "staff_attorneys",
+          "justice_access_funders",
+          "trial_judges_panel"
+        ],
+        "evidence": "Stakeholders may accept adjacent reforms but resist proposals too far from their priorities.",
+        "level": "medium",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "staff_attorneys",
+          "volunteer_intake_group"
+        ],
+        "evidence": "Internal opposition or volunteer advocacy likely intensifies if specific policy choices cross perceived thresholds.",
+        "level": "medium",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "indigent_clients",
+          "junior_attorneys_overloaded_pragmatists"
+        ],
+        "evidence": "Dependence and hierarchy suppress direct expression despite meaningful private preferences.",
+        "level": "high",
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "staff_attorneys",
+          "trial_judges_panel",
+          "justice_access_funders"
+        ],
+        "evidence": "Professional groups are likely to reinforce their own internal frames about quality, delay, and metrics.",
+        "level": "medium",
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "staff_attorneys",
+          "office_admin_ops"
+        ],
+        "evidence": "Support for the program inside the office likely requires reinforcement from multiple trusted peers or workflow proofs.",
+        "level": "medium",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "staff_attorneys",
+          "volunteer_intake_group"
+        ],
+        "evidence": "Role identity between licensed professionals and volunteers is a central fault line.",
+        "level": "high",
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "justice_access_funders",
+          "trial_judges_panel"
+        ],
+        "evidence": "External actors may lose attention if delays ease or if reporting rituals temporarily satisfy oversight.",
+        "level": "medium",
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "The central narrative pressure is whether faster intake can be achieved without unacceptable quality loss.",
+        "influence_key": "quality_vs_speed_tradeoff"
+      },
+      {
+        "description": "Volunteer participation raises identity and authority questions beyond simple capacity management.",
+        "influence_key": "professional_boundary_salience"
+      },
+      {
+        "description": "Funding support is conditioned on visible indicators, encouraging managerial framing of success.",
+        "influence_key": "metrics_legibility_pressure"
+      },
+      {
+        "description": "Court delay complaints make performance failures publicly legible and politically costly.",
+        "influence_key": "delay_visibility"
+      },
+      {
+        "description": "Clients are highly affected but weakly organized and unlikely to dominate public discourse at T0.",
+        "influence_key": "client_dependency_silence"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "harbor_defender_office",
+        "behavior_axes": {
+          "adaptability": 0.6,
+          "proceduralism": 0.8,
+          "risk_tolerance": 0.4,
+          "transparency": 0.5
+        },
+        "ideology_axes": {
+          "managerialism": 0.6,
+          "professional_control": 0.7,
+          "service_expansion": 0.6
+        },
+        "reputation": 0.68,
+        "secrecy": 0.4,
+        "tendency": "institutionally cautious reform",
+        "trustworthiness": 0.7
+      },
+      {
+        "actor_name": "chief_defender_mara_ortiz",
+        "behavior_axes": {
+          "adaptability": 0.7,
+          "proceduralism": 0.6,
+          "risk_tolerance": 0.5,
+          "transparency": 0.6
+        },
+        "ideology_axes": {
+          "managerialism": 0.6,
+          "professional_control": 0.6,
+          "service_expansion": 0.7
+        },
+        "reputation": 0.7,
+        "secrecy": 0.4,
+        "tendency": "balancing executive",
+        "trustworthiness": 0.7
+      },
+      {
+        "actor_name": "staff_attorneys",
+        "behavior_axes": {
+          "adaptability": 0.5,
+          "proceduralism": 0.8,
+          "risk_tolerance": 0.3,
+          "transparency": 0.6
+        },
+        "ideology_axes": {
+          "managerialism": 0.3,
+          "professional_control": 0.9,
+          "service_expansion": 0.4
+        },
+        "reputation": 0.74,
+        "secrecy": 0.3,
+        "tendency": "quality-protective skepticism",
+        "trustworthiness": 0.8
+      },
+      {
+        "actor_name": "volunteer_intake_group",
+        "behavior_axes": {
+          "adaptability": 0.8,
+          "proceduralism": 0.3,
+          "risk_tolerance": 0.6,
+          "transparency": 0.7
+        },
+        "ideology_axes": {
+          "managerialism": 0.4,
+          "professional_control": 0.2,
+          "service_expansion": 0.9
+        },
+        "reputation": 0.45,
+        "secrecy": 0.2,
+        "tendency": "access-first enthusiasm",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "indigent_clients",
+        "behavior_axes": {
+          "adaptability": 0.6,
+          "proceduralism": 0.2,
+          "risk_tolerance": 0.4,
+          "transparency": 0.4
+        },
+        "ideology_axes": {
+          "managerialism": 0.1,
+          "professional_control": 0.3,
+          "service_expansion": 0.7
+        },
+        "reputation": 0.4,
+        "secrecy": 0.5,
+        "tendency": "need-driven pragmatism",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "trial_judges_panel",
+        "behavior_axes": {
+          "adaptability": 0.4,
+          "proceduralism": 0.8,
+          "risk_tolerance": 0.4,
+          "transparency": 0.6
+        },
+        "ideology_axes": {
+          "managerialism": 0.7,
+          "professional_control": 0.5,
+          "service_expansion": 0.3
+        },
+        "reputation": 0.8,
+        "secrecy": 0.2,
+        "tendency": "docket-efficiency pressure",
+        "trustworthiness": 0.7
+      },
+      {
+        "actor_name": "justice_access_funders",
+        "behavior_axes": {
+          "adaptability": 0.6,
+          "proceduralism": 0.5,
+          "risk_tolerance": 0.5,
+          "transparency": 0.7
+        },
+        "ideology_axes": {
+          "managerialism": 0.9,
+          "professional_control": 0.3,
+          "service_expansion": 0.8
+        },
+        "reputation": 0.7,
+        "secrecy": 0.3,
+        "tendency": "metrics-conditioned support",
+        "trustworthiness": 0.65
+      },
+      {
+        "actor_name": "office_admin_ops",
+        "behavior_axes": {
+          "adaptability": 0.7,
+          "proceduralism": 0.8,
+          "risk_tolerance": 0.4,
+          "transparency": 0.5
+        },
+        "ideology_axes": {
+          "managerialism": 0.9,
+          "professional_control": 0.5,
+          "service_expansion": 0.5
+        },
+        "reputation": 0.55,
+        "secrecy": 0.3,
+        "tendency": "workflow stabilization",
+        "trustworthiness": 0.75
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 439,
+        "end": 439,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 439,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

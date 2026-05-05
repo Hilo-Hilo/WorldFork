@@ -1,0 +1,1709 @@
+{
+  "big_bang_id": "40eeb612-5bcf-4939-b879-ed6a07026d06",
+  "initializer_output": {
+    "actors": [
+      {
+        "decision_authority": "can extend, renegotiate, replace, or allow lapse of subsidy within legal/contract constraints; cannot unilaterally rewrite labor terms",
+        "fictionalized": true,
+        "name": "metro_transit_authority",
+        "public_visibility": "high",
+        "role": "regional transit authority and subsidy decision-maker",
+        "stakes": [
+          "budget control",
+          "service continuity",
+          "political legitimacy",
+          "contract compliance"
+        ],
+        "type": "institution"
+      },
+      {
+        "decision_authority": "can negotiate, threaten exit, seek renewal enforcement, adjust operations within contract and labor constraints",
+        "fictionalized": true,
+        "name": "harbor_ferry_co",
+        "public_visibility": "high",
+        "role": "private ferry contractor operating island route",
+        "stakes": [
+          "contract revenue",
+          "renewal rights",
+          "operational continuity",
+          "reputation"
+        ],
+        "type": "company"
+      },
+      {
+        "decision_authority": "limited direct authority; can mobilize public pressure and political visibility",
+        "fictionalized": true,
+        "name": "island_residents",
+        "public_visibility": "medium",
+        "role": "community dependent on ferry service",
+        "stakes": [
+          "daily mobility",
+          "access to work, school, healthcare, goods",
+          "fare/service stability"
+        ],
+        "type": "public_group"
+      },
+      {
+        "decision_authority": "can bargain over labor terms and threaten or undertake labor action",
+        "fictionalized": true,
+        "name": "ferry_workers_union",
+        "public_visibility": "medium",
+        "role": "organized ferry workforce and labor representative",
+        "stakes": [
+          "jobs",
+          "wages",
+          "benefits",
+          "work rules",
+          "employment continuity"
+        ],
+        "type": "labor_group"
+      },
+      {
+        "decision_authority": "no formal authority; can influence public narrative and regulators",
+        "fictionalized": true,
+        "name": "clean_harbor_alliance",
+        "public_visibility": "medium",
+        "role": "environmental coalition focused on maritime emissions",
+        "stakes": [
+          "emissions reduction",
+          "cleaner replacement technology",
+          "public accountability"
+        ],
+        "type": "advocacy_group"
+      },
+      {
+        "decision_authority": "indirect oversight, funding pressure, agenda influence",
+        "fictionalized": true,
+        "name": "metro_elected_officials",
+        "public_visibility": "high",
+        "role": "mayor/council/county political overseers tied to transit funding climate",
+        "stakes": [
+          "constituent response",
+          "budget optics",
+          "service reliability",
+          "environmental commitments"
+        ],
+        "type": "government_coalition"
+      },
+      {
+        "decision_authority": "agenda-setting but no direct operational authority",
+        "fictionalized": true,
+        "name": "regional_media",
+        "public_visibility": "high",
+        "role": "news outlets covering subsidy dispute",
+        "stakes": [
+          "public attention",
+          "accountability framing",
+          "conflict visibility"
+        ],
+        "type": "media"
+      },
+      {
+        "decision_authority": "may bid or signal willingness to substitute service if terms are viable",
+        "fictionalized": true,
+        "name": "alternative_service_providers",
+        "public_visibility": "low",
+        "role": "potential replacement ferry or transit operators",
+        "stakes": [
+          "market entry opportunity",
+          "capital risk",
+          "contract clarity"
+        ],
+        "type": "market_group"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "branch_key": "conditional_extension_branch",
+        "observable_divergence_signal": "Board messaging shifts from end-of-subsidy framing to temporary continuity with conditions; conflict with environmental actors softens if conditions are specific.",
+        "plausible_path": "Short-term subsidy extension tied to emissions conditions or renegotiation milestones.",
+        "trigger": "Authority concludes immediate replacement is infeasible and public pressure for continuity rises."
+      },
+      {
+        "branch_key": "replacement_service_branch",
+        "observable_divergence_signal": "Private market soundings become public, incumbent challenges viability, and union rhetoric sharpens around job protections.",
+        "plausible_path": "Authority moves toward procurement or pilot replacement service rather than incumbent renewal.",
+        "trigger": "Alternative providers indicate credible operational capacity at acceptable cost and timeline."
+      },
+      {
+        "branch_key": "strike_threat_branch",
+        "observable_divergence_signal": "Union communications emphasize labor red lines and members' mobilization readiness rises ahead of formal service changes.",
+        "plausible_path": "Union escalates with strike authorization or public threat without immediate full stoppage.",
+        "trigger": "Workers interpret authority or operator moves as threatening layoffs or labor bypass."
+      },
+      {
+        "branch_key": "service_collapse_branch",
+        "observable_divergence_signal": "Operator issues continuity warnings, authority emergency-plans alternatives, and resident attention spikes toward crisis levels.",
+        "plausible_path": "Service reductions or abrupt interruption occur, producing rapid political backlash.",
+        "trigger": "Negotiations fail while no replacement is operational and no bridging funds are approved."
+      },
+      {
+        "branch_key": "durable_stalemate_branch",
+        "observable_divergence_signal": "Deadlines slip, no procurement clarity emerges, and all major actors continue conflict framing while maintaining talks.",
+        "plausible_path": "Repeated reviews, temporary delays, and messaging shifts occur without terminal choice.",
+        "trigger": "Contract ambiguity and political caution prevent decisive action."
+      }
+    ],
+    "channels": [
+      {
+        "audience": [
+          "island_residents",
+          "regional_media",
+          "metro_elected_officials"
+        ],
+        "channel_key": "authority_press_release",
+        "type": "official",
+        "visibility": "high"
+      },
+      {
+        "audience": [
+          "all"
+        ],
+        "channel_key": "board_meetings_and_hearings",
+        "type": "public_forum",
+        "visibility": "high"
+      },
+      {
+        "audience": [
+          "ferry_workers_union"
+        ],
+        "channel_key": "union_member_updates",
+        "type": "organizational",
+        "visibility": "medium"
+      },
+      {
+        "audience": [
+          "regional_media",
+          "metro_transit_authority",
+          "island_residents"
+        ],
+        "channel_key": "operator_media_statements",
+        "type": "corporate",
+        "visibility": "medium"
+      },
+      {
+        "audience": [
+          "island_residents",
+          "metro_elected_officials",
+          "regional_media"
+        ],
+        "channel_key": "community_town_halls",
+        "type": "local_public",
+        "visibility": "medium"
+      },
+      {
+        "audience": [
+          "metro_general_public_proxy",
+          "metro_elected_officials",
+          "regional_media"
+        ],
+        "channel_key": "advocacy_campaigns",
+        "type": "issue_advocacy",
+        "visibility": "medium"
+      },
+      {
+        "audience": [
+          "metro_transit_authority",
+          "harbor_ferry_co",
+          "alternative_service_providers"
+        ],
+        "channel_key": "procurement_and_negotiation_backchannel",
+        "type": "institutional_private",
+        "visibility": "low"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_name": "island_commuters_and_households",
+        "attention_level": 0.82,
+        "cohort_key": "island_high_dependence_households",
+        "expression_level": 0.58,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.64,
+        "perceived_majority": 0.76,
+        "population_share_of_archetype": 0.7,
+        "private_belief_public_gap": "Many prioritize continuity first, with some privately accepting greener replacement if reliability is credible.",
+        "representation_mode": "direct",
+        "represented_population": 12600,
+        "stance_axes": {
+          "emissions_reform_support": 0.55,
+          "labor_sympathy": 0.62,
+          "service_replacement_openness": 0.42,
+          "subsidy_extension_support": 0.84
+        }
+      },
+      {
+        "archetype_name": "island_commuters_and_households",
+        "attention_level": 0.67,
+        "cohort_key": "island_mixed_priority_residents",
+        "expression_level": 0.41,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.45,
+        "mobilization_readiness": 0.46,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.3,
+        "private_belief_public_gap": "Some are more open to service redesign than their public comments suggest because community norms favor immediate continuity messaging.",
+        "representation_mode": "direct",
+        "represented_population": 5400,
+        "stance_axes": {
+          "emissions_reform_support": 0.71,
+          "labor_sympathy": 0.51,
+          "service_replacement_openness": 0.68,
+          "subsidy_extension_support": 0.53
+        }
+      },
+      {
+        "archetype_name": "ferry_workforce",
+        "attention_level": 0.88,
+        "cohort_key": "union_core_workers",
+        "expression_level": 0.63,
+        "fatigue": 0.47,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.71,
+        "perceived_majority": 0.68,
+        "population_share_of_archetype": 0.7,
+        "private_belief_public_gap": "Publicly emphasizes jobs and continuity; privately some expect concessions may be necessary if subsidy weakens.",
+        "representation_mode": "organizational",
+        "represented_population": 224,
+        "stance_axes": {
+          "emissions_reform_support": 0.39,
+          "labor_sympathy": 0.95,
+          "service_replacement_openness": 0.16,
+          "subsidy_extension_support": 0.79
+        }
+      },
+      {
+        "archetype_name": "ferry_workforce",
+        "attention_level": 0.8,
+        "cohort_key": "precarious_ferry_workers",
+        "expression_level": 0.39,
+        "fatigue": 0.55,
+        "fear_of_isolation": 0.51,
+        "mobilization_readiness": 0.49,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.3,
+        "private_belief_public_gap": "Greater anxiety about layoffs suppresses public dissent from union leadership or management narratives.",
+        "representation_mode": "direct",
+        "represented_population": 96,
+        "stance_axes": {
+          "emissions_reform_support": 0.44,
+          "labor_sympathy": 0.83,
+          "service_replacement_openness": 0.28,
+          "subsidy_extension_support": 0.74
+        }
+      },
+      {
+        "archetype_name": "metro_general_public",
+        "attention_level": 0.19,
+        "cohort_key": "general_public_low_attention",
+        "expression_level": 0.08,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.09,
+        "perceived_majority": 0.33,
+        "population_share_of_archetype": 0.75,
+        "private_belief_public_gap": "Weakly formed opinions; likely to adopt media or elite frames if attention rises.",
+        "representation_mode": "statistical",
+        "represented_population": 1800000,
+        "stance_axes": {
+          "emissions_reform_support": 0.58,
+          "labor_sympathy": 0.46,
+          "service_replacement_openness": 0.47,
+          "subsidy_extension_support": 0.41
+        }
+      },
+      {
+        "archetype_name": "metro_general_public",
+        "attention_level": 0.43,
+        "cohort_key": "general_public_fiscal_environmental_watchers",
+        "expression_level": 0.22,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.31,
+        "mobilization_readiness": 0.24,
+        "perceived_majority": 0.39,
+        "population_share_of_archetype": 0.25,
+        "private_belief_public_gap": "May publicly discuss cost and climate more than island access needs unless service disruption becomes salient.",
+        "representation_mode": "issue_public",
+        "represented_population": 600000,
+        "stance_axes": {
+          "emissions_reform_support": 0.77,
+          "labor_sympathy": 0.43,
+          "service_replacement_openness": 0.61,
+          "subsidy_extension_support": 0.32
+        }
+      },
+      {
+        "archetype_name": "civic_advocacy_network",
+        "attention_level": 0.71,
+        "cohort_key": "environmental_advocates",
+        "expression_level": 0.56,
+        "fatigue": 0.26,
+        "fear_of_isolation": 0.34,
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.37,
+        "population_share_of_archetype": 0.6,
+        "private_belief_public_gap": "May understate willingness to accept interim extension if paired with binding emissions conditions.",
+        "representation_mode": "organizational",
+        "represented_population": 7200,
+        "stance_axes": {
+          "emissions_reform_support": 0.94,
+          "labor_sympathy": 0.48,
+          "service_replacement_openness": 0.74,
+          "subsidy_extension_support": 0.24
+        }
+      },
+      {
+        "archetype_name": "civic_advocacy_network",
+        "attention_level": 0.66,
+        "cohort_key": "transit_equity_advocates",
+        "expression_level": 0.48,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.28,
+        "mobilization_readiness": 0.44,
+        "perceived_majority": 0.42,
+        "population_share_of_archetype": 0.4,
+        "private_belief_public_gap": "More likely than public rhetoric suggests to seek compromise preserving both access and labor continuity.",
+        "representation_mode": "network",
+        "represented_population": 4800,
+        "stance_axes": {
+          "emissions_reform_support": 0.72,
+          "labor_sympathy": 0.66,
+          "service_replacement_openness": 0.63,
+          "subsidy_extension_support": 0.61
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_name": "island_commuters_and_households",
+        "attention_level": 0.82,
+        "cohort_key": "island_high_dependence_households",
+        "expression_level": 0.58,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.64,
+        "perceived_majority": 0.76,
+        "population_share_of_archetype": 0.7,
+        "private_belief_public_gap": "Many prioritize continuity first, with some privately accepting greener replacement if reliability is credible.",
+        "representation_mode": "direct",
+        "represented_population": 12600,
+        "stance_axes": {
+          "emissions_reform_support": 0.55,
+          "labor_sympathy": 0.62,
+          "service_replacement_openness": 0.42,
+          "subsidy_extension_support": 0.84
+        }
+      },
+      {
+        "archetype_name": "island_commuters_and_households",
+        "attention_level": 0.67,
+        "cohort_key": "island_mixed_priority_residents",
+        "expression_level": 0.41,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.45,
+        "mobilization_readiness": 0.46,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.3,
+        "private_belief_public_gap": "Some are more open to service redesign than their public comments suggest because community norms favor immediate continuity messaging.",
+        "representation_mode": "direct",
+        "represented_population": 5400,
+        "stance_axes": {
+          "emissions_reform_support": 0.71,
+          "labor_sympathy": 0.51,
+          "service_replacement_openness": 0.68,
+          "subsidy_extension_support": 0.53
+        }
+      },
+      {
+        "archetype_name": "ferry_workforce",
+        "attention_level": 0.88,
+        "cohort_key": "union_core_workers",
+        "expression_level": 0.63,
+        "fatigue": 0.47,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.71,
+        "perceived_majority": 0.68,
+        "population_share_of_archetype": 0.7,
+        "private_belief_public_gap": "Publicly emphasizes jobs and continuity; privately some expect concessions may be necessary if subsidy weakens.",
+        "representation_mode": "organizational",
+        "represented_population": 224,
+        "stance_axes": {
+          "emissions_reform_support": 0.39,
+          "labor_sympathy": 0.95,
+          "service_replacement_openness": 0.16,
+          "subsidy_extension_support": 0.79
+        }
+      },
+      {
+        "archetype_name": "ferry_workforce",
+        "attention_level": 0.8,
+        "cohort_key": "precarious_ferry_workers",
+        "expression_level": 0.39,
+        "fatigue": 0.55,
+        "fear_of_isolation": 0.51,
+        "mobilization_readiness": 0.49,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.3,
+        "private_belief_public_gap": "Greater anxiety about layoffs suppresses public dissent from union leadership or management narratives.",
+        "representation_mode": "direct",
+        "represented_population": 96,
+        "stance_axes": {
+          "emissions_reform_support": 0.44,
+          "labor_sympathy": 0.83,
+          "service_replacement_openness": 0.28,
+          "subsidy_extension_support": 0.74
+        }
+      },
+      {
+        "archetype_name": "metro_general_public",
+        "attention_level": 0.19,
+        "cohort_key": "general_public_low_attention",
+        "expression_level": 0.08,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.09,
+        "perceived_majority": 0.33,
+        "population_share_of_archetype": 0.75,
+        "private_belief_public_gap": "Weakly formed opinions; likely to adopt media or elite frames if attention rises.",
+        "representation_mode": "statistical",
+        "represented_population": 1800000,
+        "stance_axes": {
+          "emissions_reform_support": 0.58,
+          "labor_sympathy": 0.46,
+          "service_replacement_openness": 0.47,
+          "subsidy_extension_support": 0.41
+        }
+      },
+      {
+        "archetype_name": "metro_general_public",
+        "attention_level": 0.43,
+        "cohort_key": "general_public_fiscal_environmental_watchers",
+        "expression_level": 0.22,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.31,
+        "mobilization_readiness": 0.24,
+        "perceived_majority": 0.39,
+        "population_share_of_archetype": 0.25,
+        "private_belief_public_gap": "May publicly discuss cost and climate more than island access needs unless service disruption becomes salient.",
+        "representation_mode": "issue_public",
+        "represented_population": 600000,
+        "stance_axes": {
+          "emissions_reform_support": 0.77,
+          "labor_sympathy": 0.43,
+          "service_replacement_openness": 0.61,
+          "subsidy_extension_support": 0.32
+        }
+      },
+      {
+        "archetype_name": "civic_advocacy_network",
+        "attention_level": 0.71,
+        "cohort_key": "environmental_advocates",
+        "expression_level": 0.56,
+        "fatigue": 0.26,
+        "fear_of_isolation": 0.34,
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.37,
+        "population_share_of_archetype": 0.6,
+        "private_belief_public_gap": "May understate willingness to accept interim extension if paired with binding emissions conditions.",
+        "representation_mode": "organizational",
+        "represented_population": 7200,
+        "stance_axes": {
+          "emissions_reform_support": 0.94,
+          "labor_sympathy": 0.48,
+          "service_replacement_openness": 0.74,
+          "subsidy_extension_support": 0.24
+        }
+      },
+      {
+        "archetype_name": "civic_advocacy_network",
+        "attention_level": 0.66,
+        "cohort_key": "transit_equity_advocates",
+        "expression_level": 0.48,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.28,
+        "mobilization_readiness": 0.44,
+        "perceived_majority": 0.42,
+        "population_share_of_archetype": 0.4,
+        "private_belief_public_gap": "More likely than public rhetoric suggests to seek compromise preserving both access and labor continuity.",
+        "representation_mode": "network",
+        "represented_population": 4800,
+        "stance_axes": {
+          "emissions_reform_support": 0.72,
+          "labor_sympathy": 0.66,
+          "service_replacement_openness": 0.63,
+          "subsidy_extension_support": 0.61
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "metro_transit_authority",
+          "metro_elected_officials",
+          "harbor_ferry_co"
+        ],
+        "blockers": [
+          "contract renewal rights ambiguity",
+          "lack of ready substitute capacity",
+          "budget limits",
+          "labor constraints"
+        ],
+        "contradiction_notes": "Temporary delays or hearings do not by themselves realize an endpoint unless they produce one of the observable service predicates.",
+        "description": "Terminal status of island ferry access after authority decision and negotiation period.",
+        "endpoint_key": "service_continuity_outcome",
+        "evidence_refs": [
+          "subsidy_end_announcement",
+          "renewal_clause_asserted",
+          "replacement_market_soundings"
+        ],
+        "label": "Island service continuity outcome",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "At the end of the scenario horizon, is island ferry access preserved through incumbent subsidy extension, replacement service, temporary bridge arrangement, or not preserved?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": null,
+        "rationale": "Core public consequence of the dispute is whether island access remains available and by what mechanism.",
+        "realization_criteria": [
+          "incumbent_extension_realized if authority formally approves subsidy/renewal maintaining incumbent service",
+          "replacement_service_realized if a non-incumbent or substitute model is formally awarded or launched",
+          "bridge_service_realized if temporary stopgap funding/service is approved without long-term settlement",
+          "service_loss_realized if scheduled island ferry service is suspended or materially collapses without immediate replacement"
+        ],
+        "status": "active",
+        "status_basis": "Scenario explicitly leaves multiple continuity paths open at T0."
+      },
+      {
+        "authority_refs": [
+          "ferry_workers_union",
+          "harbor_ferry_co",
+          "metro_transit_authority"
+        ],
+        "blockers": [
+          "authority inability to unilaterally change labor terms",
+          "operator finances",
+          "replacement provider labor model"
+        ],
+        "contradiction_notes": "Public warnings alone do not realize active_labor_conflict without actual formal action or service disruption.",
+        "description": "Terminal status of workforce protection and labor conflict under the eventual service arrangement.",
+        "endpoint_key": "labor_settlement_outcome",
+        "evidence_refs": [
+          "labor_security_concerns_surface",
+          "union_weighs_action_signal"
+        ],
+        "label": "Labor continuity and conflict outcome",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the eventual service arrangement preserve core existing ferry jobs/labor terms, partially displace them, or break down into active labor conflict?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": null,
+        "rationale": "Labor terms are a binding constraint and a major branch source affecting both politics and operations.",
+        "realization_criteria": [
+          "labor_preserved_realized if existing union jobs/terms substantially continue under incumbent or successor arrangement",
+          "partial_displacement_realized if significant workforce reduction or altered labor coverage is formally implemented",
+          "active_labor_conflict_realized if strike, lockout, or formal job action disrupts service",
+          "labor_uncertain_bridge_realized if temporary service continues while labor disposition remains unresolved"
+        ],
+        "status": "active",
+        "status_basis": "Source text highlights labor constraints and layoff fears but no labor endpoint is yet realized."
+      },
+      {
+        "authority_refs": [
+          "metro_transit_authority",
+          "clean_harbor_alliance",
+          "metro_elected_officials"
+        ],
+        "blockers": [
+          "continuity urgency",
+          "capital cost of cleaner vessels",
+          "contract lock-in"
+        ],
+        "contradiction_notes": "A rhetorical pledge without contract terms, procurement specs, or formal benchmarks does not realize emissions_conditions_realized.",
+        "description": "Whether final action incorporates enforceable emissions-related change rather than purely fiscal or continuity logic.",
+        "endpoint_key": "emissions_policy_outcome",
+        "evidence_refs": [
+          "emissions_critique_enters_public_frame",
+          "authority_schedules_review_session"
+        ],
+        "label": "Emissions conditioning outcome",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Is any final authority action tied to observable emissions-reduction conditions or cleaner-service substitution, or does the status quo continue without such conditions?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": null,
+        "rationale": "Scenario explicitly asks to track environmental pressure against dependence and contract constraints.",
+        "realization_criteria": [
+          "emissions_conditions_realized if extension or contract action includes explicit emissions benchmarks, fleet upgrades, or compliance requirements",
+          "cleaner_substitution_realized if final service shifts to a demonstrably lower-emission replacement model",
+          "no_material_environmental_condition_realized if service decision proceeds without observable emissions conditions or substitution"
+        ],
+        "status": "active",
+        "status_basis": "Environmental challenge is present but not yet decisive at T0."
+      },
+      {
+        "authority_refs": [
+          "harbor_ferry_co",
+          "metro_transit_authority"
+        ],
+        "blockers": [
+          "renewal clause leverage",
+          "replacement feasibility",
+          "political risk of disruption"
+        ],
+        "contradiction_notes": "Public posturing about renewal rights does not itself prove retained control without formal decision or enforceable contractual effect.",
+        "description": "Whether the current contractor retains, shares, or loses effective control of the island route.",
+        "endpoint_key": "incumbent_control_outcome",
+        "evidence_refs": [
+          "renewal_clause_asserted",
+          "replacement_market_soundings",
+          "subsidy_end_announcement"
+        ],
+        "label": "Incumbent operator control outcome",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the incumbent operator's renewal-clause leverage translate into retained route control, negotiated concession, or loss of operating position?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": null,
+        "rationale": "The renewal clause creates a distinct power question separate from service continuity alone.",
+        "realization_criteria": [
+          "incumbent_retains_control_realized if harbor_ferry_co keeps operating rights through renewal or negotiated extension",
+          "incumbent_concedes_but_stays_realized if harbor_ferry_co retains role under materially revised subsidy/performance terms",
+          "incumbent_loses_control_realized if authority lawfully replaces or exits the incumbent from route operations"
+        ],
+        "status": "active",
+        "status_basis": "Incumbent leverage is real but not determinative at initialization."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Source text says island residents depend on the service.",
+        "layer": "dependency",
+        "reason": "Residents materially rely on existing ferry operator for island access.",
+        "source_actor_name": "island_residents",
+        "target_actor_name": "harbor_ferry_co",
+        "weight": 0.78
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Authority announces subsidy may end and can renegotiate service terms.",
+        "layer": "dependency",
+        "reason": "Authority decisions shape whether subsidized service continues or changes.",
+        "source_actor_name": "island_residents",
+        "target_actor_name": "metro_transit_authority",
+        "weight": 0.61
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Scenario centers on ferry subsidy and possible end.",
+        "layer": "dependency",
+        "reason": "Operator relies on public subsidy/renewal framework for route economics.",
+        "source_actor_name": "harbor_ferry_co",
+        "target_actor_name": "metro_transit_authority",
+        "weight": 0.63
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Ferry workers fear layoffs.",
+        "layer": "dependency",
+        "reason": "Workers' jobs and conditions depend on operator continuity.",
+        "source_actor_name": "ferry_workers_union",
+        "target_actor_name": "harbor_ferry_co",
+        "weight": 0.68
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Privately operated ferry is existing service; replacement only a plausible branch.",
+        "layer": "dependency",
+        "reason": "Authority depends on incumbent operator for current service continuity absent replacement readiness.",
+        "source_actor_name": "metro_transit_authority",
+        "target_actor_name": "harbor_ferry_co",
+        "weight": 0.54
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Authority cannot unilaterally change labor terms; labor terms constrain restructuring.",
+        "layer": "dependency",
+        "reason": "Operator cannot readily change labor terms unilaterally and needs workforce cooperation.",
+        "source_actor_name": "harbor_ferry_co",
+        "target_actor_name": "ferry_workers_union",
+        "weight": 0.57
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Implied civic-policy oversight context.",
+        "layer": "dependency",
+        "reason": "Budget and political backing likely affect transit authority room to maneuver.",
+        "source_actor_name": "metro_transit_authority",
+        "target_actor_name": "metro_elected_officials",
+        "weight": 0.36
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Replacement service is a plausible branch under authority control.",
+        "layer": "dependency",
+        "reason": "Potential entrants need authority procurement and subsidy terms.",
+        "source_actor_name": "alternative_service_providers",
+        "target_actor_name": "metro_transit_authority",
+        "weight": 0.41
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Authority announces subsidy may end, creating concern without total collapse.",
+        "layer": "trust",
+        "reason": "Residents see authority as legitimate but are uneasy about possible subsidy loss.",
+        "source_actor_name": "island_residents",
+        "target_actor_name": "metro_transit_authority",
+        "weight": 0.43
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Dependence coexists with contractor renewal interests.",
+        "layer": "trust",
+        "reason": "Operator provides needed service but is viewed through contract and subsidy self-interest.",
+        "source_actor_name": "island_residents",
+        "target_actor_name": "harbor_ferry_co",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Workers fear layoffs.",
+        "layer": "trust",
+        "reason": "Employment dependence exists alongside layoff fears.",
+        "source_actor_name": "ferry_workers_union",
+        "target_actor_name": "harbor_ferry_co",
+        "weight": 0.31
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Subsidy may end while labor constraints remain active.",
+        "layer": "trust",
+        "reason": "Authority cannot dictate labor terms, but workers may suspect cost-cutting pressure.",
+        "source_actor_name": "ferry_workers_union",
+        "target_actor_name": "metro_transit_authority",
+        "weight": 0.34
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Authority can renegotiate service terms.",
+        "layer": "trust",
+        "reason": "Authority is a plausible venue for emissions-linked reform.",
+        "source_actor_name": "clean_harbor_alliance",
+        "target_actor_name": "metro_transit_authority",
+        "weight": 0.48
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Media actor included as agenda setter in low-information issue context.",
+        "layer": "trust",
+        "reason": "Media likely shapes public understanding of technical contract dispute.",
+        "source_actor_name": "metro_general_public_proxy",
+        "target_actor_name": "regional_media",
+        "weight": 0.52
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Authority announces subsidy may end and can renegotiate.",
+        "layer": "influence",
+        "reason": "Authority controls subsidy continuation and negotiation agenda.",
+        "source_actor_name": "metro_transit_authority",
+        "target_actor_name": "harbor_ferry_co",
+        "weight": 0.67
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Contractor has a renewal clause.",
+        "layer": "influence",
+        "reason": "Renewal clause and operational indispensability create bargaining leverage.",
+        "source_actor_name": "harbor_ferry_co",
+        "target_actor_name": "metro_transit_authority",
+        "weight": 0.55
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Plausible branch includes strike threat; authority cannot change labor terms unilaterally.",
+        "layer": "influence",
+        "reason": "Strike threat and labor constraints can alter authority options.",
+        "source_actor_name": "ferry_workers_union",
+        "target_actor_name": "metro_transit_authority",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Environmental groups question emissions.",
+        "layer": "influence",
+        "reason": "Environmental critique can shift legitimacy costs of extension.",
+        "source_actor_name": "clean_harbor_alliance",
+        "target_actor_name": "metro_transit_authority",
+        "weight": 0.39
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Island residents depend on service in civic context.",
+        "layer": "influence",
+        "reason": "Constituent dependence can create political pressure on overseers.",
+        "source_actor_name": "island_residents",
+        "target_actor_name": "metro_elected_officials",
+        "weight": 0.58
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Implied metropolitan civic oversight.",
+        "layer": "influence",
+        "reason": "Political overseers can pressure authority on continuity, budget, and climate framing.",
+        "source_actor_name": "metro_elected_officials",
+        "target_actor_name": "metro_transit_authority",
+        "weight": 0.62
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Technical transit dispute likely mediated through news coverage.",
+        "layer": "influence",
+        "reason": "Coverage shapes broader public salience and blame assignment.",
+        "source_actor_name": "regional_media",
+        "target_actor_name": "metro_general_public_proxy",
+        "weight": 0.71
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Transit subsidy controversy is publicly visible.",
+        "layer": "influence",
+        "reason": "Public scrutiny can affect authority timing and messaging.",
+        "source_actor_name": "regional_media",
+        "target_actor_name": "metro_transit_authority",
+        "weight": 0.44
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Residents depend on service; workers fear layoffs.",
+        "layer": "coalition",
+        "reason": "Shared interest in avoiding service loss and layoffs supports latent alliance.",
+        "source_actor_name": "island_residents",
+        "target_actor_name": "ferry_workers_union",
+        "weight": 0.49
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Authority still has renegotiation option rather than immediate termination.",
+        "layer": "coalition",
+        "reason": "Residents and authority share service continuity goals, though methods differ.",
+        "source_actor_name": "island_residents",
+        "target_actor_name": "metro_transit_authority",
+        "weight": 0.33
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Environmental groups question emissions.",
+        "layer": "coalition",
+        "reason": "Environmental frame may resonate with climate-conscious public segments.",
+        "source_actor_name": "clean_harbor_alliance",
+        "target_actor_name": "metro_general_public_proxy",
+        "weight": 0.28
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Expected branch includes replacement service rather than only elimination.",
+        "layer": "coalition",
+        "reason": "Potential overlap around cleaner transit access if continuity protected.",
+        "source_actor_name": "clean_harbor_alliance",
+        "target_actor_name": "transit_equity_proxy",
+        "weight": 0.35
+      },
+      {
+        "direction": "mutual_opposition",
+        "evidence": "Authority may end subsidy; contractor has renewal clause.",
+        "layer": "conflict",
+        "reason": "Subsidy uncertainty and renegotiation create bargaining conflict despite mutual dependence.",
+        "source_actor_name": "metro_transit_authority",
+        "target_actor_name": "harbor_ferry_co",
+        "weight": 0.52
+      },
+      {
+        "direction": "mutual_opposition",
+        "evidence": "Environmental groups question emissions.",
+        "layer": "conflict",
+        "reason": "Environmental coalition challenges operator emissions profile.",
+        "source_actor_name": "clean_harbor_alliance",
+        "target_actor_name": "harbor_ferry_co",
+        "weight": 0.61
+      },
+      {
+        "direction": "mutual_opposition",
+        "evidence": "Ferry workers fear layoffs.",
+        "layer": "conflict",
+        "reason": "Workers anticipate job risk from subsidy changes.",
+        "source_actor_name": "ferry_workers_union",
+        "target_actor_name": "metro_transit_authority",
+        "weight": 0.47
+      },
+      {
+        "direction": "mutual_opposition",
+        "evidence": "Replacement service is a plausible branch and labor terms are constrained.",
+        "layer": "conflict",
+        "reason": "Replacement service could bypass or weaken current labor arrangements.",
+        "source_actor_name": "ferry_workers_union",
+        "target_actor_name": "alternative_service_providers",
+        "weight": 0.42
+      },
+      {
+        "direction": "mutual_opposition",
+        "evidence": "Residents depend on service while environmental groups question emissions.",
+        "layer": "conflict",
+        "reason": "Some residents may view emissions criticism as threatening continuity if no credible substitute exists.",
+        "source_actor_name": "island_residents",
+        "target_actor_name": "clean_harbor_alliance",
+        "weight": 0.29
+      },
+      {
+        "direction": "source_reaches_target",
+        "evidence": "Public-facing civic controversy with technical details.",
+        "layer": "exposure",
+        "reason": "News coverage is likely the main route by which general public sees the dispute.",
+        "source_actor_name": "regional_media",
+        "target_actor_name": "metro_general_public_proxy",
+        "weight": 0.74
+      },
+      {
+        "direction": "source_reaches_target",
+        "evidence": "Authority announces subsidy may end.",
+        "layer": "exposure",
+        "reason": "Authority announcement directly reaches affected residents.",
+        "source_actor_name": "metro_transit_authority",
+        "target_actor_name": "island_residents",
+        "weight": 0.63
+      },
+      {
+        "direction": "source_reaches_target",
+        "evidence": "Workers fear layoffs tied to operator future.",
+        "layer": "exposure",
+        "reason": "Operator communications and decisions are directly visible to workforce.",
+        "source_actor_name": "harbor_ferry_co",
+        "target_actor_name": "ferry_workers_union",
+        "weight": 0.66
+      },
+      {
+        "direction": "source_reaches_target",
+        "evidence": "Environmental groups contest emissions in civic setting.",
+        "layer": "exposure",
+        "reason": "Advocacy messaging likely targets political officials.",
+        "source_actor_name": "clean_harbor_alliance",
+        "target_actor_name": "metro_elected_officials",
+        "weight": 0.42
+      },
+      {
+        "direction": "source_reaches_target",
+        "evidence": "Affected residents have visible dependence.",
+        "layer": "exposure",
+        "reason": "Community complaints and testimony likely reach elected offices.",
+        "source_actor_name": "island_residents",
+        "target_actor_name": "metro_elected_officials",
+        "weight": 0.47
+      },
+      {
+        "direction": "bidirectional_public_channel",
+        "evidence": "Renegotiation and renewal clause are central setup facts.",
+        "layer": "oasis_interaction",
+        "reason": "Negotiation and public statements likely create recurring visible interaction.",
+        "source_actor_name": "metro_transit_authority",
+        "target_actor_name": "harbor_ferry_co",
+        "weight": 0.58
+      },
+      {
+        "direction": "bidirectional_public_channel",
+        "evidence": "Service dependence makes direct public engagement likely.",
+        "layer": "oasis_interaction",
+        "reason": "Hearings, complaints, and rider forums are plausible early channels.",
+        "source_actor_name": "island_residents",
+        "target_actor_name": "metro_transit_authority",
+        "weight": 0.49
+      },
+      {
+        "direction": "bidirectional_public_channel",
+        "evidence": "Strike threat is a plausible branch.",
+        "layer": "oasis_interaction",
+        "reason": "Labor response likely includes statements, meetings, and visible bargaining pressure.",
+        "source_actor_name": "ferry_workers_union",
+        "target_actor_name": "metro_transit_authority",
+        "weight": 0.44
+      },
+      {
+        "direction": "bidirectional_public_channel",
+        "evidence": "Environmental questioning is already part of scenario framing.",
+        "layer": "oasis_interaction",
+        "reason": "Advocates can use media to publicize emissions critique.",
+        "source_actor_name": "clean_harbor_alliance",
+        "target_actor_name": "regional_media",
+        "weight": 0.41
+      },
+      {
+        "direction": "bidirectional_public_channel",
+        "evidence": "Residents depend on service and face possible loss.",
+        "layer": "oasis_interaction",
+        "reason": "Human-impact stories are likely to become coverage hooks.",
+        "source_actor_name": "island_residents",
+        "target_actor_name": "regional_media",
+        "weight": 0.38
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "description": "Authority leader who can set bargaining frame and recommend board action",
+        "name": "institutional_decider"
+      },
+      {
+        "description": "Operator executive defending renewal and subsidy economics",
+        "name": "contract_holder"
+      },
+      {
+        "description": "Union leader balancing militancy and job preservation",
+        "name": "labor_broker"
+      },
+      {
+        "description": "Island civic voice translating dependence into public pressure",
+        "name": "community_mobilizer"
+      },
+      {
+        "description": "Environmental leader pushing emissions-linked conditions",
+        "name": "issue_advocate"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "metro_transit_authority",
+        "archetype_name": "institutional_decider",
+        "attention_level": 0.86,
+        "expression_level": 0.51,
+        "fatigue": 0.38,
+        "fear_of_isolation": 0.21,
+        "hero_key": "mta_executive_director",
+        "mobilization_readiness": 0.34,
+        "perceived_majority": 0.49,
+        "power_summary": "Controls agenda formation and negotiation posture but is constrained by contract and labor limits.",
+        "public_role": "executive director",
+        "stance_axes": {
+          "emissions_reform_support": 0.66,
+          "labor_concession_appetite": 0.28,
+          "service_replacement_openness": 0.58,
+          "subsidy_extension_support": 0.45
+        }
+      },
+      {
+        "actor_name": "harbor_ferry_co",
+        "archetype_name": "contract_holder",
+        "attention_level": 0.83,
+        "expression_level": 0.57,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.3,
+        "hero_key": "harbor_ferry_ceo",
+        "mobilization_readiness": 0.46,
+        "perceived_majority": 0.41,
+        "power_summary": "Possesses operational know-how, continuity leverage, and renewal-clause bargaining strength.",
+        "public_role": "chief executive",
+        "stance_axes": {
+          "emissions_reform_support": 0.27,
+          "labor_concession_appetite": 0.22,
+          "service_replacement_openness": 0.14,
+          "subsidy_extension_support": 0.93
+        }
+      },
+      {
+        "actor_name": "ferry_workers_union",
+        "archetype_name": "labor_broker",
+        "attention_level": 0.9,
+        "expression_level": 0.61,
+        "fatigue": 0.43,
+        "fear_of_isolation": 0.19,
+        "hero_key": "union_president",
+        "mobilization_readiness": 0.74,
+        "perceived_majority": 0.64,
+        "power_summary": "Can raise strike threat credibility and constrain rapid restructuring through labor rights.",
+        "public_role": "union president",
+        "stance_axes": {
+          "emissions_reform_support": 0.36,
+          "labor_concession_appetite": 0.17,
+          "service_replacement_openness": 0.18,
+          "subsidy_extension_support": 0.82
+        }
+      },
+      {
+        "actor_name": "island_residents",
+        "archetype_name": "community_mobilizer",
+        "attention_level": 0.84,
+        "expression_level": 0.62,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.16,
+        "hero_key": "island_civic_council_chair",
+        "mobilization_readiness": 0.67,
+        "perceived_majority": 0.78,
+        "power_summary": "Can make dependence visible and coordinate resident testimony and local pressure.",
+        "public_role": "island civic council chair",
+        "stance_axes": {
+          "emissions_reform_support": 0.57,
+          "labor_concession_appetite": 0.41,
+          "service_replacement_openness": 0.38,
+          "subsidy_extension_support": 0.85
+        }
+      },
+      {
+        "actor_name": "clean_harbor_alliance",
+        "archetype_name": "issue_advocate",
+        "attention_level": 0.73,
+        "expression_level": 0.58,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.33,
+        "hero_key": "clean_harbor_spokesperson",
+        "mobilization_readiness": 0.53,
+        "perceived_majority": 0.36,
+        "power_summary": "Can increase legitimacy costs of emissions-heavy status quo but lacks direct control over operations.",
+        "public_role": "coalition spokesperson",
+        "stance_axes": {
+          "emissions_reform_support": 0.95,
+          "labor_concession_appetite": 0.49,
+          "service_replacement_openness": 0.76,
+          "subsidy_extension_support": 0.26
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "description": "Authority leader who can set bargaining frame and recommend board action",
+        "name": "institutional_decider"
+      },
+      {
+        "description": "Operator executive defending renewal and subsidy economics",
+        "name": "contract_holder"
+      },
+      {
+        "description": "Union leader balancing militancy and job preservation",
+        "name": "labor_broker"
+      },
+      {
+        "description": "Island civic voice translating dependence into public pressure",
+        "name": "community_mobilizer"
+      },
+      {
+        "description": "Environmental leader pushing emissions-linked conditions",
+        "name": "issue_advocate"
+      }
+    ],
+    "important_questions": [
+      "At the end of the scenario horizon, is island ferry access preserved through incumbent subsidy extension, replacement service, temporary bridge arrangement, or not preserved?",
+      "Does the eventual service arrangement preserve core existing ferry jobs/labor terms, partially displace them, or break down into active labor conflict?",
+      "Is any final authority action tied to observable emissions-reduction conditions or cleaner-service substitution, or does the status quo continue without such conditions?",
+      "Does the incumbent operator's renewal-clause leverage translate into retained route control, negotiated concession, or loss of operating position?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "metro_transit_authority",
+          "island_residents",
+          "harbor_ferry_co",
+          "ferry_workers_union"
+        ],
+        "event_key": "subsidy_end_announcement",
+        "event_type": "announcement",
+        "expected_impact": "Raises attention, increases resident and worker anxiety, and activates bargaining leverage around continuity.",
+        "status": "realized",
+        "summary": "Transit authority announces that privately operated ferry subsidy may end.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "harbor_ferry_co",
+          "metro_transit_authority"
+        ],
+        "event_key": "renewal_clause_asserted",
+        "event_type": "announcement",
+        "expected_impact": "Strengthens operator influence and complicates simple subsidy termination narratives.",
+        "status": "realized",
+        "summary": "Operator signals it holds a renewal-clause position in upcoming negotiations.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "clean_harbor_alliance",
+          "regional_media"
+        ],
+        "event_key": "emissions_critique_enters_public_frame",
+        "event_type": "announcement",
+        "expected_impact": "Adds legitimacy and policy pressure against unconditional status-quo extension.",
+        "status": "realized",
+        "summary": "Environmental advocates publicly question ferry emissions.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "ferry_workers_union",
+          "harbor_ferry_co"
+        ],
+        "event_key": "labor_security_concerns_surface",
+        "event_type": "announcement",
+        "expected_impact": "Raises conflict potential and increases sensitivity to replacement-service talk.",
+        "status": "realized",
+        "summary": "Workers publicly or internally express layoff fears linked to subsidy uncertainty.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "metro_transit_authority",
+          "metro_elected_officials",
+          "island_residents"
+        ],
+        "event_key": "authority_schedules_review_session",
+        "event_type": "announcement",
+        "expected_impact": "Creates focal point for coalition signaling, media attention, and position hardening or softening.",
+        "status": "scheduled",
+        "summary": "Authority prepares a public review or board session on subsidy options.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "ferry_workers_union",
+          "metro_transit_authority",
+          "harbor_ferry_co"
+        ],
+        "event_key": "union_weighs_action_signal",
+        "event_type": "announcement",
+        "expected_impact": "Could increase conflict edge weights and constrain authority experimentation.",
+        "status": "plausible",
+        "summary": "Union considers whether to warn of job action if layoffs or replacement bypass becomes likely.",
+        "tick": 2
+      },
+      {
+        "actors": [
+          "metro_transit_authority",
+          "alternative_service_providers"
+        ],
+        "event_key": "replacement_market_soundings",
+        "event_type": "announcement",
+        "expected_impact": "Introduces credible outside option if market interest appears real, but may provoke labor and incumbent resistance.",
+        "status": "plausible",
+        "summary": "Authority informally tests availability of replacement operators or interim service models.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "762d98af-cf30-460a-8ba0-9da21b0d5b81",
+    "merge_hypotheses": [
+      {
+        "converging_factors": [
+          "shared fear of island isolation",
+          "blame avoidance by officials",
+          "operator desire for revenue continuity"
+        ],
+        "likely_effect": "Multiple paths may converge on at least temporary service preservation even if long-term model remains unresolved.",
+        "merge_key": "continuity_consensus_merge"
+      },
+      {
+        "converging_factors": [
+          "environmental legitimacy pressure",
+          "authority need for defensible compromise",
+          "resident openness to reliable cleaner service"
+        ],
+        "likely_effect": "Both extension and replacement branches may converge on emissions-linked conditions or pilot modernization commitments.",
+        "merge_key": "conditional_greening_merge"
+      },
+      {
+        "converging_factors": [
+          "negotiation fatigue",
+          "cost of prolonged uncertainty",
+          "limited immediate alternatives"
+        ],
+        "likely_effect": "Initially opposed actors may accept partial concessions and phased timelines rather than maximalist demands.",
+        "merge_key": "fatigue_and_pragmatism_merge"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "description": "Residents who rely on island ferry service for routine life and access",
+        "name": "island_commuters_and_households",
+        "population_total": 18000
+      },
+      {
+        "description": "Workers tied to ferry operations and represented labor interests",
+        "name": "ferry_workforce",
+        "population_total": 320
+      },
+      {
+        "description": "Broader metro residents who may notice the dispute through cost, fairness, or environmental framing",
+        "name": "metro_general_public",
+        "population_total": 2400000
+      },
+      {
+        "description": "Organized activists, neighborhood groups, and issue publics around transit and environment",
+        "name": "civic_advocacy_network",
+        "population_total": 12000
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "incomplete_contract_details",
+        "note": "Renewal clause scope, enforceability, and timing are unspecified, limiting precision on operator leverage.",
+        "severity": "medium"
+      },
+      {
+        "flag": "labor_constraint_ambiguity",
+        "note": "Source states authority cannot unilaterally change labor terms, but exact bargaining parties and legal mechanisms are unclear.",
+        "severity": "medium"
+      },
+      {
+        "flag": "replacement_feasibility_unknown",
+        "note": "No evidence on vessel availability, docking rights, procurement speed, or regulatory approvals for substitute service.",
+        "severity": "medium"
+      },
+      {
+        "flag": "population_estimates_inferred",
+        "note": "Population totals are realistic scenario-scale inferences rather than corpus-specified counts.",
+        "severity": "low"
+      },
+      {
+        "flag": "general_public_proxy_used_in_graph",
+        "note": "Some graph edges reference broad public attention dynamics not tied to a named actor in source text; this reflects scenario-level salience modeling.",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "civic_policy",
+      "causal_premises": [
+        "Island residents have material dependence on ferry access.",
+        "Transit authority holds budgetary and scheduling leverage over subsidy decisions.",
+        "Private operator has contractual leverage via a renewal clause.",
+        "Labor terms constrain rapid unilateral restructuring.",
+        "Environmental pressure raises legitimacy costs for a simple extension without changes."
+      ],
+      "configured_focus": [
+        "multi_actor_power",
+        "conflict_graph",
+        "report_questions"
+      ],
+      "mode": "direct",
+      "scenario_key": "civic_004",
+      "summary": "A fictionalized metropolitan transit authority signals that a subsidy supporting a privately operated island ferry may end. Island residents rely on the service for mobility, environmental groups raise emissions concerns, ferry workers fear layoffs, and the private contractor cites a renewal clause. The authority may renegotiate subsidy or service terms but cannot unilaterally alter labor terms. T0 should preserve multiple live paths: subsidy extension, replacement service, strike threat, or service collapse.",
+      "time_horizon_ticks": 8,
+      "uncertainty_notes": [
+        "Exact contract language, renewal timing, ridership levels, labor agreement scope, and replacement-service feasibility are not specified in the source text.",
+        "Scenario implies civic/public stakes; actor names are fictionalized.",
+        "No evidence that any terminal outcome is already realized at T0."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "island_residents",
+          "metro_general_public_proxy",
+          "clean_harbor_alliance"
+        ],
+        "evidence": "Actors may accept compromise frames only when continuity or emissions concerns remain within acceptable bounds.",
+        "level": "moderate",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "island_residents",
+          "ferry_workers_union"
+        ],
+        "evidence": "Visible deadline, layoffs, or service-cut signals are likely needed to trigger major action.",
+        "level": "high_relevance",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "precarious_ferry_workers",
+          "island_mixed_priority_residents"
+        ],
+        "evidence": "Dependence and fear of isolation suppress open dissent from dominant continuity narratives.",
+        "level": "moderate",
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "island_residents",
+          "environmental_advocates",
+          "ferry_workers_union"
+        ],
+        "evidence": "Community, labor, and issue publics likely cluster around reinforcing frames.",
+        "level": "moderate",
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "metro_general_public_proxy",
+          "metro_elected_officials"
+        ],
+        "evidence": "Broader mobilization likely requires repeated cues from media, residents, and elites rather than a single message.",
+        "level": "moderate",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "island_residents",
+          "ferry_workers_union",
+          "clean_harbor_alliance"
+        ],
+        "evidence": "Place identity, worker identity, and environmental identity shape initial interpretations.",
+        "level": "high_relevance",
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "metro_general_public_proxy",
+          "regional_media"
+        ],
+        "evidence": "Absent disruption or deadline conflict, broader public attention may remain low or fade quickly.",
+        "level": "high",
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Concrete island access dependence increases responsiveness to disruption narratives.",
+        "influence_key": "service_dependence_salience"
+      },
+      {
+        "description": "Renewal clause and labor-term limits make simple solutions less credible and can slow blame assignment.",
+        "influence_key": "contract_constraint_visibility"
+      },
+      {
+        "description": "Emissions critique raises reputational cost of extending status quo without conditions.",
+        "influence_key": "environmental_legitimacy_pressure"
+      },
+      {
+        "description": "Approaching renewal or subsidy deadlines can rapidly raise attention and mobilization.",
+        "influence_key": "deadline_and_disruption_sensitivity"
+      },
+      {
+        "description": "Wider metro audiences may split between equity/continuity and cost/environment narratives.",
+        "influence_key": "constituent_vs_fiscal_frame_competition"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "metro_transit_authority",
+        "behavior_axes": {
+          "adaptability": 0.56,
+          "conflict_escalation": 0.29,
+          "proceduralism": 0.82,
+          "risk_tolerance": 0.38
+        },
+        "graph_influence_summary": {
+          "agenda_power": 0.84,
+          "operational_control": 0.69,
+          "public_persuasion": 0.52
+        },
+        "ideology_axes": {
+          "environmental_priority": 0.61,
+          "equity_priority": 0.64,
+          "labor_alignment": 0.46,
+          "market_reliance": 0.54
+        },
+        "reputation": 0.58,
+        "secrecy": 0.48,
+        "tendency": "institutionally cautious, legitimacy-sensitive, budget constrained",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "harbor_ferry_co",
+        "behavior_axes": {
+          "adaptability": 0.41,
+          "conflict_escalation": 0.52,
+          "proceduralism": 0.61,
+          "risk_tolerance": 0.57
+        },
+        "graph_influence_summary": {
+          "agenda_power": 0.57,
+          "operational_control": 0.81,
+          "public_persuasion": 0.37
+        },
+        "ideology_axes": {
+          "environmental_priority": 0.25,
+          "equity_priority": 0.38,
+          "labor_alignment": 0.31,
+          "market_reliance": 0.92
+        },
+        "reputation": 0.46,
+        "secrecy": 0.56,
+        "tendency": "defensive incumbent protecting contract position",
+        "trustworthiness": 0.42
+      },
+      {
+        "actor_name": "island_residents",
+        "behavior_axes": {
+          "adaptability": 0.52,
+          "conflict_escalation": 0.44,
+          "proceduralism": 0.49,
+          "risk_tolerance": 0.34
+        },
+        "graph_influence_summary": {
+          "agenda_power": 0.49,
+          "operational_control": 0.08,
+          "public_persuasion": 0.61
+        },
+        "ideology_axes": {
+          "environmental_priority": 0.62,
+          "equity_priority": 0.83,
+          "labor_alignment": 0.58,
+          "market_reliance": 0.39
+        },
+        "reputation": 0.71,
+        "secrecy": 0.21,
+        "tendency": "high dependence creates strong continuity preference with conditional openness to reform",
+        "trustworthiness": 0.67
+      },
+      {
+        "actor_name": "ferry_workers_union",
+        "behavior_axes": {
+          "adaptability": 0.34,
+          "conflict_escalation": 0.63,
+          "proceduralism": 0.68,
+          "risk_tolerance": 0.51
+        },
+        "graph_influence_summary": {
+          "agenda_power": 0.52,
+          "operational_control": 0.58,
+          "public_persuasion": 0.45
+        },
+        "ideology_axes": {
+          "environmental_priority": 0.37,
+          "equity_priority": 0.62,
+          "labor_alignment": 0.96,
+          "market_reliance": 0.18
+        },
+        "reputation": 0.55,
+        "secrecy": 0.39,
+        "tendency": "protective of jobs and skeptical of rapid substitution",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "clean_harbor_alliance",
+        "behavior_axes": {
+          "adaptability": 0.67,
+          "conflict_escalation": 0.41,
+          "proceduralism": 0.54,
+          "risk_tolerance": 0.46
+        },
+        "graph_influence_summary": {
+          "agenda_power": 0.43,
+          "operational_control": 0.04,
+          "public_persuasion": 0.56
+        },
+        "ideology_axes": {
+          "environmental_priority": 0.98,
+          "equity_priority": 0.57,
+          "labor_alignment": 0.49,
+          "market_reliance": 0.29
+        },
+        "reputation": 0.59,
+        "secrecy": 0.18,
+        "tendency": "pushes conditionality and cleaner alternatives over status-quo extension",
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "metro_elected_officials",
+        "behavior_axes": {
+          "adaptability": 0.49,
+          "conflict_escalation": 0.37,
+          "proceduralism": 0.52,
+          "risk_tolerance": 0.35
+        },
+        "graph_influence_summary": {
+          "agenda_power": 0.73,
+          "operational_control": 0.35,
+          "public_persuasion": 0.64
+        },
+        "ideology_axes": {
+          "environmental_priority": 0.64,
+          "equity_priority": 0.66,
+          "labor_alignment": 0.51,
+          "market_reliance": 0.48
+        },
+        "reputation": 0.51,
+        "secrecy": 0.44,
+        "tendency": "responsive to constituent salience and blame avoidance",
+        "trustworthiness": 0.49
+      },
+      {
+        "actor_name": "regional_media",
+        "behavior_axes": {
+          "adaptability": 0.71,
+          "conflict_escalation": 0.47,
+          "proceduralism": 0.33,
+          "risk_tolerance": 0.41
+        },
+        "graph_influence_summary": {
+          "agenda_power": 0.69,
+          "operational_control": 0.02,
+          "public_persuasion": 0.74
+        },
+        "ideology_axes": {
+          "environmental_priority": 0.53,
+          "equity_priority": 0.49,
+          "labor_alignment": 0.44,
+          "market_reliance": 0.45
+        },
+        "reputation": 0.56,
+        "secrecy": 0.14,
+        "tendency": "amplifies conflict and service-risk narratives when deadlines near",
+        "trustworthiness": 0.52
+      },
+      {
+        "actor_name": "alternative_service_providers",
+        "behavior_axes": {
+          "adaptability": 0.74,
+          "conflict_escalation": 0.22,
+          "proceduralism": 0.47,
+          "risk_tolerance": 0.43
+        },
+        "graph_influence_summary": {
+          "agenda_power": 0.19,
+          "operational_control": 0.27,
+          "public_persuasion": 0.11
+        },
+        "ideology_axes": {
+          "environmental_priority": 0.54,
+          "equity_priority": 0.36,
+          "labor_alignment": 0.28,
+          "market_reliance": 0.88
+        },
+        "reputation": 0.35,
+        "secrecy": 0.51,
+        "tendency": "opportunistic entrants awaiting favorable contract clarity",
+        "trustworthiness": 0.4
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 600,
+        "end": 600,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 600,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

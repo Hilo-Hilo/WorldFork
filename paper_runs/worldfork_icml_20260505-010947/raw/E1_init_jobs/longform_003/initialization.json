@@ -1,0 +1,1506 @@
+{
+  "big_bang_id": "7c20fa10-d7db-4ead-ad61-63012e89c8ee",
+  "initializer_output": {
+    "actors": [
+      {
+        "actor_type": "institution",
+        "decision_authority": "high",
+        "description": "Fictional public-housing authority planning elevator repairs and temporary relocation.",
+        "name": "harbor_homes_authority",
+        "public_visibility": "high",
+        "stakes": [
+          "complete repairs",
+          "maintain habitability compliance",
+          "control costs and schedule",
+          "avoid political and legal fallout"
+        ]
+      },
+      {
+        "actor_type": "civic_group",
+        "decision_authority": "medium",
+        "description": "Resident association representing tenant concerns and issuing a public statement.",
+        "name": "oak_towers_resident_association",
+        "public_visibility": "medium",
+        "stakes": [
+          "resident safety",
+          "fair treatment",
+          "clear communication",
+          "maintain legitimacy with residents"
+        ]
+      },
+      {
+        "actor_type": "contractor",
+        "decision_authority": "medium",
+        "description": "Elevator repair contractor operating on a project schedule.",
+        "name": "liftcore_contracting",
+        "public_visibility": "medium",
+        "stakes": [
+          "execute contract",
+          "avoid delays",
+          "limit liability",
+          "maintain reputation"
+        ]
+      },
+      {
+        "actor_type": "advocacy_organization",
+        "decision_authority": "medium",
+        "description": "Disability-rights organization tied to a complaint about relocation impacts and accessibility obligations.",
+        "name": "access_now_center",
+        "public_visibility": "medium",
+        "stakes": [
+          "protect disabled residents",
+          "enforce accommodation standards",
+          "increase oversight"
+        ]
+      },
+      {
+        "actor_type": "public_official",
+        "decision_authority": "medium",
+        "description": "Fictional mayor commenting publicly on the housing authority response.",
+        "name": "mayor_elin_ward",
+        "public_visibility": "high",
+        "stakes": [
+          "show responsiveness",
+          "avoid visible mismanagement",
+          "balance budget and public pressure"
+        ]
+      },
+      {
+        "actor_type": "resident_group",
+        "decision_authority": "low",
+        "description": "Residents with mobility or disability-related dependence on elevators and accessible relocation support.",
+        "name": "oak_towers_mobility_impaired_residents",
+        "public_visibility": "medium",
+        "stakes": [
+          "continuous access",
+          "safe relocation",
+          "medical routine stability",
+          "dignity"
+        ]
+      },
+      {
+        "actor_type": "resident_group",
+        "decision_authority": "low",
+        "description": "Broader resident body affected by disruption, rumors, and possible relocation spillovers.",
+        "name": "oak_towers_general_residents",
+        "public_visibility": "medium",
+        "stakes": [
+          "housing stability",
+          "minimize disruption",
+          "voice concerns",
+          "retain trust"
+        ]
+      },
+      {
+        "actor_type": "government_staff",
+        "decision_authority": "medium",
+        "description": "Administrative staff who monitor public reaction and coordinate with the mayor.",
+        "name": "city_hall_staff",
+        "public_visibility": "low",
+        "stakes": [
+          "issue containment",
+          "briefing accuracy",
+          "interagency coordination"
+        ]
+      },
+      {
+        "actor_type": "media",
+        "decision_authority": "medium",
+        "description": "Local reporters and outlets likely to amplify statements, complaints, and rumors.",
+        "name": "local_press_pool",
+        "public_visibility": "high",
+        "stakes": [
+          "cover conflict",
+          "verify claims",
+          "shape public agenda"
+        ]
+      },
+      {
+        "actor_type": "network_public",
+        "decision_authority": "low",
+        "description": "Loose set of social accounts circulating unverified claims and emotionally charged posts.",
+        "name": "rumor_social_accounts",
+        "public_visibility": "high",
+        "stakes": [
+          "attention",
+          "identity signaling",
+          "grievance expression"
+        ]
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "branch_key": "supported_relocation_success",
+        "divergence_signal": "Trust in harbor_homes_authority among cautious residents rises and rumor amplification loses engagement relative to official updates.",
+        "plausible_path": "Resident anxiety softens, association remains critical but cooperative, and repair work proceeds with limited disruption spillover.",
+        "trigger": "Authority provides specific relocation logistics, accessible accommodations, and credible schedule assurances before visible hardship incidents."
+      },
+      {
+        "branch_key": "operational_delay_spiral",
+        "divergence_signal": "More schedule revisions, rising resident fatigue, and press focus shifts from relocation terms to competence and delay.",
+        "plausible_path": "Temporary postponements accumulate, residents remain in uncertainty longer, and frustration spreads without immediate legal resolution.",
+        "trigger": "Contractor schedule slips or authority cannot match relocation logistics to the repair timeline."
+      },
+      {
+        "branch_key": "resident_protest_escalation",
+        "divergence_signal": "Expression levels rise across previously quiet cohorts, protest-support stance increases, and coalition edges among resident-side actors strengthen.",
+        "plausible_path": "Association hardens, broader resident participation crosses mobilization thresholds, and public protest becomes a salient bargaining tool.",
+        "trigger": "Residents perceive coercive relocation, inadequate communication, or visible mistreatment of vulnerable tenants."
+      },
+      {
+        "branch_key": "legal_or_administrative_intervention",
+        "divergence_signal": "Authority messaging becomes more procedural and constrained, advocacy influence rises, and schedule control shifts away from pure operations.",
+        "plausible_path": "Formal review, injunction-like pressure, or mandated plan changes slow implementation and reallocate decision authority toward compliance processes.",
+        "trigger": "Complaint gains traction through documented accommodation failures or noncompliant relocation practices."
+      }
+    ],
+    "channels": [
+      {
+        "actors": [
+          "harbor_homes_authority"
+        ],
+        "channel_key": "official_notice",
+        "reach": "direct_residents",
+        "reliability": "medium",
+        "speed": "medium",
+        "type": "institutional"
+      },
+      {
+        "actors": [
+          "oak_towers_resident_association"
+        ],
+        "channel_key": "resident_association_statement",
+        "reach": "residents_local_media",
+        "reliability": "medium_high",
+        "speed": "medium",
+        "type": "civic"
+      },
+      {
+        "actors": [
+          "liftcore_contracting",
+          "harbor_homes_authority"
+        ],
+        "channel_key": "contractor_schedule_briefing",
+        "reach": "institutional_internal_select_public",
+        "reliability": "medium",
+        "speed": "low",
+        "type": "operational"
+      },
+      {
+        "actors": [
+          "access_now_center"
+        ],
+        "channel_key": "disability_complaint_process",
+        "reach": "institutional_media_secondary",
+        "reliability": "high_on_filing_low_on_outcome",
+        "speed": "low",
+        "type": "formal_advocacy"
+      },
+      {
+        "actors": [
+          "mayor_elin_ward",
+          "local_press_pool"
+        ],
+        "channel_key": "mayoral_press_quote",
+        "reach": "citywide",
+        "reliability": "medium",
+        "speed": "high",
+        "type": "political_media"
+      },
+      {
+        "actors": [
+          "rumor_social_accounts",
+          "oak_towers_general_residents"
+        ],
+        "channel_key": "social_rumor_posts",
+        "reach": "resident_and_city_observers",
+        "reliability": "low",
+        "speed": "high",
+        "type": "social_media"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "oak_towers_mobility_impaired_residents",
+        "archetype_key": "oak_towers_residents",
+        "attention_level": 0.87,
+        "cohort_key": "mobility_impaired_directly_affected",
+        "expression_level": 0.52,
+        "fatigue": 0.63,
+        "fear_of_isolation": 0.66,
+        "mobilization_readiness": 0.49,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.167,
+        "private_belief": "Relocation may be unsafe or inadequately supported unless accommodations are guaranteed.",
+        "public_expression": "Concern is selectively voiced through complaints, association channels, and peer networks; some residents stay quiet due to dependency on the authority.",
+        "representation_mode": "direct_subgroup",
+        "represented_population": 70,
+        "stance_axes": {
+          "institutional_trust": 0.31,
+          "legal_intervention_support": 0.71,
+          "protest_support": 0.46,
+          "relocation_acceptance": 0.28,
+          "repair_necessity": 0.58
+        }
+      },
+      {
+        "actor_name": "oak_towers_general_residents",
+        "archetype_key": "oak_towers_residents",
+        "attention_level": 0.74,
+        "cohort_key": "general_residents_cautious",
+        "expression_level": 0.41,
+        "fatigue": 0.55,
+        "fear_of_isolation": 0.51,
+        "mobilization_readiness": 0.36,
+        "perceived_majority": 0.56,
+        "population_share_of_archetype": 0.524,
+        "private_belief": "Repairs are probably necessary, but relocation plans may be disorganized and unfairly burdensome.",
+        "public_expression": "Residents exchange concerns in hallways and online but many wait for specifics before taking action.",
+        "representation_mode": "majority_subgroup",
+        "represented_population": 220,
+        "stance_axes": {
+          "institutional_trust": 0.42,
+          "legal_intervention_support": 0.39,
+          "protest_support": 0.34,
+          "relocation_acceptance": 0.47,
+          "repair_necessity": 0.69
+        }
+      },
+      {
+        "actor_name": "oak_towers_general_residents",
+        "archetype_key": "oak_towers_residents",
+        "attention_level": 0.92,
+        "cohort_key": "general_residents_alarm_spreaders",
+        "expression_level": 0.79,
+        "fatigue": 0.47,
+        "fear_of_isolation": 0.28,
+        "mobilization_readiness": 0.62,
+        "perceived_majority": 0.38,
+        "population_share_of_archetype": 0.143,
+        "private_belief": "Authorities are probably concealing bigger problems or planning a harmful displacement.",
+        "public_expression": "Highly active rumor sharing and suspicion-heavy talk online and among neighbors.",
+        "representation_mode": "minority_subgroup",
+        "represented_population": 60,
+        "stance_axes": {
+          "institutional_trust": 0.18,
+          "legal_intervention_support": 0.44,
+          "protest_support": 0.68,
+          "relocation_acceptance": 0.14,
+          "repair_necessity": 0.33
+        }
+      },
+      {
+        "actor_name": "oak_towers_general_residents",
+        "archetype_key": "oak_towers_residents",
+        "attention_level": 0.52,
+        "cohort_key": "general_residents_accommodating",
+        "expression_level": 0.22,
+        "fatigue": 0.39,
+        "fear_of_isolation": 0.44,
+        "mobilization_readiness": 0.18,
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.167,
+        "private_belief": "Temporary relocation is acceptable if support is real, brief, and transparent.",
+        "public_expression": "Mostly quiet, pragmatic, and waiting for official scheduling details.",
+        "representation_mode": "minority_subgroup",
+        "represented_population": 70,
+        "stance_axes": {
+          "institutional_trust": 0.57,
+          "legal_intervention_support": 0.21,
+          "protest_support": 0.17,
+          "relocation_acceptance": 0.72,
+          "repair_necessity": 0.81
+        }
+      },
+      {
+        "actor_name": "rumor_social_accounts",
+        "archetype_key": "city_observers",
+        "attention_level": 0.24,
+        "cohort_key": "city_observers_low_information",
+        "expression_level": 0.11,
+        "fatigue": 0.16,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.08,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.84,
+        "private_belief": "Something may be going wrong, but details are unclear.",
+        "public_expression": "Mostly passive consumption with intermittent reaction to headlines or viral posts.",
+        "representation_mode": "broad_public_segment",
+        "represented_population": 21000,
+        "stance_axes": {
+          "institutional_trust": 0.46,
+          "legal_intervention_support": 0.31,
+          "protest_support": 0.22,
+          "relocation_acceptance": 0.44,
+          "repair_necessity": 0.5
+        }
+      },
+      {
+        "actor_name": "local_press_pool",
+        "archetype_key": "city_observers",
+        "attention_level": 0.61,
+        "cohort_key": "city_observers_engaged_civic",
+        "expression_level": 0.48,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.19,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.45,
+        "population_share_of_archetype": 0.16,
+        "private_belief": "The case may reveal broader governance and accessibility issues and merits scrutiny.",
+        "public_expression": "Active discussion in media and civic networks, emphasizing accountability and resident impacts.",
+        "representation_mode": "engaged_public_segment",
+        "represented_population": 4000,
+        "stance_axes": {
+          "institutional_trust": 0.37,
+          "legal_intervention_support": 0.53,
+          "protest_support": 0.29,
+          "relocation_acceptance": 0.39,
+          "repair_necessity": 0.62
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "oak_towers_mobility_impaired_residents",
+        "archetype_key": "oak_towers_residents",
+        "attention_level": 0.87,
+        "cohort_key": "mobility_impaired_directly_affected",
+        "expression_level": 0.52,
+        "fatigue": 0.63,
+        "fear_of_isolation": 0.66,
+        "mobilization_readiness": 0.49,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.167,
+        "private_belief": "Relocation may be unsafe or inadequately supported unless accommodations are guaranteed.",
+        "public_expression": "Concern is selectively voiced through complaints, association channels, and peer networks; some residents stay quiet due to dependency on the authority.",
+        "representation_mode": "direct_subgroup",
+        "represented_population": 70,
+        "stance_axes": {
+          "institutional_trust": 0.31,
+          "legal_intervention_support": 0.71,
+          "protest_support": 0.46,
+          "relocation_acceptance": 0.28,
+          "repair_necessity": 0.58
+        }
+      },
+      {
+        "actor_name": "oak_towers_general_residents",
+        "archetype_key": "oak_towers_residents",
+        "attention_level": 0.74,
+        "cohort_key": "general_residents_cautious",
+        "expression_level": 0.41,
+        "fatigue": 0.55,
+        "fear_of_isolation": 0.51,
+        "mobilization_readiness": 0.36,
+        "perceived_majority": 0.56,
+        "population_share_of_archetype": 0.524,
+        "private_belief": "Repairs are probably necessary, but relocation plans may be disorganized and unfairly burdensome.",
+        "public_expression": "Residents exchange concerns in hallways and online but many wait for specifics before taking action.",
+        "representation_mode": "majority_subgroup",
+        "represented_population": 220,
+        "stance_axes": {
+          "institutional_trust": 0.42,
+          "legal_intervention_support": 0.39,
+          "protest_support": 0.34,
+          "relocation_acceptance": 0.47,
+          "repair_necessity": 0.69
+        }
+      },
+      {
+        "actor_name": "oak_towers_general_residents",
+        "archetype_key": "oak_towers_residents",
+        "attention_level": 0.92,
+        "cohort_key": "general_residents_alarm_spreaders",
+        "expression_level": 0.79,
+        "fatigue": 0.47,
+        "fear_of_isolation": 0.28,
+        "mobilization_readiness": 0.62,
+        "perceived_majority": 0.38,
+        "population_share_of_archetype": 0.143,
+        "private_belief": "Authorities are probably concealing bigger problems or planning a harmful displacement.",
+        "public_expression": "Highly active rumor sharing and suspicion-heavy talk online and among neighbors.",
+        "representation_mode": "minority_subgroup",
+        "represented_population": 60,
+        "stance_axes": {
+          "institutional_trust": 0.18,
+          "legal_intervention_support": 0.44,
+          "protest_support": 0.68,
+          "relocation_acceptance": 0.14,
+          "repair_necessity": 0.33
+        }
+      },
+      {
+        "actor_name": "oak_towers_general_residents",
+        "archetype_key": "oak_towers_residents",
+        "attention_level": 0.52,
+        "cohort_key": "general_residents_accommodating",
+        "expression_level": 0.22,
+        "fatigue": 0.39,
+        "fear_of_isolation": 0.44,
+        "mobilization_readiness": 0.18,
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.167,
+        "private_belief": "Temporary relocation is acceptable if support is real, brief, and transparent.",
+        "public_expression": "Mostly quiet, pragmatic, and waiting for official scheduling details.",
+        "representation_mode": "minority_subgroup",
+        "represented_population": 70,
+        "stance_axes": {
+          "institutional_trust": 0.57,
+          "legal_intervention_support": 0.21,
+          "protest_support": 0.17,
+          "relocation_acceptance": 0.72,
+          "repair_necessity": 0.81
+        }
+      },
+      {
+        "actor_name": "rumor_social_accounts",
+        "archetype_key": "city_observers",
+        "attention_level": 0.24,
+        "cohort_key": "city_observers_low_information",
+        "expression_level": 0.11,
+        "fatigue": 0.16,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.08,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.84,
+        "private_belief": "Something may be going wrong, but details are unclear.",
+        "public_expression": "Mostly passive consumption with intermittent reaction to headlines or viral posts.",
+        "representation_mode": "broad_public_segment",
+        "represented_population": 21000,
+        "stance_axes": {
+          "institutional_trust": 0.46,
+          "legal_intervention_support": 0.31,
+          "protest_support": 0.22,
+          "relocation_acceptance": 0.44,
+          "repair_necessity": 0.5
+        }
+      },
+      {
+        "actor_name": "local_press_pool",
+        "archetype_key": "city_observers",
+        "attention_level": 0.61,
+        "cohort_key": "city_observers_engaged_civic",
+        "expression_level": 0.48,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.19,
+        "mobilization_readiness": 0.2,
+        "perceived_majority": 0.45,
+        "population_share_of_archetype": 0.16,
+        "private_belief": "The case may reveal broader governance and accessibility issues and merits scrutiny.",
+        "public_expression": "Active discussion in media and civic networks, emphasizing accountability and resident impacts.",
+        "representation_mode": "engaged_public_segment",
+        "represented_population": 4000,
+        "stance_axes": {
+          "institutional_trust": 0.37,
+          "legal_intervention_support": 0.53,
+          "protest_support": 0.29,
+          "relocation_acceptance": 0.39,
+          "repair_necessity": 0.62
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "harbor_homes_authority",
+          "liftcore_contracting"
+        ],
+        "blockers": [
+          "accessibility failures",
+          "unclear communication",
+          "schedule slippage",
+          "rumor-driven trust collapse"
+        ],
+        "contradiction_notes": "Could be contradicted by complaint escalation, visible resident hardship, or repeated relocation reversals.",
+        "description": "Temporary relocation proceeds with enough logistical and accessibility support that major conflict does not become the dominant outcome.",
+        "endpoint_key": "accepted_supported_relocation",
+        "evidence_refs": [
+          "authority_announces_repair_plan",
+          "contractor_schedule_circulates",
+          "resident_info_session_or_notice_deadline"
+        ],
+        "label": "Accepted supported relocation",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the authority establish a relocation plan that is operationally viable and viewed as minimally acceptable by affected residents?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.31,
+        "rationale": "This is a primary terminal option implied by the scenario's focus on relocation success.",
+        "realization_criteria": [
+          "Authority issues relocation assignments and accommodation terms.",
+          "No major protest event persists beyond a short isolated episode.",
+          "Affected resident cohorts show stable or improving relocation acceptance.",
+          "Repairs begin while resident placement remains operational."
+        ],
+        "status": "active",
+        "status_basis": "The scenario explicitly includes relocation planning and success as a live branch but provides no evidence of successful execution at T0."
+      },
+      {
+        "authority_refs": [
+          "harbor_homes_authority",
+          "liftcore_contracting",
+          "mayor_elin_ward"
+        ],
+        "blockers": [
+          "effective coordination",
+          "political pressure for rapid action",
+          "formal intervention forcing a new plan"
+        ],
+        "contradiction_notes": "A clean supported relocation or decisive legal stop would displace stalemate.",
+        "description": "Repairs and relocation remain unresolved through repeated postponements, revisions, or incomplete implementation.",
+        "endpoint_key": "delayed_repair_stalemate",
+        "evidence_refs": [
+          "contractor_schedule_circulates",
+          "mayor_comments_publicly"
+        ],
+        "label": "Delayed repair stalemate",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will elevator repairs begin and proceed on roughly the planned schedule rather than sliding into repeated delay?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.27,
+        "rationale": "Delay is named directly in the scenario as a core branch outcome.",
+        "realization_criteria": [
+          "Repair start or continuation is delayed across multiple scheduled points.",
+          "Relocation decisions remain unsettled or partially implemented.",
+          "Public and institutional attention remains active without terminal resolution."
+        ],
+        "status": "active",
+        "status_basis": "The contractor schedule and uncertainty around support make delay a plausible endpoint, but no actual slip is evidenced at T0."
+      },
+      {
+        "authority_refs": [
+          "oak_towers_resident_association",
+          "oak_towers_general_residents",
+          "oak_towers_mobility_impaired_residents"
+        ],
+        "blockers": [
+          "credible concessions",
+          "private fear of retaliation",
+          "cohort fragmentation",
+          "attention decay"
+        ],
+        "contradiction_notes": "Quiet compliance or a rights-process-only pathway could prevent protest from becoming terminal.",
+        "description": "Resident contention consolidates into organized protest or sustained public opposition centered on relocation handling.",
+        "endpoint_key": "resident_protest_campaign",
+        "evidence_refs": [
+          "resident_association_issues_statement",
+          "rumor_posts_gain_attention"
+        ],
+        "label": "Resident protest campaign",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will resident dissatisfaction cross the threshold into organized protest or sustained public confrontation?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.22,
+        "rationale": "Public protest is one of the principal divergence options and depends on threshold dynamics seeded at T0.",
+        "realization_criteria": [
+          "Resident association or resident groups organize one or more public demonstrations, coordinated actions, or sustained confrontational meetings.",
+          "Resident messaging centers on opposition rather than conditional cooperation.",
+          "Media coverage identifies protest as a primary frame of the case."
+        ],
+        "status": "active",
+        "status_basis": "Scenario explicitly calls for branch hypotheses around protest, but T0 evidence shows concern rather than full mobilization."
+      },
+      {
+        "authority_refs": [
+          "access_now_center",
+          "harbor_homes_authority",
+          "mayor_elin_ward"
+        ],
+        "blockers": [
+          "insufficient documentation",
+          "rapid voluntary accommodation by authority",
+          "low enforcement urgency"
+        ],
+        "contradiction_notes": "If accommodations are rapidly improved or complaint processes stall, intervention may remain latent rather than terminal.",
+        "description": "A legal, regulatory, or administrative process materially changes, pauses, or conditions the relocation-and-repair plan.",
+        "endpoint_key": "formal_accessibility_intervention",
+        "evidence_refs": [
+          "disability_rights_complaint_emerges"
+        ],
+        "label": "Formal accessibility intervention",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the disability-rights complaint or related oversight produce formal legal or administrative intervention that changes the plan?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.2,
+        "rationale": "Legal or administrative intervention is directly named in the scenario and can supersede process-only developments.",
+        "realization_criteria": [
+          "Complaint produces an official finding, directive, injunction-equivalent constraint, or mandated plan modification.",
+          "Authority acknowledges formal compliance requirements beyond routine planning.",
+          "Operational schedule changes because of accessibility oversight."
+        ],
+        "status": "active",
+        "status_basis": "A disability-rights complaint is explicitly present at T0, creating a live pathway to formal intervention, but no ruling or order is evidenced."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "elevator repairs require temporary relocation for some residents",
+        "layer": "dependency",
+        "reason": "Residents depend on authority-managed housing conditions and relocation support during elevator disruption.",
+        "source_actor_name": "oak_towers_mobility_impaired_residents",
+        "target_actor_name": "harbor_homes_authority",
+        "weight": 0.82
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "public-housing authority plans elevator repairs requiring temporary relocation",
+        "layer": "dependency",
+        "reason": "Residents rely on the authority for housing continuity, information, and logistics.",
+        "source_actor_name": "oak_towers_general_residents",
+        "target_actor_name": "harbor_homes_authority",
+        "weight": 0.71
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "contractor schedule",
+        "layer": "dependency",
+        "reason": "Repair timeline and execution rely on contractor schedule performance.",
+        "source_actor_name": "harbor_homes_authority",
+        "target_actor_name": "liftcore_contracting",
+        "weight": 0.58
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "mayoral quote",
+        "layer": "dependency",
+        "reason": "Political cover and executive tolerance affect room to maneuver under controversy.",
+        "source_actor_name": "harbor_homes_authority",
+        "target_actor_name": "mayor_elin_ward",
+        "weight": 0.27
+      },
+      {
+        "direction": "target_visible_to_source",
+        "evidence": "rumor-filled social posts",
+        "layer": "exposure",
+        "reason": "Residents are likely to encounter rumor-filled posts related to relocation.",
+        "source_actor_name": "oak_towers_general_residents",
+        "target_actor_name": "rumor_social_accounts",
+        "weight": 0.63
+      },
+      {
+        "direction": "target_visible_to_source",
+        "evidence": "resident association statement",
+        "layer": "exposure",
+        "reason": "Association statements are a visible channel for residents.",
+        "source_actor_name": "oak_towers_general_residents",
+        "target_actor_name": "oak_towers_resident_association",
+        "weight": 0.54
+      },
+      {
+        "direction": "target_visible_to_source",
+        "evidence": "authority plans elevator repairs",
+        "layer": "exposure",
+        "reason": "Official planning and notices are visible to residents.",
+        "source_actor_name": "oak_towers_general_residents",
+        "target_actor_name": "harbor_homes_authority",
+        "weight": 0.59
+      },
+      {
+        "direction": "target_visible_to_source",
+        "evidence": "disability-rights complaint",
+        "layer": "exposure",
+        "reason": "Complaint activity raises visibility of advocacy messaging among affected residents.",
+        "source_actor_name": "oak_towers_mobility_impaired_residents",
+        "target_actor_name": "access_now_center",
+        "weight": 0.42
+      },
+      {
+        "direction": "target_visible_to_source",
+        "evidence": "mayoral quote implies political communications attention",
+        "layer": "exposure",
+        "reason": "Staff monitor local coverage for political response.",
+        "source_actor_name": "city_hall_staff",
+        "target_actor_name": "local_press_pool",
+        "weight": 0.44
+      },
+      {
+        "direction": "target_visible_to_source",
+        "evidence": "none",
+        "layer": "exposure",
+        "reason": "No actor named city_observers exists; omitted in later processing.",
+        "source_actor_name": "city_observers",
+        "target_actor_name": "local_press_pool",
+        "weight": 0.0
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "initialize trust; rumor-filled social posts; relocation concerns",
+        "layer": "trust",
+        "reason": "Residents show partial but weakened confidence in authority competence and honesty.",
+        "source_actor_name": "oak_towers_general_residents",
+        "target_actor_name": "harbor_homes_authority",
+        "weight": 0.34
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "disability-rights complaint; temporary relocation for some residents",
+        "layer": "trust",
+        "reason": "High-stakes accessibility dependence lowers confidence absent explicit accommodations.",
+        "source_actor_name": "oak_towers_mobility_impaired_residents",
+        "target_actor_name": "harbor_homes_authority",
+        "weight": 0.26
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "resident association statement",
+        "layer": "trust",
+        "reason": "Association is a relatively credible resident-facing intermediary.",
+        "source_actor_name": "oak_towers_general_residents",
+        "target_actor_name": "oak_towers_resident_association",
+        "weight": 0.61
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "disability-rights complaint",
+        "layer": "trust",
+        "reason": "Disability-rights advocates are viewed as credible defenders of accommodations.",
+        "source_actor_name": "oak_towers_mobility_impaired_residents",
+        "target_actor_name": "access_now_center",
+        "weight": 0.64
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "official plan and quote context",
+        "layer": "trust",
+        "reason": "Press grants procedural credibility but expects possible gaps or spin.",
+        "source_actor_name": "local_press_pool",
+        "target_actor_name": "harbor_homes_authority",
+        "weight": 0.41
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "mayoral quote",
+        "layer": "influence",
+        "reason": "Mayor can shape incentives, scrutiny, and urgency through public statements and oversight.",
+        "source_actor_name": "mayor_elin_ward",
+        "target_actor_name": "harbor_homes_authority",
+        "weight": 0.57
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "resident association statement",
+        "layer": "influence",
+        "reason": "Association can coordinate resident interpretation and collective demands.",
+        "source_actor_name": "oak_towers_resident_association",
+        "target_actor_name": "oak_towers_general_residents",
+        "weight": 0.52
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "disability-rights complaint",
+        "layer": "influence",
+        "reason": "Complaint can alter compliance posture and caution levels.",
+        "source_actor_name": "access_now_center",
+        "target_actor_name": "harbor_homes_authority",
+        "weight": 0.49
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "public quote environment",
+        "layer": "influence",
+        "reason": "Media attention can pressure mayoral positioning.",
+        "source_actor_name": "local_press_pool",
+        "target_actor_name": "mayor_elin_ward",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "rumor-filled social posts",
+        "layer": "influence",
+        "reason": "Rumor circulation shapes perceived risks and expectations among residents.",
+        "source_actor_name": "rumor_social_accounts",
+        "target_actor_name": "oak_towers_general_residents",
+        "weight": 0.43
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "resident association statement; disability-related concerns",
+        "layer": "coalition",
+        "reason": "Shared interest in safer terms and stronger guarantees.",
+        "source_actor_name": "oak_towers_resident_association",
+        "target_actor_name": "oak_towers_mobility_impaired_residents",
+        "weight": 0.62
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "disability-rights complaint alongside resident concerns",
+        "layer": "coalition",
+        "reason": "Potential issue-based alignment around accommodations and procedural fairness.",
+        "source_actor_name": "oak_towers_resident_association",
+        "target_actor_name": "access_now_center",
+        "weight": 0.48
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "contractor schedule tied to authority plan",
+        "layer": "coalition",
+        "reason": "Operational alignment around completing repairs on schedule.",
+        "source_actor_name": "harbor_homes_authority",
+        "target_actor_name": "liftcore_contracting",
+        "weight": 0.55
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "mayoral quote concerning the situation",
+        "layer": "coalition",
+        "reason": "Conditional alignment if the authority appears competent and politically manageable.",
+        "source_actor_name": "mayor_elin_ward",
+        "target_actor_name": "harbor_homes_authority",
+        "weight": 0.36
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "disability-rights complaint; temporary relocation",
+        "layer": "conflict",
+        "reason": "Potentially incompatible goals emerge if relocation lacks accommodations.",
+        "source_actor_name": "oak_towers_mobility_impaired_residents",
+        "target_actor_name": "harbor_homes_authority",
+        "weight": 0.58
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "disability-rights complaint",
+        "layer": "conflict",
+        "reason": "Complaint posture creates adversarial pressure over compliance.",
+        "source_actor_name": "access_now_center",
+        "target_actor_name": "harbor_homes_authority",
+        "weight": 0.53
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "contractor schedule linked to disruption",
+        "layer": "conflict",
+        "reason": "Contractor may be seen as causing disruption, though not yet the main grievance target.",
+        "source_actor_name": "oak_towers_general_residents",
+        "target_actor_name": "liftcore_contracting",
+        "weight": 0.24
+      },
+      {
+        "direction": "source_opposes_target",
+        "evidence": "rumor-filled social posts",
+        "layer": "conflict",
+        "reason": "Online rumor narratives often frame the authority as untrustworthy or harmful.",
+        "source_actor_name": "rumor_social_accounts",
+        "target_actor_name": "harbor_homes_authority",
+        "weight": 0.49
+      },
+      {
+        "direction": "bidirectional_public_interaction",
+        "evidence": "resident association statement and authority plan",
+        "layer": "oasis_interaction",
+        "reason": "Likely recurring public-channel interaction over plans, statements, and resident updates.",
+        "source_actor_name": "harbor_homes_authority",
+        "target_actor_name": "oak_towers_resident_association",
+        "weight": 0.57
+      },
+      {
+        "direction": "bidirectional_public_interaction",
+        "evidence": "public statement context",
+        "layer": "oasis_interaction",
+        "reason": "Association may speak to press as a legitimized resident voice.",
+        "source_actor_name": "oak_towers_resident_association",
+        "target_actor_name": "local_press_pool",
+        "weight": 0.41
+      },
+      {
+        "direction": "bidirectional_public_interaction",
+        "evidence": "mayoral quote",
+        "layer": "oasis_interaction",
+        "reason": "Mayoral quote indicates active press-channel engagement.",
+        "source_actor_name": "mayor_elin_ward",
+        "target_actor_name": "local_press_pool",
+        "weight": 0.52
+      },
+      {
+        "direction": "bidirectional_public_interaction",
+        "evidence": "rumor-filled social posts",
+        "layer": "oasis_interaction",
+        "reason": "High online interaction around rumors and reactive commentary.",
+        "source_actor_name": "rumor_social_accounts",
+        "target_actor_name": "oak_towers_general_residents",
+        "weight": 0.61
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "description": "Operational decision-maker inside the housing authority balancing repair urgency, resident impact, and external scrutiny.",
+        "hero_key": "institutional_manager",
+        "label": "Institutional manager"
+      },
+      {
+        "description": "Visible resident-side representative translating diffuse concern into organized demands.",
+        "hero_key": "resident_advocate",
+        "label": "Resident advocate"
+      },
+      {
+        "description": "Actor capable of converting accessibility grievances into formal review or legal pressure.",
+        "hero_key": "disability_rights_advocate",
+        "label": "Disability-rights advocate"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "harbor_homes_authority",
+        "attention_level": 0.88,
+        "capabilities": [
+          "schedule control",
+          "resident notices",
+          "temporary accommodation coordination",
+          "press response"
+        ],
+        "constraints": [
+          "budget limits",
+          "resident dependency",
+          "political oversight",
+          "accessibility obligations"
+        ],
+        "expression_level": 0.57,
+        "fatigue": 0.44,
+        "fear_of_isolation": 0.22,
+        "hero_key": "institutional_manager",
+        "mobilization_readiness": 0.51,
+        "objective": "Execute elevator repairs with manageable relocation fallout.",
+        "perceived_majority": 0.53,
+        "power": 0.8,
+        "role": "project_leadership",
+        "stance_axes": {
+          "accommodation_generosity": 0.39,
+          "relocation_willingness": 0.64,
+          "repair_urgency": 0.82,
+          "transparency": 0.46
+        }
+      },
+      {
+        "actor_name": "oak_towers_resident_association",
+        "attention_level": 0.8,
+        "capabilities": [
+          "public statement",
+          "meeting convening",
+          "resident signaling",
+          "media sourcing"
+        ],
+        "constraints": [
+          "limited formal authority",
+          "internal resident fragmentation",
+          "fear among dependent tenants"
+        ],
+        "expression_level": 0.66,
+        "fatigue": 0.58,
+        "fear_of_isolation": 0.31,
+        "hero_key": "resident_advocate",
+        "mobilization_readiness": 0.56,
+        "objective": "Secure resident protections, consultation, and credible relocation guarantees.",
+        "perceived_majority": 0.61,
+        "power": 0.46,
+        "role": "association_leadership",
+        "stance_axes": {
+          "accommodation_generosity": 0.81,
+          "relocation_willingness": 0.33,
+          "repair_urgency": 0.57,
+          "transparency": 0.79
+        }
+      },
+      {
+        "actor_name": "access_now_center",
+        "attention_level": 0.76,
+        "capabilities": [
+          "formal complaint",
+          "public framing",
+          "expert legitimacy",
+          "possible legal referral"
+        ],
+        "constraints": [
+          "case-specific evidence needs",
+          "limited operational control"
+        ],
+        "expression_level": 0.62,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.18,
+        "hero_key": "disability_rights_advocate",
+        "mobilization_readiness": 0.63,
+        "objective": "Ensure compliance with disability accommodation requirements before or during relocation.",
+        "perceived_majority": 0.47,
+        "power": 0.52,
+        "role": "complaint_escalator",
+        "stance_axes": {
+          "accommodation_generosity": 0.9,
+          "relocation_willingness": 0.21,
+          "repair_urgency": 0.49,
+          "transparency": 0.74
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "description": "Operational decision-maker inside the housing authority balancing repair urgency, resident impact, and external scrutiny.",
+        "hero_key": "institutional_manager",
+        "label": "Institutional manager"
+      },
+      {
+        "description": "Visible resident-side representative translating diffuse concern into organized demands.",
+        "hero_key": "resident_advocate",
+        "label": "Resident advocate"
+      },
+      {
+        "description": "Actor capable of converting accessibility grievances into formal review or legal pressure.",
+        "hero_key": "disability_rights_advocate",
+        "label": "Disability-rights advocate"
+      }
+    ],
+    "important_questions": [
+      "Will the authority establish a relocation plan that is operationally viable and viewed as minimally acceptable by affected residents?",
+      "Will elevator repairs begin and proceed on roughly the planned schedule rather than sliding into repeated delay?",
+      "Will resident dissatisfaction cross the threshold into organized protest or sustained public confrontation?",
+      "Will the disability-rights complaint or related oversight produce formal legal or administrative intervention that changes the plan?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "harbor_homes_authority"
+        ],
+        "event_key": "authority_announces_repair_plan",
+        "event_type": "announcement",
+        "evidence": "public-housing authority plans elevator repairs that require temporary relocation for some residents",
+        "expected_impact": "Raises attention, activates dependency concerns, and creates immediate demand for details on timing and support.",
+        "summary": "The housing authority announces elevator repairs requiring temporary relocation for some residents.",
+        "tick": 0,
+        "visibility": "public"
+      },
+      {
+        "actors": [
+          "oak_towers_resident_association"
+        ],
+        "event_key": "resident_association_issues_statement",
+        "event_type": "announcement",
+        "evidence": "include a resident association statement",
+        "expected_impact": "Increases coordination among cautious residents and legitimizes concern without yet forcing maximal conflict.",
+        "summary": "The resident association issues a statement calling for transparency, protections, and resident consultation.",
+        "tick": 0,
+        "visibility": "public"
+      },
+      {
+        "actors": [
+          "liftcore_contracting",
+          "harbor_homes_authority"
+        ],
+        "event_key": "contractor_schedule_circulates",
+        "event_type": "announcement",
+        "evidence": "contractor schedule",
+        "expected_impact": "Creates an operational anchor but also a focal point for delay fears if deadlines appear tight or opaque.",
+        "summary": "A contractor schedule exists and informs the expected repair sequence and relocation window.",
+        "tick": 0,
+        "visibility": "semi_public"
+      },
+      {
+        "actors": [
+          "access_now_center",
+          "harbor_homes_authority"
+        ],
+        "event_key": "disability_rights_complaint_emerges",
+        "event_type": "announcement",
+        "evidence": "disability-rights complaint",
+        "expected_impact": "Increases caution inside the authority, raises legitimacy stakes, and offers an escalation path short of street protest.",
+        "summary": "A disability-rights complaint raises formal concerns about accessibility, accommodation, and relocation practices.",
+        "tick": 0,
+        "visibility": "public_or_known_to_key_actors"
+      },
+      {
+        "actors": [
+          "mayor_elin_ward"
+        ],
+        "event_key": "mayor_comments_publicly",
+        "event_type": "announcement",
+        "evidence": "mayoral quote",
+        "expected_impact": "Adds political oversight pressure while leaving room for either support of the authority or distancing from it.",
+        "summary": "The mayor makes a public comment signaling awareness and concern about the relocation and repair process.",
+        "tick": 0,
+        "visibility": "public"
+      },
+      {
+        "actors": [
+          "rumor_social_accounts",
+          "oak_towers_general_residents"
+        ],
+        "event_key": "rumor_posts_gain_attention",
+        "event_type": "announcement",
+        "evidence": "rumor-filled social posts",
+        "expected_impact": "Can widen gaps between private uncertainty and public alarm, increasing conflict and lowering trust if uncorrected.",
+        "summary": "Rumor-heavy social posts circulate claims about hidden motives, timing, and resident treatment.",
+        "tick": 1,
+        "visibility": "public"
+      },
+      {
+        "actors": [
+          "harbor_homes_authority",
+          "oak_towers_resident_association"
+        ],
+        "event_key": "resident_info_session_or_notice_deadline",
+        "event_type": "announcement",
+        "evidence": "planning and statement context imply imminent clarification need",
+        "expected_impact": "May either stabilize expectations through detail or intensify backlash if details remain vague or inaccessible.",
+        "summary": "An expected near-term clarification point arrives through a meeting, notice, or logistics update.",
+        "tick": 2,
+        "visibility": "expected"
+      }
+    ],
+    "llm_call_id": "6bf4f816-6baa-4f5e-9270-0c5857af1d5d",
+    "merge_hypotheses": [
+      {
+        "affected_actors": [
+          "harbor_homes_authority",
+          "oak_towers_resident_association",
+          "oak_towers_general_residents",
+          "mayor_elin_ward"
+        ],
+        "mechanism": "Most actors can converge around the necessity of safe elevator repair if resident protection terms become concrete.",
+        "merge_key": "shared_safety_frame"
+      },
+      {
+        "affected_actors": [
+          "oak_towers_general_residents",
+          "harbor_homes_authority",
+          "liftcore_contracting"
+        ],
+        "mechanism": "Extended uncertainty may reduce appetite for maximal confrontation and push actors toward a monitored compromise.",
+        "merge_key": "fatigue_driven_pragmatism"
+      },
+      {
+        "affected_actors": [
+          "mayor_elin_ward",
+          "harbor_homes_authority",
+          "access_now_center",
+          "local_press_pool"
+        ],
+        "mechanism": "Fear of visible harm to disabled residents can align political, media, and institutional actors around corrective accommodations.",
+        "merge_key": "common_reputational_risk"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "oak_towers_residents",
+        "description": "Residents of the affected public-housing property, including households directly and indirectly affected by elevator repair disruption.",
+        "label": "Oak Towers residents",
+        "population_total": 420
+      },
+      {
+        "archetype_key": "city_observers",
+        "description": "Broader city residents who may see coverage, political messaging, or social posts without being directly affected.",
+        "label": "City observers",
+        "population_total": 25000
+      }
+    ],
+    "risk_flags": [
+      {
+        "description": "The scenario references statements, quotes, schedules, and posts without their exact language, limiting precision on messaging and commitments.",
+        "flag_key": "incomplete_document_content",
+        "severity": "medium"
+      },
+      {
+        "description": "Residents' material dependence on the authority may suppress public dissent and obscure private opposition at T0.",
+        "flag_key": "high_resident_dependency",
+        "severity": "high"
+      },
+      {
+        "description": "Mobility-impaired residents face elevated risk if relocation terms are inaccessible or medically disruptive.",
+        "flag_key": "accessibility_harm_potential",
+        "severity": "high"
+      },
+      {
+        "description": "Unverified social content may overstate threats or hidden motives, distorting observed sentiment and trust.",
+        "flag_key": "rumor_distortion",
+        "severity": "medium"
+      },
+      {
+        "description": "Exact internal decision-maker identities and legal oversight pathways are unspecified in the corpus.",
+        "flag_key": "authority_structure_uncertain",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "mode": "direct",
+      "scenario_key": "longform_003",
+      "setting_scale": "city_housing_complex",
+      "source_evidence": [
+        "fictional public-housing authority plans elevator repairs",
+        "temporary relocation for some residents",
+        "include a resident association statement",
+        "contractor schedule",
+        "disability-rights complaint",
+        "mayoral quote",
+        "rumor-filled social posts",
+        "Initialize public/private beliefs, dependency, fatigue, fear, trust, and branch hypotheses around relocation success, delay, protest, or legal intervention"
+      ],
+      "summary": "A fictional public-housing authority is preparing elevator repairs that will require temporary relocation for some residents. The initial state includes institutional planning, resident concern, a disability-rights complaint, a mayoral public statement, and rumor-heavy social posting. Key uncertainties center on whether relocation is implemented with sufficient support, delayed by operational or political pressure, escalates into protest, or triggers legal/administrative intervention.",
+      "time_horizon_ticks": 8,
+      "title": "public_housing_elevator_relocation",
+      "uncertainty_notes": [
+        "No named city or property is provided; all public actors are fictionalized.",
+        "The corpus implies documents and statements exist but does not provide their full contents.",
+        "Complaint status, contractor readiness, and exact resident counts are not fully specified at T0."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "description": "Residents are more likely to update beliefs from trusted intermediaries like the association or familiar neighbors than from distant official assurances alone.",
+        "level": "moderate",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "description": "Many residents remain inactive until visible signs of mistreatment, inaccessible relocation, or peer participation cross a threshold.",
+        "level": "moderate",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "description": "Dependency on the housing authority and fear of retaliation or futility suppress some public dissent despite private concern.",
+        "level": "high",
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "description": "Residents sort information through disability status, floor-level experience, and neighbor trust networks, producing uneven interpretations.",
+        "level": "moderate",
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "description": "Protest or complaint participation becomes more likely if concerns are echoed by the association, advocates, and peers simultaneously.",
+        "level": "moderate",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "description": "Resident identity and fairness norms can strengthen solidarity, while outside political framing may create us-versus-them narratives.",
+        "level": "moderate",
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "description": "Broader city attention is likely to fade quickly unless conflict, visible hardship, or legal escalation produces new hooks.",
+        "level": "moderate",
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context_key": "housing_dependency",
+        "description": "Residents rely materially on the authority for continued housing and relocation support, increasing compliance pressure and private caution."
+      },
+      {
+        "context_key": "accessibility_salience",
+        "description": "Elevator disruption creates heightened stakes for mobility-impaired residents and makes accommodation adequacy a central legitimacy test."
+      },
+      {
+        "context_key": "rumor_environment",
+        "description": "Unverified social posts can outpace official clarification and inflate perceived worst-case scenarios."
+      },
+      {
+        "context_key": "institutional_opacity_risk",
+        "description": "If schedule details and relocation criteria remain unclear, suspicion may rise faster than procedural assurances."
+      },
+      {
+        "context_key": "elite_signal_crosspressure",
+        "description": "Mayoral statements, association messaging, and advocacy complaints provide competing cues about whether the plan is responsible or dangerous."
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "harbor_homes_authority",
+        "behavior_axes": {
+          "bureaucratic_inertia": 0.67,
+          "caution": 0.56,
+          "conflict_avoidance": 0.59,
+          "responsiveness": 0.41
+        },
+        "ideology_axes": {
+          "cost_sensitivity": 0.71,
+          "proceduralism": 0.78,
+          "resident_centering": 0.43
+        },
+        "reputation": 0.42,
+        "secrecy": 0.52,
+        "tendency": "defensive_managerial",
+        "trustworthiness": 0.4
+      },
+      {
+        "actor_name": "oak_towers_resident_association",
+        "behavior_axes": {
+          "caution": 0.48,
+          "collective_action": 0.69,
+          "conflict_avoidance": 0.37,
+          "responsiveness": 0.73
+        },
+        "ideology_axes": {
+          "institutional_cooperation": 0.46,
+          "rights_framing": 0.63,
+          "tenant_protection": 0.84
+        },
+        "reputation": 0.61,
+        "secrecy": 0.21,
+        "tendency": "protective_advocacy",
+        "trustworthiness": 0.66
+      },
+      {
+        "actor_name": "liftcore_contracting",
+        "behavior_axes": {
+          "flexibility": 0.34,
+          "liability_avoidance": 0.72,
+          "public_engagement": 0.18,
+          "schedule_discipline": 0.79
+        },
+        "ideology_axes": {
+          "cost_control": 0.69,
+          "risk_minimization": 0.76,
+          "service_orientation": 0.44
+        },
+        "reputation": 0.5,
+        "secrecy": 0.46,
+        "tendency": "operations_first",
+        "trustworthiness": 0.49
+      },
+      {
+        "actor_name": "access_now_center",
+        "behavior_axes": {
+          "conflict_avoidance": 0.24,
+          "escalation_readiness": 0.64,
+          "evidence_orientation": 0.74,
+          "responsiveness": 0.68
+        },
+        "ideology_axes": {
+          "institutional_trust": 0.29,
+          "public_accountability": 0.81,
+          "rights_enforcement": 0.91
+        },
+        "reputation": 0.64,
+        "secrecy": 0.14,
+        "tendency": "rights_enforcement",
+        "trustworthiness": 0.71
+      },
+      {
+        "actor_name": "mayor_elin_ward",
+        "behavior_axes": {
+          "interventionism": 0.43,
+          "message_discipline": 0.72,
+          "responsiveness": 0.55,
+          "risk_avoidance": 0.66
+        },
+        "ideology_axes": {
+          "bureaucratic_deference": 0.51,
+          "equity_signaling": 0.62,
+          "public_order": 0.68
+        },
+        "reputation": 0.54,
+        "secrecy": 0.31,
+        "tendency": "political_balancer",
+        "trustworthiness": 0.51
+      },
+      {
+        "actor_name": "oak_towers_mobility_impaired_residents",
+        "behavior_axes": {
+          "collective_action": 0.42,
+          "dependency_salience": 0.9,
+          "expression_caution": 0.61,
+          "stress_reactivity": 0.78
+        },
+        "ideology_axes": {
+          "institutional_trust": 0.28,
+          "rights_protection": 0.79,
+          "service_reliability": 0.88
+        },
+        "reputation": 0.58,
+        "secrecy": 0.38,
+        "tendency": "high_stakes_caution",
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "oak_towers_general_residents",
+        "behavior_axes": {
+          "adaptability": 0.49,
+          "collective_action": 0.39,
+          "expression_variability": 0.62,
+          "rumor_susceptibility": 0.57
+        },
+        "ideology_axes": {
+          "fairness_concern": 0.71,
+          "housing_stability": 0.86,
+          "institutional_trust": 0.39
+        },
+        "reputation": 0.52,
+        "secrecy": 0.29,
+        "tendency": "mixed_reactive",
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "local_press_pool",
+        "behavior_axes": {
+          "agenda_setting": 0.63,
+          "attention_to_conflict": 0.68,
+          "speed_pressure": 0.61,
+          "verification": 0.59
+        },
+        "ideology_axes": {
+          "accountability": 0.72,
+          "neutrality_norm": 0.58,
+          "public_interest": 0.74
+        },
+        "reputation": 0.56,
+        "secrecy": 0.12,
+        "tendency": "scrutiny_amplifier",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "rumor_social_accounts",
+        "behavior_axes": {
+          "conflict_amplification": 0.76,
+          "identity_signaling": 0.71,
+          "verification": 0.18,
+          "virality_seeking": 0.82
+        },
+        "ideology_axes": {
+          "anti_authority": 0.62,
+          "certainty_projection": 0.69,
+          "public_accountability": 0.33
+        },
+        "reputation": 0.27,
+        "secrecy": 0.63,
+        "tendency": "rumor_amplification",
+        "trustworthiness": 0.23
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 555,
+        "end": 555,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 555,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

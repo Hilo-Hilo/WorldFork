@@ -1,0 +1,1618 @@
+{
+  "big_bang_id": "d44748ca-9c5e-450a-8cd4-19f8d19c1219",
+  "initializer_output": {
+    "actors": [
+      {
+        "fictionalized": true,
+        "name": "civicsquare",
+        "public_role": "social_platform_operator",
+        "type": "platform_company"
+      },
+      {
+        "fictionalized": true,
+        "name": "civicsquare_leadership",
+        "public_role": "executive_decision_makers",
+        "type": "leadership_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "trust_and_safety_team",
+        "public_role": "policy_and_enforcement",
+        "type": "internal_team"
+      },
+      {
+        "fictionalized": true,
+        "name": "group_moderators",
+        "public_role": "volunteer_or_semi_formal_group_admins",
+        "type": "platform_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "creator_coalition",
+        "public_role": "organized_platform_creators_and_organizers",
+        "type": "advocacy_coalition"
+      },
+      {
+        "fictionalized": true,
+        "name": "organizing_creators",
+        "public_role": "movement_and_community_organizers_using_groups",
+        "type": "creator_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "general_users",
+        "public_role": "ordinary_platform_participants",
+        "type": "user_population"
+      },
+      {
+        "fictionalized": true,
+        "name": "advertiser_council",
+        "public_role": "major_advertiser_buyers",
+        "type": "commercial_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "regulatory_office",
+        "public_role": "digital_platform_inquiry_authority",
+        "type": "government_body"
+      },
+      {
+        "fictionalized": true,
+        "name": "press_observers",
+        "public_role": "journalists_and_industry_watchers",
+        "type": "media_group"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "branch_key": "rollback_after_backlash",
+        "divergence_signal": "company schedules revision, pilot reversal, or reinstates specific functions",
+        "plausible_path": "leadership partially restores removed admin powers or pauses enforcement rollout",
+        "trigger": "visible creator and moderator coordination plus negative press and user dissatisfaction"
+      },
+      {
+        "branch_key": "transparency_concession_without_rollback",
+        "divergence_signal": "release of detailed documentation, dashboards, or stakeholder consultation commitments",
+        "plausible_path": "platform keeps core changes while publishing criteria, appeals, audits, or consultation process",
+        "trigger": "regulatory inquiry intensifies but safety rationale remains defensible"
+      },
+      {
+        "branch_key": "strict_moderation_entrenchment",
+        "divergence_signal": "additional policy tightening, stronger safety messaging, and muted advertiser concern",
+        "plausible_path": "leadership expands enforcement and narrows admin discretion further",
+        "trigger": "new harassment incidents validate internal safety claims and advertisers reward firmness"
+      },
+      {
+        "branch_key": "creator_led_user_exit",
+        "divergence_signal": "high-profile departures, cross-posting drives, or measurable group inactivity",
+        "plausible_path": "audience migration and lower engagement weaken platform legitimacy even without formal rollback",
+        "trigger": "coalition fails to win concessions and key creators publicly diversify away from CivicSquare"
+      },
+      {
+        "branch_key": "regulatory_settlement_path",
+        "divergence_signal": "formal commitments, compliance timetable, or public settlement language",
+        "plausible_path": "platform accepts reporting, notice, appeal, or consultation obligations under oversight",
+        "trigger": "inquiry finds process opacity or discriminatory implementation risk without demanding immediate structural breakup"
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "company_announcement",
+        "primary_actors": [
+          "civicsquare",
+          "civicsquare_leadership"
+        ],
+        "type": "official_platform_comms",
+        "visibility": "public"
+      },
+      {
+        "channel_key": "creator_letter",
+        "primary_actors": [
+          "creator_coalition",
+          "organizing_creators"
+        ],
+        "type": "open_letter_and_creator_posts",
+        "visibility": "public"
+      },
+      {
+        "channel_key": "advertiser_note",
+        "primary_actors": [
+          "advertiser_council",
+          "civicsquare_leadership"
+        ],
+        "type": "private_commercial_signal",
+        "visibility": "semi_private"
+      },
+      {
+        "channel_key": "moderator_chat",
+        "primary_actors": [
+          "group_moderators"
+        ],
+        "type": "private_operator_chat",
+        "visibility": "private"
+      },
+      {
+        "channel_key": "regulator_inquiry",
+        "primary_actors": [
+          "regulatory_office",
+          "civicsquare_leadership"
+        ],
+        "type": "formal_information_request",
+        "visibility": "semi_public"
+      },
+      {
+        "channel_key": "press_coverage",
+        "primary_actors": [
+          "press_observers"
+        ],
+        "type": "news_and_industry_reporting",
+        "visibility": "public"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype": "platform_users",
+        "attention_level": 0.46,
+        "cohort_key": "users_safety_first",
+        "expression_level": 0.22,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.24,
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "leans toward accepting stricter tools if harassment is reduced",
+        "public_expression": "limited unless prompted by visible abuse stories",
+        "representation_mode": "modeled_segment",
+        "represented_population": 420000,
+        "stance_axes": {
+          "free_expression_priority": 0.35,
+          "platform_trust": 0.48,
+          "regulation_support": 0.44,
+          "tool_change_support": 0.55
+        }
+      },
+      {
+        "archetype": "platform_users",
+        "attention_level": 0.51,
+        "cohort_key": "users_speech_concerned",
+        "expression_level": 0.37,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.49,
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.38,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "suspects policy change may suppress organizing or dissent",
+        "public_expression": "more likely to post complaints if creators coordinate criticism",
+        "representation_mode": "modeled_segment",
+        "represented_population": 300000,
+        "stance_axes": {
+          "free_expression_priority": 0.72,
+          "platform_trust": 0.31,
+          "regulation_support": 0.39,
+          "tool_change_support": 0.24
+        }
+      },
+      {
+        "archetype": "platform_users",
+        "attention_level": 0.19,
+        "cohort_key": "users_ambivalent_low_attention",
+        "expression_level": 0.08,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.26,
+        "mobilization_readiness": 0.09,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "mostly uncertain and responsive to elite cues",
+        "public_expression": "minimal unless direct group experience changes",
+        "representation_mode": "modeled_segment",
+        "represented_population": 480000,
+        "stance_axes": {
+          "free_expression_priority": 0.46,
+          "platform_trust": 0.42,
+          "regulation_support": 0.28,
+          "tool_change_support": 0.43
+        }
+      },
+      {
+        "archetype": "group_governance_workers",
+        "attention_level": 0.74,
+        "cohort_key": "moderators_support_change",
+        "expression_level": 0.29,
+        "fatigue": 0.63,
+        "fear_of_isolation": 0.36,
+        "mobilization_readiness": 0.26,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "harassment burden is real and some restrictions are useful",
+        "public_expression": "guarded due to dependence on platform access",
+        "representation_mode": "modeled_segment",
+        "represented_population": 7200,
+        "stance_axes": {
+          "free_expression_priority": 0.32,
+          "platform_trust": 0.45,
+          "regulation_support": 0.34,
+          "tool_change_support": 0.64
+        }
+      },
+      {
+        "archetype": "group_governance_workers",
+        "attention_level": 0.81,
+        "cohort_key": "moderators_process_concerned",
+        "expression_level": 0.42,
+        "fatigue": 0.68,
+        "fear_of_isolation": 0.43,
+        "mobilization_readiness": 0.49,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "worries reduced admin discretion will make moderation harder and less legitimate",
+        "public_expression": "shares concerns in chats and may align with creators if ignored",
+        "representation_mode": "modeled_segment",
+        "represented_population": 10800,
+        "stance_axes": {
+          "free_expression_priority": 0.58,
+          "platform_trust": 0.29,
+          "regulation_support": 0.47,
+          "tool_change_support": 0.33
+        }
+      },
+      {
+        "archetype": "creator_economy_accounts",
+        "attention_level": 0.77,
+        "cohort_key": "creators_dependent_pragmatists",
+        "expression_level": 0.46,
+        "fatigue": 0.54,
+        "fear_of_isolation": 0.52,
+        "mobilization_readiness": 0.43,
+        "perceived_majority": 0.45,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "opposes loss of organizing functionality but fears retaliation or reach loss",
+        "public_expression": "prefers coalition letters over unilateral defiance",
+        "representation_mode": "modeled_segment",
+        "represented_population": 15000,
+        "stance_axes": {
+          "free_expression_priority": 0.61,
+          "platform_trust": 0.34,
+          "regulation_support": 0.41,
+          "tool_change_support": 0.36
+        }
+      },
+      {
+        "archetype": "creator_economy_accounts",
+        "attention_level": 0.86,
+        "cohort_key": "creators_confrontational",
+        "expression_level": 0.71,
+        "fatigue": 0.49,
+        "fear_of_isolation": 0.33,
+        "mobilization_readiness": 0.68,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "sees change as governance overreach and organizing suppression risk",
+        "public_expression": "willing to sign open letters and threaten exit",
+        "representation_mode": "modeled_segment",
+        "represented_population": 10000,
+        "stance_axes": {
+          "free_expression_priority": 0.78,
+          "platform_trust": 0.22,
+          "regulation_support": 0.55,
+          "tool_change_support": 0.17
+        }
+      },
+      {
+        "archetype": "commercial_stakeholders",
+        "attention_level": 0.62,
+        "cohort_key": "brand_safety_advertisers",
+        "expression_level": 0.31,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.53,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "prefers fewer harassment controversies but wants stable policy execution",
+        "public_expression": "signals caution privately through account teams",
+        "representation_mode": "modeled_segment",
+        "represented_population": 220,
+        "stance_axes": {
+          "free_expression_priority": 0.18,
+          "platform_trust": 0.4,
+          "regulation_support": 0.37,
+          "tool_change_support": 0.58
+        }
+      },
+      {
+        "archetype": "institutional_observers",
+        "attention_level": 0.69,
+        "cohort_key": "institutional_watchers",
+        "expression_level": 0.38,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.3,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "sees a governance and transparency issue more than a single policy dispute",
+        "public_expression": "frames issue around accountability and due process",
+        "representation_mode": "modeled_segment",
+        "represented_population": 600,
+        "stance_axes": {
+          "free_expression_priority": 0.47,
+          "platform_trust": 0.33,
+          "regulation_support": 0.72,
+          "tool_change_support": 0.41
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype": "platform_users",
+        "attention_level": 0.46,
+        "cohort_key": "users_safety_first",
+        "expression_level": 0.22,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.24,
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "leans toward accepting stricter tools if harassment is reduced",
+        "public_expression": "limited unless prompted by visible abuse stories",
+        "representation_mode": "modeled_segment",
+        "represented_population": 420000,
+        "stance_axes": {
+          "free_expression_priority": 0.35,
+          "platform_trust": 0.48,
+          "regulation_support": 0.44,
+          "tool_change_support": 0.55
+        }
+      },
+      {
+        "archetype": "platform_users",
+        "attention_level": 0.51,
+        "cohort_key": "users_speech_concerned",
+        "expression_level": 0.37,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.49,
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.38,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "suspects policy change may suppress organizing or dissent",
+        "public_expression": "more likely to post complaints if creators coordinate criticism",
+        "representation_mode": "modeled_segment",
+        "represented_population": 300000,
+        "stance_axes": {
+          "free_expression_priority": 0.72,
+          "platform_trust": 0.31,
+          "regulation_support": 0.39,
+          "tool_change_support": 0.24
+        }
+      },
+      {
+        "archetype": "platform_users",
+        "attention_level": 0.19,
+        "cohort_key": "users_ambivalent_low_attention",
+        "expression_level": 0.08,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.26,
+        "mobilization_readiness": 0.09,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "mostly uncertain and responsive to elite cues",
+        "public_expression": "minimal unless direct group experience changes",
+        "representation_mode": "modeled_segment",
+        "represented_population": 480000,
+        "stance_axes": {
+          "free_expression_priority": 0.46,
+          "platform_trust": 0.42,
+          "regulation_support": 0.28,
+          "tool_change_support": 0.43
+        }
+      },
+      {
+        "archetype": "group_governance_workers",
+        "attention_level": 0.74,
+        "cohort_key": "moderators_support_change",
+        "expression_level": 0.29,
+        "fatigue": 0.63,
+        "fear_of_isolation": 0.36,
+        "mobilization_readiness": 0.26,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "harassment burden is real and some restrictions are useful",
+        "public_expression": "guarded due to dependence on platform access",
+        "representation_mode": "modeled_segment",
+        "represented_population": 7200,
+        "stance_axes": {
+          "free_expression_priority": 0.32,
+          "platform_trust": 0.45,
+          "regulation_support": 0.34,
+          "tool_change_support": 0.64
+        }
+      },
+      {
+        "archetype": "group_governance_workers",
+        "attention_level": 0.81,
+        "cohort_key": "moderators_process_concerned",
+        "expression_level": 0.42,
+        "fatigue": 0.68,
+        "fear_of_isolation": 0.43,
+        "mobilization_readiness": 0.49,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "worries reduced admin discretion will make moderation harder and less legitimate",
+        "public_expression": "shares concerns in chats and may align with creators if ignored",
+        "representation_mode": "modeled_segment",
+        "represented_population": 10800,
+        "stance_axes": {
+          "free_expression_priority": 0.58,
+          "platform_trust": 0.29,
+          "regulation_support": 0.47,
+          "tool_change_support": 0.33
+        }
+      },
+      {
+        "archetype": "creator_economy_accounts",
+        "attention_level": 0.77,
+        "cohort_key": "creators_dependent_pragmatists",
+        "expression_level": 0.46,
+        "fatigue": 0.54,
+        "fear_of_isolation": 0.52,
+        "mobilization_readiness": 0.43,
+        "perceived_majority": 0.45,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "opposes loss of organizing functionality but fears retaliation or reach loss",
+        "public_expression": "prefers coalition letters over unilateral defiance",
+        "representation_mode": "modeled_segment",
+        "represented_population": 15000,
+        "stance_axes": {
+          "free_expression_priority": 0.61,
+          "platform_trust": 0.34,
+          "regulation_support": 0.41,
+          "tool_change_support": 0.36
+        }
+      },
+      {
+        "archetype": "creator_economy_accounts",
+        "attention_level": 0.86,
+        "cohort_key": "creators_confrontational",
+        "expression_level": 0.71,
+        "fatigue": 0.49,
+        "fear_of_isolation": 0.33,
+        "mobilization_readiness": 0.68,
+        "perceived_majority": 0.41,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "sees change as governance overreach and organizing suppression risk",
+        "public_expression": "willing to sign open letters and threaten exit",
+        "representation_mode": "modeled_segment",
+        "represented_population": 10000,
+        "stance_axes": {
+          "free_expression_priority": 0.78,
+          "platform_trust": 0.22,
+          "regulation_support": 0.55,
+          "tool_change_support": 0.17
+        }
+      },
+      {
+        "archetype": "commercial_stakeholders",
+        "attention_level": 0.62,
+        "cohort_key": "brand_safety_advertisers",
+        "expression_level": 0.31,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.53,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "prefers fewer harassment controversies but wants stable policy execution",
+        "public_expression": "signals caution privately through account teams",
+        "representation_mode": "modeled_segment",
+        "represented_population": 220,
+        "stance_axes": {
+          "free_expression_priority": 0.18,
+          "platform_trust": 0.4,
+          "regulation_support": 0.37,
+          "tool_change_support": 0.58
+        }
+      },
+      {
+        "archetype": "institutional_observers",
+        "attention_level": 0.69,
+        "cohort_key": "institutional_watchers",
+        "expression_level": 0.38,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.12,
+        "mobilization_readiness": 0.3,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "sees a governance and transparency issue more than a single policy dispute",
+        "public_expression": "frames issue around accountability and due process",
+        "representation_mode": "modeled_segment",
+        "represented_population": 600,
+        "stance_axes": {
+          "free_expression_priority": 0.47,
+          "platform_trust": 0.33,
+          "regulation_support": 0.72,
+          "tool_change_support": 0.41
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "civicsquare_leadership",
+          "civicsquare"
+        ],
+        "blockers": [
+          "leadership aversion to appearing weak",
+          "trust_and_safety_team belief that safety risk remains high",
+          "advertiser preference for stronger controls"
+        ],
+        "contradiction_notes": "a transparency report alone does not realize this endpoint; neither does minor wording change without feature restoration",
+        "description": "CivicSquare materially reverses, pauses, or restores key contested admin-tool functionality.",
+        "endpoint_key": "rollback_admin_tool_changes",
+        "evidence_refs": [
+          "company_announcement",
+          "creator_letter",
+          "moderator_chat",
+          "press_coverage"
+        ],
+        "label": "rollback_or_pause",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will CivicSquare materially rollback or suspend the contested group-admin tool changes rather than merely reframe them?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.23,
+        "rationale": "creator conflict and moderator process concerns create pressure, but leadership retains strong product authority and safety justification",
+        "realization_criteria": [
+          "official platform notice states rollback, pause, or restoration of one or more core contested admin features",
+          "affected creators or moderators confirm functional restoration is live or scheduled",
+          "change is framed as substantive product reversal rather than explanatory FAQ only"
+        ],
+        "status": "active",
+        "status_basis": "rollback is explicitly named as an endpoint option and remains plausible but not dominant at T0"
+      },
+      {
+        "authority_refs": [
+          "civicsquare_leadership",
+          "trust_and_safety_team"
+        ],
+        "blockers": [
+          "internal secrecy norms",
+          "fear that transparency invites gaming or liability",
+          "coalition demands may exceed process-only concession"
+        ],
+        "contradiction_notes": "full rollback would supersede this as the primary endpoint unless process package is the only substantive outcome",
+        "description": "CivicSquare preserves most core changes but introduces documentation, appeal, audit, or consultation mechanisms.",
+        "endpoint_key": "transparency_concessions",
+        "evidence_refs": [
+          "company_announcement",
+          "regulator_inquiry",
+          "press_coverage"
+        ],
+        "label": "transparency_and_process_package",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will CivicSquare adopt observable transparency or appeal measures while keeping most of the tool change in place?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.34,
+        "rationale": "regulatory and media pressure target legitimacy and due process, making transparency a comparatively low-cost concession",
+        "realization_criteria": [
+          "platform publishes detailed criteria or rationale for tool restrictions",
+          "a formal appeal, notice, audit, or stakeholder consultation process is announced",
+          "core feature rollback is absent or limited while process concessions are observable"
+        ],
+        "status": "active",
+        "status_basis": "this is a natural midpoint between defending policy and addressing legitimacy concerns under inquiry"
+      },
+      {
+        "authority_refs": [
+          "civicsquare_leadership",
+          "trust_and_safety_team"
+        ],
+        "blockers": [
+          "creator coalition escalation",
+          "visible user engagement decline",
+          "regulatory concern about procedural fairness"
+        ],
+        "contradiction_notes": "mere refusal to rollback does not alone realize this endpoint unless stricter controls or durable defense of current restrictions becomes clear",
+        "description": "CivicSquare doubles down, expands restrictions, or further centralizes safety control over groups.",
+        "endpoint_key": "stricter_moderation_entrenched",
+        "evidence_refs": [
+          "company_announcement",
+          "advertiser_note",
+          "press_coverage"
+        ],
+        "label": "stricter_moderation_entrenchment",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the platform respond to pressure by making moderation stricter instead of softer?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.19,
+        "rationale": "leadership may view firmness as necessary if harassment evidence is persuasive and commercial downside stays limited",
+        "realization_criteria": [
+          "platform announces additional admin-tool limits or stronger enforcement linked to harassment prevention",
+          "leadership communications reject rollback demands and justify expanded controls",
+          "advertiser and internal safety signals remain supportive or neutral despite backlash"
+        ],
+        "status": "active",
+        "status_basis": "safety-driven change already happened, so entrenchment is credible if backlash does not create intolerable costs"
+      },
+      {
+        "authority_refs": [
+          "creator_coalition",
+          "organizing_creators",
+          "general_users"
+        ],
+        "blockers": [
+          "high switching costs from audience dependence",
+          "network effects retaining users",
+          "partial concessions that preserve enough utility"
+        ],
+        "contradiction_notes": "symbolic departure threats without measurable behavior change do not realize this endpoint",
+        "description": "Creators or users significantly reduce participation, shift organizing elsewhere, or weaken CivicSquare group activity.",
+        "endpoint_key": "material_creator_user_exit",
+        "evidence_refs": [
+          "creator_letter",
+          "press_coverage",
+          "company_announcement"
+        ],
+        "label": "material_exit_or_disengagement",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will enough creators or users reduce participation or leave to make exit a material outcome?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.11,
+        "rationale": "platform dependence is substantial, so exit requires repeated coordination and visible leadership by influential creators",
+        "realization_criteria": [
+          "multiple prominent creators publicly announce departure or major activity reduction",
+          "evidence of declining group activity, migration drives, or sustained cross-platform substitution emerges",
+          "platform or press acknowledges exit as materially affecting engagement, legitimacy, or revenue"
+        ],
+        "status": "active",
+        "status_basis": "user exit is explicitly listed as an endpoint option, but dependency edges suggest high friction at T0"
+      },
+      {
+        "authority_refs": [
+          "regulatory_office",
+          "civicsquare_leadership"
+        ],
+        "blockers": [
+          "limited regulator jurisdiction",
+          "insufficient evidence of procedural or substantive violation",
+          "platform willingness to preempt with voluntary concessions"
+        ],
+        "contradiction_notes": "an information request or hearing alone is not realization; neither is voluntary transparency absent official agreement",
+        "description": "The inquiry culminates in a formal compliance arrangement, settlement, or binding remedial commitments.",
+        "endpoint_key": "regulatory_settlement",
+        "evidence_refs": [
+          "regulator_inquiry",
+          "company_announcement",
+          "press_coverage"
+        ],
+        "label": "formal_regulatory_settlement",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the regulator inquiry mature into a formal settlement or binding compliance arrangement?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.13,
+        "rationale": "oversight pressure can become decisive if opacity persists, but T0 evidence only establishes inquiry, not violation",
+        "realization_criteria": [
+          "regulatory office announces settlement, consent terms, or binding compliance commitments",
+          "CivicSquare accepts reporting, appeals, notice, or governance obligations under official oversight",
+          "the matter moves beyond informal inquiry into documented enforceable resolution"
+        ],
+        "status": "active",
+        "status_basis": "regulatory settlement is plausible but depends on escalation from inquiry to enforceable process"
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "company announcement is part of dossier",
+        "layer": "exposure",
+        "reason": "official announcements reach the user base through platform channels",
+        "source_actor_name": "civicsquare",
+        "target_actor_name": "general_users",
+        "weight": 0.65
+      },
+      {
+        "direction": "outbound",
+        "evidence": "creator coalition letter is part of dossier",
+        "layer": "exposure",
+        "reason": "open letter and creator posts can reach engaged users",
+        "source_actor_name": "creator_coalition",
+        "target_actor_name": "general_users",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "scenario implies public controversy over tool change",
+        "layer": "exposure",
+        "reason": "coverage can broaden awareness beyond directly affected groups",
+        "source_actor_name": "press_observers",
+        "target_actor_name": "general_users",
+        "weight": 0.38
+      },
+      {
+        "direction": "outbound",
+        "evidence": "advertiser note is part of dossier",
+        "layer": "exposure",
+        "reason": "advertiser note reaches executives through account and revenue channels",
+        "source_actor_name": "advertiser_council",
+        "target_actor_name": "civicsquare_leadership",
+        "weight": 0.34
+      },
+      {
+        "direction": "outbound",
+        "evidence": "regulator inquiry is part of dossier",
+        "layer": "exposure",
+        "reason": "formal inquiry creates direct institutional notice",
+        "source_actor_name": "regulatory_office",
+        "target_actor_name": "civicsquare_leadership",
+        "weight": 0.41
+      },
+      {
+        "direction": "outbound",
+        "evidence": "moderator chat excerpt is part of dossier",
+        "layer": "exposure",
+        "reason": "moderator chat concerns may circulate into coalition messaging",
+        "source_actor_name": "group_moderators",
+        "target_actor_name": "creator_coalition",
+        "weight": 0.32
+      },
+      {
+        "direction": "inbound",
+        "evidence": "stakeholders disagree on whether change improves safety",
+        "layer": "trust",
+        "reason": "baseline user trust is mixed and unsettled",
+        "source_actor_name": "general_users",
+        "target_actor_name": "civicsquare",
+        "weight": 0.42
+      },
+      {
+        "direction": "inbound",
+        "evidence": "moderator chat excerpt indicates concern",
+        "layer": "trust",
+        "reason": "moderators face operational dependence but doubt process quality",
+        "source_actor_name": "group_moderators",
+        "target_actor_name": "civicsquare",
+        "weight": 0.34
+      },
+      {
+        "direction": "inbound",
+        "evidence": "creator coalition letter opposes change",
+        "layer": "trust",
+        "reason": "coalition publicly contests legitimacy of the change",
+        "source_actor_name": "creator_coalition",
+        "target_actor_name": "civicsquare",
+        "weight": 0.23
+      },
+      {
+        "direction": "inbound",
+        "evidence": "advertiser note suggests caution, not exit",
+        "layer": "trust",
+        "reason": "advertisers still transact but want reassurance on safety and stability",
+        "source_actor_name": "advertiser_council",
+        "target_actor_name": "civicsquare",
+        "weight": 0.44
+      },
+      {
+        "direction": "inbound",
+        "evidence": "regulator inquiry present at T0",
+        "layer": "trust",
+        "reason": "inquiry indicates concern about governance and evidence basis",
+        "source_actor_name": "regulatory_office",
+        "target_actor_name": "civicsquare",
+        "weight": 0.29
+      },
+      {
+        "direction": "inbound",
+        "evidence": "organizing and creator use of platform is central to dispute",
+        "layer": "dependency",
+        "reason": "creators rely on platform audience, groups, and distribution",
+        "source_actor_name": "creator_coalition",
+        "target_actor_name": "civicsquare",
+        "weight": 0.71
+      },
+      {
+        "direction": "inbound",
+        "evidence": "admin tool change directly affects moderator function",
+        "layer": "dependency",
+        "reason": "moderators need admin tools and platform permissions to govern groups",
+        "source_actor_name": "group_moderators",
+        "target_actor_name": "civicsquare",
+        "weight": 0.76
+      },
+      {
+        "direction": "outbound",
+        "evidence": "advertiser note is a meaningful pressure channel",
+        "layer": "dependency",
+        "reason": "revenue stability depends on advertiser spending",
+        "source_actor_name": "civicsquare",
+        "target_actor_name": "advertiser_council",
+        "weight": 0.58
+      },
+      {
+        "direction": "inbound",
+        "evidence": "user exit is an endpoint option, implying nonzero substitutability",
+        "layer": "dependency",
+        "reason": "users use platform social graph and groups but may have alternatives",
+        "source_actor_name": "general_users",
+        "target_actor_name": "civicsquare",
+        "weight": 0.49
+      },
+      {
+        "direction": "outbound",
+        "evidence": "changes follow harassment complaints",
+        "layer": "dependency",
+        "reason": "leadership relies on safety rationale and enforcement capacity to defend change",
+        "source_actor_name": "civicsquare",
+        "target_actor_name": "trust_and_safety_team",
+        "weight": 0.52
+      },
+      {
+        "direction": "outbound",
+        "evidence": "leadership is endpoint decision authority",
+        "layer": "influence",
+        "reason": "executives hold direct policy and product authority",
+        "source_actor_name": "civicsquare_leadership",
+        "target_actor_name": "civicsquare",
+        "weight": 0.81
+      },
+      {
+        "direction": "outbound",
+        "evidence": "tool changes follow harassment complaints",
+        "layer": "influence",
+        "reason": "internal safety expertise shapes justification and options",
+        "source_actor_name": "trust_and_safety_team",
+        "target_actor_name": "civicsquare_leadership",
+        "weight": 0.52
+      },
+      {
+        "direction": "outbound",
+        "evidence": "public letter is expected dossier item",
+        "layer": "influence",
+        "reason": "coalition can frame policy as suppression of organizing",
+        "source_actor_name": "creator_coalition",
+        "target_actor_name": "general_users",
+        "weight": 0.43
+      },
+      {
+        "direction": "outbound",
+        "evidence": "advertiser note included among key stakeholder materials",
+        "layer": "influence",
+        "reason": "revenue-sensitive pressure can alter platform posture",
+        "source_actor_name": "advertiser_council",
+        "target_actor_name": "civicsquare_leadership",
+        "weight": 0.57
+      },
+      {
+        "direction": "outbound",
+        "evidence": "regulator inquiry at T0",
+        "layer": "influence",
+        "reason": "inquiry can increase compliance and disclosure costs",
+        "source_actor_name": "regulatory_office",
+        "target_actor_name": "civicsquare_leadership",
+        "weight": 0.55
+      },
+      {
+        "direction": "outbound",
+        "evidence": "public disagreement likely newsworthy",
+        "layer": "influence",
+        "reason": "coverage can define controversy salience and legitimacy cues",
+        "source_actor_name": "press_observers",
+        "target_actor_name": "general_users",
+        "weight": 0.36
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "creator coalition letter exists",
+        "layer": "coalition",
+        "reason": "coalition formally aggregates creator concerns",
+        "source_actor_name": "creator_coalition",
+        "target_actor_name": "organizing_creators",
+        "weight": 0.74
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "both are directly affected by group governance change",
+        "layer": "coalition",
+        "reason": "shared concern over admin tool limits can align them",
+        "source_actor_name": "organizing_creators",
+        "target_actor_name": "group_moderators",
+        "weight": 0.44
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "company announcement follows harassment complaints",
+        "layer": "coalition",
+        "reason": "internal alignment around safety framing is probable at rollout",
+        "source_actor_name": "civicsquare_leadership",
+        "target_actor_name": "trust_and_safety_team",
+        "weight": 0.63
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "advertisers want brand safety and stability",
+        "layer": "coalition",
+        "reason": "both prefer lower controversy though for different reasons",
+        "source_actor_name": "advertiser_council",
+        "target_actor_name": "civicsquare_leadership",
+        "weight": 0.31
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "creator coalition letter opposes company move",
+        "layer": "conflict",
+        "reason": "public dispute over whether changes suppress organizing",
+        "source_actor_name": "creator_coalition",
+        "target_actor_name": "civicsquare_leadership",
+        "weight": 0.62
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "moderator chat excerpt signals disagreement",
+        "layer": "conflict",
+        "reason": "process and operational concerns create friction but not open rupture",
+        "source_actor_name": "group_moderators",
+        "target_actor_name": "civicsquare_leadership",
+        "weight": 0.41
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "regulator inquiry present",
+        "layer": "conflict",
+        "reason": "inquiry introduces formal accountability pressure",
+        "source_actor_name": "regulatory_office",
+        "target_actor_name": "civicsquare",
+        "weight": 0.37
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "stakeholder disagreement on safety vs suppression",
+        "layer": "conflict",
+        "reason": "advertiser brand safety logic may support restrictive policy creators oppose",
+        "source_actor_name": "creator_coalition",
+        "target_actor_name": "advertiser_council",
+        "weight": 0.22
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "announcement and letter create active channel interaction",
+        "layer": "oasis_interaction",
+        "reason": "public statements, replies, and community responses likely continue",
+        "source_actor_name": "civicsquare",
+        "target_actor_name": "creator_coalition",
+        "weight": 0.48
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "open-letter style contention invites coverage",
+        "layer": "oasis_interaction",
+        "reason": "coalition messaging is likely to seek media pickup",
+        "source_actor_name": "creator_coalition",
+        "target_actor_name": "press_observers",
+        "weight": 0.53
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "chat excerpt included in dossier",
+        "layer": "oasis_interaction",
+        "reason": "private moderator concerns may surface in adjacent public debate",
+        "source_actor_name": "group_moderators",
+        "target_actor_name": "creator_coalition",
+        "weight": 0.34
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "regulator involvement increases news interaction potential",
+        "layer": "oasis_interaction",
+        "reason": "inquiries can leak or be reported as oversight signals",
+        "source_actor_name": "regulatory_office",
+        "target_actor_name": "press_observers",
+        "weight": 0.27
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype": "platform_executive_decider",
+        "description": "central authority able to sustain, revise, or rollback tool changes"
+      },
+      {
+        "archetype": "coalition_spokesperson",
+        "description": "public-facing organizer coordinating creator demands"
+      },
+      {
+        "archetype": "regulatory_case_lead",
+        "description": "official who can escalate inquiry into settlement pressure"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "civicsquare_leadership",
+        "archetype": "platform_executive_decider",
+        "attention_level": 0.88,
+        "constraints": [
+          "advertiser confidence",
+          "regulatory scrutiny",
+          "internal safety rationale",
+          "creator backlash risk"
+        ],
+        "decision_power": 0.87,
+        "expression_level": 0.57,
+        "fatigue": 0.44,
+        "fear_of_isolation": 0.14,
+        "hero_key": "exec_policy_chief",
+        "mobilization_readiness": 0.61,
+        "perceived_majority": 0.52,
+        "private_risk_view": "open to concessions if backlash threatens growth or inquiry expands",
+        "public_position": "frames changes as safety-driven and necessary",
+        "stance_axes": {
+          "rollback_openness": 0.21,
+          "strict_moderation_support": 0.66,
+          "tool_change_support": 0.73,
+          "transparency_support": 0.42
+        }
+      },
+      {
+        "actor_name": "creator_coalition",
+        "archetype": "coalition_spokesperson",
+        "attention_level": 0.92,
+        "constraints": [
+          "coalition unity",
+          "member dependence on platform reach",
+          "limited direct leverage over product roadmap"
+        ],
+        "decision_power": 0.51,
+        "expression_level": 0.79,
+        "fatigue": 0.39,
+        "fear_of_isolation": 0.27,
+        "hero_key": "creator_spokesperson",
+        "mobilization_readiness": 0.76,
+        "perceived_majority": 0.46,
+        "private_risk_view": "needs visible win to prevent member exit or demoralization",
+        "public_position": "argues changes suppress organizing and were imposed without adequate consultation",
+        "stance_axes": {
+          "rollback_openness": 0.91,
+          "strict_moderation_support": 0.29,
+          "tool_change_support": 0.12,
+          "transparency_support": 0.84
+        }
+      },
+      {
+        "actor_name": "regulatory_office",
+        "archetype": "regulatory_case_lead",
+        "attention_level": 0.67,
+        "constraints": [
+          "jurisdictional scope",
+          "evidentiary threshold",
+          "political bandwidth"
+        ],
+        "decision_power": 0.64,
+        "expression_level": 0.34,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.08,
+        "hero_key": "regulatory_case_lead",
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.5,
+        "private_risk_view": "may escalate if opacity or discrimination evidence grows",
+        "public_position": "requests information and justification rather than declaring a violation",
+        "stance_axes": {
+          "rollback_openness": 0.33,
+          "strict_moderation_support": 0.44,
+          "tool_change_support": 0.39,
+          "transparency_support": 0.78
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "archetype": "platform_executive_decider",
+        "description": "central authority able to sustain, revise, or rollback tool changes"
+      },
+      {
+        "archetype": "coalition_spokesperson",
+        "description": "public-facing organizer coordinating creator demands"
+      },
+      {
+        "archetype": "regulatory_case_lead",
+        "description": "official who can escalate inquiry into settlement pressure"
+      }
+    ],
+    "important_questions": [
+      "Will CivicSquare materially rollback or suspend the contested group-admin tool changes rather than merely reframe them?",
+      "Will CivicSquare adopt observable transparency or appeal measures while keeping most of the tool change in place?",
+      "Will the platform respond to pressure by making moderation stricter instead of softer?",
+      "Will enough creators or users reduce participation or leave to make exit a material outcome?",
+      "Will the regulator inquiry mature into a formal settlement or binding compliance arrangement?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "civicsquare",
+          "civicsquare_leadership"
+        ],
+        "event_key": "tool_change_announced",
+        "event_type": "announcement",
+        "expected_impact": "raises exposure, gives safety frame institutional legitimacy, and activates moderator and creator scrutiny",
+        "summary": "CivicSquare announces changes to group-admin tools following harassment complaints.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "creator_coalition",
+          "organizing_creators"
+        ],
+        "event_key": "creator_coalition_letter_released",
+        "event_type": "announcement",
+        "expected_impact": "increases conflict with platform leadership and raises mobilization among speech-concerned users and creators",
+        "summary": "Creator coalition publishes a letter arguing the tool change suppresses organizing and lacks consultation.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "advertiser_council",
+          "civicsquare_leadership"
+        ],
+        "event_key": "advertiser_caution_signal",
+        "event_type": "announcement",
+        "expected_impact": "quietly increases leadership sensitivity to both safety narrative and reputational volatility",
+        "summary": "Advertisers communicate concern about controversy and seek assurance that brand safety and stability will improve.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "group_moderators"
+        ],
+        "event_key": "moderator_chat_concerns_surface",
+        "event_type": "announcement",
+        "expected_impact": "lowers trust in leadership among moderators and creates evidence for critics if leaked",
+        "summary": "Moderator discussions indicate mixed support, workload concern, and procedural frustration.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "regulatory_office",
+          "civicsquare_leadership"
+        ],
+        "event_key": "regulator_requests_information",
+        "event_type": "announcement",
+        "expected_impact": "raises transparency pressure and may slow decisive platform response while records are prepared",
+        "summary": "A regulatory office seeks explanation, documentation, and rationale for the governance change.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "press_observers",
+          "creator_coalition",
+          "civicsquare"
+        ],
+        "event_key": "followup_press_cycle",
+        "event_type": "announcement",
+        "expected_impact": "shifts low-attention users toward whichever frame gains clearer evidence or endorsements",
+        "summary": "Media and industry coverage compare safety claims with suppression allegations.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "f6e2ec24-f18f-48b8-a388-5be9f2274bd9",
+    "merge_hypotheses": [
+      {
+        "convergence_driver": "platform, advertisers, and many creators all benefit from predictable governance and reduced controversy",
+        "likely_effect": "supports compromise around transparency and limited tool adjustments rather than maximal confrontation",
+        "merge_key": "shared_interest_in_stability"
+      },
+      {
+        "convergence_driver": "both critics and platform may recognize unmanaged harassment burden is operationally costly",
+        "likely_effect": "enables targeted safety measures with clearer admin input mechanisms",
+        "merge_key": "moderator_overload_reality"
+      },
+      {
+        "convergence_driver": "general user interest may decay if no new scandal or dramatic exit occurs",
+        "likely_effect": "pressures organized actors toward negotiated settlement rather than prolonged public war",
+        "merge_key": "attention_fatigue"
+      },
+      {
+        "convergence_driver": "formal inquiry can force evidence production and reduce narrative ambiguity",
+        "likely_effect": "narrows dispute toward observable compliance or concession terms",
+        "merge_key": "regulatory_process_discipline"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype": "platform_users",
+        "description": "active CivicSquare user base exposed to group governance changes",
+        "population_total": 1200000
+      },
+      {
+        "archetype": "group_governance_workers",
+        "description": "group admins and moderators who rely on platform tools",
+        "population_total": 18000
+      },
+      {
+        "archetype": "creator_economy_accounts",
+        "description": "creators and organizers with audience dependence on platform reach",
+        "population_total": 25000
+      },
+      {
+        "archetype": "commercial_stakeholders",
+        "description": "brands and agencies purchasing ads or sponsorships",
+        "population_total": 220
+      },
+      {
+        "archetype": "institutional_observers",
+        "description": "regulators, journalists, and policy observers tracking platform governance",
+        "population_total": 600
+      }
+    ],
+    "risk_flags": [
+      {
+        "description": "Source corpus is brief and provides dossier categories rather than full texts, so exact claims and chronology are underdetermined.",
+        "risk_key": "evidence_sparsity",
+        "severity": "medium"
+      },
+      {
+        "description": "Specific admin-tool changes are unspecified, limiting precision on which user behaviors are most affected.",
+        "risk_key": "functionality_ambiguity",
+        "severity": "medium"
+      },
+      {
+        "description": "Regulatory office powers, jurisdiction, and enforcement path are not described, so settlement probabilities are approximate.",
+        "risk_key": "authority_scope_uncertain",
+        "severity": "medium"
+      },
+      {
+        "description": "User and creator switching costs are inferred from platform dependence, but substitute options and audience portability are not evidenced.",
+        "risk_key": "migration_elasticity_unknown",
+        "severity": "medium"
+      },
+      {
+        "description": "Public statements may diverge from private moderator, advertiser, and leadership views, affecting future branch accuracy.",
+        "risk_key": "private_public_gap",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "core_tensions": [
+        "safety enforcement vs organizing capacity",
+        "platform discretion vs transparency demands",
+        "advertiser brand safety vs creator autonomy",
+        "moderator workload vs policy legitimacy",
+        "regulatory oversight vs private governance"
+      ],
+      "mode": "direct",
+      "scenario_key": "longform_002",
+      "summary": "Fictional platform CivicSquare changes group-admin tools after harassment complaints. Stakeholders disagree whether the change improves safety or suppresses organizing. T0 includes public announcement, creator coalition objection, advertiser caution, moderator concern, and regulator inquiry pressure. Terminal uncertainty remains around rollback, transparency concessions, stricter moderation, user exit, or regulatory settlement.",
+      "t0_crisis_level": "moderate",
+      "time_horizon_ticks": 8,
+      "title": "civicsquare_admin_tools_change",
+      "uncertainties": [
+        "exact scale of harassment complaints is unspecified",
+        "exact functionality changes to admin tools are unspecified",
+        "regulator authority and timetable are not fully specified",
+        "user migration elasticity is uncertain",
+        "coalition durability among creators is uncertain"
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "general_users",
+          "creator_coalition",
+          "group_moderators"
+        ],
+        "evidence": "stakeholders interpret same change through safety or suppression frames",
+        "level": "medium",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "organizing_creators",
+          "group_moderators",
+          "users_speech_concerned"
+        ],
+        "evidence": "many are hesitant alone but could join if visible coalition grows",
+        "level": "medium_high",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "creators_dependent_pragmatists",
+          "moderators_support_change",
+          "users_safety_first"
+        ],
+        "evidence": "dependency and uncertainty suppress public dissent or support intensity",
+        "level": "medium",
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "creator_coalition",
+          "group_moderators",
+          "general_users"
+        ],
+        "evidence": "discussion likely clusters by role and governance experience",
+        "level": "medium",
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "creator_coalition",
+          "users_speech_concerned"
+        ],
+        "evidence": "exit threats or organized protest likely require repeated reinforcement from peers",
+        "level": "medium_high",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "creator_coalition",
+          "trust_and_safety_team",
+          "advertiser_council"
+        ],
+        "evidence": "role identities shape how safety and organizing claims are interpreted",
+        "level": "high",
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "general_users",
+          "press_observers"
+        ],
+        "evidence": "salience may fade without fresh incidents, leaks, or official actions",
+        "level": "medium",
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "harassment complaints provide moral and operational justification for restriction",
+        "influence_key": "safety_frame"
+      },
+      {
+        "description": "creator and organizer communities can frame tool changes as suppression of legitimate organizing",
+        "influence_key": "suppression_frame"
+      },
+      {
+        "description": "stakeholders react not only to substance but to consultation, notice, and appeal visibility",
+        "influence_key": "process_legitimacy"
+      },
+      {
+        "description": "users and creators dependent on platform reach may self-censor criticism",
+        "influence_key": "dependency_chill"
+      },
+      {
+        "description": "advertiser preferences can quietly reward stricter control even without public endorsement",
+        "influence_key": "brand_safety_shadow"
+      },
+      {
+        "description": "regulatory inquiry can transform a product dispute into a governance accountability issue",
+        "influence_key": "oversight_salience"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "civicsquare",
+        "behavior_axes": {
+          "adaptability": 0.58,
+          "openness": 0.31,
+          "responsiveness": 0.42,
+          "risk_aversion": 0.71
+        },
+        "ideology_axes": {
+          "market_priority": 0.67,
+          "proceduralism": 0.4,
+          "safety_priority": 0.72,
+          "speech_priority": 0.36
+        },
+        "reputation": 0.46,
+        "secrecy": 0.64,
+        "tendency": "defend policy discretion while offering selective concessions",
+        "trustworthiness": 0.39
+      },
+      {
+        "actor_name": "civicsquare_leadership",
+        "behavior_axes": {
+          "adaptability": 0.55,
+          "openness": 0.28,
+          "responsiveness": 0.45,
+          "risk_aversion": 0.75
+        },
+        "ideology_axes": {
+          "market_priority": 0.7,
+          "proceduralism": 0.38,
+          "safety_priority": 0.74,
+          "speech_priority": 0.34
+        },
+        "reputation": 0.43,
+        "secrecy": 0.68,
+        "tendency": "protect authority and avoid appearing to reward pressure",
+        "trustworthiness": 0.37
+      },
+      {
+        "actor_name": "trust_and_safety_team",
+        "behavior_axes": {
+          "adaptability": 0.49,
+          "openness": 0.33,
+          "responsiveness": 0.52,
+          "risk_aversion": 0.79
+        },
+        "ideology_axes": {
+          "market_priority": 0.41,
+          "proceduralism": 0.56,
+          "safety_priority": 0.84,
+          "speech_priority": 0.22
+        },
+        "reputation": 0.4,
+        "secrecy": 0.57,
+        "tendency": "favor precautionary intervention and controlled messaging",
+        "trustworthiness": 0.48
+      },
+      {
+        "actor_name": "group_moderators",
+        "behavior_axes": {
+          "adaptability": 0.61,
+          "openness": 0.49,
+          "responsiveness": 0.63,
+          "risk_aversion": 0.52
+        },
+        "ideology_axes": {
+          "market_priority": 0.18,
+          "proceduralism": 0.62,
+          "safety_priority": 0.58,
+          "speech_priority": 0.57
+        },
+        "reputation": 0.52,
+        "secrecy": 0.36,
+        "tendency": "pragmatic but frustrated with top-down changes",
+        "trustworthiness": 0.56
+      },
+      {
+        "actor_name": "creator_coalition",
+        "behavior_axes": {
+          "adaptability": 0.67,
+          "openness": 0.76,
+          "responsiveness": 0.71,
+          "risk_aversion": 0.41
+        },
+        "ideology_axes": {
+          "market_priority": 0.33,
+          "proceduralism": 0.69,
+          "safety_priority": 0.34,
+          "speech_priority": 0.81
+        },
+        "reputation": 0.57,
+        "secrecy": 0.22,
+        "tendency": "public contestation paired with demand for consultation",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "organizing_creators",
+        "behavior_axes": {
+          "adaptability": 0.59,
+          "openness": 0.65,
+          "responsiveness": 0.69,
+          "risk_aversion": 0.47
+        },
+        "ideology_axes": {
+          "market_priority": 0.29,
+          "proceduralism": 0.58,
+          "safety_priority": 0.39,
+          "speech_priority": 0.74
+        },
+        "reputation": 0.51,
+        "secrecy": 0.31,
+        "tendency": "balance platform dependence with organizing needs",
+        "trustworthiness": 0.54
+      },
+      {
+        "actor_name": "general_users",
+        "behavior_axes": {
+          "adaptability": 0.5,
+          "openness": 0.38,
+          "responsiveness": 0.44,
+          "risk_aversion": 0.43
+        },
+        "ideology_axes": {
+          "market_priority": 0.22,
+          "proceduralism": 0.35,
+          "safety_priority": 0.5,
+          "speech_priority": 0.49
+        },
+        "reputation": 0.49,
+        "secrecy": 0.21,
+        "tendency": "follow visible narratives more than policy detail",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "advertiser_council",
+        "behavior_axes": {
+          "adaptability": 0.46,
+          "openness": 0.22,
+          "responsiveness": 0.48,
+          "risk_aversion": 0.81
+        },
+        "ideology_axes": {
+          "market_priority": 0.86,
+          "proceduralism": 0.44,
+          "safety_priority": 0.69,
+          "speech_priority": 0.16
+        },
+        "reputation": 0.58,
+        "secrecy": 0.63,
+        "tendency": "apply quiet leverage for stability and brand safety",
+        "trustworthiness": 0.46
+      },
+      {
+        "actor_name": "regulatory_office",
+        "behavior_axes": {
+          "adaptability": 0.4,
+          "openness": 0.47,
+          "responsiveness": 0.53,
+          "risk_aversion": 0.51
+        },
+        "ideology_axes": {
+          "market_priority": 0.21,
+          "proceduralism": 0.83,
+          "safety_priority": 0.51,
+          "speech_priority": 0.49
+        },
+        "reputation": 0.61,
+        "secrecy": 0.41,
+        "tendency": "seek records, process justification, and visible compliance",
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "press_observers",
+        "behavior_axes": {
+          "adaptability": 0.66,
+          "openness": 0.71,
+          "responsiveness": 0.74,
+          "risk_aversion": 0.28
+        },
+        "ideology_axes": {
+          "market_priority": 0.24,
+          "proceduralism": 0.58,
+          "safety_priority": 0.42,
+          "speech_priority": 0.55
+        },
+        "reputation": 0.53,
+        "secrecy": 0.12,
+        "tendency": "amplify conflict frames and transparency questions",
+        "trustworthiness": 0.47
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 576,
+        "end": 576,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 576,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

@@ -1,0 +1,202 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "d9ed68fb-65c9-4397-984f-29fd9989aa4f",
+      "created_at": "2026-05-05T02:31:25.659095+00:00",
+      "id": "0be72423-05bc-499f-b372-3c54367ec64a",
+      "influence": {
+        "description": "Photos from dorms increase credibility and spread of resident claims.",
+        "influence_key": "visual_evidence_salience"
+      },
+      "multiverse_id": "16ffb91a-f18d-48b8-bdac-2ef8947e14ba",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:25.659095+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "d9ed68fb-65c9-4397-984f-29fd9989aa4f",
+      "created_at": "2026-05-05T02:31:25.659095+00:00",
+      "id": "064d116e-b144-4912-ac65-f983472c8ff0",
+      "influence": {
+        "description": "Students dependent on university housing may mute criticism unless alternatives are offered.",
+        "influence_key": "housing_dependency_silence"
+      },
+      "multiverse_id": "16ffb91a-f18d-48b8-bdac-2ef8947e14ba",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:25.659095+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "d9ed68fb-65c9-4397-984f-29fd9989aa4f",
+      "created_at": "2026-05-05T02:31:25.659095+00:00",
+      "id": "5b05ccfa-f719-4539-988e-78530241b480",
+      "influence": {
+        "description": "Parents can apply pressure with fewer direct dependency costs than enrolled students.",
+        "influence_key": "family_externalization"
+      },
+      "multiverse_id": "16ffb91a-f18d-48b8-bdac-2ef8947e14ba",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:25.659095+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "d9ed68fb-65c9-4397-984f-29fd9989aa4f",
+      "created_at": "2026-05-05T02:31:25.659095+00:00",
+      "id": "486aa501-723a-4d63-98ec-7f0b1f963212",
+      "influence": {
+        "description": "Maintenance workers may possess useful evidence but hesitate without protection.",
+        "influence_key": "whistle_fear_constraint"
+      },
+      "multiverse_id": "16ffb91a-f18d-48b8-bdac-2ef8947e14ba",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:25.659095+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "d9ed68fb-65c9-4397-984f-29fd9989aa4f",
+      "created_at": "2026-05-05T02:31:25.659095+00:00",
+      "id": "bf851624-cac1-4b76-b436-7ed3f7ad88f7",
+      "influence": {
+        "description": "Off-campus price increases raise switching costs and may intensify demands for on-campus remedies.",
+        "influence_key": "displacement_market_shock"
+      },
+      "multiverse_id": "16ffb91a-f18d-48b8-bdac-2ef8947e14ba",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:25.659095+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "d9ed68fb-65c9-4397-984f-29fd9989aa4f",
+      "created_at": "2026-05-05T02:31:25.659095+00:00",
+      "id": "5e40a6cb-c1bb-4a77-9593-d935d7c1703a",
+      "model": "attention_decay",
+      "multiverse_id": "16ffb91a-f18d-48b8-bdac-2ef8947e14ba",
+      "signal": {
+        "evidence": "People may update beliefs mainly from trusted peers, family contacts, and visible evidence like photos.",
+        "level": 0.58,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "scope": "students_and_families"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:31:25.659095+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "d9ed68fb-65c9-4397-984f-29fd9989aa4f",
+      "created_at": "2026-05-05T02:31:25.659095+00:00",
+      "id": "12385683-d20e-422f-b8fb-936c8ffa1fd3",
+      "model": "attention_decay",
+      "multiverse_id": "16ffb91a-f18d-48b8-bdac-2ef8947e14ba",
+      "signal": {
+        "evidence": "Unaffected students may mobilize only after enough peers report harm or response failures.",
+        "level": 0.63,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "scope": "broader_student_body"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:31:25.659095+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "d9ed68fb-65c9-4397-984f-29fd9989aa4f",
+      "created_at": "2026-05-05T02:31:25.659095+00:00",
+      "id": "d8306db3-efc3-4d8d-aa52-977cefca2eda",
+      "model": "attention_decay",
+      "multiverse_id": "16ffb91a-f18d-48b8-bdac-2ef8947e14ba",
+      "signal": {
+        "evidence": "Fear of retaliation or losing housing can suppress open expression despite private concern.",
+        "level": 0.49,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "scope": "housing_workers_and_dependent_students"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:31:25.659095+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "d9ed68fb-65c9-4397-984f-29fd9989aa4f",
+      "created_at": "2026-05-05T02:31:25.659095+00:00",
+      "id": "af057579-1f92-41e2-9c7a-19195e559cfe",
+      "model": "attention_decay",
+      "multiverse_id": "16ffb91a-f18d-48b8-bdac-2ef8947e14ba",
+      "signal": {
+        "evidence": "Dorm residents and peer networks are likely to cluster information and reinforce shared interpretations.",
+        "level": 0.61,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "scope": "student_social_clusters"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:31:25.659095+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "d9ed68fb-65c9-4397-984f-29fd9989aa4f",
+      "created_at": "2026-05-05T02:31:25.659095+00:00",
+      "id": "c5a6aa0b-1302-4595-b2a9-e28c9a50dfe4",
+      "model": "attention_decay",
+      "multiverse_id": "16ffb91a-f18d-48b8-bdac-2ef8947e14ba",
+      "signal": {
+        "evidence": "Multiple confirming posts, parental messages, and worker claims can jointly increase pressure faster than a single report.",
+        "level": 0.66,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "scope": "online_visibility_to_offline_pressure"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:31:25.659095+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "d9ed68fb-65c9-4397-984f-29fd9989aa4f",
+      "created_at": "2026-05-05T02:31:25.659095+00:00",
+      "id": "5d35a9dd-4224-40bb-b0f6-0e55fd4f68cc",
+      "model": "attention_decay",
+      "multiverse_id": "16ffb91a-f18d-48b8-bdac-2ef8947e14ba",
+      "signal": {
+        "evidence": "Campus identity can split into resident solidarity versus institutional self-protection narratives.",
+        "level": 0.57,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "scope": "student_vs_administration"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:31:25.659095+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "d9ed68fb-65c9-4397-984f-29fd9989aa4f",
+      "created_at": "2026-05-05T02:31:25.659095+00:00",
+      "id": "7be7d59e-1d2c-4e55-8c38-12d28046e031",
+      "model": "attention_decay",
+      "multiverse_id": "16ffb91a-f18d-48b8-bdac-2ef8947e14ba",
+      "signal": {
+        "evidence": "Attention may fade if no new evidence or acute health incidents emerge.",
+        "level": 0.34,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "scope": "general_public_and_unaffected_students"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:31:25.659095+00:00"
+    }
+  ]
+}

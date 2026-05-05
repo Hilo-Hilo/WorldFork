@@ -1,0 +1,1451 @@
+{
+  "big_bang_id": "eacdd0cf-b5c7-4fe4-89bc-1d3730fe8e23",
+  "initializer_output": {
+    "actors": [
+      {
+        "fictionalized": true,
+        "name": "harbor_museum_board",
+        "public_role": "museum governing board",
+        "type": "institution"
+      },
+      {
+        "fictionalized": true,
+        "name": "harbor_museum_curators",
+        "public_role": "curatorial staff",
+        "type": "institutional_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "petronex_energy",
+        "public_role": "prospective fossil-fuel sponsor",
+        "type": "corporation"
+      },
+      {
+        "fictionalized": true,
+        "name": "museum_visitors",
+        "public_role": "visitor public",
+        "type": "public_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "quiet_major_donors",
+        "public_role": "existing and prospective major donors",
+        "type": "donor_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "climate_art_activists",
+        "public_role": "activist coalition planning campaign",
+        "type": "advocacy_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "museum_executive_leadership",
+        "public_role": "museum director and senior administrators",
+        "type": "institutional_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "local_media_culture_press",
+        "public_role": "local culture and civic media",
+        "type": "media"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "branch_key": "quiet_acceptance_path",
+        "observable_divergence_signal": "Board messaging emphasizes practical support and proceeds without major concessions; donor silence persists and campaign uptake remains modest.",
+        "plausible_alternate_path": "Board moves toward acceptance with limited public explanation, betting on low sustained controversy.",
+        "trigger": "Board perceives funding need as urgent and external backlash as manageable."
+      },
+      {
+        "branch_key": "conditional_acceptance_path",
+        "observable_divergence_signal": "Discussion shifts toward guardrails, ethics language, and implementation conditions rather than binary yes/no framing.",
+        "plausible_alternate_path": "Board considers accepting support only with naming limits, firewalls, or exhibit-independence conditions.",
+        "trigger": "Board seeks compromise after internal objections or donor caution."
+      },
+      {
+        "branch_key": "rejection_under_pressure_path",
+        "observable_divergence_signal": "Board references mission integrity, stakeholder trust, or incompatibility between sponsor identity and exhibit theme.",
+        "plausible_alternate_path": "Board rejects sponsorship to protect exhibit legitimacy and institutional reputation.",
+        "trigger": "Curatorial dissent and activist/media attention raise reputational costs above funding benefits."
+      },
+      {
+        "branch_key": "donor_substitution_path",
+        "observable_divergence_signal": "Private donor outreach intensifies and executives begin discussing bridge funding or replacement packages.",
+        "plausible_alternate_path": "Board exits or declines fossil-fuel sponsorship because substitute financing lowers switching costs.",
+        "trigger": "Quiet donors signal willingness to replace some or all foregone sponsorship funds."
+      },
+      {
+        "branch_key": "durable_stalemate_path",
+        "observable_divergence_signal": "Meeting outcomes produce delays, requests for more information, or temporary non-decisions rather than endpoint movement.",
+        "plausible_alternate_path": "Decision is delayed through committee review, ethics consultation, or procedural deferral.",
+        "trigger": "Board is split and no actor can impose a low-cost settlement quickly."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "board_meetings",
+        "primary_actors": [
+          "harbor_museum_board",
+          "museum_executive_leadership"
+        ],
+        "type": "internal_governance",
+        "visibility": "low_public"
+      },
+      {
+        "channel_key": "staff_internal_deliberation",
+        "primary_actors": [
+          "harbor_museum_curators",
+          "museum_executive_leadership"
+        ],
+        "type": "internal_institutional",
+        "visibility": "low_public"
+      },
+      {
+        "channel_key": "donor_private_outreach",
+        "primary_actors": [
+          "quiet_major_donors",
+          "harbor_museum_board",
+          "museum_executive_leadership"
+        ],
+        "type": "private_elite",
+        "visibility": "low_public"
+      },
+      {
+        "channel_key": "campaign_social_channels",
+        "primary_actors": [
+          "climate_art_activists",
+          "museum_visitors"
+        ],
+        "type": "public_networked",
+        "visibility": "high_public"
+      },
+      {
+        "channel_key": "local_culture_press",
+        "primary_actors": [
+          "local_media_culture_press",
+          "harbor_museum_board",
+          "climate_art_activists",
+          "harbor_museum_curators"
+        ],
+        "type": "media",
+        "visibility": "high_public"
+      },
+      {
+        "channel_key": "museum_public_comms",
+        "primary_actors": [
+          "museum_executive_leadership",
+          "harbor_museum_board",
+          "museum_visitors"
+        ],
+        "type": "institutional_public",
+        "visibility": "high_public"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "harbor_museum_curators",
+        "attention_level": 0.82,
+        "behavioral_tendencies": [
+          "norm_guarding",
+          "internal_advocacy",
+          "mission_protection"
+        ],
+        "cohort_key": "curatorial_objectors",
+        "expression_level": 0.58,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.49,
+        "mobilization_readiness": 0.62,
+        "perceived_majority": 0.46,
+        "population_archetype_key": "museum_staff_public",
+        "population_share_of_archetype": 0.375,
+        "private_position": "largely opposed to fossil-fuel sponsorship of climate exhibit",
+        "public_position": "concerned and likely to raise ethics and mission issues",
+        "representation_mode": "direct_group_actor",
+        "represented_population": 45,
+        "reputation": 0.71,
+        "secrecy": 0.25,
+        "stance_axes": {
+          "accept_sponsorship": 0.15,
+          "conditional_acceptance": 0.35,
+          "donor_substitution": 0.7,
+          "reject_sponsorship": 0.8
+        },
+        "trustworthiness": 0.74
+      },
+      {
+        "actor_name": "museum_visitors",
+        "attention_level": 0.31,
+        "behavioral_tendencies": [
+          "low_salience_observation",
+          "conditional_reaction",
+          "norm_following"
+        ],
+        "cohort_key": "general_visitors_divided",
+        "expression_level": 0.14,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.36,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.5,
+        "population_archetype_key": "museum_public",
+        "population_share_of_archetype": 1.0,
+        "private_position": "mixed views with weakly held opinions for many",
+        "public_position": "mostly quiet unless controversy becomes salient",
+        "representation_mode": "aggregate_public_actor",
+        "represented_population": 50000,
+        "reputation": 0.5,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "accept_sponsorship": 0.46,
+          "conditional_acceptance": 0.55,
+          "donor_substitution": 0.41,
+          "reject_sponsorship": 0.34
+        },
+        "trustworthiness": 0.54
+      },
+      {
+        "actor_name": "quiet_major_donors",
+        "attention_level": 0.67,
+        "behavioral_tendencies": [
+          "quiet_signaling",
+          "option_preservation",
+          "reputation_management"
+        ],
+        "cohort_key": "quiet_donor_observers",
+        "expression_level": 0.16,
+        "fatigue": 0.1,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.34,
+        "perceived_majority": 0.44,
+        "population_archetype_key": "resource_elites",
+        "population_share_of_archetype": 1.0,
+        "private_position": "watching for reputational and governance signals before intervening",
+        "public_position": "mostly silent at T0",
+        "representation_mode": "aggregate_elite_actor",
+        "represented_population": 40,
+        "reputation": 0.77,
+        "secrecy": 0.63,
+        "stance_axes": {
+          "accept_sponsorship": 0.48,
+          "conditional_acceptance": 0.61,
+          "donor_substitution": 0.52,
+          "reject_sponsorship": 0.31
+        },
+        "trustworthiness": 0.66
+      },
+      {
+        "actor_name": "climate_art_activists",
+        "attention_level": 0.86,
+        "behavioral_tendencies": [
+          "campaign_escalation",
+          "public_moral_framing",
+          "coalition_seeking"
+        ],
+        "cohort_key": "activist_campaign_core",
+        "expression_level": 0.52,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.81,
+        "perceived_majority": 0.38,
+        "population_archetype_key": "civic_advocates",
+        "population_share_of_archetype": 0.3,
+        "private_position": "strongly opposed and preparing public challenge",
+        "public_position": "campaign not fully launched yet",
+        "representation_mode": "organized_core_with_broader_reservoir",
+        "represented_population": 90,
+        "reputation": 0.49,
+        "secrecy": 0.42,
+        "stance_axes": {
+          "accept_sponsorship": 0.05,
+          "conditional_acceptance": 0.18,
+          "donor_substitution": 0.76,
+          "reject_sponsorship": 0.88
+        },
+        "trustworthiness": 0.58
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "harbor_museum_curators",
+        "attention_level": 0.82,
+        "behavioral_tendencies": [
+          "norm_guarding",
+          "internal_advocacy",
+          "mission_protection"
+        ],
+        "cohort_key": "curatorial_objectors",
+        "expression_level": 0.58,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.49,
+        "mobilization_readiness": 0.62,
+        "perceived_majority": 0.46,
+        "population_archetype_key": "museum_staff_public",
+        "population_share_of_archetype": 0.375,
+        "private_position": "largely opposed to fossil-fuel sponsorship of climate exhibit",
+        "public_position": "concerned and likely to raise ethics and mission issues",
+        "representation_mode": "direct_group_actor",
+        "represented_population": 45,
+        "reputation": 0.71,
+        "secrecy": 0.25,
+        "stance_axes": {
+          "accept_sponsorship": 0.15,
+          "conditional_acceptance": 0.35,
+          "donor_substitution": 0.7,
+          "reject_sponsorship": 0.8
+        },
+        "trustworthiness": 0.74
+      },
+      {
+        "actor_name": "museum_visitors",
+        "attention_level": 0.31,
+        "behavioral_tendencies": [
+          "low_salience_observation",
+          "conditional_reaction",
+          "norm_following"
+        ],
+        "cohort_key": "general_visitors_divided",
+        "expression_level": 0.14,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.36,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.5,
+        "population_archetype_key": "museum_public",
+        "population_share_of_archetype": 1.0,
+        "private_position": "mixed views with weakly held opinions for many",
+        "public_position": "mostly quiet unless controversy becomes salient",
+        "representation_mode": "aggregate_public_actor",
+        "represented_population": 50000,
+        "reputation": 0.5,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "accept_sponsorship": 0.46,
+          "conditional_acceptance": 0.55,
+          "donor_substitution": 0.41,
+          "reject_sponsorship": 0.34
+        },
+        "trustworthiness": 0.54
+      },
+      {
+        "actor_name": "quiet_major_donors",
+        "attention_level": 0.67,
+        "behavioral_tendencies": [
+          "quiet_signaling",
+          "option_preservation",
+          "reputation_management"
+        ],
+        "cohort_key": "quiet_donor_observers",
+        "expression_level": 0.16,
+        "fatigue": 0.1,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.34,
+        "perceived_majority": 0.44,
+        "population_archetype_key": "resource_elites",
+        "population_share_of_archetype": 1.0,
+        "private_position": "watching for reputational and governance signals before intervening",
+        "public_position": "mostly silent at T0",
+        "representation_mode": "aggregate_elite_actor",
+        "represented_population": 40,
+        "reputation": 0.77,
+        "secrecy": 0.63,
+        "stance_axes": {
+          "accept_sponsorship": 0.48,
+          "conditional_acceptance": 0.61,
+          "donor_substitution": 0.52,
+          "reject_sponsorship": 0.31
+        },
+        "trustworthiness": 0.66
+      },
+      {
+        "actor_name": "climate_art_activists",
+        "attention_level": 0.86,
+        "behavioral_tendencies": [
+          "campaign_escalation",
+          "public_moral_framing",
+          "coalition_seeking"
+        ],
+        "cohort_key": "activist_campaign_core",
+        "expression_level": 0.52,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.81,
+        "perceived_majority": 0.38,
+        "population_archetype_key": "civic_advocates",
+        "population_share_of_archetype": 0.3,
+        "private_position": "strongly opposed and preparing public challenge",
+        "public_position": "campaign not fully launched yet",
+        "representation_mode": "organized_core_with_broader_reservoir",
+        "represented_population": 90,
+        "reputation": 0.49,
+        "secrecy": 0.42,
+        "stance_axes": {
+          "accept_sponsorship": 0.05,
+          "conditional_acceptance": 0.18,
+          "donor_substitution": 0.76,
+          "reject_sponsorship": 0.88
+        },
+        "trustworthiness": 0.58
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "harbor_museum_board"
+        ],
+        "blockers": [
+          "curatorial objection",
+          "activist campaign escalation",
+          "donor warning signals",
+          "reputational risk concerns"
+        ],
+        "contradiction_notes": "Acceptance can coexist with conditions unless conditions become so restrictive that sponsor withdraws.",
+        "description": "The museum formally approves Petronex Energy as sponsor for the climate exhibit.",
+        "endpoint_key": "accept_sponsorship",
+        "evidence_refs": [
+          "sponsorship_offer_under_review",
+          "board_authority"
+        ],
+        "label": "Accept sponsorship",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the museum board ultimately accept the fossil-fuel sponsorship for the climate exhibit?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.3,
+        "rationale": "Formal authority and funding need make acceptance plausible but contested.",
+        "realization_criteria": [
+          "board records or public announcement confirm approval of Petronex sponsorship",
+          "no subsequent reversal before implementation checkpoint"
+        ],
+        "status": "active",
+        "status_basis": "Scenario states the board is considering acceptance and holds policy authority."
+      },
+      {
+        "authority_refs": [
+          "harbor_museum_board",
+          "museum_executive_leadership"
+        ],
+        "blockers": [
+          "sponsor unwillingness to accept limits",
+          "activists rejecting compromise",
+          "board preference for simple acceptance or full rejection"
+        ],
+        "contradiction_notes": "If conditions are cosmetic and unverifiable, later evidence may favor plain acceptance instead.",
+        "description": "The museum approves sponsorship only with observable restrictions such as branding limits, independence safeguards, or ethics conditions.",
+        "endpoint_key": "conditional_acceptance",
+        "evidence_refs": [
+          "sponsorship_offer_under_review",
+          "curatorial_objection_emerges"
+        ],
+        "label": "Accept with conditions",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "If sponsorship proceeds, will it be limited by meaningful conditions that visibly constrain sponsor influence or branding?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.27,
+        "rationale": "Conditionality is a natural governance mechanism when authority seeks compromise under reputational strain.",
+        "realization_criteria": [
+          "board or executive announcement includes explicit sponsorship conditions",
+          "conditions are public or documented enough to verify material constraint on sponsor role"
+        ],
+        "status": "active",
+        "status_basis": "Scenario explicitly calls out conditions as a key endpoint option."
+      },
+      {
+        "authority_refs": [
+          "harbor_museum_board"
+        ],
+        "blockers": [
+          "unfilled funding gap",
+          "board concern about losing resources",
+          "absence of sustained pressure"
+        ],
+        "contradiction_notes": "Rejection may later pair with donor substitution, but rejection itself is realized once the sponsorship is declined or ended.",
+        "description": "The museum declines or cancels the fossil-fuel sponsorship for the climate exhibit.",
+        "endpoint_key": "reject_sponsorship",
+        "evidence_refs": [
+          "curatorial_objection_emerges",
+          "activist_campaign_preparation"
+        ],
+        "label": "Reject sponsorship",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the board reject or terminate the sponsorship rather than proceed?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.23,
+        "rationale": "Internal legitimacy concerns and external pressure could make rejection the least damaging choice.",
+        "realization_criteria": [
+          "board decision or public statement confirms rejection or termination of Petronex sponsorship",
+          "museum does not proceed under the original sponsorship arrangement"
+        ],
+        "status": "active",
+        "status_basis": "Rejection is explicitly named as a target endpoint and is supported by mission-based opposition."
+      },
+      {
+        "authority_refs": [
+          "quiet_major_donors",
+          "harbor_museum_board",
+          "museum_executive_leadership"
+        ],
+        "blockers": [
+          "donor reluctance to step in",
+          "timing mismatch",
+          "insufficient replacement amount",
+          "board unwillingness to reopen financing plan"
+        ],
+        "contradiction_notes": "This endpoint often merges with rejection of sponsorship but requires observable replacement funding, not just donor sympathy.",
+        "description": "Alternative donor funding materially replaces the contested sponsorship, enabling the museum to avoid or exit the fossil-fuel deal.",
+        "endpoint_key": "donor_substitution",
+        "evidence_refs": [
+          "donor_monitoring_phase"
+        ],
+        "label": "Replace sponsor with donor substitution",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will substitute donor funding emerge that materially replaces the contested sponsorship?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.12,
+        "rationale": "Quiet donors may hold the key to lowering switching costs if reputational risk rises.",
+        "realization_criteria": [
+          "credible donor commitments are secured that replace a substantial share of the contested sponsorship",
+          "board or executives treat replacement funding as operative basis for proceeding without Petronex"
+        ],
+        "status": "active",
+        "status_basis": "Scenario explicitly names donor substitution as an endpoint option and donors are watching quietly."
+      },
+      {
+        "authority_refs": [
+          "harbor_museum_board",
+          "museum_executive_leadership"
+        ],
+        "blockers": [
+          "forced public deadline",
+          "campaign escalation that compels choice",
+          "donor or sponsor ultimatum"
+        ],
+        "contradiction_notes": "Delay is terminal only relative to the simulation horizon; later ticks could still resolve into another endpoint.",
+        "description": "The museum avoids a terminal sponsorship choice in the near horizon through deferral, review, or procedural non-resolution.",
+        "endpoint_key": "durable_delay",
+        "evidence_refs": [
+          "board_deliberation_window"
+        ],
+        "label": "Durable delay or stalemate",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the institution remain in a durable non-resolution state by relying on delay or procedural deferral?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.08,
+        "rationale": "Slack remains at T0, and delay is a credible mechanism when coalitions are unresolved.",
+        "realization_criteria": [
+          "by end of initialization horizon no formal approval or rejection occurs",
+          "institution repeatedly extends review, requests more process, or postpones decision"
+        ],
+        "status": "active",
+        "status_basis": "The scenario does not specify a fixed deadline and institutional actors often use process to manage conflict."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "Scenario centers on board considering acceptance of sponsorship",
+        "layer": "dependency",
+        "reason": "Prospective sponsorship offers meaningful funding for climate exhibit",
+        "source_actor_name": "harbor_museum_board",
+        "target_actor_name": "petronex_energy",
+        "weight": 0.48
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Donors are watching quietly and donor substitution is an endpoint",
+        "layer": "dependency",
+        "reason": "Board depends on donor ecosystem for institutional funding flexibility",
+        "source_actor_name": "harbor_museum_board",
+        "target_actor_name": "quiet_major_donors",
+        "weight": 0.41
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Board controls sponsorship policy",
+        "layer": "dependency",
+        "reason": "Executives rely on board authority for policy approval",
+        "source_actor_name": "museum_executive_leadership",
+        "target_actor_name": "harbor_museum_board",
+        "weight": 0.56
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Curators object but do not control sponsorship policy",
+        "layer": "dependency",
+        "reason": "Curators operate within managerial hierarchy for exhibit process",
+        "source_actor_name": "harbor_museum_curators",
+        "target_actor_name": "museum_executive_leadership",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Climate exhibit integrity is implicated by curatorial objection",
+        "layer": "dependency",
+        "reason": "Board depends on curatorial credibility for exhibit legitimacy",
+        "source_actor_name": "harbor_museum_board",
+        "target_actor_name": "harbor_museum_curators",
+        "weight": 0.43
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Visitors are divided",
+        "layer": "dependency",
+        "reason": "Visitor attendance and goodwill matter but are diffuse",
+        "source_actor_name": "museum_visitors",
+        "target_actor_name": "harbor_museum_board",
+        "weight": 0.24
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Activists plan a campaign",
+        "layer": "dependency",
+        "reason": "Campaign effectiveness depends on media amplification",
+        "source_actor_name": "climate_art_activists",
+        "target_actor_name": "local_media_culture_press",
+        "weight": 0.37
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Visitors are divided but not highly engaged yet",
+        "layer": "exposure",
+        "reason": "Most visitors have low direct visibility into board deliberations",
+        "source_actor_name": "museum_visitors",
+        "target_actor_name": "harbor_museum_board",
+        "weight": 0.22
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Sponsorship policy affects public-facing exhibit",
+        "layer": "exposure",
+        "reason": "Board decisions become visible through museum communications and controversy",
+        "source_actor_name": "harbor_museum_board",
+        "target_actor_name": "museum_visitors",
+        "weight": 0.31
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Activists plan a campaign around museum decision",
+        "layer": "exposure",
+        "reason": "Campaign likely targets visitor-facing channels",
+        "source_actor_name": "climate_art_activists",
+        "target_actor_name": "museum_visitors",
+        "weight": 0.39
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Culture press likely covers institutional conflict",
+        "layer": "exposure",
+        "reason": "Media can make the sponsorship issue salient to broader public",
+        "source_actor_name": "local_media_culture_press",
+        "target_actor_name": "museum_visitors",
+        "weight": 0.47
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Curators object",
+        "layer": "exposure",
+        "reason": "Curators can communicate objections internally and potentially publicly",
+        "source_actor_name": "harbor_museum_curators",
+        "target_actor_name": "harbor_museum_board",
+        "weight": 0.44
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Donors watch quietly",
+        "layer": "exposure",
+        "reason": "Donor feedback is often private rather than public",
+        "source_actor_name": "quiet_major_donors",
+        "target_actor_name": "harbor_museum_board",
+        "weight": 0.28
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Curators are relevant interpreters of exhibit integrity",
+        "layer": "trust",
+        "reason": "Curators carry expertise and mission credibility",
+        "source_actor_name": "museum_visitors",
+        "target_actor_name": "harbor_museum_curators",
+        "weight": 0.57
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Executives broker process around sponsorship",
+        "layer": "trust",
+        "reason": "Board generally relies on executive administration for implementation",
+        "source_actor_name": "harbor_museum_board",
+        "target_actor_name": "museum_executive_leadership",
+        "weight": 0.61
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Curators object while board considers sponsorship",
+        "layer": "trust",
+        "reason": "Curators may doubt board's willingness to prioritize mission over funding",
+        "source_actor_name": "harbor_museum_curators",
+        "target_actor_name": "harbor_museum_board",
+        "weight": 0.34
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Donors watch quietly rather than openly revolt",
+        "layer": "trust",
+        "reason": "Donors generally trust board stewardship but are monitoring closely",
+        "source_actor_name": "quiet_major_donors",
+        "target_actor_name": "harbor_museum_board",
+        "weight": 0.52
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Fossil-fuel sponsorship of climate exhibit is inherently contested",
+        "layer": "trust",
+        "reason": "Fossil-fuel sponsor carries weak baseline legitimacy for climate exhibit",
+        "source_actor_name": "museum_visitors",
+        "target_actor_name": "petronex_energy",
+        "weight": 0.21
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Curators are central to exhibit quality",
+        "layer": "trust",
+        "reason": "Board recognizes curatorial competence despite disagreement",
+        "source_actor_name": "harbor_museum_board",
+        "target_actor_name": "harbor_museum_curators",
+        "weight": 0.49
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Board controls sponsorship policy",
+        "layer": "influence",
+        "reason": "Board has formal authority over policy and leadership direction",
+        "source_actor_name": "harbor_museum_board",
+        "target_actor_name": "museum_executive_leadership",
+        "weight": 0.74
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Operational leadership brokers process",
+        "layer": "influence",
+        "reason": "Executives can shape options, timing, and framing for the board",
+        "source_actor_name": "museum_executive_leadership",
+        "target_actor_name": "harbor_museum_board",
+        "weight": 0.46
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Donor substitution is explicitly relevant",
+        "layer": "influence",
+        "reason": "Donors can materially influence perceived feasibility of alternatives",
+        "source_actor_name": "quiet_major_donors",
+        "target_actor_name": "harbor_museum_board",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Curators object to sponsorship",
+        "layer": "influence",
+        "reason": "Curatorial voice can shape public interpretation of exhibit legitimacy",
+        "source_actor_name": "harbor_museum_curators",
+        "target_actor_name": "museum_visitors",
+        "weight": 0.36
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Activists plan campaign but have not launched fully",
+        "layer": "influence",
+        "reason": "Activists can impose reputational costs and agenda pressure",
+        "source_actor_name": "climate_art_activists",
+        "target_actor_name": "harbor_museum_board",
+        "weight": 0.33
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Institutional controversy is media-relevant",
+        "layer": "influence",
+        "reason": "Media coverage can alter reputational risk and board urgency",
+        "source_actor_name": "local_media_culture_press",
+        "target_actor_name": "harbor_museum_board",
+        "weight": 0.41
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Curators object and activists plan campaign",
+        "layer": "coalition",
+        "reason": "Shared opposition exists but coordination may be limited at T0",
+        "source_actor_name": "harbor_museum_curators",
+        "target_actor_name": "climate_art_activists",
+        "weight": 0.29
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Executives work under board authority",
+        "layer": "coalition",
+        "reason": "Institutional alignment around process and governance is strong",
+        "source_actor_name": "harbor_museum_board",
+        "target_actor_name": "museum_executive_leadership",
+        "weight": 0.62
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Donors are attentive but quiet",
+        "layer": "coalition",
+        "reason": "Donors broadly align with institutional stability but not necessarily this sponsor",
+        "source_actor_name": "quiet_major_donors",
+        "target_actor_name": "harbor_museum_board",
+        "weight": 0.43
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Visitors are divided and activists are preparing outreach",
+        "layer": "coalition",
+        "reason": "Potential alliance depends on issue salience and campaign resonance",
+        "source_actor_name": "climate_art_activists",
+        "target_actor_name": "museum_visitors",
+        "weight": 0.21
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Curators object while board is considering acceptance",
+        "layer": "conflict",
+        "reason": "Mission ethics conflict with board's openness to sponsorship",
+        "source_actor_name": "harbor_museum_curators",
+        "target_actor_name": "harbor_museum_board",
+        "weight": 0.51
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Activists plan a campaign against the sponsorship context",
+        "layer": "conflict",
+        "reason": "Activists strongly oppose fossil-fuel legitimacy via cultural sponsorship",
+        "source_actor_name": "climate_art_activists",
+        "target_actor_name": "petronex_energy",
+        "weight": 0.72
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Board controls sponsorship policy",
+        "layer": "conflict",
+        "reason": "Board is likely target of pressure if it entertains sponsorship",
+        "source_actor_name": "climate_art_activists",
+        "target_actor_name": "harbor_museum_board",
+        "weight": 0.47
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Visitors are divided over sponsor issue",
+        "layer": "conflict",
+        "reason": "Some visitors perceive hypocrisy in climate exhibit sponsorship by fossil-fuel company",
+        "source_actor_name": "museum_visitors",
+        "target_actor_name": "petronex_energy",
+        "weight": 0.34
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Curators object to fossil-fuel company sponsorship",
+        "layer": "conflict",
+        "reason": "Curators likely see sponsor as undermining exhibit integrity",
+        "source_actor_name": "harbor_museum_curators",
+        "target_actor_name": "petronex_energy",
+        "weight": 0.64
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Activists plan campaign",
+        "layer": "oasis_interaction",
+        "reason": "Public-facing campaign likely to engage visitors via social and event channels",
+        "source_actor_name": "climate_art_activists",
+        "target_actor_name": "museum_visitors",
+        "weight": 0.44
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Campaign planning creates a reportable hook",
+        "layer": "oasis_interaction",
+        "reason": "Media and activists likely interact around controversy narratives",
+        "source_actor_name": "local_media_culture_press",
+        "target_actor_name": "climate_art_activists",
+        "weight": 0.36
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Governance controversy is publicly legible",
+        "layer": "oasis_interaction",
+        "reason": "Board may face requests for comment as issue emerges",
+        "source_actor_name": "harbor_museum_board",
+        "target_actor_name": "local_media_culture_press",
+        "weight": 0.27
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Curators object but public escalation not yet certain",
+        "layer": "oasis_interaction",
+        "reason": "Curatorial concerns may leak or be quoted if conflict grows",
+        "source_actor_name": "harbor_museum_curators",
+        "target_actor_name": "local_media_culture_press",
+        "weight": 0.23
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype_key": "formal_decision_maker",
+        "label": "Formal decision authority holder"
+      },
+      {
+        "archetype_key": "institutional_operator",
+        "label": "Operational broker inside institution"
+      },
+      {
+        "archetype_key": "resource_gatekeeper",
+        "label": "Funding leverage holder"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "harbor_museum_board",
+        "attention_level": 0.91,
+        "decision_power": 0.93,
+        "expression_level": 0.43,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.21,
+        "hero_archetype_key": "formal_decision_maker",
+        "hero_key": "board_majority_bloc",
+        "mobilization_readiness": 0.74,
+        "perceived_majority": 0.57,
+        "reputational_risk_sensitivity": 0.68,
+        "resource_dependence_salience": 0.71,
+        "role_in_scenario": "Controls sponsorship policy decision",
+        "stance_axes": {
+          "accept_sponsorship": 0.58,
+          "conditional_acceptance": 0.63,
+          "donor_substitution": 0.39,
+          "reject_sponsorship": 0.27
+        }
+      },
+      {
+        "actor_name": "museum_executive_leadership",
+        "attention_level": 0.84,
+        "decision_power": 0.61,
+        "expression_level": 0.36,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.28,
+        "hero_archetype_key": "institutional_operator",
+        "hero_key": "executive_broker",
+        "mobilization_readiness": 0.56,
+        "perceived_majority": 0.51,
+        "reputational_risk_sensitivity": 0.72,
+        "resource_dependence_salience": 0.76,
+        "role_in_scenario": "Manages board process, staff tensions, and sponsor communications",
+        "stance_axes": {
+          "accept_sponsorship": 0.52,
+          "conditional_acceptance": 0.69,
+          "donor_substitution": 0.47,
+          "reject_sponsorship": 0.32
+        }
+      },
+      {
+        "actor_name": "quiet_major_donors",
+        "attention_level": 0.69,
+        "decision_power": 0.49,
+        "expression_level": 0.18,
+        "fatigue": 0.09,
+        "fear_of_isolation": 0.17,
+        "hero_archetype_key": "resource_gatekeeper",
+        "hero_key": "lead_donor_signaler",
+        "mobilization_readiness": 0.33,
+        "perceived_majority": 0.42,
+        "reputational_risk_sensitivity": 0.74,
+        "resource_dependence_salience": 0.88,
+        "role_in_scenario": "Can soften or replace funding pressure without formal authority over policy",
+        "stance_axes": {
+          "accept_sponsorship": 0.45,
+          "conditional_acceptance": 0.59,
+          "donor_substitution": 0.57,
+          "reject_sponsorship": 0.34
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "archetype_key": "formal_decision_maker",
+        "label": "Formal decision authority holder"
+      },
+      {
+        "archetype_key": "institutional_operator",
+        "label": "Operational broker inside institution"
+      },
+      {
+        "archetype_key": "resource_gatekeeper",
+        "label": "Funding leverage holder"
+      }
+    ],
+    "important_questions": [
+      "Will the museum board ultimately accept the fossil-fuel sponsorship for the climate exhibit?",
+      "If sponsorship proceeds, will it be limited by meaningful conditions that visibly constrain sponsor influence or branding?",
+      "Will the board reject or terminate the sponsorship rather than proceed?",
+      "Will substitute donor funding emerge that materially replaces the contested sponsorship?",
+      "Will the institution remain in a durable non-resolution state by relying on delay or procedural deferral?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "harbor_museum_board",
+          "petronex_energy",
+          "museum_executive_leadership"
+        ],
+        "event_key": "sponsorship_offer_under_review",
+        "event_type": "announcement",
+        "expected_impact": "Raises board attention, activates funding-versus-reputation tradeoff, and sets formal decision pathway.",
+        "status": "active",
+        "summary": "The museum board is actively considering Petronex Energy sponsorship for the climate exhibit.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "harbor_museum_curators",
+          "museum_executive_leadership",
+          "harbor_museum_board"
+        ],
+        "event_key": "curatorial_objection_emerges",
+        "event_type": "announcement",
+        "expected_impact": "Increases internal conflict and reduces ease of simple acceptance.",
+        "status": "active",
+        "summary": "Curators have objected to the fossil-fuel sponsorship on mission and credibility grounds.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "climate_art_activists"
+        ],
+        "event_key": "activist_campaign_preparation",
+        "event_type": "announcement",
+        "expected_impact": "Creates latent escalation pressure and possible media activation without yet fixing public opinion.",
+        "status": "active",
+        "summary": "Climate-art activists are planning a campaign but have not fully launched it.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "quiet_major_donors",
+          "harbor_museum_board"
+        ],
+        "event_key": "donor_monitoring_phase",
+        "event_type": "announcement",
+        "expected_impact": "Preserves possibility of private intervention, substitute funding, or silent acquiescence.",
+        "status": "active",
+        "summary": "Major donors are quietly observing the governance process and reputational implications.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "harbor_museum_board",
+          "museum_executive_leadership"
+        ],
+        "event_key": "board_deliberation_window",
+        "event_type": "announcement",
+        "expected_impact": "May crystallize internal factions and generate leaks or procedural delays.",
+        "status": "scheduled",
+        "summary": "A near-term board or committee discussion is expected to narrow options on sponsorship policy.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "climate_art_activists",
+          "museum_visitors",
+          "local_media_culture_press"
+        ],
+        "event_key": "possible_public_campaign_launch",
+        "event_type": "announcement",
+        "expected_impact": "Could sharply raise exposure, conflict, and visitor attention if launched.",
+        "status": "scheduled",
+        "summary": "Activists may move from planning to visible public action if no reassuring signal appears.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "8c7131be-844f-479c-843e-d8a302877c7d",
+    "merge_hypotheses": [
+      {
+        "convergence_driver": "Most actors except the sponsor benefit from preserving museum legitimacy.",
+        "could_merge_paths": [
+          "conditional_acceptance_path",
+          "rejection_under_pressure_path",
+          "donor_substitution_path"
+        ],
+        "evidence": "Authority, reputation, and coalition are central scenario variables.",
+        "merge_key": "shared_institutional_reputation"
+      },
+      {
+        "convergence_driver": "Any path must still solve exhibit financing and operational continuity.",
+        "could_merge_paths": [
+          "quiet_acceptance_path",
+          "conditional_acceptance_path",
+          "donor_substitution_path",
+          "durable_stalemate_path"
+        ],
+        "evidence": "Sponsorship decision is embedded in resource dependence.",
+        "merge_key": "funding_gap_constraint"
+      },
+      {
+        "convergence_driver": "If controversy rises, actors may prefer a face-saving compromise over prolonged conflict.",
+        "could_merge_paths": [
+          "conditional_acceptance_path",
+          "durable_stalemate_path",
+          "rejection_under_pressure_path"
+        ],
+        "evidence": "Conditional acceptance and procedural delay are both viable off-ramps at T0",
+        "merge_key": "coalition_fatigue_after_visibility_spike"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "museum_staff_public",
+        "description": "Curatorial and professional staff whose institutional legitimacy matters to exhibit credibility.",
+        "label": "Museum staff and affiliated experts",
+        "population_total": 120
+      },
+      {
+        "archetype_key": "museum_public",
+        "description": "Annualized relevant visitor and member audience likely to notice controversy if amplified.",
+        "label": "Museum visitor public",
+        "population_total": 50000
+      },
+      {
+        "archetype_key": "resource_elites",
+        "description": "Major donors and funding-capable patrons with outsized financial leverage.",
+        "label": "Donors and funders",
+        "population_total": 40
+      },
+      {
+        "archetype_key": "civic_advocates",
+        "description": "Local advocacy participants capable of coordinated public pressure.",
+        "label": "Climate and arts activists",
+        "population_total": 300
+      }
+    ],
+    "risk_flags": [
+      {
+        "description": "Formal decision authority is concentrated in the board, reducing direct leverage of other actors absent reputational or funding pressure.",
+        "risk_key": "authority_concentration",
+        "severity": "medium"
+      },
+      {
+        "description": "A fossil-fuel sponsor attached to a climate exhibit creates a salient hypocrisy risk that can accelerate conflict if publicized.",
+        "risk_key": "reputational_misalignment",
+        "severity": "high"
+      },
+      {
+        "description": "The ease of replacing sponsor funds with donor substitution is unknown and may govern endpoint feasibility.",
+        "risk_key": "uncertain_funding_elasticity",
+        "severity": "medium"
+      },
+      {
+        "description": "Donors and many visitors are quiet at T0, making apparent consensus unreliable.",
+        "risk_key": "silent_stakeholder_problem",
+        "severity": "medium"
+      },
+      {
+        "description": "Activist plans exist but campaign scale and media traction are not yet observed.",
+        "risk_key": "campaign_amplification_uncertainty",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "institutional_governance",
+      "decision_authority_uncertainty": "low",
+      "decision_focus": "sponsorship_policy_for_climate_exhibit",
+      "evidence_quality": "moderate",
+      "key_uncertainties": [
+        "strength of donor willingness to substitute funds",
+        "degree of board unity",
+        "visitor response elasticity",
+        "scale and effectiveness of activist campaign",
+        "whether conditional sponsorship is institutionally credible"
+      ],
+      "mode": "direct",
+      "scenario_key": "governance_001",
+      "summary": "A fictional museum board is considering whether to accept sponsorship from a fossil-fuel company for a climate exhibit. Internal and external stakeholders are misaligned: curators object, visitors are divided, donors are attentive but mostly quiet, activists are preparing a campaign, and the board holds formal sponsorship authority. T0 should preserve multiple viable endpoints including acceptance, rejection, conditional acceptance, or donor substitution.",
+      "time_horizon_ticks": 6
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "museum_visitors",
+          "quiet_major_donors"
+        ],
+        "evidence": "Conditional and mixed positions suggest many actors may shift only within acceptable legitimacy frames",
+        "level": "moderate",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "museum_visitors",
+          "climate_art_activists",
+          "harbor_museum_curators"
+        ],
+        "evidence": "Broader public reaction likely depends on visible signals such as campaign launch, media coverage, or staff dissent",
+        "level": "high_relevance",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "quiet_major_donors",
+          "museum_visitors"
+        ],
+        "evidence": "Donors watch quietly and visitors are divided with low expression at T0",
+        "level": "high",
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "climate_art_activists",
+          "harbor_museum_curators"
+        ],
+        "evidence": "Shared climate and mission values may reinforce alignment against sponsorship",
+        "level": "moderate",
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "museum_visitors",
+          "quiet_major_donors"
+        ],
+        "evidence": "Single messages may not move opinion; multiple trusted signals likely required",
+        "level": "moderate",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "harbor_museum_curators",
+          "climate_art_activists",
+          "harbor_museum_board"
+        ],
+        "evidence": "Professional ethics, activist identity, and governance identity shape interpretation of legitimacy",
+        "level": "high_relevance",
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "museum_visitors"
+        ],
+        "evidence": "Absent amplification, public attention is likely to remain low or fade",
+        "level": "moderate",
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Formal decision authority is concentrated in the board, which slows but structures change.",
+        "influence_key": "institutional_authority_concentration"
+      },
+      {
+        "description": "Sponsor legitimacy is weaker than museum legitimacy, making reputational spillover directional.",
+        "influence_key": "reputational_asymmetry"
+      },
+      {
+        "description": "Donors may matter more through private signaling than public statements.",
+        "influence_key": "quiet_elite_leverage"
+      },
+      {
+        "description": "Climate exhibit context increases salience of hypocrisy and ethics narratives.",
+        "influence_key": "mission_consistency_frame"
+      },
+      {
+        "description": "Conditions or substitute funding provide off-ramps that may delay binary confrontation.",
+        "influence_key": "conditional_compromise_availability"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "harbor_museum_board",
+        "behavior_axes": {
+          "financial_pragmatism": 0.73,
+          "process_orientation": 0.79,
+          "reputation_defensiveness": 0.68,
+          "responsiveness_to_pressure": 0.44,
+          "risk_tolerance": 0.46
+        },
+        "ideology_axes": {
+          "climate_alignment": 0.41,
+          "governance_centralization": 0.77,
+          "institutional_traditionalism": 0.62
+        },
+        "reputation": 0.69,
+        "secrecy": 0.58,
+        "tendency": "guard formal authority while preserving institutional flexibility",
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "harbor_museum_curators",
+        "behavior_axes": {
+          "financial_pragmatism": 0.33,
+          "process_orientation": 0.63,
+          "reputation_defensiveness": 0.74,
+          "responsiveness_to_pressure": 0.57,
+          "risk_tolerance": 0.39
+        },
+        "ideology_axes": {
+          "climate_alignment": 0.81,
+          "governance_centralization": 0.29,
+          "institutional_traditionalism": 0.42
+        },
+        "reputation": 0.72,
+        "secrecy": 0.27,
+        "tendency": "protect mission legitimacy and exhibit integrity",
+        "trustworthiness": 0.75
+      },
+      {
+        "actor_name": "petronex_energy",
+        "behavior_axes": {
+          "financial_pragmatism": 0.83,
+          "process_orientation": 0.52,
+          "reputation_defensiveness": 0.71,
+          "responsiveness_to_pressure": 0.36,
+          "risk_tolerance": 0.55
+        },
+        "ideology_axes": {
+          "climate_alignment": 0.18,
+          "governance_centralization": 0.51,
+          "institutional_traditionalism": 0.48
+        },
+        "reputation": 0.28,
+        "secrecy": 0.49,
+        "tendency": "seek legitimacy through sponsorship while limiting concessions",
+        "trustworthiness": 0.33
+      },
+      {
+        "actor_name": "museum_visitors",
+        "behavior_axes": {
+          "financial_pragmatism": 0.29,
+          "process_orientation": 0.24,
+          "reputation_defensiveness": 0.41,
+          "responsiveness_to_pressure": 0.52,
+          "risk_tolerance": 0.31
+        },
+        "ideology_axes": {
+          "climate_alignment": 0.52,
+          "governance_centralization": 0.38,
+          "institutional_traditionalism": 0.44
+        },
+        "reputation": 0.5,
+        "secrecy": 0.19,
+        "tendency": "react when issue becomes visible and identity-salient",
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "quiet_major_donors",
+        "behavior_axes": {
+          "financial_pragmatism": 0.71,
+          "process_orientation": 0.66,
+          "reputation_defensiveness": 0.77,
+          "responsiveness_to_pressure": 0.48,
+          "risk_tolerance": 0.37
+        },
+        "ideology_axes": {
+          "climate_alignment": 0.46,
+          "governance_centralization": 0.58,
+          "institutional_traditionalism": 0.67
+        },
+        "reputation": 0.78,
+        "secrecy": 0.66,
+        "tendency": "preserve influence through selective quiet intervention",
+        "trustworthiness": 0.65
+      },
+      {
+        "actor_name": "climate_art_activists",
+        "behavior_axes": {
+          "financial_pragmatism": 0.22,
+          "process_orientation": 0.34,
+          "reputation_defensiveness": 0.45,
+          "responsiveness_to_pressure": 0.61,
+          "risk_tolerance": 0.72
+        },
+        "ideology_axes": {
+          "climate_alignment": 0.92,
+          "governance_centralization": 0.23,
+          "institutional_traditionalism": 0.18
+        },
+        "reputation": 0.5,
+        "secrecy": 0.41,
+        "tendency": "escalate symbolic conflict to force institutional choice",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "museum_executive_leadership",
+        "behavior_axes": {
+          "financial_pragmatism": 0.78,
+          "process_orientation": 0.83,
+          "reputation_defensiveness": 0.76,
+          "responsiveness_to_pressure": 0.53,
+          "risk_tolerance": 0.43
+        },
+        "ideology_axes": {
+          "climate_alignment": 0.49,
+          "governance_centralization": 0.72,
+          "institutional_traditionalism": 0.64
+        },
+        "reputation": 0.67,
+        "secrecy": 0.54,
+        "tendency": "broker compromise while protecting operations",
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "local_media_culture_press",
+        "behavior_axes": {
+          "financial_pragmatism": 0.4,
+          "process_orientation": 0.41,
+          "reputation_defensiveness": 0.52,
+          "responsiveness_to_pressure": 0.69,
+          "risk_tolerance": 0.47
+        },
+        "ideology_axes": {
+          "climate_alignment": 0.56,
+          "governance_centralization": 0.21,
+          "institutional_traditionalism": 0.33
+        },
+        "reputation": 0.61,
+        "secrecy": 0.12,
+        "tendency": "amplify controversy once conflict becomes legible",
+        "trustworthiness": 0.59
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 502,
+        "end": 502,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 502,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

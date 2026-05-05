@@ -1,0 +1,1427 @@
+{
+  "big_bang_id": "630faf02-d558-4dd0-824a-eec8f09c245c",
+  "initializer_output": {
+    "actors": [
+      {
+        "capabilities": [
+          "issue alerts",
+          "publish maps",
+          "coordinate corrections"
+        ],
+        "constraints": [
+          "bureaucratic review",
+          "time pressure",
+          "map-design ambiguity"
+        ],
+        "fictionalized": true,
+        "name": "harbor_city_emergency_management",
+        "role": "official emergency coordinator",
+        "stakes": [
+          "drill compliance",
+          "public trust",
+          "message clarity"
+        ],
+        "type": "institution"
+      },
+      {
+        "capabilities": [
+          "press statements",
+          "website updates",
+          "social posting"
+        ],
+        "constraints": [
+          "depends on emergency source material",
+          "slower correction approval"
+        ],
+        "fictionalized": true,
+        "name": "harbor_city_public_information_office",
+        "role": "city communications office",
+        "stakes": [
+          "message consistency",
+          "reputation protection"
+        ],
+        "type": "institution"
+      },
+      {
+        "capabilities": [
+          "robocalls",
+          "email",
+          "parent portals",
+          "staff guidance"
+        ],
+        "constraints": [
+          "needs simplified actionable guidance",
+          "serves multilingual families"
+        ],
+        "fictionalized": true,
+        "name": "harbor_city_school_district",
+        "role": "school communication intermediary",
+        "stakes": [
+          "student safety",
+          "family reassurance",
+          "operational continuity"
+        ],
+        "type": "institution"
+      },
+      {
+        "capabilities": [
+          "rapid multilingual translation",
+          "peer-to-peer clarification"
+        ],
+        "constraints": [
+          "limited official authority",
+          "risk of relaying stale source material"
+        ],
+        "fictionalized": true,
+        "name": "volunteer_translation_network",
+        "role": "informal translators and community explainers",
+        "stakes": [
+          "language access",
+          "community credibility"
+        ],
+        "type": "civic_network"
+      },
+      {
+        "capabilities": [
+          "peer sharing",
+          "feedback",
+          "public reaction"
+        ],
+        "constraints": [
+          "varying media literacy",
+          "attention limits"
+        ],
+        "fictionalized": true,
+        "name": "local_residents_general",
+        "role": "city residents exposed to drill information",
+        "stakes": [
+          "understanding whether action is needed",
+          "confidence in city instructions"
+        ],
+        "type": "public_group"
+      },
+      {
+        "capabilities": [
+          "community relay",
+          "cross-channel verification"
+        ],
+        "constraints": [
+          "possible delay in translated corrections",
+          "channel fragmentation"
+        ],
+        "fictionalized": true,
+        "name": "multilingual_households",
+        "role": "residents relying on translated or interpreted information",
+        "stakes": [
+          "usable access to instructions",
+          "trust in interpreters and institutions"
+        ],
+        "type": "public_group"
+      },
+      {
+        "capabilities": [
+          "high attention when schools message",
+          "networked parent discussion"
+        ],
+        "constraints": [
+          "time scarcity",
+          "reliance on concise guidance"
+        ],
+        "fictionalized": true,
+        "name": "school_families",
+        "role": "parents and guardians receiving school-linked notices",
+        "stakes": [
+          "child logistics",
+          "clarity about school procedures"
+        ],
+        "type": "public_group"
+      },
+      {
+        "capabilities": [
+          "coverage",
+          "interviews",
+          "visual explainers"
+        ],
+        "constraints": [
+          "dependence on official clarifications",
+          "deadline pressure"
+        ],
+        "fictionalized": true,
+        "name": "local_newsrooms",
+        "role": "local media interpreters and amplifiers",
+        "stakes": [
+          "accuracy",
+          "speed",
+          "audience trust"
+        ],
+        "type": "media"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "branch_key": "rapid_clear_correction",
+        "observable_divergence_signal": "Cross-channel wording becomes consistent and resident question volume falls within one tick.",
+        "plausible_path": "Schools, translators, and newsrooms converge on the same interpretation, confusion narrows, and trust stabilizes.",
+        "trigger": "Official source issues a plainly labeled corrected map plus plain-language explanation by tick 2."
+      },
+      {
+        "branch_key": "stale_translation_gap",
+        "observable_divergence_signal": "School and city channels show updated language first while community translators continue circulating caveated or older interpretations.",
+        "plausible_path": "General resident understanding improves faster than multilingual household understanding, widening usability inequality.",
+        "trigger": "Official correction appears but translated versions lag by one or more ticks."
+      },
+      {
+        "branch_key": "schools_override_with_simple_guidance",
+        "observable_divergence_signal": "Family-reported clarity rises in school channels while citywide resident confusion remains high.",
+        "plausible_path": "School families gain usable information even if broader public confusion remains elevated.",
+        "trigger": "School district reframes the map into concrete family instructions before city messaging is fully fixed."
+      },
+      {
+        "branch_key": "competence_backlash",
+        "observable_divergence_signal": "Coverage and public discussion shift from map interpretation to accountability and communication failure.",
+        "plausible_path": "Residents and media interpret the issue as institutional incompetence, reducing trust beyond the drill itself.",
+        "trigger": "Original confusing map remains visible without prominent correction or is corrected ambiguously."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "city_website",
+        "owned_by": "harbor_city_public_information_office",
+        "reach": "broad",
+        "speed": "medium",
+        "translation_readiness": "low_to_medium",
+        "type": "official_web"
+      },
+      {
+        "channel_key": "emergency_social_posts",
+        "owned_by": "harbor_city_emergency_management",
+        "reach": "broad",
+        "speed": "high",
+        "translation_readiness": "low",
+        "type": "official_social"
+      },
+      {
+        "channel_key": "school_messaging_system",
+        "owned_by": "harbor_city_school_district",
+        "reach": "targeted",
+        "speed": "high",
+        "translation_readiness": "medium",
+        "type": "institutional_direct"
+      },
+      {
+        "channel_key": "community_translation_chats",
+        "owned_by": "volunteer_translation_network",
+        "reach": "targeted",
+        "speed": "medium_to_high",
+        "translation_readiness": "high",
+        "type": "community_network"
+      },
+      {
+        "channel_key": "local_news_sites_and_broadcasts",
+        "owned_by": "local_newsrooms",
+        "reach": "broad",
+        "speed": "medium",
+        "translation_readiness": "low",
+        "type": "media"
+      },
+      {
+        "channel_key": "resident_peer_sharing",
+        "owned_by": "local_residents_general",
+        "reach": "diffuse",
+        "speed": "high",
+        "translation_readiness": "variable",
+        "type": "informal_peer"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype": "city_residents",
+        "attention_level": 0.74,
+        "cohort_key": "residents_attentive_confused",
+        "expression_level": 0.58,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.26,
+        "mobilization_readiness": 0.34,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.3611,
+        "private_belief": "The city likely intends to help, but the map is hard to interpret.",
+        "public_expression": "Questions, screenshot sharing, mild complaints, requests for clarification.",
+        "representation_mode": "direct",
+        "represented_population": 65000,
+        "stance_axes": {
+          "compliance_intent": 0.62,
+          "need_for_clarity": 0.84,
+          "trust_officials": 0.48
+        }
+      },
+      {
+        "archetype": "city_residents",
+        "attention_level": 0.28,
+        "cohort_key": "residents_low_attention",
+        "expression_level": 0.16,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.14,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.5,
+        "private_belief": "This is probably routine unless repeated by trusted channels.",
+        "public_expression": "Limited engagement unless contacted directly.",
+        "representation_mode": "direct",
+        "represented_population": 90000,
+        "stance_axes": {
+          "compliance_intent": 0.45,
+          "need_for_clarity": 0.43,
+          "trust_officials": 0.5
+        }
+      },
+      {
+        "archetype": "city_residents",
+        "attention_level": 0.63,
+        "cohort_key": "residents_skeptical_repeaters",
+        "expression_level": 0.61,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.21,
+        "mobilization_readiness": 0.4,
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.1389,
+        "private_belief": "The city communication is unreliable and possibly incompetent.",
+        "public_expression": "Sarcasm, criticism, selective sharing of confusing visuals.",
+        "representation_mode": "direct",
+        "represented_population": 25000,
+        "stance_axes": {
+          "compliance_intent": 0.31,
+          "need_for_clarity": 0.69,
+          "trust_officials": 0.24
+        }
+      },
+      {
+        "archetype": "school_linked_households",
+        "attention_level": 0.79,
+        "cohort_key": "school_households_alert",
+        "expression_level": 0.52,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.24,
+        "mobilization_readiness": 0.46,
+        "perceived_majority": 0.64,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "School guidance is the most actionable source if it is clear.",
+        "public_expression": "Seeking concrete answers about pickup, routes, and drill expectations.",
+        "representation_mode": "direct",
+        "represented_population": 32000,
+        "stance_axes": {
+          "need_for_clarity": 0.88,
+          "trust_city": 0.51,
+          "trust_schools": 0.7
+        }
+      },
+      {
+        "archetype": "language_access_reliant_households",
+        "attention_level": 0.67,
+        "cohort_key": "language_access_households_waiting_translation",
+        "expression_level": 0.29,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.39,
+        "mobilization_readiness": 0.33,
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 0.6786,
+        "private_belief": "Official information may matter, but translated confirmation is needed before acting confidently.",
+        "public_expression": "Private checking within family or community networks; lower public posting.",
+        "representation_mode": "direct",
+        "represented_population": 19000,
+        "stance_axes": {
+          "need_for_clarity": 0.91,
+          "trust_city": 0.42,
+          "trust_translators": 0.73
+        }
+      },
+      {
+        "archetype": "language_access_reliant_households",
+        "attention_level": 0.72,
+        "cohort_key": "language_access_households_well_connected",
+        "expression_level": 0.48,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.42,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.3214,
+        "private_belief": "Community translators can make official information usable if updates arrive quickly.",
+        "public_expression": "Peer forwarding, checking official updates across channels.",
+        "representation_mode": "direct",
+        "represented_population": 9000,
+        "stance_axes": {
+          "need_for_clarity": 0.86,
+          "trust_city": 0.49,
+          "trust_translators": 0.8
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype": "city_residents",
+        "attention_level": 0.74,
+        "cohort_key": "residents_attentive_confused",
+        "expression_level": 0.58,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.26,
+        "mobilization_readiness": 0.34,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.3611,
+        "private_belief": "The city likely intends to help, but the map is hard to interpret.",
+        "public_expression": "Questions, screenshot sharing, mild complaints, requests for clarification.",
+        "representation_mode": "direct",
+        "represented_population": 65000,
+        "stance_axes": {
+          "compliance_intent": 0.62,
+          "need_for_clarity": 0.84,
+          "trust_officials": 0.48
+        }
+      },
+      {
+        "archetype": "city_residents",
+        "attention_level": 0.28,
+        "cohort_key": "residents_low_attention",
+        "expression_level": 0.16,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.14,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.5,
+        "private_belief": "This is probably routine unless repeated by trusted channels.",
+        "public_expression": "Limited engagement unless contacted directly.",
+        "representation_mode": "direct",
+        "represented_population": 90000,
+        "stance_axes": {
+          "compliance_intent": 0.45,
+          "need_for_clarity": 0.43,
+          "trust_officials": 0.5
+        }
+      },
+      {
+        "archetype": "city_residents",
+        "attention_level": 0.63,
+        "cohort_key": "residents_skeptical_repeaters",
+        "expression_level": 0.61,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.21,
+        "mobilization_readiness": 0.4,
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.1389,
+        "private_belief": "The city communication is unreliable and possibly incompetent.",
+        "public_expression": "Sarcasm, criticism, selective sharing of confusing visuals.",
+        "representation_mode": "direct",
+        "represented_population": 25000,
+        "stance_axes": {
+          "compliance_intent": 0.31,
+          "need_for_clarity": 0.69,
+          "trust_officials": 0.24
+        }
+      },
+      {
+        "archetype": "school_linked_households",
+        "attention_level": 0.79,
+        "cohort_key": "school_households_alert",
+        "expression_level": 0.52,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.24,
+        "mobilization_readiness": 0.46,
+        "perceived_majority": 0.64,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "School guidance is the most actionable source if it is clear.",
+        "public_expression": "Seeking concrete answers about pickup, routes, and drill expectations.",
+        "representation_mode": "direct",
+        "represented_population": 32000,
+        "stance_axes": {
+          "need_for_clarity": 0.88,
+          "trust_city": 0.51,
+          "trust_schools": 0.7
+        }
+      },
+      {
+        "archetype": "language_access_reliant_households",
+        "attention_level": 0.67,
+        "cohort_key": "language_access_households_waiting_translation",
+        "expression_level": 0.29,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.39,
+        "mobilization_readiness": 0.33,
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 0.6786,
+        "private_belief": "Official information may matter, but translated confirmation is needed before acting confidently.",
+        "public_expression": "Private checking within family or community networks; lower public posting.",
+        "representation_mode": "direct",
+        "represented_population": 19000,
+        "stance_axes": {
+          "need_for_clarity": 0.91,
+          "trust_city": 0.42,
+          "trust_translators": 0.73
+        }
+      },
+      {
+        "archetype": "language_access_reliant_households",
+        "attention_level": 0.72,
+        "cohort_key": "language_access_households_well_connected",
+        "expression_level": 0.48,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.42,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.3214,
+        "private_belief": "Community translators can make official information usable if updates arrive quickly.",
+        "public_expression": "Peer forwarding, checking official updates across channels.",
+        "representation_mode": "direct",
+        "represented_population": 9000,
+        "stance_axes": {
+          "need_for_clarity": 0.86,
+          "trust_city": 0.49,
+          "trust_translators": 0.8
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "harbor_city_emergency_management",
+          "harbor_city_school_district",
+          "volunteer_translation_network",
+          "local_newsrooms"
+        ],
+        "blockers": [
+          "map design ambiguity",
+          "slow official correction",
+          "translation lag",
+          "low-attention resident disengagement"
+        ],
+        "contradiction_notes": "This endpoint is contradicted if one or more major audiences remain dependent on conflicting interpretations at drill start.",
+        "description": "Most salient audiences receive actionable, comprehensible evacuation-zone guidance before the drill begins.",
+        "endpoint_key": "broad_usable_information_achieved",
+        "evidence_refs": [
+          "confusing_map_posted",
+          "school_clarification_decision",
+          "translator_response_cycle",
+          "official_correction_or_explainer",
+          "newsroom_verification_piece"
+        ],
+        "label": "Broad usable information achieved",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "By the start of the drill, which major audiences have received usable evacuation-zone information rather than merely seeing the original map?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.46,
+        "rationale": "The scenario explicitly asks who received usable information.",
+        "realization_criteria": [
+          "Observable evidence that city_residents, school_linked_households, and language_access_reliant_households each receive a clear instruction set or corrected map before drill start.",
+          "Cross-channel reports indicate reduced ambiguity in what zone applies and what action is expected."
+        ],
+        "status": "active",
+        "status_basis": "T0 shows confusion with multiple possible clarification intermediaries but no confirmed broad resolution yet."
+      },
+      {
+        "authority_refs": [
+          "harbor_city_emergency_management",
+          "harbor_city_public_information_office"
+        ],
+        "blockers": [
+          "approval delays",
+          "insufficient prominence",
+          "continued circulation of original screenshots"
+        ],
+        "contradiction_notes": "Contradicted if the original confusing map remains the most shared reference or if official clarification is too vague to replace it.",
+        "description": "A city-issued correction, replacement map, or plain-language explainer becomes the dominant reference over the initial confusing post.",
+        "endpoint_key": "official_correction_supersedes_original",
+        "evidence_refs": [
+          "confusing_map_posted",
+          "official_correction_or_explainer"
+        ],
+        "label": "Official correction supersedes original",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the city issue a correction or explainer that becomes more visible than the original confusing map?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.52,
+        "rationale": "Correction visibility is central to trust and downstream comprehension.",
+        "realization_criteria": [
+          "A corrected or clarifying official artifact is published and prominently linked or distributed.",
+          "Subsequent media, school, and community references predominantly point to the corrected artifact rather than the original post."
+        ],
+        "status": "active",
+        "status_basis": "Correction pressure is explicit, but no superseding correction is yet realized at T0."
+      },
+      {
+        "authority_refs": [
+          "harbor_city_school_district",
+          "volunteer_translation_network",
+          "local_newsrooms"
+        ],
+        "blockers": [
+          "strong timely official correction",
+          "limited intermediary reach",
+          "cross-channel inconsistency"
+        ],
+        "contradiction_notes": "Not realized if official emergency management regains clear primacy as the trusted interpreter across audiences.",
+        "description": "An intermediary other than the original city source becomes the main trusted interpreter for key audiences.",
+        "endpoint_key": "intermediary_trust_capture",
+        "evidence_refs": [
+          "school_clarification_decision",
+          "translator_response_cycle",
+          "newsroom_verification_piece"
+        ],
+        "label": "Intermediary trust capture",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Which actor becomes the primary trusted interpreter of the situation: city emergency management, schools, translators, or local news?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.61,
+        "rationale": "The scenario foregrounds communication trust and reactive interpreters.",
+        "realization_criteria": [
+          "Survey-like signals, engagement patterns, or repeated public references show schools, translators, or local news are relied upon more than city emergency management for understanding the map.",
+          "Resident or household behavior follows intermediary explanations even when official materials remain ambiguous."
+        ],
+        "status": "active",
+        "status_basis": "T0 trust is mixed and confusion creates opening for trust transfer away from the original source."
+      },
+      {
+        "authority_refs": [
+          "harbor_city_emergency_management",
+          "volunteer_translation_network",
+          "harbor_city_school_district"
+        ],
+        "blockers": [
+          "translation lag",
+          "lack of translation-ready official assets",
+          "fragmented community channel reach"
+        ],
+        "contradiction_notes": "Parity and persistent gap are mutually exclusive terminal states on this axis.",
+        "description": "The system resolves either toward roughly comparable multilingual usability or a persistent information inequality by drill start.",
+        "endpoint_key": "language_access_parity_or_gap",
+        "evidence_refs": [
+          "translator_response_cycle",
+          "official_correction_or_explainer",
+          "school_clarification_decision"
+        ],
+        "label": "Language access parity or gap",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do multilingual households receive corrected, usable information on a timeline comparable to English-dominant audiences?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.5,
+        "rationale": "The source explicitly includes volunteer translators and asks who received usable information.",
+        "realization_criteria": [
+          "Parity realized if translated/culturally usable corrections reach language-access-reliant households within the same effective decision window as general audiences.",
+          "Gap realized if multilingual households rely on delayed, inconsistent, or unofficially patched interpretation while other audiences already have stable guidance."
+        ],
+        "status": "active",
+        "status_basis": "T0 evidence strongly suggests language access is outcome-relevant but unresolved."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "outbound",
+        "evidence": "Scenario states city posts confusing evacuation-zone maps before a storm drill.",
+        "layer": "exposure",
+        "reason": "Official drill maps and notices reach many residents directly or via reposts.",
+        "source_actor_name": "harbor_city_emergency_management",
+        "target_actor_name": "local_residents_general",
+        "weight": 0.56
+      },
+      {
+        "direction": "outbound",
+        "evidence": "School officials are reacting actors in the scenario.",
+        "layer": "exposure",
+        "reason": "District watches official emergency guidance to shape school messaging.",
+        "source_actor_name": "harbor_city_emergency_management",
+        "target_actor_name": "harbor_city_school_district",
+        "weight": 0.51
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Volunteer translators react to city-posted maps.",
+        "layer": "exposure",
+        "reason": "Translators rely on original city materials as source text.",
+        "source_actor_name": "harbor_city_emergency_management",
+        "target_actor_name": "volunteer_translation_network",
+        "weight": 0.48
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Media information dynamics context and correction focus.",
+        "layer": "exposure",
+        "reason": "Newsrooms monitor and report official public safety posts.",
+        "source_actor_name": "harbor_city_emergency_management",
+        "target_actor_name": "local_newsrooms",
+        "weight": 0.54
+      },
+      {
+        "direction": "outbound",
+        "evidence": "School officials are key reacting actors.",
+        "layer": "exposure",
+        "reason": "District has direct family communication channels.",
+        "source_actor_name": "harbor_city_school_district",
+        "target_actor_name": "school_families",
+        "weight": 0.64
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Volunteer translators included as central actors.",
+        "layer": "exposure",
+        "reason": "Community translators circulate adapted guidance among language-reliant households.",
+        "source_actor_name": "volunteer_translation_network",
+        "target_actor_name": "multilingual_households",
+        "weight": 0.57
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Media information dynamics benchmark role.",
+        "layer": "exposure",
+        "reason": "Residents receive local coverage and explainers through news channels.",
+        "source_actor_name": "local_newsrooms",
+        "target_actor_name": "local_residents_general",
+        "weight": 0.47
+      },
+      {
+        "direction": "reciprocal",
+        "evidence": "Confusing maps imply informal discussion and redistribution.",
+        "layer": "exposure",
+        "reason": "Residents share screenshots and interpretations peer-to-peer.",
+        "source_actor_name": "local_residents_general",
+        "target_actor_name": "local_residents_general",
+        "weight": 0.39
+      },
+      {
+        "direction": "inbound",
+        "evidence": "Scenario centers communication trust after confusing official maps.",
+        "layer": "trust",
+        "reason": "Baseline institutional trust is present but weakened by confusing map presentation.",
+        "source_actor_name": "local_residents_general",
+        "target_actor_name": "harbor_city_emergency_management",
+        "weight": 0.44
+      },
+      {
+        "direction": "inbound",
+        "evidence": "School officials are central intermediaries for drill-related information.",
+        "layer": "trust",
+        "reason": "Families generally see schools as actionable and proximate messengers.",
+        "source_actor_name": "school_families",
+        "target_actor_name": "harbor_city_school_district",
+        "weight": 0.62
+      },
+      {
+        "direction": "inbound",
+        "evidence": "Volunteer translators react in a scenario focused on who received usable information.",
+        "layer": "trust",
+        "reason": "Trusted translators provide usable access where official communication may not.",
+        "source_actor_name": "multilingual_households",
+        "target_actor_name": "volunteer_translation_network",
+        "weight": 0.68
+      },
+      {
+        "direction": "inbound",
+        "evidence": "Expected focus includes correction events and information usability.",
+        "layer": "trust",
+        "reason": "Newsrooms can gain trust as interpreters during confusion.",
+        "source_actor_name": "local_residents_general",
+        "target_actor_name": "local_newsrooms",
+        "weight": 0.53
+      },
+      {
+        "direction": "inbound",
+        "evidence": "School officials react to city emergency information.",
+        "layer": "trust",
+        "reason": "District relies on emergency managers as authoritative source despite some ambiguity.",
+        "source_actor_name": "harbor_city_school_district",
+        "target_actor_name": "harbor_city_emergency_management",
+        "weight": 0.58
+      },
+      {
+        "direction": "inbound",
+        "evidence": "Official city communication originates from emergency map posting context.",
+        "layer": "dependency",
+        "reason": "PIO messaging depends on emergency management source facts and map updates.",
+        "source_actor_name": "harbor_city_public_information_office",
+        "target_actor_name": "harbor_city_emergency_management",
+        "weight": 0.61
+      },
+      {
+        "direction": "inbound",
+        "evidence": "School officials react to evacuation-zone maps.",
+        "layer": "dependency",
+        "reason": "District needs authoritative geographic interpretation for school notices.",
+        "source_actor_name": "harbor_city_school_district",
+        "target_actor_name": "harbor_city_emergency_management",
+        "weight": 0.57
+      },
+      {
+        "direction": "inbound",
+        "evidence": "Translators are reacting to city-posted maps.",
+        "layer": "dependency",
+        "reason": "Translation quality depends on stable official source content.",
+        "source_actor_name": "volunteer_translation_network",
+        "target_actor_name": "harbor_city_emergency_management",
+        "weight": 0.49
+      },
+      {
+        "direction": "inbound",
+        "evidence": "Scenario highlights volunteer translators and who received usable information.",
+        "layer": "dependency",
+        "reason": "Some households depend on translators for usable interpretation.",
+        "source_actor_name": "multilingual_households",
+        "target_actor_name": "volunteer_translation_network",
+        "weight": 0.52
+      },
+      {
+        "direction": "inbound",
+        "evidence": "School officials are named as reacting actors.",
+        "layer": "dependency",
+        "reason": "Families rely on schools for child-specific operational guidance.",
+        "source_actor_name": "school_families",
+        "target_actor_name": "harbor_city_school_district",
+        "weight": 0.55
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Official map source sits with city emergency communication.",
+        "layer": "influence",
+        "reason": "Emergency management sets the substantive frame for city messaging.",
+        "source_actor_name": "harbor_city_emergency_management",
+        "target_actor_name": "harbor_city_public_information_office",
+        "weight": 0.59
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Correction events are an expected focus.",
+        "layer": "influence",
+        "reason": "City communications can shape interpretation if corrections are issued clearly.",
+        "source_actor_name": "harbor_city_public_information_office",
+        "target_actor_name": "local_residents_general",
+        "weight": 0.41
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Media benchmark and trust/correction emphasis.",
+        "layer": "influence",
+        "reason": "News explainers can redefine whether residents view maps as usable.",
+        "source_actor_name": "local_newsrooms",
+        "target_actor_name": "local_residents_general",
+        "weight": 0.52
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Volunteer translators are central reactants.",
+        "layer": "influence",
+        "reason": "Translators can strongly shape practical interpretation within language communities.",
+        "source_actor_name": "volunteer_translation_network",
+        "target_actor_name": "multilingual_households",
+        "weight": 0.58
+      },
+      {
+        "direction": "outbound",
+        "evidence": "School officials named in scenario.",
+        "layer": "influence",
+        "reason": "District messages can determine family response expectations.",
+        "source_actor_name": "harbor_city_school_district",
+        "target_actor_name": "school_families",
+        "weight": 0.6
+      },
+      {
+        "direction": "reciprocal",
+        "evidence": "Both are official city communicators in this scenario frame.",
+        "layer": "coalition",
+        "reason": "Shared city apparatus and interest in message stabilization.",
+        "source_actor_name": "harbor_city_emergency_management",
+        "target_actor_name": "harbor_city_public_information_office",
+        "weight": 0.63
+      },
+      {
+        "direction": "reciprocal",
+        "evidence": "Both need workable public guidance before drill.",
+        "layer": "coalition",
+        "reason": "Partial alignment around orderly drill execution despite distinct institutional needs.",
+        "source_actor_name": "harbor_city_emergency_management",
+        "target_actor_name": "harbor_city_school_district",
+        "weight": 0.46
+      },
+      {
+        "direction": "reciprocal",
+        "evidence": "Schools and translators both serve affected households.",
+        "layer": "coalition",
+        "reason": "Potential cooperation on multilingual family outreach.",
+        "source_actor_name": "harbor_city_school_district",
+        "target_actor_name": "volunteer_translation_network",
+        "weight": 0.34
+      },
+      {
+        "direction": "reciprocal",
+        "evidence": "Correction-focused scenario with multiple interpreters.",
+        "layer": "coalition",
+        "reason": "Loose alignment may emerge around clarification and access, but not yet formalized.",
+        "source_actor_name": "volunteer_translation_network",
+        "target_actor_name": "local_newsrooms",
+        "weight": 0.28
+      },
+      {
+        "direction": "outbound",
+        "evidence": "City posted confusing evacuation-zone maps.",
+        "layer": "conflict",
+        "reason": "Confusion creates grievance and criticism toward the official source.",
+        "source_actor_name": "local_residents_general",
+        "target_actor_name": "harbor_city_emergency_management",
+        "weight": 0.36
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Correction events are central expected focus.",
+        "layer": "conflict",
+        "reason": "Journalistic scrutiny may challenge clarity and timing of official corrections.",
+        "source_actor_name": "local_newsrooms",
+        "target_actor_name": "harbor_city_emergency_management",
+        "weight": 0.24
+      },
+      {
+        "direction": "outbound",
+        "evidence": "Usable information and multilingual access are central concerns.",
+        "layer": "conflict",
+        "reason": "Potential friction if official updates are delayed or not translation-ready.",
+        "source_actor_name": "volunteer_translation_network",
+        "target_actor_name": "harbor_city_public_information_office",
+        "weight": 0.19
+      },
+      {
+        "direction": "reciprocal",
+        "evidence": "Media-information dynamics scenario around corrections.",
+        "layer": "oasis_interaction",
+        "reason": "Frequent public-facing interaction likely through briefings, posts, and inquiries.",
+        "source_actor_name": "harbor_city_emergency_management",
+        "target_actor_name": "local_newsrooms",
+        "weight": 0.49
+      },
+      {
+        "direction": "reciprocal",
+        "evidence": "City posts maps publicly before drill.",
+        "layer": "oasis_interaction",
+        "reason": "City social and web channels host visible clarification attempts and resident responses.",
+        "source_actor_name": "harbor_city_public_information_office",
+        "target_actor_name": "local_residents_general",
+        "weight": 0.44
+      },
+      {
+        "direction": "reciprocal",
+        "evidence": "Volunteer translators react to official materials.",
+        "layer": "oasis_interaction",
+        "reason": "High visible exchange in community channels around interpretation.",
+        "source_actor_name": "volunteer_translation_network",
+        "target_actor_name": "multilingual_households",
+        "weight": 0.53
+      },
+      {
+        "direction": "reciprocal",
+        "evidence": "School officials are reacting actors.",
+        "layer": "oasis_interaction",
+        "reason": "School channels become active venues for questions and clarifications.",
+        "source_actor_name": "harbor_city_school_district",
+        "target_actor_name": "school_families",
+        "weight": 0.51
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype": "official_coordinator",
+        "description": "Named or focal institutional actors able to issue or correct public safety communication."
+      },
+      {
+        "archetype": "community_bridge",
+        "description": "Actors that translate, contextualize, or relay institutional information across trust and language gaps."
+      },
+      {
+        "archetype": "media_interpreter",
+        "description": "Actors that synthesize, question, and amplify emerging corrections."
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "harbor_city_emergency_management",
+        "attention_level": 0.86,
+        "current_posture": "defensive_clarification",
+        "expression_level": 0.71,
+        "fatigue": 0.38,
+        "fear_of_isolation": 0.12,
+        "hero_archetype": "official_coordinator",
+        "mobilization_readiness": 0.65,
+        "objective": "stabilize understanding before the drill and avoid broader trust erosion",
+        "perceived_majority": 0.58,
+        "stance_axes": {
+          "centralization": 0.72,
+          "speed_vs_accuracy": 0.56,
+          "transparency": 0.49
+        }
+      },
+      {
+        "actor_name": "volunteer_translation_network",
+        "attention_level": 0.77,
+        "current_posture": "rapid_contextualization",
+        "expression_level": 0.62,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.18,
+        "hero_archetype": "community_bridge",
+        "mobilization_readiness": 0.68,
+        "objective": "convert confusing official material into usable multilingual guidance",
+        "perceived_majority": 0.46,
+        "stance_axes": {
+          "alignment_with_officials": 0.57,
+          "community_autonomy": 0.7,
+          "speed_vs_accuracy": 0.63
+        }
+      },
+      {
+        "actor_name": "local_newsrooms",
+        "attention_level": 0.73,
+        "current_posture": "verification_and_explainer",
+        "expression_level": 0.67,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.11,
+        "hero_archetype": "media_interpreter",
+        "mobilization_readiness": 0.59,
+        "objective": "clarify what the map means and report corrections credibly",
+        "perceived_majority": 0.51,
+        "stance_axes": {
+          "adversarial_scrutiny": 0.52,
+          "public_service_orientation": 0.76,
+          "speed_vs_accuracy": 0.54
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "archetype": "official_coordinator",
+        "description": "Named or focal institutional actors able to issue or correct public safety communication."
+      },
+      {
+        "archetype": "community_bridge",
+        "description": "Actors that translate, contextualize, or relay institutional information across trust and language gaps."
+      },
+      {
+        "archetype": "media_interpreter",
+        "description": "Actors that synthesize, question, and amplify emerging corrections."
+      }
+    ],
+    "important_questions": [
+      "By the start of the drill, which major audiences have received usable evacuation-zone information rather than merely seeing the original map?",
+      "Does the city issue a correction or explainer that becomes more visible than the original confusing map?",
+      "Which actor becomes the primary trusted interpreter of the situation: city emergency management, schools, translators, or local news?",
+      "Do multilingual households receive corrected, usable information on a timeline comparable to English-dominant audiences?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "harbor_city_emergency_management",
+          "harbor_city_public_information_office",
+          "local_residents_general"
+        ],
+        "event_key": "confusing_map_posted",
+        "event_type": "announcement",
+        "evidence": "Scenario text explicitly states confusing evacuation-zone maps are posted before a storm drill.",
+        "expected_impact": "Raises attention, lowers immediate comprehension, and creates demand for interpreters and corrections.",
+        "status": "realized",
+        "summary": "The city posts evacuation-zone maps for an upcoming storm drill, but the map presentation is confusing.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "local_residents_general",
+          "school_families",
+          "multilingual_households"
+        ],
+        "event_key": "resident_question_wave",
+        "event_type": "announcement",
+        "evidence": "Residents react and scenario focuses on communication trust.",
+        "expected_impact": "Increases exposure and oasis interactions, with possible rise in conflict toward official sources if unanswered.",
+        "status": "anticipated",
+        "summary": "Questions and screenshot sharing begin spreading across resident and family networks.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "harbor_city_school_district"
+        ],
+        "event_key": "school_clarification_decision",
+        "event_type": "announcement",
+        "evidence": "School officials are named reacting actors.",
+        "expected_impact": "Can either improve family usability or propagate ambiguity into school-linked channels.",
+        "status": "anticipated",
+        "summary": "School officials decide whether to forward the city map as-is, summarize it, or wait for clarification.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "volunteer_translation_network",
+          "multilingual_households"
+        ],
+        "event_key": "translator_response_cycle",
+        "event_type": "announcement",
+        "evidence": "Volunteer translators are key reacting actors.",
+        "expected_impact": "May reduce access inequities, but risk increases if source content changes before translated corrections propagate.",
+        "status": "anticipated",
+        "summary": "Volunteer translators begin adapting or explaining the map for community distribution.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "harbor_city_emergency_management",
+          "harbor_city_public_information_office",
+          "local_newsrooms"
+        ],
+        "event_key": "official_correction_or_explainer",
+        "event_type": "announcement",
+        "evidence": "Expected focus includes correction events.",
+        "expected_impact": "Could restore trust if timely and clear; delayed or partial correction may intensify media scrutiny and public skepticism.",
+        "status": "anticipated",
+        "summary": "City considers issuing a corrected map, legend, FAQ, or plain-language explainer.",
+        "tick": 2
+      },
+      {
+        "actors": [
+          "local_newsrooms"
+        ],
+        "event_key": "newsroom_verification_piece",
+        "event_type": "announcement",
+        "evidence": "Media information dynamics benchmark and correction focus.",
+        "expected_impact": "Can become a major interpretation anchor for residents and shape trust judgments about official competence.",
+        "status": "anticipated",
+        "summary": "Local newsrooms publish clarification or coverage comparing the original map and any correction.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "eae435e0-6a85-4dd0-86b4-5de3b0df596f",
+    "merge_hypotheses": [
+      {
+        "convergence_effect": "Even strained actors may align around a common explainer once ambiguity is recognized.",
+        "mechanism": "All major actors benefit from a single simple interpretation before the drill starts.",
+        "merge_key": "shared_need_for_actionable_clarity"
+      },
+      {
+        "convergence_effect": "Public debate cools as institutions and intermediaries repeat the most actionable available guidance.",
+        "mechanism": "If the drill timing approaches and no new contradictory information appears, participants may settle on a practical minimum-consensus message.",
+        "merge_key": "channel_fatigue_reduces_conflict"
+      },
+      {
+        "convergence_effect": "Residents, schools, and translators may synchronize around media framing when official messaging is incomplete.",
+        "mechanism": "A widely shared local explainer can provide a de facto common interpretation across groups.",
+        "merge_key": "newsroom_as_common_reference"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype": "city_residents",
+        "description": "Residents of the fictional city exposed to drill communications through official, media, and peer channels.",
+        "population_total": 180000
+      },
+      {
+        "archetype": "school_linked_households",
+        "description": "Households directly tied to district communications.",
+        "population_total": 32000
+      },
+      {
+        "archetype": "language_access_reliant_households",
+        "description": "Households more dependent on translated or interpreted public information.",
+        "population_total": 28000
+      }
+    ],
+    "risk_flags": [
+      {
+        "note": "City size, channel mix, and institutional capacity are not specified; counts are calibrated defaults for a compact municipal scenario.",
+        "risk_key": "insufficient_scale_specificity",
+        "severity": "low"
+      },
+      {
+        "note": "Scenario is seeded with confusion and pressure but not full crisis, preserving room for correction dynamics.",
+        "risk_key": "premature_trust_collapse_avoidance",
+        "severity": "low"
+      },
+      {
+        "note": "Volunteer translators are salient, but exact language distribution and official translation resources are unspecified.",
+        "risk_key": "language_access_undermeasurement",
+        "severity": "medium"
+      },
+      {
+        "note": "High dependence on one confusing map means small design or prominence changes can produce large branch divergence.",
+        "risk_key": "single_artifact_fragility",
+        "severity": "medium"
+      },
+      {
+        "note": "Even strong official correction may struggle to overtake screenshots of the original map in peer channels.",
+        "risk_key": "informal_resharing_persistence",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "core_premises": [
+        "Official emergency communication contains confusing map information.",
+        "Residents, emergency managers, school officials, and volunteer translators are salient actors.",
+        "Trust, correction events, and distribution of usable information are central outcome drivers.",
+        "The scenario should remain compact and not begin at maximum crisis."
+      ],
+      "domain": "media_information_dynamics",
+      "initial_uncertainty": [
+        "Exact city size and media ecosystem are unspecified.",
+        "No confirmed harm event at T0; confusion risk is present but not yet fully realized.",
+        "Audience segmentation and language access gaps are implied but not quantified in source text."
+      ],
+      "mode": "direct",
+      "report_focus": [
+        "who_received_usable_information",
+        "how_corrections_change_trust",
+        "which_channels_reduce_or_amplify_confusion"
+      ],
+      "scenario_key": "media_005",
+      "summary": "A fictional city releases confusing evacuation-zone maps ahead of a storm drill. Communication quality, trust, correction dynamics, and unequal access to usable information are the main T0 pressures.",
+      "time_horizon_ticks": 6
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "local_residents_general",
+          "school_families",
+          "multilingual_households"
+        ],
+        "level": 0.64,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "People are more likely to accept clarifications from already trusted intermediaries than from unfamiliar sources."
+      },
+      {
+        "applies_to": [
+          "local_residents_general"
+        ],
+        "level": 0.46,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Public complaint or active questioning rises if confusion is repeated across channels or validated by peers/media."
+      },
+      {
+        "applies_to": [
+          "multilingual_households",
+          "residents_low_attention"
+        ],
+        "level": 0.42,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Some households privately doubt comprehension but do not publicly signal confusion unless prompted by trusted community nodes."
+      },
+      {
+        "applies_to": [
+          "multilingual_households",
+          "school_families",
+          "local_residents_general"
+        ],
+        "level": 0.58,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Residents preferentially verify information within familiar language, school, or neighborhood networks."
+      },
+      {
+        "applies_to": [
+          "local_residents_general",
+          "school_families"
+        ],
+        "level": 0.61,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Belief that maps are unusable or corrected usually needs reinforcement from multiple sources."
+      },
+      {
+        "applies_to": [
+          "school_families",
+          "multilingual_households"
+        ],
+        "level": 0.55,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "School-linked and language-community identities shape who is seen as credible."
+      },
+      {
+        "applies_to": [
+          "local_residents_general"
+        ],
+        "level": 0.47,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "If corrections are delayed or not salient, many low-attention residents disengage rather than resolve confusion."
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context_key": "official_confusion_penalty",
+        "description": "Confusing initial official visuals reduce message uptake unless accompanied by plain-language restatement."
+      },
+      {
+        "context_key": "intermediary_trust_advantage",
+        "description": "Schools, translators, and local news can outperform the original source in perceived usability when they simplify instructions."
+      },
+      {
+        "context_key": "translation_lag_sensitivity",
+        "description": "If corrections arrive in English first and multilingual updates lag, information inequality widens quickly."
+      },
+      {
+        "context_key": "channel_consistency_effect",
+        "description": "Repeated alignment across city, school, translator, and news channels materially improves confidence in interpretation."
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "harbor_city_emergency_management",
+        "behavior_axes": {
+          "clarity": 0.41,
+          "coordination": 0.69,
+          "reactivity": 0.58
+        },
+        "ideology_axes": {
+          "institutionalism": 0.82,
+          "risk_aversion": 0.71
+        },
+        "reputation": 0.57,
+        "secrecy": 0.37,
+        "tendency": "procedural_but_error_prone_under_time_pressure",
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "harbor_city_public_information_office",
+        "behavior_axes": {
+          "clarity": 0.52,
+          "coordination": 0.63,
+          "reactivity": 0.49
+        },
+        "ideology_axes": {
+          "institutionalism": 0.79,
+          "risk_aversion": 0.68
+        },
+        "reputation": 0.56,
+        "secrecy": 0.34,
+        "tendency": "message_discipline_and_reputational_caution",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "harbor_city_school_district",
+        "behavior_axes": {
+          "clarity": 0.66,
+          "coordination": 0.64,
+          "reactivity": 0.61
+        },
+        "ideology_axes": {
+          "institutionalism": 0.74,
+          "risk_aversion": 0.73
+        },
+        "reputation": 0.64,
+        "secrecy": 0.23,
+        "tendency": "actionable_family_focused_messaging",
+        "trustworthiness": 0.66
+      },
+      {
+        "actor_name": "volunteer_translation_network",
+        "behavior_axes": {
+          "clarity": 0.71,
+          "coordination": 0.52,
+          "reactivity": 0.76
+        },
+        "ideology_axes": {
+          "community_solidarity": 0.83,
+          "institutionalism": 0.45
+        },
+        "reputation": 0.62,
+        "secrecy": 0.16,
+        "tendency": "high_trust_bridge_with_capacity_limits",
+        "trustworthiness": 0.7
+      },
+      {
+        "actor_name": "local_residents_general",
+        "behavior_axes": {
+          "clarity": 0.38,
+          "coordination": 0.31,
+          "reactivity": 0.55
+        },
+        "ideology_axes": {
+          "institutionalism": 0.48,
+          "risk_aversion": 0.52
+        },
+        "reputation": 0.5,
+        "secrecy": 0.18,
+        "tendency": "mixed_attention_and_peer_reliance",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "multilingual_households",
+        "behavior_axes": {
+          "clarity": 0.46,
+          "coordination": 0.47,
+          "reactivity": 0.51
+        },
+        "ideology_axes": {
+          "community_solidarity": 0.72,
+          "institutionalism": 0.44
+        },
+        "reputation": 0.53,
+        "secrecy": 0.24,
+        "tendency": "verification_through_trusted_intermediaries",
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "school_families",
+        "behavior_axes": {
+          "clarity": 0.57,
+          "coordination": 0.49,
+          "reactivity": 0.68
+        },
+        "ideology_axes": {
+          "institutionalism": 0.59,
+          "risk_aversion": 0.74
+        },
+        "reputation": 0.54,
+        "secrecy": 0.18,
+        "tendency": "high_attention_when_child_safety_is_invoked",
+        "trustworthiness": 0.56
+      },
+      {
+        "actor_name": "local_newsrooms",
+        "behavior_axes": {
+          "clarity": 0.69,
+          "coordination": 0.46,
+          "reactivity": 0.67
+        },
+        "ideology_axes": {
+          "institutionalism": 0.51,
+          "public_service": 0.78
+        },
+        "reputation": 0.61,
+        "secrecy": 0.14,
+        "tendency": "fast_amplification_with_fact_checking_pressure",
+        "trustworthiness": 0.63
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 429,
+        "end": 429,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 429,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

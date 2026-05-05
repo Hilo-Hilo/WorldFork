@@ -1,0 +1,1656 @@
+{
+  "big_bang_id": "acd9e8a2-d11a-4b28-b4af-b6556fe34c0d",
+  "initializer_output": {
+    "actors": [
+      {
+        "fictionalized": true,
+        "name": "state_housing_agency",
+        "resources": [
+          "statutory enforcement power",
+          "grant allocation leverage",
+          "technical rulemaking capacity"
+        ],
+        "role": "enforcer of affordable-housing targets and grant sanctions",
+        "scale": "state",
+        "stakes": [
+          "policy compliance",
+          "legal defensibility",
+          "credibility of enforcement"
+        ],
+        "type": "institution"
+      },
+      {
+        "fictionalized": true,
+        "name": "regional_governor",
+        "resources": [
+          "public messaging",
+          "budget influence",
+          "informal coordination power"
+        ],
+        "role": "executive agenda setter and political coalition manager",
+        "scale": "regional",
+        "stakes": [
+          "housing delivery",
+          "suburban backlash management",
+          "statewide reputation"
+        ],
+        "type": "public_official"
+      },
+      {
+        "fictionalized": true,
+        "name": "suburban_local_councils",
+        "resources": [
+          "land-use authority",
+          "litigation capacity",
+          "public hearings"
+        ],
+        "role": "municipal decision makers facing targets",
+        "scale": "multi_municipal",
+        "stakes": [
+          "local autonomy",
+          "grant funding",
+          "zoning control",
+          "electoral pressure"
+        ],
+        "type": "institutional_bloc"
+      },
+      {
+        "fictionalized": true,
+        "name": "suburban_homeowners",
+        "resources": [
+          "local turnout",
+          "meeting attendance",
+          "informal neighborhood networks"
+        ],
+        "role": "residents sensitive to neighborhood change and taxes",
+        "scale": "regional",
+        "stakes": [
+          "property values",
+          "neighborhood character",
+          "local control"
+        ],
+        "type": "public_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "renters_and_housing_seekers",
+        "resources": [
+          "moral claim",
+          "tenant advocacy channels",
+          "some electoral voice"
+        ],
+        "role": "residents and entrants seeking more affordable supply",
+        "scale": "regional",
+        "stakes": [
+          "rent levels",
+          "housing access",
+          "commute burden"
+        ],
+        "type": "public_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "residential_builders",
+        "resources": [
+          "capital access",
+          "development expertise",
+          "lobbying"
+        ],
+        "role": "potential suppliers of new housing under looser local barriers",
+        "scale": "regional",
+        "stakes": [
+          "project pipeline",
+          "permit predictability",
+          "subsidy compatibility"
+        ],
+        "type": "industry_group"
+      },
+      {
+        "fictionalized": true,
+        "name": "municipal_legal_coalition",
+        "resources": [
+          "outside counsel",
+          "joint filings",
+          "procedural delay"
+        ],
+        "role": "potential lawsuit organizer for suburbs",
+        "scale": "multi_municipal",
+        "stakes": [
+          "injunction or delay",
+          "narrowing agency authority"
+        ],
+        "type": "ad_hoc_coalition"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "A subgroup of councils defects from the resistance bloc and begins compliance planning.",
+        "branch_key": "rapid_compliance_split",
+        "observable_divergence_signal": "Public announcements of zoning/workplan adoption, reduced lawsuit participation, or requests for technical assistance from the agency.",
+        "trigger": "Several grant-dependent municipalities conclude sanctions are credible and deadlines manageable."
+      },
+      {
+        "alternate_path": "Conflict de-escalates into bargaining over sequencing rather than all-or-nothing legal confrontation.",
+        "branch_key": "negotiated_delay_path",
+        "observable_divergence_signal": "Joint statements, paused sanctions, working groups, or municipal acceptance of interim milestones.",
+        "trigger": "Governor or agency signals phased enforcement, safe harbors, or revised deadlines."
+      },
+      {
+        "alternate_path": "Implementation pauses, councils harden resistance, and agency shifts to legal defense and political messaging.",
+        "branch_key": "court_freeze_path",
+        "observable_divergence_signal": "Court order preserving status quo, delayed sanction dates, and increased legal-channel salience.",
+        "trigger": "Municipal legal coalition secures a temporary restraining order or preliminary injunction."
+      },
+      {
+        "alternate_path": "Some suburbs receive flexibility, weakening unified municipal resistance while leaving core policy alive.",
+        "branch_key": "partial_exemption_fragmentation",
+        "observable_divergence_signal": "Exemption petitions, municipality-specific side deals, and complaints from excluded councils or advocates.",
+        "trigger": "Agency or governor offers narrow carve-outs based on infrastructure capacity, timing, or statutory interpretation."
+      },
+      {
+        "alternate_path": "Councils become less willing to negotiate, governor grows more cautious, and compliance timelines slip politically before legally.",
+        "branch_key": "homeowner_backlash_escalation",
+        "observable_divergence_signal": "Packed hearings, anti-mandate resolutions, and stronger local-control framing by elected officials.",
+        "trigger": "Local meetings produce intense homeowner opposition tied to sanctions and neighborhood change."
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "agency_guidance_and_notices",
+        "credibility": "high",
+        "interaction_pattern": "formal notices, compliance rules, sanction warnings",
+        "primary_actors": [
+          "state_housing_agency",
+          "suburban_local_councils"
+        ],
+        "reach": "targeted_high",
+        "type": "official_institutional"
+      },
+      {
+        "channel_key": "governor_press_and_statewide_media",
+        "credibility": "mixed",
+        "interaction_pattern": "agenda-setting statements and narrative framing",
+        "primary_actors": [
+          "regional_governor",
+          "state_housing_agency",
+          "suburban_homeowners",
+          "renters_and_housing_seekers"
+        ],
+        "reach": "regional_high",
+        "type": "mass_public"
+      },
+      {
+        "channel_key": "municipal_public_meetings",
+        "credibility": "high_local",
+        "interaction_pattern": "hearings, comment periods, visible contention",
+        "primary_actors": [
+          "suburban_local_councils",
+          "suburban_homeowners",
+          "renters_and_housing_seekers",
+          "residential_builders"
+        ],
+        "reach": "local_medium",
+        "type": "local_public"
+      },
+      {
+        "channel_key": "legal_filings_and_court_updates",
+        "credibility": "high",
+        "interaction_pattern": "complaints, motions, injunction requests",
+        "primary_actors": [
+          "municipal_legal_coalition",
+          "state_housing_agency",
+          "suburban_local_councils"
+        ],
+        "reach": "elite_medium_public_spillover",
+        "type": "procedural_public"
+      },
+      {
+        "channel_key": "industry_and_advocacy_lobbying",
+        "credibility": "mixed",
+        "interaction_pattern": "quiet negotiation, technical proposals, carve-out requests",
+        "primary_actors": [
+          "residential_builders",
+          "regional_governor",
+          "state_housing_agency",
+          "suburban_local_councils"
+        ],
+        "reach": "targeted_medium",
+        "type": "elite_network"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_key": "suburban_residents",
+        "attention_level": 0.7,
+        "behavioral_tendencies": [
+          "attend council meetings",
+          "respond to neighborhood cues",
+          "elevate property-value concerns"
+        ],
+        "cohort_key": "homeowner_defenders",
+        "expression_level": 0.65,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.22,
+        "label": "Change-wary suburban homeowners",
+        "mobilization_readiness": 0.58,
+        "perceived_majority": 0.68,
+        "population_share_of_archetype": 0.55,
+        "private_position": "skeptical of imposed targets, mixed views on sanctions",
+        "public_position": "support local control and measured growth",
+        "representation_mode": "direct_cohort",
+        "represented_population": 990000,
+        "reputation": 0.58,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "affordable_housing_targets": -0.5,
+          "litigation_support": 0.5,
+          "local_autonomy": 0.9,
+          "state_enforcement": -0.7
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "archetype_key": "suburban_residents",
+        "attention_level": 0.62,
+        "behavioral_tendencies": [
+          "support advocacy online",
+          "lower meeting attendance due to time constraints",
+          "responsive to fairness framing"
+        ],
+        "cohort_key": "pro_housing_renters",
+        "expression_level": 0.4,
+        "fatigue": 0.38,
+        "fear_of_isolation": 0.57,
+        "label": "Renters and housing seekers favoring added supply",
+        "mobilization_readiness": 0.46,
+        "perceived_majority": 0.28,
+        "population_share_of_archetype": 0.3,
+        "private_position": "support stronger production requirements and state pressure",
+        "public_position": "more housing needed but concern about delay and exclusion",
+        "representation_mode": "direct_cohort",
+        "represented_population": 540000,
+        "reputation": 0.49,
+        "secrecy": 0.34,
+        "stance_axes": {
+          "affordable_housing_targets": 0.82,
+          "litigation_support": -0.55,
+          "local_autonomy": -0.2,
+          "state_enforcement": 0.62
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "archetype_key": "suburban_residents",
+        "attention_level": 0.5,
+        "behavioral_tendencies": [
+          "wait for elite cues",
+          "prefer negotiated settlement",
+          "shift with local cost signals"
+        ],
+        "cohort_key": "cross_pressured_suburbanites",
+        "expression_level": 0.28,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.43,
+        "label": "Mixed-view residents balancing affordability and neighborhood concerns",
+        "mobilization_readiness": 0.3,
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 0.15,
+        "private_position": "accept some need for housing but dislike blunt sanctions",
+        "public_position": "favor compromise and phased implementation",
+        "representation_mode": "direct_cohort",
+        "represented_population": 270000,
+        "reputation": 0.53,
+        "secrecy": 0.31,
+        "stance_axes": {
+          "affordable_housing_targets": 0.18,
+          "litigation_support": 0.05,
+          "local_autonomy": 0.45,
+          "state_enforcement": -0.15
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "archetype_key": "housing_market_participants",
+        "attention_level": 0.72,
+        "behavioral_tendencies": [
+          "lobby quietly",
+          "seek carve-outs and certainty",
+          "support compromise packages"
+        ],
+        "cohort_key": "builder_growth_coalition",
+        "expression_level": 0.55,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.26,
+        "label": "Builders and allied market actors favoring predictable approvals",
+        "mobilization_readiness": 0.61,
+        "perceived_majority": 0.36,
+        "population_share_of_archetype": 0.49,
+        "private_position": "support targets if they create permit pathways",
+        "public_position": "need certainty, infrastructure, and feasible compliance terms",
+        "representation_mode": "interest_cohort",
+        "represented_population": 22000,
+        "reputation": 0.46,
+        "secrecy": 0.28,
+        "stance_axes": {
+          "affordable_housing_targets": 0.68,
+          "litigation_support": -0.32,
+          "local_autonomy": -0.18,
+          "state_enforcement": 0.34
+        },
+        "trustworthiness": 0.52
+      },
+      {
+        "archetype_key": "housing_market_participants",
+        "attention_level": 0.68,
+        "behavioral_tendencies": [
+          "use moral pressure",
+          "amplify delay harms",
+          "ally selectively with builders"
+        ],
+        "cohort_key": "housing_access_advocates",
+        "expression_level": 0.58,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.36,
+        "label": "Tenant and housing access advocates",
+        "mobilization_readiness": 0.57,
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.51,
+        "private_position": "favor firm enforcement against exclusionary suburbs",
+        "public_position": "frame issue as fairness and access",
+        "representation_mode": "interest_cohort",
+        "represented_population": 23000,
+        "reputation": 0.56,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "affordable_housing_targets": 0.9,
+          "litigation_support": -0.72,
+          "local_autonomy": -0.42,
+          "state_enforcement": 0.74
+        },
+        "trustworthiness": 0.64
+      },
+      {
+        "archetype_key": "local_governance_elites",
+        "attention_level": 0.88,
+        "behavioral_tendencies": [
+          "coordinate across municipalities",
+          "retain counsel",
+          "seek governor backchannel access"
+        ],
+        "cohort_key": "municipal_officials_defensive",
+        "expression_level": 0.71,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.18,
+        "label": "Local officials defending municipal discretion",
+        "mobilization_readiness": 0.73,
+        "perceived_majority": 0.61,
+        "population_share_of_archetype": 0.7,
+        "private_position": "resist state override, consider litigation and negotiation in parallel",
+        "public_position": "support housing in principle but oppose coercive timelines",
+        "representation_mode": "elite_cohort",
+        "represented_population": 4200,
+        "reputation": 0.51,
+        "secrecy": 0.41,
+        "stance_axes": {
+          "affordable_housing_targets": -0.18,
+          "litigation_support": 0.71,
+          "local_autonomy": 0.94,
+          "state_enforcement": -0.76
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "archetype_key": "local_governance_elites",
+        "attention_level": 0.81,
+        "behavioral_tendencies": [
+          "seek negotiated delay",
+          "monitor peer defections",
+          "respond to grant dependence"
+        ],
+        "cohort_key": "pragmatic_local_elites",
+        "expression_level": 0.52,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.35,
+        "label": "Pragmatic municipal elites open to phased compliance",
+        "mobilization_readiness": 0.49,
+        "perceived_majority": 0.39,
+        "population_share_of_archetype": 0.3,
+        "private_position": "prefer accommodation to avoid grant losses",
+        "public_position": "ask for flexibility, sequencing, and technical support",
+        "representation_mode": "elite_cohort",
+        "represented_population": 1800,
+        "reputation": 0.57,
+        "secrecy": 0.37,
+        "stance_axes": {
+          "affordable_housing_targets": 0.22,
+          "litigation_support": -0.12,
+          "local_autonomy": 0.55,
+          "state_enforcement": -0.08
+        },
+        "trustworthiness": 0.58
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_key": "suburban_residents",
+        "attention_level": 0.7,
+        "behavioral_tendencies": [
+          "attend council meetings",
+          "respond to neighborhood cues",
+          "elevate property-value concerns"
+        ],
+        "cohort_key": "homeowner_defenders",
+        "expression_level": 0.65,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.22,
+        "label": "Change-wary suburban homeowners",
+        "mobilization_readiness": 0.58,
+        "perceived_majority": 0.68,
+        "population_share_of_archetype": 0.55,
+        "private_position": "skeptical of imposed targets, mixed views on sanctions",
+        "public_position": "support local control and measured growth",
+        "representation_mode": "direct_cohort",
+        "represented_population": 990000,
+        "reputation": 0.58,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "affordable_housing_targets": -0.5,
+          "litigation_support": 0.5,
+          "local_autonomy": 0.9,
+          "state_enforcement": -0.7
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "archetype_key": "suburban_residents",
+        "attention_level": 0.62,
+        "behavioral_tendencies": [
+          "support advocacy online",
+          "lower meeting attendance due to time constraints",
+          "responsive to fairness framing"
+        ],
+        "cohort_key": "pro_housing_renters",
+        "expression_level": 0.4,
+        "fatigue": 0.38,
+        "fear_of_isolation": 0.57,
+        "label": "Renters and housing seekers favoring added supply",
+        "mobilization_readiness": 0.46,
+        "perceived_majority": 0.28,
+        "population_share_of_archetype": 0.3,
+        "private_position": "support stronger production requirements and state pressure",
+        "public_position": "more housing needed but concern about delay and exclusion",
+        "representation_mode": "direct_cohort",
+        "represented_population": 540000,
+        "reputation": 0.49,
+        "secrecy": 0.34,
+        "stance_axes": {
+          "affordable_housing_targets": 0.82,
+          "litigation_support": -0.55,
+          "local_autonomy": -0.2,
+          "state_enforcement": 0.62
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "archetype_key": "suburban_residents",
+        "attention_level": 0.5,
+        "behavioral_tendencies": [
+          "wait for elite cues",
+          "prefer negotiated settlement",
+          "shift with local cost signals"
+        ],
+        "cohort_key": "cross_pressured_suburbanites",
+        "expression_level": 0.28,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.43,
+        "label": "Mixed-view residents balancing affordability and neighborhood concerns",
+        "mobilization_readiness": 0.3,
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 0.15,
+        "private_position": "accept some need for housing but dislike blunt sanctions",
+        "public_position": "favor compromise and phased implementation",
+        "representation_mode": "direct_cohort",
+        "represented_population": 270000,
+        "reputation": 0.53,
+        "secrecy": 0.31,
+        "stance_axes": {
+          "affordable_housing_targets": 0.18,
+          "litigation_support": 0.05,
+          "local_autonomy": 0.45,
+          "state_enforcement": -0.15
+        },
+        "trustworthiness": 0.57
+      },
+      {
+        "archetype_key": "housing_market_participants",
+        "attention_level": 0.72,
+        "behavioral_tendencies": [
+          "lobby quietly",
+          "seek carve-outs and certainty",
+          "support compromise packages"
+        ],
+        "cohort_key": "builder_growth_coalition",
+        "expression_level": 0.55,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.26,
+        "label": "Builders and allied market actors favoring predictable approvals",
+        "mobilization_readiness": 0.61,
+        "perceived_majority": 0.36,
+        "population_share_of_archetype": 0.49,
+        "private_position": "support targets if they create permit pathways",
+        "public_position": "need certainty, infrastructure, and feasible compliance terms",
+        "representation_mode": "interest_cohort",
+        "represented_population": 22000,
+        "reputation": 0.46,
+        "secrecy": 0.28,
+        "stance_axes": {
+          "affordable_housing_targets": 0.68,
+          "litigation_support": -0.32,
+          "local_autonomy": -0.18,
+          "state_enforcement": 0.34
+        },
+        "trustworthiness": 0.52
+      },
+      {
+        "archetype_key": "housing_market_participants",
+        "attention_level": 0.68,
+        "behavioral_tendencies": [
+          "use moral pressure",
+          "amplify delay harms",
+          "ally selectively with builders"
+        ],
+        "cohort_key": "housing_access_advocates",
+        "expression_level": 0.58,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.36,
+        "label": "Tenant and housing access advocates",
+        "mobilization_readiness": 0.57,
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.51,
+        "private_position": "favor firm enforcement against exclusionary suburbs",
+        "public_position": "frame issue as fairness and access",
+        "representation_mode": "interest_cohort",
+        "represented_population": 23000,
+        "reputation": 0.56,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "affordable_housing_targets": 0.9,
+          "litigation_support": -0.72,
+          "local_autonomy": -0.42,
+          "state_enforcement": 0.74
+        },
+        "trustworthiness": 0.64
+      },
+      {
+        "archetype_key": "local_governance_elites",
+        "attention_level": 0.88,
+        "behavioral_tendencies": [
+          "coordinate across municipalities",
+          "retain counsel",
+          "seek governor backchannel access"
+        ],
+        "cohort_key": "municipal_officials_defensive",
+        "expression_level": 0.71,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.18,
+        "label": "Local officials defending municipal discretion",
+        "mobilization_readiness": 0.73,
+        "perceived_majority": 0.61,
+        "population_share_of_archetype": 0.7,
+        "private_position": "resist state override, consider litigation and negotiation in parallel",
+        "public_position": "support housing in principle but oppose coercive timelines",
+        "representation_mode": "elite_cohort",
+        "represented_population": 4200,
+        "reputation": 0.51,
+        "secrecy": 0.41,
+        "stance_axes": {
+          "affordable_housing_targets": -0.18,
+          "litigation_support": 0.71,
+          "local_autonomy": 0.94,
+          "state_enforcement": -0.76
+        },
+        "trustworthiness": 0.5
+      },
+      {
+        "archetype_key": "local_governance_elites",
+        "attention_level": 0.81,
+        "behavioral_tendencies": [
+          "seek negotiated delay",
+          "monitor peer defections",
+          "respond to grant dependence"
+        ],
+        "cohort_key": "pragmatic_local_elites",
+        "expression_level": 0.52,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.35,
+        "label": "Pragmatic municipal elites open to phased compliance",
+        "mobilization_readiness": 0.49,
+        "perceived_majority": 0.39,
+        "population_share_of_archetype": 0.3,
+        "private_position": "prefer accommodation to avoid grant losses",
+        "public_position": "ask for flexibility, sequencing, and technical support",
+        "representation_mode": "elite_cohort",
+        "represented_population": 1800,
+        "reputation": 0.57,
+        "secrecy": 0.37,
+        "stance_axes": {
+          "affordable_housing_targets": 0.22,
+          "litigation_support": -0.12,
+          "local_autonomy": 0.55,
+          "state_enforcement": -0.08
+        },
+        "trustworthiness": 0.58
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "state_housing_agency",
+          "suburban_local_councils"
+        ],
+        "blockers": [
+          "Possible injunction delaying deadlines",
+          "homeowner backlash constraining councils",
+          "governor preference for compromise slowing hard enforcement"
+        ],
+        "contradiction_notes": "A negotiated delay or partial exemption could postpone visible compliance without disproving its eventual plausibility.",
+        "description": "Affected municipalities substantially accept the target framework and take observable compliance actions sufficient to avoid or moot major sanctions.",
+        "endpoint_key": "municipal_compliance",
+        "evidence_refs": [
+          "Agency has statutory enforcement power.",
+          "Grant withholding threat creates fiscal leverage over suburbs."
+        ],
+        "label": "Municipal compliance with target regime",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do enough affected suburban municipalities move into actual compliance with the affordable-housing targets before legal or political pressure alters enforcement?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.31,
+        "rationale": "This is a core terminal option because the statute gives real leverage, though implementation depends on credibility and local switching costs.",
+        "realization_criteria": [
+          "A material share of affected municipalities formally adopt compliant housing plans, zoning changes, or equivalent required submissions.",
+          "Agency publicly confirms that key municipalities are in compliance or on accepted compliance tracks.",
+          "Major resistance bloc loses cohesion as municipalities stop pursuing broad noncompliance strategy."
+        ],
+        "status": "active",
+        "status_basis": "Compliance is explicitly listed as a scenario endpoint and is plausible because of fiscal dependency, but not yet initiated decisively at T0."
+      },
+      {
+        "authority_refs": [
+          "regional_governor",
+          "state_housing_agency",
+          "suburban_local_councils"
+        ],
+        "blockers": [
+          "Agency need to preserve enforcement credibility",
+          "advocate opposition to weak concessions",
+          "municipal legal coalition choosing litigation over settlement"
+        ],
+        "contradiction_notes": "Court-ordered delay is distinct; this endpoint requires negotiated or administrative accommodation rather than solely judicial intervention.",
+        "description": "State and municipalities reach a political or administrative accommodation that delays strict enforcement while preserving the policy framework in modified form.",
+        "endpoint_key": "negotiated_delay",
+        "evidence_refs": [
+          "Scenario explicitly names negotiated delay as a possible endpoint.",
+          "Governor is a central actor balancing multiple constituencies."
+        ],
+        "label": "Negotiated delay or phased implementation",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the conflict resolve into a negotiated delay or phased implementation rather than immediate sanction enforcement?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.29,
+        "rationale": "Negotiated delay is a natural convergence path when enforcement authority exists but is politically and legally contested.",
+        "realization_criteria": [
+          "Governor or agency announces revised deadlines, phased milestones, safe harbors, or temporary non-enforcement terms.",
+          "A meaningful set of municipalities accepts the revised framework instead of pursuing pure resistance.",
+          "Sanctions are deferred by agreement rather than by judicial order alone."
+        ],
+        "status": "active",
+        "status_basis": "Strongly plausible at T0 because both legal uncertainty and coalition management create incentives for compromise."
+      },
+      {
+        "authority_refs": [
+          "municipal_legal_coalition",
+          "state_housing_agency"
+        ],
+        "blockers": [
+          "Municipal plaintiffs may lack strong merits or urgency",
+          "courts may deny emergency relief",
+          "state may narrow enforcement enough to reduce injunction grounds"
+        ],
+        "contradiction_notes": "A failed injunction request could still contribute to later negotiated delay or partial exemption outcomes.",
+        "description": "A court materially restrains or pauses the agency's threatened grant-withholding enforcement before the state secures implementation.",
+        "endpoint_key": "court_injunction",
+        "evidence_refs": [
+          "Scenario states lawsuits could delay implementation.",
+          "Legal uncertainty is identified as a core modeling focus."
+        ],
+        "label": "Court injunction against initial enforcement",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do courts issue an injunction or comparable order that blocks or materially pauses the agency's enforcement at the early stage?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.22,
+        "rationale": "Judicial delay is one of the main nonpolitical pathways that can override initial agency leverage.",
+        "realization_criteria": [
+          "A court issues a temporary restraining order, preliminary injunction, or equivalent stay against the enforcement mechanism or deadlines.",
+          "Agency sanction implementation is formally paused or narrowed due to judicial action.",
+          "Municipalities continue under preserved status quo pending litigation."
+        ],
+        "status": "active",
+        "status_basis": "Explicitly supported by the corpus as a credible endpoint, though no filing or ruling exists yet at T0."
+      },
+      {
+        "authority_refs": [
+          "state_housing_agency",
+          "regional_governor",
+          "suburban_local_councils"
+        ],
+        "blockers": [
+          "Equity and precedent concerns",
+          "advocate and builder objections to uneven treatment",
+          "difficulty defining neutral exemption criteria"
+        ],
+        "contradiction_notes": "If exemptions become so broad that sanctions are functionally abandoned, the outcome may instead resemble negotiated retreat rather than partial exemption.",
+        "description": "Some municipalities receive exemptions, special treatment, or narrowed obligations while the broader affordable-housing regime remains in force for others.",
+        "endpoint_key": "partial_exemption",
+        "evidence_refs": [
+          "Scenario explicitly names partial exemption as a possible endpoint.",
+          "Municipal heterogeneity and legal uncertainty make carve-outs plausible."
+        ],
+        "label": "Partial exemption or carve-out regime",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the state create partial exemptions or carve-outs for some municipalities while preserving the broader target regime?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.18,
+        "rationale": "Selective accommodation is a common way to reduce conflict without conceding the entire enforcement framework.",
+        "realization_criteria": [
+          "Agency, governor, or legally binding settlement creates municipality-specific exemptions, alternative metrics, or delayed obligations for a defined subset of suburbs.",
+          "At least some municipalities are formally treated differently from the baseline enforcement framework.",
+          "Broader policy remains active rather than fully withdrawn."
+        ],
+        "status": "active",
+        "status_basis": "Plausible because the municipal bloc is heterogeneous and compromise may require selective relief, but no carve-out policy is yet visible."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "Agency threatens to withhold grants from suburbs missing targets.",
+        "layer": "exposure",
+        "reason": "Councils directly monitor agency guidance and enforcement signals.",
+        "source_actor_name": "state_housing_agency",
+        "target_actor_name": "suburban_local_councils",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "Local councils are primary municipal actors in the scenario.",
+        "layer": "exposure",
+        "reason": "Councils are visible to local residents through hearings and local communications.",
+        "source_actor_name": "suburban_local_councils",
+        "target_actor_name": "suburban_homeowners",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "Councils shape local housing outcomes affecting renters.",
+        "layer": "exposure",
+        "reason": "Renters observe council decisions but less uniformly than homeowners.",
+        "source_actor_name": "suburban_local_councils",
+        "target_actor_name": "renters_and_housing_seekers",
+        "weight": 0.42
+      },
+      {
+        "direction": "directed",
+        "evidence": "Regional governor is a named reacting actor.",
+        "layer": "exposure",
+        "reason": "Governor messaging reaches broad suburban publics.",
+        "source_actor_name": "regional_governor",
+        "target_actor_name": "suburban_homeowners",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "Governor is part of the policy conflict.",
+        "layer": "exposure",
+        "reason": "Governor statements are visible across the region.",
+        "source_actor_name": "regional_governor",
+        "target_actor_name": "renters_and_housing_seekers",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "none",
+        "layer": "exposure",
+        "reason": "No actor by this exact name exists; evidence insufficient.",
+        "source_actor_name": "housing_access_advocates",
+        "target_actor_name": "regional_governor",
+        "weight": 0.0
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario emphasizes local councils and local reaction.",
+        "layer": "trust",
+        "reason": "Homeowners tend to trust local councils more than distant state actors on land use.",
+        "source_actor_name": "suburban_homeowners",
+        "target_actor_name": "suburban_local_councils",
+        "weight": 0.59
+      },
+      {
+        "direction": "directed",
+        "evidence": "Agency enforcement is tied to affordable-housing targets.",
+        "layer": "trust",
+        "reason": "Renters may see agency as a rare actor able to force supply changes, though not uncritically.",
+        "source_actor_name": "renters_and_housing_seekers",
+        "target_actor_name": "state_housing_agency",
+        "weight": 0.48
+      },
+      {
+        "direction": "directed",
+        "evidence": "Governor reacts amid state-local conflict.",
+        "layer": "trust",
+        "reason": "Councils see governor as politically relevant but not fully aligned with local autonomy.",
+        "source_actor_name": "suburban_local_councils",
+        "target_actor_name": "regional_governor",
+        "weight": 0.33
+      },
+      {
+        "direction": "directed",
+        "evidence": "Agency targets could expand project opportunities.",
+        "layer": "trust",
+        "reason": "Builders may trust the agency somewhat if it creates predictable pathways, tempered by implementation uncertainty.",
+        "source_actor_name": "residential_builders",
+        "target_actor_name": "state_housing_agency",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "Agency threatens to withhold infrastructure grants.",
+        "layer": "trust",
+        "reason": "State sanctions against suburbs reduce perceived legitimacy among skeptical homeowners.",
+        "source_actor_name": "suburban_homeowners",
+        "target_actor_name": "state_housing_agency",
+        "weight": 0.24
+      },
+      {
+        "direction": "directed",
+        "evidence": "Agency threatens to withhold infrastructure grants.",
+        "layer": "dependency",
+        "reason": "Municipal infrastructure funding is materially exposed to agency enforcement decisions.",
+        "source_actor_name": "suburban_local_councils",
+        "target_actor_name": "state_housing_agency",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "Local councils are central to housing delivery conditions.",
+        "layer": "dependency",
+        "reason": "Builders depend on local approvals and zoning cooperation.",
+        "source_actor_name": "residential_builders",
+        "target_actor_name": "suburban_local_councils",
+        "weight": 0.53
+      },
+      {
+        "direction": "directed",
+        "evidence": "Councils influence affordable-housing target fulfillment.",
+        "layer": "dependency",
+        "reason": "Local land-use choices affect housing supply and access.",
+        "source_actor_name": "renters_and_housing_seekers",
+        "target_actor_name": "suburban_local_councils",
+        "weight": 0.34
+      },
+      {
+        "direction": "directed",
+        "evidence": "Governor is a major political actor in the same dispute.",
+        "layer": "dependency",
+        "reason": "Agency durability and political cover partly rely on executive support.",
+        "source_actor_name": "state_housing_agency",
+        "target_actor_name": "regional_governor",
+        "weight": 0.28
+      },
+      {
+        "direction": "directed",
+        "evidence": "Lawsuits could delay implementation.",
+        "layer": "dependency",
+        "reason": "Legal coalition requires municipal participation and funding.",
+        "source_actor_name": "municipal_legal_coalition",
+        "target_actor_name": "suburban_local_councils",
+        "weight": 0.49
+      },
+      {
+        "direction": "directed",
+        "evidence": "Governor is a named top-level actor reacting to the threat.",
+        "layer": "influence",
+        "reason": "Governor has strong agenda-setting and political influence over agency posture.",
+        "source_actor_name": "regional_governor",
+        "target_actor_name": "state_housing_agency",
+        "weight": 0.62
+      },
+      {
+        "direction": "directed",
+        "evidence": "Statute gives the agency enforcement power.",
+        "layer": "influence",
+        "reason": "Agency can shape municipal choices through grant sanction threats.",
+        "source_actor_name": "state_housing_agency",
+        "target_actor_name": "suburban_local_councils",
+        "weight": 0.66
+      },
+      {
+        "direction": "directed",
+        "evidence": "Homeowners are explicitly named among reacting groups.",
+        "layer": "influence",
+        "reason": "Homeowners are likely high-salience local constituents.",
+        "source_actor_name": "suburban_homeowners",
+        "target_actor_name": "suburban_local_councils",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "Renters are a named constituency in the housing conflict.",
+        "layer": "influence",
+        "reason": "Renters have diffuse but real electoral and narrative influence.",
+        "source_actor_name": "renters_and_housing_seekers",
+        "target_actor_name": "regional_governor",
+        "weight": 0.31
+      },
+      {
+        "direction": "directed",
+        "evidence": "Builders are a major reacting stakeholder.",
+        "layer": "influence",
+        "reason": "Builders can lobby for clearer implementation and compromise.",
+        "source_actor_name": "residential_builders",
+        "target_actor_name": "regional_governor",
+        "weight": 0.37
+      },
+      {
+        "direction": "directed",
+        "evidence": "Lawsuits could delay implementation.",
+        "layer": "influence",
+        "reason": "Litigation threat can alter enforcement timing and rule interpretation.",
+        "source_actor_name": "municipal_legal_coalition",
+        "target_actor_name": "state_housing_agency",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "Homeowners and councils both react to state pressure.",
+        "layer": "coalition",
+        "reason": "Shared preference for local control and caution on imposed targets.",
+        "source_actor_name": "suburban_local_councils",
+        "target_actor_name": "suburban_homeowners",
+        "weight": 0.56
+      },
+      {
+        "direction": "directed",
+        "evidence": "Agency enforcement and renter interests both point toward more housing production.",
+        "layer": "coalition",
+        "reason": "Both are aligned toward stronger affordable-housing delivery, though for different reasons.",
+        "source_actor_name": "state_housing_agency",
+        "target_actor_name": "renters_and_housing_seekers",
+        "weight": 0.47
+      },
+      {
+        "direction": "directed",
+        "evidence": "Builders may benefit from target compliance.",
+        "layer": "coalition",
+        "reason": "Conditional alignment around increasing production and loosening local barriers.",
+        "source_actor_name": "residential_builders",
+        "target_actor_name": "state_housing_agency",
+        "weight": 0.39
+      },
+      {
+        "direction": "directed",
+        "evidence": "Lawsuits could delay implementation.",
+        "layer": "coalition",
+        "reason": "Councils are the natural base for a joint lawsuit effort.",
+        "source_actor_name": "suburban_local_councils",
+        "target_actor_name": "municipal_legal_coalition",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "Governor reacts in same policy arena as agency enforcement.",
+        "layer": "coalition",
+        "reason": "Governor and agency share broad policy goals but may diverge on tactics.",
+        "source_actor_name": "regional_governor",
+        "target_actor_name": "state_housing_agency",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "Agency threatens to withhold grants from noncompliant suburbs.",
+        "layer": "conflict",
+        "reason": "Direct conflict over targets and threatened grant withholding.",
+        "source_actor_name": "state_housing_agency",
+        "target_actor_name": "suburban_local_councils",
+        "weight": 0.64
+      },
+      {
+        "direction": "directed",
+        "evidence": "Homeowners react to agency enforcement threat.",
+        "layer": "conflict",
+        "reason": "Many homeowners perceive sanctions and mandates as hostile to local interests.",
+        "source_actor_name": "suburban_homeowners",
+        "target_actor_name": "state_housing_agency",
+        "weight": 0.49
+      },
+      {
+        "direction": "directed",
+        "evidence": "Lawsuits could delay implementation.",
+        "layer": "conflict",
+        "reason": "Potential litigation is aimed at blocking or delaying agency action.",
+        "source_actor_name": "municipal_legal_coalition",
+        "target_actor_name": "state_housing_agency",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario juxtaposes renters and homeowners as reacting stakeholders.",
+        "layer": "conflict",
+        "reason": "Underlying distributional conflict over housing growth and affordability.",
+        "source_actor_name": "renters_and_housing_seekers",
+        "target_actor_name": "suburban_homeowners",
+        "weight": 0.37
+      },
+      {
+        "direction": "directed",
+        "evidence": "Councils are gatekeepers over housing approvals.",
+        "layer": "conflict",
+        "reason": "Builders face friction from restrictive local decision making.",
+        "source_actor_name": "residential_builders",
+        "target_actor_name": "suburban_local_councils",
+        "weight": 0.34
+      },
+      {
+        "direction": "directed",
+        "evidence": "Both are top-level state actors in the same dispute.",
+        "layer": "oasis_interaction",
+        "reason": "Frequent public and elite-channel coordination is likely.",
+        "source_actor_name": "state_housing_agency",
+        "target_actor_name": "regional_governor",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "Enforcement threat invites direct institutional interaction.",
+        "layer": "oasis_interaction",
+        "reason": "Hearings, formal notices, and public exchanges are likely.",
+        "source_actor_name": "suburban_local_councils",
+        "target_actor_name": "state_housing_agency",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "Homeowners commonly engage local councils on land use.",
+        "layer": "oasis_interaction",
+        "reason": "Public meetings and local commentary are likely interaction sites.",
+        "source_actor_name": "suburban_homeowners",
+        "target_actor_name": "suburban_local_councils",
+        "weight": 0.47
+      },
+      {
+        "direction": "directed",
+        "evidence": "Renters are affected but often underrepresented locally.",
+        "layer": "oasis_interaction",
+        "reason": "Public participation exists but is less intensive than homeowner interaction.",
+        "source_actor_name": "renters_and_housing_seekers",
+        "target_actor_name": "suburban_local_councils",
+        "weight": 0.29
+      },
+      {
+        "direction": "directed",
+        "evidence": "Builders depend on local approval processes.",
+        "layer": "oasis_interaction",
+        "reason": "Permitting and development discussions create recurring contact.",
+        "source_actor_name": "residential_builders",
+        "target_actor_name": "suburban_local_councils",
+        "weight": 0.43
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype_key": "state_enforcement_leadership",
+        "label": "State enforcement leadership",
+        "selection_logic": "Primary institutional authority over sanctions and compliance interpretation."
+      },
+      {
+        "archetype_key": "executive_political_leadership",
+        "label": "Executive political leadership",
+        "selection_logic": "Agenda-setting figure balancing policy and coalition costs."
+      },
+      {
+        "archetype_key": "municipal_resistance_leadership",
+        "label": "Municipal resistance leadership",
+        "selection_logic": "Most salient organized challenger through councils and litigation."
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "state_housing_agency",
+        "archetype_key": "state_enforcement_leadership",
+        "attention_level": 0.9,
+        "constraint": "must stay within statute and preserve legitimacy",
+        "expression_level": 0.67,
+        "fatigue": 0.26,
+        "fear_of_isolation": 0.19,
+        "formal_power": 0.83,
+        "goal": "compel credible municipal compliance without losing in court",
+        "hero_key": "agency_director",
+        "informal_power": 0.54,
+        "mobilization_readiness": 0.78,
+        "perceived_majority": 0.44,
+        "role": "agency director and enforcement leadership",
+        "salience": 0.88,
+        "stance_axes": {
+          "enforcement_intensity": 0.72,
+          "litigation_tolerance": 0.56,
+          "negotiation_openness": 0.38
+        }
+      },
+      {
+        "actor_name": "regional_governor",
+        "archetype_key": "executive_political_leadership",
+        "attention_level": 0.79,
+        "constraint": "coalition management and electoral repercussions",
+        "expression_level": 0.58,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.21,
+        "formal_power": 0.71,
+        "goal": "advance housing agenda while avoiding suburban political blowback and governance failure",
+        "hero_key": "governor",
+        "informal_power": 0.78,
+        "mobilization_readiness": 0.63,
+        "perceived_majority": 0.49,
+        "role": "regional governor",
+        "salience": 0.84,
+        "stance_axes": {
+          "enforcement_intensity": 0.46,
+          "negotiation_openness": 0.61,
+          "public_alignment_with_agency": 0.52
+        }
+      },
+      {
+        "actor_name": "suburban_local_councils",
+        "archetype_key": "municipal_resistance_leadership",
+        "attention_level": 0.86,
+        "constraint": "grant dependency and internal municipal heterogeneity",
+        "expression_level": 0.72,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.17,
+        "formal_power": 0.66,
+        "goal": "protect local discretion, limit sanctions, and maximize delay or carve-outs",
+        "hero_key": "council_bloc_lead",
+        "informal_power": 0.64,
+        "mobilization_readiness": 0.76,
+        "perceived_majority": 0.57,
+        "role": "informal lead of suburban council bloc",
+        "salience": 0.8,
+        "stance_axes": {
+          "enforcement_resistance": 0.79,
+          "litigation_push": 0.68,
+          "negotiation_openness": 0.49
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "archetype_key": "state_enforcement_leadership",
+        "label": "State enforcement leadership",
+        "selection_logic": "Primary institutional authority over sanctions and compliance interpretation."
+      },
+      {
+        "archetype_key": "executive_political_leadership",
+        "label": "Executive political leadership",
+        "selection_logic": "Agenda-setting figure balancing policy and coalition costs."
+      },
+      {
+        "archetype_key": "municipal_resistance_leadership",
+        "label": "Municipal resistance leadership",
+        "selection_logic": "Most salient organized challenger through councils and litigation."
+      }
+    ],
+    "important_questions": [
+      "Do enough affected suburban municipalities move into actual compliance with the affordable-housing targets before legal or political pressure alters enforcement?",
+      "Does the conflict resolve into a negotiated delay or phased implementation rather than immediate sanction enforcement?",
+      "Do courts issue an injunction or comparable order that blocks or materially pauses the agency's enforcement at the early stage?",
+      "Does the state create partial exemptions or carve-outs for some municipalities while preserving the broader target regime?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "state_housing_agency",
+          "suburban_local_councils"
+        ],
+        "event_key": "agency_enforcement_threat_announced",
+        "event_type": "announcement",
+        "expected_impact": "Raises council attention, activates local autonomy narratives, and increases agency influence and conflict edges without resolving compliance.",
+        "status": "occurred",
+        "summary": "Agency announces or signals grant withholding for municipalities missing affordable-housing targets.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "suburban_local_councils",
+          "municipal_legal_coalition"
+        ],
+        "event_key": "municipal_response_coordination_begins",
+        "event_type": "announcement",
+        "expected_impact": "Strengthens coalition and procedural delay capacity; may split pragmatic and defensive councils.",
+        "status": "occurring",
+        "summary": "Affected municipalities begin comparing exposure, legal options, and collective bargaining positions.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "regional_governor",
+          "state_housing_agency",
+          "suburban_local_councils"
+        ],
+        "event_key": "governor_public_positioning",
+        "event_type": "announcement",
+        "expected_impact": "Can shift perceived legitimacy, either hardening agency resolve or opening room for negotiated delay.",
+        "status": "imminent",
+        "summary": "Governor issues a statement balancing housing urgency with process fairness.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "municipal_legal_coalition",
+          "state_housing_agency"
+        ],
+        "event_key": "initial_lawsuit_or_injunction_filing_window",
+        "event_type": "announcement",
+        "expected_impact": "Moves conflict into procedural arena, potentially lowering immediate sanction credibility while increasing uncertainty.",
+        "status": "imminent",
+        "summary": "Municipal coalition may file for judicial relief challenging enforcement or timing.",
+        "tick": 2
+      },
+      {
+        "actors": [
+          "suburban_local_councils",
+          "suburban_homeowners",
+          "renters_and_housing_seekers",
+          "residential_builders"
+        ],
+        "event_key": "local_council_meeting_cycle",
+        "event_type": "announcement",
+        "expected_impact": "Reveals public opinion asymmetries and whether pragmatic accommodation is politically survivable.",
+        "status": "imminent",
+        "summary": "Councils hold visible meetings on target compliance strategies.",
+        "tick": 2
+      },
+      {
+        "actors": [
+          "state_housing_agency",
+          "suburban_local_councils",
+          "residential_builders"
+        ],
+        "event_key": "grant_guidance_or_compliance_framework_release",
+        "event_type": "announcement",
+        "expected_impact": "Could reduce uncertainty for builders and pragmatists, or intensify litigation if seen as overreach.",
+        "status": "possible",
+        "summary": "Agency may release technical guidance on compliance counting, deadlines, or sanction sequencing.",
+        "tick": 3
+      }
+    ],
+    "llm_call_id": "d092b85a-23e6-406c-bdf4-89e8960e20f8",
+    "merge_hypotheses": [
+      {
+        "actors": [
+          "suburban_local_councils",
+          "state_housing_agency",
+          "regional_governor"
+        ],
+        "evidence": "Grant withholding is the core leverage tool in the scenario.",
+        "mechanism": "Shared dependence on infrastructure funding pushes even resistant municipalities toward some accommodation over time.",
+        "merge_key": "fiscal_reality_convergence"
+      },
+      {
+        "actors": [
+          "state_housing_agency",
+          "municipal_legal_coalition",
+          "regional_governor"
+        ],
+        "evidence": "Scenario explicitly highlights lawsuits as delay risk, not certain victory.",
+        "mechanism": "Mutual risk from uncertain litigation outcomes encourages both sides to prefer a negotiated implementation framework.",
+        "merge_key": "legal_uncertainty_convergence"
+      },
+      {
+        "actors": [
+          "residential_builders",
+          "state_housing_agency",
+          "suburban_local_councils"
+        ],
+        "evidence": "Builders benefit from predictable approvals while pragmatists seek grant preservation.",
+        "mechanism": "Need for operationally feasible housing pipelines can align builders, agency technicians, and pragmatic local elites around partial compromises.",
+        "merge_key": "builder_pragmatist_alignment"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "suburban_residents",
+        "evidence": "Scenario names suburbs, renters, and homeowners as primary reacting publics.",
+        "label": "Suburban residents in affected municipalities",
+        "population_total": 1800000
+      },
+      {
+        "archetype_key": "housing_market_participants",
+        "evidence": "Scenario names builders and housing-seeking renters as major interest carriers.",
+        "label": "Regional housing market participants",
+        "population_total": 45000
+      },
+      {
+        "archetype_key": "local_governance_elites",
+        "evidence": "Scenario centers local councils and likely organized municipal response.",
+        "label": "Municipal officials and organized local influencers",
+        "population_total": 6000
+      }
+    ],
+    "risk_flags": [
+      {
+        "description": "Court action could materially alter timing and authority, making early process signals misleading as endpoint predictors.",
+        "evidence": "Scenario states lawsuits could delay implementation.",
+        "risk_key": "legal_uncertainty_high",
+        "severity": "medium_high"
+      },
+      {
+        "description": "Suburban municipalities are modeled as a bloc despite likely differences in grant dependence, housing capacity, and litigation appetite.",
+        "evidence": "Corpus references suburbs collectively without municipality-level detail.",
+        "risk_key": "actor_aggregation_limit",
+        "severity": "medium"
+      },
+      {
+        "description": "Governor influence over agency posture is politically strong but formal command chain is not fully specified in the corpus.",
+        "evidence": "Governor is named as reacting actor, but administrative structure is unspecified.",
+        "risk_key": "governor_authority_ambiguity",
+        "severity": "medium"
+      },
+      {
+        "description": "Homeowner views are likely more publicly visible than renter preferences, risking skewed interpretation of local majority sentiment.",
+        "evidence": "Scenario includes renters and homeowners, with likely asymmetry in local participation.",
+        "risk_key": "public_preference_observability_gap",
+        "severity": "medium"
+      },
+      {
+        "description": "Magnitude of municipal reliance on infrastructure grants is unknown, limiting precision on compliance incentives and switching costs.",
+        "evidence": "Grant withholding is central, but amounts and budget shares are not provided.",
+        "risk_key": "fiscal_dependency_unspecified",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "domain": "civic_policy",
+      "endpoint_pressure": "medium_high",
+      "horizon_ticks": 8,
+      "mode": "direct",
+      "scenario_key": "civic_002",
+      "summary": "A fictionalized state housing agency signals it may withhold infrastructure grants from suburban municipalities that fail to meet new affordable-housing targets. Key pressures at T0 are statutory enforcement authority, local fiscal dependence on grants, homeowner and renter preference conflict, builder opportunity, governor positioning, and legal uncertainty from likely municipal lawsuits. Terminal options implied by the corpus are compliance, negotiated delay, court injunction, and partial exemption.",
+      "time_zero_posture": "pre-resolution policy confrontation with credible enforcement threat but no terminal outcome yet",
+      "uncertainty_notes": [
+        "Exact state, municipality count, grant amounts, and target formulas are unspecified.",
+        "Lawsuit timing and merits are uncertain at T0.",
+        "Governor authority over the housing agency is implied politically but not fully specified administratively."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "evidence": "Residents and local officials are likely to update within familiar local-control frames rather than from opposing statewide narratives.",
+        "level": "moderate",
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "scope": [
+          "suburban_homeowners",
+          "cross_pressured_suburbanites",
+          "suburban_local_councils"
+        ]
+      },
+      {
+        "evidence": "Public engagement likely rises sharply around visible sanctions, hearings, or lawsuit filings rather than abstract targets alone.",
+        "level": "high_relevance",
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "scope": [
+          "suburban_homeowners",
+          "renters_and_housing_seekers"
+        ]
+      },
+      {
+        "evidence": "Renters and mixed-view residents may privately favor more housing while speaking less in locally homeowner-dominant settings.",
+        "level": "moderate_high",
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "scope": [
+          "pro_housing_renters",
+          "cross_pressured_suburbanites"
+        ]
+      },
+      {
+        "evidence": "Neighborhood and municipal networks likely reinforce local-autonomy arguments.",
+        "level": "moderate",
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "scope": [
+          "suburban_homeowners",
+          "municipal_officials_defensive"
+        ]
+      },
+      {
+        "evidence": "Municipal lawsuit participation and negotiated defection both likely require multiple peer signals.",
+        "level": "moderate",
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "scope": [
+          "suburban_local_councils",
+          "municipal_legal_coalition",
+          "pragmatic_local_elites"
+        ]
+      },
+      {
+        "evidence": "Conflict is structured around local resident identity, renter exclusion concerns, and state-versus-local legitimacy.",
+        "level": "high_relevance",
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "scope": [
+          "suburban_homeowners",
+          "renters_and_housing_seekers",
+          "suburban_local_councils"
+        ]
+      },
+      {
+        "evidence": "Absent new filings, grant announcements, or hearings, public intensity may soften between salient events.",
+        "level": "moderate",
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "scope": [
+          "general"
+        ]
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Statute gives the state agency enforcement power, but implementation is legally contestable and may be delayed by courts.",
+        "evidence": "Scenario expected focus and statute/lawsuit note.",
+        "influence_key": "authority_constraints"
+      },
+      {
+        "description": "Municipal reliance on infrastructure grants creates leverage without immediate direct takeover.",
+        "evidence": "Agency threatens to withhold infrastructure grants.",
+        "influence_key": "fiscal_dependency"
+      },
+      {
+        "description": "Suburban residents are predisposed to trust local councils more than distant state institutions on land-use matters.",
+        "evidence": "Scenario centers suburbs, councils, homeowners, and local reaction.",
+        "influence_key": "local_legitimacy_bias"
+      },
+      {
+        "description": "Governor and some municipalities may prefer compromise over pure confrontation because both housing production and suburban backlash matter.",
+        "evidence": "Scenario names governor and multiple constituencies with divergent interests.",
+        "influence_key": "coalition_cross_pressure"
+      },
+      {
+        "description": "Plausible terminal choices are compliance, negotiated delay, court injunction, or partial exemption rather than immediate binary victory.",
+        "evidence": "Scenario explicitly lists possible endpoints.",
+        "influence_key": "endpoint_option_set"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "state_housing_agency",
+        "behavior_axes": {
+          "assertiveness": 0.74,
+          "flexibility": 0.36,
+          "proceduralism": 0.82,
+          "risk_tolerance": 0.52
+        },
+        "ideology_axes": {
+          "market_reliance": 0.41,
+          "pro_housing_supply": 0.78,
+          "state_centralization": 0.69
+        },
+        "reputation": 0.57,
+        "secrecy": 0.42,
+        "tendency": "credible enforcer seeking compliance leverage while preserving legal defensibility",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "regional_governor",
+        "behavior_axes": {
+          "assertiveness": 0.56,
+          "flexibility": 0.67,
+          "proceduralism": 0.48,
+          "risk_tolerance": 0.44
+        },
+        "ideology_axes": {
+          "market_reliance": 0.46,
+          "pro_housing_supply": 0.7,
+          "state_centralization": 0.38
+        },
+        "reputation": 0.6,
+        "secrecy": 0.46,
+        "tendency": "mediate publicly while preserving strategic ambiguity",
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "suburban_local_councils",
+        "behavior_axes": {
+          "assertiveness": 0.71,
+          "flexibility": 0.43,
+          "proceduralism": 0.69,
+          "risk_tolerance": 0.49
+        },
+        "ideology_axes": {
+          "market_reliance": 0.18,
+          "pro_housing_supply": 0.22,
+          "state_centralization": -0.71
+        },
+        "reputation": 0.52,
+        "secrecy": 0.39,
+        "tendency": "defend local control and seek leverage through delay",
+        "trustworthiness": 0.51
+      },
+      {
+        "actor_name": "suburban_homeowners",
+        "behavior_axes": {
+          "assertiveness": 0.52,
+          "flexibility": 0.32,
+          "proceduralism": 0.36,
+          "risk_tolerance": 0.29
+        },
+        "ideology_axes": {
+          "market_reliance": 0.12,
+          "pro_housing_supply": -0.24,
+          "state_centralization": -0.58
+        },
+        "reputation": 0.58,
+        "secrecy": 0.24,
+        "tendency": "react to perceived neighborhood risk and elite local cues",
+        "trustworthiness": 0.56
+      },
+      {
+        "actor_name": "renters_and_housing_seekers",
+        "behavior_axes": {
+          "assertiveness": 0.41,
+          "flexibility": 0.58,
+          "proceduralism": 0.28,
+          "risk_tolerance": 0.37
+        },
+        "ideology_axes": {
+          "market_reliance": 0.33,
+          "pro_housing_supply": 0.86,
+          "state_centralization": 0.31
+        },
+        "reputation": 0.51,
+        "secrecy": 0.35,
+        "tendency": "support supply expansion but face lower expressive capacity",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "residential_builders",
+        "behavior_axes": {
+          "assertiveness": 0.59,
+          "flexibility": 0.63,
+          "proceduralism": 0.51,
+          "risk_tolerance": 0.55
+        },
+        "ideology_axes": {
+          "market_reliance": 0.82,
+          "pro_housing_supply": 0.76,
+          "state_centralization": 0.08
+        },
+        "reputation": 0.45,
+        "secrecy": 0.44,
+        "tendency": "seek feasible rules and predictable approvals rather than pure confrontation",
+        "trustworthiness": 0.47
+      },
+      {
+        "actor_name": "municipal_legal_coalition",
+        "behavior_axes": {
+          "assertiveness": 0.68,
+          "flexibility": 0.27,
+          "proceduralism": 0.86,
+          "risk_tolerance": 0.43
+        },
+        "ideology_axes": {
+          "market_reliance": 0.14,
+          "pro_housing_supply": 0.05,
+          "state_centralization": -0.76
+        },
+        "reputation": 0.5,
+        "secrecy": 0.51,
+        "tendency": "convert political resistance into procedural delay",
+        "trustworthiness": 0.49
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 587,
+        "end": 587,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 587,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

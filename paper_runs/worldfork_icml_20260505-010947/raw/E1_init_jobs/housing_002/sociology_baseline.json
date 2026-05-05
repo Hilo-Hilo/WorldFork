@@ -1,0 +1,207 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "48f6b985-b41e-4e1f-8700-c64fe039f082",
+      "created_at": "2026-05-05T02:46:41.472285+00:00",
+      "id": "56a28776-f5c2-4746-a4cc-2496bdf9d27b",
+      "influence": {
+        "applies_to": "citywide_discourse",
+        "context_key": "emergency_displacement_sympathy",
+        "effect": "can increase acceptance of temporary measures when human impacts are salient"
+      },
+      "multiverse_id": "c33108f5-1a29-4152-9655-4034539114ff",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:46:41.472285+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "48f6b985-b41e-4e1f-8700-c64fe039f082",
+      "created_at": "2026-05-05T02:46:41.472285+00:00",
+      "id": "cb29abc2-52f3-4821-9528-121ef54b9ad9",
+      "influence": {
+        "applies_to": "nearby_residential_public",
+        "context_key": "neighborhood_safety_stigma",
+        "effect": "can raise opposition intensity even with limited verified incident evidence"
+      },
+      "multiverse_id": "c33108f5-1a29-4152-9655-4034539114ff",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:46:41.472285+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "48f6b985-b41e-4e1f-8700-c64fe039f082",
+      "created_at": "2026-05-05T02:46:41.472285+00:00",
+      "id": "686ae01f-af52-4946-b484-60f70cec9af6",
+      "influence": {
+        "applies_to": "institutional_and_media_discourse",
+        "context_key": "legal_legitimacy_frame",
+        "effect": "court review or zoning language can shift debate from compassion to procedure"
+      },
+      "multiverse_id": "c33108f5-1a29-4152-9655-4034539114ff",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:46:41.472285+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "48f6b985-b41e-4e1f-8700-c64fe039f082",
+      "created_at": "2026-05-05T02:46:41.472285+00:00",
+      "id": "1055b907-c1c6-4777-b1e6-1637fca4ed14",
+      "influence": {
+        "applies_to": "hotel_labor_force",
+        "context_key": "worker_dependency_quieting",
+        "effect": "employment dependence suppresses public dissent until conditions worsen"
+      },
+      "multiverse_id": "c33108f5-1a29-4152-9655-4034539114ff",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:46:41.472285+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "48f6b985-b41e-4e1f-8700-c64fe039f082",
+      "created_at": "2026-05-05T02:46:41.472285+00:00",
+      "id": "bed5ac89-8335-4b64-a4b5-00402660c307",
+      "influence": {
+        "applies_to": "city_housing_department_and_providers",
+        "context_key": "site_specific_dependency",
+        "effect": "lack of ready substitute capacity raises inertia toward continued use of current hotel"
+      },
+      "multiverse_id": "c33108f5-1a29-4152-9655-4034539114ff",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:46:41.472285+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "48f6b985-b41e-4e1f-8700-c64fe039f082",
+      "created_at": "2026-05-05T02:46:41.472285+00:00",
+      "id": "512f01f9-56d0-447b-ad5a-4f19d0b6bba9",
+      "model": "attention_decay",
+      "multiverse_id": "c33108f5-1a29-4152-9655-4034539114ff",
+      "signal": {
+        "level": 0.58,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Residents may update within familiar safety and neighborhood frames but resist far-off humanitarian abstractions.",
+        "scope": "nearby_residential_public"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:46:41.472285+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "48f6b985-b41e-4e1f-8700-c64fe039f082",
+      "created_at": "2026-05-05T02:46:41.472285+00:00",
+      "id": "44111cb5-ea3e-4958-b7a2-8dc573344f4f",
+      "model": "attention_decay",
+      "multiverse_id": "c33108f5-1a29-4152-9655-4034539114ff",
+      "signal": {
+        "level": 0.64,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "Visible incidents, court filings, or media spikes could pull ambivalents into opposition.",
+        "scope": "nearby_residential_public"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:46:41.472285+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "48f6b985-b41e-4e1f-8700-c64fe039f082",
+      "created_at": "2026-05-05T02:46:41.472285+00:00",
+      "id": "7b477c7c-2dc1-410e-936f-c0d2767e3de6",
+      "model": "attention_decay",
+      "multiverse_id": "c33108f5-1a29-4152-9655-4034539114ff",
+      "signal": {
+        "level": 0.67,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Conditional supporters and dependent workers are quieter than more oppositional residents.",
+        "scope": "resident_supporters_and_hotel_workers"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:46:41.472285+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "48f6b985-b41e-4e1f-8700-c64fe039f082",
+      "created_at": "2026-05-05T02:46:41.472285+00:00",
+      "id": "9479a3b7-ac4f-4b33-b688-f23432c58bd2",
+      "model": "attention_decay",
+      "multiverse_id": "c33108f5-1a29-4152-9655-4034539114ff",
+      "signal": {
+        "level": 0.55,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Neighborhood and professional networks likely sort discussion into resident, provider, and city clusters.",
+        "scope": "local_networks"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:46:41.472285+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "48f6b985-b41e-4e1f-8700-c64fe039f082",
+      "created_at": "2026-05-05T02:46:41.472285+00:00",
+      "id": "569b4b4b-524f-45ba-9987-344b2e8a1f7c",
+      "model": "attention_decay",
+      "multiverse_id": "c33108f5-1a29-4152-9655-4034539114ff",
+      "signal": {
+        "level": 0.51,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Broader city opinion likely shifts only after repeated cues from media, officials, and court developments.",
+        "scope": "citywide_observers"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:46:41.472285+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "48f6b985-b41e-4e1f-8700-c64fe039f082",
+      "created_at": "2026-05-05T02:46:41.472285+00:00",
+      "id": "c914360f-558f-425c-a5ee-65b2c1acbb74",
+      "model": "attention_decay",
+      "multiverse_id": "c33108f5-1a29-4152-9655-4034539114ff",
+      "signal": {
+        "level": 0.72,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Local homeowner/resident identity and humanitarian responder identity shape interpretation of the same facts.",
+        "scope": "resident_vs_service_frames"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:46:41.472285+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "48f6b985-b41e-4e1f-8700-c64fe039f082",
+      "created_at": "2026-05-05T02:46:41.472285+00:00",
+      "id": "9fafa4ba-5c80-472f-b6a4-8da4a0b37f6d",
+      "model": "attention_decay",
+      "multiverse_id": "c33108f5-1a29-4152-9655-4034539114ff",
+      "signal": {
+        "level": 0.43,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Without fresh conflict or rulings, general public attention may fade quickly.",
+        "scope": "citywide_observers"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:46:41.472285+00:00"
+    }
+  ]
+}

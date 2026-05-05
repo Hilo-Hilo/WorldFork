@@ -1,0 +1,207 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "1531144a-4e0c-444b-9d9e-e95b97a9cfa1",
+      "created_at": "2026-05-05T02:36:39.447122+00:00",
+      "id": "d475c066-e105-4358-a9c5-1feabf256ddf",
+      "influence": {
+        "context_key": "authority_misalignment",
+        "description": "Public claims imply direct student lawmaking, but formal authority rests with city council."
+      },
+      "multiverse_id": "189f55c7-76ec-4c05-b134-8845ae4813ef",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:36:39.447122+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "1531144a-4e0c-444b-9d9e-e95b97a9cfa1",
+      "created_at": "2026-05-05T02:36:39.447122+00:00",
+      "id": "4cc106f4-349f-48f4-be9e-3f6d14fdb464",
+      "influence": {
+        "context_key": "split_public",
+        "description": "Residents are divided, creating contestable narratives and unstable majority perception."
+      },
+      "multiverse_id": "189f55c7-76ec-4c05-b134-8845ae4813ef",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:36:39.447122+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "1531144a-4e0c-444b-9d9e-e95b97a9cfa1",
+      "created_at": "2026-05-05T02:36:39.447122+00:00",
+      "id": "c5720be2-9163-4dfd-9ee6-61099d75898d",
+      "influence": {
+        "context_key": "organized_opposition",
+        "description": "Local businesses are a coherent anti-restriction bloc with likely access to officials."
+      },
+      "multiverse_id": "189f55c7-76ec-4c05-b134-8845ae4813ef",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:36:39.447122+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "1531144a-4e0c-444b-9d9e-e95b97a9cfa1",
+      "created_at": "2026-05-05T02:36:39.447122+00:00",
+      "id": "71ae8bed-98c1-4381-897e-6e3e6c8af8ff",
+      "influence": {
+        "context_key": "process_dependency",
+        "description": "Any policy shift must pass through municipal procedure, scheduling, and council votes."
+      },
+      "multiverse_id": "189f55c7-76ec-4c05-b134-8845ae4813ef",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:36:39.447122+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "1531144a-4e0c-444b-9d9e-e95b97a9cfa1",
+      "created_at": "2026-05-05T02:36:39.447122+00:00",
+      "id": "f544584f-7259-4a1a-800e-9e1b3e8a32b1",
+      "model": "attention_decay",
+      "multiverse_id": "189f55c7-76ec-4c05-b134-8845ae4813ef",
+      "signal": {
+        "applies_to": [
+          "city_residents",
+          "students"
+        ],
+        "evidence": "Residents are split; persuasion likely occurs within moderate opinion bands.",
+        "level": 0.6,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:36:39.447122+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "1531144a-4e0c-444b-9d9e-e95b97a9cfa1",
+      "created_at": "2026-05-05T02:36:39.447122+00:00",
+      "id": "39fdf503-daf0-4ba3-bdfa-051e8125ddcc",
+      "model": "attention_decay",
+      "multiverse_id": "189f55c7-76ec-4c05-b134-8845ae4813ef",
+      "signal": {
+        "applies_to": [
+          "city_residents",
+          "engaged_students"
+        ],
+        "evidence": "Most non-elite actors likely need visible signals before participating.",
+        "level": 0.55,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:36:39.447122+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "1531144a-4e0c-444b-9d9e-e95b97a9cfa1",
+      "created_at": "2026-05-05T02:36:39.447122+00:00",
+      "id": "59495a22-0215-4cb3-86aa-5c7c084bbc12",
+      "model": "attention_decay",
+      "multiverse_id": "189f55c7-76ec-4c05-b134-8845ae4813ef",
+      "signal": {
+        "applies_to": [
+          "residents_ambivalent_or_uncertain"
+        ],
+        "evidence": "Uncertain residents are likely quiet at T0.",
+        "level": 0.5,
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:36:39.447122+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "1531144a-4e0c-444b-9d9e-e95b97a9cfa1",
+      "created_at": "2026-05-05T02:36:39.447122+00:00",
+      "id": "b9f303d9-c9dc-4b50-bc62-6c6234a6811e",
+      "model": "attention_decay",
+      "multiverse_id": "189f55c7-76ec-4c05-b134-8845ae4813ef",
+      "signal": {
+        "applies_to": [
+          "students",
+          "local_business_coalition",
+          "city_residents"
+        ],
+        "evidence": "Student, business, and resident networks likely cluster by role and interest.",
+        "level": 0.58,
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:36:39.447122+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "1531144a-4e0c-444b-9d9e-e95b97a9cfa1",
+      "created_at": "2026-05-05T02:36:39.447122+00:00",
+      "id": "09c85767-2a9a-440c-8780-8ac45ef5e22d",
+      "model": "attention_decay",
+      "multiverse_id": "189f55c7-76ec-4c05-b134-8845ae4813ef",
+      "signal": {
+        "applies_to": [
+          "city_residents"
+        ],
+        "evidence": "Public participation in local ordinance disputes often requires repeated social cues.",
+        "level": 0.52,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:36:39.447122+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "1531144a-4e0c-444b-9d9e-e95b97a9cfa1",
+      "created_at": "2026-05-05T02:36:39.447122+00:00",
+      "id": "658619f4-37fe-4fa3-939a-cdf33f9b6722",
+      "model": "attention_decay",
+      "multiverse_id": "189f55c7-76ec-4c05-b134-8845ae4813ef",
+      "signal": {
+        "applies_to": [
+          "students",
+          "local_business_coalition"
+        ],
+        "evidence": "Student activist and business group identities are salient at initialization.",
+        "level": 0.65,
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:36:39.447122+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "1531144a-4e0c-444b-9d9e-e95b97a9cfa1",
+      "created_at": "2026-05-05T02:36:39.447122+00:00",
+      "id": "ba7b35dd-2353-4bba-8937-035ef6fe5182",
+      "model": "attention_decay",
+      "multiverse_id": "189f55c7-76ec-4c05-b134-8845ae4813ef",
+      "signal": {
+        "applies_to": [
+          "city_residents"
+        ],
+        "evidence": "Absent a meeting, vote, or controversy spike, public attention may fade quickly.",
+        "level": 0.48,
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:36:39.447122+00:00"
+    }
+  ]
+}

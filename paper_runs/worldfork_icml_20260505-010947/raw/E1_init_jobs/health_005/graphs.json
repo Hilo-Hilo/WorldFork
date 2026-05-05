@@ -1,0 +1,982 @@
+{
+  "edges": [
+    {
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "id": "18d3cdd1-7a15-48ee-9845-64d13fb837b5",
+      "layer": "dependency",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "payload": {
+        "direction": "directed",
+        "evidence": "Emergency office coordinates heat response.",
+        "initializer": {
+          "direction": "directed",
+          "evidence": "Emergency office coordinates heat response.",
+          "layer": "dependency",
+          "reason": "Staff rely on official guidance and operating decisions.",
+          "source_actor_name": "cooling_center_staff",
+          "target_actor_name": "town_emergency_office",
+          "weight": 0.41
+        },
+        "reason": "Staff rely on official guidance and operating decisions."
+      },
+      "source_actor_id": "19f45b49-33ad-41c0-b0f6-0276a8a0836e",
+      "target_actor_id": "36f445fd-b5c5-41f4-805b-ee1c1414f310",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00",
+      "weight": 0.41
+    },
+    {
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "id": "ebb0fc22-6034-49f3-a571-2c5f3262a2e7",
+      "layer": "exposure",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "Scenario emphasizes official communication needs.",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "Scenario emphasizes official communication needs.",
+          "layer": "exposure",
+          "reason": "Official messages can reach many residents, though not perfectly.",
+          "source_actor_name": "town_emergency_office",
+          "target_actor_name": "town_residents_general",
+          "weight": 0.55
+        },
+        "reason": "Official messages can reach many residents, though not perfectly."
+      },
+      "source_actor_id": "36f445fd-b5c5-41f4-805b-ee1c1414f310",
+      "target_actor_id": "c1eae6c2-5466-4e17-9792-68f40fb563be",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00",
+      "weight": 0.55
+    },
+    {
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "id": "fbc72dca-076e-41f7-bf57-08f7072b6a7c",
+      "layer": "exposure",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "Need for communication and trust repair around access rules.",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "Need for communication and trust repair around access rules.",
+          "layer": "exposure",
+          "reason": "Some seniors receive official updates, but reach may be uneven.",
+          "source_actor_name": "town_emergency_office",
+          "target_actor_name": "senior_residents",
+          "weight": 0.42
+        },
+        "reason": "Some seniors receive official updates, but reach may be uneven."
+      },
+      "source_actor_id": "36f445fd-b5c5-41f4-805b-ee1c1414f310",
+      "target_actor_id": "da50e6c2-0b14-4771-a907-b518331e0219",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00",
+      "weight": 0.42
+    },
+    {
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "id": "fc94fb18-98ef-46bf-93e2-a59abe929671",
+      "layer": "exposure",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "Misinformation spreads that registration is required when it is not.",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "Misinformation spreads that registration is required when it is not.",
+          "layer": "exposure",
+          "reason": "Rumor about registration is already circulating.",
+          "source_actor_name": "local_misinformation_stream",
+          "target_actor_name": "town_residents_general",
+          "weight": 0.51
+        },
+        "reason": "Rumor about registration is already circulating."
+      },
+      "source_actor_id": "9292ee90-2c2e-463d-9758-8b0bfa727a4a",
+      "target_actor_id": "c1eae6c2-5466-4e17-9792-68f40fb563be",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00",
+      "weight": 0.51
+    },
+    {
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "id": "fbb9852b-705b-4f94-bbff-b99a5c00bd8b",
+      "layer": "exposure",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "False claim affects access perceptions.",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "False claim affects access perceptions.",
+          "layer": "exposure",
+          "reason": "Seniors may receive the rumor via neighbors or family.",
+          "source_actor_name": "local_misinformation_stream",
+          "target_actor_name": "senior_residents",
+          "weight": 0.39
+        },
+        "reason": "Seniors may receive the rumor via neighbors or family."
+      },
+      "source_actor_id": "9292ee90-2c2e-463d-9758-8b0bfa727a4a",
+      "target_actor_id": "da50e6c2-0b14-4771-a907-b518331e0219",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00",
+      "weight": 0.39
+    },
+    {
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "id": "7bb916e2-2213-4a51-8780-a9d77fac8298",
+      "layer": "exposure",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "Volunteers organize rides for seniors.",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "Volunteers organize rides for seniors.",
+          "layer": "exposure",
+          "reason": "Volunteers are beginning outreach for rides but coverage is partial.",
+          "source_actor_name": "volunteer_ride_network",
+          "target_actor_name": "senior_residents",
+          "weight": 0.33
+        },
+        "reason": "Volunteers are beginning outreach for rides but coverage is partial."
+      },
+      "source_actor_id": "231fd49a-d283-4ed7-9742-0707d5c99378",
+      "target_actor_id": "da50e6c2-0b14-4771-a907-b518331e0219",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00",
+      "weight": 0.33
+    },
+    {
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "id": "2b638512-f1d9-40c7-9a93-dfd267ad8a3d",
+      "layer": "exposure",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "Staff operate the center but are not primary broadcasters.",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "Staff operate the center but are not primary broadcasters.",
+          "layer": "exposure",
+          "reason": "Direct exposure occurs mainly when residents inquire or arrive.",
+          "source_actor_name": "cooling_center_staff",
+          "target_actor_name": "senior_residents",
+          "weight": 0.22
+        },
+        "reason": "Direct exposure occurs mainly when residents inquire or arrive."
+      },
+      "source_actor_id": "19f45b49-33ad-41c0-b0f6-0276a8a0836e",
+      "target_actor_id": "da50e6c2-0b14-4771-a907-b518331e0219",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00",
+      "weight": 0.22
+    },
+    {
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "id": "9be1e6e5-2332-497e-b599-d39456fee14c",
+      "layer": "trust",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "payload": {
+        "direction": "directed",
+        "evidence": "Scenario designed to test trust repair.",
+        "initializer": {
+          "direction": "directed",
+          "evidence": "Scenario designed to test trust repair.",
+          "layer": "trust",
+          "reason": "Moderate baseline trust with some erosion risk from confusing rumor conditions.",
+          "source_actor_name": "senior_residents",
+          "target_actor_name": "town_emergency_office",
+          "weight": 0.49
+        },
+        "reason": "Moderate baseline trust with some erosion risk from confusing rumor conditions."
+      },
+      "source_actor_id": "da50e6c2-0b14-4771-a907-b518331e0219",
+      "target_actor_id": "36f445fd-b5c5-41f4-805b-ee1c1414f310",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00",
+      "weight": 0.49
+    },
+    {
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "id": "95f7a9b7-ef43-4a48-9be8-806d0f45ad2c",
+      "layer": "trust",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "payload": {
+        "direction": "directed",
+        "evidence": "No explicit prior scandal; issue is current misinformation.",
+        "initializer": {
+          "direction": "directed",
+          "evidence": "No explicit prior scandal; issue is current misinformation.",
+          "layer": "trust",
+          "reason": "Residents retain moderate institutional trust at T0.",
+          "source_actor_name": "town_residents_general",
+          "target_actor_name": "town_emergency_office",
+          "weight": 0.53
+        },
+        "reason": "Residents retain moderate institutional trust at T0."
+      },
+      "source_actor_id": "c1eae6c2-5466-4e17-9792-68f40fb563be",
+      "target_actor_id": "36f445fd-b5c5-41f4-805b-ee1c1414f310",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00",
+      "weight": 0.53
+    },
+    {
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "id": "78be23c4-5dc7-4d5e-a308-b67d77b669ad",
+      "layer": "trust",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "payload": {
+        "direction": "directed",
+        "evidence": "Volunteers organizing rides for seniors.",
+        "initializer": {
+          "direction": "directed",
+          "evidence": "Volunteers organizing rides for seniors.",
+          "layer": "trust",
+          "reason": "Neighbor help is often trusted when practical and local.",
+          "source_actor_name": "senior_residents",
+          "target_actor_name": "volunteer_ride_network",
+          "weight": 0.57
+        },
+        "reason": "Neighbor help is often trusted when practical and local."
+      },
+      "source_actor_id": "da50e6c2-0b14-4771-a907-b518331e0219",
+      "target_actor_id": "231fd49a-d283-4ed7-9742-0707d5c99378",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00",
+      "weight": 0.57
+    },
+    {
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "id": "1df9a8b4-5e97-47f1-a9f6-4a7b5fecd97b",
+      "layer": "trust",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "payload": {
+        "direction": "directed",
+        "evidence": "Volunteer mobilization is part of scenario focus.",
+        "initializer": {
+          "direction": "directed",
+          "evidence": "Volunteer mobilization is part of scenario focus.",
+          "layer": "trust",
+          "reason": "Officials see volunteers as useful but informal partners.",
+          "source_actor_name": "town_emergency_office",
+          "target_actor_name": "volunteer_ride_network",
+          "weight": 0.52
+        },
+        "reason": "Officials see volunteers as useful but informal partners."
+      },
+      "source_actor_id": "36f445fd-b5c5-41f4-805b-ee1c1414f310",
+      "target_actor_id": "231fd49a-d283-4ed7-9742-0707d5c99378",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00",
+      "weight": 0.52
+    },
+    {
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "id": "80262a50-67e7-41b3-9696-44a10c4c171a",
+      "layer": "dependency",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "payload": {
+        "direction": "directed",
+        "evidence": "Seniors need transport; volunteers organize rides.",
+        "initializer": {
+          "direction": "directed",
+          "evidence": "Seniors need transport; volunteers organize rides.",
+          "layer": "dependency",
+          "reason": "A meaningful subset of seniors need rides to access cooling relief.",
+          "source_actor_name": "senior_residents",
+          "target_actor_name": "volunteer_ride_network",
+          "weight": 0.46
+        },
+        "reason": "A meaningful subset of seniors need rides to access cooling relief."
+      },
+      "source_actor_id": "da50e6c2-0b14-4771-a907-b518331e0219",
+      "target_actor_id": "231fd49a-d283-4ed7-9742-0707d5c99378",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00",
+      "weight": 0.46
+    },
+    {
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "id": "bca00ca4-859a-45a6-ae37-d860c075c6fb",
+      "layer": "dependency",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "payload": {
+        "direction": "directed",
+        "evidence": "Budget officials worry about cost.",
+        "initializer": {
+          "direction": "directed",
+          "evidence": "Budget officials worry about cost.",
+          "layer": "dependency",
+          "reason": "Expanded operations or transport support may require funding tolerance.",
+          "source_actor_name": "town_emergency_office",
+          "target_actor_name": "budget_office",
+          "weight": 0.44
+        },
+        "reason": "Expanded operations or transport support may require funding tolerance."
+      },
+      "source_actor_id": "36f445fd-b5c5-41f4-805b-ee1c1414f310",
+      "target_actor_id": "c1d2c12b-dad1-49de-a722-0a2044b343f6",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00",
+      "weight": 0.44
+    },
+    {
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "id": "77b2c78e-6177-482b-aefc-a36a5187604d",
+      "layer": "dependency",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "payload": {
+        "direction": "directed",
+        "evidence": "Official communication affects ride confidence.",
+        "initializer": {
+          "direction": "directed",
+          "evidence": "Official communication affects ride confidence.",
+          "layer": "dependency",
+          "reason": "Volunteer efficiency depends on clear destination rules and public confirmation.",
+          "source_actor_name": "volunteer_ride_network",
+          "target_actor_name": "town_emergency_office",
+          "weight": 0.32
+        },
+        "reason": "Volunteer efficiency depends on clear destination rules and public confirmation."
+      },
+      "source_actor_id": "231fd49a-d283-4ed7-9742-0707d5c99378",
+      "target_actor_id": "36f445fd-b5c5-41f4-805b-ee1c1414f310",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00",
+      "weight": 0.32
+    },
+    {
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "id": "a91bfb52-ad40-4a7b-8b17-63d0805e10a7",
+      "layer": "influence",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "Official communication is a core test dimension.",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "Official communication is a core test dimension.",
+          "layer": "influence",
+          "reason": "Official statements can set the public understanding if timely and repeated.",
+          "source_actor_name": "town_emergency_office",
+          "target_actor_name": "town_residents_general",
+          "weight": 0.58
+        },
+        "reason": "Official statements can set the public understanding if timely and repeated."
+      },
+      "source_actor_id": "36f445fd-b5c5-41f4-805b-ee1c1414f310",
+      "target_actor_id": "c1eae6c2-5466-4e17-9792-68f40fb563be",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00",
+      "weight": 0.58
+    },
+    {
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "id": "181855ae-9980-42ef-b62f-ad2c7052ed4d",
+      "layer": "influence",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "Budget officials worry about cost.",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "Budget officials worry about cost.",
+          "layer": "influence",
+          "reason": "Funding concerns can shape operational choices and message confidence.",
+          "source_actor_name": "budget_office",
+          "target_actor_name": "town_emergency_office",
+          "weight": 0.47
+        },
+        "reason": "Funding concerns can shape operational choices and message confidence."
+      },
+      "source_actor_id": "c1d2c12b-dad1-49de-a722-0a2044b343f6",
+      "target_actor_id": "36f445fd-b5c5-41f4-805b-ee1c1414f310",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00",
+      "weight": 0.47
+    },
+    {
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "id": "62044133-b5d8-4824-b66d-76c337b8b17e",
+      "layer": "influence",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "Volunteer mobilization is expected focus.",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "Volunteer mobilization is expected focus.",
+          "layer": "influence",
+          "reason": "Visible volunteer action can shift local norms toward helping.",
+          "source_actor_name": "volunteer_ride_network",
+          "target_actor_name": "town_residents_general",
+          "weight": 0.31
+        },
+        "reason": "Visible volunteer action can shift local norms toward helping."
+      },
+      "source_actor_id": "231fd49a-d283-4ed7-9742-0707d5c99378",
+      "target_actor_id": "c1eae6c2-5466-4e17-9792-68f40fb563be",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00",
+      "weight": 0.31
+    },
+    {
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "id": "ecb6b674-6d00-4911-b0ee-884d684f7c76",
+      "layer": "influence",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "payload": {
+        "direction": "outbound",
+        "evidence": "Rumor already spreads.",
+        "initializer": {
+          "direction": "outbound",
+          "evidence": "Rumor already spreads.",
+          "layer": "influence",
+          "reason": "Simple false rule claims can be sticky in local networks.",
+          "source_actor_name": "local_misinformation_stream",
+          "target_actor_name": "town_residents_general",
+          "weight": 0.43
+        },
+        "reason": "Simple false rule claims can be sticky in local networks."
+      },
+      "source_actor_id": "9292ee90-2c2e-463d-9758-8b0bfa727a4a",
+      "target_actor_id": "c1eae6c2-5466-4e17-9792-68f40fb563be",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00",
+      "weight": 0.43
+    },
+    {
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "id": "a1d99a12-42f2-4392-b7c2-4b8b21ce9672",
+      "layer": "coalition",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "payload": {
+        "direction": "bidirectional",
+        "evidence": "Same response effort.",
+        "initializer": {
+          "direction": "bidirectional",
+          "evidence": "Same response effort.",
+          "layer": "coalition",
+          "reason": "Aligned on safe and effective cooling center operations.",
+          "source_actor_name": "town_emergency_office",
+          "target_actor_name": "cooling_center_staff",
+          "weight": 0.61
+        },
+        "reason": "Aligned on safe and effective cooling center operations."
+      },
+      "source_actor_id": "36f445fd-b5c5-41f4-805b-ee1c1414f310",
+      "target_actor_id": "19f45b49-33ad-41c0-b0f6-0276a8a0836e",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00",
+      "weight": 0.61
+    },
+    {
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "id": "cf4cd92e-68dd-4123-a567-590a0252b280",
+      "layer": "coalition",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "payload": {
+        "direction": "bidirectional",
+        "evidence": "Volunteers organize rides while officials handle communication.",
+        "initializer": {
+          "direction": "bidirectional",
+          "evidence": "Volunteers organize rides while officials handle communication.",
+          "layer": "coalition",
+          "reason": "Potentially aligned around access, but not yet fully integrated.",
+          "source_actor_name": "town_emergency_office",
+          "target_actor_name": "volunteer_ride_network",
+          "weight": 0.42
+        },
+        "reason": "Potentially aligned around access, but not yet fully integrated."
+      },
+      "source_actor_id": "36f445fd-b5c5-41f4-805b-ee1c1414f310",
+      "target_actor_id": "231fd49a-d283-4ed7-9742-0707d5c99378",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00",
+      "weight": 0.42
+    },
+    {
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "id": "42c2783f-dbca-4633-94dc-258749ec447f",
+      "layer": "coalition",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "payload": {
+        "direction": "bidirectional",
+        "evidence": "Ride organization for seniors.",
+        "initializer": {
+          "direction": "bidirectional",
+          "evidence": "Ride organization for seniors.",
+          "layer": "coalition",
+          "reason": "Shared interest in getting vulnerable residents to safety.",
+          "source_actor_name": "volunteer_ride_network",
+          "target_actor_name": "senior_residents",
+          "weight": 0.52
+        },
+        "reason": "Shared interest in getting vulnerable residents to safety."
+      },
+      "source_actor_id": "231fd49a-d283-4ed7-9742-0707d5c99378",
+      "target_actor_id": "da50e6c2-0b14-4771-a907-b518331e0219",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00",
+      "weight": 0.52
+    },
+    {
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "id": "65dd55d2-98fd-4a1c-a326-5ea8d688ef52",
+      "layer": "conflict",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "payload": {
+        "direction": "bidirectional",
+        "evidence": "Budget officials worry about cost.",
+        "initializer": {
+          "direction": "bidirectional",
+          "evidence": "Budget officials worry about cost.",
+          "layer": "conflict",
+          "reason": "Cost concerns may constrain emergency expansion or transport support.",
+          "source_actor_name": "budget_office",
+          "target_actor_name": "town_emergency_office",
+          "weight": 0.36
+        },
+        "reason": "Cost concerns may constrain emergency expansion or transport support."
+      },
+      "source_actor_id": "c1d2c12b-dad1-49de-a722-0a2044b343f6",
+      "target_actor_id": "36f445fd-b5c5-41f4-805b-ee1c1414f310",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00",
+      "weight": 0.36
+    },
+    {
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "id": "11a7db50-25b7-4376-b452-81d2fc507d77",
+      "layer": "conflict",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "payload": {
+        "direction": "bidirectional",
+        "evidence": "False claim that registration is required when it is not.",
+        "initializer": {
+          "direction": "bidirectional",
+          "evidence": "False claim that registration is required when it is not.",
+          "layer": "conflict",
+          "reason": "Rumor directly undermines official communication and access goals.",
+          "source_actor_name": "local_misinformation_stream",
+          "target_actor_name": "town_emergency_office",
+          "weight": 0.49
+        },
+        "reason": "Rumor directly undermines official communication and access goals."
+      },
+      "source_actor_id": "9292ee90-2c2e-463d-9758-8b0bfa727a4a",
+      "target_actor_id": "36f445fd-b5c5-41f4-805b-ee1c1414f310",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00",
+      "weight": 0.49
+    },
+    {
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "id": "2d53eb42-dfb5-48fd-ae4a-f3c5a8bf89c6",
+      "layer": "conflict",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "payload": {
+        "direction": "bidirectional",
+        "evidence": "Registration rumor could block attendance.",
+        "initializer": {
+          "direction": "bidirectional",
+          "evidence": "Registration rumor could block attendance.",
+          "layer": "conflict",
+          "reason": "False access barrier may deter use by vulnerable residents.",
+          "source_actor_name": "local_misinformation_stream",
+          "target_actor_name": "senior_residents",
+          "weight": 0.41
+        },
+        "reason": "False access barrier may deter use by vulnerable residents."
+      },
+      "source_actor_id": "9292ee90-2c2e-463d-9758-8b0bfa727a4a",
+      "target_actor_id": "da50e6c2-0b14-4771-a907-b518331e0219",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00",
+      "weight": 0.41
+    },
+    {
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "id": "13e8b084-bdb3-45bc-998e-364f597f75d9",
+      "layer": "oasis_interaction",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "payload": {
+        "direction": "bidirectional",
+        "evidence": "Official communication is central.",
+        "initializer": {
+          "direction": "bidirectional",
+          "evidence": "Official communication is central.",
+          "layer": "oasis_interaction",
+          "reason": "Likely interaction through public advisories and updates.",
+          "source_actor_name": "town_emergency_office",
+          "target_actor_name": "town_residents_general",
+          "weight": 0.54
+        },
+        "reason": "Likely interaction through public advisories and updates."
+      },
+      "source_actor_id": "36f445fd-b5c5-41f4-805b-ee1c1414f310",
+      "target_actor_id": "c1eae6c2-5466-4e17-9792-68f40fb563be",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00",
+      "weight": 0.54
+    },
+    {
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "id": "8efa4f79-e31d-4d28-a622-e35f02954def",
+      "layer": "oasis_interaction",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "payload": {
+        "direction": "bidirectional",
+        "evidence": "Volunteers organize rides.",
+        "initializer": {
+          "direction": "bidirectional",
+          "evidence": "Volunteers organize rides.",
+          "layer": "oasis_interaction",
+          "reason": "Likely public coordination and requests for volunteer help.",
+          "source_actor_name": "volunteer_ride_network",
+          "target_actor_name": "town_residents_general",
+          "weight": 0.37
+        },
+        "reason": "Likely public coordination and requests for volunteer help."
+      },
+      "source_actor_id": "231fd49a-d283-4ed7-9742-0707d5c99378",
+      "target_actor_id": "c1eae6c2-5466-4e17-9792-68f40fb563be",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00",
+      "weight": 0.37
+    },
+    {
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "id": "79d631d5-7f2d-407b-951e-ffa71c88b94f",
+      "layer": "oasis_interaction",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "payload": {
+        "direction": "bidirectional",
+        "evidence": "Misinformation spreads in town.",
+        "initializer": {
+          "direction": "bidirectional",
+          "evidence": "Misinformation spreads in town.",
+          "layer": "oasis_interaction",
+          "reason": "Rumor likely moves in visible and semi-visible social channels.",
+          "source_actor_name": "local_misinformation_stream",
+          "target_actor_name": "town_residents_general",
+          "weight": 0.45
+        },
+        "reason": "Rumor likely moves in visible and semi-visible social channels."
+      },
+      "source_actor_id": "9292ee90-2c2e-463d-9758-8b0bfa727a4a",
+      "target_actor_id": "c1eae6c2-5466-4e17-9792-68f40fb563be",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00",
+      "weight": 0.45
+    }
+  ],
+  "snapshots": [
+    {
+      "artifact_id": null,
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Official messages can reach many residents, though not perfectly.",
+            "source": "town_emergency_office",
+            "target": "town_residents_general",
+            "weight": 0.55
+          },
+          {
+            "reason": "Some seniors receive official updates, but reach may be uneven.",
+            "source": "town_emergency_office",
+            "target": "senior_residents",
+            "weight": 0.42
+          },
+          {
+            "reason": "Rumor about registration is already circulating.",
+            "source": "local_misinformation_stream",
+            "target": "town_residents_general",
+            "weight": 0.51
+          },
+          {
+            "reason": "Seniors may receive the rumor via neighbors or family.",
+            "source": "local_misinformation_stream",
+            "target": "senior_residents",
+            "weight": 0.39
+          },
+          {
+            "reason": "Volunteers are beginning outreach for rides but coverage is partial.",
+            "source": "volunteer_ride_network",
+            "target": "senior_residents",
+            "weight": 0.33
+          },
+          {
+            "reason": "Direct exposure occurs mainly when residents inquire or arrive.",
+            "source": "cooling_center_staff",
+            "target": "senior_residents",
+            "weight": 0.22
+          }
+        ],
+        "layer": "exposure",
+        "tick_index": 0
+      },
+      "id": "5db02c37-e683-4e67-8940-b20bdf16dadf",
+      "layer": "exposure",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Moderate baseline trust with some erosion risk from confusing rumor conditions.",
+            "source": "senior_residents",
+            "target": "town_emergency_office",
+            "weight": 0.49
+          },
+          {
+            "reason": "Residents retain moderate institutional trust at T0.",
+            "source": "town_residents_general",
+            "target": "town_emergency_office",
+            "weight": 0.53
+          },
+          {
+            "reason": "Neighbor help is often trusted when practical and local.",
+            "source": "senior_residents",
+            "target": "volunteer_ride_network",
+            "weight": 0.57
+          },
+          {
+            "reason": "Officials see volunteers as useful but informal partners.",
+            "source": "town_emergency_office",
+            "target": "volunteer_ride_network",
+            "weight": 0.52
+          }
+        ],
+        "layer": "trust",
+        "tick_index": 0
+      },
+      "id": "bc672aca-9a66-4a6e-a59f-aa39746a5c17",
+      "layer": "trust",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "A meaningful subset of seniors need rides to access cooling relief.",
+            "source": "senior_residents",
+            "target": "volunteer_ride_network",
+            "weight": 0.46
+          },
+          {
+            "reason": "Staff rely on official guidance and operating decisions.",
+            "source": "cooling_center_staff",
+            "target": "town_emergency_office",
+            "weight": 0.41
+          },
+          {
+            "reason": "Expanded operations or transport support may require funding tolerance.",
+            "source": "town_emergency_office",
+            "target": "budget_office",
+            "weight": 0.44
+          },
+          {
+            "reason": "Volunteer efficiency depends on clear destination rules and public confirmation.",
+            "source": "volunteer_ride_network",
+            "target": "town_emergency_office",
+            "weight": 0.32
+          }
+        ],
+        "layer": "dependency",
+        "tick_index": 0
+      },
+      "id": "9145aa56-7e89-43c7-b656-76730ca69f0e",
+      "layer": "dependency",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Official statements can set the public understanding if timely and repeated.",
+            "source": "town_emergency_office",
+            "target": "town_residents_general",
+            "weight": 0.58
+          },
+          {
+            "reason": "Funding concerns can shape operational choices and message confidence.",
+            "source": "budget_office",
+            "target": "town_emergency_office",
+            "weight": 0.47
+          },
+          {
+            "reason": "Visible volunteer action can shift local norms toward helping.",
+            "source": "volunteer_ride_network",
+            "target": "town_residents_general",
+            "weight": 0.31
+          },
+          {
+            "reason": "Simple false rule claims can be sticky in local networks.",
+            "source": "local_misinformation_stream",
+            "target": "town_residents_general",
+            "weight": 0.43
+          }
+        ],
+        "layer": "influence",
+        "tick_index": 0
+      },
+      "id": "d620f74e-0229-40f1-be5f-63413fcb89af",
+      "layer": "influence",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Aligned on safe and effective cooling center operations.",
+            "source": "town_emergency_office",
+            "target": "cooling_center_staff",
+            "weight": 0.61
+          },
+          {
+            "reason": "Potentially aligned around access, but not yet fully integrated.",
+            "source": "town_emergency_office",
+            "target": "volunteer_ride_network",
+            "weight": 0.42
+          },
+          {
+            "reason": "Shared interest in getting vulnerable residents to safety.",
+            "source": "volunteer_ride_network",
+            "target": "senior_residents",
+            "weight": 0.52
+          }
+        ],
+        "layer": "coalition",
+        "tick_index": 0
+      },
+      "id": "a8bf69e6-509f-45ab-b8c1-2a42b39e0e44",
+      "layer": "coalition",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Cost concerns may constrain emergency expansion or transport support.",
+            "source": "budget_office",
+            "target": "town_emergency_office",
+            "weight": 0.36
+          },
+          {
+            "reason": "Rumor directly undermines official communication and access goals.",
+            "source": "local_misinformation_stream",
+            "target": "town_emergency_office",
+            "weight": 0.49
+          },
+          {
+            "reason": "False access barrier may deter use by vulnerable residents.",
+            "source": "local_misinformation_stream",
+            "target": "senior_residents",
+            "weight": 0.41
+          }
+        ],
+        "layer": "conflict",
+        "tick_index": 0
+      },
+      "id": "6ed01c79-b376-49bb-8cfa-a53e24245ce8",
+      "layer": "conflict",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00"
+    },
+    {
+      "artifact_id": null,
+      "big_bang_id": "79d132d4-4ee8-4c6f-bec6-24db8ff3ada9",
+      "created_at": "2026-05-05T02:31:31.682786+00:00",
+      "graph": {
+        "edges": [
+          {
+            "reason": "Likely interaction through public advisories and updates.",
+            "source": "town_emergency_office",
+            "target": "town_residents_general",
+            "weight": 0.54
+          },
+          {
+            "reason": "Likely public coordination and requests for volunteer help.",
+            "source": "volunteer_ride_network",
+            "target": "town_residents_general",
+            "weight": 0.37
+          },
+          {
+            "reason": "Rumor likely moves in visible and semi-visible social channels.",
+            "source": "local_misinformation_stream",
+            "target": "town_residents_general",
+            "weight": 0.45
+          }
+        ],
+        "layer": "oasis_interaction",
+        "tick_index": 0
+      },
+      "id": "6ddb51b7-b50a-46f7-8773-49676fc8e342",
+      "layer": "oasis_interaction",
+      "multiverse_id": "46c16dfe-8d27-4b14-936e-83c8932845a5",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:31:31.682786+00:00"
+    }
+  ]
+}

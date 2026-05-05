@@ -1,0 +1,1688 @@
+{
+  "big_bang_id": "7c1dcc9c-98ab-4270-b1d5-6acd81aec952",
+  "initializer_output": {
+    "actors": [
+      {
+        "authority_level": 0.91,
+        "name": "university_administration",
+        "public_role": "decision authority over campus event permissions and crisis response",
+        "stakes": [
+          "campus_safety",
+          "institutional_legitimacy",
+          "legal_reputation",
+          "donor_relations"
+        ],
+        "type": "institution"
+      },
+      {
+        "authority_level": 0.72,
+        "name": "campus_safety_office",
+        "public_role": "security assessment and risk advisory",
+        "stakes": [
+          "threat_prevention",
+          "professional_credibility",
+          "confidentiality"
+        ],
+        "type": "institution"
+      },
+      {
+        "authority_level": 0.34,
+        "name": "free_expression_student_group",
+        "public_role": "student advocates for reinstatement or viewpoint access",
+        "stakes": [
+          "speech_norms",
+          "student_voice",
+          "anti_censorship"
+        ],
+        "type": "organization"
+      },
+      {
+        "authority_level": 0.34,
+        "name": "harm_prevention_student_group",
+        "public_role": "student advocates emphasizing safety and community harm concerns",
+        "stakes": [
+          "student_safety",
+          "inclusion",
+          "harm_reduction"
+        ],
+        "type": "organization"
+      },
+      {
+        "authority_level": 0.46,
+        "name": "faculty_governance_bloc",
+        "public_role": "faculty debating process, governance, and precedent",
+        "stakes": [
+          "shared_governance",
+          "academic_norms",
+          "institutional_legitimacy"
+        ],
+        "type": "organization"
+      },
+      {
+        "authority_level": 0.49,
+        "name": "donor_network",
+        "public_role": "alumni and donors considering pressure letters",
+        "stakes": [
+          "institution_direction",
+          "reputation",
+          "financial_leverage"
+        ],
+        "type": "network"
+      },
+      {
+        "authority_level": 0.29,
+        "name": "visiting_speaker_team",
+        "public_role": "speaker and representatives seeking appearance or redress",
+        "stakes": [
+          "platform_access",
+          "reputation",
+          "contractual_expectations"
+        ],
+        "type": "organization"
+      },
+      {
+        "authority_level": 0.22,
+        "name": "general_student_body",
+        "public_role": "broader student audience with mixed salience",
+        "stakes": [
+          "campus_climate",
+          "daily_routine",
+          "peer_belonging"
+        ],
+        "type": "population"
+      },
+      {
+        "authority_level": 0.68,
+        "name": "board_leadership",
+        "public_role": "high-level oversight with indirect leverage",
+        "stakes": [
+          "institutional_reputation",
+          "leadership_stability",
+          "fiduciary_governance"
+        ],
+        "type": "institution"
+      },
+      {
+        "authority_level": 0.27,
+        "name": "campus_media",
+        "public_role": "student/local information intermediary",
+        "stakes": [
+          "audience_attention",
+          "credibility",
+          "issue_visibility"
+        ],
+        "type": "organization"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Administration modifies security posture and reinstates the speaker with conditions or revised venue/security plan.",
+        "branch_key": "reinstatement_after_review",
+        "divergence_signal": "Official language shifts from categorical cancellation to conditional feasibility review or rescheduling.",
+        "trigger": "Faculty review pressure combines with weakly persuasive confidential rationale and sustained student criticism."
+      },
+      {
+        "alternate_path": "University offers panel, moderated forum, or alternative speaker/event as compromise.",
+        "branch_key": "replacement_event_substitution",
+        "divergence_signal": "Messaging emphasizes community dialogue and educational substitute while original cancellation remains in place.",
+        "trigger": "Administration seeks legitimacy repair without reversing cancellation."
+      },
+      {
+        "alternate_path": "Visible rallies, counter-rallies, and broader student activation raise conflict and reduce room for quiet moderation.",
+        "branch_key": "protest_escalation_cycle",
+        "divergence_signal": "Sharp increase in turnout calls, protest logistics, and campus media volume.",
+        "trigger": "Student factions interpret each other and administration as illegitimate; no credible review pathway emerges."
+      },
+      {
+        "alternate_path": "Board-level concern increases pressure on administration either to justify more fully or to revisit decision, while student activists read elite pressure differently.",
+        "branch_key": "donor_board_pressure_hardens_positions",
+        "divergence_signal": "Board or president references alumni/donor concerns in internal or public communications.",
+        "trigger": "Coordinated donor letters reach board leadership before campus legitimacy is repaired."
+      },
+      {
+        "alternate_path": "Immediate event outcome stays unresolved or fixed while institution shifts focus to policy and governance reform debate.",
+        "branch_key": "durable_policy_review_stalemate",
+        "divergence_signal": "Committee formation, review timelines, and declining protest urgency without consensus on the original cancellation.",
+        "trigger": "No side gains decisive legitimacy, but all sides accept process review as interim outlet."
+      }
+    ],
+    "channels": [
+      {
+        "channel_name": "official_university_statement",
+        "primary_actors": [
+          "university_administration",
+          "campus_media",
+          "general_student_body"
+        ],
+        "reach": 0.78,
+        "type": "institutional_public"
+      },
+      {
+        "channel_name": "campus_media_coverage",
+        "primary_actors": [
+          "campus_media",
+          "general_student_body",
+          "faculty_governance_bloc",
+          "donor_network"
+        ],
+        "reach": 0.74,
+        "type": "media_public"
+      },
+      {
+        "channel_name": "student_org_social_channels",
+        "primary_actors": [
+          "free_expression_student_group",
+          "harm_prevention_student_group",
+          "general_student_body"
+        ],
+        "reach": 0.63,
+        "type": "network_public"
+      },
+      {
+        "channel_name": "faculty_governance_meetings",
+        "primary_actors": [
+          "faculty_governance_bloc",
+          "university_administration"
+        ],
+        "reach": 0.36,
+        "type": "institutional_internal"
+      },
+      {
+        "channel_name": "donor_backchannel_letters_calls",
+        "primary_actors": [
+          "donor_network",
+          "board_leadership",
+          "university_administration"
+        ],
+        "reach": 0.28,
+        "type": "elite_private"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype": "students",
+        "attention_level": 0.79,
+        "behavioral_tendencies": [
+          "petitioning",
+          "op-ed writing",
+          "rally organization",
+          "procedural framing"
+        ],
+        "cohort_name": "free_expression_students",
+        "expression_level": 0.68,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.39,
+        "mobilization_readiness": 0.64,
+        "perceived_majority": 0.42,
+        "population_share_of_archetype": 0.15,
+        "private_belief": "Cancellation is overreach absent transparent evidence; campus should favor reinstatement or alternative access.",
+        "public_expression": "Moderate visible criticism of administration, likely framed around precedent and viewpoint access.",
+        "representation_mode": "organized_plus_sympathetic",
+        "represented_population": 2700,
+        "reputation": 0.54,
+        "secrecy": 0.23,
+        "stance_axes": {
+          "governance_transparency": 0.79,
+          "protest_acceptance": 0.56,
+          "security_deference": 0.28,
+          "speaker_reinstatement": 0.82
+        },
+        "trustworthiness": 0.56
+      },
+      {
+        "archetype": "students",
+        "attention_level": 0.75,
+        "behavioral_tendencies": [
+          "safety advocacy",
+          "collective statements",
+          "counter-programming",
+          "peer norm signaling"
+        ],
+        "cohort_name": "harm_concern_students",
+        "expression_level": 0.62,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.34,
+        "mobilization_readiness": 0.58,
+        "perceived_majority": 0.45,
+        "population_share_of_archetype": 0.18,
+        "private_belief": "Cancellation is justified or prudent if credible threats or harms are present, even if evidence remains confidential.",
+        "public_expression": "Supportive of safety framing; may call for replacement programming or stronger standards.",
+        "representation_mode": "organized_plus_sympathetic",
+        "represented_population": 3240,
+        "reputation": 0.57,
+        "secrecy": 0.27,
+        "stance_axes": {
+          "governance_transparency": 0.51,
+          "protest_acceptance": 0.49,
+          "security_deference": 0.77,
+          "speaker_reinstatement": 0.16
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "archetype": "students",
+        "attention_level": 0.44,
+        "behavioral_tendencies": [
+          "wait_and_see",
+          "private discussion",
+          "attention drift unless catalyzed"
+        ],
+        "cohort_name": "quiet_plurality_students",
+        "expression_level": 0.19,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.51,
+        "mobilization_readiness": 0.27,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.67,
+        "private_belief": "Mixed views; many want disruption minimized and more clarity before choosing a side.",
+        "public_expression": "Low expression, limited participation unless issue escalates or becomes identity-linked.",
+        "representation_mode": "latent_majority",
+        "represented_population": 12060,
+        "reputation": 0.5,
+        "secrecy": 0.49,
+        "stance_axes": {
+          "governance_transparency": 0.63,
+          "protest_acceptance": 0.31,
+          "security_deference": 0.55,
+          "speaker_reinstatement": 0.47
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "archetype": "faculty",
+        "attention_level": 0.73,
+        "behavioral_tendencies": [
+          "committee action",
+          "letters",
+          "senate resolutions",
+          "norm enforcement"
+        ],
+        "cohort_name": "process_faculty",
+        "expression_level": 0.54,
+        "fatigue": 0.26,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.46,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "Main concern is governance process, precedent, and whether administrators are using secrecy too broadly.",
+        "public_expression": "Likely to request review, senate discussion, or formal explanation rather than immediate maximal protest.",
+        "representation_mode": "informal_bloc",
+        "represented_population": 660,
+        "reputation": 0.68,
+        "secrecy": 0.22,
+        "stance_axes": {
+          "governance_transparency": 0.88,
+          "protest_acceptance": 0.36,
+          "security_deference": 0.41,
+          "speaker_reinstatement": 0.58
+        },
+        "trustworthiness": 0.66
+      },
+      {
+        "archetype": "faculty",
+        "attention_level": 0.58,
+        "behavioral_tendencies": [
+          "private consultation",
+          "wait_for_briefing",
+          "elite caution"
+        ],
+        "cohort_name": "deferential_faculty",
+        "expression_level": 0.31,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.43,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.4,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Administration may have valid confidential reasons; avoid undermining safety professionals without full facts.",
+        "public_expression": "Cautious, lower-visibility commentary favoring review but not public confrontation.",
+        "representation_mode": "mixed",
+        "represented_population": 540,
+        "reputation": 0.62,
+        "secrecy": 0.41,
+        "stance_axes": {
+          "governance_transparency": 0.57,
+          "protest_acceptance": 0.21,
+          "security_deference": 0.72,
+          "speaker_reinstatement": 0.31
+        },
+        "trustworthiness": 0.64
+      },
+      {
+        "archetype": "donors_alumni_active",
+        "attention_level": 0.69,
+        "behavioral_tendencies": [
+          "private pressure",
+          "collective letters",
+          "resource signaling"
+        ],
+        "cohort_name": "pressure_donors",
+        "expression_level": 0.41,
+        "fatigue": 0.17,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.38,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Cancellation signals institutional drift or weak principle; pressure may be warranted.",
+        "public_expression": "Threatened letters and backchannel contact more likely than immediate public break.",
+        "representation_mode": "network_core",
+        "represented_population": 180,
+        "reputation": 0.59,
+        "secrecy": 0.44,
+        "stance_axes": {
+          "governance_transparency": 0.61,
+          "protest_acceptance": 0.12,
+          "security_deference": 0.33,
+          "speaker_reinstatement": 0.74
+        },
+        "trustworthiness": 0.47
+      },
+      {
+        "archetype": "donors_alumni_active",
+        "attention_level": 0.46,
+        "behavioral_tendencies": [
+          "monitoring",
+          "quiet outreach",
+          "conditional escalation"
+        ],
+        "cohort_name": "cautious_donors",
+        "expression_level": 0.18,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.21,
+        "mobilization_readiness": 0.19,
+        "perceived_majority": 0.49,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "Concerned about reputational fallout but reluctant to intervene before more facts emerge.",
+        "public_expression": "Low-publicity inquiries and observation.",
+        "representation_mode": "network_periphery",
+        "represented_population": 220,
+        "reputation": 0.6,
+        "secrecy": 0.57,
+        "stance_axes": {
+          "governance_transparency": 0.54,
+          "protest_acceptance": 0.05,
+          "security_deference": 0.58,
+          "speaker_reinstatement": 0.43
+        },
+        "trustworthiness": 0.51
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype": "students",
+        "attention_level": 0.79,
+        "behavioral_tendencies": [
+          "petitioning",
+          "op-ed writing",
+          "rally organization",
+          "procedural framing"
+        ],
+        "cohort_name": "free_expression_students",
+        "expression_level": 0.68,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.39,
+        "mobilization_readiness": 0.64,
+        "perceived_majority": 0.42,
+        "population_share_of_archetype": 0.15,
+        "private_belief": "Cancellation is overreach absent transparent evidence; campus should favor reinstatement or alternative access.",
+        "public_expression": "Moderate visible criticism of administration, likely framed around precedent and viewpoint access.",
+        "representation_mode": "organized_plus_sympathetic",
+        "represented_population": 2700,
+        "reputation": 0.54,
+        "secrecy": 0.23,
+        "stance_axes": {
+          "governance_transparency": 0.79,
+          "protest_acceptance": 0.56,
+          "security_deference": 0.28,
+          "speaker_reinstatement": 0.82
+        },
+        "trustworthiness": 0.56
+      },
+      {
+        "archetype": "students",
+        "attention_level": 0.75,
+        "behavioral_tendencies": [
+          "safety advocacy",
+          "collective statements",
+          "counter-programming",
+          "peer norm signaling"
+        ],
+        "cohort_name": "harm_concern_students",
+        "expression_level": 0.62,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.34,
+        "mobilization_readiness": 0.58,
+        "perceived_majority": 0.45,
+        "population_share_of_archetype": 0.18,
+        "private_belief": "Cancellation is justified or prudent if credible threats or harms are present, even if evidence remains confidential.",
+        "public_expression": "Supportive of safety framing; may call for replacement programming or stronger standards.",
+        "representation_mode": "organized_plus_sympathetic",
+        "represented_population": 3240,
+        "reputation": 0.57,
+        "secrecy": 0.27,
+        "stance_axes": {
+          "governance_transparency": 0.51,
+          "protest_acceptance": 0.49,
+          "security_deference": 0.77,
+          "speaker_reinstatement": 0.16
+        },
+        "trustworthiness": 0.58
+      },
+      {
+        "archetype": "students",
+        "attention_level": 0.44,
+        "behavioral_tendencies": [
+          "wait_and_see",
+          "private discussion",
+          "attention drift unless catalyzed"
+        ],
+        "cohort_name": "quiet_plurality_students",
+        "expression_level": 0.19,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.51,
+        "mobilization_readiness": 0.27,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.67,
+        "private_belief": "Mixed views; many want disruption minimized and more clarity before choosing a side.",
+        "public_expression": "Low expression, limited participation unless issue escalates or becomes identity-linked.",
+        "representation_mode": "latent_majority",
+        "represented_population": 12060,
+        "reputation": 0.5,
+        "secrecy": 0.49,
+        "stance_axes": {
+          "governance_transparency": 0.63,
+          "protest_acceptance": 0.31,
+          "security_deference": 0.55,
+          "speaker_reinstatement": 0.47
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "archetype": "faculty",
+        "attention_level": 0.73,
+        "behavioral_tendencies": [
+          "committee action",
+          "letters",
+          "senate resolutions",
+          "norm enforcement"
+        ],
+        "cohort_name": "process_faculty",
+        "expression_level": 0.54,
+        "fatigue": 0.26,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.46,
+        "perceived_majority": 0.57,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "Main concern is governance process, precedent, and whether administrators are using secrecy too broadly.",
+        "public_expression": "Likely to request review, senate discussion, or formal explanation rather than immediate maximal protest.",
+        "representation_mode": "informal_bloc",
+        "represented_population": 660,
+        "reputation": 0.68,
+        "secrecy": 0.22,
+        "stance_axes": {
+          "governance_transparency": 0.88,
+          "protest_acceptance": 0.36,
+          "security_deference": 0.41,
+          "speaker_reinstatement": 0.58
+        },
+        "trustworthiness": 0.66
+      },
+      {
+        "archetype": "faculty",
+        "attention_level": 0.58,
+        "behavioral_tendencies": [
+          "private consultation",
+          "wait_for_briefing",
+          "elite caution"
+        ],
+        "cohort_name": "deferential_faculty",
+        "expression_level": 0.31,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.43,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.4,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Administration may have valid confidential reasons; avoid undermining safety professionals without full facts.",
+        "public_expression": "Cautious, lower-visibility commentary favoring review but not public confrontation.",
+        "representation_mode": "mixed",
+        "represented_population": 540,
+        "reputation": 0.62,
+        "secrecy": 0.41,
+        "stance_axes": {
+          "governance_transparency": 0.57,
+          "protest_acceptance": 0.21,
+          "security_deference": 0.72,
+          "speaker_reinstatement": 0.31
+        },
+        "trustworthiness": 0.64
+      },
+      {
+        "archetype": "donors_alumni_active",
+        "attention_level": 0.69,
+        "behavioral_tendencies": [
+          "private pressure",
+          "collective letters",
+          "resource signaling"
+        ],
+        "cohort_name": "pressure_donors",
+        "expression_level": 0.41,
+        "fatigue": 0.17,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.38,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "Cancellation signals institutional drift or weak principle; pressure may be warranted.",
+        "public_expression": "Threatened letters and backchannel contact more likely than immediate public break.",
+        "representation_mode": "network_core",
+        "represented_population": 180,
+        "reputation": 0.59,
+        "secrecy": 0.44,
+        "stance_axes": {
+          "governance_transparency": 0.61,
+          "protest_acceptance": 0.12,
+          "security_deference": 0.33,
+          "speaker_reinstatement": 0.74
+        },
+        "trustworthiness": 0.47
+      },
+      {
+        "archetype": "donors_alumni_active",
+        "attention_level": 0.46,
+        "behavioral_tendencies": [
+          "monitoring",
+          "quiet outreach",
+          "conditional escalation"
+        ],
+        "cohort_name": "cautious_donors",
+        "expression_level": 0.18,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.21,
+        "mobilization_readiness": 0.19,
+        "perceived_majority": 0.49,
+        "population_share_of_archetype": 0.55,
+        "private_belief": "Concerned about reputational fallout but reluctant to intervene before more facts emerge.",
+        "public_expression": "Low-publicity inquiries and observation.",
+        "representation_mode": "network_periphery",
+        "represented_population": 220,
+        "reputation": 0.6,
+        "secrecy": 0.57,
+        "stance_axes": {
+          "governance_transparency": 0.54,
+          "protest_acceptance": 0.05,
+          "security_deference": 0.58,
+          "speaker_reinstatement": 0.43
+        },
+        "trustworthiness": 0.51
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "university_administration",
+          "campus_safety_office",
+          "board_leadership"
+        ],
+        "blockers": [
+          "confidential security concerns remain unresolved",
+          "administration risk aversion",
+          "board reputational caution"
+        ],
+        "contradiction_notes": "A substitute panel without the same speaker does not satisfy this endpoint.",
+        "description": "The canceled speaker is later allowed to appear through rescheduling, venue/security modification, or a materially equivalent campus appearance.",
+        "endpoint_key": "speaker_reinstated",
+        "evidence_refs": [
+          "speaker_cancellation_announced",
+          "confidential_security_rationale_invoked",
+          "faculty_process_review_push"
+        ],
+        "label": "Speaker reinstated in original or revised form",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the university ultimately keep the speaker canceled, reinstate the event in some form, or replace it with substitute programming?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.28,
+        "rationale": "Reinstatement is a core explicit branch in the scenario and depends on who can revise risk and permission judgments.",
+        "realization_criteria": [
+          "Official university communication confirms a new approved appearance for the same visiting speaker.",
+          "Campus venue/security authorization is granted for that appearance.",
+          "The event is not merely discussed as a hypothetical or replacement by different participants."
+        ],
+        "status": "active",
+        "status_basis": "Cancellation exists at T0, but faculty and student pressure plus review pathways leave reinstatement plausible."
+      },
+      {
+        "authority_refs": [
+          "university_administration"
+        ],
+        "blockers": [
+          "Pressure for reinstatement remains stronger than compromise logic",
+          "replacement proposal rejected by both factions as illegitimate"
+        ],
+        "contradiction_notes": "A pure review announcement without substitute scheduling does not realize this endpoint.",
+        "description": "The university keeps the speaker canceled while offering a substitute event such as a panel, forum, or alternative speaker program.",
+        "endpoint_key": "cancellation_upheld_with_substitution",
+        "evidence_refs": [
+          "speaker_cancellation_announced",
+          "replacement_or_reinstatement_signal"
+        ],
+        "label": "Cancellation upheld and replacement programming chosen",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the institution move into a formal policy/governance review with enough buy-in to stabilize legitimacy?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.32,
+        "rationale": "This endpoint captures a common administrative compromise mechanism while preserving terminal clarity.",
+        "realization_criteria": [
+          "Administration publicly confirms the original speaker will not appear.",
+          "A replacement event is formally scheduled or executed under university sponsorship or approval.",
+          "Campus actors treat the substitute as the institution's settled response rather than a temporary placeholder pending reinstatement."
+        ],
+        "status": "active",
+        "status_basis": "Scenario explicitly names replacement event as a plausible path and it offers face-saving flexibility for administrators."
+      },
+      {
+        "authority_refs": [
+          "university_administration",
+          "faculty_governance_bloc",
+          "board_leadership"
+        ],
+        "blockers": [
+          "Hardline factional escalation crowds out process consensus",
+          "administration resists scrutiny",
+          "review lacks legitimacy with students"
+        ],
+        "contradiction_notes": "Informal discussion without formal scope, venue, or authorization does not satisfy this endpoint.",
+        "description": "The dispute shifts into an officially recognized review of event-cancellation, security-assessment, or speaker-governance policy, becoming the main settled institutional outcome.",
+        "endpoint_key": "formal_policy_review_initiated",
+        "evidence_refs": [
+          "faculty_process_review_push",
+          "confidential_security_rationale_invoked"
+        ],
+        "label": "Formal governance or policy review becomes the institution's terminal response",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do student and faculty reactions remain contained, or do they escalate into sustained visible protest and counter-mobilization?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.24,
+        "rationale": "The scenario emphasizes governance debate, making review a key terminal institutional outcome distinct from immediate event disposition.",
+        "realization_criteria": [
+          "A committee, senate process, or official review body is announced with scope tied to the cancellation process or policy.",
+          "Relevant institutional actors acknowledge the review as the accepted next-step resolution framework.",
+          "No immediate reversal is implemented at the moment of review initiation if the original event question remains closed or secondary."
+        ],
+        "status": "active",
+        "status_basis": "Process legitimacy is an explicit focus and offers a convergence pathway when substantive agreement is unavailable."
+      },
+      {
+        "authority_refs": [
+          "free_expression_student_group",
+          "harm_prevention_student_group",
+          "general_student_body",
+          "university_administration"
+        ],
+        "blockers": [
+          "Successful legitimacy repair",
+          "attention decay",
+          "credible compromise or review outlet"
+        ],
+        "contradiction_notes": "One isolated rally without sustained repetition does not satisfy this endpoint.",
+        "description": "The campus enters an extended visible conflict cycle in which protests, counter-protests, or repeated public confrontations become the primary settled state.",
+        "endpoint_key": "sustained_protest_escalation",
+        "evidence_refs": [
+          "student_faction_statements",
+          "protest_escalation_cycle"
+        ],
+        "label": "Sustained protest and counter-mobilization dominate the outcome",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do threatened donor interventions convert into meaningful board or administrative pressure that changes the decision trajectory?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.16,
+        "rationale": "The scenario explicitly includes protest as a major branch and later evidence can clearly resolve whether mobilization became the dominant outcome.",
+        "realization_criteria": [
+          "Multiple protest actions or organized counter-actions occur across more than one tick/decision moment.",
+          "Campus discourse and administrative response are dominated by mobilization management rather than singular event disposition.",
+          "Participation extends beyond the original activist core or significantly disrupts normal campus routines."
+        ],
+        "status": "active",
+        "status_basis": "Current conflict is real but not saturated; escalation is plausible if no accepted process develops."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Administrators cite confidential security information after safety assessment.",
+        "layer": "dependency",
+        "reason": "Administration relies on security assessment to justify and sustain cancellation.",
+        "source_actor_name": "university_administration",
+        "target_actor_name": "campus_safety_office",
+        "weight": 0.63
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "University controls event permissions and policy environment.",
+        "layer": "dependency",
+        "reason": "Students depend on institutional rules for event access and campus order.",
+        "source_actor_name": "general_student_body",
+        "target_actor_name": "university_administration",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Speaker was canceled by university decision.",
+        "layer": "dependency",
+        "reason": "Speaker appearance depends on campus authorization and venue access.",
+        "source_actor_name": "visiting_speaker_team",
+        "target_actor_name": "university_administration",
+        "weight": 0.58
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Donors threaten letters rather than exercising direct event control.",
+        "layer": "dependency",
+        "reason": "Donors need administration to respond for pressure to translate into policy change.",
+        "source_actor_name": "donor_network",
+        "target_actor_name": "university_administration",
+        "weight": 0.29
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Faculty debate governance while administration holds immediate decision power.",
+        "layer": "dependency",
+        "reason": "Faculty governance influence still requires administrative uptake for event reversal or review scope.",
+        "source_actor_name": "faculty_governance_bloc",
+        "target_actor_name": "university_administration",
+        "weight": 0.37
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Institutional oversight role implied by university governance structure.",
+        "layer": "influence",
+        "reason": "Board has oversight and reputational leverage over administrators.",
+        "source_actor_name": "board_leadership",
+        "target_actor_name": "university_administration",
+        "weight": 0.61
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Donors threaten letters and have financial leverage potential.",
+        "layer": "influence",
+        "reason": "Donors can shape board concern through relationship and resource signaling.",
+        "source_actor_name": "donor_network",
+        "target_actor_name": "board_leadership",
+        "weight": 0.49
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Faculty debate governance and process legitimacy.",
+        "layer": "influence",
+        "reason": "Faculty can shape legitimacy and internal pressure around process.",
+        "source_actor_name": "faculty_governance_bloc",
+        "target_actor_name": "university_administration",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Student groups split over free expression concerns.",
+        "layer": "influence",
+        "reason": "Organized student advocates can activate peer attention around censorship framing.",
+        "source_actor_name": "free_expression_student_group",
+        "target_actor_name": "general_student_body",
+        "weight": 0.41
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Student groups split over harm concerns.",
+        "layer": "influence",
+        "reason": "Organized harm-focused advocates can activate safety and belonging concerns.",
+        "source_actor_name": "harm_prevention_student_group",
+        "target_actor_name": "general_student_body",
+        "weight": 0.43
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Campus media serves as issue intermediary in campus conflict contexts.",
+        "layer": "influence",
+        "reason": "Media coverage shapes salience and perceived majority views.",
+        "source_actor_name": "campus_media",
+        "target_actor_name": "general_student_body",
+        "weight": 0.52
+      },
+      {
+        "direction": "source_influences_target",
+        "evidence": "Cancellation followed safety assessment.",
+        "layer": "influence",
+        "reason": "Security professionals can strongly shape executive risk choices.",
+        "source_actor_name": "campus_safety_office",
+        "target_actor_name": "university_administration",
+        "weight": 0.57
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Administrators cite confidential security information, generating process skepticism.",
+        "layer": "trust",
+        "reason": "Students show uncertainty and legitimacy questions after confidential justification.",
+        "source_actor_name": "general_student_body",
+        "target_actor_name": "university_administration",
+        "weight": 0.39
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Harm concerns align with safety assessment rationale.",
+        "layer": "trust",
+        "reason": "Safety-oriented students are relatively inclined to credit security assessment.",
+        "source_actor_name": "harm_prevention_student_group",
+        "target_actor_name": "campus_safety_office",
+        "weight": 0.61
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Split over cancellation and administrative secrecy.",
+        "layer": "trust",
+        "reason": "Free-expression advocates are skeptical of opaque cancellation decisions.",
+        "source_actor_name": "free_expression_student_group",
+        "target_actor_name": "university_administration",
+        "weight": 0.22
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Faculty debate governance and administrators cite confidential information.",
+        "layer": "trust",
+        "reason": "Faculty concern centers on whether process and governance norms were followed.",
+        "source_actor_name": "faculty_governance_bloc",
+        "target_actor_name": "university_administration",
+        "weight": 0.34
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Decision follows safety assessment and confidentiality claims.",
+        "layer": "trust",
+        "reason": "Administration appears to credit security office competence and warning threshold.",
+        "source_actor_name": "university_administration",
+        "target_actor_name": "campus_safety_office",
+        "weight": 0.66
+      },
+      {
+        "direction": "source_trusts_target",
+        "evidence": "Confidentiality creates information vacuum filled by media coverage.",
+        "layer": "trust",
+        "reason": "Media is a relatively trusted public source when official information is limited.",
+        "source_actor_name": "general_student_body",
+        "target_actor_name": "campus_media",
+        "weight": 0.51
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Campus controversy creates broad media visibility.",
+        "layer": "exposure",
+        "reason": "Students are likely to encounter coverage through campus channels.",
+        "source_actor_name": "general_student_body",
+        "target_actor_name": "campus_media",
+        "weight": 0.63
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Student factional split implies visible advocacy.",
+        "layer": "exposure",
+        "reason": "Organized messaging reaches peers through events and online campus discourse.",
+        "source_actor_name": "general_student_body",
+        "target_actor_name": "free_expression_student_group",
+        "weight": 0.44
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Student groups split over harm concerns.",
+        "layer": "exposure",
+        "reason": "Safety-oriented messaging likely circulates broadly in campus discourse.",
+        "source_actor_name": "general_student_body",
+        "target_actor_name": "harm_prevention_student_group",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Governance debate is active and publicly salient.",
+        "layer": "exposure",
+        "reason": "Faculty monitor public coverage as issue enters governance debate.",
+        "source_actor_name": "faculty_governance_bloc",
+        "target_actor_name": "campus_media",
+        "weight": 0.39
+      },
+      {
+        "direction": "source_exposed_to_target",
+        "evidence": "Letters are threatened in reaction to controversy.",
+        "layer": "exposure",
+        "reason": "Donors may learn details through coverage and alumni chatter.",
+        "source_actor_name": "donor_network",
+        "target_actor_name": "campus_media",
+        "weight": 0.31
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Students contest cancellation while faculty debate governance.",
+        "layer": "coalition",
+        "reason": "Both may align on transparency and procedural legitimacy despite different motives.",
+        "source_actor_name": "free_expression_student_group",
+        "target_actor_name": "faculty_governance_bloc",
+        "weight": 0.42
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Administration cites safety, while some students emphasize harm concerns.",
+        "layer": "coalition",
+        "reason": "Safety framing creates partial alignment with cancellation decision.",
+        "source_actor_name": "harm_prevention_student_group",
+        "target_actor_name": "university_administration",
+        "weight": 0.38
+      },
+      {
+        "direction": "latent_alignment",
+        "evidence": "Donors threaten letters and free-expression students likely seek reinstatement.",
+        "layer": "coalition",
+        "reason": "Potential common interest in opposing cancellation, though styles differ.",
+        "source_actor_name": "donor_network",
+        "target_actor_name": "free_expression_student_group",
+        "weight": 0.27
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Board oversight and executive management incentives align initially.",
+        "layer": "coalition",
+        "reason": "Shared institutional interest in stability and reputational containment.",
+        "source_actor_name": "board_leadership",
+        "target_actor_name": "university_administration",
+        "weight": 0.51
+      },
+      {
+        "direction": "active_opposition",
+        "evidence": "Student groups split; free-expression side likely opposes cancellation.",
+        "layer": "conflict",
+        "reason": "Direct disagreement over cancellation legitimacy and precedent.",
+        "source_actor_name": "free_expression_student_group",
+        "target_actor_name": "university_administration",
+        "weight": 0.62
+      },
+      {
+        "direction": "active_opposition",
+        "evidence": "Student groups split over free expression and harm concerns.",
+        "layer": "conflict",
+        "reason": "Competing frames of expression versus harm are in open tension.",
+        "source_actor_name": "free_expression_student_group",
+        "target_actor_name": "harm_prevention_student_group",
+        "weight": 0.53
+      },
+      {
+        "direction": "contested_legitimacy",
+        "evidence": "Faculty debate governance while administration withholds full details.",
+        "layer": "conflict",
+        "reason": "Process legitimacy concerns create institutional friction short of rupture.",
+        "source_actor_name": "faculty_governance_bloc",
+        "target_actor_name": "university_administration",
+        "weight": 0.47
+      },
+      {
+        "direction": "emerging_opposition",
+        "evidence": "Donors threaten letters.",
+        "layer": "conflict",
+        "reason": "Threatened letters indicate emerging pressure but not full confrontation yet.",
+        "source_actor_name": "donor_network",
+        "target_actor_name": "university_administration",
+        "weight": 0.36
+      },
+      {
+        "direction": "active_grievance",
+        "evidence": "Visiting speaker was canceled after assessment.",
+        "layer": "conflict",
+        "reason": "Cancellation creates grievance and possible reputational dispute.",
+        "source_actor_name": "visiting_speaker_team",
+        "target_actor_name": "university_administration",
+        "weight": 0.49
+      },
+      {
+        "direction": "public_interaction",
+        "evidence": "Student groups split on a salient campus issue.",
+        "layer": "oasis_interaction",
+        "reason": "Likely repeated public interaction in forums, statements, and protests/counter-programming.",
+        "source_actor_name": "free_expression_student_group",
+        "target_actor_name": "harm_prevention_student_group",
+        "weight": 0.57
+      },
+      {
+        "direction": "public_interaction",
+        "evidence": "Controversy with confidential rationale invites media engagement.",
+        "layer": "oasis_interaction",
+        "reason": "Administration will likely issue statements and receive inquiries.",
+        "source_actor_name": "university_administration",
+        "target_actor_name": "campus_media",
+        "weight": 0.48
+      },
+      {
+        "direction": "public_interaction",
+        "evidence": "Governance debate is part of scenario setup.",
+        "layer": "oasis_interaction",
+        "reason": "Faculty debate may surface through op-eds or interviews.",
+        "source_actor_name": "faculty_governance_bloc",
+        "target_actor_name": "campus_media",
+        "weight": 0.34
+      },
+      {
+        "direction": "public_interaction",
+        "evidence": "Reinstatement-oriented conflict benefits from visibility.",
+        "layer": "oasis_interaction",
+        "reason": "Student organizers are likely to seek public attention and framing advantage.",
+        "source_actor_name": "free_expression_student_group",
+        "target_actor_name": "campus_media",
+        "weight": 0.51
+      },
+      {
+        "direction": "public_interaction",
+        "evidence": "Harm concerns are part of public dispute.",
+        "layer": "oasis_interaction",
+        "reason": "Safety-oriented students may publicly defend cancellation or seek alternative messaging.",
+        "source_actor_name": "harm_prevention_student_group",
+        "target_actor_name": "campus_media",
+        "weight": 0.46
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype": "administrative_decider",
+        "description": "Senior administrator(s) with formal authority over cancellation, review, and messaging."
+      },
+      {
+        "archetype": "faculty_process_champion",
+        "description": "Visible faculty figure pressing governance and transparency review."
+      },
+      {
+        "archetype": "student_free_expression_organizer",
+        "description": "Student organizer capable of mobilizing reinstatement pressure."
+      },
+      {
+        "archetype": "student_harm_prevention_organizer",
+        "description": "Student organizer capable of mobilizing safety-centered support or counteraction."
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "university_administration",
+        "archetype": "administrative_decider",
+        "attention_level": 0.93,
+        "behavioral_tendencies": [
+          "risk containment",
+          "message discipline",
+          "procedural delay if needed"
+        ],
+        "expression_level": 0.57,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.22,
+        "hero_name": "administrative_decider",
+        "mobilization_readiness": 0.71,
+        "perceived_majority": 0.46,
+        "power_summary": "Can sustain cancellation, authorize replacement programming, commission review, or revisit decision under pressure.",
+        "reputation": 0.45,
+        "secrecy": 0.79,
+        "stance_axes": {
+          "governance_transparency": 0.42,
+          "protest_accommodation": 0.51,
+          "security_deference": 0.86,
+          "speaker_reinstatement": 0.24
+        },
+        "trustworthiness": 0.48
+      },
+      {
+        "actor_name": "faculty_governance_bloc",
+        "archetype": "faculty_process_champion",
+        "attention_level": 0.74,
+        "behavioral_tendencies": [
+          "formal review demand",
+          "normative framing",
+          "bridge-building"
+        ],
+        "expression_level": 0.61,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.2,
+        "hero_name": "faculty_process_champion",
+        "mobilization_readiness": 0.49,
+        "perceived_majority": 0.58,
+        "reputation": 0.7,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "governance_transparency": 0.91,
+          "protest_accommodation": 0.33,
+          "security_deference": 0.37,
+          "speaker_reinstatement": 0.55
+        },
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "free_expression_student_group",
+        "archetype": "student_free_expression_organizer",
+        "attention_level": 0.84,
+        "behavioral_tendencies": [
+          "rapid mobilization",
+          "moralized claims",
+          "coalition outreach"
+        ],
+        "expression_level": 0.77,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.31,
+        "hero_name": "student_free_expression_organizer",
+        "mobilization_readiness": 0.72,
+        "perceived_majority": 0.44,
+        "reputation": 0.52,
+        "secrecy": 0.16,
+        "stance_axes": {
+          "governance_transparency": 0.81,
+          "protest_accommodation": 0.72,
+          "security_deference": 0.2,
+          "speaker_reinstatement": 0.88
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "harm_prevention_student_group",
+        "archetype": "student_harm_prevention_organizer",
+        "attention_level": 0.82,
+        "behavioral_tendencies": [
+          "safety claims",
+          "counter-messaging",
+          "identity-salience activation"
+        ],
+        "expression_level": 0.71,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.28,
+        "hero_name": "student_harm_prevention_organizer",
+        "mobilization_readiness": 0.67,
+        "perceived_majority": 0.47,
+        "reputation": 0.56,
+        "secrecy": 0.21,
+        "stance_axes": {
+          "governance_transparency": 0.48,
+          "protest_accommodation": 0.58,
+          "security_deference": 0.82,
+          "speaker_reinstatement": 0.11
+        },
+        "trustworthiness": 0.57
+      }
+    ],
+    "heroes": [
+      {
+        "archetype": "administrative_decider",
+        "description": "Senior administrator(s) with formal authority over cancellation, review, and messaging."
+      },
+      {
+        "archetype": "faculty_process_champion",
+        "description": "Visible faculty figure pressing governance and transparency review."
+      },
+      {
+        "archetype": "student_free_expression_organizer",
+        "description": "Student organizer capable of mobilizing reinstatement pressure."
+      },
+      {
+        "archetype": "student_harm_prevention_organizer",
+        "description": "Student organizer capable of mobilizing safety-centered support or counteraction."
+      }
+    ],
+    "important_questions": [
+      "Will the university ultimately keep the speaker canceled, reinstate the event in some form, or replace it with substitute programming?",
+      "Does the institution move into a formal policy/governance review with enough buy-in to stabilize legitimacy?",
+      "Do student and faculty reactions remain contained, or do they escalate into sustained visible protest and counter-mobilization?",
+      "Do threatened donor interventions convert into meaningful board or administrative pressure that changes the decision trajectory?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "university_administration",
+          "visiting_speaker_team",
+          "general_student_body"
+        ],
+        "event_key": "speaker_cancellation_announced",
+        "event_type": "announcement",
+        "expected_impact": "Raises campus attention, activates factional framing, and increases dependence on official messaging for legitimacy.",
+        "status": "realized",
+        "summary": "University announces cancellation of visiting speaker following safety assessment.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "university_administration",
+          "campus_safety_office"
+        ],
+        "event_key": "confidential_security_rationale_invoked",
+        "event_type": "announcement",
+        "expected_impact": "Protects safety-office secrecy while lowering transparency and creating skepticism among some students and faculty.",
+        "status": "realized",
+        "summary": "Administrators cite confidential security information as basis for decision.",
+        "tick": 0
+      },
+      {
+        "actors": [
+          "free_expression_student_group",
+          "harm_prevention_student_group",
+          "campus_media"
+        ],
+        "event_key": "student_faction_statements",
+        "event_type": "announcement",
+        "expected_impact": "Clarifies camps, increases social identity salience, and pressures the quiet plurality to update perceived majority.",
+        "status": "anticipated",
+        "summary": "Student groups issue competing public statements framing the cancellation around expression or harm.",
+        "tick": 1
+      },
+      {
+        "actors": [
+          "faculty_governance_bloc",
+          "university_administration"
+        ],
+        "event_key": "faculty_process_review_push",
+        "event_type": "announcement",
+        "expected_impact": "Shifts dispute from pure student conflict to institutional legitimacy contest with moderate coalition potential.",
+        "status": "anticipated",
+        "summary": "Faculty seek briefing, governance discussion, or formal review of cancellation process.",
+        "tick": 2
+      },
+      {
+        "actors": [
+          "donor_network",
+          "board_leadership",
+          "university_administration"
+        ],
+        "event_key": "donor_letter_decision_point",
+        "event_type": "announcement",
+        "expected_impact": "May raise elite leverage on administration and alter board sensitivity to reputational costs.",
+        "status": "anticipated",
+        "summary": "Donor network decides whether to send coordinated pressure letters.",
+        "tick": 3
+      },
+      {
+        "actors": [
+          "university_administration",
+          "visiting_speaker_team"
+        ],
+        "event_key": "replacement_or_reinstatement_signal",
+        "event_type": "announcement",
+        "expected_impact": "Creates first major branch signal for de-escalation, stalemate, or escalation.",
+        "status": "anticipated",
+        "summary": "Administration signals whether it will stand firm, consider replacement programming, or revisit event format.",
+        "tick": 4
+      }
+    ],
+    "llm_call_id": "c46fd85f-4911-43ed-9ea2-f8ffabf42c17",
+    "merge_hypotheses": [
+      {
+        "affected_actors": [
+          "university_administration",
+          "faculty_governance_bloc",
+          "general_student_body",
+          "board_leadership"
+        ],
+        "convergence_driver": "Most actors prefer avoiding disorder and reputational damage even when disagreeing on principles.",
+        "evidence": "Institutional and routine-preservation incentives are broad.",
+        "merge_key": "shared_interest_in_campus_stability"
+      },
+      {
+        "affected_actors": [
+          "university_administration",
+          "faculty_governance_bloc",
+          "free_expression_student_group",
+          "harm_prevention_student_group"
+        ],
+        "convergence_driver": "A formal review can let opposing camps claim partial recognition without immediate substantive agreement.",
+        "evidence": "Process legitimacy is an explicit scenario focus.",
+        "merge_key": "process_review_as_face_saving_device"
+      },
+      {
+        "affected_actors": [
+          "general_student_body",
+          "deferential_faculty",
+          "cautious_donors",
+          "process_faculty"
+        ],
+        "convergence_driver": "Any credible partial disclosure about threat basis or decision protocol may narrow interpretive spread among moderates.",
+        "evidence": "Current uncertainty is driven by confidential information asymmetry.",
+        "merge_key": "information_clarification_reduces_extremes"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype": "students",
+        "description": "Enrolled student population exposed to campus discourse and policy consequences.",
+        "population_total": 18000
+      },
+      {
+        "archetype": "faculty",
+        "description": "Faculty with varying degrees of governance engagement and concern over precedent.",
+        "population_total": 1200
+      },
+      {
+        "archetype": "donors_alumni_active",
+        "description": "Highly engaged donors/alumni with willingness to signal approval or concern.",
+        "population_total": 400
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "confidential_evidence_gap",
+        "note": "Core causal claim rests on undisclosed security information, limiting confidence in trust and legitimacy calibration.",
+        "severity": "medium"
+      },
+      {
+        "flag": "real_person_sensitivity_avoided",
+        "note": "All public actors are kept fictionalized given civic/institutional setting.",
+        "severity": "low"
+      },
+      {
+        "flag": "population_estimate_uncertainty",
+        "note": "Campus population values are realistic defaults rather than corpus-specified counts.",
+        "severity": "medium"
+      },
+      {
+        "flag": "authority_asymmetry",
+        "note": "Immediate event control is concentrated in administration and security channels, creating high switching costs for reinstatement.",
+        "severity": "high"
+      },
+      {
+        "flag": "elite_backchannel_opacity",
+        "note": "Donor and board influence may be significant but is mostly private at T0, complicating observability.",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "benchmark_role": "campus_institutional_legitimacy",
+      "case_id": "campus_001",
+      "core_pressures": [
+        "free_expression_vs_harm_prevention",
+        "administrative_legitimacy",
+        "governance_transparency",
+        "reputational_risk",
+        "campus_safety_risk_assessment"
+      ],
+      "mode": "direct",
+      "setting_scale": "single_university",
+      "summary": "A fictional university has canceled a visiting speaker after a safety assessment. Student groups are split between free-expression and harm-prevention frames, faculty are debating governance and process legitimacy, donors are considering pressure letters, and administrators cite confidential security information. T0 centers on legitimacy, authority constraints, faction alignment, and unresolved paths including reinstatement, replacement programming, protest escalation, or policy review.",
+      "time_horizon_known": false,
+      "uncertainty_notes": [
+        "Security basis is confidential and not independently verifiable at T0.",
+        "Speaker identity, exact campus size, and event timeline are unspecified.",
+        "Donor pressure is threatened rather than realized at T0."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "evidence": "Competing frames may persuade moderates only within limited ideological distance.",
+        "level": 0.67,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "scope": "students_and_faculty"
+      },
+      {
+        "evidence": "Quiet plurality likely joins only if visible protest, elite cues, or new disclosures cross a salience threshold.",
+        "level": 0.62,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "scope": "general_student_body"
+      },
+      {
+        "evidence": "Many actors are uncertain and may stay quiet under legitimacy ambiguity and peer pressure.",
+        "level": 0.71,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "scope": "quiet_plurality_students_and_deferential_faculty"
+      },
+      {
+        "evidence": "Identity-salient camps likely cluster around existing peer and values networks.",
+        "level": 0.58,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "scope": "student_factions"
+      },
+      {
+        "evidence": "Students may need repeated signals from peers, faculty, and media before public participation.",
+        "level": 0.6,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "scope": "protest_participation"
+      },
+      {
+        "evidence": "Scenario focus explicitly includes identity salience and faction split.",
+        "level": 0.76,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "scope": "student_groups"
+      },
+      {
+        "evidence": "Absent new disclosures or protests, broader attention may soften after initial controversy.",
+        "level": 0.48,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "scope": "general_campus"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context_key": "identity_salience",
+        "effect": "Raises willingness of organized student groups to interpret events through group protection and principle-defense frames."
+      },
+      {
+        "context_key": "faction_split",
+        "effect": "Reduces cross-camp trust and increases perceived need to signal side allegiance publicly."
+      },
+      {
+        "context_key": "process_legitimacy",
+        "effect": "Makes faculty and moderates responsive to transparency, review, and procedural fairness cues rather than only substantive speaker views."
+      },
+      {
+        "context_key": "confidential_security_claim",
+        "effect": "Creates information asymmetry that can either justify caution or intensify suspicion depending on prior trust."
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "university_administration",
+        "behavior_axes": {
+          "proceduralism": 0.71,
+          "responsiveness": 0.49,
+          "risk_aversion": 0.84,
+          "transparency": 0.34
+        },
+        "ideology_axes": {
+          "free_expression_priority": 0.42,
+          "harm_prevention_priority": 0.73,
+          "institutional_control": 0.86
+        },
+        "reputation": 0.45,
+        "secrecy": 0.81,
+        "tendency": "contain_and_manage",
+        "trustworthiness": 0.48
+      },
+      {
+        "actor_name": "campus_safety_office",
+        "behavior_axes": {
+          "proceduralism": 0.79,
+          "responsiveness": 0.41,
+          "risk_aversion": 0.88,
+          "transparency": 0.22
+        },
+        "ideology_axes": {
+          "free_expression_priority": 0.33,
+          "harm_prevention_priority": 0.85,
+          "institutional_control": 0.74
+        },
+        "reputation": 0.6,
+        "secrecy": 0.83,
+        "tendency": "professional_caution",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "free_expression_student_group",
+        "behavior_axes": {
+          "proceduralism": 0.55,
+          "responsiveness": 0.73,
+          "risk_aversion": 0.29,
+          "transparency": 0.76
+        },
+        "ideology_axes": {
+          "free_expression_priority": 0.91,
+          "harm_prevention_priority": 0.39,
+          "institutional_control": 0.21
+        },
+        "reputation": 0.52,
+        "secrecy": 0.18,
+        "tendency": "mobilize_against_cancellation",
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "harm_prevention_student_group",
+        "behavior_axes": {
+          "proceduralism": 0.47,
+          "responsiveness": 0.71,
+          "risk_aversion": 0.68,
+          "transparency": 0.58
+        },
+        "ideology_axes": {
+          "free_expression_priority": 0.31,
+          "harm_prevention_priority": 0.9,
+          "institutional_control": 0.38
+        },
+        "reputation": 0.56,
+        "secrecy": 0.23,
+        "tendency": "defend_safety_framing",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "faculty_governance_bloc",
+        "behavior_axes": {
+          "proceduralism": 0.87,
+          "responsiveness": 0.59,
+          "risk_aversion": 0.46,
+          "transparency": 0.81
+        },
+        "ideology_axes": {
+          "free_expression_priority": 0.62,
+          "harm_prevention_priority": 0.56,
+          "institutional_control": 0.36
+        },
+        "reputation": 0.69,
+        "secrecy": 0.19,
+        "tendency": "process_review",
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "donor_network",
+        "behavior_axes": {
+          "proceduralism": 0.39,
+          "responsiveness": 0.44,
+          "risk_aversion": 0.52,
+          "transparency": 0.35
+        },
+        "ideology_axes": {
+          "free_expression_priority": 0.69,
+          "harm_prevention_priority": 0.34,
+          "institutional_control": 0.58
+        },
+        "reputation": 0.58,
+        "secrecy": 0.49,
+        "tendency": "backchannel_pressure",
+        "trustworthiness": 0.49
+      },
+      {
+        "actor_name": "visiting_speaker_team",
+        "behavior_axes": {
+          "proceduralism": 0.33,
+          "responsiveness": 0.55,
+          "risk_aversion": 0.37,
+          "transparency": 0.63
+        },
+        "ideology_axes": {
+          "free_expression_priority": 0.82,
+          "harm_prevention_priority": 0.18,
+          "institutional_control": 0.12
+        },
+        "reputation": 0.51,
+        "secrecy": 0.26,
+        "tendency": "seek_access_or_public_redress",
+        "trustworthiness": 0.5
+      },
+      {
+        "actor_name": "general_student_body",
+        "behavior_axes": {
+          "proceduralism": 0.34,
+          "responsiveness": 0.32,
+          "risk_aversion": 0.51,
+          "transparency": 0.54
+        },
+        "ideology_axes": {
+          "free_expression_priority": 0.51,
+          "harm_prevention_priority": 0.55,
+          "institutional_control": 0.41
+        },
+        "reputation": 0.5,
+        "secrecy": 0.48,
+        "tendency": "observe_then_selectively_engage",
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "board_leadership",
+        "behavior_axes": {
+          "proceduralism": 0.72,
+          "responsiveness": 0.33,
+          "risk_aversion": 0.76,
+          "transparency": 0.28
+        },
+        "ideology_axes": {
+          "free_expression_priority": 0.48,
+          "harm_prevention_priority": 0.67,
+          "institutional_control": 0.88
+        },
+        "reputation": 0.57,
+        "secrecy": 0.62,
+        "tendency": "oversight_under_reputational_constraint",
+        "trustworthiness": 0.52
+      },
+      {
+        "actor_name": "campus_media",
+        "behavior_axes": {
+          "proceduralism": 0.31,
+          "responsiveness": 0.78,
+          "risk_aversion": 0.36,
+          "transparency": 0.83
+        },
+        "ideology_axes": {
+          "free_expression_priority": 0.57,
+          "harm_prevention_priority": 0.52,
+          "institutional_control": 0.18
+        },
+        "reputation": 0.59,
+        "secrecy": 0.12,
+        "tendency": "amplify_and_frame_conflict",
+        "trustworthiness": 0.62
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 546,
+        "end": 546,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 546,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

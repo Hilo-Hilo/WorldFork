@@ -1,0 +1,210 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "ab635878-1b54-4a5b-ae0a-1ca69a4ed196",
+      "created_at": "2026-05-05T02:33:26.989175+00:00",
+      "id": "724aad3c-bf0a-47a6-a320-b95a9f92aa2e",
+      "influence": {
+        "applies_to": "graduate_students_visa_dependent",
+        "description": "Material and status dependence raises self-censorship and lowers overt participation.",
+        "influence_key": "dependency_chills_expression"
+      },
+      "multiverse_id": "e9cbcd67-63e9-40a6-9c8a-630e6a1a8b74",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:33:26.989175+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "ab635878-1b54-4a5b-ae0a-1ca69a4ed196",
+      "created_at": "2026-05-05T02:33:26.989175+00:00",
+      "id": "75d43b06-11c0-46b1-b1d2-ee052b5c8be5",
+      "influence": {
+        "applies_to": "faculty_private_sympathizers_and_students",
+        "description": "Quiet faculty support can stabilize student beliefs without immediately increasing public speech.",
+        "influence_key": "private_faculty_validation"
+      },
+      "multiverse_id": "e9cbcd67-63e9-40a6-9c8a-630e6a1a8b74",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:33:26.989175+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "ab635878-1b54-4a5b-ae0a-1ca69a4ed196",
+      "created_at": "2026-05-05T02:33:26.989175+00:00",
+      "id": "ff058e1b-1f00-4bc6-ad5d-7d8d1485c41d",
+      "influence": {
+        "applies_to": "department_leadership_and_university_administration",
+        "description": "Official denials and process language can slow coalition growth when evidence remains ambiguous.",
+        "influence_key": "procedural_legitimacy_shield"
+      },
+      "multiverse_id": "e9cbcd67-63e9-40a6-9c8a-630e6a1a8b74",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:33:26.989175+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "ab635878-1b54-4a5b-ae0a-1ca69a4ed196",
+      "created_at": "2026-05-05T02:33:26.989175+00:00",
+      "id": "db06f39d-3b0b-4cca-9fa2-2aeba860efa0",
+      "influence": {
+        "applies_to": "local_media_and_broader_campus",
+        "description": "Outside audiences require concise, documentable hooks before sustaining attention.",
+        "influence_key": "limited_media_bandwidth"
+      },
+      "multiverse_id": "e9cbcd67-63e9-40a6-9c8a-630e6a1a8b74",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:33:26.989175+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "ab635878-1b54-4a5b-ae0a-1ca69a4ed196",
+      "created_at": "2026-05-05T02:33:26.989175+00:00",
+      "id": "c0ee89e5-49c9-4f51-9a98-d6177d9fbb2f",
+      "model": "attention_decay",
+      "multiverse_id": "e9cbcd67-63e9-40a6-9c8a-630e6a1a8b74",
+      "signal": {
+        "description": "Private suspicion and sympathy exceed public expression due to dependency and reputational caution.",
+        "level": 0.8,
+        "mechanism": "public_private_belief_gap",
+        "model": "attention_decay",
+        "scope": "department"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:33:26.989175+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "ab635878-1b54-4a5b-ae0a-1ca69a4ed196",
+      "created_at": "2026-05-05T02:33:26.989175+00:00",
+      "id": "283a4ff4-06ea-4115-96c2-f4e520935899",
+      "model": "attention_decay",
+      "multiverse_id": "e9cbcd67-63e9-40a6-9c8a-630e6a1a8b74",
+      "signal": {
+        "description": "High silence pressure among vulnerable students and cautious faculty suppresses overt dissent.",
+        "level": 0.77,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "scope": "visa_dependent_students_and_faculty"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:33:26.989175+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "ab635878-1b54-4a5b-ae0a-1ca69a4ed196",
+      "created_at": "2026-05-05T02:33:26.989175+00:00",
+      "id": "59ffe121-81dd-428c-b1c3-08bd8137fbe7",
+      "model": "attention_decay",
+      "multiverse_id": "e9cbcd67-63e9-40a6-9c8a-630e6a1a8b74",
+      "signal": {
+        "description": "Actors are most persuaded by evidence from trusted peers, faculty, or documented cases rather than abstract claims.",
+        "level": 0.56,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "scope": "campus"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:33:26.989175+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "ab635878-1b54-4a5b-ae0a-1ca69a4ed196",
+      "created_at": "2026-05-05T02:33:26.989175+00:00",
+      "id": "3a8a0609-5663-4961-828b-f8edd5a41d0c",
+      "model": "attention_decay",
+      "multiverse_id": "e9cbcd67-63e9-40a6-9c8a-630e6a1a8b74",
+      "signal": {
+        "description": "Visible participation likely remains low until enough peers act or protective structures emerge.",
+        "level": 0.68,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "scope": "graduate_students"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:33:26.989175+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "ab635878-1b54-4a5b-ae0a-1ca69a4ed196",
+      "created_at": "2026-05-05T02:33:26.989175+00:00",
+      "id": "a01db832-c7a9-4ed3-9623-192619748052",
+      "model": "attention_decay",
+      "multiverse_id": "e9cbcd67-63e9-40a6-9c8a-630e6a1a8b74",
+      "signal": {
+        "description": "Information and confidence travel through status-similar student and faculty subnets.",
+        "level": 0.61,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "scope": "department_networks"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:33:26.989175+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "ab635878-1b54-4a5b-ae0a-1ca69a4ed196",
+      "created_at": "2026-05-05T02:33:26.989175+00:00",
+      "id": "40077f2c-ad23-449f-a172-2369933e9a54",
+      "model": "attention_decay",
+      "multiverse_id": "e9cbcd67-63e9-40a6-9c8a-630e6a1a8b74",
+      "signal": {
+        "description": "Students need repeated reinforcement from peers, faculty, or media before escalating publicly.",
+        "level": 0.64,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "scope": "organizing_support"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:33:26.989175+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "ab635878-1b54-4a5b-ae0a-1ca69a4ed196",
+      "created_at": "2026-05-05T02:33:26.989175+00:00",
+      "id": "384bb1f6-dac8-4d3e-80e9-4ecd39eedd45",
+      "model": "attention_decay",
+      "multiverse_id": "e9cbcd67-63e9-40a6-9c8a-630e6a1a8b74",
+      "signal": {
+        "description": "Union and administration frame the issue through competing identity lenses of worker vulnerability versus procedural legitimacy.",
+        "level": 0.59,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "scope": "labor_vs_institution"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:33:26.989175+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "ab635878-1b54-4a5b-ae0a-1ca69a4ed196",
+      "created_at": "2026-05-05T02:33:26.989175+00:00",
+      "id": "8b96b7c7-2fc4-4e59-aad8-f0750474dc07",
+      "model": "attention_decay",
+      "multiverse_id": "e9cbcd67-63e9-40a6-9c8a-630e6a1a8b74",
+      "signal": {
+        "description": "Absent new evidence or visible confrontation, outside attention will fade quickly.",
+        "level": 0.72,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "scope": "broader_campus_and_media"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:33:26.989175+00:00"
+    }
+  ]
+}

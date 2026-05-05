@@ -1,0 +1,21 @@
+{
+  "job_type": "initialize_big_bang",
+  "payload": {
+    "actors": [],
+    "branch_policy": {
+      "branch_score_threshold": 0.999,
+      "max_active_multiverses": 1,
+      "max_branch_depth": 1,
+      "max_branches_per_tick": 1
+    },
+    "cohorts": [],
+    "heroes": [],
+    "name": "E1_init_job_labor_001",
+    "scenario_text": "# Case labor_001\nBenchmark role: labor_economic_dependency\n\n## Scenario\n\nA fictional hospital nurses' union announces a strike authorization vote after staffing ratios worsen. Hospital executives cite budget constraints, patients' families fear canceled procedures, city officials can mediate but cannot impose a contract, and traveling nurse agencies may benefit. Initialize plausible actors, private/public stances, dependency edges, and branch hypotheses around settlement, strike, injunction attempt, or public backlash.\n\n## Expected Focus\n- dependency_graph\n- mobilization_threshold\n- event_authority\n",
+    "simulation_config": {
+      "max_ticks": 1,
+      "tick_duration_minutes": 720
+    },
+    "use_initializer_agent": true
+  }
+}

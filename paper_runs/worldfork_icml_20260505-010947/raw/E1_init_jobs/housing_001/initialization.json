@@ -1,0 +1,1650 @@
+{
+  "big_bang_id": "47a48219-0fa4-4755-94e7-d762f9a59350",
+  "initializer_output": {
+    "actors": [
+      {
+        "actor_type": "institution",
+        "decision_power": 0.95,
+        "fictionalized": true,
+        "name": "town_council",
+        "private_position": "mixed",
+        "public_position": "undecided_institutionally",
+        "role": "final_decision_maker_on_zoning",
+        "scale": "municipal",
+        "stakes": [
+          "policy adoption",
+          "political legitimacy",
+          "electoral backlash",
+          "process control"
+        ]
+      },
+      {
+        "actor_type": "institution",
+        "decision_power": 0.45,
+        "fictionalized": true,
+        "name": "planning_commission",
+        "private_position": "mixed",
+        "public_position": "reviewing_proposal",
+        "role": "advisory_body_recommending_on_zoning_change",
+        "scale": "municipal",
+        "stakes": [
+          "process legitimacy",
+          "technical credibility",
+          "influence over final text"
+        ]
+      },
+      {
+        "actor_type": "public_group",
+        "decision_power": 0.3,
+        "fictionalized": true,
+        "name": "pro_housing_renters",
+        "private_position": "supportive",
+        "public_position": "supportive",
+        "role": "supports_more_housing_supply",
+        "scale": "municipal",
+        "stakes": [
+          "future rent pressure",
+          "access to transit-rich neighborhoods",
+          "political recognition"
+        ]
+      },
+      {
+        "actor_type": "public_group",
+        "decision_power": 0.5,
+        "fictionalized": true,
+        "name": "station_area_homeowners",
+        "private_position": "mostly_opposed",
+        "public_position": "skeptical_or_opposed",
+        "role": "likely directly affected owner-occupants near stations",
+        "scale": "neighborhood_cluster",
+        "stakes": [
+          "property enjoyment",
+          "traffic and parking conditions",
+          "neighborhood character",
+          "perceived asset risk"
+        ]
+      },
+      {
+        "actor_type": "public_group",
+        "decision_power": 0.45,
+        "fictionalized": true,
+        "name": "suburban_homeowners_broader",
+        "private_position": "mixed",
+        "public_position": "mixed_skeptical",
+        "role": "broader homeowner audience beyond immediate station areas",
+        "scale": "municipal",
+        "stakes": [
+          "precedent effects",
+          "taxes",
+          "traffic spillovers",
+          "political identity"
+        ]
+      },
+      {
+        "actor_type": "economic_group",
+        "decision_power": 0.42,
+        "fictionalized": true,
+        "name": "residential_builders",
+        "private_position": "supportive",
+        "public_position": "supportive_if_clear_rules",
+        "role": "seeks predictable entitlement environment",
+        "scale": "regional_local",
+        "stakes": [
+          "project pipeline",
+          "regulatory certainty",
+          "land value opportunities",
+          "approval timelines"
+        ]
+      },
+      {
+        "actor_type": "institutional_group",
+        "decision_power": 0.38,
+        "fictionalized": true,
+        "name": "school_officials",
+        "private_position": "concerned_but_uncertain",
+        "public_position": "concerned",
+        "role": "raises enrollment and capacity concerns",
+        "scale": "district",
+        "stakes": [
+          "capacity planning",
+          "budget forecasting",
+          "service quality",
+          "institutional caution"
+        ]
+      },
+      {
+        "actor_type": "media",
+        "decision_power": 0.35,
+        "fictionalized": true,
+        "name": "local_media",
+        "private_position": "varied",
+        "public_position": "neutral_coverage",
+        "role": "amplifies frames and controversy",
+        "scale": "municipal_regional",
+        "stakes": [
+          "audience attention",
+          "conflict coverage",
+          "civic accountability"
+        ]
+      },
+      {
+        "actor_type": "political_group",
+        "decision_power": 0.22,
+        "fictionalized": true,
+        "name": "anti_growth_slate_organizers",
+        "private_position": "latent",
+        "public_position": "not_fully_formed",
+        "role": "potential electoral backlash vehicle if controversy intensifies",
+        "scale": "emergent_municipal",
+        "stakes": [
+          "candidate recruitment",
+          "issue mobilization",
+          "institutional leverage"
+        ]
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "council advances ordinance substantially intact",
+        "branch_key": "clean_passage_path",
+        "divergence_signal": "moderate_homeowners_remain_quiet_while_renter_support_becomes_visible_and_school_concerns_are_framed_as_manageable",
+        "trigger": "planning_commission_recommendation_is_supportive_and_council_reads_support_as_politically_safe"
+      },
+      {
+        "alternate_path": "council defers vote for more analysis or outreach",
+        "branch_key": "delay_for_study_path",
+        "divergence_signal": "official messaging emphasizes need_for_data_timeline rather than yes_no positioning",
+        "trigger": "school_capacity_or_traffic_concerns_gain_cross-faction_legitimacy"
+      },
+      {
+        "alternate_path": "proposal narrows geography, design standards, parking rules, or implementation conditions",
+        "branch_key": "exemption_carveout_path",
+        "divergence_signal": "discussion shifts from principle_of_fourplexes to map_boundaries_and_exemptions",
+        "trigger": "council seeks compromise to reduce localized opposition while preserving symbolic reform"
+      },
+      {
+        "alternate_path": "anti-growth electoral slate or candidate recruitment emerges beyond ordinance fight",
+        "branch_key": "backlash_slate_path",
+        "divergence_signal": "organized messaging pivots from traffic concerns to replacing decision-makers",
+        "trigger": "opponents interpret process as dismissive or fast-tracked"
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "planning_commission_hearing",
+        "default_visibility": 0.74,
+        "reach": "municipal_issue_public",
+        "type": "public_institutional"
+      },
+      {
+        "channel_key": "town_council_meeting",
+        "default_visibility": 0.78,
+        "reach": "municipal_issue_public",
+        "type": "public_institutional"
+      },
+      {
+        "channel_key": "local_media_coverage",
+        "default_visibility": 0.71,
+        "reach": "municipal_and_regional",
+        "type": "mass_media"
+      },
+      {
+        "channel_key": "resident_email_and_comment",
+        "default_visibility": 0.46,
+        "reach": "officials_and_record",
+        "type": "direct_civic_input"
+      },
+      {
+        "channel_key": "neighborhood_networks",
+        "default_visibility": 0.52,
+        "reach": "localized",
+        "type": "informal_social"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype": "renters",
+        "attention_level": 0.58,
+        "cohort_key": "renters_pro_supply",
+        "expression_level": 0.42,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.48,
+        "mobilization_readiness": 0.5,
+        "perceived_majority": 0.36,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "more_housing_near_transit_is_good",
+        "public_expression": "supportive_but_inconsistently_visible",
+        "representation_mode": "attitudinal_majority_cohort",
+        "represented_population": 11200,
+        "stance_axes": {
+          "process_trust": 0.52,
+          "school_concern": 0.32,
+          "traffic_concern": 0.28,
+          "upzoning_support": 0.82
+        }
+      },
+      {
+        "archetype": "renters",
+        "attention_level": 0.31,
+        "cohort_key": "renters_cautious_or_detached",
+        "expression_level": 0.18,
+        "fatigue": 0.46,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.23,
+        "perceived_majority": 0.29,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "housing_costs_matter_but_local_process_feels_distant",
+        "public_expression": "low_visibility",
+        "representation_mode": "minority_cohort",
+        "represented_population": 4800,
+        "stance_axes": {
+          "process_trust": 0.4,
+          "school_concern": 0.22,
+          "traffic_concern": 0.2,
+          "upzoning_support": 0.55
+        }
+      },
+      {
+        "archetype": "homeowners",
+        "attention_level": 0.79,
+        "cohort_key": "station_homeowners_opposed",
+        "expression_level": 0.74,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.19,
+        "mobilization_readiness": 0.72,
+        "perceived_majority": 0.61,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "fourplexes_near_stations_will_raise_traffic_and_change_neighborhoods",
+        "public_expression": "highly_expressive_opposition",
+        "representation_mode": "geographic_interest_cohort",
+        "represented_population": 7200,
+        "stance_axes": {
+          "process_trust": 0.47,
+          "school_concern": 0.55,
+          "traffic_concern": 0.84,
+          "upzoning_support": 0.18
+        }
+      },
+      {
+        "archetype": "homeowners",
+        "attention_level": 0.49,
+        "cohort_key": "broader_homeowners_skeptical",
+        "expression_level": 0.36,
+        "fatigue": 0.37,
+        "fear_of_isolation": 0.31,
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "change_should_be_slow_and_guarded",
+        "public_expression": "moderate_skepticism",
+        "representation_mode": "attitudinal_cohort",
+        "represented_population": 10800,
+        "stance_axes": {
+          "process_trust": 0.5,
+          "school_concern": 0.49,
+          "traffic_concern": 0.62,
+          "upzoning_support": 0.32
+        }
+      },
+      {
+        "archetype": "homeowners",
+        "attention_level": 0.38,
+        "cohort_key": "homeowners_pragmatic_mixed",
+        "expression_level": 0.24,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.44,
+        "mobilization_readiness": 0.28,
+        "perceived_majority": 0.42,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "some_growth_is_acceptable_if_well_limited",
+        "public_expression": "conditional_support_or_silence",
+        "representation_mode": "moderating_cohort",
+        "represented_population": 6000,
+        "stance_axes": {
+          "process_trust": 0.56,
+          "school_concern": 0.41,
+          "traffic_concern": 0.46,
+          "upzoning_support": 0.51
+        }
+      },
+      {
+        "archetype": "civic_elites",
+        "attention_level": 0.88,
+        "cohort_key": "commissioners_and_staff",
+        "expression_level": 0.61,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.57,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.2917,
+        "private_belief": "proposal_requires_record_and_calibration",
+        "public_expression": "procedural_and_cautious",
+        "representation_mode": "institutional_core",
+        "represented_population": 35,
+        "stance_axes": {
+          "process_trust": 0.7,
+          "school_concern": 0.48,
+          "traffic_concern": 0.51,
+          "upzoning_support": 0.52
+        }
+      },
+      {
+        "archetype": "civic_elites",
+        "attention_level": 0.67,
+        "cohort_key": "school_system_leadership",
+        "expression_level": 0.51,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.26,
+        "mobilization_readiness": 0.44,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.2083,
+        "private_belief": "enrollment_effects_are_uncertain_but_risk_requires_warning",
+        "public_expression": "capacity_concern",
+        "representation_mode": "institutional_subgroup",
+        "represented_population": 25,
+        "stance_axes": {
+          "process_trust": 0.63,
+          "school_concern": 0.83,
+          "traffic_concern": 0.34,
+          "upzoning_support": 0.36
+        }
+      },
+      {
+        "archetype": "development_industry",
+        "attention_level": 0.76,
+        "cohort_key": "organized_builders_and_land_use_professionals",
+        "expression_level": 0.58,
+        "fatigue": 0.32,
+        "fear_of_isolation": 0.37,
+        "mobilization_readiness": 0.62,
+        "perceived_majority": 0.33,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "clear_by_right_or predictable_rules_improve_feasibility",
+        "public_expression": "technical_support",
+        "representation_mode": "full_archetype",
+        "represented_population": 80,
+        "stance_axes": {
+          "process_trust": 0.44,
+          "school_concern": 0.19,
+          "traffic_concern": 0.21,
+          "upzoning_support": 0.86
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype": "renters",
+        "attention_level": 0.58,
+        "cohort_key": "renters_pro_supply",
+        "expression_level": 0.42,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.48,
+        "mobilization_readiness": 0.5,
+        "perceived_majority": 0.36,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "more_housing_near_transit_is_good",
+        "public_expression": "supportive_but_inconsistently_visible",
+        "representation_mode": "attitudinal_majority_cohort",
+        "represented_population": 11200,
+        "stance_axes": {
+          "process_trust": 0.52,
+          "school_concern": 0.32,
+          "traffic_concern": 0.28,
+          "upzoning_support": 0.82
+        }
+      },
+      {
+        "archetype": "renters",
+        "attention_level": 0.31,
+        "cohort_key": "renters_cautious_or_detached",
+        "expression_level": 0.18,
+        "fatigue": 0.46,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.23,
+        "perceived_majority": 0.29,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "housing_costs_matter_but_local_process_feels_distant",
+        "public_expression": "low_visibility",
+        "representation_mode": "minority_cohort",
+        "represented_population": 4800,
+        "stance_axes": {
+          "process_trust": 0.4,
+          "school_concern": 0.22,
+          "traffic_concern": 0.2,
+          "upzoning_support": 0.55
+        }
+      },
+      {
+        "archetype": "homeowners",
+        "attention_level": 0.79,
+        "cohort_key": "station_homeowners_opposed",
+        "expression_level": 0.74,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.19,
+        "mobilization_readiness": 0.72,
+        "perceived_majority": 0.61,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "fourplexes_near_stations_will_raise_traffic_and_change_neighborhoods",
+        "public_expression": "highly_expressive_opposition",
+        "representation_mode": "geographic_interest_cohort",
+        "represented_population": 7200,
+        "stance_axes": {
+          "process_trust": 0.47,
+          "school_concern": 0.55,
+          "traffic_concern": 0.84,
+          "upzoning_support": 0.18
+        }
+      },
+      {
+        "archetype": "homeowners",
+        "attention_level": 0.49,
+        "cohort_key": "broader_homeowners_skeptical",
+        "expression_level": 0.36,
+        "fatigue": 0.37,
+        "fear_of_isolation": 0.31,
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.55,
+        "population_share_of_archetype": 0.45,
+        "private_belief": "change_should_be_slow_and_guarded",
+        "public_expression": "moderate_skepticism",
+        "representation_mode": "attitudinal_cohort",
+        "represented_population": 10800,
+        "stance_axes": {
+          "process_trust": 0.5,
+          "school_concern": 0.49,
+          "traffic_concern": 0.62,
+          "upzoning_support": 0.32
+        }
+      },
+      {
+        "archetype": "homeowners",
+        "attention_level": 0.38,
+        "cohort_key": "homeowners_pragmatic_mixed",
+        "expression_level": 0.24,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.44,
+        "mobilization_readiness": 0.28,
+        "perceived_majority": 0.42,
+        "population_share_of_archetype": 0.25,
+        "private_belief": "some_growth_is_acceptable_if_well_limited",
+        "public_expression": "conditional_support_or_silence",
+        "representation_mode": "moderating_cohort",
+        "represented_population": 6000,
+        "stance_axes": {
+          "process_trust": 0.56,
+          "school_concern": 0.41,
+          "traffic_concern": 0.46,
+          "upzoning_support": 0.51
+        }
+      },
+      {
+        "archetype": "civic_elites",
+        "attention_level": 0.88,
+        "cohort_key": "commissioners_and_staff",
+        "expression_level": 0.61,
+        "fatigue": 0.41,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.57,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.2917,
+        "private_belief": "proposal_requires_record_and_calibration",
+        "public_expression": "procedural_and_cautious",
+        "representation_mode": "institutional_core",
+        "represented_population": 35,
+        "stance_axes": {
+          "process_trust": 0.7,
+          "school_concern": 0.48,
+          "traffic_concern": 0.51,
+          "upzoning_support": 0.52
+        }
+      },
+      {
+        "archetype": "civic_elites",
+        "attention_level": 0.67,
+        "cohort_key": "school_system_leadership",
+        "expression_level": 0.51,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.26,
+        "mobilization_readiness": 0.44,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.2083,
+        "private_belief": "enrollment_effects_are_uncertain_but_risk_requires_warning",
+        "public_expression": "capacity_concern",
+        "representation_mode": "institutional_subgroup",
+        "represented_population": 25,
+        "stance_axes": {
+          "process_trust": 0.63,
+          "school_concern": 0.83,
+          "traffic_concern": 0.34,
+          "upzoning_support": 0.36
+        }
+      },
+      {
+        "archetype": "development_industry",
+        "attention_level": 0.76,
+        "cohort_key": "organized_builders_and_land_use_professionals",
+        "expression_level": 0.58,
+        "fatigue": 0.32,
+        "fear_of_isolation": 0.37,
+        "mobilization_readiness": 0.62,
+        "perceived_majority": 0.33,
+        "population_share_of_archetype": 1.0,
+        "private_belief": "clear_by_right_or predictable_rules_improve_feasibility",
+        "public_expression": "technical_support",
+        "representation_mode": "full_archetype",
+        "represented_population": 80,
+        "stance_axes": {
+          "process_trust": 0.44,
+          "school_concern": 0.19,
+          "traffic_concern": 0.21,
+          "upzoning_support": 0.86
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "town_council"
+        ],
+        "blockers": [
+          "homeowner opposition intensity",
+          "school enrollment concern salience",
+          "council political risk aversion",
+          "legitimacy concerns over process speed"
+        ],
+        "contradiction_notes": "Passage can coexist with narrowing; if heavily amended, this endpoint may co-realize with a carve-out endpoint depending on later scoring rules.",
+        "description": "Council adopts a policy allowing fourplexes near train stations in some operative form.",
+        "endpoint_key": "ordinance_passes",
+        "evidence_refs": [
+          "planning commission can recommend but council votes",
+          "scenario names passage as a branch outcome"
+        ],
+        "label": "ordinance_passes",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the town council adopt a fourplex-near-stations policy at all rather than leave current rules unchanged?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.38,
+        "rationale": "Renters and builders both supply support, and commission recommendation can provide legitimacy cover.",
+        "realization_criteria": [
+          "town_council_records_final_approval_vote",
+          "adopted_text_authorizes_fourplexes_in_defined_station_areas"
+        ],
+        "status": "active",
+        "status_basis": "Terminal approval remains available and no T0 fact eliminates it."
+      },
+      {
+        "authority_refs": [
+          "town_council",
+          "planning_commission"
+        ],
+        "blockers": [
+          "clear supportive coalition",
+          "pressure for decisive action",
+          "council desire to avoid appearing indecisive"
+        ],
+        "contradiction_notes": "Delay is a mechanism unless it becomes durable enough to displace near-term terminal choice; later agents should track whether delay remains temporary or effectively decisive.",
+        "description": "Council does not reach a terminal adopt/reject choice in the near decision window and instead extends process through study, rehearing, or postponement.",
+        "endpoint_key": "ordinance_delayed",
+        "evidence_refs": [
+          "school officials worry about enrollment",
+          "scenario names delay as branch outcome"
+        ],
+        "label": "ordinance_delayed",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the process reach a substantive council decision promptly, or is it delayed into additional study or procedural extension?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.31,
+        "rationale": "Delay is often the lowest-risk path when council authority is final but legitimacy is contested.",
+        "realization_criteria": [
+          "scheduled_vote_is_postponed_or_not_set_after_recommendation_window",
+          "official_action_orders_additional_study_outreach_or_revisions_without_terminal_vote"
+        ],
+        "status": "active",
+        "status_basis": "Institutional uncertainty and concern-based framing make delay a live option at T0."
+      },
+      {
+        "authority_refs": [
+          "town_council",
+          "planning_commission"
+        ],
+        "blockers": [
+          "clean passage coalition",
+          "opposition refusal to accept compromise",
+          "over-complex amendments reducing feasibility"
+        ],
+        "contradiction_notes": "This endpoint may overlap with ordinance_passes if pass/fail and scope are tracked separately.",
+        "description": "Council adopts only a materially narrowed version of reform using exemptions, geographic carve-outs, or restrictive conditions.",
+        "endpoint_key": "ordinance_narrowed_with_exemptions",
+        "evidence_refs": [
+          "scenario names exemption as branch outcome",
+          "builders want predictability while homeowners fear localized impacts"
+        ],
+        "label": "ordinance_narrowed_with_exemptions",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "If reform advances, is it enacted broadly near stations or substantially narrowed through exemptions, carve-outs, or restrictive conditions?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.42,
+        "rationale": "Carve-outs can convert diffuse support and localized opposition into a politically viable middle path.",
+        "realization_criteria": [
+          "final_adopted_text_contains_station_area_exclusions_or_substantial_conditioning",
+          "public_record_shows_reform_scope_reduced_from_initial_proposal_to_secure_support"
+        ],
+        "status": "active",
+        "status_basis": "Compromise narrowing is strongly implied by cross-pressures and mixed authority structure."
+      },
+      {
+        "authority_refs": [
+          "anti_growth_slate_organizers",
+          "station_area_homeowners"
+        ],
+        "blockers": [
+          "process concessions that reduce grievance",
+          "opposition fragmentation",
+          "low sustained attention beyond immediate zoning dispute"
+        ],
+        "contradiction_notes": "Slate formation can occur whether ordinance passes, narrows, or is delayed if grievance remains politically useful.",
+        "description": "Opposition escalates from policy protest into organized anti-growth electoral recruitment or slate-building.",
+        "endpoint_key": "backlash_slate_forms",
+        "evidence_refs": [
+          "scenario names backlash slate formation as branch outcome"
+        ],
+        "label": "backlash_slate_forms",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does neighborhood opposition remain issue-specific, or does it harden into an organized anti-growth electoral slate?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.24,
+        "rationale": "Localized homeowner concern can be converted into electoral organization when procedural legitimacy collapses.",
+        "realization_criteria": [
+          "anti_growth_group_publicly_recruits_or_announces_candidates_or_slate",
+          "opposition_messaging_shifts_from_single_ordinance_to_replacing_or_punishing_officeholders"
+        ],
+        "status": "active",
+        "status_basis": "No slate exists yet, but latent entrepreneurial opposition is plausible under perceived dismissal or fast-tracking."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "scenario implies public controversy around proposed zoning",
+        "layer": "exposure",
+        "reason": "homeowners likely encounter issue framing through local coverage",
+        "source_actor_name": "local_media",
+        "target_actor_name": "suburban_homeowners_broader",
+        "weight": 0.62
+      },
+      {
+        "direction": "directed",
+        "evidence": "public proposal with visible stakeholder conflict",
+        "layer": "exposure",
+        "reason": "renters receive issue information through media coverage",
+        "source_actor_name": "local_media",
+        "target_actor_name": "pro_housing_renters",
+        "weight": 0.48
+      },
+      {
+        "direction": "directed",
+        "evidence": "planning commission can recommend but council votes",
+        "layer": "exposure",
+        "reason": "recommendation process exposes council to commission framing and record",
+        "source_actor_name": "planning_commission",
+        "target_actor_name": "town_council",
+        "weight": 0.59
+      },
+      {
+        "direction": "directed",
+        "evidence": "homeowners fear traffic in local proposal context",
+        "layer": "exposure",
+        "reason": "directly affected residents likely speak at hearings and contact council",
+        "source_actor_name": "station_area_homeowners",
+        "target_actor_name": "town_council",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "renters support supply",
+        "layer": "exposure",
+        "reason": "supporters can submit comments but may be less consistently visible",
+        "source_actor_name": "pro_housing_renters",
+        "target_actor_name": "town_council",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "school officials worry about enrollment",
+        "layer": "exposure",
+        "reason": "capacity concerns likely communicated to decision-makers",
+        "source_actor_name": "school_officials",
+        "target_actor_name": "town_council",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "planning commission has formal recommendation role",
+        "layer": "trust",
+        "reason": "council relies somewhat on advisory and technical review",
+        "source_actor_name": "town_council",
+        "target_actor_name": "planning_commission",
+        "weight": 0.56
+      },
+      {
+        "direction": "directed",
+        "evidence": "school officials worry about enrollment",
+        "layer": "trust",
+        "reason": "school officials are a credible non-developer source on local impacts",
+        "source_actor_name": "suburban_homeowners_broader",
+        "target_actor_name": "school_officials",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "school concerns are part of issue field",
+        "layer": "trust",
+        "reason": "institutional peers provide operational input with moderate credibility",
+        "source_actor_name": "town_council",
+        "target_actor_name": "school_officials",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "builders want predictability",
+        "layer": "trust",
+        "reason": "builders may be viewed as self-interested",
+        "source_actor_name": "suburban_homeowners_broader",
+        "target_actor_name": "residential_builders",
+        "weight": 0.23
+      },
+      {
+        "direction": "directed",
+        "evidence": "renters support supply while builders want predictability",
+        "layer": "trust",
+        "reason": "goal overlap exists but motives are not fully aligned",
+        "source_actor_name": "pro_housing_renters",
+        "target_actor_name": "residential_builders",
+        "weight": 0.34
+      },
+      {
+        "direction": "directed",
+        "evidence": "commission recommendation precedes council vote",
+        "layer": "trust",
+        "reason": "supporters may see formal review as a pathway but not guaranteed ally",
+        "source_actor_name": "pro_housing_renters",
+        "target_actor_name": "planning_commission",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "council votes on fourplex allowance",
+        "layer": "dependency",
+        "reason": "final zoning decision materially affects project feasibility and pipeline",
+        "source_actor_name": "residential_builders",
+        "target_actor_name": "town_council",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "planning commission can recommend",
+        "layer": "dependency",
+        "reason": "advisory process shapes final text and development predictability",
+        "source_actor_name": "residential_builders",
+        "target_actor_name": "planning_commission",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "advisory recommendation role",
+        "layer": "dependency",
+        "reason": "council depends on commission for procedural legitimacy and record development",
+        "source_actor_name": "town_council",
+        "target_actor_name": "planning_commission",
+        "weight": 0.31
+      },
+      {
+        "direction": "directed",
+        "evidence": "homeowner fears salient in local zoning politics",
+        "layer": "dependency",
+        "reason": "elected officials depend on vocal constituents for legitimacy and electoral safety",
+        "source_actor_name": "town_council",
+        "target_actor_name": "station_area_homeowners",
+        "weight": 0.42
+      },
+      {
+        "direction": "directed",
+        "evidence": "homeowner conflict is expected focus",
+        "layer": "dependency",
+        "reason": "broader homeowner sentiment affects political durability of decision",
+        "source_actor_name": "town_council",
+        "target_actor_name": "suburban_homeowners_broader",
+        "weight": 0.51
+      },
+      {
+        "direction": "directed",
+        "evidence": "enrollment implications tied to proposal outcome",
+        "layer": "dependency",
+        "reason": "school planning may depend on land-use clarity but not fully controlled by council",
+        "source_actor_name": "school_officials",
+        "target_actor_name": "town_council",
+        "weight": 0.24
+      },
+      {
+        "direction": "directed",
+        "evidence": "commission recommends but council votes",
+        "layer": "influence",
+        "reason": "knowledge of ultimate council preferences can shape commission caution",
+        "source_actor_name": "town_council",
+        "target_actor_name": "planning_commission",
+        "weight": 0.37
+      },
+      {
+        "direction": "directed",
+        "evidence": "formal advisory role in process",
+        "layer": "influence",
+        "reason": "technical recommendation can legitimize or constrain council choices",
+        "source_actor_name": "planning_commission",
+        "target_actor_name": "town_council",
+        "weight": 0.54
+      },
+      {
+        "direction": "directed",
+        "evidence": "homeowners fear traffic",
+        "layer": "influence",
+        "reason": "proximate and organized opponents can shape agenda and political risk perception",
+        "source_actor_name": "station_area_homeowners",
+        "target_actor_name": "town_council",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "renters support supply",
+        "layer": "influence",
+        "reason": "support exists but may be less institutionally amplified",
+        "source_actor_name": "pro_housing_renters",
+        "target_actor_name": "town_council",
+        "weight": 0.39
+      },
+      {
+        "direction": "directed",
+        "evidence": "officials worry about enrollment",
+        "layer": "influence",
+        "reason": "school impact claims can shift moderate officials and public narratives",
+        "source_actor_name": "school_officials",
+        "target_actor_name": "town_council",
+        "weight": 0.49
+      },
+      {
+        "direction": "directed",
+        "evidence": "builders want predictability",
+        "layer": "influence",
+        "reason": "technical arguments about feasibility and predictability shape drafting discussions",
+        "source_actor_name": "residential_builders",
+        "target_actor_name": "planning_commission",
+        "weight": 0.43
+      },
+      {
+        "direction": "directed",
+        "evidence": "publicly contested municipal proposal",
+        "layer": "influence",
+        "reason": "coverage shapes who appears reasonable and what risks are salient",
+        "source_actor_name": "local_media",
+        "target_actor_name": "suburban_homeowners_broader",
+        "weight": 0.55
+      },
+      {
+        "direction": "directed",
+        "evidence": "local coverage of controversy",
+        "layer": "influence",
+        "reason": "media framing affects reputational environment around vote",
+        "source_actor_name": "local_media",
+        "target_actor_name": "town_council",
+        "weight": 0.34
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "renters support supply, builders want predictability",
+        "layer": "coalition",
+        "reason": "shared support for more housing despite differing motives",
+        "source_actor_name": "pro_housing_renters",
+        "target_actor_name": "residential_builders",
+        "weight": 0.46
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "homeowner_renter_conflict focus",
+        "layer": "coalition",
+        "reason": "shared homeowner identity and concern over impacts support alignment",
+        "source_actor_name": "station_area_homeowners",
+        "target_actor_name": "suburban_homeowners_broader",
+        "weight": 0.57
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "homeowners fear impacts, school officials worry about enrollment",
+        "layer": "coalition",
+        "reason": "issue-specific alignment possible around caution, though institutions differ",
+        "source_actor_name": "station_area_homeowners",
+        "target_actor_name": "school_officials",
+        "weight": 0.29
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "recommendation and voting sequence",
+        "layer": "coalition",
+        "reason": "shared institutional interest in defensible process",
+        "source_actor_name": "planning_commission",
+        "target_actor_name": "town_council",
+        "weight": 0.33
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "renters support supply, homeowners fear traffic",
+        "layer": "conflict",
+        "reason": "distributional conflict over supply versus local impact",
+        "source_actor_name": "station_area_homeowners",
+        "target_actor_name": "pro_housing_renters",
+        "weight": 0.61
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "builders support predictable development environment",
+        "layer": "conflict",
+        "reason": "builders associated with neighborhood change and development pressure",
+        "source_actor_name": "station_area_homeowners",
+        "target_actor_name": "residential_builders",
+        "weight": 0.64
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "expected focus on homeowner_renter_conflict",
+        "layer": "conflict",
+        "reason": "visible homeowner resistance can be seen as blocking housing access",
+        "source_actor_name": "pro_housing_renters",
+        "target_actor_name": "station_area_homeowners",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "branch around backlash slate formation",
+        "layer": "conflict",
+        "reason": "emergent backlash politics could challenge incumbents if vote proceeds",
+        "source_actor_name": "anti_growth_slate_organizers",
+        "target_actor_name": "town_council",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "backlash slate formation implied by scenario",
+        "layer": "conflict",
+        "reason": "growth politics may become symbolic opposition target",
+        "source_actor_name": "anti_growth_slate_organizers",
+        "target_actor_name": "pro_housing_renters",
+        "weight": 0.41
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "proposal under commission review",
+        "layer": "oasis_interaction",
+        "reason": "likely strong public-hearing participation and comment exchange",
+        "source_actor_name": "station_area_homeowners",
+        "target_actor_name": "planning_commission",
+        "weight": 0.53
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "renters support supply",
+        "layer": "oasis_interaction",
+        "reason": "supportive speakers may engage in hearings though less intensely",
+        "source_actor_name": "pro_housing_renters",
+        "target_actor_name": "planning_commission",
+        "weight": 0.38
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "school enrollment concern within review process",
+        "layer": "oasis_interaction",
+        "reason": "institutional comments likely in formal settings",
+        "source_actor_name": "school_officials",
+        "target_actor_name": "planning_commission",
+        "weight": 0.35
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "vote-stage civic issue",
+        "layer": "oasis_interaction",
+        "reason": "coverage and statements circulate through public channels",
+        "source_actor_name": "local_media",
+        "target_actor_name": "town_council",
+        "weight": 0.31
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "expected homeowner_renter_conflict",
+        "layer": "oasis_interaction",
+        "reason": "public meetings and comment spaces likely feature direct rhetorical clash",
+        "source_actor_name": "station_area_homeowners",
+        "target_actor_name": "pro_housing_renters",
+        "weight": 0.42
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype": "institutional_gatekeeper",
+        "description": "actors with agenda and procedural control over zoning outcome"
+      },
+      {
+        "archetype": "salient_constituency_voice",
+        "description": "actors likely to shape perceived public legitimacy through visible participation"
+      },
+      {
+        "archetype": "implementation_stakeholder",
+        "description": "actors whose material or operational interests affect feasibility narratives"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "town_council",
+        "attention_level": 0.84,
+        "current_posture": "awaiting_recommendation_and_public_signal",
+        "expression_level": 0.52,
+        "fatigue": 0.33,
+        "fear_of_isolation": 0.24,
+        "hero_archetype": "institutional_gatekeeper",
+        "mobilization_readiness": 0.66,
+        "perceived_majority": 0.5,
+        "salience": 0.97,
+        "stance_axes": {
+          "growth_openness": 0.5,
+          "political_caution": 0.71,
+          "process_legitimacy": 0.78,
+          "risk_aversion": 0.63
+        }
+      },
+      {
+        "actor_name": "planning_commission",
+        "attention_level": 0.81,
+        "current_posture": "advisory_review",
+        "expression_level": 0.57,
+        "fatigue": 0.38,
+        "fear_of_isolation": 0.2,
+        "hero_archetype": "institutional_gatekeeper",
+        "mobilization_readiness": 0.54,
+        "perceived_majority": 0.5,
+        "salience": 0.78,
+        "stance_axes": {
+          "growth_openness": 0.52,
+          "political_caution": 0.46,
+          "process_legitimacy": 0.81,
+          "risk_aversion": 0.56
+        }
+      },
+      {
+        "actor_name": "station_area_homeowners",
+        "attention_level": 0.79,
+        "current_posture": "organized_concern",
+        "expression_level": 0.74,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.19,
+        "hero_archetype": "salient_constituency_voice",
+        "mobilization_readiness": 0.72,
+        "perceived_majority": 0.61,
+        "salience": 0.74,
+        "stance_axes": {
+          "growth_openness": 0.18,
+          "political_caution": 0.33,
+          "process_legitimacy": 0.49,
+          "risk_aversion": 0.79
+        }
+      },
+      {
+        "actor_name": "pro_housing_renters",
+        "attention_level": 0.58,
+        "current_posture": "supportive_but_less_institutionally_embedded",
+        "expression_level": 0.42,
+        "fatigue": 0.34,
+        "fear_of_isolation": 0.48,
+        "hero_archetype": "salient_constituency_voice",
+        "mobilization_readiness": 0.5,
+        "perceived_majority": 0.36,
+        "salience": 0.64,
+        "stance_axes": {
+          "growth_openness": 0.83,
+          "political_caution": 0.47,
+          "process_legitimacy": 0.55,
+          "risk_aversion": 0.29
+        }
+      },
+      {
+        "actor_name": "residential_builders",
+        "attention_level": 0.76,
+        "current_posture": "advocating_predictability",
+        "expression_level": 0.58,
+        "fatigue": 0.32,
+        "fear_of_isolation": 0.37,
+        "hero_archetype": "implementation_stakeholder",
+        "mobilization_readiness": 0.62,
+        "perceived_majority": 0.33,
+        "salience": 0.6,
+        "stance_axes": {
+          "growth_openness": 0.87,
+          "political_caution": 0.41,
+          "process_legitimacy": 0.46,
+          "risk_aversion": 0.26
+        }
+      },
+      {
+        "actor_name": "school_officials",
+        "attention_level": 0.67,
+        "current_posture": "warning_about_capacity_uncertainty",
+        "expression_level": 0.51,
+        "fatigue": 0.35,
+        "fear_of_isolation": 0.26,
+        "hero_archetype": "implementation_stakeholder",
+        "mobilization_readiness": 0.44,
+        "perceived_majority": 0.46,
+        "salience": 0.55,
+        "stance_axes": {
+          "growth_openness": 0.35,
+          "political_caution": 0.62,
+          "process_legitimacy": 0.66,
+          "risk_aversion": 0.74
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "archetype": "institutional_gatekeeper",
+        "description": "actors with agenda and procedural control over zoning outcome"
+      },
+      {
+        "archetype": "salient_constituency_voice",
+        "description": "actors likely to shape perceived public legitimacy through visible participation"
+      },
+      {
+        "archetype": "implementation_stakeholder",
+        "description": "actors whose material or operational interests affect feasibility narratives"
+      }
+    ],
+    "important_questions": [
+      "Will the town council adopt a fourplex-near-stations policy at all rather than leave current rules unchanged?",
+      "Does the process reach a substantive council decision promptly, or is it delayed into additional study or procedural extension?",
+      "If reform advances, is it enacted broadly near stations or substantially narrowed through exemptions, carve-outs, or restrictive conditions?",
+      "Does neighborhood opposition remain issue-specific, or does it harden into an organized anti-growth electoral slate?"
+    ],
+    "initial_events": [
+      {
+        "event_key": "proposal_enters_public_review",
+        "event_type": "announcement",
+        "expected_impact": "raises issue attention, activates tenure-based framing, and begins formal legitimacy contest",
+        "participants": [
+          "planning_commission",
+          "town_council",
+          "pro_housing_renters",
+          "station_area_homeowners",
+          "residential_builders",
+          "school_officials"
+        ],
+        "summary": "Proposal to allow fourplexes near train stations is publicly active within municipal review process.",
+        "tick": 0,
+        "visibility": "high"
+      },
+      {
+        "event_key": "planning_commission_deliberation_window",
+        "event_type": "announcement",
+        "expected_impact": "can elevate technical carve-outs, school and traffic concerns, and perceived momentum signals",
+        "participants": [
+          "planning_commission",
+          "station_area_homeowners",
+          "pro_housing_renters",
+          "residential_builders",
+          "school_officials"
+        ],
+        "summary": "Commission gathers testimony and refines recommendation options.",
+        "tick": 1,
+        "visibility": "high"
+      },
+      {
+        "event_key": "council_vote_agenda_setting",
+        "event_type": "announcement",
+        "expected_impact": "strong signal for passage trajectory versus delay pathway without yet resolving outcome",
+        "participants": [
+          "town_council",
+          "planning_commission"
+        ],
+        "summary": "Council decides whether to schedule prompt vote, seek revisions, or extend review.",
+        "tick": 2,
+        "visibility": "medium"
+      },
+      {
+        "event_key": "backlash_network_testing",
+        "event_type": "announcement",
+        "expected_impact": "if engagement is strong, conflict may shift from ordinance merits to incumbent vulnerability",
+        "participants": [
+          "anti_growth_slate_organizers",
+          "station_area_homeowners",
+          "suburban_homeowners_broader"
+        ],
+        "summary": "Potential anti-growth organizers test whether opposition can be translated into electoral organizing.",
+        "tick": 2,
+        "visibility": "low_to_medium"
+      }
+    ],
+    "llm_call_id": "acad04ba-0028-4c5d-939d-3a36f739ceea",
+    "merge_hypotheses": [
+      {
+        "affected_actors": [
+          "town_council",
+          "planning_commission",
+          "station_area_homeowners",
+          "pro_housing_renters"
+        ],
+        "convergence_driver": "shared acceptance of transparent hearings and revisions",
+        "merge_key": "process_legitimacy_cools_conflict",
+        "why_it_merges": "even disagreeing camps may accept a slower or amended outcome if procedure appears fair"
+      },
+      {
+        "affected_actors": [
+          "town_council",
+          "planning_commission",
+          "homeowners_pragmatic_mixed",
+          "residential_builders"
+        ],
+        "convergence_driver": "desire for limited housing growth with predictable guardrails",
+        "merge_key": "pragmatic_compromise_coalition",
+        "why_it_merges": "clear rules plus targeted constraints can partially satisfy both feasibility and caution"
+      },
+      {
+        "affected_actors": [
+          "suburban_homeowners_broader",
+          "renters_cautious_or_detached",
+          "local_media"
+        ],
+        "convergence_driver": "broader public disengagement absent sharp trigger",
+        "merge_key": "issue_attention_decay",
+        "why_it_merges": "without vivid escalation, conflict may narrow to repeat participants and reduce mass divergence"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype": "renters",
+        "description": "municipal renter households and renter-aligned residents",
+        "population_total": 16000
+      },
+      {
+        "archetype": "homeowners",
+        "description": "owner-occupant households and homeowner-aligned residents",
+        "population_total": 24000
+      },
+      {
+        "archetype": "civic_elites",
+        "description": "officials, commissioners, administrators, and organized local stakeholders",
+        "population_total": 120
+      },
+      {
+        "archetype": "development_industry",
+        "description": "builders, land-use attorneys, and allied professionals engaged in housing production",
+        "population_total": 80
+      }
+    ],
+    "risk_flags": [
+      {
+        "note": "No seat count, ideology split, or incumbent vulnerability data is provided.",
+        "risk_key": "thin_evidence_on_council_composition",
+        "severity": "medium"
+      },
+      {
+        "note": "Population totals are inferred for a plausible suburb and should be treated as calibration defaults.",
+        "risk_key": "uncertain_population_scale",
+        "severity": "medium"
+      },
+      {
+        "note": "Enrollment concern is explicit, but magnitude and whether it implies overcrowding or fiscal strain are unspecified.",
+        "risk_key": "school_impact_ambiguity",
+        "severity": "low"
+      },
+      {
+        "note": "Anti-growth slate organizers are inferred from branch requirement rather than described as already organized at T0.",
+        "risk_key": "latent_actor_inference",
+        "severity": "low"
+      },
+      {
+        "note": "Supportive renters may be underrepresented in visible channels, risking misread majority perception at initialization.",
+        "risk_key": "public_private_belief_gap",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "advisory_authority": [
+        "planning_commission"
+      ],
+      "benchmark_role": "housing_zoning",
+      "decision_authority": [
+        "town_council"
+      ],
+      "implied_endpoints": [
+        "ordinance_passes",
+        "ordinance_delayed",
+        "ordinance_narrowed_with_exemptions",
+        "anti_growth_backlash_slate_forms"
+      ],
+      "mode": "direct",
+      "salient_pressures": [
+        "housing_supply",
+        "traffic_and_parking",
+        "neighborhood_character",
+        "regulatory_predictability",
+        "school_enrollment_uncertainty",
+        "policy_legitimacy"
+      ],
+      "scenario_key": "housing_001",
+      "scope": "fictional suburban land-use policy dispute",
+      "summary": "A fictional suburb is considering allowing fourplexes near train stations. Renters generally support added housing supply, homeowners fear traffic and neighborhood change, builders seek predictable rules, school officials worry about enrollment and capacity planning, the planning commission can only recommend, and the council holds final voting authority. T0 centers on unresolved coalition formation, legitimacy framing, and endpoint uncertainty around passage, delay, exemption carve-outs, or backlash slate formation.",
+      "time_zero_posture": "pre-decision public controversy with institutional process still open",
+      "title": "fourplex_zoning_near_train_stations",
+      "uncertainty_notes": [
+        "Exact municipality size, station-area geography, and current zoning baseline are unspecified.",
+        "No explicit vote count, party composition, or organized campaign timeline is provided.",
+        "School-capacity concerns may be fiscal, operational, or political; evidence is limited."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "suburban_homeowners_broader",
+          "homeowners",
+          "pro_housing_renters"
+        ],
+        "level": 0.61,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "moderates may respond to arguments framed near existing caution thresholds rather than maximal claims"
+      },
+      {
+        "applies_to": [
+          "station_area_homeowners",
+          "pro_housing_renters",
+          "anti_growth_slate_organizers"
+        ],
+        "level": 0.68,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "visible attendance spikes if actors perceive decision imminence or likely loss"
+      },
+      {
+        "applies_to": [
+          "renters",
+          "homeowners_pragmatic_mixed"
+        ],
+        "level": 0.57,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "supportive or mixed residents may remain quieter than intensely affected opponents"
+      },
+      {
+        "applies_to": [
+          "homeowners",
+          "renters"
+        ],
+        "level": 0.63,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "housing views cluster by tenure and direct exposure to station-area change"
+      },
+      {
+        "applies_to": [
+          "suburban_homeowners_broader",
+          "anti_growth_slate_organizers"
+        ],
+        "level": 0.54,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "backlash narratives need multiple reinforcing local signals to spread"
+      },
+      {
+        "applies_to": [
+          "homeowners",
+          "renters",
+          "school_officials"
+        ],
+        "level": 0.66,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "tenure identity and institutional identity shape perceived legitimacy of claims"
+      },
+      {
+        "applies_to": [
+          "general_public"
+        ],
+        "level": 0.43,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "unless hearings, media, or candidate activity refresh salience, broader audience attention may soften"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "tenure-based identity split structures interpretation of fairness and burden distribution",
+        "influence_key": "homeowner_renter_conflict"
+      },
+      {
+        "description": "supporters need visible cross-class legitimacy while opponents can unify around localized impact claims",
+        "influence_key": "coalition_formation"
+      },
+      {
+        "description": "advisory process, hearing volume, and school-capacity framing affect whether outcome is seen as procedurally fair",
+        "influence_key": "policy_legitimacy"
+      },
+      {
+        "description": "planning commission shapes legitimacy but council retains terminal authority",
+        "influence_key": "institutional_asymmetry"
+      },
+      {
+        "description": "directly affected homeowners are more likely to appear publicly engaged than diffuse beneficiaries",
+        "influence_key": "visibility_asymmetry"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "town_council",
+        "behavior_axes": {
+          "conflict_tolerance": 0.46,
+          "opportunism": 0.42,
+          "proceduralism": 0.78,
+          "responsiveness_to_public_pressure": 0.74
+        },
+        "graph_influence_summary": 0.92,
+        "ideology_axes": {
+          "institutionalism": 0.81,
+          "pro_growth": 0.5,
+          "status_quo_bias": 0.58
+        },
+        "reputation": 0.58,
+        "secrecy": 0.48,
+        "tendency": "cautious_vote_seeking_gatekeeper",
+        "trustworthiness": 0.56
+      },
+      {
+        "actor_name": "planning_commission",
+        "behavior_axes": {
+          "conflict_tolerance": 0.43,
+          "opportunism": 0.28,
+          "proceduralism": 0.86,
+          "responsiveness_to_public_pressure": 0.52
+        },
+        "graph_influence_summary": 0.68,
+        "ideology_axes": {
+          "institutionalism": 0.84,
+          "pro_growth": 0.52,
+          "status_quo_bias": 0.47
+        },
+        "reputation": 0.61,
+        "secrecy": 0.34,
+        "tendency": "technical_legitimizer",
+        "trustworthiness": 0.66
+      },
+      {
+        "actor_name": "pro_housing_renters",
+        "behavior_axes": {
+          "conflict_tolerance": 0.49,
+          "opportunism": 0.31,
+          "proceduralism": 0.35,
+          "responsiveness_to_public_pressure": 0.57
+        },
+        "graph_influence_summary": 0.44,
+        "ideology_axes": {
+          "institutionalism": 0.42,
+          "pro_growth": 0.84,
+          "status_quo_bias": 0.18
+        },
+        "reputation": 0.46,
+        "secrecy": 0.22,
+        "tendency": "materially_supportive_but_less_visible",
+        "trustworthiness": 0.57
+      },
+      {
+        "actor_name": "station_area_homeowners",
+        "behavior_axes": {
+          "conflict_tolerance": 0.61,
+          "opportunism": 0.36,
+          "proceduralism": 0.51,
+          "responsiveness_to_public_pressure": 0.39
+        },
+        "graph_influence_summary": 0.63,
+        "ideology_axes": {
+          "institutionalism": 0.49,
+          "pro_growth": 0.2,
+          "status_quo_bias": 0.81
+        },
+        "reputation": 0.55,
+        "secrecy": 0.19,
+        "tendency": "high_salience_local_opposition",
+        "trustworthiness": 0.53
+      },
+      {
+        "actor_name": "suburban_homeowners_broader",
+        "behavior_axes": {
+          "conflict_tolerance": 0.41,
+          "opportunism": 0.34,
+          "proceduralism": 0.48,
+          "responsiveness_to_public_pressure": 0.46
+        },
+        "graph_influence_summary": 0.5,
+        "ideology_axes": {
+          "institutionalism": 0.51,
+          "pro_growth": 0.35,
+          "status_quo_bias": 0.66
+        },
+        "reputation": 0.57,
+        "secrecy": 0.28,
+        "tendency": "persuadable_skeptical_audience",
+        "trustworthiness": 0.54
+      },
+      {
+        "actor_name": "residential_builders",
+        "behavior_axes": {
+          "conflict_tolerance": 0.44,
+          "opportunism": 0.59,
+          "proceduralism": 0.63,
+          "responsiveness_to_public_pressure": 0.27
+        },
+        "graph_influence_summary": 0.52,
+        "ideology_axes": {
+          "institutionalism": 0.38,
+          "pro_growth": 0.88,
+          "status_quo_bias": 0.14
+        },
+        "reputation": 0.45,
+        "secrecy": 0.41,
+        "tendency": "predictability_seeking_economic_actor",
+        "trustworthiness": 0.43
+      },
+      {
+        "actor_name": "school_officials",
+        "behavior_axes": {
+          "conflict_tolerance": 0.29,
+          "opportunism": 0.22,
+          "proceduralism": 0.79,
+          "responsiveness_to_public_pressure": 0.49
+        },
+        "graph_influence_summary": 0.49,
+        "ideology_axes": {
+          "institutionalism": 0.77,
+          "pro_growth": 0.36,
+          "status_quo_bias": 0.57
+        },
+        "reputation": 0.7,
+        "secrecy": 0.31,
+        "tendency": "credible_cautious_capacity_messenger",
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "local_media",
+        "behavior_axes": {
+          "conflict_tolerance": 0.58,
+          "opportunism": 0.47,
+          "proceduralism": 0.42,
+          "responsiveness_to_public_pressure": 0.64
+        },
+        "graph_influence_summary": 0.54,
+        "ideology_axes": {
+          "institutionalism": 0.44,
+          "pro_growth": 0.5,
+          "status_quo_bias": 0.5
+        },
+        "reputation": 0.56,
+        "secrecy": 0.18,
+        "tendency": "frame_amplifier",
+        "trustworthiness": 0.52
+      },
+      {
+        "actor_name": "anti_growth_slate_organizers",
+        "behavior_axes": {
+          "conflict_tolerance": 0.66,
+          "opportunism": 0.61,
+          "proceduralism": 0.28,
+          "responsiveness_to_public_pressure": 0.62
+        },
+        "graph_influence_summary": 0.31,
+        "ideology_axes": {
+          "institutionalism": 0.33,
+          "pro_growth": 0.12,
+          "status_quo_bias": 0.86
+        },
+        "reputation": 0.32,
+        "secrecy": 0.47,
+        "tendency": "latent_backlash_entrepreneur",
+        "trustworthiness": 0.39
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 553,
+        "end": 553,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 553,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

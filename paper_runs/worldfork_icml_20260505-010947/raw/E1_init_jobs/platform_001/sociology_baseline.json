@@ -1,0 +1,227 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "2c1ab7fe-db00-4ad0-afe1-f7c6501a6c10",
+      "created_at": "2026-05-05T02:28:12.504262+00:00",
+      "id": "c9948ad9-0483-4359-a347-d0acc739b56e",
+      "influence": {
+        "description": "Wrongful denial stories can raise moral salience and widen support for oversight.",
+        "influence_key": "fairness_harm_frame"
+      },
+      "multiverse_id": "4be795e9-ef18-4a12-8533-05e09a97e975",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:12.504262+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "2c1ab7fe-db00-4ad0-afe1-f7c6501a6c10",
+      "created_at": "2026-05-05T02:28:12.504262+00:00",
+      "id": "1e803f45-d977-499e-ac06-f151ca5aad0a",
+      "influence": {
+        "description": "Vendor explanation may redirect blame toward incomplete inputs rather than core algorithm design.",
+        "influence_key": "data_quality_frame"
+      },
+      "multiverse_id": "4be795e9-ef18-4a12-8533-05e09a97e975",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:12.504262+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "2c1ab7fe-db00-4ad0-afe1-f7c6501a6c10",
+      "created_at": "2026-05-05T02:28:12.504262+00:00",
+      "id": "af330fba-188d-4ad1-a22c-86a0300e9879",
+      "influence": {
+        "description": "Caseworker sentiment may amplify skepticism if staff portray themselves as scapegoats for system flaws.",
+        "influence_key": "blame_shift_frame"
+      },
+      "multiverse_id": "4be795e9-ef18-4a12-8533-05e09a97e975",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:12.504262+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "2c1ab7fe-db00-4ad0-afe1-f7c6501a6c10",
+      "created_at": "2026-05-05T02:28:12.504262+00:00",
+      "id": "50691863-aadc-4657-805b-a4220c182464",
+      "influence": {
+        "description": "An audit functions as a socially acceptable compromise between immediate shutdown and unconditional continuation.",
+        "influence_key": "audit_legitimacy_frame"
+      },
+      "multiverse_id": "4be795e9-ef18-4a12-8533-05e09a97e975",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:12.504262+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "2c1ab7fe-db00-4ad0-afe1-f7c6501a6c10",
+      "created_at": "2026-05-05T02:28:12.504262+00:00",
+      "id": "76306f95-7855-4849-b1b2-ae363f924f29",
+      "influence": {
+        "description": "The later availability of appeals and courts may dampen immediate panic while preserving long-run accountability pressure.",
+        "influence_key": "delay_to_courts_frame"
+      },
+      "multiverse_id": "4be795e9-ef18-4a12-8533-05e09a97e975",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T02:28:12.504262+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "2c1ab7fe-db00-4ad0-afe1-f7c6501a6c10",
+      "created_at": "2026-05-05T02:28:12.504262+00:00",
+      "id": "f97e4ac6-d8a8-4e0b-a566-cdce53ee294f",
+      "model": "attention_decay",
+      "multiverse_id": "4be795e9-ef18-4a12-8533-05e09a97e975",
+      "signal": {
+        "applies_to": [
+          "general_public_observers",
+          "applicants",
+          "caseworkers"
+        ],
+        "level": 0.62,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay",
+        "note": "Most actors are not yet at extreme positions and may update with credible evidence."
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:28:12.504262+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "2c1ab7fe-db00-4ad0-afe1-f7c6501a6c10",
+      "created_at": "2026-05-05T02:28:12.504262+00:00",
+      "id": "f7807b6f-e8a4-46ec-bc28-e5dbe563bad8",
+      "model": "attention_decay",
+      "multiverse_id": "4be795e9-ef18-4a12-8533-05e09a97e975",
+      "signal": {
+        "applies_to": [
+          "applicants",
+          "caseworkers",
+          "general_public_observers"
+        ],
+        "level": 0.71,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay",
+        "note": "More documented cases or an official audit trigger could move passive concern into broader action."
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:28:12.504262+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "2c1ab7fe-db00-4ad0-afe1-f7c6501a6c10",
+      "created_at": "2026-05-05T02:28:12.504262+00:00",
+      "id": "42a2a39d-83b1-48c5-94c6-157dae325b7b",
+      "model": "attention_decay",
+      "multiverse_id": "4be795e9-ef18-4a12-8533-05e09a97e975",
+      "signal": {
+        "applies_to": [
+          "caseworkers",
+          "applicants_concerned_pending_cases"
+        ],
+        "level": 0.66,
+        "mechanism": "public_silence",
+        "model": "attention_decay",
+        "note": "Dependency and fear of isolation suppress some public criticism despite private concern."
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:28:12.504262+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "2c1ab7fe-db00-4ad0-afe1-f7c6501a6c10",
+      "created_at": "2026-05-05T02:28:12.504262+00:00",
+      "id": "a63d0ca6-25bb-4412-9367-33cc75cd2aba",
+      "model": "attention_decay",
+      "multiverse_id": "4be795e9-ef18-4a12-8533-05e09a97e975",
+      "signal": {
+        "applies_to": [
+          "wrongly_denied_applicants",
+          "caseworkers",
+          "advocacy_groups"
+        ],
+        "level": 0.57,
+        "mechanism": "homophily",
+        "model": "attention_decay",
+        "note": "Complaint narratives and staff sentiment are likely to cluster within identity and role networks."
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:28:12.504262+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "2c1ab7fe-db00-4ad0-afe1-f7c6501a6c10",
+      "created_at": "2026-05-05T02:28:12.504262+00:00",
+      "id": "4ba5bfc6-fb15-4533-a61f-d4793617bc62",
+      "model": "attention_decay",
+      "multiverse_id": "4be795e9-ef18-4a12-8533-05e09a97e975",
+      "signal": {
+        "applies_to": [
+          "general_public_observers",
+          "agency_staff",
+          "applicants"
+        ],
+        "level": 0.64,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay",
+        "note": "Single anecdotes may not transform opinion, but multiple corroborating stories plus institutional acknowledgment could."
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:28:12.504262+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "2c1ab7fe-db00-4ad0-afe1-f7c6501a6c10",
+      "created_at": "2026-05-05T02:28:12.504262+00:00",
+      "id": "4535efd8-331e-4c73-ad23-2aa1c57e477c",
+      "model": "attention_decay",
+      "multiverse_id": "4be795e9-ef18-4a12-8533-05e09a97e975",
+      "signal": {
+        "applies_to": [
+          "caseworkers",
+          "advocacy_groups",
+          "agency_leadership"
+        ],
+        "level": 0.69,
+        "mechanism": "social_identity",
+        "model": "attention_decay",
+        "note": "Role-based identity shapes interpretation of blame, legitimacy, and acceptable remedies."
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:28:12.504262+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "2c1ab7fe-db00-4ad0-afe1-f7c6501a6c10",
+      "created_at": "2026-05-05T02:28:12.504262+00:00",
+      "id": "8dd7f6c5-5bda-4ff2-8f50-a3ac9888608c",
+      "model": "attention_decay",
+      "multiverse_id": "4be795e9-ef18-4a12-8533-05e09a97e975",
+      "signal": {
+        "applies_to": [
+          "general_public_observers"
+        ],
+        "level": 0.48,
+        "mechanism": "attention_decay",
+        "model": "attention_decay",
+        "note": "Without fresh cases, official findings, or media pickup, issue salience may fade."
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T02:28:12.504262+00:00"
+    }
+  ]
+}

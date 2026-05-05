@@ -1,0 +1,53 @@
+{
+  "data": {
+    "attempt_number": 0,
+    "available_at": "2026-05-05T02:22:17.118363Z",
+    "big_bang_id": null,
+    "concurrency_key": null,
+    "created_at": "2026-05-05T02:22:17.117791Z",
+    "error": null,
+    "finished_at": "2026-05-05T02:25:18.700775Z",
+    "id": "cb0fe294-cd19-4483-97d4-91138d922162",
+    "idempotency_key": "job:da3a33fa243c7e5b330dd79f45a504e8b1d842d653e03fe532069cfc4ea05aa2",
+    "interrupt_requested_at": null,
+    "interrupted_at": null,
+    "job_type": "initialize_big_bang",
+    "last_heartbeat_at": null,
+    "lease_expires_at": null,
+    "lease_owner": null,
+    "max_attempts": 3,
+    "paused_at": null,
+    "payload": {
+      "actors": [],
+      "branch_policy": {
+        "branch_score_threshold": 0.999,
+        "max_active_multiverses": 1,
+        "max_branch_depth": 1,
+        "max_branches_per_tick": 1
+      },
+      "cohorts": [],
+      "heroes": [],
+      "name": "E1_init_job_labor_001",
+      "scenario_text": "# Case labor_001\nBenchmark role: labor_economic_dependency\n\n## Scenario\n\nA fictional hospital nurses' union announces a strike authorization vote after staffing ratios worsen. Hospital executives cite budget constraints, patients' families fear canceled procedures, city officials can mediate but cannot impose a contract, and traveling nurse agencies may benefit. Initialize plausible actors, private/public stances, dependency edges, and branch hypotheses around settlement, strike, injunction attempt, or public backlash.\n\n## Expected Focus\n- dependency_graph\n- mobilization_threshold\n- event_authority\n",
+      "simulation_config": {
+        "max_ticks": 1,
+        "tick_duration_minutes": 720
+      },
+      "use_initializer_agent": true
+    },
+    "queue_name": "p1",
+    "queued_at": "2026-05-05T02:22:17.118360Z",
+    "result": {
+      "big_bang_id": "4fcee5ba-9822-44fb-84a9-722bd5da5062",
+      "source_snapshot_id": "41a6b738-07c8-4469-95dc-47c3dbae348b"
+    },
+    "retryable": true,
+    "started_at": "2026-05-05T02:22:17.190062Z",
+    "status": "succeeded",
+    "updated_at": "2026-05-05T02:25:18.638321Z"
+  },
+  "meta": {
+    "terminal": true
+  },
+  "ok": true
+}

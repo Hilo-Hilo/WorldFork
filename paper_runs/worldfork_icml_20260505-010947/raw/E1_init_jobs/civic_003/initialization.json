@@ -1,0 +1,2014 @@
+{
+  "big_bang_id": "0ae4797f-8124-40b7-a4a8-2cdc84bf1f76",
+  "initializer_output": {
+    "actors": [
+      {
+        "decision_authority": "direct authority over library hours",
+        "description": "Fictional public library board considering service-hour reductions to close a deficit.",
+        "name": "library_board",
+        "scope": "library_system",
+        "stakes": [
+          "balance budget",
+          "maintain public legitimacy",
+          "preserve service access where possible"
+        ],
+        "type": "institution"
+      },
+      {
+        "decision_authority": "controls budget transfers",
+        "description": "Fictional city council with authority over budget transfers or supplemental funding.",
+        "name": "city_council",
+        "scope": "citywide",
+        "stakes": [
+          "overall municipal budget discipline",
+          "constituent responsiveness",
+          "political blame avoidance"
+        ],
+        "type": "institution"
+      },
+      {
+        "decision_authority": "limited formal authority; operational knowledge and public credibility",
+        "description": "Staff working in the library system and affected by schedule changes, workload, and public reaction.",
+        "name": "library_staff",
+        "stakes": [
+          "job stability",
+          "service quality",
+          "workload predictability",
+          "community reputation"
+        ],
+        "type": "organization"
+      },
+      {
+        "decision_authority": "informal pressure via testimony, complaints, and coalition building",
+        "description": "Parents who use weekend library access for children, study support, and family routines.",
+        "name": "parents_group",
+        "stakes": [
+          "weekend access",
+          "youth programming continuity",
+          "convenient public service timing"
+        ],
+        "type": "public_group"
+      },
+      {
+        "decision_authority": "informal pressure via turnout and civic legitimacy claims",
+        "description": "Older patrons who may rely on weekend access for reading, social contact, and services.",
+        "name": "seniors_group",
+        "stakes": [
+          "predictable access",
+          "community inclusion",
+          "service continuity"
+        ],
+        "type": "public_group"
+      },
+      {
+        "decision_authority": "low direct authority; potential symbolic influence if activated",
+        "description": "A quieter group of teen library users with stake in weekend access but lower public visibility.",
+        "name": "teen_patrons",
+        "stakes": [
+          "safe weekend space",
+          "study access",
+          "internet and program access"
+        ],
+        "type": "public_group"
+      },
+      {
+        "decision_authority": "informal pressure through commentary and political signaling",
+        "description": "Residents or local advocates emphasizing fiscal restraint and budget discipline.",
+        "name": "fiscal_watchdogs",
+        "stakes": [
+          "deficit reduction",
+          "institutional efficiency",
+          "precedent against bailouts"
+        ],
+        "type": "advocacy_group"
+      },
+      {
+        "decision_authority": "agenda-setting and framing influence",
+        "description": "Local news and opinion channels framing the issue as austerity necessity or management failure.",
+        "name": "local_media",
+        "stakes": [
+          "narrative salience",
+          "audience attention",
+          "accountability framing"
+        ],
+        "type": "media"
+      },
+      {
+        "decision_authority": "diffuse public opinion",
+        "description": "Broader city residents who may care weakly unless the issue becomes a civic symbol or service concern.",
+        "name": "general_residents",
+        "stakes": [
+          "tax and budget stewardship",
+          "service expectations",
+          "fairness across constituencies"
+        ],
+        "type": "public_group"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Quiet teen opposition becomes a sympathy-rich narrative that broadens the anti-cut coalition.",
+        "branch_key": "youth_visibility_breakthrough",
+        "observable_divergence_signal": "Teen patrons begin appearing in coverage, comments, or coalition messaging by tick 2-3.",
+        "trigger": "A teen patron or allied adult publicly testifies and receives media attention."
+      },
+      {
+        "alternate_path": "Public pressure shifts from reluctant acceptance of cuts to blame-focused scrutiny of board competence.",
+        "branch_key": "mismanagement_frame_escalation",
+        "observable_divergence_signal": "Coverage mentions accountability, planning failure, or alternatives more often than sacrifice language.",
+        "trigger": "Media or staff surface facts suggesting the deficit reflects avoidable management problems."
+      },
+      {
+        "alternate_path": "Opposition fragments, moderates disengage, and weekend cuts become seen as regrettable but necessary.",
+        "branch_key": "austerity_normalization",
+        "observable_divergence_signal": "Public comments stress inevitability and fiscal realism; anti-cut turnout plateaus.",
+        "trigger": "Council signals no transfer and media validates cutbacks as fiscally responsible."
+      },
+      {
+        "alternate_path": "A broad legitimacy-based coalition increases pressure on the board to delay or seek outside funding.",
+        "branch_key": "parent_senior_coalition_activation",
+        "observable_divergence_signal": "Joint statements, co-signed letters, or repeated cross-group references emerge.",
+        "trigger": "Parents and seniors coordinate testimony or petitions around shared access concerns."
+      }
+    ],
+    "channels": [
+      {
+        "audience": [
+          "library_board",
+          "parents_group",
+          "seniors_group",
+          "fiscal_watchdogs",
+          "library_staff",
+          "local_media"
+        ],
+        "channel_key": "library_board_meeting",
+        "type": "formal_public",
+        "visibility": 0.68
+      },
+      {
+        "audience": [
+          "city_council",
+          "local_media",
+          "fiscal_watchdogs",
+          "general_residents"
+        ],
+        "channel_key": "city_council_budget_session",
+        "type": "formal_public",
+        "visibility": 0.55
+      },
+      {
+        "audience": [
+          "general_residents",
+          "parents_group",
+          "seniors_group",
+          "city_council",
+          "library_board"
+        ],
+        "channel_key": "local_news_coverage",
+        "type": "mass_media",
+        "visibility": 0.74
+      },
+      {
+        "audience": [
+          "local_media",
+          "library_board",
+          "city_council",
+          "general_residents"
+        ],
+        "channel_key": "letters_and_opeds",
+        "type": "public_discourse",
+        "visibility": 0.43
+      },
+      {
+        "audience": [
+          "library_staff",
+          "parents_group",
+          "seniors_group",
+          "teen_patrons"
+        ],
+        "channel_key": "library_onsite_conversations",
+        "type": "informal_local",
+        "visibility": 0.29
+      },
+      {
+        "audience": [
+          "parents_group",
+          "general_residents",
+          "teen_patrons",
+          "local_media"
+        ],
+        "channel_key": "community_social_posts",
+        "type": "networked_public",
+        "visibility": 0.46
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "parents_group",
+        "archetype_key": "family_library_users",
+        "attention_level": 0.66,
+        "behavioral_tendencies": [
+          "petition if prompted",
+          "respond to school/community messaging",
+          "prioritize convenience and child benefit"
+        ],
+        "cohort_key": "parents_weekend_reliant",
+        "expression_level": 0.44,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.33,
+        "mobilization_readiness": 0.51,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.64,
+        "private_preference": "oppose weekend cuts",
+        "public_expression": "concerned but not fully mobilized",
+        "representation_mode": "issue_public",
+        "represented_population": 1400,
+        "reputation": 0.58,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "budget_transfer_support": 0.62,
+          "fiscal_austerity_acceptance": 0.28,
+          "trust_in_board_process": 0.46,
+          "weekend_hours_preservation": 0.87
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "parents_group",
+        "archetype_key": "family_library_users",
+        "attention_level": 0.31,
+        "behavioral_tendencies": [
+          "attention decays quickly",
+          "joins only if issue becomes visible",
+          "follows media framing"
+        ],
+        "cohort_key": "parents_low_salience",
+        "expression_level": 0.12,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 0.36,
+        "private_preference": "mildly prefer weekend access but low urgency",
+        "public_expression": "mostly silent",
+        "representation_mode": "latent_public",
+        "represented_population": 800,
+        "reputation": 0.52,
+        "secrecy": 0.29,
+        "stance_axes": {
+          "budget_transfer_support": 0.41,
+          "fiscal_austerity_acceptance": 0.44,
+          "trust_in_board_process": 0.5,
+          "weekend_hours_preservation": 0.58
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "seniors_group",
+        "archetype_key": "senior_library_users",
+        "attention_level": 0.61,
+        "behavioral_tendencies": [
+          "attend hearings",
+          "write letters",
+          "value process legitimacy"
+        ],
+        "cohort_key": "seniors_access_defenders",
+        "expression_level": 0.47,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.24,
+        "mobilization_readiness": 0.56,
+        "perceived_majority": 0.49,
+        "population_share_of_archetype": 0.64,
+        "private_preference": "oppose weekend cuts",
+        "public_expression": "respectful concern with moderate civic participation",
+        "representation_mode": "issue_public",
+        "represented_population": 900,
+        "reputation": 0.69,
+        "secrecy": 0.14,
+        "stance_axes": {
+          "budget_transfer_support": 0.55,
+          "fiscal_austerity_acceptance": 0.34,
+          "trust_in_board_process": 0.54,
+          "weekend_hours_preservation": 0.82
+        },
+        "trustworthiness": 0.72
+      },
+      {
+        "actor_name": "seniors_group",
+        "archetype_key": "senior_library_users",
+        "attention_level": 0.39,
+        "behavioral_tendencies": [
+          "accept tradeoffs",
+          "respond to deficit narratives",
+          "discourage escalation"
+        ],
+        "cohort_key": "seniors_budget_pragmatists",
+        "expression_level": 0.24,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.26,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.36,
+        "private_preference": "prefer access but accept some cuts if finances are strained",
+        "public_expression": "measured and conditional",
+        "representation_mode": "mixed_public",
+        "represented_population": 500,
+        "reputation": 0.62,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "budget_transfer_support": 0.34,
+          "fiscal_austerity_acceptance": 0.6,
+          "trust_in_board_process": 0.57,
+          "weekend_hours_preservation": 0.48
+        },
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "teen_patrons",
+        "archetype_key": "teen_library_users",
+        "attention_level": 0.57,
+        "behavioral_tendencies": [
+          "peer-sensitive",
+          "requires adult amplification or school/community bridge",
+          "reacts to visible youth inclusion"
+        ],
+        "cohort_key": "teens_quiet_reliant",
+        "expression_level": 0.11,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.61,
+        "mobilization_readiness": 0.29,
+        "perceived_majority": 0.31,
+        "population_share_of_archetype": 0.72,
+        "private_preference": "strongly oppose weekend cuts",
+        "public_expression": "largely silent despite strong stake",
+        "representation_mode": "quiet_private",
+        "represented_population": 650,
+        "reputation": 0.5,
+        "secrecy": 0.46,
+        "stance_axes": {
+          "budget_transfer_support": 0.58,
+          "fiscal_austerity_acceptance": 0.19,
+          "trust_in_board_process": 0.4,
+          "weekend_hours_preservation": 0.89
+        },
+        "trustworthiness": 0.59
+      },
+      {
+        "actor_name": "teen_patrons",
+        "archetype_key": "teen_library_users",
+        "attention_level": 0.22,
+        "behavioral_tendencies": [
+          "attention dissipates quickly",
+          "unlikely to self-organize at T0"
+        ],
+        "cohort_key": "teens_detached",
+        "expression_level": 0.05,
+        "fatigue": 0.16,
+        "fear_of_isolation": 0.49,
+        "mobilization_readiness": 0.12,
+        "perceived_majority": 0.37,
+        "population_share_of_archetype": 0.28,
+        "private_preference": "weakly prefer access but low issue identity",
+        "public_expression": "silent",
+        "representation_mode": "latent_private",
+        "represented_population": 250,
+        "reputation": 0.47,
+        "secrecy": 0.38,
+        "stance_axes": {
+          "budget_transfer_support": 0.28,
+          "fiscal_austerity_acceptance": 0.42,
+          "trust_in_board_process": 0.45,
+          "weekend_hours_preservation": 0.43
+        },
+        "trustworthiness": 0.56
+      },
+      {
+        "actor_name": "fiscal_watchdogs",
+        "archetype_key": "budget_concerned_residents",
+        "attention_level": 0.63,
+        "behavioral_tendencies": [
+          "message discipline",
+          "highlight deficits",
+          "oppose precedent of extra funding"
+        ],
+        "cohort_key": "watchdog_hardliners",
+        "expression_level": 0.53,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.49,
+        "perceived_majority": 0.43,
+        "population_share_of_archetype": 0.39,
+        "private_preference": "support weekend cuts over transfers",
+        "public_expression": "disciplined fiscal critique",
+        "representation_mode": "issue_public",
+        "represented_population": 700,
+        "reputation": 0.57,
+        "secrecy": 0.11,
+        "stance_axes": {
+          "budget_transfer_support": 0.14,
+          "fiscal_austerity_acceptance": 0.87,
+          "trust_in_board_process": 0.52,
+          "weekend_hours_preservation": 0.12
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "fiscal_watchdogs",
+        "archetype_key": "budget_concerned_residents",
+        "attention_level": 0.34,
+        "behavioral_tendencies": [
+          "follow media/accountability cues",
+          "can be persuaded by mismanagement frame"
+        ],
+        "cohort_key": "budget_moderates",
+        "expression_level": 0.18,
+        "fatigue": 0.17,
+        "fear_of_isolation": 0.26,
+        "mobilization_readiness": 0.21,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.61,
+        "private_preference": "want deficit addressed but open to alternatives",
+        "public_expression": "conditional and low-intensity",
+        "representation_mode": "mixed_public",
+        "represented_population": 1100,
+        "reputation": 0.54,
+        "secrecy": 0.24,
+        "stance_axes": {
+          "budget_transfer_support": 0.33,
+          "fiscal_austerity_acceptance": 0.68,
+          "trust_in_board_process": 0.51,
+          "weekend_hours_preservation": 0.36
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "general_residents",
+        "archetype_key": "general_city_residents",
+        "attention_level": 0.18,
+        "behavioral_tendencies": [
+          "attention follows media spikes",
+          "limited sustained engagement"
+        ],
+        "cohort_key": "general_public_low_attention",
+        "expression_level": 0.07,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.1,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.75,
+        "private_preference": "mixed and weakly held",
+        "public_expression": "mostly inattentive",
+        "representation_mode": "diffuse_public",
+        "represented_population": 9000,
+        "reputation": 0.5,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "budget_transfer_support": 0.29,
+          "fiscal_austerity_acceptance": 0.49,
+          "trust_in_board_process": 0.5,
+          "weekend_hours_preservation": 0.41
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "general_residents",
+        "archetype_key": "general_city_residents",
+        "attention_level": 0.29,
+        "behavioral_tendencies": [
+          "reacts to symbolic civic-service framing",
+          "can join parent-senior coalition"
+        ],
+        "cohort_key": "general_public_service_defenders",
+        "expression_level": 0.14,
+        "fatigue": 0.15,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.23,
+        "perceived_majority": 0.45,
+        "population_share_of_archetype": 0.25,
+        "private_preference": "favor preserving visible public services",
+        "public_expression": "quiet unless activated by fairness narrative",
+        "representation_mode": "latent_public",
+        "represented_population": 3000,
+        "reputation": 0.53,
+        "secrecy": 0.23,
+        "stance_axes": {
+          "budget_transfer_support": 0.46,
+          "fiscal_austerity_acceptance": 0.33,
+          "trust_in_board_process": 0.48,
+          "weekend_hours_preservation": 0.65
+        },
+        "trustworthiness": 0.58
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "parents_group",
+        "archetype_key": "family_library_users",
+        "attention_level": 0.66,
+        "behavioral_tendencies": [
+          "petition if prompted",
+          "respond to school/community messaging",
+          "prioritize convenience and child benefit"
+        ],
+        "cohort_key": "parents_weekend_reliant",
+        "expression_level": 0.44,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.33,
+        "mobilization_readiness": 0.51,
+        "perceived_majority": 0.52,
+        "population_share_of_archetype": 0.64,
+        "private_preference": "oppose weekend cuts",
+        "public_expression": "concerned but not fully mobilized",
+        "representation_mode": "issue_public",
+        "represented_population": 1400,
+        "reputation": 0.58,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "budget_transfer_support": 0.62,
+          "fiscal_austerity_acceptance": 0.28,
+          "trust_in_board_process": 0.46,
+          "weekend_hours_preservation": 0.87
+        },
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "parents_group",
+        "archetype_key": "family_library_users",
+        "attention_level": 0.31,
+        "behavioral_tendencies": [
+          "attention decays quickly",
+          "joins only if issue becomes visible",
+          "follows media framing"
+        ],
+        "cohort_key": "parents_low_salience",
+        "expression_level": 0.12,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.41,
+        "mobilization_readiness": 0.22,
+        "perceived_majority": 0.47,
+        "population_share_of_archetype": 0.36,
+        "private_preference": "mildly prefer weekend access but low urgency",
+        "public_expression": "mostly silent",
+        "representation_mode": "latent_public",
+        "represented_population": 800,
+        "reputation": 0.52,
+        "secrecy": 0.29,
+        "stance_axes": {
+          "budget_transfer_support": 0.41,
+          "fiscal_austerity_acceptance": 0.44,
+          "trust_in_board_process": 0.5,
+          "weekend_hours_preservation": 0.58
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "seniors_group",
+        "archetype_key": "senior_library_users",
+        "attention_level": 0.61,
+        "behavioral_tendencies": [
+          "attend hearings",
+          "write letters",
+          "value process legitimacy"
+        ],
+        "cohort_key": "seniors_access_defenders",
+        "expression_level": 0.47,
+        "fatigue": 0.27,
+        "fear_of_isolation": 0.24,
+        "mobilization_readiness": 0.56,
+        "perceived_majority": 0.49,
+        "population_share_of_archetype": 0.64,
+        "private_preference": "oppose weekend cuts",
+        "public_expression": "respectful concern with moderate civic participation",
+        "representation_mode": "issue_public",
+        "represented_population": 900,
+        "reputation": 0.69,
+        "secrecy": 0.14,
+        "stance_axes": {
+          "budget_transfer_support": 0.55,
+          "fiscal_austerity_acceptance": 0.34,
+          "trust_in_board_process": 0.54,
+          "weekend_hours_preservation": 0.82
+        },
+        "trustworthiness": 0.72
+      },
+      {
+        "actor_name": "seniors_group",
+        "archetype_key": "senior_library_users",
+        "attention_level": 0.39,
+        "behavioral_tendencies": [
+          "accept tradeoffs",
+          "respond to deficit narratives",
+          "discourage escalation"
+        ],
+        "cohort_key": "seniors_budget_pragmatists",
+        "expression_level": 0.24,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.29,
+        "mobilization_readiness": 0.26,
+        "perceived_majority": 0.44,
+        "population_share_of_archetype": 0.36,
+        "private_preference": "prefer access but accept some cuts if finances are strained",
+        "public_expression": "measured and conditional",
+        "representation_mode": "mixed_public",
+        "represented_population": 500,
+        "reputation": 0.62,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "budget_transfer_support": 0.34,
+          "fiscal_austerity_acceptance": 0.6,
+          "trust_in_board_process": 0.57,
+          "weekend_hours_preservation": 0.48
+        },
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "teen_patrons",
+        "archetype_key": "teen_library_users",
+        "attention_level": 0.57,
+        "behavioral_tendencies": [
+          "peer-sensitive",
+          "requires adult amplification or school/community bridge",
+          "reacts to visible youth inclusion"
+        ],
+        "cohort_key": "teens_quiet_reliant",
+        "expression_level": 0.11,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.61,
+        "mobilization_readiness": 0.29,
+        "perceived_majority": 0.31,
+        "population_share_of_archetype": 0.72,
+        "private_preference": "strongly oppose weekend cuts",
+        "public_expression": "largely silent despite strong stake",
+        "representation_mode": "quiet_private",
+        "represented_population": 650,
+        "reputation": 0.5,
+        "secrecy": 0.46,
+        "stance_axes": {
+          "budget_transfer_support": 0.58,
+          "fiscal_austerity_acceptance": 0.19,
+          "trust_in_board_process": 0.4,
+          "weekend_hours_preservation": 0.89
+        },
+        "trustworthiness": 0.59
+      },
+      {
+        "actor_name": "teen_patrons",
+        "archetype_key": "teen_library_users",
+        "attention_level": 0.22,
+        "behavioral_tendencies": [
+          "attention dissipates quickly",
+          "unlikely to self-organize at T0"
+        ],
+        "cohort_key": "teens_detached",
+        "expression_level": 0.05,
+        "fatigue": 0.16,
+        "fear_of_isolation": 0.49,
+        "mobilization_readiness": 0.12,
+        "perceived_majority": 0.37,
+        "population_share_of_archetype": 0.28,
+        "private_preference": "weakly prefer access but low issue identity",
+        "public_expression": "silent",
+        "representation_mode": "latent_private",
+        "represented_population": 250,
+        "reputation": 0.47,
+        "secrecy": 0.38,
+        "stance_axes": {
+          "budget_transfer_support": 0.28,
+          "fiscal_austerity_acceptance": 0.42,
+          "trust_in_board_process": 0.45,
+          "weekend_hours_preservation": 0.43
+        },
+        "trustworthiness": 0.56
+      },
+      {
+        "actor_name": "fiscal_watchdogs",
+        "archetype_key": "budget_concerned_residents",
+        "attention_level": 0.63,
+        "behavioral_tendencies": [
+          "message discipline",
+          "highlight deficits",
+          "oppose precedent of extra funding"
+        ],
+        "cohort_key": "watchdog_hardliners",
+        "expression_level": 0.53,
+        "fatigue": 0.19,
+        "fear_of_isolation": 0.18,
+        "mobilization_readiness": 0.49,
+        "perceived_majority": 0.43,
+        "population_share_of_archetype": 0.39,
+        "private_preference": "support weekend cuts over transfers",
+        "public_expression": "disciplined fiscal critique",
+        "representation_mode": "issue_public",
+        "represented_population": 700,
+        "reputation": 0.57,
+        "secrecy": 0.11,
+        "stance_axes": {
+          "budget_transfer_support": 0.14,
+          "fiscal_austerity_acceptance": 0.87,
+          "trust_in_board_process": 0.52,
+          "weekend_hours_preservation": 0.12
+        },
+        "trustworthiness": 0.61
+      },
+      {
+        "actor_name": "fiscal_watchdogs",
+        "archetype_key": "budget_concerned_residents",
+        "attention_level": 0.34,
+        "behavioral_tendencies": [
+          "follow media/accountability cues",
+          "can be persuaded by mismanagement frame"
+        ],
+        "cohort_key": "budget_moderates",
+        "expression_level": 0.18,
+        "fatigue": 0.17,
+        "fear_of_isolation": 0.26,
+        "mobilization_readiness": 0.21,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.61,
+        "private_preference": "want deficit addressed but open to alternatives",
+        "public_expression": "conditional and low-intensity",
+        "representation_mode": "mixed_public",
+        "represented_population": 1100,
+        "reputation": 0.54,
+        "secrecy": 0.24,
+        "stance_axes": {
+          "budget_transfer_support": 0.33,
+          "fiscal_austerity_acceptance": 0.68,
+          "trust_in_board_process": 0.51,
+          "weekend_hours_preservation": 0.36
+        },
+        "trustworthiness": 0.6
+      },
+      {
+        "actor_name": "general_residents",
+        "archetype_key": "general_city_residents",
+        "attention_level": 0.18,
+        "behavioral_tendencies": [
+          "attention follows media spikes",
+          "limited sustained engagement"
+        ],
+        "cohort_key": "general_public_low_attention",
+        "expression_level": 0.07,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.22,
+        "mobilization_readiness": 0.1,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.75,
+        "private_preference": "mixed and weakly held",
+        "public_expression": "mostly inattentive",
+        "representation_mode": "diffuse_public",
+        "represented_population": 9000,
+        "reputation": 0.5,
+        "secrecy": 0.2,
+        "stance_axes": {
+          "budget_transfer_support": 0.29,
+          "fiscal_austerity_acceptance": 0.49,
+          "trust_in_board_process": 0.5,
+          "weekend_hours_preservation": 0.41
+        },
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "general_residents",
+        "archetype_key": "general_city_residents",
+        "attention_level": 0.29,
+        "behavioral_tendencies": [
+          "reacts to symbolic civic-service framing",
+          "can join parent-senior coalition"
+        ],
+        "cohort_key": "general_public_service_defenders",
+        "expression_level": 0.14,
+        "fatigue": 0.15,
+        "fear_of_isolation": 0.35,
+        "mobilization_readiness": 0.23,
+        "perceived_majority": 0.45,
+        "population_share_of_archetype": 0.25,
+        "private_preference": "favor preserving visible public services",
+        "public_expression": "quiet unless activated by fairness narrative",
+        "representation_mode": "latent_public",
+        "represented_population": 3000,
+        "reputation": 0.53,
+        "secrecy": 0.23,
+        "stance_axes": {
+          "budget_transfer_support": 0.46,
+          "fiscal_austerity_acceptance": 0.33,
+          "trust_in_board_process": 0.48,
+          "weekend_hours_preservation": 0.65
+        },
+        "trustworthiness": 0.58
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "library_board"
+        ],
+        "blockers": [
+          "city_council budget transfer",
+          "successful anti-cut coalition pressure",
+          "credible substitute savings plan"
+        ],
+        "contradiction_notes": "A temporary proposal or exploratory discussion alone does not realize this endpoint.",
+        "description": "Weekend library hours are formally removed or suspended as the durable outcome of the dispute.",
+        "endpoint_key": "weekend_hours_cut",
+        "evidence_refs": [
+          "board vote records",
+          "official library schedule publication",
+          "public board announcements"
+        ],
+        "label": "Weekend hours cut",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will weekend library hours ultimately be cut, preserved, or replaced by another durable service arrangement?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.42,
+        "rationale": "This is the most explicit terminal service outcome implied by the scenario.",
+        "realization_criteria": [
+          "library_board adopts a formal schedule eliminating weekend hours",
+          "no offsetting funding or substitute schedule restores equivalent weekend access within the decision window"
+        ],
+        "status": "active",
+        "status_basis": "The board is explicitly considering removing weekend hours but has not decided at T0."
+      },
+      {
+        "authority_refs": [
+          "library_board",
+          "city_council"
+        ],
+        "blockers": [
+          "unresolved deficit without replacement funds",
+          "strong austerity framing",
+          "coalition fatigue"
+        ],
+        "contradiction_notes": "Short-term delay without a durable service decision does not alone realize preservation.",
+        "description": "Weekend hours remain in place through either internal reprioritization, supplemental funding, or board reversal.",
+        "endpoint_key": "weekend_hours_preserved",
+        "evidence_refs": [
+          "board vote records",
+          "budget amendments or transfer approvals",
+          "published library schedule"
+        ],
+        "label": "Weekend hours preserved",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the city council authorize a budget transfer or other supplemental funding that materially changes the board's options?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.33,
+        "rationale": "Scenario explicitly leaves open whether mobilization and alternative funding can avert cuts.",
+        "realization_criteria": [
+          "library_board declines to remove weekend hours or reverses a pending removal before implementation",
+          "official schedule continues equivalent weekend access"
+        ],
+        "status": "active",
+        "status_basis": "Preservation remains a credible alternative because the board has only entered deliberation and council funding authority exists."
+      },
+      {
+        "authority_refs": [
+          "city_council"
+        ],
+        "blockers": [
+          "competing citywide fiscal pressures",
+          "watchdog opposition",
+          "lack of political salience"
+        ],
+        "contradiction_notes": "Informal sympathy or discussion without formal authorization does not realize this endpoint.",
+        "description": "The city council authorizes supplemental funding or transfer relief sufficient to materially alter the board's need to cut weekend hours.",
+        "endpoint_key": "budget_transfer_granted",
+        "evidence_refs": [
+          "council agenda and vote records",
+          "budget documents",
+          "official council statements"
+        ],
+        "label": "Budget transfer granted",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Does the dominant public interpretation settle on necessary austerity or on board mismanagement/accountability?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.29,
+        "rationale": "Funding relief is the clearest non-service-cut alternative path in the scenario.",
+        "realization_criteria": [
+          "city_council formally approves a transfer, appropriation, or equivalent relief for the library deficit",
+          "approved amount is publicly presented as affecting the service decision"
+        ],
+        "status": "active",
+        "status_basis": "Council control over transfers is explicit, but willingness is unknown at T0."
+      },
+      {
+        "authority_refs": [
+          "local_media",
+          "library_staff",
+          "parents_group",
+          "seniors_group"
+        ],
+        "blockers": [
+          "credible board transparency",
+          "clear citywide fiscal constraint narrative",
+          "low media attention"
+        ],
+        "contradiction_notes": "Isolated criticism does not realize this endpoint unless it becomes the dominant frame.",
+        "description": "Public narrative settles primarily on the idea that the service threat stems from board or administrative mismanagement rather than unavoidable austerity.",
+        "endpoint_key": "mismanagement_frame_dominant",
+        "evidence_refs": [
+          "news headlines and ledes",
+          "op-eds and letters",
+          "meeting testimony summaries"
+        ],
+        "label": "Mismanagement frame dominant",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do teen patrons remain largely silent, or do they become visibly represented in the public process?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.31,
+        "rationale": "Narrative dominance can change coalition durability, council incentives, and perceived legitimacy.",
+        "realization_criteria": [
+          "majority of prominent local coverage, public testimony, or civic commentary attributes the problem to avoidable management failure",
+          "board competence becomes the central accountability issue in discourse"
+        ],
+        "status": "active",
+        "status_basis": "The scenario explicitly identifies a framing contest between austerity and mismanagement."
+      },
+      {
+        "authority_refs": [
+          "teen_patrons",
+          "local_media",
+          "library_board",
+          "parents_group",
+          "library_staff"
+        ],
+        "blockers": [
+          "fear of isolation among teens",
+          "lack of adult amplification",
+          "attention decay before activation"
+        ],
+        "contradiction_notes": "Private concern or anecdotal mention without public representation does not realize this endpoint.",
+        "description": "Teen patrons become publicly visible participants whose stake is acknowledged in deliberation and coverage.",
+        "endpoint_key": "teen_voice_visible",
+        "evidence_refs": [
+          "meeting testimony records",
+          "quoted media stories",
+          "petitions or public statements"
+        ],
+        "label": "Teen voice visible",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Do teen patrons remain largely silent, or do they become visibly represented in the public process?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.27,
+        "rationale": "Teen activation is a key latent branch trigger affecting public-silence dynamics and coalition scope.",
+        "realization_criteria": [
+          "teen patrons or their direct statements appear in public comments, media coverage, or recognized advocacy materials",
+          "board or media explicitly references teen weekend use as part of the controversy"
+        ],
+        "status": "active",
+        "status_basis": "The scenario specifies a quiet group of teen patrons, implying visibility is unresolved at T0."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "Scenario states local media frames the issue for the community.",
+        "layer": "exposure",
+        "reason": "Local media is a primary source of issue awareness for the broader public.",
+        "source_actor_name": "local_media",
+        "target_actor_name": "general_residents",
+        "weight": 0.65
+      },
+      {
+        "direction": "directed",
+        "evidence": "Media framing is explicitly relevant to issue interpretation.",
+        "layer": "exposure",
+        "reason": "Parents are likely to encounter local coverage about library hours.",
+        "source_actor_name": "local_media",
+        "target_actor_name": "parents_group",
+        "weight": 0.53
+      },
+      {
+        "direction": "directed",
+        "evidence": "Issue framed publicly by local media.",
+        "layer": "exposure",
+        "reason": "Seniors often follow local civic coverage and service issues.",
+        "source_actor_name": "local_media",
+        "target_actor_name": "seniors_group",
+        "weight": 0.49
+      },
+      {
+        "direction": "directed",
+        "evidence": "Media framing includes austerity versus mismanagement.",
+        "layer": "exposure",
+        "reason": "Watchdogs monitor and react to public budget narratives.",
+        "source_actor_name": "local_media",
+        "target_actor_name": "fiscal_watchdogs",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "Board is considering a change with civic relevance.",
+        "layer": "exposure",
+        "reason": "Board deliberations and announcements provide content for coverage.",
+        "source_actor_name": "library_board",
+        "target_actor_name": "local_media",
+        "weight": 0.42
+      },
+      {
+        "direction": "directed",
+        "evidence": "Board controls library hours affecting patrons.",
+        "layer": "exposure",
+        "reason": "Board signals and public notices can reach direct users.",
+        "source_actor_name": "library_board",
+        "target_actor_name": "parents_group",
+        "weight": 0.37
+      },
+      {
+        "direction": "directed",
+        "evidence": "Service change under consideration affects access.",
+        "layer": "exposure",
+        "reason": "Board communications reach frequent patrons concerned about hours.",
+        "source_actor_name": "library_board",
+        "target_actor_name": "seniors_group",
+        "weight": 0.34
+      },
+      {
+        "direction": "directed",
+        "evidence": "Teen patrons are quiet and under-observed.",
+        "layer": "exposure",
+        "reason": "Teens may receive weaker direct communication about board deliberations.",
+        "source_actor_name": "library_board",
+        "target_actor_name": "teen_patrons",
+        "weight": 0.26
+      },
+      {
+        "direction": "directed",
+        "evidence": "Staff are directly tied to service delivery and community impact.",
+        "layer": "trust",
+        "reason": "Parents may view staff as credible service advocates and operational experts.",
+        "source_actor_name": "parents_group",
+        "target_actor_name": "library_staff",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "Staff are operationally proximate to patron experience.",
+        "layer": "trust",
+        "reason": "Seniors often trust frontline service workers on access implications.",
+        "source_actor_name": "seniors_group",
+        "target_actor_name": "library_staff",
+        "weight": 0.62
+      },
+      {
+        "direction": "directed",
+        "evidence": "Teens rely on library as a space and interface with staff.",
+        "layer": "trust",
+        "reason": "Teens likely trust staff more than board process for immediate service concerns.",
+        "source_actor_name": "teen_patrons",
+        "target_actor_name": "library_staff",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "Process legitimacy is a focus and cuts are only under consideration.",
+        "layer": "trust",
+        "reason": "Parents have moderate but fragile trust in board stewardship.",
+        "source_actor_name": "parents_group",
+        "target_actor_name": "library_board",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario leaves room for orderly participation and legitimacy dynamics.",
+        "layer": "trust",
+        "reason": "Seniors show somewhat higher procedural trust absent clear misconduct evidence.",
+        "source_actor_name": "seniors_group",
+        "target_actor_name": "library_board",
+        "weight": 0.5
+      },
+      {
+        "direction": "directed",
+        "evidence": "Alternative frame of mismanagement is available.",
+        "layer": "trust",
+        "reason": "Watchdogs may accept board discipline if cuts appear prudent, but remain skeptical.",
+        "source_actor_name": "fiscal_watchdogs",
+        "target_actor_name": "library_board",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "Media framing shapes salience but is not definitive.",
+        "layer": "trust",
+        "reason": "General residents use media for issue interpretation but may not fully trust it.",
+        "source_actor_name": "general_residents",
+        "target_actor_name": "local_media",
+        "weight": 0.43
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario explicitly states city council controls budget transfers.",
+        "layer": "dependency",
+        "reason": "Board depends on council for any budget transfer that could avoid cuts.",
+        "source_actor_name": "library_board",
+        "target_actor_name": "city_council",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "Board can change hours.",
+        "layer": "dependency",
+        "reason": "Parents depend on board decisions for weekend service availability.",
+        "source_actor_name": "parents_group",
+        "target_actor_name": "library_board",
+        "weight": 0.56
+      },
+      {
+        "direction": "directed",
+        "evidence": "Board can change hours.",
+        "layer": "dependency",
+        "reason": "Senior access depends on board hours policy.",
+        "source_actor_name": "seniors_group",
+        "target_actor_name": "library_board",
+        "weight": 0.54
+      },
+      {
+        "direction": "directed",
+        "evidence": "Board controls weekend-hour decision and teens are affected patrons.",
+        "layer": "dependency",
+        "reason": "Teen weekend access depends strongly on board decisions.",
+        "source_actor_name": "teen_patrons",
+        "target_actor_name": "library_board",
+        "weight": 0.59
+      },
+      {
+        "direction": "directed",
+        "evidence": "Hour reductions would affect staffing and operations.",
+        "layer": "dependency",
+        "reason": "Staff schedules and service conditions depend on board policy.",
+        "source_actor_name": "library_staff",
+        "target_actor_name": "library_board",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "Operational feasibility and public-facing delivery run through staff.",
+        "layer": "dependency",
+        "reason": "Board depends on staff capacity and implementation knowledge.",
+        "source_actor_name": "library_board",
+        "target_actor_name": "library_staff",
+        "weight": 0.47
+      },
+      {
+        "direction": "directed",
+        "evidence": "Issue may be framed as austerity or mismanagement.",
+        "layer": "influence",
+        "reason": "Media framing can move low-attention public interpretation.",
+        "source_actor_name": "local_media",
+        "target_actor_name": "general_residents",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "Council is budget authority exposed to framing effects.",
+        "layer": "influence",
+        "reason": "Council responds to public narrative and possible blame assignment.",
+        "source_actor_name": "local_media",
+        "target_actor_name": "city_council",
+        "weight": 0.49
+      },
+      {
+        "direction": "directed",
+        "evidence": "Media can characterize the issue as mismanagement or austerity.",
+        "layer": "influence",
+        "reason": "Board legitimacy and pressure are affected by press framing.",
+        "source_actor_name": "local_media",
+        "target_actor_name": "library_board",
+        "weight": 0.46
+      },
+      {
+        "direction": "directed",
+        "evidence": "Parents are a named stakeholder group with direct service stake.",
+        "layer": "influence",
+        "reason": "Visible parent concern can pressure board decisions.",
+        "source_actor_name": "parents_group",
+        "target_actor_name": "library_board",
+        "weight": 0.45
+      },
+      {
+        "direction": "directed",
+        "evidence": "Seniors are a named stakeholder group with distinct stake.",
+        "layer": "influence",
+        "reason": "Seniors provide civically legible testimony and legitimacy pressure.",
+        "source_actor_name": "seniors_group",
+        "target_actor_name": "library_board",
+        "weight": 0.43
+      },
+      {
+        "direction": "directed",
+        "evidence": "Council controls transfers and watchdogs focus on budget discipline.",
+        "layer": "influence",
+        "reason": "Watchdogs can reinforce fiscal restraint narratives for council members.",
+        "source_actor_name": "fiscal_watchdogs",
+        "target_actor_name": "city_council",
+        "weight": 0.41
+      },
+      {
+        "direction": "directed",
+        "evidence": "Staff are directly affected and possess implementation knowledge.",
+        "layer": "influence",
+        "reason": "Staff can shape understanding of operational consequences and alternatives.",
+        "source_actor_name": "library_staff",
+        "target_actor_name": "library_board",
+        "weight": 0.39
+      },
+      {
+        "direction": "directed",
+        "evidence": "Council controls transfers relevant to the deficit response.",
+        "layer": "influence",
+        "reason": "Council's funding posture constrains board options and expectations.",
+        "source_actor_name": "city_council",
+        "target_actor_name": "library_board",
+        "weight": 0.55
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Both are named stakeholder groups harmed by weekend cuts.",
+        "layer": "coalition",
+        "reason": "Both groups share interest in preserving weekend access, though with different rhetoric.",
+        "source_actor_name": "parents_group",
+        "target_actor_name": "seniors_group",
+        "weight": 0.44
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Parents want access; staff value service continuity.",
+        "layer": "coalition",
+        "reason": "Shared service-preservation interests could support a soft coalition.",
+        "source_actor_name": "parents_group",
+        "target_actor_name": "library_staff",
+        "weight": 0.38
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Both have stake in continuity and civic legitimacy.",
+        "layer": "coalition",
+        "reason": "Seniors and staff may align around maintaining community access.",
+        "source_actor_name": "seniors_group",
+        "target_actor_name": "library_staff",
+        "weight": 0.41
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Council controls transfers; watchdogs oppose easy spending relief.",
+        "layer": "coalition",
+        "reason": "Watchdogs and fiscally cautious council members may align on discipline.",
+        "source_actor_name": "fiscal_watchdogs",
+        "target_actor_name": "city_council",
+        "weight": 0.33
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Teens are quiet and not yet prominently represented.",
+        "layer": "coalition",
+        "reason": "Potential alliance exists through family and youth access concerns, but is underdeveloped.",
+        "source_actor_name": "teen_patrons",
+        "target_actor_name": "parents_group",
+        "weight": 0.24
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Parents and watchdogs have different stakes in the scenario.",
+        "layer": "conflict",
+        "reason": "Service-preservation and austerity priorities are in tension.",
+        "source_actor_name": "parents_group",
+        "target_actor_name": "fiscal_watchdogs",
+        "weight": 0.46
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Named groups have contrasting priorities.",
+        "layer": "conflict",
+        "reason": "Seniors seeking access may oppose strict cut-first logic.",
+        "source_actor_name": "seniors_group",
+        "target_actor_name": "fiscal_watchdogs",
+        "weight": 0.39
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Staff are affected by schedule reductions; watchdogs seek discipline.",
+        "layer": "conflict",
+        "reason": "Staff service concerns may conflict with calls for visible cuts.",
+        "source_actor_name": "library_staff",
+        "target_actor_name": "fiscal_watchdogs",
+        "weight": 0.31
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Board is considering cuts affecting parents.",
+        "layer": "conflict",
+        "reason": "Conflict is emerging but not yet hardened because decision is still under consideration.",
+        "source_actor_name": "library_board",
+        "target_actor_name": "parents_group",
+        "weight": 0.29
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Cuts remain a proposal rather than a final action.",
+        "layer": "conflict",
+        "reason": "Potential grievance exists but procedural trust remains partly intact.",
+        "source_actor_name": "library_board",
+        "target_actor_name": "seniors_group",
+        "weight": 0.24
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Quiet teen group has stake in weekend hours.",
+        "layer": "conflict",
+        "reason": "Teens would lose access but are not yet visibly oppositional.",
+        "source_actor_name": "library_board",
+        "target_actor_name": "teen_patrons",
+        "weight": 0.22
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Parents are directly affected and moderately attentive.",
+        "layer": "oasis_interaction",
+        "reason": "Parents are likely to comment at meetings or through public channels if prompted.",
+        "source_actor_name": "parents_group",
+        "target_actor_name": "library_board",
+        "weight": 0.47
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Seniors have moderate civic participation tendency.",
+        "layer": "oasis_interaction",
+        "reason": "Seniors are likely to engage through formal civic channels.",
+        "source_actor_name": "seniors_group",
+        "target_actor_name": "library_board",
+        "weight": 0.45
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "They are issue-public and attentive.",
+        "layer": "oasis_interaction",
+        "reason": "Watchdogs may use comment periods and letters to press for cuts.",
+        "source_actor_name": "fiscal_watchdogs",
+        "target_actor_name": "library_board",
+        "weight": 0.39
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Operational concerns connect staff to board deliberation.",
+        "layer": "oasis_interaction",
+        "reason": "Staff interact through internal and some public-facing forums.",
+        "source_actor_name": "library_staff",
+        "target_actor_name": "library_board",
+        "weight": 0.34
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Board is focal institution in media framing.",
+        "layer": "oasis_interaction",
+        "reason": "Coverage and responses create visible public interaction.",
+        "source_actor_name": "local_media",
+        "target_actor_name": "library_board",
+        "weight": 0.42
+      },
+      {
+        "direction": "bidirectional",
+        "evidence": "Council controls a key alternative path.",
+        "layer": "oasis_interaction",
+        "reason": "If funding transfer becomes salient, media-council interaction rises.",
+        "source_actor_name": "local_media",
+        "target_actor_name": "city_council",
+        "weight": 0.31
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype_key": "institutional_decider",
+        "description": "Actor with formal authority over core service decision.",
+        "label": "Institutional decider"
+      },
+      {
+        "archetype_key": "budget_gatekeeper",
+        "description": "Actor with authority over supplemental funding or transfer relief.",
+        "label": "Budget gatekeeper"
+      },
+      {
+        "archetype_key": "narrative_gatekeeper",
+        "description": "Actor shaping public interpretation and salience.",
+        "label": "Narrative gatekeeper"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "library_board",
+        "attention_level": 0.82,
+        "capacity": 0.71,
+        "constraints": [
+          "budget deficit",
+          "public legitimacy concerns",
+          "limited direct access to city funds"
+        ],
+        "expression_level": 0.58,
+        "fatigue": 0.31,
+        "fear_of_isolation": 0.22,
+        "hero_archetype_key": "institutional_decider",
+        "mobilization_readiness": 0.41,
+        "perceived_majority": 0.45,
+        "salience": 0.93,
+        "stance_axes": {
+          "budget_transfer_request_openness": 0.49,
+          "process_legitimacy_commitment": 0.67,
+          "weekend_hours_cut_support": 0.56
+        }
+      },
+      {
+        "actor_name": "city_council",
+        "attention_level": 0.51,
+        "capacity": 0.74,
+        "constraints": [
+          "competing citywide budget demands",
+          "political exposure if transfer granted or denied"
+        ],
+        "expression_level": 0.27,
+        "fatigue": 0.24,
+        "fear_of_isolation": 0.19,
+        "hero_archetype_key": "budget_gatekeeper",
+        "mobilization_readiness": 0.33,
+        "perceived_majority": 0.5,
+        "salience": 0.76,
+        "stance_axes": {
+          "budget_transfer_openness": 0.44,
+          "fiscal_discipline_orientation": 0.61,
+          "responsiveness_to_public_pressure": 0.57
+        }
+      },
+      {
+        "actor_name": "local_media",
+        "attention_level": 0.57,
+        "capacity": 0.66,
+        "constraints": [
+          "limited issue attention span",
+          "need for clear narrative conflict"
+        ],
+        "expression_level": 0.64,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.11,
+        "hero_archetype_key": "narrative_gatekeeper",
+        "mobilization_readiness": 0.52,
+        "perceived_majority": 0.5,
+        "salience": 0.68,
+        "stance_axes": {
+          "austerity_frame_affinity": 0.49,
+          "conflict_amplification_tendency": 0.58,
+          "mismanagement_frame_affinity": 0.51
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "archetype_key": "institutional_decider",
+        "description": "Actor with formal authority over core service decision.",
+        "label": "Institutional decider"
+      },
+      {
+        "archetype_key": "budget_gatekeeper",
+        "description": "Actor with authority over supplemental funding or transfer relief.",
+        "label": "Budget gatekeeper"
+      },
+      {
+        "archetype_key": "narrative_gatekeeper",
+        "description": "Actor shaping public interpretation and salience.",
+        "label": "Narrative gatekeeper"
+      }
+    ],
+    "important_questions": [
+      "Will weekend library hours ultimately be cut, preserved, or replaced by another durable service arrangement?",
+      "Will the city council authorize a budget transfer or other supplemental funding that materially changes the board's options?",
+      "Does the dominant public interpretation settle on necessary austerity or on board mismanagement/accountability?",
+      "Do teen patrons remain largely silent, or do they become visibly represented in the public process?"
+    ],
+    "initial_events": [
+      {
+        "actors_involved": [
+          "library_board",
+          "library_staff"
+        ],
+        "event_key": "budget_deficit_acknowledged",
+        "event_type": "announcement",
+        "expected_impact": "Raises board attention, legitimizes discussion of cuts, and creates opening for both austerity and mismanagement frames.",
+        "status": "realized",
+        "summary": "A library budget deficit is acknowledged as requiring some response.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "library_board"
+        ],
+        "event_key": "weekend_hours_option_enters_deliberation",
+        "event_type": "announcement",
+        "expected_impact": "Creates stakeholder concern without fully collapsing trust, preserving room for process-based persuasion and coalition formation.",
+        "status": "realized",
+        "summary": "Removing weekend hours is introduced as an option rather than finalized policy.",
+        "tick": 0
+      },
+      {
+        "actors_involved": [
+          "local_media",
+          "library_board",
+          "general_residents"
+        ],
+        "event_key": "initial_media_frame_contestation",
+        "event_type": "announcement",
+        "expected_impact": "Can shift perceived legitimacy, move low-attention residents into the issue, and alter pressure on both board and council.",
+        "status": "scheduled",
+        "summary": "Local coverage begins to emphasize either necessary austerity or possible mismanagement.",
+        "tick": 1
+      },
+      {
+        "actors_involved": [
+          "library_board",
+          "parents_group",
+          "seniors_group",
+          "fiscal_watchdogs",
+          "library_staff",
+          "teen_patrons"
+        ],
+        "event_key": "board_public_comment_window",
+        "event_type": "announcement",
+        "expected_impact": "Reveals whether latent opposition becomes observable or remains suppressed by silence and threshold effects.",
+        "status": "scheduled",
+        "summary": "A public comment opportunity or meeting gives visible stakeholders a chance to speak.",
+        "tick": 1
+      },
+      {
+        "actors_involved": [
+          "city_council",
+          "library_board",
+          "local_media"
+        ],
+        "event_key": "council_funding_signal",
+        "event_type": "announcement",
+        "expected_impact": "Changes perceived feasibility of alternatives to cuts and may either calm or intensify mobilization.",
+        "status": "scheduled",
+        "summary": "City council members informally or formally indicate openness or resistance to budget transfer relief.",
+        "tick": 2
+      }
+    ],
+    "llm_call_id": "52dfb174-f62c-4cd8-a830-919e1c300e98",
+    "merge_hypotheses": [
+      {
+        "convergence_driver": "Most actors acknowledge that some budget response is necessary even if they disagree on method.",
+        "merge_key": "shared_budget_constraint_recognition",
+        "potential_effect": "Competing camps may converge on intermediate options such as temporary delays, partial cuts, or a transfer request plus review."
+      },
+      {
+        "convergence_driver": "If the board visibly studies alternatives and invites testimony, even dissatisfied groups may accept a slower, negotiated path.",
+        "merge_key": "process_legitimacy_repair",
+        "potential_effect": "Conflict remains bounded and trust does not collapse, enabling later compromise."
+      },
+      {
+        "convergence_driver": "Sustained low-salience issue attention may reduce participation across both pro-service and pro-austerity camps.",
+        "merge_key": "coalition_fatigue",
+        "potential_effect": "Timelines may merge into passive acceptance or durable stalemate due to exhaustion rather than persuasion."
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "family_library_users",
+        "description": "Residents with children who use or value weekend library access.",
+        "label": "Family library users",
+        "population_total": 2200
+      },
+      {
+        "archetype_key": "senior_library_users",
+        "description": "Older residents with moderate to high library reliance.",
+        "label": "Senior library users",
+        "population_total": 1400
+      },
+      {
+        "archetype_key": "teen_library_users",
+        "description": "Teen patrons using library space, internet, and study resources.",
+        "label": "Teen library users",
+        "population_total": 900
+      },
+      {
+        "archetype_key": "budget_concerned_residents",
+        "description": "Residents attentive to municipal spending discipline.",
+        "label": "Budget-concerned residents",
+        "population_total": 1800
+      },
+      {
+        "archetype_key": "general_city_residents",
+        "description": "Broader public with diffuse attention and mixed preferences.",
+        "label": "General city residents",
+        "population_total": 12000
+      }
+    ],
+    "risk_flags": [
+      {
+        "description": "Teen patrons are explicitly quiet, so public signals may understate the intensity of service loss.",
+        "flag_key": "under_observed_teen_preferences",
+        "severity": "medium"
+      },
+      {
+        "description": "Because hours and funding are controlled by different institutions, blame and agency may be confusing to the public.",
+        "flag_key": "authority_split_can_obscure_accountability",
+        "severity": "medium"
+      },
+      {
+        "description": "A small change in framing toward austerity or mismanagement could disproportionately affect low-attention residents and council incentives.",
+        "flag_key": "media_frame_volatility",
+        "severity": "medium"
+      },
+      {
+        "description": "The precise deficit size and available internal alternatives are unspecified, limiting calibration of inevitability versus maneuvering room.",
+        "flag_key": "t0_budget_detail_gap",
+        "severity": "low"
+      },
+      {
+        "description": "Conflict and trust erosion are intentionally not saturated at T0 so later ticks can reveal escalation, fatigue, or compromise.",
+        "flag_key": "premature_crisis_saturation_avoidance",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "domain": "civic_policy",
+      "focus": [
+        "public_silence",
+        "attention_decay",
+        "process_legitimacy"
+      ],
+      "mode": "direct",
+      "scenario_key": "civic_003",
+      "summary": "A fictional library board is considering removing weekend hours to address a budget deficit. Parents, seniors, library staff, fiscal watchdogs, and a relatively quiet group of teen patrons have different stakes. The board has authority over library hours, while the city council controls possible budget transfers. Local media may frame the issue as necessary austerity or as mismanagement. T0 should preserve room for later mobilization, fatigue, legitimacy shifts, and public-silence dynamics.",
+      "t0_uncertainties": [
+        "size of budget deficit not specified",
+        "no final board preference established",
+        "city council willingness to transfer funds unknown",
+        "teen patron sentiment is implied but under-observed",
+        "media framing competition unresolved"
+      ],
+      "time_horizon_ticks": 6
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "teen_patrons",
+          "parents_group",
+          "general_residents"
+        ],
+        "description": "Important private disagreement with cuts is not fully visible in public expression, especially among teens and lower-salience residents.",
+        "level": 0.68,
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "general_residents",
+          "parents_group",
+          "budget_concerned_residents"
+        ],
+        "description": "Without repeated cues, many residents are likely to lose interest before formal decisions are made.",
+        "level": 0.62,
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "library_board",
+          "seniors_group",
+          "general_residents"
+        ],
+        "description": "The board still retains moderate legitimacy because the decision remains in deliberative phase rather than after a unilateral closure.",
+        "level": 0.56,
+        "mechanism": "process_legitimacy",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "parents_group",
+          "seniors_group",
+          "fiscal_watchdogs"
+        ],
+        "description": "Groups are more receptive to adjacent tradeoff arguments than to opposing moral frames.",
+        "level": 0.58,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "parents_group",
+          "teen_patrons",
+          "general_residents"
+        ],
+        "description": "Many actors require visible early participation by others before speaking or joining collective action.",
+        "level": 0.61,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "parents_group",
+          "seniors_group",
+          "fiscal_watchdogs",
+          "teen_patrons"
+        ],
+        "description": "Stakeholders tend to interpret the issue through identity-linked networks and routines.",
+        "level": 0.54,
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "parents_group",
+          "general_residents",
+          "teen_patrons"
+        ],
+        "description": "Mobilization is more likely after repeated reinforcement across media, peers, and institutional signals rather than one isolated message.",
+        "level": 0.47,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "parents_group",
+          "seniors_group",
+          "fiscal_watchdogs",
+          "teen_patrons"
+        ],
+        "description": "Role-based identities shape what counts as a legitimate argument and who is seen as a credible messenger.",
+        "level": 0.59,
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "applies_to": [
+          "local_media",
+          "general_residents",
+          "city_council",
+          "library_board"
+        ],
+        "description": "Competing narrative that the proposed cuts reflect either prudent austerity or prior mismanagement.",
+        "influence_key": "austerity_vs_mismanagement_frame"
+      },
+      {
+        "applies_to": [
+          "teen_patrons",
+          "parents_group",
+          "library_board",
+          "local_media"
+        ],
+        "description": "A substantial affected group has low public expression, increasing risk of undercounted opposition.",
+        "influence_key": "quiet_teen_stake_visibility_gap"
+      },
+      {
+        "applies_to": [
+          "parents_group",
+          "seniors_group",
+          "teen_patrons"
+        ],
+        "description": "Weekend-hour changes affect recurring habits and practical access more than abstract sentiment alone.",
+        "influence_key": "service_routine_disruption"
+      },
+      {
+        "applies_to": [
+          "library_board",
+          "city_council"
+        ],
+        "description": "Hours are controlled by one institution while money relief is controlled by another, creating a two-step decision structure.",
+        "influence_key": "formal_authority_split"
+      },
+      {
+        "applies_to": [
+          "library_board",
+          "seniors_group",
+          "general_residents"
+        ],
+        "description": "Public reaction depends not just on outcome but on whether the board appears to explore alternatives fairly.",
+        "influence_key": "legitimacy_sensitive_deliberation"
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "library_board",
+        "behavior_axes": {
+          "proceduralism": 0.74,
+          "responsiveness": 0.48,
+          "risk_aversion": 0.63,
+          "transparency": 0.51
+        },
+        "graph_influence_summary": {
+          "incoming_pressure": 0.68,
+          "outgoing_influence": 0.63
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.61,
+          "service_preservation": 0.52
+        },
+        "reputation": 0.5,
+        "secrecy": 0.34,
+        "tendency": "institutional balancing under budget pressure",
+        "trustworthiness": 0.52
+      },
+      {
+        "actor_name": "city_council",
+        "behavior_axes": {
+          "proceduralism": 0.66,
+          "responsiveness": 0.57,
+          "risk_aversion": 0.58,
+          "transparency": 0.46
+        },
+        "graph_influence_summary": {
+          "incoming_pressure": 0.46,
+          "outgoing_influence": 0.69
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.64,
+          "service_preservation": 0.47
+        },
+        "reputation": 0.54,
+        "secrecy": 0.31,
+        "tendency": "delay until pressure clarifies payoff",
+        "trustworthiness": 0.51
+      },
+      {
+        "actor_name": "library_staff",
+        "behavior_axes": {
+          "proceduralism": 0.59,
+          "responsiveness": 0.62,
+          "risk_aversion": 0.55,
+          "transparency": 0.57
+        },
+        "graph_influence_summary": {
+          "incoming_pressure": 0.59,
+          "outgoing_influence": 0.42
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.34,
+          "service_preservation": 0.79
+        },
+        "reputation": 0.64,
+        "secrecy": 0.28,
+        "tendency": "defend service quality while avoiding direct institutional rupture",
+        "trustworthiness": 0.67
+      },
+      {
+        "actor_name": "parents_group",
+        "behavior_axes": {
+          "proceduralism": 0.45,
+          "responsiveness": 0.71,
+          "risk_aversion": 0.41,
+          "transparency": 0.63
+        },
+        "graph_influence_summary": {
+          "incoming_pressure": 0.52,
+          "outgoing_influence": 0.44
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.29,
+          "service_preservation": 0.81
+        },
+        "reputation": 0.59,
+        "secrecy": 0.2,
+        "tendency": "mobilize when family routines are threatened and efficacy feels plausible",
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "seniors_group",
+        "behavior_axes": {
+          "proceduralism": 0.68,
+          "responsiveness": 0.63,
+          "risk_aversion": 0.44,
+          "transparency": 0.66
+        },
+        "graph_influence_summary": {
+          "incoming_pressure": 0.44,
+          "outgoing_influence": 0.47
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.38,
+          "service_preservation": 0.75
+        },
+        "reputation": 0.68,
+        "secrecy": 0.15,
+        "tendency": "favor orderly participation and legitimacy-based appeals",
+        "trustworthiness": 0.72
+      },
+      {
+        "actor_name": "teen_patrons",
+        "behavior_axes": {
+          "proceduralism": 0.29,
+          "responsiveness": 0.48,
+          "risk_aversion": 0.56,
+          "transparency": 0.34
+        },
+        "graph_influence_summary": {
+          "incoming_pressure": 0.41,
+          "outgoing_influence": 0.18
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.21,
+          "service_preservation": 0.83
+        },
+        "reputation": 0.48,
+        "secrecy": 0.49,
+        "tendency": "privately affected but publicly under-expressed",
+        "trustworthiness": 0.58
+      },
+      {
+        "actor_name": "fiscal_watchdogs",
+        "behavior_axes": {
+          "proceduralism": 0.62,
+          "responsiveness": 0.54,
+          "risk_aversion": 0.37,
+          "transparency": 0.71
+        },
+        "graph_influence_summary": {
+          "incoming_pressure": 0.29,
+          "outgoing_influence": 0.41
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.88,
+          "service_preservation": 0.22
+        },
+        "reputation": 0.56,
+        "secrecy": 0.12,
+        "tendency": "reward visible discipline and resist transfer precedent",
+        "trustworthiness": 0.59
+      },
+      {
+        "actor_name": "local_media",
+        "behavior_axes": {
+          "proceduralism": 0.31,
+          "responsiveness": 0.74,
+          "risk_aversion": 0.22,
+          "transparency": 0.49
+        },
+        "graph_influence_summary": {
+          "incoming_pressure": 0.39,
+          "outgoing_influence": 0.65
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.5,
+          "service_preservation": 0.5
+        },
+        "reputation": 0.52,
+        "secrecy": 0.17,
+        "tendency": "amplify conflict and simplify causal storylines",
+        "trustworthiness": 0.47
+      },
+      {
+        "actor_name": "general_residents",
+        "behavior_axes": {
+          "proceduralism": 0.39,
+          "responsiveness": 0.32,
+          "risk_aversion": 0.45,
+          "transparency": 0.41
+        },
+        "graph_influence_summary": {
+          "incoming_pressure": 0.56,
+          "outgoing_influence": 0.24
+        },
+        "ideology_axes": {
+          "fiscal_restraint": 0.47,
+          "service_preservation": 0.49
+        },
+        "reputation": 0.5,
+        "secrecy": 0.24,
+        "tendency": "low-attention audience responsive to salience spikes",
+        "trustworthiness": 0.55
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 534,
+        "end": 534,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 534,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}
