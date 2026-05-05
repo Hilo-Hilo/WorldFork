@@ -1,0 +1,1068 @@
+{
+  "big_bang_id": "4a6f3c4b-c764-4178-9a72-c45b032fb983",
+  "initializer_output": {
+    "actors": [
+      {
+        "domain": "democracy_rights_advocacy",
+        "fictionalized": true,
+        "name": "candidate_a",
+        "public_role": "fictionalized_opposition_figure",
+        "type": "individual"
+      },
+      {
+        "domain": "symbolic_institutional_selection",
+        "fictionalized": false,
+        "name": "norwegian_nobel_committee",
+        "public_role": "prize_decision_body",
+        "type": "institution"
+      },
+      {
+        "domain": "global_public_discourse",
+        "fictionalized": true,
+        "name": "international_observers",
+        "public_role": "analysts_media_watchers",
+        "type": "group"
+      },
+      {
+        "domain": "humanitarian_action",
+        "fictionalized": true,
+        "name": "humanitarian_relief_field",
+        "public_role": "alternative_prize_theme_network",
+        "type": "group"
+      },
+      {
+        "domain": "peace_mediation",
+        "fictionalized": true,
+        "name": "conflict_mediation_field",
+        "public_role": "alternative_prize_theme_network",
+        "type": "group"
+      },
+      {
+        "domain": "press_freedom",
+        "fictionalized": true,
+        "name": "press_freedom_field",
+        "public_role": "alternative_prize_theme_network",
+        "type": "group"
+      },
+      {
+        "domain": "arms_risk_reduction",
+        "fictionalized": true,
+        "name": "nuclear_risk_reduction_field",
+        "public_role": "alternative_prize_theme_network",
+        "type": "group"
+      },
+      {
+        "domain": "climate_activism",
+        "fictionalized": true,
+        "name": "climate_activism_field",
+        "public_role": "alternative_prize_theme_network",
+        "type": "group"
+      },
+      {
+        "domain": "rights_advocacy",
+        "fictionalized": true,
+        "name": "political_prisoners_support_field",
+        "public_role": "alternative_prize_theme_network",
+        "type": "group"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Candidate A emerges as the chosen laureate despite opaque public indicators.",
+        "branch_key": "candidate_a_selected_branch",
+        "divergence_signal": "Authoritative announcement names Candidate A; observer narratives rapidly reframe prior moral-salience evidence as more predictive than assumed.",
+        "trigger": "Committee privately prioritizes democracy-rights symbolism over competing crisis themes."
+      },
+      {
+        "alternate_path": "Prize goes to another person or organization aligned with a competing theme.",
+        "branch_key": "alternative_theme_selected_branch",
+        "divergence_signal": "Authoritative announcement highlights non-Candidate-A theme and public commentary emphasizes crisis salience and broad field competition.",
+        "trigger": "Committee gives greater weight to recent wars, humanitarian relief, mediation, nuclear risk, climate, or related symbolic alternatives."
+      },
+      {
+        "alternate_path": "Outcome preserves rights symbolism while bypassing Candidate A specifically.",
+        "branch_key": "rights_adjacent_but_not_candidate_a_branch",
+        "divergence_signal": "Announcement rationale emphasizes prisoners, press, or democracy themes without naming Candidate A.",
+        "trigger": "Committee favors a rights-oriented endpoint but selects a different rights-linked recipient or institution."
+      }
+    ],
+    "channels": [
+      {
+        "name": "global_news_coverage",
+        "notes": "Amplifies salience but not confidential committee intent.",
+        "reliability": "medium",
+        "type": "mass_media",
+        "visibility": "high"
+      },
+      {
+        "name": "analyst_notes",
+        "notes": "Can frame moral salience and process skepticism.",
+        "reliability": "medium",
+        "type": "expert_commentary",
+        "visibility": "medium"
+      },
+      {
+        "name": "institutional_announcements",
+        "notes": "Only authoritative channel for realized endpoint.",
+        "reliability": "high",
+        "type": "formal_institutional_channel",
+        "visibility": "high"
+      },
+      {
+        "name": "public_speculation_networks",
+        "notes": "Reflects attention and narratives more than hidden selection data.",
+        "reliability": "low",
+        "type": "social_discourse",
+        "visibility": "medium"
+      }
+    ],
+    "cohort_states": [
+      {
+        "archetype_name": "global_nobel_attention_public",
+        "attention_level": 0.62,
+        "expression_level": 0.48,
+        "fatigue": 0.32,
+        "fear_of_isolation": 0.28,
+        "mobilization_readiness": 0.41,
+        "name": "candidate_a_supportive_observers",
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.18,
+        "private_belief": "Candidate A is morally compelling and prize-worthy.",
+        "public_expression": "Moderate visible support and commentary, tempered by uncertainty about committee behavior.",
+        "representation_mode": "attitudinal_cohort",
+        "represented_population": 900000,
+        "stance_axes": {
+          "expects_committee_symbolic_surprise": 0.6,
+          "supports_candidate_a_award": 0.8,
+          "trusts_public_signals_of_selection": 0.25
+        }
+      },
+      {
+        "archetype_name": "global_nobel_attention_public",
+        "attention_level": 0.58,
+        "expression_level": 0.43,
+        "fatigue": 0.26,
+        "fear_of_isolation": 0.17,
+        "mobilization_readiness": 0.22,
+        "name": "skeptical_process_observers",
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.32,
+        "private_belief": "Public campaigns and press attention reveal little about actual selection.",
+        "public_expression": "Cautious analysis stressing opacity and base-rate uncertainty.",
+        "representation_mode": "attitudinal_cohort",
+        "represented_population": 1600000,
+        "stance_axes": {
+          "expects_committee_symbolic_surprise": 0.7,
+          "supports_candidate_a_award": 0.4,
+          "trusts_public_signals_of_selection": 0.15
+        }
+      },
+      {
+        "archetype_name": "nobel_eligibility_ecosystem",
+        "attention_level": 0.66,
+        "expression_level": 0.39,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.19,
+        "mobilization_readiness": 0.31,
+        "name": "alternative_theme_backers",
+        "perceived_majority": 0.51,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "Recent wars, crises, and other global causes create strong rival symbolic cases.",
+        "public_expression": "Diffuse advocacy for other themes rather than direct anti-Candidate-A opposition.",
+        "representation_mode": "theme_competition_cohort",
+        "represented_population": 30000,
+        "stance_axes": {
+          "expects_committee_symbolic_surprise": 0.55,
+          "supports_candidate_a_award": 0.25,
+          "trusts_public_signals_of_selection": 0.22
+        }
+      },
+      {
+        "archetype_name": "global_nobel_attention_public",
+        "attention_level": 0.21,
+        "expression_level": 0.08,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.09,
+        "mobilization_readiness": 0.05,
+        "name": "low_information_global_audience",
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.5,
+        "private_belief": "Limited knowledge; prize could go many directions.",
+        "public_expression": "Little to no expression absent major news.",
+        "representation_mode": "attention_cohort",
+        "represented_population": 2500000,
+        "stance_axes": {
+          "expects_committee_symbolic_surprise": 0.5,
+          "supports_candidate_a_award": 0.35,
+          "trusts_public_signals_of_selection": 0.3
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "archetype_name": "global_nobel_attention_public",
+        "attention_level": 0.62,
+        "expression_level": 0.48,
+        "fatigue": 0.32,
+        "fear_of_isolation": 0.28,
+        "mobilization_readiness": 0.41,
+        "name": "candidate_a_supportive_observers",
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.18,
+        "private_belief": "Candidate A is morally compelling and prize-worthy.",
+        "public_expression": "Moderate visible support and commentary, tempered by uncertainty about committee behavior.",
+        "representation_mode": "attitudinal_cohort",
+        "represented_population": 900000,
+        "stance_axes": {
+          "expects_committee_symbolic_surprise": 0.6,
+          "supports_candidate_a_award": 0.8,
+          "trusts_public_signals_of_selection": 0.25
+        }
+      },
+      {
+        "archetype_name": "global_nobel_attention_public",
+        "attention_level": 0.58,
+        "expression_level": 0.43,
+        "fatigue": 0.26,
+        "fear_of_isolation": 0.17,
+        "mobilization_readiness": 0.22,
+        "name": "skeptical_process_observers",
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.32,
+        "private_belief": "Public campaigns and press attention reveal little about actual selection.",
+        "public_expression": "Cautious analysis stressing opacity and base-rate uncertainty.",
+        "representation_mode": "attitudinal_cohort",
+        "represented_population": 1600000,
+        "stance_axes": {
+          "expects_committee_symbolic_surprise": 0.7,
+          "supports_candidate_a_award": 0.4,
+          "trusts_public_signals_of_selection": 0.15
+        }
+      },
+      {
+        "archetype_name": "nobel_eligibility_ecosystem",
+        "attention_level": 0.66,
+        "expression_level": 0.39,
+        "fatigue": 0.29,
+        "fear_of_isolation": 0.19,
+        "mobilization_readiness": 0.31,
+        "name": "alternative_theme_backers",
+        "perceived_majority": 0.51,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "Recent wars, crises, and other global causes create strong rival symbolic cases.",
+        "public_expression": "Diffuse advocacy for other themes rather than direct anti-Candidate-A opposition.",
+        "representation_mode": "theme_competition_cohort",
+        "represented_population": 30000,
+        "stance_axes": {
+          "expects_committee_symbolic_surprise": 0.55,
+          "supports_candidate_a_award": 0.25,
+          "trusts_public_signals_of_selection": 0.22
+        }
+      },
+      {
+        "archetype_name": "global_nobel_attention_public",
+        "attention_level": 0.21,
+        "expression_level": 0.08,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.09,
+        "mobilization_readiness": 0.05,
+        "name": "low_information_global_audience",
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.5,
+        "private_belief": "Limited knowledge; prize could go many directions.",
+        "public_expression": "Little to no expression absent major news.",
+        "representation_mode": "attention_cohort",
+        "represented_population": 2500000,
+        "stance_axes": {
+          "expects_committee_symbolic_surprise": 0.5,
+          "supports_candidate_a_award": 0.35,
+          "trusts_public_signals_of_selection": 0.3
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "norwegian_nobel_committee"
+        ],
+        "blockers": [
+          "confidential selection process",
+          "multiple competing symbolic themes",
+          "weak informativeness of public campaigns"
+        ],
+        "contradiction_notes": "High visibility is explicitly not reliable evidence of committee intent; alternative themes remain plausible.",
+        "description": "Candidate A is officially announced as recipient or co-recipient of the 2025 Nobel Peace Prize by the decision deadline.",
+        "endpoint_key": "candidate_a_wins_nobel_peace_prize",
+        "evidence_refs": [
+          "Source 1 analyst_note",
+          "Source 2 process_note",
+          "Scenario candidate endpoints yes/no"
+        ],
+        "label": "Candidate A wins",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will Candidate A be officially announced as the 2025 Nobel Peace Prize laureate by the deadline?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.24,
+        "rationale": "This is the principal affirmative terminal endpoint implied by the forecast question.",
+        "realization_criteria": [
+          "official Nobel Peace Prize announcement names Candidate A as laureate or co-laureate",
+          "announcement occurs within the forecast deadline"
+        ],
+        "status": "active",
+        "status_basis": "Candidate A has notable moral-salience evidence but no public confirmation of shortlist or committee preference at T0."
+      },
+      {
+        "authority_refs": [
+          "norwegian_nobel_committee"
+        ],
+        "blockers": [
+          "candidate_a moral salience may still align with committee symbolism"
+        ],
+        "contradiction_notes": "Non-selection is not directly evidenced, only supported by competitive field breadth and process opacity.",
+        "description": "Candidate A is not officially announced as recipient of the 2025 Nobel Peace Prize by the decision deadline.",
+        "endpoint_key": "candidate_a_does_not_win_nobel_peace_prize",
+        "evidence_refs": [
+          "Source 2 process_note",
+          "Source 3 countervailing_note",
+          "Scenario candidate endpoints yes/no"
+        ],
+        "label": "Candidate A does not win",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the committee instead choose a recipient primarily associated with an alternative symbolic theme such as humanitarian relief, mediation, press freedom, nuclear risk reduction, climate activism, or support for political prisoners?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.76,
+        "rationale": "This is the principal negative terminal endpoint paired to the binary forecast question.",
+        "realization_criteria": [
+          "official Nobel Peace Prize announcement names a different recipient or recipients and excludes Candidate A",
+          "or award cycle passes the forecast deadline without Candidate A being named"
+        ],
+        "status": "active",
+        "status_basis": "Broad alternative candidate/theme space and secret selection process make non-selection a live and likely endpoint at T0."
+      },
+      {
+        "authority_refs": [
+          "norwegian_nobel_committee"
+        ],
+        "blockers": [
+          "committee may still choose Candidate A or a less signaled theme"
+        ],
+        "contradiction_notes": "This endpoint overlaps with the broader non-win endpoint but gives structure to a key terminal pathway.",
+        "description": "The prize is awarded to a recipient primarily identified with a major alternative theme rather than Candidate A's specific candidacy.",
+        "endpoint_key": "alternative_symbolic_theme_selected",
+        "evidence_refs": [
+          "Source 3 countervailing_note",
+          "Scenario plausible themes list"
+        ],
+        "label": "Alternative theme recipient selected",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "At resolution, will the realized award demonstrate that pre-announcement public salience around Candidate A was not sufficient to infer committee intent?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.58,
+        "rationale": "Important for later comparison because much of the scenario pressure comes from thematic competition rather than direct evidence against Candidate A.",
+        "realization_criteria": [
+          "official announcement names recipient other than Candidate A",
+          "publicly stated or widely recognized rationale centers on humanitarian relief, conflict mediation, press freedom, nuclear risk reduction, climate activism, or political prisoners support"
+        ],
+        "status": "active",
+        "status_basis": "The source packet explicitly identifies several alternative symbolic targets energized by current crises."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "source_receives_target",
+        "evidence": "Scenario says Candidate A is known internationally for democracy-rights advocacy.",
+        "layer": "exposure",
+        "reason": "Candidate A has international visibility from democracy-rights advocacy.",
+        "source_actor_name": "international_observers",
+        "target_actor_name": "candidate_a",
+        "weight": 0.61
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "Analyst note cites unusually high moral-salience evidence.",
+        "layer": "trust",
+        "reason": "Supportive but not universal confidence in moral legitimacy and suitability.",
+        "source_actor_name": "international_observers",
+        "target_actor_name": "candidate_a",
+        "weight": 0.49
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "Known internationally; advocacy profile affects observer attention.",
+        "layer": "influence",
+        "reason": "Candidate A shapes narratives about rights and symbolic worthiness.",
+        "source_actor_name": "candidate_a",
+        "target_actor_name": "international_observers",
+        "weight": 0.46
+      },
+      {
+        "direction": "source_depends_on_target",
+        "evidence": "Committee is the prize decision body; shortlist confidential.",
+        "layer": "dependency",
+        "reason": "Award realization depends on committee choice.",
+        "source_actor_name": "candidate_a",
+        "target_actor_name": "norwegian_nobel_committee",
+        "weight": 0.58
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "Nobel selection process determines outcome.",
+        "layer": "influence",
+        "reason": "Committee has decisive agenda-setting power over award endpoint.",
+        "source_actor_name": "norwegian_nobel_committee",
+        "target_actor_name": "candidate_a",
+        "weight": 0.71
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "Committee often surprises observers; details are confidential.",
+        "layer": "trust",
+        "reason": "Observers respect formal authority but recognize unpredictability and opacity.",
+        "source_actor_name": "international_observers",
+        "target_actor_name": "norwegian_nobel_committee",
+        "weight": 0.42
+      },
+      {
+        "direction": "source_receives_target",
+        "evidence": "Pre-announcement attention exists but shortlist is not public.",
+        "layer": "exposure",
+        "reason": "Observers track committee actions and public signals, though direct information is sparse.",
+        "source_actor_name": "international_observers",
+        "target_actor_name": "norwegian_nobel_committee",
+        "weight": 0.27
+      },
+      {
+        "direction": "mutual_competition",
+        "evidence": "Humanitarian relief listed as plausible alternative theme.",
+        "layer": "conflict",
+        "reason": "Competes indirectly for symbolic selection space.",
+        "source_actor_name": "candidate_a",
+        "target_actor_name": "humanitarian_relief_field",
+        "weight": 0.24
+      },
+      {
+        "direction": "mutual_competition",
+        "evidence": "Conflict mediation listed as plausible alternative theme.",
+        "layer": "conflict",
+        "reason": "Competes indirectly for prize theme selection.",
+        "source_actor_name": "candidate_a",
+        "target_actor_name": "conflict_mediation_field",
+        "weight": 0.26
+      },
+      {
+        "direction": "mutual_competition",
+        "evidence": "Press freedom listed as plausible alternative theme.",
+        "layer": "conflict",
+        "reason": "Competes indirectly for prize theme selection.",
+        "source_actor_name": "candidate_a",
+        "target_actor_name": "press_freedom_field",
+        "weight": 0.23
+      },
+      {
+        "direction": "mutual_competition",
+        "evidence": "Nuclear-risk reduction listed as plausible alternative theme.",
+        "layer": "conflict",
+        "reason": "Competes indirectly for prize theme selection.",
+        "source_actor_name": "candidate_a",
+        "target_actor_name": "nuclear_risk_reduction_field",
+        "weight": 0.28
+      },
+      {
+        "direction": "mutual_competition",
+        "evidence": "Climate activism listed as plausible alternative theme.",
+        "layer": "conflict",
+        "reason": "Competes indirectly for prize theme selection.",
+        "source_actor_name": "candidate_a",
+        "target_actor_name": "climate_activism_field",
+        "weight": 0.22
+      },
+      {
+        "direction": "mutual_competition",
+        "evidence": "Support for political prisoners listed as plausible alternative symbolic target.",
+        "layer": "conflict",
+        "reason": "Competes indirectly though themes partially overlap.",
+        "source_actor_name": "candidate_a",
+        "target_actor_name": "political_prisoners_support_field",
+        "weight": 0.19
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Candidate associated with democracy-rights advocacy; political prisoners support is a listed prize theme.",
+        "layer": "coalition",
+        "reason": "Substantive thematic affinity around political repression and rights.",
+        "source_actor_name": "candidate_a",
+        "target_actor_name": "political_prisoners_support_field",
+        "weight": 0.41
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Both are rights-adjacent themes in Nobel context.",
+        "layer": "coalition",
+        "reason": "Rights-oriented causes can align symbolically despite endpoint competition.",
+        "source_actor_name": "candidate_a",
+        "target_actor_name": "press_freedom_field",
+        "weight": 0.29
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "Recent wars and humanitarian crises create alternative symbolic targets.",
+        "layer": "influence",
+        "reason": "Alternative humanitarian symbolism may attract committee consideration.",
+        "source_actor_name": "humanitarian_relief_field",
+        "target_actor_name": "norwegian_nobel_committee",
+        "weight": 0.33
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "Conflict mediation is a plausible theme.",
+        "layer": "influence",
+        "reason": "Peace mediation fits prize mission and can draw committee attention.",
+        "source_actor_name": "conflict_mediation_field",
+        "target_actor_name": "norwegian_nobel_committee",
+        "weight": 0.35
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "Press freedom listed as plausible theme.",
+        "layer": "influence",
+        "reason": "Press freedom remains a plausible symbolic focus.",
+        "source_actor_name": "press_freedom_field",
+        "target_actor_name": "norwegian_nobel_committee",
+        "weight": 0.28
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "Nuclear-risk reduction listed as plausible theme.",
+        "layer": "influence",
+        "reason": "Nuclear-risk reduction is a strong peace-prize-relevant theme.",
+        "source_actor_name": "nuclear_risk_reduction_field",
+        "target_actor_name": "norwegian_nobel_committee",
+        "weight": 0.37
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "Climate activism listed as plausible theme.",
+        "layer": "influence",
+        "reason": "Climate activism remains a possible symbolic choice.",
+        "source_actor_name": "climate_activism_field",
+        "target_actor_name": "norwegian_nobel_committee",
+        "weight": 0.26
+      },
+      {
+        "direction": "source_to_target",
+        "evidence": "Support for political prisoners listed as plausible theme.",
+        "layer": "influence",
+        "reason": "Political prisoner support is a plausible prize-recognition frame.",
+        "source_actor_name": "political_prisoners_support_field",
+        "target_actor_name": "norwegian_nobel_committee",
+        "weight": 0.31
+      },
+      {
+        "direction": "mutual_public_interaction",
+        "evidence": "Candidate internationally known and forecast concerns pre-announcement speculation.",
+        "layer": "oasis_interaction",
+        "reason": "Likely recurring public commentary and discussion about candidacy.",
+        "source_actor_name": "international_observers",
+        "target_actor_name": "candidate_a",
+        "weight": 0.52
+      },
+      {
+        "direction": "mutual_public_interaction",
+        "evidence": "Observers watch committee from outside a confidential process.",
+        "layer": "oasis_interaction",
+        "reason": "Public discourse references committee decisions but direct interaction is limited.",
+        "source_actor_name": "international_observers",
+        "target_actor_name": "norwegian_nobel_committee",
+        "weight": 0.24
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Both are named plausible themes for the prize.",
+        "layer": "coalition",
+        "reason": "Alternative peace-oriented themes share broad symbolic space.",
+        "source_actor_name": "humanitarian_relief_field",
+        "target_actor_name": "conflict_mediation_field",
+        "weight": 0.32
+      },
+      {
+        "direction": "mutual_alignment",
+        "evidence": "Both appear as rights-adjacent alternative symbolic targets.",
+        "layer": "coalition",
+        "reason": "Rights-focused themes may share advocacy overlap.",
+        "source_actor_name": "press_freedom_field",
+        "target_actor_name": "political_prisoners_support_field",
+        "weight": 0.34
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "description": "Named candidate whose perceived moral salience and international profile matter, but who lacks direct control over the confidential award decision.",
+        "name": "candidate_subject"
+      },
+      {
+        "description": "Institutional selector with high secrecy and final authority over award outcome.",
+        "name": "committee_decider"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "candidate_a",
+        "archetype_name": "candidate_subject",
+        "attention_level": 0.71,
+        "expression_level": 0.44,
+        "fatigue": 0.47,
+        "fear_of_isolation": 0.22,
+        "graph_influence_summary": "High moral-salience visibility among international observers, limited direct leverage over committee.",
+        "mobilization_readiness": 0.36,
+        "name": "candidate_a_state",
+        "perceived_majority": 0.38,
+        "reputation": 0.74,
+        "secrecy": 0.18,
+        "stance_axes": {
+          "public_campaign_relevance": 0.2,
+          "seeks_award": 0.7,
+          "symbolic_fit_for_peace_prize": 0.72
+        },
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "norwegian_nobel_committee",
+        "archetype_name": "committee_decider",
+        "attention_level": 0.83,
+        "expression_level": 0.04,
+        "fatigue": 0.21,
+        "fear_of_isolation": 0.05,
+        "graph_influence_summary": "Near-total formal authority over endpoint with intentionally opaque public signaling.",
+        "mobilization_readiness": 0.09,
+        "name": "norwegian_nobel_committee_state",
+        "perceived_majority": 0.5,
+        "reputation": 0.81,
+        "secrecy": 0.95,
+        "stance_axes": {
+          "openness_to_surprise_choice": 0.64,
+          "responsiveness_to_public_campaigns": 0.18,
+          "values_symbolic_signal": 0.78
+        },
+        "trustworthiness": 0.62
+      }
+    ],
+    "heroes": [
+      {
+        "description": "Named candidate whose perceived moral salience and international profile matter, but who lacks direct control over the confidential award decision.",
+        "name": "candidate_subject"
+      },
+      {
+        "description": "Institutional selector with high secrecy and final authority over award outcome.",
+        "name": "committee_decider"
+      }
+    ],
+    "important_questions": [
+      "Will Candidate A be officially announced as the 2025 Nobel Peace Prize laureate by the deadline?",
+      "Will the committee instead choose a recipient primarily associated with an alternative symbolic theme such as humanitarian relief, mediation, press freedom, nuclear risk reduction, climate activism, or support for political prisoners?",
+      "At resolution, will the realized award demonstrate that pre-announcement public salience around Candidate A was not sufficient to infer committee intent?"
+    ],
+    "initial_events": [
+      {
+        "actors": [
+          "candidate_a",
+          "international_observers"
+        ],
+        "event_key": "candidate_a_moral_salience_noted",
+        "event_type": "announcement",
+        "evidence": "Source 1 analyst_note.",
+        "expected_impact": "Raises perceived legitimacy and observer attention around Candidate A without proving committee intent.",
+        "summary": "Analyst commentary highlights Candidate A's unusually high moral-salience case due to long-running democratic-rights work under authoritarian conditions.",
+        "tick": 0,
+        "type": "visible_setup"
+      },
+      {
+        "actors": [
+          "norwegian_nobel_committee",
+          "international_observers"
+        ],
+        "event_key": "process_opacity_reinforced",
+        "event_type": "announcement",
+        "evidence": "Source 2 process_note.",
+        "expected_impact": "Suppresses overconfident inference from public narratives and keeps trust in public signals low.",
+        "summary": "Observers are reminded that nominations and shortlist details are confidential and that news attention is unreliable evidence of committee intent.",
+        "tick": 0,
+        "type": "visible_setup"
+      },
+      {
+        "actors": [
+          "humanitarian_relief_field",
+          "conflict_mediation_field",
+          "press_freedom_field",
+          "nuclear_risk_reduction_field",
+          "climate_activism_field",
+          "political_prisoners_support_field",
+          "international_observers"
+        ],
+        "event_key": "alternative_themes_remain_live",
+        "event_type": "announcement",
+        "evidence": "Source 3 countervailing_note.",
+        "expected_impact": "Dilutes any single-candidate expectation and maintains branching uncertainty.",
+        "summary": "Recent wars and humanitarian crises keep multiple other symbolic prize targets plausibly in contention.",
+        "tick": 0,
+        "type": "visible_setup"
+      },
+      {
+        "actors": [
+          "norwegian_nobel_committee",
+          "international_observers",
+          "candidate_a"
+        ],
+        "event_key": "award_announcement_window_approaches",
+        "event_type": "announcement",
+        "evidence": "Implied by pre-announcement forecast framing and deadline structure.",
+        "expected_impact": "Rapidly resolves uncertainty through authoritative institutional output; prior public narratives may be validated or overturned.",
+        "summary": "Formal Nobel Peace Prize announcement window approaches, concentrating attention and converting speculation into a realized decision.",
+        "tick": 2,
+        "type": "imminent_future"
+      }
+    ],
+    "llm_call_id": "d3461a65-34e3-4548-bb1b-ac7a1025a8ba",
+    "merge_hypotheses": [
+      {
+        "affected_actors": [
+          "international_observers",
+          "candidate_a_supportive_observers",
+          "skeptical_process_observers"
+        ],
+        "evidence": "Institutional announcement is authoritative while shortlist remains confidential pre-resolution.",
+        "mechanism": "Single formal announcement collapses competing narratives regardless of prior speculation.",
+        "merge_key": "public_speculation_converges_on_authoritative_outcome"
+      },
+      {
+        "affected_actors": [
+          "candidate_a_supportive_observers",
+          "skeptical_process_observers",
+          "low_information_global_audience"
+        ],
+        "evidence": "Process note says public campaigns and news attention are not reliable evidence of committee intent.",
+        "mechanism": "Shared recognition of weak public evidence keeps most observer cohorts from extreme confidence before the decision.",
+        "merge_key": "opacity_limits_preannouncement_polarization"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "description": "People and elite observers paying some attention to Nobel Peace Prize speculation and symbolic prize themes.",
+        "name": "global_nobel_attention_public",
+        "population_total": 5000000
+      },
+      {
+        "description": "Broader transnational ecosystem of advocates, experts, institutions, and observers associated with plausible Nobel Peace themes.",
+        "name": "nobel_eligibility_ecosystem",
+        "population_total": 50000
+      }
+    ],
+    "risk_flags": [
+      {
+        "flag": "masked_entity_limits_specificity",
+        "note": "Candidate identity is partially masked, constraining actor-specific background modeling.",
+        "severity": "medium"
+      },
+      {
+        "flag": "secret_selection_process",
+        "note": "Core decision process is confidential, sharply limiting observability and causal inference at T0.",
+        "severity": "high"
+      },
+      {
+        "flag": "public_signal_unreliability",
+        "note": "Scenario explicitly warns that campaigns and news attention are poor evidence of committee intent.",
+        "severity": "high"
+      },
+      {
+        "flag": "broad_competitive_field",
+        "note": "Multiple plausible award themes create substantial endpoint uncertainty.",
+        "severity": "medium"
+      },
+      {
+        "flag": "resolved_card_context_present",
+        "note": "Corpus references a resolved forecast card format, but initialization uses only pre-announcement information and does not infer hidden resolution.",
+        "severity": "low"
+      }
+    ],
+    "simulation_brief": {
+      "configured_horizon_ticks": 3,
+      "endpoint_frame": "binary_award_outcome_by_deadline",
+      "forecast_question": "will_candidate_a_win_2025_nobel_peace_prize",
+      "mode": "direct",
+      "scenario_key": "resolved_001",
+      "summary": "Pre-announcement state around whether Candidate A, a Venezuelan opposition figure associated with democracy-rights advocacy, will receive the 2025 Nobel Peace Prize. The selection process is confidential, public attention is weak evidence of committee intent, and multiple alternative prize themes plausibly compete at T0.",
+      "timeframe": "pre-announcement_2025",
+      "uncertainty_notes": [
+        "Nobel shortlist and committee deliberations are confidential.",
+        "Source packet provides only sparse public pre-announcement evidence.",
+        "Candidate identity is masked; institutional and geopolitical context must be handled at a generalized level."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "international_observers",
+          "global_nobel_attention_public"
+        ],
+        "evidence": "Observers update within familiar thematic frames rather than from decisive inside information.",
+        "level": 0.61,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "candidate_a_supportive_observers",
+          "alternative_theme_backers"
+        ],
+        "evidence": "Low stakes for mass mobilization and weak effect of public campaigning on committee choice.",
+        "level": 0.28,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "low_information_global_audience"
+        ],
+        "evidence": "Most people have limited information and little reason to express a view before announcement.",
+        "level": 0.57,
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "nobel_eligibility_ecosystem"
+        ],
+        "evidence": "Theme-specific networks cluster around their preferred causes.",
+        "level": 0.49,
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "international_observers"
+        ],
+        "evidence": "Narratives about worthiness spread through repeated commentary but remain constrained by process opacity.",
+        "level": 0.33,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "candidate_a_supportive_observers",
+          "alternative_theme_backers"
+        ],
+        "evidence": "Cause-based and values-based identities shape which symbolic target seems deserving.",
+        "level": 0.46,
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "global_nobel_attention_public"
+        ],
+        "evidence": "Absent leaks or major events, pre-announcement speculation tends to plateau or fade.",
+        "level": 0.54,
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context_key": "secret_selection_process",
+        "description": "Shortlist confidentiality sharply limits the predictive value of public chatter and advocacy."
+      },
+      {
+        "context_key": "symbolic_institutional_choice",
+        "description": "Decision likely reflects committee preference for symbolic framing across multiple peace-related themes."
+      },
+      {
+        "context_key": "geopolitical_uncertainty",
+        "description": "Recent wars and humanitarian crises broaden the field of plausible award targets and dilute any single candidacy."
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "candidate_a",
+        "behavior_axes": {
+          "cautious_public_advocacy": 0.62,
+          "institutional_restraint": 0.48,
+          "symbolic_resonance": 0.78
+        },
+        "ideology_axes": {
+          "anti_authoritarian_orientation": 0.88,
+          "democracy_rights_orientation": 0.92,
+          "globalist_orientation": 0.57
+        },
+        "reputation": 0.74,
+        "secrecy": 0.18,
+        "tendency": "moral_salience_candidate",
+        "trustworthiness": 0.68
+      },
+      {
+        "actor_name": "norwegian_nobel_committee",
+        "behavior_axes": {
+          "confidential_selection": 0.97,
+          "public_opacity": 0.93,
+          "symbolic_signaling": 0.8
+        },
+        "ideology_axes": {
+          "human_rights_sympathy": 0.63,
+          "institutional_independence": 0.84,
+          "surprise_tolerance": 0.66
+        },
+        "reputation": 0.81,
+        "secrecy": 0.95,
+        "tendency": "opaque_final_decider",
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "international_observers",
+        "behavior_axes": {
+          "narrative_amplification": 0.64,
+          "process_humility": 0.42,
+          "speculation": 0.71
+        },
+        "ideology_axes": {
+          "elite_attention": 0.67,
+          "rights_sympathy": 0.58,
+          "theme_pluralism": 0.6
+        },
+        "reputation": 0.55,
+        "secrecy": 0.12,
+        "tendency": "salience_interpreter",
+        "trustworthiness": 0.46
+      },
+      {
+        "actor_name": "humanitarian_relief_field",
+        "behavior_axes": {
+          "cause_advocacy": 0.66,
+          "coordination": 0.43,
+          "public_visibility": 0.58
+        },
+        "ideology_axes": {
+          "humanitarian_priority": 0.93,
+          "institutionalism": 0.61,
+          "theme_competition": 0.49
+        },
+        "reputation": 0.69,
+        "secrecy": 0.14,
+        "tendency": "alternative_theme_competitor",
+        "trustworthiness": 0.64
+      },
+      {
+        "actor_name": "conflict_mediation_field",
+        "behavior_axes": {
+          "cause_advocacy": 0.61,
+          "coordination": 0.47,
+          "public_visibility": 0.52
+        },
+        "ideology_axes": {
+          "institutionalism": 0.66,
+          "peace_process_priority": 0.94,
+          "theme_competition": 0.51
+        },
+        "reputation": 0.71,
+        "secrecy": 0.2,
+        "tendency": "alternative_theme_competitor",
+        "trustworthiness": 0.67
+      },
+      {
+        "actor_name": "press_freedom_field",
+        "behavior_axes": {
+          "cause_advocacy": 0.63,
+          "coordination": 0.44,
+          "public_visibility": 0.57
+        },
+        "ideology_axes": {
+          "institutionalism": 0.58,
+          "speech_priority": 0.95,
+          "theme_competition": 0.46
+        },
+        "reputation": 0.68,
+        "secrecy": 0.15,
+        "tendency": "alternative_theme_competitor",
+        "trustworthiness": 0.65
+      },
+      {
+        "actor_name": "nuclear_risk_reduction_field",
+        "behavior_axes": {
+          "cause_advocacy": 0.55,
+          "coordination": 0.49,
+          "public_visibility": 0.46
+        },
+        "ideology_axes": {
+          "institutionalism": 0.72,
+          "risk_reduction_priority": 0.96,
+          "theme_competition": 0.44
+        },
+        "reputation": 0.73,
+        "secrecy": 0.23,
+        "tendency": "alternative_theme_competitor",
+        "trustworthiness": 0.69
+      },
+      {
+        "actor_name": "climate_activism_field",
+        "behavior_axes": {
+          "cause_advocacy": 0.74,
+          "coordination": 0.41,
+          "public_visibility": 0.69
+        },
+        "ideology_axes": {
+          "climate_priority": 0.98,
+          "institutionalism": 0.48,
+          "theme_competition": 0.53
+        },
+        "reputation": 0.62,
+        "secrecy": 0.1,
+        "tendency": "alternative_theme_competitor",
+        "trustworthiness": 0.56
+      },
+      {
+        "actor_name": "political_prisoners_support_field",
+        "behavior_axes": {
+          "cause_advocacy": 0.65,
+          "coordination": 0.45,
+          "public_visibility": 0.51
+        },
+        "ideology_axes": {
+          "institutionalism": 0.57,
+          "prisoner_support_priority": 0.94,
+          "theme_competition": 0.47
+        },
+        "reputation": 0.67,
+        "secrecy": 0.16,
+        "tendency": "alternative_theme_competitor",
+        "trustworthiness": 0.66
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 1932,
+        "end": 1932,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 1932,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

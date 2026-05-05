@@ -1,6 +1,6 @@
 # Aggregate Results
 
-Generated: 2026-05-05 03:40 UTC
+Generated: 2026-05-05 04:20 UTC
 
 ## Completed Blocks
 
@@ -12,6 +12,7 @@ Generated: 2026-05-05 03:40 UTC
 - E3 tick/report smoke: `resolved_003` ran one synchronous tick and generated reports in 408.49 seconds.
 - E3 queue smoke: `resolved_004` ran through Celery `worldfork.execute_job`, completed one tick and generated reports after a 219.47 second job wait.
 - E3 scored no-branch validation: after fixing audited Codex assistant-history serialization, `resolved_001` / `worldfork_no_branch_short` completed 8 queued ticks and produced a scoreable path-mass forecast.
+- E3 scored branching validation: `resolved_001` / `worldfork_branching_short` completed with four multiverses, 27 tick snapshots, and a scoreable path-mass forecast after a 2131.68 second queued run wait.
 - E1 queued initializer batch: `resolved_001`, `resolved_002`, `resolved_005`, and `resolved_006` completed as parallel p1 jobs; all captured initialized actors, traits, graphs, sociology baseline, emotion baseline, logs, and workspace.
 - E1 queued initializer batch: `resolved_007` through `resolved_014` completed as eight parallel p1 jobs; all captured initialized actors, traits, graphs, sociology baseline, emotion baseline, logs, and workspace.
 - E1 add-on initialization screen: all 36 additional public cards now have live initialization evidence.
@@ -24,6 +25,7 @@ Generated: 2026-05-05 03:40 UTC
 | direct_llm | 24 | 0.242492 | 0.701698 | 0.000000 | 24 |
 | structured_direct_llm | 24 | 0.238363 | 0.677498 | 0.000000 | 24 |
 | worldfork_no_branch_short | 1 | 0.250000 | 0.693147 | 1.000000 | 1 |
+| worldfork_branching_short | 1 | 0.250000 | 0.693147 | 1.000000 | 1 |
 
 ## Runtime Notes
 
@@ -39,6 +41,7 @@ Generated: 2026-05-05 03:40 UTC
 - The existing 72-card E1 initializer batch completed as queued p1 jobs in 1796.65 seconds wall time. The automated coverage table reports 108/108 succeeded initializations, mean actor count 8.76, mean trait count 8.82, mean graph edge count 33.99, and sociology plus emotion baselines present for 108/108 cases.
 - The first E3 runner validation on `resolved_001` / `worldfork_no_branch_short` initialized successfully but did not reach scoreable path-mass artifacts. The queued run job entered a God-review Codex 400 retry loop, was marked `interrupt_requested`, and the isolated p1 worker was restarted. The root cause was audited Codex assistant-history serialization: assistant turns were sent as assistant messages containing `input_text`, which the Responses endpoint rejected. After converting assistant history into user-context input, a fresh retry Big Bang (`e8bc081f-804f-4584-887d-625adae385e7`) completed 8 ticks with run job `7b85f6d2-7b41-4852-86af-28037552acec`.
 - The scored no-branch validation extracted a normalized yes/no forecast of 0.5/0.5 from endpoint path-mass artifacts. Its unresolved mass is 1.0, so this is a pipeline-validating smoke score rather than evidence of final WorldFork accuracy.
+- The scored branching validation extracted the same normalized 0.5/0.5 yes/no forecast with unresolved mass 1.0. It exercised the branch policy (`max_active_multiverses=4`) and expanded one nominal 8-tick case into 27 tick snapshots, so full branching E3 runtime is materially higher than the no-branch ETA unless the branch policy or tick cap is tightened.
 
 ## Pending Results
 

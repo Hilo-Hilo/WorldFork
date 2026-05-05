@@ -1,0 +1,47 @@
+{
+  "attempt_number": 0,
+  "available_at": "2026-05-05T03:39:32.526661Z",
+  "big_bang_id": null,
+  "concurrency_key": null,
+  "created_at": "2026-05-05T03:39:32.524812Z",
+  "error": null,
+  "finished_at": "2026-05-05T03:41:28.718726Z",
+  "id": "18365970-1721-4fc7-8f9c-abf7d3433fd9",
+  "idempotency_key": "job:465dda840d60ec5ea695ebb50021fc0d3223ccb0ceeebd7ea83d3e6c69ad0d01",
+  "interrupt_requested_at": null,
+  "interrupted_at": null,
+  "job_type": "initialize_big_bang",
+  "last_heartbeat_at": null,
+  "lease_expires_at": null,
+  "lease_owner": null,
+  "max_attempts": 3,
+  "paused_at": null,
+  "payload": {
+    "actors": [],
+    "branch_policy": {
+      "branch_score_threshold": 0.75,
+      "max_active_multiverses": 4,
+      "max_branch_depth": 2,
+      "max_branches_per_tick": 1
+    },
+    "cohorts": [],
+    "heroes": [],
+    "name": "E3_batch_47b3269_worldfork_branching_short_resolved_001",
+    "scenario_text": "# Case resolved_001\nBenchmark role: resolved_forecast\n\nForecast question: Will Candidate A win the 2025 Nobel Peace Prize?\n\n## Scenario\n\nCandidate A is a Venezuelan opposition figure known internationally for democracy-rights advocacy. As of the forecast date, the Nobel Peace Prize shortlist is not public, and the Norwegian Nobel Committee often surprises observers. Other plausible themes include humanitarian relief, conflict mediation, press freedom, nuclear-risk reduction, climate activism, and support for political prisoners. Use only this pre-announcement information.\n\n## Source Packet\n\n### Source 1: analyst_note / 2025-09-15\n\nCandidate A has unusually high moral-salience evidence because of long-running democratic-rights work under an authoritarian setting.\n\n### Source 2: process_note / 2025-09-15\n\nNobel Peace nominations and shortlist details are confidential; public campaigns and news attention are not reliable evidence of committee intent.\n\n### Source 3: countervailing_note / 2025-09-15\n\nRecent wars and humanitarian crises give the committee many alternative symbolic targets.\n\n## Candidate Endpoints\n- yes: The event occurs by the deadline\n- no: The event does not occur by the deadline\n\n## Expected Focus\n- secret_selection_process\n- symbolic_institutional_choice\n- geopolitical_uncertainty\n\n## Required Forecast Output\n{'type': 'probability_distribution', 'schema': {'yes': 'float in [0,1]', 'no': 'float in [0,1]', 'unresolved_mass': 'optional float in [0,1]; if used, keep yes+no+unresolved_mass = 1'}, 'scoring': 'For resolved cards, score p_yes against the hidden private resolution using binary Brier and clamped log score. If unresolved_mass is present, report it separately and normalize yes/no only if your paper explicitly chooses conditional scoring.'}\n\n## Leakage Mitigation\nModel-facing text uses partial entity masking. Do not expose private_eval entity_map or resolution during forecasting.\n",
+    "simulation_config": {
+      "max_ticks": 8,
+      "tick_duration_minutes": 720
+    },
+    "use_initializer_agent": true
+  },
+  "queue_name": "p1",
+  "queued_at": "2026-05-05T03:39:32.526657Z",
+  "result": {
+    "big_bang_id": "4a6f3c4b-c764-4178-9a72-c45b032fb983",
+    "source_snapshot_id": "f328b8e9-fa77-4d4a-82e5-c7e74a9769d2"
+  },
+  "retryable": true,
+  "started_at": "2026-05-05T03:39:32.580862Z",
+  "status": "succeeded",
+  "updated_at": "2026-05-05T03:41:28.658734Z"
+}
