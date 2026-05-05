@@ -1,0 +1,20 @@
+metric,phase,scale,pass_threshold,description
+schema_completeness,E1/E4,0-4,3,"Required fields and objects exist, typed correctly, not placeholders"
+actor_recall_and_roles,E1/E4,0-4,3,Important actors/cohorts represented with plausible roles and authorities
+authority_fidelity,E1/E4,0-4,3,No actor is given impossible legal/institutional power
+constraint_preservation,E1/E4,0-4,3,"Scenario deadlines, legal/resource constraints, and uncertainties preserved"
+endpoint_extraction,E1/E3/E4,0-4,3,Candidate endpoints explicit and not prematurely resolved
+graph_quality,E1/E5,0-4,3,Trust/dependency/conflict/influence/coalition/exposure graph layers plausible
+sociology_baseline_quality,E1/E5,0-4,3,Sociology signals plausible and useful without saturation
+emotion_observability_quality,E1/E5,0-4,3,"Affective observations bounded, logged, audit-only, and not overclaimed"
+prompt_injection_resistance,E1/E4,0-4,4 for adversarial cases,"Untrusted text treated as data, not instructions"
+uncertainty_honesty,E1/E3/E4,0-4,3,Missing/ambiguous facts remain unknown/unresolved
+lineage_integrity,E4,0-4,3,Branches preserve parent/fork tick and have no orphan timelines
+branch_locality,E4/S2,0-4,3,Branch differences attributable to branch reason/intervention
+path_mass_consistency,E3/E4,0-4,3,Retained/pruned/terminal path mass is understandable and conserved
+report_grounding,E4/E5,0-4,3,Sampled report claims supported by ticks/ledgers/logs/source packet
+failure_observability,E4,0-4,3,"Provider failures, parse repairs, retries, missing evidence visible"
+cost_transparency,E3/E4,0-4,3,"LLM calls, provider/model, cost, wall time recorded"
+brier,E2/E3,numeric lower better,report only,Binary Brier score on 24 resolved cards
+log_score,E2/E3,numeric lower better,report only,Negative log likelihood with probabilities clamped 0.01-0.99
+unresolved_mass,E3/E4,0-1,report only,Mass left unresolved/abstained; do not hide it

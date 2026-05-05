@@ -1,0 +1,389 @@
+{
+  "schema_version": "worldfork.icml_handoff.run_matrix.v1",
+  "paper_title": "WorldFork: Auditable Branching Socio-Institutional World Models for LLM Forecasting Agents",
+  "public_files": [
+    "worldfork_additional_36_public.jsonl",
+    "worldfork_additional_36_legacy_schema.jsonl",
+    "skills/worldfork-full-agent-test/references/accuracy-benchmark-prompts.jsonl"
+  ],
+  "private_files": [
+    "worldfork_additional_36_private_eval.jsonl"
+  ],
+  "case_groups": {
+    "existing_72_all": [
+      "civic_001",
+      "civic_002",
+      "civic_003",
+      "civic_004",
+      "civic_005",
+      "civic_006",
+      "labor_001",
+      "labor_002",
+      "labor_003",
+      "labor_004",
+      "labor_005",
+      "labor_006",
+      "platform_001",
+      "platform_002",
+      "platform_003",
+      "platform_004",
+      "platform_005",
+      "platform_006",
+      "health_001",
+      "health_002",
+      "health_003",
+      "health_004",
+      "health_005",
+      "health_006",
+      "campus_001",
+      "campus_002",
+      "campus_003",
+      "campus_004",
+      "campus_005",
+      "campus_006",
+      "media_001",
+      "media_002",
+      "media_003",
+      "media_004",
+      "media_005",
+      "media_006",
+      "governance_001",
+      "governance_002",
+      "governance_003",
+      "governance_004",
+      "governance_005",
+      "governance_006",
+      "edge_001",
+      "edge_002",
+      "edge_003",
+      "edge_004",
+      "edge_005",
+      "edge_006",
+      "report_001",
+      "report_002",
+      "report_003",
+      "report_004",
+      "report_005",
+      "report_006",
+      "longform_001",
+      "longform_002",
+      "longform_003",
+      "longform_004",
+      "longform_005",
+      "longform_006",
+      "election_001",
+      "election_002",
+      "election_003",
+      "election_004",
+      "housing_001",
+      "housing_002",
+      "housing_003",
+      "housing_004",
+      "corporate_001",
+      "corporate_002",
+      "corporate_003",
+      "corporate_004"
+    ],
+    "additional_36_all": [
+      "resolved_001",
+      "resolved_002",
+      "resolved_003",
+      "resolved_004",
+      "resolved_005",
+      "resolved_006",
+      "resolved_007",
+      "resolved_008",
+      "resolved_009",
+      "resolved_010",
+      "resolved_011",
+      "resolved_012",
+      "resolved_013",
+      "resolved_014",
+      "resolved_015",
+      "resolved_016",
+      "resolved_017",
+      "resolved_018",
+      "resolved_019",
+      "resolved_020",
+      "resolved_021",
+      "resolved_022",
+      "resolved_023",
+      "resolved_024",
+      "dossier_001",
+      "dossier_002",
+      "dossier_003",
+      "dossier_004",
+      "dossier_005",
+      "dossier_006",
+      "dossier_007",
+      "dossier_008",
+      "calibration_001",
+      "calibration_002",
+      "calibration_003",
+      "calibration_004"
+    ],
+    "resolved_24": [
+      "resolved_001",
+      "resolved_002",
+      "resolved_003",
+      "resolved_004",
+      "resolved_005",
+      "resolved_006",
+      "resolved_007",
+      "resolved_008",
+      "resolved_009",
+      "resolved_010",
+      "resolved_011",
+      "resolved_012",
+      "resolved_013",
+      "resolved_014",
+      "resolved_015",
+      "resolved_016",
+      "resolved_017",
+      "resolved_018",
+      "resolved_019",
+      "resolved_020",
+      "resolved_021",
+      "resolved_022",
+      "resolved_023",
+      "resolved_024"
+    ],
+    "dossier_8": [
+      "dossier_001",
+      "dossier_002",
+      "dossier_003",
+      "dossier_004",
+      "dossier_005",
+      "dossier_006",
+      "dossier_007",
+      "dossier_008"
+    ],
+    "calibration_4": [
+      "calibration_001",
+      "calibration_002",
+      "calibration_003",
+      "calibration_004"
+    ],
+    "long_horizon_18": [
+      "civic_002",
+      "labor_002",
+      "platform_004",
+      "health_004",
+      "election_002",
+      "corporate_004",
+      "dossier_001",
+      "dossier_002",
+      "dossier_003",
+      "dossier_004",
+      "dossier_005",
+      "dossier_006",
+      "dossier_007",
+      "dossier_008",
+      "calibration_001",
+      "calibration_002",
+      "calibration_003",
+      "calibration_004"
+    ],
+    "minimum_long_horizon_6": [
+      "civic_002",
+      "labor_002",
+      "platform_004",
+      "health_004",
+      "election_002",
+      "corporate_004"
+    ],
+    "social_ablation_8": [
+      "civic_002",
+      "labor_002",
+      "platform_004",
+      "health_004",
+      "dossier_001",
+      "dossier_003",
+      "dossier_004",
+      "dossier_006"
+    ],
+    "threshold_sweep_6": [
+      "civic_002",
+      "labor_002",
+      "platform_004",
+      "health_004",
+      "dossier_001",
+      "dossier_004"
+    ],
+    "worldfork_resolved_core12_fallback": [
+      "resolved_001",
+      "resolved_003",
+      "resolved_005",
+      "resolved_007",
+      "resolved_009",
+      "resolved_011",
+      "resolved_013",
+      "resolved_015",
+      "resolved_017",
+      "resolved_019",
+      "resolved_021",
+      "resolved_023"
+    ]
+  },
+  "experiments": [
+    {
+      "id": "E0_card_qa",
+      "required": true,
+      "cases": "108 public + 36 private eval",
+      "conditions": [
+        "static_validation"
+      ],
+      "outputs": [
+        "card_quality_report.md"
+      ]
+    },
+    {
+      "id": "E1_init_screen",
+      "required": true,
+      "cases": "existing_72_all + additional_36_all",
+      "conditions": [
+        "worldfork_init_only"
+      ],
+      "max_ticks": 1,
+      "run_until_complete": false,
+      "outputs": [
+        "init_scores.csv",
+        "worldfork_manifest.jsonl"
+      ]
+    },
+    {
+      "id": "E2_direct_baselines",
+      "required": true,
+      "cases": "resolved_24",
+      "conditions": [
+        "direct_llm",
+        "structured_direct_llm"
+      ],
+      "no_web": true,
+      "no_private_eval_until_scoring": true,
+      "outputs": [
+        "forecast_scores.csv",
+        "direct_baseline_manifest.jsonl"
+      ]
+    },
+    {
+      "id": "E3_resolved_worldfork_short",
+      "required": true,
+      "cases": "resolved_24",
+      "fallback_cases": "worldfork_resolved_core12_fallback",
+      "conditions": [
+        "worldfork_no_branch_short",
+        "worldfork_branching_short"
+      ],
+      "max_ticks": 8,
+      "outputs": [
+        "forecast_scores.csv",
+        "worldfork_manifest.jsonl"
+      ]
+    },
+    {
+      "id": "E4_long_horizon_audit",
+      "required": true,
+      "cases": "long_horizon_18",
+      "fallback_cases": "minimum_long_horizon_6",
+      "conditions": [
+        "worldfork_full_branching_long"
+      ],
+      "max_ticks": 35,
+      "minimum_ticks": 30,
+      "outputs": [
+        "audit_scores.csv",
+        "social_state_scores.csv"
+      ]
+    },
+    {
+      "id": "E5_social_state_emotion_audit",
+      "required": true,
+      "cases": "long_horizon_18",
+      "conditions": [
+        "score_existing_long_runs"
+      ],
+      "outputs": [
+        "social_state_scores.csv"
+      ]
+    },
+    {
+      "id": "S1_social_ablation",
+      "required": false,
+      "cases": "social_ablation_8",
+      "conditions": [
+        "worldfork_full_social_state",
+        "worldfork_no_sociology_prompt_influence"
+      ],
+      "max_ticks": 20,
+      "outputs": [
+        "social_ablation_scores.csv"
+      ]
+    },
+    {
+      "id": "S2_branch_threshold_sweep",
+      "required": false,
+      "cases": "threshold_sweep_6",
+      "conditions": [
+        "threshold_0.55",
+        "threshold_0.75",
+        "threshold_0.95"
+      ],
+      "max_ticks": 20,
+      "outputs": [
+        "threshold_sweep.csv"
+      ]
+    }
+  ],
+  "branch_policies": {
+    "init_only": {
+      "max_branch_depth": 1,
+      "max_active_multiverses": 1,
+      "max_branches_per_tick": 1,
+      "branch_score_threshold": 0.999
+    },
+    "worldfork_no_branch_short": {
+      "max_branch_depth": 1,
+      "max_active_multiverses": 1,
+      "max_branches_per_tick": 1,
+      "branch_score_threshold": 0.999
+    },
+    "worldfork_branching_short": {
+      "max_branch_depth": 2,
+      "max_active_multiverses": 4,
+      "max_branches_per_tick": 1,
+      "branch_score_threshold": 0.75
+    },
+    "worldfork_full_branching_long": {
+      "max_branch_depth": 3,
+      "max_active_multiverses": 8,
+      "max_branches_per_tick": 2,
+      "branch_score_threshold": 0.75
+    },
+    "threshold_sweep_template": {
+      "max_branch_depth": 3,
+      "max_active_multiverses": 8,
+      "max_branches_per_tick": 2,
+      "branch_score_threshold": "0.55|0.75|0.95"
+    }
+  },
+  "primary_metrics": [
+    "brier",
+    "log_score",
+    "unresolved_mass",
+    "lineage_integrity",
+    "branch_locality",
+    "endpoint_coverage",
+    "report_grounding",
+    "social_state_consistency",
+    "emotion_observability",
+    "cost_usd",
+    "llm_call_count"
+  ],
+  "do_not_claim": [
+    "WorldFork predicts the future",
+    "emotion model is validated psychology",
+    "synthetic cases prove real-world accuracy",
+    "branching improves accuracy without measured support"
+  ]
+}
