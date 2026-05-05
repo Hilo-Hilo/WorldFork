@@ -15,30 +15,62 @@
 /* ---------- 0. Design tokens + base reset (from styles.css :root) ---------- */
 
 :root {
-  --bg: oklch(0.18 0.005 260);
-  --bg-2: oklch(0.165 0.005 260);
-  --surface: oklch(0.215 0.006 260);
-  --surface-2: oklch(0.245 0.007 260);
-  --surface-hover: oklch(0.27 0.008 260);
-  --border: oklch(0.30 0.008 260);
-  --border-strong: oklch(0.40 0.010 260);
-  --fg: oklch(0.96 0.003 260);
-  --fg-2: oklch(0.82 0.004 260);
-  --muted: oklch(0.62 0.006 260);
-  --muted-2: oklch(0.48 0.006 260);
-  --accent: oklch(0.74 0.13 165);
-  --accent-soft: oklch(0.74 0.13 165 / 0.14);
-  --accent-fg: oklch(0.16 0.02 165);
+  /* Aligned with worldfork-site (landing) tokens. ink-* for chrome, bone-* for
+   * text, cool for the primary accent. Stress signals (sociology fatigue / fear
+   * of isolation) get a warm amber the landing doesn't need but the dashboard
+   * does — kept harmonious with cool/bone via similar saturation. */
+  --ink-950: #08090b;
+  --ink-900: #0a0b0d;
+  --ink-850: #0e1014;
+  --ink-800: #13161b;
+  --ink-700: #1b1f26;
+  --ink-600: #262b33;
+  --ink-500: #363c46;
+
+  --bone-50:  #f4f5f7;
+  --bone-100: #e8e9ec;
+  --bone-200: #c9ccd3;
+  --bone-300: #9aa0ab;
+  --bone-400: #6b7079;
+  --bone-500: #4a4e56;
+
+  --cool: #4a9eff;
+  --cool-soft: #7cb8ff;
+  --cool-dim: #2d5c99;
+  --cool-ghost: rgba(74, 158, 255, 0.10);
+
+  --warm: #e89759;
+  --warm-soft: rgba(232, 151, 89, 0.16);
+
+  --hairline: rgba(255, 255, 255, 0.08);
+  --hairline-strong: rgba(255, 255, 255, 0.16);
+
+  /* Existing dashboard token names mapped onto the new palette so the rest of
+   * this file (~1000 lines of rules) keeps working without a rename. */
+  --bg: var(--ink-900);
+  --bg-2: var(--ink-850);
+  --surface: var(--ink-800);
+  --surface-2: var(--ink-700);
+  --surface-hover: var(--ink-600);
+  --border: var(--hairline);
+  --border-strong: var(--hairline-strong);
+  --fg: var(--bone-100);
+  --fg-2: var(--bone-200);
+  --muted: var(--bone-400);
+  --muted-2: var(--bone-500);
+  --accent: var(--cool);
+  --accent-soft: var(--cool-ghost);
+  --accent-fg: var(--ink-950);
   --danger: oklch(0.68 0.18 25);
   --danger-soft: oklch(0.68 0.18 25 / 0.12);
-  --warn: oklch(0.82 0.13 80);
+  --warn: var(--warm);
 
   --r-sm: 4px;
   --r-md: 6px;
   --r-lg: 10px;
 
-  --font-sans: "Inter Tight", "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --font-sans: var(--font-geist), "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--font-jetbrains-mono), "JetBrains Mono", "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
 }
 
 * { box-sizing: border-box; }
@@ -52,11 +84,24 @@ html, body {
   font-size: 14px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  font-feature-settings: "ss01", "cv11";
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "ss01", "cv11", "cv05";
 }
 
 button { font-family: inherit; }
 input, textarea { font-family: inherit; color: inherit; }
+
+/* Cool-blue tinted selection, matching landing. */
+::selection { background: rgba(74, 158, 255, 0.35); color: #fff; }
+
+/* Global scrollbar — matches landing chrome (ink track, ink thumb). */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--ink-900); }
+::-webkit-scrollbar-thumb { background: var(--ink-700); }
+::-webkit-scrollbar-thumb:hover { background: var(--ink-600); }
+
+/* Tabular-numeral mono utility, matches landing's .num */
+.num { font-family: var(--font-mono); font-feature-settings: "tnum" 1, "ss01" 1; }
 
 /* ============================================================================
  * 1. INPUT PAGE (from styles.css)

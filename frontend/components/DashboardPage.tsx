@@ -288,13 +288,17 @@ function buildTidyTree(bigBangName: string, multiverses: Multiverse[]): {
   return { root, links, nodes, width, height };
 }
 
-/** Map value v∈[0,1] to a mint→indigo→magenta ramp (oklch). */
+/** Map value v∈[0,1] to a cool-dim → cool → cool-soft ramp, aligned with the
+ *  landing page palette. Low path-probability timelines render dim/desaturated;
+ *  high-probability timelines render bright cool blue. */
 function rampColor(v: number | null): string {
-  if (v == null || Number.isNaN(v)) return "oklch(0.85 0.008 240)";
+  if (v == null || Number.isNaN(v)) return "#9aa0ab"; // bone-300 fallback
   const t = Math.max(0, Math.min(1, v));
-  const hue = 175 + t * 155;
-  const chroma = 0.13 + t * 0.05;
-  const lightness = 0.7 - t * 0.1;
+  // hue stays in the cool-blue band (220–240); lightness + chroma rise with t
+  // so dim timelines fade into the chrome and vivid ones stand out.
+  const hue = 230 - t * 10;
+  const chroma = 0.07 + t * 0.10;
+  const lightness = 0.55 + t * 0.20;
   return `oklch(${lightness} ${chroma} ${hue})`;
 }
 
@@ -480,10 +484,13 @@ const COHORT_BARS: Array<{
   { key: "perceived_majority", label: "perceived majority", tone: "neutral" },
 ];
 
+// Reference design tokens so the bars track the dashboard palette without
+// duplicating color values. Cool blue for rising activity, warm amber for
+// stress signals, bone-300 for the neutral/ambiguous "perceived majority" bar.
 const TONE_COLORS: Record<"rising" | "stress" | "neutral", string> = {
-  rising: "oklch(0.78 0.13 175)",   // mint/teal
-  stress: "oklch(0.78 0.13 70)",    // amber
-  neutral: "oklch(0.72 0.02 250)",  // muted gray-blue
+  rising: "var(--cool)",
+  stress: "var(--warm)",
+  neutral: "var(--bone-300)",
 };
 
 function CohortSignalsPanel({ multiverse }: { multiverse: Multiverse }) {
