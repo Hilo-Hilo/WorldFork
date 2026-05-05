@@ -1,0 +1,68 @@
+# Optional PgBouncer overlay for ICML/E3/E4 experiment stacks.
+#
+# Use this in addition to docker-compose.icml.yml when worker concurrency should
+# be decoupled from Postgres backend connections.
+
+x-pgbouncer-db-env: &pgbouncer_db_env
+  DATABASE_URL: postgresql+asyncpg://worldfork:worldfork@pgbouncer:6432/worldfork?prepared_statement_cache_size=0
+  DATABASE_URL_SYNC: postgresql+psycopg://worldfork:worldfork@pgbouncer:6432/worldfork
+
+services:
+  pgbouncer:
+    image: edoburu/pgbouncer:v1.24.1-p1
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "${WORLDFORK_PGBOUNCER_PORT:-16432}:6432"
+    volumes:
+      - ./infra/pgbouncer/pgbouncer.ini:/etc/pgbouncer/pgbouncer.ini:ro
+      - ./infra/pgbouncer/userlist.txt:/etc/pgbouncer/userlist.txt:ro
+    command: ["pgbouncer", "/etc/pgbouncer/pgbouncer.ini"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -p 6432 -U worldfork -d worldfork"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    depends_on:
+      pgbouncer:
+        condition: service_healthy
+    environment:
+      <<: *pgbouncer_db_env
+
+  worker_p0:
+    depends_on:
+      pgbouncer:
+        condition: service_healthy
+    environment:
+      <<: *pgbouncer_db_env
+
+  worker_p1:
+    depends_on:
+      pgbouncer:
+        condition: service_healthy
+    environment:
+      <<: *pgbouncer_db_env
+
+  worker_p2:
+    depends_on:
+      pgbouncer:
+        condition: service_healthy
+    environment:
+      <<: *pgbouncer_db_env
+
+  worker_p3:
+    depends_on:
+      pgbouncer:
+        condition: service_healthy
+    environment:
+      <<: *pgbouncer_db_env
+
+  beat:
+    depends_on:
+      pgbouncer:
+        condition: service_healthy
+    environment:
+      <<: *pgbouncer_db_env

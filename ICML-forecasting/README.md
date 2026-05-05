@@ -66,6 +66,60 @@ Codex-only runtime rows should be labeled as smoke or ablation evidence and kept
 
 Before launching default-route rows, run `worldfork settings provider-test openrouter`. If OpenRouter is configured but not registered, refresh the provider settings or restart the backend, then test again.
 
+## ICML E3/E4 runtime settings
+
+E3/E4 batch runs can create database connection pressure before Postgres CPU,
+RAM, or storage are saturated. The main multiplier is:
+
+```text
+Celery worker processes * SQLAlchemy pool size/overflow * in-job cohort parallelism
+```
+
+For experiment stacks, prefer the ICML compose override after all active jobs
+have drained:
+
+```bash
+docker compose -p worldfork-icml \
+  -f docker-compose.yml \
+  -f infra/icml/docker-compose.icml.yml \
+  up -d --build
+```
+
+The override raises local Postgres `max_connections` to `250`, sets conservative
+`shared_buffers=256MB` and `work_mem=8MB` defaults, adds an
+idle-in-transaction timeout, uses smaller worker SQLAlchemy pools, and sets
+`WORLDFORK_ICML_MAX_PARALLEL_COHORT_DECISIONS=8` by default.
+
+For high-concurrency runs, add the PgBouncer overlay:
+
+```bash
+docker compose -p worldfork-icml \
+  -f docker-compose.yml \
+  -f infra/icml/docker-compose.icml.yml \
+  -f infra/icml/docker-compose.pgbouncer.yml \
+  up -d --build
+```
+
+PgBouncer runs in transaction-pooling mode and routes app containers through
+`pgbouncer:6432`. The async URL disables the asyncpg prepared-statement cache
+because transaction pooling can reuse server connections across clients.
+
+Use generic env overrides rather than editing secrets:
+
+```text
+WORLDFORK_POSTGRES_MAX_CONNECTIONS=250
+SQLALCHEMY_WORKER_SYNC_POOL_SIZE=2
+SQLALCHEMY_WORKER_SYNC_MAX_OVERFLOW=4
+SQLALCHEMY_WORKER_ASYNC_POOL_SIZE=2
+SQLALCHEMY_WORKER_ASYNC_MAX_OVERFLOW=4
+SQLALCHEMY_API_ASYNC_POOL_SIZE=4
+SQLALCHEMY_API_ASYNC_MAX_OVERFLOW=8
+WORLDFORK_ICML_MAX_PARALLEL_COHORT_DECISIONS=8
+```
+
+Before changing any of these settings on a live ICML stack, confirm queues are
+idle with `worldfork jobs queues` or `GET /api/jobs/queues`.
+
 ## Agent handoff files added
 
 This bundle now includes a full-cycle execution plan for running the WorldFork ICML forecasting-paper benchmark and writing the paper:
