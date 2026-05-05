@@ -1205,14 +1205,16 @@ def _assign_probabilities(entries: list[dict[str, Any]]) -> list[dict[str, Any]]
 def _final_horizon_reached(evidence: dict[str, Any] | None) -> bool:
     if not evidence:
         return False
-    multiverse = evidence.get("multiverse") or {}
-    if str(multiverse.get("status") or "").lower() not in {"completed", "terminated"}:
-        return False
     max_ticks = (((evidence.get("big_bang") or {}).get("simulation_config") or {}).get("max_ticks"))
     if max_ticks is None:
         return False
     latest_tick = max((int(tick.get("tick_index") or 0) for tick in evidence.get("ticks") or []), default=None)
-    return latest_tick is not None and latest_tick >= int(max_ticks)
+    if latest_tick is None or latest_tick < int(max_ticks):
+        return False
+    if _deadline_aware_binary_forecast(evidence):
+        return True
+    multiverse = evidence.get("multiverse") or {}
+    return str(multiverse.get("status") or "").lower() in {"completed", "terminated"}
 
 
 def _settle_primary_binary_candidates_at_final_horizon(

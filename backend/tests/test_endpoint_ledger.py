@@ -362,7 +362,7 @@ def test_endpoint_finalization_marks_final_horizon_as_insufficient_ticks():
 def test_endpoint_finalization_settles_deadline_aware_binary_no_at_final_horizon():
     evidence = {
         "big_bang": {"simulation_config": {"max_ticks": 16}},
-        "multiverse": {"status": "completed"},
+        "multiverse": {"status": "active"},
         "ticks": [{"tick_index": 16}],
         "scenario_candidate_endpoints": [
             {"id": "yes", "label": "The event occurs by the deadline"},
