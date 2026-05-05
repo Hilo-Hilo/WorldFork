@@ -16,6 +16,7 @@ import math
 import os
 import socket
 import statistics
+import sys
 import urllib.error
 import urllib.request
 from collections import Counter, defaultdict
@@ -25,6 +26,8 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 PACKAGE = ROOT / "ICML-forecasting"
 EXISTING_72 = ROOT / "skills/worldfork-full-agent-test/references/accuracy-benchmark-prompts.jsonl"
 PUBLIC_36 = PACKAGE / "worldfork_additional_36_public.jsonl"
@@ -384,6 +387,214 @@ def score_forecasts(args: argparse.Namespace) -> None:
     print(json.dumps(summary_rows, indent=2, sort_keys=True))
 
 
+def _direct_prompt(card: dict[str, Any], condition: str) -> tuple[str, str]:
+    system = (
+        "You are a calibrated forecasting assistant. You are evaluating a "
+        "resolved-but-hidden event, but you do not know the resolution. Use only "
+        "the public card text provided by the user. Do not use web search. Do not "
+        "infer from real-world memory if the card is entity-masked. Return valid JSON only."
+    )
+    if condition == "structured_direct_llm":
+        user = {
+            "public_forecast_card": card,
+            "task": "Use only this card. Return a calibrated yes/no forecast with evidence decomposition.",
+            "output_contract": {
+                "case_id": card["case_id"],
+                "condition": condition,
+                "evidence_for_yes": ["string"],
+                "evidence_for_no": ["string"],
+                "base_rate_or_analogies_from_card_only": ["string"],
+                "key_uncertainties": ["string"],
+                "p_yes": "number between 0 and 1",
+                "p_no": "number between 0 and 1",
+                "calibration_note": "string",
+                "leakage_warning": "none|possible_real_world_memory|other",
+            },
+            "rules": [
+                "p_yes + p_no must equal 1 within rounding tolerance.",
+                "Do not mention or imply the true resolution.",
+                "Do not use web or private evaluation data.",
+            ],
+        }
+    else:
+        user = {
+            "public_forecast_card": card,
+            "task": "Use only this card. Return one calibrated yes/no forecast and short rationale.",
+            "output_contract": {
+                "case_id": card["case_id"],
+                "condition": condition,
+                "p_yes": "number between 0 and 1",
+                "p_no": "number between 0 and 1",
+                "confidence": "low|medium|high",
+                "main_drivers": ["string"],
+                "main_uncertainties": ["string"],
+                "leakage_warning": "none|possible_real_world_memory|other",
+            },
+            "rules": [
+                "p_yes + p_no must equal 1 within rounding tolerance.",
+                "Do not mention or imply the true resolution.",
+                "Do not use web or private evaluation data.",
+            ],
+        }
+    return system, json.dumps(user, ensure_ascii=False, sort_keys=True)
+
+
+def _forecast_response_schema(condition: str) -> dict[str, Any]:
+    common = {
+        "case_id": {"type": "string"},
+        "condition": {"type": "string", "enum": [condition]},
+        "p_yes": {"type": "number", "minimum": 0, "maximum": 1},
+        "p_no": {"type": "number", "minimum": 0, "maximum": 1},
+        "leakage_warning": {"type": "string", "enum": ["none", "possible_real_world_memory", "other"]},
+    }
+    if condition == "structured_direct_llm":
+        properties = {
+            **common,
+            "evidence_for_yes": {"type": "array", "items": {"type": "string"}},
+            "evidence_for_no": {"type": "array", "items": {"type": "string"}},
+            "base_rate_or_analogies_from_card_only": {"type": "array", "items": {"type": "string"}},
+            "key_uncertainties": {"type": "array", "items": {"type": "string"}},
+            "calibration_note": {"type": "string"},
+        }
+        required = list(properties)
+    else:
+        properties = {
+            **common,
+            "confidence": {"type": "string", "enum": ["low", "medium", "high"]},
+            "main_drivers": {"type": "array", "items": {"type": "string"}},
+            "main_uncertainties": {"type": "array", "items": {"type": "string"}},
+        }
+        required = list(properties)
+    return {
+        "type": "json_schema",
+        "json_schema": {
+            "name": f"{condition}_forecast",
+            "schema": {
+                "type": "object",
+                "additionalProperties": True,
+                "properties": properties,
+                "required": required,
+            },
+        },
+    }
+
+
+async def _run_direct_baselines_async(args: argparse.Namespace) -> None:
+    from backend.app.providers.openai_codex import OpenAICodexProvider
+    from backend.app.schemas.common import Clock
+    from backend.app.schemas.llm import ModelConfig, PromptPacket
+
+    run_root = make_run_root(args.run_root)
+    output = run_root / "raw/E2_direct_baselines/direct_predictions.jsonl"
+    manifest_path = run_root / "manifests/direct_baseline_manifest.jsonl"
+    output.parent.mkdir(parents=True, exist_ok=True)
+    manifest_path.parent.mkdir(parents=True, exist_ok=True)
+
+    completed = set()
+    if output.exists() and not args.force:
+        for row in read_jsonl(output):
+            completed.add((row.get("case_id"), row.get("condition")))
+
+    cards = [row for row in read_jsonl(PUBLIC_36) if row.get("benchmark_role") == "resolved_forecast"]
+    if args.case_ids:
+        wanted = set(args.case_ids.split(","))
+        cards = [row for row in cards if row["case_id"] in wanted]
+    if args.case_limit:
+        cards = cards[: args.case_limit]
+
+    provider = OpenAICodexProvider(default_model=args.model, request_timeout=args.timeout)
+    clock = Clock(
+        current_tick=0,
+        tick_duration_minutes=720,
+        elapsed_minutes=0,
+        previous_tick_minutes=None,
+        max_schedule_horizon_ticks=4,
+    )
+    predictions_handle = output.open("a", encoding="utf-8")
+    manifest_handle = manifest_path.open("a", encoding="utf-8")
+    try:
+        for card in cards:
+            for condition in ["direct_llm", "structured_direct_llm"]:
+                key = (card["case_id"], condition)
+                if key in completed:
+                    continue
+                system, user_payload = _direct_prompt(card, condition)
+                prompt = PromptPacket(
+                    system=system,
+                    clock=clock,
+                    actor_id="direct_baseline",
+                    actor_kind="god",
+                    state={"public_card_json": card, "user_payload": user_payload},
+                    output_schema_id=f"{condition}_forecast",
+                    temperature=args.temperature,
+                    metadata={"condition": condition, "case_id": card["case_id"], "private_eval_visible": False},
+                )
+                config = ModelConfig(
+                    provider="openai-codex",
+                    model=args.model,
+                    fallback_model=args.model,
+                    temperature=args.temperature,
+                    top_p=1.0,
+                    max_tokens=args.max_tokens,
+                    response_format=_forecast_response_schema(condition),
+                    timeout_seconds=int(args.timeout),
+                    retry_policy="none",
+                )
+                started = datetime.now(UTC)
+                result = await provider.generate_structured(prompt, config)
+                payload = dict(result.parsed_json or {})
+                payload["case_id"] = card["case_id"]
+                payload["condition"] = condition
+                p_yes = float(payload.get("p_yes", 0.5))
+                p_no = float(payload.get("p_no", max(0.0, 1.0 - p_yes)))
+                total = p_yes + p_no
+                if total > 0 and abs(total - 1.0) > 0.001:
+                    p_yes = p_yes / total
+                    p_no = p_no / total
+                    payload["p_yes"] = p_yes
+                    payload["p_no"] = p_no
+                    payload["normalization_note"] = "renormalized_to_sum_1"
+                payload["_meta"] = {
+                    "provider": result.provider,
+                    "model_used": result.model_used,
+                    "latency_ms": result.latency_ms,
+                    "prompt_tokens": result.prompt_tokens,
+                    "completion_tokens": result.completion_tokens,
+                    "total_tokens": result.total_tokens,
+                    "cost_usd": result.cost_usd,
+                    "started_at": started.isoformat(),
+                    "completed_at": datetime.now(UTC).isoformat(),
+                }
+                predictions_handle.write(json.dumps(payload, ensure_ascii=False, sort_keys=True) + "\n")
+                predictions_handle.flush()
+                manifest_handle.write(
+                    json.dumps(
+                        {
+                            "case_id": card["case_id"],
+                            "condition": condition,
+                            "provider": result.provider,
+                            "model_used": result.model_used,
+                            "latency_ms": result.latency_ms,
+                            "output_path": str(output.relative_to(run_root)),
+                        },
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    )
+                    + "\n"
+                )
+                manifest_handle.flush()
+                print(json.dumps({"case_id": card["case_id"], "condition": condition, "latency_ms": result.latency_ms}))
+    finally:
+        predictions_handle.close()
+        manifest_handle.close()
+
+
+def run_direct_baselines(args: argparse.Namespace) -> None:
+    import asyncio
+
+    asyncio.run(_run_direct_baselines_async(args))
+
+
 def verify_sources(args: argparse.Namespace) -> None:
     run_root = make_run_root(args.run_root)
     rows: list[dict[str, Any]] = []
@@ -510,6 +721,17 @@ def main() -> None:
     verify.add_argument("--bytes", type=int, default=65536)
     verify.add_argument("--fail-on-error", action="store_true")
     verify.set_defaults(func=verify_sources)
+
+    direct = sub.add_parser("run-direct-baselines", help="Run E2 direct baselines on public resolved cards.")
+    direct.add_argument("--run-root", type=Path)
+    direct.add_argument("--model", default="gpt-5.4")
+    direct.add_argument("--temperature", type=float, default=0.2)
+    direct.add_argument("--max-tokens", type=int, default=4096)
+    direct.add_argument("--timeout", type=float, default=300.0)
+    direct.add_argument("--case-limit", type=int)
+    direct.add_argument("--case-ids", help="Comma-separated case IDs.")
+    direct.add_argument("--force", action="store_true")
+    direct.set_defaults(func=run_direct_baselines)
 
     args = parser.parse_args()
     args.func(args)

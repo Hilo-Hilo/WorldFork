@@ -50,7 +50,7 @@ The static package QA passed. Public cards contain no private resolution fields,
 
 ### 4.2 Forecast Scoring
 
-Table 2 is reserved for direct, structured-direct, WorldFork no-branch, and WorldFork branching scores. These rows must not be filled until model outputs are frozen and scored against the private eval file.
+The direct baseline block is complete for all 24 resolved cards under two conditions. The one-shot direct prompt achieved mean Brier 0.242492 and mean clamped log score 0.701698. The structured direct prompt achieved mean Brier 0.238363 and mean clamped log score 0.677498. Both direct baselines have zero unresolved mass because the output contract requires a normalized yes/no distribution. These results provide the comparison point for the pending WorldFork no-branch and branching runs; no claim about WorldFork forecast accuracy should be made until those rows are filled.
 
 ### 4.3 Audit Metrics
 
@@ -67,4 +67,3 @@ The resolved cards are retrospective and use partial masking, so leakage cannot 
 ## 6. Conclusion
 
 WorldFork is best viewed as an auditable forecasting substrate. Its value is the production of inspectable forecast artifacts: branch lineage, endpoint ledgers, path mass, report provenance, unresolved uncertainty, and social assumptions that can be checked after the fact. The final paper should claim improved auditability only where the scored artifacts support it, and should claim improved forecast accuracy only if the Brier/log-score evidence supports that conclusion.
-
