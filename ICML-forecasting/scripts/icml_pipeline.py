@@ -450,7 +450,61 @@ def _evaluate_big_bang_endpoint_ledger(client: ApiClient, out_dir: Path, big_ban
         )
     except urllib.error.HTTPError as exc:
         payload = {"ok": False, "error": {"type": "http_error", "status": exc.code, "reason": exc.reason}}
+    except (TimeoutError, urllib.error.URLError, OSError) as exc:
+        payload = {"ok": False, "error": {"type": type(exc).__name__, "reason": str(exc)}}
     _write_json(out_dir / "endpoint_ledger_evaluate.json", payload)
+
+
+def _evaluate_multiverse_endpoint_ledger(
+    client: ApiClient,
+    out_dir: Path,
+    multiverse: dict[str, Any],
+    *,
+    candidate_endpoint: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    multiverse_id = str(multiverse.get("id") or "")
+    ui_label = str(multiverse.get("ui_label") or multiverse.get("name") or multiverse_id or "multiverse")
+    candidate_key = str((candidate_endpoint or {}).get("id") or (candidate_endpoint or {}).get("endpoint_key") or "").strip()
+    file_label = f"{ui_label}_{candidate_key}" if candidate_key else ui_label
+    safe_label = re.sub(r"[^A-Za-z0-9_.-]+", "_", file_label).strip("_") or "multiverse"
+    payload = {"run_inline": True}
+    if candidate_endpoint:
+        payload["candidate_endpoint"] = candidate_endpoint
+    try:
+        response_payload = client.request(
+            "POST",
+            f"/multiverses/{multiverse_id}/endpoint-ledgers/evaluate",
+            payload=payload,
+        )
+    except urllib.error.HTTPError as exc:
+        response_payload = {
+            "ok": False,
+            "error": {
+                "type": "http_error",
+                "status": exc.code,
+                "reason": exc.reason,
+                "multiverse_id": multiverse_id,
+                "ui_label": ui_label,
+            },
+        }
+    except (TimeoutError, urllib.error.URLError, OSError) as exc:
+        response_payload = {
+            "ok": False,
+            "error": {
+                "type": type(exc).__name__,
+                "reason": str(exc),
+                "multiverse_id": multiverse_id,
+                "ui_label": ui_label,
+            },
+        }
+    result = {
+        "multiverse_id": multiverse_id,
+        "ui_label": ui_label,
+        "candidate_endpoint": candidate_endpoint,
+        "response": response_payload,
+    }
+    _write_json(out_dir / "posthoc_multiverse_endpoint_ledgers" / f"{safe_label}.json", result)
+    return result
 
 
 def _capture_run_artifacts(client: ApiClient, out_dir: Path, big_bang_id: str) -> None:
@@ -469,6 +523,8 @@ def _capture_run_artifacts(client: ApiClient, out_dir: Path, big_bang_id: str) -
             payload = client.request("GET", path)
         except urllib.error.HTTPError as exc:
             payload = {"ok": False, "error": {"type": "http_error", "status": exc.code, "reason": exc.reason, "path": path}}
+        except (TimeoutError, urllib.error.URLError, OSError) as exc:
+            payload = {"ok": False, "error": {"type": type(exc).__name__, "reason": str(exc), "path": path}}
         _write_json(out_dir / f"{name}.json", payload)
 
 
@@ -1653,6 +1709,167 @@ def extract_worldfork_forecast(
         "matched_endpoint_rows": matched_rows,
         "candidate_endpoint_keys": normalized_candidate_keys,
     }
+
+
+def _discover_worldfork_short_run_dirs(
+    run_root: Path,
+    *,
+    input_prefix: Path,
+    case_filter: set[str] | None,
+    condition_filter: set[str] | None,
+    case_limit: int | None,
+) -> list[dict[str, Any]]:
+    manifest_rows: dict[str, dict[str, Any]] = {}
+    manifest_path = run_root / "manifests/worldfork_short_manifest.jsonl"
+    if manifest_path.exists():
+        for row in read_jsonl(manifest_path):
+            run_dir = str(row.get("run_dir") or "")
+            if run_dir:
+                manifest_rows[run_dir] = row
+
+    base_dir = input_prefix if input_prefix.is_absolute() else run_root / input_prefix
+    if not base_dir.exists():
+        raise SystemExit(f"missing input-prefix: {base_dir}")
+
+    rows: list[dict[str, Any]] = []
+    seen_big_bangs: set[str] = set()
+    for condition_dir in sorted(path for path in base_dir.iterdir() if path.is_dir()):
+        condition = condition_dir.name
+        if condition_filter and condition not in condition_filter:
+            continue
+        for case_dir in sorted(path for path in condition_dir.iterdir() if path.is_dir()):
+            case_id = case_dir.name
+            if case_filter and case_id not in case_filter:
+                continue
+            big_bang_id = _read_id_file(case_dir / "big_bang_id.txt")
+            if not big_bang_id or big_bang_id in seen_big_bangs:
+                continue
+            seen_big_bangs.add(big_bang_id)
+            try:
+                relative_dir = case_dir.relative_to(run_root)
+            except ValueError:
+                relative_dir = case_dir
+            manifest_row = manifest_rows.get(str(relative_dir), {})
+            rows.append(
+                {
+                    "case_id": case_id,
+                    "condition": condition,
+                    "big_bang_id": big_bang_id,
+                    "run_dir": relative_dir,
+                    "init_job_id": manifest_row.get("init_job_id") or _read_id_file(case_dir / "init_job_id.txt"),
+                    "run_job_id": manifest_row.get("run_job_id") or _read_id_file(case_dir / "run_job_id.txt"),
+                    "source_status": manifest_row.get("status") or "artifact_discovered",
+                    "source_route_policy_id": manifest_row.get("route_policy_id"),
+                    "source_max_ticks_requested": manifest_row.get("max_ticks_requested"),
+                    "source_tick_duration_minutes": manifest_row.get("tick_duration_minutes"),
+                }
+            )
+            if case_limit is not None and len(rows) >= case_limit:
+                return rows
+    return rows
+
+
+def posthoc_reevaluate_worldfork_short_ledgers(args: argparse.Namespace) -> None:
+    run_root = make_run_root(args.run_root)
+    client = ApiClient(args.base_url, api_prefix=args.api_prefix, timeout=args.timeout)
+    output = _prediction_output_path(run_root, args.prediction_output)
+    predictions = _prediction_rows_by_key(output, route_policy_id=args.route_policy_id)
+    case_filter = {item.strip() for item in args.case_ids.split(",") if item.strip()} if args.case_ids else None
+    condition_filter = {item.strip() for item in args.conditions.split(",") if item.strip()} if args.conditions else None
+    rows = _discover_worldfork_short_run_dirs(
+        run_root,
+        input_prefix=args.input_prefix,
+        case_filter=case_filter,
+        condition_filter=condition_filter,
+        case_limit=args.case_limit,
+    )
+    if not rows:
+        raise SystemExit("no existing WorldFork short run directories matched the filters")
+
+    for row in rows:
+        case_id = str(row["case_id"])
+        condition = str(row["condition"])
+        key = (case_id, condition, args.route_policy_id or "")
+        if key in predictions and not args.force:
+            print(json.dumps({"case_id": case_id, "condition": condition, "status": "skipped_existing_posthoc"}))
+            continue
+
+        out_dir = run_root / row["run_dir"]
+        big_bang_id = str(row["big_bang_id"])
+        multiverse_artifact_dir = out_dir / "posthoc_multiverse_endpoint_ledgers"
+        try:
+            multiverses = client.request("GET", f"/big-bangs/{big_bang_id}/multiverses")
+        except urllib.error.HTTPError as exc:
+            payload = {
+                "ok": False,
+                "error": {
+                    "type": "http_error",
+                    "status": exc.code,
+                    "reason": exc.reason,
+                    "big_bang_id": big_bang_id,
+                },
+            }
+            _write_json(multiverse_artifact_dir / "multiverses.json", payload)
+            print(json.dumps({"case_id": case_id, "condition": condition, "status": "multiverse_list_failed"}))
+            continue
+
+        _write_json(multiverse_artifact_dir / "multiverses.json", multiverses)
+        multiverse_rows = _artifact_list(multiverses)
+        evaluated: list[dict[str, Any]] = []
+        if not args.skip_multiverse_reevaluation:
+            candidate_endpoints = _candidate_endpoints_for_case(case_id) if args.inject_candidate_endpoints else []
+            for multiverse in multiverse_rows:
+                if not isinstance(multiverse, dict) or not multiverse.get("id"):
+                    continue
+                if candidate_endpoints:
+                    for endpoint in candidate_endpoints:
+                        evaluated.append(
+                            _evaluate_multiverse_endpoint_ledger(
+                                client,
+                                out_dir,
+                                multiverse,
+                                candidate_endpoint=endpoint,
+                            )
+                        )
+                else:
+                    evaluated.append(_evaluate_multiverse_endpoint_ledger(client, out_dir, multiverse))
+        _write_json(multiverse_artifact_dir / "evaluate_all.json", evaluated)
+
+        _capture_run_artifacts(client, out_dir, big_bang_id)
+        path_mass = _artifact_dict(_read_json_artifact(out_dir / "path_mass.json"))
+        prediction = extract_worldfork_forecast(
+            case_id,
+            condition,
+            path_mass,
+            candidate_endpoint_keys=candidate_endpoint_keys_for_case(case_id),
+        )
+        prediction["route_policy_id"] = args.route_policy_id
+        prediction["source_route_policy_id"] = row.get("source_route_policy_id")
+        prediction["source_run_status"] = row.get("source_status")
+        prediction["source_max_ticks_requested"] = row.get("source_max_ticks_requested")
+        prediction["max_ticks_requested"] = args.max_ticks or row.get("source_max_ticks_requested")
+        prediction["tick_duration_minutes"] = args.tick_duration_minutes or row.get("source_tick_duration_minutes")
+        prediction["big_bang_id"] = big_bang_id
+        prediction["posthoc_reevaluation"] = (
+            "big_bang_only"
+            if args.skip_multiverse_reevaluation
+            else "multiverse_endpoint_ledgers_then_big_bang_path_mass"
+        )
+        prediction["evaluated_multiverse_count"] = len(evaluated)
+        prediction["prediction_output"] = _display_run_path(output, run_root)
+        append_jsonl(output, prediction)
+        predictions[key] = prediction
+        print(
+            json.dumps(
+                {
+                    "case_id": case_id,
+                    "condition": condition,
+                    "status": "posthoc_refreshed",
+                    "matched_endpoint_rows": prediction["matched_endpoint_rows"],
+                    "unresolved_mass": prediction["unresolved_mass"],
+                }
+            )
+        )
 
 
 def worldfork_short_manifest_row(
@@ -3338,6 +3555,36 @@ def main() -> None:
     refresh_short.add_argument("--prediction-output", default="raw/E3_worldfork_short/worldfork_predictions.jsonl")
     refresh_short.add_argument("--route-policy-ids", help="Optional comma-separated route-policy IDs to refresh.")
     refresh_short.set_defaults(func=refresh_worldfork_short_ledgers)
+
+    posthoc_short = sub.add_parser(
+        "posthoc-reevaluate-worldfork-short-ledgers",
+        help=(
+            "Reuse existing E3 branch runs by re-evaluating multiverse endpoint ledgers, "
+            "aggregating path mass, and writing separate posthoc prediction rows."
+        ),
+    )
+    posthoc_short.add_argument("--run-root", type=Path, required=True)
+    posthoc_short.add_argument("--base-url", default="http://127.0.0.1:8003")
+    posthoc_short.add_argument("--api-prefix", default="/api")
+    posthoc_short.add_argument("--timeout", type=float, default=360.0)
+    posthoc_short.add_argument("--input-prefix", type=Path, required=True)
+    posthoc_short.add_argument("--prediction-output", required=True)
+    posthoc_short.add_argument("--route-policy-id", required=True)
+    posthoc_short.add_argument("--case-ids", help="Optional comma-separated case IDs to reevaluate.")
+    posthoc_short.add_argument("--case-limit", type=int)
+    posthoc_short.add_argument("--conditions", help="Optional comma-separated E3 conditions to reevaluate.")
+    posthoc_short.add_argument("--max-ticks", type=int)
+    posthoc_short.add_argument("--tick-duration-minutes", type=int)
+    posthoc_short.add_argument("--skip-multiverse-reevaluation", action="store_true")
+    posthoc_short.add_argument(
+        "--no-inject-candidate-endpoints",
+        dest="inject_candidate_endpoints",
+        action="store_false",
+        help="Do not seed branch reevaluation with the public card's explicit candidate endpoints.",
+    )
+    posthoc_short.set_defaults(inject_candidate_endpoints=True)
+    posthoc_short.add_argument("--force", action="store_true")
+    posthoc_short.set_defaults(func=posthoc_reevaluate_worldfork_short_ledgers)
 
     resume_short = sub.add_parser(
         "resume-worldfork-short-batch",
