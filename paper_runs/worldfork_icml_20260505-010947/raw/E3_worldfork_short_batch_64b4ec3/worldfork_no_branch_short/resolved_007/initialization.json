@@ -1,0 +1,1397 @@
+{
+  "big_bang_id": "b958dc57-9996-454b-b2f4-f0c9fb7711b0",
+  "initializer_output": {
+    "actors": [
+      {
+        "attention_level": 0.95,
+        "description": "Canadian club competing in the 2025 World Series.",
+        "expression_level": 0.75,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.1,
+        "fictionalized": false,
+        "mobilization_readiness": 0.92,
+        "name": "team_t",
+        "perceived_majority": 0.5,
+        "public_visibility": "high",
+        "stakes": [
+          "win championship series",
+          "convert offensive strength and home-field energy into four wins"
+        ],
+        "stance_axes": {
+          "adaptability": 0.55,
+          "risk_tolerance": 0.56,
+          "series_confidence": 0.58
+        },
+        "type": "team"
+      },
+      {
+        "attention_level": 0.95,
+        "description": "Defending champion opponent with deep pitching and recent postseason experience.",
+        "expression_level": 0.72,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.08,
+        "fictionalized": false,
+        "mobilization_readiness": 0.94,
+        "name": "team_l",
+        "perceived_majority": 0.5,
+        "public_visibility": "high",
+        "stakes": [
+          "defend title",
+          "leverage pitching depth and experience to win four games"
+        ],
+        "stance_axes": {
+          "adaptability": 0.6,
+          "risk_tolerance": 0.5,
+          "series_confidence": 0.62
+        },
+        "type": "team"
+      },
+      {
+        "attention_level": 0.88,
+        "description": "Managers and coaching staff guiding Team T lineup and pitching decisions.",
+        "expression_level": 0.42,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.05,
+        "fictionalized": false,
+        "mobilization_readiness": 0.9,
+        "name": "team_t_managerial_staff",
+        "perceived_majority": 0.52,
+        "public_visibility": "medium",
+        "stakes": [
+          "optimize rotations and bullpen use",
+          "manage home-field and travel adjustments"
+        ],
+        "stance_axes": {
+          "adaptability": 0.58,
+          "aggression": 0.55,
+          "conservatism": 0.45
+        },
+        "type": "staff"
+      },
+      {
+        "attention_level": 0.88,
+        "description": "Managers and coaching staff guiding Team L strategic deployment.",
+        "expression_level": 0.4,
+        "fatigue": 0.23,
+        "fear_of_isolation": 0.05,
+        "fictionalized": false,
+        "mobilization_readiness": 0.91,
+        "name": "team_l_managerial_staff",
+        "perceived_majority": 0.54,
+        "public_visibility": "medium",
+        "stakes": [
+          "maximize pitching depth",
+          "exploit series experience and variance"
+        ],
+        "stance_axes": {
+          "adaptability": 0.62,
+          "aggression": 0.5,
+          "conservatism": 0.52
+        },
+        "type": "staff"
+      },
+      {
+        "attention_level": 0.93,
+        "description": "Supporters of Team T energized by home-field context.",
+        "expression_level": 0.86,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.12,
+        "fictionalized": false,
+        "mobilization_readiness": 0.82,
+        "name": "team_t_fanbase",
+        "perceived_majority": 0.48,
+        "public_visibility": "high",
+        "stakes": [
+          "see Team T win series",
+          "sustain morale and pressure through home games"
+        ],
+        "stance_axes": {
+          "optimism": 0.68,
+          "patience": 0.45,
+          "reactivity": 0.62
+        },
+        "type": "fan_coalition"
+      },
+      {
+        "attention_level": 0.92,
+        "description": "Supporters of Team L expecting a strong defense of the title.",
+        "expression_level": 0.83,
+        "fatigue": 0.2,
+        "fear_of_isolation": 0.11,
+        "fictionalized": false,
+        "mobilization_readiness": 0.8,
+        "name": "team_l_fanbase",
+        "perceived_majority": 0.5,
+        "public_visibility": "high",
+        "stakes": [
+          "see Team L repeat as champion",
+          "validate belief in experience and pitching depth"
+        ],
+        "stance_axes": {
+          "optimism": 0.66,
+          "patience": 0.5,
+          "reactivity": 0.58
+        },
+        "type": "fan_coalition"
+      },
+      {
+        "attention_level": 0.97,
+        "description": "Broadcast and analysis ecosystem shaping public narratives around the series.",
+        "expression_level": 0.95,
+        "fatigue": 0.15,
+        "fear_of_isolation": 0.02,
+        "fictionalized": false,
+        "mobilization_readiness": 0.88,
+        "name": "sports_media",
+        "perceived_majority": 0.5,
+        "public_visibility": "high",
+        "stakes": [
+          "cover games",
+          "amplify momentum, variance, and matchup framing"
+        ],
+        "stance_axes": {
+          "narrative_amplification": 0.72,
+          "neutrality": 0.52,
+          "volatility_focus": 0.7
+        },
+        "type": "media_ecosystem"
+      }
+    ],
+    "branch_hypotheses": [
+      {
+        "alternate_path": "Home-field energy and offense become a stronger public narrative, reducing Team L aura of inevitability.",
+        "branch_key": "team_t_early_lead_branch",
+        "divergence_signal": "Media framing shifts from champion advantage to upset viability; Team T fan confidence rises materially.",
+        "trigger": "Team T wins Game 1 or takes a 2-0 lead"
+      },
+      {
+        "alternate_path": "Series narrative tilts toward Team L's depth and experience as a durable edge.",
+        "branch_key": "team_l_pitching_control_branch",
+        "divergence_signal": "Postgame commentary repeatedly cites Team T offensive underperformance and Team L command of leverage innings.",
+        "trigger": "Team L starters and bullpen suppress Team T offense in early games"
+      },
+      {
+        "alternate_path": "Bullpen wear, matchup improvisation, and travel effects matter more than pre-series priors.",
+        "branch_key": "extended_series_fatigue_branch",
+        "divergence_signal": "Managerial usage patterns, rest concerns, and fatigue narratives dominate coverage.",
+        "trigger": "Series reaches six or seven games"
+      },
+      {
+        "alternate_path": "Raw run production overwhelms some of Team L's pitching-edge prior.",
+        "branch_key": "team_t_offense_breakout_branch",
+        "divergence_signal": "Coverage starts treating Team T lineup pressure as the defining series variable.",
+        "trigger": "Team T produces multiple high-scoring games early"
+      }
+    ],
+    "channels": [
+      {
+        "channel_key": "live_broadcast",
+        "intensity": 0.92,
+        "participants": [
+          "sports_media",
+          "team_t_fanbase",
+          "team_l_fanbase"
+        ],
+        "type": "mass_media",
+        "visibility": "public"
+      },
+      {
+        "channel_key": "postgame_analysis",
+        "intensity": 0.84,
+        "participants": [
+          "sports_media",
+          "general_series_audience_proxy"
+        ],
+        "type": "analysis_media",
+        "visibility": "public"
+      },
+      {
+        "channel_key": "stadium_environment",
+        "intensity": 0.72,
+        "participants": [
+          "team_t_fanbase",
+          "team_t"
+        ],
+        "type": "in_person_collective",
+        "visibility": "public"
+      },
+      {
+        "channel_key": "team_internal_strategy",
+        "intensity": 0.81,
+        "participants": [
+          "team_t",
+          "team_t_managerial_staff",
+          "team_l",
+          "team_l_managerial_staff"
+        ],
+        "type": "private_operational",
+        "visibility": "private"
+      }
+    ],
+    "cohort_states": [
+      {
+        "actor_name": "team_t_fanbase",
+        "archetype_key": "team_t_supporters",
+        "attention_level": 0.94,
+        "cohort_key": "team_t_confident_supporters",
+        "expression_level": 0.89,
+        "fatigue": 0.16,
+        "fear_of_isolation": 0.08,
+        "mobilization_readiness": 0.84,
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.65,
+        "private_belief": "Team T has a real chance due to offense and home-field energy, though not overwhelming superiority.",
+        "public_expression": "Visible enthusiasm and strong support entering series.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 1170000,
+        "stance_axes": {
+          "optimism": 0.74,
+          "series_confidence": 0.62,
+          "volatility_acceptance": 0.57
+        }
+      },
+      {
+        "actor_name": "team_t_fanbase",
+        "archetype_key": "team_t_supporters",
+        "attention_level": 0.91,
+        "cohort_key": "team_t_anxious_supporters",
+        "expression_level": 0.68,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.71,
+        "perceived_majority": 0.38,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Team T is live but vulnerable to Team L pitching depth and playoff experience.",
+        "public_expression": "Supportive but cautious, especially about series variance.",
+        "representation_mode": "estimated_minority_cohort",
+        "represented_population": 630000,
+        "stance_axes": {
+          "optimism": 0.52,
+          "series_confidence": 0.46,
+          "volatility_acceptance": 0.4
+        }
+      },
+      {
+        "actor_name": "team_l_fanbase",
+        "archetype_key": "team_l_supporters",
+        "attention_level": 0.93,
+        "cohort_key": "team_l_confident_supporters",
+        "expression_level": 0.87,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.08,
+        "mobilization_readiness": 0.82,
+        "perceived_majority": 0.66,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "Team L should be favored because defending champions with deep pitching are well-built for a series.",
+        "public_expression": "Confident title-defense rhetoric.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 1260000,
+        "stance_axes": {
+          "optimism": 0.76,
+          "series_confidence": 0.65,
+          "volatility_acceptance": 0.55
+        }
+      },
+      {
+        "actor_name": "team_l_fanbase",
+        "archetype_key": "team_l_supporters",
+        "attention_level": 0.9,
+        "cohort_key": "team_l_cautious_supporters",
+        "expression_level": 0.66,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.17,
+        "mobilization_readiness": 0.7,
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "Team L is strong but Team T offense and home-field energy create upset risk.",
+        "public_expression": "Measured confidence, less dismissive of Team T.",
+        "representation_mode": "estimated_minority_cohort",
+        "represented_population": 540000,
+        "stance_axes": {
+          "optimism": 0.57,
+          "series_confidence": 0.52,
+          "volatility_acceptance": 0.47
+        }
+      },
+      {
+        "actor_name": "sports_media",
+        "archetype_key": "general_series_audience",
+        "attention_level": 0.78,
+        "cohort_key": "neutral_viewers_variance_watchers",
+        "expression_level": 0.52,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.06,
+        "mobilization_readiness": 0.38,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "Series is uncertain and likely to swing after each game due to path dependence.",
+        "public_expression": "Engaged but not loyal; reacts strongly to momentum narratives.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 3120000,
+        "stance_axes": {
+          "interest": 0.72,
+          "loyalty": 0.22,
+          "variance_salience": 0.8
+        }
+      },
+      {
+        "actor_name": "sports_media",
+        "archetype_key": "general_series_audience",
+        "attention_level": 0.74,
+        "cohort_key": "neutral_viewers_experience_favorers",
+        "expression_level": 0.48,
+        "fatigue": 0.14,
+        "fear_of_isolation": 0.08,
+        "mobilization_readiness": 0.31,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "Defending champions and deeper pitching usually have the edge in a full series.",
+        "public_expression": "Mild lean toward Team L absent contrary game results.",
+        "representation_mode": "estimated_minority_cohort",
+        "represented_population": 2080000,
+        "stance_axes": {
+          "experience_weight": 0.72,
+          "interest": 0.68,
+          "loyalty": 0.18
+        }
+      }
+    ],
+    "cohorts": [
+      {
+        "actor_name": "team_t_fanbase",
+        "archetype_key": "team_t_supporters",
+        "attention_level": 0.94,
+        "cohort_key": "team_t_confident_supporters",
+        "expression_level": 0.89,
+        "fatigue": 0.16,
+        "fear_of_isolation": 0.08,
+        "mobilization_readiness": 0.84,
+        "perceived_majority": 0.62,
+        "population_share_of_archetype": 0.65,
+        "private_belief": "Team T has a real chance due to offense and home-field energy, though not overwhelming superiority.",
+        "public_expression": "Visible enthusiasm and strong support entering series.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 1170000,
+        "stance_axes": {
+          "optimism": 0.74,
+          "series_confidence": 0.62,
+          "volatility_acceptance": 0.57
+        }
+      },
+      {
+        "actor_name": "team_t_fanbase",
+        "archetype_key": "team_t_supporters",
+        "attention_level": 0.91,
+        "cohort_key": "team_t_anxious_supporters",
+        "expression_level": 0.68,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.2,
+        "mobilization_readiness": 0.71,
+        "perceived_majority": 0.38,
+        "population_share_of_archetype": 0.35,
+        "private_belief": "Team T is live but vulnerable to Team L pitching depth and playoff experience.",
+        "public_expression": "Supportive but cautious, especially about series variance.",
+        "representation_mode": "estimated_minority_cohort",
+        "represented_population": 630000,
+        "stance_axes": {
+          "optimism": 0.52,
+          "series_confidence": 0.46,
+          "volatility_acceptance": 0.4
+        }
+      },
+      {
+        "actor_name": "team_l_fanbase",
+        "archetype_key": "team_l_supporters",
+        "attention_level": 0.93,
+        "cohort_key": "team_l_confident_supporters",
+        "expression_level": 0.87,
+        "fatigue": 0.18,
+        "fear_of_isolation": 0.08,
+        "mobilization_readiness": 0.82,
+        "perceived_majority": 0.66,
+        "population_share_of_archetype": 0.7,
+        "private_belief": "Team L should be favored because defending champions with deep pitching are well-built for a series.",
+        "public_expression": "Confident title-defense rhetoric.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 1260000,
+        "stance_axes": {
+          "optimism": 0.76,
+          "series_confidence": 0.65,
+          "volatility_acceptance": 0.55
+        }
+      },
+      {
+        "actor_name": "team_l_fanbase",
+        "archetype_key": "team_l_supporters",
+        "attention_level": 0.9,
+        "cohort_key": "team_l_cautious_supporters",
+        "expression_level": 0.66,
+        "fatigue": 0.22,
+        "fear_of_isolation": 0.17,
+        "mobilization_readiness": 0.7,
+        "perceived_majority": 0.34,
+        "population_share_of_archetype": 0.3,
+        "private_belief": "Team L is strong but Team T offense and home-field energy create upset risk.",
+        "public_expression": "Measured confidence, less dismissive of Team T.",
+        "representation_mode": "estimated_minority_cohort",
+        "represented_population": 540000,
+        "stance_axes": {
+          "optimism": 0.57,
+          "series_confidence": 0.52,
+          "volatility_acceptance": 0.47
+        }
+      },
+      {
+        "actor_name": "sports_media",
+        "archetype_key": "general_series_audience",
+        "attention_level": 0.78,
+        "cohort_key": "neutral_viewers_variance_watchers",
+        "expression_level": 0.52,
+        "fatigue": 0.12,
+        "fear_of_isolation": 0.06,
+        "mobilization_readiness": 0.38,
+        "perceived_majority": 0.5,
+        "population_share_of_archetype": 0.6,
+        "private_belief": "Series is uncertain and likely to swing after each game due to path dependence.",
+        "public_expression": "Engaged but not loyal; reacts strongly to momentum narratives.",
+        "representation_mode": "estimated_majority_cohort",
+        "represented_population": 3120000,
+        "stance_axes": {
+          "interest": 0.72,
+          "loyalty": 0.22,
+          "variance_salience": 0.8
+        }
+      },
+      {
+        "actor_name": "sports_media",
+        "archetype_key": "general_series_audience",
+        "attention_level": 0.74,
+        "cohort_key": "neutral_viewers_experience_favorers",
+        "expression_level": 0.48,
+        "fatigue": 0.14,
+        "fear_of_isolation": 0.08,
+        "mobilization_readiness": 0.31,
+        "perceived_majority": 0.46,
+        "population_share_of_archetype": 0.4,
+        "private_belief": "Defending champions and deeper pitching usually have the edge in a full series.",
+        "public_expression": "Mild lean toward Team L absent contrary game results.",
+        "representation_mode": "estimated_minority_cohort",
+        "represented_population": 2080000,
+        "stance_axes": {
+          "experience_weight": 0.72,
+          "interest": 0.68,
+          "loyalty": 0.18
+        }
+      }
+    ],
+    "emotion_observations": [],
+    "endpoint_ledger": [
+      {
+        "authority_refs": [
+          "team_t",
+          "team_l",
+          "official_series_result"
+        ],
+        "blockers": [
+          "Team L may convert pitching depth and experience into four wins first",
+          "series variance can swing after each game"
+        ],
+        "contradiction_notes": "A close loss in seven games does not satisfy this endpoint.",
+        "description": "Terminal outcome where Team T secures its fourth win before Team L.",
+        "endpoint_key": "team_t_wins_series",
+        "evidence_refs": [
+          "scenario endpoint definition",
+          "source_1 best_of_seven_note",
+          "source_3 loss_in_seven_is_no"
+        ],
+        "label": "Team T wins series",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will Team T win four games before Team L and thus win the best-of-seven series?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.45,
+        "rationale": "This is the primary terminal question explicitly defined by the corpus.",
+        "realization_criteria": [
+          "official series result records Team T with four wins before Team L reaches four",
+          "championship awarded to Team T"
+        ],
+        "status": "active",
+        "status_basis": "Series has just opened; no wins recorded at T0."
+      },
+      {
+        "authority_refs": [
+          "team_t",
+          "team_l",
+          "official_series_result"
+        ],
+        "blockers": [
+          "Team T offense and home-field energy may produce four wins first"
+        ],
+        "contradiction_notes": "This endpoint is mutually exclusive with Team T winning the series.",
+        "description": "Terminal outcome where Team L secures its fourth win before Team T.",
+        "endpoint_key": "team_l_wins_series",
+        "evidence_refs": [
+          "scenario endpoint definition",
+          "source_1 best_of_seven_note",
+          "source_3 loss_in_seven_is_no"
+        ],
+        "label": "Team L wins series",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will the series extend to at least six games before resolving?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.55,
+        "rationale": "Necessary complementary terminal option because the best-of-seven resolves to one winner.",
+        "realization_criteria": [
+          "official series result records Team L with four wins before Team T reaches four",
+          "championship awarded to Team L"
+        ],
+        "status": "active",
+        "status_basis": "Series has just opened; no wins recorded at T0."
+      },
+      {
+        "authority_refs": [
+          "team_t",
+          "team_l",
+          "official_series_schedule"
+        ],
+        "blockers": [
+          "One team sweeps or wins in five"
+        ],
+        "contradiction_notes": "This is not the same as Team T winning; either club could still prevail.",
+        "description": "Process-completion endpoint for whether the matchup remains unresolved through five games.",
+        "endpoint_key": "series_reaches_six_games",
+        "evidence_refs": [
+          "best_of_seven_format",
+          "variance_note"
+        ],
+        "label": "Series reaches at least six games",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Which team establishes the early series edge after the opening games?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.58,
+        "rationale": "Useful endpoint-facing prior for testing how much variance and balance persist beyond early games.",
+        "realization_criteria": [
+          "after five completed games neither team has four wins",
+          "official schedule includes Game 6 as necessary"
+        ],
+        "status": "active",
+        "status_basis": "At T0 no games have been played, so a longer series remains plausible."
+      },
+      {
+        "authority_refs": [
+          "team_l",
+          "sports_media",
+          "official_series_result"
+        ],
+        "blockers": [
+          "Team T could win outright",
+          "Team L could win for reasons not primarily tied to pitching depth"
+        ],
+        "contradiction_notes": "If Team T wins, this endpoint is not realized regardless of isolated strong Team L pitching performances.",
+        "description": "Observable terminal characterization that Team L's deep pitching is the dominant cited driver of eventual series victory, if Team L wins.",
+        "endpoint_key": "team_l_pitching_edge_decisive",
+        "evidence_refs": [
+          "scenario description of Team L deep pitching",
+          "variance_note"
+        ],
+        "label": "Team L pitching edge proves decisive",
+        "last_observed_tick_index": null,
+        "meta": {
+          "important_question": "Will Team L's pitching depth emerge as the dominant observable driver of the series outcome?",
+          "source": "initializer_endpoint_ledger"
+        },
+        "negative_evidence_refs": [],
+        "probability": 0.34,
+        "rationale": "Captures one central mechanism named in the corpus rather than only final winner status.",
+        "realization_criteria": [
+          "Team L wins the series",
+          "post-series consensus evidence prominently attributes outcome to starting rotation depth, bullpen control, or run suppression across multiple games"
+        ],
+        "status": "active",
+        "status_basis": "Pitching depth is a major prior but has not yet been validated in observed play."
+      }
+    ],
+    "fallback": false,
+    "graph_edges": [
+      {
+        "direction": "directed",
+        "evidence": "Expected focus on sports series forecasting and public attention around the World Series.",
+        "layer": "exposure",
+        "reason": "Media coverage strongly reaches Team T supporters during the championship series.",
+        "source_actor_name": "sports_media",
+        "target_actor_name": "team_t_fanbase",
+        "weight": 0.64
+      },
+      {
+        "direction": "directed",
+        "evidence": "Championship series context implies intense media attention.",
+        "layer": "exposure",
+        "reason": "Media coverage strongly reaches Team L supporters during the championship series.",
+        "source_actor_name": "sports_media",
+        "target_actor_name": "team_l_fanbase",
+        "weight": 0.64
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario explicitly notes Team T has home-field energy.",
+        "layer": "exposure",
+        "reason": "Home-field energy creates visible supporter presence around Team T.",
+        "source_actor_name": "team_t_fanbase",
+        "target_actor_name": "team_t",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "Team L is defending champion with active supporter attention.",
+        "layer": "exposure",
+        "reason": "Defending champion fan support remains visible to Team L.",
+        "source_actor_name": "team_l_fanbase",
+        "target_actor_name": "team_l",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "Series outcome and path dependence depend on each game result.",
+        "layer": "exposure",
+        "reason": "Team T performance and games are central media content.",
+        "source_actor_name": "team_t",
+        "target_actor_name": "sports_media",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario highlights Team L experience and pitching depth.",
+        "layer": "exposure",
+        "reason": "Team L performance and defending champion status draw media attention.",
+        "source_actor_name": "team_l",
+        "target_actor_name": "sports_media",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario cites strong offensive profile and home-field energy.",
+        "layer": "trust",
+        "reason": "Supporters generally trust Team T to compete credibly given offensive strength and home support.",
+        "source_actor_name": "team_t_fanbase",
+        "target_actor_name": "team_t",
+        "weight": 0.62
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario explicitly presents Team L as defending champion with deep pitching.",
+        "layer": "trust",
+        "reason": "Supporters trust defending champions with deep pitching and recent postseason experience.",
+        "source_actor_name": "team_l_fanbase",
+        "target_actor_name": "team_l",
+        "weight": 0.69
+      },
+      {
+        "direction": "directed",
+        "evidence": "Media ecosystem shapes narratives around momentum and variance.",
+        "layer": "trust",
+        "reason": "General audience relies on media for series interpretation but narrative volatility limits trust strength.",
+        "source_actor_name": "general_series_audience_proxy",
+        "target_actor_name": "sports_media",
+        "weight": 0.48
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source notes pitching rotations and bullpen fatigue can change probabilities after each game.",
+        "layer": "dependency",
+        "reason": "Team T series prospects depend materially on tactical deployment and bullpen management.",
+        "source_actor_name": "team_t",
+        "target_actor_name": "team_t_managerial_staff",
+        "weight": 0.58
+      },
+      {
+        "direction": "directed",
+        "evidence": "Pitching rotations and bullpen usage are highlighted as core drivers.",
+        "layer": "dependency",
+        "reason": "Team L depends on staff to maximize pitching depth across the series.",
+        "source_actor_name": "team_l",
+        "target_actor_name": "team_l_managerial_staff",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "Team T strength is described as a strong offensive profile.",
+        "layer": "dependency",
+        "reason": "Staff decisions depend on actual player execution and offensive conversion.",
+        "source_actor_name": "team_t_managerial_staff",
+        "target_actor_name": "team_t",
+        "weight": 0.47
+      },
+      {
+        "direction": "directed",
+        "evidence": "Deep pitching and recent experience are team assets to be deployed.",
+        "layer": "dependency",
+        "reason": "Staff plans rely on Team L arms and players executing the defending champion model.",
+        "source_actor_name": "team_l_managerial_staff",
+        "target_actor_name": "team_l",
+        "weight": 0.52
+      },
+      {
+        "direction": "directed",
+        "evidence": "Source packet emphasizes path dependence via pitching rotations and bullpen fatigue.",
+        "layer": "influence",
+        "reason": "Managers strongly shape lineups, rotations, and bullpen leverage.",
+        "source_actor_name": "team_t_managerial_staff",
+        "target_actor_name": "team_t",
+        "weight": 0.63
+      },
+      {
+        "direction": "directed",
+        "evidence": "Deep pitching is a core Team L advantage requiring tactical deployment.",
+        "layer": "influence",
+        "reason": "Managers strongly shape use of Team L pitching depth across the series.",
+        "source_actor_name": "team_l_managerial_staff",
+        "target_actor_name": "team_l",
+        "weight": 0.66
+      },
+      {
+        "direction": "directed",
+        "evidence": "Media ecosystem amplifies momentum and variance stories.",
+        "layer": "influence",
+        "reason": "Narrative framing affects expectations and mood among Team T supporters.",
+        "source_actor_name": "sports_media",
+        "target_actor_name": "team_t_fanbase",
+        "weight": 0.55
+      },
+      {
+        "direction": "directed",
+        "evidence": "Media ecosystem amplifies momentum and variance stories.",
+        "layer": "influence",
+        "reason": "Narrative framing affects expectations and mood among Team L supporters.",
+        "source_actor_name": "sports_media",
+        "target_actor_name": "team_l_fanbase",
+        "weight": 0.55
+      },
+      {
+        "direction": "directed",
+        "evidence": "Scenario explicitly names home-field energy as a Team T asset.",
+        "layer": "influence",
+        "reason": "Home-field energy can modestly influence Team T emotional and performance environment.",
+        "source_actor_name": "team_t_fanbase",
+        "target_actor_name": "team_t",
+        "weight": 0.44
+      },
+      {
+        "direction": "directed",
+        "evidence": "Same club with common endpoint of winning four games first.",
+        "layer": "coalition",
+        "reason": "Shared objective and coordinated competitive execution.",
+        "source_actor_name": "team_t",
+        "target_actor_name": "team_t_managerial_staff",
+        "weight": 0.64
+      },
+      {
+        "direction": "directed",
+        "evidence": "Same club with common endpoint of defending title.",
+        "layer": "coalition",
+        "reason": "Shared objective and coordinated use of team strengths.",
+        "source_actor_name": "team_l",
+        "target_actor_name": "team_l_managerial_staff",
+        "weight": 0.66
+      },
+      {
+        "direction": "directed",
+        "evidence": "Team T fanbase energized by home-field setting.",
+        "layer": "coalition",
+        "reason": "Supporters align closely with Team T success objective.",
+        "source_actor_name": "team_t_fanbase",
+        "target_actor_name": "team_t",
+        "weight": 0.61
+      },
+      {
+        "direction": "directed",
+        "evidence": "Team L fanbase oriented around defending champion status.",
+        "layer": "coalition",
+        "reason": "Supporters align closely with Team L title-defense objective.",
+        "source_actor_name": "team_l_fanbase",
+        "target_actor_name": "team_l",
+        "weight": 0.64
+      },
+      {
+        "direction": "directed",
+        "evidence": "Best-of-seven endpoint with yes only if Team T wins four games before Team L.",
+        "layer": "conflict",
+        "reason": "Only one team can win the series; goals are directly incompatible.",
+        "source_actor_name": "team_t",
+        "target_actor_name": "team_l",
+        "weight": 0.68
+      },
+      {
+        "direction": "directed",
+        "evidence": "Best-of-seven terminal choice structure.",
+        "layer": "conflict",
+        "reason": "Only one team can win the series; goals are directly incompatible.",
+        "source_actor_name": "team_l",
+        "target_actor_name": "team_t",
+        "weight": 0.68
+      },
+      {
+        "direction": "directed",
+        "evidence": "Opposing supporter coalitions in championship setting.",
+        "layer": "conflict",
+        "reason": "Competitive fan rivalry around series outcome.",
+        "source_actor_name": "team_t_fanbase",
+        "target_actor_name": "team_l_fanbase",
+        "weight": 0.43
+      },
+      {
+        "direction": "directed",
+        "evidence": "Opposing supporter coalitions in championship setting.",
+        "layer": "conflict",
+        "reason": "Competitive fan rivalry around series outcome.",
+        "source_actor_name": "team_l_fanbase",
+        "target_actor_name": "team_t_fanbase",
+        "weight": 0.43
+      },
+      {
+        "direction": "directed",
+        "evidence": "High public attention implied by championship context.",
+        "layer": "oasis_interaction",
+        "reason": "Supporters actively engage with broadcast and commentary channels during the series.",
+        "source_actor_name": "team_t_fanbase",
+        "target_actor_name": "sports_media",
+        "weight": 0.57
+      },
+      {
+        "direction": "directed",
+        "evidence": "High public attention implied by championship context.",
+        "layer": "oasis_interaction",
+        "reason": "Supporters actively engage with broadcast and commentary channels during the series.",
+        "source_actor_name": "team_l_fanbase",
+        "target_actor_name": "sports_media",
+        "weight": 0.56
+      },
+      {
+        "direction": "directed",
+        "evidence": "Momentum and variance stories likely to shape engagement after each game.",
+        "layer": "oasis_interaction",
+        "reason": "Media and fans reciprocally interact around narrative updates and game reactions.",
+        "source_actor_name": "sports_media",
+        "target_actor_name": "team_t_fanbase",
+        "weight": 0.59
+      },
+      {
+        "direction": "directed",
+        "evidence": "Momentum and variance stories likely to shape engagement after each game.",
+        "layer": "oasis_interaction",
+        "reason": "Media and fans reciprocally interact around narrative updates and game reactions.",
+        "source_actor_name": "sports_media",
+        "target_actor_name": "team_l_fanbase",
+        "weight": 0.59
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "archetype_key": "team_competitor",
+        "description": "Central actor whose tactical performance and endurance determine series outcome.",
+        "label": "Competitive team principal"
+      },
+      {
+        "archetype_key": "managerial_decider",
+        "description": "Strategic authority over deployment, adaptation, and high-leverage choices.",
+        "label": "Managerial decider"
+      }
+    ],
+    "hero_states": [
+      {
+        "actor_name": "team_t",
+        "archetype_key": "team_competitor",
+        "attention_level": 0.95,
+        "capabilities": [
+          "strong offense",
+          "home-field energy"
+        ],
+        "constraints": [
+          "series variance",
+          "pitching rotation uncertainty",
+          "bullpen fatigue risk",
+          "travel effects"
+        ],
+        "current_goal": "win four games before Team L",
+        "expression_level": 0.75,
+        "fatigue": 0.3,
+        "fear_of_isolation": 0.04,
+        "hero_key": "team_t_competitor_state",
+        "mobilization_readiness": 0.93,
+        "perceived_majority": 0.49,
+        "stance_axes": {
+          "confidence": 0.58,
+          "resilience": 0.6,
+          "urgency": 0.78
+        }
+      },
+      {
+        "actor_name": "team_l",
+        "archetype_key": "team_competitor",
+        "attention_level": 0.95,
+        "capabilities": [
+          "deep pitching",
+          "recent postseason experience"
+        ],
+        "constraints": [
+          "road environment in some games",
+          "offensive pressure from Team T",
+          "variance across seven games"
+        ],
+        "current_goal": "win four games before Team T",
+        "expression_level": 0.72,
+        "fatigue": 0.28,
+        "fear_of_isolation": 0.03,
+        "hero_key": "team_l_competitor_state",
+        "mobilization_readiness": 0.94,
+        "perceived_majority": 0.51,
+        "stance_axes": {
+          "confidence": 0.62,
+          "resilience": 0.66,
+          "urgency": 0.79
+        }
+      },
+      {
+        "actor_name": "team_t_managerial_staff",
+        "archetype_key": "managerial_decider",
+        "attention_level": 0.88,
+        "capabilities": [
+          "in-series tactical adjustment",
+          "bullpen allocation"
+        ],
+        "constraints": [
+          "limited source detail on staff options",
+          "reactive pressure after each game"
+        ],
+        "current_goal": "sequence pitchers and lineup choices to preserve win paths across series",
+        "expression_level": 0.42,
+        "fatigue": 0.25,
+        "fear_of_isolation": 0.04,
+        "hero_key": "team_t_manager_state",
+        "mobilization_readiness": 0.9,
+        "perceived_majority": 0.5,
+        "stance_axes": {
+          "adaptability": 0.58,
+          "confidence": 0.55,
+          "conservatism": 0.45
+        }
+      },
+      {
+        "actor_name": "team_l_managerial_staff",
+        "archetype_key": "managerial_decider",
+        "attention_level": 0.88,
+        "capabilities": [
+          "rotation optimization",
+          "experience-informed leverage decisions"
+        ],
+        "constraints": [
+          "travel effects",
+          "bullpen wear if series extends"
+        ],
+        "current_goal": "convert pitching depth into sustained series advantage",
+        "expression_level": 0.4,
+        "fatigue": 0.23,
+        "fear_of_isolation": 0.04,
+        "hero_key": "team_l_manager_state",
+        "mobilization_readiness": 0.91,
+        "perceived_majority": 0.52,
+        "stance_axes": {
+          "adaptability": 0.62,
+          "confidence": 0.61,
+          "conservatism": 0.52
+        }
+      }
+    ],
+    "heroes": [
+      {
+        "archetype_key": "team_competitor",
+        "description": "Central actor whose tactical performance and endurance determine series outcome.",
+        "label": "Competitive team principal"
+      },
+      {
+        "archetype_key": "managerial_decider",
+        "description": "Strategic authority over deployment, adaptation, and high-leverage choices.",
+        "label": "Managerial decider"
+      }
+    ],
+    "important_questions": [
+      "Will Team T win four games before Team L and thus win the best-of-seven series?",
+      "Will the series extend to at least six games before resolving?",
+      "Which team establishes the early series edge after the opening games?",
+      "Will Team L's pitching depth emerge as the dominant observable driver of the series outcome?"
+    ],
+    "initial_events": [
+      {
+        "description": "The best-of-seven championship series opens with Team T facing Team L.",
+        "event_key": "series_opens",
+        "event_type": "announcement",
+        "evidence": "Scenario states Team T opens the championship series against Team L.",
+        "expected_impact": "Sets baseline attention at maximum and creates immediate path dependence from Game 1 onward.",
+        "status": "active",
+        "tick": 0
+      },
+      {
+        "description": "Team T begins with home-field energy as a contextual asset.",
+        "event_key": "home_field_activation",
+        "event_type": "announcement",
+        "evidence": "Scenario explicitly notes Team T has home-field energy.",
+        "expected_impact": "Boosts Team T fan expression, local confidence, and perceived emotional support without determining outcome.",
+        "status": "active",
+        "tick": 0
+      },
+      {
+        "description": "Starting rotation and bullpen management become salient after early games.",
+        "event_key": "rotation_management_pressure",
+        "event_type": "announcement",
+        "evidence": "Source says pitching rotations and bullpen fatigue can change probabilities after each game.",
+        "expected_impact": "Can alter trust in managerial staff, fatigue trajectories, and perceived edge between offense and pitching depth.",
+        "status": "scheduled",
+        "tick": 1
+      },
+      {
+        "description": "Travel effects begin to matter as the series progresses across venues.",
+        "event_key": "travel_adjustment_window",
+        "event_type": "announcement",
+        "evidence": "Source packet lists travel as a factor changing probabilities after each game.",
+        "expected_impact": "May modestly shift fatigue, preparation narratives, and comparative readiness.",
+        "status": "scheduled",
+        "tick": 2
+      },
+      {
+        "description": "By mid-to-late series, one side may face elimination pressure depending on results.",
+        "event_key": "elimination_pressure_possible",
+        "event_type": "announcement",
+        "evidence": "Best-of-seven structure creates elimination scenarios before the fourth win is secured.",
+        "expected_impact": "Would raise conflict, fan emotional volatility, and strategic aggression if triggered.",
+        "status": "contingent",
+        "tick": 4
+      }
+    ],
+    "llm_call_id": "605db850-1d15-41db-9e5a-81b558e9fb15",
+    "merge_hypotheses": [
+      {
+        "affected_paths": [
+          "team_t_early_lead_branch",
+          "team_l_pitching_control_branch"
+        ],
+        "convergence_mechanism": "Even after one-sided early narratives, a single opposing win can restore uncertainty because best-of-seven series remain path-dependent.",
+        "evidence": "Scenario emphasizes multi-game variance and changing probabilities after each game.",
+        "merge_key": "variance_reassertion"
+      },
+      {
+        "affected_paths": [
+          "team_l_pitching_control_branch",
+          "extended_series_fatigue_branch",
+          "team_t_offense_breakout_branch"
+        ],
+        "convergence_mechanism": "Both clubs ultimately face bullpen and travel management constraints, reducing extreme narrative divergence over time.",
+        "evidence": "Source packet lists bullpen fatigue and travel as shared factors.",
+        "merge_key": "managerial_constraints_commonality"
+      },
+      {
+        "affected_paths": [
+          "all"
+        ],
+        "convergence_mechanism": "Regardless of closeness or momentum swings, all paths converge on the same observable terminal criterion: first to four wins.",
+        "evidence": "Endpoint note clarifies that losing in seven games still resolves no for Team T.",
+        "merge_key": "terminal_four_win_requirement"
+      }
+    ],
+    "model": "gpt-5.4",
+    "population_archetypes": [
+      {
+        "archetype_key": "team_t_supporters",
+        "description": "Fans and sympathizers primarily oriented toward Team T during the series.",
+        "label": "Team T supporters",
+        "population_total": 1800000
+      },
+      {
+        "archetype_key": "team_l_supporters",
+        "description": "Fans and sympathizers primarily oriented toward Team L during the series.",
+        "label": "Team L supporters",
+        "population_total": 1800000
+      },
+      {
+        "archetype_key": "general_series_audience",
+        "description": "Neutral or mixed-attention viewers following the championship series for sport and spectacle.",
+        "label": "General series audience",
+        "population_total": 5200000
+      }
+    ],
+    "risk_flags": [
+      {
+        "description": "No player-specific roster, injury, or probable starter information is available in the source corpus.",
+        "flag_key": "limited_roster_evidence",
+        "severity": "medium"
+      },
+      {
+        "description": "Scenario describes broad strengths and variance factors but not quantitative priors or market odds.",
+        "flag_key": "coarse_public_narrative_only",
+        "severity": "medium"
+      },
+      {
+        "description": "WorldFork social-state schema is being applied to a sports forecasting case, so sociology fields are lightweight and mainly audience-facing.",
+        "flag_key": "non_social_domain_adaptation",
+        "severity": "low"
+      },
+      {
+        "description": "General audience is described in cohorts, but graph edges rely primarily on media and fan actors due to limited explicit neutral-actor detail.",
+        "flag_key": "proxy_actor_gap",
+        "severity": "medium"
+      }
+    ],
+    "simulation_brief": {
+      "decision_frame": "terminal endpoint is whether Team T wins the series before Team L does",
+      "domain": "sports_series_forecasting",
+      "scale": "elite professional sports championship series",
+      "scenario_key": "resolved_007",
+      "summary": "Team T, a Canadian club, begins a best-of-seven 2025 championship series against Team L, a defending champion with deep pitching and recent postseason experience. Team T has home-field energy and a strong offense. Series outcome depends on first team to four wins, with path dependence from pitching rotation, bullpen fatigue, and travel.",
+      "timeframe": "series_start_t0",
+      "uncertainty_notes": [
+        "No game-by-game roster, injury, or starting pitcher specifics provided at T0.",
+        "Outcome is explicitly unresolved at initialization and highly path-dependent across up to seven games.",
+        "Source corpus provides only coarse comparative strengths, so actor traits and graph weights are calibrated conservatively."
+      ]
+    },
+    "sociology_baseline": [
+      {
+        "applies_to": [
+          "team_t_fanbase",
+          "team_l_fanbase",
+          "general_series_audience"
+        ],
+        "evidence": "Supporters update around prior loyalties and known strengths rather than fully converging at T0.",
+        "level": 0.58,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "team_t_fanbase",
+          "team_l_fanbase"
+        ],
+        "evidence": "Fan expression and engagement likely intensify after decisive game swings rather than staying flat.",
+        "level": 0.62,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "general_series_audience"
+        ],
+        "evidence": "Sports context has relatively low penalty for open opinion expression, though less-attached neutrals remain quieter.",
+        "level": 0.24,
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "team_t_fanbase",
+          "team_l_fanbase"
+        ],
+        "evidence": "Supporter communities cluster around team identity and reinforce favorable interpretations.",
+        "level": 0.66,
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "general_series_audience",
+          "team_t_fanbase",
+          "team_l_fanbase"
+        ],
+        "evidence": "Momentum narratives usually require repeated game evidence and broad commentary amplification.",
+        "level": 0.57,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "team_t_fanbase",
+          "team_l_fanbase"
+        ],
+        "evidence": "Team allegiance strongly structures interpretation of the same series events.",
+        "level": 0.72,
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      {
+        "applies_to": [
+          "general_series_audience"
+        ],
+        "evidence": "Attention should remain high during the series, with only modest decay between games unless contest becomes lopsided.",
+        "level": 0.31,
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "context_key": "best_of_seven_structure",
+        "description": "Public interpretation updates after each game because the series is a multi-step contest rather than a single result."
+      },
+      {
+        "context_key": "pitching_and_bullpen_path_dependence",
+        "description": "Rotation choices and bullpen fatigue can reshape perceived odds after each game."
+      },
+      {
+        "context_key": "home_field_energy",
+        "description": "Team T begins with a supportive atmosphere that may raise early enthusiasm and narrative tailwinds."
+      },
+      {
+        "context_key": "defending_champion_experience",
+        "description": "Team L enters with legitimacy and composure advantages in public framing."
+      },
+      {
+        "context_key": "travel_variance",
+        "description": "Travel is a contextual stressor that can modestly shift fatigue and preparation narratives across games."
+      }
+    ],
+    "trait_vectors": [
+      {
+        "actor_name": "team_t",
+        "behavior_axes": {
+          "adaptability": 0.55,
+          "aggression": 0.57,
+          "discipline": 0.56,
+          "volatility": 0.52
+        },
+        "ideology_axes": {
+          "risk_aversion": 0.44,
+          "tradition_vs_innovation": 0.5
+        },
+        "reputation": 0.68,
+        "secrecy": 0.42,
+        "tendency": "offense_forward_contender",
+        "trustworthiness": 0.63
+      },
+      {
+        "actor_name": "team_l",
+        "behavior_axes": {
+          "adaptability": 0.6,
+          "aggression": 0.5,
+          "discipline": 0.64,
+          "volatility": 0.45
+        },
+        "ideology_axes": {
+          "risk_aversion": 0.5,
+          "tradition_vs_innovation": 0.57
+        },
+        "reputation": 0.78,
+        "secrecy": 0.43,
+        "tendency": "pitching_depth_defending_champion",
+        "trustworthiness": 0.67
+      },
+      {
+        "actor_name": "team_t_managerial_staff",
+        "behavior_axes": {
+          "adaptability": 0.58,
+          "aggression": 0.55,
+          "discipline": 0.6,
+          "volatility": 0.47
+        },
+        "ideology_axes": {
+          "risk_aversion": 0.46,
+          "tradition_vs_innovation": 0.49
+        },
+        "reputation": 0.59,
+        "secrecy": 0.58,
+        "tendency": "situational_adjuster",
+        "trustworthiness": 0.62
+      },
+      {
+        "actor_name": "team_l_managerial_staff",
+        "behavior_axes": {
+          "adaptability": 0.62,
+          "aggression": 0.49,
+          "discipline": 0.66,
+          "volatility": 0.42
+        },
+        "ideology_axes": {
+          "risk_aversion": 0.52,
+          "tradition_vs_innovation": 0.54
+        },
+        "reputation": 0.67,
+        "secrecy": 0.58,
+        "tendency": "depth_maximizer",
+        "trustworthiness": 0.65
+      },
+      {
+        "actor_name": "team_t_fanbase",
+        "behavior_axes": {
+          "adaptability": 0.44,
+          "aggression": 0.36,
+          "discipline": 0.38,
+          "volatility": 0.66
+        },
+        "ideology_axes": {
+          "risk_aversion": 0.4,
+          "tradition_vs_innovation": 0.5
+        },
+        "reputation": 0.58,
+        "secrecy": 0.12,
+        "tendency": "high_energy_home_support",
+        "trustworthiness": 0.55
+      },
+      {
+        "actor_name": "team_l_fanbase",
+        "behavior_axes": {
+          "adaptability": 0.46,
+          "aggression": 0.34,
+          "discipline": 0.41,
+          "volatility": 0.61
+        },
+        "ideology_axes": {
+          "risk_aversion": 0.42,
+          "tradition_vs_innovation": 0.52
+        },
+        "reputation": 0.61,
+        "secrecy": 0.12,
+        "tendency": "title_defense_confidence",
+        "trustworthiness": 0.56
+      },
+      {
+        "actor_name": "sports_media",
+        "behavior_axes": {
+          "adaptability": 0.71,
+          "aggression": 0.41,
+          "discipline": 0.55,
+          "volatility": 0.74
+        },
+        "ideology_axes": {
+          "risk_aversion": 0.35,
+          "tradition_vs_innovation": 0.53
+        },
+        "reputation": 0.7,
+        "secrecy": 0.18,
+        "tendency": "momentum_and_variance_amplifier",
+        "trustworthiness": 0.57
+      }
+    ]
+  },
+  "plain_text_corpus": {
+    "chunk_artifacts": [
+      {
+        "char_count": 1660,
+        "end": 1660,
+        "index": 0,
+        "start": 0
+      }
+    ],
+    "chunk_summaries": [],
+    "raw_char_count": 1660,
+    "simulation_brief": {
+      "chunk_summaries": [],
+      "mode": "direct",
+      "text": "[debug gated]"
+    }
+  },
+  "scenario_text_present": true
+}

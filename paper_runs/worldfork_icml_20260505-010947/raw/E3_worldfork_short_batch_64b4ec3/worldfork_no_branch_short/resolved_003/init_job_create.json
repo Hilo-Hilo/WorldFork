@@ -1,0 +1,44 @@
+{
+  "attempt_number": 0,
+  "available_at": "2026-05-05T04:22:26.184530Z",
+  "big_bang_id": null,
+  "concurrency_key": null,
+  "created_at": "2026-05-05T04:22:26.182849Z",
+  "error": null,
+  "finished_at": null,
+  "id": "68bfed8a-7d3d-44de-a2d3-49984c25d336",
+  "idempotency_key": "job:c7e8c07b0d8db85ee977fc76f6c2860ef48ae262ab3f0fea19439451c40ac1a8",
+  "interrupt_requested_at": null,
+  "interrupted_at": null,
+  "job_type": "initialize_big_bang",
+  "last_heartbeat_at": null,
+  "lease_expires_at": null,
+  "lease_owner": null,
+  "max_attempts": 3,
+  "paused_at": null,
+  "payload": {
+    "actors": [],
+    "branch_policy": {
+      "branch_score_threshold": 0.999,
+      "max_active_multiverses": 1,
+      "max_branch_depth": 1,
+      "max_branches_per_tick": 1
+    },
+    "cohorts": [],
+    "heroes": [],
+    "name": "E3_batch_64b4ec3_worldfork_no_branch_short_resolved_003",
+    "scenario_text": "# Case resolved_003\nBenchmark role: resolved_forecast\n\nForecast question: Will the Federal Open Market Committee lower the target range for the federal funds rate at its December 10, 2025 meeting?\n\n## Scenario\n\nThe FOMC faces a late-2025 decision after prior easing expectations, mixed labor-market signals, and inflation still above target. Markets discuss a possible quarter-point cut, but policymakers emphasize data dependence. The endpoint is yes only if the target range is lower immediately after the December 10 statement than it was immediately before the meeting.\n\n## Source Packet\n\n### Source 1: macro_note / 2025-11-15\n\nRecent communication points to data dependence rather than a pre-committed cut.\n\n### Source 2: risk_note / 2025-11-15\n\nInflation progress and labor-market softening point in opposite directions for policy.\n\n### Source 3: endpoint_note / 2025-11-15\n\nIgnore changes to implementation details unless the target range itself is lowered.\n\n## Candidate Endpoints\n- yes: The event occurs by the deadline\n- no: The event does not occur by the deadline\n\n## Expected Focus\n- central_bank_policy\n- binary_resolution\n- rate_target_definition\n\n## Required Forecast Output\n{'type': 'probability_distribution', 'schema': {'yes': 'float in [0,1]', 'no': 'float in [0,1]', 'unresolved_mass': 'optional float in [0,1]; if used, keep yes+no+unresolved_mass = 1'}, 'scoring': 'For resolved cards, score p_yes against the hidden private resolution using binary Brier and clamped log score. If unresolved_mass is present, report it separately and normalize yes/no only if your paper explicitly chooses conditional scoring.'}\n\n## Leakage Mitigation\nModel-facing text uses partial entity masking. Do not expose private_eval entity_map or resolution during forecasting.\n",
+    "simulation_config": {
+      "max_ticks": 8,
+      "tick_duration_minutes": 720
+    },
+    "use_initializer_agent": true
+  },
+  "queue_name": "p1",
+  "queued_at": "2026-05-05T04:22:26.184527Z",
+  "result": {},
+  "retryable": true,
+  "started_at": null,
+  "status": "queued",
+  "updated_at": "2026-05-05T04:22:26.182849Z"
+}

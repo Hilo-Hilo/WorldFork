@@ -1,0 +1,223 @@
+{
+  "prompt_influences": [
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "b958dc57-9996-454b-b2f4-f0c9fb7711b0",
+      "created_at": "2026-05-05T04:24:53.929647+00:00",
+      "id": "cbfaa0bc-8547-48ba-bea0-087f995ba592",
+      "influence": {
+        "context_key": "best_of_seven_structure",
+        "description": "Public interpretation updates after each game because the series is a multi-step contest rather than a single result."
+      },
+      "multiverse_id": "23a59bbc-0d50-4763-825f-a6202da10bd2",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T04:24:53.929647+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "b958dc57-9996-454b-b2f4-f0c9fb7711b0",
+      "created_at": "2026-05-05T04:24:53.929647+00:00",
+      "id": "8a9510f3-bf69-4003-b0cb-e11e822df651",
+      "influence": {
+        "context_key": "pitching_and_bullpen_path_dependence",
+        "description": "Rotation choices and bullpen fatigue can reshape perceived odds after each game."
+      },
+      "multiverse_id": "23a59bbc-0d50-4763-825f-a6202da10bd2",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T04:24:53.929647+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "b958dc57-9996-454b-b2f4-f0c9fb7711b0",
+      "created_at": "2026-05-05T04:24:53.929647+00:00",
+      "id": "ab850ddd-c0fc-4ba8-94e0-1f87c044dd10",
+      "influence": {
+        "context_key": "home_field_energy",
+        "description": "Team T begins with a supportive atmosphere that may raise early enthusiasm and narrative tailwinds."
+      },
+      "multiverse_id": "23a59bbc-0d50-4763-825f-a6202da10bd2",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T04:24:53.929647+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "b958dc57-9996-454b-b2f4-f0c9fb7711b0",
+      "created_at": "2026-05-05T04:24:53.929647+00:00",
+      "id": "e12e0297-0539-4dc9-b477-b75313cbeca1",
+      "influence": {
+        "context_key": "defending_champion_experience",
+        "description": "Team L enters with legitimacy and composure advantages in public framing."
+      },
+      "multiverse_id": "23a59bbc-0d50-4763-825f-a6202da10bd2",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T04:24:53.929647+00:00"
+    },
+    {
+      "actor_id": null,
+      "applies_to_tick_index": 1,
+      "big_bang_id": "b958dc57-9996-454b-b2f4-f0c9fb7711b0",
+      "created_at": "2026-05-05T04:24:53.929647+00:00",
+      "id": "75b67221-15e0-4f74-96fb-9fffd9b489cc",
+      "influence": {
+        "context_key": "travel_variance",
+        "description": "Travel is a contextual stressor that can modestly shift fatigue and preparation narratives across games."
+      },
+      "multiverse_id": "23a59bbc-0d50-4763-825f-a6202da10bd2",
+      "tick_index": 0,
+      "updated_at": "2026-05-05T04:24:53.929647+00:00"
+    }
+  ],
+  "signals": [
+    {
+      "actor_id": null,
+      "big_bang_id": "b958dc57-9996-454b-b2f4-f0c9fb7711b0",
+      "created_at": "2026-05-05T04:24:53.929647+00:00",
+      "id": "6ef919d9-43a7-481d-86fd-7d9b5df852c5",
+      "model": "attention_decay",
+      "multiverse_id": "23a59bbc-0d50-4763-825f-a6202da10bd2",
+      "signal": {
+        "applies_to": [
+          "team_t_fanbase",
+          "team_l_fanbase",
+          "general_series_audience"
+        ],
+        "evidence": "Supporters update around prior loyalties and known strengths rather than fully converging at T0.",
+        "level": 0.58,
+        "mechanism": "bounded_confidence",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T04:24:53.929647+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "b958dc57-9996-454b-b2f4-f0c9fb7711b0",
+      "created_at": "2026-05-05T04:24:53.929647+00:00",
+      "id": "b4f8dff1-37c9-4ebd-8894-f7176d7446e5",
+      "model": "attention_decay",
+      "multiverse_id": "23a59bbc-0d50-4763-825f-a6202da10bd2",
+      "signal": {
+        "applies_to": [
+          "team_t_fanbase",
+          "team_l_fanbase"
+        ],
+        "evidence": "Fan expression and engagement likely intensify after decisive game swings rather than staying flat.",
+        "level": 0.62,
+        "mechanism": "threshold_mobilization",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T04:24:53.929647+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "b958dc57-9996-454b-b2f4-f0c9fb7711b0",
+      "created_at": "2026-05-05T04:24:53.929647+00:00",
+      "id": "7634a58d-63a5-4685-8e33-c2373d8b6ada",
+      "model": "attention_decay",
+      "multiverse_id": "23a59bbc-0d50-4763-825f-a6202da10bd2",
+      "signal": {
+        "applies_to": [
+          "general_series_audience"
+        ],
+        "evidence": "Sports context has relatively low penalty for open opinion expression, though less-attached neutrals remain quieter.",
+        "level": 0.24,
+        "mechanism": "public_silence",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T04:24:53.929647+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "b958dc57-9996-454b-b2f4-f0c9fb7711b0",
+      "created_at": "2026-05-05T04:24:53.929647+00:00",
+      "id": "4b7c827d-419a-4997-964e-b6d3a454bc19",
+      "model": "attention_decay",
+      "multiverse_id": "23a59bbc-0d50-4763-825f-a6202da10bd2",
+      "signal": {
+        "applies_to": [
+          "team_t_fanbase",
+          "team_l_fanbase"
+        ],
+        "evidence": "Supporter communities cluster around team identity and reinforce favorable interpretations.",
+        "level": 0.66,
+        "mechanism": "homophily",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T04:24:53.929647+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "b958dc57-9996-454b-b2f4-f0c9fb7711b0",
+      "created_at": "2026-05-05T04:24:53.929647+00:00",
+      "id": "568aafed-6faa-4423-825e-c3fcc7dd33b0",
+      "model": "attention_decay",
+      "multiverse_id": "23a59bbc-0d50-4763-825f-a6202da10bd2",
+      "signal": {
+        "applies_to": [
+          "general_series_audience",
+          "team_t_fanbase",
+          "team_l_fanbase"
+        ],
+        "evidence": "Momentum narratives usually require repeated game evidence and broad commentary amplification.",
+        "level": 0.57,
+        "mechanism": "complex_contagion",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T04:24:53.929647+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "b958dc57-9996-454b-b2f4-f0c9fb7711b0",
+      "created_at": "2026-05-05T04:24:53.929647+00:00",
+      "id": "5e8e0c71-8f9e-49a0-9a11-cb660a24067b",
+      "model": "attention_decay",
+      "multiverse_id": "23a59bbc-0d50-4763-825f-a6202da10bd2",
+      "signal": {
+        "applies_to": [
+          "team_t_fanbase",
+          "team_l_fanbase"
+        ],
+        "evidence": "Team allegiance strongly structures interpretation of the same series events.",
+        "level": 0.72,
+        "mechanism": "social_identity",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T04:24:53.929647+00:00"
+    },
+    {
+      "actor_id": null,
+      "big_bang_id": "b958dc57-9996-454b-b2f4-f0c9fb7711b0",
+      "created_at": "2026-05-05T04:24:53.929647+00:00",
+      "id": "a5d324ba-b6b6-41a7-a8c8-67f1a8841606",
+      "model": "attention_decay",
+      "multiverse_id": "23a59bbc-0d50-4763-825f-a6202da10bd2",
+      "signal": {
+        "applies_to": [
+          "general_series_audience"
+        ],
+        "evidence": "Attention should remain high during the series, with only modest decay between games unless contest becomes lopsided.",
+        "level": 0.31,
+        "mechanism": "attention_decay",
+        "model": "attention_decay"
+      },
+      "tick_index": 0,
+      "tick_snapshot_id": null,
+      "updated_at": "2026-05-05T04:24:53.929647+00:00"
+    }
+  ]
+}
