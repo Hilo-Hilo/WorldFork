@@ -110,6 +110,7 @@ def generate_multiverse_report(
     big_bang = db.get(models.BigBang, multiverse.big_bang_id)
     if big_bang is None:
         raise ValueError("big bang not found")
+    content["scenario_question"] = _scenario_question_text(db, big_bang_id=big_bang.id)
     endpoint_ledger = evaluate_endpoint_ledger(
         db,
         big_bang=big_bang,
@@ -2155,10 +2156,14 @@ def _report_agent_prompt_content(content: dict[str, Any], *, mode: str) -> dict[
         }
 
     timeline_rows = _section_table(content, "Timeline")
+    scenario_question = _truncate_text(content.get("scenario_question") or "", 4000) or None
+    report_kind = "prediction" if scenario_question else "narrative"
     return {
         "report_type": "multiverse",
+        "report_kind": report_kind,
         "title": content.get("title"),
         "summary": content.get("summary"),
+        "scenario_question": scenario_question,
         "source": _compact_source(content.get("source") or {}),
         "outcome_distribution": _compact_timeline_metric(content.get("outcome_distribution") or {}),
             "probability_context": _probability_context(content),
@@ -2604,32 +2609,52 @@ def _report_agent_messages(prompt_content: dict[str, Any], *, mode: str) -> list
     target_length = "900-1600 words" if mode == "standard" else "550-1000 words"
     is_prediction = prompt_content.get("report_kind") == "prediction"
     if is_prediction:
+        is_single_timeline = prompt_content.get("report_type") == "multiverse"
+        if is_single_timeline:
+            scope_note = (
+                "This report covers a single multiverse (one simulated timeline). Frame the "
+                "Headline Answer as 'how this timeline contributes to the user's question': "
+                "what evidence in this timeline supports yes/no/unresolved, what was inconclusive, "
+                "and where the cross-timeline final report should look for confirmation. Do NOT "
+                "claim a path-mass-weighted verdict — there is only one timeline. Set "
+                "prediction_answer.confidence_pct on the low side (single-timeline evidence is "
+                "weaker than cross-timeline aggregation) and put the supporting timeline id in "
+                "supporting_timeline_ids when verdict is yes/no. Ground the verdict in "
+                "outcome_conclusions, endpoint_ledger, and timeline ticks; never invent values, "
+                "counts, or categories not present in the digest. "
+            )
+        else:
+            scope_note = (
+                "This report aggregates across all retained multiverse timelines. Lead the "
+                "report_markdown with a Headline Answer section: one line per predicate showing "
+                "the natural answer for that predicate's type, followed by a one-paragraph "
+                "rationale, then the supporting evidence. Narrative analysis comes after the "
+                "headline, not before. "
+                "Render each predicate in predicate_resolutions according to its `type` field: "
+                " - threshold_breach: report value_distribution.p10/p50/p90 with the unit and "
+                "    where the threshold sits relative to the distribution. State 'breached' / "
+                "    'not breached' / 'unresolved' based on fired_path_mass / total_path_mass. "
+                " - binary_event: report hit_rate as a percent of path-mass (e.g. '18% path-mass "
+                "    weight on regulator action'). Cite supporting timelines from evidence_examples. "
+                " - count: report histogram_path_mass as bucketed shares (0 / 1 / 2 / 3+) and "
+                "    where the threshold sits. "
+                " - categorical: report category_path_mass as a label distribution. "
+                " - narrative: cite evidence_examples and answer in 1-2 sentences. "
+                "For prediction_answer.verdict, if there is a single primary predicate compute "
+                "verdict from path-mass weighting: fired_path_mass / total_path_mass > 0.5 -> yes; "
+                "< 0.5 with non-trivial false rate -> no; high null_count or insufficient ticks -> "
+                "unresolved. If there are multiple predicates, set verdict to the dominant outcome "
+                "across them and explain in rationale how each predicate contributed. "
+                "confidence_pct must be calibrated to evidence quality (sample size, null rate, "
+                "distribution width relative to threshold), NOT to your priors. If "
+                "predicate_resolutions is empty, fall back to inference from outcome_distribution "
+                "+ endpoint_ledger and lower confidence accordingly. Never invent a value, count, "
+                "or category that isn't in the digest. "
+            )
         opening = (
             "You are the WorldFork prediction report agent. The user asked one or more specific "
-            "questions (scenario_question); your primary job is to answer them. Lead the "
-            "report_markdown with a Headline Answer section: one line per predicate showing the "
-            "natural answer for that predicate's type, followed by a one-paragraph rationale, "
-            "then the supporting evidence. Narrative analysis comes after the headline, not "
-            "before. "
-            "Render each predicate in predicate_resolutions according to its `type` field: "
-            " - threshold_breach: report value_distribution.p10/p50/p90 with the unit and where the "
-            "    threshold sits relative to the distribution. State 'breached' / 'not breached' / "
-            "    'unresolved' based on fired_path_mass / total_path_mass. "
-            " - binary_event: report hit_rate as a percent of path-mass (e.g. '18% path-mass weight "
-            "    on regulator action'). Cite supporting timelines from evidence_examples. "
-            " - count: report histogram_path_mass as bucketed shares (0 / 1 / 2 / 3+) and "
-            "    where the threshold sits. "
-            " - categorical: report category_path_mass as a label distribution. "
-            " - narrative: cite evidence_examples and answer in 1-2 sentences. "
-            "For prediction_answer.verdict, if there is a single primary predicate compute verdict "
-            "from path-mass weighting: fired_path_mass / total_path_mass > 0.5 -> yes; < 0.5 with "
-            "non-trivial false rate -> no; high null_count or insufficient ticks -> unresolved. "
-            "If there are multiple predicates, set verdict to the dominant outcome across them and "
-            "explain in rationale how each predicate contributed. confidence_pct must be calibrated "
-            "to evidence quality (sample size, null rate, distribution width relative to threshold), "
-            "NOT to your priors. If predicate_resolutions is empty, fall back to inference from "
-            "outcome_distribution + endpoint_ledger and lower confidence accordingly. "
-            "Never invent a value, count, or category that isn't in the digest. "
+            "questions (scenario_question); your primary job is to answer them. "
+            + scope_note
         )
     else:
         opening = (
