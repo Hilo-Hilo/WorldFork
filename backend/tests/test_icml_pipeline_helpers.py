@@ -149,3 +149,11 @@ def test_worldfork_short_manifest_row_records_run_artifacts() -> None:
     assert row["run_job_id"] == "run-job"
     assert row["ticks_run"] == 3
     assert row["final_report_version_id"] == "rv-123"
+
+
+def test_job_finished_treats_interrupt_requested_as_terminal() -> None:
+    pipeline = load_icml_pipeline()
+
+    assert pipeline._job_finished({"status": "succeeded"})
+    assert pipeline._job_finished({"status": "interrupt_requested"})
+    assert not pipeline._job_finished({"status": "running"})
