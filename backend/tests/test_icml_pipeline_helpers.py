@@ -166,6 +166,22 @@ def test_prepare_worldfork_resume_continues_terminal_multiverses(tmp_path: Path)
     assert (tmp_path / "resume_prepare.json").exists()
 
 
+def test_resume_job_idempotency_key_stays_inside_db_limit() -> None:
+    pipeline = load_icml_pipeline()
+
+    key = pipeline._resume_job_idempotency_key(
+        attempt_id="20260505-ledger-resume16",
+        route_policy_id="icml_default_deepseek_v4_flash_cohort_hero_branching_core12_resume16",
+        condition="worldfork_branching_short",
+        case_id="resolved_005",
+        big_bang_id="ad8953c8-c989-45cb-9b33-ad8adc87fe1b",
+        max_ticks=16,
+    )
+
+    assert key.startswith("icml_resume:20260505-ledger-resume16:resolved_005:max16:")
+    assert len(key) <= 180
+
+
 def test_worldfork_short_manifest_row_records_run_artifacts() -> None:
     pipeline = load_icml_pipeline()
 
@@ -464,7 +480,8 @@ def test_resume_job_idempotency_key_includes_attempt_id() -> None:
         max_ticks=35,
     )
 
-    assert key == "icml_resume:retry2:resume35:worldfork_no_branch_short:resolved_001:bb-123:max35"
+    assert key.startswith("icml_resume:retry2:resolved_001:max35:")
+    assert len(key) <= 180
 
 
 def test_generate_e4_paper_artifacts_filters_terminal_runs_and_records_ledger_stop(tmp_path: Path) -> None:

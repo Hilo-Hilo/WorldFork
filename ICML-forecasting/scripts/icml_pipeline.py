@@ -1176,7 +1176,9 @@ def _resume_job_idempotency_key(
     big_bang_id: str,
     max_ticks: int,
 ) -> str:
-    return f"icml_resume:{attempt_id}:{route_policy_id}:{condition}:{case_id}:{big_bang_id}:max{max_ticks}"
+    raw = f"{attempt_id}:{route_policy_id}:{condition}:{case_id}:{big_bang_id}:max{max_ticks}"
+    digest = hashlib.sha256(raw.encode("utf-8")).hexdigest()[:16]
+    return f"icml_resume:{attempt_id}:{case_id}:max{max_ticks}:{digest}"
 
 
 def _prepare_worldfork_resume(
