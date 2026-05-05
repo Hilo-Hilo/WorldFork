@@ -87,8 +87,10 @@ docker compose -p worldfork-icml \
 
 The override raises local Postgres `max_connections` to `250`, sets conservative
 `shared_buffers=256MB` and `work_mem=8MB` defaults, adds an
-idle-in-transaction timeout, uses smaller worker SQLAlchemy pools, and sets
-`WORLDFORK_ICML_MAX_PARALLEL_COHORT_DECISIONS=8` by default.
+idle-in-transaction timeout, uses bounded worker SQLAlchemy pools, and sets
+`WORLDFORK_ICML_MAX_PARALLEL_COHORT_DECISIONS=8` by default. The measured E3
+resume workload needs worker pools around `pool_size=4/max_overflow=8`; smaller
+`2/4` pools can time out inside a worker before Postgres itself is saturated.
 
 For high-concurrency runs, add the PgBouncer overlay:
 
@@ -108,10 +110,10 @@ Use generic env overrides rather than editing secrets:
 
 ```text
 WORLDFORK_POSTGRES_MAX_CONNECTIONS=250
-SQLALCHEMY_WORKER_SYNC_POOL_SIZE=2
-SQLALCHEMY_WORKER_SYNC_MAX_OVERFLOW=4
-SQLALCHEMY_WORKER_ASYNC_POOL_SIZE=2
-SQLALCHEMY_WORKER_ASYNC_MAX_OVERFLOW=4
+SQLALCHEMY_WORKER_SYNC_POOL_SIZE=4
+SQLALCHEMY_WORKER_SYNC_MAX_OVERFLOW=8
+SQLALCHEMY_WORKER_ASYNC_POOL_SIZE=4
+SQLALCHEMY_WORKER_ASYNC_MAX_OVERFLOW=8
 SQLALCHEMY_API_ASYNC_POOL_SIZE=4
 SQLALCHEMY_API_ASYNC_MAX_OVERFLOW=8
 WORLDFORK_ICML_MAX_PARALLEL_COHORT_DECISIONS=8

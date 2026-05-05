@@ -217,10 +217,13 @@ the same Postgres queue pool parameters.
 
 For ICML/E3/E4 experiments, use `infra/icml/docker-compose.icml.yml` after
 active jobs have drained. That override raises local Postgres connection
-capacity, keeps worker pools small, and lowers in-job cohort parallelism through
-`WORLDFORK_ICML_MAX_PARALLEL_COHORT_DECISIONS`. For larger local experiments,
-add `infra/icml/docker-compose.pgbouncer.yml` to put PgBouncer in transaction
-pooling mode between app containers and Postgres.
+capacity, keeps worker pools bounded, and lowers in-job cohort parallelism
+through `WORLDFORK_ICML_MAX_PARALLEL_COHORT_DECISIONS`. The measured E3 resume
+workload needs larger worker pools than the generic defaults
+(`pool_size=4/max_overflow=8` in the ICML overlay); smaller worker pools can
+time out before Postgres reaches its connection cap. For larger local
+experiments, add `infra/icml/docker-compose.pgbouncer.yml` to put PgBouncer in
+transaction pooling mode between app containers and Postgres.
 
 ## Event Queue And Event Summary
 
