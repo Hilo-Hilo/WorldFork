@@ -256,6 +256,7 @@ def _wait_for_job(
     job_id: str,
     *,
     out_dir: Path,
+    artifact_prefix: str = "job",
     wait_timeout: float,
     poll_seconds: float,
     submitted_at: float,
@@ -265,11 +266,11 @@ def _wait_for_job(
         if time.monotonic() > deadline:
             raise SystemExit(f"timed out waiting for job {job_id}")
         job = client.request("GET", f"/jobs/{job_id}")
-        _write_json(out_dir / "job_status_latest.json", job)
+        _write_json(out_dir / f"{artifact_prefix}_status_latest.json", job)
         if _job_finished(job):
             wait_seconds = time.monotonic() - submitted_at
-            _write_json(out_dir / "job_wait.json", {"ok": True, "data": job, "meta": {"terminal": True}})
-            (out_dir / "job_wait_time_and_stderr.txt").write_text(f"real {wait_seconds:.2f}\n", encoding="utf-8")
+            _write_json(out_dir / f"{artifact_prefix}_wait.json", {"ok": True, "data": job, "meta": {"terminal": True}})
+            (out_dir / f"{artifact_prefix}_wait_time_and_stderr.txt").write_text(f"real {wait_seconds:.2f}\n", encoding="utf-8")
             return job, wait_seconds
         time.sleep(poll_seconds)
 
@@ -452,6 +453,7 @@ def run_worldfork_short(args: argparse.Namespace) -> None:
                 client,
                 init_job_id,
                 out_dir=out_dir,
+                artifact_prefix="init_job",
                 wait_timeout=args.wait_timeout,
                 poll_seconds=args.poll_seconds,
                 submitted_at=time.monotonic(),
@@ -479,6 +481,7 @@ def run_worldfork_short(args: argparse.Namespace) -> None:
                 client,
                 run_job_id,
                 out_dir=out_dir,
+                artifact_prefix="run_job",
                 wait_timeout=args.wait_timeout,
                 poll_seconds=args.poll_seconds,
                 submitted_at=time.monotonic(),

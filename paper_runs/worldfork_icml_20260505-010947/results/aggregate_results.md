@@ -35,6 +35,7 @@ Generated: 2026-05-05 02:58 UTC
 - The eight-case E1 initializer batch produced eight successful initialization jobs with actor counts 8, 9, 7, 7, 11, 14, 10, and 8 for `resolved_007` through `resolved_014`. Job elapsed times ranged from 112.37 to 188.80 seconds while p1 reported 8 active tasks.
 - The remaining 22 additional cards completed as queued p1 jobs in 464.64 seconds wall time. Per-job elapsed times ranged from 109.49 to 463.97 seconds, including queue wait across three waves.
 - The existing 72-card E1 initializer batch completed as queued p1 jobs in 1796.65 seconds wall time. The automated coverage table reports 108/108 succeeded initializations, mean actor count 8.76, mean trait count 8.82, mean graph edge count 33.99, and sociology plus emotion baselines present for 108/108 cases.
+- E3 runner validation on `resolved_001` / `worldfork_no_branch_short` initialized successfully but did not reach scoreable path-mass artifacts. The queued run job entered a God-review Codex 400 retry loop, was marked `interrupt_requested`, and the isolated p1 worker was restarted. This blocks scaling E3 until the God-review/Codex retry failure is handled or the E3 runtime route is changed.
 
 ## Pending Results
 
