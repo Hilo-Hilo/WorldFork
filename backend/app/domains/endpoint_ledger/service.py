@@ -1063,6 +1063,9 @@ def _try_llm_endpoint_evaluation(
             "Use eliminated only when the endpoint is impossible from hard evidence or final-horizon God review, not merely because it has not happened yet.",
             "Weight authority decisions over social noise.",
             "Return stable endpoint keys and statuses. Do not assign per-endpoint probabilities.",
+            "When scenario_candidate_endpoints contains primary yes/no endpoints, resolve those explicit binary candidates before auxiliary mechanisms.",
+            "At the forecast deadline, if yes is not realized in a simulated path, no should be realized for that path.",
+            "Auxiliary mechanism endpoints must not keep a binary forecast unresolved after the yes/no candidate has settled.",
             "For every endpoint, include realization_criteria, authority_refs, evidence_refs, negative_evidence_refs, and status_basis.",
             "Downgrade unsupported or process-only entries instead of leaving them as active terminal endpoints.",
         ],
@@ -1187,6 +1190,7 @@ def _normalize_entries(entries: list[dict[str, Any]]) -> list[dict[str, Any]]:
 def _finalize_entries(entries: list[dict[str, Any]], *, evidence: dict[str, Any] | None = None) -> list[dict[str, Any]]:
     entries = _normalize_entries(entries)
     if _final_horizon_reached(evidence):
+        entries = _settle_primary_binary_candidates_at_final_horizon(entries, evidence=evidence)
         entries = [_mark_insufficient_ticks(entry, evidence=evidence) for entry in entries]
     elif evidence is not None:
         entries = [_revert_final_horizon_overlay(entry) for entry in entries]
@@ -1209,6 +1213,122 @@ def _final_horizon_reached(evidence: dict[str, Any] | None) -> bool:
         return False
     latest_tick = max((int(tick.get("tick_index") or 0) for tick in evidence.get("ticks") or []), default=None)
     return latest_tick is not None and latest_tick >= int(max_ticks)
+
+
+def _settle_primary_binary_candidates_at_final_horizon(
+    entries: list[dict[str, Any]],
+    *,
+    evidence: dict[str, Any] | None,
+) -> list[dict[str, Any]]:
+    if not _deadline_aware_binary_forecast(evidence):
+        return entries
+    by_candidate: dict[str, dict[str, Any]] = {}
+    for entry in entries:
+        meta = entry.get("meta") if isinstance(entry.get("meta"), dict) else {}
+        if meta.get("endpoint_role") != "primary_candidate":
+            continue
+        candidate_id = str(meta.get("candidate_endpoint_id") or entry.get("endpoint_key") or "").lower()
+        if candidate_id in {"yes", "no"}:
+            by_candidate[candidate_id] = entry
+    if not {"yes", "no"}.issubset(by_candidate):
+        return entries
+
+    yes = by_candidate["yes"]
+    no = by_candidate["no"]
+    if yes.get("status") == "realized":
+        replacement = {
+            "yes": _mark_candidate_deadline_settlement(yes, status="realized", evidence=evidence),
+            "no": _mark_candidate_deadline_settlement(
+                no,
+                status="eliminated",
+                evidence=evidence,
+                rationale="The yes candidate was realized by the forecast deadline, so the no candidate is eliminated.",
+            ),
+        }
+    elif no.get("status") == "realized":
+        replacement = {
+            "yes": _mark_candidate_deadline_settlement(
+                yes,
+                status="eliminated",
+                evidence=evidence,
+                rationale="The no candidate was realized by the forecast deadline, so the yes candidate is eliminated.",
+            ),
+            "no": _mark_candidate_deadline_settlement(no, status="realized", evidence=evidence),
+        }
+    else:
+        replacement = {
+            "yes": _mark_candidate_deadline_settlement(
+                yes,
+                status="eliminated",
+                evidence=evidence,
+                rationale="The forecast deadline was reached without realized yes evidence in this simulated path.",
+            ),
+            "no": _mark_candidate_deadline_settlement(
+                no,
+                status="realized",
+                evidence=evidence,
+                rationale="The forecast deadline was reached without the yes event occurring in this simulated path.",
+            ),
+        }
+
+    settled: list[dict[str, Any]] = []
+    for entry in entries:
+        meta = entry.get("meta") if isinstance(entry.get("meta"), dict) else {}
+        candidate_id = str(meta.get("candidate_endpoint_id") or entry.get("endpoint_key") or "").lower()
+        settled.append(replacement.get(candidate_id, entry))
+    return settled
+
+
+def _deadline_aware_binary_forecast(evidence: dict[str, Any] | None) -> bool:
+    if not evidence:
+        return False
+    forecast_metadata = evidence.get("forecast_metadata")
+    if not isinstance(forecast_metadata, dict):
+        return False
+    if not forecast_metadata.get("forecast_deadline_date"):
+        return False
+    if forecast_metadata.get("tick_horizon_policy") not in {None, "deadline_aware"}:
+        return False
+    candidates = evidence.get("scenario_candidate_endpoints")
+    if not isinstance(candidates, list):
+        return False
+    candidate_ids = {
+        str(item.get("id") or item.get("endpoint_key") or "").strip().lower()
+        for item in candidates
+        if isinstance(item, dict)
+    }
+    return {"yes", "no"}.issubset(candidate_ids)
+
+
+def _mark_candidate_deadline_settlement(
+    entry: dict[str, Any],
+    *,
+    status: str,
+    evidence: dict[str, Any] | None,
+    rationale: str | None = None,
+) -> dict[str, Any]:
+    meta = entry.get("meta") if isinstance(entry.get("meta"), dict) else {}
+    forecast_metadata = (evidence or {}).get("forecast_metadata")
+    latest_tick = max((int(tick.get("tick_index") or 0) for tick in (evidence or {}).get("ticks") or []), default=None)
+    return {
+        **entry,
+        "status": status,
+        "blockers": [] if status in {"realized", "eliminated"} else list(entry.get("blockers") or []),
+        "status_basis": "deadline_aware_binary_candidate_settlement",
+        "rationale": rationale or entry.get("rationale") or "Settled explicit binary candidate at the forecast deadline.",
+        "last_observed_tick_index": entry.get("last_observed_tick_index") or latest_tick,
+        "evidence_refs": [
+            *list(entry.get("evidence_refs") or []),
+            {
+                "source": "forecast_deadline",
+                "forecast_deadline_date": (forecast_metadata or {}).get("forecast_deadline_date")
+                if isinstance(forecast_metadata, dict)
+                else None,
+                "tick_index": latest_tick,
+            },
+        ],
+        "meta": {**meta, "final_horizon_candidate_settlement": True},
+    }
 
 
 def _mark_insufficient_ticks(entry: dict[str, Any], *, evidence: dict[str, Any] | None) -> dict[str, Any]:
@@ -1322,6 +1442,8 @@ def _compact_evidence(evidence: dict[str, Any]) -> dict[str, Any]:
         "scope": evidence.get("scope"),
         "multiverse": evidence.get("multiverse"),
         "initializer": _compact_value(evidence.get("initializer") or {}, max_items=10),
+        "scenario_candidate_endpoints": _compact_value(evidence.get("scenario_candidate_endpoints") or [], max_items=8),
+        "forecast_metadata": _compact_value(evidence.get("forecast_metadata") or {}, max_items=8),
         "timeline_statuses": evidence.get("timeline_statuses"),
         "ticks": _compact_value((evidence.get("ticks") or [])[:8], max_items=8),
         "events": _compact_value((evidence.get("events") or [])[:12], max_items=8),

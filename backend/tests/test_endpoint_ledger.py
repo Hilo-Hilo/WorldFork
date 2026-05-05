@@ -359,6 +359,104 @@ def test_endpoint_finalization_marks_final_horizon_as_insufficient_ticks():
     assert by_key["organizing_continues"]["status"] == "insufficient_ticks"
 
 
+def test_endpoint_finalization_settles_deadline_aware_binary_no_at_final_horizon():
+    evidence = {
+        "big_bang": {"simulation_config": {"max_ticks": 16}},
+        "multiverse": {"status": "completed"},
+        "ticks": [{"tick_index": 16}],
+        "scenario_candidate_endpoints": [
+            {"id": "yes", "label": "The event occurs by the deadline"},
+            {"id": "no", "label": "The event does not occur by the deadline"},
+        ],
+        "forecast_metadata": {
+            "forecast_deadline_date": "2025-12-10",
+            "tick_horizon_policy": "deadline_aware",
+        },
+    }
+    entries = endpoint_ledger._finalize_entries(
+        [
+            {
+                "endpoint_key": "yes",
+                "label": "The event occurs by the deadline",
+                "status": "active",
+                "meta": {"endpoint_role": "primary_candidate", "candidate_endpoint_id": "yes"},
+            },
+            {
+                "endpoint_key": "no",
+                "label": "The event does not occur by the deadline",
+                "status": "active",
+                "meta": {"endpoint_role": "primary_candidate", "candidate_endpoint_id": "no"},
+            },
+            {"endpoint_key": "auxiliary", "label": "Auxiliary mechanism", "status": "active"},
+        ],
+        evidence=evidence,
+    )
+    by_key = {entry["endpoint_key"]: entry for entry in entries}
+
+    assert by_key["no"]["status"] == "realized"
+    assert by_key["yes"]["status"] == "eliminated"
+    assert by_key["no"]["status_basis"] == "deadline_aware_binary_candidate_settlement"
+    assert by_key["no"]["meta"]["final_horizon_candidate_settlement"] is True
+    assert by_key["auxiliary"]["status"] == "insufficient_ticks"
+
+
+def test_endpoint_finalization_settles_deadline_aware_binary_yes_at_final_horizon():
+    evidence = {
+        "big_bang": {"simulation_config": {"max_ticks": 16}},
+        "multiverse": {"status": "terminated"},
+        "ticks": [{"tick_index": 16}],
+        "scenario_candidate_endpoints": [
+            {"id": "yes", "label": "The event occurs by the deadline"},
+            {"id": "no", "label": "The event does not occur by the deadline"},
+        ],
+        "forecast_metadata": {
+            "forecast_deadline_date": "2025-12-10",
+            "tick_horizon_policy": "deadline_aware",
+        },
+    }
+    entries = endpoint_ledger._finalize_entries(
+        [
+            {
+                "endpoint_key": "yes",
+                "label": "The event occurs by the deadline",
+                "status": "realized",
+                "authority_refs": ["official_release"],
+                "evidence_refs": [{"source": "event"}],
+                "meta": {"endpoint_role": "primary_candidate", "candidate_endpoint_id": "yes"},
+            },
+            {
+                "endpoint_key": "no",
+                "label": "The event does not occur by the deadline",
+                "status": "active",
+                "meta": {"endpoint_role": "primary_candidate", "candidate_endpoint_id": "no"},
+            },
+        ],
+        evidence=evidence,
+    )
+    by_key = {entry["endpoint_key"]: entry for entry in entries}
+
+    assert by_key["yes"]["status"] == "realized"
+    assert by_key["no"]["status"] == "eliminated"
+    assert by_key["no"]["status_basis"] == "deadline_aware_binary_candidate_settlement"
+
+
+def test_compact_endpoint_evidence_includes_forecast_contract():
+    compact = endpoint_ledger._compact_evidence(
+        {
+            "big_bang": {"id": "bb"},
+            "scope": "multiverse",
+            "scenario_candidate_endpoints": [{"id": "yes"}, {"id": "no"}],
+            "forecast_metadata": {
+                "forecast_deadline_date": "2025-12-10",
+                "tick_horizon_policy": "deadline_aware",
+            },
+        }
+    )
+
+    assert compact["scenario_candidate_endpoints"] == [{"id": "yes"}, {"id": "no"}]
+    assert compact["forecast_metadata"]["forecast_deadline_date"] == "2025-12-10"
+
+
 def test_endpoint_final_horizon_overlay_reverts_after_resume():
     entries = endpoint_ledger._finalize_entries(
         [
