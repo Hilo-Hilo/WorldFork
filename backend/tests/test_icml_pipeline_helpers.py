@@ -141,6 +141,10 @@ def test_worldfork_short_manifest_row_records_run_artifacts() -> None:
         ticks_run=3,
         multiverse_count=1,
         final_report_version_id="rv-123",
+        max_ticks_requested=16,
+        tick_duration_minutes=720,
+        route_policy_id="icml_default_deepseek_v4_flash_cohort_hero",
+        prediction_output="raw/E3_worldfork_default_route_16tick/worldfork_predictions.jsonl",
     )
 
     assert row["case_id"] == "resolved_001"
@@ -149,6 +153,30 @@ def test_worldfork_short_manifest_row_records_run_artifacts() -> None:
     assert row["run_job_id"] == "run-job"
     assert row["ticks_run"] == 3
     assert row["final_report_version_id"] == "rv-123"
+    assert row["max_ticks_requested"] == 16
+    assert row["route_policy_id"] == "icml_default_deepseek_v4_flash_cohort_hero"
+    assert row["prediction_output"] == "raw/E3_worldfork_default_route_16tick/worldfork_predictions.jsonl"
+
+
+def test_prediction_key_separates_route_policy_rows() -> None:
+    pipeline = load_icml_pipeline()
+
+    row = {
+        "case_id": "resolved_001",
+        "condition": "worldfork_no_branch_short",
+        "route_policy_id": "codex_smoke",
+    }
+
+    assert pipeline._prediction_key(row) == (
+        "resolved_001",
+        "worldfork_no_branch_short",
+        "codex_smoke",
+    )
+    assert pipeline._prediction_key(row, "deepseek_default") == (
+        "resolved_001",
+        "worldfork_no_branch_short",
+        "deepseek_default",
+    )
 
 
 def test_job_finished_treats_interrupt_requested_as_terminal() -> None:
