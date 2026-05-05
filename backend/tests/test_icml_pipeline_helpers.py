@@ -424,3 +424,180 @@ def test_resume_job_idempotency_key_includes_attempt_id() -> None:
     )
 
     assert key == "icml_resume:retry2:resume35:worldfork_no_branch_short:resolved_001:bb-123:max35"
+
+
+def test_generate_e4_paper_artifacts_filters_terminal_runs_and_records_ledger_stop(tmp_path: Path) -> None:
+    pipeline = load_icml_pipeline()
+    run_root = tmp_path / "run"
+    manifest = run_root / "manifests/worldfork_long_horizon_manifest.jsonl"
+    terminal_dir = Path("raw/E4_minimum_long_horizon_6/worldfork_full_branching_long/civic_002")
+    running_dir = Path("raw/E4_minimum_long_horizon_6/worldfork_full_branching_long/civic_003")
+
+    pipeline.append_jsonl(
+        manifest,
+        {
+            "case_id": "civic_002",
+            "condition": "worldfork_full_branching_long",
+            "route_policy_id": "icml_default",
+            "status": "completed",
+            "big_bang_id": "bb-terminal",
+            "run_job_id": "run-terminal",
+            "run_dir": str(terminal_dir),
+            "ticks_run": 12,
+            "multiverse_count": 4,
+            "max_ticks_requested": 35,
+            "max_total_ticks_requested": 240,
+        },
+    )
+    pipeline.append_jsonl(
+        manifest,
+        {
+            "case_id": "civic_003",
+            "condition": "worldfork_full_branching_long",
+            "status": "running",
+            "big_bang_id": "bb-running",
+            "run_job_id": "run-running",
+            "run_dir": str(running_dir),
+        },
+    )
+
+    out_dir = run_root / terminal_dir
+    out_dir.mkdir(parents=True)
+    (out_dir / "run_job_status_latest.json").write_text(
+        pipeline.json.dumps(
+            {
+                "status": "succeeded",
+                "result": {
+                    "ticks_run": 12,
+                    "multiverse_count": 4,
+                    "stopped_reason": "completed",
+                    "progress": {"completed_ticks": 12, "requested_ticks": 240},
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    (out_dir / "path_mass.json").write_text(
+        pipeline.json.dumps(
+            {
+                "ledger_version_id": "ledger-1",
+                "endpoint_path_mass_distribution": [
+                    {
+                        "endpoint_key": "policy_adopted",
+                        "label": "Policy adopted",
+                        "status": "realized",
+                        "path_mass": 0.7,
+                        "status_path_masses": {"realized": 0.7},
+                    },
+                    {
+                        "endpoint_key": "policy_blocked",
+                        "label": "Policy blocked",
+                        "status": "eliminated",
+                        "path_mass": 0.3,
+                        "status_path_masses": {"eliminated": 0.3},
+                    },
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    (out_dir / "cost.json").write_text(
+        pipeline.json.dumps(
+            {
+                "data": {
+                    "actual": {"openrouter_usd": 1.25},
+                    "estimated": {"including_non_openrouter_usd": 1.5},
+                    "tokens": {"total_tokens": 5000},
+                    "call_count": 9,
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    summary = pipeline.generate_e4_paper_artifact_files(
+        run_root=run_root,
+        input_prefix=Path("raw/E4_minimum_long_horizon_6"),
+    )
+
+    assert summary["terminal_runs"] == 1
+    assert summary["skipped_nonterminal_runs"] == 1
+    audit_rows = list(pipeline.csv.DictReader((run_root / "results/audit_scores.csv").open(encoding="utf-8")))
+    assert [row["case_id"] for row in audit_rows] == ["civic_002", "civic_002"]
+    assert audit_rows[0]["terminal_state"] == "succeeded"
+    assert audit_rows[0]["natural_stop_reason"] == "completed"
+    assert audit_rows[0]["natural_stop_ledger_resolved"] == "true"
+    assert audit_rows[0]["max_total_ticks_requested"] == "240"
+    assert audit_rows[0]["endpoint_key"] == "policy_adopted"
+
+    cost_rows = list(
+        pipeline.csv.DictReader((run_root / "results/table2_runtime_cost_summary.csv").open(encoding="utf-8"))
+    )
+    assert cost_rows[0]["case_id"] == "civic_002"
+    assert cost_rows[0]["actual_openrouter_usd"] == "1.250000"
+    assert cost_rows[0]["ticks_run"] == "12"
+
+
+def test_generate_e4_social_state_artifacts_distinguish_failed_and_interrupted(tmp_path: Path) -> None:
+    pipeline = load_icml_pipeline()
+    run_root = tmp_path / "run"
+    manifest = run_root / "manifests/worldfork_long_horizon_manifest.jsonl"
+
+    for status, case_id in [("failed", "health_004"), ("interrupted", "labor_002")]:
+        relative_dir = Path(f"raw/E4_minimum_long_horizon_6/worldfork_full_branching_long/{case_id}")
+        pipeline.append_jsonl(
+            manifest,
+            {
+                "case_id": case_id,
+                "condition": "worldfork_full_branching_long",
+                "status": status,
+                "big_bang_id": f"bb-{case_id}",
+                "run_job_id": f"run-{case_id}",
+                "run_dir": str(relative_dir),
+                "ticks_run": 3,
+            },
+        )
+        out_dir = run_root / relative_dir
+        out_dir.mkdir(parents=True)
+        (out_dir / "actors.json").write_text(
+            pipeline.json.dumps([{"status": "active"}, {"status": "archived"}]),
+            encoding="utf-8",
+        )
+        (out_dir / "traits.json").write_text(
+            pipeline.json.dumps(
+                [
+                    {"trait_vector": {"behavior_axes": {"assertiveness": 0.8, "caution": 0.4}}},
+                    {"trait_vector": {"behavior_axes": {"assertiveness": 0.2}}},
+                ]
+            ),
+            encoding="utf-8",
+        )
+        (out_dir / "graphs.json").write_text(
+            pipeline.json.dumps({"edges": [{"weight": 0.5}, {"weight": 0.7}], "nodes": [{"id": "a"}]}),
+            encoding="utf-8",
+        )
+        (out_dir / "sociology_baseline.json").write_text(
+            pipeline.json.dumps({"signals": [{"signal": {"level": 0.6}}], "prompt_influences": [{}, {}]}),
+            encoding="utf-8",
+        )
+        (out_dir / "emotion_baseline.json").write_text(
+            pipeline.json.dumps({"snapshots": [{}, {}], "observations": [{}]}),
+            encoding="utf-8",
+        )
+
+    summary = pipeline.generate_e4_paper_artifact_files(
+        run_root=run_root,
+        input_prefix=Path("raw/E4_minimum_long_horizon_6"),
+    )
+
+    assert summary["terminal_runs"] == 2
+    social_rows = list(pipeline.csv.DictReader((run_root / "results/social_state_scores.csv").open(encoding="utf-8")))
+    assert [row["terminal_state"] for row in social_rows] == ["failed", "interrupted"]
+    assert social_rows[0]["actor_count"] == "2"
+    assert social_rows[0]["active_actor_count"] == "1"
+    assert social_rows[0]["graph_edge_count"] == "2"
+    assert social_rows[0]["mean_behavior_assertiveness"] == "0.500000"
+
+    intervals = pipeline.json.loads((run_root / "results/bootstrap_intervals.json").read_text(encoding="utf-8"))
+    assert intervals["metrics"]["actor_count"]["n"] == 2
+    assert (run_root / "paper/tables/table2_runtime_cost_summary.md").exists()

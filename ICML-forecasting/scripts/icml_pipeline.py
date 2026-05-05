@@ -14,6 +14,7 @@ import hashlib
 import json
 import math
 import os
+import random
 import socket
 import statistics
 import sys
@@ -61,6 +62,18 @@ WORLDFORK_SHORT_POLICIES = {
 WORLDFORK_LONG_POLICIES = {
     "worldfork_full_branching_long": LONG_BRANCH_POLICY,
 }
+E4_DEFAULT_INPUT_PREFIX = Path("raw/E4_minimum_long_horizon_6")
+E4_LONG_HORIZON_MANIFEST = Path("manifests/worldfork_long_horizon_manifest.jsonl")
+E4_TERMINAL_STATUS_MAP = {
+    "completed": "succeeded",
+    "succeeded": "succeeded",
+    "failed": "failed",
+    "interrupted": "interrupted",
+    "interrupt_requested": "interrupted",
+    "cancelled": "cancelled",
+    "canceled": "cancelled",
+}
+E4_LEDGER_NATURAL_STOP_REASONS = {"completed", "all_multiverses_terminal"}
 INIT_ARTIFACT_NAMES = [
     "initialization",
     "actors",
@@ -442,6 +455,608 @@ def _artifact_wait_seconds(path: Path) -> float:
     payload = json.loads(path.read_text(encoding="utf-8"))
     data = payload.get("data") if isinstance(payload, dict) else None
     return _job_wall_seconds(data if isinstance(data, dict) else {})
+
+
+def _read_json_artifact(path: Path) -> Any:
+    if not path.exists():
+        return None
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {"_artifact_error": f"invalid_json:{path.name}"}
+
+
+def _unwrap_artifact_data(payload: Any) -> Any:
+    if isinstance(payload, dict) and isinstance(payload.get("data"), (dict, list)):
+        return payload["data"]
+    return payload
+
+
+def _artifact_list(payload: Any, key: str | None = None) -> list[Any]:
+    data = _unwrap_artifact_data(payload)
+    if isinstance(data, list):
+        return data
+    if isinstance(data, dict):
+        if key and isinstance(data.get(key), list):
+            return data[key]
+        nested = data.get("data")
+        if isinstance(nested, list):
+            return nested
+        if key and isinstance(nested, dict) and isinstance(nested.get(key), list):
+            return nested[key]
+    return []
+
+
+def _artifact_dict(payload: Any) -> dict[str, Any]:
+    data = _unwrap_artifact_data(payload)
+    return data if isinstance(data, dict) else {}
+
+
+def _float_or_none(value: Any) -> float | None:
+    if value is None or value == "":
+        return None
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def _int_value(value: Any) -> int:
+    number = _float_or_none(value)
+    return int(number) if number is not None else 0
+
+
+def _fmt_float(value: Any, digits: int = 6) -> str:
+    number = _float_or_none(value)
+    return "" if number is None else f"{number:.{digits}f}"
+
+
+def _mean(values: list[float]) -> float | None:
+    return statistics.fmean(values) if values else None
+
+
+def _status_to_e4_terminal_state(status: Any) -> str | None:
+    return E4_TERMINAL_STATUS_MAP.get(str(status or "").strip().lower())
+
+
+def _e4_job_artifact(out_dir: Path) -> dict[str, Any]:
+    for name in ["run_job_status_latest.json", "run_job_wait.json", "run_job_create.json"]:
+        payload = _read_json_artifact(out_dir / name)
+        data = _artifact_dict(payload)
+        if data:
+            return data
+    return {}
+
+
+def _e4_terminal_state(row: dict[str, Any], out_dir: Path) -> str | None:
+    job_state = _status_to_e4_terminal_state(_e4_job_artifact(out_dir).get("status"))
+    if job_state:
+        return job_state
+    return _status_to_e4_terminal_state(row.get("status"))
+
+
+def _e4_resolve_run_dir(
+    row: dict[str, Any],
+    *,
+    run_root: Path,
+    input_prefix: Path,
+) -> tuple[Path, Path]:
+    raw_value = str(row.get("run_dir") or "")
+    if raw_value:
+        path = Path(raw_value)
+    else:
+        path = input_prefix / str(row.get("condition") or "") / str(row.get("case_id") or "")
+    out_dir = path if path.is_absolute() else run_root / path
+    relative = Path(_display_run_path(out_dir, run_root))
+    return out_dir, relative
+
+
+def _path_is_under_prefix(path: Path, prefix: Path) -> bool:
+    try:
+        path.relative_to(prefix)
+        return True
+    except ValueError:
+        return False
+
+
+def _e4_discovered_rows(run_root: Path, input_prefix: Path) -> list[dict[str, Any]]:
+    base = run_root / input_prefix
+    if not base.exists():
+        return []
+    rows: list[dict[str, Any]] = []
+    for condition_dir in sorted(item for item in base.iterdir() if item.is_dir()):
+        for case_dir in sorted(item for item in condition_dir.iterdir() if item.is_dir()):
+            job = _e4_job_artifact(case_dir)
+            result = job.get("result") if isinstance(job.get("result"), dict) else {}
+            rows.append(
+                {
+                    "case_id": case_dir.name,
+                    "condition": condition_dir.name,
+                    "status": job.get("status", ""),
+                    "big_bang_id": job.get("big_bang_id") or result.get("big_bang_id") or _read_id_file(case_dir / "big_bang_id.txt"),
+                    "run_job_id": job.get("id") or _read_id_file(case_dir / "run_job_id.txt"),
+                    "run_dir": str(input_prefix / condition_dir.name / case_dir.name),
+                    "ticks_run": result.get("ticks_run"),
+                    "multiverse_count": result.get("multiverse_count"),
+                    "max_total_ticks_requested": (result.get("progress") or {}).get("requested_ticks"),
+                }
+            )
+    return rows
+
+
+def _e4_candidate_rows(run_root: Path, input_prefix: Path, manifest_path: Path) -> list[dict[str, Any]]:
+    manifest = manifest_path if manifest_path.is_absolute() else run_root / manifest_path
+    rows = read_jsonl(manifest) if manifest.exists() else []
+    discovered = _e4_discovered_rows(run_root, input_prefix)
+    seen = {
+        (
+            str(row.get("case_id") or ""),
+            str(row.get("condition") or ""),
+            str(row.get("run_dir") or ""),
+        )
+        for row in rows
+    }
+    for row in discovered:
+        key = (str(row.get("case_id") or ""), str(row.get("condition") or ""), str(row.get("run_dir") or ""))
+        if key not in seen:
+            rows.append(row)
+            seen.add(key)
+    return rows
+
+
+def _e4_ledger_resolved_from_path_mass(path_mass_payload: Any) -> bool:
+    endpoint_rows = _artifact_list(path_mass_payload, "endpoint_path_mass_distribution")
+    if not endpoint_rows:
+        return False
+    open_mass = 0.0
+    closed_mass = 0.0
+    for endpoint in endpoint_rows:
+        if not isinstance(endpoint, dict):
+            continue
+        status_masses = endpoint.get("status_path_masses") if isinstance(endpoint.get("status_path_masses"), dict) else {}
+        open_mass += float(status_masses.get("unresolved") or 0.0)
+        open_mass += float(status_masses.get("insufficient_ticks") or 0.0)
+        closed_mass += float(status_masses.get("realized") or 0.0)
+        closed_mass += float(status_masses.get("eliminated") or 0.0)
+    return closed_mass > 0 and open_mass == 0.0
+
+
+def _e4_run_meta(
+    row: dict[str, Any],
+    *,
+    run_root: Path,
+    input_prefix: Path,
+    path_mass_payload: Any,
+) -> dict[str, Any]:
+    out_dir, relative_dir = _e4_resolve_run_dir(row, run_root=run_root, input_prefix=input_prefix)
+    job = _e4_job_artifact(out_dir)
+    result = job.get("result") if isinstance(job.get("result"), dict) else {}
+    progress = result.get("progress") if isinstance(result.get("progress"), dict) else {}
+    terminal_state = _e4_terminal_state(row, out_dir) or ""
+    stopped_reason = str(result.get("stopped_reason") or row.get("stopped_reason") or "")
+    ticks_run = _int_value(result.get("ticks_run", row.get("ticks_run")))
+    requested = _int_value(
+        progress.get("requested_ticks")
+        or row.get("max_total_ticks_requested")
+        or (job.get("payload") or {}).get("max_total_ticks")
+    )
+    ledger_resolved = (
+        terminal_state == "succeeded"
+        and (
+            stopped_reason in E4_LEDGER_NATURAL_STOP_REASONS
+            or bool(row.get("final_report_version_id"))
+            or _e4_ledger_resolved_from_path_mass(path_mass_payload)
+        )
+    )
+    return {
+        "case_id": str(row.get("case_id") or ""),
+        "condition": str(row.get("condition") or ""),
+        "route_policy_id": str(row.get("route_policy_id") or ""),
+        "big_bang_id": str(row.get("big_bang_id") or job.get("big_bang_id") or result.get("big_bang_id") or ""),
+        "run_job_id": str(row.get("run_job_id") or job.get("id") or ""),
+        "terminal_state": terminal_state,
+        "natural_stop_reason": stopped_reason,
+        "natural_stop_ledger_resolved": "true" if ledger_resolved else "false",
+        "hit_tick_cap": "true" if requested and ticks_run >= requested else "false",
+        "ticks_run": ticks_run,
+        "max_ticks_requested": _int_value(row.get("max_ticks_requested")),
+        "max_total_ticks_requested": requested,
+        "multiverse_count": _int_value(result.get("multiverse_count", row.get("multiverse_count"))),
+        "run_dir": str(relative_dir),
+        "out_dir": out_dir,
+    }
+
+
+def _e4_audit_rows(meta: dict[str, Any], path_mass_payload: Any) -> list[dict[str, Any]]:
+    path_data = _artifact_dict(path_mass_payload)
+    endpoint_rows = _artifact_list(path_mass_payload, "endpoint_path_mass_distribution")
+    if not endpoint_rows:
+        return [
+            {
+                **{key: value for key, value in meta.items() if key != "out_dir"},
+                "ledger_version_id": "",
+                "endpoint_key": "",
+                "endpoint_label": "",
+                "endpoint_status": "",
+                "path_mass": "",
+                "realized_mass": "",
+                "eliminated_mass": "",
+                "unresolved_mass": "",
+                "insufficient_ticks_mass": "",
+                "audit_traceability_score": "0.000000",
+                "score_kind": "artifact_traceability_coverage",
+                "ledger_artifact_present": "false",
+            }
+        ]
+    rows: list[dict[str, Any]] = []
+    for endpoint in endpoint_rows:
+        if not isinstance(endpoint, dict):
+            continue
+        status_masses = endpoint.get("status_path_masses") if isinstance(endpoint.get("status_path_masses"), dict) else {}
+        coverage = statistics.fmean(
+            [
+                bool(endpoint.get("endpoint_key")),
+                bool(endpoint.get("label")),
+                bool(endpoint.get("status")),
+                _float_or_none(endpoint.get("path_mass")) is not None,
+                bool(status_masses),
+            ]
+        )
+        rows.append(
+            {
+                **{key: value for key, value in meta.items() if key != "out_dir"},
+                "ledger_version_id": str(path_data.get("ledger_version_id") or ""),
+                "endpoint_key": str(endpoint.get("endpoint_key") or ""),
+                "endpoint_label": str(endpoint.get("label") or ""),
+                "endpoint_status": str(endpoint.get("status") or ""),
+                "path_mass": _fmt_float(endpoint.get("path_mass")),
+                "realized_mass": _fmt_float(status_masses.get("realized")),
+                "eliminated_mass": _fmt_float(status_masses.get("eliminated")),
+                "unresolved_mass": _fmt_float(status_masses.get("unresolved")),
+                "insufficient_ticks_mass": _fmt_float(status_masses.get("insufficient_ticks")),
+                "audit_traceability_score": _fmt_float(coverage),
+                "score_kind": "artifact_traceability_coverage",
+                "ledger_artifact_present": "true",
+            }
+        )
+    return rows
+
+
+def _trait_axis_values(traits: list[Any], axis: str) -> list[float]:
+    values: list[float] = []
+    for item in traits:
+        if not isinstance(item, dict):
+            continue
+        vector = item.get("trait_vector") if isinstance(item.get("trait_vector"), dict) else {}
+        behavior = vector.get("behavior_axes") if isinstance(vector.get("behavior_axes"), dict) else {}
+        value = _float_or_none(behavior.get(axis))
+        if value is not None:
+            values.append(value)
+    return values
+
+
+def _e4_social_row(meta: dict[str, Any]) -> dict[str, Any]:
+    out_dir = meta["out_dir"]
+    actors_payload = _read_json_artifact(out_dir / "actors.json")
+    traits_payload = _read_json_artifact(out_dir / "traits.json")
+    graphs_payload = _read_json_artifact(out_dir / "graphs.json")
+    sociology_payload = _read_json_artifact(out_dir / "sociology_baseline.json")
+    emotion_payload = _read_json_artifact(out_dir / "emotion_baseline.json")
+    actors = _artifact_list(actors_payload, "actors")
+    traits = _artifact_list(traits_payload, "traits")
+    graphs = _artifact_dict(graphs_payload)
+    sociology = _artifact_dict(sociology_payload)
+    emotion = _artifact_dict(emotion_payload)
+    edges = graphs.get("edges") if isinstance(graphs.get("edges"), list) else []
+    nodes = graphs.get("nodes") if isinstance(graphs.get("nodes"), list) else []
+    signals = sociology.get("signals") if isinstance(sociology.get("signals"), list) else []
+    prompt_influences = sociology.get("prompt_influences") if isinstance(sociology.get("prompt_influences"), list) else []
+    snapshots = emotion.get("snapshots") if isinstance(emotion.get("snapshots"), list) else []
+    observations = emotion.get("observations") if isinstance(emotion.get("observations"), list) else []
+    edge_weights = [_float_or_none(edge.get("weight")) for edge in edges if isinstance(edge, dict)]
+    signal_levels = [
+        _float_or_none((signal.get("signal") or {}).get("level"))
+        for signal in signals
+        if isinstance(signal, dict) and isinstance(signal.get("signal"), dict)
+    ]
+    present = [
+        actors_payload is not None,
+        traits_payload is not None,
+        graphs_payload is not None,
+        sociology_payload is not None,
+        emotion_payload is not None,
+    ]
+    return {
+        **{key: value for key, value in meta.items() if key != "out_dir"},
+        "actor_count": len(actors),
+        "active_actor_count": sum(1 for actor in actors if isinstance(actor, dict) and actor.get("status") == "active"),
+        "trait_actor_count": len(traits),
+        "graph_node_count": len(nodes),
+        "graph_edge_count": len(edges),
+        "mean_graph_edge_weight": _fmt_float(_mean([value for value in edge_weights if value is not None])),
+        "signal_count": len(signals),
+        "prompt_influence_count": len(prompt_influences),
+        "emotion_snapshot_count": len(snapshots),
+        "emotion_observation_count": len(observations),
+        "mean_social_signal_level": _fmt_float(_mean([value for value in signal_levels if value is not None])),
+        "mean_behavior_assertiveness": _fmt_float(_mean(_trait_axis_values(traits, "assertiveness"))),
+        "mean_behavior_caution": _fmt_float(_mean(_trait_axis_values(traits, "caution"))),
+        "mean_behavior_coordination": _fmt_float(_mean(_trait_axis_values(traits, "coordination"))),
+        "mean_behavior_responsiveness": _fmt_float(_mean(_trait_axis_values(traits, "responsiveness"))),
+        "social_traceability_score": _fmt_float(statistics.fmean(present)),
+        "score_kind": "artifact_presence_and_summary_coverage",
+    }
+
+
+def _e4_cost_summary(out_dir: Path) -> dict[str, Any]:
+    for name in ["cost.json", "timing.json"]:
+        payload = _artifact_dict(_read_json_artifact(out_dir / name))
+        if not payload:
+            continue
+        summary = payload.get("cost_summary") if isinstance(payload.get("cost_summary"), dict) else payload
+        if isinstance(summary, dict):
+            return summary
+    return {}
+
+
+def _e4_runtime_cost_row(meta: dict[str, Any]) -> dict[str, Any]:
+    summary = _e4_cost_summary(meta["out_dir"])
+    actual = summary.get("actual") if isinstance(summary.get("actual"), dict) else {}
+    estimated = summary.get("estimated") if isinstance(summary.get("estimated"), dict) else {}
+    tokens = summary.get("tokens") if isinstance(summary.get("tokens"), dict) else {}
+    time_actual = summary.get("time_actual") if isinstance(summary.get("time_actual"), dict) else {}
+    return {
+        **{key: value for key, value in meta.items() if key != "out_dir"},
+        "actual_openrouter_usd": _fmt_float(actual.get("openrouter_usd")),
+        "estimated_including_non_openrouter_usd": _fmt_float(estimated.get("including_non_openrouter_usd")),
+        "total_tokens": _int_value(tokens.get("total_tokens")),
+        "call_count": _int_value(summary.get("call_count")),
+        "total_llm_duration_seconds": _fmt_float(time_actual.get("total_llm_duration_seconds")),
+        "max_llm_duration_seconds": _fmt_float(time_actual.get("max_llm_duration_seconds")),
+    }
+
+
+def _write_csv(path: Path, rows: list[dict[str, Any]], fieldnames: list[str]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fieldnames, extrasaction="ignore")
+        writer.writeheader()
+        writer.writerows(rows)
+
+
+def _markdown_cell(value: Any) -> str:
+    text = str(value)
+    return text.replace("|", "\\|").replace("\n", " ")
+
+
+def _write_markdown_table(path: Path, rows: list[dict[str, Any]], fieldnames: list[str], *, max_rows: int = 80) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    lines = ["| " + " | ".join(fieldnames) + " |", "| " + " | ".join(["---"] * len(fieldnames)) + " |"]
+    for row in rows[:max_rows]:
+        lines.append("| " + " | ".join(_markdown_cell(row.get(field, "")) for field in fieldnames) + " |")
+    if len(rows) > max_rows:
+        lines.append(f"\nShowing first {max_rows} of {len(rows)} rows.")
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def _bootstrap_mean_interval(values: list[float], *, iterations: int, seed: int) -> dict[str, Any]:
+    if not values:
+        return {"n": 0, "mean": None, "ci95_low": None, "ci95_high": None}
+    if len(values) == 1 or iterations <= 0:
+        mean = values[0]
+        return {"n": 1, "mean": mean, "ci95_low": mean, "ci95_high": mean}
+    rng = random.Random(seed)
+    means = []
+    for _ in range(iterations):
+        sample = [values[rng.randrange(len(values))] for _ in values]
+        means.append(statistics.fmean(sample))
+    means.sort()
+    low_idx = max(0, min(len(means) - 1, int(0.025 * len(means))))
+    high_idx = max(0, min(len(means) - 1, int(0.975 * len(means)) - 1))
+    return {
+        "n": len(values),
+        "mean": statistics.fmean(values),
+        "ci95_low": means[low_idx],
+        "ci95_high": means[high_idx],
+    }
+
+
+def _bootstrap_intervals(
+    tables: dict[str, list[dict[str, Any]]],
+    *,
+    iterations: int,
+    seed: int,
+) -> dict[str, Any]:
+    metrics = [
+        "audit_traceability_score",
+        "actor_count",
+        "active_actor_count",
+        "graph_edge_count",
+        "mean_behavior_assertiveness",
+        "mean_behavior_caution",
+        "social_traceability_score",
+        "actual_openrouter_usd",
+        "estimated_including_non_openrouter_usd",
+        "total_tokens",
+        "call_count",
+        "ticks_run",
+    ]
+    intervals: dict[str, Any] = {}
+    for metric in metrics:
+        values: list[float] = []
+        for rows in tables.values():
+            for row in rows:
+                value = _float_or_none(row.get(metric))
+                if value is not None:
+                    values.append(value)
+        if values:
+            intervals[metric] = _bootstrap_mean_interval(values, iterations=iterations, seed=seed + len(intervals))
+    return {
+        "generated_at": datetime.now(UTC).isoformat(),
+        "bootstrap_iterations": iterations,
+        "bootstrap_seed": seed,
+        "statistic": "mean",
+        "metrics": intervals,
+    }
+
+
+def generate_e4_paper_artifact_files(
+    *,
+    run_root: Path,
+    input_prefix: Path = E4_DEFAULT_INPUT_PREFIX,
+    manifest_path: Path = E4_LONG_HORIZON_MANIFEST,
+    bootstrap_iterations: int = 2000,
+    bootstrap_seed: int = 20260505,
+) -> dict[str, Any]:
+    run_root = run_root.resolve()
+    audit_rows: list[dict[str, Any]] = []
+    social_rows: list[dict[str, Any]] = []
+    runtime_rows: list[dict[str, Any]] = []
+    status_counts: Counter[str] = Counter()
+    skipped_nonterminal = 0
+
+    for row in _e4_candidate_rows(run_root, input_prefix, manifest_path):
+        out_dir, relative_dir = _e4_resolve_run_dir(row, run_root=run_root, input_prefix=input_prefix)
+        if not _path_is_under_prefix(relative_dir, input_prefix):
+            continue
+        terminal_state = _e4_terminal_state(row, out_dir)
+        if not terminal_state:
+            skipped_nonterminal += 1
+            continue
+        path_mass_payload = _read_json_artifact(out_dir / "path_mass.json")
+        meta = _e4_run_meta(row, run_root=run_root, input_prefix=input_prefix, path_mass_payload=path_mass_payload)
+        status_counts[terminal_state] += 1
+        audit_rows.extend(_e4_audit_rows(meta, path_mass_payload))
+        social_rows.append(_e4_social_row(meta))
+        runtime_rows.append(_e4_runtime_cost_row(meta))
+
+    results_dir = run_root / "results"
+    tables_dir = run_root / "paper/tables"
+    common_fields = [
+        "case_id",
+        "condition",
+        "route_policy_id",
+        "big_bang_id",
+        "run_job_id",
+        "terminal_state",
+        "natural_stop_reason",
+        "natural_stop_ledger_resolved",
+        "hit_tick_cap",
+        "ticks_run",
+        "max_ticks_requested",
+        "max_total_ticks_requested",
+        "multiverse_count",
+        "run_dir",
+    ]
+    audit_fields = common_fields + [
+        "ledger_version_id",
+        "endpoint_key",
+        "endpoint_label",
+        "endpoint_status",
+        "path_mass",
+        "realized_mass",
+        "eliminated_mass",
+        "unresolved_mass",
+        "insufficient_ticks_mass",
+        "audit_traceability_score",
+        "score_kind",
+        "ledger_artifact_present",
+    ]
+    social_fields = common_fields + [
+        "actor_count",
+        "active_actor_count",
+        "trait_actor_count",
+        "graph_node_count",
+        "graph_edge_count",
+        "mean_graph_edge_weight",
+        "signal_count",
+        "prompt_influence_count",
+        "emotion_snapshot_count",
+        "emotion_observation_count",
+        "mean_social_signal_level",
+        "mean_behavior_assertiveness",
+        "mean_behavior_caution",
+        "mean_behavior_coordination",
+        "mean_behavior_responsiveness",
+        "social_traceability_score",
+        "score_kind",
+    ]
+    runtime_fields = common_fields + [
+        "actual_openrouter_usd",
+        "estimated_including_non_openrouter_usd",
+        "total_tokens",
+        "call_count",
+        "total_llm_duration_seconds",
+        "max_llm_duration_seconds",
+    ]
+    _write_csv(results_dir / "audit_scores.csv", audit_rows, audit_fields)
+    _write_csv(results_dir / "social_state_scores.csv", social_rows, social_fields)
+    _write_csv(results_dir / "table2_runtime_cost_summary.csv", runtime_rows, runtime_fields)
+
+    intervals = _bootstrap_intervals(
+        {
+            "audit_scores": audit_rows,
+            "social_state_scores": social_rows,
+            "table2_runtime_cost_summary": runtime_rows,
+        },
+        iterations=bootstrap_iterations,
+        seed=bootstrap_seed,
+    )
+    _write_json(results_dir / "bootstrap_intervals.json", intervals)
+
+    _write_markdown_table(tables_dir / "audit_scores.md", audit_rows, audit_fields)
+    _write_markdown_table(tables_dir / "social_state_scores.md", social_rows, social_fields)
+    _write_markdown_table(tables_dir / "table2_runtime_cost_summary.md", runtime_rows, runtime_fields)
+    summary = {
+        "run_root": str(run_root),
+        "input_prefix": str(input_prefix),
+        "manifest_path": str(manifest_path),
+        "terminal_runs": len(social_rows),
+        "skipped_nonterminal_runs": skipped_nonterminal,
+        "terminal_state_counts": dict(status_counts),
+        "audit_rows": len(audit_rows),
+        "social_rows": len(social_rows),
+        "runtime_rows": len(runtime_rows),
+        "outputs": {
+            "audit_scores": str(results_dir / "audit_scores.csv"),
+            "social_state_scores": str(results_dir / "social_state_scores.csv"),
+            "table2_runtime_cost_summary": str(results_dir / "table2_runtime_cost_summary.csv"),
+            "bootstrap_intervals": str(results_dir / "bootstrap_intervals.json"),
+            "paper_tables": str(tables_dir),
+        },
+        "notes": [
+            "Artifact-only E4 generator; no API calls are made.",
+            "Queued/running rows are skipped unless manifest or run_job_status_latest.json marks them terminal.",
+            "natural_stop_ledger_resolved is distinct from hit_tick_cap; reaching a tick cap is not counted as success.",
+        ],
+    }
+    _write_json(tables_dir / "e4_artifact_summary.json", summary)
+    (tables_dir / "e4_artifact_summary.md").write_text(
+        "\n".join(
+            [
+                "# E4 Artifact Summary",
+                "",
+                f"- Terminal runs: {summary['terminal_runs']}",
+                f"- Skipped nonterminal runs: {summary['skipped_nonterminal_runs']}",
+                f"- Terminal state counts: {summary['terminal_state_counts']}",
+                "- Natural-stop ledger resolution is reported separately from tick-cap usage.",
+                "",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    return summary
+
+
+def generate_e4_paper_artifacts(args: argparse.Namespace) -> None:
+    summary = generate_e4_paper_artifact_files(
+        run_root=args.run_root,
+        input_prefix=args.input_prefix,
+        manifest_path=args.manifest,
+        bootstrap_iterations=args.bootstrap_iterations,
+        bootstrap_seed=args.bootstrap_seed,
+    )
+    print(json.dumps(summary, indent=2, sort_keys=True))
 
 
 def _manifest_run_job_ids(path: Path) -> set[str]:
@@ -2396,6 +3011,17 @@ def main() -> None:
     long_batch.add_argument("--minimum6", action="store_true", help="Use the minimum_long_horizon_6 fallback from the run matrix.")
     long_batch.add_argument("--force", action="store_true")
     long_batch.set_defaults(func=run_worldfork_long_batch)
+
+    e4_artifacts = sub.add_parser(
+        "generate-e4-paper-artifacts",
+        help="Generate offline E4 long-horizon CSV/JSON/Markdown paper artifacts from terminal run directories.",
+    )
+    e4_artifacts.add_argument("--run-root", type=Path, required=True)
+    e4_artifacts.add_argument("--input-prefix", type=Path, default=E4_DEFAULT_INPUT_PREFIX)
+    e4_artifacts.add_argument("--manifest", type=Path, default=E4_LONG_HORIZON_MANIFEST)
+    e4_artifacts.add_argument("--bootstrap-iterations", type=int, default=2000)
+    e4_artifacts.add_argument("--bootstrap-seed", type=int, default=20260505)
+    e4_artifacts.set_defaults(func=generate_e4_paper_artifacts)
 
     refresh_short = sub.add_parser("refresh-worldfork-short-ledgers", help="Re-evaluate big-bang endpoint ledgers and refresh E3 forecast predictions.")
     refresh_short.add_argument("--run-root", type=Path, required=True)
