@@ -54,6 +54,18 @@ Use the `gold_checklists` in the private eval file. Recommended dimensions:
 
 The resolved cards are a retrospective pilot. They use partial entity masking to reduce leakage, but they are not leakage-proof. In the paper, describe them as a small retrospective resolved-card pilot and avoid claiming definitive real-world forecasting validity.
 
+## Default runtime policy
+
+For WorldFork runtime experiments, the default ICML approach is:
+
+- `cohort_agent`: OpenRouter `deepseek/deepseek-v4-flash`
+- `hero_agent`: OpenRouter `deepseek/deepseek-v4-flash`
+- governance/report routes: a strong configured model, such as OpenAI Codex `gpt-5.4` or an OpenRouter-hosted Kimi/Claude model
+
+Codex-only runtime rows should be labeled as smoke or ablation evidence and kept separate from the default ICML route-policy rows.
+
+Before launching default-route rows, run `worldfork settings provider-test openrouter`. If OpenRouter is configured but not registered, refresh the provider settings or restart the backend, then test again.
+
 ## Agent handoff files added
 
 This bundle now includes a full-cycle execution plan for running the WorldFork ICML forecasting-paper benchmark and writing the paper:

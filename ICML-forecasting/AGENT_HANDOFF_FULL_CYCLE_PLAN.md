@@ -108,7 +108,7 @@ Prepare environment:
 ```bash
 cp .env.example .env
 # Put OPENROUTER_API_KEY and other required provider settings in .env.
-# Configure OpenAI Codex OAuth if using the default high-quality route.
+# Configure OpenAI Codex OAuth if using it for governance/report routes.
 worldfork settings openai-codex-login || true
 
 make build
@@ -123,10 +123,22 @@ worldfork settings llm | tee "$run_root/setup/model_routing.json"
 worldfork settings branch-policy | tee "$run_root/setup/branch_policy.json"
 ```
 
-Live calls should use the configured default split unless explicitly changed and recorded:
+Live calls should use the default ICML route policy unless explicitly changed and recorded. This is the default benchmark approach, not an ablation:
 
-- cheaper/frequent route: cohort, hero, action, event-summary calls.
-- stronger route: initializer, God review, endpoint ledger, reports.
+- `cohort_agent`: OpenRouter `deepseek/deepseek-v4-flash`.
+- `hero_agent`: OpenRouter `deepseek/deepseek-v4-flash`.
+- other high-volume event/action routes: use the configured fast OpenRouter route unless a run manifest states otherwise.
+- governance/report routes (`initializer_agent`, `god_agent`, `endpoint_ledger`, `report_agent`): use a strong configured route, such as OpenAI Codex `gpt-5.4` or an OpenRouter-hosted Kimi/Claude model.
+
+Codex-only live rows are valid smoke/ablation evidence only. Do not aggregate them with the default ICML route-policy rows unless the table explicitly separates route policy.
+
+After provider and routing edits, verify the executable provider path before launching default E3/E4/E5 rows:
+
+```bash
+worldfork settings provider-test openrouter | tee "$run_root/setup/openrouter_provider_test_before_batch.json"
+```
+
+If `worldfork settings llm` shows OpenRouter configured but the provider test says `provider 'openrouter' not registered`, refresh the provider row through `worldfork settings providers --data ...` or restart the backend, then repeat the provider test. Do not treat DeepSeek cohort/hero routing as ready until the provider test passes.
 
 Before every benchmark batch, capture:
 
@@ -932,6 +944,8 @@ Use this checklist before declaring the run complete.
 - [ ] Migrations and seed completed.
 - [ ] `worldfork status`, `/readyz`, and `agent discover` captured.
 - [ ] Model routing captured before and after benchmark.
+- [ ] `cohort_agent` and `hero_agent` route to OpenRouter `deepseek/deepseek-v4-flash` for default E3/E4/E5 runs, or any deviation is explicitly labeled as an ablation/smoke condition.
+- [ ] `worldfork settings provider-test openrouter` passes before any default DeepSeek cohort/hero batch.
 - [ ] Resource monitoring started before runtime runs.
 
 ### Card QA

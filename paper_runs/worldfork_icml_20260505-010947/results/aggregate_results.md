@@ -1,6 +1,6 @@
 # Aggregate Results
 
-Generated: 2026-05-05 04:40 UTC
+Generated: 2026-05-05 04:57 UTC
 
 ## Completed Blocks
 
@@ -25,15 +25,15 @@ Generated: 2026-05-05 04:40 UTC
 | --- | ---: | ---: | ---: | ---: | ---: |
 | direct_llm | 24 | 0.242492 | 0.701698 | 0.000000 | 24 |
 | structured_direct_llm | 24 | 0.238363 | 0.677498 | 0.000000 | 24 |
-| worldfork_no_branch_short | 4 | 0.250000 | 0.693147 | 1.000000 | 4 |
-| worldfork_branching_short | 1 | 0.250000 | 0.693147 | 1.000000 | 1 |
+| worldfork_no_branch_short | 4 | 0.428713 | 1.637770 | 1.000000 | 4 |
+| worldfork_branching_short | 1 | 1.000000 | 4.605170 | 1.000000 | 1 |
 
 ## Runtime Notes
 
 - Direct baseline provider/model: `openai-codex` / `gpt-5.4`.
 - Direct baseline mean latency: 6480.5 ms for `direct_llm`, 10046.9 ms for `structured_direct_llm`.
 - Direct baseline reported cost is 0.0 because the Codex provider reports no dollar cost estimate in the current adapter.
-- E3 tick/report smoke used runtime-only Codex routing because the OpenRouter key in the local environment is a placeholder. It produced 14/14 succeeded LLM calls, 174,427 reported tokens, 655.4009 aggregate LLM seconds, one report version, and one final report version.
+- E3 tick/report smoke used runtime-only Codex routing from the earlier smoke configuration. It produced 14/14 succeeded LLM calls, 174,427 reported tokens, 655.4009 aggregate LLM seconds, one report version, and one final report version. Treat these as Codex-only smoke/ablation rows; future default ICML runtime rows should use OpenRouter `deepseek/deepseek-v4-flash` for `cohort_agent` and `hero_agent`.
 - The E3 smoke used synchronous `run-until-complete`; Celery queues remained idle, so this result does not test queue-concurrency tuning.
 - The queued E3 smoke produced 12/12 succeeded LLM calls, 143,700 reported tokens, 445.3739 aggregate LLM seconds, two report records, and four ledgers. Queue telemetry showed one active p1 task, so single-case queue execution is functional but not inherently parallel within the case.
 - The E1 queued initializer batch produced four successful initialization jobs. Actor counts were 11, 7, 9, and 8 respectively. Because jobs were submitted before waiting, the last three had near-zero wait times after the first 148.14 second wait returned.
@@ -41,9 +41,9 @@ Generated: 2026-05-05 04:40 UTC
 - The remaining 22 additional cards completed as queued p1 jobs in 464.64 seconds wall time. Per-job elapsed times ranged from 109.49 to 463.97 seconds, including queue wait across three waves.
 - The existing 72-card E1 initializer batch completed as queued p1 jobs in 1796.65 seconds wall time. The automated coverage table reports 108/108 succeeded initializations, mean actor count 8.76, mean trait count 8.82, mean graph edge count 33.99, and sociology plus emotion baselines present for 108/108 cases.
 - The first E3 runner validation on `resolved_001` / `worldfork_no_branch_short` initialized successfully but did not reach scoreable path-mass artifacts. The queued run job entered a God-review Codex 400 retry loop, was marked `interrupt_requested`, and the isolated p1 worker was restarted. The root cause was audited Codex assistant-history serialization: assistant turns were sent as assistant messages containing `input_text`, which the Responses endpoint rejected. After converting assistant history into user-context input, a fresh retry Big Bang (`e8bc081f-804f-4584-887d-625adae385e7`) completed 8 ticks with run job `7b85f6d2-7b41-4852-86af-28037552acec`.
-- The scored no-branch validation extracted a normalized yes/no forecast of 0.5/0.5 from endpoint path-mass artifacts. Its unresolved mass is 1.0, so this is a pipeline-validating smoke score rather than evidence of final WorldFork accuracy.
-- The scored branching validation extracted the same normalized 0.5/0.5 yes/no forecast with unresolved mass 1.0. It exercised the branch policy (`max_active_multiverses=4`) and expanded one nominal 8-tick case into 27 tick snapshots, so full branching E3 runtime is materially higher than the no-branch ETA unless the branch policy or tick cap is tightened.
-- The batched E3 runner confirms Celery can reduce wall time across independent no-branch cases: three 8-tick run jobs overlapped on p1 instead of running serially. The score rows are still weak forecast evidence because current endpoint path-mass distributions are empty, causing the extractor to fall back to 0.5/0.5 with unresolved mass 1.0. This is now the main E3 quality issue.
+- Posthoc big-bang endpoint-ledger aggregation now populates endpoint path-mass rows for the scored no-branch validations, producing normalized yes/no forecasts of 0.0, 0.5, 0.333333, and 0.142857 across the four completed cards. The unresolved mass is still 1.0 because the captured endpoint statuses remain `insufficient_ticks`, so these are pipeline-validating smoke scores rather than evidence of final WorldFork accuracy.
+- The scored branching validation extracted a normalized yes/no forecast of 0.0 with unresolved mass 1.0. It exercised the branch policy (`max_active_multiverses=4`) and expanded one nominal 8-tick case into 27 tick snapshots, so full branching E3 runtime is materially higher than the no-branch ETA unless the branch policy or tick cap is tightened.
+- The batched E3 runner confirms Celery can reduce wall time across independent no-branch cases: three 8-tick run jobs overlapped on p1 instead of running serially. The score rows are still weak forecast evidence because the captured endpoint statuses are `insufficient_ticks`; the next quality fix is more ticks/longer horizon under the default DeepSeek cohort/hero route.
 
 ## Pending Results
 

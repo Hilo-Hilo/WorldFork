@@ -305,7 +305,20 @@ def _capture_init_artifacts(client: ApiClient, out_dir: Path, big_bang_id: str) 
     return counts
 
 
+def _evaluate_big_bang_endpoint_ledger(client: ApiClient, out_dir: Path, big_bang_id: str) -> None:
+    try:
+        payload = client.request(
+            "POST",
+            f"/big-bangs/{big_bang_id}/endpoint-ledgers/evaluate",
+            payload={"run_inline": True},
+        )
+    except urllib.error.HTTPError as exc:
+        payload = {"ok": False, "error": {"type": "http_error", "status": exc.code, "reason": exc.reason}}
+    _write_json(out_dir / "endpoint_ledger_evaluate.json", payload)
+
+
 def _capture_run_artifacts(client: ApiClient, out_dir: Path, big_bang_id: str) -> None:
+    _evaluate_big_bang_endpoint_ledger(client, out_dir, big_bang_id)
     captures = {
         "timing": f"/agent/runs/{big_bang_id}/timing",
         "cost": f"/agent/runs/{big_bang_id}/cost?include_calls=true&include_non_openrouter=true",
@@ -321,6 +334,49 @@ def _capture_run_artifacts(client: ApiClient, out_dir: Path, big_bang_id: str) -
         except urllib.error.HTTPError as exc:
             payload = {"ok": False, "error": {"type": "http_error", "status": exc.code, "reason": exc.reason, "path": path}}
         _write_json(out_dir / f"{name}.json", payload)
+
+
+def refresh_worldfork_short_ledgers(args: argparse.Namespace) -> None:
+    run_root = make_run_root(args.run_root)
+    client = ApiClient(args.base_url, api_prefix=args.api_prefix, timeout=args.timeout)
+    manifest_path = run_root / "manifests/worldfork_short_manifest.jsonl"
+    output = run_root / "raw/E3_worldfork_short/worldfork_predictions.jsonl"
+    case_filter = {item.strip() for item in args.case_ids.split(",") if item.strip()} if args.case_ids else None
+    condition_filter = {item.strip() for item in args.conditions.split(",") if item.strip()} if args.conditions else None
+    existing_order: list[tuple[str, str]] = []
+    predictions: dict[tuple[str, str], dict[str, Any]] = {}
+    if output.exists():
+        for row in read_jsonl(output):
+            key = (str(row.get("case_id")), str(row.get("condition")))
+            if key not in predictions:
+                existing_order.append(key)
+            predictions[key] = row
+
+    refreshed: list[tuple[str, str]] = []
+    for row in read_jsonl(manifest_path):
+        case_id = str(row.get("case_id") or "")
+        condition = str(row.get("condition") or "")
+        if row.get("status") != "completed":
+            continue
+        if case_filter and case_id not in case_filter:
+            continue
+        if condition_filter and condition not in condition_filter:
+            continue
+        big_bang_id = str(row.get("big_bang_id") or "")
+        run_dir = run_root / str(row.get("run_dir") or "")
+        if not big_bang_id or not run_dir.exists():
+            continue
+        _capture_run_artifacts(client, run_dir, big_bang_id)
+        path_mass = json.loads((run_dir / "path_mass.json").read_text(encoding="utf-8"))
+        key = (case_id, condition)
+        if key not in predictions:
+            existing_order.append(key)
+        predictions[key] = extract_worldfork_forecast(case_id, condition, path_mass)
+        refreshed.append(key)
+        print(json.dumps({"case_id": case_id, "condition": condition, "status": "refreshed"}))
+
+    if refreshed:
+        write_jsonl(output, [predictions[key] for key in existing_order if key in predictions])
 
 
 def _endpoint_matches(entry: dict[str, Any], target: str) -> bool:
@@ -1540,6 +1596,15 @@ def main() -> None:
     short_batch.add_argument("--core12", action="store_true", help="Use the resolved core-12 fallback from the run matrix.")
     short_batch.add_argument("--force", action="store_true")
     short_batch.set_defaults(func=run_worldfork_short_batch)
+
+    refresh_short = sub.add_parser("refresh-worldfork-short-ledgers", help="Re-evaluate big-bang endpoint ledgers and refresh E3 forecast predictions.")
+    refresh_short.add_argument("--run-root", type=Path, required=True)
+    refresh_short.add_argument("--base-url", default="http://127.0.0.1:8003")
+    refresh_short.add_argument("--api-prefix", default="/api")
+    refresh_short.add_argument("--timeout", type=float, default=60.0)
+    refresh_short.add_argument("--case-ids", help="Optional comma-separated case IDs to refresh.")
+    refresh_short.add_argument("--conditions", help="Optional comma-separated E3 conditions to refresh.")
+    refresh_short.set_defaults(func=refresh_worldfork_short_ledgers)
 
     args = parser.parse_args()
     args.func(args)

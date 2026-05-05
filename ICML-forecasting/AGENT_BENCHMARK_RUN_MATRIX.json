@@ -9,6 +9,30 @@
   "private_files": [
     "worldfork_additional_36_private_eval.jsonl"
   ],
+  "default_model_route_policy": {
+    "policy_id": "icml_default_deepseek_v4_flash_cohort_hero",
+    "description": "Default ICML runtime policy. This is the standard condition for future E3/E4/E5 WorldFork runs, not an optional split-route ablation.",
+    "cohort_agent": {
+      "provider": "openrouter",
+      "model": "deepseek/deepseek-v4-flash",
+      "required_for_default_runs": true
+    },
+    "hero_agent": {
+      "provider": "openrouter",
+      "model": "deepseek/deepseek-v4-flash",
+      "required_for_default_runs": true
+    },
+    "governance_report_routes": {
+      "routes": [
+        "initializer_agent",
+        "god_agent",
+        "endpoint_ledger",
+        "report_agent"
+      ],
+      "model_policy": "Use a strong configured governance/report route such as openai-codex/gpt-5.4 or an OpenRouter-hosted Kimi/Claude model."
+    },
+    "comparability_note": "Rows produced with Codex-only routing are smoke/ablation rows and must be reported separately from default ICML route-policy rows."
+  },
   "case_groups": {
     "existing_72_all": [
       "civic_001",
@@ -271,6 +295,7 @@
       "required": true,
       "cases": "resolved_24",
       "fallback_cases": "worldfork_resolved_core12_fallback",
+      "model_route_policy": "icml_default_deepseek_v4_flash_cohort_hero",
       "conditions": [
         "worldfork_no_branch_short",
         "worldfork_branching_short"
@@ -286,6 +311,7 @@
       "required": true,
       "cases": "long_horizon_18",
       "fallback_cases": "minimum_long_horizon_6",
+      "model_route_policy": "icml_default_deepseek_v4_flash_cohort_hero",
       "conditions": [
         "worldfork_full_branching_long"
       ],
@@ -300,6 +326,7 @@
       "id": "E5_social_state_emotion_audit",
       "required": true,
       "cases": "long_horizon_18",
+      "model_route_policy": "icml_default_deepseek_v4_flash_cohort_hero",
       "conditions": [
         "score_existing_long_runs"
       ],
@@ -311,6 +338,7 @@
       "id": "S1_social_ablation",
       "required": false,
       "cases": "social_ablation_8",
+      "model_route_policy": "icml_default_deepseek_v4_flash_cohort_hero",
       "conditions": [
         "worldfork_full_social_state",
         "worldfork_no_sociology_prompt_influence"
@@ -324,6 +352,7 @@
       "id": "S2_branch_threshold_sweep",
       "required": false,
       "cases": "threshold_sweep_6",
+      "model_route_policy": "icml_default_deepseek_v4_flash_cohort_hero",
       "conditions": [
         "threshold_0.55",
         "threshold_0.75",

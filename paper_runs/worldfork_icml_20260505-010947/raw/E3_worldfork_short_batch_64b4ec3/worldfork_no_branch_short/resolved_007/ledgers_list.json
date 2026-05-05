@@ -1,6 +1,4137 @@
 [
   {
     "big_bang_id": "b958dc57-9996-454b-b2f4-f0c9fb7711b0",
+    "created_at": "2026-05-05T04:42:44.922416Z",
+    "created_by": "endpoint_weight_aggregator",
+    "id": "2d56687c-0047-4b6f-a8c4-f59970b474f7",
+    "llm_call_id": null,
+    "model": null,
+    "multiverse_id": "b55e861b-7964-4c41-b55a-b41387afdebe",
+    "parent_ledger_version_id": null,
+    "payload": {
+      "evidence": {
+        "big_bang": {
+          "id": "b958dc57-9996-454b-b2f4-f0c9fb7711b0",
+          "name": "E3_batch_64b4ec3_worldfork_no_branch_short_resolved_007",
+          "scenario_input": {
+            "initializer_output": {
+              "_truncated": true,
+              "actors": [
+                {
+                  "_truncated": true,
+                  "attention_level": 0.95,
+                  "description": "Canadian club competing in the 2025 World Series.",
+                  "fatigue": 0.3,
+                  "fictionalized": false,
+                  "name": "team_t",
+                  "stakes": [
+                    "win championship series",
+                    "convert offensive strength and home-field energy into four wins"
+                  ],
+                  "stance_axes": {
+                    "adaptability": 0.55,
+                    "risk_tolerance": 0.56,
+                    "series_confidence": 0.58
+                  },
+                  "type": "team"
+                },
+                {
+                  "_truncated": true,
+                  "attention_level": 0.95,
+                  "description": "Defending champion opponent with deep pitching and recent postseason experience.",
+                  "fatigue": 0.28,
+                  "fictionalized": false,
+                  "name": "team_l",
+                  "stakes": [
+                    "defend title",
+                    "leverage pitching depth and experience to win four games"
+                  ],
+                  "stance_axes": {
+                    "adaptability": 0.6,
+                    "risk_tolerance": 0.5,
+                    "series_confidence": 0.62
+                  },
+                  "type": "team"
+                },
+                {
+                  "_truncated": true,
+                  "attention_level": 0.88,
+                  "description": "Managers and coaching staff guiding Team T lineup and pitching decisions.",
+                  "fatigue": 0.25,
+                  "fictionalized": false,
+                  "name": "team_t_managerial_staff",
+                  "stakes": [
+                    "optimize rotations and bullpen use",
+                    "manage home-field and travel adjustments"
+                  ],
+                  "stance_axes": {
+                    "adaptability": 0.58,
+                    "aggression": 0.55,
+                    "conservatism": 0.45
+                  },
+                  "type": "staff"
+                },
+                {
+                  "_truncated": true,
+                  "attention_level": 0.88,
+                  "description": "Managers and coaching staff guiding Team L strategic deployment.",
+                  "fatigue": 0.23,
+                  "fictionalized": false,
+                  "name": "team_l_managerial_staff",
+                  "stakes": [
+                    "maximize pitching depth",
+                    "exploit series experience and variance"
+                  ],
+                  "stance_axes": {
+                    "adaptability": 0.62,
+                    "aggression": 0.5,
+                    "conservatism": 0.52
+                  },
+                  "type": "staff"
+                },
+                {
+                  "_truncated": true,
+                  "attention_level": 0.93,
+                  "description": "Supporters of Team T energized by home-field context.",
+                  "fatigue": 0.18,
+                  "fictionalized": false,
+                  "name": "team_t_fanbase",
+                  "stakes": [
+                    "see Team T win series",
+                    "sustain morale and pressure through home games"
+                  ],
+                  "stance_axes": {
+                    "optimism": 0.68,
+                    "patience": 0.45,
+                    "reactivity": 0.62
+                  },
+                  "type": "fan_coalition"
+                },
+                {
+                  "_truncated": true,
+                  "attention_level": 0.92,
+                  "description": "Supporters of Team L expecting a strong defense of the title.",
+                  "fatigue": 0.2,
+                  "fictionalized": false,
+                  "name": "team_l_fanbase",
+                  "stakes": [
+                    "see Team L repeat as champion",
+                    "validate belief in experience and pitching depth"
+                  ],
+                  "stance_axes": {
+                    "optimism": 0.66,
+                    "patience": 0.5,
+                    "reactivity": 0.58
+                  },
+                  "type": "fan_coalition"
+                },
+                {
+                  "_truncated": true,
+                  "attention_level": 0.97,
+                  "description": "Broadcast and analysis ecosystem shaping public narratives around the series.",
+                  "fatigue": 0.15,
+                  "fictionalized": false,
+                  "name": "sports_media",
+                  "stakes": [
+                    "cover games",
+                    "amplify momentum, variance, and matchup framing"
+                  ],
+                  "stance_axes": {
+                    "narrative_amplification": 0.72,
+                    "neutrality": 0.52,
+                    "volatility_focus": 0.7
+                  },
+                  "type": "media_ecosystem"
+                }
+              ],
+              "channels": [
+                {
+                  "channel_key": "live_broadcast",
+                  "intensity": 0.92,
+                  "participants": [
+                    "sports_media",
+                    "team_t_fanbase",
+                    "team_l_fanbase"
+                  ],
+                  "type": "mass_media",
+                  "visibility": "public"
+                },
+                {
+                  "channel_key": "postgame_analysis",
+                  "intensity": 0.84,
+                  "participants": [
+                    "sports_media",
+                    "general_series_audience_proxy"
+                  ],
+                  "type": "analysis_media",
+                  "visibility": "public"
+                },
+                {
+                  "channel_key": "stadium_environment",
+                  "intensity": 0.72,
+                  "participants": [
+                    "team_t_fanbase",
+                    "team_t"
+                  ],
+                  "type": "in_person_collective",
+                  "visibility": "public"
+                },
+                {
+                  "channel_key": "team_internal_strategy",
+                  "intensity": 0.81,
+                  "participants": [
+                    "team_t",
+                    "team_t_managerial_staff",
+                    "team_l",
+                    "team_l_managerial_staff"
+                  ],
+                  "type": "private_operational",
+                  "visibility": "private"
+                }
+              ],
+              "cohorts": [
+                {
+                  "_truncated": true,
+                  "actor_name": "team_t_fanbase",
+                  "archetype_key": "team_t_supporters",
+                  "attention_level": 0.94,
+                  "cohort_key": "team_t_confident_supporters",
+                  "expression_level": 0.89,
+                  "fatigue": 0.16,
+                  "private_belief": "Team T has a real chance due to offense and home-field energy, though not overwhelming superiority.",
+                  "stance_axes": {
+                    "optimism": 0.74,
+                    "series_confidence": 0.62,
+                    "volatility_acceptance": 0.57
+                  }
+                },
+                {
+                  "_truncated": true,
+                  "actor_name": "team_t_fanbase",
+                  "archetype_key": "team_t_supporters",
+                  "attention_level": 0.91,
+                  "cohort_key": "team_t_anxious_supporters",
+                  "expression_level": 0.68,
+                  "fatigue": 0.22,
+                  "private_belief": "Team T is live but vulnerable to Team L pitching depth and playoff experience.",
+                  "stance_axes": {
+                    "optimism": 0.52,
+                    "series_confidence": 0.46,
+                    "volatility_acceptance": 0.4
+                  }
+                },
+                {
+                  "_truncated": true,
+                  "actor_name": "team_l_fanbase",
+                  "archetype_key": "team_l_supporters",
+                  "attention_level": 0.93,
+                  "cohort_key": "team_l_confident_supporters",
+                  "expression_level": 0.87,
+                  "fatigue": 0.18,
+                  "private_belief": "Team L should be favored because defending champions with deep pitching are well-built for a series.",
+                  "stance_axes": {
+                    "optimism": 0.76,
+                    "series_confidence": 0.65,
+                    "volatility_acceptance": 0.55
+                  }
+                },
+                {
+                  "_truncated": true,
+                  "actor_name": "team_l_fanbase",
+                  "archetype_key": "team_l_supporters",
+                  "attention_level": 0.9,
+                  "cohort_key": "team_l_cautious_supporters",
+                  "expression_level": 0.66,
+                  "fatigue": 0.22,
+                  "private_belief": "Team L is strong but Team T offense and home-field energy create upset risk.",
+                  "stance_axes": {
+                    "optimism": 0.57,
+                    "series_confidence": 0.52,
+                    "volatility_acceptance": 0.47
+                  }
+                },
+                {
+                  "_truncated": true,
+                  "actor_name": "sports_media",
+                  "archetype_key": "general_series_audience",
+                  "attention_level": 0.78,
+                  "cohort_key": "neutral_viewers_variance_watchers",
+                  "expression_level": 0.52,
+                  "fatigue": 0.12,
+                  "private_belief": "Series is uncertain and likely to swing after each game due to path dependence.",
+                  "stance_axes": {
+                    "interest": 0.72,
+                    "loyalty": 0.22,
+                    "variance_salience": 0.8
+                  }
+                },
+                {
+                  "_truncated": true,
+                  "actor_name": "sports_media",
+                  "archetype_key": "general_series_audience",
+                  "attention_level": 0.74,
+                  "cohort_key": "neutral_viewers_experience_favorers",
+                  "expression_level": 0.48,
+                  "fatigue": 0.14,
+                  "private_belief": "Defending champions and deeper pitching usually have the edge in a full series.",
+                  "stance_axes": {
+                    "experience_weight": 0.72,
+                    "interest": 0.68,
+                    "loyalty": 0.18
+                  }
+                }
+              ],
+              "fallback": false,
+              "graph_edges": [
+                {
+                  "direction": "directed",
+                  "evidence": "Expected focus on sports series forecasting and public attention around the World Series.",
+                  "layer": "exposure",
+                  "reason": "Media coverage strongly reaches Team T supporters during the championship series.",
+                  "source_actor_name": "sports_media",
+                  "target_actor_name": "team_t_fanbase",
+                  "weight": 0.64
+                },
+                {
+                  "direction": "directed",
+                  "evidence": "Championship series context implies intense media attention.",
+                  "layer": "exposure",
+                  "reason": "Media coverage strongly reaches Team L supporters during the championship series.",
+                  "source_actor_name": "sports_media",
+                  "target_actor_name": "team_l_fanbase",
+                  "weight": 0.64
+                },
+                {
+                  "direction": "directed",
+                  "evidence": "Scenario explicitly notes Team T has home-field energy.",
+                  "layer": "exposure",
+                  "reason": "Home-field energy creates visible supporter presence around Team T.",
+                  "source_actor_name": "team_t_fanbase",
+                  "target_actor_name": "team_t",
+                  "weight": 0.58
+                },
+                {
+                  "direction": "directed",
+                  "evidence": "Team L is defending champion with active supporter attention.",
+                  "layer": "exposure",
+                  "reason": "Defending champion fan support remains visible to Team L.",
+                  "source_actor_name": "team_l_fanbase",
+                  "target_actor_name": "team_l",
+                  "weight": 0.52
+                },
+                {
+                  "direction": "directed",
+                  "evidence": "Series outcome and path dependence depend on each game result.",
+                  "layer": "exposure",
+                  "reason": "Team T performance and games are central media content.",
+                  "source_actor_name": "team_t",
+                  "target_actor_name": "sports_media",
+                  "weight": 0.61
+                },
+                {
+                  "direction": "directed",
+                  "evidence": "Scenario highlights Team L experience and pitching depth.",
+                  "layer": "exposure",
+                  "reason": "Team L performance and defending champion status draw media attention.",
+                  "source_actor_name": "team_l",
+                  "target_actor_name": "sports_media",
+                  "weight": 0.63
+                },
+                {
+                  "direction": "directed",
+                  "evidence": "Scenario cites strong offensive profile and home-field energy.",
+                  "layer": "trust",
+                  "reason": "Supporters generally trust Team T to compete credibly given offensive strength and home support.",
+                  "source_actor_name": "team_t_fanbase",
+                  "target_actor_name": "team_t",
+                  "weight": 0.62
+                },
+                {
+                  "direction": "directed",
+                  "evidence": "Scenario explicitly presents Team L as defending champion with deep pitching.",
+                  "layer": "trust",
+                  "reason": "Supporters trust defending champions with deep pitching and recent postseason experience.",
+                  "source_actor_name": "team_l_fanbase",
+                  "target_actor_name": "team_l",
+                  "weight": 0.69
+                },
+                {
+                  "_truncated_count": 22
+                }
+              ],
+              "heroes": [
+                {
+                  "archetype_key": "team_competitor",
+                  "description": "Central actor whose tactical performance and endurance determine series outcome.",
+                  "label": "Competitive team principal"
+                },
+                {
+                  "archetype_key": "managerial_decider",
+                  "description": "Strategic authority over deployment, adaptation, and high-leverage choices.",
+                  "label": "Managerial decider"
+                }
+              ],
+              "model": "gpt-5.4",
+              "risk_flags": [
+                {
+                  "description": "No player-specific roster, injury, or probable starter information is available in the source corpus.",
+                  "flag_key": "limited_roster_evidence",
+                  "severity": "medium"
+                },
+                {
+                  "description": "Scenario describes broad strengths and variance factors but not quantitative priors or market odds.",
+                  "flag_key": "coarse_public_narrative_only",
+                  "severity": "medium"
+                },
+                {
+                  "description": "WorldFork social-state schema is being applied to a sports forecasting case, so sociology fields are lightweight and mainly audience-facing.",
+                  "flag_key": "non_social_domain_adaptation",
+                  "severity": "low"
+                },
+                {
+                  "description": "General audience is described in cohorts, but graph edges rely primarily on media and fan actors due to limited explicit neutral-actor detail.",
+                  "flag_key": "proxy_actor_gap",
+                  "severity": "medium"
+                }
+              ]
+            },
+            "plain_text_corpus": {
+              "present": true
+            },
+            "scenario_text": {
+              "present": true
+            }
+          },
+          "simulation_config": {
+            "max_schedule_horizon_ticks": 5,
+            "max_ticks": 8,
+            "tick_duration": "720 minutes",
+            "tick_duration_minutes": 720
+          },
+          "status": "draft"
+        },
+        "candidate_endpoint": {},
+        "events": [
+          {
+            "actual_impact": {},
+            "event_id": "3a6c7c7f-5a2a-4ade-b1fb-77a19d45b571",
+            "event_type": "media_engagement",
+            "expected_impact": "Lowers internal split pressure, sustains coalition discipline, and reduces momentum-overreaction under heavy media exposure.",
+            "multiverse_id": "b55e861b-7964-4c41-b55a-b41387afdebe",
+            "scheduled_tick": 9,
+            "status": "queued",
+            "title": "Supporter recap card on durable positives versus one-game noise"
+          },
+          {
+            "actual_impact": {},
+            "event_id": "58a23a0a-f213-420b-9a05-4ce69b6faac7",
+            "event_type": "fan_mobilization",
+            "expected_impact": "Maintains visible fan energy while limiting reputational backlash and fan-on-fan escalation.",
+            "multiverse_id": "b55e861b-7964-4c41-b55a-b41387afdebe",
+            "scheduled_tick": 9,
+            "status": "queued",
+            "title": "Away-game watch-party reminder with respect-first norms"
+          },
+          {
+            "actual_impact": {},
+            "event_id": "a2682d4a-7bd5-4298-84ca-a15b8f984ac7",
+            "event_type": "strategy_meeting",
+            "expected_impact": "Improves sequencing discipline under variance, lowers risk of reactive bullpen burn, and keeps Team L aligned around a series-length pitching plan.",
+            "multiverse_id": "b55e861b-7964-4c41-b55a-b41387afdebe",
+            "scheduled_tick": 9,
+            "status": "queued",
+            "title": "Closed matchup compression review for second-time-through and bridge timing"
+          },
+          {
+            "actual_impact": {},
+            "event_id": "a495e201-7092-49fa-9768-7ebfa455afde",
+            "event_type": "press_availability",
+            "expected_impact": "Sustains credibility with media and supporters, reduces speculative backlash around any unconventional move, and protects strategic secrecy.",
+            "multiverse_id": "b55e861b-7964-4c41-b55a-b41387afdebe",
+            "scheduled_tick": 9,
+            "status": "queued",
+            "title": "Brief postgame availability on adjustment thresholds, not outcomes"
+          },
+          {
+            "actual_impact": {},
+            "event_id": "caadcd9b-1fb7-4966-9544-cd2f3e55ba4e",
+            "event_type": "strategy_meeting",
+            "expected_impact": "Improves coherence if variance forces an early decision, lowers reactive bullpen use, and keeps Team T from overcommitting too soon against Team L depth.",
+            "multiverse_id": "b55e861b-7964-4c41-b55a-b41387afdebe",
+            "scheduled_tick": 9,
+            "status": "queued",
+            "title": "Closed early-leverage fork review before next game block"
+          },
+          {
+            "actual_impact": {},
+            "event_id": "1d127ee3-8288-4b06-946f-69c614ed1144",
+            "event_type": "press_availability",
+            "expected_impact": "Preserves credibility with anxious supporters and media, cools panic framing, and protects tactical secrecy under heavy exposure.",
+            "multiverse_id": "b55e861b-7964-4c41-b55a-b41387afdebe",
+            "scheduled_tick": 9,
+            "status": "queued",
+            "title": "Brief postgame availability on adjustment discipline"
+          },
+          {
+            "actual_impact": {},
+            "event_id": "c67d407d-3f71-4eec-b3b5-c4f0a098f765",
+            "event_type": "strategy_meeting",
+            "expected_impact": "Sharpens offense without abandoning discipline, improves adaptation against pitching depth, and reinforces a series-long approach under pressure.",
+            "multiverse_id": "b55e861b-7964-4c41-b55a-b41387afdebe",
+            "scheduled_tick": 9,
+            "status": "queued",
+            "title": "Closed baserunning-and-contact conversion review before next game"
+          },
+          {
+            "actual_impact": {},
+            "event_id": "b59408be-2b8b-4cf1-9136-2879338638aa",
+            "event_type": "press_availability",
+            "expected_impact": "Protects tactical secrecy, sustains supporter trust, and slightly cools panic-heavy momentum framing in high-exposure coverage.",
+            "multiverse_id": "b55e861b-7964-4c41-b55a-b41387afdebe",
+            "scheduled_tick": 9,
+            "status": "queued",
+            "title": "Controlled clubhouse availability on composure and series sequencing"
+          },
+          {
+            "_truncated_count": 4
+          }
+        ],
+        "god_reviews": [],
+        "initializer": {
+          "branch_hypotheses": [
+            {
+              "alternate_path": "Home-field energy and offense become a stronger public narrative, reducing Team L aura of inevitability.",
+              "branch_key": "team_t_early_lead_branch",
+              "divergence_signal": "Media framing shifts from champion advantage to upset viability; Team T fan confidence rises materially.",
+              "trigger": "Team T wins Game 1 or takes a 2-0 lead"
+            },
+            {
+              "alternate_path": "Series narrative tilts toward Team L's depth and experience as a durable edge.",
+              "branch_key": "team_l_pitching_control_branch",
+              "divergence_signal": "Postgame commentary repeatedly cites Team T offensive underperformance and Team L command of leverage innings.",
+              "trigger": "Team L starters and bullpen suppress Team T offense in early games"
+            },
+            {
+              "alternate_path": "Bullpen wear, matchup improvisation, and travel effects matter more than pre-series priors.",
+              "branch_key": "extended_series_fatigue_branch",
+              "divergence_signal": "Managerial usage patterns, rest concerns, and fatigue narratives dominate coverage.",
+              "trigger": "Series reaches six or seven games"
+            },
+            {
+              "alternate_path": "Raw run production overwhelms some of Team L's pitching-edge prior.",
+              "branch_key": "team_t_offense_breakout_branch",
+              "divergence_signal": "Coverage starts treating Team T lineup pressure as the defining series variable.",
+              "trigger": "Team T produces multiple high-scoring games early"
+            }
+          ],
+          "endpoint_ledger": [
+            {
+              "_truncated": true,
+              "blockers": [
+                "Team L may convert pitching depth and experience into four wins first",
+                "series variance can swing after each game"
+              ],
+              "description": "Terminal outcome where Team T secures its fourth win before Team L.",
+              "endpoint_key": "team_t_wins_series",
+              "evidence_refs": [
+                "scenario endpoint definition",
+                "source_1 best_of_seven_note",
+                "source_3 loss_in_seven_is_no"
+              ],
+              "label": "Team T wins series",
+              "meta": {
+                "important_question": "Will Team T win four games before Team L and thus win the best-of-seven series?",
+                "source": "initializer_endpoint_ledger"
+              },
+              "probability": 0.45,
+              "rationale": "This is the primary terminal question explicitly defined by the corpus.",
+              "status": "active",
+              "status_basis": "Series has just opened; no wins recorded at T0."
+            },
+            {
+              "_truncated": true,
+              "blockers": [
+                "Team T offense and home-field energy may produce four wins first"
+              ],
+              "description": "Terminal outcome where Team L secures its fourth win before Team T.",
+              "endpoint_key": "team_l_wins_series",
+              "evidence_refs": [
+                "scenario endpoint definition",
+                "source_1 best_of_seven_note",
+                "source_3 loss_in_seven_is_no"
+              ],
+              "label": "Team L wins series",
+              "meta": {
+                "important_question": "Will the series extend to at least six games before resolving?",
+                "source": "initializer_endpoint_ledger"
+              },
+              "probability": 0.55,
+              "rationale": "Necessary complementary terminal option because the best-of-seven resolves to one winner.",
+              "status": "active",
+              "status_basis": "Series has just opened; no wins recorded at T0."
+            },
+            {
+              "_truncated": true,
+              "blockers": [
+                "One team sweeps or wins in five"
+              ],
+              "description": "Process-completion endpoint for whether the matchup remains unresolved through five games.",
+              "endpoint_key": "series_reaches_six_games",
+              "evidence_refs": [
+                "best_of_seven_format",
+                "variance_note"
+              ],
+              "label": "Series reaches at least six games",
+              "meta": {
+                "important_question": "Which team establishes the early series edge after the opening games?",
+                "source": "initializer_endpoint_ledger"
+              },
+              "probability": 0.58,
+              "rationale": "Useful endpoint-facing prior for testing how much variance and balance persist beyond early games.",
+              "status": "active",
+              "status_basis": "At T0 no games have been played, so a longer series remains plausible."
+            },
+            {
+              "_truncated": true,
+              "blockers": [
+                "Team T could win outright",
+                "Team L could win for reasons not primarily tied to pitching depth"
+              ],
+              "description": "Observable terminal characterization that Team L's deep pitching is the dominant cited driver of eventual series victory, if Team L wins.",
+              "endpoint_key": "team_l_pitching_edge_decisive",
+              "evidence_refs": [
+                "scenario description of Team L deep pitching",
+                "variance_note"
+              ],
+              "label": "Team L pitching edge proves decisive",
+              "meta": {
+                "important_question": "Will Team L's pitching depth emerge as the dominant observable driver of the series outcome?",
+                "source": "initializer_endpoint_ledger"
+              },
+              "probability": 0.34,
+              "rationale": "Captures one central mechanism named in the corpus rather than only final winner status.",
+              "status": "active",
+              "status_basis": "Pitching depth is a major prior but has not yet been validated in observed play."
+            }
+          ],
+          "important_questions": [
+            "Will Team T win four games before Team L and thus win the best-of-seven series?",
+            "Will the series extend to at least six games before resolving?",
+            "Which team establishes the early series edge after the opening games?",
+            "Will Team L's pitching depth emerge as the dominant observable driver of the series outcome?"
+          ],
+          "known_uncertainty": [],
+          "risk_flags": [
+            {
+              "description": "No player-specific roster, injury, or probable starter information is available in the source corpus.",
+              "flag_key": "limited_roster_evidence",
+              "severity": "medium"
+            },
+            {
+              "description": "Scenario describes broad strengths and variance factors but not quantitative priors or market odds.",
+              "flag_key": "coarse_public_narrative_only",
+              "severity": "medium"
+            },
+            {
+              "description": "WorldFork social-state schema is being applied to a sports forecasting case, so sociology fields are lightweight and mainly audience-facing.",
+              "flag_key": "non_social_domain_adaptation",
+              "severity": "low"
+            },
+            {
+              "description": "General audience is described in cohorts, but graph edges rely primarily on media and fan actors due to limited explicit neutral-actor detail.",
+              "flag_key": "proxy_actor_gap",
+              "severity": "medium"
+            }
+          ]
+        },
+        "multiverse": {
+          "id": "b55e861b-7964-4c41-b55a-b41387afdebe",
+          "state": {
+            "_truncated": true,
+            "branch": {
+              "branch_probability": 0.724,
+              "fork_tick_index": 8,
+              "parent_multiverse_id": "23a59bbc-0d50-4763-825f-a6202da10bd2",
+              "parent_path_probability_after": 0.276,
+              "parent_path_probability_before": 1.0,
+              "path_probability": 0.724,
+              "probability_basis": {
+                "basis": "Auto-created because branch_score crossed threshold and the God output did not include an explicit create_branch tool call.",
+                "branch_probability": 0.724,
+                "parent_continuation_probability": null,
+                "source": "heuristic_branch_score"
+              },
+              "reason": "Branch threshold crossed from graph/sociology candidate evidence."
+            },
+            "channels": [
+              {
+                "channel_key": "live_broadcast",
+                "intensity": 0.92,
+                "participants": [
+                  "sports_media",
+                  "team_t_fanbase",
+                  "team_l_fanbase"
+                ],
+                "type": "mass_media",
+                "visibility": "public"
+              },
+              {
+                "channel_key": "postgame_analysis",
+                "intensity": 0.84,
+                "participants": [
+                  "sports_media",
+                  "general_series_audience_proxy"
+                ],
+                "type": "analysis_media",
+                "visibility": "public"
+              },
+              {
+                "channel_key": "stadium_environment",
+                "intensity": 0.72,
+                "participants": [
+                  "team_t_fanbase",
+                  "team_t"
+                ],
+                "type": "in_person_collective",
+                "visibility": "public"
+              },
+              {
+                "channel_key": "team_internal_strategy",
+                "intensity": 0.81,
+                "participants": [
+                  "team_t",
+                  "team_t_managerial_staff",
+                  "team_l",
+                  "team_l_managerial_staff"
+                ],
+                "type": "private_operational",
+                "visibility": "private"
+              }
+            ],
+            "cohorts": [
+              {
+                "_truncated": true,
+                "actor_name": "team_t_fanbase",
+                "archetype_key": "team_t_supporters",
+                "attention_level": 0.94,
+                "cohort_key": "team_t_confident_supporters",
+                "expression_level": 0.89,
+                "fatigue": 0.16,
+                "fear_of_isolation": 0.08,
+                "private_belief": "Team T has a real chance due to offense and home-field energy, though not overwhelming superiority.",
+                "public_expression": "Visible enthusiasm and strong support entering series.",
+                "stance_axes": {
+                  "optimism": 0.74,
+                  "series_confidence": 0.62,
+                  "volatility_acceptance": 0.57
+                }
+              },
+              {
+                "_truncated": true,
+                "actor_name": "team_t_fanbase",
+                "archetype_key": "team_t_supporters",
+                "attention_level": 0.91,
+                "cohort_key": "team_t_anxious_supporters",
+                "expression_level": 0.68,
+                "fatigue": 0.22,
+                "fear_of_isolation": 0.2,
+                "private_belief": "Team T is live but vulnerable to Team L pitching depth and playoff experience.",
+                "public_expression": "Supportive but cautious, especially about series variance.",
+                "stance_axes": {
+                  "optimism": 0.52,
+                  "series_confidence": 0.46,
+                  "volatility_acceptance": 0.4
+                }
+              },
+              {
+                "_truncated": true,
+                "actor_name": "team_l_fanbase",
+                "archetype_key": "team_l_supporters",
+                "attention_level": 0.93,
+                "cohort_key": "team_l_confident_supporters",
+                "expression_level": 0.87,
+                "fatigue": 0.18,
+                "fear_of_isolation": 0.08,
+                "private_belief": "Team L should be favored because defending champions with deep pitching are well-built for a series.",
+                "public_expression": "Confident title-defense rhetoric.",
+                "stance_axes": {
+                  "optimism": 0.76,
+                  "series_confidence": 0.65,
+                  "volatility_acceptance": 0.55
+                }
+              },
+              {
+                "_truncated": true,
+                "actor_name": "team_l_fanbase",
+                "archetype_key": "team_l_supporters",
+                "attention_level": 0.9,
+                "cohort_key": "team_l_cautious_supporters",
+                "expression_level": 0.66,
+                "fatigue": 0.22,
+                "fear_of_isolation": 0.17,
+                "private_belief": "Team L is strong but Team T offense and home-field energy create upset risk.",
+                "public_expression": "Measured confidence, less dismissive of Team T.",
+                "stance_axes": {
+                  "optimism": 0.57,
+                  "series_confidence": 0.52,
+                  "volatility_acceptance": 0.47
+                }
+              },
+              {
+                "_truncated": true,
+                "actor_name": "sports_media",
+                "archetype_key": "general_series_audience",
+                "attention_level": 0.78,
+                "cohort_key": "neutral_viewers_variance_watchers",
+                "expression_level": 0.52,
+                "fatigue": 0.12,
+                "fear_of_isolation": 0.06,
+                "private_belief": "Series is uncertain and likely to swing after each game due to path dependence.",
+                "public_expression": "Engaged but not loyal; reacts strongly to momentum narratives.",
+                "stance_axes": {
+                  "interest": 0.72,
+                  "loyalty": 0.22,
+                  "variance_salience": 0.8
+                }
+              },
+              {
+                "_truncated": true,
+                "actor_name": "sports_media",
+                "archetype_key": "general_series_audience",
+                "attention_level": 0.74,
+                "cohort_key": "neutral_viewers_experience_favorers",
+                "expression_level": 0.48,
+                "fatigue": 0.14,
+                "fear_of_isolation": 0.08,
+                "private_belief": "Defending champions and deeper pitching usually have the edge in a full series.",
+                "public_expression": "Mild lean toward Team L absent contrary game results.",
+                "stance_axes": {
+                  "experience_weight": 0.72,
+                  "interest": 0.68,
+                  "loyalty": 0.18
+                }
+              }
+            ],
+            "event_queue": {
+              "past_events": [],
+              "seed_events": [
+                {
+                  "_truncated": true,
+                  "actual_impact": {},
+                  "created_tick": 0,
+                  "description": "The best-of-seven championship series opens with Team T facing Team L.",
+                  "event_id": "91b32fa1-97b8-4d6b-a4f4-0d2ac3bc5cb2",
+                  "event_type": "announcement",
+                  "expected_impact": "Sets baseline attention at maximum and creates immediate path dependence from Game 1 onward.",
+                  "scheduled_tick": 1,
+                  "source": "initializer_agent",
+                  "status": "queued",
+                  "title": "Initializer event"
+                },
+                {
+                  "_truncated": true,
+                  "actual_impact": {},
+                  "created_tick": 0,
+                  "description": "Team T begins with home-field energy as a contextual asset.",
+                  "event_id": "787c57c3-688b-4e42-b97f-bb2d28e2d773",
+                  "event_type": "announcement",
+                  "expected_impact": "Boosts Team T fan expression, local confidence, and perceived emotional support without determining outcome.",
+                  "scheduled_tick": 1,
+                  "source": "initializer_agent",
+                  "status": "queued",
+                  "title": "Initializer event"
+                },
+                {
+                  "_truncated": true,
+                  "actual_impact": {},
+                  "created_tick": 0,
+                  "description": "Starting rotation and bullpen management become salient after early games.",
+                  "event_id": "b24ffa4c-f1de-427b-8045-97d2545044ef",
+                  "event_type": "announcement",
+                  "expected_impact": "Can alter trust in managerial staff, fatigue trajectories, and perceived edge between offense and pitching depth.",
+                  "scheduled_tick": 1,
+                  "source": "initializer_agent",
+                  "status": "queued",
+                  "title": "Initializer event"
+                },
+                {
+                  "_truncated": true,
+                  "actual_impact": {},
+                  "created_tick": 0,
+                  "description": "Travel effects begin to matter as the series progresses across venues.",
+                  "event_id": "a9fbc4e8-70f7-40d9-8d62-4296d06d132d",
+                  "event_type": "announcement",
+                  "expected_impact": "May modestly shift fatigue, preparation narratives, and comparative readiness.",
+                  "scheduled_tick": 1,
+                  "source": "initializer_agent",
+                  "status": "queued",
+                  "title": "Initializer event"
+                },
+                {
+                  "_truncated": true,
+                  "actual_impact": {},
+                  "created_tick": 0,
+                  "description": "By mid-to-late series, one side may face elimination pressure depending on results.",
+                  "event_id": "e62dd652-f404-4479-b49d-a214dac901bd",
+                  "event_type": "announcement",
+                  "expected_impact": "Would raise conflict, fan emotional volatility, and strategic aggression if triggered.",
+                  "scheduled_tick": 1,
+                  "source": "initializer_agent",
+                  "status": "queued",
+                  "title": "Initializer event"
+                }
+              ],
+              "source": "initializer_agent",
+              "upcoming_events": [
+                {
+                  "_truncated": true,
+                  "actual_impact": {},
+                  "created_tick": 0,
+                  "description": "The best-of-seven championship series opens with Team T facing Team L.",
+                  "event_id": "91b32fa1-97b8-4d6b-a4f4-0d2ac3bc5cb2",
+                  "event_type": "announcement",
+                  "expected_impact": "Sets baseline attention at maximum and creates immediate path dependence from Game 1 onward.",
+                  "scheduled_tick": 1,
+                  "source": "initializer_agent",
+                  "status": "queued",
+                  "title": "Initializer event"
+                },
+                {
+                  "_truncated": true,
+                  "actual_impact": {},
+                  "created_tick": 0,
+                  "description": "Team T begins with home-field energy as a contextual asset.",
+                  "event_id": "787c57c3-688b-4e42-b97f-bb2d28e2d773",
+                  "event_type": "announcement",
+                  "expected_impact": "Boosts Team T fan expression, local confidence, and perceived emotional support without determining outcome.",
+                  "scheduled_tick": 1,
+                  "source": "initializer_agent",
+                  "status": "queued",
+                  "title": "Initializer event"
+                },
+                {
+                  "_truncated": true,
+                  "actual_impact": {},
+                  "created_tick": 0,
+                  "description": "Starting rotation and bullpen management become salient after early games.",
+                  "event_id": "b24ffa4c-f1de-427b-8045-97d2545044ef",
+                  "event_type": "announcement",
+                  "expected_impact": "Can alter trust in managerial staff, fatigue trajectories, and perceived edge between offense and pitching depth.",
+                  "scheduled_tick": 1,
+                  "source": "initializer_agent",
+                  "status": "queued",
+                  "title": "Initializer event"
+                },
+                {
+                  "_truncated": true,
+                  "actual_impact": {},
+                  "created_tick": 0,
+                  "description": "Travel effects begin to matter as the series progresses across venues.",
+                  "event_id": "a9fbc4e8-70f7-40d9-8d62-4296d06d132d",
+                  "event_type": "announcement",
+                  "expected_impact": "May modestly shift fatigue, preparation narratives, and comparative readiness.",
+                  "scheduled_tick": 1,
+                  "source": "initializer_agent",
+                  "status": "queued",
+                  "title": "Initializer event"
+                },
+                {
+                  "_truncated": true,
+                  "actual_impact": {},
+                  "created_tick": 0,
+                  "description": "By mid-to-late series, one side may face elimination pressure depending on results.",
+                  "event_id": "e62dd652-f404-4479-b49d-a214dac901bd",
+                  "event_type": "announcement",
+                  "expected_impact": "Would raise conflict, fan emotional volatility, and strategic aggression if triggered.",
+                  "scheduled_tick": 1,
+                  "source": "initializer_agent",
+                  "status": "queued",
+                  "title": "Initializer event"
+                }
+              ]
+            },
+            "graph_summary": {
+              "layers": {
+                "coalition": {
+                  "average_weight": 0.9402,
+                  "edge_count": 4,
+                  "interpretation": "coalition forming",
+                  "max_weight": 0.9581,
+                  "top_edges": [
+                    {
+                      "delta": 0.0422,
+                      "edge_id": "af04d270-9bfb-42b6-bf05-d2430e3019d3",
+                      "evidence": {
+                        "executed_event_count": 14,
+                        "social_observation_count": 15,
+                        "source_activity": 2,
+                        "target_activity": 1,
+                        "tick_pressure": {
+                          "conflict_language": 0.0,
+                          "cooperation_language": 1.0,
+                          "event_count": 14.0,
+                          "event_pressure": 1.0,
+                          "institutional_stress": 0.0,
+                          "social_count": 15.0,
+                          "social_pressure": 1.0
+                        }
+                      },
+                      "reason": "coalition increased from executed events, OASIS activity, cooperation language.",
+                      "source": "team_l",
+                      "source_actor_id": "771b5796-b2e4-446a-b66e-aa228d59a94f",
+                      "status": "active",
+                      "target": "team_l_managerial_staff",
+                      "target_actor_id": "336c6218-047e-4b9c-9917-4652f86a0d9a",
+                      "weight": 0.9581
+                    },
+                    {
+                      "delta": 0.0436,
+                      "edge_id": "f8c86f82-b434-4c95-adf7-5dbb9c765f24",
+                      "evidence": {
+                        "executed_event_count": 14,
+                        "social_observation_count": 15,
+                        "source_activity": 3,
+                        "target_activity": 2,
+                        "tick_pressure": {
+                          "conflict_language": 0.0,
+                          "cooperation_language": 1.0,
+                          "event_count": 14.0,
+                          "event_pressure": 1.0,
+                          "institutional_stress": 0.0,
+                          "social_count": 15.0,
+                          "social_pressure": 1.0
+                        }
+                      },
+                      "reason": "coalition increased from executed events, OASIS activity, cooperation language.",
+                      "source": "team_l_fanbase",
+                      "source_actor_id": "0476d6bb-d7ea-4d70-aa74-8cd403658263",
+                      "status": "active",
+                      "target": "team_l",
+                      "target_actor_id": "771b5796-b2e4-446a-b66e-aa228d59a94f",
+                      "weight": 0.9451
+                    },
+                    {
+                      "delta": 0.0422,
+                      "edge_id": "3b9f42c8-6019-4ac7-a3ab-f3dd2f06d707",
+                      "evidence": {
+                        "executed_event_count": 14,
+                        "social_observation_count": 15,
+                        "source_activity": 2,
+                        "target_activity": 1,
+                        "tick_pressure": {
+                          "conflict_language": 0.0,
+                          "cooperation_language": 1.0,
+                          "event_count": 14.0,
+                          "event_pressure": 1.0,
+                          "institutional_stress": 0.0,
+                          "social_count": 15.0,
+                          "social_pressure": 1.0
+                        }
+                      },
+                      "reason": "coalition increased from executed events, OASIS activity, cooperation language.",
+                      "source": "team_t",
+                      "source_actor_id": "67d77af1-8266-4127-beb0-c071a4f3f409",
+                      "status": "active",
+                      "target": "team_t_managerial_staff",
+                      "target_actor_id": "50d464e0-3257-40f2-89c6-e7e19574ac59",
+                      "weight": 0.9402
+                    },
+                    {
+                      "delta": 0.0436,
+                      "edge_id": "5f540d5a-ac8a-4666-aebe-68e4ec848e55",
+                      "evidence": {
+                        "executed_event_count": 14,
+                        "social_observation_count": 15,
+                        "source_activity": 3,
+                        "target_activity": 2,
+                        "tick_pressure": {
+                          "conflict_language": 0.0,
+                          "cooperation_language": 1.0,
+                          "event_count": 14.0,
+                          "event_pressure": 1.0,
+                          "institutional_stress": 0.0,
+                          "social_count": 15.0,
+                          "social_pressure": 1.0
+                        }
+                      },
+                      "reason": "coalition increased from executed events, OASIS activity, cooperation language.",
+                      "source": "team_t_fanbase",
+                      "source_actor_id": "8a2ba41e-966a-4b20-8c24-07433d509698",
+                      "status": "active",
+                      "target": "team_t",
+                      "target_actor_id": "67d77af1-8266-4127-beb0-c071a4f3f409",
+                      "weight": 0.9172
+                    }
+                  ]
+                },
+                "conflict": {
+                  "average_weight": 0.7968,
+                  "edge_count": 4,
+                  "interpretation": "high conflict edge",
+                  "max_weight": 0.9185,
+                  "top_edges": [
+                    {
+                      "delta": 0.0279,
+                      "edge_id": "59b82763-d84c-4a86-8c51-2ea7ba26d7aa",
+                      "evidence": {
+                        "executed_event_count": 14,
+                        "social_observation_count": 15,
+                        "source_activity": 2,
+                        "target_activity": 2,
+                        "tick_pressure": {
+                          "conflict_language": 0.0,
+                          "cooperation_language": 1.0,
+                          "event_count": 14.0,
+                          "event_pressure": 1.0,
+                          "institutional_stress": 0.0,
+                          "social_count": 15.0,
+                          "social_pressure": 1.0
+                        }
+                      },
+                      "reason": "conflict increased from executed events, OASIS activity, cooperation language.",
+                      "source": "team_t",
+                      "source_actor_id": "67d77af1-8266-4127-beb0-c071a4f3f409",
+                      "status": "active",
+                      "target": "team_l",
+                      "target_actor_id": "771b5796-b2e4-446a-b66e-aa228d59a94f",
+                      "weight": 0.9185
+                    },
+                    {
+                      "delta": 0.0279,
+                      "edge_id": "0adef041-f8e7-4277-a6cc-cbacdf7a7206",
+                      "evidence": {
+                        "executed_event_count": 14,
+                        "social_observation_count": 15,
+                        "source_activity": 2,
+                        "target_activity": 2,
+                        "tick_pressure": {
+                          "conflict_language": 0.0,
+                          "cooperation_language": 1.0,
+                          "event_count": 14.0,
+                          "event_pressure": 1.0,
+                          "institutional_stress": 0.0,
+                          "social_count": 15.0,
+                          "social_pressure": 1.0
+                        }
+                      },
+                      "reason": "conflict increased from executed events, OASIS activity, cooperation language.",
+                      "source": "team_l",
+                      "source_actor_id": "771b5796-b2e4-446a-b66e-aa228d59a94f",
+                      "status": "active",
+                      "target": "team_t",
+                      "target_actor_id": "67d77af1-8266-4127-beb0-c071a4f3f409",
+                      "weight": 0.9185
+                    },
+                    {
+                      "delta": 0.0289,
+                      "edge_id": "4bd496f3-425f-45cd-ad1d-0f330bb56751",
+                      "evidence": {
+                        "executed_event_count": 14,
+                        "social_observation_count": 15,
+                        "source_activity": 3,
+                        "target_activity": 3,
+                        "tick_pressure": {
+                          "conflict_language": 0.0,
+                          "cooperation_language": 1.0,
+                          "event_count": 14.0,
+                          "event_pressure": 1.0,
+                          "institutional_stress": 0.0,
+                          "social_count": 15.0,
+                          "social_pressure": 1.0
+                        }
+                      },
+                      "reason": "conflict increased from executed events, OASIS activity, cooperation language.",
+                      "source": "team_t_fanbase",
+                      "source_actor_id": "8a2ba41e-966a-4b20-8c24-07433d509698",
+                      "status": "active",
+                      "target": "team_l_fanbase",
+                      "target_actor_id": "0476d6bb-d7ea-4d70-aa74-8cd403658263",
+                      "weight": 0.675
+                    },
+                    {
+                      "delta": 0.0289,
+                      "edge_id": "40c71a55-9c4f-4fff-b4dd-6359bb123ee8",
+                      "evidence": {
+                        "executed_event_count": 14,
+                        "social_observation_count": 15,
+                        "source_activity": 3,
+                        "target_activity": 3,
+                        "tick_pressure": {
+                          "conflict_language": 0.0,
+                          "cooperation_language": 1.0,
+                          "event_count": 14.0,
+                          "event_pressure": 1.0,
+                          "institutional_stress": 0.0,
+                          "social_count": 15.0,
+                          "social_pressure": 1.0
+                        }
+                      },
+                      "reason": "conflict increased from executed events, OASIS activity, cooperation language.",
+                      "source": "team_l_fanbase",
+                      "source_actor_id": "0476d6bb-d7ea-4d70-aa74-8cd403658263",
+                      "status": "active",
+                      "target": "team_t_fanbase",
+                      "target_actor_id": "8a2ba41e-966a-4b20-8c24-07433d509698",
+                      "weight": 0.675
+                    }
+                  ]
+                },
+                "dependency": {
+                  "average_weight": 0.8119,
+                  "edge_count": 4,
+                  "interpretation": "dependency lock-in",
+                  "max_weight": 0.8769,
+                  "top_edges": [
+                    {
+                      "delta": 0.035,
+                      "edge_id": "e8a648c4-6d31-4dc6-86f3-7b265bfa7026",
+                      "evidence": {
+                        "executed_event_count": 14,
+                        "social_observation_count": 15,
+                        "source_activity": 2,
+                        "target_activity": 1,
+                        "tick_pressure": {
+                          "conflict_language": 0.0,
+                          "cooperation_language": 1.0,
+                          "event_count": 14.0,
+                          "event_pressure": 1.0,
+                          "institutional_stress": 0.0,
+                          "social_count": 15.0,
+                          "social_pressure": 1.0
+                        }
+                      },
+                      "reason": "dependency increased from executed events, OASIS activity, cooperation language.",
+                      "source": "team_l",
+                      "source_actor_id": "771b5796-b2e4-446a-b66e-aa228d59a94f",
+                      "status": "active",
+                      "target": "team_l_managerial_staff",
+                      "target_actor_id": "336c6218-047e-4b9c-9917-4652f86a0d9a",
+                      "weight": 0.8769
+                    },
+                    {
+                      "delta": 0.035,
+                      "edge_id": "874ab273-7255-40d5-a276-bcb091650e7d",
+                      "evidence": {
+                        "executed_event_count": 14,
+                        "social_observation_count": 15,
+                        "source_activity": 2,
+                        "target_activity": 1,
+                        "tick_pressure": {
+                          "conflict_language": 0.0,
+                          "cooperation_language": 1.0,
+                          "event_count": 14.0,
+                          "event_pressure": 1.0,
+                          "institutional_stress": 0.0,
+                          "social_count": 15.0,
+                          "social_pressure": 1.0
+                        }
+                      },
+                      "reason": "dependency increased from executed events, OASIS activity, cooperation language.",
+                      "source": "team_t",
+                      "source_actor_id": "67d77af1-8266-4127-beb0-c071a4f3f409",
+                      "status": "active",
+                      "target": "team_t_managerial_staff",
+                      "target_actor_id": "50d464e0-3257-40f2-89c6-e7e19574ac59",
+                      "weight": 0.8469
+                    },
+                    {
+                      "delta": 0.035,
+                      "edge_id": "f12d94ac-8570-4b9f-87fa-39cdfa070074",
+                      "evidence": {
+                        "executed_event_count": 14,
+                        "social_observation_count": 15,
+                        "source_activity": 1,
+                        "target_activity": 2,
+                        "tick_pressure": {
+                          "conflict_language": 0.0,
+                          "cooperation_language": 1.0,
+                          "event_count": 14.0,
+                          "event_pressure": 1.0,
+                          "institutional_stress": 0.0,
+                          "social_count": 15.0,
+                          "social_pressure": 1.0
+                        }
+                      },
+                      "reason": "dependency increased from executed events, OASIS activity, cooperation language.",
+                      "source": "team_l_managerial_staff",
+                      "source_actor_id": "336c6218-047e-4b9c-9917-4652f86a0d9a",
+                      "status": "active",
+                      "target": "team_l",
+                      "target_actor_id": "771b5796-b2e4-446a-b66e-aa228d59a94f",
+                      "weight": 0.7869
+                    },
+                    {
+                      "delta": 0.035,
+                      "edge_id": "728ded3c-dfb9-4563-a4a8-14eb0bfc079b",
+                      "evidence": {
+                        "executed_event_count": 14,
+                        "social_observation_count": 15,
+                        "source_activity": 1,
+                        "target_activity": 2,
+                        "tick_pressure": {
+                          "conflict_language": 0.0,
+                          "cooperation_language": 1.0,
+                          "event_count": 14.0,
+                          "event_pressure": 1.0,
+                          "institutional_stress": 0.0,
+                          "social_count": 15.0,
+                          "social_pressure": 1.0
+                        }
+                      },
+                      "reason": "dependency increased from executed events, OASIS activity, cooperation language.",
+                      "source": "team_t_managerial_staff",
+                      "source_actor_id": "50d464e0-3257-40f2-89c6-e7e19574ac59",
+                      "status": "active",
+                      "target": "team_t",
+                      "target_actor_id": "67d77af1-8266-4127-beb0-c071a4f3f409",
+                      "weight": 0.7369
+                    }
+                  ]
+                },
+                "exposure": {
+                  "average_weight": 1.0,
+                  "edge_count": 6,
+                  "interpretation": "high exposure",
+                  "max_weight": 1.0,
+                  "top_edges": [
+                    {
+                      "delta": 0.075,
+                      "edge_id": "213125e2-1726-4122-9edb-ab007e842c13",
+                      "evidence": {
+                        "executed_event_count": 14,
+                        "social_observation_count": 15,
+                        "source_activity": 3,
+                        "target_activity": 2,
+                        "tick_pressure": {
+                          "conflict_language": 0.0,
+                          "cooperation_language": 1.0,
+                          "event_count": 14.0,
+                          "event_pressure": 1.0,
+                          "institutional_stress": 0.0,
+                          "social_count": 15.0,
+                          "social_pressure": 1.0
+                        }
+                      },
+                      "reason": "exposure increased from executed events, OASIS activity, cooperation language.",
+                      "source": "team_l_fanbase",
+                      "source_actor_id": "0476d6bb-d7ea-4d70-aa74-8cd403658263",
+                      "status": "active",
+                      "target": "team_l",
+                      "target_actor_id": "771b5796-b2e4-446a-b66e-aa228d59a94f",
+                      "weight": 1.0
+                    },
+                    {
+                      "delta": 0.075,
+                      "edge_id": "4118ea9f-df92-44bb-b788-123ac3bcf302",
+                      "evidence": {
+                        "executed_event_count": 14,
+                        "social_observation_count": 15,
+                        "source_activity": 3,
+                        "target_activity": 3,
+                        "tick_pressure": {
+                          "conflict_language": 0.0,
+                          "cooperation_language": 1.0,
+                          "event_count": 14.0,
+                          "event_pressure": 1.0,
+                          "institutional_stress": 0.0,
+                          "social_count": 15.0,
+                          "social_pressure": 1.0
+                        }
+                      },
+                      "reason": "exposure increased from executed events, OASIS activity, cooperation language.",
+                      "source": "sports_media",
+                      "source_actor_id": "dd94ef02-d5a7-4bbe-9d29-50e7bb2d7ec8",
+                      "status": "active",
+                      "target": "team_t_fanbase",
+                      "target_actor_id": "8a2ba41e-966a-4b20-8c24-07433d509698",
+                      "weight": 1.0
+                    },
+                    {
+                      "delta": 0.075,
+                      "edge_id": "0bebc781-bf97-4347-abe9-eacac4a96d96",
+                      "evidence": {
+                        "executed_event_count": 14,
+                        "social_observation_count": 15,
+                        "source_activity": 3,
+                        "target_activity": 3,
+                        "tick_pressure": {
+                          "conflict_language": 0.0,
+                          "cooperation_language": 1.0,
+                          "event_count": 14.0,
+                          "event_pressure": 1.0,
+                          "institutional_stress": 0.0,
+                          "social_count": 15.0,
+                          "social_pressure": 1.0
+                        }
+                      },
+                      "reason": "exposure increased from executed events, OASIS activity, cooperation language.",
+                      "source": "sports_media",
+                      "source_actor_id": "dd94ef02-d5a7-4bbe-9d29-50e7bb2d7ec8",
+                      "status": "active",
+                      "target": "team_l_fanbase",
+                      "target_actor_id": "0476d6bb-d7ea-4d70-aa74-8cd403658263",
+                      "weight": 1.0
+                    },
+                    {
+                      "delta": 0.075,
+                      "edge_id": "5197ec40-7ea9-4344-bef2-2431c01c08f1",
+                      "evidence": {
+                        "executed_event_count": 14,
+                        "social_observation_count": 15,
+                        "source_activity": 3,
+                        "target_activity": 2,
+                        "tick_pressure": {
+                          "conflict_language": 0.0,
+                          "cooperation_language": 1.0,
+                          "event_count": 14.0,
+                          "event_pressure": 1.0,
+                          "institutional_stress": 0.0,
+                          "social_count": 15.0,
+                          "social_pressure": 1.0
+                        }
+                      },
+                      "reason": "exposure increased from executed events, OASIS activity, cooperation language.",
+                      "source": "team_t_fanbase",
+                      "source_actor_id": "8a2ba41e-966a-4b20-8c24-07433d509698",
+                      "status": "active",
+                      "target": "team_t",
+                      "target_actor_id": "67d77af1-8266-4127-beb0-c071a4f3f409",
+                      "weight": 1.0
+                    },
+                    {
+                      "delta": 0.075,
+                      "edge_id": "9e4dbd5e-f92f-44a9-9eae-d8a501384fa0",
+                      "evidence": {
+                        "executed_event_count": 14,
+                        "social_observation_count": 15,
+                        "source_activity": 2,
+                        "target_activity": 3,
+                        "tick_pressure": {
+                          "conflict_language": 0.0,
+                          "cooperation_language": 1.0,
+                          "event_count": 14.0,
+                          "event_pressure": 1.0,
+                          "institutional_stress": 0.0,
+                          "social_count": 15.0,
+                          "social_pressure": 1.0
+                        }
+                      },
+                      "reason": "exposure increased from executed events, OASIS activity, cooperation language.",
+                      "source": "team_t",
+                      "source_actor_id": "67d77af1-8266-4127-beb0-c071a4f3f409",
+                      "status": "active",
+                      "target": "sports_media",
+                      "target_actor_id": "dd94ef02-d5a7-4bbe-9d29-50e7bb2d7ec8",
+                      "weight": 1.0
+                    }
+                  ]
+                },
+                "influence": {
+                  "average_weight": 1.0,
+                  "edge_count": 5,
+                  "interpretation": "stable",
+                  "max_weight": 1.0,
+                  "top_edges": [
+                    {
+                      "delta": 0.057,
+                      "edge_id": "944cb293-5e36-4ab3-b0fb-74d259680585",
+                      "evidence": {
+                        "executed_event_count": 14,
+                        "social_observation_count": 15,
+                        "source_activity": 1,
+                        "target_activity": 2,
+                        "tick_pressure": {
+                          "conflict_language": 0.0,
+                          "cooperation_language": 1.0,
+                          "event_count": 14.0,
+                          "event_pressure": 1.0,
+                          "institutional_stress": 0.0,
+                          "social_count": 15.0,
+                          "social_pressure": 1.0
+                        }
+                      },
+                      "reason": "influence increased from executed events, OASIS activity, cooperation language.",
+                      "source": "team_t_managerial_staff",
+                      "source_actor_id": "50d464e0-3257-40f2-89c6-e7e19574ac59",
+                      "status": "active",
+                      "target": "team_t",
+                      "target_actor_id": "67d77af1-8266-4127-beb0-c071a4f3f409",
+                      "weight": 1.0
+                    },
+                    {
+                      "delta": 0.057,
+                      "edge_id": "0677e1a1-da93-406b-ab70-419839d26c53",
+                      "evidence": {
+                        "executed_event_count": 14,
+                        "social_observation_count": 15,
+                        "source_activity": 1,
+                        "target_activity": 2,
+                        "tick_pressure": {
+                          "conflict_language": 0.0,
+                          "cooperation_language": 1.0,
+                          "event_count": 14.0,
+                          "event_pressure": 1.0,
+                          "institutional_stress": 0.0,
+                          "social_count": 15.0,
+                          "social_pressure": 1.0
+                        }
+                      },
+                      "reason": "influence increased from executed events, OASIS activity, cooperation language.",
+                      "source": "team_l_managerial_staff",
+                      "source_actor_id": "336c6218-047e-4b9c-9917-4652f86a0d9a",
+                      "status": "active",
+                      "target": "team_l",
+                      "target_actor_id": "771b5796-b2e4-446a-b66e-aa228d59a94f",
+                      "weight": 1.0
+                    },
+                    {
+                      "delta": 0.07,
+                      "edge_id": "79f08c8a-6555-488a-b85d-f29910c40bca",
+                      "evidence": {
+                        "executed_event_count": 14,
+                        "social_observation_count": 15,
+                        "source_activity": 3,
+                        "target_activity": 3,
+                        "tick_pressure": {
+                          "conflict_language": 0.0,
+                          "cooperation_language": 1.0,
+                          "event_count": 14.0,
+                          "event_pressure": 1.0,
+                          "institutional_stress": 0.0,
+                          "social_count": 15.0,
+                          "social_pressure": 1.0
+                        }
+                      },
+                      "reason": "influence increased from executed events, OASIS activity, cooperation language.",
+                      "source": "sports_media",
+                      "source_actor_id": "dd94ef02-d5a7-4bbe-9d29-50e7bb2d7ec8",
+                      "status": "active",
+                      "target": "team_t_fanbase",
+                      "target_actor_id": "8a2ba41e-966a-4b20-8c24-07433d509698",
+                      "weight": 1.0
+                    },
+                    {
+                      "delta": 0.07,
+                      "edge_id": "b2b94952-493c-40e3-97d2-b9728ecaa2ab",
+                      "evidence": {
+                        "executed_event_count": 14,
+                        "social_observation_count": 15,
+                        "source_activity": 3,
+                        "target_activity": 3,
+                        "tick_pressure": {
+                          "conflict_language": 0.0,
+                          "cooperation_language": 1.0,
+                          "event_count": 14.0,
+                          "event_pressure": 1.0,
+                          "institutional_stress": 0.0,
+                          "social_count": 15.0,
+                          "social_pressure": 1.0
+                        }
+                      },
+                      "reason": "influence increased from executed events, OASIS activity, cooperation language.",
+                      "source": "sports_media",
+                      "source_actor_id": "dd94ef02-d5a7-4bbe-9d29-50e7bb2d7ec8",
+                      "status": "active",
+                      "target": "team_l_fanbase",
+                      "target_actor_id": "0476d6bb-d7ea-4d70-aa74-8cd403658263",
+                      "weight": 1.0
+                    },
+                    {
+                      "delta": 0.07,
+                      "edge_id": "2f31d072-0ebd-4f03-b45b-ac498cf218bc",
+                      "evidence": {
+                        "executed_event_count": 14,
+                        "social_observation_count": 15,
+                        "source_activity": 3,
+                        "target_activity": 2,
+                        "tick_pressure": {
+                          "conflict_language": 0.0,
+                          "cooperation_language": 1.0,
+                          "event_count": 14.0,
+                          "event_pressure": 1.0,
+                          "institutional_stress": 0.0,
+                          "social_count": 15.0,
+                          "social_pressure": 1.0
+                        }
+                      },
+                      "reason": "influence increased from executed events, OASIS activity, cooperation language.",
+                      "source": "team_t_fanbase",
+                      "source_actor_id": "8a2ba41e-966a-4b20-8c24-07433d509698",
+                      "status": "active",
+                      "target": "team_t",
+                      "target_actor_id": "67d77af1-8266-4127-beb0-c071a4f3f409",
+                      "weight": 1.0
+                    }
+                  ]
+                },
+                "oasis_interaction": {
+                  "average_weight": 1.0,
+                  "edge_count": 4,
+                  "interpretation": "stable",
+                  "max_weight": 1.0,
+                  "top_edges": [
+                    {
+                      "delta": 0.09,
+                      "edge_id": "8d9cadfb-db60-47b2-ba24-3691c6565b3b",
+                      "evidence": {
+                        "executed_event_count": 14,
+                        "social_observation_count": 15,
+                        "source_activity": 3,
+                        "target_activity": 3,
+                        "tick_pressure": {
+                          "conflict_language": 0.0,
+                          "cooperation_language": 1.0,
+                          "event_count": 14.0,
+                          "event_pressure": 1.0,
+                          "institutional_stress": 0.0,
+                          "social_count": 15.0,
+                          "social_pressure": 1.0
+                        }
+                      },
+                      "reason": "oasis_interaction increased from executed events, OASIS activity, cooperation language.",
+                      "source": "team_t_fanbase",
+                      "source_actor_id": "8a2ba41e-966a-4b20-8c24-07433d509698",
+                      "status": "active",
+                      "target": "sports_media",
+                      "target_actor_id": "dd94ef02-d5a7-4bbe-9d29-50e7bb2d7ec8",
+                      "weight": 1.0
+                    },
+                    {
+                      "delta": 0.09,
+                      "edge_id": "f9d3810d-f432-4275-94ac-6f5e0fce360d",
+                      "evidence": {
+                        "executed_event_count": 14,
+                        "social_observation_count": 15,
+                        "source_activity": 3,
+                        "target_activity": 3,
+                        "tick_pressure": {
+                          "conflict_language": 0.0,
+                          "cooperation_language": 1.0,
+                          "event_count": 14.0,
+                          "event_pressure": 1.0,
+                          "institutional_stress": 0.0,
+                          "social_count": 15.0,
+                          "social_pressure": 1.0
+                        }
+                      },
+                      "reason": "oasis_interaction increased from executed events, OASIS activity, cooperation language.",
+                      "source": "team_l_fanbase",
+                      "source_actor_id": "0476d6bb-d7ea-4d70-aa74-8cd403658263",
+                      "status": "active",
+                      "target": "sports_media",
+                      "target_actor_id": "dd94ef02-d5a7-4bbe-9d29-50e7bb2d7ec8",
+                      "weight": 1.0
+                    },
+                    {
+                      "delta": 0.09,
+                      "edge_id": "fcbd2f98-e35c-44b6-a0c7-d969f6d967f0",
+                      "evidence": {
+                        "executed_event_count": 14,
+                        "social_observation_count": 15,
+                        "source_activity": 3,
+                        "target_activity": 3,
+                        "tick_pressure": {
+                          "conflict_language": 0.0,
+                          "cooperation_language": 1.0,
+                          "event_count": 14.0,
+                          "event_pressure": 1.0,
+                          "institutional_stress": 0.0,
+                          "social_count": 15.0,
+                          "social_pressure": 1.0
+                        }
+                      },
+                      "reason": "oasis_interaction increased from executed events, OASIS activity, cooperation language.",
+                      "source": "sports_media",
+                      "source_actor_id": "dd94ef02-d5a7-4bbe-9d29-50e7bb2d7ec8",
+                      "status": "active",
+                      "target": "team_t_fanbase",
+                      "target_actor_id": "8a2ba41e-966a-4b20-8c24-07433d509698",
+                      "weight": 1.0
+                    },
+                    {
+                      "delta": 0.09,
+                      "edge_id": "5ab4325e-b44a-41c9-84e0-0ab45646d18b",
+                      "evidence": {
+                        "executed_event_count": 14,
+                        "social_observation_count": 15,
+                        "source_activity": 3,
+                        "target_activity": 3,
+                        "tick_pressure": {
+                          "conflict_language": 0.0,
+                          "cooperation_language": 1.0,
+                          "event_count": 14.0,
+                          "event_pressure": 1.0,
+                          "institutional_stress": 0.0,
+                          "social_count": 15.0,
+                          "social_pressure": 1.0
+                        }
+                      },
+                      "reason": "oasis_interaction increased from executed events, OASIS activity, cooperation language.",
+                      "source": "sports_media",
+                      "source_actor_id": "dd94ef02-d5a7-4bbe-9d29-50e7bb2d7ec8",
+                      "status": "active",
+                      "target": "team_l_fanbase",
+                      "target_actor_id": "0476d6bb-d7ea-4d70-aa74-8cd403658263",
+                      "weight": 1.0
+                    }
+                  ]
+                },
+                "trust": {
+                  "average_weight": 0.7522,
+                  "edge_count": 3,
+                  "interpretation": "stable",
+                  "max_weight": 0.8455,
+                  "top_edges": [
+                    {
+                      "delta": 0.025,
+                      "edge_id": "81756f95-ec50-4d53-9603-2eb5a7de6fad",
+                      "evidence": {
+                        "executed_event_count": 14,
+                        "social_observation_count": 15,
+                        "source_activity": 3,
+                        "target_activity": 2,
+                        "tick_pressure": {
+                          "conflict_language": 0.0,
+                          "cooperation_language": 1.0,
+                          "event_count": 14.0,
+                          "event_pressure": 1.0,
+                          "institutional_stress": 0.0,
+                          "social_count": 15.0,
+                          "social_pressure": 1.0
+                        }
+                      },
+                      "reason": "trust increased from executed events, OASIS activity, cooperation language.",
+                      "source": "team_l_fanbase",
+                      "source_actor_id": "0476d6bb-d7ea-4d70-aa74-8cd403658263",
+                      "status": "active",
+                      "target": "team_l",
+                      "target_actor_id": "771b5796-b2e4-446a-b66e-aa228d59a94f",
+                      "weight": 0.8455
+                    },
+                    {
+                      "delta": 0.025,
+                      "edge_id": "a9267bca-7732-4350-a8db-e04044b041df",
+                      "evidence": {
+                        "executed_event_count": 14,
+                        "social_observation_count": 15,
+                        "source_activity": 3,
+                        "target_activity": 2,
+                        "tick_pressure": {
+                          "conflict_language": 0.0,
+                          "cooperation_language": 1.0,
+                          "event_count": 14.0,
+                          "event_pressure": 1.0,
+                          "institutional_stress": 0.0,
+                          "social_count": 15.0,
+                          "social_pressure": 1.0
+                        }
+                      },
+                      "reason": "trust increased from executed events, OASIS activity, cooperation language.",
+                      "source": "team_t_fanbase",
+                      "source_actor_id": "8a2ba41e-966a-4b20-8c24-07433d509698",
+                      "status": "active",
+                      "target": "team_t",
+                      "target_actor_id": "67d77af1-8266-4127-beb0-c071a4f3f409",
+                      "weight": 0.7755
+                    },
+                    {
+                      "delta": 0.025,
+                      "edge_id": "8e19b304-bf08-4e86-966b-ffbfc3e4d7f2",
+                      "evidence": {
+                        "executed_event_count": 14,
+                        "social_observation_count": 15,
+                        "source_activity": 0,
+                        "target_activity": 3,
+                        "tick_pressure": {
+                          "conflict_language": 0.0,
+                          "cooperation_language": 1.0,
+                          "event_count": 14.0,
+                          "event_pressure": 1.0,
+                          "institutional_stress": 0.0,
+                          "social_count": 15.0,
+                          "social_pressure": 1.0
+                        }
+                      },
+                      "reason": "trust increased from executed events, OASIS activity, cooperation language.",
+                      "source": null,
+                      "source_actor_id": null,
+                      "status": "active",
+                      "target": "sports_media",
+                      "target_actor_id": "dd94ef02-d5a7-4bbe-9d29-50e7bb2d7ec8",
+                      "weight": 0.6355
+                    }
+                  ]
+                }
+              },
+              "pressure": {
+                "branch_pressure": 0.8948,
+                "coalition_max": 0.9581,
+                "conflict_max": 0.9185,
+                "dependency_average": 0.8119,
+                "exposure_average": 1.0,
+                "trust_average": 0.7522
+              }
+            },
+            "heroes": [
+              {
+                "archetype_key": "team_competitor",
+                "description": "Central actor whose tactical performance and endurance determine series outcome.",
+                "label": "Competitive team principal"
+              },
+              {
+                "archetype_key": "managerial_decider",
+                "description": "Strategic authority over deployment, adaptation, and high-leverage choices.",
+                "label": "Managerial decider"
+              }
+            ],
+            "idle_streak": 0,
+            "last_sociology": {
+              "cohort_state_updates": [
+                {
+                  "actor_id": null,
+                  "state": {
+                    "_truncated": true,
+                    "actor_name": "sports_media",
+                    "archetype_key": "general_series_audience",
+                    "attention_level": 0.9305,
+                    "cohort_key": "neutral_viewers_variance_watchers",
+                    "expression_level": 1.0,
+                    "fatigue": 1.0,
+                    "fear_of_isolation": 0.214,
+                    "graph_influence": {
+                      "branch_pressure": 0.8651,
+                      "coalition_max": 0.9159,
+                      "conflict_max": 0.8906,
+                      "dependency_average": 0.7769,
+                      "exposure_average": 1.0,
+                      "trust_average": 0.7272
+                    },
+                    "private_belief": "Series is uncertain and likely to swing after each game due to path dependence.",
+                    "stance_axes": {
+                      "interest": 0.72,
+                      "loyalty": 0.22,
+                      "variance_salience": 0.8
+                    }
+                  }
+                },
+                {
+                  "actor_id": null,
+                  "state": {
+                    "_truncated": true,
+                    "actor_name": "team_t_fanbase",
+                    "archetype_key": "team_t_supporters",
+                    "attention_level": 0.9524,
+                    "cohort_key": "team_t_confident_supporters",
+                    "expression_level": 1.0,
+                    "fatigue": 1.0,
+                    "fear_of_isolation": 0.2151,
+                    "graph_influence": {
+                      "branch_pressure": 0.8651,
+                      "coalition_max": 0.9159,
+                      "conflict_max": 0.8906,
+                      "dependency_average": 0.7769,
+                      "exposure_average": 1.0,
+                      "trust_average": 0.7272
+                    },
+                    "private_belief": "Team T has a real chance due to offense and home-field energy, though not overwhelming superiority.",
+                    "stance_axes": {
+                      "optimism": 0.74,
+                      "series_confidence": 0.62,
+                      "volatility_acceptance": 0.57
+                    }
+                  }
+                },
+                {
+                  "actor_id": null,
+                  "state": {
+                    "_truncated": true,
+                    "actor_name": "team_l_fanbase",
+                    "archetype_key": "team_l_supporters",
+                    "attention_level": 0.9511,
+                    "cohort_key": "team_l_confident_supporters",
+                    "expression_level": 1.0,
+                    "fatigue": 1.0,
+                    "fear_of_isolation": 0.2151,
+                    "graph_influence": {
+                      "branch_pressure": 0.8651,
+                      "coalition_max": 0.9159,
+                      "conflict_max": 0.8906,
+                      "dependency_average": 0.7769,
+                      "exposure_average": 1.0,
+                      "trust_average": 0.7272
+                    },
+                    "private_belief": "Team L should be favored because defending champions with deep pitching are well-built for a series.",
+                    "stance_axes": {
+                      "optimism": 0.76,
+                      "series_confidence": 0.65,
+                      "volatility_acceptance": 0.55
+                    }
+                  }
+                }
+              ],
+              "graph_summary": {
+                "layers": {
+                  "coalition": {
+                    "average_weight": 0.9402,
+                    "edge_count": 4,
+                    "interpretation": "coalition forming",
+                    "max_weight": 0.9581,
+                    "top_edges": [
+                      {
+                        "delta": 0.0422,
+                        "edge_id": "af04d270-9bfb-42b6-bf05-d2430e3019d3",
+                        "evidence": {
+                          "executed_event_count": 14,
+                          "social_observation_count": 15,
+                          "source_activity": 2,
+                          "target_activity": 1,
+                          "tick_pressure": {
+                            "conflict_language": 0.0,
+                            "cooperation_language": 1.0,
+                            "event_count": 14.0,
+                            "event_pressure": 1.0,
+                            "institutional_stress": 0.0,
+                            "social_count": 15.0,
+                            "social_pressure": 1.0
+                          }
+                        },
+                        "reason": "coalition increased from executed events, OASIS activity, cooperation language.",
+                        "source": "team_l",
+                        "source_actor_id": "771b5796-b2e4-446a-b66e-aa228d59a94f",
+                        "status": "active",
+                        "target": "team_l_managerial_staff",
+                        "target_actor_id": "336c6218-047e-4b9c-9917-4652f86a0d9a",
+                        "weight": 0.9581
+                      },
+                      {
+                        "delta": 0.0436,
+                        "edge_id": "f8c86f82-b434-4c95-adf7-5dbb9c765f24",
+                        "evidence": {
+                          "executed_event_count": 14,
+                          "social_observation_count": 15,
+                          "source_activity": 3,
+                          "target_activity": 2,
+                          "tick_pressure": {
+                            "conflict_language": 0.0,
+                            "cooperation_language": 1.0,
+                            "event_count": 14.0,
+                            "event_pressure": 1.0,
+                            "institutional_stress": 0.0,
+                            "social_count": 15.0,
+                            "social_pressure": 1.0
+                          }
+                        },
+                        "reason": "coalition increased from executed events, OASIS activity, cooperation language.",
+                        "source": "team_l_fanbase",
+                        "source_actor_id": "0476d6bb-d7ea-4d70-aa74-8cd403658263",
+                        "status": "active",
+                        "target": "team_l",
+                        "target_actor_id": "771b5796-b2e4-446a-b66e-aa228d59a94f",
+                        "weight": 0.9451
+                      },
+                      {
+                        "delta": 0.0422,
+                        "edge_id": "3b9f42c8-6019-4ac7-a3ab-f3dd2f06d707",
+                        "evidence": {
+                          "executed_event_count": 14,
+                          "social_observation_count": 15,
+                          "source_activity": 2,
+                          "target_activity": 1,
+                          "tick_pressure": {
+                            "conflict_language": 0.0,
+                            "cooperation_language": 1.0,
+                            "event_count": 14.0,
+                            "event_pressure": 1.0,
+                            "institutional_stress": 0.0,
+                            "social_count": 15.0,
+                            "social_pressure": 1.0
+                          }
+                        },
+                        "reason": "coalition increased from executed events, OASIS activity, cooperation language.",
+                        "source": "team_t",
+                        "source_actor_id": "67d77af1-8266-4127-beb0-c071a4f3f409",
+                        "status": "active",
+                        "target": "team_t_managerial_staff",
+                        "target_actor_id": "50d464e0-3257-40f2-89c6-e7e19574ac59",
+                        "weight": 0.9402
+                      },
+                      {
+                        "delta": 0.0436,
+                        "edge_id": "5f540d5a-ac8a-4666-aebe-68e4ec848e55",
+                        "evidence": {
+                          "executed_event_count": 14,
+                          "social_observation_count": 15,
+                          "source_activity": 3,
+                          "target_activity": 2,
+                          "tick_pressure": {
+                            "conflict_language": 0.0,
+                            "cooperation_language": 1.0,
+                            "event_count": 14.0,
+                            "event_pressure": 1.0,
+                            "institutional_stress": 0.0,
+                            "social_count": 15.0,
+                            "social_pressure": 1.0
+                          }
+                        },
+                        "reason": "coalition increased from executed events, OASIS activity, cooperation language.",
+                        "source": "team_t_fanbase",
+                        "source_actor_id": "8a2ba41e-966a-4b20-8c24-07433d509698",
+                        "status": "active",
+                        "target": "team_t",
+                        "target_actor_id": "67d77af1-8266-4127-beb0-c071a4f3f409",
+                        "weight": 0.9172
+                      }
+                    ]
+                  },
+                  "conflict": {
+                    "average_weight": 0.7968,
+                    "edge_count": 4,
+                    "interpretation": "high conflict edge",
+                    "max_weight": 0.9185,
+                    "top_edges": [
+                      {
+                        "delta": 0.0279,
+                        "edge_id": "59b82763-d84c-4a86-8c51-2ea7ba26d7aa",
+                        "evidence": {
+                          "executed_event_count": 14,
+                          "social_observation_count": 15,
+                          "source_activity": 2,
+                          "target_activity": 2,
+                          "tick_pressure": {
+                            "conflict_language": 0.0,
+                            "cooperation_language": 1.0,
+                            "event_count": 14.0,
+                            "event_pressure": 1.0,
+                            "institutional_stress": 0.0,
+                            "social_count": 15.0,
+                            "social_pressure": 1.0
+                          }
+                        },
+                        "reason": "conflict increased from executed events, OASIS activity, cooperation language.",
+                        "source": "team_t",
+                        "source_actor_id": "67d77af1-8266-4127-beb0-c071a4f3f409",
+                        "status": "active",
+                        "target": "team_l",
+                        "target_actor_id": "771b5796-b2e4-446a-b66e-aa228d59a94f",
+                        "weight": 0.9185
+                      },
+                      {
+                        "delta": 0.0279,
+                        "edge_id": "0adef041-f8e7-4277-a6cc-cbacdf7a7206",
+                        "evidence": {
+                          "executed_event_count": 14,
+                          "social_observation_count": 15,
+                          "source_activity": 2,
+                          "target_activity": 2,
+                          "tick_pressure": {
+                            "conflict_language": 0.0,
+                            "cooperation_language": 1.0,
+                            "event_count": 14.0,
+                            "event_pressure": 1.0,
+                            "institutional_stress": 0.0,
+                            "social_count": 15.0,
+                            "social_pressure": 1.0
+                          }
+                        },
+                        "reason": "conflict increased from executed events, OASIS activity, cooperation language.",
+                        "source": "team_l",
+                        "source_actor_id": "771b5796-b2e4-446a-b66e-aa228d59a94f",
+                        "status": "active",
+                        "target": "team_t",
+                        "target_actor_id": "67d77af1-8266-4127-beb0-c071a4f3f409",
+                        "weight": 0.9185
+                      },
+                      {
+                        "delta": 0.0289,
+                        "edge_id": "4bd496f3-425f-45cd-ad1d-0f330bb56751",
+                        "evidence": {
+                          "executed_event_count": 14,
+                          "social_observation_count": 15,
+                          "source_activity": 3,
+                          "target_activity": 3,
+                          "tick_pressure": {
+                            "conflict_language": 0.0,
+                            "cooperation_language": 1.0,
+                            "event_count": 14.0,
+                            "event_pressure": 1.0,
+                            "institutional_stress": 0.0,
+                            "social_count": 15.0,
+                            "social_pressure": 1.0
+                          }
+                        },
+                        "reason": "conflict increased from executed events, OASIS activity, cooperation language.",
+                        "source": "team_t_fanbase",
+                        "source_actor_id": "8a2ba41e-966a-4b20-8c24-07433d509698",
+                        "status": "active",
+                        "target": "team_l_fanbase",
+                        "target_actor_id": "0476d6bb-d7ea-4d70-aa74-8cd403658263",
+                        "weight": 0.675
+                      },
+                      {
+                        "delta": 0.0289,
+                        "edge_id": "40c71a55-9c4f-4fff-b4dd-6359bb123ee8",
+                        "evidence": {
+                          "executed_event_count": 14,
+                          "social_observation_count": 15,
+                          "source_activity": 3,
+                          "target_activity": 3,
+                          "tick_pressure": {
+                            "conflict_language": 0.0,
+                            "cooperation_language": 1.0,
+                            "event_count": 14.0,
+                            "event_pressure": 1.0,
+                            "institutional_stress": 0.0,
+                            "social_count": 15.0,
+                            "social_pressure": 1.0
+                          }
+                        },
+                        "reason": "conflict increased from executed events, OASIS activity, cooperation language.",
+                        "source": "team_l_fanbase",
+                        "source_actor_id": "0476d6bb-d7ea-4d70-aa74-8cd403658263",
+                        "status": "active",
+                        "target": "team_t_fanbase",
+                        "target_actor_id": "8a2ba41e-966a-4b20-8c24-07433d509698",
+                        "weight": 0.675
+                      }
+                    ]
+                  },
+                  "dependency": {
+                    "average_weight": 0.8119,
+                    "edge_count": 4,
+                    "interpretation": "dependency lock-in",
+                    "max_weight": 0.8769,
+                    "top_edges": [
+                      {
+                        "delta": 0.035,
+                        "edge_id": "e8a648c4-6d31-4dc6-86f3-7b265bfa7026",
+                        "evidence": {
+                          "executed_event_count": 14,
+                          "social_observation_count": 15,
+                          "source_activity": 2,
+                          "target_activity": 1,
+                          "tick_pressure": {
+                            "conflict_language": 0.0,
+                            "cooperation_language": 1.0,
+                            "event_count": 14.0,
+                            "event_pressure": 1.0,
+                            "institutional_stress": 0.0,
+                            "social_count": 15.0,
+                            "social_pressure": 1.0
+                          }
+                        },
+                        "reason": "dependency increased from executed events, OASIS activity, cooperation language.",
+                        "source": "team_l",
+                        "source_actor_id": "771b5796-b2e4-446a-b66e-aa228d59a94f",
+                        "status": "active",
+                        "target": "team_l_managerial_staff",
+                        "target_actor_id": "336c6218-047e-4b9c-9917-4652f86a0d9a",
+                        "weight": 0.8769
+                      },
+                      {
+                        "delta": 0.035,
+                        "edge_id": "874ab273-7255-40d5-a276-bcb091650e7d",
+                        "evidence": {
+                          "executed_event_count": 14,
+                          "social_observation_count": 15,
+                          "source_activity": 2,
+                          "target_activity": 1,
+                          "tick_pressure": {
+                            "conflict_language": 0.0,
+                            "cooperation_language": 1.0,
+                            "event_count": 14.0,
+                            "event_pressure": 1.0,
+                            "institutional_stress": 0.0,
+                            "social_count": 15.0,
+                            "social_pressure": 1.0
+                          }
+                        },
+                        "reason": "dependency increased from executed events, OASIS activity, cooperation language.",
+                        "source": "team_t",
+                        "source_actor_id": "67d77af1-8266-4127-beb0-c071a4f3f409",
+                        "status": "active",
+                        "target": "team_t_managerial_staff",
+                        "target_actor_id": "50d464e0-3257-40f2-89c6-e7e19574ac59",
+                        "weight": 0.8469
+                      },
+                      {
+                        "delta": 0.035,
+                        "edge_id": "f12d94ac-8570-4b9f-87fa-39cdfa070074",
+                        "evidence": {
+                          "executed_event_count": 14,
+                          "social_observation_count": 15,
+                          "source_activity": 1,
+                          "target_activity": 2,
+                          "tick_pressure": {
+                            "conflict_language": 0.0,
+                            "cooperation_language": 1.0,
+                            "event_count": 14.0,
+                            "event_pressure": 1.0,
+                            "institutional_stress": 0.0,
+                            "social_count": 15.0,
+                            "social_pressure": 1.0
+                          }
+                        },
+                        "reason": "dependency increased from executed events, OASIS activity, cooperation language.",
+                        "source": "team_l_managerial_staff",
+                        "source_actor_id": "336c6218-047e-4b9c-9917-4652f86a0d9a",
+                        "status": "active",
+                        "target": "team_l",
+                        "target_actor_id": "771b5796-b2e4-446a-b66e-aa228d59a94f",
+                        "weight": 0.7869
+                      },
+                      {
+                        "delta": 0.035,
+                        "edge_id": "728ded3c-dfb9-4563-a4a8-14eb0bfc079b",
+                        "evidence": {
+                          "executed_event_count": 14,
+                          "social_observation_count": 15,
+                          "source_activity": 1,
+                          "target_activity": 2,
+                          "tick_pressure": {
+                            "conflict_language": 0.0,
+                            "cooperation_language": 1.0,
+                            "event_count": 14.0,
+                            "event_pressure": 1.0,
+                            "institutional_stress": 0.0,
+                            "social_count": 15.0,
+                            "social_pressure": 1.0
+                          }
+                        },
+                        "reason": "dependency increased from executed events, OASIS activity, cooperation language.",
+                        "source": "team_t_managerial_staff",
+                        "source_actor_id": "50d464e0-3257-40f2-89c6-e7e19574ac59",
+                        "status": "active",
+                        "target": "team_t",
+                        "target_actor_id": "67d77af1-8266-4127-beb0-c071a4f3f409",
+                        "weight": 0.7369
+                      }
+                    ]
+                  },
+                  "exposure": {
+                    "average_weight": 1.0,
+                    "edge_count": 6,
+                    "interpretation": "high exposure",
+                    "max_weight": 1.0,
+                    "top_edges": [
+                      {
+                        "delta": 0.075,
+                        "edge_id": "213125e2-1726-4122-9edb-ab007e842c13",
+                        "evidence": {
+                          "executed_event_count": 14,
+                          "social_observation_count": 15,
+                          "source_activity": 3,
+                          "target_activity": 2,
+                          "tick_pressure": {
+                            "conflict_language": 0.0,
+                            "cooperation_language": 1.0,
+                            "event_count": 14.0,
+                            "event_pressure": 1.0,
+                            "institutional_stress": 0.0,
+                            "social_count": 15.0,
+                            "social_pressure": 1.0
+                          }
+                        },
+                        "reason": "exposure increased from executed events, OASIS activity, cooperation language.",
+                        "source": "team_l_fanbase",
+                        "source_actor_id": "0476d6bb-d7ea-4d70-aa74-8cd403658263",
+                        "status": "active",
+                        "target": "team_l",
+                        "target_actor_id": "771b5796-b2e4-446a-b66e-aa228d59a94f",
+                        "weight": 1.0
+                      },
+                      {
+                        "delta": 0.075,
+                        "edge_id": "4118ea9f-df92-44bb-b788-123ac3bcf302",
+                        "evidence": {
+                          "executed_event_count": 14,
+                          "social_observation_count": 15,
+                          "source_activity": 3,
+                          "target_activity": 3,
+                          "tick_pressure": {
+                            "conflict_language": 0.0,
+                            "cooperation_language": 1.0,
+                            "event_count": 14.0,
+                            "event_pressure": 1.0,
+                            "institutional_stress": 0.0,
+                            "social_count": 15.0,
+                            "social_pressure": 1.0
+                          }
+                        },
+                        "reason": "exposure increased from executed events, OASIS activity, cooperation language.",
+                        "source": "sports_media",
+                        "source_actor_id": "dd94ef02-d5a7-4bbe-9d29-50e7bb2d7ec8",
+                        "status": "active",
+                        "target": "team_t_fanbase",
+                        "target_actor_id": "8a2ba41e-966a-4b20-8c24-07433d509698",
+                        "weight": 1.0
+                      },
+                      {
+                        "delta": 0.075,
+                        "edge_id": "0bebc781-bf97-4347-abe9-eacac4a96d96",
+                        "evidence": {
+                          "executed_event_count": 14,
+                          "social_observation_count": 15,
+                          "source_activity": 3,
+                          "target_activity": 3,
+                          "tick_pressure": {
+                            "conflict_language": 0.0,
+                            "cooperation_language": 1.0,
+                            "event_count": 14.0,
+                            "event_pressure": 1.0,
+                            "institutional_stress": 0.0,
+                            "social_count": 15.0,
+                            "social_pressure": 1.0
+                          }
+                        },
+                        "reason": "exposure increased from executed events, OASIS activity, cooperation language.",
+                        "source": "sports_media",
+                        "source_actor_id": "dd94ef02-d5a7-4bbe-9d29-50e7bb2d7ec8",
+                        "status": "active",
+                        "target": "team_l_fanbase",
+                        "target_actor_id": "0476d6bb-d7ea-4d70-aa74-8cd403658263",
+                        "weight": 1.0
+                      },
+                      {
+                        "delta": 0.075,
+                        "edge_id": "5197ec40-7ea9-4344-bef2-2431c01c08f1",
+                        "evidence": {
+                          "executed_event_count": 14,
+                          "social_observation_count": 15,
+                          "source_activity": 3,
+                          "target_activity": 2,
+                          "tick_pressure": {
+                            "conflict_language": 0.0,
+                            "cooperation_language": 1.0,
+                            "event_count": 14.0,
+                            "event_pressure": 1.0,
+                            "institutional_stress": 0.0,
+                            "social_count": 15.0,
+                            "social_pressure": 1.0
+                          }
+                        },
+                        "reason": "exposure increased from executed events, OASIS activity, cooperation language.",
+                        "source": "team_t_fanbase",
+                        "source_actor_id": "8a2ba41e-966a-4b20-8c24-07433d509698",
+                        "status": "active",
+                        "target": "team_t",
+                        "target_actor_id": "67d77af1-8266-4127-beb0-c071a4f3f409",
+                        "weight": 1.0
+                      },
+                      {
+                        "delta": 0.075,
+                        "edge_id": "9e4dbd5e-f92f-44a9-9eae-d8a501384fa0",
+                        "evidence": {
+                          "executed_event_count": 14,
+                          "social_observation_count": 15,
+                          "source_activity": 2,
+                          "target_activity": 3,
+                          "tick_pressure": {
+                            "conflict_language": 0.0,
+                            "cooperation_language": 1.0,
+                            "event_count": 14.0,
+                            "event_pressure": 1.0,
+                            "institutional_stress": 0.0,
+                            "social_count": 15.0,
+                            "social_pressure": 1.0
+                          }
+                        },
+                        "reason": "exposure increased from executed events, OASIS activity, cooperation language.",
+                        "source": "team_t",
+                        "source_actor_id": "67d77af1-8266-4127-beb0-c071a4f3f409",
+                        "status": "active",
+                        "target": "sports_media",
+                        "target_actor_id": "dd94ef02-d5a7-4bbe-9d29-50e7bb2d7ec8",
+                        "weight": 1.0
+                      }
+                    ]
+                  },
+                  "influence": {
+                    "average_weight": 1.0,
+                    "edge_count": 5,
+                    "interpretation": "stable",
+                    "max_weight": 1.0,
+                    "top_edges": [
+                      {
+                        "delta": 0.057,
+                        "edge_id": "944cb293-5e36-4ab3-b0fb-74d259680585",
+                        "evidence": {
+                          "executed_event_count": 14,
+                          "social_observation_count": 15,
+                          "source_activity": 1,
+                          "target_activity": 2,
+                          "tick_pressure": {
+                            "conflict_language": 0.0,
+                            "cooperation_language": 1.0,
+                            "event_count": 14.0,
+                            "event_pressure": 1.0,
+                            "institutional_stress": 0.0,
+                            "social_count": 15.0,
+                            "social_pressure": 1.0
+                          }
+                        },
+                        "reason": "influence increased from executed events, OASIS activity, cooperation language.",
+                        "source": "team_t_managerial_staff",
+                        "source_actor_id": "50d464e0-3257-40f2-89c6-e7e19574ac59",
+                        "status": "active",
+                        "target": "team_t",
+                        "target_actor_id": "67d77af1-8266-4127-beb0-c071a4f3f409",
+                        "weight": 1.0
+                      },
+                      {
+                        "delta": 0.057,
+                        "edge_id": "0677e1a1-da93-406b-ab70-419839d26c53",
+                        "evidence": {
+                          "executed_event_count": 14,
+                          "social_observation_count": 15,
+                          "source_activity": 1,
+                          "target_activity": 2,
+                          "tick_pressure": {
+                            "conflict_language": 0.0,
+                            "cooperation_language": 1.0,
+                            "event_count": 14.0,
+                            "event_pressure": 1.0,
+                            "institutional_stress": 0.0,
+                            "social_count": 15.0,
+                            "social_pressure": 1.0
+                          }
+                        },
+                        "reason": "influence increased from executed events, OASIS activity, cooperation language.",
+                        "source": "team_l_managerial_staff",
+                        "source_actor_id": "336c6218-047e-4b9c-9917-4652f86a0d9a",
+                        "status": "active",
+                        "target": "team_l",
+                        "target_actor_id": "771b5796-b2e4-446a-b66e-aa228d59a94f",
+                        "weight": 1.0
+                      },
+                      {
+                        "delta": 0.07,
+                        "edge_id": "79f08c8a-6555-488a-b85d-f29910c40bca",
+                        "evidence": {
+                          "executed_event_count": 14,
+                          "social_observation_count": 15,
+                          "source_activity": 3,
+                          "target_activity": 3,
+                          "tick_pressure": {
+                            "conflict_language": 0.0,
+                            "cooperation_language": 1.0,
+                            "event_count": 14.0,
+                            "event_pressure": 1.0,
+                            "institutional_stress": 0.0,
+                            "social_count": 15.0,
+                            "social_pressure": 1.0
+                          }
+                        },
+                        "reason": "influence increased from executed events, OASIS activity, cooperation language.",
+                        "source": "sports_media",
+                        "source_actor_id": "dd94ef02-d5a7-4bbe-9d29-50e7bb2d7ec8",
+                        "status": "active",
+                        "target": "team_t_fanbase",
+                        "target_actor_id": "8a2ba41e-966a-4b20-8c24-07433d509698",
+                        "weight": 1.0
+                      },
+                      {
+                        "delta": 0.07,
+                        "edge_id": "b2b94952-493c-40e3-97d2-b9728ecaa2ab",
+                        "evidence": {
+                          "executed_event_count": 14,
+                          "social_observation_count": 15,
+                          "source_activity": 3,
+                          "target_activity": 3,
+                          "tick_pressure": {
+                            "conflict_language": 0.0,
+                            "cooperation_language": 1.0,
+                            "event_count": 14.0,
+                            "event_pressure": 1.0,
+                            "institutional_stress": 0.0,
+                            "social_count": 15.0,
+                            "social_pressure": 1.0
+                          }
+                        },
+                        "reason": "influence increased from executed events, OASIS activity, cooperation language.",
+                        "source": "sports_media",
+                        "source_actor_id": "dd94ef02-d5a7-4bbe-9d29-50e7bb2d7ec8",
+                        "status": "active",
+                        "target": "team_l_fanbase",
+                        "target_actor_id": "0476d6bb-d7ea-4d70-aa74-8cd403658263",
+                        "weight": 1.0
+                      },
+                      {
+                        "delta": 0.07,
+                        "edge_id": "2f31d072-0ebd-4f03-b45b-ac498cf218bc",
+                        "evidence": {
+                          "executed_event_count": 14,
+                          "social_observation_count": 15,
+                          "source_activity": 3,
+                          "target_activity": 2,
+                          "tick_pressure": {
+                            "conflict_language": 0.0,
+                            "cooperation_language": 1.0,
+                            "event_count": 14.0,
+                            "event_pressure": 1.0,
+                            "institutional_stress": 0.0,
+                            "social_count": 15.0,
+                            "social_pressure": 1.0
+                          }
+                        },
+                        "reason": "influence increased from executed events, OASIS activity, cooperation language.",
+                        "source": "team_t_fanbase",
+                        "source_actor_id": "8a2ba41e-966a-4b20-8c24-07433d509698",
+                        "status": "active",
+                        "target": "team_t",
+                        "target_actor_id": "67d77af1-8266-4127-beb0-c071a4f3f409",
+                        "weight": 1.0
+                      }
+                    ]
+                  },
+                  "oasis_interaction": {
+                    "average_weight": 1.0,
+                    "edge_count": 4,
+                    "interpretation": "stable",
+                    "max_weight": 1.0,
+                    "top_edges": [
+                      {
+                        "delta": 0.09,
+                        "edge_id": "8d9cadfb-db60-47b2-ba24-3691c6565b3b",
+                        "evidence": {
+                          "executed_event_count": 14,
+                          "social_observation_count": 15,
+                          "source_activity": 3,
+                          "target_activity": 3,
+                          "tick_pressure": {
+                            "conflict_language": 0.0,
+                            "cooperation_language": 1.0,
+                            "event_count": 14.0,
+                            "event_pressure": 1.0,
+                            "institutional_stress": 0.0,
+                            "social_count": 15.0,
+                            "social_pressure": 1.0
+                          }
+                        },
+                        "reason": "oasis_interaction increased from executed events, OASIS activity, cooperation language.",
+                        "source": "team_t_fanbase",
+                        "source_actor_id": "8a2ba41e-966a-4b20-8c24-07433d509698",
+                        "status": "active",
+                        "target": "sports_media",
+                        "target_actor_id": "dd94ef02-d5a7-4bbe-9d29-50e7bb2d7ec8",
+                        "weight": 1.0
+                      },
+                      {
+                        "delta": 0.09,
+                        "edge_id": "f9d3810d-f432-4275-94ac-6f5e0fce360d",
+                        "evidence": {
+                          "executed_event_count": 14,
+                          "social_observation_count": 15,
+                          "source_activity": 3,
+                          "target_activity": 3,
+                          "tick_pressure": {
+                            "conflict_language": 0.0,
+                            "cooperation_language": 1.0,
+                            "event_count": 14.0,
+                            "event_pressure": 1.0,
+                            "institutional_stress": 0.0,
+                            "social_count": 15.0,
+                            "social_pressure": 1.0
+                          }
+                        },
+                        "reason": "oasis_interaction increased from executed events, OASIS activity, cooperation language.",
+                        "source": "team_l_fanbase",
+                        "source_actor_id": "0476d6bb-d7ea-4d70-aa74-8cd403658263",
+                        "status": "active",
+                        "target": "sports_media",
+                        "target_actor_id": "dd94ef02-d5a7-4bbe-9d29-50e7bb2d7ec8",
+                        "weight": 1.0
+                      },
+                      {
+                        "delta": 0.09,
+                        "edge_id": "fcbd2f98-e35c-44b6-a0c7-d969f6d967f0",
+                        "evidence": {
+                          "executed_event_count": 14,
+                          "social_observation_count": 15,
+                          "source_activity": 3,
+                          "target_activity": 3,
+                          "tick_pressure": {
+                            "conflict_language": 0.0,
+                            "cooperation_language": 1.0,
+                            "event_count": 14.0,
+                            "event_pressure": 1.0,
+                            "institutional_stress": 0.0,
+                            "social_count": 15.0,
+                            "social_pressure": 1.0
+                          }
+                        },
+                        "reason": "oasis_interaction increased from executed events, OASIS activity, cooperation language.",
+                        "source": "sports_media",
+                        "source_actor_id": "dd94ef02-d5a7-4bbe-9d29-50e7bb2d7ec8",
+                        "status": "active",
+                        "target": "team_t_fanbase",
+                        "target_actor_id": "8a2ba41e-966a-4b20-8c24-07433d509698",
+                        "weight": 1.0
+                      },
+                      {
+                        "delta": 0.09,
+                        "edge_id": "5ab4325e-b44a-41c9-84e0-0ab45646d18b",
+                        "evidence": {
+                          "executed_event_count": 14,
+                          "social_observation_count": 15,
+                          "source_activity": 3,
+                          "target_activity": 3,
+                          "tick_pressure": {
+                            "conflict_language": 0.0,
+                            "cooperation_language": 1.0,
+                            "event_count": 14.0,
+                            "event_pressure": 1.0,
+                            "institutional_stress": 0.0,
+                            "social_count": 15.0,
+                            "social_pressure": 1.0
+                          }
+                        },
+                        "reason": "oasis_interaction increased from executed events, OASIS activity, cooperation language.",
+                        "source": "sports_media",
+                        "source_actor_id": "dd94ef02-d5a7-4bbe-9d29-50e7bb2d7ec8",
+                        "status": "active",
+                        "target": "team_l_fanbase",
+                        "target_actor_id": "0476d6bb-d7ea-4d70-aa74-8cd403658263",
+                        "weight": 1.0
+                      }
+                    ]
+                  },
+                  "trust": {
+                    "average_weight": 0.7522,
+                    "edge_count": 3,
+                    "interpretation": "stable",
+                    "max_weight": 0.8455,
+                    "top_edges": [
+                      {
+                        "delta": 0.025,
+                        "edge_id": "81756f95-ec50-4d53-9603-2eb5a7de6fad",
+                        "evidence": {
+                          "executed_event_count": 14,
+                          "social_observation_count": 15,
+                          "source_activity": 3,
+                          "target_activity": 2,
+                          "tick_pressure": {
+                            "conflict_language": 0.0,
+                            "cooperation_language": 1.0,
+                            "event_count": 14.0,
+                            "event_pressure": 1.0,
+                            "institutional_stress": 0.0,
+                            "social_count": 15.0,
+                            "social_pressure": 1.0
+                          }
+                        },
+                        "reason": "trust increased from executed events, OASIS activity, cooperation language.",
+                        "source": "team_l_fanbase",
+                        "source_actor_id": "0476d6bb-d7ea-4d70-aa74-8cd403658263",
+                        "status": "active",
+                        "target": "team_l",
+                        "target_actor_id": "771b5796-b2e4-446a-b66e-aa228d59a94f",
+                        "weight": 0.8455
+                      },
+                      {
+                        "delta": 0.025,
+                        "edge_id": "a9267bca-7732-4350-a8db-e04044b041df",
+                        "evidence": {
+                          "executed_event_count": 14,
+                          "social_observation_count": 15,
+                          "source_activity": 3,
+                          "target_activity": 2,
+                          "tick_pressure": {
+                            "conflict_language": 0.0,
+                            "cooperation_language": 1.0,
+                            "event_count": 14.0,
+                            "event_pressure": 1.0,
+                            "institutional_stress": 0.0,
+                            "social_count": 15.0,
+                            "social_pressure": 1.0
+                          }
+                        },
+                        "reason": "trust increased from executed events, OASIS activity, cooperation language.",
+                        "source": "team_t_fanbase",
+                        "source_actor_id": "8a2ba41e-966a-4b20-8c24-07433d509698",
+                        "status": "active",
+                        "target": "team_t",
+                        "target_actor_id": "67d77af1-8266-4127-beb0-c071a4f3f409",
+                        "weight": 0.7755
+                      },
+                      {
+                        "delta": 0.025,
+                        "edge_id": "8e19b304-bf08-4e86-966b-ffbfc3e4d7f2",
+                        "evidence": {
+                          "executed_event_count": 14,
+                          "social_observation_count": 15,
+                          "source_activity": 0,
+                          "target_activity": 3,
+                          "tick_pressure": {
+                            "conflict_language": 0.0,
+                            "cooperation_language": 1.0,
+                            "event_count": 14.0,
+                            "event_pressure": 1.0,
+                            "institutional_stress": 0.0,
+                            "social_count": 15.0,
+                            "social_pressure": 1.0
+                          }
+                        },
+                        "reason": "trust increased from executed events, OASIS activity, cooperation language.",
+                        "source": null,
+                        "source_actor_id": null,
+                        "status": "active",
+                        "target": "sports_media",
+                        "target_actor_id": "dd94ef02-d5a7-4bbe-9d29-50e7bb2d7ec8",
+                        "weight": 0.6355
+                      }
+                    ]
+                  }
+                },
+                "pressure": {
+                  "branch_pressure": 0.8948,
+                  "coalition_max": 0.9581,
+                  "conflict_max": 0.9185,
+                  "dependency_average": 0.8119,
+                  "exposure_average": 1.0,
+                  "trust_average": 0.7522
+                }
+              },
+              "hero_state_updates": [
+                {
+                  "actor_id": null,
+                  "state": {
+                    "archetype_key": "team_competitor",
+                    "attention": 0.9261,
+                    "current_strategy": "bridge_coalitions",
+                    "description": "Central actor whose tactical performance and endurance determine series outcome.",
+                    "fatigue": 1.0,
+                    "graph_influence": {
+                      "branch_pressure": 0.8651,
+                      "coalition_max": 0.9159,
+                      "conflict_max": 0.8906,
+                      "dependency_average": 0.7769,
+                      "exposure_average": 1.0,
+                      "trust_average": 0.7272
+                    },
+                    "label": "Competitive team principal",
+                    "last_sociology_tick": 8
+                  }
+                },
+                {
+                  "actor_id": null,
+                  "state": {
+                    "archetype_key": "managerial_decider",
+                    "attention": 0.9261,
+                    "current_strategy": "bridge_coalitions",
+                    "description": "Strategic authority over deployment, adaptation, and high-leverage choices.",
+                    "fatigue": 1.0,
+                    "graph_influence": {
+                      "branch_pressure": 0.8651,
+                      "coalition_max": 0.9159,
+                      "conflict_max": 0.8906,
+                      "dependency_average": 0.7769,
+                      "exposure_average": 1.0,
+                      "trust_average": 0.7272
+                    },
+                    "label": "Managerial decider",
+                    "last_sociology_tick": 8
+                  }
+                }
+              ],
+              "metrics": {
+                "_truncated": true,
+                "coalition_max": 0.9159,
+                "conflict_max": 0.8906,
+                "divergence_index": 0.4472,
+                "event_count": 14,
+                "event_intensity": 1.0,
+                "reinforcement": 1.0,
+                "salience": 0.9818,
+                "social_count": 15,
+                "trust_average": 0.7272,
+                "trust_gap": 0.0
+              },
+              "prompt_influences_for_next_tick": [
+                {
+                  "actor_name": "team_t",
+                  "applies_to_tick_index": 9,
+                  "behavioral_instruction": "Act as a simulated actor under these social pressures; do not inspect or control backend governance.",
+                  "bounded_confidence": {
+                    "divergence_index": 0.4472,
+                    "expected_drift": "bounded"
+                  },
+                  "emotion_policy": "No emotion-vector values are included; emotion observability remains non-feedback telemetry.",
+                  "graph_pressure": {
+                    "branch_pressure": 0.8651,
+                    "coalition_max": 0.9159,
+                    "conflict_max": 0.8906,
+                    "dependency_average": 0.7769,
+                    "exposure_average": 1.0,
+                    "trust_average": 0.7272
+                  },
+                  "identity_and_contagion": {
+                    "identity_salience": 1.0,
+                    "reinforcement": 1.0
+                  },
+                  "mobilization": {
+                    "readiness": 0.9649,
+                    "threshold_state": "crossed"
+                  },
+                  "silence": {
+                    "pressure": 0.2337,
+                    "spiral_state": "expressive_space_available"
+                  },
+                  "source": "sociology_engine"
+                },
+                {
+                  "actor_name": "team_l_fanbase",
+                  "applies_to_tick_index": 9,
+                  "behavioral_instruction": "Act as a simulated actor under these social pressures; do not inspect or control backend governance.",
+                  "bounded_confidence": {
+                    "divergence_index": 0.4472,
+                    "expected_drift": "bounded"
+                  },
+                  "emotion_policy": "No emotion-vector values are included; emotion observability remains non-feedback telemetry.",
+                  "graph_pressure": {
+                    "branch_pressure": 0.8651,
+                    "coalition_max": 0.9159,
+                    "conflict_max": 0.8906,
+                    "dependency_average": 0.7769,
+                    "exposure_average": 1.0,
+                    "trust_average": 0.7272
+                  },
+                  "identity_and_contagion": {
+                    "identity_salience": 1.0,
+                    "reinforcement": 1.0
+                  },
+                  "mobilization": {
+                    "readiness": 0.9649,
+                    "threshold_state": "crossed"
+                  },
+                  "silence": {
+                    "pressure": 0.2337,
+                    "spiral_state": "expressive_space_available"
+                  },
+                  "source": "sociology_engine"
+                },
+                {
+                  "actor_name": "team_l_managerial_staff",
+                  "applies_to_tick_index": 9,
+                  "behavioral_instruction": "Act as a simulated actor under these social pressures; do not inspect or control backend governance.",
+                  "bounded_confidence": {
+                    "divergence_index": 0.4472,
+                    "expected_drift": "bounded"
+                  },
+                  "emotion_policy": "No emotion-vector values are included; emotion observability remains non-feedback telemetry.",
+                  "graph_pressure": {
+                    "branch_pressure": 0.8651,
+                    "coalition_max": 0.9159,
+                    "conflict_max": 0.8906,
+                    "dependency_average": 0.7769,
+                    "exposure_average": 1.0,
+                    "trust_average": 0.7272
+                  },
+                  "identity_and_contagion": {
+                    "identity_salience": 1.0,
+                    "reinforcement": 1.0
+                  },
+                  "mobilization": {
+                    "readiness": 0.9649,
+                    "threshold_state": "crossed"
+                  },
+                  "silence": {
+                    "pressure": 0.2337,
+                    "spiral_state": "expressive_space_available"
+                  },
+                  "source": "sociology_engine"
+                },
+                {
+                  "actor_name": "team_t_managerial_staff",
+                  "applies_to_tick_index": 9,
+                  "behavioral_instruction": "Act as a simulated actor under these social pressures; do not inspect or control backend governance.",
+                  "bounded_confidence": {
+                    "divergence_index": 0.4472,
+                    "expected_drift": "bounded"
+                  },
+                  "emotion_policy": "No emotion-vector values are included; emotion observability remains non-feedback telemetry.",
+                  "graph_pressure": {
+                    "branch_pressure": 0.8651,
+                    "coalition_max": 0.9159,
+                    "conflict_max": 0.8906,
+                    "dependency_average": 0.7769,
+                    "exposure_average": 1.0,
+                    "trust_average": 0.7272
+                  },
+                  "identity_and_contagion": {
+                    "identity_salience": 1.0,
+                    "reinforcement": 1.0
+                  },
+                  "mobilization": {
+                    "readiness": 0.9649,
+                    "threshold_state": "crossed"
+                  },
+                  "silence": {
+                    "pressure": 0.2337,
+                    "spiral_state": "expressive_space_available"
+                  },
+                  "source": "sociology_engine"
+                },
+                {
+                  "actor_name": "team_l",
+                  "applies_to_tick_index": 9,
+                  "behavioral_instruction": "Act as a simulated actor under these social pressures; do not inspect or control backend governance.",
+                  "bounded_confidence": {
+                    "divergence_index": 0.4472,
+                    "expected_drift": "bounded"
+                  },
+                  "emotion_policy": "No emotion-vector values are included; emotion observability remains non-feedback telemetry.",
+                  "graph_pressure": {
+                    "branch_pressure": 0.8651,
+                    "coalition_max": 0.9159,
+                    "conflict_max": 0.8906,
+                    "dependency_average": 0.7769,
+                    "exposure_average": 1.0,
+                    "trust_average": 0.7272
+                  },
+                  "identity_and_contagion": {
+                    "identity_salience": 1.0,
+                    "reinforcement": 1.0
+                  },
+                  "mobilization": {
+                    "readiness": 0.9649,
+                    "threshold_state": "crossed"
+                  },
+                  "silence": {
+                    "pressure": 0.2337,
+                    "spiral_state": "expressive_space_available"
+                  },
+                  "source": "sociology_engine"
+                },
+                {
+                  "actor_name": "team_t_fanbase",
+                  "applies_to_tick_index": 9,
+                  "behavioral_instruction": "Act as a simulated actor under these social pressures; do not inspect or control backend governance.",
+                  "bounded_confidence": {
+                    "divergence_index": 0.4472,
+                    "expected_drift": "bounded"
+                  },
+                  "emotion_policy": "No emotion-vector values are included; emotion observability remains non-feedback telemetry.",
+                  "graph_pressure": {
+                    "branch_pressure": 0.8651,
+                    "coalition_max": 0.9159,
+                    "conflict_max": 0.8906,
+                    "dependency_average": 0.7769,
+                    "exposure_average": 1.0,
+                    "trust_average": 0.7272
+                  },
+                  "identity_and_contagion": {
+                    "identity_salience": 1.0,
+                    "reinforcement": 1.0
+                  },
+                  "mobilization": {
+                    "readiness": 0.9649,
+                    "threshold_state": "crossed"
+                  },
+                  "silence": {
+                    "pressure": 0.2337,
+                    "spiral_state": "expressive_space_available"
+                  },
+                  "source": "sociology_engine"
+                },
+                {
+                  "actor_name": "sports_media",
+                  "applies_to_tick_index": 9,
+                  "behavioral_instruction": "Act as a simulated actor under these social pressures; do not inspect or control backend governance.",
+                  "bounded_confidence": {
+                    "divergence_index": 0.4472,
+                    "expected_drift": "bounded"
+                  },
+                  "emotion_policy": "No emotion-vector values are included; emotion observability remains non-feedback telemetry.",
+                  "graph_pressure": {
+                    "branch_pressure": 0.8651,
+                    "coalition_max": 0.9159,
+                    "conflict_max": 0.8906,
+                    "dependency_average": 0.7769,
+                    "exposure_average": 1.0,
+                    "trust_average": 0.7272
+                  },
+                  "identity_and_contagion": {
+                    "identity_salience": 1.0,
+                    "reinforcement": 1.0
+                  },
+                  "mobilization": {
+                    "readiness": 0.9649,
+                    "threshold_state": "crossed"
+                  },
+                  "silence": {
+                    "pressure": 0.2337,
+                    "spiral_state": "expressive_space_available"
+                  },
+                  "source": "sociology_engine"
+                }
+              ],
+              "signals": [
+                {
+                  "alias": "opinion_drift",
+                  "confidence_radius": 0.3796,
+                  "divergence_index": 0.4472,
+                  "evidence": {
+                    "conflict_pressure": 0.6679,
+                    "trust_gap": 0.0
+                  },
+                  "expected_drift": "bounded",
+                  "model": "bounded_confidence"
+                },
+                {
+                  "alias": "mobilization",
+                  "evidence": {
+                    "coalition_max": 0.9159,
+                    "event_count": 14,
+                    "social_count": 15
+                  },
+                  "model": "threshold_mobilization",
+                  "readiness": 0.9649,
+                  "threshold_state": "crossed"
+                },
+                {
+                  "evidence": {
+                    "expression_baseline": 1.0,
+                    "trust_gap": 0.0
+                  },
+                  "model": "public_silence",
+                  "pressure": 0.2337,
+                  "spiral_state": "expressive_space_available"
+                },
+                {
+                  "cohesion": 0.7812,
+                  "enclave_risk": 0.397,
+                  "evidence": {
+                    "graph_layers": {
+                      "coalition": {
+                        "average_weight": 0.8972,
+                        "interpretation": "coalition forming",
+                        "max_weight": 0.9159
+                      },
+                      "conflict": {
+                        "average_weight": 0.7683,
+                        "interpretation": "high conflict edge",
+                        "max_weight": 0.8906
+                      },
+                      "dependency": {
+                        "average_weight": 0.7769,
+                        "interpretation": "dependency lock-in",
+                        "max_weight": 0.8419
+                      },
+                      "exposure": {
+                        "average_weight": 1.0,
+                        "interpretation": "high exposure",
+                        "max_weight": 1.0
+                      },
+                      "influence": {
+                        "average_weight": 0.986,
+                        "interpretation": "stable",
+                        "max_weight": 1.0
+                      },
+                      "oasis_interaction": {
+                        "average_weight": 1.0,
+                        "interpretation": "stable",
+                        "max_weight": 1.0
+                      },
+                      "trust": {
+                        "average_weight": 0.7272,
+                        "interpretation": "stable",
+                        "max_weight": 0.8205
+                      }
+                    }
+                  },
+                  "model": "homophily"
+                },
+                {
+                  "evidence": {
+                    "exposure_average": 1.0,
+                    "social_count": 15
+                  },
+                  "model": "complex_contagion",
+                  "reinforcement": 1.0,
+                  "spread_state": "reinforced"
+                },
+                {
+                  "boundary_state": "hardening",
+                  "evidence": {
+                    "conflict_max": 0.8906,
+                    "dependency_average": 0.7769
+                  },
+                  "identity_salience": 1.0,
+                  "model": "social_identity"
+                },
+                {
+                  "attention_state": "sustained",
+                  "evidence": {
+                    "event_count": 14,
+                    "previous_attention": 0.9342
+                  },
+                  "fatigue_pressure": 1.0,
+                  "model": "attention_decay",
+                  "salience": 0.9818
+                }
+              ]
+            },
+            "scenario_input": {
+              "initializer_output": {
+                "_truncated": true,
+                "actors": [
+                  {
+                    "_truncated": true,
+                    "attention_level": 0.95,
+                    "description": "Canadian club competing in the 2025 World Series.",
+                    "expression_level": 0.75,
+                    "fatigue": 0.3,
+                    "fear_of_isolation": 0.1,
+                    "fictionalized": false,
+                    "name": "team_t",
+                    "stakes": [
+                      "win championship series",
+                      "convert offensive strength and home-field energy into four wins"
+                    ],
+                    "stance_axes": {
+                      "adaptability": 0.55,
+                      "risk_tolerance": 0.56,
+                      "series_confidence": 0.58
+                    },
+                    "type": "team"
+                  },
+                  {
+                    "_truncated": true,
+                    "attention_level": 0.95,
+                    "description": "Defending champion opponent with deep pitching and recent postseason experience.",
+                    "expression_level": 0.72,
+                    "fatigue": 0.28,
+                    "fear_of_isolation": 0.08,
+                    "fictionalized": false,
+                    "name": "team_l",
+                    "stakes": [
+                      "defend title",
+                      "leverage pitching depth and experience to win four games"
+                    ],
+                    "stance_axes": {
+                      "adaptability": 0.6,
+                      "risk_tolerance": 0.5,
+                      "series_confidence": 0.62
+                    },
+                    "type": "team"
+                  },
+                  {
+                    "_truncated": true,
+                    "attention_level": 0.88,
+                    "description": "Managers and coaching staff guiding Team T lineup and pitching decisions.",
+                    "expression_level": 0.42,
+                    "fatigue": 0.25,
+                    "fear_of_isolation": 0.05,
+                    "fictionalized": false,
+                    "name": "team_t_managerial_staff",
+                    "stakes": [
+                      "optimize rotations and bullpen use",
+                      "manage home-field and travel adjustments"
+                    ],
+                    "stance_axes": {
+                      "adaptability": 0.58,
+                      "aggression": 0.55,
+                      "conservatism": 0.45
+                    },
+                    "type": "staff"
+                  },
+                  {
+                    "_truncated": true,
+                    "attention_level": 0.88,
+                    "description": "Managers and coaching staff guiding Team L strategic deployment.",
+                    "expression_level": 0.4,
+                    "fatigue": 0.23,
+                    "fear_of_isolation": 0.05,
+                    "fictionalized": false,
+                    "name": "team_l_managerial_staff",
+                    "stakes": [
+                      "maximize pitching depth",
+                      "exploit series experience and variance"
+                    ],
+                    "stance_axes": {
+                      "adaptability": 0.62,
+                      "aggression": 0.5,
+                      "conservatism": 0.52
+                    },
+                    "type": "staff"
+                  },
+                  {
+                    "_truncated": true,
+                    "attention_level": 0.93,
+                    "description": "Supporters of Team T energized by home-field context.",
+                    "expression_level": 0.86,
+                    "fatigue": 0.18,
+                    "fear_of_isolation": 0.12,
+                    "fictionalized": false,
+                    "name": "team_t_fanbase",
+                    "stakes": [
+                      "see Team T win series",
+                      "sustain morale and pressure through home games"
+                    ],
+                    "stance_axes": {
+                      "optimism": 0.68,
+                      "patience": 0.45,
+                      "reactivity": 0.62
+                    },
+                    "type": "fan_coalition"
+                  },
+                  {
+                    "_truncated": true,
+                    "attention_level": 0.92,
+                    "description": "Supporters of Team L expecting a strong defense of the title.",
+                    "expression_level": 0.83,
+                    "fatigue": 0.2,
+                    "fear_of_isolation": 0.11,
+                    "fictionalized": false,
+                    "name": "team_l_fanbase",
+                    "stakes": [
+                      "see Team L repeat as champion",
+                      "validate belief in experience and pitching depth"
+                    ],
+                    "stance_axes": {
+                      "optimism": 0.66,
+                      "patience": 0.5,
+                      "reactivity": 0.58
+                    },
+                    "type": "fan_coalition"
+                  },
+                  {
+                    "_truncated": true,
+                    "attention_level": 0.97,
+                    "description": "Broadcast and analysis ecosystem shaping public narratives around the series.",
+                    "expression_level": 0.95,
+                    "fatigue": 0.15,
+                    "fear_of_isolation": 0.02,
+                    "fictionalized": false,
+                    "name": "sports_media",
+                    "stakes": [
+                      "cover games",
+                      "amplify momentum, variance, and matchup framing"
+                    ],
+                    "stance_axes": {
+                      "narrative_amplification": 0.72,
+                      "neutrality": 0.52,
+                      "volatility_focus": 0.7
+                    },
+                    "type": "media_ecosystem"
+                  }
+                ],
+                "channels": [
+                  {
+                    "channel_key": "live_broadcast",
+                    "intensity": 0.92,
+                    "participants": [
+                      "sports_media",
+                      "team_t_fanbase",
+                      "team_l_fanbase"
+                    ],
+                    "type": "mass_media",
+                    "visibility": "public"
+                  },
+                  {
+                    "channel_key": "postgame_analysis",
+                    "intensity": 0.84,
+                    "participants": [
+                      "sports_media",
+                      "general_series_audience_proxy"
+                    ],
+                    "type": "analysis_media",
+                    "visibility": "public"
+                  },
+                  {
+                    "channel_key": "stadium_environment",
+                    "intensity": 0.72,
+                    "participants": [
+                      "team_t_fanbase",
+                      "team_t"
+                    ],
+                    "type": "in_person_collective",
+                    "visibility": "public"
+                  },
+                  {
+                    "channel_key": "team_internal_strategy",
+                    "intensity": 0.81,
+                    "participants": [
+                      "team_t",
+                      "team_t_managerial_staff",
+                      "team_l",
+                      "team_l_managerial_staff"
+                    ],
+                    "type": "private_operational",
+                    "visibility": "private"
+                  }
+                ],
+                "cohorts": [
+                  {
+                    "_truncated": true,
+                    "actor_name": "team_t_fanbase",
+                    "archetype_key": "team_t_supporters",
+                    "attention_level": 0.94,
+                    "cohort_key": "team_t_confident_supporters",
+                    "expression_level": 0.89,
+                    "fatigue": 0.16,
+                    "fear_of_isolation": 0.08,
+                    "private_belief": "Team T has a real chance due to offense and home-field energy, though not overwhelming superiority.",
+                    "public_expression": "Visible enthusiasm and strong support entering series.",
+                    "stance_axes": {
+                      "optimism": 0.74,
+                      "series_confidence": 0.62,
+                      "volatility_acceptance": 0.57
+                    }
+                  },
+                  {
+                    "_truncated": true,
+                    "actor_name": "team_t_fanbase",
+                    "archetype_key": "team_t_supporters",
+                    "attention_level": 0.91,
+                    "cohort_key": "team_t_anxious_supporters",
+                    "expression_level": 0.68,
+                    "fatigue": 0.22,
+                    "fear_of_isolation": 0.2,
+                    "private_belief": "Team T is live but vulnerable to Team L pitching depth and playoff experience.",
+                    "public_expression": "Supportive but cautious, especially about series variance.",
+                    "stance_axes": {
+                      "optimism": 0.52,
+                      "series_confidence": 0.46,
+                      "volatility_acceptance": 0.4
+                    }
+                  },
+                  {
+                    "_truncated": true,
+                    "actor_name": "team_l_fanbase",
+                    "archetype_key": "team_l_supporters",
+                    "attention_level": 0.93,
+                    "cohort_key": "team_l_confident_supporters",
+                    "expression_level": 0.87,
+                    "fatigue": 0.18,
+                    "fear_of_isolation": 0.08,
+                    "private_belief": "Team L should be favored because defending champions with deep pitching are well-built for a series.",
+                    "public_expression": "Confident title-defense rhetoric.",
+                    "stance_axes": {
+                      "optimism": 0.76,
+                      "series_confidence": 0.65,
+                      "volatility_acceptance": 0.55
+                    }
+                  },
+                  {
+                    "_truncated": true,
+                    "actor_name": "team_l_fanbase",
+                    "archetype_key": "team_l_supporters",
+                    "attention_level": 0.9,
+                    "cohort_key": "team_l_cautious_supporters",
+                    "expression_level": 0.66,
+                    "fatigue": 0.22,
+                    "fear_of_isolation": 0.17,
+                    "private_belief": "Team L is strong but Team T offense and home-field energy create upset risk.",
+                    "public_expression": "Measured confidence, less dismissive of Team T.",
+                    "stance_axes": {
+                      "optimism": 0.57,
+                      "series_confidence": 0.52,
+                      "volatility_acceptance": 0.47
+                    }
+                  },
+                  {
+                    "_truncated": true,
+                    "actor_name": "sports_media",
+                    "archetype_key": "general_series_audience",
+                    "attention_level": 0.78,
+                    "cohort_key": "neutral_viewers_variance_watchers",
+                    "expression_level": 0.52,
+                    "fatigue": 0.12,
+                    "fear_of_isolation": 0.06,
+                    "private_belief": "Series is uncertain and likely to swing after each game due to path dependence.",
+                    "public_expression": "Engaged but not loyal; reacts strongly to momentum narratives.",
+                    "stance_axes": {
+                      "interest": 0.72,
+                      "loyalty": 0.22,
+                      "variance_salience": 0.8
+                    }
+                  },
+                  {
+                    "_truncated": true,
+                    "actor_name": "sports_media",
+                    "archetype_key": "general_series_audience",
+                    "attention_level": 0.74,
+                    "cohort_key": "neutral_viewers_experience_favorers",
+                    "expression_level": 0.48,
+                    "fatigue": 0.14,
+                    "fear_of_isolation": 0.08,
+                    "private_belief": "Defending champions and deeper pitching usually have the edge in a full series.",
+                    "public_expression": "Mild lean toward Team L absent contrary game results.",
+                    "stance_axes": {
+                      "experience_weight": 0.72,
+                      "interest": 0.68,
+                      "loyalty": 0.18
+                    }
+                  }
+                ],
+                "fallback": false,
+                "graph_edges": [
+                  {
+                    "direction": "directed",
+                    "evidence": "Expected focus on sports series forecasting and public attention around the World Series.",
+                    "layer": "exposure",
+                    "reason": "Media coverage strongly reaches Team T supporters during the championship series.",
+                    "source_actor_name": "sports_media",
+                    "target_actor_name": "team_t_fanbase",
+                    "weight": 0.64
+                  },
+                  {
+                    "direction": "directed",
+                    "evidence": "Championship series context implies intense media attention.",
+                    "layer": "exposure",
+                    "reason": "Media coverage strongly reaches Team L supporters during the championship series.",
+                    "source_actor_name": "sports_media",
+                    "target_actor_name": "team_l_fanbase",
+                    "weight": 0.64
+                  },
+                  {
+                    "direction": "directed",
+                    "evidence": "Scenario explicitly notes Team T has home-field energy.",
+                    "layer": "exposure",
+                    "reason": "Home-field energy creates visible supporter presence around Team T.",
+                    "source_actor_name": "team_t_fanbase",
+                    "target_actor_name": "team_t",
+                    "weight": 0.58
+                  },
+                  {
+                    "direction": "directed",
+                    "evidence": "Team L is defending champion with active supporter attention.",
+                    "layer": "exposure",
+                    "reason": "Defending champion fan support remains visible to Team L.",
+                    "source_actor_name": "team_l_fanbase",
+                    "target_actor_name": "team_l",
+                    "weight": 0.52
+                  },
+                  {
+                    "direction": "directed",
+                    "evidence": "Series outcome and path dependence depend on each game result.",
+                    "layer": "exposure",
+                    "reason": "Team T performance and games are central media content.",
+                    "source_actor_name": "team_t",
+                    "target_actor_name": "sports_media",
+                    "weight": 0.61
+                  },
+                  {
+                    "direction": "directed",
+                    "evidence": "Scenario highlights Team L experience and pitching depth.",
+                    "layer": "exposure",
+                    "reason": "Team L performance and defending champion status draw media attention.",
+                    "source_actor_name": "team_l",
+                    "target_actor_name": "sports_media",
+                    "weight": 0.63
+                  },
+                  {
+                    "direction": "directed",
+                    "evidence": "Scenario cites strong offensive profile and home-field energy.",
+                    "layer": "trust",
+                    "reason": "Supporters generally trust Team T to compete credibly given offensive strength and home support.",
+                    "source_actor_name": "team_t_fanbase",
+                    "target_actor_name": "team_t",
+                    "weight": 0.62
+                  },
+                  {
+                    "direction": "directed",
+                    "evidence": "Scenario explicitly presents Team L as defending champion with deep pitching.",
+                    "layer": "trust",
+                    "reason": "Supporters trust defending champions with deep pitching and recent postseason experience.",
+                    "source_actor_name": "team_l_fanbase",
+                    "target_actor_name": "team_l",
+                    "weight": 0.69
+                  },
+                  {
+                    "direction": "directed",
+                    "evidence": "Media ecosystem shapes narratives around momentum and variance.",
+                    "layer": "trust",
+                    "reason": "General audience relies on media for series interpretation but narrative volatility limits trust strength.",
+                    "source_actor_name": "general_series_audience_proxy",
+                    "target_actor_name": "sports_media",
+                    "weight": 0.48
+                  },
+                  {
+                    "direction": "directed",
+                    "evidence": "Source notes pitching rotations and bullpen fatigue can change probabilities after each game.",
+                    "layer": "dependency",
+                    "reason": "Team T series prospects depend materially on tactical deployment and bullpen management.",
+                    "source_actor_name": "team_t",
+                    "target_actor_name": "team_t_managerial_staff",
+                    "weight": 0.58
+                  },
+                  {
+                    "_truncated_count": 20
+                  }
+                ],
+                "hero_states": [
+                  {
+                    "_truncated": true,
+                    "actor_name": "team_t",
+                    "archetype_key": "team_competitor",
+                    "attention_level": 0.95,
+                    "capabilities": [
+                      "strong offense",
+                      "home-field energy"
+                    ],
+                    "constraints": [
+                      "series variance",
+                      "pitching rotation uncertainty",
+                      "bullpen fatigue risk",
+                      "travel effects"
+                    ],
+                    "current_goal": "win four games before Team L",
+                    "expression_level": 0.75,
+                    "fatigue": 0.3,
+                    "hero_key": "team_t_competitor_state",
+                    "stance_axes": {
+                      "confidence": 0.58,
+                      "resilience": 0.6,
+                      "urgency": 0.78
+                    }
+                  },
+                  {
+                    "_truncated": true,
+                    "actor_name": "team_l",
+                    "archetype_key": "team_competitor",
+                    "attention_level": 0.95,
+                    "capabilities": [
+                      "deep pitching",
+                      "recent postseason experience"
+                    ],
+                    "constraints": [
+                      "road environment in some games",
+                      "offensive pressure from Team T",
+                      "variance across seven games"
+                    ],
+                    "current_goal": "win four games before Team T",
+                    "expression_level": 0.72,
+                    "fatigue": 0.28,
+                    "hero_key": "team_l_competitor_state",
+                    "stance_axes": {
+                      "confidence": 0.62,
+                      "resilience": 0.66,
+                      "urgency": 0.79
+                    }
+                  },
+                  {
+                    "_truncated": true,
+                    "actor_name": "team_t_managerial_staff",
+                    "archetype_key": "managerial_decider",
+                    "attention_level": 0.88,
+                    "capabilities": [
+                      "in-series tactical adjustment",
+                      "bullpen allocation"
+                    ],
+                    "constraints": [
+                      "limited source detail on staff options",
+                      "reactive pressure after each game"
+                    ],
+                    "current_goal": "sequence pitchers and lineup choices to preserve win paths across series",
+                    "expression_level": 0.42,
+                    "fatigue": 0.25,
+                    "hero_key": "team_t_manager_state",
+                    "stance_axes": {
+                      "adaptability": 0.58,
+                      "confidence": 0.55,
+                      "conservatism": 0.45
+                    }
+                  },
+                  {
+                    "_truncated": true,
+                    "actor_name": "team_l_managerial_staff",
+                    "archetype_key": "managerial_decider",
+                    "attention_level": 0.88,
+                    "capabilities": [
+                      "rotation optimization",
+                      "experience-informed leverage decisions"
+                    ],
+                    "constraints": [
+                      "travel effects",
+                      "bullpen wear if series extends"
+                    ],
+                    "current_goal": "convert pitching depth into sustained series advantage",
+                    "expression_level": 0.4,
+                    "fatigue": 0.23,
+                    "hero_key": "team_l_manager_state",
+                    "stance_axes": {
+                      "adaptability": 0.62,
+                      "confidence": 0.61,
+                      "conservatism": 0.52
+                    }
+                  }
+                ],
+                "heroes": [
+                  {
+                    "archetype_key": "team_competitor",
+                    "description": "Central actor whose tactical performance and endurance determine series outcome.",
+                    "label": "Competitive team principal"
+                  },
+                  {
+                    "archetype_key": "managerial_decider",
+                    "description": "Strategic authority over deployment, adaptation, and high-leverage choices.",
+                    "label": "Managerial decider"
+                  }
+                ],
+                "llm_call_id": "605db850-1d15-41db-9e5a-81b558e9fb15",
+                "model": "gpt-5.4",
+                "risk_flags": [
+                  {
+                    "description": "No player-specific roster, injury, or probable starter information is available in the source corpus.",
+                    "flag_key": "limited_roster_evidence",
+                    "severity": "medium"
+                  },
+                  {
+                    "description": "Scenario describes broad strengths and variance factors but not quantitative priors or market odds.",
+                    "flag_key": "coarse_public_narrative_only",
+                    "severity": "medium"
+                  },
+                  {
+                    "description": "WorldFork social-state schema is being applied to a sports forecasting case, so sociology fields are lightweight and mainly audience-facing.",
+                    "flag_key": "non_social_domain_adaptation",
+                    "severity": "low"
+                  },
+                  {
+                    "description": "General audience is described in cohorts, but graph edges rely primarily on media and fan actors due to limited explicit neutral-actor detail.",
+                    "flag_key": "proxy_actor_gap",
+                    "severity": "medium"
+                  }
+                ]
+              },
+              "plain_text_corpus": {
+                "present": true
+              },
+              "scenario_text": {
+                "present": true
+              }
+            },
+            "trait_vectors": [
+              {
+                "actor_name": "team_t",
+                "behavior_axes": {
+                  "adaptability": 0.55,
+                  "aggression": 0.57,
+                  "discipline": 0.56,
+                  "volatility": 0.52
+                },
+                "ideology_axes": {
+                  "risk_aversion": 0.44,
+                  "tradition_vs_innovation": 0.5
+                },
+                "reputation": 0.68,
+                "secrecy": 0.42,
+                "tendency": "offense_forward_contender",
+                "trustworthiness": 0.63
+              },
+              {
+                "actor_name": "team_l",
+                "behavior_axes": {
+                  "adaptability": 0.6,
+                  "aggression": 0.5,
+                  "discipline": 0.64,
+                  "volatility": 0.45
+                },
+                "ideology_axes": {
+                  "risk_aversion": 0.5,
+                  "tradition_vs_innovation": 0.57
+                },
+                "reputation": 0.78,
+                "secrecy": 0.43,
+                "tendency": "pitching_depth_defending_champion",
+                "trustworthiness": 0.67
+              },
+              {
+                "actor_name": "team_t_managerial_staff",
+                "behavior_axes": {
+                  "adaptability": 0.58,
+                  "aggression": 0.55,
+                  "discipline": 0.6,
+                  "volatility": 0.47
+                },
+                "ideology_axes": {
+                  "risk_aversion": 0.46,
+                  "tradition_vs_innovation": 0.49
+                },
+                "reputation": 0.59,
+                "secrecy": 0.58,
+                "tendency": "situational_adjuster",
+                "trustworthiness": 0.62
+              },
+              {
+                "actor_name": "team_l_managerial_staff",
+                "behavior_axes": {
+                  "adaptability": 0.62,
+                  "aggression": 0.49,
+                  "discipline": 0.66,
+                  "volatility": 0.42
+                },
+                "ideology_axes": {
+                  "risk_aversion": 0.52,
+                  "tradition_vs_innovation": 0.54
+                },
+                "reputation": 0.67,
+                "secrecy": 0.58,
+                "tendency": "depth_maximizer",
+                "trustworthiness": 0.65
+              },
+              {
+                "actor_name": "team_t_fanbase",
+                "behavior_axes": {
+                  "adaptability": 0.44,
+                  "aggression": 0.36,
+                  "discipline": 0.38,
+                  "volatility": 0.66
+                },
+                "ideology_axes": {
+                  "risk_aversion": 0.4,
+                  "tradition_vs_innovation": 0.5
+                },
+                "reputation": 0.58,
+                "secrecy": 0.12,
+                "tendency": "high_energy_home_support",
+                "trustworthiness": 0.55
+              },
+              {
+                "actor_name": "team_l_fanbase",
+                "behavior_axes": {
+                  "adaptability": 0.46,
+                  "aggression": 0.34,
+                  "discipline": 0.41,
+                  "volatility": 0.61
+                },
+                "ideology_axes": {
+                  "risk_aversion": 0.42,
+                  "tradition_vs_innovation": 0.52
+                },
+                "reputation": 0.61,
+                "secrecy": 0.12,
+                "tendency": "title_defense_confidence",
+                "trustworthiness": 0.56
+              },
+              {
+                "actor_name": "sports_media",
+                "behavior_axes": {
+                  "adaptability": 0.71,
+                  "aggression": 0.41,
+                  "discipline": 0.55,
+                  "volatility": 0.74
+                },
+                "ideology_axes": {
+                  "risk_aversion": 0.35,
+                  "tradition_vs_innovation": 0.53
+                },
+                "reputation": 0.7,
+                "secrecy": 0.18,
+                "tendency": "momentum_and_variance_amplifier",
+                "trustworthiness": 0.57
+              }
+            ]
+          },
+          "status": "active",
+          "ui_label": "M1.1"
+        },
+        "scope": "multiverse",
+        "ticks": [
+          {
+            "_truncated": true,
+            "branch_score": 1.0,
+            "god_decision": "freeze",
+            "multiverse_id": "b55e861b-7964-4c41-b55a-b41387afdebe",
+            "multiverse_label": "M1.1",
+            "status": "final",
+            "summary": "Tick 8 simulated for M1.",
+            "tick_id": "0a8d34c8-48da-4d57-b7c9-42dc22ab73c6",
+            "tick_index": 8
+          },
+          {
+            "_truncated": true,
+            "branch_score": 1.0,
+            "god_decision": "continue",
+            "multiverse_id": "b55e861b-7964-4c41-b55a-b41387afdebe",
+            "multiverse_label": "M1.1",
+            "status": "final",
+            "summary": "Tick 7 simulated for M1.",
+            "tick_id": "02150f9b-c22b-4132-8bb3-a4a7a6655c82",
+            "tick_index": 7
+          },
+          {
+            "_truncated": true,
+            "branch_score": 1.0,
+            "god_decision": "continue",
+            "multiverse_id": "b55e861b-7964-4c41-b55a-b41387afdebe",
+            "multiverse_label": "M1.1",
+            "status": "final",
+            "summary": "Tick 6 simulated for M1.",
+            "tick_id": "e5a2b8c5-08f9-4f72-a09b-301cf5a3baef",
+            "tick_index": 6
+          },
+          {
+            "_truncated": true,
+            "branch_score": 1.0,
+            "god_decision": "continue",
+            "multiverse_id": "b55e861b-7964-4c41-b55a-b41387afdebe",
+            "multiverse_label": "M1.1",
+            "status": "final",
+            "summary": "Tick 5 simulated for M1.",
+            "tick_id": "793c9fa0-9f90-4a6e-bf36-34080939d32d",
+            "tick_index": 5
+          },
+          {
+            "_truncated": true,
+            "branch_score": 1.0,
+            "god_decision": "continue",
+            "multiverse_id": "b55e861b-7964-4c41-b55a-b41387afdebe",
+            "multiverse_label": "M1.1",
+            "status": "final",
+            "summary": "Tick 4 simulated for M1.",
+            "tick_id": "aab6f932-b950-46e1-b392-e3b0c47d0d8d",
+            "tick_index": 4
+          },
+          {
+            "_truncated": true,
+            "branch_score": 1.0,
+            "god_decision": "continue",
+            "multiverse_id": "b55e861b-7964-4c41-b55a-b41387afdebe",
+            "multiverse_label": "M1.1",
+            "status": "final",
+            "summary": "Tick 3 simulated for M1.",
+            "tick_id": "b82fc904-f5ba-4ded-a4ba-5d82245c6f47",
+            "tick_index": 3
+          },
+          {
+            "_truncated": true,
+            "branch_score": 1.0,
+            "god_decision": "continue",
+            "multiverse_id": "b55e861b-7964-4c41-b55a-b41387afdebe",
+            "multiverse_label": "M1.1",
+            "status": "final",
+            "summary": "Tick 2 simulated for M1.",
+            "tick_id": "2ca6f6ce-bb4d-4f65-b745-62bb86da8096",
+            "tick_index": 2
+          },
+          {
+            "_truncated": true,
+            "branch_score": 0.9262,
+            "god_decision": "continue",
+            "multiverse_id": "b55e861b-7964-4c41-b55a-b41387afdebe",
+            "multiverse_label": "M1.1",
+            "status": "final",
+            "summary": "Tick 1 simulated for M1.",
+            "tick_id": "4d158945-a2ae-4a0d-adde-8e20dbadd993",
+            "tick_index": 1
+          }
+        ],
+        "timeline_statuses": {
+          "active": 1
+        }
+      },
+      "llm_payload": {}
+    },
+    "scope": "multiverse",
+    "source_report_version_id": null,
+    "source_tick_snapshot_id": null,
+    "source_type": "weighted_big_bang_seed",
+    "status": "completed",
+    "summary": "Endpoint ledger evaluated from current timeline evidence.",
+    "updated_at": "2026-05-05T04:42:44.922416Z",
+    "version": 1
+  },
+  {
+    "big_bang_id": "b958dc57-9996-454b-b2f4-f0c9fb7711b0",
+    "created_at": "2026-05-05T04:42:44.922416Z",
+    "created_by": "endpoint_evaluator",
+    "id": "ac434030-4d75-4b4a-acab-a61d9a806a93",
+    "llm_call_id": null,
+    "model": null,
+    "multiverse_id": null,
+    "parent_ledger_version_id": null,
+    "payload": {
+      "adjudication_applied": false,
+      "aggregation": "path_mass_by_endpoint_status",
+      "endpoint_path_mass_distribution": [
+        {
+          "endpoint_key": "bullpen_wear_matchup_improvisation_and_travel_effects_matter_more_than_pre_series_priors",
+          "label": "Bullpen wear, matchup improvisation, and travel effects matter more than pre-series priors.",
+          "path_mass": 1.0,
+          "realized": null,
+          "status": "unresolved",
+          "status_path_masses": {
+            "insufficient_ticks": 0.276,
+            "unresolved": 0.724
+          }
+        },
+        {
+          "endpoint_key": "home_field_energy_and_offense_become_a_stronger_public_narrative_reducing_team_l_aura_of_inevitability",
+          "label": "Home-field energy and offense become a stronger public narrative, reducing Team L aura of inevitability.",
+          "path_mass": 1.0,
+          "realized": null,
+          "status": "unresolved",
+          "status_path_masses": {
+            "insufficient_ticks": 0.276,
+            "unresolved": 0.724
+          }
+        },
+        {
+          "endpoint_key": "raw_run_production_overwhelms_some_of_team_l_s_pitching_edge_prior",
+          "label": "Raw run production overwhelms some of Team L's pitching-edge prior.",
+          "path_mass": 1.0,
+          "realized": null,
+          "status": "unresolved",
+          "status_path_masses": {
+            "insufficient_ticks": 0.276,
+            "unresolved": 0.724
+          }
+        },
+        {
+          "endpoint_key": "series_narrative_tilts_toward_team_l_s_depth_and_experience_as_a_durable_edge",
+          "label": "Series narrative tilts toward Team L's depth and experience as a durable edge.",
+          "path_mass": 1.0,
+          "realized": null,
+          "status": "unresolved",
+          "status_path_masses": {
+            "insufficient_ticks": 0.276,
+            "unresolved": 0.724
+          }
+        },
+        {
+          "endpoint_key": "series_reaches_six_games",
+          "label": "Series reaches at least six games",
+          "path_mass": 1.0,
+          "realized": null,
+          "status": "unresolved",
+          "status_path_masses": {
+            "insufficient_ticks": 0.276,
+            "unresolved": 0.724
+          }
+        },
+        {
+          "endpoint_key": "team_l_pitching_edge_decisive",
+          "label": "Team L pitching edge proves decisive",
+          "path_mass": 1.0,
+          "realized": null,
+          "status": "unresolved",
+          "status_path_masses": {
+            "insufficient_ticks": 0.276,
+            "unresolved": 0.724
+          }
+        },
+        {
+          "endpoint_key": "team_l_wins_series",
+          "label": "Team L wins series",
+          "path_mass": 1.0,
+          "realized": null,
+          "status": "unresolved",
+          "status_path_masses": {
+            "insufficient_ticks": 0.276,
+            "unresolved": 0.724
+          }
+        },
+        {
+          "endpoint_key": "team_t_wins_series",
+          "label": "Team T wins series",
+          "path_mass": 1.0,
+          "realized": null,
+          "status": "unresolved",
+          "status_path_masses": {
+            "insufficient_ticks": 0.276,
+            "unresolved": 0.724
+          }
+        }
+      ],
+      "excluded_path_probability_mass": 0,
+      "path_probability_distribution": [
+        {
+          "include_in_final": true,
+          "ledger_version_id": "74e3d56c-701b-413d-b9d0-e8d7bffc6a37",
+          "multiverse_id": "23a59bbc-0d50-4763-825f-a6202da10bd2",
+          "normalized_weight": 0.276,
+          "original_path_probability": 0.276,
+          "path_probability": 0.276,
+          "prune_reason": null,
+          "status": "frozen",
+          "ui_label": "M1",
+          "viability_status": "unadjudicated"
+        },
+        {
+          "include_in_final": true,
+          "ledger_version_id": "2d56687c-0047-4b6f-a8c4-f59970b474f7",
+          "multiverse_id": "b55e861b-7964-4c41-b55a-b41387afdebe",
+          "normalized_weight": 0.724,
+          "original_path_probability": 0.724,
+          "path_probability": 0.724,
+          "prune_reason": null,
+          "status": "active",
+          "ui_label": "M1.1",
+          "viability_status": "unadjudicated"
+        }
+      ],
+      "path_probability_mass": 1.0,
+      "plot_distribution": {
+        "rows": [
+          {
+            "endpoint_key": "bullpen_wear_matchup_improvisation_and_travel_effects_matter_more_than_pre_series_priors",
+            "label": "Bullpen wear, matchup improvisation, and travel effects matter more than pre-series priors.",
+            "path_mass": 1.0,
+            "realized": null,
+            "status": "unresolved",
+            "status_path_masses": {
+              "insufficient_ticks": 0.276,
+              "unresolved": 0.724
+            }
+          },
+          {
+            "endpoint_key": "home_field_energy_and_offense_become_a_stronger_public_narrative_reducing_team_l_aura_of_inevitability",
+            "label": "Home-field energy and offense become a stronger public narrative, reducing Team L aura of inevitability.",
+            "path_mass": 1.0,
+            "realized": null,
+            "status": "unresolved",
+            "status_path_masses": {
+              "insufficient_ticks": 0.276,
+              "unresolved": 0.724
+            }
+          },
+          {
+            "endpoint_key": "raw_run_production_overwhelms_some_of_team_l_s_pitching_edge_prior",
+            "label": "Raw run production overwhelms some of Team L's pitching-edge prior.",
+            "path_mass": 1.0,
+            "realized": null,
+            "status": "unresolved",
+            "status_path_masses": {
+              "insufficient_ticks": 0.276,
+              "unresolved": 0.724
+            }
+          },
+          {
+            "endpoint_key": "series_narrative_tilts_toward_team_l_s_depth_and_experience_as_a_durable_edge",
+            "label": "Series narrative tilts toward Team L's depth and experience as a durable edge.",
+            "path_mass": 1.0,
+            "realized": null,
+            "status": "unresolved",
+            "status_path_masses": {
+              "insufficient_ticks": 0.276,
+              "unresolved": 0.724
+            }
+          },
+          {
+            "endpoint_key": "series_reaches_six_games",
+            "label": "Series reaches at least six games",
+            "path_mass": 1.0,
+            "realized": null,
+            "status": "unresolved",
+            "status_path_masses": {
+              "insufficient_ticks": 0.276,
+              "unresolved": 0.724
+            }
+          },
+          {
+            "endpoint_key": "team_l_pitching_edge_decisive",
+            "label": "Team L pitching edge proves decisive",
+            "path_mass": 1.0,
+            "realized": null,
+            "status": "unresolved",
+            "status_path_masses": {
+              "insufficient_ticks": 0.276,
+              "unresolved": 0.724
+            }
+          },
+          {
+            "endpoint_key": "team_l_wins_series",
+            "label": "Team L wins series",
+            "path_mass": 1.0,
+            "realized": null,
+            "status": "unresolved",
+            "status_path_masses": {
+              "insufficient_ticks": 0.276,
+              "unresolved": 0.724
+            }
+          },
+          {
+            "endpoint_key": "team_t_wins_series",
+            "label": "Team T wins series",
+            "path_mass": 1.0,
+            "realized": null,
+            "status": "unresolved",
+            "status_path_masses": {
+              "insufficient_ticks": 0.276,
+              "unresolved": 0.724
+            }
+          }
+        ],
+        "series": [
+          {
+            "name": "realized",
+            "values": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "name": "insufficient_ticks",
+            "values": [
+              0.276,
+              0.276,
+              0.276,
+              0.276,
+              0.276,
+              0.276,
+              0.276,
+              0.276
+            ]
+          },
+          {
+            "name": "unresolved",
+            "values": [
+              0.724,
+              0.724,
+              0.724,
+              0.724,
+              0.724,
+              0.724,
+              0.724,
+              0.724
+            ]
+          },
+          {
+            "name": "eliminated",
+            "values": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        ],
+        "x": [
+          "Bullpen wear, matchup improvisation, and travel effects matter more than pre-series priors.",
+          "Home-field energy and offense become a stronger public narrative, reducing Team L aura of inevitability.",
+          "Raw run production overwhelms some of Team L's pitching-edge prior.",
+          "Series narrative tilts toward Team L's depth and experience as a durable edge.",
+          "Series reaches at least six games",
+          "Team L pitching edge proves decisive",
+          "Team L wins series",
+          "Team T wins series"
+        ]
+      },
+      "source_multiverse_count": 2
+    },
+    "scope": "big_bang",
+    "source_report_version_id": null,
+    "source_tick_snapshot_id": null,
+    "source_type": "posthoc_api_inline",
+    "status": "completed",
+    "summary": "Weighted endpoint ledger aggregated from multiverse path probabilities.",
+    "updated_at": "2026-05-05T04:42:44.922416Z",
+    "version": 1
+  },
+  {
+    "big_bang_id": "b958dc57-9996-454b-b2f4-f0c9fb7711b0",
     "created_at": "2026-05-05T04:35:11.378018Z",
     "created_by": "god_agent",
     "id": "74e3d56c-701b-413d-b9d0-e8d7bffc6a37",

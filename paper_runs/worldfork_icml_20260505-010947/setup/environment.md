@@ -101,10 +101,12 @@ E1 queued initializer batch completed the remaining 72 existing public cards.
 - Result: full 108-card live initialization coverage is complete.
 - Automated coverage summary: 108/108 succeeded, mean actor count 8.76, mean trait count 8.82, mean graph edge count 33.99, sociology baseline present for 108/108 cases, and emotion baseline present for 108/108 cases.
 
-## Runtime Routing Override
+## Runtime Routing Notes
 
-The local OpenRouter key is a placeholder, so the smoke run used a runtime-only model-routing override that routes all configured job types to `openai-codex` / `gpt-5.4`.
+Earlier smoke rows used a runtime-only model-routing override that routed all configured job types to `openai-codex` / `gpt-5.4`; treat those rows as Codex-only smoke/ablation evidence. The default ICML route policy for future E3/E4/E5 rows now routes `cohort_agent` and `hero_agent` to OpenRouter `deepseek/deepseek-v4-flash`, with governance/report work on a strong configured model. The current setup captures a passing OpenRouter provider test after refreshing the provider registry.
 
 - Patch file: `setup/model_routing_codex_only_patch.json`
 - Apply response: `setup/model_routing_codex_only.json`
 - Effective settings: `setup/model_routing_codex_only_effective.json`
+- Default-route snapshot: `setup/model_routing_after_deepseek_cohort_hero.json`
+- OpenRouter provider test: `setup/openrouter_provider_test_after_deepseek_cohort_hero.json`

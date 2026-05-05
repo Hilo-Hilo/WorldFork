@@ -1,6 +1,444 @@
 [
   {
     "big_bang_id": "d2ac94d3-51c4-4c30-9864-72f44b6d33f2",
+    "created_at": "2026-05-05T04:42:45.443129Z",
+    "created_by": "endpoint_evaluator",
+    "id": "b862a3e5-12a6-4777-94f8-878b60021077",
+    "llm_call_id": null,
+    "model": null,
+    "multiverse_id": null,
+    "parent_ledger_version_id": "e8463e05-7249-4d3c-8993-018dbda35ca1",
+    "payload": {
+      "adjudication_applied": false,
+      "aggregation": "path_mass_by_endpoint_status",
+      "endpoint_path_mass_distribution": [
+        {
+          "endpoint_key": "december_no_cut",
+          "label": "December target range is not lowered",
+          "path_mass": 1.0,
+          "realized": null,
+          "status": "insufficient_ticks",
+          "status_path_masses": {
+            "insufficient_ticks": 1.0
+          }
+        },
+        {
+          "endpoint_key": "december_rate_cut_yes",
+          "label": "December target range is lowered",
+          "path_mass": 1.0,
+          "realized": null,
+          "status": "insufficient_ticks",
+          "status_path_masses": {
+            "insufficient_ticks": 1.0
+          }
+        },
+        {
+          "endpoint_key": "incoming_data_remain_mixed_without_decisive_deterioration_or_disinflation",
+          "label": "Incoming data remain mixed without decisive deterioration or disinflation.",
+          "path_mass": 1.0,
+          "realized": null,
+          "status": "insufficient_ticks",
+          "status_path_masses": {
+            "insufficient_ticks": 1.0
+          }
+        },
+        {
+          "endpoint_key": "inflation_remains_clearly_above_target_with_insufficient_further_progress",
+          "label": "Inflation remains clearly above target with insufficient further progress.",
+          "path_mass": 1.0,
+          "realized": null,
+          "status": "insufficient_ticks",
+          "status_path_masses": {
+            "insufficient_ticks": 1.0
+          }
+        },
+        {
+          "endpoint_key": "late_labor_market_data_deteriorate_more_clearly_while_inflation_shows_enough_progress",
+          "label": "Late labor-market data deteriorate more clearly while inflation shows enough progress.",
+          "path_mass": 1.0,
+          "realized": null,
+          "status": "insufficient_ticks",
+          "status_path_masses": {
+            "insufficient_ticks": 1.0
+          }
+        },
+        {
+          "endpoint_key": "pre_meeting_narrative_cut_lean",
+          "label": "Pre-meeting dominant narrative shifts to cut-lean",
+          "path_mass": 1.0,
+          "realized": null,
+          "status": "insufficient_ticks",
+          "status_path_masses": {
+            "insufficient_ticks": 1.0
+          }
+        }
+      ],
+      "excluded_path_probability_mass": 0,
+      "path_probability_distribution": [
+        {
+          "include_in_final": true,
+          "ledger_version_id": "8fca9736-0260-42ae-8aab-e75c68b9385e",
+          "multiverse_id": "58337312-f5c7-4bb2-a9b5-40b235553bbf",
+          "normalized_weight": 1.0,
+          "original_path_probability": 1.0,
+          "path_probability": 1.0,
+          "prune_reason": null,
+          "status": "active",
+          "ui_label": "M1",
+          "viability_status": "unadjudicated"
+        }
+      ],
+      "path_probability_mass": 1.0,
+      "plot_distribution": {
+        "rows": [
+          {
+            "endpoint_key": "december_no_cut",
+            "label": "December target range is not lowered",
+            "path_mass": 1.0,
+            "realized": null,
+            "status": "insufficient_ticks",
+            "status_path_masses": {
+              "insufficient_ticks": 1.0
+            }
+          },
+          {
+            "endpoint_key": "december_rate_cut_yes",
+            "label": "December target range is lowered",
+            "path_mass": 1.0,
+            "realized": null,
+            "status": "insufficient_ticks",
+            "status_path_masses": {
+              "insufficient_ticks": 1.0
+            }
+          },
+          {
+            "endpoint_key": "incoming_data_remain_mixed_without_decisive_deterioration_or_disinflation",
+            "label": "Incoming data remain mixed without decisive deterioration or disinflation.",
+            "path_mass": 1.0,
+            "realized": null,
+            "status": "insufficient_ticks",
+            "status_path_masses": {
+              "insufficient_ticks": 1.0
+            }
+          },
+          {
+            "endpoint_key": "inflation_remains_clearly_above_target_with_insufficient_further_progress",
+            "label": "Inflation remains clearly above target with insufficient further progress.",
+            "path_mass": 1.0,
+            "realized": null,
+            "status": "insufficient_ticks",
+            "status_path_masses": {
+              "insufficient_ticks": 1.0
+            }
+          },
+          {
+            "endpoint_key": "late_labor_market_data_deteriorate_more_clearly_while_inflation_shows_enough_progress",
+            "label": "Late labor-market data deteriorate more clearly while inflation shows enough progress.",
+            "path_mass": 1.0,
+            "realized": null,
+            "status": "insufficient_ticks",
+            "status_path_masses": {
+              "insufficient_ticks": 1.0
+            }
+          },
+          {
+            "endpoint_key": "pre_meeting_narrative_cut_lean",
+            "label": "Pre-meeting dominant narrative shifts to cut-lean",
+            "path_mass": 1.0,
+            "realized": null,
+            "status": "insufficient_ticks",
+            "status_path_masses": {
+              "insufficient_ticks": 1.0
+            }
+          }
+        ],
+        "series": [
+          {
+            "name": "realized",
+            "values": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "name": "insufficient_ticks",
+            "values": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          {
+            "name": "unresolved",
+            "values": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "name": "eliminated",
+            "values": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        ],
+        "x": [
+          "December target range is not lowered",
+          "December target range is lowered",
+          "Incoming data remain mixed without decisive deterioration or disinflation.",
+          "Inflation remains clearly above target with insufficient further progress.",
+          "Late labor-market data deteriorate more clearly while inflation shows enough progress.",
+          "Pre-meeting dominant narrative shifts to cut-lean"
+        ]
+      },
+      "source_multiverse_count": 1
+    },
+    "scope": "big_bang",
+    "source_report_version_id": null,
+    "source_tick_snapshot_id": null,
+    "source_type": "posthoc_api_inline",
+    "status": "completed",
+    "summary": "Weighted endpoint ledger aggregated from multiverse path probabilities.",
+    "updated_at": "2026-05-05T04:42:45.443129Z",
+    "version": 2
+  },
+  {
+    "big_bang_id": "d2ac94d3-51c4-4c30-9864-72f44b6d33f2",
+    "created_at": "2026-05-05T04:41:53.553418Z",
+    "created_by": "endpoint_evaluator",
+    "id": "e8463e05-7249-4d3c-8993-018dbda35ca1",
+    "llm_call_id": null,
+    "model": null,
+    "multiverse_id": null,
+    "parent_ledger_version_id": null,
+    "payload": {
+      "adjudication_applied": false,
+      "aggregation": "path_mass_by_endpoint_status",
+      "endpoint_path_mass_distribution": [
+        {
+          "endpoint_key": "december_no_cut",
+          "label": "December target range is not lowered",
+          "path_mass": 1.0,
+          "realized": null,
+          "status": "insufficient_ticks",
+          "status_path_masses": {
+            "insufficient_ticks": 1.0
+          }
+        },
+        {
+          "endpoint_key": "december_rate_cut_yes",
+          "label": "December target range is lowered",
+          "path_mass": 1.0,
+          "realized": null,
+          "status": "insufficient_ticks",
+          "status_path_masses": {
+            "insufficient_ticks": 1.0
+          }
+        },
+        {
+          "endpoint_key": "incoming_data_remain_mixed_without_decisive_deterioration_or_disinflation",
+          "label": "Incoming data remain mixed without decisive deterioration or disinflation.",
+          "path_mass": 1.0,
+          "realized": null,
+          "status": "insufficient_ticks",
+          "status_path_masses": {
+            "insufficient_ticks": 1.0
+          }
+        },
+        {
+          "endpoint_key": "inflation_remains_clearly_above_target_with_insufficient_further_progress",
+          "label": "Inflation remains clearly above target with insufficient further progress.",
+          "path_mass": 1.0,
+          "realized": null,
+          "status": "insufficient_ticks",
+          "status_path_masses": {
+            "insufficient_ticks": 1.0
+          }
+        },
+        {
+          "endpoint_key": "late_labor_market_data_deteriorate_more_clearly_while_inflation_shows_enough_progress",
+          "label": "Late labor-market data deteriorate more clearly while inflation shows enough progress.",
+          "path_mass": 1.0,
+          "realized": null,
+          "status": "insufficient_ticks",
+          "status_path_masses": {
+            "insufficient_ticks": 1.0
+          }
+        },
+        {
+          "endpoint_key": "pre_meeting_narrative_cut_lean",
+          "label": "Pre-meeting dominant narrative shifts to cut-lean",
+          "path_mass": 1.0,
+          "realized": null,
+          "status": "insufficient_ticks",
+          "status_path_masses": {
+            "insufficient_ticks": 1.0
+          }
+        }
+      ],
+      "excluded_path_probability_mass": 0,
+      "path_probability_distribution": [
+        {
+          "include_in_final": true,
+          "ledger_version_id": "8fca9736-0260-42ae-8aab-e75c68b9385e",
+          "multiverse_id": "58337312-f5c7-4bb2-a9b5-40b235553bbf",
+          "normalized_weight": 1.0,
+          "original_path_probability": 1.0,
+          "path_probability": 1.0,
+          "prune_reason": null,
+          "status": "active",
+          "ui_label": "M1",
+          "viability_status": "unadjudicated"
+        }
+      ],
+      "path_probability_mass": 1.0,
+      "plot_distribution": {
+        "rows": [
+          {
+            "endpoint_key": "december_no_cut",
+            "label": "December target range is not lowered",
+            "path_mass": 1.0,
+            "realized": null,
+            "status": "insufficient_ticks",
+            "status_path_masses": {
+              "insufficient_ticks": 1.0
+            }
+          },
+          {
+            "endpoint_key": "december_rate_cut_yes",
+            "label": "December target range is lowered",
+            "path_mass": 1.0,
+            "realized": null,
+            "status": "insufficient_ticks",
+            "status_path_masses": {
+              "insufficient_ticks": 1.0
+            }
+          },
+          {
+            "endpoint_key": "incoming_data_remain_mixed_without_decisive_deterioration_or_disinflation",
+            "label": "Incoming data remain mixed without decisive deterioration or disinflation.",
+            "path_mass": 1.0,
+            "realized": null,
+            "status": "insufficient_ticks",
+            "status_path_masses": {
+              "insufficient_ticks": 1.0
+            }
+          },
+          {
+            "endpoint_key": "inflation_remains_clearly_above_target_with_insufficient_further_progress",
+            "label": "Inflation remains clearly above target with insufficient further progress.",
+            "path_mass": 1.0,
+            "realized": null,
+            "status": "insufficient_ticks",
+            "status_path_masses": {
+              "insufficient_ticks": 1.0
+            }
+          },
+          {
+            "endpoint_key": "late_labor_market_data_deteriorate_more_clearly_while_inflation_shows_enough_progress",
+            "label": "Late labor-market data deteriorate more clearly while inflation shows enough progress.",
+            "path_mass": 1.0,
+            "realized": null,
+            "status": "insufficient_ticks",
+            "status_path_masses": {
+              "insufficient_ticks": 1.0
+            }
+          },
+          {
+            "endpoint_key": "pre_meeting_narrative_cut_lean",
+            "label": "Pre-meeting dominant narrative shifts to cut-lean",
+            "path_mass": 1.0,
+            "realized": null,
+            "status": "insufficient_ticks",
+            "status_path_masses": {
+              "insufficient_ticks": 1.0
+            }
+          }
+        ],
+        "series": [
+          {
+            "name": "realized",
+            "values": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "name": "insufficient_ticks",
+            "values": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          {
+            "name": "unresolved",
+            "values": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "name": "eliminated",
+            "values": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        ],
+        "x": [
+          "December target range is not lowered",
+          "December target range is lowered",
+          "Incoming data remain mixed without decisive deterioration or disinflation.",
+          "Inflation remains clearly above target with insufficient further progress.",
+          "Late labor-market data deteriorate more clearly while inflation shows enough progress.",
+          "Pre-meeting dominant narrative shifts to cut-lean"
+        ]
+      },
+      "source_multiverse_count": 1
+    },
+    "scope": "big_bang",
+    "source_report_version_id": null,
+    "source_tick_snapshot_id": null,
+    "source_type": "posthoc_api_inline",
+    "status": "completed",
+    "summary": "Weighted endpoint ledger aggregated from multiverse path probabilities.",
+    "updated_at": "2026-05-05T04:41:53.553418Z",
+    "version": 1
+  },
+  {
+    "big_bang_id": "d2ac94d3-51c4-4c30-9864-72f44b6d33f2",
     "created_at": "2026-05-05T04:36:14.896241Z",
     "created_by": "god_agent",
     "id": "8fca9736-0260-42ae-8aab-e75c68b9385e",
