@@ -1931,9 +1931,14 @@ def collect_worldfork_short_existing(args: argparse.Namespace) -> None:
                 raise SystemExit(f"unknown E3 condition: {condition}")
             relative_dir = Path(args.output_prefix) / condition / case_id
             out_dir = run_root / relative_dir
+            resume_source = _artifact_dict(_read_json_artifact(out_dir / "resume_source.json"))
             big_bang_id = _read_id_file(out_dir / "big_bang_id.txt")
             run_job_id = _read_id_file(out_dir / "run_job_id.txt")
             init_job_id = _read_id_file(out_dir / "init_job_id.txt")
+            if not big_bang_id:
+                big_bang_id = str(resume_source.get("big_bang_id") or "")
+            if not init_job_id:
+                init_job_id = str(resume_source.get("init_job_id") or "")
             if not big_bang_id or not run_job_id:
                 print(json.dumps({"case_id": case_id, "condition": condition, "status": "missing_existing_run_artifacts"}))
                 continue
