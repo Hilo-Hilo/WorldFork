@@ -1,5 +1,5 @@
 """
-Trust graph (PRD §12).
+Trust graph (the sociology model).
 
 A NetworkX-backed directed graph that tracks pairwise cohort/hero trust.
 Edge attribute ``trust`` is updated EWMA-style by combining ingroup affinity,

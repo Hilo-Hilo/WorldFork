@@ -5,13 +5,10 @@ Most fixtures are reused or duplicated from `tests/integration/conftest.py`
 (SQLite shadow engine, ASGI client) so the suite runs without Postgres or a
 live Redis broker.
 
-External services that the PRD requires in production (OpenRouter, Zep,
-Celery broker) are stubbed:
+External services used in production (OpenRouter, Celery broker) are stubbed:
 
 * OpenRouter        -> `_CannedProvider` registered via
                        `register_provider("openrouter", ...)`.
-* Zep               -> default off; tests that need it monkey-patch the
-                       memory factory.
 * Celery broker     -> `enqueue` is wrapped to record calls and return the
                        envelope job_id without contacting Redis.
 * Redis (rate limit + lineage cache) -> `fakeredis.aioredis.FakeRedis`.
@@ -272,7 +269,7 @@ def canned_initializer_payload() -> dict:
     1 channel, 1 event."""
     return {
         "scenario_summary": (
-            "Bay Area gig-workers dispute a sudden pay-cut announcement by a "
+            "Metro Region gig workers dispute a sudden pay-cut announcement by a "
             "delivery operator. Couriers debate whether to call a strike, "
             "while local press covers organizer statements and the operator "
             "weighs whether to rescind the cut after public backlash."
@@ -283,7 +280,7 @@ def canned_initializer_payload() -> dict:
                 "label": "Gig Workers",
                 "description": "Drivers and couriers contesting pay cuts.",
                 "population_total": 1000,
-                "geography": {"region_label": "Bay Area", "scope": "metro"},
+                "geography": {"region_label": "Metro Region", "scope": "metro"},
                 "issue_exposure": 0.8,
                 "material_stake": 0.9,
                 "symbolic_stake": 0.5,
@@ -314,7 +311,7 @@ def canned_initializer_payload() -> dict:
                 "label": "Operator Management",
                 "description": "Decision-makers at the delivery operator weighing the cut.",
                 "population_total": 50,
-                "geography": {"region_label": "Bay Area", "scope": "metro"},
+                "geography": {"region_label": "Metro Region", "scope": "metro"},
                 "issue_exposure": 0.7,
                 "material_stake": 0.8,
                 "symbolic_stake": 0.4,
@@ -344,7 +341,7 @@ def canned_initializer_payload() -> dict:
         "heroes": [
             {
                 "id": "hero_organizer",
-                "label": "Organizer Mia Reyes",
+                "label": "Organizer A",
                 "description": "Veteran labor organizer.",
                 "role": "organizer",
                 "institution": "labor_council",
@@ -522,7 +519,7 @@ def initializer_input():
 
     return InitializerInput(
         scenario_text=(
-            "Bay Area gig-worker labor dispute over a pay-cut, 6-month horizon."
+            "Metro Region gig-worker labor dispute over a pay-cut, 6-month horizon."
         ),
         display_name="E2E test scenario",
         uploaded_docs=[],

@@ -11,8 +11,8 @@ WorldFork is backend-first and CLI-first. Conceptually, it is a Monte Carlo tree
 | Postgres | Durable Big Bang, multiverse, tick, job, report, and log state |
 | Redis | Broker, result backend, and runtime coordination |
 | LangGraph | Checkpointed tick graph execution |
-| OpenRouter | LLM provider surface for the default low-cost cohort/hero/action routes |
-| OpenAI Codex | LLM provider surface for initializer, God-review, endpoint-ledger, and report routes |
+| OpenRouter | LLM provider surface for low-cost cohort/hero/action routes and supported Kimi/Claude governance/report routes |
+| OpenAI Codex | Supported strong governance/report route for initializer, God-review, endpoint-ledger, and report work |
 | Artifact store | Non-regenerable evidence and audit payload files |
 | `worldfork` CLI | Operator and AI-agent command surface |
 

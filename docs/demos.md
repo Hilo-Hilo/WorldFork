@@ -8,11 +8,11 @@ WorldFork has two first-class live workflows: the full runtime smoke and the Atl
 worldfork smoke live
 ```
 
-This is the end-to-end health check for a configured local backend. It uses real API credits and verifies that audited LLM calls use:
+This is the end-to-end health check for a configured local backend. It uses real API credits and verifies that audited LLM calls match the effective routes reported by `worldfork settings llm`. A common route policy is:
 
 ```text
-openrouter/moonshotai/kimi-k2.6
 openrouter/deepseek/deepseek-v4-flash
+openai-codex/gpt-5.4
 ```
 
 The smoke validates:
@@ -34,7 +34,7 @@ The smoke validates:
 worldfork demo atlas
 ```
 
-Atlas reads `examples/test-big-bang.md`, creates the Atlas Resilience Crisis Big Bang, runs a root timeline, creates a manual transparency branch, allows God-agent-created branches under generous caps, drains every discovered timeline to terminal state, generates per-multiverse reports, generates a final cross-multiverse report, can render a PDF on request, and audits the default OpenRouter/DeepSeek model configuration.
+Atlas reads `examples/test-big-bang.md`, creates the Atlas Resilience Crisis Big Bang, runs a root timeline, creates a manual transparency branch, allows God-agent-created branches under generous caps, drains every discovered timeline to terminal state, generates per-multiverse reports, generates a final cross-multiverse report, can render a PDF on request, and audits the configured OpenRouter/DeepSeek plus strong governance/report model route split. Supported strong-route examples include OpenAI Codex/GPT-5.4 and OpenRouter-hosted Kimi or Claude models.
 
 While Atlas runs, the same runtime phases described in
 [Runtime Walkthrough](runtime.md) apply: Big Bang initialization, checkpointed

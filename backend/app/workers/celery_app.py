@@ -46,7 +46,6 @@ celery_app.conf.update(
         "sociology_update": {"queue": "p1"},
         "god_agent_review": {"queue": "p1"},
         "force_deviation": {"queue": "p0"},
-        "sync_zep_memory": {"queue": "p2"},
         "build_review_index": {"queue": "p2"},
         "aggregate_run_results": {"queue": "p2"},
         "export_run": {"queue": "p3"},
@@ -59,7 +58,9 @@ celery_app.conf.update(
     # simulation work plus per-mv reports plus the final report. The per-task
     # decorator does not override this global the way Celery's docs suggest,
     # so this value is the effective ceiling. If a task is genuinely hung
-    # past 6 hours, killing it is the right call.
+    # past 6 hours, killing it is the right call. Supersedes the 3600s value
+    # that landed via PR #43 — main multi-fork runs were still hitting the
+    # SoftTimeLimit at 55 min.
     task_time_limit=21600,
     task_soft_time_limit=20100,
 )

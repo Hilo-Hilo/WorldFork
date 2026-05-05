@@ -33,6 +33,7 @@ dependencies = [
     "python-ulid>=2.0",
     "langgraph>=0.2.60",
     "reportlab>=4.2",
+    "json-repair>=0.59.5",
 ]
 
 [project.optional-dependencies]
@@ -50,10 +51,6 @@ dev = [
     "fakeredis[lua]>=2.24",
     "respx>=0.21",
     "aiosqlite>=0.20",
-]
-
-zep = [
-    "zep-cloud>=2.0",
 ]
 
 [tool.hatch.build.targets.wheel]

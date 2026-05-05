@@ -1,5 +1,5 @@
 """
-Multiplex graph layers per PRD §12 / §22 (network page).
+Multiplex graph layers per the sociology network model.
 
 Layers:
   - exposure:     who saw what (cohort↔channel↔post)

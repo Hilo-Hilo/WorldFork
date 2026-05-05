@@ -1,6 +1,6 @@
 """
-Actor schemas: PopulationArchetype (§9.3), CohortState (§9.4),
-HeroArchetype (§9.5), HeroState (§9.6).
+Actor schemas: PopulationArchetype, CohortState,
+HeroArchetype, HeroState.
 Import-free of backend.app.models.
 """
 
@@ -19,13 +19,13 @@ from backend.app.schemas.common import (
 
 _log = logging.getLogger(__name__)
 
-# Valid mobilization modes (§9.4)
+# Valid mobilization modes
 _MOBILIZATION_MODES = {"dormant", "murmur", "organize", "mobilize", "escalate"}
 
-# Valid speech modes (§9.4)
+# Valid speech modes
 _SPEECH_MODES = {"silent", "private", "semi_public", "public", "loud"}
 
-# §11.3 representation mode population thresholds
+# representation mode population thresholds
 _REPRESENTATION_MODE_TABLE = {
     "micro": (2, 25),        # 2–25 (exclusive hero range)
     "small": (25, 250),      # 25–250
@@ -35,11 +35,11 @@ _REPRESENTATION_MODE_TABLE = {
 
 
 # ---------------------------------------------------------------------------
-# PopulationArchetype  §9.3
+# PopulationArchetype
 # ---------------------------------------------------------------------------
 
 class PopulationArchetype(BaseModel):
-    """Mostly stable group identity over the simulation horizon — §9.3 verbatim."""
+    """Mostly stable group identity over the simulation horizon."""
 
     model_config = ConfigDict(extra="forbid")
 
@@ -90,12 +90,12 @@ class PopulationArchetype(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# CohortState  §9.4
+# CohortState
 # ---------------------------------------------------------------------------
 
 class CohortState(BaseModel):
     """
-    Mutable population slice inside an archetype — §9.4 verbatim.
+    Mutable population slice inside an archetype.
 
     LLM noise tolerance: emotions and numeric state fields are clamped
     (not rejected) via model_validator. Violations are logged as warnings
@@ -168,7 +168,7 @@ class CohortState(BaseModel):
         """
         Clamp emotions [0,10], behavior_state [0,1], expression_level [0,1].
         Warns rather than rejects so LLM noise doesn't break the pipeline.
-        Also validates representation_mode vs represented_population (§11.3).
+        Also validates representation_mode vs represented_population.
         """
         # Clamp emotions
         clamped_emotions: dict[str, float] = {}
@@ -203,7 +203,7 @@ class CohortState(BaseModel):
             )
             self.expression_level = clamped_expr
 
-        # §11.3 representation_mode alignment with represented_population
+        # representation_mode alignment with represented_population
         pop = self.represented_population
         mode = self.representation_mode
         if mode == "micro" and not (2 <= pop <= 25):
@@ -231,14 +231,14 @@ class CohortState(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# HeroArchetype  §9.5
+# HeroArchetype
 # ---------------------------------------------------------------------------
 
 _HERO_POWER_RANGE = (0.0, 1.0)
 
 
 class HeroArchetype(BaseModel):
-    """High-impact individual archetype — §9.5 verbatim."""
+    """High-impact individual archetype."""
 
     model_config = ConfigDict(extra="forbid")
 
@@ -287,11 +287,11 @@ class HeroArchetype(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# HeroState  §9.6
+# HeroState
 # ---------------------------------------------------------------------------
 
 class HeroState(BaseModel):
-    """Per-tick mutable hero state — §9.6 verbatim."""
+    """Per-tick mutable hero state."""
 
     model_config = ConfigDict(extra="forbid")
 

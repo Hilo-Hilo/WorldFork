@@ -1,5 +1,5 @@
 """
-BigBangRunModel — mirrors BigBangRun (§9.1).
+BigBangRunModel — mirrors BigBangRun.
 Table: big_bang_runs
 """
 from __future__ import annotations

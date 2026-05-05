@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "note": "Complete tool registry per PRD §10.4. Each tool exposes a JSONSchema (Draft 2020-12) suitable for OpenAI-style tool calling. Closed schemas use additionalProperties:false. The engine validates LLM tool-call args against these schemas before commit.",
+  "note": "Complete tool registry for simulation social actions. Each tool exposes a JSONSchema (Draft 2020-12) suitable for OpenAI-style tool calling. Closed schemas use additionalProperties:false. The engine validates LLM tool-call args against these schemas before commit.",
   "tools": [
     {
       "tool_id": "read_visible_feed",
@@ -54,7 +54,7 @@
     {
       "tool_id": "read_retrieved_memory",
       "category": "read",
-      "description": "Read a Zep/local memory summary for the calling actor relevant to the current tick context.",
+      "description": "Read a local memory summary for the calling actor relevant to the current tick context.",
       "json_schema": {
         "type": "object",
         "additionalProperties": false,

@@ -138,11 +138,13 @@ worldfork query GET /readyz --no-api-prefix
 
 ## Live Runs
 
-Use the configured default smart/fast split for live validation:
+Use the configured model split for live validation. A common policy keeps
+high-volume calls on OpenRouter/DeepSeek and routes governance/report work to a
+strong model such as OpenAI Codex/GPT-5.4 or OpenRouter-hosted Kimi/Claude:
 
 ```text
-openrouter/moonshotai/kimi-k2.6
 openrouter/deepseek/deepseek-v4-flash
+openai-codex/gpt-5.4
 ```
 
 Full live smoke:

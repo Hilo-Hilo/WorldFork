@@ -1,5 +1,5 @@
 """
-PRD §12.6 — Threshold mobilization + complex contagion.
+Threshold mobilization and complex contagion.
 
 mobilize_if =
   grievance
@@ -29,7 +29,7 @@ def mobilization_score(
     trusted_peer_participation: float,
     params: SociologyParams,
 ) -> float:
-    """Return the scalar mobilization driver (PRD §12.6)."""
+    """Return the scalar mobilization driver."""
     m = params.mobilization
     anger = float(cohort.emotions.get("anger", 0.0)) / 10.0
     legal_risk = float(
@@ -67,7 +67,7 @@ def complex_contagion(
     return len(overlap) >= k
 
 
-# Mobilization-mode bands (PRD §9.4 valid modes).
+# Mobilization-mode bands.
 # Bands are ordered by ascending score threshold.
 _MODE_BANDS: list[tuple[float, str]] = [
     (-float("inf"), "dormant"),

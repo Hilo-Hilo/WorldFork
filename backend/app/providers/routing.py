@@ -1,7 +1,7 @@
-"""Per-job-type routing table — PRD §16.4.
+"""Per-job-type routing table — runtime model routing.
 
 Loads :class:`ModelRoutingEntry` rows from the database (or falls back to
-hardcoded defaults derived from the PRD example) and exposes ``route(job_type)``
+hardcoded runtime defaults) and exposes ``route(job_type)``
 which returns ``(preferred ModelConfig, fallback ModelConfig | None)``.
 """
 from __future__ import annotations
@@ -11,6 +11,7 @@ from typing import TYPE_CHECKING, cast
 from backend.app.schemas.jobs import JobType
 from backend.app.schemas.llm import ModelConfig
 from backend.app.schemas.settings import ModelRoutingEntry
+from backend.app.core.config import settings
 
 if TYPE_CHECKING:
     import redis.asyncio as aioredis
@@ -20,40 +21,32 @@ if TYPE_CHECKING:
 
 
 # ---------------------------------------------------------------------------
-# Defaults — derived from PRD §16.4 example, generalised across job types.
+# Defaults — generalized across job types.
 # ---------------------------------------------------------------------------
 
-_OPENROUTER_MODEL = "deepseek/deepseek-v4-flash"
-_OPENAI_CODEX_MODEL = "gpt-5.4"
-_AGENT_MODEL = _OPENROUTER_MODEL
-_AGENT_FALLBACK_MODEL = _OPENROUTER_MODEL
-_GOD_MODEL = _OPENAI_CODEX_MODEL
-_GOD_FALLBACK_MODEL = _OPENAI_CODEX_MODEL
-_OPENAI_CODEX_JOB_TYPES = {
-    "initialize_big_bang",
-    "god_agent_review",
-    "aggregate_run_results",
-    "evaluate_endpoint_ledger",
-    "force_deviation",
+_MODEL_SETTING_BY_JOB_TYPE = {
+    "initialize_big_bang": "initializer_agent_model",
+    "god_agent_review": "god_agent_model",
+    "aggregate_run_results": "report_agent_model",
+    "evaluate_endpoint_ledger": "god_agent_model",
+    "force_deviation": "god_agent_model",
 }
+
+
 def _default_entry(job_type: JobType) -> ModelRoutingEntry:
     """Return a sane default :class:`ModelRoutingEntry` for *job_type*."""
-    if job_type in _OPENAI_CODEX_JOB_TYPES:
-        preferred_provider = "openai-codex"
-        preferred = _GOD_MODEL
-        fallback_provider = "openai-codex"
-        fallback = _GOD_FALLBACK_MODEL
-    else:
-        preferred_provider = "openrouter"
-        preferred = _AGENT_MODEL
-        fallback_provider = "openrouter"
-        fallback = _AGENT_FALLBACK_MODEL
+    model_setting = _MODEL_SETTING_BY_JOB_TYPE.get(job_type)
+    model = str(
+        getattr(settings, model_setting, None) if model_setting is not None else settings.default_model
+    )
+    model = model or settings.default_model
+    provider = _default_provider_for_model(model, model_setting)
     return ModelRoutingEntry(
         job_type=job_type,
-        preferred_provider=preferred_provider,
-        preferred_model=preferred,
-        fallback_provider=fallback_provider if fallback else None,
-        fallback_model=fallback,
+        preferred_provider=provider,
+        preferred_model=model,
+        fallback_provider=provider if model else None,
+        fallback_model=model,
         temperature=0.6,
         top_p=0.95,
         max_tokens=2048,
@@ -66,6 +59,12 @@ def _default_entry(job_type: JobType) -> ModelRoutingEntry:
     )
 
 
+def _default_provider_for_model(model: str, model_setting: str | None) -> str:
+    if model_setting is not None and model == settings.openai_codex_default_model:
+        return "openai-codex"
+    return str(settings.default_llm_provider)
+
+
 _ALL_JOB_TYPES: tuple[JobType, ...] = (
     "initialize_big_bang",
     "simulate_universe_tick",
@@ -75,7 +74,6 @@ _ALL_JOB_TYPES: tuple[JobType, ...] = (
     "sociology_update",
     "god_agent_review",
     "branch_universe",
-    "sync_zep_memory",
     "build_review_index",
     "export_run",
     "apply_tick_results",
@@ -146,7 +144,7 @@ class RoutingTable:
 
     @classmethod
     def defaults(cls) -> RoutingTable:
-        """Return a routing table populated with PRD-derived defaults for every job type."""
+        """Return a routing table populated with default runtime routing for every job type."""
         entries = {jt: _default_entry(jt) for jt in _ALL_JOB_TYPES}
         return cls(entries)
 

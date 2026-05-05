@@ -13,6 +13,7 @@ import re
 from copy import deepcopy
 from typing import Any
 
+import json_repair
 from jsonschema import Draft202012Validator
 from jsonschema.exceptions import ValidationError as JSONSchemaValidationError
 
@@ -47,7 +48,7 @@ class ToolParseError(Exception):
 
 
 # ---------------------------------------------------------------------------
-# Loose JSON parsing (final-mile safety net per PRD §16.7 / §26)
+# Loose JSON parsing (final-mile safety net per the provider fallback policy /)
 # ---------------------------------------------------------------------------
 
 _FENCE_RE = re.compile(r"```(?:json)?\s*(.*?)```", re.DOTALL | re.IGNORECASE)
@@ -117,10 +118,30 @@ def parse_json_loosely(text: str) -> dict:
                 except json.JSONDecodeError:
                     continue
 
+    repaired = _repair_json_object(candidate)
+    if repaired is not None:
+        return repaired
+
     raise ToolParseError(
         "Unable to recover JSON object from response",
         payload_excerpt=candidate[:300],
     )
+
+
+def _repair_json_object(candidate: str) -> dict | None:
+    stripped = candidate.lstrip()
+    if not stripped.startswith("{") and not stripped.startswith("```"):
+        return None
+    try:
+        repaired = json_repair.repair_json(
+            candidate,
+            return_objects=True,
+            skip_json_loads=True,
+            ensure_ascii=False,
+        )
+    except Exception:
+        return None
+    return repaired if isinstance(repaired, dict) else None
 
 
 # ---------------------------------------------------------------------------

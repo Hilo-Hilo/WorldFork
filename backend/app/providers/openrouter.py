@@ -1,7 +1,7 @@
 """OpenRouter provider — primary LLM adapter for WorldFork.
 
 Wraps the OpenAI-compatible AsyncOpenAI client pointed at
-``https://openrouter.ai/api/v1`` per PRD §16.1 / Plan Appendix A.1.
+``https://openrouter.ai/api/v1`` per default provider configuration.
 """
 from __future__ import annotations
 
@@ -31,6 +31,11 @@ from backend.app.providers.errors import (
     ProviderError,
     ProviderTimeoutError,
     RateLimitError,
+)
+from backend.app.llm.openrouter_payload import (
+    build_openrouter_response_format,
+    openrouter_options_from_response_format,
+    response_format_override_from_openrouter_options,
 )
 from backend.app.schemas.llm import (
     EmbeddingConfig,
@@ -106,19 +111,16 @@ class OpenRouterProvider(BaseProvider):
 
     @staticmethod
     def _select_response_format(config: ModelConfig) -> dict[str, Any]:
-        if config.response_format:
-            return config.response_format
-        return {"type": "json_object"}
+        openrouter_options = openrouter_options_from_response_format(config.response_format)
+        override = response_format_override_from_openrouter_options(openrouter_options)
+        return build_openrouter_response_format(
+            response_format=override or config.response_format,
+            name="worldfork_response",
+        )
 
     @staticmethod
     def _parse_json_object(content: str) -> dict[str, Any]:
-        if not content:
-            raise ValueError("response was empty")
-        parsed = json.loads(content)
-        if not isinstance(parsed, dict):
-            raise ValueError(
-                f"response JSON root must be an object, got {type(parsed).__name__}"
-            )
+        parsed, _repaired = BaseProvider._parse_json_object_with_repair(content)
         return parsed
 
     @staticmethod
@@ -164,6 +166,17 @@ class OpenRouterProvider(BaseProvider):
             kwargs["extra_body"] = {
                 "models": [config.model, config.fallback_model],
             }
+        openrouter_options = openrouter_options_from_response_format(config.response_format)
+        extra_body = dict(kwargs.get("extra_body") or {})
+        provider_options = openrouter_options.get("provider")
+        if isinstance(provider_options, dict):
+            extra_body["provider"] = provider_options
+        plugins = openrouter_options.get("plugins")
+        if isinstance(plugins, list):
+            kwargs["extra_body"] = extra_body
+            kwargs["extra_body"]["plugins"] = plugins
+        elif extra_body:
+            kwargs["extra_body"] = extra_body
         return kwargs
 
     @staticmethod
@@ -240,9 +253,9 @@ class OpenRouterProvider(BaseProvider):
         repaired = False
         parsed: dict[str, Any] | None = None
         try:
-            parsed = self._parse_json_object(content)
+            parsed, repaired = self._parse_structured_json(content, response_format)
         except (json.JSONDecodeError, ValueError) as parse_err:
-            # One repair attempt — only when caller wanted structured output.
+            # Local repair failed; only now ask the model to regenerate.
             validator_message = (
                 parse_err.msg if isinstance(parse_err, json.JSONDecodeError) else str(parse_err)
             )
@@ -273,10 +286,11 @@ class OpenRouterProvider(BaseProvider):
             message = choice.message
             content = message.content or ""
             try:
-                parsed = self._parse_json_object(content)
+                parsed, repaired_again = self._parse_structured_json(content, response_format)
+                repaired = repaired or repaired_again
             except (json.JSONDecodeError, ValueError) as final_err:
                 raise InvalidJSONError(
-                    "OpenRouter response failed JSON parse after one repair attempt",
+                    "OpenRouter response failed JSON parse or schema validation after local repair and one regeneration attempt",
                     raw_text=content,
                     validator_message=str(final_err),
                 ) from final_err

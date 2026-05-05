@@ -1,5 +1,5 @@
 """
-PRD §12.3 — Expression update + §12.5 spiral-of-silence gate.
+Expression update and spiral-of-silence gate.
 
 expression_next =
   base_expression
@@ -57,7 +57,7 @@ def spiral_of_silence_gate(
     institutional_risk: float,
     params: SociologyParams,
 ) -> bool:
-    """Return True if the cohort should be silent (PRD §12.5).
+    """Return True if the cohort should be silent (spiral-of-silence rules).
 
     The cohort's private belief is unaffected — only public expression.
     """

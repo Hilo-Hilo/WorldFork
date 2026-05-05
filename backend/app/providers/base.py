@@ -6,8 +6,13 @@ to pick up shared utilities (id generation, ledger persistence).
 """
 from __future__ import annotations
 
+import json
 import time
 from typing import TYPE_CHECKING, Protocol, runtime_checkable
+
+import json_repair
+from jsonschema import Draft202012Validator
+from jsonschema.exceptions import ValidationError as JSONSchemaValidationError
 
 from backend.app.core.ids import new_id
 from backend.app.schemas.llm import (
@@ -23,13 +28,29 @@ if TYPE_CHECKING:
     from backend.app.storage.ledger import Ledger
 
 
+def _schema_from_response_format(response_format: dict | None) -> dict | None:
+    if not isinstance(response_format, dict):
+        return None
+    if response_format.get("type") == "json_schema":
+        schema_config = response_format.get("json_schema")
+        if isinstance(schema_config, dict):
+            schema = schema_config.get("schema")
+            return schema if isinstance(schema, dict) else None
+    schema = response_format.get("schema")
+    if isinstance(schema, dict):
+        return schema
+    if response_format.get("type") == "object" or "properties" in response_format:
+        return response_format
+    return None
+
+
 # ---------------------------------------------------------------------------
-# Protocol — PRD §16.3
+# Protocol — provider protocol
 # ---------------------------------------------------------------------------
 
 @runtime_checkable
 class LLMProvider(Protocol):
-    """Protocol every concrete provider must satisfy (PRD §16.3)."""
+    """Protocol every concrete provider must satisfy (provider protocol)."""
 
     name: str
 
@@ -61,6 +82,85 @@ class BaseProvider:
     """
 
     name: str = "base"
+
+    # ------------------------------------------------------------------
+    # Structured JSON parsing
+    # ------------------------------------------------------------------
+
+    @staticmethod
+    def _parse_json_object_with_repair(content: str) -> tuple[dict, bool]:
+        """Parse a structured model response, locally repairing JSON-shaped output.
+
+        Returns ``(payload, repaired_locally)``.  Callers should only ask the
+        model to regenerate after this method raises, so cheap deterministic
+        repair always runs before another LLM call.
+        """
+        if not content:
+            raise ValueError("response was empty")
+        try:
+            parsed = json.loads(content)
+        except json.JSONDecodeError:
+            parsed = None
+        else:
+            if isinstance(parsed, dict):
+                return parsed, False
+            raise ValueError(
+                f"response JSON root must be an object, got {type(parsed).__name__}"
+            )
+
+        candidate = content.strip()
+        if candidate.startswith("```") and candidate.endswith("```"):
+            fenced = candidate.removeprefix("```").removesuffix("```").strip()
+            if fenced.lower().startswith("json"):
+                fenced = fenced[4:].strip()
+            try:
+                parsed = json.loads(fenced)
+            except json.JSONDecodeError:
+                candidate = fenced
+            else:
+                if isinstance(parsed, dict):
+                    return parsed, False
+                raise ValueError(
+                    f"response JSON root must be an object, got {type(parsed).__name__}"
+                )
+
+        stripped = candidate.lstrip()
+        if not stripped.startswith("{") and not stripped.startswith("```"):
+            raise ValueError("response did not start with a JSON object")
+        try:
+            repaired = json_repair.repair_json(
+                candidate,
+                return_objects=True,
+                skip_json_loads=True,
+                ensure_ascii=False,
+            )
+        except Exception as exc:
+            raise ValueError(str(exc) or "response JSON repair failed") from exc
+        if isinstance(repaired, dict):
+            return repaired, True
+        raise ValueError(
+            f"repaired JSON root must be an object, got {type(repaired).__name__}"
+        )
+
+    @classmethod
+    def _parse_structured_json(
+        cls,
+        content: str,
+        response_format: dict | None = None,
+    ) -> tuple[dict, bool]:
+        parsed, repaired = cls._parse_json_object_with_repair(content)
+        cls._validate_response_format_schema(parsed, response_format)
+        return parsed, repaired
+
+    @staticmethod
+    def _validate_response_format_schema(payload: dict, response_format: dict | None) -> None:
+        schema = _schema_from_response_format(response_format)
+        if schema is None:
+            return
+        try:
+            Draft202012Validator(schema).validate(payload)
+        except JSONSchemaValidationError as exc:
+            raise ValueError(f"response JSON failed schema validation: {exc.message}") from exc
 
     # ------------------------------------------------------------------
     # Time + ID helpers

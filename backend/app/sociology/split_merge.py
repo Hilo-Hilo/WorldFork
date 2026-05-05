@@ -1,5 +1,5 @@
 """
-Cohort split / merge — PRD §12.7, §12.8.
+Cohort split / merge — cohort split/merge runtime.
 
 ENFORCES POPULATION CONSERVATION at the DB level. Any commit_split or
 commit_merge that would change the active total population for an archetype
@@ -87,7 +87,7 @@ def evaluate_split_validity(
     archetype: PopulationArchetype,
     params: SociologyParams,
 ) -> tuple[bool, str | None]:
-    """Pure validator. Returns (ok, error_message). PRD §12.7."""
+    """Pure validator for cohort split rules. Returns (ok, error_message)."""
     children = proposal.children
     if len(children) < 2:
         return False, "split must have at least 2 children"
@@ -266,7 +266,7 @@ def evaluate_merge_validity(
     params: SociologyParams,
     low_divergence_window_ok: bool = True,
 ) -> tuple[bool, str | None]:
-    """Pure validator. Returns (ok, error_message). PRD §12.8."""
+    """Pure validator for cohort merge rules. Returns (ok, error_message)."""
     if len(cohorts) < 2:
         return False, "merge requires at least 2 cohorts"
     archetype_ids = {c.archetype_id for c in cohorts}

@@ -1031,6 +1031,15 @@ wheels = [
 ]
 
 [[package]]
+name = "json-repair"
+version = "0.59.5"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/b7/67/eba7fad54ff6f5cce6db4e01f596fc68156b5c7e864af0aa07ad48e880a1/json_repair-0.59.5.tar.gz", hash = "sha256:bb886ee054e99066be8a337b67a986b6a50d79be9a5ad37ae81966e698990784", size = 48632, upload-time = "2026-04-24T11:41:38.133Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/3e/aa/0529dee460b745b93f6abc97b56b7527314c5167ba29ab7a5bd5c08de01f/json_repair-0.59.5-py3-none-any.whl", hash = "sha256:6869965bd1cc1aaaa04dc85865c26fbb76d9a2d83a20010f5eae2563b1567827", size = 47282, upload-time = "2026-04-24T11:41:36.653Z" },
+]
+
+[[package]]
 name = "jsonpatch"
 version = "1.33"
 source = { registry = "https://pypi.org/simple" }
@@ -2986,6 +2995,7 @@ dependencies = [
     { name = "fastapi" },
     { name = "httpx" },
     { name = "jinja2" },
+    { name = "json-repair" },
     { name = "jsonschema" },
     { name = "langgraph" },
     { name = "networkx" },
@@ -3022,9 +3032,6 @@ dev = [
     { name = "ruff" },
     { name = "types-redis" },
 ]
-zep = [
-    { name = "zep-cloud" },
-]
 
 [package.metadata]
 requires-dist = [
@@ -3040,6 +3047,7 @@ requires-dist = [
     { name = "httpx", specifier = ">=0.27" },
     { name = "httpx", marker = "extra == 'dev'" },
     { name = "jinja2", specifier = ">=3.1" },
+    { name = "json-repair", specifier = ">=0.59.5" },
     { name = "jsonschema", specifier = ">=4.23" },
     { name = "langgraph", specifier = ">=0.2.60" },
     { name = "mypy", marker = "extra == 'dev'", specifier = ">=1.11" },
@@ -3066,9 +3074,8 @@ requires-dist = [
     { name = "structlog", specifier = ">=24.4" },
     { name = "types-redis", marker = "extra == 'dev'" },
     { name = "uvicorn", extras = ["standard"], specifier = ">=0.30" },
-    { name = "zep-cloud", marker = "extra == 'zep'", specifier = ">=2.0" },
 ]
-provides-extras = ["dev", "zep"]
+provides-extras = ["dev"]
 
 [[package]]
 name = "xxhash"
@@ -3206,22 +3213,6 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/bd/b1/dfe2629f7c77eb2fa234c72ff537cdd64939763df704e256446ed364a16d/xxhash-3.7.0-pp311-pypy311_pp73-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:48b542c347c2089f43dc5a6db31d2a6f3cdb04ee33505ec6e9f653834dbb0bde", size = 36307, upload-time = "2026-04-25T11:10:26.949Z" },
     { url = "https://files.pythonhosted.org/packages/e7/f7/5a484afce0f48dd8083208b42e4911f290a82c7b52458ef2927e4d421a45/xxhash-3.7.0-pp311-pypy311_pp73-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:a169a036bed0995e090d1493b283cc2cc8a6f5046821086b843abefff80643bc", size = 32534, upload-time = "2026-04-25T11:10:29.01Z" },
     { url = "https://files.pythonhosted.org/packages/0f/5f/4acfcd490db9780cf36c58534d828003c564cde5350220a1c783c4d10776/xxhash-3.7.0-pp311-pypy311_pp73-win_amd64.whl", hash = "sha256:ec101643395d7f21405b640f728f6f627e6986557027d740f2f9b220955edafe", size = 31552, upload-time = "2026-04-25T11:10:30.727Z" },
-]
-
-[[package]]
-name = "zep-cloud"
-version = "3.20.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "httpx" },
-    { name = "pydantic" },
-    { name = "pydantic-core" },
-    { name = "python-dateutil" },
-    { name = "typing-extensions" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/06/ee/b85d7e706a134f5caec542f591a1dd986289d09aedf15cb5b52d22942188/zep_cloud-3.20.0.tar.gz", hash = "sha256:b3005fd35292f9807f7e64041b3fe7fb5005e3c2e0d78e98566c12f769b81386", size = 80248, upload-time = "2026-04-06T18:29:39.325Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/56/8e/0495e760ef9b526d0f5192b9ad2639e3f63928e4d5a8df70d6a4e50a0777/zep_cloud-3.20.0-py3-none-any.whl", hash = "sha256:9b7e599ebf80ebcf3a50b8ef9b82fcb076be979e367acbe26b631ac6054b26f0", size = 142767, upload-time = "2026-04-06T18:29:37.888Z" },
 ]
 
 [[package]]

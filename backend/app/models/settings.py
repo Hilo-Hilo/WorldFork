@@ -1,7 +1,7 @@
 """
 Settings ORM models — singleton and per-job-type configuration tables.
 Tables: settings_provider, settings_model_routing, settings_rate_limit,
-        settings_branch_policy, settings_zep, settings_global
+        settings_branch_policy, settings_global
 """
 from __future__ import annotations
 
@@ -85,20 +85,6 @@ class BranchPolicySettingModel(Base, TimestampMixin):
     branch_cooldown_ticks: Mapped[int] = mapped_column(Integer, nullable=False)
     min_divergence_score: Mapped[float] = mapped_column(Float, nullable=False)
     auto_prune_low_value: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
-    payload: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)
-
-
-class ZepSettingModel(Base, TimestampMixin):
-    """Singleton Zep memory configuration (one row, PK = 'default')."""
-
-    __tablename__ = "settings_zep"
-
-    setting_id: Mapped[str] = mapped_column(String(64), primary_key=True, default="default")
-    enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
-    mode: Mapped[str] = mapped_column(String(32), nullable=False, default="local")
-    api_key_env: Mapped[str] = mapped_column(String(128), nullable=False, default="ZEP_API_KEY")
-    cache_ttl_seconds: Mapped[int] = mapped_column(Integer, nullable=False, default=300)
-    degraded: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     payload: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)
 
 

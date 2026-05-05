@@ -1,4 +1,4 @@
-"""Tests for backend.app.providers.call_with_policy (B2-B §16.7 backoff)."""
+"""Tests for backend.app.providers.call_with_policy."""
 from __future__ import annotations
 
 from datetime import UTC, datetime

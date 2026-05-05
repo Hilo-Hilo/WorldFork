@@ -82,7 +82,8 @@ Expected first-run route policy:
 
 - OpenRouter `deepseek/deepseek-v4-flash`: `cohort_agent`, `hero_agent`,
   action execution, and `event_summary`.
-- OpenAI Codex `gpt-5.4`: `initializer_chunk_extractor`,
+- Strong governance/report model route, such as OpenAI Codex `gpt-5.4` or
+  OpenRouter-hosted Kimi/Claude: `initializer_chunk_extractor`,
   `initializer_agent`, `god_agent`, `endpoint_ledger`, and `report_agent`.
 
 Use `worldfork settings openai-codex-login` after the CLI is installed. It
@@ -94,7 +95,6 @@ with `OPENAI_CODEX_OAUTH_TOKEN` or `OPENAI_CODEX_AUTH_FILE`.
 Symptoms:
 
 - Settings endpoints report missing rows.
-- Zep settings report that they are not seeded.
 - Model-routing output lacks persisted rows after startup.
 
 Run:
@@ -104,9 +104,6 @@ make migrate
 make seed
 worldfork settings llm
 ```
-
-`ZEP_ENABLED=false` is normal for local onboarding unless the user explicitly
-wants Zep memory integration.
 
 ## Queue State
 

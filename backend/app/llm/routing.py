@@ -83,12 +83,6 @@ AUDITED_LLM_ROUTES: tuple[AuditedLLMRouteInfo, ...] = (
 )
 
 _ROUTE_INFO_BY_NAME = {str(item.route): item for item in AUDITED_LLM_ROUTES}
-_OPENAI_CODEX_MODEL_SETTINGS = {
-    "initializer_agent_model",
-    "god_agent_model",
-    "event_summary_model",
-    "report_agent_model",
-}
 
 
 @dataclass(frozen=True)
@@ -190,8 +184,13 @@ def resolve_audited_llm_route(
             fallback=fallback,
         )
 
-    default_provider = _settings_provider_for_route(settings, route_name, fallback_provider)
     default_model = fallback_model or _settings_model_for_route(settings, route_name)
+    default_provider = _settings_provider_for_route(
+        settings,
+        route_name,
+        fallback_provider,
+        default_model,
+    )
     return ResolvedLLMRoute(
         requested_route=route_name,
         matched_route=None,
@@ -233,13 +232,15 @@ def _route_row(db: Session, route_name: str | None) -> dict[str, Any] | None:
 
 
 def _metadata_defaults(row: dict[str, Any]) -> dict[str, Any]:
-    defaults = {
+    payload = row.get("payload")
+    defaults = dict(payload) if isinstance(payload, dict) else {}
+    defaults.update({
         "temperature": row.get("temperature"),
         "top_p": row.get("top_p"),
         "max_tokens": row.get("max_tokens"),
         "timeout_seconds": row.get("timeout_seconds"),
         "retry_policy": row.get("retry_policy"),
-    }
+    })
     return {key: value for key, value in defaults.items() if value is not None}
 
 
@@ -257,9 +258,12 @@ def _settings_provider_for_route(
     settings: Any,
     route_name: str | None,
     fallback_provider: str | None,
+    model: str,
 ) -> str:
+    if fallback_provider:
+        return str(fallback_provider)
     if route_name:
         info = _ROUTE_INFO_BY_NAME.get(route_name)
-        if info is not None and info.fallback_model_setting in _OPENAI_CODEX_MODEL_SETTINGS:
+        if info is not None and model == getattr(settings, "openai_codex_default_model", None):
             return "openai-codex"
-    return str(fallback_provider or getattr(settings, "default_llm_provider", "openrouter"))
+    return str(getattr(settings, "default_llm_provider", "openrouter"))

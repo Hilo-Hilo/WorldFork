@@ -7,6 +7,7 @@ import pytest
 from sqlalchemy import select
 
 import backend.app.providers as providers
+from backend.app.core.config import settings
 from backend.app.models.settings import (
     BranchPolicySettingModel,
     GlobalSettingModel,
@@ -394,9 +395,16 @@ async def test_get_model_routing_empty(client):
     assert effective["cohort_agent"]["preferred_provider"] == "openrouter"
     assert effective["cohort_agent"]["preferred_model"] == "deepseek/deepseek-v4-flash"
     assert effective["hero_agent"]["preferred_model"] == "deepseek/deepseek-v4-flash"
-    for route in ("initializer_agent", "god_agent", "event_summary", "endpoint_ledger", "report_agent"):
+    expected_route_models = {
+        "initializer_agent": settings.initializer_agent_model,
+        "god_agent": settings.god_agent_model,
+        "event_summary": settings.event_summary_model,
+        "endpoint_ledger": settings.god_agent_model,
+        "report_agent": settings.report_agent_model,
+    }
+    for route, expected_model in expected_route_models.items():
         assert effective[route]["preferred_provider"] == "openai-codex"
-        assert effective[route]["preferred_model"] == "gpt-5.4"
+        assert effective[route]["preferred_model"] == expected_model
     assert {route["route"] for route in data["known_routes"]} >= {
         "initializer_agent",
         "god_agent",

@@ -1,5 +1,5 @@
 """
-BranchNodeModel — mirrors BranchNode (§9.9).
+BranchNodeModel — mirrors BranchNode.
 Table: branch_nodes  (one-to-one with universes)
 """
 from __future__ import annotations

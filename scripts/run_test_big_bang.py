@@ -27,12 +27,6 @@ DEFAULT_SCENARIO = ROOT / "examples" / "test-big-bang.md"
 DEFAULT_BASE_URL = os.environ.get("WORLDFORK_API_URL", "http://127.0.0.1:8003")
 DEFAULT_API_PREFIX = os.environ.get("WORLDFORK_API_PREFIX", "/api")
 ACTIVE_API_PREFIX = DEFAULT_API_PREFIX
-OPENROUTER_MODEL = "deepseek/deepseek-v4-flash"
-OPENAI_CODEX_MODEL = "gpt-5.4"
-DEFAULT_EXPECTED_PAIRS = {
-    ("openrouter", OPENROUTER_MODEL),
-    ("openai-codex", OPENAI_CODEX_MODEL),
-}
 DEFAULT_ATLAS_TICK_DURATION_MINUTES = 720
 DEFAULT_ATLAS_HORIZON_DAYS = 30
 RUNNABLE_MULTIVERSE_STATUSES = {"active", "candidate"}
@@ -53,7 +47,6 @@ def _load_env() -> None:
 
 _load_env()
 
-from app.core.config import get_settings  # noqa: E402
 from app.db import models  # noqa: E402
 from app.db.session import SessionLocal  # noqa: E402
 from app.domains.multiverse.branch_engine import create_branch  # noqa: E402
@@ -272,44 +265,75 @@ def sample_payload(
     }
 
 
-def assert_config_uses_default_split(expected_provider: str, expected_model: str) -> None:
-    settings = get_settings()
-    check(
-        settings.default_llm_provider == expected_provider,
-        f"default provider is {expected_provider}",
-    )
-    model_slots = {
-        "default": (settings.default_model, expected_model),
-        "fallback": (settings.fallback_model, expected_model),
-        "initializer": (settings.initializer_agent_model, OPENAI_CODEX_MODEL),
-        "god": (settings.god_agent_model, OPENAI_CODEX_MODEL),
-        "cohort": (settings.cohort_agent_model, expected_model),
-        "hero": (settings.hero_agent_model, expected_model),
-        "event_summary": (settings.event_summary_model, expected_model),
-        "report": (settings.report_agent_model, OPENAI_CODEX_MODEL),
-    }
-    for label, (model, expected) in model_slots.items():
-        check(model == expected, f"{label} model is {expected}")
-    check(
-        settings.openai_codex_default_model == OPENAI_CODEX_MODEL,
-        f"OpenAI Codex default model is {OPENAI_CODEX_MODEL}",
-    )
-
-
-def _expected_pairs(args: argparse.Namespace) -> set[tuple[str, str]]:
-    configured = os.environ.get("WORLDFORK_DEMO_EXPECTED_PAIRS")
-    if configured:
-        pairs: set[tuple[str, str]] = set()
-        for item in configured.split(","):
-            provider, separator, model = item.partition(":")
-            if separator and provider.strip() and model.strip():
-                pairs.add((provider.strip(), model.strip()))
-        if pairs:
-            return pairs
-    pairs = set(DEFAULT_EXPECTED_PAIRS)
-    if args.expected_provider and args.expected_model:
-        pairs.add((args.expected_provider, args.expected_model))
+def _parse_provider_model_pairs(configured: str | None) -> set[tuple[str, str]]:
+    if not configured:
+        return set()
+    pairs: set[tuple[str, str]] = set()
+    for item in configured.split(","):
+        provider, separator, model = item.partition(":")
+        if separator and provider.strip() and model.strip():
+            pairs.add((provider.strip(), model.strip()))
     return pairs
+
+
+def _effective_pairs_from_llm_config(llm_config: dict[str, Any] | None) -> set[tuple[str, str]]:
+    if not isinstance(llm_config, dict):
+        return set()
+    pairs: set[tuple[str, str]] = set()
+    for entry in llm_config.get("effective_model_routing") or []:
+        if not isinstance(entry, dict):
+            continue
+        for provider_key, model_key in (
+            ("preferred_provider", "preferred_model"),
+            ("fallback_provider", "fallback_model"),
+        ):
+            provider = entry.get(provider_key)
+            model = entry.get(model_key)
+            if provider and model:
+                pairs.add((str(provider), str(model)))
+    return pairs
+
+
+def _expected_pairs(
+    args: argparse.Namespace,
+    llm_config: dict[str, Any] | None = None,
+) -> set[tuple[str, str]]:
+    configured = _parse_provider_model_pairs(os.environ.get("WORLDFORK_DEMO_EXPECTED_PAIRS"))
+    if configured:
+        return configured
+    if args.expected_provider and args.expected_model:
+        return {(args.expected_provider, args.expected_model)}
+    pairs = _effective_pairs_from_llm_config(llm_config)
+    if not pairs:
+        raise SampleFailure(
+            "could not determine expected LLM provider/model pairs from /settings/llm; "
+            "set WORLDFORK_DEMO_EXPECTED_PAIRS or pass --expected-provider/--expected-model"
+        )
+    return pairs
+
+
+def assert_expected_providers_available(
+    llm_config: dict[str, Any],
+    expected_pairs: set[tuple[str, str]],
+    *,
+    ready: dict[str, Any],
+) -> None:
+    ready_checks = ready.get("checks") if isinstance(ready, dict) else {}
+    ready_checks = ready_checks if isinstance(ready_checks, dict) else {}
+    catalog = {
+        str(row.get("provider")): row
+        for row in (llm_config.get("provider_catalog") or [])
+        if isinstance(row, dict) and row.get("provider")
+    }
+    for provider in sorted({provider for provider, _model in expected_pairs}):
+        if provider in ready_checks:
+            check(ready_checks.get(provider) is True, f"readyz reports {provider} configured")
+            continue
+        row = catalog.get(provider)
+        check(row is not None, f"{provider} appears in LLM provider catalog")
+        check(row.get("supported", True) is True, f"{provider} provider is supported")
+        check(row.get("enabled") is True, f"{provider} provider is enabled")
+        check(row.get("configured") is True, f"{provider} provider is configured")
 
 
 def _call_matches_expected_pair(call: Any, expected_pairs: set[tuple[str, str]]) -> bool:
@@ -348,18 +372,6 @@ def assert_expected_llm_only(
     finally:
         db.close()
 
-
-def assert_config_uses_model(expected_provider: str, expected_model: str) -> None:
-    settings = get_settings()
-    check(settings.default_llm_provider == expected_provider, f"default provider is {expected_provider}")
-    for label, model in {
-        "default": settings.default_model,
-        "fallback": settings.fallback_model,
-        "cohort": settings.cohort_agent_model,
-        "hero": settings.hero_agent_model,
-        "event_summary": settings.event_summary_model,
-    }.items():
-        check(model == expected_model, f"{label} model is {expected_model}")
 
 def validate_runtime(runtime: dict[str, Any]) -> None:
     executions = runtime.get("executions") or []
@@ -617,17 +629,14 @@ def run_sample(args: argparse.Namespace) -> None:
     scenario_path = Path(args.scenario_file).resolve()
     scenario_text = scenario_path.read_text()
     check(len(scenario_text) > 10_000, "test-big-bang.md is a long-form scenario dossier")
-    assert_config_uses_default_split(args.expected_provider, args.expected_model)
-    expected_pairs = _expected_pairs(args)
 
     base_url = str(args.base_url).rstrip("/")
     with httpx.Client(timeout=args.timeout) as client:
         ready = wait_for_ready(client, base_url)
-        for provider in sorted({provider for provider, _model in expected_pairs}):
-            check(
-                ready["checks"].get(provider) is True,
-                f"readyz reports {provider} configured",
-            )
+        llm_config = request(client, base_url, "GET", "/api/settings/llm")
+        expected_pairs = _expected_pairs(args, llm_config)
+        check(bool(expected_pairs), "expected provider/model pairs resolved from LLM settings")
+        assert_expected_providers_available(llm_config, expected_pairs, ready=ready)
 
         big_bang = request(
             client,
@@ -801,15 +810,17 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     )
     parser.add_argument(
         "--expected-provider",
-        default=os.environ.get("WORLDFORK_DEMO_EXPECTED_PROVIDER", "openrouter"),
+        default=os.environ.get("WORLDFORK_DEMO_EXPECTED_PROVIDER"),
         help="Provider expected in readiness and audited LLM-call checks.",
     )
     parser.add_argument(
         "--expected-model",
-        default=os.environ.get("WORLDFORK_DEMO_EXPECTED_MODEL", OPENROUTER_MODEL),
+        default=os.environ.get("WORLDFORK_DEMO_EXPECTED_MODEL"),
         help="Model expected in settings and audited LLM-call checks.",
     )
     args = parser.parse_args(argv)
+    if bool(args.expected_provider) != bool(args.expected_model):
+        parser.error("--expected-provider and --expected-model must be supplied together")
     if args.tick_duration_minutes <= 0:
         parser.error("--tick-duration-minutes must be greater than 0")
     if args.horizon_days <= 0:

@@ -1,4 +1,4 @@
-"""End-to-end rate-limit / token-bucket test (PRD §16.5, §27.3 #2 implicit).
+"""End-to-end rate-limit / token-bucket test.
 
 Configures a `ProviderRateLimiter` with RPM=1 (1 request per minute, no
 burst) and exercises the token-bucket directly:

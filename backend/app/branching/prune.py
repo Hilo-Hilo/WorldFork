@@ -1,6 +1,6 @@
 """Low-value-branch pruning helper.
 
-Implements the ``auto_prune_low_value`` half of the §13.5 explosion controls.
+Implements the ``auto_prune_low_value`` half of the explosion controls.
 A branch is considered low-value when its ``metrics_summary.divergence``
 falls below the supplied threshold and its status is ``active``.
 

@@ -23,7 +23,7 @@ proactive: explain what each setup phase proves, use `worldfork setup` to show
 provider options, ask which providers I want to configure, recommend the
 fast-cheap cohort plus stronger governance/report split for Atlas, and narrate
 what Atlas is doing while it runs.
-Use the default OpenRouter smart/fast split for live API-credit runs: `moonshotai/kimi-k2.6` for initializer, God-review, endpoint-ledger, and report work, and `deepseek/deepseek-v4-flash` for cohort, hero, action, and event-summary work.
+Use a configured split for live API-credit runs: OpenRouter `deepseek/deepseek-v4-flash` is a supported fast/cheap high-volume route, and strong governance/report routes can use OpenAI Codex `gpt-5.4` or OpenRouter-hosted Kimi/Claude models.
 ```
 
 ## Complete Manual Setup
@@ -48,7 +48,7 @@ cp .env.example .env
 
 Set `OPENROUTER_API_KEY` in `.env`.
 
-WorldFork defaults initializer, God-review, endpoint-ledger, and report work to `moonshotai/kimi-k2.6` through OpenRouter. Cohort, hero, action, and event-summary work defaults to `deepseek/deepseek-v4-flash` through OpenRouter.
+WorldFork can route cohort, hero, action, and event-summary work to `deepseek/deepseek-v4-flash` through OpenRouter. Initializer, God-review, endpoint-ledger, and report routes should use a strong governance/report model route, such as `gpt-5.4` through `openai-codex` or OpenRouter-hosted Kimi/Claude models.
 
 ### Install The CLI
 
@@ -74,7 +74,7 @@ The CLI chooses its backend target in this order:
 3. `BACKEND_API_BASE`
 4. `http://127.0.0.1:8003`
 
-After the CLI is installed, configure OpenAI Codex OAuth:
+After the CLI is installed, configure the strong governance/report route. For OpenAI Codex OAuth:
 
 ```bash
 worldfork settings openai-codex-login
@@ -117,7 +117,7 @@ worldfork status
 worldfork query GET /readyz --no-api-prefix
 ```
 
-Readiness should show the database, Redis, and OpenRouter checks as healthy. OpenRouter is healthy when `OPENROUTER_API_KEY` is set.
+Readiness should show the database and Redis checks as healthy. OpenRouter is healthy when `OPENROUTER_API_KEY` is set, and OpenAI Codex is healthy when OAuth auth is present if that provider is part of the configured route policy.
 
 Confirm the effective model and provider routes before spending live API credits:
 

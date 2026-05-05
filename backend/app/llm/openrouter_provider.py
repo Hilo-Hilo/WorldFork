@@ -5,6 +5,11 @@ from typing import Any
 import httpx
 
 from app.core.config import get_settings
+from app.llm.openrouter_payload import (
+    build_openrouter_response_format,
+    openrouter_options_from_metadata,
+    response_format_override_from_metadata,
+)
 from app.llm.provider import LLMProvider, LLMProviderUnavailable
 from app.llm.schemas import LLMRequest, LLMResponse
 
@@ -25,16 +30,26 @@ class OpenRouterProvider(LLMProvider):
             cache_control = _prompt_cache_control(request.metadata)
             if cache_control is not None:
                 payload["cache_control"] = cache_control
-        if request.json_schema:
-            payload["response_format"] = {
-                "type": "json_schema",
-                "json_schema": request.json_schema,
-            }
-        else:
-            payload["response_format"] = {"type": "json_object"}
+        response_format_override = response_format_override_from_metadata(request.metadata)
+        response_format_name = (
+            request.metadata.get("openrouter_response_schema_name")
+            or request.metadata.get("response_schema_name")
+            or request.purpose
+        )
+        payload["response_format"] = build_openrouter_response_format(
+            json_schema=request.json_schema,
+            response_format=response_format_override,
+            name=str(response_format_name),
+        )
+        payload.update(openrouter_options_from_metadata(request.metadata))
         for key in ("temperature", "max_tokens", "top_p"):
             if key in request.metadata:
                 payload[key] = request.metadata[key]
+        reasoning = request.metadata.get("reasoning")
+        if isinstance(reasoning, dict):
+            payload["reasoning"] = reasoning
+        elif "include_reasoning" in request.metadata:
+            payload["include_reasoning"] = bool(request.metadata["include_reasoning"])
 
         headers = {
             "Authorization": f"Bearer {settings.openrouter_api_key}",
@@ -55,6 +70,32 @@ class OpenRouterProvider(LLMProvider):
                 )
                 response.raise_for_status()
             except httpx.HTTPStatusError as exc:
+                if (
+                    exc.response.status_code in (400, 422)
+                    and isinstance(payload.get("response_format"), dict)
+                    and payload["response_format"].get("type") == "json_schema"
+                    and response_format_override != "json_schema"
+                ):
+                    retry_payload = dict(payload)
+                    retry_payload["response_format"] = {"type": "json_object"}
+                    try:
+                        response = await client.post(
+                            settings.openrouter_chat_completions_url,
+                            headers=headers,
+                            json=retry_payload,
+                        )
+                        response.raise_for_status()
+                    except httpx.HTTPStatusError as retry_exc:
+                        raise _unavailable_from_status_error(retry_exc) from retry_exc
+                    except httpx.TimeoutException as retry_exc:
+                        raise LLMProviderUnavailable(f"LLM unavailable: request timed out: {retry_exc}") from retry_exc
+                    except httpx.HTTPError as retry_exc:
+                        raise LLMProviderUnavailable(f"LLM unavailable: {retry_exc}") from retry_exc
+                    else:
+                        payload = retry_payload
+                        data = response.json()
+                        content = data.get("choices", [{}])[0].get("message", {}).get("content") or ""
+                        return LLMResponse(content=content, raw=data)
                 status = exc.response.status_code
                 reason = exc.response.reason_phrase
                 body = exc.response.text.strip().replace("\n", " ")[:500]
@@ -68,7 +109,7 @@ class OpenRouterProvider(LLMProvider):
                 raise LLMProviderUnavailable(f"LLM unavailable: {exc}") from exc
             data = response.json()
 
-        content = data.get("choices", [{}])[0].get("message", {}).get("content", "")
+        content = data.get("choices", [{}])[0].get("message", {}).get("content") or ""
         return LLMResponse(content=content, raw=data)
 
 
@@ -87,3 +128,13 @@ def _prompt_cache_control(metadata: dict[str, Any]) -> dict[str, Any] | None:
     if value is True:
         return {"type": "ephemeral"}
     return None
+
+
+def _unavailable_from_status_error(exc: httpx.HTTPStatusError) -> LLMProviderUnavailable:
+    status = exc.response.status_code
+    reason = exc.response.reason_phrase
+    body = exc.response.text.strip().replace("\n", " ")[:500]
+    detail = f"LLM unavailable: HTTP {status} {reason}"
+    if body:
+        detail = f"{detail}: {body}"
+    return LLMProviderUnavailable(detail)

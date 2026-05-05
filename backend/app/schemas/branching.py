@@ -1,5 +1,5 @@
 """
-Branching schemas: BranchNode (§9.9), BranchPolicy (§13.5),
+Branching schemas: BranchNode, BranchPolicy,
 BranchDelta (discriminated union), BranchPolicyResult.
 Import-free of backend.app.models.
 """
@@ -13,11 +13,11 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 from backend.app.schemas.common import UniverseStatus
 
 # ---------------------------------------------------------------------------
-# BranchNode  §9.9
+# BranchNode
 # ---------------------------------------------------------------------------
 
 class BranchNode(BaseModel):
-    """Branch point in the multiverse DAG — §9.9 verbatim."""
+    """Branch point in the multiverse DAG."""
 
     model_config = ConfigDict(extra="forbid")
 
@@ -36,11 +36,11 @@ class BranchNode(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# BranchPolicy  §13.5
+# BranchPolicy
 # ---------------------------------------------------------------------------
 
 class BranchPolicy(BaseModel):
-    """Branch explosion controls — §13.5 verbatim keys."""
+    """Branch explosion controls."""
 
     model_config = ConfigDict(extra="forbid")
 
@@ -54,7 +54,7 @@ class BranchPolicy(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# BranchDelta discriminated union  §13.3
+# BranchDelta discriminated union
 # ---------------------------------------------------------------------------
 
 class CounterfactualEventRewriteDelta(BaseModel):
