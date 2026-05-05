@@ -1,0 +1,9 @@
+NAME                         IMAGE                      COMMAND                  SERVICE     CREATED          STATUS                    PORTS
+worldfork-icml-api-1         worldfork-icml-api         "uvicorn backend.app…"   api         36 seconds ago   Up 24 seconds             0.0.0.0:18045->8000/tcp, [::]:18045->8000/tcp
+worldfork-icml-beat-1        worldfork-icml-beat        "celery -A backend.a…"   beat        36 seconds ago   Up 24 seconds             
+worldfork-icml-postgres-1    postgres:16                "docker-entrypoint.s…"   postgres    36 seconds ago   Up 35 seconds (healthy)   0.0.0.0:15445->5432/tcp, [::]:15445->5432/tcp
+worldfork-icml-redis-1       redis:7-alpine             "docker-entrypoint.s…"   redis       36 seconds ago   Up 35 seconds (healthy)   0.0.0.0:16445->6379/tcp, [::]:16445->6379/tcp
+worldfork-icml-worker_p0-1   worldfork-icml-worker_p0   "celery -A backend.a…"   worker_p0   36 seconds ago   Up 24 seconds             
+worldfork-icml-worker_p1-1   worldfork-icml-worker_p1   "celery -A backend.a…"   worker_p1   36 seconds ago   Up 24 seconds             
+worldfork-icml-worker_p2-1   worldfork-icml-worker_p2   "celery -A backend.a…"   worker_p2   36 seconds ago   Up 24 seconds             
+worldfork-icml-worker_p3-1   worldfork-icml-worker_p3   "celery -A backend.a…"   worker_p3   36 seconds ago   Up 24 seconds             

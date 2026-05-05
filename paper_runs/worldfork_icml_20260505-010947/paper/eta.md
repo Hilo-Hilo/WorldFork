@@ -1,15 +1,15 @@
 # ETA Snapshot
 
-Generated: 2026-05-05 01:10 UTC
+Generated: 2026-05-05 01:22 UTC
 
-These estimates assume the backend starts cleanly and the configured model routes are available.
+These estimates use one measured E1 smoke initialization: `resolved_003` completed in 146.20 seconds on the isolated `worldfork-icml` stack.
 
 | Block | Scope | Current status | ETA from ready backend |
 | --- | --- | --- | --- |
 | P0 static setup/card QA | Case preparation, manifest, leakage/schema QA | Complete for static checks | Done |
-| P0 live setup validation | Docker, migrations, seed, status, readyz, agent discover, model routing | Not started | 20-45 minutes |
-| Source verification | Fetch/check resolution URLs for 24 resolved cards | Not started | 45-90 minutes |
-| E1 init screen | 108 `worldfork init` runs, no ticks | Not started | 4-10 hours depending initializer latency |
+| P0 live setup validation | Docker, migrations, seed, status, readyz, agent discover, model routing | Complete on `worldfork-icml` ports `18045/15445/16445` | Done |
+| Source verification | Fetch/check resolution URLs for 24 resolved cards | Automated fetch complete: 36 ok, 4 blocked/timed out | 20-45 minutes manual follow-up |
+| E1 init screen | 108 `worldfork init` runs, no ticks | Smoke complete for `resolved_003` | About 4.4 hours serial at measured speed; plan 5-7 hours with retries |
 | E2 direct baselines | 24 cards x 2 direct forecast prompts | Not started | 30-90 minutes |
 | E3 short WorldFork resolved runs | 24 cards x 2 conditions x up to 8 ticks | Not started | 8-24 hours; core-12 fallback roughly half |
 | E4 long-horizon audit | 18 cases x 30-35 ticks | Not started | 24-72 hours; minimum-6 fallback roughly 8-24 hours |

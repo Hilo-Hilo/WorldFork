@@ -14,7 +14,10 @@ import hashlib
 import json
 import math
 import os
+import socket
 import statistics
+import urllib.error
+import urllib.request
 from collections import Counter, defaultdict
 from datetime import UTC, datetime
 from pathlib import Path
@@ -381,6 +384,106 @@ def score_forecasts(args: argparse.Namespace) -> None:
     print(json.dumps(summary_rows, indent=2, sort_keys=True))
 
 
+def verify_sources(args: argparse.Namespace) -> None:
+    run_root = make_run_root(args.run_root)
+    rows: list[dict[str, Any]] = []
+    for case in read_jsonl(PRIVATE_36):
+        if not case.get("resolution"):
+            continue
+        for source in case.get("resolution_sources") or []:
+            url = source.get("url", "")
+            status = "not_checked"
+            http_status = ""
+            final_url = ""
+            error = ""
+            title_hint = source.get("title", "")
+            try:
+                request = urllib.request.Request(
+                    url,
+                    headers={
+                        "User-Agent": "WorldFork-ICML-source-check/0.1",
+                        "Accept": "text/html,application/xhtml+xml,application/pdf,*/*;q=0.8",
+                    },
+                )
+                with urllib.request.urlopen(request, timeout=args.timeout) as response:
+                    http_status = str(getattr(response, "status", ""))
+                    final_url = response.geturl()
+                    content = response.read(args.bytes)
+                    status = "ok" if http_status.startswith(("2", "3")) else "http_error"
+                    lower = content.lower()
+                    if b"<title" in lower:
+                        start = lower.find(b"<title")
+                        start = content.find(b">", start) + 1
+                        end = lower.find(b"</title>", start)
+                        if start > 0 and end > start:
+                            title_hint = content[start:end].decode("utf-8", errors="replace").strip()
+            except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError, socket.timeout) as exc:
+                status = "error"
+                error = str(exc)
+                if isinstance(exc, urllib.error.HTTPError):
+                    http_status = str(exc.code)
+                    final_url = exc.url
+            rows.append(
+                {
+                    "case_id": case["case_id"],
+                    "resolution": case.get("resolution", ""),
+                    "resolution_date": case.get("resolution_date", ""),
+                    "source_title": source.get("title", ""),
+                    "url": url,
+                    "status": status,
+                    "http_status": http_status,
+                    "final_url": final_url,
+                    "fetched_title_hint": " ".join(title_hint.split())[:240],
+                    "error": error[:240],
+                }
+            )
+
+    output = run_root / "results/source_verification.csv"
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with output.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(
+            handle,
+            fieldnames=[
+                "case_id",
+                "resolution",
+                "resolution_date",
+                "source_title",
+                "url",
+                "status",
+                "http_status",
+                "final_url",
+                "fetched_title_hint",
+                "error",
+            ],
+        )
+        writer.writeheader()
+        writer.writerows(rows)
+
+    counts = Counter(row["status"] for row in rows)
+    errors = [row for row in rows if row["status"] != "ok"]
+    report = [
+        "# Resolution Source Verification",
+        "",
+        f"Generated: {datetime.now(UTC).isoformat()}",
+        "",
+        f"- URLs checked: {len(rows)}",
+        f"- Status counts: {dict(counts)}",
+        "- Output CSV: `results/source_verification.csv`",
+        "",
+        "## Errors",
+        "",
+    ]
+    if errors:
+        report.extend(f"- {row['case_id']}: {row['http_status'] or row['status']} {row['url']} {row['error']}" for row in errors)
+    else:
+        report.append("- none")
+    report.append("")
+    (run_root / "results/source_verification.md").write_text("\n".join(report), encoding="utf-8")
+    print(json.dumps({"run_root": str(run_root), "counts": dict(counts)}, indent=2, sort_keys=True))
+    if args.fail_on_error and errors:
+        raise SystemExit(1)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -400,6 +503,13 @@ def main() -> None:
     score.add_argument("--condition", default="unknown")
     score.add_argument("--normalize-yes-no", action="store_true")
     score.set_defaults(func=score_forecasts)
+
+    verify = sub.add_parser("verify-sources", help="Fetch private eval resolution source URLs and record status.")
+    verify.add_argument("--run-root", type=Path)
+    verify.add_argument("--timeout", type=float, default=20.0)
+    verify.add_argument("--bytes", type=int, default=65536)
+    verify.add_argument("--fail-on-error", action="store_true")
+    verify.set_defaults(func=verify_sources)
 
     args = parser.parse_args()
     args.func(args)

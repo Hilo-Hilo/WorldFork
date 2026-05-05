@@ -1,0 +1,917 @@
+{
+  "runtime_defaults": {
+    "default_provider": "openrouter",
+    "default_model": "deepseek/deepseek-v4-flash",
+    "fallback_model": "deepseek/deepseek-v4-flash",
+    "agent_models": {
+      "initializer_agent": "gpt-5.4",
+      "god_agent": "gpt-5.4",
+      "cohort_agent": "deepseek/deepseek-v4-flash",
+      "hero_agent": "deepseek/deepseek-v4-flash",
+      "event_summary": "deepseek/deepseek-v4-flash",
+      "report_agent": "gpt-5.4"
+    },
+    "provider_defaults": {
+      "openrouter": {
+        "base_url": "https://openrouter.ai/api/v1",
+        "chat_completions_url": "https://openrouter.ai/api/v1/chat/completions",
+        "api_key_env": "OPENROUTER_API_KEY"
+      },
+      "openai-codex": {
+        "enabled": true,
+        "base_url": "https://chatgpt.com/backend-api/codex",
+        "api_key_env": "OPENAI_CODEX_OAUTH_TOKEN",
+        "auth_file": null,
+        "default_model": "gpt-5.4",
+        "fallback_model": null
+      }
+    }
+  },
+  "provider_catalog": [
+    {
+      "provider": "openrouter",
+      "api_shape": "openai-compatible",
+      "source": "settings_provider",
+      "supported": true,
+      "enabled": true,
+      "configured": true,
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": "OPENROUTER_API_KEY",
+      "default_model": "deepseek/deepseek-v4-flash",
+      "fallback_model": "deepseek/deepseek-v4-flash",
+      "payload": {
+        "enabled": true,
+        "base_url": "https://openrouter.ai/api/v1",
+        "provider": "openrouter",
+        "api_key_env": "OPENROUTER_API_KEY",
+        "default_model": "deepseek/deepseek-v4-flash",
+        "extra_headers": {
+          "X-Title": "WorldFork",
+          "HTTP-Referer": "http://localhost:3003"
+        },
+        "fallback_model": "deepseek/deepseek-v4-flash",
+        "json_mode_required": true,
+        "tool_calling_enabled": true
+      }
+    },
+    {
+      "provider": "openai-codex",
+      "api_shape": "openai-codex-responses",
+      "source": "settings_provider",
+      "supported": true,
+      "enabled": true,
+      "configured": false,
+      "base_url": "https://chatgpt.com/backend-api/codex",
+      "api_key_env": "OPENAI_CODEX_OAUTH_TOKEN",
+      "default_model": "gpt-5.4",
+      "fallback_model": null,
+      "payload": {
+        "api": "openai-codex-responses",
+        "enabled": true,
+        "base_url": "https://chatgpt.com/backend-api/codex",
+        "provider": "openai-codex",
+        "auth_file": "~/.worldfork/openai-codex-auth.json",
+        "auth_mode": "oauth",
+        "api_key_env": "OPENAI_CODEX_OAUTH_TOKEN",
+        "default_model": "gpt-5.4",
+        "fallback_model": null,
+        "json_mode_required": true,
+        "tool_calling_enabled": false,
+        "codex_cli_auth_fallback": "~/.codex/auth.json"
+      }
+    }
+  ],
+  "providers": [
+    {
+      "provider": "openrouter",
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": "OPENROUTER_API_KEY",
+      "default_model": "deepseek/deepseek-v4-flash",
+      "fallback_model": "deepseek/deepseek-v4-flash",
+      "json_mode_required": true,
+      "tool_calling_enabled": true,
+      "enabled": true,
+      "extra_headers": {
+        "X-Title": "WorldFork",
+        "HTTP-Referer": "http://localhost:3003"
+      },
+      "payload": {
+        "enabled": true,
+        "base_url": "https://openrouter.ai/api/v1",
+        "provider": "openrouter",
+        "api_key_env": "OPENROUTER_API_KEY",
+        "default_model": "deepseek/deepseek-v4-flash",
+        "extra_headers": {
+          "X-Title": "WorldFork",
+          "HTTP-Referer": "http://localhost:3003"
+        },
+        "fallback_model": "deepseek/deepseek-v4-flash",
+        "json_mode_required": true,
+        "tool_calling_enabled": true
+      },
+      "created_at": "2026-05-05T01:15:55.930023Z",
+      "updated_at": "2026-05-05T01:15:55.930023Z"
+    },
+    {
+      "provider": "openai-codex",
+      "base_url": "https://chatgpt.com/backend-api/codex",
+      "api_key_env": "OPENAI_CODEX_OAUTH_TOKEN",
+      "default_model": "gpt-5.4",
+      "fallback_model": null,
+      "json_mode_required": true,
+      "tool_calling_enabled": false,
+      "enabled": true,
+      "extra_headers": {},
+      "payload": {
+        "api": "openai-codex-responses",
+        "enabled": true,
+        "base_url": "https://chatgpt.com/backend-api/codex",
+        "provider": "openai-codex",
+        "auth_file": "~/.worldfork/openai-codex-auth.json",
+        "auth_mode": "oauth",
+        "api_key_env": "OPENAI_CODEX_OAUTH_TOKEN",
+        "default_model": "gpt-5.4",
+        "fallback_model": null,
+        "json_mode_required": true,
+        "tool_calling_enabled": false,
+        "codex_cli_auth_fallback": "~/.codex/auth.json"
+      },
+      "created_at": "2026-05-05T01:15:55.930023Z",
+      "updated_at": "2026-05-05T01:15:55.930023Z"
+    }
+  ],
+  "model_routing": [
+    {
+      "job_type": "initialize_big_bang",
+      "preferred_provider": "openai-codex",
+      "preferred_model": "gpt-5.4",
+      "fallback_provider": "openai-codex",
+      "fallback_model": "gpt-5.4",
+      "temperature": 0.3,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "max_concurrency": 4,
+      "requests_per_minute": 60,
+      "tokens_per_minute": 200000,
+      "timeout_seconds": 60,
+      "retry_policy": "exponential_backoff",
+      "daily_budget_usd": null,
+      "payload": {
+        "source": "seed_default"
+      },
+      "created_at": "2026-05-05T01:15:55.930023Z",
+      "updated_at": "2026-05-05T01:15:55.930023Z"
+    },
+    {
+      "job_type": "simulate_universe_tick",
+      "preferred_provider": "openrouter",
+      "preferred_model": "deepseek/deepseek-v4-flash",
+      "fallback_provider": "openrouter",
+      "fallback_model": "deepseek/deepseek-v4-flash",
+      "temperature": 0.7,
+      "top_p": 1.0,
+      "max_tokens": 8192,
+      "max_concurrency": 8,
+      "requests_per_minute": 60,
+      "tokens_per_minute": 400000,
+      "timeout_seconds": 120,
+      "retry_policy": "exponential_backoff",
+      "daily_budget_usd": null,
+      "payload": {
+        "source": "seed_default"
+      },
+      "created_at": "2026-05-05T01:15:55.930023Z",
+      "updated_at": "2026-05-05T01:15:55.930023Z"
+    },
+    {
+      "job_type": "actor_deliberation_call",
+      "preferred_provider": "openrouter",
+      "preferred_model": "deepseek/deepseek-v4-flash",
+      "fallback_provider": "openrouter",
+      "fallback_model": "deepseek/deepseek-v4-flash",
+      "temperature": 0.8,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "max_concurrency": 16,
+      "requests_per_minute": 120,
+      "tokens_per_minute": 400000,
+      "timeout_seconds": 90,
+      "retry_policy": "exponential_backoff",
+      "daily_budget_usd": null,
+      "payload": {
+        "source": "seed_default"
+      },
+      "created_at": "2026-05-05T01:15:55.930023Z",
+      "updated_at": "2026-05-05T01:15:55.930023Z"
+    },
+    {
+      "job_type": "execute_due_events",
+      "preferred_provider": "openrouter",
+      "preferred_model": "deepseek/deepseek-v4-flash",
+      "fallback_provider": "openrouter",
+      "fallback_model": "deepseek/deepseek-v4-flash",
+      "temperature": 0.5,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "max_concurrency": 8,
+      "requests_per_minute": 60,
+      "tokens_per_minute": 200000,
+      "timeout_seconds": 60,
+      "retry_policy": "exponential_backoff",
+      "daily_budget_usd": null,
+      "payload": {
+        "source": "seed_default"
+      },
+      "created_at": "2026-05-05T01:15:55.930023Z",
+      "updated_at": "2026-05-05T01:15:55.930023Z"
+    },
+    {
+      "job_type": "social_propagation",
+      "preferred_provider": "openrouter",
+      "preferred_model": "deepseek/deepseek-v4-flash",
+      "fallback_provider": "openrouter",
+      "fallback_model": "deepseek/deepseek-v4-flash",
+      "temperature": 0.6,
+      "top_p": 1.0,
+      "max_tokens": 2048,
+      "max_concurrency": 16,
+      "requests_per_minute": 200,
+      "tokens_per_minute": 400000,
+      "timeout_seconds": 45,
+      "retry_policy": "exponential_backoff",
+      "daily_budget_usd": null,
+      "payload": {
+        "source": "seed_default"
+      },
+      "created_at": "2026-05-05T01:15:55.930023Z",
+      "updated_at": "2026-05-05T01:15:55.930023Z"
+    },
+    {
+      "job_type": "sociology_update",
+      "preferred_provider": "openrouter",
+      "preferred_model": "deepseek/deepseek-v4-flash",
+      "fallback_provider": "openrouter",
+      "fallback_model": "deepseek/deepseek-v4-flash",
+      "temperature": 0.4,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "max_concurrency": 4,
+      "requests_per_minute": 30,
+      "tokens_per_minute": 150000,
+      "timeout_seconds": 90,
+      "retry_policy": "exponential_backoff",
+      "daily_budget_usd": null,
+      "payload": {
+        "source": "seed_default"
+      },
+      "created_at": "2026-05-05T01:15:55.930023Z",
+      "updated_at": "2026-05-05T01:15:55.930023Z"
+    },
+    {
+      "job_type": "god_agent_review",
+      "preferred_provider": "openai-codex",
+      "preferred_model": "gpt-5.4",
+      "fallback_provider": "openai-codex",
+      "fallback_model": "gpt-5.4",
+      "temperature": 0.2,
+      "top_p": 1.0,
+      "max_tokens": 8192,
+      "max_concurrency": 2,
+      "requests_per_minute": 20,
+      "tokens_per_minute": 200000,
+      "timeout_seconds": 180,
+      "retry_policy": "exponential_backoff",
+      "daily_budget_usd": null,
+      "payload": {
+        "source": "seed_default"
+      },
+      "created_at": "2026-05-05T01:15:55.930023Z",
+      "updated_at": "2026-05-05T01:15:55.930023Z"
+    },
+    {
+      "job_type": "force_deviation",
+      "preferred_provider": "openai-codex",
+      "preferred_model": "gpt-5.4",
+      "fallback_provider": "openai-codex",
+      "fallback_model": "gpt-5.4",
+      "temperature": 0.2,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "max_concurrency": 2,
+      "requests_per_minute": 20,
+      "tokens_per_minute": 200000,
+      "timeout_seconds": 180,
+      "retry_policy": "exponential_backoff",
+      "daily_budget_usd": null,
+      "payload": {
+        "source": "seed_default"
+      },
+      "created_at": "2026-05-05T01:15:55.930023Z",
+      "updated_at": "2026-05-05T01:15:55.930023Z"
+    },
+    {
+      "job_type": "aggregate_run_results",
+      "preferred_provider": "openai-codex",
+      "preferred_model": "gpt-5.4",
+      "fallback_provider": "openai-codex",
+      "fallback_model": "gpt-5.4",
+      "temperature": 0.25,
+      "top_p": 1.0,
+      "max_tokens": 8192,
+      "max_concurrency": 2,
+      "requests_per_minute": 20,
+      "tokens_per_minute": 200000,
+      "timeout_seconds": 180,
+      "retry_policy": "exponential_backoff",
+      "daily_budget_usd": null,
+      "payload": {
+        "source": "seed_default"
+      },
+      "created_at": "2026-05-05T01:15:55.930023Z",
+      "updated_at": "2026-05-05T01:15:55.930023Z"
+    },
+    {
+      "job_type": "branch_universe",
+      "preferred_provider": "openrouter",
+      "preferred_model": "deepseek/deepseek-v4-flash",
+      "fallback_provider": "openrouter",
+      "fallback_model": "deepseek/deepseek-v4-flash",
+      "temperature": 0.3,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "max_concurrency": 4,
+      "requests_per_minute": 20,
+      "tokens_per_minute": 150000,
+      "timeout_seconds": 60,
+      "retry_policy": "exponential_backoff",
+      "daily_budget_usd": null,
+      "payload": {
+        "source": "seed_default"
+      },
+      "created_at": "2026-05-05T01:15:55.930023Z",
+      "updated_at": "2026-05-05T01:15:55.930023Z"
+    },
+    {
+      "job_type": "evaluate_endpoint_ledger",
+      "preferred_provider": "openai-codex",
+      "preferred_model": "gpt-5.4",
+      "fallback_provider": "openai-codex",
+      "fallback_model": "gpt-5.4",
+      "temperature": 0.15,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "max_concurrency": 2,
+      "requests_per_minute": 20,
+      "tokens_per_minute": 200000,
+      "timeout_seconds": 180,
+      "retry_policy": "exponential_backoff",
+      "daily_budget_usd": null,
+      "payload": {
+        "source": "seed_default"
+      },
+      "created_at": "2026-05-05T01:15:55.930023Z",
+      "updated_at": "2026-05-05T01:15:55.930023Z"
+    },
+    {
+      "job_type": "build_review_index",
+      "preferred_provider": "openrouter",
+      "preferred_model": "deepseek/deepseek-v4-flash",
+      "fallback_provider": "openrouter",
+      "fallback_model": "deepseek/deepseek-v4-flash",
+      "temperature": 0.1,
+      "top_p": 1.0,
+      "max_tokens": 2048,
+      "max_concurrency": 4,
+      "requests_per_minute": 30,
+      "tokens_per_minute": 100000,
+      "timeout_seconds": 60,
+      "retry_policy": "linear",
+      "daily_budget_usd": null,
+      "payload": {
+        "source": "seed_default"
+      },
+      "created_at": "2026-05-05T01:15:55.930023Z",
+      "updated_at": "2026-05-05T01:15:55.930023Z"
+    },
+    {
+      "job_type": "export_run",
+      "preferred_provider": "openrouter",
+      "preferred_model": "deepseek/deepseek-v4-flash",
+      "fallback_provider": "openrouter",
+      "fallback_model": "deepseek/deepseek-v4-flash",
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 2048,
+      "max_concurrency": 2,
+      "requests_per_minute": 10,
+      "tokens_per_minute": 50000,
+      "timeout_seconds": 120,
+      "retry_policy": "linear",
+      "daily_budget_usd": null,
+      "payload": {
+        "source": "seed_default"
+      },
+      "created_at": "2026-05-05T01:15:55.930023Z",
+      "updated_at": "2026-05-05T01:15:55.930023Z"
+    },
+    {
+      "job_type": "apply_tick_results",
+      "preferred_provider": "openrouter",
+      "preferred_model": "deepseek/deepseek-v4-flash",
+      "fallback_provider": "openrouter",
+      "fallback_model": "deepseek/deepseek-v4-flash",
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 2048,
+      "max_concurrency": 8,
+      "requests_per_minute": 60,
+      "tokens_per_minute": 100000,
+      "timeout_seconds": 60,
+      "retry_policy": "exponential_backoff",
+      "daily_budget_usd": null,
+      "payload": {
+        "source": "seed_default"
+      },
+      "created_at": "2026-05-05T01:15:55.930023Z",
+      "updated_at": "2026-05-05T01:15:55.930023Z"
+    },
+    {
+      "job_type": "initializer_agent",
+      "preferred_provider": "openai-codex",
+      "preferred_model": "gpt-5.4",
+      "fallback_provider": "openai-codex",
+      "fallback_model": "gpt-5.4",
+      "temperature": 0.25,
+      "top_p": 1.0,
+      "max_tokens": 131072,
+      "max_concurrency": 2,
+      "requests_per_minute": 20,
+      "tokens_per_minute": 1000000,
+      "timeout_seconds": 1200,
+      "retry_policy": "exponential_backoff",
+      "daily_budget_usd": null,
+      "payload": {
+        "source": "seed_default",
+        "reasoning": {
+          "effort": "low",
+          "exclude": true
+        }
+      },
+      "created_at": "2026-05-05T01:15:55.930023Z",
+      "updated_at": "2026-05-05T01:15:55.930023Z"
+    },
+    {
+      "job_type": "initializer_chunk_extractor",
+      "preferred_provider": "openai-codex",
+      "preferred_model": "gpt-5.4",
+      "fallback_provider": "openai-codex",
+      "fallback_model": "gpt-5.4",
+      "temperature": 0.15,
+      "top_p": 1.0,
+      "max_tokens": 32768,
+      "max_concurrency": 4,
+      "requests_per_minute": 60,
+      "tokens_per_minute": 800000,
+      "timeout_seconds": 600,
+      "retry_policy": "exponential_backoff",
+      "daily_budget_usd": null,
+      "payload": {
+        "source": "seed_default",
+        "reasoning": {
+          "effort": "low",
+          "exclude": true
+        }
+      },
+      "created_at": "2026-05-05T01:15:55.930023Z",
+      "updated_at": "2026-05-05T01:15:55.930023Z"
+    },
+    {
+      "job_type": "god_agent",
+      "preferred_provider": "openai-codex",
+      "preferred_model": "gpt-5.4",
+      "fallback_provider": "openai-codex",
+      "fallback_model": "gpt-5.4",
+      "temperature": 0.2,
+      "top_p": 1.0,
+      "max_tokens": 8192,
+      "max_concurrency": 2,
+      "requests_per_minute": 20,
+      "tokens_per_minute": 200000,
+      "timeout_seconds": 180,
+      "retry_policy": "exponential_backoff",
+      "daily_budget_usd": null,
+      "payload": {
+        "source": "seed_default"
+      },
+      "created_at": "2026-05-05T01:15:55.930023Z",
+      "updated_at": "2026-05-05T01:15:55.930023Z"
+    },
+    {
+      "job_type": "cohort_agent",
+      "preferred_provider": "openrouter",
+      "preferred_model": "deepseek/deepseek-v4-flash",
+      "fallback_provider": "openrouter",
+      "fallback_model": "deepseek/deepseek-v4-flash",
+      "temperature": 0.8,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "max_concurrency": 16,
+      "requests_per_minute": 120,
+      "tokens_per_minute": 400000,
+      "timeout_seconds": 90,
+      "retry_policy": "exponential_backoff",
+      "daily_budget_usd": null,
+      "payload": {
+        "source": "seed_default"
+      },
+      "created_at": "2026-05-05T01:15:55.930023Z",
+      "updated_at": "2026-05-05T01:15:55.930023Z"
+    },
+    {
+      "job_type": "hero_agent",
+      "preferred_provider": "openrouter",
+      "preferred_model": "deepseek/deepseek-v4-flash",
+      "fallback_provider": "openrouter",
+      "fallback_model": "deepseek/deepseek-v4-flash",
+      "temperature": 0.8,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "max_concurrency": 16,
+      "requests_per_minute": 120,
+      "tokens_per_minute": 400000,
+      "timeout_seconds": 90,
+      "retry_policy": "exponential_backoff",
+      "daily_budget_usd": null,
+      "payload": {
+        "source": "seed_default"
+      },
+      "created_at": "2026-05-05T01:15:55.930023Z",
+      "updated_at": "2026-05-05T01:15:55.930023Z"
+    },
+    {
+      "job_type": "event_summary",
+      "preferred_provider": "openrouter",
+      "preferred_model": "deepseek/deepseek-v4-flash",
+      "fallback_provider": "openrouter",
+      "fallback_model": "deepseek/deepseek-v4-flash",
+      "temperature": 0.5,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "max_concurrency": 8,
+      "requests_per_minute": 60,
+      "tokens_per_minute": 200000,
+      "timeout_seconds": 60,
+      "retry_policy": "exponential_backoff",
+      "daily_budget_usd": null,
+      "payload": {
+        "source": "seed_default"
+      },
+      "created_at": "2026-05-05T01:15:55.930023Z",
+      "updated_at": "2026-05-05T01:15:55.930023Z"
+    },
+    {
+      "job_type": "endpoint_ledger",
+      "preferred_provider": "openai-codex",
+      "preferred_model": "gpt-5.4",
+      "fallback_provider": "openai-codex",
+      "fallback_model": "gpt-5.4",
+      "temperature": 0.15,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "max_concurrency": 2,
+      "requests_per_minute": 20,
+      "tokens_per_minute": 200000,
+      "timeout_seconds": 180,
+      "retry_policy": "exponential_backoff",
+      "daily_budget_usd": null,
+      "payload": {
+        "source": "seed_default"
+      },
+      "created_at": "2026-05-05T01:15:55.930023Z",
+      "updated_at": "2026-05-05T01:15:55.930023Z"
+    },
+    {
+      "job_type": "report_agent",
+      "preferred_provider": "openai-codex",
+      "preferred_model": "gpt-5.4",
+      "fallback_provider": "openai-codex",
+      "fallback_model": "gpt-5.4",
+      "temperature": 0.25,
+      "top_p": 1.0,
+      "max_tokens": 8192,
+      "max_concurrency": 2,
+      "requests_per_minute": 20,
+      "tokens_per_minute": 200000,
+      "timeout_seconds": 300,
+      "retry_policy": "exponential_backoff",
+      "daily_budget_usd": null,
+      "payload": {
+        "source": "seed_default"
+      },
+      "created_at": "2026-05-05T01:15:55.930023Z",
+      "updated_at": "2026-05-05T01:15:55.930023Z"
+    }
+  ],
+  "effective_model_routing": [
+    {
+      "route": "initializer_chunk_extractor",
+      "route_kind": "audited_llm",
+      "job_type": "initializer_chunk_extractor",
+      "matched_route": "initializer_chunk_extractor",
+      "preferred_provider": "openai-codex",
+      "preferred_model": "gpt-5.4",
+      "fallback_provider": "openai-codex",
+      "fallback_model": "gpt-5.4",
+      "temperature": 0.15,
+      "top_p": 1.0,
+      "max_tokens": 32768,
+      "max_concurrency": 4,
+      "requests_per_minute": 60,
+      "tokens_per_minute": 800000,
+      "timeout_seconds": 600,
+      "retry_policy": "exponential_backoff",
+      "daily_budget_usd": null,
+      "source": "seed_default",
+      "payload": {
+        "source": "seed_default",
+        "reasoning": {
+          "effort": "low",
+          "exclude": true
+        }
+      }
+    },
+    {
+      "route": "initializer_agent",
+      "route_kind": "audited_llm",
+      "job_type": "initializer_agent",
+      "matched_route": "initializer_agent",
+      "preferred_provider": "openai-codex",
+      "preferred_model": "gpt-5.4",
+      "fallback_provider": "openai-codex",
+      "fallback_model": "gpt-5.4",
+      "temperature": 0.25,
+      "top_p": 1.0,
+      "max_tokens": 131072,
+      "max_concurrency": 2,
+      "requests_per_minute": 20,
+      "tokens_per_minute": 1000000,
+      "timeout_seconds": 1200,
+      "retry_policy": "exponential_backoff",
+      "daily_budget_usd": null,
+      "source": "seed_default",
+      "payload": {
+        "source": "seed_default",
+        "reasoning": {
+          "effort": "low",
+          "exclude": true
+        }
+      }
+    },
+    {
+      "route": "god_agent",
+      "route_kind": "audited_llm",
+      "job_type": "god_agent",
+      "matched_route": "god_agent",
+      "preferred_provider": "openai-codex",
+      "preferred_model": "gpt-5.4",
+      "fallback_provider": "openai-codex",
+      "fallback_model": "gpt-5.4",
+      "temperature": 0.2,
+      "top_p": 1.0,
+      "max_tokens": 8192,
+      "max_concurrency": 2,
+      "requests_per_minute": 20,
+      "tokens_per_minute": 200000,
+      "timeout_seconds": 180,
+      "retry_policy": "exponential_backoff",
+      "daily_budget_usd": null,
+      "source": "seed_default",
+      "payload": {
+        "source": "seed_default"
+      }
+    },
+    {
+      "route": "cohort_agent",
+      "route_kind": "audited_llm",
+      "job_type": "cohort_agent",
+      "matched_route": "cohort_agent",
+      "preferred_provider": "openrouter",
+      "preferred_model": "deepseek/deepseek-v4-flash",
+      "fallback_provider": "openrouter",
+      "fallback_model": "deepseek/deepseek-v4-flash",
+      "temperature": 0.8,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "max_concurrency": 16,
+      "requests_per_minute": 120,
+      "tokens_per_minute": 400000,
+      "timeout_seconds": 90,
+      "retry_policy": "exponential_backoff",
+      "daily_budget_usd": null,
+      "source": "seed_default",
+      "payload": {
+        "source": "seed_default"
+      }
+    },
+    {
+      "route": "hero_agent",
+      "route_kind": "audited_llm",
+      "job_type": "hero_agent",
+      "matched_route": "hero_agent",
+      "preferred_provider": "openrouter",
+      "preferred_model": "deepseek/deepseek-v4-flash",
+      "fallback_provider": "openrouter",
+      "fallback_model": "deepseek/deepseek-v4-flash",
+      "temperature": 0.8,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "max_concurrency": 16,
+      "requests_per_minute": 120,
+      "tokens_per_minute": 400000,
+      "timeout_seconds": 90,
+      "retry_policy": "exponential_backoff",
+      "daily_budget_usd": null,
+      "source": "seed_default",
+      "payload": {
+        "source": "seed_default"
+      }
+    },
+    {
+      "route": "event_summary",
+      "route_kind": "audited_llm",
+      "job_type": "event_summary",
+      "matched_route": "event_summary",
+      "preferred_provider": "openrouter",
+      "preferred_model": "deepseek/deepseek-v4-flash",
+      "fallback_provider": "openrouter",
+      "fallback_model": "deepseek/deepseek-v4-flash",
+      "temperature": 0.5,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "max_concurrency": 8,
+      "requests_per_minute": 60,
+      "tokens_per_minute": 200000,
+      "timeout_seconds": 60,
+      "retry_policy": "exponential_backoff",
+      "daily_budget_usd": null,
+      "source": "seed_default",
+      "payload": {
+        "source": "seed_default"
+      }
+    },
+    {
+      "route": "report_agent",
+      "route_kind": "audited_llm",
+      "job_type": "report_agent",
+      "matched_route": "report_agent",
+      "preferred_provider": "openai-codex",
+      "preferred_model": "gpt-5.4",
+      "fallback_provider": "openai-codex",
+      "fallback_model": "gpt-5.4",
+      "temperature": 0.25,
+      "top_p": 1.0,
+      "max_tokens": 8192,
+      "max_concurrency": 2,
+      "requests_per_minute": 20,
+      "tokens_per_minute": 200000,
+      "timeout_seconds": 300,
+      "retry_policy": "exponential_backoff",
+      "daily_budget_usd": null,
+      "source": "seed_default",
+      "payload": {
+        "source": "seed_default"
+      }
+    },
+    {
+      "route": "endpoint_ledger",
+      "route_kind": "audited_llm",
+      "job_type": "endpoint_ledger",
+      "matched_route": "endpoint_ledger",
+      "preferred_provider": "openai-codex",
+      "preferred_model": "gpt-5.4",
+      "fallback_provider": "openai-codex",
+      "fallback_model": "gpt-5.4",
+      "temperature": 0.15,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "max_concurrency": 2,
+      "requests_per_minute": 20,
+      "tokens_per_minute": 200000,
+      "timeout_seconds": 180,
+      "retry_policy": "exponential_backoff",
+      "daily_budget_usd": null,
+      "source": "seed_default",
+      "payload": {
+        "source": "seed_default"
+      }
+    }
+  ],
+  "known_routes": [
+    {
+      "route": "initializer_chunk_extractor",
+      "route_kind": "audited_llm",
+      "label": "Initializer chunk extractor",
+      "description": "Extracts structured facts from long scenario text chunks before initialization.",
+      "fallback_model_setting": "initializer_agent_model",
+      "direct_override": true
+    },
+    {
+      "route": "initializer_agent",
+      "route_kind": "audited_llm",
+      "label": "Initializer agent",
+      "description": "Builds the initial actors, cohorts, heroes, graph state, and baseline events.",
+      "fallback_model_setting": "initializer_agent_model",
+      "direct_override": true
+    },
+    {
+      "route": "god_agent",
+      "route_kind": "audited_llm",
+      "label": "God review agent",
+      "description": "Reviews provisional ticks and decides whether to continue, branch, merge, or terminate.",
+      "fallback_model_setting": "god_agent_model",
+      "direct_override": true
+    },
+    {
+      "route": "cohort_agent",
+      "route_kind": "audited_llm",
+      "label": "Cohort agent",
+      "description": "Generates cohort social actions, proposed events, and self-ratings for each tick.",
+      "fallback_model_setting": "cohort_agent_model",
+      "direct_override": true
+    },
+    {
+      "route": "hero_agent",
+      "route_kind": "audited_llm",
+      "label": "Hero agent",
+      "description": "Generates hero social actions, proposed events, and self-ratings for each tick.",
+      "fallback_model_setting": "hero_agent_model",
+      "direct_override": true
+    },
+    {
+      "route": "event_summary",
+      "route_kind": "audited_llm",
+      "label": "Event summary agent",
+      "description": "Summarizes executed simulation events into structured event summary records.",
+      "fallback_model_setting": "event_summary_model",
+      "direct_override": true
+    },
+    {
+      "route": "report_agent",
+      "route_kind": "audited_llm",
+      "label": "Report agent",
+      "description": "Writes structured multiverse and final Big Bang report summaries.",
+      "fallback_model_setting": "report_agent_model",
+      "direct_override": true
+    },
+    {
+      "route": "endpoint_ledger",
+      "route_kind": "audited_llm",
+      "label": "Endpoint ledger evaluator",
+      "description": "Evaluates endpoint ledger probabilities from simulation evidence.",
+      "fallback_model_setting": "god_agent_model",
+      "direct_override": true
+    }
+  ],
+  "rate_limits": [
+    {
+      "provider": "openrouter",
+      "enabled": true,
+      "rpm_limit": 200,
+      "tpm_limit": 500000,
+      "max_concurrency": 32,
+      "burst_multiplier": 1.5,
+      "retry_policy": "exponential_backoff",
+      "jitter": true,
+      "daily_budget_usd": null,
+      "branch_reserved_capacity_pct": 20.0,
+      "healthcheck_enabled": true,
+      "payload": {},
+      "created_at": "2026-05-05T01:15:55.930023Z",
+      "updated_at": "2026-05-05T01:15:55.930023Z"
+    }
+  ],
+  "effective_rate_limits": [
+    {
+      "provider": "openrouter",
+      "enabled": true,
+      "rpm_limit": 200,
+      "tpm_limit": 500000,
+      "max_concurrency": 32,
+      "burst_multiplier": 1.5,
+      "retry_policy": "exponential_backoff",
+      "jitter": true,
+      "daily_budget_usd": null,
+      "branch_reserved_capacity_pct": 20.0,
+      "healthcheck_enabled": true,
+      "payload": {},
+      "created_at": "2026-05-05T01:15:55.930023Z",
+      "updated_at": "2026-05-05T01:15:55.930023Z",
+      "source": "settings_rate_limit"
+    }
+  ],
+  "api": {
+    "providers": "/api/settings/providers",
+    "model_routing": "/api/settings/model-routing",
+    "rate_limits": "/api/settings/rate-limits"
+  }
+}

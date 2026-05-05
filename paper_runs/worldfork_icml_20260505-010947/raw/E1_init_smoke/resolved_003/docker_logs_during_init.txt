@@ -1,0 +1,102 @@
+worker_p1-1  | /opt/venv/lib/python3.11/site-packages/celery/platforms.py:841: SecurityWarning: You're running the worker with superuser privileges: this is
+worker_p1-1  | absolutely not recommended!
+worker_p1-1  | 
+worker_p1-1  | Please specify a different user using the --uid option.
+worker_p1-1  | 
+worker_p1-1  | User information: uid=0 euid=0 gid=0 egid=0
+worker_p1-1  | 
+worker_p1-1  |   warnings.warn(SecurityWarning(ROOT_DISCOURAGED.format(
+worker_p1-1  |  
+worker_p1-1  |  -------------- p1@9e111d29a346 v5.6.3 (recovery)
+worker_p1-1  | --- ***** ----- 
+worker_p1-1  | -- ******* ---- Linux-6.19.13-orbstack-gbd1dc07b8cf4-aarch64-with-glibc2.41 2026-05-05 01:15:36
+worker_p1-1  | - *** --- * --- 
+worker_p1-1  | - ** ---------- [config]
+worker_p1-1  | - ** ---------- .> app:         worldfork:0xffffbb540f50
+worker_p1-1  | - ** ---------- .> transport:   redis://redis:6379/1
+worker_p1-1  | - ** ---------- .> results:     redis://redis:6379/2
+worker_p1-1  | - *** --- * --- .> concurrency: 8 (prefork)
+worker_p1-1  | -- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+worker_p1-1  | --- ***** ----- 
+worker_p1-1  |  -------------- [queues]
+worker_p1-1  |                 .> p1               exchange=p1(direct) key=p1
+worker_p1-1  |                 
+worker_p1-1  | 
+worker_p1-1  | [tasks]
+worker_p1-1  |   . actor_deliberation_call
+worker_p1-1  |   . aggregate_run_results
+worker_p1-1  |   . apply_tick_results
+worker_p1-1  |   . branch_universe
+worker_p1-1  |   . build_review_index
+worker_p1-1  |   . echo_envelope
+worker_p1-1  |   . execute_due_events
+worker_p1-1  |   . export_run
+worker_p1-1  |   . force_deviation
+worker_p1-1  |   . god_agent_review
+worker_p1-1  |   . initialize_big_bang
+worker_p1-1  |   . simulate_universe_tick
+worker_p1-1  |   . social_propagation
+worker_p1-1  |   . sociology_update
+worker_p1-1  |   . worldfork.execute_job
+worker_p1-1  |   . worldfork.heartbeat
+worker_p1-1  | 
+worker_p1-1  | [2026-05-05 01:15:39,831: INFO/MainProcess] Connected to redis://redis:6379/1
+worker_p1-1  | [2026-05-05 01:15:39,839: INFO/MainProcess] mingle: searching for neighbors
+worker_p1-1  | [2026-05-05 01:15:40,871: INFO/MainProcess] mingle: sync with 3 nodes
+worker_p1-1  | [2026-05-05 01:15:40,875: INFO/MainProcess] mingle: sync complete
+worker_p1-1  | [2026-05-05 01:15:40,906: INFO/MainProcess] p1@9e111d29a346 ready.
+worker_p1-1  | [2026-05-05 01:16:06,363: INFO/MainProcess] Task worldfork.heartbeat[5348e05c-da5b-47b8-bb3b-2e0a215c2eb5] received
+worker_p1-1  | [2026-05-05 01:16:06,369: INFO/ForkPoolWorker-8] {'task_id': '5348e05c-da5b-47b8-bb3b-2e0a215c2eb5', 'event': 'heartbeat', 'logger': 'backend.app.workers.jobs', 'level': 'info', 'timestamp': '2026-05-05T01:16:06.369023Z'}
+worker_p1-1  | [2026-05-05 01:16:06,370: INFO/ForkPoolWorker-8] Task worldfork.heartbeat[5348e05c-da5b-47b8-bb3b-2e0a215c2eb5] succeeded in 0.0026879720389842987s: None
+worker_p1-1  | [2026-05-05 01:16:36,335: INFO/MainProcess] Task worldfork.heartbeat[a035470f-8cb2-440c-9307-a528e0f96523] received
+worker_p1-1  | [2026-05-05 01:16:36,337: INFO/ForkPoolWorker-8] {'task_id': 'a035470f-8cb2-440c-9307-a528e0f96523', 'event': 'heartbeat', 'logger': 'backend.app.workers.jobs', 'level': 'info', 'timestamp': '2026-05-05T01:16:36.337020Z'}
+worker_p1-1  | [2026-05-05 01:16:36,337: INFO/ForkPoolWorker-8] Task worldfork.heartbeat[a035470f-8cb2-440c-9307-a528e0f96523] succeeded in 0.00042579398723319173s: None
+worker_p1-1  | [2026-05-05 01:17:06,334: INFO/MainProcess] Task worldfork.heartbeat[28b03226-3f16-4b10-a5c7-3b2f305cc408] received
+worker_p1-1  | [2026-05-05 01:17:06,334: INFO/ForkPoolWorker-8] {'task_id': '28b03226-3f16-4b10-a5c7-3b2f305cc408', 'event': 'heartbeat', 'logger': 'backend.app.workers.jobs', 'level': 'info', 'timestamp': '2026-05-05T01:17:06.334845Z'}
+worker_p1-1  | [2026-05-05 01:17:06,334: INFO/ForkPoolWorker-8] Task worldfork.heartbeat[28b03226-3f16-4b10-a5c7-3b2f305cc408] succeeded in 0.0001727920025587082s: None
+worker_p1-1  | [2026-05-05 01:17:36,335: INFO/MainProcess] Task worldfork.heartbeat[6275301a-cfeb-46f6-ac2b-41aeb4dca3bc] received
+worker_p1-1  | [2026-05-05 01:17:36,336: INFO/ForkPoolWorker-8] {'task_id': '6275301a-cfeb-46f6-ac2b-41aeb4dca3bc', 'event': 'heartbeat', 'logger': 'backend.app.workers.jobs', 'level': 'info', 'timestamp': '2026-05-05T01:17:36.336910Z'}
+worker_p1-1  | [2026-05-05 01:17:36,337: INFO/ForkPoolWorker-8] Task worldfork.heartbeat[6275301a-cfeb-46f6-ac2b-41aeb4dca3bc] succeeded in 0.0004373359843157232s: None
+worker_p1-1  | [2026-05-05 01:18:06,335: INFO/MainProcess] Task worldfork.heartbeat[a20073b4-ccd8-4f77-bd75-2954e7a4de24] received
+worker_p1-1  | [2026-05-05 01:18:06,336: INFO/ForkPoolWorker-8] {'task_id': 'a20073b4-ccd8-4f77-bd75-2954e7a4de24', 'event': 'heartbeat', 'logger': 'backend.app.workers.jobs', 'level': 'info', 'timestamp': '2026-05-05T01:18:06.336114Z'}
+worker_p1-1  | [2026-05-05 01:18:06,336: INFO/ForkPoolWorker-8] Task worldfork.heartbeat[a20073b4-ccd8-4f77-bd75-2954e7a4de24] succeeded in 0.0005493770004250109s: None
+worker_p1-1  | [2026-05-05 01:18:36,334: INFO/MainProcess] Task worldfork.heartbeat[be67eba4-9f3a-4cc4-8d7d-1395de4ebe75] received
+worker_p1-1  | [2026-05-05 01:18:36,334: INFO/ForkPoolWorker-8] {'task_id': 'be67eba4-9f3a-4cc4-8d7d-1395de4ebe75', 'event': 'heartbeat', 'logger': 'backend.app.workers.jobs', 'level': 'info', 'timestamp': '2026-05-05T01:18:36.334954Z'}
+worker_p1-1  | [2026-05-05 01:18:36,335: INFO/ForkPoolWorker-8] Task worldfork.heartbeat[be67eba4-9f3a-4cc4-8d7d-1395de4ebe75] succeeded in 0.00023279298329725862s: None
+api-1        | INFO:     Will watch for changes in these directories: ['/app']
+api-1        | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+api-1        | INFO:     Started reloader process [1] using WatchFiles
+api-1        | INFO:     Started server process [8]
+api-1        | INFO:     Waiting for application startup.
+api-1        | INFO:     Application startup complete.
+api-1        | INFO:     192.168.164.1:44392 - "GET /readyz HTTP/1.1" 200 OK
+api-1        | INFO:     192.168.164.1:54366 - "GET /readyz HTTP/1.1" 200 OK
+api-1        | INFO:     192.168.164.1:40538 - "GET /api/agent/discover HTTP/1.1" 200 OK
+api-1        | INFO:     192.168.164.1:56194 - "GET /api/agent/models HTTP/1.1" 200 OK
+api-1        | INFO:     192.168.164.1:52215 - "GET /api/agent/status HTTP/1.1" 200 OK
+api-1        | INFO:     192.168.164.1:41152 - "GET /api/settings/branch-policy HTTP/1.1" 200 OK
+api-1        | INFO:     192.168.164.1:20082 - "GET /api/settings/llm HTTP/1.1" 200 OK
+api-1        | INFO:     192.168.164.1:45462 - "GET /api/jobs/workers HTTP/1.1" 200 OK
+api-1        | INFO:     192.168.164.1:17795 - "GET /api/agent/jobs?verbosity=summary&limit=100&offset=0 HTTP/1.1" 200 OK
+api-1        | INFO:     192.168.164.1:55982 - "GET /api/agent/logs?verbosity=summary&status=failed&limit=100&offset=0 HTTP/1.1" 200 OK
+api-1        | WARNING:  WatchFiles detected changes in 'backend/app/domains/jobs/routes.py'. Reloading...
+api-1        | INFO:     Shutting down
+api-1        | INFO:     Waiting for application shutdown.
+api-1        | INFO:     Application shutdown complete.
+api-1        | INFO:     Finished server process [8]
+api-1        | INFO:     Started server process [31]
+api-1        | INFO:     Waiting for application startup.
+api-1        | INFO:     Application startup complete.
+api-1        | INFO:     192.168.164.1:16401 - "GET /api/jobs/workers HTTP/1.1" 200 OK
+api-1        | WARNING:  WatchFiles detected changes in 'backend/app/domains/jobs/routes.py'. Reloading...
+api-1        | INFO:     Shutting down
+api-1        | INFO:     Waiting for application shutdown.
+api-1        | INFO:     Application shutdown complete.
+api-1        | INFO:     Finished server process [31]
+api-1        | INFO:     Started server process [39]
+api-1        | INFO:     Waiting for application startup.
+api-1        | INFO:     Application startup complete.
+api-1        | INFO:     192.168.164.1:51555 - "GET /api/jobs/workers HTTP/1.1" 200 OK
+api-1        | INFO:     192.168.164.1:37715 - "GET /api/jobs/queues HTTP/1.1" 200 OK
+api-1        | [2m2026-05-05T01:18:05.976800Z[0m [[32m[1minfo     [0m] [1mHTTP Request: POST https://chatgpt.com/backend-api/codex/responses "HTTP/1.1 400 Bad Request"[0m [[0m[1m[34mhttpx[0m][0m
+api-1        | [2m2026-05-05T01:18:06.420974Z[0m [[32m[1minfo     [0m] [1mHTTP Request: POST https://chatgpt.com/backend-api/codex/responses "HTTP/1.1 200 OK"[0m [[0m[1m[34mhttpx[0m][0m

@@ -1,0 +1,1383 @@
+{
+  "big_bang_id": "5dc8596a-c386-428b-91bc-38ba76a2d688",
+  "scenario_text_present": true,
+  "plain_text_corpus": {
+    "raw_char_count": 1777,
+    "chunk_artifacts": [
+      {
+        "end": 1777,
+        "index": 0,
+        "start": 0,
+        "char_count": 1777
+      }
+    ],
+    "chunk_summaries": [],
+    "simulation_brief": {
+      "mode": "direct",
+      "text": "[debug gated]",
+      "chunk_summaries": []
+    }
+  },
+  "initializer_output": {
+    "model": "gpt-5.4",
+    "actors": [
+      {
+        "name": "fomc_committee",
+        "role": "formal_rate_decision_authority",
+        "type": "institutional_decision_body",
+        "stakes": "Balance inflation control, labor-market support, and policy credibility at the December 10 meeting.",
+        "fictionalized": false,
+        "public_visibility": 0.95
+      },
+      {
+        "name": "fed_chair",
+        "role": "agenda_shaping_and_public_communication",
+        "type": "individual_official",
+        "stakes": "Preserve data-dependent credibility and committee cohesion.",
+        "fictionalized": true,
+        "public_visibility": 0.98
+      },
+      {
+        "name": "committee_hawks",
+        "role": "inflation_caution_faction",
+        "type": "intra_institution_faction",
+        "stakes": "Avoid premature easing while inflation remains above target.",
+        "fictionalized": true,
+        "public_visibility": 0.55
+      },
+      {
+        "name": "committee_doves",
+        "role": "labor_support_faction",
+        "type": "intra_institution_faction",
+        "stakes": "Respond if labor-market softening threatens broader slowdown.",
+        "fictionalized": true,
+        "public_visibility": 0.55
+      },
+      {
+        "name": "market_rate_traders",
+        "role": "pricing_policy_expectations",
+        "type": "market_group",
+        "stakes": "Positioning around odds of a quarter-point cut or hold.",
+        "fictionalized": true,
+        "public_visibility": 0.7
+      },
+      {
+        "name": "macro_analysts",
+        "role": "interpret_data_and_signals",
+        "type": "expert_commentary_group",
+        "stakes": "Accurately interpret data dependence and incoming macro signals.",
+        "fictionalized": true,
+        "public_visibility": 0.62
+      },
+      {
+        "name": "financial_media",
+        "role": "amplify_expectations_and_narratives",
+        "type": "media_system",
+        "stakes": "Frame the decision as cut-versus-hold and report policy signals.",
+        "fictionalized": true,
+        "public_visibility": 0.9
+      },
+      {
+        "name": "inflation_sensitive_households",
+        "role": "price_level_concern_public",
+        "type": "public_cohort_actor",
+        "stakes": "Prefer inflation relief and stable prices.",
+        "fictionalized": true,
+        "public_visibility": 0.35
+      },
+      {
+        "name": "employment_sensitive_households",
+        "role": "labor_market_concern_public",
+        "type": "public_cohort_actor",
+        "stakes": "Prefer support if jobs outlook softens.",
+        "fictionalized": true,
+        "public_visibility": 0.35
+      }
+    ],
+    "heroes": [
+      {
+        "label": "Formal decision authority",
+        "description": "Actors with direct power to realize the endpoint.",
+        "archetype_key": "deciding_institution"
+      },
+      {
+        "label": "Signal interpreter",
+        "description": "Actors who translate sparse signals into public expectations.",
+        "archetype_key": "signal_interpreter"
+      }
+    ],
+    "cohorts": [
+      {
+        "label": "Traders leaning toward some easing odds",
+        "fatigue": 0.34,
+        "secrecy": 0.22,
+        "cohort_key": "traders_cut_pricers",
+        "reputation": 0.61,
+        "stance_axes": {
+          "labor_priority": 0.58,
+          "inflation_priority": 0.46,
+          "december_cut_support": 0.62,
+          "data_dependence_acceptance": 0.74
+        },
+        "archetype_key": "financial_observer_ecosystem",
+        "private_belief": "A cut is plausible but not assured.",
+        "attention_level": 0.96,
+        "trustworthiness": 0.53,
+        "expression_level": 0.72,
+        "fear_of_isolation": 0.18,
+        "public_expression": "Markets discuss a possible quarter-point cut.",
+        "perceived_majority": 0.54,
+        "representation_mode": "partial_segment",
+        "behavioral_tendencies": [
+          "rapid_repricing",
+          "headline_sensitivity",
+          "conditional_conviction"
+        ],
+        "mobilization_readiness": 0.64,
+        "represented_population": 70000,
+        "population_share_of_archetype": 0.28
+      },
+      {
+        "label": "Analysts emphasizing data dependence",
+        "fatigue": 0.29,
+        "secrecy": 0.18,
+        "cohort_key": "analysts_data_dependence_watchers",
+        "reputation": 0.66,
+        "stance_axes": {
+          "labor_priority": 0.54,
+          "inflation_priority": 0.57,
+          "december_cut_support": 0.48,
+          "data_dependence_acceptance": 0.88
+        },
+        "archetype_key": "financial_observer_ecosystem",
+        "private_belief": "Communications do not pre-commit the committee to cut.",
+        "attention_level": 0.89,
+        "trustworthiness": 0.68,
+        "expression_level": 0.63,
+        "fear_of_isolation": 0.21,
+        "public_expression": "Outcome hinges on incoming inflation and labor data.",
+        "perceived_majority": 0.6,
+        "representation_mode": "partial_segment",
+        "behavioral_tendencies": [
+          "caveated_commentary",
+          "scenario_analysis",
+          "signal_parsing"
+        ],
+        "mobilization_readiness": 0.41,
+        "represented_population": 90000,
+        "population_share_of_archetype": 0.36
+      },
+      {
+        "label": "Households focused on inflation remaining above target",
+        "fatigue": 0.47,
+        "secrecy": 0.61,
+        "cohort_key": "inflation_concerned_households",
+        "reputation": 0.5,
+        "stance_axes": {
+          "labor_priority": 0.42,
+          "inflation_priority": 0.81,
+          "december_cut_support": 0.32,
+          "data_dependence_acceptance": 0.51
+        },
+        "archetype_key": "general_us_households",
+        "private_belief": "Rate cuts may be premature if inflation is still elevated.",
+        "attention_level": 0.24,
+        "trustworthiness": 0.57,
+        "expression_level": 0.12,
+        "fear_of_isolation": 0.41,
+        "public_expression": "Limited direct expression; views surface through general sentiment and media reactions.",
+        "perceived_majority": 0.58,
+        "representation_mode": "broad_segment",
+        "behavioral_tendencies": [
+          "low_attention_monitoring",
+          "price_salience",
+          "reactive_opinion"
+        ],
+        "mobilization_readiness": 0.12,
+        "represented_population": 65000000,
+        "population_share_of_archetype": 0.5
+      },
+      {
+        "label": "Households focused on labor-market softening risks",
+        "fatigue": 0.44,
+        "secrecy": 0.63,
+        "cohort_key": "employment_concerned_households",
+        "reputation": 0.5,
+        "stance_axes": {
+          "labor_priority": 0.79,
+          "inflation_priority": 0.37,
+          "december_cut_support": 0.59,
+          "data_dependence_acceptance": 0.49
+        },
+        "archetype_key": "general_us_households",
+        "private_belief": "Some easing would be justified if labor conditions deteriorate.",
+        "attention_level": 0.22,
+        "trustworthiness": 0.56,
+        "expression_level": 0.11,
+        "fear_of_isolation": 0.39,
+        "public_expression": "Limited direct expression; concern is mostly latent unless job news worsens.",
+        "perceived_majority": 0.46,
+        "representation_mode": "broad_segment",
+        "behavioral_tendencies": [
+          "latent_anxiety",
+          "employment_salience",
+          "conditional_support"
+        ],
+        "mobilization_readiness": 0.1,
+        "represented_population": 45000000,
+        "population_share_of_archetype": 0.3462
+      },
+      {
+        "label": "Internal hawkish policy camp",
+        "fatigue": 0.26,
+        "secrecy": 0.72,
+        "cohort_key": "committee_internal_hawks",
+        "reputation": 0.71,
+        "stance_axes": {
+          "labor_priority": 0.3,
+          "inflation_priority": 0.9,
+          "december_cut_support": 0.2,
+          "data_dependence_acceptance": 0.76
+        },
+        "archetype_key": "federal_reserve_policy_elite",
+        "private_belief": "Inflation above target argues against easing absent clearer deterioration.",
+        "attention_level": 0.99,
+        "trustworthiness": 0.69,
+        "expression_level": 0.45,
+        "fear_of_isolation": 0.24,
+        "public_expression": "Cautious about signaling premature cuts.",
+        "perceived_majority": 0.48,
+        "representation_mode": "faction_estimate",
+        "behavioral_tendencies": [
+          "institutional_caution",
+          "credibility_focus",
+          "threshold_based_action"
+        ],
+        "mobilization_readiness": 0.78,
+        "represented_population": 10,
+        "population_share_of_archetype": 0.3333
+      },
+      {
+        "label": "Internal dovish policy camp",
+        "fatigue": 0.25,
+        "secrecy": 0.74,
+        "cohort_key": "committee_internal_doves",
+        "reputation": 0.69,
+        "stance_axes": {
+          "labor_priority": 0.83,
+          "inflation_priority": 0.41,
+          "december_cut_support": 0.67,
+          "data_dependence_acceptance": 0.74
+        },
+        "archetype_key": "federal_reserve_policy_elite",
+        "private_belief": "Labor softening could warrant a cut even with inflation still above target if disinflation continues.",
+        "attention_level": 0.99,
+        "trustworthiness": 0.68,
+        "expression_level": 0.42,
+        "fear_of_isolation": 0.29,
+        "public_expression": "Open to easing but framed as conditional on data.",
+        "perceived_majority": 0.4,
+        "representation_mode": "faction_estimate",
+        "behavioral_tendencies": [
+          "risk_management",
+          "employment_sensitivity",
+          "conditional_easing"
+        ],
+        "mobilization_readiness": 0.72,
+        "represented_population": 8,
+        "population_share_of_archetype": 0.2667
+      },
+      {
+        "label": "Committee centrists and consensus seekers",
+        "fatigue": 0.28,
+        "secrecy": 0.77,
+        "cohort_key": "committee_centrists",
+        "reputation": 0.74,
+        "stance_axes": {
+          "labor_priority": 0.58,
+          "inflation_priority": 0.61,
+          "december_cut_support": 0.47,
+          "data_dependence_acceptance": 0.92
+        },
+        "archetype_key": "federal_reserve_policy_elite",
+        "private_belief": "Decision remains genuinely open and contingent.",
+        "attention_level": 0.99,
+        "trustworthiness": 0.72,
+        "expression_level": 0.38,
+        "fear_of_isolation": 0.19,
+        "public_expression": "Data dependence and optionality remain central.",
+        "perceived_majority": 0.55,
+        "representation_mode": "faction_estimate",
+        "behavioral_tendencies": [
+          "consensus_seeking",
+          "optionality_preservation",
+          "incrementalism"
+        ],
+        "mobilization_readiness": 0.66,
+        "represented_population": 12,
+        "population_share_of_archetype": 0.4
+      }
+    ],
+    "channels": [
+      {
+        "type": "institutional_public_signal",
+        "audience": [
+          "market_rate_traders",
+          "macro_analysts",
+          "financial_media"
+        ],
+        "channel_key": "official_fed_communications",
+        "reliability": 0.84
+      },
+      {
+        "type": "market_signal",
+        "audience": [
+          "macro_analysts",
+          "financial_media"
+        ],
+        "channel_key": "market_pricing_and_commentary",
+        "reliability": 0.61
+      },
+      {
+        "type": "expert_interpretation",
+        "audience": [
+          "market_rate_traders",
+          "financial_media"
+        ],
+        "channel_key": "analyst_notes",
+        "reliability": 0.69
+      },
+      {
+        "type": "mass_amplification",
+        "audience": [
+          "inflation_sensitive_households",
+          "employment_sensitive_households",
+          "market_rate_traders"
+        ],
+        "channel_key": "financial_news_coverage",
+        "reliability": 0.56
+      },
+      {
+        "type": "private_institutional_channel",
+        "audience": [
+          "fomc_committee",
+          "fed_chair",
+          "committee_hawks",
+          "committee_doves"
+        ],
+        "channel_key": "internal_committee_deliberation",
+        "reliability": 0.91
+      }
+    ],
+    "fallback": false,
+    "risk_flags": [
+      {
+        "note": "Corpus is short and provides limited empirical detail beyond mixed inflation/labor signals and endpoint definition.",
+        "risk_key": "sparse_source_packet",
+        "severity": "medium"
+      },
+      {
+        "note": "Scenario references a real-world institution and date; initialization keeps focus on public policy dynamics without operational targeting.",
+        "risk_key": "real_world_policy_overlap",
+        "severity": "medium"
+      },
+      {
+        "note": "Many process developments may be newsworthy without affecting the strict yes/no resolution.",
+        "risk_key": "binary_endpoint_narrowness",
+        "severity": "low"
+      },
+      {
+        "note": "General household influence is represented through specific public cohort actors; archetypes are not graph nodes.",
+        "risk_key": "graph_placeholder_constraint",
+        "severity": "low"
+      }
+    ],
+    "graph_edges": [
+      {
+        "layer": "dependency",
+        "reason": "Chair depends on committee support for formal decision realization.",
+        "weight": 0.61,
+        "evidence": "Committee is formal decision authority; chair shapes but does not solely determine outcome.",
+        "direction": "directed",
+        "source_actor_name": "fed_chair",
+        "target_actor_name": "fomc_committee"
+      },
+      {
+        "layer": "influence",
+        "reason": "Chair has strong agenda-setting and communication influence within committee process.",
+        "weight": 0.64,
+        "evidence": "Central-bank communication emphasis on data dependence implies leadership signaling matters.",
+        "direction": "directed",
+        "source_actor_name": "fed_chair",
+        "target_actor_name": "fomc_committee"
+      },
+      {
+        "layer": "coalition",
+        "reason": "Baseline cohesion around institutional process and consensus management.",
+        "weight": 0.58,
+        "evidence": "Committee communication presented as data-dependent rather than openly fractured.",
+        "direction": "directed",
+        "source_actor_name": "fed_chair",
+        "target_actor_name": "fomc_committee"
+      },
+      {
+        "layer": "conflict",
+        "reason": "Inflation-above-target and labor-softening signals point in opposite policy directions.",
+        "weight": 0.46,
+        "evidence": "Source 2 explicitly notes opposing policy implications.",
+        "direction": "bidirectional",
+        "source_actor_name": "committee_hawks",
+        "target_actor_name": "committee_doves"
+      },
+      {
+        "layer": "coalition",
+        "reason": "Hawks are internal aligned participants despite policy disagreement.",
+        "weight": 0.49,
+        "evidence": "Intra-committee faction within same institution.",
+        "direction": "directed",
+        "source_actor_name": "committee_hawks",
+        "target_actor_name": "fomc_committee"
+      },
+      {
+        "layer": "coalition",
+        "reason": "Doves remain aligned with institutional process despite differing policy preference.",
+        "weight": 0.49,
+        "evidence": "Intra-committee faction within same institution.",
+        "direction": "directed",
+        "source_actor_name": "committee_doves",
+        "target_actor_name": "fomc_committee"
+      },
+      {
+        "layer": "influence",
+        "reason": "Hawk arguments matter while inflation remains above target.",
+        "weight": 0.43,
+        "evidence": "Scenario states inflation is still above target.",
+        "direction": "directed",
+        "source_actor_name": "committee_hawks",
+        "target_actor_name": "fomc_committee"
+      },
+      {
+        "layer": "influence",
+        "reason": "Dove arguments matter if labor-market softening is judged meaningful.",
+        "weight": 0.39,
+        "evidence": "Scenario states mixed labor-market signals and softening pressure.",
+        "direction": "directed",
+        "source_actor_name": "committee_doves",
+        "target_actor_name": "fomc_committee"
+      },
+      {
+        "layer": "exposure",
+        "reason": "Traders closely monitor committee signals and statements.",
+        "weight": 0.62,
+        "evidence": "Markets discuss possible quarter-point cut based on policymaker communication.",
+        "direction": "directed",
+        "source_actor_name": "fomc_committee",
+        "target_actor_name": "market_rate_traders"
+      },
+      {
+        "layer": "exposure",
+        "reason": "Chair communications are highly watched by markets.",
+        "weight": 0.66,
+        "evidence": "Recent communication shapes expectations around data dependence.",
+        "direction": "directed",
+        "source_actor_name": "fed_chair",
+        "target_actor_name": "market_rate_traders"
+      },
+      {
+        "layer": "trust",
+        "reason": "Markets view chair guidance as informative but not fully predictive of decision.",
+        "weight": 0.51,
+        "evidence": "Communication points to data dependence rather than pre-committed cut.",
+        "direction": "directed",
+        "source_actor_name": "market_rate_traders",
+        "target_actor_name": "fed_chair"
+      },
+      {
+        "layer": "trust",
+        "reason": "Analysts generally regard chair communication as disciplined and meaningful.",
+        "weight": 0.59,
+        "evidence": "Source 1 centers communication as signal.",
+        "direction": "directed",
+        "source_actor_name": "macro_analysts",
+        "target_actor_name": "fed_chair"
+      },
+      {
+        "layer": "influence",
+        "reason": "Analyst interpretations help frame pricing probabilities.",
+        "weight": 0.44,
+        "evidence": "Analysts parse mixed inflation and labor signals for markets.",
+        "direction": "directed",
+        "source_actor_name": "macro_analysts",
+        "target_actor_name": "market_rate_traders"
+      },
+      {
+        "layer": "exposure",
+        "reason": "Media absorbs analyst commentary and reframes it for broader audiences.",
+        "weight": 0.47,
+        "evidence": "Expected focus includes central bank policy framing and binary resolution discussion.",
+        "direction": "directed",
+        "source_actor_name": "macro_analysts",
+        "target_actor_name": "financial_media"
+      },
+      {
+        "layer": "influence",
+        "reason": "Media shapes household impressions of inflation and policy stance.",
+        "weight": 0.31,
+        "evidence": "Households have low direct attention and rely on mediated narratives.",
+        "direction": "directed",
+        "source_actor_name": "financial_media",
+        "target_actor_name": "inflation_sensitive_households"
+      },
+      {
+        "layer": "influence",
+        "reason": "Media shapes household impressions of labor conditions and easing debate.",
+        "weight": 0.31,
+        "evidence": "Households have low direct attention and rely on mediated narratives.",
+        "direction": "directed",
+        "source_actor_name": "financial_media",
+        "target_actor_name": "employment_sensitive_households"
+      },
+      {
+        "layer": "exposure",
+        "reason": "Archetype entities are not used as graph actors.",
+        "weight": 0.0,
+        "evidence": "No direct actor target; placeholder avoided by zero-weight artifact.",
+        "direction": "directed",
+        "source_actor_name": "financial_media",
+        "target_actor_name": "general_us_households"
+      },
+      {
+        "layer": "oasis_interaction",
+        "reason": "High-frequency public interaction around meeting odds and data releases.",
+        "weight": 0.58,
+        "evidence": "Markets discuss possible cut and media amplifies the debate.",
+        "direction": "bidirectional",
+        "source_actor_name": "market_rate_traders",
+        "target_actor_name": "financial_media"
+      },
+      {
+        "layer": "oasis_interaction",
+        "reason": "Analyst commentary regularly enters public coverage.",
+        "weight": 0.54,
+        "evidence": "Mixed-signal interpretation is central to the scenario.",
+        "direction": "bidirectional",
+        "source_actor_name": "macro_analysts",
+        "target_actor_name": "financial_media"
+      },
+      {
+        "layer": "oasis_interaction",
+        "reason": "Public communication and press framing are tightly coupled.",
+        "weight": 0.49,
+        "evidence": "Recent communication is a primary evidence source.",
+        "direction": "bidirectional",
+        "source_actor_name": "fed_chair",
+        "target_actor_name": "financial_media"
+      },
+      {
+        "layer": "conflict",
+        "reason": "Markets may prefer clearer guidance than committee wants to provide.",
+        "weight": 0.22,
+        "evidence": "Policymakers emphasize data dependence rather than pre-commitment.",
+        "direction": "bidirectional",
+        "source_actor_name": "market_rate_traders",
+        "target_actor_name": "fomc_committee"
+      },
+      {
+        "layer": "dependency",
+        "reason": "Market pricing depends materially on the committee's target-range decision.",
+        "weight": 0.56,
+        "evidence": "Terminal question is the committee's decision on the target range.",
+        "direction": "directed",
+        "source_actor_name": "market_rate_traders",
+        "target_actor_name": "fomc_committee"
+      },
+      {
+        "layer": "dependency",
+        "reason": "Analyst forecasts depend on committee action and guidance.",
+        "weight": 0.47,
+        "evidence": "Source packet is built around interpreting committee decision criteria.",
+        "direction": "directed",
+        "source_actor_name": "macro_analysts",
+        "target_actor_name": "fomc_committee"
+      },
+      {
+        "layer": "trust",
+        "reason": "Chair is a central internal coordinator and spokesperson.",
+        "weight": 0.63,
+        "evidence": "Implied by leadership role and committee communication discipline.",
+        "direction": "directed",
+        "source_actor_name": "fomc_committee",
+        "target_actor_name": "fed_chair"
+      },
+      {
+        "layer": "exposure",
+        "reason": "Media feedback loops can affect market narrative salience.",
+        "weight": 0.52,
+        "evidence": "Binary cut-versus-hold framing circulates publicly.",
+        "direction": "directed",
+        "source_actor_name": "financial_media",
+        "target_actor_name": "market_rate_traders"
+      }
+    ],
+    "hero_states": [
+      {
+        "fatigue": 0.23,
+        "secrecy": 0.85,
+        "actor_name": "fomc_committee",
+        "reputation": 0.76,
+        "stance_axes": {
+          "cut_bias": 0.46,
+          "hold_bias": 0.54,
+          "labor_concern": 0.59,
+          "data_dependence": 0.92,
+          "inflation_concern": 0.68
+        },
+        "decision_power": 0.99,
+        "attention_level": 1,
+        "trustworthiness": 0.73,
+        "expression_level": 0.36,
+        "fear_of_isolation": 0.08,
+        "hero_archetype_key": "deciding_institution",
+        "perceived_majority": 0.52,
+        "mobilization_readiness": 0.88,
+        "graph_influence_summary": "Dominant terminal authority over endpoint realization."
+      },
+      {
+        "fatigue": 0.27,
+        "secrecy": 0.64,
+        "actor_name": "fed_chair",
+        "reputation": 0.82,
+        "stance_axes": {
+          "cut_bias": 0.47,
+          "hold_bias": 0.53,
+          "labor_concern": 0.58,
+          "data_dependence": 0.95,
+          "inflation_concern": 0.66
+        },
+        "decision_power": 0.81,
+        "attention_level": 1,
+        "trustworthiness": 0.71,
+        "expression_level": 0.74,
+        "fear_of_isolation": 0.12,
+        "hero_archetype_key": "signal_interpreter",
+        "perceived_majority": 0.54,
+        "mobilization_readiness": 0.81,
+        "graph_influence_summary": "High agenda-setting and narrative influence, but formal endpoint requires committee majority."
+      }
+    ],
+    "llm_call_id": "d7aa59ec-9a3e-47da-b700-1e39ba6fc0c0",
+    "cohort_states": [
+      {
+        "label": "Traders leaning toward some easing odds",
+        "fatigue": 0.34,
+        "secrecy": 0.22,
+        "cohort_key": "traders_cut_pricers",
+        "reputation": 0.61,
+        "stance_axes": {
+          "labor_priority": 0.58,
+          "inflation_priority": 0.46,
+          "december_cut_support": 0.62,
+          "data_dependence_acceptance": 0.74
+        },
+        "archetype_key": "financial_observer_ecosystem",
+        "private_belief": "A cut is plausible but not assured.",
+        "attention_level": 0.96,
+        "trustworthiness": 0.53,
+        "expression_level": 0.72,
+        "fear_of_isolation": 0.18,
+        "public_expression": "Markets discuss a possible quarter-point cut.",
+        "perceived_majority": 0.54,
+        "representation_mode": "partial_segment",
+        "behavioral_tendencies": [
+          "rapid_repricing",
+          "headline_sensitivity",
+          "conditional_conviction"
+        ],
+        "mobilization_readiness": 0.64,
+        "represented_population": 70000,
+        "population_share_of_archetype": 0.28
+      },
+      {
+        "label": "Analysts emphasizing data dependence",
+        "fatigue": 0.29,
+        "secrecy": 0.18,
+        "cohort_key": "analysts_data_dependence_watchers",
+        "reputation": 0.66,
+        "stance_axes": {
+          "labor_priority": 0.54,
+          "inflation_priority": 0.57,
+          "december_cut_support": 0.48,
+          "data_dependence_acceptance": 0.88
+        },
+        "archetype_key": "financial_observer_ecosystem",
+        "private_belief": "Communications do not pre-commit the committee to cut.",
+        "attention_level": 0.89,
+        "trustworthiness": 0.68,
+        "expression_level": 0.63,
+        "fear_of_isolation": 0.21,
+        "public_expression": "Outcome hinges on incoming inflation and labor data.",
+        "perceived_majority": 0.6,
+        "representation_mode": "partial_segment",
+        "behavioral_tendencies": [
+          "caveated_commentary",
+          "scenario_analysis",
+          "signal_parsing"
+        ],
+        "mobilization_readiness": 0.41,
+        "represented_population": 90000,
+        "population_share_of_archetype": 0.36
+      },
+      {
+        "label": "Households focused on inflation remaining above target",
+        "fatigue": 0.47,
+        "secrecy": 0.61,
+        "cohort_key": "inflation_concerned_households",
+        "reputation": 0.5,
+        "stance_axes": {
+          "labor_priority": 0.42,
+          "inflation_priority": 0.81,
+          "december_cut_support": 0.32,
+          "data_dependence_acceptance": 0.51
+        },
+        "archetype_key": "general_us_households",
+        "private_belief": "Rate cuts may be premature if inflation is still elevated.",
+        "attention_level": 0.24,
+        "trustworthiness": 0.57,
+        "expression_level": 0.12,
+        "fear_of_isolation": 0.41,
+        "public_expression": "Limited direct expression; views surface through general sentiment and media reactions.",
+        "perceived_majority": 0.58,
+        "representation_mode": "broad_segment",
+        "behavioral_tendencies": [
+          "low_attention_monitoring",
+          "price_salience",
+          "reactive_opinion"
+        ],
+        "mobilization_readiness": 0.12,
+        "represented_population": 65000000,
+        "population_share_of_archetype": 0.5
+      },
+      {
+        "label": "Households focused on labor-market softening risks",
+        "fatigue": 0.44,
+        "secrecy": 0.63,
+        "cohort_key": "employment_concerned_households",
+        "reputation": 0.5,
+        "stance_axes": {
+          "labor_priority": 0.79,
+          "inflation_priority": 0.37,
+          "december_cut_support": 0.59,
+          "data_dependence_acceptance": 0.49
+        },
+        "archetype_key": "general_us_households",
+        "private_belief": "Some easing would be justified if labor conditions deteriorate.",
+        "attention_level": 0.22,
+        "trustworthiness": 0.56,
+        "expression_level": 0.11,
+        "fear_of_isolation": 0.39,
+        "public_expression": "Limited direct expression; concern is mostly latent unless job news worsens.",
+        "perceived_majority": 0.46,
+        "representation_mode": "broad_segment",
+        "behavioral_tendencies": [
+          "latent_anxiety",
+          "employment_salience",
+          "conditional_support"
+        ],
+        "mobilization_readiness": 0.1,
+        "represented_population": 45000000,
+        "population_share_of_archetype": 0.3462
+      },
+      {
+        "label": "Internal hawkish policy camp",
+        "fatigue": 0.26,
+        "secrecy": 0.72,
+        "cohort_key": "committee_internal_hawks",
+        "reputation": 0.71,
+        "stance_axes": {
+          "labor_priority": 0.3,
+          "inflation_priority": 0.9,
+          "december_cut_support": 0.2,
+          "data_dependence_acceptance": 0.76
+        },
+        "archetype_key": "federal_reserve_policy_elite",
+        "private_belief": "Inflation above target argues against easing absent clearer deterioration.",
+        "attention_level": 0.99,
+        "trustworthiness": 0.69,
+        "expression_level": 0.45,
+        "fear_of_isolation": 0.24,
+        "public_expression": "Cautious about signaling premature cuts.",
+        "perceived_majority": 0.48,
+        "representation_mode": "faction_estimate",
+        "behavioral_tendencies": [
+          "institutional_caution",
+          "credibility_focus",
+          "threshold_based_action"
+        ],
+        "mobilization_readiness": 0.78,
+        "represented_population": 10,
+        "population_share_of_archetype": 0.3333
+      },
+      {
+        "label": "Internal dovish policy camp",
+        "fatigue": 0.25,
+        "secrecy": 0.74,
+        "cohort_key": "committee_internal_doves",
+        "reputation": 0.69,
+        "stance_axes": {
+          "labor_priority": 0.83,
+          "inflation_priority": 0.41,
+          "december_cut_support": 0.67,
+          "data_dependence_acceptance": 0.74
+        },
+        "archetype_key": "federal_reserve_policy_elite",
+        "private_belief": "Labor softening could warrant a cut even with inflation still above target if disinflation continues.",
+        "attention_level": 0.99,
+        "trustworthiness": 0.68,
+        "expression_level": 0.42,
+        "fear_of_isolation": 0.29,
+        "public_expression": "Open to easing but framed as conditional on data.",
+        "perceived_majority": 0.4,
+        "representation_mode": "faction_estimate",
+        "behavioral_tendencies": [
+          "risk_management",
+          "employment_sensitivity",
+          "conditional_easing"
+        ],
+        "mobilization_readiness": 0.72,
+        "represented_population": 8,
+        "population_share_of_archetype": 0.2667
+      },
+      {
+        "label": "Committee centrists and consensus seekers",
+        "fatigue": 0.28,
+        "secrecy": 0.77,
+        "cohort_key": "committee_centrists",
+        "reputation": 0.74,
+        "stance_axes": {
+          "labor_priority": 0.58,
+          "inflation_priority": 0.61,
+          "december_cut_support": 0.47,
+          "data_dependence_acceptance": 0.92
+        },
+        "archetype_key": "federal_reserve_policy_elite",
+        "private_belief": "Decision remains genuinely open and contingent.",
+        "attention_level": 0.99,
+        "trustworthiness": 0.72,
+        "expression_level": 0.38,
+        "fear_of_isolation": 0.19,
+        "public_expression": "Data dependence and optionality remain central.",
+        "perceived_majority": 0.55,
+        "representation_mode": "faction_estimate",
+        "behavioral_tendencies": [
+          "consensus_seeking",
+          "optionality_preservation",
+          "incrementalism"
+        ],
+        "mobilization_readiness": 0.66,
+        "represented_population": 12,
+        "population_share_of_archetype": 0.4
+      }
+    ],
+    "trait_vectors": [
+      {
+        "secrecy": 0.85,
+        "tendency": "data_conditioned_incremental_decision_making",
+        "actor_name": "fomc_committee",
+        "reputation": 0.76,
+        "behavior_axes": {
+          "caution": 0.83,
+          "consensus_orientation": 0.78,
+          "responsiveness_to_data": 0.91,
+          "communication_precision": 0.8
+        },
+        "ideology_axes": {
+          "employment_dovishness": 0.55,
+          "inflation_hawkishness": 0.62,
+          "institutional_gradualism": 0.86
+        },
+        "trustworthiness": 0.73
+      },
+      {
+        "secrecy": 0.64,
+        "tendency": "maintain_optionality_and_signal_data_dependence",
+        "actor_name": "fed_chair",
+        "reputation": 0.82,
+        "behavior_axes": {
+          "caution": 0.8,
+          "coalition_management": 0.82,
+          "responsiveness_to_data": 0.9,
+          "communication_discipline": 0.92
+        },
+        "ideology_axes": {
+          "employment_dovishness": 0.56,
+          "inflation_hawkishness": 0.6,
+          "institutional_gradualism": 0.84
+        },
+        "trustworthiness": 0.71
+      },
+      {
+        "secrecy": 0.72,
+        "tendency": "resist_easing_without_clear_inflation_progress",
+        "actor_name": "committee_hawks",
+        "reputation": 0.71,
+        "behavior_axes": {
+          "caution": 0.88,
+          "conflict_tolerance": 0.46,
+          "responsiveness_to_data": 0.72,
+          "communication_discipline": 0.7
+        },
+        "ideology_axes": {
+          "employment_dovishness": 0.28,
+          "inflation_hawkishness": 0.9,
+          "institutional_gradualism": 0.8
+        },
+        "trustworthiness": 0.69
+      },
+      {
+        "secrecy": 0.74,
+        "tendency": "support_easing_if_labor_softening_strengthens",
+        "actor_name": "committee_doves",
+        "reputation": 0.69,
+        "behavior_axes": {
+          "caution": 0.69,
+          "conflict_tolerance": 0.42,
+          "responsiveness_to_data": 0.81,
+          "communication_discipline": 0.67
+        },
+        "ideology_axes": {
+          "employment_dovishness": 0.86,
+          "inflation_hawkishness": 0.38,
+          "institutional_gradualism": 0.68
+        },
+        "trustworthiness": 0.68
+      },
+      {
+        "secrecy": 0.22,
+        "tendency": "reprice_probabilities_quickly",
+        "actor_name": "market_rate_traders",
+        "reputation": 0.61,
+        "behavior_axes": {
+          "caution": 0.41,
+          "narrative_sensitivity": 0.89,
+          "responsiveness_to_data": 0.93,
+          "volatility_amplification": 0.76
+        },
+        "ideology_axes": {
+          "employment_dovishness": 0.52,
+          "inflation_hawkishness": 0.47,
+          "institutional_gradualism": 0.34
+        },
+        "trustworthiness": 0.53
+      },
+      {
+        "secrecy": 0.18,
+        "tendency": "frame_decision_as_conditional_not_precommitted",
+        "actor_name": "macro_analysts",
+        "reputation": 0.66,
+        "behavior_axes": {
+          "caution": 0.67,
+          "scenario_thinking": 0.84,
+          "responsiveness_to_data": 0.88,
+          "communication_precision": 0.77
+        },
+        "ideology_axes": {
+          "employment_dovishness": 0.53,
+          "inflation_hawkishness": 0.55,
+          "institutional_gradualism": 0.59
+        },
+        "trustworthiness": 0.68
+      },
+      {
+        "secrecy": 0.08,
+        "tendency": "amplify_binary_cut_vs_hold_framing",
+        "actor_name": "financial_media",
+        "reputation": 0.58,
+        "behavior_axes": {
+          "caution": 0.44,
+          "attention_seeking": 0.78,
+          "responsiveness_to_data": 0.71,
+          "narrative_simplification": 0.83
+        },
+        "ideology_axes": {
+          "employment_dovishness": 0.5,
+          "inflation_hawkishness": 0.49,
+          "institutional_gradualism": 0.29
+        },
+        "trustworthiness": 0.49
+      }
+    ],
+    "initial_events": [
+      {
+        "tick": 0,
+        "actors": [
+          "market_rate_traders",
+          "macro_analysts",
+          "financial_media",
+          "fomc_committee"
+        ],
+        "status": "active",
+        "summary": "Late-2025 expectations include active discussion of a possible quarter-point cut, but no pre-commitment.",
+        "evidence": [
+          "source_1_macro_note_2025_11_15",
+          "source_2_risk_note_2025_11_15"
+        ],
+        "event_key": "t0_pre_meeting_expectations_set",
+        "event_type": "announcement",
+        "expected_impact": "Keeps cut and hold both live; raises attention without resolving committee balance."
+      },
+      {
+        "tick": 0,
+        "actors": [
+          "fed_chair",
+          "fomc_committee",
+          "macro_analysts"
+        ],
+        "status": "active",
+        "summary": "Recent communication stresses data dependence over forward commitment.",
+        "evidence": [
+          "source_1_macro_note_2025_11_15"
+        ],
+        "event_key": "t0_data_dependence_reinforced",
+        "event_type": "announcement",
+        "expected_impact": "Suppresses overconfidence in any single endpoint and raises importance of incoming data signals."
+      },
+      {
+        "tick": 1,
+        "actors": [
+          "fomc_committee",
+          "committee_hawks",
+          "committee_doves",
+          "market_rate_traders",
+          "macro_analysts"
+        ],
+        "status": "scheduled",
+        "summary": "Additional inflation and labor indicators arrive before the meeting and can shift internal coalition weights.",
+        "evidence": [
+          "source_2_risk_note_2025_11_15"
+        ],
+        "event_key": "t1_incoming_macro_data_window",
+        "event_type": "announcement",
+        "expected_impact": "Potential repricing of cut odds and faction influence depending on data direction."
+      },
+      {
+        "tick": 2,
+        "actors": [
+          "fomc_committee",
+          "fed_chair",
+          "market_rate_traders",
+          "financial_media"
+        ],
+        "status": "scheduled",
+        "summary": "Committee issues the December 10, 2025 statement establishing whether the target range is lower than before the meeting.",
+        "evidence": [
+          "source_3_endpoint_note_2025_11_15"
+        ],
+        "event_key": "t2_december_10_fomc_statement",
+        "event_type": "announcement",
+        "expected_impact": "Terminal endpoint evidence becomes available; implementation-only changes should not alter resolution."
+      }
+    ],
+    "endpoint_ledger": [
+      {
+        "meta": {
+          "source": "initializer_endpoint_ledger",
+          "important_question": "Will the FOMC lower the target range for the federal funds rate at the December 10, 2025 meeting relative to immediately before the meeting?"
+        },
+        "label": "Target range lowered at December 10 meeting",
+        "status": "active",
+        "blockers": [
+          "inflation_above_target",
+          "lack_of_decisive_labor_deterioration",
+          "committee_preference_for_optionality"
+        ],
+        "rationale": "Markets discuss a possible quarter-point cut, and labor softening could justify easing if persuasive enough.",
+        "description": "The federal funds target range is lower immediately after the December 10, 2025 statement than immediately before the meeting.",
+        "probability": 0.43,
+        "endpoint_key": "lower_target_range_yes",
+        "status_basis": "Possible but not pre-committed; mixed signals keep path open.",
+        "evidence_refs": [
+          "source_1_macro_note_2025_11_15",
+          "source_2_risk_note_2025_11_15",
+          "source_3_endpoint_note_2025_11_15"
+        ],
+        "authority_refs": [
+          "fomc_committee"
+        ],
+        "contradiction_notes": "Any implementation-detail adjustment without lower target range fails realization.",
+        "realization_criteria": [
+          "official_statement_or_release_shows_lower_target_range_after_meeting_than_before",
+          "change_occurs_on_or_at_december_10_2025_meeting"
+        ],
+        "negative_evidence_refs": [],
+        "last_observed_tick_index": null
+      },
+      {
+        "meta": {
+          "source": "initializer_endpoint_ledger",
+          "important_question": "By the eve of the meeting, do incoming data appear to shift the effective internal balance toward hawks, doves, or leave centrists dominant?"
+        },
+        "label": "Target range unchanged at December 10 meeting",
+        "status": "active",
+        "blockers": [
+          "material_labor_softening_before_meeting",
+          "centrists_shifting_toward_easing"
+        ],
+        "rationale": "Inflation still above target and absence of pre-commitment support a hold as a credible baseline.",
+        "description": "The federal funds target range is not lower immediately after the December 10, 2025 statement than immediately before the meeting.",
+        "probability": 0.57,
+        "endpoint_key": "hold_target_range_no",
+        "status_basis": "Slightly favored because communication is data-dependent and inflation remains above target.",
+        "evidence_refs": [
+          "source_1_macro_note_2025_11_15",
+          "source_2_risk_note_2025_11_15",
+          "source_3_endpoint_note_2025_11_15"
+        ],
+        "authority_refs": [
+          "fomc_committee"
+        ],
+        "contradiction_notes": "A dovish statement tone alone does not negate this endpoint if the range is unchanged.",
+        "realization_criteria": [
+          "official_statement_or_release_shows_same_or_higher_target_range_after_meeting_than_before",
+          "meeting_concludes_without_lowering_target_range"
+        ],
+        "negative_evidence_refs": [],
+        "last_observed_tick_index": null
+      },
+      {
+        "meta": {
+          "source": "initializer_endpoint_ledger",
+          "important_question": "Before the meeting, does market and analyst consensus move toward treating a 25bp cut as the base case or remain split/lean hold?"
+        },
+        "label": "Internal coalition shifts toward easing before vote",
+        "status": "active",
+        "blockers": [
+          "insufficient_new_data",
+          "inflation_stickiness",
+          "communication_discipline_masking_shift"
+        ],
+        "rationale": "The decisive swing actor set is likely the centrist bloc rather than fixed hawk/dove camps.",
+        "description": "Observable pre-meeting evidence indicates centrists move closer to the dovish case for a cut.",
+        "probability": null,
+        "endpoint_key": "internal_coalition_shift_toward_cut",
+        "status_basis": "Not yet realized; mixed signals leave coalition movement unresolved.",
+        "evidence_refs": [
+          "source_1_macro_note_2025_11_15",
+          "source_2_risk_note_2025_11_15"
+        ],
+        "authority_refs": [
+          "fed_chair",
+          "fomc_committee",
+          "committee_doves",
+          "committee_hawks"
+        ],
+        "contradiction_notes": "This can realize without the final cut endpoint if late caution or consensus constraints intervene.",
+        "realization_criteria": [
+          "credible_pre_meeting_reporting_or_signaling_indicates_labor_softening_is_weighing_more_heavily",
+          "market_and_analyst_interpretation_of_official_signals_moves_toward_cut_base_case"
+        ],
+        "negative_evidence_refs": [],
+        "last_observed_tick_index": null
+      },
+      {
+        "meta": {
+          "source": "initializer_endpoint_ledger",
+          "important_question": "At decision time, is there any technical or implementation change that creates headline confusion without satisfying the target-range-lowered criterion?"
+        },
+        "label": "Technical change without target-range cut",
+        "status": "active",
+        "blockers": [
+          "clean_statement_without_technical_changes",
+          "genuine_target_range_cut"
+        ],
+        "rationale": "The source packet specifically warns not to misread implementation details as endpoint realization.",
+        "description": "A procedural or implementation-detail change occurs that does not lower the target range and therefore does not satisfy the yes endpoint.",
+        "probability": null,
+        "endpoint_key": "implementation_change_without_endpoint",
+        "status_basis": "Explicitly flagged as a possible source of confusion by the corpus.",
+        "evidence_refs": [
+          "source_3_endpoint_note_2025_11_15"
+        ],
+        "authority_refs": [
+          "fomc_committee",
+          "fed_chair"
+        ],
+        "contradiction_notes": "If the target range is lowered, this endpoint may co-occur as a secondary mechanism but does not supersede yes.",
+        "realization_criteria": [
+          "official_materials_describe_implementation_or_technical_adjustment",
+          "target_range_comparison_before_vs_after_meeting_shows_no_lowering"
+        ],
+        "negative_evidence_refs": [],
+        "last_observed_tick_index": null
+      }
+    ],
+    "hero_archetypes": [
+      {
+        "label": "Formal decision authority",
+        "description": "Actors with direct power to realize the endpoint.",
+        "archetype_key": "deciding_institution"
+      },
+      {
+        "label": "Signal interpreter",
+        "description": "Actors who translate sparse signals into public expectations.",
+        "archetype_key": "signal_interpreter"
+      }
+    ],
+    "merge_hypotheses": [
+      {
+        "merge_key": "institutional_credibility_convergence",
+        "shared_driver": "All committee factions value preserving data-driven legitimacy.",
+        "convergence_effect": "Even divergent internal preferences may converge on a cautious, consensus-framed final statement."
+      },
+      {
+        "merge_key": "binary_resolution_convergence",
+        "shared_driver": "Endpoint definition is narrow and observable.",
+        "convergence_effect": "Different narrative paths still collapse into the same final yes/no assessment based on target range comparison."
+      },
+      {
+        "merge_key": "market_repricing_absorption",
+        "shared_driver": "Markets and analysts rapidly absorb official statement details.",
+        "convergence_effect": "Post-decision narratives converge quickly once target range is explicit."
+      }
+    ],
+    "simulation_brief": {
+      "mode": "binary_resolution_simulation",
+      "domain": "central_bank_policy",
+      "summary": "Late-2025 FOMC decision environment with markets discussing a possible quarter-point cut amid mixed labor-market softening and inflation still above target. Policymakers emphasize data dependence rather than pre-commitment. Terminal question is whether the target range for the federal funds rate is lower immediately after the December 10, 2025 meeting statement than immediately before the meeting.",
+      "timeframe": "through_2025_12_10_fomc_meeting",
+      "scenario_key": "resolved_003",
+      "evidence_refs": [
+        "source_1_macro_note_2025_11_15",
+        "source_2_risk_note_2025_11_15",
+        "source_3_endpoint_note_2025_11_15"
+      ],
+      "resolution_rule": "yes only if target range is lower immediately after the December 10, 2025 statement than immediately before the meeting; implementation-detail changes alone do not count.",
+      "initial_state_uncertainty": "High uncertainty around whether labor softening or inflation persistence dominates the committee decision. Source corpus is sparse and defines endpoint tightly."
+    },
+    "branch_hypotheses": [
+      {
+        "trigger": "Pre-meeting labor data weakens materially while inflation progress does not reverse.",
+        "branch_key": "labor_softening_dominates",
+        "alternate_path": "Centrists align with doves for a 25bp cut.",
+        "divergence_signal": "Analyst and market commentary shifts from optionality framing to base-case cut framing; committee communication tolerates easing interpretation."
+      },
+      {
+        "trigger": "Inflation readings remain sticky enough to keep above-target concern salient.",
+        "branch_key": "inflation_persistence_blocks_cut",
+        "alternate_path": "Committee holds target range steady despite prior easing expectations.",
+        "divergence_signal": "Hawk commentary gains narrative dominance and market-implied cut odds fall meaningfully before the meeting."
+      },
+      {
+        "trigger": "Implementation details or technical adjustments are discussed near meeting time.",
+        "branch_key": "communication_noise_without_action",
+        "alternate_path": "Public confusion rises but endpoint remains no unless target range itself is lowered.",
+        "divergence_signal": "Media headlines emphasize change while careful analysts note unchanged target range."
+      },
+      {
+        "trigger": "Mixed data persists without decisive deterioration or inflation relief.",
+        "branch_key": "consensus_hold_with_dovish_tone",
+        "alternate_path": "Committee preserves optionality by holding rates while signaling openness to future easing.",
+        "divergence_signal": "Statement language softens or guidance tone shifts but target range remains unchanged."
+      }
+    ],
+    "sociology_baseline": [
+      {
+        "note": "Interpretations cluster around plausible cut-versus-hold ranges rather than extreme outcomes.",
+        "level": 0.68,
+        "model": "attention_decay",
+        "scope": "financial_observer_ecosystem",
+        "mechanism": "bounded_confidence"
+      },
+      {
+        "note": "A few decisive data releases could shift internal coalition balance toward cut or hold.",
+        "level": 0.41,
+        "model": "attention_decay",
+        "scope": "federal_reserve_policy_elite",
+        "mechanism": "threshold_mobilization"
+      },
+      {
+        "note": "Most households have preferences but low direct expression on central-bank implementation details.",
+        "level": 0.74,
+        "model": "attention_decay",
+        "scope": "general_us_households",
+        "mechanism": "public_silence"
+      },
+      {
+        "note": "Traders and analysts consume similar expert and media signals, reinforcing clustered narratives.",
+        "level": 0.57,
+        "model": "attention_decay",
+        "scope": "financial_observer_ecosystem",
+        "mechanism": "homophily"
+      },
+      {
+        "note": "A cut narrative becomes more credible if repeated across data, analyst notes, and official remarks.",
+        "level": 0.52,
+        "model": "attention_decay",
+        "scope": "market_narrative_layer",
+        "mechanism": "complex_contagion"
+      },
+      {
+        "note": "Institutional identity favors disciplined, credibility-preserving process over abrupt signaling shifts.",
+        "level": 0.49,
+        "model": "attention_decay",
+        "scope": "federal_reserve_policy_elite",
+        "mechanism": "social_identity"
+      },
+      {
+        "note": "Outside major data releases and the meeting itself, broad public attention remains limited.",
+        "level": 0.33,
+        "model": "attention_decay",
+        "scope": "general_public",
+        "mechanism": "attention_decay"
+      }
+    ],
+    "important_questions": [
+      "Will the FOMC lower the target range for the federal funds rate at the December 10, 2025 meeting relative to immediately before the meeting?",
+      "By the eve of the meeting, do incoming data appear to shift the effective internal balance toward hawks, doves, or leave centrists dominant?",
+      "Before the meeting, does market and analyst consensus move toward treating a 25bp cut as the base case or remain split/lean hold?",
+      "At decision time, is there any technical or implementation change that creates headline confusion without satisfying the target-range-lowered criterion?"
+    ],
+    "emotion_observations": [],
+    "population_archetypes": [
+      {
+        "label": "Financial observer ecosystem",
+        "description": "Actors closely tracking and reacting to FOMC signals.",
+        "archetype_key": "financial_observer_ecosystem",
+        "population_total": 250000
+      },
+      {
+        "label": "General U.S. households",
+        "description": "Broad public affected indirectly by inflation and employment conditions.",
+        "archetype_key": "general_us_households",
+        "population_total": 130000000
+      },
+      {
+        "label": "Federal Reserve policy elite",
+        "description": "Officials and close institutional participants shaping or parsing the decision.",
+        "archetype_key": "federal_reserve_policy_elite",
+        "population_total": 30
+      }
+    ],
+    "sociology_prompt_influences": [
+      {
+        "description": "Officials and observers treat incoming macro data as legitimate basis for late decision shifts.",
+        "influence_key": "data_dependence_norm"
+      },
+      {
+        "description": "Inflation still above target constrains eagerness to ease.",
+        "influence_key": "inflation_above_target_constraint"
+      },
+      {
+        "description": "Labor-market softening provides a competing rationale for easing.",
+        "influence_key": "labor_softening_counterpressure"
+      },
+      {
+        "description": "Only a lower target range after the statement counts as yes; implementation tweaks do not.",
+        "influence_key": "binary_endpoint_precision"
+      },
+      {
+        "description": "Public discussion is anchored on a possible 25bp cut rather than larger moves.",
+        "influence_key": "market_quarter_point_anchor"
+      }
+    ]
+  }
+}

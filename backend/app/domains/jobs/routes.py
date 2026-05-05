@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import importlib
 from datetime import datetime, timezone
 from typing import Any
 from uuid import UUID
@@ -30,7 +31,7 @@ from app.domains.jobs.executor import (
     validate_job_payload,
     validate_job_type,
 )
-from backend.app.workers import celery_app as celery_app_module
+celery_app_module = importlib.import_module("backend.app.workers.celery_app")
 
 from backend.app.core.redis_client import get_redis_client  # noqa: F401
 

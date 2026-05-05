@@ -1,0 +1,20 @@
+{
+  "ok": true,
+  "data": {
+    "default_model": "deepseek/deepseek-v4-flash",
+    "default_provider": "openrouter",
+    "agent_models": {
+      "initializer_agent": "gpt-5.4",
+      "god_agent": "gpt-5.4",
+      "cohort_agent": "deepseek/deepseek-v4-flash",
+      "hero_agent": "deepseek/deepseek-v4-flash",
+      "event_summary": "deepseek/deepseek-v4-flash",
+      "report_agent": "gpt-5.4"
+    },
+    "mutable": true,
+    "settings_endpoint": "/api/settings/llm",
+    "model_routing_endpoint": "/api/settings/model-routing",
+    "note": "Mutable provider/model routing is available through /api/settings/model-routing."
+  },
+  "meta": {}
+}
