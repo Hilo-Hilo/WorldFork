@@ -486,7 +486,7 @@ def _resume_additional_ticks(*, latest_tick_index: int, target_max_ticks: int) -
 
 
 def _resume_run_budget(*, latest_tick_index: int, target_max_ticks: int) -> int:
-    return max(1, _resume_additional_ticks(latest_tick_index=latest_tick_index, target_max_ticks=target_max_ticks) + 1)
+    return max(2, _resume_additional_ticks(latest_tick_index=latest_tick_index, target_max_ticks=target_max_ticks) + 2)
 
 
 def _resume_job_idempotency_key(

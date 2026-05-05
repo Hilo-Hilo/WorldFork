@@ -311,8 +311,8 @@ def test_resume_additional_ticks_uses_absolute_cap() -> None:
 
     assert pipeline._resume_additional_ticks(latest_tick_index=16, target_max_ticks=35) == 19
     assert pipeline._resume_additional_ticks(latest_tick_index=35, target_max_ticks=35) == 0
-    assert pipeline._resume_run_budget(latest_tick_index=16, target_max_ticks=35) == 20
-    assert pipeline._resume_run_budget(latest_tick_index=35, target_max_ticks=35) == 1
+    assert pipeline._resume_run_budget(latest_tick_index=16, target_max_ticks=35) == 21
+    assert pipeline._resume_run_budget(latest_tick_index=35, target_max_ticks=35) == 2
 
 
 def test_resume_job_idempotency_key_includes_attempt_id() -> None:
