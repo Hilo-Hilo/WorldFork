@@ -1189,6 +1189,8 @@ def _normalize_entries(entries: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 def _finalize_entries(entries: list[dict[str, Any]], *, evidence: dict[str, Any] | None = None) -> list[dict[str, Any]]:
     entries = _normalize_entries(entries)
+    if evidence is not None:
+        entries = _settle_primary_binary_candidates_from_counterpart(entries, evidence=evidence)
     if _final_horizon_reached(evidence):
         entries = _settle_primary_binary_candidates_at_final_horizon(entries, evidence=evidence)
         entries = [_mark_insufficient_ticks(entry, evidence=evidence) for entry in entries]
@@ -1281,6 +1283,76 @@ def _settle_primary_binary_candidates_at_final_horizon(
     return settled
 
 
+def _settle_primary_binary_candidates_from_counterpart(
+    entries: list[dict[str, Any]],
+    *,
+    evidence: dict[str, Any] | None,
+) -> list[dict[str, Any]]:
+    if not _deadline_aware_binary_forecast(evidence):
+        return entries
+    by_candidate = _primary_binary_candidates(entries)
+    if not {"yes", "no"}.issubset(by_candidate):
+        return entries
+
+    yes = by_candidate["yes"]
+    no = by_candidate["no"]
+    if yes.get("status") == "realized" or no.get("status") == "eliminated":
+        replacement = {
+            "yes": _mark_candidate_counterpart_settlement(
+                yes,
+                status="realized",
+                counterpart=no,
+                evidence=evidence,
+                rationale="The no candidate was eliminated by endpoint evidence, so the yes candidate is realized.",
+            ),
+            "no": _mark_candidate_counterpart_settlement(
+                no,
+                status="eliminated",
+                counterpart=yes,
+                evidence=evidence,
+                rationale="The yes candidate is realized, so the no candidate is eliminated.",
+            ),
+        }
+    elif no.get("status") == "realized" or yes.get("status") == "eliminated":
+        replacement = {
+            "yes": _mark_candidate_counterpart_settlement(
+                yes,
+                status="eliminated",
+                counterpart=no,
+                evidence=evidence,
+                rationale="The no candidate is realized, so the yes candidate is eliminated.",
+            ),
+            "no": _mark_candidate_counterpart_settlement(
+                no,
+                status="realized",
+                counterpart=yes,
+                evidence=evidence,
+                rationale="The yes candidate was eliminated by endpoint evidence, so the no candidate is realized.",
+            ),
+        }
+    else:
+        return entries
+
+    settled: list[dict[str, Any]] = []
+    for entry in entries:
+        meta = entry.get("meta") if isinstance(entry.get("meta"), dict) else {}
+        candidate_id = str(meta.get("candidate_endpoint_id") or entry.get("endpoint_key") or "").lower()
+        settled.append(replacement.get(candidate_id, entry))
+    return settled
+
+
+def _primary_binary_candidates(entries: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    by_candidate: dict[str, dict[str, Any]] = {}
+    for entry in entries:
+        meta = entry.get("meta") if isinstance(entry.get("meta"), dict) else {}
+        if meta.get("endpoint_role") != "primary_candidate":
+            continue
+        candidate_id = str(meta.get("candidate_endpoint_id") or entry.get("endpoint_key") or "").lower()
+        if candidate_id in {"yes", "no"}:
+            by_candidate[candidate_id] = entry
+    return by_candidate
+
+
 def _deadline_aware_binary_forecast(evidence: dict[str, Any] | None) -> bool:
     if not evidence:
         return False
@@ -1330,6 +1402,40 @@ def _mark_candidate_deadline_settlement(
             },
         ],
         "meta": {**meta, "final_horizon_candidate_settlement": True},
+    }
+
+
+def _mark_candidate_counterpart_settlement(
+    entry: dict[str, Any],
+    *,
+    status: str,
+    counterpart: dict[str, Any],
+    evidence: dict[str, Any] | None,
+    rationale: str,
+) -> dict[str, Any]:
+    meta = entry.get("meta") if isinstance(entry.get("meta"), dict) else {}
+    latest_tick = max((int(tick.get("tick_index") or 0) for tick in (evidence or {}).get("ticks") or []), default=None)
+    counterpart_refs = list(counterpart.get("evidence_refs") or [])
+    counterpart_authority_refs = list(counterpart.get("authority_refs") or [])
+    return {
+        **entry,
+        "status": status,
+        "authority_refs": list(entry.get("authority_refs") or []) or counterpart_authority_refs,
+        "evidence_refs": [
+            *list(entry.get("evidence_refs") or []),
+            *counterpart_refs,
+            {
+                "source": "binary_candidate_counterpart",
+                "counterpart_endpoint_key": counterpart.get("endpoint_key"),
+                "counterpart_status": counterpart.get("status"),
+                "tick_index": latest_tick,
+            },
+        ],
+        "blockers": [] if status in {"realized", "eliminated"} else list(entry.get("blockers") or []),
+        "status_basis": "binary_candidate_counterpart_settlement",
+        "rationale": rationale,
+        "last_observed_tick_index": entry.get("last_observed_tick_index") or counterpart.get("last_observed_tick_index") or latest_tick,
+        "meta": {**meta, "binary_counterpart_settlement": True},
     }
 
 
