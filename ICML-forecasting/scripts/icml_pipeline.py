@@ -437,7 +437,7 @@ def run_worldfork_short(args: argparse.Namespace) -> None:
             payload = build_init_job_payload(
                 case_id=case_id,
                 case_file=case_file,
-                name_prefix=f"E3_{condition}",
+                name_prefix=f"{args.name_prefix}_{condition}",
                 max_ticks=args.max_ticks,
                 tick_duration_minutes=args.tick_duration_minutes,
                 branch_policy=WORLDFORK_SHORT_POLICIES[condition],
@@ -1301,6 +1301,7 @@ def main() -> None:
     short.add_argument("--case-limit", type=int)
     short.add_argument("--conditions", default="worldfork_no_branch_short,worldfork_branching_short")
     short.add_argument("--output-prefix", default="raw/E3_worldfork_short")
+    short.add_argument("--name-prefix", default="E3")
     short.add_argument("--max-ticks", type=int, default=8)
     short.add_argument("--tick-duration-minutes", type=int, default=720)
     short.add_argument("--core12", action="store_true", help="Use the resolved core-12 fallback from the run matrix.")
