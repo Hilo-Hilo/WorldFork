@@ -229,6 +229,45 @@ def test_job_finished_treats_interrupt_requested_as_terminal() -> None:
     assert not pipeline._job_finished({"status": "running"})
 
 
+def test_job_wall_seconds_uses_job_timestamps() -> None:
+    pipeline = load_icml_pipeline()
+
+    assert (
+        pipeline._job_wall_seconds(
+            {
+                "created_at": "2026-05-05T12:00:00Z",
+                "started_at": "2026-05-05T12:00:05Z",
+                "finished_at": "2026-05-05T12:01:35Z",
+            }
+        )
+        == 90.0
+    )
+    assert pipeline._job_wall_seconds({"status": "running"}) == 0.0
+
+
+def test_manifest_run_job_ids_reads_existing_rows(tmp_path: Path) -> None:
+    pipeline = load_icml_pipeline()
+    manifest = tmp_path / "worldfork_short_manifest.jsonl"
+    pipeline.append_jsonl(manifest, {"run_job_id": "job-1", "status": "completed"})
+    pipeline.append_jsonl(manifest, {"run_job_id": "job-2", "status": "failed"})
+    pipeline.append_jsonl(manifest, {"status": "missing"})
+
+    assert pipeline._manifest_run_job_ids(manifest) == {"job-1", "job-2"}
+    assert pipeline._manifest_run_job_ids(tmp_path / "missing.jsonl") == set()
+
+
+def test_artifact_wait_seconds_reads_terminal_job_artifact(tmp_path: Path) -> None:
+    pipeline = load_icml_pipeline()
+    wait_path = tmp_path / "run_job_wait.json"
+    wait_path.write_text(
+        '{"ok": true, "data": {"started_at": "2026-05-05T12:00:00Z", "finished_at": "2026-05-05T12:00:42Z"}}',
+        encoding="utf-8",
+    )
+
+    assert pipeline._artifact_wait_seconds(wait_path) == 42.0
+    assert pipeline._artifact_wait_seconds(tmp_path / "missing.json") == 0.0
+
+
 def test_latest_completed_worldfork_short_runs_selects_latest_matching_route(tmp_path: Path) -> None:
     pipeline = load_icml_pipeline()
     manifest = tmp_path / "worldfork_short_manifest.jsonl"
