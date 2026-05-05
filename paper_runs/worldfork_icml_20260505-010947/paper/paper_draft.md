@@ -52,9 +52,11 @@ The static package QA passed. Public cards contain no private resolution fields,
 
 The direct baseline block is complete for all 24 resolved cards under two conditions. The one-shot direct prompt achieved mean Brier 0.242492 and mean clamped log score 0.701698. The structured direct prompt achieved mean Brier 0.238363 and mean clamped log score 0.677498. Both direct baselines have zero unresolved mass because the output contract requires a normalized yes/no distribution. These results provide the comparison point for the pending WorldFork no-branch and branching runs; no claim about WorldFork forecast accuracy should be made until those rows are filled.
 
-### 4.3 Audit Metrics
+### 4.3 Runtime Smoke and Audit Metrics
 
-Table 3 is reserved for long-horizon lineage, branch locality, endpoint coverage, path-mass consistency, report grounding, failure observability, and cost transparency. These rows require live WorldFork runs and evidence sampling.
+The first WorldFork tick/report smoke completed for `resolved_003` under a synchronous `run-until-complete` call. It ran one tick, kept a single active multiverse, generated report artifacts, and completed 14/14 logged LLM calls. The command wall time was 408.49 seconds, with 174,427 reported tokens and 655.4009 aggregate LLM seconds across initializer, cohort, event-summary, governance, and report calls. Because the local OpenRouter key is a placeholder, this smoke used a runtime-only override that routed all job types to OpenAI Codex `gpt-5.4`. This validates that the end-to-end tick/report path runs, but it is not a scored E3 result and does not test Celery queue tuning because the synchronous path left Celery queues idle.
+
+Table 3 is reserved for long-horizon lineage, branch locality, endpoint coverage, path-mass consistency, report grounding, failure observability, and cost transparency. These rows require full live WorldFork runs and evidence sampling.
 
 ### 4.4 Socio-Institutional State
 

@@ -38,3 +38,20 @@ E1 smoke case `resolved_003` completed initialization in 146.20 seconds.
 - Traits: 9
 - Graphs, sociology baseline, and emotion baseline: present
 
+E3 smoke case `resolved_003` completed one synchronous tick plus report generation in 408.49 seconds.
+
+- Big Bang ID: `5dc8596a-c386-428b-91bc-38ba76a2d688`
+- Ticks run by command: 1
+- Multiverse count: 1
+- Final report version ID: `56016e3d-73b6-40ca-bceb-3d9cdc66a524`
+- LLM calls: 14 succeeded, 0 failed
+- Reported total tokens: 174,427
+- Reported aggregate LLM seconds: 655.4009
+
+## Runtime Routing Override
+
+The local OpenRouter key is a placeholder, so the smoke run used a runtime-only model-routing override that routes all configured job types to `openai-codex` / `gpt-5.4`.
+
+- Patch file: `setup/model_routing_codex_only_patch.json`
+- Apply response: `setup/model_routing_codex_only.json`
+- Effective settings: `setup/model_routing_codex_only_effective.json`
