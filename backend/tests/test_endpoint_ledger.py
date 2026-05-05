@@ -156,6 +156,32 @@ def test_endpoint_ledger_seed_uses_initializer_endpoint_ledger_entries(db: Sessi
     assert entries["institutional_repair"].meta["source"] == "initializer_endpoint_ledger"
 
 
+def test_endpoint_ledger_seed_preserves_scenario_candidate_endpoints(db: Session):
+    big_bang, multiverse, _actor = _world(db)
+    big_bang.scenario_input = {
+        **big_bang.scenario_input,
+        "candidate_endpoints": [
+            {"id": "yes", "label": "The event occurs by the deadline"},
+            {"id": "no", "label": "The event does not occur by the deadline"},
+        ],
+        "forecast_metadata": {
+            "benchmark_role": "resolved_forecast",
+            "as_of_date": "2025-11-15",
+            "forecast_deadline_date": "2025-12-10",
+        },
+    }
+    db.flush()
+
+    seed = seed_endpoint_ledger(db, big_bang=big_bang, multiverse=multiverse)
+
+    entries = {entry.endpoint_key: entry for entry in endpoint_ledger_entries(db, seed.id)}
+    assert {"yes", "no"}.issubset(entries)
+    assert entries["yes"].status_basis == "scenario_candidate_endpoint"
+    assert entries["yes"].meta["source"] == "scenario_candidate_endpoint"
+    assert entries["yes"].meta["candidate_endpoint_role"] == "yes"
+    assert entries["no"].meta["forecast_deadline_date"] == "2025-12-10"
+
+
 def test_multiverse_ledger_evidence_excludes_sibling_events(db: Session):
     big_bang, multiverse, _actor = _world(db)
     sibling = models.Multiverse(
@@ -404,7 +430,18 @@ def test_report_generation_includes_endpoint_ledger_payload(db: Session, monkeyp
         ),
     )
 
-    def fake_report_agent(db, *, big_bang_id, purpose, model, messages, metadata, json_schema=None, route=None):
+    def fake_report_agent(
+        db,
+        *,
+        big_bang_id,
+        purpose,
+        model,
+        messages,
+        metadata,
+        json_schema=None,
+        route=None,
+        **_kwargs,
+    ):
         call = models.LLMCall(
             big_bang_id=big_bang_id,
             provider="test",

@@ -15,6 +15,7 @@ import json
 import math
 import os
 import random
+import re
 import socket
 import statistics
 import sys
@@ -22,7 +23,7 @@ import time
 import urllib.error
 import urllib.request
 from collections import Counter, defaultdict
-from datetime import UTC, datetime
+from datetime import UTC, date, datetime
 from pathlib import Path
 from typing import Any
 from urllib.parse import urljoin
@@ -61,6 +62,23 @@ WORLDFORK_SHORT_POLICIES = {
 }
 WORLDFORK_LONG_POLICIES = {
     "worldfork_full_branching_long": LONG_BRANCH_POLICY,
+}
+PUBLIC_FORECAST_DEADLINES = {
+    "resolved_001": "2025-10-10",
+    "resolved_002": "2025-10-08",
+    "resolved_005": "2026-03-15",
+    "resolved_006": "2026-02-01",
+    "resolved_007": "2025-11-01",
+    "resolved_008": "2026-02-08",
+    "resolved_009": "2026-02-01",
+    "resolved_010": "2026-01-31",
+    "resolved_011": "2025-11-04",
+    "resolved_012": "2025-11-04",
+    "resolved_013": "2025-11-04",
+    "resolved_014": "2025-04-28",
+    "resolved_022": "2026-01-31",
+    "resolved_023": "2025-11-22",
+    "resolved_024": "2025-09-30",
 }
 E4_DEFAULT_INPUT_PREFIX = Path("raw/E4_minimum_long_horizon_6")
 E4_LONG_HORIZON_MANIFEST = Path("manifests/worldfork_long_horizon_manifest.jsonl")
@@ -149,6 +167,93 @@ def resolve_case_file(run_root: Path, case_id: str) -> Path:
     raise FileNotFoundError(f"case file not found for {case_id}")
 
 
+def _public_cards_by_id() -> dict[str, dict[str, Any]]:
+    return {str(row.get("case_id")): row for row in read_jsonl(PUBLIC_36)}
+
+
+def _public_card_for_case(case_id: str) -> dict[str, Any] | None:
+    return _public_cards_by_id().get(case_id)
+
+
+def _parse_iso_date(value: Any) -> date | None:
+    if not value:
+        return None
+    try:
+        return date.fromisoformat(str(value)[:10])
+    except ValueError:
+        return None
+
+
+def _public_forecast_deadline(card: dict[str, Any]) -> str | None:
+    case_id = str(card.get("case_id") or "")
+    mapped = PUBLIC_FORECAST_DEADLINES.get(case_id)
+    if mapped:
+        return mapped
+    as_of = _parse_iso_date(card.get("as_of_date"))
+    text = "\n".join(
+        str(card.get(key) or "")
+        for key in ("forecast_horizon", "question", "prompt", "scenario_text")
+    )
+    candidates: list[date] = []
+    for raw in re.findall(r"\b20\d{2}-\d{2}-\d{2}\b", text):
+        parsed = _parse_iso_date(raw)
+        if parsed is not None and (as_of is None or parsed > as_of):
+            candidates.append(parsed)
+    if not candidates:
+        return None
+    return min(candidates).isoformat()
+
+
+def _candidate_endpoints_for_case(case_id: str) -> list[dict[str, Any]]:
+    card = _public_card_for_case(case_id) or {}
+    endpoints = card.get("candidate_endpoints")
+    if not isinstance(endpoints, list):
+        return []
+    return [endpoint for endpoint in endpoints if isinstance(endpoint, dict)]
+
+
+def candidate_endpoint_keys_for_case(case_id: str) -> list[str]:
+    keys: list[str] = []
+    for endpoint in _candidate_endpoints_for_case(case_id):
+        key = str(endpoint.get("id") or endpoint.get("endpoint_key") or "").strip().lower()
+        if key and key not in keys:
+            keys.append(key)
+    return keys
+
+
+def resolved_forecast_runtime_context(
+    *,
+    case_id: str,
+    max_ticks: int,
+    base_tick_duration_minutes: int,
+    deadline_aware: bool = True,
+) -> dict[str, Any]:
+    card = _public_card_for_case(case_id) or {}
+    as_of = _parse_iso_date(card.get("as_of_date"))
+    deadline = _parse_iso_date(_public_forecast_deadline(card))
+    tick_duration = int(base_tick_duration_minutes)
+    horizon_days: int | None = None
+    if deadline_aware and as_of is not None and deadline is not None and deadline >= as_of and max_ticks > 0:
+        horizon_days = max(1, (deadline - as_of).days + 1)
+        tick_duration = max(tick_duration, math.ceil((horizon_days * 24 * 60) / max_ticks))
+    metadata = {
+        "benchmark_role": card.get("benchmark_role"),
+        "as_of_date": card.get("as_of_date"),
+        "forecast_horizon": card.get("forecast_horizon"),
+        "forecast_deadline_date": deadline.isoformat() if deadline else None,
+        "deadline_horizon_days": horizon_days,
+        "deadline_tick": int(max_ticks) if deadline and horizon_days is not None else None,
+        "tick_horizon_policy": "deadline_aware" if deadline_aware and horizon_days is not None else "fixed_tick_duration",
+    }
+    endpoints = _candidate_endpoints_for_case(case_id)
+    return {
+        "tick_duration_minutes": tick_duration,
+        "forecast_metadata": metadata,
+        "candidate_endpoints": endpoints,
+        "endpoint_resolution_keys": candidate_endpoint_keys_for_case(case_id),
+    }
+
+
 def build_init_job_payload(
     *,
     case_id: str,
@@ -157,12 +262,21 @@ def build_init_job_payload(
     max_ticks: int,
     tick_duration_minutes: int,
     branch_policy: dict[str, Any],
+    forecast_context: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
+    scenario_input: dict[str, Any] = {}
+    if forecast_context:
+        scenario_input = {
+            "forecast_metadata": forecast_context.get("forecast_metadata") or {},
+            "candidate_endpoints": forecast_context.get("candidate_endpoints") or [],
+            "endpoint_resolution_keys": forecast_context.get("endpoint_resolution_keys") or [],
+        }
     return {
         "job_type": "initialize_big_bang",
         "payload": {
             "name": f"{name_prefix}_{case_id}",
             "scenario_text": case_file.read_text(encoding="utf-8"),
+            "scenario_input": scenario_input,
             "simulation_config": {
                 "max_ticks": max_ticks,
                 "tick_duration_minutes": tick_duration_minutes,
@@ -1299,6 +1413,9 @@ def resume_worldfork_short_batch(args: argparse.Namespace) -> None:
             target_max_ticks=args.max_ticks,
         )
         run_payload = {"max_total_ticks": run_budget}
+        endpoint_resolution_keys = candidate_endpoint_keys_for_case(case_id)
+        if endpoint_resolution_keys:
+            run_payload["endpoint_resolution_keys"] = endpoint_resolution_keys
         if getattr(args, "stop_when_endpoint_ledger_resolved", False):
             run_payload["stop_when_endpoint_ledger_resolved"] = True
         _write_json(out_dir / "run_job_payload.json", run_payload)
@@ -1365,7 +1482,12 @@ def resume_worldfork_short_batch(args: argparse.Namespace) -> None:
         if job.get("status") == "succeeded":
             _capture_run_artifacts(client, out_dir, info["big_bang_id"])
             path_mass = json.loads((out_dir / "path_mass.json").read_text(encoding="utf-8"))
-            prediction = extract_worldfork_forecast(case_id, condition, path_mass)
+            prediction = extract_worldfork_forecast(
+                case_id,
+                condition,
+                path_mass,
+                candidate_endpoint_keys=candidate_endpoint_keys_for_case(case_id),
+            )
             prediction["route_policy_id"] = args.route_policy_id
             prediction["source_route_policy_id"] = args.source_route_policy_id
             prediction["source_max_ticks_requested"] = info.get("source_max_ticks_requested")
@@ -1450,9 +1572,13 @@ def refresh_worldfork_short_ledgers(args: argparse.Namespace) -> None:
         write_jsonl(output, [predictions[key] for key in existing_order if key in predictions])
 
 
+def _endpoint_key_value(entry: dict[str, Any]) -> str:
+    return str(entry.get("endpoint_key") or entry.get("id") or "").strip().lower()
+
+
 def _endpoint_matches(entry: dict[str, Any], target: str) -> bool:
     target = target.lower()
-    key = str(entry.get("endpoint_key") or entry.get("id") or "").lower()
+    key = _endpoint_key_value(entry)
     label = str(entry.get("label") or entry.get("description") or "").lower()
     if key in {target, f"{target}_endpoint"}:
         return True
@@ -1465,10 +1591,28 @@ def _endpoint_matches(entry: dict[str, Any], target: str) -> bool:
     return False
 
 
-def extract_worldfork_forecast(case_id: str, condition: str, path_mass_payload: dict[str, Any]) -> dict[str, Any]:
+def extract_worldfork_forecast(
+    case_id: str,
+    condition: str,
+    path_mass_payload: dict[str, Any],
+    *,
+    candidate_endpoint_keys: list[str] | None = None,
+) -> dict[str, Any]:
     rows = path_mass_payload.get("endpoint_path_mass_distribution") or []
     if not isinstance(rows, list):
         rows = []
+    normalized_candidate_keys = [
+        str(key).strip().lower()
+        for key in (candidate_endpoint_keys if candidate_endpoint_keys is not None else candidate_endpoint_keys_for_case(case_id))
+        if str(key).strip()
+    ]
+    if normalized_candidate_keys:
+        candidate_key_set = set(normalized_candidate_keys)
+        rows = [
+            entry
+            for entry in rows
+            if isinstance(entry, dict) and _endpoint_key_value(entry) in candidate_key_set
+        ]
     yes_mass = 0.0
     no_mass = 0.0
     unresolved_mass = 0.0
@@ -1501,8 +1645,13 @@ def extract_worldfork_forecast(case_id: str, condition: str, path_mass_payload: 
         "p_no": p_no,
         "unresolved_mass": unresolved,
         "forecast_distribution": {"yes": p_yes, "no": p_no, "unresolved": unresolved},
-        "extraction_note": "derived_from_endpoint_path_mass_distribution",
+        "extraction_note": (
+            "derived_from_candidate_endpoint_path_mass_distribution"
+            if normalized_candidate_keys
+            else "derived_from_endpoint_path_mass_distribution"
+        ),
         "matched_endpoint_rows": matched_rows,
+        "candidate_endpoint_keys": normalized_candidate_keys,
     }
 
 
@@ -1609,13 +1758,21 @@ def run_worldfork_short(args: argparse.Namespace) -> None:
             relative_dir = Path(args.output_prefix) / condition / case_id
             out_dir = run_root / relative_dir
             case_file = resolve_case_file(run_root, case_id)
+            runtime_context = resolved_forecast_runtime_context(
+                case_id=case_id,
+                max_ticks=args.max_ticks,
+                base_tick_duration_minutes=args.tick_duration_minutes,
+                deadline_aware=getattr(args, "deadline_aware_ticks", True),
+            )
+            tick_duration_minutes = int(runtime_context["tick_duration_minutes"])
             payload = build_init_job_payload(
                 case_id=case_id,
                 case_file=case_file,
                 name_prefix=f"{args.name_prefix}_{condition}",
                 max_ticks=args.max_ticks,
-                tick_duration_minutes=args.tick_duration_minutes,
+                tick_duration_minutes=tick_duration_minutes,
                 branch_policy=WORLDFORK_SHORT_POLICIES[condition],
+                forecast_context=runtime_context,
             )
             _write_json(out_dir / "init_job_payload.json", payload)
             init_job, init_create_seconds = _timed_api_call(client, "POST", "/jobs", payload=payload)
@@ -1640,6 +1797,8 @@ def run_worldfork_short(args: argparse.Namespace) -> None:
             _capture_init_artifacts(client, out_dir, big_bang_id)
 
             run_payload = {"max_total_ticks": args.max_ticks}
+            if runtime_context.get("endpoint_resolution_keys"):
+                run_payload["endpoint_resolution_keys"] = runtime_context["endpoint_resolution_keys"]
             if getattr(args, "stop_when_endpoint_ledger_resolved", False):
                 run_payload["stop_when_endpoint_ledger_resolved"] = True
             _write_json(out_dir / "run_job_payload.json", run_payload)
@@ -1667,7 +1826,17 @@ def run_worldfork_short(args: argparse.Namespace) -> None:
                 raise SystemExit(f"{case_id}/{condition}: run job ended {run_result.get('status')}")
             _capture_run_artifacts(client, out_dir, big_bang_id)
             path_mass = json.loads((out_dir / "path_mass.json").read_text(encoding="utf-8"))
-            prediction = _annotate_prediction(extract_worldfork_forecast(case_id, condition, path_mass), args)
+            prediction = _annotate_prediction(
+                extract_worldfork_forecast(
+                    case_id,
+                    condition,
+                    path_mass,
+                    candidate_endpoint_keys=runtime_context.get("endpoint_resolution_keys"),
+                ),
+                args,
+            )
+            prediction["tick_duration_minutes"] = tick_duration_minutes
+            prediction["forecast_metadata"] = runtime_context.get("forecast_metadata")
             append_jsonl(output, prediction)
             result_payload = run_result.get("result") or {}
             append_jsonl(
@@ -1686,7 +1855,7 @@ def run_worldfork_short(args: argparse.Namespace) -> None:
                     multiverse_count=int(result_payload.get("multiverse_count") or 0),
                     final_report_version_id=result_payload.get("final_report_version_id"),
                     max_ticks_requested=args.max_ticks,
-                    tick_duration_minutes=args.tick_duration_minutes,
+                    tick_duration_minutes=tick_duration_minutes,
                     route_policy_id=args.route_policy_id,
                     prediction_output=_display_run_path(output, run_root),
                 ),
@@ -1782,13 +1951,21 @@ def run_worldfork_short_batch(args: argparse.Namespace) -> None:
         condition = target["condition"]
         out_dir = target["out_dir"]
         case_file = resolve_case_file(run_root, case_id)
+        runtime_context = resolved_forecast_runtime_context(
+            case_id=case_id,
+            max_ticks=args.max_ticks,
+            base_tick_duration_minutes=args.tick_duration_minutes,
+            deadline_aware=getattr(args, "deadline_aware_ticks", True),
+        )
+        tick_duration_minutes = int(runtime_context["tick_duration_minutes"])
         payload = build_init_job_payload(
             case_id=case_id,
             case_file=case_file,
             name_prefix=f"{args.name_prefix}_{condition}",
             max_ticks=args.max_ticks,
-            tick_duration_minutes=args.tick_duration_minutes,
+            tick_duration_minutes=tick_duration_minutes,
             branch_policy=WORLDFORK_SHORT_POLICIES[condition],
+            forecast_context=runtime_context,
         )
         _write_json(out_dir / "init_job_payload.json", payload)
         init_job, init_create_seconds = _timed_api_call(client, "POST", "/jobs", payload=payload)
@@ -1801,6 +1978,8 @@ def run_worldfork_short_batch(args: argparse.Namespace) -> None:
             **target,
             "job_id": init_job_id,
             "submitted_at": time.monotonic(),
+            "runtime_context": runtime_context,
+            "tick_duration_minutes": tick_duration_minutes,
         }
         print(json.dumps({"case_id": case_id, "condition": condition, "init_job_id": init_job_id, "status": "init_submitted"}))
 
@@ -1836,7 +2015,7 @@ def run_worldfork_short_batch(args: argparse.Namespace) -> None:
                     multiverse_count=0,
                     final_report_version_id=None,
                     max_ticks_requested=args.max_ticks,
-                    tick_duration_minutes=args.tick_duration_minutes,
+                    tick_duration_minutes=int(info.get("tick_duration_minutes") or args.tick_duration_minutes),
                     route_policy_id=args.route_policy_id,
                     prediction_output=_display_run_path(_prediction_output_path(run_root, args.prediction_output), run_root),
                 ),
@@ -1847,6 +2026,9 @@ def run_worldfork_short_batch(args: argparse.Namespace) -> None:
         _capture_init_artifacts(client, out_dir, big_bang_id)
 
         run_payload = {"max_total_ticks": args.max_ticks}
+        runtime_context = info.get("runtime_context") if isinstance(info.get("runtime_context"), dict) else {}
+        if runtime_context.get("endpoint_resolution_keys"):
+            run_payload["endpoint_resolution_keys"] = runtime_context["endpoint_resolution_keys"]
         if getattr(args, "stop_when_endpoint_ledger_resolved", False):
             run_payload["stop_when_endpoint_ledger_resolved"] = True
         _write_json(out_dir / "run_job_payload.json", run_payload)
@@ -1894,7 +2076,19 @@ def run_worldfork_short_batch(args: argparse.Namespace) -> None:
         if job.get("status") == "succeeded":
             _capture_run_artifacts(client, out_dir, info["big_bang_id"])
             path_mass = json.loads((out_dir / "path_mass.json").read_text(encoding="utf-8"))
-            append_jsonl(output, _annotate_prediction(extract_worldfork_forecast(case_id, condition, path_mass), args))
+            runtime_context = info.get("runtime_context") if isinstance(info.get("runtime_context"), dict) else {}
+            prediction = _annotate_prediction(
+                extract_worldfork_forecast(
+                    case_id,
+                    condition,
+                    path_mass,
+                    candidate_endpoint_keys=runtime_context.get("endpoint_resolution_keys"),
+                ),
+                args,
+            )
+            prediction["tick_duration_minutes"] = int(info.get("tick_duration_minutes") or args.tick_duration_minutes)
+            prediction["forecast_metadata"] = runtime_context.get("forecast_metadata")
+            append_jsonl(output, prediction)
         append_jsonl(
             manifest,
             worldfork_short_manifest_row(
@@ -1911,7 +2105,7 @@ def run_worldfork_short_batch(args: argparse.Namespace) -> None:
                 multiverse_count=int(result_payload.get("multiverse_count") or 0),
                 final_report_version_id=result_payload.get("final_report_version_id"),
                 max_ticks_requested=args.max_ticks,
-                tick_duration_minutes=args.tick_duration_minutes,
+                tick_duration_minutes=int(info.get("tick_duration_minutes") or args.tick_duration_minutes),
                 route_policy_id=args.route_policy_id,
                 prediction_output=_display_run_path(output, run_root),
             ),
@@ -2303,6 +2497,16 @@ def public_case_markdown(card: dict[str, Any]) -> str:
     endpoints = card.get("candidate_endpoints") or card.get("endpoints") or []
 
     parts = [f"# Case {case_id}", f"Benchmark role: {role}"]
+    if card.get("as_of_date") or card.get("forecast_horizon"):
+        parts.extend(["", "## Forecast Clock"])
+        if card.get("as_of_date"):
+            parts.append(f"As-of date: {card['as_of_date']}")
+        if card.get("forecast_horizon"):
+            parts.append(f"Forecast horizon: {card['forecast_horizon']}")
+        deadline = _public_forecast_deadline(card)
+        if deadline:
+            parts.append(f"Forecast deadline date: {deadline}")
+        parts.append("Treat the simulated clock as beginning at the as-of date.")
     if question:
         parts.extend(["", f"Forecast question: {question}"])
     if scenario:
@@ -2322,6 +2526,18 @@ def public_case_markdown(card: dict[str, Any]) -> str:
                 parts.append(f"- {endpoint_id}: {label}")
             else:
                 parts.append(f"- {endpoint}")
+    if role == "resolved_forecast":
+        parts.extend(
+            [
+                "",
+                "## Binary forecast contract",
+                "The explicit candidate endpoints are the primary scoring endpoints.",
+                "Resolve yes only when the event occurs by the stated deadline.",
+                "Resolve no when the stated deadline or public settlement point passes without the event occurring.",
+                "Auxiliary mechanism endpoints must not keep the binary forecast unresolved once the yes/no endpoint is settled.",
+                "Use auxiliary mechanism endpoints only as diagnostic support for the binary forecast.",
+            ]
+        )
     for key in [
         "expected_focus",
         "required_forecast_output",
@@ -3030,6 +3246,8 @@ def main() -> None:
     short.add_argument("--name-prefix", default="E3")
     short.add_argument("--max-ticks", type=int, default=8, help="Maximum tick cap, not a required stopping target.")
     short.add_argument("--tick-duration-minutes", type=int, default=720)
+    short.add_argument("--no-deadline-aware-ticks", dest="deadline_aware_ticks", action="store_false")
+    short.set_defaults(deadline_aware_ticks=True)
     short.add_argument("--stop-when-endpoint-ledger-resolved", action="store_true")
     short.add_argument("--core12", action="store_true", help="Use the resolved core-12 fallback from the run matrix.")
     short.add_argument("--force", action="store_true")
@@ -3051,6 +3269,8 @@ def main() -> None:
     short_batch.add_argument("--name-prefix", default="E3_batch")
     short_batch.add_argument("--max-ticks", type=int, default=8, help="Maximum tick cap, not a required stopping target.")
     short_batch.add_argument("--tick-duration-minutes", type=int, default=720)
+    short_batch.add_argument("--no-deadline-aware-ticks", dest="deadline_aware_ticks", action="store_false")
+    short_batch.set_defaults(deadline_aware_ticks=True)
     short_batch.add_argument("--stop-when-endpoint-ledger-resolved", action="store_true")
     short_batch.add_argument("--core12", action="store_true", help="Use the resolved core-12 fallback from the run matrix.")
     short_batch.add_argument("--force", action="store_true")

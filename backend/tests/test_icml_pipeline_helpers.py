@@ -45,6 +45,46 @@ def test_build_init_job_payload_uses_public_scenario_only(tmp_path: Path) -> Non
     assert "private_eval" not in payload["payload"]["scenario_text"]
 
 
+def test_public_case_markdown_includes_forecast_clock_and_binary_contract() -> None:
+    pipeline = load_icml_pipeline()
+    card = {
+        "case_id": "resolved_003",
+        "benchmark_role": "resolved_forecast",
+        "as_of_date": "2025-11-15",
+        "forecast_horizon": "through the FOMC decision on 2025-12-10",
+        "question": "Will the committee lower rates?",
+        "scenario_text": "The committee faces a binary decision.",
+        "candidate_endpoints": [
+            {"id": "yes", "label": "The event occurs by the deadline"},
+            {"id": "no", "label": "The event does not occur by the deadline"},
+        ],
+    }
+
+    markdown = pipeline.public_case_markdown(card)
+
+    assert "As-of date: 2025-11-15" in markdown
+    assert "Forecast horizon: through the FOMC decision on 2025-12-10" in markdown
+    assert "Forecast deadline date: 2025-12-10" in markdown
+    assert "Binary forecast contract" in markdown
+    assert "Auxiliary mechanism endpoints must not keep the binary forecast unresolved" in markdown
+
+
+def test_resolved_forecast_runtime_context_uses_deadline_aware_tick_duration() -> None:
+    pipeline = load_icml_pipeline()
+
+    context = pipeline.resolved_forecast_runtime_context(
+        case_id="resolved_003",
+        max_ticks=16,
+        base_tick_duration_minutes=720,
+        deadline_aware=True,
+    )
+
+    assert context["tick_duration_minutes"] == 2340
+    assert context["forecast_metadata"]["as_of_date"] == "2025-11-15"
+    assert context["forecast_metadata"]["forecast_deadline_date"] == "2025-12-10"
+    assert context["endpoint_resolution_keys"] == ["yes", "no"]
+
+
 def test_resolve_case_file_finds_public_existing_and_additional_cases(tmp_path: Path) -> None:
     pipeline = load_icml_pipeline()
     run_root = tmp_path / "run"
@@ -159,13 +199,13 @@ def test_extract_worldfork_forecast_normalizes_yes_no_path_mass() -> None:
         {
             "endpoint_path_mass_distribution": [
                 {
-                    "endpoint_key": "outcome_yes",
+                    "endpoint_key": "yes",
                     "label": "Event occurs",
                     "path_mass": 0.7,
                     "status_path_masses": {"realized": 0.7},
                 },
                 {
-                    "endpoint_key": "outcome_no",
+                    "endpoint_key": "no",
                     "label": "Event does not occur",
                     "path_mass": 0.3,
                     "status_path_masses": {"unresolved": 0.3},
@@ -178,6 +218,44 @@ def test_extract_worldfork_forecast_normalizes_yes_no_path_mass() -> None:
     assert forecast["p_no"] == 0.3
     assert forecast["unresolved_mass"] == 0.15
     assert forecast["matched_endpoint_rows"] == 2
+
+
+def test_extract_worldfork_forecast_filters_to_explicit_candidate_keys() -> None:
+    pipeline = load_icml_pipeline()
+
+    forecast = pipeline.extract_worldfork_forecast(
+        "resolved_003",
+        "worldfork_branching_short",
+        {
+            "endpoint_path_mass_distribution": [
+                {
+                    "endpoint_key": "yes",
+                    "label": "The event occurs by the deadline",
+                    "path_mass": 0.7,
+                    "status_path_masses": {"realized": 0.7},
+                },
+                {
+                    "endpoint_key": "no",
+                    "label": "The event does not occur by the deadline",
+                    "path_mass": 0.3,
+                    "status_path_masses": {"realized": 0.3},
+                },
+                {
+                    "endpoint_key": "market_does_not_price_cut",
+                    "label": "Auxiliary mechanism does not price a cut",
+                    "path_mass": 1.0,
+                    "status_path_masses": {"insufficient_ticks": 1.0},
+                },
+            ]
+        },
+        candidate_endpoint_keys=["yes", "no"],
+    )
+
+    assert forecast["p_yes"] == 0.7
+    assert forecast["p_no"] == 0.3
+    assert forecast["unresolved_mass"] == 0.0
+    assert forecast["matched_endpoint_rows"] == 2
+    assert forecast["extraction_note"] == "derived_from_candidate_endpoint_path_mass_distribution"
 
 
 def test_prepare_worldfork_resume_continues_terminal_multiverses(tmp_path: Path) -> None:

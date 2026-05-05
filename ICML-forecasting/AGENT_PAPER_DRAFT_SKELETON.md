@@ -23,6 +23,7 @@ Modern LLM forecasting agents often return a probability and rationale without e
 - Branch policy and God-agent review.
 - Endpoint ledgers and path mass.
 - Tick counts are caps: endpoint-ledger/path-mass resolution is the stopping criterion, and unresolved or insufficient mass resumes the existing Big Bang rather than reinitializing.
+- For E3 resolved cards, the paper rows use deadline-aware tick durations and score only explicit `yes`/`no` candidate endpoints. Auxiliary mechanism endpoints are audit traces, not binary-scoring endpoints.
 - Report provenance.
 - Socio-institutional state: actors/cohorts, graph layers, sociology signals, social posts.
 - Emotion observability: logged affective observations only, not a validated psychology model.

@@ -110,6 +110,34 @@ def test_endpoint_path_mass_resolution_treats_ticks_as_caps():
     assert unresolved["insufficient_ticks_mass"] == 0.3
 
 
+def test_endpoint_path_mass_resolution_can_filter_to_candidate_keys():
+    resolution = _endpoint_path_mass_resolution(
+        [
+            {
+                "endpoint_key": "yes",
+                "path_mass": 0.62,
+                "status_path_masses": {"realized": 0.62},
+            },
+            {
+                "endpoint_key": "no",
+                "path_mass": 0.38,
+                "status_path_masses": {"realized": 0.38},
+            },
+            {
+                "endpoint_key": "auxiliary_does_not_close",
+                "path_mass": 1.0,
+                "status_path_masses": {"insufficient_ticks": 1.0},
+            },
+        ],
+        endpoint_keys=["yes", "no"],
+    )
+
+    assert resolution["resolved"] is True
+    assert resolution["endpoint_rows"] == 2
+    assert resolution["ignored_endpoint_rows"] == 1
+    assert resolution["insufficient_ticks_mass"] == 0.0
+
+
 def test_advertised_job_queues_are_runtime_celery_queues():
     from backend.app.workers.celery_app import celery_app
 

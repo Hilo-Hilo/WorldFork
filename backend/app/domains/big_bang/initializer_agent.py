@@ -388,6 +388,10 @@ def normalize_initializer_output(parsed: dict[str, Any], scenario_input: dict[st
         branch_hypotheses=normalized["branch_hypotheses"],
         default=fallback["endpoint_ledger"],
     )
+    normalized["endpoint_ledger"] = _overlay_scenario_candidate_endpoints(
+        normalized["endpoint_ledger"],
+        scenario_input,
+    )
     normalized["fallback"] = bool(output.get("fallback")) or parsed.get("error") is not None if isinstance(parsed, dict) else True
     normalized["graph_edges"] = ensure_required_graph_layers(normalized["graph_edges"])
     return normalized
@@ -487,6 +491,67 @@ def _normalize_initializer_endpoint_ledger(
         if len(normalized) == 5:
             break
     return normalized or list(default)
+
+
+def _overlay_scenario_candidate_endpoints(
+    entries: list[dict[str, Any]],
+    scenario_input: dict[str, Any],
+) -> list[dict[str, Any]]:
+    raw_candidates = scenario_input.get("candidate_endpoints")
+    if not isinstance(raw_candidates, list):
+        return entries
+    forecast_metadata = scenario_input.get("forecast_metadata") if isinstance(scenario_input.get("forecast_metadata"), dict) else {}
+    merged = {str(entry.get("endpoint_key") or ""): dict(entry) for entry in entries if entry.get("endpoint_key")}
+    order = [str(entry.get("endpoint_key")) for entry in entries if entry.get("endpoint_key")]
+    for candidate in raw_candidates:
+        if not isinstance(candidate, dict):
+            continue
+        candidate_id = str(candidate.get("id") or candidate.get("endpoint_key") or candidate.get("label") or "").strip()
+        if not candidate_id:
+            continue
+        key = _endpoint_key(candidate_id)
+        label = str(candidate.get("label") or candidate.get("description") or candidate_id)
+        current = merged.get(key, {})
+        meta = dict(current.get("meta")) if isinstance(current.get("meta"), dict) else {}
+        current.update(
+            {
+                "endpoint_key": key,
+                "label": current.get("label") or label,
+                "description": candidate.get("description") or current.get("description") or label,
+                "status": str(current.get("status") or candidate.get("status") or "active").lower(),
+                "probability": None,
+                "realization_criteria": _string_list(candidate.get("realization_criteria"))
+                or current.get("realization_criteria")
+                or [
+                    f"Resolve candidate endpoint {candidate_id} using the forecast question, deadline, and official settlement evidence.",
+                ],
+                "authority_refs": _list_value(candidate.get("authority_refs")) or current.get("authority_refs") or ["forecast_card"],
+                "evidence_refs": [
+                    {"source": "scenario_candidate_endpoint", "candidate_endpoint_id": candidate_id},
+                    *_list_value(candidate.get("evidence_refs")),
+                ],
+                "negative_evidence_refs": _list_value(candidate.get("negative_evidence_refs")),
+                "blockers": _string_list(candidate.get("blockers")) or current.get("blockers") or [],
+                "status_basis": current.get("status_basis") or "scenario_candidate_endpoint",
+                "contradiction_notes": current.get("contradiction_notes")
+                or "Auxiliary mechanism endpoints must not override this primary yes/no candidate.",
+                "rationale": current.get("rationale") or "Preserved from scenario candidate endpoints.",
+                "last_observed_tick_index": _optional_int(current.get("last_observed_tick_index")),
+                "meta": {
+                    **meta,
+                    "source": "scenario_candidate_endpoint",
+                    "endpoint_role": "primary_candidate",
+                    "candidate_endpoint_id": candidate_id.lower(),
+                    "candidate_endpoint_role": candidate_id.lower(),
+                    "forecast_deadline_date": forecast_metadata.get("forecast_deadline_date"),
+                    "as_of_date": forecast_metadata.get("as_of_date"),
+                },
+            }
+        )
+        if key not in merged:
+            order.append(key)
+        merged[key] = current
+    return [merged[key] for key in order if key in merged]
 
 
 def _endpoint_entries_from_branch_hypotheses(items: list[dict]) -> list[dict[str, Any]]:

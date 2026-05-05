@@ -126,10 +126,21 @@ idle with `worldfork jobs queues` or `GET /api/jobs/queues`.
 
 ## E3 resume policy
 
-Treat E3 tick counts as caps, not mandatory stopping points. If endpoint ledgers
-are already resolved, carry the frozen prediction forward and do not spend more
-ticks just to hit 16, 32, or 35. If the ledger still has unresolved path mass,
-resume the existing Big Bang instead of reinitializing it.
+Treat E3 tick counts as caps, not mandatory stopping points. New E3 runs should
+use deadline-aware tick durations: the public card as-of date and public
+forecast deadline determine the per-timeline simulated horizon, and the tick cap
+just sets the granularity of that horizon. Do not spend more ticks just to hit
+16, 32, or 35 when the explicit yes/no endpoint ledger has naturally resolved.
+
+For resolved forecast cards, only the explicit `yes` and `no` candidate
+endpoints are scoring endpoints. Auxiliary mechanism, uncertainty, or branch
+hypothesis endpoints remain visible for audit, but they must not keep the binary
+forecast unresolved or pollute `p_yes`/`p_no` extraction.
+
+Existing 720-minute E3 runs are not deadline-aware. Treat those rows as suspect
+pilot/diagnostic evidence unless they are rerun from a fresh initialization with
+public forecast clock metadata in the generated case file and structured
+`candidate_endpoints` in `scenario_input`.
 
 Optimize for useful parallelism, not duplicate work. Reuse active jobs, live
 wait sessions, and existing Big Bang IDs whenever possible. Add workers only
@@ -158,6 +169,25 @@ The resume command uses `/api/multiverses/{id}/continue` to raise only the targe
 multiverse horizon, submits `run-until-complete` jobs with enough budget for the
 remaining ticks plus terminal probing, and skips source rows whose
 `unresolved_mass` is already `0.0` by default.
+
+For the corrected E3 rerun, prefer a fresh batch rather than resuming the old
+720-minute Big Bangs:
+
+```bash
+python3 ICML-forecasting/scripts/icml_pipeline.py run-worldfork-short-batch \
+  --run-root paper_runs/worldfork_icml_20260505-010947 \
+  --base-url http://127.0.0.1:18045 \
+  --conditions worldfork_branching_short \
+  --output-prefix raw/E3_worldfork_deadline_aware_branching_core12 \
+  --prediction-output raw/E3_worldfork_deadline_aware_branching_core12/worldfork_predictions.jsonl \
+  --route-policy-id icml_default_deepseek_v4_flash_cohort_hero_deadline_aware_core12 \
+  --name-prefix E3_deadline_aware \
+  --core12 \
+  --max-ticks 16 \
+  --stop-when-endpoint-ledger-resolved \
+  --wait-timeout 21600 \
+  --poll-seconds 15
+```
 
 ## Agent handoff files added
 

@@ -544,9 +544,10 @@ Run all 24 resolved cards under two WorldFork conditions.
 {"max_branch_depth":1,"max_active_multiverses":1,"max_branches_per_tick":1,"branch_score_threshold":0.999}
 ```
 
-`max_ticks=8` is the original pilot cap; use `tick_duration_minutes=720`.
-For default-route paper rows, DeepSeek-routed cohort/hero runs may use a higher
-cap such as 16 or 35 when ledgers remain unresolved.
+`max_ticks=8` was the original pilot cap, but corrected paper rows must use
+deadline-aware tick duration. Compute the per-card simulated horizon from the
+public `as_of_date` to the public forecast deadline, and treat `max_ticks` as
+the granularity cap. Do not use fixed 720-minute ticks for new E3 paper rows.
 
 **Condition B: `worldfork_branching_short`**
 
@@ -554,16 +555,20 @@ cap such as 16 or 35 when ledgers remain unresolved.
 {"max_branch_depth":2,"max_active_multiverses":4,"max_branches_per_tick":1,"branch_score_threshold":0.75}
 ```
 
-`max_ticks=8` is the original pilot cap; use `tick_duration_minutes=720`.
-For branching rows, prefer a small representative slice before scaling because
-branching can multiply active timelines and runtime cost.
+`max_ticks=8` was the original pilot cap, but corrected paper rows must use
+deadline-aware tick duration. For branching rows, prefer a small representative
+slice before scaling because branching can multiply active timelines and runtime
+cost.
 
 If cost or provider limits prevent running all 24 WorldFork short cases, use this exact fallback subset and record the downgrade: `resolved_001`, `resolved_003`, `resolved_005`, `resolved_007`, `resolved_009`, `resolved_011`, `resolved_013`, `resolved_015`, `resolved_017`, `resolved_019`, `resolved_021`, `resolved_023`. Baselines must still run all 24.
 
 Tick counts are caps, not targets. Do not spend extra ticks merely to reach 16,
-32, or 35 when an endpoint ledger has naturally resolved. Conversely, if a
-16-tick run still has unresolved path mass, resume the existing Big Bang to a
-higher cap instead of reinitializing the case.
+32, or 35 when the explicit `yes`/`no` endpoint ledger has naturally resolved.
+Auxiliary mechanism endpoints, branch hypotheses, or known-uncertainty rows are
+audit evidence only; they must not keep the binary forecast unresolved. Existing
+fixed-720-minute E3 Big Bangs are suspect pilot rows. Reinitialize for corrected
+paper rows unless the source Big Bang already has public forecast-clock metadata
+and structured `candidate_endpoints` in `scenario_input`.
 
 Use maximum useful parallelism, not maximum possible duplicate work. Before
 starting new runs, check active jobs, live wait sessions, and existing artifacts;
@@ -589,8 +594,8 @@ fi
 worldfork init \
   --name "E3_${condition}_${case_id}" \
   --scenario-file "$case_file" \
-  --max-ticks 8 \
-  --tick-duration-minutes 720 \
+  --max-ticks 16 \
+  --tick-duration-minutes "<computed from public deadline horizon>" \
   --branch-policy "$branch_policy" \
   --wait-timeout 900 \
   | tee "$out_dir/init_stdout.json"
@@ -623,10 +628,13 @@ For reusable batch execution, prefer the repo script over hand-written loops:
 python3 ICML-forecasting/scripts/icml_pipeline.py run-worldfork-short-batch \
   --run-root "$run_root" \
   --base-url http://127.0.0.1:18045 \
-  --conditions worldfork_no_branch_short \
-  --prediction-output raw/E3_worldfork_default_route_16tick/worldfork_predictions.jsonl \
-  --route-policy-id icml_default_deepseek_v4_flash_cohort_hero \
+  --conditions worldfork_branching_short \
+  --prediction-output raw/E3_worldfork_deadline_aware_branching_core12/worldfork_predictions.jsonl \
+  --output-prefix raw/E3_worldfork_deadline_aware_branching_core12 \
+  --route-policy-id icml_default_deepseek_v4_flash_cohort_hero_deadline_aware_core12 \
+  --core12 \
   --max-ticks 16 \
+  --stop-when-endpoint-ledger-resolved \
   --wait-timeout 21600
 ```
 
@@ -646,6 +654,9 @@ python3 ICML-forecasting/scripts/icml_pipeline.py resume-worldfork-short-batch \
   --wait-timeout 21600
 ```
 
+Use resume only for corrected deadline-aware source Big Bangs. Do not resume
+the older fixed-720-minute E3 pilot Big Bangs for paper accuracy claims.
+
 ### 8.3 Extracting WorldFork forecast probabilities
 
 For each resolved case, create one JSON object:
@@ -663,8 +674,11 @@ For each resolved case, create one JSON object:
 
 Preferred extraction order:
 
-1. Use explicit report/adjudication forecast distribution if available.
-2. Else use `ledgers path-mass` and map endpoint labels to yes/no/unresolved.
+1. Use explicit report/adjudication forecast distribution if available and it
+   is explicitly tied to the public `yes`/`no` candidate endpoints.
+2. Else use `ledgers path-mass` and exact-match endpoint keys to the public
+   candidate endpoint ids `yes` and `no`; ignore auxiliary mechanism endpoints
+   for scoring and binary-resolution stop checks.
 3. Else use final report JSON outcome distribution.
 4. Else use a deterministic parser over endpoint ledger statuses. Do **not** ask a model with access to private eval to infer the answer.
 

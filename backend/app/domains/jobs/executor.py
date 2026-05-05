@@ -113,6 +113,10 @@ def validate_job_payload(job_type: str, payload: dict | None, *, big_bang_id=Non
     if job_type == "run_big_bang_until_complete" and "stop_when_endpoint_ledger_resolved" in payload:
         if not isinstance(payload["stop_when_endpoint_ledger_resolved"], bool):
             raise ValueError("stop_when_endpoint_ledger_resolved must be a boolean")
+    if job_type == "run_big_bang_until_complete" and "endpoint_resolution_keys" in payload:
+        keys = payload["endpoint_resolution_keys"]
+        if not isinstance(keys, list) or any(not isinstance(item, str) or not item.strip() for item in keys):
+            raise ValueError("endpoint_resolution_keys must be a list of non-empty strings")
 
 
 def reject_archived_big_bang(big_bang: models.BigBang) -> None:
@@ -292,6 +296,11 @@ def _execute_run_big_bang_until_complete_job(db: Session, job: models.Job) -> di
     payload = job.payload or {}
     max_total_ticks = int(payload.get("max_total_ticks", 24))
     stop_when_endpoint_ledger_resolved = bool(payload.get("stop_when_endpoint_ledger_resolved", False))
+    endpoint_resolution_keys = [
+        str(item).strip().lower()
+        for item in payload.get("endpoint_resolution_keys") or []
+        if str(item).strip()
+    ]
     if max_total_ticks < 1:
         raise ValueError("max_total_ticks must be a positive integer")
 
@@ -377,7 +386,11 @@ def _execute_run_big_bang_until_complete_job(db: Session, job: models.Job) -> di
             stopped_reason = "no_tick_progress"
             break
         if stop_when_endpoint_ledger_resolved:
-            endpoint_ledger_resolution = _big_bang_endpoint_ledger_resolution(db, big_bang=big_bang)
+            endpoint_ledger_resolution = _big_bang_endpoint_ledger_resolution(
+                db,
+                big_bang=big_bang,
+                endpoint_keys=endpoint_resolution_keys,
+            )
             if endpoint_ledger_resolution["resolved"]:
                 stopped_reason = "endpoint_ledger_resolved"
                 break
@@ -414,7 +427,12 @@ def _execute_run_big_bang_until_complete_job(db: Session, job: models.Job) -> di
     return result
 
 
-def _big_bang_endpoint_ledger_resolution(db: Session, *, big_bang: models.BigBang) -> dict[str, Any]:
+def _big_bang_endpoint_ledger_resolution(
+    db: Session,
+    *,
+    big_bang: models.BigBang,
+    endpoint_keys: list[str] | None = None,
+) -> dict[str, Any]:
     from app.domains.endpoint_ledger.service import endpoint_ledger_report_payload, evaluate_endpoint_ledger
 
     ledger = evaluate_endpoint_ledger(
@@ -426,14 +444,38 @@ def _big_bang_endpoint_ledger_resolution(db: Session, *, big_bang: models.BigBan
     )
     payload = endpoint_ledger_report_payload(db, ledger)
     ledger_payload = payload.get("payload") if isinstance(payload.get("payload"), dict) else {}
-    resolution = _endpoint_path_mass_resolution(ledger_payload.get("endpoint_path_mass_distribution"))
+    resolution = _endpoint_path_mass_resolution(
+        ledger_payload.get("endpoint_path_mass_distribution"),
+        endpoint_keys=endpoint_keys,
+    )
     resolution["ledger_version_id"] = payload.get("ledger_version_id")
     return resolution
 
 
-def _endpoint_path_mass_resolution(rows: Any) -> dict[str, Any]:
+def _endpoint_path_mass_resolution(rows: Any, *, endpoint_keys: list[str] | None = None) -> dict[str, Any]:
     if not isinstance(rows, list):
         rows = []
+    original_row_count = len([row for row in rows if isinstance(row, dict)])
+    normalized_keys = {str(key).strip().lower() for key in (endpoint_keys or []) if str(key).strip()}
+    if normalized_keys:
+        rows = [
+            row
+            for row in rows
+            if isinstance(row, dict)
+            and str(row.get("endpoint_key") or row.get("id") or "").strip().lower() in normalized_keys
+        ]
+    else:
+        primary_rows = [
+            row
+            for row in rows
+            if isinstance(row, dict)
+            and (
+                str(row.get("endpoint_role") or "").strip().lower() == "primary_candidate"
+                or str(row.get("candidate_endpoint_id") or "").strip().lower() in {"yes", "no"}
+            )
+        ]
+        if primary_rows:
+            rows = primary_rows
     unresolved_mass = 0.0
     insufficient_ticks_mass = 0.0
     endpoint_rows = 0
@@ -468,6 +510,7 @@ def _endpoint_path_mass_resolution(rows: Any) -> dict[str, Any]:
     return {
         "resolved": endpoint_rows > 0 and unresolved_mass <= 1e-9 and insufficient_ticks_mass <= 1e-9,
         "endpoint_rows": endpoint_rows,
+        "ignored_endpoint_rows": max(0, original_row_count - endpoint_rows),
         "unresolved_mass": unresolved_mass,
         "insufficient_ticks_mass": insufficient_ticks_mass,
     }

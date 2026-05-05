@@ -324,6 +324,8 @@ class TimelineAdjudicationDetailOut(BaseModel):
 class EndpointPathMassRow(BaseModel):
     endpoint_key: str | None = None
     label: str | None = None
+    endpoint_role: str | None = None
+    candidate_endpoint_id: str | None = None
     status: str | None = None
     realized: bool | None = None
     path_mass: float = 0.0
