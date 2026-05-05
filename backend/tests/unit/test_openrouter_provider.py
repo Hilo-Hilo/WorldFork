@@ -156,6 +156,7 @@ def test_default_routes_use_provider_model_split() -> None:
         "evaluate_endpoint_ledger": settings.god_agent_model,
         "force_deviation": settings.god_agent_model,
     }
+    powerful_job_types = set(expected_model_by_job_type)
     for job_type in (
         "initialize_big_bang",
         "simulate_universe_tick",
@@ -173,11 +174,12 @@ def test_default_routes_use_provider_model_split() -> None:
         "force_deviation",
     ):
         expected_model = expected_model_by_job_type.get(job_type, OPENROUTER_MODEL)
+        expected_provider = "openai-codex" if job_type in powerful_job_types else "openrouter"
         preferred, fallback = routing.route(job_type)
-        assert preferred.provider == "openrouter"
+        assert preferred.provider == expected_provider
         assert preferred.model == expected_model
         assert fallback is not None
-        assert fallback.provider == "openrouter"
+        assert fallback.provider == expected_provider
         assert fallback.model == expected_model
         assert preferred.fallback_model == expected_model
 
@@ -234,6 +236,74 @@ def test_openrouter_extra_body_uses_native_fallback_model(prompt: PromptPacket) 
     assert kwargs["extra_body"] == {"models": ["primary/model", "fallback/model"]}
 
 
+def test_openrouter_wraps_raw_response_schema_for_strict_mode(prompt: PromptPacket) -> None:
+    provider = OpenRouterProvider.__new__(OpenRouterProvider)
+    raw_schema = {
+        "type": "object",
+        "properties": {"ok": {"type": "boolean"}},
+        "required": ["ok"],
+        "additionalProperties": False,
+    }
+    config = ModelConfig(
+        provider="openrouter",
+        model=OPENROUTER_MODEL,
+        temperature=0.2,
+        top_p=1.0,
+        max_tokens=128,
+        timeout_seconds=30,
+        retry_policy="linear",
+        response_format=raw_schema,
+    )
+
+    kwargs = provider._wrap_call_kwargs(
+        config=config,
+        messages=[{"role": "system", "content": prompt.system}],
+        response_format=provider._select_response_format(config),
+    )
+
+    assert kwargs["response_format"] == {
+        "type": "json_schema",
+        "json_schema": {
+            "name": "worldfork_response",
+            "strict": True,
+            "schema": raw_schema,
+        },
+    }
+
+
+def test_openrouter_supports_provider_and_response_format_overrides(prompt: PromptPacket) -> None:
+    provider = OpenRouterProvider.__new__(OpenRouterProvider)
+    config = ModelConfig(
+        provider="openrouter",
+        model=OPENROUTER_MODEL,
+        temperature=0.2,
+        top_p=1.0,
+        max_tokens=128,
+        timeout_seconds=30,
+        retry_policy="linear",
+        response_format={
+            "type": "json_schema",
+            "json_schema": {
+                "name": "ignored_when_json_object_forced",
+                "schema": {"type": "object", "properties": {}},
+            },
+            "openrouter": {
+                "response_format": "json_object",
+                "provider": {"allow_fallbacks": False},
+            },
+        },
+    )
+
+    kwargs = provider._wrap_call_kwargs(
+        config=config,
+        messages=[{"role": "system", "content": prompt.system}],
+        response_format=provider._select_response_format(config),
+    )
+
+    assert kwargs["response_format"] == {"type": "json_object"}
+    assert kwargs["extra_body"] == {"provider": {"allow_fallbacks": False}}
+
+
 def test_seeded_routes_derive_from_settings_provider_defaults() -> None:
     from backend.app.scripts.seed import _ROUTING_DEFAULTS, _routing_model_defaults
 
@@ -254,9 +324,10 @@ def test_seeded_routes_derive_from_settings_provider_defaults() -> None:
     for row in _ROUTING_DEFAULTS:
         routed = _routing_model_defaults(row)
         expected_model = expected_model_by_job_type.get(row["job_type"], OPENROUTER_MODEL)
-        assert routed["preferred_provider"] == "openrouter"
+        expected_provider = "openai-codex" if row["job_type"] in expected_model_by_job_type else "openrouter"
+        assert routed["preferred_provider"] == expected_provider
         assert routed["preferred_model"] == expected_model
-        assert routed["fallback_provider"] == "openrouter"
+        assert routed["fallback_provider"] == expected_provider
         assert routed["fallback_model"] == expected_model
 
 
