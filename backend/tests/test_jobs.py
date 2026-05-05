@@ -138,6 +138,71 @@ def test_endpoint_path_mass_resolution_can_filter_to_candidate_keys():
     assert resolution["insufficient_ticks_mass"] == 0.0
 
 
+def test_run_until_complete_respects_existing_tick_cap(monkeypatch):
+    engine = create_engine(
+        "sqlite:///:memory:",
+        connect_args={"check_same_thread": False},
+        poolclass=StaticPool,
+    )
+    models.Base.metadata.create_all(engine)
+    db = Session(engine)
+    try:
+        big_bang = models.BigBang(name="Tick cap", scenario_input={}, status="active", current_config_version=1)
+        db.add(big_bang)
+        db.flush()
+        multiverse = models.Multiverse(
+            big_bang_id=big_bang.id,
+            parent_multiverse_id=None,
+            fork_tick_index=None,
+            ui_label="M1",
+            depth=0,
+            status="active",
+            branch_reason="Root",
+            state={},
+            report_status="not_ready",
+        )
+        db.add(multiverse)
+        db.flush()
+        db.add(
+            models.TickSnapshot(
+                big_bang_id=big_bang.id,
+                multiverse_id=multiverse.id,
+                tick_index=16,
+                ui_label="M1 T16",
+                status="final",
+                provisional_bundle={},
+                final_bundle={},
+                summary="Already at cap.",
+            )
+        )
+        job = models.Job(
+            job_type="run_big_bang_until_complete",
+            queue_name="p1",
+            status="running",
+            big_bang_id=big_bang.id,
+            payload={"max_total_ticks": 16},
+            result={},
+            idempotency_key=f"run:{uuid4()}",
+        )
+        db.add(job)
+        db.flush()
+        monkeypatch.setattr(
+            jobs_executor,
+            "run_next_tick",
+            lambda *args, **kwargs: pytest.fail("run should not execute ticks past max_total_ticks"),
+        )
+
+        result = jobs_executor._execute_run_big_bang_until_complete_job(db, job)
+
+        assert result["ticks_run"] == 0
+        assert result["stopped_reason"] == "max_total_ticks_reached"
+    finally:
+        db.close()
+        with warnings.catch_warnings():
+            warnings.filterwarnings("ignore", message="Can't sort tables for DROP", category=SAWarning)
+            models.Base.metadata.drop_all(engine)
+
+
 def test_advertised_job_queues_are_runtime_celery_queues():
     from backend.app.workers.celery_app import celery_app
 
