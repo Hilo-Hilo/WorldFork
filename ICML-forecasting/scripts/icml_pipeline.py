@@ -42,6 +42,16 @@ NO_BRANCH_POLICY = {
     "max_branches_per_tick": 1,
     "branch_score_threshold": 0.999,
 }
+SHORT_BRANCH_POLICY = {
+    "max_branch_depth": 2,
+    "max_active_multiverses": 4,
+    "max_branches_per_tick": 1,
+    "branch_score_threshold": 0.75,
+}
+WORLDFORK_SHORT_POLICIES = {
+    "worldfork_no_branch_short": NO_BRANCH_POLICY,
+    "worldfork_branching_short": SHORT_BRANCH_POLICY,
+}
 INIT_ARTIFACT_NAMES = [
     "initialization",
     "actors",
@@ -241,6 +251,29 @@ def _job_finished(job: dict[str, Any]) -> bool:
     return str(job.get("status")) in {"succeeded", "failed", "cancelled", "interrupted"}
 
 
+def _wait_for_job(
+    client: ApiClient,
+    job_id: str,
+    *,
+    out_dir: Path,
+    wait_timeout: float,
+    poll_seconds: float,
+    submitted_at: float,
+) -> tuple[dict[str, Any], float]:
+    deadline = time.monotonic() + wait_timeout
+    while True:
+        if time.monotonic() > deadline:
+            raise SystemExit(f"timed out waiting for job {job_id}")
+        job = client.request("GET", f"/jobs/{job_id}")
+        _write_json(out_dir / "job_status_latest.json", job)
+        if _job_finished(job):
+            wait_seconds = time.monotonic() - submitted_at
+            _write_json(out_dir / "job_wait.json", {"ok": True, "data": job, "meta": {"terminal": True}})
+            (out_dir / "job_wait_time_and_stderr.txt").write_text(f"real {wait_seconds:.2f}\n", encoding="utf-8")
+            return job, wait_seconds
+        time.sleep(poll_seconds)
+
+
 def _capture_init_artifacts(client: ApiClient, out_dir: Path, big_bang_id: str) -> dict[str, int]:
     captures = {
         "initialization": f"/big-bangs/{big_bang_id}/initialization",
@@ -269,6 +302,212 @@ def _capture_init_artifacts(client: ApiClient, out_dir: Path, big_bang_id: str) 
         _write_json(out_dir / f"{name}.json", payload)
         counts[name] = _count_payload(payload)
     return counts
+
+
+def _capture_run_artifacts(client: ApiClient, out_dir: Path, big_bang_id: str) -> None:
+    captures = {
+        "timing": f"/agent/runs/{big_bang_id}/timing",
+        "cost": f"/agent/runs/{big_bang_id}/cost?include_calls=true&include_non_openrouter=true",
+        "reports_list": f"/big-bangs/{big_bang_id}/reports",
+        "ledgers_list": f"/big-bangs/{big_bang_id}/endpoint-ledgers",
+        "path_mass": f"/big-bangs/{big_bang_id}/endpoint-ledgers/path-mass",
+        "workspace": f"/agent/runs/{big_bang_id}/workspace?verbosity=summary",
+        "llm_logs_after_job": f"/agent/logs?run_id={big_bang_id}&source=llm&verbosity=normal&limit=500",
+    }
+    for name, path in captures.items():
+        try:
+            payload = client.request("GET", path)
+        except urllib.error.HTTPError as exc:
+            payload = {"ok": False, "error": {"type": "http_error", "status": exc.code, "reason": exc.reason, "path": path}}
+        _write_json(out_dir / f"{name}.json", payload)
+
+
+def _endpoint_matches(entry: dict[str, Any], target: str) -> bool:
+    target = target.lower()
+    key = str(entry.get("endpoint_key") or entry.get("id") or "").lower()
+    label = str(entry.get("label") or entry.get("description") or "").lower()
+    if key in {target, f"{target}_endpoint"}:
+        return True
+    if key.endswith(f"_{target}") or key.startswith(f"{target}_"):
+        return True
+    if target == "yes":
+        return "yes" in key or "event occurs" in label or "delivers" in label or "lowers" in label
+    if target == "no":
+        return "no" in key or "does not" in label or "no " in label or "not " in label
+    return False
+
+
+def extract_worldfork_forecast(case_id: str, condition: str, path_mass_payload: dict[str, Any]) -> dict[str, Any]:
+    rows = path_mass_payload.get("endpoint_path_mass_distribution") or []
+    if not isinstance(rows, list):
+        rows = []
+    yes_mass = 0.0
+    no_mass = 0.0
+    unresolved_mass = 0.0
+    matched_rows = 0
+    for entry in rows:
+        if not isinstance(entry, dict):
+            continue
+        mass = float(entry.get("path_mass") or 0.0)
+        status_masses = entry.get("status_path_masses") if isinstance(entry.get("status_path_masses"), dict) else {}
+        unresolved_mass += float(status_masses.get("unresolved") or 0.0)
+        unresolved_mass += float(status_masses.get("insufficient_ticks") or 0.0)
+        if _endpoint_matches(entry, "yes"):
+            yes_mass += mass
+            matched_rows += 1
+        elif _endpoint_matches(entry, "no"):
+            no_mass += mass
+            matched_rows += 1
+    denom = yes_mass + no_mass
+    if denom > 0:
+        p_yes = yes_mass / denom
+        p_no = no_mass / denom
+    else:
+        p_yes = 0.5
+        p_no = 0.5
+    unresolved = min(1.0, unresolved_mass / max(1, matched_rows)) if matched_rows else 1.0
+    return {
+        "case_id": case_id,
+        "condition": condition,
+        "p_yes": p_yes,
+        "p_no": p_no,
+        "unresolved_mass": unresolved,
+        "forecast_distribution": {"yes": p_yes, "no": p_no, "unresolved": unresolved},
+        "extraction_note": "derived_from_endpoint_path_mass_distribution",
+        "matched_endpoint_rows": matched_rows,
+    }
+
+
+def worldfork_short_manifest_row(
+    *,
+    case_id: str,
+    condition: str,
+    big_bang_id: str,
+    init_job_id: str,
+    run_job_id: str,
+    status: str,
+    init_wait_seconds: float,
+    run_wait_seconds: float,
+    run_dir: Path,
+    ticks_run: int,
+    multiverse_count: int,
+    final_report_version_id: str | None,
+) -> dict[str, Any]:
+    return {
+        "case_id": case_id,
+        "condition": condition,
+        "big_bang_id": big_bang_id,
+        "init_job_id": init_job_id,
+        "run_job_id": run_job_id,
+        "status": status,
+        "init_wait_wall_time_seconds": init_wait_seconds,
+        "run_wait_wall_time_seconds": run_wait_seconds,
+        "ticks_run": ticks_run,
+        "multiverse_count": multiverse_count,
+        "final_report_version_id": final_report_version_id,
+        "run_dir": str(run_dir),
+    }
+
+
+def run_worldfork_short(args: argparse.Namespace) -> None:
+    run_root = make_run_root(args.run_root)
+    client = ApiClient(args.base_url, api_prefix=args.api_prefix, timeout=args.timeout)
+    matrix = json.loads(RUN_MATRIX.read_text(encoding="utf-8"))
+    default_ids = matrix["case_groups"]["worldfork_resolved_core12_fallback" if args.core12 else "resolved_24"]
+    case_ids = _case_ids_from_manifest(run_root, args.case_ids or ",".join(default_ids), args.case_limit)
+    conditions = [item.strip() for item in args.conditions.split(",") if item.strip()]
+    output = run_root / "raw/E3_worldfork_short/worldfork_predictions.jsonl"
+    manifest = run_root / "manifests/worldfork_short_manifest.jsonl"
+    completed = set()
+    if output.exists() and not args.force:
+        for row in read_jsonl(output):
+            completed.add((row.get("case_id"), row.get("condition")))
+
+    for case_id in case_ids:
+        for condition in conditions:
+            if condition not in WORLDFORK_SHORT_POLICIES:
+                raise SystemExit(f"unknown E3 condition: {condition}")
+            if (case_id, condition) in completed and not args.force:
+                print(json.dumps({"case_id": case_id, "condition": condition, "status": "skipped_existing"}))
+                continue
+            relative_dir = Path(args.output_prefix) / condition / case_id
+            out_dir = run_root / relative_dir
+            case_file = resolve_case_file(run_root, case_id)
+            payload = build_init_job_payload(
+                case_id=case_id,
+                case_file=case_file,
+                name_prefix=f"E3_{condition}",
+                max_ticks=args.max_ticks,
+                tick_duration_minutes=args.tick_duration_minutes,
+                branch_policy=WORLDFORK_SHORT_POLICIES[condition],
+            )
+            _write_json(out_dir / "init_job_payload.json", payload)
+            init_job, init_create_seconds = _timed_api_call(client, "POST", "/jobs", payload=payload)
+            _write_json(out_dir / "init_job_create.json", init_job)
+            (out_dir / "init_job_create_time_and_stderr.txt").write_text(f"real {init_create_seconds:.2f}\n", encoding="utf-8")
+            init_job_id = str(init_job.get("id"))
+            (out_dir / "init_job_id.txt").write_text(init_job_id + "\n", encoding="utf-8")
+            print(json.dumps({"case_id": case_id, "condition": condition, "init_job_id": init_job_id, "status": "init_submitted"}))
+            init_result, init_wait = _wait_for_job(
+                client,
+                init_job_id,
+                out_dir=out_dir,
+                wait_timeout=args.wait_timeout,
+                poll_seconds=args.poll_seconds,
+                submitted_at=time.monotonic(),
+            )
+            if init_result.get("status") != "succeeded":
+                raise SystemExit(f"{case_id}/{condition}: init job ended {init_result.get('status')}")
+            big_bang_id = str((init_result.get("result") or {}).get("big_bang_id"))
+            (out_dir / "big_bang_id.txt").write_text(big_bang_id + "\n", encoding="utf-8")
+            _capture_init_artifacts(client, out_dir, big_bang_id)
+
+            run_payload = {"max_total_ticks": args.max_ticks}
+            _write_json(out_dir / "run_job_payload.json", run_payload)
+            run_job, run_create_seconds = _timed_api_call(
+                client,
+                "POST",
+                f"/big-bangs/{big_bang_id}/run-until-complete/jobs",
+                payload=run_payload,
+            )
+            _write_json(out_dir / "run_job_create.json", run_job)
+            (out_dir / "run_job_create_time_and_stderr.txt").write_text(f"real {run_create_seconds:.2f}\n", encoding="utf-8")
+            run_job_id = str(run_job.get("id"))
+            (out_dir / "run_job_id.txt").write_text(run_job_id + "\n", encoding="utf-8")
+            print(json.dumps({"case_id": case_id, "condition": condition, "run_job_id": run_job_id, "status": "run_submitted"}))
+            run_result, run_wait = _wait_for_job(
+                client,
+                run_job_id,
+                out_dir=out_dir,
+                wait_timeout=args.wait_timeout,
+                poll_seconds=args.poll_seconds,
+                submitted_at=time.monotonic(),
+            )
+            if run_result.get("status") != "succeeded":
+                raise SystemExit(f"{case_id}/{condition}: run job ended {run_result.get('status')}")
+            _capture_run_artifacts(client, out_dir, big_bang_id)
+            path_mass = json.loads((out_dir / "path_mass.json").read_text(encoding="utf-8"))
+            prediction = extract_worldfork_forecast(case_id, condition, path_mass)
+            append_jsonl(output, prediction)
+            result_payload = run_result.get("result") or {}
+            append_jsonl(
+                manifest,
+                worldfork_short_manifest_row(
+                    case_id=case_id,
+                    condition=condition,
+                    big_bang_id=big_bang_id,
+                    init_job_id=init_job_id,
+                    run_job_id=run_job_id,
+                    status="completed",
+                    init_wait_seconds=init_wait,
+                    run_wait_seconds=run_wait,
+                    run_dir=relative_dir,
+                    ticks_run=int(result_payload.get("ticks_run") or 0),
+                    multiverse_count=int(result_payload.get("multiverse_count") or 0),
+                    final_report_version_id=result_payload.get("final_report_version_id"),
+                ),
+            )
+            print(json.dumps({"case_id": case_id, "condition": condition, "status": "completed", "ticks_run": result_payload.get("ticks_run")}))
 
 
 def run_init_jobs(args: argparse.Namespace) -> None:
@@ -1047,6 +1286,23 @@ def main() -> None:
     init_jobs.add_argument("--tick-duration-minutes", type=int, default=720)
     init_jobs.add_argument("--force", action="store_true")
     init_jobs.set_defaults(func=run_init_jobs)
+
+    short = sub.add_parser("run-worldfork-short", help="Run queued E3 short WorldFork resolved conditions.")
+    short.add_argument("--run-root", type=Path, required=True)
+    short.add_argument("--base-url", default="http://127.0.0.1:8003")
+    short.add_argument("--api-prefix", default="/api")
+    short.add_argument("--timeout", type=float, default=60.0)
+    short.add_argument("--wait-timeout", type=float, default=3600.0)
+    short.add_argument("--poll-seconds", type=float, default=10.0)
+    short.add_argument("--case-ids", help="Comma-separated case IDs. Defaults to resolved_24 or core12 fallback.")
+    short.add_argument("--case-limit", type=int)
+    short.add_argument("--conditions", default="worldfork_no_branch_short,worldfork_branching_short")
+    short.add_argument("--output-prefix", default="raw/E3_worldfork_short")
+    short.add_argument("--max-ticks", type=int, default=8)
+    short.add_argument("--tick-duration-minutes", type=int, default=720)
+    short.add_argument("--core12", action="store_true", help="Use the resolved core-12 fallback from the run matrix.")
+    short.add_argument("--force", action="store_true")
+    short.set_defaults(func=run_worldfork_short)
 
     args = parser.parse_args()
     args.func(args)
