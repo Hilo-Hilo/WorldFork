@@ -617,8 +617,13 @@ input, textarea { font-family: inherit; color: inherit; }
   border-right: 1px solid var(--border);
   background: var(--bg);
   display: flex; flex-direction: column; min-height: 0;
+  overflow-y: auto; overflow-x: hidden;
 }
 .dash-rail.right { border-right: 0; border-left: 1px solid var(--border); }
+.dash-rail::-webkit-scrollbar { width: 8px; }
+.dash-rail::-webkit-scrollbar-track { background: transparent; }
+.dash-rail::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+.dash-rail::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
 
 .rail-head {
   padding: 14px 16px 10px;
