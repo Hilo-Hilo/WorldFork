@@ -692,39 +692,24 @@ Target 35 ticks. Minimum acceptable: 30 ticks. Use 35 unless a run repeatedly fa
 Command template:
 
 ```bash
-case_id="civic_002"
-case_file="$run_root/cases/existing_72/$case_id.md"  # use additional_36 for dossier/calibration cases
-out_dir="$run_root/raw/E4_long_horizon/$case_id"
-mkdir -p "$out_dir"
-
-worldfork init \
-  --name "E4_long_horizon_${case_id}" \
-  --scenario-file "$case_file" \
+python3 ICML-forecasting/scripts/icml_pipeline.py run-worldfork-long-batch \
+  --run-root "$run_root" \
+  --base-url "$base_url" \
+  --api-prefix /api \
+  --conditions worldfork_full_branching_long \
+  --output-prefix raw/E4_long_horizon \
+  --route-policy-id icml_default_deepseek_v4_flash_cohort_hero_e4 \
+  --name-prefix E4_long_horizon \
   --max-ticks 35 \
+  --max-total-ticks 240 \
   --tick-duration-minutes 720 \
-  --branch-policy '{"max_branch_depth":3,"max_active_multiverses":8,"max_branches_per_tick":2,"branch_score_threshold":0.75}' \
-  --wait-timeout 900 \
-  | tee "$out_dir/init_stdout.json"
-
-worldfork query POST /api/big-bangs/<big_bang_id>/run-until-complete \
-  --data '{"max_total_ticks":240}' \
-  | tee "$out_dir/run_until_complete.json"
-
-worldfork ledgers evaluate <big_bang_id> --wait --timeout 180 | tee "$out_dir/ledgers_evaluate.json"
-worldfork ledgers list <big_bang_id> | tee "$out_dir/ledgers_list.json"
-worldfork ledgers path-mass <big_bang_id> | tee "$out_dir/path_mass.json"
-worldfork reports adjudicate <big_bang_id> | tee "$out_dir/reports_adjudicate.json"
-worldfork reports adjudication <big_bang_id> | tee "$out_dir/reports_adjudication.json"
-worldfork reports generate final <big_bang_id> \
-  --title "Long-horizon final report $case_id" \
-  --summary "Cross-multiverse long-horizon audit report." \
-  | tee "$out_dir/final_report_generate.json"
-worldfork reports list <big_bang_id> | tee "$out_dir/reports_list.json"
-worldfork runs workspace <big_bang_id> | tee "$out_dir/workspace.json"
-worldfork runs cost <big_bang_id> --include-calls | tee "$out_dir/cost.json"
-worldfork --verbosity normal logs list --run-id <big_bang_id> --source llm | tee "$out_dir/llm_logs.json"
-worldfork jobs list --run-id <big_bang_id> | tee "$out_dir/jobs.json"
+  --wait-timeout 86400 \
+  --poll-seconds 20
 ```
+
+For the minimum-6 fallback, add `--minimum6` and stamp the route policy with an explicit fallback label such as `icml_default_deepseek_v4_flash_cohort_hero_e4_min6`.
+
+The helper writes E4 artifacts under `raw/E4_long_horizon/<condition>/<case_id>/` and appends rows to `manifests/worldfork_long_horizon_manifest.jsonl`. Do not use the E3 short-run helper for E4: it stamps `worldfork_short_manifest.jsonl`, extracts resolved-card forecasts, and uses the shorter branch policy.
 
 ### 9.3 Long-horizon audit metrics
 

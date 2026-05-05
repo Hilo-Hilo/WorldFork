@@ -48,9 +48,18 @@ SHORT_BRANCH_POLICY = {
     "max_branches_per_tick": 1,
     "branch_score_threshold": 0.75,
 }
+LONG_BRANCH_POLICY = {
+    "max_branch_depth": 3,
+    "max_active_multiverses": 8,
+    "max_branches_per_tick": 2,
+    "branch_score_threshold": 0.75,
+}
 WORLDFORK_SHORT_POLICIES = {
     "worldfork_no_branch_short": NO_BRANCH_POLICY,
     "worldfork_branching_short": SHORT_BRANCH_POLICY,
+}
+WORLDFORK_LONG_POLICIES = {
+    "worldfork_full_branching_long": LONG_BRANCH_POLICY,
 }
 INIT_ARTIFACT_NAMES = [
     "initialization",
@@ -851,6 +860,46 @@ def worldfork_short_manifest_row(
     }
 
 
+def worldfork_long_manifest_row(
+    *,
+    case_id: str,
+    condition: str,
+    big_bang_id: str,
+    init_job_id: str,
+    run_job_id: str,
+    status: str,
+    init_wait_seconds: float,
+    run_wait_seconds: float,
+    run_dir: Path,
+    ticks_run: int,
+    multiverse_count: int,
+    final_report_version_id: str | None,
+    max_ticks_requested: int,
+    max_total_ticks_requested: int,
+    tick_duration_minutes: int,
+    route_policy_id: str | None = None,
+) -> dict[str, Any]:
+    return {
+        "case_id": case_id,
+        "condition": condition,
+        "route_policy_id": route_policy_id,
+        "max_ticks_requested": max_ticks_requested,
+        "max_total_ticks_requested": max_total_ticks_requested,
+        "tick_duration_minutes": tick_duration_minutes,
+        "big_bang_id": big_bang_id,
+        "init_job_id": init_job_id,
+        "run_job_id": run_job_id,
+        "status": status,
+        "init_wait_wall_time_seconds": init_wait_seconds,
+        "run_wait_wall_time_seconds": run_wait_seconds,
+        "ticks_run": ticks_run,
+        "multiverse_count": multiverse_count,
+        "final_report_version_id": final_report_version_id,
+        "run_dir": str(run_dir),
+        "notes": "E4 long-horizon audit row; score with audit/social rubrics, not resolved-card Brier.",
+    }
+
+
 def run_worldfork_short(args: argparse.Namespace) -> None:
     run_root = make_run_root(args.run_root)
     client = ApiClient(args.base_url, api_prefix=args.api_prefix, timeout=args.timeout)
@@ -1176,6 +1225,190 @@ def run_worldfork_short_batch(args: argparse.Namespace) -> None:
                 tick_duration_minutes=args.tick_duration_minutes,
                 route_policy_id=args.route_policy_id,
                 prediction_output=_display_run_path(output, run_root),
+            ),
+        )
+        print(json.dumps({"case_id": case_id, "condition": condition, "status": status, "ticks_run": result_payload.get("ticks_run")}))
+
+
+def _worldfork_long_targets(args: argparse.Namespace, run_root: Path) -> list[dict[str, Any]]:
+    matrix = json.loads(RUN_MATRIX.read_text(encoding="utf-8"))
+    default_group = "minimum_long_horizon_6" if args.minimum6 else "long_horizon_18"
+    default_ids = matrix["case_groups"][default_group]
+    case_ids = _case_ids_from_manifest(run_root, args.case_ids or ",".join(default_ids), args.case_limit)
+    conditions = [item.strip() for item in args.conditions.split(",") if item.strip()]
+    completed = set()
+    manifest = run_root / "manifests/worldfork_long_horizon_manifest.jsonl"
+    if manifest.exists() and not args.force:
+        for row in read_jsonl(manifest):
+            if row.get("status") == "completed":
+                completed.add(
+                    (
+                        str(row.get("case_id") or ""),
+                        str(row.get("condition") or ""),
+                        str(row.get("route_policy_id") or ""),
+                    )
+                )
+    targets = []
+    for case_id in case_ids:
+        for condition in conditions:
+            if condition not in WORLDFORK_LONG_POLICIES:
+                raise SystemExit(f"unknown E4 condition: {condition}")
+            key = (case_id, condition, args.route_policy_id or "")
+            if key in completed and not args.force:
+                print(json.dumps({"case_id": case_id, "condition": condition, "status": "skipped_existing"}))
+                continue
+            relative_dir = Path(args.output_prefix) / condition / case_id
+            targets.append(
+                {
+                    "case_id": case_id,
+                    "condition": condition,
+                    "relative_dir": relative_dir,
+                    "out_dir": run_root / relative_dir,
+                }
+            )
+    return targets
+
+
+def run_worldfork_long_batch(args: argparse.Namespace) -> None:
+    run_root = make_run_root(args.run_root)
+    client = ApiClient(args.base_url, api_prefix=args.api_prefix, timeout=args.timeout)
+    targets = _worldfork_long_targets(args, run_root)
+    if not targets:
+        return
+
+    init_pending: dict[str, dict[str, Any]] = {}
+    for target in targets:
+        case_id = target["case_id"]
+        condition = target["condition"]
+        out_dir = target["out_dir"]
+        case_file = resolve_case_file(run_root, case_id)
+        payload = build_init_job_payload(
+            case_id=case_id,
+            case_file=case_file,
+            name_prefix=f"{args.name_prefix}_{condition}",
+            max_ticks=args.max_ticks,
+            tick_duration_minutes=args.tick_duration_minutes,
+            branch_policy=WORLDFORK_LONG_POLICIES[condition],
+        )
+        _write_json(out_dir / "init_job_payload.json", payload)
+        init_job, init_create_seconds = _timed_api_call(client, "POST", "/jobs", payload=payload)
+        _write_json(out_dir / "init_job_create.json", init_job)
+        (out_dir / "init_job_create_time_and_stderr.txt").write_text(f"real {init_create_seconds:.2f}\n", encoding="utf-8")
+        init_job_id = str(init_job.get("id"))
+        (out_dir / "init_job_id.txt").write_text(init_job_id + "\n", encoding="utf-8")
+        label = f"{condition}/{case_id}"
+        init_pending[label] = {
+            **target,
+            "job_id": init_job_id,
+            "submitted_at": time.monotonic(),
+        }
+        print(json.dumps({"case_id": case_id, "condition": condition, "init_job_id": init_job_id, "status": "init_submitted"}))
+
+    _write_json(run_root / "setup/worldfork_long_batch_queues_after_init_submit.json", client.request("GET", "/jobs/queues"))
+    init_completed = _wait_many_jobs(
+        client,
+        init_pending,
+        artifact_prefix="init_job",
+        wait_timeout=args.wait_timeout,
+        poll_seconds=args.poll_seconds,
+    )
+
+    manifest = run_root / "manifests/worldfork_long_horizon_manifest.jsonl"
+    run_pending: dict[str, dict[str, Any]] = {}
+    for info in init_completed:
+        job = info["job"]
+        case_id = info["case_id"]
+        condition = info["condition"]
+        out_dir = info["out_dir"]
+        if job.get("status") != "succeeded":
+            append_jsonl(
+                manifest,
+                worldfork_long_manifest_row(
+                    case_id=case_id,
+                    condition=condition,
+                    big_bang_id="",
+                    init_job_id=info["job_id"],
+                    run_job_id="",
+                    status=str(job.get("status")),
+                    init_wait_seconds=float(info["wait_seconds"]),
+                    run_wait_seconds=0.0,
+                    run_dir=info["relative_dir"],
+                    ticks_run=0,
+                    multiverse_count=0,
+                    final_report_version_id=None,
+                    max_ticks_requested=args.max_ticks,
+                    max_total_ticks_requested=args.max_total_ticks,
+                    tick_duration_minutes=args.tick_duration_minutes,
+                    route_policy_id=args.route_policy_id,
+                ),
+            )
+            continue
+        big_bang_id = str((job.get("result") or {}).get("big_bang_id"))
+        (out_dir / "big_bang_id.txt").write_text(big_bang_id + "\n", encoding="utf-8")
+        _capture_init_artifacts(client, out_dir, big_bang_id)
+
+        run_payload = {"max_total_ticks": args.max_total_ticks}
+        _write_json(out_dir / "run_job_payload.json", run_payload)
+        run_job, run_create_seconds = _timed_api_call(
+            client,
+            "POST",
+            f"/big-bangs/{big_bang_id}/run-until-complete/jobs",
+            payload=run_payload,
+        )
+        _write_json(out_dir / "run_job_create.json", run_job)
+        (out_dir / "run_job_create_time_and_stderr.txt").write_text(f"real {run_create_seconds:.2f}\n", encoding="utf-8")
+        run_job_id = str(run_job.get("id"))
+        (out_dir / "run_job_id.txt").write_text(run_job_id + "\n", encoding="utf-8")
+        label = f"{condition}/{case_id}"
+        run_pending[label] = {
+            **info,
+            "big_bang_id": big_bang_id,
+            "init_job_id": info["job_id"],
+            "init_wait_seconds": float(info["wait_seconds"]),
+            "job_id": run_job_id,
+            "submitted_at": time.monotonic(),
+        }
+        print(json.dumps({"case_id": case_id, "condition": condition, "run_job_id": run_job_id, "status": "run_submitted"}))
+
+    if not run_pending:
+        return
+    _write_json(run_root / "setup/worldfork_long_batch_queues_after_run_submit.json", client.request("GET", "/jobs/queues"))
+    run_completed = _wait_many_jobs(
+        client,
+        run_pending,
+        artifact_prefix="run_job",
+        wait_timeout=args.wait_timeout,
+        poll_seconds=args.poll_seconds,
+    )
+
+    for info in run_completed:
+        job = info["job"]
+        case_id = info["case_id"]
+        condition = info["condition"]
+        out_dir = info["out_dir"]
+        result_payload = job.get("result") or {}
+        status = "completed" if job.get("status") == "succeeded" else str(job.get("status"))
+        if job.get("status") == "succeeded":
+            _capture_run_artifacts(client, out_dir, info["big_bang_id"])
+        append_jsonl(
+            manifest,
+            worldfork_long_manifest_row(
+                case_id=case_id,
+                condition=condition,
+                big_bang_id=str(info["big_bang_id"]),
+                init_job_id=str(info["init_job_id"]),
+                run_job_id=str(info["job_id"]),
+                status=status,
+                init_wait_seconds=float(info["init_wait_seconds"]),
+                run_wait_seconds=float(info["wait_seconds"]),
+                run_dir=info["relative_dir"],
+                ticks_run=int(result_payload.get("ticks_run") or 0),
+                multiverse_count=int(result_payload.get("multiverse_count") or 0),
+                final_report_version_id=result_payload.get("final_report_version_id"),
+                max_ticks_requested=args.max_ticks,
+                max_total_ticks_requested=args.max_total_ticks,
+                tick_duration_minutes=args.tick_duration_minutes,
+                route_policy_id=args.route_policy_id,
             ),
         )
         print(json.dumps({"case_id": case_id, "condition": condition, "status": status, "ticks_run": result_payload.get("ticks_run")}))
@@ -1997,6 +2230,26 @@ def main() -> None:
     short_batch.add_argument("--core12", action="store_true", help="Use the resolved core-12 fallback from the run matrix.")
     short_batch.add_argument("--force", action="store_true")
     short_batch.set_defaults(func=run_worldfork_short_batch)
+
+    long_batch = sub.add_parser("run-worldfork-long-batch", help="Run queued E4 long-horizon WorldFork audit cases.")
+    long_batch.add_argument("--run-root", type=Path, required=True)
+    long_batch.add_argument("--base-url", default="http://127.0.0.1:8003")
+    long_batch.add_argument("--api-prefix", default="/api")
+    long_batch.add_argument("--timeout", type=float, default=60.0)
+    long_batch.add_argument("--wait-timeout", type=float, default=86400.0)
+    long_batch.add_argument("--poll-seconds", type=float, default=20.0)
+    long_batch.add_argument("--case-ids", help="Comma-separated case IDs. Defaults to long_horizon_18 or minimum-6 fallback.")
+    long_batch.add_argument("--case-limit", type=int)
+    long_batch.add_argument("--conditions", default="worldfork_full_branching_long")
+    long_batch.add_argument("--output-prefix", default="raw/E4_long_horizon")
+    long_batch.add_argument("--route-policy-id", help="Optional route-policy label to stamp into manifest rows.")
+    long_batch.add_argument("--name-prefix", default="E4_long_horizon")
+    long_batch.add_argument("--max-ticks", type=int, default=35)
+    long_batch.add_argument("--max-total-ticks", type=int, default=240)
+    long_batch.add_argument("--tick-duration-minutes", type=int, default=720)
+    long_batch.add_argument("--minimum6", action="store_true", help="Use the minimum_long_horizon_6 fallback from the run matrix.")
+    long_batch.add_argument("--force", action="store_true")
+    long_batch.set_defaults(func=run_worldfork_long_batch)
 
     refresh_short = sub.add_parser("refresh-worldfork-short-ledgers", help="Re-evaluate big-bang endpoint ledgers and refresh E3 forecast predictions.")
     refresh_short.add_argument("--run-root", type=Path, required=True)

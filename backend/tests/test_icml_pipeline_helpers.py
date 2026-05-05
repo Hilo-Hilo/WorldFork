@@ -158,6 +158,48 @@ def test_worldfork_short_manifest_row_records_run_artifacts() -> None:
     assert row["prediction_output"] == "raw/E3_worldfork_default_route_16tick/worldfork_predictions.jsonl"
 
 
+def test_worldfork_long_policy_matches_e4_audit_scope() -> None:
+    pipeline = load_icml_pipeline()
+
+    assert pipeline.WORLDFORK_LONG_POLICIES["worldfork_full_branching_long"] == {
+        "max_branch_depth": 3,
+        "max_active_multiverses": 8,
+        "max_branches_per_tick": 2,
+        "branch_score_threshold": 0.75,
+    }
+
+
+def test_worldfork_long_manifest_row_records_audit_scope() -> None:
+    pipeline = load_icml_pipeline()
+
+    row = pipeline.worldfork_long_manifest_row(
+        case_id="civic_002",
+        condition="worldfork_full_branching_long",
+        big_bang_id="bb-123",
+        init_job_id="init-job",
+        run_job_id="run-job",
+        status="completed",
+        init_wait_seconds=120.0,
+        run_wait_seconds=240.0,
+        run_dir=Path("raw/E4_long_horizon/worldfork_full_branching_long/civic_002"),
+        ticks_run=35,
+        multiverse_count=8,
+        final_report_version_id="rv-123",
+        max_ticks_requested=35,
+        max_total_ticks_requested=240,
+        tick_duration_minutes=720,
+        route_policy_id="icml_default_deepseek_v4_flash_cohort_hero_e4_min6",
+    )
+
+    assert row["case_id"] == "civic_002"
+    assert row["condition"] == "worldfork_full_branching_long"
+    assert row["ticks_run"] == 35
+    assert row["multiverse_count"] == 8
+    assert row["max_total_ticks_requested"] == 240
+    assert row["route_policy_id"] == "icml_default_deepseek_v4_flash_cohort_hero_e4_min6"
+    assert "audit/social rubrics" in row["notes"]
+
+
 def test_prediction_key_separates_route_policy_rows() -> None:
     pipeline = load_icml_pipeline()
 
