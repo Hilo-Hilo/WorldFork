@@ -1,6 +1,6 @@
 # Appendix Artifact Index
 
-Generated: 2026-05-05 01:53 UTC
+Generated: 2026-05-05 12:20 UTC
 
 ## Core Package
 
@@ -16,6 +16,8 @@ Generated: 2026-05-05 01:53 UTC
 - Resolution source inventory: `results/resolution_sources.csv`
 - Source fetch verification: `results/source_verification.csv`, `results/source_verification.md`
 - Forecast scores: `results/forecast_scores.csv`
+- WorldFork default-route 16-tick scores: `results/worldfork_default_route_16tick_scores.csv`
+- WorldFork default-route 35-tick resume scores: `results/worldfork_default_route_35tick_resume_scores.csv`
 - Aggregate result summary: `results/aggregate_results.md`
 
 ## Live Runtime Evidence
@@ -24,6 +26,8 @@ Generated: 2026-05-05 01:53 UTC
 - E2 direct baselines: `raw/E2_direct_baselines/direct_predictions.jsonl`
 - E3 synchronous tick/report smoke: `raw/E3_tick_smoke/resolved_003/`
 - E3 queued tick/report smoke: `raw/E3_queue_smoke/resolved_004/`
+- E3 default-route no-branch 16-tick run: `raw/E3_worldfork_default_route_16tick/`
+- E3 default-route no-branch 35-tick resume: `raw/E3_worldfork_default_route_35tick_resume/`
 
 ## Paper Artifacts
 

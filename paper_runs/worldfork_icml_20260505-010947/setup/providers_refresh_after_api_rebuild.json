@@ -1,0 +1,61 @@
+{
+  "providers": [
+    {
+      "provider": "openrouter",
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": "OPENROUTER_API_KEY",
+      "default_model": "deepseek/deepseek-v4-flash",
+      "fallback_model": "deepseek/deepseek-v4-flash",
+      "json_mode_required": true,
+      "tool_calling_enabled": true,
+      "enabled": true,
+      "extra_headers": {
+        "X-Title": "WorldFork",
+        "HTTP-Referer": "http://localhost:3003"
+      },
+      "payload": {
+        "enabled": true,
+        "base_url": "https://openrouter.ai/api/v1",
+        "provider": "openrouter",
+        "api_key_env": "OPENROUTER_API_KEY",
+        "default_model": "deepseek/deepseek-v4-flash",
+        "extra_headers": {
+          "X-Title": "WorldFork",
+          "HTTP-Referer": "http://localhost:3003"
+        },
+        "fallback_model": "deepseek/deepseek-v4-flash",
+        "json_mode_required": true,
+        "tool_calling_enabled": true
+      },
+      "created_at": "2026-05-05T01:15:55.930023Z",
+      "updated_at": "2026-05-05T01:15:55.930023Z"
+    },
+    {
+      "provider": "openai-codex",
+      "base_url": "https://chatgpt.com/backend-api/codex",
+      "api_key_env": "OPENAI_CODEX_OAUTH_TOKEN",
+      "default_model": "gpt-5.4",
+      "fallback_model": null,
+      "json_mode_required": true,
+      "tool_calling_enabled": false,
+      "enabled": true,
+      "extra_headers": {},
+      "payload": {
+        "api": "openai-codex-responses",
+        "provider": "openai-codex",
+        "base_url": "https://chatgpt.com/backend-api/codex",
+        "auth_mode": "oauth",
+        "auth_file": "~/.worldfork/openai-codex-auth.json",
+        "api_key_env": "OPENAI_CODEX_OAUTH_TOKEN",
+        "default_model": "gpt-5.4",
+        "fallback_model": null,
+        "json_mode_required": true,
+        "tool_calling_enabled": false,
+        "enabled": true,
+        "codex_cli_auth_fallback": "~/.codex/auth.json"
+      },
+      "created_at": "2026-05-05T01:15:55.930023Z",
+      "updated_at": "2026-05-05T01:15:55.930023Z"
+    }
+  ]
+}

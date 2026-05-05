@@ -147,9 +147,9 @@ python3 ICML-forecasting/scripts/icml_pipeline.py resume-worldfork-short-batch \
 ```
 
 The resume command uses `/api/multiverses/{id}/continue` to raise only the target
-multiverse horizon, submits `run-until-complete` jobs for the additional ticks
-plus one terminal probe, and skips source rows whose `unresolved_mass` is already
-`0.0` by default.
+multiverse horizon, submits `run-until-complete` jobs with enough budget for the
+remaining ticks plus terminal probing, and skips source rows whose
+`unresolved_mass` is already `0.0` by default.
 
 ## Agent handoff files added
 
