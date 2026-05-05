@@ -9,8 +9,7 @@
 ## Not Yet Complete
 
 - Semantic E1 rubric scoring on 108 initialized public cards. Runtime initialization coverage is complete; the current `init_scores.csv` is an automated coverage table, not a final 0-4 quality rubric.
-- E3 full WorldFork short resolved no-branch and branching runs. One synchronous tick/report smoke completed for `resolved_003` in 408.49 seconds, and one queued tick/report smoke completed for `resolved_004` after a 219.47 second job wait, but neither is full coverage.
-- E3 live validation on `resolved_001` / `worldfork_no_branch_short` initialized successfully, then the queued run job stalled during God-review retries with repeated OpenAI Codex 400 responses. The job was interrupted and the isolated `worldfork-icml` p1 worker was restarted to clear the worker slot. Evidence is under `raw/E3_worldfork_short/worldfork_no_branch_short/resolved_001/`.
+- E3 full WorldFork short resolved no-branch and branching runs. One synchronous tick/report smoke completed for `resolved_003` in 408.49 seconds, one queued tick/report smoke completed for `resolved_004` after a 219.47 second job wait, and one scored no-branch validation completed 8 queued ticks for `resolved_001`; this is still not full coverage.
 - E4 long-horizon audit runs.
 - E5 social-state/emotion audit.
 - Optional social ablation and branch-threshold sweep.
@@ -20,3 +19,4 @@
 - Parameterized compose host ports with default-preserving `WORLDFORK_API_PORT`, `WORLDFORK_POSTGRES_PORT`, and `WORLDFORK_REDIS_PORT`.
 - Removed two lingering hidden-file legacy provider example lines from `.env.example`.
 - Fixed `/api/jobs/workers` and `/api/jobs/queues` observability by importing the Celery app module instead of the package-exported Celery object.
+- Fixed the E3 God-review Codex retry blocker by serializing audited assistant-history turns as user-context input for the Responses endpoint. The original `resolved_001` no-branch run was interrupted after repeated 400 responses; a fresh retry completed 8 ticks and produced scoreable path-mass artifacts under `raw/E3_worldfork_short_retry_a4ae2ca/worldfork_no_branch_short/resolved_001/`.
