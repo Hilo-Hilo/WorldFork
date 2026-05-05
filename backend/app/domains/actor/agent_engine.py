@@ -537,7 +537,7 @@ def apply_social_actions(db: Session, *, big_bang_id, multiverse_id, tick_index:
         if "proposed_event" in action:
             continue
         action_type = action.get("action_type", "post")
-        body = action.get("body") or action.get("content") or f"{action_type} action"
+        body = _social_post_body(action.get("body") or action.get("content") or f"{action_type} action")
         post = models.SocialPost(
             big_bang_id=big_bang_id,
             multiverse_id=multiverse_id,
@@ -559,6 +559,14 @@ def apply_social_actions(db: Session, *, big_bang_id, multiverse_id, tick_index:
         observations.append({"post": body, "action_type": action_type, "actor_id": str(actor_id) if actor_id else None})
     db.flush()
     return observations
+
+
+def _social_post_body(value) -> str:
+    if isinstance(value, str):
+        return value
+    if isinstance(value, (dict, list)):
+        return json.dumps(_jsonable(value), ensure_ascii=False, sort_keys=True)
+    return str(value)
 
 
 def queue_agent_events(db: Session, *, big_bang_id, multiverse_id, tick_index: int, parsed_actions: list[dict]) -> list[dict]:
