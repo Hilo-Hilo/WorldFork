@@ -228,6 +228,7 @@ def generate_final_big_bang_report(
         },
     )
     _commit_report_inputs_before_llm(db)
+    _resolve_predictions_into_content(db, big_bang_id=big_bang.id, content=content, multiverses=multiverses)
     llm_report, llm_call = _run_report_agent(db, big_bang_id=big_bang.id, content=content)
     _complete_report_agent_structured_fields(llm_report, content)
     content["llm_report"] = llm_report
@@ -825,6 +826,283 @@ def _build_multiverse_report_content(
             "artifact_counts": _artifact_counts(db, multiverse.big_bang_id),
         },
     }
+
+
+_PREDICATE_EXTRACT_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "predicates": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {"type": "string"},
+                    "description": {"type": "string"},
+                    "type": {"type": "string"},
+                },
+                "required": ["id", "description", "type"],
+                "additionalProperties": False,
+            },
+        }
+    },
+    "required": ["predicates"],
+    "additionalProperties": False,
+}
+
+_PREDICATE_RESOLVE_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "resolutions": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "predicate_id": {"type": "string"},
+                    "fired": {"type": ["boolean", "null"]},
+                    "evidence": {"type": "string"},
+                },
+                "required": ["predicate_id", "fired", "evidence"],
+                "additionalProperties": False,
+            },
+        }
+    },
+    "required": ["resolutions"],
+    "additionalProperties": False,
+}
+
+
+def _extract_prediction_predicates(
+    db: Session, *, big_bang_id, scenario_text: str
+) -> list[dict[str, Any]]:
+    """Extract up to 5 binary/threshold predicates from the user's scenario_text.
+
+    Returns [] on any failure — caller treats absence as "no explicit predicates"
+    and the report agent falls back to inferring from regime proxies.
+    """
+    try:
+        response, _ = complete_with_audit(
+            db,
+            big_bang_id=big_bang_id,
+            purpose=f"predicate_extraction_{big_bang_id}",
+            model=get_settings().report_agent_model,
+            route=AuditedLLMRoute.REPORT_AGENT,
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        "Extract up to 5 binary or threshold-breach predicates that the user "
+                        "wants the simulation to answer. Each predicate is a yes/no question with "
+                        "an objective firing condition. Return a JSON object {predicates: [{id, "
+                        "description, type}]}. id is a short snake_case slug (<=40 chars). "
+                        "description is a single concrete sentence stating the firing condition. "
+                        "type is one of: threshold_breach, binary_event, comparative, count. "
+                        "Skip predicates that cannot be checked from simulation telemetry."
+                    ),
+                },
+                {"role": "user", "content": f"Scenario:\n\n{scenario_text}"},
+            ],
+            json_schema=_PREDICATE_EXTRACT_SCHEMA,
+            metadata={
+                "max_tokens": 700,
+                "temperature": 0.1,
+                "agent_type": "predicate_extractor",
+                "request_timeout_seconds": 60,
+                "max_attempts": 1,
+            },
+        )
+        parsed = response.parsed if isinstance(response.parsed, dict) else {}
+        predicates = parsed.get("predicates") or []
+        if not isinstance(predicates, list):
+            return []
+        cleaned: list[dict[str, Any]] = []
+        for item in predicates[:5]:
+            if not isinstance(item, dict):
+                continue
+            pid = str(item.get("id") or "").strip()[:40]
+            desc = str(item.get("description") or "").strip()
+            ptype = str(item.get("type") or "").strip() or "binary_event"
+            if pid and desc:
+                cleaned.append({"id": pid, "description": desc, "type": ptype})
+        return cleaned
+    except (LLMCallError, ValueError, KeyError):
+        return []
+
+
+def _resolve_predicates_for_timeline(
+    db: Session,
+    *,
+    big_bang_id,
+    multiverse_id: str,
+    multiverse_summary: dict[str, Any],
+    predicates: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Score each predicate against one timeline. Returns [] on failure."""
+    if not predicates:
+        return []
+    try:
+        response, _ = complete_with_audit(
+            db,
+            big_bang_id=big_bang_id,
+            purpose=f"predicate_resolution_{multiverse_id}",
+            model=get_settings().report_agent_model,
+            route=AuditedLLMRoute.REPORT_AGENT,
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        "Score each predicate against this timeline's simulated trajectory. "
+                        "Return {resolutions: [{predicate_id, fired, evidence}]}. fired is true/false/null; "
+                        "use null when the timeline did not run far enough or telemetry is silent. "
+                        "evidence is a 1-2 sentence quote or paraphrase from the supplied state. "
+                        "Do not invent facts not present in the supplied state."
+                    ),
+                },
+                {
+                    "role": "user",
+                    "content": (
+                        "Predicates:\n"
+                        + json.dumps(predicates, ensure_ascii=True)
+                        + "\n\nTimeline summary:\n"
+                        + json.dumps(multiverse_summary, ensure_ascii=True, default=str)
+                    ),
+                },
+            ],
+            json_schema=_PREDICATE_RESOLVE_SCHEMA,
+            metadata={
+                "max_tokens": 900,
+                "temperature": 0.0,
+                "agent_type": "predicate_resolver",
+                "request_timeout_seconds": 60,
+                "max_attempts": 1,
+            },
+        )
+        parsed = response.parsed if isinstance(response.parsed, dict) else {}
+        resolutions = parsed.get("resolutions") or []
+        if not isinstance(resolutions, list):
+            return []
+        valid_ids = {p["id"] for p in predicates}
+        cleaned: list[dict[str, Any]] = []
+        for item in resolutions:
+            if not isinstance(item, dict):
+                continue
+            pid = str(item.get("predicate_id") or "").strip()
+            if pid not in valid_ids:
+                continue
+            fired = item.get("fired")
+            if fired not in (True, False, None):
+                fired = None
+            cleaned.append(
+                {
+                    "predicate_id": pid,
+                    "fired": fired,
+                    "evidence": _truncate_text(str(item.get("evidence") or ""), 400),
+                }
+            )
+        return cleaned
+    except (LLMCallError, ValueError, KeyError):
+        return []
+
+
+def _aggregate_predicate_resolutions(
+    predicates: list[dict[str, Any]],
+    per_timeline: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Roll up per-timeline resolutions into one row per predicate.
+
+    Each row: {predicate_id, description, fired_count, total_count, null_count,
+    fired_path_mass, total_path_mass, evidence_examples}. Path mass is summed
+    over timelines whose `fired` is True.
+    """
+    if not predicates:
+        return []
+    by_pid: dict[str, dict[str, Any]] = {
+        p["id"]: {
+            "predicate_id": p["id"],
+            "description": p["description"],
+            "type": p.get("type"),
+            "fired_count": 0,
+            "false_count": 0,
+            "null_count": 0,
+            "total_count": 0,
+            "fired_path_mass": 0.0,
+            "total_path_mass": 0.0,
+            "evidence_examples": [],
+        }
+        for p in predicates
+    }
+    for entry in per_timeline:
+        path_mass = float(entry.get("path_probability") or 0.0)
+        for resolution in entry.get("resolutions") or []:
+            row = by_pid.get(resolution.get("predicate_id"))
+            if row is None:
+                continue
+            row["total_count"] += 1
+            row["total_path_mass"] += path_mass
+            fired = resolution.get("fired")
+            if fired is True:
+                row["fired_count"] += 1
+                row["fired_path_mass"] += path_mass
+                if len(row["evidence_examples"]) < 3:
+                    row["evidence_examples"].append(
+                        {
+                            "multiverse_id": entry.get("multiverse_id"),
+                            "ui_label": entry.get("ui_label"),
+                            "evidence": resolution.get("evidence"),
+                        }
+                    )
+            elif fired is False:
+                row["false_count"] += 1
+            else:
+                row["null_count"] += 1
+    return list(by_pid.values())
+
+
+def _resolve_predictions_into_content(
+    db: Session,
+    *,
+    big_bang_id,
+    content: dict[str, Any],
+    multiverses: list[models.Multiverse],
+) -> None:
+    """Lever 3: extract predicates from the scenario, resolve them per timeline,
+    and roll up into content. Best-effort: any failure leaves content untouched
+    and the report agent falls back to inference."""
+    scenario_text = content.get("scenario_question")
+    if not scenario_text:
+        return
+    predicates = _extract_prediction_predicates(
+        db, big_bang_id=big_bang_id, scenario_text=scenario_text
+    )
+    if not predicates:
+        return
+    content["prediction_predicates"] = predicates
+    comparison = content.get("multiverse_comparison") or []
+    by_id = {str(item.get("multiverse_id")): item for item in comparison if isinstance(item, dict)}
+    per_timeline: list[dict[str, Any]] = []
+    for mv in multiverses:
+        summary = by_id.get(str(mv.id), {})
+        compact_summary = _compact_timeline_metric(summary) if summary else {
+            "multiverse_id": str(mv.id),
+            "ui_label": mv.ui_label,
+            "status": mv.status,
+        }
+        resolutions = _resolve_predicates_for_timeline(
+            db,
+            big_bang_id=big_bang_id,
+            multiverse_id=str(mv.id),
+            multiverse_summary=compact_summary,
+            predicates=predicates,
+        )
+        per_timeline.append(
+            {
+                "multiverse_id": str(mv.id),
+                "ui_label": mv.ui_label,
+                "path_probability": summary.get("path_probability") if isinstance(summary, dict) else None,
+                "resolutions": resolutions,
+            }
+        )
+    content["predicate_resolutions"] = _aggregate_predicate_resolutions(predicates, per_timeline)
+    content["predicate_resolutions_per_timeline"] = per_timeline
 
 
 def _scenario_question_text(db: Session, *, big_bang_id) -> str | None:
@@ -1492,11 +1770,16 @@ def _report_agent_prompt_content(content: dict[str, Any], *, mode: str) -> dict[
         comparison = content.get("multiverse_comparison") or []
         selected = _select_report_timelines_for_final_report(content, comparison, limit=limit)
         adjudication = content.get("timeline_adjudication") or {}
+        scenario_question = _truncate_text(content.get("scenario_question") or "", 4000) or None
+        report_kind = "prediction" if scenario_question else "narrative"
         return {
             "report_type": "final_big_bang",
+            "report_kind": report_kind,
             "title": content.get("title"),
             "summary": content.get("summary"),
-            "scenario_question": _truncate_text(content.get("scenario_question") or "", 4000) or None,
+            "scenario_question": scenario_question,
+            "prediction_predicates": content.get("prediction_predicates") or [],
+            "predicate_resolutions": content.get("predicate_resolutions") or [],
             "source": _compact_source(content.get("source") or {}),
             "outcome_conclusions": _compact_outcome_conclusions(content.get("outcome_conclusions") or {}),
             "outcome_distribution": _compact_distribution(content.get("outcome_distribution") or {}),
@@ -1976,21 +2259,42 @@ def _run_report_agent(
 
 def _report_agent_messages(prompt_content: dict[str, Any], *, mode: str) -> list[dict[str, str]]:
     target_length = "900-1600 words" if mode == "standard" else "550-1000 words"
+    is_prediction = prompt_content.get("report_kind") == "prediction"
+    if is_prediction:
+        opening = (
+            "You are the WorldFork prediction report agent. The user asked a specific question "
+            "(scenario_question); your primary job is to answer it. Lead the report_markdown with "
+            "a Headline Answer line stating verdict + confidence_pct, then a one-paragraph "
+            "rationale, then the supporting evidence. Narrative analysis comes after the verdict, "
+            "not before. "
+            "Ground prediction_answer in predicate_resolutions when present: each row gives "
+            "fired_count / total_count and fired_path_mass / total_path_mass across timelines, "
+            "with concrete evidence_examples. Compute verdict from path-mass weighting: "
+            "fired_path_mass / total_path_mass > 0.5 -> yes; < 0.5 with non-trivial false rate -> no; "
+            "high null_count or insufficient ticks -> unresolved. confidence_pct must be calibrated "
+            "to evidence quality (sample size, null rate, predicate-state ambiguity), NOT to your "
+            "priors. If predicate_resolutions is empty, fall back to inference from "
+            "outcome_distribution + endpoint_ledger and lower confidence accordingly. "
+        )
+    else:
+        opening = (
+            "You are the WorldFork report agent. Produce a narrative report covering outcome "
+            "distribution, branch divergence, cohort/hero state movement, and evidence gaps. "
+            "If a scenario_question is supplied, also fill prediction_answer; otherwise set "
+            "prediction_answer.verdict to not_applicable with confidence 0. "
+        )
     return [
         {
             "role": "system",
             "content": (
-                "You are the WorldFork report agent. Return exactly one JSON object with keys "
+                opening
+                + "Return exactly one JSON object with keys "
                 "report_markdown, executive_summary, outcome_interpretation, management_notes, risk_notes, "
                 "endpoint_histogram, terminality_assessment, contradiction_check, prediction_answer. "
-                "If the digest contains scenario_question, treat it as the user's prediction question and "
-                "answer it via the prediction_answer object: verdict in {yes, no, unresolved, not_applicable}, "
-                "confidence_pct (0-100, calibrated to digest evidence not your priors), supporting_timeline_ids "
-                "(multiverse ids whose simulated trajectories support the verdict), counterevidence (timelines "
-                "or signals that argue the other way), and rationale (3-6 sentences citing the digest). "
-                "Mirror the verdict and confidence in the report_markdown opening as a clearly-labeled "
-                "headline answer. If scenario_question is absent, set prediction_answer.verdict to "
-                "not_applicable with confidence 0. "
+                "prediction_answer fields: verdict in {yes, no, unresolved, not_applicable}, "
+                "confidence_pct (0-100), supporting_timeline_ids (multiverse ids), counterevidence "
+                "(timelines or signals that argue the other way), rationale (3-6 sentences citing "
+                "the digest, especially predicate_resolutions when present). "
                 "Use only the supplied structured report digest. Do not invent real-world facts. "
                 "The report_markdown field must be a complete long-form Markdown report, not a short summary. "
                 "Always include a Path-Mass Accounting section. For single-multiverse reports, that section "
