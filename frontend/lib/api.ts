@@ -130,7 +130,10 @@ export const api = {
             job_type: "run_big_bang_until_complete",
             big_bang_id: id,
             payload: { big_bang_id: id, max_total_ticks: maxTotalTicks },
-            idempotency_key: `run-complete:${id}:${Date.now()}`,
+            // Stable per (run, max_ticks) so async double-clicks dedupe to
+            // a single job. Backend (jobs/routes.py:108) returns the existing
+            // record on key collision and re-enqueues if it has stalled.
+            idempotency_key: `run-complete:${id}:${maxTotalTicks}`,
           }),
         }),
 

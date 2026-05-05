@@ -1370,28 +1370,50 @@ def _aggregate_predicate_resolutions(
     if not predicates:
         return []
     flat_by_pid: dict[str, list[dict[str, Any]]] = {p["id"]: [] for p in predicates}
+    # Pre-fill one row per (predicate, timeline) pair before consuming the
+    # resolver output. If `_resolve_predicates_for_timeline` failed entirely or
+    # the agent omitted a predicate from its response, that timeline still
+    # appears in the aggregate as null — null_count and total_count stay
+    # honest, and downstream verdicts cannot mistake "agent silent" for
+    # "agent confidently absent".
     for entry in per_timeline:
         timeline_fields = {
             "multiverse_id": entry.get("multiverse_id"),
             "ui_label": entry.get("ui_label"),
             "path_probability": entry.get("path_probability"),
         }
+        resolutions_by_pid: dict[str, dict[str, Any]] = {}
         for resolution in entry.get("resolutions") or []:
-            pid = resolution.get("predicate_id")
-            bucket = flat_by_pid.get(pid)
-            if bucket is None:
+            if not isinstance(resolution, dict):
                 continue
+            pid = resolution.get("predicate_id")
+            if isinstance(pid, str):
+                resolutions_by_pid[pid] = resolution
+        for predicate in predicates:
+            pid = predicate["id"]
             row = dict(timeline_fields)
-            row.update(
-                {
-                    "fired": resolution.get("fired"),
-                    "value": resolution.get("value"),
-                    "count": resolution.get("count"),
-                    "category": resolution.get("category"),
-                    "evidence": resolution.get("evidence"),
-                }
-            )
-            bucket.append(row)
+            resolution = resolutions_by_pid.get(pid)
+            if resolution is not None:
+                row.update(
+                    {
+                        "fired": resolution.get("fired"),
+                        "value": resolution.get("value"),
+                        "count": resolution.get("count"),
+                        "category": resolution.get("category"),
+                        "evidence": resolution.get("evidence") or "",
+                    }
+                )
+            else:
+                row.update(
+                    {
+                        "fired": None,
+                        "value": None,
+                        "count": None,
+                        "category": None,
+                        "evidence": "",
+                    }
+                )
+            flat_by_pid[pid].append(row)
     out: list[dict[str, Any]] = []
     for predicate in predicates:
         rows = flat_by_pid[predicate["id"]]
