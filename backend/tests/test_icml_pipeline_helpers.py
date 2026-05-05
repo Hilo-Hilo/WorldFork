@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 from pathlib import Path
+from types import SimpleNamespace
 
 
 def load_icml_pipeline():
@@ -93,6 +95,59 @@ def test_init_artifacts_complete_requires_all_capture_files(tmp_path: Path) -> N
         (out_dir / f"{name}.json").write_text("{}", encoding="utf-8")
 
     assert pipeline.init_artifacts_complete(out_dir)
+
+
+def test_assemble_latest_prediction_rows_uses_later_inputs_without_double_counting(tmp_path: Path) -> None:
+    pipeline = load_icml_pipeline()
+    base = tmp_path / "base.jsonl"
+    resume16 = tmp_path / "resume16.jsonl"
+    resume32 = tmp_path / "resume32.jsonl"
+    output = tmp_path / "assembled.jsonl"
+    base.write_text(
+        "\n".join(
+            [
+                json.dumps({"case_id": "resolved_001", "condition": "worldfork_branching_short", "p_yes": 0.2, "route_policy_id": "base"}),
+                json.dumps({"case_id": "resolved_003", "condition": "worldfork_branching_short", "p_yes": 0.3, "route_policy_id": "base"}),
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    resume16.write_text(
+        "\n".join(
+            [
+                json.dumps({"case_id": "resolved_001", "condition": "worldfork_branching_short", "p_yes": 0.4, "route_policy_id": "resume16"}),
+                json.dumps({"case_id": "resolved_001", "condition": "worldfork_branching_short", "p_yes": 0.5, "route_policy_id": "resume16"}),
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    resume32.write_text(
+        json.dumps({"case_id": "resolved_003", "condition": "worldfork_branching_short", "p_yes": 0.8, "route_policy_id": "resume32"}) + "\n",
+        encoding="utf-8",
+    )
+
+    rows = pipeline.assemble_latest_prediction_rows(
+        input_paths=[base, resume16, resume32],
+        route_policy_id="assembled_final",
+        condition="worldfork_branching_short_final",
+    )
+    pipeline.assemble_worldfork_latest_predictions(
+        SimpleNamespace(
+            predictions=[base, resume16, resume32],
+            output=output,
+            route_policy_id="assembled_final",
+            condition="worldfork_branching_short_final",
+        )
+    )
+    written = pipeline.read_jsonl(output)
+
+    assert [(row["case_id"], row["p_yes"]) for row in rows] == [("resolved_001", 0.5), ("resolved_003", 0.8)]
+    assert rows == written
+    assert all(row["route_policy_id"] == "assembled_final" for row in rows)
+    assert rows[0]["source_route_policy_id"] == "resume16"
+    assert rows[0]["condition"] == "worldfork_branching_short_final"
 
 
 def test_extract_worldfork_forecast_normalizes_yes_no_path_mass() -> None:

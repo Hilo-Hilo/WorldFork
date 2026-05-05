@@ -2599,6 +2599,48 @@ def score_forecasts(args: argparse.Namespace) -> None:
     print(json.dumps(summary_rows, indent=2, sort_keys=True))
 
 
+def assemble_worldfork_latest_predictions(args: argparse.Namespace) -> None:
+    rows = assemble_latest_prediction_rows(
+        input_paths=args.predictions,
+        route_policy_id=args.route_policy_id,
+        condition=args.condition,
+    )
+    write_jsonl(args.output, rows)
+    print(json.dumps({"output": str(args.output), "rows": len(rows)}, sort_keys=True))
+
+
+def assemble_latest_prediction_rows(
+    *,
+    input_paths: list[Path],
+    route_policy_id: str | None = None,
+    condition: str | None = None,
+) -> list[dict[str, Any]]:
+    latest: dict[tuple[str, str], dict[str, Any]] = {}
+    order: list[tuple[str, str]] = []
+    for source_index, path in enumerate(input_paths):
+        if not path.exists():
+            continue
+        for row_index, row in enumerate(read_jsonl(path)):
+            case_id = str(row.get("case_id") or "")
+            row_condition = str(condition or row.get("condition") or "")
+            if not case_id or not row_condition:
+                continue
+            key = (case_id, row_condition)
+            if key not in latest:
+                order.append(key)
+            assembled = dict(row)
+            assembled["condition"] = row_condition
+            if route_policy_id:
+                assembled["source_route_policy_id"] = assembled.get("route_policy_id")
+                assembled["route_policy_id"] = route_policy_id
+            assembled["assembled_from"] = str(path)
+            assembled["assembled_input_index"] = source_index
+            assembled["assembled_row_index"] = row_index
+            assembled["assembly_note"] = "latest_input_wins_by_case_and_condition"
+            latest[key] = assembled
+    return [latest[key] for key in order if key in latest]
+
+
 def _direct_prompt(card: dict[str, Any], condition: str) -> tuple[str, str]:
     system = (
         "You are a calibrated forecasting assistant. You are evaluating a "
@@ -2926,6 +2968,16 @@ def main() -> None:
     score.add_argument("--condition", default="unknown")
     score.add_argument("--normalize-yes-no", action="store_true")
     score.set_defaults(func=score_forecasts)
+
+    assemble = sub.add_parser(
+        "assemble-worldfork-latest-predictions",
+        help="Assemble one latest WorldFork prediction row per case/condition before scoring.",
+    )
+    assemble.add_argument("predictions", type=Path, nargs="+")
+    assemble.add_argument("--output", type=Path, required=True)
+    assemble.add_argument("--route-policy-id", help="Optional route-policy ID to stamp on assembled rows.")
+    assemble.add_argument("--condition", help="Optional condition label to use for every assembled row.")
+    assemble.set_defaults(func=assemble_worldfork_latest_predictions)
 
     verify = sub.add_parser("verify-sources", help="Fetch private eval resolution source URLs and record status.")
     verify.add_argument("--run-root", type=Path)
