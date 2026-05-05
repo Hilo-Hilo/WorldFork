@@ -17,12 +17,14 @@ import os
 import socket
 import statistics
 import sys
+import time
 import urllib.error
 import urllib.request
 from collections import Counter, defaultdict
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
+from urllib.parse import urljoin
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -34,6 +36,12 @@ PUBLIC_36 = PACKAGE / "worldfork_additional_36_public.jsonl"
 PRIVATE_36 = PACKAGE / "worldfork_additional_36_private_eval.jsonl"
 LEGACY_36 = PACKAGE / "worldfork_additional_36_legacy_schema.jsonl"
 RUN_MATRIX = PACKAGE / "AGENT_BENCHMARK_RUN_MATRIX.json"
+NO_BRANCH_POLICY = {
+    "max_branch_depth": 1,
+    "max_active_multiverses": 1,
+    "max_branches_per_tick": 1,
+    "branch_score_threshold": 0.999,
+}
 
 
 def read_jsonl(path: Path) -> list[dict[str, Any]]:
@@ -55,6 +63,12 @@ def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
     with path.open("w", encoding="utf-8") as handle:
         for row in rows:
             handle.write(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n")
+
+
+def append_jsonl(path: Path, row: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("a", encoding="utf-8") as handle:
+        handle.write(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n")
 
 
 def sha256(path: Path) -> str:
@@ -80,6 +94,261 @@ def make_run_root(base: Path | None) -> Path:
     ]:
         (run_root / child).mkdir(parents=True, exist_ok=True)
     return run_root
+
+
+def resolve_case_file(run_root: Path, case_id: str) -> Path:
+    for relative in [
+        Path("cases/additional_36") / f"{case_id}.md",
+        Path("cases/existing_72") / f"{case_id}.md",
+    ]:
+        path = run_root / relative
+        if path.exists():
+            return path
+    raise FileNotFoundError(f"case file not found for {case_id}")
+
+
+def build_init_job_payload(
+    *,
+    case_id: str,
+    case_file: Path,
+    name_prefix: str,
+    max_ticks: int,
+    tick_duration_minutes: int,
+    branch_policy: dict[str, Any],
+) -> dict[str, Any]:
+    return {
+        "job_type": "initialize_big_bang",
+        "payload": {
+            "name": f"{name_prefix}_{case_id}",
+            "scenario_text": case_file.read_text(encoding="utf-8"),
+            "simulation_config": {
+                "max_ticks": max_ticks,
+                "tick_duration_minutes": tick_duration_minutes,
+            },
+            "branch_policy": branch_policy,
+            "actors": [],
+            "cohorts": [],
+            "heroes": [],
+            "use_initializer_agent": True,
+        },
+    }
+
+
+def init_manifest_row(
+    *,
+    case_id: str,
+    condition: str,
+    big_bang_id: str,
+    job_id: str,
+    status: str,
+    wait_seconds: float,
+    run_dir: Path,
+    actor_count: int,
+    trait_count: int,
+    llm_log_count: int,
+) -> dict[str, Any]:
+    return {
+        "case_id": case_id,
+        "condition": condition,
+        "big_bang_id": big_bang_id,
+        "job_id": job_id,
+        "status": status,
+        "job_wait_wall_time_seconds": wait_seconds,
+        "run_dir": str(run_dir),
+        "notes": f"Queued initializer batch member; actors={actor_count}, traits={trait_count}, llm_logs={llm_log_count}.",
+    }
+
+
+class ApiClient:
+    def __init__(self, base_url: str, api_prefix: str = "/api", timeout: float = 60.0) -> None:
+        self.base_url = base_url.rstrip("/") + "/"
+        self.api_prefix = api_prefix.strip("/")
+        self.timeout = timeout
+
+    def request(
+        self,
+        method: str,
+        path: str,
+        *,
+        payload: dict[str, Any] | None = None,
+        timeout: float | None = None,
+    ) -> Any:
+        relative = path.lstrip("/")
+        if self.api_prefix and not relative.startswith(f"{self.api_prefix}/"):
+            relative = f"{self.api_prefix}/{relative}"
+        url = urljoin(self.base_url, relative)
+        data = None
+        headers = {"Accept": "application/json"}
+        if payload is not None:
+            data = json.dumps(payload).encode("utf-8")
+            headers["Content-Type"] = "application/json"
+        request = urllib.request.Request(url, data=data, headers=headers, method=method.upper())
+        with urllib.request.urlopen(request, timeout=timeout or self.timeout) as response:
+            body = response.read()
+        if not body:
+            return None
+        return json.loads(body.decode("utf-8"))
+
+
+def _timed_api_call(client: ApiClient, method: str, path: str, *, payload: dict[str, Any] | None = None) -> tuple[Any, float]:
+    started = datetime.now(UTC)
+    result = client.request(method, path, payload=payload)
+    elapsed = (datetime.now(UTC) - started).total_seconds()
+    return result, elapsed
+
+
+def _write_json(path: Path, payload: Any) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def _count_payload(payload: Any) -> int:
+    if isinstance(payload, list):
+        return len(payload)
+    if isinstance(payload, dict):
+        data = payload.get("data")
+        if isinstance(data, list):
+            return len(data)
+    return 0
+
+
+def _case_ids_from_manifest(run_root: Path, case_ids: str | None, case_limit: int | None) -> list[str]:
+    if case_ids:
+        ids = [item.strip() for item in case_ids.split(",") if item.strip()]
+    else:
+        manifest = run_root / "manifests/benchmark_case_manifest.jsonl"
+        ids = [row["case_id"] for row in read_jsonl(manifest)]
+    if case_limit:
+        ids = ids[:case_limit]
+    return ids
+
+
+def _job_finished(job: dict[str, Any]) -> bool:
+    return str(job.get("status")) in {"succeeded", "failed", "cancelled", "interrupted"}
+
+
+def _capture_init_artifacts(client: ApiClient, out_dir: Path, big_bang_id: str) -> dict[str, int]:
+    captures = {
+        "initialization": f"/big-bangs/{big_bang_id}/initialization",
+        "actors": f"/big-bangs/{big_bang_id}/initialization/actors",
+        "traits": f"/big-bangs/{big_bang_id}/initialization/traits",
+        "graphs": f"/big-bangs/{big_bang_id}/initialization/graphs",
+        "sociology_baseline": f"/big-bangs/{big_bang_id}/initialization/sociology-baseline",
+        "emotion_baseline": f"/big-bangs/{big_bang_id}/initialization/emotion-baseline",
+        "llm_logs": f"/logs?run_id={big_bang_id}&source=llm&verbosity=normal",
+        "workspace": f"/agent/runs/{big_bang_id}/workspace?verbosity=summary",
+    }
+    counts: dict[str, int] = {}
+    for name, path in captures.items():
+        payload = client.request("GET", path)
+        _write_json(out_dir / f"{name}.json", payload)
+        counts[name] = _count_payload(payload)
+    return counts
+
+
+def run_init_jobs(args: argparse.Namespace) -> None:
+    run_root = make_run_root(args.run_root)
+    client = ApiClient(args.base_url, api_prefix=args.api_prefix, timeout=args.timeout)
+    case_ids = _case_ids_from_manifest(run_root, args.case_ids, args.case_limit)
+    if not case_ids:
+        raise SystemExit("no case IDs selected")
+
+    condition = args.condition
+    submitted: dict[str, dict[str, Any]] = {}
+    for case_id in case_ids:
+        relative_dir = Path(args.output_prefix) / case_id
+        out_dir = run_root / relative_dir
+        if (out_dir / "job_wait.json").exists() and not args.force:
+            print(json.dumps({"case_id": case_id, "status": "skipped_existing", "out_dir": str(out_dir)}))
+            continue
+        case_file = resolve_case_file(run_root, case_id)
+        payload = build_init_job_payload(
+            case_id=case_id,
+            case_file=case_file,
+            name_prefix=args.name_prefix,
+            max_ticks=args.max_ticks,
+            tick_duration_minutes=args.tick_duration_minutes,
+            branch_policy=NO_BRANCH_POLICY,
+        )
+        _write_json(out_dir / "job_payload.json", payload)
+        job, create_seconds = _timed_api_call(client, "POST", "/jobs", payload=payload)
+        _write_json(out_dir / "job_create.json", job)
+        (out_dir / "job_create_time_and_stderr.txt").write_text(f"real {create_seconds:.2f}\n", encoding="utf-8")
+        job_id = str(job.get("id"))
+        (out_dir / "job_id.txt").write_text(job_id + "\n", encoding="utf-8")
+        submitted[case_id] = {
+            "job_id": job_id,
+            "out_dir": out_dir,
+            "relative_dir": relative_dir,
+            "submitted_at": time.monotonic(),
+        }
+        print(json.dumps({"case_id": case_id, "job_id": job_id, "status": "submitted"}))
+
+    if not submitted:
+        return
+
+    _write_json(run_root / "setup/init_jobs_queues_after_submit.json", client.request("GET", "/jobs/queues"))
+    _write_json(run_root / "setup/init_jobs_workers_after_submit.json", client.request("GET", "/jobs/workers"))
+
+    deadline = time.monotonic() + args.wait_timeout
+    pending = dict(submitted)
+    while pending:
+        if time.monotonic() > deadline:
+            raise SystemExit(f"timed out waiting for init jobs: {', '.join(sorted(pending))}")
+        for case_id, info in list(pending.items()):
+            job = client.request("GET", f"/jobs/{info['job_id']}")
+            _write_json(info["out_dir"] / "job_status_latest.json", job)
+            if not _job_finished(job):
+                continue
+            wait_seconds = time.monotonic() - float(info["submitted_at"])
+            _write_json(info["out_dir"] / "job_wait.json", {"ok": True, "data": job, "meta": {"terminal": True}})
+            (info["out_dir"] / "job_wait_time_and_stderr.txt").write_text(
+                f"real {wait_seconds:.2f}\n",
+                encoding="utf-8",
+            )
+            if job.get("status") != "succeeded":
+                append_jsonl(
+                    run_root / "manifests/run_manifest.jsonl",
+                    init_manifest_row(
+                        case_id=case_id,
+                        condition=condition,
+                        big_bang_id="",
+                        job_id=info["job_id"],
+                        status=str(job.get("status")),
+                        wait_seconds=wait_seconds,
+                        run_dir=info["relative_dir"],
+                        actor_count=0,
+                        trait_count=0,
+                        llm_log_count=0,
+                    ),
+                )
+                pending.pop(case_id)
+                continue
+            result = job.get("result") or {}
+            big_bang_id = str(result.get("big_bang_id"))
+            (info["out_dir"] / "big_bang_id.txt").write_text(big_bang_id + "\n", encoding="utf-8")
+            counts = _capture_init_artifacts(client, info["out_dir"], big_bang_id)
+            append_jsonl(
+                run_root / "manifests/run_manifest.jsonl",
+                init_manifest_row(
+                    case_id=case_id,
+                    condition=condition,
+                    big_bang_id=big_bang_id,
+                    job_id=info["job_id"],
+                    status="completed",
+                    wait_seconds=wait_seconds,
+                    run_dir=info["relative_dir"],
+                    actor_count=counts.get("actors", 0),
+                    trait_count=counts.get("traits", 0),
+                    llm_log_count=counts.get("llm_logs", 0),
+                ),
+            )
+            pending.pop(case_id)
+            print(json.dumps({"case_id": case_id, "job_id": info["job_id"], "big_bang_id": big_bang_id, "status": "completed"}))
+        if pending:
+            time.sleep(args.poll_seconds)
+
+    _write_json(run_root / "setup/init_jobs_queues_after_batch.json", client.request("GET", "/jobs/queues"))
 
 
 def public_case_markdown(card: dict[str, Any]) -> str:
@@ -732,6 +1001,23 @@ def main() -> None:
     direct.add_argument("--case-ids", help="Comma-separated case IDs.")
     direct.add_argument("--force", action="store_true")
     direct.set_defaults(func=run_direct_baselines)
+
+    init_jobs = sub.add_parser("run-init-jobs", help="Run queued E1 initialization jobs and capture artifacts.")
+    init_jobs.add_argument("--run-root", type=Path, required=True)
+    init_jobs.add_argument("--base-url", default="http://127.0.0.1:8003")
+    init_jobs.add_argument("--api-prefix", default="/api")
+    init_jobs.add_argument("--timeout", type=float, default=60.0)
+    init_jobs.add_argument("--wait-timeout", type=float, default=1500.0)
+    init_jobs.add_argument("--poll-seconds", type=float, default=5.0)
+    init_jobs.add_argument("--case-ids", help="Comma-separated case IDs. Defaults to manifest order.")
+    init_jobs.add_argument("--case-limit", type=int)
+    init_jobs.add_argument("--condition", default="E1_init_job_codex_only")
+    init_jobs.add_argument("--output-prefix", default="raw/E1_init_jobs")
+    init_jobs.add_argument("--name-prefix", default="E1_init_job")
+    init_jobs.add_argument("--max-ticks", type=int, default=1)
+    init_jobs.add_argument("--tick-duration-minutes", type=int, default=720)
+    init_jobs.add_argument("--force", action="store_true")
+    init_jobs.set_defaults(func=run_init_jobs)
 
     args = parser.parse_args()
     args.func(args)
