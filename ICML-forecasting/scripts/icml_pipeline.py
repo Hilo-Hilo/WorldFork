@@ -989,24 +989,27 @@ def generate_e4_paper_artifact_files(
         "total_llm_duration_seconds",
         "max_llm_duration_seconds",
     ]
+    runtime_output = results_dir / "e4_runtime_cost_summary.csv"
+    bootstrap_output = results_dir / "e4_bootstrap_intervals.json"
+
     _write_csv(results_dir / "audit_scores.csv", audit_rows, audit_fields)
     _write_csv(results_dir / "social_state_scores.csv", social_rows, social_fields)
-    _write_csv(results_dir / "table2_runtime_cost_summary.csv", runtime_rows, runtime_fields)
+    _write_csv(runtime_output, runtime_rows, runtime_fields)
 
     intervals = _bootstrap_intervals(
         {
             "audit_scores": audit_rows,
             "social_state_scores": social_rows,
-            "table2_runtime_cost_summary": runtime_rows,
+            "e4_runtime_cost_summary": runtime_rows,
         },
         iterations=bootstrap_iterations,
         seed=bootstrap_seed,
     )
-    _write_json(results_dir / "bootstrap_intervals.json", intervals)
+    _write_json(bootstrap_output, intervals)
 
     _write_markdown_table(tables_dir / "audit_scores.md", audit_rows, audit_fields)
     _write_markdown_table(tables_dir / "social_state_scores.md", social_rows, social_fields)
-    _write_markdown_table(tables_dir / "table2_runtime_cost_summary.md", runtime_rows, runtime_fields)
+    _write_markdown_table(tables_dir / "e4_runtime_cost_summary.md", runtime_rows, runtime_fields)
     summary = {
         "run_root": str(run_root),
         "input_prefix": str(input_prefix),
@@ -1020,8 +1023,8 @@ def generate_e4_paper_artifact_files(
         "outputs": {
             "audit_scores": str(results_dir / "audit_scores.csv"),
             "social_state_scores": str(results_dir / "social_state_scores.csv"),
-            "table2_runtime_cost_summary": str(results_dir / "table2_runtime_cost_summary.csv"),
-            "bootstrap_intervals": str(results_dir / "bootstrap_intervals.json"),
+            "e4_runtime_cost_summary": str(runtime_output),
+            "e4_bootstrap_intervals": str(bootstrap_output),
             "paper_tables": str(tables_dir),
         },
         "notes": [

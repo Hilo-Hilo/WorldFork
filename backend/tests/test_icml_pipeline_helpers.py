@@ -531,7 +531,7 @@ def test_generate_e4_paper_artifacts_filters_terminal_runs_and_records_ledger_st
     assert audit_rows[0]["endpoint_key"] == "policy_adopted"
 
     cost_rows = list(
-        pipeline.csv.DictReader((run_root / "results/table2_runtime_cost_summary.csv").open(encoding="utf-8"))
+        pipeline.csv.DictReader((run_root / "results/e4_runtime_cost_summary.csv").open(encoding="utf-8"))
     )
     assert cost_rows[0]["case_id"] == "civic_002"
     assert cost_rows[0]["actual_openrouter_usd"] == "1.250000"
@@ -598,6 +598,8 @@ def test_generate_e4_social_state_artifacts_distinguish_failed_and_interrupted(t
     assert social_rows[0]["graph_edge_count"] == "2"
     assert social_rows[0]["mean_behavior_assertiveness"] == "0.500000"
 
-    intervals = pipeline.json.loads((run_root / "results/bootstrap_intervals.json").read_text(encoding="utf-8"))
+    intervals = pipeline.json.loads((run_root / "results/e4_bootstrap_intervals.json").read_text(encoding="utf-8"))
     assert intervals["metrics"]["actor_count"]["n"] == 2
-    assert (run_root / "paper/tables/table2_runtime_cost_summary.md").exists()
+    assert "e4_runtime_cost_summary" in summary["outputs"]
+    assert "e4_bootstrap_intervals" in summary["outputs"]
+    assert (run_root / "paper/tables/e4_runtime_cost_summary.md").exists()

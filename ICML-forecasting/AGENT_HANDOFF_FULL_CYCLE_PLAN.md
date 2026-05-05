@@ -41,6 +41,8 @@ paper_runs/worldfork_icml_<timestamp>/
     card_quality_report.md
     aggregate_results.md
     bootstrap_intervals.json
+    e4_bootstrap_intervals.json
+    e4_runtime_cost_summary.csv
   paper/
     paper_outline.md
     paper_draft.md
