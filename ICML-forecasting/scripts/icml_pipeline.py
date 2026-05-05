@@ -1196,12 +1196,24 @@ def _prepare_worldfork_resume(
             continue
         status = str(multiverse.get("status") or "")
         multiverse_id = str(multiverse.get("id") or "")
-        if not multiverse_id or status in {"completed", "terminated"}:
+        if not multiverse_id:
             continue
         ticks = client.request("GET", f"/multiverses/{multiverse_id}/ticks")
         latest_tick_index = _latest_tick_index(ticks)
         latest_indexes.append(latest_tick_index)
         current_max_ticks = _multiverse_runtime_max_ticks(multiverse)
+        if status == "active" and current_max_ticks is not None and latest_tick_index < current_max_ticks:
+            continuation_rows.append(
+                {
+                    "multiverse_id": multiverse_id,
+                    "latest_tick_index": latest_tick_index,
+                    "previous_max_ticks": current_max_ticks,
+                    "target_max_ticks": target_max_ticks,
+                    "continue_response": None,
+                    "status": "active_before_current_horizon",
+                }
+            )
+            continue
         if latest_tick_index > target_max_ticks:
             raise SystemExit(f"{big_bang_id}/{multiverse_id}: latest tick {latest_tick_index} exceeds target max {target_max_ticks}")
         if current_max_ticks is None or current_max_ticks < target_max_ticks:

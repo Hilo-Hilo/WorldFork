@@ -125,6 +125,47 @@ def test_extract_worldfork_forecast_normalizes_yes_no_path_mass() -> None:
     assert forecast["matched_endpoint_rows"] == 2
 
 
+def test_prepare_worldfork_resume_continues_terminal_multiverses(tmp_path: Path) -> None:
+    pipeline = load_icml_pipeline()
+
+    class FakeClient:
+        def __init__(self) -> None:
+            self.continued: list[tuple[str, dict]] = []
+
+        def request(self, method: str, path: str, payload: dict | None = None):
+            if method == "GET" and path == "/big-bangs/bb-123/multiverses":
+                return [
+                    {"id": "mv-completed", "status": "completed", "state": {}},
+                    {"id": "mv-active-at-horizon", "status": "active", "state": {"runtime_overrides": {"max_ticks": 8}}},
+                ]
+            if method == "GET" and path == "/multiverses/mv-completed/ticks":
+                return [{"tick_index": 5}]
+            if method == "GET" and path == "/multiverses/mv-active-at-horizon/ticks":
+                return [{"tick_index": 8}]
+            if method == "POST" and path.startswith("/multiverses/"):
+                assert payload is not None
+                self.continued.append((path, payload))
+                return {"id": path.rsplit("/", 2)[1], "status": "active"}
+            raise AssertionError(f"unexpected request: {method} {path}")
+
+    client = FakeClient()
+    run_budget, rows = pipeline._prepare_worldfork_resume(
+        client,
+        tmp_path,
+        big_bang_id="bb-123",
+        target_max_ticks=16,
+    )
+
+    assert run_budget == 13
+    assert [path for path, _payload in client.continued] == [
+        "/multiverses/mv-completed/continue",
+        "/multiverses/mv-active-at-horizon/continue",
+    ]
+    assert all(payload["max_ticks"] == 16 for _path, payload in client.continued)
+    assert [row["latest_tick_index"] for row in rows] == [5, 8]
+    assert (tmp_path / "resume_prepare.json").exists()
+
+
 def test_worldfork_short_manifest_row_records_run_artifacts() -> None:
     pipeline = load_icml_pipeline()
 
