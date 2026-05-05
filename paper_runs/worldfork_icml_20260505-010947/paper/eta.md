@@ -1,6 +1,42 @@
 # ETA Snapshot
 
-Generated: 2026-05-05 12:20 UTC
+Generated: 2026-05-05 22:23 UTC
+
+## Live Update
+
+The current critical path is the corrected E3 deadline-aware branching core-12
+run on the isolated `worldfork-icml` stack. It is running under
+`ICML-forecasting` branch code with the binary endpoint/forecast-clock fixes.
+
+Live queue/runtime state at this snapshot:
+
+- Active corrected E3 cases: 12/12 core fallback cases.
+- Active branch paths: 48.
+- Latest branch-path tick range: 2 to 10; mean latest tick: 4.71.
+- Remaining branch-path ticks to the 16 cap: about 542, unless explicit
+  yes/no endpoint ledgers resolve earlier.
+- Recent observed tick-snapshot throughput: 36 in the last 10 minutes, 51 in
+  the last 20 minutes, 88 in the last 30 minutes.
+- Current p1 execution layout: 4 older `e3cap` workers still finishing active
+  jobs, 7 fresh `e3long` workers with 27,000/28,800 second soft/hard Celery
+  limits, plus one direct recovery process.
+- Postgres is not the active bottleneck at this snapshot; connection pressure
+  is low relative to the raised ICML cap.
+
+ETA from this snapshot:
+
+| Deliverable | ETA | Basis |
+| --- | ---: | --- |
+| Corrected E3 deadline-aware branching core-12 terminal artifacts | 1.5-3 hours | 542 branch-path ticks remaining at roughly 3.0-6.0 branch ticks/minute after worker expansion; may finish earlier if the binary endpoint ledger resolves naturally |
+| E3 score refresh and table update after terminal artifacts | 10-20 minutes | Local artifact capture plus `score-forecasts` |
+| Minimum E4 audit recovery/finalization | 8-24 hours | Still dominated by long-horizon branching unless narrowed to already-running minimum rows |
+| E5 social-state scoring from E4 artifacts | 2-5 hours | Offline scoring/audit after E4 artifacts exist |
+| Paper draft/table refresh after E3 plus available E4/E5 evidence | 1-3 hours | Existing draft scaffold and tables already exist; final quality depends on E4 coverage |
+
+Shortest defensible paper path remains: use corrected E3 core-12 as the main
+WorldFork resolved-card row, keep old fixed-720-minute E3 rows as pilot/ablation
+only, complete minimum E4/E5 evidence if full E4 cannot finish in time, and state
+coverage limits plainly.
 
 These estimates use live runs on the isolated `worldfork-icml` stack: `resolved_003` initialization completed in 146.20 seconds; a one-tick synchronous run plus report generation completed in 408.49 seconds; a queued `run-until-complete/jobs` smoke on `resolved_004` initialized in 131.22 seconds, then completed one tick plus reports in a 219.47 second job wait; a scored no-branch validation on `resolved_001` initialized in 135.12 seconds and completed 8 queued ticks in a 705.58 second job wait; a batched no-branch run on `resolved_003`, `resolved_005`, and `resolved_007` submitted three p1 run jobs concurrently and completed 8 ticks each with per-job waits of 648.90, 709.14, and 754.11 seconds; a scored branching validation on `resolved_001` initialized in 120.12 seconds and completed 27 tick snapshots across four multiverses in a 2131.68 second job wait; a four-case queued initializer batch completed within the first 148.14 second wait after submission; an eight-case queued initializer batch ran with p1 at 8 active jobs and finished all eight jobs in roughly 3.2 minutes from submission; a 22-case queued add-on batch finished in 464.64 seconds wall time; and the remaining 72 existing public cards finished as queued p1 jobs in 1796.65 seconds wall time.
 
@@ -10,7 +46,7 @@ Tick counts are budget caps, not mandatory endpoints. If a ledger resolves natur
 | --- | --- | --- | --- |
 | P0 static setup/card QA | Case preparation, manifest, leakage/schema QA | Complete for static checks | Done |
 | P0 live setup validation | Docker, migrations, seed, status, readyz, agent discover, model routing | Complete on `worldfork-icml` ports `18045/15445/16445` | Done |
-| Source verification | Fetch/check resolution URLs for 24 resolved cards | Automated fetch complete: 36 ok, 4 blocked/timed out | 20-45 minutes manual follow-up |
+| Source verification | Fetch/check resolution URLs for 24 resolved cards | 39/40 URLs verified ok after browser follow-up; remaining Reuters URL is gated but the same case has a primary court-source row marked ok | Done for current evidence package |
 | E1 init screen | 108 `worldfork init` runs, no ticks | Complete: 108/108 live initializations evidenced; automated coverage table generated | Done |
 | E2 direct baselines | 24 cards x 2 direct forecast prompts | Complete | Done |
 | E3 short WorldFork resolved runs | 24 cards x 2 conditions | Default-route no-branch complete at 16 ticks and through a 35-tick resume. The 35-tick extracted path-mass forecasts are unchanged from 16 ticks, with mean unresolved mass 0.923611. Default-route branching remains pending. | No-branch done for current evidence package; branching full 24 roughly 15-24 hours under current policy, core-12 fallback roughly half |

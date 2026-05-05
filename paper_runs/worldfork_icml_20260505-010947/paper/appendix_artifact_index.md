@@ -1,6 +1,6 @@
 # Appendix Artifact Index
 
-Generated: 2026-05-05 12:20 UTC
+Generated: 2026-05-05 22:40 UTC
 
 ## Core Package
 
@@ -8,6 +8,9 @@ Generated: 2026-05-05 12:20 UTC
 - Benchmark manifest: `manifests/benchmark_case_manifest.jsonl`
 - Run manifest: `manifests/run_manifest.jsonl`
 - Direct baseline manifest: `manifests/direct_baseline_manifest.jsonl`
+- WorldFork manifest alias: `manifests/worldfork_manifest.jsonl`
+- Scoring manifest: `manifests/scoring_manifest.jsonl`
+- Long-horizon manifest: `manifests/worldfork_long_horizon_manifest.jsonl`
 - Failures and open risks: `failures.md`
 
 ## Validation Results
@@ -20,6 +23,7 @@ Generated: 2026-05-05 12:20 UTC
 - WorldFork default-route 35-tick resume scores: `results/worldfork_default_route_35tick_resume_scores.csv`
 - Bootstrap intervals for available E2/E3 no-branch rows: `results/bootstrap_intervals.json`
 - Table 2 runtime/cost summary: `results/table2_runtime_cost_summary.csv`
+- E1 automated rubric proxy and preserved coverage table: `results/init_scores.csv`, `results/init_coverage_scores.csv`
 - Completion audit and remaining gap map: `results/completion_audit.md`
 - Aggregate result summary: `results/aggregate_results.md`
 
@@ -40,6 +44,7 @@ Generated: 2026-05-05 12:20 UTC
 - ICML LaTeX source: `paper/latex/main.tex`
 - Compiled PDF: `paper/latex/main.pdf`
 - Forecast scoring table: `paper/tables/table2_forecast_scoring.csv`
+- Protocol Figure 1 asset: `paper/figures/figure1_protocol_flow.svg`
 - Remaining table placeholders pending E4/E5 scoring: `paper/tables/table3_audit_metrics_placeholder.csv`, `paper/tables/table4_social_state_placeholder.csv`
 - ETA snapshot: `paper/eta.md`
 

@@ -1,6 +1,12 @@
 # Case resolved_015
 Benchmark role: resolved_forecast
 
+## Forecast Clock
+As-of date: 2025-01-17
+Forecast horizon: through 2025-06-30
+Forecast deadline date: 2025-06-30
+Treat the simulated clock as beginning at the as-of date.
+
 Forecast question: Will Console S2 be released to consumers by June 30, 2025?
 
 ## Scenario
@@ -24,6 +30,13 @@ A reveal or preorder alone is insufficient; the system must be released to consu
 ## Candidate Endpoints
 - yes: The event occurs by the deadline
 - no: The event does not occur by the deadline
+
+## Binary forecast contract
+The explicit candidate endpoints are the primary scoring endpoints.
+Resolve yes only when the event occurs by the stated deadline.
+Resolve no when the stated deadline or public settlement point passes without the event occurring.
+Auxiliary mechanism endpoints must not keep the binary forecast unresolved once the yes/no endpoint is settled.
+Use auxiliary mechanism endpoints only as diagnostic support for the binary forecast.
 
 ## Expected Focus
 - product_launch_forecasting

@@ -1,6 +1,10 @@
 # Case dossier_008
 Benchmark role: longform_dossier
 
+## Forecast Clock
+Forecast horizon: 9 simulated weeks
+Treat the simulated clock as beginning at the as-of date.
+
 Forecast question: Which endpoint dominates the university lab-contamination investigation after 9 simulated weeks?
 
 ## Scenario

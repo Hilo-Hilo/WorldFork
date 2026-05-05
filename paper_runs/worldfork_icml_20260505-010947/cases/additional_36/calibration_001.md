@@ -1,6 +1,10 @@
 # Case calibration_001
 Benchmark role: adversarial_calibration
 
+## Forecast Clock
+Forecast horizon: 8 simulated weeks
+Treat the simulated clock as beginning at the as-of date.
+
 Forecast question: Should WorldFork assign high confidence to any endpoint in the Ministry Z reform rumor?
 
 ## Scenario

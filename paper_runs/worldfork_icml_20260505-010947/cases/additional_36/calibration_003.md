@@ -1,6 +1,10 @@
 # Case calibration_003
 Benchmark role: adversarial_calibration
 
+## Forecast Clock
+Forecast horizon: 5 simulated weeks
+Treat the simulated clock as beginning at the as-of date.
+
 Forecast question: Which fiscal endpoint is most plausible when the budget documents conflict?
 
 ## Scenario

@@ -1,6 +1,10 @@
 # Case dossier_004
 Benchmark role: longform_dossier
 
+## Forecast Clock
+Forecast horizon: 10 simulated weeks
+Treat the simulated clock as beginning at the as-of date.
+
 Forecast question: After 10 simulated weeks, does the marketplace fee dispute resolve through rollback, phased compromise, seller exit, regulation, or stalemate?
 
 ## Scenario

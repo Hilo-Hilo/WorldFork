@@ -1,6 +1,10 @@
 # Case dossier_001
 Benchmark role: longform_dossier
 
+## Forecast Clock
+Forecast horizon: 12 simulated weeks
+Treat the simulated clock as beginning at the as-of date.
+
 Forecast question: After 12 simulated weeks, which endpoint receives the most path mass in the Riverbend housing-compliance dispute?
 
 ## Scenario

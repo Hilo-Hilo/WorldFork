@@ -1,6 +1,10 @@
 # Case dossier_003
 Benchmark role: longform_dossier
 
+## Forecast Clock
+Forecast horizon: 8 simulated weeks
+Treat the simulated clock as beginning at the as-of date.
+
 Forecast question: Which endpoint dominates the hospital triage-algorithm rollout after 8 simulated weeks?
 
 ## Scenario

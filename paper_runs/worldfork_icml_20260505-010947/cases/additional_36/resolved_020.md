@@ -1,6 +1,12 @@
 # Case resolved_020
 Benchmark role: resolved_forecast
 
+## Forecast Clock
+As-of date: 2024-12-01
+Forecast horizon: through 2024-12-31
+Forecast deadline date: 2024-12-31
+Treat the simulated clock as beginning at the as-of date.
+
 Forecast question: Will Grocery Chain K and Grocery Chain A complete their proposed merger by December 31, 2024?
 
 ## Scenario
@@ -24,6 +30,13 @@ An appeal, settlement, or continued litigation without closing resolves no by th
 ## Candidate Endpoints
 - yes: The event occurs by the deadline
 - no: The event does not occur by the deadline
+
+## Binary forecast contract
+The explicit candidate endpoints are the primary scoring endpoints.
+Resolve yes only when the event occurs by the stated deadline.
+Resolve no when the stated deadline or public settlement point passes without the event occurring.
+Auxiliary mechanism endpoints must not keep the binary forecast unresolved once the yes/no endpoint is settled.
+Use auxiliary mechanism endpoints only as diagnostic support for the binary forecast.
 
 ## Expected Focus
 - antitrust_litigation

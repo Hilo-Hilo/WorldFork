@@ -1,6 +1,12 @@
 # Case resolved_010
 Benchmark role: resolved_forecast
 
+## Forecast Clock
+As-of date: 2026-01-29
+Forecast horizon: through the 2026 Australian Open women's singles final
+Forecast deadline date: 2026-01-31
+Treat the simulated clock as beginning at the as-of date.
+
 Forecast question: Will Player S win the 2026 Australian Open women's singles title?
 
 ## Scenario
@@ -24,6 +30,13 @@ Runner-up status resolves no.
 ## Candidate Endpoints
 - yes: The event occurs by the deadline
 - no: The event does not occur by the deadline
+
+## Binary forecast contract
+The explicit candidate endpoints are the primary scoring endpoints.
+Resolve yes only when the event occurs by the stated deadline.
+Resolve no when the stated deadline or public settlement point passes without the event occurring.
+Auxiliary mechanism endpoints must not keep the binary forecast unresolved once the yes/no endpoint is settled.
+Use auxiliary mechanism endpoints only as diagnostic support for the binary forecast.
 
 ## Expected Focus
 - single_match_forecasting

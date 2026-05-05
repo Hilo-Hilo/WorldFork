@@ -1,6 +1,10 @@
 # Case dossier_002
 Benchmark role: longform_dossier
 
+## Forecast Clock
+Forecast horizon: 10 simulated weeks
+Treat the simulated clock as beginning at the as-of date.
+
 Forecast question: What endpoint dominates the school district AI-tutor contract dispute after 10 simulated weeks?
 
 ## Scenario

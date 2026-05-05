@@ -1,6 +1,12 @@
 # Case resolved_012
 Benchmark role: resolved_forecast
 
+## Forecast Clock
+As-of date: 2025-10-01
+Forecast horizon: through the 2025 Virginia gubernatorial election
+Forecast deadline date: 2025-11-04
+Treat the simulated clock as beginning at the as-of date.
+
 Forecast question: Will Candidate D, a former U.S. House member, win the 2025 Virginia governor's race?
 
 ## Scenario
@@ -24,6 +30,13 @@ A close loss or victory by a different Democrat would resolve no for Candidate D
 ## Candidate Endpoints
 - yes: The event occurs by the deadline
 - no: The event does not occur by the deadline
+
+## Binary forecast contract
+The explicit candidate endpoints are the primary scoring endpoints.
+Resolve yes only when the event occurs by the stated deadline.
+Resolve no when the stated deadline or public settlement point passes without the event occurring.
+Auxiliary mechanism endpoints must not keep the binary forecast unresolved once the yes/no endpoint is settled.
+Use auxiliary mechanism endpoints only as diagnostic support for the binary forecast.
 
 ## Expected Focus
 - statewide_election_forecasting

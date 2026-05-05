@@ -1,6 +1,12 @@
 # Case resolved_023
 Benchmark role: resolved_forecast
 
+## Forecast Clock
+As-of date: 2025-11-10
+Forecast horizon: through the close of COP30
+Forecast deadline date: 2025-11-22
+Treat the simulated clock as beginning at the as-of date.
+
 Forecast question: Will the final official COP30 negotiated text include an explicit binding commitment or roadmap for phasing out fossil fuels?
 
 ## Scenario
@@ -24,6 +30,13 @@ Voluntary roadmaps, side declarations, or non-binding remarks outside the offici
 ## Candidate Endpoints
 - yes: The event occurs by the deadline
 - no: The event does not occur by the deadline
+
+## Binary forecast contract
+The explicit candidate endpoints are the primary scoring endpoints.
+Resolve yes only when the event occurs by the stated deadline.
+Resolve no when the stated deadline or public settlement point passes without the event occurring.
+Auxiliary mechanism endpoints must not keep the binary forecast unresolved once the yes/no endpoint is settled.
+Use auxiliary mechanism endpoints only as diagnostic support for the binary forecast.
 
 ## Expected Focus
 - multilateral_negotiation

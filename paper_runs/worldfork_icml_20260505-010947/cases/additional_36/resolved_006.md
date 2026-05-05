@@ -1,6 +1,12 @@
 # Case resolved_006
 Benchmark role: resolved_forecast
 
+## Forecast Clock
+As-of date: 2025-11-10
+Forecast horizon: until the 68th Annual Grammy Awards
+Forecast deadline date: 2026-02-01
+Treat the simulated clock as beginning at the as-of date.
+
 Forecast question: Will Album B, a Spanish-language album by a global Latin artist, win Album of the Year at the 2026 Grammy Awards?
 
 ## Scenario
@@ -24,6 +30,13 @@ Genre-category wins do not count; only Album of the Year resolves yes.
 ## Candidate Endpoints
 - yes: The event occurs by the deadline
 - no: The event does not occur by the deadline
+
+## Binary forecast contract
+The explicit candidate endpoints are the primary scoring endpoints.
+Resolve yes only when the event occurs by the stated deadline.
+Resolve no when the stated deadline or public settlement point passes without the event occurring.
+Auxiliary mechanism endpoints must not keep the binary forecast unresolved once the yes/no endpoint is settled.
+Use auxiliary mechanism endpoints only as diagnostic support for the binary forecast.
 
 ## Expected Focus
 - award_forecasting

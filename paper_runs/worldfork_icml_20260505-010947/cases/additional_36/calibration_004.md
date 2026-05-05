@@ -1,6 +1,10 @@
 # Case calibration_004
 Benchmark role: adversarial_calibration
 
+## Forecast Clock
+Forecast horizon: 7 simulated weeks
+Treat the simulated clock as beginning at the as-of date.
+
 Forecast question: Will the stadium zoning change occur merely because a famous donor announced it?
 
 ## Scenario

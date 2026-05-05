@@ -1,6 +1,12 @@
 # Case resolved_021
 Benchmark role: resolved_forecast
 
+## Forecast Clock
+As-of date: 2026-02-20
+Forecast horizon: through 2026-03-31
+Forecast deadline date: 2026-03-31
+Treat the simulated clock as beginning at the as-of date.
+
 Forecast question: Will Mission A2 launch by March 31, 2026?
 
 ## Scenario
@@ -24,6 +30,13 @@ A launch on April 1 or later resolves no even if the delay is less than 24 hours
 ## Candidate Endpoints
 - yes: The event occurs by the deadline
 - no: The event does not occur by the deadline
+
+## Binary forecast contract
+The explicit candidate endpoints are the primary scoring endpoints.
+Resolve yes only when the event occurs by the stated deadline.
+Resolve no when the stated deadline or public settlement point passes without the event occurring.
+Auxiliary mechanism endpoints must not keep the binary forecast unresolved once the yes/no endpoint is settled.
+Use auxiliary mechanism endpoints only as diagnostic support for the binary forecast.
 
 ## Expected Focus
 - space_launch_schedule

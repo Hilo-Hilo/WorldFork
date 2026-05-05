@@ -1,6 +1,12 @@
 # Case resolved_005
 Benchmark role: resolved_forecast
 
+## Forecast Clock
+As-of date: 2026-01-23
+Forecast horizon: until the 98th Academy Awards ceremony
+Forecast deadline date: 2026-03-15
+Treat the simulated clock as beginning at the as-of date.
+
 Forecast question: Will Nominee S win Best Picture at the 98th Academy Awards?
 
 ## Scenario
@@ -24,6 +30,13 @@ Only the official Best Picture category counts; wins in acting, directing, or te
 ## Candidate Endpoints
 - yes: The event occurs by the deadline
 - no: The event does not occur by the deadline
+
+## Binary forecast contract
+The explicit candidate endpoints are the primary scoring endpoints.
+Resolve yes only when the event occurs by the stated deadline.
+Resolve no when the stated deadline or public settlement point passes without the event occurring.
+Auxiliary mechanism endpoints must not keep the binary forecast unresolved once the yes/no endpoint is settled.
+Use auxiliary mechanism endpoints only as diagnostic support for the binary forecast.
 
 ## Expected Focus
 - award_forecasting

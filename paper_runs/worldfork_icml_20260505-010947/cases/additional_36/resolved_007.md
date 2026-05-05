@@ -1,6 +1,12 @@
 # Case resolved_007
 Benchmark role: resolved_forecast
 
+## Forecast Clock
+As-of date: 2025-10-24
+Forecast horizon: through the 2025 World Series
+Forecast deadline date: 2025-11-01
+Treat the simulated clock as beginning at the as-of date.
+
 Forecast question: Will Team T, the Canadian club in the 2025 World Series, win the series?
 
 ## Scenario
@@ -24,6 +30,13 @@ If Team T loses in seven games, this resolves no even if the series is close.
 ## Candidate Endpoints
 - yes: The event occurs by the deadline
 - no: The event does not occur by the deadline
+
+## Binary forecast contract
+The explicit candidate endpoints are the primary scoring endpoints.
+Resolve yes only when the event occurs by the stated deadline.
+Resolve no when the stated deadline or public settlement point passes without the event occurring.
+Auxiliary mechanism endpoints must not keep the binary forecast unresolved once the yes/no endpoint is settled.
+Use auxiliary mechanism endpoints only as diagnostic support for the binary forecast.
 
 ## Expected Focus
 - sports_series_forecasting

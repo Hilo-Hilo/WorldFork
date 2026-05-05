@@ -1,6 +1,10 @@
 # Case dossier_006
 Benchmark role: longform_dossier
 
+## Forecast Clock
+Forecast horizon: 14 simulated weeks
+Treat the simulated clock as beginning at the as-of date.
+
 Forecast question: Which endpoint dominates the interstate water-rationing dispute after 14 simulated weeks?
 
 ## Scenario

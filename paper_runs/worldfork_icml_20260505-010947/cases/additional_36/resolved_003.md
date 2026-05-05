@@ -1,6 +1,12 @@
 # Case resolved_003
 Benchmark role: resolved_forecast
 
+## Forecast Clock
+As-of date: 2025-11-15
+Forecast horizon: through the FOMC decision on 2025-12-10
+Forecast deadline date: 2025-12-10
+Treat the simulated clock as beginning at the as-of date.
+
 Forecast question: Will the Federal Open Market Committee lower the target range for the federal funds rate at its December 10, 2025 meeting?
 
 ## Scenario
@@ -24,6 +30,13 @@ Ignore changes to implementation details unless the target range itself is lower
 ## Candidate Endpoints
 - yes: The event occurs by the deadline
 - no: The event does not occur by the deadline
+
+## Binary forecast contract
+The explicit candidate endpoints are the primary scoring endpoints.
+Resolve yes only when the event occurs by the stated deadline.
+Resolve no when the stated deadline or public settlement point passes without the event occurring.
+Auxiliary mechanism endpoints must not keep the binary forecast unresolved once the yes/no endpoint is settled.
+Use auxiliary mechanism endpoints only as diagnostic support for the binary forecast.
 
 ## Expected Focus
 - central_bank_policy

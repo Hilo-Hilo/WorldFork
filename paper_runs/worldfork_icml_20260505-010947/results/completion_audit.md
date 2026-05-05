@@ -1,6 +1,6 @@
 # ICML Completion Audit
 
-Generated: 2026-05-05 12:20 UTC
+Generated: 2026-05-05 22:29 UTC
 
 ## Stop Policy
 
@@ -10,8 +10,8 @@ Endpoint-ledger resolution, not a fixed tick number, is the stopping condition. 
 
 | Block | Required scope | Current evidence | Status | Next action |
 | --- | --- | --- | --- | --- |
-| E0 card QA | 108 public cards plus 36 private eval rows | `results/card_quality_report.md`; `results/source_verification.*`; 36/40 source fetches ok | Mostly complete | Manual follow-up for 4 blocked/timed-out source URLs |
-| E1 initialization screen | 108 live `worldfork init` rows, no ticks | `results/init_scores.csv`; `results/init_scores_summary.json`; 108/108 succeeded with graph/sociology/emotion coverage | Runtime complete; semantic rubric pending | Score semantic 0-4 initialization rubric if final paper needs quality claims |
+| E0 card QA | 108 public cards plus 36 private eval rows | `results/card_quality_report.md`; `results/source_verification.*`; 39/40 source URLs verified ok after browser follow-up; the remaining Reuters URL is gated, but the same case has a separate primary court-source row marked ok | Mostly complete | Keep one gated Reuters URL as a limitation; no forecast-producing model used private resolution data |
+| E1 initialization screen | 108 live `worldfork init` rows, no ticks | `results/init_scores.csv`; `results/init_scores_summary.json`; 108/108 succeeded; automated evidence-grounded 0-4 rubric proxy mean 3.884, 108/108 pass, 0 critical failures | Complete for automated scoring | Label as structural proxy, not human semantic adjudication |
 | E2 direct baselines | 24 resolved cards x direct and structured-direct | `results/forecast_scores.csv`; 48 forecast rows | Complete | Use bootstrap intervals for uncertainty, avoid strong significance claims |
 | E3 no-branch WorldFork | 24 resolved cards | `results/worldfork_default_route_16tick_scores.csv`; `results/worldfork_default_route_35tick_resume_scores.csv`; default DeepSeek cohort/hero route | Complete for no-branch evidence | Stop extending no-branch unless endpoint-ledger code changes |
 | E3 branching WorldFork | 24 resolved cards, or core-12 fallback | One legacy Codex branching smoke row only | Pending | Run default-route branching, preferably core-12 first for fastest defensible fallback |
@@ -19,8 +19,8 @@ Endpoint-ledger resolution, not a fixed tick number, is the stopping condition. 
 | E5 social-state/emotion audit | Score long-horizon artifacts | No `social_state_scores.csv` | Pending | Score after E4 artifacts exist; do not claim validated psychology |
 | Bootstrap intervals | Paired bootstrap over resolved cards | `results/bootstrap_intervals.json` | Complete for available E2/E3 no-branch rows | Extend after branching rows exist |
 | Paper tables | Forecast, audit, social-state, cost/runtime | Table 2 populated with available scores and runtime/cost fields; Tables 3/4 remain placeholders | Partial | Fill Tables 3/4 only after E4/E5 scoring |
-| Figures | Protocol diagram and optional cost/audit figures | LaTeX boxed protocol diagram; `paper/figures/` empty | Partial | Add polished Figure 1 asset and any score/cost plot after final rows |
-| Anonymity/reproducibility | Anonymous paper plus artifact index | `paper/appendix_artifact_index.md`; no paper-body secrets/author IDs detected | Mostly complete | Keep raw local paths out of submission body |
+| Figures | Protocol diagram and optional cost/audit figures | `paper/figures/figure1_protocol_flow.svg`; LaTeX boxed protocol diagram | Partial | Add score/cost plot after corrected E3 and E4/E5 final rows |
+| Anonymity/reproducibility | Anonymous paper plus artifact index | `paper/appendix_artifact_index.md`; required manifest aliases now exist: `manifests/worldfork_manifest.jsonl`, `manifests/scoring_manifest.jsonl`, `manifests/worldfork_long_horizon_manifest.jsonl`; no paper-body secrets/author IDs detected | Mostly complete | Keep raw local paths out of submission body |
 
 ## Current Forecast Result
 

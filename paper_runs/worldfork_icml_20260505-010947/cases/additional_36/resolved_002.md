@@ -1,6 +1,12 @@
 # Case resolved_002
 Benchmark role: resolved_forecast
 
+## Forecast Clock
+As-of date: 2025-09-15
+Forecast horizon: until the 2025 Nobel Prize in Chemistry announcement
+Forecast deadline date: 2025-10-08
+Treat the simulated clock as beginning at the as-of date.
+
 Forecast question: Will the 2025 Nobel Prize in Chemistry be awarded for Research Area M, the development of metal-organic frameworks or closely equivalent porous crystalline framework chemistry?
 
 ## Scenario
@@ -24,6 +30,13 @@ Count the endpoint as yes only if the official prize motivation centers on metal
 ## Candidate Endpoints
 - yes: The event occurs by the deadline
 - no: The event does not occur by the deadline
+
+## Binary forecast contract
+The explicit candidate endpoints are the primary scoring endpoints.
+Resolve yes only when the event occurs by the stated deadline.
+Resolve no when the stated deadline or public settlement point passes without the event occurring.
+Auxiliary mechanism endpoints must not keep the binary forecast unresolved once the yes/no endpoint is settled.
+Use auxiliary mechanism endpoints only as diagnostic support for the binary forecast.
 
 ## Expected Focus
 - scientific_prize_forecasting

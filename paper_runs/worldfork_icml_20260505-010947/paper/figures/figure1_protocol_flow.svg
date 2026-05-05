@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="520" viewBox="0 0 1180 520" role="img" aria-labelledby="title desc">
+  <title id="title">WorldFork Forecasting Protocol Flow</title>
+  <desc id="desc">A pipeline diagram from public scenario cards through Big Bang initialization, branching ticks, endpoint ledgers, path mass, reports, and scoring.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .band { fill: #e8eef4; }
+      .box { fill: #ffffff; stroke: #243447; stroke-width: 2; rx: 8; }
+      .box2 { fill: #f1f6fb; stroke: #315f7d; stroke-width: 2; rx: 8; }
+      .box3 { fill: #fff7ed; stroke: #9a5b18; stroke-width: 2; rx: 8; }
+      .title { font-family: Arial, sans-serif; font-size: 24px; font-weight: 700; fill: #142033; }
+      .h { font-family: Arial, sans-serif; font-size: 18px; font-weight: 700; fill: #142033; }
+      .t { font-family: Arial, sans-serif; font-size: 14px; fill: #334155; }
+      .small { font-family: Arial, sans-serif; font-size: 12px; fill: #475569; }
+      .arrow { stroke: #243447; stroke-width: 2.5; fill: none; marker-end: url(#arrowhead); }
+      .dash { stroke: #64748b; stroke-width: 2; stroke-dasharray: 6 6; fill: none; marker-end: url(#arrowhead2); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#243447" />
+    </marker>
+    <marker id="arrowhead2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#64748b" />
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1180" height="520" />
+  <rect class="band" x="28" y="72" width="1124" height="326" rx="12" />
+  <text class="title" x="40" y="42">WorldFork forecasting protocol</text>
+  <text class="small" x="40" y="62">Forecasts are frozen from public inputs first; private resolutions are used only for posthoc scoring.</text>
+
+  <rect class="box" x="40" y="112" width="170" height="128" />
+  <text class="h" x="58" y="145">Public card</text>
+  <text class="t" x="58" y="173">Question</text>
+  <text class="t" x="58" y="194">Scenario packet</text>
+  <text class="t" x="58" y="215">Candidate endpoints</text>
+
+  <rect class="box2" x="255" y="94" width="190" height="164" />
+  <text class="h" x="275" y="126">Big Bang init</text>
+  <text class="t" x="275" y="154">Actors and cohorts</text>
+  <text class="t" x="275" y="175">Authority constraints</text>
+  <text class="t" x="275" y="196">Graph layers</text>
+  <text class="t" x="275" y="217">Initial endpoint ledger</text>
+
+  <rect class="box" x="492" y="94" width="190" height="164" />
+  <text class="h" x="512" y="126">Tick runtime</text>
+  <text class="t" x="512" y="154">Cohort decisions</text>
+  <text class="t" x="512" y="175">Hero decisions</text>
+  <text class="t" x="512" y="196">Events and summaries</text>
+  <text class="t" x="512" y="217">God review</text>
+
+  <rect class="box3" x="492" y="300" width="190" height="84" />
+  <text class="h" x="512" y="331">Branch policy</text>
+  <text class="t" x="512" y="359">Forks high-divergence</text>
+  <text class="t" x="512" y="378">timelines within caps</text>
+
+  <rect class="box2" x="730" y="94" width="190" height="164" />
+  <text class="h" x="750" y="126">Audit state</text>
+  <text class="t" x="750" y="154">Branch lineage</text>
+  <text class="t" x="750" y="175">Endpoint ledgers</text>
+  <text class="t" x="750" y="196">Path mass</text>
+  <text class="t" x="750" y="217">Report provenance</text>
+
+  <rect class="box" x="968" y="112" width="170" height="128" />
+  <text class="h" x="988" y="145">Frozen output</text>
+  <text class="t" x="988" y="173">Forecast row</text>
+  <text class="t" x="988" y="194">Unresolved mass</text>
+  <text class="t" x="988" y="215">Evidence bundle</text>
+
+  <rect class="box3" x="730" y="300" width="190" height="84" />
+  <text class="h" x="750" y="331">Stopping rule</text>
+  <text class="t" x="750" y="359">Stop on explicit yes/no</text>
+  <text class="t" x="750" y="378">ledger resolution</text>
+
+  <rect class="box" x="968" y="300" width="170" height="84" />
+  <text class="h" x="988" y="331">Posthoc score</text>
+  <text class="t" x="988" y="359">Brier/log score</text>
+  <text class="t" x="988" y="378">Audit rubrics</text>
+
+  <path class="arrow" d="M210 176 L255 176" />
+  <path class="arrow" d="M445 176 L492 176" />
+  <path class="arrow" d="M682 176 L730 176" />
+  <path class="arrow" d="M920 176 L968 176" />
+  <path class="dash" d="M587 258 L587 300" />
+  <path class="dash" d="M682 342 L730 342" />
+  <path class="dash" d="M825 258 L825 300" />
+  <path class="arrow" d="M920 342 L968 342" />
+
+  <text class="small" x="40" y="438">High-volume cohort and hero calls use the configured fast route; governance/report calls use a strong route.</text>
+  <text class="small" x="40" y="460">Auxiliary mechanism endpoints are audit evidence only and cannot keep the binary yes/no forecast unresolved.</text>
+</svg>

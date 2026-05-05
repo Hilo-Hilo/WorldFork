@@ -1,6 +1,12 @@
 # Case resolved_001
 Benchmark role: resolved_forecast
 
+## Forecast Clock
+As-of date: 2025-09-15
+Forecast horizon: until the 2025 Nobel Peace Prize announcement
+Forecast deadline date: 2025-10-10
+Treat the simulated clock as beginning at the as-of date.
+
 Forecast question: Will Candidate A win the 2025 Nobel Peace Prize?
 
 ## Scenario
@@ -24,6 +30,13 @@ Recent wars and humanitarian crises give the committee many alternative symbolic
 ## Candidate Endpoints
 - yes: The event occurs by the deadline
 - no: The event does not occur by the deadline
+
+## Binary forecast contract
+The explicit candidate endpoints are the primary scoring endpoints.
+Resolve yes only when the event occurs by the stated deadline.
+Resolve no when the stated deadline or public settlement point passes without the event occurring.
+Auxiliary mechanism endpoints must not keep the binary forecast unresolved once the yes/no endpoint is settled.
+Use auxiliary mechanism endpoints only as diagnostic support for the binary forecast.
 
 ## Expected Focus
 - secret_selection_process

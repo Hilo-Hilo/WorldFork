@@ -1,6 +1,10 @@
 # Case dossier_007
 Benchmark role: longform_dossier
 
+## Forecast Clock
+Forecast horizon: 6 simulated weeks
+Treat the simulated clock as beginning at the as-of date.
+
 Forecast question: After 6 simulated weeks, does the local-bank rumor resolve into confidence restoration, depositor run, regulator intervention, merger process, or unresolved stress?
 
 ## Scenario

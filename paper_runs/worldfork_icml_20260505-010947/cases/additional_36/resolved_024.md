@@ -1,6 +1,12 @@
 # Case resolved_024
 Benchmark role: resolved_forecast
 
+## Forecast Clock
+As-of date: 2025-08-15
+Forecast horizon: through the federal remedy decision expected in September 2025
+Forecast deadline date: 2025-09-30
+Treat the simulated clock as beginning at the as-of date.
+
 Forecast question: Will the federal court order Company G to divest Browser C as a remedy in the search-antitrust case?
 
 ## Scenario
@@ -24,6 +30,13 @@ Data-sharing, contract limits, or conduct remedies without divestiture resolve n
 ## Candidate Endpoints
 - yes: The event occurs by the deadline
 - no: The event does not occur by the deadline
+
+## Binary forecast contract
+The explicit candidate endpoints are the primary scoring endpoints.
+Resolve yes only when the event occurs by the stated deadline.
+Resolve no when the stated deadline or public settlement point passes without the event occurring.
+Auxiliary mechanism endpoints must not keep the binary forecast unresolved once the yes/no endpoint is settled.
+Use auxiliary mechanism endpoints only as diagnostic support for the binary forecast.
 
 ## Expected Focus
 - antitrust_remedies

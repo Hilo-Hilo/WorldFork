@@ -1,6 +1,10 @@
 # Case dossier_005
 Benchmark role: longform_dossier
 
+## Forecast Clock
+Forecast horizon: 12 simulated weeks
+Treat the simulated clock as beginning at the as-of date.
+
 Forecast question: Which endpoint receives the most path mass for the Harbor Battery permitting fight?
 
 ## Scenario

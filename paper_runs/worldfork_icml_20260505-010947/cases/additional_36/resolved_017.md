@@ -1,6 +1,12 @@
 # Case resolved_017
 Benchmark role: resolved_forecast
 
+## Forecast Clock
+As-of date: 2025-07-01
+Forecast horizon: through 2025-10-14
+Forecast deadline date: 2025-10-14
+Treat the simulated clock as beginning at the as-of date.
+
 Forecast question: Will ordinary support for Operating System W10 end on October 14, 2025 as scheduled?
 
 ## Scenario
@@ -24,6 +30,13 @@ Paid extended security updates do not mean ordinary support continues.
 ## Candidate Endpoints
 - yes: The event occurs by the deadline
 - no: The event does not occur by the deadline
+
+## Binary forecast contract
+The explicit candidate endpoints are the primary scoring endpoints.
+Resolve yes only when the event occurs by the stated deadline.
+Resolve no when the stated deadline or public settlement point passes without the event occurring.
+Auxiliary mechanism endpoints must not keep the binary forecast unresolved once the yes/no endpoint is settled.
+Use auxiliary mechanism endpoints only as diagnostic support for the binary forecast.
 
 ## Expected Focus
 - scheduled_policy_change

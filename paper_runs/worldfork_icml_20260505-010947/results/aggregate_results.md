@@ -1,12 +1,12 @@
 # Aggregate Results
 
-Generated: 2026-05-05 12:20 UTC
+Generated: 2026-05-05 22:29 UTC
 
 ## Completed Blocks
 
 - P0 static card QA: PASS.
 - P0 live setup validation: PASS on isolated `worldfork-icml` stack.
-- Source URL fetch verification: 36 ok, 4 blocked/timed out.
+- Source URL fetch verification: 39 ok, 1 gated Reuters URL with a separate primary court-source row already ok for the same case.
 - E1 smoke initialization: `resolved_003` completed in 146.20 seconds.
 - E2 direct baselines: complete for 24 resolved cards x 2 conditions.
 - E3 tick/report smoke: `resolved_003` ran one synchronous tick and generated reports in 408.49 seconds.
@@ -18,6 +18,7 @@ Generated: 2026-05-05 12:20 UTC
 - E1 queued initializer batch: `resolved_007` through `resolved_014` completed as eight parallel p1 jobs; all captured initialized actors, traits, graphs, sociology baseline, emotion baseline, logs, and workspace.
 - E1 add-on initialization screen: all 36 additional public cards now have live initialization evidence.
 - E1 full initialization screen: all 108 public cards have live initialization evidence; the remaining 72 existing cards completed as queued p1 jobs in 1796.65 seconds wall time.
+- E1 automated initialization rubric proxy: `results/init_scores.csv` now includes 10 rubric dimensions. Mean score is 3.884, 108/108 rows pass, and 0 critical failures are flagged. This is an evidence-grounded structural proxy, not a human semantic adjudication.
 - E3 default-route no-branch 16-tick run: all 24 resolved cards produced scoreable path-mass forecasts under the DeepSeek cohort/hero route policy.
 - E3 default-route no-branch 35-tick resume: all 24 resolved cards have frozen predictions after reusing the 16-tick Big Bangs. The 35-tick path-mass predictions are unchanged from the 16-tick forecasts; 17 of 23 resumed cases produced final Big Bang reports in the recovered artifact set, and all 23 resumed cases have captured endpoint-ledger/path-mass artifacts.
 - Forecast bootstrap intervals are available in `results/bootstrap_intervals.json` for the completed direct, structured-direct, 16-tick no-branch, and 35-tick no-branch rows. They cover the available E2/E3 no-branch evidence only; E3 branching and E4/E5 rows remain pending.
@@ -55,7 +56,7 @@ Generated: 2026-05-05 12:20 UTC
 
 ## Pending Results
 
-- Semantic E1 rubric scoring on the 108 initialized public cards. The current `init_scores.csv` is an automated coverage table, not a human or LLM 0-4 quality rubric.
+- Human or LLM semantic adjudication for E1, if the final paper needs claims beyond the automated structural rubric proxy now recorded in `init_scores.csv`.
 - Full E3 default-route branching runs; the default-route no-branch 16-tick and 35-tick resume rows are complete.
 - E4 long-horizon audit runs.
 - E5 social-state/emotion audit.
