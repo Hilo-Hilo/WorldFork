@@ -356,7 +356,8 @@ def test_forecast_branch_hypotheses_create_complementary_branch_tools(db):
     assert [call["tool_name"] for call in calls] == ["create_branch", "create_branch"]
     assert [call["arguments"]["candidate_endpoint_id"] for call in calls] == ["yes", "no"]
     assert calls[0]["arguments"]["branch_probability"] == pytest.approx(0.5)
-    assert calls[1]["arguments"]["branch_probability"] == pytest.approx(0.99)
+    assert calls[1]["arguments"]["branch_probability"] == pytest.approx(1.0)
+    assert calls[1]["arguments"]["parent_continuation_probability"] == pytest.approx(0.0)
     assert calls[0]["arguments"]["branch_premise"] == "YES path: the award candidate wins."
     assert calls[1]["arguments"]["branch_premise"] == "NO path: the award candidate does not win."
     assert all("generic branch" not in call["arguments"]["reason"] for call in calls)

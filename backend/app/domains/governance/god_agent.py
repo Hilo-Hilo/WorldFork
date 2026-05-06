@@ -409,7 +409,7 @@ def _forecast_candidate_branch_tool_calls(
     calls: list[dict] = []
     for index, item in enumerate(selected):
         remaining = len(selected) - index
-        branch_probability = round(1.0 / remaining, 4) if remaining > 1 else 0.99
+        branch_probability = round(1.0 / remaining, 4) if remaining > 1 else 1.0
         parent_continuation = round(max(0.0, 1.0 - branch_probability), 4)
         candidate_id = str(item.get("candidate_endpoint_id") or "").strip().lower()
         premise = _branch_hypothesis_premise(item)
