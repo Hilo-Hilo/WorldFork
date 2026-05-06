@@ -275,6 +275,7 @@ WorldFork is a monorepo with installable and runnable surfaces around one core r
 | --- | --- | --- |
 | Backend service | `backend/app` | FastAPI API, simulation runtime, jobs, storage, reports |
 | CLI package | `cli/` | `worldfork` command for operators and agents |
+| Frontend (optional) | `frontend/` | Next.js 15 dashboard for inspecting runs, multiverse trees, and reports — wraps the backend API, not required for headless use |
 | Agent skill | `skills/worldfork/` | Single public WorldFork skill with setup, report, debug, CLI, and documentation modules |
 | Docs | `docs/` | Setup, architecture, demos, reporting, testing, and agent-facing guides |
 | Examples | `examples/` | Runnable scenario dossiers and demos |
@@ -282,7 +283,7 @@ WorldFork is a monorepo with installable and runnable surfaces around one core r
 | Scripts | `scripts/` | Local validation and demo harnesses |
 | Infra | `infra/` | Docker and migration infrastructure |
 
-There is **no web frontend** in this repository.
+The frontend is a thin client over the same API the CLI uses — every action it surfaces is also accessible via `worldfork`. WorldFork still runs headless without it.
 
 ---
 
@@ -336,6 +337,7 @@ worldfork --json status
 backend/app/          FastAPI app, runtime, jobs, storage, reports
 backend/tests/        root regressions, unit, integration, and e2e tests
 cli/                  standalone Python CLI package
+frontend/             optional Next.js 15 dashboard (browser-side wrapper over the API)
 skills/               installable operator and agent skills
 examples/             runnable scenario dossiers
 source_of_truth/      prompt, report, and policy templates
