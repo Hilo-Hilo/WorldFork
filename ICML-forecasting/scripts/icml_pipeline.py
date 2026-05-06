@@ -46,7 +46,9 @@ FORECAST_CARD_INITIALIZER_PROMPT = (
     "Keep graph_edges <= 12, trait_vectors <= 8, initial_events <= 3, branch_hypotheses <= 2, "
     "merge_hypotheses <= 1, and risk_flags <= 3. For endpoint_ledger, align first to the explicit "
     "yes/no candidate endpoints; auxiliary diagnostic endpoints are optional and must not obscure "
-    "the binary yes/no forecast. Keep all fields compact, evidence-grounded, and free of private "
+    "the binary yes/no forecast. When yes/no candidate endpoints are present, return exactly two "
+    "complementary branch_hypotheses: one tied to candidate_endpoint_id yes and one tied to "
+    "candidate_endpoint_id no. Keep all fields compact, evidence-grounded, and free of private "
     "resolution data."
 )
 NO_BRANCH_POLICY = {
@@ -59,7 +61,7 @@ NO_BRANCH_POLICY = {
 SHORT_BRANCH_POLICY = {
     "max_branch_depth": 2,
     "max_active_multiverses": 4,
-    "max_branches_per_tick": 1,
+    "max_branches_per_tick": 2,
     "branch_score_threshold": 0.75,
     "min_branch_runway_ticks": 2,
 }
@@ -235,6 +237,51 @@ def candidate_endpoint_keys_for_case(case_id: str) -> list[str]:
     return keys
 
 
+def _clean_forecast_question(value: Any) -> str:
+    text = " ".join(str(value or "the forecast question").split())
+    return text.rstrip(" ?")[:180] or "the forecast question"
+
+
+def binary_branch_hypotheses_for_forecast_context(context: dict[str, Any]) -> list[dict[str, Any]]:
+    endpoints = context.get("candidate_endpoints")
+    if not isinstance(endpoints, list):
+        return []
+    candidate_ids = {
+        str(item.get("id") or item.get("endpoint_key") or "").strip().lower()
+        for item in endpoints
+        if isinstance(item, dict)
+    }
+    if not {"yes", "no"} <= candidate_ids:
+        return []
+    metadata = context.get("forecast_metadata") if isinstance(context.get("forecast_metadata"), dict) else {}
+    deadline = str(metadata.get("forecast_deadline_date") or "the forecast deadline").strip()
+    question = _clean_forecast_question(context.get("question"))
+    return [
+        {
+            "label": "YES candidate endpoint path",
+            "candidate_endpoint_id": "yes",
+            "trigger": f"Official or high-confidence settlement evidence supports yes by {deadline}.",
+            "alternate_path": f"YES path: {question}.",
+            "expected_divergence": "The endpoint ledger realizes candidate_endpoint_id=yes and eliminates candidate_endpoint_id=no.",
+            "observable_divergence_signal": "Terminal simulated event or authoritative settlement packet names the yes outcome.",
+            "realization_criteria": [
+                f"By {deadline}, official settlement evidence confirms the yes candidate endpoint."
+            ],
+        },
+        {
+            "label": "NO candidate endpoint path",
+            "candidate_endpoint_id": "no",
+            "trigger": f"Official or high-confidence settlement evidence supports no by {deadline}.",
+            "alternate_path": f"NO path: {question} does not occur by the deadline.",
+            "expected_divergence": "The endpoint ledger realizes candidate_endpoint_id=no and eliminates candidate_endpoint_id=yes.",
+            "observable_divergence_signal": "Terminal simulated event or authoritative settlement packet names the no outcome.",
+            "realization_criteria": [
+                f"By {deadline}, official settlement evidence confirms the no candidate endpoint."
+            ],
+        },
+    ]
+
+
 def resolved_forecast_runtime_context(
     *,
     case_id: str,
@@ -261,7 +308,7 @@ def resolved_forecast_runtime_context(
     }
     endpoints = _candidate_endpoints_for_case(case_id)
     source_packet = card.get("source_packet") if isinstance(card.get("source_packet"), list) else []
-    return {
+    context = {
         "tick_duration_minutes": tick_duration,
         "forecast_metadata": metadata,
         "question": card.get("question"),
@@ -270,6 +317,8 @@ def resolved_forecast_runtime_context(
         "candidate_endpoints": endpoints,
         "endpoint_resolution_keys": candidate_endpoint_keys_for_case(case_id),
     }
+    context["branch_hypotheses"] = binary_branch_hypotheses_for_forecast_context(context)
+    return context
 
 
 def build_init_job_payload(
@@ -291,6 +340,8 @@ def build_init_job_payload(
             "source_packet": forecast_context.get("source_packet") or [],
             "candidate_endpoints": forecast_context.get("candidate_endpoints") or [],
             "endpoint_resolution_keys": forecast_context.get("endpoint_resolution_keys") or [],
+            "branch_hypotheses": forecast_context.get("branch_hypotheses")
+            or binary_branch_hypotheses_for_forecast_context(forecast_context),
         }
         scenario_input = {key: value for key, value in scenario_input.items() if value not in (None, "", [], {})}
     return {
@@ -2188,6 +2239,150 @@ def _paired_branch_brier_summary(
             "Deadline-only forced candidate settlements are treated as uncertainty by the DB-aware extractor."
         ),
     }
+
+
+def _mean_prediction_float(rows: list[dict[str, Any]], key: str) -> float | None:
+    values = [
+        float(value)
+        for row in rows
+        if (value := _float_or_none(row.get(key))) is not None
+    ]
+    return statistics.fmean(values) if values else None
+
+
+def _condition_quality_rows(predictions: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    by_condition: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for row in predictions:
+        condition = str(row.get("condition") or "")
+        if condition:
+            by_condition[condition].append(row)
+    return {
+        condition: {
+            "n": len(rows),
+            "mean_p_yes": _mean_prediction_float(rows, "p_yes"),
+            "mean_unresolved_mass": _mean_prediction_float(rows, "unresolved_mass"),
+            "mean_hard_terminal_mass": _mean_prediction_float(rows, "hard_terminal_mass"),
+            "mean_deadline_forced_uncertain_mass": _mean_prediction_float(rows, "deadline_forced_uncertain_mass"),
+            "mean_candidate_status_uncertain_mass": _mean_prediction_float(rows, "candidate_status_uncertain_mass"),
+            "mean_missing_candidate_entry_mass": _mean_prediction_float(rows, "missing_candidate_entry_mass"),
+        }
+        for condition, rows in sorted(by_condition.items())
+    }
+
+
+def _gate_result(
+    failed: list[dict[str, Any]],
+    *,
+    gate: str,
+    actual: float | int | None,
+    threshold: float | int,
+    comparison: str,
+) -> None:
+    if actual is None:
+        failed.append({"gate": gate, "actual": None, "threshold": threshold, "comparison": comparison})
+        return
+    if comparison == ">=" and actual < threshold:
+        failed.append({"gate": gate, "actual": actual, "threshold": threshold, "comparison": comparison})
+    elif comparison == "<=" and actual > threshold:
+        failed.append({"gate": gate, "actual": actual, "threshold": threshold, "comparison": comparison})
+
+
+def worldfork_quality_gate_summary(
+    *,
+    predictions: list[dict[str, Any]],
+    score_rows: list[dict[str, Any]],
+    baseline_condition: str,
+    branch_condition: str,
+    min_paired_cases: int,
+    min_mean_branch_brier_improvement: float,
+    min_branch_hard_terminal_mass: float,
+    max_branch_unresolved_mass: float,
+    max_branch_forced_deadline_mass: float,
+) -> dict[str, Any]:
+    condition_rows = _condition_quality_rows(predictions)
+    pair_summary = _paired_branch_brier_summary(
+        score_rows,
+        baseline_condition=baseline_condition,
+        branch_condition=branch_condition,
+        bootstrap_iterations=1000,
+    )
+    branch = condition_rows.get(branch_condition, {})
+    failed: list[dict[str, Any]] = []
+    _gate_result(
+        failed,
+        gate="paired_cases",
+        actual=pair_summary.get("paired_cases"),
+        threshold=min_paired_cases,
+        comparison=">=",
+    )
+    _gate_result(
+        failed,
+        gate="mean_branch_brier_improvement",
+        actual=pair_summary.get("mean_branch_brier_improvement"),
+        threshold=min_mean_branch_brier_improvement,
+        comparison=">=",
+    )
+    _gate_result(
+        failed,
+        gate="mean_branch_hard_terminal_mass",
+        actual=branch.get("mean_hard_terminal_mass"),
+        threshold=min_branch_hard_terminal_mass,
+        comparison=">=",
+    )
+    _gate_result(
+        failed,
+        gate="mean_branch_unresolved_mass",
+        actual=branch.get("mean_unresolved_mass"),
+        threshold=max_branch_unresolved_mass,
+        comparison="<=",
+    )
+    _gate_result(
+        failed,
+        gate="mean_branch_forced_deadline_mass",
+        actual=branch.get("mean_deadline_forced_uncertain_mass"),
+        threshold=max_branch_forced_deadline_mass,
+        comparison="<=",
+    )
+    return {
+        "baseline_condition": baseline_condition,
+        "branch_condition": branch_condition,
+        "full_benchmark_recommended": not failed,
+        "failed_gates": failed,
+        "conditions": condition_rows,
+        **pair_summary,
+        "quality_gate_thresholds": {
+            "min_paired_cases": min_paired_cases,
+            "min_mean_branch_brier_improvement": min_mean_branch_brier_improvement,
+            "min_branch_hard_terminal_mass": min_branch_hard_terminal_mass,
+            "max_branch_unresolved_mass": max_branch_unresolved_mass,
+            "max_branch_forced_deadline_mass": max_branch_forced_deadline_mass,
+        },
+    }
+
+
+def worldfork_quality_gate(args: argparse.Namespace) -> None:
+    run_root = make_run_root(args.run_root)
+    prediction_path = _resolve_run_relative_path(run_root, args.predictions)
+    score_path = _resolve_run_relative_path(run_root, args.scores)
+    predictions = read_jsonl(prediction_path)
+    with score_path.open(encoding="utf-8", newline="") as handle:
+        score_rows = list(csv.DictReader(handle))
+    summary = worldfork_quality_gate_summary(
+        predictions=predictions,
+        score_rows=score_rows,
+        baseline_condition=args.baseline_condition,
+        branch_condition=args.branch_condition,
+        min_paired_cases=args.min_paired_cases,
+        min_mean_branch_brier_improvement=args.min_mean_branch_brier_improvement,
+        min_branch_hard_terminal_mass=args.min_branch_hard_terminal_mass,
+        max_branch_unresolved_mass=args.max_branch_unresolved_mass,
+        max_branch_forced_deadline_mass=args.max_branch_forced_deadline_mass,
+    )
+    output = args.output if args.output.is_absolute() else run_root / args.output
+    _write_json(output, summary)
+    print(json.dumps(summary, sort_keys=True))
+    if args.fail and not summary["full_benchmark_recommended"]:
+        raise SystemExit(1)
 
 
 def score_worldfork_ledger_db_artifacts(args: argparse.Namespace) -> None:
@@ -4362,6 +4557,24 @@ def main() -> None:
     db_score.add_argument("--branch-condition", default="worldfork_branching_short")
     db_score.add_argument("--force", action="store_true")
     db_score.set_defaults(func=score_worldfork_ledger_db_artifacts)
+
+    quality = sub.add_parser(
+        "worldfork-quality-gate",
+        help="Gate WorldFork benchmark scaling on paired Brier and ledger evidence quality.",
+    )
+    quality.add_argument("--run-root", type=Path, required=True)
+    quality.add_argument("--predictions", type=Path, required=True)
+    quality.add_argument("--scores", type=Path, required=True)
+    quality.add_argument("--output", type=Path, default=Path("results/worldfork_quality_gate.json"))
+    quality.add_argument("--baseline-condition", default="worldfork_no_branch_short")
+    quality.add_argument("--branch-condition", default="worldfork_branching_short")
+    quality.add_argument("--min-paired-cases", type=int, default=12)
+    quality.add_argument("--min-mean-branch-brier-improvement", type=float, default=0.02)
+    quality.add_argument("--min-branch-hard-terminal-mass", type=float, default=0.35)
+    quality.add_argument("--max-branch-unresolved-mass", type=float, default=0.65)
+    quality.add_argument("--max-branch-forced-deadline-mass", type=float, default=0.35)
+    quality.add_argument("--fail", action="store_true")
+    quality.set_defaults(func=worldfork_quality_gate)
 
     blend = sub.add_parser(
         "score-e3-direct-prior-blends",

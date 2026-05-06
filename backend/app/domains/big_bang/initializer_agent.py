@@ -382,6 +382,10 @@ def normalize_initializer_output(parsed: dict[str, Any], scenario_input: dict[st
         or output.get("endpointQuestions"),
         fallback["important_questions"],
     )
+    normalized["branch_hypotheses"] = _merge_scenario_branch_hypotheses(
+        normalized["branch_hypotheses"],
+        scenario_input,
+    )
     normalized["endpoint_ledger"] = _normalize_initializer_endpoint_ledger(
         output.get("endpoint_ledger") or output.get("endpointLedger") or output.get("endpoints"),
         important_questions=normalized["important_questions"],
@@ -432,6 +436,45 @@ def _normalize_important_questions(value: Any, default: list[str]) -> list[str]:
     if questions:
         return questions
     return [str(item).strip() for item in default[:5] if str(item).strip()]
+
+
+def _merge_scenario_branch_hypotheses(
+    generated: list[dict],
+    scenario_input: dict[str, Any],
+    *,
+    limit: int = 5,
+) -> list[dict]:
+    scenario_items = []
+    if isinstance(scenario_input, dict):
+        scenario_items = [dict(item) for item in _list_value(scenario_input.get("branch_hypotheses")) if isinstance(item, dict)]
+    if not scenario_items:
+        return generated
+    merged: list[dict] = []
+    seen: set[str] = set()
+    for source in (scenario_items, generated):
+        for item in source:
+            key = _branch_hypothesis_key(item)
+            if key in seen:
+                continue
+            merged.append(dict(item))
+            seen.add(key)
+            if len(merged) >= limit:
+                return merged
+    return merged
+
+
+def _branch_hypothesis_key(item: dict) -> str:
+    candidate_id = str(item.get("candidate_endpoint_id") or item.get("candidate_id") or "").strip().lower()
+    if candidate_id:
+        return f"candidate:{candidate_id}"
+    text = str(
+        item.get("label")
+        or item.get("alternate_path")
+        or item.get("plausible_alternate_path")
+        or item.get("trigger")
+        or item
+    )
+    return "text:" + " ".join(text.lower().split())
 
 
 def _normalize_initializer_endpoint_ledger(

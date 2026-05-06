@@ -211,6 +211,52 @@ def test_build_init_job_payload_preserves_structured_public_forecast_context(tmp
     assert "correct_answer" not in serialized
 
 
+def test_binary_branch_hypotheses_include_yes_and_no_candidates() -> None:
+    pipeline = load_icml_pipeline()
+
+    hypotheses = pipeline.binary_branch_hypotheses_for_forecast_context(
+        {
+            "question": "Will Nominee S win Best Picture at the 98th Academy Awards?",
+            "forecast_metadata": {"forecast_deadline_date": "2026-03-15"},
+            "candidate_endpoints": [
+                {"id": "yes", "label": "The event occurs by the deadline"},
+                {"id": "no", "label": "The event does not occur by the deadline"},
+            ],
+        }
+    )
+
+    assert [item["candidate_endpoint_id"] for item in hypotheses] == ["yes", "no"]
+    assert all("2026-03-15" in item["realization_criteria"][0] for item in hypotheses)
+    assert "Nominee S win Best Picture" in hypotheses[0]["alternate_path"]
+    assert "does not" in hypotheses[1]["alternate_path"]
+
+
+def test_build_init_job_payload_preserves_complementary_branch_hypotheses(tmp_path: Path) -> None:
+    pipeline = load_icml_pipeline()
+    case_file = tmp_path / "resolved_005.md"
+    case_file.write_text("# Public forecast card\n", encoding="utf-8")
+    forecast_context = pipeline.resolved_forecast_runtime_context(
+        case_id="resolved_005",
+        max_ticks=10,
+        base_tick_duration_minutes=720,
+    )
+
+    payload = pipeline.build_init_job_payload(
+        case_id="resolved_005",
+        case_file=case_file,
+        name_prefix="E3",
+        max_ticks=10,
+        tick_duration_minutes=forecast_context["tick_duration_minutes"],
+        branch_policy=pipeline.SHORT_BRANCH_POLICY,
+        forecast_context=forecast_context,
+    )
+
+    scenario_input = payload["payload"]["scenario_input"]
+    assert [item["candidate_endpoint_id"] for item in scenario_input["branch_hypotheses"]] == ["yes", "no"]
+    assert payload["payload"]["branch_policy"]["max_branches_per_tick"] == 2
+    assert "return exactly two complementary branch_hypotheses" in payload["payload"]["initializer_prompt"]
+
+
 def test_resolve_case_file_finds_public_existing_and_additional_cases(tmp_path: Path) -> None:
     pipeline = load_icml_pipeline()
     run_root = tmp_path / "run"
@@ -618,6 +664,121 @@ def test_score_worldfork_ledger_db_artifacts_writes_predictions_and_pair_summary
     assert summary["mean_baseline_brier"] == pytest.approx(0.25)
     assert summary["mean_branch_brier"] == pytest.approx(0.0)
     assert summary["mean_branch_brier_improvement"] == pytest.approx(0.25)
+
+
+def test_worldfork_quality_gate_rejects_forced_or_weak_branch_results() -> None:
+    pipeline = load_icml_pipeline()
+
+    summary = pipeline.worldfork_quality_gate_summary(
+        predictions=[
+            {
+                "case_id": "case_a",
+                "condition": "worldfork_no_branch_short",
+                "unresolved_mass": 0.1,
+                "hard_terminal_mass": 0.9,
+                "deadline_forced_uncertain_mass": 0.0,
+            },
+            {
+                "case_id": "case_a",
+                "condition": "worldfork_branching_short",
+                "unresolved_mass": 0.8,
+                "hard_terminal_mass": 0.2,
+                "deadline_forced_uncertain_mass": 0.6,
+            },
+            {
+                "case_id": "case_b",
+                "condition": "worldfork_no_branch_short",
+                "unresolved_mass": 0.1,
+                "hard_terminal_mass": 0.9,
+                "deadline_forced_uncertain_mass": 0.0,
+            },
+            {
+                "case_id": "case_b",
+                "condition": "worldfork_branching_short",
+                "unresolved_mass": 0.7,
+                "hard_terminal_mass": 0.3,
+                "deadline_forced_uncertain_mass": 0.5,
+            },
+        ],
+        score_rows=[
+            {"case_id": "case_a", "condition": "worldfork_no_branch_short", "brier": "0.250000"},
+            {"case_id": "case_a", "condition": "worldfork_branching_short", "brier": "0.240000"},
+            {"case_id": "case_b", "condition": "worldfork_no_branch_short", "brier": "0.250000"},
+            {"case_id": "case_b", "condition": "worldfork_branching_short", "brier": "0.260000"},
+        ],
+        baseline_condition="worldfork_no_branch_short",
+        branch_condition="worldfork_branching_short",
+        min_paired_cases=2,
+        min_mean_branch_brier_improvement=0.02,
+        min_branch_hard_terminal_mass=0.5,
+        max_branch_unresolved_mass=0.4,
+        max_branch_forced_deadline_mass=0.25,
+    )
+
+    assert summary["full_benchmark_recommended"] is False
+    failed = {item["gate"] for item in summary["failed_gates"]}
+    assert failed == {
+        "mean_branch_brier_improvement",
+        "mean_branch_hard_terminal_mass",
+        "mean_branch_unresolved_mass",
+        "mean_branch_forced_deadline_mass",
+    }
+    assert summary["conditions"]["worldfork_branching_short"]["mean_unresolved_mass"] == pytest.approx(0.75)
+
+
+def test_worldfork_quality_gate_allows_strong_hard_terminal_branch_results() -> None:
+    pipeline = load_icml_pipeline()
+
+    summary = pipeline.worldfork_quality_gate_summary(
+        predictions=[
+            {
+                "case_id": "case_a",
+                "condition": "worldfork_no_branch_short",
+                "unresolved_mass": 0.6,
+                "hard_terminal_mass": 0.4,
+                "deadline_forced_uncertain_mass": 0.4,
+            },
+            {
+                "case_id": "case_a",
+                "condition": "worldfork_branching_short",
+                "unresolved_mass": 0.1,
+                "hard_terminal_mass": 0.9,
+                "deadline_forced_uncertain_mass": 0.0,
+            },
+            {
+                "case_id": "case_b",
+                "condition": "worldfork_no_branch_short",
+                "unresolved_mass": 0.6,
+                "hard_terminal_mass": 0.4,
+                "deadline_forced_uncertain_mass": 0.4,
+            },
+            {
+                "case_id": "case_b",
+                "condition": "worldfork_branching_short",
+                "unresolved_mass": 0.2,
+                "hard_terminal_mass": 0.8,
+                "deadline_forced_uncertain_mass": 0.1,
+            },
+        ],
+        score_rows=[
+            {"case_id": "case_a", "condition": "worldfork_no_branch_short", "brier": "0.360000"},
+            {"case_id": "case_a", "condition": "worldfork_branching_short", "brier": "0.160000"},
+            {"case_id": "case_b", "condition": "worldfork_no_branch_short", "brier": "0.360000"},
+            {"case_id": "case_b", "condition": "worldfork_branching_short", "brier": "0.250000"},
+        ],
+        baseline_condition="worldfork_no_branch_short",
+        branch_condition="worldfork_branching_short",
+        min_paired_cases=2,
+        min_mean_branch_brier_improvement=0.02,
+        min_branch_hard_terminal_mass=0.5,
+        max_branch_unresolved_mass=0.4,
+        max_branch_forced_deadline_mass=0.25,
+    )
+
+    assert summary["full_benchmark_recommended"] is True
+    assert summary["failed_gates"] == []
+    assert summary["paired_cases"] == 2
+    assert summary["mean_branch_brier_improvement"] == pytest.approx(0.155)
 
 
 def test_worldfork_perf_summary_records_prompt_latency_and_brier(tmp_path: Path) -> None:

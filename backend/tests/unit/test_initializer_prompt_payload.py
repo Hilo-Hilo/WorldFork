@@ -227,3 +227,38 @@ def test_initializer_output_preserves_endpoint_questions_and_parseable_ledger():
             },
         }
     ]
+
+
+def test_initializer_output_preserves_scenario_branch_hypotheses_first():
+    normalized = initializer_agent.normalize_initializer_output(
+        {
+            "branch_hypotheses": [
+                {
+                    "label": "generic market surprise",
+                    "trigger": "market chatter changes",
+                    "candidate_endpoint_id": "maybe",
+                }
+            ],
+        },
+        {
+            "premise": "Forecast-card scenario",
+            "branch_hypotheses": [
+                {
+                    "label": "YES candidate wins",
+                    "trigger": "official settlement evidence supports the yes endpoint",
+                    "candidate_endpoint_id": "yes",
+                    "expected_divergence": "The primary binary endpoint resolves yes.",
+                },
+                {
+                    "label": "NO candidate wins",
+                    "trigger": "official settlement evidence supports the no endpoint",
+                    "candidate_endpoint_id": "no",
+                    "expected_divergence": "The primary binary endpoint resolves no.",
+                },
+            ],
+        },
+    )
+
+    candidate_ids = [item.get("candidate_endpoint_id") for item in normalized["branch_hypotheses"][:2]]
+    assert candidate_ids == ["yes", "no"]
+    assert normalized["branch_hypotheses"][2]["candidate_endpoint_id"] == "maybe"
