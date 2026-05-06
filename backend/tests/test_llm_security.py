@@ -454,6 +454,50 @@ def test_complete_with_audit_uses_provider_model_from_route(monkeypatch):
     assert call.meta["caller_request_metadata"]["raw_request_artifact_id"] == "spoofed"
 
 
+def test_complete_with_audit_routes_gpt54_governance_calls_to_codex_auth(monkeypatch):
+    captured = {}
+
+    class CodexProvider:
+        async def complete(self, request):
+            captured["provider"] = "openai-codex"
+            captured["request"] = request
+            return LLMResponse(content='{"actors": [], "cohorts": [], "heroes": []}', raw={"ok": True})
+
+    class OpenRouterProvider:
+        async def complete(self, request):
+            captured["provider"] = "openrouter"
+            captured["request"] = request
+            return LLMResponse(content='{"actors": [], "cohorts": [], "heroes": []}', raw={"ok": True})
+
+    settings = SimpleNamespace(
+        default_llm_provider="openrouter",
+        default_model="deepseek/deepseek-v4-flash",
+        initializer_agent_model="gpt-5.4",
+        openai_codex_default_model="gpt-5.4",
+        llm_max_retries=1,
+        llm_retry_backoff_seconds=0,
+    )
+    monkeypatch.setattr(llm_audit, "get_settings", lambda: settings)
+    monkeypatch.setattr(llm_audit, "ArtifactStore", lambda: FakeArtifactStore())
+    monkeypatch.setitem(llm_audit._AUDITED_PROVIDER_FACTORIES, "openai-codex", CodexProvider)
+    monkeypatch.setitem(llm_audit._AUDITED_PROVIDER_FACTORIES, "openrouter", OpenRouterProvider)
+
+    _response, call = llm_audit.complete_with_audit(
+        FakeRoutingDB({}),
+        big_bang_id=uuid4(),
+        purpose="initializer_agent_test",
+        model="gpt-5.4",
+        route="initializer_agent",
+        messages=[{"role": "user", "content": "Return JSON."}],
+        metadata={"max_tokens": 200},
+    )
+
+    assert captured["provider"] == "openai-codex"
+    assert captured["request"].model == "gpt-5.4"
+    assert call.provider == "openai-codex"
+    assert call.model == "gpt-5.4"
+
+
 def test_complete_with_audit_falls_back_across_route_providers(monkeypatch):
     class FailingProvider:
         async def complete(self, request):

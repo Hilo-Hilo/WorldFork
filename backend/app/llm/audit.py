@@ -335,10 +335,11 @@ def complete_with_audit(
 ) -> tuple[LLMResponse, models.LLMCall]:
     metadata = metadata or {}
     settings = get_settings()
+    route_fallback_provider = None if route is not None else settings.default_llm_provider
     resolved_route = resolve_audited_llm_route(
         db,
         route=route,
-        fallback_provider=settings.default_llm_provider,
+        fallback_provider=route_fallback_provider,
         fallback_model=model,
     )
     initial_candidate = resolved_route.primary

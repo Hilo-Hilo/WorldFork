@@ -116,6 +116,44 @@ def test_branch_creation_assigns_path_probability(db: Session):
     assert child.state["branch"]["path_probability"] == 0.25
 
 
+def test_branch_creation_can_consume_remaining_parent_path_probability(db: Session):
+    _big_bang, root, _root_tick = _seed_root_tick(db)
+
+    first = create_branch(
+        db,
+        parent=root,
+        fork_tick_index=0,
+        reason="seed yes path",
+        idempotency_key="branch:seed:yes",
+        branch_probability=0.5,
+        parent_continuation_probability=0.5,
+        probability_basis={"source": "forecast_branch_hypothesis", "candidate_endpoint_id": "yes"},
+    )
+    second = create_branch(
+        db,
+        parent=root,
+        fork_tick_index=0,
+        reason="seed no path",
+        idempotency_key="branch:seed:no",
+        branch_probability=1.0,
+        parent_continuation_probability=0.0,
+        probability_basis={"source": "forecast_branch_hypothesis", "candidate_endpoint_id": "no"},
+    )
+    second_edge = db.scalar(
+        select(models.MultiverseLineageEdge).where(models.MultiverseLineageEdge.child_multiverse_id == second.id)
+    )
+
+    assert float(first.path_probability) == 0.5
+    assert float(second.branch_probability) == 1.0
+    assert float(second.path_probability) == 0.5
+    assert float(root.path_probability) == 0.0
+    assert second.state["branch"]["branch_probability"] == 1.0
+    assert second.state["branch"]["parent_path_probability_after"] == 0.0
+    assert second_edge is not None
+    assert float(second_edge.branch_probability) == 1.0
+    assert float(second_edge.child_path_probability) == 0.5
+
+
 def test_branch_creation_inherits_latest_endpoint_ledger(db: Session):
     big_bang, root, _root_tick = _seed_root_tick(db)
     parent_ledger = models.EndpointLedgerVersion(

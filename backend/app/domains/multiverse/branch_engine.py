@@ -85,7 +85,10 @@ def create_branch(
     child_count = db.scalar(
         select(func.count()).select_from(models.Multiverse).where(models.Multiverse.parent_multiverse_id == parent.id)
     )
-    probability = _resolve_branch_probability(branch_probability)
+    probability = _resolve_branch_probability(
+        branch_probability,
+        allow_full_transfer=parent_continuation_probability is not None,
+    )
     split = _split_parent_path_probability(
         parent=parent,
         branch_probability=probability,
@@ -232,8 +235,9 @@ def _branch_premise(*, reason: str, probability_basis: dict[str, Any] | None) ->
     return str(reason or "God Agent branch.").strip()
 
 
-def _resolve_branch_probability(value: float | None) -> float:
-    return _clamp_probability(value, default=0.5, minimum=0.01, maximum=0.99)
+def _resolve_branch_probability(value: float | None, *, allow_full_transfer: bool = False) -> float:
+    maximum = 1.0 if allow_full_transfer else 0.99
+    return _clamp_probability(value, default=0.5, minimum=0.01, maximum=maximum)
 
 
 def _optional_int(value) -> int | None:  # noqa: ANN001
@@ -250,7 +254,10 @@ def _split_parent_path_probability(
     parent_continuation_probability: float | None,
 ) -> dict[str, float]:
     parent_before = _clamp_probability(getattr(parent, "path_probability", None), default=1.0, minimum=0.0, maximum=1.0)
-    branch_probability = _resolve_branch_probability(branch_probability)
+    branch_probability = _resolve_branch_probability(
+        branch_probability,
+        allow_full_transfer=parent_continuation_probability is not None,
+    )
     continuation = (
         _clamp_probability(parent_continuation_probability, default=1.0 - branch_probability, minimum=0.0, maximum=1.0)
         if parent_continuation_probability is not None
