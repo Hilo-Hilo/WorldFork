@@ -511,6 +511,7 @@ def test_worldfork_long_policy_matches_e4_audit_scope() -> None:
         "max_active_multiverses": 8,
         "max_branches_per_tick": 2,
         "branch_score_threshold": 0.75,
+        "min_branch_runway_ticks": 2,
     }
 
 

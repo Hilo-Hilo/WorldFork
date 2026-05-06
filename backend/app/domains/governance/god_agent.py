@@ -260,7 +260,13 @@ def _prepare_tool_calls(
     is_final_allowed_tick = isinstance(final_tick_context, dict) and bool(
         final_tick_context.get("is_final_allowed_tick")
     )
-    if is_final_allowed_tick:
+    branch_runway = _branch_runway_context(
+        db,
+        multiverse=multiverse,
+        provisional_bundle=provisional_bundle,
+        tick_index=tick_index,
+    )
+    if branch_runway["suppress_branching"]:
         tool_calls = [call for call in tool_calls if call.get("tool_name") != "create_branch"]
     idle_assessment = provisional_bundle.get("idle_assessment") or {}
     if idle_assessment.get("should_terminate"):
@@ -307,7 +313,7 @@ def _prepare_tool_calls(
     has_branch = any(call["tool_name"] == "create_branch" for call in tool_calls)
     branch_threshold = _branch_score_threshold(db, multiverse)
     if (
-        not is_final_allowed_tick
+        not branch_runway["suppress_branching"]
         and branch_score >= branch_threshold
         and not has_branch
         and (has_structural or not explicit_continue)
@@ -333,11 +339,19 @@ def _prepare_tool_calls(
             }
         )
     elif not tool_calls:
-        reason = (
-            "Final allowed tick reached; terminal settlement must use the endpoint ledger instead of creating a branch."
-            if is_final_allowed_tick
-            else "No validated branch trigger in this tick."
-        )
+        if is_final_allowed_tick:
+            reason = (
+                "Final allowed tick reached; terminal settlement must use the endpoint ledger "
+                "instead of creating a branch."
+            )
+        elif branch_runway["suppress_branching"]:
+            reason = (
+                "Branch runway too short for a useful child timeline: "
+                f"{branch_runway['remaining_ticks']} ticks remain, "
+                f"requires {branch_runway['min_branch_runway_ticks']}."
+            )
+        else:
+            reason = "No validated branch trigger in this tick."
         tool_calls.append(
             {
                 "tool_name": "continue_timeline",
@@ -358,6 +372,39 @@ def _branch_score_threshold(db: Session, multiverse: models.Multiverse) -> float
     branch_policy = branch_policy_for_multiverse(db, multiverse)
     threshold = branch_policy.get("branch_score_threshold", settings.branch_score_threshold)
     return float(threshold if threshold is not None else settings.branch_score_threshold)
+
+
+def _branch_runway_context(
+    db: Session,
+    *,
+    multiverse: models.Multiverse,
+    provisional_bundle: dict,
+    tick_index: int,
+) -> dict:
+    final_tick_context = provisional_bundle.get("final_tick_context") if isinstance(provisional_bundle, dict) else {}
+    if not isinstance(final_tick_context, dict):
+        final_tick_context = {}
+    max_ticks = _coerce_int(final_tick_context.get("max_ticks"))
+    current_tick = _coerce_int(final_tick_context.get("current_tick_index")) or int(tick_index)
+    branch_policy = branch_policy_for_multiverse(db, multiverse)
+    min_runway = max(1, _coerce_int(branch_policy.get("min_branch_runway_ticks")) or 1)
+    remaining_ticks = max_ticks - current_tick if max_ticks is not None else None
+    is_final = bool(final_tick_context.get("is_final_allowed_tick"))
+    suppress = is_final or (remaining_ticks is not None and remaining_ticks < min_runway)
+    return {
+        "suppress_branching": suppress,
+        "max_ticks": max_ticks,
+        "current_tick_index": current_tick,
+        "remaining_ticks": remaining_ticks,
+        "min_branch_runway_ticks": min_runway,
+    }
+
+
+def _coerce_int(value) -> int | None:  # noqa: ANN001
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
 
 
 def _normalize_tool_calls(raw_tool_calls, multiverse_id, tick_index: int) -> list[dict]:

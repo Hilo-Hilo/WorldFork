@@ -41,7 +41,12 @@ def db() -> Session:
             models.Base.metadata.drop_all(engine)
 
 
-def _seed_world(db: Session, *, max_ticks: int = 12) -> tuple[models.BigBang, models.Multiverse]:
+def _seed_world(
+    db: Session,
+    *,
+    max_ticks: int = 12,
+    branch_policy: dict | None = None,
+) -> tuple[models.BigBang, models.Multiverse]:
     big_bang = models.BigBang(
         name="Timeline safety",
         description=None,
@@ -57,7 +62,7 @@ def _seed_world(db: Session, *, max_ticks: int = 12) -> tuple[models.BigBang, mo
             version=1,
             simulation_config={"max_ticks": max_ticks},
             model_config={},
-            branch_policy={},
+            branch_policy=branch_policy or {},
         )
     )
     root = models.Multiverse(
@@ -242,6 +247,92 @@ def test_final_tick_removes_explicit_branch_tool_before_execution(db):
 
     assert [call["tool_name"] for call in calls] == ["continue_timeline"]
     assert "Final allowed tick reached" in calls[0]["arguments"]["reason"]
+
+
+def test_near_horizon_branch_runway_policy_suppresses_explicit_branch_tool(db):
+    _, root = _seed_world(db, max_ticks=3, branch_policy={"min_branch_runway_ticks": 2})
+
+    calls = god_agent._prepare_tool_calls(
+        db,
+        multiverse=root,
+        provisional_bundle={
+            "branch_score": 0.99,
+            "final_tick_context": {
+                "is_final_allowed_tick": False,
+                "max_ticks": 3,
+                "current_tick_index": 2,
+            },
+        },
+        parsed={
+            "decision": "branch",
+            "tool_calls": [
+                {
+                    "tool_name": "create_branch",
+                    "arguments": {"reason": "one tick runway", "fork_tick_index": 2},
+                }
+            ],
+        },
+        tick_index=2,
+    )
+
+    assert [call["tool_name"] for call in calls] == ["continue_timeline"]
+    assert "Branch runway too short" in calls[0]["arguments"]["reason"]
+
+
+def test_branch_engine_rejects_near_horizon_branch_runway(db):
+    _big_bang, root = _seed_world(db, max_ticks=3, branch_policy={"min_branch_runway_ticks": 2})
+    db.add(
+        models.TickSnapshot(
+            big_bang_id=root.big_bang_id,
+            multiverse_id=root.id,
+            tick_index=2,
+            ui_label="M1:T2",
+            status="final",
+            provisional_bundle={},
+            final_bundle={},
+            summary="Tick 2",
+            idempotency_key="tick-2",
+        )
+    )
+    db.flush()
+
+    with pytest.raises(ValueError, match="min_branch_runway_ticks"):
+        branch_engine.create_branch(
+            db,
+            parent=root,
+            fork_tick_index=2,
+            reason="too late",
+            idempotency_key="too-late-branch",
+        )
+
+
+def test_branch_engine_allows_exact_min_branch_runway(db):
+    _big_bang, root = _seed_world(db, max_ticks=3, branch_policy={"min_branch_runway_ticks": 2})
+    db.add(
+        models.TickSnapshot(
+            big_bang_id=root.big_bang_id,
+            multiverse_id=root.id,
+            tick_index=1,
+            ui_label="M1:T1",
+            status="final",
+            provisional_bundle={},
+            final_bundle={},
+            summary="Tick 1",
+            idempotency_key="tick-1",
+        )
+    )
+    db.flush()
+
+    child = branch_engine.create_branch(
+        db,
+        parent=root,
+        fork_tick_index=1,
+        reason="two tick runway",
+        idempotency_key="valid-runway-branch",
+    )
+
+    assert child.parent_multiverse_id == root.id
+    assert child.fork_tick_index == 1
 
 
 def test_run_until_complete_stops_when_god_marks_ready(db, monkeypatch):

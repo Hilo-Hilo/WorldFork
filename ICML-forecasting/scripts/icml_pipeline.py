@@ -49,12 +49,14 @@ SHORT_BRANCH_POLICY = {
     "max_active_multiverses": 4,
     "max_branches_per_tick": 1,
     "branch_score_threshold": 0.75,
+    "min_branch_runway_ticks": 2,
 }
 LONG_BRANCH_POLICY = {
     "max_branch_depth": 3,
     "max_active_multiverses": 8,
     "max_branches_per_tick": 2,
     "branch_score_threshold": 0.75,
+    "min_branch_runway_ticks": 2,
 }
 WORLDFORK_SHORT_POLICIES = {
     "worldfork_no_branch_short": NO_BRANCH_POLICY,

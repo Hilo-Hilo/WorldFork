@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 
 from app.core.labels import next_child_label, tick_label
 from app.db import models
-from app.domains.multiverse.runtime_config import branch_policy_for_multiverse
+from app.domains.multiverse.runtime_config import branch_policy_for_multiverse, simulation_config_for_multiverse
 from app.domains.tick.tick_bundles import hydrate_tick_bundle, inherited_tick_bundle_ref
 
 
@@ -51,6 +51,14 @@ def create_branch(
     max_depth = branch_policy.get("max_branch_depth", 3)
     max_active = branch_policy.get("max_active_multiverses", 12)
     max_per_tick = branch_policy.get("max_branches_per_tick", 2)
+    min_runway = max(1, _optional_int(branch_policy.get("min_branch_runway_ticks")) or 1)
+    simulation_config = simulation_config_for_multiverse(db, parent)
+    max_ticks = _optional_int(simulation_config.get("max_ticks"))
+    if max_ticks is not None and max_ticks - fork_tick_index < min_runway:
+        raise ValueError(
+            "branch budget exceeded: min_branch_runway_ticks "
+            f"requires {min_runway} remaining ticks, got {max_ticks - fork_tick_index}"
+        )
 
     active_count = db.scalar(
         select(func.count()).select_from(models.Multiverse).where(
@@ -209,6 +217,13 @@ def _child_state(
 
 def _resolve_branch_probability(value: float | None) -> float:
     return _clamp_probability(value, default=0.5, minimum=0.01, maximum=0.99)
+
+
+def _optional_int(value) -> int | None:  # noqa: ANN001
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
 
 
 def _split_parent_path_probability(
