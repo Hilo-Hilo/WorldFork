@@ -96,9 +96,12 @@ export const api = {
   listRuns: async (limit = 20) => {
     // The runs page shows the demo run alongside any real runs. We always merge,
     // so it's discoverable even after the user has created real scenarios.
+    // Errors are no longer swallowed here — the runs page surfaces them as a
+    // banner and renders demo-only as the fallback so backend outages don't
+    // masquerade as "no runs yet".
     const real = await http<AgentEnvelope<RunSummary[]>>(
       `/api/agent/runs?verbosity=summary&limit=${limit}`,
-    ).catch(() => ({ ok: true, data: [], meta: {} }) as AgentEnvelope<RunSummary[]>);
+    );
     const demo = demoRunsListEnvelope(limit);
     return {
       ...real,

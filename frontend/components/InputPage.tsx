@@ -676,7 +676,17 @@ export default function InputPage() {
             <span>max ticks&nbsp;<b style={{ color: "var(--fg-2)" }}>{maxTicks}</b></span>
           </div>
           <div style={{ display: "flex", gap: 8 }}>
-            <button className="wf-secondary" disabled={submit.isPending}>Save draft</button>
+            {/* Draft persistence isn't wired yet; keep the button visible so
+              * the layout doesn't shift but disable it with an explanatory
+              * tooltip so users don't think they saved something they didn't. */}
+            <button
+              className="wf-secondary"
+              disabled
+              title="Draft saving is not wired yet — submit the form to persist."
+              type="button"
+            >
+              Save draft
+            </button>
             <button className="wf-cta" disabled={!canSubmit} onClick={() => submit.mutate()}>
               Run simulation
               <Icon.Arrow />

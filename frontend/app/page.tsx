@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
+import { demoRunsListEnvelope } from "@/lib/demo";
 
 const STATUS_TONE: Record<string, string> = {
   running: "var(--accent)",
@@ -20,7 +21,12 @@ export default function Home() {
     refetchInterval: 3000,
   });
 
-  const runs = data?.data ?? [];
+  // When the runs query errors (backend down, proxy hangup, etc.) we still
+  // want the demo run discoverable, so fall back to demo-only data and let
+  // the error banner below tell the user the real backend is unreachable.
+  // Without this fallback, an outage would render as "No runs yet."
+  const runs = data?.data ?? (error ? demoRunsListEnvelope(20).data : []);
+  const errMessage = error instanceof Error ? error.message : null;
 
   return (
     <main
@@ -59,6 +65,25 @@ export default function Home() {
             : "Live polled list of Big Bangs from the backend."}
         </p>
       </div>
+
+      {errMessage && (
+        <div
+          role="alert"
+          style={{
+            border: "1px solid var(--danger)",
+            background: "var(--danger-soft)",
+            color: "var(--fg)",
+            padding: "10px 14px",
+            borderRadius: 6,
+            fontFamily: "var(--font-mono)",
+            fontSize: 12,
+            maxWidth: "60ch",
+            textAlign: "center",
+          }}
+        >
+          backend unreachable — showing demo run only. <span style={{ color: "var(--muted)" }}>{errMessage}</span>
+        </div>
+      )}
 
       <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
         <Link
