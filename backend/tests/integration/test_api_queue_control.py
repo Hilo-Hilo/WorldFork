@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from contextlib import contextmanager
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from uuid import uuid4
 
 from fastapi.testclient import TestClient
@@ -12,6 +12,7 @@ from sqlalchemy.pool import StaticPool
 from app.db import models
 from app.db.session import get_db
 from app.main import app
+from app.domains.jobs.executor import JOB_LEASE_SECONDS
 
 
 client = TestClient(app)
@@ -228,3 +229,46 @@ def test_requeue_enqueue_failure_keeps_job_queued_without_local_claim(monkeypatc
         assert stored.status == "queued"
         assert stored.started_at is None
         assert stored.lease_owner is None
+
+
+def test_recover_stale_running_jobs_route_enqueues_expired_running_job(monkeypatch):
+    enqueued: list[str] = []
+    monkeypatch.setattr("app.domains.jobs.routes.enqueue_job", lambda job_id: enqueued.append(str(job_id)))
+
+    with override_db() as db:
+        now = datetime.now(timezone.utc)
+        stale = models.Job(
+            job_type="run_big_bang_until_complete",
+            queue_name="p1",
+            status="running",
+            payload={"max_total_ticks": 3},
+            result={},
+            idempotency_key="api-stale-running",
+            lease_expires_at=now - timedelta(seconds=1),
+            last_heartbeat_at=now - timedelta(seconds=JOB_LEASE_SECONDS + 1),
+        )
+        live = models.Job(
+            job_type="run_big_bang_until_complete",
+            queue_name="p1",
+            status="running",
+            payload={"max_total_ticks": 3},
+            result={},
+            idempotency_key="api-live-running",
+            lease_expires_at=now + timedelta(minutes=10),
+            last_heartbeat_at=now,
+        )
+        db.add_all([stale, live])
+        db.commit()
+
+        response = client.post("/api/jobs/recover-stale")
+
+        assert response.status_code == 200
+        body = response.json()
+        assert body["stale_running_jobs"] == 1
+        assert body["requeued"] == 1
+        assert enqueued == [str(stale.id)]
+        db.refresh(stale)
+        db.refresh(live)
+        assert stale.status == "running"
+        assert stale.error == "stale running job lease expired; recovery enqueued"
+        assert live.error is None

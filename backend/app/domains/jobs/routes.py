@@ -26,6 +26,7 @@ from app.domains.jobs.executor import (
     job_should_enqueue_for_retry,
     pause_job,
     queue_health_snapshot,
+    recover_stale_running_jobs,
     requeue_job,
     resume_job,
     validate_job_payload,
@@ -183,6 +184,16 @@ def get_workers() -> dict[str, Any]:
         }
     except Exception as exc:
         return {"degraded": True, "error": str(exc), "workers": []}
+
+
+@router.post("/recover-stale", response_model=dict[str, Any])
+def recover_stale_jobs_route(
+    limit: int = Query(default=100, ge=1, le=500),
+    db: Session = Depends(get_db),
+):
+    summary = recover_stale_running_jobs(db, enqueue=enqueue_job, limit=limit)
+    commit_or_500(db)
+    return summary
 
 
 @router.get("/{job_id}", response_model=JobResponse, operation_id="canonical_get_job")

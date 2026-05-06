@@ -110,6 +110,48 @@ def test_celery_beat_schedule_is_registered_by_app_import():
     assert celery_app.conf.beat_schedule["heartbeat"]["task"] == "worldfork.heartbeat"
 
 
+def test_heartbeat_recovers_stale_running_jobs(monkeypatch):
+    enqueued: list[str] = []
+
+    class FakeDb:
+        commits = 0
+        rollbacks = 0
+        closes = 0
+
+        def commit(self):
+            self.commits += 1
+
+        def rollback(self):
+            self.rollbacks += 1
+
+        def close(self):
+            self.closes += 1
+
+    fake_db = FakeDb()
+
+    def fake_recover(db, *, enqueue):
+        assert db is fake_db
+        enqueue("stale-job")
+        return {
+            "stale_running_jobs": 1,
+            "requeued": 1,
+            "failed_to_enqueue": 0,
+            "job_ids": ["stale-job"],
+            "failed_job_ids": [],
+        }
+
+    monkeypatch.setattr("app.db.session.SessionLocal", lambda: fake_db)
+    monkeypatch.setattr("app.domains.jobs.lifecycle.recover_stale_running_jobs", fake_recover)
+    monkeypatch.setattr("app.domains.jobs.queues.enqueue_job", lambda job_id: enqueued.append(str(job_id)))
+
+    worker_jobs.heartbeat.run()
+
+    assert enqueued == ["stale-job"]
+    assert fake_db.commits == 1
+    assert fake_db.rollbacks == 0
+    assert fake_db.closes == 1
+
+
 @pytest.mark.asyncio
 async def test_run_tracked_can_defer_terminal_failed_status_until_retries_exhaust(monkeypatch):
     calls: list[tuple[str, str]] = []
