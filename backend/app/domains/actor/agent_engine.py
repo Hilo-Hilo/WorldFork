@@ -935,7 +935,7 @@ def queue_agent_events(
             big_bang_id=big_bang_id,
             multiverse_id=multiverse_id,
             creator_actor_id=action.get("actor_id"),
-            event_type=event_payload.get("event_type", "announcement"),
+            event_type=_event_type_or_default(event_payload.get("event_type")),
             created_tick=tick_index,
             scheduled_tick=scheduled_tick,
             status="queued",
@@ -964,6 +964,11 @@ def queue_agent_events(
         queued.append({"event_id": str(event.id), "title": title, "scheduled_tick": scheduled_tick})
     db.flush()
     return queued
+
+
+def _event_type_or_default(value: Any) -> str:
+    text = str(value or "").strip()
+    return text or "announcement"
 
 
 def _ensure_list(value) -> list:

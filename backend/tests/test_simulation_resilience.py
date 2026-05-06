@@ -187,6 +187,31 @@ def test_queue_agent_events_drops_future_events_after_deadline_tick(db):
     ]
 
 
+def test_queue_agent_events_defaults_blank_event_type(db):
+    big_bang, root, alpha, _beta = _seed_world(db)
+
+    queued = agent_engine.queue_agent_events(
+        db,
+        big_bang_id=big_bang.id,
+        multiverse_id=root.id,
+        tick_index=5,
+        parsed_actions=[
+            {
+                "actor_id": str(alpha.id),
+                "proposed_event": {
+                    "title": "Customer and investor Q&A thread",
+                    "event_type": None,
+                    "scheduled_tick": 6,
+                },
+            }
+        ],
+    )
+
+    event = db.query(models.Event).filter(models.Event.title == "Customer and investor Q&A thread").one()
+    assert queued == [{"event_id": str(event.id), "title": "Customer and investor Q&A thread", "scheduled_tick": 6}]
+    assert event.event_type == "announcement"
+
+
 def test_forecast_terminal_event_without_candidate_marker_is_rejected(db):
     big_bang, root, alpha, _beta = _seed_world(db)
     big_bang.scenario_input = {
