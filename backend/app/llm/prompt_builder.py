@@ -4,6 +4,7 @@ from copy import deepcopy
 from datetime import datetime, timedelta
 import json
 import re
+from typing import Any
 
 from app.core.clock import ClockContext
 from app.core.config import get_settings
@@ -116,8 +117,11 @@ def compact_simulation_state(state: dict) -> dict:
         "scenario_summary": {
             "premise": scenario.get("premise"),
             "setting": scenario.get("setting"),
+            "question": scenario.get("question"),
             "scenario_text_excerpt": _excerpt(scenario.get("scenario_text", "")),
             "forecast_metadata": _compact_value(scenario.get("forecast_metadata", {})),
+            "source_packet": _compact_source_packet(scenario.get("source_packet")),
+            "candidate_endpoints": _compact_candidate_endpoints(scenario.get("candidate_endpoints")),
             "simulation_brief": initializer.get("simulation_brief"),
         },
         "cohorts": _compact_list(state.get("cohorts", [])),
@@ -170,6 +174,43 @@ def _compact_list(value, *, limit: int = MAX_PROMPT_LIST_ITEMS):
     if not isinstance(value, list):
         return []
     return [_compact_value(item) for item in value[:limit]]
+
+
+def _compact_source_packet(value: Any, *, limit: int = 8) -> list[dict]:
+    if not isinstance(value, list):
+        return []
+    rows = []
+    for item in value[:limit]:
+        if isinstance(item, str):
+            rows.append({"text": _excerpt(item, 700)})
+            continue
+        if not isinstance(item, dict):
+            continue
+        row = {
+            key: _excerpt(item.get(key), 700)
+            for key in ("source", "source_type", "type", "date", "title", "summary", "content", "text")
+            if item.get(key) not in (None, "", {}, [])
+        }
+        if row:
+            rows.append(row)
+    return rows
+
+
+def _compact_candidate_endpoints(value: Any, *, limit: int = 6) -> list[dict]:
+    if not isinstance(value, list):
+        return []
+    rows = []
+    for item in value[:limit]:
+        if not isinstance(item, dict):
+            continue
+        row = {
+            key: _excerpt(item.get(key), 360)
+            for key in ("id", "endpoint_key", "label", "description")
+            if item.get(key) not in (None, "", {}, [])
+        }
+        if row:
+            rows.append(row)
+    return rows
 
 
 def _compact_actor_states(value) -> list[dict]:

@@ -341,7 +341,7 @@ def _render_actor_shared_context(prompt_context: dict) -> str:
     forecast_lines = _forecast_context_lines(prompt_context)
     if forecast_lines:
         lines.append("FORECAST:")
-        lines.extend(f"- {line}" for line in forecast_lines)
+        lines.extend(_format_forecast_lines(forecast_lines))
     branch = _branch_context(prompt_context)
     if branch:
         lines.append("BRANCH:")
@@ -391,10 +391,88 @@ def _forecast_context_lines(prompt_context: dict) -> list[str]:
             lines.append(f"horizon={_one_line(forecast_clock['forecast_horizon'], limit=240)}")
     state = prompt_context.get("current_state") if isinstance(prompt_context.get("current_state"), dict) else {}
     scenario = state.get("scenario_summary") if isinstance(state.get("scenario_summary"), dict) else {}
+    if scenario.get("question"):
+        lines.append(f"question={_one_line(scenario['question'], limit=360)}")
     if scenario.get("scenario_text_excerpt"):
-        lines.append(f"scenario={_one_line(scenario['scenario_text_excerpt'], limit=360)}")
-    if scenario.get("simulation_brief"):
-        lines.append(f"brief={_one_line(scenario['simulation_brief'], limit=260)}")
+        lines.append(f"scenario={_one_line(scenario['scenario_text_excerpt'], limit=700)}")
+    brief_lines = _simulation_brief_lines(scenario.get("simulation_brief"))
+    if brief_lines:
+        lines.extend(brief_lines)
+    source_lines = _source_packet_lines(scenario.get("source_packet"))
+    if source_lines:
+        lines.append("SOURCE PACKET:")
+        lines.extend(source_lines)
+    endpoint_lines = _candidate_endpoint_lines(scenario.get("candidate_endpoints"))
+    if endpoint_lines:
+        lines.append("CANDIDATE ENDPOINTS:")
+        lines.extend(endpoint_lines)
+        lines.append(
+            "CONTRACT: yes/no candidate endpoints are primary; auxiliary mechanism endpoints cannot keep the binary forecast unresolved."
+        )
+    return lines
+
+
+def _format_forecast_lines(forecast_lines: list[str]) -> list[str]:
+    formatted: list[str] = []
+    for line in forecast_lines:
+        stripped = str(line).strip()
+        if not stripped:
+            continue
+        if stripped.endswith(":") or re.match(r"^\d+\.\s", stripped) or stripped.startswith("- "):
+            formatted.append(stripped)
+        else:
+            formatted.append(f"- {stripped}")
+    return formatted
+
+
+def _simulation_brief_lines(value: Any) -> list[str]:
+    if isinstance(value, str) and value.strip():
+        return [f"brief={_one_line(value, limit=420)}"]
+    if not isinstance(value, dict):
+        return []
+    lines: list[str] = []
+    summary = value.get("summary") or value.get("text")
+    if summary:
+        lines.append(f"brief={_one_line(summary, limit=420)}")
+    uncertainty_notes = value.get("uncertainty_notes")
+    if isinstance(uncertainty_notes, list) and uncertainty_notes:
+        for note in uncertainty_notes[:4]:
+            lines.append(f"uncertainty={_one_line(note, limit=240)}")
+    return lines
+
+
+def _source_packet_lines(value: Any) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    lines: list[str] = []
+    for index, item in enumerate([row for row in value if isinstance(row, dict)][:8], start=1):
+        source_type = item.get("source_type") or item.get("type") or item.get("source") or f"source_{index}"
+        date = item.get("date")
+        title = item.get("title")
+        text = item.get("text") or item.get("summary") or item.get("content")
+        source_label = str(source_type)
+        if date:
+            source_label = f"{source_label} / {date}"
+        if title:
+            source_label = f"{source_label} / {title}"
+        if text:
+            lines.append(f"{index}. {_one_line(source_label, limit=160)}: {_one_line(text, limit=420)}")
+        else:
+            lines.append(f"{index}. {_one_line(item, limit=500)}")
+    return lines
+
+
+def _candidate_endpoint_lines(value: Any) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    lines: list[str] = []
+    for item in [row for row in value if isinstance(row, dict)][:6]:
+        endpoint_id = item.get("id") or item.get("endpoint_key")
+        label = item.get("label") or item.get("description")
+        if endpoint_id and label:
+            lines.append(f"- {endpoint_id}: {_one_line(label, limit=300)}")
+        elif endpoint_id:
+            lines.append(f"- {endpoint_id}")
     return lines
 
 

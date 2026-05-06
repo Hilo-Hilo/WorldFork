@@ -15,6 +15,7 @@ from app.domains.artifacts.routes import get_artifact
 from app.domains.big_bang.initialization_routes import audit_llm_call
 from app.api.schemas import BigBangOut, MultiverseOut, TickSnapshotOut
 from app.domains.artifacts import routes as artifact_routes
+from app.domains.actor import agent_engine
 from app.db import models
 from app.llm import audit as llm_audit
 from app.llm import openai_compatible_provider
@@ -1905,6 +1906,56 @@ def test_agent_prompt_context_sanitizes_sociology_influences_and_omits_raw_corpu
 
     assert context["sociology_prompt_influences"] == [{"actor_name": "A", "influence": {"pressure": "high"}}]
     assert "raw_text_artifact_id" not in context["current_state"]["scenario_summary"]
+
+
+def test_actor_shared_context_preserves_forecast_source_packet_for_cohorts():
+    context = build_agent_prompt_context(
+        clock_context=SimpleNamespace(as_prompt_text=lambda: "T1"),
+        current_state={
+            "scenario_input": {
+                "question": "Will Nominee S win Best Picture?",
+                "scenario_text": "Nominee S has high nomination volume, but the race is uncertain.",
+                "forecast_metadata": {
+                    "as_of_date": "2026-01-23",
+                    "forecast_deadline_date": "2026-03-15",
+                },
+                "source_packet": [
+                    {
+                        "source_type": "nomination_note",
+                        "date": "2026-01-23",
+                        "text": "Nomination volume does not mechanically determine Best Picture.",
+                    },
+                    {
+                        "source_type": "industry_note",
+                        "date": "2026-01-23",
+                        "text": "Preferential ballots can reward broad consensus.",
+                    },
+                ],
+                "candidate_endpoints": [
+                    {"id": "yes", "label": "Nominee S wins by the deadline"},
+                    {"id": "no", "label": "Nominee S does not win by the deadline"},
+                ],
+            },
+            "initializer_output": {
+                "simulation_brief": {
+                    "summary": "Award race forecast with a nomination-strength signal and consensus-ballot risk.",
+                    "uncertainty_notes": ["The source packet does not identify final voter distribution."],
+                }
+            },
+        },
+        sociology_prompt_influences=[],
+    )
+
+    rendered = agent_engine._render_actor_shared_context(context)
+
+    assert "question=Will Nominee S win Best Picture?" in rendered
+    assert "SOURCE PACKET:" in rendered
+    assert "nomination_note / 2026-01-23: Nomination volume does not mechanically determine Best Picture." in rendered
+    assert "Preferential ballots can reward broad consensus." in rendered
+    assert "CANDIDATE ENDPOINTS:" in rendered
+    assert "yes: Nominee S wins by the deadline" in rendered
+    assert "CONTRACT:" in rendered
+    assert "final voter distribution" in rendered
 
 
 def test_agent_prompt_context_includes_forecast_deadline_clock_context():
