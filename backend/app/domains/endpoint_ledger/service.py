@@ -1669,9 +1669,17 @@ def _terminal_binary_candidate_from_event(event: dict[str, Any]) -> str | None:
             return value
     text = _terminal_event_actual_summary(event).lower()
     normalized = re.sub(r"['\"`]", "", text)
-    if re.search(r"\b(resolve|resolves|resolved|settle|settles|settled)\b.{0,80}\bforecast(?: question| endpoint)?\b.{0,80}\bas yes\b", normalized):
+    if re.search(
+        r"\b(resolve|resolves|resolved|settle|settles|settled)\b.{0,80}"
+        r"\bforecast(?: question| endpoint)?\b.{0,80}\b(?:as|to) yes\b",
+        normalized,
+    ):
         return "yes"
-    if re.search(r"\b(resolve|resolves|resolved|settle|settles|settled)\b.{0,80}\bforecast(?: question| endpoint)?\b.{0,80}\bas no\b", normalized):
+    if re.search(
+        r"\b(resolve|resolves|resolved|settle|settles|settled)\b.{0,80}"
+        r"\bforecast(?: question| endpoint)?\b.{0,80}\b(?:as|to) no\b",
+        normalized,
+    ):
         return "no"
     return None
 

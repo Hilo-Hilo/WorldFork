@@ -437,7 +437,7 @@ def test_endpoint_finalization_terminal_event_overrides_conflicting_binary_updat
                 "scheduled_tick": 3,
                 "actual_impact": {
                     "status": "applied",
-                    "summary": "Resolves the forecast question as yes by confirming customer availability by the deadline.",
+                    "summary": "Resolves the forecast endpoint to yes by confirming customer availability by the deadline.",
                 },
             },
             {

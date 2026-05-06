@@ -1332,6 +1332,58 @@ def test_final_tick_god_review_drops_branch_tool_calls():
     assert "create_branch suppressed at final allowed tick" in pruned["rationale"]
 
 
+def test_forecast_review_context_preserves_source_packet_and_terminal_signals():
+    big_bang = models.BigBang(
+        name="Forecast card",
+        scenario_input={
+            "forecast_metadata": {
+                "as_of_date": "2025-09-10",
+                "forecast_deadline_date": "2025-09-30",
+                "deadline_tick": 3,
+                "tick_horizon_policy": "deadline_aware",
+            },
+            "source_packet": [
+                {
+                    "source_type": "company_announcement",
+                    "date": "2025-09-10",
+                    "content": "The announced schedule places availability in the second half of September.",
+                }
+            ],
+            "candidate_endpoints": [
+                {"id": "yes", "label": "The event occurs by the deadline"},
+                {"id": "no", "label": "The event does not occur by the deadline"},
+            ],
+        },
+    )
+
+    context = tick_runner._forecast_review_context(
+        big_bang=big_bang,
+        prompt_context={"forecast_clock": {"deadline_tick_reached": True}},
+        executed_events=[
+            {
+                "title": "Phone A general availability confirmed",
+                "event_type": "commercial_milestone",
+                "status": "executed",
+                "scheduled_tick": 3,
+                "actual_impact": {"summary": "Resolves the forecast endpoint to yes for customer availability."},
+            }
+        ],
+        event_summaries=[
+            {
+                "summary": "Customer availability was confirmed before the deadline.",
+                "parsed": {"what_happened": "Phone A general availability confirmed by the manufacturer."},
+            }
+        ],
+        social_observations=[{"post": "Some stores still report no stock."}],
+    )
+
+    assert context["forecast_clock"]["deadline_tick_reached"] is True
+    assert context["source_packet"][0]["source_type"] == "company_announcement"
+    assert context["candidate_endpoints"][0]["id"] == "yes"
+    assert context["endpoint_relevant_event_signals"][0]["signal_polarity"] == "supports_yes"
+    assert context["endpoint_relevant_social_signals"][0]["signal_polarity"] == "supports_no_or_contradiction"
+
+
 def test_tick_and_run_timing_payloads_include_stage_and_llm_durations(db):
     big_bang, root = _seed_world(db)
     start = datetime(2026, 1, 1, 0, 0, tzinfo=timezone.utc)

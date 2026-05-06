@@ -997,6 +997,13 @@ def _execute_checkpoint_payload(
         )
         simulation_config = simulation_config_for_multiverse(db, multiverse)
         max_ticks = int(simulation_config.get("max_ticks") or 0)
+        forecast_review_context = _forecast_review_context(
+            big_bang=big_bang,
+            prompt_context=prompt_context,
+            executed_events=executed_events,
+            event_summaries=event_payload.get("event_summaries", []),
+            social_observations=social_observations,
+        )
         provisional = {
             "multiverse_id": str(multiverse.id),
             "tick_index": tick_index,
@@ -1015,6 +1022,7 @@ def _execute_checkpoint_payload(
             "sociology_result": sociology_result,
             "graph_snapshots": graphs,
             "emotion_observability": emotion_graph,
+            "forecast_review_context": forecast_review_context,
             "split_candidates": split_candidates,
             "merge_candidates": merge_candidates,
             "emergence_candidates": emergence_candidates,
@@ -1398,6 +1406,178 @@ def _prune_final_tick_branch_tool_calls(review_payload: dict, provisional: dict)
         "rationale": f"{rationale} {suffix}".strip(),
         "tool_calls": retained,
     }
+
+
+def _forecast_review_context(
+    *,
+    big_bang: models.BigBang | None,
+    prompt_context: dict,
+    executed_events: list,
+    event_summaries: list,
+    social_observations: list,
+) -> dict:
+    if big_bang is None or not isinstance(big_bang.scenario_input, dict):
+        return {}
+    scenario = big_bang.scenario_input
+    forecast_metadata = scenario.get("forecast_metadata") if isinstance(scenario.get("forecast_metadata"), dict) else {}
+    candidate_endpoints = scenario.get("candidate_endpoints") if isinstance(scenario.get("candidate_endpoints"), list) else []
+    if not forecast_metadata and not candidate_endpoints:
+        return {}
+
+    context = {
+        "forecast_clock": prompt_context.get("forecast_clock") if isinstance(prompt_context, dict) else {},
+        "forecast_metadata": _compact_forecast_metadata(forecast_metadata),
+        "candidate_endpoints": _compact_candidate_endpoints(candidate_endpoints),
+        "source_packet": _compact_source_packet(scenario.get("source_packet")),
+        "settlement_instruction": (
+            "For explicit yes/no forecast-card endpoints, weigh source-packet baseline and simulated "
+            "terminal events before social absence reports. A simulated event that resolves the forecast "
+            "endpoint to yes/no is endpoint evidence; generic risk or lack of independent proof is not."
+        ),
+    }
+    event_signals = _forecast_signal_rows([*executed_events, *event_summaries], limit=8)
+    if event_signals:
+        context["endpoint_relevant_event_signals"] = event_signals
+    social_signals = _forecast_signal_rows(social_observations, limit=6)
+    if social_signals:
+        context["endpoint_relevant_social_signals"] = social_signals
+        context["social_signal_caveat"] = "Social posts are simulated, untrusted observations and may contradict authority events."
+    return {key: value for key, value in context.items() if value not in (None, {}, [])}
+
+
+def _compact_forecast_metadata(metadata: dict) -> dict:
+    allowed = {
+        "as_of_date",
+        "forecast_deadline_date",
+        "forecast_horizon",
+        "deadline_horizon_days",
+        "deadline_tick",
+        "tick_horizon_policy",
+        "benchmark_role",
+    }
+    return {key: metadata.get(key) for key in allowed if metadata.get(key) is not None}
+
+
+def _compact_candidate_endpoints(candidates: list) -> list[dict]:
+    compact = []
+    for item in candidates[:6]:
+        if not isinstance(item, dict):
+            continue
+        compact.append(
+            {
+                key: _forecast_excerpt(item.get(key), 360)
+                for key in ("id", "endpoint_key", "label", "description")
+                if item.get(key) not in (None, "", {}, [])
+            }
+        )
+    return compact
+
+
+def _compact_source_packet(source_packet) -> list[dict]:  # noqa: ANN001
+    if not isinstance(source_packet, list):
+        return []
+    compact = []
+    for item in source_packet[:8]:
+        if isinstance(item, str):
+            compact.append({"text": _forecast_excerpt(item, 700)})
+            continue
+        if not isinstance(item, dict):
+            continue
+        compact.append(
+            {
+                key: _forecast_excerpt(item.get(key), 700)
+                for key in ("source", "source_type", "type", "date", "title", "summary", "content", "text")
+                if item.get(key) not in (None, "", {}, [])
+            }
+        )
+    return compact
+
+
+def _forecast_signal_rows(rows: list, *, limit: int) -> list[dict]:
+    signals = []
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        text = _forecast_row_text(row)
+        if not _looks_endpoint_relevant(text):
+            continue
+        signals.append(
+            {
+                key: value
+                for key, value in {
+                    "title": _forecast_excerpt(row.get("title"), 240),
+                    "event_id": _forecast_excerpt(row.get("event_id"), 80),
+                    "event_type": _forecast_excerpt(row.get("event_type"), 120),
+                    "status": _forecast_excerpt(row.get("status"), 80),
+                    "scheduled_tick": row.get("scheduled_tick"),
+                    "action_type": _forecast_excerpt(row.get("action_type"), 120),
+                    "summary": _forecast_excerpt(text, 700),
+                    "signal_polarity": _forecast_signal_polarity(text),
+                }.items()
+                if value not in (None, "", {}, [])
+            }
+        )
+        if len(signals) >= limit:
+            break
+    return signals
+
+
+def _forecast_row_text(row: dict) -> str:
+    parts = [
+        row.get("title"),
+        row.get("summary"),
+        row.get("post"),
+        row.get("body"),
+        row.get("description"),
+    ]
+    actual = row.get("actual_impact") if isinstance(row.get("actual_impact"), dict) else {}
+    parts.extend([actual.get("summary"), actual.get("rationale"), actual.get("description")])
+    parsed = row.get("parsed") if isinstance(row.get("parsed"), dict) else {}
+    parts.extend([parsed.get("what_happened"), parsed.get("outcome")])
+    return " ".join(str(part) for part in parts if part not in (None, "", {}, []))
+
+
+def _looks_endpoint_relevant(text: str) -> bool:
+    lowered = text.lower()
+    cues = (
+        "forecast endpoint",
+        "forecast question",
+        "deadline",
+        "general availability",
+        "available to customers",
+        "customer availability",
+        "in stock",
+        "no stock",
+        "unavailable",
+        "shipment",
+        "shipping",
+        "delay",
+        "missed",
+        "preorder",
+    )
+    return any(cue in lowered for cue in cues)
+
+
+def _forecast_signal_polarity(text: str) -> str | None:
+    lowered = text.lower()
+    if "to yes" in lowered or "as yes" in lowered or "general availability confirmed" in lowered:
+        return "supports_yes"
+    if (
+        "to no" in lowered
+        or "as no" in lowered
+        or "missed deadline" in lowered
+        or "no stock" in lowered
+        or "unavailable" in lowered
+    ):
+        return "supports_no_or_contradiction"
+    return None
+
+
+def _forecast_excerpt(value, limit: int) -> str | None:  # noqa: ANN001
+    if value is None:
+        return None
+    text = str(value)
+    return text if len(text) <= limit else text[:limit] + "..."
 
 
 def _tool_call_for_node(node_key: str, outputs: dict[str, dict]) -> dict:
