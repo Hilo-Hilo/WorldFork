@@ -5,7 +5,7 @@ from enum import StrEnum
 from typing import Any
 
 from sqlalchemy import text
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, sessionmaker
 
 from app.core.config import get_settings
 
@@ -215,6 +215,17 @@ def _route_name(route: AuditedLLMRoute | str | None) -> str | None:
 def _route_row(db: Session, route_name: str | None) -> dict[str, Any] | None:
     if not route_name:
         return None
+    if isinstance(db, Session):
+        try:
+            factory = sessionmaker(bind=db.get_bind(), autoflush=False, expire_on_commit=False)
+            with factory() as route_db:
+                return _route_row_from_db(route_db, route_name)
+        except Exception:
+            return None
+    return _route_row_from_db(db, route_name)
+
+
+def _route_row_from_db(db: Any, route_name: str) -> dict[str, Any] | None:
     try:
         result = db.execute(
             text(

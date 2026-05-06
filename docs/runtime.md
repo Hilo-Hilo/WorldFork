@@ -191,6 +191,40 @@ The important queue implication is that the job queue usually sees one
 `run_multiverse_tick` or `run_big_bang_until_complete` job, while multiple cohort
 LLM calls execute concurrently inside that job.
 
+### Database Pooling For Batch Runs
+
+Each API, Celery parent, and Celery child process owns its own SQLAlchemy engine
+pool after import. Connection pressure therefore scales with process count and
+pool settings, not just with visible active jobs. A `p1` worker at concurrency
+`8` can retain many idle Postgres backends after a tick batch if each forked
+process has a large default pool.
+
+The runtime exposes these environment variables for pool tuning:
+
+| Env var | Default | Meaning |
+| --- | ---: | --- |
+| `SQLALCHEMY_SYNC_POOL_SIZE` | `2` | Base sync SQLAlchemy pool size per process |
+| `SQLALCHEMY_SYNC_MAX_OVERFLOW` | `4` | Extra sync connections allowed per process |
+| `SQLALCHEMY_SYNC_POOL_TIMEOUT` | `30` | Seconds to wait for a pooled sync connection |
+| `SQLALCHEMY_SYNC_POOL_RECYCLE` | `1800` | Seconds before recycling sync connections |
+| `SQLALCHEMY_ASYNC_POOL_SIZE` | `2` | Base async SQLAlchemy pool size per process |
+| `SQLALCHEMY_ASYNC_MAX_OVERFLOW` | `4` | Extra async connections allowed per process |
+| `SQLALCHEMY_ASYNC_POOL_TIMEOUT` | `30` | Seconds to wait for a pooled async connection |
+| `SQLALCHEMY_ASYNC_POOL_RECYCLE` | `1800` | Seconds before recycling async connections |
+
+SQLite test URLs omit these pool options because the SQLite dialect does not use
+the same Postgres queue pool parameters.
+
+For ICML/E3/E4 experiments, use `infra/icml/docker-compose.icml.yml` after
+active jobs have drained. That override raises local Postgres connection
+capacity, keeps worker pools bounded, and lowers in-job cohort parallelism
+through `WORLDFORK_ICML_MAX_PARALLEL_COHORT_DECISIONS`. The measured E3 resume
+workload needs larger worker pools than the generic defaults
+(`pool_size=4/max_overflow=8` in the ICML overlay); smaller worker pools can
+time out before Postgres reaches its connection cap. For larger local
+experiments, add `infra/icml/docker-compose.pgbouncer.yml` to put PgBouncer in
+transaction pooling mode between app containers and Postgres.
+
 ## Event Queue And Event Summary
 
 Actor prompts receive an event queue context filtered for visibility and actor

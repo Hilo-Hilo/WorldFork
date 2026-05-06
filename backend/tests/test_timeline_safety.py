@@ -150,6 +150,83 @@ def _load_run_orchestrator_with_report_stub():
     return run_orchestrator
 
 
+def test_mark_ready_for_report_completes_timeline(db):
+    big_bang, root = _seed_world(db)
+
+    call = god_tools.execute_tool_call(
+        db,
+        big_bang_id=big_bang.id,
+        multiverse=root,
+        tick_snapshot_id=None,
+        god_review_id=None,
+        tool_name="mark_ready_for_report",
+        arguments={"reason": "endpoint ledger resolved"},
+        idempotency_key="mark-ready-completes",
+    )
+    db.commit()
+
+    assert call.status == "succeeded"
+    assert call.result == {"status": "ready_for_report", "multiverse_status": "completed"}
+    assert root.report_status == "ready"
+    assert root.status == "completed"
+    assert root.ended_at is not None
+
+
+def test_complete_universe_decision_normalizes_to_mark_ready_tool(db):
+    _, root = _seed_world(db)
+
+    calls = god_agent._prepare_tool_calls(
+        db,
+        multiverse=root,
+        provisional_bundle={"branch_score": 0.0},
+        parsed={"decision": "complete_universe", "tool_calls": []},
+        tick_index=3,
+    )
+
+    assert calls == [
+        {
+            "tool_name": "mark_ready_for_report",
+            "arguments": {"reason": "God Agent marked the timeline complete."},
+            "idempotency_key": f"god:{root.id}:tick:3:mark_ready_for_report",
+        }
+    ]
+
+
+def test_run_until_complete_stops_when_god_marks_ready(db, monkeypatch):
+    big_bang, root = _seed_world(db, max_ticks=12)
+    _patch_successful_tick(monkeypatch)
+    monkeypatch.setattr(
+        tick_runner,
+        "review_provisional_tick",
+        lambda *args, **kwargs: (
+            {
+                "decision": "complete_universe",
+                "rationale": "endpoint ledger resolved",
+                "confidence": 1,
+                "input_summary": {},
+                "tool_calls": [
+                    {
+                        "tool_name": "mark_ready_for_report",
+                        "arguments": {"reason": "endpoint ledger resolved"},
+                        "idempotency_key": "mark-ready-run-until-complete",
+                    }
+                ],
+            },
+            None,
+        ),
+    )
+    run_orchestrator = _load_run_orchestrator_with_report_stub()
+
+    result = run_orchestrator.run_big_bang_until_complete(db, big_bang=big_bang, max_total_ticks=8)
+    db.commit()
+
+    assert result["ticks_run"] == 1
+    assert big_bang.status == "completed"
+    assert root.status == "completed"
+    assert root.report_status == "ready"
+    assert root.ended_at is not None
+
+
 def test_unfinished_tick_resumes_from_runtime_checkpoints(db, monkeypatch):
     big_bang, root = _seed_world(db)
     _patch_successful_tick(monkeypatch)

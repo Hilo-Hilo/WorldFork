@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from datetime import datetime, timezone
+
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
@@ -111,10 +113,13 @@ def _execute(
         return {"status": "frozen"}
     if tool_name == "terminate_timeline":
         multiverse.status = "terminated"
+        multiverse.ended_at = multiverse.ended_at or datetime.now(timezone.utc)
         return {"status": "terminated"}
     if tool_name == "mark_ready_for_report":
         multiverse.report_status = "ready"
-        return {"status": "ready_for_report"}
+        multiverse.status = "completed"
+        multiverse.ended_at = multiverse.ended_at or datetime.now(timezone.utc)
+        return {"status": "ready_for_report", "multiverse_status": "completed"}
     if tool_name == "update_population_archetype_total":
         return _update_population_archetype_total(db, multiverse=multiverse, arguments=arguments)
     if tool_name == "update_cohort_state":

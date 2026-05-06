@@ -27,6 +27,7 @@ from app.llm.audit import LLMCallError
 from app.domains.jobs.routes import JobResponse, create_job_record
 from app.domains.report.engine import generate_multiverse_report
 from app.domains.big_bang.run_orchestrator import simulate_ticks
+from app.domains.multiverse.runtime_config import simulation_config_for_multiverse
 from app.domains.tick.tick_bundles import hydrate_tick_snapshot_for_read, hydrate_tick_snapshots_for_read
 from app.domains.tick.tick_runner import TERMINAL_MULTIVERSE_STATUSES, run_next_tick
 from app.storage.artifact_store import ArtifactStore
@@ -193,9 +194,6 @@ def continue_multiverse(
     db: Session = Depends(get_db),
 ):
     multiverse = require(db, models.Multiverse, multiverse_id)
-    if multiverse.status not in TERMINAL_MULTIVERSE_STATUSES:
-        raise HTTPException(status_code=409, detail="only terminal multiverses can be continued")
-
     latest_tick = db.scalar(
         select(models.TickSnapshot)
         .where(models.TickSnapshot.multiverse_id == multiverse.id)
@@ -203,6 +201,20 @@ def continue_multiverse(
         .limit(1)
     )
     latest_tick_index = int(latest_tick.tick_index) if latest_tick else 0
+    current_simulation_config = simulation_config_for_multiverse(db, multiverse)
+    current_max_ticks = int(current_simulation_config.get("max_ticks") or 0)
+    is_terminal = multiverse.status in TERMINAL_MULTIVERSE_STATUSES
+    is_active_at_horizon = (
+        multiverse.status == "active"
+        and latest_tick is not None
+        and current_max_ticks > 0
+        and latest_tick_index >= current_max_ticks
+    )
+    if not is_terminal and not is_active_at_horizon:
+        raise HTTPException(
+            status_code=409,
+            detail="only terminal multiverses or active multiverses at max_ticks can be continued",
+        )
     if payload.max_ticks <= latest_tick_index:
         raise HTTPException(
             status_code=422,
@@ -222,12 +234,20 @@ def continue_multiverse(
         raise HTTPException(status_code=409, detail="big bang has no simulation config")
 
     previous_version = int(multiverse.version or 1)
-    source_report_version_id = _resolve_continuation_report_version_id(
-        db,
-        multiverse=multiverse,
-        requested_report_version_id=payload.continued_from_report_version_id,
-        expected_multiverse_version=previous_version,
-    )
+    if is_terminal:
+        source_report_version_id = _resolve_continuation_report_version_id(
+            db,
+            multiverse=multiverse,
+            requested_report_version_id=payload.continued_from_report_version_id,
+            expected_multiverse_version=previous_version,
+        )
+    elif payload.continued_from_report_version_id is not None:
+        raise HTTPException(
+            status_code=422,
+            detail="continued_from_report_version_id requires a terminal multiverse report",
+        )
+    else:
+        source_report_version_id = None
 
     next_config_version = max(int(big_bang.current_config_version or 0), int(latest_config.version or 0)) + 1
     simulation_config = {**(latest_config.simulation_config or {}), "max_ticks": payload.max_ticks}

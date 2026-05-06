@@ -14,6 +14,10 @@ def _backend_relative(path: str) -> Path:
     return (BACKEND_DIR / path).resolve()
 
 
+def _is_sqlite_database_url(database_url: str) -> bool:
+    return database_url.startswith(("sqlite:", "sqlite+"))
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
@@ -41,6 +45,8 @@ class Settings(BaseSettings):
     redis_url: str = "redis://localhost:6379/0"
     celery_broker_url: str = "redis://localhost:6379/1"
     celery_result_backend: str = "redis://localhost:6379/2"
+    celery_task_time_limit: int = Field(default=3600, ge=60, le=86_400)
+    celery_task_soft_time_limit: int = Field(default=3300, ge=60, le=86_400)
     default_model: str = OPENROUTER_DEFAULT_MODEL
     fallback_model: str = OPENROUTER_DEFAULT_MODEL
     initializer_agent_model: str = OPENAI_CODEX_DEFAULT_MODEL
@@ -57,6 +63,14 @@ class Settings(BaseSettings):
     default_max_active_multiverses: int = 12
     default_max_branches_per_tick: int = 2
     max_parallel_cohort_decisions: int = Field(default=16, ge=1, le=64)
+    sqlalchemy_sync_pool_size: int = Field(default=2, ge=1, le=100)
+    sqlalchemy_sync_max_overflow: int = Field(default=4, ge=0, le=200)
+    sqlalchemy_sync_pool_timeout: float = Field(default=30, ge=0.1, le=600)
+    sqlalchemy_sync_pool_recycle: int = Field(default=1800, ge=-1, le=86_400)
+    sqlalchemy_async_pool_size: int = Field(default=2, ge=1, le=100)
+    sqlalchemy_async_max_overflow: int = Field(default=4, ge=0, le=200)
+    sqlalchemy_async_pool_timeout: float = Field(default=30, ge=0.1, le=600)
+    sqlalchemy_async_pool_recycle: int = Field(default=1800, ge=-1, le=86_400)
     prompt_event_queue_max_chars: int = Field(default=16_000, ge=4_000, le=200_000)
     prompt_god_bundle_max_chars: int = Field(default=48_000, ge=8_000, le=400_000)
     branch_score_threshold: float = 0.7
@@ -73,6 +87,28 @@ class Settings(BaseSettings):
         if value.is_absolute():
             return value.resolve()
         return (BACKEND_DIR / value).resolve()
+
+    def sync_database_pool_kwargs(self, database_url: str | None = None) -> dict[str, int | float]:
+        url = database_url or self.database_url_sync
+        if _is_sqlite_database_url(url):
+            return {}
+        return {
+            "pool_size": self.sqlalchemy_sync_pool_size,
+            "max_overflow": self.sqlalchemy_sync_max_overflow,
+            "pool_timeout": self.sqlalchemy_sync_pool_timeout,
+            "pool_recycle": self.sqlalchemy_sync_pool_recycle,
+        }
+
+    def async_database_pool_kwargs(self, database_url: str | None = None) -> dict[str, int | float]:
+        url = database_url or self.database_url
+        if _is_sqlite_database_url(url):
+            return {}
+        return {
+            "pool_size": self.sqlalchemy_async_pool_size,
+            "max_overflow": self.sqlalchemy_async_max_overflow,
+            "pool_timeout": self.sqlalchemy_async_pool_timeout,
+            "pool_recycle": self.sqlalchemy_async_pool_recycle,
+        }
 
 
 @lru_cache

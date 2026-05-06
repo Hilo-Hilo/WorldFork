@@ -473,6 +473,12 @@ def _collect_evidence(
     simulation_config = config.simulation_config if config is not None and isinstance(config.simulation_config, dict) else {}
     raw_initializer = scenario.get("initializer_output")
     initializer: dict[str, Any] = raw_initializer if isinstance(raw_initializer, dict) else {}
+    candidate_endpoints = scenario.get("candidate_endpoints")
+    if not isinstance(candidate_endpoints, list):
+        candidate_endpoints = []
+    forecast_metadata = scenario.get("forecast_metadata")
+    if not isinstance(forecast_metadata, dict):
+        forecast_metadata = {}
     multiverse_state = multiverse.state if multiverse is not None and isinstance(multiverse.state, dict) else {}
     return {
         "big_bang": {
@@ -482,6 +488,8 @@ def _collect_evidence(
             "scenario_input": _compact_value(scenario, max_items=8),
             "simulation_config": _compact_value(simulation_config, max_items=8),
         },
+        "scenario_candidate_endpoints": candidate_endpoints,
+        "forecast_metadata": forecast_metadata,
         "scope": "multiverse" if multiverse is not None else "big_bang",
         "multiverse": {
             "id": str(multiverse.id),
@@ -511,6 +519,51 @@ def _entries_from_evidence(
     base_entries: list[dict[str, Any]] | None = None,
 ) -> list[dict[str, Any]]:
     entries = {entry["endpoint_key"]: dict(entry) for entry in base_entries or [] if entry.get("endpoint_key")}
+    forecast_metadata = evidence.get("forecast_metadata") if isinstance(evidence.get("forecast_metadata"), dict) else {}
+    scenario_candidates = [
+        item
+        for item in evidence.get("scenario_candidate_endpoints") or []
+        if isinstance(item, dict) and (item.get("id") or item.get("endpoint_key") or item.get("label"))
+    ]
+    for item in scenario_candidates:
+        candidate_id = str(item.get("id") or item.get("endpoint_key") or item.get("label")).strip()
+        endpoint_key = _endpoint_key(candidate_id)
+        label = item.get("label") or item.get("description") or candidate_id
+        existing = entries.get(endpoint_key, {})
+        meta = existing.get("meta") if isinstance(existing.get("meta"), dict) else {}
+        entries[endpoint_key] = {
+            **existing,
+            "endpoint_key": endpoint_key,
+            "label": _label_from_text(label),
+            "description": item.get("description") or str(label),
+            "status": str(existing.get("status") or item.get("status") or "active").lower(),
+            "realization_criteria": _list_value(item.get("realization_criteria"))
+            or [
+                f"Resolve candidate endpoint {candidate_id} using the forecast question, deadline, and official settlement evidence.",
+            ],
+            "authority_refs": _list_value(item.get("authority_refs")) or ["forecast_card"],
+            "evidence_refs": [
+                {"source": "scenario_candidate_endpoint", "candidate_endpoint_id": candidate_id},
+                *_list_value(item.get("evidence_refs")),
+            ],
+            "negative_evidence_refs": _list_value(item.get("negative_evidence_refs")),
+            "blockers": _list_value(existing.get("blockers") or item.get("blockers")),
+            "status_basis": existing.get("status_basis") or "scenario_candidate_endpoint",
+            "contradiction_notes": existing.get("contradiction_notes")
+            or "Auxiliary mechanism endpoints must not override this primary yes/no candidate.",
+            "rationale": existing.get("rationale") or "Preserved from the benchmark card candidate endpoints.",
+            "last_observed_tick_index": _optional_int(existing.get("last_observed_tick_index")),
+            "meta": {
+                **meta,
+                "source": "scenario_candidate_endpoint",
+                "endpoint_role": "primary_candidate",
+                "candidate_endpoint_id": candidate_id.lower(),
+                "candidate_endpoint_role": candidate_id.lower(),
+                "forecast_deadline_date": forecast_metadata.get("forecast_deadline_date"),
+                "as_of_date": forecast_metadata.get("as_of_date"),
+            },
+        }
+    has_primary_candidates = bool(scenario_candidates)
     for item in evidence.get("initializer", {}).get("endpoint_ledger") or []:
         if not isinstance(item, dict):
             continue
@@ -529,6 +582,9 @@ def _entries_from_evidence(
         payload.setdefault("rationale", "Preserved from initializer endpoint ledger.")
         meta = payload.get("meta") if isinstance(payload.get("meta"), dict) else {}
         payload["meta"] = {"source": "initializer_endpoint_ledger", **meta}
+        if has_primary_candidates and payload["endpoint_key"] not in entries:
+            payload["status"] = "process_only"
+            payload["meta"] = {**payload["meta"], "endpoint_role": "auxiliary_mechanism"}
         entries.setdefault(endpoint_key, payload)
     for item in evidence.get("initializer", {}).get("branch_hypotheses") or []:
         if not isinstance(item, dict):
@@ -554,7 +610,10 @@ def _entries_from_evidence(
                 "contradiction_notes": "No contradiction pass has eliminated this endpoint.",
                 "rationale": "Preserved from initialization branch hypothesis.",
                 "last_observed_tick_index": None,
-                "meta": {"source": "initializer_branch_hypothesis"},
+                "meta": {
+                    "source": "initializer_branch_hypothesis",
+                    "endpoint_role": "auxiliary_mechanism" if has_primary_candidates else "candidate_mechanism",
+                },
             },
         )
     for item in evidence.get("initializer", {}).get("known_uncertainty") or []:
@@ -576,7 +635,10 @@ def _entries_from_evidence(
                 "contradiction_notes": "Track whether later evidence resolves this uncertainty.",
                 "rationale": "Scenario identified this as an endpoint-relevant uncertainty.",
                 "last_observed_tick_index": None,
-                "meta": {"source": "known_uncertainty"},
+                "meta": {
+                    "source": "known_uncertainty",
+                    "endpoint_role": "auxiliary_mechanism" if has_primary_candidates else "candidate_mechanism",
+                },
             },
         )
     for event in evidence.get("events") or []:
@@ -584,9 +646,12 @@ def _entries_from_evidence(
         endpoint = actual.get("endpoint") or actual.get("outcome") or actual.get("result")
         if endpoint:
             key = _endpoint_key(endpoint)
+            existing = entries.get(key, {})
+            existing_meta = existing.get("meta") if isinstance(existing.get("meta"), dict) else {}
             entries[key] = {
+                **existing,
                 "endpoint_key": key,
-                "label": _label_from_text(endpoint),
+                "label": existing.get("label") or _label_from_text(endpoint),
                 "description": str(endpoint),
                 "status": "realized" if event.get("status") == "executed" else "active",
                 "probability": 0.75 if event.get("status") == "executed" else None,
@@ -599,15 +664,18 @@ def _entries_from_evidence(
                 "contradiction_notes": "Verify no later event reverses this endpoint evidence.",
                 "rationale": f"Event actual_impact named endpoint after status={event.get('status')}.",
                 "last_observed_tick_index": event.get("scheduled_tick"),
-                "meta": {"source": "event_actual_impact"},
+                "meta": {**existing_meta, "source": "event_actual_impact"},
             }
     candidate = evidence.get("candidate_endpoint")
     if isinstance(candidate, dict):
         label = candidate.get("label") or candidate.get("endpoint_key") or candidate.get("description") or "Candidate endpoint"
         key = _endpoint_key(candidate.get("endpoint_key") or label)
+        existing = entries.get(key, {})
+        existing_meta = existing.get("meta") if isinstance(existing.get("meta"), dict) else {}
         entries[key] = {
+            **existing,
             "endpoint_key": key,
-            "label": _label_from_text(label),
+            "label": existing.get("label") or _label_from_text(label),
             "description": candidate.get("description") or candidate.get("rationale"),
             "status": str(candidate.get("status") or "active").lower(),
             "probability": candidate.get("probability"),
@@ -624,7 +692,7 @@ def _entries_from_evidence(
             or "Posthoc candidate requires comparison against existing timeline evidence.",
             "rationale": candidate.get("rationale") or "Added through post-simulation endpoint evaluation.",
             "last_observed_tick_index": _optional_int(candidate.get("last_observed_tick_index")),
-            "meta": {"source": "posthoc_candidate"},
+            "meta": {**existing_meta, "source": "posthoc_candidate"},
         }
     if not entries:
         latest_tick_index = max((int(tick.get("tick_index") or 0) for tick in evidence.get("ticks") or []), default=None)
@@ -763,6 +831,7 @@ def _weighted_entries_from_multiverse_ledgers(
                 continue
             contribution = timeline_weight
             timeline_had_representative = True
+            entry_meta = entry.meta if isinstance(entry.meta, dict) else {}
             target = aggregated.setdefault(
                 entry.endpoint_key,
                 {
@@ -780,8 +849,14 @@ def _weighted_entries_from_multiverse_ledgers(
                     "contradiction_notes": [],
                     "rationale": [],
                     "last_observed_tick_index": entry.last_observed_tick_index,
+                    "endpoint_role": entry_meta.get("endpoint_role"),
+                    "candidate_endpoint_id": entry_meta.get("candidate_endpoint_id"),
                 },
             )
+            if not target.get("endpoint_role") and entry_meta.get("endpoint_role"):
+                target["endpoint_role"] = entry_meta.get("endpoint_role")
+            if not target.get("candidate_endpoint_id") and entry_meta.get("candidate_endpoint_id"):
+                target["candidate_endpoint_id"] = entry_meta.get("candidate_endpoint_id")
             target["path_mass"] += contribution
             target["status_weights"][representative] += contribution
             target["evidence_refs"].append(
@@ -883,6 +958,8 @@ def _weighted_entry_payload(item: dict[str, Any]) -> dict[str, Any]:
             "source": "path_mass_by_endpoint_status",
             "path_mass": round(float(item.get("path_mass") or 0.0), 10),
             "status_path_masses": {key: round(float(value), 10) for key, value in status_weights.items()},
+            "endpoint_role": item.get("endpoint_role"),
+            "candidate_endpoint_id": item.get("candidate_endpoint_id"),
         },
     }
 
@@ -907,6 +984,8 @@ def _endpoint_path_mass_distribution(entries: list[dict[str, Any]]) -> list[dict
         {
             "endpoint_key": entry.get("endpoint_key"),
             "label": entry.get("label"),
+            "endpoint_role": (entry.get("meta") or {}).get("endpoint_role"),
+            "candidate_endpoint_id": (entry.get("meta") or {}).get("candidate_endpoint_id"),
             "status": entry.get("status"),
             "realized": _realized_value(str(entry.get("status") or "")),
             "path_mass": (entry.get("meta") or {}).get("path_mass", 0.0),
@@ -984,6 +1063,9 @@ def _try_llm_endpoint_evaluation(
             "Use eliminated only when the endpoint is impossible from hard evidence or final-horizon God review, not merely because it has not happened yet.",
             "Weight authority decisions over social noise.",
             "Return stable endpoint keys and statuses. Do not assign per-endpoint probabilities.",
+            "When scenario_candidate_endpoints contains primary yes/no endpoints, resolve those explicit binary candidates before auxiliary mechanisms.",
+            "At the forecast deadline, if yes is not realized in a simulated path, no should be realized for that path.",
+            "Auxiliary mechanism endpoints must not keep a binary forecast unresolved after the yes/no candidate has settled.",
             "For every endpoint, include realization_criteria, authority_refs, evidence_refs, negative_evidence_refs, and status_basis.",
             "Downgrade unsupported or process-only entries instead of leaving them as active terminal endpoints.",
         ],
@@ -1040,9 +1122,13 @@ def _merge_entry_updates(base_entries: list[dict[str, Any]], updates: list[Any])
             continue
         endpoint_key = _endpoint_key(key)
         current = merged.get(endpoint_key, {"endpoint_key": endpoint_key, "label": _label_from_text(str(key))})
-        current.update({k: v for k, v in update.items() if v not in (None, "")})
+        existing_meta = current.get("meta") if isinstance(current.get("meta"), dict) else {}
+        update_meta = update.get("meta") if isinstance(update.get("meta"), dict) else {}
+        current.update({k: v for k, v in update.items() if k != "meta" and v not in (None, "")})
         current["endpoint_key"] = endpoint_key
         current.setdefault("label", _label_from_text(str(key)))
+        if existing_meta or update_meta:
+            current["meta"] = {**existing_meta, **update_meta}
         merged[endpoint_key] = current
     return _finalize_entries(list(merged.values()))
 
@@ -1103,7 +1189,10 @@ def _normalize_entries(entries: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 def _finalize_entries(entries: list[dict[str, Any]], *, evidence: dict[str, Any] | None = None) -> list[dict[str, Any]]:
     entries = _normalize_entries(entries)
+    if evidence is not None:
+        entries = _settle_primary_binary_candidates_from_counterpart(entries, evidence=evidence)
     if _final_horizon_reached(evidence):
+        entries = _settle_primary_binary_candidates_at_final_horizon(entries, evidence=evidence)
         entries = [_mark_insufficient_ticks(entry, evidence=evidence) for entry in entries]
     elif evidence is not None:
         entries = [_revert_final_horizon_overlay(entry) for entry in entries]
@@ -1118,14 +1207,236 @@ def _assign_probabilities(entries: list[dict[str, Any]]) -> list[dict[str, Any]]
 def _final_horizon_reached(evidence: dict[str, Any] | None) -> bool:
     if not evidence:
         return False
-    multiverse = evidence.get("multiverse") or {}
-    if str(multiverse.get("status") or "").lower() not in {"completed", "terminated"}:
-        return False
     max_ticks = (((evidence.get("big_bang") or {}).get("simulation_config") or {}).get("max_ticks"))
     if max_ticks is None:
         return False
     latest_tick = max((int(tick.get("tick_index") or 0) for tick in evidence.get("ticks") or []), default=None)
-    return latest_tick is not None and latest_tick >= int(max_ticks)
+    if latest_tick is None or latest_tick < int(max_ticks):
+        return False
+    if _deadline_aware_binary_forecast(evidence):
+        return True
+    multiverse = evidence.get("multiverse") or {}
+    return str(multiverse.get("status") or "").lower() in {"completed", "terminated"}
+
+
+def _settle_primary_binary_candidates_at_final_horizon(
+    entries: list[dict[str, Any]],
+    *,
+    evidence: dict[str, Any] | None,
+) -> list[dict[str, Any]]:
+    if not _deadline_aware_binary_forecast(evidence):
+        return entries
+    by_candidate: dict[str, dict[str, Any]] = {}
+    for entry in entries:
+        meta = entry.get("meta") if isinstance(entry.get("meta"), dict) else {}
+        if meta.get("endpoint_role") != "primary_candidate":
+            continue
+        candidate_id = str(meta.get("candidate_endpoint_id") or entry.get("endpoint_key") or "").lower()
+        if candidate_id in {"yes", "no"}:
+            by_candidate[candidate_id] = entry
+    if not {"yes", "no"}.issubset(by_candidate):
+        return entries
+
+    yes = by_candidate["yes"]
+    no = by_candidate["no"]
+    if yes.get("status") == "realized":
+        replacement = {
+            "yes": _mark_candidate_deadline_settlement(yes, status="realized", evidence=evidence),
+            "no": _mark_candidate_deadline_settlement(
+                no,
+                status="eliminated",
+                evidence=evidence,
+                rationale="The yes candidate was realized by the forecast deadline, so the no candidate is eliminated.",
+            ),
+        }
+    elif no.get("status") == "realized":
+        replacement = {
+            "yes": _mark_candidate_deadline_settlement(
+                yes,
+                status="eliminated",
+                evidence=evidence,
+                rationale="The no candidate was realized by the forecast deadline, so the yes candidate is eliminated.",
+            ),
+            "no": _mark_candidate_deadline_settlement(no, status="realized", evidence=evidence),
+        }
+    else:
+        replacement = {
+            "yes": _mark_candidate_deadline_settlement(
+                yes,
+                status="eliminated",
+                evidence=evidence,
+                rationale="The forecast deadline was reached without realized yes evidence in this simulated path.",
+            ),
+            "no": _mark_candidate_deadline_settlement(
+                no,
+                status="realized",
+                evidence=evidence,
+                rationale="The forecast deadline was reached without the yes event occurring in this simulated path.",
+            ),
+        }
+
+    settled: list[dict[str, Any]] = []
+    for entry in entries:
+        meta = entry.get("meta") if isinstance(entry.get("meta"), dict) else {}
+        candidate_id = str(meta.get("candidate_endpoint_id") or entry.get("endpoint_key") or "").lower()
+        settled.append(replacement.get(candidate_id, entry))
+    return settled
+
+
+def _settle_primary_binary_candidates_from_counterpart(
+    entries: list[dict[str, Any]],
+    *,
+    evidence: dict[str, Any] | None,
+) -> list[dict[str, Any]]:
+    if not _deadline_aware_binary_forecast(evidence):
+        return entries
+    by_candidate = _primary_binary_candidates(entries)
+    if not {"yes", "no"}.issubset(by_candidate):
+        return entries
+
+    yes = by_candidate["yes"]
+    no = by_candidate["no"]
+    if yes.get("status") == "realized" or no.get("status") == "eliminated":
+        replacement = {
+            "yes": _mark_candidate_counterpart_settlement(
+                yes,
+                status="realized",
+                counterpart=no,
+                evidence=evidence,
+                rationale="The no candidate was eliminated by endpoint evidence, so the yes candidate is realized.",
+            ),
+            "no": _mark_candidate_counterpart_settlement(
+                no,
+                status="eliminated",
+                counterpart=yes,
+                evidence=evidence,
+                rationale="The yes candidate is realized, so the no candidate is eliminated.",
+            ),
+        }
+    elif no.get("status") == "realized" or yes.get("status") == "eliminated":
+        replacement = {
+            "yes": _mark_candidate_counterpart_settlement(
+                yes,
+                status="eliminated",
+                counterpart=no,
+                evidence=evidence,
+                rationale="The no candidate is realized, so the yes candidate is eliminated.",
+            ),
+            "no": _mark_candidate_counterpart_settlement(
+                no,
+                status="realized",
+                counterpart=yes,
+                evidence=evidence,
+                rationale="The yes candidate was eliminated by endpoint evidence, so the no candidate is realized.",
+            ),
+        }
+    else:
+        return entries
+
+    settled: list[dict[str, Any]] = []
+    for entry in entries:
+        meta = entry.get("meta") if isinstance(entry.get("meta"), dict) else {}
+        candidate_id = str(meta.get("candidate_endpoint_id") or entry.get("endpoint_key") or "").lower()
+        settled.append(replacement.get(candidate_id, entry))
+    return settled
+
+
+def _primary_binary_candidates(entries: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    by_candidate: dict[str, dict[str, Any]] = {}
+    for entry in entries:
+        meta = entry.get("meta") if isinstance(entry.get("meta"), dict) else {}
+        if meta.get("endpoint_role") != "primary_candidate":
+            continue
+        candidate_id = str(meta.get("candidate_endpoint_id") or entry.get("endpoint_key") or "").lower()
+        if candidate_id in {"yes", "no"}:
+            by_candidate[candidate_id] = entry
+    return by_candidate
+
+
+def _deadline_aware_binary_forecast(evidence: dict[str, Any] | None) -> bool:
+    if not evidence:
+        return False
+    forecast_metadata = evidence.get("forecast_metadata")
+    if not isinstance(forecast_metadata, dict):
+        return False
+    if not forecast_metadata.get("forecast_deadline_date"):
+        return False
+    if forecast_metadata.get("tick_horizon_policy") not in {None, "deadline_aware"}:
+        return False
+    candidates = evidence.get("scenario_candidate_endpoints")
+    if not isinstance(candidates, list):
+        return False
+    candidate_ids = {
+        str(item.get("id") or item.get("endpoint_key") or "").strip().lower()
+        for item in candidates
+        if isinstance(item, dict)
+    }
+    return {"yes", "no"}.issubset(candidate_ids)
+
+
+def _mark_candidate_deadline_settlement(
+    entry: dict[str, Any],
+    *,
+    status: str,
+    evidence: dict[str, Any] | None,
+    rationale: str | None = None,
+) -> dict[str, Any]:
+    meta = entry.get("meta") if isinstance(entry.get("meta"), dict) else {}
+    forecast_metadata = (evidence or {}).get("forecast_metadata")
+    latest_tick = max((int(tick.get("tick_index") or 0) for tick in (evidence or {}).get("ticks") or []), default=None)
+    return {
+        **entry,
+        "status": status,
+        "blockers": [] if status in {"realized", "eliminated"} else list(entry.get("blockers") or []),
+        "status_basis": "deadline_aware_binary_candidate_settlement",
+        "rationale": rationale or entry.get("rationale") or "Settled explicit binary candidate at the forecast deadline.",
+        "last_observed_tick_index": entry.get("last_observed_tick_index") or latest_tick,
+        "evidence_refs": [
+            *list(entry.get("evidence_refs") or []),
+            {
+                "source": "forecast_deadline",
+                "forecast_deadline_date": (forecast_metadata or {}).get("forecast_deadline_date")
+                if isinstance(forecast_metadata, dict)
+                else None,
+                "tick_index": latest_tick,
+            },
+        ],
+        "meta": {**meta, "final_horizon_candidate_settlement": True},
+    }
+
+
+def _mark_candidate_counterpart_settlement(
+    entry: dict[str, Any],
+    *,
+    status: str,
+    counterpart: dict[str, Any],
+    evidence: dict[str, Any] | None,
+    rationale: str,
+) -> dict[str, Any]:
+    meta = entry.get("meta") if isinstance(entry.get("meta"), dict) else {}
+    latest_tick = max((int(tick.get("tick_index") or 0) for tick in (evidence or {}).get("ticks") or []), default=None)
+    counterpart_refs = list(counterpart.get("evidence_refs") or [])
+    counterpart_authority_refs = list(counterpart.get("authority_refs") or [])
+    return {
+        **entry,
+        "status": status,
+        "authority_refs": list(entry.get("authority_refs") or []) or counterpart_authority_refs,
+        "evidence_refs": [
+            *list(entry.get("evidence_refs") or []),
+            *counterpart_refs,
+            {
+                "source": "binary_candidate_counterpart",
+                "counterpart_endpoint_key": counterpart.get("endpoint_key"),
+                "counterpart_status": counterpart.get("status"),
+                "tick_index": latest_tick,
+            },
+        ],
+        "blockers": [] if status in {"realized", "eliminated"} else list(entry.get("blockers") or []),
+        "status_basis": "binary_candidate_counterpart_settlement",
+        "rationale": rationale,
+        "last_observed_tick_index": entry.get("last_observed_tick_index") or counterpart.get("last_observed_tick_index") or latest_tick,
+        "meta": {**meta, "binary_counterpart_settlement": True},
+    }
 
 
 def _mark_insufficient_ticks(entry: dict[str, Any], *, evidence: dict[str, Any] | None) -> dict[str, Any]:
@@ -1239,6 +1550,8 @@ def _compact_evidence(evidence: dict[str, Any]) -> dict[str, Any]:
         "scope": evidence.get("scope"),
         "multiverse": evidence.get("multiverse"),
         "initializer": _compact_value(evidence.get("initializer") or {}, max_items=10),
+        "scenario_candidate_endpoints": _compact_value(evidence.get("scenario_candidate_endpoints") or [], max_items=8),
+        "forecast_metadata": _compact_value(evidence.get("forecast_metadata") or {}, max_items=8),
         "timeline_statuses": evidence.get("timeline_statuses"),
         "ticks": _compact_value((evidence.get("ticks") or [])[:8], max_items=8),
         "events": _compact_value((evidence.get("events") or [])[:12], max_items=8),

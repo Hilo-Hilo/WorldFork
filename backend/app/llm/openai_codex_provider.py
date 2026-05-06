@@ -122,9 +122,11 @@ def _input_from_messages(messages: list[dict[str, str]]) -> list[dict[str, Any]]
         if role in {"system", "developer"}:
             continue
         content = item.get("content") or ""
+        if role == "assistant":
+            content = f"Previous assistant response:\n{content}"
         input_items.append(
             {
-                "role": "assistant" if role == "assistant" else "user",
+                "role": "user",
                 "content": [{"type": "input_text", "text": content}],
             }
         )

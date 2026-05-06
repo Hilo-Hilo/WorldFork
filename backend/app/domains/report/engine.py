@@ -1912,6 +1912,7 @@ def _run_report_agent(
                 route=AuditedLLMRoute.REPORT_AGENT,
                 messages=_report_agent_messages(prompt_content, mode=prompt_mode),
                 json_schema=REPORT_AGENT_JSON_SCHEMA,
+                json_response_transform=_coerce_report_agent_output,
                 metadata={
                     "max_tokens": max_tokens,
                     "temperature": 0.2,
@@ -1977,24 +1978,54 @@ def _report_agent_messages(prompt_content: dict[str, Any], *, mode: str) -> list
 def _coerce_report_agent_output(parsed: dict[str, Any]) -> dict[str, Any]:
     if parsed.get("provider") == "deterministic":
         raise ValueError("report agent response came from deterministic provider")
-    report_markdown = parsed.get("report_markdown")
-    if not isinstance(report_markdown, str) or not report_markdown.strip():
+    report_markdown = _coerce_report_text(parsed.get("report_markdown"), separator="\n\n")
+    if not report_markdown.strip():
         raise ValueError("report agent response did not include report_markdown")
     output: dict[str, Any] = {"report_markdown": report_markdown.strip()}
     for key in REPORT_AGENT_TEXT_KEYS:
         if key == "report_markdown":
             continue
         value = parsed.get(key)
-        output[key] = _truncate_text(value if isinstance(value, str) else str(value or ""), 2400)
+        output[key] = _truncate_text(_coerce_report_text(value), 2400)
     endpoint_histogram = parsed.get("endpoint_histogram")
-    output["endpoint_histogram"] = endpoint_histogram if isinstance(endpoint_histogram, list) else []
+    output["endpoint_histogram"] = _coerce_report_list(endpoint_histogram)
     terminality = parsed.get("terminality_assessment")
-    output["terminality_assessment"] = terminality if isinstance(terminality, dict) else {}
+    output["terminality_assessment"] = _coerce_report_dict(terminality)
     contradiction = parsed.get("contradiction_check")
-    output["contradiction_check"] = contradiction if isinstance(contradiction, dict) else {}
+    output["contradiction_check"] = _coerce_report_dict(contradiction)
     if not output["executive_summary"]:
         output["executive_summary"] = _truncate_text(report_markdown.strip(), 1200)
     return output
+
+
+def _coerce_report_text(value: Any, *, separator: str = "\n") -> str:
+    if value is None:
+        return ""
+    if isinstance(value, str):
+        return value
+    if isinstance(value, list):
+        return separator.join(_coerce_report_text(item, separator=separator).strip() for item in value if item is not None)
+    if isinstance(value, dict):
+        return json.dumps(value, ensure_ascii=True, sort_keys=True)
+    return str(value)
+
+
+def _coerce_report_list(value: Any) -> list[Any]:
+    if isinstance(value, list):
+        return value
+    if isinstance(value, dict):
+        return [value]
+    text = _coerce_report_text(value).strip()
+    return [{"summary": text}] if text else []
+
+
+def _coerce_report_dict(value: Any) -> dict[str, Any]:
+    if isinstance(value, dict):
+        return value
+    if isinstance(value, list):
+        return {"items": value} if value else {}
+    text = _coerce_report_text(value).strip()
+    return {"summary": text} if text else {}
 
 
 def _complete_report_agent_structured_fields(llm_report: dict[str, Any], content: dict[str, Any]) -> None:

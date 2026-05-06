@@ -15,9 +15,8 @@ from backend.app.core.config import settings
 engine = create_async_engine(
     settings.database_url,
     pool_pre_ping=True,
-    pool_size=10,
-    max_overflow=20,
     echo=False,
+    **settings.async_database_pool_kwargs(),
 )
 
 SessionLocal = async_sessionmaker(
@@ -39,9 +38,8 @@ async def get_session() -> AsyncGenerator[AsyncSession, None]:
 sync_engine = create_engine(
     settings.database_url_sync,
     pool_pre_ping=True,
-    pool_size=5,
-    max_overflow=10,
     echo=False,
+    **settings.sync_database_pool_kwargs(),
 )
 
 SyncSessionLocal: sessionmaker[Session] = sessionmaker(

@@ -286,6 +286,14 @@ def _prepare_tool_calls(
         "kill_hero",
     }
     parsed_decision = str(parsed.get("decision") or "").strip().lower()
+    if parsed_decision == "complete_universe" and not tool_calls:
+        return [
+            {
+                "tool_name": "mark_ready_for_report",
+                "arguments": {"reason": "God Agent marked the timeline complete."},
+                "idempotency_key": f"god:{multiverse.id}:tick:{tick_index}:mark_ready_for_report",
+            }
+        ]
     explicit_continue = parsed_decision == "continue" or any(
         call["tool_name"] == "continue_timeline" for call in tool_calls
     )
