@@ -84,7 +84,40 @@ def test_resolved_forecast_runtime_context_uses_deadline_aware_tick_duration() -
     assert context["tick_duration_minutes"] == 2340
     assert context["forecast_metadata"]["as_of_date"] == "2025-11-15"
     assert context["forecast_metadata"]["forecast_deadline_date"] == "2025-12-10"
+    assert "Federal Open Market Committee" in context["question"]
+    assert "target range" in context["scenario_text"]
+    assert context["source_packet"]
     assert context["endpoint_resolution_keys"] == ["yes", "no"]
+
+
+def test_build_init_job_payload_preserves_structured_public_forecast_context(tmp_path: Path) -> None:
+    pipeline = load_icml_pipeline()
+    case_file = tmp_path / "resolved_003.md"
+    case_file.write_text("# Public forecast card\n", encoding="utf-8")
+    forecast_context = pipeline.resolved_forecast_runtime_context(
+        case_id="resolved_003",
+        max_ticks=10,
+        base_tick_duration_minutes=720,
+    )
+
+    payload = pipeline.build_init_job_payload(
+        case_id="resolved_003",
+        case_file=case_file,
+        name_prefix="E3",
+        max_ticks=10,
+        tick_duration_minutes=forecast_context["tick_duration_minutes"],
+        branch_policy={},
+        forecast_context=forecast_context,
+    )
+
+    scenario_input = payload["payload"]["scenario_input"]
+    assert "Federal Open Market Committee" in scenario_input["question"]
+    assert "target range" in scenario_input["scenario_text"]
+    assert scenario_input["source_packet"]
+    assert scenario_input["candidate_endpoints"][0]["id"] == "yes"
+    serialized = json.dumps(scenario_input).lower()
+    assert "private_eval" not in serialized
+    assert "correct_answer" not in serialized
 
 
 def test_resolve_case_file_finds_public_existing_and_additional_cases(tmp_path: Path) -> None:

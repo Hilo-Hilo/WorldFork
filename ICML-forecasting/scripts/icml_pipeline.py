@@ -246,9 +246,13 @@ def resolved_forecast_runtime_context(
         "tick_horizon_policy": "deadline_aware" if deadline_aware and horizon_days is not None else "fixed_tick_duration",
     }
     endpoints = _candidate_endpoints_for_case(case_id)
+    source_packet = card.get("source_packet") if isinstance(card.get("source_packet"), list) else []
     return {
         "tick_duration_minutes": tick_duration,
         "forecast_metadata": metadata,
+        "question": card.get("question"),
+        "scenario_text": card.get("scenario_text"),
+        "source_packet": source_packet,
         "candidate_endpoints": endpoints,
         "endpoint_resolution_keys": candidate_endpoint_keys_for_case(case_id),
     }
@@ -268,9 +272,13 @@ def build_init_job_payload(
     if forecast_context:
         scenario_input = {
             "forecast_metadata": forecast_context.get("forecast_metadata") or {},
+            "question": forecast_context.get("question"),
+            "scenario_text": forecast_context.get("scenario_text"),
+            "source_packet": forecast_context.get("source_packet") or [],
             "candidate_endpoints": forecast_context.get("candidate_endpoints") or [],
             "endpoint_resolution_keys": forecast_context.get("endpoint_resolution_keys") or [],
         }
+        scenario_input = {key: value for key, value in scenario_input.items() if value not in (None, "", [], {})}
     return {
         "job_type": "initialize_big_bang",
         "payload": {
