@@ -534,6 +534,19 @@ Save `results/forecast_scores.csv` rows for both conditions.
 
 ## 8. E3: WorldFork Short Forecast Runs on the 24 Resolved Cards
 
+### 8.0 Success criterion (read first)
+
+E3 is **not** judged by whether WorldFork beats the E2 direct baseline on Brier or log score. The criterion is **parity under a tighter information regime**:
+
+- E2 hands a single LLM the full case prompt — actor list, context, resolution criterion — in one reasoning step. The model has a synoptic view that no individual agent in a distributed forecast would have.
+- E3's WorldFork agents (cohort, hero, institution) only see their local actor state and recent simulation events. The full case decomposes across many bounded-context agents; no single agent reasons over the whole picture.
+
+If E3 reaches Brier and log score *comparable* to E2 — paired-bootstrap CIs that overlap, no significant directional gap — that is the headline forecast result. Reproducing E2's accuracy without E2's information advantage is what the protocol claim rests on. **E3 beating E2 is not required**, and the paper should not be written as if it is.
+
+If E3 underperforms E2 by a meaningful margin, frame it as: WorldFork pays a measurable accuracy cost to operate under realistic information constraints, and the audit-value contributions (sections 12.3 and 13.x) carry the load.
+
+If E3 outperforms E2, frame it cautiously: a small 24-card pilot cannot support strong superiority claims, and paired bootstrap CIs almost certainly overlap. Do not lead the abstract with this.
+
 ### 8.1 Conditions and run configs
 
 Run all 24 resolved cards under two WorldFork conditions.
@@ -870,6 +883,14 @@ else:
 
 Report both primary score and unresolved mass. A system that gets a good Brier score by hiding uncertainty should not be treated as strictly better than one that exposes uncertainty.
 
+**Interpreting E3 vs E2.** The success criterion (see §8.0) is *parity*, not superiority. When reporting the paired bootstrap difference between WorldFork and the direct baseline, write the result as one of three cases:
+
+- **CIs overlap zero / no significant directional gap** — write this as "E3 reaches parity with E2 under a tighter information regime" and treat it as the load-bearing forecast result. This is the expected and sufficient outcome.
+- **E3 worse by a meaningful margin** — write this as "WorldFork pays a measurable accuracy cost in exchange for distributed-context realism and audit value" and lean on the audit metrics to carry the contribution.
+- **E3 better by a meaningful margin** — note it but do not lead the abstract with it. With 24 cards a single anomalous case can move the mean; CIs are wide.
+
+Do not phrase parity as a negative result. The unfair-comparison framing (E2's synoptic single-prompt view vs E3's distributed bounded-context agents) means parity is the win.
+
 ### 12.2 Bootstrap intervals
 
 Use paired bootstrap over case IDs for direct vs WorldFork comparisons. With only 24 resolved cards, avoid strong significance claims.
@@ -912,7 +933,13 @@ Critical failures:
 
 Use this thesis unless the data strongly contradicts it:
 
-> WorldFork does not merely ask an LLM for a probability; it represents a forecast as a branching, auditable socio-institutional world model. In a small resolved forecasting pilot, WorldFork may or may not improve Brier score over direct prompting, but it exposes endpoint uncertainty, lineage, social assumptions, report provenance, and failure modes that single-shot forecast rationales hide.
+> **The E2 direct-baseline condition operates with a synoptic information advantage that real-world forecasting cannot replicate.** A single prompt aggregates the full case description, actor list, recent context, and resolution criterion into one reasoning step. WorldFork's E3 condition distributes that same information across many bounded-context agents — cohort, hero, and institution agents that only see their local actor state and recent simulation events — which is closer to the epistemic conditions of an actual forecaster. Compared to E2, E3 carries a structural information handicap, not an advantage.
+>
+> **The load-bearing claim of this paper is therefore not that E3 beats E2 on Brier or log score, but that E3 reaches parity with E2 under that tighter information regime.** Reproducing single-prompt forecast quality without the single-prompt's synoptic view is what justifies the protocol. Superior accuracy would be a bonus; parity is sufficient.
+>
+> **WorldFork additionally exposes endpoint uncertainty, lineage, social assumptions, report provenance, and failure modes that single-shot forecast rationales hide.** The paper's secondary contribution is to argue that auditability, not accuracy alone, is the right axis to evaluate LLM forecasting agents on.
+
+Frame "E2 has look-ahead bias" carefully. The bias is **structural / informational**, not necessarily temporal: E2's prompt gives the model a synoptic view of context that no individual agent in a distributed forecast would have, and may also include framing or context that subtly hints at resolution. Do not over-claim that E2 cards literally leak the answer — only that E2's information regime is unrealistic for evaluating forecasting protocols.
 
 ### 13.2 Contribution bullets
 
@@ -920,7 +947,7 @@ Use exactly three contributions:
 
 1. **Branching forecast protocol.** Checkpointed Big Bangs, ticks, branch lineage, endpoint ledgers, path mass, report provenance, and unresolved uncertainty.
 2. **Socio-institutional world state.** Actors/cohorts, trust/dependency/conflict/influence/coalition/exposure graphs, sociology signals, source packets, and emotion observations as audit data.
-3. **Pilot benchmark and evaluation.** 108-card initialization/audit suite, 24 resolved forecast cards, 18 long-horizon WorldFork runs, direct baselines, forecast scoring, audit metrics, and social-state consistency scoring.
+3. **Pilot benchmark + parity-under-information-constraint result.** 108-card initialization/audit suite, 24 resolved forecast cards, 18 long-horizon WorldFork runs, direct baselines, forecast scoring, audit metrics, and social-state consistency scoring. Headline forecast result: E3 reaches parity with the E2 direct baseline under a tighter, distributed information regime — the protocol matches single-prompt accuracy without the single-prompt's synoptic view.
 
 ### 13.3 Four-page paper outline
 
@@ -959,14 +986,18 @@ Do not write:
 - “WorldFork emotions are realistic.”
 - “Synthetic cases prove real-world forecasting ability.”
 - “Branching improves accuracy” unless the Brier/log scores support it.
+- “WorldFork outperforms the direct baseline” unless paired-bootstrap CIs are clearly non-overlapping; with 24 resolved cards they almost certainly overlap.
 - “All cards are leakage-free” unless E0 validates them.
+- “E2 cards are biased / contaminated” — overstates the look-ahead-bias argument. The bias is structural (synoptic single-prompt view), not necessarily literal answer leakage.
 
 Preferred wording:
 
 - “retrospective pilot” for resolved cards;
 - “audit/stress suite” for synthetic cards;
 - “socio-institutional state” rather than “emotional society simulation”;
-- “emotion observability” rather than “emotion model.”
+- “emotion observability” rather than “emotion model”;
+- “parity under a tighter information regime” or “matches the direct baseline without its synoptic view” for the E3-vs-E2 result;
+- “distributed bounded-context agents” when contrasting WorldFork's information access against E2's single-prompt aggregation.
 
 ---
 
